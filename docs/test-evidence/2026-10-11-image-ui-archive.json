@@ -1,0 +1,43 @@
+{
+  "archive": "artifacts/KuaiYi-P0-identity-ui-fix-win-x64.zip",
+  "sha256": "c2ea0d7d36ac8f9e972d0181cce84b6da6e20c5a58abfeecf1cf85bf62258270",
+  "bytes": 282317,
+  "filesChecked": 20,
+  "nativeDllsMissing": true,
+  "installer": false,
+  "windowsExecution": "NotRun",
+  "staticExes": [
+    {
+      "file": "KuaiYi.App.exe",
+      "sha256": "e55405a7bfbe3e811500532495c124c2d843bf34791e147a9d81dc4b3c2f5493",
+      "pe": "PE32+ x64",
+      "embeddedManifests": [
+        {
+          "resourceType": 24,
+          "resourceId": 1,
+          "languageId": 0,
+          "applicationId": "KuaiYi",
+          "manifestSha256": "974e127e63188fd7235ffbb5b8c6b06dfea8a03b2a2a5b2104aec858d647002e"
+        }
+      ],
+      "staticResult": "Pass",
+      "runtimeIdentity": "NotRun"
+    },
+    {
+      "file": "KuaiYi.ImageWorker.exe",
+      "sha256": "7d015fbcc399e6b3856c345b953fad5430536172076d361133dcdcd02713c185",
+      "pe": "PE32+ x64",
+      "embeddedManifests": [
+        {
+          "resourceType": 24,
+          "resourceId": 1,
+          "languageId": 0,
+          "applicationId": "ImageWorker",
+          "manifestSha256": "b27991ae861df834d53d75a5aa5578f3adbd101dadfa4b955b29ce030a7273d3"
+        }
+      ],
+      "staticResult": "Pass",
+      "runtimeIdentity": "NotRun"
+    }
+  ]
+}

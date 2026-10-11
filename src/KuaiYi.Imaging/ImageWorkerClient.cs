@@ -6,17 +6,56 @@ using KuaiYi.Core;
 namespace KuaiYi.Imaging;
 
 /// <summary>Owned one-shot process. Private inherited stdio is a P0 transport, not the production named-pipe ACL endpoint.</summary>
-public sealed class ImageWorkerClient(string executable, string? managedAssembly = null) : IAsyncDisposable
+public sealed class ImageWorkerClient(string executable, string? managedAssembly = null, IImageProcessStarter? processStarter = null) : IAsyncDisposable
 {
+    private readonly object ownershipSync = new();
     private Process? owned;
     private OwnedHostTermination? termination;
-    private bool started;
-    public HostExitState? ExitState => termination?.State;
-    public bool ObserveExit() => termination?.ObserveExit() ?? true;
+    private Task<Process>? startTask;
+    private Task? startupObserver;
+    private Task<HostExitState>? stopTask;
+    private bool stopRequested, disposed;
+    private int started;
+    public string? StartupFailureCode { get; private set; }
+    public HostExitState? ExitState
+    {
+        get { lock (ownershipSync) return termination?.State ?? (startTask == null ? null : startTask.IsCompleted ? HostExitState.ExitConfirmed : stopRequested ? HostExitState.ExitUnconfirmed : HostExitState.Running); }
+    }
+    public bool ObserveExit()
+    {
+        lock (ownershipSync) return disposed || (termination != null ? termination.ObserveExit() : startTask == null || startTask.IsCompleted);
+    }
+    private Process StartOwned(ProcessStartInfo info, CancellationToken cancellation)
+    {
+        try
+        {
+            cancellation.ThrowIfCancellationRequested();
+            Process child = (processStarter ?? SystemImageProcessStarter.Instance).Start(info);
+            lock (ownershipSync) { owned = child; termination = new(new StartedHostLifetime(child)); }
+            return child;
+        }
+        catch (Exception error) { lock (ownershipSync) StartupFailureCode = error.GetType().Name; throw; }
+    }
+    private async Task ObserveStartupAsync(Task<Process> pending)
+    {
+        try { await pending.ConfigureAwait(false); }
+        catch (Exception error) { lock (ownershipSync) StartupFailureCode = error.GetType().Name; return; }
+        bool stop; lock (ownershipSync) stop = stopRequested;
+        if (stop) await StopOwnedAsync().ConfigureAwait(false); // A cancelled waiter never abandons a later-created child.
+    }
+    private Task<HostExitState> StopOwnedAsync()
+    {
+        lock (ownershipSync)
+        {
+            stopRequested = true;
+            if (disposed) return Task.FromResult(HostExitState.ExitConfirmed);
+            if (termination == null) return Task.FromResult(startTask == null || startTask.IsCompleted ? HostExitState.ExitConfirmed : HostExitState.ExitUnconfirmed);
+            return stopTask ??= termination.StopAsync(TimeSpan.FromSeconds(2));
+        }
+    }
     public async Task<ImageReply> RunAsync(ReadOnlyMemory<byte> image, ImageJob job, CancellationToken cancellation = default)
     {
-        if (started) throw new InvalidOperationException("Image client is single use.");
-        started = true;
+        if (Interlocked.Exchange(ref started,1) != 0) throw new InvalidOperationException("Image client is single use.");
         cancellation.ThrowIfCancellationRequested();
         ImagePolicy.InspectPng(image.Span);
         if (image.Length != job.ByteLength) throw new InvalidDataException("Image length mismatch.");
@@ -28,14 +67,22 @@ public sealed class ImageWorkerClient(string executable, string? managedAssembly
             if (info.Environment.TryGetValue(key, out var value) && value != null) retained[key] = value;
         info.Environment.Clear(); // Worker never inherits provider key environment variables.
         foreach (var pair in retained) info.Environment[pair.Key] = pair.Value;
-        owned = Process.Start(info) ?? throw new IOException("Worker start failed.");
-        termination = new(new StartedHostLifetime(owned));
         using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
         using var linked = CancellationTokenSource.CreateLinkedTokenSource(cancellation, deadline.Token);
+        Task<Process> pending;
+        lock (ownershipSync)
+        {
+            ObjectDisposedException.ThrowIf(disposed,this);
+            CancellationToken token = linked.Token;
+            pending = startTask = Task.Run(() => StartOwned(info,token)); // Actual Process.Start is off the Dispatcher.
+            startupObserver = ObserveStartupAsync(pending);
+        }
         Guid id = Guid.NewGuid();
         try
         {
-            var send = owned.StandardInput.BaseStream; var receive = owned.StandardOutput.BaseStream;
+            Process child = await pending.WaitAsync(linked.Token).ConfigureAwait(false);
+            linked.Token.ThrowIfCancellationRequested();
+            var send = child.StandardInput.BaseStream; var receive = child.StandardOutput.BaseStream;
             byte[] nonce = RandomNumberGenerator.GetBytes(32);
             try
             {
@@ -68,18 +115,18 @@ public sealed class ImageWorkerClient(string executable, string? managedAssembly
                 if (reply.Output is { } result) ValidateOutput(result, ImagePolicy.InspectPng(image.Span), job.Language);
             }
             finally { CryptographicOperations.ZeroMemory(frame.Payload); }
-            owned.StandardInput.Close();
-            await owned.WaitForExitAsync(linked.Token);
-            if (owned.ExitCode != 0) throw new ImageJobException(ImageFailure.ProtocolFailure);
-            if (!termination.ObserveExit()) throw new ImageJobException(ImageFailure.ExitUnconfirmed);
+            child.StandardInput.Close();
+            await child.WaitForExitAsync(linked.Token);
+            if (child.ExitCode != 0) throw new ImageJobException(ImageFailure.ProtocolFailure);
+            if (!ObserveExit()) throw new ImageJobException(ImageFailure.ExitUnconfirmed);
             cancellation.ThrowIfCancellationRequested();
             return reply;
         }
         catch (OperationCanceledException) when (deadline.IsCancellationRequested && !cancellation.IsCancellationRequested) { throw new ImageJobException(ImageFailure.Timeout); }
         finally
         {
-            if (!termination.ObserveExit() && await termination.StopAsync(TimeSpan.FromSeconds(2)) != HostExitState.ExitConfirmed)
-                throw new ImageJobException(ImageFailure.ExitUnconfirmed);
+            if (await StopOwnedAsync().ConfigureAwait(false) != HostExitState.ExitConfirmed && !ObserveExit())
+                throw new ImageJobException(ImageFailure.ExitUnconfirmed); // Includes still-pending native startup; ownership is retained.
         }
     }
     public static void ValidateOutput(OcrOutput result, ImageSize expected, string language)
@@ -98,8 +145,15 @@ public sealed class ImageWorkerClient(string executable, string? managedAssembly
     }
     public async ValueTask DisposeAsync()
     {
-        if (termination != null && !termination.ObserveExit() && await termination.StopAsync(TimeSpan.FromSeconds(2)) != HostExitState.ExitConfirmed)
-            throw new ImageJobException(ImageFailure.ExitUnconfirmed); // Retain ownership; never call an unconfirmed kill 'closed'.
-        owned?.Dispose(); owned = null;
+        if (await StopOwnedAsync().ConfigureAwait(false) != HostExitState.ExitConfirmed && !ObserveExit())
+            throw new ImageJobException(ImageFailure.ExitUnconfirmed);
+        lock (ownershipSync)
+        {
+            if (startTask is { IsCompleted: false } || stopTask is { IsCompleted: false }) throw new ImageJobException(ImageFailure.ExitUnconfirmed);
+            disposed = true;
+            owned?.Dispose(); owned = null;
+            // ObserveStartupAsync can still be queued; disposed makes its eventual cleanup idempotent.
+            _ = startupObserver;
+        }
     }
 }

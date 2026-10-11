@@ -59,6 +59,18 @@ public sealed class RuntimeGate
         }
     }
 
+    /// <summary>Explicit local operation consent. Does not authorize any network endpoint or provider send.</summary>
+    public bool TryEnableLocalOperation(bool configurationValid)
+    {
+        lock (sync)
+        {
+            if (!configurationValid || suspension.HasFlag(Suspension.SessionLocked)) return false;
+            activation = Activation.On;
+            if (presentation == Presentation.Hidden) presentation = Presentation.Compact;
+            return true;
+        }
+    }
+
     public void Disable(bool hide = false)
     {
         CancellationTokenSource? cancellation;

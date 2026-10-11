@@ -44,3 +44,7 @@ OLE监督已共用OleCallWatch，只有匹配id/epoch/阶段且CleanupCompleted�
 App（独立KuaiYi身份，默认Off实验界面）→继承stdio的单次ImageWorker（独立ImageWorker身份/MTA）→C++/WinRT OcrNative。在实际打开磁盘句柄后验证本地最终路径、属性和尺寸；禁止原生解码在WPF线程。固定15秒请求截止，取消后只终止所持有子进程并确认退出，未确认时持有对象/禁止恢复。结果绑定完整job身份，尺寸/语言/词框在接收端再次验证，无默认持久化。
 
 原生Shell通过现代SurrogateServer STA注册只接收单个支持扩展，固定调用同目录App待确认命令，不嵌入CLR。P0接口还不是生产SID/session/role命名管道，格式规范化/图文视觉路由仍未完成。实际源码、边界及后续Windows脚本见imageworker-identity.md；双EXE内嵌身份不能替代注册与安装态运行。
+
+图片所有UI事件现与Provider共用Core.IdentityEventReceiver<T>，在实际目标队列执行时复核完整RequestIdentity与Activation。ImageUiWorkflow关联Gate取消并统一转换成功/错误/取消，长整型仅用于Worker线协议序号，不再用于UI资格。资源所有权独立于UI资格，旧任务只能清理自己的具体客户端。
+
+Worker真正启动在后台；取消等待后仍持有未返回的startTask，迟建Process被有界清理，晚失败被观察。未确认启动/退出不允许Dispose或开启第二宿主；详见image-ui-review.md。这些共享行为已在Linux执行，真实Windows线程/焦点/WinRT仍未验证。

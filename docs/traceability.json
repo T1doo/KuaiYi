@@ -223,9 +223,10 @@
       "validationStatus": "NotRun",
       "evidence": [
         "docs/test-evidence/2026-10-11-late-events-summary.json",
-        "docs/test-evidence/2026-10-11-protocol-boundaries-summary.json"
+        "docs/test-evidence/2026-10-11-protocol-boundaries-summary.json",
+        "docs/test-evidence/2026-10-11-image-ui-summary.json"
       ],
-      "note": "Offline subitems only, including obsolete error and destination queue identity checks; whole product requirement/task is not Pass."
+      "note": "Offline subitems only, including obsolete error and destination queue identity checks; whole product requirement/task is not Pass. Image UI now uses shared RuntimeGate/queued complete identity; actual background process start and late-start cleanup tested on Linux only. Windows product acceptance NotRun."
     },
     {
       "id": "R17",
@@ -341,9 +342,10 @@
       "evidence": [
         "docs/imageworker-identity.md",
         "docs/decisions/0003-imageworker-identity.md",
-        "docs/test-evidence/2026-10-11-imageworker-summary.json"
+        "docs/test-evidence/2026-10-11-imageworker-summary.json",
+        "docs/test-evidence/2026-10-11-image-ui-summary.json"
       ],
-      "note": "Actual OCR/native COM source and independently identity-declared EXEs; managed/protocol/static subitems only. Native Windows build, MSIX, installed runtime OCR and modern menu remain NotRun/Blocked."
+      "note": "Actual OCR/native COM source and independently identity-declared EXEs; managed/protocol/static subitems only. Native Windows build, MSIX, installed runtime OCR and modern menu remain NotRun/Blocked. Image UI now uses shared RuntimeGate/queued complete identity; actual background process start and late-start cleanup tested on Linux only. Windows product acceptance NotRun."
     },
     {
       "id": "P0-06",

@@ -35,3 +35,5 @@ Linux另可运行 `g++ -std=c++20 -DNDEBUG -Wall -Wextra -Werror tests/native/co
 脚本从不默认安装包、生成/信任证书、注册COM、重启Explorer或改ExecutionPolicy。Windows GUI/焦点、实际句柄重解析、WinRT取消/ABI、OCR文本质量、现代菜单、安装/升级/卸载均为NotRun。本轮不会以Linux实际进程或XML文本检查替代这些证据。
 
 正式签名/安装器属于P8；`package-identity.ps1 -Mode Release` 当前明确失败，无未签名release替代。
+
+窗口状态及真实启动线程已进一步接入共享Gate/队列接收器，见image-ui-review.md。启动期间取消保留未确认所有权并清理迟建进程；不会仅因取消等待就宣称没有创建Worker。

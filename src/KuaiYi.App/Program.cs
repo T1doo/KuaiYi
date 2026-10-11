@@ -4,6 +4,8 @@ using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using KuaiYi.Imaging;
+using KuaiYi.Core;
+using System.Windows.Threading;
 namespace KuaiYi.App;
 internal static class Program
 {
@@ -44,54 +46,88 @@ internal sealed class ImageProbeWindow : Window
     private readonly TextBox language = new() { Text = "en-US" };
     private readonly CheckBox enabled = new() { Content = "允许本次本地 OCR", IsChecked = false };
     private readonly Button choose = new() { Content = "选择 PNG 并识别" };
-    private CancellationTokenSource? running;
-    private ImageWorkerClient? ownedWorker;
-    private long version;
+    private readonly RuntimeGate gate = new();
+    private readonly ImageUiWorkflow workflow;
+    private readonly Guid session = Guid.NewGuid();
+    private RequestIdentity? running;
+    private sealed record OwnedImageWorker(RequestIdentity Identity, ImageWorkerClient Client);
+    private OwnedImageWorker? ownedWorker;
+    private long workerVersion; // Worker wire ordinal only. UI eligibility always uses RuntimeGate's complete identity.
     private readonly string? pendingPath;
     public ImageProbeWindow(string? path)
     {
         pendingPath = path;
+        workflow = new(gate,new DispatcherSynchronizationContext(Dispatcher));
         Title = "快译 · P0 OCR 实验"; Width = 560; Height = 420;
         var panel = new StackPanel { Margin = new Thickness(16) };
         panel.Children.Add(status); panel.Children.Add(enabled); panel.Children.Add(language); panel.Children.Add(choose);
         result.Height = 260; panel.Children.Add(result); Content = panel;
         if (path != null) status.Text = "Off · Explorer 图片待确认；尚未读取。P0 仅支持 PNG。";
         choose.Click += async (_,_) => await Recognize();
-        enabled.Unchecked += (_,_) => { version++; running?.Cancel(); result.Clear(); status.Text = "Off · 已取消"; };
-        Closing += (_,e) => { if (running != null || ownedWorker != null) { e.Cancel = true; running?.Cancel(); status.Text = "正在确认 Worker 退出，请稍后关闭。"; } };
-        var exitPoll = new System.Windows.Threading.DispatcherTimer { Interval = TimeSpan.FromMilliseconds(200) };
-        exitPoll.Tick += async (_,_) => { if (running == null && ownedWorker is { } worker && worker.ObserveExit()) { await worker.DisposeAsync(); ownedWorker = null; choose.IsEnabled = true; status.Text = "Worker 退出已确认；保持 Off。"; enabled.IsChecked = false; } };
-        exitPoll.Start(); Closed += (_,_) => exitPoll.Stop();
+        enabled.Checked += (_,_) =>
+        {
+            if ((running == null && ownedWorker != null) || !gate.TryEnableLocalOperation(true)) { enabled.IsChecked = false; status.Text = "Off · 请等待旧 Worker 退出确认。"; }
+            else status.Text = "On · 仅允许本次本地 OCR，不授予模型访问。";
+        };
+        enabled.Unchecked += (_,_) => { gate.Disable(); result.Clear(); status.Text = "Off · 已取消"; };
+        Closing += (_,e) =>
+        {
+            if (running != null || ownedWorker != null) { e.Cancel = true; gate.Disable(); enabled.IsChecked = false; status.Text = "Off · 正在确认 Worker/启动任务退出，请稍后关闭。"; }
+        };
+        var exitPoll = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(200) };
+        exitPoll.Tick += async (_,_) =>
+        {
+            if (running == null && ownedWorker is { } owner && owner.Client.ObserveExit())
+            {
+                await owner.Client.DisposeAsync();
+                if (ReferenceEquals(ownedWorker,owner)) ownedWorker = null;
+                choose.IsEnabled = running == null && ownedWorker == null;
+                // Resource bookkeeping is independent of eligibility. No old task writes status/results or toggles On here.
+            }
+        };
+        exitPoll.Start(); Closed += (_,_) => { exitPoll.Stop(); gate.Disable(); };
+    }
+    private void Apply(ImageUiUpdate update)
+    {
+        // Only invoked by the shared receiver after RuntimeGate.TryApply on this Dispatcher.
+        if (update.Kind == ImageUiEventKind.ExitUnconfirmed) enabled.IsChecked = false;
+        status.Text = update.Status; result.Text = update.Text;
     }
     private async Task Recognize()
     {
-        if (enabled.IsChecked != true || running != null || ownedWorker != null) { status.Text = "请先允许本次本地 OCR，并等待旧 Worker 退出确认。"; return; }
-        var identity = PackageIdentity.Read("KuaiYi");
-        if (identity.Failure != ImageFailure.None) { status.Text = identity.Failure + " · 请先按开发身份说明从安装位置验证主程序身份。"; return; }
+        if (gate.Snapshot.Activation != Activation.On || running != null || ownedWorker != null) { status.Text = "请先允许本次本地 OCR，并等待旧 Worker 退出确认。"; return; }
         string? path = pendingPath;
         if (path == null) { var dialog = new Microsoft.Win32.OpenFileDialog { Filter = "PNG|*.png", Multiselect = false }; if (dialog.ShowDialog(this) != true) return; path = dialog.FileName; }
-        long current = ++version;
-        using var cancellation = new CancellationTokenSource(); running = cancellation; choose.IsEnabled = false;
+        if (!gate.TryStartRequest(session,Guid.NewGuid(),null,out var current,out _)) return;
+        long ordinal = ++workerVersion;
+        string languageTag = language.Text;
+        running = current; choose.IsEnabled = false;
         byte[]? bytes = null;
+        OwnedImageWorker? operationOwner = null;
         try
         {
-            status.Text = "读取并启动独立 ImageWorker…";
-            // Native file validation and worker startup are off the dispatcher; no decode/OCR on the UI thread.
-            bytes = await Task.Run(() => LocalImageFile.ReadPngAsync(path, cancellation.Token), cancellation.Token);
-            var worker = new ImageWorkerClient(Path.Combine(AppContext.BaseDirectory,"KuaiYi.ImageWorker.exe")); ownedWorker = worker;
-            var reply = await worker.RunAsync(bytes, new(Guid.NewGuid(),current,1,language.Text,bytes.Length), cancellation.Token);
-            if (version != current || enabled.IsChecked != true) return;
-            status.Text = reply.Failure.ToString(); result.Text = reply.Output?.Text ?? "";
-            if (reply.Failure == ImageFailure.LanguageUnavailable) status.Text += " · 请在 Windows 语言设置中安装相应 OCR 能力，或之后配置明确支持视觉的模型。";
+            await workflow.RunAsync(current,async cancellation =>
+            {
+                var identity = PackageIdentity.Read("KuaiYi");
+                if (identity.Failure != ImageFailure.None) throw new ImageJobException(identity.Failure);
+                bytes = await Task.Run(() => LocalImageFile.ReadPngAsync(path,cancellation),cancellation);
+                var worker = new ImageWorkerClient(Path.Combine(AppContext.BaseDirectory,"KuaiYi.ImageWorker.exe"));
+                operationOwner = new(current,worker); ownedWorker = operationOwner;
+                return await worker.RunAsync(bytes,new(current.SessionId,ordinal,current.Epoch,languageTag,bytes.Length),cancellation);
+            },Apply);
         }
-        catch (OperationCanceledException) { status.Text = "已取消；Worker 退出已确认。"; }
-        catch (Exception e) { status.Text = e is ImageJobException job ? job.Code.ToString() : e.GetType().Name; }
         finally
         {
             if (bytes != null) CryptographicOperations.ZeroMemory(bytes);
-            if (ownedWorker is { } worker && worker.ObserveExit()) { await worker.DisposeAsync(); ownedWorker = null; }
-            running = null; choose.IsEnabled = ownedWorker == null;
-            if (ownedWorker != null) { enabled.IsChecked = false; status.Text = "Worker 退出未确认；禁止重启/关闭，保留所有权等待实际退出。"; }
+            if (operationOwner is { } owner && owner.Client.ObserveExit())
+            {
+                await owner.Client.DisposeAsync();
+                if (ReferenceEquals(ownedWorker,owner)) ownedWorker = null;
+            }
+            if (running == current) running = null;
+            choose.IsEnabled = running == null && ownedWorker == null;
+            if (operationOwner != null && ReferenceEquals(ownedWorker,operationOwner))
+                await workflow.PublishAsync(current,ImageUiUpdate.Unconfirmed(),Apply);
         }
     }
 }
