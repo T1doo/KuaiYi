@@ -222,3 +222,16 @@ P0 整体：**InProgress，真实 Windows 退出门槛 Blocked**。后续整阶�
 - 完整Core610+Provider77=687、Node63，25托管locked Release零警告/错误。777721字节/42文件独立审阅ZIP，7旧包摘要不变；合成protector/policy、Windows WPF/DPAPI/ACL与P0/E06未运行，176追踪/106整体NotRun。待监督独审，证据见settings-bindings-review.md和summary。
 
 - 最后源码复核追加迟到初始化1例先失败后修复，在Gate最终锁内核对当前配置版本及Link关闭准入；最终21新例/Core610+Provider77=687/Node63。首20例及686回归/初包元数据作pre-stale-init原始证据保留。
+
+## P1 实际启动骨架接线（监督限定继续）
+
+- 正常启动为一个红色实体浮钮和原生托盘；旧P0面板显式 `--platform-review`。启动SettingsCoordinator元数据加载始终Off；无选择/剪贴板/网络/秘密解密。
+- ShellLifecycle与严格RuntimeGate统一按钮/托盘启停、隐藏/锁屏/退出；EnableIntent最终锁核版本/epoch/绑定；正式API无绑定不能准入或发送。完整P3/P4尚未交付，无假翻译。
+- 单实例当前Windows SID+SessionId命名Mutex；只无载荷Show通知。便携测试使用真实子进程与合成scope，竞争/正常退出/崩溃释放通过，Windows账户/DACL不冒充通过。
+- 现有OverlayPositionMapper接入实际HWND/当前拓扑：存设备名/归一化锚点，恢复夹紧；DPI/任务栏/显示器移除代码接线，真实Windows多屏仍NotRun。位置事务先等待启动，与正常设置草稿打开串行。
+- 新测试初20/20、扩23/23、再补同会话授权缓存1例，共24/24；全回归Core634+Provider77=711/711，Node63/63，无失败/跳过。25托管工程locked Release零警告/错误；三次开发编译错误及修复后日志保留。最后设置退出重复Close收紧后App/全托管重编通过，测试代码/核心行为未变。
+- 环境断连提示后实际只读、已有会话结果及远端查询均成功；未另建写入者或删锁。本地fetch refspec只取main，开发分支以ls-remote实核。
+- 独立审查包796238字节，SHA256 `96f031f13c1cb549b1da660497e935ab2ad7ad627d785cbe578659629eb183ba`，43文件及5真实PE32+ x64 apphost，逐文件manifest通过；非安装器、无原生DLL/真实凭据/注册。八旧审查ZIP摘要逐一未变。
+- 176追踪项完整，106整体验收仍NotRun；P0/E06 Blocked、P1 InProgress。详见p1-shell-review.md、p1-shell-windows-checklist.md及本轮summary/raw证据。
+
+- 最后补同一会话/域名许可复用，Off不重复弹说明；换域名和重启需重新确认。新增1例后重新全测Core634+Provider77=711/711、Node63/63、零失败/跳过，并再次locked托管构建与独立发布；旧23例/710回归和初包摘要另存pre-consent证据。

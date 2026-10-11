@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="77b87bf7-9184-45c3-b0a6-59ad73b1c3ea" name="@552716c6b8c5 2026-10-11 16:04:39" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T16:04:39.0027339+00:00" queuing="2026-10-11T16:04:39.0027339+00:00" start="2026-10-11T16:04:37.8772130+00:00" finish="2026-10-11T16:04:39.0966436+00:00" />
+  <TestSettings name="default" id="057b292c-b1bb-47cf-934c-74f69ce95d5b">
+    <Deployment runDeploymentRoot="_552716c6b8c5_2026-10-11_16_04_39" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="1427225b-ea0c-4560-8320-958d22c22047" testId="3c9bab73-d01a-2fbc-e722-710421814b4c" testName="KuaiYi.Core.Tests.ShellLifecycleTests.PositionRestoreClampsNormalizedSavedAnchorAgainstNewWorkAreaAndRemovedMonitor(dpi: 1.5)" computerName="552716c6b8c5" duration="00:00:00.0000037" startTime="2026-10-11T16:04:38.9813153+00:00" endTime="2026-10-11T16:04:38.9813342+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1427225b-ea0c-4560-8320-958d22c22047" />
+    <UnitTestResult executionId="5b75f351-73f0-4415-b075-c52243ebb661" testId="b0bf8fa5-75b9-3330-a7db-3b037254cb27" testName="KuaiYi.Core.Tests.ShellLifecycleTests.PositionSavesThroughProductionTransactionAndRememberOffDoesNotRewrite" computerName="552716c6b8c5" duration="00:00:00.0095741" startTime="2026-10-11T16:04:38.9814345+00:00" endTime="2026-10-11T16:04:38.9905436+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5b75f351-73f0-4415-b075-c52243ebb661" />
+    <UnitTestResult executionId="0f6223ae-c6a1-427e-a6d3-9f89c42c84ca" testId="202aeaf2-0e78-4bfe-8221-4fec23ae259f" testName="KuaiYi.Core.Tests.ShellLifecycleTests.DamagedOrFutureSettingsStayOffAndByteIdentical(bytes: &quot;{\&quot;schemaVersion\&quot;:99}&quot;)" computerName="552716c6b8c5" duration="00:00:00.0084756" startTime="2026-10-11T16:04:38.6616460+00:00" endTime="2026-10-11T16:04:38.6634967+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0f6223ae-c6a1-427e-a6d3-9f89c42c84ca" />
+    <UnitTestResult executionId="140ee8a2-c54f-430e-9867-cdbf106db5de" testId="ca2307b7-8bb7-ec95-6d2c-1bc101366528" testName="KuaiYi.Core.Tests.ShellLifecycleTests.UnifiedGateLifecycleCancelsOriginalLinkedOperationAndRejectsLateSend(action: &quot;hide&quot;)" computerName="552716c6b8c5" duration="00:00:00.0037806" startTime="2026-10-11T16:04:38.9604081+00:00" endTime="2026-10-11T16:04:38.9631516+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="140ee8a2-c54f-430e-9867-cdbf106db5de" />
+    <UnitTestResult executionId="fc109e5d-d8fc-4f86-a0d4-ac09293824c7" testId="a207a251-52a1-bff2-a82f-165de772b82c" testName="KuaiYi.Core.Tests.ShellLifecycleTests.SettingsCancelDoesNotPersistOrStopTaskAndCommitRevokesBindingWithoutOff" computerName="552716c6b8c5" duration="00:00:00.0075106" startTime="2026-10-11T16:04:38.9512323+00:00" endTime="2026-10-11T16:04:38.9602948+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fc109e5d-d8fc-4f86-a0d4-ac09293824c7" />
+    <UnitTestResult executionId="ab0cc5ea-75da-487c-a088-d0b1b1c1d56e" testId="bc0caca5-3239-ec5f-5745-32c38c627753" testName="KuaiYi.Core.Tests.ShellLifecycleTests.DamagedOrFutureSettingsStayOffAndByteIdentical(bytes: &quot;{bad&quot;)" computerName="552716c6b8c5" duration="00:00:00.0309439" startTime="2026-10-11T16:04:38.6123144+00:00" endTime="2026-10-11T16:04:38.6495096+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ab0cc5ea-75da-487c-a088-d0b1b1c1d56e" />
+    <UnitTestResult executionId="3f95845d-b1c7-4565-948f-bf7b026602d1" testId="635bee1a-2938-02fb-b820-a38a51af2968" testName="KuaiYi.Core.Tests.ShellLifecycleTests.ActualDifferentUserAndDifferentSessionChildInstancesCanOwnIndependentScopes" computerName="552716c6b8c5" duration="00:00:00.0413950" startTime="2026-10-11T16:04:38.9907135+00:00" endTime="2026-10-11T16:04:39.0326732+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3f95845d-b1c7-4565-948f-bf7b026602d1" />
+    <UnitTestResult executionId="c4d764b9-2cab-418c-89d3-d7da9d5da4df" testId="188f259c-46a5-7bdb-5b99-157b6c3a8e02" testName="KuaiYi.Core.Tests.ShellLifecycleTests.DeclinedAndStaleConsentCannotEnableAfterHideLockOrSettingsPublication" computerName="552716c6b8c5" duration="00:00:00.0089769" startTime="2026-10-11T16:04:38.9763315+00:00" endTime="2026-10-11T16:04:38.9811043+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c4d764b9-2cab-418c-89d3-d7da9d5da4df" />
+    <UnitTestResult executionId="49609f31-cbbb-40a2-a800-e15b44192ebe" testId="557e225c-2eaf-3a50-b614-c59eb5ab28af" testName="KuaiYi.Core.Tests.ShellLifecycleTests.MissingConfigurationAndMissingKeyRemainOffWithoutConsentOrRequest" computerName="552716c6b8c5" duration="00:00:00.0093898" startTime="2026-10-11T16:04:39.0355729+00:00" endTime="2026-10-11T16:04:39.0447686+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="49609f31-cbbb-40a2-a800-e15b44192ebe" />
+    <UnitTestResult executionId="e109fc99-f560-41a4-b535-7d13bcf93021" testId="b954d4d0-ad62-e6c0-85a9-48688c6a5100" testName="KuaiYi.Core.Tests.ShellLifecycleTests.ProductionPointerThresholdUsesDpiAndSystemThresholdWithoutTogglingForDrag(scale: 2, threshold: 12)" computerName="552716c6b8c5" duration="00:00:00.0018918" startTime="2026-10-11T16:04:39.0328569+00:00" endTime="2026-10-11T16:04:39.0345830+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e109fc99-f560-41a4-b535-7d13bcf93021" />
+    <UnitTestResult executionId="a4da36f1-85dd-4806-9639-d5ab0d029fa5" testId="f23b0990-f73e-5a9f-8b2d-4963301225c4" testName="KuaiYi.Core.Tests.ShellLifecycleTests.PositionRestoreClampsNormalizedSavedAnchorAgainstNewWorkAreaAndRemovedMonitor(dpi: 1)" computerName="552716c6b8c5" duration="00:00:00.0000025" startTime="2026-10-11T16:04:38.9813641+00:00" endTime="2026-10-11T16:04:38.9813826+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a4da36f1-85dd-4806-9639-d5ab0d029fa5" />
+    <UnitTestResult executionId="9ce03421-d0be-4f0c-a2ba-4bf73d926b8c" testId="4677e0d4-f126-87fd-22c2-862a5b21bfaa" testName="KuaiYi.Core.Tests.ShellLifecycleTests.UnifiedGateLifecycleCancelsOriginalLinkedOperationAndRejectsLateSend(action: &quot;exit&quot;)" computerName="552716c6b8c5" duration="00:00:00.0014279" startTime="2026-10-11T16:04:38.9761305+00:00" endTime="2026-10-11T16:04:38.9761742+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9ce03421-d0be-4f0c-a2ba-4bf73d926b8c" />
+    <UnitTestResult executionId="4836fb43-5cbd-4b4f-ab6f-2ed7ce41c480" testId="e5586cc5-09ad-551c-9ce0-21fc265a20d1" testName="KuaiYi.Core.Tests.ShellLifecycleTests.UnifiedGateLifecycleCancelsOriginalLinkedOperationAndRejectsLateSend(action: &quot;lock&quot;)" computerName="552716c6b8c5" duration="00:00:00.0024359" startTime="2026-10-11T16:04:38.9632163+00:00" endTime="2026-10-11T16:04:38.9659569+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4836fb43-5cbd-4b4f-ab6f-2ed7ce41c480" />
+    <UnitTestResult executionId="4eb75ce3-ec1b-4633-bf57-0eb0b8077900" testId="b8a89784-81fc-92f3-7ab2-cfd50d046f85" testName="KuaiYi.Core.Tests.ShellLifecycleTests.ProductionPointerThresholdUsesDpiAndSystemThresholdWithoutTogglingForDrag(scale: 1, threshold: 6)" computerName="552716c6b8c5" duration="00:00:00.0003736" startTime="2026-10-11T16:04:39.0354859+00:00" endTime="2026-10-11T16:04:39.0355115+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4eb75ce3-ec1b-4633-bf57-0eb0b8077900" />
+    <UnitTestResult executionId="94372832-1f57-4af6-819f-a3fe9bfddb83" testId="df8c993e-1924-3798-327c-ef82b02b700c" testName="KuaiYi.Core.Tests.ShellLifecycleTests.ActualChildInstanceExcludesDuplicateAndReleasesAfterExitOrCrash(kill: False)" computerName="552716c6b8c5" duration="00:00:00.0907502" startTime="2026-10-11T16:04:38.7784080+00:00" endTime="2026-10-11T16:04:38.8711551+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="94372832-1f57-4af6-819f-a3fe9bfddb83" />
+    <UnitTestResult executionId="3970f56f-04e4-473d-a2d7-9250ebe0c1f5" testId="7de81398-f497-98d0-4103-7662bce5c5ba" testName="KuaiYi.Core.Tests.ShellLifecycleTests.ActualSavedStartupLoadsMetadataModePositionAndNeverRestoresOnOrDecrypts(authentication: True)" computerName="552716c6b8c5" duration="00:00:00.0777356" startTime="2026-10-11T16:04:38.8713819+00:00" endTime="2026-10-11T16:04:38.9478133+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3970f56f-04e4-473d-a2d7-9250ebe0c1f5" />
+    <UnitTestResult executionId="12d4ffd0-a9f0-4fa6-9d66-78dabefc3603" testId="37d53f91-0ab0-b6c1-5c6f-76503d2f0842" testName="KuaiYi.Core.Tests.ShellLifecycleTests.PositionRestoreClampsNormalizedSavedAnchorAgainstNewWorkAreaAndRemovedMonitor(dpi: 2)" computerName="552716c6b8c5" duration="00:00:00.0001800" startTime="2026-10-11T16:04:38.9812650+00:00" endTime="2026-10-11T16:04:38.9812844+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="12d4ffd0-a9f0-4fa6-9d66-78dabefc3603" />
+    <UnitTestResult executionId="35e5c369-1acf-451f-8faf-05f47c44b058" testId="8361bd07-b4ab-67d4-836d-8792f0c61543" testName="KuaiYi.Core.Tests.ShellLifecycleTests.PositionRestoreClampsNormalizedSavedAnchorAgainstNewWorkAreaAndRemovedMonitor(dpi: 1.25)" computerName="552716c6b8c5" duration="00:00:00.0030223" startTime="2026-10-11T16:04:38.9812072+00:00" endTime="2026-10-11T16:04:38.9812314+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="35e5c369-1acf-451f-8faf-05f47c44b058" />
+    <UnitTestResult executionId="9738abaa-9ffe-4168-8505-2b5eb5921e2e" testId="669d25b0-9f6e-fbc6-35c8-9c64677d8d80" testName="KuaiYi.Core.Tests.ShellLifecycleTests.ActualSavedStartupLoadsMetadataModePositionAndNeverRestoresOnOrDecrypts(authentication: False)" computerName="552716c6b8c5" duration="00:00:00.0029502" startTime="2026-10-11T16:04:38.9479733+00:00" endTime="2026-10-11T16:04:38.9511105+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9738abaa-9ffe-4168-8505-2b5eb5921e2e" />
+    <UnitTestResult executionId="9f50087a-66bd-4d09-916e-9c3fab9b9fa0" testId="94c42819-06a4-88a2-9b9e-247ae00427fd" testName="KuaiYi.Core.Tests.ShellLifecycleTests.ActualChildInstanceExcludesDuplicateAndReleasesAfterExitOrCrash(kill: True)" computerName="552716c6b8c5" duration="00:00:00.1130116" startTime="2026-10-11T16:04:38.6672984+00:00" endTime="2026-10-11T16:04:38.7782535+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9f50087a-66bd-4d09-916e-9c3fab9b9fa0" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.ShellLifecycleTests.ActualChildInstanceExcludesDuplicateAndReleasesAfterExitOrCrash(kill: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="df8c993e-1924-3798-327c-ef82b02b700c">
+      <Execution id="94372832-1f57-4af6-819f-a3fe9bfddb83" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ShellLifecycleTests" name="ActualChildInstanceExcludesDuplicateAndReleasesAfterExitOrCrash" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ShellLifecycleTests.ProductionPointerThresholdUsesDpiAndSystemThresholdWithoutTogglingForDrag(scale: 2, threshold: 12)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b954d4d0-ad62-e6c0-85a9-48688c6a5100">
+      <Execution id="e109fc99-f560-41a4-b535-7d13bcf93021" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ShellLifecycleTests" name="ProductionPointerThresholdUsesDpiAndSystemThresholdWithoutTogglingForDrag" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ShellLifecycleTests.DamagedOrFutureSettingsStayOffAndByteIdentical(bytes: &quot;{bad&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="bc0caca5-3239-ec5f-5745-32c38c627753">
+      <Execution id="ab0cc5ea-75da-487c-a088-d0b1b1c1d56e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ShellLifecycleTests" name="DamagedOrFutureSettingsStayOffAndByteIdentical" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ShellLifecycleTests.DeclinedAndStaleConsentCannotEnableAfterHideLockOrSettingsPublication" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="188f259c-46a5-7bdb-5b99-157b6c3a8e02">
+      <Execution id="c4d764b9-2cab-418c-89d3-d7da9d5da4df" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ShellLifecycleTests" name="DeclinedAndStaleConsentCannotEnableAfterHideLockOrSettingsPublication" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ShellLifecycleTests.DamagedOrFutureSettingsStayOffAndByteIdentical(bytes: &quot;{\&quot;schemaVersion\&quot;:99}&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="202aeaf2-0e78-4bfe-8221-4fec23ae259f">
+      <Execution id="0f6223ae-c6a1-427e-a6d3-9f89c42c84ca" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ShellLifecycleTests" name="DamagedOrFutureSettingsStayOffAndByteIdentical" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ShellLifecycleTests.ActualChildInstanceExcludesDuplicateAndReleasesAfterExitOrCrash(kill: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="94c42819-06a4-88a2-9b9e-247ae00427fd">
+      <Execution id="9f50087a-66bd-4d09-916e-9c3fab9b9fa0" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ShellLifecycleTests" name="ActualChildInstanceExcludesDuplicateAndReleasesAfterExitOrCrash" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ShellLifecycleTests.UnifiedGateLifecycleCancelsOriginalLinkedOperationAndRejectsLateSend(action: &quot;exit&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="4677e0d4-f126-87fd-22c2-862a5b21bfaa">
+      <Execution id="9ce03421-d0be-4f0c-a2ba-4bf73d926b8c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ShellLifecycleTests" name="UnifiedGateLifecycleCancelsOriginalLinkedOperationAndRejectsLateSend" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ShellLifecycleTests.ActualDifferentUserAndDifferentSessionChildInstancesCanOwnIndependentScopes" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="635bee1a-2938-02fb-b820-a38a51af2968">
+      <Execution id="3f95845d-b1c7-4565-948f-bf7b026602d1" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ShellLifecycleTests" name="ActualDifferentUserAndDifferentSessionChildInstancesCanOwnIndependentScopes" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ShellLifecycleTests.ActualSavedStartupLoadsMetadataModePositionAndNeverRestoresOnOrDecrypts(authentication: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="669d25b0-9f6e-fbc6-35c8-9c64677d8d80">
+      <Execution id="9738abaa-9ffe-4168-8505-2b5eb5921e2e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ShellLifecycleTests" name="ActualSavedStartupLoadsMetadataModePositionAndNeverRestoresOnOrDecrypts" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ShellLifecycleTests.UnifiedGateLifecycleCancelsOriginalLinkedOperationAndRejectsLateSend(action: &quot;hide&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="ca2307b7-8bb7-ec95-6d2c-1bc101366528">
+      <Execution id="140ee8a2-c54f-430e-9867-cdbf106db5de" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ShellLifecycleTests" name="UnifiedGateLifecycleCancelsOriginalLinkedOperationAndRejectsLateSend" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ShellLifecycleTests.ProductionPointerThresholdUsesDpiAndSystemThresholdWithoutTogglingForDrag(scale: 1, threshold: 6)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b8a89784-81fc-92f3-7ab2-cfd50d046f85">
+      <Execution id="4eb75ce3-ec1b-4633-bf57-0eb0b8077900" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ShellLifecycleTests" name="ProductionPointerThresholdUsesDpiAndSystemThresholdWithoutTogglingForDrag" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ShellLifecycleTests.SettingsCancelDoesNotPersistOrStopTaskAndCommitRevokesBindingWithoutOff" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a207a251-52a1-bff2-a82f-165de772b82c">
+      <Execution id="fc109e5d-d8fc-4f86-a0d4-ac09293824c7" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ShellLifecycleTests" name="SettingsCancelDoesNotPersistOrStopTaskAndCommitRevokesBindingWithoutOff" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ShellLifecycleTests.PositionRestoreClampsNormalizedSavedAnchorAgainstNewWorkAreaAndRemovedMonitor(dpi: 1)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="f23b0990-f73e-5a9f-8b2d-4963301225c4">
+      <Execution id="a4da36f1-85dd-4806-9639-d5ab0d029fa5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ShellLifecycleTests" name="PositionRestoreClampsNormalizedSavedAnchorAgainstNewWorkAreaAndRemovedMonitor" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ShellLifecycleTests.PositionRestoreClampsNormalizedSavedAnchorAgainstNewWorkAreaAndRemovedMonitor(dpi: 1.25)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="8361bd07-b4ab-67d4-836d-8792f0c61543">
+      <Execution id="35e5c369-1acf-451f-8faf-05f47c44b058" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ShellLifecycleTests" name="PositionRestoreClampsNormalizedSavedAnchorAgainstNewWorkAreaAndRemovedMonitor" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ShellLifecycleTests.PositionRestoreClampsNormalizedSavedAnchorAgainstNewWorkAreaAndRemovedMonitor(dpi: 2)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="37d53f91-0ab0-b6c1-5c6f-76503d2f0842">
+      <Execution id="12d4ffd0-a9f0-4fa6-9d66-78dabefc3603" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ShellLifecycleTests" name="PositionRestoreClampsNormalizedSavedAnchorAgainstNewWorkAreaAndRemovedMonitor" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ShellLifecycleTests.ActualSavedStartupLoadsMetadataModePositionAndNeverRestoresOnOrDecrypts(authentication: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="7de81398-f497-98d0-4103-7662bce5c5ba">
+      <Execution id="3970f56f-04e4-473d-a2d7-9250ebe0c1f5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ShellLifecycleTests" name="ActualSavedStartupLoadsMetadataModePositionAndNeverRestoresOnOrDecrypts" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ShellLifecycleTests.MissingConfigurationAndMissingKeyRemainOffWithoutConsentOrRequest" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="557e225c-2eaf-3a50-b614-c59eb5ab28af">
+      <Execution id="49609f31-cbbb-40a2-a800-e15b44192ebe" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ShellLifecycleTests" name="MissingConfigurationAndMissingKeyRemainOffWithoutConsentOrRequest" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ShellLifecycleTests.UnifiedGateLifecycleCancelsOriginalLinkedOperationAndRejectsLateSend(action: &quot;lock&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="e5586cc5-09ad-551c-9ce0-21fc265a20d1">
+      <Execution id="4836fb43-5cbd-4b4f-ab6f-2ed7ce41c480" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ShellLifecycleTests" name="UnifiedGateLifecycleCancelsOriginalLinkedOperationAndRejectsLateSend" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ShellLifecycleTests.PositionRestoreClampsNormalizedSavedAnchorAgainstNewWorkAreaAndRemovedMonitor(dpi: 1.5)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="3c9bab73-d01a-2fbc-e722-710421814b4c">
+      <Execution id="1427225b-ea0c-4560-8320-958d22c22047" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ShellLifecycleTests" name="PositionRestoreClampsNormalizedSavedAnchorAgainstNewWorkAreaAndRemovedMonitor" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ShellLifecycleTests.PositionSavesThroughProductionTransactionAndRememberOffDoesNotRewrite" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b0bf8fa5-75b9-3330-a7db-3b037254cb27">
+      <Execution id="5b75f351-73f0-4415-b075-c52243ebb661" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ShellLifecycleTests" name="PositionSavesThroughProductionTransactionAndRememberOffDoesNotRewrite" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="3c9bab73-d01a-2fbc-e722-710421814b4c" executionId="1427225b-ea0c-4560-8320-958d22c22047" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b0bf8fa5-75b9-3330-a7db-3b037254cb27" executionId="5b75f351-73f0-4415-b075-c52243ebb661" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="202aeaf2-0e78-4bfe-8221-4fec23ae259f" executionId="0f6223ae-c6a1-427e-a6d3-9f89c42c84ca" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ca2307b7-8bb7-ec95-6d2c-1bc101366528" executionId="140ee8a2-c54f-430e-9867-cdbf106db5de" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a207a251-52a1-bff2-a82f-165de772b82c" executionId="fc109e5d-d8fc-4f86-a0d4-ac09293824c7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bc0caca5-3239-ec5f-5745-32c38c627753" executionId="ab0cc5ea-75da-487c-a088-d0b1b1c1d56e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="635bee1a-2938-02fb-b820-a38a51af2968" executionId="3f95845d-b1c7-4565-948f-bf7b026602d1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="188f259c-46a5-7bdb-5b99-157b6c3a8e02" executionId="c4d764b9-2cab-418c-89d3-d7da9d5da4df" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="557e225c-2eaf-3a50-b614-c59eb5ab28af" executionId="49609f31-cbbb-40a2-a800-e15b44192ebe" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b954d4d0-ad62-e6c0-85a9-48688c6a5100" executionId="e109fc99-f560-41a4-b535-7d13bcf93021" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f23b0990-f73e-5a9f-8b2d-4963301225c4" executionId="a4da36f1-85dd-4806-9639-d5ab0d029fa5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4677e0d4-f126-87fd-22c2-862a5b21bfaa" executionId="9ce03421-d0be-4f0c-a2ba-4bf73d926b8c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e5586cc5-09ad-551c-9ce0-21fc265a20d1" executionId="4836fb43-5cbd-4b4f-ab6f-2ed7ce41c480" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b8a89784-81fc-92f3-7ab2-cfd50d046f85" executionId="4eb75ce3-ec1b-4633-bf57-0eb0b8077900" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="df8c993e-1924-3798-327c-ef82b02b700c" executionId="94372832-1f57-4af6-819f-a3fe9bfddb83" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7de81398-f497-98d0-4103-7662bce5c5ba" executionId="3970f56f-04e4-473d-a2d7-9250ebe0c1f5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="37d53f91-0ab0-b6c1-5c6f-76503d2f0842" executionId="12d4ffd0-a9f0-4fa6-9d66-78dabefc3603" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8361bd07-b4ab-67d4-836d-8792f0c61543" executionId="35e5c369-1acf-451f-8faf-05f47c44b058" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="669d25b0-9f6e-fbc6-35c8-9c64677d8d80" executionId="9738abaa-9ffe-4168-8505-2b5eb5921e2e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="94c42819-06a4-88a2-9b9e-247ae00427fd" executionId="9f50087a-66bd-4d09-916e-9c3fab9b9fa0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="20" executed="20" passed="20" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.07]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.31]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.38]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.83]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

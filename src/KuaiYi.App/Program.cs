@@ -7,6 +7,9 @@ using KuaiYi.Imaging;
 using KuaiYi.Core;
 using KuaiYi.NativeHost;
 using System.Windows.Threading;
+using KuaiYi.Windows;
+using System.Security.Principal;
+using System.Diagnostics;
 namespace KuaiYi.App;
 internal static class Program
 {
@@ -15,9 +18,19 @@ internal static class Program
         if (args.SequenceEqual(new[] { "--diagnose" })) { Console.WriteLine(JsonSerializer.Serialize(PackageIdentity.Read("KuaiYi"), ImageJson.Options)); return 0; }
         if (args.Length == 3 && args[0] == "--ocr-probe")
             return Probe(args[1], args[2]).GetAwaiter().GetResult(); // Explicit synthetic fixture command, never automatic selection capture.
-        if (args.Length != 0 && !(args.Length == 2 && args[0] == "--prepare-image")) { Console.Error.WriteLine("Unsupported command."); return 2; }
+        bool review=args.SequenceEqual(new[]{"--platform-review"})||(args.Length==2&&args[0]=="--prepare-image");
+        if (args.Length != 0 && !review) { Console.Error.WriteLine("Unsupported command."); return 2; }
+        using var identity=WindowsIdentity.GetCurrent();
+        using var process=Process.GetCurrentProcess();
+        using var instance=new SessionSingleInstance(identity.User?.Value??throw new InvalidOperationException("Current user SID unavailable."),process.SessionId);
+        if(!instance.IsOwner)
+        {
+            NativeTray.ShowExisting(instance.Scope);
+            // No unverified payload forwarding. Existing installed-role IPC remains the image ingress.
+            return args.Length==2?3:0;
+        }
         var app = new Application();
-        return app.Run(new ImageProbeWindow(args.Length == 2 ? args[1] : null));
+        return app.Run(review?new ImageProbeWindow(args.Length==2?args[1]:null):new ShellWindow(instance.Scope));
     }
     private static async Task<int> Probe(string path, string language)
     {

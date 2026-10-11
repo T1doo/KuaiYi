@@ -1,0 +1,117 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:00.74
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:00.51
+Built scope Offline with SDK 10.0.401. This is not desktop acceptance.
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+WARNING: Overwriting results file: /workspace/KuaiYi/artifacts/test-results/offline/KuaiYi.Core.Tests.trx
+Results File: /workspace/KuaiYi/artifacts/test-results/offline/KuaiYi.Core.Tests.trx
+
+Passed!  - Failed:     0, Passed:   634, Skipped:     0, Total:   634, Duration: 16 s - KuaiYi.Core.Tests.dll (net10.0)
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+WARNING: Overwriting results file: /workspace/KuaiYi/artifacts/test-results/offline/KuaiYi.Provider.Tests.trx
+Results File: /workspace/KuaiYi/artifacts/test-results/offline/KuaiYi.Provider.Tests.trx
+
+Passed!  - Failed:     0, Passed:    77, Skipped:     0, Total:    77, Duration: 1 s - KuaiYi.Provider.Tests.dll (net10.0)
+✔ actual extension/host/production receiver waits over five seconds for explicit synthetic desktop decision (6128.452178ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: allow-after-six (149.837811ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: no-answer (107.850899ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: reject (103.116908ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: cancel (104.525894ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: off (103.507532ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: disconnect (107.832435ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: late-answer (115.469144ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: late-answer-no-timer (110.631629ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: late-ready (117.567665ms)
+✔ offer without explicit confirmation state still expires at five seconds (0.82629ms)
+✔ ordinary Begin acknowledgement keeps its five-second budget after long confirmation (0.34943ms)
+✔ idle acquisition has a thirty-second transfer budget and disconnect cancels the owning signal (0.339005ms)
+✔ late Ready rejected by monotonic deadline even when wall clock moves backwards before timer dispatch (0.274899ms)
+✔ total operation deadline cannot be renewed by confirmation or Ready (0.252897ms)
+✔ confirmation stage cannot obtain a renewed timer with invalid progress: id (0.202041ms)
+✔ confirmation stage cannot obtain a renewed timer with invalid progress: budget (0.109894ms)
+✔ confirmation stage cannot obtain a renewed timer with invalid progress: protocol (0.094371ms)
+✔ confirmation stage cannot obtain a renewed timer with invalid progress: extra (0.098406ms)
+✔ confirmation stage cannot obtain a renewed timer with invalid progress: duplicate (0.144856ms)
+✔ manifest has exactly three used permissions and no web entry points (5.623263ms)
+✔ context comes only from top-frame active image click (0.21448ms)
+✔ context rejects cross-frame (0.172287ms)
+✔ context rejects wrong-menu (0.058077ms)
+✔ context rejects text (0.069023ms)
+✔ context rejects javascript (0.08756ms)
+✔ context rejects file (0.037446ms)
+✔ context rejects userinfo (0.04013ms)
+✔ context rejects navigated (0.050185ms)
+✔ context rejects inactive (0.08784ms)
+✔ context rejects restricted (0.079258ms)
+✔ UTF-8 bytes include multibyte body and JSON envelope (0.738069ms)
+✔ 190KiB worst base64 fits complete native frame (4.444538ms)
+✔ PNG dimensions rejected before host submission (0.233197ms)
+✔ original fetch never attaches credentials/referrer or follows redirects (19.99981ms)
+✔ cross-origin/blob originals cannot call fetch (0.219317ms)
+✔ declared and streamed original byte limits independent (10.659362ms)
+✔ crop remains strictly inside target physical rectangle (0.256782ms)
+✔ crop rejects DPI (0.06725ms)
+✔ crop rejects size mismatch (0.125517ms)
+✔ crop rejects outside viewport (0.045578ms)
+✔ crop rejects empty (0.029444ms)
+✔ crop rejects NaN (1.767001ms)
+✔ crop rejects infinite (0.064466ms)
+✔ ambiguous element refuses capture before screenshot (0.211365ms)
+✔ moved target cannot reach screenshot, measurement or decode (0.205075ms)
+✔ actual acquisition refuses unproven viewport ownership: corner-overlay (0.313937ms)
+✔ actual acquisition refuses unproven viewport ownership: edge-overlay (0.191595ms)
+✔ actual acquisition refuses unproven viewport ownership: opposite-corner-overlay (0.140459ms)
+✔ actual acquisition refuses unproven viewport ownership: clip-path (0.079778ms)
+✔ actual acquisition refuses unproven viewport ownership: border (0.058267ms)
+✔ actual acquisition refuses unproven viewport ownership: padding (0.075302ms)
+✔ actual acquisition refuses unproven viewport ownership: object-fit (0.082272ms)
+✔ actual acquisition refuses unproven viewport ownership: mask (0.06728ms)
+✔ actual acquisition refuses unproven viewport ownership: apparently-clear (0.06076ms)
+✔ actual service worker acquisition pipeline: corner-overlay (1.996282ms)
+✔ actual service worker acquisition pipeline: clip-path (0.79925ms)
+✔ actual service worker acquisition pipeline: original (7.035616ms)
+✔ disconnect rejects an outstanding frame immediately (0.243653ms)
+✔ cancellation sends one explicit cancel and disconnects (0.119688ms)
+✔ wrong operation cannot acknowledge pending frame (0.136924ms)
+✔ desktop Off prevents image acquisition (0.106598ms)
+✔ actual extension sender to independent host loop commits ordered maximum chunks (153.153271ms)
+ℹ tests 63
+ℹ suites 0
+ℹ pass 63
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7442.837898

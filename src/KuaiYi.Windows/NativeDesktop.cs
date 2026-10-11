@@ -66,9 +66,9 @@ public static class NativeDesktop
         int x = Math.Clamp(anchor.Left, work.Left, work.Right - size), y = Math.Clamp(anchor.Top, work.Top, work.Bottom - size);
         return new(x, y, x + size, y + size);
     }
-    public static void ApplyBounds(nint hwnd, PixelRect rectangle, int radiusPixels)
+    public static void ApplyBounds(nint hwnd, PixelRect rectangle, int radiusPixels,bool show=true)
     {
-        if (!SetWindowPos(hwnd, new nint(-1), rectangle.Left, rectangle.Top, rectangle.Width, rectangle.Height, 0x0010 | 0x0040))
+        if (!SetWindowPos(hwnd, new nint(-1), rectangle.Left, rectangle.Top, rectangle.Width, rectangle.Height, 0x0010u | (show?0x0040u:0u)))
             throw new Win32Exception(Marshal.GetLastWin32Error());
         nint region = CreateRoundRectRgn(0, 0, rectangle.Width + 1, rectangle.Height + 1, radiusPixels * 2, radiusPixels * 2);
         if (region == 0) throw new Win32Exception(Marshal.GetLastWin32Error());

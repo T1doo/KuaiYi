@@ -11,9 +11,14 @@
         "P1",
         "A、B"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": []
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/p1-shell-review.md",
+        "docs/p1-shell-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
+      ],
+      "note": " P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
     },
     {
       "id": "R02",
@@ -24,9 +29,14 @@
         "P1、P3",
         "A、H"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": []
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/p1-shell-review.md",
+        "docs/p1-shell-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
+      ],
+      "note": " P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
     },
     {
       "id": "R03",
@@ -79,9 +89,12 @@
         "docs/settings-recovery-review.md",
         "docs/test-evidence/2026-10-11-settings-recovery-summary.json",
         "docs/settings-bindings-review.md",
-        "docs/test-evidence/2026-10-11-settings-bindings-summary.json"
+        "docs/test-evidence/2026-10-11-settings-bindings-summary.json",
+        "docs/p1-shell-review.md",
+        "docs/p1-shell-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
       ],
-      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed. Supervisor defects fixed with52 new portable cases; baseline51 had42 failures/9 passes, plus1 old committed-journal failure retained. Recovery branches/save admission and shared live refs now guarded. Windows real UI/DPAPI/ACL and all whole acceptance remain NotRun; no phase exit. Profile binding revocations separated from physical ciphertext retirement. Production SettingsRuntimeLink/RuntimeGate targeted cancellation and proven commit recovery notification portable paths verified by20 new cases; baseline14 had8 failures/6 passes. Actual App wiring compiled only; full P4 protocol factory/API dispatcher, Windows UI and whole D08 not delivered/NotRun. No stage exit. Late settings initialization extra case first failed, then fixed with final gate-lock current-version/disposed admission. Final21 new portable cases and687 .NET passed; prior20/686 evidence retained."
+      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed. Supervisor defects fixed with52 new portable cases; baseline51 had42 failures/9 passes, plus1 old committed-journal failure retained. Recovery branches/save admission and shared live refs now guarded. Windows real UI/DPAPI/ACL and all whole acceptance remain NotRun; no phase exit. Profile binding revocations separated from physical ciphertext retirement. Production SettingsRuntimeLink/RuntimeGate targeted cancellation and proven commit recovery notification portable paths verified by20 new cases; baseline14 had8 failures/6 passes. Actual App wiring compiled only; full P4 protocol factory/API dispatcher, Windows UI and whole D08 not delivered/NotRun. No stage exit. Late settings initialization extra case first failed, then fixed with final gate-lock current-version/disposed admission. Final21 new portable cases and687 .NET passed; prior20/686 evidence retained. P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
     },
     {
       "id": "R06",
@@ -268,12 +281,15 @@
         "L"
       ],
       "implementationStatus": "InProgress",
-      "validationStatus": "NotRun",
+      "validationStatus": "Blocked",
       "evidence": [
         "docs/test-evidence/2026-10-11-late-events-summary.json",
-        "docs/test-evidence/2026-10-11-protocol-boundaries-summary.json"
+        "docs/test-evidence/2026-10-11-protocol-boundaries-summary.json",
+        "docs/p1-shell-review.md",
+        "docs/p1-shell-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
       ],
-      "note": "Offline subitems only, including obsolete error and destination queue identity checks; whole product requirement/task is not Pass."
+      "note": "Offline subitems only, including obsolete error and destination queue identity checks; whole product requirement/task is not Pass. P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
     },
     {
       "id": "R18",
@@ -422,9 +438,14 @@
         "建立分层工程、依赖注入、MVVM、统一领域状态与事件",
         "Core / Contracts / Application / App 可构建"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p1-shell-review.md",
+        "docs/p1-shell-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
+      ],
+      "note": " P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
     },
     {
       "id": "P1-02",
@@ -434,9 +455,14 @@
         "实现红/绿按钮、拖动、托盘、正常设置窗口、单实例",
         "可运行桌面程序，不含假翻译结果"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": []
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/p1-shell-review.md",
+        "docs/p1-shell-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
+      ],
+      "note": " P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
     },
     {
       "id": "P1-03",
@@ -453,9 +479,12 @@
         "docs/adr/0011-settings-transactions.md",
         "docs/test-evidence/2026-10-11-settings-summary.json",
         "docs/settings-recovery-review.md",
-        "docs/test-evidence/2026-10-11-settings-recovery-summary.json"
+        "docs/test-evidence/2026-10-11-settings-recovery-summary.json",
+        "docs/p1-shell-review.md",
+        "docs/p1-shell-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
       ],
-      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed. Supervisor defects fixed with52 new portable cases; baseline51 had42 failures/9 passes, plus1 old committed-journal failure retained. Recovery branches/save admission and shared live refs now guarded. Windows real UI/DPAPI/ACL and all whole acceptance remain NotRun; no phase exit."
+      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed. Supervisor defects fixed with52 new portable cases; baseline51 had42 failures/9 passes, plus1 old committed-journal failure retained. Recovery branches/save admission and shared live refs now guarded. Windows real UI/DPAPI/ACL and all whole acceptance remain NotRun; no phase exit. P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
     },
     {
       "id": "P1-04",
@@ -486,13 +515,16 @@
         "实现 Off/On、暂停原因、锁屏/解锁、隐藏/恢复/退出",
         "状态机测试，退出清理验证"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
       "evidence": [
         "docs/settings-bindings-review.md",
-        "docs/test-evidence/2026-10-11-settings-bindings-summary.json"
+        "docs/test-evidence/2026-10-11-settings-bindings-summary.json",
+        "docs/p1-shell-review.md",
+        "docs/p1-shell-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
       ],
-      "note": " Profile binding revocations separated from physical ciphertext retirement. Production SettingsRuntimeLink/RuntimeGate targeted cancellation and proven commit recovery notification portable paths verified by20 new cases; baseline14 had8 failures/6 passes. Actual App wiring compiled only; full P4 protocol factory/API dispatcher, Windows UI and whole D08 not delivered/NotRun. No stage exit. Late settings initialization extra case first failed, then fixed with final gate-lock current-version/disposed admission. Final21 new portable cases and687 .NET passed; prior20/686 evidence retained."
+      "note": " Profile binding revocations separated from physical ciphertext retirement. Production SettingsRuntimeLink/RuntimeGate targeted cancellation and proven commit recovery notification portable paths verified by20 new cases; baseline14 had8 failures/6 passes. Actual App wiring compiled only; full P4 protocol factory/API dispatcher, Windows UI and whole D08 not delivered/NotRun. No stage exit. Late settings initialization extra case first failed, then fixed with final gate-lock current-version/disposed admission. Final21 new portable cases and687 .NET passed; prior20/686 evidence retained. P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
     },
     {
       "id": "P1-06",
@@ -1006,9 +1038,14 @@
         "无历史配置首次启动；在其他应用划选文字",
         "只有红色按钮与托盘；无捕获、无模型请求；点击启用定位配置缺项"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p1-shell-review.md",
+        "docs/p1-shell-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
+      ],
+      "note": " P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
     },
     {
       "id": "A02",
@@ -1018,9 +1055,14 @@
         "已配置且已同意发送；单击按钮，再单击",
         "按钮依次绿、红，语义一致；Off 后新选区不发送"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p1-shell-review.md",
+        "docs/p1-shell-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
+      ],
+      "note": " P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
     },
     {
       "id": "A03",
@@ -1030,9 +1072,14 @@
         "拖动按钮超过阈值后松开；再做一次短距离单击",
         "拖动不切换；短单击只切换一次；无误翻译"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p1-shell-review.md",
+        "docs/p1-shell-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
+      ],
+      "note": " P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
     },
     {
       "id": "A04",
@@ -1042,9 +1089,14 @@
         "已启用并生成中，切到 Off",
         "候选与当前请求取消；回到红色紧凑态；迟到文本不得继续更新"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p1-shell-review.md",
+        "docs/p1-shell-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
+      ],
+      "note": " P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
     },
     {
       "id": "A05",
@@ -1102,9 +1154,14 @@
         "已启用时隐藏浮窗、锁屏、解锁或重启程序",
         "隐藏/锁屏取消并停用；恢复为红色；不会自动重放上一请求"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p1-shell-review.md",
+        "docs/p1-shell-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
+      ],
+      "note": " P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
     },
     {
       "id": "A10",
@@ -1114,7 +1171,7 @@
         "打开设置修改后取消；再保存同样修改",
         "取消不改变持久配置；保存原子生效；已有请求保留它的配置快照"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
       "evidence": [
         "docs/settings-review.md",
@@ -1123,9 +1180,12 @@
         "docs/settings-recovery-review.md",
         "docs/test-evidence/2026-10-11-settings-recovery-summary.json",
         "docs/settings-bindings-review.md",
-        "docs/test-evidence/2026-10-11-settings-bindings-summary.json"
+        "docs/test-evidence/2026-10-11-settings-bindings-summary.json",
+        "docs/p1-shell-review.md",
+        "docs/p1-shell-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
       ],
-      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed. Supervisor defects fixed with52 new portable cases; baseline51 had42 failures/9 passes, plus1 old committed-journal failure retained. Recovery branches/save admission and shared live refs now guarded. Windows real UI/DPAPI/ACL and all whole acceptance remain NotRun; no phase exit. Profile binding revocations separated from physical ciphertext retirement. Production SettingsRuntimeLink/RuntimeGate targeted cancellation and proven commit recovery notification portable paths verified by20 new cases; baseline14 had8 failures/6 passes. Actual App wiring compiled only; full P4 protocol factory/API dispatcher, Windows UI and whole D08 not delivered/NotRun. No stage exit. Late settings initialization extra case first failed, then fixed with final gate-lock current-version/disposed admission. Final21 new portable cases and687 .NET passed; prior20/686 evidence retained."
+      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed. Supervisor defects fixed with52 new portable cases; baseline51 had42 failures/9 passes, plus1 old committed-journal failure retained. Recovery branches/save admission and shared live refs now guarded. Windows real UI/DPAPI/ACL and all whole acceptance remain NotRun; no phase exit. Profile binding revocations separated from physical ciphertext retirement. Production SettingsRuntimeLink/RuntimeGate targeted cancellation and proven commit recovery notification portable paths verified by20 new cases; baseline14 had8 failures/6 passes. Actual App wiring compiled only; full P4 protocol factory/API dispatcher, Windows UI and whole D08 not delivered/NotRun. No stage exit. Late settings initialization extra case first failed, then fixed with final gate-lock current-version/disposed admission. Final21 new portable cases and687 .NET passed; prior20/686 evidence retained. P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
     },
     {
       "id": "B01",
@@ -2232,7 +2292,7 @@
         "使用醒目的模拟密钥，执行保存、导出、失败、崩溃恢复",
         "配置/日志/提示词/诊断/扩展中无明文模拟密钥；秘密文件为加密数据"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
       "evidence": [
         "docs/settings-review.md",
@@ -2241,9 +2301,12 @@
         "docs/settings-recovery-review.md",
         "docs/test-evidence/2026-10-11-settings-recovery-summary.json",
         "docs/settings-bindings-review.md",
-        "docs/test-evidence/2026-10-11-settings-bindings-summary.json"
+        "docs/test-evidence/2026-10-11-settings-bindings-summary.json",
+        "docs/p1-shell-review.md",
+        "docs/p1-shell-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
       ],
-      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed. Supervisor defects fixed with52 new portable cases; baseline51 had42 failures/9 passes, plus1 old committed-journal failure retained. Recovery branches/save admission and shared live refs now guarded. Windows real UI/DPAPI/ACL and all whole acceptance remain NotRun; no phase exit. Profile binding revocations separated from physical ciphertext retirement. Production SettingsRuntimeLink/RuntimeGate targeted cancellation and proven commit recovery notification portable paths verified by20 new cases; baseline14 had8 failures/6 passes. Actual App wiring compiled only; full P4 protocol factory/API dispatcher, Windows UI and whole D08 not delivered/NotRun. No stage exit. Late settings initialization extra case first failed, then fixed with final gate-lock current-version/disposed admission. Final21 new portable cases and687 .NET passed; prior20/686 evidence retained."
+      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed. Supervisor defects fixed with52 new portable cases; baseline51 had42 failures/9 passes, plus1 old committed-journal failure retained. Recovery branches/save admission and shared live refs now guarded. Windows real UI/DPAPI/ACL and all whole acceptance remain NotRun; no phase exit. Profile binding revocations separated from physical ciphertext retirement. Production SettingsRuntimeLink/RuntimeGate targeted cancellation and proven commit recovery notification portable paths verified by20 new cases; baseline14 had8 failures/6 passes. Actual App wiring compiled only; full P4 protocol factory/API dispatcher, Windows UI and whole D08 not delivered/NotRun. No stage exit. Late settings initialization extra case first failed, then fixed with final gate-lock current-version/disposed admission. Final21 new portable cases and687 .NET passed; prior20/686 evidence retained. P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
     },
     {
       "id": "L02",
@@ -2253,9 +2316,14 @@
         "未启用、排除应用、首次未授权、新服务 origin",
         "被动请求均被阻止；改 origin 重新确认；不从相似域名继承授权"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p1-shell-review.md",
+        "docs/p1-shell-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
+      ],
+      "note": " P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
     },
     {
       "id": "L03",
@@ -2265,9 +2333,14 @@
         "原文、图像和译文生成后检查用户数据目录，随后清空/退出",
         "不默认持久化内容；内存对象按生命周期释放；日志无正文"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p1-shell-review.md",
+        "docs/p1-shell-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
+      ],
+      "note": " P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
     },
     {
       "id": "L04",
@@ -2307,7 +2380,7 @@
         "配置写入中断、磁盘写满、未知未来 schema",
         "原配置可恢复；不静默清空秘密；未来格式不被旧程序覆盖"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
       "evidence": [
         "docs/settings-review.md",
@@ -2316,9 +2389,12 @@
         "docs/settings-recovery-review.md",
         "docs/test-evidence/2026-10-11-settings-recovery-summary.json",
         "docs/settings-bindings-review.md",
-        "docs/test-evidence/2026-10-11-settings-bindings-summary.json"
+        "docs/test-evidence/2026-10-11-settings-bindings-summary.json",
+        "docs/p1-shell-review.md",
+        "docs/p1-shell-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
       ],
-      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed. Supervisor defects fixed with52 new portable cases; baseline51 had42 failures/9 passes, plus1 old committed-journal failure retained. Recovery branches/save admission and shared live refs now guarded. Windows real UI/DPAPI/ACL and all whole acceptance remain NotRun; no phase exit. Profile binding revocations separated from physical ciphertext retirement. Production SettingsRuntimeLink/RuntimeGate targeted cancellation and proven commit recovery notification portable paths verified by20 new cases; baseline14 had8 failures/6 passes. Actual App wiring compiled only; full P4 protocol factory/API dispatcher, Windows UI and whole D08 not delivered/NotRun. No stage exit. Late settings initialization extra case first failed, then fixed with final gate-lock current-version/disposed admission. Final21 new portable cases and687 .NET passed; prior20/686 evidence retained."
+      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed. Supervisor defects fixed with52 new portable cases; baseline51 had42 failures/9 passes, plus1 old committed-journal failure retained. Recovery branches/save admission and shared live refs now guarded. Windows real UI/DPAPI/ACL and all whole acceptance remain NotRun; no phase exit. Profile binding revocations separated from physical ciphertext retirement. Production SettingsRuntimeLink/RuntimeGate targeted cancellation and proven commit recovery notification portable paths verified by20 new cases; baseline14 had8 failures/6 passes. Actual App wiring compiled only; full P4 protocol factory/API dispatcher, Windows UI and whole D08 not delivered/NotRun. No stage exit. Late settings initialization extra case first failed, then fixed with final gate-lock current-version/disposed admission. Final21 new portable cases and687 .NET passed; prior20/686 evidence retained. P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
     },
     {
       "id": "L07",

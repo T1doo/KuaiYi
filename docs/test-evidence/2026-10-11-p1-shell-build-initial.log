@@ -1,0 +1,19 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+/workspace/KuaiYi/src/KuaiYi.Core/ShellLifecycle.cs(47,114): error CS1503: Argument 2: cannot convert from 'System.Threading.CancellationToken' to 'KuaiYi.Core.Settings.SettingsRecovery' [/workspace/KuaiYi/src/KuaiYi.Core/KuaiYi.Core.csproj]
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+
+Build FAILED.
+
+/workspace/KuaiYi/src/KuaiYi.Core/ShellLifecycle.cs(47,114): error CS1503: Argument 2: cannot convert from 'System.Threading.CancellationToken' to 'KuaiYi.Core.Settings.SettingsRecovery' [/workspace/KuaiYi/src/KuaiYi.Core/KuaiYi.Core.csproj]
+    0 Warning(s)
+    1 Error(s)
+
+Time Elapsed 00:00:03.40
+Exception: /workspace/KuaiYi/scripts/common.ps1:7
+Line |
+   7 |  … CODE -ne 0) { throw "$Command failed with exit code $LASTEXITCODE." }
+     |                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | dotnet failed with exit code 1.

@@ -26,7 +26,8 @@ internal sealed partial class SettingsWindow:Window
     private readonly PasswordBox password=new(){MaxLength=8192};private readonly TextBox reveal=new(){MaxLength=8192,Visibility=Visibility.Collapsed};
     private readonly CheckBox stream=new(){Content="流式输出"};private readonly TextBlock keyStatus=new();
     private readonly DispatcherTimer revealTimer=new(){Interval=TimeSpan.FromSeconds(5)};
-    private string? selectedId;private bool loading,saving,committed,changingRecovery;
+    private string? selectedId;private bool loading,saving,committed,changingRecovery,closeWhenSettled;
+    public void RequestCloseWhenSettled(){closeWhenSettled=true;Mask();Close();}
     public SettingsWindow(SettingsCoordinator coordinator,SettingsDraft initialDraft)
     {
         this.coordinator=coordinator;recoveryDraft=new(initialDraft);SetupPlacement();Title="快译设置";ShowInTaskbar=false;WindowStartupLocation=WindowStartupLocation.CenterOwner;
@@ -52,7 +53,7 @@ internal sealed partial class SettingsWindow:Window
     private static StackPanel Page()=>new(){Margin=new Thickness(16)};
     private static void Field(Panel panel,string label,UIElement input){panel.Children.Add(new TextBlock{Text=label,Margin=new Thickness(0,10,0,4)});panel.Children.Add(input);}
     private static void Note(Panel panel,string text)=>panel.Children.Add(new TextBlock{Text=text,TextWrapping=TextWrapping.Wrap,Margin=new Thickness(0,8,0,8)});
-    private StackPanel General(){var p=Page();Note(p,"启动始终未启用翻译。保存设置不恢复 On。开机启动与托盘入口将随完整应用骨架交付，本页不进行系统注册。");return p;}
+    private StackPanel General(){var p=Page();Note(p,"启动始终未启用翻译。保存设置不恢复 On。主浮钮和托盘使用同一启停状态；隐藏会停用。开机启动注册尚待安装集成验证，本页不进行系统注册。");return p;}
     private StackPanel Api()
     {
         var p=Page();Field(p,"配置",profiles);var row=new StackPanel{Orientation=Orientation.Horizontal};var add=new Button{Content="新增配置",Margin=new Thickness(4)};var remove=new Button{Content="删除此配置（保存后生效）",Margin=new Thickness(4)};row.Children.Add(add);row.Children.Add(remove);p.Children.Add(row);
@@ -126,6 +127,6 @@ internal sealed partial class SettingsWindow:Window
         }
         catch(Exception error){status.Text=error is SettingsValidationException v?"请检查设置项："+v.Field:error is SettingsConflictException?"配置已被另一份草稿修改。请取消后重新打开，避免覆盖。":draft.IsClosed?"配置已提交，通知或密钥清理尚需恢复。关闭后重新打开设置进行核对。":"保存未确认 · "+error.GetType().Name+"；原配置或事务保留。";}
         finally{saving=false;if(!draft.IsClosed)save.IsEnabled=cancel.IsEnabled=body.IsEnabled=recovery.IsEnabled=!draft.Basis.ReadOnly;else cancel.IsEnabled=true;}
-        if(committed)Close();
+        if(committed||closeWhenSettled)Close();
     }
 }

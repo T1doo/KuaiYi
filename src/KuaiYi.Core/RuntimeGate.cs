@@ -26,6 +26,8 @@ public readonly record struct EndpointOrigin
 /// <summary>Thread-safe eligibility and late-event gate. Platform acquisition and each provider send must check it.</summary>
 public sealed partial class RuntimeGate
 {
+    private readonly bool requireProfileBinding;
+    public RuntimeGate(bool requireProfileBinding=false){this.requireProfileBinding=requireProfileBinding;}
     private readonly object sync = new();
     private readonly HashSet<EndpointOrigin> consented = [];
     private CancellationTokenSource? activeCancellation;
@@ -49,6 +51,7 @@ public sealed partial class RuntimeGate
         if (string.IsNullOrEmpty(origin.Value)) throw new ArgumentException("Missing origin.", nameof(origin));
         lock (sync) consented.Add(origin);
     }
+    public bool HasConsentTo(EndpointOrigin origin){lock(sync)return !string.IsNullOrEmpty(origin.Value)&&consented.Contains(origin);}
 
     public bool TryEnable(EndpointOrigin origin, bool configurationValid)
     {
@@ -213,6 +216,7 @@ public sealed partial class RuntimeGate
             cancellation = default;
             if (sessionId == Guid.Empty || versionId == Guid.Empty || activation != Activation.On ||
                 suspension.HasFlag(Suspension.SessionLocked)) return false;
+            if(requireProfileBinding&&!localOnly&&binding==null)return false;
             if(binding is {} selected&&(localOnly||string.IsNullOrEmpty(selected.ProfileId)||selected.BindingId==Guid.Empty||!profileBindings.TryGetValue(selected.ProfileId,out var currentBinding)||currentBinding!=selected))return false;
             if (passiveTicket is { } ticket && (localOnly || ticket.Epoch != epoch || ticket.Mode != mode || suspension != Suspension.None)) return false;
             previous = activeCancellation;
@@ -261,7 +265,7 @@ public sealed partial class RuntimeGate
 
     public bool CanSend(RequestIdentity identity, EndpointOrigin actualOrigin)
     {
-        lock (sync) return activation == Activation.On && !localOnly && active == identity && consented.Contains(actualOrigin) &&
+        lock (sync) return activation == Activation.On && !localOnly && HasSendBindingLocked() && active == identity && consented.Contains(actualOrigin) &&
             !suspension.HasFlag(Suspension.SessionLocked) && activeCancellation is { IsCancellationRequested: false };
     }
 
@@ -272,7 +276,7 @@ public sealed partial class RuntimeGate
         lock (sync)
         {
             task = null;
-            if (activation != Activation.On || localOnly || active != identity || !consented.Contains(actualOrigin) ||
+            if (activation != Activation.On || localOnly || !HasSendBindingLocked() || active != identity || !consented.Contains(actualOrigin) ||
                 suspension.HasFlag(Suspension.SessionLocked) || activeCancellation is not { IsCancellationRequested: false }) return false;
             task = begin();
             return true;

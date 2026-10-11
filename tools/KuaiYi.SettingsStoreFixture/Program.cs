@@ -2,6 +2,11 @@ using System.Security.Cryptography;
 using System.Collections.Immutable;
 using KuaiYi.Core.Settings;
 // Public synthetic portable crash driver; never referenced by production App.
+if(args.Length==3&&args[0]=="--instance"&&int.TryParse(args[2],out int session))
+{
+    using var instance=new KuaiYi.Core.SessionSingleInstance(args[1],session);Console.WriteLine(instance.IsOwner?"OWNER":"SECONDARY");Console.Out.Flush();
+    if(instance.IsOwner)Console.ReadLine();return instance.IsOwner?0:4;
+}
 if(args.SequenceEqual(new[]{"--schema"})){Console.WriteLine(SettingsJson.Schema().ToJsonString(SettingsJson.Options));return 0;}
 if(args.SequenceEqual(new[]{"--defaults"})){Console.WriteLine(System.Text.Encoding.UTF8.GetString(SettingsJson.Write(new())));return 0;}
 if(args.Length is not (2 or 3)||(args.Length==3&&args[2]!="remove-shared")||!Path.GetFileName(args[0]).StartsWith("kuaiyi-settings-tests-",StringComparison.Ordinal)||!Enum.TryParse<SettingsWriteStage>(args[1],out var stopAt))return 2;

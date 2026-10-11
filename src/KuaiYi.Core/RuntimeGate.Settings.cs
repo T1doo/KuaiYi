@@ -6,6 +6,7 @@ public sealed partial class RuntimeGate
 {
     private Dictionary<string,RequestProfileBinding> profileBindings=new(StringComparer.Ordinal);
     private RequestProfileBinding? activeProfileBinding;
+    private bool HasSendBindingLocked()=>!requireProfileBinding||activeProfileBinding is {} binding&&profileBindings.TryGetValue(binding.ProfileId,out var current)&&current==binding;
     public bool TryGetProfileBinding(string profileId,out RequestProfileBinding binding)
     {lock(sync){binding=default;return !string.IsNullOrEmpty(profileId)&&profileBindings.TryGetValue(profileId,out binding);}}
     public bool TryStartProfileRequest(RequestProfileBinding binding,Guid sessionId,Guid versionId,CaptureTicket? passiveTicket,
