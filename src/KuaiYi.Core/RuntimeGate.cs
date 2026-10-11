@@ -301,6 +301,11 @@ public sealed partial class RuntimeGate
     {
         lock (sync) { presentation = Presentation.Compact; manuallyCollapsedRequest = active?.RequestId; }
     }
+    public bool TryPeek(bool show)
+    {
+        lock(sync)
+        {if(suspension.HasFlag(Suspension.SessionLocked)||presentation==Presentation.Hidden)return false;if(show&&presentation!=Presentation.Compact||!show&&presentation!=Presentation.Peek)return false;presentation=show?Presentation.Peek:Presentation.Compact;return true;}
+    }
 
     public bool TryRevealDelta(RequestIdentity identity)
     {
@@ -313,7 +318,9 @@ public sealed partial class RuntimeGate
     }
 
     public void Reopen(bool hasCachedResult)
+        =>TryReopen(hasCachedResult);
+    public bool TryReopen(bool hasCachedResult)
     {
-        lock (sync) { if (hasCachedResult) presentation = Presentation.Expanded; }
+        lock (sync) { if(!hasCachedResult||presentation==Presentation.Hidden||suspension.HasFlag(Suspension.SessionLocked))return false;presentation = Presentation.Expanded;return true; }
     }
 }

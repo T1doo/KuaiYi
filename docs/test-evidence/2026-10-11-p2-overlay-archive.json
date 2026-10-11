@@ -1,0 +1,24 @@
+{
+  "archive": "artifacts/KuaiYi-P2-overlay-managed-win-x64.zip",
+  "bytes": 1445739,
+  "sha256": "0f59b4deb79b48fd34bb9fa790e3c48eb87eb9500768da8c1bbef0cdf4df6832",
+  "files": 68,
+  "appFiles": 39,
+  "publicProbeFiles": 25,
+  "actualPe32PlusX64Hosts": [
+    "app/KuaiYi.App.exe",
+    "app/KuaiYi.CaptureHost.exe",
+    "app/KuaiYi.ImageWorker.exe",
+    "app/KuaiYi.NativeHost.exe",
+    "app/KuaiYi.OleReceiver.exe",
+    "public-probe/KuaiYi.App.exe",
+    "public-probe/KuaiYi.GrowthHarness.exe",
+    "public-probe/KuaiYi.NativeHost.exe"
+  ],
+  "manifestHashes": "Pass",
+  "installer": false,
+  "WindowsRuntime": "NotRun",
+  "NativeDlls": "NotIncluded",
+  "ModelCalls": "None",
+  "Credentials": "NotIncluded"
+}

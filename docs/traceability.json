@@ -16,9 +16,12 @@
       "evidence": [
         "docs/p1-shell-review.md",
         "docs/p1-shell-windows-checklist.md",
-        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json",
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
       ],
-      "note": " P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
+      "note": " P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed. P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "R02",
@@ -66,9 +69,13 @@
         "B、G"
       ],
       "implementationStatus": "InProgress",
-      "validationStatus": "NotRun",
-      "evidence": [],
-      "note": "Core/protocol contract only. Complete product requirement not yet validated."
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": "Core/protocol contract only. Complete product requirement not yet validated. P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "R05",
@@ -92,9 +99,12 @@
         "docs/test-evidence/2026-10-11-settings-bindings-summary.json",
         "docs/p1-shell-review.md",
         "docs/p1-shell-windows-checklist.md",
-        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json",
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
       ],
-      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed. Supervisor defects fixed with52 new portable cases; baseline51 had42 failures/9 passes, plus1 old committed-journal failure retained. Recovery branches/save admission and shared live refs now guarded. Windows real UI/DPAPI/ACL and all whole acceptance remain NotRun; no phase exit. Profile binding revocations separated from physical ciphertext retirement. Production SettingsRuntimeLink/RuntimeGate targeted cancellation and proven commit recovery notification portable paths verified by20 new cases; baseline14 had8 failures/6 passes. Actual App wiring compiled only; full P4 protocol factory/API dispatcher, Windows UI and whole D08 not delivered/NotRun. No stage exit. Late settings initialization extra case first failed, then fixed with final gate-lock current-version/disposed admission. Final21 new portable cases and687 .NET passed; prior20/686 evidence retained. P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
+      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed. Supervisor defects fixed with52 new portable cases; baseline51 had42 failures/9 passes, plus1 old committed-journal failure retained. Recovery branches/save admission and shared live refs now guarded. Windows real UI/DPAPI/ACL and all whole acceptance remain NotRun; no phase exit. Profile binding revocations separated from physical ciphertext retirement. Production SettingsRuntimeLink/RuntimeGate targeted cancellation and proven commit recovery notification portable paths verified by20 new cases; baseline14 had8 failures/6 passes. Actual App wiring compiled only; full P4 protocol factory/API dispatcher, Windows UI and whole D08 not delivered/NotRun. No stage exit. Late settings initialization extra case first failed, then fixed with final gate-lock current-version/disposed admission. Final21 new portable cases and687 .NET passed; prior20/686 evidence retained. P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed. P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "R06",
@@ -287,9 +297,12 @@
         "docs/test-evidence/2026-10-11-protocol-boundaries-summary.json",
         "docs/p1-shell-review.md",
         "docs/p1-shell-windows-checklist.md",
-        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json",
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
       ],
-      "note": "Offline subitems only, including obsolete error and destination queue identity checks; whole product requirement/task is not Pass. P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
+      "note": "Offline subitems only, including obsolete error and destination queue identity checks; whole product requirement/task is not Pass. P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed. P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "R18",
@@ -546,9 +559,14 @@
         "实现强类型坐标、屏幕拓扑服务、纯函数 LayoutPlanner",
         "方向、边界和小屏属性测试"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": []
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "P2-02",
@@ -558,9 +576,14 @@
         "实现锚点固定的 HWND 边界更新、命中区域和阴影",
         "实际透明区域不拦截桌面输入"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": []
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "P2-03",
@@ -570,9 +593,14 @@
         "实现最初展开、单向流式增高、稳定宽度与内容裁切",
         "GrowthController；可调流速 Harness"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": []
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "P2-04",
@@ -582,9 +610,14 @@
         "实现收起、缓存回看、悬停工具、滚动位置保留",
         "完整浮窗操作链，不依赖模型网络"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": []
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "P2-05",
@@ -594,9 +627,14 @@
         "实现跨屏拖动、DPI/任务栏变化、布局冻结与重新规划",
         "多屏测试脚本和录像"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": []
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "P2-06",
@@ -606,9 +644,14 @@
         "实现减少动画、高对比度、键盘阅读入口",
         "可访问性基础报告"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": []
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "P3-01",
@@ -1077,9 +1120,12 @@
       "evidence": [
         "docs/p1-shell-review.md",
         "docs/p1-shell-windows-checklist.md",
-        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json",
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
       ],
-      "note": " P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
+      "note": " P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed. P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "A04",
@@ -1094,9 +1140,12 @@
       "evidence": [
         "docs/p1-shell-review.md",
         "docs/p1-shell-windows-checklist.md",
-        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json",
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
       ],
-      "note": " P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
+      "note": " P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed. P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "A05",
@@ -1106,9 +1155,14 @@
         "结果完成后收起，再通过回看入口展开三次",
         "每次内容、版本一致；新增模型请求数为 0"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "A06",
@@ -1118,9 +1172,14 @@
         "流式中收起，保持不操作直到完成",
         "主按钮仍绿色；后台只完成当前请求；不得自动弹开；回看显示完整缓存"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "A07",
@@ -1130,9 +1189,14 @@
         "收起后接受一段不同的有效原文",
         "新请求可自动展开；只展示新会话；取词失败则保留原结果"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "A08",
@@ -1142,9 +1206,14 @@
         "Off 时回看旧结果，点击重新生成；随后显式截图",
         "回看不启用；重新生成提示先启用；截图必须经启用确认才上传"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "A09",
@@ -1159,9 +1228,12 @@
       "evidence": [
         "docs/p1-shell-review.md",
         "docs/p1-shell-windows-checklist.md",
-        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json",
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
       ],
-      "note": " P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
+      "note": " P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed. P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "A10",
@@ -1195,9 +1267,14 @@
         "在 1920×1080 测试屏四角，按钮分别贴安全边界；发送长流",
         "左上向右下、右上向左下、左下向右上、右下向左上；全帧不越界"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "B02",
@@ -1207,9 +1284,14 @@
         "按钮位于四边中点和中央，逐一生成",
         "选择可容纳正文方向；按钮屏幕位置保持；方向在同一生成中不反复切换"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "B03",
@@ -1219,9 +1301,14 @@
         "工作区左右单侧不足 320 DIP、整体足够；按钮居中",
         "使用横向平衡布局；正文不被按钮穿插；全部边界合法"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "B04",
@@ -1231,9 +1318,14 @@
         "无 token 等待 800 ms，再输入首批中文",
         "先轻量等待提示，非巨大空白；正文到达后按最终排版宽度生长"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "B05",
@@ -1243,9 +1335,14 @@
         "分别以 5、30、100 字/秒和突发 2,000 字输入",
         "合并测量有界；正文无反复换行抖动；同版本高度单调至上限"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "B06",
@@ -1255,9 +1352,14 @@
         "生长到上限，用户向上滚动；继续输入",
         "外框不越界；阅读位置保持；新内容提示有效；回底部后恢复跟随"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "B07",
@@ -1267,9 +1369,14 @@
         "收起/展开连续 50 次，包含动画中反向操作",
         "没有负尺寸、闪烁或锚点漂移；最终状态与最后操作一致"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "B08",
@@ -1279,9 +1386,14 @@
         "在展开态拖动，生成继续；拖到另一显示器后松开",
         "正文增长不改变拖动尺寸；跨屏安全调整除外；松开重新规划；缓存不丢、不串流"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "B09",
@@ -1291,9 +1403,14 @@
         "点击浮窗外紧邻圆角、阴影区域及其原来最大尺寸区域",
         "点击进入底层应用；不存在不可见的大型置顶命中矩形"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "B10",
@@ -1303,9 +1420,14 @@
         "开启减少动画、高对比度，200% 文本大小",
         "减少动画被遵守；状态不是只靠红绿；关键操作可访问、无裁切"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "B11",
@@ -1315,9 +1437,14 @@
         "悬停主按钮进入工具条，再移到齿轮；不操作后离开",
         "设置按钮可稳定点击；不因跨越按钮边缘立即消失；静置恢复单按钮"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "B12",
@@ -1327,9 +1454,14 @@
         "长代码、表格、超长无空格串、中文标点与公式",
         "内部滚动/换行合理；不能撑出屏幕；来源结构不被无条件压平"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "C01",
@@ -1806,9 +1938,14 @@
         "两屏分别 100%/150%、125%/200% 缩放，副屏在左侧或上方",
         "坐标转换准确；负坐标无裁切；选择当前按钮所在屏幕工作区"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "G02",
@@ -1818,9 +1955,14 @@
         "生成期间移动任务栏、改变分辨率、拔掉按钮所在显示器",
         "取消旧几何过渡并合法安置；按钮可找回；无窗口留在不可见位置"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "G03",
@@ -1830,9 +1972,14 @@
         "在编辑器选词后立即继续输入；快译自动出现结果",
         "前台窗口/输入焦点不被抢；输入仍到原编辑器"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "G04",
@@ -1842,9 +1989,14 @@
         "用 GrowthHarness 测实际文字生长、连续收起与展开",
         "达到第 15 章帧时间、锚点、越界及输入延迟指标"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p2-overlay-review.md",
+        "docs/p2-overlay-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+      ],
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
     },
     {
       "id": "G05",

@@ -13,7 +13,7 @@ using KuaiYi.Windows;
 using DpiScale=KuaiYi.Core.DpiScale;
 namespace KuaiYi.App;
 /// <summary>P1 production startup; platform experiments remain behind --platform-review.</summary>
-internal sealed class ShellWindow:Window
+internal sealed partial class ShellWindow:Window
 {
     private readonly Button button=new(){Content="译",FontSize=18,Foreground=Brushes.White,Background=Brushes.Firebrick,BorderThickness=new Thickness(0)};
     private readonly ShellLifecycle lifecycle;private readonly SettingsCoordinator coordinator;
@@ -21,14 +21,14 @@ internal sealed class ShellWindow:Window
     private readonly uint showMessage;private NativeTray? tray;private nint hwnd;private PixelRect anchor;private DpiScale gestureDpi;
     private SettingsWindow? settings;private Task startup=Task.CompletedTask,positionSave=Task.CompletedTask;private bool opening,exiting,allowClose,placementPending,geometryReady;
     private OverlayPosition? pendingPosition;private bool pointerFinished,exitRequested,positionTouched;private MonitorGeometry? anchorMonitor;
-    public ShellWindow(string instanceScope)
+    public ShellWindow(string instanceScope,SettingsCoordinator? suppliedCoordinator=null)
     {
         string root=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"KuaiYi");
-        coordinator=new(new SettingsStore(Path.Combine(root,"config")),new SecretFileStore(Path.Combine(root,"secrets"),new CurrentUserDpapiProtector(),new CurrentUserSecretDirectory()));
+        coordinator=suppliedCoordinator??new(new SettingsStore(Path.Combine(root,"config")),new SecretFileStore(Path.Combine(root,"secrets"),new CurrentUserDpapiProtector(),new CurrentUserSecretDirectory()));
         lifecycle=new(coordinator);showMessage=NativeTray.ShowMessage(instanceScope);
         Title="快译";Width=Height=48;WindowStyle=WindowStyle.None;ResizeMode=ResizeMode.NoResize;ShowInTaskbar=false;ShowActivated=false;Topmost=true;
-        Content=button;AutomationProperties.SetName(button,"快译：未启用翻译");button.ToolTip="未启用翻译 · 右键打开设置";
-        var menu=new ContextMenu();Add("启用 / 停用翻译",Toggle);Add("设置",()=>_=OpenSettings());Add("隐藏浮窗（同时停用）",HideOverlay);Add("聚焦浮窗",FocusOverlay);Add("退出",Close);
+        SetupPresentation();AutomationProperties.SetName(button,"快译：未启用翻译");button.ToolTip="未启用翻译 · 右键打开设置";
+        var menu=new ContextMenu();Add("启用 / 停用翻译",Toggle);Add("回看当前结果",ReopenResult);Add("收起",CollapseResult);Add("停止生成",StopResult);Add("复制结果",CopyResult);Add("设置",()=>_=OpenSettings());Add("隐藏浮窗（同时停用）",HideOverlay);Add("聚焦浮窗",FocusOverlay);Add("退出",Close);
         button.ContextMenu=menu;
         void Add(string text,Action action){var item=new MenuItem{Header=text};item.Click+=(_,_)=>action();menu.Items.Add(item);}
         SourceInitialized+=(_,_)=>
@@ -44,7 +44,7 @@ internal sealed class ShellWindow:Window
             if(exiting||!geometryReady||!NativeDesktop.GetCursorPos(out var p))return;
             gestureDpi=MonitorTopology.Read().At(anchor).Dpi;
             if(gesture.Down(new(p.X,p.Y),anchor,true)==OverlayPointerAction.Pressed)
-            {pointerFinished=false;lifecycle.Gate.SetSuspension(Suspension.Moving,true);if(!button.CaptureMouse())throw new InvalidOperationException("Pointer capture failed.");e.Handled=true;}
+            {pointerFinished=false;lifecycle.Gate.SetSuspension(Suspension.Moving,true);BeginOverlayMove();if(!button.CaptureMouse())throw new InvalidOperationException("Pointer capture failed.");e.Handled=true;}
         });
         button.PreviewMouseMove+=(_,e)=>Pointer(()=>
         {
@@ -52,12 +52,12 @@ internal sealed class ShellWindow:Window
             var action=gesture.Move(new(p.X,p.Y),out var desired,gestureDpi.CeilingPixels(SystemParameters.MinimumHorizontalDragDistance),gestureDpi.CeilingPixels(SystemParameters.MinimumVerticalDragDistance),gestureDpi);
             if(action!=OverlayPointerAction.Moved)return;
             positionTouched=true;
-            try{var monitors=MonitorTopology.Read();anchorMonitor=monitors.At(new(desired.X,desired.Y,desired.X+anchor.Width,desired.Y+anchor.Height));anchor=NativeDesktop.ClampAnchor(new(desired.X,desired.Y,desired.X+anchor.Width,desired.Y+anchor.Height),anchorMonitor);ApplyAnchor();}
+            try{MoveOverlay(desired,MonitorTopology.Read());}
             catch(Exception error){CancelPointer();Report("移动位置校验失败",error);}e.Handled=true;
         });
         button.PreviewMouseLeftButtonUp+=(_,e)=>Pointer(()=>
         {
-            var action=gesture.Up();pointerFinished=true;button.ReleaseMouseCapture();lifecycle.Gate.SetSuspension(Suspension.Moving,false);e.Handled=true;
+            var action=gesture.Up();pointerFinished=true;button.ReleaseMouseCapture();lifecycle.Gate.SetSuspension(Suspension.Moving,false);EndOverlayMove();e.Handled=true;
             if(action==OverlayPointerAction.Clicked)Toggle();
             else if(action==OverlayPointerAction.Released){pendingPosition=CurrentPosition();QueuePositionSave();}
         });
@@ -79,14 +79,15 @@ internal sealed class ShellWindow:Window
     {
         if(exiting)return;
         if(!IsVisible)ShowOverlay();if(!IsVisible)return;
-        if(lifecycle.Gate.Snapshot.Activation==Activation.On){lifecycle.Gate.Disable();Refresh();return;}
+        if(lifecycle.Gate.Snapshot.Activation==Activation.On){lifecycle.Gate.Disable();StopPresentation();Refresh();return;}
         if(!lifecycle.TryPrepareEnable(out var intent,out var missing)){button.ToolTip=missing;_=OpenSettings();return;}
         bool consent=lifecycle.Gate.HasConsentTo(intent!.Origin)||MessageBox.Show(this,$"启用后，您主动提供的内容将发送到 {intent.Origin.Value}。\n当前触发模式：{(intent.Mode==TriggerMode.Selection?"选中文字":"拖放文字")}。\n是否允许本次会话使用此服务？","快译 · 数据发送说明",MessageBoxButton.OKCancel,MessageBoxImage.Information)==MessageBoxResult.OK;
         lifecycle.ConfirmEnable(intent!,consent);Refresh();
     }
     private void Refresh()
     {
-        bool on=lifecycle.Gate.Snapshot.Activation==Activation.On;button.Background=on?Brushes.ForestGreen:Brushes.Firebrick;
+        RefreshPresentationTheme();
+        bool on=lifecycle.Gate.Snapshot.Activation==Activation.On;button.Background=on?OverlayTokens.On:OverlayTokens.Off;UpdateButtonGlyph(on);
         AutomationProperties.SetName(button,on?"快译：已启用翻译":"快译：未启用翻译");button.ToolTip=on?"已启用翻译 · 单击停用":"未启用翻译 · 单击启用，右键设置";
         try{tray?.Update(on);}catch(Exception error){Report("托盘状态更新失败",error);}
     }
@@ -105,19 +106,19 @@ internal sealed class ShellWindow:Window
         catch(Exception error){lifecycle.Gate.SetSuspension(Suspension.Settings,false);Report("设置无法打开，原文件保留",error);}
         finally{opening=false;if(exitRequested)_=Dispatcher.BeginInvoke(Close);}
     }
-    private void HideOverlay(){CancelPointer();lifecycle.Hide();Hide();Refresh();}
+    private void HideOverlay(){CancelPointer();lifecycle.Hide();HidePresentation(false);Hide();Refresh();}
     private void ShowOverlay()
     {
         if(exiting||lifecycle.Gate.Snapshot.Suspension.HasFlag(Suspension.SessionLocked))return;
         if(!IsVisible){lifecycle.Show();Reposition(CurrentPosition());if(geometryReady)Show();}Refresh();
     }
-    private void FocusOverlay(){ShowOverlay();if(!IsVisible)return;NativeDesktop.SetOverlayStyle(hwnd,true);Activate();button.Focus();}
+    private void FocusOverlay(){ShowOverlay();if(!IsVisible)return;NativeDesktop.SetOverlayStyle(hwnd,true);Activate();if(overlayFrames?.IsExpanded==true&&overlayResults.HasText)body.Focus();else button.Focus();}
     private OverlayPosition? CurrentPosition()=>geometryReady&&anchorMonitor!=null?OverlayPositionMapper.Capture(anchor,anchorMonitor):lifecycle.Settings?.Data.Overlay.LastPosition;
     private void SessionSwitch(object sender,Microsoft.Win32.SessionSwitchEventArgs e)
     {
         if(e.Reason is not (Microsoft.Win32.SessionSwitchReason.SessionLock or Microsoft.Win32.SessionSwitchReason.SessionUnlock))return;
         bool locked=e.Reason==Microsoft.Win32.SessionSwitchReason.SessionLock;lifecycle.SetSessionLocked(locked); // Synchronous gate invalidation precedes queued UI.
-        Dispatcher.BeginInvoke(()=>{if(exiting)return;CancelPointer();if(locked){settings?.RequestCloseWhenSettled();Hide();}else ShowOverlay();Refresh();});
+        Dispatcher.BeginInvoke(()=>{if(exiting)return;CancelPointer();if(locked){settings?.RequestCloseWhenSettled();HidePresentation(true);Hide();}else ShowOverlay();Refresh();});
     }
     private nint Hook(nint window,int message,nint w,nint l,ref bool handled)
     {
@@ -131,24 +132,26 @@ internal sealed class ShellWindow:Window
                 if(eventCode==0x007b){switch(tray!.Menu(lifecycle.Gate.Snapshot.Activation==Activation.On,IsVisible)){case 1:Toggle();break;case 2:if(IsVisible)HideOverlay();else ShowOverlay();break;case 3:_=OpenSettings();break;case 4:FocusOverlay();break;case 5:Close();break;}}
                 else if(eventCode is 0x0400 or 0x0401)ShowOverlay();
             }
-            else if(message is 0x02e0 or 0x007e or 0x001a)SchedulePlacement();
+            else if(message==0x02e0)DpiPlacement();
+            else if(message is 0x007e or 0x001a)SchedulePlacement();
         }
         catch(Exception error){lifecycle.Gate.Disable();if(!IsVisible&&geometryReady&&!lifecycle.Gate.Snapshot.Suspension.HasFlag(Suspension.SessionLocked))Show();Refresh();Report("系统入口操作失败",error);}
         return 0;
     }
     private void SchedulePlacement()
     {
-        if(placementPending)return;placementPending=true;Dispatcher.BeginInvoke(DispatcherPriority.Background,()=>{placementPending=false;if(exiting)return;CancelPointer();Reposition(CurrentPosition());});
+        if(placementPending)return;placementPending=true;Dispatcher.BeginInvoke(DispatcherPriority.Loaded,()=>{placementPending=false;if(exiting)return;Pointer(DpiPlacement);});
     }
     private void Reposition(OverlayPosition? saved)
     {
         try{var monitors=MonitorTopology.Read();anchor=OverlayPositionMapper.Restore(saved,monitors.Monitors,monitors.PrimaryId);anchorMonitor=monitors.At(anchor);ApplyAnchor();geometryReady=true;}
         catch(Exception error){geometryReady=false;lifecycle.Hide();Dispatcher.BeginInvoke(()=>{Hide();Refresh();Report("当前屏幕无法容纳浮钮，请调整显示设置后从托盘恢复",error);});}
     }
-    private void ApplyAnchor()=>NativeDesktop.ApplyBounds(hwnd,anchor,anchor.Width/2,show:IsVisible);
+    private void ApplyAnchor()
+    {if(anchorMonitor==null)return;if(overlayFrames==null)overlayFrames=new(anchor,anchorMonitor);else{overlayFrames.Reanchor(anchor,anchorMonitor,Preferences());if(overlayFrames.IsExpanded&&!peek)overlayFrames.Open(MeasureBody(),Preferences());}ApplyOverlayFrame(forceNative:true);StartFrames();}
     private void Pointer(Action action)
     {try{action();}catch(Exception error){CancelPointer();lifecycle.Gate.Disable();Refresh();Report("浮钮操作失败",error);}}
-    private void CancelPointer(){gesture.Cancel();pointerFinished=true;button.ReleaseMouseCapture();lifecycle.Gate.SetSuspension(Suspension.Moving,false);}
+    private void CancelPointer(){bool moving=gesture.Active,changed=gesture.HasMoved;gesture.Cancel();pointerFinished=true;button.ReleaseMouseCapture();lifecycle.Gate.SetSuspension(Suspension.Moving,false);if(moving)EndOverlayMove();if(changed){pendingPosition=CurrentPosition();QueuePositionSave();}}
     private void QueuePositionSave()
     {
         if(opening||settings!=null||exiting||pendingPosition==null)return;
@@ -164,13 +167,13 @@ internal sealed class ShellWindow:Window
     {
         if(allowClose)return;e.Cancel=true;if(exiting)return;
         if(opening||settings!=null){exitRequested=true;lifecycle.Hide();Refresh();settings?.RequestCloseWhenSettled();button.ToolTip="正在等待设置草稿和原保存任务结束后退出。";return;}
-        QueuePositionSave();exiting=true;button.IsEnabled=false;CancelPointer();lifecycle.Hide();Refresh();
+        QueuePositionSave();exiting=true;button.IsEnabled=false;CancelPointer();lifecycle.Hide();HidePresentation(true);Refresh();
         try{await startup;await positionSave;allowClose=true;Close();}
         catch(Exception error){exiting=false;button.IsEnabled=true;Report("退出清理尚未完成",error);}
     }
     private void ClosedShell(object? sender,EventArgs e)
     {
-        Microsoft.Win32.SystemEvents.SessionSwitch-=SessionSwitch;coordinator.Committed-=SettingsCommitted;lifecycle.Dispose();lifetime.Cancel();lifetime.Dispose();
+        Microsoft.Win32.SystemEvents.SessionSwitch-=SessionSwitch;coordinator.Committed-=SettingsCommitted;DisposePresentation();lifecycle.Dispose();lifetime.Cancel();lifetime.Dispose();
         try{tray?.Dispose();}catch(Exception error){Console.Error.WriteLine("KuaiYi tray cleanup: "+error.GetType().Name);}
     }
     private void Report(string text,Exception error){button.ToolTip=text+" · "+error.GetType().Name;Console.Error.WriteLine("KuaiYi shell: "+error.GetType().Name);}

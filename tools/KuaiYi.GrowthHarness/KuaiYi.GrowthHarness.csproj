@@ -4,5 +4,5 @@
     <ApplicationManifest>../../src/KuaiYi.Windows/app.manifest</ApplicationManifest>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier><SelfContained>false</SelfContained>
   </PropertyGroup>
-  <ItemGroup><ProjectReference Include="../../src/KuaiYi.Windows/KuaiYi.Windows.csproj" /></ItemGroup>
+  <ItemGroup><ProjectReference Include="../../src/KuaiYi.Windows/KuaiYi.Windows.csproj" /><ProjectReference Include="../../src/KuaiYi.App/KuaiYi.App.csproj" /></ItemGroup>
 </Project>

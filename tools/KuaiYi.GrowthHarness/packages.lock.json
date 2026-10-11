@@ -2,6 +2,14 @@
   "version": 2,
   "dependencies": {
     "net10.0-windows7.0": {
+      "kuaiyi.app": {
+        "type": "Project",
+        "dependencies": {
+          "KuaiYi.Imaging": "[1.0.0, )",
+          "KuaiYi.NativeHost": "[1.0.0, )",
+          "KuaiYi.Windows": "[1.0.0, )"
+        }
+      },
       "kuaiyi.contracts": {
         "type": "Project"
       },
@@ -13,6 +21,12 @@
         "dependencies": {
           "KuaiYi.Contracts": "[1.0.0, )",
           "KuaiYi.Core": "[1.0.0, )"
+        }
+      },
+      "kuaiyi.nativehost": {
+        "type": "Project",
+        "dependencies": {
+          "KuaiYi.Imaging": "[1.0.0, )"
         }
       },
       "kuaiyi.oletransfer": {

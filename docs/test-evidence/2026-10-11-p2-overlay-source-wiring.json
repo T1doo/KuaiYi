@@ -1,0 +1,15 @@
+{
+  "kind": "Static source inspection, not actual Windows behavior",
+  "checks": {
+    "DpiKeepsGesture": true,
+    "UsesOriginalGrabFraction": true,
+    "FiftyMsCoalescing": true,
+    "MeasuredFinalWidth": true,
+    "ActualHwndSameView": true,
+    "FinalDestinationGate": true,
+    "ActualProbeUsesProductionView": true,
+    "NoProductionToolReference": true,
+    "NoPerFrameRegistryRead": true
+  },
+  "WindowsRuntime": "NotRun"
+}

@@ -235,3 +235,15 @@ P0 整体：**InProgress，真实 Windows 退出门槛 Blocked**。后续整阶�
 - 176追踪项完整，106整体验收仍NotRun；P0/E06 Blocked、P1 InProgress。详见p1-shell-review.md、p1-shell-windows-checklist.md及本轮summary/raw证据。
 
 - 最后补同一会话/域名许可复用，Off不重复弹说明；换域名和重启需重新确认。新增1例后重新全测Core634+Provider77=711/711、Node63/63、零失败/跳过，并再次locked托管构建与独立发布；旧23例/710回归和初包摘要另存pre-consent证据。
+
+## P2 实体浮窗与跨DPI拖动（监督限定继续）
+
+- 基线359cf26；断连通知后安全只读命令与构建会话实际成功，不用通知推定永久停工/恢复，不另建写入者。
+- 修WM_DPICHANGED取消drag导致不保存：保留手势、Moved和初始抓取比例，废弃旧动画后整体卡片夹紧/重基；松手不误触On并用原位置事务保存。监视器消失/取消/锁屏安全收束。
+- OverlayFrames/Results接实际ShellWindow/Canvas/TextBox/同HWND：220ms展开、180ms收起、80ms淡出，几何/opacity反向连续，50ms测量、冻结宽度/方向与移动尺寸，达上限滚动；回看不采集/发送/启用。
+- Hover、等待环/220DIP连接条、主题/高对比度/减少动画及键盘阅读接线。拖动时首批正文只缓存；普通主题变化不重开窗口。独立public-probe使用同一个生产Window，记录实际HWND/WPF按钮/前台，工具本身尚未在Windows运行。
+- 初24/24、扩31/31；补opacity/原抓取比例2例，最终34新增项全部通过。CI实跑Core668+Provider77=745/745、Node63/63，无失败/跳过。25托管工程locked Release零警告/错误；补空delta不算首正文1例后重新执行完整CI，再次locked审查发布。原33例/744回归及首包摘要保留为pre-empty-delta证据。
+- 2000合成事件序列为单个属性测试内循环，不冒充2000Windows验收项。原634+77+63用例和断言保持，唯一锁变更为GrowthHarness→App/NativeHost项目引用，无新增第三方包或安装。
+- CI入口新建且实际本地运行；远端workflow不存在/未跑，CI/Windows/安装声明分开。
+- 包1445739字节，SHA256 `0f59b4deb79b48fd34bb9fa790e3c48eb87eb9500768da8c1bbef0cdf4df6832`，68文件：生产app39、独立公开probe25；所有exe为PE32+ x64，manifest逐文件通过。非安装器，无原生DLL/真实凭据/模型调用。九旧审查ZIP大小/hash未变。
+- 269既有源码 + 新文件/CI入口独审冻结；176追踪项完整、106整体验收NotRun，P0/E06仍Blocked、P1/P2仍InProgress。详见p2-overlay-review及本轮summary/raw。

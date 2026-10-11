@@ -3,7 +3,7 @@
 不是 v1.0 完整验收或发布报告。环境与构建入口见 environment.md / README。
 
 - 原始规格 SHA256：`ea3aa6529405bcc703986988fd089f476ee8f991d867e2220b3b20c439126166`。
-- 当前离线自动化：Core 634、Provider 77，共 711；另有 Node 扩展 63 项，全部通过；最新证据见 p1-shell-summary；截图修正证据见 browser-ownership-summary。首批 57 项、探针批 88 项、迟到错误批 118 项及修复前失败证据分别保留。
+- 当前离线自动化：Core 668、Provider 77，共 745；另有 Node 扩展 63 项，全部通过；最新证据见 p2-overlay-summary；截图修正证据见 browser-ownership-summary。首批 57 项、探针批 88 项、迟到错误批 118 项及修复前失败证据分别保留。
 - 25 个托管项目 Release 交叉构建 0 警告/0 错误；五个探针 exe 已检查为 Windows PE32+ x64，框架依赖 ZIP 已生成。这是构建/打包部分证据，Windows 实际执行均未运行。
 - A—L 的 **106 条整体用例均为 NotRun**；已验证子项不能代替完整用例。
 - R01—R18 的产品完整实现均尚未完成；模块/阶段/用例组定义完整保存在 traceability.json。
@@ -57,3 +57,5 @@ OLE候选固定d4基线先复核源码/证据，再修原Run、原delivery读租
 最后复核补迟到初始化版本保护1例先失败后修复，21新增全部通过，最终.NET687/Node63；旧20及686证据保留。D08整体仍NotRun。
 
 P1实际启动骨架新增24项便携测试；生产配置读写和绑定取消链、实际子进程互斥/崩溃释放通过。跨用户/会话仅测试合成scope输入，真实Windows账户/SID/DACL隔离仍NotRun。启动浮钮/托盘、鼠标/DPI/锁屏/退出仅源码和编译已验证；P0/E06未过、P1未整体验收。详见p1-shell-review.md。
+
+P2新增34项核心用例，包含2000组固定种子合成事件序列（不是2000独立验收项），实际目的队列迟到事件、真实配置事务保存、原绑定取消链保持及缓存/opacity/拖动重基。全部便携用例通过；生产WPF及公开流同Window已交叉构建、未实机执行。P0/E06 Blocked、P1/P2 InProgress；B/G组、实际60fps/DPI/焦点/安装仍NotRun。

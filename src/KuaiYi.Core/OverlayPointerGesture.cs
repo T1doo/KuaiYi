@@ -3,12 +3,18 @@ public enum OverlayPointerAction { Ignored,Pressed,Moved,Clicked,Released }
 /// <summary>Fresh down on our real hit target starts movement. Passing an external held button never starts a gesture.</summary>
 public sealed class OverlayPointerGesture
 {
-    private bool pressed,moved;private PixelPoint began;private PixelRect anchor;
+    private bool pressed,moved;private PixelPoint began;private PixelRect anchor;private double grabX,grabY;
     public bool Active=>pressed;
+    public bool HasMoved=>moved;
+    /// <summary>Continue the same captured physical gesture after a DPI/work-area rebase. Geometry changes suppress click.</summary>
+    public bool Rebase(PixelPoint cursor,PixelRect current,bool geometryChanged)
+    {if(!pressed)return false;began=cursor;anchor=current;moved|=geometryChanged;return true;}
+    public bool TryDpiDesiredAnchor(PixelPoint cursor,DpiScale dpi,out PixelPoint desired)
+    {desired=default;if(!pressed)return false;int size=dpi.CeilingPixels(48);desired=new(checked(cursor.X-(int)Math.Round(grabX*size)),checked(cursor.Y-(int)Math.Round(grabY*size)));return true;}
     public OverlayPointerAction Down(PixelPoint point,PixelRect current,bool actualHwndHit)
     {
         if(pressed||!actualHwndHit||point.X<current.Left||point.X>=current.Right||point.Y<current.Top||point.Y>=current.Bottom)return OverlayPointerAction.Ignored;
-        began=point;anchor=current;pressed=true;moved=false;return OverlayPointerAction.Pressed;
+        began=point;anchor=current;grabX=(point.X-current.Left)/(double)current.Width;grabY=(point.Y-current.Top)/(double)current.Height;pressed=true;moved=false;return OverlayPointerAction.Pressed;
     }
     public OverlayPointerAction Move(PixelPoint point,out PixelPoint desired)
         =>MoveCore(point,out desired,5,5,true);
