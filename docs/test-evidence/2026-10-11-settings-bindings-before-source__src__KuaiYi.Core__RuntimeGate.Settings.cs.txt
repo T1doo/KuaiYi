@@ -1,0 +1,25 @@
+using KuaiYi.Core.Settings;
+namespace KuaiYi.Core;
+/// <summary>Opaque runtime binding identity; contains a secret reference, never secret bytes.</summary>
+public readonly record struct RequestProfileBinding(string ProfileId,string? SecretReference,Guid BindingId);
+public sealed partial class RuntimeGate
+{
+    private Dictionary<string,RequestProfileBinding> profileBindings=new(StringComparer.Ordinal);
+    private RequestProfileBinding? activeProfileBinding;
+    public bool TryGetProfileBinding(string profileId,out RequestProfileBinding binding)
+    {lock(sync)return profileBindings.TryGetValue(profileId,out binding);}
+    public bool TryStartProfileRequest(RequestProfileBinding binding,Guid sessionId,Guid versionId,CaptureTicket? passiveTicket,
+        out RequestIdentity identity,out CancellationToken cancellation)
+        =>TryStartRequestCore(sessionId,versionId,passiveTicket,binding,out identity,out cancellation);
+    public void ObserveSettingsMetadata(SettingsSnapshot snapshot)
+    {
+        if(snapshot.ReadOnly||snapshot.RequiresRecovery)return;
+        lock(sync)
+        {
+            var next=new Dictionary<string,RequestProfileBinding>(StringComparer.Ordinal);
+            foreach(var profile in snapshot.Data.Profiles)
+                next[profile.Id]=profileBindings.TryGetValue(profile.Id,out var old)&&old.SecretReference==profile.SecretRef?old:new(profile.Id,profile.SecretRef,Guid.NewGuid());
+            profileBindings=next;
+        }
+    }
+}

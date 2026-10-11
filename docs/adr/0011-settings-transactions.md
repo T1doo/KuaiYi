@@ -15,3 +15,5 @@ schema1 为当前完整配置定义；schema0 是明确、有限、未发行的�
 新引用采用key/随机GUID的不可变标识，避免覆盖旧密钥；规格示例的逻辑profile路径不是本切片的磁盘文件名。完整API配置导入及逻辑引用兼容不在本次交付范围，R05仍未整体完成。
 
 监督复核修正：恢复选择与其显示草稿由同一个所有者持有，备份/默认分支独立保留，原保存真实返回前锁定来源；非Int32 schema是损坏而未知合法Int32保全只读。共享秘密引用合法，退休及已提交journal恢复均扣除已保存配置仍使用的引用；最后引用移除才撤销。详见settings-recovery-review.md，Windows实机门槛不改变。
+
+后续绑定修正：物理秘密退休与profile旧绑定失效分别建模。运行时当前绑定有内存GUID，旧引用清除/替换或配置删除只取消对应身份，不全局Disable或吊销B共享密文。新schema2 journal保存绑定通知，所有订阅者均尝试接收；异常保留journal，证明提交后可重复通知。schema1兼容读取且仅据已知旧Effective推导变更，不伪造未知历史；未来journal保全。详见settings-bindings-review.md，P4正式调度及Windows实机仍未交付/未测。

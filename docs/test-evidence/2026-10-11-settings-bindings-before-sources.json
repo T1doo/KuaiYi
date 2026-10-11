@@ -1,0 +1,60 @@
+{
+  "baseCommit": "99146204a0259ac9d106da75a2ba80d2d96fc49d",
+  "extraction": "Added opaque request-binding admission metadata and extracted actual old SettingsFlow subscription into production SettingsRuntimeLink. Baseline retains global Disable only when old event HasDeletion is true, no binding change emission or recovery notification. These are portable production gate/link tests, not a WPF runtime test.",
+  "sourceDigests": [
+    {
+      "path": "src/KuaiYi.Core/RuntimeGate.cs",
+      "snapshot": "before-source__src__KuaiYi.Core__RuntimeGate.cs.txt",
+      "bytes": 13490,
+      "sha256": "a6a0d16d74eff1f2cdb2b23585f0029ea1b25274cf95c7ae66df930b7ce7c1de"
+    },
+    {
+      "path": "src/KuaiYi.Core/RuntimeGate.Settings.cs",
+      "snapshot": "before-source__src__KuaiYi.Core__RuntimeGate.Settings.cs.txt",
+      "bytes": 1480,
+      "sha256": "f82711d678cffbe53fdd99168469995228e45919b79cefa46396fc820af22722"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/SettingsRuntimeLink.cs",
+      "snapshot": "before-source__src__KuaiYi.Core__Settings__SettingsRuntimeLink.cs.txt",
+      "bytes": 794,
+      "sha256": "b669d5b5e89754020b86fe2de3e00dee16c9088e65233c8528ddee3adcc4dfb6"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/SettingsCoordinator.cs",
+      "snapshot": "before-source__src__KuaiYi.Core__Settings__SettingsCoordinator.cs.txt",
+      "bytes": 9762,
+      "sha256": "75554d09e8e93e6f46d4a03b6306ad7c355e336f59b2f44e451c04240d8c68e3"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsFlow.cs",
+      "snapshot": "before-source__src__KuaiYi.App__SettingsFlow.cs.txt",
+      "bytes": 2042,
+      "sha256": "d6f33f133334890f84f89f823993dad053654a75f0297ba5f2cfa6f3b201e41f"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/SettingsBindingTests.cs",
+      "snapshot": "before-source__tests__KuaiYi.Core.Tests__SettingsBindingTests.cs.txt",
+      "bytes": 13070,
+      "sha256": "2f5332ee07a36f176f7d53308d82bb5cf1585761dbce3b443713b4abcef146ad"
+    }
+  ],
+  "red": {
+    "total": "14",
+    "executed": "14",
+    "passed": "6",
+    "failed": "8",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  }
+}

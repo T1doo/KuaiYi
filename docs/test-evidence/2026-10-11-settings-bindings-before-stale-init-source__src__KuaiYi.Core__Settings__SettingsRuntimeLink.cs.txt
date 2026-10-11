@@ -1,0 +1,12 @@
+namespace KuaiYi.Core.Settings;
+/// <summary>Actual settings publication to runtime gate; never reads a secret or starts a request.</summary>
+public sealed class SettingsRuntimeLink:IDisposable
+{
+    private readonly SettingsCoordinator coordinator;private readonly RuntimeGate gate;
+    public SettingsRuntimeLink(SettingsCoordinator coordinator,RuntimeGate gate)
+    {this.coordinator=coordinator;this.gate=gate;coordinator.Committed+=Apply;}
+    public void Initialize(SettingsSnapshot snapshot)=>gate.ObserveSettingsMetadata(snapshot);
+    private void Apply(SettingsSnapshot snapshot,SettingsChange change)
+    {gate.ApplyCommittedSettings(snapshot,change);gate.SetMode(snapshot.Data.TriggerMode);}
+    public void Dispose()=>coordinator.Committed-=Apply;
+}

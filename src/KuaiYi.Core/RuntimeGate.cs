@@ -24,7 +24,7 @@ public readonly record struct EndpointOrigin
 }
 
 /// <summary>Thread-safe eligibility and late-event gate. Platform acquisition and each provider send must check it.</summary>
-public sealed class RuntimeGate
+public sealed partial class RuntimeGate
 {
     private readonly object sync = new();
     private readonly HashSet<EndpointOrigin> consented = [];
@@ -92,6 +92,7 @@ public sealed class RuntimeGate
             if (presentation == Presentation.Hidden) presentation = Presentation.Compact;
             identity = new(sessionId, versionId, Guid.NewGuid(), ++epoch);
             active = identity; cancellation = activeCancellation.Token; manuallyCollapsedRequest = null;
+            activeProfileBinding = null;
         }
         previous?.Cancel(); previous?.Dispose(); return true;
     }
@@ -200,6 +201,10 @@ public sealed class RuntimeGate
 
     public bool TryStartRequest(Guid sessionId, Guid versionId, CaptureTicket? passiveTicket,
         out RequestIdentity identity, out CancellationToken cancellation)
+        =>TryStartRequestCore(sessionId,versionId,passiveTicket,null,out identity,out cancellation);
+
+    private bool TryStartRequestCore(Guid sessionId,Guid versionId,CaptureTicket? passiveTicket,
+        RequestProfileBinding? binding,out RequestIdentity identity,out CancellationToken cancellation)
     {
         CancellationTokenSource? previous;
         lock (sync)
@@ -208,12 +213,14 @@ public sealed class RuntimeGate
             cancellation = default;
             if (sessionId == Guid.Empty || versionId == Guid.Empty || activation != Activation.On ||
                 suspension.HasFlag(Suspension.SessionLocked)) return false;
+            if(binding is {} selected&&(localOnly||string.IsNullOrEmpty(selected.ProfileId)||selected.BindingId==Guid.Empty||!profileBindings.TryGetValue(selected.ProfileId,out var currentBinding)||currentBinding!=selected))return false;
             if (passiveTicket is { } ticket && (localOnly || ticket.Epoch != epoch || ticket.Mode != mode || suspension != Suspension.None)) return false;
             previous = activeCancellation;
             activeCancellation = new CancellationTokenSource();
             identity = new RequestIdentity(sessionId, versionId, Guid.NewGuid(), ++epoch);
             cancellation = activeCancellation.Token;
             active = identity;
+            activeProfileBinding = binding;
             manuallyCollapsedRequest = null;
         }
         previous?.Cancel();

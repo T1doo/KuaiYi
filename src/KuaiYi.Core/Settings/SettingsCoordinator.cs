@@ -2,10 +2,12 @@ using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text.Json;
+using System.Runtime.ExceptionServices;
 namespace KuaiYi.Core.Settings;
 public sealed class SettingsTransactionUnconfirmedException():Exception("Settings/secret transaction needs recovery; original references retained.");
+public sealed record RevokedProfileBinding(string ProfileId,string? PreviousSecretReference);
 public sealed record SettingsChange(ImmutableArray<string> DeletedProfiles,ImmutableArray<string> DeletedSecrets)
-{public bool HasDeletion=>DeletedProfiles.Length>0||DeletedSecrets.Length>0;}
+{public ImmutableArray<RevokedProfileBinding> RevokedProfileBindings{get;init;}=[];public bool HasBindingRevocation=>RevokedProfileBindings.Length>0;public bool HasDeletion=>DeletedProfiles.Length>0||DeletedSecrets.Length>0||HasBindingRevocation;}
 public sealed class SettingsCoordinator(SettingsStore store,SecretFileStore secrets)
 {
     private readonly SemaphoreSlim serial=new(1);private SettingsSnapshot? effective;
@@ -31,7 +33,8 @@ public sealed class SettingsCoordinator(SettingsStore store,SecretFileStore secr
             data=data with{Profiles=data.Profiles.Select(p=>replacements.TryGetValue(p.Id,out var reference)?p with{SecretRef=reference}:p).ToImmutableArray()};
             var remainingReferences=data.Profiles.Where(p=>p.SecretRef!=null).Select(p=>p.SecretRef!).ToHashSet(StringComparer.Ordinal);
             var retired=draft.Basis.Data.Profiles.Where(p=>p.SecretRef!=null&&!remainingReferences.Contains(p.SecretRef)&&(captured.Cleared.Contains(p.Id)||!data.Profiles.Any(n=>n.Id==p.Id))).Select(p=>p.SecretRef!).Distinct().ToImmutableArray();
-            var transaction=new SecretTransaction{Id=id,BasisVersion=draft.Basis.Version,NewReferences=staged.ToImmutableArray(),RetiredReferences=retired};
+            var change=ChangeFrom(draft.Basis.Data,data,retired);
+            var transaction=new SecretTransaction{Id=id,BasisVersion=draft.Basis.Version,NewReferences=staged.ToImmutableArray(),RetiredReferences=retired,DeletedProfiles=change.DeletedProfiles,RevokedBindings=change.RevokedProfileBindings};
             byte[] metadata=JsonSerializer.SerializeToUtf8Bytes(transaction,SettingsJson.Options);try{SettingsStore.WriteFlushed(journal,metadata);journalWritten=true;}finally{CryptographicOperations.ZeroMemory(metadata);}
             SettingsSnapshot saved;
             try{saved=await store.SaveAsync(draft.Basis,data,recovery,cancellation);}
@@ -45,7 +48,7 @@ public sealed class SettingsCoordinator(SettingsStore store,SecretFileStore secr
                 else throw new SettingsTransactionUnconfirmedException();
             }
             committed=true;Volatile.Write(ref effective,saved); // Whole immutable configuration changes only after disk publication.
-            Committed?.Invoke(saved,new(draft.Basis.Data.Profiles.Where(p=>!data.Profiles.Any(n=>n.Id==p.Id)).Select(p=>p.Id).ToImmutableArray(),retired));
+            PublishCommitted(saved,change);
             // No cancellation after commit: finish durable deletion, or retain journal for recovery.
             foreach(var reference in retired)await secrets.RevokeAsync(reference);
             File.Delete(journal);journalWritten=false;return saved;
@@ -66,13 +69,17 @@ public sealed class SettingsCoordinator(SettingsStore store,SecretFileStore secr
             byte[] bytes;using(var file=new FileStream(path,FileMode.Open,FileAccess.Read,FileShare.Read)){if(file.Length is <2 or >16384)throw new SettingsTransactionUnconfirmedException();bytes=new byte[(int)file.Length];file.ReadExactly(bytes);}
             using(var document=JsonDocument.Parse(bytes,new(){MaxDepth=16}))SettingsJson.RejectDuplicates(document.RootElement);
             var transaction=JsonSerializer.Deserialize<SecretTransaction>(bytes,SettingsJson.Options)??throw new SettingsTransactionUnconfirmedException();
-            if(transaction.SchemaVersion!=1||transaction.Id==Guid.Empty||Path.GetFileName(path)!=Path.GetFileName(JournalPath(transaction.Id))||transaction.NewReferences.IsDefault||transaction.RetiredReferences.IsDefault||transaction.NewReferences.Length>16||transaction.RetiredReferences.Length>16||transaction.NewReferences.Concat(transaction.RetiredReferences).Any(r=>!SecretFileStore.ValidReference(r)))throw new SettingsTransactionUnconfirmedException();
+            if(transaction.SchemaVersion is not (1 or 2)||transaction.Id==Guid.Empty||Path.GetFileName(path)!=Path.GetFileName(JournalPath(transaction.Id))||transaction.NewReferences.IsDefault||transaction.RetiredReferences.IsDefault||transaction.NewReferences.Length>16||transaction.RetiredReferences.Length>16||transaction.NewReferences.Concat(transaction.RetiredReferences).Any(r=>!SecretFileStore.ValidReference(r))||transaction.DeletedProfiles.IsDefault||transaction.RevokedBindings.IsDefault||transaction.DeletedProfiles.Length>16||transaction.RevokedBindings.Length>16||transaction.DeletedProfiles.Any(p=>!ValidProfileId(p))||transaction.RevokedBindings.Any(b=>b==null||!ValidProfileId(b.ProfileId)||b.PreviousSecretReference!=null&&!SecretFileStore.ValidReference(b.PreviousSecretReference)))throw new SettingsTransactionUnconfirmedException();
             if(snapshot.ReadOnly||snapshot.RequiresRecovery)throw new SettingsTransactionUnconfirmedException();
             if(snapshot.Data.WriteId==transaction.Id)
             {
                 // Prior committed journals may predate shared-reference retirement rules. The saved configuration proves these references are still live.
                 var live=snapshot.Data.Profiles.Where(p=>p.SecretRef!=null).Select(p=>p.SecretRef!).ToHashSet(StringComparer.Ordinal);
-                foreach(string reference in transaction.RetiredReferences)if(!live.Contains(reference))await secrets.RevokeAsync(reference);
+                var retired=transaction.RetiredReferences.Where(r=>!live.Contains(r)).Distinct().ToImmutableArray();
+                var change=new SettingsChange(transaction.DeletedProfiles,retired){RevokedProfileBindings=transaction.RevokedBindings};
+                if(transaction.SchemaVersion==1&&effective is {ReadOnly:false,RequiresRecovery:false} previous&&previous.Data.WriteId!=snapshot.Data.WriteId)change=ChangeFrom(previous.Data,snapshot.Data,retired);
+                Volatile.Write(ref effective,snapshot);PublishCommitted(snapshot,change);
+                foreach(string reference in retired)await secrets.RevokeAsync(reference);
             }
             else if(snapshot.Version==transaction.BasisVersion)foreach(string reference in transaction.NewReferences)await secrets.DeleteUnpublishedAsync(reference);
             else throw new SettingsTransactionUnconfirmedException(); // Cannot prove either outcome; never delete old references or guess.
@@ -80,6 +87,19 @@ public sealed class SettingsCoordinator(SettingsStore store,SecretFileStore secr
         }
     }
     private string JournalPath(Guid id)=>Path.Combine(store.DirectoryPath,"secret-txn-"+id.ToString("N")+".json");
+    private static bool ValidProfileId(string? id)=>id is {Length:>0 and <=64}&&id.All(c=>char.IsAsciiLetterOrDigit(c)||c is '-' or '_');
+    private static SettingsChange ChangeFrom(AppSettings before,AppSettings after,ImmutableArray<string> retired)
+        =>new(before.Profiles.Where(p=>!after.Profiles.Any(n=>n.Id==p.Id)).Select(p=>p.Id).ToImmutableArray(),retired)
+        {RevokedProfileBindings=before.Profiles.Where(p=>!after.Profiles.Any(n=>n.Id==p.Id&&n.SecretRef==p.SecretRef)).Select(p=>new RevokedProfileBinding(p.Id,p.SecretRef)).ToImmutableArray()};
+    private void PublishCommitted(SettingsSnapshot snapshot,SettingsChange change)
+    {
+        List<Exception>? errors=null;
+        foreach(var callback in Committed?.GetInvocationList()??[])
+        {try{((Action<SettingsSnapshot,SettingsChange>)callback)(snapshot,change);}catch(Exception error){(errors??=[]).Add(error);}}
+        // Every runtime subscriber gets the committed invalidation; errors still fail the save and retain its recovery journal.
+        if(errors is {Count:1})ExceptionDispatchInfo.Capture(errors[0]).Throw();
+        if(errors is {Count:>1})throw new AggregateException("Settings commit observers failed; journal retained.",errors);
+    }
     private Task<T> Serialized<T>(Func<Task<T>> action,CancellationToken cancellation)=>Task.Run(async()=>{await serial.WaitAsync(cancellation).ConfigureAwait(false);try{return await action().ConfigureAwait(false);}finally{serial.Release();}},cancellation);
     private Task<FileStream> TransactionLease(CancellationToken cancellation)=>Task.Run(()=>
     {
@@ -88,7 +108,8 @@ public sealed class SettingsCoordinator(SettingsStore store,SecretFileStore secr
     },cancellation);
     private sealed record SecretTransaction
     {
-        public int SchemaVersion{get;init;}=1;public Guid Id{get;init;}public string BasisVersion{get;init;}="";
+        public int SchemaVersion{get;init;}=2;public Guid Id{get;init;}public string BasisVersion{get;init;}="";
         public ImmutableArray<string> NewReferences{get;init;}=[];public ImmutableArray<string> RetiredReferences{get;init;}=[];
+        public ImmutableArray<string> DeletedProfiles{get;init;}=[];public ImmutableArray<RevokedProfileBinding> RevokedBindings{get;init;}=[];
     }
 }

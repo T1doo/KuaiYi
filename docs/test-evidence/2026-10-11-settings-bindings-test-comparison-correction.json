@@ -1,0 +1,18 @@
+{
+  "initialAfterFix": {
+    "total": 14,
+    "passed": 11,
+    "failed": 3
+  },
+  "cause": "New test compared ImmutableArray containers after JSON recovery; identical record values printed in failure. Corrected to element-value comparison via ToArray; notification count, old profile/ref and A cancellation/B continuation assertions preserved.",
+  "localAdmissionRed": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1
+  },
+  "finalTargeted": {
+    "total": 20,
+    "passed": 20,
+    "failed": 0
+  }
+}

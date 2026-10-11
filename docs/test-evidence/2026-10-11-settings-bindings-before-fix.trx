@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="2f9d2371-dce8-446e-8ff3-a0bb02e0ddfd" name="@552716c6b8c5 2026-10-11 15:01:40" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T15:01:40.8322956+00:00" queuing="2026-10-11T15:01:40.8322957+00:00" start="2026-10-11T15:01:40.2587641+00:00" finish="2026-10-11T15:01:41.1595646+00:00" />
+  <TestSettings name="default" id="4e43cc42-70e3-4126-87db-fcc89620b5cb">
+    <Deployment runDeploymentRoot="_552716c6b8c5_2026-10-11_15_01_40" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="c1f12503-9664-4587-8a99-489a847bf4f1" testId="7d77d992-9446-58a1-f0fb-9bdab02a57b9" testName="KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(operation: &quot;replace&quot;)" computerName="552716c6b8c5" duration="00:00:00.0027802" startTime="2026-10-11T15:01:40.8153087+00:00" endTime="2026-10-11T15:01:40.8153435+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c1f12503-9664-4587-8a99-489a847bf4f1">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure
+Expected: True
+Actual:   False</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(String operation) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 70
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="96cffb20-2e42-4cec-b7e0-f8e3a41cc395" testId="3a206e13-0480-1a0f-9041-89fe751a6abe" testName="KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(operation: &quot;delete&quot;)" computerName="552716c6b8c5" duration="00:00:00.0030610" startTime="2026-10-11T15:01:40.8017412+00:00" endTime="2026-10-11T15:01:40.8048654+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="96cffb20-2e42-4cec-b7e0-f8e3a41cc395">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure
+Expected: True
+Actual:   False</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(String operation) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 70
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3fcd1672-eeb2-4b3b-86a4-64199f82ee44" testId="bbdb94fb-0ac0-7c90-d36b-14afea9df1dc" testName="KuaiYi.Core.Tests.SettingsBindingTests.PrePublicationFailureDoesNotNotifyRevokeBindingsOrCancelEitherTask(operation: &quot;clear&quot;)" computerName="552716c6b8c5" duration="00:00:00.0036524" startTime="2026-10-11T15:01:40.7835810+00:00" endTime="2026-10-11T15:01:40.7867855+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3fcd1672-eeb2-4b3b-86a4-64199f82ee44" />
+    <UnitTestResult executionId="59dd3b05-300c-472e-aa14-fc527feccb4d" testId="dd31139c-57ea-f329-d7e9-5c29c790ea8a" testName="KuaiYi.Core.Tests.SettingsBindingTests.OffPublicationNeverReadsOldSecretStartsCaptureOrEnablesRuntime" computerName="552716c6b8c5" duration="00:00:00.0102816" startTime="2026-10-11T15:01:41.1132596+00:00" endTime="2026-10-11T15:01:41.1187570+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="59dd3b05-300c-472e-aa14-fc527feccb4d" />
+    <UnitTestResult executionId="03dba786-3fe3-47ab-a30b-bb9f089bfdd3" testId="75546709-8609-b3c3-2983-ff1a253473d3" testName="KuaiYi.Core.Tests.SettingsBindingTests.DeletedAndRecreatedSameProfileReferenceCannotReuseOldBindingIdentity" computerName="552716c6b8c5" duration="00:00:00.0057982" startTime="2026-10-11T15:01:40.8155997+00:00" endTime="2026-10-11T15:01:40.8156222+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="03dba786-3fe3-47ab-a30b-bb9f089bfdd3">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure
+Expected: True
+Actual:   False</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SettingsBindingTests.Start(RuntimeGate g, String profile) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 32
+   at KuaiYi.Core.Tests.SettingsBindingTests.DeletedAndRecreatedSameProfileReferenceCannotReuseOldBindingIdentity() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 88
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c92b661a-0b02-4d6f-9581-9ddd62164333" testId="1a43c508-0c14-7116-b65f-2b0397010b02" testName="KuaiYi.Core.Tests.SettingsBindingTests.ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(operation: &quot;replace&quot;)" computerName="552716c6b8c5" duration="00:00:00.0044315" startTime="2026-10-11T15:01:40.7723542+00:00" endTime="2026-10-11T15:01:40.7724037+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c92b661a-0b02-4d6f-9581-9ddd62164333">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Single() Failure: The collection was empty</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SettingsBindingTests.ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(String operation) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c5adbbad-f29a-48b4-b00a-ffdfdf9857cc" testId="35d58465-ecb5-75e5-4cd5-eb903d1cb071" testName="KuaiYi.Core.Tests.SettingsBindingTests.RealChildCommitRecoveryPublishesBindingRevocationsOnlyForProvenCommit(stage: BeforePublish)" computerName="552716c6b8c5" duration="00:00:00.1542006" startTime="2026-10-11T15:01:40.8159948+00:00" endTime="2026-10-11T15:01:40.9691946+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c5adbbad-f29a-48b4-b00a-ffdfdf9857cc" />
+    <UnitTestResult executionId="1dcc3382-d8ac-471e-b8df-776924470c7e" testId="8f5c4a73-a614-7351-f475-fcd2a0131436" testName="KuaiYi.Core.Tests.SettingsBindingTests.PrePublicationFailureDoesNotNotifyRevokeBindingsOrCancelEitherTask(operation: &quot;replace&quot;)" computerName="552716c6b8c5" duration="00:00:00.0031151" startTime="2026-10-11T15:01:40.7868493+00:00" endTime="2026-10-11T15:01:40.7900685+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1dcc3382-d8ac-471e-b8df-776924470c7e" />
+    <UnitTestResult executionId="c707e6e1-4787-4965-a4b0-8636fc4d977d" testId="58e0e9a9-607a-ae3e-963f-dafd2a196dc6" testName="KuaiYi.Core.Tests.SettingsBindingTests.PrePublicationFailureDoesNotNotifyRevokeBindingsOrCancelEitherTask(operation: &quot;delete&quot;)" computerName="552716c6b8c5" duration="00:00:00.0088692" startTime="2026-10-11T15:01:40.7738400+00:00" endTime="2026-10-11T15:01:40.7831435+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c707e6e1-4787-4965-a4b0-8636fc4d977d" />
+    <UnitTestResult executionId="bc24aa62-1f1e-4d79-935d-3bd2c8de5a01" testId="eaad4b11-fce8-9f47-6666-501e3dcfcf92" testName="KuaiYi.Core.Tests.SettingsBindingTests.ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(operation: &quot;delete&quot;)" computerName="552716c6b8c5" duration="00:00:00.0870808" startTime="2026-10-11T15:01:40.6632801+00:00" endTime="2026-10-11T15:01:40.7601931+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bc24aa62-1f1e-4d79-935d-3bd2c8de5a01">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Single() Failure: The collection was empty</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SettingsBindingTests.ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(String operation) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="17ba4473-580e-4e90-b884-f8dcf79a707a" testId="9faa282c-741e-4fcc-f4f1-3c884ff130f2" testName="KuaiYi.Core.Tests.SettingsBindingTests.RealChildCommitRecoveryPublishesBindingRevocationsOnlyForProvenCommit(stage: AfterPublish)" computerName="552716c6b8c5" duration="00:00:00.1388055" startTime="2026-10-11T15:01:40.9693202+00:00" endTime="2026-10-11T15:01:41.1087702+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="17ba4473-580e-4e90-b884-f8dcf79a707a">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: True
+Actual:   False</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SettingsBindingTests.RealChildCommitRecoveryPublishesBindingRevocationsOnlyForProvenCommit(SettingsWriteStage stage) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 97
+   at KuaiYi.Core.Tests.SettingsBindingTests.RealChildCommitRecoveryPublishesBindingRevocationsOnlyForProvenCommit(SettingsWriteStage stage) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 99
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="76cf0dca-2ecb-4717-819d-6b7396b422d4" testId="b8114c49-a247-2829-5d11-a20f044fcc1e" testName="KuaiYi.Core.Tests.SettingsBindingTests.ModelStyleDefaultChangesPreserveExistingProfileBindingAndRequestSnapshot" computerName="552716c6b8c5" duration="00:00:00.0060985" startTime="2026-10-11T15:01:40.7901645+00:00" endTime="2026-10-11T15:01:40.7963739+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="76cf0dca-2ecb-4717-819d-6b7396b422d4" />
+    <UnitTestResult executionId="b6cc1a38-0371-4c2a-b296-323b62dfb351" testId="8ae8188c-2e77-df6f-4d39-b9e37483c4c5" testName="KuaiYi.Core.Tests.SettingsBindingTests.ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(operation: &quot;clear&quot;)" computerName="552716c6b8c5" duration="00:00:00.0069243" startTime="2026-10-11T15:01:40.7729666+00:00" endTime="2026-10-11T15:01:40.7730335+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b6cc1a38-0371-4c2a-b296-323b62dfb351">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Single() Failure: The collection was empty</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SettingsBindingTests.ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(String operation) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d1e5ddda-5959-46b2-961b-19acc3fea794" testId="14456a7f-3c83-545b-4a3b-cc571bd4db44" testName="KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(operation: &quot;clear&quot;)" computerName="552716c6b8c5" duration="00:00:00.0047087" startTime="2026-10-11T15:01:40.7964458+00:00" endTime="2026-10-11T15:01:40.8014760+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d1e5ddda-5959-46b2-961b-19acc3fea794">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure
+Expected: True
+Actual:   False</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(String operation) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 70
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBindingTests.OffPublicationNeverReadsOldSecretStartsCaptureOrEnablesRuntime" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="dd31139c-57ea-f329-d7e9-5c29c790ea8a">
+      <Execution id="59dd3b05-300c-472e-aa14-fc527feccb4d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBindingTests" name="OffPublicationNeverReadsOldSecretStartsCaptureOrEnablesRuntime" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(operation: &quot;clear&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="14456a7f-3c83-545b-4a3b-cc571bd4db44">
+      <Execution id="d1e5ddda-5959-46b2-961b-19acc3fea794" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBindingTests" name="OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBindingTests.PrePublicationFailureDoesNotNotifyRevokeBindingsOrCancelEitherTask(operation: &quot;replace&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="8f5c4a73-a614-7351-f475-fcd2a0131436">
+      <Execution id="1dcc3382-d8ac-471e-b8df-776924470c7e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBindingTests" name="PrePublicationFailureDoesNotNotifyRevokeBindingsOrCancelEitherTask" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBindingTests.ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(operation: &quot;replace&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="1a43c508-0c14-7116-b65f-2b0397010b02">
+      <Execution id="c92b661a-0b02-4d6f-9581-9ddd62164333" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBindingTests" name="ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(operation: &quot;replace&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="7d77d992-9446-58a1-f0fb-9bdab02a57b9">
+      <Execution id="c1f12503-9664-4587-8a99-489a847bf4f1" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBindingTests" name="OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBindingTests.PrePublicationFailureDoesNotNotifyRevokeBindingsOrCancelEitherTask(operation: &quot;clear&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="bbdb94fb-0ac0-7c90-d36b-14afea9df1dc">
+      <Execution id="3fcd1672-eeb2-4b3b-86a4-64199f82ee44" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBindingTests" name="PrePublicationFailureDoesNotNotifyRevokeBindingsOrCancelEitherTask" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBindingTests.ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(operation: &quot;delete&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="eaad4b11-fce8-9f47-6666-501e3dcfcf92">
+      <Execution id="bc24aa62-1f1e-4d79-935d-3bd2c8de5a01" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBindingTests" name="ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBindingTests.PrePublicationFailureDoesNotNotifyRevokeBindingsOrCancelEitherTask(operation: &quot;delete&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="58e0e9a9-607a-ae3e-963f-dafd2a196dc6">
+      <Execution id="c707e6e1-4787-4965-a4b0-8636fc4d977d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBindingTests" name="PrePublicationFailureDoesNotNotifyRevokeBindingsOrCancelEitherTask" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(operation: &quot;delete&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="3a206e13-0480-1a0f-9041-89fe751a6abe">
+      <Execution id="96cffb20-2e42-4cec-b7e0-f8e3a41cc395" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBindingTests" name="OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBindingTests.ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(operation: &quot;clear&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="8ae8188c-2e77-df6f-4d39-b9e37483c4c5">
+      <Execution id="b6cc1a38-0371-4c2a-b296-323b62dfb351" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBindingTests" name="ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBindingTests.RealChildCommitRecoveryPublishesBindingRevocationsOnlyForProvenCommit(stage: BeforePublish)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="35d58465-ecb5-75e5-4cd5-eb903d1cb071">
+      <Execution id="c5adbbad-f29a-48b4-b00a-ffdfdf9857cc" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBindingTests" name="RealChildCommitRecoveryPublishesBindingRevocationsOnlyForProvenCommit" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBindingTests.ModelStyleDefaultChangesPreserveExistingProfileBindingAndRequestSnapshot" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b8114c49-a247-2829-5d11-a20f044fcc1e">
+      <Execution id="76cf0dca-2ecb-4717-819d-6b7396b422d4" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBindingTests" name="ModelStyleDefaultChangesPreserveExistingProfileBindingAndRequestSnapshot" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBindingTests.RealChildCommitRecoveryPublishesBindingRevocationsOnlyForProvenCommit(stage: AfterPublish)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="9faa282c-741e-4fcc-f4f1-3c884ff130f2">
+      <Execution id="17ba4473-580e-4e90-b884-f8dcf79a707a" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBindingTests" name="RealChildCommitRecoveryPublishesBindingRevocationsOnlyForProvenCommit" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBindingTests.DeletedAndRecreatedSameProfileReferenceCannotReuseOldBindingIdentity" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="75546709-8609-b3c3-2983-ff1a253473d3">
+      <Execution id="03dba786-3fe3-47ab-a30b-bb9f089bfdd3" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBindingTests" name="DeletedAndRecreatedSameProfileReferenceCannotReuseOldBindingIdentity" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="7d77d992-9446-58a1-f0fb-9bdab02a57b9" executionId="c1f12503-9664-4587-8a99-489a847bf4f1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3a206e13-0480-1a0f-9041-89fe751a6abe" executionId="96cffb20-2e42-4cec-b7e0-f8e3a41cc395" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bbdb94fb-0ac0-7c90-d36b-14afea9df1dc" executionId="3fcd1672-eeb2-4b3b-86a4-64199f82ee44" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dd31139c-57ea-f329-d7e9-5c29c790ea8a" executionId="59dd3b05-300c-472e-aa14-fc527feccb4d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="75546709-8609-b3c3-2983-ff1a253473d3" executionId="03dba786-3fe3-47ab-a30b-bb9f089bfdd3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1a43c508-0c14-7116-b65f-2b0397010b02" executionId="c92b661a-0b02-4d6f-9581-9ddd62164333" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="35d58465-ecb5-75e5-4cd5-eb903d1cb071" executionId="c5adbbad-f29a-48b4-b00a-ffdfdf9857cc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8f5c4a73-a614-7351-f475-fcd2a0131436" executionId="1dcc3382-d8ac-471e-b8df-776924470c7e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="58e0e9a9-607a-ae3e-963f-dafd2a196dc6" executionId="c707e6e1-4787-4965-a4b0-8636fc4d977d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="eaad4b11-fce8-9f47-6666-501e3dcfcf92" executionId="bc24aa62-1f1e-4d79-935d-3bd2c8de5a01" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9faa282c-741e-4fcc-f4f1-3c884ff130f2" executionId="17ba4473-580e-4e90-b884-f8dcf79a707a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b8114c49-a247-2829-5d11-a20f044fcc1e" executionId="76cf0dca-2ecb-4717-819d-6b7396b422d4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8ae8188c-2e77-df6f-4d39-b9e37483c4c5" executionId="b6cc1a38-0371-4c2a-b296-323b62dfb351" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="14456a7f-3c83-545b-4a3b-cc571bd4db44" executionId="d1e5ddda-5959-46b2-961b-19acc3fea794" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="14" executed="14" passed="6" failed="8" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.05]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.14]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.16]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.28]       Assert.Single() Failure: The collection was empty
+[xUnit.net 00:00:00.28]       Stack Trace:
+[xUnit.net 00:00:00.28]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs(47,0): at KuaiYi.Core.Tests.SettingsBindingTests.ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(String operation)
+[xUnit.net 00:00:00.28]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.28]       Assert.Single() Failure: The collection was empty
+[xUnit.net 00:00:00.28]       Stack Trace:
+[xUnit.net 00:00:00.28]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs(47,0): at KuaiYi.Core.Tests.SettingsBindingTests.ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(String operation)
+[xUnit.net 00:00:00.28]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.28]       Assert.Single() Failure: The collection was empty
+[xUnit.net 00:00:00.28]       Stack Trace:
+[xUnit.net 00:00:00.28]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs(47,0): at KuaiYi.Core.Tests.SettingsBindingTests.ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(String operation)
+[xUnit.net 00:00:00.28]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.31]       Assert.True() Failure
+[xUnit.net 00:00:00.31]       Expected: True
+[xUnit.net 00:00:00.31]       Actual:   False
+[xUnit.net 00:00:00.31]       Stack Trace:
+[xUnit.net 00:00:00.31]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs(70,0): at KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(String operation)
+[xUnit.net 00:00:00.31]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.32]       Assert.True() Failure
+[xUnit.net 00:00:00.32]       Expected: True
+[xUnit.net 00:00:00.32]       Actual:   False
+[xUnit.net 00:00:00.32]       Stack Trace:
+[xUnit.net 00:00:00.32]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs(70,0): at KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(String operation)
+[xUnit.net 00:00:00.32]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.33]       Assert.True() Failure
+[xUnit.net 00:00:00.33]       Expected: True
+[xUnit.net 00:00:00.33]       Actual:   False
+[xUnit.net 00:00:00.33]       Stack Trace:
+[xUnit.net 00:00:00.33]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs(70,0): at KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(String operation)
+[xUnit.net 00:00:00.33]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.33]       Assert.True() Failure
+[xUnit.net 00:00:00.33]       Expected: True
+[xUnit.net 00:00:00.33]       Actual:   False
+[xUnit.net 00:00:00.33]       Stack Trace:
+[xUnit.net 00:00:00.33]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs(32,0): at KuaiYi.Core.Tests.SettingsBindingTests.Start(RuntimeGate g, String profile)
+[xUnit.net 00:00:00.33]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs(88,0): at KuaiYi.Core.Tests.SettingsBindingTests.DeletedAndRecreatedSameProfileReferenceCannotReuseOldBindingIdentity()
+[xUnit.net 00:00:00.33]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.62]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.62]       Expected: True
+[xUnit.net 00:00:00.62]       Actual:   False
+[xUnit.net 00:00:00.62]       Stack Trace:
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs(97,0): at KuaiYi.Core.Tests.SettingsBindingTests.RealChildCommitRecoveryPublishesBindingRevocationsOnlyForProvenCommit(SettingsWriteStage stage)
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs(99,0): at KuaiYi.Core.Tests.SettingsBindingTests.RealChildCommitRecoveryPublishesBindingRevocationsOnlyForProvenCommit(SettingsWriteStage stage)
+[xUnit.net 00:00:00.62]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.63]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T15:01:40.7644544+00:00">
+        <Text>[xUnit.net 00:00:00.27]     KuaiYi.Core.Tests.SettingsBindingTests.ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(operation: "delete") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T15:01:40.7729599+00:00">
+        <Text>[xUnit.net 00:00:00.28]     KuaiYi.Core.Tests.SettingsBindingTests.ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(operation: "replace") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T15:01:40.7731747+00:00">
+        <Text>[xUnit.net 00:00:00.28]     KuaiYi.Core.Tests.SettingsBindingTests.ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(operation: "clear") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T15:01:40.8017993+00:00">
+        <Text>[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(operation: "clear") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T15:01:40.8050665+00:00">
+        <Text>[xUnit.net 00:00:00.32]     KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(operation: "delete") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T15:01:40.8354797+00:00">
+        <Text>[xUnit.net 00:00:00.33]     KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(operation: "replace") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T15:01:40.8354939+00:00">
+        <Text>[xUnit.net 00:00:00.33]     KuaiYi.Core.Tests.SettingsBindingTests.DeletedAndRecreatedSameProfileReferenceCannotReuseOldBindingIdentity [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T15:01:41.1095520+00:00">
+        <Text>[xUnit.net 00:00:00.62]     KuaiYi.Core.Tests.SettingsBindingTests.RealChildCommitRecoveryPublishesBindingRevocationsOnlyForProvenCommit(stage: AfterPublish) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

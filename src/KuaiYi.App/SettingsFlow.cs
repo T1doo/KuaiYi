@@ -8,9 +8,11 @@ internal sealed partial class ImageProbeWindow
 {
     private SettingsWindow? settingsWindow;private bool settingsOpening;
     private SettingsCoordinator? settingsCoordinator;
+    private SettingsRuntimeLink? settingsRuntimeLink;
     private void SetupSettings(StackPanel panel)
     {
         var button=new Button{Content="设置"};panel.Children.Add(button);
+        Closed+=(_,_)=>settingsRuntimeLink?.Dispose();
         button.Click+=async(_,_)=>
         {
             if(settingsWindow!=null){settingsWindow.Activate();return;}if(settingsOpening)return;
@@ -21,9 +23,10 @@ internal sealed partial class ImageProbeWindow
                 {
                     string root=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"KuaiYi");
                     settingsCoordinator=new(new SettingsStore(Path.Combine(root,"config")),new SecretFileStore(Path.Combine(root,"secrets"),new CurrentUserDpapiProtector(),new CurrentUserSecretDirectory()));
-                    settingsCoordinator.Committed+=(snapshot,retired)=>{if(retired.HasDeletion)gate.Disable();gate.SetMode(snapshot.Data.TriggerMode);}; // Thread-safe gate only; never read a selection or send a request.
+                    settingsRuntimeLink=new(settingsCoordinator,gate);
                 }
                 var draft=await settingsCoordinator.OpenDraftAsync();opened=draft;
+                settingsRuntimeLink!.Initialize(draft.Basis);
                 settingsWindow=new(settingsCoordinator,draft){Owner=this};
                 settingsWindow.Closed+=(_,_)=>{settingsWindow=null;gate.SetSuspension(Suspension.Settings,false);};settingsWindow.Show();opened=null;
             }

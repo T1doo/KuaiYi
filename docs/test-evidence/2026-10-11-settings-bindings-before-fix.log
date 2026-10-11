@@ -1,0 +1,86 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.27]     KuaiYi.Core.Tests.SettingsBindingTests.ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(operation: "delete") [FAIL]
+[xUnit.net 00:00:00.28]     KuaiYi.Core.Tests.SettingsBindingTests.ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(operation: "replace") [FAIL]
+[xUnit.net 00:00:00.28]     KuaiYi.Core.Tests.SettingsBindingTests.ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(operation: "clear") [FAIL]
+[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(operation: "clear") [FAIL]
+[xUnit.net 00:00:00.32]     KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(operation: "delete") [FAIL]
+  Failed KuaiYi.Core.Tests.SettingsBindingTests.ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(operation: "delete") [87 ms]
+  Error Message:
+   Assert.Single() Failure: The collection was empty
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsBindingTests.ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(String operation) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 47
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsBindingTests.ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(operation: "replace") [4 ms]
+  Error Message:
+   Assert.Single() Failure: The collection was empty
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsBindingTests.ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(String operation) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 47
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsBindingTests.ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(operation: "clear") [6 ms]
+  Error Message:
+   Assert.Single() Failure: The collection was empty
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsBindingTests.ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(String operation) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 47
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(operation: "clear") [4 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(String operation) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(operation: "delete") [3 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(String operation) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 70
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.33]     KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(operation: "replace") [FAIL]
+[xUnit.net 00:00:00.33]     KuaiYi.Core.Tests.SettingsBindingTests.DeletedAndRecreatedSameProfileReferenceCannotReuseOldBindingIdentity [FAIL]
+[xUnit.net 00:00:00.62]     KuaiYi.Core.Tests.SettingsBindingTests.RealChildCommitRecoveryPublishesBindingRevocationsOnlyForProvenCommit(stage: AfterPublish) [FAIL]
+  Failed KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(operation: "replace") [2 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(String operation) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsBindingTests.DeletedAndRecreatedSameProfileReferenceCannotReuseOldBindingIdentity [5 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsBindingTests.Start(RuntimeGate g, String profile) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 32
+   at KuaiYi.Core.Tests.SettingsBindingTests.DeletedAndRecreatedSameProfileReferenceCannotReuseOldBindingIdentity() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 88
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsBindingTests.RealChildCommitRecoveryPublishesBindingRevocationsOnlyForProvenCommit(stage: AfterPublish) [138 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsBindingTests.RealChildCommitRecoveryPublishesBindingRevocationsOnlyForProvenCommit(SettingsWriteStage stage) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 97
+   at KuaiYi.Core.Tests.SettingsBindingTests.RealChildCommitRecoveryPublishesBindingRevocationsOnlyForProvenCommit(SettingsWriteStage stage) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 99
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/test-results/settings-bindings/before-fix.trx
+
+Failed!  - Failed:     8, Passed:     6, Skipped:     0, Total:    14, Duration: 455 ms - KuaiYi.Core.Tests.dll (net10.0)

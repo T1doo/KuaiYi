@@ -1,0 +1,45 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.42]     KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(operation: "clear") [FAIL]
+[xUnit.net 00:00:00.43]     KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(operation: "delete") [FAIL]
+  Failed KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(operation: "clear") [12 ms]
+  Error Message:
+   Assert.Equal() Failure: Collections differ
+Expected: [RevokedProfileBinding { ProfileId = a, PreviousSecretReference = key/b5448ef13ca94828abc454e819180999 }]
+Actual:   [RevokedProfileBinding { ProfileId = a, PreviousSecretReference = key/b5448ef13ca94828abc454e819180999 }]
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(String operation) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 71
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(operation: "delete") [4 ms]
+  Error Message:
+   Assert.Equal() Failure: Collections differ
+Expected: [RevokedProfileBinding { ProfileId = a, PreviousSecretReference = key/5f526165816a481c941eacd7f3823fa5 }]
+Actual:   [RevokedProfileBinding { ProfileId = a, PreviousSecretReference = key/5f526165816a481c941eacd7f3823fa5 }]
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(String operation) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 71
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.44]     KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(operation: "replace") [FAIL]
+  Failed KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(operation: "replace") [4 ms]
+  Error Message:
+   Assert.Equal() Failure: Collections differ
+Expected: [RevokedProfileBinding { ProfileId = a, PreviousSecretReference = key/e58ab4d002b5478e9153ca002fda0910 }]
+Actual:   [RevokedProfileBinding { ProfileId = a, PreviousSecretReference = key/e58ab4d002b5478e9153ca002fda0910 }]
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsBindingTests.OneObserverFaultCannotSkipRuntimeInvalidationAndRecoveryRepeatsSameCommittedBindingNotice(String operation) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 71
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/test-results/settings-bindings/after-fix.trx
+
+Failed!  - Failed:     3, Passed:    11, Skipped:     0, Total:    14, Duration: 537 ms - KuaiYi.Core.Tests.dll (net10.0)

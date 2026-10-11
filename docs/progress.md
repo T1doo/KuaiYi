@@ -212,3 +212,13 @@ P0 整体：**InProgress，真实 Windows 退出门槛 Blocked**。后续整阶�
 - 备份与默认草稿各自保留编辑/待存密钥，实际保存锁定当前来源；footer禁用且迟到事件有准入，失败实际返回再可编辑。所有JSON值类型、主备组合、取消/保存保全已测；共享引用保存与已提交journal恢复扣除仍使用集合，最后移除才撤销。
 - 完整Core589+Provider77=666/666、Node63/63，25托管locked Release零警告/错误。新增2个真实child终止与原2个保留；protector/policy仍合成，Windows WPF/DPAPI/ACL未运行。
 - 独立772856字节/42文件修复ZIP，六个历史包摘要不变。176追踪/106整体NotRun，P0 Blocked/P1 InProgress，待监督独审。证据见settings-recovery-review.md与2026-10-11-settings-recovery-summary.json。
+
+## 共享秘密的profile绑定撤销与任务取消
+
+- 固定9914620复审发现共享密文未退休时A旧绑定漏撤销。物理DeletedSecrets与RevokedProfileBindings分开；清除/删除/更换引用均发绑定通知，最后物理退休规则保留。
+- 实际App SettingsRuntimeLink初始化/订阅/退出接线至定向RuntimeGate：当前profile/ref/GUID身份核对，A取消及迟到拒绝，B共享密文/On/原任务保留；本地OCR不受API删除影响。正式P4设置到协议和模型UI调度仍缺，不签D08整体。
+- journal新schema2存通知，逐个尝试订阅者且异常不吞掉；已提交保留日志、证明恢复后重复通知；旧1可读、未来版本保全，未提交不通知。
+- 基线14中8失败/6通过；初修14中3失败为新测试容器比较问题，改逐项内容比较保留原数量/值/取消断言；额外纯本地许可准入1例先失败后修复。扩充20/20，实际2child终止、实际linked原异步A取消/B保持，原日志全保留。
+- 完整Core610+Provider77=687、Node63，25托管locked Release零警告/错误。777721字节/42文件独立审阅ZIP，7旧包摘要不变；合成protector/policy、Windows WPF/DPAPI/ACL与P0/E06未运行，176追踪/106整体NotRun。待监督独审，证据见settings-bindings-review.md和summary。
+
+- 最后源码复核追加迟到初始化1例先失败后修复，在Gate最终锁内核对当前配置版本及Link关闭准入；最终21新例/Core610+Provider77=687/Node63。首20例及686回归/初包元数据作pre-stale-init原始证据保留。
