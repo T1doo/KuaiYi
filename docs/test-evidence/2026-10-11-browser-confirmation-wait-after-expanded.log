@@ -1,0 +1,27 @@
+✔ actual extension/host/production receiver waits over five seconds for explicit synthetic desktop decision (6208.425487ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: allow-after-six (154.025393ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: no-answer (103.337703ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: reject (108.907898ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: cancel (106.371793ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: off (104.120644ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: disconnect (106.19566ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: late-answer (102.462618ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: late-ready (115.116891ms)
+✔ offer without explicit confirmation state still expires at five seconds (0.870246ms)
+✔ ordinary Begin acknowledgement keeps its five-second budget after long confirmation (0.446405ms)
+✔ idle acquisition has a thirty-second transfer budget and disconnect cancels the owning signal (0.397612ms)
+✔ late Ready rejected by monotonic deadline even when wall clock moves backwards before timer dispatch (0.304744ms)
+✔ total operation deadline cannot be renewed by confirmation or Ready (0.236573ms)
+✔ confirmation stage cannot obtain a renewed timer with invalid progress: id (0.203033ms)
+✔ confirmation stage cannot obtain a renewed timer with invalid progress: budget (0.111976ms)
+✔ confirmation stage cannot obtain a renewed timer with invalid progress: protocol (0.098466ms)
+✔ confirmation stage cannot obtain a renewed timer with invalid progress: extra (0.136513ms)
+✔ confirmation stage cannot obtain a renewed timer with invalid progress: duplicate (0.168711ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7158.932231

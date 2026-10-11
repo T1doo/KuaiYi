@@ -1,0 +1,28 @@
+✖ actual extension/host/production receiver waits over five seconds for explicit synthetic desktop decision (6107.662183ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6162.650153
+
+✖ failing tests:
+
+test at tests/browser/confirmation.test.mjs:8:1
+✖ actual extension/host/production receiver waits over five seconds for explicit synthetic desktop decision (6107.662183ms)
+  AssertionError [ERR_ASSERTION]: valid desktop confirmation must remain pending beyond the old five-second offer timeout
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///workspace/KuaiYi/tests/browser/confirmation.test.mjs:14:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

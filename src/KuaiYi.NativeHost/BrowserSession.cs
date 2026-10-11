@@ -15,6 +15,10 @@ public interface IDesktopImageChannel : IAsyncDisposable
     ValueTask SubmitAsync(BrowserGrant grant, ReceivedImage image, ImageSize size, CancellationToken cancellation);
     ValueTask CancelAsync(BrowserGrant grant, CancellationToken cancellation);
 }
+public interface IDesktopConfirmationChannel:IDesktopImageChannel
+{
+    ValueTask<BrowserGrant> OfferWithConfirmationAsync(Guid operation,Func<CancellationToken,ValueTask> waiting,CancellationToken cancellation);
+}
 public static class BrowserEnvelope
 {
     public static void Fields(JsonElement root, params string[] names)
@@ -45,6 +49,10 @@ public sealed class BrowserSession(IDesktopImageChannel desktop, TimeSpan? budge
     {
         // Console stdin may ignore native read cancellation. Bound the waiter, then observe/dispose a late result.
         Task<JsonDocument?> pending=ReadForTest?.Invoke(input,cancellation)??NativeMessagingCodec.ReadAsync(input,cancellation).AsTask();
+        return await AwaitRead(pending,cancellation).ConfigureAwait(false);
+    }
+    private async ValueTask<JsonDocument?> AwaitRead(Task<JsonDocument?> pending,CancellationToken cancellation)
+    {
         try{return await pending.WaitAsync(cancellation).ConfigureAwait(false);}
         catch
         {
@@ -61,15 +69,20 @@ public sealed class BrowserSession(IDesktopImageChannel desktop, TimeSpan? budge
     }
     public async Task<int> RunAsync(Stream input,Stream output,CancellationToken cancellation=default)
     {
-        using var deadline=new CancellationTokenSource(budget??TimeSpan.FromSeconds(30),timeProvider??TimeProvider.System);
-        using var linked=CancellationTokenSource.CreateLinkedTokenSource(cancellation,deadline.Token);
-        using var assembler=new ImageTransferAssembler();BrowserGrant? grant=null;bool begun=false,committed=false;
+        var time=timeProvider??TimeProvider.System;TimeSpan totalBudget=budget??BrowserTiming.Total,phaseBudget=BrowserTiming.Handshake;
+        long started=time.GetTimestamp(),phaseStarted=started;
+        using var deadline=new CancellationTokenSource(totalBudget,time);
+        using var phaseDeadline=new CancellationTokenSource(BrowserTiming.Handshake,time);
+        using var linked=CancellationTokenSource.CreateLinkedTokenSource(cancellation,deadline.Token,phaseDeadline.Token);
+        using var assembler=new ImageTransferAssembler(timeProvider);BrowserGrant? grant=null;bool begun=false,committed=false;
+        Task<JsonDocument?>? nextRead=null;bool desktopDisposed=false;
         try
         {
             while(true)
             {
-                using var doc=await ReadBounded(input,linked.Token).ConfigureAwait(false);
-                linked.Token.ThrowIfCancellationRequested(); // A completed read can win WaitAsync's fast path; expiry still forbids delivery.
+                var queued=nextRead;nextRead=null;
+                using var doc=queued!=null?await AwaitRead(queued,linked.Token).ConfigureAwait(false):await ReadBounded(input,linked.Token).ConfigureAwait(false);
+                CheckPhase(); // Successful read fast paths and delayed timer callbacks still cannot deliver expired content.
                 if(doc==null)throw new BrowserException(BrowserFailure.Disconnected);
                 var root=doc.RootElement;
                 string? type=root.TryGetProperty("type",out var t)&&t.ValueKind==JsonValueKind.String?t.GetString():null;
@@ -77,8 +90,35 @@ public sealed class BrowserSession(IDesktopImageChannel desktop, TimeSpan? budge
                 {
                     BrowserEnvelope.Fields(root,"type","operationId");if(grant!=null)throw new InvalidDataException("Duplicate offer.");
                     Guid id=BrowserEnvelope.Id(root,"operationId");
-                    grant=await desktop.OfferAsync(id,linked.Token).ConfigureAwait(false);
+                    using var offerStop=CancellationTokenSource.CreateLinkedTokenSource(linked.Token);
+                    var offering=desktop is IDesktopConfirmationChannel confirming
+                        ?confirming.OfferWithConfirmationAsync(id,async token=>
+                        {
+                            ChangePhase(BrowserTiming.Confirmation);
+                            await NativeMessagingCodec.WriteAsync(output,new{type="ConfirmationPending",operationId=id,protocol=1,timeoutMs=BrowserTiming.ConfirmationMilliseconds},token);
+                        },offerStop.Token).AsTask()
+                        :desktop.OfferAsync(id,offerStop.Token).AsTask();
+                    // Observe browser cancellation/EOF during the actual desktop prompt, not only after its decision.
+                    nextRead=NativeMessagingCodec.ReadAsync(input,linked.Token).AsTask();
+                    try
+                    {
+                        await Task.WhenAny(offering,nextRead).WaitAsync(linked.Token).ConfigureAwait(false);
+                        if(nextRead.IsCompleted)
+                        {
+                            var control=nextRead;nextRead=null;using var early=await control.ConfigureAwait(false);
+                            if(early==null)throw new BrowserException(BrowserFailure.Disconnected);
+                            BrowserEnvelope.Fields(early.RootElement,"type","operationId");
+                            if(early.RootElement.GetProperty("type").GetString()=="CancelImage"&&BrowserEnvelope.Id(early.RootElement,"operationId")==id)throw new BrowserException(BrowserFailure.Cancelled);
+                            throw new InvalidDataException("Input before Ready.");
+                        }
+                        grant=await offering.ConfigureAwait(false);
+                    }
+                    catch
+                    {
+                        offerStop.Cancel();await DisposeDesktop();_ = ObserveRejectedOffer(offering);throw;
+                    }
                     if(!BrowserEnvelope.Valid(grant,id))throw new BrowserException(BrowserFailure.DesktopUntrusted);
+                    ChangePhase(BrowserTiming.Transfer);
                     await NativeMessagingCodec.WriteAsync(output,new{type="Ready",operationId=id,protocol=1},linked.Token);
                 }
                 else if(type=="BeginImage")
@@ -116,7 +156,7 @@ public sealed class BrowserSession(IDesktopImageChannel desktop, TimeSpan? budge
         }
         catch(Exception error)
         {
-            BrowserFailure code=error switch{BrowserException b=>b.Code,OperationCanceledException=>deadline.IsCancellationRequested?BrowserFailure.Timeout:BrowserFailure.Cancelled,IOException=>BrowserFailure.Disconnected,JsonException or InvalidDataException or InvalidOperationException or FormatException=>BrowserFailure.InvalidMessage,_=>BrowserFailure.InternalFailure};
+            BrowserFailure code=error switch{BrowserException b=>b.Code,OperationCanceledException=>deadline.IsCancellationRequested||phaseDeadline.IsCancellationRequested?BrowserFailure.Timeout:BrowserFailure.Cancelled,IOException=>BrowserFailure.Disconnected,JsonException or InvalidDataException or InvalidOperationException or FormatException=>BrowserFailure.InvalidMessage,_=>BrowserFailure.InternalFailure};
             try{using var report=new CancellationTokenSource(TimeSpan.FromMilliseconds(500));await NativeMessagingCodec.WriteAsync(output,new{type="Error",code=code.ToString()},report.Token);}catch(Exception e)when(e is IOException or OperationCanceledException or ObjectDisposedException){Console.Error.WriteLine("NativeHost response unavailable.");}
             return 3;
         }
@@ -125,8 +165,21 @@ public sealed class BrowserSession(IDesktopImageChannel desktop, TimeSpan? budge
             assembler.Dispose();
             if(grant!=null&&!committed)
                 try{using var stop=new CancellationTokenSource(TimeSpan.FromSeconds(1));await desktop.CancelAsync(grant,stop.Token).ConfigureAwait(false);}catch(Exception e)when(e is IOException or OperationCanceledException or BrowserException){Console.Error.WriteLine("NativeHost desktop cleanup unavailable.");}
-            await desktop.DisposeAsync();
+            linked.Cancel();if(nextRead!=null)lateReadObserver=ObserveLateRead(nextRead);
+            await DisposeDesktop();
             _=lateReadObserver; // No second read/operation after deadline; process entry returns and releases OS stdio.
         }
+        async ValueTask DisposeDesktop(){if(!desktopDisposed){desktopDisposed=true;await desktop.DisposeAsync();}}
+        void CheckPhase()
+        {
+            linked.Token.ThrowIfCancellationRequested();
+            if(time.GetElapsedTime(started)>=totalBudget||time.GetElapsedTime(phaseStarted)>=phaseBudget)throw new BrowserException(BrowserFailure.Timeout);
+        }
+        void ChangePhase(TimeSpan next){CheckPhase();phaseStarted=time.GetTimestamp();phaseBudget=next;phaseDeadline.CancelAfter(next);}
+    }
+    private async Task ObserveRejectedOffer(Task<BrowserGrant> pending)
+    {
+        try{var late=await pending.ConfigureAwait(false);using var stop=new CancellationTokenSource(TimeSpan.FromSeconds(1));await desktop.CancelAsync(late,stop.Token);}
+        catch(Exception error){LateReadFailureCode??=error.GetType().Name;} // Finite observation; a late grant never becomes Ready/image permission.
     }
 }

@@ -73,7 +73,7 @@ public sealed class BrowserReadOwnershipTests
         using var output=new MemoryStream();var run=session.RunAsync(Stream.Null,output);
         try
         {
-            await entered.Task.WaitAsync(TimeSpan.FromSeconds(3));Assert.Equal(TimeSpan.FromSeconds(30),clock.Due);
+            await entered.Task.WaitAsync(TimeSpan.FromSeconds(3));Assert.Equal(BrowserTiming.Handshake,clock.Due); // New explicit initial handshake budget; ownership assertions unchanged.
             clock.Fire(); // Actual deadline CTS/linked token/WaitAsync cancellation; no sleeps or guessed schedule.
             var pending=await catchEntered.Task.WaitAsync(TimeSpan.FromSeconds(3));Assert.False(pending.IsCompleted);
             if(completesBeforeCatchObservation)

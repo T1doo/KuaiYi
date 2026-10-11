@@ -1,4 +1,4 @@
-import { nativeConnection, sendImage } from "./protocol.js";
+import { nativeConnection, sendImage, TIMING } from "./protocol.js";
 import { imageContext, acquireImage } from "./acquire.js";
 let current = null;
 async function status(text, error = false) {
@@ -13,10 +13,10 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   current?.abort.abort();
   const operationId = crypto.randomUUID(), abort = new AbortController(), op = { operationId, abort, tabId: tab?.id, windowId: tab?.windowId };
-  current = op; const timer = setTimeout(() => abort.abort(), 30000); let connection = null, bytes = null;
+  current = op; const timer = setTimeout(() => abort.abort(), TIMING.total); let connection = null, bytes = null;
   try {
     const context = imageContext(info, tab);
-    connection = nativeConnection(chrome.runtime.connectNative("com.kuaiyi.native_host"), operationId, abort.signal, Date.now() + 30000);
+    connection = nativeConnection(chrome.runtime.connectNative("com.kuaiyi.native_host"), operationId, abort.signal, Date.now() + TIMING.total, () => abort.abort());
     // Desktop authorization before any image byte read/capture. Off/unregistered/untrusted cannot enter acquisition.
     await connection.exchange({ type: "OfferImage", operationId }, "Ready");
     bytes = await acquireImage(context, abort.signal);

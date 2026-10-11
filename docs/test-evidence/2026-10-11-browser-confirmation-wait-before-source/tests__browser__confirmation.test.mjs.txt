@@ -1,0 +1,19 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { setTimeout as delay } from "node:timers/promises";
+import { readFile } from "node:fs/promises";
+import { nativeConnection, sendImage } from "../../extensions/chromium/protocol.js";
+import { receiverHarness } from "./confirmation-harness.mjs";
+const png = new Uint8Array(await readFile(new URL("../fixtures/images/kuaiyi-test.png", import.meta.url)));
+test("actual extension/host/production receiver waits over five seconds for explicit synthetic desktop decision", { timeout: 12000 }, async () => {
+  const h = await receiverHarness(), abort = new AbortController(), id = crypto.randomUUID();
+  const conn = nativeConnection(h.port, id, abort.signal, Date.now() + 65000);
+  const offering = conn.exchange({ type: "OfferImage", operationId: id }, "Ready"); let rejected = false; offering.catch(() => { rejected = true; });
+  try {
+    await h.waitEvent("decisionAsked"); await delay(6000); // Real elapsed extension budget, async wait only; no Windows UI claim.
+    assert.equal(rejected, false, "valid desktop confirmation must remain pending beyond the old five-second offer timeout");
+    assert.deepEqual(h.port.sent.map(m => m.type), ["OfferImage"]);
+    await h.command("allow"); await offering; await sendImage(conn.exchange, id, png, abort.signal); conn.close();
+    const final = await h.waitEvent("fixtureFinal"); assert.equal(final.committed, true); assert.equal(final.bytes, png.length); assert.equal(final.Calls, 1); assert.equal(final.retainedCleared, true); assert.equal(final.inboxEmpty, true);
+  } finally { conn.close(); await h.close(); }
+});

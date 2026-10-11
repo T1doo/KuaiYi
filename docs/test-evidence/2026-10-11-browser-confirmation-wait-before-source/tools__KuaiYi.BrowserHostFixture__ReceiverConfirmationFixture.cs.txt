@@ -1,0 +1,84 @@
+using System.IO.Pipes;
+using System.Security.Cryptography;
+using System.Text.Json;
+using KuaiYi.Core;
+using KuaiYi.NativeHost;
+
+// TEST ONLY: actual production BrowserSession/DesktopPipeChannel/DesktopReceiverSession connected by real local pipe.
+// A second temporary pipe controls synthetic desktop decisions/time; it is absent from all production entries/packages.
+internal static class ReceiverConfirmationFixture
+{
+    internal static async Task<int> Run()
+    {
+        const string origin="chrome-extension://aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/";
+        string imageName="KuaiYi.ConfirmFixture.Image."+Guid.NewGuid().ToString("N"),controlName="KuaiYi.ConfirmFixture.Control."+Guid.NewGuid().ToString("N");
+        using var stop=new CancellationTokenSource();using var receivingStop=new CancellationTokenSource();
+        await using var server=new NamedPipeServerStream(imageName,PipeDirection.InOut,1,PipeTransmissionMode.Byte,PipeOptions.Asynchronous|PipeOptions.CurrentUserOnly);
+        await using var client=new NamedPipeClientStream(".",imageName,PipeDirection.InOut,PipeOptions.Asynchronous|PipeOptions.CurrentUserOnly);
+        await using var control=new NamedPipeServerStream(controlName,PipeDirection.InOut,1,PipeTransmissionMode.Byte,PipeOptions.Asynchronous|PipeOptions.CurrentUserOnly);
+        var clock=new ControlledClock();var gate=new RuntimeGate();using var inbox=new LocalImageInbox(gate,new SynchronizationContext());var decision=new ControlledDecision();
+        var receiver=new DesktopReceiverSession(gate,decision,inbox,[origin],new(123,1,"SyntheticSID","SyntheticHost",1),()=>true,clock);
+        string address=OperatingSystem.IsWindows()?"\\\\.\\pipe\\"+controlName:Path.Combine(Path.GetTempPath(),"CoreFxPipe_"+controlName);
+        if(!OperatingSystem.IsWindows()&&!File.Exists(address))throw new IOException("Test control socket not materialized.");
+        Console.Error.WriteLine(JsonSerializer.Serialize(new{eventType="fixtureReady",address,syntheticDecision=true,syntheticPeer=true,realLocalPipe=true}));
+        var controlTask=Control();var receiveTask=Receive();await client.ConnectAsync(1000);
+        using var input=Console.OpenStandardInput();using var output=Console.OpenStandardOutput();
+        int code=await new BrowserSession(new DesktopPipeChannel(client,origin),timeProvider:clock).RunAsync(input,output);
+        bool committed=await receiveTask.WaitAsync(TimeSpan.FromSeconds(3));int bytes=0;string? digest=null;ReadOnlyMemory<byte> retained=default;
+        if(inbox.CurrentIdentity is {} identity)inbox.TryUseCurrent(identity,image=>{retained=image.Bytes;bytes=retained.Length;digest=Convert.ToHexString(SHA256.HashData(retained.Span));});
+        inbox.Clear();gate.Disable();stop.Cancel();control.Dispose();await controlTask.WaitAsync(TimeSpan.FromSeconds(3));
+        Console.Error.WriteLine(JsonSerializer.Serialize(new{eventType="fixtureFinal",fixture=true,realProductionReceiver=true,realLocalPipe=true,syntheticDecision=true,syntheticPeer=true,code,committed,bytes,digest,decision.Calls,receiver.FailureCode,retainedCleared=retained.ToArray().All(b=>b==0),inboxEmpty=inbox.CurrentIdentity==null}));
+        return code;
+        async Task<bool> Receive(){await server.WaitForConnectionAsync();return await receiver.RunAsync(server,receivingStop.Token);}
+        async Task Control()
+        {
+            try
+            {
+                await control.WaitForConnectionAsync(stop.Token);using var reader=new StreamReader(control,leaveOpen:true);
+                while(await reader.ReadLineAsync(stop.Token) is {} line)
+                {
+                    using var message=JsonDocument.Parse(line);var root=message.RootElement;
+                    string command=root.GetProperty("command").GetString()??"";
+                    switch(command)
+                    {
+                        case "allow":decision.Answer.TrySetResult(true);break;
+                        case "reject":decision.Answer.TrySetResult(false);break;
+                        case "off":gate.Disable();receivingStop.Cancel();inbox.Clear();break;
+                        case "drop":server.Dispose();break;
+                        case "advance":int ms=root.GetProperty("milliseconds").GetInt32();if(ms is <0 or >70000)throw new InvalidDataException("Test clock limit.");clock.Advance(ms);break;
+                        case "stop":receivingStop.Cancel();decision.Answer.TrySetResult(false);break;
+                        default:throw new InvalidDataException("Unknown test command.");
+                    }
+                    Console.Error.WriteLine(JsonSerializer.Serialize(new{eventType="controlAck",id=root.GetProperty("id").GetInt32()}));
+                }
+            }
+            catch(Exception error)when(error is IOException or OperationCanceledException or ObjectDisposedException)
+            {if(!stop.IsCancellationRequested)Console.Error.WriteLine(JsonSerializer.Serialize(new{eventType="controlFailure",code=error.GetType().Name}));}
+        }
+    }
+    private sealed class ControlledDecision:ILocalImageConfirmation
+    {
+        public TaskCompletionSource<bool> Answer {get;}=new(TaskCreationOptions.RunContinuationsAsynchronously);public int Calls;
+        public Task<bool> ConfirmAsync(LocalImageConfirmation request,CancellationToken cancellation)
+        {Calls++;Console.Error.WriteLine(JsonSerializer.Serialize(new{eventType="decisionAsked",operationId=request.OperationId}));return Answer.Task.WaitAsync(cancellation);}
+    }
+    private sealed class ControlledClock:TimeProvider
+    {
+        private readonly object sync=new();private readonly List<Timer> timers=[];private long ticks;
+        public override long TimestampFrequency=>TimeSpan.TicksPerSecond;
+        public override long GetTimestamp(){lock(sync)return ticks;}
+        public override ITimer CreateTimer(TimerCallback callback,object? state,TimeSpan due,TimeSpan period)
+        {lock(sync){var timer=new Timer(this,callback,state);timers.Add(timer);timer.Change(due,period);return timer;}}
+        public void Advance(int milliseconds)
+        {
+            List<Timer> fired;lock(sync){ticks+=TimeSpan.FromMilliseconds(milliseconds).Ticks;fired=timers.Where(t=>!t.Disposed&&t.Due<=ticks).ToList();foreach(var t in fired)t.Due=long.MaxValue;}
+            foreach(var t in fired)t.Callback(t.State);
+        }
+        private sealed class Timer(ControlledClock owner,TimerCallback callback,object? state):ITimer
+        {
+            public TimerCallback Callback {get;}=callback;public object? State {get;}=state;public long Due=long.MaxValue;public bool Disposed;
+            public bool Change(TimeSpan due,TimeSpan period){lock(owner.sync){if(Disposed)return false;Due=due==Timeout.InfiniteTimeSpan?long.MaxValue:owner.ticks+due.Ticks;return true;}}
+            public void Dispose(){lock(owner.sync)Disposed=true;}public ValueTask DisposeAsync(){Dispose();return ValueTask.CompletedTask;}
+        }
+    }
+}

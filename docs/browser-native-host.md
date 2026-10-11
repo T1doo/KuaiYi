@@ -1,3 +1,5 @@
+当前超时预算已修正为握手5秒、单次明确确认30秒、取图/传输30秒、普通帧确认5秒、总上限65秒；完整链路与迟到/取消证据见 [确认等待审阅](browser-confirmation-wait-review.md)。以下旧30秒整连接描述属于历史批次。
+
 当前更新：生产App receiver代码、逐次本地确认和65项合成离线验证已落地，见 [接收端独审](browser-app-receiver-review.md)。当前缺安装配置仍不开放管道，来源未认证；历史无receiver描述及旧ZIP不代表最新源。
 
 # P0-06 浏览器图片与 NativeHost 协议切片

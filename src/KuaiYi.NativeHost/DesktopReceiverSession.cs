@@ -17,8 +17,9 @@ internal sealed class DesktopReceiverSession(RuntimeGate gate,ILocalImageConfirm
     internal string? FailureCode {get;private set;}
     internal async Task<bool> RunAsync(Stream pipe,CancellationToken cancellation=default)
     {
-        using var deadline=new CancellationTokenSource(TimeSpan.FromSeconds(30),time);
-        using var lifetime=CancellationTokenSource.CreateLinkedTokenSource(cancellation,deadline.Token);
+        using var deadline=new CancellationTokenSource(BrowserTiming.Total,time);
+        using var phaseDeadline=new CancellationTokenSource(BrowserTiming.Handshake,time);
+        using var lifetime=CancellationTokenSource.CreateLinkedTokenSource(cancellation,deadline.Token,phaseDeadline.Token);
         using var assembler=new ImageTransferAssembler(time);
         long connected=time.GetTimestamp();
         CancellationTokenSource? requestLink=null;BrowserGrant? grant=null;Guid connection=Guid.Empty;
@@ -56,6 +57,9 @@ internal sealed class DesktopReceiverSession(RuntimeGate gate,ILocalImageConfirm
                         Guid operation=BrowserEnvelope.Id(root,"operationId");
                         // Monitor the connection while the desktop decision is pending. EOF or early input revokes the prompt.
                         pending=IpcFrameCodec.ReadAsync(pipe,lifetime.Token).AsTask();
+                        if(pending.IsCompleted)throw new BrowserException(BrowserFailure.Disconnected);
+                        phaseDeadline.CancelAfter(BrowserTiming.Confirmation);long confirmationStarted=time.GetTimestamp();
+                        await Reply(new{phase="ConfirmationPending",operationId=operation,timeoutMs=BrowserTiming.ConfirmationMilliseconds});
                         var decision=confirmation.ConfirmAsync(new(connection,operation,origin!,peer.ProcessId),lifetime.Token);
                         bool observedDecision=false;
                         try
@@ -70,9 +74,10 @@ internal sealed class DesktopReceiverSession(RuntimeGate gate,ILocalImageConfirm
                             if(!observedDecision){lifetime.Cancel();_ = ObserveDecision(decision);}
                         }
                         lifetime.Token.ThrowIfCancellationRequested();
-                        if(time.GetElapsedTime(connected)>=TimeSpan.FromSeconds(30))throw new BrowserException(BrowserFailure.Timeout);
+                        if(time.GetElapsedTime(connected)>=BrowserTiming.Total||time.GetElapsedTime(confirmationStarted)>=BrowserTiming.Confirmation)throw new BrowserException(BrowserFailure.Timeout);
                         if(!gate.TryStartConfirmedLocalRequest(snapshot.Epoch,session,Guid.NewGuid(),out var identity,out _))throw new BrowserException(BrowserFailure.Stale);
                         grant=new(operation,identity,Guid.NewGuid());issued=time.GetTimestamp();
+                        phaseDeadline.CancelAfter(BrowserTiming.Transfer);
                         if(!gate.TryLinkRequestCancellation(identity,lifetime.Token,out requestLink))throw new BrowserException(BrowserFailure.Stale);
                         CheckGrant();await Reply(new{phase="Ready",operationId=operation,identity,nonce=grant.Nonce});
                     }
@@ -96,7 +101,7 @@ internal sealed class DesktopReceiverSession(RuntimeGate gate,ILocalImageConfirm
                         // Monitor EOF while a destination-thread application is queued.
                         pending=IpcFrameCodec.ReadAsync(pipe,requestLink!.Token).AsTask();
                         var publish=inbox.PublishAsync(grant.Identity,image,size,requestLink.Token,
-                            ()=>time.GetElapsedTime(connected)<TimeSpan.FromSeconds(30)&&time.GetElapsedTime(issued)<TimeSpan.FromSeconds(30));
+                            ()=>time.GetElapsedTime(connected)<BrowserTiming.Total&&time.GetElapsedTime(issued)<BrowserTiming.Transfer);
                         if(await Task.WhenAny(publish,pending).ConfigureAwait(false)!=publish||pending.IsCompleted)
                         {
                             lifetime.Cancel();await publish.ConfigureAwait(false);throw new EndOfStreamException();
@@ -115,7 +120,7 @@ internal sealed class DesktopReceiverSession(RuntimeGate gate,ILocalImageConfirm
         }
         catch(Exception error)
         {
-            FailureCode=error switch{BrowserException b=>b.Code.ToString(),OperationCanceledException=>deadline.IsCancellationRequested?"Timeout":"Cancelled",IOException=>"Disconnected",InvalidDataException or JsonException or InvalidOperationException or FormatException or ImageJobException=>"InvalidMessage",_=>"InternalFailure"};
+            FailureCode=error switch{BrowserException b=>b.Code.ToString(),OperationCanceledException=>deadline.IsCancellationRequested||phaseDeadline.IsCancellationRequested?"Timeout":"Cancelled",IOException=>"Disconnected",InvalidDataException or JsonException or InvalidOperationException or FormatException or ImageJobException=>"InvalidMessage",_=>"InternalFailure"};
             // No extra read, raw errors or content echo; closing the connection is the rejection signal.
             return false;
         }
@@ -129,8 +134,8 @@ internal sealed class DesktopReceiverSession(RuntimeGate gate,ILocalImageConfirm
         void CheckGrant(JsonElement? root=null)
         {
             lifetime.Token.ThrowIfCancellationRequested();requestLink?.Token.ThrowIfCancellationRequested();
-            if(time.GetElapsedTime(connected)>=TimeSpan.FromSeconds(30))throw new BrowserException(BrowserFailure.Timeout);
-            if(grant==null||time.GetElapsedTime(issued)>=TimeSpan.FromSeconds(30)||!gate.CanApply(grant.Identity)||
+            if(time.GetElapsedTime(connected)>=BrowserTiming.Total)throw new BrowserException(BrowserFailure.Timeout);
+            if(grant==null||time.GetElapsedTime(issued)>=BrowserTiming.Transfer||!gate.CanApply(grant.Identity)||
                 (root.HasValue&&ReadGrant(root.Value.GetProperty("grant"))!=grant))throw new BrowserException(BrowserFailure.Stale);
         }
         async ValueTask Reply<T>(T value)

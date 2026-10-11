@@ -188,9 +188,11 @@
         "docs/browser-read-ownership-review.md",
         "docs/test-evidence/2026-10-11-browser-read-ownership-summary.json",
         "docs/browser-app-receiver-review.md",
-        "docs/test-evidence/2026-10-11-browser-app-receiver-summary.json"
+        "docs/test-evidence/2026-10-11-browser-app-receiver-summary.json",
+        "docs/browser-confirmation-wait-review.md",
+        "docs/test-evidence/2026-10-11-browser-confirmation-wait-summary.json"
       ],
-      "note": "Production App local receiver code implemented; OS process/user/session/installed-role checks and per-operation desktop confirmation, connection-bound single grant, local-only network gate. Synthetic Linux IPC tests pass; actual Windows security/UI/config/registration not run. Screenshot fallback denied; browser source not authenticated; whole acceptance remains NotRun."
+      "note": "Production App local receiver code implemented; OS process/user/session/installed-role checks and per-operation desktop confirmation, connection-bound single grant, local-only network gate. Synthetic Linux IPC tests pass; actual Windows security/UI/config/registration not run. Screenshot fallback denied; browser source not authenticated; whole acceptance remains NotRun. Confirmation phase timing repaired: handshake 5s/explicit decision 30s/transfer 30s/ack 5s/global 65s. Actual extension-host-receiver Linux protocol tests with synthetic decision/OS peer pass; no Windows acceptance claim."
     },
     {
       "id": "R14",
@@ -377,9 +379,11 @@
         "docs/browser-read-ownership-review.md",
         "docs/test-evidence/2026-10-11-browser-read-ownership-summary.json",
         "docs/browser-app-receiver-review.md",
-        "docs/test-evidence/2026-10-11-browser-app-receiver-summary.json"
+        "docs/test-evidence/2026-10-11-browser-app-receiver-summary.json",
+        "docs/browser-confirmation-wait-review.md",
+        "docs/test-evidence/2026-10-11-browser-confirmation-wait-summary.json"
       ],
-      "note": "Production App local receiver code implemented; OS process/user/session/installed-role checks and per-operation desktop confirmation, connection-bound single grant, local-only network gate. Synthetic Linux IPC tests pass; actual Windows security/UI/config/registration not run. Screenshot fallback denied; browser source not authenticated; whole acceptance remains NotRun."
+      "note": "Production App local receiver code implemented; OS process/user/session/installed-role checks and per-operation desktop confirmation, connection-bound single grant, local-only network gate. Synthetic Linux IPC tests pass; actual Windows security/UI/config/registration not run. Screenshot fallback denied; browser source not authenticated; whole acceptance remains NotRun. Confirmation phase timing repaired: handshake 5s/explicit decision 30s/transfer 30s/ack 5s/global 65s. Actual extension-host-receiver Linux protocol tests with synthetic decision/OS peer pass; no Windows acceptance claim."
     },
     {
       "id": "P1-01",
@@ -2157,9 +2161,11 @@
       "validationStatus": "NotRun",
       "evidence": [
         "docs/browser-app-receiver-review.md",
-        "docs/test-evidence/2026-10-11-browser-app-receiver-summary.json"
+        "docs/test-evidence/2026-10-11-browser-app-receiver-summary.json",
+        "docs/browser-confirmation-wait-review.md",
+        "docs/test-evidence/2026-10-11-browser-confirmation-wait-summary.json"
       ],
-      "note": "Production App local receiver code implemented; OS process/user/session/installed-role checks and per-operation desktop confirmation, connection-bound single grant, local-only network gate. Synthetic Linux IPC tests pass; actual Windows security/UI/config/registration not run. Screenshot fallback denied; browser source not authenticated; whole acceptance remains NotRun."
+      "note": "Production App local receiver code implemented; OS process/user/session/installed-role checks and per-operation desktop confirmation, connection-bound single grant, local-only network gate. Synthetic Linux IPC tests pass; actual Windows security/UI/config/registration not run. Screenshot fallback denied; browser source not authenticated; whole acceptance remains NotRun. Confirmation phase timing repaired: handshake 5s/explicit decision 30s/transfer 30s/ack 5s/global 65s. Actual extension-host-receiver Linux protocol tests with synthetic decision/OS peer pass; no Windows acceptance claim."
     },
     {
       "id": "L05",

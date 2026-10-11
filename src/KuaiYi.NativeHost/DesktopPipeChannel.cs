@@ -4,19 +4,35 @@ using KuaiYi.Contracts;
 using KuaiYi.Imaging;
 namespace KuaiYi.NativeHost;
 /// <summary>Actual internal IPC codec. Production factory supplies only an OS-verified, pinned local peer.</summary>
-public sealed class DesktopPipeChannel(Stream pipe,string origin):IDesktopImageChannel
+public sealed class DesktopPipeChannel(Stream pipe,string origin,TimeProvider? timeProvider=null):IDesktopConfirmationChannel
 {
     private readonly Guid connection=Guid.NewGuid();
-    public async ValueTask<BrowserGrant> OfferAsync(Guid operation,CancellationToken cancellation)
+    public ValueTask<BrowserGrant> OfferAsync(Guid operation,CancellationToken cancellation)=>OfferWithConfirmationAsync(operation,_=>ValueTask.CompletedTask,cancellation);
+    public async ValueTask<BrowserGrant> OfferWithConfirmationAsync(Guid operation,Func<CancellationToken,ValueTask> waiting,CancellationToken cancellation)
     {
-        await Send(new{phase="OfferImage",operationId=operation,origin},cancellation);
-        using var response=await Reply(cancellation);var root=response.RootElement;
+        var time=timeProvider??TimeProvider.System;long started=time.GetTimestamp();TimeSpan currentBudget=BrowserTiming.Handshake;
+        using var phase=new CancellationTokenSource(BrowserTiming.Handshake,time);
+        using var linked=CancellationTokenSource.CreateLinkedTokenSource(cancellation,phase.Token);
+        await Send(new{phase="OfferImage",operationId=operation,origin},linked.Token);
+        using var first=await Reply(linked.Token);CheckTime();var root=first.RootElement;
+        if(root.GetProperty("phase").GetString()=="ConfirmationPending")
+        {
+            BrowserEnvelope.Fields(root,"phase","operationId","timeoutMs");
+            if(BrowserEnvelope.Id(root,"operationId")!=operation||root.GetProperty("timeoutMs").GetInt32()!=BrowserTiming.ConfirmationMilliseconds)throw new BrowserException(BrowserFailure.DesktopUntrusted);
+            started=time.GetTimestamp();currentBudget=BrowserTiming.Confirmation;phase.CancelAfter(currentBudget);await waiting(linked.Token);
+            using var ready=await Reply(linked.Token);CheckTime();return Grant(ready.RootElement);
+        }
+        return Grant(root);
+        BrowserGrant Grant(JsonElement root)
+        {
         if(root.GetProperty("phase").GetString()=="Denied")throw new BrowserException(BrowserFailure.ActivationRequired);
         BrowserEnvelope.Fields(root,"phase","operationId","identity","nonce");
         if(root.GetProperty("phase").GetString()!="Ready")throw new BrowserException(BrowserFailure.DesktopUntrusted);
         var identity=JsonSerializer.Deserialize<KuaiYi.Core.RequestIdentity>(root.GetProperty("identity"));
         var grant=new BrowserGrant(BrowserEnvelope.Id(root,"operationId"),identity,BrowserEnvelope.Id(root,"nonce"));
         if(!BrowserEnvelope.Valid(grant,operation))throw new BrowserException(BrowserFailure.DesktopUntrusted);return grant;
+        }
+        void CheckTime(){linked.Token.ThrowIfCancellationRequested();if(time.GetElapsedTime(started)>=currentBudget)throw new BrowserException(BrowserFailure.Timeout);}
     }
     public async ValueTask SubmitAsync(BrowserGrant grant,ReceivedImage image,ImageSize size,CancellationToken cancellation)
     {

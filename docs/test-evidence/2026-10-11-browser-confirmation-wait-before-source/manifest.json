@@ -1,0 +1,62 @@
+{
+  "sourceBaseCommit": "d25092acc907a16a7636dd95656fdac5a071da51",
+  "beforeFailure": "Actual extension offer times out at 5 seconds while actual production receiver synthetic decision stays pending for 6 seconds",
+  "instrumentation": "Only fixture/friend access added; production protocol/session/receiver behavior retained",
+  "files": [
+    {
+      "source": "extensions/chromium/protocol.js",
+      "snapshot": "artifacts/test-results/confirmation-wait/before-source/extensions__chromium__protocol.js.txt",
+      "sha256": "17e70d39e83c09e98c167e36fa16969c2984f5105453a7105f2ac22db6f8c231"
+    },
+    {
+      "source": "extensions/chromium/service-worker.js",
+      "snapshot": "artifacts/test-results/confirmation-wait/before-source/extensions__chromium__service-worker.js.txt",
+      "sha256": "89e9e9859a6afbbfea5ed29826a302682495e1dc3cafd12a90450937a3a7d24e"
+    },
+    {
+      "source": "src/KuaiYi.NativeHost/BrowserSession.cs",
+      "snapshot": "artifacts/test-results/confirmation-wait/before-source/src__KuaiYi.NativeHost__BrowserSession.cs.txt",
+      "sha256": "f5e4215894fdf853e61ee811dfc5a8ed2b7d91f8152da66185bcddfab6374615"
+    },
+    {
+      "source": "src/KuaiYi.NativeHost/DesktopReceiverSession.cs",
+      "snapshot": "artifacts/test-results/confirmation-wait/before-source/src__KuaiYi.NativeHost__DesktopReceiverSession.cs.txt",
+      "sha256": "af8f3af1865329d426b647c44dcf6241a17573eccb6fbe01fb49679394172f9e"
+    },
+    {
+      "source": "src/KuaiYi.NativeHost/DesktopPipeChannel.cs",
+      "snapshot": "artifacts/test-results/confirmation-wait/before-source/src__KuaiYi.NativeHost__DesktopPipeChannel.cs.txt",
+      "sha256": "a06f51de7a9f32f6fc067c4376cded7c540f627130d6f1b4acabb58508612dfc"
+    },
+    {
+      "source": "src/KuaiYi.NativeHost/InstalledDesktopChannel.cs",
+      "snapshot": "artifacts/test-results/confirmation-wait/before-source/src__KuaiYi.NativeHost__InstalledDesktopChannel.cs.txt",
+      "sha256": "442bb03a5e512a45fffce622f9befa0c87ab6b0be3b1ae66f9b5158569335cc2"
+    },
+    {
+      "source": "src/KuaiYi.NativeHost/AssemblyInfo.cs",
+      "snapshot": "artifacts/test-results/confirmation-wait/before-source/src__KuaiYi.NativeHost__AssemblyInfo.cs.txt",
+      "sha256": "527c9dc13c919b712f10ec463af86c6aac636a6dbc4ef283cadc200ad0283e13"
+    },
+    {
+      "source": "tools/KuaiYi.BrowserHostFixture/Program.cs",
+      "snapshot": "artifacts/test-results/confirmation-wait/before-source/tools__KuaiYi.BrowserHostFixture__Program.cs.txt",
+      "sha256": "6f41c002eab0fde0d39805c0015c8a0c564165e5aeb326cd9e6304ac0c14882d"
+    },
+    {
+      "source": "tools/KuaiYi.BrowserHostFixture/ReceiverConfirmationFixture.cs",
+      "snapshot": "artifacts/test-results/confirmation-wait/before-source/tools__KuaiYi.BrowserHostFixture__ReceiverConfirmationFixture.cs.txt",
+      "sha256": "49df8d5c99aa9ce7f42d489096a751629a2f83bdba981f962275e575ccbabbc9"
+    },
+    {
+      "source": "tests/browser/confirmation-harness.mjs",
+      "snapshot": "artifacts/test-results/confirmation-wait/before-source/tests__browser__confirmation-harness.mjs.txt",
+      "sha256": "e571c1fc7f4f682662c8b2e6bb7bdb0b28f5c6af25a2fd4a101e4553bd841e46"
+    },
+    {
+      "source": "tests/browser/confirmation.test.mjs",
+      "snapshot": "artifacts/test-results/confirmation-wait/before-source/tests__browser__confirmation.test.mjs.txt",
+      "sha256": "706095ce36be3952b405ed853bca633a8a3cd2c12eca87149124637f794c6fd3"
+    }
+  ]
+}

@@ -8,18 +8,19 @@ using KuaiYi.Imaging;
 namespace KuaiYi.NativeHost;
 
 /// <summary>Local current-user/session pipe, pinned installed App role; never launches App or downloads URLs.</summary>
-public sealed class InstalledDesktopChannel(InstalledHostPolicy policy) : IDesktopImageChannel
+public sealed class InstalledDesktopChannel(InstalledHostPolicy policy) : IDesktopConfirmationChannel
 {
     private NamedPipeClientStream? pipe;
     private DesktopPipeChannel? channel;
-    public async ValueTask<BrowserGrant> OfferAsync(Guid operation,CancellationToken cancellation)
+    public ValueTask<BrowserGrant> OfferAsync(Guid operation,CancellationToken cancellation)=>OfferWithConfirmationAsync(operation,_=>ValueTask.CompletedTask,cancellation);
+    public async ValueTask<BrowserGrant> OfferWithConfirmationAsync(Guid operation,Func<CancellationToken,ValueTask> waiting,CancellationToken cancellation)
     {
         if(!OperatingSystem.IsWindows())throw new BrowserException(BrowserFailure.UnsupportedPlatform);
         pipe=new(".",policy.PipeName,PipeDirection.InOut,PipeOptions.Asynchronous|PipeOptions.CurrentUserOnly);
         try{await pipe.ConnectAsync(1500,cancellation).ConfigureAwait(false);}catch(TimeoutException){throw new BrowserException(BrowserFailure.DesktopUnavailable);}catch(IOException){throw new BrowserException(BrowserFailure.DesktopUnavailable);}
         VerifyServer(pipe,policy);
         channel=new(pipe,policy.Origin);
-        return await channel.OfferAsync(operation,cancellation);
+        return await channel.OfferWithConfirmationAsync(operation,waiting,cancellation);
     }
     public ValueTask SubmitAsync(BrowserGrant grant,ReceivedImage image,ImageSize size,CancellationToken cancellation)
         =>(channel??throw new BrowserException(BrowserFailure.DesktopUnavailable)).SubmitAsync(grant,image,size,cancellation);

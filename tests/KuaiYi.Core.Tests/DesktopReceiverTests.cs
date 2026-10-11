@@ -88,7 +88,8 @@ public sealed class DesktopReceiverTests
         public Task Offer(string origin=Origin)=>Send(new{phase="OfferImage",operationId=Operation,origin});
         public async Task<BrowserGrant> Authorize()
         {
-            await Offer();var asked=await Decision.Asked.Task.WaitAsync(TimeSpan.FromSeconds(3));
+            await Offer();var waiting=await Read();Assert.Equal("ConfirmationPending",waiting.GetProperty("phase").GetString());Assert.Equal(Operation,waiting.GetProperty("operationId").GetGuid());Assert.Equal(BrowserTiming.ConfirmationMilliseconds,waiting.GetProperty("timeoutMs").GetInt32());
+            var asked=await Decision.Asked.Task.WaitAsync(TimeSpan.FromSeconds(3));
             Assert.Equal(Connection,asked.ConnectionId);Assert.Equal(Operation,asked.OperationId);Assert.Equal(Origin,asked.DeclaredOrigin);Assert.Equal(123,asked.ClientProcessId);
             Assert.Null(Inbox.Current);Assert.Equal(Activation.Off,Gate.Snapshot.Activation);
             Decision.Answer.SetResult(true);var ready=await Read();Assert.Equal("Ready",ready.GetProperty("phase").GetString());

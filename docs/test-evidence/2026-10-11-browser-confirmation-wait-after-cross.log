@@ -1,0 +1,37 @@
+✔ actual extension/host/production receiver waits over five seconds for explicit synthetic desktop decision (6158.857332ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: allow-after-six (161.239123ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: no-answer (123.417598ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: reject (112.512263ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: cancel (125.773665ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: off (151.356229ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: disconnect (125.033969ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: late-answer (119.457067ms)
+✖ actual ServiceWorker/native host/production receiver confirmation boundary: late-ready (180.125287ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 8
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7303.436589
+
+✖ failing tests:
+
+test at tests/browser/confirmation.test.mjs:43:3
+✖ actual ServiceWorker/native host/production receiver confirmation boundary: late-ready (180.125287ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 3
+  
+      at TestContext.<anonymous> (file:///workspace/KuaiYi/tests/browser/confirmation.test.mjs:73:16)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 3,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

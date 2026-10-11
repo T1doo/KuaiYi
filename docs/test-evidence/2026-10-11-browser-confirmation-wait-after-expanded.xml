@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites>
+	<testcase name="actual extension/host/production receiver waits over five seconds for explicit synthetic desktop decision" time="6.208425" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: allow-after-six" time="0.154025" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: no-answer" time="0.103338" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: reject" time="0.108908" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: cancel" time="0.106372" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: off" time="0.104121" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: disconnect" time="0.106196" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: late-answer" time="0.102463" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: late-ready" time="0.115117" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="offer without explicit confirmation state still expires at five seconds" time="0.000870" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="ordinary Begin acknowledgement keeps its five-second budget after long confirmation" time="0.000446" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="idle acquisition has a thirty-second transfer budget and disconnect cancels the owning signal" time="0.000398" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="late Ready rejected by monotonic deadline even when wall clock moves backwards before timer dispatch" time="0.000305" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="total operation deadline cannot be renewed by confirmation or Ready" time="0.000237" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="confirmation stage cannot obtain a renewed timer with invalid progress: id" time="0.000203" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="confirmation stage cannot obtain a renewed timer with invalid progress: budget" time="0.000112" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="confirmation stage cannot obtain a renewed timer with invalid progress: protocol" time="0.000098" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="confirmation stage cannot obtain a renewed timer with invalid progress: extra" time="0.000137" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="confirmation stage cannot obtain a renewed timer with invalid progress: duplicate" time="0.000169" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<!-- tests 19 -->
+	<!-- suites 0 -->
+	<!-- pass 19 -->
+	<!-- fail 0 -->
+	<!-- cancelled 0 -->
+	<!-- skipped 0 -->
+	<!-- todo 0 -->
+	<!-- duration_ms 7158.932231 -->
+</testsuites>

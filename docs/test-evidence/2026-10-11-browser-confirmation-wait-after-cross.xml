@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites>
+	<testcase name="actual extension/host/production receiver waits over five seconds for explicit synthetic desktop decision" time="6.158857" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: allow-after-six" time="0.161239" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: no-answer" time="0.123418" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: reject" time="0.112512" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: cancel" time="0.125774" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: off" time="0.151356" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: disconnect" time="0.125034" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: late-answer" time="0.119457" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: late-ready" time="0.180125" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs" failure="Expected values to be strictly equal:&#10;&#10;0 !== 3&#10;">
+		<failure type="testCodeFailure" message="Expected values to be strictly equal:&#10;&#10;0 !== 3">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:
+
+0 !== 3
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 3
+  
+      at TestContext.&lt;anonymous> (file:///workspace/KuaiYi/tests/browser/confirmation.test.mjs:73:16)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 3,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<!-- tests 9 -->
+	<!-- suites 0 -->
+	<!-- pass 8 -->
+	<!-- fail 1 -->
+	<!-- cancelled 0 -->
+	<!-- skipped 0 -->
+	<!-- todo 0 -->
+	<!-- duration_ms 7303.436589 -->
+</testsuites>

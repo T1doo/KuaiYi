@@ -1,0 +1,28 @@
+✔ actual extension/host/production receiver waits over five seconds for explicit synthetic desktop decision (6139.5511ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: allow-after-six (141.910819ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: no-answer (100.817116ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: reject (105.421575ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: cancel (97.626269ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: off (105.237221ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: disconnect (98.717108ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: late-answer (104.97143ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: late-answer-no-timer (103.127853ms)
+✔ actual ServiceWorker/native host/production receiver confirmation boundary: late-ready (114.607866ms)
+✔ offer without explicit confirmation state still expires at five seconds (0.807483ms)
+✔ ordinary Begin acknowledgement keeps its five-second budget after long confirmation (0.297824ms)
+✔ idle acquisition has a thirty-second transfer budget and disconnect cancels the owning signal (0.28201ms)
+✔ late Ready rejected by monotonic deadline even when wall clock moves backwards before timer dispatch (0.29559ms)
+✔ total operation deadline cannot be renewed by confirmation or Ready (0.252727ms)
+✔ confirmation stage cannot obtain a renewed timer with invalid progress: id (0.192346ms)
+✔ confirmation stage cannot obtain a renewed timer with invalid progress: budget (0.104746ms)
+✔ confirmation stage cannot obtain a renewed timer with invalid progress: protocol (0.098337ms)
+✔ confirmation stage cannot obtain a renewed timer with invalid progress: extra (0.10738ms)
+✔ confirmation stage cannot obtain a renewed timer with invalid progress: duplicate (0.229061ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7229.103001
