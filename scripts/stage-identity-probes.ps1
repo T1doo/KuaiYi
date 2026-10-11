@@ -23,7 +23,7 @@ try {
     Copy-Item -LiteralPath (Join-Path $script:RepositoryRoot 'tests/fixtures/images/kuaiyi-test.png') -Destination (Join-Path $root 'kuaiyi-test.png')
     if (-not $ManagedOnly) {
         Assert-WindowsDesktop
-        foreach ($component in 'KuaiYi.OcrNative','KuaiYi.ShellExtension') {
+        foreach ($component in 'KuaiYi.OcrNative','KuaiYi.ShellExtension','KuaiYi.CaptureNative') {
             $dll=Join-Path $script:RepositoryRoot "artifacts/native/$component/$Configuration/$component.dll"
             if (-not (Test-Path -LiteralPath $dll)) { throw "Native component missing: $component; run build.ps1 -Scope All on Windows." }
             Copy-Item -LiteralPath $dll -Destination $stage

@@ -40,7 +40,7 @@ internal static class Program
     }
 }
 // P0 OCR review surface; not the production floating translation window or completed P1 application.
-internal sealed class ImageProbeWindow : Window
+internal sealed partial class ImageProbeWindow : Window
 {
     private readonly TextBlock status = new() { Text = "Off · 本地 OCR 平台实验；不会调用模型", TextWrapping = TextWrapping.Wrap };
     private readonly TextBox result = new() { IsReadOnly = true, TextWrapping = TextWrapping.Wrap, VerticalScrollBarVisibility = ScrollBarVisibility.Auto };
@@ -69,7 +69,8 @@ internal sealed class ImageProbeWindow : Window
         Title = "快译 · P0 OCR 实验"; Width = 560; Height = 420;
         var panel = new StackPanel { Margin = new Thickness(16) };
         panel.Children.Add(status); panel.Children.Add(enabled); panel.Children.Add(stopLocal); panel.Children.Add(language); panel.Children.Add(choose);
-        result.Height = 260; panel.Children.Add(result); Content = panel;
+        SetupScreenshot(panel);
+        result.Height = 260; panel.Children.Add(result); Content = new ScrollViewer{Content=panel,VerticalScrollBarVisibility=ScrollBarVisibility.Auto};
         if (path != null) status.Text = "Off · Explorer 图片待确认；尚未读取。P0 仅支持 PNG。";
         choose.Click += async (_,_) => await Recognize();
         stopLocal.Click+=(_,_)=>StopLocal(); // Available even while the initial Off prompt or transfer is pending.
@@ -81,6 +82,7 @@ internal sealed class ImageProbeWindow : Window
         enabled.Unchecked += (_,_) =>StopLocal();
         Closing += async (_,e) =>
         {
+            if(captureTask is {IsCompleted:false}){e.Cancel=true;gate.Disable();CancelScreenshot();await captureTask;Close();return;}
             if (running != null || ownedWorker != null) { e.Cancel = true; gate.Disable(); enabled.IsChecked = false; status.Text = "Off · 正在确认 Worker/启动任务退出，请稍后关闭。"; }
             else if(browserTask is {IsCompleted:false})
             {
@@ -107,11 +109,11 @@ internal sealed class ImageProbeWindow : Window
                     result.Clear();
                 });
         };
-        exitPoll.Start(); Closed += (_,_) => { exitPoll.Stop(); gate.Disable(); browserLifetime.Cancel();browserInbox.Dispose();browserLifetime.Dispose(); Microsoft.Win32.SystemEvents.SessionSwitch-=OnSessionSwitch; };
+        exitPoll.Start(); Closed += (_,_) => { exitPoll.Stop();try{hotkey?.Dispose();}catch(Exception error){Console.Error.WriteLine("KuaiYi hotkey cleanup: "+error.GetType().Name);} gate.Disable(); browserLifetime.Cancel();browserInbox.Dispose();browserLifetime.Dispose(); Microsoft.Win32.SystemEvents.SessionSwitch-=OnSessionSwitch; };
         Microsoft.Win32.SystemEvents.SessionSwitch+=OnSessionSwitch;
         Loaded+=(_,_)=>
         {
-            var confirmation=new DesktopLocalConfirmation(this,()=>running==null&&ownedWorker==null);
+            var confirmation=new DesktopLocalConfirmation(this,()=>running==null&&ownedWorker==null&&captureTask is not {IsCompleted:false});
             browserTask=Task.Run(async ()=>
             {
                 try
@@ -131,13 +133,14 @@ internal sealed class ImageProbeWindow : Window
     }
     private void StopLocal()
     {
+        CancelScreenshot();
         gate.Disable();browserReceiver?.Revoke();browserInbox.Clear();enabled.IsChecked=false;result.Clear();status.Text="Off · 已取消并清空";
     }
     private void OnSessionSwitch(object sender,Microsoft.Win32.SessionSwitchEventArgs e)
     {
         if(e.Reason is not (Microsoft.Win32.SessionSwitchReason.SessionLock or Microsoft.Win32.SessionSwitchReason.SessionUnlock))return;
         // Invalidate immediately on the system event thread; an old queued commit must not precede UI lock handling.
-        gate.SetSessionLocked(e.Reason==Microsoft.Win32.SessionSwitchReason.SessionLock);
+        gate.SetSessionLocked(e.Reason==Microsoft.Win32.SessionSwitchReason.SessionLock);CancelScreenshot();
         browserReceiver?.Revoke();browserInbox.Clear();
         Dispatcher.BeginInvoke(()=>
         {
@@ -150,12 +153,15 @@ internal sealed class ImageProbeWindow : Window
         if (update.Kind == ImageUiEventKind.ExitUnconfirmed) enabled.IsChecked = false;
         status.Text = update.Status; result.Text = update.Text;
     }
-    private async Task Recognize()
+    private async Task Recognize(ScreenshotPng? prepared=null,RequestIdentity? preparedIdentity=null)
     {
+        if(preparedIdentity is {} expected&&!gate.CanApply(expected))return;
         if (gate.Snapshot.Activation != Activation.On || running != null || ownedWorker != null) { status.Text = "请先允许本次本地 OCR，并等待旧 Worker 退出确认。"; return; }
         string? path = pendingPath;
-        if (path == null) { var dialog = new Microsoft.Win32.OpenFileDialog { Filter = "PNG|*.png", Multiselect = false }; if (dialog.ShowDialog(this) != true) return; path = dialog.FileName; }
-        if (!gate.TryStartRequest(session,Guid.NewGuid(),null,out var current,out _)) return;
+        if (prepared==null && path == null) { var dialog = new Microsoft.Win32.OpenFileDialog { Filter = "PNG|*.png", Multiselect = false }; if (dialog.ShowDialog(this) != true) return; path = dialog.FileName; }
+        RequestIdentity current;
+        if(preparedIdentity is {} ready){current=ready;if(!gate.CanApply(current))return;}
+        else if (!gate.TryStartRequest(session,Guid.NewGuid(),null,out current,out _)) return;
         browserInbox.Clear();
         long ordinal = ++workerVersion;
         string languageTag = language.Text;
@@ -168,7 +174,8 @@ internal sealed class ImageProbeWindow : Window
             {
                 var identity = PackageIdentity.Read("KuaiYi");
                 if (identity.Failure != ImageFailure.None) throw new ImageJobException(identity.Failure);
-                bytes = await Task.Run(() => LocalImageFile.ReadPngAsync(path,cancellation),cancellation);
+                bytes = prepared!=null?prepared.Bytes.ToArray():await Task.Run(() => LocalImageFile.ReadPngAsync(path!,cancellation),cancellation);
+                cancellation.ThrowIfCancellationRequested();
                 var worker = new ImageWorkerClient(Path.Combine(AppContext.BaseDirectory,"KuaiYi.ImageWorker.exe"));
                 operationOwner = new(current,worker); ownedWorker = operationOwner;
                 return await worker.RunAsync(bytes,new(current.SessionId,ordinal,current.Epoch,languageTag,bytes.Length),cancellation);

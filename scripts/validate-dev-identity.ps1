@@ -34,7 +34,7 @@ if (@($types | ForEach-Object Type | Sort-Object -Unique).Count -ne 6) { throw '
 if (-not $SourceOnly) {
     if (-not $InstallRoot -or -not [IO.Path]::IsPathFullyQualified($InstallRoot)) { throw 'Absolute installed root required.' }
     $root = (Resolve-Path -LiteralPath $InstallRoot).Path
-    foreach ($file in @('KuaiYi.App.exe','KuaiYi.ImageWorker.exe','KuaiYi.OcrNative.dll','KuaiYi.ShellExtension.dll')) {
+    foreach ($file in @('KuaiYi.App.exe','KuaiYi.ImageWorker.exe','KuaiYi.OcrNative.dll','KuaiYi.ShellExtension.dll','KuaiYi.CaptureNative.dll')) {
         $path=Join-Path $root $file
         if (-not (Test-Path -LiteralPath $path -PathType Leaf)) { throw "Missing install file: $file" }
         $bytes=[IO.File]::ReadAllBytes($path)

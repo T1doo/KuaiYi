@@ -2,8 +2,18 @@
   "version": 2,
   "dependencies": {
     "net10.0-windows7.0": {
+      "kuaiyi.contracts": {
+        "type": "Project"
+      },
       "kuaiyi.core": {
         "type": "Project"
+      },
+      "kuaiyi.imaging": {
+        "type": "Project",
+        "dependencies": {
+          "KuaiYi.Contracts": "[1.0.0, )",
+          "KuaiYi.Core": "[1.0.0, )"
+        }
       }
     }
   }

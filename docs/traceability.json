@@ -138,9 +138,13 @@
         "P6",
         "I"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/screenshot-review.md",
+        "docs/test-evidence/2026-10-11-screenshot-summary.json"
+      ],
+      "note": "P0 explicit screenshot production source only: WGC/explicit GDI, per-monitor masks, physical crop/PNG, local-only ImageWorker; 38 shared screenshot tests pass with public synthetic raster and actual private Worker protocol (UnsupportedPlatform on Linux). Actual native build/Windows capture/hotkey/mixed-DPI/self-exclusion not run; complete normalization/visual/model/settings product remains incomplete. Whole acceptance NotRun."
     },
     {
       "id": "R11",
@@ -381,9 +385,11 @@
         "docs/browser-app-receiver-review.md",
         "docs/test-evidence/2026-10-11-browser-app-receiver-summary.json",
         "docs/browser-confirmation-wait-review.md",
-        "docs/test-evidence/2026-10-11-browser-confirmation-wait-summary.json"
+        "docs/test-evidence/2026-10-11-browser-confirmation-wait-summary.json",
+        "docs/screenshot-review.md",
+        "docs/test-evidence/2026-10-11-screenshot-summary.json"
       ],
-      "note": "Production App local receiver code implemented; OS process/user/session/installed-role checks and per-operation desktop confirmation, connection-bound single grant, local-only network gate. Synthetic Linux IPC tests pass; actual Windows security/UI/config/registration not run. Screenshot fallback denied; browser source not authenticated; whole acceptance remains NotRun. Confirmation phase timing repaired: handshake 5s/explicit decision 30s/transfer 30s/ack 5s/global 65s. Actual extension-host-receiver Linux protocol tests with synthetic decision/OS peer pass; no Windows acceptance claim."
+      "note": "P0 explicit screenshot production source only: WGC/explicit GDI, per-monitor masks, physical crop/PNG, local-only ImageWorker; 38 shared screenshot tests pass with public synthetic raster and actual private Worker protocol (UnsupportedPlatform on Linux). Actual native build/Windows capture/hotkey/mixed-DPI/self-exclusion not run; complete normalization/visual/model/settings product remains incomplete. Whole acceptance NotRun."
     },
     {
       "id": "P1-01",
@@ -729,9 +735,13 @@
         "实现区域截图、多屏物理像素裁切、取消与自身排除",
         "ScreenshotService、真实多屏证据"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": []
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/screenshot-review.md",
+        "docs/test-evidence/2026-10-11-screenshot-summary.json"
+      ],
+      "note": "P0 explicit screenshot production source only: WGC/explicit GDI, per-monitor masks, physical crop/PNG, local-only ImageWorker; 38 shared screenshot tests pass with public synthetic raster and actual private Worker protocol (UnsupportedPlatform on Linux). Actual native build/Windows capture/hotkey/mixed-DPI/self-exclusion not run; complete normalization/visual/model/settings product remains incomplete. Whole acceptance NotRun."
     },
     {
       "id": "P6-02",
@@ -741,9 +751,13 @@
         "实现图片格式/大小校验、解码隔离、方向与缩放预处理",
         "ImageWorker 和恶意/异常图片测试"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": []
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/screenshot-review.md",
+        "docs/test-evidence/2026-10-11-screenshot-summary.json"
+      ],
+      "note": "P0 explicit screenshot production source only: WGC/explicit GDI, per-monitor masks, physical crop/PNG, local-only ImageWorker; 38 shared screenshot tests pass with public synthetic raster and actual private Worker protocol (UnsupportedPlatform on Linux). Actual native build/Windows capture/hotkey/mixed-DPI/self-exclusion not run; complete normalization/visual/model/settings product remains incomplete. Whole acceptance NotRun."
     },
     {
       "id": "P6-03",
@@ -1809,9 +1823,13 @@
         "快捷键截图框选、取消、再次框选；包含浮窗附近区域",
         "自身 UI 不被错误包含；取消不上传；框选只上传所选区域"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/screenshot-review.md",
+        "docs/test-evidence/2026-10-11-screenshot-summary.json"
+      ],
+      "note": "P0 explicit screenshot production source only: WGC/explicit GDI, per-monitor masks, physical crop/PNG, local-only ImageWorker; 38 shared screenshot tests pass with public synthetic raster and actual private Worker protocol (UnsupportedPlatform on Linux). Actual native build/Windows capture/hotkey/mixed-DPI/self-exclusion not run; complete normalization/visual/model/settings product remains incomplete. Whole acceptance NotRun."
     },
     {
       "id": "I02",
@@ -1821,9 +1839,13 @@
         "跨两个不同 DPI 显示器框选，包含负坐标",
         "物理裁切与画面吻合；无错位、拉伸或额外屏幕内容"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/screenshot-review.md",
+        "docs/test-evidence/2026-10-11-screenshot-summary.json"
+      ],
+      "note": "P0 explicit screenshot production source only: WGC/explicit GDI, per-monitor masks, physical crop/PNG, local-only ImageWorker; 38 shared screenshot tests pass with public synthetic raster and actual private Worker protocol (UnsupportedPlatform on Linux). Actual native build/Windows capture/hotkey/mixed-DPI/self-exclusion not run; complete normalization/visual/model/settings product remains incomplete. Whole acceptance NotRun."
     },
     {
       "id": "I03",
@@ -1893,9 +1915,13 @@
         "超大文件、24MP 以上解码、伪造后缀、坏图片、GIF",
         "严格校验；GIF 首帧提示；恶意数据不拖死主程序"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/screenshot-review.md",
+        "docs/test-evidence/2026-10-11-screenshot-summary.json"
+      ],
+      "note": "P0 explicit screenshot production source only: WGC/explicit GDI, per-monitor masks, physical crop/PNG, local-only ImageWorker; 38 shared screenshot tests pass with public synthetic raster and actual private Worker protocol (UnsupportedPlatform on Linux). Actual native build/Windows capture/hotkey/mixed-DPI/self-exclusion not run; complete normalization/visual/model/settings product remains incomplete. Whole acceptance NotRun."
     },
     {
       "id": "I09",
@@ -1917,9 +1943,13 @@
         "Off 时截图/文件右键冷启动；取消启用确认",
         "图片仅本地准备，无模型请求；确认启用后才允许发送"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/screenshot-review.md",
+        "docs/test-evidence/2026-10-11-screenshot-summary.json"
+      ],
+      "note": "P0 explicit screenshot production source only: WGC/explicit GDI, per-monitor masks, physical crop/PNG, local-only ImageWorker; 38 shared screenshot tests pass with public synthetic raster and actual private Worker protocol (UnsupportedPlatform on Linux). Actual native build/Windows capture/hotkey/mixed-DPI/self-exclusion not run; complete normalization/visual/model/settings product remains incomplete. Whole acceptance NotRun."
     },
     {
       "id": "I11",
@@ -1929,9 +1959,13 @@
         "截图后切换来源、锁屏或退出，检查缓冲与缓存目录",
         "旧任务不发送；全屏原帧及时释放；无默认图片磁盘文件"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/screenshot-review.md",
+        "docs/test-evidence/2026-10-11-screenshot-summary.json"
+      ],
+      "note": "P0 explicit screenshot production source only: WGC/explicit GDI, per-monitor masks, physical crop/PNG, local-only ImageWorker; 38 shared screenshot tests pass with public synthetic raster and actual private Worker protocol (UnsupportedPlatform on Linux). Actual native build/Windows capture/hotkey/mixed-DPI/self-exclusion not run; complete normalization/visual/model/settings product remains incomplete. Whole acceptance NotRun."
     },
     {
       "id": "I12",

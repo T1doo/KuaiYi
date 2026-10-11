@@ -3,7 +3,7 @@
 不是 v1.0 完整验收或发布报告。环境与构建入口见 environment.md / README。
 
 - 原始规格 SHA256：`ea3aa6529405bcc703986988fd089f476ee8f991d867e2220b3b20c439126166`。
-- 当前离线自动化：Core 376、Provider 77，共 453；另有 Node 扩展 63 项，全部通过；最新证据见 browser-confirmation-wait-summary；截图修正证据见 browser-ownership-summary。首批 57 项、探针批 88 项、迟到错误批 118 项及修复前失败证据分别保留。
+- 当前离线自动化：Core 416、Provider 77，共 493；另有 Node 扩展 63 项，全部通过；最新证据见 screenshot-summary；截图修正证据见 browser-ownership-summary。首批 57 项、探针批 88 项、迟到错误批 118 项及修复前失败证据分别保留。
 - 19 个托管项目 Release 交叉构建 0 警告/0 错误；五个探针 exe 已检查为 Windows PE32+ x64，框架依赖 ZIP 已生成。这是构建/打包部分证据，Windows 实际执行均未运行。
 - A—L 的 **106 条整体用例均为 NotRun**；已验证子项不能代替完整用例。
 - R01—R18 的产品完整实现均尚未完成；模块/阶段/用例组定义完整保存在 traceability.json。
@@ -39,3 +39,5 @@ ReadBounded新增7确定性截止/完成案例，旧检查下4失败/3通过，�
 生产App receiver代码已接入P0实验窗口，缺实际安装配置继续默认拒绝。65项使用实际本地管道/生产接收状态机和合成peer/Decision，正路径用实际DesktopPipeChannel；逐次确认、单次grant、截止/队列/失联、网络隔离和缓冲清零子项已验证。完整.NET453、Node43及19托管构建通过，Windows SID/PID/DACL/真实确认仍NotRun。前文无receiver描述属于历史批次，最新范围见browser-app-receiver-review.md。
 
 监督指出旧扩展五秒 Ready 等待与桌面三十秒确认冲突。基线实际扩展→独立宿主→生产接收端六秒等待测试失败；新增明确 ConfirmationPending 阶段后通过。当前新增20项（10项完整链路、10项扩展时间/字段边界），完整.NET453/Node63、19工程locked Release零警告/错误。真实六秒等待不包含Windows UI；peer、确认回答、Chrome API、图像与加速时钟是测试输入。所有106整体仍NotRun，详见browser-confirmation-wait-review.md。
+
+主动区域截图源码接通 WGC/显式GDI、逐屏遮罩、物理裁剪/内存PNG及本地ImageWorker。新增38截图+2角色文件测试，最新.NET493/Node63通过，19托管locked构建零警告/错误，身份源静态6项通过。真实跨屏取图、热键、焦点和原生编译均未执行；CMake尝试退出127，MSVC/SDK缺失。不能把Linux的UnsupportedPlatform Worker结果签成OCR成功。完整范围/待测见screenshot-review.md；106整体NotRun，P0/E06未签。

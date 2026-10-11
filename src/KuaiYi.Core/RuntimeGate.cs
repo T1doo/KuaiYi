@@ -33,6 +33,7 @@ public sealed class RuntimeGate
     private long epoch;
     private Activation activation;
     private bool localOnly;
+    private Guid? explicitCaptureOwner;
     private TriggerMode mode;
     private Suspension suspension;
     private Presentation presentation;
@@ -134,6 +135,26 @@ public sealed class RuntimeGate
         // Lock cancels; unlock never restores On.
         if (locked) Disable(hide: true);
         else { lock (sync) presentation = Presentation.Compact; }
+    }
+
+    public bool TryBeginExplicitCapture(out Guid owner,out long captureEpoch,out Activation initial)
+    {
+        lock(sync)
+        {
+            owner=default;captureEpoch=epoch;initial=activation;
+            if(suspension!=Suspension.None||explicitCaptureOwner!=null)return false;
+            owner=Guid.NewGuid();explicitCaptureOwner=owner;suspension|=Suspension.Capture;captureEpoch=++epoch;return true;
+        }
+    }
+    public bool IsExplicitCaptureCurrent(Guid owner,long captureEpoch,Activation initial)
+    {lock(sync)return explicitCaptureOwner==owner&&epoch==captureEpoch&&activation==initial&&suspension==Suspension.Capture;}
+    public void EndExplicitCapture(Guid owner)
+    {
+        lock(sync)
+        {
+            if(explicitCaptureOwner!=owner)return;
+            explicitCaptureOwner=null;suspension&=~Suspension.Capture;epoch++;
+        }
     }
 
     public void SetSuspension(Suspension reason, bool suspended)

@@ -19,7 +19,7 @@ try {
     }
     if ($Scope -eq 'All') {
         if (-not $IsWindows) { throw 'Blocked: full native Windows build requires Windows SDK and MSVC; managed cross-build is only partial evidence.' }
-        foreach ($component in 'KuaiYi.OcrNative','KuaiYi.ShellExtension') {
+        foreach ($component in 'KuaiYi.OcrNative','KuaiYi.ShellExtension','KuaiYi.CaptureNative') {
             Invoke-Checked cmake @('-S',"src/$component",'-B',"artifacts/native/$component",'-A','x64')
             Invoke-Checked cmake @('--build',"artifacts/native/$component",'--config',$Configuration)
         }
