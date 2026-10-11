@@ -3,7 +3,9 @@ using System.Text;
 using KuaiYi.Core.Settings;
 namespace KuaiYi.Core;
 public sealed record SelectionWindow(long Handle,uint ProcessId,long ProcessStartUtcTicks,string Executable);
-public sealed record SelectionPointerEvent(bool Down,PixelPoint Point,long TimeMs,bool Injected,SelectionWindow Window);
+public sealed record SelectionInputIdentity(CaptureTicket Ticket,string SettingsVersion,Guid HookId);
+public sealed record SelectionRawInput(bool Down,PixelPoint Point,long TimeMs,bool Injected,long Foreground,uint ProcessId,long CapturedUtcTicks,long LossRevision,SelectionInputIdentity Identity);
+public sealed record SelectionPointerEvent(bool Down,PixelPoint Point,long TimeMs,bool Injected,SelectionWindow Window,SelectionInputIdentity? InputIdentity=null);
 public sealed record SelectionGesture(SelectionWindow Window,PixelPoint Down,PixelPoint Up,long TimeMs,int ClickCount,bool Explicit=false);
 public enum SelectionCaptureStatus{Success,EmptyOrUnsupported,Sensitive,Stale,SoftTimeout,HardTimeout,Crash,Cancelled,ProtocolFailure,CleanupPending,Paused,TooLarge,UntrustedGesture}
 public sealed record SelectionCaptureResult(SelectionCaptureStatus Status,string Text="",ImmutableArray<PixelRect> Ranges=default,ImmutableArray<int> RuntimeId=default,PixelRect? ControlBounds=null);
@@ -21,7 +23,7 @@ public sealed class SelectionGestureTracker(int dragX,int dragY,int multipleClic
     {
         if(input.Injected){Reset();return null;}
         if(input.Down){down=input;return null;}
-        var start=down;down=null;if(start==null||start.Window!=input.Window||input.TimeMs<start.TimeMs)return null;
+        var start=down;down=null;if(start==null||start.Window!=input.Window||start.InputIdentity!=input.InputIdentity||input.TimeMs<start.TimeMs)return null;
         bool drag=Math.Abs((long)input.Point.X-start.Point.X)>=dragX||Math.Abs((long)input.Point.Y-start.Point.Y)>=dragY;
         if(drag){lastClick=null;clicks=0;return new(input.Window,start.Point,input.Point,input.TimeMs,1);}
         bool consecutive=lastClick is {} old&&old.Window==input.Window&&input.TimeMs>=old.TimeMs&&input.TimeMs-old.TimeMs<=multipleClickMs&&Math.Abs((long)input.Point.X-old.Point.X)<=clickX&&Math.Abs((long)input.Point.Y-old.Point.Y)<=clickY;
@@ -57,21 +59,26 @@ public sealed class SelectionCaptureCoordinator: IAsyncDisposable
     public SelectionCaptureCoordinator(RuntimeGate gate,Func<SettingsSnapshot?> settings,ISelectionCapturePlatform platform,SelectionGestureTracker tracker,uint ownProcess,SynchronizationContext destination,Action<SelectionSourceSnapshot,bool> accepted,Action<SelectionCaptureStatus> failed,Func<TimeSpan,CancellationToken,Task>? delay=null)
     {this.gate=gate;this.settings=settings;this.platform=platform;this.tracker=tracker;this.ownProcess=ownProcess;this.destination=destination;this.accepted=accepted;this.failed=failed;this.delay=delay??Task.Delay;}
     public void CancelPending(bool clearSource=false){lock(sync){generation++;pending?.Cancel();tracker.Reset();if(clearSource)previous=null;}}
+    public SelectionInputIdentity? FreezeInputIdentity(Guid hookId)
+    {lock(sync){if(disposed||hookId==Guid.Empty||settings() is not {} config||!gate.TryBeginPassiveCapture(TriggerMode.Selection,out var ticket))return null;return new(ticket,config.Version,hookId);}}
     public Task InputAsync(SelectionPointerEvent input)
     {
         lock(sync)
         {
             if(disposed)return Task.CompletedTask;
+            // Raw input never acquires a new epoch at dispatch. Dropping an old event must not cancel a newer gesture.
+            if(input.InputIdentity is not {} frozen||frozen.HookId==Guid.Empty||frozen.SettingsVersion!=settings()?.Version||frozen.Ticket.Mode!=TriggerMode.Selection||!gate.IsCaptureCurrent(frozen.Ticket))return Task.CompletedTask;
             if(input.Down){generation++;pending?.Cancel();}
             if(!gate.TryBeginPassiveCapture(TriggerMode.Selection,out _)||settings() is not {} config||SelectionTextPolicy.Excluded(input.Window,config.Data,ownProcess)){tracker.Reset();return Task.CompletedTask;}
-            var gesture=tracker.Accept(input);return gesture==null?Task.CompletedTask:Start(gesture,true);
+            var gesture=tracker.Accept(input);return gesture==null?Task.CompletedTask:Start(gesture,true,frozen.Ticket);
         }
     }
     public Task ExplicitAsync(SelectionWindow window,PixelPoint point)
     {lock(sync){if(disposed)return Task.CompletedTask;tracker.Reset();return Start(new(window,point,point,Environment.TickCount64,0,true),false);}}
-    private Task Start(SelectionGesture gesture,bool debounce)
+    private Task Start(SelectionGesture gesture,bool debounce,CaptureTicket? frozen=null)
     {
         if(settings() is not {} config||SelectionTextPolicy.Excluded(gesture.Window,config.Data,ownProcess)||!gate.TryBeginPassiveCapture(gesture.Explicit?gate.Snapshot.Mode:TriggerMode.Selection,out var ticket))return Task.CompletedTask;
+        if(frozen is {} original&&ticket!=original)return Task.CompletedTask;
         pending?.Cancel();var cancellation=pending=new();long serial=++generation;var task=RunAsync(gesture,config,ticket,serial,cancellation,debounce);operations.Add(task);_ =ObserveAsync(task,cancellation);return task;
     }
     public string? FailureCode{get;private set;}

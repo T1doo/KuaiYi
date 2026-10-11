@@ -1,0 +1,64 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.23]     KuaiYi.Core.Tests.SelectionReadOwnershipTests.CancelledWaiterMustTakeOwnershipEvenWhenUnderlyingReadCompletesBeforeFinally(fault: True) [FAIL]
+[xUnit.net 00:00:00.25]     KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(transition: "drop-selection") [FAIL]
+[xUnit.net 00:00:00.25]     KuaiYi.Core.Tests.SelectionReadOwnershipTests.CancelledWaiterMustTakeOwnershipEvenWhenUnderlyingReadCompletesBeforeFinally(fault: False) [FAIL]
+[xUnit.net 00:00:00.25]     KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(transition: "off-on") [FAIL]
+[xUnit.net 00:00:00.25]     KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(transition: "pause-resume") [FAIL]
+  Failed KuaiYi.Core.Tests.SelectionReadOwnershipTests.CancelledWaiterMustTakeOwnershipEvenWhenUnderlyingReadCompletesBeforeFinally(fault: True) [24 ms]
+  Error Message:
+   Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReadOwnershipTests.CancelledWaiterMustTakeOwnershipEvenWhenUnderlyingReadCompletesBeforeFinally(Boolean fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionReadOwnershipTests.cs:line 24
+   at KuaiYi.Core.Tests.SelectionReadOwnershipTests.CancelledWaiterMustTakeOwnershipEvenWhenUnderlyingReadCompletesBeforeFinally(Boolean fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionReadOwnershipTests.cs:line 25
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(transition: "drop-selection") [24 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: 0
+Actual:   1
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(String transition) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionCaptureTests.cs:line 29
+   at KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(String transition) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionCaptureTests.cs:line 29
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionReadOwnershipTests.CancelledWaiterMustTakeOwnershipEvenWhenUnderlyingReadCompletesBeforeFinally(fault: False) [7 ms]
+  Error Message:
+   Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReadOwnershipTests.CancelledWaiterMustTakeOwnershipEvenWhenUnderlyingReadCompletesBeforeFinally(Boolean fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionReadOwnershipTests.cs:line 24
+   at KuaiYi.Core.Tests.SelectionReadOwnershipTests.CancelledWaiterMustTakeOwnershipEvenWhenUnderlyingReadCompletesBeforeFinally(Boolean fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionReadOwnershipTests.cs:line 25
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(transition: "off-on") [8 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: 0
+Actual:   1
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(String transition) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionCaptureTests.cs:line 29
+   at KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(String transition) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionCaptureTests.cs:line 29
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(transition: "pause-resume") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: 0
+Actual:   1
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(String transition) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionCaptureTests.cs:line 29
+   at KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(String transition) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionCaptureTests.cs:line 29
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/test-results/p3-input-read-fixes/old-five-counterexamples.trx
+
+Failed!  - Failed:     5, Passed:     0, Skipped:     0, Total:     5, Duration: 54 ms - KuaiYi.Core.Tests.dll (net10.0)

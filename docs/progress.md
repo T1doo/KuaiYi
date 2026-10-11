@@ -266,3 +266,11 @@ P0 整体：**InProgress，真实 Windows 退出门槛 Blocked**。后续整阶�
 - 独立新包包含实际CaptureBroker；十一旧包保持原字节。Windows兼容/字体像素焦点/多屏DPI及P0/E06全部NotRun；176追踪/106整体验收NotRun，P0 Blocked、P1/P2/P3 InProgress。见p3-selection-review及本轮summary。
 
 新审查ZIP：1607193字节、73文件（app 44、公开probe 25），SHA256 `f511b7e4298e5d8bf877007d0803370e94e6489f0e4f264c7833659a83dae980`；9个PE32+ x64入口及逐文件manifest检查通过，十一旧包摘要未变。
+
+## P3 输入积压与取消读取所有权监督修复
+
+- 固定基线65bdbc7b8c340b46dd7427f9bba1eff4b7e68aa0，不推进P4。三种启停往返旧down/up可重获新epoch，以及取消时底层读取已完成被遗漏的成功/异常，五个旧反例均实际失败；原日志/TRX保留。
+- hook出生即冻结CaptureTicket、设置版本和实例ID，回调另捕获HWND/PID/系统事件时间；同一生产SelectionInputBridge在原始channel解析前及UI派发端复核，旧hook在epoch/版本变化后退出并替换。回调不拿门控锁、不做UIA。旧事件不得取消新手势，当前注入事件清手势不捕获。
+- ReadAsync按是否已交付明确所有权，放弃结果无论当时是否完成都由一个观察者清零/观察异常；六项受控生产读取边界用例检查敏感缓冲、所有者数量及故障类型。受控流为测试替身，不宣称Windows进程验证。
+- 本轮新增22例：3旧队列反例、13实际生产输入桥用例、6读取所有权用例。定向72/72；完整Core755+Provider77=832/832、Node63/63，25托管locked Release零警告/错误。Linux自有公开子进程原16项仍通过。
+- 独立修复ZIP、12旧包、旧审阅精确commit摘要、原规格/锁文件均核对。176追踪/106整体验收NotRun保持；P0/E06 Blocked，P1/P2/P3 InProgress。Windows实际hook/UIA/焦点/多DPI/安装未执行；OLE文本Drop/复制授权/全快捷键/P4调度尚未交付。证据见p3-input-read-fixes-review.md和本轮summary。

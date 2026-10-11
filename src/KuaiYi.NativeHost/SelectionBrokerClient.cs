@@ -78,13 +78,16 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
         var result=ImmutableArray.CreateBuilder<PixelRect>();for(int i=0;i<values.Length;i+=4){if(values[i+2]<0||values[i+3]<0)throw new InvalidDataException("Negative range size.");result.Add(new(checked((int)Math.Floor(values[i])),checked((int)Math.Floor(values[i+1])),checked((int)Math.Ceiling(values[i]+values[i+2])),checked((int)Math.Ceiling(values[i+1]+values[i+3]))));}return result.ToImmutable();
     }
     public string? LateReadFailureCode{get;private set;}
-    private async Task<IpcFrame?> ReadAsync(Stream stream,CancellationToken cancellation)
+    internal Func<Task<IpcFrame?>,Task>? BeforeReadSettlementForTest{get;set;}
+    internal Task? LateReadObserverForTest{get;private set;}
+    internal Action<Task<IpcFrame?>>? LateReadObserverStartedForTest{get;set;}
+    internal async Task<IpcFrame?> ReadAsync(Stream stream,CancellationToken cancellation)
     {
-        var pending=IpcFrameCodec.ReadAsync(stream,cancellation).AsTask();
-        try{return await pending.WaitAsync(cancellation).ConfigureAwait(false);}
-        finally{if(!pending.IsCompleted)_=ObserveLateRead(pending);}
+        var pending=IpcFrameCodec.ReadAsync(stream,cancellation).AsTask();bool delivered=false;
+        try{var result=await pending.WaitAsync(cancellation).ConfigureAwait(false);delivered=true;return result;}
+        finally{if(BeforeReadSettlementForTest!=null)await BeforeReadSettlementForTest(pending).ConfigureAwait(false);if(!delivered)LateReadObserverForTest=ObserveLateRead(pending);}
     }
     private async Task ObserveLateRead(Task<IpcFrame?> pending)
-    {try{var result=await pending.ConfigureAwait(false);if(result!=null)CryptographicOperations.ZeroMemory(result.Payload);}catch(Exception error){LateReadFailureCode=error.GetType().Name;}}
+    {LateReadObserverStartedForTest?.Invoke(pending);try{var result=await pending.ConfigureAwait(false);if(result!=null)CryptographicOperations.ZeroMemory(result.Payload);}catch(Exception error){LateReadFailureCode=error.GetType().Name;}}
     private static SelectionCaptureStatus ParseStatus(string status)=>status switch{"Success"=>SelectionCaptureStatus.Success,"Stale"=>SelectionCaptureStatus.Stale,"Sensitive" or "SensitiveOrElevated" or "UnsupportedOrProtected"=>SelectionCaptureStatus.Sensitive,"SoftTimeout"=>SelectionCaptureStatus.SoftTimeout,"TooLarge" or "TooLargeOrInvalidUnicode"=>SelectionCaptureStatus.TooLarge,_=>SelectionCaptureStatus.EmptyOrUnsupported};
 }

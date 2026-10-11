@@ -63,3 +63,5 @@ P2新增34项核心用例，包含2000组固定种子合成事件序列（不是
 P2三项监督缺口新增15例，旧版第四版Begin实际失败证据保留。工具条与测量宽度为精确旧源码计算反例；修后生产计划/缓存49项通过，不代替Windows字号/菜单/动画验收。详见p2-review-fixes.md。
 
 P3生产选区获取接线见[选区复核](p3-selection-review.md)：真实Broker调用已有实现、稳定等待/来源身份/模式暂停/排除及600ms自有子进程截止。原文和译文区分，未接P4发送，不称完整P3或文字Alpha；真实Windows兼容仍NotRun。
+
+P3两项监督修复：旧版5/5反例失败；本轮新增22例，生产输入桥channel/UI双队列、冻结来源/epoch与取消读取单所有者实测通过。定向72/72，完整.NET832/832、Node63/63。这里只验证可移植链路和合成受控流，Windows低级hook/真实UIA与106整体用例仍NotRun。详见[p3-input-read-fixes-review.md](p3-input-read-fixes-review.md)。

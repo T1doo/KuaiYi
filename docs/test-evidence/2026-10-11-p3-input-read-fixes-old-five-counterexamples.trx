@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="78cf68d7-42e5-481b-abe3-79c104e452b9" name="@552716c6b8c5 2026-10-11 18:12:25" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T18:12:25.1877862+00:00" queuing="2026-10-11T18:12:25.1877862+00:00" start="2026-10-11T18:12:24.6085805+00:00" finish="2026-10-11T18:12:25.1918876+00:00" />
+  <TestSettings name="default" id="50f96636-15fb-42b6-9bac-20099a850037">
+    <Deployment runDeploymentRoot="_552716c6b8c5_2026-10-11_18_12_25" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="bbcf8fc7-f5b2-4470-a24e-20efbffe6f4f" testId="b8e208cc-a42d-954a-f16e-5d9d89f6eaa3" testName="KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(transition: &quot;pause-resume&quot;)" computerName="552716c6b8c5" duration="00:00:00.0012408" startTime="2026-10-11T18:12:25.1247379+00:00" endTime="2026-10-11T18:12:25.1247658+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bbcf8fc7-f5b2-4470-a24e-20efbffe6f4f">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: 0
+Actual:   1</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(String transition) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionCaptureTests.cs:line 29
+   at KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(String transition) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionCaptureTests.cs:line 29
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="be1c8cf0-25f6-481c-a3e5-116682c37c8c" testId="5808d4a4-37f4-0c12-7a52-03f5b3afb891" testName="KuaiYi.Core.Tests.SelectionReadOwnershipTests.CancelledWaiterMustTakeOwnershipEvenWhenUnderlyingReadCompletesBeforeFinally(fault: True)" computerName="552716c6b8c5" duration="00:00:00.0240800" startTime="2026-10-11T18:12:25.0701681+00:00" endTime="2026-10-11T18:12:25.1061273+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="be1c8cf0-25f6-481c-a3e5-116682c37c8c">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.NotNull() Failure: Value is null</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SelectionReadOwnershipTests.CancelledWaiterMustTakeOwnershipEvenWhenUnderlyingReadCompletesBeforeFinally(Boolean fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionReadOwnershipTests.cs:line 24
+   at KuaiYi.Core.Tests.SelectionReadOwnershipTests.CancelledWaiterMustTakeOwnershipEvenWhenUnderlyingReadCompletesBeforeFinally(Boolean fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionReadOwnershipTests.cs:line 25
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b38785f7-1e2c-4db3-8eb4-891a53ff0605" testId="856e0eab-1b16-efc7-2a06-43f65c10a71b" testName="KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(transition: &quot;off-on&quot;)" computerName="552716c6b8c5" duration="00:00:00.0089402" startTime="2026-10-11T18:12:25.1237354+00:00" endTime="2026-10-11T18:12:25.1243103+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b38785f7-1e2c-4db3-8eb4-891a53ff0605">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: 0
+Actual:   1</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(String transition) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionCaptureTests.cs:line 29
+   at KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(String transition) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionCaptureTests.cs:line 29
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c96228da-5ed1-47c0-a096-3d74c2178493" testId="71d775da-b5cf-aa7b-7857-95d47376cf35" testName="KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(transition: &quot;drop-selection&quot;)" computerName="552716c6b8c5" duration="00:00:00.0240085" startTime="2026-10-11T18:12:25.0711303+00:00" endTime="2026-10-11T18:12:25.1220622+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c96228da-5ed1-47c0-a096-3d74c2178493">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: 0
+Actual:   1</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(String transition) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionCaptureTests.cs:line 29
+   at KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(String transition) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionCaptureTests.cs:line 29
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2cce560b-90b7-4dab-a3d0-807b75f0ba6f" testId="6252d1f3-62ff-b86d-fa8e-3eefb342e413" testName="KuaiYi.Core.Tests.SelectionReadOwnershipTests.CancelledWaiterMustTakeOwnershipEvenWhenUnderlyingReadCompletesBeforeFinally(fault: False)" computerName="552716c6b8c5" duration="00:00:00.0076725" startTime="2026-10-11T18:12:25.1237846+00:00" endTime="2026-10-11T18:12:25.1238078+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2cce560b-90b7-4dab-a3d0-807b75f0ba6f">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.NotNull() Failure: Value is null</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SelectionReadOwnershipTests.CancelledWaiterMustTakeOwnershipEvenWhenUnderlyingReadCompletesBeforeFinally(Boolean fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionReadOwnershipTests.cs:line 24
+   at KuaiYi.Core.Tests.SelectionReadOwnershipTests.CancelledWaiterMustTakeOwnershipEvenWhenUnderlyingReadCompletesBeforeFinally(Boolean fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionReadOwnershipTests.cs:line 25
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(transition: &quot;drop-selection&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="71d775da-b5cf-aa7b-7857-95d47376cf35">
+      <Execution id="c96228da-5ed1-47c0-a096-3d74c2178493" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SelectionCaptureTests" name="RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(transition: &quot;off-on&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="856e0eab-1b16-efc7-2a06-43f65c10a71b">
+      <Execution id="b38785f7-1e2c-4db3-8eb4-891a53ff0605" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SelectionCaptureTests" name="RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SelectionReadOwnershipTests.CancelledWaiterMustTakeOwnershipEvenWhenUnderlyingReadCompletesBeforeFinally(fault: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="6252d1f3-62ff-b86d-fa8e-3eefb342e413">
+      <Execution id="2cce560b-90b7-4dab-a3d0-807b75f0ba6f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SelectionReadOwnershipTests" name="CancelledWaiterMustTakeOwnershipEvenWhenUnderlyingReadCompletesBeforeFinally" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(transition: &quot;pause-resume&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b8e208cc-a42d-954a-f16e-5d9d89f6eaa3">
+      <Execution id="bbcf8fc7-f5b2-4470-a24e-20efbffe6f4f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SelectionCaptureTests" name="RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SelectionReadOwnershipTests.CancelledWaiterMustTakeOwnershipEvenWhenUnderlyingReadCompletesBeforeFinally(fault: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="5808d4a4-37f4-0c12-7a52-03f5b3afb891">
+      <Execution id="be1c8cf0-25f6-481c-a3e5-116682c37c8c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SelectionReadOwnershipTests" name="CancelledWaiterMustTakeOwnershipEvenWhenUnderlyingReadCompletesBeforeFinally" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="b8e208cc-a42d-954a-f16e-5d9d89f6eaa3" executionId="bbcf8fc7-f5b2-4470-a24e-20efbffe6f4f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5808d4a4-37f4-0c12-7a52-03f5b3afb891" executionId="be1c8cf0-25f6-481c-a3e5-116682c37c8c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="856e0eab-1b16-efc7-2a06-43f65c10a71b" executionId="b38785f7-1e2c-4db3-8eb4-891a53ff0605" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="71d775da-b5cf-aa7b-7857-95d47376cf35" executionId="c96228da-5ed1-47c0-a096-3d74c2178493" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6252d1f3-62ff-b86d-fa8e-3eefb342e413" executionId="2cce560b-90b7-4dab-a3d0-807b75f0ba6f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="5" executed="5" passed="0" failed="5" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.06]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.15]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.18]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.24]       Assert.NotNull() Failure: Value is null
+[xUnit.net 00:00:00.24]       Stack Trace:
+[xUnit.net 00:00:00.24]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionReadOwnershipTests.cs(24,0): at KuaiYi.Core.Tests.SelectionReadOwnershipTests.CancelledWaiterMustTakeOwnershipEvenWhenUnderlyingReadCompletesBeforeFinally(Boolean fault)
+[xUnit.net 00:00:00.24]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionReadOwnershipTests.cs(25,0): at KuaiYi.Core.Tests.SelectionReadOwnershipTests.CancelledWaiterMustTakeOwnershipEvenWhenUnderlyingReadCompletesBeforeFinally(Boolean fault)
+[xUnit.net 00:00:00.24]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.25]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.25]       Expected: 0
+[xUnit.net 00:00:00.25]       Actual:   1
+[xUnit.net 00:00:00.25]       Stack Trace:
+[xUnit.net 00:00:00.25]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionCaptureTests.cs(29,0): at KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(String transition)
+[xUnit.net 00:00:00.25]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionCaptureTests.cs(29,0): at KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(String transition)
+[xUnit.net 00:00:00.25]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.25]       Assert.NotNull() Failure: Value is null
+[xUnit.net 00:00:00.25]       Stack Trace:
+[xUnit.net 00:00:00.25]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionReadOwnershipTests.cs(24,0): at KuaiYi.Core.Tests.SelectionReadOwnershipTests.CancelledWaiterMustTakeOwnershipEvenWhenUnderlyingReadCompletesBeforeFinally(Boolean fault)
+[xUnit.net 00:00:00.25]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionReadOwnershipTests.cs(25,0): at KuaiYi.Core.Tests.SelectionReadOwnershipTests.CancelledWaiterMustTakeOwnershipEvenWhenUnderlyingReadCompletesBeforeFinally(Boolean fault)
+[xUnit.net 00:00:00.25]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.25]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.25]       Expected: 0
+[xUnit.net 00:00:00.25]       Actual:   1
+[xUnit.net 00:00:00.25]       Stack Trace:
+[xUnit.net 00:00:00.25]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionCaptureTests.cs(29,0): at KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(String transition)
+[xUnit.net 00:00:00.25]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionCaptureTests.cs(29,0): at KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(String transition)
+[xUnit.net 00:00:00.25]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.25]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.25]       Expected: 0
+[xUnit.net 00:00:00.25]       Actual:   1
+[xUnit.net 00:00:00.25]       Stack Trace:
+[xUnit.net 00:00:00.25]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionCaptureTests.cs(29,0): at KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(String transition)
+[xUnit.net 00:00:00.25]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionCaptureTests.cs(29,0): at KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(String transition)
+[xUnit.net 00:00:00.25]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.25]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T18:12:25.1137248+00:00">
+        <Text>[xUnit.net 00:00:00.23]     KuaiYi.Core.Tests.SelectionReadOwnershipTests.CancelledWaiterMustTakeOwnershipEvenWhenUnderlyingReadCompletesBeforeFinally(fault: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T18:12:25.1228724+00:00">
+        <Text>[xUnit.net 00:00:00.25]     KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(transition: "drop-selection") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T18:12:25.1244990+00:00">
+        <Text>[xUnit.net 00:00:00.25]     KuaiYi.Core.Tests.SelectionReadOwnershipTests.CancelledWaiterMustTakeOwnershipEvenWhenUnderlyingReadCompletesBeforeFinally(fault: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T18:12:25.1245301+00:00">
+        <Text>[xUnit.net 00:00:00.25]     KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(transition: "off-on") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T18:12:25.1250990+00:00">
+        <Text>[xUnit.net 00:00:00.25]     KuaiYi.Core.Tests.SelectionCaptureTests.RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(transition: "pause-resume") [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

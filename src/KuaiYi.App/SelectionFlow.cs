@@ -9,7 +9,7 @@ using KuaiYi.Windows;
 namespace KuaiYi.App;
 internal sealed partial class ShellWindow
 {
-    private SelectionBrokerClient? selectionBroker;private SelectionCaptureCoordinator? selectionCapture;private SelectionMouseHook? selectionHook;
+    private SelectionBrokerClient? selectionBroker;private SelectionCaptureCoordinator? selectionCapture;private SelectionMouseHook? selectionHook;private SelectionInputBridge? selectionInput;
     private Task selectionReconcile=Task.CompletedTask,selectionEvents=Task.CompletedTask;private ScreenshotHotkey? selectionHotkey;
     private SelectionSourceSnapshot? selectionSource;private Window? sourceViewer;private TextBox? sourceText;
     private (long Epoch,string? Version)? selectionState;private string? registeredSelectionChord;
@@ -21,6 +21,7 @@ internal sealed partial class ShellWindow
         selectionBroker=new(Path.Combine(AppContext.BaseDirectory,"KuaiYi.CaptureBroker.exe"));
         var tracker=new SelectionGestureTracker(Math.Max(1,SelectionDesktop.GetSystemMetrics(68)),Math.Max(1,SelectionDesktop.GetSystemMetrics(69)),checked((int)SelectionDesktop.GetDoubleClickTime()),Math.Max(1,SelectionDesktop.GetSystemMetrics(36)),Math.Max(1,SelectionDesktop.GetSystemMetrics(37)));
         selectionCapture=new(lifecycle.Gate,()=>lifecycle.Settings,new SelectionPlatform(selectionBroker),tracker,(uint)Environment.ProcessId,new DispatcherSynchronizationContext(Dispatcher),AcceptSelection,SelectionFailed);
+        selectionInput=new(lifecycle.Gate,()=>lifecycle.Settings,()=>selectionHook?.Identity.HookId,input=>SelectionDesktop.Resolve(input.Foreground,input.Point),SelectionDesktop.IsCurrent,selectionCapture,new DispatcherSynchronizationContext(Dispatcher));
         selectionHotkey=new((HwndSource)PresentationSource.FromVisual(this),()=>_=ObserveSelection(ReadCurrentSelection()),SchedulePlacement);
     }
     private void RefreshSelection()
@@ -43,9 +44,11 @@ internal sealed partial class ShellWindow
         {
             await previous;var state=lifecycle.Gate.Snapshot;
             bool wanted=!exiting&&state.Activation==Activation.On&&state.Mode==TriggerMode.Selection&&state.Suspension==Suspension.None;
+            var identity=wanted?selectionCapture!.FreezeInputIdentity(Guid.NewGuid()):null;wanted=wanted&&identity!=null;
             if(wanted&&selectionHook?.IsFaulted==true)throw new IOException("Previous selection hook cleanup is not confirmed.");
-            if(!wanted&&selectionHook!=null){var old=selectionHook;old.Stop();await old.DisposeAsync();await selectionEvents;selectionHook=null;}
-            if(wanted&&selectionHook==null){var created=selectionHook=new();await created.Ready;selectionEvents=ConsumeSelection(created);}
+            bool replace=selectionHook!=null&&(!wanted||selectionHook.Identity.Ticket!=identity!.Ticket||selectionHook.Identity.SettingsVersion!=identity.SettingsVersion);
+            if(replace){var old=selectionHook!;old.Stop();await old.DisposeAsync();await selectionEvents;selectionHook=null;}
+            if(wanted&&selectionHook==null){var created=selectionHook=new(identity!);await created.Ready;selectionEvents=ConsumeSelection(created);}
         }
         catch(Exception error){if(selectionHook?.IsReleased==true)selectionHook=null;SelectionInfrastructureFailed("自动选区监听不可用；请停用后重试",error);}
     }
@@ -57,10 +60,8 @@ internal sealed partial class ShellWindow
             await foreach(var item in hook.Events.ReadAllAsync().ConfigureAwait(false))
             {
                 if(item.LossRevision!=hook.LossRevision||item.LossRevision!=revision){selectionCapture?.CancelPending();revision=hook.LossRevision;if(item.LossRevision!=revision)continue;}
-                if(!lifecycle.Gate.TryBeginPassiveCapture(TriggerMode.Selection,out _))continue;
-                var window=SelectionDesktop.Resolve(item.Foreground,item.Point);
-                if(window==null){selectionCapture?.CancelPending();continue;}
-                await Dispatcher.InvokeAsync(()=>{if(!exiting&&selectionCapture!=null)_=ObserveSelection(selectionCapture.InputAsync(new(item.Down,item.Point,item.TimeMs,item.Injected,window)));});
+                var delivery=await selectionInput!.ReceiveAsync(item).ConfigureAwait(false);
+                if(delivery.Admitted)await Dispatcher.InvokeAsync(()=>_=ObserveSelection(delivery.Capture));
             }
         }
         catch(Exception error){await Dispatcher.InvokeAsync(()=>{if(selectionHook==hook)SelectionInfrastructureFailed("选区监听已停止",error);});}

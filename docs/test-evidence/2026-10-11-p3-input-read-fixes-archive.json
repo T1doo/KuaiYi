@@ -1,0 +1,26 @@
+{
+  "bytes": 1615200,
+  "sha256": "67cbf8d10dca622cf68258015f7321c8441ef3ab8dd18b363a3295fcff56b15e",
+  "archive": "artifacts/KuaiYi-P3-input-read-fixes-managed-win-x64.zip",
+  "files": 73,
+  "appFiles": 44,
+  "publicProbeFiles": 25,
+  "actualPe32PlusX64Hosts": [
+    "app/KuaiYi.App.exe",
+    "app/KuaiYi.CaptureBroker.exe",
+    "app/KuaiYi.CaptureHost.exe",
+    "app/KuaiYi.ImageWorker.exe",
+    "app/KuaiYi.NativeHost.exe",
+    "app/KuaiYi.OleReceiver.exe",
+    "public-probe/KuaiYi.App.exe",
+    "public-probe/KuaiYi.GrowthHarness.exe",
+    "public-probe/KuaiYi.NativeHost.exe"
+  ],
+  "manifestHashes": "Pass",
+  "installer": false,
+  "FrameworkDependent": true,
+  "WindowsRuntime": "NotRun",
+  "NativeDlls": "NotIncluded",
+  "ModelCalls": "None",
+  "Credentials": "NotIncluded"
+}

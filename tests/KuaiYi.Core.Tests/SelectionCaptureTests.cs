@@ -19,7 +19,18 @@ public sealed class SelectionCaptureTests
     private sealed class Destination:SynchronizationContext
     {private readonly Queue<(SendOrPostCallback,object?)> queue=[];public override void Post(SendOrPostCallback callback,object? state){lock(queue)queue.Enqueue((callback,state));}public int Count{get{lock(queue)return queue.Count;}}public void Drain(){while(true){(SendOrPostCallback callback,object? state) next;lock(queue){if(!queue.TryDequeue(out next))return;}next.callback(next.state);}}}
     private static async Task Queued(Destination destination){using var guard=new CancellationTokenSource(TimeSpan.FromSeconds(5));while(destination.Count==0)await Task.Delay(1,guard.Token);}
-    private static Task Drag(SelectionCaptureCoordinator coordinator,long tick=1000){_ =coordinator.InputAsync(new(true,new(3,3),tick,false,Source));return coordinator.InputAsync(new(false,new(70,3),tick+10,false,Source));}
+    private static readonly Guid TestHook=Guid.Parse("b4bbf568-2832-48a5-b155-7a78c6314992");
+    private static Task Drag(SelectionCaptureCoordinator coordinator,long tick=1000){var frozen=coordinator.FreezeInputIdentity(TestHook);_ =coordinator.InputAsync(new(true,new(3,3),tick,false,Source,frozen));return coordinator.InputAsync(new(false,new(70,3),tick+10,false,Source,frozen));}
+    [Theory][InlineData("off-on")][InlineData("drop-selection")][InlineData("pause-resume")]
+    public async Task RawQueuedInputBeforeLifecycleRoundtripCannotStartBroker(string transition)
+    {
+        var gate=Gate();var platform=new Platform();var destination=new Destination();
+        await using var coordinator=new SelectionCaptureCoordinator(gate,()=>Config(),platform,new(4,4,500,4,4),999,destination,(_,_)=>{},_=>{},(_,_)=>Task.CompletedTask);
+        var frozen=coordinator.FreezeInputIdentity(TestHook);Assert.NotNull(frozen);var down=new SelectionPointerEvent(true,new(3,3),1000,false,Source,frozen);var up=new SelectionPointerEvent(false,new(70,3),1010,false,Source,frozen);
+        if(transition=="off-on"){gate.Disable();Assert.True(gate.TryEnable(new(new Uri("https://public.invalid")),true));}else if(transition=="drop-selection"){gate.SetMode(TriggerMode.Drop);gate.SetMode(TriggerMode.Selection);}else{gate.SetSuspension(Suspension.Moving,true);gate.SetSuspension(Suspension.Moving,false);}
+        Assert.NotEqual(frozen.Ticket.Epoch,gate.Snapshot.Epoch);
+        await coordinator.InputAsync(down);var pending=coordinator.InputAsync(up);destination.Drain();await pending;Assert.Equal(0,platform.Calls);
+    }
     [Theory][InlineData("off")][InlineData("drop")][InlineData("settings")][InlineData("moving")][InlineData("capture")][InlineData("lock")][InlineData("excluded")]
     public async Task IneligibleInputNeverCallsPlatformOrRetainsCandidate(string reason)
     {
@@ -43,7 +54,7 @@ public sealed class SelectionCaptureTests
     {
         var gate=Gate();var platform=new Platform();var config=Config();var destination=new Destination();int accepted=0;
         await using var coordinator=new SelectionCaptureCoordinator(gate,()=>config,platform,new(4,4,500,4,4),999,destination,(_,_)=>accepted++,_=>{},(_,_)=>Task.CompletedTask);var task=Drag(coordinator);await Queued(destination);
-        switch(change){case "off":gate.Disable();break;case "mode":gate.SetMode(TriggerMode.Drop);break;case "source":platform.Current=false;break;case "config":config=Config("new-settings");break;case "exclude":config=Config("new-settings",config.Data with{Privacy=new(){BlockedApplications=["public"]}});break;case "lock":gate.SetSessionLocked(true);break;default:await coordinator.InputAsync(new(true,new(20,3),1100,false,Source));break;}
+        switch(change){case "off":gate.Disable();break;case "mode":gate.SetMode(TriggerMode.Drop);break;case "source":platform.Current=false;break;case "config":config=Config("new-settings");break;case "exclude":config=Config("new-settings",config.Data with{Privacy=new(){BlockedApplications=["public"]}});break;case "lock":gate.SetSessionLocked(true);break;default:await coordinator.InputAsync(new(true,new(20,3),1100,false,Source,coordinator.FreezeInputIdentity(TestHook)));break;}
         destination.Drain();await task;Assert.Equal(1,platform.Calls);Assert.Equal(0,accepted);
     }
     [Fact]public async Task NewDownCancelsStableWaitingAndOnlyLatestSelectionIsAccepted()

@@ -3,7 +3,6 @@ using System.Runtime.InteropServices;
 using System.Threading.Channels;
 using KuaiYi.Core;
 namespace KuaiYi.Windows;
-public sealed record SelectionHookEvent(bool Down,PixelPoint Point,long TimeMs,bool Injected,long Foreground,long LossRevision);
 /// <summary>Sole selection hook owns a dedicated pumping thread. Callback writes bounded down/up metadata only.</summary>
 public sealed class SelectionMouseHook:IAsyncDisposable
 {
@@ -18,19 +17,21 @@ public sealed class SelectionMouseHook:IAsyncDisposable
     [DllImport("user32.dll",SetLastError=true)]private static extern int GetMessageW(out Message message,nint window,uint first,uint last);
     [DllImport("user32.dll")][return:MarshalAs(UnmanagedType.Bool)]private static extern bool PeekMessageW(out Message message,nint window,uint first,uint last,uint remove);
     [DllImport("user32.dll",SetLastError=true)][return:MarshalAs(UnmanagedType.Bool)]private static extern bool PostThreadMessageW(uint thread,uint message,nuint w,nint l);
-    private readonly Channel<SelectionHookEvent> queue=Channel.CreateBounded<SelectionHookEvent>(new BoundedChannelOptions(64){SingleWriter=true,SingleReader=true,FullMode=BoundedChannelFullMode.Wait,AllowSynchronousContinuations=false});
+    private readonly Channel<SelectionRawInput> queue=Channel.CreateBounded<SelectionRawInput>(new BoundedChannelOptions(64){SingleWriter=true,SingleReader=true,FullMode=BoundedChannelFullMode.Wait,AllowSynchronousContinuations=false});
     private readonly TaskCompletionSource ready=new(TaskCreationOptions.RunContinuationsAsynchronously),exited=new(TaskCreationOptions.RunContinuationsAsynchronously);
     private readonly HookCallback callback;private readonly Thread thread;private nint handle;private uint threadId;private long lost;private int stopping;
-    public Task Ready=>ready.Task;public ChannelReader<SelectionHookEvent> Events=>queue.Reader;public long LossRevision=>Interlocked.Read(ref lost);
+    public SelectionInputIdentity Identity{get;}
+    public Task Ready=>ready.Task;public ChannelReader<SelectionRawInput> Events=>queue.Reader;public long LossRevision=>Interlocked.Read(ref lost);
     public bool IsReleased=>exited.Task.IsCompleted&&handle==0;
     public bool IsFaulted=>exited.Task.IsFaulted;
-    public SelectionMouseHook(){callback=OnHook;thread=new(Run){IsBackground=true,Name="KuaiYi selection mouse pump"};thread.SetApartmentState(ApartmentState.MTA);thread.Start();}
+    public SelectionMouseHook(SelectionInputIdentity identity){Identity=identity;callback=OnHook;thread=new(Run){IsBackground=true,Name="KuaiYi selection mouse pump"};thread.SetApartmentState(ApartmentState.MTA);thread.Start();}
     private nint OnHook(int code,nint message,nint data)
     {
         if(code>=0&&Volatile.Read(ref stopping)==0&&(message==0x201||message==0x202))
         {
             var value=Marshal.PtrToStructure<MouseData>(data);
-            var record=new SelectionHookEvent(message==0x201,new(value.Point.X,value.Point.Y),Environment.TickCount64,(value.Flags&3)!=0,NativeDesktop.GetForegroundWindow().ToInt64(),LossRevision);
+            long now=Environment.TickCount64,time=now-unchecked((uint)now-value.Time);nint foreground=NativeDesktop.GetForegroundWindow();NativeDesktop.GetWindowThreadProcessId(foreground,out uint pid);
+            var record=new SelectionRawInput(message==0x201,new(value.Point.X,value.Point.Y),time,(value.Flags&3)!=0,foreground.ToInt64(),pid,DateTime.UtcNow.Ticks-(now-time)*TimeSpan.TicksPerMillisecond,LossRevision,Identity);
             if(!queue.Writer.TryWrite(record))Interlocked.Increment(ref lost);
         }
         return CallNextHookEx(handle,code,message,data);
