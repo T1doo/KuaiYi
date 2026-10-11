@@ -1,0 +1,18 @@
+{
+  "kind": "static actual production wiring review; not WindowsRuntime",
+  "origin": "one Clock.GetTimestamp at CaptureAsync entry",
+  "checks": [
+    "before startup",
+    "after startup WaitAsync",
+    "after3shared-origin read await before delivered",
+    "after actual child exit",
+    "after UTF8/scalars/rectangles/runtime validation before success"
+  ],
+  "boundary": ">=600ms rejected; user cancellation priority",
+  "timer": "CancelAfter(remaining) wakes; GetElapsedTime(started) independent admission",
+  "readOwner": "CheckDelivery before delivered marker; every abandoned pending observed including completed",
+  "testSeams": "internal delivery barrier only tests; App never configures",
+  "newCases": 15,
+  "WindowsRuntime": "NotRun",
+  "publicProbe": "enableSelectionPlatform:false"
+}

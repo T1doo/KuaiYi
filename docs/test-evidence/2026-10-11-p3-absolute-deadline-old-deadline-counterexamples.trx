@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="c04d3c81-dc7e-4953-957e-1a31aa440599" name="@552716c6b8c5 2026-10-11 18:28:25" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T18:28:25.3678551+00:00" queuing="2026-10-11T18:28:25.3678552+00:00" start="2026-10-11T18:28:24.5729237+00:00" finish="2026-10-11T18:28:25.3734074+00:00" />
+  <TestSettings name="default" id="7d5bce3d-70b0-4a26-a43c-aa8ea004a746">
+    <Deployment runDeploymentRoot="_552716c6b8c5_2026-10-11_18_28_25" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="b61045d0-a51d-442c-9c93-8a4118511a5e" testId="4b43a11f-616d-d775-a7d4-63ec438ba735" testName="KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(elapsed: 601, expected: HardTimeout)" computerName="552716c6b8c5" duration="00:00:00.1167627" startTime="2026-10-11T18:28:25.0102000+00:00" endTime="2026-10-11T18:28:25.1296981+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b61045d0-a51d-442c-9c93-8a4118511a5e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: HardTimeout
+Actual:   Success</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(Int32 elapsed, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 14
+   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(Int32 elapsed, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 14
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6febbdfb-cef3-4a20-bdd8-a95c02d766dc" testId="8896e526-f81f-ce29-0bfe-82865bf5e89f" testName="KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(elapsed: 599, expected: Success)" computerName="552716c6b8c5" duration="00:00:00.0590742" startTime="2026-10-11T18:28:25.1815554+00:00" endTime="2026-10-11T18:28:25.2456282+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6febbdfb-cef3-4a20-bdd8-a95c02d766dc" />
+    <UnitTestResult executionId="0cede9d4-2fcd-4177-b73d-0b2380194151" testId="6ac6e956-964e-8e29-22b0-7b6499e63845" testName="KuaiYi.Core.Tests.SelectionReadOwnershipTests.SynchronouslyCompletedReadCannotEscapeAlreadyCancelledDeliveryToken" computerName="552716c6b8c5" duration="00:00:00.0094499" startTime="2026-10-11T18:28:25.0094736+00:00" endTime="2026-10-11T18:28:25.0300720+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0cede9d4-2fcd-4177-b73d-0b2380194151">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.ThrowsAny() Failure: No exception was thrown
+Expected: typeof(System.OperationCanceledException)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SelectionReadOwnershipTests.SynchronouslyCompletedReadCannotEscapeAlreadyCancelledDeliveryToken() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionReadOwnershipTests.cs:line 11
+   at KuaiYi.Core.Tests.SelectionReadOwnershipTests.SynchronouslyCompletedReadCannotEscapeAlreadyCancelledDeliveryToken() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionReadOwnershipTests.cs:line 11
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="80d03d8f-d0c9-4d1b-9584-2bf56cd74394" testId="e8130f4d-d304-a043-5feb-3900cdd7e2ae" testName="KuaiYi.Core.Tests.SelectionBrokerProcessTests.CancellationAtFinalValidationCannotDeliverDecodedSelection" computerName="552716c6b8c5" duration="00:00:00.0600665" startTime="2026-10-11T18:28:25.2462494+00:00" endTime="2026-10-11T18:28:25.3079558+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="80d03d8f-d0c9-4d1b-9584-2bf56cd74394">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Cancelled
+Actual:   Success</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.CancellationAtFinalValidationCannotDeliverDecodedSelection() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 19
+   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.CancellationAtFinalValidationCannotDeliverDecodedSelection() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 19
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c7b43a08-e641-4ac5-870d-e0039a7e66e0" testId="41e40bee-052c-05de-5e91-cf048e2d836d" testName="KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(elapsed: 600, expected: HardTimeout)" computerName="552716c6b8c5" duration="00:00:00.0505879" startTime="2026-10-11T18:28:25.1305926+00:00" endTime="2026-10-11T18:28:25.1812934+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c7b43a08-e641-4ac5-870d-e0039a7e66e0">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: HardTimeout
+Actual:   Success</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(Int32 elapsed, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 14
+   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(Int32 elapsed, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 14
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.SelectionReadOwnershipTests.SynchronouslyCompletedReadCannotEscapeAlreadyCancelledDeliveryToken" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="6ac6e956-964e-8e29-22b0-7b6499e63845">
+      <Execution id="0cede9d4-2fcd-4177-b73d-0b2380194151" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SelectionReadOwnershipTests" name="SynchronouslyCompletedReadCannotEscapeAlreadyCancelledDeliveryToken" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(elapsed: 599, expected: Success)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="8896e526-f81f-ce29-0bfe-82865bf5e89f">
+      <Execution id="6febbdfb-cef3-4a20-bdd8-a95c02d766dc" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SelectionBrokerProcessTests" name="FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(elapsed: 601, expected: HardTimeout)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="4b43a11f-616d-d775-a7d4-63ec438ba735">
+      <Execution id="b61045d0-a51d-442c-9c93-8a4118511a5e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SelectionBrokerProcessTests" name="FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SelectionBrokerProcessTests.CancellationAtFinalValidationCannotDeliverDecodedSelection" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="e8130f4d-d304-a043-5feb-3900cdd7e2ae">
+      <Execution id="80d03d8f-d0c9-4d1b-9584-2bf56cd74394" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SelectionBrokerProcessTests" name="CancellationAtFinalValidationCannotDeliverDecodedSelection" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(elapsed: 600, expected: HardTimeout)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="41e40bee-052c-05de-5e91-cf048e2d836d">
+      <Execution id="c7b43a08-e641-4ac5-870d-e0039a7e66e0" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SelectionBrokerProcessTests" name="FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="4b43a11f-616d-d775-a7d4-63ec438ba735" executionId="b61045d0-a51d-442c-9c93-8a4118511a5e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8896e526-f81f-ce29-0bfe-82865bf5e89f" executionId="6febbdfb-cef3-4a20-bdd8-a95c02d766dc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6ac6e956-964e-8e29-22b0-7b6499e63845" executionId="0cede9d4-2fcd-4177-b73d-0b2380194151" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e8130f4d-d304-a043-5feb-3900cdd7e2ae" executionId="80d03d8f-d0c9-4d1b-9584-2bf56cd74394" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="41e40bee-052c-05de-5e91-cf048e2d836d" executionId="c7b43a08-e641-4ac5-870d-e0039a7e66e0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="5" executed="5" passed="1" failed="4" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.05]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.16]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.18]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.23]       Assert.ThrowsAny() Failure: No exception was thrown
+[xUnit.net 00:00:00.23]       Expected: typeof(System.OperationCanceledException)
+[xUnit.net 00:00:00.23]       Stack Trace:
+[xUnit.net 00:00:00.24]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionReadOwnershipTests.cs(11,0): at KuaiYi.Core.Tests.SelectionReadOwnershipTests.SynchronouslyCompletedReadCannotEscapeAlreadyCancelledDeliveryToken()
+[xUnit.net 00:00:00.24]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionReadOwnershipTests.cs(11,0): at KuaiYi.Core.Tests.SelectionReadOwnershipTests.SynchronouslyCompletedReadCannotEscapeAlreadyCancelledDeliveryToken()
+[xUnit.net 00:00:00.24]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.33]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.33]       Expected: HardTimeout
+[xUnit.net 00:00:00.33]       Actual:   Success
+[xUnit.net 00:00:00.33]       Stack Trace:
+[xUnit.net 00:00:00.33]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs(14,0): at KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(Int32 elapsed, SelectionCaptureStatus expected)
+[xUnit.net 00:00:00.33]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs(14,0): at KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(Int32 elapsed, SelectionCaptureStatus expected)
+[xUnit.net 00:00:00.33]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.38]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.38]       Expected: HardTimeout
+[xUnit.net 00:00:00.38]       Actual:   Success
+[xUnit.net 00:00:00.38]       Stack Trace:
+[xUnit.net 00:00:00.38]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs(14,0): at KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(Int32 elapsed, SelectionCaptureStatus expected)
+[xUnit.net 00:00:00.38]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs(14,0): at KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(Int32 elapsed, SelectionCaptureStatus expected)
+[xUnit.net 00:00:00.38]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.51]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.51]       Expected: Cancelled
+[xUnit.net 00:00:00.51]       Actual:   Success
+[xUnit.net 00:00:00.51]       Stack Trace:
+[xUnit.net 00:00:00.51]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs(19,0): at KuaiYi.Core.Tests.SelectionBrokerProcessTests.CancellationAtFinalValidationCannotDeliverDecodedSelection()
+[xUnit.net 00:00:00.51]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs(19,0): at KuaiYi.Core.Tests.SelectionBrokerProcessTests.CancellationAtFinalValidationCannotDeliverDecodedSelection()
+[xUnit.net 00:00:00.51]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.51]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T18:28:25.0329457+00:00">
+        <Text>[xUnit.net 00:00:00.23]     KuaiYi.Core.Tests.SelectionReadOwnershipTests.SynchronouslyCompletedReadCannotEscapeAlreadyCancelledDeliveryToken [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T18:28:25.1311559+00:00">
+        <Text>[xUnit.net 00:00:00.33]     KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(elapsed: 601, expected: HardTimeout) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T18:28:25.1821024+00:00">
+        <Text>[xUnit.net 00:00:00.38]     KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(elapsed: 600, expected: HardTimeout) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T18:28:25.3095159+00:00">
+        <Text>[xUnit.net 00:00:00.51]     KuaiYi.Core.Tests.SelectionBrokerProcessTests.CancellationAtFinalValidationCannotDeliverDecodedSelection [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

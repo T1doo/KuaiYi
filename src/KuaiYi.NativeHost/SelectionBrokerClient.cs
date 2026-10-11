@@ -14,10 +14,17 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
     private readonly Dictionary<string,Queue<DateTimeOffset>> failures=new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<string,DateTimeOffset> paused=new(StringComparer.OrdinalIgnoreCase);
     private TimeProvider Clock=>clock??TimeProvider.System;
+    private static readonly TimeSpan HardBudget=TimeSpan.FromMilliseconds(600);
+    private sealed class AbsoluteDeadlineException:TimeoutException;
+    private void CheckDelivery(CancellationToken cancellation,long? started)
+    {
+        cancellation.ThrowIfCancellationRequested();
+        if(started is {} timestamp&&Clock.GetElapsedTime(timestamp)>=HardBudget)throw new AbsoluteDeadlineException();
+    }
     public HostExitState? ExitState{get{lock(sync)return owner?.ExitState;}}
     public async Task<SelectionCaptureResult> CaptureAsync(SelectionGesture gesture,CancellationToken cancellation)
     {
-        OwnedProcessSession session;DateTimeOffset now=Clock.GetUtcNow();
+        long started=Clock.GetTimestamp();OwnedProcessSession session;DateTimeOffset now=Clock.GetUtcNow();
         lock(sync)
         {
             if(disposed)return new(SelectionCaptureStatus.Cancelled);
@@ -25,18 +32,23 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
             if(owner!=null){if(cleanup?.IsCompleted==true)cleanup=CleanupAsync(owner);return new(SelectionCaptureStatus.CleanupPending);}
             session=owner=new(starter);
         }
-        Guid id=Guid.NewGuid();using var deadline=CancellationTokenSource.CreateLinkedTokenSource(cancellation);deadline.CancelAfter(TimeSpan.FromMilliseconds(600));
+        Guid id=Guid.NewGuid();using var deadline=CancellationTokenSource.CreateLinkedTokenSource(cancellation);
         var info=OwnedProcessSession.Info(executable,null);info.ArgumentList.Clear();
         foreach(string value in new[]{gesture.Window.Handle.ToString(CultureInfo.InvariantCulture),gesture.Window.ProcessId.ToString(CultureInfo.InvariantCulture),gesture.Up.X.ToString(CultureInfo.InvariantCulture),gesture.Up.Y.ToString(CultureInfo.InvariantCulture),id.ToString(),gesture.Down.X.ToString(CultureInfo.InvariantCulture),gesture.Down.Y.ToString(CultureInfo.InvariantCulture),gesture.Explicit?"explicit":"gesture",gesture.Window.ProcessStartUtcTicks.ToString(CultureInfo.InvariantCulture)})info.ArgumentList.Add(value);
         SelectionCaptureStatus status=SelectionCaptureStatus.ProtocolFailure;
         byte[]? payload=null;
         try
         {
+            CheckDelivery(deadline.Token,started);
+            // Timer wakes blocked operations; the single monotonic origin decides every delivery.
+            var remaining=HardBudget-Clock.GetElapsedTime(started);if(remaining<=TimeSpan.Zero)throw new AbsoluteDeadlineException();deadline.CancelAfter(remaining);
             var process=await session.Start(info,deadline.Token).WaitAsync(deadline.Token).ConfigureAwait(false);
-            var first=await ReadAsync(process.StandardOutput.BaseStream,deadline.Token).ConfigureAwait(false);
-            var second=await ReadAsync(process.StandardOutput.BaseStream,deadline.Token).ConfigureAwait(false);payload=second?.Payload;
-            var extra=await ReadAsync(process.StandardOutput.BaseStream,deadline.Token).ConfigureAwait(false);if(extra!=null){CryptographicOperations.ZeroMemory(extra.Payload);throw new InvalidDataException("Unexpected selection frame.");}
+            CheckDelivery(deadline.Token,started);
+            var first=await ReadAsync(process.StandardOutput.BaseStream,deadline.Token,started).ConfigureAwait(false);
+            var second=await ReadAsync(process.StandardOutput.BaseStream,deadline.Token,started).ConfigureAwait(false);payload=second?.Payload;
+            var extra=await ReadAsync(process.StandardOutput.BaseStream,deadline.Token,started).ConfigureAwait(false);if(extra!=null){CryptographicOperations.ZeroMemory(extra.Payload);throw new InvalidDataException("Unexpected selection frame.");}
             await process.WaitForExitAsync(deadline.Token).ConfigureAwait(false);
+            CheckDelivery(deadline.Token,started);
             if(process.ExitCode!=0){status=SelectionCaptureStatus.Crash;return new(status);}
             if(first?.RequestId!=id||second?.RequestId!=id||first.Type!=IpcMessageType.Ping||second.Type!=IpcMessageType.BinaryChunk)throw new InvalidDataException("Selection frame identity/type mismatch.");
             var meta=JsonSerializer.Deserialize<SelectionCaptureMetadata>(first.Payload)??throw new InvalidDataException("Missing metadata.");
@@ -48,8 +60,12 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
             string text=new UTF8Encoding(false,true).GetString(second.Payload);
             if(string.IsNullOrWhiteSpace(text)||text.Length>=100002||text.EnumerateRunes().Count()>50000)throw new InvalidDataException("Selection content limit.");
             var ranges=Rectangles(meta.RangeRectangles);PixelRect? control=meta.ControlRectangle is {Length:4} coordinates?Rectangles(coordinates).Single():null;
-            return new(status,text,ranges,meta.RuntimeId.ToImmutableArray(),control);
+            var result=new SelectionCaptureResult(status,text,ranges,meta.RuntimeId.ToImmutableArray(),control);
+            BeforeSelectionDeliveryForTest?.Invoke(payload!);
+            CheckDelivery(deadline.Token,started);
+            return result;
         }
+        catch(AbsoluteDeadlineException){status=cancellation.IsCancellationRequested?SelectionCaptureStatus.Cancelled:SelectionCaptureStatus.HardTimeout;return new(status);}
         catch(OperationCanceledException)when(deadline.IsCancellationRequested){status=cancellation.IsCancellationRequested?SelectionCaptureStatus.Cancelled:SelectionCaptureStatus.HardTimeout;return new(status);}
         catch(Exception error)when(error is IOException or InvalidDataException or JsonException or DecoderFallbackException or InvalidOperationException or System.ComponentModel.Win32Exception or OverflowException or ArgumentException){status=SelectionCaptureStatus.ProtocolFailure;return new(status);}
         finally
@@ -78,13 +94,14 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
         var result=ImmutableArray.CreateBuilder<PixelRect>();for(int i=0;i<values.Length;i+=4){if(values[i+2]<0||values[i+3]<0)throw new InvalidDataException("Negative range size.");result.Add(new(checked((int)Math.Floor(values[i])),checked((int)Math.Floor(values[i+1])),checked((int)Math.Ceiling(values[i]+values[i+2])),checked((int)Math.Ceiling(values[i+1]+values[i+3]))));}return result.ToImmutable();
     }
     public string? LateReadFailureCode{get;private set;}
+    internal Action<byte[]>? BeforeSelectionDeliveryForTest{get;set;}
     internal Func<Task<IpcFrame?>,Task>? BeforeReadSettlementForTest{get;set;}
     internal Task? LateReadObserverForTest{get;private set;}
     internal Action<Task<IpcFrame?>>? LateReadObserverStartedForTest{get;set;}
-    internal async Task<IpcFrame?> ReadAsync(Stream stream,CancellationToken cancellation)
+    internal async Task<IpcFrame?> ReadAsync(Stream stream,CancellationToken cancellation,long? started=null)
     {
         var pending=IpcFrameCodec.ReadAsync(stream,cancellation).AsTask();bool delivered=false;
-        try{var result=await pending.WaitAsync(cancellation).ConfigureAwait(false);delivered=true;return result;}
+        try{var result=await pending.WaitAsync(cancellation).ConfigureAwait(false);CheckDelivery(cancellation,started);delivered=true;return result;}
         finally{if(BeforeReadSettlementForTest!=null)await BeforeReadSettlementForTest(pending).ConfigureAwait(false);if(!delivered)LateReadObserverForTest=ObserveLateRead(pending);}
     }
     private async Task ObserveLateRead(Task<IpcFrame?> pending)

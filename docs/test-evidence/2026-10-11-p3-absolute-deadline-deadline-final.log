@@ -1,0 +1,38 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:01.28]     KuaiYi.Core.Tests.SelectionBrokerProcessTests.CompletedStartupBeyondAbsoluteBoundaryRejectsBeforeReadingAndRetainsOwnedChildCleanup(elapsed: 600) [FAIL]
+[xUnit.net 00:00:01.28]     KuaiYi.Core.Tests.SelectionBrokerProcessTests.CompletedStartupBeyondAbsoluteBoundaryRejectsBeforeReadingAndRetainsOwnedChildCleanup(elapsed: 601) [FAIL]
+  Failed KuaiYi.Core.Tests.SelectionBrokerProcessTests.CompletedStartupBeyondAbsoluteBoundaryRejectsBeforeReadingAndRetainsOwnedChildCleanup(elapsed: 600) [2 ms]
+  Error Message:
+   System.InvalidOperationException : No process is associated with this object.
+  Stack Trace:
+     at System.Diagnostics.Process.EnsureState(State state)
+   at System.Diagnostics.Process.get_HasExited()
+   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.CompletedStartupBeyondAbsoluteBoundaryRejectsBeforeReadingAndRetainsOwnedChildCleanup(Int32 elapsed) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 19
+   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.CompletedStartupBeyondAbsoluteBoundaryRejectsBeforeReadingAndRetainsOwnedChildCleanup(Int32 elapsed) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 19
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionBrokerProcessTests.CompletedStartupBeyondAbsoluteBoundaryRejectsBeforeReadingAndRetainsOwnedChildCleanup(elapsed: 601) [1 ms]
+  Error Message:
+   System.InvalidOperationException : No process is associated with this object.
+  Stack Trace:
+     at System.Diagnostics.Process.EnsureState(State state)
+   at System.Diagnostics.Process.get_HasExited()
+   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.CompletedStartupBeyondAbsoluteBoundaryRejectsBeforeReadingAndRetainsOwnedChildCleanup(Int32 elapsed) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 19
+   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.CompletedStartupBeyondAbsoluteBoundaryRejectsBeforeReadingAndRetainsOwnedChildCleanup(Int32 elapsed) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 19
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/test-results/p3-absolute-deadline/deadline-final.trx
+
+Failed!  - Failed:     2, Passed:    85, Skipped:     0, Total:    87, Duration: 2 s - KuaiYi.Core.Tests.dll (net10.0)

@@ -65,3 +65,5 @@ P2三项监督缺口新增15例，旧版第四版Begin实际失败证据保留�
 P3生产选区获取接线见[选区复核](p3-selection-review.md)：真实Broker调用已有实现、稳定等待/来源身份/模式暂停/排除及600ms自有子进程截止。原文和译文区分，未接P4发送，不称完整P3或文字Alpha；真实Windows兼容仍NotRun。
 
 P3两项监督修复：旧版5/5反例失败；本轮新增22例，生产输入桥channel/UI双队列、冻结来源/epoch与取消读取单所有者实测通过。定向72/72，完整.NET832/832、Node63/63。这里只验证可移植链路和合成受控流，Windows低级hook/真实UIA与106整体用例仍NotRun。详见[p3-input-read-fixes-review.md](p3-input-read-fixes-review.md)。
+
+P3硬截止补审纠正此前仅相对timer的证据范围：入口单调起点覆盖启动、读取、退出及最终校验，>=600ms不交付文本，已取消完成read不转移所有权。旧5项4失败/1成功，新15例后定向87/87、完整.NET847/847和Node63/63通过。真实Windows及106整体用例仍NotRun，见[p3-absolute-deadline-review.md](p3-absolute-deadline-review.md)。

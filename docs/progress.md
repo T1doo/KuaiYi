@@ -274,3 +274,11 @@ P0 整体：**InProgress，真实 Windows 退出门槛 Blocked**。后续整阶�
 - ReadAsync按是否已交付明确所有权，放弃结果无论当时是否完成都由一个观察者清零/观察异常；六项受控生产读取边界用例检查敏感缓冲、所有者数量及故障类型。受控流为测试替身，不宣称Windows进程验证。
 - 本轮新增22例：3旧队列反例、13实际生产输入桥用例、6读取所有权用例。定向72/72；完整Core755+Provider77=832/832、Node63/63，25托管locked Release零警告/错误。Linux自有公开子进程原16项仍通过。
 - 独立修复ZIP、12旧包、旧审阅精确commit摘要、原规格/锁文件均核对。176追踪/106整体验收NotRun保持；P0/E06 Blocked，P1/P2/P3 InProgress。Windows实际hook/UIA/焦点/多DPI/安装未执行；OLE文本Drop/复制授权/全快捷键/P4调度尚未交付。证据见p3-input-read-fixes-review.md和本轮summary。
+
+## P3 单调绝对交付截止监督补审
+
+- 基线b07f2b556f7bf1aa214d81daaae92e76edff81ad。原相对CancelAfter600ms不能证明最终交付硬截止；已完成WaitAsync和解码/校验跨界可绕过。旧5边界用例4失败/1成功（599ms），日志/TRX保留。
+- Capture入口一次GetTimestamp；剩余预算定时器只唤醒阻塞，启动后、三次ReadAsync、退出后及最终成功交付前均CheckDelivery同一起点和取消。>=600ms为HardTimeout，已取消为Cancelled，均不带文本；时间测量不依赖墙钟或timer回调。
+- ReadAsync后置复核在delivered=true前，取消/绝对超时的已完成帧仍由唯一观察者清零。捕获校验后的payload由原finally清零，旧输入身份/双队列/清理单writer保持。
+- 新15例；定向87/87。初扩87中2失败为已释放Process查询，改成独立只读Process观察对象保留实际退出断言，原失败证据保留。最终Core770+Provider77=847/847、Node63/63，25托管locked Release零警告/错误。
+- 独立新审查ZIP，13旧包、25锁文件及原规格字节不变；294源/本轮证据/历史固定commit均冻结核对。Windows实际hook/UIA/跨应用/多DPI/安装及原生P0/E06仍NotRun/Blocked；176追踪、106整体验收NotRun，P1/P2/P3仍InProgress。未推进P4。详见p3-absolute-deadline-review.md及summary。

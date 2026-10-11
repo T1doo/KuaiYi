@@ -5,6 +5,30 @@ using Xunit;
 namespace KuaiYi.Core.Tests;
 public sealed class SelectionBrokerProcessTests
 {
+    private sealed class MonotonicClock:TimeProvider
+    {public long Milliseconds=10000;public DateTimeOffset Utc=DateTimeOffset.UtcNow;public override long TimestampFrequency=>1000;public override long GetTimestamp()=>Interlocked.Read(ref Milliseconds);public override DateTimeOffset GetUtcNow()=>Utc;}
+    private sealed class ExpiredStarter(MonotonicClock clock,int elapsed):FixtureStarter("normal")
+    {public Process? Witness;public override Process Start(ProcessStartInfo info){clock.Milliseconds+=elapsed;var child=base.Start(info);Witness=Process.GetProcessById(child.Id);return child;}}
+    [Fact]public async Task PreCancelledSelectionCreatesNoOwnedChild()
+    {
+        using var cancellation=new CancellationTokenSource();cancellation.Cancel();var starter=new FixtureStarter("normal");await using var client=new SelectionBrokerClient("public-fixture",starter);Assert.Equal(SelectionCaptureStatus.Cancelled,(await client.CaptureAsync(Gesture(),cancellation.Token)).Status);await client.DisposeAsync();Assert.Equal(0,starter.Starts);Assert.Null(starter.Child);Assert.Null(client.ExitState);
+    }
+    [Theory][InlineData(600)][InlineData(601)]
+    public async Task CompletedStartupBeyondAbsoluteBoundaryRejectsBeforeReadingAndRetainsOwnedChildCleanup(int elapsed)
+    {
+        var clock=new MonotonicClock();var starter=new ExpiredStarter(clock,elapsed);await using var client=new SelectionBrokerClient("public-fixture",starter,clock);Assert.Equal(SelectionCaptureStatus.HardTimeout,(await client.CaptureAsync(Gesture(),default)).Status);using var witness=starter.Witness;Assert.NotNull(witness);await client.DisposeAsync();Assert.Null(client.ExitState);Assert.Equal(1,starter.Starts);Assert.True(witness.HasExited);
+    }
+    [Theory][InlineData(599,SelectionCaptureStatus.Success)][InlineData(600,SelectionCaptureStatus.HardTimeout)][InlineData(601,SelectionCaptureStatus.HardTimeout)]
+    public async Task FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(int elapsed,SelectionCaptureStatus expected)
+    {
+        var clock=new MonotonicClock();var starter=new FixtureStarter("normal");byte[]? held=null;await using var client=new SelectionBrokerClient("public-fixture",starter,clock){BeforeSelectionDeliveryForTest=payload=>{held=payload;clock.Milliseconds+=elapsed;clock.Utc=clock.Utc.AddDays(-3);}};
+        var result=await client.CaptureAsync(Gesture(),default);Assert.Equal(expected,result.Status);Assert.Equal(expected==SelectionCaptureStatus.Success?"public selected\n  code":"",result.Text);Assert.NotNull(held);Assert.All(held!,b=>Assert.Equal(0,b));await client.DisposeAsync();Assert.Null(client.ExitState);Assert.Equal(1,starter.Starts);
+    }
+    [Fact]public async Task CancellationAtFinalValidationCannotDeliverDecodedSelection()
+    {
+        using var cancellation=new CancellationTokenSource();var starter=new FixtureStarter("normal");byte[]? held=null;await using var client=new SelectionBrokerClient("public-fixture",starter){BeforeSelectionDeliveryForTest=payload=>{held=payload;cancellation.Cancel();}};
+        var result=await client.CaptureAsync(Gesture(),cancellation.Token);Assert.Equal(SelectionCaptureStatus.Cancelled,result.Status);Assert.Equal("",result.Text);Assert.NotNull(held);Assert.All(held!,b=>Assert.Equal(0,b));await client.DisposeAsync();Assert.Null(client.ExitState);Assert.Equal(1,starter.Starts);
+    }
     private class FixtureStarter(string fault):IOwnedProcessStarter
     {
         public int Starts;public Process? Child;

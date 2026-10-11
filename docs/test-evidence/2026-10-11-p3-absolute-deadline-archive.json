@@ -1,0 +1,26 @@
+{
+  "bytes": 1615917,
+  "sha256": "cb8bdde0d6ed43de225082165c444725e43ece356bc24750ba9a92a847e8cb7d",
+  "archive": "artifacts/KuaiYi-P3-absolute-deadline-managed-win-x64.zip",
+  "files": 73,
+  "appFiles": 44,
+  "publicProbeFiles": 25,
+  "actualPe32PlusX64Hosts": [
+    "app/KuaiYi.App.exe",
+    "app/KuaiYi.CaptureBroker.exe",
+    "app/KuaiYi.CaptureHost.exe",
+    "app/KuaiYi.ImageWorker.exe",
+    "app/KuaiYi.NativeHost.exe",
+    "app/KuaiYi.OleReceiver.exe",
+    "public-probe/KuaiYi.App.exe",
+    "public-probe/KuaiYi.GrowthHarness.exe",
+    "public-probe/KuaiYi.NativeHost.exe"
+  ],
+  "manifestHashes": "Pass",
+  "installer": false,
+  "FrameworkDependent": true,
+  "WindowsRuntime": "NotRun",
+  "NativeDlls": "NotIncluded",
+  "ModelCalls": "None",
+  "Credentials": "NotIncluded"
+}
