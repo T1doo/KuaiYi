@@ -15,5 +15,6 @@ public static class SelectionDesktop
         try{using var process=Process.GetProcessById(checked((int)pid));using var self=Process.GetCurrentProcess();if(process.HasExited||process.SessionId!=self.SessionId||NativeDesktop.IntegrityLevel(pid)>NativeDesktop.IntegrityLevel((uint)Environment.ProcessId))return null;string? path=process.MainModule?.FileName;if(string.IsNullOrEmpty(path))return null;return new(foreground,pid,process.StartTime.ToUniversalTime().Ticks,path);}
         catch(Exception error)when(error is InvalidOperationException or System.ComponentModel.Win32Exception or ArgumentException or UnauthorizedAccessException){return null;}
     }
+    public static bool IsDropSourceCurrent(SelectionWindow source)=>IsCurrent(source)&&ClipboardNative.TrustedFocus(source,ClipboardNative.Focus(source.Handle));
     public static bool IsCurrent(SelectionWindow source)=>Resolve(source.Handle)==source;
 }

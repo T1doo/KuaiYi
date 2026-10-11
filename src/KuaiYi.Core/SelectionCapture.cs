@@ -8,9 +8,9 @@ public sealed record SelectionRawInput(bool Down,PixelPoint Point,long TimeMs,bo
 public sealed record SelectionPointerEvent(bool Down,PixelPoint Point,long TimeMs,bool Injected,SelectionWindow Window,SelectionInputIdentity? InputIdentity=null);
 public sealed record SelectionGesture(SelectionWindow Window,PixelPoint Down,PixelPoint Up,long TimeMs,int ClickCount,bool Explicit=false);
 public enum SelectionCaptureStatus{Success,EmptyOrUnsupported,Sensitive,Stale,SoftTimeout,HardTimeout,Crash,Cancelled,ProtocolFailure,CleanupPending,Paused,TooLarge,UntrustedGesture,ClipboardUnsupported,ClipboardTimeout,ClipboardUnrelated,ClipboardBusy}
-public enum SelectionSourceKind{Uia,Clipboard}
+public enum SelectionSourceKind{Uia,Clipboard,OleDrop}
 public sealed record SelectionCaptureResult(SelectionCaptureStatus Status,string Text="",ImmutableArray<PixelRect> Ranges=default,ImmutableArray<int> RuntimeId=default,PixelRect? ControlBounds=null,SelectionCopyEvidence? CopyEvidence=null,SelectionSourceKind SourceKind=SelectionSourceKind.Uia,ClipboardRecovery Recovery=ClipboardRecovery.NotNeeded);
-public sealed record SelectionSourceSnapshot(SelectionWindow Window,string RawText,string Text,ImmutableArray<PixelRect> Ranges,ImmutableArray<int> RuntimeId,string SettingsVersion,int Scalars,bool RequiresConfirmation,SelectionSourceKind SourceKind=SelectionSourceKind.Uia,ClipboardRecovery Recovery=ClipboardRecovery.NotNeeded);
+public sealed record SelectionSourceSnapshot(SelectionWindow Window,string RawText,string Text,ImmutableArray<PixelRect> Ranges,ImmutableArray<int> RuntimeId,string SettingsVersion,int Scalars,bool RequiresConfirmation,SelectionSourceKind SourceKind=SelectionSourceKind.Uia,ClipboardRecovery Recovery=ClipboardRecovery.NotNeeded,Guid DropReceiver=default,Guid DropTransaction=default);
 public interface ISelectionCapturePlatform
 {
     bool IsCurrent(SelectionWindow window);
@@ -53,6 +53,14 @@ public static class SelectionTextPolicy
         foreach(char c in normalized)if((!char.IsControl(c)||c is '\n' or '\t')&&c is not '\u200b' and not '\ufeff')clean.Append(c);
         string text=clean.ToString().Trim();int count=text.EnumerateRunes().Count();if(count==0||count>settings.Data.Translation.HardLimitScalars)return null;
         return new(gesture.Window,result.Text,text,result.Ranges.IsDefault?[]:result.Ranges,result.RuntimeId,settings.Version,count,count>settings.Data.Translation.AutoSoftLimitScalars,result.SourceKind,result.Recovery);
+    }
+    public static SelectionSourceSnapshot? DropSnapshot(SelectionWindow window,string raw,Guid receiver,Guid transaction,SettingsSnapshot settings)
+    {
+        if(receiver==Guid.Empty||transaction==Guid.Empty||raw.Length>=100002||string.IsNullOrWhiteSpace(raw)||OleDroppedText.IsUrlOnly(raw))return null;
+        for(int i=0;i<raw.Length;i++){if(char.IsHighSurrogate(raw[i])){if(++i>=raw.Length||!char.IsLowSurrogate(raw[i]))return null;}else if(char.IsLowSurrogate(raw[i]))return null;}
+        var clean=new StringBuilder(raw.Length);foreach(char c in raw.Replace("\r\n","\n",StringComparison.Ordinal).Replace('\r','\n'))if((!char.IsControl(c)||c is '\n' or '\t')&&c is not '\u200b' and not '\ufeff')clean.Append(c);
+        string text=clean.ToString().Trim();int count=text.EnumerateRunes().Count();if(count==0||OleDroppedText.IsUrlOnly(text)||raw.EnumerateRunes().Count()>settings.Data.Translation.HardLimitScalars||count>settings.Data.Translation.HardLimitScalars)return null;
+        return new(window,raw,text,[],[],settings.Version,count,count>settings.Data.Translation.AutoSoftLimitScalars,SelectionSourceKind.OleDrop,DropReceiver:receiver,DropTransaction:transaction);
     }
     private static bool Contains(PixelRect r,PixelPoint p,int margin=0)=>(long)p.X>=r.Left-(long)margin&&(long)p.X<=r.Right+(long)margin&&(long)p.Y>=r.Top-(long)margin&&(long)p.Y<=r.Bottom+(long)margin;
 }

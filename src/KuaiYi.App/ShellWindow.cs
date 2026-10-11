@@ -39,7 +39,7 @@ internal sealed partial class ShellWindow:Window
             NativeDesktop.SetOverlayStyle(hwnd,false);
             try{tray=new(hwnd);}catch(Exception error){Report("托盘不可用",error);throw;} // Never leave an inaccessible hidden application.
             Reposition(null);
-            SetupSelection();
+            SetupSelection();SetupTextDrop();
         };
         Loaded+=(_,_)=>startup=LoadStartup();
         button.PreviewMouseLeftButtonDown+=(_,e)=>Pointer(()=>
@@ -77,7 +77,7 @@ internal sealed partial class ShellWindow:Window
         catch(OperationCanceledException)when(lifetime.IsCancellationRequested){ /* Owned exit waits for startup settlement. */ }
         catch(Exception error){Report("配置无法加载，原文件保留；请打开设置恢复",error);}
     }
-    private void SettingsCommitted(SettingsSnapshot _,SettingsChange __){selectionCapture?.CancelPending();Dispatcher.BeginInvoke(()=>{if(!exiting)Refresh();});}
+    private void SettingsCommitted(SettingsSnapshot _,SettingsChange __){selectionCapture?.CancelPending();RevokeTextDrop();Dispatcher.BeginInvoke(()=>{if(!exiting)Refresh();});}
     private void Toggle()
     {
         if(exiting)return;
@@ -89,10 +89,10 @@ internal sealed partial class ShellWindow:Window
     }
     private void Refresh()
     {
-        RefreshSelection();
+        RefreshSelection();RefreshTextDrop();
         RefreshPresentationTheme();
         bool on=lifecycle.Gate.Snapshot.Activation==Activation.On;button.Background=on?OverlayTokens.On:OverlayTokens.Off;UpdateButtonGlyph(on);
-        AutomationProperties.SetName(button,on?"快译：已启用翻译":"快译：未启用翻译");button.ToolTip=on?"已启用翻译 · 单击停用":"未启用翻译 · 单击启用，右键设置";
+        AutomationProperties.SetName(button,on?"快译：已启用翻译":"快译：未启用翻译");button.ToolTip=on?"已启用翻译 · 单击停用":dropUnavailable??"未启用翻译 · 单击启用，右键设置";
         try{tray?.Update(on);}catch(Exception error){Report("托盘状态更新失败",error);}
     }
     private async Task OpenSettings()
@@ -121,7 +121,7 @@ internal sealed partial class ShellWindow:Window
     private void SessionSwitch(object sender,Microsoft.Win32.SessionSwitchEventArgs e)
     {
         if(e.Reason is not (Microsoft.Win32.SessionSwitchReason.SessionLock or Microsoft.Win32.SessionSwitchReason.SessionUnlock))return;
-        bool locked=e.Reason==Microsoft.Win32.SessionSwitchReason.SessionLock;lifecycle.SetSessionLocked(locked);selectionCapture?.CancelPending(clearSource:locked); // Synchronous gate invalidation precedes queued UI.
+        bool locked=e.Reason==Microsoft.Win32.SessionSwitchReason.SessionLock;lifecycle.SetSessionLocked(locked);selectionCapture?.CancelPending(clearSource:locked);RevokeTextDrop(clearSource:locked); // Synchronous gate invalidation precedes queued UI.
         Dispatcher.BeginInvoke(()=>{if(exiting)return;CancelPointer();if(locked){ClearSelectionSource();settings?.RequestCloseWhenSettled();HidePresentation(true);Hide();}else ShowOverlay();Refresh();});
     }
     private nint Hook(nint window,int message,nint w,nint l,ref bool handled)
@@ -172,7 +172,7 @@ internal sealed partial class ShellWindow:Window
         if(allowClose)return;e.Cancel=true;if(exiting)return;
         if(opening||settings!=null){exitRequested=true;lifecycle.Hide();Refresh();settings?.RequestCloseWhenSettled();button.ToolTip="正在等待设置草稿和原保存任务结束后退出。";return;}
         QueuePositionSave();exiting=true;button.IsEnabled=false;CancelPointer();lifecycle.Hide();HidePresentation(true);Refresh();
-        try{await startup;await positionSave;await StopSelection();allowClose=true;Close();}
+        try{await startup;await positionSave;await StopTextDrop();await StopSelection();allowClose=true;Close();}
         catch(Exception error){exiting=false;button.IsEnabled=true;Report("退出清理尚未完成",error);}
     }
     private void ClosedShell(object? sender,EventArgs e)

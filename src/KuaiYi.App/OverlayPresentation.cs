@@ -57,8 +57,8 @@ internal sealed partial class ShellWindow
         PreviewKeyDown+=(_,e)=>{if(e.Key==Key.Escape){NativeDesktop.SetOverlayStyle(hwnd,false);CollapseResult();e.Handled=true;}};
         MouseEnter+=(_,_)=>{peekOut.Stop();if(overlayFrames?.IsExpanded!=true)peekIn.Start();};
         MouseLeave+=(_,_)=>{peekIn.Stop();if(peek)peekOut.Start();};
-        peekIn.Tick+=(_,_)=>{peekIn.Stop();if(!gesture.Active&&IsMouseOver&&lifecycle.Gate.TryPeek(true)){peek=true;overlayFrames?.OpenToolbar();StartFrames();}};
-        peekOut.Tick+=(_,_)=>{peekOut.Stop();if(peek&&!IsMouseOver&&!IsKeyboardFocusWithin&&!overflowMenu.IsOpen&&button.ContextMenu?.IsOpen!=true&&lifecycle.Gate.TryPeek(false)){peek=false;overlayFrames?.Collapse();StartFrames();}};
+        peekIn.Tick+=(_,_)=>{peekIn.Stop();if(!externalDropHover&&!gesture.Active&&IsMouseOver&&lifecycle.Gate.TryPeek(true)){peek=true;overlayFrames?.OpenToolbar();StartFrames();}};
+        peekOut.Tick+=(_,_)=>{peekOut.Stop();if(!externalDropHover&&peek&&!IsMouseOver&&!IsKeyboardFocusWithin&&!overflowMenu.IsOpen&&button.ContextMenu?.IsOpen!=true&&lifecycle.Gate.TryPeek(false)){peek=false;overlayFrames?.Collapse();StartFrames();}};
         flush.Tick+=(_,_)=>{flush.Stop();FlushResult();};
         waiting.Tick+=(_,_)=>{waiting.Stop();if(overlayResults.Identity is {} id&&lifecycle.Gate.CanApply(id)&&!overlayResults.HasText&&!gesture.Active&&lifecycle.Gate.TryRevealDelta(id)){peek=true;overlayFrames?.OpenToolbar();button.ToolTip="正在连接…";StartFrames();}};
     }
@@ -192,7 +192,7 @@ internal sealed partial class ShellWindow
         double width=dpi.Dips(rect.Width),height=dpi.Dips(rect.Height);overlayCanvas.Width=width;overlayCanvas.Height=height;cardBackground.Width=width;cardBackground.Height=height;
         double bx=dpi.Dips(anchor.Left-rect.Left),by=dpi.Dips(anchor.Top-rect.Top);Canvas.SetLeft(button,bx);Canvas.SetTop(button,by);
         Canvas.SetLeft(progressRing,bx+3);Canvas.SetTop(progressRing,by+3);
-        controls.Visibility=expanded?Visibility.Visible:Visibility.Collapsed;controls.Width=width;Canvas.SetTop(controls,by);
+        controls.Visibility=expanded&&!externalDropHover?Visibility.Visible:Visibility.Collapsed;controls.Width=width;Canvas.SetTop(controls,by);
         double before=bx,after=width-bx-48;bool left=before>after;double available=Math.Max(before,after),start=left?0:bx+48;
         var toolbar=OverlayToolbarLayout.Plan(Math.Max(0,available),tools.Count,tools.Count-1);
         foreach(var tool in tools)tool.Visibility=Visibility.Collapsed;
@@ -200,7 +200,8 @@ internal sealed partial class ShellWindow
         moreTools.Visibility=toolbar.OverflowOffsetDip.HasValue?Visibility.Visible:Visibility.Collapsed;
         if(toolbar.OverflowOffsetDip is {} offset){Canvas.SetLeft(moreTools,start+offset);Canvas.SetTop(moreTools,10);}
         double used=toolbar.OverflowOffsetDip is {} last?last+28:toolbar.Slots.Select(s=>s.OffsetDip+s.WidthDip).DefaultIfEmpty(0).Max();
-        connectionStatus.Visibility=awaitingText&&peek&&expanded&&available-used>=104?Visibility.Visible:Visibility.Collapsed;Canvas.SetLeft(connectionStatus,start+used+8);Canvas.SetTop(connectionStatus,by+14);
+        connectionStatus.Visibility=!externalDropHover&&awaitingText&&peek&&expanded&&available-used>=104?Visibility.Visible:Visibility.Collapsed;Canvas.SetLeft(connectionStatus,start+used+8);Canvas.SetTop(connectionStatus,by+14);
+        PublishDropBounds();
         var plan=overlayFrames.Plan;var direction=overlayFrames.ContentDirection;if(direction==null||peek||!expanded){body.Visibility=Visibility.Collapsed;newContent.Visibility=Visibility.Collapsed;return;}
         bool down=direction is GrowthDirection.RightDown or GrowthDirection.LeftDown or GrowthDirection.BalancedDown;
         int pad=dpi.CeilingPixels(16),top=down?anchor.Bottom+pad:rect.Top+pad,bottom=down?rect.Bottom-pad:anchor.Top-pad;

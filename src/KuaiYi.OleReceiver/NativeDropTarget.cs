@@ -8,7 +8,7 @@ namespace KuaiYi.OleReceiver;
     {
         private readonly OleDropTransaction transaction = new();
         private Guid id;
-        private bool advertised, active;
+        private bool advertised, active;private SelectionWindow? source;private OleTextFormat format;
         private long hoverEpoch;
         public bool HasPendingTransfer=>active;
         public void Invalidate() { transaction.Leave(); advertised = false; }
@@ -22,30 +22,31 @@ namespace KuaiYi.OleReceiver;
         public int DragEnter(nint data, uint keys, OlePoint point, ref uint effect)
         {
             Guid query = transaction.Enter(); id = query; advertised = false;
-            if (!owner.Enabled || active || ((OleEffect)effect & OleEffect.Copy) == 0) { effect = 0; return 0; }
+            if (!owner.Enabled || active || !owner.Hit(point) || ((OleEffect)effect & OleEffect.Copy) == 0) { effect = 0; return 0; }
+            source=owner.Production?owner.CaptureSource():null;format=OleTextFormat.None;if(owner.Production&&source==null){effect=0;return 0;}
             long generation = owner.Epoch; hoverEpoch = generation; nint foreground = NativeDesktop.GetForegroundWindow();
-            owner.Emit(query, "QueryBegin", "QueryGetData and cleanup deadline");
+            owner.Emit(query, "QueryBegin", "Format query and cleanup deadline",source:source,point:new(point.X,point.Y),format:OleTextFormat.None);
             var scope = new OleCleanupScope(); string status = "Format query and native cleanup completed";
             try
             {
                 var reference = OleDataReference.FromBorrowed(data);
                 scope.Own(() => owner.ReleaseOwned(query, generation, "QueryRelease", reference.Dispose));
-                advertised = owner.CanCommit(query,generation)&&reference.OffersUnicode();
+                if(owner.CanCommit(query,generation)){format=owner.Production?reference.OfferedText():reference.OffersUnicode()?OleTextFormat.Unicode:OleTextFormat.None;advertised=format!=OleTextFormat.None;}
             }
             catch (Exception error) { advertised = false; status = error.GetType().Name; }
             if (!Clean(scope, query, generation)) { effect = 0; advertised = false; active = true; return 0; }
             effect = (uint)OleTransferPolicy.Preview(owner.Enabled && generation == owner.Epoch, (OleEffect)effect, advertised);
-            owner.Preview(effect != 0);
-            owner.Emit(query, "QueryEnd", status, (OleEffect)effect, foreground: NativeDesktop.GetForegroundWindow() == foreground, cleanupCompleted: scope.CleanupCompleted);
+            owner.Feedback(query,generation,effect!=0,point,source,format);
+            owner.Emit(query, "QueryEnd", status, (OleEffect)effect, foreground: NativeDesktop.GetForegroundWindow() == foreground, cleanupCompleted: scope.CleanupCompleted,source:source,point:new(point.X,point.Y),format:format);
             return 0;
         }
-        public int DragOver(uint keys, OlePoint point, ref uint effect) { effect = (uint)OleTransferPolicy.Preview(owner.Enabled && hoverEpoch == owner.Epoch && !active, (OleEffect)effect, advertised); return 0; }
+        public int DragOver(uint keys, OlePoint point, ref uint effect) { effect = (uint)OleTransferPolicy.Preview(owner.Enabled && hoverEpoch == owner.Epoch && !active&&owner.Hit(point)&&(!owner.Production||source!=null&&owner.SourceCurrent(source)), (OleEffect)effect, advertised);owner.Feedback(id,hoverEpoch,effect!=0,point,source,format);return 0; }
         public int DragLeave() { Invalidate(); if(id!=Guid.Empty)owner.WorkerMetadata(id,hoverEpoch,"Leave"); return 0; }
         public int Drop(nint data, uint keys, OlePoint point, ref uint effect)
         {
-            if (active || hoverEpoch != owner.Epoch || !transaction.TryConsume(id, owner.Enabled, (OleEffect)effect, advertised)) { effect = 0; return 0; }
+            if (active || hoverEpoch != owner.Epoch || !owner.Hit(point)||owner.Production&&(source==null||!owner.SourceCurrent(source)) || !transaction.TryConsume(id, owner.Enabled, (OleEffect)effect, advertised)) { effect = 0; return 0; }
             Guid operation = id; long generation = owner.Epoch; hoverEpoch = generation; nint foreground = NativeDesktop.GetForegroundWindow(); active = true; effect = 0;
-            owner.Emit(operation, "DropBegin", "Extraction, EndOperation and all cleanup deadline");
+            owner.Emit(operation, "DropBegin", "Extraction, EndOperation and all cleanup deadline",owner.Production?OleEffect.Copy:OleEffect.None,source:source,point:new(point.X,point.Y),format:format);
             var scope = new OleCleanupScope(); var transfer = new AsyncTransfer(scope);
             string? text = null; string status = "Synchronous copy and all cleanup completed"; bool priorCleanupFailed = false;
             try
@@ -81,7 +82,7 @@ namespace KuaiYi.OleReceiver;
                     effect = (uint)OleEffect.Copy; return 0; // The origin scope remains owned until FinishWorker.
                 }
                 if(!owner.CanCommit(operation,generation))throw new OperationCanceledException();
-                text = reference.ReadUnicode();
+                text = owner.Production?reference.ReadText(format):reference.ReadUnicode();
             }
             catch (Exception error) { text = null; status = error.GetType().Name; priorCleanupFailed = error is OleCleanupException; }
             if (!Clean(scope, operation, generation, priorCleanupFailed)) return 0;
@@ -126,7 +127,7 @@ namespace KuaiYi.OleReceiver;
                             var reference = new OleDataReference(pointer); scope.Own(reference.Dispose);
                             var capability = reference.QueryAsync() ?? throw new COMException("Async capability disappeared."); scope.Own(capability.Dispose);
                             int extractionHr = OleNative.Failure;
-                            try { if(!owner.CanCommit(operation,generation))throw new OperationCanceledException();owner.WorkerMetadata(operation, generation, "WorkerReadBegin"); text = reference.ReadUnicode(); extractionHr = 0; }
+                            try { if(!owner.CanCommit(operation,generation))throw new OperationCanceledException();owner.WorkerMetadata(operation, generation, "WorkerReadBegin"); text = owner.Production?reference.ReadText(format):reference.ReadUnicode(); extractionHr = 0; }
                             catch (Exception error) { text = null; status = error.GetType().Name; nativeCleanupFailed = error is OleCleanupException; }
                             finally
                             {

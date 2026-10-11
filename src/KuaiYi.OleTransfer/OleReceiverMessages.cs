@@ -3,9 +3,9 @@ using System.Text;
 using System.Text.Json;
 using KuaiYi.Core;
 namespace KuaiYi.OleTransfer;
-public sealed record OleReceiverHello(Guid Instance,long Epoch,int AppProcessId,long Hwnd,byte[] Nonce,string ActivationName);
-public sealed record OleReceiverControl(Guid Instance,long Epoch,bool Enabled);
-public sealed record OleReceiverEvent(Guid Instance,long Epoch,Guid Transaction,string Phase,bool CleanupCompleted=false,uint Effect=0,int CodeUnits=0,int ThreadId=0,string? Apartment=null,uint NativeThreadId=0);
+public sealed record OleReceiverHello(Guid Instance,long Epoch,int AppProcessId,long Hwnd,byte[] Nonce,string ActivationName,bool ProductionTextDrop=false);
+public sealed record OleReceiverControl(Guid Instance,long Epoch,bool Enabled,DropTargetGeometry? Target=null,string[]? BlockedApplications=null);
+public sealed record OleReceiverEvent(Guid Instance,long Epoch,Guid Transaction,string Phase,bool CleanupCompleted=false,uint Effect=0,int CodeUnits=0,int ThreadId=0,string? Apartment=null,uint NativeThreadId=0,SelectionWindow? Source=null,PixelPoint? Point=null,OleTextFormat TextFormat=OleTextFormat.None);
 public static class OleReceiverWire
 {
     public const int ExportLimit=64*1024,TextLimit=300_006;

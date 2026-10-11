@@ -1,0 +1,58 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.23] KuaiYi.Core.Tests: Skipping test case with duplicate ID '0be371b00c538b5a8e69bb5873cc086eaaf9cf79' ('KuaiYi.Core.Tests.DropCaptureTests.SnapshotNeverAcceptsUnpairedSurrogates(raw: "���")' and 'KuaiYi.Core.Tests.DropCaptureTests.SnapshotNeverAcceptsUnpairedSurrogates(raw: "���")')
+[xUnit.net 00:00:00.33]     KuaiYi.Core.Tests.OleDroppedTextTests.UnsupportedOrMalformedRtfIsBoundedlyRejected(value: "{\\rtf1\\ansicpg936 \\'ff}") [FAIL]
+  Failed KuaiYi.Core.Tests.OleDroppedTextTests.UnsupportedOrMalformedRtfIsBoundedlyRejected(value: "{\\rtf1\\ansicpg936 \\'ff}") [2 ms]
+  Error Message:
+   Assert.ThrowsAny() Failure: No exception was thrown
+Expected: typeof(System.Exception)
+  Stack Trace:
+     at KuaiYi.Core.Tests.OleDroppedTextTests.UnsupportedOrMalformedRtfIsBoundedlyRejected(String value) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleDroppedTextTests.cs:line 44
+   at InvokeStub_OleDroppedTextTests.UnsupportedOrMalformedRtfIsBoundedlyRejected(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.35]     KuaiYi.Core.Tests.DropCaptureTests.HoverNeverAcceptsUntrustedOrMoveOnlyData(reason: "excluded") [FAIL]
+  Failed KuaiYi.Core.Tests.DropCaptureTests.HoverNeverAcceptsUntrustedOrMoveOnlyData(reason: "excluded") [< 1 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Core.Tests.DropCaptureTests.HoverNeverAcceptsUntrustedOrMoveOnlyData(String reason) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/DropCaptureTests.cs:line 34
+   at KuaiYi.Core.Tests.DropCaptureTests.HoverNeverAcceptsUntrustedOrMoveOnlyData(String reason) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/DropCaptureTests.cs:line 34
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.35]     KuaiYi.Core.Tests.DropCaptureTests.SnapshotNeverAcceptsUnpairedSurrogates(raw: "���") [FAIL]
+[xUnit.net 00:00:00.35]     KuaiYi.Core.Tests.DropCaptureTests.SnapshotNeverAcceptsUnpairedSurrogates(raw: "���a") [FAIL]
+  Failed KuaiYi.Core.Tests.DropCaptureTests.SnapshotNeverAcceptsUnpairedSurrogates(raw: "���") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   SelectionSourceSnapshot { Window = SelectionWindow { Handle = 123, ProcessId = 456, ProcessStartUtcTicks = 789, Executable = public.exe }, RawText = ���, Text = ���, Ranges = System.Collections.Immutable.ImmutableArray`1[KuaiYi.Core.PixelRect], RuntimeId = System.Collections.Immutable.ImmutableArray`1[System.Int32], SettingsVersion = public, Scalars = 3, RequiresConfirmation = False, SourceKind = OleDrop, Recovery = NotNeeded, DropReceiver = 68996927-e54c-407c-88b6-962a1f5cf02f, DropTransaction = fed9402d-f83f-4582-99a1-1bf37a22d71f }
+  Stack Trace:
+     at KuaiYi.Core.Tests.DropCaptureTests.SnapshotNeverAcceptsUnpairedSurrogates(String raw) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/DropCaptureTests.cs:line 68
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed KuaiYi.Core.Tests.DropCaptureTests.SnapshotNeverAcceptsUnpairedSurrogates(raw: "���a") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   SelectionSourceSnapshot { Window = SelectionWindow { Handle = 123, ProcessId = 456, ProcessStartUtcTicks = 789, Executable = public.exe }, RawText = ���a, Text = ���a, Ranges = System.Collections.Immutable.ImmutableArray`1[KuaiYi.Core.PixelRect], RuntimeId = System.Collections.Immutable.ImmutableArray`1[System.Int32], SettingsVersion = public, Scalars = 4, RequiresConfirmation = False, SourceKind = OleDrop, Recovery = NotNeeded, DropReceiver = a2215e9c-64ea-4074-b9c0-78cc2823f236, DropTransaction = 5e929d74-8b43-4ca4-af11-532b639f7646 }
+  Stack Trace:
+     at KuaiYi.Core.Tests.DropCaptureTests.SnapshotNeverAcceptsUnpairedSurrogates(String raw) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/DropCaptureTests.cs:line 68
+   at InvokeStub_DropCaptureTests.SnapshotNeverAcceptsUnpairedSurrogates(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+Results File: /workspace/KuaiYi/artifacts/test-results/text-drop/text-drop-initial.trx
+
+Failed!  - Failed:     4, Passed:   109, Skipped:     0, Total:   113, Duration: 119 ms - KuaiYi.Core.Tests.dll (net10.0)

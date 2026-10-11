@@ -18,11 +18,19 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
     private Process? child;private Guid instance;private int started;private volatile bool ready,timedOut;
     private Task? registration;
     private Task? revocation;
-    private Task? deliverySettlement;
+    private readonly HashSet<Task> readSettlements=[];
+    internal Func<Task<IpcFrame?>,Task>? BeforeReadSettlementForTest{get;set;}
+    internal Action<byte[]>? PayloadReleasedForTest{get;set;}
+    internal Action? LateReadObserverStartedForTest{get;set;}
+    internal Task? LateReadObserverForTest{get;private set;}
+    public string? ReadFailureCode{get;private set;}
+    private Task? deliverySettlement;private Guid delivering;private long deliveringEpoch,deliveringStarted;private bool hasDeliveryDeadline;
+    private TimeProvider Clock=>timeProvider??TimeProvider.System;
     public string? DeliveryFailureCode{get;private set;}
     internal Func<Process,IOwnedHostLifetime>? LifetimeForTest{init{process.LifetimeForTest=value;}}
     internal Action<Process>? OwnershipPublishedForTest{init{process.OwnershipPublishedForTest=value;}}
     internal Task StartupSettlementForTest=>process.StartupSettlement;
+    internal bool DeliveryPublishedForTest=>Volatile.Read(ref deliverySettlement)!=null;
     internal Task DeliverySettlementForTest=>Volatile.Read(ref deliverySettlement)??Task.CompletedTask;
     internal Task RevocationSettlementForTest{get{lock(watchSync)return revocation??Task.CompletedTask;}}
     public bool IsReady=>ready&&!stop.IsCancellationRequested;
@@ -51,7 +59,7 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
         bool revoked=await registrar.TryFinalizeAsync().ConfigureAwait(false);
         Task? remoteRevoke;lock(watchSync)remoteRevoke=revocation;
         bool finalized=exited&&revoked&&Volatile.Read(ref started)!=1&&registration is not {IsCompleted:false}&&registrar.IsSettledAndRevoked&&Volatile.Read(ref deliverySettlement) is not {IsCompleted:false}&&remoteRevoke is not {IsCompleted:false};
-        if(finalized)activation.Dispose();return finalized;
+        lock(watchSync)finalized=finalized&&readSettlements.All(task=>task.IsCompleted);if(finalized)activation.Dispose();return finalized;
     }
     public async ValueTask DisposeAsync(){if(!await TryFinalizeAsync())throw new OleReceiverException(!process.ObserveExit()?OleReceiverFailure.ExitUnconfirmed:!registrar.IsSettledAndRevoked?OleReceiverFailure.RegistrarUnconfirmed:OleReceiverFailure.SettlementUnconfirmed);}
     /// <summary>Destination-thread admission, serialized with cancellation. Caller performs only bounded local application, no waits or external COM.</summary>
@@ -60,10 +68,21 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
         ArgumentNullException.ThrowIfNull(apply);
         lock(activationSync){if(!IsReady||!eligibility.Current(epoch))return false;apply();return true;}
     }
-    public async Task<bool> SetEnabledAsync(long epoch,bool enabled)
+    public bool IsDropCurrent(long epoch,Guid transaction)
+    {lock(activationSync){lock(watchSync)return IsReady&&eligibility.Current(epoch)&&hasDeliveryDeadline&&delivering==transaction&&deliveringEpoch==epoch&&Clock.GetElapsedTime(deliveringStarted)<TimeSpan.FromMilliseconds(1500);}}
+    public bool TryApplyDrop(long epoch,Guid transaction,Action apply)
+    {
+        ArgumentNullException.ThrowIfNull(apply);
+        lock(activationSync)
+        {
+            lock(watchSync)if(!IsReady||!eligibility.Current(epoch)||!hasDeliveryDeadline||delivering!=transaction||deliveringEpoch!=epoch||Clock.GetElapsedTime(deliveringStarted)>=TimeSpan.FromMilliseconds(1500))return false;
+            apply();return true;
+        }
+    }
+    public async Task<bool> SetEnabledAsync(long epoch,bool enabled,DropTargetGeometry? target=null,string[]? blockedApplications=null)
     {
         lock(activationSync){if(!IsReady||!eligibility.Set(epoch,enabled))return false;activation.Set(epoch,enabled);}
-        byte[] payload=OleReceiverWire.Serialize(new OleReceiverControl(instance,epoch,enabled));
+        byte[] payload=OleReceiverWire.Serialize(new OleReceiverControl(instance,epoch,enabled,target,blockedApplications));
         try
         {
             await writer.WaitAsync(stop.Token).ConfigureAwait(false);
@@ -86,7 +105,7 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
         using var lifetime=CancellationTokenSource.CreateLinkedTokenSource(cancellation,stop.Token);
         using var startup=new CancellationTokenSource(TimeSpan.FromSeconds(10),timeProvider??TimeProvider.System);
         using var beginning=CancellationTokenSource.CreateLinkedTokenSource(lifetime.Token,startup.Token);
-        byte[]? pending=null;Guid transaction=Guid.Empty;long payloadEpoch=0;Task? watchdog=null;
+        byte[]? pending=null;Guid transaction=Guid.Empty,queryIdentity=Guid.Empty,dropIdentity=Guid.Empty;long payloadEpoch=0;Task? watchdog=null;SelectionWindow? sourceIdentity=null;PixelPoint? dropPoint=null;OleTextFormat selectedFormat=OleTextFormat.None;
         var starting=process.Start(OwnedProcessSession.Info(executable,managedAssembly),beginning.Token);
         lock(watchSync)watch.Start(instance,hello.Epoch);
         try
@@ -126,7 +145,24 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
                     var item=OleReceiverWire.Read<OleReceiverEvent>(frame.Payload);
                     if(item.Instance!=instance||item.Transaction!=frame.RequestId||item.Effect is not (0 or 1)||item.CodeUnits is <0 or >OleUnicodeText.MaximumReadUnits)throw new OleReceiverException(OleReceiverFailure.Protocol);
                     if(item.Epoch!=eligibility.Snapshot.Epoch)continue;
+                    if(hello.ProductionTextDrop&&item.Phase is "QueryBegin" or "Hover" or "QueryEnd" or "DropBegin" or "CleanupComplete" or "DropEnd")
+                    {
+                        if(item.Source is not {} origin||origin.Handle==0||origin.ProcessId==0||origin.ProcessStartUtcTicks<=0||origin.Executable is not {Length:>0 and <=260}||item.Point==null||!Enum.IsDefined(item.TextFormat)||item.TextFormat==OleTextFormat.None&&item.Phase!="QueryBegin"&&!(item.Phase=="QueryEnd"&&item.Effect==0))throw new OleReceiverException(OleReceiverFailure.Protocol);
+                    }
+                    if(hello.ProductionTextDrop)
+                    {
+                        if(item.Phase=="QueryBegin"){queryIdentity=item.Transaction;sourceIdentity=item.Source;selectedFormat=OleTextFormat.None;dropIdentity=Guid.Empty;dropPoint=null;}
+                        else if(item.Phase=="QueryEnd"){if(item.Transaction!=queryIdentity||item.Source!=sourceIdentity)throw new OleReceiverException(OleReceiverFailure.Protocol);selectedFormat=item.TextFormat;}
+                        else if(item.Phase=="DropBegin")
+                        {
+                            if(item.Transaction!=queryIdentity||item.Source!=sourceIdentity||item.TextFormat!=selectedFormat||selectedFormat==OleTextFormat.None||item.Effect!=1||dropIdentity!=Guid.Empty&&item.Point!=dropPoint)throw new OleReceiverException(OleReceiverFailure.Protocol);
+                            dropIdentity=item.Transaction;dropPoint=item.Point;
+                        }
+                        else if(item.Phase is "CleanupComplete" or "DropEnd")
+                        {if(item.Transaction!=dropIdentity||item.Source!=sourceIdentity||item.TextFormat!=selectedFormat||item.Point!=dropPoint)throw new OleReceiverException(OleReceiverFailure.Protocol);}
+                    }
                     OleWatchDecision decision;lock(watchSync)decision=watch.Accept(frame.RequestId,item.Epoch,item.Phase,item.CleanupCompleted);
+                    if(item.Phase=="DropBegin"&&decision==OleWatchDecision.Progress)lock(watchSync){if(!hasDeliveryDeadline||delivering!=item.Transaction||deliveringEpoch!=item.Epoch){delivering=item.Transaction;deliveringEpoch=item.Epoch;deliveringStarted=Clock.GetTimestamp();hasDeliveryDeadline=true;}}
                     if(decision==OleWatchDecision.Rejected)throw new OleReceiverException(OleReceiverFailure.Timeout);
                     if(item.Phase=="DropEnd")
                     {
@@ -134,6 +170,8 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
                         if(pending!=null)
                         {
                             if(transaction!=item.Transaction||payloadEpoch!=item.Epoch||item.Effect!=1||!eligibility.Current(item.Epoch)||OleReceiverWire.DecodeText(pending).Length!=item.CodeUnits)throw new OleReceiverException(OleReceiverFailure.Protocol);
+                            lifetime.Token.ThrowIfCancellationRequested();
+                            if(hello.ProductionTextDrop&&!TryApplyDrop(item.Epoch,item.Transaction,static()=>{}))throw new OleReceiverException(OleReceiverFailure.Timeout);
                             Task originalDelivery=deliver(item.Epoch,item.Transaction,pending,lifetime.Token);
                             Task settlement=ObserveDelivery(originalDelivery,pending);Volatile.Write(ref deliverySettlement,settlement);pending=null; // Original callback owns the read lease until actual settlement, even when our waiter cancels.
                             await settlement.WaitAsync(lifetime.Token).ConfigureAwait(false); // Finish clearing this lease before accepting another payload.
@@ -155,23 +193,29 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
             if(!process.ObserveExit())throw new OleReceiverException(OleReceiverFailure.ExitUnconfirmed);
             if(registration is {IsCompleted:false}||!registrar.IsSettledAndRevoked)throw new OleReceiverException(OleReceiverFailure.RegistrarUnconfirmed);
         }
-        async Task<IpcFrame> Read(CancellationToken token)
-        {
-            var reading=IpcFrameCodec.ReadAsync(child!.StandardOutput.BaseStream,token).AsTask();
-            try
-            {
-                var frame=await reading.WaitAsync(token).ConfigureAwait(false)??throw new EndOfStreamException();
-                try{token.ThrowIfCancellationRequested();return frame;}catch{CryptographicOperations.ZeroMemory(frame.Payload);throw;}
-            }
-            catch{_ = ObserveRead(reading);throw;}
-        }
+        async Task<IpcFrame> Read(CancellationToken token)=>await ReadOwnedAsync(child!.StandardOutput.BaseStream,token).ConfigureAwait(false)??throw new EndOfStreamException();
         async Task Watchdog(CancellationToken token)
         {
             try{while(true){await Task.Delay(TimeSpan.FromMilliseconds(25),timeProvider??TimeProvider.System,token);lock(watchSync)if(watch.Expired){timedOut=true;lifetime.Cancel();return;}}}
             catch(OperationCanceledException)when(token.IsCancellationRequested){/* Owned loop shutdown. */}
         }
     }
-    private static async Task ObserveRead(Task<IpcFrame?> reading){try{var frame=await reading.ConfigureAwait(false);if(frame!=null)CryptographicOperations.ZeroMemory(frame.Payload);}catch(Exception e)when(e is IOException or OperationCanceledException or ObjectDisposedException){/* Owned read failure observed. */}}
+    internal async Task<IpcFrame?> ReadOwnedAsync(Stream stream,CancellationToken cancellation)
+    {
+        var reading=IpcFrameCodec.ReadAsync(stream,cancellation).AsTask();bool delivered=false;
+        try{var result=await reading.WaitAsync(cancellation).ConfigureAwait(false);cancellation.ThrowIfCancellationRequested();delivered=true;return result;}
+        finally
+        {
+            if(BeforeReadSettlementForTest!=null)await BeforeReadSettlementForTest(reading).ConfigureAwait(false);
+            if(!delivered){var observer=ObserveRead(reading);LateReadObserverForTest=observer;lock(watchSync)readSettlements.Add(observer);_ =RemoveReadSettlement(observer);}
+        }
+    }
+    private async Task RemoveReadSettlement(Task original){await original.ConfigureAwait(false);lock(watchSync)readSettlements.Remove(original);}
+    private async Task ObserveRead(Task<IpcFrame?> reading)
+    {
+        LateReadObserverStartedForTest?.Invoke();try{var frame=await reading.ConfigureAwait(false);if(frame!=null){CryptographicOperations.ZeroMemory(frame.Payload);PayloadReleasedForTest?.Invoke(frame.Payload);}}
+        catch(Exception error){ReadFailureCode=error.GetType().Name;}
+    }
     private async Task ObserveDelivery(Task original,byte[] owned)
     {
         try{await original.ConfigureAwait(false);}

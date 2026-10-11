@@ -166,9 +166,13 @@
         "docs/ole-presentation-review.md",
         "docs/test-evidence/2026-10-11-ole-presentation-summary.json",
         "docs/ole-lifetime-audit.md",
-        "docs/test-evidence/2026-10-11-ole-lifetime-audit-summary.json"
+        "docs/test-evidence/2026-10-11-ole-lifetime-audit-summary.json",
+        "docs/text-drop-review.md",
+        "docs/text-drop-windows-checklist.md",
+        "docs/adr/0013-formal-text-drop.md",
+        "docs/test-evidence/2026-10-11-text-drop-summary.json"
       ],
-      "note": "App-owned real HWND + dedicated registrar STA + owned remote native OLE target candidate cross-built; real-child production IPC/lifetime and explicit synthetic backend/registrar/gate/pointer tests passed. Windows native build, HWND registration combination, capture input, COM release, shared mapping, focus/DPI and E06 desktop gate are NotRun. No full requirement/phase acceptance; Original Run/delivery settlement and final Off admission audited and fixed; 569 .NET/63 Node offline cases passed. Normal dev push is prepared for supervisor independent review, not phase acceptance."
+      "note": "Formal Shell text Drop source, COPY-only bounded Unicode/HTML/RTF extraction and immutable source/gate/epoch/version/absolute deadline admission implemented. 144 new portable cases and full1109 .NET/63 Node passed; real Linux owned child protocol uses explicit synthetic OS/registrar only. Windows OLE/COM/application compatibility/hover/DPI/E06 NotRun. No P4 HTTP integration/translation request; no full R09/P5/E acceptance; P0/E06 blocked."
     },
     {
       "id": "R10",
@@ -820,9 +824,15 @@
         "实现互斥模式切换及设置持久化",
         "Selection / Drop 门控测试"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": []
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/text-drop-review.md",
+        "docs/text-drop-windows-checklist.md",
+        "docs/adr/0013-formal-text-drop.md",
+        "docs/test-evidence/2026-10-11-text-drop-summary.json"
+      ],
+      "note": "Formal Shell text Drop source, COPY-only bounded Unicode/HTML/RTF extraction and immutable source/gate/epoch/version/absolute deadline admission implemented. 144 new portable cases and full1109 .NET/63 Node passed; real Linux owned child protocol uses explicit synthetic OS/registrar only. Windows OLE/COM/application compatibility/hover/DPI/E06 NotRun. No P4 HTTP integration/translation request; no full R09/P5/E acceptance; P0/E06 blocked."
     },
     {
       "id": "P5-02",
@@ -832,9 +842,15 @@
         "实现外部 OLE DragEnter/Over/Leave/Drop 与小型目标提示",
         "可见投放反馈，离开无请求"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": []
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/text-drop-review.md",
+        "docs/text-drop-windows-checklist.md",
+        "docs/adr/0013-formal-text-drop.md",
+        "docs/test-evidence/2026-10-11-text-drop-summary.json"
+      ],
+      "note": "Formal Shell text Drop source, COPY-only bounded Unicode/HTML/RTF extraction and immutable source/gate/epoch/version/absolute deadline admission implemented. 144 new portable cases and full1109 .NET/63 Node passed; real Linux owned child protocol uses explicit synthetic OS/registrar only. Windows OLE/COM/application compatibility/hover/DPI/E06 NotRun. No P4 HTTP integration/translation request; no full R09/P5/E acceptance; P0/E06 blocked."
     },
     {
       "id": "P5-03",
@@ -844,9 +860,15 @@
         "实现 Unicode 文本优先、HTML/RTF 净化、受限数据取出",
         "类型和超时测试"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": []
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/text-drop-review.md",
+        "docs/text-drop-windows-checklist.md",
+        "docs/adr/0013-formal-text-drop.md",
+        "docs/test-evidence/2026-10-11-text-drop-summary.json"
+      ],
+      "note": "Formal Shell text Drop source, COPY-only bounded Unicode/HTML/RTF extraction and immutable source/gate/epoch/version/absolute deadline admission implemented. 144 new portable cases and full1109 .NET/63 Node passed; real Linux owned child protocol uses explicit synthetic OS/registrar only. Windows OLE/COM/application compatibility/hover/DPI/E06 NotRun. No P4 HTTP integration/translation request; no full R09/P5/E acceptance; P0/E06 blocked."
     },
     {
       "id": "P5-04",
@@ -856,9 +878,15 @@
         "保证只复制、只请求一次、不与按钮自身拖动混淆",
         "浏览器与编辑器跨应用拖放录像"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": []
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/text-drop-review.md",
+        "docs/text-drop-windows-checklist.md",
+        "docs/adr/0013-formal-text-drop.md",
+        "docs/test-evidence/2026-10-11-text-drop-summary.json"
+      ],
+      "note": "Formal Shell text Drop source, COPY-only bounded Unicode/HTML/RTF extraction and immutable source/gate/epoch/version/absolute deadline admission implemented. 144 new portable cases and full1109 .NET/63 Node passed; real Linux owned child protocol uses explicit synthetic OS/registrar only. Windows OLE/COM/application compatibility/hover/DPI/E06 NotRun. No P4 HTTP integration/translation request; no full R09/P5/E acceptance; P0/E06 blocked."
     },
     {
       "id": "P6-01",
@@ -1758,9 +1786,15 @@
         "开启 Drop 模式，只在网页划选文字而不拖出",
         "无捕获上传；划词模式钩子已停用"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/text-drop-review.md",
+        "docs/text-drop-windows-checklist.md",
+        "docs/adr/0013-formal-text-drop.md",
+        "docs/test-evidence/2026-10-11-text-drop-summary.json"
+      ],
+      "note": "Formal Shell text Drop source, COPY-only bounded Unicode/HTML/RTF extraction and immutable source/gate/epoch/version/absolute deadline admission implemented. 144 new portable cases and full1109 .NET/63 Node passed; real Linux owned child protocol uses explicit synthetic OS/registrar only. Windows OLE/COM/application compatibility/hover/DPI/E06 NotRun. No P4 HTTP integration/translation request; no full R09/P5/E acceptance; P0/E06 blocked."
     },
     {
       "id": "E02",
@@ -1770,9 +1804,15 @@
         "将所选文字拖过按钮后移开，不松到目标上",
         "仅有投放预览；没有请求；原文保持"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/text-drop-review.md",
+        "docs/text-drop-windows-checklist.md",
+        "docs/adr/0013-formal-text-drop.md",
+        "docs/test-evidence/2026-10-11-text-drop-summary.json"
+      ],
+      "note": "Formal Shell text Drop source, COPY-only bounded Unicode/HTML/RTF extraction and immutable source/gate/epoch/version/absolute deadline admission implemented. 144 new portable cases and full1109 .NET/63 Node passed; real Linux owned child protocol uses explicit synthetic OS/registrar only. Windows OLE/COM/application compatibility/hover/DPI/E06 NotRun. No P4 HTTP integration/translation request; no full R09/P5/E acceptance; P0/E06 blocked."
     },
     {
       "id": "E03",
@@ -1782,9 +1822,15 @@
         "将文字投放到绿色按钮",
         "取得实际 Drop 内容并只请求一次；浮窗按正常生长规则呈现"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/text-drop-review.md",
+        "docs/text-drop-windows-checklist.md",
+        "docs/adr/0013-formal-text-drop.md",
+        "docs/test-evidence/2026-10-11-text-drop-summary.json"
+      ],
+      "note": "Formal Shell text Drop source, COPY-only bounded Unicode/HTML/RTF extraction and immutable source/gate/epoch/version/absolute deadline admission implemented. 144 new portable cases and full1109 .NET/63 Node passed; real Linux owned child protocol uses explicit synthetic OS/registrar only. Windows OLE/COM/application compatibility/hover/DPI/E06 NotRun. No P4 HTTP integration/translation request; no full R09/P5/E acceptance; P0/E06 blocked."
     },
     {
       "id": "E04",
@@ -1794,9 +1840,15 @@
         "从可编辑文本拖出；源同时允许 Copy/Move 或只允许 Move",
         "只采用 Copy；Move-only 被拒绝；源内容不删除"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/text-drop-review.md",
+        "docs/text-drop-windows-checklist.md",
+        "docs/adr/0013-formal-text-drop.md",
+        "docs/test-evidence/2026-10-11-text-drop-summary.json"
+      ],
+      "note": "Formal Shell text Drop source, COPY-only bounded Unicode/HTML/RTF extraction and immutable source/gate/epoch/version/absolute deadline admission implemented. 144 new portable cases and full1109 .NET/63 Node passed; real Linux owned child protocol uses explicit synthetic OS/registrar only. Windows OLE/COM/application compatibility/hover/DPI/E06 NotRun. No P4 HTTP integration/translation request; no full R09/P5/E acceptance; P0/E06 blocked."
     },
     {
       "id": "E05",
@@ -1806,9 +1858,15 @@
         "向红色按钮拖放；再试图片、多文件、URL 和恶意 HTML",
         "Off 不上传；类型按规格处理；URL 不自动下载；HTML 不执行"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/text-drop-review.md",
+        "docs/text-drop-windows-checklist.md",
+        "docs/adr/0013-formal-text-drop.md",
+        "docs/test-evidence/2026-10-11-text-drop-summary.json"
+      ],
+      "note": "Formal Shell text Drop source, COPY-only bounded Unicode/HTML/RTF extraction and immutable source/gate/epoch/version/absolute deadline admission implemented. 144 new portable cases and full1109 .NET/63 Node passed; real Linux owned child protocol uses explicit synthetic OS/registrar only. Windows OLE/COM/application compatibility/hover/DPI/E06 NotRun. No P4 HTTP integration/translation request; no full R09/P5/E acceptance; P0/E06 blocked."
     },
     {
       "id": "E06",
@@ -1825,9 +1883,13 @@
         "docs/ole-presentation-review.md",
         "docs/test-evidence/2026-10-11-ole-presentation-summary.json",
         "docs/ole-lifetime-audit.md",
-        "docs/test-evidence/2026-10-11-ole-lifetime-audit-summary.json"
+        "docs/test-evidence/2026-10-11-ole-lifetime-audit-summary.json",
+        "docs/text-drop-review.md",
+        "docs/text-drop-windows-checklist.md",
+        "docs/adr/0013-formal-text-drop.md",
+        "docs/test-evidence/2026-10-11-text-drop-summary.json"
       ],
-      "note": "App-owned real HWND + dedicated registrar STA + owned remote native OLE target candidate cross-built; real-child production IPC/lifetime and explicit synthetic backend/registrar/gate/pointer tests passed. Windows native build, HWND registration combination, capture input, COM release, shared mapping, focus/DPI and E06 desktop gate are NotRun. No full requirement/phase acceptance; Original Run/delivery settlement and final Off admission audited and fixed; 569 .NET/63 Node offline cases passed. Normal dev push is prepared for supervisor independent review, not phase acceptance."
+      "note": "Formal Shell text Drop source, COPY-only bounded Unicode/HTML/RTF extraction and immutable source/gate/epoch/version/absolute deadline admission implemented. 144 new portable cases and full1109 .NET/63 Node passed; real Linux owned child protocol uses explicit synthetic OS/registrar only. Windows OLE/COM/application compatibility/hover/DPI/E06 NotRun. No P4 HTTP integration/translation request; no full R09/P5/E acceptance; P0/E06 blocked."
     },
     {
       "id": "F01",

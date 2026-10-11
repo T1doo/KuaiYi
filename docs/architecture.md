@@ -94,3 +94,9 @@ P3输入修复：SelectionMouseHook出生时冻结SelectionInputIdentity(ticket/
 P3绝对截止补审：SelectionBrokerClient在CaptureAsync入口读取一次TimeProvider.GetTimestamp，用GetElapsedTime(started)统一判断600ms；剩余预算CancelAfter只负责唤醒，完成Task不能绕过读取后/启动后/退出后和最终校验前后的取消与单调资格。ReadAsync三次共享started，CheckDelivery在delivered标记之前；绝对超时不带文本，成功读取放弃仍进唯一清理观察者。墙钟只保留原熔断窗口，不用于硬截止。测试最终交付屏障仅internal，生产不配置。
 
 P3-04复制兼容正式路径：SelectionCaptureCoordinator在原UIA普通失败且CopyEvidence可信时，检查完整路径授权→ClipboardCaptureClient自有进程→ClipboardHost STA全格式有限快照→Ready→父RuntimeGate提交锁内CopyInputGuard.Send→来源owner/sequence/input时间350ms关联→STA条件完整恢复。原剪贴板不经IPC；撤销持久通知推进epoch。排队来源由独立可释放owner持有，取消不等UI队列消费即可释放文本引用。见[ADR0012](adr/0012-isolated-clipboard-compatibility.md)、[审查](p3-clipboard-review.md)。这是真实源码接线，Windows调用与恢复品质NotRun。
+
+## 正式文本Drop来源切片（最新）
+
+Shell TextDropFlow→OleReceiverClient→真实私有ReceiverHost/NativeDropTarget→有限HGLOBAL/OleDroppedText→DropCaptureCoordinator→统一SelectionSourceSnapshot。外部hover只格式查询和小目标；不重读UIA/剪贴板。共享授权+receiver/epoch/ticket/version+来源+1500ms绝对目的队列门控，生产协议绑定source/format/point，原read/delivery/registration/exit未settle不重建。P4尚未接，统一来源只保存内存原文。详见ADR0013/text-drop-review.md。
+
+26托管工程locked构建与144专项/全量1109 .NET、63 Node已运行；原生COM、App-owned HWND/注册STA组合、实际来源前台关联、多DPI与E06交互仍NotRun。公开GrowthHarness禁用全部真实Selection/Drop，不作跨应用验收替代。文字ZIP缺nativeBridge则明确Off/不可用，不是安装器。历史架构缺口描述保留为对应阶段事实，最新状态以此切片报告和traceability为准。

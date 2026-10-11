@@ -9,6 +9,7 @@ public interface IOleReceiverBackend
     Task ShutdownAsync();
 }
 /// <summary>Actual one-owned-channel loop. Synthetic fixtures supply only the backend; protocol/writer/controls are production.</summary>
+public interface IOleReceiverControlBackend{void ApplyControl(OleReceiverControl control);}
 public static class OleReceiverServer
 {
     public static async Task<int> RunAsync(Stream input,Stream output,Func<OleReceiverHello,Action<IpcFrame>,Task<IOleReceiverBackend>> create,CancellationToken cancellation=default)
@@ -28,7 +29,7 @@ public static class OleReceiverServer
                 try
                 {
                     if(control.Type!=IpcMessageType.OleControl||control.RequestId!=hello.Instance)throw new InvalidDataException();var command=OleReceiverWire.Read<OleReceiverControl>(control.Payload);
-                    if(command.Instance!=hello.Instance||command.Epoch<0)throw new InvalidDataException();backend.SetEnabled(command.Epoch,command.Enabled);
+                    if(command.Instance!=hello.Instance||command.Epoch<0)throw new InvalidDataException();if(backend is IOleReceiverControlBackend controlled)controlled.ApplyControl(command);else backend.SetEnabled(command.Epoch,command.Enabled);
                 }finally{CryptographicOperations.ZeroMemory(control.Payload);}
             }
             return 0;

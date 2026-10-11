@@ -1,0 +1,21 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+/workspace/KuaiYi/src/KuaiYi.Core/DropCapture.cs(67,202): error CS1525: Invalid expression term 'static' [/workspace/KuaiYi/src/KuaiYi.Core/KuaiYi.Core.csproj]
+/workspace/KuaiYi/src/KuaiYi.Core/DropCapture.cs(67,202): error CS1003: Syntax error, ',' expected [/workspace/KuaiYi/src/KuaiYi.Core/KuaiYi.Core.csproj]
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+
+Build FAILED.
+
+/workspace/KuaiYi/src/KuaiYi.Core/DropCapture.cs(67,202): error CS1525: Invalid expression term 'static' [/workspace/KuaiYi/src/KuaiYi.Core/KuaiYi.Core.csproj]
+/workspace/KuaiYi/src/KuaiYi.Core/DropCapture.cs(67,202): error CS1003: Syntax error, ',' expected [/workspace/KuaiYi/src/KuaiYi.Core/KuaiYi.Core.csproj]
+    0 Warning(s)
+    2 Error(s)
+
+Time Elapsed 00:00:03.18
+Exception: /workspace/KuaiYi/scripts/common.ps1:7
+Line |
+   7 |  … CODE -ne 0) { throw "$Command failed with exit code $LASTEXITCODE." }
+     |                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | dotnet failed with exit code 1.

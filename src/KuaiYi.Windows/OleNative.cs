@@ -58,10 +58,13 @@ public static class OleNative
     }
     [DllImport("kernel32.dll", SetLastError = true)] public static extern nint GlobalAlloc(uint flags, nuint bytes);
     [DllImport("kernel32.dll", SetLastError = true)] public static extern nint GlobalLock(nint global);
-    [DllImport("kernel32.dll")] [return: MarshalAs(UnmanagedType.Bool)] public static extern bool GlobalUnlock(nint global);
+    [DllImport("kernel32.dll",SetLastError=true)] [return: MarshalAs(UnmanagedType.Bool)] public static extern bool GlobalUnlock(nint global);
     [DllImport("kernel32.dll", SetLastError = true)] public static extern nuint GlobalSize(nint global);
     [DllImport("kernel32.dll")] public static extern nint GlobalFree(nint global);
     [DllImport("user32.dll")] [return: MarshalAs(UnmanagedType.Bool)] public static extern bool SetForegroundWindow(nint hwnd);
+    [DllImport("user32.dll",CharSet=CharSet.Unicode,SetLastError=true)]private static extern uint RegisterClipboardFormatW(string name);
+    public static short Registered(string name){uint value=RegisterClipboardFormatW(name);if(value<0xc000||value>0xffff)throw new Win32Exception(Marshal.GetLastWin32Error());return unchecked((short)value);}
+    public static FORMATETC TextFormat(OleTextFormat kind)=>new(){cfFormat=kind switch{OleTextFormat.Unicode=>13,OleTextFormat.Html=>Registered("HTML Format"),OleTextFormat.Rtf=>Registered("Rich Text Format"),_=>throw new InvalidDataException("Unsupported OLE text format.")},dwAspect=DVASPECT.DVASPECT_CONTENT,lindex=-1,tymed=TYMED.TYMED_HGLOBAL};
     public static FORMATETC UnicodeFormat => new() { cfFormat = 13, dwAspect = DVASPECT.DVASPECT_CONTENT, lindex = -1, tymed = TYMED.TYMED_HGLOBAL };
 }
 
@@ -94,6 +97,20 @@ public sealed class OleDataReference : IDisposable
     [UnmanagedFunctionPointer(CallingConvention.StdCall)] private delegate int GetData(nint self, ref FORMATETC format, out OleMedium medium);
     private T Method<T>(int slot) where T : Delegate => Marshal.GetDelegateForFunctionPointer<T>(Marshal.ReadIntPtr(Marshal.ReadIntPtr(Pointer), slot * nint.Size));
     public bool OffersUnicode() { var format = OleNative.UnicodeFormat; return Method<QueryData>(5)(Pointer, ref format) == 0; }
+    public OleTextFormat OfferedText()
+    {
+        bool Offers(short format){var descriptor=new FORMATETC{cfFormat=format,dwAspect=DVASPECT.DVASPECT_CONTENT,lindex=-1,tymed=TYMED.TYMED_HGLOBAL};return Method<QueryData>(5)(Pointer,ref descriptor)==0;}
+        // File/virtual-file Drop belongs to the image pipeline, never treat its path as body text.
+        if(Offers(15))return OleTextFormat.None;
+        foreach(string name in new[]{"FileGroupDescriptorW","FileGroupDescriptor","FileContents"})
+        {var format=OleNative.Registered(name);if(Offers(format))return OleTextFormat.None;}
+        foreach(var kind in new[]{OleTextFormat.Unicode,OleTextFormat.Html,OleTextFormat.Rtf}){var format=OleNative.TextFormat(kind);if(Method<QueryData>(5)(Pointer,ref format)==0)return kind;}return OleTextFormat.None;
+    }
+    public string ReadText(OleTextFormat kind)
+    {
+        var format=OleNative.TextFormat(kind);Marshal.ThrowExceptionForHR(Method<GetData>(3)(Pointer,ref format,out var medium));var scope=new OleCleanupScope();scope.Own(()=>OleNative.ReleaseStgMedium(ref medium));
+        return scope.Run(()=>{if(medium.Tymed!=(uint)TYMED.TYMED_HGLOBAL||medium.Union==0)throw new InvalidDataException("Drop text requires HGLOBAL.");nuint size=OleNative.GlobalSize(medium.Union);if(size<1||size>(nuint)OleDroppedText.ByteLimit(kind))throw new InvalidDataException("Drop allocation limit.");nint pointer=OleNative.GlobalLock(medium.Union);if(pointer==0)throw new Win32Exception(Marshal.GetLastWin32Error());scope.Own(()=>{Marshal.SetLastPInvokeError(0);bool stillLocked=OleNative.GlobalUnlock(medium.Union);int error=Marshal.GetLastPInvokeError();if(!stillLocked&&error!=0)throw new Win32Exception(error);});byte[]? copy=null;try{copy=new byte[(int)size];Marshal.Copy(pointer,copy,0,copy.Length);return OleDroppedText.Decode(kind,copy);}finally{if(copy!=null)CryptographicOperations.ZeroMemory(copy);}});
+    }
     public string ReadUnicode()
     {
         var format = OleNative.UnicodeFormat;

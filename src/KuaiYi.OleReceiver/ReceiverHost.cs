@@ -1,4 +1,6 @@
+using System.IO;
 using System.Diagnostics;
+using System.Collections.Immutable;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
@@ -8,7 +10,7 @@ using KuaiYi.Core;
 using KuaiYi.OleTransfer;
 using KuaiYi.Windows;
 namespace KuaiYi.OleReceiver;
-internal sealed class ReceiverHost:IOleReceiverBackend
+internal sealed class ReceiverHost:IOleReceiverBackend,IOleReceiverControlBackend
 {
     private readonly OleReceiverHello hello;private readonly Action<IpcFrame> send;
     private readonly OleReceiverGate gate=new();private readonly NativeDropTarget target;
@@ -16,11 +18,30 @@ internal sealed class ReceiverHost:IOleReceiverBackend
     private readonly OleTargetMarshal.Export export;private readonly Process parent;
     private readonly OleSharedActivation.Reader activation;
     private readonly int originThread=Environment.CurrentManagedThreadId;
-    private readonly object groupsSync=new();private readonly Dictionary<Guid,(long Epoch,long Started)> groups=[];
+    private readonly object groupsSync=new();private readonly Dictionary<Guid,(long Epoch,long Started,SelectionWindow? Source,PixelPoint? Point,OleTextFormat Format)> groups=[];private OleReceiverControl? productionControl;
     public Dispatcher Dispatcher{get;}=Dispatcher.CurrentDispatcher;
     public byte[] ExportPacket=>export.Packet;
     public bool Enabled=>gate.Snapshot.Enabled&&activation.Current(gate.Snapshot.Epoch);
     public long Epoch=>gate.Snapshot.Epoch;
+    public bool Production=>hello.ProductionTextDrop;
+    public void ApplyControl(OleReceiverControl control)
+    {
+        if(Production&&control.Enabled&&(control.Target?.Valid!=true||control.BlockedApplications is not {Length:<=128}||control.BlockedApplications.Any(value=>value is null||value.Length is <1 or >260)))throw new InvalidDataException("Invalid production Drop control.");
+        Volatile.Write(ref productionControl,control);gate.Set(control.Epoch,control.Enabled);
+    }
+    public bool Hit(OlePoint point)=>!Production||Volatile.Read(ref productionControl) is {} control&&control.Enabled&&control.Epoch==Epoch&&control.Target?.Contains(new(point.X,point.Y))==true;
+    public SelectionWindow? CaptureSource()
+    {
+        var source=SelectionDesktop.Resolve(NativeDesktop.GetForegroundWindow().ToInt64());return source!=null&&SourceCurrent(source)?source:null;
+    }
+    public bool SourceCurrent(SelectionWindow source)
+    {
+        var control=Volatile.Read(ref productionControl);if(control==null||control.Epoch!=Epoch||!control.Enabled||!SelectionDesktop.IsCurrent(source))return false;
+        var settings=new KuaiYi.Core.Settings.AppSettings{Privacy=new(){BlockedApplications=(control.BlockedApplications??[]).ToImmutableArray()}};
+        return !SelectionTextPolicy.Excluded(source,settings,checked((uint)hello.AppProcessId))&&SelectionDesktop.IsDropSourceCurrent(source);
+    }
+    public void Feedback(Guid transaction,long epoch,bool visible,OlePoint point,SelectionWindow? source,OleTextFormat format)
+    {if(Production)Metadata(transaction,epoch,visible?"Hover":"Leave",source:source,point:new(point.X,point.Y),format:format);else Preview(visible);}
     public ReceiverHost(OleReceiverHello hello,Action<IpcFrame> send)
     {
         this.hello=hello;this.send=send;gate.Set(hello.Epoch,false);parent=OleReceiverParent.Verify(hello);
@@ -43,26 +64,27 @@ internal sealed class ReceiverHost:IOleReceiverBackend
         Guid id;long epoch;lock(groupsSync){var latest=groups.LastOrDefault();id=latest.Key;epoch=latest.Value.Epoch;}
         if(id!=Guid.Empty)Metadata(id,epoch,visible?"Hover":"Leave");
     }
-    public void Emit(Guid transaction,string phase,string status,OleEffect effect=OleEffect.None,bool? available=null,bool? mode=null,bool? started=null,int length=0,bool? foreground=null,bool cleanupCompleted=false)
+    public void Emit(Guid transaction,string phase,string status,OleEffect effect=OleEffect.None,bool? available=null,bool? mode=null,bool? started=null,int length=0,bool? foreground=null,bool cleanupCompleted=false,SelectionWindow? source=null,PixelPoint? point=null,OleTextFormat format=OleTextFormat.None)
     {
         long epoch;
         lock(groupsSync)
         {
-            if(phase is "QueryBegin" or "DropBegin"){if(groups.Count>=8&&!groups.ContainsKey(transaction))throw new InvalidOperationException("Too many OLE groups.");groups[transaction]=(Epoch,Stopwatch.GetTimestamp());}
+            if(phase is "QueryBegin" or "DropBegin"){if(groups.Count>=8&&!groups.ContainsKey(transaction))throw new InvalidOperationException("Too many OLE groups.");groups[transaction]=(Epoch,Stopwatch.GetTimestamp(),source,point,format);}
             epoch=groups.TryGetValue(transaction,out var value)?value.Epoch:Epoch;
         }
-        Metadata(transaction,epoch,phase,cleanupCompleted,effect,length);
+        Metadata(transaction,epoch,phase,cleanupCompleted,effect,length,source,point,format);
         if(phase is "QueryEnd" or "DropEnd")lock(groupsSync)groups.Remove(transaction);
     }
     public void WorkerMetadata(Guid transaction,long epoch,string phase,string status="")=>Metadata(transaction,epoch,phase);
-    private void Metadata(Guid transaction,long epoch,string phase,bool clean=false,OleEffect effect=OleEffect.None,int length=0)
+    private void Metadata(Guid transaction,long epoch,string phase,bool clean=false,OleEffect effect=OleEffect.None,int length=0,SelectionWindow? source=null,PixelPoint? point=null,OleTextFormat format=OleTextFormat.None)
     {
-        var item=new OleReceiverEvent(hello.Instance,epoch,transaction,phase,clean,(uint)effect,length,Environment.CurrentManagedThreadId,Thread.CurrentThread.GetApartmentState().ToString(),NativeDesktop.GetCurrentThreadId());
+        lock(groupsSync)if(groups.TryGetValue(transaction,out var group)){source??=group.Source;point??=group.Point;if(format==OleTextFormat.None)format=group.Format;}
+        var item=new OleReceiverEvent(hello.Instance,epoch,transaction,phase,clean,(uint)effect,length,Environment.CurrentManagedThreadId,Thread.CurrentThread.GetApartmentState().ToString(),NativeDesktop.GetCurrentThreadId(),source,point,format);
         send(new(IpcMessageType.OleEvent,transaction,OleReceiverWire.Serialize(item))); // Bounded queue; native call never synchronously waits on App.
     }
     public bool CanCommit(Guid transaction,long epoch)
     {
-        lock(groupsSync)return gate.Current(epoch)&&activation.Current(epoch)&&groups.TryGetValue(transaction,out var value)&&value.Epoch==epoch&&Stopwatch.GetElapsedTime(value.Started)<TimeSpan.FromMilliseconds(1500);
+        lock(groupsSync)return gate.Current(epoch)&&activation.Current(epoch)&&groups.TryGetValue(transaction,out var value)&&value.Epoch==epoch&&Stopwatch.GetElapsedTime(value.Started)<TimeSpan.FromMilliseconds(1500)&&(!Production||value.Source is {} source&&SourceCurrent(source));
     }
     public void Result(Guid transaction,long epoch,string? text,string status,nint foreground)
     {

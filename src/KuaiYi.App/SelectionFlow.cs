@@ -28,7 +28,7 @@ internal sealed partial class ShellWindow
     }
     private void RefreshSelection()
     {
-        if(selectionCapture==null)return;var state=(lifecycle.Gate.Snapshot.Epoch,lifecycle.Settings?.Version);
+        RefreshTextDrop();if(selectionCapture==null)return;var state=(lifecycle.Gate.Snapshot.Epoch,lifecycle.Settings?.Version);
         if(selectionState!=state){selectionState=state;selectionCapture.CancelPending();selectionReconcile=ReconcileSelection(selectionReconcile);}
         string? chord=lifecycle.Settings?.Data.Hotkeys.GetValueOrDefault("translateSelection");
         if(chord!=registeredSelectionChord&&chord!=null)
@@ -85,7 +85,7 @@ internal sealed partial class ShellWindow
     private void AcceptSelection(SelectionSourceSnapshot source,bool duplicate)
     {
         selectionSource=source;
-        button.ToolTip=$"{(duplicate?"已保留此选区":"已读取实际选区")} · {source.SourceKind} · {source.Scalars} 字符{(source.RequiresConfirmation?" · 超过自动发送上限，需确认":"")}{(source.Recovery is ClipboardRecovery.Unconfirmed or ClipboardRecovery.Changed?" · 未覆盖后续剪贴板内容；恢复未确认":"")} · 当前尚未接入模型翻译，可右键查看原文";
+        button.ToolTip=$"{(duplicate?"已保留此选区":source.SourceKind==SelectionSourceKind.OleDrop?"已读取实际投放":"已读取实际选区")} · {source.SourceKind} · {source.Scalars} 字符{(source.RequiresConfirmation?" · 超过自动发送上限，需确认":"")}{(source.Recovery is ClipboardRecovery.Unconfirmed or ClipboardRecovery.Changed?" · 未覆盖后续剪贴板内容；恢复未确认":"")} · 当前尚未接入模型翻译，可右键查看原文";
         if(sourceViewer!=null&&sourceText!=null)sourceText.Text=source.RawText;
     }
     private void SelectionFailed(SelectionCaptureStatus status)
