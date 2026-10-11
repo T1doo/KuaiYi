@@ -1,0 +1,441 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ac6ff936-8f7a-44c8-a723-4ad0f53d2dd9" name="@552716c6b8c5 2026-10-11 21:53:29" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T21:53:29.2302016+00:00" queuing="2026-10-11T21:53:29.2302016+00:00" start="2026-10-11T21:53:28.5480820+00:00" finish="2026-10-11T21:53:29.4503672+00:00" />
+  <TestSettings name="default" id="5af395dd-62e0-4ab5-8f11-70b1c95507e6">
+    <Deployment runDeploymentRoot="_552716c6b8c5_2026-10-11_21_53_29" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="a99fd8aa-5adb-47d0-8f3b-c22d1af1410b" testId="3b5a9fae-4489-66df-5090-dbb05089ae72" testName="KuaiYi.Provider.Tests.TextTranslationTests.NewSourceFailureKeepsReadablePriorSnapshot(scenario: &quot;malformed&quot;)" computerName="552716c6b8c5" duration="00:00:00.0067982" startTime="2026-10-11T21:53:29.3023603+00:00" endTime="2026-10-11T21:53:29.3094348+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a99fd8aa-5adb-47d0-8f3b-c22d1af1410b" />
+    <UnitTestResult executionId="271195bb-04d7-4e69-8f73-6c84b8f984d1" testId="430b9b25-2870-8d00-5e7c-3718b8dcd441" testName="KuaiYi.Provider.Tests.TextTranslationTests.NewSourceFailureKeepsReadablePriorSnapshot(scenario: &quot;disconnect&quot;)" computerName="552716c6b8c5" duration="00:00:00.0019662" startTime="2026-10-11T21:53:29.3122957+00:00" endTime="2026-10-11T21:53:29.3153022+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="271195bb-04d7-4e69-8f73-6c84b8f984d1" />
+    <UnitTestResult executionId="f65cd482-63bb-4f6d-b07c-04f6735d00b3" testId="22026139-c3f0-eac6-b887-7a05d4b8bb75" testName="KuaiYi.Provider.Tests.TextTranslationTests.InFlightInvalidationRejectsLateHttpAndUi(action: &quot;stop&quot;)" computerName="552716c6b8c5" duration="00:00:00.0161533" startTime="2026-10-11T21:53:29.1849130+00:00" endTime="2026-10-11T21:53:29.2012577+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f65cd482-63bb-4f6d-b07c-04f6735d00b3" />
+    <UnitTestResult executionId="8128ffe1-25c8-4567-9f23-5710fe493564" testId="e66deb78-c8e5-d1cd-2563-301456ca53e1" testName="KuaiYi.Provider.Tests.TextTranslationTests.ActualSourceCrossesRealHttpAndReachesResults(protocol: AnthropicMessages, scenario: &quot;fragmented&quot;, stream: True)" computerName="552716c6b8c5" duration="00:00:00.0057063" startTime="2026-10-11T21:53:29.3383707+00:00" endTime="2026-10-11T21:53:29.3452318+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8128ffe1-25c8-4567-9f23-5710fe493564">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : The requested operation requires an element of type 'String', but the target element has type 'Array'.</Message>
+          <StackTrace>   at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.GetString(Int32 index, JsonTokenType expectedType)
+   at KuaiYi.Provider.Tests.TextTranslationTests.ActualSourceCrossesRealHttpAndReachesResults(ApiProtocol protocol, String scenario, Boolean stream) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs:line 57
+   at KuaiYi.Provider.Tests.TextTranslationTests.ActualSourceCrossesRealHttpAndReachesResults(ApiProtocol protocol, String scenario, Boolean stream) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs:line 58
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a353165b-d74f-4bac-9ea0-49c9b497c70b" testId="fe293ff0-8c8d-2284-e2e2-067864d025ec" testName="KuaiYi.Provider.Tests.TextTranslationTests.DevelopmentModeRejectsNonFixtureOrRemote(uri: &quot;http://192.0.2.1/runs/aaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;···)" computerName="552716c6b8c5" duration="00:00:00.0001942" startTime="2026-10-11T21:53:29.2978096+00:00" endTime="2026-10-11T21:53:29.2980146+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a353165b-d74f-4bac-9ea0-49c9b497c70b" />
+    <UnitTestResult executionId="f3156d5c-1443-46fa-a005-314f2129e0af" testId="ee3b1fed-6f3c-8bc4-3393-cd4924201e53" testName="KuaiYi.Provider.Tests.TextTranslationTests.DelayedSecretReadMustRecheckBeforeHttp(action: &quot;off&quot;)" computerName="552716c6b8c5" duration="00:00:00.0014859" startTime="2026-10-11T21:53:29.2393885+00:00" endTime="2026-10-11T21:53:29.2410138+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f3156d5c-1443-46fa-a005-314f2129e0af" />
+    <UnitTestResult executionId="f6519be1-92b2-4616-bf3b-c38d065cfc60" testId="0501e95f-f636-d1b6-b27f-ede45c3a5a9a" testName="KuaiYi.Provider.Tests.TextTranslationTests.ScalarSoftBoundaryNeedsExplicitConfirmation(count: 12001, confirmation: True)" computerName="552716c6b8c5" duration="00:00:00.0176683" startTime="2026-10-11T21:53:29.2612016+00:00" endTime="2026-10-11T21:53:29.2766489+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f6519be1-92b2-4616-bf3b-c38d065cfc60" />
+    <UnitTestResult executionId="ad985050-0660-4ddc-bf5c-1e88a062d589" testId="cc164b14-9a40-80cf-34be-a12a6c81b884" testName="KuaiYi.Provider.Tests.TextTranslationTests.ActualSourceCrossesRealHttpAndReachesResults(protocol: AnthropicMessages, scenario: &quot;non-streaming&quot;, stream: False)" computerName="552716c6b8c5" duration="00:00:00.0067369" startTime="2026-10-11T21:53:29.3307887+00:00" endTime="2026-10-11T21:53:29.3377925+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ad985050-0660-4ddc-bf5c-1e88a062d589">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : The requested operation requires an element of type 'String', but the target element has type 'Array'.</Message>
+          <StackTrace>   at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.GetString(Int32 index, JsonTokenType expectedType)
+   at KuaiYi.Provider.Tests.TextTranslationTests.ActualSourceCrossesRealHttpAndReachesResults(ApiProtocol protocol, String scenario, Boolean stream) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs:line 57
+   at KuaiYi.Provider.Tests.TextTranslationTests.ActualSourceCrossesRealHttpAndReachesResults(ApiProtocol protocol, String scenario, Boolean stream) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs:line 58
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f2b29b13-eba4-4aa0-9c00-ef62a6311e08" testId="7dbdadfd-fc1e-f350-2750-9c6b51dafb56" testName="KuaiYi.Provider.Tests.TextTranslationTests.NewSourceWinsOverHeldOldHeaders" computerName="552716c6b8c5" duration="00:00:00.0159472" startTime="2026-10-11T21:53:29.3466676+00:00" endTime="2026-10-11T21:53:29.3629430+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f2b29b13-eba4-4aa0-9c00-ef62a6311e08" />
+    <UnitTestResult executionId="79e11a16-4c1a-4ccb-8da3-0d9eb07c7672" testId="9b022856-fb68-868f-257f-df5121e70e7f" testName="KuaiYi.Provider.Tests.TextTranslationTests.PromptSnapshotsRecordActualTemplate(preset: Plain, template: &quot;plain&quot;)" computerName="552716c6b8c5" duration="00:00:00.0075580" startTime="2026-10-11T21:53:29.2442645+00:00" endTime="2026-10-11T21:53:29.2518109+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="79e11a16-4c1a-4ccb-8da3-0d9eb07c7672" />
+    <UnitTestResult executionId="5d1ab4ca-d918-441d-9de9-a3dd5a88f080" testId="0ed61149-c412-503a-16ff-ca1090ae2fc2" testName="KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(action: &quot;clipboard-permission&quot;)" computerName="552716c6b8c5" duration="00:00:00.0003317" startTime="2026-10-11T21:53:29.0469022+00:00" endTime="2026-10-11T21:53:29.0469261+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5d1ab4ca-d918-441d-9de9-a3dd5a88f080">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: ConfirmationRequired
+Actual:   Rejected</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs:line 98
+   at KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs:line 103
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4fedb2ef-a365-4b23-a0a1-0da3b9a6ca46" testId="3ddf972a-88d1-f960-e9df-08a125b8da00" testName="KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(action: &quot;new-offer&quot;)" computerName="552716c6b8c5" duration="00:00:00.0001452" startTime="2026-10-11T21:53:29.0466542+00:00" endTime="2026-10-11T21:53:29.0466851+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4fedb2ef-a365-4b23-a0a1-0da3b9a6ca46">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: ConfirmationRequired
+Actual:   Rejected</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs:line 98
+   at KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs:line 103
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cb2ea8c6-ac3d-4160-b08b-817c7ced8ec7" testId="c3d037a9-7efe-1f4f-2fcd-6f8acee57526" testName="KuaiYi.Provider.Tests.TextTranslationTests.NewSourceFailureKeepsReadablePriorSnapshot(scenario: &quot;unauthorized&quot;)" computerName="552716c6b8c5" duration="00:00:00.0025963" startTime="2026-10-11T21:53:29.3094938+00:00" endTime="2026-10-11T21:53:29.3122397+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cb2ea8c6-ac3d-4160-b08b-817c7ced8ec7" />
+    <UnitTestResult executionId="bdb6a661-b9de-4f38-94a1-6885012332fe" testId="03a87fea-d9d4-7bf1-68a8-b003808e9bed" testName="KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(action: &quot;source&quot;)" computerName="552716c6b8c5" duration="00:00:00.0007290" startTime="2026-10-11T21:53:29.0452386+00:00" endTime="2026-10-11T21:53:29.0453005+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bdb6a661-b9de-4f38-94a1-6885012332fe">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: ConfirmationRequired
+Actual:   Rejected</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs:line 98
+   at KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs:line 103
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8e0bb26c-fe51-43f9-8333-5ae6bac0a530" testId="2b70e019-460e-bcb2-3ac3-ad1f5f9f3d4d" testName="KuaiYi.Provider.Tests.TextTranslationTests.FailedRegenerationPreservesSuccessAndMarksFailedVersion" computerName="552716c6b8c5" duration="00:00:00.0048554" startTime="2026-10-11T21:53:29.3153796+00:00" endTime="2026-10-11T21:53:29.3196800+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8e0bb26c-fe51-43f9-8333-5ae6bac0a530" />
+    <UnitTestResult executionId="6a1c1854-3081-4eed-a50b-4f5e2cc9b49d" testId="9e4a77c0-7bc7-f2a3-639d-3cb7eea25943" testName="KuaiYi.Provider.Tests.TextTranslationTests.InFlightInvalidationRejectsLateHttpAndUi(action: &quot;replace-key&quot;)" computerName="552716c6b8c5" duration="00:00:00.0157201" startTime="2026-10-11T21:53:29.1689966+00:00" endTime="2026-10-11T21:53:29.1846582+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6a1c1854-3081-4eed-a50b-4f5e2cc9b49d" />
+    <UnitTestResult executionId="8739d86d-db29-4b20-a8b1-ca3d756c2c5e" testId="87b81cbb-9aa3-f3fd-f980-099091006b50" testName="KuaiYi.Provider.Tests.TextTranslationTests.OffNeverCapturesSubmitsRegeneratesOrReadsSecrets" computerName="552716c6b8c5" duration="00:00:00.0024625" startTime="2026-10-11T21:53:29.3455185+00:00" endTime="2026-10-11T21:53:29.3465678+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8739d86d-db29-4b20-a8b1-ca3d756c2c5e" />
+    <UnitTestResult executionId="8b7c24db-9eee-4d2c-aca1-fdd4808acf63" testId="4a76b055-3dd9-9770-43c6-85e0c4117630" testName="KuaiYi.Provider.Tests.TextTranslationTests.ProductionNeverImplicitlyEnablesLoopbackTestTransport" computerName="552716c6b8c5" duration="00:00:00.0018440" startTime="2026-10-11T21:53:29.3017722+00:00" endTime="2026-10-11T21:53:29.3023073+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8b7c24db-9eee-4d2c-aca1-fdd4808acf63" />
+    <UnitTestResult executionId="95990c00-8af2-4b05-84fc-c11d31ccc99a" testId="54e0957c-d746-deba-15df-885e8c38fc32" testName="KuaiYi.Provider.Tests.TextTranslationTests.InvalidOrOversizeTextNeverStartsHttp(kind: &quot;surrogate&quot;)" computerName="552716c6b8c5" duration="00:00:00.0036232" startTime="2026-10-11T21:53:29.2205249+00:00" endTime="2026-10-11T21:53:29.2232654+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="95990c00-8af2-4b05-84fc-c11d31ccc99a" />
+    <UnitTestResult executionId="6be8c951-edf4-4cdd-be5e-25ee78eeaab5" testId="05af03aa-e564-ff7a-294d-91abf842a605" testName="KuaiYi.Provider.Tests.TextTranslationTests.DuplicateDuringGenerationAddsNoCall" computerName="552716c6b8c5" duration="00:00:00.0179332" startTime="2026-10-11T21:53:29.3681201+00:00" endTime="2026-10-11T21:53:29.3863500+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6be8c951-edf4-4cdd-be5e-25ee78eeaab5" />
+    <UnitTestResult executionId="b556d76b-7ad4-42ca-b31a-01ff6411a4a3" testId="0f25b2df-7b24-4439-bd03-3188726028c0" testName="KuaiYi.Provider.Tests.TextTranslationTests.DelayedSecretReadMustRecheckBeforeHttp(action: &quot;config&quot;)" computerName="552716c6b8c5" duration="00:00:00.0094154" startTime="2026-10-11T21:53:29.2331879+00:00" endTime="2026-10-11T21:53:29.2393260+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b556d76b-7ad4-42ca-b31a-01ff6411a4a3" />
+    <UnitTestResult executionId="afddab35-17b6-4866-9bdf-145ea0b0b4ee" testId="1521fcd4-18b5-daa7-4e30-06f4c6a9f643" testName="KuaiYi.Provider.Tests.TextTranslationTests.InFlightInvalidationRejectsLateHttpAndUi(action: &quot;off&quot;)" computerName="552716c6b8c5" duration="00:00:00.1193457" startTime="2026-10-11T21:53:29.0535128+00:00" endTime="2026-10-11T21:53:29.1531724+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="afddab35-17b6-4866-9bdf-145ea0b0b4ee" />
+    <UnitTestResult executionId="5f151513-1fdd-4d5a-8c80-97b150cc460f" testId="58ce3d6d-1fbc-0c60-5d91-af7789fd8321" testName="KuaiYi.Provider.Tests.TextTranslationTests.PromptSnapshotsRecordActualTemplate(preset: Explain, template: &quot;explain&quot;)" computerName="552716c6b8c5" duration="00:00:00.0028941" startTime="2026-10-11T21:53:29.2556057+00:00" endTime="2026-10-11T21:53:29.2611019+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5f151513-1fdd-4d5a-8c80-97b150cc460f" />
+    <UnitTestResult executionId="85ef0b09-6fd0-4377-b5dd-69edec8b91b6" testId="dd5fa8e6-6d91-87f4-988d-12daa3a8d16a" testName="KuaiYi.Provider.Tests.TextTranslationTests.InvalidOrOversizeTextNeverStartsHttp(kind: &quot;hard&quot;)" computerName="552716c6b8c5" duration="00:00:00.0013779" startTime="2026-10-11T21:53:29.2271704+00:00" endTime="2026-10-11T21:53:29.2283214+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="85ef0b09-6fd0-4377-b5dd-69edec8b91b6" />
+    <UnitTestResult executionId="89be4170-3415-4710-96bb-d1ed9b1f378c" testId="ea1e9b25-c592-0c34-24be-46d92a061691" testName="KuaiYi.Provider.Tests.TextTranslationTests.ActualSourceCrossesRealHttpAndReachesResults(protocol: OpenAIChat, scenario: &quot;fragmented&quot;, stream: True)" computerName="552716c6b8c5" duration="00:00:00.0036471" startTime="2026-10-11T21:53:29.3197739+00:00" endTime="2026-10-11T21:53:29.3236010+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="89be4170-3415-4710-96bb-d1ed9b1f378c" />
+    <UnitTestResult executionId="085c2978-658e-474c-8822-a7778b2890d5" testId="70cbb78f-ddff-d159-438a-8c614c067564" testName="KuaiYi.Provider.Tests.TextTranslationTests.PromptSnapshotsRecordActualTemplate(preset: Professional, template: &quot;professional&quot;)" computerName="552716c6b8c5" duration="00:00:00.0014911" startTime="2026-10-11T21:53:29.2539697+00:00" endTime="2026-10-11T21:53:29.2555563+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="085c2978-658e-474c-8822-a7778b2890d5" />
+    <UnitTestResult executionId="4df2625c-f35c-4e69-9cc5-3876c21920e6" testId="499d9dbd-fe6c-a0a2-d2f6-57ccece23e4e" testName="KuaiYi.Provider.Tests.TextTranslationTests.InvalidOrOversizeTextNeverStartsHttp(kind: &quot;count&quot;)" computerName="552716c6b8c5" duration="00:00:00.0010638" startTime="2026-10-11T21:53:29.2283840+00:00" endTime="2026-10-11T21:53:29.2330989+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4df2625c-f35c-4e69-9cc5-3876c21920e6" />
+    <UnitTestResult executionId="0308e6f3-ee52-42d0-9549-a77e48e75625" testId="084f2194-f2dc-ea2f-90bb-f5e245e4ca03" testName="KuaiYi.Provider.Tests.TextTranslationTests.DelayedSecretReadMustRecheckBeforeHttp(action: &quot;binding&quot;)" computerName="552716c6b8c5" duration="00:00:00.0011752" startTime="2026-10-11T21:53:29.2424327+00:00" endTime="2026-10-11T21:53:29.2437899+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0308e6f3-ee52-42d0-9549-a77e48e75625" />
+    <UnitTestResult executionId="a14852e0-d993-403d-9e85-644e10089d0e" testId="9ddd59ac-8882-bdb5-bb2b-1acd13163100" testName="KuaiYi.Provider.Tests.TextTranslationTests.DevelopmentModeRejectsNonFixtureOrRemote(uri: &quot;https://example.org/runs/aaaaaaaaaaaaaaaaaaaaaaaaa&quot;···)" computerName="552716c6b8c5" duration="00:00:00.0013185" startTime="2026-10-11T21:53:29.2965180+00:00" endTime="2026-10-11T21:53:29.2977677+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a14852e0-d993-403d-9e85-644e10089d0e" />
+    <UnitTestResult executionId="753fd7d3-66c3-431a-8fc8-ed6debfe517f" testId="788e6ca0-b3c9-c67d-d76a-ee51a33e4195" testName="KuaiYi.Provider.Tests.TextTranslationTests.DevelopmentModeRejectsNonFixtureOrRemote(uri: &quot;http://127.0.0.1:5555/v1/&quot;)" computerName="552716c6b8c5" duration="00:00:00.0023182" startTime="2026-10-11T21:53:29.2985130+00:00" endTime="2026-10-11T21:53:29.3016863+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="753fd7d3-66c3-431a-8fc8-ed6debfe517f" />
+    <UnitTestResult executionId="7c6e2a2b-05c5-4090-bc3c-a86c9dd2de33" testId="13028200-66e3-3a02-8e1b-0ca5dd12ef36" testName="KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(action: &quot;settings&quot;)" computerName="552716c6b8c5" duration="00:00:00.0178563" startTime="2026-10-11T21:53:29.0044593+00:00" endTime="2026-10-11T21:53:29.0301331+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7c6e2a2b-05c5-4090-bc3c-a86c9dd2de33">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: ConfirmationRequired
+Actual:   Rejected</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs:line 98
+   at KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs:line 103
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9b9244f2-ab96-4f45-8a28-5abf9215a6cf" testId="fd202a90-f451-6cbb-0862-7e5df44081f4" testName="KuaiYi.Provider.Tests.TextTranslationTests.DevelopmentModeRejectsNonFixtureOrRemote(uri: &quot;http://name:password@127.0.0.1/runs/aaaaaaaaaaaaaa&quot;···)" computerName="552716c6b8c5" duration="00:00:00.0000086" startTime="2026-10-11T21:53:29.2984527+00:00" endTime="2026-10-11T21:53:29.2984758+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9b9244f2-ab96-4f45-8a28-5abf9215a6cf" />
+    <UnitTestResult executionId="62d2b9f6-2d83-402a-b9d6-25106fadd5aa" testId="0cb9d384-e7c6-8ea2-a0fe-b3e3a4cfa37e" testName="KuaiYi.Provider.Tests.TextTranslationTests.InFlightInvalidationRejectsLateHttpAndUi(action: &quot;delete&quot;)" computerName="552716c6b8c5" duration="00:00:00.0171268" startTime="2026-10-11T21:53:29.2076405+00:00" endTime="2026-10-11T21:53:29.2203175+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="62d2b9f6-2d83-402a-b9d6-25106fadd5aa" />
+    <UnitTestResult executionId="a02c1798-5f2d-4fe9-b24f-bf7adf5c527d" testId="71d34aee-3f81-1c78-e77e-863692d69ab3" testName="KuaiYi.Provider.Tests.TextTranslationTests.InFlightInvalidationRejectsLateHttpAndUi(action: &quot;lock&quot;)" computerName="552716c6b8c5" duration="00:00:00.0148033" startTime="2026-10-11T21:53:29.1538099+00:00" endTime="2026-10-11T21:53:29.1688862+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a02c1798-5f2d-4fe9-b24f-bf7adf5c527d" />
+    <UnitTestResult executionId="7e06a4a8-13be-4543-8dc7-a95551d95da6" testId="b2d0bdc4-d74f-1897-f857-eb54a1fc4ca9" testName="KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(action: &quot;off&quot;)" computerName="552716c6b8c5" duration="00:00:00.0000987" startTime="2026-10-11T21:53:29.0473087+00:00" endTime="2026-10-11T21:53:29.0473343+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7e06a4a8-13be-4543-8dc7-a95551d95da6">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: ConfirmationRequired
+Actual:   Rejected</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs:line 98
+   at KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs:line 103
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ee9089f6-c6ce-484a-97a3-1c83ecee3b0f" testId="8d5d2048-f002-072c-bc00-09a33be0c2b7" testName="KuaiYi.Provider.Tests.TextTranslationTests.ActualSourceCrossesRealHttpAndReachesResults(protocol: OpenAIChat, scenario: &quot;non-streaming&quot;, stream: False)" computerName="552716c6b8c5" duration="00:00:00.0062939" startTime="2026-10-11T21:53:29.3236644+00:00" endTime="2026-10-11T21:53:29.3303328+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ee9089f6-c6ce-484a-97a3-1c83ecee3b0f" />
+    <UnitTestResult executionId="7e0f5582-197e-48c7-8f58-8f534cf47b50" testId="0cae3d38-6770-aeab-53e0-1eb2464a0f85" testName="KuaiYi.Provider.Tests.TextTranslationTests.ScalarSoftBoundaryNeedsExplicitConfirmation(count: 50000, confirmation: True)" computerName="552716c6b8c5" duration="00:00:00.0142290" startTime="2026-10-11T21:53:29.2818349+00:00" endTime="2026-10-11T21:53:29.2964013+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7e0f5582-197e-48c7-8f58-8f534cf47b50" />
+    <UnitTestResult executionId="742c4c04-9056-4d05-b08f-a4ca7449d94b" testId="ebf2e441-fd2e-7687-7f5d-39cbed246cc7" testName="KuaiYi.Provider.Tests.TextTranslationTests.DelayedSecretReadMustRecheckBeforeHttp(action: &quot;source&quot;)" computerName="552716c6b8c5" duration="00:00:00.0011111" startTime="2026-10-11T21:53:29.2410913+00:00" endTime="2026-10-11T21:53:29.2423651+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="742c4c04-9056-4d05-b08f-a4ca7449d94b" />
+    <UnitTestResult executionId="805d1be1-760d-49de-8bf1-d316584e2306" testId="0d25d119-fd3c-2bd9-011c-c7b70274d6cb" testName="KuaiYi.Provider.Tests.TextTranslationTests.InvalidOrOversizeTextNeverStartsHttp(kind: &quot;empty&quot;)" computerName="552716c6b8c5" duration="00:00:00.0034480" startTime="2026-10-11T21:53:29.2233379+00:00" endTime="2026-10-11T21:53:29.2270978+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="805d1be1-760d-49de-8bf1-d316584e2306" />
+    <UnitTestResult executionId="c191a99f-7210-4a91-bbc3-e74ff6cdf045" testId="08a9a54a-cdd1-1369-c985-99173c179dcb" testName="KuaiYi.Provider.Tests.TextTranslationTests.OrdinaryRegenerationUsesFrozenStyleAndCurrentSettingsIsSeparate" computerName="552716c6b8c5" duration="00:00:00.0047299" startTime="2026-10-11T21:53:29.3630816+00:00" endTime="2026-10-11T21:53:29.3680118+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c191a99f-7210-4a91-bbc3-e74ff6cdf045" />
+    <UnitTestResult executionId="518e7f25-1f4c-4a71-bef4-94ea56bdb26a" testId="181b172d-4567-7535-2f97-ed7a644e7a1f" testName="KuaiYi.Provider.Tests.TextTranslationTests.PromptSnapshotsRecordActualTemplate(preset: Faithful, template: &quot;faithful&quot;)" computerName="552716c6b8c5" duration="00:00:00.0017710" startTime="2026-10-11T21:53:29.2518745+00:00" endTime="2026-10-11T21:53:29.2539117+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="518e7f25-1f4c-4a71-bef4-94ea56bdb26a" />
+    <UnitTestResult executionId="4cf09c61-069b-4480-a587-eeff7b67a088" testId="3a72dcb1-dbec-be2b-eba8-a32fa8e216af" testName="KuaiYi.Provider.Tests.TextTranslationTests.DuplicateAndReopenAddNoCallButRegenerationDoes" computerName="552716c6b8c5" duration="00:00:00.0061412" startTime="2026-10-11T21:53:29.3938830+00:00" endTime="2026-10-11T21:53:29.4001915+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4cf09c61-069b-4480-a587-eeff7b67a088" />
+    <UnitTestResult executionId="d4ac546d-993c-4ed5-bde8-0a57334d0ed1" testId="7574226e-5b2d-4bca-3959-b2d0a0df3e60" testName="KuaiYi.Provider.Tests.TextTranslationTests.FourRegenerationsStayWithinThreeAndSelectedVersionOwnsSnapshot" computerName="552716c6b8c5" duration="00:00:00.0070290" startTime="2026-10-11T21:53:29.3864860+00:00" endTime="2026-10-11T21:53:29.3937303+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d4ac546d-993c-4ed5-bde8-0a57334d0ed1" />
+    <UnitTestResult executionId="061297e7-de11-401a-8e1a-e22defea99f4" testId="b28669fa-c863-d939-436e-626a5509aa10" testName="KuaiYi.Provider.Tests.TextTranslationTests.ScalarSoftBoundaryNeedsExplicitConfirmation(count: 12000, confirmation: False)" computerName="552716c6b8c5" duration="00:00:00.0048432" startTime="2026-10-11T21:53:29.2767619+00:00" endTime="2026-10-11T21:53:29.2817704+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="061297e7-de11-401a-8e1a-e22defea99f4" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.DelayedSecretReadMustRecheckBeforeHttp(action: &quot;source&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="ebf2e441-fd2e-7687-7f5d-39cbed246cc7">
+      <Execution id="742c4c04-9056-4d05-b08f-a4ca7449d94b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="DelayedSecretReadMustRecheckBeforeHttp" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.DevelopmentModeRejectsNonFixtureOrRemote(uri: &quot;http://name:password@127.0.0.1/runs/aaaaaaaaaaaaaa&quot;···)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="fd202a90-f451-6cbb-0862-7e5df44081f4">
+      <Execution id="9b9244f2-ab96-4f45-8a28-5abf9215a6cf" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="DevelopmentModeRejectsNonFixtureOrRemote" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.ScalarSoftBoundaryNeedsExplicitConfirmation(count: 12001, confirmation: True)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="0501e95f-f636-d1b6-b27f-ede45c3a5a9a">
+      <Execution id="f6519be1-92b2-4616-bf3b-c38d065cfc60" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="ScalarSoftBoundaryNeedsExplicitConfirmation" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.DevelopmentModeRejectsNonFixtureOrRemote(uri: &quot;https://example.org/runs/aaaaaaaaaaaaaaaaaaaaaaaaa&quot;···)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="9ddd59ac-8882-bdb5-bb2b-1acd13163100">
+      <Execution id="a14852e0-d993-403d-9e85-644e10089d0e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="DevelopmentModeRejectsNonFixtureOrRemote" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.InvalidOrOversizeTextNeverStartsHttp(kind: &quot;hard&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="dd5fa8e6-6d91-87f4-988d-12daa3a8d16a">
+      <Execution id="85ef0b09-6fd0-4377-b5dd-69edec8b91b6" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="InvalidOrOversizeTextNeverStartsHttp" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.DevelopmentModeRejectsNonFixtureOrRemote(uri: &quot;http://192.0.2.1/runs/aaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;···)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="fe293ff0-8c8d-2284-e2e2-067864d025ec">
+      <Execution id="a353165b-d74f-4bac-9ea0-49c9b497c70b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="DevelopmentModeRejectsNonFixtureOrRemote" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.InFlightInvalidationRejectsLateHttpAndUi(action: &quot;lock&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="71d34aee-3f81-1c78-e77e-863692d69ab3">
+      <Execution id="a02c1798-5f2d-4fe9-b24f-bf7adf5c527d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="InFlightInvalidationRejectsLateHttpAndUi" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.PromptSnapshotsRecordActualTemplate(preset: Explain, template: &quot;explain&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="58ce3d6d-1fbc-0c60-5d91-af7789fd8321">
+      <Execution id="5f151513-1fdd-4d5a-8c80-97b150cc460f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="PromptSnapshotsRecordActualTemplate" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.NewSourceWinsOverHeldOldHeaders" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="7dbdadfd-fc1e-f350-2750-9c6b51dafb56">
+      <Execution id="f2b29b13-eba4-4aa0-9c00-ef62a6311e08" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="NewSourceWinsOverHeldOldHeaders" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.ScalarSoftBoundaryNeedsExplicitConfirmation(count: 50000, confirmation: True)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="0cae3d38-6770-aeab-53e0-1eb2464a0f85">
+      <Execution id="7e0f5582-197e-48c7-8f58-8f534cf47b50" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="ScalarSoftBoundaryNeedsExplicitConfirmation" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.InvalidOrOversizeTextNeverStartsHttp(kind: &quot;empty&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="0d25d119-fd3c-2bd9-011c-c7b70274d6cb">
+      <Execution id="805d1be1-760d-49de-8bf1-d316584e2306" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="InvalidOrOversizeTextNeverStartsHttp" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.FourRegenerationsStayWithinThreeAndSelectedVersionOwnsSnapshot" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="7574226e-5b2d-4bca-3959-b2d0a0df3e60">
+      <Execution id="d4ac546d-993c-4ed5-bde8-0a57334d0ed1" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="FourRegenerationsStayWithinThreeAndSelectedVersionOwnsSnapshot" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(action: &quot;source&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="03a87fea-d9d4-7bf1-68a8-b003808e9bed">
+      <Execution id="bdb6a661-b9de-4f38-94a1-6885012332fe" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="PendingConfirmationCannotOutliveItsSourceOrAuthority" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.InvalidOrOversizeTextNeverStartsHttp(kind: &quot;surrogate&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="54e0957c-d746-deba-15df-885e8c38fc32">
+      <Execution id="95990c00-8af2-4b05-84fc-c11d31ccc99a" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="InvalidOrOversizeTextNeverStartsHttp" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.ActualSourceCrossesRealHttpAndReachesResults(protocol: OpenAIChat, scenario: &quot;fragmented&quot;, stream: True)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="ea1e9b25-c592-0c34-24be-46d92a061691">
+      <Execution id="89be4170-3415-4710-96bb-d1ed9b1f378c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="ActualSourceCrossesRealHttpAndReachesResults" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.ActualSourceCrossesRealHttpAndReachesResults(protocol: OpenAIChat, scenario: &quot;non-streaming&quot;, stream: False)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="8d5d2048-f002-072c-bc00-09a33be0c2b7">
+      <Execution id="ee9089f6-c6ce-484a-97a3-1c83ecee3b0f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="ActualSourceCrossesRealHttpAndReachesResults" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.InFlightInvalidationRejectsLateHttpAndUi(action: &quot;replace-key&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="9e4a77c0-7bc7-f2a3-639d-3cb7eea25943">
+      <Execution id="6a1c1854-3081-4eed-a50b-4f5e2cc9b49d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="InFlightInvalidationRejectsLateHttpAndUi" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.ActualSourceCrossesRealHttpAndReachesResults(protocol: AnthropicMessages, scenario: &quot;fragmented&quot;, stream: True)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="e66deb78-c8e5-d1cd-2563-301456ca53e1">
+      <Execution id="8128ffe1-25c8-4567-9f23-5710fe493564" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="ActualSourceCrossesRealHttpAndReachesResults" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.DelayedSecretReadMustRecheckBeforeHttp(action: &quot;config&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="0f25b2df-7b24-4439-bd03-3188726028c0">
+      <Execution id="b556d76b-7ad4-42ca-b31a-01ff6411a4a3" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="DelayedSecretReadMustRecheckBeforeHttp" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.InFlightInvalidationRejectsLateHttpAndUi(action: &quot;stop&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="22026139-c3f0-eac6-b887-7a05d4b8bb75">
+      <Execution id="f65cd482-63bb-4f6d-b07c-04f6735d00b3" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="InFlightInvalidationRejectsLateHttpAndUi" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(action: &quot;new-offer&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="3ddf972a-88d1-f960-e9df-08a125b8da00">
+      <Execution id="4fedb2ef-a365-4b23-a0a1-0da3b9a6ca46" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="PendingConfirmationCannotOutliveItsSourceOrAuthority" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.InFlightInvalidationRejectsLateHttpAndUi(action: &quot;delete&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="0cb9d384-e7c6-8ea2-a0fe-b3e3a4cfa37e">
+      <Execution id="62d2b9f6-2d83-402a-b9d6-25106fadd5aa" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="InFlightInvalidationRejectsLateHttpAndUi" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.DuplicateDuringGenerationAddsNoCall" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="05af03aa-e564-ff7a-294d-91abf842a605">
+      <Execution id="6be8c951-edf4-4cdd-be5e-25ee78eeaab5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="DuplicateDuringGenerationAddsNoCall" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.OffNeverCapturesSubmitsRegeneratesOrReadsSecrets" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="87b81cbb-9aa3-f3fd-f980-099091006b50">
+      <Execution id="8739d86d-db29-4b20-a8b1-ca3d756c2c5e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="OffNeverCapturesSubmitsRegeneratesOrReadsSecrets" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.DelayedSecretReadMustRecheckBeforeHttp(action: &quot;off&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="ee3b1fed-6f3c-8bc4-3393-cd4924201e53">
+      <Execution id="f3156d5c-1443-46fa-a005-314f2129e0af" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="DelayedSecretReadMustRecheckBeforeHttp" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(action: &quot;settings&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="13028200-66e3-3a02-8e1b-0ca5dd12ef36">
+      <Execution id="7c6e2a2b-05c5-4090-bc3c-a86c9dd2de33" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="PendingConfirmationCannotOutliveItsSourceOrAuthority" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.ProductionNeverImplicitlyEnablesLoopbackTestTransport" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="4a76b055-3dd9-9770-43c6-85e0c4117630">
+      <Execution id="8b7c24db-9eee-4d2c-aca1-fdd4808acf63" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="ProductionNeverImplicitlyEnablesLoopbackTestTransport" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.ScalarSoftBoundaryNeedsExplicitConfirmation(count: 12000, confirmation: False)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="b28669fa-c863-d939-436e-626a5509aa10">
+      <Execution id="061297e7-de11-401a-8e1a-e22defea99f4" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="ScalarSoftBoundaryNeedsExplicitConfirmation" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(action: &quot;clipboard-permission&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="0ed61149-c412-503a-16ff-ca1090ae2fc2">
+      <Execution id="5d1ab4ca-d918-441d-9de9-a3dd5a88f080" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="PendingConfirmationCannotOutliveItsSourceOrAuthority" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.DevelopmentModeRejectsNonFixtureOrRemote(uri: &quot;http://127.0.0.1:5555/v1/&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="788e6ca0-b3c9-c67d-d76a-ee51a33e4195">
+      <Execution id="753fd7d3-66c3-431a-8fc8-ed6debfe517f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="DevelopmentModeRejectsNonFixtureOrRemote" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.PromptSnapshotsRecordActualTemplate(preset: Faithful, template: &quot;faithful&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="181b172d-4567-7535-2f97-ed7a644e7a1f">
+      <Execution id="518e7f25-1f4c-4a71-bef4-94ea56bdb26a" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="PromptSnapshotsRecordActualTemplate" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.InvalidOrOversizeTextNeverStartsHttp(kind: &quot;count&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="499d9dbd-fe6c-a0a2-d2f6-57ccece23e4e">
+      <Execution id="4df2625c-f35c-4e69-9cc5-3876c21920e6" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="InvalidOrOversizeTextNeverStartsHttp" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.FailedRegenerationPreservesSuccessAndMarksFailedVersion" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="2b70e019-460e-bcb2-3ac3-ad1f5f9f3d4d">
+      <Execution id="8e0bb26c-fe51-43f9-8333-5ae6bac0a530" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="FailedRegenerationPreservesSuccessAndMarksFailedVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.OrdinaryRegenerationUsesFrozenStyleAndCurrentSettingsIsSeparate" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="08a9a54a-cdd1-1369-c985-99173c179dcb">
+      <Execution id="c191a99f-7210-4a91-bbc3-e74ff6cdf045" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="OrdinaryRegenerationUsesFrozenStyleAndCurrentSettingsIsSeparate" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.DelayedSecretReadMustRecheckBeforeHttp(action: &quot;binding&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="084f2194-f2dc-ea2f-90bb-f5e245e4ca03">
+      <Execution id="0308e6f3-ee52-42d0-9549-a77e48e75625" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="DelayedSecretReadMustRecheckBeforeHttp" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.PromptSnapshotsRecordActualTemplate(preset: Plain, template: &quot;plain&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="9b022856-fb68-868f-257f-df5121e70e7f">
+      <Execution id="79e11a16-4c1a-4ccb-8da3-0d9eb07c7672" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="PromptSnapshotsRecordActualTemplate" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.PromptSnapshotsRecordActualTemplate(preset: Professional, template: &quot;professional&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="70cbb78f-ddff-d159-438a-8c614c067564">
+      <Execution id="085c2978-658e-474c-8822-a7778b2890d5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="PromptSnapshotsRecordActualTemplate" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.DuplicateAndReopenAddNoCallButRegenerationDoes" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="3a72dcb1-dbec-be2b-eba8-a32fa8e216af">
+      <Execution id="4cf09c61-069b-4480-a587-eeff7b67a088" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="DuplicateAndReopenAddNoCallButRegenerationDoes" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.NewSourceFailureKeepsReadablePriorSnapshot(scenario: &quot;disconnect&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="430b9b25-2870-8d00-5e7c-3718b8dcd441">
+      <Execution id="271195bb-04d7-4e69-8f73-6c84b8f984d1" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="NewSourceFailureKeepsReadablePriorSnapshot" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.NewSourceFailureKeepsReadablePriorSnapshot(scenario: &quot;malformed&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="3b5a9fae-4489-66df-5090-dbb05089ae72">
+      <Execution id="a99fd8aa-5adb-47d0-8f3b-c22d1af1410b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="NewSourceFailureKeepsReadablePriorSnapshot" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.ActualSourceCrossesRealHttpAndReachesResults(protocol: AnthropicMessages, scenario: &quot;non-streaming&quot;, stream: False)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="cc164b14-9a40-80cf-34be-a12a6c81b884">
+      <Execution id="ad985050-0660-4ddc-bf5c-1e88a062d589" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="ActualSourceCrossesRealHttpAndReachesResults" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.NewSourceFailureKeepsReadablePriorSnapshot(scenario: &quot;unauthorized&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="c3d037a9-7efe-1f4f-2fcd-6f8acee57526">
+      <Execution id="cb2ea8c6-ac3d-4160-b08b-817c7ced8ec7" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="NewSourceFailureKeepsReadablePriorSnapshot" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(action: &quot;off&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="b2d0bdc4-d74f-1897-f857-eb54a1fc4ca9">
+      <Execution id="7e06a4a8-13be-4543-8dc7-a95551d95da6" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="PendingConfirmationCannotOutliveItsSourceOrAuthority" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.InFlightInvalidationRejectsLateHttpAndUi(action: &quot;off&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="1521fcd4-18b5-daa7-4e30-06f4c6a9f643">
+      <Execution id="afddab35-17b6-4866-9bdf-145ea0b0b4ee" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="InFlightInvalidationRejectsLateHttpAndUi" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="3b5a9fae-4489-66df-5090-dbb05089ae72" executionId="a99fd8aa-5adb-47d0-8f3b-c22d1af1410b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="430b9b25-2870-8d00-5e7c-3718b8dcd441" executionId="271195bb-04d7-4e69-8f73-6c84b8f984d1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="22026139-c3f0-eac6-b887-7a05d4b8bb75" executionId="f65cd482-63bb-4f6d-b07c-04f6735d00b3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e66deb78-c8e5-d1cd-2563-301456ca53e1" executionId="8128ffe1-25c8-4567-9f23-5710fe493564" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fe293ff0-8c8d-2284-e2e2-067864d025ec" executionId="a353165b-d74f-4bac-9ea0-49c9b497c70b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ee3b1fed-6f3c-8bc4-3393-cd4924201e53" executionId="f3156d5c-1443-46fa-a005-314f2129e0af" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0501e95f-f636-d1b6-b27f-ede45c3a5a9a" executionId="f6519be1-92b2-4616-bf3b-c38d065cfc60" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cc164b14-9a40-80cf-34be-a12a6c81b884" executionId="ad985050-0660-4ddc-bf5c-1e88a062d589" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7dbdadfd-fc1e-f350-2750-9c6b51dafb56" executionId="f2b29b13-eba4-4aa0-9c00-ef62a6311e08" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9b022856-fb68-868f-257f-df5121e70e7f" executionId="79e11a16-4c1a-4ccb-8da3-0d9eb07c7672" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0ed61149-c412-503a-16ff-ca1090ae2fc2" executionId="5d1ab4ca-d918-441d-9de9-a3dd5a88f080" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3ddf972a-88d1-f960-e9df-08a125b8da00" executionId="4fedb2ef-a365-4b23-a0a1-0da3b9a6ca46" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c3d037a9-7efe-1f4f-2fcd-6f8acee57526" executionId="cb2ea8c6-ac3d-4160-b08b-817c7ced8ec7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="03a87fea-d9d4-7bf1-68a8-b003808e9bed" executionId="bdb6a661-b9de-4f38-94a1-6885012332fe" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2b70e019-460e-bcb2-3ac3-ad1f5f9f3d4d" executionId="8e0bb26c-fe51-43f9-8333-5ae6bac0a530" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9e4a77c0-7bc7-f2a3-639d-3cb7eea25943" executionId="6a1c1854-3081-4eed-a50b-4f5e2cc9b49d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="87b81cbb-9aa3-f3fd-f980-099091006b50" executionId="8739d86d-db29-4b20-a8b1-ca3d756c2c5e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4a76b055-3dd9-9770-43c6-85e0c4117630" executionId="8b7c24db-9eee-4d2c-aca1-fdd4808acf63" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="54e0957c-d746-deba-15df-885e8c38fc32" executionId="95990c00-8af2-4b05-84fc-c11d31ccc99a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="05af03aa-e564-ff7a-294d-91abf842a605" executionId="6be8c951-edf4-4cdd-be5e-25ee78eeaab5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0f25b2df-7b24-4439-bd03-3188726028c0" executionId="b556d76b-7ad4-42ca-b31a-01ff6411a4a3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1521fcd4-18b5-daa7-4e30-06f4c6a9f643" executionId="afddab35-17b6-4866-9bdf-145ea0b0b4ee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="58ce3d6d-1fbc-0c60-5d91-af7789fd8321" executionId="5f151513-1fdd-4d5a-8c80-97b150cc460f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dd5fa8e6-6d91-87f4-988d-12daa3a8d16a" executionId="85ef0b09-6fd0-4377-b5dd-69edec8b91b6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ea1e9b25-c592-0c34-24be-46d92a061691" executionId="89be4170-3415-4710-96bb-d1ed9b1f378c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="70cbb78f-ddff-d159-438a-8c614c067564" executionId="085c2978-658e-474c-8822-a7778b2890d5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="499d9dbd-fe6c-a0a2-d2f6-57ccece23e4e" executionId="4df2625c-f35c-4e69-9cc5-3876c21920e6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="084f2194-f2dc-ea2f-90bb-f5e245e4ca03" executionId="0308e6f3-ee52-42d0-9549-a77e48e75625" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9ddd59ac-8882-bdb5-bb2b-1acd13163100" executionId="a14852e0-d993-403d-9e85-644e10089d0e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="788e6ca0-b3c9-c67d-d76a-ee51a33e4195" executionId="753fd7d3-66c3-431a-8fc8-ed6debfe517f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="13028200-66e3-3a02-8e1b-0ca5dd12ef36" executionId="7c6e2a2b-05c5-4090-bc3c-a86c9dd2de33" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fd202a90-f451-6cbb-0862-7e5df44081f4" executionId="9b9244f2-ab96-4f45-8a28-5abf9215a6cf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0cb9d384-e7c6-8ea2-a0fe-b3e3a4cfa37e" executionId="62d2b9f6-2d83-402a-b9d6-25106fadd5aa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="71d34aee-3f81-1c78-e77e-863692d69ab3" executionId="a02c1798-5f2d-4fe9-b24f-bf7adf5c527d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b2d0bdc4-d74f-1897-f857-eb54a1fc4ca9" executionId="7e06a4a8-13be-4543-8dc7-a95551d95da6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8d5d2048-f002-072c-bc00-09a33be0c2b7" executionId="ee9089f6-c6ce-484a-97a3-1c83ecee3b0f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0cae3d38-6770-aeab-53e0-1eb2464a0f85" executionId="7e0f5582-197e-48c7-8f58-8f534cf47b50" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ebf2e441-fd2e-7687-7f5d-39cbed246cc7" executionId="742c4c04-9056-4d05-b08f-a4ca7449d94b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0d25d119-fd3c-2bd9-011c-c7b70274d6cb" executionId="805d1be1-760d-49de-8bf1-d316584e2306" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="08a9a54a-cdd1-1369-c985-99173c179dcb" executionId="c191a99f-7210-4a91-bbc3-e74ff6cdf045" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="181b172d-4567-7535-2f97-ed7a644e7a1f" executionId="518e7f25-1f4c-4a71-bef4-94ea56bdb26a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3a72dcb1-dbec-be2b-eba8-a32fa8e216af" executionId="4cf09c61-069b-4480-a587-eeff7b67a088" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7574226e-5b2d-4bca-3959-b2d0a0df3e60" executionId="d4ac546d-993c-4ed5-bde8-0a57334d0ed1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b28669fa-c863-d939-436e-626a5509aa10" executionId="061297e7-de11-401a-8e1a-e22defea99f4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="44" executed="44" passed="37" failed="7" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.05]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.09]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.12]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.24]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.24]       Expected: ConfirmationRequired
+[xUnit.net 00:00:00.24]       Actual:   Rejected
+[xUnit.net 00:00:00.24]       Stack Trace:
+[xUnit.net 00:00:00.24]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs(98,0): at KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(String action)
+[xUnit.net 00:00:00.24]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs(103,0): at KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(String action)
+[xUnit.net 00:00:00.24]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.25]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.25]       Expected: ConfirmationRequired
+[xUnit.net 00:00:00.25]       Actual:   Rejected
+[xUnit.net 00:00:00.25]       Stack Trace:
+[xUnit.net 00:00:00.25]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs(98,0): at KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(String action)
+[xUnit.net 00:00:00.25]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs(103,0): at KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(String action)
+[xUnit.net 00:00:00.25]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.25]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.25]       Expected: ConfirmationRequired
+[xUnit.net 00:00:00.25]       Actual:   Rejected
+[xUnit.net 00:00:00.25]       Stack Trace:
+[xUnit.net 00:00:00.25]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs(98,0): at KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(String action)
+[xUnit.net 00:00:00.25]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs(103,0): at KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(String action)
+[xUnit.net 00:00:00.25]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.25]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.25]       Expected: ConfirmationRequired
+[xUnit.net 00:00:00.25]       Actual:   Rejected
+[xUnit.net 00:00:00.25]       Stack Trace:
+[xUnit.net 00:00:00.25]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs(98,0): at KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(String action)
+[xUnit.net 00:00:00.25]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs(103,0): at KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(String action)
+[xUnit.net 00:00:00.25]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.25]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.25]       Expected: ConfirmationRequired
+[xUnit.net 00:00:00.25]       Actual:   Rejected
+[xUnit.net 00:00:00.25]       Stack Trace:
+[xUnit.net 00:00:00.25]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs(98,0): at KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(String action)
+[xUnit.net 00:00:00.25]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs(103,0): at KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(String action)
+[xUnit.net 00:00:00.25]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.54]       System.InvalidOperationException : The requested operation requires an element of type 'String', but the target element has type 'Array'.
+[xUnit.net 00:00:00.54]       Stack Trace:
+[xUnit.net 00:00:00.54]            at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+[xUnit.net 00:00:00.54]            at System.Text.Json.JsonDocument.GetString(Int32 index, JsonTokenType expectedType)
+[xUnit.net 00:00:00.54]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs(57,0): at KuaiYi.Provider.Tests.TextTranslationTests.ActualSourceCrossesRealHttpAndReachesResults(ApiProtocol protocol, String scenario, Boolean stream)
+[xUnit.net 00:00:00.54]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs(58,0): at KuaiYi.Provider.Tests.TextTranslationTests.ActualSourceCrossesRealHttpAndReachesResults(ApiProtocol protocol, String scenario, Boolean stream)
+[xUnit.net 00:00:00.54]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.55]       System.InvalidOperationException : The requested operation requires an element of type 'String', but the target element has type 'Array'.
+[xUnit.net 00:00:00.55]       Stack Trace:
+[xUnit.net 00:00:00.55]            at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+[xUnit.net 00:00:00.55]            at System.Text.Json.JsonDocument.GetString(Int32 index, JsonTokenType expectedType)
+[xUnit.net 00:00:00.55]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs(57,0): at KuaiYi.Provider.Tests.TextTranslationTests.ActualSourceCrossesRealHttpAndReachesResults(ApiProtocol protocol, String scenario, Boolean stream)
+[xUnit.net 00:00:00.55]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs(58,0): at KuaiYi.Provider.Tests.TextTranslationTests.ActualSourceCrossesRealHttpAndReachesResults(ApiProtocol protocol, String scenario, Boolean stream)
+[xUnit.net 00:00:00.55]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.62]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T21:53:29.0333199+00:00">
+        <Text>[xUnit.net 00:00:00.24]     KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(action: "settings") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T21:53:29.0459634+00:00">
+        <Text>[xUnit.net 00:00:00.25]     KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(action: "source") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T21:53:29.0470435+00:00">
+        <Text>[xUnit.net 00:00:00.25]     KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(action: "new-offer") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T21:53:29.0475694+00:00">
+        <Text>[xUnit.net 00:00:00.25]     KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(action: "clipboard-permission") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T21:53:29.0475995+00:00">
+        <Text>[xUnit.net 00:00:00.25]     KuaiYi.Provider.Tests.TextTranslationTests.PendingConfirmationCannotOutliveItsSourceOrAuthority(action: "off") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T21:53:29.3384573+00:00">
+        <Text>[xUnit.net 00:00:00.54]     KuaiYi.Provider.Tests.TextTranslationTests.ActualSourceCrossesRealHttpAndReachesResults(protocol: AnthropicMessages, scenario: "non-streaming", stream: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T21:53:29.3456035+00:00">
+        <Text>[xUnit.net 00:00:00.55]     KuaiYi.Provider.Tests.TextTranslationTests.ActualSourceCrossesRealHttpAndReachesResults(protocol: AnthropicMessages, scenario: "fragmented", stream: True) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

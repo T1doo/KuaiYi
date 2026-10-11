@@ -7,6 +7,7 @@
         "dependencies": {
           "KuaiYi.Imaging": "[1.0.0, )",
           "KuaiYi.NativeHost": "[1.0.0, )",
+          "KuaiYi.Providers": "[1.0.0, )",
           "KuaiYi.Windows": "[1.0.0, )"
         }
       },
@@ -33,6 +34,12 @@
         "type": "Project",
         "dependencies": {
           "KuaiYi.Contracts": "[1.0.0, )",
+          "KuaiYi.Core": "[1.0.0, )"
+        }
+      },
+      "kuaiyi.providers": {
+        "type": "Project",
+        "dependencies": {
           "KuaiYi.Core": "[1.0.0, )"
         }
       },

@@ -22,16 +22,16 @@ internal sealed partial class ShellWindow:Window
     private SettingsWindow? settings;private Task startup=Task.CompletedTask,positionSave=Task.CompletedTask;private bool opening,exiting,allowClose,placementPending,geometryReady;
     private OverlayPosition? pendingPosition;private bool pointerFinished,exitRequested,positionTouched;private MonitorGeometry? anchorMonitor;
     private readonly bool enableSelectionPlatform;
-    public ShellWindow(string instanceScope,SettingsCoordinator? suppliedCoordinator=null,bool enableSelectionPlatform=true)
+    public ShellWindow(string instanceScope,SettingsCoordinator? suppliedCoordinator=null,bool enableSelectionPlatform=true,bool developmentLoopback=false)
     {
         this.enableSelectionPlatform=enableSelectionPlatform;
         string root=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"KuaiYi");
         coordinator=suppliedCoordinator??new(new SettingsStore(Path.Combine(root,"config")),new SecretFileStore(Path.Combine(root,"secrets"),new CurrentUserDpapiProtector(),new CurrentUserSecretDirectory()));
         lifecycle=new(coordinator);showMessage=NativeTray.ShowMessage(instanceScope);
         Title="快译";Width=Height=48;WindowStyle=WindowStyle.None;ResizeMode=ResizeMode.NoResize;ShowInTaskbar=false;ShowActivated=false;Topmost=true;
-        SetupPresentation();AutomationProperties.SetName(button,"快译：未启用翻译");button.ToolTip="未启用翻译 · 右键打开设置";
+        SetupPresentation();SetupTranslation(developmentLoopback);AutomationProperties.SetName(button,"快译：未启用翻译");button.ToolTip="未启用翻译 · 右键打开设置";
         var menu=new ContextMenu();Add("启用 / 停用翻译",Toggle);Add("回看当前结果",ReopenResult);Add("收起",CollapseResult);Add("停止生成",StopResult);Add("复制结果",CopyResult);Add("设置",()=>_=OpenSettings());Add("更多操作及版本",()=>OpenOverflowMenu(button));Add("隐藏浮窗（同时停用）",HideOverlay);Add("聚焦浮窗",FocusOverlay);Add("退出",Close);
-        Add("读取当前选区",()=>_=ObserveSelection(ReadCurrentSelection()));Add("查看已读取原文",ShowSelectionSource);button.ContextMenu=menu;menu.Closed+=(_,_)=>PresentationMenuClosed();
+        Add("读取当前选区",()=>_=ObserveSelection(ReadCurrentSelection()));Add("重新生成",()=>RegenerateResult());Add("按当前设置重新翻译",()=>RegenerateResult(true));Add("查看已读取原文",ShowSelectionSource);button.ContextMenu=menu;menu.Closed+=(_,_)=>PresentationMenuClosed();
         void Add(string text,Action action){var item=new MenuItem{Header=text};item.Click+=(_,_)=>action();menu.Items.Add(item);}
         SourceInitialized+=(_,_)=>
         {
@@ -91,8 +91,9 @@ internal sealed partial class ShellWindow:Window
     {
         RefreshSelection();RefreshTextDrop();
         RefreshPresentationTheme();
+        RefreshResultLabel();
         bool on=lifecycle.Gate.Snapshot.Activation==Activation.On;button.Background=on?OverlayTokens.On:OverlayTokens.Off;UpdateButtonGlyph(on);
-        AutomationProperties.SetName(button,on?"快译：已启用翻译":"快译：未启用翻译");button.ToolTip=on?"已启用翻译 · 单击停用":dropUnavailable??"未启用翻译 · 单击启用，右键设置";
+        AutomationProperties.SetName(button,on?"快译：已启用翻译":"快译：未启用翻译");button.ToolTip=on?translationStatus??"已启用翻译 · 单击停用":dropUnavailable??"未启用翻译 · 单击启用，右键设置";
         try{tray?.Update(on);}catch(Exception error){Report("托盘状态更新失败",error);}
     }
     private async Task OpenSettings()
@@ -122,7 +123,7 @@ internal sealed partial class ShellWindow:Window
     {
         if(e.Reason is not (Microsoft.Win32.SessionSwitchReason.SessionLock or Microsoft.Win32.SessionSwitchReason.SessionUnlock))return;
         bool locked=e.Reason==Microsoft.Win32.SessionSwitchReason.SessionLock;lifecycle.SetSessionLocked(locked);selectionCapture?.CancelPending(clearSource:locked);RevokeTextDrop(clearSource:locked); // Synchronous gate invalidation precedes queued UI.
-        Dispatcher.BeginInvoke(()=>{if(exiting)return;RecoverHotkeys(locked);CancelPointer();if(locked){ClearSelectionSource();settings?.RequestCloseWhenSettled();HidePresentation(true);Hide();}else ShowOverlay();Refresh();});
+        Dispatcher.BeginInvoke(()=>{if(exiting)return;RecoverHotkeys(locked);CancelPointer();if(locked){translation?.Clear();ClearSelectionSource();settings?.RequestCloseWhenSettled();HidePresentation(true);Hide();}else ShowOverlay();Refresh();});
     }
     private nint Hook(nint window,int message,nint w,nint l,ref bool handled)
     {
@@ -172,7 +173,7 @@ internal sealed partial class ShellWindow:Window
         if(allowClose)return;e.Cancel=true;if(exiting)return;
         if(opening||settings!=null){exitRequested=true;lifecycle.Hide();Refresh();settings?.RequestCloseWhenSettled();button.ToolTip="正在等待设置草稿和原保存任务结束后退出。";return;}
         QueuePositionSave();exiting=true;button.IsEnabled=false;CancelPointer();lifecycle.Hide();HidePresentation(true);Refresh();
-        try{await startup;await positionSave;await StopTextDrop();await StopSelection();await StopHotkeyScreenshot();await StopHotkeys();allowClose=true;Close();}
+        try{await startup;await positionSave;await StopTextDrop();await StopSelection();await StopHotkeyScreenshot();await StopHotkeys();await StopTranslation();allowClose=true;Close();}
         catch(Exception error){exiting=false;button.IsEnabled=true;Report("退出清理尚未完成",error);}
     }
     private void ClosedShell(object? sender,EventArgs e)

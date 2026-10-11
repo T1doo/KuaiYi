@@ -10,6 +10,15 @@ public sealed record SettingsChange(ImmutableArray<string> DeletedProfiles,Immut
 {public ImmutableArray<RevokedProfileBinding> RevokedProfileBindings{get;init;}=[];public bool ClipboardPermissionsChanged{get;init;}public bool HasBindingRevocation=>RevokedProfileBindings.Length>0;public bool HasDeletion=>DeletedProfiles.Length>0||DeletedSecrets.Length>0||HasBindingRevocation;}
 public sealed class SettingsCoordinator(SettingsStore store,SecretFileStore secrets)
 {
+    /// <summary>Only an admitted request can open its exact encrypted binding. Never used on startup or Off.</summary>
+    public async Task<SecretLease> OpenRequestSecretAsync(RuntimeGate gate,RequestIdentity identity,RequestProfileBinding binding,EndpointOrigin origin,CancellationToken cancellation=default)
+    {
+        bool Current()=>gate.IsRequestProfileBindingCurrent(identity,binding)&&gate.CanSend(identity,origin)&&Effective?.Data.Profiles.Any(p=>p.Id==binding.ProfileId&&p.SecretRef==binding.SecretReference)==true;
+        if(binding.SecretReference==null||!Current())throw new InvalidOperationException("Request secret admission rejected.");
+        var lease=await secrets.OpenAsync(binding.SecretReference,cancellation).ConfigureAwait(false);
+        if(!Current()||cancellation.IsCancellationRequested){lease.Dispose();throw new OperationCanceledException("Request secret admission expired.",cancellation);}
+        return lease;
+    }
     private readonly SemaphoreSlim serial=new(1);private SettingsSnapshot? effective;
     public event Action<SettingsSnapshot,SettingsChange>? Committed;
     public SettingsSnapshot? Effective=>Volatile.Read(ref effective);

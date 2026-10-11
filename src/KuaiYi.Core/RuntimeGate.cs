@@ -279,13 +279,16 @@ public sealed partial class RuntimeGate
 
     /// <summary>Serialize the final eligibility check with starting an asynchronous send. Never await within this callback.</summary>
     public bool TryBeginSend<T>(RequestIdentity identity, EndpointOrigin actualOrigin, Func<Task<T>> begin, out Task<T>? task)
+        =>TryBeginSend(identity,actualOrigin,static()=>true,begin,out task);
+
+    public bool TryBeginSend<T>(RequestIdentity identity, EndpointOrigin actualOrigin, Func<bool> stillEligible, Func<Task<T>> begin, out Task<T>? task)
     {
         ArgumentNullException.ThrowIfNull(begin);
         lock (sync)
         {
             task = null;
-            if (activation != Activation.On || localOnly || !HasSendBindingLocked() || active != identity || !consented.Contains(actualOrigin) ||
-                suspension.HasFlag(Suspension.SessionLocked) || activeCancellation is not { IsCancellationRequested: false }) return false;
+            // The caller's source check can reenter the gate; validate again after that check before HTTP starts.
+            if (!CanSend(identity,actualOrigin)||!stillEligible()||!CanSend(identity,actualOrigin)) return false;
             task = begin();
             return true;
         }

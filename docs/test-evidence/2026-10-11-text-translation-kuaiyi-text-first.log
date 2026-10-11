@@ -1,0 +1,4 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs(38,57): error CS0121: The call is ambiguous between the following methods or properties: 'System.Net.Http.Json.HttpClientJsonExtensions.GetFromJsonAsync<TValue>(System.Net.Http.HttpClient, string?, System.Threading.CancellationToken)' and 'System.Net.Http.Json.HttpClientJsonExtensions.GetFromJsonAsync<TValue>(System.Net.Http.HttpClient, System.Uri?, System.Threading.CancellationToken)' [/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj]

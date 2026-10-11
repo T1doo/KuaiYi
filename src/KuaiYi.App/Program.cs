@@ -19,7 +19,14 @@ internal static class Program
         if (args.Length == 3 && args[0] == "--ocr-probe")
             return Probe(args[1], args[2]).GetAwaiter().GetResult(); // Explicit synthetic fixture command, never automatic selection capture.
         bool review=args.SequenceEqual(new[]{"--platform-review"})||(args.Length==2&&args[0]=="--prepare-image");
-        if (args.Length != 0 && !review) { Console.Error.WriteLine("Unsupported command."); return 2; }
+        bool translationReview=args.Length==2&&args[0]=="--translation-test-provider";
+        KuaiYi.Core.Settings.AppSettings? testSettings=null;
+        if(translationReview)
+        {
+            try{testSettings=KuaiYi.Providers.DevelopmentTranslationProfile.Create(new Uri(args[1],UriKind.Absolute));}
+            catch(Exception error)when(error is ArgumentException or UriFormatException){Console.Error.WriteLine("Invalid local test fixture prefix.");return 2;}
+        }
+        if (args.Length != 0 && !review&&!translationReview) { Console.Error.WriteLine("Unsupported command."); return 2; }
         using var identity=WindowsIdentity.GetCurrent();
         using var process=Process.GetCurrentProcess();
         using var instance=new SessionSingleInstance(identity.User?.Value??throw new InvalidOperationException("Current user SID unavailable."),process.SessionId);
@@ -30,6 +37,19 @@ internal static class Program
             return args.Length==2?3:0;
         }
         var app = new Application();
+        if(testSettings!=null)
+        {
+            // Own disposable fixture config. Never open the user's production config or encrypted secrets.
+            string testRoot=Path.Combine(Path.GetTempPath(),"KuaiYi-translation-review-"+Guid.NewGuid().ToString("N"));
+            try
+            {
+                var testCoordinator=new KuaiYi.Core.Settings.SettingsCoordinator(new(Path.Combine(testRoot,"config")),new(Path.Combine(testRoot,"secrets"),new CurrentUserDpapiProtector(),new CurrentUserSecretDirectory()));
+                using(var draft=testCoordinator.OpenDraftAsync().GetAwaiter().GetResult())
+                {draft.Update(_=>testSettings);testCoordinator.SaveAsync(draft).GetAwaiter().GetResult();}
+                return app.Run(new ShellWindow(instance.Scope,testCoordinator,developmentLoopback:true));
+            }
+            finally{if(Directory.Exists(testRoot))Directory.Delete(testRoot,true);}
+        }
         return app.Run(review?new ImageProbeWindow(args.Length==2?args[1]:null):new ShellWindow(instance.Scope));
     }
     private static async Task<int> Probe(string path, string language)

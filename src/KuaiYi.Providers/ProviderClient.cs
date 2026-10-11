@@ -21,7 +21,7 @@ public sealed class ProviderClient : IDisposable
 
     /// <summary>Low-level transport. Caller owns cancellation; product consumption uses GenerateEnvelopesAsync and ProviderEventReceiver.</summary>
     public async IAsyncEnumerable<ModelEvent> GenerateAsync(TranslationRequest request, RuntimeGate gate,
-        RequestIdentity identity, SecretLease? secret, [EnumeratorCancellation] CancellationToken cancellation = default)
+        RequestIdentity identity, SecretLease? secret, [EnumeratorCancellation] CancellationToken cancellation = default, Func<bool>? sendAdmission = null)
     {
         ArgumentNullException.ThrowIfNull(request);
         ArgumentNullException.ThrowIfNull(gate);
@@ -53,7 +53,7 @@ public sealed class ProviderClient : IDisposable
                 {
                     // Each attempt obtains fresh content and headers, with no credentials on DefaultRequestHeaders.
                     using HttpRequestMessage outgoing = CreateMessage(request, adapter, endpoint, secret);
-                    if (!gate.TryBeginSend(identity, new EndpointOrigin(endpoint),
+                    if (!gate.TryBeginSend(identity, new EndpointOrigin(endpoint), sendAdmission??(static()=>true),
                         () => client.SendAsync(outgoing, HttpCompletionOption.ResponseHeadersRead, headersDeadline.Token), out var pending))
                     { sendError = "CANCELLED_OR_UNCONSENTED"; break; }
                     response = await pending!.ConfigureAwait(false);
@@ -163,12 +163,12 @@ public sealed class ProviderClient : IDisposable
 
     /// <summary>Production consumption carries the complete identity through the destination queue.</summary>
     public async IAsyncEnumerable<ModelEventEnvelope> GenerateEnvelopesAsync(TranslationRequest request, RuntimeGate gate,
-        RequestIdentity identity, SecretLease? secret, [EnumeratorCancellation] CancellationToken cancellation = default)
+        RequestIdentity identity, SecretLease? secret, [EnumeratorCancellation] CancellationToken cancellation = default, Func<bool>? sendAdmission = null)
     {
         ArgumentNullException.ThrowIfNull(gate);
         if (!gate.TryLinkRequestCancellation(identity, cancellation, out var linked)) yield break;
         using var requestLifetime = linked!;
-        await foreach (var item in GenerateAsync(request, gate, identity, secret, requestLifetime.Token).ConfigureAwait(false))
+        await foreach (var item in GenerateAsync(request, gate, identity, secret, requestLifetime.Token,sendAdmission).ConfigureAwait(false))
         {
             if (!gate.CanApply(identity)) yield break;
             yield return new(identity, item);

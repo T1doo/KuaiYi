@@ -22,7 +22,7 @@ internal sealed partial class ShellWindow
                     case "translateSelection":_=ObserveSelection(ReadCurrentSelection(signal.Input));break;
                     case "captureRegion":_=StartHotkeyScreenshot(signal.Input);break;
                     case "toggleResult":if(overlayFrames?.IsExpanded==true)CollapseResult();else ReopenResult();break;
-                    case "regenerate":button.ToolTip="重新生成尚不可用：正式翻译调度未接入。";break;
+                    case "regenerate":RegenerateResult();break;
                     case "hideOverlay":if(IsVisible)HideOverlay();else ShowOverlay();break;
                     case "focusResult":FocusOverlay();break;
                     case "openSettings":_=OpenSettings();break;

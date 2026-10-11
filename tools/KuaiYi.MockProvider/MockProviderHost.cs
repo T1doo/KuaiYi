@@ -88,6 +88,18 @@ public sealed class MockProviderHost : IAsyncDisposable
             }
             context.Response.ContentType = "text/event-stream";
             await context.Response.StartAsync(context.RequestAborted);
+            if(scenario=="paced")
+            {
+                if(anthropic)await context.Response.WriteAsync("data: {\"type\":\"message_start\",\"message\":{\"usage\":{\"input_tokens\":12,\"output_tokens\":0}}}\n\ndata: {\"type\":\"content_block_start\",\"index\":0,\"content_block\":{\"type\":\"text\",\"text\":\"\"}}\n\n",context.RequestAborted);
+                for(int i=0;i<6;i++)
+                {
+                    string delta="公开片段"+i+"\n";
+                    object item=anthropic?new{type="content_block_delta",index=0,delta=new{type="text_delta",text=delta}}:(object)new{choices=new[]{new{index=0,delta=new{content=delta},finish_reason=(string?)null}}};
+                    await context.Response.WriteAsync("data: "+JsonSerializer.Serialize(item)+"\n\n",context.RequestAborted);await context.Response.Body.FlushAsync(context.RequestAborted);await Task.Delay(15,context.RequestAborted);
+                }
+                await context.Response.WriteAsync(anthropic?"data: {\"type\":\"content_block_stop\",\"index\":0}\n\ndata: {\"type\":\"message_delta\",\"delta\":{\"stop_reason\":\"end_turn\"},\"usage\":{\"output_tokens\":8}}\n\ndata: {\"type\":\"message_stop\"}\n\n":"data: {\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"stop\"}]}\n\ndata: [DONE]\n\n",context.RequestAborted);
+                return;
+            }
             string text;
             string fixtureOutput = scenario == "output-limit" ? new string('x', ProviderOutputLimitFixture) : FixtureOutput;
             if (anthropic)

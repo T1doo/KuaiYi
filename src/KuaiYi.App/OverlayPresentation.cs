@@ -22,6 +22,7 @@ internal sealed partial class ShellWindow
     private readonly Border cardBackground=new(){Background=Brushes.White,IsHitTestVisible=false};
     private readonly TextBox body=new(){IsReadOnly=true,TextWrapping=TextWrapping.Wrap,AcceptsReturn=true,BorderThickness=new Thickness(0),Padding=new Thickness(0),VerticalScrollBarVisibility=ScrollBarVisibility.Auto,HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled,FontFamily=new("Segoe UI"),Background=Brushes.Transparent};
     private readonly TextBlock measurement=new(){TextWrapping=TextWrapping.Wrap,FontFamily=new("Segoe UI")};
+    private readonly TextBlock resultLabel=new(){FontSize=11,TextTrimming=TextTrimming.CharacterEllipsis,IsHitTestVisible=false,Visibility=Visibility.Collapsed};
     private readonly Canvas controls=new(){Height=48};private readonly List<Button> tools=[];private readonly List<Action> toolActions=[];
     private readonly Button moreTools=new(){Content="…",Width=28,Height=28,ToolTip="更多操作及版本"};
     private readonly ContextMenu overflowMenu=new();
@@ -45,9 +46,9 @@ internal sealed partial class ShellWindow
     private void SetupPresentation()
     {
         overlayResults=new(lifecycle.Gate);presentationReceiver=new(lifecycle.Gate,new DispatcherSynchronizationContext(Dispatcher));
-        Content=overlayCanvas;overlayCanvas.Children.Add(cardBackground);overlayCanvas.Children.Add(body);overlayCanvas.Children.Add(controls);overlayCanvas.Children.Add(button);overlayCanvas.Children.Add(progressRing);overlayCanvas.Children.Add(connectionStatus);overlayCanvas.Children.Add(newContent);
+        Content=overlayCanvas;overlayCanvas.Children.Add(cardBackground);overlayCanvas.Children.Add(body);overlayCanvas.Children.Add(resultLabel);overlayCanvas.Children.Add(controls);overlayCanvas.Children.Add(button);overlayCanvas.Children.Add(progressRing);overlayCanvas.Children.Add(connectionStatus);overlayCanvas.Children.Add(newContent);
         body.Visibility=controls.Visibility=Visibility.Collapsed;button.Width=button.Height=48;button.Padding=new Thickness(0);RefreshPresentationTheme();UpdateButtonGlyph(false);
-        Tool("回看",ReopenResult);Tool("收起",CollapseResult);Tool("停止",StopResult);Tool("复制",CopyResult);Tool("设置",()=>_=OpenSettings());
+        Tool("回看",ReopenResult);Tool("收起",CollapseResult);Tool("停止",StopResult);Tool("重新生成",()=>RegenerateResult());Tool("复制",CopyResult);Tool("设置",()=>_=OpenSettings());
         void Tool(string label,Action action){var b=new Button{Content=label,MinWidth=28,Height=28,FontSize=12,Padding=new Thickness(2)};System.Windows.Automation.AutomationProperties.SetName(b,label);b.Click+=(_,_)=>action();tools.Add(b);toolActions.Add(action);controls.Children.Add(b);}
         controls.Children.Add(moreTools);moreTools.Click+=(_,_)=>OpenOverflowMenu(moreTools);
         System.Windows.Automation.AutomationProperties.SetName(moreTools,"更多操作及版本");overflowMenu.Closed+=(_,_)=>PresentationMenuClosed();
@@ -75,21 +76,21 @@ internal sealed partial class ShellWindow
     {
         bool dark=lifecycle.Settings?.Data.Overlay.Theme==ThemePreference.Dark;
         if(lifecycle.Settings?.Data.Overlay.Theme is null or ThemePreference.FollowSystem){try{dark=Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize","AppsUseLightTheme",1) is int value&&value==0;}catch(Exception error)when(error is System.Security.SecurityException or UnauthorizedAccessException or System.IO.IOException){Report("系统主题读取失败",error);}}
-        cardBackground.Background=SystemParameters.HighContrast?SystemColors.WindowBrush:dark?OverlayTokens.Dark:Brushes.White;body.Foreground=SystemParameters.HighContrast?SystemColors.WindowTextBrush:dark?Brushes.WhiteSmoke:Brushes.Black;connectionStatus.Foreground=body.Foreground;
+        cardBackground.Background=SystemParameters.HighContrast?SystemColors.WindowBrush:dark?OverlayTokens.Dark:Brushes.White;body.Foreground=SystemParameters.HighContrast?SystemColors.WindowTextBrush:dark?Brushes.WhiteSmoke:Brushes.Black;connectionStatus.Foreground=resultLabel.Foreground=body.Foreground;
     }
-    private void ApplyResult(RequestIdentity identity,OverlayResultEvent value)
+    private void ApplyResult(RequestIdentity identity,OverlayResultEvent value,bool alreadyApplied=false)
     {
         if(exiting)return;
         switch(value.Kind)
         {
             case OverlayResultEventKind.Begin:
-                if(!overlayResults.Begin(identity))return;resultRevision++;follow=true;dirty=true;peek=false;pendingReveal=false;awaitingText=true;progressRing.Visibility=Visibility.Visible;if(!gesture.Active)overlayFrames?.Collapse();StartFrames();waiting.Stop();waiting.Start();Dispatcher.BeginInvoke(()=>{if(!exiting)Refresh();});break;
+                if(!alreadyApplied&&!overlayResults.Begin(identity))return;resultRevision++;follow=true;dirty=true;peek=false;pendingReveal=false;awaitingText=true;progressRing.Visibility=Visibility.Visible;if(!gesture.Active)overlayFrames?.Collapse();StartFrames();waiting.Stop();waiting.Start();Dispatcher.BeginInvoke(()=>{if(!exiting)Refresh();});break;
             case OverlayResultEventKind.Delta:
-                if(!overlayResults.Append(identity,value.Text))return;dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();
+                if(!alreadyApplied&&!overlayResults.Append(identity,value.Text))return;dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();
                 if(overlayResults.TryAutoReveal(identity)&&(peek||overlayFrames?.IsExpanded!=true))pendingReveal=true;break;
             case OverlayResultEventKind.Complete:
-                if(!overlayResults.Complete(identity))return;dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();break;
-            case OverlayResultEventKind.Stopped:overlayResults.MarkStopped();awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();break;
+                if(!alreadyApplied&&!overlayResults.Complete(identity))return;dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();break;
+            case OverlayResultEventKind.Stopped:if(!alreadyApplied)overlayResults.MarkStopped();dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();break;
             default:throw new ArgumentOutOfRangeException(nameof(value));
         }
         if(dirty&&!flush.IsEnabled)flush.Start();
@@ -100,7 +101,7 @@ internal sealed partial class ShellWindow
         double size=lifecycle.Settings?.Data.Overlay.FontSizeDip??15;
         body.FontSize=measurement.FontSize=size;TextBlock.SetLineHeight(body,size*1.55);measurement.LineHeight=size*1.55;
         measurement.Text=overlayResults.Text;measurement.Measure(new Size(Math.Max(1,plan.Dpi.Dips(plan.Target.Width)-32),double.PositiveInfinity));
-        return plan.Dpi.CeilingPixels(48+32+measurement.DesiredSize.Height);
+        return plan.Dpi.CeilingPixels(48+32+(resultLabel.Text.Length>0?20:0)+measurement.DesiredSize.Height);
     }
     private void OpenBody(){if(overlayFrames==null)return;overlayFrames.OpenMeasured(Preferences(),MeasureBody);dirty=true;if(!flush.IsEnabled)flush.Start();StartFrames();}
     private void FlushResult()
@@ -126,9 +127,11 @@ internal sealed partial class ShellWindow
         foreach(var version in overlayResults.Versions)
         {
             Guid id=version.Identity.VersionId;var item=new MenuItem{Header=$"版本 {id.ToString("N")[..8]} · {(version.Complete?"完成":version.Stopped?"已停止":"生成中")}",IsCheckable=true,IsChecked=overlayResults.SelectedVersionId==id,IsEnabled=version.Text.Length>0};
-            item.Click+=(_,_)=>{if(overlayResults.SelectVersion(id)){resultRevision++;follow=true;dirty=true;pendingReveal=false;peek=false;OpenBody();}};versionsItem.Items.Add(item);
+            item.Click+=(_,_)=>{if(overlayResults.SelectVersion(id)){RefreshResultLabel();resultRevision++;follow=true;dirty=true;pendingReveal=false;peek=false;OpenBody();}};versionsItem.Items.Add(item);
         }
-        versionsItem.IsEnabled=versionsItem.Items.Count>0;overflowMenu.Items.Add(new Separator());overflowMenu.Items.Add(versionsItem);overflowMenu.PlacementTarget=target;overflowMenu.IsOpen=true;
+        versionsItem.IsEnabled=versionsItem.Items.Count>0;overflowMenu.Items.Add(new Separator());overflowMenu.Items.Add(versionsItem);
+        var currentSettings=new MenuItem{Header="按当前设置重新翻译",IsEnabled=lifecycle.Gate.Snapshot.Activation==Activation.On&&translation?.SelectedSnapshot!=null};currentSettings.Click+=(_,_)=>RegenerateResult(true);overflowMenu.Items.Add(currentSettings);
+        overflowMenu.PlacementTarget=target;overflowMenu.IsOpen=true;
     }
     private void CollapseResult(){peek=false;pendingReveal=false;peekIn.Stop();peekOut.Stop();waiting.Stop();overlayResults.Collapse();overlayFrames?.Collapse();StartFrames();}
     private void StopResult(){lifecycle.Gate.StopGeneration();overlayResults.MarkStopped();awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();button.ToolTip="已停止生成 · 结果保留在本次会话";}
@@ -202,12 +205,14 @@ internal sealed partial class ShellWindow
         double used=toolbar.OverflowOffsetDip is {} last?last+28:toolbar.Slots.Select(s=>s.OffsetDip+s.WidthDip).DefaultIfEmpty(0).Max();
         connectionStatus.Visibility=!externalDropHover&&awaitingText&&peek&&expanded&&available-used>=104?Visibility.Visible:Visibility.Collapsed;Canvas.SetLeft(connectionStatus,start+used+8);Canvas.SetTop(connectionStatus,by+14);
         PublishDropBounds();
-        var plan=overlayFrames.Plan;var direction=overlayFrames.ContentDirection;if(direction==null||peek||!expanded){body.Visibility=Visibility.Collapsed;newContent.Visibility=Visibility.Collapsed;return;}
+        var plan=overlayFrames.Plan;var direction=overlayFrames.ContentDirection;if(direction==null||peek||!expanded){body.Visibility=resultLabel.Visibility=Visibility.Collapsed;newContent.Visibility=Visibility.Collapsed;return;}
         bool down=direction is GrowthDirection.RightDown or GrowthDirection.LeftDown or GrowthDirection.BalancedDown;
         int pad=dpi.CeilingPixels(16),top=down?anchor.Bottom+pad:rect.Top+pad,bottom=down?rect.Bottom-pad:anchor.Top-pad;
         double targetWidth=overlayFrames.TextWidthDip;
         int targetLeft=plan?.Target.Left??(direction is GrowthDirection.RightDown or GrowthDirection.RightUp?anchor.Left:direction is GrowthDirection.LeftDown or GrowthDirection.LeftUp?anchor.Right-dpi.CeilingPixels(targetWidth):anchor.Center.X-dpi.CeilingPixels(targetWidth)/2);
-        Canvas.SetLeft(body,dpi.Dips(targetLeft+pad-rect.Left));Canvas.SetTop(body,dpi.Dips(top-rect.Top));body.Width=Math.Max(1,targetWidth-32);body.Height=Math.Max(0,dpi.Dips(bottom-top));body.Opacity=overlayFrames.ContentOpacity;body.Visibility=body.Height>0?Visibility.Visible:Visibility.Collapsed;
+        double labelHeight=resultLabel.Text.Length>0?20:0;
+        Canvas.SetLeft(resultLabel,dpi.Dips(targetLeft+pad-rect.Left));Canvas.SetTop(resultLabel,dpi.Dips(top-rect.Top));resultLabel.Width=Math.Max(1,targetWidth-32);resultLabel.Height=labelHeight;resultLabel.Opacity=overlayFrames.ContentOpacity;resultLabel.Visibility=labelHeight>0&&bottom-top>dpi.CeilingPixels(labelHeight)?Visibility.Visible:Visibility.Collapsed;
+        Canvas.SetLeft(body,dpi.Dips(targetLeft+pad-rect.Left));Canvas.SetTop(body,dpi.Dips(top-rect.Top)+labelHeight);body.Width=Math.Max(1,targetWidth-32);body.Height=Math.Max(0,dpi.Dips(bottom-top)-labelHeight);body.Opacity=overlayFrames.ContentOpacity;body.Visibility=body.Height>0?Visibility.Visible:Visibility.Collapsed;
         Canvas.SetLeft(newContent,Math.Max(0,width-90));Canvas.SetTop(newContent,Math.Max(0,height-30));
     }
     private void DisposePresentation(){StopFrames();flush.Stop();peekIn.Stop();peekOut.Stop();waiting.Stop();overlayResults.Clear();body.Clear();measurement.Text="";}

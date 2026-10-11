@@ -1,0 +1,27 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.43]     KuaiYi.Provider.Tests.TextTranslationTests.PacedHttpDeltasDriveTheRealFrameAndResultControllers(protocol: AnthropicMessages) [FAIL]
+[xUnit.net 00:00:00.43]     KuaiYi.Provider.Tests.TextTranslationTests.PacedHttpDeltasDriveTheRealFrameAndResultControllers(protocol: OpenAIChat) [FAIL]
+  Failed KuaiYi.Provider.Tests.TextTranslationTests.PacedHttpDeltasDriveTheRealFrameAndResultControllers(protocol: AnthropicMessages) [1 ms]
+  Error Message:
+   System.ArgumentOutOfRangeException : Specified argument was out of the range of valid values. (Parameter 'factor')
+  Stack Trace:
+     at KuaiYi.Core.DpiScale..ctor(Double factor) in /workspace/KuaiYi/src/KuaiYi.Core/OverlayGeometry.cs:line 22
+   at KuaiYi.Provider.Tests.TextTranslationTests.PacedHttpDeltasDriveTheRealFrameAndResultControllers(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs:line 206
+   at KuaiYi.Provider.Tests.TextTranslationTests.PacedHttpDeltasDriveTheRealFrameAndResultControllers(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs:line 217
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.TextTranslationTests.PacedHttpDeltasDriveTheRealFrameAndResultControllers(protocol: OpenAIChat) [< 1 ms]
+  Error Message:
+   System.ArgumentOutOfRangeException : Specified argument was out of the range of valid values. (Parameter 'factor')
+  Stack Trace:
+     at KuaiYi.Core.DpiScale..ctor(Double factor) in /workspace/KuaiYi/src/KuaiYi.Core/OverlayGeometry.cs:line 22
+   at KuaiYi.Provider.Tests.TextTranslationTests.PacedHttpDeltasDriveTheRealFrameAndResultControllers(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs:line 206
+   at KuaiYi.Provider.Tests.TextTranslationTests.PacedHttpDeltasDriveTheRealFrameAndResultControllers(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs:line 217
+--- End of stack trace from previous location ---
+Results File: /tmp/kuaiyi-text-tests/text-fifth.trx
+
+Failed!  - Failed:     2, Passed:    47, Skipped:     0, Total:    49, Duration: 1 s - KuaiYi.Provider.Tests.dll (net10.0)

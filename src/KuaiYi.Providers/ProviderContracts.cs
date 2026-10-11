@@ -70,7 +70,7 @@ public static class PromptBuilder
     public static string Build(string style, string domain = "", string readerBackground = "")
     {
         if (style is not ("faithful" or "plain" or "professional" or "explain")) throw new ArgumentException("Unknown style.");
-        if (domain.Length > 2000 || readerBackground.Length > 2000) throw new ArgumentException("Prompt context too large.");
+        if (domain.Length > 2000 || readerBackground.Length > 2048) throw new ArgumentException("Prompt context too large.");
         return Read("base") + "\n" + Read(style).Replace("{{domain}}", domain, StringComparison.Ordinal)
             .Replace("{{reader_background}}", readerBackground, StringComparison.Ordinal);
     }

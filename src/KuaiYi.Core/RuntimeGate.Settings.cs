@@ -9,6 +9,8 @@ public sealed partial class RuntimeGate
     private bool HasSendBindingLocked()=>!requireProfileBinding||activeProfileBinding is {} binding&&profileBindings.TryGetValue(binding.ProfileId,out var current)&&current==binding;
     public bool TryGetProfileBinding(string profileId,out RequestProfileBinding binding)
     {lock(sync){binding=default;return !string.IsNullOrEmpty(profileId)&&profileBindings.TryGetValue(profileId,out binding);}}
+    public bool IsRequestProfileBindingCurrent(RequestIdentity identity,RequestProfileBinding binding)
+    {lock(sync)return CanApply(identity)&&activeProfileBinding==binding&&profileBindings.TryGetValue(binding.ProfileId,out var current)&&current==binding;}
     public bool TryStartProfileRequest(RequestProfileBinding binding,Guid sessionId,Guid versionId,CaptureTicket? passiveTicket,
         out RequestIdentity identity,out CancellationToken cancellation)
         =>TryStartRequestCore(sessionId,versionId,passiveTicket,binding,out identity,out cancellation);

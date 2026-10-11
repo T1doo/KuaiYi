@@ -321,3 +321,9 @@ P3-04最后复核补未知UIA状态带CopyEvidence的真实child反例：原6项
 93b538a尚未签收：当前epoch在Pressed才捕获不能隔离积压WM_HOTKEY，热键Commit异常也曾跳过已提交profile失效通知。生命周期红测33项32失败/1通过，通知红测6失败，等待原Commit的通知时序再红测2失败；原源码/断言/TRX保留。现在RuntimeGate状态变更锁内同步记录uptime/revision，Native Host按原GetMessageTime核验后携带不可变身份入UI，取词/截图入场继续核验；On不改原epoch也推进独立revision。隐藏截图首按仅显示，下一新按键框选，完整P6未接。已发布设置先通知全部安全订阅者再等待原Commit任务，错误和journal保留、磁盘不假回滚；A取消而共享B保留，原任务仍阻止草稿释放。故障围栏恢复成功须验证自有准备绑定后才清除faulted。
 
 最终155专项（99原有+56新）、Core1204+Provider77=1281/1281、Node63/63、27工程locked Release零警告/错误。全部原1148Core/77Provider名称和27锁保留。18旧包最终摘要核验；14历史精确commit摘要包含未签收93b，字节审查不代表签收；旧误覆盖后恢复事故继续记录。P0/E06 Blocked，P1/P2/P3 InProgress，176追踪/106整体NotRun；Native输入队列/时钟/实际占用、WindowsUI/跨应用/DPI/安装/远端CI仍NotRun，不推进P4，无安装/扩权/真实调用。详见[p3-hotkey-admission-review.md](p3-hotkey-admission-review.md)、[补测清单](p3-hotkey-admission-windows-checklist.md)与[summary](test-evidence/2026-10-11-hotkey-admission-summary.json)。
+
+## P3-06 文字快照至 Provider/流式浮窗限定接线
+
+基线561ee577获父限定放行后接生产调度：真实 UIA/复制/Drop 来源快照、原始 ticket/settings/profile、四模板、每次 HTTP 最终来源与身份检查、UI 事件原身份、latest-wins/取消、Unicode 软限额明确确认和硬限额拒绝、语义去重/零调用回看、旧快照重生成与当前设置重翻译、三版本及失败回滚。连续替换的元数据在生成期间最多四个/结束最多三个；锁屏退出内存释放。显式本地测试命令独立临时配置、无真实 key、可见测试标识，正常启动无 Mock。
+
+新66用例（Provider54/Core12），最终Core1216+Provider131=1347/1347、Node63，27工程locked Release零警告/错误；真实测试 HTTP/AES 临时密文与 fake采集端口各自注明。早期编译/7与2实际测试失败保留，修正fixture与读取方式，未弱化断言。源码/测试最终回归后未改；仅App/GrowthHarness锁加项目引用，无新NuGet/安装。独立新审查包和19旧包/15精确commit历史核验。窗口原生/焦点/跨应用/多屏DPI/动效/DPAPI/安装/远端CI未验；P0/E06 Blocked，P1/P2/P3 InProgress，176追踪/106整体NotRun。没有真实密钥读取、付费/真实模型、部署或新法律协议。详见p3-text-translation-review.md、ADR0015、Windows清单及本轮summary。
