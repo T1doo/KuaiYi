@@ -98,3 +98,5 @@ P3-04限定源实现：默认关闭/完整路径逐应用授权、真实STA有�
 最终155专项（99原有+56新）、Core1204+Provider77=1281/1281、Node63/63、27工程locked Release零警告/错误。全部原1148Core/77Provider名称和27锁保留。18旧包最终摘要核验；14历史精确commit摘要包含未签收93b，字节审查不代表签收；旧误覆盖后恢复事故继续记录。P0/E06 Blocked，P1/P2/P3 InProgress，176追踪/106整体NotRun；Native输入队列/时钟/实际占用、WindowsUI/跨应用/DPI/安装/远端CI仍NotRun，不推进P4，无安装/扩权/真实调用。详见[p3-hotkey-admission-review.md](p3-hotkey-admission-review.md)、[补测清单](p3-hotkey-admission-windows-checklist.md)与[summary](test-evidence/2026-10-11-hotkey-admission-summary.json)。
 
 P3-06 生产接线限定验证：66 新用例、Core1216+Provider131=1347、Node63，27 locked Release；来自受控采集端口的生产快照协调器→真实 loopback Provider→纯结果/Frames 可验证，WPF/native/跨应用/焦点/多 DPI 尚 NotRun。176 追踪项/106 整体验收仍 NotRun，P0/E06 Blocked，P1/P2/P3 InProgress；不把本轮当 P4 Alpha 或真实模型质量验收。见 p3-text-translation-review.md 与本轮 summary。
+
+测试模式边界父审修复限定证据：旧25新反例22失败/3通过，修后39专项均通过；完整Core1216+Provider170=1386、Node63、27 locked Release。旧测试名/断言保留、27锁/原规格不变。其他父审仍未完，Windows/完整P3/P4/106整体不签收；见p3-text-boundary-review.md与本轮summary。

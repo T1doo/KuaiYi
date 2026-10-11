@@ -28,7 +28,8 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     private readonly Func<SelectionSourceSnapshot,bool,bool> sourceCurrent;
     private readonly ProviderClient provider;private readonly ProviderEventReceiver receiver;
     private readonly Func<RequestIdentity,TextTranslationSnapshot,CancellationToken,Task<SecretLease?>> openSecret;
-    private readonly Action<TextTranslationUpdate> changed;private readonly bool allowDevelopmentLoopback;
+    private readonly Action<TextTranslationUpdate> changed;private readonly DevelopmentTranslationBoundary? developmentBoundary;
+    private readonly Func<SettingsProfile,ApiProfile>? transportFactory;
     private readonly Dictionary<Guid,TextTranslationSnapshot> snapshots=[];
     private readonly HashSet<Task> jobs=[];private readonly object jobsSync=new();
     private TextTranslationOffer? offered,submitted;private bool disposed;private Exception? deliveryFailure;
@@ -41,12 +42,14 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
         Func<SelectionSourceSnapshot,bool,bool> sourceCurrent,ProviderClient provider,SynchronizationContext destination,
         OverlayResults results,Action<TextTranslationUpdate> changed,
         Func<RequestIdentity,TextTranslationSnapshot,CancellationToken,Task<SecretLease?>>? openSecret=null,
-        bool allowDevelopmentLoopback=false)
+        bool allowDevelopmentLoopback=false,DevelopmentTranslationBoundary? developmentBoundary=null,
+        Func<SettingsProfile,ApiProfile>? transportFactory=null)
     {
         this.gate=gate;this.settings=settings;this.sourceCurrent=sourceCurrent;this.provider=provider;
         receiver=new(gate,destination);Results=results;this.changed=changed;
         this.openSecret=openSecret??((_,_,_)=>throw new InvalidOperationException("Credential store unavailable."));
-        this.allowDevelopmentLoopback=allowDevelopmentLoopback;
+        this.developmentBoundary=developmentBoundary??(allowDevelopmentLoopback?DevelopmentTranslationBoundary.FromProfile(settings()?.Data.Profiles.FirstOrDefault(p=>p.Id==settings()?.Data.ActiveProfileId)??throw new ArgumentException("Initial test profile required.")):null);
+        this.transportFactory=transportFactory;
     }
     public TextTranslationSnapshot? SelectedSnapshot=>Results.SelectedVersionId is {} id&&snapshots.TryGetValue(id,out var value)?value:null;
     public bool IsOfferCurrent(TextTranslationOffer offer)=>!disposed&&ReferenceEquals(offered,offer);
@@ -55,6 +58,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     {
         LastRejection=null;offered=null;
         if(disposed||settings() is not {} config||config.ReadOnly||config.RequiresRecovery||config.Version!=source.SettingsVersion)return Reject("SETTINGS_CHANGED");
+        if(!DevelopmentSettingsAllowed(config))return Reject("TEST_BOUNDARY_REJECTED");
         if(!ValidText(source,config.Data.Translation.HardLimitScalars))return Reject("SOURCE_INVALID_OR_TOO_LARGE");
         if(SelectionTextPolicy.Excluded(source.Window,config.Data,(uint)Environment.ProcessId)||!sourceCurrent(source,explicitUse))return Reject("SOURCE_CHANGED_OR_EXCLUDED");
         if(!gate.TryBeginPassiveCapture(gate.Snapshot.Mode,out var ticket))return Reject("ENABLE_REQUIRED");
@@ -62,7 +66,8 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
         if(profile==null||!gate.TryGetProfileBinding(profile.Id,out var binding))return Reject("PROFILE_REQUIRED");
         try
         {
-            var transport=ProfileTransport(profile,allowDevelopmentLoopback);
+            var transport=transportFactory?.Invoke(profile)??ProfileTransport(profile,developmentBoundary!=null,developmentBoundary);
+            if(developmentBoundary!=null&&!developmentBoundary.Allows(transport))return Reject("TEST_BOUNDARY_REJECTED");
             string style=config.Data.Translation.Preset.ToString().ToLowerInvariant();
             var snapshot=new TextTranslationSnapshot(source,config,profile,binding,transport,
                 PromptBuilder.Build(style,config.Data.Translation.Domain,config.Data.Translation.ReaderBackground),$"base@1+{style}@1");
@@ -164,11 +169,19 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     private bool Eligible(TextTranslationSnapshot snapshot,bool explicitUse)
     {
         var current=settings();if(disposed||current==null||current.ReadOnly||current.RequiresRecovery||
+            !DevelopmentSettingsAllowed(current)||developmentBoundary!=null&&(!developmentBoundary.Allows(snapshot.Profile)||!developmentBoundary.Allows(snapshot.Transport))||
             !gate.TryGetProfileBinding(snapshot.Profile.Id,out var binding)||binding!=snapshot.Binding||
             !gate.HasConsentTo(new(snapshot.Transport.ResolveEndpoint()))||SelectionTextPolicy.Excluded(snapshot.Source.Window,current.Data,(uint)Environment.ProcessId))return false;
         if(snapshot.Source.SourceKind==SelectionSourceKind.Clipboard&&!ClipboardApplicationConsent.Allowed(snapshot.Source.Window.Executable,current.Data.Privacy))return false;
         return sourceCurrent(snapshot.Source,explicitUse);
     }
+    private bool DevelopmentSettingsAllowed(SettingsSnapshot current)
+    {
+        bool allowed=developmentBoundary==null||!current.ReadOnly&&!current.RequiresRecovery&&current.Data.Profiles.FirstOrDefault(p=>p.Id==current.Data.ActiveProfileId) is {} profile&&developmentBoundary.Allows(profile);
+        if(!allowed)gate.Disable();return allowed;
+    }
+    public void ObserveSettings(SettingsSnapshot current)=>DevelopmentSettingsAllowed(current);
+    public bool CanUseSettings(SettingsSnapshot current)=>DevelopmentSettingsAllowed(current);
     private void PruneSnapshots()
     {var retained=Results.RetainedVersionIds;foreach(var id in snapshots.Keys.Where(id=>!retained.Contains(id)).ToArray())snapshots.Remove(id);}
     public void Clear(){if(submitted?.Identity is {} id)gate.StopRequest(id);offered=submitted=null;snapshots.Clear();Results.Clear();}
@@ -187,15 +200,17 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
         int scalars=0;for(int i=0;i<source.Text.Length;i++,scalars++){char c=source.Text[i];if(char.IsHighSurrogate(c)){if(++i>=source.Text.Length||!char.IsLowSurrogate(source.Text[i]))return false;}else if(char.IsLowSurrogate(c))return false;}
         return scalars==source.Scalars&&scalars<=hardLimit&&scalars<=50000;
     }
-    public static ApiProfile ProfileTransport(SettingsProfile profile,bool allowDevelopmentLoopback=false)
+    public static ApiProfile ProfileTransport(SettingsProfile profile,bool allowDevelopmentLoopback=false,DevelopmentTranslationBoundary? developmentBoundary=null)
     {
+        var boundary=developmentBoundary??(allowDevelopmentLoopback?DevelopmentTranslationBoundary.FromProfile(profile):null);
+        if(boundary!=null&&!boundary.Allows(profile))throw new ArgumentException("Test profile outside authorization.");
         var protocol=profile.Protocol==KuaiYi.Core.Settings.ApiProtocol.OpenAIChat?ApiProtocol.OpenAIChat:ApiProtocol.AnthropicMessages;
         var uri=new Uri(profile.BaseUrl,UriKind.Absolute);
         string endpoint=profile.AddressMode==ApiAddressMode.ExactEndpoint?uri.AbsoluteUri:protocol==ApiProtocol.OpenAIChat?"chat/completions":"messages";
         string version=profile.Headers.GetValueOrDefault("anthropic-version","2023-06-01");
         var result=new ApiProfile(protocol,uri,endpoint,profile.Model,profile.Authentication switch{ApiAuthentication.None=>Authentication.None,ApiAuthentication.ApiKey=>Authentication.ApiKey,_=>Authentication.Bearer},
             protocol==ApiProtocol.AnthropicMessages?OutputLimitParameter.MaxTokens:OutputLimitParameter.MaxCompletionTokens,profile.MaxOutputTokens,
-            profile.Streaming&&profile.Capabilities.Streaming!=Capability.Unsupported,allowDevelopmentLoopback,version);
+            profile.Streaming&&profile.Capabilities.Streaming!=Capability.Unsupported,boundary!=null,version,boundary);
         _=result.ResolveEndpoint();return result;
     }
 }

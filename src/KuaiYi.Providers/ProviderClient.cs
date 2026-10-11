@@ -12,12 +12,16 @@ namespace KuaiYi.Providers;
 public sealed class ProviderClient : IDisposable
 {
     public const int MaximumOutputCodeUnits = 120_000;
-    private readonly HttpClient client = new(new SocketsHttpHandler
+    private readonly DevelopmentTranslationBoundary? developmentBoundary;
+    private readonly HttpClient client;
+    public ProviderClient(DevelopmentTranslationBoundary? developmentBoundary=null)
+    {this.developmentBoundary=developmentBoundary;client=CreateClient(developmentBoundary);}
+    private static HttpClient CreateClient(DevelopmentTranslationBoundary? boundary)
     {
-        AllowAutoRedirect = false,
-        ConnectTimeout = TimeSpan.FromSeconds(10),
-        MaxResponseHeadersLength = 64
-    }) { Timeout = Timeout.InfiniteTimeSpan };
+        var handler=new SocketsHttpHandler{AllowAutoRedirect=false,ConnectTimeout=TimeSpan.FromSeconds(10),MaxResponseHeadersLength=64};
+        if(boundary!=null){handler.UseProxy=false;handler.UseCookies=false;handler.ConnectCallback=boundary.ConnectAsync;}
+        return new(handler){Timeout=Timeout.InfiniteTimeSpan};
+    }
 
     /// <summary>Low-level transport. Caller owns cancellation; product consumption uses GenerateEnvelopesAsync and ProviderEventReceiver.</summary>
     public async IAsyncEnumerable<ModelEvent> GenerateAsync(TranslationRequest request, RuntimeGate gate,
@@ -26,6 +30,12 @@ public sealed class ProviderClient : IDisposable
         ArgumentNullException.ThrowIfNull(request);
         ArgumentNullException.ThrowIfNull(gate);
         if (!gate.CanApply(identity)) yield break;
+        // The client boundary is fixed at startup. Removing/changing a record marker cannot widen it.
+        var boundary=developmentBoundary??request.Profile.DevelopmentBoundary;
+        if(boundary!=null&&!boundary.Allows(request.Profile,secret))
+        {if(gate.CanApply(identity))yield return new(ModelEventKind.Failed,Reason:"TEST_BOUNDARY_REJECTED");yield break;}
+        using var pinnedTransport=developmentBoundary==null&&boundary!=null?CreateClient(boundary):null;
+        var transport=pinnedTransport??client;
         Uri endpoint;
         IProtocolAdapter adapter;
         HttpRequestMessage message;
@@ -47,14 +57,16 @@ public sealed class ProviderClient : IDisposable
             string? sendError = null;
             for (int attempt = 0; attempt < 2; attempt++)
             {
+                if(boundary!=null&&!boundary.Allows(request.Profile,secret)){sendError="TEST_BOUNDARY_REJECTED";break;}
                 using var headersDeadline = CancellationTokenSource.CreateLinkedTokenSource(total.Token);
                 headersDeadline.CancelAfter(TimeSpan.FromSeconds(30));
                 try
                 {
                     // Each attempt obtains fresh content and headers, with no credentials on DefaultRequestHeaders.
                     using HttpRequestMessage outgoing = CreateMessage(request, adapter, endpoint, secret);
-                    if (!gate.TryBeginSend(identity, new EndpointOrigin(endpoint), sendAdmission??(static()=>true),
-                        () => client.SendAsync(outgoing, HttpCompletionOption.ResponseHeadersRead, headersDeadline.Token), out var pending))
+                    bool FinalAdmission()=> (boundary==null||boundary.Allows(request.Profile,secret))&&(sendAdmission?.Invoke()??true)&&(boundary==null||boundary.Allows(request.Profile,secret));
+                    if (!gate.TryBeginSend(identity, new EndpointOrigin(endpoint), FinalAdmission,
+                        () => transport.SendAsync(outgoing, HttpCompletionOption.ResponseHeadersRead, headersDeadline.Token), out var pending))
                     { sendError = "CANCELLED_OR_UNCONSENTED"; break; }
                     response = await pending!.ConfigureAwait(false);
                     if (!gate.CanApply(identity)) { sendError = "STALE_IDENTITY"; break; }

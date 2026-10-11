@@ -121,3 +121,5 @@ Shell TextDropFlow→OleReceiverClient→真实私有ReceiverHost/NativeDropTarg
 最终155专项（99原有+56新）、Core1204+Provider77=1281/1281、Node63/63、27工程locked Release零警告/错误。全部原1148Core/77Provider名称和27锁保留。18旧包最终摘要核验；14历史精确commit摘要包含未签收93b，字节审查不代表签收；旧误覆盖后恢复事故继续记录。P0/E06 Blocked，P1/P2/P3 InProgress，176追踪/106整体NotRun；Native输入队列/时钟/实际占用、WindowsUI/跨应用/DPI/安装/远端CI仍NotRun，不推进P4，无安装/扩权/真实调用。详见[p3-hotkey-admission-review.md](p3-hotkey-admission-review.md)、[补测清单](p3-hotkey-admission-windows-checklist.md)与[summary](test-evidence/2026-10-11-hotkey-admission-summary.json)。
 
 P3-06：TextTranslationCoordinator 连接实际来源快照、绑定、模板、每次发送最终检查、目的队列与 OverlayResults/Frames。自动发送要求来源前台仍可信；主动确认/重生成验证保留来源身份。失败回滚与来源字典按当前/回滚引用裁剪。真实临时 AES fixture 租约测试不证明 Windows DPAPI。正式项目不引用 Mock，只有显式测试入口使用隔离配置。详见 [ADR0015](adr/0015-text-translation-scheduling.md)。
+
+P3-06 父审补正：显式命令原 URL 的不可变 DevelopmentTranslationBoundary 同时约束快照、当前设置、重生成/确认、实际每次发送及 client 连接；无认证/secretRef/custom headers，固定 fixture 模型。标签采用有效授权证明。代理/cookies关闭，IP/端口固定，不做DNS回落；普通 Provider 不被 Mock 替代。详见p3-text-boundary-review.md与ADR0015补正。

@@ -8,10 +8,10 @@ internal sealed partial class ShellWindow
 {
     private ProviderClient? translationProvider;private TextTranslationCoordinator? translation;
     private string? translationStatus;
-    private void SetupTranslation(bool developmentLoopback)
+    private void SetupTranslation(DevelopmentTranslationBoundary? developmentBoundary)
     {
         if(!enableSelectionPlatform)return; // Public growth harness never acquires text or calls HTTP.
-        translationProvider=new();
+        translationProvider=new(developmentBoundary);
         translation=new(lifecycle.Gate,()=>lifecycle.Settings,
             (source,explicitUse)=>explicitUse?SelectionDesktop.IsRetainedSourceCurrent(source.Window):SelectionDesktop.IsCurrent(source.Window),
             translationProvider,new DispatcherSynchronizationContext(Dispatcher),overlayResults,TranslationChanged,
@@ -19,7 +19,7 @@ internal sealed partial class ShellWindow
             {
                 using var encryptedLease=await coordinator.OpenRequestSecretAsync(lifecycle.Gate,identity,snapshot.Binding,new(snapshot.Transport.ResolveEndpoint()),cancellation).ConfigureAwait(false);
                 return new KuaiYi.Providers.SecretLease(encryptedLease.Bytes.Span);
-            },developmentLoopback);
+            },developmentBoundary:developmentBoundary);
     }
     private void QueueTranslation(SelectionSourceSnapshot source)
     {
@@ -57,20 +57,20 @@ internal sealed partial class ShellWindow
     {
         if(exiting)return;
         var snapshot=update.Snapshot;
-        translationStatus=update.Failure==null?$"{(snapshot.Transport.AllowLoopbackHttp?"本地测试输出 · ":"")}{StyleLabel(snapshot)} · {SourceLabel(snapshot)} · {snapshot.Profile.Model}":$"翻译失败 · {FailureLabel(update.Failure)}；旧结果可回看";
+        translationStatus=update.Failure==null?$"{(snapshot.Transport.IsDevelopmentFixture?"本地测试输出 · ":"")}{StyleLabel(snapshot)} · {SourceLabel(snapshot)} · {snapshot.Profile.Model}":$"翻译失败 · {FailureLabel(update.Failure)}；旧结果可回看";
         ApplyResult(update.Identity,update.Presentation,alreadyApplied:true);
         RefreshResultLabel();button.ToolTip=translationStatus;
     }
     private void RefreshResultLabel()
     {
         var snapshot=translation?.SelectedSnapshot;
-        resultLabel.Text=snapshot==null?"":$"{(snapshot.Transport.AllowLoopbackHttp?"本地测试输出 · ":"")}{StyleLabel(snapshot)} · {SourceLabel(snapshot)} · {snapshot.Profile.Model}";
+        resultLabel.Text=snapshot==null?"":$"{(snapshot.Transport.IsDevelopmentFixture?"本地测试输出 · ":"")}{StyleLabel(snapshot)} · {SourceLabel(snapshot)} · {snapshot.Profile.Model}";
         resultLabel.ToolTip=snapshot==null?null:$"沿用此版本的配置 · {new EndpointOrigin(snapshot.Transport.ResolveEndpoint()).Value}";
         foreach(var tool in tools)if(Equals(tool.Content,"重新生成"))tool.IsEnabled=lifecycle.Gate.Snapshot.Activation==Activation.On&&snapshot!=null;
     }
     private static string StyleLabel(TextTranslationSnapshot value)=>value.Settings.Data.Translation.Preset switch{KuaiYi.Core.Settings.TranslationPreset.Faithful=>"忠实翻译",KuaiYi.Core.Settings.TranslationPreset.Plain=>"通俗翻译",KuaiYi.Core.Settings.TranslationPreset.Professional=>"专业翻译",_=>"解释"};
     private static string SourceLabel(TextTranslationSnapshot value)=>value.Source.SourceKind switch{SelectionSourceKind.Clipboard=>"复制兼容",SelectionSourceKind.OleDrop=>"拖放文字",_=>"选区"};
-    private static string FailureLabel(string reason)=>reason switch{"AUTH_FAILED" or "SECRET_UNAVAILABLE"=>"密钥不可用，请检查设置","REQUEST_TIMEOUT"=>"服务响应超时","NETWORK_ERROR" or "TLS_ERROR"=>"无法连接服务","RATE_LIMITED"=>"服务限流，请稍后重试","ENDPOINT_NOT_FOUND" or "CONFIG_INVALID"=>"服务配置无效","CANCELLED_OR_UNCONSENTED" or "SOURCE_OR_SETTINGS_CHANGED"=>"来源或授权已改变","STREAM_INTERRUPTED"=>"输出中断","LOCAL_OUTPUT_LIMIT"=>"输出超过本地安全上限",_=>"请求未完成，请检查服务设置"};
+    private static string FailureLabel(string reason)=>reason switch{"AUTH_FAILED" or "SECRET_UNAVAILABLE"=>"密钥不可用，请检查设置","REQUEST_TIMEOUT"=>"服务响应超时","NETWORK_ERROR" or "TLS_ERROR"=>"无法连接服务","RATE_LIMITED"=>"服务限流，请稍后重试","ENDPOINT_NOT_FOUND" or "CONFIG_INVALID"=>"服务配置无效","TEST_BOUNDARY_REJECTED"=>"测试配置越出本地授权边界，已拒绝发送","CANCELLED_OR_UNCONSENTED" or "SOURCE_OR_SETTINGS_CHANGED"=>"来源或授权已改变","STREAM_INTERRUPTED"=>"输出中断","LOCAL_OUTPUT_LIMIT"=>"输出超过本地安全上限",_=>"请求未完成，请检查服务设置"};
     private async Task StopTranslation()
     {
         var owned=translation;translation=null;

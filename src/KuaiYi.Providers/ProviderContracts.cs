@@ -14,9 +14,17 @@ public sealed record ModelEventEnvelope(RequestIdentity Identity, ModelEvent Eve
 
 public sealed record ApiProfile(ApiProtocol Protocol, Uri BaseUrl, string Endpoint, string Model,
     Authentication Authentication, OutputLimitParameter OutputLimit = OutputLimitParameter.MaxCompletionTokens,
-    int MaxOutputTokens = 4096, bool Stream = true, bool AllowLoopbackHttp = false, string AnthropicVersion = "2023-06-01")
+    int MaxOutputTokens = 4096, bool Stream = true, bool AllowLoopbackHttp = false, string AnthropicVersion = "2023-06-01",
+    DevelopmentTranslationBoundary? DevelopmentBoundary = null)
 {
+    public bool IsDevelopmentFixture=>DevelopmentBoundary?.Allows(this)==true;
     public Uri ResolveEndpoint()
+    {
+        var endpoint=ResolveEndpointCore();
+        if(DevelopmentBoundary is {} boundary&&!boundary.AllowsEndpoint(this,endpoint))throw new ArgumentException("Test transport outside authorization.");
+        return endpoint;
+    }
+    private Uri ResolveEndpointCore()
     {
         if (!Enum.IsDefined(Protocol) || !Enum.IsDefined(Authentication) || !Enum.IsDefined(OutputLimit) ||
             string.IsNullOrWhiteSpace(Model) || Model.Length > 512 || MaxOutputTokens is < 1 or > 131072)

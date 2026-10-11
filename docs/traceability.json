@@ -238,9 +238,12 @@
       "evidence": [
         "docs/p3-text-translation-review.md",
         "docs/p3-text-translation-windows-checklist.md",
-        "docs/test-evidence/2026-10-11-text-translation-summary.json"
+        "docs/test-evidence/2026-10-11-text-translation-summary.json",
+        "docs/p3-text-boundary-review.md",
+        "docs/p3-text-boundary-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-text-boundary-summary.json"
       ],
-      "note": " P3-06 production source snapshot to real protocol and streaming overlay wired;66 new portable/test-HTTP cases. Explicit local fixture mode labeled/isolated, no real model/key. Windows capture/focus/animation/native/whole case NotRun; full P3/P4 not passed."
+      "note": " P3-06 production source snapshot to real protocol and streaming overlay wired;66 new portable/test-HTTP cases. Explicit local fixture mode labeled/isolated, no real model/key. Windows capture/focus/animation/native/whole case NotRun; full P3/P4 not passed. P3-06 parent test-mode boundary blocker corrected: immutable startup fixture authorization, no credentials, every admission/send and pinned client check, proof-based label;39 portable production/real loopback cases. Other supervisory review and all Windows/whole cases remain pending."
     },
     {
       "id": "R12",
@@ -333,9 +336,12 @@
         "docs/test-evidence/2026-10-11-image-ui-summary.json",
         "docs/p3-text-translation-review.md",
         "docs/p3-text-translation-windows-checklist.md",
-        "docs/test-evidence/2026-10-11-text-translation-summary.json"
+        "docs/test-evidence/2026-10-11-text-translation-summary.json",
+        "docs/p3-text-boundary-review.md",
+        "docs/p3-text-boundary-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-text-boundary-summary.json"
       ],
-      "note": "Offline subitems only, including obsolete error and destination queue identity checks; whole product requirement/task is not Pass. Image UI now uses shared RuntimeGate/queued complete identity; actual background process start and late-start cleanup tested on Linux only. Windows product acceptance NotRun. P3 source acquisition production wiring: reuse actual MTA GetSelection Broker, bounded physical gesture queue/debounce, source/selection identities, final destination ticket/config check, 600ms held-child deadline and cooldown.50 portable/process cases added; real Windows UIA/mouse/compatibility NotRun. Copy consent/full hotkey/OLE text drop/P4 dispatcher not delivered; whole case/stage not passed. P3 review fixes: frozen birth ticket/config/hookId + callback HWND/PID/time, production raw-channel and UI-dispatch bridge rejects obsolete input, old hooks replaced; abandoned completed read always observed/zeroed.22 additional portable cases; Windows and whole acceptance remain NotRun. Absolute deadline follow-up: one monotonic capture origin across startup/reads/exit/final validation, token checked after completed reads before ownership delivery;15 additional cases. Relative timer alone was insufficient; Windows/whole cases still NotRun. P3-06 production source snapshot to real protocol and streaming overlay wired;66 new portable/test-HTTP cases. Explicit local fixture mode labeled/isolated, no real model/key. Windows capture/focus/animation/native/whole case NotRun; full P3/P4 not passed."
+      "note": "Offline subitems only, including obsolete error and destination queue identity checks; whole product requirement/task is not Pass. Image UI now uses shared RuntimeGate/queued complete identity; actual background process start and late-start cleanup tested on Linux only. Windows product acceptance NotRun. P3 source acquisition production wiring: reuse actual MTA GetSelection Broker, bounded physical gesture queue/debounce, source/selection identities, final destination ticket/config check, 600ms held-child deadline and cooldown.50 portable/process cases added; real Windows UIA/mouse/compatibility NotRun. Copy consent/full hotkey/OLE text drop/P4 dispatcher not delivered; whole case/stage not passed. P3 review fixes: frozen birth ticket/config/hookId + callback HWND/PID/time, production raw-channel and UI-dispatch bridge rejects obsolete input, old hooks replaced; abandoned completed read always observed/zeroed.22 additional portable cases; Windows and whole acceptance remain NotRun. Absolute deadline follow-up: one monotonic capture origin across startup/reads/exit/final validation, token checked after completed reads before ownership delivery;15 additional cases. Relative timer alone was insufficient; Windows/whole cases still NotRun. P3-06 production source snapshot to real protocol and streaming overlay wired;66 new portable/test-HTTP cases. Explicit local fixture mode labeled/isolated, no real model/key. Windows capture/focus/animation/native/whole case NotRun; full P3/P4 not passed. P3-06 parent test-mode boundary blocker corrected: immutable startup fixture authorization, no credentials, every admission/send and pinned client check, proof-based label;39 portable production/real loopback cases. Other supervisory review and all Windows/whole cases remain pending."
     },
     {
       "id": "R17",
@@ -799,9 +805,12 @@
       "evidence": [
         "docs/p3-text-translation-review.md",
         "docs/p3-text-translation-windows-checklist.md",
-        "docs/test-evidence/2026-10-11-text-translation-summary.json"
+        "docs/test-evidence/2026-10-11-text-translation-summary.json",
+        "docs/p3-text-boundary-review.md",
+        "docs/p3-text-boundary-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-text-boundary-summary.json"
       ],
-      "note": " P3 source acquisition production wiring: reuse actual MTA GetSelection Broker, bounded physical gesture queue/debounce, source/selection identities, final destination ticket/config check, 600ms held-child deadline and cooldown.50 portable/process cases added; real Windows UIA/mouse/compatibility NotRun. Copy consent/full hotkey/OLE text drop/P4 dispatcher not delivered; whole case/stage not passed. P3 review fixes: frozen birth ticket/config/hookId + callback HWND/PID/time, production raw-channel and UI-dispatch bridge rejects obsolete input, old hooks replaced; abandoned completed read always observed/zeroed.22 additional portable cases; Windows and whole acceptance remain NotRun. Absolute deadline follow-up: one monotonic capture origin across startup/reads/exit/final validation, token checked after completed reads before ownership delivery;15 additional cases. Relative timer alone was insufficient; Windows/whole cases still NotRun. P3-06 production source snapshot to real protocol and streaming overlay wired;66 new portable/test-HTTP cases. Explicit local fixture mode labeled/isolated, no real model/key. Windows capture/focus/animation/native/whole case NotRun; full P3/P4 not passed."
+      "note": " P3 source acquisition production wiring: reuse actual MTA GetSelection Broker, bounded physical gesture queue/debounce, source/selection identities, final destination ticket/config check, 600ms held-child deadline and cooldown.50 portable/process cases added; real Windows UIA/mouse/compatibility NotRun. Copy consent/full hotkey/OLE text drop/P4 dispatcher not delivered; whole case/stage not passed. P3 review fixes: frozen birth ticket/config/hookId + callback HWND/PID/time, production raw-channel and UI-dispatch bridge rejects obsolete input, old hooks replaced; abandoned completed read always observed/zeroed.22 additional portable cases; Windows and whole acceptance remain NotRun. Absolute deadline follow-up: one monotonic capture origin across startup/reads/exit/final validation, token checked after completed reads before ownership delivery;15 additional cases. Relative timer alone was insufficient; Windows/whole cases still NotRun. P3-06 production source snapshot to real protocol and streaming overlay wired;66 new portable/test-HTTP cases. Explicit local fixture mode labeled/isolated, no real model/key. Windows capture/focus/animation/native/whole case NotRun; full P3/P4 not passed. P3-06 parent test-mode boundary blocker corrected: immutable startup fixture authorization, no credentials, every admission/send and pinned client check, proof-based label;39 portable production/real loopback cases. Other supervisory review and all Windows/whole cases remain pending."
     },
     {
       "id": "P4-01",
@@ -852,9 +861,12 @@
       "evidence": [
         "docs/p3-text-translation-review.md",
         "docs/p3-text-translation-windows-checklist.md",
-        "docs/test-evidence/2026-10-11-text-translation-summary.json"
+        "docs/test-evidence/2026-10-11-text-translation-summary.json",
+        "docs/p3-text-boundary-review.md",
+        "docs/p3-text-boundary-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-text-boundary-summary.json"
       ],
-      "note": " P3-06 production source snapshot to real protocol and streaming overlay wired;66 new portable/test-HTTP cases. Explicit local fixture mode labeled/isolated, no real model/key. Windows capture/focus/animation/native/whole case NotRun; full P3/P4 not passed."
+      "note": " P3-06 production source snapshot to real protocol and streaming overlay wired;66 new portable/test-HTTP cases. Explicit local fixture mode labeled/isolated, no real model/key. Windows capture/focus/animation/native/whole case NotRun; full P3/P4 not passed. P3-06 parent test-mode boundary blocker corrected: immutable startup fixture authorization, no credentials, every admission/send and pinned client check, proof-based label;39 portable production/real loopback cases. Other supervisory review and all Windows/whole cases remain pending."
     },
     {
       "id": "P4-05",
@@ -886,9 +898,12 @@
       "evidence": [
         "docs/p3-text-translation-review.md",
         "docs/p3-text-translation-windows-checklist.md",
-        "docs/test-evidence/2026-10-11-text-translation-summary.json"
+        "docs/test-evidence/2026-10-11-text-translation-summary.json",
+        "docs/p3-text-boundary-review.md",
+        "docs/p3-text-boundary-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-text-boundary-summary.json"
       ],
-      "note": " P3-06 production source snapshot to real protocol and streaming overlay wired;66 new portable/test-HTTP cases. Explicit local fixture mode labeled/isolated, no real model/key. Windows capture/focus/animation/native/whole case NotRun; full P3/P4 not passed."
+      "note": " P3-06 production source snapshot to real protocol and streaming overlay wired;66 new portable/test-HTTP cases. Explicit local fixture mode labeled/isolated, no real model/key. Windows capture/focus/animation/native/whole case NotRun; full P3/P4 not passed. P3-06 parent test-mode boundary blocker corrected: immutable startup fixture authorization, no credentials, every admission/send and pinned client check, proof-based label;39 portable production/real loopback cases. Other supervisory review and all Windows/whole cases remain pending."
     },
     {
       "id": "P5-01",

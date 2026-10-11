@@ -22,14 +22,14 @@ internal sealed partial class ShellWindow:Window
     private SettingsWindow? settings;private Task startup=Task.CompletedTask,positionSave=Task.CompletedTask;private bool opening,exiting,allowClose,placementPending,geometryReady;
     private OverlayPosition? pendingPosition;private bool pointerFinished,exitRequested,positionTouched;private MonitorGeometry? anchorMonitor;
     private readonly bool enableSelectionPlatform;
-    public ShellWindow(string instanceScope,SettingsCoordinator? suppliedCoordinator=null,bool enableSelectionPlatform=true,bool developmentLoopback=false)
+    public ShellWindow(string instanceScope,SettingsCoordinator? suppliedCoordinator=null,bool enableSelectionPlatform=true,KuaiYi.Providers.DevelopmentTranslationBoundary? developmentBoundary=null)
     {
         this.enableSelectionPlatform=enableSelectionPlatform;
         string root=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"KuaiYi");
         coordinator=suppliedCoordinator??new(new SettingsStore(Path.Combine(root,"config")),new SecretFileStore(Path.Combine(root,"secrets"),new CurrentUserDpapiProtector(),new CurrentUserSecretDirectory()));
         lifecycle=new(coordinator);showMessage=NativeTray.ShowMessage(instanceScope);
         Title="快译";Width=Height=48;WindowStyle=WindowStyle.None;ResizeMode=ResizeMode.NoResize;ShowInTaskbar=false;ShowActivated=false;Topmost=true;
-        SetupPresentation();SetupTranslation(developmentLoopback);AutomationProperties.SetName(button,"快译：未启用翻译");button.ToolTip="未启用翻译 · 右键打开设置";
+        SetupPresentation();SetupTranslation(developmentBoundary);AutomationProperties.SetName(button,"快译：未启用翻译");button.ToolTip="未启用翻译 · 右键打开设置";
         var menu=new ContextMenu();Add("启用 / 停用翻译",Toggle);Add("回看当前结果",ReopenResult);Add("收起",CollapseResult);Add("停止生成",StopResult);Add("复制结果",CopyResult);Add("设置",()=>_=OpenSettings());Add("更多操作及版本",()=>OpenOverflowMenu(button));Add("隐藏浮窗（同时停用）",HideOverlay);Add("聚焦浮窗",FocusOverlay);Add("退出",Close);
         Add("读取当前选区",()=>_=ObserveSelection(ReadCurrentSelection()));Add("重新生成",()=>RegenerateResult());Add("按当前设置重新翻译",()=>RegenerateResult(true));Add("查看已读取原文",ShowSelectionSource);button.ContextMenu=menu;menu.Closed+=(_,_)=>PresentationMenuClosed();
         void Add(string text,Action action){var item=new MenuItem{Header=text};item.Click+=(_,_)=>action();menu.Items.Add(item);}
@@ -77,12 +77,13 @@ internal sealed partial class ShellWindow:Window
         catch(OperationCanceledException)when(lifetime.IsCancellationRequested){ /* Owned exit waits for startup settlement. */ }
         catch(Exception error){Report("配置无法加载，原文件保留；请打开设置恢复",error);}
     }
-    private void SettingsCommitted(SettingsSnapshot saved,SettingsChange __){if(globalHotkeys!=null)globalHotkeys.ReconcileAsync(saved).WaitAsync(TimeSpan.FromSeconds(2)).GetAwaiter().GetResult();selectionCapture?.CancelPending();RevokeTextDrop();Dispatcher.BeginInvoke(()=>{if(!exiting)Refresh();});}
+    private void SettingsCommitted(SettingsSnapshot saved,SettingsChange __){translation?.ObserveSettings(saved);if(globalHotkeys!=null)globalHotkeys.ReconcileAsync(saved).WaitAsync(TimeSpan.FromSeconds(2)).GetAwaiter().GetResult();selectionCapture?.CancelPending();RevokeTextDrop();Dispatcher.BeginInvoke(()=>{if(!exiting)Refresh();});}
     private void Toggle()
     {
         if(exiting)return;
         if(!IsVisible)ShowOverlay();if(!IsVisible)return;
         if(lifecycle.Gate.Snapshot.Activation==Activation.On){lifecycle.Gate.Disable();StopPresentation();Refresh();return;}
+        if(lifecycle.Settings is {} current&&translation?.CanUseSettings(current)==false){button.ToolTip="测试模式只允许启动时授权的无密钥本地服务，请恢复测试配置。";return;}
         if(!lifecycle.TryPrepareEnable(out var intent,out var missing)){button.ToolTip=missing;_=OpenSettings();return;}
         bool consent=lifecycle.Gate.HasConsentTo(intent!.Origin)||MessageBox.Show(this,$"启用后，您主动提供的内容将发送到 {intent.Origin.Value}。\n当前触发模式：{(intent.Mode==TriggerMode.Selection?"选中文字":"拖放文字")}。\n是否允许本次会话使用此服务？","快译 · 数据发送说明",MessageBoxButton.OKCancel,MessageBoxImage.Information)==MessageBoxResult.OK;
         lifecycle.ConfirmEnable(intent!,consent);Refresh();

@@ -11,6 +11,16 @@ using Protocol=KuaiYi.Core.Settings.ApiProtocol;
 namespace KuaiYi.Provider.Tests;
 public sealed class TextTranslationTests(ServerFixture fixture):IClassFixture<ServerFixture>
 {
+    // Protocol fixtures intentionally exercise synthetic auth and faults. They are not the app's explicit development mode.
+    private static KuaiYi.Providers.ApiProfile FixtureTransport(KuaiYi.Core.Settings.ApiProfile profile)
+    {
+        var protocol=profile.Protocol==Protocol.OpenAIChat?KuaiYi.Providers.ApiProtocol.OpenAIChat:KuaiYi.Providers.ApiProtocol.AnthropicMessages;
+        var uri=new Uri(profile.BaseUrl);if(!uri.IsLoopback||uri.Scheme!="http")throw new InvalidOperationException("Protocol fixture must be local.");
+        return new(protocol,uri,profile.AddressMode==ApiAddressMode.ExactEndpoint?uri.AbsoluteUri:protocol==KuaiYi.Providers.ApiProtocol.OpenAIChat?"chat/completions":"messages",profile.Model,
+            profile.Authentication switch{ApiAuthentication.None=>Authentication.None,ApiAuthentication.ApiKey=>Authentication.ApiKey,_=>Authentication.Bearer},
+            protocol==KuaiYi.Providers.ApiProtocol.AnthropicMessages?OutputLimitParameter.MaxTokens:OutputLimitParameter.MaxCompletionTokens,profile.MaxOutputTokens,
+            profile.Streaming&&profile.Capabilities.Streaming!=Capability.Unsupported,AllowLoopbackHttp:true);
+    }
     private sealed class Destination:SynchronizationContext
     {public override void Post(SendOrPostCallback action,object? state)=>action(state);}
     private sealed class Rig:IAsyncDisposable
@@ -26,7 +36,7 @@ public sealed class TextTranslationTests(ServerFixture fixture):IClassFixture<Se
             Settings=new(new(){ActiveProfileId="p",Profiles=[new(){Id="p",Protocol=protocol,BaseUrl=Url.AbsoluteUri,Model="TEST_MODEL",Authentication=authentication?ApiAuthentication.Bearer:ApiAuthentication.None,SecretRef=authentication?"key/"+new string('a',32):null}]},"initial",SettingsLoadState.Current);
             Gate.ObserveSettingsMetadata(Settings);Gate.ConsentTo(new(Url));Assert.True(Gate.TryEnable(new(Url),true));Results=new(Gate);
             Flow=new(Gate,()=>Settings,(_,_)=>SourceValid,Provider,new Destination(),Results,Updates.Enqueue,
-                async(_,_,ct)=>{Interlocked.Increment(ref SecretReads);SecretEntered.TrySetResult();if(HoldSecret)await SecretRelease.Task.WaitAsync(ct);return new KuaiYi.Providers.SecretLease("TEST_ONLY_DO_NOT_USE_AS_A_REAL_KEY"u8);},allowDevelopmentLoopback:true);
+                async(_,_,ct)=>{Interlocked.Increment(ref SecretReads);SecretEntered.TrySetResult();if(HoldSecret)await SecretRelease.Task.WaitAsync(ct);return new KuaiYi.Providers.SecretLease("TEST_ONLY_DO_NOT_USE_AS_A_REAL_KEY"u8);},transportFactory:FixtureTransport);
         }
         public SelectionSourceSnapshot Source(string text="Actual selected text",SelectionSourceKind kind=SelectionSourceKind.Uia)=>new(new(17,92823,132000,@"C:\Fixtures\fixture-editor.exe"),text,text,[new(1,2,20,22)],[7,8],Settings.Version,text.EnumerateRunes().Count(),false,kind);
         public TextSubmission Start(string text="Actual selected text")=>Flow.Submit(Flow.Prepare(Source(text))!);
@@ -211,7 +221,7 @@ public sealed class TextTranslationTests(ServerFixture fixture):IClassFixture<Se
             if(!frames.IsExpanded)frames.OpenMeasured(preferences,_=>128+rig.Results.Text.Length*2);else frames.Grow(128+rig.Results.Text.Length*2);
             for(int i=0;i<20;i++){frames.Tick(TimeSpan.FromMilliseconds(16),false);Assert.True(frames.Current.Contains(anchor));Assert.True(monitor.WorkArea.Inset(12).Contains(frames.Current));}
             heights.Add(frames.Current.Height);
-        },allowDevelopmentLoopback:true);
+        },transportFactory:FixtureTransport);
         rig.Start();await rig.Flow.Running;Assert.Equal(6,heights.Count);Assert.True(heights.Zip(heights.Skip(1)).All(pair=>pair.First<=pair.Second));Assert.True(heights[^1]>heights[0]);
         Assert.Equal(string.Concat(Enumerable.Range(0,6).Select(i=>"公开片段"+i+"\n")),rig.Results.Text);Assert.True(Assert.Single(rig.Results.Versions).Complete);
         Assert.Single(await Requests(rig));
@@ -251,7 +261,7 @@ public sealed class TextTranslationTests(ServerFixture fixture):IClassFixture<Se
     public async Task RealHttpDestinationQueueCannotRelabelAnOldRequest(string action)
     {
         await using var rig=new Rig(fixture.BaseUri);await rig.Flow.DisposeAsync();var destination=new QueuedDestination();
-        rig.Flow=new(rig.Gate,()=>rig.Settings,(_,_)=>rig.SourceValid,rig.Provider,destination,rig.Results,rig.Updates.Enqueue,allowDevelopmentLoopback:true);
+        rig.Flow=new(rig.Gate,()=>rig.Settings,(_,_)=>rig.SourceValid,rig.Provider,destination,rig.Results,rig.Updates.Enqueue,transportFactory:FixtureTransport);
         rig.Start();Task old=rig.Flow.Running;await destination.Entered.Task.WaitAsync(TimeSpan.FromSeconds(5));
         if(action=="off")rig.Gate.Disable();else{Assert.True(rig.Gate.TryGetProfileBinding("p",out var binding));rig.Gate.TryStartProfileRequest(binding,Guid.NewGuid(),Guid.NewGuid(),null,out _,out _);}
         await old.WaitAsync(TimeSpan.FromSeconds(5));destination.Drain();Assert.Empty(rig.Results.Text);Assert.DoesNotContain(rig.Updates,u=>u.Presentation.Kind!=OverlayResultEventKind.Begin);Assert.Single(await Requests(rig));

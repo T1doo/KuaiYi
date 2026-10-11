@@ -9,3 +9,9 @@ UI 可显示至多三版本；失败回滚保护只在本次会话内存保留�
 .NET `SendAsync` 是异步 HTTP；`ResponseHeadersRead` 使首阶段在响应头可用时完成，后续流读取仍需自己传递取消并关闭阻塞读取。WPF UI 工作通过 Dispatcher 目的线程，不能在 Gate 的同步回调中等待异步操作。本轮使用这些官方约束，实际 Windows 调度/焦点仍 NotRun。[Microsoft SendAsync](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpclient.sendasync?view=net-10.0)、[WPF threading model](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/advanced/threading-model)。
 
 测试服务继续留在 tools；正式程序没有 Mock 引用。显式测试命令只接收回环 fixture URL，用独立随机临时配置、无密钥 profile 和可见“本地测试输出”标识，不默默替代真实 Provider。没有创建真实模型成功证据，Native/Windows/P0/E06 阻塞保持。
+
+## 父审补正：固定本地测试授权
+
+原测试标识误用 AllowLoopbackHttp，而且配置可在启动后变成 HTTPS；88d4d59 的这一声明不能签收。测试模式现在由命令参数的不可变边界限定具体端口/run/scenario、固定模型和无凭据，调度每次入场与每次发送检查当前配置及快照；client 的只读边界不受 DTO 标记删除/替换影响。标识根据授权证明。SettingsCommitted 安全检查先于可能失败的热键协调器，且每次业务入口继续复核，不能依赖一次通知。
+
+测试连接使用 SocketsHttpHandler.ConnectCallback 创建到固定回环 IP 的 NetworkStream，localhost 不通过 DNS 解析；关闭代理/cookies，原端口/endpoint 不变。所需 API 以官方 [ConnectCallback](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.socketshttphandler.connectcallback?view=net-10.0) 和 [IPAddress.IsLoopback](https://learn.microsoft.com/en-us/dotnet/api/system.net.ipaddress.isloopback?view=net-10.0) 为依据，实际 Linux .NET10 loopback HTTP 已验证；并非 Windows 图形平台验证。详情见 [边界父审修复](../p3-text-boundary-review.md)。

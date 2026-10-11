@@ -327,3 +327,9 @@ P3-04最后复核补未知UIA状态带CopyEvidence的真实child反例：原6项
 基线561ee577获父限定放行后接生产调度：真实 UIA/复制/Drop 来源快照、原始 ticket/settings/profile、四模板、每次 HTTP 最终来源与身份检查、UI 事件原身份、latest-wins/取消、Unicode 软限额明确确认和硬限额拒绝、语义去重/零调用回看、旧快照重生成与当前设置重翻译、三版本及失败回滚。连续替换的元数据在生成期间最多四个/结束最多三个；锁屏退出内存释放。显式本地测试命令独立临时配置、无真实 key、可见测试标识，正常启动无 Mock。
 
 新66用例（Provider54/Core12），最终Core1216+Provider131=1347/1347、Node63，27工程locked Release零警告/错误；真实测试 HTTP/AES 临时密文与 fake采集端口各自注明。早期编译/7与2实际测试失败保留，修正fixture与读取方式，未弱化断言。源码/测试最终回归后未改；仅App/GrowthHarness锁加项目引用，无新NuGet/安装。独立新审查包和19旧包/15精确commit历史核验。窗口原生/焦点/跨应用/多屏DPI/动效/DPAPI/安装/远端CI未验；P0/E06 Blocked，P1/P2/P3 InProgress，176追踪/106整体NotRun。没有真实密钥读取、付费/真实模型、部署或新法律协议。详见p3-text-translation-review.md、ADR0015、Windows清单及本轮summary。
+
+## P3-06 本地测试边界父审阻断修复
+
+88d4d59 尚未签收，旧代码允许测试设置改任意HTTPS而凭HTTP开关标本地。旧25反例22失败/3通过，实际错误发送只至loopback公开fixture；外部地址只校验不传输，无用户密钥。原源码7份/失败TRX/旧包摘要保全。
+
+从显式命令冻结端口/run/scenario授权，主程序/调度/client共享不可变边界；无凭据/自定义头、固定TEST模型，当前配置/确认/重生成/每次发送复核。越界保存/恢复立即Off，晚到UI不写；client防删/换标记，实际socket固定回环IP并关闭代理/cookies，不DNS回落，标签用授权证明。39专项均过；Core1216+Provider170=1386/1386、Node63，27 locked Release零警告/错误，27锁和规格字节不变。独立新包与20旧包/16精确历史摘要核验，原覆盖恢复事实保留。Windows/native/跨应用/焦点/动效/DPI/DPAPI/安装/远端CI NotRun，P0/E06 Blocked，106整体NotRun。其他父审尚待结论，不进入下一阶段。

@@ -46,7 +46,7 @@ internal static class Program
                 var testCoordinator=new KuaiYi.Core.Settings.SettingsCoordinator(new(Path.Combine(testRoot,"config")),new(Path.Combine(testRoot,"secrets"),new CurrentUserDpapiProtector(),new CurrentUserSecretDirectory()));
                 using(var draft=testCoordinator.OpenDraftAsync().GetAwaiter().GetResult())
                 {draft.Update(_=>testSettings);testCoordinator.SaveAsync(draft).GetAwaiter().GetResult();}
-                return app.Run(new ShellWindow(instance.Scope,testCoordinator,developmentLoopback:true));
+                return app.Run(new ShellWindow(instance.Scope,testCoordinator,developmentBoundary:KuaiYi.Providers.DevelopmentTranslationBoundary.FromPrefix(new Uri(args[1],UriKind.Absolute))));
             }
             finally{if(Directory.Exists(testRoot))Directory.Delete(testRoot,true);}
         }
