@@ -1,0 +1,8 @@
+{
+  "total": 19,
+  "failed": 16,
+  "passed": 3,
+  "cause": "Test cleanup assumed releasing the barrier means startTask has already completed; it does not. Keep release-readiness assertions and explicitly await the actual startup task before final readiness assertions.",
+  "platform": "Linux actual diagnostic children; not WPF",
+  "testSourceSha256": "b4a402725b24eba2d09f04dc6aee1b0c7d2ae68988c72bb5f4f2aa1812813616"
+}

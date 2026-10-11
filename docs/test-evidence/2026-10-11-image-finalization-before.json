@@ -1,0 +1,12 @@
+{
+  "baseCommit": "2609bf86c86f1466f24f30f25898c81811580b69",
+  "total": 1,
+  "failed": 1,
+  "platform": "Linux actual Worker child; not WPF/Windows",
+  "testBarrier": "after actual owned/termination publication, before StartOwned returns; child exit awaited with WaitForExitAsync",
+  "predicateUnchangedFromBase": true,
+  "instrumentation": "internal test-only publication callback + friend assembly; normal App never configures it",
+  "compiledSourceSha256": "8095cdcfab3d72002b749dc27d9abb0597d7cfde7433cf2d34c2be1b03c9dc2e",
+  "baselineSourceSha256": "c7b315b4eb64919f08e466eba0044eebfd821c2e6fa71d33580e10bbbe09ceb9",
+  "trxSha256": "bf23c1be43469b0ad782682c567b040658f1f9aa05e25e15cdadf8e384752d1b"
+}

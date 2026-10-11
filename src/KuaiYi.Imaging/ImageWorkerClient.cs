@@ -17,13 +17,26 @@ public sealed class ImageWorkerClient(string executable, string? managedAssembly
     private bool stopRequested, disposed;
     private int started;
     public string? StartupFailureCode { get; private set; }
+    public string? FinalizationFailureCode { get; private set; }
+    internal Action<Process>? OwnershipPublishedForTest { get; init; } // Test-only scheduler barrier; never configured by App.
+    internal Task StartupSettlementForTest { get { lock (ownershipSync) return startTask ?? Task.CompletedTask; } }
+    // Called only under ownershipSync. Publication of a Process is not completion of its creating task.
+    private bool HasPendingLifetimeWork => startTask is { IsCompleted: false } || stopTask is { IsCompleted: false };
+    private bool IsSettledAndExited() => !HasPendingLifetimeWork && (termination == null || termination.ObserveExit());
     public HostExitState? ExitState
     {
-        get { lock (ownershipSync) return termination?.State ?? (startTask == null ? null : startTask.IsCompleted ? HostExitState.ExitConfirmed : stopRequested ? HostExitState.ExitUnconfirmed : HostExitState.Running); }
+        get
+        {
+            lock (ownershipSync)
+            {
+                if (!disposed && HasPendingLifetimeWork) return stopRequested ? HostExitState.ExitUnconfirmed : HostExitState.Running;
+                return termination?.State ?? (startTask == null ? null : HostExitState.ExitConfirmed);
+            }
+        }
     }
     public bool ObserveExit()
     {
-        lock (ownershipSync) return disposed || (termination != null ? termination.ObserveExit() : startTask == null || startTask.IsCompleted);
+        lock (ownershipSync) return disposed || IsSettledAndExited();
     }
     private Process StartOwned(ProcessStartInfo info, CancellationToken cancellation)
     {
@@ -32,6 +45,7 @@ public sealed class ImageWorkerClient(string executable, string? managedAssembly
             cancellation.ThrowIfCancellationRequested();
             Process child = (processStarter ?? SystemImageProcessStarter.Instance).Start(info);
             lock (ownershipSync) { owned = child; termination = new(new StartedHostLifetime(child)); }
+            OwnershipPublishedForTest?.Invoke(child);
             return child;
         }
         catch (Exception error) { lock (ownershipSync) StartupFailureCode = error.GetType().Name; throw; }
@@ -125,8 +139,8 @@ public sealed class ImageWorkerClient(string executable, string? managedAssembly
         catch (OperationCanceledException) when (deadline.IsCancellationRequested && !cancellation.IsCancellationRequested) { throw new ImageJobException(ImageFailure.Timeout); }
         finally
         {
-            if (await StopOwnedAsync().ConfigureAwait(false) != HostExitState.ExitConfirmed && !ObserveExit())
-                throw new ImageJobException(ImageFailure.ExitUnconfirmed); // Includes still-pending native startup; ownership is retained.
+            await StopOwnedAsync().ConfigureAwait(false);
+            if (!ObserveExit()) throw new ImageJobException(ImageFailure.ExitUnconfirmed); // Raw child exit cannot clear an unsettled startup.
         }
     }
     public static void ValidateOutput(OcrOutput result, ImageSize expected, string language)
@@ -143,17 +157,28 @@ public sealed class ImageWorkerClient(string executable, string? managedAssembly
                     word.X < 0 || word.Y < 0 || word.Width < 0 || word.Height < 0 || word.X + word.Width > expected.Width || word.Y + word.Height > expected.Height) throw new InvalidDataException("Invalid OCR word bounds.");
         }
     }
-    public async ValueTask DisposeAsync()
+    /// <summary>UI cleanup boundary: returns false for every unconfirmed/startup/stop state and retains ownership. Never throws an expected lifecycle failure.</summary>
+    public async ValueTask<bool> TryFinalizeAsync()
     {
-        if (await StopOwnedAsync().ConfigureAwait(false) != HostExitState.ExitConfirmed && !ObserveExit())
-            throw new ImageJobException(ImageFailure.ExitUnconfirmed);
+        try { await StopOwnedAsync().ConfigureAwait(false); }
+        catch (Exception error) { lock (ownershipSync) FinalizationFailureCode = error.GetType().Name; return false; }
         lock (ownershipSync)
         {
-            if (startTask is { IsCompleted: false } || stopTask is { IsCompleted: false }) throw new ImageJobException(ImageFailure.ExitUnconfirmed);
-            disposed = true;
-            owned?.Dispose(); owned = null;
-            // ObserveStartupAsync can still be queued; disposed makes its eventual cleanup idempotent.
-            _ = startupObserver;
+            if (disposed) return true;
+            if (!IsSettledAndExited()) return false;
+            try
+            {
+                owned?.Dispose(); owned = null;
+                disposed = true;
+                // The observing continuation may still be queued; disposed makes its cleanup idempotent.
+                _ = startupObserver;
+                return true;
+            }
+            catch (Exception error) { FinalizationFailureCode = error.GetType().Name; return false; }
         }
+    }
+    public async ValueTask DisposeAsync()
+    {
+        if (!await TryFinalizeAsync().ConfigureAwait(false)) throw new ImageJobException(ImageFailure.ExitUnconfirmed);
     }
 }

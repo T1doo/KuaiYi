@@ -77,9 +77,8 @@ internal sealed class ImageProbeWindow : Window
         var exitPoll = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(200) };
         exitPoll.Tick += async (_,_) =>
         {
-            if (running == null && ownedWorker is { } owner && owner.Client.ObserveExit())
+            if (running == null && ownedWorker is { } owner && await owner.Client.TryFinalizeAsync())
             {
-                await owner.Client.DisposeAsync();
                 if (ReferenceEquals(ownedWorker,owner)) ownedWorker = null;
                 choose.IsEnabled = running == null && ownedWorker == null;
                 // Resource bookkeeping is independent of eligibility. No old task writes status/results or toggles On here.
@@ -119,9 +118,8 @@ internal sealed class ImageProbeWindow : Window
         finally
         {
             if (bytes != null) CryptographicOperations.ZeroMemory(bytes);
-            if (operationOwner is { } owner && owner.Client.ObserveExit())
+            if (operationOwner is { } owner && await owner.Client.TryFinalizeAsync())
             {
-                await owner.Client.DisposeAsync();
                 if (ReferenceEquals(ownedWorker,owner)) ownedWorker = null;
             }
             if (running == current) running = null;

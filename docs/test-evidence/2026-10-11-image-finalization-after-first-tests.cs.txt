@@ -1,0 +1,102 @@
+using System.Diagnostics;
+using System.Collections.Concurrent;
+using KuaiYi.Core;
+using KuaiYi.Imaging;
+using Xunit;
+namespace KuaiYi.Core.Tests;
+public sealed class ImageFinalizationTests
+{
+    private sealed class DiagnosticStarter : IImageProcessStarter
+    {
+        public Process Start(ProcessStartInfo info)
+        {
+            info.ArgumentList[^1]="--diagnose"; // Real Worker, self-exiting public diagnostic; no OCR or model.
+            return SystemImageProcessStarter.Instance.Start(info);
+        }
+    }
+    private sealed class PublishedBarrier : IDisposable
+    {
+        private readonly ManualResetEventSlim release=new(false);
+        public TaskCompletionSource<Process> Entered {get;}=new(TaskCreationOptions.RunContinuationsAsynchronously);
+        public void Hold(Process child) { Entered.SetResult(child); if(!release.Wait(TimeSpan.FromSeconds(10)))throw new TimeoutException("public handoff barrier"); }
+        public void Release()=>release.Set();
+        public void Dispose(){release.Set();release.Dispose();}
+    }
+    private static ImageWorkerClient Client(PublishedBarrier barrier)
+    {
+        string configuration=new DirectoryInfo(AppContext.BaseDirectory).Parent!.Name;
+        string assembly=Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"../../../../../src/KuaiYi.ImageWorker/bin",configuration,"net10.0/win-x64/KuaiYi.ImageWorker.dll"));
+        return new(Environment.GetEnvironmentVariable("DOTNET_HOST_PATH")??"dotnet",assembly,new DiagnosticStarter()){OwnershipPublishedForTest=barrier.Hold};
+    }
+    [Fact] public async Task PublishedExitedChildIsNotReleaseReadyBeforeStartTaskSettles()
+    {
+        using var barrier=new PublishedBarrier();var client=Client(barrier);using var cancel=new CancellationTokenSource();
+        var bytes=File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory,"kuaiyi-test.png"));
+        var run=client.RunAsync(bytes,new(Guid.NewGuid(),1,1,"en-US",bytes.Length),cancel.Token);
+        try
+        {
+            var child=await barrier.Entered.Task.WaitAsync(TimeSpan.FromSeconds(3));await child.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(3));Assert.True(child.HasExited);
+            Assert.False(client.ObserveExit()); // Baseline incorrectly returns true while the explicit start barrier is still held.
+            Assert.False(await client.TryFinalizeAsync());
+            Assert.False(client.ObserveExit());Assert.Equal(HostExitState.ExitUnconfirmed,client.ExitState);
+            Assert.Equal(ImageFailure.ExitUnconfirmed,(await Assert.ThrowsAsync<ImageJobException>(()=>client.DisposeAsync().AsTask())).Code);
+            Assert.False(client.ObserveExit());
+        }
+        finally
+        {
+            cancel.Cancel();barrier.Release();
+            try{await run.WaitAsync(TimeSpan.FromSeconds(3));}catch(Exception error){Assert.True(error is OperationCanceledException or ImageJobException or IOException,error.GetType().Name);}
+            await client.DisposeAsync();
+        }
+    }
+    private sealed class QueueContext : SynchronizationContext
+    {
+        private readonly ConcurrentQueue<(SendOrPostCallback Callback,object? State)> queue=new();
+        private readonly SemaphoreSlim posted=new(0);
+        public override void Post(SendOrPostCallback callback,object? state){queue.Enqueue((callback,state));posted.Release();}
+        public async Task DrainOne(){await posted.WaitAsync().WaitAsync(TimeSpan.FromSeconds(3));Assert.True(queue.TryDequeue(out var item));item.Callback(item.State);}
+    }
+    public static IEnumerable<object[]> FinalizeCases()=>from outcome in new[]{"success","failure","cancel"} from route in new[]{"current","off","replace"} from uiPath in new[]{"finally","timer"} select new object[]{outcome,route,uiPath};
+    [Theory] [MemberData(nameof(FinalizeCases))]
+    public async Task QueuedOutcomeAndUiCleanupRetainPublishedChildUntilStartupSettles(string outcome,string route,string uiPath)
+    {
+        using var barrier=new PublishedBarrier();var client=Client(barrier);using var cancel=new CancellationTokenSource();
+        var bytes=File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory,"kuaiyi-test.png"));var run=client.RunAsync(bytes,new(Guid.NewGuid(),1,1,"en-US",bytes.Length),cancel.Token);
+        try
+        {
+            var child=await barrier.Entered.Task.WaitAsync(TimeSpan.FromSeconds(3));await child.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(3));Assert.True(child.HasExited);
+            var gate=new RuntimeGate();Assert.True(gate.TryEnableLocalOperation(true));Assert.True(gate.TryStartRequest(Guid.NewGuid(),Guid.NewGuid(),null,out var a,out _));
+            var destination=new QueueContext();var workflow=new ImageUiWorkflow(gate,destination);
+            string status="A current",text="A old";int writes=0,unhandled=0;
+            var update=outcome=="success"?new ImageUiUpdate(ImageUiEventKind.Completed,"A completed","public A result"):outcome=="failure"?ImageUiUpdate.Failed(new IOException("public fixture")):ImageUiUpdate.Cancelled();
+            var delivery=workflow.PublishAsync(a,update,e=>{status=e.Status;text=e.Text;writes++;});
+            ImageWorkerClient? owner=client;
+            var cleanup=new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+            destination.Post(async _=>
+            {
+                try
+                {
+                    // Both real WPF call sites use this same nonthrowing boundary.
+                    bool finalized=await owner!.TryFinalizeAsync();if(finalized)owner=null;cleanup.SetResult(finalized);
+                }
+                catch(Exception error){unhandled++;cleanup.SetException(error);}
+            },null);
+            if(route=="off"){gate.Disable();status="Off";text="";}
+            else if(route=="replace"){Assert.True(gate.TryStartRequest(a.SessionId,Guid.NewGuid(),null,out _,out _));status="B current";text="public B result";}
+            await destination.DrainOne();Assert.Equal(route=="current",await delivery);
+            string expectedStatus=status,expectedText=text;
+            await destination.DrainOne();Assert.False(await cleanup.Task.WaitAsync(TimeSpan.FromSeconds(3)));Assert.Equal(0,unhandled);Assert.Same(client,owner);
+            Assert.False(client.ObserveExit());Assert.Equal(HostExitState.ExitUnconfirmed,client.ExitState);Assert.Equal(expectedStatus,status);Assert.Equal(expectedText,text);
+            if(route=="current"){Assert.Equal(update.Status,status);Assert.Equal(update.Text,text);Assert.Equal(1,writes);}else{Assert.Equal(0,writes);Assert.Equal(route=="off"?"Off":"B current",status);Assert.Equal(route=="off"?"":"public B result",text);}
+            Assert.True(uiPath is "finally" or "timer"); // Labels identify the two production call sites; no WPF desktop is simulated as passed.
+            cancel.Cancel();Assert.Equal(ImageFailure.ExitUnconfirmed,(await Assert.ThrowsAsync<ImageJobException>(()=>run.WaitAsync(TimeSpan.FromSeconds(3)))).Code);
+            Assert.False(await client.TryFinalizeAsync());Assert.Same(client,owner); // Pending startup still prohibits clearing owner/restart.
+        }
+        finally
+        {
+            cancel.Cancel();barrier.Release();
+            try{await run.WaitAsync(TimeSpan.FromSeconds(3));}catch(Exception error){Assert.True(error is OperationCanceledException or ImageJobException or IOException,error.GetType().Name);}
+            Assert.True(client.ObserveExit());Assert.True(await client.TryFinalizeAsync());Assert.True(await client.TryFinalizeAsync());await client.DisposeAsync();
+        }
+    }
+}

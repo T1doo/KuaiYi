@@ -48,3 +48,5 @@ App（独立KuaiYi身份，默认Off实验界面）→继承stdio的单次ImageW
 图片所有UI事件现与Provider共用Core.IdentityEventReceiver<T>，在实际目标队列执行时复核完整RequestIdentity与Activation。ImageUiWorkflow关联Gate取消并统一转换成功/错误/取消，长整型仅用于Worker线协议序号，不再用于UI资格。资源所有权独立于UI资格，旧任务只能清理自己的具体客户端。
 
 Worker真正启动在后台；取消等待后仍持有未返回的startTask，迟建Process被有界清理，晚失败被观察。未确认启动/退出不允许Dispose或开启第二宿主；详见image-ui-review.md。这些共享行为已在Linux执行，真实Windows线程/焦点/WinRT仍未验证。
+
+实际子进程退出还需启动/停止任务均已终结，才能释放所有权。窗口finally和轮询统一调用TryFinalizeAsync：未知返回false并保留客户端；严格DisposeAsync保持ExitUnconfirmed拒绝。此边界不改变完整身份事件资格，详见image-finalization-review.md。

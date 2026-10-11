@@ -3,7 +3,7 @@
 不是 v1.0 完整验收或发布报告。环境与构建入口见 environment.md / README。
 
 - 原始规格 SHA256：`ea3aa6529405bcc703986988fd089f476ee8f991d867e2220b3b20c439126166`。
-- 当前离线自动化：Core 234、Provider 77，共 311，全部通过；精确证据见 test-evidence 的 image-ui-summary。首批 57 项、探针批 88 项、迟到错误批 118 项及修复前失败证据分别保留。
+- 当前离线自动化：Core 253、Provider 77，共 330，全部通过；精确证据见 test-evidence 的 image-finalization-summary。首批 57 项、探针批 88 项、迟到错误批 118 项及修复前失败证据分别保留。
 - 17 个托管项目 Release 交叉构建 0 警告/0 错误；五个探针 exe 已检查为 Windows PE32+ x64，框架依赖 ZIP 已生成。这是构建/打包部分证据，Windows 实际执行均未运行。
 - A—L 的 **106 条整体用例均为 NotRun**；已验证子项不能代替完整用例。
 - R01—R18 的产品完整实现均尚未完成；模块/阶段/用例组定义完整保存在 traceability.json。
@@ -27,3 +27,5 @@ P0-03 增加真实 OLE 宿主与公开故障来源，24 项纯策略/事务/截�
 P0-05新增60项有界图片/语言/身份/协议/输出与真实Linux Worker负路径；合计244项通过。另有源码清单baseline+5种故障变更、两个EXE实际内嵌身份/PE、14条原生共用路径/argv检查和Linux脚本拒绝证据。未原生编译、未生成/签名/注册MSIX、未运行Windows OCR/现代菜单；这些仍Blocked/NotRun。托管身份ZIP缺两个原生DLL，是部分审阅产物，不是开发安装包。详见imageworker-identity.md与ADR0003。
 
 监督方指出的图片错误/取消迟到与Process.Start实际仍在UI线程两项已修，新增67项（其中2项创建真实Linux Worker、1项真实启动失败、64项状态/队列合同），全回归311/311。模拟UI线程不是WPF桌面证据；Windows实际启动/取消/调度仍NotRun。见image-ui-review.md。
+
+监督方另发现子进程已发布/退出但启动任务尚未终结的释放竞态。确定性屏障修复前1项失败；完善ObserveExit/ExitState和两处实际窗口TryFinalizeAsync后新增19项及完整330项通过。保存首轮测试清理时序错误的16项失败，修正等待实际启动任务后重跑通过；未削弱断言。真实Windows仍NotRun，见image-finalization-review.md。

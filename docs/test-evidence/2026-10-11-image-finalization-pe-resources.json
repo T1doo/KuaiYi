@@ -1,0 +1,34 @@
+[
+  {
+    "file": "KuaiYi.App.exe",
+    "sha256": "74bd58464389da48d8e66436d6687be9f38c6f1fc55f36c9dde2621143cbef06",
+    "pe": "PE32+ x64",
+    "embeddedManifests": [
+      {
+        "resourceType": 24,
+        "resourceId": 1,
+        "languageId": 0,
+        "applicationId": "KuaiYi",
+        "manifestSha256": "974e127e63188fd7235ffbb5b8c6b06dfea8a03b2a2a5b2104aec858d647002e"
+      }
+    ],
+    "staticResult": "Pass",
+    "runtimeIdentity": "NotRun"
+  },
+  {
+    "file": "KuaiYi.ImageWorker.exe",
+    "sha256": "22d23e65a5fd31d5ee0037fe76e98074347909f0feb3f8a07f7d06d348759e83",
+    "pe": "PE32+ x64",
+    "embeddedManifests": [
+      {
+        "resourceType": 24,
+        "resourceId": 1,
+        "languageId": 0,
+        "applicationId": "ImageWorker",
+        "manifestSha256": "b27991ae861df834d53d75a5aa5578f3adbd101dadfa4b955b29ce030a7273d3"
+      }
+    ],
+    "staticResult": "Pass",
+    "runtimeIdentity": "NotRun"
+  }
+]
