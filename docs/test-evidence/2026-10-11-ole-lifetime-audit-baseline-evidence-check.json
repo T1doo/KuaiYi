@@ -1,0 +1,12 @@
+{
+  "baseline": "d4fbc7e432247d5babd4a34f11d9b22012ec3af2",
+  "sourceHashesVerified": 236,
+  "rawEvidenceHashesVerified": 52,
+  "checks": "Read-only source/ownership/STA/Off/late-work audit",
+  "WindowsNativeRuntime": "NotRun",
+  "findings": [
+    "Finalizer lacks original receiver loop settlement",
+    "Cancelled delivery clears actual array before original delegate task settles",
+    "Final UI action checks readiness before application; final cancellation needs serialized admission"
+  ]
+}

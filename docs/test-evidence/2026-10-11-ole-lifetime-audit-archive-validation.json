@@ -1,0 +1,45 @@
+{
+  "archive": "artifacts/KuaiYi-P0-ole-lifetime-audit-managed-win-x64.zip",
+  "bytes": 717653,
+  "sha256": "6e0526471435b5a99311406ca8ea7c672cddaef89807a60524f08d469de588bf",
+  "files": 42,
+  "appAssets": 39,
+  "nativeSources": 2,
+  "manifestHashes": "Pass",
+  "executableHeaders": [
+    {
+      "path": "app/KuaiYi.App.exe",
+      "machine": "x64",
+      "format": "PE32+",
+      "WindowsExecution": "NotRun"
+    },
+    {
+      "path": "app/KuaiYi.CaptureHost.exe",
+      "machine": "x64",
+      "format": "PE32+",
+      "WindowsExecution": "NotRun"
+    },
+    {
+      "path": "app/KuaiYi.ImageWorker.exe",
+      "machine": "x64",
+      "format": "PE32+",
+      "WindowsExecution": "NotRun"
+    },
+    {
+      "path": "app/KuaiYi.NativeHost.exe",
+      "machine": "x64",
+      "format": "PE32+",
+      "WindowsExecution": "NotRun"
+    },
+    {
+      "path": "app/KuaiYi.OleReceiver.exe",
+      "machine": "x64",
+      "format": "PE32+",
+      "WindowsExecution": "NotRun"
+    }
+  ],
+  "NativeDLLs": "NotIncluded",
+  "Fixtures": "NotIncluded",
+  "Installer": false,
+  "WindowsRuntime": "NotRun"
+}

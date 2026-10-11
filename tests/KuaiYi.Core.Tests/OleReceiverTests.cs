@@ -57,6 +57,8 @@ public sealed class OleReceiverTests
         try{await client.StartupSettlementForTest.WaitAsync(TimeSpan.FromSeconds(4));}catch(IOException){/* Asserted failure settles ownership. */}
         if(!client.ObserveExit()&&starter.Created.Task.IsCompletedSuccessfully){var held=await starter.Created.Task;if(!held.HasExited){held.Kill();await held.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(4));}}
         try{await run.WaitAsync(TimeSpan.FromSeconds(6));}catch(Exception error){Assert.True(error is OperationCanceledException or OleReceiverException or IOException or InvalidDataException or System.Text.DecoderFallbackException,error.GetType().Name);}
+        await client.DeliverySettlementForTest.WaitAsync(TimeSpan.FromSeconds(4));
+        await client.RevocationSettlementForTest.WaitAsync(TimeSpan.FromSeconds(4));
         Assert.True(await client.TryFinalizeAsync(true));await client.DisposeAsync();
     }
     [Fact]public async Task RealChildProductionServerDeliversOnlyAfterCleanupAndClearsActualArray()
@@ -121,7 +123,7 @@ public sealed class OleReceiverTests
             async Task Apply(){await release.Task;if(!client.IsReady||token.IsCancellationRequested||generation!=gate.Snapshot.Epoch)return;if(gate.TryStartConfirmedLocalRequest(generation,id,txn,out var identity,out _))gate.TryApply(identity,()=>writes++);}
             var applying=Apply();queued.SetResult(applying);return applying;
         });
-        try{await ready.Task.WaitAsync(TimeSpan.FromSeconds(4));Assert.True(await client.SetEnabledAsync(epoch,true));var applying=await queued.Task.WaitAsync(TimeSpan.FromSeconds(4));if(route=="off")gate.Disable();else{gate.Disable();Assert.True(gate.TryEnableLocalOperation(true));}client.Cancel();await Record.ExceptionAsync(()=>run.WaitAsync(TimeSpan.FromSeconds(4)));release.SetResult();await applying;Assert.Equal(0,writes);Assert.All(actual!,b=>Assert.Equal(0,b));var origin=new EndpointOrigin(new Uri("https://public.invalid/v1"));gate.ConsentTo(origin);bool started=gate.TryStartRequest(id,Guid.NewGuid(),null,out var next,out _);Assert.Equal(route=="replace",started);Assert.False(gate.CanSend(next,origin));}
+        try{await ready.Task.WaitAsync(TimeSpan.FromSeconds(4));Assert.True(await client.SetEnabledAsync(epoch,true));var applying=await queued.Task.WaitAsync(TimeSpan.FromSeconds(4));if(route=="off")gate.Disable();else{gate.Disable();Assert.True(gate.TryEnableLocalOperation(true));}client.Cancel();await Record.ExceptionAsync(()=>run.WaitAsync(TimeSpan.FromSeconds(4)));Assert.False(await client.TryFinalizeAsync());Assert.False(activation.Disposed);release.SetResult();await applying;await client.DeliverySettlementForTest.WaitAsync(TimeSpan.FromSeconds(4));Assert.Equal(0,writes);Assert.All(actual!,b=>Assert.Equal(0,b));var origin=new EndpointOrigin(new Uri("https://public.invalid/v1"));gate.ConsentTo(origin);bool started=gate.TryStartRequest(id,Guid.NewGuid(),null,out var next,out _);Assert.Equal(route=="replace",started);Assert.False(gate.CanSend(next,origin));}
         finally{release.TrySetResult();await Cleanup(client,starter,registrar,run);}
     }
     [Fact]public void FreshOwnHitIsRequiredAndReleaseCancelCannotBeAnExternalDrop()
@@ -139,6 +141,36 @@ public sealed class OleReceiverTests
         private long timestamp;public override long TimestampFrequency=>1000;public override long GetTimestamp()=>Interlocked.Read(ref timestamp);public void ExpireStartup()=>Interlocked.Add(ref timestamp,10_001);
         public override ITimer CreateTimer(TimerCallback callback,object? state,TimeSpan dueTime,TimeSpan period)=>new SilentTimer();
         private sealed class SilentTimer:ITimer{public bool Change(TimeSpan due,TimeSpan period)=>true;public void Dispose(){}public ValueTask DisposeAsync()=>ValueTask.CompletedTask;}
+    }
+    private sealed class AdmissionRegistrar:IOleTargetRegistrar,IDisposable
+    {
+        public TaskCompletionSource Entered{get;}=new(TaskCreationOptions.RunContinuationsAsynchronously);
+        private readonly ManualResetEventSlim barrier=new(false);
+        public bool IsSettledAndRevoked=>true; // No native registration has been published yet; the caller still owns the in-progress admission.
+        public Task RegisterAsync(long hwnd,byte[] ownedPacket,CancellationToken cancellation)
+        {
+            Entered.SetResult();try{if(!barrier.Wait(TimeSpan.FromSeconds(10)))throw new TimeoutException("public registrar admission barrier");cancellation.ThrowIfCancellationRequested();return Task.CompletedTask;}finally{Array.Clear(ownedPacket);}
+        }
+        public ValueTask<bool> TryFinalizeAsync()=>ValueTask.FromResult(true);
+        public void Release()=>barrier.Set();public void Dispose(){barrier.Set();barrier.Dispose();}
+    }
+    [Fact]public async Task OriginalWorkBeforeRegistrationPublicationBlocksEarlyFinalization()
+    {
+        Guid id=Guid.NewGuid();using var starter=new Starter();using var registrar=new AdmissionRegistrar();var activation=new Activation(id);var client=new OleReceiverClient(Environment.GetEnvironmentVariable("DOTNET_HOST_PATH")??"dotnet",registrar,activation,AssemblyPath(),starter);var ready=new TaskCompletionSource();var run=Run(client,id,ready);
+        try{await registrar.Entered.Task.WaitAsync(TimeSpan.FromSeconds(4));await Assert.ThrowsAsync<InvalidOperationException>(()=>Run(client,id,new TaskCompletionSource()));client.Cancel();Assert.False(await client.TryFinalizeAsync());Assert.True(client.ObserveExit());Assert.False(run.IsCompleted);Assert.False(activation.Disposed);Assert.False(ready.Task.IsCompleted);}
+        finally{registrar.Release();client.Cancel();var error=await Record.ExceptionAsync(()=>run.WaitAsync(TimeSpan.FromSeconds(4)));Assert.IsAssignableFrom<OperationCanceledException>(error);await client.RevocationSettlementForTest.WaitAsync(TimeSpan.FromSeconds(4));Assert.True(await client.TryFinalizeAsync(true));await client.DisposeAsync();}
+    }
+    [Theory][InlineData(false)][InlineData(true)]public async Task OriginalWorkDeliveryRetainsActualBytesAndLeaseUntilDelegateSettles(bool fault)
+    {
+        Guid id=Guid.NewGuid();using var starter=new Starter();var registrar=new Registrar();var activation=new Activation(id);var client=Client(starter,registrar,activation);var ready=new TaskCompletionSource();var entered=new TaskCompletionSource<byte[]>(TaskCreationOptions.RunContinuationsAsynchronously);var original=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var run=Run(client,id,ready,(_,_,bytes,_)=>{Assert.True(MemoryMarshal.TryGetArray(bytes,out var segment));entered.SetResult(segment.Array!);return original.Task;});
+        try
+        {
+            await ready.Task.WaitAsync(TimeSpan.FromSeconds(4));Assert.True(await client.SetEnabledAsync(1,true));byte[] actual=await entered.Task.WaitAsync(TimeSpan.FromSeconds(4));int writes=0;Assert.False(client.TryApplyLocal(2,()=>writes++));Assert.True(client.TryApplyLocal(1,()=>writes++));Assert.Equal(1,writes);client.Cancel();Assert.False(client.TryApplyLocal(1,()=>writes++));Assert.Equal(1,writes);await Assert.ThrowsAnyAsync<OperationCanceledException>(()=>run.WaitAsync(TimeSpan.FromSeconds(4)));
+            Assert.False(await client.TryFinalizeAsync());Assert.True(client.ObserveExit());Assert.False(activation.Disposed);Assert.Equal("public local fixture 文本",OleReceiverWire.DecodeText(actual));
+            if(fault)original.SetException(new IOException("public late delivery failure"));else original.SetResult();await client.DeliverySettlementForTest.WaitAsync(TimeSpan.FromSeconds(4));await client.RevocationSettlementForTest.WaitAsync(TimeSpan.FromSeconds(4));Assert.True(await client.TryFinalizeAsync());Assert.True(activation.Disposed);Assert.All(actual,b=>Assert.Equal(0,b));Assert.Equal(fault?nameof(IOException):null,client.DeliveryFailureCode);
+        }
+        finally{original.TrySetResult();await Cleanup(client,starter,registrar,run);}
     }
     [Fact]public async Task ActualRegistrationCompletionStillChecksMonotonicStartupWithoutTimerCallback()
     {

@@ -1,0 +1,56 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:00.88
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:00.57
+Built scope Offline with SDK 10.0.401. This is not desktop acceptance.
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:02.92]     KuaiYi.Core.Tests.OleReceiverTests.QueuedLocalDeliveryRechecksRuntimeGateAndPayloadIsClearedAfterCancel(route: "off") [FAIL]
+  Failed KuaiYi.Core.Tests.OleReceiverTests.QueuedLocalDeliveryRechecksRuntimeGateAndPayloadIsClearedAfterCancel(route: "off") [84 ms]
+  Error Message:
+   Assert.All() Failure: 1 out of 27 items in the collection did not pass.
+[0]: Item:  112
+     Error: Assert.Equal() Failure: Values differ
+            Expected: 0
+            Actual:   112
+  Stack Trace:
+     at KuaiYi.Core.Tests.OleReceiverTests.QueuedLocalDeliveryRechecksRuntimeGateAndPayloadIsClearedAfterCancel(String route) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverTests.cs:line 126
+   at KuaiYi.Core.Tests.OleReceiverTests.QueuedLocalDeliveryRechecksRuntimeGateAndPayloadIsClearedAfterCancel(String route) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverTests.cs:line 127
+--- End of stack trace from previous location ---
+WARNING: Overwriting results file: /workspace/KuaiYi/artifacts/test-results/offline/KuaiYi.Core.Tests.trx
+Results File: /workspace/KuaiYi/artifacts/test-results/offline/KuaiYi.Core.Tests.trx
+
+Failed!  - Failed:     1, Passed:   491, Skipped:     0, Total:   492, Duration: 17 s - KuaiYi.Core.Tests.dll (net10.0)
+Exception: /workspace/KuaiYi/scripts/common.ps1:7
+Line |
+   7 |  … CODE -ne 0) { throw "$Command failed with exit code $LASTEXITCODE." }
+     |                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | dotnet failed with exit code 1.

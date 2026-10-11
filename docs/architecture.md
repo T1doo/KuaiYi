@@ -72,3 +72,5 @@ ReadBounded等待失败后的底层任务始终由唯一迟到观察者处理，
 ## E06候选分离结构
 
 App唯一浮钮HWND/呈现STA → 独立registrar STA持有标准解封送代理并注册真实App HWND → 自己启动的OleReceiver/native IDropTarget OLE STA → 有限Unicode同步/协商异步提取 → 生产继承stdio → AppDispatcher再次核身份的localOnly显示。共有进程监督移至Core，保留原启动/退出settlement；注册原任务/撤销也须确认才能重用。32字节只读共享门控先于控制管道/kill撤销采集；真实OS角色另核。自身按下来自鼠标事件坐标钩子，Raw Input仅移动/释放，独立自身同意不由OCR On授予；不接模型。跨STA注册、鼠标捕获/钩子时限、命名映射、DPI和原生ABI全部Windows NotRun。详见ole-presentation-review.md与ADR0010，不能以该候选关闭E06/P0 gate。
+
+OLE结果在最终本地应用时与Cancel共锁核epoch，原Run admission、原delivery settlement与remote revoke都确认后才释放lease/允许复用。取消WaitAsync不等于原任务结束；原回调持有可读数组到实际终结，随后清零且清零结束再接下一结果。原错误保留给活跃调用，迟到失败被观察并留下有限类型码。细节及基线失败见ole-lifetime-audit.md；Windows COM/桌面组合仍未验证。

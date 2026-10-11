@@ -3,7 +3,7 @@
 不是 v1.0 完整验收或发布报告。环境与构建入口见 environment.md / README。
 
 - 原始规格 SHA256：`ea3aa6529405bcc703986988fd089f476ee8f991d867e2220b3b20c439126166`。
-- 当前离线自动化：Core 489、Provider 77，共 566；另有 Node 扩展 63 项，全部通过；最新证据见 ole-presentation-summary；截图修正证据见 browser-ownership-summary。首批 57 项、探针批 88 项、迟到错误批 118 项及修复前失败证据分别保留。
+- 当前离线自动化：Core 492、Provider 77，共 569；另有 Node 扩展 63 项，全部通过；最新证据见 ole-lifetime-audit-summary；截图修正证据见 browser-ownership-summary。首批 57 项、探针批 88 项、迟到错误批 118 项及修复前失败证据分别保留。
 - 24 个托管项目 Release 交叉构建 0 警告/0 错误；五个探针 exe 已检查为 Windows PE32+ x64，框架依赖 ZIP 已生成。这是构建/打包部分证据，Windows 实际执行均未运行。
 - A—L 的 **106 条整体用例均为 NotRun**；已验证子项不能代替完整用例。
 - R01—R18 的产品完整实现均尚未完成；模块/阶段/用例组定义完整保存在 traceability.json。
@@ -45,3 +45,5 @@ ReadBounded新增7确定性截止/完成案例，旧检查下4失败/3通过，�
 截图同步捕获/DwmFlush已从父App迁入自己持有的CaptureHost，默认5秒单调预算/2秒实际退出等待；Closing捕获等待3秒，未确认owner保留并阻止复用。共享GDI helper同线程flush后才CPU访问，7项可执行合成契约通过。新增23宿主+2角色篡改用例，全回归.NET518/Node63通过，21托管locked构建通过。真实Windows排除像素/驱动终止/层叠WPF/界面恢复/原生构建仍未执行；106整体NotRun，P0 Blocked，E06独立未解。截图几何的监督限定签收不等于此隔离专项签收；待独审见capture-host-review.md。
 
 E06新增App自有真实浮钮/独立registrar STA/远端native OLE目标候选接线与共享Off门控，48项新验证保留全部旧断言；最终.NET566/Node63及24托管locked构建通过。实际child/pipe已测，后端/registrar/门控/pointer为明确测试替代。最后Windows事件坐标输入修正仅交叉编译，真实鼠标捕获/跨STA注册/共享映射/COM释放/多屏均NotRun。原生桥未编译，42文件框架依赖包不是安装包。E06实现InProgress/验证NotRun、176完整/106整体NotRun、P0 Blocked。本地提交待监督独审，未推送；详见ole-presentation-review.md及summary。
+
+OLE候选固定d4基线先复核源码/证据，再修原Run、原delivery读租约和最终Off落地门控。新3例真实child/明确合成注册与lease；旧代码新增2例均Fail，首轮全回归491/492失败及修复证据保留；等待真实清零任务，不降低旧断言。最终Core492+Provider77=569、Node63、24托管locked Release及身份源6通过。独立新42文件ZIP保留旧4包；原生DLL未包含、非安装包。全部Windows/106整体仍NotRun，E06/P0未签收，准备正常dev推送供监督独审。详见ole-lifetime-audit.md与summary。

@@ -1,0 +1,32 @@
+{
+  "baseline": "d4fbc7e432247d5babd4a34f11d9b22012ec3af2",
+  "reviewType": "Readonly fixed-baseline source/evidence audit by implementing agent; supervisor independent review remains pending",
+  "sourceResponsibilityChecks": [
+    "App actual HWND and presentation Dispatcher separated from source COM calls",
+    "Registrar original done published before native thread starts; import/register/revoke/proxy release/apartment cleanup on registrar STA",
+    "Receiver origin standard export and source finite sync or negotiated async extraction on correct source STA; native ABI not executed",
+    "Origin callback GC root retained while external target refs may remain",
+    "Shared terminal Off serialized before pipe/held-child termination; only Start-owned child may be killed",
+    "Unknown startup/native-registration/revocation/exit blocks restart; final Run/delivery/revoke tasks now retained",
+    "Independent own physical down consent, event coordinate hit, Raw Input movement/up only; real capture ordering not executed",
+    "Final result admission uses activation cancellation lock and App RuntimeGate localOnly identity"
+  ],
+  "foundAndFixed": [
+    "Whole original Run settlement was omitted",
+    "Original delivery callback buffer was cleared on cancellation of waiter",
+    "Final local application needed cancellation-serialized readiness/epoch admission"
+  ],
+  "runtimeBoundary": {
+    "real": "independent .NET child, inherited private stdio, production framing/server/client/lifetime, actual exit and byte clearing",
+    "synthetic": "registrar, activation lease, source packet/backend, blocking/failure adapters, delayed destination tasks",
+    "WindowsNativeRuntime": "NotRun",
+    "E06": "NotRun",
+    "P0": "Blocked"
+  },
+  "environment": {
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "sdk": "10.0.401",
+    "nativeBuild": "Blocked; no MSVC/Windows SDK",
+    "interactiveWindowsDesktop": false
+  }
+}

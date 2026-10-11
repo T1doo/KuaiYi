@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using KuaiYi.Contracts;
 using KuaiYi.Core;
 namespace KuaiYi.OleTransfer;
-public enum OleReceiverFailure { Protocol,Timeout,ExitUnconfirmed,RegistrarUnconfirmed }
+public enum OleReceiverFailure { Protocol,Timeout,ExitUnconfirmed,RegistrarUnconfirmed,SettlementUnconfirmed }
 public sealed class OleReceiverException(OleReceiverFailure failure):Exception(failure.ToString()){public OleReceiverFailure Failure{get;}=failure;}
 /// <summary>Presentation does not await this loop synchronously. Own child and original registrar work remain retained.</summary>
 public sealed class OleReceiverClient(string executable,IOleTargetRegistrar registrar,IOleActivationLease activation,string? managedAssembly=null,IOwnedProcessStarter? starter=null,TimeProvider? timeProvider=null):IAsyncDisposable
@@ -18,9 +18,13 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
     private Process? child;private Guid instance;private int started;private volatile bool ready,timedOut;
     private Task? registration;
     private Task? revocation;
+    private Task? deliverySettlement;
+    public string? DeliveryFailureCode{get;private set;}
     internal Func<Process,IOwnedHostLifetime>? LifetimeForTest{init{process.LifetimeForTest=value;}}
     internal Action<Process>? OwnershipPublishedForTest{init{process.OwnershipPublishedForTest=value;}}
     internal Task StartupSettlementForTest=>process.StartupSettlement;
+    internal Task DeliverySettlementForTest=>Volatile.Read(ref deliverySettlement)??Task.CompletedTask;
+    internal Task RevocationSettlementForTest{get{lock(watchSync)return revocation??Task.CompletedTask;}}
     public bool IsReady=>ready&&!stop.IsCancellationRequested;
     public bool IsBusy{get{lock(watchSync)return watch.IsArmed;}}
     public HostExitState? ExitState=>process.ExitState;
@@ -45,10 +49,17 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
     {
         Cancel();bool exited=await process.TryFinalizeAsync(retry).ConfigureAwait(false);
         bool revoked=await registrar.TryFinalizeAsync().ConfigureAwait(false);
-        bool finalized=exited&&revoked&&registration is not {IsCompleted:false}&&registrar.IsSettledAndRevoked;
+        Task? remoteRevoke;lock(watchSync)remoteRevoke=revocation;
+        bool finalized=exited&&revoked&&Volatile.Read(ref started)!=1&&registration is not {IsCompleted:false}&&registrar.IsSettledAndRevoked&&Volatile.Read(ref deliverySettlement) is not {IsCompleted:false}&&remoteRevoke is not {IsCompleted:false};
         if(finalized)activation.Dispose();return finalized;
     }
-    public async ValueTask DisposeAsync(){if(!await TryFinalizeAsync())throw new OleReceiverException(OleReceiverFailure.ExitUnconfirmed);}
+    public async ValueTask DisposeAsync(){if(!await TryFinalizeAsync())throw new OleReceiverException(!process.ObserveExit()?OleReceiverFailure.ExitUnconfirmed:!registrar.IsSettledAndRevoked?OleReceiverFailure.RegistrarUnconfirmed:OleReceiverFailure.SettlementUnconfirmed);}
+    /// <summary>Destination-thread admission, serialized with cancellation. Caller performs only bounded local application, no waits or external COM.</summary>
+    public bool TryApplyLocal(long epoch,Action apply)
+    {
+        ArgumentNullException.ThrowIfNull(apply);
+        lock(activationSync){if(!IsReady||!eligibility.Current(epoch))return false;apply();return true;}
+    }
     public async Task<bool> SetEnabledAsync(long epoch,bool enabled)
     {
         lock(activationSync){if(!IsReady||!eligibility.Set(epoch,enabled))return false;activation.Set(epoch,enabled);}
@@ -64,7 +75,13 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
     }
     public async Task RunAsync(OleReceiverHello hello,Action<OleReceiverEvent> feedback,Func<long,Guid,ReadOnlyMemory<byte>,CancellationToken,Task> deliver,CancellationToken cancellation=default)
     {
-        OleReceiverWire.Validate(hello);if(hello.ActivationName!=activation.Name)throw new InvalidDataException("Wrong owned activation mapping.");if(Interlocked.Exchange(ref started,1)!=0)throw new InvalidOperationException("One receiver per client.");cancellation.ThrowIfCancellationRequested();
+        OleReceiverWire.Validate(hello);if(hello.ActivationName!=activation.Name)throw new InvalidDataException("Wrong owned activation mapping.");if(Interlocked.CompareExchange(ref started,1,0)!=0)throw new InvalidOperationException("One receiver per client.");
+        try{await RunOwnedAsync(hello,feedback,deliver,cancellation).ConfigureAwait(false);}
+        finally{Volatile.Write(ref started,2);} // Entire original admission/read/registration/cleanup path has returned.
+    }
+    private async Task RunOwnedAsync(OleReceiverHello hello,Action<OleReceiverEvent> feedback,Func<long,Guid,ReadOnlyMemory<byte>,CancellationToken,Task> deliver,CancellationToken cancellation)
+    {
+        cancellation.ThrowIfCancellationRequested();
         lock(activationSync){instance=hello.Instance;eligibility.Set(hello.Epoch,false);activation.Set(hello.Epoch,false);}
         using var lifetime=CancellationTokenSource.CreateLinkedTokenSource(cancellation,stop.Token);
         using var startup=new CancellationTokenSource(TimeSpan.FromSeconds(10),timeProvider??TimeProvider.System);
@@ -117,8 +134,10 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
                         if(pending!=null)
                         {
                             if(transaction!=item.Transaction||payloadEpoch!=item.Epoch||item.Effect!=1||!eligibility.Current(item.Epoch)||OleReceiverWire.DecodeText(pending).Length!=item.CodeUnits)throw new OleReceiverException(OleReceiverFailure.Protocol);
-                            try{await deliver(item.Epoch,item.Transaction,pending,lifetime.Token).WaitAsync(lifetime.Token).ConfigureAwait(false);}
-                            finally{CryptographicOperations.ZeroMemory(pending);pending=null;}
+                            Task originalDelivery=deliver(item.Epoch,item.Transaction,pending,lifetime.Token);
+                            Task settlement=ObserveDelivery(originalDelivery,pending);Volatile.Write(ref deliverySettlement,settlement);pending=null; // Original callback owns the read lease until actual settlement, even when our waiter cancels.
+                            await settlement.WaitAsync(lifetime.Token).ConfigureAwait(false); // Finish clearing this lease before accepting another payload.
+                            await originalDelivery.ConfigureAwait(false); // Preserve the original error for the active caller.
                         }
                         else if(item.Effect!=0||item.CodeUnits!=0)throw new OleReceiverException(OleReceiverFailure.Protocol);
                     }
@@ -153,5 +172,11 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
         }
     }
     private static async Task ObserveRead(Task<IpcFrame?> reading){try{var frame=await reading.ConfigureAwait(false);if(frame!=null)CryptographicOperations.ZeroMemory(frame.Payload);}catch(Exception e)when(e is IOException or OperationCanceledException or ObjectDisposedException){/* Owned read failure observed. */}}
+    private async Task ObserveDelivery(Task original,byte[] owned)
+    {
+        try{await original.ConfigureAwait(false);}
+        catch(Exception error){DeliveryFailureCode=error.GetType().Name;} // Original failure is observed; current loop reports it if still waiting.
+        finally{CryptographicOperations.ZeroMemory(owned);}
+    }
     private static async Task ObserveRegistration(Task task){try{await task.ConfigureAwait(false);}catch(Exception){/* Registrar retains finite failure state and original native work until settlement. */}}
 }

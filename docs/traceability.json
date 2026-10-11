@@ -130,9 +130,11 @@
       "evidence": [
         "docs/adr/0010-responsive-ole-presentation.md",
         "docs/ole-presentation-review.md",
-        "docs/test-evidence/2026-10-11-ole-presentation-summary.json"
+        "docs/test-evidence/2026-10-11-ole-presentation-summary.json",
+        "docs/ole-lifetime-audit.md",
+        "docs/test-evidence/2026-10-11-ole-lifetime-audit-summary.json"
       ],
-      "note": "App-owned real HWND + dedicated registrar STA + owned remote native OLE target candidate cross-built; real-child production IPC/lifetime and explicit synthetic backend/registrar/gate/pointer tests passed. Windows native build, HWND registration combination, capture input, COM release, shared mapping, focus/DPI and E06 desktop gate are NotRun. No full requirement/phase acceptance; local review before push."
+      "note": "App-owned real HWND + dedicated registrar STA + owned remote native OLE target candidate cross-built; real-child production IPC/lifetime and explicit synthetic backend/registrar/gate/pointer tests passed. Windows native build, HWND registration combination, capture input, COM release, shared mapping, focus/DPI and E06 desktop gate are NotRun. No full requirement/phase acceptance; Original Run/delivery settlement and final Off admission audited and fixed; 569 .NET/63 Node offline cases passed. Normal dev push is prepared for supervisor independent review, not phase acceptance."
     },
     {
       "id": "R10",
@@ -332,9 +334,11 @@
         "docs/test-evidence/2026-10-11-ole-cleanup-summary.json",
         "docs/adr/0010-responsive-ole-presentation.md",
         "docs/ole-presentation-review.md",
-        "docs/test-evidence/2026-10-11-ole-presentation-summary.json"
+        "docs/test-evidence/2026-10-11-ole-presentation-summary.json",
+        "docs/ole-lifetime-audit.md",
+        "docs/test-evidence/2026-10-11-ole-lifetime-audit-summary.json"
       ],
-      "note": "App-owned real HWND + dedicated registrar STA + owned remote native OLE target candidate cross-built; real-child production IPC/lifetime and explicit synthetic backend/registrar/gate/pointer tests passed. Windows native build, HWND registration combination, capture input, COM release, shared mapping, focus/DPI and E06 desktop gate are NotRun. No full requirement/phase acceptance; local review before push."
+      "note": "App-owned real HWND + dedicated registrar STA + owned remote native OLE target candidate cross-built; real-child production IPC/lifetime and explicit synthetic backend/registrar/gate/pointer tests passed. Windows native build, HWND registration combination, capture input, COM release, shared mapping, focus/DPI and E06 desktop gate are NotRun. No full requirement/phase acceptance; Original Run/delivery settlement and final Off admission audited and fixed; 569 .NET/63 Node offline cases passed. Normal dev push is prepared for supervisor independent review, not phase acceptance."
     },
     {
       "id": "P0-04",
@@ -1544,9 +1548,11 @@
       "evidence": [
         "docs/adr/0010-responsive-ole-presentation.md",
         "docs/ole-presentation-review.md",
-        "docs/test-evidence/2026-10-11-ole-presentation-summary.json"
+        "docs/test-evidence/2026-10-11-ole-presentation-summary.json",
+        "docs/ole-lifetime-audit.md",
+        "docs/test-evidence/2026-10-11-ole-lifetime-audit-summary.json"
       ],
-      "note": "App-owned real HWND + dedicated registrar STA + owned remote native OLE target candidate cross-built; real-child production IPC/lifetime and explicit synthetic backend/registrar/gate/pointer tests passed. Windows native build, HWND registration combination, capture input, COM release, shared mapping, focus/DPI and E06 desktop gate are NotRun. No full requirement/phase acceptance; local review before push."
+      "note": "App-owned real HWND + dedicated registrar STA + owned remote native OLE target candidate cross-built; real-child production IPC/lifetime and explicit synthetic backend/registrar/gate/pointer tests passed. Windows native build, HWND registration combination, capture input, COM release, shared mapping, focus/DPI and E06 desktop gate are NotRun. No full requirement/phase acceptance; Original Run/delivery settlement and final Off admission audited and fixed; 569 .NET/63 Node offline cases passed. Normal dev push is prepared for supervisor independent review, not phase acceptance."
     },
     {
       "id": "F01",

@@ -111,10 +111,13 @@ internal sealed class OlePresentationWindow:Window
         {
             await owner.RunAsync(hello,item=>{lock(feedbackSync){if(item.Phase=="Hover")desiredHover=true;if(item.Phase is "Leave" or "DropBegin" or "DropEnd")desiredHover=false;latest=(owner,item);}},(epoch,transaction,bytes,token)=>Dispatcher.InvokeAsync(()=>
             {
-                var current=gate.Snapshot;
-                if(!ReferenceEquals(client,owner)||!owner.IsReady||token.IsCancellationRequested||!consent.Allows(gate,IsVisible)||current.Activation!=Activation.On||current.Suspension!=Suspension.None||current.Mode!=TriggerMode.Drop||epoch!=current.Epoch)return;
-                string text=OleReceiverWire.DecodeText(bytes.Span);
-                if(gate.TryStartConfirmedLocalRequest(epoch,session,transaction,out var identity,out _))gate.TryApply(identity,()=>localText(identity,text));
+                owner.TryApplyLocal(epoch,()=>
+                {
+                    var current=gate.Snapshot;
+                    if(!ReferenceEquals(client,owner)||token.IsCancellationRequested||!consent.Allows(gate,IsVisible)||current.Activation!=Activation.On||current.Suspension!=Suspension.None||current.Mode!=TriggerMode.Drop||epoch!=current.Epoch)return;
+                    string text=OleReceiverWire.DecodeText(bytes.Span);
+                    if(gate.TryStartConfirmedLocalRequest(epoch,session,transaction,out var identity,out _))gate.TryApply(identity,()=>localText(identity,text));
+                });
             },DispatcherPriority.Background,token).Task);
         }
         catch(OperationCanceledException){/* Explicit cancel/Off; prior result is not replaced. */}
