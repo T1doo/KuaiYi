@@ -186,9 +186,11 @@
         "docs/browser-native-host.md",
         "docs/browser-ownership-review.md",
         "docs/browser-read-ownership-review.md",
-        "docs/test-evidence/2026-10-11-browser-read-ownership-summary.json"
+        "docs/test-evidence/2026-10-11-browser-read-ownership-summary.json",
+        "docs/browser-app-receiver-review.md",
+        "docs/test-evidence/2026-10-11-browser-app-receiver-summary.json"
       ],
-      "note": "Protocol/ownership subitems only. Browser screenshot fallback fully denied without complete pixel proof; argv/registration/file hashes match configuration, do not authenticate browser caller. Production receiver remains unavailable; Windows whole task is not Pass."
+      "note": "Production App local receiver code implemented; OS process/user/session/installed-role checks and per-operation desktop confirmation, connection-bound single grant, local-only network gate. Synthetic Linux IPC tests pass; actual Windows security/UI/config/registration not run. Screenshot fallback denied; browser source not authenticated; whole acceptance remains NotRun."
     },
     {
       "id": "R14",
@@ -373,9 +375,11 @@
         "docs/test-evidence/2026-10-11-browser-summary.json",
         "docs/browser-ownership-review.md",
         "docs/browser-read-ownership-review.md",
-        "docs/test-evidence/2026-10-11-browser-read-ownership-summary.json"
+        "docs/test-evidence/2026-10-11-browser-read-ownership-summary.json",
+        "docs/browser-app-receiver-review.md",
+        "docs/test-evidence/2026-10-11-browser-app-receiver-summary.json"
       ],
-      "note": "Protocol/ownership subitems only. Browser screenshot fallback fully denied without complete pixel proof; argv/registration/file hashes match configuration, do not authenticate browser caller. Production receiver remains unavailable; Windows whole task is not Pass."
+      "note": "Production App local receiver code implemented; OS process/user/session/installed-role checks and per-operation desktop confirmation, connection-bound single grant, local-only network gate. Synthetic Linux IPC tests pass; actual Windows security/UI/config/registration not run. Screenshot fallback denied; browser source not authenticated; whole acceptance remains NotRun."
     },
     {
       "id": "P1-01",
@@ -2149,9 +2153,13 @@
         "伪造 IPC 长度、重放分片、远程管道、其他用户连接",
         "校验失败且不分配巨量内存；不泄密、不执行命令"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/browser-app-receiver-review.md",
+        "docs/test-evidence/2026-10-11-browser-app-receiver-summary.json"
+      ],
+      "note": "Production App local receiver code implemented; OS process/user/session/installed-role checks and per-operation desktop confirmation, connection-bound single grant, local-only network gate. Synthetic Linux IPC tests pass; actual Windows security/UI/config/registration not run. Screenshot fallback denied; browser source not authenticated; whole acceptance remains NotRun."
     },
     {
       "id": "L05",

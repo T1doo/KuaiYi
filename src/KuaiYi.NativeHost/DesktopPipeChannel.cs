@@ -27,9 +27,9 @@ public sealed class DesktopPipeChannel(Stream pipe,string origin):IDesktopImageC
             if(r.GetProperty("phase").GetString()!="Begun"||BrowserEnvelope.Id(r,"operationId")!=grant.OperationId)throw new BrowserException(BrowserFailure.Stale);
         }
         int index=0;
-        for(int offset=0;offset<image.Bytes.Length;offset+=IpcFrameCodec.BinaryLimit-4)
+        for(int offset=0;offset<image.Bytes.Length;offset+=ImageTransferAssembler.ChunkLimit)
         {
-            int count=Math.Min(IpcFrameCodec.BinaryLimit-4,image.Bytes.Length-offset);byte[] data=new byte[count+4];
+            int count=Math.Min(ImageTransferAssembler.ChunkLimit,image.Bytes.Length-offset);byte[] data=new byte[count+4];
             try{System.Buffers.Binary.BinaryPrimitives.WriteInt32LittleEndian(data,index++);image.Bytes.Span.Slice(offset,count).CopyTo(data.AsSpan(4));await IpcFrameCodec.WriteAsync(pipe,new(IpcMessageType.BinaryChunk,connection,data),cancellation);}
             finally{CryptographicOperations.ZeroMemory(data);}
         }

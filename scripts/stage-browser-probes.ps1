@@ -6,10 +6,13 @@ try {
     Assert-Sdk
     $root=Join-Path $script:RepositoryRoot 'artifacts/browser-probes'
     if(Test-Path $root){Remove-Item $root -Recurse -Force}
-    $hostFolder=Join-Path $root 'host';$extension=Join-Path $root 'extension'
-    New-Item -ItemType Directory -Force $hostFolder,$extension | Out-Null
+    $hostFolder=Join-Path $root 'host';$extension=Join-Path $root 'extension';$appFolder=Join-Path $root 'app'
+    New-Item -ItemType Directory -Force $hostFolder,$extension,$appFolder | Out-Null
     Invoke-Checked dotnet @('restore','src/KuaiYi.NativeHost/KuaiYi.NativeHost.csproj','--locked-mode')
     Invoke-Checked dotnet @('publish','src/KuaiYi.NativeHost/KuaiYi.NativeHost.csproj','--no-restore','-c',$Configuration,'--self-contained','false','-o',$hostFolder)
+    # App receiving source is included for review; no receipt, browser manifest/registration or identity/native DLL is fabricated.
+    Invoke-Checked dotnet @('restore','src/KuaiYi.App/KuaiYi.App.csproj','--locked-mode','/p:EnableWindowsTargeting=true')
+    Invoke-Checked dotnet @('publish','src/KuaiYi.App/KuaiYi.App.csproj','--no-restore','-c',$Configuration,'--self-contained','false','/p:EnableWindowsTargeting=true','-o',$appFolder)
     # Explicit production file list; test fixtures, tests and synthetic origins never enter review distribution.
     foreach($name in 'manifest.json','service-worker.js','protocol.js','acquire.js','options.html','options.js','icon.png') {
         Copy-Item (Join-Path 'extensions/chromium' $name) $extension
@@ -22,8 +25,8 @@ try {
     $files=@(Get-ChildItem $root -File -Recurse | Sort-Object FullName | ForEach-Object {
         @{Path=[IO.Path]::GetRelativePath($root,$_.FullName).Replace('\','/');Bytes=$_.Length;Sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}
     })
-    @{Kind='P0BrowserProtocolReview';FrameworkDependent=$true;NativeRegistration='NotConfigured';ActualExtensionId='NotConfigured';DesktopGrantSource='NotImplementedInApp';WindowsRuntime='NotRun';Installer=$false;Files=$files} |
+    @{Kind='P0BrowserReceiverReview';FrameworkDependent=$true;NativeRegistration='NotConfigured';ActualExtensionId='NotConfigured';DesktopGrantSource='AppExplicitPerOperationLocalOnly;DefaultUnconfiguredDeny';BrowserCallerAuthentication='NotProven';WindowsRuntime='NotRun';Installer=$false;Files=$files} |
         ConvertTo-Json -Depth 5 | Set-Content (Join-Path $root 'review-manifest.json') -Encoding utf8NoBOM
-    Compress-Archive -Path (Join-Path $root 'host'),$extension,(Join-Path $root 'review-manifest.json') -DestinationPath 'artifacts/KuaiYi-P0-browser-managed-win-x64.zip' -Force
+    Compress-Archive -Path (Join-Path $root 'host'),$appFolder,$extension,(Join-Path $root 'review-manifest.json') -DestinationPath 'artifacts/KuaiYi-P0-browser-managed-win-x64.zip' -Force
     Write-Output 'Staged browser/NativeHost source review distribution only; no registration, extension install, activation grant or API call.'
 } finally {Pop-Location}

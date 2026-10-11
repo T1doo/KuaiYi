@@ -22,15 +22,31 @@ public sealed record InstalledHostPolicy(string Origin,string AppPath,string App
     }
     [SupportedOSPlatform("windows")]
     private static InstalledHostPolicy LoadWindows(string origin)
+        => LoadConfiguredWindows(origin, false).Policy;
+
+    public static InstalledReceiverPolicy LoadForApp()
+    {
+        if(!OperatingSystem.IsWindows())throw new BrowserException(BrowserFailure.UnsupportedPlatform);
+        return LoadForAppWindows();
+    }
+    [SupportedOSPlatform("windows")]
+    private static InstalledReceiverPolicy LoadForAppWindows()
+    {
+        var configuration=LoadConfiguredWindows(null,true);
+        return new(configuration.Policy,configuration.Origins);
+    }
+    [SupportedOSPlatform("windows")]
+    private static (InstalledHostPolicy Policy,IReadOnlyList<string> Origins) LoadConfiguredWindows(string? origin,bool appRole)
     {
         string manifestPath=Path.Combine(AppContext.BaseDirectory,"com.kuaiyi.native_host.json");
         if(!File.Exists(manifestPath)||!Registered(manifestPath))throw new BrowserException(BrowserFailure.HostNotConfigured);
         using var manifest=JsonDocument.Parse(ReadBounded(manifestPath));var m=manifest.RootElement;
         BrowserEnvelope.Fields(m,"name","description","path","type","allowed_origins");
         if(m.GetProperty("name").GetString()!=HostName||m.GetProperty("type").GetString()!="stdio"||m.GetProperty("path").GetString() is not{} exe||
-            !Path.IsPathFullyQualified(exe)||!string.Equals(Path.GetFullPath(exe),Environment.ProcessPath,StringComparison.OrdinalIgnoreCase))throw new BrowserException(BrowserFailure.HostNotConfigured);
+            !Path.IsPathFullyQualified(exe)||!string.Equals(Path.GetFullPath(exe),Path.Combine(AppContext.BaseDirectory,"KuaiYi.NativeHost.exe"),StringComparison.OrdinalIgnoreCase)||
+            !string.Equals(Environment.ProcessPath,Path.Combine(AppContext.BaseDirectory,appRole?"KuaiYi.App.exe":"KuaiYi.NativeHost.exe"),StringComparison.OrdinalIgnoreCase))throw new BrowserException(BrowserFailure.HostNotConfigured);
         var origins=m.GetProperty("allowed_origins").EnumerateArray().Select(x=>x.GetString()).ToArray();
-        if(origins.Length is <1 or >2||origins.Any(x=>!IsOrigin(x))||!origins.Contains(origin,StringComparer.Ordinal))throw new BrowserException(BrowserFailure.OriginRejected);
+        if(origins.Length is <1 or >2||origins.Any(x=>!IsOrigin(x))||origins.Distinct(StringComparer.Ordinal).Count()!=origins.Length||(!appRole&&!origins.Contains(origin,StringComparer.Ordinal)))throw new BrowserException(BrowserFailure.OriginRejected);
         // Installed role/integrity receipt is a P7 installation output, not extension-supplied configuration.
         string receiptPath=Path.Combine(AppContext.BaseDirectory,"native-host-trust.json");
         if(!File.Exists(receiptPath))throw new BrowserException(BrowserFailure.HostNotConfigured);
@@ -41,7 +57,7 @@ public sealed record InstalledHostPolicy(string Origin,string AppPath,string App
         using var user=System.Security.Principal.WindowsIdentity.GetCurrent();
         using var process=Process.GetCurrentProcess();
         string sid=user.User?.Value??throw new BrowserException(BrowserFailure.DesktopUntrusted);
-        return new(origin,app,hash,$"KuaiYi.{sid}.{process.SessionId}.NativeHost.v1",files);
+        return (new(origin??"",app,hash,$"KuaiYi.{sid}.{process.SessionId}.NativeHost.v1",files),Array.AsReadOnly(origins.Select(x=>x!).ToArray()));
     }
     [SupportedOSPlatform("windows")]
     private static bool Registered(string path)

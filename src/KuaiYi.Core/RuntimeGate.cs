@@ -32,6 +32,7 @@ public sealed class RuntimeGate
     private RequestIdentity? active;
     private long epoch;
     private Activation activation;
+    private bool localOnly;
     private TriggerMode mode;
     private Suspension suspension;
     private Presentation presentation;
@@ -54,6 +55,7 @@ public sealed class RuntimeGate
         {
             if (!configurationValid || !consented.Contains(origin) || suspension.HasFlag(Suspension.SessionLocked)) return false;
             activation = Activation.On;
+            localOnly = false;
             if (presentation == Presentation.Hidden) presentation = Presentation.Compact;
             return true;
         }
@@ -66,9 +68,44 @@ public sealed class RuntimeGate
         {
             if (!configurationValid || suspension.HasFlag(Suspension.SessionLocked)) return false;
             activation = Activation.On;
+            localOnly = true;
             if (presentation == Presentation.Hidden) presentation = Presentation.Compact;
             return true;
         }
+    }
+
+    /// <summary>Only after an explicit per-operation desktop decision. Epoch prevents a pending prompt overriding Off/lock/replacement.
+    /// Local acceptance never adds endpoint consent or starts a provider send.</summary>
+    public bool TryStartConfirmedLocalRequest(long expectedEpoch, Guid sessionId, Guid versionId,
+        out RequestIdentity identity, out CancellationToken cancellation)
+    {
+        CancellationTokenSource? previous;
+        lock (sync)
+        {
+            identity = default; cancellation = default;
+            if (epoch != expectedEpoch || suspension != Suspension.None || sessionId == Guid.Empty || versionId == Guid.Empty) return false;
+            previous = activeCancellation;
+            activeCancellation = new();
+            activation = Activation.On;
+            localOnly = true;
+            if (presentation == Presentation.Hidden) presentation = Presentation.Compact;
+            identity = new(sessionId, versionId, Guid.NewGuid(), ++epoch);
+            active = identity; cancellation = activeCancellation.Token; manuallyCollapsedRequest = null;
+        }
+        previous?.Cancel(); previous?.Dispose(); return true;
+    }
+
+    /// <summary>Connection cleanup cannot cancel a newer request.</summary>
+    public void StopRequest(RequestIdentity identity)
+    {
+        CancellationTokenSource? cancellation;
+        lock (sync)
+        {
+            if (active != identity) return;
+            active = null; cancellation = activeCancellation; activeCancellation = null; epoch++;
+            if (localOnly) { activation = Activation.Off; presentation = Presentation.Compact; }
+        }
+        cancellation?.Cancel(); cancellation?.Dispose();
     }
 
     public void Disable(bool hide = false)
@@ -121,13 +158,13 @@ public sealed class RuntimeGate
         lock (sync)
         {
             ticket = new CaptureTicket(epoch, mode);
-            return activation == Activation.On && mode == expectedMode && suspension == Suspension.None;
+            return activation == Activation.On && !localOnly && mode == expectedMode && suspension == Suspension.None;
         }
     }
 
     public bool IsCaptureCurrent(CaptureTicket ticket)
     {
-        lock (sync) return activation == Activation.On && suspension == Suspension.None && ticket.Epoch == epoch && ticket.Mode == mode;
+        lock (sync) return activation == Activation.On && !localOnly && suspension == Suspension.None && ticket.Epoch == epoch && ticket.Mode == mode;
     }
 
     public bool TryStartRequest(Guid sessionId, Guid versionId, CaptureTicket? passiveTicket,
@@ -140,7 +177,7 @@ public sealed class RuntimeGate
             cancellation = default;
             if (sessionId == Guid.Empty || versionId == Guid.Empty || activation != Activation.On ||
                 suspension.HasFlag(Suspension.SessionLocked)) return false;
-            if (passiveTicket is { } ticket && (ticket.Epoch != epoch || ticket.Mode != mode || suspension != Suspension.None)) return false;
+            if (passiveTicket is { } ticket && (localOnly || ticket.Epoch != epoch || ticket.Mode != mode || suspension != Suspension.None)) return false;
             previous = activeCancellation;
             activeCancellation = new CancellationTokenSource();
             identity = new RequestIdentity(sessionId, versionId, Guid.NewGuid(), ++epoch);
@@ -186,7 +223,7 @@ public sealed class RuntimeGate
 
     public bool CanSend(RequestIdentity identity, EndpointOrigin actualOrigin)
     {
-        lock (sync) return activation == Activation.On && active == identity && consented.Contains(actualOrigin) &&
+        lock (sync) return activation == Activation.On && !localOnly && active == identity && consented.Contains(actualOrigin) &&
             !suspension.HasFlag(Suspension.SessionLocked) && activeCancellation is { IsCancellationRequested: false };
     }
 
@@ -197,7 +234,7 @@ public sealed class RuntimeGate
         lock (sync)
         {
             task = null;
-            if (activation != Activation.On || active != identity || !consented.Contains(actualOrigin) ||
+            if (activation != Activation.On || localOnly || active != identity || !consented.Contains(actualOrigin) ||
                 suspension.HasFlag(Suspension.SessionLocked) || activeCancellation is not { IsCancellationRequested: false }) return false;
             task = begin();
             return true;

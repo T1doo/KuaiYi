@@ -1,3 +1,5 @@
+当前更新：生产App receiver代码、逐次本地确认和65项合成离线验证已落地，见 [接收端独审](browser-app-receiver-review.md)。当前缺安装配置仍不开放管道，来源未认证；历史无receiver描述及旧ZIP不代表最新源。
+
 # P0-06 浏览器图片与 NativeHost 协议切片
 
 基线 `cb54673dc9686059a5b5f632c23aebb42eb3e1ad` 的清理专项已获监督方放行。本轮按完整SPEC的11.3、12.4、13.2、14.1—14.4和P0-06推进。交付真实MV3扩展源码、生产NativeHost入口、实际stdio/内部IPC客户端及离线证据；不是已安装的浏览器入口或完整R13/P0通过。
@@ -18,7 +20,7 @@
 
 | 浏览器消息 | 行为 |
 |---|---|
-| OfferImage(operationId) | 已验证来源的宿主向已验证本机App发SubmitImage/OfferImage；未启用或未授权返回Error，不读图 |
+| OfferImage(operationId) | 配置匹配的宿主向核验系统角色的App发SubmitImage/OfferImage；origin仅声明，逐次桌面确认前不发grant、不读图；当前缺安装配置拒绝 |
 | Ready(operationId, protocol=1) | 本次桌面授权已取得；不向扩展导出内部身份/nonce |
 | BeginImage(transferId, totalLength, mime, sha256) | ID必须等于Offer；只接受有限PNG声明，分配有界传输 |
 | Chunk(transferId, index, data) | 复用Contracts.ImageChunkWire真实解析，严格字段/ID/顺序/base64/字节上限，逐片确认 |

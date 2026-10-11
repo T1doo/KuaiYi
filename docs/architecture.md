@@ -16,7 +16,7 @@ flowchart LR
 ```
 
 - Core：纯状态/身份门控与布局，net10.0，无 WPF、模型请求或用户内容持久化。请求替换/停用取消旧身份；实际每次发送由统一门控原子启动，响应再检查身份。还未交付完整多任务 coordinator/会话版本库。
-- Contracts：内部 IPC 和 Chromium Native Messaging 是两个独立编码器，先校验无符号长度再分配。图像重组属于单连接串行所有权，有界内存、索引、摘要与 30 秒绝对截止；Commit 仅交付字节，不启动模型。实际 named pipe ACL/session/角色授权尚未实现。
+- Contracts：内部 IPC 和 Chromium Native Messaging 是两个独立编码器，先校验无符号长度再分配。图像重组属于单连接串行所有权，有界内存、索引、摘要与 30 秒绝对截止；Commit 仅交付字节，不启动模型。NativeHost接收角色已有Windows ACL/session/进程/安装角色核验代码，真实Windows验证NotRun；其他角色的生产IPC仍未完成。
 - ImageChunkWire：规范 Chunk 外壳、190KiB 原始分片、完整 UTF-8 消息再限界，严格 ID/索引/字段/base64 验证后进入重组；错误清除未完成传输。整条 JSON→解码→20MiB 重组→摘要 Commit 已离线验证，浏览器 NativeHost 与图像像素/格式验证仍未接入。
 - Providers：每请求独立凭据头，禁自动重定向；双协议 JSON/SSE、有限重试、总/首包/空闲截止、输出限界与晚到门控。Anthropic 按开始/活动块/最终原因/结束校验，只暴露 text 块。SecretLease 仅内存访问，不替代 DPAPI；端点风险设置、能力选项、完整错误 UI 和两阶段图片流水线尚未接入。
 - 接收合同：产品消费应使用 GenerateEnvelopesAsync，将完整 RequestIdentity 与每个事件一起放入 ProviderEventReceiver。目标 SynchronizationContext 由宿主提供；队列实际执行时通过 Core.TryApply 原子检查身份并应用，不能只在入队前检查。应用回调必须短小同步、不等待或再次跨线程 dispatch。当前已有队列与真实 HTTP 集成测试，正式 WPF App 尚未交付，不能将合同测试称为 UI 验收。
@@ -25,7 +25,7 @@ flowchart LR
 - CaptureBroker：当前为 P0 一次性进程协议，真实 UIA 在 MTA 获取；父进程以硬终止处理无法取消的 COM 阻塞。仍需连接生产采集手势、状态 epoch、长驻 broker 重启/熔断、授权复制兼容与安全 IPC。
 - tools：Mock Provider 只供测试；GrowthHarness 是公开固定文本视觉实验；CompatibilityProbe 对公开文件实际选区比对；NativeMessagingProbe 是显式 echo 实验。均不作为完整快译 App 的替代品。生产项目不引用测试工具。
 
-解决方案有 14 个实际可构建项目。未创建空 App/Shell/OCR/扩展接口来冒充完成：正式 WPF App、托盘/设置/热键/DPAPI、生产 OLE、浏览器扩展/NativeHost、完整安装与生产图片管线仍是明确待实现模块。新增App的P0实验入口、ImageWorker实际调用代码、原生Shell源码与开发身份工程见下；原生构建/Windows行为未验证。P0 真实平台退出门槛与其必要的 Windows/原生工具链证据仍为 Blocked。
+解决方案现有 19 个实际可构建项目。未创建空 App/Shell/OCR/扩展接口来冒充完成：正式 WPF App、托盘/设置/热键/DPAPI、生产 OLE、浏览器扩展/NativeHost、完整安装与生产图片管线仍是明确待实现模块。新增App的P0实验入口、ImageWorker实际调用代码、原生Shell源码与开发身份工程见下；原生构建/Windows行为未验证。P0 真实平台退出门槛与其必要的 Windows/原生工具链证据仍为 Blocked。
 
 可运行的检查及失败修复见 progress.md，Windows 操作和限制见 windows-probes.md，176 个规格条目见 traceability.json。所有 A—L 整体用例保持 NotRun。
 
@@ -58,3 +58,7 @@ MV3显式菜单→已配置且来源合法的NativeHost→验证同用户/sessio
 监督修正：浏览器可见截图无法证明完整像素归属，现整条fallback拒绝并去除scripting，仅保留同源无凭据原图。argv及配置匹配不认证启动者；实际来源与用户意图尚未验证，当前无生产App receiver，不能开放授权。后续系统角色验证/逐次桌面确认设计见browser-ownership-review.md。
 
 ReadBounded等待失败后的底层任务始终由唯一迟到观察者处理，正常返回仅正常using所有者释放；成功快路径还复核截止，过期不交付Offer。TimeProvider.System与30秒生产默认保持，确定性测试使用内部屏障/实际JSON解析，详见browser-read-ownership-review.md。
+
+## App 单次本地接收
+
+当前生产App代码有InstalledBrowserReceiver → WindowsNativePeer → DesktopReceiverSession → DesktopLocalConfirmation → LocalImageInbox链路。安装配置缺失先拒绝；原生管道拒远程、用户/session/实际进程/安装模块复核不证明浏览器来源，因此每次由桌面显式回答，单次连接grant和身份/nonce/截止在Begin/Commit及目标队列复查。本地模式禁止被动采集和模型发送；窗口只保留一张有界内存PNG，不进行OCR/Provider调用。App仍是P0实验窗口，原生身份/真实确认和安装尚未验证。此前未接入receiver的描述为历史状态，最新证据见browser-app-receiver-review.md。

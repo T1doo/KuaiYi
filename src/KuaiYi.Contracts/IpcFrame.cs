@@ -48,8 +48,12 @@ public static class IpcFrameCodec
         var request = new Guid(header.AsSpan(12, 16));
         Validate(type, request, length); // Validate unsigned length before allocation.
         byte[] payload = new byte[(int)length];
-        await stream.ReadExactlyAsync(payload, cancellation).ConfigureAwait(false);
-        return new IpcFrame(type, request, payload);
+        try
+        {
+            await stream.ReadExactlyAsync(payload, cancellation).ConfigureAwait(false);
+            return new IpcFrame(type, request, payload);
+        }
+        catch { System.Security.Cryptography.CryptographicOperations.ZeroMemory(payload); throw; }
     }
 
     private static void Validate(IpcMessageType type, Guid request, uint length)

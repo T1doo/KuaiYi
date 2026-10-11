@@ -1,0 +1,182 @@
+{
+  "NativeRegistration": "NotConfigured",
+  "Kind": "P0BrowserReceiverReview",
+  "DesktopGrantSource": "AppExplicitPerOperationLocalOnly;DefaultUnconfiguredDeny",
+  "WindowsRuntime": "NotRun",
+  "FrameworkDependent": true,
+  "Installer": false,
+  "ActualExtensionId": "NotConfigured",
+  "Files": [
+    {
+      "Bytes": 1980,
+      "Path": "app/KuaiYi.App.deps.json",
+      "Sha256": "eeef3a1fe56a442bcd8247c24f704cdb756253b34fbf3d7bc45528432b7d99ba"
+    },
+    {
+      "Bytes": 32768,
+      "Path": "app/KuaiYi.App.dll",
+      "Sha256": "3606ad265fd5623af38b16bea47e0ac16231700eb696c4d9eaf92a5c35d3d77c"
+    },
+    {
+      "Bytes": 162816,
+      "Path": "app/KuaiYi.App.exe",
+      "Sha256": "a2371f29e65ec0309daac66c113927efa9145b21483b1334391b11427b8bd3b0"
+    },
+    {
+      "Bytes": 17924,
+      "Path": "app/KuaiYi.App.pdb",
+      "Sha256": "ba9edd41631c441090064ff761b801ca2ac264faf89aeadfe8f6d4fb307898de"
+    },
+    {
+      "Bytes": 500,
+      "Path": "app/KuaiYi.App.runtimeconfig.json",
+      "Sha256": "30d0dc491056efaaa5e3816f68a688b28e32ff6ca4d3bc85c148c1708d23a453"
+    },
+    {
+      "Bytes": 31232,
+      "Path": "app/KuaiYi.Contracts.dll",
+      "Sha256": "0f554f89d9ce32f5716ee3101652b84c51aa3d882fdb896bafe05633eb4005cf"
+    },
+    {
+      "Bytes": 15912,
+      "Path": "app/KuaiYi.Contracts.pdb",
+      "Sha256": "3aa68c1a89231cdfeb568f6722bfc6217daf923029c2a3ad72bc816f3e803d44"
+    },
+    {
+      "Bytes": 45056,
+      "Path": "app/KuaiYi.Core.dll",
+      "Sha256": "eec2f3bfe7bcc349b3d4ad5eb1ca2cff5f83fc41b840fcc67a32059320bbc6ec"
+    },
+    {
+      "Bytes": 20544,
+      "Path": "app/KuaiYi.Core.pdb",
+      "Sha256": "a3f8973c06c5f2b9e5f20f449700cca5628fc7f8da285de3384f05cdb8650313"
+    },
+    {
+      "Bytes": 52736,
+      "Path": "app/KuaiYi.Imaging.dll",
+      "Sha256": "1cec1d2d8b32c56fcb21ec038365923d0adbfc13a77b3b21615b0a4debb819f8"
+    },
+    {
+      "Bytes": 21508,
+      "Path": "app/KuaiYi.Imaging.pdb",
+      "Sha256": "879a25b8b1272f9fe2a97ee1d64bbe48133c9e6c321d6da721a8df32cbbcd725"
+    },
+    {
+      "Bytes": 1573,
+      "Path": "app/KuaiYi.NativeHost.deps.json",
+      "Sha256": "8799182c4c04fab062b26b086e839de60ec7ec65a21681bf4158a0c332e38581"
+    },
+    {
+      "Bytes": 74752,
+      "Path": "app/KuaiYi.NativeHost.dll",
+      "Sha256": "f046ece2718f2e17ff3e172c2f7db9c5cab1e80c3609decfaeb90091f9cf4dab"
+    },
+    {
+      "Bytes": 162304,
+      "Path": "app/KuaiYi.NativeHost.exe",
+      "Sha256": "5f98d8120e9f2ef7ed73eb2de1d1dc70ec778f67d076dd395690d62577473a84"
+    },
+    {
+      "Bytes": 24740,
+      "Path": "app/KuaiYi.NativeHost.pdb",
+      "Sha256": "9e61f952e2d8fb12e71353502a86ce4f95220b51c634c473d50e21c52ebde76b"
+    },
+    {
+      "Bytes": 330,
+      "Path": "app/KuaiYi.NativeHost.runtimeconfig.json",
+      "Sha256": "9950d4583cfc9a106857c0d5b8a75b53e8774852b57b80bc3823a74d44a4d87f"
+    },
+    {
+      "Bytes": 4020,
+      "Path": "extension/acquire.js",
+      "Sha256": "b54fb546ace8e7e338377c1973b314ef93ce64013a6b6d8340e9dfbcc6f0a480"
+    },
+    {
+      "Bytes": 115,
+      "Path": "extension/icon.png",
+      "Sha256": "811dca7fe9c08bf3488bce976e3cff1737ad990aff1c33d58397b3b6d68ce95d"
+    },
+    {
+      "Bytes": 562,
+      "Path": "extension/manifest.json",
+      "Sha256": "a54a48c1996708df74b273fe51dc96b876fb38275af11e4c640f6be4adc8eda3"
+    },
+    {
+      "Bytes": 937,
+      "Path": "extension/options.html",
+      "Sha256": "900d0be395767472822a440cc0533837e41561bb0783ed446a698f1e9e9e0238"
+    },
+    {
+      "Bytes": 102,
+      "Path": "extension/options.js",
+      "Sha256": "954750567b135f280cac23a36c3af0857522a1d75ff06816add65cbee0fcdfb0"
+    },
+    {
+      "Bytes": 4097,
+      "Path": "extension/protocol.js",
+      "Sha256": "17e70d39e83c09e98c167e36fa16969c2984f5105453a7105f2ac22db6f8c231"
+    },
+    {
+      "Bytes": 2537,
+      "Path": "extension/service-worker.js",
+      "Sha256": "89e9e9859a6afbbfea5ed29826a302682495e1dc3cafd12a90450937a3a7d24e"
+    },
+    {
+      "Bytes": 31232,
+      "Path": "host/KuaiYi.Contracts.dll",
+      "Sha256": "0f554f89d9ce32f5716ee3101652b84c51aa3d882fdb896bafe05633eb4005cf"
+    },
+    {
+      "Bytes": 15912,
+      "Path": "host/KuaiYi.Contracts.pdb",
+      "Sha256": "3aa68c1a89231cdfeb568f6722bfc6217daf923029c2a3ad72bc816f3e803d44"
+    },
+    {
+      "Bytes": 45056,
+      "Path": "host/KuaiYi.Core.dll",
+      "Sha256": "eec2f3bfe7bcc349b3d4ad5eb1ca2cff5f83fc41b840fcc67a32059320bbc6ec"
+    },
+    {
+      "Bytes": 20544,
+      "Path": "host/KuaiYi.Core.pdb",
+      "Sha256": "a3f8973c06c5f2b9e5f20f449700cca5628fc7f8da285de3384f05cdb8650313"
+    },
+    {
+      "Bytes": 52736,
+      "Path": "host/KuaiYi.Imaging.dll",
+      "Sha256": "1cec1d2d8b32c56fcb21ec038365923d0adbfc13a77b3b21615b0a4debb819f8"
+    },
+    {
+      "Bytes": 21508,
+      "Path": "host/KuaiYi.Imaging.pdb",
+      "Sha256": "879a25b8b1272f9fe2a97ee1d64bbe48133c9e6c321d6da721a8df32cbbcd725"
+    },
+    {
+      "Bytes": 1573,
+      "Path": "host/KuaiYi.NativeHost.deps.json",
+      "Sha256": "8799182c4c04fab062b26b086e839de60ec7ec65a21681bf4158a0c332e38581"
+    },
+    {
+      "Bytes": 74752,
+      "Path": "host/KuaiYi.NativeHost.dll",
+      "Sha256": "f046ece2718f2e17ff3e172c2f7db9c5cab1e80c3609decfaeb90091f9cf4dab"
+    },
+    {
+      "Bytes": 162304,
+      "Path": "host/KuaiYi.NativeHost.exe",
+      "Sha256": "5f98d8120e9f2ef7ed73eb2de1d1dc70ec778f67d076dd395690d62577473a84"
+    },
+    {
+      "Bytes": 24740,
+      "Path": "host/KuaiYi.NativeHost.pdb",
+      "Sha256": "9e61f952e2d8fb12e71353502a86ce4f95220b51c634c473d50e21c52ebde76b"
+    },
+    {
+      "Bytes": 330,
+      "Path": "host/KuaiYi.NativeHost.runtimeconfig.json",
+      "Sha256": "9950d4583cfc9a106857c0d5b8a75b53e8774852b57b80bc3823a74d44a4d87f"
+    }
+  ],
+  "BrowserCallerAuthentication": "NotProven"
+}

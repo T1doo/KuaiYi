@@ -1,0 +1,93 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:00.81
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:00.57
+Built scope Offline with SDK 10.0.401. This is not desktop acceptance.
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+WARNING: Overwriting results file: /workspace/KuaiYi/artifacts/test-results/offline/KuaiYi.Core.Tests.trx
+Results File: /workspace/KuaiYi/artifacts/test-results/offline/KuaiYi.Core.Tests.trx
+
+Passed!  - Failed:     0, Passed:   375, Skipped:     0, Total:   375, Duration: 6 s - KuaiYi.Core.Tests.dll (net10.0)
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+WARNING: Overwriting results file: /workspace/KuaiYi/artifacts/test-results/offline/KuaiYi.Provider.Tests.trx
+Results File: /workspace/KuaiYi/artifacts/test-results/offline/KuaiYi.Provider.Tests.trx
+
+Passed!  - Failed:     0, Passed:    77, Skipped:     0, Total:    77, Duration: 1 s - KuaiYi.Provider.Tests.dll (net10.0)
+✔ manifest has exactly three used permissions and no web entry points (5.052246ms)
+✔ context comes only from top-frame active image click (0.21477ms)
+✔ context rejects cross-frame (0.193698ms)
+✔ context rejects wrong-menu (0.052699ms)
+✔ context rejects text (0.065638ms)
+✔ context rejects javascript (0.061071ms)
+✔ context rejects file (0.036675ms)
+✔ context rejects userinfo (0.03987ms)
+✔ context rejects navigated (0.047752ms)
+✔ context rejects inactive (0.085357ms)
+✔ context rejects restricted (0.053399ms)
+✔ UTF-8 bytes include multibyte body and JSON envelope (0.743778ms)
+✔ 190KiB worst base64 fits complete native frame (4.535727ms)
+✔ PNG dimensions rejected before host submission (0.196022ms)
+✔ original fetch never attaches credentials/referrer or follows redirects (19.489956ms)
+✔ cross-origin/blob originals cannot call fetch (0.247329ms)
+✔ declared and streamed original byte limits independent (10.912287ms)
+✔ crop remains strictly inside target physical rectangle (0.299446ms)
+✔ crop rejects DPI (0.085608ms)
+✔ crop rejects size mismatch (0.113329ms)
+✔ crop rejects outside viewport (0.034251ms)
+✔ crop rejects empty (0.029885ms)
+✔ crop rejects NaN (1.6848ms)
+✔ crop rejects infinite (0.052017ms)
+✔ ambiguous element refuses capture before screenshot (0.212577ms)
+✔ moved target cannot reach screenshot, measurement or decode (0.24176ms)
+✔ actual acquisition refuses unproven viewport ownership: corner-overlay (0.384342ms)
+✔ actual acquisition refuses unproven viewport ownership: edge-overlay (0.16061ms)
+✔ actual acquisition refuses unproven viewport ownership: opposite-corner-overlay (0.110324ms)
+✔ actual acquisition refuses unproven viewport ownership: clip-path (0.076113ms)
+✔ actual acquisition refuses unproven viewport ownership: border (0.091516ms)
+✔ actual acquisition refuses unproven viewport ownership: padding (0.082673ms)
+✔ actual acquisition refuses unproven viewport ownership: object-fit (0.083414ms)
+✔ actual acquisition refuses unproven viewport ownership: mask (0.06711ms)
+✔ actual acquisition refuses unproven viewport ownership: apparently-clear (0.05405ms)
+✔ actual service worker acquisition pipeline: corner-overlay (1.849776ms)
+✔ actual service worker acquisition pipeline: clip-path (0.801164ms)
+✔ actual service worker acquisition pipeline: original (5.63182ms)
+✔ disconnect rejects an outstanding frame immediately (0.31553ms)
+✔ cancellation sends one explicit cancel and disconnects (0.138216ms)
+✔ wrong operation cannot acknowledge pending frame (0.109824ms)
+✔ desktop Off prevents image acquisition (0.105858ms)
+✔ actual extension sender to independent host loop commits ordered maximum chunks (133.960677ms)
+ℹ tests 43
+ℹ suites 0
+ℹ pass 43
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 231.616308
