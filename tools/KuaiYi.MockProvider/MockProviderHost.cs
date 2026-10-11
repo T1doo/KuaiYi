@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting.Server.Features;
 namespace KuaiYi.MockProvider;
 
 public sealed record CapturedRequest(string Run, string Path, string Body, string? AuthScheme, bool HasApiKey,
-    string? AnthropicVersion, bool CredentialInBody);
+    string? AnthropicVersion, bool CredentialInBody,string[]? FixtureCredentialHeaders=null,string? FixtureRegion=null);
 
 /// <summary>Test-only real HTTP fault server. Never referenced by production projects; binds loopback exclusively.</summary>
 public sealed class MockProviderHost : IAsyncDisposable
@@ -37,7 +37,8 @@ public sealed class MockProviderHost : IAsyncDisposable
             string body = await reader.ReadToEndAsync(context.RequestAborted);
             string auth = context.Request.Headers.Authorization.ToString();
             requests.Enqueue(new(run, context.Request.Path, body, auth.Length == 0 ? null : auth.Split(' ')[0],
-                context.Request.Headers.ContainsKey("x-api-key"), context.Request.Headers["anthropic-version"].FirstOrDefault(), body.Contains(FixtureCredential, StringComparison.Ordinal)));
+                context.Request.Headers.ContainsKey("x-api-key"), context.Request.Headers["anthropic-version"].FirstOrDefault(), body.Contains(FixtureCredential, StringComparison.Ordinal),
+                context.Request.Headers.Where(p=>p.Value.ToString()==FixtureCredential||p.Value.ToString()=="Token "+FixtureCredential||p.Key.Equals("Authorization",StringComparison.OrdinalIgnoreCase)&&p.Value.ToString()=="Bearer "+FixtureCredential).Select(p=>p.Key).ToArray(),context.Request.Headers["X-Fixture-Region"].FirstOrDefault()));
             while (requests.Count > 1024) requests.TryDequeue(out _);
             int attempt = attempts.AddOrUpdate(run, 1, (_, n) => n + 1);
             bool anthropic = endpoint.EndsWith("messages", StringComparison.Ordinal);

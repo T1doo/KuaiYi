@@ -123,3 +123,5 @@ Shell TextDropFlow→OleReceiverClient→真实私有ReceiverHost/NativeDropTarg
 P3-06：TextTranslationCoordinator 连接实际来源快照、绑定、模板、每次发送最终检查、目的队列与 OverlayResults/Frames。自动发送要求来源前台仍可信；主动确认/重生成验证保留来源身份。失败回滚与来源字典按当前/回滚引用裁剪。真实临时 AES fixture 租约测试不证明 Windows DPAPI。正式项目不引用 Mock，只有显式测试入口使用隔离配置。详见 [ADR0015](adr/0015-text-translation-scheduling.md)。
 
 P3-06 父审补正：显式命令原 URL 的不可变 DevelopmentTranslationBoundary 同时约束快照、当前设置、重生成/确认、实际每次发送及 client 连接；无认证/secretRef/custom headers，固定 fixture 模型。标签采用有效授权证明。代理/cookies关闭，IP/端口固定，不做DNS回落；普通 Provider 不被 Mock 替代。详见p3-text-boundary-review.md与ADR0015补正。
+
+P4-01：ApiProfilePolicy共享解析/校验、ApiProfileMapper生成真实协议参数和省略提示；五态能力实际为五项三态Unknown/Supported/Unsupported，不能从模型名推断。ApiConnectionTestWorkflow在同一Gate独立请求目的中仅发送固定公开source/system，Off仍不允许获取用户内容。正式消费者liveRequest按profile/参数切换取消，通用绑定与旧快照保证不改。详见ADR0016。

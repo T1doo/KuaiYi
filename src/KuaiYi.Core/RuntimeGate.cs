@@ -99,7 +99,7 @@ public sealed partial class RuntimeGate
             localOnly = true;
             if (presentation == Presentation.Hidden) presentation = Presentation.Compact;
             identity = new(sessionId, versionId, Guid.NewGuid(), ++epoch);
-            active = identity; cancellation = activeCancellation.Token; manuallyCollapsedRequest = null;
+            active = identity; connectionTest=false;runningRequest=true;cancellation = activeCancellation.Token; manuallyCollapsedRequest = null;
             activeProfileBinding = null;
         }
         previous?.Cancel(); previous?.Dispose(); return true;
@@ -232,6 +232,7 @@ public sealed partial class RuntimeGate
             identity = new RequestIdentity(sessionId, versionId, Guid.NewGuid(), ++epoch);
             cancellation = activeCancellation.Token;
             active = identity;
+            connectionTest=false;runningRequest=true;
             activeProfileBinding = binding;
             manuallyCollapsedRequest = null;
         }
@@ -242,7 +243,7 @@ public sealed partial class RuntimeGate
 
     public bool CanApply(RequestIdentity identity)
     {
-        lock (sync) return activation == Activation.On && active == identity && !suspension.HasFlag(Suspension.SessionLocked);
+        lock (sync) return (activation == Activation.On||connectionTest) && active == identity && !suspension.HasFlag(Suspension.SessionLocked);
     }
 
     /// <summary>Create a caller-owned cancellation link under the identity lock, before the source can be replaced/disposed.</summary>
@@ -251,7 +252,7 @@ public sealed partial class RuntimeGate
         lock (sync)
         {
             linked = null;
-            if (activation != Activation.On || active != identity || suspension.HasFlag(Suspension.SessionLocked) ||
+            if (activation != Activation.On&&!connectionTest || active != identity || suspension.HasFlag(Suspension.SessionLocked) ||
                 activeCancellation is not { IsCancellationRequested: false }) return false;
             linked = CancellationTokenSource.CreateLinkedTokenSource(activeCancellation.Token, caller);
             return true;
@@ -264,7 +265,7 @@ public sealed partial class RuntimeGate
         ArgumentNullException.ThrowIfNull(apply);
         lock (sync)
         {
-            if (activation != Activation.On || active != identity || suspension.HasFlag(Suspension.SessionLocked)) return false;
+            if (activation != Activation.On&&!connectionTest || active != identity || suspension.HasFlag(Suspension.SessionLocked)) return false;
             // Caller is already on its destination thread: do not block, await or dispatch inside this callback.
             apply();
             return true;
@@ -273,7 +274,7 @@ public sealed partial class RuntimeGate
 
     public bool CanSend(RequestIdentity identity, EndpointOrigin actualOrigin)
     {
-        lock (sync) return activation == Activation.On && !localOnly && HasSendBindingLocked() && active == identity && consented.Contains(actualOrigin) &&
+        lock (sync) return (activation == Activation.On||connectionTest) && !localOnly && HasSendBindingLocked() && active == identity && consented.Contains(actualOrigin) &&
             !suspension.HasFlag(Suspension.SessionLocked) && activeCancellation is { IsCancellationRequested: false };
     }
 

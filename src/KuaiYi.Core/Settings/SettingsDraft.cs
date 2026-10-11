@@ -8,6 +8,7 @@ public sealed class SettingsDraft(SettingsSnapshot basis):IDisposable
     public SettingsSnapshot Basis{get;}=basis;
     public AppSettings Data{get{lock(sync)return data;}}
     public bool IsClosed{get{lock(sync)return closed;}}
+    public bool HasPendingKey(string profileId){lock(sync)return keys.ContainsKey(profileId)||cleared.Contains(profileId);}
     public void Update(Func<AppSettings,AppSettings> edit){lock(sync){Available();data=edit(data);}}
     public void SetKey(string profileId,ReadOnlySpan<byte> plain)
     {

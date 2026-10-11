@@ -28,6 +28,7 @@ public sealed class ShellLifecycle:IDisposable
         if(profile.Authentication!=ApiAuthentication.None&&profile.SecretRef==null){missing="请保存 API Key";return false;}
         if(!Uri.TryCreate(profile.BaseUrl,UriKind.Absolute,out var uri)){missing="请填写有效服务地址";return false;}
         EndpointOrigin origin;try{origin=new(uri);}catch(ArgumentException){missing="请填写有效服务地址";return false;}
+        try{_=ApiProfilePolicy.Resolve(profile);ApiProfilePolicy.ValidateParameters(profile);}catch(SettingsValidationException error){missing="请检查API配置："+error.Field;return false;}
         if(!Gate.TryGetProfileBinding(profile.Id,out var binding)){missing="配置绑定尚未生效";return false;}
         intent=new(s.Version,Gate.Snapshot.Epoch,binding,origin,s.Data.TriggerMode);missing="";return true;
     }

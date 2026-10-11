@@ -333,3 +333,9 @@ P3-04最后复核补未知UIA状态带CopyEvidence的真实child反例：原6项
 88d4d59 尚未签收，旧代码允许测试设置改任意HTTPS而凭HTTP开关标本地。旧25反例22失败/3通过，实际错误发送只至loopback公开fixture；外部地址只校验不传输，无用户密钥。原源码7份/失败TRX/旧包摘要保全。
 
 从显式命令冻结端口/run/scenario授权，主程序/调度/client共享不可变边界；无凭据/自定义头、固定TEST模型，当前配置/确认/重生成/每次发送复核。越界保存/恢复立即Off，晚到UI不写；client防删/换标记，实际socket固定回环IP并关闭代理/cookies，不DNS回落，标签用授权证明。39专项均过；Core1216+Provider170=1386/1386、Node63，27 locked Release零警告/错误，27锁和规格字节不变。独立新包与20旧包/16精确历史摘要核验，原覆盖恢复事实保留。Windows/native/跨应用/焦点/动效/DPI/DPAPI/安装/远端CI NotRun，P0/E06 Blocked，106整体NotRun。其他父审尚待结论，不进入下一阶段。
+
+## P4-01 配置与固定样本测试垂直闭环
+
+父限定签收81bd670后核Spec10/P4-01现有缺口，接统一URI预览/校验/发送、端点路径/完整地址/风险HTTP、四token策略、温度/上下文/图像限额/五项三态能力、加密主自定义认证头与非敏感头、两官方预设/模型手输、固定已保存profile测试。测试明确确认，不On/不捕获，在生成中拒绝争抢，Off身份不许任意正文/system/image；流式/JSON/错误/取消真实Provider返回。测试模式固定回环无凭据边界未放宽。
+
+初14协议失败（Anthro13默认枚举+1隐式测试入口）修协议默认/受限fixture保留，原断言不改；全局取消曾破坏1通用快照测试，改为正式消费者liveRequest自有取消，旧保证恢复。xUnit过滤重载编译错误日志保留。新83项（Core40/Provider43）以及原1386均保留，最终Core1256+Provider213=1469/1469、Node63、27locked Release零警告/错误，27锁/原规格字节不变，schema由实际模型生成。实际AES只为合成fixture，不读用户key，不实际模型/收费/部署/安装。新独立包/21旧包/17历史精确commit核验；原覆盖后恢复事实保留。P0/E06 Blocked，P1/P2/P3/P4 InProgress，106完整NotRun；Windows/UI/DPAPI/焦点/动画/DPI/安装/真实服务/远端CI未验。详见p4-profile-review、ADR0016、Windows清单与本轮summary。

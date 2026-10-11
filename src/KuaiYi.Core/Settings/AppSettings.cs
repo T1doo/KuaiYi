@@ -6,7 +6,8 @@ public sealed class SettingsRangeAttribute(double minimum,double maximum):Attrib
 {public double Minimum{get;}=minimum;public double Maximum{get;}=maximum;}
 public enum ApiProtocol{OpenAIChat,AnthropicMessages}
 public enum ApiAddressMode{BasePrefix,ExactEndpoint}
-public enum ApiAuthentication{Bearer,ApiKey,None}
+public enum ApiAuthentication{Bearer,ApiKey,None,CustomHeader}
+public enum OutputTokenParameter{ProtocolDefault,MaxCompletionTokens,MaxTokens,Omit}
 public enum Capability{Unknown,Supported,Unsupported}
 public enum MotionPreference{FollowSystem,Reduce,Full}
 public enum ThemePreference{FollowSystem,Light,Dark}
@@ -26,13 +27,21 @@ public sealed record ApiProfile
     public ApiProtocol Protocol{get;init;}
     public ApiAddressMode AddressMode{get;init;}
     public string BaseUrl{get;init;}="";
+    public string EndpointPath{get;init;}="";
     public string Model{get;init;}="";
     public string? SecretRef{get;init;}
     public ApiAuthentication Authentication{get;init;}
+    public string AuthenticationHeader{get;init;}="";
     public ModelCapabilities Capabilities{get;init;}=new();
     [SettingsRange(1,131072)]public int MaxOutputTokens{get;init;}=4096;
     [SettingsRange(1,10000000)]public int? MaxContextTokens{get;init;}
-    [SettingsRange(1,600)]public int TimeoutSeconds{get;init;}=60;
+    [SettingsRange(65536,4194304)]public int ImageByteLimit{get;init;}=4194304;
+    public OutputTokenParameter OutputLimitParameter{get;init;}
+    [SettingsRange(0,2)]public double? Temperature{get;init;}
+    public bool SendStoreFalse{get;init;}
+    public bool AllowLoopbackHttp{get;init;}
+    public bool AllowInsecureHttp{get;init;}
+    [SettingsRange(1,600)]public int TimeoutSeconds{get;init;}=120;
     public bool Streaming{get;init;}=true;
     public ImmutableDictionary<string,string> Headers{get;init;}=ImmutableDictionary<string,string>.Empty;
 }

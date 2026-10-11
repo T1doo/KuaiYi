@@ -1,0 +1,71 @@
+{
+  "observedUtc": "2026-10-11T23:13:38Z",
+  "actualCommandSucceeded": true,
+  "head": "81bd6707091eb1e01cd327623d1e08ec16c08364",
+  "changes": [
+    " M README.md",
+    " M assets/config/appsettings.schema.json",
+    " M docs/acceptance-report.md",
+    " M docs/architecture.md",
+    " M docs/progress.md",
+    " M docs/traceability.json",
+    " M src/KuaiYi.App/SettingsWindow.cs",
+    " M src/KuaiYi.App/ShellWindow.cs",
+    " M src/KuaiYi.App/TranslationFlow.cs",
+    " M src/KuaiYi.Core/RuntimeGate.cs",
+    " M src/KuaiYi.Core/Settings/AppSettings.cs",
+    " M src/KuaiYi.Core/Settings/SettingsDraft.cs",
+    " M src/KuaiYi.Core/Settings/SettingsJson.cs",
+    " M src/KuaiYi.Core/ShellLifecycle.cs",
+    " M src/KuaiYi.Providers/DevelopmentTranslationBoundary.cs",
+    " M src/KuaiYi.Providers/DevelopmentTranslationProfile.cs",
+    " M src/KuaiYi.Providers/ProtocolAdapters.cs",
+    " M src/KuaiYi.Providers/ProviderClient.cs",
+    " M src/KuaiYi.Providers/ProviderContracts.cs",
+    " M src/KuaiYi.Providers/TextTranslationCoordinator.cs",
+    " M tools/KuaiYi.MockProvider/MockProviderHost.cs",
+    "?? docs/adr/0016-api-profiles-and-fixed-test.md",
+    "?? docs/p4-profile-review.md",
+    "?? docs/p4-profile-windows-checklist.md",
+    "?? scripts/stage-p4-profile.ps1",
+    "?? src/KuaiYi.App/SettingsApi.cs",
+    "?? src/KuaiYi.Core/ApiConnectionTest.cs",
+    "?? src/KuaiYi.Core/Settings/ApiProfilePolicy.cs",
+    "?? src/KuaiYi.Providers/ApiConnectionTestWorkflow.cs",
+    "?? src/KuaiYi.Providers/ApiProfileMapper.cs",
+    "?? tests/KuaiYi.Core.Tests/ApiProfilePolicyTests.cs",
+    "?? tests/KuaiYi.Provider.Tests/ApiProfileIntegrationTests.cs"
+  ],
+  "lastFullCi": {
+    "WindowsDesktop": "NotRun",
+    "Kind": "ExecutedLocalOfflineCi",
+    "Counts": {
+      "Browser": {
+        "Total": 63,
+        "Failed": 0,
+        "Passed": 63,
+        "NotExecuted": 0
+      },
+      "KuaiYi.Provider.Tests": {
+        "Total": 213,
+        "Failed": 0,
+        "Passed": 213,
+        "NotExecuted": 0
+      },
+      "KuaiYi.Core.Tests": {
+        "Total": 1256,
+        "Failed": 0,
+        "Passed": 1256,
+        "NotExecuted": 0
+      }
+    },
+    "ModelCalls": "None",
+    "Installer": "NotIncluded",
+    "RemoteGitHubCi": "NotRun",
+    "Configuration": "Release",
+    "Sdk": "10.0.401"
+  },
+  "existingStageSession": 79072,
+  "noDuplicateStart": true,
+  "networkOrPermissionsExpanded": false
+}

@@ -33,6 +33,8 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     private readonly Dictionary<Guid,TextTranslationSnapshot> snapshots=[];
     private readonly HashSet<Task> jobs=[];private readonly object jobsSync=new();
     private TextTranslationOffer? offered,submitted;private bool disposed;private Exception? deliveryFailure;
+    private sealed record LiveRequest(RequestIdentity Identity,TextTranslationSnapshot Snapshot);
+    private LiveRequest? liveRequest;
     private sealed class DestinationFailure(Exception inner):Exception("Translation destination failed.",inner);
     public OverlayResults Results{get;}
     public string? LastRejection{get;private set;}
@@ -73,7 +75,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
                 PromptBuilder.Build(style,config.Data.Translation.Domain,config.Data.Translation.ReaderBackground),$"base@1+{style}@1");
             return offered=new(snapshot,ticket,false,Same(snapshot,submitted?.Snapshot)?submitted!.Session:Guid.NewGuid());
         }
-        catch(ArgumentException){return Reject("PROFILE_INVALID");}
+        catch(Exception error)when(error is ArgumentException or SettingsValidationException){return Reject("PROFILE_INVALID");}
     }
     private TextTranslationOffer? Reject(string reason){LastRejection=reason;return null;}
     public TextTranslationOffer? PrepareRegeneration(bool useCurrentSettings=false)
@@ -118,6 +120,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     {
         offer.Launched=true;snapshots[identity.VersionId]=offer.Snapshot;
         if(!Results.Begin(identity))return;
+        Volatile.Write(ref liveRequest,new(identity,offer.Snapshot));
         PruneSnapshots();
         Publish(new(identity,new(OverlayResultEventKind.Begin),offer.Snapshot));
         Running=RunAsync(identity,offer.Snapshot,offer.Regenerate,explicitUse);
@@ -165,7 +168,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
         {if(Results.Fail(identity)){MarkFinished(identity);PruneSnapshots();Publish(new(identity,new(OverlayResultEventKind.Stopped),snapshot,reason));}},cancellation);
     private void Publish(TextTranslationUpdate update)
     {try{changed(update);}catch(Exception error){deliveryFailure=error;gate.StopRequest(update.Identity);throw new DestinationFailure(error);}}
-    private void MarkFinished(RequestIdentity identity){if(submitted?.Identity==identity)submitted.Finished=true;}
+    private void MarkFinished(RequestIdentity identity){gate.MarkRequestTerminal(identity);if(submitted?.Identity==identity)submitted.Finished=true;var live=Volatile.Read(ref liveRequest);if(live?.Identity==identity)Interlocked.CompareExchange(ref liveRequest,null,live);}
     private bool Eligible(TextTranslationSnapshot snapshot,bool explicitUse)
     {
         var current=settings();if(disposed||current==null||current.ReadOnly||current.RequiresRecovery||
@@ -180,11 +183,16 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
         bool allowed=developmentBoundary==null||!current.ReadOnly&&!current.RequiresRecovery&&current.Data.Profiles.FirstOrDefault(p=>p.Id==current.Data.ActiveProfileId) is {} profile&&developmentBoundary.Allows(profile);
         if(!allowed)gate.Disable();return allowed;
     }
-    public void ObserveSettings(SettingsSnapshot current)=>DevelopmentSettingsAllowed(current);
+    public void ObserveSettings(SettingsSnapshot current)
+    {
+        DevelopmentSettingsAllowed(current);var live=Volatile.Read(ref liveRequest);if(live==null)return;
+        var profile=current.Data.Profiles.FirstOrDefault(p=>p.Id==live.Snapshot.Profile.Id);
+        if(current.Data.ActiveProfileId!=live.Snapshot.Profile.Id||profile==null||!ApiProfilePolicy.RequestEquivalent(profile,live.Snapshot.Profile))gate.StopRequest(live.Identity);
+    }
     public bool CanUseSettings(SettingsSnapshot current)=>DevelopmentSettingsAllowed(current);
     private void PruneSnapshots()
     {var retained=Results.RetainedVersionIds;foreach(var id in snapshots.Keys.Where(id=>!retained.Contains(id)).ToArray())snapshots.Remove(id);}
-    public void Clear(){if(submitted?.Identity is {} id)gate.StopRequest(id);offered=submitted=null;snapshots.Clear();Results.Clear();}
+    public void Clear(){Volatile.Write(ref liveRequest,null);if(submitted?.Identity is {} id)gate.StopRequest(id);offered=submitted=null;snapshots.Clear();Results.Clear();}
     public async ValueTask DisposeAsync()
     {
         disposed=true;if(submitted?.Identity is {} id)gate.StopRequest(id);offered=submitted=null;
@@ -203,14 +211,6 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     public static ApiProfile ProfileTransport(SettingsProfile profile,bool allowDevelopmentLoopback=false,DevelopmentTranslationBoundary? developmentBoundary=null)
     {
         var boundary=developmentBoundary??(allowDevelopmentLoopback?DevelopmentTranslationBoundary.FromProfile(profile):null);
-        if(boundary!=null&&!boundary.Allows(profile))throw new ArgumentException("Test profile outside authorization.");
-        var protocol=profile.Protocol==KuaiYi.Core.Settings.ApiProtocol.OpenAIChat?ApiProtocol.OpenAIChat:ApiProtocol.AnthropicMessages;
-        var uri=new Uri(profile.BaseUrl,UriKind.Absolute);
-        string endpoint=profile.AddressMode==ApiAddressMode.ExactEndpoint?uri.AbsoluteUri:protocol==ApiProtocol.OpenAIChat?"chat/completions":"messages";
-        string version=profile.Headers.GetValueOrDefault("anthropic-version","2023-06-01");
-        var result=new ApiProfile(protocol,uri,endpoint,profile.Model,profile.Authentication switch{ApiAuthentication.None=>Authentication.None,ApiAuthentication.ApiKey=>Authentication.ApiKey,_=>Authentication.Bearer},
-            protocol==ApiProtocol.AnthropicMessages?OutputLimitParameter.MaxTokens:OutputLimitParameter.MaxCompletionTokens,profile.MaxOutputTokens,
-            profile.Streaming&&profile.Capabilities.Streaming!=Capability.Unsupported,boundary!=null,version,boundary);
-        _=result.ResolveEndpoint();return result;
+        try{return ApiProfileMapper.Plan(profile,boundary).Transport;}catch(SettingsValidationException error){throw new ArgumentException("Invalid profile: "+error.Field,error);}
     }
 }

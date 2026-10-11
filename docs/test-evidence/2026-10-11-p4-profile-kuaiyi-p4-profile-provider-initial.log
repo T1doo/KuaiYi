@@ -1,0 +1,148 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.30]     KuaiYi.Provider.Tests.LateEventIsolationTests.RealHttpEnvelopesSurviveQueueingOnlyForCurrentCompleteIdentity(protocol: AnthropicMessages) [FAIL]
+  Failed KuaiYi.Provider.Tests.LateEventIsolationTests.RealHttpEnvelopesSurviveQueueingOnlyForCurrentCompleteIdentity(protocol: AnthropicMessages) [4 ms]
+  Error Message:
+   System.ArgumentException : Anthropic requires max_tokens.
+  Stack Trace:
+     at KuaiYi.Providers.ApiProfile.ResolveEndpointCore() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 37
+   at KuaiYi.Providers.ApiProfile.ResolveEndpoint() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 25
+   at KuaiYi.Provider.Tests.LateEventIsolationTests.Prepare(ApiProtocol protocol, String scenario) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LateEventIsolationTests.cs:line 133
+   at KuaiYi.Provider.Tests.LateEventIsolationTests.RealHttpEnvelopesSurviveQueueingOnlyForCurrentCompleteIdentity(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LateEventIsolationTests.cs:line 110
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.52]     KuaiYi.Provider.Tests.HttpContractTests.AnthropicHttp200ErrorIsFailureAndNeverEchoesErrorBody [FAIL]
+  Failed KuaiYi.Provider.Tests.HttpContractTests.AnthropicHttp200ErrorIsFailureAndNeverEchoesErrorBody [1 ms]
+  Error Message:
+   System.ArgumentException : Anthropic requires max_tokens.
+  Stack Trace:
+     at KuaiYi.Providers.ApiProfile.ResolveEndpointCore() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 37
+   at KuaiYi.Providers.ApiProfile.ResolveEndpoint() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 25
+   at KuaiYi.Provider.Tests.HttpContractTests.Prepare(ApiProtocol protocol, String scenario) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/HttpContractTests.cs:line 37
+   at KuaiYi.Provider.Tests.HttpContractTests.AnthropicHttp200ErrorIsFailureAndNeverEchoesErrorBody() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/HttpContractTests.cs:line 135
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.53]     KuaiYi.Provider.Tests.LateEventIsolationTests.LateHttpErrorsCannotAffectReplacementOrRetryOldIdentity(protocol: AnthropicMessages, scenario: "held-401") [FAIL]
+[xUnit.net 00:00:00.56]     KuaiYi.Provider.Tests.LateEventIsolationTests.LateHttpErrorsCannotAffectReplacementOrRetryOldIdentity(protocol: AnthropicMessages, scenario: "held-503") [FAIL]
+  Failed KuaiYi.Provider.Tests.LateEventIsolationTests.LateHttpErrorsCannotAffectReplacementOrRetryOldIdentity(protocol: AnthropicMessages, scenario: "held-401") [< 1 ms]
+  Error Message:
+   System.ArgumentException : Anthropic requires max_tokens.
+  Stack Trace:
+     at KuaiYi.Providers.ApiProfile.ResolveEndpointCore() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 37
+   at KuaiYi.Providers.ApiProfile.ResolveEndpoint() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 25
+   at KuaiYi.Provider.Tests.LateEventIsolationTests.Prepare(ApiProtocol protocol, String scenario) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LateEventIsolationTests.cs:line 133
+   at KuaiYi.Provider.Tests.LateEventIsolationTests.LateHttpErrorsCannotAffectReplacementOrRetryOldIdentity(ApiProtocol protocol, String scenario) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LateEventIsolationTests.cs:line 68
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.LateEventIsolationTests.LateHttpErrorsCannotAffectReplacementOrRetryOldIdentity(protocol: AnthropicMessages, scenario: "held-503") [< 1 ms]
+  Error Message:
+   System.ArgumentException : Anthropic requires max_tokens.
+  Stack Trace:
+     at KuaiYi.Providers.ApiProfile.ResolveEndpointCore() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 37
+   at KuaiYi.Providers.ApiProfile.ResolveEndpoint() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 25
+   at KuaiYi.Provider.Tests.LateEventIsolationTests.Prepare(ApiProtocol protocol, String scenario) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LateEventIsolationTests.cs:line 133
+   at KuaiYi.Provider.Tests.LateEventIsolationTests.LateHttpErrorsCannotAffectReplacementOrRetryOldIdentity(ApiProtocol protocol, String scenario) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LateEventIsolationTests.cs:line 68
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.58]     KuaiYi.Provider.Tests.LateEventIsolationTests.CurrentIdentityStillReceivesItsOwnOutputLimitFailure(protocol: AnthropicMessages) [FAIL]
+[xUnit.net 00:00:00.58]     KuaiYi.Provider.Tests.LateEventIsolationTests.ReplacementOrOffWhileWaitingForHeadersDiscardsOldCancellation(protocol: AnthropicMessages, off: True) [FAIL]
+  Failed KuaiYi.Provider.Tests.LateEventIsolationTests.CurrentIdentityStillReceivesItsOwnOutputLimitFailure(protocol: AnthropicMessages) [< 1 ms]
+  Error Message:
+   System.ArgumentException : Anthropic requires max_tokens.
+  Stack Trace:
+     at KuaiYi.Providers.ApiProfile.ResolveEndpointCore() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 37
+   at KuaiYi.Providers.ApiProfile.ResolveEndpoint() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 25
+   at KuaiYi.Provider.Tests.LateEventIsolationTests.Prepare(ApiProtocol protocol, String scenario) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LateEventIsolationTests.cs:line 133
+   at KuaiYi.Provider.Tests.LateEventIsolationTests.CurrentIdentityStillReceivesItsOwnOutputLimitFailure(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LateEventIsolationTests.cs:line 100
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.LateEventIsolationTests.ReplacementOrOffWhileWaitingForHeadersDiscardsOldCancellation(protocol: AnthropicMessages, off: True) [< 1 ms]
+  Error Message:
+   System.ArgumentException : Anthropic requires max_tokens.
+  Stack Trace:
+     at KuaiYi.Providers.ApiProfile.ResolveEndpointCore() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 37
+   at KuaiYi.Providers.ApiProfile.ResolveEndpoint() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 25
+   at KuaiYi.Provider.Tests.LateEventIsolationTests.Prepare(ApiProtocol protocol, String scenario) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LateEventIsolationTests.cs:line 133
+   at KuaiYi.Provider.Tests.LateEventIsolationTests.ReplacementOrOffWhileWaitingForHeadersDiscardsOldCancellation(ApiProtocol protocol, Boolean off) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LateEventIsolationTests.cs:line 35
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.66]     KuaiYi.Provider.Tests.LateEventIsolationTests.ReplacementOrOffWhileWaitingForHeadersDiscardsOldCancellation(protocol: AnthropicMessages, off: False) [FAIL]
+[xUnit.net 00:00:00.66]     KuaiYi.Provider.Tests.LateEventIsolationTests.ReplacementAfterTruncatedDeltaAlsoDiscardsAdjacentLimitError(protocol: AnthropicMessages) [FAIL]
+  Failed KuaiYi.Provider.Tests.LateEventIsolationTests.ReplacementOrOffWhileWaitingForHeadersDiscardsOldCancellation(protocol: AnthropicMessages, off: False) [< 1 ms]
+  Error Message:
+   System.ArgumentException : Anthropic requires max_tokens.
+  Stack Trace:
+     at KuaiYi.Providers.ApiProfile.ResolveEndpointCore() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 37
+   at KuaiYi.Providers.ApiProfile.ResolveEndpoint() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 25
+   at KuaiYi.Provider.Tests.LateEventIsolationTests.Prepare(ApiProtocol protocol, String scenario) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LateEventIsolationTests.cs:line 133
+   at KuaiYi.Provider.Tests.LateEventIsolationTests.ReplacementOrOffWhileWaitingForHeadersDiscardsOldCancellation(ApiProtocol protocol, Boolean off) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LateEventIsolationTests.cs:line 35
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.LateEventIsolationTests.ReplacementAfterTruncatedDeltaAlsoDiscardsAdjacentLimitError(protocol: AnthropicMessages) [1 ms]
+  Error Message:
+   System.ArgumentException : Anthropic requires max_tokens.
+  Stack Trace:
+     at KuaiYi.Providers.ApiProfile.ResolveEndpointCore() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 37
+   at KuaiYi.Providers.ApiProfile.ResolveEndpoint() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 25
+   at KuaiYi.Provider.Tests.LateEventIsolationTests.Prepare(ApiProtocol protocol, String scenario) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LateEventIsolationTests.cs:line 133
+   at KuaiYi.Provider.Tests.LateEventIsolationTests.ReplacementAfterTruncatedDeltaAlsoDiscardsAdjacentLimitError(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LateEventIsolationTests.cs:line 79
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.71]     KuaiYi.Provider.Tests.LateEventIsolationTests.ReplacementDuringNonStreamingBodyDiscardsOldReadFailure(protocol: AnthropicMessages) [FAIL]
+[xUnit.net 00:00:00.73]     KuaiYi.Provider.Tests.HttpContractTests.ImageBodiesUseTheirOwnSchema(protocol: AnthropicMessages) [FAIL]
+  Failed KuaiYi.Provider.Tests.LateEventIsolationTests.ReplacementDuringNonStreamingBodyDiscardsOldReadFailure(protocol: AnthropicMessages) [3 ms]
+  Error Message:
+   System.ArgumentException : Anthropic requires max_tokens.
+  Stack Trace:
+     at KuaiYi.Providers.ApiProfile.ResolveEndpointCore() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 37
+   at KuaiYi.Providers.ApiProfile.ResolveEndpoint() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 25
+   at KuaiYi.Provider.Tests.LateEventIsolationTests.Prepare(ApiProtocol protocol, String scenario) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LateEventIsolationTests.cs:line 133
+   at KuaiYi.Provider.Tests.LateEventIsolationTests.ReplacementDuringNonStreamingBodyDiscardsOldReadFailure(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LateEventIsolationTests.cs:line 47
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.HttpContractTests.ImageBodiesUseTheirOwnSchema(protocol: AnthropicMessages) [< 1 ms]
+  Error Message:
+   System.ArgumentException : Anthropic requires max_tokens.
+  Stack Trace:
+     at KuaiYi.Providers.ApiProfile.ResolveEndpointCore() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 37
+   at KuaiYi.Providers.ApiProfile.ResolveEndpoint() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 25
+   at KuaiYi.Provider.Tests.HttpContractTests.Prepare(ApiProtocol protocol, String scenario) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/HttpContractTests.cs:line 37
+   at KuaiYi.Provider.Tests.HttpContractTests.ImageBodiesUseTheirOwnSchema(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/HttpContractTests.cs:line 176
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.75]     KuaiYi.Provider.Tests.HttpContractTests.NonStreamingIsOneActualResultWithoutFakeTyping(protocol: AnthropicMessages) [FAIL]
+  Failed KuaiYi.Provider.Tests.HttpContractTests.NonStreamingIsOneActualResultWithoutFakeTyping(protocol: AnthropicMessages) [1 ms]
+  Error Message:
+   System.ArgumentException : Anthropic requires max_tokens.
+  Stack Trace:
+     at KuaiYi.Providers.ApiProfile.ResolveEndpointCore() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 37
+   at KuaiYi.Providers.ApiProfile.ResolveEndpoint() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 25
+   at KuaiYi.Provider.Tests.HttpContractTests.Prepare(ApiProtocol protocol, String scenario) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/HttpContractTests.cs:line 37
+   at KuaiYi.Provider.Tests.HttpContractTests.NonStreamingIsOneActualResultWithoutFakeTyping(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/HttpContractTests.cs:line 95
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:01.77]     KuaiYi.Provider.Tests.HttpContractTests.FragmentedHttpStreamUsesIndependentProtocolAndActualUsage(protocol: AnthropicMessages) [FAIL]
+[xUnit.net 00:00:01.77]     KuaiYi.Provider.Tests.HttpContractTests.DisconnectRetainsPartialOutputWithoutSuccessOrRetry(protocol: AnthropicMessages) [FAIL]
+[xUnit.net 00:00:02.06]     KuaiYi.Provider.Tests.TextTranslationTests.ProductionNeverImplicitlyEnablesLoopbackTestTransport [FAIL]
+  Failed KuaiYi.Provider.Tests.HttpContractTests.FragmentedHttpStreamUsesIndependentProtocolAndActualUsage(protocol: AnthropicMessages) [< 1 ms]
+  Error Message:
+   System.ArgumentException : Anthropic requires max_tokens.
+  Stack Trace:
+     at KuaiYi.Providers.ApiProfile.ResolveEndpointCore() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 37
+   at KuaiYi.Providers.ApiProfile.ResolveEndpoint() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 25
+   at KuaiYi.Provider.Tests.HttpContractTests.Prepare(ApiProtocol protocol, String scenario) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/HttpContractTests.cs:line 37
+   at KuaiYi.Provider.Tests.HttpContractTests.FragmentedHttpStreamUsesIndependentProtocolAndActualUsage(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/HttpContractTests.cs:line 60
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.HttpContractTests.DisconnectRetainsPartialOutputWithoutSuccessOrRetry(protocol: AnthropicMessages) [< 1 ms]
+  Error Message:
+   System.ArgumentException : Anthropic requires max_tokens.
+  Stack Trace:
+     at KuaiYi.Providers.ApiProfile.ResolveEndpointCore() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 37
+   at KuaiYi.Providers.ApiProfile.ResolveEndpoint() in /workspace/KuaiYi/src/KuaiYi.Providers/ProviderContracts.cs:line 25
+   at KuaiYi.Provider.Tests.HttpContractTests.Prepare(ApiProtocol protocol, String scenario) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/HttpContractTests.cs:line 37
+   at KuaiYi.Provider.Tests.HttpContractTests.DisconnectRetainsPartialOutputWithoutSuccessOrRetry(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/HttpContractTests.cs:line 106
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.TextTranslationTests.ProductionNeverImplicitlyEnablesLoopbackTestTransport [3 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(System.ArgumentException)
+  Stack Trace:
+     at KuaiYi.Provider.Tests.TextTranslationTests.ProductionNeverImplicitlyEnablesLoopbackTestTransport() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs:line 188
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+Results File: /workspace/KuaiYi/artifacts/test-results/p4-profile/provider-initial.trx
+
+Failed!  - Failed:    14, Passed:   156, Skipped:     0, Total:   170, Duration: 1 s - KuaiYi.Provider.Tests.dll (net10.0)

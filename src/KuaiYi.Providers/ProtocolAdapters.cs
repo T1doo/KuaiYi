@@ -34,6 +34,9 @@ public sealed class OpenAiChatAdapter : IProtocolAdapter
         };
         if (request.Profile.OutputLimit != OutputLimitParameter.Omit)
             body[request.Profile.OutputLimit == OutputLimitParameter.MaxTokens ? "max_tokens" : "max_completion_tokens"] = request.Profile.MaxOutputTokens;
+        if(request.Profile.Temperature is {} temperature)body["temperature"]=temperature;
+        if(request.Profile.Stream&&request.Profile.IncludeUsage)body["stream_options"]=new JsonObject{["include_usage"]=true};
+        if(request.Profile.SendStoreFalse)body["store"]=false;
         return body;
     }
     public IReadOnlyList<ModelEvent> ParseEvent(string data)
@@ -94,12 +97,13 @@ public sealed class AnthropicMessagesAdapter : IProtocolAdapter
         var content = new JsonArray();
         if (request.Image is { } image) content.Add(ProtocolJson.ImageRequest(image, request.ImageMime, false));
         content.Add(new JsonObject { ["type"] = "text", ["text"] = request.SourceText });
-        return new()
+        var body=new JsonObject
         {
             ["model"] = request.Profile.Model, ["system"] = request.SystemPrompt,
             ["max_tokens"] = request.Profile.MaxOutputTokens, ["stream"] = request.Profile.Stream,
             ["messages"] = new JsonArray(new JsonObject { ["role"] = "user", ["content"] = content })
         };
+        if(request.Profile.Temperature is {} temperature)body["temperature"]=temperature;return body;
     }
     public IReadOnlyList<ModelEvent> ParseEvent(string data)
     {

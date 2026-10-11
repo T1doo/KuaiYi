@@ -5,17 +5,19 @@ using KuaiYi.Core;
 namespace KuaiYi.Providers;
 
 public enum ApiProtocol { OpenAIChat, AnthropicMessages }
-public enum Authentication { None, Bearer, ApiKey }
-public enum OutputLimitParameter { MaxCompletionTokens, MaxTokens, Omit }
+public enum Authentication { None, Bearer, ApiKey, CustomHeader }
+public enum OutputLimitParameter { MaxCompletionTokens, MaxTokens, Omit, ProtocolDefault }
 public enum ModelEventKind { Started, TextDelta, Usage, Completed, Failed }
 public sealed record TokenUsage(long? InputTokens, long? OutputTokens);
 public sealed record ModelEvent(ModelEventKind Kind, string? Text = null, string? Reason = null, TokenUsage? Usage = null);
 public sealed record ModelEventEnvelope(RequestIdentity Identity, ModelEvent Event);
 
 public sealed record ApiProfile(ApiProtocol Protocol, Uri BaseUrl, string Endpoint, string Model,
-    Authentication Authentication, OutputLimitParameter OutputLimit = OutputLimitParameter.MaxCompletionTokens,
+    Authentication Authentication, OutputLimitParameter OutputLimit = OutputLimitParameter.ProtocolDefault,
     int MaxOutputTokens = 4096, bool Stream = true, bool AllowLoopbackHttp = false, string AnthropicVersion = "2023-06-01",
-    DevelopmentTranslationBoundary? DevelopmentBoundary = null)
+    DevelopmentTranslationBoundary? DevelopmentBoundary = null,double? Temperature=null,bool IncludeUsage=false,bool SendStoreFalse=false,
+    bool AllowInsecureHttp=false,string AuthenticationHeader="",System.Collections.Immutable.ImmutableDictionary<string,string>? Headers=null,
+    int ImageByteLimit=4194304,KuaiYi.Core.Settings.Capability? VisionCapability=null)
 {
     public bool IsDevelopmentFixture=>DevelopmentBoundary?.Allows(this)==true;
     public Uri ResolveEndpoint()
@@ -31,7 +33,11 @@ public sealed record ApiProfile(ApiProtocol Protocol, Uri BaseUrl, string Endpoi
             throw new ArgumentException("Invalid API profile.");
         if (!BaseUrl.IsAbsoluteUri || BaseUrl.Scheme is not ("https" or "http") || BaseUrl.UserInfo.Length > 0 ||
             BaseUrl.Query.Length > 0 || BaseUrl.Fragment.Length > 0) throw new ArgumentException("Invalid endpoint base URI.");
-        if (BaseUrl.Scheme == "http" && !(BaseUrl.IsLoopback && AllowLoopbackHttp))
+        if (Temperature is {} temperature&&(!double.IsFinite(temperature)||temperature<0||temperature>(Protocol==ApiProtocol.AnthropicMessages?1:2))||ImageByteLimit is <65536 or >4194304)throw new ArgumentException("Invalid optional API parameter.");
+        if(Protocol==ApiProtocol.AnthropicMessages&&OutputLimit is not(OutputLimitParameter.MaxTokens or OutputLimitParameter.ProtocolDefault))throw new ArgumentException("Anthropic requires max_tokens.");
+        if(Authentication==Authentication.CustomHeader&&!KuaiYi.Core.Settings.ApiProfilePolicy.HeaderNameAllowed(AuthenticationHeader,true))throw new ArgumentException("Invalid credential header.");
+        if(Headers?.Any(p=>!KuaiYi.Core.Settings.ApiProfilePolicy.HeaderNameAllowed(p.Key,false)||p.Value.Length>2048||p.Value.Any(c=>c<32||c>126))==true)throw new ArgumentException("Invalid non-secret header.");
+        if (BaseUrl.Scheme == "http" && !(BaseUrl.IsLoopback&&AllowLoopbackHttp||!BaseUrl.IsLoopback&&AllowInsecureHttp))
             throw new ArgumentException("HTTP requires explicit loopback permission in this probe implementation.");
         if (Endpoint.Length > 2048 || Endpoint.Contains('?') || Endpoint.Contains('#') || Endpoint.Contains('\\'))
             throw new ArgumentException("Invalid endpoint path.");
@@ -59,11 +65,11 @@ public sealed class SecretLease : IDisposable
 {
     private byte[]? bytes;
     public SecretLease(ReadOnlySpan<byte> utf8) => bytes = utf8.ToArray();
-    public string HeaderValue()
+    public string HeaderValue(bool allowSpaces=false)
     {
         ObjectDisposedException.ThrowIf(bytes is null, this);
         string value = System.Text.Encoding.UTF8.GetString(bytes!);
-        if (value.Length == 0 || value.Any(c => c < 33 || c > 126)) throw new ArgumentException("Invalid credential header.");
+        if (value.Length == 0 || value.Any(c => c < 32 || c > 126||!allowSpaces&&c==' ')) throw new ArgumentException("Invalid credential header.");
         return value;
     }
     public void Dispose()

@@ -241,9 +241,12 @@
         "docs/test-evidence/2026-10-11-text-translation-summary.json",
         "docs/p3-text-boundary-review.md",
         "docs/p3-text-boundary-windows-checklist.md",
-        "docs/test-evidence/2026-10-11-text-boundary-summary.json"
+        "docs/test-evidence/2026-10-11-text-boundary-summary.json",
+        "docs/p4-profile-review.md",
+        "docs/p4-profile-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p4-profile-summary.json"
       ],
-      "note": " P3-06 production source snapshot to real protocol and streaming overlay wired;66 new portable/test-HTTP cases. Explicit local fixture mode labeled/isolated, no real model/key. Windows capture/focus/animation/native/whole case NotRun; full P3/P4 not passed. P3-06 parent test-mode boundary blocker corrected: immutable startup fixture authorization, no credentials, every admission/send and pinned client check, proof-based label;39 portable production/real loopback cases. Other supervisory review and all Windows/whole cases remain pending."
+      "note": " P3-06 production source snapshot to real protocol and streaming overlay wired;66 new portable/test-HTTP cases. Explicit local fixture mode labeled/isolated, no real model/key. Windows capture/focus/animation/native/whole case NotRun; full P3/P4 not passed. P3-06 parent test-mode boundary blocker corrected: immutable startup fixture authorization, no credentials, every admission/send and pinned client check, proof-based label;39 portable production/real loopback cases. Other supervisory review and all Windows/whole cases remain pending. P4-01 real profile mapping/parameter/capability UI/fixed public test source wired;83 new portable production/real loopback cases. Existing test-mode boundary retained; Windows/native/whole Alpha NotRun."
     },
     {
       "id": "R12",
@@ -257,9 +260,12 @@
       "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
       "evidence": [
-        "docs/imageworker-identity.md"
+        "docs/imageworker-identity.md",
+        "docs/p4-profile-review.md",
+        "docs/p4-profile-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p4-profile-summary.json"
       ],
-      "note": "P0 native Explorer command source and sparse registration prepared; no Windows modern-menu or complete P7/P6 acceptance."
+      "note": "P0 native Explorer command source and sparse registration prepared; no Windows modern-menu or complete P7/P6 acceptance. P4-01 real profile mapping/parameter/capability UI/fixed public test source wired;83 new portable production/real loopback cases. Existing test-mode boundary retained; Windows/native/whole Alpha NotRun."
     },
     {
       "id": "R13",
@@ -339,9 +345,12 @@
         "docs/test-evidence/2026-10-11-text-translation-summary.json",
         "docs/p3-text-boundary-review.md",
         "docs/p3-text-boundary-windows-checklist.md",
-        "docs/test-evidence/2026-10-11-text-boundary-summary.json"
+        "docs/test-evidence/2026-10-11-text-boundary-summary.json",
+        "docs/p4-profile-review.md",
+        "docs/p4-profile-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p4-profile-summary.json"
       ],
-      "note": "Offline subitems only, including obsolete error and destination queue identity checks; whole product requirement/task is not Pass. Image UI now uses shared RuntimeGate/queued complete identity; actual background process start and late-start cleanup tested on Linux only. Windows product acceptance NotRun. P3 source acquisition production wiring: reuse actual MTA GetSelection Broker, bounded physical gesture queue/debounce, source/selection identities, final destination ticket/config check, 600ms held-child deadline and cooldown.50 portable/process cases added; real Windows UIA/mouse/compatibility NotRun. Copy consent/full hotkey/OLE text drop/P4 dispatcher not delivered; whole case/stage not passed. P3 review fixes: frozen birth ticket/config/hookId + callback HWND/PID/time, production raw-channel and UI-dispatch bridge rejects obsolete input, old hooks replaced; abandoned completed read always observed/zeroed.22 additional portable cases; Windows and whole acceptance remain NotRun. Absolute deadline follow-up: one monotonic capture origin across startup/reads/exit/final validation, token checked after completed reads before ownership delivery;15 additional cases. Relative timer alone was insufficient; Windows/whole cases still NotRun. P3-06 production source snapshot to real protocol and streaming overlay wired;66 new portable/test-HTTP cases. Explicit local fixture mode labeled/isolated, no real model/key. Windows capture/focus/animation/native/whole case NotRun; full P3/P4 not passed. P3-06 parent test-mode boundary blocker corrected: immutable startup fixture authorization, no credentials, every admission/send and pinned client check, proof-based label;39 portable production/real loopback cases. Other supervisory review and all Windows/whole cases remain pending."
+      "note": "Offline subitems only, including obsolete error and destination queue identity checks; whole product requirement/task is not Pass. Image UI now uses shared RuntimeGate/queued complete identity; actual background process start and late-start cleanup tested on Linux only. Windows product acceptance NotRun. P3 source acquisition production wiring: reuse actual MTA GetSelection Broker, bounded physical gesture queue/debounce, source/selection identities, final destination ticket/config check, 600ms held-child deadline and cooldown.50 portable/process cases added; real Windows UIA/mouse/compatibility NotRun. Copy consent/full hotkey/OLE text drop/P4 dispatcher not delivered; whole case/stage not passed. P3 review fixes: frozen birth ticket/config/hookId + callback HWND/PID/time, production raw-channel and UI-dispatch bridge rejects obsolete input, old hooks replaced; abandoned completed read always observed/zeroed.22 additional portable cases; Windows and whole acceptance remain NotRun. Absolute deadline follow-up: one monotonic capture origin across startup/reads/exit/final validation, token checked after completed reads before ownership delivery;15 additional cases. Relative timer alone was insufficient; Windows/whole cases still NotRun. P3-06 production source snapshot to real protocol and streaming overlay wired;66 new portable/test-HTTP cases. Explicit local fixture mode labeled/isolated, no real model/key. Windows capture/focus/animation/native/whole case NotRun; full P3/P4 not passed. P3-06 parent test-mode boundary blocker corrected: immutable startup fixture authorization, no credentials, every admission/send and pinned client check, proof-based label;39 portable production/real loopback cases. Other supervisory review and all Windows/whole cases remain pending. P4-01 real profile mapping/parameter/capability UI/fixed public test source wired;83 new portable production/real loopback cases. Existing test-mode boundary retained; Windows/native/whole Alpha NotRun."
     },
     {
       "id": "R17",
@@ -820,9 +829,14 @@
         "实现配置档、地址组合、能力标记、固定测试内容、参数校验",
         "两种协议可独立配置与测试"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p4-profile-review.md",
+        "docs/p4-profile-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p4-profile-summary.json"
+      ],
+      "note": " P4-01 real profile mapping/parameter/capability UI/fixed public test source wired;83 new portable production/real loopback cases. Existing test-mode boundary retained; Windows/native/whole Alpha NotRun."
     },
     {
       "id": "P4-02",
@@ -832,9 +846,14 @@
         "实现 OpenAI Chat HTTP / SSE / 非流式适配器",
         "协议 fixture 与请求快照测试"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p4-profile-review.md",
+        "docs/p4-profile-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p4-profile-summary.json"
+      ],
+      "note": " P4-01 real profile mapping/parameter/capability UI/fixed public test source wired;83 new portable production/real loopback cases. Existing test-mode boundary retained; Windows/native/whole Alpha NotRun."
     },
     {
       "id": "P4-03",
@@ -844,9 +863,14 @@
         "实现 Anthropic Messages HTTP / SSE / 非流式适配器",
         "独立协议 fixture，含 200 内 error"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p4-profile-review.md",
+        "docs/p4-profile-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p4-profile-summary.json"
+      ],
+      "note": " P4-01 real profile mapping/parameter/capability UI/fixed public test source wired;83 new portable production/real loopback cases. Existing test-mode boundary retained; Windows/native/whole Alpha NotRun."
     },
     {
       "id": "P4-04",
@@ -864,9 +888,12 @@
         "docs/test-evidence/2026-10-11-text-translation-summary.json",
         "docs/p3-text-boundary-review.md",
         "docs/p3-text-boundary-windows-checklist.md",
-        "docs/test-evidence/2026-10-11-text-boundary-summary.json"
+        "docs/test-evidence/2026-10-11-text-boundary-summary.json",
+        "docs/p4-profile-review.md",
+        "docs/p4-profile-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p4-profile-summary.json"
       ],
-      "note": " P3-06 production source snapshot to real protocol and streaming overlay wired;66 new portable/test-HTTP cases. Explicit local fixture mode labeled/isolated, no real model/key. Windows capture/focus/animation/native/whole case NotRun; full P3/P4 not passed. P3-06 parent test-mode boundary blocker corrected: immutable startup fixture authorization, no credentials, every admission/send and pinned client check, proof-based label;39 portable production/real loopback cases. Other supervisory review and all Windows/whole cases remain pending."
+      "note": " P3-06 production source snapshot to real protocol and streaming overlay wired;66 new portable/test-HTTP cases. Explicit local fixture mode labeled/isolated, no real model/key. Windows capture/focus/animation/native/whole case NotRun; full P3/P4 not passed. P3-06 parent test-mode boundary blocker corrected: immutable startup fixture authorization, no credentials, every admission/send and pinned client check, proof-based label;39 portable production/real loopback cases. Other supervisory review and all Windows/whole cases remain pending. P4-01 real profile mapping/parameter/capability UI/fixed public test source wired;83 new portable production/real loopback cases. Existing test-mode boundary retained; Windows/native/whole Alpha NotRun."
     },
     {
       "id": "P4-05",
@@ -901,9 +928,12 @@
         "docs/test-evidence/2026-10-11-text-translation-summary.json",
         "docs/p3-text-boundary-review.md",
         "docs/p3-text-boundary-windows-checklist.md",
-        "docs/test-evidence/2026-10-11-text-boundary-summary.json"
+        "docs/test-evidence/2026-10-11-text-boundary-summary.json",
+        "docs/p4-profile-review.md",
+        "docs/p4-profile-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p4-profile-summary.json"
       ],
-      "note": " P3-06 production source snapshot to real protocol and streaming overlay wired;66 new portable/test-HTTP cases. Explicit local fixture mode labeled/isolated, no real model/key. Windows capture/focus/animation/native/whole case NotRun; full P3/P4 not passed. P3-06 parent test-mode boundary blocker corrected: immutable startup fixture authorization, no credentials, every admission/send and pinned client check, proof-based label;39 portable production/real loopback cases. Other supervisory review and all Windows/whole cases remain pending."
+      "note": " P3-06 production source snapshot to real protocol and streaming overlay wired;66 new portable/test-HTTP cases. Explicit local fixture mode labeled/isolated, no real model/key. Windows capture/focus/animation/native/whole case NotRun; full P3/P4 not passed. P3-06 parent test-mode boundary blocker corrected: immutable startup fixture authorization, no credentials, every admission/send and pinned client check, proof-based label;39 portable production/real loopback cases. Other supervisory review and all Windows/whole cases remain pending. P4-01 real profile mapping/parameter/capability UI/fixed public test source wired;83 new portable production/real loopback cases. Existing test-mode boundary retained; Windows/native/whole Alpha NotRun."
     },
     {
       "id": "P5-01",
@@ -2008,9 +2038,14 @@
         "Base URL 包含 `/v1`、自定义前缀、尾斜杠或完整端点",
         "最终 URL 与预览一致；不重复 v1、不丢路径、不错误追加端点"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p4-profile-review.md",
+        "docs/p4-profile-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p4-profile-summary.json"
+      ],
+      "note": " P4-01 real profile mapping/parameter/capability UI/fixed public test source wired;83 new portable production/real loopback cases. Existing test-mode boundary retained; Windows/native/whole Alpha NotRun."
     },
     {
       "id": "F02",
@@ -2020,9 +2055,14 @@
         "分别记录两种协议的文本请求",
         "认证头、顶层结构和参数正确；Anthropic system 不混入 messages；无密钥进 prompt"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p4-profile-review.md",
+        "docs/p4-profile-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p4-profile-summary.json"
+      ],
+      "note": " P4-01 real profile mapping/parameter/capability UI/fixed public test source wired;83 new portable production/real loopback cases. Existing test-mode boundary retained; Windows/native/whole Alpha NotRun."
     },
     {
       "id": "F03",
@@ -2068,9 +2108,14 @@
         "HTTP 200 流内 Anthropic error，或无正常终止突然断流",
         "显示协议错误/部分结果；不标记完整成功、不无限等待"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p4-profile-review.md",
+        "docs/p4-profile-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p4-profile-summary.json"
+      ],
+      "note": " P4-01 real profile mapping/parameter/capability UI/fixed public test source wired;83 new portable production/real loopback cases. Existing test-mode boundary retained; Windows/native/whole Alpha NotRun."
     },
     {
       "id": "F07",
@@ -2080,9 +2125,14 @@
         "接口仅返回合法非流式 JSON",
         "正确一次展示内容；不伪造服务端流式支持"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p4-profile-review.md",
+        "docs/p4-profile-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p4-profile-summary.json"
+      ],
+      "note": " P4-01 real profile mapping/parameter/capability UI/fixed public test source wired;83 new portable production/real loopback cases. Existing test-mode boundary retained; Windows/native/whole Alpha NotRun."
     },
     {
       "id": "F08",
@@ -2092,9 +2142,14 @@
         "401/403、429、503、超时、无效 JSON、TLS 错误",
         "错误类型和重试符合第 10 章；不随机改参数、不无限付费重发"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p4-profile-review.md",
+        "docs/p4-profile-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p4-profile-summary.json"
+      ],
+      "note": " P4-01 real profile mapping/parameter/capability UI/fixed public test source wired;83 new portable production/real loopback cases. Existing test-mode boundary retained; Windows/native/whole Alpha NotRun."
     },
     {
       "id": "F09",
@@ -2104,9 +2159,14 @@
         "服务返回跨域重定向；错误正文含模拟密钥",
         "不转发认证到新域；界面与日志均不泄露模拟秘密"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p4-profile-review.md",
+        "docs/p4-profile-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p4-profile-summary.json"
+      ],
+      "note": " P4-01 real profile mapping/parameter/capability UI/fixed public test source wired;83 new portable production/real loopback cases. Existing test-mode boundary retained; Windows/native/whole Alpha NotRun."
     },
     {
       "id": "F10",
@@ -2116,9 +2176,14 @@
         "两套图像请求检查 MIME、base64、模型和图片尺寸",
         "按各自 schema 编码；未把 OpenAI image_url 填到 Anthropic source"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p4-profile-review.md",
+        "docs/p4-profile-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p4-profile-summary.json"
+      ],
+      "note": " P4-01 real profile mapping/parameter/capability UI/fixed public test source wired;83 new portable production/real loopback cases. Existing test-mode boundary retained; Windows/native/whole Alpha NotRun."
     },
     {
       "id": "F11",
@@ -2128,9 +2193,14 @@
         "配置不支持温度、模型列表不可用或能力未知",
         "省略不适用字段；模型可手输；未知不显示已支持"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p4-profile-review.md",
+        "docs/p4-profile-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p4-profile-summary.json"
+      ],
+      "note": " P4-01 real profile mapping/parameter/capability UI/fixed public test source wired;83 new portable production/real loopback cases. Existing test-mode boundary retained; Windows/native/whole Alpha NotRun."
     },
     {
       "id": "F12",

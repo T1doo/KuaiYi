@@ -77,7 +77,7 @@ internal sealed partial class ShellWindow:Window
         catch(OperationCanceledException)when(lifetime.IsCancellationRequested){ /* Owned exit waits for startup settlement. */ }
         catch(Exception error){Report("配置无法加载，原文件保留；请打开设置恢复",error);}
     }
-    private void SettingsCommitted(SettingsSnapshot saved,SettingsChange __){translation?.ObserveSettings(saved);if(globalHotkeys!=null)globalHotkeys.ReconcileAsync(saved).WaitAsync(TimeSpan.FromSeconds(2)).GetAwaiter().GetResult();selectionCapture?.CancelPending();RevokeTextDrop();Dispatcher.BeginInvoke(()=>{if(!exiting)Refresh();});}
+    private void SettingsCommitted(SettingsSnapshot saved,SettingsChange __){translation?.ObserveSettings(saved);apiTests?.Cancel();if(globalHotkeys!=null)globalHotkeys.ReconcileAsync(saved).WaitAsync(TimeSpan.FromSeconds(2)).GetAwaiter().GetResult();selectionCapture?.CancelPending();RevokeTextDrop();Dispatcher.BeginInvoke(()=>{if(!exiting)Refresh();});}
     private void Toggle()
     {
         if(exiting)return;
@@ -105,7 +105,7 @@ internal sealed partial class ShellWindow:Window
             await startup;await hotkeySetup;await positionSave;if(exiting)return;lifecycle.Gate.SetSuspension(Suspension.Settings,true);RefreshSelection();
             var draft=await coordinator.OpenDraftAsync(lifetime.Token);
             if(exiting){draft.Dispose();return;}
-            try{settings=new(coordinator,draft,selectionCapture?.LastFailureWindow?.Executable,globalHotkeys,()=>globalHotkeys?.Status??[]){Owner=this};}catch{draft.Dispose();throw;}
+            try{settings=new(coordinator,draft,selectionCapture?.LastFailureWindow?.Executable,globalHotkeys,()=>globalHotkeys?.Status??[],apiTests){Owner=this};}catch{draft.Dispose();throw;}
             settings.Closed+=(_,_)=>{settings=null;lifecycle.Gate.SetSuspension(Suspension.Settings,false);Refresh();QueuePositionSave();if(exitRequested)Dispatcher.BeginInvoke(Close);};settings.Show();
         }
         catch(OperationCanceledException)when(lifetime.IsCancellationRequested){ /* Exit awaits this owned opening path. */ }

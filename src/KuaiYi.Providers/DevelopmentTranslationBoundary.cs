@@ -40,7 +40,9 @@ public sealed class DevelopmentTranslationBoundary
         if(!Enum.IsDefined(profile.Protocol)||!Enum.IsDefined(profile.AddressMode)||profile.Authentication!=ApiAuthentication.None||profile.SecretRef!=null||
             profile.Model!=FixtureModel||profile.Headers.Count!=0||!Uri.TryCreate(profile.BaseUrl,UriKind.Absolute,out var uri))return false;
         var protocol=profile.Protocol==KuaiYi.Core.Settings.ApiProtocol.OpenAIChat?ApiProtocol.OpenAIChat:ApiProtocol.AnthropicMessages;
-        return profile.AddressMode==ApiAddressMode.BasePrefix?uri.AbsoluteUri.TrimEnd('/')+"/"==Prefix.AbsoluteUri:uri.AbsoluteUri==Endpoint(protocol).AbsoluteUri;
+        try{return ApiProfilePolicy.Resolve(profile,developmentLoopback:true).AbsoluteUri==Endpoint(protocol).AbsoluteUri&&
+            (profile.AddressMode==ApiAddressMode.BasePrefix?uri.AbsoluteUri.TrimEnd('/')+"/"==Prefix.AbsoluteUri:uri.AbsoluteUri==Endpoint(protocol).AbsoluteUri);}
+        catch(SettingsValidationException){return false;}
     }
     internal bool AllowsEndpoint(ApiProfile profile,Uri endpoint)=>profile.Authentication==Authentication.None&&profile.Model==FixtureModel&&
         profile.AllowLoopbackHttp&&endpoint.AbsoluteUri==Endpoint(profile.Protocol).AbsoluteUri&&

@@ -62,7 +62,8 @@ public static class SettingsJson
             Check(Uri.TryCreate(p.BaseUrl,UriKind.Absolute,out var uri)&&uri.Scheme is "https" or "http"&&uri.UserInfo.Length==0&&uri.Fragment.Length==0&&uri.Query.Length==0,"profile.baseUrl");
             Check(p.SecretRef==null||SecretFileStore.ValidReference(p.SecretRef),"profile.secretRef");Check(Enum.IsDefined(p.Protocol)&&Enum.IsDefined(p.AddressMode)&&Enum.IsDefined(p.Authentication),"profile.protocol");
             Check(p.Capabilities!=null&&Enum.IsDefined(p.Capabilities.Streaming)&&Enum.IsDefined(p.Capabilities.Vision)&&Enum.IsDefined(p.Capabilities.Temperature)&&Enum.IsDefined(p.Capabilities.StructuredJson)&&Enum.IsDefined(p.Capabilities.UsageInStream),"profile.capabilities");
-            Check(p.Headers!=null&&p.Headers.Count<=2,"profile.headers");foreach(var h in p.Headers!){Check(h.Key=="anthropic-version"&&System.Text.RegularExpressions.Regex.IsMatch(h.Value,"^[0-9]{4}-[0-9]{2}-[0-9]{2}$")||h.Key=="OpenAI-Beta"&&h.Value=="assistants=v2","profile.headers");}
+            Check(p.Headers!=null,"profile.headers");Text(p.EndpointPath,2048,"profile.endpointPath");Text(p.AuthenticationHeader,64,"profile.authenticationHeader");
+            ApiProfilePolicy.ValidateParameters(p);_=ApiProfilePolicy.Resolve(p);
         }
         Check(s.ActiveProfileId==null||ids.Contains(s.ActiveProfileId),"activeProfileId");Check(s.VisionProfileId==null||ids.Contains(s.VisionProfileId),"visionProfileId");
         Check(s.Translation!=null&&Enum.IsDefined(s.Translation.Preset),"translation");Text(s.Translation!.TargetLanguage,32,"targetLanguage");Text(s.Translation.Domain,512,"domain");Text(s.Translation.ReaderBackground,2048,"readerBackground");

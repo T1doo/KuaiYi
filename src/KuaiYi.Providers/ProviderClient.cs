@@ -30,6 +30,10 @@ public sealed class ProviderClient : IDisposable
         ArgumentNullException.ThrowIfNull(request);
         ArgumentNullException.ThrowIfNull(gate);
         if (!gate.CanApply(identity)) yield break;
+        if(gate.IsConnectionTest(identity)&&(request.SourceText!=ApiConnectionTestContent.Source||request.SystemPrompt!=ApiConnectionTestContent.System||request.Image!=null))
+        {yield return new(ModelEventKind.Failed,Reason:"FIXED_TEST_CONTENT_REQUIRED");yield break;}
+        if(request.Image is {} image&&(image.Length>request.Profile.ImageByteLimit||request.Profile.VisionCapability is not(null or KuaiYi.Core.Settings.Capability.Supported)))
+        {yield return new(ModelEventKind.Failed,Reason:"VISION_UNAVAILABLE_OR_IMAGE_LIMIT");yield break;}
         // The client boundary is fixed at startup. Removing/changing a record marker cannot widen it.
         var boundary=developmentBoundary??request.Profile.DevelopmentBoundary;
         if(boundary!=null&&!boundary.Allows(request.Profile,secret))
@@ -193,10 +197,11 @@ public sealed class ProviderClient : IDisposable
         message.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(request.Profile.Stream ? "text/event-stream" : "application/json"));
         if (request.Profile.Authentication != Authentication.None)
         {
-            string key = secret?.HeaderValue() ?? throw new ArgumentException("Missing secret.");
+            string key = secret?.HeaderValue(request.Profile.Authentication==Authentication.CustomHeader) ?? throw new ArgumentException("Missing secret.");
             if (request.Profile.Authentication == Authentication.Bearer) message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", key);
-            else message.Headers.Add("x-api-key", key);
+            else message.Headers.Add(request.Profile.Authentication==Authentication.CustomHeader?request.Profile.AuthenticationHeader:"x-api-key", key);
         }
+        if(request.Profile.Headers is {} headers)foreach(var entry in headers)message.Headers.Add(entry.Key,entry.Value);
         if (request.Profile.Protocol == ApiProtocol.AnthropicMessages) message.Headers.Add("anthropic-version", request.Profile.AnthropicVersion);
         return message;
     }
