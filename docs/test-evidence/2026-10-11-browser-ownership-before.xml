@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites>
+	<testcase name="actual old measure must reject corner-overlay" time="0.005885" classname="test" file="/workspace/KuaiYi/artifacts/test-results/ownership/before.test.mjs" failure="Expected values to be strictly equal:&#10;+ actual - expected&#10;&#10;+ {&#10;+   bottom: 100,&#10;+   dpr: 1,&#10;+   height: 100,&#10;+   left: 0,&#10;+   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',&#10;+   page: 'https://public-fixture.invalid/page',&#10;+   right: 100,&#10;+   scrollX: 0,&#10;+   scrollY: 0,&#10;+   top: 0,&#10;+   viewportHeight: 100,&#10;+   viewportWidth: 100,&#10;+   width: 100,&#10;+   x: 0,&#10;+   y: 0&#10;+ }&#10;- null&#10;">
+		<failure type="testCodeFailure" message="Expected values to be strictly equal:&#10;+ actual - expected&#10;&#10;+ {&#10;+   bottom: 100,&#10;+   dpr: 1,&#10;+   height: 100,&#10;+   left: 0,&#10;+   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',&#10;+   page: 'https://public-fixture.invalid/page',&#10;+   right: 100,&#10;+   scrollX: 0,&#10;+   scrollY: 0,&#10;+   top: 0,&#10;+   viewportHeight: 100,&#10;+   viewportWidth: 100,&#10;+   width: 100,&#10;+   x: 0,&#10;+   y: 0&#10;+ }&#10;- null">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:
++ actual - expected
+
++ {
++   bottom: 100,
++   dpr: 1,
++   height: 100,
++   left: 0,
++   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',
++   page: 'https://public-fixture.invalid/page',
++   right: 100,
++   scrollX: 0,
++   scrollY: 0,
++   top: 0,
++   viewportHeight: 100,
++   viewportWidth: 100,
++   width: 100,
++   x: 0,
++   y: 0
++ }
+- null
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   bottom: 100,
+  +   dpr: 1,
+  +   height: 100,
+  +   left: 0,
+  +   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',
+  +   page: 'https://public-fixture.invalid/page',
+  +   right: 100,
+  +   scrollX: 0,
+  +   scrollY: 0,
+  +   top: 0,
+  +   viewportHeight: 100,
+  +   viewportWidth: 100,
+  +   width: 100,
+  +   x: 0,
+  +   y: 0
+  + }
+  - null
+  
+      at TestContext.&lt;anonymous> (file:///workspace/KuaiYi/artifacts/test-results/ownership/before.test.mjs:7:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff', x: 0, y: 0, width: 100, height: 100, left: 0, top: 0, right: 100, bottom: 100, scrollX: 0, scrollY: 0, dpr: 1, viewportWidth: 100, viewportHeight: 100, page: 'https://public-fixture.invalid/page' },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="actual old measure must reject edge-overlay" time="0.000376" classname="test" file="/workspace/KuaiYi/artifacts/test-results/ownership/before.test.mjs" failure="Expected values to be strictly equal:&#10;+ actual - expected&#10;&#10;+ {&#10;+   bottom: 100,&#10;+   dpr: 1,&#10;+   height: 100,&#10;+   left: 0,&#10;+   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',&#10;+   page: 'https://public-fixture.invalid/page',&#10;+   right: 100,&#10;+   scrollX: 0,&#10;+   scrollY: 0,&#10;+   top: 0,&#10;+   viewportHeight: 100,&#10;+   viewportWidth: 100,&#10;+   width: 100,&#10;+   x: 0,&#10;+   y: 0&#10;+ }&#10;- null&#10;">
+		<failure type="testCodeFailure" message="Expected values to be strictly equal:&#10;+ actual - expected&#10;&#10;+ {&#10;+   bottom: 100,&#10;+   dpr: 1,&#10;+   height: 100,&#10;+   left: 0,&#10;+   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',&#10;+   page: 'https://public-fixture.invalid/page',&#10;+   right: 100,&#10;+   scrollX: 0,&#10;+   scrollY: 0,&#10;+   top: 0,&#10;+   viewportHeight: 100,&#10;+   viewportWidth: 100,&#10;+   width: 100,&#10;+   x: 0,&#10;+   y: 0&#10;+ }&#10;- null">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:
++ actual - expected
+
++ {
++   bottom: 100,
++   dpr: 1,
++   height: 100,
++   left: 0,
++   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',
++   page: 'https://public-fixture.invalid/page',
++   right: 100,
++   scrollX: 0,
++   scrollY: 0,
++   top: 0,
++   viewportHeight: 100,
++   viewportWidth: 100,
++   width: 100,
++   x: 0,
++   y: 0
++ }
+- null
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   bottom: 100,
+  +   dpr: 1,
+  +   height: 100,
+  +   left: 0,
+  +   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',
+  +   page: 'https://public-fixture.invalid/page',
+  +   right: 100,
+  +   scrollX: 0,
+  +   scrollY: 0,
+  +   top: 0,
+  +   viewportHeight: 100,
+  +   viewportWidth: 100,
+  +   width: 100,
+  +   x: 0,
+  +   y: 0
+  + }
+  - null
+  
+      at TestContext.&lt;anonymous> (file:///workspace/KuaiYi/artifacts/test-results/ownership/before.test.mjs:7:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff', x: 0, y: 0, width: 100, height: 100, left: 0, top: 0, right: 100, bottom: 100, scrollX: 0, scrollY: 0, dpr: 1, viewportWidth: 100, viewportHeight: 100, page: 'https://public-fixture.invalid/page' },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="actual old measure must reject opposite-corner-overlay" time="0.000198" classname="test" file="/workspace/KuaiYi/artifacts/test-results/ownership/before.test.mjs" failure="Expected values to be strictly equal:&#10;+ actual - expected&#10;&#10;+ {&#10;+   bottom: 100,&#10;+   dpr: 1,&#10;+   height: 100,&#10;+   left: 0,&#10;+   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',&#10;+   page: 'https://public-fixture.invalid/page',&#10;+   right: 100,&#10;+   scrollX: 0,&#10;+   scrollY: 0,&#10;+   top: 0,&#10;+   viewportHeight: 100,&#10;+   viewportWidth: 100,&#10;+   width: 100,&#10;+   x: 0,&#10;+   y: 0&#10;+ }&#10;- null&#10;">
+		<failure type="testCodeFailure" message="Expected values to be strictly equal:&#10;+ actual - expected&#10;&#10;+ {&#10;+   bottom: 100,&#10;+   dpr: 1,&#10;+   height: 100,&#10;+   left: 0,&#10;+   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',&#10;+   page: 'https://public-fixture.invalid/page',&#10;+   right: 100,&#10;+   scrollX: 0,&#10;+   scrollY: 0,&#10;+   top: 0,&#10;+   viewportHeight: 100,&#10;+   viewportWidth: 100,&#10;+   width: 100,&#10;+   x: 0,&#10;+   y: 0&#10;+ }&#10;- null">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:
++ actual - expected
+
++ {
++   bottom: 100,
++   dpr: 1,
++   height: 100,
++   left: 0,
++   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',
++   page: 'https://public-fixture.invalid/page',
++   right: 100,
++   scrollX: 0,
++   scrollY: 0,
++   top: 0,
++   viewportHeight: 100,
++   viewportWidth: 100,
++   width: 100,
++   x: 0,
++   y: 0
++ }
+- null
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   bottom: 100,
+  +   dpr: 1,
+  +   height: 100,
+  +   left: 0,
+  +   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',
+  +   page: 'https://public-fixture.invalid/page',
+  +   right: 100,
+  +   scrollX: 0,
+  +   scrollY: 0,
+  +   top: 0,
+  +   viewportHeight: 100,
+  +   viewportWidth: 100,
+  +   width: 100,
+  +   x: 0,
+  +   y: 0
+  + }
+  - null
+  
+      at TestContext.&lt;anonymous> (file:///workspace/KuaiYi/artifacts/test-results/ownership/before.test.mjs:7:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff', x: 0, y: 0, width: 100, height: 100, left: 0, top: 0, right: 100, bottom: 100, scrollX: 0, scrollY: 0, dpr: 1, viewportWidth: 100, viewportHeight: 100, page: 'https://public-fixture.invalid/page' },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="actual old measure must reject clip-path" time="0.000204" classname="test" file="/workspace/KuaiYi/artifacts/test-results/ownership/before.test.mjs" failure="Expected values to be strictly equal:&#10;+ actual - expected&#10;&#10;+ {&#10;+   bottom: 100,&#10;+   dpr: 1,&#10;+   height: 100,&#10;+   left: 0,&#10;+   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',&#10;+   page: 'https://public-fixture.invalid/page',&#10;+   right: 100,&#10;+   scrollX: 0,&#10;+   scrollY: 0,&#10;+   top: 0,&#10;+   viewportHeight: 100,&#10;+   viewportWidth: 100,&#10;+   width: 100,&#10;+   x: 0,&#10;+   y: 0&#10;+ }&#10;- null&#10;">
+		<failure type="testCodeFailure" message="Expected values to be strictly equal:&#10;+ actual - expected&#10;&#10;+ {&#10;+   bottom: 100,&#10;+   dpr: 1,&#10;+   height: 100,&#10;+   left: 0,&#10;+   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',&#10;+   page: 'https://public-fixture.invalid/page',&#10;+   right: 100,&#10;+   scrollX: 0,&#10;+   scrollY: 0,&#10;+   top: 0,&#10;+   viewportHeight: 100,&#10;+   viewportWidth: 100,&#10;+   width: 100,&#10;+   x: 0,&#10;+   y: 0&#10;+ }&#10;- null">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:
++ actual - expected
+
++ {
++   bottom: 100,
++   dpr: 1,
++   height: 100,
++   left: 0,
++   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',
++   page: 'https://public-fixture.invalid/page',
++   right: 100,
++   scrollX: 0,
++   scrollY: 0,
++   top: 0,
++   viewportHeight: 100,
++   viewportWidth: 100,
++   width: 100,
++   x: 0,
++   y: 0
++ }
+- null
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   bottom: 100,
+  +   dpr: 1,
+  +   height: 100,
+  +   left: 0,
+  +   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',
+  +   page: 'https://public-fixture.invalid/page',
+  +   right: 100,
+  +   scrollX: 0,
+  +   scrollY: 0,
+  +   top: 0,
+  +   viewportHeight: 100,
+  +   viewportWidth: 100,
+  +   width: 100,
+  +   x: 0,
+  +   y: 0
+  + }
+  - null
+  
+      at TestContext.&lt;anonymous> (file:///workspace/KuaiYi/artifacts/test-results/ownership/before.test.mjs:7:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff', x: 0, y: 0, width: 100, height: 100, left: 0, top: 0, right: 100, bottom: 100, scrollX: 0, scrollY: 0, dpr: 1, viewportWidth: 100, viewportHeight: 100, page: 'https://public-fixture.invalid/page' },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="actual old measure must reject border" time="0.000216" classname="test" file="/workspace/KuaiYi/artifacts/test-results/ownership/before.test.mjs" failure="Expected values to be strictly equal:&#10;+ actual - expected&#10;&#10;+ {&#10;+   bottom: 100,&#10;+   dpr: 1,&#10;+   height: 100,&#10;+   left: 0,&#10;+   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',&#10;+   page: 'https://public-fixture.invalid/page',&#10;+   right: 100,&#10;+   scrollX: 0,&#10;+   scrollY: 0,&#10;+   top: 0,&#10;+   viewportHeight: 100,&#10;+   viewportWidth: 100,&#10;+   width: 100,&#10;+   x: 0,&#10;+   y: 0&#10;+ }&#10;- null&#10;">
+		<failure type="testCodeFailure" message="Expected values to be strictly equal:&#10;+ actual - expected&#10;&#10;+ {&#10;+   bottom: 100,&#10;+   dpr: 1,&#10;+   height: 100,&#10;+   left: 0,&#10;+   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',&#10;+   page: 'https://public-fixture.invalid/page',&#10;+   right: 100,&#10;+   scrollX: 0,&#10;+   scrollY: 0,&#10;+   top: 0,&#10;+   viewportHeight: 100,&#10;+   viewportWidth: 100,&#10;+   width: 100,&#10;+   x: 0,&#10;+   y: 0&#10;+ }&#10;- null">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:
++ actual - expected
+
++ {
++   bottom: 100,
++   dpr: 1,
++   height: 100,
++   left: 0,
++   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',
++   page: 'https://public-fixture.invalid/page',
++   right: 100,
++   scrollX: 0,
++   scrollY: 0,
++   top: 0,
++   viewportHeight: 100,
++   viewportWidth: 100,
++   width: 100,
++   x: 0,
++   y: 0
++ }
+- null
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   bottom: 100,
+  +   dpr: 1,
+  +   height: 100,
+  +   left: 0,
+  +   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',
+  +   page: 'https://public-fixture.invalid/page',
+  +   right: 100,
+  +   scrollX: 0,
+  +   scrollY: 0,
+  +   top: 0,
+  +   viewportHeight: 100,
+  +   viewportWidth: 100,
+  +   width: 100,
+  +   x: 0,
+  +   y: 0
+  + }
+  - null
+  
+      at TestContext.&lt;anonymous> (file:///workspace/KuaiYi/artifacts/test-results/ownership/before.test.mjs:7:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff', x: 0, y: 0, width: 100, height: 100, left: 0, top: 0, right: 100, bottom: 100, scrollX: 0, scrollY: 0, dpr: 1, viewportWidth: 100, viewportHeight: 100, page: 'https://public-fixture.invalid/page' },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="actual old measure must reject padding" time="0.000174" classname="test" file="/workspace/KuaiYi/artifacts/test-results/ownership/before.test.mjs" failure="Expected values to be strictly equal:&#10;+ actual - expected&#10;&#10;+ {&#10;+   bottom: 100,&#10;+   dpr: 1,&#10;+   height: 100,&#10;+   left: 0,&#10;+   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',&#10;+   page: 'https://public-fixture.invalid/page',&#10;+   right: 100,&#10;+   scrollX: 0,&#10;+   scrollY: 0,&#10;+   top: 0,&#10;+   viewportHeight: 100,&#10;+   viewportWidth: 100,&#10;+   width: 100,&#10;+   x: 0,&#10;+   y: 0&#10;+ }&#10;- null&#10;">
+		<failure type="testCodeFailure" message="Expected values to be strictly equal:&#10;+ actual - expected&#10;&#10;+ {&#10;+   bottom: 100,&#10;+   dpr: 1,&#10;+   height: 100,&#10;+   left: 0,&#10;+   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',&#10;+   page: 'https://public-fixture.invalid/page',&#10;+   right: 100,&#10;+   scrollX: 0,&#10;+   scrollY: 0,&#10;+   top: 0,&#10;+   viewportHeight: 100,&#10;+   viewportWidth: 100,&#10;+   width: 100,&#10;+   x: 0,&#10;+   y: 0&#10;+ }&#10;- null">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:
++ actual - expected
+
++ {
++   bottom: 100,
++   dpr: 1,
++   height: 100,
++   left: 0,
++   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',
++   page: 'https://public-fixture.invalid/page',
++   right: 100,
++   scrollX: 0,
++   scrollY: 0,
++   top: 0,
++   viewportHeight: 100,
++   viewportWidth: 100,
++   width: 100,
++   x: 0,
++   y: 0
++ }
+- null
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   bottom: 100,
+  +   dpr: 1,
+  +   height: 100,
+  +   left: 0,
+  +   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',
+  +   page: 'https://public-fixture.invalid/page',
+  +   right: 100,
+  +   scrollX: 0,
+  +   scrollY: 0,
+  +   top: 0,
+  +   viewportHeight: 100,
+  +   viewportWidth: 100,
+  +   width: 100,
+  +   x: 0,
+  +   y: 0
+  + }
+  - null
+  
+      at TestContext.&lt;anonymous> (file:///workspace/KuaiYi/artifacts/test-results/ownership/before.test.mjs:7:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff', x: 0, y: 0, width: 100, height: 100, left: 0, top: 0, right: 100, bottom: 100, scrollX: 0, scrollY: 0, dpr: 1, viewportWidth: 100, viewportHeight: 100, page: 'https://public-fixture.invalid/page' },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="actual old measure must reject object-fit" time="0.000142" classname="test" file="/workspace/KuaiYi/artifacts/test-results/ownership/before.test.mjs" failure="Expected values to be strictly equal:&#10;+ actual - expected&#10;&#10;+ {&#10;+   bottom: 100,&#10;+   dpr: 1,&#10;+   height: 100,&#10;+   left: 0,&#10;+   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',&#10;+   page: 'https://public-fixture.invalid/page',&#10;+   right: 100,&#10;+   scrollX: 0,&#10;+   scrollY: 0,&#10;+   top: 0,&#10;+   viewportHeight: 100,&#10;+   viewportWidth: 100,&#10;+   width: 100,&#10;+   x: 0,&#10;+   y: 0&#10;+ }&#10;- null&#10;">
+		<failure type="testCodeFailure" message="Expected values to be strictly equal:&#10;+ actual - expected&#10;&#10;+ {&#10;+   bottom: 100,&#10;+   dpr: 1,&#10;+   height: 100,&#10;+   left: 0,&#10;+   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',&#10;+   page: 'https://public-fixture.invalid/page',&#10;+   right: 100,&#10;+   scrollX: 0,&#10;+   scrollY: 0,&#10;+   top: 0,&#10;+   viewportHeight: 100,&#10;+   viewportWidth: 100,&#10;+   width: 100,&#10;+   x: 0,&#10;+   y: 0&#10;+ }&#10;- null">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:
++ actual - expected
+
++ {
++   bottom: 100,
++   dpr: 1,
++   height: 100,
++   left: 0,
++   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',
++   page: 'https://public-fixture.invalid/page',
++   right: 100,
++   scrollX: 0,
++   scrollY: 0,
++   top: 0,
++   viewportHeight: 100,
++   viewportWidth: 100,
++   width: 100,
++   x: 0,
++   y: 0
++ }
+- null
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   bottom: 100,
+  +   dpr: 1,
+  +   height: 100,
+  +   left: 0,
+  +   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',
+  +   page: 'https://public-fixture.invalid/page',
+  +   right: 100,
+  +   scrollX: 0,
+  +   scrollY: 0,
+  +   top: 0,
+  +   viewportHeight: 100,
+  +   viewportWidth: 100,
+  +   width: 100,
+  +   x: 0,
+  +   y: 0
+  + }
+  - null
+  
+      at TestContext.&lt;anonymous> (file:///workspace/KuaiYi/artifacts/test-results/ownership/before.test.mjs:7:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff', x: 0, y: 0, width: 100, height: 100, left: 0, top: 0, right: 100, bottom: 100, scrollX: 0, scrollY: 0, dpr: 1, viewportWidth: 100, viewportHeight: 100, page: 'https://public-fixture.invalid/page' },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<testcase name="actual old measure must reject mask" time="0.000137" classname="test" file="/workspace/KuaiYi/artifacts/test-results/ownership/before.test.mjs" failure="Expected values to be strictly equal:&#10;+ actual - expected&#10;&#10;+ {&#10;+   bottom: 100,&#10;+   dpr: 1,&#10;+   height: 100,&#10;+   left: 0,&#10;+   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',&#10;+   page: 'https://public-fixture.invalid/page',&#10;+   right: 100,&#10;+   scrollX: 0,&#10;+   scrollY: 0,&#10;+   top: 0,&#10;+   viewportHeight: 100,&#10;+   viewportWidth: 100,&#10;+   width: 100,&#10;+   x: 0,&#10;+   y: 0&#10;+ }&#10;- null&#10;">
+		<failure type="testCodeFailure" message="Expected values to be strictly equal:&#10;+ actual - expected&#10;&#10;+ {&#10;+   bottom: 100,&#10;+   dpr: 1,&#10;+   height: 100,&#10;+   left: 0,&#10;+   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',&#10;+   page: 'https://public-fixture.invalid/page',&#10;+   right: 100,&#10;+   scrollX: 0,&#10;+   scrollY: 0,&#10;+   top: 0,&#10;+   viewportHeight: 100,&#10;+   viewportWidth: 100,&#10;+   width: 100,&#10;+   x: 0,&#10;+   y: 0&#10;+ }&#10;- null">
+[Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:
++ actual - expected
+
++ {
++   bottom: 100,
++   dpr: 1,
++   height: 100,
++   left: 0,
++   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',
++   page: 'https://public-fixture.invalid/page',
++   right: 100,
++   scrollX: 0,
++   scrollY: 0,
++   top: 0,
++   viewportHeight: 100,
++   viewportWidth: 100,
++   width: 100,
++   x: 0,
++   y: 0
++ }
+- null
+] {
+  code: 'ERR_TEST_FAILURE',
+  failureType: 'testCodeFailure',
+  cause: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   bottom: 100,
+  +   dpr: 1,
+  +   height: 100,
+  +   left: 0,
+  +   operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff',
+  +   page: 'https://public-fixture.invalid/page',
+  +   right: 100,
+  +   scrollX: 0,
+  +   scrollY: 0,
+  +   top: 0,
+  +   viewportHeight: 100,
+  +   viewportWidth: 100,
+  +   width: 100,
+  +   x: 0,
+  +   y: 0
+  + }
+  - null
+  
+      at TestContext.&lt;anonymous> (file:///workspace/KuaiYi/artifacts/test-results/ownership/before.test.mjs:7:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { operationId: 'ffffffff-ffff-ffff-ffff-ffffffffffff', x: 0, y: 0, width: 100, height: 100, left: 0, top: 0, right: 100, bottom: 100, scrollX: 0, scrollY: 0, dpr: 1, viewportWidth: 100, viewportHeight: 100, page: 'https://public-fixture.invalid/page' },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+}
+		</failure>
+	</testcase>
+	<!-- tests 8 -->
+	<!-- suites 0 -->
+	<!-- pass 0 -->
+	<!-- fail 8 -->
+	<!-- cancelled 0 -->
+	<!-- skipped 0 -->
+	<!-- todo 0 -->
+	<!-- duration_ms 58.531078 -->
+</testsuites>

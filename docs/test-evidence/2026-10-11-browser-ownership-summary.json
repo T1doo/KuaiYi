@@ -1,0 +1,105 @@
+{
+  "sourceBaseCommit": "c83dde56b58039d337bcb3ba9b15379bd7a71a58",
+  "timestampUtc": "2026-10-11T08:27:11.730712+00:00",
+  "task": "Browser screenshot ownership fail-closed repair",
+  "before": {
+    "total": 8,
+    "failed": 8,
+    "scope": "Actual unmodified baseline measureImage executed on synthetic DOM fixtures; no browser screenshot or real page"
+  },
+  "after": {
+    "nodeTotal": 43,
+    "passed": 43,
+    "failed": 0,
+    "new": 12,
+    "actualAcquisitionNegativeCases": 9,
+    "actualServiceWorkerCases": 3
+  },
+  "dotnet": "Unchanged source; previous c83dde5 381 evidence retained, not rerun for this JS-only repair",
+  "behavior": "All browser screenshot fallback rejected before any DOM injection/capture/decode; original same-origin HTTPS credentials-omit PNG path retained",
+  "permissions": [
+    "contextMenus",
+    "nativeMessaging",
+    "activeTab"
+  ],
+  "archive": {
+    "path": "artifacts/KuaiYi-P0-browser-fallback-closed-win-x64.zip",
+    "bytes": 208350,
+    "sha256": "ab80ac316ddde5f4d181699883113334e8079803b813c7fa0becb06ae87a8b98",
+    "verifiedFiles": 18,
+    "installer": false
+  },
+  "sourceDigests": [
+    {
+      "path": "extensions/chromium/acquire.js",
+      "sha256": "b54fb546ace8e7e338377c1973b314ef93ce64013a6b6d8340e9dfbcc6f0a480"
+    },
+    {
+      "path": "extensions/chromium/service-worker.js",
+      "sha256": "89e9e9859a6afbbfea5ed29826a302682495e1dc3cafd12a90450937a3a7d24e"
+    },
+    {
+      "path": "extensions/chromium/manifest.json",
+      "sha256": "a54a48c1996708df74b273fe51dc96b876fb38275af11e4c640f6be4adc8eda3"
+    },
+    {
+      "path": "extensions/chromium/options.html",
+      "sha256": "900d0be395767472822a440cc0533837e41561bb0783ed446a698f1e9e9e0238"
+    },
+    {
+      "path": "scripts/stage-browser-probes.ps1",
+      "sha256": "bc33dba4a704e34291915cb78732e7501b5dee01ae93db8dde61a4a3b1d8f69d"
+    },
+    {
+      "path": "tests/browser/protocol.test.mjs",
+      "sha256": "921d46211c9f5b996748cdaff1e64f06380daa7985ce98fa83613418089aa3a0"
+    },
+    {
+      "path": "tests/browser/ownership-fixtures.mjs",
+      "sha256": "e4d91b6e6de7fa3c979bb9df8d4cf81494c827c3c51874552f1f8d79d7764e59"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "docs/test-evidence/2026-10-11-browser-ownership-acquire-before.js.txt",
+      "sha256": "481b06ad05fbb73c20da79581844932dfdf3daece5e8adf08541f65602df8e93"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-browser-ownership-after.log",
+      "sha256": "677933a49c45e52432c3711fc5ec7a66a595e4dadad4097669602c482ee55f54"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-browser-ownership-after.xml",
+      "sha256": "d7cedd9e0a9587d99c59ecb8b6e0642fce3780f21183309c41d0ed3a328f42ff"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-browser-ownership-before.log",
+      "sha256": "cdc7a7ca6b3b0cd4dcc80ee4a1ef28c8cd226823c93b30d105dfb35216f3f91f"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-browser-ownership-before.test.mjs",
+      "sha256": "f5ce22fce65cde8526e8e4321ebdbf6b20f430600591cf765ced44f3f2db8cec"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-browser-ownership-before.xml",
+      "sha256": "777b87abd797a669c1816b06f944da1a20a09e39eca2d4a87e92b28d42549c43"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-browser-ownership-stage.log",
+      "sha256": "69faf4dad95800169390e7a7823f70a634291afdf1341ce458329b2a7cd68303"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-browser-ownership-archive-manifest.json",
+      "sha256": "1008811e7974c012c1cc36440bf22b4f06037bfbf1021697ec058d761a7bd776"
+    }
+  ],
+  "wholeAcceptance": {
+    "total": 106,
+    "NotRun": 106
+  },
+  "screenshotFallback": "Blocked: no complete ownership proof; not an available feature",
+  "realBrowser": "NotRun",
+  "nextRepair": "ReadBounded cancellation/completion ownership race pending in separate commit",
+  "originAuthentication": "Configuration match only; argv and installed origin do not establish a browser caller",
+  "externalReview": "Pending"
+}

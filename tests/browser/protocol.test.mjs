@@ -4,15 +4,16 @@ import { readFile } from "node:fs/promises";
 import { spawn } from "node:child_process";
 import { once } from "node:events";
 import { checkedFrame, pngSize, base64, nativeConnection, sendImage, LIMIT, CHUNK, IMAGE } from "../../extensions/chromium/protocol.js";
-import { imageContext, original, cropPixels, visibleCrop } from "../../extensions/chromium/acquire.js";
+import { imageContext, original, acquireImage, cropPixels, visibleCrop } from "../../extensions/chromium/acquire.js";
+import { ownershipCases, installDom } from "./ownership-fixtures.mjs";
 const png = new Uint8Array(await readFile(new URL("../fixtures/images/kuaiyi-test.png", import.meta.url)));
 const operationId = "ffffffff-ffff-ffff-ffff-ffffffffffff";
 const context = { menuItemId: "kuaiyi-image", mediaType: "image", pageUrl: "https://public-fixture.invalid/page", srcUrl: "https://public-fixture.invalid/image.png", frameId: 0 };
 const tab = { id: 1, windowId: 2, url: context.pageUrl, active: true };
-test("manifest has exactly four permissions and no web entry points", async () => {
+test("manifest has exactly three used permissions and no web entry points", async () => {
   const manifest = JSON.parse(await readFile(new URL("../../extensions/chromium/manifest.json", import.meta.url)));
   assert.equal(manifest.manifest_version, 3);
-  assert.deepEqual(manifest.permissions, ["contextMenus", "nativeMessaging", "activeTab", "scripting"]);
+  assert.deepEqual(manifest.permissions, ["contextMenus", "nativeMessaging", "activeTab"]);
   for (const field of ["host_permissions", "optional_host_permissions", "content_scripts", "externally_connectable", "web_accessible_resources", "key"]) assert.equal(manifest[field], undefined);
   const worker = await readFile(new URL("../../extensions/chromium/service-worker.js", import.meta.url), "utf8");
   assert(!worker.includes("sendNativeMessage") && !worker.includes("postMessage(") && !worker.includes("onMessage.addListener"));
@@ -59,15 +60,49 @@ test("ambiguous element refuses capture before screenshot", async () => {
   const api = { tabs: { get: async () => tab, captureVisibleTab: async () => { captures++; return ""; } }, scripting: { executeScript: async () => [{ frameId: 0, result: null }] } };
   await assert.rejects(visibleCrop(api, imageContext(context, tab), operationId, new AbortController().signal)); assert.equal(captures, 0);
 });
-test("moved target discards screenshot before decode/crop", async () => {
-  let calls = 0;
-  const api = { tabs: { get: async () => tab, captureVisibleTab: async () => "data:image/png;base64," }, scripting: { executeScript: async () => [{ frameId: 0, result: { ...rect, x: ++calls } }] } };
-  await assert.rejects(visibleCrop(api, imageContext(context, tab), operationId, new AbortController().signal), /位置或缩放/);
+test("moved target cannot reach screenshot, measurement or decode", async () => {
+  let calls = 0, captures = 0;
+  const api = { tabs: { get: async () => tab, captureVisibleTab: async () => { captures++; return "data:image/png;base64,"; } }, scripting: { executeScript: async () => { calls++; return [{ frameId: 0, result: { ...rect, x: calls } }]; } } };
+  await assert.rejects(visibleCrop(api, imageContext(context, tab), operationId, new AbortController().signal), e => e.code === "ScreenshotOwnershipUnverified"); assert.equal(captures, 0); assert.equal(calls, 0);
+});
+for (const name of [...ownershipCases, "apparently-clear"]) test(`actual acquisition refuses unproven viewport ownership: ${name}`, async () => {
+  const dom = installDom(name, context.srcUrl), oldFetch = globalThis.fetch;
+  globalThis.fetch = async () => new Response(null, { status: 403 });
+  try { await assert.rejects(acquireImage(imageContext(context, tab), new AbortController().signal), e => e.code === "ScreenshotOwnershipUnverified"); assert.equal(dom.hits, 0); }
+  finally { globalThis.fetch = oldFetch; dom.restore(); }
 });
 function fakePort() {
   const port = { sent: [], disconnected: 0, onMessage: { addListener(f) { port.receive = f; } }, onDisconnect: { addListener(f) { port.lost = f; } }, postMessage(m) { port.sent.push(m); }, disconnect() { port.disconnected++; port.lost(); } };
   return port;
 }
+for (const scene of ["corner-overlay", "clip-path", "original"]) test(`actual service worker acquisition pipeline: ${scene}`, async () => {
+  const oldChrome = Object.getOwnPropertyDescriptor(globalThis, "chrome"), oldFetch = globalThis.fetch;
+  const dom = installDom(scene, context.srcUrl), port = fakePort(); let handler, captures = 0, scripts = 0, fetches = 0, title = "";
+  const event = () => ({ addListener() {} });
+  const api = {
+    runtime: { onInstalled: event(), connectNative: () => port, openOptionsPage: async () => {} },
+    contextMenus: { onClicked: { addListener(fn) { handler = fn; } }, create() {} },
+    action: { onClicked: event(), setBadgeText: async () => {}, setTitle: async arg => { title = arg.title; } },
+    tabs: { onRemoved: event(), onActivated: event(), onUpdated: event(), get: async () => tab, captureVisibleTab: async () => { captures++; throw new Error("test viewport must never be read"); } },
+    scripting: { executeScript: async () => { scripts++; throw new Error("test DOM must never be injected"); } }
+  };
+  port.postMessage = message => {
+    port.sent.push(message);
+    if (message.type === "CancelImage") return;
+    const type = ({ OfferImage: "Ready", BeginImage: "Begun", Chunk: "ChunkAccepted", CommitImage: "Committed" })[message.type];
+    queueMicrotask(() => port.receive({ type, operationId: message.operationId ?? message.transferId, protocol: 1, index: message.index }));
+  };
+  globalThis.fetch = async (url, opts) => { fetches++; assert.equal(url, context.srcUrl); assert.equal(opts.credentials, "omit"); assert.equal(opts.redirect, "error"); return scene === "original" ? new Response(png, { headers: { "content-type": "image/png" } }) : new Response(null, { status: 403 }); };
+  Object.defineProperty(globalThis, "chrome", { value: api, configurable: true });
+  try {
+    await import(`../../extensions/chromium/service-worker.js?ownership=${scene}`);
+    await handler(context, tab);
+    assert.equal(fetches, 1); assert.equal(captures, 0); assert.equal(scripts, 0); assert.equal(dom.hits, 0);
+    assert.deepEqual(port.sent.map(m => m.type), scene === "original" ? ["OfferImage", "BeginImage", "Chunk", "CommitImage"] : ["OfferImage", "CancelImage"]);
+    if (scene === "original") { assert.equal(Buffer.from(port.sent.find(m => m.type === "Chunk").data, "base64").compare(png), 0); assert.match(title, /图片已交付本机/); }
+    else assert.match(title, /截图暂不可用/);
+  } finally { globalThis.fetch = oldFetch; if (oldChrome) Object.defineProperty(globalThis, "chrome", oldChrome); else delete globalThis.chrome; dom.restore(); }
+});
 test("disconnect rejects an outstanding frame immediately", async () => {
   const port = fakePort(), abort = new AbortController(), conn = nativeConnection(port, operationId, abort.signal, Date.now() + 10000);
   const pending = conn.exchange({ type: "OfferImage", operationId }, "Ready"); port.lost(); await assert.rejects(pending, /失联/); conn.close();

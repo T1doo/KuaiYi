@@ -2,7 +2,11 @@
 
 基线 `cb54673dc9686059a5b5f632c23aebb42eb3e1ad` 的清理专项已获监督方放行。本轮按完整SPEC的11.3、12.4、13.2、14.1—14.4和P0-06推进。交付真实MV3扩展源码、生产NativeHost入口、实际stdio/内部IPC客户端及离线证据；不是已安装的浏览器入口或完整R13/P0通过。
 
-## 用户意图、权限与图片取得
+## 当前修正与未完成截图路径
+
+监督复核确认原中心命中不能证明完整像素归属。当前浏览器截图fallback全面拒绝，移除scripting权限，仅保留同源无凭据PNG原图；具体反例、43项测试和来源未认证状态见browser-ownership-review.md。下文31项/v1包记录是历史协议切片，不能作为安全截图候选或实际来源认证。
+
+## 历史用户意图、权限与图片取得
 
 扩展只申请contextMenus、nativeMessaging、activeTab、scripting；没有永久host权限、history、cookies、storage、内容脚本、网页消息入口、externally_connectable或默认key。只响应Chrome提供的图片菜单onClicked；核对当前active tab、HTTPS页面、主frame、点击页面和操作ID。每次操作30秒、单次连接；换操作、导航、移除tab、切换目标窗口的active tab或用户点击扩展按钮均取消。不从postMessage接受来源；native Port的onMessage仅接收宿主回复。
 

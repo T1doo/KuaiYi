@@ -54,3 +54,5 @@ Worker真正启动在后台；取消等待后仍持有未返回的startTask，�
 ## P0-06浏览器传输切片
 
 MV3显式菜单→已配置且来源合法的NativeHost→验证同用户/session/已安装App角色→桌面一次grant→有限PNG原图/可见裁切→共享ImageChunkWire→stdio Commit→DesktopPipeChannel内部SubmitImage/二进制/Commit。宿主无网络/URL下载/模型调用，grant不等于端点授权。安装清单/receipt和App角色授权接收端未完成时严格拒绝；测试authority只在tools中通过实际本地管道验证同一循环/编码器，不进入生产包。当前为19个托管工程，真实浏览器/Windows均NotRun。细节见browser-native-host.md。
+
+监督修正：浏览器可见截图无法证明完整像素归属，现整条fallback拒绝并去除scripting，仅保留同源无凭据原图。argv及配置匹配不认证启动者；实际来源与用户意图尚未验证，当前无生产App receiver，不能开放授权。后续系统角色验证/逐次桌面确认设计见browser-ownership-review.md。

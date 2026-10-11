@@ -6,7 +6,7 @@ Windows 11 x64 AI 翻译软件，完整产品与验收规格见 [SPEC.md](SPEC.m
 
 已运行的检查、失败修复与平台阻塞见 [开发进度](docs/progress.md)、[验收状态](docs/acceptance-report.md) 和 [需求追踪](docs/traceability.json)。不得将这些离线测试等同于真实 Windows UIA、OLE、焦点、截图、多屏 DPI 或安装验收。
 
-最新离线 .NET 测试 381 项、扩展 Node 测试 31 项通过；旧错误晚到缺口见 [专项审查](docs/late-event-review.md)，最大分片 JSON 外壳缺口见 [协议边界审查](docs/protocol-boundary-review.md)。OLE 联合实验与未证实的宿主假设见 [OLE 探针说明](docs/ole-probe.md)。清理终结与退出确认修复见 [清理监督审查](docs/ole-cleanup-review.md)。新增独立 ImageWorker、真实原生 OCR/Shell 源码、双 EXE 开发身份清单与安装态验证脚本，见 [图片与身份说明](docs/imageworker-identity.md)。原生编译和 Windows OCR/菜单仍未执行。图片窗口的迟到状态与实际启动线程修复见 [UI 收尾审查](docs/image-ui-review.md)。最新子进程发布/启动终结竞态修复见 [清理竞态审查](docs/image-finalization-review.md)。最小 MV3 扩展、实际 NativeHost 分片/取消与授权边界见 [浏览器协议审查](docs/browser-native-host.md)。真实安装与浏览器取图未运行。GitHub CI 未运行。
+最新离线 .NET 测试 381 项、扩展 Node 测试 43 项通过；旧错误晚到缺口见 [专项审查](docs/late-event-review.md)，最大分片 JSON 外壳缺口见 [协议边界审查](docs/protocol-boundary-review.md)。OLE 联合实验与未证实的宿主假设见 [OLE 探针说明](docs/ole-probe.md)。清理终结与退出确认修复见 [清理监督审查](docs/ole-cleanup-review.md)。新增独立 ImageWorker、真实原生 OCR/Shell 源码、双 EXE 开发身份清单与安装态验证脚本，见 [图片与身份说明](docs/imageworker-identity.md)。原生编译和 Windows OCR/菜单仍未执行。图片窗口的迟到状态与实际启动线程修复见 [UI 收尾审查](docs/image-ui-review.md)。最新子进程发布/启动终结竞态修复见 [清理竞态审查](docs/image-finalization-review.md)。最小 MV3 扩展、实际 NativeHost 分片/取消与授权边界见 [浏览器协议审查](docs/browser-native-host.md)。真实安装与浏览器取图未运行。GitHub CI 未运行。
 
 ## 构建与离线测试
 
@@ -31,3 +31,5 @@ pwsh -NoProfile -File ./scripts/test.ps1 -Suite Offline
 正常启动必须 Off；每次采集及 HTTP 发送检查开关、任务身份和目标 origin 授权。请求凭据只添加到该请求的头，不进入提示词或共用默认头；禁止自动重定向。原文、图像和译文默认不持久化。当前 `SecretLease` 仅是内存凭据访问契约，Windows DPAPI 持久化尚未验证或交付。
 
 主平台是 Windows 11 x64；Linux 用于可独立验证的逻辑与协议。正式签名、开发证书信任、真实模型调用和商店发布均有独立授权条件。
+
+浏览器截图 fallback 已因像素归属不能完整证明而关闭；只保留同源无凭据 PNG 原图。来源参数/安装配置匹配不等于浏览器调用者认证，生产入口继续拒绝。见 [截图与来源复核](docs/browser-ownership-review.md)。

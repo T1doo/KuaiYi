@@ -15,7 +15,7 @@ try {
         Copy-Item (Join-Path 'extensions/chromium' $name) $extension
     }
     $manifest=Get-Content (Join-Path $extension 'manifest.json') -Raw | ConvertFrom-Json
-    if(($manifest.permissions -join ',') -ne 'contextMenus,nativeMessaging,activeTab,scripting'){throw 'Unexpected extension permissions.'}
+    if(($manifest.permissions -join ',') -ne 'contextMenus,nativeMessaging,activeTab'){throw 'Unexpected extension permissions.'}
     foreach($field in 'host_permissions','optional_host_permissions','externally_connectable','content_scripts','web_accessible_resources','key') {
         if($manifest.PSObject.Properties.Name -contains $field){throw "Unexpected extension manifest entry: $field"}
     }

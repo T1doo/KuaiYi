@@ -1,5 +1,5 @@
 import { nativeConnection, sendImage } from "./protocol.js";
-import { imageContext, original, visibleCrop } from "./acquire.js";
+import { imageContext, acquireImage } from "./acquire.js";
 let current = null;
 async function status(text, error = false) {
   await chrome.action.setBadgeText({ text: error ? "!" : "" });
@@ -19,14 +19,13 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     connection = nativeConnection(chrome.runtime.connectNative("com.kuaiyi.native_host"), operationId, abort.signal, Date.now() + 30000);
     // Desktop authorization before any image byte read/capture. Off/unregistered/untrusted cannot enter acquisition.
     await connection.exchange({ type: "OfferImage", operationId }, "Ready");
-    try { bytes = await original(context, abort.signal); }
-    catch { if (abort.signal.aborted) throw new Error("已取消"); bytes = await visibleCrop(chrome, context, operationId, abort.signal); if (current === op) await status("使用图片可见部分"); }
+    bytes = await acquireImage(context, abort.signal);
     const latest = await chrome.tabs.get(context.tabId);
     if (!latest.active || latest.url !== context.pageUrl || current !== op) throw new Error("原操作已失效");
     await sendImage(connection.exchange, operationId, bytes, abort.signal);
     if (current === op) await status("图片已交付本机；翻译受桌面开关和端点授权控制");
   } catch (error) {
-    abort.abort(); if (current === op) await status(`${error.message}。可使用快译区域截图快捷键`, true);
+    abort.abort(); if (current === op) await status(`${error.message}。请使用您明确选框的截图；本构建的区域截图链路尚未接通`, true);
   } finally {
     clearTimeout(timer); bytes?.fill(0); connection?.close(); if (current === op) current = null;
   }
