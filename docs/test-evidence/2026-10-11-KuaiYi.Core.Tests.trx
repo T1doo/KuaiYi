@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="749cf3e1-b9ea-4152-92e3-d4fd9cc5b058" name="@552716c6b8c5 2026-10-11 04:27:41" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T04:27:41.8092893+00:00" queuing="2026-10-11T04:27:41.8092894+00:00" start="2026-10-11T04:27:41.3793379+00:00" finish="2026-10-11T04:27:41.9216086+00:00" />
+  <TestSettings name="default" id="c2f4631f-788d-4949-a806-b750fe95a8b5">
+    <Deployment runDeploymentRoot="_552716c6b8c5_2026-10-11_04_27_41" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="816c424c-1113-4676-a1f0-7068c9fc8bf8" testId="2b4c1ce7-082e-5d74-4fbf-4d2c2d68d6c0" testName="KuaiYi.Core.Tests.GateTests.EachActualOriginIncludingVisionAndOldSnapshotRequiresSeparateConsent" computerName="552716c6b8c5" duration="00:00:00.0046271" startTime="2026-10-11T04:27:41.7952016+00:00" endTime="2026-10-11T04:27:41.7952948+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="816c424c-1113-4676-a1f0-7068c9fc8bf8" />
+    <UnitTestResult executionId="01a66dbc-4a29-4974-ae70-b603f7b8ce49" testId="5a87de96-a360-e9f1-a611-146a2ecfadfc" testName="KuaiYi.Core.Tests.GeometryTests.FourCornersGrowInward(x: 12, y: 1020, expected: RightUp)" computerName="552716c6b8c5" duration="00:00:00.0005895" startTime="2026-10-11T04:27:41.7776499+00:00" endTime="2026-10-11T04:27:41.7777530+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="01a66dbc-4a29-4974-ae70-b603f7b8ce49" />
+    <UnitTestResult executionId="8419c331-64e8-42a6-a510-eba79e30372c" testId="76d1077b-74d9-5426-0dcc-100faccf35b9" testName="KuaiYi.Core.Tests.IpcTests.ForgedLengthsAreRejectedBeforeReadingOrAllocatingPayload(length: 2147483648)" computerName="552716c6b8c5" duration="00:00:00.0026827" startTime="2026-10-11T04:27:41.7931639+00:00" endTime="2026-10-11T04:27:41.7932767+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8419c331-64e8-42a6-a510-eba79e30372c" />
+    <UnitTestResult executionId="b717d581-7573-44e4-954c-8a2e1974d1e5" testId="84683522-c354-f745-50f4-1b1d40d0d6b2" testName="KuaiYi.Core.Tests.IpcTests.TruncatedHeadersAndPayloadAreNotCleanDisconnects(bytes: 30)" computerName="552716c6b8c5" duration="00:00:00.0005040" startTime="2026-10-11T04:27:41.7769011+00:00" endTime="2026-10-11T04:27:41.7769490+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b717d581-7573-44e4-954c-8a2e1974d1e5" />
+    <UnitTestResult executionId="8186b8ea-cab2-401d-b891-2c5c67ad5057" testId="9ba1ca37-2cd0-1e7b-86a3-041affbe9960" testName="KuaiYi.Core.Tests.IpcTests.ForgedLengthsAreRejectedBeforeReadingOrAllocatingPayload(length: 4294967295)" computerName="552716c6b8c5" duration="00:00:00.0005142" startTime="2026-10-11T04:27:41.7934298+00:00" endTime="2026-10-11T04:27:41.7935000+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8186b8ea-cab2-401d-b891-2c5c67ad5057" />
+    <UnitTestResult executionId="94f7f1a9-59a7-4fa7-a065-b981896726ea" testId="8f1115d5-13a6-bb4a-e2f0-b9ad3cb813d6" testName="KuaiYi.Core.Tests.GateTests.CollapseKeepsChainRunningAndReopenKeepsActivationOff" computerName="552716c6b8c5" duration="00:00:00.0004089" startTime="2026-10-11T04:27:41.7977379+00:00" endTime="2026-10-11T04:27:41.7978393+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="94f7f1a9-59a7-4fa7-a065-b981896726ea" />
+    <UnitTestResult executionId="a382de11-4d44-4e61-9d65-5adf731a1150" testId="ab674aff-973e-de48-f30c-a32cae996ca9" testName="KuaiYi.Core.Tests.GateTests.StartupAndUnconsentedOrInvalidConfigurationCannotCaptureOrSend" computerName="552716c6b8c5" duration="00:00:00.0022631" startTime="2026-10-11T04:27:41.7955358+00:00" endTime="2026-10-11T04:27:41.7956208+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a382de11-4d44-4e61-9d65-5adf731a1150" />
+    <UnitTestResult executionId="87d8fbb1-0e74-4b60-ae9a-1c9a1646cb37" testId="4b405538-a751-4bda-f873-20b973b5cdc1" testName="KuaiYi.Core.Tests.IpcTests.TruncatedHeadersAndPayloadAreNotCleanDisconnects(bytes: 1)" computerName="552716c6b8c5" duration="00:00:00.0000406" startTime="2026-10-11T04:27:41.7770780+00:00" endTime="2026-10-11T04:27:41.7771400+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="87d8fbb1-0e74-4b60-ae9a-1c9a1646cb37" />
+    <UnitTestResult executionId="8a047c16-5428-4561-885c-aeab1767f036" testId="88f253c0-441b-3624-9a8a-d3189b8b5393" testName="KuaiYi.Core.Tests.GateTests.DisableCancelsPendingCaptureRequestAndEveryLateEvent" computerName="552716c6b8c5" duration="00:00:00.0003785" startTime="2026-10-11T04:27:41.7965059+00:00" endTime="2026-10-11T04:27:41.7965690+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8a047c16-5428-4561-885c-aeab1767f036" />
+    <UnitTestResult executionId="34ccb940-e2f5-422c-bd5d-bb51bcc5f9d7" testId="3a322ef4-be34-2501-553a-b170ed3462fe" testName="KuaiYi.Core.Tests.GeometryTests.FourCornersGrowInward(x: 1860, y: 1020, expected: LeftUp)" computerName="552716c6b8c5" duration="00:00:00.0000020" startTime="2026-10-11T04:27:41.7781300+00:00" endTime="2026-10-11T04:27:41.7782375+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="34ccb940-e2f5-422c-bd5d-bb51bcc5f9d7" />
+    <UnitTestResult executionId="d7f99fee-0f3f-4381-9f51-ebc3d12740d4" testId="ae47d89a-7313-bc75-1c1e-9263ae9d90af" testName="KuaiYi.Core.Tests.GateTests.LatestWinsRejectsOldCompletionAndErrorAndCancelsPreviousChain" computerName="552716c6b8c5" duration="00:00:00.0003666" startTime="2026-10-11T04:27:41.7958162+00:00" endTime="2026-10-11T04:27:41.7959296+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d7f99fee-0f3f-4381-9f51-ebc3d12740d4" />
+    <UnitTestResult executionId="b5197c10-58eb-4cdb-ab59-4c008dd52e05" testId="ca3988bb-0871-4f27-b2e1-8892cf9b997e" testName="KuaiYi.Core.Tests.IpcTests.TruncatedHeadersAndPayloadAreNotCleanDisconnects(bytes: 27)" computerName="552716c6b8c5" duration="00:00:00.0056298" startTime="2026-10-11T04:27:41.7558209+00:00" endTime="2026-10-11T04:27:41.7761419+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b5197c10-58eb-4cdb-ab59-4c008dd52e05" />
+    <UnitTestResult executionId="e4180e50-6dd4-4723-a040-3a3c84c97a97" testId="b7a905ed-39a3-6e16-dc69-ad8dc767d1a0" testName="KuaiYi.Core.Tests.GateTests.LockUnlockHideAndStopDoNotRestoreAutomaticGeneration" computerName="552716c6b8c5" duration="00:00:00.0021735" startTime="2026-10-11T04:27:41.7961369+00:00" endTime="2026-10-11T04:27:41.7962549+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e4180e50-6dd4-4723-a040-3a3c84c97a97" />
+    <UnitTestResult executionId="90e686db-2fd2-4986-ae2b-5616dd06f877" testId="19cfd5bd-43f3-9db4-21cb-b56dca2bdf9e" testName="KuaiYi.Core.Tests.IpcTests.ForgedLengthsAreRejectedBeforeReadingOrAllocatingPayload(length: 65537)" computerName="552716c6b8c5" duration="00:00:00.0000341" startTime="2026-10-11T04:27:41.7936518+00:00" endTime="2026-10-11T04:27:41.7937623+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="90e686db-2fd2-4986-ae2b-5616dd06f877" />
+    <UnitTestResult executionId="1235da8c-a11d-4461-932c-4d61722f7670" testId="0967b22d-6e1a-441b-d386-9f96b368eb78" testName="KuaiYi.Core.Tests.GeometryTests.FourCornersGrowInward(x: 12, y: 12, expected: RightDown)" computerName="552716c6b8c5" duration="00:00:00.0000301" startTime="2026-10-11T04:27:41.7779180+00:00" endTime="2026-10-11T04:27:41.7780158+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1235da8c-a11d-4461-932c-4d61722f7670" />
+    <UnitTestResult executionId="676d8726-fe7d-49a4-a529-d286ab58f087" testId="3d762c47-32f5-34fd-7a3f-2d98351a728b" testName="KuaiYi.Core.Tests.GateTests.DropAndSuspensionsInvalidateCandidatesButSettingsDoNotCancelExistingGeneration" computerName="552716c6b8c5" duration="00:00:00.0004882" startTime="2026-10-11T04:27:41.7974014+00:00" endTime="2026-10-11T04:27:41.7975526+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="676d8726-fe7d-49a4-a529-d286ab58f087" />
+    <UnitTestResult executionId="a4ef1752-b314-47b6-b37e-0509119113aa" testId="e2c58ce1-9d29-0549-158d-c1758de5ab84" testName="KuaiYi.Core.Tests.GeometryTests.TenThousandFixedSeedTopologiesMaintainEveryFrameInvariant" computerName="552716c6b8c5" duration="00:00:00.1013228" startTime="2026-10-11T04:27:41.7915952+00:00" endTime="2026-10-11T04:27:41.8716862+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a4ef1752-b314-47b6-b37e-0509119113aa" />
+    <UnitTestResult executionId="16dfa8b1-e4e9-4457-8f3b-1621a5c935cd" testId="6072f582-2e15-3f9a-8e2a-84e8337bf5f1" testName="KuaiYi.Core.Tests.GeometryTests.FourCornersGrowInward(x: 1860, y: 12, expected: LeftDown)" computerName="552716c6b8c5" duration="00:00:00.0052606" startTime="2026-10-11T04:27:41.7768053+00:00" endTime="2026-10-11T04:27:41.7774165+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="16dfa8b1-e4e9-4457-8f3b-1621a5c935cd" />
+    <UnitTestResult executionId="8cc97781-d401-4b9e-be09-b1a7d1532311" testId="10e55dfd-da82-594c-d5a1-3957949c0955" testName="KuaiYi.Core.Tests.GeometryTests.BalancedFallbackFitsNarrowWorkAreaWithoutMovingAnchor" computerName="552716c6b8c5" duration="00:00:00.0002146" startTime="2026-10-11T04:27:41.8749911+00:00" endTime="2026-10-11T04:27:41.8752016+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8cc97781-d401-4b9e-be09-b1a7d1532311" />
+    <UnitTestResult executionId="fc513528-cdb0-4958-bff9-6ba056186cb1" testId="15c316ea-7693-6d2d-6a12-c3378a6f6489" testName="KuaiYi.Core.Tests.IpcTests.Utf8RoundtripAndCleanEof" computerName="552716c6b8c5" duration="00:00:00.0060259" startTime="2026-10-11T04:27:41.7773208+00:00" endTime="2026-10-11T04:27:41.7917755+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fc513528-cdb0-4958-bff9-6ba056186cb1" />
+    <UnitTestResult executionId="1c56ccab-add3-4050-ad29-f2c029ad4980" testId="d84f5eb4-120e-000e-89ee-9a49c9f9d1ab" testName="KuaiYi.Core.Tests.GeometryTests.InvalidAnchorsAndNonfinitePreferencesFailBeforeGeometry" computerName="552716c6b8c5" duration="00:00:00.0038056" startTime="2026-10-11T04:27:41.7547632+00:00" endTime="2026-10-11T04:27:41.7637716+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1c56ccab-add3-4050-ad29-f2c029ad4980" />
+    <UnitTestResult executionId="4b6ff03b-a28d-45a1-a669-02b7f0fc5e2b" testId="72f7bb75-7e46-c341-37b4-b92009fa0508" testName="KuaiYi.Core.Tests.GeometryTests.StreamHeightIsMonotonicBoundedAndWidthDirectionRemainFixed" computerName="552716c6b8c5" duration="00:00:00.0033302" startTime="2026-10-11T04:27:41.8718870+00:00" endTime="2026-10-11T04:27:41.8749234+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4b6ff03b-a28d-45a1-a669-02b7f0fc5e2b" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.GateTests.LatestWinsRejectsOldCompletionAndErrorAndCancelsPreviousChain" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="ae47d89a-7313-bc75-1c1e-9263ae9d90af">
+      <Execution id="d7f99fee-0f3f-4381-9f51-ebc3d12740d4" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.GateTests" name="LatestWinsRejectsOldCompletionAndErrorAndCancelsPreviousChain" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IpcTests.Utf8RoundtripAndCleanEof" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="15c316ea-7693-6d2d-6a12-c3378a6f6489">
+      <Execution id="fc513528-cdb0-4958-bff9-6ba056186cb1" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IpcTests" name="Utf8RoundtripAndCleanEof" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.GeometryTests.BalancedFallbackFitsNarrowWorkAreaWithoutMovingAnchor" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="10e55dfd-da82-594c-d5a1-3957949c0955">
+      <Execution id="8cc97781-d401-4b9e-be09-b1a7d1532311" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.GeometryTests" name="BalancedFallbackFitsNarrowWorkAreaWithoutMovingAnchor" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.GateTests.EachActualOriginIncludingVisionAndOldSnapshotRequiresSeparateConsent" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="2b4c1ce7-082e-5d74-4fbf-4d2c2d68d6c0">
+      <Execution id="816c424c-1113-4676-a1f0-7068c9fc8bf8" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.GateTests" name="EachActualOriginIncludingVisionAndOldSnapshotRequiresSeparateConsent" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IpcTests.ForgedLengthsAreRejectedBeforeReadingOrAllocatingPayload(length: 2147483648)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="76d1077b-74d9-5426-0dcc-100faccf35b9">
+      <Execution id="8419c331-64e8-42a6-a510-eba79e30372c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IpcTests" name="ForgedLengthsAreRejectedBeforeReadingOrAllocatingPayload" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.GeometryTests.FourCornersGrowInward(x: 1860, y: 12, expected: LeftDown)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="6072f582-2e15-3f9a-8e2a-84e8337bf5f1">
+      <Execution id="16dfa8b1-e4e9-4457-8f3b-1621a5c935cd" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.GeometryTests" name="FourCornersGrowInward" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IpcTests.ForgedLengthsAreRejectedBeforeReadingOrAllocatingPayload(length: 4294967295)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="9ba1ca37-2cd0-1e7b-86a3-041affbe9960">
+      <Execution id="8186b8ea-cab2-401d-b891-2c5c67ad5057" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IpcTests" name="ForgedLengthsAreRejectedBeforeReadingOrAllocatingPayload" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.GeometryTests.FourCornersGrowInward(x: 1860, y: 1020, expected: LeftUp)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="3a322ef4-be34-2501-553a-b170ed3462fe">
+      <Execution id="34ccb940-e2f5-422c-bd5d-bb51bcc5f9d7" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.GeometryTests" name="FourCornersGrowInward" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IpcTests.ForgedLengthsAreRejectedBeforeReadingOrAllocatingPayload(length: 65537)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="19cfd5bd-43f3-9db4-21cb-b56dca2bdf9e">
+      <Execution id="90e686db-2fd2-4986-ae2b-5616dd06f877" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IpcTests" name="ForgedLengthsAreRejectedBeforeReadingOrAllocatingPayload" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.GeometryTests.TenThousandFixedSeedTopologiesMaintainEveryFrameInvariant" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="e2c58ce1-9d29-0549-158d-c1758de5ab84">
+      <Execution id="a4ef1752-b314-47b6-b37e-0509119113aa" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.GeometryTests" name="TenThousandFixedSeedTopologiesMaintainEveryFrameInvariant" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IpcTests.TruncatedHeadersAndPayloadAreNotCleanDisconnects(bytes: 1)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="4b405538-a751-4bda-f873-20b973b5cdc1">
+      <Execution id="87d8fbb1-0e74-4b60-ae9a-1c9a1646cb37" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IpcTests" name="TruncatedHeadersAndPayloadAreNotCleanDisconnects" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.GeometryTests.FourCornersGrowInward(x: 12, y: 12, expected: RightDown)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="0967b22d-6e1a-441b-d386-9f96b368eb78">
+      <Execution id="1235da8c-a11d-4461-932c-4d61722f7670" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.GeometryTests" name="FourCornersGrowInward" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.GateTests.CollapseKeepsChainRunningAndReopenKeepsActivationOff" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="8f1115d5-13a6-bb4a-e2f0-b9ad3cb813d6">
+      <Execution id="94f7f1a9-59a7-4fa7-a065-b981896726ea" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.GateTests" name="CollapseKeepsChainRunningAndReopenKeepsActivationOff" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.GateTests.DisableCancelsPendingCaptureRequestAndEveryLateEvent" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="88f253c0-441b-3624-9a8a-d3189b8b5393">
+      <Execution id="8a047c16-5428-4561-885c-aeab1767f036" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.GateTests" name="DisableCancelsPendingCaptureRequestAndEveryLateEvent" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.GeometryTests.InvalidAnchorsAndNonfinitePreferencesFailBeforeGeometry" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="d84f5eb4-120e-000e-89ee-9a49c9f9d1ab">
+      <Execution id="1c56ccab-add3-4050-ad29-f2c029ad4980" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.GeometryTests" name="InvalidAnchorsAndNonfinitePreferencesFailBeforeGeometry" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.GeometryTests.FourCornersGrowInward(x: 12, y: 1020, expected: RightUp)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="5a87de96-a360-e9f1-a611-146a2ecfadfc">
+      <Execution id="01a66dbc-4a29-4974-ae70-b603f7b8ce49" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.GeometryTests" name="FourCornersGrowInward" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.GateTests.LockUnlockHideAndStopDoNotRestoreAutomaticGeneration" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b7a905ed-39a3-6e16-dc69-ad8dc767d1a0">
+      <Execution id="e4180e50-6dd4-4723-a040-3a3c84c97a97" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.GateTests" name="LockUnlockHideAndStopDoNotRestoreAutomaticGeneration" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.GateTests.DropAndSuspensionsInvalidateCandidatesButSettingsDoNotCancelExistingGeneration" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="3d762c47-32f5-34fd-7a3f-2d98351a728b">
+      <Execution id="676d8726-fe7d-49a4-a529-d286ab58f087" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.GateTests" name="DropAndSuspensionsInvalidateCandidatesButSettingsDoNotCancelExistingGeneration" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IpcTests.TruncatedHeadersAndPayloadAreNotCleanDisconnects(bytes: 30)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="84683522-c354-f745-50f4-1b1d40d0d6b2">
+      <Execution id="b717d581-7573-44e4-954c-8a2e1974d1e5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IpcTests" name="TruncatedHeadersAndPayloadAreNotCleanDisconnects" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IpcTests.TruncatedHeadersAndPayloadAreNotCleanDisconnects(bytes: 27)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="ca3988bb-0871-4f27-b2e1-8892cf9b997e">
+      <Execution id="b5197c10-58eb-4cdb-ab59-4c008dd52e05" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IpcTests" name="TruncatedHeadersAndPayloadAreNotCleanDisconnects" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.GateTests.StartupAndUnconsentedOrInvalidConfigurationCannotCaptureOrSend" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="ab674aff-973e-de48-f30c-a32cae996ca9">
+      <Execution id="a382de11-4d44-4e61-9d65-5adf731a1150" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.GateTests" name="StartupAndUnconsentedOrInvalidConfigurationCannotCaptureOrSend" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.GeometryTests.StreamHeightIsMonotonicBoundedAndWidthDirectionRemainFixed" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="72f7bb75-7e46-c341-37b4-b92009fa0508">
+      <Execution id="4b6ff03b-a28d-45a1-a669-02b7f0fc5e2b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.GeometryTests" name="StreamHeightIsMonotonicBoundedAndWidthDirectionRemainFixed" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="2b4c1ce7-082e-5d74-4fbf-4d2c2d68d6c0" executionId="816c424c-1113-4676-a1f0-7068c9fc8bf8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5a87de96-a360-e9f1-a611-146a2ecfadfc" executionId="01a66dbc-4a29-4974-ae70-b603f7b8ce49" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="76d1077b-74d9-5426-0dcc-100faccf35b9" executionId="8419c331-64e8-42a6-a510-eba79e30372c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="84683522-c354-f745-50f4-1b1d40d0d6b2" executionId="b717d581-7573-44e4-954c-8a2e1974d1e5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9ba1ca37-2cd0-1e7b-86a3-041affbe9960" executionId="8186b8ea-cab2-401d-b891-2c5c67ad5057" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8f1115d5-13a6-bb4a-e2f0-b9ad3cb813d6" executionId="94f7f1a9-59a7-4fa7-a065-b981896726ea" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ab674aff-973e-de48-f30c-a32cae996ca9" executionId="a382de11-4d44-4e61-9d65-5adf731a1150" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4b405538-a751-4bda-f873-20b973b5cdc1" executionId="87d8fbb1-0e74-4b60-ae9a-1c9a1646cb37" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="88f253c0-441b-3624-9a8a-d3189b8b5393" executionId="8a047c16-5428-4561-885c-aeab1767f036" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3a322ef4-be34-2501-553a-b170ed3462fe" executionId="34ccb940-e2f5-422c-bd5d-bb51bcc5f9d7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ae47d89a-7313-bc75-1c1e-9263ae9d90af" executionId="d7f99fee-0f3f-4381-9f51-ebc3d12740d4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ca3988bb-0871-4f27-b2e1-8892cf9b997e" executionId="b5197c10-58eb-4cdb-ab59-4c008dd52e05" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b7a905ed-39a3-6e16-dc69-ad8dc767d1a0" executionId="e4180e50-6dd4-4723-a040-3a3c84c97a97" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="19cfd5bd-43f3-9db4-21cb-b56dca2bdf9e" executionId="90e686db-2fd2-4986-ae2b-5616dd06f877" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0967b22d-6e1a-441b-d386-9f96b368eb78" executionId="1235da8c-a11d-4461-932c-4d61722f7670" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3d762c47-32f5-34fd-7a3f-2d98351a728b" executionId="676d8726-fe7d-49a4-a529-d286ab58f087" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e2c58ce1-9d29-0549-158d-c1758de5ab84" executionId="a4ef1752-b314-47b6-b37e-0509119113aa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6072f582-2e15-3f9a-8e2a-84e8337bf5f1" executionId="16dfa8b1-e4e9-4457-8f3b-1621a5c935cd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="10e55dfd-da82-594c-d5a1-3957949c0955" executionId="8cc97781-d401-4b9e-be09-b1a7d1532311" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="15c316ea-7693-6d2d-6a12-c3378a6f6489" executionId="fc513528-cdb0-4958-bff9-6ba056186cb1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d84f5eb4-120e-000e-89ee-9a49c9f9d1ab" executionId="1c56ccab-add3-4050-ad29-f2c029ad4980" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="72f7bb75-7e46-c341-37b4-b92009fa0508" executionId="4b6ff03b-a28d-45a1-a669-02b7f0fc5e2b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="22" executed="22" passed="22" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.05]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.09]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.11]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.25]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

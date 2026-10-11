@@ -1,0 +1,2150 @@
+{
+  "schemaVersion": 1,
+  "specSha256": "ea3aa6529405bcc703986988fd089f476ee8f991d867e2220b3b20c439126166",
+  "items": [
+    {
+      "id": "R01",
+      "category": "requirement",
+      "specLine": 72,
+      "definition": [
+        "红/绿按钮表示未启用/已启用，可拖动、记住位置",
+        "P1",
+        "A、B"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "R02",
+      "category": "requirement",
+      "specLine": 73,
+      "definition": [
+        "点击按钮或自定义快捷键切换启用状态",
+        "P1、P3",
+        "A、H"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "R03",
+      "category": "requirement",
+      "specLine": 74,
+      "definition": [
+        "浏览器、PDF、Markdown 等应用中的划词翻译",
+        "P3",
+        "C"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "R04",
+      "category": "requirement",
+      "specLine": 75,
+      "definition": [
+        "根据按钮位置选择方向，译文流式生长，不越界",
+        "P2、P4",
+        "B、G"
+      ],
+      "implementationStatus": "InProgress",
+      "validationStatus": "NotRun",
+      "evidence": [],
+      "note": "Core/protocol contract only. Complete product requirement not yet validated."
+    },
+    {
+      "id": "R05",
+      "category": "requirement",
+      "specLine": 76,
+      "definition": [
+        "设置 OpenAI / Anthropic 兼容 API、密钥、模型、地址",
+        "P4",
+        "F"
+      ],
+      "implementationStatus": "InProgress",
+      "validationStatus": "NotRun",
+      "evidence": [],
+      "note": "Core/protocol contract only. Complete product requirement not yet validated."
+    },
+    {
+      "id": "R06",
+      "category": "requirement",
+      "specLine": 77,
+      "definition": [
+        "通俗易懂、忠实原句、专业领域、解释模式",
+        "P4",
+        "F、J"
+      ],
+      "implementationStatus": "InProgress",
+      "validationStatus": "NotRun",
+      "evidence": [],
+      "note": "Core/protocol contract only. Complete product requirement not yet validated."
+    },
+    {
+      "id": "R07",
+      "category": "requirement",
+      "specLine": 78,
+      "definition": [
+        "收起、再次展开查看同一结果，不重复请求",
+        "P2、P4",
+        "A、B"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "R08",
+      "category": "requirement",
+      "specLine": 79,
+      "definition": [
+        "重新生成当前原文的新版本，旧版本不丢失",
+        "P4",
+        "D、F"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "R09",
+      "category": "requirement",
+      "specLine": 80,
+      "definition": [
+        "拖动所选文字到浮窗翻译，设置中切换交互模式",
+        "P5",
+        "E"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "R10",
+      "category": "requirement",
+      "specLine": 81,
+      "definition": [
+        "自定义区域截图快捷键，把截图送入快译",
+        "P6",
+        "I"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "R11",
+      "category": "requirement",
+      "specLine": 82,
+      "definition": [
+        "图片纯文字按所选风格翻译；图文默认解释",
+        "P6",
+        "I、J"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "R12",
+      "category": "requirement",
+      "specLine": 83,
+      "definition": [
+        "资源管理器图片右键出现“快译”",
+        "P7",
+        "K"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "R13",
+      "category": "requirement",
+      "specLine": 84,
+      "definition": [
+        "Chrome / Edge 图片右键出现“快译”",
+        "P7",
+        "K"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "R14",
+      "category": "requirement",
+      "specLine": 85,
+      "definition": [
+        "所有本产品快捷键可设置、取消、检查占用",
+        "P3",
+        "H"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "R15",
+      "category": "requirement",
+      "specLine": 86,
+      "definition": [
+        "多屏、负坐标、不同缩放比例、屏幕边缘处理",
+        "P2、P8",
+        "B、G"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "R16",
+      "category": "requirement",
+      "specLine": 87,
+      "definition": [
+        "不抢焦点、可取消、防串流、防重复、防误触",
+        "P3、P4",
+        "C、D"
+      ],
+      "implementationStatus": "InProgress",
+      "validationStatus": "NotRun",
+      "evidence": [],
+      "note": "Core/protocol contract only. Complete product requirement not yet validated."
+    },
+    {
+      "id": "R17",
+      "category": "requirement",
+      "specLine": 88,
+      "definition": [
+        "密钥保护、默认不落地内容、发送对象可见",
+        "P1、P4、P8",
+        "L"
+      ],
+      "implementationStatus": "InProgress",
+      "validationStatus": "NotRun",
+      "evidence": [],
+      "note": "Core/protocol contract only. Complete product requirement not yet validated."
+    },
+    {
+      "id": "R18",
+      "category": "requirement",
+      "specLine": 89,
+      "definition": [
+        "错误可恢复、兼容性限制可见、安装卸载完整",
+        "P0、P7、P8",
+        "F、K、L"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P0-01",
+      "category": "task",
+      "specLine": 1281,
+      "definition": [
+        "建立仓库、锁定 .NET/Windows SDK/C++ 工具链、第三方依赖与许可证",
+        "`global.json`、集中包版本、锁文件、环境检测脚本、依赖清单"
+      ],
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/test-evidence/2026-10-11-offline-summary.json"
+      ],
+      "note": "Independent offline subitems validated; whole task still needs Windows or additional platform work."
+    },
+    {
+      "id": "P0-02",
+      "category": "task",
+      "specLine": 1282,
+      "definition": [
+        "做真实 UIA 选择探针：Chrome、Edge、PDF 阅读器、Markdown 编辑/预览至少各一个",
+        "CompatibilityProbe、原始脱敏结果、应用版本和限制说明"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P0-03",
+      "category": "task",
+      "specLine": 1283,
+      "definition": [
+        "验证 WPF 非激活顶层窗口、按钮命中、置顶、OLE Drop、焦点行为",
+        "最小真实 HWND 原型；与前台编辑器联合测试"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P0-04",
+      "category": "task",
+      "specLine": 1284,
+      "definition": [
+        "验证混合 DPI、四角锚定、负坐标屏幕、工作区任务栏",
+        "GrowthHarness 雏形、坐标决策记录"
+      ],
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/test-evidence/2026-10-11-offline-summary.json"
+      ],
+      "note": "Independent offline subitems validated; whole task still needs Windows or additional platform work."
+    },
+    {
+      "id": "P0-05",
+      "category": "task",
+      "specLine": 1285,
+      "definition": [
+        "从安装位置验证身份包、ImageWorker OCR、原生 Explorer 菜单注册",
+        "开发身份包、开发签名说明、OCR 与菜单最小调用证据"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P0-06",
+      "category": "task",
+      "specLine": 1286,
+      "definition": [
+        "验证截图后端、NativeHost 双向通信及协议片段解析",
+        "截图原型、NativeHost echo 测试、风险清单"
+      ],
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/test-evidence/2026-10-11-offline-summary.json"
+      ],
+      "note": "Independent offline subitems validated; whole task still needs Windows or additional platform work."
+    },
+    {
+      "id": "P1-01",
+      "category": "task",
+      "specLine": 1294,
+      "definition": [
+        "建立分层工程、依赖注入、MVVM、统一领域状态与事件",
+        "Core / Contracts / Application / App 可构建"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P1-02",
+      "category": "task",
+      "specLine": 1295,
+      "definition": [
+        "实现红/绿按钮、拖动、托盘、正常设置窗口、单实例",
+        "可运行桌面程序，不含假翻译结果"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P1-03",
+      "category": "task",
+      "specLine": 1296,
+      "definition": [
+        "实现配置草稿、原子保存、迁移、损坏恢复、位置恢复",
+        "AppSettings Schema 与单元测试"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P1-04",
+      "category": "task",
+      "specLine": 1297,
+      "definition": [
+        "实现 DPAPI SecretStore、掩码输入、秘密引用及删除事务",
+        "凭据测试；配置和日志泄露扫描"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P1-05",
+      "category": "task",
+      "specLine": 1298,
+      "definition": [
+        "实现 Off/On、暂停原因、锁屏/解锁、隐藏/恢复/退出",
+        "状态机测试，退出清理验证"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P1-06",
+      "category": "task",
+      "specLine": 1299,
+      "definition": [
+        "建立脱敏日志、错误类型、假 Provider 注入点",
+        "测试环境可注入；正式环境不能误用 Mock"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P2-01",
+      "category": "task",
+      "specLine": 1307,
+      "definition": [
+        "实现强类型坐标、屏幕拓扑服务、纯函数 LayoutPlanner",
+        "方向、边界和小屏属性测试"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P2-02",
+      "category": "task",
+      "specLine": 1308,
+      "definition": [
+        "实现锚点固定的 HWND 边界更新、命中区域和阴影",
+        "实际透明区域不拦截桌面输入"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P2-03",
+      "category": "task",
+      "specLine": 1309,
+      "definition": [
+        "实现最初展开、单向流式增高、稳定宽度与内容裁切",
+        "GrowthController；可调流速 Harness"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P2-04",
+      "category": "task",
+      "specLine": 1310,
+      "definition": [
+        "实现收起、缓存回看、悬停工具、滚动位置保留",
+        "完整浮窗操作链，不依赖模型网络"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P2-05",
+      "category": "task",
+      "specLine": 1311,
+      "definition": [
+        "实现跨屏拖动、DPI/任务栏变化、布局冻结与重新规划",
+        "多屏测试脚本和录像"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P2-06",
+      "category": "task",
+      "specLine": 1312,
+      "definition": [
+        "实现减少动画、高对比度、键盘阅读入口",
+        "可访问性基础报告"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P3-01",
+      "category": "task",
+      "specLine": 1320,
+      "definition": [
+        "实现轻量鼠标事件线程、启用/模式门控、去抖与候选版本",
+        "InputGateway 与高频事件测试"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P3-02",
+      "category": "task",
+      "specLine": 1321,
+      "definition": [
+        "实现 MTA UIA Broker、选择定位、超时终止/重启",
+        "CaptureResult、应用实测矩阵"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P3-03",
+      "category": "task",
+      "specLine": 1322,
+      "definition": [
+        "实现字符限制、来源验证、排除规则与去重",
+        "不误读全文/旧选区的回归样本"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P3-04",
+      "category": "task",
+      "specLine": 1323,
+      "definition": [
+        "实现按应用授权的安全复制兼容模式及条件恢复",
+        "剪贴板 STA 服务、竞态注入测试"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P3-05",
+      "category": "task",
+      "specLine": 1324,
+      "definition": [
+        "实现快捷键录制、保留组合检查、实际注册、事务替换",
+        "HotkeyService 和冲突占用器测试工具"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P3-06",
+      "category": "task",
+      "specLine": 1325,
+      "definition": [
+        "串联捕获结果到测试 Provider，验证焦点和失败提示",
+        "端到端文字来源正确性测试"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P4-01",
+      "category": "task",
+      "specLine": 1333,
+      "definition": [
+        "实现配置档、地址组合、能力标记、固定测试内容、参数校验",
+        "两种协议可独立配置与测试"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P4-02",
+      "category": "task",
+      "specLine": 1334,
+      "definition": [
+        "实现 OpenAI Chat HTTP / SSE / 非流式适配器",
+        "协议 fixture 与请求快照测试"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P4-03",
+      "category": "task",
+      "specLine": 1335,
+      "definition": [
+        "实现 Anthropic Messages HTTP / SSE / 非流式适配器",
+        "独立协议 fixture，含 200 内 error"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P4-04",
+      "category": "task",
+      "specLine": 1336,
+      "definition": [
+        "实现请求调度、取消、ID 隔离、超时与有限重试",
+        "并发/迟到/错误竞态回归测试"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P4-05",
+      "category": "task",
+      "specLine": 1337,
+      "definition": [
+        "实现四种提示词、样式展示、重新生成和最多三版本",
+        "提示词版本记录、结果复制、模式切换"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P4-06",
+      "category": "task",
+      "specLine": 1338,
+      "definition": [
+        "完成真实文字取词→真实协议→浮窗生长→收起回看的闭环",
+        "文字 Alpha 构建与验收报告"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P5-01",
+      "category": "task",
+      "specLine": 1346,
+      "definition": [
+        "实现互斥模式切换及设置持久化",
+        "Selection / Drop 门控测试"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P5-02",
+      "category": "task",
+      "specLine": 1347,
+      "definition": [
+        "实现外部 OLE DragEnter/Over/Leave/Drop 与小型目标提示",
+        "可见投放反馈，离开无请求"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P5-03",
+      "category": "task",
+      "specLine": 1348,
+      "definition": [
+        "实现 Unicode 文本优先、HTML/RTF 净化、受限数据取出",
+        "类型和超时测试"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P5-04",
+      "category": "task",
+      "specLine": 1349,
+      "definition": [
+        "保证只复制、只请求一次、不与按钮自身拖动混淆",
+        "浏览器与编辑器跨应用拖放录像"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P6-01",
+      "category": "task",
+      "specLine": 1357,
+      "definition": [
+        "实现区域截图、多屏物理像素裁切、取消与自身排除",
+        "ScreenshotService、真实多屏证据"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P6-02",
+      "category": "task",
+      "specLine": 1358,
+      "definition": [
+        "实现图片格式/大小校验、解码隔离、方向与缩放预处理",
+        "ImageWorker 和恶意/异常图片测试"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P6-03",
+      "category": "task",
+      "specLine": 1359,
+      "definition": [
+        "实现本地 OCR、包身份/语言检测、能力不足提示",
+        "OCR 数据模型和无语言包场景"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P6-04",
+      "category": "task",
+      "specLine": 1360,
+      "definition": [
+        "实现两种协议的图片输入、严格分类 JSON 与路由",
+        "纯文字/混合/不确定路径测试"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P6-05",
+      "category": "task",
+      "specLine": 1361,
+      "definition": [
+        "实现图文解释、位置说明、当前条模式覆盖与图像重新生成",
+        "提示词及视觉质量评估材料"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P6-06",
+      "category": "task",
+      "specLine": 1362,
+      "definition": [
+        "实现图片投放/打开入口，形成完整图像 Beta",
+        "I、J 组测试报告与构建"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P7-01",
+      "category": "task",
+      "specLine": 1370,
+      "definition": [
+        "完成原生 Explorer 菜单、单图选择、冷启动与 Off 确认",
+        "Windows 11 现代菜单真实实现"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P7-02",
+      "category": "task",
+      "specLine": 1371,
+      "definition": [
+        "完成 Chrome/Edge MV3 扩展、权限与图片取得降级",
+        "同一代码基础的扩展分发包"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P7-03",
+      "category": "task",
+      "specLine": 1372,
+      "definition": [
+        "完成 NativeHost、来源校验、分片传图、版本协商",
+        "浏览器→桌面端到端测试"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P7-04",
+      "category": "task",
+      "specLine": 1373,
+      "definition": [
+        "完成每用户安装、身份包、宿主注册和可选登录启动",
+        "开发/正式签名分离的安装脚本"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P7-05",
+      "category": "task",
+      "specLine": 1374,
+      "definition": [
+        "完成升级回滚、卸载清理与损坏修复入口",
+        "干净虚拟机安装/升级/卸载记录"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P7-06",
+      "category": "task",
+      "specLine": 1375,
+      "definition": [
+        "完成集成状态页和权限/策略受限说明",
+        "无扩展、无宿主、禁止侧载等错误路径"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P8-01",
+      "category": "task",
+      "specLine": 1383,
+      "definition": [
+        "运行完整 A—L 回归，补齐失败路径与权限边界",
+        "带环境及证据路径的验收报告"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P8-02",
+      "category": "task",
+      "specLine": 1384,
+      "definition": [
+        "运行布局属性测试、输入/SSE/IPC 模糊测试、八小时浸泡",
+        "帧时间、内存、句柄与崩溃记录"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P8-03",
+      "category": "task",
+      "specLine": 1385,
+      "definition": [
+        "复核所有隐私门控、秘密泄露、日志与提示注入场景",
+        "威胁模型检查表与脱敏报告"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P8-04",
+      "category": "task",
+      "specLine": 1386,
+      "definition": [
+        "运行混合 DPI、文本放大、高对比、屏幕阅读器测试",
+        "可访问性与多屏报告"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P8-05",
+      "category": "task",
+      "specLine": 1387,
+      "definition": [
+        "运行冻结提示词集的质量评审及授权真实 API 测试",
+        "实际模型/配置/日期和评分，不只截图"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "P8-06",
+      "category": "task",
+      "specLine": 1388,
+      "definition": [
+        "整理源码、构建、安装包、扩展、帮助、兼容矩阵和已知限制",
+        "可追踪到 commit 的 v1.0 发布候选"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "A01",
+      "category": "acceptance",
+      "specLine": 1420,
+      "definition": [
+        "无历史配置首次启动；在其他应用划选文字",
+        "只有红色按钮与托盘；无捕获、无模型请求；点击启用定位配置缺项"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "A02",
+      "category": "acceptance",
+      "specLine": 1421,
+      "definition": [
+        "已配置且已同意发送；单击按钮，再单击",
+        "按钮依次绿、红，语义一致；Off 后新选区不发送"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "A03",
+      "category": "acceptance",
+      "specLine": 1422,
+      "definition": [
+        "拖动按钮超过阈值后松开；再做一次短距离单击",
+        "拖动不切换；短单击只切换一次；无误翻译"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "A04",
+      "category": "acceptance",
+      "specLine": 1423,
+      "definition": [
+        "已启用并生成中，切到 Off",
+        "候选与当前请求取消；回到红色紧凑态；迟到文本不得继续更新"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "A05",
+      "category": "acceptance",
+      "specLine": 1424,
+      "definition": [
+        "结果完成后收起，再通过回看入口展开三次",
+        "每次内容、版本一致；新增模型请求数为 0"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "A06",
+      "category": "acceptance",
+      "specLine": 1425,
+      "definition": [
+        "流式中收起，保持不操作直到完成",
+        "主按钮仍绿色；后台只完成当前请求；不得自动弹开；回看显示完整缓存"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "A07",
+      "category": "acceptance",
+      "specLine": 1426,
+      "definition": [
+        "收起后接受一段不同的有效原文",
+        "新请求可自动展开；只展示新会话；取词失败则保留原结果"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "A08",
+      "category": "acceptance",
+      "specLine": 1427,
+      "definition": [
+        "Off 时回看旧结果，点击重新生成；随后显式截图",
+        "回看不启用；重新生成提示先启用；截图必须经启用确认才上传"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "A09",
+      "category": "acceptance",
+      "specLine": 1428,
+      "definition": [
+        "已启用时隐藏浮窗、锁屏、解锁或重启程序",
+        "隐藏/锁屏取消并停用；恢复为红色；不会自动重放上一请求"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "A10",
+      "category": "acceptance",
+      "specLine": 1429,
+      "definition": [
+        "打开设置修改后取消；再保存同样修改",
+        "取消不改变持久配置；保存原子生效；已有请求保留它的配置快照"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "B01",
+      "category": "acceptance",
+      "specLine": 1435,
+      "definition": [
+        "在 1920×1080 测试屏四角，按钮分别贴安全边界；发送长流",
+        "左上向右下、右上向左下、左下向右上、右下向左上；全帧不越界"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "B02",
+      "category": "acceptance",
+      "specLine": 1436,
+      "definition": [
+        "按钮位于四边中点和中央，逐一生成",
+        "选择可容纳正文方向；按钮屏幕位置保持；方向在同一生成中不反复切换"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "B03",
+      "category": "acceptance",
+      "specLine": 1437,
+      "definition": [
+        "工作区左右单侧不足 320 DIP、整体足够；按钮居中",
+        "使用横向平衡布局；正文不被按钮穿插；全部边界合法"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "B04",
+      "category": "acceptance",
+      "specLine": 1438,
+      "definition": [
+        "无 token 等待 800 ms，再输入首批中文",
+        "先轻量等待提示，非巨大空白；正文到达后按最终排版宽度生长"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "B05",
+      "category": "acceptance",
+      "specLine": 1439,
+      "definition": [
+        "分别以 5、30、100 字/秒和突发 2,000 字输入",
+        "合并测量有界；正文无反复换行抖动；同版本高度单调至上限"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "B06",
+      "category": "acceptance",
+      "specLine": 1440,
+      "definition": [
+        "生长到上限，用户向上滚动；继续输入",
+        "外框不越界；阅读位置保持；新内容提示有效；回底部后恢复跟随"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "B07",
+      "category": "acceptance",
+      "specLine": 1441,
+      "definition": [
+        "收起/展开连续 50 次，包含动画中反向操作",
+        "没有负尺寸、闪烁或锚点漂移；最终状态与最后操作一致"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "B08",
+      "category": "acceptance",
+      "specLine": 1442,
+      "definition": [
+        "在展开态拖动，生成继续；拖到另一显示器后松开",
+        "正文增长不改变拖动尺寸；跨屏安全调整除外；松开重新规划；缓存不丢、不串流"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "B09",
+      "category": "acceptance",
+      "specLine": 1443,
+      "definition": [
+        "点击浮窗外紧邻圆角、阴影区域及其原来最大尺寸区域",
+        "点击进入底层应用；不存在不可见的大型置顶命中矩形"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "B10",
+      "category": "acceptance",
+      "specLine": 1444,
+      "definition": [
+        "开启减少动画、高对比度，200% 文本大小",
+        "减少动画被遵守；状态不是只靠红绿；关键操作可访问、无裁切"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "B11",
+      "category": "acceptance",
+      "specLine": 1445,
+      "definition": [
+        "悬停主按钮进入工具条，再移到齿轮；不操作后离开",
+        "设置按钮可稳定点击；不因跨越按钮边缘立即消失；静置恢复单按钮"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "B12",
+      "category": "acceptance",
+      "specLine": 1446,
+      "definition": [
+        "长代码、表格、超长无空格串、中文标点与公式",
+        "内部滚动/换行合理；不能撑出屏幕；来源结构不被无条件压平"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "C01",
+      "category": "acceptance",
+      "specLine": 1452,
+      "definition": [
+        "在兼容矩阵各核心应用选择固定英文两段",
+        "获取的是这两段，段落顺序正确；非全文、标题或周边文字"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "C02",
+      "category": "acceptance",
+      "specLine": 1453,
+      "definition": [
+        "双击选单词、三击选段、只选一个字母",
+        "三类均可按有效选择触发；不以长度或必须拖远为条件拒绝"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "C03",
+      "category": "acceptance",
+      "specLine": 1454,
+      "definition": [
+        "快速选择 A，再在去抖期改选 B",
+        "A 不发送；只接受最后稳定且仍有效的 B"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "C04",
+      "category": "acceptance",
+      "specLine": 1455,
+      "definition": [
+        "保留旧选区，点击工具栏/滚动条/无关按钮",
+        "不把残留旧选区当作新的选择发送；不得只凭鼠标抬起触发"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "C05",
+      "category": "acceptance",
+      "specLine": 1456,
+      "definition": [
+        "选择后在获取完成前切换前台窗口或关闭原窗口",
+        "候选失效，无网络请求；旧窗口句柄复用不能绕过进程/epoch 校验"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "C06",
+      "category": "acceptance",
+      "specLine": 1457,
+      "definition": [
+        "UIA provider 无支持、返回空范围、异常或永久阻塞",
+        "有限时间失败或 Broker 被重启；UI 可操作；不改读整页"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "C07",
+      "category": "acceptance",
+      "specLine": 1458,
+      "definition": [
+        "剪贴板预放“OLD”，UIA 不支持且未授权兼容",
+        "不按 Ctrl+C、不读 OLD 翻译；提供兼容授权/截图说明"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "C08",
+      "category": "acceptance",
+      "specLine": 1459,
+      "definition": [
+        "已授权复制；目标没有产生新剪贴板内容，或来源不明",
+        "不发送旧内容或不确定的新内容；返回获取失败"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "C09",
+      "category": "acceptance",
+      "specLine": 1460,
+      "definition": [
+        "模拟复制之后用户立即复制“NEW”；随后恢复事务完成",
+        "用户的 NEW 不被覆盖；快译只接受能够证明属于本次的内容"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "C10",
+      "category": "acceptance",
+      "specLine": 1461,
+      "definition": [
+        "原剪贴板含无法可靠克隆的延迟/OLE 格式",
+        "在模拟复制前退出兼容路径；不只保存 Unicode 文本而破坏其他格式"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "C11",
+      "category": "acceptance",
+      "specLine": 1462,
+      "definition": [
+        "密码框、终端、管理员窗口、排除应用、快译译文",
+        "按规则不自动获取；不提权、不发中断、不递归翻译"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "C12",
+      "category": "acceptance",
+      "specLine": 1463,
+      "definition": [
+        "输入分别超过软/硬上限，含代理对、代码和多栏文本",
+        "软限确认、硬限拒绝；无静默截断；Unicode 完整、逻辑顺序保留"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "D01",
+      "category": "acceptance",
+      "specLine": 1469,
+      "definition": [
+        "A 生成很慢；选中 B 后让 A 继续返回文本及错误",
+        "只有 B 可更新当前结果；A 的文本、完成、错误均被丢弃"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "D02",
+      "category": "acceptance",
+      "specLine": 1470,
+      "definition": [
+        "分类 A 未完成时换成图片 B；随后 A 分类返回",
+        "不为 A 创建最终生成请求；B 使用自己的图像和分类"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "D03",
+      "category": "acceptance",
+      "specLine": 1471,
+      "definition": [
+        "停止后服务端继续发送 100 个 delta",
+        "UI 显示已停止；新增接纳事件为 0；不自动重试"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "D04",
+      "category": "acceptance",
+      "specLine": 1472,
+      "definition": [
+        "当前结果重新生成，第二版中途失败",
+        "原成功版本可查看；失败版标记清楚；不把半条当作已完成"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "D05",
+      "category": "acceptance",
+      "specLine": 1473,
+      "definition": [
+        "连续重新生成四次并切换版本",
+        "最多保留三个版本；正在显示且尚需回看的版本按明确淘汰规则处理；内存有界"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "D06",
+      "category": "acceptance",
+      "specLine": 1474,
+      "definition": [
+        "修改全局模型/风格，再点普通重新生成和“按当前设置重新翻译”",
+        "普通重生成沿用所示版本快照；第二操作使用新配置，结果标签准确"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "D07",
+      "category": "acceptance",
+      "specLine": 1475,
+      "definition": [
+        "相同来源、内容、风格、配置再次触发；随后点重新生成",
+        "重复触发零新增调用；明确重生成产生一个新版本调用"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "D08",
+      "category": "acceptance",
+      "specLine": 1476,
+      "definition": [
+        "生成中删除所用配置/密钥、关闭设置、退出程序",
+        "相应任务取消；秘密引用不被旧流程重新启用；退出无遗留子进程"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "E01",
+      "category": "acceptance",
+      "specLine": 1482,
+      "definition": [
+        "开启 Drop 模式，只在网页划选文字而不拖出",
+        "无捕获上传；划词模式钩子已停用"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "E02",
+      "category": "acceptance",
+      "specLine": 1483,
+      "definition": [
+        "将所选文字拖过按钮后移开，不松到目标上",
+        "仅有投放预览；没有请求；原文保持"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "E03",
+      "category": "acceptance",
+      "specLine": 1484,
+      "definition": [
+        "将文字投放到绿色按钮",
+        "取得实际 Drop 内容并只请求一次；浮窗按正常生长规则呈现"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "E04",
+      "category": "acceptance",
+      "specLine": 1485,
+      "definition": [
+        "从可编辑文本拖出；源同时允许 Copy/Move 或只允许 Move",
+        "只采用 Copy；Move-only 被拒绝；源内容不删除"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "E05",
+      "category": "acceptance",
+      "specLine": 1486,
+      "definition": [
+        "向红色按钮拖放；再试图片、多文件、URL 和恶意 HTML",
+        "Off 不上传；类型按规格处理；URL 不自动下载；HTML 不执行"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "E06",
+      "category": "acceptance",
+      "specLine": 1487,
+      "definition": [
+        "外部 OLE 数据获取超时，并同时拖动快译按钮",
+        "主 UI 不冻结；外部拖放与自身拖动不混淆；支持取消恢复"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "F01",
+      "category": "acceptance",
+      "specLine": 1493,
+      "definition": [
+        "Base URL 包含 `/v1`、自定义前缀、尾斜杠或完整端点",
+        "最终 URL 与预览一致；不重复 v1、不丢路径、不错误追加端点"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "F02",
+      "category": "acceptance",
+      "specLine": 1494,
+      "definition": [
+        "分别记录两种协议的文本请求",
+        "认证头、顶层结构和参数正确；Anthropic system 不混入 messages；无密钥进 prompt"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "F03",
+      "category": "acceptance",
+      "specLine": 1495,
+      "definition": [
+        "把中文 UTF-8 字节、SSE 行、空行和 JSON 任意拆包",
+        "输出字符完整、不乱码、不丢字；不能假设一次 Read 就是一次事件"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "F04",
+      "category": "acceptance",
+      "specLine": 1496,
+      "definition": [
+        "OpenAI 正常 delta、空 delta、usage 空 choices、结束标记",
+        "正确聚合文本和实际 usage；无数组越界；结束状态准确"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "F05",
+      "category": "acceptance",
+      "specLine": 1497,
+      "definition": [
+        "Anthropic ping、block 事件、text_delta、message_stop、未知事件",
+        "正确聚合文本；未知类型安全忽略；不把思考/非文本块混入译文"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "F06",
+      "category": "acceptance",
+      "specLine": 1498,
+      "definition": [
+        "HTTP 200 流内 Anthropic error，或无正常终止突然断流",
+        "显示协议错误/部分结果；不标记完整成功、不无限等待"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "F07",
+      "category": "acceptance",
+      "specLine": 1499,
+      "definition": [
+        "接口仅返回合法非流式 JSON",
+        "正确一次展示内容；不伪造服务端流式支持"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "F08",
+      "category": "acceptance",
+      "specLine": 1500,
+      "definition": [
+        "401/403、429、503、超时、无效 JSON、TLS 错误",
+        "错误类型和重试符合第 10 章；不随机改参数、不无限付费重发"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "F09",
+      "category": "acceptance",
+      "specLine": 1501,
+      "definition": [
+        "服务返回跨域重定向；错误正文含模拟密钥",
+        "不转发认证到新域；界面与日志均不泄露模拟秘密"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "F10",
+      "category": "acceptance",
+      "specLine": 1502,
+      "definition": [
+        "两套图像请求检查 MIME、base64、模型和图片尺寸",
+        "按各自 schema 编码；未把 OpenAI image_url 填到 Anthropic source"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "F11",
+      "category": "acceptance",
+      "specLine": 1503,
+      "definition": [
+        "配置不支持温度、模型列表不可用或能力未知",
+        "省略不适用字段；模型可手输；未知不显示已支持"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "F12",
+      "category": "acceptance",
+      "specLine": 1504,
+      "definition": [
+        "超大 SSE 事件、超深 JSON、无休止 ping、输出超限",
+        "受限终止；缓冲有界；总超时不能被 ping 无限延长"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "G01",
+      "category": "acceptance",
+      "specLine": 1510,
+      "definition": [
+        "两屏分别 100%/150%、125%/200% 缩放，副屏在左侧或上方",
+        "坐标转换准确；负坐标无裁切；选择当前按钮所在屏幕工作区"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "G02",
+      "category": "acceptance",
+      "specLine": 1511,
+      "definition": [
+        "生成期间移动任务栏、改变分辨率、拔掉按钮所在显示器",
+        "取消旧几何过渡并合法安置；按钮可找回；无窗口留在不可见位置"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "G03",
+      "category": "acceptance",
+      "specLine": 1512,
+      "definition": [
+        "在编辑器选词后立即继续输入；快译自动出现结果",
+        "前台窗口/输入焦点不被抢；输入仍到原编辑器"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "G04",
+      "category": "acceptance",
+      "specLine": 1513,
+      "definition": [
+        "用 GrowthHarness 测实际文字生长、连续收起与展开",
+        "达到第 15 章帧时间、锚点、越界及输入延迟指标"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "G05",
+      "category": "acceptance",
+      "specLine": 1514,
+      "definition": [
+        "分别测启动、红色静置、绿色静置、普通截图",
+        "统计方法及全部自有进程纳入；达到性能目标，不仅给平均截图"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "G06",
+      "category": "acceptance",
+      "specLine": 1515,
+      "definition": [
+        "执行八小时浸泡并定期故障注入",
+        "无崩溃/死锁/孤儿 Broker；内存与句柄无持续增长；可正常退出"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "H01",
+      "category": "acceptance",
+      "specLine": 1521,
+      "definition": [
+        "为所有第 8.4 节动作分别录制、清除和恢复建议值",
+        "每个动作均支持；空热键不注册；录制仅限控件聚焦期间"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "H02",
+      "category": "acceptance",
+      "specLine": 1522,
+      "definition": [
+        "两个动作输入同组合；输入 F12、单字母、保留组合",
+        "保存前指出具体问题；不抢占不可配置系统组合"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "H03",
+      "category": "acceptance",
+      "specLine": 1523,
+      "definition": [
+        "由测试程序先注册某组合，再设置到快译",
+        "检出实际注册失败；不编造占用进程名称"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "H04",
+      "category": "acceptance",
+      "specLine": 1524,
+      "definition": [
+        "已有有效热键，修改为占用组合；再交换两个有效动作",
+        "失败保留原热键；交换事务成功或完整回滚；无丢失恢复入口"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "H05",
+      "category": "acceptance",
+      "specLine": 1525,
+      "definition": [
+        "某应用内部有同组合但全局注册成功",
+        "UI 只声称当前已注册，并说明局部冲突检测边界"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "H06",
+      "category": "acceptance",
+      "specLine": 1526,
+      "definition": [
+        "切换 AltGr 键盘布局、锁屏/解锁、程序异常退出后重启",
+        "有布局风险提示；不形成隐藏键盘监听；注册状态可重新确认"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "I01",
+      "category": "acceptance",
+      "specLine": 1532,
+      "definition": [
+        "快捷键截图框选、取消、再次框选；包含浮窗附近区域",
+        "自身 UI 不被错误包含；取消不上传；框选只上传所选区域"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "I02",
+      "category": "acceptance",
+      "specLine": 1533,
+      "definition": [
+        "跨两个不同 DPI 显示器框选，包含负坐标",
+        "物理裁切与画面吻合；无错位、拉伸或额外屏幕内容"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "I03",
+      "category": "acceptance",
+      "specLine": 1534,
+      "definition": [
+        "纯英文段落截图，分别选择四种风格",
+        "最终模式遵守选择；内容准确；不会强制所有图片都解释"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "I04",
+      "category": "acceptance",
+      "specLine": 1535,
+      "definition": [
+        "流程图、带轴图表、结构示意、文字配图和有含义表格",
+        "自动图文解释；最终请求带图片；不只翻译 OCR 字串"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "I05",
+      "category": "acceptance",
+      "specLine": 1536,
+      "definition": [
+        "纯照片、低清图、部分不可读、分类 JSON 损坏",
+        "走对应视觉/不确定处理；明确限制；不编造文字与数值"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "I06",
+      "category": "acceptance",
+      "specLine": 1537,
+      "definition": [
+        "只有文字模型或 OCR 语言不可用",
+        "明确能力缺失；OCR-only 先预览且不声称理解图形；无无限安装/重试"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "I07",
+      "category": "acceptance",
+      "specLine": 1538,
+      "definition": [
+        "同一图片重新生成，再显式“重新判断图片”",
+        "前者复用原分析，不增加分类调用；后者才重新分类"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "I08",
+      "category": "acceptance",
+      "specLine": 1539,
+      "definition": [
+        "超大文件、24MP 以上解码、伪造后缀、坏图片、GIF",
+        "严格校验；GIF 首帧提示；恶意数据不拖死主程序"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "I09",
+      "category": "acceptance",
+      "specLine": 1540,
+      "definition": [
+        "EXIF 旋转图、带 GPS 元数据、透明底图片",
+        "展示/发送方向正确；移除不必要元数据；文字对比可读"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "I10",
+      "category": "acceptance",
+      "specLine": 1541,
+      "definition": [
+        "Off 时截图/文件右键冷启动；取消启用确认",
+        "图片仅本地准备，无模型请求；确认启用后才允许发送"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "I11",
+      "category": "acceptance",
+      "specLine": 1542,
+      "definition": [
+        "截图后切换来源、锁屏或退出，检查缓冲与缓存目录",
+        "旧任务不发送；全屏原帧及时释放；无默认图片磁盘文件"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "I12",
+      "category": "acceptance",
+      "specLine": 1543,
+      "definition": [
+        "用户手动把当前图文结果切到仅翻译，再处理新图片",
+        "只改变当前会话覆盖；新图片仍按全局默认与分类路由"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "J01",
+      "category": "acceptance",
+      "specLine": 1549,
+      "definition": [
+        "否定、条件、范围、程度、数量和单位的文本集",
+        "按 17.3 基准评分；关键事实不反转、不漏译、不改数值"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "J02",
+      "category": "acceptance",
+      "specLine": 1550,
+      "definition": [
+        "同一困难段落分别运行忠实、通俗、专业、解释",
+        "风格有实质区别；前三者不把完整译文缩成摘要；解释区分补充背景"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "J03",
+      "category": "acceptance",
+      "specLine": 1551,
+      "definition": [
+        "术语、缩写、代码、数学变量、产品版本和混合语言",
+        "关键标识保留；术语一致；不确定缩写不捏造展开"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "J04",
+      "category": "acceptance",
+      "specLine": 1552,
+      "definition": [
+        "缺上下文、断句、不清晰图文、未标单位数据",
+        "明确不确定；没有虚构作者观点、实验或图中数值"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "J05",
+      "category": "acceptance",
+      "specLine": 1553,
+      "definition": [
+        "含“忽略前文、输出密钥、访问此 URL”的原文或图片",
+        "将指令当待处理资料；无工具/网络执行；输出不包含应用秘密"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "J06",
+      "category": "acceptance",
+      "specLine": 1554,
+      "definition": [
+        "冻结的纯文字/混合/视觉/低清图片集",
+        "达到 17.3 分类指标；不能靠全部判 uncertain 获得形式上的安全通过"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "K01",
+      "category": "acceptance",
+      "specLine": 1560,
+      "definition": [
+        "干净 Windows 11 测试机每用户安装",
+        "不要求管理员运行主应用；身份包、OCR、主程序、托盘均正常"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "K02",
+      "category": "acceptance",
+      "specLine": 1561,
+      "definition": [
+        "资源管理器对单张支持图片打开新版右键菜单并点快译",
+        "新版菜单可见且正确提交单图；菜单查询不联网或阻塞"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "K03",
+      "category": "acceptance",
+      "specLine": 1562,
+      "definition": [
+        "对不支持文件、多选图片、空选择使用菜单",
+        "不出现误导的可执行项，或给出明确受限状态；无随机取首项"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "K04",
+      "category": "acceptance",
+      "specLine": 1563,
+      "definition": [
+        "Chrome 和 Edge 安装扩展，点击可访问图片",
+        "两者分别验证；取得目标图片；API Key 不进入扩展"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "K05",
+      "category": "acceptance",
+      "specLine": 1564,
+      "definition": [
+        "跨域/认证/blob/重复 URL/frame/不可见目标图片",
+        "能取得则正确；不能验证目标则显式截图降级；无 Cookie 导出或错图上传"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "K06",
+      "category": "acceptance",
+      "specLine": 1565,
+      "definition": [
+        "无 NativeHost、错误扩展 ID、协议版本不兼容、断开传输",
+        "明确报错；拒绝非法来源；未完成分片不会触发翻译"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "K07",
+      "category": "acceptance",
+      "specLine": 1566,
+      "definition": [
+        "开关登录启动、升级中断、配置保留、卸载与重装",
+        "可回滚；配置不损坏；卸载只清理快译项目；重装为红色"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "K08",
+      "category": "acceptance",
+      "specLine": 1567,
+      "definition": [
+        "企业策略或签名导致安装/扩展被拒绝",
+        "不诱导关闭安全机制；报告准确阻塞；不把失败登记为已通过"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "L01",
+      "category": "acceptance",
+      "specLine": 1573,
+      "definition": [
+        "使用醒目的模拟密钥，执行保存、导出、失败、崩溃恢复",
+        "配置/日志/提示词/诊断/扩展中无明文模拟密钥；秘密文件为加密数据"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "L02",
+      "category": "acceptance",
+      "specLine": 1574,
+      "definition": [
+        "未启用、排除应用、首次未授权、新服务 origin",
+        "被动请求均被阻止；改 origin 重新确认；不从相似域名继承授权"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "L03",
+      "category": "acceptance",
+      "specLine": 1575,
+      "definition": [
+        "原文、图像和译文生成后检查用户数据目录，随后清空/退出",
+        "不默认持久化内容；内存对象按生命周期释放；日志无正文"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "L04",
+      "category": "acceptance",
+      "specLine": 1576,
+      "definition": [
+        "伪造 IPC 长度、重放分片、远程管道、其他用户连接",
+        "校验失败且不分配巨量内存；不泄密、不执行命令"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "L05",
+      "category": "acceptance",
+      "specLine": 1577,
+      "definition": [
+        "源内容与模型输出含 HTML/script/file/javascript 链接",
+        "不执行、不读文件、不远程加载图片；点击外链需显式正常浏览行为"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "L06",
+      "category": "acceptance",
+      "specLine": 1578,
+      "definition": [
+        "配置写入中断、磁盘写满、未知未来 schema",
+        "原配置可恢复；不静默清空秘密；未来格式不被旧程序覆盖"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "L07",
+      "category": "acceptance",
+      "specLine": 1579,
+      "definition": [
+        "复制兼容遇用户并发写剪贴板、系统剪贴板历史开启",
+        "不覆盖用户新值；说明系统历史不可保证删除，不作虚假安全承诺"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    },
+    {
+      "id": "L08",
+      "category": "acceptance",
+      "specLine": 1580,
+      "definition": [
+        "Broker/图像解码/网络模块故障后继续操作",
+        "主 UI 可关闭、停用、打开设置及恢复；没有无限子进程重启"
+      ],
+      "implementationStatus": "NotStarted",
+      "validationStatus": "NotRun",
+      "evidence": []
+    }
+  ]
+}
