@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType><TargetFramework>net10.0-windows</TargetFramework><UseWPF>true</UseWPF>
+    <ApplicationManifest>../../src/KuaiYi.Windows/app.manifest</ApplicationManifest>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier><SelfContained>false</SelfContained>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/KuaiYi.Windows/KuaiYi.Windows.csproj" />
+    <ProjectReference Include="../../src/KuaiYi.Contracts/KuaiYi.Contracts.csproj" />
+  </ItemGroup>
+</Project>

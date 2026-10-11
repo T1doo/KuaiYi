@@ -9,7 +9,9 @@ try {
     foreach ($entry in @(
         @{ name = 'KuaiYi.CaptureBroker'; project = 'src/KuaiYi.CaptureBroker' },
         @{ name = 'KuaiYi.CompatibilityProbe'; project = 'tools/KuaiYi.CompatibilityProbe' },
-        @{ name = 'KuaiYi.GrowthHarness'; project = 'tools/KuaiYi.GrowthHarness' }
+        @{ name = 'KuaiYi.GrowthHarness'; project = 'tools/KuaiYi.GrowthHarness' },
+        @{ name = 'KuaiYi.OleProbe'; project = 'tools/KuaiYi.OleProbe' },
+        @{ name = 'KuaiYi.OleFaultSource'; project = 'tools/KuaiYi.OleFaultSource' }
     )) {
         $folder = Join-Path $destination $entry.name
         $arguments = @('publish', "$($entry.project)/$($entry.name).csproj", '--no-build', '--no-restore', '--configuration', $Configuration,
@@ -28,6 +30,8 @@ try {
     Copy-Item assets/fixtures/selection-public.txt $destination
     Copy-Item docs/windows-probes.md (Join-Path $destination 'README.md')
     Copy-Item docs/compatibility-matrix.json $destination
+    Copy-Item docs/ole-probe.md $destination
+    Copy-Item scripts/run-ole-experiment.ps1 $destination
     $files = Get-ChildItem $destination -Recurse -File | ForEach-Object {
         @{ path = [IO.Path]::GetRelativePath($destination, $_.FullName); sha256 = (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant() }
     }

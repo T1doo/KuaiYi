@@ -300,9 +300,11 @@
       "validationStatus": "Blocked",
       "evidence": [
         "docs/test-evidence/2026-10-11-probes-summary.json",
-        "docs/windows-probes.md"
+        "docs/windows-probes.md",
+        "docs/ole-probe.md",
+        "docs/test-evidence/2026-10-11-ole-probe-summary.json"
       ],
-      "note": "Cross-compiled probe / offline subitems only; whole requirement or task remains incomplete and needs actual Windows evidence."
+      "note": "Real OLE/COM probe and fault source cross-compiled; offline policy/deadline/Unicode subitems passed. Desktop run NotRun; sync target button may freeze, independent supervisor responsiveness does not satisfy E06."
     },
     {
       "id": "P0-04",

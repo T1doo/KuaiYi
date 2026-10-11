@@ -25,6 +25,12 @@ flowchart LR
 - CaptureBroker：当前为 P0 一次性进程协议，真实 UIA 在 MTA 获取；父进程以硬终止处理无法取消的 COM 阻塞。仍需连接生产采集手势、状态 epoch、长驻 broker 重启/熔断、授权复制兼容与安全 IPC。
 - tools：Mock Provider 只供测试；GrowthHarness 是公开固定文本视觉实验；CompatibilityProbe 对公开文件实际选区比对；NativeMessagingProbe 是显式 echo 实验。均不作为完整快译 App 的替代品。生产项目不引用测试工具。
 
-解决方案有 11 个实际可构建项目。未创建空 App/Shell/OCR/扩展接口来冒充完成：正式 WPF App、托盘/设置/热键/DPAPI、OLE、ImageWorker、ShellExtension、浏览器扩展/NativeHost、安装/身份包仍是明确待实现模块。P0 真实平台退出门槛与其必要的 Windows/原生工具链证据仍为 Blocked。
+解决方案有 13 个实际可构建项目。未创建空 App/Shell/OCR/扩展接口来冒充完成：正式 WPF App、托盘/设置/热键/DPAPI、生产 OLE、ImageWorker、ShellExtension、浏览器扩展/NativeHost、安装/身份包仍是明确待实现模块。P0 真实平台退出门槛与其必要的 Windows/原生工具链证据仍为 Blocked。
 
 可运行的检查及失败修复见 progress.md，Windows 操作和限制见 windows-probes.md，176 个规格条目见 traceability.json。所有 A—L 整体用例保持 NotRun。
+
+## OLE 实验宿主
+
+OleProbe 的监督 UI 与原生 IDropTarget 分属自有进程，私有 stdio 携带 instance/epoch/drop transaction 元数据，默认 Off。目标 STA + 消息泵真正注册窗口；Hover 仅有限 QueryGetData，Drop 才读取 HGLOBAL。COPY-only；optional capability 不存在/disabled/Start 失败则在同步 Drop 内复制；协商成功则 origin STA 封送 IDataObject 到 stream，Drop 返回后新 STA 解封送、取数和 EndOperation。未消费包在 origin apartment 清理；失败不重复 EndOperation。固定 native-call 截止包括协商和清理，监督可终止子进程；杀进程不能保证来源的 EndOperation 或来源本身不卡。
+
+同步取数时浮钮宿主 STA 仍可能冻结，当前独立监督可响应不证明 SPEC E06。OleFaultSource 是明确公开测试的真实 COM IDataObject/IDropSource，sync 类不实现 async IID；它不是生产功能的 Mock。HTML/RTF、图片、生产 Gate 与真实跨应用尚未连接，参见 ole-probe.md。

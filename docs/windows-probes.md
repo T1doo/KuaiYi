@@ -2,7 +2,7 @@
 
 需要 Windows 11 x64、交互桌面和 .NET 10 Windows Desktop x64 运行时。探针是框架依赖开发工具，不是快译产品或安装包；不注册系统集成，不配置密钥，不连接模型。当前所有 Windows 实际运行结果为 **NotRun / Blocked**。
 
-在开发仓库用 `pwsh -File scripts/pack-probes.ps1` 生成 `artifacts/KuaiYi-P0-probes-win-x64.zip`。解压后含三个各自完整的程序集目录、公开文本、内容摘要清单和本说明。打包会校验每个 exe 的 PE32+ x64 头，避免 Linux 交叉编译默认生成 ELF 启动器的问题。需要另行完成 Windows 实际启动验证。
+在开发仓库用 `pwsh -File scripts/pack-probes.ps1` 生成 `artifacts/KuaiYi-P0-probes-win-x64.zip`。解压后含五个各自完整的程序集目录、公开文本、内容摘要清单和本说明。打包会校验每个 exe 的 PE32+ x64 头，避免 Linux 交叉编译默认生成 ELF 启动器的问题。需要另行完成 Windows 实际启动验证。
 
 ## 真实选区探针
 
@@ -41,3 +41,7 @@ CSV 对每个实际设置记录预期/实际 HWND、锚点包含、工作区包�
 Chunk 原始上限为 190KiB，为 base64 与规范 JSON 外壳保留空间；完整序列化后的 UTF-8 JSON 仍不得超过 256KiB。新增 ImageChunkWire 完整帧编解码/重组测试，包括最大值、超一字节、ID/索引/多字节字段和完整 20MiB 输入。输入字节限界不代表图像格式/像素验证或浏览器已接入。
 
 它未注册为浏览器 NativeHost，也未实现生产来源 allowlist、桌面 ACL 连接、扩展真实传图或模型调用。浏览器原生宿主和协议编码器不能混为一谈，实际 Chrome/Edge 集成仍为 NotRun。
+
+## OLE / 非激活联合探针
+
+新增 KuaiYi.OleProbe 与 KuaiYi.OleFaultSource，实际 RegisterDragDrop、CF_UNICODETEXT HGLOBAL、COPY-only、optional async 协商、正确 STA 封送和独立监督截止。Windows 运行 NotRun；实验脚本、故障场景、来源局限与 E06 浮钮可能冻结的未解决假设见 [ole-probe.md](ole-probe.md)。不能以主监督可响应代替产品浮钮可拖动验收。
