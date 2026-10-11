@@ -282,3 +282,15 @@ P0 整体：**InProgress，真实 Windows 退出门槛 Blocked**。后续整阶�
 - ReadAsync后置复核在delivered=true前，取消/绝对超时的已完成帧仍由唯一观察者清零。捕获校验后的payload由原finally清零，旧输入身份/双队列/清理单writer保持。
 - 新15例；定向87/87。初扩87中2失败为已释放Process查询，改成独立只读Process观察对象保留实际退出断言，原失败证据保留。最终Core770+Provider77=847/847、Node63/63，25托管locked Release零警告/错误。
 - 独立新审查ZIP，13旧包、25锁文件及原规格字节不变；294源/本轮证据/历史固定commit均冻结核对。Windows实际hook/UIA/跨应用/多DPI/安装及原生P0/E06仍NotRun/Blocked；176追踪、106整体验收NotRun，P1/P2/P3仍InProgress。未推进P4。详见p3-absolute-deadline-review.md及summary。
+
+## P3-04 复制兼容限定切片
+
+- 8a10edaa9743914059f32cd893d724d922a65614签收基线，未进入P4。正式Shell UIA失败证据→默认关/逐应用明确授权→真实STA ClipboardHost有限完整快照→父Gate锁内一次Ctrl+C→350ms归属/输入/Unicode复核→仅同sequence+owner条件恢复。不可完整保存格式整组拒绝，未覆盖用户后续复制。
+- 实际Win32内存口与IPC实现；父1200ms绝对交付截止，EOF取消+400ms恢复宽限，持有进程未结算保持单writer。权限即时持久事务/journal通知重放推进epoch；普通设置草稿不能授权。迟到payload唯一所有者清零，排队快照取消立即释放，焦点在目的队列再检查。
+- 新118例、定向118/118；完整Core888+Provider77=965/965，Node63/63；26托管locked Release零警告/错误。初76/77失败TRX及编译失败日志保留，修正测试gate资格并补生产撤销epoch，不弱化断言。
+- 独立Clipboard审查ZIP、逐文件manifest/PE及14旧包核验；25旧锁不变，仅新Host锁增加。运行源码/测试最终回归后未改；文档/staging单独定稿，固定commit历史摘要冻结。见p3-clipboard-review.md、本轮summary、Windows清单。
+- P3-04源实现InProgress，实际WindowsSTA/剪贴板/Ctrl+C/格式恢复/跨应用均NotRun/Blocked，不将测试替身当用户授权或Windows验收。P0/E06 Blocked、P1/P2/P3 InProgress、176追踪/106整体NotRun不变。完整OLE文本Drop、全热键及P4模型调度尚未交付。没有安装/真实凭据/模型调用/新协议，main未改。
+
+打包初次路径替换遗漏了大写P3，新包短暂写入旧绝对截止包路径；已修独立目的路径，以未改旧staging恢复原ZIP，精确1615917字节及SHA256 cb8bdde0d6ed43de225082165c444725e43ece356bc24750ba9a92a847e8cb7d与原签收摘要一致。保留初次stage日志与恢复核验JSON，最终重新staging并逐一核对14份旧包。恢复首试因缺失XDG变量遇只读cache失败；使用既有工作区cache配置后恢复，不申请额外权限。
+
+P3-04最后复核补未知UIA状态带CopyEvidence的真实child反例：原6项5通过/1失败，严格EmptyOrUnsupported检查后通过。新增总数118，重新全量Core888+Provider77=965、Node63与staging；原客户端字节及失败TRX保留。

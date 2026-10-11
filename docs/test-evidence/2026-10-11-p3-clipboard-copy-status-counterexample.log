@@ -1,0 +1,42 @@
+  Determining projects to restore...
+  Restored /workspace/KuaiYi/src/KuaiYi.Core/KuaiYi.Core.csproj (in 103 ms).
+  Restored /workspace/KuaiYi/src/KuaiYi.Contracts/KuaiYi.Contracts.csproj (in 103 ms).
+  Restored /workspace/KuaiYi/src/KuaiYi.Imaging/KuaiYi.Imaging.csproj (in 105 ms).
+  Restored /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/KuaiYi.SettingsStoreFixture.csproj (in 4 ms).
+  Restored /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/KuaiYi.NativeMessagingProbe.csproj (in 2 ms).
+  Restored /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/KuaiYi.OleReceiverFixture.csproj (in 5 ms).
+  Restored /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/KuaiYi.OleControlFixture.csproj (in 8 ms).
+  Restored /workspace/KuaiYi/src/KuaiYi.OleTransfer/KuaiYi.OleTransfer.csproj (in 2 ms).
+  Restored /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/KuaiYi.CaptureControlFixture.csproj (in 3 ms).
+  Restored /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/KuaiYi.BrowserHostFixture.csproj (in 11 ms).
+  Restored /workspace/KuaiYi/src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj (in 2.17 sec).
+  Restored /workspace/KuaiYi/src/KuaiYi.NativeHost/KuaiYi.NativeHost.csproj (in 2.04 sec).
+  Restored /workspace/KuaiYi/tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj (in 2.06 sec).
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.79]     KuaiYi.Core.Tests.ClipboardCopyEvidenceTests.ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility(fault: "copy-status", expected: ProtocolFailure) [FAIL]
+  Failed KuaiYi.Core.Tests.ClipboardCopyEvidenceTests.ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility(fault: "copy-status", expected: ProtocolFailure) [54 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: ProtocolFailure
+Actual:   EmptyOrUnsupported
+  Stack Trace:
+     at KuaiYi.Core.Tests.ClipboardCopyEvidenceTests.ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility(String fault, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/ClipboardCopyEvidenceTests.cs:line 15
+   at KuaiYi.Core.Tests.ClipboardCopyEvidenceTests.ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility(String fault, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/ClipboardCopyEvidenceTests.cs:line 15
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/test-results/p3-clipboard/copy-status-counterexample.trx
+
+Failed!  - Failed:     1, Passed:     5, Skipped:     0, Total:     6, Duration: 542 ms - KuaiYi.Core.Tests.dll (net10.0)

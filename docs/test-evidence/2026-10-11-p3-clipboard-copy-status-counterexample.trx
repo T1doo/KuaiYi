@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ee7e71a1-2698-4ec2-a741-7b20ba105a0d" name="@552716c6b8c5 2026-10-11 19:31:50" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T19:31:50.0061576+00:00" queuing="2026-10-11T19:31:50.0061576+00:00" start="2026-10-11T19:31:48.7730798+00:00" finish="2026-10-11T19:31:50.0095684+00:00" />
+  <TestSettings name="default" id="04419a29-7f01-4741-b51f-064fe54c1612">
+    <Deployment runDeploymentRoot="_552716c6b8c5_2026-10-11_19_31_50" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="5b97f9df-f632-47a7-a9a5-0e096f5aa535" testId="a70ef12c-0a1a-569d-c588-f6efaa7db3c7" testName="KuaiYi.Core.Tests.ClipboardCopyEvidenceTests.ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility(fault: &quot;copy-status&quot;, expected: ProtocolFailure)" computerName="552716c6b8c5" duration="00:00:00.0549064" startTime="2026-10-11T19:31:49.8127700+00:00" endTime="2026-10-11T19:31:49.8723350+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5b97f9df-f632-47a7-a9a5-0e096f5aa535">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: ProtocolFailure
+Actual:   EmptyOrUnsupported</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.ClipboardCopyEvidenceTests.ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility(String fault, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/ClipboardCopyEvidenceTests.cs:line 15
+   at KuaiYi.Core.Tests.ClipboardCopyEvidenceTests.ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility(String fault, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/ClipboardCopyEvidenceTests.cs:line 15
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a9d0f3d9-e6f6-4c71-93ec-c36615202711" testId="8b1a4567-01e6-50bf-f1dc-a9d10ca42361" testName="KuaiYi.Core.Tests.ClipboardCopyEvidenceTests.ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility(fault: &quot;copy-control&quot;, expected: ProtocolFailure)" computerName="552716c6b8c5" duration="00:00:00.0532814" startTime="2026-10-11T19:31:49.7593009+00:00" endTime="2026-10-11T19:31:49.8126205+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a9d0f3d9-e6f6-4c71-93ec-c36615202711" />
+    <UnitTestResult executionId="0cb0cd19-fec4-4b33-8545-f0a3912466bc" testId="e63777d0-3bfc-d9a8-3b8a-c5236e5ec293" testName="KuaiYi.Core.Tests.ClipboardCopyEvidenceTests.ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility(fault: &quot;copy-association&quot;, expected: ProtocolFailure)" computerName="552716c6b8c5" duration="00:00:00.0798452" startTime="2026-10-11T19:31:49.6795167+00:00" endTime="2026-10-11T19:31:49.7591558+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0cb0cd19-fec4-4b33-8545-f0a3912466bc" />
+    <UnitTestResult executionId="3e5838d6-ca54-42ef-bbe7-8c0e5637637d" testId="30d995b1-b618-07fd-52a5-30b65762216f" testName="KuaiYi.Core.Tests.ClipboardCopyEvidenceTests.ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility(fault: &quot;copy-focus&quot;, expected: ProtocolFailure)" computerName="552716c6b8c5" duration="00:00:00.0553275" startTime="2026-10-11T19:31:49.8755688+00:00" endTime="2026-10-11T19:31:49.9306271+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3e5838d6-ca54-42ef-bbe7-8c0e5637637d" />
+    <UnitTestResult executionId="b49b98b6-8bae-4041-8c6b-21602ed08420" testId="4c8b7424-7d92-e86f-a8d7-d6b23c368ab2" testName="KuaiYi.Core.Tests.ClipboardCopyEvidenceTests.ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility(fault: &quot;copy-good&quot;, expected: EmptyOrUnsupported)" computerName="552716c6b8c5" duration="00:00:00.1760624" startTime="2026-10-11T19:31:49.3880386+00:00" endTime="2026-10-11T19:31:49.5800544+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b49b98b6-8bae-4041-8c6b-21602ed08420" />
+    <UnitTestResult executionId="19a83e7b-7042-4872-8d5f-aca7e5e9be33" testId="e7c2ffda-a86e-7cc6-9540-03afa42a4eee" testName="KuaiYi.Core.Tests.ClipboardCopyEvidenceTests.ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility(fault: &quot;copy-runtime&quot;, expected: ProtocolFailure)" computerName="552716c6b8c5" duration="00:00:00.1019234" startTime="2026-10-11T19:31:49.5898741+00:00" endTime="2026-10-11T19:31:49.6791045+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="19a83e7b-7042-4872-8d5f-aca7e5e9be33" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.ClipboardCopyEvidenceTests.ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility(fault: &quot;copy-good&quot;, expected: EmptyOrUnsupported)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="4c8b7424-7d92-e86f-a8d7-d6b23c368ab2">
+      <Execution id="b49b98b6-8bae-4041-8c6b-21602ed08420" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ClipboardCopyEvidenceTests" name="ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ClipboardCopyEvidenceTests.ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility(fault: &quot;copy-runtime&quot;, expected: ProtocolFailure)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="e7c2ffda-a86e-7cc6-9540-03afa42a4eee">
+      <Execution id="19a83e7b-7042-4872-8d5f-aca7e5e9be33" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ClipboardCopyEvidenceTests" name="ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ClipboardCopyEvidenceTests.ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility(fault: &quot;copy-focus&quot;, expected: ProtocolFailure)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="30d995b1-b618-07fd-52a5-30b65762216f">
+      <Execution id="3e5838d6-ca54-42ef-bbe7-8c0e5637637d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ClipboardCopyEvidenceTests" name="ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ClipboardCopyEvidenceTests.ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility(fault: &quot;copy-association&quot;, expected: ProtocolFailure)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="e63777d0-3bfc-d9a8-3b8a-c5236e5ec293">
+      <Execution id="0cb0cd19-fec4-4b33-8545-f0a3912466bc" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ClipboardCopyEvidenceTests" name="ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ClipboardCopyEvidenceTests.ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility(fault: &quot;copy-control&quot;, expected: ProtocolFailure)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="8b1a4567-01e6-50bf-f1dc-a9d10ca42361">
+      <Execution id="a9d0f3d9-e6f6-4c71-93ec-c36615202711" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ClipboardCopyEvidenceTests" name="ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ClipboardCopyEvidenceTests.ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility(fault: &quot;copy-status&quot;, expected: ProtocolFailure)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a70ef12c-0a1a-569d-c588-f6efaa7db3c7">
+      <Execution id="5b97f9df-f632-47a7-a9a5-0e096f5aa535" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ClipboardCopyEvidenceTests" name="ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="a70ef12c-0a1a-569d-c588-f6efaa7db3c7" executionId="5b97f9df-f632-47a7-a9a5-0e096f5aa535" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8b1a4567-01e6-50bf-f1dc-a9d10ca42361" executionId="a9d0f3d9-e6f6-4c71-93ec-c36615202711" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e63777d0-3bfc-d9a8-3b8a-c5236e5ec293" executionId="0cb0cd19-fec4-4b33-8545-f0a3912466bc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="30d995b1-b618-07fd-52a5-30b65762216f" executionId="3e5838d6-ca54-42ef-bbe7-8c0e5637637d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4c8b7424-7d92-e86f-a8d7-d6b23c368ab2" executionId="b49b98b6-8bae-4041-8c6b-21602ed08420" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e7c2ffda-a86e-7cc6-9540-03afa42a4eee" executionId="19a83e7b-7042-4872-8d5f-aca7e5e9be33" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="6" executed="6" passed="5" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.08]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.24]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.28]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.79]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.79]       Expected: ProtocolFailure
+[xUnit.net 00:00:00.79]       Actual:   EmptyOrUnsupported
+[xUnit.net 00:00:00.79]       Stack Trace:
+[xUnit.net 00:00:00.79]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/ClipboardCopyEvidenceTests.cs(15,0): at KuaiYi.Core.Tests.ClipboardCopyEvidenceTests.ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility(String fault, SelectionCaptureStatus expected)
+[xUnit.net 00:00:00.79]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/ClipboardCopyEvidenceTests.cs(15,0): at KuaiYi.Core.Tests.ClipboardCopyEvidenceTests.ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility(String fault, SelectionCaptureStatus expected)
+[xUnit.net 00:00:00.79]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.85]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T19:31:49.8767408+00:00">
+        <Text>[xUnit.net 00:00:00.79]     KuaiYi.Core.Tests.ClipboardCopyEvidenceTests.ActualUiaProtocolMustProduceTrustedBoundedCopyEvidenceBeforeCompatibility(fault: "copy-status", expected: ProtocolFailure) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

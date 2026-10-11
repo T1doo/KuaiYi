@@ -4,14 +4,35 @@ using KuaiYi.Contracts;
 using System.Buffers.Binary;
 using System.Security.Cryptography;
 // Synthetic process fixture, excluded from all staging. Never uses Windows/GDI/WGC, user images or a model.
+if(args.Length==7&&args[0]=="--clipboard-fixture")
+{
+    string fault=args[1];Guid id=Guid.Parse(args[6]);long started=long.Parse(args[4]);using var clipboardOutput=Console.OpenStandardOutput();using var clipboardInput=Console.OpenStandardInput();
+    if(fault=="hang-before-ready")await Task.Delay(Timeout.Infinite);
+    if(fault=="crash")return 23;
+    var identity=fault=="identity"?Guid.NewGuid():id;bool ready=fault!="unsupported";
+    await IpcFrameCodec.WriteAsync(clipboardOutput,new(fault=="role"?IpcMessageType.ImageResult:IpcMessageType.Ping,identity,System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new ClipboardStageMetadata(ready?"Ready":"Finished",10,fault=="source"?started+1:started))));
+    ClipboardStartMetadata? command=null;
+    if(ready){var frame=await IpcFrameCodec.ReadAsync(clipboardInput);if(frame==null)return 0;command=System.Text.Json.JsonSerializer.Deserialize<ClipboardStartMetadata>(frame.Payload);CryptographicOperations.ZeroMemory(frame.Payload);}
+    if(fault=="hang-after-sent")await Task.Delay(Timeout.Infinite);
+    if(fault=="late")await Task.Delay(1300);
+    if(fault=="wait-cancel"){await clipboardInput.CopyToAsync(Stream.Null);return 0;}
+    string status=fault=="unsupported"?"Unsupported":command?.Status=="Sent"?"Success":"Denied";
+    if(fault=="failed-text")status="Denied";
+    var meta=new ClipboardResultMetadata(status,"Restored",fault=="expired"?350:5);
+    await IpcFrameCodec.WriteAsync(clipboardOutput,new(IpcMessageType.Ping,identity,System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(meta)));
+    byte[] text=fault=="invalid"?[0xff]:status=="Success"||fault=="failed-text"?"public clipboard"u8.ToArray():[];
+    await IpcFrameCodec.WriteAsync(clipboardOutput,new(IpcMessageType.BinaryChunk,identity,text));CryptographicOperations.ZeroMemory(text);
+    if(fault=="extra")await IpcFrameCodec.WriteAsync(clipboardOutput,new(IpcMessageType.BinaryChunk,id,"public extra"u8.ToArray()));return 0;
+}
 if(args.Length==11&&args[0]=="--selection-fixture")
 {
     string fault=args[1];Guid id=Guid.Parse(args[6]);long start=long.Parse(args[10]);var stream=Console.OpenStandardOutput();
     if(fault is "hang" or "cancel")await Task.Delay(Timeout.Infinite);if(fault=="late")await Task.Delay(900);if(fault=="crash")return 23;
     var meta=new SelectionCaptureMetadata(fault=="error-text"?"EmptyOrUnsupported":"Success",1,3,fault=="soft"?251:5,fault=="runtime"?[]:[12,4],[0,0,fault=="bounds"?-1:100,20],[0,0,500,200],fault=="source"?start+1:start);
+    if(fault.StartsWith("copy-",StringComparison.Ordinal))meta=new(fault=="copy-status"?"Unknown":"EmptyOrUnsupported",0,3,5,ProcessStartUtcTicks:start,Copy:new(fault=="copy-focus"?0:234,fault=="copy-runtime"?[]:[12,4],fault=="copy-control"?[0,0,-1,20]:[0,0,500,200],fault=="copy-association"?[1000,1000,100,20]:[0,0,100,20],true));
     var request=fault=="identity"?Guid.NewGuid():id;
     await IpcFrameCodec.WriteAsync(stream,new(fault=="role"?IpcMessageType.ImageResult:IpcMessageType.Ping,request,System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(meta)));
-    await IpcFrameCodec.WriteAsync(stream,new(IpcMessageType.BinaryChunk,request,System.Text.Encoding.UTF8.GetBytes(fault=="oversize"?new string('a',100002):"public selected\n  code")));
+    await IpcFrameCodec.WriteAsync(stream,new(IpcMessageType.BinaryChunk,request,System.Text.Encoding.UTF8.GetBytes(fault.StartsWith("copy-",StringComparison.Ordinal)?"":fault=="oversize"?new string('a',100002):"public selected\n  code")));
     if(fault=="extra")await IpcFrameCodec.WriteAsync(stream,new(IpcMessageType.Ping,id,[]));await stream.FlushAsync();return 0;
 }
 if(args.Length!=1||args[0]!="--private-stdio")return 2;

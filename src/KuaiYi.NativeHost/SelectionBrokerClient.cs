@@ -54,7 +54,16 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
             var meta=JsonSerializer.Deserialize<SelectionCaptureMetadata>(first.Payload)??throw new InvalidDataException("Missing metadata.");
             if(!double.IsFinite(meta.ElapsedMs)||meta.ElapsedMs<0||meta.CandidateCount is <0 or >64||meta.RangeCount is <0 or >64)throw new InvalidDataException("Invalid diagnostic bounds.");
             status=ParseStatus(meta.Status);
-            if(status!=SelectionCaptureStatus.Success)return new(status);
+            if(status!=SelectionCaptureStatus.Success)
+            {
+                SelectionCopyEvidence? evidence=null;
+                if(status==SelectionCaptureStatus.EmptyOrUnsupported&&meta.Copy is {} copy)
+                {
+                    if(meta.Status!="EmptyOrUnsupported"||meta.ElapsedMs>250||meta.ProcessStartUtcTicks!=gesture.Window.ProcessStartUtcTicks||copy.FocusHandle==0||copy.RuntimeId is not {Length:>0 and <=64}||copy.ControlRectangle is not {Length:4}||copy.SelectionRectangles==null)throw new InvalidDataException("Untrusted copy evidence.");
+                    var bounds=Rectangles(copy.ControlRectangle).Single();var selection=Rectangles(copy.SelectionRectangles);evidence=new(copy.FocusHandle,copy.RuntimeId.ToImmutableArray(),bounds,selection,copy.AutomaticTrusted);if(!SelectionTextPolicy.CopyTrusted(gesture,evidence)&&copy.AutomaticTrusted)throw new InvalidDataException("Copy gesture association missing.");
+                }
+                CheckDelivery(deadline.Token,started);return new(status,CopyEvidence:evidence);
+            }
             if(meta.ElapsedMs>250)return new(status=SelectionCaptureStatus.SoftTimeout);
             if(meta.ProcessStartUtcTicks!=gesture.Window.ProcessStartUtcTicks||meta.RuntimeId is not {Length:>0 and <=64}||meta.RangeCount<1)throw new InvalidDataException("Selection source mismatch.");
             string text=new UTF8Encoding(false,true).GetString(second.Payload);

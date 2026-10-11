@@ -103,7 +103,7 @@ internal sealed partial class ShellWindow:Window
             await startup;await positionSave;if(exiting)return;lifecycle.Gate.SetSuspension(Suspension.Settings,true);RefreshSelection();
             var draft=await coordinator.OpenDraftAsync(lifetime.Token);
             if(exiting){draft.Dispose();return;}
-            try{settings=new(coordinator,draft){Owner=this};}catch{draft.Dispose();throw;}
+            try{settings=new(coordinator,draft,selectionCapture?.LastFailureWindow?.Executable){Owner=this};}catch{draft.Dispose();throw;}
             settings.Closed+=(_,_)=>{settings=null;lifecycle.Gate.SetSuspension(Suspension.Settings,false);Refresh();QueuePositionSave();if(exitRequested)Dispatcher.BeginInvoke(Close);};settings.Show();
         }
         catch(OperationCanceledException)when(lifetime.IsCancellationRequested){ /* Exit awaits this owned opening path. */ }

@@ -1,0 +1,28 @@
+{
+  "kind": "static actual production wiring; runtime algorithms/process protocol executed on Linux; native Windows calls NotRun",
+  "paths": [
+    "src/KuaiYi.App/SelectionFlow.cs",
+    "src/KuaiYi.Core/SelectionCapture.cs",
+    "src/KuaiYi.NativeHost/ClipboardCaptureClient.cs",
+    "src/KuaiYi.ClipboardHost/Program.cs",
+    "src/KuaiYi.Windows/ClipboardNative.cs",
+    "src/KuaiYi.App/ClipboardPermissionsWindow.cs",
+    "src/KuaiYi.Core/Settings/SettingsCoordinator.cs"
+  ],
+  "entry": "Formal Shell -> real MTA UIA exact EmptyOrUnsupported+native CopyEvidence -> exact-app consent -> private owned STA clipboard host -> Ready -> parent RuntimeGate final commit -> CopyInputGuard.Send -> source-owned changed Unicode -> conditional full restore -> UI destination recheck",
+  "copyBudgetMs": 350,
+  "parentAbsoluteDeliveryMs": 1200,
+  "sentCopyCleanupGraceMs": 400,
+  "snapshot": {
+    "maxFormats": 32,
+    "maxBlockBytes": 4194304,
+    "maxTotalBytes": 8388608,
+    "originalClipboardIpc": "Never",
+    "unsupportedCombination": "Reject whole combination before copy"
+  },
+  "ownership": "Zero mutable snapshot/read/IPC arrays; one abandoned read observer; cancellation immediately clears queued source owner references; CLR string physical erasure not promised",
+  "publicProbe": "enableSelectionPlatform:false",
+  "defaultPermission": "No application grant; ordinary draft prohibited from granting",
+  "testsConsent": "Synthetic configuration only; not real user consent",
+  "WindowsRuntime": "NotRun"
+}

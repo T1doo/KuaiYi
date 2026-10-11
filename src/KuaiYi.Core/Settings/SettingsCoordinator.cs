@@ -7,12 +7,30 @@ namespace KuaiYi.Core.Settings;
 public sealed class SettingsTransactionUnconfirmedException():Exception("Settings/secret transaction needs recovery; original references retained.");
 public sealed record RevokedProfileBinding(string ProfileId,string? PreviousSecretReference);
 public sealed record SettingsChange(ImmutableArray<string> DeletedProfiles,ImmutableArray<string> DeletedSecrets)
-{public ImmutableArray<RevokedProfileBinding> RevokedProfileBindings{get;init;}=[];public bool HasBindingRevocation=>RevokedProfileBindings.Length>0;public bool HasDeletion=>DeletedProfiles.Length>0||DeletedSecrets.Length>0||HasBindingRevocation;}
+{public ImmutableArray<RevokedProfileBinding> RevokedProfileBindings{get;init;}=[];public bool ClipboardPermissionsChanged{get;init;}public bool HasBindingRevocation=>RevokedProfileBindings.Length>0;public bool HasDeletion=>DeletedProfiles.Length>0||DeletedSecrets.Length>0||HasBindingRevocation;}
 public sealed class SettingsCoordinator(SettingsStore store,SecretFileStore secrets)
 {
     private readonly SemaphoreSlim serial=new(1);private SettingsSnapshot? effective;
     public event Action<SettingsSnapshot,SettingsChange>? Committed;
     public SettingsSnapshot? Effective=>Volatile.Read(ref effective);
+    /// <summary>Only the separate explicit application confirmation UI calls this immediate transaction; ordinary drafts cannot grant permission.</summary>
+    public Task<SettingsSnapshot> SetClipboardPermissionAsync(string executable,bool enabled,CancellationToken cancellation=default)=>Serialized(async()=>
+    {
+        string application=ClipboardApplicationConsent.Normalize(executable);using var lease=await TransactionLease(cancellation);var current=await store.LoadAsync(cancellation);await Recover(current,cancellation);
+        if(current.ReadOnly)throw new UnknownSettingsSchemaException(-1);if(current.RequiresRecovery)throw new SettingsRecoveryRequiredException();
+        bool Same(string value){try{return string.Equals(ClipboardApplicationConsent.Normalize(value),application,StringComparison.OrdinalIgnoreCase);}catch(InvalidDataException){return false;}}
+        var applications=current.Data.Privacy.ClipboardAllowedApplications.Where(p=>!Same(p)).ToImmutableArray();if(enabled)applications=applications.Add(application);
+        Guid id=Guid.NewGuid();string journal=JournalPath(id);var data=current.Data with{WriteId=id,Privacy=current.Data.Privacy with{ClipboardAllowedApplications=applications}};SettingsJson.Validate(data);
+        byte[] metadata=JsonSerializer.SerializeToUtf8Bytes(new SecretTransaction{Id=id,BasisVersion=current.Version,ClipboardPermissionsChanged=true},SettingsJson.Options);try{SettingsStore.WriteFlushed(journal,metadata);}finally{CryptographicOperations.ZeroMemory(metadata);}
+        SettingsSnapshot saved;
+        try{saved=await store.SaveAsync(current,data,cancellation:cancellation);}
+        catch(Exception error)
+        {
+            if(error is SettingsConflictException or UnknownSettingsSchemaException or SettingsRecoveryRequiredException or OperationCanceledException){File.Delete(journal);throw;}
+            var observed=await store.LoadAsync();if(!observed.ReadOnly&&!observed.RequiresRecovery&&observed.Data.WriteId==id)saved=observed;else if(observed.Version==current.Version){File.Delete(journal);throw;}else throw new SettingsTransactionUnconfirmedException();
+        }
+        Volatile.Write(ref effective,saved);PublishCommitted(saved,new([],[]){ClipboardPermissionsChanged=true});File.Delete(journal);return saved;
+    },cancellation);
     public Task<SettingsDraft> OpenDraftAsync(CancellationToken cancellation=default)=>Serialized(async()=>
     {
         using var lease=await TransactionLease(cancellation);var snapshot=await store.LoadAsync(cancellation);if(!snapshot.ReadOnly)await Recover(snapshot,cancellation);Volatile.Write(ref effective,snapshot);return new SettingsDraft(snapshot);
@@ -76,7 +94,7 @@ public sealed class SettingsCoordinator(SettingsStore store,SecretFileStore secr
                 // Prior committed journals may predate shared-reference retirement rules. The saved configuration proves these references are still live.
                 var live=snapshot.Data.Profiles.Where(p=>p.SecretRef!=null).Select(p=>p.SecretRef!).ToHashSet(StringComparer.Ordinal);
                 var retired=transaction.RetiredReferences.Where(r=>!live.Contains(r)).Distinct().ToImmutableArray();
-                var change=new SettingsChange(transaction.DeletedProfiles,retired){RevokedProfileBindings=transaction.RevokedBindings};
+                var change=new SettingsChange(transaction.DeletedProfiles,retired){RevokedProfileBindings=transaction.RevokedBindings,ClipboardPermissionsChanged=transaction.ClipboardPermissionsChanged};
                 if(transaction.SchemaVersion==1&&effective is {ReadOnly:false,RequiresRecovery:false} previous&&previous.Data.WriteId!=snapshot.Data.WriteId)change=ChangeFrom(previous.Data,snapshot.Data,retired);
                 Volatile.Write(ref effective,snapshot);PublishCommitted(snapshot,change);
                 foreach(string reference in retired)await secrets.RevokeAsync(reference);
@@ -111,5 +129,6 @@ public sealed class SettingsCoordinator(SettingsStore store,SecretFileStore secr
         public int SchemaVersion{get;init;}=2;public Guid Id{get;init;}public string BasisVersion{get;init;}="";
         public ImmutableArray<string> NewReferences{get;init;}=[];public ImmutableArray<string> RetiredReferences{get;init;}=[];
         public ImmutableArray<string> DeletedProfiles{get;init;}=[];public ImmutableArray<RevokedProfileBinding> RevokedBindings{get;init;}=[];
+        public bool ClipboardPermissionsChanged{get;init;}
     }
 }

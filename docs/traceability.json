@@ -55,9 +55,12 @@
       "evidence": [
         "docs/test-evidence/2026-10-11-probes-summary.json",
         "docs/windows-probes.md",
-        "docs/compatibility-matrix.json"
+        "docs/compatibility-matrix.json",
+        "docs/p3-clipboard-review.md",
+        "docs/p3-clipboard-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p3-clipboard-summary.json"
       ],
-      "note": "Cross-compiled probe / offline subitems only; whole requirement or task remains incomplete and needs actual Windows evidence. P3 source acquisition production wiring: reuse actual MTA GetSelection Broker, bounded physical gesture queue/debounce, source/selection identities, final destination ticket/config check, 600ms held-child deadline and cooldown.50 portable/process cases added; real Windows UIA/mouse/compatibility NotRun. Copy consent/full hotkey/OLE text drop/P4 dispatcher not delivered; whole case/stage not passed. P3 review fixes: frozen birth ticket/config/hookId + callback HWND/PID/time, production raw-channel and UI-dispatch bridge rejects obsolete input, old hooks replaced; abandoned completed read always observed/zeroed.22 additional portable cases; Windows and whole acceptance remain NotRun. Absolute deadline follow-up: one monotonic capture origin across startup/reads/exit/final validation, token checked after completed reads before ownership delivery;15 additional cases. Relative timer alone was insufficient; Windows/whole cases still NotRun."
+      "note": "Cross-compiled probe / offline subitems only; whole requirement or task remains incomplete and needs actual Windows evidence. P3 source acquisition production wiring: reuse actual MTA GetSelection Broker, bounded physical gesture queue/debounce, source/selection identities, final destination ticket/config check, 600ms held-child deadline and cooldown.50 portable/process cases added; real Windows UIA/mouse/compatibility NotRun. Copy consent/full hotkey/OLE text drop/P4 dispatcher not delivered; whole case/stage not passed. P3 review fixes: frozen birth ticket/config/hookId + callback HWND/PID/time, production raw-channel and UI-dispatch bridge rejects obsolete input, old hooks replaced; abandoned completed read always observed/zeroed.22 additional portable cases; Windows and whole acceptance remain NotRun. Absolute deadline follow-up: one monotonic capture origin across startup/reads/exit/final validation, token checked after completed reads before ownership delivery;15 additional cases. Relative timer alone was insufficient; Windows/whole cases still NotRun. P3-04 source slice now wired: explicit exact-app consent transaction+epoch, isolated STA complete bounded snapshot, parent final gated Ctrl+C,350ms source-owner/input check,conditional sequence+owner restoration,late byte ownership/queued ref clearing.118 new portable/owned Linux child cases; real Windows clipboard/Ctrl+C/user consent not executed. Supersedes prior copy-not-delivered note for source only; full OLE text Drop/hotkeys/P4 still missing; whole acceptance NotRun."
     },
     {
       "id": "R04",
@@ -702,10 +705,14 @@
         "实现按应用授权的安全复制兼容模式及条件恢复",
         "剪贴板 STA 服务、竞态注入测试"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": [],
-      "note": " P3 source acquisition production wiring: reuse actual MTA GetSelection Broker, bounded physical gesture queue/debounce, source/selection identities, final destination ticket/config check, 600ms held-child deadline and cooldown.50 portable/process cases added; real Windows UIA/mouse/compatibility NotRun. Copy consent/full hotkey/OLE text drop/P4 dispatcher not delivered; whole case/stage not passed. P3 review fixes: frozen birth ticket/config/hookId + callback HWND/PID/time, production raw-channel and UI-dispatch bridge rejects obsolete input, old hooks replaced; abandoned completed read always observed/zeroed.22 additional portable cases; Windows and whole acceptance remain NotRun. Absolute deadline follow-up: one monotonic capture origin across startup/reads/exit/final validation, token checked after completed reads before ownership delivery;15 additional cases. Relative timer alone was insufficient; Windows/whole cases still NotRun."
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/p3-clipboard-review.md",
+        "docs/p3-clipboard-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p3-clipboard-summary.json"
+      ],
+      "note": " P3 source acquisition production wiring: reuse actual MTA GetSelection Broker, bounded physical gesture queue/debounce, source/selection identities, final destination ticket/config check, 600ms held-child deadline and cooldown.50 portable/process cases added; real Windows UIA/mouse/compatibility NotRun. Copy consent/full hotkey/OLE text drop/P4 dispatcher not delivered; whole case/stage not passed. P3 review fixes: frozen birth ticket/config/hookId + callback HWND/PID/time, production raw-channel and UI-dispatch bridge rejects obsolete input, old hooks replaced; abandoned completed read always observed/zeroed.22 additional portable cases; Windows and whole acceptance remain NotRun. Absolute deadline follow-up: one monotonic capture origin across startup/reads/exit/final validation, token checked after completed reads before ownership delivery;15 additional cases. Relative timer alone was insufficient; Windows/whole cases still NotRun. P3-04 source slice now wired: explicit exact-app consent transaction+epoch, isolated STA complete bounded snapshot, parent final gated Ctrl+C,350ms source-owner/input check,conditional sequence+owner restoration,late byte ownership/queued ref clearing.118 new portable/owned Linux child cases; real Windows clipboard/Ctrl+C/user consent not executed. Supersedes prior copy-not-delivered note for source only; full OLE text Drop/hotkeys/P4 still missing; whole acceptance NotRun."
     },
     {
       "id": "P3-05",
@@ -1556,7 +1563,12 @@
       ],
       "implementationStatus": "NotStarted",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p3-clipboard-review.md",
+        "docs/p3-clipboard-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p3-clipboard-summary.json"
+      ],
+      "note": " P3-04 source slice now wired: explicit exact-app consent transaction+epoch, isolated STA complete bounded snapshot, parent final gated Ctrl+C,350ms source-owner/input check,conditional sequence+owner restoration,late byte ownership/queued ref clearing.118 new portable/owned Linux child cases; real Windows clipboard/Ctrl+C/user consent not executed. Supersedes prior copy-not-delivered note for source only; full OLE text Drop/hotkeys/P4 still missing; whole acceptance NotRun."
     },
     {
       "id": "C08",
@@ -1568,7 +1580,12 @@
       ],
       "implementationStatus": "NotStarted",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p3-clipboard-review.md",
+        "docs/p3-clipboard-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p3-clipboard-summary.json"
+      ],
+      "note": " P3-04 source slice now wired: explicit exact-app consent transaction+epoch, isolated STA complete bounded snapshot, parent final gated Ctrl+C,350ms source-owner/input check,conditional sequence+owner restoration,late byte ownership/queued ref clearing.118 new portable/owned Linux child cases; real Windows clipboard/Ctrl+C/user consent not executed. Supersedes prior copy-not-delivered note for source only; full OLE text Drop/hotkeys/P4 still missing; whole acceptance NotRun."
     },
     {
       "id": "C09",
@@ -1580,7 +1597,12 @@
       ],
       "implementationStatus": "NotStarted",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p3-clipboard-review.md",
+        "docs/p3-clipboard-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p3-clipboard-summary.json"
+      ],
+      "note": " P3-04 source slice now wired: explicit exact-app consent transaction+epoch, isolated STA complete bounded snapshot, parent final gated Ctrl+C,350ms source-owner/input check,conditional sequence+owner restoration,late byte ownership/queued ref clearing.118 new portable/owned Linux child cases; real Windows clipboard/Ctrl+C/user consent not executed. Supersedes prior copy-not-delivered note for source only; full OLE text Drop/hotkeys/P4 still missing; whole acceptance NotRun."
     },
     {
       "id": "C10",
@@ -1592,7 +1614,12 @@
       ],
       "implementationStatus": "NotStarted",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p3-clipboard-review.md",
+        "docs/p3-clipboard-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p3-clipboard-summary.json"
+      ],
+      "note": " P3-04 source slice now wired: explicit exact-app consent transaction+epoch, isolated STA complete bounded snapshot, parent final gated Ctrl+C,350ms source-owner/input check,conditional sequence+owner restoration,late byte ownership/queued ref clearing.118 new portable/owned Linux child cases; real Windows clipboard/Ctrl+C/user consent not executed. Supersedes prior copy-not-delivered note for source only; full OLE text Drop/hotkeys/P4 still missing; whole acceptance NotRun."
     },
     {
       "id": "C11",
@@ -1604,7 +1631,12 @@
       ],
       "implementationStatus": "NotStarted",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p3-clipboard-review.md",
+        "docs/p3-clipboard-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-p3-clipboard-summary.json"
+      ],
+      "note": " P3-04 source slice now wired: explicit exact-app consent transaction+epoch, isolated STA complete bounded snapshot, parent final gated Ctrl+C,350ms source-owner/input check,conditional sequence+owner restoration,late byte ownership/queued ref clearing.118 new portable/owned Linux child cases; real Windows clipboard/Ctrl+C/user consent not executed. Supersedes prior copy-not-delivered note for source only; full OLE text Drop/hotkeys/P4 still missing; whole acceptance NotRun."
     },
     {
       "id": "C12",

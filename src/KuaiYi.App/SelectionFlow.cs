@@ -9,18 +9,20 @@ using KuaiYi.Windows;
 namespace KuaiYi.App;
 internal sealed partial class ShellWindow
 {
-    private SelectionBrokerClient? selectionBroker;private SelectionCaptureCoordinator? selectionCapture;private SelectionMouseHook? selectionHook;private SelectionInputBridge? selectionInput;
+    private SelectionBrokerClient? selectionBroker;private ClipboardCaptureClient? clipboardCapture;private SelectionCaptureCoordinator? selectionCapture;private SelectionMouseHook? selectionHook;private SelectionInputBridge? selectionInput;
     private Task selectionReconcile=Task.CompletedTask,selectionEvents=Task.CompletedTask;private ScreenshotHotkey? selectionHotkey;
     private SelectionSourceSnapshot? selectionSource;private Window? sourceViewer;private TextBox? sourceText;
     private (long Epoch,string? Version)? selectionState;private string? registeredSelectionChord;
-    private sealed class SelectionPlatform(SelectionBrokerClient broker):ISelectionCapturePlatform
-    {public bool IsCurrent(SelectionWindow window)=>SelectionDesktop.IsCurrent(window);public Task<SelectionCaptureResult> CaptureAsync(SelectionGesture gesture,CancellationToken cancellation)=>broker.CaptureAsync(gesture,cancellation);}
+    private readonly Dictionary<(string Application,SelectionCaptureStatus Status),long> selectionFailureNotices=[];private long lastCopyRecoveryNotice;
+    private sealed class SelectionPlatform(SelectionBrokerClient broker,ClipboardCaptureClient clipboard):ISelectionCapturePlatform,ISelectionCopyPlatform
+    {public bool IsCurrent(SelectionWindow window)=>SelectionDesktop.IsCurrent(window);public bool IsCopyCurrent(SelectionWindow source,SelectionCopyEvidence evidence)=>CopyInputGuard.IsCurrent(source,evidence);public Task<SelectionCaptureResult> CaptureAsync(SelectionGesture gesture,CancellationToken cancellation)=>broker.CaptureAsync(gesture,cancellation);public Task<SelectionCaptureResult> CaptureCopiedAsync(SelectionGesture gesture,SelectionCopyEvidence evidence,Func<uint,ClipboardCopyStart?> issueCopy,Func<bool> current,CancellationToken cancellation)=>clipboard.CaptureAsync(gesture,evidence,issueCopy,current,cancellation);public ClipboardCopyStart? TryIssueCopy(SelectionGesture gesture,SelectionCopyEvidence evidence,uint sequence)=>CopyInputGuard.Send(gesture,evidence,sequence);}
     private void SetupSelection()
     {
         if(!enableSelectionPlatform)return;
         selectionBroker=new(Path.Combine(AppContext.BaseDirectory,"KuaiYi.CaptureBroker.exe"));
+        clipboardCapture=new(Path.Combine(AppContext.BaseDirectory,"KuaiYi.ClipboardHost.exe"));
         var tracker=new SelectionGestureTracker(Math.Max(1,SelectionDesktop.GetSystemMetrics(68)),Math.Max(1,SelectionDesktop.GetSystemMetrics(69)),checked((int)SelectionDesktop.GetDoubleClickTime()),Math.Max(1,SelectionDesktop.GetSystemMetrics(36)),Math.Max(1,SelectionDesktop.GetSystemMetrics(37)));
-        selectionCapture=new(lifecycle.Gate,()=>lifecycle.Settings,new SelectionPlatform(selectionBroker),tracker,(uint)Environment.ProcessId,new DispatcherSynchronizationContext(Dispatcher),AcceptSelection,SelectionFailed);
+        selectionCapture=new(lifecycle.Gate,()=>lifecycle.Settings,new SelectionPlatform(selectionBroker,clipboardCapture),tracker,(uint)Environment.ProcessId,new DispatcherSynchronizationContext(Dispatcher),AcceptSelection,SelectionFailed,clipboardRecoveryWarning:CopyRecoveryWarning);
         selectionInput=new(lifecycle.Gate,()=>lifecycle.Settings,()=>selectionHook?.Identity.HookId,input=>SelectionDesktop.Resolve(input.Foreground,input.Point),SelectionDesktop.IsCurrent,selectionCapture,new DispatcherSynchronizationContext(Dispatcher));
         selectionHotkey=new((HwndSource)PresentationSource.FromVisual(this),()=>_=ObserveSelection(ReadCurrentSelection()),SchedulePlacement);
     }
@@ -83,11 +85,15 @@ internal sealed partial class ShellWindow
     private void AcceptSelection(SelectionSourceSnapshot source,bool duplicate)
     {
         selectionSource=source;
-        button.ToolTip=$"{(duplicate?"已保留此选区":"已读取实际选区")} · {source.Scalars} 字符{(source.RequiresConfirmation?" · 超过自动发送上限，需确认":"")} · 当前尚未接入模型翻译，可右键查看原文";
+        button.ToolTip=$"{(duplicate?"已保留此选区":"已读取实际选区")} · {source.SourceKind} · {source.Scalars} 字符{(source.RequiresConfirmation?" · 超过自动发送上限，需确认":"")}{(source.Recovery is ClipboardRecovery.Unconfirmed or ClipboardRecovery.Changed?" · 未覆盖后续剪贴板内容；恢复未确认":"")} · 当前尚未接入模型翻译，可右键查看原文";
         if(sourceViewer!=null&&sourceText!=null)sourceText.Text=source.RawText;
     }
     private void SelectionFailed(SelectionCaptureStatus status)
-    {button.ToolTip=status==SelectionCaptureStatus.Paused?"此应用的自动取词暂缓30秒，请稍后重试。":"无法直接读取可信选区，可使用截图；复制兼容当前未启用。 · "+status;}
+    {
+        if(selectionCapture?.LastFailureExplicit!=true&&selectionCapture?.LastFailureWindow is {} source){long now=Environment.TickCount64;var key=(source.Executable,status);if(selectionFailureNotices.TryGetValue(key,out long last)&&now-last<30000)return;if(selectionFailureNotices.Count>=128)selectionFailureNotices.Clear();selectionFailureNotices[key]=now;}
+        button.ToolTip=status==SelectionCaptureStatus.Paused?"此应用的自动取词暂缓30秒，请稍后重试。":"无法读取可信选区，可使用截图或从设置中按应用授权复制兼容。 · "+status;
+    }
+    private void CopyRecoveryWarning(ClipboardRecovery recovery){if(exiting||lifecycle.Gate.Snapshot.Suspension.HasFlag(Suspension.SessionLocked))return;long now=Environment.TickCount64;if(now-lastCopyRecoveryNotice<30000&&lastCopyRecoveryNotice!=0)return;lastCopyRecoveryNotice=now;button.ToolTip="复制兼容的剪贴板恢复未确认；未尝试覆盖后续复制，系统历史无法保证删除。";}
     private void ShowSelectionSource()
     {
         if(selectionSource==null||lifecycle.Gate.Snapshot.Suspension.HasFlag(Suspension.SessionLocked))return;
@@ -100,6 +106,6 @@ internal sealed partial class ShellWindow
     {
         ClearSelectionSource();selectionHotkey?.Dispose();selectionHotkey=null;
         await selectionReconcile;if(selectionHook!=null){selectionHook.Stop();await selectionHook.DisposeAsync();await selectionEvents;selectionHook=null;}
-        if(selectionCapture!=null)await selectionCapture.DisposeAsync();if(selectionBroker!=null)await selectionBroker.DisposeAsync();
+        if(selectionCapture!=null)await selectionCapture.DisposeAsync();if(selectionBroker!=null)await selectionBroker.DisposeAsync();if(clipboardCapture!=null)await clipboardCapture.DisposeAsync();
     }
 }

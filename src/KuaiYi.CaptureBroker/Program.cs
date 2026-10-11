@@ -47,6 +47,7 @@ internal static class Program
         if(focused?.Current.IsPassword==true||hit.Current.IsPassword)return(new("Sensitive",0,0,watch.Elapsed.TotalMilliseconds),"");
         var walker = TreeWalker.ControlViewWalker;
         List<AutomationElement> candidates = [];
+        List<double> copyRanges=[];
         void AddAncestors(AutomationElement? element)
         {
             List<AutomationElement> path = [];
@@ -93,7 +94,11 @@ internal static class Program
                 if (!string.IsNullOrWhiteSpace(part)) parts.Add(part);
             }
             string text = string.Join('\n', parts);
-            if (string.IsNullOrWhiteSpace(text)) continue;
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                if(candidate.Equals(focused)&&!control.IsEmpty&&control.Contains(new Point(downX,downY))&&control.Contains(new Point(x,y))&&Enumerable.Range(0,rectangles.Count/4).Any(i=>new Rect(rectangles[i*4],rectangles[i*4+1],rectangles[i*4+2],rectangles[i*4+3]).Contains(new Point(downX,downY))||new Rect(rectangles[i*4],rectangles[i*4+1],rectangles[i*4+2],rectangles[i*4+3]).Contains(new Point(x,y))))copyRanges=rectangles;
+                continue;
+            }
             if(automatic&&!Enumerable.Range(0,rectangles.Count/4).Any(i=>new Rect(rectangles[i*4],rectangles[i*4+1],rectangles[i*4+2],rectangles[i*4+3]).Contains(new Point(downX,downY))||new Rect(rectangles[i*4],rectangles[i*4+1],rectangles[i*4+2],rectangles[i*4+3]).Contains(new Point(x,y))))continue;
             if (text.EnumerateRunes().Count() > 50_000 || !ValidUtf16(text)) return (new("TooLargeOrInvalidUnicode", ranges.Length, candidates.Count, watch.Elapsed.TotalMilliseconds), "");
             if (!Current(hwnd, pid)||sourceProcess.HasExited||sourceProcess.StartTime.ToUniversalTime().Ticks!=started) return (new("Stale", 0, candidates.Count, watch.Elapsed.TotalMilliseconds), "");
@@ -101,7 +106,14 @@ internal static class Program
             int[] runtime=candidate.GetRuntimeId();if(runtime.Length is 0 or >64)return(new("UnsupportedOrProtected",0,candidates.Count,watch.Elapsed.TotalMilliseconds),"");
             return (new("Success", parts.Count, candidates.Count, watch.Elapsed.TotalMilliseconds,runtime,rectangles.ToArray(),control.IsEmpty?null:[control.X,control.Y,control.Width,control.Height],started), text);
         }
-        return (new(watch.ElapsedMilliseconds >= 250 ? "SoftTimeout" : "EmptyOrUnsupported", 0, candidates.Count, watch.Elapsed.TotalMilliseconds), "");
+        CopyCompatibilityMetadata? copy=null;
+        if(watch.ElapsedMilliseconds<250&&Current(hwnd,pid)&&!sourceProcess.HasExited&&focused!=null&&candidates.Contains(focused)&&AutomationElement.FocusedElement.Equals(focused)&&focused.Current.ProcessId==(int)pid&&!focused.Current.IsPassword&&focused.Current.IsEnabled)
+        {
+            var info=focused.Current;long nativeFocus=CopyInputGuard.FocusHandle(hwnd.ToInt64());var rectangle=info.BoundingRectangle;int[] runtime=focused.GetRuntimeId();
+            if(info.NativeWindowHandle!=0&&info.NativeWindowHandle==nativeFocus&&!rectangle.IsEmpty&&runtime.Length is >0 and <=64&&(info.ControlType==ControlType.Edit||info.ControlType==ControlType.Document||info.ControlType==ControlType.Text))copy=new(nativeFocus,runtime,[rectangle.X,rectangle.Y,rectangle.Width,rectangle.Height],copyRanges.ToArray(),copyRanges.Count>0);
+        }
+        if(!Current(hwnd,pid)||sourceProcess.HasExited||sourceProcess.StartTime.ToUniversalTime().Ticks!=started)return(new("Stale",0,candidates.Count,watch.Elapsed.TotalMilliseconds),"");
+        return (new(watch.ElapsedMilliseconds >= 250 ? "SoftTimeout" : "EmptyOrUnsupported", 0, candidates.Count, watch.Elapsed.TotalMilliseconds,ProcessStartUtcTicks:started,Copy:watch.ElapsedMilliseconds<250?copy:null), "");
     }
     private static bool Current(nint hwnd, uint pid) => NativeDesktop.IsWindow(hwnd) && NativeDesktop.GetForegroundWindow() == hwnd &&
         NativeDesktop.GetWindowThreadProcessId(hwnd, out uint actual) != 0 && actual == pid;

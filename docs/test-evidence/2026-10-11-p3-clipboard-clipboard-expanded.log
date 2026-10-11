@@ -1,0 +1,14 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+/workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/Program.cs(9,97): error CS0136: A local or parameter named 'output' cannot be declared in this scope because that name is used in an enclosing local scope to define a local or parameter [/workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/KuaiYi.CaptureControlFixture.csproj]
+/workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/Program.cs(9,143): error CS0136: A local or parameter named 'input' cannot be declared in this scope because that name is used in an enclosing local scope to define a local or parameter [/workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/KuaiYi.CaptureControlFixture.csproj]
+/workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/Program.cs(18,36): error CA2022: Avoid inexact read with 'System.IO.Stream.ReadAsync(System.Memory<byte>, System.Threading.CancellationToken)' (https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca2022) [/workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/KuaiYi.CaptureControlFixture.csproj]
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll

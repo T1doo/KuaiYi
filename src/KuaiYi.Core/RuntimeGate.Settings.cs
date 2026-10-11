@@ -22,6 +22,7 @@ public sealed partial class RuntimeGate
         lock(sync)
         {
             if(!stillCurrent())return false; // The coordinator's volatile publication and disposal admission are checked at final application.
+            if(change?.ClipboardPermissionsChanged==true)epoch++; // Immediate application consent/revocation invalidates every pending passive copy.
             var next=new Dictionary<string,RequestProfileBinding>(StringComparer.Ordinal);
             foreach(var profile in snapshot.Data.Profiles)
             {

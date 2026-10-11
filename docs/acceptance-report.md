@@ -67,3 +67,5 @@ P3生产选区获取接线见[选区复核](p3-selection-review.md)：真实Brok
 P3两项监督修复：旧版5/5反例失败；本轮新增22例，生产输入桥channel/UI双队列、冻结来源/epoch与取消读取单所有者实测通过。定向72/72，完整.NET832/832、Node63/63。这里只验证可移植链路和合成受控流，Windows低级hook/真实UIA与106整体用例仍NotRun。详见[p3-input-read-fixes-review.md](p3-input-read-fixes-review.md)。
 
 P3硬截止补审纠正此前仅相对timer的证据范围：入口单调起点覆盖启动、读取、退出及最终校验，>=600ms不交付文本，已取消完成read不转移所有权。旧5项4失败/1成功，新15例后定向87/87、完整.NET847/847和Node63/63通过。真实Windows及106整体用例仍NotRun，见[p3-absolute-deadline-review.md](p3-absolute-deadline-review.md)。
+
+P3-04限定源实现：默认关闭/完整路径逐应用授权、真实STA有限全格式快照与Win32一次Ctrl+C、350ms归属校验、同sequence+owner条件恢复、撤销epoch与取消/迟到所有权。新118例；26工程locked Release通过，Core888+Provider77=965/965、Node63/63，无失败/跳过。定向及Linux自有进程不替代真实Windows/人工授权；106整体用例仍NotRun，P0/E06 Blocked、P1/P2/P3 InProgress。审查和精确冻结见[p3-clipboard-review.md](p3-clipboard-review.md)。开发审查包含ClipboardHost但无安装器/原生DLL/凭据，完整OLE文本Drop/全热键/P4尚未交付。
