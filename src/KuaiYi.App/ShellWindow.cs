@@ -28,8 +28,8 @@ internal sealed partial class ShellWindow:Window
         lifecycle=new(coordinator);showMessage=NativeTray.ShowMessage(instanceScope);
         Title="快译";Width=Height=48;WindowStyle=WindowStyle.None;ResizeMode=ResizeMode.NoResize;ShowInTaskbar=false;ShowActivated=false;Topmost=true;
         SetupPresentation();AutomationProperties.SetName(button,"快译：未启用翻译");button.ToolTip="未启用翻译 · 右键打开设置";
-        var menu=new ContextMenu();Add("启用 / 停用翻译",Toggle);Add("回看当前结果",ReopenResult);Add("收起",CollapseResult);Add("停止生成",StopResult);Add("复制结果",CopyResult);Add("设置",()=>_=OpenSettings());Add("隐藏浮窗（同时停用）",HideOverlay);Add("聚焦浮窗",FocusOverlay);Add("退出",Close);
-        button.ContextMenu=menu;
+        var menu=new ContextMenu();Add("启用 / 停用翻译",Toggle);Add("回看当前结果",ReopenResult);Add("收起",CollapseResult);Add("停止生成",StopResult);Add("复制结果",CopyResult);Add("设置",()=>_=OpenSettings());Add("更多操作及版本",()=>OpenOverflowMenu(button));Add("隐藏浮窗（同时停用）",HideOverlay);Add("聚焦浮窗",FocusOverlay);Add("退出",Close);
+        button.ContextMenu=menu;menu.Closed+=(_,_)=>PresentationMenuClosed();
         void Add(string text,Action action){var item=new MenuItem{Header=text};item.Click+=(_,_)=>action();menu.Items.Add(item);}
         SourceInitialized+=(_,_)=>
         {
@@ -148,7 +148,7 @@ internal sealed partial class ShellWindow:Window
         catch(Exception error){geometryReady=false;lifecycle.Hide();Dispatcher.BeginInvoke(()=>{Hide();Refresh();Report("当前屏幕无法容纳浮钮，请调整显示设置后从托盘恢复",error);});}
     }
     private void ApplyAnchor()
-    {if(anchorMonitor==null)return;if(overlayFrames==null)overlayFrames=new(anchor,anchorMonitor);else{overlayFrames.Reanchor(anchor,anchorMonitor,Preferences());if(overlayFrames.IsExpanded&&!peek)overlayFrames.Open(MeasureBody(),Preferences());}ApplyOverlayFrame(forceNative:true);StartFrames();}
+    {if(anchorMonitor==null)return;if(overlayFrames==null)overlayFrames=new(anchor,anchorMonitor);else{overlayFrames.Reanchor(anchor,anchorMonitor,Preferences());if(overlayFrames.IsExpanded&&!peek)OpenBody();}ApplyOverlayFrame(forceNative:true);StartFrames();}
     private void Pointer(Action action)
     {try{action();}catch(Exception error){CancelPointer();lifecycle.Gate.Disable();Refresh();Report("浮钮操作失败",error);}}
     private void CancelPointer(){bool moving=gesture.Active,changed=gesture.HasMoved;gesture.Cancel();pointerFinished=true;button.ReleaseMouseCapture();lifecycle.Gate.SetSuspension(Suspension.Moving,false);if(moving)EndOverlayMove();if(changed){pendingPosition=CurrentPosition();QueuePositionSave();}}

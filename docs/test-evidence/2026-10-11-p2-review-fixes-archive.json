@@ -1,0 +1,24 @@
+{
+  "archive": "artifacts/KuaiYi-P2-review-fixes-managed-win-x64.zip",
+  "bytes": 1456604,
+  "sha256": "6df677eae7778ed8669b81c81dd065987b5a76124676dda9223aa31590f69ced",
+  "files": 68,
+  "appFiles": 39,
+  "publicProbeFiles": 25,
+  "actualPe32PlusX64Hosts": [
+    "app/KuaiYi.App.exe",
+    "app/KuaiYi.CaptureHost.exe",
+    "app/KuaiYi.ImageWorker.exe",
+    "app/KuaiYi.NativeHost.exe",
+    "app/KuaiYi.OleReceiver.exe",
+    "public-probe/KuaiYi.App.exe",
+    "public-probe/KuaiYi.GrowthHarness.exe",
+    "public-probe/KuaiYi.NativeHost.exe"
+  ],
+  "manifestHashes": "Pass",
+  "installer": false,
+  "WindowsRuntime": "NotRun",
+  "NativeDlls": "NotIncluded",
+  "ModelCalls": "None",
+  "Credentials": "NotIncluded"
+}

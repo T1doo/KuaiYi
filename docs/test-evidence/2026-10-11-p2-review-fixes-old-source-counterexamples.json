@@ -1,0 +1,37 @@
+{
+  "baseCommit": "5a55d0474cbe1b500f047ff5b05a1c8dceda1918",
+  "sourceSha256": "83400189907de2303d0cebfa99ef2c028f0ec7f4c2ac0a799892076ff943b269",
+  "kind": "Old source arithmetic counterexamples, not WPF execution",
+  "toolbar": {
+    "widthDip": 220,
+    "visible": [
+      "回看",
+      "收起",
+      "停止",
+      "复制"
+    ],
+    "settingsReachableFromToolbar": false,
+    "required": true,
+    "result": "Fail"
+  },
+  "bodyMeasurement": [
+    {
+      "text": "short",
+      "characters": 30,
+      "oldMeasuredWidth": 220,
+      "openedWidth": 420,
+      "oldHeight": 152,
+      "correctHeight": 128,
+      "result": "Fail"
+    },
+    {
+      "text": "long",
+      "characters": 300,
+      "oldMeasuredWidth": 220,
+      "openedWidth": 420,
+      "oldHeight": 680,
+      "correctHeight": 368,
+      "result": "Fail"
+    }
+  ]
+}

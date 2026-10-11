@@ -25,7 +25,7 @@ public sealed class OverlayFrames
 {
     public PixelRect Anchor{get;private set;}public PixelRect Current{get;private set;}public MonitorGeometry Monitor{get;private set;}
     public LayoutPlan? Plan{get;private set;}public OverlayTransition Transition{get;private set;}
-    private PixelRect from,target;private double elapsed,height,movingOpacity,movingTextWidth,fromOpacity;private int measured;private bool wantsExpanded;private GrowthDirection? movingDirection;private LayoutPlan? lastPlan;
+    private PixelRect from,target;private double elapsed,height,movingOpacity,movingTextWidth,fromOpacity;private int measured;private bool wantsExpanded,toolbarPlan;private GrowthDirection? movingDirection;private LayoutPlan? lastPlan;
     public GrowthDirection? ContentDirection=>Plan?.Direction??movingDirection;
     public double TextWidthDip=>Plan is {} p?p.Dpi.Dips(p.Target.Width):movingTextWidth;
     public bool NeedsFrame=>Transition is OverlayTransition.Opening or OverlayTransition.Closing||Transition==OverlayTransition.Expanded&&Current!=target;
@@ -33,13 +33,18 @@ public sealed class OverlayFrames
     public double ContentOpacity=>Transition switch{OverlayTransition.Compact=>0,OverlayTransition.Moving=>movingOpacity,OverlayTransition.Closing=>fromOpacity*Math.Clamp(1-elapsed/80,0,1),OverlayTransition.Opening=>fromOpacity+(1-fromOpacity)*Math.Clamp(elapsed/80,0,1),_=>1};
     public OverlayFrames(PixelRect anchor,MonitorGeometry monitor){Anchor=Current=anchor;Monitor=monitor;Validate();}
     public void Open(int measuredHeight,LayoutPreferences preferences)
+        =>Open(measuredHeight,BodyPlan(preferences));
+    public LayoutPlan BodyPlan(LayoutPreferences preferences)=>OverlayLayoutPlanner.Plan(Anchor,Monitor,preferences,previous:toolbarPlan?lastPlan:Plan??lastPlan);
+    public void OpenMeasured(LayoutPreferences preferences,Func<LayoutPlan,int> measure)
+    {ArgumentNullException.ThrowIfNull(measure);var plan=BodyPlan(preferences);Open(measure(plan),plan);}
+    private void Open(int measuredHeight,LayoutPlan plan)
     {
-        double opacity=ContentOpacity;wantsExpanded=true;measured=Math.Max(Anchor.Height,measuredHeight);Plan=OverlayLayoutPlanner.Plan(Anchor,Monitor,preferences,previous:Plan??lastPlan);lastPlan=Plan;
+        double opacity=ContentOpacity;wantsExpanded=true;measured=Math.Max(Anchor.Height,measuredHeight);Plan=plan;lastPlan=Plan;toolbarPlan=false;
         target=HeightRect(Math.Clamp(measured,Anchor.Height,Plan.MaximumHeightPixels));Begin(OverlayTransition.Opening,opacity);
     }
     public void OpenToolbar(double widthDip=220)
     {
-        wantsExpanded=true;measured=Anchor.Height;Plan=OverlayLayoutPlanner.Plan(Anchor,Monitor,new(widthDip,144));
+        wantsExpanded=true;toolbarPlan=true;measured=Anchor.Height;Plan=OverlayLayoutPlanner.Plan(Anchor,Monitor,new(widthDip,144));
         int width=Math.Min(Plan.Target.Width,Math.Max(Anchor.Width,Monitor.Dpi.CeilingPixels(widthDip)));
         bool right=Plan.Direction is GrowthDirection.RightDown or GrowthDirection.RightUp;
         bool balanced=Plan.Direction is GrowthDirection.BalancedDown or GrowthDirection.BalancedUp;

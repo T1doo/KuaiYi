@@ -78,11 +78,19 @@ public sealed class OverlayPresentationTests
         gate.Disable();for(int i=0;i<3;i++){Assert.True(cache.Reopen());Assert.Equal("公开测试一公开测试二",cache.Text);Assert.Equal(Activation.Off,gate.Snapshot.Activation);Assert.False(gate.TryStartRequest(Guid.NewGuid(),Guid.NewGuid(),null,out _,out _));Assert.False(gate.CanSend(id,new(new Uri("https://public.invalid"))));}
         gate.Disable(hide:true);Assert.False(cache.Reopen());gate.SetSessionLocked(true);Assert.False(cache.Reopen());cache.Clear();Assert.False(cache.HasText);Assert.Empty(cache.Versions);
     }
+    [Fact]public void FourthBeginAndStreamingAlreadyCountInsideThreeVersionLimit()
+    {
+        var gate=Gate();var cache=new OverlayResults(gate);var session=Guid.NewGuid();
+        for(int i=0;i<3;i++){var id=Start(gate,session);cache.Begin(id);cache.Append(id,"public"+i);cache.Complete(id);}
+        var fourth=Start(gate,session);Assert.True(cache.Begin(fourth));
+        Assert.True(cache.Versions.Count(v=>v.Identity!=fourth)+1<=3,"Generating version must reserve a slot at Begin.");
+        Assert.True(cache.Append(fourth,"public fourth"));Assert.True(cache.Versions.Count(v=>v.Identity!=fourth)+1<=3);
+    }
     [Fact]public void SessionKeepsAtMostThreeVersionsAndOnlyValidatedNewSourceClearsOldCache()
     {
         var gate=Gate();var cache=new OverlayResults(gate);var session=Guid.NewGuid();
         for(int i=0;i<5;i++){var id=Start(gate,session);Assert.True(cache.Begin(id));Assert.True(cache.Append(id,"public"+i));Assert.True(cache.Complete(id));}Assert.Equal(3,cache.Versions.Count);Assert.Equal(new[]{"public2","public3","public4"},cache.Versions.Select(v=>v.Text).ToArray());
-        Assert.False(cache.Begin(new(Guid.NewGuid(),Guid.NewGuid(),Guid.NewGuid(),0)));Assert.Equal("public4",cache.Text);var next=Start(gate);Assert.True(cache.Begin(next));Assert.False(cache.HasText);Assert.Empty(cache.Versions);
+        Assert.False(cache.Begin(new(Guid.NewGuid(),Guid.NewGuid(),Guid.NewGuid(),0)));Assert.Equal("public4",cache.Text);var next=Start(gate);Assert.True(cache.Begin(next));Assert.False(cache.HasText);Assert.Equal(next,Assert.Single(cache.Versions).Identity);
     }
     [Theory][InlineData("off")][InlineData("stop")][InlineData("lock")][InlineData("replacement")]
     public void LateRequestDeltaCannotTouchOldOrNewContent(string change)
@@ -117,7 +125,7 @@ public sealed class OverlayPresentationTests
     [Fact]public void DuplicateBeginDoesNotResetContentAndReplacedPartialVersionIsMarkedStopped()
     {
         var gate=Gate();var cache=new OverlayResults(gate);var id=Start(gate);cache.Begin(id);cache.Append(id,"public partial");Assert.False(cache.Begin(id));Assert.Equal("public partial",cache.Text);
-        var next=Start(gate,id.SessionId);Assert.True(cache.Begin(next));Assert.True(Assert.Single(cache.Versions).Stopped);Assert.False(cache.HasText);Assert.False(cache.Append(id,"late"));
+        var next=Start(gate,id.SessionId);Assert.True(cache.Begin(next));Assert.Equal(2,cache.Versions.Count);Assert.True(Assert.Single(cache.Versions,v=>v.Identity==id).Stopped);Assert.False(cache.HasText);Assert.False(cache.Append(id,"late"));
     }
     [Fact]public void EmptyDeltaDoesNotBecomeFirstBodyOrResetWaitingEligibility()
     {

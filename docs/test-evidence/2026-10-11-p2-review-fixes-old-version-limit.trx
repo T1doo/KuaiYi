@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="9792f0f9-a947-418b-b6ed-a05194ff88eb" name="@552716c6b8c5 2026-10-11 17:20:00" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T17:20:00.1922937+00:00" queuing="2026-10-11T17:20:00.1922938+00:00" start="2026-10-11T17:19:59.5918739+00:00" finish="2026-10-11T17:20:00.2002104+00:00" />
+  <TestSettings name="default" id="601b425e-6952-457c-a5bb-bc96fb3590a6">
+    <Deployment runDeploymentRoot="_552716c6b8c5_2026-10-11_17_20_00" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="ded65e80-15f4-4769-a3e8-218077d1f1f2" testId="5625b469-13c4-79f2-4945-0fa0aac62baf" testName="KuaiYi.Core.Tests.OverlayPresentationTests.FourthBeginAndStreamingAlreadyCountInsideThreeVersionLimit" computerName="552716c6b8c5" duration="00:00:00.0086667" startTime="2026-10-11T17:20:00.0918812+00:00" endTime="2026-10-11T17:20:00.1108182+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ded65e80-15f4-4769-a3e8-218077d1f1f2">
+      <Output>
+        <ErrorInfo>
+          <Message>Generating version must reserve a slot at Begin.</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.OverlayPresentationTests.FourthBeginAndStreamingAlreadyCountInsideThreeVersionLimit() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OverlayPresentationTests.cs:line 86
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.OverlayPresentationTests.FourthBeginAndStreamingAlreadyCountInsideThreeVersionLimit" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="5625b469-13c4-79f2-4945-0fa0aac62baf">
+      <Execution id="ded65e80-15f4-4769-a3e8-218077d1f1f2" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OverlayPresentationTests" name="FourthBeginAndStreamingAlreadyCountInsideThreeVersionLimit" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="5625b469-13c4-79f2-4945-0fa0aac62baf" executionId="ded65e80-15f4-4769-a3e8-218077d1f1f2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.06]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.17]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.19]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.23]       Generating version must reserve a slot at Begin.
+[xUnit.net 00:00:00.23]       Stack Trace:
+[xUnit.net 00:00:00.23]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OverlayPresentationTests.cs(86,0): at KuaiYi.Core.Tests.OverlayPresentationTests.FourthBeginAndStreamingAlreadyCountInsideThreeVersionLimit()
+[xUnit.net 00:00:00.23]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:00.23]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[xUnit.net 00:00:00.24]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T17:20:00.1146803+00:00">
+        <Text>[xUnit.net 00:00:00.23]     KuaiYi.Core.Tests.OverlayPresentationTests.FourthBeginAndStreamingAlreadyCountInsideThreeVersionLimit [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

@@ -247,3 +247,12 @@ P0 整体：**InProgress，真实 Windows 退出门槛 Blocked**。后续整阶�
 - CI入口新建且实际本地运行；远端workflow不存在/未跑，CI/Windows/安装声明分开。
 - 包1445739字节，SHA256 `0f59b4deb79b48fd34bb9fa790e3c48eb87eb9500768da8c1bbef0cdf4df6832`，68文件：生产app39、独立公开probe25；所有exe为PE32+ x64，manifest逐文件通过。非安装器，无原生DLL/真实凭据/模型调用。九旧审查ZIP大小/hash未变。
 - 269既有源码 + 新文件/CI入口独审冻结；176追踪项完整、106整体验收NotRun，P0/E06仍Blocked、P1/P2仍InProgress。详见p2-overlay-review及本轮summary/raw。
+
+## P2 三项监督缺口修复
+
+- 5a55d04限定审查指出设置被工具条裁掉、第四版生成时超三项、窄条宽度错误测高。先保存旧版实际版本失败TRX与工具条/测量合同反例，再修生产逻辑。
+- 设置优先与更多菜单；生成中立即占槽、回退/阅读版保护、真实版本菜单选择；正文同一最终Plan测量再展开。P4原文/API重新生成调度未交付。
+- 新增15例，P2针对49/49；Core683+Provider77=760/760，Node63/63，零失败/跳过。25托管locked Release零警告/错误。新增测试初编译错误日志保留。
+- 原P2包及九份更早包保持原样；新包、精确摘要与独审入口见p2-review-fixes.md及本轮summary。Windows全部仍NotRun，176追踪/106整体验收NotRun，P0/E06 Blocked、P1/P2 InProgress。
+
+新审查ZIP：1456604字节、68文件，SHA256 `6df677eae7778ed8669b81c81dd065987b5a76124676dda9223aa31590f69ced`；逐文件manifest及8个PE32+ x64入口通过静态检查，十份旧包大小/摘要未变。

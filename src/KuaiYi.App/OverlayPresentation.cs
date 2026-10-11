@@ -22,7 +22,9 @@ internal sealed partial class ShellWindow
     private readonly Border cardBackground=new(){Background=Brushes.White,IsHitTestVisible=false};
     private readonly TextBox body=new(){IsReadOnly=true,TextWrapping=TextWrapping.Wrap,AcceptsReturn=true,BorderThickness=new Thickness(0),Padding=new Thickness(0),VerticalScrollBarVisibility=ScrollBarVisibility.Auto,HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled,FontFamily=new("Segoe UI"),Background=Brushes.Transparent};
     private readonly TextBlock measurement=new(){TextWrapping=TextWrapping.Wrap,FontFamily=new("Segoe UI")};
-    private readonly Canvas controls=new(){Height=48};private readonly List<Button> tools=[];
+    private readonly Canvas controls=new(){Height=48};private readonly List<Button> tools=[];private readonly List<Action> toolActions=[];
+    private readonly Button moreTools=new(){Content="…",Width=28,Height=28,ToolTip="更多操作及版本"};
+    private readonly ContextMenu overflowMenu=new();
     private readonly Button newContent=new(){Content="有新内容",Visibility=Visibility.Collapsed,MinHeight=28};
     private readonly Ellipse progressRing=new(){Width=42,Height=42,Stroke=Brushes.White,StrokeThickness=2,StrokeDashArray=new DoubleCollection{12,5},IsHitTestVisible=false,Visibility=Visibility.Collapsed,RenderTransformOrigin=new Point(.5,.5)};
     private readonly TextBlock connectionStatus=new(){Text="正在连接…",VerticalAlignment=VerticalAlignment.Center,Visibility=Visibility.Collapsed,IsHitTestVisible=false};
@@ -46,7 +48,9 @@ internal sealed partial class ShellWindow
         Content=overlayCanvas;overlayCanvas.Children.Add(cardBackground);overlayCanvas.Children.Add(body);overlayCanvas.Children.Add(controls);overlayCanvas.Children.Add(button);overlayCanvas.Children.Add(progressRing);overlayCanvas.Children.Add(connectionStatus);overlayCanvas.Children.Add(newContent);
         body.Visibility=controls.Visibility=Visibility.Collapsed;button.Width=button.Height=48;button.Padding=new Thickness(0);RefreshPresentationTheme();UpdateButtonGlyph(false);
         Tool("回看",ReopenResult);Tool("收起",CollapseResult);Tool("停止",StopResult);Tool("复制",CopyResult);Tool("设置",()=>_=OpenSettings());
-        void Tool(string label,Action action){var b=new Button{Content=label,MinWidth=28,Height=28,Padding=new Thickness(2)};b.Click+=(_,_)=>action();tools.Add(b);controls.Children.Add(b);}
+        void Tool(string label,Action action){var b=new Button{Content=label,MinWidth=28,Height=28,FontSize=12,Padding=new Thickness(2)};System.Windows.Automation.AutomationProperties.SetName(b,label);b.Click+=(_,_)=>action();tools.Add(b);toolActions.Add(action);controls.Children.Add(b);}
+        controls.Children.Add(moreTools);moreTools.Click+=(_,_)=>OpenOverflowMenu(moreTools);
+        System.Windows.Automation.AutomationProperties.SetName(moreTools,"更多操作及版本");overflowMenu.Closed+=(_,_)=>PresentationMenuClosed();
         newContent.Click+=(_,_)=>{follow=true;body.ScrollToEnd();newContent.Visibility=Visibility.Collapsed;};
         body.AddHandler(ScrollViewer.ScrollChangedEvent,new ScrollChangedEventHandler((_,e)=>{if(e.ExtentHeightChange==0&&e.VerticalChange!=0){follow=body.ExtentHeight-body.ViewportHeight-body.VerticalOffset<=24;if(follow)newContent.Visibility=Visibility.Collapsed;}}));
         body.PreviewMouseLeftButtonDown+=(_,_)=>{NativeDesktop.SetOverlayStyle(hwnd,true);Activate();};
@@ -54,7 +58,7 @@ internal sealed partial class ShellWindow
         MouseEnter+=(_,_)=>{peekOut.Stop();if(overlayFrames?.IsExpanded!=true)peekIn.Start();};
         MouseLeave+=(_,_)=>{peekIn.Stop();if(peek)peekOut.Start();};
         peekIn.Tick+=(_,_)=>{peekIn.Stop();if(!gesture.Active&&IsMouseOver&&lifecycle.Gate.TryPeek(true)){peek=true;overlayFrames?.OpenToolbar();StartFrames();}};
-        peekOut.Tick+=(_,_)=>{peekOut.Stop();if(peek&&!IsMouseOver&&!IsKeyboardFocusWithin&&lifecycle.Gate.TryPeek(false)){peek=false;overlayFrames?.Collapse();StartFrames();}};
+        peekOut.Tick+=(_,_)=>{peekOut.Stop();if(peek&&!IsMouseOver&&!IsKeyboardFocusWithin&&!overflowMenu.IsOpen&&button.ContextMenu?.IsOpen!=true&&lifecycle.Gate.TryPeek(false)){peek=false;overlayFrames?.Collapse();StartFrames();}};
         flush.Tick+=(_,_)=>{flush.Stop();FlushResult();};
         waiting.Tick+=(_,_)=>{waiting.Stop();if(overlayResults.Identity is {} id&&lifecycle.Gate.CanApply(id)&&!overlayResults.HasText&&!gesture.Active&&lifecycle.Gate.TryRevealDelta(id)){peek=true;overlayFrames?.OpenToolbar();button.ToolTip="正在连接…";StartFrames();}};
     }
@@ -90,16 +94,15 @@ internal sealed partial class ShellWindow
         }
         if(dirty&&!flush.IsEnabled)flush.Start();
     }
-    private int MeasureBody()
+    private int MeasureBody(LayoutPlan plan)
     {
         if(overlayFrames==null)return 48;
-        var plan=overlayFrames.Plan??OverlayLayoutPlanner.Plan(overlayFrames.Anchor,overlayFrames.Monitor,Preferences());
         double size=lifecycle.Settings?.Data.Overlay.FontSizeDip??15;
         body.FontSize=measurement.FontSize=size;TextBlock.SetLineHeight(body,size*1.55);measurement.LineHeight=size*1.55;
         measurement.Text=overlayResults.Text;measurement.Measure(new Size(Math.Max(1,plan.Dpi.Dips(plan.Target.Width)-32),double.PositiveInfinity));
         return plan.Dpi.CeilingPixels(48+32+measurement.DesiredSize.Height);
     }
-    private void OpenBody(){if(overlayFrames==null)return;overlayFrames.Open(MeasureBody(),Preferences());dirty=true;if(!flush.IsEnabled)flush.Start();StartFrames();}
+    private void OpenBody(){if(overlayFrames==null)return;overlayFrames.OpenMeasured(Preferences(),MeasureBody);dirty=true;if(!flush.IsEnabled)flush.Start();StartFrames();}
     private void FlushResult()
     {
         if(!dirty||exiting)return;dirty=false;
@@ -108,18 +111,31 @@ internal sealed partial class ShellWindow
         Dispatcher.BeginInvoke(DispatcherPriority.Loaded,()=>{if(exiting||revision!=resultRevision||lifecycle.Gate.Snapshot.Suspension.HasFlag(Suspension.SessionLocked))return;if(bottom&&follow)body.ScrollToEnd();else body.ScrollToVerticalOffset(offset);});
         if(overlayFrames!=null&&!gesture.Active&&overlayFrames.Transition!=OverlayTransition.Moving)
         {
-            if(pendingReveal&&overlayResults.Identity is {} id&&overlayResults.TryAutoReveal(id)){pendingReveal=false;peek=false;overlayFrames.Open(MeasureBody(),Preferences());StartFrames();}
-            else if(overlayFrames.IsExpanded&&!peek){overlayFrames.Grow(MeasureBody());StartFrames();}
+            if(pendingReveal&&overlayResults.Identity is {} id&&overlayResults.TryAutoReveal(id)){pendingReveal=false;peek=false;OpenBody();}
+            else if(overlayFrames.IsExpanded&&!peek&&overlayFrames.Plan is {} plan){overlayFrames.Grow(MeasureBody(plan));StartFrames();}
         }
         ApplyOverlayFrame();
     }
     private void ReopenResult(){if(!IsVisible)ShowOverlay();if(overlayResults.Reopen()){peek=false;OpenBody();}}
+    private void PresentationMenuClosed(){if(peek&&!IsMouseOver&&!exiting)peekOut.Start();}
+    private void OpenOverflowMenu(UIElement target)
+    {
+        peekOut.Stop();overflowMenu.Items.Clear();
+        for(int i=0;i<tools.Count;i++){int index=i;var item=new MenuItem{Header=tools[i].Content};item.Click+=(_,_)=>toolActions[index]();overflowMenu.Items.Add(item);}
+        var versionsItem=new MenuItem{Header="本次会话版本"};
+        foreach(var version in overlayResults.Versions)
+        {
+            Guid id=version.Identity.VersionId;var item=new MenuItem{Header=$"版本 {id.ToString("N")[..8]} · {(version.Complete?"完成":version.Stopped?"已停止":"生成中")}",IsCheckable=true,IsChecked=overlayResults.SelectedVersionId==id,IsEnabled=version.Text.Length>0};
+            item.Click+=(_,_)=>{if(overlayResults.SelectVersion(id)){resultRevision++;follow=true;dirty=true;pendingReveal=false;peek=false;OpenBody();}};versionsItem.Items.Add(item);
+        }
+        versionsItem.IsEnabled=versionsItem.Items.Count>0;overflowMenu.Items.Add(new Separator());overflowMenu.Items.Add(versionsItem);overflowMenu.PlacementTarget=target;overflowMenu.IsOpen=true;
+    }
     private void CollapseResult(){peek=false;pendingReveal=false;peekIn.Stop();peekOut.Stop();waiting.Stop();overlayResults.Collapse();overlayFrames?.Collapse();StartFrames();}
     private void StopResult(){lifecycle.Gate.StopGeneration();overlayResults.MarkStopped();awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();button.ToolTip="已停止生成 · 结果保留在本次会话";}
     private void CopyResult(){if(!overlayResults.HasText)return;try{Clipboard.SetText(overlayResults.Text);}catch(Exception error){Report("复制失败",error);}}
     private void StopPresentation(){overlayResults.MarkStopped();awaitingText=false;progressRing.Visibility=Visibility.Collapsed;CollapseResult();}
     private void HidePresentation(bool clear)
-    {waiting.Stop();flush.Stop();peekIn.Stop();peekOut.Stop();StopFrames();peek=false;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;overlayResults.MarkStopped();if(clear){overlayResults.Clear();body.Clear();measurement.Text="";resultRevision++;}overlayFrames?.Compact();ApplyOverlayFrame();}
+    {peek=false;overflowMenu.IsOpen=false;waiting.Stop();flush.Stop();peekIn.Stop();peekOut.Stop();StopFrames();awaitingText=false;progressRing.Visibility=Visibility.Collapsed;overlayResults.MarkStopped();if(clear){overlayResults.Clear();body.Clear();measurement.Text="";resultRevision++;}overlayFrames?.Compact();ApplyOverlayFrame();}
     private void BeginOverlayMove(){StopFrames();peekIn.Stop();peekOut.Stop();overlayFrames?.BeginMove();}
     private void MoveOverlay(PixelPoint desired,MonitorTopology topology)
     {
@@ -131,7 +147,7 @@ internal sealed partial class ShellWindow
         if(overlayFrames?.Transition!=OverlayTransition.Moving)return;
         bool reveal=pendingReveal;pendingReveal=false;
         if(reveal&&overlayResults.Identity is {} id&&overlayResults.TryAutoReveal(id)){peek=false;OpenBody();}
-        else if(peek)overlayFrames.OpenToolbar();else overlayFrames.EndMove(Preferences(),MeasureBody());StartFrames();
+        else if(peek)overlayFrames.OpenToolbar();else if(overlayFrames.IsExpanded)OpenBody();else overlayFrames.EndMove(Preferences());StartFrames();
     }
     private void DpiPlacement()
     {
@@ -178,8 +194,13 @@ internal sealed partial class ShellWindow
         Canvas.SetLeft(progressRing,bx+3);Canvas.SetTop(progressRing,by+3);
         controls.Visibility=expanded?Visibility.Visible:Visibility.Collapsed;controls.Width=width;Canvas.SetTop(controls,by);
         double before=bx,after=width-bx-48;bool left=before>after;double available=Math.Max(before,after),start=left?0:bx+48;
-        connectionStatus.Visibility=awaitingText&&peek&&expanded?Visibility.Visible:Visibility.Collapsed;Canvas.SetLeft(connectionStatus,start+8);Canvas.SetTop(connectionStatus,by+14);
-        for(int i=0;i<tools.Count;i++){var tool=tools[i];double tw=tools[i].Content!.ToString()!.Length*15+10;tool.Visibility=connectionStatus.Visibility!=Visibility.Visible&&available>=tw?Visibility.Visible:Visibility.Collapsed;if(tool.Visibility==Visibility.Visible){tool.Width=tw;Canvas.SetLeft(tool,start);Canvas.SetTop(tool,10);start+=tw;available-=tw;}}
+        var toolbar=OverlayToolbarLayout.Plan(Math.Max(0,available),tools.Count,tools.Count-1);
+        foreach(var tool in tools)tool.Visibility=Visibility.Collapsed;
+        foreach(var slot in toolbar.Slots){var tool=tools[slot.Index];tool.Visibility=Visibility.Visible;tool.Width=slot.WidthDip;Canvas.SetLeft(tool,start+slot.OffsetDip);Canvas.SetTop(tool,10);}
+        moreTools.Visibility=toolbar.OverflowOffsetDip.HasValue?Visibility.Visible:Visibility.Collapsed;
+        if(toolbar.OverflowOffsetDip is {} offset){Canvas.SetLeft(moreTools,start+offset);Canvas.SetTop(moreTools,10);}
+        double used=toolbar.OverflowOffsetDip is {} last?last+28:toolbar.Slots.Select(s=>s.OffsetDip+s.WidthDip).DefaultIfEmpty(0).Max();
+        connectionStatus.Visibility=awaitingText&&peek&&expanded&&available-used>=104?Visibility.Visible:Visibility.Collapsed;Canvas.SetLeft(connectionStatus,start+used+8);Canvas.SetTop(connectionStatus,by+14);
         var plan=overlayFrames.Plan;var direction=overlayFrames.ContentDirection;if(direction==null||peek||!expanded){body.Visibility=Visibility.Collapsed;newContent.Visibility=Visibility.Collapsed;return;}
         bool down=direction is GrowthDirection.RightDown or GrowthDirection.LeftDown or GrowthDirection.BalancedDown;
         int pad=dpi.CeilingPixels(16),top=down?anchor.Bottom+pad:rect.Top+pad,bottom=down?rect.Bottom-pad:anchor.Top-pad;
