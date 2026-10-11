@@ -19,6 +19,7 @@ public sealed class ProviderClient : IDisposable
         MaxResponseHeadersLength = 64
     }) { Timeout = Timeout.InfiniteTimeSpan };
 
+    /// <summary>Low-level transport. Caller owns cancellation; product consumption uses GenerateEnvelopesAsync and ProviderEventReceiver.</summary>
     public async IAsyncEnumerable<ModelEvent> GenerateAsync(TranslationRequest request, RuntimeGate gate,
         RequestIdentity identity, SecretLease? secret, [EnumeratorCancellation] CancellationToken cancellation = default)
     {
@@ -164,7 +165,10 @@ public sealed class ProviderClient : IDisposable
     public async IAsyncEnumerable<ModelEventEnvelope> GenerateEnvelopesAsync(TranslationRequest request, RuntimeGate gate,
         RequestIdentity identity, SecretLease? secret, [EnumeratorCancellation] CancellationToken cancellation = default)
     {
-        await foreach (var item in GenerateAsync(request, gate, identity, secret, cancellation).ConfigureAwait(false))
+        ArgumentNullException.ThrowIfNull(gate);
+        if (!gate.TryLinkRequestCancellation(identity, cancellation, out var linked)) yield break;
+        using var requestLifetime = linked!;
+        await foreach (var item in GenerateAsync(request, gate, identity, secret, requestLifetime.Token).ConfigureAwait(false))
         {
             if (!gate.CanApply(identity)) yield break;
             yield return new(identity, item);

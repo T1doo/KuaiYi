@@ -1,5 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 
 namespace KuaiYi.Contracts;
@@ -8,6 +9,9 @@ namespace KuaiYi.Contracts;
 public static class NativeMessagingCodec
 {
     public const int MessageLimit = 256 * 1024;
+    // Native Messaging is UTF-8 JSON on a binary pipe, never HTML. Preserve base64 '+' and
+    // actual Unicode bytes instead of introducing HTML-safe escapes that inflate chunks.
+    private static readonly JsonSerializerOptions WireOptions = new() { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping, MaxDepth = 32 };
     public static async ValueTask<JsonDocument?> ReadAsync(Stream stream, CancellationToken cancellation = default)
     {
         byte[] header = new byte[4];
@@ -40,7 +44,7 @@ public static class NativeMessagingCodec
     }
     public static async ValueTask WriteAsync<T>(Stream stream, T message, CancellationToken cancellation = default)
     {
-        byte[] payload = JsonSerializer.SerializeToUtf8Bytes(message);
+        byte[] payload = JsonSerializer.SerializeToUtf8Bytes(message, WireOptions);
         try
         {
             if (payload.Length is 0 or > MessageLimit) throw new InvalidDataException("Native message exceeds UTF-8 byte limit.");
@@ -68,7 +72,9 @@ public sealed class ReceivedImage : IDisposable
 public sealed class ImageTransferAssembler : IDisposable
 {
     public const int ImageLimit = 20 * 1024 * 1024;
-    public const int ChunkLimit = 192 * 1024;
+    // 190 KiB => at most 259416 base64 bytes, reserving 2728 bytes for the bounded envelope.
+    // The codec still checks the complete serialized UTF-8 message against 256 KiB.
+    public const int ChunkLimit = 190 * 1024;
     private readonly TimeProvider time;
     private byte[]? buffer, expectedHash;
     private Guid id;

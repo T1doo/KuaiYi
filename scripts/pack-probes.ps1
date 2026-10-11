@@ -27,6 +27,7 @@ try {
     }
     Copy-Item assets/fixtures/selection-public.txt $destination
     Copy-Item docs/windows-probes.md (Join-Path $destination 'README.md')
+    Copy-Item docs/compatibility-matrix.json $destination
     $files = Get-ChildItem $destination -Recurse -File | ForEach-Object {
         @{ path = [IO.Path]::GetRelativePath($destination, $_.FullName); sha256 = (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant() }
     }

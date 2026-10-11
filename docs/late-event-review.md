@@ -22,4 +22,6 @@ Off 的原断言改为“无任何事件”，同时保留 HTTP 零请求断言�
 
 本地离线全量 **118/118**（Core45、Provider73）；源文件摘要、TRX、跨构建日志和探针 ZIP 摘要见 `test-evidence/2026-10-11-late-events-summary.json`。新增限额用例曾误把 Anthropic 正常 Usage 漏出预期序列，保留 `2026-10-11-limit-test-assumption-failure.trx`，现断言精确序列及 usage 值。
 
+后续协议边界批为 **134/134**，独立证据见 protocol-boundaries-summary。生产信封入口默认关联 Gate 拥有的取消令牌，在身份锁内完成关联，避免替换/释放源的竞态；不传 caller token 也实际中止等待响应头的 HTTP。新增四项测试不释放服务端屏障，只通过 Off/Stop/Lock/换文使该请求及时结束。原有故意不传令牌的低层传输测试仍保留，继续验证实际迟到 401/503/断流时错误不被接纳。
+
 这是开发者修复与运行记录，供监督方独立复核；不冒充已完成的外部独审或 GitHub CI。正式 WPF App 尚未实现，接收合同还需宿主接入与 Windows UI 验收。P0 实际平台门槛仍 Blocked，A—L 106 条整体验收均 NotRun。

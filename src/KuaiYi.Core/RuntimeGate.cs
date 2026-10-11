@@ -146,6 +146,19 @@ public sealed class RuntimeGate
         lock (sync) return activation == Activation.On && active == identity && !suspension.HasFlag(Suspension.SessionLocked);
     }
 
+    /// <summary>Create a caller-owned cancellation link under the identity lock, before the source can be replaced/disposed.</summary>
+    public bool TryLinkRequestCancellation(RequestIdentity identity, CancellationToken caller, out CancellationTokenSource? linked)
+    {
+        lock (sync)
+        {
+            linked = null;
+            if (activation != Activation.On || active != identity || suspension.HasFlag(Suspension.SessionLocked) ||
+                activeCancellation is not { IsCancellationRequested: false }) return false;
+            linked = CancellationTokenSource.CreateLinkedTokenSource(activeCancellation.Token, caller);
+            return true;
+        }
+    }
+
     /// <summary>Final destination-thread check and bounded synchronous application, serialized with identity replacement.</summary>
     public bool TryApply(RequestIdentity identity, Action apply)
     {

@@ -10,6 +10,24 @@ namespace KuaiYi.Provider.Tests;
 public sealed class LateEventIsolationTests(ServerFixture fixture) : IClassFixture<ServerFixture>
 {
     [Theory]
+    [InlineData("off")] [InlineData("stop")] [InlineData("lock")] [InlineData("replace")]
+    public async Task EnvelopeEntryCancelsWaitingHttpEvenWithoutCallerToken(string action)
+    {
+        var p = Prepare(ApiProtocol.OpenAIChat, "held-headers"); using var provider = new ProviderClient(); using var secret = Secret();
+        async Task<List<ModelEventEnvelope>> Drain()
+        {
+            List<ModelEventEnvelope> result = [];
+            await foreach (var envelope in provider.GenerateEnvelopesAsync(p.Request, p.Gate, p.Identity, secret)) result.Add(envelope);
+            return result;
+        }
+        Task<List<ModelEventEnvelope>> pending = Drain(); await WaitForBarrier(p.Run);
+        if (action == "off") p.Gate.Disable(); else if (action == "stop") p.Gate.StopGeneration();
+        else if (action == "lock") p.Gate.SetSessionLocked(true);
+        else await StartAndCompleteReplacement(provider, secret, p.Request, p.Gate);
+        // The server barrier is never released: completion requires cancellation of the actual pending HTTP read.
+        Assert.Empty(await pending.WaitAsync(TimeSpan.FromSeconds(5))); Assert.Single(await Requests(p.Run));
+    }
+    [Theory]
     [InlineData(ApiProtocol.OpenAIChat, false)] [InlineData(ApiProtocol.OpenAIChat, true)]
     [InlineData(ApiProtocol.AnthropicMessages, false)] [InlineData(ApiProtocol.AnthropicMessages, true)]
     public async Task ReplacementOrOffWhileWaitingForHeadersDiscardsOldCancellation(ApiProtocol protocol, bool off)

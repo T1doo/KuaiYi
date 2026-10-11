@@ -6,7 +6,7 @@ Windows 11 x64 AI 翻译软件，完整产品与验收规格见 [SPEC.md](SPEC.m
 
 已运行的检查、失败修复与平台阻塞见 [开发进度](docs/progress.md)、[验收状态](docs/acceptance-report.md) 和 [需求追踪](docs/traceability.json)。不得将这些离线测试等同于真实 Windows UIA、OLE、焦点、截图、多屏 DPI 或安装验收。
 
-最新离线测试 118 项通过；旧错误晚到缺口的复现与修复记录见 [专项审查](docs/late-event-review.md)。GitHub CI 未运行。
+最新离线测试 134 项通过；旧错误晚到缺口见 [专项审查](docs/late-event-review.md)，最大分片 JSON 外壳缺口见 [协议边界审查](docs/protocol-boundary-review.md)。GitHub CI 未运行。
 
 ## 构建与离线测试
 

@@ -16,7 +16,9 @@
 
 这只是用户显式运行的 P0 探针；尚未连接正式鼠标手势、epoch、授权复制、熔断恢复、后台重启 Broker 或生产 IPC ACL，不能据此宣布 R03 完成。
 
-至少记录 Chrome、Edge、Adobe Acrobat、SumatraPDF、VS Code 编辑视图及预览视图、Notepad 的实际 OS/应用版本、窗口/文档类型、前台状态、选区性质与 JSON 结果。PDF 分别测试含文本和扫描件；预览、跨行与多范围分别记录。扫描件不应被伪造为 UIA 文本成功；需要后续截图链路。
+必须按 SPEC 17.2 分别记录 Chrome、Edge（包括内置 PDF 文本层）、Adobe Acrobat Reader、VS Code 源码编辑/内置预览、Obsidian 源码/实时预览/阅读视图、记事本。待测逐视图矩阵见仓库 `docs/compatibility-matrix.json`（探针包根目录同名文件）；实际 OS/应用版本、窗口/文档类型、选区性质与证据仍为空，所有视图未运行。SumatraPDF 只属于扩展矩阵，不能替代核心应用或 Obsidian 任一视图。
+
+核心可选/可复制文字视图各至少 20 次固定动作，覆盖单词、段落、长文、混合 Unicode 与位置；U/C 正确获取率目标 ≥95%，错误内容发送目标 0。不排除失败视图来提高分母表现，也不以截图替换可复制文字的划词验收。扫描 PDF 单列截图，不混入文字成功率；路径分别记录 U/C/D/S/N/B 或未运行，不使用一个应用一枚绿色勾选。
 
 ## HWND / 生长探针
 
@@ -35,5 +37,7 @@ CSV 对每个实际设置记录预期/实际 HWND、锚点包含、工作区包�
 ## Native Messaging 离线证据
 
 `KuaiYi.NativeMessagingProbe --probe` 是仓库测试工具，通过独立进程 stdio 接受有界 Ping 并返回 Pong；stdout 没有普通日志，产品命令明确拒绝。离线测试真实启动进程验证双向两帧。另测 UTF-8 字节上限、未完成帧、无符号伪造长度和 Begin/Chunk/Commit 的顺序/总量/摘要/截止。
+
+Chunk 原始上限为 190KiB，为 base64 与规范 JSON 外壳保留空间；完整序列化后的 UTF-8 JSON 仍不得超过 256KiB。新增 ImageChunkWire 完整帧编解码/重组测试，包括最大值、超一字节、ID/索引/多字节字段和完整 20MiB 输入。输入字节限界不代表图像格式/像素验证或浏览器已接入。
 
 它未注册为浏览器 NativeHost，也未实现生产来源 allowlist、桌面 ACL 连接、扩展真实传图或模型调用。浏览器原生宿主和协议编码器不能混为一谈，实际 Chrome/Edge 集成仍为 NotRun。

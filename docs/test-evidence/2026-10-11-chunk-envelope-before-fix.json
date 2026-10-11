@@ -1,0 +1,12 @@
+{
+  "sourceBaseCommit": "d898f097a89a547da5835ac988057c62bea03f57",
+  "utc": "2026-10-11T05:06:04.397375+00:00",
+  "failed": 1,
+  "passed": 0,
+  "reason": "Declared maximum raw chunk fills 256KiB after base64 before JSON envelope",
+  "codeDigests": {
+    "src/KuaiYi.Contracts/NativeMessaging.cs": "67be0fe6e2307d532be9c2f49f3884013f37007a5b03ed2e98bda26b4739d778",
+    "tests/KuaiYi.Core.Tests/ImageChunkWireTests.cs": "b3ddaeaaa1b08b53a3c8a94efa92fb6915c6374bad1cf2fbd9f82510786f8696",
+    "docs/test-evidence/2026-10-11-chunk-envelope-before-fix.trx": "cb988d7cb3eca65bc72ebb34c815722ca7c1bab4047a442ecb80a040ac714313"
+  }
+}

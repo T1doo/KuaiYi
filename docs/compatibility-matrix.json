@@ -1,0 +1,406 @@
+{
+  "schemaVersion": 1,
+  "source": "SPEC.md §17.2",
+  "sourceLine": 1582,
+  "statement": "Pending targets, not verified support. Extended applications never replace core failures.",
+  "environment": "Linux cloud; Windows interactive execution Blocked",
+  "core": [
+    {
+      "application": "Chrome",
+      "version": null,
+      "osVersion": null,
+      "views": [
+        {
+          "view": "普通 HTML 段落",
+          "textAcquisitionDenominator": true,
+          "plannedMinimumActions": 20,
+          "executedActions": 0,
+          "correctRate": null,
+          "wrongContentSent": null,
+          "pathStatuses": {
+            "U": "NotRun",
+            "C": "NotRun",
+            "D": "NotRun",
+            "Extension": "NotRun"
+          },
+          "environment": "Blocked",
+          "status": "NotRun",
+          "evidence": [],
+          "limitations": []
+        },
+        {
+          "view": "只读文本",
+          "textAcquisitionDenominator": true,
+          "plannedMinimumActions": 20,
+          "executedActions": 0,
+          "correctRate": null,
+          "wrongContentSent": null,
+          "pathStatuses": {
+            "U": "NotRun",
+            "C": "NotRun",
+            "D": "NotRun",
+            "Extension": "NotRun"
+          },
+          "environment": "Blocked",
+          "status": "NotRun",
+          "evidence": [],
+          "limitations": []
+        },
+        {
+          "view": "输入区",
+          "textAcquisitionDenominator": true,
+          "plannedMinimumActions": 20,
+          "executedActions": 0,
+          "correctRate": null,
+          "wrongContentSent": null,
+          "pathStatuses": {
+            "U": "NotRun",
+            "C": "NotRun",
+            "D": "NotRun",
+            "Extension": "NotRun"
+          },
+          "environment": "Blocked",
+          "status": "NotRun",
+          "evidence": [],
+          "limitations": []
+        },
+        {
+          "view": "页面图片",
+          "textAcquisitionDenominator": false,
+          "plannedMinimumActions": null,
+          "executedActions": 0,
+          "correctRate": null,
+          "wrongContentSent": null,
+          "pathStatuses": {
+            "U": "NotRun",
+            "C": "NotRun",
+            "D": "NotRun",
+            "Extension": "NotRun"
+          },
+          "environment": "Blocked",
+          "status": "NotRun",
+          "evidence": [],
+          "limitations": []
+        }
+      ]
+    },
+    {
+      "application": "Edge",
+      "version": null,
+      "osVersion": null,
+      "views": [
+        {
+          "view": "普通 HTML 段落",
+          "textAcquisitionDenominator": true,
+          "plannedMinimumActions": 20,
+          "executedActions": 0,
+          "correctRate": null,
+          "wrongContentSent": null,
+          "pathStatuses": {
+            "U": "NotRun",
+            "C": "NotRun",
+            "D": "NotRun",
+            "Extension": "NotRun"
+          },
+          "environment": "Blocked",
+          "status": "NotRun",
+          "evidence": [],
+          "limitations": []
+        },
+        {
+          "view": "只读文本",
+          "textAcquisitionDenominator": true,
+          "plannedMinimumActions": 20,
+          "executedActions": 0,
+          "correctRate": null,
+          "wrongContentSent": null,
+          "pathStatuses": {
+            "U": "NotRun",
+            "C": "NotRun",
+            "D": "NotRun",
+            "Extension": "NotRun"
+          },
+          "environment": "Blocked",
+          "status": "NotRun",
+          "evidence": [],
+          "limitations": []
+        },
+        {
+          "view": "输入区",
+          "textAcquisitionDenominator": true,
+          "plannedMinimumActions": 20,
+          "executedActions": 0,
+          "correctRate": null,
+          "wrongContentSent": null,
+          "pathStatuses": {
+            "U": "NotRun",
+            "C": "NotRun",
+            "D": "NotRun",
+            "Extension": "NotRun"
+          },
+          "environment": "Blocked",
+          "status": "NotRun",
+          "evidence": [],
+          "limitations": []
+        },
+        {
+          "view": "页面图片",
+          "textAcquisitionDenominator": false,
+          "plannedMinimumActions": null,
+          "executedActions": 0,
+          "correctRate": null,
+          "wrongContentSent": null,
+          "pathStatuses": {
+            "U": "NotRun",
+            "C": "NotRun",
+            "D": "NotRun",
+            "Extension": "NotRun"
+          },
+          "environment": "Blocked",
+          "status": "NotRun",
+          "evidence": [],
+          "limitations": []
+        },
+        {
+          "view": "内置 PDF 可选文本层",
+          "textAcquisitionDenominator": true,
+          "plannedMinimumActions": 20,
+          "executedActions": 0,
+          "correctRate": null,
+          "wrongContentSent": null,
+          "pathStatuses": {
+            "U": "NotRun",
+            "C": "NotRun",
+            "D": "NotRun",
+            "Extension": "NotRun"
+          },
+          "environment": "Blocked",
+          "status": "NotRun",
+          "evidence": [],
+          "limitations": []
+        }
+      ]
+    },
+    {
+      "application": "Adobe Acrobat Reader",
+      "version": null,
+      "osVersion": null,
+      "views": [
+        {
+          "view": "文本层 PDF",
+          "textAcquisitionDenominator": true,
+          "plannedMinimumActions": 20,
+          "executedActions": 0,
+          "correctRate": null,
+          "wrongContentSent": null,
+          "pathStatuses": {
+            "U": "NotRun",
+            "C": "NotRun",
+            "S": "NotRun"
+          },
+          "environment": "Blocked",
+          "status": "NotRun",
+          "evidence": [],
+          "limitations": []
+        },
+        {
+          "view": "双栏与跨段选择",
+          "textAcquisitionDenominator": true,
+          "plannedMinimumActions": 20,
+          "executedActions": 0,
+          "correctRate": null,
+          "wrongContentSent": null,
+          "pathStatuses": {
+            "U": "NotRun",
+            "C": "NotRun",
+            "S": "NotRun"
+          },
+          "environment": "Blocked",
+          "status": "NotRun",
+          "evidence": [],
+          "limitations": []
+        },
+        {
+          "view": "扫描 PDF",
+          "textAcquisitionDenominator": false,
+          "plannedMinimumActions": null,
+          "executedActions": 0,
+          "correctRate": null,
+          "wrongContentSent": null,
+          "pathStatuses": {
+            "U": "NotRun",
+            "C": "NotRun",
+            "S": "NotRun"
+          },
+          "environment": "Blocked",
+          "status": "NotRun",
+          "evidence": [],
+          "limitations": []
+        }
+      ]
+    },
+    {
+      "application": "VS Code",
+      "version": null,
+      "osVersion": null,
+      "views": [
+        {
+          "view": "Markdown 源码编辑",
+          "textAcquisitionDenominator": true,
+          "plannedMinimumActions": 20,
+          "executedActions": 0,
+          "correctRate": null,
+          "wrongContentSent": null,
+          "pathStatuses": {
+            "U": "NotRun",
+            "C": "NotRun",
+            "D": "NotRun",
+            "S": "NotRun"
+          },
+          "environment": "Blocked",
+          "status": "NotRun",
+          "evidence": [],
+          "limitations": []
+        },
+        {
+          "view": "内置预览",
+          "textAcquisitionDenominator": true,
+          "plannedMinimumActions": 20,
+          "executedActions": 0,
+          "correctRate": null,
+          "wrongContentSent": null,
+          "pathStatuses": {
+            "U": "NotRun",
+            "C": "NotRun",
+            "D": "NotRun",
+            "S": "NotRun"
+          },
+          "environment": "Blocked",
+          "status": "NotRun",
+          "evidence": [],
+          "limitations": []
+        }
+      ]
+    },
+    {
+      "application": "Obsidian",
+      "version": null,
+      "osVersion": null,
+      "views": [
+        {
+          "view": "源码",
+          "textAcquisitionDenominator": true,
+          "plannedMinimumActions": 20,
+          "executedActions": 0,
+          "correctRate": null,
+          "wrongContentSent": null,
+          "pathStatuses": {
+            "U": "NotRun",
+            "C": "NotRun",
+            "D": "NotRun",
+            "S": "NotRun"
+          },
+          "environment": "Blocked",
+          "status": "NotRun",
+          "evidence": [],
+          "limitations": []
+        },
+        {
+          "view": "实时预览",
+          "textAcquisitionDenominator": true,
+          "plannedMinimumActions": 20,
+          "executedActions": 0,
+          "correctRate": null,
+          "wrongContentSent": null,
+          "pathStatuses": {
+            "U": "NotRun",
+            "C": "NotRun",
+            "D": "NotRun",
+            "S": "NotRun"
+          },
+          "environment": "Blocked",
+          "status": "NotRun",
+          "evidence": [],
+          "limitations": []
+        },
+        {
+          "view": "阅读视图",
+          "textAcquisitionDenominator": true,
+          "plannedMinimumActions": 20,
+          "executedActions": 0,
+          "correctRate": null,
+          "wrongContentSent": null,
+          "pathStatuses": {
+            "U": "NotRun",
+            "C": "NotRun",
+            "D": "NotRun",
+            "S": "NotRun"
+          },
+          "environment": "Blocked",
+          "status": "NotRun",
+          "evidence": [],
+          "limitations": []
+        }
+      ]
+    },
+    {
+      "application": "记事本",
+      "version": null,
+      "osVersion": null,
+      "views": [
+        {
+          "view": "简单正文 / Unicode / 快速改选",
+          "textAcquisitionDenominator": true,
+          "plannedMinimumActions": 20,
+          "executedActions": 0,
+          "correctRate": null,
+          "wrongContentSent": null,
+          "pathStatuses": {
+            "U": "NotRun",
+            "Focus": "NotRun"
+          },
+          "environment": "Blocked",
+          "status": "NotRun",
+          "evidence": [],
+          "limitations": []
+        }
+      ]
+    }
+  ],
+  "extended": [
+    {
+      "application": "SumatraPDF",
+      "version": null,
+      "status": "NotRun",
+      "views": [
+        "文本层 PDF",
+        "扫描 PDF"
+      ],
+      "substitutesCore": false,
+      "evidence": []
+    }
+  ],
+  "textActions": [
+    "单词",
+    "段落",
+    "长文",
+    "混合 Unicode",
+    "不同位置"
+  ],
+  "targets": {
+    "minimumActionsPerTextView": 20,
+    "correctRateAtLeast": 0.95,
+    "wrongContentSent": 0
+  },
+  "pathLegend": {
+    "U": "UIA",
+    "C": "授权复制",
+    "D": "拖放",
+    "S": "仅显式截图",
+    "N": "不支持（需实际证据）",
+    "B": "环境受阻",
+    "Extension": "浏览器扩展",
+    "Focus": "焦点对照"
+  },
+  "productionIntegration": "UIA probe exists; production gestures/epoch/breaker/ACL not integrated; other acquisition paths incomplete"
+}
