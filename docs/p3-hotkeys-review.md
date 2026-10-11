@@ -17,3 +17,5 @@
 新增真实 Windows `KuaiYi.HotkeyOccupier`，明确注册公开命令行组合、message-only HWND/pump、Enter 撤销和非零清理失败。独立 `stage-p3-hotkeys-review.ps1` 输出正式 App、隔离公开浮窗 probe 和独立占用器；ZIP 为框架依赖、多文件、无原生 DLL/安装器/凭据，未在 Windows 执行。全部 17 旧包最终摘要核验，13 份历史摘要按精确签收 commit 审查。前轮误覆盖绝对截止包后恢复原字节的事故与恢复证据继续保留，不能说历史包全过程未被修改。
 
 R02/R14/P3-05 源码 InProgress、Windows 验证 Blocked；H01—H06 的源码有实现但整体仍 NotRun。全部 176 追踪条目及 106 整体验收不变，SPEC 两份原字节保留。P0/E06 Blocked，P1/P2/P3 InProgress，P4 未接；真实跨应用、多屏 DPI、截图、安装卸载及远端 CI 未运行。实机清单见 [Windows 清单](p3-hotkeys-windows-checklist.md)，设计与官方依据见 [ADR0014](adr/0014-transactional-hotkeys.md)。
+
+父审93b未签收：积压native队列和热键Commit跳过安全通知的缺口已另行复现与补正，以上99项范围不能证明这两个边界。最新源码、155专项与1281全量证据以[p3-hotkey-admission-review.md](p3-hotkey-admission-review.md)为准；93b原字节按精确commit保留。

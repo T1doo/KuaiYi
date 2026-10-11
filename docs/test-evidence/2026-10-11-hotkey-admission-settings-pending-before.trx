@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="100ec3cb-2dfa-4a5d-b203-ed16e2cc1753" name="@552716c6b8c5 2026-10-11 21:19:00" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T21:19:00.4623948+00:00" queuing="2026-10-11T21:19:00.4623949+00:00" start="2026-10-11T21:18:58.7169963+00:00" finish="2026-10-11T21:19:01.4479081+00:00" />
+  <TestSettings name="default" id="6df061ed-f9e3-413e-a3ee-82bf3cc06037">
+    <Deployment runDeploymentRoot="_552716c6b8c5_2026-10-11_21_19_00" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="d6912c3b-c511-4694-83a8-3e6ebc5e7ba5" testId="fd36ea5e-d121-4bfc-4597-5036ceebda6d" testName="KuaiYi.Core.Tests.SettingsBindingTests.AlreadyPublishedSafetyNoticeDoesNotWaitForPendingNativeCommitOriginal(fail: True)" computerName="552716c6b8c5" duration="00:00:01.1382893" startTime="2026-10-11T21:18:59.2382094+00:00" endTime="2026-10-11T21:19:00.3887936+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d6912c3b-c511-4694-83a8-3e6ebc5e7ba5">
+      <Output>
+        <ErrorInfo>
+          <Message>System.TimeoutException : The operation has timed out.</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SettingsBindingTests.AlreadyPublishedSafetyNoticeDoesNotWaitForPendingNativeCommitOriginal(Boolean fail) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 52
+   at KuaiYi.Core.Tests.SettingsBindingTests.AlreadyPublishedSafetyNoticeDoesNotWaitForPendingNativeCommitOriginal(Boolean fail) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 53
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="dc43e2d4-6597-49a6-9fe3-4401f758bc96" testId="28090142-eb19-19ef-a082-b552a6de29f2" testName="KuaiYi.Core.Tests.SettingsBindingTests.AlreadyPublishedSafetyNoticeDoesNotWaitForPendingNativeCommitOriginal(fail: False)" computerName="552716c6b8c5" duration="00:00:01.0103304" startTime="2026-10-11T21:19:00.4014574+00:00" endTime="2026-10-11T21:19:01.4019138+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dc43e2d4-6597-49a6-9fe3-4401f758bc96">
+      <Output>
+        <ErrorInfo>
+          <Message>System.TimeoutException : The operation has timed out.</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SettingsBindingTests.AlreadyPublishedSafetyNoticeDoesNotWaitForPendingNativeCommitOriginal(Boolean fail) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 52
+   at KuaiYi.Core.Tests.SettingsBindingTests.AlreadyPublishedSafetyNoticeDoesNotWaitForPendingNativeCommitOriginal(Boolean fail) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 53
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBindingTests.AlreadyPublishedSafetyNoticeDoesNotWaitForPendingNativeCommitOriginal(fail: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="fd36ea5e-d121-4bfc-4597-5036ceebda6d">
+      <Execution id="d6912c3b-c511-4694-83a8-3e6ebc5e7ba5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBindingTests" name="AlreadyPublishedSafetyNoticeDoesNotWaitForPendingNativeCommitOriginal" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBindingTests.AlreadyPublishedSafetyNoticeDoesNotWaitForPendingNativeCommitOriginal(fail: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="28090142-eb19-19ef-a082-b552a6de29f2">
+      <Execution id="dc43e2d4-6597-49a6-9fe3-4401f758bc96" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBindingTests" name="AlreadyPublishedSafetyNoticeDoesNotWaitForPendingNativeCommitOriginal" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="fd36ea5e-d121-4bfc-4597-5036ceebda6d" executionId="d6912c3b-c511-4694-83a8-3e6ebc5e7ba5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="28090142-eb19-19ef-a082-b552a6de29f2" executionId="dc43e2d4-6597-49a6-9fe3-4401f758bc96" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="0" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.08]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.22]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.24]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:01.42]       System.TimeoutException : The operation has timed out.
+[xUnit.net 00:00:01.42]       Stack Trace:
+[xUnit.net 00:00:01.42]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs(52,0): at KuaiYi.Core.Tests.SettingsBindingTests.AlreadyPublishedSafetyNoticeDoesNotWaitForPendingNativeCommitOriginal(Boolean fail)
+[xUnit.net 00:00:01.42]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs(53,0): at KuaiYi.Core.Tests.SettingsBindingTests.AlreadyPublishedSafetyNoticeDoesNotWaitForPendingNativeCommitOriginal(Boolean fail)
+[xUnit.net 00:00:01.42]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.43]       System.TimeoutException : The operation has timed out.
+[xUnit.net 00:00:02.43]       Stack Trace:
+[xUnit.net 00:00:02.43]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs(52,0): at KuaiYi.Core.Tests.SettingsBindingTests.AlreadyPublishedSafetyNoticeDoesNotWaitForPendingNativeCommitOriginal(Boolean fail)
+[xUnit.net 00:00:02.43]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs(53,0): at KuaiYi.Core.Tests.SettingsBindingTests.AlreadyPublishedSafetyNoticeDoesNotWaitForPendingNativeCommitOriginal(Boolean fail)
+[xUnit.net 00:00:02.43]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.43]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T21:19:00.3918072+00:00">
+        <Text>[xUnit.net 00:00:01.41]     KuaiYi.Core.Tests.SettingsBindingTests.AlreadyPublishedSafetyNoticeDoesNotWaitForPendingNativeCommitOriginal(fail: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T21:19:01.4029257+00:00">
+        <Text>[xUnit.net 00:00:02.43]     KuaiYi.Core.Tests.SettingsBindingTests.AlreadyPublishedSafetyNoticeDoesNotWaitForPendingNativeCommitOriginal(fail: False) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

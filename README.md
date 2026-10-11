@@ -6,7 +6,7 @@ Windows 11 x64 AI 翻译软件，完整产品与验收规格见 [SPEC.md](SPEC.m
 
 已运行的检查、失败修复与平台阻塞见 [开发进度](docs/progress.md)、[验收状态](docs/acceptance-report.md) 和 [需求追踪](docs/traceability.json)。不得将这些离线测试等同于真实 Windows UIA、OLE、焦点、截图、多屏 DPI 或安装验收。
 
-最新离线 .NET 测试 1225 项、扩展 Node 测试 63 项通过；旧错误晚到缺口见 [专项审查](docs/late-event-review.md)，最大分片 JSON 外壳缺口见 [协议边界审查](docs/protocol-boundary-review.md)。OLE 联合实验与未证实的宿主假设见 [OLE 探针说明](docs/ole-probe.md)。清理终结与退出确认修复见 [清理监督审查](docs/ole-cleanup-review.md)。新增独立 ImageWorker、真实原生 OCR/Shell 源码、双 EXE 开发身份清单与安装态验证脚本，见 [图片与身份说明](docs/imageworker-identity.md)。原生编译和 Windows OCR/菜单仍未执行。图片窗口的迟到状态与实际启动线程修复见 [UI 收尾审查](docs/image-ui-review.md)。最新子进程发布/启动终结竞态修复见 [清理竞态审查](docs/image-finalization-review.md)。最小 MV3 扩展、实际 NativeHost 分片/取消与授权边界见 [浏览器协议审查](docs/browser-native-host.md)。真实安装与浏览器取图未运行。GitHub CI 未运行。
+最新离线 .NET 测试 1281 项、扩展 Node 测试 63 项通过；旧错误晚到缺口见 [专项审查](docs/late-event-review.md)，最大分片 JSON 外壳缺口见 [协议边界审查](docs/protocol-boundary-review.md)。OLE 联合实验与未证实的宿主假设见 [OLE 探针说明](docs/ole-probe.md)。清理终结与退出确认修复见 [清理监督审查](docs/ole-cleanup-review.md)。新增独立 ImageWorker、真实原生 OCR/Shell 源码、双 EXE 开发身份清单与安装态验证脚本，见 [图片与身份说明](docs/imageworker-identity.md)。原生编译和 Windows OCR/菜单仍未执行。图片窗口的迟到状态与实际启动线程修复见 [UI 收尾审查](docs/image-ui-review.md)。最新子进程发布/启动终结竞态修复见 [清理竞态审查](docs/image-finalization-review.md)。最小 MV3 扩展、实际 NativeHost 分片/取消与授权边界见 [浏览器协议审查](docs/browser-native-host.md)。真实安装与浏览器取图未运行。GitHub CI 未运行。
 
 ## 构建与离线测试
 
@@ -71,3 +71,5 @@ P3-04 源实现与审查包见[复制兼容报告](docs/p3-clipboard-review.md)�
 父审确认原生来源检查后截止有缺口，已补最终本地资格检查，原17例7失败保留，修后17通过；全回归1126 .NET/63 Node。三层各自起点计时，没有共享原生起点或端到端1500ms证明，见[截止补审](docs/text-drop-admission-review.md)。
 
 P3-05 热键事务、真实设置保存与公开占用器切片见[审阅报告](docs/p3-hotkeys-review.md)。99专项、27托管项目已验证；实际Windows占用/锁屏/Explorer/AltGr仍NotRun。独立框架依赖审阅包由 `scripts/stage-p3-hotkeys-review.ps1` 生成，含真实热键占用器，不是安装器；P4/P6模型动作尚未接入。
+
+热键前级生命周期与已提交配置安全通知父审补正见[补审报告](docs/p3-hotkey-admission-review.md)：155专项通过，独立补审包由 `scripts/stage-p3-hotkey-admission.ps1` 生成；上一轮93b待签收，实际Native HWND与Windows消息队列仍NotRun。

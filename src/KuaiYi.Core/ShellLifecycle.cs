@@ -55,7 +55,7 @@ public sealed partial class RuntimeGate
         lock(sync)
         {
             if(!stillCurrent()||epoch!=intent.Epoch||suspension!=Suspension.None||!profileBindings.TryGetValue(intent.Binding.ProfileId,out var current)||current!=intent.Binding)return false;
-            consented.Add(intent.Origin);activation=Activation.On;localOnly=false;presentation=Presentation.Compact;return true;
+            consented.Add(intent.Origin);activation=Activation.On;localOnly=false;presentation=Presentation.Compact;AdvanceHotkeyInputLocked();return true;
         }
     }
 }

@@ -69,8 +69,14 @@ public sealed class SettingsCoordinator(SettingsStore store,SecretFileStore secr
                 else{publicationUnconfirmed=true;throw new SettingsTransactionUnconfirmedException();}
             }
             committed=true;Volatile.Write(ref effective,saved); // Whole immutable configuration changes only after disk publication.
-            if(hotkeyTransaction!=null)await hotkeyTransaction.CommitAsync(saved);
-            PublishCommitted(saved,change);
+            List<Exception> publicationErrors=[];
+            Task? originalHotkeyCommit=null;
+            if(hotkeyTransaction!=null)try{originalHotkeyCommit=hotkeyTransaction.CommitAsync(saved);}catch(Exception error){publicationErrors.Add(error);}
+            // Disk/effective already changed. Every safety subscriber must receive revocation even when native commit/fence failed.
+            try{PublishCommitted(saved,change);}catch(Exception error){publicationErrors.Add(error);}
+            if(originalHotkeyCommit!=null)try{await originalHotkeyCommit;}catch(Exception error){publicationErrors.Add(error);}
+            if(publicationErrors.Count==1)ExceptionDispatchInfo.Capture(publicationErrors[0]).Throw();
+            if(publicationErrors.Count>1)throw new AggregateException("Configuration committed; hotkey settlement or safety notification failed. Recovery journal retained.",publicationErrors);
             // No cancellation after commit: finish durable deletion, or retain journal for recovery.
             foreach(var reference in retired)await secrets.RevokeAsync(reference);
             File.Delete(journal);journalWritten=false;return saved;

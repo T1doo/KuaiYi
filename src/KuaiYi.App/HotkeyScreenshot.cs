@@ -5,23 +5,25 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using KuaiYi.Core;
 using KuaiYi.Imaging;
 using KuaiYi.Windows;
 namespace KuaiYi.App;
 internal sealed partial class ShellWindow
 {
     private Task screenshotHotkeyTask=Task.CompletedTask;private CancellationTokenSource? screenshotHotkeyStop;private CaptureHostClient? screenshotHotkeyOwner;
-    private Task StartHotkeyScreenshot()
+    private Task StartHotkeyScreenshot(HotkeyInputIdentity input)
     {
+        if(!lifecycle.Gate.IsHotkeyInputCurrent(input))return Task.CompletedTask;
         if(!screenshotHotkeyTask.IsCompleted){screenshotHotkeyStop?.Cancel();return screenshotHotkeyTask;}
         if(screenshotHotkeyOwner!=null){button.ToolTip="旧截图进程退出尚未确认；暂不再启动。";return Task.CompletedTask;}
-        if(!IsVisible)ShowOverlay();return screenshotHotkeyTask=ObserveHotkeyScreenshot();
+        if(!IsVisible){ShowOverlay();button.ToolTip="已显示浮窗，请再次按截图快捷键开始框选。";return Task.CompletedTask;}return screenshotHotkeyTask=ObserveHotkeyScreenshot(input);
     }
-    private async Task ObserveHotkeyScreenshot()
-    {try{await PrepareHotkeyScreenshot();}catch(Exception error){Report("截图原操作未正常结束；退出前继续核实所有权",error);}}
-    private async Task PrepareHotkeyScreenshot()
+    private async Task ObserveHotkeyScreenshot(HotkeyInputIdentity input)
+    {try{await PrepareHotkeyScreenshot(input);}catch(Exception error){Report("截图原操作未正常结束；退出前继续核实所有权",error);}}
+    private async Task PrepareHotkeyScreenshot(HotkeyInputIdentity input)
     {
-        using var intent=new ScreenshotIntent(lifecycle.Gate);using var cancellation=CancellationTokenSource.CreateLinkedTokenSource(lifetime.Token);screenshotHotkeyStop=cancellation;ScreenshotSnapshot? snapshot=null;ScreenshotSelection? selection=null;
+        using var intent=new ScreenshotIntent(lifecycle.Gate,input);using var cancellation=CancellationTokenSource.CreateLinkedTokenSource(lifetime.Token);screenshotHotkeyStop=cancellation;ScreenshotSnapshot? snapshot=null;ScreenshotSelection? selection=null;
         var visible=Application.Current.Windows.Cast<Window>().Where(w=>w.IsVisible).ToArray();var closed=new HashSet<Window>();void OnClosed(object? sender,EventArgs args){if(sender is Window window)closed.Add(window);}foreach(var window in visible)window.Closed+=OnClosed;var poll=new DispatcherTimer{Interval=TimeSpan.FromMilliseconds(100)};poll.Tick+=(_,_)=>{if(!intent.IsCurrent||exiting)cancellation.Cancel();};poll.Start();Refresh();
         void Restore(){if(exiting||lifecycle.Gate.Snapshot.Suspension.HasFlag(KuaiYi.Core.Suspension.SessionLocked))return;foreach(var window in visible)if(!closed.Contains(window)&&!window.IsVisible)window.Show();}
         using var onCancel=cancellation.Token.Register(()=>Dispatcher.BeginInvoke(Restore));

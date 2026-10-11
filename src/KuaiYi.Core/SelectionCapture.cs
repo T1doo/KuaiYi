@@ -6,7 +6,7 @@ public sealed record SelectionWindow(long Handle,uint ProcessId,long ProcessStar
 public sealed record SelectionInputIdentity(CaptureTicket Ticket,string SettingsVersion,Guid HookId);
 public sealed record SelectionRawInput(bool Down,PixelPoint Point,long TimeMs,bool Injected,long Foreground,uint ProcessId,long CapturedUtcTicks,long LossRevision,SelectionInputIdentity Identity);
 public sealed record SelectionPointerEvent(bool Down,PixelPoint Point,long TimeMs,bool Injected,SelectionWindow Window,SelectionInputIdentity? InputIdentity=null);
-public sealed record SelectionGesture(SelectionWindow Window,PixelPoint Down,PixelPoint Up,long TimeMs,int ClickCount,bool Explicit=false);
+public sealed record SelectionGesture(SelectionWindow Window,PixelPoint Down,PixelPoint Up,long TimeMs,int ClickCount,bool Explicit=false,HotkeyInputIdentity? HotkeyInput=null);
 public enum SelectionCaptureStatus{Success,EmptyOrUnsupported,Sensitive,Stale,SoftTimeout,HardTimeout,Crash,Cancelled,ProtocolFailure,CleanupPending,Paused,TooLarge,UntrustedGesture,ClipboardUnsupported,ClipboardTimeout,ClipboardUnrelated,ClipboardBusy}
 public enum SelectionSourceKind{Uia,Clipboard,OleDrop}
 public sealed record SelectionCaptureResult(SelectionCaptureStatus Status,string Text="",ImmutableArray<PixelRect> Ranges=default,ImmutableArray<int> RuntimeId=default,PixelRect? ControlBounds=null,SelectionCopyEvidence? CopyEvidence=null,SelectionSourceKind SourceKind=SelectionSourceKind.Uia,ClipboardRecovery Recovery=ClipboardRecovery.NotNeeded);
@@ -88,10 +88,11 @@ public sealed class SelectionCaptureCoordinator: IAsyncDisposable
             var gesture=tracker.Accept(input);return gesture==null?Task.CompletedTask:Start(gesture,true,frozen.Ticket);
         }
     }
-    public Task ExplicitAsync(SelectionWindow window,PixelPoint point)
-    {lock(sync){if(disposed)return Task.CompletedTask;tracker.Reset();return Start(new(window,point,point,Environment.TickCount64,0,true),false);}}
+    public Task ExplicitAsync(SelectionWindow window,PixelPoint point,HotkeyInputIdentity? input=null)
+    {lock(sync){if(disposed)return Task.CompletedTask;CaptureTicket? frozen=null;if(input is {} expected){if(!gate.TryBeginHotkeyPassiveCapture(expected,out var ticket))return Task.CompletedTask;frozen=ticket;}tracker.Reset();return Start(new(window,point,point,Environment.TickCount64,0,true,input),false,frozen);}}
     private Task Start(SelectionGesture gesture,bool debounce,CaptureTicket? frozen=null)
     {
+        if(gesture.HotkeyInput is {} input&&!gate.IsHotkeyInputCurrent(input))return Task.CompletedTask;
         if(settings() is not {} config||SelectionTextPolicy.Excluded(gesture.Window,config.Data,ownProcess)||!gate.TryBeginPassiveCapture(gesture.Explicit?gate.Snapshot.Mode:TriggerMode.Selection,out var ticket))return Task.CompletedTask;
         if(frozen is {} original&&ticket!=original)return Task.CompletedTask;
         pending?.Cancel();var cancellation=pending=new();long serial=++generation;var task=RunAsync(gesture,config,ticket,serial,cancellation,debounce);operations.Add(task);_ =ObserveAsync(task,cancellation);return task;
@@ -100,7 +101,7 @@ public sealed class SelectionCaptureCoordinator: IAsyncDisposable
     private async Task ObserveAsync(Task task,CancellationTokenSource cancellation)
     {try{await task.ConfigureAwait(false);}catch(Exception error){FailureCode=error.GetType().Name;}finally{lock(sync){operations.Remove(task);if(pending==cancellation)pending=null;cancellation.Dispose();}}}
     private bool Current(SelectionGesture gesture,SettingsSnapshot config,CaptureTicket ticket,long serial)
-    {lock(sync)return !disposed&&generation==serial&&settings()?.Version==config.Version&&gate.IsCaptureCurrent(ticket)&&!SelectionTextPolicy.Excluded(gesture.Window,settings()!.Data,ownProcess)&&platform.IsCurrent(gesture.Window);}
+    {lock(sync)return !disposed&&(gesture.HotkeyInput is not {} input||gate.IsHotkeyInputCurrent(input))&&generation==serial&&settings()?.Version==config.Version&&gate.IsCaptureCurrent(ticket)&&!SelectionTextPolicy.Excluded(gesture.Window,settings()!.Data,ownProcess)&&platform.IsCurrent(gesture.Window);}
     private async Task RunAsync(SelectionGesture gesture,SettingsSnapshot config,CaptureTicket ticket,long serial,CancellationTokenSource cancellation,bool debounce)
     {
         try

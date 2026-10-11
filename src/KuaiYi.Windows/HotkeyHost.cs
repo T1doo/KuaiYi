@@ -11,10 +11,10 @@ public sealed class HotkeyHost:ISettingsHotkeyParticipant,IAsyncDisposable
 {
     private sealed record State(Dispatcher Dispatcher,HwndSource Window,HotkeyRegistry Registry);
     private readonly TaskCompletionSource<State> ready=new(TaskCreationOptions.RunContinuationsAsynchronously);private readonly TaskCompletionSource exited=new(TaskCreationOptions.RunContinuationsAsynchronously);private readonly object sync=new();private readonly HashSet<Task> originals=[];private bool closing;private State? current;private readonly Thread thread;
-    public event Action<HotkeyDispatch>? Pressed;public event Action<string>? Failed;
-    public HotkeyHost()
+    private readonly RuntimeGate gate;public event Action<HotkeyInputDispatch>? Pressed;public event Action<string>? Failed;
+    public HotkeyHost(RuntimeGate gate)
     {
-        thread=new Thread(()=>
+        this.gate=gate??throw new ArgumentNullException(nameof(gate));thread=new Thread(()=>
         {
             HwndSource? window=null;
             try
@@ -34,7 +34,7 @@ public sealed class HotkeyHost:ISettingsHotkeyParticipant,IAsyncDisposable
     {
         if(message!=0x312)return 0;handled=true;try
         {
-            uint packed=unchecked((uint)l.ToInt64());if((packed&0xffff&~7u)!=0)return 0;var chord=new HotkeyChord((HotkeyModifiers)(packed&7),packed>>16);var signal=current!.Registry.Resolve(w.ToInt32(),chord,unchecked((uint)NativeRegistrar.GetMessageTime()));if(signal!=null)Pressed?.Invoke(signal);
+            uint packed=unchecked((uint)l.ToInt64());if((packed&0xffff&~7u)!=0)return 0;var chord=new HotkeyChord((HotkeyModifiers)(packed&7),packed>>16);var signal=HotkeyInputAdmission.Resolve(current!.Registry,gate,w.ToInt32(),chord,unchecked((uint)NativeRegistrar.GetMessageTime()));if(signal!=null)Pressed?.Invoke(signal);
         }
         catch(Exception error){ReportFailure(error.GetType().Name);}return 0;
     }
@@ -52,7 +52,7 @@ public sealed class HotkeyHost:ISettingsHotkeyParticipant,IAsyncDisposable
     public async Task ReconcileAsync(SettingsSnapshot saved)=>await Invoke(s=>{s.Registry.Reconcile(saved.Data.Hotkeys,saved.Version);return true;}).ConfigureAwait(false);
     public async Task RecoverAsync(string version)=>await Invoke(s=>{s.Registry.Recover(version);return true;}).ConfigureAwait(false);
     public async Task SuspendAsync(bool value)=>await Invoke(s=>{s.Registry.Suspend(value);return true;}).ConfigureAwait(false);
-    public bool IsCurrent(HotkeyDispatch dispatch)=>!exited.Task.IsCompleted&&current?.Registry.Current(dispatch)==true;
+    public bool IsCurrent(HotkeyInputDispatch dispatch)=>!exited.Task.IsCompleted&&current is {} state&&HotkeyInputAdmission.Current(state.Registry,gate,dispatch);
     public IReadOnlyList<HotkeyStatus> Status=>exited.Task.IsCompleted?[]:current?.Registry.Status??[];
     public async ValueTask DisposeAsync()
     {

@@ -66,12 +66,13 @@ internal sealed partial class ShellWindow
     }
     private async Task ObserveSelection(Task operation)
     {try{await operation;}catch(Exception error){if(!exiting)Report("读取选区失败",error);}}
-    private Task ReadCurrentSelection()
+    private Task ReadCurrentSelection(HotkeyInputIdentity? input=null)
     {
+        if(input is {} expected&&!lifecycle.Gate.IsHotkeyInputCurrent(expected))return Task.CompletedTask;
         if(selectionCapture==null||!lifecycle.Gate.TryBeginPassiveCapture(lifecycle.Gate.Snapshot.Mode,out _))return Task.CompletedTask;
         if(!NativeDesktop.GetCursorPos(out var point))return Task.CompletedTask;
         var source=SelectionDesktop.Resolve(NativeDesktop.GetForegroundWindow().ToInt64());
-        return source==null?Task.CompletedTask:selectionCapture.ExplicitAsync(source,new(point.X,point.Y));
+        return source==null?Task.CompletedTask:selectionCapture.ExplicitAsync(source,new(point.X,point.Y),input);
     }
     private void AcceptSelection(SelectionSourceSnapshot source,bool duplicate)
     {

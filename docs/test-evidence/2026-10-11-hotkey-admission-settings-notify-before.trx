@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="72583226-8982-4b4c-a2d0-8640c7c17463" name="@552716c6b8c5 2026-10-11 21:13:10" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T21:13:10.2370821+00:00" queuing="2026-10-11T21:13:10.2370822+00:00" start="2026-10-11T21:13:09.5213331+00:00" finish="2026-10-11T21:13:10.2624917+00:00" />
+  <TestSettings name="default" id="4eb3f6e1-324e-4956-b225-500df28915d5">
+    <Deployment runDeploymentRoot="_552716c6b8c5_2026-10-11_21_13_10" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="2bf415d9-2f5e-4c06-8566-fe984e943805" testId="759b38b8-1b05-7b67-3d16-3645f2e4ad5f" testName="KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: &quot;replace&quot;, observerFault: False)" computerName="552716c6b8c5" duration="00:00:00.1179530" startTime="2026-10-11T21:13:10.0124038+00:00" endTime="2026-10-11T21:13:10.1433584+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2bf415d9-2f5e-4c06-8566-fe984e943805">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure
+Expected: True
+Actual:   False</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(String operation, Boolean observerFault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="991b2613-91b3-4ab5-a0cb-8c926e9383ca" testId="c06e0a7b-b30b-c5aa-1992-ff8d8a0f059d" testName="KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: &quot;delete&quot;, observerFault: False)" computerName="552716c6b8c5" duration="00:00:00.0061708" startTime="2026-10-11T21:13:10.1559812+00:00" endTime="2026-10-11T21:13:10.1560063+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="991b2613-91b3-4ab5-a0cb-8c926e9383ca">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure
+Expected: True
+Actual:   False</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(String operation, Boolean observerFault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="11734a1e-da98-44ba-a197-3d85cb86864e" testId="c22e9cc8-fc43-157a-c154-5ee0c1954bd2" testName="KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: &quot;clear&quot;, observerFault: True)" computerName="552716c6b8c5" duration="00:00:00.0036506" startTime="2026-10-11T21:13:10.1652230+00:00" endTime="2026-10-11T21:13:10.1690369+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="11734a1e-da98-44ba-a197-3d85cb86864e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure
+Expected: True
+Actual:   False</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(String operation, Boolean observerFault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="482615a7-49e2-458f-9940-8a4499ad0fdf" testId="b1376f6c-27a9-8677-3830-5b1843187dee" testName="KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: &quot;clear&quot;, observerFault: False)" computerName="552716c6b8c5" duration="00:00:00.0051122" startTime="2026-10-11T21:13:10.1561738+00:00" endTime="2026-10-11T21:13:10.1605760+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="482615a7-49e2-458f-9940-8a4499ad0fdf">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure
+Expected: True
+Actual:   False</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(String operation, Boolean observerFault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1973e042-d62f-47e1-a229-0ffe28152ac0" testId="d82b6250-94e7-1825-bcb8-7a689292a5b8" testName="KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: &quot;delete&quot;, observerFault: True)" computerName="552716c6b8c5" duration="00:00:00.0058138" startTime="2026-10-11T21:13:10.1554143+00:00" endTime="2026-10-11T21:13:10.1554765+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1973e042-d62f-47e1-a229-0ffe28152ac0">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure
+Expected: True
+Actual:   False</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(String operation, Boolean observerFault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3a7251c1-bb74-43dd-be25-56fbabdeae3e" testId="3901251b-60df-d82c-7868-9b86e0e59a68" testName="KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: &quot;replace&quot;, observerFault: True)" computerName="552716c6b8c5" duration="00:00:00.0039871" startTime="2026-10-11T21:13:10.1607829+00:00" endTime="2026-10-11T21:13:10.1649782+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3a7251c1-bb74-43dd-be25-56fbabdeae3e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure
+Expected: True
+Actual:   False</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(String operation, Boolean observerFault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 47
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: &quot;replace&quot;, observerFault: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="3901251b-60df-d82c-7868-9b86e0e59a68">
+      <Execution id="3a7251c1-bb74-43dd-be25-56fbabdeae3e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBindingTests" name="NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: &quot;clear&quot;, observerFault: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b1376f6c-27a9-8677-3830-5b1843187dee">
+      <Execution id="482615a7-49e2-458f-9940-8a4499ad0fdf" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBindingTests" name="NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: &quot;clear&quot;, observerFault: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="c22e9cc8-fc43-157a-c154-5ee0c1954bd2">
+      <Execution id="11734a1e-da98-44ba-a197-3d85cb86864e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBindingTests" name="NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: &quot;delete&quot;, observerFault: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="d82b6250-94e7-1825-bcb8-7a689292a5b8">
+      <Execution id="1973e042-d62f-47e1-a229-0ffe28152ac0" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBindingTests" name="NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: &quot;replace&quot;, observerFault: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="759b38b8-1b05-7b67-3d16-3645f2e4ad5f">
+      <Execution id="2bf415d9-2f5e-4c06-8566-fe984e943805" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBindingTests" name="NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: &quot;delete&quot;, observerFault: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="c06e0a7b-b30b-c5aa-1992-ff8d8a0f059d">
+      <Execution id="991b2613-91b3-4ab5-a0cb-8c926e9383ca" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBindingTests" name="NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="759b38b8-1b05-7b67-3d16-3645f2e4ad5f" executionId="2bf415d9-2f5e-4c06-8566-fe984e943805" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c06e0a7b-b30b-c5aa-1992-ff8d8a0f059d" executionId="991b2613-91b3-4ab5-a0cb-8c926e9383ca" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c22e9cc8-fc43-157a-c154-5ee0c1954bd2" executionId="11734a1e-da98-44ba-a197-3d85cb86864e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b1376f6c-27a9-8677-3830-5b1843187dee" executionId="482615a7-49e2-458f-9940-8a4499ad0fdf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d82b6250-94e7-1825-bcb8-7a689292a5b8" executionId="1973e042-d62f-47e1-a229-0ffe28152ac0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3901251b-60df-d82c-7868-9b86e0e59a68" executionId="3a7251c1-bb74-43dd-be25-56fbabdeae3e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="6" executed="6" passed="0" failed="6" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.05]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.18]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.21]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.35]       Assert.True() Failure
+[xUnit.net 00:00:00.35]       Expected: True
+[xUnit.net 00:00:00.35]       Actual:   False
+[xUnit.net 00:00:00.36]       Stack Trace:
+[xUnit.net 00:00:00.36]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs(47,0): at KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(String operation, Boolean observerFault)
+[xUnit.net 00:00:00.36]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.36]       Assert.True() Failure
+[xUnit.net 00:00:00.36]       Expected: True
+[xUnit.net 00:00:00.36]       Actual:   False
+[xUnit.net 00:00:00.36]       Stack Trace:
+[xUnit.net 00:00:00.36]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs(47,0): at KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(String operation, Boolean observerFault)
+[xUnit.net 00:00:00.36]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.36]       Assert.True() Failure
+[xUnit.net 00:00:00.36]       Expected: True
+[xUnit.net 00:00:00.36]       Actual:   False
+[xUnit.net 00:00:00.36]       Stack Trace:
+[xUnit.net 00:00:00.36]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs(47,0): at KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(String operation, Boolean observerFault)
+[xUnit.net 00:00:00.36]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.37]       Assert.True() Failure
+[xUnit.net 00:00:00.37]       Expected: True
+[xUnit.net 00:00:00.37]       Actual:   False
+[xUnit.net 00:00:00.37]       Stack Trace:
+[xUnit.net 00:00:00.37]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs(47,0): at KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(String operation, Boolean observerFault)
+[xUnit.net 00:00:00.37]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.37]       Assert.True() Failure
+[xUnit.net 00:00:00.37]       Expected: True
+[xUnit.net 00:00:00.37]       Actual:   False
+[xUnit.net 00:00:00.37]       Stack Trace:
+[xUnit.net 00:00:00.37]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs(47,0): at KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(String operation, Boolean observerFault)
+[xUnit.net 00:00:00.37]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.38]       Assert.True() Failure
+[xUnit.net 00:00:00.38]       Expected: True
+[xUnit.net 00:00:00.38]       Actual:   False
+[xUnit.net 00:00:00.38]       Stack Trace:
+[xUnit.net 00:00:00.38]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs(47,0): at KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(String operation, Boolean observerFault)
+[xUnit.net 00:00:00.38]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.38]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T21:13:10.1488575+00:00">
+        <Text>[xUnit.net 00:00:00.35]     KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: "replace", observerFault: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T21:13:10.1567261+00:00">
+        <Text>[xUnit.net 00:00:00.36]     KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: "delete", observerFault: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T21:13:10.1567711+00:00">
+        <Text>[xUnit.net 00:00:00.36]     KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: "delete", observerFault: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T21:13:10.1611145+00:00">
+        <Text>[xUnit.net 00:00:00.37]     KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: "clear", observerFault: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T21:13:10.1661638+00:00">
+        <Text>[xUnit.net 00:00:00.37]     KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: "replace", observerFault: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T21:13:10.1700493+00:00">
+        <Text>[xUnit.net 00:00:00.38]     KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: "clear", observerFault: True) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

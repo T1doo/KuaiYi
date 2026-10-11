@@ -77,7 +77,7 @@ public sealed class HotkeyRegistry(IHotkeyRegistrar registrar)
         }
     }
     public void Commit(HotkeyPrepared ticket,string settingsVersion)
-    {lock(sync){var change=Require(ticket);fence=InputFence();revision++;active=change.After;requested=change.Requested;errors=ImmutableDictionary<string,int>.Empty;version=settingsVersion;pending=null;}}
+    {lock(sync){var change=Require(ticket);if(change.After.Values.Any(v=>!owned.TryGetValue(v.Id,out var chord)||chord!=v.Chord))throw new HotkeyRegistryStateException("preparedOwnershipUnconfirmed",true);fence=InputFence();faulted=false;revision++;active=change.After;requested=change.Requested;errors=ImmutableDictionary<string,int>.Empty;version=settingsVersion;pending=null;}}
     private Change Require(HotkeyPrepared ticket)=>pending is {} change&&change.Id==ticket.Id?change:throw new InvalidOperationException("Wrong hotkey transaction.");
     public void Rollback(HotkeyPrepared ticket)
     {

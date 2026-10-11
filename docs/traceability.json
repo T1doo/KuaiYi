@@ -41,9 +41,12 @@
         "docs/p3-hotkeys-review.md",
         "docs/p3-hotkeys-windows-checklist.md",
         "docs/adr/0014-transactional-hotkeys.md",
-        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json"
+        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json",
+        "docs/p3-hotkey-admission-review.md",
+        "docs/p3-hotkey-admission-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-hotkey-admission-summary.json"
       ],
-      "note": " P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed. P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun."
+      "note": " P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed. P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun. Parent93b not accepted: native front-queue old hotkeys and skipped committed safety notice reproduced. Synchronous lifecycle uptime/revision fence plus original MSG-time identity spans native/UI/acquisition; notifications precede waiting original commit, preserve all errors/journal.56 new cases;155 focused/1281 NET/63Node. Native Windows remains NotRun; whole case/stage not passed."
     },
     {
       "id": "R03",
@@ -266,9 +269,12 @@
         "docs/p3-hotkeys-review.md",
         "docs/p3-hotkeys-windows-checklist.md",
         "docs/adr/0014-transactional-hotkeys.md",
-        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json"
+        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json",
+        "docs/p3-hotkey-admission-review.md",
+        "docs/p3-hotkey-admission-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-hotkey-admission-summary.json"
       ],
-      "note": " P3 source acquisition production wiring: reuse actual MTA GetSelection Broker, bounded physical gesture queue/debounce, source/selection identities, final destination ticket/config check, 600ms held-child deadline and cooldown.50 portable/process cases added; real Windows UIA/mouse/compatibility NotRun. Copy consent/full hotkey/OLE text drop/P4 dispatcher not delivered; whole case/stage not passed. P3 review fixes: frozen birth ticket/config/hookId + callback HWND/PID/time, production raw-channel and UI-dispatch bridge rejects obsolete input, old hooks replaced; abandoned completed read always observed/zeroed.22 additional portable cases; Windows and whole acceptance remain NotRun. Absolute deadline follow-up: one monotonic capture origin across startup/reads/exit/final validation, token checked after completed reads before ownership delivery;15 additional cases. Relative timer alone was insufficient; Windows/whole cases still NotRun. P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun."
+      "note": " P3 source acquisition production wiring: reuse actual MTA GetSelection Broker, bounded physical gesture queue/debounce, source/selection identities, final destination ticket/config check, 600ms held-child deadline and cooldown.50 portable/process cases added; real Windows UIA/mouse/compatibility NotRun. Copy consent/full hotkey/OLE text drop/P4 dispatcher not delivered; whole case/stage not passed. P3 review fixes: frozen birth ticket/config/hookId + callback HWND/PID/time, production raw-channel and UI-dispatch bridge rejects obsolete input, old hooks replaced; abandoned completed read always observed/zeroed.22 additional portable cases; Windows and whole acceptance remain NotRun. Absolute deadline follow-up: one monotonic capture origin across startup/reads/exit/final validation, token checked after completed reads before ownership delivery;15 additional cases. Relative timer alone was insufficient; Windows/whole cases still NotRun. P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun. Parent93b not accepted: native front-queue old hotkeys and skipped committed safety notice reproduced. Synchronous lifecycle uptime/revision fence plus original MSG-time identity spans native/UI/acquisition; notifications precede waiting original commit, preserve all errors/journal.56 new cases;155 focused/1281 NET/63Node. Native Windows remains NotRun; whole case/stage not passed."
     },
     {
       "id": "R15",
@@ -743,9 +749,12 @@
         "docs/p3-hotkeys-review.md",
         "docs/p3-hotkeys-windows-checklist.md",
         "docs/adr/0014-transactional-hotkeys.md",
-        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json"
+        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json",
+        "docs/p3-hotkey-admission-review.md",
+        "docs/p3-hotkey-admission-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-hotkey-admission-summary.json"
       ],
-      "note": " P3 source acquisition production wiring: reuse actual MTA GetSelection Broker, bounded physical gesture queue/debounce, source/selection identities, final destination ticket/config check, 600ms held-child deadline and cooldown.50 portable/process cases added; real Windows UIA/mouse/compatibility NotRun. Copy consent/full hotkey/OLE text drop/P4 dispatcher not delivered; whole case/stage not passed. P3 review fixes: frozen birth ticket/config/hookId + callback HWND/PID/time, production raw-channel and UI-dispatch bridge rejects obsolete input, old hooks replaced; abandoned completed read always observed/zeroed.22 additional portable cases; Windows and whole acceptance remain NotRun. Absolute deadline follow-up: one monotonic capture origin across startup/reads/exit/final validation, token checked after completed reads before ownership delivery;15 additional cases. Relative timer alone was insufficient; Windows/whole cases still NotRun. P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun."
+      "note": " P3 source acquisition production wiring: reuse actual MTA GetSelection Broker, bounded physical gesture queue/debounce, source/selection identities, final destination ticket/config check, 600ms held-child deadline and cooldown.50 portable/process cases added; real Windows UIA/mouse/compatibility NotRun. Copy consent/full hotkey/OLE text drop/P4 dispatcher not delivered; whole case/stage not passed. P3 review fixes: frozen birth ticket/config/hookId + callback HWND/PID/time, production raw-channel and UI-dispatch bridge rejects obsolete input, old hooks replaced; abandoned completed read always observed/zeroed.22 additional portable cases; Windows and whole acceptance remain NotRun. Absolute deadline follow-up: one monotonic capture origin across startup/reads/exit/final validation, token checked after completed reads before ownership delivery;15 additional cases. Relative timer alone was insufficient; Windows/whole cases still NotRun. P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun. Parent93b not accepted: native front-queue old hotkeys and skipped committed safety notice reproduced. Synchronous lifecycle uptime/revision fence plus original MSG-time identity spans native/UI/acquisition; notifications precede waiting original commit, preserve all errors/journal.56 new cases;155 focused/1281 NET/63Node. Native Windows remains NotRun; whole case/stage not passed."
     },
     {
       "id": "P3-06",
@@ -2177,9 +2186,12 @@
         "docs/p3-hotkeys-review.md",
         "docs/p3-hotkeys-windows-checklist.md",
         "docs/adr/0014-transactional-hotkeys.md",
-        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json"
+        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json",
+        "docs/p3-hotkey-admission-review.md",
+        "docs/p3-hotkey-admission-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-hotkey-admission-summary.json"
       ],
-      "note": " P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun."
+      "note": " P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun. Parent93b not accepted: native front-queue old hotkeys and skipped committed safety notice reproduced. Synchronous lifecycle uptime/revision fence plus original MSG-time identity spans native/UI/acquisition; notifications precede waiting original commit, preserve all errors/journal.56 new cases;155 focused/1281 NET/63Node. Native Windows remains NotRun; whole case/stage not passed."
     },
     {
       "id": "H02",
@@ -2195,9 +2207,12 @@
         "docs/p3-hotkeys-review.md",
         "docs/p3-hotkeys-windows-checklist.md",
         "docs/adr/0014-transactional-hotkeys.md",
-        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json"
+        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json",
+        "docs/p3-hotkey-admission-review.md",
+        "docs/p3-hotkey-admission-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-hotkey-admission-summary.json"
       ],
-      "note": " P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun."
+      "note": " P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun. Parent93b not accepted: native front-queue old hotkeys and skipped committed safety notice reproduced. Synchronous lifecycle uptime/revision fence plus original MSG-time identity spans native/UI/acquisition; notifications precede waiting original commit, preserve all errors/journal.56 new cases;155 focused/1281 NET/63Node. Native Windows remains NotRun; whole case/stage not passed."
     },
     {
       "id": "H03",
@@ -2213,9 +2228,12 @@
         "docs/p3-hotkeys-review.md",
         "docs/p3-hotkeys-windows-checklist.md",
         "docs/adr/0014-transactional-hotkeys.md",
-        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json"
+        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json",
+        "docs/p3-hotkey-admission-review.md",
+        "docs/p3-hotkey-admission-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-hotkey-admission-summary.json"
       ],
-      "note": " P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun."
+      "note": " P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun. Parent93b not accepted: native front-queue old hotkeys and skipped committed safety notice reproduced. Synchronous lifecycle uptime/revision fence plus original MSG-time identity spans native/UI/acquisition; notifications precede waiting original commit, preserve all errors/journal.56 new cases;155 focused/1281 NET/63Node. Native Windows remains NotRun; whole case/stage not passed."
     },
     {
       "id": "H04",
@@ -2231,9 +2249,12 @@
         "docs/p3-hotkeys-review.md",
         "docs/p3-hotkeys-windows-checklist.md",
         "docs/adr/0014-transactional-hotkeys.md",
-        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json"
+        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json",
+        "docs/p3-hotkey-admission-review.md",
+        "docs/p3-hotkey-admission-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-hotkey-admission-summary.json"
       ],
-      "note": " P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun."
+      "note": " P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun. Parent93b not accepted: native front-queue old hotkeys and skipped committed safety notice reproduced. Synchronous lifecycle uptime/revision fence plus original MSG-time identity spans native/UI/acquisition; notifications precede waiting original commit, preserve all errors/journal.56 new cases;155 focused/1281 NET/63Node. Native Windows remains NotRun; whole case/stage not passed."
     },
     {
       "id": "H05",
@@ -2249,9 +2270,12 @@
         "docs/p3-hotkeys-review.md",
         "docs/p3-hotkeys-windows-checklist.md",
         "docs/adr/0014-transactional-hotkeys.md",
-        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json"
+        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json",
+        "docs/p3-hotkey-admission-review.md",
+        "docs/p3-hotkey-admission-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-hotkey-admission-summary.json"
       ],
-      "note": " P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun."
+      "note": " P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun. Parent93b not accepted: native front-queue old hotkeys and skipped committed safety notice reproduced. Synchronous lifecycle uptime/revision fence plus original MSG-time identity spans native/UI/acquisition; notifications precede waiting original commit, preserve all errors/journal.56 new cases;155 focused/1281 NET/63Node. Native Windows remains NotRun; whole case/stage not passed."
     },
     {
       "id": "H06",
@@ -2267,9 +2291,12 @@
         "docs/p3-hotkeys-review.md",
         "docs/p3-hotkeys-windows-checklist.md",
         "docs/adr/0014-transactional-hotkeys.md",
-        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json"
+        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json",
+        "docs/p3-hotkey-admission-review.md",
+        "docs/p3-hotkey-admission-windows-checklist.md",
+        "docs/test-evidence/2026-10-11-hotkey-admission-summary.json"
       ],
-      "note": " P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun."
+      "note": " P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun. Parent93b not accepted: native front-queue old hotkeys and skipped committed safety notice reproduced. Synchronous lifecycle uptime/revision fence plus original MSG-time identity spans native/UI/acquisition; notifications precede waiting original commit, preserve all errors/journal.56 new cases;155 focused/1281 NET/63Node. Native Windows remains NotRun; whole case/stage not passed."
     },
     {
       "id": "I01",

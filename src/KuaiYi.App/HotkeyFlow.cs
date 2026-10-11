@@ -7,20 +7,20 @@ internal sealed partial class ShellWindow
     private HotkeyHost? globalHotkeys;private Task hotkeySetup=Task.CompletedTask,hotkeyRecovery=Task.CompletedTask;
     private void SetupHotkeys()
     {
-        if(!enableSelectionPlatform)return;globalHotkeys=new();globalHotkeys.Failed+=code=>Dispatcher.BeginInvoke(()=>{if(!exiting)button.ToolTip="快捷键状态未确认 · "+code;});
+        if(!enableSelectionPlatform)return;globalHotkeys=new(lifecycle.Gate);globalHotkeys.Failed+=code=>Dispatcher.BeginInvoke(()=>{if(!exiting)button.ToolTip="快捷键状态未确认 · "+code;});
         globalHotkeys.Pressed+=signal=>
         {
-            long epoch=lifecycle.Gate.Snapshot.Epoch;
+            var binding=signal.Binding;
             Dispatcher.BeginInvoke(()=>
             {
-                if(exiting||globalHotkeys?.IsCurrent(signal)!=true||signal.SettingsVersion!=lifecycle.Settings?.Version||epoch!=lifecycle.Gate.Snapshot.Epoch)return;
-                var state=lifecycle.Gate.Snapshot;switch(HotkeyActionPolicy.Evaluate(signal.Action,state.Activation,state.Suspension))
+                if(exiting||globalHotkeys?.IsCurrent(signal)!=true||binding.SettingsVersion!=lifecycle.Settings?.Version)return;
+                var state=lifecycle.Gate.Snapshot;switch(HotkeyActionPolicy.Evaluate(binding.Action,state.Activation,state.Suspension))
                 {case HotkeyActionDecision.Blocked:return;case HotkeyActionDecision.HintEnable:button.ToolTip="请先启用翻译。";return;}
-                switch(signal.Action)
+                switch(binding.Action)
                 {
                     case "toggle":Toggle();break;
-                    case "translateSelection":_=ObserveSelection(ReadCurrentSelection());break;
-                    case "captureRegion":_=StartHotkeyScreenshot();break;
+                    case "translateSelection":_=ObserveSelection(ReadCurrentSelection(signal.Input));break;
+                    case "captureRegion":_=StartHotkeyScreenshot(signal.Input);break;
                     case "toggleResult":if(overlayFrames?.IsExpanded==true)CollapseResult();else ReopenResult();break;
                     case "regenerate":button.ToolTip="重新生成尚不可用：正式翻译调度未接入。";break;
                     case "hideOverlay":if(IsVisible)HideOverlay();else ShowOverlay();break;

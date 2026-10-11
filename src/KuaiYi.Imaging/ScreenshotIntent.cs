@@ -8,9 +8,9 @@ public sealed class ScreenshotIntent:IDisposable
     private readonly Guid owner;
     private readonly Activation initial;
     private bool disposed;
-    public ScreenshotIntent(RuntimeGate gate)
+    public ScreenshotIntent(RuntimeGate gate,HotkeyInputIdentity? input=null)
     {
-        this.gate=gate;if(!gate.TryBeginExplicitCapture(out owner,out epoch,out initial))throw new InvalidOperationException("Capture unavailable while suspended.");
+        this.gate=gate;if(!gate.TryBeginExplicitCapture(out owner,out epoch,out initial,input))throw new InvalidOperationException("Capture unavailable while suspended.");
     }
     public bool IsCurrent=>!disposed&&gate.IsExplicitCaptureCurrent(owner,epoch,initial);
     public bool RequiresConfirmation(bool alwaysPreview)=>initial==Activation.Off||alwaysPreview;

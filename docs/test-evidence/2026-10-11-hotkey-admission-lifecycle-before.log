@@ -1,0 +1,338 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.28]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "lockUnlock") [FAIL]
+[xUnit.net 00:00:00.29]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "modeRoundTrip") [FAIL]
+[xUnit.net 00:00:00.29]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "stopGeneration") [FAIL]
+[xUnit.net 00:00:00.29]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "movingRoundTrip") [FAIL]
+[xUnit.net 00:00:00.29]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "settingsRoundTrip") [FAIL]
+[xUnit.net 00:00:00.29]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "localEnable") [FAIL]
+[xUnit.net 00:00:00.29]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "clipboardPermission") [FAIL]
+[xUnit.net 00:00:00.29]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "explicitCapture") [FAIL]
+[xUnit.net 00:00:00.29]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "confirmedLocal") [FAIL]
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "lockUnlock") [26 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = captureRegion, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = 434ba2c8-50da-4f69-9774-69a3a9d44d47, Revision = 0, Epoch = 1 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "modeRoundTrip") [1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = captureRegion, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = 071d6a22-a570-4471-b8b5-d0f4f56a60eb, Revision = 0, Epoch = 2 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "stopGeneration") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = captureRegion, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = 5475d965-df59-47e6-aaef-58858802d577, Revision = 0, Epoch = 1 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "movingRoundTrip") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = captureRegion, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = 824b40cd-4582-486d-9eb6-3fc552716025, Revision = 0, Epoch = 2 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "settingsRoundTrip") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = captureRegion, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = 5b50a6c8-3e6a-4b0c-aaa6-4acb06ef4bb1, Revision = 0, Epoch = 2 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "localEnable") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = captureRegion, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = 3b8bb3ac-7bf4-4e85-a490-f4277d78169c, Revision = 0, Epoch = 0 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "clipboardPermission") [2 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = translateSelection, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = a31077ba-ff6d-483a-9386-db1382fa821b, Revision = 0, Epoch = 1 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "explicitCapture") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = captureRegion, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = 5518b9db-9db1-4c98-8d0b-41d988168af5, Revision = 0, Epoch = 2 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "confirmedLocal") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = captureRegion, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = af84f3ed-8f68-40e7-80f5-7d2ad7004f6c, Revision = 0, Epoch = 1 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "enableOnly") [FAIL]
+[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "requestReplacement") [FAIL]
+[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "hideShow") [FAIL]
+[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "profileMetadata") [FAIL]
+[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "confirmedLocal") [FAIL]
+[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "offOn") [FAIL]
+[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "offOn") [FAIL]
+[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "requestReplacement") [FAIL]
+[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "modeRoundTrip") [FAIL]
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "enableOnly") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = captureRegion, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = d37d8d0e-cca9-41b0-9835-206060e0d006, Revision = 0, Epoch = 0 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "requestReplacement") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = captureRegion, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = ac00bfc4-5f45-4c1a-b27c-0bd1f36507de, Revision = 0, Epoch = 2 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "hideShow") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = captureRegion, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = 5aa88969-b65d-4d4c-ab6b-a013a0d811ca, Revision = 0, Epoch = 2 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "profileMetadata") [1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = captureRegion, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = 5c7174a4-9874-4b2d-8f95-6b4634844561, Revision = 0, Epoch = 1 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "confirmedLocal") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = translateSelection, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = e27b1ada-0671-463a-86db-97e39f3249f0, Revision = 0, Epoch = 1 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "offOn") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = translateSelection, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = f34164fe-cece-463d-aa8c-649ffe1e5a09, Revision = 0, Epoch = 1 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "offOn") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = captureRegion, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = 26d66fe0-f75d-47d7-871c-1cbb2118a3ee, Revision = 0, Epoch = 1 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "requestReplacement") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = translateSelection, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = ed16a1cf-4b97-4b23-aec8-2d4474f63a21, Revision = 0, Epoch = 2 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "modeRoundTrip") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = translateSelection, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = 2711d80a-44af-4840-9a5c-b99164b1dd9b, Revision = 0, Epoch = 2 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "stopGeneration") [FAIL]
+[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "localEnable") [FAIL]
+[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "captureRoundTrip") [FAIL]
+[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "hideShow") [FAIL]
+[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "clipboardPermission") [FAIL]
+[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "captureRoundTrip") [FAIL]
+[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "enableOnly") [FAIL]
+[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "explicitCapture") [FAIL]
+[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "movingRoundTrip") [FAIL]
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "stopGeneration") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = translateSelection, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = ecb47e93-5c58-4b65-b6b4-65d84d8b4b5e, Revision = 0, Epoch = 1 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "localEnable") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = translateSelection, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = 4b2be4da-ffca-4e0b-8967-ca1881697011, Revision = 0, Epoch = 0 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "captureRoundTrip") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = captureRegion, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = 25947cd8-882a-4d78-a22e-bd8308917849, Revision = 0, Epoch = 2 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "hideShow") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = translateSelection, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = 1c3c184d-9722-4d57-8143-264cba39e8c1, Revision = 0, Epoch = 2 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "captureRegion", change: "clipboardPermission") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = captureRegion, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = 653e187c-8855-4965-9100-48ae04dadb1b, Revision = 0, Epoch = 1 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "captureRoundTrip") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = translateSelection, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = c7be13e9-f998-4443-a9c1-c28ec812cf69, Revision = 0, Epoch = 2 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "enableOnly") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = translateSelection, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = 106d9229-adff-490a-be20-5eb9fb5f36b3, Revision = 0, Epoch = 0 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "explicitCapture") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = translateSelection, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = 502ba81f-b38f-4681-bfd5-2c27ea4ca50f, Revision = 0, Epoch = 2 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "movingRoundTrip") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = translateSelection, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = 518724b4-f0c0-44e5-a762-7900951243dc, Revision = 0, Epoch = 2 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "settingsRoundTrip") [FAIL]
+[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "profileMetadata") [FAIL]
+[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "lockUnlock") [FAIL]
+[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.HotkeyLifecycleTests.AlreadyAdmittedUiQueueTicketExpiresOnEnableEvenWhenLegacyEpochIsUnchanged(transition: "enableOnly") [FAIL]
+[xUnit.net 00:00:00.31]     KuaiYi.Core.Tests.HotkeyLifecycleTests.AlreadyAdmittedUiQueueTicketExpiresOnEnableEvenWhenLegacyEpochIsUnchanged(transition: "localEnable") [FAIL]
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "settingsRoundTrip") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = translateSelection, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = 0742f85a-e578-4f39-9020-bcf96780cb45, Revision = 0, Epoch = 2 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "profileMetadata") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = translateSelection, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = 5b6ba75c-adf2-4e86-bf1b-03ba7d9333c5, Revision = 0, Epoch = 1 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(action: "translateSelection", change: "lockUnlock") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyInputDispatch { Binding = HotkeyDispatch { Action = translateSelection, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 1, SettingsVersion = settings }, Input = HotkeyInputIdentity { Gate = d56f0c4f-311c-4ae5-9385-ce7476d4fb15, Revision = 0, Epoch = 1 } }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(String action, String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 38
+   at InvokeStub_HotkeyLifecycleTests.NativeQueueMessageBeforeLifecycleTransitionCannotBeAssignedNewEraAtLateResolve(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.AlreadyAdmittedUiQueueTicketExpiresOnEnableEvenWhenLegacyEpochIsUnchanged(transition: "enableOnly") [3 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.AlreadyAdmittedUiQueueTicketExpiresOnEnableEvenWhenLegacyEpochIsUnchanged(String transition) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 43
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed KuaiYi.Core.Tests.HotkeyLifecycleTests.AlreadyAdmittedUiQueueTicketExpiresOnEnableEvenWhenLegacyEpochIsUnchanged(transition: "localEnable") [< 1 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyLifecycleTests.AlreadyAdmittedUiQueueTicketExpiresOnEnableEvenWhenLegacyEpochIsUnchanged(String transition) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs:line 43
+   at InvokeStub_HotkeyLifecycleTests.AlreadyAdmittedUiQueueTicketExpiresOnEnableEvenWhenLegacyEpochIsUnchanged(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+Results File: /workspace/KuaiYi/artifacts/test-results/hotkey-admission/lifecycle-before.trx
+
+Failed!  - Failed:    32, Passed:     1, Skipped:     0, Total:    33, Duration: 71 ms - KuaiYi.Core.Tests.dll (net10.0)

@@ -1,0 +1,72 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.35]     KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: "replace", observerFault: False) [FAIL]
+[xUnit.net 00:00:00.36]     KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: "delete", observerFault: True) [FAIL]
+[xUnit.net 00:00:00.36]     KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: "delete", observerFault: False) [FAIL]
+[xUnit.net 00:00:00.37]     KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: "clear", observerFault: False) [FAIL]
+[xUnit.net 00:00:00.37]     KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: "replace", observerFault: True) [FAIL]
+[xUnit.net 00:00:00.38]     KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: "clear", observerFault: True) [FAIL]
+  Failed KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: "replace", observerFault: False) [117 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(String operation, Boolean observerFault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 47
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: "delete", observerFault: True) [5 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(String operation, Boolean observerFault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 47
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: "delete", observerFault: False) [6 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(String operation, Boolean observerFault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 47
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: "clear", observerFault: False) [5 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(String operation, Boolean observerFault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 47
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: "replace", observerFault: True) [3 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(String operation, Boolean observerFault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 47
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(operation: "clear", observerFault: True) [3 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsBindingTests.NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(String operation, Boolean observerFault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBindingTests.cs:line 47
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/test-results/hotkey-admission/settings-notify-before.trx
+
+Failed!  - Failed:     6, Passed:     0, Skipped:     0, Total:     6, Duration: 156 ms - KuaiYi.Core.Tests.dll (net10.0)

@@ -27,12 +27,15 @@ public readonly record struct EndpointOrigin
 public sealed partial class RuntimeGate
 {
     private readonly bool requireProfileBinding;
-    public RuntimeGate(bool requireProfileBinding=false){this.requireProfileBinding=requireProfileBinding;}
+    public RuntimeGate(bool requireProfileBinding=false):this(requireProfileBinding,static()=>unchecked((uint)Environment.TickCount64)){}
+    internal RuntimeGate(bool requireProfileBinding,Func<uint> hotkeyClock){this.requireProfileBinding=requireProfileBinding;hotkeyUptime=hotkeyClock;hotkeyFence=hotkeyClock();}
     private readonly object sync = new();
     private readonly HashSet<EndpointOrigin> consented = [];
     private CancellationTokenSource? activeCancellation;
     private RequestIdentity? active;
-    private long epoch;
+    // All epoch changes, including partial-class request/settings paths, synchronously fence the native input era under sync.
+    private long epochValue;
+    private long epoch{get=>epochValue;set{epochValue=value;AdvanceHotkeyInputLocked();}}
     private Activation activation;
     private bool localOnly;
     private Guid? explicitCaptureOwner;
@@ -61,6 +64,7 @@ public sealed partial class RuntimeGate
             activation = Activation.On;
             localOnly = false;
             if (presentation == Presentation.Hidden) presentation = Presentation.Compact;
+            AdvanceHotkeyInputLocked(); // Enable can change eligibility without changing the existing request/capture epoch.
             return true;
         }
     }
@@ -74,6 +78,7 @@ public sealed partial class RuntimeGate
             activation = Activation.On;
             localOnly = true;
             if (presentation == Presentation.Hidden) presentation = Presentation.Compact;
+            AdvanceHotkeyInputLocked(); // Enable can change eligibility without changing the existing request/capture epoch.
             return true;
         }
     }
@@ -135,18 +140,19 @@ public sealed partial class RuntimeGate
         {
             if (locked) suspension |= Suspension.SessionLocked;
             else suspension &= ~Suspension.SessionLocked;
+            AdvanceHotkeyInputLocked();
         }
         // Lock cancels; unlock never restores On.
         if (locked) Disable(hide: true);
         else { lock (sync) presentation = Presentation.Compact; }
     }
 
-    public bool TryBeginExplicitCapture(out Guid owner,out long captureEpoch,out Activation initial)
+    public bool TryBeginExplicitCapture(out Guid owner,out long captureEpoch,out Activation initial,HotkeyInputIdentity? input=null)
     {
         lock(sync)
         {
             owner=default;captureEpoch=epoch;initial=activation;
-            if(suspension!=Suspension.None||explicitCaptureOwner!=null)return false;
+            if(suspension!=Suspension.None||explicitCaptureOwner!=null||input is {} expected&&!IsHotkeyInputCurrent(expected))return false;
             owner=Guid.NewGuid();explicitCaptureOwner=owner;suspension|=Suspension.Capture;captureEpoch=++epoch;return true;
         }
     }

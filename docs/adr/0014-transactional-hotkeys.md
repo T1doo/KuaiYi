@@ -15,3 +15,5 @@ WM_HOTKEY 的 id、组合、消息 uptime、动作映射 revision、settings ver
 锁屏先同步撤销 gate epoch，再暂停 native 派发；解锁与 Explorer 重启只重试失败项，保留仍由本 HWND 持有的工作组合。这个策略是代码恢复路径，不是系统已成功恢复的验收证据。unexpected 消息线程退出使 IsCurrent 为 false；没有承诺自动重建意外死亡的 HWND。退出等待原操作和线程实际结束；失败保留可重试所有权，清理不会触碰其他 HWND/进程的组合。
 
 Off 下翻译选区、重新生成只提示启用；缓存、显示/隐藏、设置、聚焦和停止遵循现有 gate。截图热键只提供实际本地准备与预览，完整确认及模型链路留待 P6，重新生成正式调度留待 P4。完整动作体验、H01—H06、跨应用、DPI、安装与 E06 均未因这一事务核心交付而通过。
+
+父审补正（93b未签收）：仅注册映射围栏与Pressed当前epoch不足以隔离HWND前级旧消息。RuntimeGate在状态变更锁内记录同源uptime/revision；Host按原MSG time资格分配不可变GateId/revision/epoch，UI及取词/截图入场复核。Epoch统一setter使partial-class所有写入同样推进输入围栏；On/正式确认不变旧epoch的路径显式更新输入revision。已发布设置安全通知不等待原native提交结束，先保留原Commit Task、遍历通知、再观察提交结果；所有异常与journal保留，已发布事实不回滚。详见[p3-hotkey-admission-review.md](../p3-hotkey-admission-review.md)，真实Windows队列与事务仍NotRun。

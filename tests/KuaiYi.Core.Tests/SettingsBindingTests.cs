@@ -37,6 +37,35 @@ public sealed class SettingsBindingTests
         else if(operation=="replace")d.SetKey("a","public-SYNTHETIC-replacement-KEY"u8);
         else throw new ArgumentException("Unknown synthetic operation.");
     }
+    private sealed class PendingHotkeys(HotkeyRegistry registry):ISettingsHotkeyParticipant
+    {
+        public readonly TaskCompletionSource Entered=new(TaskCreationOptions.RunContinuationsAsynchronously),Release=new(TaskCreationOptions.RunContinuationsAsynchronously);public bool Fail;
+        public Task<ISettingsHotkeyTransaction> PrepareAsync(IReadOnlyDictionary<string,string?> keys,CancellationToken token)=>Task.FromResult<ISettingsHotkeyTransaction>(new Transaction(this,registry.Prepare(keys)));
+        private sealed class Transaction(PendingHotkeys owner,HotkeyPrepared ticket):ISettingsHotkeyTransaction
+        {public async Task CommitAsync(SettingsSnapshot saved){owner.Entered.TrySetResult();await owner.Release.Task;if(owner.Fail)throw new IOException("Public delayed commit failure.");owner.Commit(ticket,saved);}public Task RollbackAsync(){owner.Rollback(ticket);return Task.CompletedTask;}}
+        private void Commit(HotkeyPrepared ticket,SettingsSnapshot saved)=>registry.Commit(ticket,saved.Version);private void Rollback(HotkeyPrepared ticket)=>registry.Rollback(ticket);
+    }
+    [Theory][InlineData(false)][InlineData(true)]
+    public async Task AlreadyPublishedSafetyNoticeDoesNotWaitForPendingNativeCommitOriginal(bool fail)
+    {
+        using var f=new Fixture();var snapshot=await f.Seed();var port=new HotkeyTests.Port();var registry=new HotkeyRegistry(port);registry.Restore(snapshot.Data.Hotkeys,snapshot.Version);var hotkeys=new PendingHotkeys(registry){Fail=fail};var a=Enabled();var b=Enabled();using var la=new SettingsRuntimeLink(f.Coordinator,a);using var lb=new SettingsRuntimeLink(f.Coordinator,b);la.Initialize(snapshot);lb.Initialize(snapshot);var ra=Start(a,"a");var rb=Start(b,"b");var notified=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);f.Coordinator.Committed+=(_,_)=>notified.TrySetResult();using var draft=await f.Coordinator.OpenDraftAsync();Edit(draft,"delete");draft.Update(s=>s with{Hotkeys=s.Hotkeys.SetItem("openSettings","Alt+K")});var original=f.Coordinator.SaveWithHotkeysAsync(draft,hotkeys);
+        try{await hotkeys.Entered.Task.WaitAsync(TimeSpan.FromSeconds(3));await notified.Task.WaitAsync(TimeSpan.FromSeconds(1));Assert.False(original.IsCompleted);Assert.True(ra.Token.IsCancellationRequested);Assert.False(a.CanSend(ra.Identity,Origin));Assert.False(rb.Token.IsCancellationRequested);Assert.True(b.CanApply(rb.Identity));Assert.Throws<InvalidOperationException>(draft.Dispose);}
+        finally{hotkeys.Release.TrySetResult();var error=await Record.ExceptionAsync(()=>original);if(fail)Assert.IsType<IOException>(error);else Assert.Null(error);a.Disable();b.Disable();}
+        Assert.True(draft.IsClosed);Assert.Equal(fail?1:0,Directory.GetFiles(f.Store.DirectoryPath,"secret-txn-*.json").Length);
+    }
+    [Theory][InlineData("clear",false)][InlineData("delete",false)][InlineData("replace",false)][InlineData("clear",true)][InlineData("delete",true)][InlineData("replace",true)]
+    public async Task NativeHotkeyCommitFaultCannotSkipCommittedBindingRevocationOrModeNotification(string operation,bool observerFault)
+    {
+        using var f=new Fixture();var snapshot=await f.Seed();var port=new HotkeyTests.Port();var registry=new HotkeyRegistry(port);registry.Restore(snapshot.Data.Hotkeys,snapshot.Version);var hotkeys=new SettingsHotkeyTests.Participant(registry);port.Failure=(op,_,_)=>op=="fence"?5:0;
+        Action<SettingsSnapshot,SettingsChange> fault=(_,_)=>throw new InvalidDataException("Public independent observer fault.");if(observerFault)f.Coordinator.Committed+=fault;
+        var a=Enabled();var b=Enabled();using var linkA=new SettingsRuntimeLink(f.Coordinator,a);using var linkB=new SettingsRuntimeLink(f.Coordinator,b);linkA.Initialize(snapshot);linkB.Initialize(snapshot);var ra=Start(a,"a");var rb=Start(b,"b");Assert.True(a.TryBeginPassiveCapture(TriggerMode.Selection,out var capture));var notices=new List<SettingsChange>();f.Coordinator.Committed+=(_,change)=>notices.Add(change);
+        using var draft=await f.Coordinator.OpenDraftAsync();Edit(draft,operation);draft.Update(s=>s with{TriggerMode=TriggerMode.Drop,Hotkeys=s.Hotkeys.SetItem("openSettings","Alt+K")});var error=await Record.ExceptionAsync(()=>f.Coordinator.SaveWithHotkeysAsync(draft,hotkeys));Assert.NotNull(error);
+        Assert.True(ra.Token.IsCancellationRequested);Assert.False(a.CanApply(ra.Identity));Assert.False(a.CanSend(ra.Identity,Origin));Assert.False(a.IsCaptureCurrent(capture));Assert.Equal(TriggerMode.Drop,a.Snapshot.Mode);Assert.Equal(TriggerMode.Drop,b.Snapshot.Mode);
+        Assert.False(rb.Token.IsCancellationRequested);Assert.True(b.CanApply(rb.Identity));Assert.True(b.CanSend(rb.Identity,Origin));Assert.True(b.TryGetProfileBinding("b",out var binding));Assert.Equal(rb.Binding,binding);Assert.False(f.Secrets.IsRevoked(rb.Binding.SecretReference!));Assert.Single(notices);Assert.Equal("a",Assert.Single(notices[0].RevokedProfileBindings).ProfileId);
+        Assert.True(draft.IsClosed);Assert.Equal("Alt+K",(await f.Store.LoadAsync()).Data.Hotkeys["openSettings"]);Assert.Equal((await f.Store.LoadAsync()).Version,f.Coordinator.Effective!.Version);Assert.Equal(0,hotkeys.Rollbacks);Assert.Single(Directory.GetFiles(f.Store.DirectoryPath,"secret-txn-*.json"));Assert.All(registry.Status,s=>Assert.True(s.RecoveryRequired));
+        if(observerFault){var aggregate=Assert.IsType<AggregateException>(error);Assert.Contains(aggregate.InnerExceptions,e=>e is IOException);Assert.Contains(aggregate.InnerExceptions,e=>e is InvalidDataException);}else Assert.IsType<IOException>(error);
+        if(observerFault)f.Coordinator.Committed-=fault;port.Failure=null;f.Coordinator.Committed+=(saved,_)=>registry.Reconcile(saved.Data.Hotkeys,saved.Version);using var recovered=await f.Coordinator.OpenDraftAsync();Assert.Equal(2,notices.Count);Assert.Empty(Directory.GetFiles(f.Store.DirectoryPath,"secret-txn-*.json"));Assert.True(b.CanApply(rb.Identity));Assert.False(rb.Token.IsCancellationRequested);a.Disable();b.Disable();
+    }
     [Theory][InlineData("clear")][InlineData("delete")][InlineData("replace")]
     public async Task ActualSettingsLinkCancelsAOldBindingButKeepsBTaskSharedCipherAndLateGatesCorrect(string operation)
     {
