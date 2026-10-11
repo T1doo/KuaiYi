@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="eae0da18-a613-4055-82d6-9a4ae064cdd1" name="@552716c6b8c5 2026-10-11 23:36:20" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T23:36:20.3471542+00:00" queuing="2026-10-11T23:36:20.3471543+00:00" start="2026-10-11T23:36:19.6344068+00:00" finish="2026-10-11T23:36:20.5394371+00:00" />
+  <TestSettings name="default" id="320739c3-c381-4f19-bb1b-127fa14602f4">
+    <Deployment runDeploymentRoot="_552716c6b8c5_2026-10-11_23_36_20" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="4745e982-1f5e-4aa6-867b-d6e5e0396159" testId="746f4764-dc4d-f5d5-2583-55707a810e54" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(change: &quot;binding&quot;)" computerName="552716c6b8c5" duration="00:00:00.0015666" startTime="2026-10-11T23:36:20.3630325+00:00" endTime="2026-10-11T23:36:20.3630869+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4745e982-1f5e-4aa6-867b-d6e5e0396159" />
+    <UnitTestResult executionId="ef0a6744-a0e1-44b3-b198-a3b2e951251e" testId="cdce6fa9-d258-d701-f984-224c8ea2415c" testName="KuaiYi.Provider.Tests.RequestBudgetTests.ProductionTransportHonorsFrozenLessEqualAndGreaterBudgets(seconds: 180)" computerName="552716c6b8c5" duration="00:00:00.0020421" startTime="2026-10-11T23:36:20.2948807+00:00" endTime="2026-10-11T23:36:20.2949242+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ef0a6744-a0e1-44b3-b198-a3b2e951251e" />
+    <UnitTestResult executionId="4a5acc32-056a-48c7-aa1e-5cba9c1049e8" testId="d797b79b-3dc2-3afb-5b9d-22c0d398a045" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.ActualShellEnableStillRequiresOwnContentConfirmationAfterSuccessfulSample" computerName="552716c6b8c5" duration="00:00:00.0902444" startTime="2026-10-11T23:36:20.3651985+00:00" endTime="2026-10-11T23:36:20.4613845+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4a5acc32-056a-48c7-aa1e-5cba9c1049e8">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Startup already attempted.</Message>
+          <StackTrace>   at KuaiYi.Core.ShellLifecycle.InitializeAsync(CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/ShellLifecycle.cs:line 15
+   at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.ActualShellEnableStillRequiresOwnContentConfirmationAfterSuccessfulSample() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs:line 69
+   at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.ActualShellEnableStillRequiresOwnContentConfirmationAfterSuccessfulSample() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs:line 72
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7f8ad547-0909-467e-9043-d371913326d7" testId="8b72a5d7-8773-cfff-ab0a-8f4feed2bf04" testName="KuaiYi.Provider.Tests.LegacyTimeoutRedTests.OriginalTransportScheduleMustMatchSavedTotalBudget(seconds: 120)" computerName="552716c6b8c5" duration="00:00:00.0026384" startTime="2026-10-11T23:36:20.2948208+00:00" endTime="2026-10-11T23:36:20.2949020+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7f8ad547-0909-467e-9043-d371913326d7" />
+    <UnitTestResult executionId="104557c0-30eb-4126-87ca-e543f737d625" testId="d9a6c2b2-8316-6143-075c-6ef5a74acc89" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.UserDeclineNeverAddsAnyPermissionOrRequest" computerName="552716c6b8c5" duration="00:00:00.0172502" startTime="2026-10-11T23:36:20.3534660+00:00" endTime="2026-10-11T23:36:20.3564220+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="104557c0-30eb-4126-87ca-e543f737d625" />
+    <UnitTestResult executionId="14cd8b91-df9c-4e1c-a844-db71c62645f9" testId="72b1b6c7-dff9-58ab-2f2c-26544c01ba15" testName="KuaiYi.Provider.Tests.RequestBudgetTests.SharedBudgetNeverRestartsAfterCredentialAcquisition(seconds: 60)" computerName="552716c6b8c5" duration="00:00:00.0001568" startTime="2026-10-11T23:36:20.3241014+00:00" endTime="2026-10-11T23:36:20.3241260+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="14cd8b91-df9c-4e1c-a844-db71c62645f9" />
+    <UnitTestResult executionId="d6103042-1bf8-4205-b10c-630540ee1d21" testId="35ee951a-c946-209f-fc81-499b9a423cc3" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.ExistingRealContentGrantIsPreservedWhileTestAddsNoSecondOrigin" computerName="552716c6b8c5" duration="00:00:00.0038215" startTime="2026-10-11T23:36:20.4709271+00:00" endTime="2026-10-11T23:36:20.4742478+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d6103042-1bf8-4205-b10c-630540ee1d21" />
+    <UnitTestResult executionId="7cc76062-193e-4758-90aa-0666f46590a8" testId="dcb0ae0c-50ea-6ecc-e4b2-533468049538" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(change: &quot;endpoint&quot;)" computerName="552716c6b8c5" duration="00:00:00.0124643" startTime="2026-10-11T23:36:20.3250933+00:00" endTime="2026-10-11T23:36:20.3353060+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7cc76062-193e-4758-90aa-0666f46590a8" />
+    <UnitTestResult executionId="062892aa-076f-4b66-afa3-1d682662a223" testId="b6530d1b-bf77-9f95-0aab-50f5753a31ee" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(change: &quot;config&quot;)" computerName="552716c6b8c5" duration="00:00:00.0165806" startTime="2026-10-11T23:36:20.3242635+00:00" endTime="2026-10-11T23:36:20.3249973+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="062892aa-076f-4b66-afa3-1d682662a223" />
+    <UnitTestResult executionId="50bedcb4-501c-49cc-a840-632061063e26" testId="7540d48b-6dd0-2ff6-4de8-e5e463c49600" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.SuccessfulPublicSampleNeverGrantsRealContentSessionConsent" computerName="552716c6b8c5" duration="00:00:00.0094931" startTime="2026-10-11T23:36:20.4652578+00:00" endTime="2026-10-11T23:36:20.4707967+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="50bedcb4-501c-49cc-a840-632061063e26" />
+    <UnitTestResult executionId="9983f8b9-bec8-4af8-96e6-db26daf222a9" testId="dd67348c-16c2-f6b0-f715-7381328bc7c2" testName="KuaiYi.Provider.Tests.LegacyTimeoutRedTests.OriginalTransportScheduleMustMatchSavedTotalBudget(seconds: 60)" computerName="552716c6b8c5" duration="00:00:00.1651936" startTime="2026-10-11T23:36:20.1131120+00:00" endTime="2026-10-11T23:36:20.2841765+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9983f8b9-bec8-4af8-96e6-db26daf222a9" />
+    <UnitTestResult executionId="5f4c889b-46d6-42f0-9ec9-1106674e8449" testId="18780df5-6275-8885-90fb-09ebb9a57fd2" testName="KuaiYi.Provider.Tests.LegacyTimeoutRedTests.OriginalTransportScheduleMustMatchSavedTotalBudget(seconds: 180)" computerName="552716c6b8c5" duration="00:00:00.0047579" startTime="2026-10-11T23:36:20.2947249+00:00" endTime="2026-10-11T23:36:20.2947600+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5f4c889b-46d6-42f0-9ec9-1106674e8449" />
+    <UnitTestResult executionId="a3949182-ec29-466a-9d28-55739798db16" testId="9533654d-6a4c-518e-8090-ab7a779e85fb" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(change: &quot;lock&quot;)" computerName="552716c6b8c5" duration="00:00:00.0020650" startTime="2026-10-11T23:36:20.3565395+00:00" endTime="2026-10-11T23:36:20.3597908+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a3949182-ec29-466a-9d28-55739798db16" />
+    <UnitTestResult executionId="66d7be3d-2e14-411d-a492-a644d9553529" testId="6008c773-e9b7-f61f-5f38-1d7e04363b22" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(change: &quot;off&quot;)" computerName="552716c6b8c5" duration="00:00:00.1026088" startTime="2026-10-11T23:36:20.1874207+00:00" endTime="2026-10-11T23:36:20.2955274+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="66d7be3d-2e14-411d-a492-a644d9553529" />
+    <UnitTestResult executionId="16cd41e2-6ec0-45f3-9074-03efd926e073" testId="4bc986f6-9279-7b9a-01a2-7cbd0dc80cbd" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.DraftEditCancelsInFlightOriginalTaskAndCannotReportSuccess" computerName="552716c6b8c5" duration="00:00:00.0032792" startTime="2026-10-11T23:36:20.3354483+00:00" endTime="2026-10-11T23:36:20.3388654+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="16cd41e2-6ec0-45f3-9074-03efd926e073" />
+    <UnitTestResult executionId="a0f01947-24c9-4489-9c0b-418d9090ac94" testId="6ae695c4-75d8-8e2a-d3a8-a91962cf77df" testName="KuaiYi.Provider.Tests.RequestBudgetTests.SharedBudgetNeverRestartsAfterCredentialAcquisition(seconds: 120)" computerName="552716c6b8c5" duration="00:00:00.0031571" startTime="2026-10-11T23:36:20.3238427+00:00" endTime="2026-10-11T23:36:20.3238911+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a0f01947-24c9-4489-9c0b-418d9090ac94" />
+    <UnitTestResult executionId="80829451-525b-449e-8380-83e18c427bb9" testId="e246830a-61f2-28c0-1018-ee976e1591d3" testName="KuaiYi.Provider.Tests.RequestBudgetTests.ProductionTransportHonorsFrozenLessEqualAndGreaterBudgets(seconds: 60)" computerName="552716c6b8c5" duration="00:00:00.1703537" startTime="2026-10-11T23:36:20.1150632+00:00" endTime="2026-10-11T23:36:20.2779972+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="80829451-525b-449e-8380-83e18c427bb9" />
+    <UnitTestResult executionId="01e56f68-177d-49d4-9a1c-35a32679794f" testId="3c49eec7-36b7-e25f-50ba-b9cf63bd1552" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(change: &quot;settings&quot;)" computerName="552716c6b8c5" duration="00:00:00.0008689" startTime="2026-10-11T23:36:20.3631834+00:00" endTime="2026-10-11T23:36:20.3632051+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="01e56f68-177d-49d4-9a1c-35a32679794f" />
+    <UnitTestResult executionId="606d4b29-23b8-4c9f-aae2-14908d837094" testId="887f04b2-d249-2fc3-7714-497f19705c09" testName="KuaiYi.Provider.Tests.RequestBudgetTests.ExpiredSharedBudgetCannotStartAnHttpRequest" computerName="552716c6b8c5" duration="00:00:00.0050965" startTime="2026-10-11T23:36:20.2954943+00:00" endTime="2026-10-11T23:36:20.2956338+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="606d4b29-23b8-4c9f-aae2-14908d837094" />
+    <UnitTestResult executionId="e4b5afa6-c1e4-4a5c-bd56-7d0e80f43d78" testId="ca5ac929-9754-73a1-21d5-cd3eb57d9dfd" testName="KuaiYi.Provider.Tests.RequestBudgetTests.SharedBudgetNeverRestartsAfterCredentialAcquisition(seconds: 180)" computerName="552716c6b8c5" duration="00:00:00.0000063" startTime="2026-10-11T23:36:20.3241684+00:00" endTime="2026-10-11T23:36:20.3241897+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e4b5afa6-c1e4-4a5c-bd56-7d0e80f43d78" />
+    <UnitTestResult executionId="318d03f9-3fc2-48f5-bacc-939ed56450cb" testId="7ea903b7-bc75-6b99-811a-dc7a510cc509" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(change: &quot;cancel&quot;)" computerName="552716c6b8c5" duration="00:00:00.0151078" startTime="2026-10-11T23:36:20.2956020+00:00" endTime="2026-10-11T23:36:20.3242260+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="318d03f9-3fc2-48f5-bacc-939ed56450cb" />
+    <UnitTestResult executionId="40176e37-83d9-4b70-8a4e-95a528e16250" testId="704db82d-5a67-b7dc-8ec5-b432a97a4aa1" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(change: &quot;epoch&quot;)" computerName="552716c6b8c5" duration="00:00:00.0025483" startTime="2026-10-11T23:36:20.3632414+00:00" endTime="2026-10-11T23:36:20.3650990+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="40176e37-83d9-4b70-8a4e-95a528e16250" />
+    <UnitTestResult executionId="47273ac7-b117-4d60-a603-b5de96f62578" testId="eb53fdca-1b60-e78e-1e7d-d643f8a6e7f6" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.DraftEditInvalidatesPreparedConfirmationWithoutAddingAuthorization" computerName="552716c6b8c5" duration="00:00:00.0021551" startTime="2026-10-11T23:36:20.4743642+00:00" endTime="2026-10-11T23:36:20.4766862+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="47273ac7-b117-4d60-a603-b5de96f62578" />
+    <UnitTestResult executionId="20de5c11-bdac-4449-892d-a4e19a084fa0" testId="9c35c4a0-ba3d-57fb-aa14-c9137ba5d9ec" testName="KuaiYi.Provider.Tests.RequestBudgetTests.ProductionTransportHonorsFrozenLessEqualAndGreaterBudgets(seconds: 120)" computerName="552716c6b8c5" duration="00:00:00.0058443" startTime="2026-10-11T23:36:20.2946511+00:00" endTime="2026-10-11T23:36:20.2948426+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="20de5c11-bdac-4449-892d-a4e19a084fa0" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(change: &quot;settings&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="3c49eec7-36b7-e25f-50ba-b9cf63bd1552">
+      <Execution id="01e56f68-177d-49d4-9a1c-35a32679794f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="FailedStartCannotLeaveAnyContentAuthorization" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.RequestBudgetTests.SharedBudgetNeverRestartsAfterCredentialAcquisition(seconds: 180)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="ca5ac929-9754-73a1-21d5-cd3eb57d9dfd">
+      <Execution id="e4b5afa6-c1e4-4a5c-bd56-7d0e80f43d78" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.RequestBudgetTests" name="SharedBudgetNeverRestartsAfterCredentialAcquisition" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(change: &quot;config&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="b6530d1b-bf77-9f95-0aab-50f5753a31ee">
+      <Execution id="062892aa-076f-4b66-afa3-1d682662a223" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="InterruptedPublicSampleCannotAuthorizeLaterRealContent" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.LegacyTimeoutRedTests.OriginalTransportScheduleMustMatchSavedTotalBudget(seconds: 120)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="8b72a5d7-8773-cfff-ab0a-8f4feed2bf04">
+      <Execution id="7f8ad547-0909-467e-9043-d371913326d7" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.LegacyTimeoutRedTests" name="OriginalTransportScheduleMustMatchSavedTotalBudget" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.RequestBudgetTests.SharedBudgetNeverRestartsAfterCredentialAcquisition(seconds: 120)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="6ae695c4-75d8-8e2a-d3a8-a91962cf77df">
+      <Execution id="a0f01947-24c9-4489-9c0b-418d9090ac94" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.RequestBudgetTests" name="SharedBudgetNeverRestartsAfterCredentialAcquisition" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.SuccessfulPublicSampleNeverGrantsRealContentSessionConsent" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="7540d48b-6dd0-2ff6-4de8-e5e463c49600">
+      <Execution id="50bedcb4-501c-49cc-a840-632061063e26" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="SuccessfulPublicSampleNeverGrantsRealContentSessionConsent" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(change: &quot;epoch&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="704db82d-5a67-b7dc-8ec5-b432a97a4aa1">
+      <Execution id="40176e37-83d9-4b70-8a4e-95a528e16250" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="FailedStartCannotLeaveAnyContentAuthorization" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.LegacyTimeoutRedTests.OriginalTransportScheduleMustMatchSavedTotalBudget(seconds: 180)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="18780df5-6275-8885-90fb-09ebb9a57fd2">
+      <Execution id="5f4c889b-46d6-42f0-9ec9-1106674e8449" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.LegacyTimeoutRedTests" name="OriginalTransportScheduleMustMatchSavedTotalBudget" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.RequestBudgetTests.ProductionTransportHonorsFrozenLessEqualAndGreaterBudgets(seconds: 120)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="9c35c4a0-ba3d-57fb-aa14-c9137ba5d9ec">
+      <Execution id="20de5c11-bdac-4449-892d-a4e19a084fa0" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.RequestBudgetTests" name="ProductionTransportHonorsFrozenLessEqualAndGreaterBudgets" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.DraftEditInvalidatesPreparedConfirmationWithoutAddingAuthorization" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="eb53fdca-1b60-e78e-1e7d-d643f8a6e7f6">
+      <Execution id="47273ac7-b117-4d60-a603-b5de96f62578" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="DraftEditInvalidatesPreparedConfirmationWithoutAddingAuthorization" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(change: &quot;off&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="6008c773-e9b7-f61f-5f38-1d7e04363b22">
+      <Execution id="66d7be3d-2e14-411d-a492-a644d9553529" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="InterruptedPublicSampleCannotAuthorizeLaterRealContent" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(change: &quot;lock&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="9533654d-6a4c-518e-8090-ab7a779e85fb">
+      <Execution id="a3949182-ec29-466a-9d28-55739798db16" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="FailedStartCannotLeaveAnyContentAuthorization" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.LegacyTimeoutRedTests.OriginalTransportScheduleMustMatchSavedTotalBudget(seconds: 60)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="dd67348c-16c2-f6b0-f715-7381328bc7c2">
+      <Execution id="9983f8b9-bec8-4af8-96e6-db26daf222a9" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.LegacyTimeoutRedTests" name="OriginalTransportScheduleMustMatchSavedTotalBudget" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.RequestBudgetTests.SharedBudgetNeverRestartsAfterCredentialAcquisition(seconds: 60)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="72b1b6c7-dff9-58ab-2f2c-26544c01ba15">
+      <Execution id="14cd8b91-df9c-4e1c-a844-db71c62645f9" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.RequestBudgetTests" name="SharedBudgetNeverRestartsAfterCredentialAcquisition" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.UserDeclineNeverAddsAnyPermissionOrRequest" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="d9a6c2b2-8316-6143-075c-6ef5a74acc89">
+      <Execution id="104557c0-30eb-4126-87ca-e543f737d625" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="UserDeclineNeverAddsAnyPermissionOrRequest" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.DraftEditCancelsInFlightOriginalTaskAndCannotReportSuccess" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="4bc986f6-9279-7b9a-01a2-7cbd0dc80cbd">
+      <Execution id="16cd41e2-6ec0-45f3-9074-03efd926e073" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="DraftEditCancelsInFlightOriginalTaskAndCannotReportSuccess" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.RequestBudgetTests.ProductionTransportHonorsFrozenLessEqualAndGreaterBudgets(seconds: 180)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="cdce6fa9-d258-d701-f984-224c8ea2415c">
+      <Execution id="ef0a6744-a0e1-44b3-b198-a3b2e951251e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.RequestBudgetTests" name="ProductionTransportHonorsFrozenLessEqualAndGreaterBudgets" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(change: &quot;cancel&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="7ea903b7-bc75-6b99-811a-dc7a510cc509">
+      <Execution id="318d03f9-3fc2-48f5-bacc-939ed56450cb" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="InterruptedPublicSampleCannotAuthorizeLaterRealContent" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(change: &quot;endpoint&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="dcb0ae0c-50ea-6ecc-e4b2-533468049538">
+      <Execution id="7cc76062-193e-4758-90aa-0666f46590a8" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="InterruptedPublicSampleCannotAuthorizeLaterRealContent" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(change: &quot;binding&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="746f4764-dc4d-f5d5-2583-55707a810e54">
+      <Execution id="4745e982-1f5e-4aa6-867b-d6e5e0396159" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="FailedStartCannotLeaveAnyContentAuthorization" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.RequestBudgetTests.ExpiredSharedBudgetCannotStartAnHttpRequest" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="887f04b2-d249-2fc3-7714-497f19705c09">
+      <Execution id="606d4b29-23b8-4c9f-aae2-14908d837094" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.RequestBudgetTests" name="ExpiredSharedBudgetCannotStartAnHttpRequest" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.RequestBudgetTests.ProductionTransportHonorsFrozenLessEqualAndGreaterBudgets(seconds: 60)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="e246830a-61f2-28c0-1018-ee976e1591d3">
+      <Execution id="80829451-525b-449e-8380-83e18c427bb9" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.RequestBudgetTests" name="ProductionTransportHonorsFrozenLessEqualAndGreaterBudgets" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.ExistingRealContentGrantIsPreservedWhileTestAddsNoSecondOrigin" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="35ee951a-c946-209f-fc81-499b9a423cc3">
+      <Execution id="d6103042-1bf8-4205-b10c-630540ee1d21" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="ExistingRealContentGrantIsPreservedWhileTestAddsNoSecondOrigin" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.ActualShellEnableStillRequiresOwnContentConfirmationAfterSuccessfulSample" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="d797b79b-3dc2-3afb-5b9d-22c0d398a045">
+      <Execution id="4a5acc32-056a-48c7-aa1e-5cba9c1049e8" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="ActualShellEnableStillRequiresOwnContentConfirmationAfterSuccessfulSample" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="746f4764-dc4d-f5d5-2583-55707a810e54" executionId="4745e982-1f5e-4aa6-867b-d6e5e0396159" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cdce6fa9-d258-d701-f984-224c8ea2415c" executionId="ef0a6744-a0e1-44b3-b198-a3b2e951251e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d797b79b-3dc2-3afb-5b9d-22c0d398a045" executionId="4a5acc32-056a-48c7-aa1e-5cba9c1049e8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8b72a5d7-8773-cfff-ab0a-8f4feed2bf04" executionId="7f8ad547-0909-467e-9043-d371913326d7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d9a6c2b2-8316-6143-075c-6ef5a74acc89" executionId="104557c0-30eb-4126-87ca-e543f737d625" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="72b1b6c7-dff9-58ab-2f2c-26544c01ba15" executionId="14cd8b91-df9c-4e1c-a844-db71c62645f9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="35ee951a-c946-209f-fc81-499b9a423cc3" executionId="d6103042-1bf8-4205-b10c-630540ee1d21" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dcb0ae0c-50ea-6ecc-e4b2-533468049538" executionId="7cc76062-193e-4758-90aa-0666f46590a8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b6530d1b-bf77-9f95-0aab-50f5753a31ee" executionId="062892aa-076f-4b66-afa3-1d682662a223" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7540d48b-6dd0-2ff6-4de8-e5e463c49600" executionId="50bedcb4-501c-49cc-a840-632061063e26" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dd67348c-16c2-f6b0-f715-7381328bc7c2" executionId="9983f8b9-bec8-4af8-96e6-db26daf222a9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="18780df5-6275-8885-90fb-09ebb9a57fd2" executionId="5f4c889b-46d6-42f0-9ec9-1106674e8449" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9533654d-6a4c-518e-8090-ab7a779e85fb" executionId="a3949182-ec29-466a-9d28-55739798db16" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6008c773-e9b7-f61f-5f38-1d7e04363b22" executionId="66d7be3d-2e14-411d-a492-a644d9553529" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4bc986f6-9279-7b9a-01a2-7cbd0dc80cbd" executionId="16cd41e2-6ec0-45f3-9074-03efd926e073" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6ae695c4-75d8-8e2a-d3a8-a91962cf77df" executionId="a0f01947-24c9-4489-9c0b-418d9090ac94" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e246830a-61f2-28c0-1018-ee976e1591d3" executionId="80829451-525b-449e-8380-83e18c427bb9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3c49eec7-36b7-e25f-50ba-b9cf63bd1552" executionId="01e56f68-177d-49d4-9a1c-35a32679794f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="887f04b2-d249-2fc3-7714-497f19705c09" executionId="606d4b29-23b8-4c9f-aae2-14908d837094" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ca5ac929-9754-73a1-21d5-cd3eb57d9dfd" executionId="e4b5afa6-c1e4-4a5c-bd56-7d0e80f43d78" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7ea903b7-bc75-6b99-811a-dc7a510cc509" executionId="318d03f9-3fc2-48f5-bacc-939ed56450cb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="704db82d-5a67-b7dc-8ec5-b432a97a4aa1" executionId="40176e37-83d9-4b70-8a4e-95a528e16250" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="eb53fdca-1b60-e78e-1e7d-d643f8a6e7f6" executionId="47273ac7-b117-4d60-a603-b5de96f62578" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9c35c4a0-ba3d-57fb-aa14-c9137ba5d9ec" executionId="20de5c11-bdac-4449-892d-a4e19a084fa0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="24" executed="24" passed="23" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.05]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.11]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.13]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.61]       System.InvalidOperationException : Startup already attempted.
+[xUnit.net 00:00:00.61]       Stack Trace:
+[xUnit.net 00:00:00.61]         /workspace/KuaiYi/src/KuaiYi.Core/ShellLifecycle.cs(15,0): at KuaiYi.Core.ShellLifecycle.InitializeAsync(CancellationToken cancellation)
+[xUnit.net 00:00:00.61]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs(69,0): at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.ActualShellEnableStillRequiresOwnContentConfirmationAfterSuccessfulSample()
+[xUnit.net 00:00:00.61]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs(72,0): at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.ActualShellEnableStillRequiresOwnContentConfirmationAfterSuccessfulSample()
+[xUnit.net 00:00:00.61]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.62]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T23:36:20.4634028+00:00">
+        <Text>[xUnit.net 00:00:00.61]     KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.ActualShellEnableStillRequiresOwnContentConfirmationAfterSuccessfulSample [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

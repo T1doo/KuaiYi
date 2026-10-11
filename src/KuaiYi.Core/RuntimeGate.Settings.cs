@@ -35,7 +35,7 @@ public sealed partial class RuntimeGate
             profileBindings=next;
             if(active!=null&&activeProfileBinding is {} binding&&(!next.TryGetValue(binding.ProfileId,out var current)||current!=binding))
             {
-                active=null;activeProfileBinding=null;cancellation=activeCancellation;activeCancellation=null;
+                active=null;connectionTestOrigin=null;activeProfileBinding=null;cancellation=activeCancellation;activeCancellation=null;
             }
         }
         // Per-request cancellation only. Never revoke a shared ciphertext or switch unrelated consumers Off.

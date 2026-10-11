@@ -1,0 +1,18 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.61]     KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.ActualShellEnableStillRequiresOwnContentConfirmationAfterSuccessfulSample [FAIL]
+  Failed KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.ActualShellEnableStillRequiresOwnContentConfirmationAfterSuccessfulSample [90 ms]
+  Error Message:
+   System.InvalidOperationException : Startup already attempted.
+  Stack Trace:
+     at KuaiYi.Core.ShellLifecycle.InitializeAsync(CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/ShellLifecycle.cs:line 15
+   at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.ActualShellEnableStillRequiresOwnContentConfirmationAfterSuccessfulSample() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs:line 69
+   at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.ActualShellEnableStillRequiresOwnContentConfirmationAfterSuccessfulSample() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs:line 72
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/test-results/p4-consent/consent-budget-green.trx
+
+Failed!  - Failed:     1, Passed:    23, Skipped:     0, Total:    24, Duration: 369 ms - KuaiYi.Provider.Tests.dll (net10.0)

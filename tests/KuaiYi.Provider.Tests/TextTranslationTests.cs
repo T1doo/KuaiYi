@@ -19,7 +19,7 @@ public sealed class TextTranslationTests(ServerFixture fixture):IClassFixture<Se
         return new(protocol,uri,profile.AddressMode==ApiAddressMode.ExactEndpoint?uri.AbsoluteUri:protocol==KuaiYi.Providers.ApiProtocol.OpenAIChat?"chat/completions":"messages",profile.Model,
             profile.Authentication switch{ApiAuthentication.None=>Authentication.None,ApiAuthentication.ApiKey=>Authentication.ApiKey,_=>Authentication.Bearer},
             protocol==KuaiYi.Providers.ApiProtocol.AnthropicMessages?OutputLimitParameter.MaxTokens:OutputLimitParameter.MaxCompletionTokens,profile.MaxOutputTokens,
-            profile.Streaming&&profile.Capabilities.Streaming!=Capability.Unsupported,AllowLoopbackHttp:true);
+            profile.Streaming&&profile.Capabilities.Streaming!=Capability.Unsupported,AllowLoopbackHttp:true,TotalTimeoutSeconds:profile.TimeoutSeconds);
     }
     private sealed class Destination:SynchronizationContext
     {public override void Post(SendOrPostCallback action,object? state)=>action(state);}

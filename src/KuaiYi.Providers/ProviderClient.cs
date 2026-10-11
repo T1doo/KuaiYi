@@ -13,9 +13,11 @@ public sealed class ProviderClient : IDisposable
 {
     public const int MaximumOutputCodeUnits = 120_000;
     private readonly DevelopmentTranslationBoundary? developmentBoundary;
+    private readonly TimeProvider clock;
     private readonly HttpClient client;
-    public ProviderClient(DevelopmentTranslationBoundary? developmentBoundary=null)
-    {this.developmentBoundary=developmentBoundary;client=CreateClient(developmentBoundary);}
+    public ProviderClient(DevelopmentTranslationBoundary? developmentBoundary=null,TimeProvider? clock=null)
+    {this.developmentBoundary=developmentBoundary;this.clock=clock??TimeProvider.System;client=CreateClient(developmentBoundary);}
+    public ProviderRequestBudget FreezeBudget(ApiProfile profile)=>new(profile.TotalTimeoutSeconds,clock);
     private static HttpClient CreateClient(DevelopmentTranslationBoundary? boundary)
     {
         var handler=new SocketsHttpHandler{AllowAutoRedirect=false,ConnectTimeout=TimeSpan.FromSeconds(10),MaxResponseHeadersLength=64};
@@ -25,7 +27,7 @@ public sealed class ProviderClient : IDisposable
 
     /// <summary>Low-level transport. Caller owns cancellation; product consumption uses GenerateEnvelopesAsync and ProviderEventReceiver.</summary>
     public async IAsyncEnumerable<ModelEvent> GenerateAsync(TranslationRequest request, RuntimeGate gate,
-        RequestIdentity identity, SecretLease? secret, [EnumeratorCancellation] CancellationToken cancellation = default, Func<bool>? sendAdmission = null)
+        RequestIdentity identity, SecretLease? secret, [EnumeratorCancellation] CancellationToken cancellation = default, Func<bool>? sendAdmission = null,ProviderRequestBudget? requestBudget=null)
     {
         ArgumentNullException.ThrowIfNull(request);
         ArgumentNullException.ThrowIfNull(gate);
@@ -53,10 +55,11 @@ public sealed class ProviderClient : IDisposable
         }
         catch (ArgumentException) { endpoint = null!; adapter = null!; message = null!; }
         if (message is null) { if (gate.CanApply(identity)) yield return new(ModelEventKind.Failed, Reason: "CONFIG_INVALID"); yield break; }
+        var budget=requestBudget??FreezeBudget(request.Profile);
         using (message)
-        using (var total = CancellationTokenSource.CreateLinkedTokenSource(cancellation))
+        using (var total = budget.Link(cancellation))
         {
-            total.CancelAfter(TimeSpan.FromSeconds(120));
+            if(budget.Seconds!=request.Profile.TotalTimeoutSeconds){if(gate.CanApply(identity))yield return new(ModelEventKind.Failed,Reason:"CONFIG_INVALID");yield break;}
             HttpResponseMessage? response = null;
             string? sendError = null;
             for (int attempt = 0; attempt < 2; attempt++)
@@ -66,6 +69,7 @@ public sealed class ProviderClient : IDisposable
                 headersDeadline.CancelAfter(TimeSpan.FromSeconds(30));
                 try
                 {
+                    budget.Check();
                     // Each attempt obtains fresh content and headers, with no credentials on DefaultRequestHeaders.
                     using HttpRequestMessage outgoing = CreateMessage(request, adapter, endpoint, secret);
                     bool FinalAdmission()=> (boundary==null||boundary.Allows(request.Profile,secret))&&(sendAdmission?.Invoke()??true)&&(boundary==null||boundary.Allows(request.Profile,secret));
@@ -179,12 +183,12 @@ public sealed class ProviderClient : IDisposable
 
     /// <summary>Production consumption carries the complete identity through the destination queue.</summary>
     public async IAsyncEnumerable<ModelEventEnvelope> GenerateEnvelopesAsync(TranslationRequest request, RuntimeGate gate,
-        RequestIdentity identity, SecretLease? secret, [EnumeratorCancellation] CancellationToken cancellation = default, Func<bool>? sendAdmission = null)
+        RequestIdentity identity, SecretLease? secret, [EnumeratorCancellation] CancellationToken cancellation = default, Func<bool>? sendAdmission = null,ProviderRequestBudget? requestBudget=null)
     {
         ArgumentNullException.ThrowIfNull(gate);
         if (!gate.TryLinkRequestCancellation(identity, cancellation, out var linked)) yield break;
         using var requestLifetime = linked!;
-        await foreach (var item in GenerateAsync(request, gate, identity, secret, requestLifetime.Token,sendAdmission).ConfigureAwait(false))
+        await foreach (var item in GenerateAsync(request, gate, identity, secret, requestLifetime.Token,sendAdmission,requestBudget).ConfigureAwait(false))
         {
             if (!gate.CanApply(identity)) yield break;
             yield return new(identity, item);

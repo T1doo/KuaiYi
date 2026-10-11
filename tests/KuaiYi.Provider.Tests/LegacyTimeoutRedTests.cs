@@ -1,0 +1,22 @@
+using KuaiYi.Core;
+using KuaiYi.Providers;
+using Xunit;
+namespace KuaiYi.Provider.Tests;
+public sealed class LegacyTimeoutRedTests(ServerFixture fixture):IClassFixture<ServerFixture>
+{
+    // Same cases/assertions; after red evidence, observe the corrected production timer rather than the immutable legacy fixture.
+    private sealed class ScheduleObservation:TimeProvider
+    {
+        public TimeSpan Scheduled;public override long GetTimestamp()=>0;
+        public override ITimer CreateTimer(TimerCallback callback,object? state,TimeSpan dueTime,TimeSpan period)
+        {Scheduled=dueTime;return TimeProvider.System.CreateTimer(callback,state,dueTime,period);}
+    }
+    [Theory] [InlineData(60)] [InlineData(120)] [InlineData(180)]
+    public async Task OriginalTransportScheduleMustMatchSavedTotalBudget(int seconds)
+    {
+        var profile=ApiProfileMapper.Plan(new(){Id="p",Model="PUBLIC_FIXTURE_MODEL",Authentication=KuaiYi.Core.Settings.ApiAuthentication.None,BaseUrl=new Uri(fixture.BaseUri,$"runs/{Guid.NewGuid():N}/fragmented/").AbsoluteUri,AllowLoopbackHttp=true,TimeoutSeconds=seconds}).Transport;
+        var gate=new RuntimeGate();var origin=new EndpointOrigin(profile.ResolveEndpoint());gate.ConsentTo(origin);gate.TryEnable(origin,true);gate.TryStartRequest(Guid.NewGuid(),Guid.NewGuid(),null,out var id,out var ct);
+        var clock=new ScheduleObservation();using var client=new ProviderClient(clock:clock);await foreach(var item in client.GenerateAsync(new(profile,ApiConnectionTestContent.System,ApiConnectionTestContent.Source),gate,id,null,ct)){}
+        Assert.Equal(TimeSpan.FromSeconds(seconds),clock.Scheduled);
+    }
+}

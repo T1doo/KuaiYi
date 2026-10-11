@@ -1,0 +1,36 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.38]     KuaiYi.Provider.Tests.LegacyTimeoutRedTests.OriginalTransportScheduleMustMatchSavedTotalBudget(seconds: 60) [FAIL]
+[xUnit.net 00:00:00.39]     KuaiYi.Provider.Tests.LegacyTimeoutRedTests.OriginalTransportScheduleMustMatchSavedTotalBudget(seconds: 180) [FAIL]
+[xUnit.net 00:00:00.40]     KuaiYi.Provider.Tests.LegacyTimeoutRedTests.OriginalTransportScheduleMustMatchSavedTotalBudget(seconds: 120) [FAIL]
+  Failed KuaiYi.Provider.Tests.LegacyTimeoutRedTests.OriginalTransportScheduleMustMatchSavedTotalBudget(seconds: 60) [149 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: 00:01:00
+Actual:   00:00:59.9999263
+  Stack Trace:
+     at KuaiYi.Provider.Tests.LegacyTimeoutRedTests.OriginalTransportScheduleMustMatchSavedTotalBudget(Int32 seconds) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LegacyTimeoutRedTests.cs:line 20
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.LegacyTimeoutRedTests.OriginalTransportScheduleMustMatchSavedTotalBudget(seconds: 180) [5 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: 00:03:00
+Actual:   00:02:59.9999996
+  Stack Trace:
+     at KuaiYi.Provider.Tests.LegacyTimeoutRedTests.OriginalTransportScheduleMustMatchSavedTotalBudget(Int32 seconds) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LegacyTimeoutRedTests.cs:line 20
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.LegacyTimeoutRedTests.OriginalTransportScheduleMustMatchSavedTotalBudget(seconds: 120) [2 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: 00:02:00
+Actual:   00:01:59.9999993
+  Stack Trace:
+     at KuaiYi.Provider.Tests.LegacyTimeoutRedTests.OriginalTransportScheduleMustMatchSavedTotalBudget(Int32 seconds) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LegacyTimeoutRedTests.cs:line 20
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/test-results/p4-consent/budget-corrected.trx
+
+Failed!  - Failed:     3, Passed:     7, Skipped:     0, Total:    10, Duration: 216 ms - KuaiYi.Provider.Tests.dll (net10.0)

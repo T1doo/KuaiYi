@@ -1,0 +1,41 @@
+{
+  "allPassed": true,
+  "checks": 6146,
+  "historicalSummaries": 18,
+  "archives": 23,
+  "currentArchive": {
+    "archive": "artifacts/KuaiYi-P4-consent-managed-win-x64.zip",
+    "bytes": 2114525,
+    "sha256": "1a2c77207a5e0fae27e49ddc0eab1d5ab7ae753a9bcd049b83c2bbb6a459b345",
+    "installer": false,
+    "FrameworkDependent": true,
+    "NativeDlls": "NotIncluded",
+    "WindowsRuntime": "NotRun",
+    "ModelCalls": "None",
+    "TestHttp": "Real loopback only",
+    "files": 89,
+    "appFiles": 51,
+    "publicProbeFiles": 27,
+    "testProviderFiles": 6,
+    "actualPe32PlusX64Hosts": [
+      "app/KuaiYi.App.exe",
+      "app/KuaiYi.CaptureBroker.exe",
+      "app/KuaiYi.CaptureHost.exe",
+      "app/KuaiYi.ClipboardHost.exe",
+      "app/KuaiYi.ImageWorker.exe",
+      "app/KuaiYi.NativeHost.exe",
+      "app/KuaiYi.OleReceiver.exe",
+      "public-probe/KuaiYi.App.exe",
+      "public-probe/KuaiYi.GrowthHarness.exe",
+      "public-probe/KuaiYi.NativeHost.exe"
+    ],
+    "manifestHashes": "Pass",
+    "productionMockReference": false
+  },
+  "tests": 1499,
+  "focused": 30,
+  "Node": 63,
+  "Windows": "NotRun",
+  "RemoteCi": "NotRun",
+  "ModelCalls": "None"
+}

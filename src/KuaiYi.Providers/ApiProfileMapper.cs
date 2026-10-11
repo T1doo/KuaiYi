@@ -26,7 +26,7 @@ public static class ApiProfileMapper
         var transport=new ApiProfile(protocol,new(profile.BaseUrl),endpoint.AbsoluteUri,profile.Model,profile.Authentication switch
         {ApiAuthentication.None=>Authentication.None,ApiAuthentication.ApiKey=>Authentication.ApiKey,ApiAuthentication.CustomHeader=>Authentication.CustomHeader,_=>Authentication.Bearer},
             output,profile.MaxOutputTokens,streaming,profile.AllowLoopbackHttp||boundary!=null,version,boundary,temperature,
-            streaming&&profile.Capabilities.UsageInStream==Capability.Supported,profile.SendStoreFalse,profile.AllowInsecureHttp,profile.AuthenticationHeader,headers,profile.ImageByteLimit,profile.Capabilities.Vision);
+            streaming&&profile.Capabilities.UsageInStream==Capability.Supported,profile.SendStoreFalse,profile.AllowInsecureHttp,profile.AuthenticationHeader,headers,profile.ImageByteLimit,profile.Capabilities.Vision,profile.TimeoutSeconds);
         _=transport.ResolveEndpoint();return new(transport,notices.ToImmutableArray());
     }
 }

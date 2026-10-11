@@ -1,0 +1,11 @@
+{
+  "kind": "EvidenceSelectorFailure",
+  "action": "First independent package verification",
+  "failure": "provider published bytes assertion failed",
+  "cause": "Copied summary generator still selected the old P4-profile archive; stage script correctly wrote a separate P4-consent archive",
+  "correction": "Changed only summary generator archivePath to KuaiYi-P4-consent-managed-win-x64.zip; verifier assertion unchanged",
+  "historicalArchivesModified": false,
+  "firstSelectedArchive": "artifacts/KuaiYi-P4-profile-managed-win-x64.zip",
+  "correctedArchive": "artifacts/KuaiYi-P4-consent-managed-win-x64.zip",
+  "oldArchiveSha256": "6e2683c3c43793f1b4bbcafa71e43db51df60db360aa653bfe462f77e5583eca"
+}

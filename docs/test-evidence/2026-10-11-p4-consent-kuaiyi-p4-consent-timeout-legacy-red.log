@@ -1,0 +1,27 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.34]     KuaiYi.Provider.Tests.LegacyTimeoutRedTests.OriginalTransportScheduleMustMatchSavedTotalBudget(seconds: 60) [FAIL]
+[xUnit.net 00:00:00.35]     KuaiYi.Provider.Tests.LegacyTimeoutRedTests.OriginalTransportScheduleMustMatchSavedTotalBudget(seconds: 180) [FAIL]
+  Failed KuaiYi.Provider.Tests.LegacyTimeoutRedTests.OriginalTransportScheduleMustMatchSavedTotalBudget(seconds: 60) [97 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: 00:01:00
+Actual:   00:02:00
+  Stack Trace:
+     at KuaiYi.Provider.Tests.LegacyTimeoutRedTests.OriginalTransportScheduleMustMatchSavedTotalBudget(Int32 seconds) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LegacyTimeoutRedTests.cs:line 13
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.LegacyTimeoutRedTests.OriginalTransportScheduleMustMatchSavedTotalBudget(seconds: 180) [6 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: 00:03:00
+Actual:   00:02:00
+  Stack Trace:
+     at KuaiYi.Provider.Tests.LegacyTimeoutRedTests.OriginalTransportScheduleMustMatchSavedTotalBudget(Int32 seconds) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LegacyTimeoutRedTests.cs:line 13
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/test-results/p4-consent/timeout-legacy-red.trx
+
+Failed!  - Failed:     2, Passed:     1, Skipped:     0, Total:     3, Duration: 119 ms - KuaiYi.Provider.Tests.dll (net10.0)

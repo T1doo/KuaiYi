@@ -29,9 +29,15 @@ internal sealed partial class SettingsWindow
         page.Children.Add(localHttp);page.Children.Add(insecureHttp);page.Children.Add(storeFalse);page.Children.Add(testConnection);page.Children.Add(stopTest);page.Children.Add(testResult);
         foreach(var checkbox in new[]{localHttp,insecureHttp,storeFalse})checkbox.Click+=(_,_)=>{apiTests?.Cancel();PreviewEndpoint();};
         endpointPath.TextChanged+=(_,_)=>ApiIdentityEdited();headers.TextChanged+=(_,_)=>{if(!loading)apiTests?.Cancel();};authentication.SelectionChanged+=(_,_)=>{if(!loading)apiTests?.Cancel();};
+        // Every request-affecting edit revokes the test, including keyboard toggles and masked credential edits.
+        foreach(var field in new[]{profileName,url,model,tokens,timeout,endpointPath,temperature,contextTokens,imageBytes,authHeader,headers,reveal})field.TextChanged+=(_,_)=>ApiFormEdited();
+        password.PasswordChanged+=(_,_)=>ApiFormEdited();
+        foreach(var field in new[]{protocol,addressMode,authentication,outputParameter,streamCapability,visionCapability,temperatureCapability,jsonCapability,usageCapability,profiles,textProfile,visionProfile})field.SelectionChanged+=(_,_)=>ApiFormEdited();
+        foreach(var field in new[]{stream,localHttp,insecureHttp,storeFalse}){field.Checked+=(_,_)=>ApiFormEdited();field.Unchecked+=(_,_)=>ApiFormEdited();}
         testConnection.IsEnabled=apiTests!=null;testConnection.Click+=async(_,_)=>await TestApi();stopTest.Click+=(_,_)=>{apiTests?.Cancel();status.Text="已取消连接测试。服务端是否已停止处理无法保证。";};
         Closing+=async(_,e)=>{if(apiTestTask.IsCompleted)return;e.Cancel=true;if(testClosePending)return;testClosePending=true;apiTests?.Cancel();try{await apiTestTask;}finally{testClosePending=false;Close();}};
     }
+    private void ApiFormEdited(){if(loading)return;apiTests?.DraftEdited();if(!apiTestTask.IsCompleted)status.Text="配置已编辑，原连接测试已取消；请保存后重新测试。";}
     private void ApplyApiPreset(Protocol value)
     {
         if(selectedId==null){status.Text="请先新增或选择一个配置。";return;}apiTests?.Cancel();draft.ClearKey(selectedId);password.Clear();

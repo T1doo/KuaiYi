@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="0f02a090-a7c1-4c4c-bb00-3c251eb0f745" name="@552716c6b8c5 2026-10-11 23:42:56" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T23:42:56.3371197+00:00" queuing="2026-10-11T23:42:56.3371198+00:00" start="2026-10-11T23:42:54.7615976+00:00" finish="2026-10-11T23:42:56.3411538+00:00" />
+  <TestSettings name="default" id="95735bde-6a36-4df1-91c5-232cc52e9ff4">
+    <Deployment runDeploymentRoot="_552716c6b8c5_2026-10-11_23_42_56" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="a99a55e8-0e7c-4bb5-8b4f-ac1d83b2b64d" testId="8d781978-f7bd-ec86-e4d6-a7ce09069b94" testName="KuaiYi.Provider.Tests.TextTranslationTests.ConfiguredTimeoutProducesFailureAndNoRetry" computerName="552716c6b8c5" duration="00:00:01.0529599" startTime="2026-10-11T23:42:55.1932054+00:00" endTime="2026-10-11T23:42:56.2510122+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a99a55e8-0e7c-4bb5-8b4f-ac1d83b2b64d" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.TextTranslationTests.ConfiguredTimeoutProducesFailureAndNoRetry" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="8d781978-f7bd-ec86-e4d6-a7ce09069b94">
+      <Execution id="a99a55e8-0e7c-4bb5-8b4f-ac1d83b2b64d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.TextTranslationTests" name="ConfiguredTimeoutProducesFailureAndNoRetry" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="8d781978-f7bd-ec86-e4d6-a7ce09069b94" executionId="a99a55e8-0e7c-4bb5-8b4f-ac1d83b2b64d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.05]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.11]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.13]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:01.30]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

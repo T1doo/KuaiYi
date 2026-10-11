@@ -7,6 +7,7 @@ public static class ApiConnectionTestContent
 public sealed partial class RuntimeGate
 {
     private bool connectionTest,runningRequest;
+    private EndpointOrigin? connectionTestOrigin;
     public bool HasRunningGeneration{get{lock(sync)return active!=null&&runningRequest&&!connectionTest;}}
     public bool IsConnectionTest(RequestIdentity identity){lock(sync)return active==identity&&connectionTest;}
     public void MarkRequestTerminal(RequestIdentity identity){lock(sync){if(active==identity)runningRequest=false;}}
@@ -16,10 +17,10 @@ public sealed partial class RuntimeGate
         lock(sync)
         {
             identity=default;cancellation=default;
-            if(epoch!=expectedEpoch||active!=null&&runningRequest||localOnly||!consented.Contains(origin)||
+            if(epoch!=expectedEpoch||active!=null&&runningRequest||localOnly||string.IsNullOrEmpty(origin.Value)||
                 (suspension&~Suspension.Settings)!=Suspension.None||!profileBindings.TryGetValue(binding.ProfileId,out var current)||current!=binding)return false;
             previous=activeCancellation;activeCancellation=new();activeProfileBinding=binding;connectionTest=runningRequest=true;
-            identity=new(Guid.NewGuid(),Guid.NewGuid(),Guid.NewGuid(),++epoch);active=identity;cancellation=activeCancellation.Token;
+            identity=new(Guid.NewGuid(),Guid.NewGuid(),Guid.NewGuid(),++epoch);active=identity;connectionTestOrigin=origin;cancellation=activeCancellation.Token;
         }
         previous?.Cancel();previous?.Dispose();return true;
     }

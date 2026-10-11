@@ -17,7 +17,7 @@ public sealed record ApiProfile(ApiProtocol Protocol, Uri BaseUrl, string Endpoi
     int MaxOutputTokens = 4096, bool Stream = true, bool AllowLoopbackHttp = false, string AnthropicVersion = "2023-06-01",
     DevelopmentTranslationBoundary? DevelopmentBoundary = null,double? Temperature=null,bool IncludeUsage=false,bool SendStoreFalse=false,
     bool AllowInsecureHttp=false,string AuthenticationHeader="",System.Collections.Immutable.ImmutableDictionary<string,string>? Headers=null,
-    int ImageByteLimit=4194304,KuaiYi.Core.Settings.Capability? VisionCapability=null)
+    int ImageByteLimit=4194304,KuaiYi.Core.Settings.Capability? VisionCapability=null,int TotalTimeoutSeconds=120)
 {
     public bool IsDevelopmentFixture=>DevelopmentBoundary?.Allows(this)==true;
     public Uri ResolveEndpoint()
@@ -33,7 +33,7 @@ public sealed record ApiProfile(ApiProtocol Protocol, Uri BaseUrl, string Endpoi
             throw new ArgumentException("Invalid API profile.");
         if (!BaseUrl.IsAbsoluteUri || BaseUrl.Scheme is not ("https" or "http") || BaseUrl.UserInfo.Length > 0 ||
             BaseUrl.Query.Length > 0 || BaseUrl.Fragment.Length > 0) throw new ArgumentException("Invalid endpoint base URI.");
-        if (Temperature is {} temperature&&(!double.IsFinite(temperature)||temperature<0||temperature>(Protocol==ApiProtocol.AnthropicMessages?1:2))||ImageByteLimit is <65536 or >4194304)throw new ArgumentException("Invalid optional API parameter.");
+        if (Temperature is {} temperature&&(!double.IsFinite(temperature)||temperature<0||temperature>(Protocol==ApiProtocol.AnthropicMessages?1:2))||ImageByteLimit is <65536 or >4194304||TotalTimeoutSeconds is <1 or >600)throw new ArgumentException("Invalid optional API parameter.");
         if(Protocol==ApiProtocol.AnthropicMessages&&OutputLimit is not(OutputLimitParameter.MaxTokens or OutputLimitParameter.ProtocolDefault))throw new ArgumentException("Anthropic requires max_tokens.");
         if(Authentication==Authentication.CustomHeader&&!KuaiYi.Core.Settings.ApiProfilePolicy.HeaderNameAllowed(AuthenticationHeader,true))throw new ArgumentException("Invalid credential header.");
         if(Headers?.Any(p=>!KuaiYi.Core.Settings.ApiProfilePolicy.HeaderNameAllowed(p.Key,false)||p.Value.Length>2048||p.Value.Any(c=>c<32||c>126))==true)throw new ArgumentException("Invalid non-secret header.");

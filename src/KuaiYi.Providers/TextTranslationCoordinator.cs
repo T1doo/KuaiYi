@@ -132,8 +132,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     {
         await Task.Yield();
         if(!gate.TryLinkRequestCancellation(identity,CancellationToken.None,out var linked))return;
-        using var lifetime=linked!;using var timeout=CancellationTokenSource.CreateLinkedTokenSource(lifetime.Token);
-        timeout.CancelAfter(TimeSpan.FromSeconds(snapshot.Profile.TimeoutSeconds));
+        using var lifetime=linked!;var budget=provider.FreezeBudget(snapshot.Transport);using var timeout=budget.Link(lifetime.Token);
         SecretLease? secret=null;bool terminal=false;
         try
         {
@@ -141,7 +140,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
             if(!SendEligible()||!gate.CanApply(identity)){await FailAsync(identity,snapshot,"SOURCE_OR_SETTINGS_CHANGED",lifetime.Token).ConfigureAwait(false);return;}
             if(snapshot.Transport.Authentication!=Authentication.None)secret=await openSecret(identity,snapshot,timeout.Token).ConfigureAwait(false);
             await foreach(var envelope in provider.GenerateEnvelopesAsync(new(snapshot.Transport,snapshot.Prompt,snapshot.Source.Text),gate,identity,secret,timeout.Token,
-                SendEligible).ConfigureAwait(false))
+                SendEligible,budget).ConfigureAwait(false))
             {
                 bool received=await receiver.ReceiveAsync(envelope,value=>
                 {

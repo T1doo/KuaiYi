@@ -102,3 +102,5 @@ P3-06 生产接线限定验证：66 新用例、Core1216+Provider131=1347、Node
 测试模式边界父审修复限定证据：旧25新反例22失败/3通过，修后39专项均通过；完整Core1216+Provider170=1386、Node63、27 locked Release。旧测试名/断言保留、27锁/原规格不变。其他父审仍未完，Windows/完整P3/P4/106整体不签收；见p3-text-boundary-review.md与本轮summary。
 
 P4-01限定代码/离线证据：新增Core40/Provider43，完整1256+213=1469、Node63、27 locked Release；真实配置文件/AES合成密文到两协议loopback请求和返回，以及Off固定样本限制已验证。Windows设置UI/焦点/关闭等待/DPAPI、跨应用/动画/DPI、安装/真实服务仍NotRun；106整体NotRun，不签收完整P4 Alpha。
+
+P4授权/预算父审补正：新30项、完整Core1262+Provider237=1499/1499、Node63、27locked Release；旧授权17中11失败与旧预算3中2失败原证据保留，原1469名称/27锁/规格不变。其他父审未验，106整体验收NotRun；Windows/native/DPAPI/UI编辑/焦点/动画/DPI/安装/真实模型/远端CI不签收。

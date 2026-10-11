@@ -99,7 +99,7 @@ public sealed partial class RuntimeGate
             localOnly = true;
             if (presentation == Presentation.Hidden) presentation = Presentation.Compact;
             identity = new(sessionId, versionId, Guid.NewGuid(), ++epoch);
-            active = identity; connectionTest=false;runningRequest=true;cancellation = activeCancellation.Token; manuallyCollapsedRequest = null;
+            active = identity; connectionTest=false;connectionTestOrigin=null;runningRequest=true;cancellation = activeCancellation.Token; manuallyCollapsedRequest = null;
             activeProfileBinding = null;
         }
         previous?.Cancel(); previous?.Dispose(); return true;
@@ -112,7 +112,7 @@ public sealed partial class RuntimeGate
         lock (sync)
         {
             if (active != identity) return;
-            active = null; cancellation = activeCancellation; activeCancellation = null; epoch++;
+            active = null; connectionTestOrigin=null;cancellation = activeCancellation; activeCancellation = null; epoch++;
             if (localOnly) { activation = Activation.Off; presentation = Presentation.Compact; }
         }
         cancellation?.Cancel(); cancellation?.Dispose();
@@ -126,6 +126,7 @@ public sealed partial class RuntimeGate
             activation = Activation.Off;
             epoch++;
             active = null;
+            connectionTestOrigin=null;
             cancellation = activeCancellation;
             activeCancellation = null;
             presentation = hide ? Presentation.Hidden : Presentation.Compact;
@@ -164,7 +165,7 @@ public sealed partial class RuntimeGate
         lock(sync)
         {
             if(explicitCaptureOwner!=owner||epoch!=captureEpoch||activation!=initial||suspension!=Suspension.Capture)return false;
-            activation=Activation.Off;epoch++;active=null;cancellation=activeCancellation;activeCancellation=null;presentation=Presentation.Compact;
+            activation=Activation.Off;epoch++;active=null;connectionTestOrigin=null;cancellation=activeCancellation;activeCancellation=null;presentation=Presentation.Compact;
         }
         cancellation?.Cancel();cancellation?.Dispose();return true;
     }
@@ -232,7 +233,7 @@ public sealed partial class RuntimeGate
             identity = new RequestIdentity(sessionId, versionId, Guid.NewGuid(), ++epoch);
             cancellation = activeCancellation.Token;
             active = identity;
-            connectionTest=false;runningRequest=true;
+            connectionTest=false;connectionTestOrigin=null;runningRequest=true;
             activeProfileBinding = binding;
             manuallyCollapsedRequest = null;
         }
@@ -274,7 +275,8 @@ public sealed partial class RuntimeGate
 
     public bool CanSend(RequestIdentity identity, EndpointOrigin actualOrigin)
     {
-        lock (sync) return (activation == Activation.On||connectionTest) && !localOnly && HasSendBindingLocked() && active == identity && consented.Contains(actualOrigin) &&
+        lock (sync) return (activation == Activation.On||connectionTest) && !localOnly && HasSendBindingLocked() && active == identity &&
+            (connectionTest?connectionTestOrigin==actualOrigin:consented.Contains(actualOrigin)) &&
             !suspension.HasFlag(Suspension.SessionLocked) && activeCancellation is { IsCancellationRequested: false };
     }
 
@@ -301,6 +303,7 @@ public sealed partial class RuntimeGate
         lock (sync)
         {
             active = null;
+            connectionTestOrigin=null;
             cancellation = activeCancellation;
             activeCancellation = null;
             epoch++;

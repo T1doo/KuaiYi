@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="b85c212b-242d-4e1d-a716-67834be6c7da" name="@552716c6b8c5 2026-10-11 23:23:05" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T23:23:05.0253531+00:00" queuing="2026-10-11T23:23:05.0253532+00:00" start="2026-10-11T23:23:04.3349275+00:00" finish="2026-10-11T23:23:05.0698478+00:00" />
+  <TestSettings name="default" id="cd619e25-1325-47d5-a9af-2b4044e24a04">
+    <Deployment runDeploymentRoot="_552716c6b8c5_2026-10-11_23_23_05" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="62bcbb5f-5a06-43de-8202-0e535603ab68" testId="7540d48b-6dd0-2ff6-4de8-e5e463c49600" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.SuccessfulPublicSampleNeverGrantsRealContentSessionConsent" computerName="552716c6b8c5" duration="00:00:00.0198463" startTime="2026-10-11T23:23:05.0065386+00:00" endTime="2026-10-11T23:23:05.0107812+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="62bcbb5f-5a06-43de-8202-0e535603ab68">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.SuccessfulPublicSampleNeverGrantsRealContentSessionConsent() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs:line 30
+   at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.SuccessfulPublicSampleNeverGrantsRealContentSessionConsent() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs:line 30
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4cc062bf-b570-4841-a771-b155a21e6ad9" testId="35ee951a-c946-209f-fc81-499b9a423cc3" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.ExistingRealContentGrantIsPreservedWhileTestAddsNoSecondOrigin" computerName="552716c6b8c5" duration="00:00:00.0074143" startTime="2026-10-11T23:23:05.0138821+00:00" endTime="2026-10-11T23:23:05.0187661+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4cc062bf-b570-4841-a771-b155a21e6ad9">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.ExistingRealContentGrantIsPreservedWhileTestAddsNoSecondOrigin() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs:line 53
+   at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.ExistingRealContentGrantIsPreservedWhileTestAddsNoSecondOrigin() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs:line 53
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d9d215de-fd14-488d-abbf-fc4533ba66bd" testId="6008c773-e9b7-f61f-5f38-1d7e04363b22" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(change: &quot;off&quot;)" computerName="552716c6b8c5" duration="00:00:00.1250209" startTime="2026-10-11T23:23:04.7912049+00:00" endTime="2026-10-11T23:23:04.9257912+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d9d215de-fd14-488d-abbf-fc4533ba66bd">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs:line 46
+   at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs:line 46
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="5ee23979-c988-4e9c-8a31-20bc19e4358c" testId="dcb0ae0c-50ea-6ecc-e4b2-533468049538" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(change: &quot;endpoint&quot;)" computerName="552716c6b8c5" duration="00:00:00.0137179" startTime="2026-10-11T23:23:04.9597028+00:00" endTime="2026-10-11T23:23:04.9732175+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5ee23979-c988-4e9c-8a31-20bc19e4358c">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs:line 46
+   at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs:line 46
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d4e0cac8-bb1b-4c2e-a842-4e7c49c1b4bd" testId="746f4764-dc4d-f5d5-2583-55707a810e54" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(change: &quot;binding&quot;)" computerName="552716c6b8c5" duration="00:00:00.0039371" startTime="2026-10-11T23:23:04.9839703+00:00" endTime="2026-10-11T23:23:04.9880893+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d4e0cac8-bb1b-4c2e-a842-4e7c49c1b4bd" />
+    <UnitTestResult executionId="48c24748-7deb-4f84-9c17-d3e7827ce93d" testId="b6530d1b-bf77-9f95-0aab-50f5753a31ee" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(change: &quot;config&quot;)" computerName="552716c6b8c5" duration="00:00:00.0164086" startTime="2026-10-11T23:23:04.9430760+00:00" endTime="2026-10-11T23:23:04.9588641+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="48c24748-7deb-4f84-9c17-d3e7827ce93d">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs:line 46
+   at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs:line 46
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="488501cd-625d-41ef-8ff1-2f1cd15466ae" testId="7ea903b7-bc75-6b99-811a-dc7a510cc509" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(change: &quot;cancel&quot;)" computerName="552716c6b8c5" duration="00:00:00.0144607" startTime="2026-10-11T23:23:04.9362062+00:00" endTime="2026-10-11T23:23:04.9417512+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="488501cd-625d-41ef-8ff1-2f1cd15466ae">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs:line 46
+   at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs:line 46
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="39edb51a-ab6d-48b3-9dad-6bbedeab5823" testId="9533654d-6a4c-518e-8090-ab7a779e85fb" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(change: &quot;lock&quot;)" computerName="552716c6b8c5" duration="00:00:00.0008433" startTime="2026-10-11T23:23:04.9833335+00:00" endTime="2026-10-11T23:23:04.9834005+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="39edb51a-ab6d-48b3-9dad-6bbedeab5823">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs:line 38
+   at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs:line 38
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9f90b72f-0956-420b-9ef6-d96fb425debb" testId="3c49eec7-36b7-e25f-50ba-b9cf63bd1552" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(change: &quot;settings&quot;)" computerName="552716c6b8c5" duration="00:00:00.0016388" startTime="2026-10-11T23:23:04.9882708+00:00" endTime="2026-10-11T23:23:04.9896084+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9f90b72f-0956-420b-9ef6-d96fb425debb" />
+    <UnitTestResult executionId="aa088032-90a3-413a-b664-58252a35586b" testId="d9a6c2b2-8316-6143-075c-6ef5a74acc89" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.UserDeclineNeverAddsAnyPermissionOrRequest" computerName="552716c6b8c5" duration="00:00:00.0080563" startTime="2026-10-11T23:23:04.9748618+00:00" endTime="2026-10-11T23:23:04.9826001+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aa088032-90a3-413a-b664-58252a35586b" />
+    <UnitTestResult executionId="99841079-374b-48e0-9625-b6f57bd201d6" testId="704db82d-5a67-b7dc-8ec5-b432a97a4aa1" testName="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(change: &quot;epoch&quot;)" computerName="552716c6b8c5" duration="00:00:00.0002598" startTime="2026-10-11T23:23:04.9896920+00:00" endTime="2026-10-11T23:23:04.9900079+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="99841079-374b-48e0-9625-b6f57bd201d6">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs:line 38
+   at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs:line 38
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(change: &quot;settings&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="3c49eec7-36b7-e25f-50ba-b9cf63bd1552">
+      <Execution id="9f90b72f-0956-420b-9ef6-d96fb425debb" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="FailedStartCannotLeaveAnyContentAuthorization" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(change: &quot;epoch&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="704db82d-5a67-b7dc-8ec5-b432a97a4aa1">
+      <Execution id="99841079-374b-48e0-9625-b6f57bd201d6" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="FailedStartCannotLeaveAnyContentAuthorization" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(change: &quot;binding&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="746f4764-dc4d-f5d5-2583-55707a810e54">
+      <Execution id="d4e0cac8-bb1b-4c2e-a842-4e7c49c1b4bd" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="FailedStartCannotLeaveAnyContentAuthorization" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(change: &quot;off&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="6008c773-e9b7-f61f-5f38-1d7e04363b22">
+      <Execution id="d9d215de-fd14-488d-abbf-fc4533ba66bd" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="InterruptedPublicSampleCannotAuthorizeLaterRealContent" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.UserDeclineNeverAddsAnyPermissionOrRequest" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="d9a6c2b2-8316-6143-075c-6ef5a74acc89">
+      <Execution id="aa088032-90a3-413a-b664-58252a35586b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="UserDeclineNeverAddsAnyPermissionOrRequest" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(change: &quot;cancel&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="7ea903b7-bc75-6b99-811a-dc7a510cc509">
+      <Execution id="488501cd-625d-41ef-8ff1-2f1cd15466ae" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="InterruptedPublicSampleCannotAuthorizeLaterRealContent" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.SuccessfulPublicSampleNeverGrantsRealContentSessionConsent" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="7540d48b-6dd0-2ff6-4de8-e5e463c49600">
+      <Execution id="62bcbb5f-5a06-43de-8202-0e535603ab68" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="SuccessfulPublicSampleNeverGrantsRealContentSessionConsent" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.ExistingRealContentGrantIsPreservedWhileTestAddsNoSecondOrigin" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="35ee951a-c946-209f-fc81-499b9a423cc3">
+      <Execution id="4cc062bf-b570-4841-a771-b155a21e6ad9" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="ExistingRealContentGrantIsPreservedWhileTestAddsNoSecondOrigin" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(change: &quot;endpoint&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="dcb0ae0c-50ea-6ecc-e4b2-533468049538">
+      <Execution id="5ee23979-c988-4e9c-8a31-20bc19e4358c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="InterruptedPublicSampleCannotAuthorizeLaterRealContent" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(change: &quot;config&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="b6530d1b-bf77-9f95-0aab-50f5753a31ee">
+      <Execution id="48c24748-7deb-4f84-9c17-d3e7827ce93d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="InterruptedPublicSampleCannotAuthorizeLaterRealContent" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(change: &quot;lock&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="9533654d-6a4c-518e-8090-ab7a779e85fb">
+      <Execution id="39edb51a-ab6d-48b3-9dad-6bbedeab5823" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ConnectionConsentRegressionTests" name="FailedStartCannotLeaveAnyContentAuthorization" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="7540d48b-6dd0-2ff6-4de8-e5e463c49600" executionId="62bcbb5f-5a06-43de-8202-0e535603ab68" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="35ee951a-c946-209f-fc81-499b9a423cc3" executionId="4cc062bf-b570-4841-a771-b155a21e6ad9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6008c773-e9b7-f61f-5f38-1d7e04363b22" executionId="d9d215de-fd14-488d-abbf-fc4533ba66bd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dcb0ae0c-50ea-6ecc-e4b2-533468049538" executionId="5ee23979-c988-4e9c-8a31-20bc19e4358c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="746f4764-dc4d-f5d5-2583-55707a810e54" executionId="d4e0cac8-bb1b-4c2e-a842-4e7c49c1b4bd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b6530d1b-bf77-9f95-0aab-50f5753a31ee" executionId="48c24748-7deb-4f84-9c17-d3e7827ce93d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7ea903b7-bc75-6b99-811a-dc7a510cc509" executionId="488501cd-625d-41ef-8ff1-2f1cd15466ae" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9533654d-6a4c-518e-8090-ab7a779e85fb" executionId="39edb51a-ab6d-48b3-9dad-6bbedeab5823" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3c49eec7-36b7-e25f-50ba-b9cf63bd1552" executionId="9f90b72f-0956-420b-9ef6-d96fb425debb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d9a6c2b2-8316-6143-075c-6ef5a74acc89" executionId="aa088032-90a3-413a-b664-58252a35586b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="704db82d-5a67-b7dc-8ec5-b432a97a4aa1" executionId="99841079-374b-48e0-9625-b6f57bd201d6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="11" executed="11" passed="3" failed="8" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.05]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.11]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.13]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.34]       Assert.False() Failure
+[xUnit.net 00:00:00.34]       Expected: False
+[xUnit.net 00:00:00.34]       Actual:   True
+[xUnit.net 00:00:00.34]       Stack Trace:
+[xUnit.net 00:00:00.34]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs(46,0): at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(String change)
+[xUnit.net 00:00:00.34]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs(46,0): at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(String change)
+[xUnit.net 00:00:00.34]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.35]       Assert.False() Failure
+[xUnit.net 00:00:00.35]       Expected: False
+[xUnit.net 00:00:00.35]       Actual:   True
+[xUnit.net 00:00:00.35]       Stack Trace:
+[xUnit.net 00:00:00.35]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs(46,0): at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(String change)
+[xUnit.net 00:00:00.35]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs(46,0): at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(String change)
+[xUnit.net 00:00:00.35]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.37]       Assert.False() Failure
+[xUnit.net 00:00:00.37]       Expected: False
+[xUnit.net 00:00:00.37]       Actual:   True
+[xUnit.net 00:00:00.37]       Stack Trace:
+[xUnit.net 00:00:00.37]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs(46,0): at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(String change)
+[xUnit.net 00:00:00.37]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs(46,0): at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(String change)
+[xUnit.net 00:00:00.37]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.38]       Assert.False() Failure
+[xUnit.net 00:00:00.38]       Expected: False
+[xUnit.net 00:00:00.38]       Actual:   True
+[xUnit.net 00:00:00.38]       Stack Trace:
+[xUnit.net 00:00:00.38]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs(46,0): at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(String change)
+[xUnit.net 00:00:00.38]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs(46,0): at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(String change)
+[xUnit.net 00:00:00.38]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.39]       Assert.False() Failure
+[xUnit.net 00:00:00.39]       Expected: False
+[xUnit.net 00:00:00.39]       Actual:   True
+[xUnit.net 00:00:00.39]       Stack Trace:
+[xUnit.net 00:00:00.39]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs(38,0): at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(String change)
+[xUnit.net 00:00:00.39]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs(38,0): at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(String change)
+[xUnit.net 00:00:00.39]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.40]       Assert.False() Failure
+[xUnit.net 00:00:00.40]       Expected: False
+[xUnit.net 00:00:00.40]       Actual:   True
+[xUnit.net 00:00:00.40]       Stack Trace:
+[xUnit.net 00:00:00.40]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs(38,0): at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(String change)
+[xUnit.net 00:00:00.40]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs(38,0): at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(String change)
+[xUnit.net 00:00:00.40]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.42]       Assert.False() Failure
+[xUnit.net 00:00:00.42]       Expected: False
+[xUnit.net 00:00:00.42]       Actual:   True
+[xUnit.net 00:00:00.42]       Stack Trace:
+[xUnit.net 00:00:00.42]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs(30,0): at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.SuccessfulPublicSampleNeverGrantsRealContentSessionConsent()
+[xUnit.net 00:00:00.42]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs(30,0): at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.SuccessfulPublicSampleNeverGrantsRealContentSessionConsent()
+[xUnit.net 00:00:00.42]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.43]       Assert.False() Failure
+[xUnit.net 00:00:00.43]       Expected: False
+[xUnit.net 00:00:00.43]       Actual:   True
+[xUnit.net 00:00:00.43]       Stack Trace:
+[xUnit.net 00:00:00.43]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs(53,0): at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.ExistingRealContentGrantIsPreservedWhileTestAddsNoSecondOrigin()
+[xUnit.net 00:00:00.43]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs(53,0): at KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.ExistingRealContentGrantIsPreservedWhileTestAddsNoSecondOrigin()
+[xUnit.net 00:00:00.43]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.44]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T23:23:04.9337904+00:00">
+        <Text>[xUnit.net 00:00:00.34]     KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(change: "off") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T23:23:04.9427273+00:00">
+        <Text>[xUnit.net 00:00:00.35]     KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(change: "cancel") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T23:23:04.9597275+00:00">
+        <Text>[xUnit.net 00:00:00.37]     KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(change: "config") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T23:23:04.9737189+00:00">
+        <Text>[xUnit.net 00:00:00.38]     KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.InterruptedPublicSampleCannotAuthorizeLaterRealContent(change: "endpoint") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T23:23:04.9851481+00:00">
+        <Text>[xUnit.net 00:00:00.39]     KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(change: "lock") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T23:23:04.9906127+00:00">
+        <Text>[xUnit.net 00:00:00.40]     KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.FailedStartCannotLeaveAnyContentAuthorization(change: "epoch") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T23:23:05.0294284+00:00">
+        <Text>[xUnit.net 00:00:00.42]     KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.SuccessfulPublicSampleNeverGrantsRealContentSessionConsent [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T23:23:05.0294402+00:00">
+        <Text>[xUnit.net 00:00:00.43]     KuaiYi.Provider.Tests.ConnectionConsentRegressionTests.ExistingRealContentGrantIsPreservedWhileTestAddsNoSecondOrigin [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>
