@@ -76,3 +76,5 @@ App唯一浮钮HWND/呈现STA → 独立registrar STA持有标准解封送代理
 OLE结果在最终本地应用时与Cancel共锁核epoch，原Run admission、原delivery settlement与remote revoke都确认后才释放lease/允许复用。取消WaitAsync不等于原任务结束；原回调持有可读数组到实际终结，随后清零且清零结束再接下一结果。原错误保留给活跃调用，迟到失败被观察并留下有限类型码。细节及基线失败见ole-lifetime-audit.md；Windows COM/桌面组合仍未验证。
 
 独立设置切片：Core.Settings持有不可变AppSettings/草稿、文件锁与摘要CAS、已知迁移/损坏恢复、秘密引用journal及WriteId终结核对；Windows提供当前用户DPAPI/受保护DACL；App正常窗口负责表单，保存任务后台、捕获暂停及删除失效事件。配置不保存On或内容，不自动读取旧密钥/授权。完整边界及剩余Windows验证见settings-review.md与ADR0011；位置恢复仅纯函数已验证。
+
+监督修正后的SettingsRecoveryDraft分别保留备份和默认草稿，捕获来源至原保存结束，WPF footer与程序性事件均按同一状态拒绝保存中切换。非数值schema归类损坏；秘密共享引用在保存及已提交journal恢复时按当前配置集合保留，最后引用移除才撤销。证据见settings-recovery-review.md；源码接线不等于Windows实机验证。

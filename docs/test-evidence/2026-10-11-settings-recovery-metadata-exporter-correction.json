@@ -1,0 +1,8 @@
+{
+  "errors": [
+    "First exporter assumed aggregate attributes on testsuites, raising KeyError tests.",
+    "Second assumed child testsuite aggregate counters; the actual Node reporter emits direct testcase elements. Assertion rejected zero cases."
+  ],
+  "correction": "Inspect actual XML; count63 testcase elements and their failure/error/skipped children. No production or test changes, full regression already passed.",
+  "classification": "Evidence exporter correction, not a product test failure"
+}

@@ -29,7 +29,8 @@ public sealed class SettingsCoordinator(SettingsStore store,SecretFileStore secr
             var data=captured.Data with{WriteId=id};var replacements=new Dictionary<string,string>();
             foreach(var key in captured.Keys){if(!data.Profiles.Any(p=>p.Id==key.Key))continue;string reference=await secrets.SaveNewAsync(key.Value,cancellation);staged.Add(reference);replacements[key.Key]=reference;}
             data=data with{Profiles=data.Profiles.Select(p=>replacements.TryGetValue(p.Id,out var reference)?p with{SecretRef=reference}:p).ToImmutableArray()};
-            var retired=draft.Basis.Data.Profiles.Where(p=>p.SecretRef!=null&&(captured.Cleared.Contains(p.Id)||!data.Profiles.Any(n=>n.Id==p.Id))).Select(p=>p.SecretRef!).Distinct().ToImmutableArray();
+            var remainingReferences=data.Profiles.Where(p=>p.SecretRef!=null).Select(p=>p.SecretRef!).ToHashSet(StringComparer.Ordinal);
+            var retired=draft.Basis.Data.Profiles.Where(p=>p.SecretRef!=null&&!remainingReferences.Contains(p.SecretRef)&&(captured.Cleared.Contains(p.Id)||!data.Profiles.Any(n=>n.Id==p.Id))).Select(p=>p.SecretRef!).Distinct().ToImmutableArray();
             var transaction=new SecretTransaction{Id=id,BasisVersion=draft.Basis.Version,NewReferences=staged.ToImmutableArray(),RetiredReferences=retired};
             byte[] metadata=JsonSerializer.SerializeToUtf8Bytes(transaction,SettingsJson.Options);try{SettingsStore.WriteFlushed(journal,metadata);journalWritten=true;}finally{CryptographicOperations.ZeroMemory(metadata);}
             SettingsSnapshot saved;
@@ -67,7 +68,12 @@ public sealed class SettingsCoordinator(SettingsStore store,SecretFileStore secr
             var transaction=JsonSerializer.Deserialize<SecretTransaction>(bytes,SettingsJson.Options)??throw new SettingsTransactionUnconfirmedException();
             if(transaction.SchemaVersion!=1||transaction.Id==Guid.Empty||Path.GetFileName(path)!=Path.GetFileName(JournalPath(transaction.Id))||transaction.NewReferences.IsDefault||transaction.RetiredReferences.IsDefault||transaction.NewReferences.Length>16||transaction.RetiredReferences.Length>16||transaction.NewReferences.Concat(transaction.RetiredReferences).Any(r=>!SecretFileStore.ValidReference(r)))throw new SettingsTransactionUnconfirmedException();
             if(snapshot.ReadOnly||snapshot.RequiresRecovery)throw new SettingsTransactionUnconfirmedException();
-            if(snapshot.Data.WriteId==transaction.Id)foreach(string reference in transaction.RetiredReferences)await secrets.RevokeAsync(reference);
+            if(snapshot.Data.WriteId==transaction.Id)
+            {
+                // Prior committed journals may predate shared-reference retirement rules. The saved configuration proves these references are still live.
+                var live=snapshot.Data.Profiles.Where(p=>p.SecretRef!=null).Select(p=>p.SecretRef!).ToHashSet(StringComparer.Ordinal);
+                foreach(string reference in transaction.RetiredReferences)if(!live.Contains(reference))await secrets.RevokeAsync(reference);
+            }
             else if(snapshot.Version==transaction.BasisVersion)foreach(string reference in transaction.NewReferences)await secrets.DeleteUnpublishedAsync(reference);
             else throw new SettingsTransactionUnconfirmedException(); // Cannot prove either outcome; never delete old references or guess.
             File.Delete(path);

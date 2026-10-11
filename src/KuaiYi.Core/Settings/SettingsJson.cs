@@ -18,7 +18,7 @@ public static class SettingsJson
     {
         if(bytes.Length is <2 or >MaximumBytes)throw new SettingsValidationException("fileSize");
         using var document=JsonDocument.Parse(bytes,new(){MaxDepth=16});Check(document.RootElement.ValueKind==JsonValueKind.Object,"document");RejectDuplicates(document.RootElement);
-        if(!document.RootElement.TryGetProperty("schemaVersion",out var schema)||!schema.TryGetInt32(out int version))throw new SettingsValidationException("schemaVersion");
+        if(!document.RootElement.TryGetProperty("schemaVersion",out var schema)||schema.ValueKind!=JsonValueKind.Number||!schema.TryGetInt32(out int version))throw new SettingsValidationException("schemaVersion");
         migrated=false;AppSettings settings;
         if(version==AppSettings.CurrentSchema)settings=JsonSerializer.Deserialize<AppSettings>(bytes,Options)??throw new SettingsValidationException("document");
         else if(version==0)

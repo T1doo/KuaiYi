@@ -11,7 +11,8 @@ namespace KuaiYi.App;
 /// <summary>Normal activating settings window. Editing is draft-only; no provider, selection or old-secret read.</summary>
 internal sealed partial class SettingsWindow:Window
 {
-    private readonly SettingsCoordinator coordinator;private readonly SettingsDraft draft;
+    private readonly SettingsCoordinator coordinator;private readonly SettingsRecoveryDraft recoveryDraft;
+    private SettingsDraft draft=>recoveryDraft.Draft;
     private readonly Grid body=new();private readonly TextBlock status=new(){TextWrapping=TextWrapping.Wrap,Margin=new Thickness(8)};
     private readonly Button save=new(){Content="保存",MinWidth=80,Margin=new Thickness(6)};
     private readonly Button cancel=new(){Content="取消",MinWidth=80,Margin=new Thickness(6),IsCancel=true};
@@ -25,10 +26,10 @@ internal sealed partial class SettingsWindow:Window
     private readonly PasswordBox password=new(){MaxLength=8192};private readonly TextBox reveal=new(){MaxLength=8192,Visibility=Visibility.Collapsed};
     private readonly CheckBox stream=new(){Content="流式输出"};private readonly TextBlock keyStatus=new();
     private readonly DispatcherTimer revealTimer=new(){Interval=TimeSpan.FromSeconds(5)};
-    private string? selectedId;private bool loading,saving,committed;
-    public SettingsWindow(SettingsCoordinator coordinator,SettingsDraft draft)
+    private string? selectedId;private bool loading,saving,committed,changingRecovery;
+    public SettingsWindow(SettingsCoordinator coordinator,SettingsDraft initialDraft)
     {
-        this.coordinator=coordinator;this.draft=draft;SetupPlacement();Title="快译设置";ShowInTaskbar=false;WindowStartupLocation=WindowStartupLocation.CenterOwner;
+        this.coordinator=coordinator;recoveryDraft=new(initialDraft);SetupPlacement();Title="快译设置";ShowInTaskbar=false;WindowStartupLocation=WindowStartupLocation.CenterOwner;
         var work=SystemParameters.WorkArea;Width=Math.Min(860,work.Width);Height=Math.Min(660,work.Height);MinWidth=Math.Min(700,work.Width);MinHeight=Math.Min(520,work.Height);MaxWidth=work.Width;MaxHeight=work.Height;
         var root=new DockPanel();var footer=new StackPanel();DockPanel.SetDock(footer,Dock.Bottom);root.Children.Add(footer);
         footer.Children.Add(status);var actions=new StackPanel{Orientation=Orientation.Horizontal,HorizontalAlignment=HorizontalAlignment.Right};actions.Children.Add(recovery);actions.Children.Add(save);actions.Children.Add(cancel);footer.Children.Add(actions);
@@ -36,8 +37,8 @@ internal sealed partial class SettingsWindow:Window
         var pages=new[]{General(),Api(),Translation(),Overlay(),Hotkeys(),Images(),Privacy()};foreach(var page in pages){page.Visibility=Visibility.Collapsed;body.Children.Add(page);}
         nav.SelectionChanged+=(_,_)=>{foreach(var p in pages)p.Visibility=Visibility.Collapsed;if(nav.SelectedIndex>=0)pages[nav.SelectedIndex].Visibility=Visibility.Visible;Mask();};nav.SelectedIndex=0;
         LoadGeneral();RefreshProfiles();
-        recovery.ItemsSource=new[]{"选择恢复方式","恢复上版备份","使用安全默认值"};recovery.SelectedIndex=0;recovery.Visibility=draft.Basis.RequiresRecovery?Visibility.Visible:Visibility.Collapsed;
-        recovery.SelectionChanged+=(_,_)=>{if(recovery.SelectedIndex==2&&!draft.Basis.ReadOnly){draft.Update(_=>new());selectedId=null;LoadGeneral();RefreshProfiles();}};
+        recovery.ItemsSource=new[]{new ComboBoxItem{Content="选择恢复方式"},new ComboBoxItem{Content="恢复上版备份",IsEnabled=draft.Basis.State==SettingsLoadState.RecoverableBackup},new ComboBoxItem{Content="使用安全默认值"}};recovery.SelectedIndex=0;recovery.Visibility=draft.Basis.RequiresRecovery?Visibility.Visible:Visibility.Collapsed;
+        recovery.SelectionChanged+=(_,_)=>RecoverySelectionChanged();
         status.Text=draft.Basis.State switch{SettingsLoadState.ReadOnlyUnknown=>"检测到不支持的配置版本。只读打开，文件与密钥均保留。",SettingsLoadState.RecoverableBackup=>"配置损坏或缺失。可恢复上版备份，或使用安全默认值；未保存前不会覆盖原文件。",SettingsLoadState.RecoverableDefaults=>"配置无法读取为有效设置。请明确选择安全默认值；原文件保留。",SettingsLoadState.Migrated=>"旧布局草稿已转换为当前格式。保存后才写入；旧版保留为备份。",_=>"修改仅在草稿中。保存不自动启用翻译，也不发送请求。"};
         if(draft.Basis.ReadOnly){body.IsEnabled=false;save.IsEnabled=false;}
         textProfile.SelectionChanged+=(_,_)=>{if(!loading&&!draft.Basis.ReadOnly)draft.Update(s=>s with{ActiveProfileId=string.IsNullOrEmpty(textProfile.SelectedValue as string)?null:(string)textProfile.SelectedValue});};
@@ -45,7 +46,7 @@ internal sealed partial class SettingsWindow:Window
         profiles.SelectionChanged+=(_,_)=>{if(loading)return;if(!TryCaptureProfile()){loading=true;profiles.SelectedValue=selectedId;loading=false;return;}selectedId=profiles.SelectedValue as string;LoadProfile();};
         save.Click+=async(_,_)=>await Save();cancel.Click+=(_,_)=>Close();revealTimer.Tick+=(_,_)=>Mask();Deactivated+=(_,_)=>Mask();password.LostKeyboardFocus+=(_,_)=>Mask();reveal.LostKeyboardFocus+=(_,_)=>Mask();
         Closing+=(_,e)=>{if(saving){e.Cancel=true;status.Text="保存任务尚未完成，请等待实际结果。";}else Mask();};
-        Closed+=(_,_)=>{revealTimer.Stop();password.Clear();reveal.Clear();if(!draft.IsClosed)draft.Dispose();};
+        Closed+=(_,_)=>{revealTimer.Stop();password.Clear();reveal.Clear();recoveryDraft.Dispose();};
     }
     private static ComboBox Choice<T>()where T:struct,Enum=>new(){ItemsSource=Enum.GetValues<T>(),MinWidth=160};
     private static StackPanel Page()=>new(){Margin=new Thickness(16)};
@@ -92,17 +93,39 @@ internal sealed partial class SettingsWindow:Window
     private void Mask(){revealTimer.Stop();if(reveal.Visibility==Visibility.Visible){password.Password=reveal.Text;reveal.Clear();reveal.Visibility=Visibility.Collapsed;password.Visibility=Visibility.Visible;}}
     private static int Integer(string text,string field)=>int.TryParse(text,NumberStyles.Integer,CultureInfo.InvariantCulture,out int value)?value:throw new SettingsValidationException(field);
     private static double Number(string text,string field)=>double.TryParse(text,NumberStyles.Float,CultureInfo.InvariantCulture,out double value)?value:throw new SettingsValidationException(field);
+    private void RestoreRecoverySelection()
+    {changingRecovery=true;try{recovery.SelectedIndex=recoveryDraft.Choice==SettingsRecovery.UseBackup?1:recoveryDraft.Choice==SettingsRecovery.UseDefaults?2:0;}finally{changingRecovery=false;}}
+    private void RecoverySelectionChanged()
+    {
+        if(changingRecovery)return;
+        if(saving||recoveryDraft.IsSaving||draft.IsClosed||draft.Basis.ReadOnly){RestoreRecoverySelection();return;}
+        var choice=recovery.SelectedIndex==1?SettingsRecovery.UseBackup:recovery.SelectedIndex==2?SettingsRecovery.UseDefaults:SettingsRecovery.None;
+        if(choice==recoveryDraft.Choice)return;
+        try
+        {
+            CaptureProfile();CapturePreferences();
+            if(!recoveryDraft.Select(choice)){RestoreRecoverySelection();return;}
+            selectedId=draft.Data.Profiles.Any(p=>p.Id==selectedId)?selectedId:draft.Data.ActiveProfileId??draft.Data.Profiles.FirstOrDefault()?.Id;
+            LoadGeneral();RefreshProfiles();status.Text=choice switch{SettingsRecovery.UseBackup=>"当前显示上版备份草稿及其编辑。保存此草稿；切换不会丢失另一份草稿。",SettingsRecovery.UseDefaults=>"当前显示安全默认值草稿及其编辑。保存此草稿；原备份在保存前保留。",_=>"尚未选择恢复方式。当前显示原恢复草稿及其编辑；选择后才能保存。"};
+        }
+        catch(SettingsValidationException error){RestoreRecoverySelection();status.Text="请先检查当前草稿项，再切换恢复方式："+error.Field;}
+        catch(SettingsRecoveryRequiredException){RestoreRecoverySelection();status.Text="没有可读取的备份。请选择安全默认值，原文件保留。";}
+    }
+    private void CapturePreferences()
+    {
+        draft.Update(s=>s with{TriggerMode=(TriggerMode)mode.SelectedItem,ActiveProfileId=string.IsNullOrEmpty(textProfile.SelectedValue as string)?null:(string)textProfile.SelectedValue,VisionProfileId=string.IsNullOrEmpty(visionProfile.SelectedValue as string)?null:(string)visionProfile.SelectedValue,Translation=s.Translation with{Preset=(TranslationPreset)preset.SelectedItem,Domain=domain.Text,ReaderBackground=background.Text,SelectionDebounceMs=Integer(delay.Text,"selectionDebounceMs"),AutoSoftLimitScalars=Integer(softLimit.Text,"autoSoftLimitScalars")},Overlay=s.Overlay with{FontSizeDip=Number(font.Text,"fontSizeDip"),PreferredWidthDip=Number(width.Text,"preferredWidthDip"),ReduceMotion=(MotionPreference)motion.SelectedItem,Theme=(ThemePreference)theme.SelectedItem,RememberPosition=remember.IsChecked==true},Images=s.Images with{SmartRouting=smart.IsChecked==true,PreviewScreenshotBeforeSend=preview.IsChecked==true},Privacy=s.Privacy with{BlockedApplications=blocked.Text.Split(new[]{'\r','\n'},StringSplitOptions.RemoveEmptyEntries|StringSplitOptions.TrimEntries).ToImmutableArray()}});
+    }
     private async Task Save()
     {
         if(saving||draft.Basis.ReadOnly)return;
         try
         {
-            CaptureProfile();draft.Update(s=>s with{TriggerMode=(TriggerMode)mode.SelectedItem,ActiveProfileId=string.IsNullOrEmpty(textProfile.SelectedValue as string)?null:(string)textProfile.SelectedValue,VisionProfileId=string.IsNullOrEmpty(visionProfile.SelectedValue as string)?null:(string)visionProfile.SelectedValue,Translation=s.Translation with{Preset=(TranslationPreset)preset.SelectedItem,Domain=domain.Text,ReaderBackground=background.Text,SelectionDebounceMs=Integer(delay.Text,"selectionDebounceMs"),AutoSoftLimitScalars=Integer(softLimit.Text,"autoSoftLimitScalars")},Overlay=s.Overlay with{FontSizeDip=Number(font.Text,"fontSizeDip"),PreferredWidthDip=Number(width.Text,"preferredWidthDip"),ReduceMotion=(MotionPreference)motion.SelectedItem,Theme=(ThemePreference)theme.SelectedItem,RememberPosition=remember.IsChecked==true},Images=s.Images with{SmartRouting=smart.IsChecked==true,PreviewScreenshotBeforeSend=preview.IsChecked==true},Privacy=s.Privacy with{BlockedApplications=blocked.Text.Split(new[]{'\r','\n'},StringSplitOptions.RemoveEmptyEntries|StringSplitOptions.TrimEntries).ToImmutableArray()}});
-            saving=true;save.IsEnabled=cancel.IsEnabled=body.IsEnabled=false;status.Text="正在保存草稿…";
-            await coordinator.SaveAsync(draft,recovery.SelectedIndex==1?SettingsRecovery.UseBackup:recovery.SelectedIndex==2?SettingsRecovery.UseDefaults:SettingsRecovery.None);committed=true;
+            CaptureProfile();CapturePreferences();
+            saving=true;save.IsEnabled=cancel.IsEnabled=body.IsEnabled=recovery.IsEnabled=false;status.Text="正在保存草稿…";
+            await recoveryDraft.SaveAsync(coordinator);committed=true;
         }
         catch(Exception error){status.Text=error is SettingsValidationException v?"请检查设置项："+v.Field:error is SettingsConflictException?"配置已被另一份草稿修改。请取消后重新打开，避免覆盖。":draft.IsClosed?"配置已提交，密钥清理尚需恢复。关闭后重新打开设置进行核对。":"保存未确认 · "+error.GetType().Name+"；原配置或事务保留。";}
-        finally{saving=false;if(!draft.IsClosed)save.IsEnabled=cancel.IsEnabled=body.IsEnabled=!draft.Basis.ReadOnly;else cancel.IsEnabled=true;}
+        finally{saving=false;if(!draft.IsClosed)save.IsEnabled=cancel.IsEnabled=body.IsEnabled=recovery.IsEnabled=!draft.Basis.ReadOnly;else cancel.IsEnabled=true;}
         if(committed)Close();
     }
 }

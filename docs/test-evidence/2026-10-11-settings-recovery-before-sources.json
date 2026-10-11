@@ -1,0 +1,60 @@
+{
+  "baseCommit": "0db0267d8808547818010b28b505905d6d04524a",
+  "extraction": "Recovery selection/save owner extracted from the existing WPF handler without fixing its destructive UseDefaults/reset and missing saving admission behavior; Json parser and retirement logic are unchanged. Tests invoke this production owner, not WPF runtime.",
+  "sourceDigests": [
+    {
+      "path": "src/KuaiYi.Core/Settings/SettingsRecoveryDraft.cs",
+      "snapshot": "before-source__src__KuaiYi.Core__Settings__SettingsRecoveryDraft.cs",
+      "bytes": 869,
+      "sha256": "b211bec83f093d37ffd53e2b99d7a772341918d33ef3bb5ac0f39424aff31c38"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/SettingsJson.cs",
+      "snapshot": "before-source__src__KuaiYi.Core__Settings__SettingsJson.cs",
+      "bytes": 9127,
+      "sha256": "e970916903f5e9096eca749ddb4a6e833847965a4f8f1c1a8700e59d7ce46da9"
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/SettingsCoordinator.cs",
+      "snapshot": "before-source__src__KuaiYi.Core__Settings__SettingsCoordinator.cs",
+      "bytes": 9008,
+      "sha256": "d2353e702a61cad3435cbfeba4c8f7d5d2cf44efc4410213d3e5c33822efc0bc"
+    },
+    {
+      "path": "src/KuaiYi.App/SettingsWindow.cs",
+      "snapshot": "before-source__src__KuaiYi.App__SettingsWindow.cs",
+      "bytes": 17795,
+      "sha256": "2c8759974bbf3caf02bd54283508cd4b1b90465dc582c11a72049783f40c23ac"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs",
+      "snapshot": "before-source__tests__KuaiYi.Core.Tests__SettingsRecoveryRegressionTests.cs",
+      "bytes": 16591,
+      "sha256": "8d04eed210a5ffd1eeea5a32c9de51714823bb830e98f68d0be8f224b93db5e2"
+    },
+    {
+      "path": "tools/KuaiYi.SettingsStoreFixture/Program.cs",
+      "snapshot": "before-source__tools__KuaiYi.SettingsStoreFixture__Program.cs",
+      "bytes": 2076,
+      "sha256": "1af5cc7d597e94adc99514b00dca037124a6c9b85b78f661b68d2db766ceedda"
+    }
+  ],
+  "red": {
+    "total": "50",
+    "executed": "50",
+    "passed": "9",
+    "failed": "41",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  }
+}

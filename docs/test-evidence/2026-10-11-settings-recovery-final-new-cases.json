@@ -1,0 +1,214 @@
+{
+  "count": 52,
+  "passed": 52,
+  "cases": [
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(value: \"2147483648\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(useDefaults: True, save: False, throughNone: True)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(useDefaults: False, save: True, throughNone: True)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.SharedReferenceSaveFailureAndStaleConcurrentDraftCannotRevokeRemainingSecret",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RemovingOneOfTwoSharedReferencesKeepsRemainingReadableUntilFinalRemoval(clearOnly: False)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: \"2147483648\", combination: 0)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.PriorCommittedJournalCannotRevokeASecretStillUsedBySavedProfiles",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: \"null\", combination: 2)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.SharedReferenceSurvivesRealChildCrashAndRecoveryWhileOtherProfileStillUsesIt(stage: AfterPublish)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: \"null\", combination: 1)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: \"\\\"1\\\"\", combination: 1)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: \"false\", combination: 1)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: \"[]\", combination: 0)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.FutureIntegerBackupStillPreservedWhenPrimarySchemaHasWrongType(future: 999)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(useDefaults: False, save: True, throughNone: False)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: \"\\\"1\\\"\", combination: 0)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.FutureIntegerBackupStillPreservedWhenPrimarySchemaHasWrongType(future: 2)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.SharedReferenceSurvivesRealChildCrashAndRecoveryWhileOtherProfileStillUsesIt(stage: BeforePublish)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: \"{}\", combination: 1)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: \"1.5\", combination: 0)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: \"2147483648\", combination: 2)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: \"true\", combination: 2)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: \"null\", combination: 0)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(value: \"[]\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(useDefaults: True, save: False, throughNone: False)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: \"2147483648\", combination: 1)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(value: \"null\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: \"false\", combination: 0)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(value: \"false\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: \"[]\", combination: 2)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RemovingOneOfTwoSharedReferencesKeepsRemainingReadableUntilFinalRemoval(clearOnly: True)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(useDefaults: False, save: False, throughNone: False)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(useDefaults: True, save: True, throughNone: True)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(useDefaults: True, save: True, throughNone: False)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: \"false\", combination: 2)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: \"1.5\", combination: 1)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(value: \"1.5\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: \"{}\", combination: 2)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.BothDamagedFilesNeverAllowBackupChoiceAndDefaultsCancelOrSavePreservesOriginals(save: True)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: \"[]\", combination: 1)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.SavingOriginalTaskRejectsRecoveryChangesAndLateEventsAndFailureRestoresEditing(fail: False)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: \"\\\"1\\\"\", combination: 2)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.SavingOriginalTaskRejectsRecoveryChangesAndLateEventsAndFailureRestoresEditing(fail: True)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(value: \"\\\"1\\\"\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.BothDamagedFilesNeverAllowBackupChoiceAndDefaultsCancelOrSavePreservesOriginals(save: False)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: \"1.5\", combination: 2)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: \"{}\", combination: 0)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(useDefaults: False, save: False, throughNone: True)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(value: \"true\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: \"true\", combination: 1)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: \"true\", combination: 0)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(value: \"{}\")",
+      "outcome": "Passed"
+    }
+  ]
+}

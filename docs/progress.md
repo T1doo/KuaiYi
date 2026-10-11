@@ -204,3 +204,11 @@ P0 整体：**InProgress，真实 Windows 退出门槛 Blocked**。后续整阶�
 - 正常WPF设置窗口接到App，草稿保存/取消、捕获暂停、Off不启用或发送、掩码新输入、多API档及基础偏好真实接线。全部IO后台。热键/授权修改不能绕过后续事务，P4高级/模型调用未连接。位置纯恢复函数已测，真实浮窗位置持久化/恢复仍未接线。
 - 新45例含2真实独立child终止边界；最终Core537+Provider77=614、Node63，25托管locked Release零警告/错误，身份源6通过。首次Schema属性与WPF using错误日志保留，无删测试/弱断言。
 - 新770609字节/42文件设置审阅ZIP独立命名，旧5包摘要保持；无真实配置、密钥、receipt、fixture或原生DLL，非安装包。Windows界面/DPAPI/ACL/磁盘满/位置、原E06全NotRun，176追踪/106整体NotRun保持，P0 Blocked、P1 InProgress。详见settings-review.md和2026-10-11-settings-summary.json。
+
+## 设置恢复与共享引用监督修正
+
+- 固定0db0267独审四项：恢复备份/默认值切换错配、非数值schema异常逃逸、保存中footer可变、共享SecretRef删一档撤销其他档。只修现有问题，没有推进新功能。
+- 抽取同语义生产恢复所有者后首次50例41失败/9通过；等待原保存终结的测试清理及clear-only扩充后51例42失败/9通过；修复51/51。旧已提交日志再补1例先失败后修复，52项新增于全回归通过。原日志/源码/TRX与旧断言全部保留。
+- 备份与默认草稿各自保留编辑/待存密钥，实际保存锁定当前来源；footer禁用且迟到事件有准入，失败实际返回再可编辑。所有JSON值类型、主备组合、取消/保存保全已测；共享引用保存与已提交journal恢复扣除仍使用集合，最后移除才撤销。
+- 完整Core589+Provider77=666/666、Node63/63，25托管locked Release零警告/错误。新增2个真实child终止与原2个保留；protector/policy仍合成，Windows WPF/DPAPI/ACL未运行。
+- 独立772856字节/42文件修复ZIP，六个历史包摘要不变。176追踪/106整体NotRun，P0 Blocked/P1 InProgress，待监督独审。证据见settings-recovery-review.md与2026-10-11-settings-recovery-summary.json。

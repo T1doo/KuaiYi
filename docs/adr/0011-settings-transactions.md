@@ -13,3 +13,5 @@ schema1 为当前完整配置定义；schema0 是明确、有限、未发行的�
 文件替换与 Flush 的平台合同见 settings-review.md 的官方链接。Linux 的实际文件/进程终止和 AES-GCM 合成测试不能证明 Windows DPAPI、ACL、WPF、硬件断电或磁盘写满行为。P0/P1 退出门槛未改变。
 
 新引用采用key/随机GUID的不可变标识，避免覆盖旧密钥；规格示例的逻辑profile路径不是本切片的磁盘文件名。完整API配置导入及逻辑引用兼容不在本次交付范围，R05仍未整体完成。
+
+监督复核修正：恢复选择与其显示草稿由同一个所有者持有，备份/默认分支独立保留，原保存真实返回前锁定来源；非Int32 schema是损坏而未知合法Int32保全只读。共享秘密引用合法，退休及已提交journal恢复均扣除已保存配置仍使用的引用；最后引用移除才撤销。详见settings-recovery-review.md，Windows实机门槛不改变。

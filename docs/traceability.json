@@ -75,9 +75,11 @@
         "docs/test-evidence/2026-10-11-late-events-summary.json",
         "docs/settings-review.md",
         "docs/adr/0011-settings-transactions.md",
-        "docs/test-evidence/2026-10-11-settings-summary.json"
+        "docs/test-evidence/2026-10-11-settings-summary.json",
+        "docs/settings-recovery-review.md",
+        "docs/test-evidence/2026-10-11-settings-recovery-summary.json"
       ],
-      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed."
+      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed. Supervisor defects fixed with52 new portable cases; baseline51 had42 failures/9 passes, plus1 old committed-journal failure retained. Recovery branches/save admission and shared live refs now guarded. Windows real UI/DPAPI/ACL and all whole acceptance remain NotRun; no phase exit."
     },
     {
       "id": "R06",
@@ -447,9 +449,11 @@
       "evidence": [
         "docs/settings-review.md",
         "docs/adr/0011-settings-transactions.md",
-        "docs/test-evidence/2026-10-11-settings-summary.json"
+        "docs/test-evidence/2026-10-11-settings-summary.json",
+        "docs/settings-recovery-review.md",
+        "docs/test-evidence/2026-10-11-settings-recovery-summary.json"
       ],
-      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed."
+      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed. Supervisor defects fixed with52 new portable cases; baseline51 had42 failures/9 passes, plus1 old committed-journal failure retained. Recovery branches/save admission and shared live refs now guarded. Windows real UI/DPAPI/ACL and all whole acceptance remain NotRun; no phase exit."
     },
     {
       "id": "P1-04",
@@ -464,9 +468,11 @@
       "evidence": [
         "docs/settings-review.md",
         "docs/adr/0011-settings-transactions.md",
-        "docs/test-evidence/2026-10-11-settings-summary.json"
+        "docs/test-evidence/2026-10-11-settings-summary.json",
+        "docs/settings-recovery-review.md",
+        "docs/test-evidence/2026-10-11-settings-recovery-summary.json"
       ],
-      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed."
+      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed. Supervisor defects fixed with52 new portable cases; baseline51 had42 failures/9 passes, plus1 old committed-journal failure retained. Recovery branches/save admission and shared live refs now guarded. Windows real UI/DPAPI/ACL and all whole acceptance remain NotRun; no phase exit."
     },
     {
       "id": "P1-05",
@@ -1105,9 +1111,11 @@
       "evidence": [
         "docs/settings-review.md",
         "docs/adr/0011-settings-transactions.md",
-        "docs/test-evidence/2026-10-11-settings-summary.json"
+        "docs/test-evidence/2026-10-11-settings-summary.json",
+        "docs/settings-recovery-review.md",
+        "docs/test-evidence/2026-10-11-settings-recovery-summary.json"
       ],
-      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed."
+      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed. Supervisor defects fixed with52 new portable cases; baseline51 had42 failures/9 passes, plus1 old committed-journal failure retained. Recovery branches/save admission and shared live refs now guarded. Windows real UI/DPAPI/ACL and all whole acceptance remain NotRun; no phase exit."
     },
     {
       "id": "B01",
@@ -2215,9 +2223,11 @@
       "evidence": [
         "docs/settings-review.md",
         "docs/adr/0011-settings-transactions.md",
-        "docs/test-evidence/2026-10-11-settings-summary.json"
+        "docs/test-evidence/2026-10-11-settings-summary.json",
+        "docs/settings-recovery-review.md",
+        "docs/test-evidence/2026-10-11-settings-recovery-summary.json"
       ],
-      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed."
+      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed. Supervisor defects fixed with52 new portable cases; baseline51 had42 failures/9 passes, plus1 old committed-journal failure retained. Recovery branches/save admission and shared live refs now guarded. Windows real UI/DPAPI/ACL and all whole acceptance remain NotRun; no phase exit."
     },
     {
       "id": "L02",
@@ -2286,9 +2296,11 @@
       "evidence": [
         "docs/settings-review.md",
         "docs/adr/0011-settings-transactions.md",
-        "docs/test-evidence/2026-10-11-settings-summary.json"
+        "docs/test-evidence/2026-10-11-settings-summary.json",
+        "docs/settings-recovery-review.md",
+        "docs/test-evidence/2026-10-11-settings-recovery-summary.json"
       ],
-      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed."
+      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed. Supervisor defects fixed with52 new portable cases; baseline51 had42 failures/9 passes, plus1 old committed-journal failure retained. Recovery branches/save admission and shared live refs now guarded. Windows real UI/DPAPI/ACL and all whole acceptance remain NotRun; no phase exit."
     },
     {
       "id": "L07",

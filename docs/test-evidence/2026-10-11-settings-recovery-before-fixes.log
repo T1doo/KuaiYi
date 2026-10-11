@@ -1,0 +1,744 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.34]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.FutureIntegerBackupStillPreservedWhenPrimarySchemaHasWrongType(future: 999) [FAIL]
+[xUnit.net 00:00:00.36]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.FutureIntegerBackupStillPreservedWhenPrimarySchemaHasWrongType(future: 2) [FAIL]
+[xUnit.net 00:00:00.38]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "{}", combination: 0) [FAIL]
+[xUnit.net 00:00:00.38]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "null", combination: 1) [FAIL]
+[xUnit.net 00:00:00.38]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "true", combination: 2) [FAIL]
+[xUnit.net 00:00:00.39]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "false", combination: 0) [FAIL]
+[xUnit.net 00:00:00.39]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "\"1\"", combination: 2) [FAIL]
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.FutureIntegerBackupStillPreservedWhenPrimarySchemaHasWrongType(future: 999) [104 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Settings.SettingsStore.Read(String path) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 57
+   at KuaiYi.Core.Settings.SettingsStore.Load() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 42
+   at KuaiYi.Core.Settings.SettingsStore.Locked[T](Func`1 action, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 70
+   at KuaiYi.Core.Settings.SettingsStore.<>c__DisplayClass12_0.<LoadAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 18
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass10_0.<<OpenDraftAsync>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 16
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass14_0`1.<<Serialized>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 77
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.FutureIntegerBackupStillPreservedWhenPrimarySchemaHasWrongType(Int32 future) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 79
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.FutureIntegerBackupStillPreservedWhenPrimarySchemaHasWrongType(future: 2) [6 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Settings.SettingsStore.Read(String path) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 57
+   at KuaiYi.Core.Settings.SettingsStore.Load() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 42
+   at KuaiYi.Core.Settings.SettingsStore.Locked[T](Func`1 action, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 70
+   at KuaiYi.Core.Settings.SettingsStore.<>c__DisplayClass12_0.<LoadAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 18
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass10_0.<<OpenDraftAsync>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 16
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass14_0`1.<<Serialized>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 77
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.FutureIntegerBackupStillPreservedWhenPrimarySchemaHasWrongType(Int32 future) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 79
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "{}", combination: 0) [2 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Object'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Settings.SettingsStore.Read(String path) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 57
+   at KuaiYi.Core.Settings.SettingsStore.Load() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 42
+   at KuaiYi.Core.Settings.SettingsStore.Locked[T](Func`1 action, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 70
+   at KuaiYi.Core.Settings.SettingsStore.<>c__DisplayClass12_0.<LoadAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 18
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass10_0.<<OpenDraftAsync>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 16
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass14_0`1.<<Serialized>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 77
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(String value, Int32 combination) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 56
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "null", combination: 1) [1 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Settings.SettingsStore.Read(String path) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 57
+   at KuaiYi.Core.Settings.SettingsStore.Load() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 42
+   at KuaiYi.Core.Settings.SettingsStore.Locked[T](Func`1 action, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 70
+   at KuaiYi.Core.Settings.SettingsStore.<>c__DisplayClass12_0.<LoadAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 18
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass10_0.<<OpenDraftAsync>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 16
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass14_0`1.<<Serialized>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 77
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(String value, Int32 combination) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 56
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "true", combination: 2) [2 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'True'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Settings.SettingsStore.Read(String path) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 57
+   at KuaiYi.Core.Settings.SettingsStore.Load() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 42
+   at KuaiYi.Core.Settings.SettingsStore.Locked[T](Func`1 action, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 70
+   at KuaiYi.Core.Settings.SettingsStore.<>c__DisplayClass12_0.<LoadAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 18
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass10_0.<<OpenDraftAsync>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 16
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass14_0`1.<<Serialized>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 77
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(String value, Int32 combination) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 56
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "false", combination: 0) [2 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'False'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Settings.SettingsStore.Read(String path) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 57
+   at KuaiYi.Core.Settings.SettingsStore.Load() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 42
+   at KuaiYi.Core.Settings.SettingsStore.Locked[T](Func`1 action, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 70
+   at KuaiYi.Core.Settings.SettingsStore.<>c__DisplayClass12_0.<LoadAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 18
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass10_0.<<OpenDraftAsync>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 16
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass14_0`1.<<Serialized>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 77
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(String value, Int32 combination) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 56
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "\"1\"", combination: 2) [1 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'String'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Settings.SettingsStore.Read(String path) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 57
+   at KuaiYi.Core.Settings.SettingsStore.Load() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 42
+   at KuaiYi.Core.Settings.SettingsStore.Locked[T](Func`1 action, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 70
+   at KuaiYi.Core.Settings.SettingsStore.<>c__DisplayClass12_0.<LoadAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 18
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass10_0.<<OpenDraftAsync>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 16
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass14_0`1.<<Serialized>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 77
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(String value, Int32 combination) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 56
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.41]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "true", combination: 1) [FAIL]
+[xUnit.net 00:00:00.41]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "\"1\"", combination: 1) [FAIL]
+[xUnit.net 00:00:00.41]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "{}", combination: 1) [FAIL]
+[xUnit.net 00:00:00.41]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "[]", combination: 0) [FAIL]
+[xUnit.net 00:00:00.41]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "[]", combination: 2) [FAIL]
+[xUnit.net 00:00:00.41]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "\"1\"", combination: 0) [FAIL]
+[xUnit.net 00:00:00.41]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "false", combination: 2) [FAIL]
+[xUnit.net 00:00:00.41]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "{}", combination: 2) [FAIL]
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "true", combination: 1) [1 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'True'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Settings.SettingsStore.Read(String path) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 57
+   at KuaiYi.Core.Settings.SettingsStore.Load() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 42
+   at KuaiYi.Core.Settings.SettingsStore.Locked[T](Func`1 action, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 70
+   at KuaiYi.Core.Settings.SettingsStore.<>c__DisplayClass12_0.<LoadAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 18
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass10_0.<<OpenDraftAsync>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 16
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass14_0`1.<<Serialized>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 77
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(String value, Int32 combination) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 56
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "\"1\"", combination: 1) [1 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'String'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Settings.SettingsStore.Read(String path) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 57
+   at KuaiYi.Core.Settings.SettingsStore.Load() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 42
+   at KuaiYi.Core.Settings.SettingsStore.Locked[T](Func`1 action, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 70
+   at KuaiYi.Core.Settings.SettingsStore.<>c__DisplayClass12_0.<LoadAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 18
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass10_0.<<OpenDraftAsync>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 16
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass14_0`1.<<Serialized>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 77
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(String value, Int32 combination) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 56
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "{}", combination: 1) [1 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Object'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Settings.SettingsStore.Read(String path) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 57
+   at KuaiYi.Core.Settings.SettingsStore.Load() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 42
+   at KuaiYi.Core.Settings.SettingsStore.Locked[T](Func`1 action, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 70
+   at KuaiYi.Core.Settings.SettingsStore.<>c__DisplayClass12_0.<LoadAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 18
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass10_0.<<OpenDraftAsync>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 16
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass14_0`1.<<Serialized>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 77
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(String value, Int32 combination) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 56
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "[]", combination: 0) [1 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Array'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Settings.SettingsStore.Read(String path) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 57
+   at KuaiYi.Core.Settings.SettingsStore.Load() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 42
+   at KuaiYi.Core.Settings.SettingsStore.Locked[T](Func`1 action, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 70
+   at KuaiYi.Core.Settings.SettingsStore.<>c__DisplayClass12_0.<LoadAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 18
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass10_0.<<OpenDraftAsync>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 16
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass14_0`1.<<Serialized>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 77
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(String value, Int32 combination) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 56
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "[]", combination: 2) [3 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Array'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Settings.SettingsStore.Read(String path) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 57
+   at KuaiYi.Core.Settings.SettingsStore.Load() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 42
+   at KuaiYi.Core.Settings.SettingsStore.Locked[T](Func`1 action, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 70
+   at KuaiYi.Core.Settings.SettingsStore.<>c__DisplayClass12_0.<LoadAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 18
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass10_0.<<OpenDraftAsync>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 16
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass14_0`1.<<Serialized>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 77
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(String value, Int32 combination) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 56
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "\"1\"", combination: 0) [1 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'String'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Settings.SettingsStore.Read(String path) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 57
+   at KuaiYi.Core.Settings.SettingsStore.Load() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 42
+   at KuaiYi.Core.Settings.SettingsStore.Locked[T](Func`1 action, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 70
+   at KuaiYi.Core.Settings.SettingsStore.<>c__DisplayClass12_0.<LoadAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 18
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass10_0.<<OpenDraftAsync>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 16
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass14_0`1.<<Serialized>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 77
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(String value, Int32 combination) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 56
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "false", combination: 2) [1 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'False'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Settings.SettingsStore.Read(String path) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 57
+   at KuaiYi.Core.Settings.SettingsStore.Load() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 42
+   at KuaiYi.Core.Settings.SettingsStore.Locked[T](Func`1 action, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 70
+   at KuaiYi.Core.Settings.SettingsStore.<>c__DisplayClass12_0.<LoadAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 18
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass10_0.<<OpenDraftAsync>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 16
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass14_0`1.<<Serialized>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 77
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(String value, Int32 combination) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 56
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "{}", combination: 2) [1 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Object'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Settings.SettingsStore.Read(String path) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 57
+   at KuaiYi.Core.Settings.SettingsStore.Load() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 42
+   at KuaiYi.Core.Settings.SettingsStore.Locked[T](Func`1 action, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 70
+   at KuaiYi.Core.Settings.SettingsStore.<>c__DisplayClass12_0.<LoadAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 18
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass10_0.<<OpenDraftAsync>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 16
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass14_0`1.<<Serialized>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 77
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(String value, Int32 combination) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 56
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.43]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "true", combination: 0) [FAIL]
+[xUnit.net 00:00:00.43]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "null", combination: 2) [FAIL]
+[xUnit.net 00:00:00.44]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "null", combination: 0) [FAIL]
+[xUnit.net 00:00:00.45]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "[]", combination: 1) [FAIL]
+[xUnit.net 00:00:00.45]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "false", combination: 1) [FAIL]
+[xUnit.net 00:00:00.45]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(value: "null") [FAIL]
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "true", combination: 0) [2 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'True'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Settings.SettingsStore.Read(String path) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 57
+   at KuaiYi.Core.Settings.SettingsStore.Load() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 42
+   at KuaiYi.Core.Settings.SettingsStore.Locked[T](Func`1 action, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 70
+   at KuaiYi.Core.Settings.SettingsStore.<>c__DisplayClass12_0.<LoadAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 18
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass10_0.<<OpenDraftAsync>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 16
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass14_0`1.<<Serialized>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 77
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(String value, Int32 combination) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 56
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "null", combination: 2) [2 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Settings.SettingsStore.Read(String path) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 57
+   at KuaiYi.Core.Settings.SettingsStore.Load() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 42
+   at KuaiYi.Core.Settings.SettingsStore.Locked[T](Func`1 action, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 70
+   at KuaiYi.Core.Settings.SettingsStore.<>c__DisplayClass12_0.<LoadAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 18
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass10_0.<<OpenDraftAsync>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 16
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass14_0`1.<<Serialized>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 77
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(String value, Int32 combination) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 56
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "null", combination: 0) [1 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Settings.SettingsStore.Read(String path) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 57
+   at KuaiYi.Core.Settings.SettingsStore.Load() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 42
+   at KuaiYi.Core.Settings.SettingsStore.Locked[T](Func`1 action, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 70
+   at KuaiYi.Core.Settings.SettingsStore.<>c__DisplayClass12_0.<LoadAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 18
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass10_0.<<OpenDraftAsync>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 16
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass14_0`1.<<Serialized>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 77
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(String value, Int32 combination) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 56
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "[]", combination: 1) [3 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Array'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Settings.SettingsStore.Read(String path) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 57
+   at KuaiYi.Core.Settings.SettingsStore.Load() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 42
+   at KuaiYi.Core.Settings.SettingsStore.Locked[T](Func`1 action, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 70
+   at KuaiYi.Core.Settings.SettingsStore.<>c__DisplayClass12_0.<LoadAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 18
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass10_0.<<OpenDraftAsync>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 16
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass14_0`1.<<Serialized>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 77
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(String value, Int32 combination) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 56
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(value: "false", combination: 1) [1 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'False'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Settings.SettingsStore.Read(String path) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 57
+   at KuaiYi.Core.Settings.SettingsStore.Load() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 42
+   at KuaiYi.Core.Settings.SettingsStore.Locked[T](Func`1 action, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 70
+   at KuaiYi.Core.Settings.SettingsStore.<>c__DisplayClass12_0.<LoadAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsStore.cs:line 18
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass10_0.<<OpenDraftAsync>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 16
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Settings.SettingsCoordinator.<>c__DisplayClass14_0`1.<<Serialized>b__0>d.MoveNext() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsCoordinator.cs:line 77
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaMainAndBackupCombinationsPreserveBytesUntilExplicitSave(String value, Int32 combination) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 56
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(value: "null") [1 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(KuaiYi.Core.Settings.SettingsValidationException)
+Actual:   typeof(System.InvalidOperationException)
+---- System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(String value) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 47
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+----- Inner Stack Trace -----
+   at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.<>c__DisplayClass9_0.<NonIntegerSchemaIsClassifiedAsDamage>b__0() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 47
+[xUnit.net 00:00:00.45]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(value: "\"1\"") [FAIL]
+[xUnit.net 00:00:00.45]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(value: "true") [FAIL]
+[xUnit.net 00:00:00.45]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(value: "[]") [FAIL]
+[xUnit.net 00:00:00.45]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(value: "false") [FAIL]
+[xUnit.net 00:00:00.45]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(value: "{}") [FAIL]
+[xUnit.net 00:00:00.46]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.BothDamagedFilesNeverAllowBackupChoiceAndDefaultsCancelOrSavePreservesOriginals(save: False) [FAIL]
+[xUnit.net 00:00:00.46]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.BothDamagedFilesNeverAllowBackupChoiceAndDefaultsCancelOrSavePreservesOriginals(save: True) [FAIL]
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(value: "\"1\"") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(KuaiYi.Core.Settings.SettingsValidationException)
+Actual:   typeof(System.InvalidOperationException)
+---- System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'String'.
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(String value) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 47
+   at InvokeStub_SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+----- Inner Stack Trace -----
+   at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.<>c__DisplayClass9_0.<NonIntegerSchemaIsClassifiedAsDamage>b__0() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 47
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(value: "true") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(KuaiYi.Core.Settings.SettingsValidationException)
+Actual:   typeof(System.InvalidOperationException)
+---- System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'True'.
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(String value) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 47
+   at InvokeStub_SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+----- Inner Stack Trace -----
+   at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.<>c__DisplayClass9_0.<NonIntegerSchemaIsClassifiedAsDamage>b__0() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 47
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(value: "[]") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(KuaiYi.Core.Settings.SettingsValidationException)
+Actual:   typeof(System.InvalidOperationException)
+---- System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Array'.
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(String value) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 47
+   at InvokeStub_SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+----- Inner Stack Trace -----
+   at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.<>c__DisplayClass9_0.<NonIntegerSchemaIsClassifiedAsDamage>b__0() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 47
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(value: "false") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(KuaiYi.Core.Settings.SettingsValidationException)
+Actual:   typeof(System.InvalidOperationException)
+---- System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'False'.
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(String value) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 47
+   at InvokeStub_SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+----- Inner Stack Trace -----
+   at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.<>c__DisplayClass9_0.<NonIntegerSchemaIsClassifiedAsDamage>b__0() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 47
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(value: "{}") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(KuaiYi.Core.Settings.SettingsValidationException)
+Actual:   typeof(System.InvalidOperationException)
+---- System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Object'.
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(String value) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 47
+   at InvokeStub_SettingsRecoveryRegressionTests.NonIntegerSchemaIsClassifiedAsDamage(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+----- Inner Stack Trace -----
+   at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 21
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.<>c__DisplayClass9_0.<NonIntegerSchemaIsClassifiedAsDamage>b__0() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 47
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.BothDamagedFilesNeverAllowBackupChoiceAndDefaultsCancelOrSavePreservesOriginals(save: False) [4 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(KuaiYi.Core.Settings.SettingsRecoveryRequiredException)
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.BothDamagedFilesNeverAllowBackupChoiceAndDefaultsCancelOrSavePreservesOriginals(Boolean save) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 110
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.BothDamagedFilesNeverAllowBackupChoiceAndDefaultsCancelOrSavePreservesOriginals(save: True) [1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(KuaiYi.Core.Settings.SettingsRecoveryRequiredException)
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.BothDamagedFilesNeverAllowBackupChoiceAndDefaultsCancelOrSavePreservesOriginals(Boolean save) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 110
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.47]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(useDefaults: True, save: False, throughNone: False) [FAIL]
+[xUnit.net 00:00:00.47]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(useDefaults: False, save: False, throughNone: True) [FAIL]
+[xUnit.net 00:00:00.48]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(useDefaults: False, save: True, throughNone: False) [FAIL]
+[xUnit.net 00:00:00.48]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(useDefaults: True, save: True, throughNone: False) [FAIL]
+[xUnit.net 00:00:00.48]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(useDefaults: False, save: True, throughNone: True) [FAIL]
+[xUnit.net 00:00:00.49]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(useDefaults: False, save: False, throughNone: False) [FAIL]
+[xUnit.net 00:00:00.49]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(useDefaults: True, save: False, throughNone: True) [FAIL]
+[xUnit.net 00:00:00.49]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(useDefaults: True, save: True, throughNone: True) [FAIL]
+[xUnit.net 00:00:00.73]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.SharedReferenceSurvivesRealChildCrashAndRecoveryWhileOtherProfileStillUsesIt(stage: AfterPublish) [FAIL]
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(useDefaults: True, save: False, throughNone: False) [8 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+                  ↓ (pos 7)
+Expected: "public-backup-edited"
+Actual:   "public-defaults-edited"
+                  ↑ (pos 7)
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(Boolean useDefaults, Boolean save, Boolean throughNone) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 91
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(useDefaults: False, save: False, throughNone: True) [3 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+                  ↓ (pos 7)
+Expected: "public-backup-edited"
+Actual:   "public-defaults-edited"
+                  ↑ (pos 7)
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(Boolean useDefaults, Boolean save, Boolean throughNone) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 91
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(useDefaults: False, save: True, throughNone: False) [2 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+                  ↓ (pos 7)
+Expected: "public-backup-edited"
+Actual:   "public-defaults-edited"
+                  ↑ (pos 7)
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(Boolean useDefaults, Boolean save, Boolean throughNone) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 91
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(useDefaults: True, save: True, throughNone: False) [2 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+                  ↓ (pos 7)
+Expected: "public-backup-edited"
+Actual:   "public-defaults-edited"
+                  ↑ (pos 7)
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(Boolean useDefaults, Boolean save, Boolean throughNone) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 91
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(useDefaults: False, save: True, throughNone: True) [4 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+                  ↓ (pos 7)
+Expected: "public-backup-edited"
+Actual:   "public-defaults-edited"
+                  ↑ (pos 7)
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(Boolean useDefaults, Boolean save, Boolean throughNone) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 91
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(useDefaults: False, save: False, throughNone: False) [2 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+                  ↓ (pos 7)
+Expected: "public-backup-edited"
+Actual:   "public-defaults-edited"
+                  ↑ (pos 7)
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(Boolean useDefaults, Boolean save, Boolean throughNone) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 91
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(useDefaults: True, save: False, throughNone: True) [2 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+                  ↓ (pos 7)
+Expected: "public-backup-edited"
+Actual:   "public-defaults-edited"
+                  ↑ (pos 7)
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(Boolean useDefaults, Boolean save, Boolean throughNone) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 91
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(useDefaults: True, save: True, throughNone: True) [2 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+                  ↓ (pos 7)
+Expected: "public-backup-edited"
+Actual:   "public-defaults-edited"
+                  ↑ (pos 7)
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RecoveryRoundTripRetainsEachDisplayedDraftAndPendingKeysAndSavesOnlyChosenDraft(Boolean useDefaults, Boolean save, Boolean throughNone) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 91
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.SharedReferenceSurvivesRealChildCrashAndRecoveryWhileOtherProfileStillUsesIt(stage: AfterPublish) [240 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.SharedReferenceSurvivesRealChildCrashAndRecoveryWhileOtherProfileStillUsesIt(SettingsWriteStage stage) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 151
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.SharedReferenceSurvivesRealChildCrashAndRecoveryWhileOtherProfileStillUsesIt(SettingsWriteStage stage) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 153
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.96]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.SavingOriginalTaskRejectsRecoveryChangesAndLateEventsAndFailureRestoresEditing(fail: True) [FAIL]
+[xUnit.net 00:00:00.97]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.SavingOriginalTaskRejectsRecoveryChangesAndLateEventsAndFailureRestoresEditing(fail: False) [FAIL]
+[xUnit.net 00:00:00.97]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RemovingOneOfTwoSharedReferencesKeepsRemainingReadableUntilFinalRemoval [FAIL]
+[xUnit.net 00:00:00.99]     KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.SharedReferenceSaveFailureAndStaleConcurrentDraftCannotRevokeRemainingSecret [FAIL]
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.SavingOriginalTaskRejectsRecoveryChangesAndLateEventsAndFailureRestoresEditing(fail: True) [7 ms]
+  Error Message:
+   System.InvalidOperationException : Original save is still running.
+  Stack Trace:
+     at KuaiYi.Core.Settings.SettingsDraft.Dispose() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsDraft.cs:line 25
+   at KuaiYi.Core.Settings.SettingsRecoveryDraft.Dispose() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsRecoveryDraft.cs:line 16
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.SavingOriginalTaskRejectsRecoveryChangesAndLateEventsAndFailureRestoresEditing(Boolean fail) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 124
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.SavingOriginalTaskRejectsRecoveryChangesAndLateEventsAndFailureRestoresEditing(fail: False) [6 ms]
+  Error Message:
+   System.InvalidOperationException : Original save is still running.
+  Stack Trace:
+     at KuaiYi.Core.Settings.SettingsDraft.Dispose() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsDraft.cs:line 25
+   at KuaiYi.Core.Settings.SettingsRecoveryDraft.Dispose() in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsRecoveryDraft.cs:line 16
+   at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.SavingOriginalTaskRejectsRecoveryChangesAndLateEventsAndFailureRestoresEditing(Boolean fail) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 124
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RemovingOneOfTwoSharedReferencesKeepsRemainingReadableUntilFinalRemoval [6 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.RemovingOneOfTwoSharedReferencesKeepsRemainingReadableUntilFinalRemoval() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 131
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.SharedReferenceSaveFailureAndStaleConcurrentDraftCannotRevokeRemainingSecret [9 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsRecoveryRegressionTests.SharedReferenceSaveFailureAndStaleConcurrentDraftCannotRevokeRemainingSecret() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs:line 142
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/test-results/settings-recovery/before-fixes.trx
+
+Failed!  - Failed:    41, Passed:     9, Skipped:     0, Total:    50, Duration: 753 ms - KuaiYi.Core.Tests.dll (net10.0)
