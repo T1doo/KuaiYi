@@ -4,6 +4,16 @@ using KuaiYi.Contracts;
 using System.Buffers.Binary;
 using System.Security.Cryptography;
 // Synthetic process fixture, excluded from all staging. Never uses Windows/GDI/WGC, user images or a model.
+if(args.Length==11&&args[0]=="--selection-fixture")
+{
+    string fault=args[1];Guid id=Guid.Parse(args[6]);long start=long.Parse(args[10]);var stream=Console.OpenStandardOutput();
+    if(fault is "hang" or "cancel")await Task.Delay(Timeout.Infinite);if(fault=="late")await Task.Delay(900);if(fault=="crash")return 23;
+    var meta=new SelectionCaptureMetadata(fault=="error-text"?"EmptyOrUnsupported":"Success",1,3,fault=="soft"?251:5,fault=="runtime"?[]:[12,4],[0,0,fault=="bounds"?-1:100,20],[0,0,500,200],fault=="source"?start+1:start);
+    var request=fault=="identity"?Guid.NewGuid():id;
+    await IpcFrameCodec.WriteAsync(stream,new(fault=="role"?IpcMessageType.ImageResult:IpcMessageType.Ping,request,System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(meta)));
+    await IpcFrameCodec.WriteAsync(stream,new(IpcMessageType.BinaryChunk,request,System.Text.Encoding.UTF8.GetBytes(fault=="oversize"?new string('a',100002):"public selected\n  code")));
+    if(fault=="extra")await IpcFrameCodec.WriteAsync(stream,new(IpcMessageType.Ping,id,[]));await stream.FlushAsync();return 0;
+}
 if(args.Length!=1||args[0]!="--private-stdio")return 2;
 string mode=Environment.GetEnvironmentVariable("KUAIYI_CAPTURE_FIXTURE")??"normal";
 if(mode=="exit")return 0;

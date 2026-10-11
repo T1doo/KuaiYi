@@ -20,7 +20,7 @@ internal static class ActualOverlayProbe
         var coordinator=new SettingsCoordinator(new SettingsStore(Path.Combine(root,"config")),new SecretFileStore(Path.Combine(root,"secrets"),new NoKeys(),new DirectoryPolicy()));
         using(var draft=coordinator.OpenDraftAsync().GetAwaiter().GetResult())
         {draft.Update(s=>s with{ActiveProfileId="public",Profiles=[new(){Id="public",Model="public-fixture",BaseUrl="https://public.invalid",Authentication=ApiAuthentication.None}]});coordinator.SaveAsync(draft).GetAwaiter().GetResult();}
-        var app=new Application();var window=new ShellWindow("KuaiYi.PublicOverlayProbe."+Guid.NewGuid().ToString("N"),coordinator){Title="快译 · 公开测试浮窗（非模型）"};
+        var app=new Application();var window=new ShellWindow("KuaiYi.PublicOverlayProbe."+Guid.NewGuid().ToString("N"),coordinator,enableSelectionPlatform:false){Title="快译 · 公开测试浮窗（非模型）"};
         var timer=new DispatcherTimer{Interval=TimeSpan.FromMilliseconds(50)};RequestIdentity? current=null;int offset=0;bool busy=false;double budget=0;long feedTime=Stopwatch.GetTimestamp();
         string stream=string.Concat(Enumerable.Repeat(PublicText,24));var errors=new List<string>();
         async Task Start()

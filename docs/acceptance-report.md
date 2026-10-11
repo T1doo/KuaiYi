@@ -3,7 +3,7 @@
 不是 v1.0 完整验收或发布报告。环境与构建入口见 environment.md / README。
 
 - 原始规格 SHA256：`ea3aa6529405bcc703986988fd089f476ee8f991d867e2220b3b20c439126166`。
-- 当前离线自动化：Core 683、Provider 77，共 760；另有 Node 扩展 63 项，全部通过；最新证据见 p2-review-fixes-summary；截图修正证据见 browser-ownership-summary。首批 57 项、探针批 88 项、迟到错误批 118 项及修复前失败证据分别保留。
+- 当前离线自动化：Core 733、Provider 77，共 810；另有 Node 扩展 63 项，全部通过；最新证据见 p3-selection-summary；截图修正证据见 browser-ownership-summary。首批 57 项、探针批 88 项、迟到错误批 118 项及修复前失败证据分别保留。
 - 25 个托管项目 Release 交叉构建 0 警告/0 错误；五个探针 exe 已检查为 Windows PE32+ x64，框架依赖 ZIP 已生成。这是构建/打包部分证据，Windows 实际执行均未运行。
 - A—L 的 **106 条整体用例均为 NotRun**；已验证子项不能代替完整用例。
 - R01—R18 的产品完整实现均尚未完成；模块/阶段/用例组定义完整保存在 traceability.json。
@@ -61,3 +61,5 @@ P1实际启动骨架新增24项便携测试；生产配置读写和绑定取消�
 P2新增34项核心用例，包含2000组固定种子合成事件序列（不是2000独立验收项），实际目的队列迟到事件、真实配置事务保存、原绑定取消链保持及缓存/opacity/拖动重基。全部便携用例通过；生产WPF及公开流同Window已交叉构建、未实机执行。P0/E06 Blocked、P1/P2 InProgress；B/G组、实际60fps/DPI/焦点/安装仍NotRun。
 
 P2三项监督缺口新增15例，旧版第四版Begin实际失败证据保留。工具条与测量宽度为精确旧源码计算反例；修后生产计划/缓存49项通过，不代替Windows字号/菜单/动画验收。详见p2-review-fixes.md。
+
+P3生产选区获取接线见[选区复核](p3-selection-review.md)：真实Broker调用已有实现、稳定等待/来源身份/模式暂停/排除及600ms自有子进程截止。原文和译文区分，未接P4发送，不称完整P3或文字Alpha；真实Windows兼容仍NotRun。

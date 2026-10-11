@@ -21,15 +21,17 @@ internal sealed partial class ShellWindow:Window
     private readonly uint showMessage;private NativeTray? tray;private nint hwnd;private PixelRect anchor;private DpiScale gestureDpi;
     private SettingsWindow? settings;private Task startup=Task.CompletedTask,positionSave=Task.CompletedTask;private bool opening,exiting,allowClose,placementPending,geometryReady;
     private OverlayPosition? pendingPosition;private bool pointerFinished,exitRequested,positionTouched;private MonitorGeometry? anchorMonitor;
-    public ShellWindow(string instanceScope,SettingsCoordinator? suppliedCoordinator=null)
+    private readonly bool enableSelectionPlatform;
+    public ShellWindow(string instanceScope,SettingsCoordinator? suppliedCoordinator=null,bool enableSelectionPlatform=true)
     {
+        this.enableSelectionPlatform=enableSelectionPlatform;
         string root=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"KuaiYi");
         coordinator=suppliedCoordinator??new(new SettingsStore(Path.Combine(root,"config")),new SecretFileStore(Path.Combine(root,"secrets"),new CurrentUserDpapiProtector(),new CurrentUserSecretDirectory()));
         lifecycle=new(coordinator);showMessage=NativeTray.ShowMessage(instanceScope);
         Title="快译";Width=Height=48;WindowStyle=WindowStyle.None;ResizeMode=ResizeMode.NoResize;ShowInTaskbar=false;ShowActivated=false;Topmost=true;
         SetupPresentation();AutomationProperties.SetName(button,"快译：未启用翻译");button.ToolTip="未启用翻译 · 右键打开设置";
         var menu=new ContextMenu();Add("启用 / 停用翻译",Toggle);Add("回看当前结果",ReopenResult);Add("收起",CollapseResult);Add("停止生成",StopResult);Add("复制结果",CopyResult);Add("设置",()=>_=OpenSettings());Add("更多操作及版本",()=>OpenOverflowMenu(button));Add("隐藏浮窗（同时停用）",HideOverlay);Add("聚焦浮窗",FocusOverlay);Add("退出",Close);
-        button.ContextMenu=menu;menu.Closed+=(_,_)=>PresentationMenuClosed();
+        Add("读取当前选区",()=>_=ObserveSelection(ReadCurrentSelection()));Add("查看已读取原文",ShowSelectionSource);button.ContextMenu=menu;menu.Closed+=(_,_)=>PresentationMenuClosed();
         void Add(string text,Action action){var item=new MenuItem{Header=text};item.Click+=(_,_)=>action();menu.Items.Add(item);}
         SourceInitialized+=(_,_)=>
         {
@@ -37,6 +39,7 @@ internal sealed partial class ShellWindow:Window
             NativeDesktop.SetOverlayStyle(hwnd,false);
             try{tray=new(hwnd);}catch(Exception error){Report("托盘不可用",error);throw;} // Never leave an inaccessible hidden application.
             Reposition(null);
+            SetupSelection();
         };
         Loaded+=(_,_)=>startup=LoadStartup();
         button.PreviewMouseLeftButtonDown+=(_,e)=>Pointer(()=>
@@ -44,7 +47,7 @@ internal sealed partial class ShellWindow:Window
             if(exiting||!geometryReady||!NativeDesktop.GetCursorPos(out var p))return;
             gestureDpi=MonitorTopology.Read().At(anchor).Dpi;
             if(gesture.Down(new(p.X,p.Y),anchor,true)==OverlayPointerAction.Pressed)
-            {pointerFinished=false;lifecycle.Gate.SetSuspension(Suspension.Moving,true);BeginOverlayMove();if(!button.CaptureMouse())throw new InvalidOperationException("Pointer capture failed.");e.Handled=true;}
+            {pointerFinished=false;lifecycle.Gate.SetSuspension(Suspension.Moving,true);RefreshSelection();BeginOverlayMove();if(!button.CaptureMouse())throw new InvalidOperationException("Pointer capture failed.");e.Handled=true;}
         });
         button.PreviewMouseMove+=(_,e)=>Pointer(()=>
         {
@@ -57,7 +60,7 @@ internal sealed partial class ShellWindow:Window
         });
         button.PreviewMouseLeftButtonUp+=(_,e)=>Pointer(()=>
         {
-            var action=gesture.Up();pointerFinished=true;button.ReleaseMouseCapture();lifecycle.Gate.SetSuspension(Suspension.Moving,false);EndOverlayMove();e.Handled=true;
+            var action=gesture.Up();pointerFinished=true;button.ReleaseMouseCapture();lifecycle.Gate.SetSuspension(Suspension.Moving,false);RefreshSelection();EndOverlayMove();e.Handled=true;
             if(action==OverlayPointerAction.Clicked)Toggle();
             else if(action==OverlayPointerAction.Released){pendingPosition=CurrentPosition();QueuePositionSave();}
         });
@@ -74,7 +77,7 @@ internal sealed partial class ShellWindow:Window
         catch(OperationCanceledException)when(lifetime.IsCancellationRequested){ /* Owned exit waits for startup settlement. */ }
         catch(Exception error){Report("配置无法加载，原文件保留；请打开设置恢复",error);}
     }
-    private void SettingsCommitted(SettingsSnapshot _,SettingsChange __)=>Dispatcher.BeginInvoke(()=>{if(!exiting)Refresh();});
+    private void SettingsCommitted(SettingsSnapshot _,SettingsChange __){selectionCapture?.CancelPending();Dispatcher.BeginInvoke(()=>{if(!exiting)Refresh();});}
     private void Toggle()
     {
         if(exiting)return;
@@ -86,6 +89,7 @@ internal sealed partial class ShellWindow:Window
     }
     private void Refresh()
     {
+        RefreshSelection();
         RefreshPresentationTheme();
         bool on=lifecycle.Gate.Snapshot.Activation==Activation.On;button.Background=on?OverlayTokens.On:OverlayTokens.Off;UpdateButtonGlyph(on);
         AutomationProperties.SetName(button,on?"快译：已启用翻译":"快译：未启用翻译");button.ToolTip=on?"已启用翻译 · 单击停用":"未启用翻译 · 单击启用，右键设置";
@@ -96,7 +100,7 @@ internal sealed partial class ShellWindow:Window
         if(exiting)return;if(settings!=null){settings.Activate();return;}if(opening)return;opening=true;
         try
         {
-            await startup;await positionSave;if(exiting)return;lifecycle.Gate.SetSuspension(Suspension.Settings,true);
+            await startup;await positionSave;if(exiting)return;lifecycle.Gate.SetSuspension(Suspension.Settings,true);RefreshSelection();
             var draft=await coordinator.OpenDraftAsync(lifetime.Token);
             if(exiting){draft.Dispose();return;}
             try{settings=new(coordinator,draft){Owner=this};}catch{draft.Dispose();throw;}
@@ -117,8 +121,8 @@ internal sealed partial class ShellWindow:Window
     private void SessionSwitch(object sender,Microsoft.Win32.SessionSwitchEventArgs e)
     {
         if(e.Reason is not (Microsoft.Win32.SessionSwitchReason.SessionLock or Microsoft.Win32.SessionSwitchReason.SessionUnlock))return;
-        bool locked=e.Reason==Microsoft.Win32.SessionSwitchReason.SessionLock;lifecycle.SetSessionLocked(locked); // Synchronous gate invalidation precedes queued UI.
-        Dispatcher.BeginInvoke(()=>{if(exiting)return;CancelPointer();if(locked){settings?.RequestCloseWhenSettled();HidePresentation(true);Hide();}else ShowOverlay();Refresh();});
+        bool locked=e.Reason==Microsoft.Win32.SessionSwitchReason.SessionLock;lifecycle.SetSessionLocked(locked);selectionCapture?.CancelPending(clearSource:locked); // Synchronous gate invalidation precedes queued UI.
+        Dispatcher.BeginInvoke(()=>{if(exiting)return;CancelPointer();if(locked){ClearSelectionSource();settings?.RequestCloseWhenSettled();HidePresentation(true);Hide();}else ShowOverlay();Refresh();});
     }
     private nint Hook(nint window,int message,nint w,nint l,ref bool handled)
     {
@@ -151,7 +155,7 @@ internal sealed partial class ShellWindow:Window
     {if(anchorMonitor==null)return;if(overlayFrames==null)overlayFrames=new(anchor,anchorMonitor);else{overlayFrames.Reanchor(anchor,anchorMonitor,Preferences());if(overlayFrames.IsExpanded&&!peek)OpenBody();}ApplyOverlayFrame(forceNative:true);StartFrames();}
     private void Pointer(Action action)
     {try{action();}catch(Exception error){CancelPointer();lifecycle.Gate.Disable();Refresh();Report("浮钮操作失败",error);}}
-    private void CancelPointer(){bool moving=gesture.Active,changed=gesture.HasMoved;gesture.Cancel();pointerFinished=true;button.ReleaseMouseCapture();lifecycle.Gate.SetSuspension(Suspension.Moving,false);if(moving)EndOverlayMove();if(changed){pendingPosition=CurrentPosition();QueuePositionSave();}}
+    private void CancelPointer(){bool moving=gesture.Active,changed=gesture.HasMoved;gesture.Cancel();pointerFinished=true;button.ReleaseMouseCapture();lifecycle.Gate.SetSuspension(Suspension.Moving,false);RefreshSelection();if(moving)EndOverlayMove();if(changed){pendingPosition=CurrentPosition();QueuePositionSave();}}
     private void QueuePositionSave()
     {
         if(opening||settings!=null||exiting||pendingPosition==null)return;
@@ -168,7 +172,7 @@ internal sealed partial class ShellWindow:Window
         if(allowClose)return;e.Cancel=true;if(exiting)return;
         if(opening||settings!=null){exitRequested=true;lifecycle.Hide();Refresh();settings?.RequestCloseWhenSettled();button.ToolTip="正在等待设置草稿和原保存任务结束后退出。";return;}
         QueuePositionSave();exiting=true;button.IsEnabled=false;CancelPointer();lifecycle.Hide();HidePresentation(true);Refresh();
-        try{await startup;await positionSave;allowClose=true;Close();}
+        try{await startup;await positionSave;await StopSelection();allowClose=true;Close();}
         catch(Exception error){exiting=false;button.IsEnabled=true;Report("退出清理尚未完成",error);}
     }
     private void ClosedShell(object? sender,EventArgs e)

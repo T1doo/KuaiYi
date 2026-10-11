@@ -201,6 +201,8 @@ public sealed partial class RuntimeGate
     {
         lock (sync) return activation == Activation.On && !localOnly && suspension == Suspension.None && ticket.Epoch == epoch && ticket.Mode == mode;
     }
+    public bool TryCommitCapture(CaptureTicket ticket,Func<bool> stillCurrent,Action commit)
+    {lock(sync){if(!IsCaptureCurrent(ticket)||!stillCurrent())return false;commit();return true;}}
 
     public bool TryStartRequest(Guid sessionId, Guid versionId, CaptureTicket? passiveTicket,
         out RequestIdentity identity, out CancellationToken cancellation)

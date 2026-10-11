@@ -1,0 +1,103 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.22] KuaiYi.Core.Tests: Skipping test case with duplicate ID 'b9d0354d974bc3ce81a51de86216d7431fed1d19' ('KuaiYi.Core.Tests.SelectionCaptureTests.EmptyOrMalformedUnicodeCannotBecomeSnapshot(text: "���")' and 'KuaiYi.Core.Tests.SelectionCaptureTests.EmptyOrMalformedUnicodeCannotBecomeSnapshot(text: "���")')
+[xUnit.net 00:00:00.46]     KuaiYi.Core.Tests.SelectionCaptureTests.EmptyOrMalformedUnicodeCannotBecomeSnapshot(text: "���a") [FAIL]
+[xUnit.net 00:00:00.46]     KuaiYi.Core.Tests.SelectionCaptureTests.EmptyOrMalformedUnicodeCannotBecomeSnapshot(text: "���") [FAIL]
+  Failed KuaiYi.Core.Tests.SelectionCaptureTests.EmptyOrMalformedUnicodeCannotBecomeSnapshot(text: "���a") [5 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   SelectionSourceSnapshot { Window = SelectionWindow { Handle = 123, ProcessId = 456, ProcessStartUtcTicks = 789, Executable = public.exe }, RawText = ���a, Text = ���a, Ranges = System.Collections.Immutable.ImmutableArray`1[KuaiYi.Core.PixelRect], RuntimeId = System.Collections.Immutable.ImmutableArray`1[System.Int32], SettingsVersion = public-settings, Scalars = 4, RequiresConfirmation = False }
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionCaptureTests.EmptyOrMalformedUnicodeCannotBecomeSnapshot(String text) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionCaptureTests.cs:line 68
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed KuaiYi.Core.Tests.SelectionCaptureTests.EmptyOrMalformedUnicodeCannotBecomeSnapshot(text: "���") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   SelectionSourceSnapshot { Window = SelectionWindow { Handle = 123, ProcessId = 456, ProcessStartUtcTicks = 789, Executable = public.exe }, RawText = ���, Text = ���, Ranges = System.Collections.Immutable.ImmutableArray`1[KuaiYi.Core.PixelRect], RuntimeId = System.Collections.Immutable.ImmutableArray`1[System.Int32], SettingsVersion = public-settings, Scalars = 3, RequiresConfirmation = False }
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionCaptureTests.EmptyOrMalformedUnicodeCannotBecomeSnapshot(String text) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionCaptureTests.cs:line 68
+   at InvokeStub_SelectionCaptureTests.EmptyOrMalformedUnicodeCannotBecomeSnapshot(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.51]     KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(fault: "source", expected: ProtocolFailure) [FAIL]
+[xUnit.net 00:00:00.59]     KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(fault: "identity", expected: ProtocolFailure) [FAIL]
+[xUnit.net 00:00:00.66]     KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(fault: "role", expected: ProtocolFailure) [FAIL]
+[xUnit.net 00:00:00.72]     KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(fault: "extra", expected: ProtocolFailure) [FAIL]
+  Failed KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(fault: "source", expected: ProtocolFailure) [237 ms]
+  Error Message:
+   System.IO.InvalidDataException : Selection source mismatch.
+  Stack Trace:
+     at KuaiYi.NativeHost.SelectionBrokerClient.CaptureAsync(SelectionGesture gesture, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.NativeHost/SelectionBrokerClient.cs:line 47
+   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(String fault, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 23
+   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(String fault, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 24
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(fault: "identity", expected: ProtocolFailure) [77 ms]
+  Error Message:
+   System.IO.InvalidDataException : Selection frame identity/type mismatch.
+  Stack Trace:
+     at KuaiYi.NativeHost.SelectionBrokerClient.CaptureAsync(SelectionGesture gesture, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.NativeHost/SelectionBrokerClient.cs:line 41
+   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(String fault, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 23
+   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(String fault, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 24
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(fault: "role", expected: ProtocolFailure) [66 ms]
+  Error Message:
+   System.IO.InvalidDataException : Selection frame identity/type mismatch.
+  Stack Trace:
+     at KuaiYi.NativeHost.SelectionBrokerClient.CaptureAsync(SelectionGesture gesture, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.NativeHost/SelectionBrokerClient.cs:line 41
+   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(String fault, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 23
+   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(String fault, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 24
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(fault: "extra", expected: ProtocolFailure) [63 ms]
+  Error Message:
+   System.IO.InvalidDataException : Unexpected selection frame.
+  Stack Trace:
+     at KuaiYi.NativeHost.SelectionBrokerClient.CaptureAsync(SelectionGesture gesture, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.NativeHost/SelectionBrokerClient.cs:line 38
+   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(String fault, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 23
+   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(String fault, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 24
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.85]     KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(fault: "runtime", expected: ProtocolFailure) [FAIL]
+[xUnit.net 00:00:00.95]     KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(fault: "bounds", expected: ProtocolFailure) [FAIL]
+[xUnit.net 00:00:01.01]     KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(fault: "oversize", expected: ProtocolFailure) [FAIL]
+  Failed KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(fault: "runtime", expected: ProtocolFailure) [49 ms]
+  Error Message:
+   System.IO.InvalidDataException : Selection source mismatch.
+  Stack Trace:
+     at KuaiYi.NativeHost.SelectionBrokerClient.CaptureAsync(SelectionGesture gesture, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.NativeHost/SelectionBrokerClient.cs:line 47
+   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(String fault, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 23
+   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(String fault, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 24
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(fault: "bounds", expected: ProtocolFailure) [50 ms]
+  Error Message:
+   System.IO.InvalidDataException : Negative range size.
+  Stack Trace:
+     at KuaiYi.NativeHost.SelectionBrokerClient.Rectangles(Double[] values) in /workspace/KuaiYi/src/KuaiYi.NativeHost/SelectionBrokerClient.cs:line 78
+   at KuaiYi.NativeHost.SelectionBrokerClient.CaptureAsync(SelectionGesture gesture, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.NativeHost/SelectionBrokerClient.cs:line 50
+   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(String fault, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 23
+   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(String fault, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 24
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(fault: "oversize", expected: ProtocolFailure) [52 ms]
+  Error Message:
+   System.IO.InvalidDataException : Selection content limit.
+  Stack Trace:
+     at KuaiYi.NativeHost.SelectionBrokerClient.CaptureAsync(SelectionGesture gesture, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.NativeHost/SelectionBrokerClient.cs:line 49
+   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(String fault, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 23
+   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.ActualOwnedFixtureEnforcesSelectionWireAndIdentity(String fault, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 24
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/test-results/p3-selection/selection-initial.trx
+
+Failed!  - Failed:     9, Passed:    36, Skipped:     0, Total:    45, Duration: 2 s - KuaiYi.Core.Tests.dll (net10.0)

@@ -256,3 +256,13 @@ P0 整体：**InProgress，真实 Windows 退出门槛 Blocked**。后续整阶�
 - 原P2包及九份更早包保持原样；新包、精确摘要与独审入口见p2-review-fixes.md及本轮summary。Windows全部仍NotRun，176追踪/106整体验收NotRun，P0/E06 Blocked、P1/P2 InProgress。
 
 新审查ZIP：1456604字节、68文件，SHA256 `6df677eae7778ed8669b81c81dd065987b5a76124676dda9223aa31590f69ced`；逐文件manifest及8个PE32+ x64入口通过静态检查，十份旧包大小/摘要未变。
+
+## P3 真实UIA选区生产调用（监督限定切片）
+
+- 4630831限定签收后实查HEAD/远端/干净工作区；断连后17:36:04Z安全命令成功，未换环境/删锁/重复写入。
+- 原Broker只有兼容探针调用；现在正式Shell使用同一GetSelection实现，有界手势、稳定等待、来源窗口/PID/进程时间/控件/选区身份、最终目的队列资格、排除/暂停与Selection/Drop互斥。父600ms持有进程截止/清理，不凭Token虚报阻塞COM取消，启动/退出未确认不得第二启动，三次故障应用暂停30s。
+- 50新增便携用例及真实公开自有子进程；初45中9失败，协议异常修后剩2运行器代理项问题，改测试体构造原UTF16后46通过；再补路径/启动结算4例，完整Core733+Provider77=810/810、Node63/63。原失败TRX、日志保留。25托管locked Release零警告/错误。
+- 实际原文快照到Shell内存，可显式查看，锁屏/退出清理；没有把原文冒充译文或调用模型。公开浮窗探针禁用真实取词平台。完整Drop文本落点、复制兼容授权、全热键和P4调度尚未交付。
+- 独立新包包含实际CaptureBroker；十一旧包保持原字节。Windows兼容/字体像素焦点/多屏DPI及P0/E06全部NotRun；176追踪/106整体验收NotRun，P0 Blocked、P1/P2/P3 InProgress。见p3-selection-review及本轮summary。
+
+新审查ZIP：1607193字节、73文件（app 44、公开probe 25），SHA256 `f511b7e4298e5d8bf877007d0803370e94e6489f0e4f264c7833659a83dae980`；9个PE32+ x64入口及逐文件manifest检查通过，十一旧包摘要未变。
