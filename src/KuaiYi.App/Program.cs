@@ -74,6 +74,7 @@ internal sealed partial class ImageProbeWindow : Window
         var caption=new TextBlock{Text=Title,Padding=new Thickness(0,4,12,4)};caption.MouseLeftButtonDown+=(_,e)=>{if(e.ButtonState==System.Windows.Input.MouseButtonState.Pressed)DragMove();};header.Children.Add(caption);closeReview.Click+=(_,_)=>Close();panel.Children.Add(header);
         panel.Children.Add(status); panel.Children.Add(enabled); panel.Children.Add(stopLocal); panel.Children.Add(language); panel.Children.Add(choose);
         SetupScreenshot(panel);
+        SetupOlePresentation(panel);
         result.Height = 260; panel.Children.Add(result); Content = new ScrollViewer{Content=panel,VerticalScrollBarVisibility=ScrollBarVisibility.Auto};
         if (path != null) status.Text = "Off · Explorer 图片待确认；尚未读取。P0 仅支持 PNG。";
         choose.Click += async (_,_) => await Recognize();
@@ -86,6 +87,7 @@ internal sealed partial class ImageProbeWindow : Window
         enabled.Unchecked += (_,_) =>StopLocal();
         Closing += async (_,e) =>
         {
+            if(oleWindow!=null){e.Cancel=true;oleWindow.Close();status.Text="请先确认浮钮的 OLE 进程与注册已退出，再关闭评审窗口。";return;}
             if(captureTask is {IsCompleted:false})
             {
                 e.Cancel=true;gate.Disable();CancelScreenshot();
@@ -131,7 +133,7 @@ internal sealed partial class ImageProbeWindow : Window
         Microsoft.Win32.SystemEvents.SessionSwitch+=OnSessionSwitch;
         Loaded+=(_,_)=>
         {
-            var confirmation=new DesktopLocalConfirmation(this,()=>running==null&&ownedWorker==null&&ownedCaptureHost==null&&captureTask is not {IsCompleted:false});
+            var confirmation=new DesktopLocalConfirmation(this,()=>oleWindow==null&&running==null&&ownedWorker==null&&ownedCaptureHost==null&&captureTask is not {IsCompleted:false});
             browserTask=Task.Run(async ()=>
             {
                 try
@@ -152,6 +154,7 @@ internal sealed partial class ImageProbeWindow : Window
     private void StopLocal()
     {
         CancelScreenshot();
+        oleWindow?.RevokeFromApp();
         gate.Disable();browserReceiver?.Revoke();browserInbox.Clear();enabled.IsChecked=false;result.Clear();status.Text="Off · 已取消并清空";
     }
     private void OnSessionSwitch(object sender,Microsoft.Win32.SessionSwitchEventArgs e)
@@ -159,6 +162,7 @@ internal sealed partial class ImageProbeWindow : Window
         if(e.Reason is not (Microsoft.Win32.SessionSwitchReason.SessionLock or Microsoft.Win32.SessionSwitchReason.SessionUnlock))return;
         // Invalidate immediately on the system event thread; an old queued commit must not precede UI lock handling.
         gate.SetSessionLocked(e.Reason==Microsoft.Win32.SessionSwitchReason.SessionLock);CancelScreenshot();
+        oleWindow?.RevokeFromApp();
         browserReceiver?.Revoke();browserInbox.Clear();
         Dispatcher.BeginInvoke(()=>
         {
@@ -174,7 +178,7 @@ internal sealed partial class ImageProbeWindow : Window
     private async Task Recognize(ScreenshotPng? prepared=null,RequestIdentity? preparedIdentity=null)
     {
         if(preparedIdentity is {} expected&&!gate.CanApply(expected))return;
-        if (gate.Snapshot.Activation != Activation.On || running != null || ownedWorker != null || ownedCaptureHost!=null) { status.Text = "请先允许本次本地 OCR，并等待旧进程退出确认。"; return; }
+        if (oleWindow!=null || gate.Snapshot.Activation != Activation.On || running != null || ownedWorker != null || ownedCaptureHost!=null) { status.Text = "请先允许本次本地 OCR，并等待旧进程退出确认。"; return; }
         string? path = pendingPath;
         if (prepared==null && path == null) { var dialog = new Microsoft.Win32.OpenFileDialog { Filter = "PNG|*.png", Multiselect = false }; if (dialog.ShowDialog(this) != true) return; path = dialog.FileName; }
         RequestIdentity current;

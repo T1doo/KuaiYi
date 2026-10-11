@@ -1,7 +1,7 @@
 using System.Diagnostics;
 namespace KuaiYi.Imaging;
 /// <summary>Production implementation starts the actual owned child. Tests may delay this boundary while still creating a real child.</summary>
-public interface IImageProcessStarter { Process Start(ProcessStartInfo info); }
+public interface IImageProcessStarter : KuaiYi.Core.IOwnedProcessStarter { }
 public sealed class SystemImageProcessStarter : IImageProcessStarter
 {
     public static SystemImageProcessStarter Instance { get; } = new();

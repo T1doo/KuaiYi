@@ -1,4 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup><TargetFramework>net10.0-windows</TargetFramework><UseWPF>true</UseWPF></PropertyGroup>
-  <ItemGroup><ProjectReference Include="../KuaiYi.Core/KuaiYi.Core.csproj" /><ProjectReference Include="../KuaiYi.Imaging/KuaiYi.Imaging.csproj" /></ItemGroup>
+  <PropertyGroup><TargetFramework>net10.0-windows</TargetFramework><UseWPF>true</UseWPF><AllowUnsafeBlocks>true</AllowUnsafeBlocks></PropertyGroup>
+  <ItemGroup><ProjectReference Include="../KuaiYi.Core/KuaiYi.Core.csproj" /><ProjectReference Include="../KuaiYi.Imaging/KuaiYi.Imaging.csproj" /><ProjectReference Include="../KuaiYi.OleTransfer/KuaiYi.OleTransfer.csproj" /></ItemGroup>
 </Project>

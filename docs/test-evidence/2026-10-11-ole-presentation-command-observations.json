@@ -1,0 +1,16 @@
+{
+  "origin": "Observed tool outputs; these are not regenerated original log files",
+  "observations": [
+    {
+      "command": "dotnet build src/KuaiYi.App/KuaiYi.App.csproj --no-restore -v minimal",
+      "result": "NETSDK1100: set EnableWindowsTargeting on Linux; original log pathname was reused by subsequent cross-build",
+      "correction": "Cross-build with -p:EnableWindowsTargeting=true; subsequent CS8602 failure retained in app-build-gate-race.log"
+    },
+    {
+      "command": "Python archive validation, first attempt",
+      "stderr": "Traceback (most recent call last):\n  File \"<stdin>\", line 9, in <module>\nAssertionError\n",
+      "cause": "Reserved config.json suffix check also matched required framework runtimeconfig.json",
+      "correction": "Check exact reserved file names; retain all manifest hash/PE/no native DLL/no fixture assertions"
+    }
+  ]
+}

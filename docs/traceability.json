@@ -125,9 +125,14 @@
         "P5",
         "E"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": []
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/adr/0010-responsive-ole-presentation.md",
+        "docs/ole-presentation-review.md",
+        "docs/test-evidence/2026-10-11-ole-presentation-summary.json"
+      ],
+      "note": "App-owned real HWND + dedicated registrar STA + owned remote native OLE target candidate cross-built; real-child production IPC/lifetime and explicit synthetic backend/registrar/gate/pointer tests passed. Windows native build, HWND registration combination, capture input, COM release, shared mapping, focus/DPI and E06 desktop gate are NotRun. No full requirement/phase acceptance; local review before push."
     },
     {
       "id": "R10",
@@ -324,9 +329,12 @@
         "docs/ole-probe.md",
         "docs/test-evidence/2026-10-11-ole-probe-summary.json",
         "docs/ole-cleanup-review.md",
-        "docs/test-evidence/2026-10-11-ole-cleanup-summary.json"
+        "docs/test-evidence/2026-10-11-ole-cleanup-summary.json",
+        "docs/adr/0010-responsive-ole-presentation.md",
+        "docs/ole-presentation-review.md",
+        "docs/test-evidence/2026-10-11-ole-presentation-summary.json"
       ],
-      "note": "Real OLE/COM probe and fault source cross-compiled; offline policy/deadline/Unicode subitems passed. Desktop run NotRun; sync target button may freeze, independent supervisor responsiveness does not satisfy E06."
+      "note": "App-owned real HWND + dedicated registrar STA + owned remote native OLE target candidate cross-built; real-child production IPC/lifetime and explicit synthetic backend/registrar/gate/pointer tests passed. Windows native build, HWND registration combination, capture input, COM release, shared mapping, focus/DPI and E06 desktop gate are NotRun. No full requirement/phase acceptance; local review before push."
     },
     {
       "id": "P0-04",
@@ -1531,9 +1539,14 @@
         "外部 OLE 数据获取超时，并同时拖动快译按钮",
         "主 UI 不冻结；外部拖放与自身拖动不混淆；支持取消恢复"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/adr/0010-responsive-ole-presentation.md",
+        "docs/ole-presentation-review.md",
+        "docs/test-evidence/2026-10-11-ole-presentation-summary.json"
+      ],
+      "note": "App-owned real HWND + dedicated registrar STA + owned remote native OLE target candidate cross-built; real-child production IPC/lifetime and explicit synthetic backend/registrar/gate/pointer tests passed. Windows native build, HWND registration combination, capture input, COM release, shared mapping, focus/DPI and E06 desktop gate are NotRun. No full requirement/phase acceptance; local review before push."
     },
     {
       "id": "F01",

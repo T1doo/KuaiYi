@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="a81db7b7-1394-45a5-809e-942e54791727" name="@552716c6b8c5 2026-10-11 11:54:51" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T11:54:51.7269256+00:00" queuing="2026-10-11T11:54:51.7269256+00:00" start="2026-10-11T11:54:50.4926983+00:00" finish="2026-10-11T11:54:56.8368904+00:00" />
+  <TestSettings name="default" id="35e9ac18-c426-4fd0-9bff-6370576e67ae">
+    <Deployment runDeploymentRoot="_552716c6b8c5_2026-10-11_11_54_51" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="c755cb93-3c95-4a31-b47b-aa2a8323b4b0" testId="db21b891-0134-4743-9de4-532cb451e7a5" testName="KuaiYi.Core.Tests.OleReceiverTests.CancelDuringActualStartRetainsOwnershipUntilLateChildOrFailureSettles(fail: True)" computerName="552716c6b8c5" duration="00:00:00.0043910" startTime="2026-10-11T11:54:56.7146925+00:00" endTime="2026-10-11T11:54:56.7191647+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c755cb93-3c95-4a31-b47b-aa2a8323b4b0" />
+    <UnitTestResult executionId="e6cb356e-5889-435f-9a16-372a2c1b6835" testId="00d32a1a-d651-1d1e-533f-548c9aca17ed" testName="KuaiYi.Core.Tests.OleReceiverTests.RealBlockingChildTimesOutWhileOwnPointerAndOffRemainIndependent(mode: &quot;query-stall&quot;)" computerName="552716c6b8c5" duration="00:00:01.5719247" startTime="2026-10-11T11:54:55.1422493+00:00" endTime="2026-10-11T11:54:56.7144493+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e6cb356e-5889-435f-9a16-372a2c1b6835" />
+    <UnitTestResult executionId="c8ac571c-a46b-40f4-9de7-b5fd88a959e1" testId="5507c63e-acf8-cb6d-9819-50872b60e05e" testName="KuaiYi.Core.Tests.OleReceiverTests.MalformedActualChildFramesNeverReachLocalResult(mode: &quot;duplicate&quot;)" computerName="552716c6b8c5" duration="00:00:00.0842981" startTime="2026-10-11T11:54:51.3702792+00:00" endTime="2026-10-11T11:54:51.4549066+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c8ac571c-a46b-40f4-9de7-b5fd88a959e1" />
+    <UnitTestResult executionId="93474d01-afe1-4916-b6fe-75017f6610da" testId="18afd575-8beb-68d5-e46b-75ca3d470054" testName="KuaiYi.Core.Tests.OleReceiverTests.CancelDuringActualStartRetainsOwnershipUntilLateChildOrFailureSettles(fail: False)" computerName="552716c6b8c5" duration="00:00:00.0033447" startTime="2026-10-11T11:54:56.7193162+00:00" endTime="2026-10-11T11:54:56.7227912+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="93474d01-afe1-4916-b6fe-75017f6610da" />
+    <UnitTestResult executionId="7d689d75-003e-4a29-b7e5-cb549d4c12ce" testId="10149cc8-f214-ec1e-f3b2-6a53d0a8fee0" testName="KuaiYi.Core.Tests.OleReceiverTests.ActualChildExitDoesNotReleaseOriginalRegistrationOrUnconfirmedRevoke(delayedRegistration: False)" computerName="552716c6b8c5" duration="00:00:00.0836105" startTime="2026-10-11T11:54:51.8688517+00:00" endTime="2026-10-11T11:54:51.9523949+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7d689d75-003e-4a29-b7e5-cb549d4c12ce" />
+    <UnitTestResult executionId="463170b2-f8ff-4c09-a532-90e3e394cb7f" testId="52df45e5-5e2a-7cec-28e4-6d6ffee8f656" testName="KuaiYi.Core.Tests.OleReceiverTests.MalformedActualChildFramesNeverReachLocalResult(mode: &quot;cleanup-false&quot;)" computerName="552716c6b8c5" duration="00:00:00.1119009" startTime="2026-10-11T11:54:50.9388154+00:00" endTime="2026-10-11T11:54:51.0560015+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="463170b2-f8ff-4c09-a532-90e3e394cb7f" />
+    <UnitTestResult executionId="03566931-a039-4ef7-948d-659fc92cca16" testId="0f036bb2-44a1-33a2-64b5-bd505f680139" testName="KuaiYi.Core.Tests.OleReceiverTests.MalformedActualChildFramesNeverReachLocalResult(mode: &quot;missing-cleanup&quot;)" computerName="552716c6b8c5" duration="00:00:00.0775161" startTime="2026-10-11T11:54:51.0615967+00:00" endTime="2026-10-11T11:54:51.1332734+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="03566931-a039-4ef7-948d-659fc92cca16" />
+    <UnitTestResult executionId="71b7111c-7fcb-4216-a766-a8f1e0e01687" testId="cb7cf27c-9cde-0a87-8109-c0ca792edcc8" testName="KuaiYi.Core.Tests.OleReceiverTests.QueuedLocalDeliveryRechecksRuntimeGateAndPayloadIsClearedAfterCancel(route: &quot;off&quot;)" computerName="552716c6b8c5" duration="00:00:00.0798402" startTime="2026-10-11T11:54:51.5481497+00:00" endTime="2026-10-11T11:54:51.6271643+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="71b7111c-7fcb-4216-a766-a8f1e0e01687" />
+    <UnitTestResult executionId="2ace281d-4f83-4208-a332-8cbfed3aa07a" testId="dff4f9c6-32c7-db48-c48d-6d2c5b36790b" testName="KuaiYi.Core.Tests.OleReceiverTests.RealChildProductionServerDeliversOnlyAfterCleanupAndClearsActualArray" computerName="552716c6b8c5" duration="00:00:00.0884093" startTime="2026-10-11T11:54:51.7131967+00:00" endTime="2026-10-11T11:54:51.7918409+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2ace281d-4f83-4208-a332-8cbfed3aa07a" />
+    <UnitTestResult executionId="87dbb713-37f8-4a2c-861d-86a876d0ee5d" testId="d7e4c53b-cb40-16f0-a769-4d86ed610a3b" testName="KuaiYi.Core.Tests.OleReceiverTests.MalformedActualChildFramesNeverReachLocalResult(mode: &quot;bad-utf8&quot;)" computerName="552716c6b8c5" duration="00:00:00.0754546" startTime="2026-10-11T11:54:51.1339628+00:00" endTime="2026-10-11T11:54:51.2118342+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="87dbb713-37f8-4a2c-861d-86a876d0ee5d">
+      <Output>
+        <ErrorInfo>
+          <Message>DecoderFallbackException</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.OleReceiverTests.Cleanup(OleReceiverClient client, Starter starter, Registrar registrar, Task run) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverTests.cs:line 56
+   at KuaiYi.Core.Tests.OleReceiverTests.MalformedActualChildFramesNeverReachLocalResult(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverTests.cs:line 109
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8024a642-db8f-4e5d-8878-faaf2ae28266" testId="2f8f4976-d229-2939-abcb-2f8767f6cf3b" testName="KuaiYi.Core.Tests.OleReceiverTests.RealBlockingChildTimesOutWhileOwnPointerAndOffRemainIndependent(mode: &quot;drop-stall&quot;)" computerName="552716c6b8c5" duration="00:00:01.6092888" startTime="2026-10-11T11:54:51.9525317+00:00" endTime="2026-10-11T11:54:53.5622520+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8024a642-db8f-4e5d-8878-faaf2ae28266" />
+    <UnitTestResult executionId="3ca2f236-b892-473d-8eeb-a2105d67bfef" testId="ff8792ef-8d79-dbda-09a8-909b2a1bb2ab" testName="KuaiYi.Core.Tests.OleReceiverTests.KillFailureKeepsRealChildAndLeaseButOffReachesIndependentControlLoop" computerName="552716c6b8c5" duration="00:00:00.0685026" startTime="2026-10-11T11:54:56.7228989+00:00" endTime="2026-10-11T11:54:56.7916845+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3ca2f236-b892-473d-8eeb-a2105d67bfef" />
+    <UnitTestResult executionId="b612e353-648f-4619-9b56-1ede15db7bf2" testId="3f236ab1-3a59-53d9-1242-1ed1e6c877e9" testName="KuaiYi.Core.Tests.OleReceiverTests.CancelSerializesAgainstEnablePublicationAndPreventsLaterReenable" computerName="552716c6b8c5" duration="00:00:00.0739273" startTime="2026-10-11T11:54:51.6274716+00:00" endTime="2026-10-11T11:54:51.7018987+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b612e353-648f-4619-9b56-1ede15db7bf2" />
+    <UnitTestResult executionId="e7c1f1a8-a70b-43e2-bdc9-0d36c6bf5840" testId="f391081e-e59a-87c9-90dc-794a5c66b2c7" testName="KuaiYi.Core.Tests.OleReceiverTests.MalformedActualChildFramesNeverReachLocalResult(mode: &quot;move&quot;)" computerName="552716c6b8c5" duration="00:00:00.0812837" startTime="2026-10-11T11:54:51.2161586+00:00" endTime="2026-10-11T11:54:51.2928502+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e7c1f1a8-a70b-43e2-bdc9-0d36c6bf5840" />
+    <UnitTestResult executionId="502d2fca-4328-4191-b2e7-953cf65d3f7b" testId="8c6d5b3e-f0d1-3d9e-beb8-d3f6e1f94e4d" testName="KuaiYi.Core.Tests.OleReceiverTests.FreshOwnHitIsRequiredAndReleaseCancelCannotBeAnExternalDrop" computerName="552716c6b8c5" duration="00:00:00.0004971" startTime="2026-10-11T11:54:56.7918634+00:00" endTime="2026-10-11T11:54:56.7923630+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="502d2fca-4328-4191-b2e7-953cf65d3f7b" />
+    <UnitTestResult executionId="c23be542-8b3a-4129-b426-c1a69bb751b7" testId="cf28d6a4-bde7-0cf4-6bea-2162a3954fb9" testName="KuaiYi.Core.Tests.OleReceiverTests.ActualChildExitDoesNotReleaseOriginalRegistrationOrUnconfirmedRevoke(delayedRegistration: True)" computerName="552716c6b8c5" duration="00:00:00.0771667" startTime="2026-10-11T11:54:51.7920613+00:00" endTime="2026-10-11T11:54:51.8684612+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c23be542-8b3a-4129-b426-c1a69bb751b7">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure
+Expected: True
+Actual:   False</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.OleReceiverTests.Cleanup(OleReceiverClient client, Starter starter, Registrar registrar, Task run) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverTests.cs:line 57
+   at KuaiYi.Core.Tests.OleReceiverTests.ActualChildExitDoesNotReleaseOriginalRegistrationOrUnconfirmedRevoke(Boolean delayedRegistration) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverTests.cs:line 96
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3d08ecce-bdaf-4ae0-9d25-1f65f37b0a1d" testId="7e059723-23ce-5be3-7dcf-0907060b7224" testName="KuaiYi.Core.Tests.OleReceiverTests.RealBlockingChildTimesOutWhileOwnPointerAndOffRemainIndependent(mode: &quot;release-stall&quot;)" computerName="552716c6b8c5" duration="00:00:01.5792177" startTime="2026-10-11T11:54:53.5624271+00:00" endTime="2026-10-11T11:54:55.1419741+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3d08ecce-bdaf-4ae0-9d25-1f65f37b0a1d" />
+    <UnitTestResult executionId="5433c806-b46c-49a8-8ebf-d4ef34008622" testId="2062b38c-62f2-ea07-627c-15c8204704e7" testName="KuaiYi.Core.Tests.OleReceiverTests.QueuedLocalDeliveryRechecksRuntimeGateAndPayloadIsClearedAfterCancel(route: &quot;replace&quot;)" computerName="552716c6b8c5" duration="00:00:00.0893801" startTime="2026-10-11T11:54:51.4562399+00:00" endTime="2026-10-11T11:54:51.5470338+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5433c806-b46c-49a8-8ebf-d4ef34008622">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.OleReceiverTests.QueuedLocalDeliveryRechecksRuntimeGateAndPayloadIsClearedAfterCancel(String route) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverTests.cs:line 121
+   at KuaiYi.Core.Tests.OleReceiverTests.QueuedLocalDeliveryRechecksRuntimeGateAndPayloadIsClearedAfterCancel(String route) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverTests.cs:line 122
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d8101404-e8f1-4375-aa57-ad96deba9c90" testId="d0b576a6-220f-44ec-9882-2ab26701e9fa" testName="KuaiYi.Core.Tests.OleReceiverTests.MalformedActualChildFramesNeverReachLocalResult(mode: &quot;wrong-instance&quot;)" computerName="552716c6b8c5" duration="00:00:00.0769334" startTime="2026-10-11T11:54:51.2930040+00:00" endTime="2026-10-11T11:54:51.3701412+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d8101404-e8f1-4375-aa57-ad96deba9c90" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverTests.FreshOwnHitIsRequiredAndReleaseCancelCannotBeAnExternalDrop" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/debug/net10.0/kuaiyi.core.tests.dll" id="8c6d5b3e-f0d1-3d9e-beb8-d3f6e1f94e4d">
+      <Execution id="502d2fca-4328-4191-b2e7-953cf65d3f7b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Debug/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverTests" name="FreshOwnHitIsRequiredAndReleaseCancelCannotBeAnExternalDrop" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverTests.KillFailureKeepsRealChildAndLeaseButOffReachesIndependentControlLoop" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/debug/net10.0/kuaiyi.core.tests.dll" id="ff8792ef-8d79-dbda-09a8-909b2a1bb2ab">
+      <Execution id="3ca2f236-b892-473d-8eeb-a2105d67bfef" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Debug/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverTests" name="KillFailureKeepsRealChildAndLeaseButOffReachesIndependentControlLoop" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverTests.ActualChildExitDoesNotReleaseOriginalRegistrationOrUnconfirmedRevoke(delayedRegistration: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/debug/net10.0/kuaiyi.core.tests.dll" id="10149cc8-f214-ec1e-f3b2-6a53d0a8fee0">
+      <Execution id="7d689d75-003e-4a29-b7e5-cb549d4c12ce" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Debug/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverTests" name="ActualChildExitDoesNotReleaseOriginalRegistrationOrUnconfirmedRevoke" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverTests.QueuedLocalDeliveryRechecksRuntimeGateAndPayloadIsClearedAfterCancel(route: &quot;off&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/debug/net10.0/kuaiyi.core.tests.dll" id="cb7cf27c-9cde-0a87-8109-c0ca792edcc8">
+      <Execution id="71b7111c-7fcb-4216-a766-a8f1e0e01687" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Debug/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverTests" name="QueuedLocalDeliveryRechecksRuntimeGateAndPayloadIsClearedAfterCancel" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverTests.MalformedActualChildFramesNeverReachLocalResult(mode: &quot;missing-cleanup&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/debug/net10.0/kuaiyi.core.tests.dll" id="0f036bb2-44a1-33a2-64b5-bd505f680139">
+      <Execution id="03566931-a039-4ef7-948d-659fc92cca16" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Debug/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverTests" name="MalformedActualChildFramesNeverReachLocalResult" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverTests.RealChildProductionServerDeliversOnlyAfterCleanupAndClearsActualArray" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/debug/net10.0/kuaiyi.core.tests.dll" id="dff4f9c6-32c7-db48-c48d-6d2c5b36790b">
+      <Execution id="2ace281d-4f83-4208-a332-8cbfed3aa07a" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Debug/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverTests" name="RealChildProductionServerDeliversOnlyAfterCleanupAndClearsActualArray" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverTests.CancelDuringActualStartRetainsOwnershipUntilLateChildOrFailureSettles(fail: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/debug/net10.0/kuaiyi.core.tests.dll" id="db21b891-0134-4743-9de4-532cb451e7a5">
+      <Execution id="c755cb93-3c95-4a31-b47b-aa2a8323b4b0" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Debug/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverTests" name="CancelDuringActualStartRetainsOwnershipUntilLateChildOrFailureSettles" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverTests.CancelSerializesAgainstEnablePublicationAndPreventsLaterReenable" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/debug/net10.0/kuaiyi.core.tests.dll" id="3f236ab1-3a59-53d9-1242-1ed1e6c877e9">
+      <Execution id="b612e353-648f-4619-9b56-1ede15db7bf2" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Debug/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverTests" name="CancelSerializesAgainstEnablePublicationAndPreventsLaterReenable" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverTests.MalformedActualChildFramesNeverReachLocalResult(mode: &quot;bad-utf8&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/debug/net10.0/kuaiyi.core.tests.dll" id="d7e4c53b-cb40-16f0-a769-4d86ed610a3b">
+      <Execution id="87dbb713-37f8-4a2c-861d-86a876d0ee5d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Debug/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverTests" name="MalformedActualChildFramesNeverReachLocalResult" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverTests.CancelDuringActualStartRetainsOwnershipUntilLateChildOrFailureSettles(fail: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/debug/net10.0/kuaiyi.core.tests.dll" id="18afd575-8beb-68d5-e46b-75ca3d470054">
+      <Execution id="93474d01-afe1-4916-b6fe-75017f6610da" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Debug/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverTests" name="CancelDuringActualStartRetainsOwnershipUntilLateChildOrFailureSettles" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverTests.RealBlockingChildTimesOutWhileOwnPointerAndOffRemainIndependent(mode: &quot;drop-stall&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/debug/net10.0/kuaiyi.core.tests.dll" id="2f8f4976-d229-2939-abcb-2f8767f6cf3b">
+      <Execution id="8024a642-db8f-4e5d-8878-faaf2ae28266" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Debug/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverTests" name="RealBlockingChildTimesOutWhileOwnPointerAndOffRemainIndependent" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverTests.QueuedLocalDeliveryRechecksRuntimeGateAndPayloadIsClearedAfterCancel(route: &quot;replace&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/debug/net10.0/kuaiyi.core.tests.dll" id="2062b38c-62f2-ea07-627c-15c8204704e7">
+      <Execution id="5433c806-b46c-49a8-8ebf-d4ef34008622" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Debug/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverTests" name="QueuedLocalDeliveryRechecksRuntimeGateAndPayloadIsClearedAfterCancel" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverTests.RealBlockingChildTimesOutWhileOwnPointerAndOffRemainIndependent(mode: &quot;release-stall&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/debug/net10.0/kuaiyi.core.tests.dll" id="7e059723-23ce-5be3-7dcf-0907060b7224">
+      <Execution id="3d08ecce-bdaf-4ae0-9d25-1f65f37b0a1d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Debug/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverTests" name="RealBlockingChildTimesOutWhileOwnPointerAndOffRemainIndependent" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverTests.MalformedActualChildFramesNeverReachLocalResult(mode: &quot;wrong-instance&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/debug/net10.0/kuaiyi.core.tests.dll" id="d0b576a6-220f-44ec-9882-2ab26701e9fa">
+      <Execution id="d8101404-e8f1-4375-aa57-ad96deba9c90" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Debug/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverTests" name="MalformedActualChildFramesNeverReachLocalResult" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverTests.RealBlockingChildTimesOutWhileOwnPointerAndOffRemainIndependent(mode: &quot;query-stall&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/debug/net10.0/kuaiyi.core.tests.dll" id="00d32a1a-d651-1d1e-533f-548c9aca17ed">
+      <Execution id="e6cb356e-5889-435f-9a16-372a2c1b6835" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Debug/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverTests" name="RealBlockingChildTimesOutWhileOwnPointerAndOffRemainIndependent" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverTests.MalformedActualChildFramesNeverReachLocalResult(mode: &quot;duplicate&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/debug/net10.0/kuaiyi.core.tests.dll" id="5507c63e-acf8-cb6d-9819-50872b60e05e">
+      <Execution id="c8ac571c-a46b-40f4-9de7-b5fd88a959e1" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Debug/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverTests" name="MalformedActualChildFramesNeverReachLocalResult" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverTests.MalformedActualChildFramesNeverReachLocalResult(mode: &quot;cleanup-false&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/debug/net10.0/kuaiyi.core.tests.dll" id="52df45e5-5e2a-7cec-28e4-6d6ffee8f656">
+      <Execution id="463170b2-f8ff-4c09-a532-90e3e394cb7f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Debug/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverTests" name="MalformedActualChildFramesNeverReachLocalResult" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverTests.ActualChildExitDoesNotReleaseOriginalRegistrationOrUnconfirmedRevoke(delayedRegistration: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/debug/net10.0/kuaiyi.core.tests.dll" id="cf28d6a4-bde7-0cf4-6bea-2162a3954fb9">
+      <Execution id="c23be542-8b3a-4129-b426-c1a69bb751b7" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Debug/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverTests" name="ActualChildExitDoesNotReleaseOriginalRegistrationOrUnconfirmedRevoke" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverTests.MalformedActualChildFramesNeverReachLocalResult(mode: &quot;move&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/debug/net10.0/kuaiyi.core.tests.dll" id="f391081e-e59a-87c9-90dc-794a5c66b2c7">
+      <Execution id="e7c1f1a8-a70b-43e2-bdc9-0d36c6bf5840" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Debug/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverTests" name="MalformedActualChildFramesNeverReachLocalResult" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="db21b891-0134-4743-9de4-532cb451e7a5" executionId="c755cb93-3c95-4a31-b47b-aa2a8323b4b0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="00d32a1a-d651-1d1e-533f-548c9aca17ed" executionId="e6cb356e-5889-435f-9a16-372a2c1b6835" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5507c63e-acf8-cb6d-9819-50872b60e05e" executionId="c8ac571c-a46b-40f4-9de7-b5fd88a959e1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="18afd575-8beb-68d5-e46b-75ca3d470054" executionId="93474d01-afe1-4916-b6fe-75017f6610da" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="10149cc8-f214-ec1e-f3b2-6a53d0a8fee0" executionId="7d689d75-003e-4a29-b7e5-cb549d4c12ce" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="52df45e5-5e2a-7cec-28e4-6d6ffee8f656" executionId="463170b2-f8ff-4c09-a532-90e3e394cb7f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0f036bb2-44a1-33a2-64b5-bd505f680139" executionId="03566931-a039-4ef7-948d-659fc92cca16" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cb7cf27c-9cde-0a87-8109-c0ca792edcc8" executionId="71b7111c-7fcb-4216-a766-a8f1e0e01687" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dff4f9c6-32c7-db48-c48d-6d2c5b36790b" executionId="2ace281d-4f83-4208-a332-8cbfed3aa07a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d7e4c53b-cb40-16f0-a769-4d86ed610a3b" executionId="87dbb713-37f8-4a2c-861d-86a876d0ee5d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2f8f4976-d229-2939-abcb-2f8767f6cf3b" executionId="8024a642-db8f-4e5d-8878-faaf2ae28266" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ff8792ef-8d79-dbda-09a8-909b2a1bb2ab" executionId="3ca2f236-b892-473d-8eeb-a2105d67bfef" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3f236ab1-3a59-53d9-1242-1ed1e6c877e9" executionId="b612e353-648f-4619-9b56-1ede15db7bf2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f391081e-e59a-87c9-90dc-794a5c66b2c7" executionId="e7c1f1a8-a70b-43e2-bdc9-0d36c6bf5840" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8c6d5b3e-f0d1-3d9e-beb8-d3f6e1f94e4d" executionId="502d2fca-4328-4191-b2e7-953cf65d3f7b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cf28d6a4-bde7-0cf4-6bea-2162a3954fb9" executionId="c23be542-8b3a-4129-b426-c1a69bb751b7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7e059723-23ce-5be3-7dcf-0907060b7224" executionId="3d08ecce-bdaf-4ae0-9d25-1f65f37b0a1d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2062b38c-62f2-ea07-627c-15c8204704e7" executionId="5433c806-b46c-49a8-8ebf-d4ef34008622" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d0b576a6-220f-44ec-9882-2ab26701e9fa" executionId="d8101404-e8f1-4375-aa57-ad96deba9c90" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="19" executed="19" passed="16" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.05]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.16]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.18]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.47]       DecoderFallbackException
+[xUnit.net 00:00:00.47]       Stack Trace:
+[xUnit.net 00:00:00.47]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverTests.cs(56,0): at KuaiYi.Core.Tests.OleReceiverTests.Cleanup(OleReceiverClient client, Starter starter, Registrar registrar, Task run)
+[xUnit.net 00:00:00.47]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverTests.cs(109,0): at KuaiYi.Core.Tests.OleReceiverTests.MalformedActualChildFramesNeverReachLocalResult(String mode)
+[xUnit.net 00:00:00.47]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.80]       Assert.False() Failure
+[xUnit.net 00:00:00.80]       Expected: False
+[xUnit.net 00:00:00.80]       Actual:   True
+[xUnit.net 00:00:00.80]       Stack Trace:
+[xUnit.net 00:00:00.80]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverTests.cs(121,0): at KuaiYi.Core.Tests.OleReceiverTests.QueuedLocalDeliveryRechecksRuntimeGateAndPayloadIsClearedAfterCancel(String route)
+[xUnit.net 00:00:00.80]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverTests.cs(122,0): at KuaiYi.Core.Tests.OleReceiverTests.QueuedLocalDeliveryRechecksRuntimeGateAndPayloadIsClearedAfterCancel(String route)
+[xUnit.net 00:00:00.80]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.12]       Assert.True() Failure
+[xUnit.net 00:00:01.12]       Expected: True
+[xUnit.net 00:00:01.12]       Actual:   False
+[xUnit.net 00:00:01.12]       Stack Trace:
+[xUnit.net 00:00:01.12]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverTests.cs(57,0): at KuaiYi.Core.Tests.OleReceiverTests.Cleanup(OleReceiverClient client, Starter starter, Registrar registrar, Task run)
+[xUnit.net 00:00:01.12]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverTests.cs(96,0): at KuaiYi.Core.Tests.OleReceiverTests.ActualChildExitDoesNotReleaseOriginalRegistrationOrUnconfirmedRevoke(Boolean delayedRegistration)
+[xUnit.net 00:00:01.12]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:06.05]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T11:54:51.2150729+00:00">
+        <Text>[xUnit.net 00:00:00.47]     KuaiYi.Core.Tests.OleReceiverTests.MalformedActualChildFramesNeverReachLocalResult(mode: "bad-utf8") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T11:54:51.5477214+00:00">
+        <Text>[xUnit.net 00:00:00.80]     KuaiYi.Core.Tests.OleReceiverTests.QueuedLocalDeliveryRechecksRuntimeGateAndPayloadIsClearedAfterCancel(route: "replace") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T11:54:51.8694119+00:00">
+        <Text>[xUnit.net 00:00:01.12]     KuaiYi.Core.Tests.OleReceiverTests.ActualChildExitDoesNotReleaseOriginalRegistrationOrUnconfirmedRevoke(delayedRegistration: True) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

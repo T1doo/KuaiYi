@@ -58,7 +58,7 @@ internal sealed partial class ImageProbeWindow
     private async Task StartScreenshot()
     {
         if(captureTask is {IsCompleted:false}){CancelScreenshot();return;} // Repeating the hotkey is a cancel path while the review window is hidden.
-        if(ownedCaptureHost!=null||running!=null||ownedWorker!=null||gate.Snapshot.Suspension!=Suspension.None||OwnedWindows.Cast<Window>().Any(window=>window.IsVisible))return;
+        if(oleWindow!=null||ownedCaptureHost!=null||running!=null||ownedWorker!=null||gate.Snapshot.Suspension!=Suspension.None||OwnedWindows.Cast<Window>().Any(window=>window.IsVisible))return;
         captureTask=Capture();await captureTask;
     }
     private async Task Capture()

@@ -12,6 +12,7 @@ public static class NativeDesktop
     [StructLayout(LayoutKind.Sequential)] private struct MonitorInfo { public int Size; public Rect Monitor, Work; public uint Flags; }
     [DllImport("user32.dll")] public static extern nint GetForegroundWindow();
     [DllImport("user32.dll")] public static extern uint GetWindowThreadProcessId(nint hwnd, out uint processId);
+    [DllImport("kernel32.dll")] public static extern uint GetCurrentThreadId();
     [DllImport("user32.dll")] [return: MarshalAs(UnmanagedType.Bool)] public static extern bool IsWindow(nint hwnd);
     [DllImport("user32.dll")] public static extern uint GetDpiForWindow(nint hwnd);
     [DllImport("user32.dll")] [return: MarshalAs(UnmanagedType.Bool)] public static extern bool GetWindowRect(nint hwnd, out Rect rectangle);
