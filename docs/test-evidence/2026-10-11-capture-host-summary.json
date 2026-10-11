@@ -1,0 +1,1347 @@
+{
+  "sourceBaseCommit": "64cba6584a85a011d1cbe87c78b009f949449f2b",
+  "timestampUtc": "2026-10-11T11:04:38.297591+00:00",
+  "task": "Supervised screenshot lifetime isolation and GDI CPU synchronization; no next product phase",
+  "environment": "Saved KuaiYi Debian13 Linux x64; SDK10.0.401/runtime10.0.12; Node24.19.0, g++; no Windows/MSVC/SDK/CMake/interactive desktop",
+  "productionPath": [
+    "Explicit App intent, capture lease, layered HWND hide/affinity metadata gates",
+    "Own CaptureHost child/private inherited stdio",
+    "Actual OS parent/role/session/window metadata checks; child DwmFlush is NOT parent render fence",
+    "WGC or explicit GDI in child; bounded metadata/binary/commit/actual exit checks",
+    "Current lease only -> unchanged physical crop/PNG -> explicitly confirmed local-only ImageWorker"
+  ],
+  "budgetsMilliseconds": {
+    "globalDefaultMonotonic": 5000,
+    "exitWait": 2000,
+    "appClosingCaptureWait": 3000,
+    "selectionAndPreviewEach": 30000
+  },
+  "tests": [
+    {
+      "project": "KuaiYi.Core.Tests",
+      "total": "441",
+      "executed": "441",
+      "passed": "441",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0",
+      "path": "docs/test-evidence/2026-10-11-capture-host-offline-KuaiYi.Core.Tests.trx",
+      "bytes": 602535,
+      "sha256": "e32148a04a246f470c42575b4fc47d26514bbc9c2e9e7a5fae0310185d44267e"
+    },
+    {
+      "project": "KuaiYi.Provider.Tests",
+      "total": "77",
+      "executed": "77",
+      "passed": "77",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0",
+      "path": "docs/test-evidence/2026-10-11-capture-host-offline-KuaiYi.Provider.Tests.trx",
+      "bytes": 112005,
+      "sha256": "d71234ddd2089d452702e3a58535debd4beb01ac6dc82d387ad9da471f9ed63f"
+    }
+  ],
+  "dotnetPassed": 518,
+  "javascript": {
+    "total": 63,
+    "passed": 63,
+    "failed": 0,
+    "skipped": 0,
+    "raw": "2026-10-11-capture-host-offline-browser-tests.xml"
+  },
+  "cppPortableContract": {
+    "passed": 7,
+    "failed": 0,
+    "actualCompiler": "g++ -std=c++20 -Wall -Wextra -Werror -pthread",
+    "releaseAssertionCheck": "NDEBUG does not disable require()",
+    "mutation": "Deliberate portable helper consumes CPU pixels before flush; same test binary exits3. No old Windows-native execution claim",
+    "executables": [
+      {
+        "path": "artifacts/test-results/gdi-contract/gdi-contract",
+        "bytes": 38992,
+        "sha256": "b34cfad9193af3148d087a50ff7556a4b81e9f26232876082abfe6f0c99674a6",
+        "exitCode": 0
+      },
+      {
+        "path": "artifacts/test-results/capture-host/gdi-contract-release-final",
+        "bytes": 38992,
+        "sha256": "b34cfad9193af3148d087a50ff7556a4b81e9f26232876082abfe6f0c99674a6",
+        "exitCode": 0
+      },
+      {
+        "path": "artifacts/test-results/capture-host/gdi-before-flush-mutant/gdi-contract",
+        "bytes": 38992,
+        "sha256": "34f027c034ffa0eed98ea3cabacbb6f488ef8634288dc81483b25b639adaf4c0",
+        "exitCode": 3
+      }
+    ]
+  },
+  "distinctDotnetAndNodeTotal": 581,
+  "distinctIncludingCpp": 588,
+  "newCaptureHostCases": [
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.RealChildIgnoringCancellationIsKilledAndUiFinallyCanRestore(mode: \"stall-native\", timeout: True)",
+      "outcome": "Passed",
+      "duration": "00:00:05.0014708"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.HiddenVerificationFailureHasNoPixelPayloadAndChildExitIsConfirmed",
+      "outcome": "Passed",
+      "duration": "00:00:00.0972727"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.CancelDuringStartDoesNotAbandonLateChildOrInventExit(fail: False)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0026867"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.PreCancelledCaptureCreatesNoProcess",
+      "outcome": "Passed",
+      "duration": "00:00:00.0007511"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.ActualPrivateChannelRejectsWrongIdentityRoleBoundsAndIncompleteFrames(fault: \"operation\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0939772"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.CancelDuringStartDoesNotAbandonLateChildOrInventExit(fail: True)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0009085"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.KillFailureOrUnconfirmedWaitRetainsOwnerAndBlocksFinalizeWithoutBlockingUi(waitFailure: False)",
+      "outcome": "Passed",
+      "duration": "00:00:00.1063535"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.UncancellableRealPipeReadAfterOffClearsLatePayloadAndCannotCommit",
+      "outcome": "Passed",
+      "duration": "00:00:01.3245209"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.ActualPrivateChannelRejectsWrongIdentityRoleBoundsAndIncompleteFrames(fault: \"commit\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.1401378"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.CompletedStartupBeyondMonotonicBudgetIsRejectedEvenWithoutTimerCallback",
+      "outcome": "Passed",
+      "duration": "00:00:00.0027814"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.ActualPrivateChannelRejectsWrongIdentityRoleBoundsAndIncompleteFrames(fault: \"chunk\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0928655"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.RealChildIgnoringCancellationIsKilledAndUiFinallyCanRestore(mode: \"stall-compositor\", timeout: True)",
+      "outcome": "Passed",
+      "duration": "00:00:05.0074026"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.ActualPrivateChannelRejectsWrongIdentityRoleBoundsAndIncompleteFrames(fault: \"epoch\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.1092140"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.PublishedAlreadyExitedRealChildCannotFinalizeBeforeStartSettles",
+      "outcome": "Passed",
+      "duration": "00:00:00.0143120"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.RealChildIgnoringCancellationIsKilledAndUiFinallyCanRestore(mode: \"stall-native\", timeout: False)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0973902"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.ActualPrivateChannelRejectsWrongIdentityRoleBoundsAndIncompleteFrames(fault: \"hash\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.1159950"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.ActualPrivateChannelRejectsWrongIdentityRoleBoundsAndIncompleteFrames(fault: \"role\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.1214264"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.StaleCaptureFailureCannotDisableReplacementIdentity",
+      "outcome": "Passed",
+      "duration": "00:00:00.0000996"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.KillFailureOrUnconfirmedWaitRetainsOwnerAndBlocksFinalizeWithoutBlockingUi(waitFailure: True)",
+      "outcome": "Passed",
+      "duration": "00:00:04.1099619"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.UnconfirmedCurrentCaptureRevokesOldNetworkIdentityAndCannotSendAfterRelease",
+      "outcome": "Passed",
+      "duration": "00:00:00.0004389"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.ActualPrivateChannelRejectsWrongIdentityRoleBoundsAndIncompleteFrames(fault: \"oversize\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.1148581"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.RealPrivateSessionPreservesPhysicalPixelsDpiAndClearsActualArrays",
+      "outcome": "Passed",
+      "duration": "00:00:00.0970470"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.RealChildIgnoringCancellationIsKilledAndUiFinallyCanRestore(mode: \"stall-compositor\", timeout: False)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0711433"
+    }
+  ],
+  "newRoleCases": 2,
+  "installedRoleRequiredFiles": 17,
+  "baselineSourceCopies": "Six actual byte-matched git-show source copies with original manifest, preserved in evidenceFiles",
+  "history": [
+    "Original Worker ownership22/22 first",
+    "First Windows managed build missing System.IO; failed raw log preserved",
+    "First capture fixture compile missing Core using; failed raw log preserved",
+    "First executed host+role suite30 passed/1 failed: test cleanup accessed disposed Process; fixed cleanup before accessing handle;31/31 next",
+    "Three expanded tests initially used wrong existing API names; failed raw log preserved;23/23 after matching actual API",
+    "Synthetic C++ mutation compile succeeded but stray final shell command exited127; transcribed exec result explicit; separately executed mutation exit3",
+    "Final full Core441/Provider77/Node63; final locked managed build21 projects no warnings/errors; source identity6 cases"
+  ],
+  "syntheticInputs": [
+    "Public coordinate pixels; no real screenshots",
+    "compositor/native stall labels are uncancellable .NET tasks in REAL owned process, not DwmFlush/driver calls",
+    "Kill failure/no-exit adapter wraps held real child only in tests",
+    "Delayed startup/publication and cancellation-ignoring wrapper of real pipe; fake monotonic clock",
+    "UI finally callback in portable test is control-flow only, not WPF GUI proof"
+  ],
+  "managedProjects": 21,
+  "managedBuild": "Pass locked Release;21 projects,0 warnings,0 errors",
+  "identitySourceTests": [
+    {
+      "Case": "Baseline",
+      "Result": "Pass",
+      "ExitCode": 0
+    },
+    {
+      "Case": "WrongClsid",
+      "Result": "Pass",
+      "ExitCode": 1,
+      "ExpectedDiagnostic": "Verb CLSID mismatch"
+    },
+    {
+      "Case": "WrongWorkerId",
+      "Result": "Pass",
+      "ExitCode": 1,
+      "ExpectedDiagnostic": "Independent EXE identity mismatch"
+    },
+    {
+      "Case": "MissingWorker",
+      "Result": "Pass",
+      "ExitCode": 1,
+      "ExpectedDiagnostic": "Both EXEs must have independent declarations"
+    },
+    {
+      "Case": "WrongPublisher",
+      "Result": "Pass",
+      "ExitCode": 1,
+      "ExpectedDiagnostic": "Development identity mismatch"
+    },
+    {
+      "Case": "WildcardMenu",
+      "Result": "Pass",
+      "ExitCode": 1,
+      "ExpectedDiagnostic": "Unsupported/wildcard menu scope"
+    }
+  ],
+  "nativeBuild": "Blocked: no MSVC/Windows SDK/CMake; no new Windows build attempt represented as pass",
+  "archive": {
+    "path": "artifacts/KuaiYi-P0-capture-host-managed-win-x64.zip",
+    "bytes": 571372,
+    "sha256": "fbfae658f27fcacb3b3a01ea17ee93e156624932803bece0b8f2eb4300eac347",
+    "fileCount": 36,
+    "appFileCount": 32,
+    "nativeSourceCount": 3,
+    "apphosts": [
+      "app/KuaiYi.App.exe",
+      "app/KuaiYi.CaptureHost.exe",
+      "app/KuaiYi.ImageWorker.exe",
+      "app/KuaiYi.NativeHost.exe"
+    ],
+    "peValidation": "Pass: four actual PE32+ x64 apphosts; embedded CaptureHost PMv2/asInvoker inspected; no Windows execution"
+  },
+  "oldArchivesUnchanged": [
+    {
+      "path": "artifacts/KuaiYi-P0-screenshot-managed-win-x64.zip",
+      "bytes": 465400,
+      "sha256": "b9af727d4ccb06ec1b46dfc74015b7e912afbd9c27afb50142e5f2acecdbd718"
+    },
+    {
+      "path": "artifacts/KuaiYi-P0-browser-confirmation-wait-win-x64.zip",
+      "bytes": 554318,
+      "sha256": "01c1476aa1eb8157e0403dc2d62d15d167c636d06d8b85e1758c2cd196ba1358"
+    }
+  ],
+  "browserScreenshotFallback": "Still fully denied; source unchanged since confirmation-wait baseline",
+  "windowsChecks": {
+    "ActualCaptureHostParentRoleSessionVerification": "NotRun",
+    "LayeredWpfAffinityCompatibility": "NotRun",
+    "OwnWindowHiddenPixelsAndFirstFrame": "NotRun",
+    "GdiFlushBitBltDibCleanup": "NotRun",
+    "WgcDriverMapAndCleanup": "NotRun",
+    "ActualDriverHangKillAndExitTiming": "NotRun",
+    "DispatcherCancellationOffRestoreClosing": "NotRun",
+    "PhysicalHwndBoundsMixedDpiMouseCapture": "NotRun",
+    "NegativeCrossScreenSelection": "NotRun",
+    "HotkeyRegistrationOccupancyRemoval": "NotRun",
+    "LockedSessionTopologyChanges": "NotRun",
+    "OcrIdentityLanguage": "NotRun",
+    "PeakMemoryGdiD3dHandles": "NotRun",
+    "ProtectedContent": "NotRun",
+    "InstallationUninstallation": "NotRun"
+  },
+  "remainingBlockers": [
+    "Windows pixel self-exclusion and parent compositor timing unproven; metadata and child DwmFlush are insufficient proof",
+    "Native Capture/OCR/Shell uncompiled; actual driver kill/exit latency unproven",
+    "CaptureHost cannot be declared restartable while startup/exit unconfirmed",
+    "P0 Windows exit gates Blocked; independent E06 synchronous floating OLE freeze unresolved",
+    "Full production floating translation/UIA/DPAPI/settings/P6 normalization/HDR/model/installation not complete",
+    "No real browser caller/permission/installation evidence or installed configuration"
+  ],
+  "operationsNotPerformed": [
+    "User desktop or other project access",
+    "Windows capture/hotkey/permission",
+    "Installation/registration/signing/trust/system security modification",
+    "Real credentials/OAuth/model/upload",
+    "Main modification/forcepush/deploy/publish"
+  ],
+  "traceItems": 176,
+  "wholeAcceptance": {
+    "total": 106,
+    "NotRun": 106
+  },
+  "specSha256": "ea3aa6529405bcc703986988fd089f476ee8f991d867e2220b3b20c439126166",
+  "evidenceFiles": [
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-before-source__manifest.json",
+      "bytes": 1865,
+      "sha256": "9300c8b8f2a9c38501a528b7cfd65b1327473bcb22d78e0ae2f2bff6df522570"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-before-source__src__KuaiYi.App__Program.cs.txt",
+      "bytes": 12704,
+      "sha256": "76c619221a288009a826531932650bd9e542d5a422720c66ab4f19bc4e726fab"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-before-source__src__KuaiYi.App__ScreenshotFlow.cs.txt",
+      "bytes": 7013,
+      "sha256": "477c10a0a16198c43b17fe463c726df90c0bcd06e73a1811aa6d4555ee53de07"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-before-source__src__KuaiYi.CaptureNative__CaptureNative.cpp.txt",
+      "bytes": 7374,
+      "sha256": "1a510514530e9b306de14ab5c965879f2c03042ccd439115c2248db39593dfda"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-before-source__src__KuaiYi.Imaging__ImageWorkerClient.cs.txt",
+      "bytes": 11292,
+      "sha256": "bd1810de46314a712fcd9c468866fe657d4fcf59309bf69cbab267a6ce68b14c"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-before-source__src__KuaiYi.Imaging__ScreenshotAcquisition.cs.txt",
+      "bytes": 751,
+      "sha256": "79538c78022b0519386b702771373243f74cbcc6caa58c8921cb8f7b86579ee1"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-before-source__src__KuaiYi.Windows__ScreenshotDesktop.cs.txt",
+      "bytes": 6157,
+      "sha256": "419cf4102655d491f4fddaf3c2ab6cdcef92a8d4ab0eb7534cb85b21e64aa84b"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-capture-host-expanded-fixed.log",
+      "bytes": 1536,
+      "sha256": "42ad9ace8e54766f7decf2bd4bffa9a0b2df39cf687e698c52a5b87339a91dbf"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-capture-host-expanded-fixed.trx",
+      "bytes": 33353,
+      "sha256": "b4918620528b835e676fa5cd1f4432dfe0c71cd05b667ffac36c74f9ebf1808e"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-capture-host-expanded.log",
+      "bytes": 1863,
+      "sha256": "42db26d2a9cb4b4386a197dabe4b22f927ed23c2a55b23df5fa649939b383cb6"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-capture-host-first.log",
+      "bytes": 1785,
+      "sha256": "5eed383b49cc7319604979b5ac529a4ce64cd9aa4d340b5235bd0c0a37f06f1a"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-capture-host-second.log",
+      "bytes": 2400,
+      "sha256": "1610e0c74d946c0da1b31b501561026410f7991b724b7ee1f996baec2052002c"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-capture-host-second.trx",
+      "bytes": 45993,
+      "sha256": "d57dce30d917d088b61dd906342b5eab83402e9f60f3a042872c9bd66b850871"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-capture-host-third.log",
+      "bytes": 1527,
+      "sha256": "ef73422d38554ecbf83e2e488f18d467a1fa4205dcc8134319a19aff832822b0"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-capture-host-third.trx",
+      "bytes": 44146,
+      "sha256": "16c6f75270ff796291ee95d362fabaebd644e43eeac341fe24565dad42a79c40"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-first-managed-build-failed.log",
+      "bytes": 1127,
+      "sha256": "da92d90787099e871993391b4af6eeafc507461c72929f4030e944e91ca4b7da"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-gdi-before-flush-mutant__failure.log",
+      "bytes": 29,
+      "sha256": "11299c3ce6dfbb460451f1173846207629a9e578cc5275fd8d9ea393dd484f88"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-gdi-before-flush-mutant__src__KuaiYi.CaptureNative__GdiReadContract.hpp",
+      "bytes": 669,
+      "sha256": "acd487b425b7b48c9d89ba77880be7ca4078a5e50044a4468add51434ebcd19b"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-gdi-before-flush-mutant__tests__native__GdiReadContractTests.cpp",
+      "bytes": 1803,
+      "sha256": "5044943cdcad0d872976d6aa45a1abde4d1cb6b282e97ea8c7556be95423f9a5"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-gdi-contract-release.log",
+      "bytes": 85,
+      "sha256": "7376693cc0a3befc94259446d047fa17ad6b008d61ce051c7d5e79694ec23483"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-gdi-contract.log",
+      "bytes": 85,
+      "sha256": "7376693cc0a3befc94259446d047fa17ad6b008d61ce051c7d5e79694ec23483"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-gdi-script-final.log",
+      "bytes": 184,
+      "sha256": "59f5b058d605c9b103bc49ff748a59125ba9a35b30590aa19ebdca2a71ed1559"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-gdi-script.log",
+      "bytes": 184,
+      "sha256": "59f5b058d605c9b103bc49ff748a59125ba9a35b30590aa19ebdca2a71ed1559"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-identity-source.log",
+      "bytes": 769,
+      "sha256": "7d68649b4fb9bb603e6b6c57bd9d7a274601fd90c39d8815440581f16b356338"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-managed-build-final.log",
+      "bytes": 2707,
+      "sha256": "83b8092e99160d46e85531ac6937fe91db69bdebb076a4b6907747e5fc4ba9bf"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-managed-build.log",
+      "bytes": 3835,
+      "sha256": "19ac460e4ee27d7b73723122ed26d29c0a6fafeaed80110ae18a374ae9658841"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-offline.log",
+      "bytes": 7894,
+      "sha256": "aedd885f0e598439a5e73ee50cb304ab14f5c06f29f989702572093fe5ebc87f"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-ownership-refactor.trx",
+      "bytes": 34575,
+      "sha256": "2c6d1332dbf9ec727206f224e3baad636167c02ed23f6673ff2873465ae08d3c"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-stage.log",
+      "bytes": 2430,
+      "sha256": "d60a6ddd2c4446038162d9170ffe4f8a7ed22083ada421e49553a68bb330c2e2"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-offline-KuaiYi.Core.Tests.trx",
+      "bytes": 602535,
+      "sha256": "e32148a04a246f470c42575b4fc47d26514bbc9c2e9e7a5fae0310185d44267e"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-offline-KuaiYi.Provider.Tests.trx",
+      "bytes": 112005,
+      "sha256": "d71234ddd2089d452702e3a58535debd4beb01ac6dc82d387ad9da471f9ed63f"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-offline-browser-tests.xml",
+      "bytes": 10967,
+      "sha256": "6526c2cf3f35cec517dbcba7c8898cb188f2be76717ff0290d66f8d4823292aa"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-offline-mock-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-offline-mock-stdout.log",
+      "bytes": 40,
+      "sha256": "1ec14cd6090f4aa163f6f7ef027d1cb1c117e69a4d69538a8094928c349011b5"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-identity-source-results.json",
+      "bytes": 769,
+      "sha256": "7d68649b4fb9bb603e6b6c57bd9d7a274601fd90c39d8815440581f16b356338"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-archive-manifest.json",
+      "bytes": 5983,
+      "sha256": "0485d1540e1d527ffef91a400458c44093eb3c84d6b710a074cdad2630939334"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-mutant-command-error.json",
+      "bytes": 293,
+      "sha256": "d850e35557bd0f602761a1dd91c4d3f27fbf24b39e3f6180ebcaa3e302b0b788"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-11-capture-host-gdi-contract-release-final.log",
+      "bytes": 85,
+      "sha256": "7376693cc0a3befc94259446d047fa17ad6b008d61ce051c7d5e79694ec23483"
+    }
+  ],
+  "sourceDigests": [
+    {
+      "path": "Directory.Build.props",
+      "sha256": "519f41e0fa0d4ea133ec4cdff6167ca88caeb63f7d478a9ccfd518d68871ab34"
+    },
+    {
+      "path": "Directory.Packages.props",
+      "sha256": "af316a454bb6ed7b94283acd47ba7d61f34b1a97e6a3e124a453d23397cf02f3"
+    },
+    {
+      "path": "KuaiYi.sln",
+      "sha256": "77b8e58d7d2bd26e047f49887ac3df706e5a6e6fa167e3e0afeaf8fc828de629"
+    },
+    {
+      "path": "NuGet.Config",
+      "sha256": "52c7f96825b0a216601d0e9a2744ddc7bc2cee304261e3daf8c06bf34b8134ec"
+    },
+    {
+      "path": "assets/fixtures/selection-public.txt",
+      "sha256": "f2c75537088f99b038f509ff2b4627f8cb0cf253fee698594d5570bbd0295c27"
+    },
+    {
+      "path": "assets/prompts/base@1.txt",
+      "sha256": "1a82351510c833e6e2e89b92ae8ef6a1fa379b0f50aecc97b0b0de58097cc494"
+    },
+    {
+      "path": "assets/prompts/explain@1.txt",
+      "sha256": "75b1db8d8b953d594e2e6a3a909e76b08dab5de047e725891c2821f256c52d9a"
+    },
+    {
+      "path": "assets/prompts/faithful@1.txt",
+      "sha256": "342b3a7f1d133d5f37054de2e23ccac0399119c424cf410a4a9fbed52b220c70"
+    },
+    {
+      "path": "assets/prompts/image-classify@1.txt",
+      "sha256": "9b23779a81121416fe8bcb2a14678626fdfbd6a4678e82a74d79772e9ff6e1e0"
+    },
+    {
+      "path": "assets/prompts/image-explain@1.txt",
+      "sha256": "5f1a95bd13a2e9e61c52810c7357b660883f13c61450bd511836dba209537977"
+    },
+    {
+      "path": "assets/prompts/plain@1.txt",
+      "sha256": "60e90705c8586a1e8cdf9d661598e19690179f4dc0be466b89699ef906eb632f"
+    },
+    {
+      "path": "assets/prompts/professional@1.txt",
+      "sha256": "fe7572d7b832dba9032acc42a90dfcb9dba033814ac32bdef3fe5afe9feebaae"
+    },
+    {
+      "path": "extensions/chromium/acquire.js",
+      "sha256": "b54fb546ace8e7e338377c1973b314ef93ce64013a6b6d8340e9dfbcc6f0a480"
+    },
+    {
+      "path": "extensions/chromium/icon.png",
+      "sha256": "811dca7fe9c08bf3488bce976e3cff1737ad990aff1c33d58397b3b6d68ce95d"
+    },
+    {
+      "path": "extensions/chromium/manifest.json",
+      "sha256": "a54a48c1996708df74b273fe51dc96b876fb38275af11e4c640f6be4adc8eda3"
+    },
+    {
+      "path": "extensions/chromium/options.html",
+      "sha256": "900d0be395767472822a440cc0533837e41561bb0783ed446a698f1e9e9e0238"
+    },
+    {
+      "path": "extensions/chromium/options.js",
+      "sha256": "954750567b135f280cac23a36c3af0857522a1d75ff06816add65cbee0fcdfb0"
+    },
+    {
+      "path": "extensions/chromium/protocol.js",
+      "sha256": "942d506342d95c03d330c32ca8357dc1640d849d7b47752668174204cd1a064a"
+    },
+    {
+      "path": "extensions/chromium/service-worker.js",
+      "sha256": "71ad08ac7a85662ce254c91552b665c1691dc77341157847e5e5d6fafba3608c"
+    },
+    {
+      "path": "global.json",
+      "sha256": "4e7d5022b2a5a8d02bb951bb264a4c8613eabc332572a0af5f9743d23f23d84e"
+    },
+    {
+      "path": "packaging/identity/AppxManifest.xml",
+      "sha256": "5e39ec98515642ee6e89e0af8815b6780b3e02eac3dcda61d56af2168c2cb001"
+    },
+    {
+      "path": "packaging/identity/Assets/KuaiYi.ico",
+      "sha256": "4e22671e47ad79e494feefff7384386caa6e8e3de6b6c8953d531f6f655fbbfb"
+    },
+    {
+      "path": "packaging/identity/Assets/Square150x150Logo.png",
+      "sha256": "46249cfe9ed99bf2aa5106cb16ffa2c6e65004ffb0bfad5a9c0cfff2a6d7c4c8"
+    },
+    {
+      "path": "packaging/identity/Assets/Square44x44Logo.png",
+      "sha256": "811dca7fe9c08bf3488bce976e3cff1737ad990aff1c33d58397b3b6d68ce95d"
+    },
+    {
+      "path": "packaging/identity/Assets/storelogo.png",
+      "sha256": "9e09c2f0b250fd56056a5c626189a309ea78a211f7431211efef051fead98b40"
+    },
+    {
+      "path": "scripts/bootstrap.ps1",
+      "sha256": "b42be59feedddeaf742f4127323529050537f962b3844d7309bc3dc69c814379"
+    },
+    {
+      "path": "scripts/build.ps1",
+      "sha256": "d05519377b2e414b84abc93f7743ccbf20bf9279717df509cd71ee0b806455d8"
+    },
+    {
+      "path": "scripts/common.ps1",
+      "sha256": "9fb3d981bdc13f06f4c84eed0828a9e55db8df3f791838d35ddf64a49ef0a99a"
+    },
+    {
+      "path": "scripts/pack-probes.ps1",
+      "sha256": "2da21550aff8cfeb73335c908bee28587192e6f6e5cc31df6780216b1becbdb3"
+    },
+    {
+      "path": "scripts/package-identity.ps1",
+      "sha256": "0bff633576e45c9f85e6b9e63f18e3070eceadc8e420b40234c552102ef0a914"
+    },
+    {
+      "path": "scripts/register-dev-identity.ps1",
+      "sha256": "16aa02c97d4c800576a491f44276c8c4165a9e96fcb5c0a8c5401a2d710ea83c"
+    },
+    {
+      "path": "scripts/run-ole-experiment.ps1",
+      "sha256": "bca9b2df5a4239513bb698333fa75106077fd7159e845ec3359c4ba6d1350739"
+    },
+    {
+      "path": "scripts/stage-browser-probes.ps1",
+      "sha256": "0eeaa5314a941c8e9413dc2ced1fcf1ba2d94716f69ee525c892daa7e4c4cec7"
+    },
+    {
+      "path": "scripts/stage-identity-probes.ps1",
+      "sha256": "446ec7b647468d81651153ee78e001a6effa8a5b25243c60d3341a3583dc6634"
+    },
+    {
+      "path": "scripts/stage-screenshot-probes.ps1",
+      "sha256": "7ec869ddcbc08633ff5a2582da1ed9ac1eb9878ea60926895faabc38ce25d2a9"
+    },
+    {
+      "path": "scripts/test-gdi-contract.ps1",
+      "sha256": "2629cea61ac8e0656bc21f4094ed0aa992238443d6dd90e50cd361052217d838"
+    },
+    {
+      "path": "scripts/test-identity-source.ps1",
+      "sha256": "cc4a76c7a36d9bbb03a3db43b3f0b71bc4f216d29d6f18d8106e2ec67d775099"
+    },
+    {
+      "path": "scripts/test-installed-identity.ps1",
+      "sha256": "0375e616332ab3b7cb2258c2885682f8394e5a8f299b522b4cc94b10e9a43894"
+    },
+    {
+      "path": "scripts/test.ps1",
+      "sha256": "a159f13457f6307c1b8779f8f9fe702cd8930c7e103d7fd797982c44595df46d"
+    },
+    {
+      "path": "scripts/validate-dev-identity.ps1",
+      "sha256": "6fd68e0af8d1f85ff697a46067a3dd105b7b743536145a76658c1b9203a09917"
+    },
+    {
+      "path": "src/KuaiYi.App/DesktopLocalConfirmation.cs",
+      "sha256": "c516af7f39da5c454e11ba732f0c7c9f176561eeb0e8f9672cb0e2656fa84381"
+    },
+    {
+      "path": "src/KuaiYi.App/KuaiYi.App.csproj",
+      "sha256": "4461cda3a611f9813f8c9aed2c1fbf79d9d2ea6a44824cc369484aacf9d63001"
+    },
+    {
+      "path": "src/KuaiYi.App/Program.cs",
+      "sha256": "11f2c3374f112989ca2eaa71edef17c497d815a637c53af42c08b4966e280c02"
+    },
+    {
+      "path": "src/KuaiYi.App/ScreenshotFlow.cs",
+      "sha256": "cbbb1de91a0b59044df3d18cd639991501976451ab7b24e0411d1ba71bc26c09"
+    },
+    {
+      "path": "src/KuaiYi.App/ScreenshotHotkey.cs",
+      "sha256": "77bf76d59c2472b78cda9b52cad6268acfa31d8bcd0862910ba95c08f55b4121"
+    },
+    {
+      "path": "src/KuaiYi.App/ScreenshotPreview.cs",
+      "sha256": "b2d7f82980494fa9895d468b806f4522a6401293cb45c42856dc7ae8fea677c6"
+    },
+    {
+      "path": "src/KuaiYi.App/ScreenshotSelection.cs",
+      "sha256": "460e144e42827b79858fd67f26829aedd7a3f3678079b7f2264ca1f43b4d01bd"
+    },
+    {
+      "path": "src/KuaiYi.App/app.manifest",
+      "sha256": "974e127e63188fd7235ffbb5b8c6b06dfea8a03b2a2a5b2104aec858d647002e"
+    },
+    {
+      "path": "src/KuaiYi.App/packages.lock.json",
+      "sha256": "48eb6f583eb8903a27e65a362fdd6fbe8db65ef5dfbd5728a10bc8b12dc9d1f0"
+    },
+    {
+      "path": "src/KuaiYi.CaptureBroker/KuaiYi.CaptureBroker.csproj",
+      "sha256": "932d7d5cb2e2649702ea61bec126c2bf44702c045361adf52b8e69fcc2dcbb34"
+    },
+    {
+      "path": "src/KuaiYi.CaptureBroker/Program.cs",
+      "sha256": "fc7832fd0a0957486cc10ba59a32b595aba04056779d4b32ab80b4c91c60dcb2"
+    },
+    {
+      "path": "src/KuaiYi.CaptureBroker/packages.lock.json",
+      "sha256": "75da0b4b6f6f285bb09f08f2628c983befe99e6f619bc2188f05e36f741f4e87"
+    },
+    {
+      "path": "src/KuaiYi.CaptureHost/KuaiYi.CaptureHost.csproj",
+      "sha256": "308126d7dc5aaa50cee03640b22de8542bcb4ea4bb23d523fbf569bde2c2b3a9"
+    },
+    {
+      "path": "src/KuaiYi.CaptureHost/Program.cs",
+      "sha256": "d578db322c0a80cd93bd05a721d39d6b25c0acf60f50b6368064027a7715b2ff"
+    },
+    {
+      "path": "src/KuaiYi.CaptureHost/app.manifest",
+      "sha256": "c7115cddc339c13bb7c865ea186363aced5ac69c3e01b2b22473123927d13f1f"
+    },
+    {
+      "path": "src/KuaiYi.CaptureHost/packages.lock.json",
+      "sha256": "75da0b4b6f6f285bb09f08f2628c983befe99e6f619bc2188f05e36f741f4e87"
+    },
+    {
+      "path": "src/KuaiYi.CaptureNative/CMakeLists.txt",
+      "sha256": "209440366bd192e7f25dd2c1a835c661df13580770e7ea77839d94b24feee865"
+    },
+    {
+      "path": "src/KuaiYi.CaptureNative/CaptureNative.cpp",
+      "sha256": "4c9bcb3e10bf29e74eb7ef1e4b2483f96ec04bd3c3e84763b95b02916429b2fd"
+    },
+    {
+      "path": "src/KuaiYi.CaptureNative/GdiReadContract.hpp",
+      "sha256": "a38721300e7cb49d1721ec249093e13d8afe15f2d5eb0b8f5def312fc85b13bd"
+    },
+    {
+      "path": "src/KuaiYi.Contracts/BrowserTiming.cs",
+      "sha256": "8467112acd478fb25019953e978234c8a5ec61c1a8634e553a3736b8a852beab"
+    },
+    {
+      "path": "src/KuaiYi.Contracts/ImageChunkWire.cs",
+      "sha256": "124ed1158e89589d171ef1e782c05f20fadeec6d83ec6c8ea27cbdfe60c84bcd"
+    },
+    {
+      "path": "src/KuaiYi.Contracts/IpcFrame.cs",
+      "sha256": "2e1c8ef6f487c759f930d9abc90d7fd64a0f68743d57d1138ab59e4a7d7bb7b2"
+    },
+    {
+      "path": "src/KuaiYi.Contracts/KuaiYi.Contracts.csproj",
+      "sha256": "ed7c0f20902846adddafbfc178137e3a0dd399bba0a8c656195f76855d2233bb"
+    },
+    {
+      "path": "src/KuaiYi.Contracts/NativeMessaging.cs",
+      "sha256": "1832b27edf7dc117ae897ec473b82b0760bd1851c7d2322e0c752519e26a1cf4"
+    },
+    {
+      "path": "src/KuaiYi.Contracts/OleProbeMessages.cs",
+      "sha256": "8bab378ce6b5b69c74f11b877c462c9172490f5e9720940f9ee405dd86b90e8f"
+    },
+    {
+      "path": "src/KuaiYi.Contracts/packages.lock.json",
+      "sha256": "03eeadc5ef377c17f787ab65f41fb4c8a9c936bb7f7f4171111fdeec8a81cb46"
+    },
+    {
+      "path": "src/KuaiYi.Core/IdentityEventReceiver.cs",
+      "sha256": "270f1e014b71ea48878aee03ff291ebfc2fd0345f79dcf2a19468abc7a059530"
+    },
+    {
+      "path": "src/KuaiYi.Core/KuaiYi.Core.csproj",
+      "sha256": "ed7c0f20902846adddafbfc178137e3a0dd399bba0a8c656195f76855d2233bb"
+    },
+    {
+      "path": "src/KuaiYi.Core/OleCallWatch.cs",
+      "sha256": "08d99f0ac2a32344d4fba0f735eb1472e2f011a7edc84136daab09287d898bc2"
+    },
+    {
+      "path": "src/KuaiYi.Core/OleCleanupScope.cs",
+      "sha256": "4514df5c90348e1e3b5b9c3e88899925e487565544bec3023ae9d3fb2163751e"
+    },
+    {
+      "path": "src/KuaiYi.Core/OleTransferPolicy.cs",
+      "sha256": "d48a5aabb68aa64bac5bb41da92f5482ffcb2584c7761bedea4313f2a5fd8e2f"
+    },
+    {
+      "path": "src/KuaiYi.Core/OverlayGeometry.cs",
+      "sha256": "0b7da4ca6e4a3d58df98257e8cfe7a82d8d3988c7f00b790af6bd40b04adde40"
+    },
+    {
+      "path": "src/KuaiYi.Core/OwnedHostTermination.cs",
+      "sha256": "fe4284d719517c3d72118f429b98de9f520054621ab0175676fcc53d0990d2ac"
+    },
+    {
+      "path": "src/KuaiYi.Core/RuntimeGate.cs",
+      "sha256": "e5d377c1055ebeffd37c6e408576f5441ae96a35e41c2142f9e2381ee1c0ea06"
+    },
+    {
+      "path": "src/KuaiYi.Core/packages.lock.json",
+      "sha256": "03eeadc5ef377c17f787ab65f41fb4c8a9c936bb7f7f4171111fdeec8a81cb46"
+    },
+    {
+      "path": "src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj",
+      "sha256": "f6ba5505575d39e1822282890fdf379244f24ad8200795a7ec1332117b625f18"
+    },
+    {
+      "path": "src/KuaiYi.ImageWorker/Program.cs",
+      "sha256": "742af43dc7e36be997f347b7ffc682e9c9ccbaead904b2987e61eba650827d9d"
+    },
+    {
+      "path": "src/KuaiYi.ImageWorker/app.manifest",
+      "sha256": "b27991ae861df834d53d75a5aa5578f3adbd101dadfa4b955b29ce030a7273d3"
+    },
+    {
+      "path": "src/KuaiYi.ImageWorker/packages.lock.json",
+      "sha256": "3adbbf52da4dcf4b68f0257d2325bfd0a8e29d1a135716549c7ee86eecbea3fa"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/AssemblyInfo.cs",
+      "sha256": "55ce9569123f84a4f6374c5842c0fa7165ebaa5d5b509b693a4214d624e24ee0"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/CaptureHostClient.cs",
+      "sha256": "6f378bff7d4e2ebd8cb41a4645d8d5e962ee7b17bd4e75b370be53de4434ee74"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/CaptureProtocol.cs",
+      "sha256": "dacf1f48f5211ccc2d4ee2d48ca1571f5f9d0f35f1db0005eb251e3250d4c50c"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImageMessages.cs",
+      "sha256": "ae5702a9f751bfc3a69f3827e8dff4dbab3953e473555ae1090a52c857a5f702"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImagePolicy.cs",
+      "sha256": "81bc6800248587edca69cb57d3e0b4d3d249154543044d5692c3d90ce7d6f0be"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImageProcessStarter.cs",
+      "sha256": "324eedc5bbc90bff26a30fc231ceeb6e3e5b53b913209f398f27f28487b9e291"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImageUiWorkflow.cs",
+      "sha256": "ba668d04a5c0d291694014fb400a74c6d3051bc1d47359b4ec1a3108a5190caa"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImageWorkerClient.cs",
+      "sha256": "62df54fb539168e2ff67750cb2dea92f965c6310e38bb4c14b815e0b3b4036a9"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/KuaiYi.Imaging.csproj",
+      "sha256": "1beb6eb70bf5ae28728e21c816598282c24ddeb93070ce9bee5d42dd72a7fb6f"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/LocalImageFile.cs",
+      "sha256": "9ea6781a06f7acbcc8692ed0e1dd8bf5ef3c1fde6d701df67a420c9a0a4c3f0d"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/NativeOcr.cs",
+      "sha256": "69a92ad50e78b2e6401ad3410236555b2c5ffa46ebf7b2f5c443374fbaf01604"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/OcrCapabilitiesPolicy.cs",
+      "sha256": "281b28bfce338e014c79dfde29a938b039aa6e60f83ab18295960989da4d5235"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/OwnedProcessSession.cs",
+      "sha256": "ee75f2c18f02b2201a0b56f4eab4ae3f053860a4bad95dcee45e6671b82ef6ce"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/PackageIdentity.cs",
+      "sha256": "5efbfe92733a3f904dfb1cd92b07493c9d80304d0698caa30c4ef523be3d7337"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ScreenshotAcquisition.cs",
+      "sha256": "79538c78022b0519386b702771373243f74cbcc6caa58c8921cb8f7b86579ee1"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ScreenshotDrag.cs",
+      "sha256": "f468a4ea609a1e845c566c688861e785f87e17c7626cb8d517d26fefe0bfe47c"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ScreenshotIntent.cs",
+      "sha256": "9c1526bc75c04a67e9564fa066a8c12946e929a64c512c23f1c96bc23b1aafdc"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ScreenshotPixels.cs",
+      "sha256": "cd88ed54528d312a264ad22775ac35139cf79d9210f9d858cf2d87702ecdeaf3"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/packages.lock.json",
+      "sha256": "361e2d18f86f4f0f7be933d6fa19c532644723ba2130245ac2b473d1c29e8d81"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/AssemblyInfo.cs",
+      "sha256": "527c9dc13c919b712f10ec463af86c6aac636a6dbc4ef283cadc200ad0283e13"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/BrowserSession.cs",
+      "sha256": "08ae3404fcf98523f907d7e0f19942037c49f9a152831feeb8653aa19b3b51a3"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/DesktopPipeChannel.cs",
+      "sha256": "fe5aa32749a4c091e77250706f6004b9611093efaa6255cbe145769965786771"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/DesktopReceiverSession.cs",
+      "sha256": "aade5024437524138375f1fe8b784d65cea505f8d30add5cb98f2db34b997e4b"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/InstalledBrowserReceiver.cs",
+      "sha256": "f9b06e012007ab4e28897a13f3f125c6118f7b4c35bfa5f45d284689c76d871b"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/InstalledDesktopChannel.cs",
+      "sha256": "6231eea01183cda308b7f82a93412fa00e71373445e714d0982568920ecb46be"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/InstalledHostPolicy.cs",
+      "sha256": "1cf4a8c3e010e3a8aebccaae34432258cfd10c4865f6d715821eb39026a6525e"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/InstalledRoleFiles.cs",
+      "sha256": "256d3c328024166c36ffb6f3dd521a65c2264aef519dc7ca59260700ff2d8552"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/KuaiYi.NativeHost.csproj",
+      "sha256": "0d3a9337928f412dd9f16a8731c73ef0f2309313307f42cd6d68358c1c5e7fcc"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/LocalImageInbox.cs",
+      "sha256": "e1c75fb11103dc5b3f22bd9780b73191f62548b862cb4efa630093ead90f00ba"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/Program.cs",
+      "sha256": "5b8420183d1a2cf529c5e81363d0c6ff300ee7ec12d040d7eb7c86c60096dc02"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/WindowsNativePeer.cs",
+      "sha256": "ec6935a3da9ca1fe1b54f70f91a7c9360a60d09619ec645f2fabae138c3c91f4"
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/packages.lock.json",
+      "sha256": "3adbbf52da4dcf4b68f0257d2325bfd0a8e29d1a135716549c7ee86eecbea3fa"
+    },
+    {
+      "path": "src/KuaiYi.OcrNative/CMakeLists.txt",
+      "sha256": "d479426b1b48ba2495beb343de79e94cf7900f4fc1d988383bd97bd27293094c"
+    },
+    {
+      "path": "src/KuaiYi.OcrNative/OcrNative.cpp",
+      "sha256": "ee5567e45823859ac82487c12a5028d933ec5e97215aa17e500ab994370d500e"
+    },
+    {
+      "path": "src/KuaiYi.Providers/KuaiYi.Providers.csproj",
+      "sha256": "973b49585e8749bc4aa5d5542ab0c8ad5654f3f591dbd5d4974e2c4b60248865"
+    },
+    {
+      "path": "src/KuaiYi.Providers/ProtocolAdapters.cs",
+      "sha256": "f0cb708db05aa59225eb5cda83d18b9a1af4b37a8b2c407e4b730ee036628a49"
+    },
+    {
+      "path": "src/KuaiYi.Providers/ProviderClient.cs",
+      "sha256": "74d837b6a4a1d8cd45ae96306d4dc0bf3a613acd1c2704f4d353ebbaca1aa070"
+    },
+    {
+      "path": "src/KuaiYi.Providers/ProviderContracts.cs",
+      "sha256": "fe20527d0601fee6718d59ad74b15623b4fa2776626b80b6217bf04985d7da85"
+    },
+    {
+      "path": "src/KuaiYi.Providers/ProviderEventReceiver.cs",
+      "sha256": "f6f3f46cbd0e0e992ec78de479595fae1a248be79e8d88cdeadcc9e377ae94ac"
+    },
+    {
+      "path": "src/KuaiYi.Providers/SseReader.cs",
+      "sha256": "351b3586d3c28fa8a86ffc0a1f68b414097c9022dd0f041e38e30cf4284b39d9"
+    },
+    {
+      "path": "src/KuaiYi.Providers/packages.lock.json",
+      "sha256": "bdea240ae7ef5c4752c0a27419f5007239f856068181300133e7ca4c08c206fa"
+    },
+    {
+      "path": "src/KuaiYi.ShellExtension/CMakeLists.txt",
+      "sha256": "198c63654344cf4858425dab0accee81870f9a90feadf7a68054d8f11a390aeb"
+    },
+    {
+      "path": "src/KuaiYi.ShellExtension/CommandPolicy.h",
+      "sha256": "fc2b6e1936e63d49d16831d3daa6f5b3a2f7151adfe5955d27a60e0972bb535e"
+    },
+    {
+      "path": "src/KuaiYi.ShellExtension/ExplorerCommand.cpp",
+      "sha256": "acc1e4572e75722a876ca351bd2b3f074ef8e0cbcd37fb206e9d29f6e87a26cf"
+    },
+    {
+      "path": "src/KuaiYi.ShellExtension/Shell.rc",
+      "sha256": "f146913d8ef282a575cb047ca535c4f9e650f89a83ff67ff2b54bdb387d38b70"
+    },
+    {
+      "path": "src/KuaiYi.ShellExtension/exports.def",
+      "sha256": "e7bd31f949f36b6864320ac512a7417fbce929902768b00629bf1dcfd9568983"
+    },
+    {
+      "path": "src/KuaiYi.Windows/CaptureBoundary.cs",
+      "sha256": "5bfc185069e6a76fee18957150acb9752f95850e0a0b489c919c2b38cdc8c251"
+    },
+    {
+      "path": "src/KuaiYi.Windows/KuaiYi.Windows.csproj",
+      "sha256": "3f7c90efbdcee054c9679294ef8ccab1441b311f6a26e293314899cae88edfef"
+    },
+    {
+      "path": "src/KuaiYi.Windows/NativeDesktop.cs",
+      "sha256": "1ff924304f5d0a5148270416616038942392219f4e6d742c5671268b774c3637"
+    },
+    {
+      "path": "src/KuaiYi.Windows/OleNative.cs",
+      "sha256": "3b796102dcbfb9149c5634a40b0ea1dd90247c26ada4a24ed969c1239c17d962"
+    },
+    {
+      "path": "src/KuaiYi.Windows/ScreenshotDesktop.cs",
+      "sha256": "419cf4102655d491f4fddaf3c2ab6cdcef92a8d4ab0eb7534cb85b21e64aa84b"
+    },
+    {
+      "path": "src/KuaiYi.Windows/app.manifest",
+      "sha256": "c3ef0e95dfc811501e1ec781736eec0fbc30f281a77ee518f1519fd11602c4c8"
+    },
+    {
+      "path": "src/KuaiYi.Windows/packages.lock.json",
+      "sha256": "f11d1f46821fb995ce58349a558038adf25c82c8f5861f9556f0d52380ed947c"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/BrowserHostTests.cs",
+      "sha256": "8339c16c52e23546ec728c1e202a125022f22aadedddf34b0789ac3fe03838b0"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/BrowserReadOwnershipTests.cs",
+      "sha256": "cfb8e99d9ea7521f6d6d0f66e95a33bec23ff3bf381df895fbdf72751b1fecf8"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/CaptureHostTests.cs",
+      "sha256": "a4ffe964f5bf6d6c1de21e2e17c39e5d1f82c77c9e37befff36f4b50bbf56827"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/DesktopReceiverTests.cs",
+      "sha256": "7fdf8f95d7cec7a89554fbedf74ff313763d72adbed2e0bd3d553c88de929b8c"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/GateTests.cs",
+      "sha256": "0556a55798a8717d303d26e54c2dc0173799ca14899e46a8831d946c494366a8"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/GeometryTests.cs",
+      "sha256": "a2f0fbcb2ed94443570fb2132b7a8b852a26d7f784f5d5680cceb92f569667e5"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/HostTerminationTests.cs",
+      "sha256": "059e78d681d4bd0bd9ae992e0839d62c532a9417fc4c350cc6dfa54beb32e7b6"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/ImageChunkWireTests.cs",
+      "sha256": "beac16a956fd5e6699088ce47023f3a5634189db9b9bcecafb4b76f16b66a303"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/ImageFinalizationTests.cs",
+      "sha256": "24cf3ea553eef99d5ae2c8cbbbab486568e7fa8e2ea69c7a76a5055adf7c91d9"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/ImageJsonTests.cs",
+      "sha256": "9534433474697329f2cd961b22fe7ccfe2bebf52fdbfb95216de141e053f8349"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/ImageStartupTests.cs",
+      "sha256": "e163010d9988d268f5e2d11337fe4464ab7b190b847920f0a158a9fc3a0784a6"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/ImageUiWorkflowTests.cs",
+      "sha256": "9911a8528f949c403169b54ce23732c686d1f17bbcf13bc0b9e725ee55bcf694"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/ImageWorkerTests.cs",
+      "sha256": "6f43742e19944724746def5aa22892a74584a3ebb00df2d138ff73169f9082bd"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/InstalledRoleFilesTests.cs",
+      "sha256": "b5b7e74a0d954238d2427b549493d7f8da44cccd5b9b899be4ad1e33b6dbf693"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/IpcTests.cs",
+      "sha256": "ffe8381c50b68918177fa35b5604b5205c3523726659754aa65e1f9eecc1ac92"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+      "sha256": "f2ce282bbc0fbe0a1e9c60a6937834c9cd51ce2924a187d3e37755d36e9593c4"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/NativeMessagingTests.cs",
+      "sha256": "cd010e2f1f17e95611720a7942015b3261d6a829fb980b723fc49fff5c154211"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/NativeProbeTests.cs",
+      "sha256": "9ae69294fbe578f818eee5abb893e858eebd4d7026ec053d82f6b8e528f8a0de"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/OcrCapabilitiesTests.cs",
+      "sha256": "3dcc28ef188c16c35da178e1ac630c9da3e0538956d44381559b00668dd0d69f"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/OleCleanupTests.cs",
+      "sha256": "d3741f7edf70531644734556766e06a1f043858071ee2252635f3dc87c20bc34"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/OleControlProcessTests.cs",
+      "sha256": "bb30c75476fdf416b63e7217d2949e1a7378faf77ed6a9e3f56823c807a03628"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/OleTransferTests.cs",
+      "sha256": "3c769e847a0f730d87c2cc3e1c570d26a54527c49af74abf269955a7bfc4f31c"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/ScreenshotTests.cs",
+      "sha256": "0999326ce18513242c77c689a4c7c5a87371c4162696cc633c573f27d68874a0"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/packages.lock.json",
+      "sha256": "6170a3cc7ef6fc86f23c48d1297516f793fa52604571dbbbecc1d0d524c1f288"
+    },
+    {
+      "path": "tests/KuaiYi.Provider.Tests/AnthropicLifecycleTests.cs",
+      "sha256": "9133d95a30794a689730a94fc662a50452a7543d93c19a94e8760aff61a118ba"
+    },
+    {
+      "path": "tests/KuaiYi.Provider.Tests/HttpContractTests.cs",
+      "sha256": "9bda2e09310fce3125981e91a3b23301f2990b18c979d21218a594daffe438b8"
+    },
+    {
+      "path": "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+      "sha256": "dcdc8ea80daa178148eb2ef4848c36de91375013344d905668c02999ff6e3478"
+    },
+    {
+      "path": "tests/KuaiYi.Provider.Tests/LateEventIsolationTests.cs",
+      "sha256": "45c7aac4d71b5cb8501f655c224cb5b11a8f45a38167492631e9809fdd7d9f42"
+    },
+    {
+      "path": "tests/KuaiYi.Provider.Tests/ProviderEventReceiverTests.cs",
+      "sha256": "97923c373cc7454c95f471eb678f30f82388656d3872f7f0056f786416225ead"
+    },
+    {
+      "path": "tests/KuaiYi.Provider.Tests/SseAndProfileTests.cs",
+      "sha256": "9bb4b5a397e1ea5d0942663f385531fdf6e0684ad6849ae9b7fc77ba42cbb146"
+    },
+    {
+      "path": "tests/KuaiYi.Provider.Tests/packages.lock.json",
+      "sha256": "5d02234d71b6f4c642a07aad1ca8fe21badaa3f8a70f41f2de47905f02e38b97"
+    },
+    {
+      "path": "tests/browser/confirmation-harness.mjs",
+      "sha256": "5459c1560e4fe7849c4733ffb068296f1bb1d1788d9e4846aed56a787d5de16d"
+    },
+    {
+      "path": "tests/browser/confirmation.test.mjs",
+      "sha256": "5254b32dc07e5129cb254eed624cea7ec4f9adf734596d01eb44ff3cb37c5772"
+    },
+    {
+      "path": "tests/browser/ownership-fixtures.mjs",
+      "sha256": "e4d91b6e6de7fa3c979bb9df8d4cf81494c827c3c51874552f1f8d79d7764e59"
+    },
+    {
+      "path": "tests/browser/protocol.test.mjs",
+      "sha256": "921d46211c9f5b996748cdaff1e64f06380daa7985ce98fa83613418089aa3a0"
+    },
+    {
+      "path": "tests/fixtures/images/README.md",
+      "sha256": "06ffa8041250c5cbdf7422cb6260f39a86e0a3e4c6bc68f47700608f1094ba6a"
+    },
+    {
+      "path": "tests/fixtures/images/kuaiyi-test.png",
+      "sha256": "21b267376fd764e726d41daa71e32526d6f513cf1343f26f5947008509a15b8d"
+    },
+    {
+      "path": "tests/native/GdiReadContractTests.cpp",
+      "sha256": "5044943cdcad0d872976d6aa45a1abde4d1cb6b282e97ea8c7556be95423f9a5"
+    },
+    {
+      "path": "tests/native/command-policy-test.cpp",
+      "sha256": "c901a1f0078bec8c0b972f7284ef4d454aaa23da88c438a2131d27f3e5b36ad2"
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/KuaiYi.BrowserHostFixture.csproj",
+      "sha256": "6edae3db2f2add6473cd383b6588f0e2fd6562b865e3e185d462a107a7a96d23"
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/Program.cs",
+      "sha256": "6f41c002eab0fde0d39805c0015c8a0c564165e5aeb326cd9e6304ac0c14882d"
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/ReceiverConfirmationFixture.cs",
+      "sha256": "46472a66e9fc3f482c6098e2bbfcb8506cee8a423a293c0b0c33a5ce08db8baf"
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/packages.lock.json",
+      "sha256": "8c5ea36a9e2d525d47fd14a137787bec2034592eb29ee8607ce35fdd629e130a"
+    },
+    {
+      "path": "tools/KuaiYi.CaptureControlFixture/KuaiYi.CaptureControlFixture.csproj",
+      "sha256": "7ae796fdd59b9f24f7561542beec7f8be1b37c5bd6ac4eb76eb3185f6f5ded5c"
+    },
+    {
+      "path": "tools/KuaiYi.CaptureControlFixture/Program.cs",
+      "sha256": "93851db584b269f78b7a3288791d4b80bff9831b06f7616acbfaa26716033107"
+    },
+    {
+      "path": "tools/KuaiYi.CaptureControlFixture/packages.lock.json",
+      "sha256": "2f22b84b30721c5a0679a89d40ddb50bc46e6741537a4e333d6568c963d5a706"
+    },
+    {
+      "path": "tools/KuaiYi.CompatibilityProbe/KuaiYi.CompatibilityProbe.csproj",
+      "sha256": "6fab560e986e623df50569130a550581fd44fc3a24ab38c8484753756df404c3"
+    },
+    {
+      "path": "tools/KuaiYi.CompatibilityProbe/Program.cs",
+      "sha256": "4d015f47f2600d0a143e7e680c6a5b625125ee632215b4264ba8e1a3a7988db7"
+    },
+    {
+      "path": "tools/KuaiYi.CompatibilityProbe/packages.lock.json",
+      "sha256": "75da0b4b6f6f285bb09f08f2628c983befe99e6f619bc2188f05e36f741f4e87"
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj",
+      "sha256": "3b6fce8db10d7a093ce70002556b7695daa70ffe3f33e6a1237477d444ec7104"
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/Program.cs",
+      "sha256": "898a74e2da57d311c6e23ef684b2c01a965de560f5b45d47005d5d5e39659361"
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/packages.lock.json",
+      "sha256": "75da0b4b6f6f285bb09f08f2628c983befe99e6f619bc2188f05e36f741f4e87"
+    },
+    {
+      "path": "tools/KuaiYi.MockProvider/KuaiYi.MockProvider.csproj",
+      "sha256": "c9f72aa8701fd27212239ebf12a71f8acc61dce7bed03759a11d2bd75a7ad28a"
+    },
+    {
+      "path": "tools/KuaiYi.MockProvider/MockProviderHost.cs",
+      "sha256": "5fe84dc5b91bd1e57338538e22ec02f579450504b97a8ff59ccb89bb8d742d15"
+    },
+    {
+      "path": "tools/KuaiYi.MockProvider/Program.cs",
+      "sha256": "80acebd9f172b1830162ccc26184cca0c971aa9a1157ed9b5dbab641baf79aff"
+    },
+    {
+      "path": "tools/KuaiYi.MockProvider/packages.lock.json",
+      "sha256": "03eeadc5ef377c17f787ab65f41fb4c8a9c936bb7f7f4171111fdeec8a81cb46"
+    },
+    {
+      "path": "tools/KuaiYi.NativeMessagingProbe/KuaiYi.NativeMessagingProbe.csproj",
+      "sha256": "244429436347035c6b0d8ede709ced8ae00221df269b3c4fa50388415c18566d"
+    },
+    {
+      "path": "tools/KuaiYi.NativeMessagingProbe/Program.cs",
+      "sha256": "1571fb62a1adc1e429ee37a541dbc70880a8ce9595960c9be101581639166c19"
+    },
+    {
+      "path": "tools/KuaiYi.NativeMessagingProbe/packages.lock.json",
+      "sha256": "81906a80fcfc35ce041187bf14fa96507fdf0dc09b7ae5bc9a811c3325f8706a"
+    },
+    {
+      "path": "tools/KuaiYi.OleControlFixture/KuaiYi.OleControlFixture.csproj",
+      "sha256": "e42510e34c7257098593eafc4f844b6156911ec9c2a39c83b152b4852c26b29d"
+    },
+    {
+      "path": "tools/KuaiYi.OleControlFixture/Program.cs",
+      "sha256": "61dea374cd672b12026e5e64bffd1265a95f446dce2b6fca14d18d83dabb36f7"
+    },
+    {
+      "path": "tools/KuaiYi.OleControlFixture/packages.lock.json",
+      "sha256": "361e2d18f86f4f0f7be933d6fa19c532644723ba2130245ac2b473d1c29e8d81"
+    },
+    {
+      "path": "tools/KuaiYi.OleFaultSource/KuaiYi.OleFaultSource.csproj",
+      "sha256": "3b6fce8db10d7a093ce70002556b7695daa70ffe3f33e6a1237477d444ec7104"
+    },
+    {
+      "path": "tools/KuaiYi.OleFaultSource/Program.cs",
+      "sha256": "79af1cd4eab7a0b154339c96734cfea71c9164c3c7694a1ab715f7e6025749e3"
+    },
+    {
+      "path": "tools/KuaiYi.OleFaultSource/packages.lock.json",
+      "sha256": "75da0b4b6f6f285bb09f08f2628c983befe99e6f619bc2188f05e36f741f4e87"
+    },
+    {
+      "path": "tools/KuaiYi.OleProbe/DropWindow.cs",
+      "sha256": "3ed48b6bdfdd002f4a0172181baef12e519ccee7f859c21abcb1ead0b56c92ec"
+    },
+    {
+      "path": "tools/KuaiYi.OleProbe/KuaiYi.OleProbe.csproj",
+      "sha256": "d7cc099919ac6a4a8ce3041de4ccbefe025a1d7ab73a953106b7530b1cb6a515"
+    },
+    {
+      "path": "tools/KuaiYi.OleProbe/Program.cs",
+      "sha256": "8cab0d4da831acf194c355b0309ed216839eaeddd995f5680f4e276c0bbfe050"
+    },
+    {
+      "path": "tools/KuaiYi.OleProbe/packages.lock.json",
+      "sha256": "75da0b4b6f6f285bb09f08f2628c983befe99e6f619bc2188f05e36f741f4e87"
+    },
+    {
+      "path": "tools/identity/inspect_pe_identity.py",
+      "sha256": "f1e20f66345e305db234d25f8552c1021c464b6ebb994d21a49692f44fdb6eb2"
+    }
+  ],
+  "externalReview": "Pending independent supervisor review; baseline geometry/PNG/local identity limited acceptance only; no full P0/P6/E06/Windows signoff"
+}

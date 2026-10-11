@@ -1,0 +1,40 @@
+{
+  "sourceBaseCommit": "64cba6584a85a011d1cbe87c78b009f949449f2b",
+  "knownDefects": [
+    "DwmFlush on Dispatcher",
+    "Native capture inside App process; token cannot terminate Map/BitBlt",
+    "DIB CPU memcpy/clear without GdiFlush"
+  ],
+  "files": [
+    {
+      "source": "src/KuaiYi.App/ScreenshotFlow.cs",
+      "snapshot": "artifacts/test-results/capture-host/before-source/src__KuaiYi.App__ScreenshotFlow.cs.txt",
+      "sha256": "477c10a0a16198c43b17fe463c726df90c0bcd06e73a1811aa6d4555ee53de07"
+    },
+    {
+      "source": "src/KuaiYi.App/Program.cs",
+      "snapshot": "artifacts/test-results/capture-host/before-source/src__KuaiYi.App__Program.cs.txt",
+      "sha256": "76c619221a288009a826531932650bd9e542d5a422720c66ab4f19bc4e726fab"
+    },
+    {
+      "source": "src/KuaiYi.Windows/ScreenshotDesktop.cs",
+      "snapshot": "artifacts/test-results/capture-host/before-source/src__KuaiYi.Windows__ScreenshotDesktop.cs.txt",
+      "sha256": "419cf4102655d491f4fddaf3c2ab6cdcef92a8d4ab0eb7534cb85b21e64aa84b"
+    },
+    {
+      "source": "src/KuaiYi.Imaging/ScreenshotAcquisition.cs",
+      "snapshot": "artifacts/test-results/capture-host/before-source/src__KuaiYi.Imaging__ScreenshotAcquisition.cs.txt",
+      "sha256": "79538c78022b0519386b702771373243f74cbcc6caa58c8921cb8f7b86579ee1"
+    },
+    {
+      "source": "src/KuaiYi.Imaging/ImageWorkerClient.cs",
+      "snapshot": "artifacts/test-results/capture-host/before-source/src__KuaiYi.Imaging__ImageWorkerClient.cs.txt",
+      "sha256": "bd1810de46314a712fcd9c468866fe657d4fcf59309bf69cbab267a6ce68b14c"
+    },
+    {
+      "source": "src/KuaiYi.CaptureNative/CaptureNative.cpp",
+      "snapshot": "artifacts/test-results/capture-host/before-source/src__KuaiYi.CaptureNative__CaptureNative.cpp.txt",
+      "sha256": "1a510514530e9b306de14ab5c965879f2c03042ccd439115c2248db39593dfda"
+    }
+  ]
+}

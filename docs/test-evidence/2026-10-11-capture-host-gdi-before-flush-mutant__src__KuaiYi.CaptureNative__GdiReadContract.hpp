@@ -1,0 +1,16 @@
+#pragma once
+// Shared with executable portable contract tests. Every callback runs synchronously on the owning capture thread.
+namespace kuaiyi {
+template<class Flush,class Cancel,class Copy>
+int ReadGdiPixels(bool drawingSucceeded,Flush flush,Cancel cancelled,Copy copy) {
+    // Deliberate synthetic fault: consume pixels before completing drawing.
+    if (!drawingSucceeded) return 5;
+    if (cancelled()) return 2;
+    copy(); if (!flush()) return 5; return 0;
+}
+template<class Flush,class Clear>
+bool ClearGdiPixels(Flush flush,Clear clear) {
+    if (!flush()) return false; // Never race CPU zeroing against unfinished GDI drawing.
+    clear(); return true;
+}
+}

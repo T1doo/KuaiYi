@@ -65,4 +65,6 @@ ReadBounded等待失败后的底层任务始终由唯一迟到观察者处理，
 
 监督修正后的浏览器阶段预算：握手5秒；只有生产接收端发出的单次ConfirmationPending才能进入30秒确认；Ready后进入30秒取图与传输；普通Native Messaging帧确认仍5秒，总操作上限65秒。扩展使用performance.now，宿主/管道/接收端使用TimeProvider单调时间，转换阶段前和迟到回复交付前复核；任何通知不能续期。宿主在等待确认时并行监视同一stdin读取，Cancel/EOF关闭桌面通道并观察迟到结果，不重复读取/授权/传图。Pending无grant、无取图权限，本地网络隔离不变。ImageTransferAssembler自身30秒传输上限保留。此前30秒整连接描述属于历史版本，详见browser-confirmation-wait-review.md。同步Windows角色/文件校验尚不能以这些协议计时器证明终止。
 
-截图当前新增 RuntimeGate 原子主动租约 → ScreenshotAcquisition → ScreenshotDesktop/WGC或显式GDI → 逐屏ScreenshotSelection/共享ScreenshotDrag → ScreenshotSnapshot物理裁剪 → ScreenshotPngEncoder → 本地预览/确认 → 单次localOnly身份 → 现有ImageUiWorkflow/ImageWorkerClient。晚到capture不丢任务或缓冲，失效清零；取消选择不替换旧request。整屏源与可写WPF位图在选区结束先释放/清理，仅保留裁剪/PNG，无磁盘或模型发送。PMv2/实际捕获/HWND/热键/原生DLL未验证；后台线程不等于可终止的CaptureHost。新增Windows/CaptureNative角色摘要要求总13项，无配置保持拒绝。详见screenshot-review.md。
+截图当前新增 RuntimeGate 原子主动租约 → ScreenshotAcquisition → 自己持有的CaptureHost/私有继承stdio → CaptureBoundary实际父进程与隐藏元数据检查 → ScreenshotDesktop/WGC或显式GDI → 逐屏ScreenshotSelection/共享ScreenshotDrag → ScreenshotSnapshot物理裁剪 → ScreenshotPngEncoder → 本地预览/确认 → 单次localOnly身份 → 现有ImageUiWorkflow/ImageWorkerClient。晚到capture不丢任务或缓冲，失效清零；取消选择不替换旧request。整屏源与可写WPF位图在选区结束先释放/清理，仅保留裁剪/PNG，无磁盘或模型发送。PMv2/实际捕获/HWND/热键/原生DLL未验证；实际捕获与DwmFlush现隔离在CaptureHost，5秒流程/2秒退出预算，未确认不释放owner；子进程DwmFlush不是父App绘制fence，真实像素排除仍NotRun。Windows/CaptureNative/CaptureHost角色摘要要求总17项，无配置保持拒绝。详见screenshot-review.md。
+
+截图独立生命周期与GDI同线程flush的完整边界、真实子进程/合成故障区别见capture-host-review.md。E06同步OLE冻结保持独立缺口。

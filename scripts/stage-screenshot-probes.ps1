@@ -1,4 +1,4 @@
-param([ValidateSet('Debug','Release')][string]$Configuration='Release')
+param([ValidateSet('Debug','Release')][string]$Configuration='Release', [string]$ArtifactName='KuaiYi-P0-capture-host-managed-win-x64.zip')
 . "$PSScriptRoot/common.ps1"
 Push-Location $script:RepositoryRoot
 try {
@@ -14,6 +14,7 @@ try {
     })
     @{Kind='P0ExplicitScreenshotReview';FrameworkDependent=$true;Installer=$false;CaptureNative='SourceOnly;WindowsBuildNotRun';OcrNative='NotIncluded';WindowsRuntime='NotRun';Hotkey='SourceOnly;NotRegistered';ModelCalls='None';Files=$files} |
         ConvertTo-Json -Depth 5 | Set-Content (Join-Path $root 'review-manifest.json') -Encoding utf8NoBOM
-    Compress-Archive -Path (Join-Path $root '*') -DestinationPath 'artifacts/KuaiYi-P0-screenshot-managed-win-x64.zip' -Force
+    if($ArtifactName -ne [IO.Path]::GetFileName($ArtifactName) -or $ArtifactName -eq 'KuaiYi-P0-screenshot-managed-win-x64.zip'){throw 'Use a distinct simple archive name; preserve the reviewed screenshot baseline.'}
+    Compress-Archive -Path (Join-Path $root '*') -DestinationPath (Join-Path 'artifacts' $ArtifactName) -Force
     Write-Output 'Staged managed App/Worker and native capture source only; no OS registration, permission, capture, credentials or model call.'
 } finally {Pop-Location}

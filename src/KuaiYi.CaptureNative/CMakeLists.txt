@@ -9,3 +9,8 @@ target_compile_definitions(KuaiYi.CaptureNative PRIVATE UNICODE _UNICODE WIN32_L
 target_compile_options(KuaiYi.CaptureNative PRIVATE /W4 /WX /EHsc /utf-8)
 target_link_libraries(KuaiYi.CaptureNative PRIVATE windowsapp ole32 d3d11 dxgi user32 gdi32)
 set_property(TARGET KuaiYi.CaptureNative PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+include(CTest)
+add_executable(GdiReadContractTests ../../tests/native/GdiReadContractTests.cpp)
+target_compile_features(GdiReadContractTests PRIVATE cxx_std_20)
+target_compile_options(GdiReadContractTests PRIVATE /W4 /WX /EHsc)
+add_test(NAME GdiReadOrderingContract COMMAND GdiReadContractTests)

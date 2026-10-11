@@ -24,6 +24,7 @@ try {
             Invoke-Checked cmake @('--build',"artifacts/native/$component",'--config',$Configuration)
         }
         Invoke-Checked ctest @('--test-dir','artifacts/native/KuaiYi.ShellExtension','-C',$Configuration,'--output-on-failure')
+        Invoke-Checked ctest @('--test-dir','artifacts/native/KuaiYi.CaptureNative','-C',$Configuration,'--output-on-failure')
     }
     Write-Output "Built scope $Scope with SDK $((& dotnet --version).Trim()). This is not desktop acceptance."
 } finally { Pop-Location }

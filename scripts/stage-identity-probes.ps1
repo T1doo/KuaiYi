@@ -5,10 +5,10 @@ Assert-Sdk
 Push-Location $script:RepositoryRoot
 try {
     $root=Join-Path $script:RepositoryRoot 'artifacts/identity-probes'
-    $main=Join-Path $root 'main';$worker=Join-Path $root 'worker';$stage=Join-Path $root 'install'
+    $main=Join-Path $root 'main';$worker=Join-Path $root 'worker';$capture=Join-Path $root 'capture';$stage=Join-Path $root 'install'
     if (Test-Path $root) { Remove-Item -LiteralPath $root -Recurse -Force } # Own build artifacts only.
     New-Item -ItemType Directory -Force $stage | Out-Null
-    foreach ($entry in @(@{Project='KuaiYi.App';Output=$main},@{Project='KuaiYi.ImageWorker';Output=$worker})) {
+    foreach ($entry in @(@{Project='KuaiYi.App';Output=$main},@{Project='KuaiYi.ImageWorker';Output=$worker},@{Project='KuaiYi.CaptureHost';Output=$capture})) {
         # P0 portable review artifact, framework dependent; full installer self-contained publication remains P8.
         Invoke-Checked dotnet @('restore',"src/$($entry.Project)/$($entry.Project).csproj",'--locked-mode','/p:EnableWindowsTargeting=true')
         Invoke-Checked dotnet @('build',"src/$($entry.Project)/$($entry.Project).csproj",'--no-restore','-c',$Configuration,'/p:EnableWindowsTargeting=true')

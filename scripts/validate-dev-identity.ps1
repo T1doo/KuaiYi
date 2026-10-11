@@ -34,18 +34,22 @@ if (@($types | ForEach-Object Type | Sort-Object -Unique).Count -ne 6) { throw '
 if (-not $SourceOnly) {
     if (-not $InstallRoot -or -not [IO.Path]::IsPathFullyQualified($InstallRoot)) { throw 'Absolute installed root required.' }
     $root = (Resolve-Path -LiteralPath $InstallRoot).Path
-    foreach ($file in @('KuaiYi.App.exe','KuaiYi.ImageWorker.exe','KuaiYi.OcrNative.dll','KuaiYi.ShellExtension.dll','KuaiYi.CaptureNative.dll')) {
+    foreach ($file in @('KuaiYi.App.exe','KuaiYi.ImageWorker.exe','KuaiYi.CaptureHost.exe','KuaiYi.OcrNative.dll','KuaiYi.ShellExtension.dll','KuaiYi.CaptureNative.dll')) {
         $path=Join-Path $root $file
         if (-not (Test-Path -LiteralPath $path -PathType Leaf)) { throw "Missing install file: $file" }
         $bytes=[IO.File]::ReadAllBytes($path)
         if ($bytes.Length -lt 128 -or $bytes[0] -ne 77 -or $bytes[1] -ne 90) { throw "Not PE: $file" }
         $offset=[BitConverter]::ToInt32($bytes,60)
         if ($offset -lt 64 -or $offset + 26 -gt $bytes.Length -or [BitConverter]::ToUInt32($bytes,$offset) -ne 0x4550 -or [BitConverter]::ToUInt16($bytes,$offset+4) -ne 0x8664 -or [BitConverter]::ToUInt16($bytes,$offset+24) -ne 0x20b) { throw "Not PE32+ x64: $file" }
-        if ($file.EndsWith('.exe')) {
+        if ($file.EndsWith('.exe') -and $file -ne 'KuaiYi.CaptureHost.exe') {
             $text=[Text.Encoding]::UTF8.GetString($bytes)
             if (-not $text.Contains('urn:schemas-microsoft-com:msix.v1') -or -not $text.Contains('KuaiYi.Development') -or -not $text.Contains('CN=KuaiYi Development')) { throw "Embedded identity missing: $file" }
             $aid=if($file -eq 'KuaiYi.App.exe'){'KuaiYi'}else{'ImageWorker'}
             if (-not $text.Contains(('applicationId="' + $aid + '"'))) { throw "Embedded Application Id mismatch: $file" }
+        }
+        if($file -eq 'KuaiYi.CaptureHost.exe'){
+            $text=[Text.Encoding]::UTF8.GetString($bytes)
+            if(-not $text.Contains('PerMonitorV2') -or -not $text.Contains('asInvoker')){throw 'CaptureHost manifest missing PMv2/asInvoker.'}
         }
     }
 }

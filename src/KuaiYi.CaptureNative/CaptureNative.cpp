@@ -10,6 +10,7 @@
 #include <memory>
 #include <atomic>
 #include <cstring>
+#include "GdiReadContract.hpp"
 using namespace winrt;
 using namespace winrt::Windows::Graphics::Capture;
 using namespace winrt::Windows::Graphics::DirectX;
@@ -25,10 +26,14 @@ bool valid(int width, int height, int length, const void* bytes) {
     return bytes && width > 0 && height > 0 && width <= 16384 && height <= 16384 &&
         static_cast<long long>(width) * height <= 32000000 && static_cast<long long>(width) * height * 4 == length;
 }
-struct Dc { HDC value; HWND window; bool owned; ~Dc() { if (value) { if (owned) DeleteDC(value); else ReleaseDC(window,value); } } };
+struct Dc { HDC value; HWND window; bool owned; bool& failed; ~Dc() { if (value) { if (owned) { if (!DeleteDC(value)) failed=true; } else if (!ReleaseDC(window,value)) failed=true; } } };
 struct Dib {
-    HDC dc; HBITMAP bitmap; HGDIOBJ previous; void* bits; SIZE_T bytes;
-    ~Dib() { if (bits) SecureZeroMemory(bits,bytes); if (previous) SelectObject(dc,previous); if (bitmap) DeleteObject(bitmap); }
+    HDC dc; HBITMAP bitmap; HGDIOBJ previous; void* bits; SIZE_T bytes; bool& failed;
+    ~Dib() {
+        if (bits && !kuaiyi::ClearGdiPixels([] { return GdiFlush()!=FALSE; },[&] { SecureZeroMemory(bits,bytes); })) failed=true;
+        if (previous) { auto restored=SelectObject(dc,previous); if (!restored || restored==HGDI_ERROR) failed=true; }
+        if (bitmap && !DeleteObject(bitmap)) failed=true;
+    }
 };
 }
 // Caller-owned top-down BGRA output, fixed physical size. 1 unavailable / 2 cancelled / 3 timeout / 4 changed / 5 failure.
@@ -85,14 +90,19 @@ extern "C" __declspec(dllexport) int __cdecl KY_CaptureMonitor(HMONITOR monitor,
 // Explicitly selected compatibility backend; never an automatic retry after a protected/black WGC frame.
 extern "C" __declspec(dllexport) int __cdecl KY_CaptureGdi(int left,int top,int width,int height,HANDLE stop,unsigned char* output,int length) noexcept {
     if (!valid(width,height,length,output) || !stop) return 5;
-    if (WaitForSingleObject(stop,0) == WAIT_OBJECT_0) return 2;
-    Dc screen{GetDC(nullptr),nullptr,false}; if (!screen.value) return 5;
-    Dc memory{CreateCompatibleDC(screen.value),nullptr,true}; if (!memory.value) return 5;
+    if (WaitForSingleObject(stop,0) == WAIT_OBJECT_0) { SecureZeroMemory(output,static_cast<SIZE_T>(length)); return 2; }
+    bool cleanupFailed=false;int outcome=[&]() -> int {
+    Dc screen{GetDC(nullptr),nullptr,false,cleanupFailed}; if (!screen.value) return 5;
+    Dc memory{CreateCompatibleDC(screen.value),nullptr,true,cleanupFailed}; if (!memory.value) return 5;
     BITMAPINFO info{}; info.bmiHeader.biSize=sizeof(BITMAPINFOHEADER);info.bmiHeader.biWidth=width;info.bmiHeader.biHeight=-height;info.bmiHeader.biPlanes=1;info.bmiHeader.biBitCount=32;info.bmiHeader.biCompression=BI_RGB;
     void* bits=nullptr; HBITMAP bitmap=CreateDIBSection(screen.value,&info,DIB_RGB_COLORS,&bits,nullptr,0); if (!bitmap) return 5;
-    Dib dib{memory.value,bitmap,nullptr,bits,static_cast<SIZE_T>(length)}; dib.previous=SelectObject(memory.value,bitmap);
+    Dib dib{memory.value,bitmap,nullptr,bits,static_cast<SIZE_T>(length),cleanupFailed}; dib.previous=SelectObject(memory.value,bitmap);
     if (!dib.previous || dib.previous==HGDI_ERROR) { dib.previous=nullptr; return 5; }
-    if (!BitBlt(memory.value,0,0,width,height,screen.value,left,top,SRCCOPY|CAPTUREBLT)) return 5;
-    if (WaitForSingleObject(stop,0)==WAIT_OBJECT_0) return 2;
-    std::memcpy(output,bits,static_cast<SIZE_T>(length)); return 0;
+    bool drawn=BitBlt(memory.value,0,0,width,height,screen.value,left,top,SRCCOPY|CAPTUREBLT)!=FALSE;
+    return kuaiyi::ReadGdiPixels(drawn,[] { return GdiFlush()!=FALSE; },
+        [&] { return WaitForSingleObject(stop,0)==WAIT_OBJECT_0; },
+        [&] { std::memcpy(output,bits,static_cast<SIZE_T>(length)); });
+    }();
+    if (cleanupFailed || outcome!=0) SecureZeroMemory(output,static_cast<SIZE_T>(length));
+    return cleanupFailed?5:outcome;
 }

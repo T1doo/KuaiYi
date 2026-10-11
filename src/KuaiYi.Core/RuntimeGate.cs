@@ -148,6 +148,16 @@ public sealed class RuntimeGate
     }
     public bool IsExplicitCaptureCurrent(Guid owner,long captureEpoch,Activation initial)
     {lock(sync)return explicitCaptureOwner==owner&&epoch==captureEpoch&&activation==initial&&suspension==Suspension.Capture;}
+    public bool TryDisableExplicitCapture(Guid owner,long captureEpoch,Activation initial)
+    {
+        CancellationTokenSource? cancellation;
+        lock(sync)
+        {
+            if(explicitCaptureOwner!=owner||epoch!=captureEpoch||activation!=initial||suspension!=Suspension.Capture)return false;
+            activation=Activation.Off;epoch++;active=null;cancellation=activeCancellation;activeCancellation=null;presentation=Presentation.Compact;
+        }
+        cancellation?.Cancel();cancellation?.Dispose();return true;
+    }
     public void EndExplicitCapture(Guid owner)
     {
         lock(sync)

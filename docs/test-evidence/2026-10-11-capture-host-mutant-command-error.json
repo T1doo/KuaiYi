@@ -1,0 +1,6 @@
+{
+  "recordType": "TranscribedExecToolResult",
+  "exitCode": 127,
+  "output": "/bin/bash: line 10: a: command not found\n",
+  "impact": "Mutation compiled; stray final command failed. Actual mutant was run separately with exitCode 3, and production contract run separately with exitCode 0."
+}

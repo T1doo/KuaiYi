@@ -1,0 +1,12 @@
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Debug/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Debug/net10.0/KuaiYi.Core.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Debug/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Debug/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Debug/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Debug/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Debug/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Debug/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Debug/net10.0/KuaiYi.OleControlFixture.dll
+/workspace/KuaiYi/tests/KuaiYi.Core.Tests/CaptureHostTests.cs(183,62): error CS0117: 'EndpointOrigin' does not contain a definition for 'From' [/workspace/KuaiYi/tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj]
+/workspace/KuaiYi/tests/KuaiYi.Core.Tests/CaptureHostTests.cs(184,299): error CS0117: 'TriggerMode' does not contain a definition for 'SelectionAuto' [/workspace/KuaiYi/tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj]
+/workspace/KuaiYi/tests/KuaiYi.Core.Tests/CaptureHostTests.cs(184,271): error CS1061: 'RuntimeGate' does not contain a definition for 'TryIssueCapture' and no accessible extension method 'TryIssueCapture' accepting a first argument of type 'RuntimeGate' could be found (are you missing a using directive or an assembly reference?) [/workspace/KuaiYi/tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj]

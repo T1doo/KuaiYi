@@ -67,7 +67,11 @@ internal sealed partial class ImageProbeWindow : Window
         workflow = new(gate,new DispatcherSynchronizationContext(Dispatcher));
         browserInbox=new(gate,new DispatcherSynchronizationContext(Dispatcher));
         Title = "快译 · P0 OCR 实验"; Width = 560; Height = 420;
+        // GetWindowDisplayAffinity requires layered HWND. Do not mutate native WPF styles after creation.
+        WindowStyle=WindowStyle.None;AllowsTransparency=true;Background=System.Windows.Media.Brushes.White;
         var panel = new StackPanel { Margin = new Thickness(16) };
+        var header=new DockPanel();var closeReview=new Button{Content="关闭",HorizontalAlignment=HorizontalAlignment.Right};DockPanel.SetDock(closeReview,Dock.Right);header.Children.Add(closeReview);
+        var caption=new TextBlock{Text=Title,Padding=new Thickness(0,4,12,4)};caption.MouseLeftButtonDown+=(_,e)=>{if(e.ButtonState==System.Windows.Input.MouseButtonState.Pressed)DragMove();};header.Children.Add(caption);closeReview.Click+=(_,_)=>Close();panel.Children.Add(header);
         panel.Children.Add(status); panel.Children.Add(enabled); panel.Children.Add(stopLocal); panel.Children.Add(language); panel.Children.Add(choose);
         SetupScreenshot(panel);
         result.Height = 260; panel.Children.Add(result); Content = new ScrollViewer{Content=panel,VerticalScrollBarVisibility=ScrollBarVisibility.Auto};
@@ -76,13 +80,20 @@ internal sealed partial class ImageProbeWindow : Window
         stopLocal.Click+=(_,_)=>StopLocal(); // Available even while the initial Off prompt or transfer is pending.
         enabled.Checked += (_,_) =>
         {
-            if ((running == null && ownedWorker != null) || !gate.TryEnableLocalOperation(true)) { enabled.IsChecked = false; status.Text = "Off · 请等待旧 Worker 退出确认。"; }
+            if ((running == null && ownedWorker != null) || ownedCaptureHost!=null || !gate.TryEnableLocalOperation(true)) { enabled.IsChecked = false; status.Text = "Off · 请等待旧捕获 / OCR 进程退出确认。"; }
             else status.Text = "On · 仅允许本次本地 OCR，不授予模型访问。";
         };
         enabled.Unchecked += (_,_) =>StopLocal();
         Closing += async (_,e) =>
         {
-            if(captureTask is {IsCompleted:false}){e.Cancel=true;gate.Disable();CancelScreenshot();await captureTask;Close();return;}
+            if(captureTask is {IsCompleted:false})
+            {
+                e.Cancel=true;gate.Disable();CancelScreenshot();
+                try{await captureTask.WaitAsync(TimeSpan.FromSeconds(3));}
+                catch(TimeoutException){status.Text="Off · 捕获任务尚未结束；窗口保留，可继续取消并等待退出确认。";Show();return;}
+                if(ownedCaptureHost==null){Close();return;}
+            }
+            if(ownedCaptureHost!=null){e.Cancel=true;gate.Disable();CancelScreenshot();status.Text="Off · CaptureHost 的启动或退出尚未确认；窗口保留，请稍后关闭。";return;}
             if (running != null || ownedWorker != null) { e.Cancel = true; gate.Disable(); enabled.IsChecked = false; status.Text = "Off · 正在确认 Worker/启动任务退出，请稍后关闭。"; }
             else if(browserTask is {IsCompleted:false})
             {
@@ -98,8 +109,15 @@ internal sealed partial class ImageProbeWindow : Window
             if (running == null && ownedWorker is { } owner && await owner.Client.TryFinalizeAsync())
             {
                 if (ReferenceEquals(ownedWorker,owner)) ownedWorker = null;
-                choose.IsEnabled = running == null && ownedWorker == null;
+                choose.IsEnabled = running == null && ownedWorker == null && ownedCaptureHost==null;
                 // Resource bookkeeping is independent of eligibility. No old task writes status/results or toggles On here.
+            }
+            if(captureTask is not {IsCompleted:false}&&ownedCaptureHost is {} captureOwner&&await captureOwner.TryFinalizeAsync())
+            {
+                if(ReferenceEquals(ownedCaptureHost,captureOwner))ownedCaptureHost=null;
+                screenshot.IsEnabled=choose.IsEnabled=running==null&&ownedWorker==null&&ownedCaptureHost==null;
+                retryCaptureExit.IsEnabled=ownedCaptureHost!=null;
+                // A late exit only releases resources. It cannot commit a frame, change activation or rewrite a newer result.
             }
             if(browserInbox.CurrentIdentity is {} identity&&shownBrowserImage!=identity)
                 browserInbox.TryUseCurrent(identity,image=>
@@ -113,7 +131,7 @@ internal sealed partial class ImageProbeWindow : Window
         Microsoft.Win32.SystemEvents.SessionSwitch+=OnSessionSwitch;
         Loaded+=(_,_)=>
         {
-            var confirmation=new DesktopLocalConfirmation(this,()=>running==null&&ownedWorker==null&&captureTask is not {IsCompleted:false});
+            var confirmation=new DesktopLocalConfirmation(this,()=>running==null&&ownedWorker==null&&ownedCaptureHost==null&&captureTask is not {IsCompleted:false});
             browserTask=Task.Run(async ()=>
             {
                 try
@@ -156,7 +174,7 @@ internal sealed partial class ImageProbeWindow : Window
     private async Task Recognize(ScreenshotPng? prepared=null,RequestIdentity? preparedIdentity=null)
     {
         if(preparedIdentity is {} expected&&!gate.CanApply(expected))return;
-        if (gate.Snapshot.Activation != Activation.On || running != null || ownedWorker != null) { status.Text = "请先允许本次本地 OCR，并等待旧 Worker 退出确认。"; return; }
+        if (gate.Snapshot.Activation != Activation.On || running != null || ownedWorker != null || ownedCaptureHost!=null) { status.Text = "请先允许本次本地 OCR，并等待旧进程退出确认。"; return; }
         string? path = pendingPath;
         if (prepared==null && path == null) { var dialog = new Microsoft.Win32.OpenFileDialog { Filter = "PNG|*.png", Multiselect = false }; if (dialog.ShowDialog(this) != true) return; path = dialog.FileName; }
         RequestIdentity current;
@@ -189,7 +207,7 @@ internal sealed partial class ImageProbeWindow : Window
                 if (ReferenceEquals(ownedWorker,owner)) ownedWorker = null;
             }
             if (running == current) running = null;
-            choose.IsEnabled = running == null && ownedWorker == null;
+            choose.IsEnabled = running == null && ownedWorker == null && ownedCaptureHost==null;
             if (operationOwner != null && ReferenceEquals(ownedWorker,operationOwner))
                 await workflow.PublishAsync(current,ImageUiUpdate.Unconfirmed(),Apply);
         }

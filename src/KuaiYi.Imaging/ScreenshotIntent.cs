@@ -14,6 +14,7 @@ public sealed class ScreenshotIntent:IDisposable
     }
     public bool IsCurrent=>!disposed&&gate.IsExplicitCaptureCurrent(owner,epoch,initial);
     public bool RequiresConfirmation(bool alwaysPreview)=>initial==Activation.Off||alwaysPreview;
+    public bool FailUnconfirmed()=>!disposed&&gate.TryDisableExplicitCapture(owner,epoch,initial);
     public bool TryCommit(bool explicitlyConfirmed,Guid session,Guid version,out RequestIdentity identity,out CancellationToken cancellation)
     {
         identity=default;cancellation=default;

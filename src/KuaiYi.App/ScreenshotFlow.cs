@@ -1,4 +1,5 @@
 using System.Windows;
+using System.IO;
 using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Threading;
@@ -9,21 +10,33 @@ namespace KuaiYi.App;
 internal sealed partial class ImageProbeWindow
 {
     private readonly Button screenshot=new(){Content="框选截图 · 本地 OCR"};
+    private readonly Button retryCaptureExit=new(){Content="重试确认 CaptureHost 退出",IsEnabled=false};
     private readonly ComboBox captureBackend=new(){ItemsSource=new[]{"Windows Graphics Capture（首选）","GDI（明确兼容后端）"},SelectedIndex=0};
     private readonly CheckBox capturePreview=new(){Content="截图完成后总是本地预览"};
     private readonly TextBox captureKey=new(){Text="S",MaxLength=1,Width=35};
     private readonly CheckBox keyCtrl=new(){Content="Ctrl",IsChecked=true},keyAlt=new(){Content="Alt",IsChecked=true},keyShift=new(){Content="Shift"};
     private ScreenshotHotkey? hotkey;
     private Task? captureTask;
+    private CaptureHostClient? ownedCaptureHost;
     private readonly object captureSync=new();
     private CancellationTokenSource? captureStop;
     private void CancelScreenshot(){lock(captureSync)captureStop?.Cancel();}
     private void SetupScreenshot(StackPanel panel)
     {
-        panel.Children.Add(captureBackend);panel.Children.Add(capturePreview);panel.Children.Add(screenshot);
+        panel.Children.Add(captureBackend);panel.Children.Add(capturePreview);panel.Children.Add(screenshot);panel.Children.Add(retryCaptureExit);
         var keys=new StackPanel{Orientation=Orientation.Horizontal};keys.Children.Add(keyCtrl);keys.Children.Add(keyAlt);keys.Children.Add(keyShift);keys.Children.Add(captureKey);
         var register=new Button{Content="注册截图快捷键"};var clear=new Button{Content="清除快捷键"};keys.Children.Add(register);keys.Children.Add(clear);panel.Children.Add(keys);
         screenshot.Click+=async(_,_)=>await StartScreenshot();
+        retryCaptureExit.Click+=async(_,_)=>
+        {
+            if(ownedCaptureHost is not {} held||captureTask is {IsCompleted:false})return;
+            retryCaptureExit.IsEnabled=false;
+            bool exited=await held.TryFinalizeAsync(true); // Retry only the same held child; never PID lookup or kill descendants.
+            if(exited&&ReferenceEquals(ownedCaptureHost,held))ownedCaptureHost=null;
+            retryCaptureExit.IsEnabled=ownedCaptureHost!=null;
+            screenshot.IsEnabled=choose.IsEnabled=running==null&&ownedWorker==null&&ownedCaptureHost==null;
+            status.Text=exited?"已确认旧 CaptureHost 退出；可重新截图。":"CaptureHost 启动或退出仍未确认；暂不允许重新截图。";
+        };
         SourceInitialized+=(_,_)=>{hotkey=new((HwndSource)PresentationSource.FromVisual(this),()=>_ = StartScreenshot(),CancelScreenshot);ScreenshotDesktop.ExcludeWindow(new WindowInteropHelper(this).Handle);};
         register.Click+=(_,_)=>
         {
@@ -44,23 +57,38 @@ internal sealed partial class ImageProbeWindow
     };
     private async Task StartScreenshot()
     {
-        if(captureTask is {IsCompleted:false}||running!=null||ownedWorker!=null||gate.Snapshot.Suspension!=Suspension.None||OwnedWindows.Cast<Window>().Any(window=>window.IsVisible))return;
+        if(captureTask is {IsCompleted:false}){CancelScreenshot();return;} // Repeating the hotkey is a cancel path while the review window is hidden.
+        if(ownedCaptureHost!=null||running!=null||ownedWorker!=null||gate.Snapshot.Suspension!=Suspension.None||OwnedWindows.Cast<Window>().Any(window=>window.IsVisible))return;
         captureTask=Capture();await captureTask;
     }
     private async Task Capture()
     {
         using var intent=new ScreenshotIntent(gate);using var stop=new CancellationTokenSource();lock(captureSync)captureStop=stop;
         bool visible=IsVisible,stillCurrent=false;string previousStatus=status.Text;ScreenshotSnapshot? snapshot=null;
-        var backend=captureBackend.SelectedIndex==0?ScreenshotBackend.WindowsGraphicsCapture:ScreenshotBackend.GdiCompatibility;
+        using var restoreOnCancel=stop.Token.Register(()=>Dispatcher.BeginInvoke(()=>
+        {
+            bool same;lock(captureSync)same=ReferenceEquals(captureStop,stop);
+            if(same&&visible&&!gate.Snapshot.Suspension.HasFlag(Suspension.SessionLocked))Show();
+        })); // Cancellation restores controls without waiting for native return/exit; old queued callbacks cannot restore a newer capture.
+        var backend=captureBackend.SelectedIndex==0?CaptureBackend.WindowsGraphicsCapture:CaptureBackend.GdiCompatibility;
         bool alwaysPreview=capturePreview.IsChecked==true;screenshot.IsEnabled=false;choose.IsEnabled=false;
         var poll=new DispatcherTimer{Interval=TimeSpan.FromMilliseconds(100)};
-        ScreenshotSelection? selection=null;
+        ScreenshotSelection? selection=null;CaptureHostClient? captureOwner=null;
         poll.Tick+=(_,_)=>{if(!intent.IsCurrent)stop.Cancel();};poll.Start();
         try
         {
             var displays=ScreenshotDesktop.Displays();var topology=new ScreenshotTopology(displays.Select(d=>d.Monitor));
-            Hide();await Dispatcher.InvokeAsync(()=>{},DispatcherPriority.ApplicationIdle);ScreenshotDesktop.FlushHiddenWindows();
-            snapshot=await ScreenshotAcquisition.AcquireAsync(intent,token=>ScreenshotDesktop.CaptureAsync(displays,backend,token),stop.Token);
+            long[] windows=[new WindowInteropHelper(this).Handle.ToInt64()];
+            if(!CaptureBoundary.VisibleWindowsForProcess(Environment.ProcessId).SequenceEqual(windows))throw new CaptureException(CaptureFailure.HiddenWindowNotVerified);
+            if(!ScreenshotDesktop.ExcludeWindow((nint)windows[0]))throw new CaptureException(CaptureFailure.HiddenWindowNotVerified);
+            Hide();await Dispatcher.InvokeAsync(()=>{},DispatcherPriority.ApplicationIdle).Task.WaitAsync(stop.Token);
+            stop.Token.ThrowIfCancellationRequested();
+            if(!CaptureBoundary.HiddenForProcess(windows,Environment.ProcessId,true))throw new CaptureException(CaptureFailure.HiddenWindowNotVerified);
+            var job=new CaptureJob(Guid.NewGuid(),gate.Snapshot.Epoch,Environment.ProcessId,windows,backend);
+            captureOwner=new(Path.Combine(AppContext.BaseDirectory,"KuaiYi.CaptureHost.exe"));ownedCaptureHost=captureOwner;
+            snapshot=await ScreenshotAcquisition.AcquireAsync(intent,token=>captureOwner.RunAsync(job,token),stop.Token);
+            if(await captureOwner.TryFinalizeAsync())if(ReferenceEquals(ownedCaptureHost,captureOwner))ownedCaptureHost=null;
+            if(ownedCaptureHost!=null)throw new CaptureException(CaptureFailure.ExitUnconfirmed);
             stop.Token.ThrowIfCancellationRequested();if(!intent.IsCurrent)throw new OperationCanceledException();
             selection=new(snapshot,()=>intent.IsCurrent);var region=await selection.RunAsync(stop.Token);selection=null;
             if(region==null)return;
@@ -80,7 +108,19 @@ internal sealed partial class ImageProbeWindow
         catch(OperationCanceledException){/* Explicit cancellation leaves old session/result intact. */}
         catch(Exception error)
         {
-            if(intent.IsCurrent)status.Text=error is ScreenshotException capture?CaptureFailureText(capture.Code):$"截图未完成 · {error.GetType().Name}";
+            if(intent.IsCurrent)
+            {
+                string failureText=error switch
+                {
+                ScreenshotException capture=>CaptureFailureText(capture.Code),
+                CaptureException {Failure:CaptureFailure.ExitUnconfirmed}=>"截图已取消；CaptureHost 的启动或退出尚未确认。窗口已恢复，暂不允许新截图或 OCR。",
+                CaptureException {Failure:CaptureFailure.HiddenWindowNotVerified}=>"无法核实窗口隐藏和捕获排除状态，已拒绝截图；需 Windows 平台验证。",
+                CaptureException capture=>$"截图未完成 · {capture.Failure}；可重新尝试。",
+                _=>$"截图未完成 · {error.GetType().Name}"
+                };
+                if(error is CaptureException {Failure:CaptureFailure.ExitUnconfirmed}&&intent.FailUnconfirmed())enabled.IsChecked=false;
+                status.Text=failureText;
+            }
             previousStatus=status.Text;
         }
         finally
@@ -88,7 +128,10 @@ internal sealed partial class ImageProbeWindow
             stillCurrent=intent.IsCurrent;poll.Stop();selection?.Dispose();snapshot?.Dispose();intent.Dispose();
             lock(captureSync)if(ReferenceEquals(captureStop,stop))captureStop=null;
             if(visible&&!gate.Snapshot.Suspension.HasFlag(Suspension.SessionLocked))Show();
-            screenshot.IsEnabled=running==null&&ownedWorker==null;choose.IsEnabled=screenshot.IsEnabled;
+            // Restore before any ownership retry. Native driver work and startup remain in the held child session.
+            if(captureOwner!=null&&await captureOwner.TryFinalizeAsync())if(ReferenceEquals(ownedCaptureHost,captureOwner))ownedCaptureHost=null;
+            screenshot.IsEnabled=running==null&&ownedWorker==null&&ownedCaptureHost==null;choose.IsEnabled=screenshot.IsEnabled;
+            retryCaptureExit.IsEnabled=ownedCaptureHost!=null;
             if(stillCurrent)status.Text=previousStatus; // Cancel only; committed/stale operations cannot rewrite a newer result.
         }
     }
