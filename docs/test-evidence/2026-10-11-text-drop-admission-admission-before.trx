@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="7601335c-1f47-4454-849f-49d9e2797b9e" name="@552716c6b8c5 2026-10-11 20:28:13" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T20:28:13.2164190+00:00" queuing="2026-10-11T20:28:13.2164190+00:00" start="2026-10-11T20:28:12.7426188+00:00" finish="2026-10-11T20:28:13.2446397+00:00" />
+  <TestSettings name="default" id="03e1edc7-8557-41f9-812d-d78b78f9a25c">
+    <Deployment runDeploymentRoot="_552716c6b8c5_2026-10-11_20_28_13" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="999cf9cf-79f7-4a63-bc7f-4f8e007d5e43" testId="efd6514c-ad1d-a236-7664-b2f509e95bde" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.InvalidReceiverEligibilityDoesNotExposeText(change: &quot;activation&quot;)" computerName="552716c6b8c5" duration="00:00:00.0000024" startTime="2026-10-11T20:28:13.1798725+00:00" endTime="2026-10-11T20:28:13.1798955+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="999cf9cf-79f7-4a63-bc7f-4f8e007d5e43" />
+    <UnitTestResult executionId="45636ac0-f49a-495a-8143-4e9ec5711377" testId="6fe532d2-19c0-0d03-34cf-80355b14b46f" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.ReceiverElapsedTimeUsesOnlyReceiverClockRegardlessOfOtherProcessOrigin" computerName="552716c6b8c5" duration="00:00:00.0022007" startTime="2026-10-11T20:28:13.1941774+00:00" endTime="2026-10-11T20:28:13.1942112+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="45636ac0-f49a-495a-8143-4e9ec5711377" />
+    <UnitTestResult executionId="7be05028-524e-4df0-a91a-7f96ce2015b6" testId="3ef3eec7-5636-ff3f-7420-6c39efcd4b33" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.FailedSourceValidationNeverBecomesAdmissionAtLaterValidTime" computerName="552716c6b8c5" duration="00:00:00.0001379" startTime="2026-10-11T20:28:13.1943333+00:00" endTime="2026-10-11T20:28:13.1943811+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7be05028-524e-4df0-a91a-7f96ce2015b6" />
+    <UnitTestResult executionId="b8516073-6d62-4883-825a-42e7b790bfc1" testId="ef80b1b2-1f04-b755-d499-08f191b0fa48" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.InvalidReceiverEligibilityDoesNotExposeText(change: &quot;cancel&quot;)" computerName="552716c6b8c5" duration="00:00:00.0000354" startTime="2026-10-11T20:28:13.1797986+00:00" endTime="2026-10-11T20:28:13.1798236+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b8516073-6d62-4883-825a-42e7b790bfc1" />
+    <UnitTestResult executionId="328fa781-d192-4678-9837-a1cedd9ccc30" testId="b8915c11-4834-4471-72b3-dc8c1402b37c" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(before: 1499, consumed: 1, expected: False)" computerName="552716c6b8c5" duration="00:00:00.0010617" startTime="2026-10-11T20:28:13.1937016+00:00" endTime="2026-10-11T20:28:13.1937234+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="328fa781-d192-4678-9837-a1cedd9ccc30">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(Int32 before, Int32 consumed, Boolean expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverCommitAdmissionTests.cs:line 17
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ba600bd4-24b0-4e40-86c0-e9b947ccc375" testId="a6bd22b3-bb60-79b6-dac7-9e8c7e1d5edf" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(before: 1498, consumed: 1, expected: True)" computerName="552716c6b8c5" duration="00:00:00.0002367" startTime="2026-10-11T20:28:13.1938709+00:00" endTime="2026-10-11T20:28:13.1938930+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ba600bd4-24b0-4e40-86c0-e9b947ccc375" />
+    <UnitTestResult executionId="be6ee307-7342-43ff-ae94-04f193fd71bd" testId="34e8865f-f910-b978-7ccd-6e3e743f6ef0" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.ReceiverLocalNormalBoundaryIsStrict(elapsed: 1501, expected: False)" computerName="552716c6b8c5" duration="00:00:00.0004773" startTime="2026-10-11T20:28:13.1804145+00:00" endTime="2026-10-11T20:28:13.1804354+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="be6ee307-7342-43ff-ae94-04f193fd71bd" />
+    <UnitTestResult executionId="9b7ca7ee-34c1-4b59-92fd-3070dd1e2aff" testId="78efaeb5-d772-1abe-4f8d-d33dbefb2abb" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(change: &quot;gate-off&quot;)" computerName="552716c6b8c5" duration="00:00:00.0000086" startTime="2026-10-11T20:28:13.1935290+00:00" endTime="2026-10-11T20:28:13.1935563+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9b7ca7ee-34c1-4b59-92fd-3070dd1e2aff">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverCommitAdmissionTests.cs:line 20
+   at InvokeStub_OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a0655def-4a31-4b5e-b016-feb24de2f35e" testId="72845d91-cba8-8d07-a9a8-2f021fcd314e" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(change: &quot;activation&quot;)" computerName="552716c6b8c5" duration="00:00:00.0007365" startTime="2026-10-11T20:28:13.1805765+00:00" endTime="2026-10-11T20:28:13.1808464+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a0655def-4a31-4b5e-b016-feb24de2f35e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverCommitAdmissionTests.cs:line 20
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="988c0321-baee-4d07-b7fa-79768a6ebb37" testId="686f1de6-410d-d0b2-1ce2-d342561f9e12" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(change: &quot;epoch&quot;)" computerName="552716c6b8c5" duration="00:00:00.0000183" startTime="2026-10-11T20:28:13.1932799+00:00" endTime="2026-10-11T20:28:13.1933148+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="988c0321-baee-4d07-b7fa-79768a6ebb37">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverCommitAdmissionTests.cs:line 20
+   at InvokeStub_OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0ecb002a-6526-4195-a20e-b81d7000d3b5" testId="d693930d-26a2-9feb-72ef-825484bd6632" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.InvalidReceiverEligibilityDoesNotExposeText(change: &quot;gate&quot;)" computerName="552716c6b8c5" duration="00:00:00.0001916" startTime="2026-10-11T20:28:13.1792530+00:00" endTime="2026-10-11T20:28:13.1793278+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0ecb002a-6526-4195-a20e-b81d7000d3b5" />
+    <UnitTestResult executionId="e953ca6d-615f-4437-94c4-f14c1df3e5e1" testId="5dfa20f4-8175-adb2-2fe7-191bdc607596" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.InvalidReceiverEligibilityDoesNotExposeText(change: &quot;source&quot;)" computerName="552716c6b8c5" duration="00:00:00.0038321" startTime="2026-10-11T20:28:13.1644460+00:00" endTime="2026-10-11T20:28:13.1718074+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e953ca6d-615f-4437-94c4-f14c1df3e5e1" />
+    <UnitTestResult executionId="bc8ef369-6e8f-41c3-947e-bb1510a8a7b6" testId="8b39375b-b1d1-8f7a-d1c6-f86dbe0d5773" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(before: 0, consumed: 1500, expected: False)" computerName="552716c6b8c5" duration="00:00:00.0000359" startTime="2026-10-11T20:28:13.1939285+00:00" endTime="2026-10-11T20:28:13.1939527+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bc8ef369-6e8f-41c3-947e-bb1510a8a7b6">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(Int32 before, Int32 consumed, Boolean expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverCommitAdmissionTests.cs:line 17
+   at InvokeStub_OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3131c645-900a-4d0c-821a-dbc8a2f6a542" testId="58c3eaaa-28f5-e6ab-33d9-3efb634cee8a" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.ReceiverLocalNormalBoundaryIsStrict(elapsed: 1499, expected: True)" computerName="552716c6b8c5" duration="00:00:00.0000036" startTime="2026-10-11T20:28:13.1804738+00:00" endTime="2026-10-11T20:28:13.1804943+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3131c645-900a-4d0c-821a-dbc8a2f6a542" />
+    <UnitTestResult executionId="4b1dffcd-c1da-4b6c-a6be-104a1eca0584" testId="f7c26fcf-5cb0-9e91-e53b-ba91fa8b7d1d" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.ReceiverLocalNormalBoundaryIsStrict(elapsed: 1500, expected: False)" computerName="552716c6b8c5" duration="00:00:00.0015098" startTime="2026-10-11T20:28:13.1802956+00:00" endTime="2026-10-11T20:28:13.1803666+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4b1dffcd-c1da-4b6c-a6be-104a1eca0584" />
+    <UnitTestResult executionId="7d77cad3-48f5-4559-8162-7636201a8ec7" testId="e2b63cc8-735a-2041-e864-c7399a6fd317" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(before: 1499, consumed: 2, expected: False)" computerName="552716c6b8c5" duration="00:00:00.0000120" startTime="2026-10-11T20:28:13.1940401+00:00" endTime="2026-10-11T20:28:13.1940607+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7d77cad3-48f5-4559-8162-7636201a8ec7">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(Int32 before, Int32 consumed, Boolean expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverCommitAdmissionTests.cs:line 17
+   at InvokeStub_OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ab0da6f0-50ee-4aa0-a6f8-cb3aa337030c" testId="623509c2-b84d-bc03-2ac5-9f26d63960c6" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(change: &quot;cancel&quot;)" computerName="552716c6b8c5" duration="00:00:00.0001594" startTime="2026-10-11T20:28:13.1860319+00:00" endTime="2026-10-11T20:28:13.1860758+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ab0da6f0-50ee-4aa0-a6f8-cb3aa337030c">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(String change) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverCommitAdmissionTests.cs:line 20
+   at InvokeStub_OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.FailedSourceValidationNeverBecomesAdmissionAtLaterValidTime" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="3ef3eec7-5636-ff3f-7420-6c39efcd4b33">
+      <Execution id="7be05028-524e-4df0-a91a-7f96ce2015b6" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="FailedSourceValidationNeverBecomesAdmissionAtLaterValidTime" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(before: 1498, consumed: 1, expected: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a6bd22b3-bb60-79b6-dac7-9e8c7e1d5edf">
+      <Execution id="ba600bd4-24b0-4e40-86c0-e9b947ccc375" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="SourceValidationCannotCrossOriginalReceiverDeadline" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(change: &quot;epoch&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="686f1de6-410d-d0b2-1ce2-d342561f9e12">
+      <Execution id="988c0321-baee-4d07-b7fa-79768a6ebb37" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="SourceValidationCannotRevokeEligibilityThenCommit" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.ReceiverLocalNormalBoundaryIsStrict(elapsed: 1499, expected: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="58c3eaaa-28f5-e6ab-33d9-3efb634cee8a">
+      <Execution id="3131c645-900a-4d0c-821a-dbc8a2f6a542" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="ReceiverLocalNormalBoundaryIsStrict" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.ReceiverElapsedTimeUsesOnlyReceiverClockRegardlessOfOtherProcessOrigin" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="6fe532d2-19c0-0d03-34cf-80355b14b46f">
+      <Execution id="45636ac0-f49a-495a-8143-4e9ec5711377" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="ReceiverElapsedTimeUsesOnlyReceiverClockRegardlessOfOtherProcessOrigin" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.InvalidReceiverEligibilityDoesNotExposeText(change: &quot;gate&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="d693930d-26a2-9feb-72ef-825484bd6632">
+      <Execution id="0ecb002a-6526-4195-a20e-b81d7000d3b5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="InvalidReceiverEligibilityDoesNotExposeText" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(before: 0, consumed: 1500, expected: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="8b39375b-b1d1-8f7a-d1c6-f86dbe0d5773">
+      <Execution id="bc8ef369-6e8f-41c3-947e-bb1510a8a7b6" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="SourceValidationCannotCrossOriginalReceiverDeadline" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(before: 1499, consumed: 1, expected: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b8915c11-4834-4471-72b3-dc8c1402b37c">
+      <Execution id="328fa781-d192-4678-9837-a1cedd9ccc30" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="SourceValidationCannotCrossOriginalReceiverDeadline" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(change: &quot;cancel&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="623509c2-b84d-bc03-2ac5-9f26d63960c6">
+      <Execution id="ab0da6f0-50ee-4aa0-a6f8-cb3aa337030c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="SourceValidationCannotRevokeEligibilityThenCommit" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(before: 1499, consumed: 2, expected: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="e2b63cc8-735a-2041-e864-c7399a6fd317">
+      <Execution id="7d77cad3-48f5-4559-8162-7636201a8ec7" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="SourceValidationCannotCrossOriginalReceiverDeadline" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.InvalidReceiverEligibilityDoesNotExposeText(change: &quot;source&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="5dfa20f4-8175-adb2-2fe7-191bdc607596">
+      <Execution id="e953ca6d-615f-4437-94c4-f14c1df3e5e1" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="InvalidReceiverEligibilityDoesNotExposeText" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.ReceiverLocalNormalBoundaryIsStrict(elapsed: 1501, expected: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="34e8865f-f910-b978-7ccd-6e3e743f6ef0">
+      <Execution id="be6ee307-7342-43ff-ae94-04f193fd71bd" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="ReceiverLocalNormalBoundaryIsStrict" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(change: &quot;gate-off&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="78efaeb5-d772-1abe-4f8d-d33dbefb2abb">
+      <Execution id="9b7ca7ee-34c1-4b59-92fd-3070dd1e2aff" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="SourceValidationCannotRevokeEligibilityThenCommit" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(change: &quot;activation&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="72845d91-cba8-8d07-a9a8-2f021fcd314e">
+      <Execution id="a0655def-4a31-4b5e-b016-feb24de2f35e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="SourceValidationCannotRevokeEligibilityThenCommit" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.InvalidReceiverEligibilityDoesNotExposeText(change: &quot;activation&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="efd6514c-ad1d-a236-7664-b2f509e95bde">
+      <Execution id="999cf9cf-79f7-4a63-bc7f-4f8e007d5e43" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="InvalidReceiverEligibilityDoesNotExposeText" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.ReceiverLocalNormalBoundaryIsStrict(elapsed: 1500, expected: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="f7c26fcf-5cb0-9e91-e53b-ba91fa8b7d1d">
+      <Execution id="4b1dffcd-c1da-4b6c-a6be-104a1eca0584" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="ReceiverLocalNormalBoundaryIsStrict" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.InvalidReceiverEligibilityDoesNotExposeText(change: &quot;cancel&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="ef80b1b2-1f04-b755-d499-08f191b0fa48">
+      <Execution id="b8516073-6d62-4883-825a-42e7b790bfc1" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="InvalidReceiverEligibilityDoesNotExposeText" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="efd6514c-ad1d-a236-7664-b2f509e95bde" executionId="999cf9cf-79f7-4a63-bc7f-4f8e007d5e43" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6fe532d2-19c0-0d03-34cf-80355b14b46f" executionId="45636ac0-f49a-495a-8143-4e9ec5711377" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3ef3eec7-5636-ff3f-7420-6c39efcd4b33" executionId="7be05028-524e-4df0-a91a-7f96ce2015b6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ef80b1b2-1f04-b755-d499-08f191b0fa48" executionId="b8516073-6d62-4883-825a-42e7b790bfc1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b8915c11-4834-4471-72b3-dc8c1402b37c" executionId="328fa781-d192-4678-9837-a1cedd9ccc30" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a6bd22b3-bb60-79b6-dac7-9e8c7e1d5edf" executionId="ba600bd4-24b0-4e40-86c0-e9b947ccc375" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="34e8865f-f910-b978-7ccd-6e3e743f6ef0" executionId="be6ee307-7342-43ff-ae94-04f193fd71bd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="78efaeb5-d772-1abe-4f8d-d33dbefb2abb" executionId="9b7ca7ee-34c1-4b59-92fd-3070dd1e2aff" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="72845d91-cba8-8d07-a9a8-2f021fcd314e" executionId="a0655def-4a31-4b5e-b016-feb24de2f35e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="686f1de6-410d-d0b2-1ce2-d342561f9e12" executionId="988c0321-baee-4d07-b7fa-79768a6ebb37" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d693930d-26a2-9feb-72ef-825484bd6632" executionId="0ecb002a-6526-4195-a20e-b81d7000d3b5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5dfa20f4-8175-adb2-2fe7-191bdc607596" executionId="e953ca6d-615f-4437-94c4-f14c1df3e5e1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8b39375b-b1d1-8f7a-d1c6-f86dbe0d5773" executionId="bc8ef369-6e8f-41c3-947e-bb1510a8a7b6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="58c3eaaa-28f5-e6ab-33d9-3efb634cee8a" executionId="3131c645-900a-4d0c-821a-dbc8a2f6a542" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f7c26fcf-5cb0-9e91-e53b-ba91fa8b7d1d" executionId="4b1dffcd-c1da-4b6c-a6be-104a1eca0584" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e2b63cc8-735a-2041-e864-c7399a6fd317" executionId="7d77cad3-48f5-4559-8162-7636201a8ec7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="623509c2-b84d-bc03-2ac5-9f26d63960c6" executionId="ab0da6f0-50ee-4aa0-a6f8-cb3aa337030c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="17" executed="17" passed="10" failed="7" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.05]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.17]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.19]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.22]       Assert.False() Failure
+[xUnit.net 00:00:00.22]       Expected: False
+[xUnit.net 00:00:00.22]       Actual:   True
+[xUnit.net 00:00:00.22]       Stack Trace:
+[xUnit.net 00:00:00.22]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverCommitAdmissionTests.cs(20,0): at KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(String change)
+[xUnit.net 00:00:00.22]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:00.22]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+[xUnit.net 00:00:00.22]       Assert.False() Failure
+[xUnit.net 00:00:00.22]       Expected: False
+[xUnit.net 00:00:00.22]       Actual:   True
+[xUnit.net 00:00:00.22]       Stack Trace:
+[xUnit.net 00:00:00.22]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverCommitAdmissionTests.cs(20,0): at KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(String change)
+[xUnit.net 00:00:00.22]            at InvokeStub_OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(Object, Span`1)
+[xUnit.net 00:00:00.22]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.23]       Assert.False() Failure
+[xUnit.net 00:00:00.23]       Expected: False
+[xUnit.net 00:00:00.23]       Actual:   True
+[xUnit.net 00:00:00.23]       Stack Trace:
+[xUnit.net 00:00:00.23]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverCommitAdmissionTests.cs(20,0): at KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(String change)
+[xUnit.net 00:00:00.23]            at InvokeStub_OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(Object, Span`1)
+[xUnit.net 00:00:00.23]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.23]       Assert.False() Failure
+[xUnit.net 00:00:00.23]       Expected: False
+[xUnit.net 00:00:00.23]       Actual:   True
+[xUnit.net 00:00:00.23]       Stack Trace:
+[xUnit.net 00:00:00.23]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverCommitAdmissionTests.cs(20,0): at KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(String change)
+[xUnit.net 00:00:00.23]            at InvokeStub_OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(Object, Span`1)
+[xUnit.net 00:00:00.23]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.23]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.23]       Expected: False
+[xUnit.net 00:00:00.23]       Actual:   True
+[xUnit.net 00:00:00.23]       Stack Trace:
+[xUnit.net 00:00:00.23]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverCommitAdmissionTests.cs(17,0): at KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(Int32 before, Int32 consumed, Boolean expected)
+[xUnit.net 00:00:00.23]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:00.23]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+[xUnit.net 00:00:00.23]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.23]       Expected: False
+[xUnit.net 00:00:00.23]       Actual:   True
+[xUnit.net 00:00:00.23]       Stack Trace:
+[xUnit.net 00:00:00.23]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverCommitAdmissionTests.cs(17,0): at KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(Int32 before, Int32 consumed, Boolean expected)
+[xUnit.net 00:00:00.23]            at InvokeStub_OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(Object, Span`1)
+[xUnit.net 00:00:00.23]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.23]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.23]       Expected: False
+[xUnit.net 00:00:00.23]       Actual:   True
+[xUnit.net 00:00:00.23]       Stack Trace:
+[xUnit.net 00:00:00.23]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleReceiverCommitAdmissionTests.cs(17,0): at KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(Int32 before, Int32 consumed, Boolean expected)
+[xUnit.net 00:00:00.23]            at InvokeStub_OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(Object, Span`1)
+[xUnit.net 00:00:00.23]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.24]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T20:28:13.1835660+00:00">
+        <Text>[xUnit.net 00:00:00.22]     KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(change: "activation") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T20:28:13.1868778+00:00">
+        <Text>[xUnit.net 00:00:00.22]     KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(change: "cancel") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T20:28:13.2226332+00:00">
+        <Text>[xUnit.net 00:00:00.23]     KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(change: "epoch") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T20:28:13.2226525+00:00">
+        <Text>[xUnit.net 00:00:00.23]     KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(change: "gate-off") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T20:28:13.2226669+00:00">
+        <Text>[xUnit.net 00:00:00.23]     KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(before: 1499, consumed: 1, expected: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T20:28:13.2226765+00:00">
+        <Text>[xUnit.net 00:00:00.23]     KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(before: 0, consumed: 1500, expected: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T20:28:13.2226853+00:00">
+        <Text>[xUnit.net 00:00:00.23]     KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(before: 1499, consumed: 2, expected: False) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

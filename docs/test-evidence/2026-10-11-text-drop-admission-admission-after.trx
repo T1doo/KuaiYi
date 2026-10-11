@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="fe250efd-5975-4679-862b-34bb535e386f" name="@552716c6b8c5 2026-10-11 20:28:38" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T20:28:38.6989009+00:00" queuing="2026-10-11T20:28:38.6989010+00:00" start="2026-10-11T20:28:37.8981499+00:00" finish="2026-10-11T20:28:38.7269247+00:00" />
+  <TestSettings name="default" id="4d12e327-c70a-4320-b4dd-b0a75f42a274">
+    <Deployment runDeploymentRoot="_552716c6b8c5_2026-10-11_20_28_38" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="aca9bebf-a015-4492-baf2-3971777b9d97" testId="623509c2-b84d-bc03-2ac5-9f26d63960c6" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(change: &quot;cancel&quot;)" computerName="552716c6b8c5" duration="00:00:00.0000730" startTime="2026-10-11T20:28:38.6332792+00:00" endTime="2026-10-11T20:28:38.6333020+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aca9bebf-a015-4492-baf2-3971777b9d97" />
+    <UnitTestResult executionId="c628baff-cf55-4639-b8aa-5e26584d7ba7" testId="3ef3eec7-5636-ff3f-7420-6c39efcd4b33" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.FailedSourceValidationNeverBecomesAdmissionAtLaterValidTime" computerName="552716c6b8c5" duration="00:00:00.0000787" startTime="2026-10-11T20:28:38.6734630+00:00" endTime="2026-10-11T20:28:38.6734878+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c628baff-cf55-4639-b8aa-5e26584d7ba7" />
+    <UnitTestResult executionId="a2a0dc81-a770-4227-a203-576353260cb2" testId="e2b63cc8-735a-2041-e864-c7399a6fd317" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(before: 1499, consumed: 2, expected: False)" computerName="552716c6b8c5" duration="00:00:00.0000013" startTime="2026-10-11T20:28:38.6733139+00:00" endTime="2026-10-11T20:28:38.6733363+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a2a0dc81-a770-4227-a203-576353260cb2" />
+    <UnitTestResult executionId="9eb72aeb-27b1-44e4-8c7d-9ad2ceffdff8" testId="72845d91-cba8-8d07-a9a8-2f021fcd314e" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(change: &quot;activation&quot;)" computerName="552716c6b8c5" duration="00:00:00.0001798" startTime="2026-10-11T20:28:38.6332137+00:00" endTime="2026-10-11T20:28:38.6332382+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9eb72aeb-27b1-44e4-8c7d-9ad2ceffdff8" />
+    <UnitTestResult executionId="d89a05ac-0aba-43ec-a269-7abc24d460fa" testId="5dfa20f4-8175-adb2-2fe7-191bdc607596" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.InvalidReceiverEligibilityDoesNotExposeText(change: &quot;source&quot;)" computerName="552716c6b8c5" duration="00:00:00.0084628" startTime="2026-10-11T20:28:38.5663787+00:00" endTime="2026-10-11T20:28:38.5894047+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d89a05ac-0aba-43ec-a269-7abc24d460fa" />
+    <UnitTestResult executionId="52cf6a02-fd7e-4e09-8ccc-ee6d055f3562" testId="8b39375b-b1d1-8f7a-d1c6-f86dbe0d5773" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(before: 0, consumed: 1500, expected: False)" computerName="552716c6b8c5" duration="00:00:00.0000065" startTime="2026-10-11T20:28:38.6732538+00:00" endTime="2026-10-11T20:28:38.6732773+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="52cf6a02-fd7e-4e09-8ccc-ee6d055f3562" />
+    <UnitTestResult executionId="930782d8-1e65-4999-b890-3499ebd4f12e" testId="6fe532d2-19c0-0d03-34cf-80355b14b46f" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.ReceiverElapsedTimeUsesOnlyReceiverClockRegardlessOfOtherProcessOrigin" computerName="552716c6b8c5" duration="00:00:00.0014894" startTime="2026-10-11T20:28:38.6733893+00:00" endTime="2026-10-11T20:28:38.6734114+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="930782d8-1e65-4999-b890-3499ebd4f12e" />
+    <UnitTestResult executionId="a17aa2b0-43da-4e18-9173-f683a176ad43" testId="58c3eaaa-28f5-e6ab-33d9-3efb634cee8a" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.ReceiverLocalNormalBoundaryIsStrict(elapsed: 1499, expected: True)" computerName="552716c6b8c5" duration="00:00:00.0000052" startTime="2026-10-11T20:28:38.6330699+00:00" endTime="2026-10-11T20:28:38.6331002+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a17aa2b0-43da-4e18-9173-f683a176ad43" />
+    <UnitTestResult executionId="554bb189-0887-477a-9889-a1917c6d3bde" testId="f7c26fcf-5cb0-9e91-e53b-ba91fa8b7d1d" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.ReceiverLocalNormalBoundaryIsStrict(elapsed: 1500, expected: False)" computerName="552716c6b8c5" duration="00:00:00.0012518" startTime="2026-10-11T20:28:38.6185679+00:00" endTime="2026-10-11T20:28:38.6186020+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="554bb189-0887-477a-9889-a1917c6d3bde" />
+    <UnitTestResult executionId="65d97eb7-a9e7-42db-9fca-8a5758a6bdad" testId="686f1de6-410d-d0b2-1ce2-d342561f9e12" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(change: &quot;epoch&quot;)" computerName="552716c6b8c5" duration="00:00:00.0000016" startTime="2026-10-11T20:28:38.6726248+00:00" endTime="2026-10-11T20:28:38.6727013+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="65d97eb7-a9e7-42db-9fca-8a5758a6bdad" />
+    <UnitTestResult executionId="cb96693b-a7fc-4feb-b454-1ab362572282" testId="ef80b1b2-1f04-b755-d499-08f191b0fa48" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.InvalidReceiverEligibilityDoesNotExposeText(change: &quot;cancel&quot;)" computerName="552716c6b8c5" duration="00:00:00.0000335" startTime="2026-10-11T20:28:38.6180300+00:00" endTime="2026-10-11T20:28:38.6180610+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cb96693b-a7fc-4feb-b454-1ab362572282" />
+    <UnitTestResult executionId="eaf278d6-c0be-4909-8d75-c160d69837b5" testId="d693930d-26a2-9feb-72ef-825484bd6632" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.InvalidReceiverEligibilityDoesNotExposeText(change: &quot;gate&quot;)" computerName="552716c6b8c5" duration="00:00:00.0001393" startTime="2026-10-11T20:28:38.6175791+00:00" endTime="2026-10-11T20:28:38.6176396+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eaf278d6-c0be-4909-8d75-c160d69837b5" />
+    <UnitTestResult executionId="3e9adb85-b047-4a58-b12d-c20a0007678d" testId="34e8865f-f910-b978-7ccd-6e3e743f6ef0" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.ReceiverLocalNormalBoundaryIsStrict(elapsed: 1501, expected: False)" computerName="552716c6b8c5" duration="00:00:00.0001720" startTime="2026-10-11T20:28:38.6186487+00:00" endTime="2026-10-11T20:28:38.6329025+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3e9adb85-b047-4a58-b12d-c20a0007678d" />
+    <UnitTestResult executionId="6ccc7c3a-d7dd-4edd-9657-3be17f48fb07" testId="a6bd22b3-bb60-79b6-dac7-9e8c7e1d5edf" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(before: 1498, consumed: 1, expected: True)" computerName="552716c6b8c5" duration="00:00:00.0044766" startTime="2026-10-11T20:28:38.6730208+00:00" endTime="2026-10-11T20:28:38.6732018+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6ccc7c3a-d7dd-4edd-9657-3be17f48fb07" />
+    <UnitTestResult executionId="1ab7f67a-36cc-488e-8cc1-47dda755ba5e" testId="78efaeb5-d772-1abe-4f8d-d33dbefb2abb" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(change: &quot;gate-off&quot;)" computerName="552716c6b8c5" duration="00:00:00.0000008" startTime="2026-10-11T20:28:38.6728568+00:00" endTime="2026-10-11T20:28:38.6728875+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1ab7f67a-36cc-488e-8cc1-47dda755ba5e" />
+    <UnitTestResult executionId="941a03aa-cd35-4654-a307-e16e79b123de" testId="efd6514c-ad1d-a236-7664-b2f509e95bde" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.InvalidReceiverEligibilityDoesNotExposeText(change: &quot;activation&quot;)" computerName="552716c6b8c5" duration="00:00:00.0000031" startTime="2026-10-11T20:28:38.6181187+00:00" endTime="2026-10-11T20:28:38.6181420+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="941a03aa-cd35-4654-a307-e16e79b123de" />
+    <UnitTestResult executionId="4171e0ca-4409-4029-9d48-94e1c77b02ee" testId="b8915c11-4834-4471-72b3-dc8c1402b37c" testName="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(before: 1499, consumed: 1, expected: False)" computerName="552716c6b8c5" duration="00:00:00.0001090" startTime="2026-10-11T20:28:38.6729609+00:00" endTime="2026-10-11T20:28:38.6729842+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4171e0ca-4409-4029-9d48-94e1c77b02ee" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.FailedSourceValidationNeverBecomesAdmissionAtLaterValidTime" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="3ef3eec7-5636-ff3f-7420-6c39efcd4b33">
+      <Execution id="c628baff-cf55-4639-b8aa-5e26584d7ba7" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="FailedSourceValidationNeverBecomesAdmissionAtLaterValidTime" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(before: 1498, consumed: 1, expected: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a6bd22b3-bb60-79b6-dac7-9e8c7e1d5edf">
+      <Execution id="6ccc7c3a-d7dd-4edd-9657-3be17f48fb07" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="SourceValidationCannotCrossOriginalReceiverDeadline" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(change: &quot;epoch&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="686f1de6-410d-d0b2-1ce2-d342561f9e12">
+      <Execution id="65d97eb7-a9e7-42db-9fca-8a5758a6bdad" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="SourceValidationCannotRevokeEligibilityThenCommit" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.ReceiverLocalNormalBoundaryIsStrict(elapsed: 1499, expected: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="58c3eaaa-28f5-e6ab-33d9-3efb634cee8a">
+      <Execution id="a17aa2b0-43da-4e18-9173-f683a176ad43" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="ReceiverLocalNormalBoundaryIsStrict" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.ReceiverElapsedTimeUsesOnlyReceiverClockRegardlessOfOtherProcessOrigin" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="6fe532d2-19c0-0d03-34cf-80355b14b46f">
+      <Execution id="930782d8-1e65-4999-b890-3499ebd4f12e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="ReceiverElapsedTimeUsesOnlyReceiverClockRegardlessOfOtherProcessOrigin" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.InvalidReceiverEligibilityDoesNotExposeText(change: &quot;gate&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="d693930d-26a2-9feb-72ef-825484bd6632">
+      <Execution id="eaf278d6-c0be-4909-8d75-c160d69837b5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="InvalidReceiverEligibilityDoesNotExposeText" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(before: 0, consumed: 1500, expected: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="8b39375b-b1d1-8f7a-d1c6-f86dbe0d5773">
+      <Execution id="52cf6a02-fd7e-4e09-8ccc-ee6d055f3562" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="SourceValidationCannotCrossOriginalReceiverDeadline" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(before: 1499, consumed: 1, expected: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b8915c11-4834-4471-72b3-dc8c1402b37c">
+      <Execution id="4171e0ca-4409-4029-9d48-94e1c77b02ee" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="SourceValidationCannotCrossOriginalReceiverDeadline" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(change: &quot;cancel&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="623509c2-b84d-bc03-2ac5-9f26d63960c6">
+      <Execution id="aca9bebf-a015-4492-baf2-3971777b9d97" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="SourceValidationCannotRevokeEligibilityThenCommit" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotCrossOriginalReceiverDeadline(before: 1499, consumed: 2, expected: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="e2b63cc8-735a-2041-e864-c7399a6fd317">
+      <Execution id="a2a0dc81-a770-4227-a203-576353260cb2" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="SourceValidationCannotCrossOriginalReceiverDeadline" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.InvalidReceiverEligibilityDoesNotExposeText(change: &quot;source&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="5dfa20f4-8175-adb2-2fe7-191bdc607596">
+      <Execution id="d89a05ac-0aba-43ec-a269-7abc24d460fa" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="InvalidReceiverEligibilityDoesNotExposeText" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.ReceiverLocalNormalBoundaryIsStrict(elapsed: 1501, expected: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="34e8865f-f910-b978-7ccd-6e3e743f6ef0">
+      <Execution id="3e9adb85-b047-4a58-b12d-c20a0007678d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="ReceiverLocalNormalBoundaryIsStrict" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(change: &quot;gate-off&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="78efaeb5-d772-1abe-4f8d-d33dbefb2abb">
+      <Execution id="1ab7f67a-36cc-488e-8cc1-47dda755ba5e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="SourceValidationCannotRevokeEligibilityThenCommit" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.SourceValidationCannotRevokeEligibilityThenCommit(change: &quot;activation&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="72845d91-cba8-8d07-a9a8-2f021fcd314e">
+      <Execution id="9eb72aeb-27b1-44e4-8c7d-9ad2ceffdff8" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="SourceValidationCannotRevokeEligibilityThenCommit" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.InvalidReceiverEligibilityDoesNotExposeText(change: &quot;activation&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="efd6514c-ad1d-a236-7664-b2f509e95bde">
+      <Execution id="941a03aa-cd35-4654-a307-e16e79b123de" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="InvalidReceiverEligibilityDoesNotExposeText" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.ReceiverLocalNormalBoundaryIsStrict(elapsed: 1500, expected: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="f7c26fcf-5cb0-9e91-e53b-ba91fa8b7d1d">
+      <Execution id="554bb189-0887-477a-9889-a1917c6d3bde" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="ReceiverLocalNormalBoundaryIsStrict" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests.InvalidReceiverEligibilityDoesNotExposeText(change: &quot;cancel&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="ef80b1b2-1f04-b755-d499-08f191b0fa48">
+      <Execution id="cb96693b-a7fc-4feb-b454-1ab362572282" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverCommitAdmissionTests" name="InvalidReceiverEligibilityDoesNotExposeText" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="623509c2-b84d-bc03-2ac5-9f26d63960c6" executionId="aca9bebf-a015-4492-baf2-3971777b9d97" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3ef3eec7-5636-ff3f-7420-6c39efcd4b33" executionId="c628baff-cf55-4639-b8aa-5e26584d7ba7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e2b63cc8-735a-2041-e864-c7399a6fd317" executionId="a2a0dc81-a770-4227-a203-576353260cb2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="72845d91-cba8-8d07-a9a8-2f021fcd314e" executionId="9eb72aeb-27b1-44e4-8c7d-9ad2ceffdff8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5dfa20f4-8175-adb2-2fe7-191bdc607596" executionId="d89a05ac-0aba-43ec-a269-7abc24d460fa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8b39375b-b1d1-8f7a-d1c6-f86dbe0d5773" executionId="52cf6a02-fd7e-4e09-8ccc-ee6d055f3562" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6fe532d2-19c0-0d03-34cf-80355b14b46f" executionId="930782d8-1e65-4999-b890-3499ebd4f12e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="58c3eaaa-28f5-e6ab-33d9-3efb634cee8a" executionId="a17aa2b0-43da-4e18-9173-f683a176ad43" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f7c26fcf-5cb0-9e91-e53b-ba91fa8b7d1d" executionId="554bb189-0887-477a-9889-a1917c6d3bde" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="686f1de6-410d-d0b2-1ce2-d342561f9e12" executionId="65d97eb7-a9e7-42db-9fca-8a5758a6bdad" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ef80b1b2-1f04-b755-d499-08f191b0fa48" executionId="cb96693b-a7fc-4feb-b454-1ab362572282" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d693930d-26a2-9feb-72ef-825484bd6632" executionId="eaf278d6-c0be-4909-8d75-c160d69837b5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="34e8865f-f910-b978-7ccd-6e3e743f6ef0" executionId="3e9adb85-b047-4a58-b12d-c20a0007678d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a6bd22b3-bb60-79b6-dac7-9e8c7e1d5edf" executionId="6ccc7c3a-d7dd-4edd-9657-3be17f48fb07" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="78efaeb5-d772-1abe-4f8d-d33dbefb2abb" executionId="1ab7f67a-36cc-488e-8cc1-47dda755ba5e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="efd6514c-ad1d-a236-7664-b2f509e95bde" executionId="941a03aa-cd35-4654-a307-e16e79b123de" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b8915c11-4834-4471-72b3-dc8c1402b37c" executionId="4171e0ca-4409-4029-9d48-94e1c77b02ee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="17" executed="17" passed="17" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.09]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.26]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.29]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.44]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -6,7 +6,7 @@
 
 Unicode→HTML→RTF优先、不回退无效高优先级；文件/虚拟文件/图片/仅链接拒绝文字路径。Unicode严格代理项、50k scalar上限；HTML按UTF8字节偏移与更窄selection提取，不抓whole-page，不运行标签、脚本、图片、URL；有限RTF解析Unicode fallback、有限codepage/隐藏目的地，未知group、alternate、字体charset/codepage切换等明确拒绝。不是任意HTML/Word文档兼容声明；详见[ADR0013](adr/0013-formal-text-drop.md)。新文本只进统一SelectionSourceSnapshot，SourceKind=OleDrop、真实来源身份与投递ID，不主动重读UIA/剪贴板、不伪造RuntimeId/ranges。
 
-native与Core均使用DropBegin起点1500ms绝对预算，解码、清理或排队不续期。最终目的队列在取消/RuntimeGate锁内再次检查source/config/ticket/可见性/几何锚点/截止，原生截止在来源检查后再查；source检查过程中资格变化不能提交。协议各阶段绑定原source、format与Drop位置。每接收器最多256已见事务，再撤销整lease，禁止清表后重放。相同投递恰一次，相同文本的新投递仅提示内存重开；失败保留旧来源。取消立即清排队引用，迟到已完成/未完成的读取由唯一观察者清零和观察故障，原读取未settle不可释放activation。CLR不可变字符串不能保证物理擦除；无持久原文或模型调用。
+各层在自身起点使用本地1500ms绝对预算：ReceiverHost在原生DropBegin建立group时记录Stopwatch；父OleReceiverClient在收到并验证DropBegin时记录自身TimeProvider；Core在接受Begin时记录自身TimeProvider。没有传递原生起点，不比较不同进程/TimeProvider的绝对timestamp，也不保证原生DropBegin到App最终交付总计1500ms。原生来源检查后复核gate/共享activation/本地elapsed，编码后再次复核才排入明文；目的队列在父取消锁和RuntimeGate锁内复核source/config/ticket/可见性/锚点及父/Core各自截止。父/Core检查不是原生Stopwatch检查。来源检查期间资格变化不能提交；跨进程排队耗时仍是未共享的预算缺口。协议各阶段绑定原source、format与Drop位置。每接收器最多256已见事务，再撤销整lease，禁止清表后重放。相同投递恰一次，相同文本的新投递仅提示内存重开；失败保留旧来源。取消立即清排队引用，迟到已完成/未完成的读取由唯一观察者清零和观察故障，原读取未settle不可释放activation。CLR不可变字符串不能保证物理擦除；无持久原文或模型调用。
 
 ## 实际运行
 

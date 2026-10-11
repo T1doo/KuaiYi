@@ -59,18 +59,18 @@ public sealed class DropCaptureCoordinator: IAsyncDisposable
             hover=null;drop=entered with{Point=point,Target=target,Started=clock.GetTimestamp()};return true;
         }
     }
-    public Task ReceiveAsync(DropCaptureLease expected,Guid transaction,ReadOnlyMemory<byte> utf8,Func<Action,bool> nativeAdmission,CancellationToken cancellation=default,Func<bool>? nativeCurrent=null)
+    public Task ReceiveAsync(DropCaptureLease expected,Guid transaction,ReadOnlyMemory<byte> utf8,Func<Action,bool> receiverAdmission,CancellationToken cancellation=default,Func<bool>? receiverCurrent=null)
     {
         lock(sync)
         {
             if(cancellation.IsCancellationRequested||!Current(expected)||drop is not {} work||work.Transaction!=transaction||work.Generation!=generation||!SourceCurrent(work.Source))return Task.CompletedTask;
-            drop=null;pending?.Cancel();var token=pending=CancellationTokenSource.CreateLinkedTokenSource(cancellation);var task=Deliver(expected,work,config!,utf8,nativeAdmission,token,nativeCurrent??(static()=>true));operations.Add(task);_ =Observe(task,token);return task;
+            drop=null;pending?.Cancel();var token=pending=CancellationTokenSource.CreateLinkedTokenSource(cancellation);var task=Deliver(expected,work,config!,utf8,receiverAdmission,token,receiverCurrent??(static()=>true));operations.Add(task);_ =Observe(task,token);return task;
         }
     }
     private async Task Observe(Task task,CancellationTokenSource token)
     {try{await task.ConfigureAwait(false);}catch(Exception error){FailureCode=error.GetType().Name;}finally{lock(sync){operations.Remove(task);if(pending==token)pending=null;token.Dispose();}}}
     public string? FailureCode{get;private set;}
-    private async Task Deliver(DropCaptureLease expected,DropWork work,SettingsSnapshot settings,ReadOnlyMemory<byte> bytes,Func<Action,bool> nativeAdmission,CancellationTokenSource cancellation,Func<bool> nativeCurrent)
+    private async Task Deliver(DropCaptureLease expected,DropWork work,SettingsSnapshot settings,ReadOnlyMemory<byte> bytes,Func<Action,bool> receiverAdmission,CancellationTokenSource cancellation,Func<bool> receiverCurrent)
     {
         PendingSource? owner=null;
         bool CurrentWork()=>SourceCurrent(work.Source)&&!cancellation.IsCancellationRequested&&generation==work.Generation&&geometry?.Anchor==work.Target.Anchor&&Current(expected);
@@ -99,7 +99,7 @@ public sealed class DropCaptureCoordinator: IAsyncDisposable
                     lock(sync)
                     {
                         if(!CurrentWork())return;
-                        nativeAdmission(()=>gate.TryCommitCapture(expected.Ticket,()=>CurrentWork()&&Timely()&&nativeCurrent(),()=>
+                        receiverAdmission(()=>gate.TryCommitCapture(expected.Ticket,()=>CurrentWork()&&Timely()&&receiverCurrent(),()=>
                         {
                             var value=payloadOwner.Take();if(value==null){failed(failure??DropCaptureStatus.InvalidText);return;}
                             bool duplicate=previous is {} old&&old.Window==value.Window&&old.Text==value.Text&&old.SettingsVersion==value.SettingsVersion&&old.SourceKind==value.SourceKind;

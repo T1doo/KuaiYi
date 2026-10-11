@@ -100,3 +100,10 @@ P3-04复制兼容正式路径：SelectionCaptureCoordinator在原UIA普通失败
 Shell TextDropFlow→OleReceiverClient→真实私有ReceiverHost/NativeDropTarget→有限HGLOBAL/OleDroppedText→DropCaptureCoordinator→统一SelectionSourceSnapshot。外部hover只格式查询和小目标；不重读UIA/剪贴板。共享授权+receiver/epoch/ticket/version+来源+1500ms绝对目的队列门控，生产协议绑定source/format/point，原read/delivery/registration/exit未settle不重建。P4尚未接，统一来源只保存内存原文。详见ADR0013/text-drop-review.md。
 
 26托管工程locked构建与144专项/全量1109 .NET、63 Node已运行；原生COM、App-owned HWND/注册STA组合、实际来源前台关联、多DPI与E06交互仍NotRun。公开GrowthHarness禁用全部真实Selection/Drop，不作跨应用验收替代。文字ZIP缺nativeBridge则明确Off/不可用，不是安装器。历史架构缺口描述保留为对应阶段事实，最新状态以此切片报告和traceability为准。
+
+## 正式 Drop 原生截止父审补正
+
+- 基线8023c71c03899ada517d162de032e1426fdad8f7。父审发现ReceiverHost先Stopwatch<1500再SourceCurrent、后不复核，原“来源检查后再查/共享原DropBegin”宽声明不能签收，属实。原生产顺序提取共用资格策略红测17项7失败/10通过，旧Host/helper与日志/TRX保留；不是Windows原生执行。
+- ReceiverHost真实路径使用该策略，SourceCurrent后最终gate/activation/原本地elapsed检查，编码/验证后enqueue明文前再次检查。17新专项通过、原144保留共161/161；完整Core1049+Provider77=1126/1126、Node63/63，26工程locked Release零警告/错误，原1032Core/77Provider逐项及26锁/规格不变。
+- 原生group Stopwatch、父收到合法DropBegin的TimeProvider、Core接受Begin的TimeProvider分别是各自起点；协议未传native start，不比较不同clock的绝对值，没有证明原生起点至最终App交付总计1500ms。父receiverCurrent不是原生计时证明，参数/ADR/报告已收窄；跨进程排队端到端预算仍缺证据。
+- 独立admission审查包，16份旧包最终摘要核验；旧误覆盖恢复事实保持。源码/测试最终回归后未改，供限定独审；实际nativeBridge未编译、WinCOM/共享映射/来源/E06仍NotRun/Blocked，176追踪/106整体NotRun，不推进P4/安装/扩权/真实调用。详见text-drop-admission-review.md及独立summary。

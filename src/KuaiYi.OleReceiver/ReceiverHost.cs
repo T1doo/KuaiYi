@@ -84,7 +84,11 @@ internal sealed class ReceiverHost:IOleReceiverBackend,IOleReceiverControlBacken
     }
     public bool CanCommit(Guid transaction,long epoch)
     {
-        lock(groupsSync)return gate.Current(epoch)&&activation.Current(epoch)&&groups.TryGetValue(transaction,out var value)&&value.Epoch==epoch&&Stopwatch.GetElapsedTime(value.Started)<TimeSpan.FromMilliseconds(1500)&&(!Production||value.Source is {} source&&SourceCurrent(source));
+        lock(groupsSync)
+        {
+            if(!groups.TryGetValue(transaction,out var value)||value.Epoch!=epoch)return false;
+            return OleReceiverCommitAdmission.CanCommit(()=>Stopwatch.GetElapsedTime(value.Started),()=>gate.Current(epoch),()=>activation.Current(epoch),()=>!Production||value.Source is {} source&&SourceCurrent(source));
+        }
     }
     public void Result(Guid transaction,long epoch,string? text,string status,nint foreground)
     {
@@ -93,7 +97,13 @@ internal sealed class ReceiverHost:IOleReceiverBackend,IOleReceiverControlBacken
         if(text!=null)
         {
             byte[] bytes=Encoding.UTF8.GetBytes(text);
-            try{OleReceiverWire.DecodeText(bytes);send(new(IpcMessageType.BinaryChunk,transaction,bytes));bytes=[];}
+            try
+            {
+                OleReceiverWire.DecodeText(bytes);
+                // Encoding/validation also consumes the same receiver-local budget; no late plaintext enqueue.
+                if(CanCommit(transaction,epoch)){send(new(IpcMessageType.BinaryChunk,transaction,bytes));bytes=[];}
+                else text=null;
+            }
             finally{CryptographicOperations.ZeroMemory(bytes);}
         }
         Metadata(transaction,epoch,"DropEnd",true,text==null?OleEffect.None:OleEffect.Copy,text?.Length??0);lock(groupsSync)groups.Remove(transaction);
