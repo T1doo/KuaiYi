@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "快译",
+  "version": "0.0.1",
+  "description": "用户主动右键图片后连接本机快译；P0 协议审阅构建。",
+  "permissions": ["contextMenus", "nativeMessaging", "activeTab", "scripting"],
+  "background": {"service_worker": "service-worker.js", "type": "module"},
+  "action": {"default_title": "快译：连接状态与停止"},
+  "options_page": "options.html",
+  "icons": {"16": "icon.png", "48": "icon.png", "128": "icon.png"},
+  "content_security_policy": {"extension_pages": "script-src 'self'; object-src 'none'"}
+}

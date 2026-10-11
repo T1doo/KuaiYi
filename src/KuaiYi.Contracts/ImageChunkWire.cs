@@ -24,7 +24,7 @@ public static class ImageChunkWire
         catch { assembler.Dispose(); throw; } // A malformed frame aborts and clears this connection's incomplete transfer.
     }
 
-    private static void Append(JsonElement root, ImageTransferAssembler assembler)
+    public static void Append(JsonElement root, ImageTransferAssembler assembler)
     {
         var fields = new HashSet<string>(StringComparer.Ordinal);
         foreach (var field in root.EnumerateObject())

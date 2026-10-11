@@ -180,9 +180,12 @@
         "P7",
         "K"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/browser-native-host.md"
+      ],
+      "note": "P0 real MV3/NativeHost source and actual stdio/internal IPC fixture tests; production installation/origin/grant source and real browser interaction incomplete."
     },
     {
       "id": "R14",
@@ -362,9 +365,11 @@
         "docs/test-evidence/2026-10-11-probes-summary.json",
         "docs/windows-probes.md",
         "docs/test-evidence/2026-10-11-late-events-summary.json",
-        "docs/test-evidence/2026-10-11-protocol-boundaries-summary.json"
+        "docs/test-evidence/2026-10-11-protocol-boundaries-summary.json",
+        "docs/browser-native-host.md",
+        "docs/test-evidence/2026-10-11-browser-summary.json"
       ],
-      "note": "Offline subitems only, including obsolete error and destination queue identity checks; whole product requirement/task is not Pass."
+      "note": "NativeHost/extension protocol subitems execute real child stdio and local pipe with labelled fixture authority. Actual browser, Windows role/registration/grants and desktop capture backend remain Blocked/NotRun; whole task is not Pass."
     },
     {
       "id": "P1-01",

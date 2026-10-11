@@ -1,0 +1,479 @@
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.29]     KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(length: 3) [FAIL]
+[xUnit.net 00:00:00.37]     KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(length: 20971520) [FAIL]
+  Failed KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(length: 3) [97 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(Int32 length) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 58
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(Int32 length) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 61
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(length: 20971520) [85 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(Int32 length) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 58
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(Int32 length) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 61
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.47]     KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(length: 1) [FAIL]
+[xUnit.net 00:00:00.66]     KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: "length") [FAIL]
+[xUnit.net 00:00:00.74]     KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: "duplicate-offer") [FAIL]
+[xUnit.net 00:00:00.84]     KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: "url") [FAIL]
+[xUnit.net 00:00:00.93]     KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: "duplicate-begin") [FAIL]
+[xUnit.net 00:00:01.01]     KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: "mime") [FAIL]
+[xUnit.net 00:00:01.10]     KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: "activation-claim") [FAIL]
+  Failed KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(length: 1) [92 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(Int32 length) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 58
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(Int32 length) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 61
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: "length") [78 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 113
+   at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 118
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: "duplicate-offer") [81 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 113
+   at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 118
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: "url") [95 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 113
+   at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 118
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: "duplicate-begin") [87 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 113
+   at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 118
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: "mime") [83 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 113
+   at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 118
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: "activation-claim") [81 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 113
+   at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 118
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:01.63]     KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(chunk: False) [FAIL]
+[xUnit.net 00:00:01.72]     KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(chunk: True) [FAIL]
+[xUnit.net 00:00:01.80]     KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(mode: "locked") [FAIL]
+  Failed KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(chunk: False) [82 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(Boolean chunk) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 78
+   at KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(Boolean chunk) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 80
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(chunk: True) [91 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(Boolean chunk) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 78
+   at KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(Boolean chunk) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 80
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(mode: "locked") [78 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 72
+   at KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 73
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:01.88]     KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(mode: "stale-off") [FAIL]
+[xUnit.net 00:00:01.97]     KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(mode: "stale-b") [FAIL]
+[xUnit.net 00:00:02.05]     KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(mode: "ipc-off-at-begin", code: "Stale") [FAIL]
+[xUnit.net 00:00:02.13]     KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(mode: "ipc-disconnect", code: "Disconnected") [FAIL]
+[xUnit.net 00:00:02.22]     KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(mode: "ipc-wrong-begun-id", code: "Stale") [FAIL]
+[xUnit.net 00:00:02.40]     KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(mode: "wrong-grant", code: "DesktopUntrusted") [FAIL]
+[xUnit.net 00:00:02.48]     KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(mode: "off", code: "ActivationRequired") [FAIL]
+  Failed KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(mode: "stale-off") [77 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 72
+   at KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 73
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(mode: "stale-b") [91 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 72
+   at KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 73
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(mode: "ipc-off-at-begin", code: "Stale") [79 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(String mode, String code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 142
+   at KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(String mode, String code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 143
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(mode: "ipc-disconnect", code: "Disconnected") [82 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(String mode, String code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 142
+   at KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(String mode, String code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 143
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(mode: "ipc-wrong-begun-id", code: "Stale") [87 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(String mode, String code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 142
+   at KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(String mode, String code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 143
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(mode: "wrong-grant", code: "DesktopUntrusted") [77 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "DesktopUntrusted"
+Actual:   "InternalFailure"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(String mode, String code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 66
+   at KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(String mode, String code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 67
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(mode: "off", code: "ActivationRequired") [77 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "ActivationRequired"
+Actual:   "InternalFailure"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(String mode, String code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 66
+   at KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(String mode, String code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 67
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:02.77]     KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "digest") [FAIL]
+[xUnit.net 00:00:02.85]     KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "order") [FAIL]
+[xUnit.net 00:00:02.93]     KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "duplicate") [FAIL]
+[xUnit.net 00:00:03.01]     KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "wrong-commit") [FAIL]
+[xUnit.net 00:00:03.09]     KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "extra-field") [FAIL]
+[xUnit.net 00:00:03.17]     KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "wrong-cancel") [FAIL]
+[xUnit.net 00:00:03.26]     KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "wrong-id") [FAIL]
+  Failed KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "digest") [84 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 95
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 107
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "order") [76 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 95
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 107
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "duplicate") [77 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 95
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 107
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "wrong-commit") [81 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 95
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 107
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "extra-field") [74 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 95
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 107
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "wrong-cancel") [77 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 95
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 107
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "wrong-id") [95 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 95
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 107
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:03.34]     KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "oversize") [FAIL]
+[xUnit.net 00:00:03.42]     KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "incomplete") [FAIL]
+[xUnit.net 00:00:03.50]     KuaiYi.Core.Tests.BrowserHostTests.PngPixelLimitCheckedAfterMatchingDigestBeforeDelivery [FAIL]
+[xUnit.net 00:00:03.58]     KuaiYi.Core.Tests.BrowserHostTests.AbsoluteDeadlineEndsIdleConnectionAndDisposesGrant [FAIL]
+[xUnit.net 00:00:03.66]     KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(chunk: False) [FAIL]
+[xUnit.net 00:00:03.73]     KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(chunk: True) [FAIL]
+  Failed KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "oversize") [75 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 95
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 107
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "incomplete") [79 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 95
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 107
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.PngPixelLimitCheckedAfterMatchingDigestBeforeDelivery [79 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.PngPixelLimitCheckedAfterMatchingDigestBeforeDelivery() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 135
+   at KuaiYi.Core.Tests.BrowserHostTests.PngPixelLimitCheckedAfterMatchingDigestBeforeDelivery() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 135
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.AbsoluteDeadlineEndsIdleConnectionAndDisposesGrant [81 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.AbsoluteDeadlineEndsIdleConnectionAndDisposesGrant() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 90
+   at KuaiYi.Core.Tests.BrowserHostTests.AbsoluteDeadlineEndsIdleConnectionAndDisposesGrant() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 90
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(chunk: False) [78 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(Boolean chunk) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 85
+   at KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(Boolean chunk) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 86
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(chunk: True) [74 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(Boolean chunk) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 85
+   at KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(Boolean chunk) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 86
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/test-results/browser/browser-pipe-first.trx
+
+Failed!  - Failed:    32, Passed:    19, Skipped:     0, Total:    51, Duration: 3 s - KuaiYi.Core.Tests.dll (net10.0)

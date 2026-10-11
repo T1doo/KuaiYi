@@ -1,0 +1,39 @@
+✔ manifest has exactly four permissions and no web entry points (4.393072ms)
+✔ context comes only from top-frame active image click (0.1812ms)
+✔ context rejects cross-frame (0.184975ms)
+✔ context rejects wrong-menu (0.065337ms)
+✔ context rejects text (0.044497ms)
+✔ context rejects javascript (0.048142ms)
+✔ context rejects file (0.037105ms)
+✔ context rejects userinfo (0.046189ms)
+✔ context rejects navigated (0.04653ms)
+✔ context rejects inactive (0.101522ms)
+✔ context rejects restricted (0.076414ms)
+✔ UTF-8 bytes include multibyte body and JSON envelope (0.786671ms)
+✔ 190KiB worst base64 fits complete native frame (4.516196ms)
+✔ PNG dimensions rejected before host submission (0.161681ms)
+✔ original fetch never attaches credentials/referrer or follows redirects (19.368776ms)
+✔ cross-origin/blob originals cannot call fetch (0.263893ms)
+✔ declared and streamed original byte limits independent (12.729047ms)
+✔ crop remains strictly inside target physical rectangle (0.287318ms)
+✔ crop rejects DPI (0.074231ms)
+✔ crop rejects size mismatch (0.142892ms)
+✔ crop rejects outside viewport (0.03306ms)
+✔ crop rejects empty (0.030355ms)
+✔ crop rejects NaN (2.630728ms)
+✔ crop rejects infinite (0.0473ms)
+✔ ambiguous element refuses capture before screenshot (0.299125ms)
+✔ moved target discards screenshot before decode/crop (0.280588ms)
+✔ disconnect rejects an outstanding frame immediately (0.311684ms)
+✔ cancellation sends one explicit cancel and disconnects (0.150795ms)
+✔ wrong operation cannot acknowledge pending frame (0.113859ms)
+✔ desktop Off prevents image acquisition (0.093259ms)
+✔ actual extension sender to independent host loop commits ordered maximum chunks (150.963362ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 31
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 242.085465

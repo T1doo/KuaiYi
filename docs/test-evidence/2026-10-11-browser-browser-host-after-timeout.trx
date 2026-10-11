@@ -1,0 +1,445 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="c9f801da-2e35-4ef9-8878-3488a6832f47" name="@552716c6b8c5 2026-10-11 07:54:57" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T07:54:57.7365875+00:00" queuing="2026-10-11T07:54:57.7365876+00:00" start="2026-10-11T07:54:56.2749055+00:00" finish="2026-10-11T07:55:00.1373877+00:00" />
+  <TestSettings name="default" id="bca63431-2f62-4f61-b6b0-cd95a0a82fe6">
+    <Deployment runDeploymentRoot="_552716c6b8c5_2026-10-11_07_54_57" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="2ecc9a18-be91-457c-97f8-2919495124cf" testId="420b4615-affd-e55b-948b-adde0bec4c00" testName="KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(mode: &quot;stale-b&quot;)" computerName="552716c6b8c5" duration="00:00:00.0731298" startTime="2026-10-11T07:54:58.5049295+00:00" endTime="2026-10-11T07:54:58.5779996+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2ecc9a18-be91-457c-97f8-2919495124cf" />
+    <UnitTestResult executionId="8f5b9830-e464-40d9-9f6b-9bbe685226ec" testId="921da71d-8900-ae94-39b8-637aba737fc8" testName="KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(chunk: True)" computerName="552716c6b8c5" duration="00:00:00.1001334" startTime="2026-10-11T07:54:59.9630805+00:00" endTime="2026-10-11T07:55:00.0630028+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8f5b9830-e464-40d9-9f6b-9bbe685226ec" />
+    <UnitTestResult executionId="7692c757-feb2-497c-90b3-711c2151a1a1" testId="bb97f956-1e25-5fd2-b9c0-29f9186385a2" testName="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;duplicate-offer&quot;)" computerName="552716c6b8c5" duration="00:00:00.0866848" startTime="2026-10-11T07:54:57.4041071+00:00" endTime="2026-10-11T07:54:57.4909970+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7692c757-feb2-497c-90b3-711c2151a1a1" />
+    <UnitTestResult executionId="72894e3f-0994-4878-9bfa-fdc7ee67f418" testId="6a9fa145-bd23-830a-cb10-2cdebbffa301" testName="KuaiYi.Core.Tests.BrowserHostTests.ProductionHostNeverUsesFixtureOrUnconfiguredOrigin(origin: &quot;chrome-extension://aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;···)" computerName="552716c6b8c5" duration="00:00:00.0520153" startTime="2026-10-11T07:54:57.7731633+00:00" endTime="2026-10-11T07:54:57.8252165+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="72894e3f-0994-4878-9bfa-fdc7ee67f418" />
+    <UnitTestResult executionId="594272e3-3b58-480b-a188-7be7be4371ec" testId="d6b5857f-8b9a-7ad1-740d-13c462566c3e" testName="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;oversize&quot;)" computerName="552716c6b8c5" duration="00:00:00.0674685" startTime="2026-10-11T07:54:59.3869513+00:00" endTime="2026-10-11T07:54:59.4546078+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="594272e3-3b58-480b-a188-7be7be4371ec" />
+    <UnitTestResult executionId="47fcdc38-791e-402f-b688-b0324f6686ca" testId="fe52a96e-0986-983d-f48e-63728ea40793" testName="KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(length: 20971520)" computerName="552716c6b8c5" duration="00:00:00.4017305" startTime="2026-10-11T07:54:56.7912323+00:00" endTime="2026-10-11T07:54:57.1757984+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="47fcdc38-791e-402f-b688-b0324f6686ca" />
+    <UnitTestResult executionId="69fcc584-2699-4fa4-9206-dbaea5486c9f" testId="c8352dbe-f0c0-e36c-48f1-4782582aa354" testName="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;incomplete&quot;)" computerName="552716c6b8c5" duration="00:00:00.0782112" startTime="2026-10-11T07:54:59.4547656+00:00" endTime="2026-10-11T07:54:59.5331441+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="69fcc584-2699-4fa4-9206-dbaea5486c9f" />
+    <UnitTestResult executionId="e3e26133-dc0a-43d4-a1b6-41dfd935de7a" testId="b8156946-5d13-7a02-f2ea-68aad98467a6" testName="KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(mode: &quot;stale-off&quot;)" computerName="552716c6b8c5" duration="00:00:00.0787489" startTime="2026-10-11T07:54:58.4255043+00:00" endTime="2026-10-11T07:54:58.5047816+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e3e26133-dc0a-43d4-a1b6-41dfd935de7a" />
+    <UnitTestResult executionId="9ff64609-2bc1-4816-b605-37d1244793ba" testId="a8eedef4-66aa-5780-22d1-3040ee89ffa4" testName="KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(fault: &quot;truncated&quot;)" computerName="552716c6b8c5" duration="00:00:00.0579740" startTime="2026-10-11T07:54:58.7950506+00:00" endTime="2026-10-11T07:54:58.8531887+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9ff64609-2bc1-4816-b605-37d1244793ba">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Text.Json.JsonReaderException : 'N' is an invalid start of a value. LineNumber: 0 | BytePositionInLine: 0.</Message>
+          <StackTrace>   at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader&amp; json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+   at System.Text.Json.Utf8JsonReader.ConsumeValue(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ReadFirstToken(Byte first)
+   at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+   at System.Text.Json.Utf8JsonReader.Read()
+   at System.Text.Json.JsonDocument.Parse(ReadOnlySpan`1 utf8JsonSpan, JsonReaderOptions readerOptions, MetadataDb&amp; database, StackRowStack&amp; stack)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 utf8Json, JsonReaderOptions readerOptions, Byte[] extraRentedArrayPoolBytes, PooledByteBufferWriter extraPooledByteBufferWriter, Boolean allowDuplicateProperties)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 json, JsonDocumentOptions options)
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Finish(Int32 code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 38
+   at KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 129
+   at KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 129
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cadc6d96-2680-4495-8008-694ebd7596ac" testId="027a0c0a-34c2-3a8c-3f6b-314364584925" testName="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;duplicate-begin&quot;)" computerName="552716c6b8c5" duration="00:00:00.0656130" startTime="2026-10-11T07:54:57.5836451+00:00" endTime="2026-10-11T07:54:57.6492302+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cadc6d96-2680-4495-8008-694ebd7596ac" />
+    <UnitTestResult executionId="b32acac0-3138-4fe2-a577-3a3b13e41380" testId="64b14863-6629-415a-7fb3-926293dbcff3" testName="KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(length: 3)" computerName="552716c6b8c5" duration="00:00:00.0995212" startTime="2026-10-11T07:54:56.6661423+00:00" endTime="2026-10-11T07:54:56.7731566+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b32acac0-3138-4fe2-a577-3a3b13e41380" />
+    <UnitTestResult executionId="d8071dcf-2efa-4201-b6f4-39225424fdfc" testId="cc564377-866b-fd64-be6f-5b67200435b1" testName="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;url&quot;)" computerName="552716c6b8c5" duration="00:00:00.0919094" startTime="2026-10-11T07:54:57.4911717+00:00" endTime="2026-10-11T07:54:57.5834831+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d8071dcf-2efa-4201-b6f4-39225424fdfc" />
+    <UnitTestResult executionId="534429fc-c218-48d4-ba4f-c2084e1f1406" testId="bb72cc64-3000-db0f-3e6f-6dd59a0b0f01" testName="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;wrong-id&quot;)" computerName="552716c6b8c5" duration="00:00:00.0671688" startTime="2026-10-11T07:54:59.3194692+00:00" endTime="2026-10-11T07:54:59.3868057+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="534429fc-c218-48d4-ba4f-c2084e1f1406" />
+    <UnitTestResult executionId="6b63b24a-b6bf-440b-8d10-bf6d429ad11a" testId="625e488e-bbb5-9827-3acc-a57de1e536f1" testName="KuaiYi.Core.Tests.BrowserHostTests.PngPixelLimitCheckedAfterMatchingDigestBeforeDelivery" computerName="552716c6b8c5" duration="00:00:00.0781242" startTime="2026-10-11T07:54:59.5337978+00:00" endTime="2026-10-11T07:54:59.6116427+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6b63b24a-b6bf-440b-8d10-bf6d429ad11a" />
+    <UnitTestResult executionId="9395a0c8-31a7-4f5b-8eaf-773544e145a3" testId="f83a4298-97ad-2207-747c-b868340469ae" testName="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;activation-claim&quot;)" computerName="552716c6b8c5" duration="00:00:00.0607182" startTime="2026-10-11T07:54:57.7193313+00:00" endTime="2026-10-11T07:54:57.7727920+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9395a0c8-31a7-4f5b-8eaf-773544e145a3" />
+    <UnitTestResult executionId="d66412f1-c6fc-491c-b961-b3951e5237a8" testId="31bbdb4d-abda-7cba-1df3-e4c3e94f2867" testName="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;extra-field&quot;)" computerName="552716c6b8c5" duration="00:00:00.0723162" startTime="2026-10-11T07:54:59.1828384+00:00" endTime="2026-10-11T07:54:59.2551981+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d66412f1-c6fc-491c-b961-b3951e5237a8" />
+    <UnitTestResult executionId="0b8bba11-a6c8-4eea-8b8a-ce695d5c6e46" testId="b54659ed-9504-e44f-d6fa-1bc30616e796" testName="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;length&quot;)" computerName="552716c6b8c5" duration="00:00:00.0729963" startTime="2026-10-11T07:54:57.3308711+00:00" endTime="2026-10-11T07:54:57.4039197+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0b8bba11-a6c8-4eea-8b8a-ce695d5c6e46" />
+    <UnitTestResult executionId="9278b5df-c25e-4b5e-a3bc-6361e03d8dc7" testId="0d0684b5-639a-3d70-fabb-2166e3654953" testName="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;no-offer&quot;)" computerName="552716c6b8c5" duration="00:00:00.0693253" startTime="2026-10-11T07:54:57.2616913+00:00" endTime="2026-10-11T07:54:57.3306140+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9278b5df-c25e-4b5e-a3bc-6361e03d8dc7" />
+    <UnitTestResult executionId="c587ea4d-5fc2-4120-89c2-8dbefb743966" testId="319d81c6-0e80-4962-ad0b-79af5270a780" testName="KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(fault: &quot;utf8&quot;)" computerName="552716c6b8c5" duration="00:00:00.0658191" startTime="2026-10-11T07:54:58.7281945+00:00" endTime="2026-10-11T07:54:58.7945106+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c587ea4d-5fc2-4120-89c2-8dbefb743966">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Text.Json.JsonReaderException : 'N' is an invalid start of a value. LineNumber: 0 | BytePositionInLine: 0.</Message>
+          <StackTrace>   at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader&amp; json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+   at System.Text.Json.Utf8JsonReader.ConsumeValue(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ReadFirstToken(Byte first)
+   at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+   at System.Text.Json.Utf8JsonReader.Read()
+   at System.Text.Json.JsonDocument.Parse(ReadOnlySpan`1 utf8JsonSpan, JsonReaderOptions readerOptions, MetadataDb&amp; database, StackRowStack&amp; stack)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 utf8Json, JsonReaderOptions readerOptions, Byte[] extraRentedArrayPoolBytes, PooledByteBufferWriter extraPooledByteBufferWriter, Boolean allowDuplicateProperties)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 json, JsonDocumentOptions options)
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Finish(Int32 code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 38
+   at KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 129
+   at KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 129
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ec63f8f5-074b-404b-8b6f-a77aa7adaf54" testId="0cd3dd70-616f-fbfd-ea94-1b3fac297565" testName="KuaiYi.Core.Tests.BrowserHostTests.ProductionHostNeverUsesFixtureOrUnconfiguredOrigin(origin: &quot;chrome-extension://aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;···)" computerName="552716c6b8c5" duration="00:00:00.0504155" startTime="2026-10-11T07:54:57.8253978+00:00" endTime="2026-10-11T07:54:57.8759793+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ec63f8f5-074b-404b-8b6f-a77aa7adaf54" />
+    <UnitTestResult executionId="e772e6ba-a70d-4da7-afb0-d51d6305cfa5" testId="853d48c0-d80e-5946-0386-e6995f275b1a" testName="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;digest&quot;)" computerName="552716c6b8c5" duration="00:00:00.0695461" startTime="2026-10-11T07:54:58.9115488+00:00" endTime="2026-10-11T07:54:58.9808481+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e772e6ba-a70d-4da7-afb0-d51d6305cfa5" />
+    <UnitTestResult executionId="c1b55a70-faee-4a8c-8f6f-36d470420c36" testId="09b20676-a70c-e1f0-552d-8710d46b799c" testName="KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(length: 0)" computerName="552716c6b8c5" duration="00:00:00.0564623" startTime="2026-10-11T07:54:58.1375823+00:00" endTime="2026-10-11T07:54:58.1936135+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c1b55a70-faee-4a8c-8f6f-36d470420c36">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Text.Json.JsonReaderException : 'N' is an invalid start of a value. LineNumber: 0 | BytePositionInLine: 0.</Message>
+          <StackTrace>   at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader&amp; json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+   at System.Text.Json.Utf8JsonReader.ConsumeValue(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ReadFirstToken(Byte first)
+   at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+   at System.Text.Json.Utf8JsonReader.Read()
+   at System.Text.Json.JsonDocument.Parse(ReadOnlySpan`1 utf8JsonSpan, JsonReaderOptions readerOptions, MetadataDb&amp; database, StackRowStack&amp; stack)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 utf8Json, JsonReaderOptions readerOptions, Byte[] extraRentedArrayPoolBytes, PooledByteBufferWriter extraPooledByteBufferWriter, Boolean allowDuplicateProperties)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 json, JsonDocumentOptions options)
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Finish(Int32 code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 38
+   at KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(UInt32 length) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 122
+   at KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(UInt32 length) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 122
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9b1646e0-eb2c-4fa9-a432-368f888bf9d1" testId="098ea1e9-b74b-ea66-405e-9adc383c26e4" testName="KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(length: 262145)" computerName="552716c6b8c5" duration="00:00:00.0769551" startTime="2026-10-11T07:54:57.9889616+00:00" endTime="2026-10-11T07:54:58.0722883+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9b1646e0-eb2c-4fa9-a432-368f888bf9d1">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Text.Json.JsonReaderException : 'N' is an invalid start of a value. LineNumber: 0 | BytePositionInLine: 0.</Message>
+          <StackTrace>   at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader&amp; json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+   at System.Text.Json.Utf8JsonReader.ConsumeValue(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ReadFirstToken(Byte first)
+   at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+   at System.Text.Json.Utf8JsonReader.Read()
+   at System.Text.Json.JsonDocument.Parse(ReadOnlySpan`1 utf8JsonSpan, JsonReaderOptions readerOptions, MetadataDb&amp; database, StackRowStack&amp; stack)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 utf8Json, JsonReaderOptions readerOptions, Byte[] extraRentedArrayPoolBytes, PooledByteBufferWriter extraPooledByteBufferWriter, Boolean allowDuplicateProperties)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 json, JsonDocumentOptions options)
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Finish(Int32 code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 38
+   at KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(UInt32 length) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 122
+   at KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(UInt32 length) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 122
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9594b49e-d066-4474-9cbe-d8308485505b" testId="74bab4ed-f29f-846b-a3b4-57a8e9b7a76a" testName="KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(mode: &quot;off&quot;, code: &quot;ActivationRequired&quot;)" computerName="552716c6b8c5" duration="00:00:00.0702109" startTime="2026-10-11T07:54:58.6575898+00:00" endTime="2026-10-11T07:54:58.7279910+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9594b49e-d066-4474-9cbe-d8308485505b" />
+    <UnitTestResult executionId="dea89244-b8b5-461e-952b-5e2c2bb8bb89" testId="3986e2fd-c1b0-99fe-1968-61a4092fc480" testName="KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(chunk: False)" computerName="552716c6b8c5" duration="00:00:00.0597766" startTime="2026-10-11T07:54:58.1941975+00:00" endTime="2026-10-11T07:54:58.2537039+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dea89244-b8b5-461e-952b-5e2c2bb8bb89" />
+    <UnitTestResult executionId="f2b0d360-1e73-479e-96bf-ceddf151899a" testId="8f780b2b-df92-4b89-5099-b87fd03d6158" testName="KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(length: 4294967295)" computerName="552716c6b8c5" duration="00:00:00.0643907" startTime="2026-10-11T07:54:58.0768961+00:00" endTime="2026-10-11T07:54:58.1365452+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f2b0d360-1e73-479e-96bf-ceddf151899a">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Text.Json.JsonReaderException : 'N' is an invalid start of a value. LineNumber: 0 | BytePositionInLine: 0.</Message>
+          <StackTrace>   at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader&amp; json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+   at System.Text.Json.Utf8JsonReader.ConsumeValue(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ReadFirstToken(Byte first)
+   at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+   at System.Text.Json.Utf8JsonReader.Read()
+   at System.Text.Json.JsonDocument.Parse(ReadOnlySpan`1 utf8JsonSpan, JsonReaderOptions readerOptions, MetadataDb&amp; database, StackRowStack&amp; stack)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 utf8Json, JsonReaderOptions readerOptions, Byte[] extraRentedArrayPoolBytes, PooledByteBufferWriter extraPooledByteBufferWriter, Boolean allowDuplicateProperties)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 json, JsonDocumentOptions options)
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Finish(Int32 code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 38
+   at KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(UInt32 length) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 122
+   at KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(UInt32 length) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 122
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="58ae42dc-2ed5-4cd5-a867-30bd14ca34bb" testId="a6409756-347d-43ac-3b15-a9a36e526c06" testName="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;wrong-cancel&quot;)" computerName="552716c6b8c5" duration="00:00:00.0638045" startTime="2026-10-11T07:54:59.2553377+00:00" endTime="2026-10-11T07:54:59.3193261+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="58ae42dc-2ed5-4cd5-a867-30bd14ca34bb" />
+    <UnitTestResult executionId="f60b20e8-4286-4953-bb69-818274930164" testId="02f2a800-cb7c-655f-6a71-fa93a6cb4d8b" testName="KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(mode: &quot;locked&quot;)" computerName="552716c6b8c5" duration="00:00:00.1002128" startTime="2026-10-11T07:54:58.3249529+00:00" endTime="2026-10-11T07:54:58.4253389+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f60b20e8-4286-4953-bb69-818274930164" />
+    <UnitTestResult executionId="64b7900c-cbdb-4a1c-935d-8b6da00b1349" testId="903883f1-832f-7bb2-0452-a947417886b2" testName="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;duplicate&quot;)" computerName="552716c6b8c5" duration="00:00:00.0689335" startTime="2026-10-11T07:54:59.0456273+00:00" endTime="2026-10-11T07:54:59.1147291+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="64b7900c-cbdb-4a1c-935d-8b6da00b1349" />
+    <UnitTestResult executionId="481883aa-4840-4ba6-8aaf-4c518cd64753" testId="bb70ecf2-62c7-a8a9-dcb8-f58e543e9d3e" testName="KuaiYi.Core.Tests.BrowserHostTests.AbsoluteDeadlineEndsIdleConnectionAndDisposesGrant" computerName="552716c6b8c5" duration="00:00:00.2876252" startTime="2026-10-11T07:54:59.6118406+00:00" endTime="2026-10-11T07:54:59.8996970+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="481883aa-4840-4ba6-8aaf-4c518cd64753" />
+    <UnitTestResult executionId="17b994a5-9dde-42c3-a340-1c4430c495eb" testId="a5fe88b2-02d9-6442-eb86-5a7e74b318e3" testName="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;mime&quot;)" computerName="552716c6b8c5" duration="00:00:00.0622158" startTime="2026-10-11T07:54:57.6494008+00:00" endTime="2026-10-11T07:54:57.7119582+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="17b994a5-9dde-42c3-a340-1c4430c495eb" />
+    <UnitTestResult executionId="aa30ee4c-30a9-4fd0-8546-3c1ffc5994a3" testId="7417f7b7-2e94-f4b0-5f06-4f2eae30fe87" testName="KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(mode: &quot;wrong-grant&quot;, code: &quot;DesktopUntrusted&quot;)" computerName="552716c6b8c5" duration="00:00:00.0790440" startTime="2026-10-11T07:54:58.5781841+00:00" endTime="2026-10-11T07:54:58.6574324+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aa30ee4c-30a9-4fd0-8546-3c1ffc5994a3" />
+    <UnitTestResult executionId="059f4fef-0493-4fe4-a0af-c7cc0cbd3d32" testId="0d321792-5bce-d82f-bd06-e139c247b615" testName="KuaiYi.Core.Tests.BrowserHostTests.ProductionHostNeverUsesFixtureOrUnconfiguredOrigin(origin: &quot;--probe&quot;)" computerName="552716c6b8c5" duration="00:00:00.0635912" startTime="2026-10-11T07:54:57.8761360+00:00" endTime="2026-10-11T07:54:57.9398357+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="059f4fef-0493-4fe4-a0af-c7cc0cbd3d32" />
+    <UnitTestResult executionId="39ab9334-628b-43b2-b0f3-b4e5b087d5dd" testId="75685786-eb40-4e87-11ff-858510fddb23" testName="KuaiYi.Core.Tests.BrowserHostTests.ProductionHostNeverUsesFixtureOrUnconfiguredOrigin(origin: &quot;chrome-extension://*/&quot;)" computerName="552716c6b8c5" duration="00:00:00.0485351" startTime="2026-10-11T07:54:57.9399887+00:00" endTime="2026-10-11T07:54:57.9887298+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="39ab9334-628b-43b2-b0f3-b4e5b087d5dd" />
+    <UnitTestResult executionId="1682aca0-4281-4503-9dee-acfd7b9c1be3" testId="c9ec6639-f981-bb65-40e4-e2007fb06356" testName="KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(length: 1)" computerName="552716c6b8c5" duration="00:00:00.0844340" startTime="2026-10-11T07:54:57.1763294+00:00" endTime="2026-10-11T07:54:57.2602731+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1682aca0-4281-4503-9dee-acfd7b9c1be3" />
+    <UnitTestResult executionId="6aa6d314-25fa-4e1c-b6fe-bab27aa2af7d" testId="b0161e0d-6398-a44d-c5ad-37bbc77b832b" testName="KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(chunk: False)" computerName="552716c6b8c5" duration="00:00:00.0624154" startTime="2026-10-11T07:54:59.8998686+00:00" endTime="2026-10-11T07:54:59.9629469+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6aa6d314-25fa-4e1c-b6fe-bab27aa2af7d" />
+    <UnitTestResult executionId="0b98a380-8e1e-4052-8b8b-ff6d6b959523" testId="668b1553-fb4f-9c11-e0d6-353974747b34" testName="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;order&quot;)" computerName="552716c6b8c5" duration="00:00:00.0643222" startTime="2026-10-11T07:54:58.9810042+00:00" endTime="2026-10-11T07:54:59.0454697+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0b98a380-8e1e-4052-8b8b-ff6d6b959523" />
+    <UnitTestResult executionId="3a87ffd3-6cbd-4c64-ba8f-991e285c7514" testId="9d2cfbc9-f8fd-a5fc-a7d0-049749e9b88d" testName="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;wrong-commit&quot;)" computerName="552716c6b8c5" duration="00:00:00.0674678" startTime="2026-10-11T07:54:59.1148868+00:00" endTime="2026-10-11T07:54:59.1825453+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3a87ffd3-6cbd-4c64-ba8f-991e285c7514" />
+    <UnitTestResult executionId="530f9f83-bafb-4fc9-bd6b-79603eb9223a" testId="14bfb268-559b-2bd9-130b-6969679bdab9" testName="KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(chunk: True)" computerName="552716c6b8c5" duration="00:00:00.0706937" startTime="2026-10-11T07:54:58.2544545+00:00" endTime="2026-10-11T07:54:58.3247253+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="530f9f83-bafb-4fc9-bd6b-79603eb9223a" />
+    <UnitTestResult executionId="025a6ed8-2cae-4205-b3d5-359069006725" testId="2fef62f3-5e04-e5a2-5223-31134cf959e7" testName="KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(fault: &quot;duplicate-field&quot;)" computerName="552716c6b8c5" duration="00:00:00.0572894" startTime="2026-10-11T07:54:58.8537092+00:00" endTime="2026-10-11T07:54:58.9108953+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="025a6ed8-2cae-4205-b3d5-359069006725" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.PngPixelLimitCheckedAfterMatchingDigestBeforeDelivery" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="625e488e-bbb5-9827-3acc-a57de1e536f1">
+      <Execution id="6b63b24a-b6bf-440b-8d10-bf6d429ad11a" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="PngPixelLimitCheckedAfterMatchingDigestBeforeDelivery" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;digest&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="853d48c0-d80e-5946-0386-e6995f275b1a">
+      <Execution id="e772e6ba-a70d-4da7-afb0-d51d6305cfa5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ActualFrameErrorsAbortWithoutDesktopSubmission" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;activation-claim&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="f83a4298-97ad-2207-747c-b868340469ae">
+      <Execution id="9395a0c8-31a7-4f5b-8eaf-773544e145a3" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="UnsupportedDeclarationCannotObtainPrivilege" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(fault: &quot;truncated&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a8eedef4-66aa-5780-22d1-3040ee89ffa4">
+      <Execution id="9ff64609-2bc1-4816-b605-37d1244793ba" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="BinaryStdioMalformedInputIsNotLoggedOrEchoed" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;extra-field&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="31bbdb4d-abda-7cba-1df3-e4c3e94f2867">
+      <Execution id="d66412f1-c6fc-491c-b961-b3951e5237a8" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ActualFrameErrorsAbortWithoutDesktopSubmission" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(chunk: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="3986e2fd-c1b0-99fe-1968-61a4092fc480">
+      <Execution id="dea89244-b8b5-461e-952b-5e2c2bb8bb89" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="CancelBeforeOrAfterChunkNeverSubmits" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.AbsoluteDeadlineEndsIdleConnectionAndDisposesGrant" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="bb70ecf2-62c7-a8a9-dcb8-f58e543e9d3e">
+      <Execution id="481883aa-4840-4ba6-8aaf-4c518cd64753" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="AbsoluteDeadlineEndsIdleConnectionAndDisposesGrant" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(chunk: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="14bfb268-559b-2bd9-130b-6969679bdab9">
+      <Execution id="530f9f83-bafb-4fc9-bd6b-79603eb9223a" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="CancelBeforeOrAfterChunkNeverSubmits" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(length: 262145)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="098ea1e9-b74b-ea66-405e-9adc383c26e4">
+      <Execution id="9b1646e0-eb2c-4fa9-a432-368f888bf9d1" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="DeclaredUnsignedLengthRejectedBeforePayloadAllocation" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(mode: &quot;stale-off&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b8156946-5d13-7a02-f2ea-68aad98467a6">
+      <Execution id="e3e26133-dc0a-43d4-a1b6-41dfd935de7a" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="GateInvalidationBeforeSubmissionCannotDeliverOldImage" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(mode: &quot;locked&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="02f2a800-cb7c-655f-6a71-fa93a6cb4d8b">
+      <Execution id="f60b20e8-4286-4953-bb69-818274930164" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="GateInvalidationBeforeSubmissionCannotDeliverOldImage" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(mode: &quot;off&quot;, code: &quot;ActivationRequired&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="74bab4ed-f29f-846b-a3b4-57a8e9b7a76a">
+      <Execution id="9594b49e-d066-4474-9cbe-d8308485505b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="DesktopAuthorityMustGrantBeforeBegin" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;duplicate&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="903883f1-832f-7bb2-0452-a947417886b2">
+      <Execution id="64b7900c-cbdb-4a1c-935d-8b6da00b1349" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ActualFrameErrorsAbortWithoutDesktopSubmission" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(fault: &quot;duplicate-field&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="2fef62f3-5e04-e5a2-5223-31134cf959e7">
+      <Execution id="025a6ed8-2cae-4205-b3d5-359069006725" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="BinaryStdioMalformedInputIsNotLoggedOrEchoed" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;duplicate-offer&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="bb97f956-1e25-5fd2-b9c0-29f9186385a2">
+      <Execution id="7692c757-feb2-497c-90b3-711c2151a1a1" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="UnsupportedDeclarationCannotObtainPrivilege" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(length: 0)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="09b20676-a70c-e1f0-552d-8710d46b799c">
+      <Execution id="c1b55a70-faee-4a8c-8f6f-36d470420c36" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="DeclaredUnsignedLengthRejectedBeforePayloadAllocation" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(length: 4294967295)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="8f780b2b-df92-4b89-5099-b87fd03d6158">
+      <Execution id="f2b0d360-1e73-479e-96bf-ceddf151899a" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="DeclaredUnsignedLengthRejectedBeforePayloadAllocation" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;url&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="cc564377-866b-fd64-be6f-5b67200435b1">
+      <Execution id="d8071dcf-2efa-4201-b6f4-39225424fdfc" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="UnsupportedDeclarationCannotObtainPrivilege" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(chunk: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="921da71d-8900-ae94-39b8-637aba737fc8">
+      <Execution id="8f5b9830-e464-40d9-9f6b-9bbe685226ec" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="EofClearsUnfinishedOperation" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(chunk: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b0161e0d-6398-a44d-c5ad-37bbc77b832b">
+      <Execution id="6aa6d314-25fa-4e1c-b6fe-bab27aa2af7d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="EofClearsUnfinishedOperation" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ProductionHostNeverUsesFixtureOrUnconfiguredOrigin(origin: &quot;chrome-extension://*/&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="75685786-eb40-4e87-11ff-858510fddb23">
+      <Execution id="39ab9334-628b-43b2-b0f3-b4e5b087d5dd" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ProductionHostNeverUsesFixtureOrUnconfiguredOrigin" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;order&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="668b1553-fb4f-9c11-e0d6-353974747b34">
+      <Execution id="0b98a380-8e1e-4052-8b8b-ff6d6b959523" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ActualFrameErrorsAbortWithoutDesktopSubmission" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(mode: &quot;wrong-grant&quot;, code: &quot;DesktopUntrusted&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="7417f7b7-2e94-f4b0-5f06-4f2eae30fe87">
+      <Execution id="aa30ee4c-30a9-4fd0-8546-3c1ffc5994a3" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="DesktopAuthorityMustGrantBeforeBegin" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;no-offer&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="0d0684b5-639a-3d70-fabb-2166e3654953">
+      <Execution id="9278b5df-c25e-4b5e-a3bc-6361e03d8dc7" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="UnsupportedDeclarationCannotObtainPrivilege" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;duplicate-begin&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="027a0c0a-34c2-3a8c-3f6b-314364584925">
+      <Execution id="cadc6d96-2680-4495-8008-694ebd7596ac" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="UnsupportedDeclarationCannotObtainPrivilege" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ProductionHostNeverUsesFixtureOrUnconfiguredOrigin(origin: &quot;--probe&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="0d321792-5bce-d82f-bd06-e139c247b615">
+      <Execution id="059f4fef-0493-4fe4-a0af-c7cc0cbd3d32" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ProductionHostNeverUsesFixtureOrUnconfiguredOrigin" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;mime&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a5fe88b2-02d9-6442-eb86-5a7e74b318e3">
+      <Execution id="17b994a5-9dde-42c3-a340-1c4430c495eb" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="UnsupportedDeclarationCannotObtainPrivilege" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;wrong-id&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="bb72cc64-3000-db0f-3e6f-6dd59a0b0f01">
+      <Execution id="534429fc-c218-48d4-ba4f-c2084e1f1406" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ActualFrameErrorsAbortWithoutDesktopSubmission" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(length: 20971520)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="fe52a96e-0986-983d-f48e-63728ea40793">
+      <Execution id="47fcdc38-791e-402f-b688-b0324f6686ca" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ActualHostLoopOffersChunksCommitsOnlyCompletePng" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;wrong-commit&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="9d2cfbc9-f8fd-a5fc-a7d0-049749e9b88d">
+      <Execution id="3a87ffd3-6cbd-4c64-ba8f-991e285c7514" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ActualFrameErrorsAbortWithoutDesktopSubmission" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ProductionHostNeverUsesFixtureOrUnconfiguredOrigin(origin: &quot;chrome-extension://aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;···)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="0cd3dd70-616f-fbfd-ea94-1b3fac297565">
+      <Execution id="ec63f8f5-074b-404b-8b6f-a77aa7adaf54" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ProductionHostNeverUsesFixtureOrUnconfiguredOrigin" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(fault: &quot;utf8&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="319d81c6-0e80-4962-ad0b-79af5270a780">
+      <Execution id="c587ea4d-5fc2-4120-89c2-8dbefb743966" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="BinaryStdioMalformedInputIsNotLoggedOrEchoed" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(length: 3)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="64b14863-6629-415a-7fb3-926293dbcff3">
+      <Execution id="b32acac0-3138-4fe2-a577-3a3b13e41380" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ActualHostLoopOffersChunksCommitsOnlyCompletePng" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;oversize&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="d6b5857f-8b9a-7ad1-740d-13c462566c3e">
+      <Execution id="594272e3-3b58-480b-a188-7be7be4371ec" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ActualFrameErrorsAbortWithoutDesktopSubmission" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;incomplete&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="c8352dbe-f0c0-e36c-48f1-4782582aa354">
+      <Execution id="69fcc584-2699-4fa4-9206-dbaea5486c9f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ActualFrameErrorsAbortWithoutDesktopSubmission" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;wrong-cancel&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a6409756-347d-43ac-3b15-a9a36e526c06">
+      <Execution id="58ae42dc-2ed5-4cd5-a867-30bd14ca34bb" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ActualFrameErrorsAbortWithoutDesktopSubmission" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(mode: &quot;stale-b&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="420b4615-affd-e55b-948b-adde0bec4c00">
+      <Execution id="2ecc9a18-be91-457c-97f8-2919495124cf" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="GateInvalidationBeforeSubmissionCannotDeliverOldImage" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(length: 1)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="c9ec6639-f981-bb65-40e4-e2007fb06356">
+      <Execution id="1682aca0-4281-4503-9dee-acfd7b9c1be3" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ActualHostLoopOffersChunksCommitsOnlyCompletePng" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;length&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b54659ed-9504-e44f-d6fa-1bc30616e796">
+      <Execution id="0b8bba11-a6c8-4eea-8b8a-ce695d5c6e46" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="UnsupportedDeclarationCannotObtainPrivilege" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ProductionHostNeverUsesFixtureOrUnconfiguredOrigin(origin: &quot;chrome-extension://aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;···)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="6a9fa145-bd23-830a-cb10-2cdebbffa301">
+      <Execution id="72894e3f-0994-4878-9bfa-fdc7ee67f418" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ProductionHostNeverUsesFixtureOrUnconfiguredOrigin" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="420b4615-affd-e55b-948b-adde0bec4c00" executionId="2ecc9a18-be91-457c-97f8-2919495124cf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="921da71d-8900-ae94-39b8-637aba737fc8" executionId="8f5b9830-e464-40d9-9f6b-9bbe685226ec" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bb97f956-1e25-5fd2-b9c0-29f9186385a2" executionId="7692c757-feb2-497c-90b3-711c2151a1a1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6a9fa145-bd23-830a-cb10-2cdebbffa301" executionId="72894e3f-0994-4878-9bfa-fdc7ee67f418" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d6b5857f-8b9a-7ad1-740d-13c462566c3e" executionId="594272e3-3b58-480b-a188-7be7be4371ec" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fe52a96e-0986-983d-f48e-63728ea40793" executionId="47fcdc38-791e-402f-b688-b0324f6686ca" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c8352dbe-f0c0-e36c-48f1-4782582aa354" executionId="69fcc584-2699-4fa4-9206-dbaea5486c9f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b8156946-5d13-7a02-f2ea-68aad98467a6" executionId="e3e26133-dc0a-43d4-a1b6-41dfd935de7a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a8eedef4-66aa-5780-22d1-3040ee89ffa4" executionId="9ff64609-2bc1-4816-b605-37d1244793ba" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="027a0c0a-34c2-3a8c-3f6b-314364584925" executionId="cadc6d96-2680-4495-8008-694ebd7596ac" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="64b14863-6629-415a-7fb3-926293dbcff3" executionId="b32acac0-3138-4fe2-a577-3a3b13e41380" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cc564377-866b-fd64-be6f-5b67200435b1" executionId="d8071dcf-2efa-4201-b6f4-39225424fdfc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bb72cc64-3000-db0f-3e6f-6dd59a0b0f01" executionId="534429fc-c218-48d4-ba4f-c2084e1f1406" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="625e488e-bbb5-9827-3acc-a57de1e536f1" executionId="6b63b24a-b6bf-440b-8d10-bf6d429ad11a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f83a4298-97ad-2207-747c-b868340469ae" executionId="9395a0c8-31a7-4f5b-8eaf-773544e145a3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="31bbdb4d-abda-7cba-1df3-e4c3e94f2867" executionId="d66412f1-c6fc-491c-b961-b3951e5237a8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b54659ed-9504-e44f-d6fa-1bc30616e796" executionId="0b8bba11-a6c8-4eea-8b8a-ce695d5c6e46" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0d0684b5-639a-3d70-fabb-2166e3654953" executionId="9278b5df-c25e-4b5e-a3bc-6361e03d8dc7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="319d81c6-0e80-4962-ad0b-79af5270a780" executionId="c587ea4d-5fc2-4120-89c2-8dbefb743966" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0cd3dd70-616f-fbfd-ea94-1b3fac297565" executionId="ec63f8f5-074b-404b-8b6f-a77aa7adaf54" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="853d48c0-d80e-5946-0386-e6995f275b1a" executionId="e772e6ba-a70d-4da7-afb0-d51d6305cfa5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="09b20676-a70c-e1f0-552d-8710d46b799c" executionId="c1b55a70-faee-4a8c-8f6f-36d470420c36" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="098ea1e9-b74b-ea66-405e-9adc383c26e4" executionId="9b1646e0-eb2c-4fa9-a432-368f888bf9d1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="74bab4ed-f29f-846b-a3b4-57a8e9b7a76a" executionId="9594b49e-d066-4474-9cbe-d8308485505b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3986e2fd-c1b0-99fe-1968-61a4092fc480" executionId="dea89244-b8b5-461e-952b-5e2c2bb8bb89" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8f780b2b-df92-4b89-5099-b87fd03d6158" executionId="f2b0d360-1e73-479e-96bf-ceddf151899a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a6409756-347d-43ac-3b15-a9a36e526c06" executionId="58ae42dc-2ed5-4cd5-a867-30bd14ca34bb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="02f2a800-cb7c-655f-6a71-fa93a6cb4d8b" executionId="f60b20e8-4286-4953-bb69-818274930164" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="903883f1-832f-7bb2-0452-a947417886b2" executionId="64b7900c-cbdb-4a1c-935d-8b6da00b1349" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bb70ecf2-62c7-a8a9-dcb8-f58e543e9d3e" executionId="481883aa-4840-4ba6-8aaf-4c518cd64753" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a5fe88b2-02d9-6442-eb86-5a7e74b318e3" executionId="17b994a5-9dde-42c3-a340-1c4430c495eb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7417f7b7-2e94-f4b0-5f06-4f2eae30fe87" executionId="aa30ee4c-30a9-4fd0-8546-3c1ffc5994a3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0d321792-5bce-d82f-bd06-e139c247b615" executionId="059f4fef-0493-4fe4-a0af-c7cc0cbd3d32" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="75685786-eb40-4e87-11ff-858510fddb23" executionId="39ab9334-628b-43b2-b0f3-b4e5b087d5dd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c9ec6639-f981-bb65-40e4-e2007fb06356" executionId="1682aca0-4281-4503-9dee-acfd7b9c1be3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b0161e0d-6398-a44d-c5ad-37bbc77b832b" executionId="6aa6d314-25fa-4e1c-b6fe-bab27aa2af7d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="668b1553-fb4f-9c11-e0d6-353974747b34" executionId="0b98a380-8e1e-4052-8b8b-ff6d6b959523" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9d2cfbc9-f8fd-a5fc-a7d0-049749e9b88d" executionId="3a87ffd3-6cbd-4c64-ba8f-991e285c7514" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="14bfb268-559b-2bd9-130b-6969679bdab9" executionId="530f9f83-bafb-4fc9-bd6b-79603eb9223a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2fef62f3-5e04-e5a2-5223-31134cf959e7" executionId="025a6ed8-2cae-4205-b3d5-359069006725" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="40" executed="40" passed="35" failed="5" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.05]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.11]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.13]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:01.56]       System.Text.Json.JsonReaderException : 'N' is an invalid start of a value. LineNumber: 0 | BytePositionInLine: 0.
+[xUnit.net 00:00:01.56]       Stack Trace:
+[xUnit.net 00:00:01.56]            at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader&amp; json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+[xUnit.net 00:00:01.56]            at System.Text.Json.Utf8JsonReader.ConsumeValue(Byte marker)
+[xUnit.net 00:00:01.56]            at System.Text.Json.Utf8JsonReader.ReadFirstToken(Byte first)
+[xUnit.net 00:00:01.56]            at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+[xUnit.net 00:00:01.56]            at System.Text.Json.Utf8JsonReader.Read()
+[xUnit.net 00:00:01.56]            at System.Text.Json.JsonDocument.Parse(ReadOnlySpan`1 utf8JsonSpan, JsonReaderOptions readerOptions, MetadataDb&amp; database, StackRowStack&amp; stack)
+[xUnit.net 00:00:01.56]            at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 utf8Json, JsonReaderOptions readerOptions, Byte[] extraRentedArrayPoolBytes, PooledByteBufferWriter extraPooledByteBufferWriter, Boolean allowDuplicateProperties)
+[xUnit.net 00:00:01.56]            at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 json, JsonDocumentOptions options)
+[xUnit.net 00:00:01.56]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(38,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Finish(Int32 code)
+[xUnit.net 00:00:01.56]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(122,0): at KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(UInt32 length)
+[xUnit.net 00:00:01.56]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(122,0): at KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(UInt32 length)
+[xUnit.net 00:00:01.56]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.62]       System.Text.Json.JsonReaderException : 'N' is an invalid start of a value. LineNumber: 0 | BytePositionInLine: 0.
+[xUnit.net 00:00:01.62]       Stack Trace:
+[xUnit.net 00:00:01.62]            at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader&amp; json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+[xUnit.net 00:00:01.62]            at System.Text.Json.Utf8JsonReader.ConsumeValue(Byte marker)
+[xUnit.net 00:00:01.62]            at System.Text.Json.Utf8JsonReader.ReadFirstToken(Byte first)
+[xUnit.net 00:00:01.62]            at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+[xUnit.net 00:00:01.62]            at System.Text.Json.Utf8JsonReader.Read()
+[xUnit.net 00:00:01.62]            at System.Text.Json.JsonDocument.Parse(ReadOnlySpan`1 utf8JsonSpan, JsonReaderOptions readerOptions, MetadataDb&amp; database, StackRowStack&amp; stack)
+[xUnit.net 00:00:01.62]            at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 utf8Json, JsonReaderOptions readerOptions, Byte[] extraRentedArrayPoolBytes, PooledByteBufferWriter extraPooledByteBufferWriter, Boolean allowDuplicateProperties)
+[xUnit.net 00:00:01.62]            at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 json, JsonDocumentOptions options)
+[xUnit.net 00:00:01.62]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(38,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Finish(Int32 code)
+[xUnit.net 00:00:01.62]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(122,0): at KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(UInt32 length)
+[xUnit.net 00:00:01.62]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(122,0): at KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(UInt32 length)
+[xUnit.net 00:00:01.62]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.68]       System.Text.Json.JsonReaderException : 'N' is an invalid start of a value. LineNumber: 0 | BytePositionInLine: 0.
+[xUnit.net 00:00:01.68]       Stack Trace:
+[xUnit.net 00:00:01.68]            at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader&amp; json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+[xUnit.net 00:00:01.68]            at System.Text.Json.Utf8JsonReader.ConsumeValue(Byte marker)
+[xUnit.net 00:00:01.68]            at System.Text.Json.Utf8JsonReader.ReadFirstToken(Byte first)
+[xUnit.net 00:00:01.68]            at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+[xUnit.net 00:00:01.68]            at System.Text.Json.Utf8JsonReader.Read()
+[xUnit.net 00:00:01.68]            at System.Text.Json.JsonDocument.Parse(ReadOnlySpan`1 utf8JsonSpan, JsonReaderOptions readerOptions, MetadataDb&amp; database, StackRowStack&amp; stack)
+[xUnit.net 00:00:01.68]            at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 utf8Json, JsonReaderOptions readerOptions, Byte[] extraRentedArrayPoolBytes, PooledByteBufferWriter extraPooledByteBufferWriter, Boolean allowDuplicateProperties)
+[xUnit.net 00:00:01.68]            at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 json, JsonDocumentOptions options)
+[xUnit.net 00:00:01.68]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(38,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Finish(Int32 code)
+[xUnit.net 00:00:01.68]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(122,0): at KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(UInt32 length)
+[xUnit.net 00:00:01.68]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(122,0): at KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(UInt32 length)
+[xUnit.net 00:00:01.68]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.28]       System.Text.Json.JsonReaderException : 'N' is an invalid start of a value. LineNumber: 0 | BytePositionInLine: 0.
+[xUnit.net 00:00:02.28]       Stack Trace:
+[xUnit.net 00:00:02.28]            at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader&amp; json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+[xUnit.net 00:00:02.28]            at System.Text.Json.Utf8JsonReader.ConsumeValue(Byte marker)
+[xUnit.net 00:00:02.28]            at System.Text.Json.Utf8JsonReader.ReadFirstToken(Byte first)
+[xUnit.net 00:00:02.28]            at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+[xUnit.net 00:00:02.28]            at System.Text.Json.Utf8JsonReader.Read()
+[xUnit.net 00:00:02.28]            at System.Text.Json.JsonDocument.Parse(ReadOnlySpan`1 utf8JsonSpan, JsonReaderOptions readerOptions, MetadataDb&amp; database, StackRowStack&amp; stack)
+[xUnit.net 00:00:02.28]            at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 utf8Json, JsonReaderOptions readerOptions, Byte[] extraRentedArrayPoolBytes, PooledByteBufferWriter extraPooledByteBufferWriter, Boolean allowDuplicateProperties)
+[xUnit.net 00:00:02.28]            at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 json, JsonDocumentOptions options)
+[xUnit.net 00:00:02.28]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(38,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Finish(Int32 code)
+[xUnit.net 00:00:02.28]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(129,0): at KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(String fault)
+[xUnit.net 00:00:02.28]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(129,0): at KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(String fault)
+[xUnit.net 00:00:02.28]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.34]       System.Text.Json.JsonReaderException : 'N' is an invalid start of a value. LineNumber: 0 | BytePositionInLine: 0.
+[xUnit.net 00:00:02.34]       Stack Trace:
+[xUnit.net 00:00:02.34]            at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader&amp; json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+[xUnit.net 00:00:02.34]            at System.Text.Json.Utf8JsonReader.ConsumeValue(Byte marker)
+[xUnit.net 00:00:02.34]            at System.Text.Json.Utf8JsonReader.ReadFirstToken(Byte first)
+[xUnit.net 00:00:02.34]            at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+[xUnit.net 00:00:02.34]            at System.Text.Json.Utf8JsonReader.Read()
+[xUnit.net 00:00:02.34]            at System.Text.Json.JsonDocument.Parse(ReadOnlySpan`1 utf8JsonSpan, JsonReaderOptions readerOptions, MetadataDb&amp; database, StackRowStack&amp; stack)
+[xUnit.net 00:00:02.34]            at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 utf8Json, JsonReaderOptions readerOptions, Byte[] extraRentedArrayPoolBytes, PooledByteBufferWriter extraPooledByteBufferWriter, Boolean allowDuplicateProperties)
+[xUnit.net 00:00:02.34]            at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 json, JsonDocumentOptions options)
+[xUnit.net 00:00:02.34]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(38,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Finish(Int32 code)
+[xUnit.net 00:00:02.34]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(129,0): at KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(String fault)
+[xUnit.net 00:00:02.34]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(129,0): at KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(String fault)
+[xUnit.net 00:00:02.34]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:03.55]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T07:54:58.0750035+00:00">
+        <Text>[xUnit.net 00:00:01.56]     KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(length: 262145) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T07:54:58.1398976+00:00">
+        <Text>[xUnit.net 00:00:01.62]     KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(length: 4294967295) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T07:54:58.1953055+00:00">
+        <Text>[xUnit.net 00:00:01.68]     KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(length: 0) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T07:54:58.7970988+00:00">
+        <Text>[xUnit.net 00:00:02.28]     KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(fault: "utf8") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T07:54:58.8564211+00:00">
+        <Text>[xUnit.net 00:00:02.34]     KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(fault: "truncated") [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

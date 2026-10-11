@@ -50,3 +50,7 @@ App（独立KuaiYi身份，默认Off实验界面）→继承stdio的单次ImageW
 Worker真正启动在后台；取消等待后仍持有未返回的startTask，迟建Process被有界清理，晚失败被观察。未确认启动/退出不允许Dispose或开启第二宿主；详见image-ui-review.md。这些共享行为已在Linux执行，真实Windows线程/焦点/WinRT仍未验证。
 
 实际子进程退出还需启动/停止任务均已终结，才能释放所有权。窗口finally和轮询统一调用TryFinalizeAsync：未知返回false并保留客户端；严格DisposeAsync保持ExitUnconfirmed拒绝。此边界不改变完整身份事件资格，详见image-finalization-review.md。
+
+## P0-06浏览器传输切片
+
+MV3显式菜单→已配置且来源合法的NativeHost→验证同用户/session/已安装App角色→桌面一次grant→有限PNG原图/可见裁切→共享ImageChunkWire→stdio Commit→DesktopPipeChannel内部SubmitImage/二进制/Commit。宿主无网络/URL下载/模型调用，grant不等于端点授权。安装清单/receipt和App角色授权接收端未完成时严格拒绝；测试authority只在tools中通过实际本地管道验证同一循环/编码器，不进入生产包。当前为19个托管工程，真实浏览器/Windows均NotRun。细节见browser-native-host.md。

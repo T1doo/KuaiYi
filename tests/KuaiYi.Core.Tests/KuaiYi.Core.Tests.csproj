@@ -14,6 +14,8 @@
     <ProjectReference Include="../../tools/KuaiYi.OleControlFixture/KuaiYi.OleControlFixture.csproj" ReferenceOutputAssembly="false" />
     <ProjectReference Include="../../src/KuaiYi.Imaging/KuaiYi.Imaging.csproj" />
     <ProjectReference Include="../../src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="../../src/KuaiYi.NativeHost/KuaiYi.NativeHost.csproj" />
+    <ProjectReference Include="../../tools/KuaiYi.BrowserHostFixture/KuaiYi.BrowserHostFixture.csproj" ReferenceOutputAssembly="false" />
     <None Include="../fixtures/images/kuaiyi-test.png" Link="kuaiyi-test.png" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

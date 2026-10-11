@@ -1,0 +1,1316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="dfe1e71f-94dd-48db-8395-ef98b943dbcc" name="@552716c6b8c5 2026-10-11 08:01:45" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T08:01:45.3196149+00:00" queuing="2026-10-11T08:01:45.3196150+00:00" start="2026-10-11T08:01:44.6819917+00:00" finish="2026-10-11T08:01:48.7122208+00:00" />
+  <TestSettings name="default" id="745af427-b50f-4e6b-8ed2-880b8ba515eb">
+    <Deployment runDeploymentRoot="_552716c6b8c5_2026-10-11_08_01_45" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="97c551a5-8d65-48ae-9fd5-cbed8508b750" testId="74bab4ed-f29f-846b-a3b4-57a8e9b7a76a" testName="KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(mode: &quot;off&quot;, code: &quot;ActivationRequired&quot;)" computerName="552716c6b8c5" duration="00:00:00.0773569" startTime="2026-10-11T08:01:47.3217818+00:00" endTime="2026-10-11T08:01:47.4000728+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="97c551a5-8d65-48ae-9fd5-cbed8508b750">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "ActivationRequired"
+Actual:   "InternalFailure"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(String mode, String code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 66
+   at KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(String mode, String code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 67
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f1e6fef5-b59c-40a8-876d-e104a127871a" testId="75685786-eb40-4e87-11ff-858510fddb23" testName="KuaiYi.Core.Tests.BrowserHostTests.ProductionHostNeverUsesFixtureOrUnconfiguredOrigin(origin: &quot;chrome-extension://*/&quot;)" computerName="552716c6b8c5" duration="00:00:00.0500324" startTime="2026-10-11T08:01:46.1754356+00:00" endTime="2026-10-11T08:01:46.2256049+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f1e6fef5-b59c-40a8-876d-e104a127871a" />
+    <UnitTestResult executionId="7fd1f1ae-0e5b-41e5-91dc-ed218d05aa72" testId="9d7383ce-a3ae-6402-a6b1-9b823f898a41" testName="KuaiYi.Core.Tests.InstalledRoleFilesTests.EntireManagedRoleMustMatchReceipt(fault: &quot;changed-app-dll&quot;)" computerName="552716c6b8c5" duration="00:00:00.0002757" startTime="2026-10-11T08:01:45.1705806+00:00" endTime="2026-10-11T08:01:45.1706203+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7fd1f1ae-0e5b-41e5-91dc-ed218d05aa72" />
+    <UnitTestResult executionId="551800a1-3126-4d6d-9f7f-7a19a0df0537" testId="f83a4298-97ad-2207-747c-b868340469ae" testName="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;activation-claim&quot;)" computerName="552716c6b8c5" duration="00:00:00.0813335" startTime="2026-10-11T08:01:45.9374702+00:00" endTime="2026-10-11T08:01:46.0186785+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="551800a1-3126-4d6d-9f7f-7a19a0df0537">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 113
+   at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 118
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="63cbbf0c-d317-45d0-a78d-c83849e46875" testId="6a9fa145-bd23-830a-cb10-2cdebbffa301" testName="KuaiYi.Core.Tests.BrowserHostTests.ProductionHostNeverUsesFixtureOrUnconfiguredOrigin(origin: &quot;chrome-extension://aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;···)" computerName="552716c6b8c5" duration="00:00:00.0526553" startTime="2026-10-11T08:01:46.0192714+00:00" endTime="2026-10-11T08:01:46.0717084+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="63cbbf0c-d317-45d0-a78d-c83849e46875" />
+    <UnitTestResult executionId="b43383bb-1124-43f6-88f9-5ea0522e10a3" testId="31bbdb4d-abda-7cba-1df3-e4c3e94f2867" testName="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;extra-field&quot;)" computerName="552716c6b8c5" duration="00:00:00.0749140" startTime="2026-10-11T08:01:47.9348171+00:00" endTime="2026-10-11T08:01:48.0099828+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b43383bb-1124-43f6-88f9-5ea0522e10a3">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 95
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 107
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cc458ae7-d3fc-4d50-be6a-7a613ba0aab4" testId="bb70ecf2-62c7-a8a9-dcb8-f58e543e9d3e" testName="KuaiYi.Core.Tests.BrowserHostTests.AbsoluteDeadlineEndsIdleConnectionAndDisposesGrant" computerName="552716c6b8c5" duration="00:00:00.0814050" startTime="2026-10-11T08:01:48.4214530+00:00" endTime="2026-10-11T08:01:48.5027648+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cc458ae7-d3fc-4d50-be6a-7a613ba0aab4">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.AbsoluteDeadlineEndsIdleConnectionAndDisposesGrant() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 90
+   at KuaiYi.Core.Tests.BrowserHostTests.AbsoluteDeadlineEndsIdleConnectionAndDisposesGrant() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 90
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8c0b1588-c114-4518-ae46-6d2a9d4fc681" testId="5d418e59-e45e-894f-d0e5-0344001a04c8" testName="KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(mode: &quot;ipc-off-at-begin&quot;, code: &quot;Stale&quot;)" computerName="552716c6b8c5" duration="00:00:00.0797155" startTime="2026-10-11T08:01:46.8918871+00:00" endTime="2026-10-11T08:01:46.9708810+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8c0b1588-c114-4518-ae46-6d2a9d4fc681">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(String mode, String code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 142
+   at KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(String mode, String code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 143
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c6c62f87-768d-4cb7-923c-3fe939548f7b" testId="625e488e-bbb5-9827-3acc-a57de1e536f1" testName="KuaiYi.Core.Tests.BrowserHostTests.PngPixelLimitCheckedAfterMatchingDigestBeforeDelivery" computerName="552716c6b8c5" duration="00:00:00.0796945" startTime="2026-10-11T08:01:48.3410892+00:00" endTime="2026-10-11T08:01:48.4207512+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c6c62f87-768d-4cb7-923c-3fe939548f7b">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.PngPixelLimitCheckedAfterMatchingDigestBeforeDelivery() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 135
+   at KuaiYi.Core.Tests.BrowserHostTests.PngPixelLimitCheckedAfterMatchingDigestBeforeDelivery() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 135
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="320d9828-e122-434f-b33e-b3cdf08e70ea" testId="170e5799-bd4d-fb26-1918-dbf4cf0368d1" testName="KuaiYi.Core.Tests.InstalledRoleFilesTests.EntireManagedRoleMustMatchReceipt(fault: &quot;missing-dll&quot;)" computerName="552716c6b8c5" duration="00:00:00.0349206" startTime="2026-10-11T08:01:45.1144021+00:00" endTime="2026-10-11T08:01:45.1400684+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="320d9828-e122-434f-b33e-b3cdf08e70ea" />
+    <UnitTestResult executionId="85409337-04a3-4560-a9fd-59f71e470d0b" testId="c9ec6639-f981-bb65-40e4-e2007fb06356" testName="KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(length: 1)" computerName="552716c6b8c5" duration="00:00:00.0922261" startTime="2026-10-11T08:01:45.3039187+00:00" endTime="2026-10-11T08:01:45.3881591+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="85409337-04a3-4560-a9fd-59f71e470d0b">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(Int32 length) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 58
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(Int32 length) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 61
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="28e90b03-d736-495b-b729-88956c78288f" testId="b54659ed-9504-e44f-d6fa-1bc30616e796" testName="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;length&quot;)" computerName="552716c6b8c5" duration="00:00:00.0789830" startTime="2026-10-11T08:01:45.5061552+00:00" endTime="2026-10-11T08:01:45.5852927+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="28e90b03-d736-495b-b729-88956c78288f">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 113
+   at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 118
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="80bd38a5-90bf-49aa-93c7-5e16960855fc" testId="668b1553-fb4f-9c11-e0d6-353974747b34" testName="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;order&quot;)" computerName="552716c6b8c5" duration="00:00:00.0766449" startTime="2026-10-11T08:01:47.6972532+00:00" endTime="2026-10-11T08:01:47.7739185+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="80bd38a5-90bf-49aa-93c7-5e16960855fc">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 95
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 107
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1c0864a3-f94a-469a-94b2-ae7f6aa711e5" testId="853d48c0-d80e-5946-0386-e6995f275b1a" testName="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;digest&quot;)" computerName="552716c6b8c5" duration="00:00:00.0842930" startTime="2026-10-11T08:01:47.6120525+00:00" endTime="2026-10-11T08:01:47.6966972+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1c0864a3-f94a-469a-94b2-ae7f6aa711e5">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 95
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 107
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6afa8b36-d714-43d8-a746-c8e5ff81d8bd" testId="5afde805-4863-dca7-4687-586c0bb56ba5" testName="KuaiYi.Core.Tests.InstalledRoleFilesTests.EntireManagedRoleMustMatchReceipt(fault: &quot;changed-host-dll&quot;)" computerName="552716c6b8c5" duration="00:00:00.0064158" startTime="2026-10-11T08:01:45.1662796+00:00" endTime="2026-10-11T08:01:45.1663102+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6afa8b36-d714-43d8-a746-c8e5ff81d8bd" />
+    <UnitTestResult executionId="b5260893-562c-4a49-ba49-398e677c4b5d" testId="bb72cc64-3000-db0f-3e6f-6dd59a0b0f01" testName="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;wrong-id&quot;)" computerName="552716c6b8c5" duration="00:00:00.0956109" startTime="2026-10-11T08:01:48.0889617+00:00" endTime="2026-10-11T08:01:48.1845499+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b5260893-562c-4a49-ba49-398e677c4b5d">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 95
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 107
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9aa7e7df-e486-4f30-872c-ef11604b596e" testId="fae6c465-fbfc-ee0d-1b15-d46e7414d102" testName="KuaiYi.Core.Tests.InstalledRoleFilesTests.EntireManagedRoleMustMatchReceipt(fault: &quot;valid&quot;)" computerName="552716c6b8c5" duration="00:00:00.0074396" startTime="2026-10-11T08:01:45.1661902+00:00" endTime="2026-10-11T08:01:45.1662246+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9aa7e7df-e486-4f30-872c-ef11604b596e" />
+    <UnitTestResult executionId="0bd21af3-1206-44ba-9c6a-3d984fd212d5" testId="09b20676-a70c-e1f0-552d-8710d46b799c" testName="KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(length: 0)" computerName="552716c6b8c5" duration="00:00:00.0798500" startTime="2026-10-11T08:01:46.3860456+00:00" endTime="2026-10-11T08:01:46.4657553+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0bd21af3-1206-44ba-9c6a-3d984fd212d5" />
+    <UnitTestResult executionId="da4c3f39-fe73-4a0f-8d01-d2426cc6b64d" testId="fe52a96e-0986-983d-f48e-63728ea40793" testName="KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(length: 20971520)" computerName="552716c6b8c5" duration="00:00:00.0855844" startTime="2026-10-11T08:01:45.2271697+00:00" endTime="2026-10-11T08:01:45.2954335+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="da4c3f39-fe73-4a0f-8d01-d2426cc6b64d">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(Int32 length) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 58
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(Int32 length) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 61
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ee3fdcd9-6b25-45c8-a6a4-c9d44a346bf0" testId="098ea1e9-b74b-ea66-405e-9adc383c26e4" testName="KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(length: 262145)" computerName="552716c6b8c5" duration="00:00:00.0843056" startTime="2026-10-11T08:01:46.2258741+00:00" endTime="2026-10-11T08:01:46.3103990+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ee3fdcd9-6b25-45c8-a6a4-c9d44a346bf0" />
+    <UnitTestResult executionId="a7cd12d3-c796-4aa7-91ed-123c42f5042f" testId="64b14863-6629-415a-7fb3-926293dbcff3" testName="KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(length: 3)" computerName="552716c6b8c5" duration="00:00:00.0977679" startTime="2026-10-11T08:01:45.1122045+00:00" endTime="2026-10-11T08:01:45.2089601+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a7cd12d3-c796-4aa7-91ed-123c42f5042f">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(Int32 length) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 58
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(Int32 length) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 61
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="17ee5679-338a-4a5a-957a-3e27616ce9ca" testId="9d2cfbc9-f8fd-a5fc-a7d0-049749e9b88d" testName="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;wrong-commit&quot;)" computerName="552716c6b8c5" duration="00:00:00.0812751" startTime="2026-10-11T08:01:47.8528286+00:00" endTime="2026-10-11T08:01:47.9342208+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="17ee5679-338a-4a5a-957a-3e27616ce9ca">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 95
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 107
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1cb87d83-a5bc-496f-b04b-1f043d03bda6" testId="5b06304d-f7f4-a4f9-d6db-b21b08c8707f" testName="KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(mode: &quot;ipc-disconnect&quot;, code: &quot;Disconnected&quot;)" computerName="552716c6b8c5" duration="00:00:00.0827701" startTime="2026-10-11T08:01:46.9713481+00:00" endTime="2026-10-11T08:01:47.0544510+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1cb87d83-a5bc-496f-b04b-1f043d03bda6">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(String mode, String code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 142
+   at KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(String mode, String code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 143
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8fa45d23-659f-420d-b8ca-7e96a089f81b" testId="c8352dbe-f0c0-e36c-48f1-4782582aa354" testName="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;incomplete&quot;)" computerName="552716c6b8c5" duration="00:00:00.0798002" startTime="2026-10-11T08:01:48.2605081+00:00" endTime="2026-10-11T08:01:48.3404545+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8fa45d23-659f-420d-b8ca-7e96a089f81b">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 95
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 107
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2e27cf80-ddfd-4ba3-a1cb-825de6094ac1" testId="420b4615-affd-e55b-948b-adde0bec4c00" testName="KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(mode: &quot;stale-b&quot;)" computerName="552716c6b8c5" duration="00:00:00.0915729" startTime="2026-10-11T08:01:46.7986039+00:00" endTime="2026-10-11T08:01:46.8913519+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2e27cf80-ddfd-4ba3-a1cb-825de6094ac1">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 72
+   at KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 73
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f3bd702c-f187-4f72-9217-f63c8b232842" testId="37663545-7648-e48e-6b44-5c26f85a167d" testName="KuaiYi.Core.Tests.InstalledRoleFilesTests.EntireManagedRoleMustMatchReceipt(fault: &quot;unknown&quot;)" computerName="552716c6b8c5" duration="00:00:00.0009363" startTime="2026-10-11T08:01:45.1611515+00:00" endTime="2026-10-11T08:01:45.1613142+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f3bd702c-f187-4f72-9217-f63c8b232842" />
+    <UnitTestResult executionId="2b15e0b1-799b-486f-8224-20e5425390d7" testId="0cd3dd70-616f-fbfd-ea94-1b3fac297565" testName="KuaiYi.Core.Tests.BrowserHostTests.ProductionHostNeverUsesFixtureOrUnconfiguredOrigin(origin: &quot;chrome-extension://aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;···)" computerName="552716c6b8c5" duration="00:00:00.0507399" startTime="2026-10-11T08:01:46.0730338+00:00" endTime="2026-10-11T08:01:46.1229239+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2b15e0b1-799b-486f-8224-20e5425390d7" />
+    <UnitTestResult executionId="58f01d2a-fc38-4236-af05-63bee50225f3" testId="bb97f956-1e25-5fd2-b9c0-29f9186385a2" testName="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;duplicate-offer&quot;)" computerName="552716c6b8c5" duration="00:00:00.0817641" startTime="2026-10-11T08:01:45.5857352+00:00" endTime="2026-10-11T08:01:45.6676706+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="58f01d2a-fc38-4236-af05-63bee50225f3">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 113
+   at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 118
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="15887277-b4ee-48eb-8365-871547c3dfaa" testId="0d0684b5-639a-3d70-fabb-2166e3654953" testName="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;no-offer&quot;)" computerName="552716c6b8c5" duration="00:00:00.1156670" startTime="2026-10-11T08:01:45.3896320+00:00" endTime="2026-10-11T08:01:45.5060238+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="15887277-b4ee-48eb-8365-871547c3dfaa" />
+    <UnitTestResult executionId="b9625a3c-228b-4ea3-be02-e8a6aab99bc9" testId="921da71d-8900-ae94-39b8-637aba737fc8" testName="KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(chunk: True)" computerName="552716c6b8c5" duration="00:00:00.0745453" startTime="2026-10-11T08:01:48.5821118+00:00" endTime="2026-10-11T08:01:48.6565460+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b9625a3c-228b-4ea3-be02-e8a6aab99bc9">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(Boolean chunk) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 85
+   at KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(Boolean chunk) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 86
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1b5baec2-d229-4a6e-bcc3-574dfd0bec9e" testId="a5fe88b2-02d9-6442-eb86-5a7e74b318e3" testName="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;mime&quot;)" computerName="552716c6b8c5" duration="00:00:00.0835974" startTime="2026-10-11T08:01:45.8549381+00:00" endTime="2026-10-11T08:01:45.9366269+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1b5baec2-d229-4a6e-bcc3-574dfd0bec9e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 113
+   at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 118
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="349b3a69-f847-492f-b30d-b62270229968" testId="a8eedef4-66aa-5780-22d1-3040ee89ffa4" testName="KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(fault: &quot;truncated&quot;)" computerName="552716c6b8c5" duration="00:00:00.0700244" startTime="2026-10-11T08:01:47.4713651+00:00" endTime="2026-10-11T08:01:47.5396259+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="349b3a69-f847-492f-b30d-b62270229968" />
+    <UnitTestResult executionId="bef27bbe-7fc3-43ac-85e7-f69b4fbc2c0a" testId="a6409756-347d-43ac-3b15-a9a36e526c06" testName="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;wrong-cancel&quot;)" computerName="552716c6b8c5" duration="00:00:00.0773138" startTime="2026-10-11T08:01:48.0106318+00:00" endTime="2026-10-11T08:01:48.0882133+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bef27bbe-7fc3-43ac-85e7-f69b4fbc2c0a">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 95
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 107
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="88d877a9-d123-420a-9db6-ee38675d91e2" testId="7417f7b7-2e94-f4b0-5f06-4f2eae30fe87" testName="KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(mode: &quot;wrong-grant&quot;, code: &quot;DesktopUntrusted&quot;)" computerName="552716c6b8c5" duration="00:00:00.0779694" startTime="2026-10-11T08:01:47.2424296+00:00" endTime="2026-10-11T08:01:47.3210713+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="88d877a9-d123-420a-9db6-ee38675d91e2">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "DesktopUntrusted"
+Actual:   "InternalFailure"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(String mode, String code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 66
+   at KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(String mode, String code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 67
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="567248a8-f725-430f-9fde-fd107417d4b5" testId="02f2a800-cb7c-655f-6a71-fa93a6cb4d8b" testName="KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(mode: &quot;locked&quot;)" computerName="552716c6b8c5" duration="00:00:00.0782316" startTime="2026-10-11T08:01:46.6415993+00:00" endTime="2026-10-11T08:01:46.7199901+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="567248a8-f725-430f-9fde-fd107417d4b5">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 72
+   at KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 73
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7efe7456-0cb3-44d9-9dbc-d918b255f5f3" testId="903883f1-832f-7bb2-0452-a947417886b2" testName="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;duplicate&quot;)" computerName="552716c6b8c5" duration="00:00:00.0777568" startTime="2026-10-11T08:01:47.7744114+00:00" endTime="2026-10-11T08:01:47.8523357+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7efe7456-0cb3-44d9-9dbc-d918b255f5f3">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 95
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 107
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f3691889-f30f-45dc-96ce-05abb133db1e" testId="027a0c0a-34c2-3a8c-3f6b-314364584925" testName="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;duplicate-begin&quot;)" computerName="552716c6b8c5" duration="00:00:00.0873807" startTime="2026-10-11T08:01:45.7651206+00:00" endTime="2026-10-11T08:01:45.8526710+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f3691889-f30f-45dc-96ce-05abb133db1e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 113
+   at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 118
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a1a91f52-2df6-425d-bde0-4cf8303f2593" testId="8a29411e-8344-e8c6-5a98-f3acc1be602e" testName="KuaiYi.Core.Tests.InstalledRoleFilesTests.EntireManagedRoleMustMatchReceipt(fault: &quot;path&quot;)" computerName="552716c6b8c5" duration="00:00:00.0001040" startTime="2026-10-11T08:01:45.1707039+00:00" endTime="2026-10-11T08:01:45.1707363+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a1a91f52-2df6-425d-bde0-4cf8303f2593" />
+    <UnitTestResult executionId="d599eaeb-a269-4708-bb78-4915fb44a77d" testId="2fef62f3-5e04-e5a2-5223-31134cf959e7" testName="KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(fault: &quot;duplicate-field&quot;)" computerName="552716c6b8c5" duration="00:00:00.0712557" startTime="2026-10-11T08:01:47.5399626+00:00" endTime="2026-10-11T08:01:47.6118303+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d599eaeb-a269-4708-bb78-4915fb44a77d" />
+    <UnitTestResult executionId="9bb00561-d680-4214-825f-6486b02420b3" testId="6d80d837-67c4-2f22-d2c5-cb7b71e9b990" testName="KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(mode: &quot;ipc-wrong-begun-id&quot;, code: &quot;Stale&quot;)" computerName="552716c6b8c5" duration="00:00:00.0873237" startTime="2026-10-11T08:01:47.0551034+00:00" endTime="2026-10-11T08:01:47.1435646+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9bb00561-d680-4214-825f-6486b02420b3">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(String mode, String code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 142
+   at KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(String mode, String code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 143
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cb8d8e32-7ee7-4692-b34d-8a74b3dc2363" testId="b0161e0d-6398-a44d-c5ad-37bbc77b832b" testName="KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(chunk: False)" computerName="552716c6b8c5" duration="00:00:00.0780571" startTime="2026-10-11T08:01:48.5035667+00:00" endTime="2026-10-11T08:01:48.5814132+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cb8d8e32-7ee7-4692-b34d-8a74b3dc2363">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(Boolean chunk) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 85
+   at KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(Boolean chunk) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 86
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e071736d-362d-4663-a1cd-05e0aeedd419" testId="e632cee3-a426-c933-1494-5bdf87515177" testName="KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(mode: &quot;ipc-wrong-connection&quot;, code: &quot;DesktopUntrusted&quot;)" computerName="552716c6b8c5" duration="00:00:00.0985222" startTime="2026-10-11T08:01:47.1440813+00:00" endTime="2026-10-11T08:01:47.2422156+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e071736d-362d-4663-a1cd-05e0aeedd419" />
+    <UnitTestResult executionId="b4b54c9e-c597-4d5c-8210-18724960d3ff" testId="319d81c6-0e80-4962-ad0b-79af5270a780" testName="KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(fault: &quot;utf8&quot;)" computerName="552716c6b8c5" duration="00:00:00.0698299" startTime="2026-10-11T08:01:47.4005307+00:00" endTime="2026-10-11T08:01:47.4692801+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b4b54c9e-c597-4d5c-8210-18724960d3ff" />
+    <UnitTestResult executionId="daf051a1-a6e5-4ca3-8035-800be5be265f" testId="b8156946-5d13-7a02-f2ea-68aad98467a6" testName="KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(mode: &quot;stale-off&quot;)" computerName="552716c6b8c5" duration="00:00:00.0770584" startTime="2026-10-11T08:01:46.7211115+00:00" endTime="2026-10-11T08:01:46.7980205+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="daf051a1-a6e5-4ca3-8035-800be5be265f">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 72
+   at KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 73
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="dc8bc380-4a0f-41ce-8be9-d8db633454e8" testId="d6b5857f-8b9a-7ad1-740d-13c462566c3e" testName="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;oversize&quot;)" computerName="552716c6b8c5" duration="00:00:00.0751884" startTime="2026-10-11T08:01:48.1854256+00:00" endTime="2026-10-11T08:01:48.2600880+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dc8bc380-4a0f-41ce-8be9-d8db633454e8">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 95
+   at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 107
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="663a12d9-955e-46a1-9883-f91ddb64f6c1" testId="8f780b2b-df92-4b89-5099-b87fd03d6158" testName="KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(length: 4294967295)" computerName="552716c6b8c5" duration="00:00:00.0747252" startTime="2026-10-11T08:01:46.3105972+00:00" endTime="2026-10-11T08:01:46.3858366+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="663a12d9-955e-46a1-9883-f91ddb64f6c1" />
+    <UnitTestResult executionId="247e28a6-707f-4c44-8acb-f1ced9d1c2ef" testId="cc564377-866b-fd64-be6f-5b67200435b1" testName="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;url&quot;)" computerName="552716c6b8c5" duration="00:00:00.0957331" startTime="2026-10-11T08:01:45.6681138+00:00" endTime="2026-10-11T08:01:45.7644834+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="247e28a6-707f-4c44-8acb-f1ced9d1c2ef">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 113
+   at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 118
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a5df1d41-c899-4e6d-b9e4-e56cf8a1292b" testId="b23fa3f3-410d-63fb-31c2-0b2a9c7646b7" testName="KuaiYi.Core.Tests.InstalledRoleFilesTests.EntireManagedRoleMustMatchReceipt(fault: &quot;duplicate&quot;)" computerName="552716c6b8c5" duration="00:00:00.0002884" startTime="2026-10-11T08:01:45.1660603+00:00" endTime="2026-10-11T08:01:45.1661077+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a5df1d41-c899-4e6d-b9e4-e56cf8a1292b" />
+    <UnitTestResult executionId="93ab5d2e-1e84-417d-84f5-8aea41d1d9f8" testId="0d321792-5bce-d82f-bd06-e139c247b615" testName="KuaiYi.Core.Tests.BrowserHostTests.ProductionHostNeverUsesFixtureOrUnconfiguredOrigin(origin: &quot;--probe&quot;)" computerName="552716c6b8c5" duration="00:00:00.0518762" startTime="2026-10-11T08:01:46.1248030+00:00" endTime="2026-10-11T08:01:46.1752212+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="93ab5d2e-1e84-417d-84f5-8aea41d1d9f8" />
+    <UnitTestResult executionId="51f8b38c-b94d-4115-9270-1a2522e1252b" testId="3986e2fd-c1b0-99fe-1968-61a4092fc480" testName="KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(chunk: False)" computerName="552716c6b8c5" duration="00:00:00.0824131" startTime="2026-10-11T08:01:46.4659888+00:00" endTime="2026-10-11T08:01:46.5490039+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="51f8b38c-b94d-4115-9270-1a2522e1252b">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(Boolean chunk) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 78
+   at KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(Boolean chunk) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 80
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="fffaa8eb-a60a-4289-9daa-29f509c04eca" testId="14bfb268-559b-2bd9-130b-6969679bdab9" testName="KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(chunk: True)" computerName="552716c6b8c5" duration="00:00:00.0914367" startTime="2026-10-11T08:01:46.5495954+00:00" endTime="2026-10-11T08:01:46.6410368+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fffaa8eb-a60a-4289-9daa-29f509c04eca">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Ready"
+Actual:   "Error"
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 32
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 28
+   at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 48
+   at KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(Boolean chunk) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 78
+   at KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(Boolean chunk) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 80
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.InstalledRoleFilesTests.EntireManagedRoleMustMatchReceipt(fault: &quot;missing-dll&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="170e5799-bd4d-fb26-1918-dbf4cf0368d1">
+      <Execution id="320d9828-e122-434f-b33e-b3cdf08e70ea" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstalledRoleFilesTests" name="EntireManagedRoleMustMatchReceipt" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.PngPixelLimitCheckedAfterMatchingDigestBeforeDelivery" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="625e488e-bbb5-9827-3acc-a57de1e536f1">
+      <Execution id="c6c62f87-768d-4cb7-923c-3fe939548f7b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="PngPixelLimitCheckedAfterMatchingDigestBeforeDelivery" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;digest&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="853d48c0-d80e-5946-0386-e6995f275b1a">
+      <Execution id="1c0864a3-f94a-469a-94b2-ae7f6aa711e5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ActualFrameErrorsAbortWithoutDesktopSubmission" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;activation-claim&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="f83a4298-97ad-2207-747c-b868340469ae">
+      <Execution id="551800a1-3126-4d6d-9f7f-7a19a0df0537" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="UnsupportedDeclarationCannotObtainPrivilege" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(fault: &quot;truncated&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a8eedef4-66aa-5780-22d1-3040ee89ffa4">
+      <Execution id="349b3a69-f847-492f-b30d-b62270229968" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="BinaryStdioMalformedInputIsNotLoggedOrEchoed" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstalledRoleFilesTests.EntireManagedRoleMustMatchReceipt(fault: &quot;valid&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="fae6c465-fbfc-ee0d-1b15-d46e7414d102">
+      <Execution id="9aa7e7df-e486-4f30-872c-ef11604b596e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstalledRoleFilesTests" name="EntireManagedRoleMustMatchReceipt" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;extra-field&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="31bbdb4d-abda-7cba-1df3-e4c3e94f2867">
+      <Execution id="b43383bb-1124-43f6-88f9-5ea0522e10a3" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ActualFrameErrorsAbortWithoutDesktopSubmission" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(chunk: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="3986e2fd-c1b0-99fe-1968-61a4092fc480">
+      <Execution id="51f8b38c-b94d-4115-9270-1a2522e1252b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="CancelBeforeOrAfterChunkNeverSubmits" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.AbsoluteDeadlineEndsIdleConnectionAndDisposesGrant" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="bb70ecf2-62c7-a8a9-dcb8-f58e543e9d3e">
+      <Execution id="cc458ae7-d3fc-4d50-be6a-7a613ba0aab4" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="AbsoluteDeadlineEndsIdleConnectionAndDisposesGrant" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(mode: &quot;ipc-wrong-begun-id&quot;, code: &quot;Stale&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="6d80d837-67c4-2f22-d2c5-cb7b71e9b990">
+      <Execution id="9bb00561-d680-4214-825f-6486b02420b3" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="RealInternalPipeRejectsPeerReplyOrLostAuthority" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(chunk: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="14bfb268-559b-2bd9-130b-6969679bdab9">
+      <Execution id="fffaa8eb-a60a-4289-9daa-29f509c04eca" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="CancelBeforeOrAfterChunkNeverSubmits" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(length: 262145)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="098ea1e9-b74b-ea66-405e-9adc383c26e4">
+      <Execution id="ee3fdcd9-6b25-45c8-a6a4-c9d44a346bf0" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="DeclaredUnsignedLengthRejectedBeforePayloadAllocation" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(mode: &quot;stale-off&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b8156946-5d13-7a02-f2ea-68aad98467a6">
+      <Execution id="daf051a1-a6e5-4ca3-8035-800be5be265f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="GateInvalidationBeforeSubmissionCannotDeliverOldImage" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(mode: &quot;ipc-off-at-begin&quot;, code: &quot;Stale&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="5d418e59-e45e-894f-d0e5-0344001a04c8">
+      <Execution id="8c0b1588-c114-4518-ae46-6d2a9d4fc681" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="RealInternalPipeRejectsPeerReplyOrLostAuthority" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(mode: &quot;off&quot;, code: &quot;ActivationRequired&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="74bab4ed-f29f-846b-a3b4-57a8e9b7a76a">
+      <Execution id="97c551a5-8d65-48ae-9fd5-cbed8508b750" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="DesktopAuthorityMustGrantBeforeBegin" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(mode: &quot;locked&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="02f2a800-cb7c-655f-6a71-fa93a6cb4d8b">
+      <Execution id="567248a8-f725-430f-9fde-fd107417d4b5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="GateInvalidationBeforeSubmissionCannotDeliverOldImage" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;duplicate&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="903883f1-832f-7bb2-0452-a947417886b2">
+      <Execution id="7efe7456-0cb3-44d9-9dbc-d918b255f5f3" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ActualFrameErrorsAbortWithoutDesktopSubmission" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(fault: &quot;duplicate-field&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="2fef62f3-5e04-e5a2-5223-31134cf959e7">
+      <Execution id="d599eaeb-a269-4708-bb78-4915fb44a77d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="BinaryStdioMalformedInputIsNotLoggedOrEchoed" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;duplicate-offer&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="bb97f956-1e25-5fd2-b9c0-29f9186385a2">
+      <Execution id="58f01d2a-fc38-4236-af05-63bee50225f3" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="UnsupportedDeclarationCannotObtainPrivilege" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(mode: &quot;ipc-wrong-connection&quot;, code: &quot;DesktopUntrusted&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="e632cee3-a426-c933-1494-5bdf87515177">
+      <Execution id="e071736d-362d-4663-a1cd-05e0aeedd419" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="RealInternalPipeRejectsPeerReplyOrLostAuthority" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(length: 0)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="09b20676-a70c-e1f0-552d-8710d46b799c">
+      <Execution id="0bd21af3-1206-44ba-9c6a-3d984fd212d5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="DeclaredUnsignedLengthRejectedBeforePayloadAllocation" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(length: 4294967295)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="8f780b2b-df92-4b89-5099-b87fd03d6158">
+      <Execution id="663a12d9-955e-46a1-9883-f91ddb64f6c1" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="DeclaredUnsignedLengthRejectedBeforePayloadAllocation" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;url&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="cc564377-866b-fd64-be6f-5b67200435b1">
+      <Execution id="247e28a6-707f-4c44-8acb-f1ced9d1c2ef" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="UnsupportedDeclarationCannotObtainPrivilege" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(chunk: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="921da71d-8900-ae94-39b8-637aba737fc8">
+      <Execution id="b9625a3c-228b-4ea3-be02-e8a6aab99bc9" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="EofClearsUnfinishedOperation" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(chunk: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b0161e0d-6398-a44d-c5ad-37bbc77b832b">
+      <Execution id="cb8d8e32-7ee7-4692-b34d-8a74b3dc2363" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="EofClearsUnfinishedOperation" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ProductionHostNeverUsesFixtureOrUnconfiguredOrigin(origin: &quot;chrome-extension://*/&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="75685786-eb40-4e87-11ff-858510fddb23">
+      <Execution id="f1e6fef5-b59c-40a8-876d-e104a127871a" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ProductionHostNeverUsesFixtureOrUnconfiguredOrigin" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;order&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="668b1553-fb4f-9c11-e0d6-353974747b34">
+      <Execution id="80bd38a5-90bf-49aa-93c7-5e16960855fc" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ActualFrameErrorsAbortWithoutDesktopSubmission" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(mode: &quot;wrong-grant&quot;, code: &quot;DesktopUntrusted&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="7417f7b7-2e94-f4b0-5f06-4f2eae30fe87">
+      <Execution id="88d877a9-d123-420a-9db6-ee38675d91e2" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="DesktopAuthorityMustGrantBeforeBegin" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;no-offer&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="0d0684b5-639a-3d70-fabb-2166e3654953">
+      <Execution id="15887277-b4ee-48eb-8365-871547c3dfaa" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="UnsupportedDeclarationCannotObtainPrivilege" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;duplicate-begin&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="027a0c0a-34c2-3a8c-3f6b-314364584925">
+      <Execution id="f3691889-f30f-45dc-96ce-05abb133db1e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="UnsupportedDeclarationCannotObtainPrivilege" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ProductionHostNeverUsesFixtureOrUnconfiguredOrigin(origin: &quot;--probe&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="0d321792-5bce-d82f-bd06-e139c247b615">
+      <Execution id="93ab5d2e-1e84-417d-84f5-8aea41d1d9f8" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ProductionHostNeverUsesFixtureOrUnconfiguredOrigin" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;mime&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a5fe88b2-02d9-6442-eb86-5a7e74b318e3">
+      <Execution id="1b5baec2-d229-4a6e-bcc3-574dfd0bec9e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="UnsupportedDeclarationCannotObtainPrivilege" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;wrong-id&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="bb72cc64-3000-db0f-3e6f-6dd59a0b0f01">
+      <Execution id="b5260893-562c-4a49-ba49-398e677c4b5d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ActualFrameErrorsAbortWithoutDesktopSubmission" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(length: 20971520)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="fe52a96e-0986-983d-f48e-63728ea40793">
+      <Execution id="da4c3f39-fe73-4a0f-8d01-d2426cc6b64d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ActualHostLoopOffersChunksCommitsOnlyCompletePng" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;wrong-commit&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="9d2cfbc9-f8fd-a5fc-a7d0-049749e9b88d">
+      <Execution id="17ee5679-338a-4a5a-957a-3e27616ce9ca" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ActualFrameErrorsAbortWithoutDesktopSubmission" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstalledRoleFilesTests.EntireManagedRoleMustMatchReceipt(fault: &quot;unknown&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="37663545-7648-e48e-6b44-5c26f85a167d">
+      <Execution id="f3bd702c-f187-4f72-9217-f63c8b232842" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstalledRoleFilesTests" name="EntireManagedRoleMustMatchReceipt" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstalledRoleFilesTests.EntireManagedRoleMustMatchReceipt(fault: &quot;path&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="8a29411e-8344-e8c6-5a98-f3acc1be602e">
+      <Execution id="a1a91f52-2df6-425d-bde0-4cf8303f2593" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstalledRoleFilesTests" name="EntireManagedRoleMustMatchReceipt" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ProductionHostNeverUsesFixtureOrUnconfiguredOrigin(origin: &quot;chrome-extension://aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;···)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="0cd3dd70-616f-fbfd-ea94-1b3fac297565">
+      <Execution id="2b15e0b1-799b-486f-8224-20e5425390d7" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ProductionHostNeverUsesFixtureOrUnconfiguredOrigin" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(fault: &quot;utf8&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="319d81c6-0e80-4962-ad0b-79af5270a780">
+      <Execution id="b4b54c9e-c597-4d5c-8210-18724960d3ff" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="BinaryStdioMalformedInputIsNotLoggedOrEchoed" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(length: 3)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="64b14863-6629-415a-7fb3-926293dbcff3">
+      <Execution id="a7cd12d3-c796-4aa7-91ed-123c42f5042f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ActualHostLoopOffersChunksCommitsOnlyCompletePng" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstalledRoleFilesTests.EntireManagedRoleMustMatchReceipt(fault: &quot;changed-host-dll&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="5afde805-4863-dca7-4687-586c0bb56ba5">
+      <Execution id="6afa8b36-d714-43d8-a746-c8e5ff81d8bd" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstalledRoleFilesTests" name="EntireManagedRoleMustMatchReceipt" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;oversize&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="d6b5857f-8b9a-7ad1-740d-13c462566c3e">
+      <Execution id="dc8bc380-4a0f-41ce-8be9-d8db633454e8" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ActualFrameErrorsAbortWithoutDesktopSubmission" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;incomplete&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="c8352dbe-f0c0-e36c-48f1-4782582aa354">
+      <Execution id="8fa45d23-659f-420d-b8ca-7e96a089f81b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ActualFrameErrorsAbortWithoutDesktopSubmission" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: &quot;wrong-cancel&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a6409756-347d-43ac-3b15-a9a36e526c06">
+      <Execution id="bef27bbe-7fc3-43ac-85e7-f69b4fbc2c0a" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ActualFrameErrorsAbortWithoutDesktopSubmission" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(mode: &quot;ipc-disconnect&quot;, code: &quot;Disconnected&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="5b06304d-f7f4-a4f9-d6db-b21b08c8707f">
+      <Execution id="1cb87d83-a5bc-496f-b04b-1f043d03bda6" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="RealInternalPipeRejectsPeerReplyOrLostAuthority" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(mode: &quot;stale-b&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="420b4615-affd-e55b-948b-adde0bec4c00">
+      <Execution id="2e27cf80-ddfd-4ba3-a1cb-825de6094ac1" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="GateInvalidationBeforeSubmissionCannotDeliverOldImage" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(length: 1)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="c9ec6639-f981-bb65-40e4-e2007fb06356">
+      <Execution id="85409337-04a3-4560-a9fd-59f71e470d0b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ActualHostLoopOffersChunksCommitsOnlyCompletePng" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstalledRoleFilesTests.EntireManagedRoleMustMatchReceipt(fault: &quot;changed-app-dll&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="9d7383ce-a3ae-6402-a6b1-9b823f898a41">
+      <Execution id="7fd1f1ae-0e5b-41e5-91dc-ed218d05aa72" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstalledRoleFilesTests" name="EntireManagedRoleMustMatchReceipt" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: &quot;length&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b54659ed-9504-e44f-d6fa-1bc30616e796">
+      <Execution id="28e90b03-d736-495b-b729-88956c78288f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="UnsupportedDeclarationCannotObtainPrivilege" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstalledRoleFilesTests.EntireManagedRoleMustMatchReceipt(fault: &quot;duplicate&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b23fa3f3-410d-63fb-31c2-0b2a9c7646b7">
+      <Execution id="a5df1d41-c899-4e6d-b9e4-e56cf8a1292b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstalledRoleFilesTests" name="EntireManagedRoleMustMatchReceipt" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.BrowserHostTests.ProductionHostNeverUsesFixtureOrUnconfiguredOrigin(origin: &quot;chrome-extension://aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;···)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="6a9fa145-bd23-830a-cb10-2cdebbffa301">
+      <Execution id="63cbbf0c-d317-45d0-a78d-c83849e46875" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.BrowserHostTests" name="ProductionHostNeverUsesFixtureOrUnconfiguredOrigin" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="74bab4ed-f29f-846b-a3b4-57a8e9b7a76a" executionId="97c551a5-8d65-48ae-9fd5-cbed8508b750" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="75685786-eb40-4e87-11ff-858510fddb23" executionId="f1e6fef5-b59c-40a8-876d-e104a127871a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9d7383ce-a3ae-6402-a6b1-9b823f898a41" executionId="7fd1f1ae-0e5b-41e5-91dc-ed218d05aa72" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f83a4298-97ad-2207-747c-b868340469ae" executionId="551800a1-3126-4d6d-9f7f-7a19a0df0537" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6a9fa145-bd23-830a-cb10-2cdebbffa301" executionId="63cbbf0c-d317-45d0-a78d-c83849e46875" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="31bbdb4d-abda-7cba-1df3-e4c3e94f2867" executionId="b43383bb-1124-43f6-88f9-5ea0522e10a3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bb70ecf2-62c7-a8a9-dcb8-f58e543e9d3e" executionId="cc458ae7-d3fc-4d50-be6a-7a613ba0aab4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5d418e59-e45e-894f-d0e5-0344001a04c8" executionId="8c0b1588-c114-4518-ae46-6d2a9d4fc681" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="625e488e-bbb5-9827-3acc-a57de1e536f1" executionId="c6c62f87-768d-4cb7-923c-3fe939548f7b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="170e5799-bd4d-fb26-1918-dbf4cf0368d1" executionId="320d9828-e122-434f-b33e-b3cdf08e70ea" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c9ec6639-f981-bb65-40e4-e2007fb06356" executionId="85409337-04a3-4560-a9fd-59f71e470d0b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b54659ed-9504-e44f-d6fa-1bc30616e796" executionId="28e90b03-d736-495b-b729-88956c78288f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="668b1553-fb4f-9c11-e0d6-353974747b34" executionId="80bd38a5-90bf-49aa-93c7-5e16960855fc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="853d48c0-d80e-5946-0386-e6995f275b1a" executionId="1c0864a3-f94a-469a-94b2-ae7f6aa711e5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5afde805-4863-dca7-4687-586c0bb56ba5" executionId="6afa8b36-d714-43d8-a746-c8e5ff81d8bd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bb72cc64-3000-db0f-3e6f-6dd59a0b0f01" executionId="b5260893-562c-4a49-ba49-398e677c4b5d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fae6c465-fbfc-ee0d-1b15-d46e7414d102" executionId="9aa7e7df-e486-4f30-872c-ef11604b596e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="09b20676-a70c-e1f0-552d-8710d46b799c" executionId="0bd21af3-1206-44ba-9c6a-3d984fd212d5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fe52a96e-0986-983d-f48e-63728ea40793" executionId="da4c3f39-fe73-4a0f-8d01-d2426cc6b64d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="098ea1e9-b74b-ea66-405e-9adc383c26e4" executionId="ee3fdcd9-6b25-45c8-a6a4-c9d44a346bf0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="64b14863-6629-415a-7fb3-926293dbcff3" executionId="a7cd12d3-c796-4aa7-91ed-123c42f5042f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9d2cfbc9-f8fd-a5fc-a7d0-049749e9b88d" executionId="17ee5679-338a-4a5a-957a-3e27616ce9ca" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5b06304d-f7f4-a4f9-d6db-b21b08c8707f" executionId="1cb87d83-a5bc-496f-b04b-1f043d03bda6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c8352dbe-f0c0-e36c-48f1-4782582aa354" executionId="8fa45d23-659f-420d-b8ca-7e96a089f81b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="420b4615-affd-e55b-948b-adde0bec4c00" executionId="2e27cf80-ddfd-4ba3-a1cb-825de6094ac1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="37663545-7648-e48e-6b44-5c26f85a167d" executionId="f3bd702c-f187-4f72-9217-f63c8b232842" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0cd3dd70-616f-fbfd-ea94-1b3fac297565" executionId="2b15e0b1-799b-486f-8224-20e5425390d7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bb97f956-1e25-5fd2-b9c0-29f9186385a2" executionId="58f01d2a-fc38-4236-af05-63bee50225f3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0d0684b5-639a-3d70-fabb-2166e3654953" executionId="15887277-b4ee-48eb-8365-871547c3dfaa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="921da71d-8900-ae94-39b8-637aba737fc8" executionId="b9625a3c-228b-4ea3-be02-e8a6aab99bc9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a5fe88b2-02d9-6442-eb86-5a7e74b318e3" executionId="1b5baec2-d229-4a6e-bcc3-574dfd0bec9e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a8eedef4-66aa-5780-22d1-3040ee89ffa4" executionId="349b3a69-f847-492f-b30d-b62270229968" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a6409756-347d-43ac-3b15-a9a36e526c06" executionId="bef27bbe-7fc3-43ac-85e7-f69b4fbc2c0a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7417f7b7-2e94-f4b0-5f06-4f2eae30fe87" executionId="88d877a9-d123-420a-9db6-ee38675d91e2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="02f2a800-cb7c-655f-6a71-fa93a6cb4d8b" executionId="567248a8-f725-430f-9fde-fd107417d4b5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="903883f1-832f-7bb2-0452-a947417886b2" executionId="7efe7456-0cb3-44d9-9dbc-d918b255f5f3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="027a0c0a-34c2-3a8c-3f6b-314364584925" executionId="f3691889-f30f-45dc-96ce-05abb133db1e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8a29411e-8344-e8c6-5a98-f3acc1be602e" executionId="a1a91f52-2df6-425d-bde0-4cf8303f2593" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2fef62f3-5e04-e5a2-5223-31134cf959e7" executionId="d599eaeb-a269-4708-bb78-4915fb44a77d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6d80d837-67c4-2f22-d2c5-cb7b71e9b990" executionId="9bb00561-d680-4214-825f-6486b02420b3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b0161e0d-6398-a44d-c5ad-37bbc77b832b" executionId="cb8d8e32-7ee7-4692-b34d-8a74b3dc2363" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e632cee3-a426-c933-1494-5bdf87515177" executionId="e071736d-362d-4663-a1cd-05e0aeedd419" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="319d81c6-0e80-4962-ad0b-79af5270a780" executionId="b4b54c9e-c597-4d5c-8210-18724960d3ff" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b8156946-5d13-7a02-f2ea-68aad98467a6" executionId="daf051a1-a6e5-4ca3-8035-800be5be265f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d6b5857f-8b9a-7ad1-740d-13c462566c3e" executionId="dc8bc380-4a0f-41ce-8be9-d8db633454e8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8f780b2b-df92-4b89-5099-b87fd03d6158" executionId="663a12d9-955e-46a1-9883-f91ddb64f6c1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cc564377-866b-fd64-be6f-5b67200435b1" executionId="247e28a6-707f-4c44-8acb-f1ced9d1c2ef" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b23fa3f3-410d-63fb-31c2-0b2a9c7646b7" executionId="a5df1d41-c899-4e6d-b9e4-e56cf8a1292b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0d321792-5bce-d82f-bd06-e139c247b615" executionId="93ab5d2e-1e84-417d-84f5-8aea41d1d9f8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3986e2fd-c1b0-99fe-1968-61a4092fc480" executionId="51f8b38c-b94d-4115-9270-1a2522e1252b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="14bfb268-559b-2bd9-130b-6969679bdab9" executionId="fffaa8eb-a60a-4289-9daa-29f509c04eca" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="51" executed="51" passed="19" failed="32" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.05]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.12]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.15]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.29]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:00.29]                  ↓ (pos 0)
+[xUnit.net 00:00:00.30]       Expected: "Ready"
+[xUnit.net 00:00:00.30]       Actual:   "Error"
+[xUnit.net 00:00:00.30]                  ↑ (pos 0)
+[xUnit.net 00:00:00.30]       Stack Trace:
+[xUnit.net 00:00:00.30]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:00.30]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:00.30]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:00.30]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(58,0): at KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(Int32 length)
+[xUnit.net 00:00:00.30]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(61,0): at KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(Int32 length)
+[xUnit.net 00:00:00.30]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.37]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:00.37]                  ↓ (pos 0)
+[xUnit.net 00:00:00.37]       Expected: "Ready"
+[xUnit.net 00:00:00.37]       Actual:   "Error"
+[xUnit.net 00:00:00.37]                  ↑ (pos 0)
+[xUnit.net 00:00:00.37]       Stack Trace:
+[xUnit.net 00:00:00.37]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:00.37]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:00.37]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:00.37]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(58,0): at KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(Int32 length)
+[xUnit.net 00:00:00.37]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(61,0): at KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(Int32 length)
+[xUnit.net 00:00:00.37]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.47]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:00.47]                  ↓ (pos 0)
+[xUnit.net 00:00:00.47]       Expected: "Ready"
+[xUnit.net 00:00:00.47]       Actual:   "Error"
+[xUnit.net 00:00:00.47]                  ↑ (pos 0)
+[xUnit.net 00:00:00.47]       Stack Trace:
+[xUnit.net 00:00:00.47]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:00.47]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:00.47]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:00.47]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(58,0): at KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(Int32 length)
+[xUnit.net 00:00:00.47]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(61,0): at KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(Int32 length)
+[xUnit.net 00:00:00.47]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.66]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:00.66]                  ↓ (pos 0)
+[xUnit.net 00:00:00.66]       Expected: "Ready"
+[xUnit.net 00:00:00.66]       Actual:   "Error"
+[xUnit.net 00:00:00.66]                  ↑ (pos 0)
+[xUnit.net 00:00:00.66]       Stack Trace:
+[xUnit.net 00:00:00.66]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:00.66]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:00.66]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:00.66]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(113,0): at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault)
+[xUnit.net 00:00:00.66]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(118,0): at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault)
+[xUnit.net 00:00:00.66]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.74]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:00.74]                  ↓ (pos 0)
+[xUnit.net 00:00:00.74]       Expected: "Ready"
+[xUnit.net 00:00:00.74]       Actual:   "Error"
+[xUnit.net 00:00:00.74]                  ↑ (pos 0)
+[xUnit.net 00:00:00.74]       Stack Trace:
+[xUnit.net 00:00:00.74]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:00.74]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:00.74]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:00.74]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(113,0): at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault)
+[xUnit.net 00:00:00.74]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(118,0): at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault)
+[xUnit.net 00:00:00.74]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.84]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:00.84]                  ↓ (pos 0)
+[xUnit.net 00:00:00.84]       Expected: "Ready"
+[xUnit.net 00:00:00.84]       Actual:   "Error"
+[xUnit.net 00:00:00.84]                  ↑ (pos 0)
+[xUnit.net 00:00:00.84]       Stack Trace:
+[xUnit.net 00:00:00.84]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:00.84]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:00.84]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:00.84]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(113,0): at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault)
+[xUnit.net 00:00:00.84]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(118,0): at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault)
+[xUnit.net 00:00:00.84]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.93]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:00.93]                  ↓ (pos 0)
+[xUnit.net 00:00:00.93]       Expected: "Ready"
+[xUnit.net 00:00:00.93]       Actual:   "Error"
+[xUnit.net 00:00:00.93]                  ↑ (pos 0)
+[xUnit.net 00:00:00.93]       Stack Trace:
+[xUnit.net 00:00:00.93]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:00.93]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:00.93]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:00.93]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(113,0): at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault)
+[xUnit.net 00:00:00.93]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(118,0): at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault)
+[xUnit.net 00:00:00.93]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.01]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:01.01]                  ↓ (pos 0)
+[xUnit.net 00:00:01.01]       Expected: "Ready"
+[xUnit.net 00:00:01.01]       Actual:   "Error"
+[xUnit.net 00:00:01.01]                  ↑ (pos 0)
+[xUnit.net 00:00:01.01]       Stack Trace:
+[xUnit.net 00:00:01.01]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:01.01]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:01.01]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:01.01]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(113,0): at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault)
+[xUnit.net 00:00:01.01]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(118,0): at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault)
+[xUnit.net 00:00:01.01]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.10]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:01.10]                  ↓ (pos 0)
+[xUnit.net 00:00:01.10]       Expected: "Ready"
+[xUnit.net 00:00:01.10]       Actual:   "Error"
+[xUnit.net 00:00:01.10]                  ↑ (pos 0)
+[xUnit.net 00:00:01.10]       Stack Trace:
+[xUnit.net 00:00:01.10]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:01.10]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:01.10]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:01.10]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(113,0): at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault)
+[xUnit.net 00:00:01.10]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(118,0): at KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(String fault)
+[xUnit.net 00:00:01.10]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.63]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:01.63]                  ↓ (pos 0)
+[xUnit.net 00:00:01.63]       Expected: "Ready"
+[xUnit.net 00:00:01.63]       Actual:   "Error"
+[xUnit.net 00:00:01.63]                  ↑ (pos 0)
+[xUnit.net 00:00:01.63]       Stack Trace:
+[xUnit.net 00:00:01.63]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:01.63]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:01.63]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:01.63]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(78,0): at KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(Boolean chunk)
+[xUnit.net 00:00:01.63]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(80,0): at KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(Boolean chunk)
+[xUnit.net 00:00:01.63]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.72]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:01.72]                  ↓ (pos 0)
+[xUnit.net 00:00:01.72]       Expected: "Ready"
+[xUnit.net 00:00:01.72]       Actual:   "Error"
+[xUnit.net 00:00:01.72]                  ↑ (pos 0)
+[xUnit.net 00:00:01.72]       Stack Trace:
+[xUnit.net 00:00:01.72]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:01.72]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:01.72]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:01.72]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(78,0): at KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(Boolean chunk)
+[xUnit.net 00:00:01.72]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(80,0): at KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(Boolean chunk)
+[xUnit.net 00:00:01.72]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.80]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:01.80]                  ↓ (pos 0)
+[xUnit.net 00:00:01.80]       Expected: "Ready"
+[xUnit.net 00:00:01.80]       Actual:   "Error"
+[xUnit.net 00:00:01.80]                  ↑ (pos 0)
+[xUnit.net 00:00:01.80]       Stack Trace:
+[xUnit.net 00:00:01.80]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:01.80]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:01.80]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:01.80]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(72,0): at KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(String mode)
+[xUnit.net 00:00:01.80]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(73,0): at KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(String mode)
+[xUnit.net 00:00:01.80]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.88]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:01.88]                  ↓ (pos 0)
+[xUnit.net 00:00:01.88]       Expected: "Ready"
+[xUnit.net 00:00:01.88]       Actual:   "Error"
+[xUnit.net 00:00:01.88]                  ↑ (pos 0)
+[xUnit.net 00:00:01.88]       Stack Trace:
+[xUnit.net 00:00:01.88]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:01.88]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:01.88]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:01.88]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(72,0): at KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(String mode)
+[xUnit.net 00:00:01.88]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(73,0): at KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(String mode)
+[xUnit.net 00:00:01.88]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.97]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:01.97]                  ↓ (pos 0)
+[xUnit.net 00:00:01.97]       Expected: "Ready"
+[xUnit.net 00:00:01.97]       Actual:   "Error"
+[xUnit.net 00:00:01.97]                  ↑ (pos 0)
+[xUnit.net 00:00:01.97]       Stack Trace:
+[xUnit.net 00:00:01.97]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:01.97]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:01.97]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:01.97]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(72,0): at KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(String mode)
+[xUnit.net 00:00:01.97]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(73,0): at KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(String mode)
+[xUnit.net 00:00:01.97]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.05]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:02.05]                  ↓ (pos 0)
+[xUnit.net 00:00:02.05]       Expected: "Ready"
+[xUnit.net 00:00:02.05]       Actual:   "Error"
+[xUnit.net 00:00:02.05]                  ↑ (pos 0)
+[xUnit.net 00:00:02.05]       Stack Trace:
+[xUnit.net 00:00:02.05]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:02.05]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:02.05]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:02.05]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(142,0): at KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(String mode, String code)
+[xUnit.net 00:00:02.05]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(143,0): at KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(String mode, String code)
+[xUnit.net 00:00:02.05]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.13]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:02.13]                  ↓ (pos 0)
+[xUnit.net 00:00:02.13]       Expected: "Ready"
+[xUnit.net 00:00:02.13]       Actual:   "Error"
+[xUnit.net 00:00:02.13]                  ↑ (pos 0)
+[xUnit.net 00:00:02.13]       Stack Trace:
+[xUnit.net 00:00:02.13]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:02.13]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:02.13]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:02.13]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(142,0): at KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(String mode, String code)
+[xUnit.net 00:00:02.13]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(143,0): at KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(String mode, String code)
+[xUnit.net 00:00:02.13]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.22]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:02.22]                  ↓ (pos 0)
+[xUnit.net 00:00:02.22]       Expected: "Ready"
+[xUnit.net 00:00:02.22]       Actual:   "Error"
+[xUnit.net 00:00:02.22]                  ↑ (pos 0)
+[xUnit.net 00:00:02.22]       Stack Trace:
+[xUnit.net 00:00:02.22]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:02.22]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:02.22]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:02.22]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(142,0): at KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(String mode, String code)
+[xUnit.net 00:00:02.22]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(143,0): at KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(String mode, String code)
+[xUnit.net 00:00:02.22]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.40]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:02.40]                  ↓ (pos 0)
+[xUnit.net 00:00:02.40]       Expected: "DesktopUntrusted"
+[xUnit.net 00:00:02.40]       Actual:   "InternalFailure"
+[xUnit.net 00:00:02.40]                  ↑ (pos 0)
+[xUnit.net 00:00:02.40]       Stack Trace:
+[xUnit.net 00:00:02.40]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(66,0): at KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(String mode, String code)
+[xUnit.net 00:00:02.40]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(67,0): at KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(String mode, String code)
+[xUnit.net 00:00:02.40]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.48]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:02.48]                  ↓ (pos 0)
+[xUnit.net 00:00:02.48]       Expected: "ActivationRequired"
+[xUnit.net 00:00:02.48]       Actual:   "InternalFailure"
+[xUnit.net 00:00:02.48]                  ↑ (pos 0)
+[xUnit.net 00:00:02.48]       Stack Trace:
+[xUnit.net 00:00:02.48]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(66,0): at KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(String mode, String code)
+[xUnit.net 00:00:02.48]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(67,0): at KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(String mode, String code)
+[xUnit.net 00:00:02.48]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.77]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:02.77]                  ↓ (pos 0)
+[xUnit.net 00:00:02.77]       Expected: "Ready"
+[xUnit.net 00:00:02.77]       Actual:   "Error"
+[xUnit.net 00:00:02.77]                  ↑ (pos 0)
+[xUnit.net 00:00:02.77]       Stack Trace:
+[xUnit.net 00:00:02.77]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:02.77]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:02.77]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:02.77]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(95,0): at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault)
+[xUnit.net 00:00:02.77]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(107,0): at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault)
+[xUnit.net 00:00:02.77]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.85]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:02.85]                  ↓ (pos 0)
+[xUnit.net 00:00:02.85]       Expected: "Ready"
+[xUnit.net 00:00:02.85]       Actual:   "Error"
+[xUnit.net 00:00:02.85]                  ↑ (pos 0)
+[xUnit.net 00:00:02.85]       Stack Trace:
+[xUnit.net 00:00:02.85]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:02.85]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:02.85]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:02.85]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(95,0): at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault)
+[xUnit.net 00:00:02.85]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(107,0): at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault)
+[xUnit.net 00:00:02.85]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.93]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:02.93]                  ↓ (pos 0)
+[xUnit.net 00:00:02.93]       Expected: "Ready"
+[xUnit.net 00:00:02.93]       Actual:   "Error"
+[xUnit.net 00:00:02.93]                  ↑ (pos 0)
+[xUnit.net 00:00:02.93]       Stack Trace:
+[xUnit.net 00:00:02.93]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:02.93]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:02.93]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:02.93]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(95,0): at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault)
+[xUnit.net 00:00:02.93]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(107,0): at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault)
+[xUnit.net 00:00:02.93]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:03.01]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:03.01]                  ↓ (pos 0)
+[xUnit.net 00:00:03.01]       Expected: "Ready"
+[xUnit.net 00:00:03.01]       Actual:   "Error"
+[xUnit.net 00:00:03.01]                  ↑ (pos 0)
+[xUnit.net 00:00:03.01]       Stack Trace:
+[xUnit.net 00:00:03.01]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:03.01]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:03.01]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:03.01]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(95,0): at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault)
+[xUnit.net 00:00:03.01]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(107,0): at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault)
+[xUnit.net 00:00:03.01]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:03.09]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:03.09]                  ↓ (pos 0)
+[xUnit.net 00:00:03.09]       Expected: "Ready"
+[xUnit.net 00:00:03.09]       Actual:   "Error"
+[xUnit.net 00:00:03.09]                  ↑ (pos 0)
+[xUnit.net 00:00:03.09]       Stack Trace:
+[xUnit.net 00:00:03.09]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:03.09]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:03.09]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:03.09]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(95,0): at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault)
+[xUnit.net 00:00:03.09]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(107,0): at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault)
+[xUnit.net 00:00:03.09]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:03.17]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:03.17]                  ↓ (pos 0)
+[xUnit.net 00:00:03.17]       Expected: "Ready"
+[xUnit.net 00:00:03.17]       Actual:   "Error"
+[xUnit.net 00:00:03.17]                  ↑ (pos 0)
+[xUnit.net 00:00:03.17]       Stack Trace:
+[xUnit.net 00:00:03.17]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:03.17]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:03.17]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:03.17]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(95,0): at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault)
+[xUnit.net 00:00:03.17]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(107,0): at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault)
+[xUnit.net 00:00:03.17]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:03.26]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:03.26]                  ↓ (pos 0)
+[xUnit.net 00:00:03.26]       Expected: "Ready"
+[xUnit.net 00:00:03.26]       Actual:   "Error"
+[xUnit.net 00:00:03.26]                  ↑ (pos 0)
+[xUnit.net 00:00:03.26]       Stack Trace:
+[xUnit.net 00:00:03.26]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:03.26]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:03.26]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:03.26]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(95,0): at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault)
+[xUnit.net 00:00:03.26]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(107,0): at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault)
+[xUnit.net 00:00:03.26]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:03.34]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:03.34]                  ↓ (pos 0)
+[xUnit.net 00:00:03.34]       Expected: "Ready"
+[xUnit.net 00:00:03.34]       Actual:   "Error"
+[xUnit.net 00:00:03.34]                  ↑ (pos 0)
+[xUnit.net 00:00:03.34]       Stack Trace:
+[xUnit.net 00:00:03.34]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:03.34]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:03.34]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:03.34]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(95,0): at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault)
+[xUnit.net 00:00:03.34]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(107,0): at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault)
+[xUnit.net 00:00:03.34]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:03.42]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:03.42]                  ↓ (pos 0)
+[xUnit.net 00:00:03.42]       Expected: "Ready"
+[xUnit.net 00:00:03.42]       Actual:   "Error"
+[xUnit.net 00:00:03.42]                  ↑ (pos 0)
+[xUnit.net 00:00:03.42]       Stack Trace:
+[xUnit.net 00:00:03.42]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:03.42]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:03.42]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:03.42]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(95,0): at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault)
+[xUnit.net 00:00:03.42]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(107,0): at KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(String fault)
+[xUnit.net 00:00:03.42]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:03.50]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:03.50]                  ↓ (pos 0)
+[xUnit.net 00:00:03.50]       Expected: "Ready"
+[xUnit.net 00:00:03.50]       Actual:   "Error"
+[xUnit.net 00:00:03.50]                  ↑ (pos 0)
+[xUnit.net 00:00:03.50]       Stack Trace:
+[xUnit.net 00:00:03.50]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:03.50]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:03.50]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:03.50]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(135,0): at KuaiYi.Core.Tests.BrowserHostTests.PngPixelLimitCheckedAfterMatchingDigestBeforeDelivery()
+[xUnit.net 00:00:03.50]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(135,0): at KuaiYi.Core.Tests.BrowserHostTests.PngPixelLimitCheckedAfterMatchingDigestBeforeDelivery()
+[xUnit.net 00:00:03.50]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:03.58]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:03.58]                  ↓ (pos 0)
+[xUnit.net 00:00:03.58]       Expected: "Ready"
+[xUnit.net 00:00:03.58]       Actual:   "Error"
+[xUnit.net 00:00:03.58]                  ↑ (pos 0)
+[xUnit.net 00:00:03.58]       Stack Trace:
+[xUnit.net 00:00:03.58]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:03.58]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:03.58]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:03.58]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(90,0): at KuaiYi.Core.Tests.BrowserHostTests.AbsoluteDeadlineEndsIdleConnectionAndDisposesGrant()
+[xUnit.net 00:00:03.58]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(90,0): at KuaiYi.Core.Tests.BrowserHostTests.AbsoluteDeadlineEndsIdleConnectionAndDisposesGrant()
+[xUnit.net 00:00:03.58]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:03.66]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:03.66]                  ↓ (pos 0)
+[xUnit.net 00:00:03.66]       Expected: "Ready"
+[xUnit.net 00:00:03.66]       Actual:   "Error"
+[xUnit.net 00:00:03.66]                  ↑ (pos 0)
+[xUnit.net 00:00:03.66]       Stack Trace:
+[xUnit.net 00:00:03.66]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:03.66]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:03.66]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:03.66]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(85,0): at KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(Boolean chunk)
+[xUnit.net 00:00:03.66]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(86,0): at KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(Boolean chunk)
+[xUnit.net 00:00:03.66]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:03.73]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:03.73]                  ↓ (pos 0)
+[xUnit.net 00:00:03.73]       Expected: "Ready"
+[xUnit.net 00:00:03.73]       Actual:   "Error"
+[xUnit.net 00:00:03.73]                  ↑ (pos 0)
+[xUnit.net 00:00:03.73]       Stack Trace:
+[xUnit.net 00:00:03.73]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(32,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Read(String type)
+[xUnit.net 00:00:03.73]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(28,0): at KuaiYi.Core.Tests.BrowserHostTests.Child.Exchange(Object message, String type)
+[xUnit.net 00:00:03.73]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(48,0): at KuaiYi.Core.Tests.BrowserHostTests.Offer(Child child, Guid id)
+[xUnit.net 00:00:03.73]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(85,0): at KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(Boolean chunk)
+[xUnit.net 00:00:03.73]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs(86,0): at KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(Boolean chunk)
+[xUnit.net 00:00:03.73]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:03.74]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:45.2167863+00:00">
+        <Text>[xUnit.net 00:00:00.29]     KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(length: 3) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:45.2967146+00:00">
+        <Text>[xUnit.net 00:00:00.37]     KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(length: 20971520) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:45.3891772+00:00">
+        <Text>[xUnit.net 00:00:00.47]     KuaiYi.Core.Tests.BrowserHostTests.ActualHostLoopOffersChunksCommitsOnlyCompletePng(length: 1) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:45.5870235+00:00">
+        <Text>[xUnit.net 00:00:00.66]     KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: "length") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:45.6682653+00:00">
+        <Text>[xUnit.net 00:00:00.74]     KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: "duplicate-offer") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:45.7651884+00:00">
+        <Text>[xUnit.net 00:00:00.84]     KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: "url") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:45.8537722+00:00">
+        <Text>[xUnit.net 00:00:00.93]     KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: "duplicate-begin") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:45.9372757+00:00">
+        <Text>[xUnit.net 00:00:01.01]     KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: "mime") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:46.0193248+00:00">
+        <Text>[xUnit.net 00:00:01.10]     KuaiYi.Core.Tests.BrowserHostTests.UnsupportedDeclarationCannotObtainPrivilege(fault: "activation-claim") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:46.5495804+00:00">
+        <Text>[xUnit.net 00:00:01.63]     KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(chunk: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:46.6414725+00:00">
+        <Text>[xUnit.net 00:00:01.72]     KuaiYi.Core.Tests.BrowserHostTests.CancelBeforeOrAfterChunkNeverSubmits(chunk: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:46.7207419+00:00">
+        <Text>[xUnit.net 00:00:01.80]     KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(mode: "locked") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:46.7985059+00:00">
+        <Text>[xUnit.net 00:00:01.88]     KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(mode: "stale-off") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:46.8931083+00:00">
+        <Text>[xUnit.net 00:00:01.97]     KuaiYi.Core.Tests.BrowserHostTests.GateInvalidationBeforeSubmissionCannotDeliverOldImage(mode: "stale-b") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:46.9716084+00:00">
+        <Text>[xUnit.net 00:00:02.05]     KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(mode: "ipc-off-at-begin", code: "Stale") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:47.0548301+00:00">
+        <Text>[xUnit.net 00:00:02.13]     KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(mode: "ipc-disconnect", code: "Disconnected") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:47.1446346+00:00">
+        <Text>[xUnit.net 00:00:02.22]     KuaiYi.Core.Tests.BrowserHostTests.RealInternalPipeRejectsPeerReplyOrLostAuthority(mode: "ipc-wrong-begun-id", code: "Stale") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:47.3214241+00:00">
+        <Text>[xUnit.net 00:00:02.40]     KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(mode: "wrong-grant", code: "DesktopUntrusted") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:47.4007626+00:00">
+        <Text>[xUnit.net 00:00:02.48]     KuaiYi.Core.Tests.BrowserHostTests.DesktopAuthorityMustGrantBeforeBegin(mode: "off", code: "ActivationRequired") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:47.7002328+00:00">
+        <Text>[xUnit.net 00:00:02.77]     KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "digest") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:47.7742608+00:00">
+        <Text>[xUnit.net 00:00:02.85]     KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "order") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:47.8530284+00:00">
+        <Text>[xUnit.net 00:00:02.93]     KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "duplicate") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:47.9350142+00:00">
+        <Text>[xUnit.net 00:00:03.01]     KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "wrong-commit") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:48.0103443+00:00">
+        <Text>[xUnit.net 00:00:03.09]     KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "extra-field") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:48.0907713+00:00">
+        <Text>[xUnit.net 00:00:03.17]     KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "wrong-cancel") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:48.1856207+00:00">
+        <Text>[xUnit.net 00:00:03.26]     KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "wrong-id") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:48.2607056+00:00">
+        <Text>[xUnit.net 00:00:03.34]     KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "oversize") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:48.3408102+00:00">
+        <Text>[xUnit.net 00:00:03.42]     KuaiYi.Core.Tests.BrowserHostTests.ActualFrameErrorsAbortWithoutDesktopSubmission(fault: "incomplete") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:48.4211000+00:00">
+        <Text>[xUnit.net 00:00:03.50]     KuaiYi.Core.Tests.BrowserHostTests.PngPixelLimitCheckedAfterMatchingDigestBeforeDelivery [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:48.5037368+00:00">
+        <Text>[xUnit.net 00:00:03.58]     KuaiYi.Core.Tests.BrowserHostTests.AbsoluteDeadlineEndsIdleConnectionAndDisposesGrant [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:48.5817446+00:00">
+        <Text>[xUnit.net 00:00:03.66]     KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(chunk: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-11T08:01:48.6568776+00:00">
+        <Text>[xUnit.net 00:00:03.73]     KuaiYi.Core.Tests.BrowserHostTests.EofClearsUnfinishedOperation(chunk: True) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

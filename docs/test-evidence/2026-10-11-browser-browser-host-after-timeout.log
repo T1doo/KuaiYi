@@ -1,0 +1,90 @@
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:01.56]     KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(length: 262145) [FAIL]
+[xUnit.net 00:00:01.62]     KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(length: 4294967295) [FAIL]
+[xUnit.net 00:00:01.68]     KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(length: 0) [FAIL]
+  Failed KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(length: 262145) [76 ms]
+  Error Message:
+   System.Text.Json.JsonReaderException : 'N' is an invalid start of a value. LineNumber: 0 | BytePositionInLine: 0.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader& json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+   at System.Text.Json.Utf8JsonReader.ConsumeValue(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ReadFirstToken(Byte first)
+   at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+   at System.Text.Json.Utf8JsonReader.Read()
+   at System.Text.Json.JsonDocument.Parse(ReadOnlySpan`1 utf8JsonSpan, JsonReaderOptions readerOptions, MetadataDb& database, StackRowStack& stack)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 utf8Json, JsonReaderOptions readerOptions, Byte[] extraRentedArrayPoolBytes, PooledByteBufferWriter extraPooledByteBufferWriter, Boolean allowDuplicateProperties)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 json, JsonDocumentOptions options)
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Finish(Int32 code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 38
+   at KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(UInt32 length) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 122
+   at KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(UInt32 length) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 122
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(length: 4294967295) [64 ms]
+  Error Message:
+   System.Text.Json.JsonReaderException : 'N' is an invalid start of a value. LineNumber: 0 | BytePositionInLine: 0.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader& json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+   at System.Text.Json.Utf8JsonReader.ConsumeValue(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ReadFirstToken(Byte first)
+   at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+   at System.Text.Json.Utf8JsonReader.Read()
+   at System.Text.Json.JsonDocument.Parse(ReadOnlySpan`1 utf8JsonSpan, JsonReaderOptions readerOptions, MetadataDb& database, StackRowStack& stack)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 utf8Json, JsonReaderOptions readerOptions, Byte[] extraRentedArrayPoolBytes, PooledByteBufferWriter extraPooledByteBufferWriter, Boolean allowDuplicateProperties)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 json, JsonDocumentOptions options)
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Finish(Int32 code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 38
+   at KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(UInt32 length) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 122
+   at KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(UInt32 length) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 122
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(length: 0) [56 ms]
+  Error Message:
+   System.Text.Json.JsonReaderException : 'N' is an invalid start of a value. LineNumber: 0 | BytePositionInLine: 0.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader& json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+   at System.Text.Json.Utf8JsonReader.ConsumeValue(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ReadFirstToken(Byte first)
+   at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+   at System.Text.Json.Utf8JsonReader.Read()
+   at System.Text.Json.JsonDocument.Parse(ReadOnlySpan`1 utf8JsonSpan, JsonReaderOptions readerOptions, MetadataDb& database, StackRowStack& stack)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 utf8Json, JsonReaderOptions readerOptions, Byte[] extraRentedArrayPoolBytes, PooledByteBufferWriter extraPooledByteBufferWriter, Boolean allowDuplicateProperties)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 json, JsonDocumentOptions options)
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Finish(Int32 code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 38
+   at KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(UInt32 length) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 122
+   at KuaiYi.Core.Tests.BrowserHostTests.DeclaredUnsignedLengthRejectedBeforePayloadAllocation(UInt32 length) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 122
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:02.28]     KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(fault: "utf8") [FAIL]
+[xUnit.net 00:00:02.34]     KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(fault: "truncated") [FAIL]
+  Failed KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(fault: "utf8") [65 ms]
+  Error Message:
+   System.Text.Json.JsonReaderException : 'N' is an invalid start of a value. LineNumber: 0 | BytePositionInLine: 0.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader& json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+   at System.Text.Json.Utf8JsonReader.ConsumeValue(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ReadFirstToken(Byte first)
+   at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+   at System.Text.Json.Utf8JsonReader.Read()
+   at System.Text.Json.JsonDocument.Parse(ReadOnlySpan`1 utf8JsonSpan, JsonReaderOptions readerOptions, MetadataDb& database, StackRowStack& stack)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 utf8Json, JsonReaderOptions readerOptions, Byte[] extraRentedArrayPoolBytes, PooledByteBufferWriter extraPooledByteBufferWriter, Boolean allowDuplicateProperties)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 json, JsonDocumentOptions options)
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Finish(Int32 code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 38
+   at KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 129
+   at KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 129
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(fault: "truncated") [57 ms]
+  Error Message:
+   System.Text.Json.JsonReaderException : 'N' is an invalid start of a value. LineNumber: 0 | BytePositionInLine: 0.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader& json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+   at System.Text.Json.Utf8JsonReader.ConsumeValue(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ReadFirstToken(Byte first)
+   at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+   at System.Text.Json.Utf8JsonReader.Read()
+   at System.Text.Json.JsonDocument.Parse(ReadOnlySpan`1 utf8JsonSpan, JsonReaderOptions readerOptions, MetadataDb& database, StackRowStack& stack)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 utf8Json, JsonReaderOptions readerOptions, Byte[] extraRentedArrayPoolBytes, PooledByteBufferWriter extraPooledByteBufferWriter, Boolean allowDuplicateProperties)
+   at System.Text.Json.JsonDocument.Parse(ReadOnlyMemory`1 json, JsonDocumentOptions options)
+   at KuaiYi.Core.Tests.BrowserHostTests.Child.Finish(Int32 code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 38
+   at KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 129
+   at KuaiYi.Core.Tests.BrowserHostTests.BinaryStdioMalformedInputIsNotLoggedOrEchoed(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserHostTests.cs:line 129
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/test-results/browser/browser-host-after-timeout.trx
+
+Failed!  - Failed:     5, Passed:    35, Skipped:     0, Total:    40, Duration: 3 s - KuaiYi.Core.Tests.dll (net10.0)
