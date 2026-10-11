@@ -17,7 +17,7 @@ pwsh -File ./run-ole-experiment.ps1 -Fault Sync -Offered CopyMove
 ./KuaiYi.OleFaultSource/KuaiYi.OleFaultSource.exe ./selection-public.txt Sync CopyMove ./source.jsonl
 ```
 
-监督窗口创建第三个私有子进程，子进程的 48DIP 浮钮注册真正的 `IDropTarget`；`OleInitialize`、WPF STA 消息泵、`RegisterDragDrop`/`RevokeDragDrop` 均真实调用。单击监督窗口 On 后绿色；启动和恢复均 Off。监督窗口允许 10 秒冷启动；一次格式查询或 Drop 的不可延长截止为 1500ms，计时包含管道和调度开销，诊断不是精确实时保证。On 不能延长已开始的操作。Off 直接终止自有宿主；随后需重启（Off）才能重新 On。
+监督窗口创建第三个私有子进程，子进程的 48DIP 浮钮注册真正的 `IDropTarget`；`OleInitialize`、WPF STA 消息泵、`RegisterDragDrop`/`RevokeDragDrop` 均真实调用。单击监督窗口 On 后绿色；启动和恢复均 Off。监督窗口允许 10 秒冷启动；一次格式查询或 Drop 的不可延长截止为 1500ms，包含全部自有COM资源清理、管道和调度开销，诊断不是精确实时保证。On 不能延长已开始的操作。Off 请求终止自有宿主，并异步等待最多2秒确认退出；退出未确认时保留所有权，禁止重启。确认后显式重启（Off）才能重新 On。
 
 ## 每场景核查与记录
 
@@ -29,7 +29,8 @@ pwsh -File ./run-ole-experiment.ps1 -Fault Sync -Offered CopyMove
 6. GetDataFailure/Oversized/InvalidUtf16/MissingTerminator：明确错误、NONE、无文本比较通过。GlobalSize 在分配托管数组前检查，严格 UTF-16、NUL、50k scalar 限界；MissingTerminator 来源填充实际 HGLOBAL 分配大小，避免分配舍入的零填充造成假故障。
 7. GetDataBlocked/QueryBlocked/ModeBlocked/AsyncGetDataBlocked/AsyncEndBlocked：来源故意阻塞其 STA 五秒；目标监督在固定截止后终止自有宿主，主监督计数持续增加，重启仍 Off。来源自己的坏 GetData 可能仍卡住五秒，杀目标不能保证修复来源进程。超时或强制结束无法保证已开始的 async operation 获得 EndOperation；需记录来源悬挂计数，不把进程退出冒充规范的正常完成。AsyncEndFailure 应记录明确失败、丢弃结果，EndOperation 不能因失败而重复调用。
 8. 从来源窗口/浏览器拖入时，观察输入焦点与 `QueryEnd`、`DropEnd.foregroundUnchanged`。右键主动阅读必须允许键盘焦点；退出主动阅读记录实际前台恢复结果（Windows 可能拒绝 SetForegroundWindow，不能硬编码成功）。检查 NVDA 键盘遍历、Escape、100/150/200%DPI、多显示器与角落。
-9. 每种来源/效果至少重复 20 次；重启、On/Off、快速离开和再次拖入；记录系统版本、程序版本、DPI、源应用、完整日志及人工结论。两个窗口正常关闭才写元数据文件。两份 JSONL 外层都有 utc/item；来源关闭记录 unfinishedAsync，监督记录 TerminationRequested（不是实际退出证明），真实进程退出需另行观察。若来源仍 active，强制退出该自有测试进程需单独记录。
+9. 每种来源/效果至少重复 20 次；重启、On/Off、快速离开和再次拖入；记录系统版本、程序版本、DPI、源应用、完整日志及人工结论。两个窗口正常关闭才写元数据文件。两份 JSONL 外层都有 utc/item；来源关闭记录 unfinishedAsync，监督记录 StopAttempt/StopOutcome/ExitConfirmed。只有实际持有进程 HasExited 确认才写 ExitConfirmed 并允许重启；未确认退出不能关闭监督窗口。若来源仍 active，强制退出该自有测试进程需单独记录。
+10. 用 `-Fault QueryReleaseBlocked/QueryReleaseFailure/DropReleaseBlocked/DropReleaseFailure/AsyncReleaseBlocked/AsyncReleaseFailure` 分别运行。脚本将同名 `--cleanup-fault` 参数传给目标，来源保持真正 COM 传输。这是在 release 调用周围显式注入的探针钩子：Blocked 等5秒，Failure 在真实 release 返回后抛出测试异常；不是源 IUnknown 实际阻塞证明。核对 QueryEnd/DropEnd 只有在全清理完成后出现，CleanupFailed 后截止保留；清理阻塞和失败均终止并等待真实退出，不假成功。详细离线控制证据见 ole-cleanup-review.md。
 
 ## 需要真实实验才能成立的假设
 

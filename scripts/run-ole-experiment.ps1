@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('Sync','Async','AsyncDisabled','StartRejected','GetDataFailure','GetDataBlocked','QueryBlocked','ModeBlocked','Oversized','InvalidUtf16','MissingTerminator','AsyncGetDataBlocked','AsyncEndBlocked','AsyncEndFailure')][string]$Fault = 'Sync',
+    [ValidateSet('Sync','Async','AsyncDisabled','StartRejected','GetDataFailure','GetDataBlocked','QueryBlocked','ModeBlocked','Oversized','InvalidUtf16','MissingTerminator','AsyncGetDataBlocked','AsyncEndBlocked','AsyncEndFailure','QueryReleaseBlocked','QueryReleaseFailure','DropReleaseBlocked','DropReleaseFailure','AsyncReleaseBlocked','AsyncReleaseFailure')][string]$Fault = 'Sync',
     [ValidateSet('Copy','CopyMove','MoveOnly')][string]$Offered = 'Copy',
     [string]$ProbeDirectory,
     [string]$EvidenceDirectory
@@ -29,7 +29,9 @@ function Launch([string]$Executable, [string[]]$Arguments) {
     foreach ($argument in $Arguments) { $start.ArgumentList.Add($argument) }
     return [Diagnostics.Process]::Start($start)
 }
-$target = Launch $hostExe @($fixture, $hostLog)
+$targetArguments = @($fixture, $hostLog)
+if ($Fault -match '^(Query|Drop|Async)Release(Blocked|Failure)$') { $targetArguments += @('--cleanup-fault', $Fault) }
+$target = Launch $hostExe $targetArguments
 $source = Launch $sourceExe @($fixture, $Fault, $Offered, $sourceLog)
 @{ fault = $Fault; offered = $Offered; targetProcessId = $target.Id; sourceProcessId = $source.Id;
    fixtureSha256 = (Get-FileHash $fixture -Algorithm SHA256).Hash.ToLowerInvariant();

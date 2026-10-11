@@ -31,6 +31,7 @@ try {
     Copy-Item docs/windows-probes.md (Join-Path $destination 'README.md')
     Copy-Item docs/compatibility-matrix.json $destination
     Copy-Item docs/ole-probe.md $destination
+    Copy-Item docs/ole-cleanup-review.md $destination
     Copy-Item scripts/run-ole-experiment.ps1 $destination
     $files = Get-ChildItem $destination -Recurse -File | ForEach-Object {
         @{ path = [IO.Path]::GetRelativePath($destination, $_.FullName); sha256 = (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant() }

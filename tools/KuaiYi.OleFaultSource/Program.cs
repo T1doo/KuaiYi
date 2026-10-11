@@ -22,7 +22,7 @@ internal static class Program
         var app = new Application(); app.Run(new SourceWindow(text, fault, offered, Path.GetFullPath(args[3]))); return 0;
     }
 }
-public enum Fault { Sync, Async, AsyncDisabled, StartRejected, GetDataFailure, GetDataBlocked, QueryBlocked, ModeBlocked, Oversized, InvalidUtf16, MissingTerminator, AsyncGetDataBlocked, AsyncEndBlocked, AsyncEndFailure }
+public enum Fault { Sync, Async, AsyncDisabled, StartRejected, GetDataFailure, GetDataBlocked, QueryBlocked, ModeBlocked, Oversized, InvalidUtf16, MissingTerminator, AsyncGetDataBlocked, AsyncEndBlocked, AsyncEndFailure, QueryReleaseBlocked, QueryReleaseFailure, DropReleaseBlocked, DropReleaseFailure, AsyncReleaseBlocked, AsyncReleaseFailure }
 public enum Offered { Copy, CopyMove, MoveOnly }
 
 internal sealed class SourceWindow : Window
@@ -43,7 +43,7 @@ internal sealed class SourceWindow : Window
         {
             retained.RemoveAll(x => !x.Active);
             if (retained.Count >= 8) { status.Text = "Eight unfinished async operations: restart this owned fault source."; return; }
-            FixtureData data = fault is Fault.Async or Fault.AsyncDisabled or Fault.StartRejected or Fault.ModeBlocked or Fault.AsyncGetDataBlocked or Fault.AsyncEndBlocked or Fault.AsyncEndFailure
+            FixtureData data = fault is Fault.Async or Fault.AsyncDisabled or Fault.StartRejected or Fault.ModeBlocked or Fault.AsyncGetDataBlocked or Fault.AsyncEndBlocked or Fault.AsyncEndFailure or Fault.AsyncReleaseBlocked or Fault.AsyncReleaseFailure
                 ? new AsyncFixtureData(text, fault, Record) : new FixtureData(text, fault, Record);
             if (data is AsyncFixtureData asyncSource) Marshal.ThrowExceptionForHR(asyncSource.SetAsyncMode(fault != Fault.AsyncDisabled));
             retained.Add(data);

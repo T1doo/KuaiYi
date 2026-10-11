@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KuaiYi.OleProbe", "tools\Ku
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KuaiYi.OleFaultSource", "tools\KuaiYi.OleFaultSource\KuaiYi.OleFaultSource.csproj", "{80849FF7-5ACD-4AE9-A93A-2CD34990BD6F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KuaiYi.OleControlFixture", "tools\KuaiYi.OleControlFixture\KuaiYi.OleControlFixture.csproj", "{41B924D6-AEE7-47FA-8DD3-FBCA67C6D45A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -201,6 +203,18 @@ Global
 		{80849FF7-5ACD-4AE9-A93A-2CD34990BD6F}.Release|x64.Build.0 = Release|Any CPU
 		{80849FF7-5ACD-4AE9-A93A-2CD34990BD6F}.Release|x86.ActiveCfg = Release|Any CPU
 		{80849FF7-5ACD-4AE9-A93A-2CD34990BD6F}.Release|x86.Build.0 = Release|Any CPU
+		{41B924D6-AEE7-47FA-8DD3-FBCA67C6D45A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41B924D6-AEE7-47FA-8DD3-FBCA67C6D45A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41B924D6-AEE7-47FA-8DD3-FBCA67C6D45A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{41B924D6-AEE7-47FA-8DD3-FBCA67C6D45A}.Debug|x64.Build.0 = Debug|Any CPU
+		{41B924D6-AEE7-47FA-8DD3-FBCA67C6D45A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{41B924D6-AEE7-47FA-8DD3-FBCA67C6D45A}.Debug|x86.Build.0 = Debug|Any CPU
+		{41B924D6-AEE7-47FA-8DD3-FBCA67C6D45A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41B924D6-AEE7-47FA-8DD3-FBCA67C6D45A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41B924D6-AEE7-47FA-8DD3-FBCA67C6D45A}.Release|x64.ActiveCfg = Release|Any CPU
+		{41B924D6-AEE7-47FA-8DD3-FBCA67C6D45A}.Release|x64.Build.0 = Release|Any CPU
+		{41B924D6-AEE7-47FA-8DD3-FBCA67C6D45A}.Release|x86.ActiveCfg = Release|Any CPU
+		{41B924D6-AEE7-47FA-8DD3-FBCA67C6D45A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -219,5 +233,6 @@ Global
 		{F8F51521-AC0D-4958-9976-FF5A55334B7E} = {07C2787E-EAC7-C090-1BA3-A61EC2A24D84}
 		{4EF44946-6802-46EF-9364-AC6CBEDBDBE0} = {07C2787E-EAC7-C090-1BA3-A61EC2A24D84}
 		{80849FF7-5ACD-4AE9-A93A-2CD34990BD6F} = {07C2787E-EAC7-C090-1BA3-A61EC2A24D84}
+		{41B924D6-AEE7-47FA-8DD3-FBCA67C6D45A} = {07C2787E-EAC7-C090-1BA3-A61EC2A24D84}
 	EndGlobalSection
 EndGlobal

@@ -13,10 +13,10 @@ namespace KuaiYi.Windows;
 [ComVisible(true), Guid("00000122-0000-0000-C000-000000000046"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 public interface IOleDropTarget
 {
-    [PreserveSig] int DragEnter([MarshalAs(UnmanagedType.Interface)] IDataObject data, uint keys, OlePoint point, ref uint effect);
+    [PreserveSig] int DragEnter(nint borrowedDataObject, uint keys, OlePoint point, ref uint effect);
     [PreserveSig] int DragOver(uint keys, OlePoint point, ref uint effect);
     [PreserveSig] int DragLeave();
-    [PreserveSig] int Drop([MarshalAs(UnmanagedType.Interface)] IDataObject data, uint keys, OlePoint point, ref uint effect);
+    [PreserveSig] int Drop(nint borrowedDataObject, uint keys, OlePoint point, ref uint effect);
 }
 [ComVisible(true), Guid("00000121-0000-0000-C000-000000000046"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 public interface IOleDropSource
@@ -82,7 +82,11 @@ public sealed class OleDataReference : IDisposable
 {
     private nint pointer;
     private readonly int thread = Environment.CurrentManagedThreadId;
-    public OleDataReference(IDataObject data) => pointer = Marshal.GetComInterfaceForObject(data, typeof(IDataObject));
+    public static OleDataReference FromBorrowed(nint borrowedPointer)
+    {
+        if (borrowedPointer == 0) throw new ArgumentException("Missing borrowed IDataObject.");
+        Marshal.AddRef(borrowedPointer); return new(borrowedPointer);
+    }
     public OleDataReference(nint ownedPointer) => pointer = ownedPointer != 0 ? ownedPointer : throw new ArgumentException("Missing COM interface.");
     public nint Pointer { get { EnsureThread(); return pointer != 0 ? pointer : throw new ObjectDisposedException(nameof(OleDataReference)); } }
     private void EnsureThread() { if (thread != Environment.CurrentManagedThreadId) throw new InvalidOperationException("Unmarshaled COM interface crossed apartments."); }
@@ -94,7 +98,8 @@ public sealed class OleDataReference : IDisposable
     {
         var format = OleNative.UnicodeFormat;
         Marshal.ThrowExceptionForHR(Method<GetData>(3)(Pointer, ref format, out var medium));
-        try
+        var mediumScope = new OleCleanupScope(); mediumScope.Own(() => OleNative.ReleaseStgMedium(ref medium));
+        return mediumScope.Run(() =>
         {
             if (medium.Tymed != (uint)TYMED.TYMED_HGLOBAL || medium.Union == 0) throw new InvalidDataException("Unexpected dropped medium.");
             nuint size = OleNative.GlobalSize(medium.Union);
@@ -104,8 +109,7 @@ public sealed class OleDataReference : IDisposable
             byte[] copy = new byte[(int)size];
             try { Marshal.Copy(memory, copy, 0, copy.Length); return OleUnicodeText.Decode(copy); }
             finally { CryptographicOperations.ZeroMemory(copy); OleNative.GlobalUnlock(medium.Union); }
-        }
-        finally { OleNative.ReleaseStgMedium(ref medium); }
+        });
     }
     public nint MarshalToStream()
     {
