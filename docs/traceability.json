@@ -183,9 +183,12 @@
       "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
       "evidence": [
-        "docs/browser-native-host.md"
+        "docs/browser-native-host.md",
+        "docs/browser-ownership-review.md",
+        "docs/browser-read-ownership-review.md",
+        "docs/test-evidence/2026-10-11-browser-read-ownership-summary.json"
       ],
-      "note": "P0 real MV3/NativeHost source and actual stdio/internal IPC fixture tests; production installation/origin/grant source and real browser interaction incomplete."
+      "note": "Protocol/ownership subitems only. Browser screenshot fallback fully denied without complete pixel proof; argv/registration/file hashes match configuration, do not authenticate browser caller. Production receiver remains unavailable; Windows whole task is not Pass."
     },
     {
       "id": "R14",
@@ -367,9 +370,12 @@
         "docs/test-evidence/2026-10-11-late-events-summary.json",
         "docs/test-evidence/2026-10-11-protocol-boundaries-summary.json",
         "docs/browser-native-host.md",
-        "docs/test-evidence/2026-10-11-browser-summary.json"
+        "docs/test-evidence/2026-10-11-browser-summary.json",
+        "docs/browser-ownership-review.md",
+        "docs/browser-read-ownership-review.md",
+        "docs/test-evidence/2026-10-11-browser-read-ownership-summary.json"
       ],
-      "note": "NativeHost/extension protocol subitems execute real child stdio and local pipe with labelled fixture authority. Actual browser, Windows role/registration/grants and desktop capture backend remain Blocked/NotRun; whole task is not Pass."
+      "note": "Protocol/ownership subitems only. Browser screenshot fallback fully denied without complete pixel proof; argv/registration/file hashes match configuration, do not authenticate browser caller. Production receiver remains unavailable; Windows whole task is not Pass."
     },
     {
       "id": "P1-01",

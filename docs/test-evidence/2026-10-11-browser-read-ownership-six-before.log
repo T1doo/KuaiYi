@@ -1,0 +1,35 @@
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.22]     KuaiYi.Core.Tests.BrowserReadOwnershipTests.DeadlineAndUnderlyingCompletionAlwaysHaveOneObservedOwner(outcome: "eof", completesBeforeCatchObservation: True) [FAIL]
+[xUnit.net 00:00:00.22]     KuaiYi.Core.Tests.BrowserReadOwnershipTests.DeadlineAndUnderlyingCompletionAlwaysHaveOneObservedOwner(outcome: "fault", completesBeforeCatchObservation: True) [FAIL]
+[xUnit.net 00:00:00.23]     KuaiYi.Core.Tests.BrowserReadOwnershipTests.DeadlineAndUnderlyingCompletionAlwaysHaveOneObservedOwner(outcome: "success", completesBeforeCatchObservation: True) [FAIL]
+  Failed KuaiYi.Core.Tests.BrowserReadOwnershipTests.DeadlineAndUnderlyingCompletionAlwaysHaveOneObservedOwner(outcome: "eof", completesBeforeCatchObservation: True) [5 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: 1
+Actual:   0
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserReadOwnershipTests.DeadlineAndUnderlyingCompletionAlwaysHaveOneObservedOwner(String outcome, Boolean completesBeforeCatchObservation) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserReadOwnershipTests.cs:line 69
+   at KuaiYi.Core.Tests.BrowserReadOwnershipTests.DeadlineAndUnderlyingCompletionAlwaysHaveOneObservedOwner(String outcome, Boolean completesBeforeCatchObservation) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserReadOwnershipTests.cs:line 86
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserReadOwnershipTests.DeadlineAndUnderlyingCompletionAlwaysHaveOneObservedOwner(outcome: "fault", completesBeforeCatchObservation: True) [2 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: 1
+Actual:   0
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserReadOwnershipTests.DeadlineAndUnderlyingCompletionAlwaysHaveOneObservedOwner(String outcome, Boolean completesBeforeCatchObservation) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserReadOwnershipTests.cs:line 69
+   at KuaiYi.Core.Tests.BrowserReadOwnershipTests.DeadlineAndUnderlyingCompletionAlwaysHaveOneObservedOwner(String outcome, Boolean completesBeforeCatchObservation) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserReadOwnershipTests.cs:line 86
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.BrowserReadOwnershipTests.DeadlineAndUnderlyingCompletionAlwaysHaveOneObservedOwner(outcome: "success", completesBeforeCatchObservation: True) [1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(System.ObjectDisposedException)
+  Stack Trace:
+     at KuaiYi.Core.Tests.BrowserReadOwnershipTests.DeadlineAndUnderlyingCompletionAlwaysHaveOneObservedOwner(String outcome, Boolean completesBeforeCatchObservation) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserReadOwnershipTests.cs:line 68
+   at KuaiYi.Core.Tests.BrowserReadOwnershipTests.DeadlineAndUnderlyingCompletionAlwaysHaveOneObservedOwner(String outcome, Boolean completesBeforeCatchObservation) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/BrowserReadOwnershipTests.cs:line 86
+--- End of stack trace from previous location ---
+WARNING: Overwriting results file: /workspace/KuaiYi/artifacts/test-results/browser-read-ownership/before.trx
+Results File: /workspace/KuaiYi/artifacts/test-results/browser-read-ownership/before.trx
+
+Failed!  - Failed:     3, Passed:     3, Skipped:     0, Total:     6, Duration: 59 ms - KuaiYi.Core.Tests.dll (net10.0)

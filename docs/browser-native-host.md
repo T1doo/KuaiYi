@@ -4,7 +4,7 @@
 
 ## 当前修正与未完成截图路径
 
-监督复核确认原中心命中不能证明完整像素归属。当前浏览器截图fallback全面拒绝，移除scripting权限，仅保留同源无凭据PNG原图；具体反例、43项测试和来源未认证状态见browser-ownership-review.md。下文31项/v1包记录是历史协议切片，不能作为安全截图候选或实际来源认证。
+监督复核确认原中心命中不能证明完整像素归属。当前浏览器截图fallback全面拒绝，移除scripting权限，仅保留同源无凭据PNG原图；具体反例、43项测试和来源未认证状态见browser-ownership-review.md。后续ReadBounded竞态已修，最新.NET388/Node43全回归及新ZIP见browser-read-ownership-review.md；旧v1包还含该已知读取竞态。下文31项/v1包记录是历史协议切片，不能作为安全截图候选或实际来源认证。
 
 ## 历史用户意图、权限与图片取得
 

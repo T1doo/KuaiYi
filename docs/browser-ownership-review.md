@@ -19,3 +19,5 @@ argv origin、已注册allowed_origins及已安装文件摘要只证明配置与
 本轮只记录这条待验证设计，不开放receiver、不安装注册、不发放持续权限。操作系统验证、授权UI及真实Windows证据完成并经监督复核前，生产保持拒绝。ReadBounded的取消/完成竞态按监督要求另行修复，截图修复不改变其保护或来源判断。
 
 依据：[Chrome可见tab截图API](https://developer.chrome.com/docs/extensions/reference/api/tabs#method-captureVisibleTab)提供可见tab图像；[getBoundingClientRect](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect)的矩形包括border/padding。两者加中心命中不能证明矩形内像素全部属于图片。本轮以明确拒绝处理缺口，不宣称已设计出完整证明。
+
+后续独立资源修复已完成：ReadBounded统一迟到观察/释放与截止交付复核，7确定性用例及完整.NET388/Node43通过，详见browser-read-ownership-review.md。请使用同时含两项修复的新审阅包，前一fallback-closed包仍为历史读取代码。

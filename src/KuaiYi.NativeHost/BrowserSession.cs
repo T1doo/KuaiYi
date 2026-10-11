@@ -33,25 +33,35 @@ public static class BrowserEnvelope
     public static bool Valid(BrowserGrant g, Guid operation)=>g.OperationId==operation&&g.Nonce!=Guid.Empty&&g.Identity.SessionId!=Guid.Empty&&g.Identity.VersionId!=Guid.Empty&&g.Identity.RequestId!=Guid.Empty&&g.Identity.Epoch>0;
 }
 /// <summary>Actual Native Messaging loop. A single explicit operation per connection; no network, files, OCR or models.</summary>
-public sealed class BrowserSession(IDesktopImageChannel desktop, TimeSpan? budget = null)
+public sealed class BrowserSession(IDesktopImageChannel desktop, TimeSpan? budget = null, TimeProvider? timeProvider = null)
 {
     private Task? lateReadObserver;
     public string? LateReadFailureCode { get; private set; }
+    internal Func<Stream,CancellationToken,Task<JsonDocument?>>? ReadForTest { get; init; }
+    internal Func<Task<JsonDocument?>,Task>? BeforeLateReadObserverForTest { get; init; }
+    internal Action<Task<JsonDocument?>>? LateReadObserverStartedForTest { get; init; }
+    internal Task? LateReadObserverForTest => lateReadObserver;
     private async ValueTask<JsonDocument?> ReadBounded(Stream input,CancellationToken cancellation)
     {
         // Console stdin may ignore native read cancellation. Bound the waiter, then observe/dispose a late result.
-        Task<JsonDocument?> pending=NativeMessagingCodec.ReadAsync(input,cancellation).AsTask();
+        Task<JsonDocument?> pending=ReadForTest?.Invoke(input,cancellation)??NativeMessagingCodec.ReadAsync(input,cancellation).AsTask();
         try{return await pending.WaitAsync(cancellation).ConfigureAwait(false);}
-        catch{if(!pending.IsCompleted)lateReadObserver=ObserveLateRead(pending);throw;}
+        catch
+        {
+            if(BeforeLateReadObserverForTest!=null)await BeforeLateReadObserverForTest(pending).ConfigureAwait(false);
+            lateReadObserver=ObserveLateRead(pending); // Even a result/fault that completed between WaitAsync failure and catch owns cleanup.
+            throw;
+        }
     }
     private async Task ObserveLateRead(Task<JsonDocument?> pending)
     {
+        LateReadObserverStartedForTest?.Invoke(pending);
         try{using var document=await pending.ConfigureAwait(false);}
         catch(Exception error){LateReadFailureCode=error.GetType().Name;} // Finite diagnostic; never echo late bytes or leave a fault unobserved.
     }
     public async Task<int> RunAsync(Stream input,Stream output,CancellationToken cancellation=default)
     {
-        using var deadline=new CancellationTokenSource(budget??TimeSpan.FromSeconds(30));
+        using var deadline=new CancellationTokenSource(budget??TimeSpan.FromSeconds(30),timeProvider??TimeProvider.System);
         using var linked=CancellationTokenSource.CreateLinkedTokenSource(cancellation,deadline.Token);
         using var assembler=new ImageTransferAssembler();BrowserGrant? grant=null;bool begun=false,committed=false;
         try
@@ -59,6 +69,7 @@ public sealed class BrowserSession(IDesktopImageChannel desktop, TimeSpan? budge
             while(true)
             {
                 using var doc=await ReadBounded(input,linked.Token).ConfigureAwait(false);
+                linked.Token.ThrowIfCancellationRequested(); // A completed read can win WaitAsync's fast path; expiry still forbids delivery.
                 if(doc==null)throw new BrowserException(BrowserFailure.Disconnected);
                 var root=doc.RootElement;
                 string? type=root.TryGetProperty("type",out var t)&&t.ValueKind==JsonValueKind.String?t.GetString():null;
