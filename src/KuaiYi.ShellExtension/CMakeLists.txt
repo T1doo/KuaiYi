@@ -1,0 +1,18 @@
+cmake_minimum_required(VERSION 3.28)
+project(KuaiYiShellExtension LANGUAGES CXX RC)
+if(NOT WIN32 OR NOT MSVC)
+  message(FATAL_ERROR "Requires Windows x64 MSVC and Windows SDK; native Shell COM is not a managed fallback")
+endif()
+add_library(KuaiYi.ShellExtension SHARED ExplorerCommand.cpp exports.def Shell.rc)
+target_compile_features(KuaiYi.ShellExtension PRIVATE cxx_std_20)
+target_compile_definitions(KuaiYi.ShellExtension PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX WINVER=0x0A00 _WIN32_WINNT=0x0A00)
+target_compile_options(KuaiYi.ShellExtension PRIVATE /W4 /WX /EHsc /utf-8)
+target_link_libraries(KuaiYi.ShellExtension PRIVATE ole32 shell32 shlwapi)
+
+set_property(TARGET KuaiYi.ShellExtension PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+
+enable_testing()
+add_executable(KuaiYi.CommandPolicyTests ../../tests/native/command-policy-test.cpp)
+target_compile_features(KuaiYi.CommandPolicyTests PRIVATE cxx_std_20)
+target_compile_options(KuaiYi.CommandPolicyTests PRIVATE /W4 /WX /EHsc)
+add_test(NAME CommandPolicy COMMAND KuaiYi.CommandPolicyTests)

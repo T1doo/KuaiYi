@@ -1,0 +1,45 @@
+[
+  {
+    "file": "KuaiYi.App.exe",
+    "sha256": "8cdcdb5d1bd11f47e93ef062c9f6338dbaf3a7f182889cf569f72433803b43b1",
+    "pe": "PE32+ x64",
+    "embeddedManifests": [
+      {
+        "resourceType": 24,
+        "resourceId": 1,
+        "languageId": 0,
+        "applicationId": "KuaiYi",
+        "manifestSha256": "974e127e63188fd7235ffbb5b8c6b06dfea8a03b2a2a5b2104aec858d647002e"
+      }
+    ],
+    "staticResult": "Pass",
+    "runtimeIdentity": "NotRun",
+    "subsystem": "Windows GUI"
+  },
+  {
+    "file": "KuaiYi.ImageWorker.exe",
+    "sha256": "6d957274db4b1794376d8e650583e018a2506d546598441df806fec5ddff8a7b",
+    "pe": "PE32+ x64",
+    "embeddedManifests": [
+      {
+        "resourceType": 24,
+        "resourceId": 1,
+        "languageId": 0,
+        "applicationId": "ImageWorker",
+        "manifestSha256": "b27991ae861df834d53d75a5aa5578f3adbd101dadfa4b955b29ce030a7273d3"
+      }
+    ],
+    "staticResult": "Pass",
+    "runtimeIdentity": "NotRun",
+    "subsystem": "Console Worker (hidden by owned parent)"
+  },
+  {
+    "check": "ManagedReviewArchive",
+    "filesChecked": 20,
+    "sha256": "be68fb2d28f2b0e00cb4bbb017e34199b6dd9be9acf0dfb3065e6dfb5d140055",
+    "bytes": 273487,
+    "result": "Pass",
+    "nativeComponents": "Missing",
+    "installer": false
+  }
+]

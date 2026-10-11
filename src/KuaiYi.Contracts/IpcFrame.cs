@@ -2,7 +2,12 @@ using System.Buffers.Binary;
 
 namespace KuaiYi.Contracts;
 
-public enum IpcMessageType : ushort { Ping = 1, ShowSettings = 2, SubmitImage = 3, SubmitImagePath = 4, BinaryChunk = 5 }
+public enum IpcMessageType : ushort
+{
+    Ping = 1, ShowSettings = 2, SubmitImage = 3, SubmitImagePath = 4, BinaryChunk = 5,
+    // Private inherited ImageWorker channel only; never accepted by the external command gateway.
+    ImageHello = 100, ImageBegin = 101, ImageCommit = 102, ImageResult = 103, ImageCancel = 104
+}
 public sealed record IpcFrame(IpcMessageType Type, Guid RequestId, byte[] Payload);
 
 /// <summary>Wire codec only. Windows pipe ACL/session/role authentication is a separate required layer.</summary>

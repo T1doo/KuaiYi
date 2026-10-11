@@ -1,0 +1,32 @@
+[
+  {
+    "check": "ManifestMutationRejected",
+    "case": "wrongWorkerId",
+    "exitCode": -6,
+    "result": "InvalidHarnessRuntimeCrash"
+  },
+  {
+    "check": "ManifestMutationRejected",
+    "case": "wrongPublisher",
+    "exitCode": -6,
+    "result": "InvalidHarnessRuntimeCrash"
+  },
+  {
+    "check": "ManifestMutationRejected",
+    "case": "missingWorker",
+    "exitCode": -6,
+    "result": "InvalidHarnessRuntimeCrash"
+  },
+  {
+    "check": "ManifestMutationRejected",
+    "case": "wildcardMenu",
+    "exitCode": -6,
+    "result": "InvalidHarnessRuntimeCrash"
+  },
+  {
+    "check": "ManifestMutationRejected",
+    "case": "wrongClsid",
+    "exitCode": -6,
+    "result": "InvalidHarnessRuntimeCrash"
+  }
+]

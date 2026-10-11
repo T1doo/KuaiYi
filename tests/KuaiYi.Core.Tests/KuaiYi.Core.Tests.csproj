@@ -12,5 +12,8 @@
     <ProjectReference Include="../../src/KuaiYi.Contracts/KuaiYi.Contracts.csproj" />
     <ProjectReference Include="../../tools/KuaiYi.NativeMessagingProbe/KuaiYi.NativeMessagingProbe.csproj" ReferenceOutputAssembly="false" />
     <ProjectReference Include="../../tools/KuaiYi.OleControlFixture/KuaiYi.OleControlFixture.csproj" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="../../src/KuaiYi.Imaging/KuaiYi.Imaging.csproj" />
+    <ProjectReference Include="../../src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj" ReferenceOutputAssembly="false" />
+    <None Include="../fixtures/images/kuaiyi-test.png" Link="kuaiyi-test.png" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

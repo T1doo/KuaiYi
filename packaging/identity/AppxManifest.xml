@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10" xmlns:desktop4="http://schemas.microsoft.com/appx/manifest/desktop/windows10/4" xmlns:desktop5="http://schemas.microsoft.com/appx/manifest/desktop/windows10/5" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap10="http://schemas.microsoft.com/appx/manifest/uap/windows10/10" IgnorableNamespaces="uap uap10 rescap com desktop4 desktop5">
+  <Identity Name="KuaiYi.Development" Publisher="CN=KuaiYi Development" Version="0.1.0.0" ProcessorArchitecture="x64" />
+  <Properties>
+    <DisplayName>快译 Development</DisplayName>
+    <PublisherDisplayName>KuaiYi Development</PublisherDisplayName>
+    <Logo>Assets\storelogo.png</Logo>
+    <uap10:AllowExternalContent>true</uap10:AllowExternalContent>
+  </Properties>
+  <Resources>
+    <Resource Language="en-us" />
+    <Resource Language="zh-cn" />
+  </Resources>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.19041.0" MaxVersionTested="10.0.26100.0" />
+  </Dependencies>
+  <Applications>
+    <Application Id="KuaiYi" Executable="KuaiYi.App.exe" uap10:TrustLevel="mediumIL" uap10:RuntimeBehavior="win32App">
+      <uap:VisualElements AppListEntry="none" DisplayName="快译 KuaiYi" Description="KuaiYi P0 development KuaiYi" BackgroundColor="transparent" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" />
+      <Extensions>
+        <com:Extension Category="windows.comServer">
+          <com:ComServer>
+            <com:SurrogateServer DisplayName="快译图片命令">
+              <com:Class Id="86F7AB57-0F30-47A6-B284-3C7BC82DF8E2" Path="KuaiYi.ShellExtension.dll" ThreadingModel="STA" />
+            </com:SurrogateServer>
+          </com:ComServer>
+        </com:Extension>
+        <desktop4:Extension Category="windows.fileExplorerContextMenus">
+          <desktop4:FileExplorerContextMenus>
+            <desktop5:ItemType Type=".png">
+              <desktop5:Verb Id="KuaiYiImage" Clsid="86F7AB57-0F30-47A6-B284-3C7BC82DF8E2" />
+            </desktop5:ItemType>
+            <desktop5:ItemType Type=".jpg">
+              <desktop5:Verb Id="KuaiYiImage" Clsid="86F7AB57-0F30-47A6-B284-3C7BC82DF8E2" />
+            </desktop5:ItemType>
+            <desktop5:ItemType Type=".jpeg">
+              <desktop5:Verb Id="KuaiYiImage" Clsid="86F7AB57-0F30-47A6-B284-3C7BC82DF8E2" />
+            </desktop5:ItemType>
+            <desktop5:ItemType Type=".webp">
+              <desktop5:Verb Id="KuaiYiImage" Clsid="86F7AB57-0F30-47A6-B284-3C7BC82DF8E2" />
+            </desktop5:ItemType>
+            <desktop5:ItemType Type=".bmp">
+              <desktop5:Verb Id="KuaiYiImage" Clsid="86F7AB57-0F30-47A6-B284-3C7BC82DF8E2" />
+            </desktop5:ItemType>
+            <desktop5:ItemType Type=".gif">
+              <desktop5:Verb Id="KuaiYiImage" Clsid="86F7AB57-0F30-47A6-B284-3C7BC82DF8E2" />
+            </desktop5:ItemType>
+          </desktop4:FileExplorerContextMenus>
+        </desktop4:Extension>
+      </Extensions>
+    </Application>
+    <Application Id="ImageWorker" Executable="KuaiYi.ImageWorker.exe" uap10:TrustLevel="mediumIL" uap10:RuntimeBehavior="win32App">
+      <uap:VisualElements AppListEntry="none" DisplayName="快译 ImageWorker" Description="KuaiYi P0 development ImageWorker" BackgroundColor="transparent" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" />
+    </Application>
+  </Applications>
+  <Capabilities>
+    <rescap:Capability Name="runFullTrust" />
+    <rescap:Capability Name="unvirtualizedResources" />
+  </Capabilities>
+</Package>

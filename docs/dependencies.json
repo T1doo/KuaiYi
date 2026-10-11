@@ -139,5 +139,11 @@
     "licenseUrl": "https://aka.ms/WinSDKLicenseURL",
     "status": "Removed from effective graph and probe outputs; no explicit license acceptance performed",
     "decision": "docs/decisions/0002-probe-dependencies.md"
+  },
+  "p0ImageWorker": {
+    "managedAddedNuGetPackages": [],
+    "nativeOcr": "Windows SDK C++/WinRT, native toolchain not installed/accepted in this environment",
+    "nativeShell": "Windows SDK Win32 COM, static MSVC runtime intended; native build NotRun",
+    "fullP6Decoder": "SkiaSharp exact version/license/fixtures still pending, not silently replaced by P0 PNG probe"
   }
 }

@@ -1,0 +1,6 @@
+Exception: /workspace/KuaiYi/scripts/package-identity.ps1:4
+Line |
+   4 |  … Release') { throw 'Blocked: release signing and installer implementat …
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Blocked: release signing and installer implementation are outside this
+     | P0 development slice; no unsigned release fallback.

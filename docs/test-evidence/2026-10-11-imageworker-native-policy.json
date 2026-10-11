@@ -1,0 +1,9 @@
+{
+  "source": "tests/native/command-policy-test.cpp",
+  "command": "g++ -std=c++20 -DNDEBUG -Wall -Wextra -Werror tests/native/command-policy-test.cpp -o artifacts/test-results/image/command-policy-test",
+  "compileExitCode": 0,
+  "runExitCode": 0,
+  "checks": 14,
+  "result": "Pass",
+  "windowsNativeComOrOcrBuild": "NotRun"
+}

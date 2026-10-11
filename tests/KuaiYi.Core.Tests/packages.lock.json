@@ -92,6 +92,13 @@
       },
       "kuaiyi.core": {
         "type": "Project"
+      },
+      "kuaiyi.imaging": {
+        "type": "Project",
+        "dependencies": {
+          "KuaiYi.Contracts": "[1.0.0, )",
+          "KuaiYi.Core": "[1.0.0, )"
+        }
       }
     }
   }

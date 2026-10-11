@@ -19,10 +19,11 @@ try {
     }
     if ($Scope -eq 'All') {
         if (-not $IsWindows) { throw 'Blocked: full native Windows build requires Windows SDK and MSVC; managed cross-build is only partial evidence.' }
-        $native = 'src/KuaiYi.ShellExtension/CMakeLists.txt'
-        if (-not (Test-Path $native)) { throw 'NotStarted: native Shell component has not yet been implemented.' }
-        Invoke-Checked cmake @('-S','src/KuaiYi.ShellExtension','-B','artifacts/native','-A','x64')
-        Invoke-Checked cmake @('--build','artifacts/native','--config',$Configuration)
+        foreach ($component in 'KuaiYi.OcrNative','KuaiYi.ShellExtension') {
+            Invoke-Checked cmake @('-S',"src/$component",'-B',"artifacts/native/$component",'-A','x64')
+            Invoke-Checked cmake @('--build',"artifacts/native/$component",'--config',$Configuration)
+        }
+        Invoke-Checked ctest @('--test-dir','artifacts/native/KuaiYi.ShellExtension','-C',$Configuration,'--output-on-failure')
     }
     Write-Output "Built scope $Scope with SDK $((& dotnet --version).Trim()). This is not desktop acceptance."
 } finally { Pop-Location }

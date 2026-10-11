@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.28)
+project(KuaiYiOcrNative LANGUAGES CXX)
+if(NOT WIN32 OR NOT MSVC)
+  message(FATAL_ERROR "Requires Windows x64 MSVC and Windows SDK C++/WinRT; no Linux OCR substitute")
+endif()
+add_library(KuaiYi.OcrNative SHARED OcrNative.cpp)
+target_compile_features(KuaiYi.OcrNative PRIVATE cxx_std_20)
+target_compile_definitions(KuaiYi.OcrNative PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX WINVER=0x0A00 _WIN32_WINNT=0x0A00)
+target_compile_options(KuaiYi.OcrNative PRIVATE /W4 /WX /EHsc /utf-8)
+target_link_libraries(KuaiYi.OcrNative PRIVATE windowsapp ole32)
+
+set_property(TARGET KuaiYi.OcrNative PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")

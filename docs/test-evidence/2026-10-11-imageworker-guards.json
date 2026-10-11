@@ -1,0 +1,30 @@
+[
+  {
+    "script": "register-dev-identity.ps1",
+    "exitCode": 1,
+    "expectedFailure": "requires Windows",
+    "guard": "Pass",
+    "windowsOperation": "NotRun"
+  },
+  {
+    "script": "test-installed-identity.ps1",
+    "exitCode": 1,
+    "expectedFailure": "requires Windows",
+    "guard": "Pass",
+    "windowsOperation": "NotRun"
+  },
+  {
+    "script": "package-identity.ps1",
+    "exitCode": 1,
+    "expectedFailure": "no unsigned release fallback",
+    "guard": "Pass",
+    "windowsOperation": "NotRun"
+  },
+  {
+    "script": "validate-dev-identity.ps1",
+    "exitCode": 1,
+    "expectedFailure": "Missing install file: KuaiYi.OcrNative.dll",
+    "guard": "Pass",
+    "windowsOperation": "NotRun"
+  }
+]

@@ -25,7 +25,7 @@ flowchart LR
 - CaptureBroker：当前为 P0 一次性进程协议，真实 UIA 在 MTA 获取；父进程以硬终止处理无法取消的 COM 阻塞。仍需连接生产采集手势、状态 epoch、长驻 broker 重启/熔断、授权复制兼容与安全 IPC。
 - tools：Mock Provider 只供测试；GrowthHarness 是公开固定文本视觉实验；CompatibilityProbe 对公开文件实际选区比对；NativeMessagingProbe 是显式 echo 实验。均不作为完整快译 App 的替代品。生产项目不引用测试工具。
 
-解决方案有 14 个实际可构建项目。未创建空 App/Shell/OCR/扩展接口来冒充完成：正式 WPF App、托盘/设置/热键/DPAPI、生产 OLE、ImageWorker、ShellExtension、浏览器扩展/NativeHost、安装/身份包仍是明确待实现模块。P0 真实平台退出门槛与其必要的 Windows/原生工具链证据仍为 Blocked。
+解决方案有 14 个实际可构建项目。未创建空 App/Shell/OCR/扩展接口来冒充完成：正式 WPF App、托盘/设置/热键/DPAPI、生产 OLE、浏览器扩展/NativeHost、完整安装与生产图片管线仍是明确待实现模块。新增App的P0实验入口、ImageWorker实际调用代码、原生Shell源码与开发身份工程见下；原生构建/Windows行为未验证。P0 真实平台退出门槛与其必要的 Windows/原生工具链证据仍为 Blocked。
 
 可运行的检查及失败修复见 progress.md，Windows 操作和限制见 windows-probes.md，176 个规格条目见 traceability.json。所有 A—L 整体用例保持 NotRun。
 
@@ -38,3 +38,9 @@ OleProbe 的监督 UI 与原生 IDropTarget 分属自有进程，私有 stdio �
 OLE监督已共用OleCallWatch，只有匹配id/epoch/阶段且CleanupCompleted为真的终结才撤销截止，Drop还需CleanupComplete前置确认；迟到终结不能抢在计时器之前免于超时。发送端OleCleanupScope显式追踪probe-owned引用，反序释放、全部尝试、错误汇总且不重复不明释放；Medium清理失败有独立异常类型。原生回调接收借用IDataObject指针并AddRef，不生成延后GC释放的参数RCW；跨STA仍只经封送流。Origin资源包由原STA最终清理，worker引用和OleUninitialize也必须完成才发布结果。
 
 恢复通过OwnedHostTermination管理本任务Process.Start返回的持有对象，只终止该子进程，不重新打开PID或杀未验证后代。请求终止后异步等待2秒并观察HasExited；未确认/失败保留所有权，拒绝启动新宿主。迟退可由后续观察确认；监督窗口也在确认退出之前禁止关闭。OleControlFixture只供独立进程控制/协议测试，不含COM，也不进入Windows探针包。
+
+## P0-05图片身份链
+
+App（独立KuaiYi身份，默认Off实验界面）→继承stdio的单次ImageWorker（独立ImageWorker身份/MTA）→C++/WinRT OcrNative。在实际打开磁盘句柄后验证本地最终路径、属性和尺寸；禁止原生解码在WPF线程。固定15秒请求截止，取消后只终止所持有子进程并确认退出，未确认时持有对象/禁止恢复。结果绑定完整job身份，尺寸/语言/词框在接收端再次验证，无默认持久化。
+
+原生Shell通过现代SurrogateServer STA注册只接收单个支持扩展，固定调用同目录App待确认命令，不嵌入CLR。P0接口还不是生产SID/session/role命名管道，格式规范化/图文视觉路由仍未完成。实际源码、边界及后续Windows脚本见imageworker-identity.md；双EXE内嵌身份不能替代注册与安装态运行。

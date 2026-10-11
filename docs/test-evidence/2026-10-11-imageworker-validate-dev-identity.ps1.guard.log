@@ -1,0 +1,5 @@
+Exception: /workspace/KuaiYi/scripts/validate-dev-identity.ps1:39
+Line |
+  39 |  … alPath $path -PathType Leaf)) { throw "Missing install file: $file" }
+     |                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Missing install file: KuaiYi.OcrNative.dll

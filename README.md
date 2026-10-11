@@ -6,7 +6,7 @@ Windows 11 x64 AI 翻译软件，完整产品与验收规格见 [SPEC.md](SPEC.m
 
 已运行的检查、失败修复与平台阻塞见 [开发进度](docs/progress.md)、[验收状态](docs/acceptance-report.md) 和 [需求追踪](docs/traceability.json)。不得将这些离线测试等同于真实 Windows UIA、OLE、焦点、截图、多屏 DPI 或安装验收。
 
-最新离线测试 184 项通过；旧错误晚到缺口见 [专项审查](docs/late-event-review.md)，最大分片 JSON 外壳缺口见 [协议边界审查](docs/protocol-boundary-review.md)。OLE 联合实验与未证实的宿主假设见 [OLE 探针说明](docs/ole-probe.md)。清理终结与退出确认修复见 [清理监督审查](docs/ole-cleanup-review.md)。GitHub CI 未运行。
+最新离线测试 244 项通过；旧错误晚到缺口见 [专项审查](docs/late-event-review.md)，最大分片 JSON 外壳缺口见 [协议边界审查](docs/protocol-boundary-review.md)。OLE 联合实验与未证实的宿主假设见 [OLE 探针说明](docs/ole-probe.md)。清理终结与退出确认修复见 [清理监督审查](docs/ole-cleanup-review.md)。新增独立 ImageWorker、真实原生 OCR/Shell 源码、双 EXE 开发身份清单与安装态验证脚本，见 [图片与身份说明](docs/imageworker-identity.md)。原生编译和 Windows OCR/菜单仍未执行。GitHub CI 未运行。
 
 ## 构建与离线测试
 
@@ -24,7 +24,7 @@ pwsh -NoProfile -File ./scripts/test.ps1 -Suite Offline
 
 当前 Linux 环境的已下载工具位于仓库之外的 `/workspace/.kuaiyi-setup`。PowerShell 需使用可写的 XDG 缓存目录；见 [环境记录](docs/environment.md)。这些路径是此云环境说明，不是 Windows 安装路径。
 
-`build.ps1 -Scope Managed` 构建全部 14 个托管项目（Linux 自动启用 Windows targeting）。`pack-probes.ps1` 生成有 x64 PE 头校验及摘要的框架依赖探针 ZIP；它不是产品安装包。执行与证据采集见 [Windows 探针说明](docs/windows-probes.md)。
+`build.ps1 -Scope Managed` 构建全部 17 个托管项目（Linux 自动启用 Windows targeting）。`pack-probes.ps1` 生成有 x64 PE 头校验及摘要的框架依赖探针 ZIP；它不是产品安装包。执行与证据采集见 [Windows 探针说明](docs/windows-probes.md)。
 
 ## 安全与范围
 

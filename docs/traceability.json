@@ -164,9 +164,12 @@
         "P7",
         "K"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/imageworker-identity.md"
+      ],
+      "note": "P0 native Explorer command source and sparse registration prepared; no Windows modern-menu or complete P7/P6 acceptance."
     },
     {
       "id": "R13",
@@ -333,9 +336,14 @@
         "从安装位置验证身份包、ImageWorker OCR、原生 Explorer 菜单注册",
         "开发身份包、开发签名说明、OCR 与菜单最小调用证据"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": []
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/imageworker-identity.md",
+        "docs/decisions/0003-imageworker-identity.md",
+        "docs/test-evidence/2026-10-11-imageworker-summary.json"
+      ],
+      "note": "Actual OCR/native COM source and independently identity-declared EXEs; managed/protocol/static subitems only. Native Windows build, MSIX, installed runtime OCR and modern menu remain NotRun/Blocked."
     },
     {
       "id": "P0-06",

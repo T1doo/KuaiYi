@@ -1,0 +1,4 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net10.0-windows</TargetFramework><OutputType>WinExe</OutputType><RuntimeIdentifier>win-x64</RuntimeIdentifier><SelfContained>false</SelfContained><UseWPF>true</UseWPF><ApplicationManifest>app.manifest</ApplicationManifest></PropertyGroup>
+  <ItemGroup><ProjectReference Include="../KuaiYi.Imaging/KuaiYi.Imaging.csproj" /></ItemGroup>
+</Project>
