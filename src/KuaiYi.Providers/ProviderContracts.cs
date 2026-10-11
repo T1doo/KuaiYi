@@ -10,6 +10,7 @@ public enum OutputLimitParameter { MaxCompletionTokens, MaxTokens, Omit }
 public enum ModelEventKind { Started, TextDelta, Usage, Completed, Failed }
 public sealed record TokenUsage(long? InputTokens, long? OutputTokens);
 public sealed record ModelEvent(ModelEventKind Kind, string? Text = null, string? Reason = null, TokenUsage? Usage = null);
+public sealed record ModelEventEnvelope(RequestIdentity Identity, ModelEvent Event);
 
 public sealed record ApiProfile(ApiProtocol Protocol, Uri BaseUrl, string Endpoint, string Model,
     Authentication Authentication, OutputLimitParameter OutputLimit = OutputLimitParameter.MaxCompletionTokens,

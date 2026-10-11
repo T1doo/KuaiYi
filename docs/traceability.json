@@ -70,8 +70,10 @@
       ],
       "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": [],
-      "note": "Core/protocol contract only. Complete product requirement not yet validated."
+      "evidence": [
+        "docs/test-evidence/2026-10-11-late-events-summary.json"
+      ],
+      "note": "Offline subitems only, including obsolete error and destination queue identity checks; whole product requirement/task is not Pass."
     },
     {
       "id": "R06",
@@ -215,8 +217,10 @@
       ],
       "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": [],
-      "note": "Core/protocol contract only. Complete product requirement not yet validated."
+      "evidence": [
+        "docs/test-evidence/2026-10-11-late-events-summary.json"
+      ],
+      "note": "Offline subitems only, including obsolete error and destination queue identity checks; whole product requirement/task is not Pass."
     },
     {
       "id": "R17",
@@ -229,8 +233,10 @@
       ],
       "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": [],
-      "note": "Core/protocol contract only. Complete product requirement not yet validated."
+      "evidence": [
+        "docs/test-evidence/2026-10-11-late-events-summary.json"
+      ],
+      "note": "Offline subitems only, including obsolete error and destination queue identity checks; whole product requirement/task is not Pass."
     },
     {
       "id": "R18",
@@ -336,9 +342,10 @@
       "evidence": [
         "docs/test-evidence/2026-10-11-offline-summary.json",
         "docs/test-evidence/2026-10-11-probes-summary.json",
-        "docs/windows-probes.md"
+        "docs/windows-probes.md",
+        "docs/test-evidence/2026-10-11-late-events-summary.json"
       ],
-      "note": "Cross-compiled probe / offline subitems only; whole requirement or task remains incomplete and needs actual Windows evidence."
+      "note": "Offline subitems only, including obsolete error and destination queue identity checks; whole product requirement/task is not Pass."
     },
     {
       "id": "P1-01",

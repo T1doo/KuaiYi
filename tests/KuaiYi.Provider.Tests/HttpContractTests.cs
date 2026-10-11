@@ -148,7 +148,8 @@ public sealed class HttpContractTests(ServerFixture fixture) : IClassFixture<Ser
         if (changeOrigin) request = request with { Profile = request.Profile with { BaseUrl = new Uri(p.Request.Profile.BaseUrl.AbsoluteUri.Replace("127.0.0.1", "localhost")) } };
         else p.Gate.Disable();
         var events = await Collect(request, p.Gate, p.Identity, p.Ct);
-        Assert.Equal("CANCELLED_OR_UNCONSENTED", events.Last().Reason);
+        if (changeOrigin) Assert.Equal("CANCELLED_OR_UNCONSENTED", events.Last().Reason);
+        else Assert.Empty(events); // Off invalidates the identity, including its errors.
         Assert.Empty(await Requests(p.Run));
     }
     [Fact]
@@ -164,6 +165,7 @@ public sealed class HttpContractTests(ServerFixture fixture) : IClassFixture<Ser
             if (e.Kind == ModelEventKind.Started) p.Gate.Disable();
         }
         Assert.DoesNotContain(seen, e => e.Kind is ModelEventKind.TextDelta or ModelEventKind.Completed);
+        Assert.Equal(ModelEventKind.Started, Assert.Single(seen).Kind);
         Assert.Single(await Requests(p.Run));
     }
     [Theory]

@@ -27,7 +27,10 @@ public sealed class MockProviderHost : IAsyncDisposable
         var app = builder.Build();
         var requests = new ConcurrentQueue<CapturedRequest>();
         var attempts = new ConcurrentDictionary<string, int>();
+        var barriers = new ConcurrentDictionary<string, TaskCompletionSource>(StringComparer.Ordinal);
         app.MapGet("/requests/{run}", (string run) => requests.Where(r => r.Run == run).ToArray());
+        app.MapGet("/barriers/{run}", (string run) => new { ready = barriers.ContainsKey(run) });
+        app.MapPost("/barriers/{run}/release", (string run) => barriers.TryGetValue(run, out var signal) && signal.TrySetResult());
         app.MapPost("/runs/{run}/{scenario}/{**endpoint}", async (HttpContext context, string run, string scenario, string endpoint) =>
         {
             using var reader = new StreamReader(context.Request.Body, new UTF8Encoding(false, true));
@@ -38,6 +41,29 @@ public sealed class MockProviderHost : IAsyncDisposable
             while (requests.Count > 1024) requests.TryDequeue(out _);
             int attempt = attempts.AddOrUpdate(run, 1, (_, n) => n + 1);
             bool anthropic = endpoint.EndsWith("messages", StringComparison.Ordinal);
+            if (scenario is "held-headers" or "held-401" or "held-503" or "held-json-abort")
+            {
+                if (scenario == "held-json-abort")
+                {
+                    context.Response.ContentType = "application/json";
+                    await context.Response.StartAsync(context.RequestAborted);
+                    await context.Response.WriteAsync("{", context.RequestAborted);
+                    await context.Response.Body.FlushAsync(context.RequestAborted);
+                }
+                var signal = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+                if (barriers.Count >= 1024 || !barriers.TryAdd(run, signal)) { context.Abort(); return; }
+                try { await signal.Task.WaitAsync(context.RequestAborted); }
+                catch (OperationCanceledException) when (context.RequestAborted.IsCancellationRequested) { return; }
+                finally { barriers.TryRemove(run, out _); }
+                if (scenario == "held-json-abort") { context.Abort(); return; }
+                if (scenario is "held-401" or "held-503")
+                {
+                    context.Response.StatusCode = scenario == "held-401" ? 401 : 503;
+                    context.Response.Headers.RetryAfter = "0";
+                    await context.Response.WriteAsync("{\"error\":\"test-only-late-error\"}", context.RequestAborted);
+                    return;
+                }
+            }
             if (scenario is "unauthorized" or "forbidden" or "rate-limit" or "unavailable")
             {
                 context.Response.StatusCode = scenario switch { "unauthorized" => 401, "forbidden" => 403, "rate-limit" => 429, _ => 503 };
@@ -63,12 +89,13 @@ public sealed class MockProviderHost : IAsyncDisposable
             context.Response.ContentType = "text/event-stream";
             await context.Response.StartAsync(context.RequestAborted);
             string text;
+            string fixtureOutput = scenario == "output-limit" ? new string('x', ProviderOutputLimitFixture) : FixtureOutput;
             if (anthropic)
             {
                 text = "event: message_start\r\ndata: {\"type\":\"message_start\",\"message\":{\"usage\":{\"input_tokens\":12,\"output_tokens\":0}}}\r\n\r\n" +
                     "event: ping\ndata: {\"type\":\"ping\"}\n\n" +
                     "data: {\"type\":\"content_block_start\",\"index\":0,\"content_block\":{\"type\":\"text\",\"text\":\"\"}}\n\n" +
-                    "data: " + JsonSerializer.Serialize(new { type = "content_block_delta", index = 0, delta = new { type = "text_delta", text = FixtureOutput } }) + "\n\n";
+                    "data: " + JsonSerializer.Serialize(new { type = "content_block_delta", index = 0, delta = new { type = "text_delta", text = fixtureOutput } }) + "\n\n";
                 if (scenario != "disconnect") text += scenario == "stream-error" ? "data: {\"type\":\"error\",\"error\":{\"message\":\"" + FixtureCredential + "\"}}\n\n" :
                     "data: {\"type\":\"content_block_stop\",\"index\":0}\n\n" +
                     "data: {\"type\":\"message_delta\",\"delta\":{\"stop_reason\":\"end_turn\"},\"usage\":{\"output_tokens\":8}}\n\n" +
@@ -76,7 +103,7 @@ public sealed class MockProviderHost : IAsyncDisposable
             }
             else
             {
-                text = "\uFEFF: heartbeat\r\n\r\n" + "data: " + JsonSerializer.Serialize(new { choices = new[] { new { index = 0, delta = new { content = FixtureOutput }, finish_reason = (string?)null } } }) + "\r\n\r\n";
+                text = "\uFEFF: heartbeat\r\n\r\n" + "data: " + JsonSerializer.Serialize(new { choices = new[] { new { index = 0, delta = new { content = fixtureOutput }, finish_reason = (string?)null } } }) + "\r\n\r\n";
                 if (scenario != "disconnect") text += "data: {\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"stop\"}]}\n\n" +
                     "data: {\"choices\":[],\"usage\":{\"prompt_tokens\":12,\"completion_tokens\":8}}\n\n" + "data: [DONE]\n\n";
             }
@@ -104,5 +131,6 @@ public sealed class MockProviderHost : IAsyncDisposable
         return new MockProviderHost(app, new Uri(address + "/"));
     }
     public Task WaitForShutdownAsync(CancellationToken cancellation = default) => app.WaitForShutdownAsync(cancellation);
+    private const int ProviderOutputLimitFixture = 120_001;
     public async ValueTask DisposeAsync() { await app.StopAsync(); await app.DisposeAsync(); }
 }

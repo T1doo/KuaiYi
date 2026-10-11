@@ -24,6 +24,7 @@ public sealed class ProviderClient : IDisposable
     {
         ArgumentNullException.ThrowIfNull(request);
         ArgumentNullException.ThrowIfNull(gate);
+        if (!gate.CanApply(identity)) yield break;
         Uri endpoint;
         IProtocolAdapter adapter;
         HttpRequestMessage message;
@@ -36,7 +37,7 @@ public sealed class ProviderClient : IDisposable
             message = CreateMessage(request, adapter, endpoint, secret);
         }
         catch (ArgumentException) { endpoint = null!; adapter = null!; message = null!; }
-        if (message is null) { yield return new(ModelEventKind.Failed, Reason: "CONFIG_INVALID"); yield break; }
+        if (message is null) { if (gate.CanApply(identity)) yield return new(ModelEventKind.Failed, Reason: "CONFIG_INVALID"); yield break; }
         using (message)
         using (var total = CancellationTokenSource.CreateLinkedTokenSource(cancellation))
         {
@@ -55,6 +56,7 @@ public sealed class ProviderClient : IDisposable
                         () => client.SendAsync(outgoing, HttpCompletionOption.ResponseHeadersRead, headersDeadline.Token), out var pending))
                     { sendError = "CANCELLED_OR_UNCONSENTED"; break; }
                     response = await pending!.ConfigureAwait(false);
+                    if (!gate.CanApply(identity)) { sendError = "STALE_IDENTITY"; break; }
                     if (response.StatusCode is not (HttpStatusCode.TooManyRequests or HttpStatusCode.ServiceUnavailable) || attempt == 1) break;
                     TimeSpan? retry = response.Headers.RetryAfter?.Delta ?? (response.Headers.RetryAfter?.Date is { } date ? date - DateTimeOffset.UtcNow : null);
                     if (retry is { } delay && (delay < TimeSpan.Zero || delay > TimeSpan.FromSeconds(15))) break;
@@ -64,7 +66,7 @@ public sealed class ProviderClient : IDisposable
                 catch (OperationCanceledException) { sendError = cancellation.IsCancellationRequested ? "CANCELLED" : "REQUEST_TIMEOUT"; break; }
                 catch (HttpRequestException e) { sendError = e.HttpRequestError == HttpRequestError.SecureConnectionError ? "TLS_ERROR" : "NETWORK_ERROR"; break; }
             }
-            if (sendError is not null) { response?.Dispose(); yield return new(ModelEventKind.Failed, Reason: sendError); yield break; }
+            if (sendError is not null) { response?.Dispose(); if (gate.CanApply(identity)) yield return new(ModelEventKind.Failed, Reason: sendError); yield break; }
             using (response!)
             {
                 if (!response!.IsSuccessStatusCode)
@@ -78,7 +80,7 @@ public sealed class ProviderClient : IDisposable
                         _ => "PROVIDER_HTTP_ERROR"
                     };
                     // Never surface the untrusted error body; it can echo credentials/source or contain HTML.
-                    yield return new(ModelEventKind.Failed, Reason: reason);
+                    if (gate.CanApply(identity)) yield return new(ModelEventKind.Failed, Reason: reason);
                     yield break;
                 }
                 if (!gate.CanApply(identity)) yield break;
@@ -101,7 +103,7 @@ public sealed class ProviderClient : IDisposable
                     string? failure = null;
                     try { events = adapter.ParseNonStreaming(await ReadBoundedJsonAsync(body, total.Token).ConfigureAwait(false)); }
                     catch (Exception e) when (IsProtocolOrReadFailure(e)) { failure = ErrorFor(e, cancellation); }
-                    if (failure is not null) { yield return new(ModelEventKind.Failed, Reason: failure); yield break; }
+                    if (failure is not null) { if (gate.CanApply(identity)) yield return new(ModelEventKind.Failed, Reason: failure); yield break; }
                     int output = 0;
                     foreach (var item in events!)
                     {
@@ -112,7 +114,7 @@ public sealed class ProviderClient : IDisposable
                     }
                     yield break;
                 }
-                if (mime != "text/event-stream") { yield return new(ModelEventKind.Failed, Reason: "UNSUPPORTED_CONTENT_TYPE"); yield break; }
+                if (mime != "text/event-stream") { if (gate.CanApply(identity)) yield return new(ModelEventKind.Failed, Reason: "UNSUPPORTED_CONTENT_TYPE"); yield break; }
                 await using var enumerator = SseReader.ReadAsync(body, total.Token).GetAsyncEnumerator(total.Token);
                 int outputLength = 0;
                 bool firstEvent = true;
@@ -145,7 +147,7 @@ public sealed class ProviderClient : IDisposable
                             {
                                 if (remaining > 0 && char.IsHighSurrogate(item.Text[remaining - 1])) remaining--;
                                 if (remaining > 0) yield return item with { Text = item.Text[..remaining] };
-                                yield return new(ModelEventKind.Failed, Reason: "LOCAL_OUTPUT_LIMIT");
+                                if (gate.CanApply(identity)) yield return new(ModelEventKind.Failed, Reason: "LOCAL_OUTPUT_LIMIT");
                                 yield break;
                             }
                             outputLength += item.Text.Length;
@@ -155,6 +157,17 @@ public sealed class ProviderClient : IDisposable
                     }
                 }
             }
+        }
+    }
+
+    /// <summary>Production consumption carries the complete identity through the destination queue.</summary>
+    public async IAsyncEnumerable<ModelEventEnvelope> GenerateEnvelopesAsync(TranslationRequest request, RuntimeGate gate,
+        RequestIdentity identity, SecretLease? secret, [EnumeratorCancellation] CancellationToken cancellation = default)
+    {
+        await foreach (var item in GenerateAsync(request, gate, identity, secret, cancellation).ConfigureAwait(false))
+        {
+            if (!gate.CanApply(identity)) yield break;
+            yield return new(identity, item);
         }
     }
 

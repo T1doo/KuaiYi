@@ -143,7 +143,20 @@ public sealed class RuntimeGate
 
     public bool CanApply(RequestIdentity identity)
     {
-        lock (sync) return activation == Activation.On && active == identity;
+        lock (sync) return activation == Activation.On && active == identity && !suspension.HasFlag(Suspension.SessionLocked);
+    }
+
+    /// <summary>Final destination-thread check and bounded synchronous application, serialized with identity replacement.</summary>
+    public bool TryApply(RequestIdentity identity, Action apply)
+    {
+        ArgumentNullException.ThrowIfNull(apply);
+        lock (sync)
+        {
+            if (activation != Activation.On || active != identity || suspension.HasFlag(Suspension.SessionLocked)) return false;
+            // Caller is already on its destination thread: do not block, await or dispatch inside this callback.
+            apply();
+            return true;
+        }
     }
 
     public bool CanSend(RequestIdentity identity, EndpointOrigin actualOrigin)

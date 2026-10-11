@@ -1,0 +1,15 @@
+{
+  "baseCommit": "838377b466424eef28027f1890b17dcaf5943af8",
+  "utc": "2026-10-11T04:53:31.333384+00:00",
+  "command": "dotnet test tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj --no-restore -c Release --filter FullyQualifiedName~LateEventIsolationTests",
+  "total": 10,
+  "failed": 10,
+  "passed": 0,
+  "expectedContract": "No events from obsolete identities; replacement completes once",
+  "digests": {
+    "src/KuaiYi.Providers/ProviderClient.cs": "e3e8c216ee3450a6c9b46a55e0f097924940f0a9deb7dafd65223f1f6aafe2bf",
+    "tools/KuaiYi.MockProvider/MockProviderHost.cs": "6cd5285b59ce93943b25e8a68ba2b28d8b241e3c20af6b4e1a6b3fa721016548",
+    "tests/KuaiYi.Provider.Tests/LateEventIsolationTests.cs": "0c0d3d086033ca155e2d8fc63b93002636d153e1903173616f89c5a64d237680",
+    "docs/test-evidence/2026-10-11-late-events-before-fix.trx": "723df42fcdf506a8b7956855bfa57b6b343cb914c8cf744667a834a2294b6a6a"
+  }
+}
