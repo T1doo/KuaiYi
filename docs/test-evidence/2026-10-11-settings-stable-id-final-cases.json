@@ -1,0 +1,185 @@
+{
+  "count": 45,
+  "cases": [
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.DamagedPrimaryRequiresExplicitChoiceAndPreservesValidBackupAndCorruptBytes",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.NonObjectPrimaryIsDamageAndExplicitRecoveryUsesIntactBackup(invalid: \"[]\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.FutureBackupIsNotOverwrittenEvenWithCurrentPrimary",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.InvalidOrSensitiveConfigRejected(json: \"{\\\"schemaVersion\\\":1,\\\"overlay\\\":{\\\"fontSizeDip\\\":\"···)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.JsonOptionsCannotBeMutatedAndConfigReadAllocationIsBounded",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.LaterNormalSavePreservesPreviouslyDamagedBackupAsQuarantine",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.DeletingAnUnauthenticatedProfileStillEmitsInvalidationForItsActiveRequest",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.InvalidOrSensitiveConfigRejected(json: \"{\\\"schemaVersion\\\":1,\\\"translation\\\":null}\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.CommittedDeletionInterruptedBeforeRevokeIsCompletedByJournalRecovery",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.InvalidOrSensitiveConfigRejected(json: \"{\\\"schemaVersion\\\":1,\\\"overlay\\\":{\\\"fontSizeDip\\\":\"···)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.SavedChangesAreOneImmutableSnapshotWhileOldRequestSnapshotAndEncryptedBackupKeySurvive",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.SettingsSuspensionPreservesAlreadyAcceptedRequestAndImmutableConfiguration",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.InvalidOrSensitiveConfigRejected(json: \"{\\\"schemaVersion\\\":1,\\\"triggerMode\\\":2}\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.UnknownSchemaIsReadOnlyAndAllBytesSurvive(schema: -1)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.PostPublicationExceptionIsReconciledAsCommittedInsteadOfReportingFalseRollback",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.MissingProfileIdIsRejectedInsteadOfGeneratingDifferentIdentitiesOnEachLoad",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.InvalidOrSensitiveConfigRejected(json: \"{\\\"schemaVersion\\\":1,\\\"privacy\\\":{\\\"persistHistory\"···)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.NonObjectPrimaryIsDamageAndExplicitRecoveryUsesIntactBackup(invalid: \"null\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.UnknownLegacyMigrationRetainsSecretReferenceBytesAndRefusesOverwrite",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.OpenAndSaveWhileOffNeverReadsOldKeysOrInvokesCaptureOrNetwork",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.DeferredHotkeyOrTrustChangesCannotBeSmuggledIntoPlainSave",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.ExplicitDeletionRevokesOldReferenceOnlyAfterCommitAndBackupCannotReenableIt",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.InvalidOrSensitiveConfigRejected(json: \"{\\\"schemaVersion\\\":1,\\\"apiKey\\\":\\\"public-invalid\\\"\"···)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.CancelDiscardsChangesAndZerosActualDraftKeyWithoutChangingEffectiveOrReadingOldSecret",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.UnknownSchemaIsReadOnlyAndAllBytesSurvive(schema: 2)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.InvalidOrSensitiveConfigRejected(json: \"{\\\"schemaVersion\\\":1,\\\"schemaVersion\\\":1}\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.PositionRestoresAgainstCurrentTopologyAndDpiIncludingMissingMonitorAndNegativeOrigin",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.KnownDraftZeroMigratesInMemoryThenRetainsExactOldBytesOnExplicitSave",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.InvalidSecretReferencesCannotTraverseOrOpen(reference: \"key/\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.UnknownSchemaIsReadOnlyAndAllBytesSurvive(schema: 999)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.ActualTempFlushedThenInjectedWriteFailurePreservesOldConfigAndSecretAndEffectiveSnapshot",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.InvalidOrSensitiveConfigRejected(json: \"{\\\"schemaVersion\\\":1,\\\"launchAtSignIn\\\":true}\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.RealIndependentChildKilledAtFlushedOrPublishedBoundaryRecoversWholeConfigAndDeletionTransaction(stage: BeforePublish)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.InvalidOrSensitiveConfigRejected(json: \"{\\\"schemaVersion\\\":1,\\\"privacy\\\":{\\\"telemetryEnabl\"···)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.TwoIndependentCoordinatorsRejectStaleDraftAndNeverOverwriteWinner",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.LeaseDisposeZerosActualOwnedArrayAndRevocationBlocksNewLease",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.InvalidOrSensitiveConfigRejected(json: \"{\\\"schemaVersion\\\":1,\\\"activation\\\":\\\"On\\\"}\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.DefinitionExportsSameDefaultsAndRangeSchema",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.InvalidSecretReferencesCannotTraverseOrOpen(reference: \"key/../public\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.BothDamagedFilesStayUntilExplicitSafeDefaultsRecovery",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.InvalidSecretReferencesCannotTraverseOrOpen(reference: \"../public\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.RealIndependentChildKilledAtFlushedOrPublishedBoundaryRecoversWholeConfigAndDeletionTransaction(stage: AfterPublish)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.UnprovenTransactionIsRetainedAndBlocksRecoveryInsteadOfDeletingReferences",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.InvalidSecretReferencesCannotTraverseOrOpen(reference: \"profile/public/api-key\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SettingsTests.ActualFileSharingLeaseBlocksSecondWriterAndCancellationDoesNotPublish",
+      "outcome": "Passed"
+    }
+  ]
+}

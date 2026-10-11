@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "writeId": "00000000-0000-0000-0000-000000000000",
+  "activeProfileId": null,
+  "visionProfileId": null,
+  "triggerMode": "Selection",
+  "profiles": [],
+  "translation": {
+    "preset": "Faithful",
+    "targetLanguage": "zh-CN",
+    "domain": "",
+    "readerBackground": "",
+    "selectionDebounceMs": 180,
+    "autoSoftLimitScalars": 12000,
+    "hardLimitScalars": 50000
+  },
+  "overlay": {
+    "fontSizeDip": 15,
+    "preferredWidthDip": 420,
+    "reduceMotion": "FollowSystem",
+    "theme": "FollowSystem",
+    "rememberPosition": true,
+    "lastPosition": null,
+    "showSource": false,
+    "memoryVersions": 3
+  },
+  "images": {
+    "smartRouting": true,
+    "previewScreenshotBeforeSend": false,
+    "mixedContentExplain": true,
+    "defaultLongEdgePixels": 2560,
+    "maxPreparedBytes": 4194304
+  },
+  "privacy": {
+    "persistHistory": false,
+    "clipboardFallbackDefault": false,
+    "telemetryEnabled": false,
+    "blockedApplications": [],
+    "clipboardAllowedApplications": [],
+    "consentedEndpointOrigins": []
+  },
+  "hotkeys": {
+    "translateSelection": "Ctrl\u002BAlt\u002BD",
+    "captureRegion": "Ctrl\u002BAlt\u002BS",
+    "regenerate": "Ctrl\u002BAlt\u002BR",
+    "toggle": "Ctrl\u002BAlt\u002BT",
+    "hideOverlay": null,
+    "toggleResult": "Ctrl\u002BAlt\u002BSpace",
+    "focusResult": null,
+    "openSettings": null,
+    "stopGeneration": null
+  },
+  "launchAtSignIn": false
+}

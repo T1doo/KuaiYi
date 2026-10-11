@@ -70,11 +70,14 @@
         "F"
       ],
       "implementationStatus": "InProgress",
-      "validationStatus": "NotRun",
+      "validationStatus": "Blocked",
       "evidence": [
-        "docs/test-evidence/2026-10-11-late-events-summary.json"
+        "docs/test-evidence/2026-10-11-late-events-summary.json",
+        "docs/settings-review.md",
+        "docs/adr/0011-settings-transactions.md",
+        "docs/test-evidence/2026-10-11-settings-summary.json"
       ],
-      "note": "Offline subitems only, including obsolete error and destination queue identity checks; whole product requirement/task is not Pass."
+      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed."
     },
     {
       "id": "R06",
@@ -439,9 +442,14 @@
         "实现配置草稿、原子保存、迁移、损坏恢复、位置恢复",
         "AppSettings Schema 与单元测试"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": []
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/settings-review.md",
+        "docs/adr/0011-settings-transactions.md",
+        "docs/test-evidence/2026-10-11-settings-summary.json"
+      ],
+      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed."
     },
     {
       "id": "P1-04",
@@ -451,9 +459,14 @@
         "实现 DPAPI SecretStore、掩码输入、秘密引用及删除事务",
         "凭据测试；配置和日志泄露扫描"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": []
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/settings-review.md",
+        "docs/adr/0011-settings-transactions.md",
+        "docs/test-evidence/2026-10-11-settings-summary.json"
+      ],
+      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed."
     },
     {
       "id": "P1-05",
@@ -1089,7 +1102,12 @@
       ],
       "implementationStatus": "NotStarted",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/settings-review.md",
+        "docs/adr/0011-settings-transactions.md",
+        "docs/test-evidence/2026-10-11-settings-summary.json"
+      ],
+      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed."
     },
     {
       "id": "B01",
@@ -2194,7 +2212,12 @@
       ],
       "implementationStatus": "NotStarted",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/settings-review.md",
+        "docs/adr/0011-settings-transactions.md",
+        "docs/test-evidence/2026-10-11-settings-summary.json"
+      ],
+      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed."
     },
     {
       "id": "L02",
@@ -2260,7 +2283,12 @@
       ],
       "implementationStatus": "NotStarted",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/settings-review.md",
+        "docs/adr/0011-settings-transactions.md",
+        "docs/test-evidence/2026-10-11-settings-summary.json"
+      ],
+      "note": "Authorized independent settings slice while P0 remains Blocked: immutable drafts, actual atomic file replacement/backup/CAS, known migration and explicit recovery, secret reference transactions and normal WPF wiring. 45 portable cases passed, including2 real child crashes; AES-GCM/protection policy are explicit test substitutes. Windows WPF/DPAPI/ACL/real disk-full and actual floating position wiring are NotRun/not delivered. No whole task, requirement, acceptance or P1 exit signed."
     },
     {
       "id": "L07",

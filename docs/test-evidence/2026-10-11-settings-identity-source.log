@@ -1,0 +1,37 @@
+[
+  {
+    "Case": "Baseline",
+    "Result": "Pass",
+    "ExitCode": 0
+  },
+  {
+    "Case": "WrongWorkerId",
+    "Result": "Pass",
+    "ExitCode": 1,
+    "ExpectedDiagnostic": "Independent EXE identity mismatch"
+  },
+  {
+    "Case": "WildcardMenu",
+    "Result": "Pass",
+    "ExitCode": 1,
+    "ExpectedDiagnostic": "Unsupported/wildcard menu scope"
+  },
+  {
+    "Case": "WrongClsid",
+    "Result": "Pass",
+    "ExitCode": 1,
+    "ExpectedDiagnostic": "Verb CLSID mismatch"
+  },
+  {
+    "Case": "MissingWorker",
+    "Result": "Pass",
+    "ExitCode": 1,
+    "ExpectedDiagnostic": "Both EXEs must have independent declarations"
+  },
+  {
+    "Case": "WrongPublisher",
+    "Result": "Pass",
+    "ExitCode": 1,
+    "ExpectedDiagnostic": "Development identity mismatch"
+  }
+]

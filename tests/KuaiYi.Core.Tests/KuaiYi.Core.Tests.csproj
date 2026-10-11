@@ -9,6 +9,7 @@
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.runner.visualstudio"><PrivateAssets>all</PrivateAssets></PackageReference>
     <ProjectReference Include="../../src/KuaiYi.Core/KuaiYi.Core.csproj" />
+    <ProjectReference Include="../../tools/KuaiYi.SettingsStoreFixture/KuaiYi.SettingsStoreFixture.csproj" ReferenceOutputAssembly="false" />
     <ProjectReference Include="../../src/KuaiYi.OleTransfer/KuaiYi.OleTransfer.csproj" />
     <ProjectReference Include="../../tools/KuaiYi.OleReceiverFixture/KuaiYi.OleReceiverFixture.csproj" ReferenceOutputAssembly="false" />
     <ProjectReference Include="../../src/KuaiYi.Contracts/KuaiYi.Contracts.csproj" />
@@ -19,6 +20,7 @@
     <ProjectReference Include="../../src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj" ReferenceOutputAssembly="false" />
     <ProjectReference Include="../../src/KuaiYi.NativeHost/KuaiYi.NativeHost.csproj" />
     <ProjectReference Include="../../tools/KuaiYi.BrowserHostFixture/KuaiYi.BrowserHostFixture.csproj" ReferenceOutputAssembly="false" />
+    <None Include="../../assets/config/appsettings.schema.json" Link="appsettings.schema.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../fixtures/images/kuaiyi-test.png" Link="kuaiyi-test.png" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

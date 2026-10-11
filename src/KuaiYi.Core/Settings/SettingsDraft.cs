@@ -1,0 +1,26 @@
+using System.Collections.Immutable;
+using System.Security.Cryptography;
+namespace KuaiYi.Core.Settings;
+public sealed class SettingsDraft(SettingsSnapshot basis):IDisposable
+{
+    private readonly object sync=new();private AppSettings data=basis.Data;private bool closed,saving;
+    private readonly Dictionary<string,byte[]> keys=[];private readonly HashSet<string> cleared=[];
+    public SettingsSnapshot Basis{get;}=basis;
+    public AppSettings Data{get{lock(sync)return data;}}
+    public bool IsClosed{get{lock(sync)return closed;}}
+    public void Update(Func<AppSettings,AppSettings> edit){lock(sync){Available();data=edit(data);}}
+    public void SetKey(string profileId,ReadOnlySpan<byte> plain)
+    {
+        lock(sync){Available();if(!data.Profiles.Any(p=>p.Id==profileId)||plain.Length is <1 or >8192)throw new SettingsValidationException("apiKey");if(keys.Remove(profileId,out var old))CryptographicOperations.ZeroMemory(old);keys[profileId]=plain.ToArray();cleared.Remove(profileId);}
+    }
+    public void ClearKey(string profileId)
+    {
+        lock(sync){Available();if(keys.Remove(profileId,out var old))CryptographicOperations.ZeroMemory(old);cleared.Add(profileId);data=data with{Profiles=data.Profiles.Select(p=>p.Id==profileId?p with{SecretRef=null}:p).ToImmutableArray()};}
+    }
+    internal (AppSettings Data,Dictionary<string,byte[]> Keys,HashSet<string> Cleared) BeginSave()
+    {lock(sync){Available();saving=true;return(data,keys.ToDictionary(p=>p.Key,p=>p.Value.ToArray()),new(cleared));}}
+    internal void EndSave(bool committed){lock(sync){saving=false;if(committed)Dispose();}}
+    internal byte[]? PendingKeyForTest(string profileId){lock(sync)return keys.GetValueOrDefault(profileId);}
+    private void Available(){if(closed||saving)throw new InvalidOperationException("Draft is closed or saving.");if(Basis.ReadOnly)throw new UnknownSettingsSchemaException(-1);}
+    public void Dispose(){lock(sync){if(saving)throw new InvalidOperationException("Original save is still running.");if(closed)return;closed=true;foreach(var value in keys.Values)CryptographicOperations.ZeroMemory(value);keys.Clear();cleared.Clear();}}
+}

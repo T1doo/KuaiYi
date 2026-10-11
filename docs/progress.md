@@ -14,6 +14,8 @@ P0 整体：**InProgress，真实 Windows 退出门槛 Blocked**。后续整阶�
 | P0-04 | 强类型布局、合法方向/平衡、帧级边界、单调高度跟随、实际 HWND 帧采样代码 | InProgress | 10000 组纯逻辑 Pass；混合 DPI HWND 测量 Blocked |
 | P0-05 | 独立Worker/原生OCR与Shell源码、双EXE身份、开发打包/安装态脚本 | InProgress | 托管/协议/静态部分Pass；原生构建、Windows安装/OCR/菜单Blocked |
 | P0-06 | 双协议真实本机 HTTP/SSE、分片/错误/断流/取消、IPC/Native Messaging、独立 stdio echo、图像重组 | InProgress | 离线协议部分 Pass；截图/浏览器实际传图未运行 |
+| P1-03（独立部分） | 配置草稿、原子保存、迁移/恢复、位置纯函数、设置接线 | InProgress | 可移植部分 Pass；Windows界面/位置真实接线 Blocked |
+| P1-04（独立部分） | 秘密引用事务、掩码输入、当前用户DPAPI/ACL源码 | InProgress | 合成加密文件部分 Pass；Windows DPAPI/ACL NotRun |
 
 本轮还完成独立的启停/暂停/模式/请求身份门控、精确 origin 授权、七份原文提示词资源；属于可独立实现的基础合同，不表示 P1/P4 完整阶段通过。
 
@@ -193,3 +195,12 @@ P0 整体：**InProgress，真实 Windows 退出门槛 Blocked**。后续整阶�
 - 基线新增2例均失败，初修44/44、扩充45/45。新3个执行用例走实际child/生产stdio，注册器、映射和回调故障明确合成。首全回归491/492原queued断言遇清零续体调度竞态；保留失败证据，等待真实settlement并新增lease保留断言，旧断言全保留。
 - 最终Core492+Provider77=569/569、Node63/63，24托管locked Release零警告/错误，身份源静态6/6。新717653字节/42文件审阅ZIP独立命名，旧4包摘要不变。不是安装包，缺原生桥DLL不能拖放。
 - 原生工具链/Windows COM、真实注册与Release、鼠标捕获期间移动/Off、共享映射、关闭恢复、DPI/焦点/帧时间仍NotRun；176/106保留、P0 Blocked、E06 InProgress/NotRun。正常dev分支准备普通push供监督读取精确commit，main/部署/发布不操作；未推进下一阶段。完整原始证据与重跑方式见ole-lifetime-audit.md及test-evidence/2026-10-11-ole-lifetime-audit-summary.json。
+
+## P1 配置与设置独立切片（P0未退出）
+
+- 7c89618可移植生命周期获监督限定签收；E06/P0实机仍未过。现有合法环境只有Linux g++，无CMake/MSVC/Windows SDK；未安装或重试空探针。按遇阻继续独立工作授权实现配置部分，非阶段提前签收。
+- AppSettings/Schema/默认值、不可变草稿、同目录刷新/替换与备份、主备字节摘要及共享锁、未知版本只读、有限已知schema0布局草稿迁移、明确损坏恢复/原字节保留已实现。
+- 密文先存、引用journal、配置WriteId核对、提交后撤销/删除、备份不能复活旧引用；不能证明时保全并阻止继续。生产当前用户DPAPI及SID ACL真实P/Invoke只编译，未实机运行。测试AES-GCM/policy明确合成，无真实凭据。
+- 正常WPF设置窗口接到App，草稿保存/取消、捕获暂停、Off不启用或发送、掩码新输入、多API档及基础偏好真实接线。全部IO后台。热键/授权修改不能绕过后续事务，P4高级/模型调用未连接。位置纯恢复函数已测，真实浮窗位置持久化/恢复仍未接线。
+- 新45例含2真实独立child终止边界；最终Core537+Provider77=614、Node63，25托管locked Release零警告/错误，身份源6通过。首次Schema属性与WPF using错误日志保留，无删测试/弱断言。
+- 新770609字节/42文件设置审阅ZIP独立命名，旧5包摘要保持；无真实配置、密钥、receipt、fixture或原生DLL，非安装包。Windows界面/DPAPI/ACL/磁盘满/位置、原E06全NotRun，176追踪/106整体NotRun保持，P0 Blocked、P1 InProgress。详见settings-review.md和2026-10-11-settings-summary.json。

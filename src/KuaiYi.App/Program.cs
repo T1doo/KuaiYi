@@ -75,6 +75,7 @@ internal sealed partial class ImageProbeWindow : Window
         panel.Children.Add(status); panel.Children.Add(enabled); panel.Children.Add(stopLocal); panel.Children.Add(language); panel.Children.Add(choose);
         SetupScreenshot(panel);
         SetupOlePresentation(panel);
+        SetupSettings(panel);
         result.Height = 260; panel.Children.Add(result); Content = new ScrollViewer{Content=panel,VerticalScrollBarVisibility=ScrollBarVisibility.Auto};
         if (path != null) status.Text = "Off · Explorer 图片待确认；尚未读取。P0 仅支持 PNG。";
         choose.Click += async (_,_) => await Recognize();
@@ -87,6 +88,7 @@ internal sealed partial class ImageProbeWindow : Window
         enabled.Unchecked += (_,_) =>StopLocal();
         Closing += async (_,e) =>
         {
+            if(settingsOpening||settingsWindow!=null){e.Cancel=true;settingsWindow?.Close();status.Text="请先结束设置草稿或等待原保存任务完成。";return;}
             if(oleWindow!=null){e.Cancel=true;oleWindow.Close();status.Text="请先确认浮钮的 OLE 进程与注册已退出，再关闭评审窗口。";return;}
             if(captureTask is {IsCompleted:false})
             {

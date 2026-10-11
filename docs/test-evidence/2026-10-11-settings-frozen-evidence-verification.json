@@ -1,0 +1,39 @@
+{
+  "verified": {
+    "sourceDigests": 255,
+    "evidenceFiles": 43,
+    "reviewDigests": 6,
+    "baseline-sourceDigests": 236,
+    "baseline-evidenceFiles": 31,
+    "baseline-reviewDigests": 5
+  },
+  "archives": [
+    {
+      "archive": "artifacts/KuaiYi-P1-settings-managed-win-x64.zip",
+      "result": "Pass"
+    },
+    {
+      "archive": "artifacts/KuaiYi-P0-ole-lifetime-audit-managed-win-x64.zip",
+      "result": "Pass"
+    },
+    {
+      "archive": "artifacts/KuaiYi-P0-ole-presentation-managed-win-x64.zip",
+      "result": "Pass"
+    },
+    {
+      "archive": "artifacts/KuaiYi-P0-capture-host-managed-win-x64.zip",
+      "result": "Pass"
+    },
+    {
+      "archive": "artifacts/KuaiYi-P0-screenshot-managed-win-x64.zip",
+      "result": "Pass"
+    },
+    {
+      "archive": "artifacts/KuaiYi-P0-browser-confirmation-wait-win-x64.zip",
+      "result": "Pass"
+    }
+  ],
+  "WindowsRuntime": "NotRun",
+  "P0": "Blocked",
+  "P1": "InProgress"
+}
