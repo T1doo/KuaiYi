@@ -8,6 +8,7 @@
 - PowerShell 7.6.6 来自 Microsoft Debian trixie 正式包源；只解包到 `/workspace/.kuaiyi-setup/powershell-7.6.6`。
 - PowerShell 包 SHA256：`efae8744e1e552c07ffd7d56782c71813c25d456f8edfb1cabb4f3bb2bfdc248`；已与仓库 Packages.gz 元数据核对。
 - 未安装 Windows SDK、MSVC、MakeAppx、Microsoft SignTool、Inno Setup；未发现 CMake。
+- Windows 交叉构建仅下载 WindowsDesktop.App.Ref 10.0.12 与 NETCore.App.Host.win-x64 10.0.12（MIT）。这些引用包不等同于原生 Windows SDK 或 C++ 工具链。
 - Linux `/usr/bin/signtool` 属于 libnss3-tools，不是 Windows SDK 签名工具。
 - 原 `/workspace/.agents` 为空；未发现适用 AGENTS.md，本轮已建立仓库工程约定。
 

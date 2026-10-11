@@ -111,5 +111,33 @@
     }
   ],
   "windowsNativeToolchain": "Blocked",
-  "futureRecommendedDependencies": "Not yet selected or restored; not represented as locked."
+  "futureRecommendedDependencies": "Not yet selected or restored; not represented as locked.",
+  "sdkDownloadDependencies": [
+    {
+      "id": "Microsoft.WindowsDesktop.App.Ref",
+      "version": "10.0.12",
+      "license": "MIT",
+      "licenseUrl": "https://licenses.nuget.org/MIT",
+      "sha512": "0GgUriVcZ5eKx2nC3I4BgwNaLh/86sFbOymI754j4UwjrgxwTDP/TUhUWNgKZjiKInOAVxhog0BDAOPZesvLww==",
+      "source": "https://api.nuget.org/v3/index.json",
+      "type": "SDK download dependency, not packages.lock package graph"
+    },
+    {
+      "id": "Microsoft.NETCore.App.Host.win-x64",
+      "version": "10.0.12",
+      "license": "MIT",
+      "licenseUrl": "https://licenses.nuget.org/MIT",
+      "sha512": "M8J2D1k24eswYJ/DaJdHYbwzHrcg+gWTv5L58FDG2R1n9nOiJ4MWCrhMFtZzbowCwQBmztbAbM7tN49cuqeFiA==",
+      "source": "https://api.nuget.org/v3/index.json",
+      "type": "SDK download dependency, not packages.lock package graph"
+    }
+  ],
+  "removedUnneededProjection": {
+    "id": "Microsoft.Windows.SDK.NET.Ref",
+    "version": "10.0.19041.57",
+    "requireLicenseAcceptance": true,
+    "licenseUrl": "https://aka.ms/WinSDKLicenseURL",
+    "status": "Removed from effective graph and probe outputs; no explicit license acceptance performed",
+    "decision": "docs/decisions/0002-probe-dependencies.md"
+  }
 }

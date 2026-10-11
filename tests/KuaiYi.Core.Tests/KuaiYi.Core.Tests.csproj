@@ -10,5 +10,6 @@
     <PackageReference Include="xunit.runner.visualstudio"><PrivateAssets>all</PrivateAssets></PackageReference>
     <ProjectReference Include="../../src/KuaiYi.Core/KuaiYi.Core.csproj" />
     <ProjectReference Include="../../src/KuaiYi.Contracts/KuaiYi.Contracts.csproj" />
+    <ProjectReference Include="../../tools/KuaiYi.NativeMessagingProbe/KuaiYi.NativeMessagingProbe.csproj" ReferenceOutputAssembly="false" />
   </ItemGroup>
 </Project>

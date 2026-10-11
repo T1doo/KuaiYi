@@ -85,6 +85,9 @@ public sealed class OpenAiChatAdapter : IProtocolAdapter
 
 public sealed class AnthropicMessagesAdapter : IProtocolAdapter
 {
+    private bool started, stopped, validStopReason;
+    private readonly Dictionary<long, string> activeBlocks = [];
+    private readonly HashSet<long> seenBlocks = [];
     public ApiProtocol Protocol => ApiProtocol.AnthropicMessages;
     public JsonObject BuildBody(TranslationRequest request)
     {
@@ -102,31 +105,59 @@ public sealed class AnthropicMessagesAdapter : IProtocolAdapter
     {
         using var document = ProtocolJson.Parse(data);
         var root = document.RootElement;
+        if (stopped) throw new InvalidDataException("Anthropic event after message_stop.");
         switch (ProtocolJson.String(root, "type"))
         {
             case "content_block_delta":
-                if (root.TryGetProperty("delta", out var delta) && ProtocolJson.String(delta, "type") == "text_delta" && ProtocolJson.String(delta, "text") is { } text)
+                RequireStarted();
+                long deltaIndex = BlockIndex(root);
+                if (!activeBlocks.TryGetValue(deltaIndex, out string? blockType)) throw new InvalidDataException("Delta without active content block.");
+                if (root.TryGetProperty("delta", out var delta) && ProtocolJson.String(delta, "type") == "text_delta")
+                {
+                    if (blockType != "text" || ProtocolJson.String(delta, "text") is not { } text) throw new InvalidDataException("Text delta outside a text block.");
                     return [new(ModelEventKind.TextDelta, text)];
+                }
                 break;
             case "message_start":
+                if (started) throw new InvalidDataException("Duplicate Anthropic message_start.");
+                started = true;
                 if (root.TryGetProperty("message", out var message) && message.TryGetProperty("usage", out var startUsage))
                     return [new(ModelEventKind.Usage, Usage: new(ProtocolJson.Number(startUsage, "input_tokens"), ProtocolJson.Number(startUsage, "output_tokens")))];
                 break;
             case "message_delta":
+                RequireStarted();
+                if (activeBlocks.Count != 0) throw new InvalidDataException("Message delta before content blocks stopped.");
                 List<ModelEvent> events = [];
                 if (root.TryGetProperty("usage", out var usage)) events.Add(new(ModelEventKind.Usage, Usage: new(ProtocolJson.Number(usage, "input_tokens"), ProtocolJson.Number(usage, "output_tokens"))));
-                if (root.TryGetProperty("delta", out var final) && ProtocolJson.String(final, "stop_reason") is { } reason && reason is not ("end_turn" or "stop_sequence"))
-                    events.Add(new(ModelEventKind.Failed, Reason: reason == "max_tokens" ? "OUTPUT_TRUNCATED" : "UNSUPPORTED_OR_REFUSED"));
+                if (root.TryGetProperty("delta", out var final) && ProtocolJson.String(final, "stop_reason") is { } reason)
+                {
+                    validStopReason = reason is "end_turn" or "stop_sequence";
+                    if (!validStopReason) events.Add(new(ModelEventKind.Failed, Reason: reason == "max_tokens" ? "OUTPUT_TRUNCATED" : "UNSUPPORTED_OR_REFUSED"));
+                }
                 return events;
-            case "message_stop": return [new(ModelEventKind.Completed, Reason: "message_stop")];
+            case "message_stop":
+                RequireStarted();
+                if (activeBlocks.Count != 0 || !validStopReason) throw new InvalidDataException("Incomplete Anthropic message lifecycle.");
+                stopped = true; return [new(ModelEventKind.Completed, Reason: "message_stop")];
             case "error": return [new(ModelEventKind.Failed, Reason: "PROVIDER_ERROR")];
             case "content_block_start":
-                if (root.TryGetProperty("content_block", out var block) && ProtocolJson.String(block, "type") is "tool_use" or "server_tool_use")
-                    return [new(ModelEventKind.Failed, Reason: "UNSUPPORTED_TOOL_RESPONSE")];
+                RequireStarted();
+                long index = BlockIndex(root);
+                if (seenBlocks.Count >= 128 || !seenBlocks.Add(index)) throw new InvalidDataException("Invalid/duplicate content block.");
+                if (!root.TryGetProperty("content_block", out var block) || ProtocolJson.String(block, "type") is not { } type) throw new InvalidDataException("Missing content block type.");
+                if (type is "tool_use" or "server_tool_use") return [new(ModelEventKind.Failed, Reason: "UNSUPPORTED_TOOL_RESPONSE")];
+                activeBlocks.Add(index, type);
+                if (type == "text" && ProtocolJson.String(block, "text") is { Length: > 0 } initial) return [new(ModelEventKind.TextDelta, initial)];
+                break;
+            case "content_block_stop":
+                RequireStarted();
+                if (!activeBlocks.Remove(BlockIndex(root))) throw new InvalidDataException("Stop without active content block.");
                 break;
         }
         return [];
     }
+    private void RequireStarted() { if (!started) throw new InvalidDataException("Anthropic event before message_start."); }
+    private static long BlockIndex(JsonElement root) => ProtocolJson.Number(root, "index") is { } index && index < 128 ? index : throw new InvalidDataException("Invalid content block index.");
     public IReadOnlyList<ModelEvent> ParseNonStreaming(string json)
     {
         using var document = ProtocolJson.Parse(json);

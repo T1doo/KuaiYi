@@ -37,9 +37,13 @@
         "P3",
         "C"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": []
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/test-evidence/2026-10-11-probes-summary.json",
+        "docs/windows-probes.md"
+      ],
+      "note": "Cross-compiled probe / offline subitems only; whole requirement or task remains incomplete and needs actual Windows evidence."
     },
     {
       "id": "R04",
@@ -252,9 +256,11 @@
       "implementationStatus": "InProgress",
       "validationStatus": "Blocked",
       "evidence": [
-        "docs/test-evidence/2026-10-11-offline-summary.json"
+        "docs/test-evidence/2026-10-11-offline-summary.json",
+        "docs/test-evidence/2026-10-11-probes-summary.json",
+        "docs/windows-probes.md"
       ],
-      "note": "Independent offline subitems validated; whole task still needs Windows or additional platform work."
+      "note": "Cross-compiled probe / offline subitems only; whole requirement or task remains incomplete and needs actual Windows evidence."
     },
     {
       "id": "P0-02",
@@ -264,9 +270,13 @@
         "做真实 UIA 选择探针：Chrome、Edge、PDF 阅读器、Markdown 编辑/预览至少各一个",
         "CompatibilityProbe、原始脱敏结果、应用版本和限制说明"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": []
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/test-evidence/2026-10-11-probes-summary.json",
+        "docs/windows-probes.md"
+      ],
+      "note": "Cross-compiled probe / offline subitems only; whole requirement or task remains incomplete and needs actual Windows evidence."
     },
     {
       "id": "P0-03",
@@ -276,9 +286,13 @@
         "验证 WPF 非激活顶层窗口、按钮命中、置顶、OLE Drop、焦点行为",
         "最小真实 HWND 原型；与前台编辑器联合测试"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": []
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/test-evidence/2026-10-11-probes-summary.json",
+        "docs/windows-probes.md"
+      ],
+      "note": "Cross-compiled probe / offline subitems only; whole requirement or task remains incomplete and needs actual Windows evidence."
     },
     {
       "id": "P0-04",
@@ -291,9 +305,11 @@
       "implementationStatus": "InProgress",
       "validationStatus": "Blocked",
       "evidence": [
-        "docs/test-evidence/2026-10-11-offline-summary.json"
+        "docs/test-evidence/2026-10-11-offline-summary.json",
+        "docs/test-evidence/2026-10-11-probes-summary.json",
+        "docs/windows-probes.md"
       ],
-      "note": "Independent offline subitems validated; whole task still needs Windows or additional platform work."
+      "note": "Cross-compiled probe / offline subitems only; whole requirement or task remains incomplete and needs actual Windows evidence."
     },
     {
       "id": "P0-05",
@@ -318,9 +334,11 @@
       "implementationStatus": "InProgress",
       "validationStatus": "Blocked",
       "evidence": [
-        "docs/test-evidence/2026-10-11-offline-summary.json"
+        "docs/test-evidence/2026-10-11-offline-summary.json",
+        "docs/test-evidence/2026-10-11-probes-summary.json",
+        "docs/windows-probes.md"
       ],
-      "note": "Independent offline subitems validated; whole task still needs Windows or additional platform work."
+      "note": "Cross-compiled probe / offline subitems only; whole requirement or task remains incomplete and needs actual Windows evidence."
     },
     {
       "id": "P1-01",

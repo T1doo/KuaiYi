@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "parameters": "--vulnerable --include-transitive",
+  "sources": [
+    "https://api.nuget.org/v3/index.json"
+  ],
+  "projects": [
+    {
+      "path": "/workspace/KuaiYi/src/KuaiYi.Core/KuaiYi.Core.csproj"
+    },
+    {
+      "path": "/workspace/KuaiYi/src/KuaiYi.Contracts/KuaiYi.Contracts.csproj"
+    },
+    {
+      "path": "/workspace/KuaiYi/tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj"
+    },
+    {
+      "path": "/workspace/KuaiYi/src/KuaiYi.Providers/KuaiYi.Providers.csproj"
+    },
+    {
+      "path": "/workspace/KuaiYi/tools/KuaiYi.MockProvider/KuaiYi.MockProvider.csproj"
+    },
+    {
+      "path": "/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj"
+    },
+    {
+      "path": "/workspace/KuaiYi/src/KuaiYi.Windows/KuaiYi.Windows.csproj"
+    },
+    {
+      "path": "/workspace/KuaiYi/src/KuaiYi.CaptureBroker/KuaiYi.CaptureBroker.csproj"
+    },
+    {
+      "path": "/workspace/KuaiYi/tools/KuaiYi.CompatibilityProbe/KuaiYi.CompatibilityProbe.csproj"
+    },
+    {
+      "path": "/workspace/KuaiYi/tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj"
+    },
+    {
+      "path": "/workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/KuaiYi.NativeMessagingProbe.csproj"
+    }
+  ]
+}
