@@ -29,9 +29,9 @@ internal sealed partial class SettingsWindow:Window
     private readonly DispatcherTimer revealTimer=new(){Interval=TimeSpan.FromSeconds(5)};
     private string? selectedId;private bool loading,saving,committed,changingRecovery,closeWhenSettled;
     public void RequestCloseWhenSettled(){closeWhenSettled=true;Mask();Close();}
-    public SettingsWindow(SettingsCoordinator coordinator,SettingsDraft initialDraft,string? clipboardApplication=null)
+    public SettingsWindow(SettingsCoordinator coordinator,SettingsDraft initialDraft,string? clipboardApplication=null,ISettingsHotkeyParticipant? hotkeys=null,Func<IReadOnlyList<HotkeyStatus>>? hotkeyStatus=null)
     {
-        this.coordinator=coordinator;this.clipboardApplication=clipboardApplication;recoveryDraft=new(initialDraft);SetupPlacement();Title="快译设置";ShowInTaskbar=false;WindowStartupLocation=WindowStartupLocation.CenterOwner;
+        this.coordinator=coordinator;this.clipboardApplication=clipboardApplication;hotkeyParticipant=hotkeys;this.hotkeyStatus=hotkeyStatus;recoveryDraft=new(initialDraft);SetupPlacement();Title="快译设置";ShowInTaskbar=false;WindowStartupLocation=WindowStartupLocation.CenterOwner;
         var work=SystemParameters.WorkArea;Width=Math.Min(860,work.Width);Height=Math.Min(660,work.Height);MinWidth=Math.Min(700,work.Width);MinHeight=Math.Min(520,work.Height);MaxWidth=work.Width;MaxHeight=work.Height;
         var root=new DockPanel();var footer=new StackPanel();DockPanel.SetDock(footer,Dock.Bottom);root.Children.Add(footer);
         footer.Children.Add(status);var actions=new StackPanel{Orientation=Orientation.Horizontal,HorizontalAlignment=HorizontalAlignment.Right};actions.Children.Add(recovery);actions.Children.Add(save);actions.Children.Add(cancel);footer.Children.Add(actions);
@@ -69,7 +69,6 @@ internal sealed partial class SettingsWindow:Window
     }
     private StackPanel Translation(){var p=Page();Field(p,"默认翻译风格",preset);Field(p,"专业领域",domain);Field(p,"读者背景",background);Note(p,"修改影响后续任务。预设提示词已在资源中；自定义模板编辑与完整预览随翻译链路交付。");return p;}
     private StackPanel Overlay(){var p=Page();Field(p,"触发模式",mode);Field(p,"选区稳定等待（80—800 ms）",delay);Field(p,"自动发送软上限（1000—50000 字符）",softLimit);Field(p,"字号（12—22 DIP）",font);Field(p,"首选宽度（240—960 DIP）",width);Field(p,"主题",theme);Field(p,"减少动画",motion);p.Children.Add(remember);var reset=new Button{Content="重置已保存浮窗位置（保存后生效）"};reset.Click+=(_,_)=>draft.Update(s=>s with{Overlay=s.Overlay with{LastPosition=null}});p.Children.Add(reset);Note(p,"自动划词与完整翻译浮窗尚未交付。设置模式不授予采集或上传权限。");return p;}
-    private StackPanel Hotkeys(){var p=Page();foreach(var pair in AppSettings.DefaultHotkeys)Note(p,pair.Key+"："+(draft.Data.Hotkeys.GetValueOrDefault(pair.Key)??"未分配"));Note(p,"完整录制、冲突检测与成组注册事务待 P3；本页保留配置，不修改已注册热键。");return p;}
     private StackPanel Images(){var p=Page();p.Children.Add(smart);p.Children.Add(preview);Note(p,"这些是后续图片翻译的偏好。资源管理器与浏览器真实安装状态不由本页修改或伪报成功。");return p;}
     private StackPanel Privacy(){var p=Page();Field(p,"排除应用（每行一个应用标识）",blocked);blocked.AcceptsReturn=true;blocked.MinHeight=100;Note(p,"磁盘历史、遥测和默认复制兼容固定关闭。应用授权与端点发送同意不会通过保存草稿自动授予。密钥删除在保存提交后生效。");var permission=new Button{Content="复制兼容：逐应用授权 / 撤销（即时生效）",Margin=new Thickness(0,8,0,8)};permission.Click+=(_,_)=>{var window=new ClipboardPermissionsWindow(coordinator,clipboardApplication){Owner=this};window.ShowDialog();status.Text="应用授权单独即时生效。若有修改，请关闭并重新打开设置后保存其他草稿，避免覆盖新配置。";};p.Children.Add(permission);return p;}
     private void LoadGeneral()
@@ -108,7 +107,7 @@ internal sealed partial class SettingsWindow:Window
             CaptureProfile();CapturePreferences();
             if(!recoveryDraft.Select(choice)){RestoreRecoverySelection();return;}
             selectedId=draft.Data.Profiles.Any(p=>p.Id==selectedId)?selectedId:draft.Data.ActiveProfileId??draft.Data.Profiles.FirstOrDefault()?.Id;
-            LoadGeneral();RefreshProfiles();status.Text=choice switch{SettingsRecovery.UseBackup=>"当前显示上版备份草稿及其编辑。保存此草稿；切换不会丢失另一份草稿。",SettingsRecovery.UseDefaults=>"当前显示安全默认值草稿及其编辑。保存此草稿；原备份在保存前保留。",_=>"尚未选择恢复方式。当前显示原恢复草稿及其编辑；选择后才能保存。"};
+            LoadGeneral();RefreshProfiles();RefreshHotkeyFields();status.Text=choice switch{SettingsRecovery.UseBackup=>"当前显示上版备份草稿及其编辑。保存此草稿；切换不会丢失另一份草稿。",SettingsRecovery.UseDefaults=>"当前显示安全默认值草稿及其编辑。保存此草稿；原备份在保存前保留。",_=>"尚未选择恢复方式。当前显示原恢复草稿及其编辑；选择后才能保存。"};
         }
         catch(SettingsValidationException error){RestoreRecoverySelection();status.Text="请先检查当前草稿项，再切换恢复方式："+error.Field;}
         catch(SettingsRecoveryRequiredException){RestoreRecoverySelection();status.Text="没有可读取的备份。请选择安全默认值，原文件保留。";}
@@ -124,10 +123,10 @@ internal sealed partial class SettingsWindow:Window
         {
             CaptureProfile();CapturePreferences();
             saving=true;save.IsEnabled=cancel.IsEnabled=body.IsEnabled=recovery.IsEnabled=false;status.Text="正在保存草稿…";
-            await recoveryDraft.SaveAsync(coordinator);committed=true;
+            await recoveryDraft.SaveAsync(coordinator,hotkeys:hotkeyParticipant);committed=true;
         }
-        catch(Exception error){status.Text=error is SettingsValidationException v?"请检查设置项："+v.Field:error is SettingsConflictException?"配置已被另一份草稿修改。请取消后重新打开，避免覆盖。":draft.IsClosed?"配置已提交，通知或密钥清理尚需恢复。关闭后重新打开设置进行核对。":"保存未确认 · "+error.GetType().Name+"；原配置或事务保留。";}
-        finally{saving=false;if(!draft.IsClosed)save.IsEnabled=cancel.IsEnabled=body.IsEnabled=recovery.IsEnabled=!draft.Basis.ReadOnly;else cancel.IsEnabled=true;}
+        catch(Exception error){status.Text=error is HotkeyValidationException hv?"快捷键不可配置 · "+hv.Action+" · "+hv.Problem:error is HotkeyRegistrationException hr?"快捷键注册失败 · Win32 "+hr.Error+(hr.RollbackUnconfirmed?"；回滚未确认，快捷键动作暂停。":"；原组合保留，无法判断占用程序。"):error is HotkeyRegistryStateException hs?"快捷键事务暂不可用 · "+hs.Problem+"；不推断系统占用，请核实原保存或重启恢复。":error is SettingsValidationException v?"请检查设置项："+v.Field:error is SettingsConflictException?"配置已被另一份草稿修改。请取消后重新打开，避免覆盖。":draft.IsClosed?"配置已提交，通知或密钥清理尚需恢复。关闭后重新打开设置进行核对。":"保存未确认 · "+error.GetType().Name+"；原配置或事务保留。";}
+        finally{saving=false;RefreshHotkeyStatuses();if(!draft.IsClosed)save.IsEnabled=cancel.IsEnabled=body.IsEnabled=recovery.IsEnabled=!draft.Basis.ReadOnly;else cancel.IsEnabled=true;}
         if(committed||closeWhenSettled)Close();
     }
 }

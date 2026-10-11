@@ -71,7 +71,8 @@ public static class SettingsJson
         Strings(s.Privacy.BlockedApplications,128,260,"blockedApplications");Strings(s.Privacy.ClipboardAllowedApplications,128,260,"clipboardAllowedApplications");Strings(s.Privacy.ConsentedEndpointOrigins,128,2048,"consentedEndpointOrigins");
         foreach(var origin in s.Privacy.ConsentedEndpointOrigins){Check(Uri.TryCreate(origin,UriKind.Absolute,out var endpoint),"origin");Check(new EndpointOrigin(endpoint!).Value==origin,"origin");}
         Check(s.Hotkeys!=null&&s.Hotkeys.Count==AppSettings.DefaultHotkeys.Count&&s.Hotkeys.Keys.All(AppSettings.DefaultHotkeys.ContainsKey),"hotkeys");foreach(var key in s.Hotkeys!.Values)if(key!=null)Text(key,64,"hotkeys");
-        // These require later OS transactions; this slice does not pretend to apply startup, hotkeys or authorizations.
+        try{HotkeyPolicy.ValidateMap(s.Hotkeys!);}catch(HotkeyValidationException error){throw new SettingsValidationException("hotkeys:"+error.Action+":"+error.Problem);}
+        // Sign-in registration is still deferred. Hotkeys use the separate native transaction participant; consent uses explicit authorization.
         Check(!s.LaunchAtSignIn,"launchAtSignIn");
     }
     private static void Ranges(object value,string path)

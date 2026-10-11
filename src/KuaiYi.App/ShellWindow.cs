@@ -41,7 +41,7 @@ internal sealed partial class ShellWindow:Window
             Reposition(null);
             SetupSelection();SetupTextDrop();
         };
-        Loaded+=(_,_)=>startup=LoadStartup();
+        Loaded+=(_,_)=>{startup=LoadStartup();SetupHotkeys();};
         button.PreviewMouseLeftButtonDown+=(_,e)=>Pointer(()=>
         {
             if(exiting||!geometryReady||!NativeDesktop.GetCursorPos(out var p))return;
@@ -77,7 +77,7 @@ internal sealed partial class ShellWindow:Window
         catch(OperationCanceledException)when(lifetime.IsCancellationRequested){ /* Owned exit waits for startup settlement. */ }
         catch(Exception error){Report("配置无法加载，原文件保留；请打开设置恢复",error);}
     }
-    private void SettingsCommitted(SettingsSnapshot _,SettingsChange __){selectionCapture?.CancelPending();RevokeTextDrop();Dispatcher.BeginInvoke(()=>{if(!exiting)Refresh();});}
+    private void SettingsCommitted(SettingsSnapshot saved,SettingsChange __){if(globalHotkeys!=null)globalHotkeys.ReconcileAsync(saved).WaitAsync(TimeSpan.FromSeconds(2)).GetAwaiter().GetResult();selectionCapture?.CancelPending();RevokeTextDrop();Dispatcher.BeginInvoke(()=>{if(!exiting)Refresh();});}
     private void Toggle()
     {
         if(exiting)return;
@@ -100,10 +100,10 @@ internal sealed partial class ShellWindow:Window
         if(exiting)return;if(settings!=null){settings.Activate();return;}if(opening)return;opening=true;
         try
         {
-            await startup;await positionSave;if(exiting)return;lifecycle.Gate.SetSuspension(Suspension.Settings,true);RefreshSelection();
+            await startup;await hotkeySetup;await positionSave;if(exiting)return;lifecycle.Gate.SetSuspension(Suspension.Settings,true);RefreshSelection();
             var draft=await coordinator.OpenDraftAsync(lifetime.Token);
             if(exiting){draft.Dispose();return;}
-            try{settings=new(coordinator,draft,selectionCapture?.LastFailureWindow?.Executable){Owner=this};}catch{draft.Dispose();throw;}
+            try{settings=new(coordinator,draft,selectionCapture?.LastFailureWindow?.Executable,globalHotkeys,()=>globalHotkeys?.Status??[]){Owner=this};}catch{draft.Dispose();throw;}
             settings.Closed+=(_,_)=>{settings=null;lifecycle.Gate.SetSuspension(Suspension.Settings,false);Refresh();QueuePositionSave();if(exitRequested)Dispatcher.BeginInvoke(Close);};settings.Show();
         }
         catch(OperationCanceledException)when(lifetime.IsCancellationRequested){ /* Exit awaits this owned opening path. */ }
@@ -122,14 +122,14 @@ internal sealed partial class ShellWindow:Window
     {
         if(e.Reason is not (Microsoft.Win32.SessionSwitchReason.SessionLock or Microsoft.Win32.SessionSwitchReason.SessionUnlock))return;
         bool locked=e.Reason==Microsoft.Win32.SessionSwitchReason.SessionLock;lifecycle.SetSessionLocked(locked);selectionCapture?.CancelPending(clearSource:locked);RevokeTextDrop(clearSource:locked); // Synchronous gate invalidation precedes queued UI.
-        Dispatcher.BeginInvoke(()=>{if(exiting)return;CancelPointer();if(locked){ClearSelectionSource();settings?.RequestCloseWhenSettled();HidePresentation(true);Hide();}else ShowOverlay();Refresh();});
+        Dispatcher.BeginInvoke(()=>{if(exiting)return;RecoverHotkeys(locked);CancelPointer();if(locked){ClearSelectionSource();settings?.RequestCloseWhenSettled();HidePresentation(true);Hide();}else ShowOverlay();Refresh();});
     }
     private nint Hook(nint window,int message,nint w,nint l,ref bool handled)
     {
         try
         {
             if((uint)message==showMessage){ShowOverlay();handled=true;}
-            else if(tray!=null&&(uint)message==tray.TaskbarCreated){tray.Restore();Refresh();handled=true;}
+            else if(tray!=null&&(uint)message==tray.TaskbarCreated){tray.Restore();RecoverHotkeys(lifecycle.Gate.Snapshot.Suspension.HasFlag(Suspension.SessionLocked));Refresh();handled=true;}
             else if(message==NativeTray.CallbackMessage)
             {
                 int eventCode=(int)(l.ToInt64()&0xffff);handled=true;
@@ -172,7 +172,7 @@ internal sealed partial class ShellWindow:Window
         if(allowClose)return;e.Cancel=true;if(exiting)return;
         if(opening||settings!=null){exitRequested=true;lifecycle.Hide();Refresh();settings?.RequestCloseWhenSettled();button.ToolTip="正在等待设置草稿和原保存任务结束后退出。";return;}
         QueuePositionSave();exiting=true;button.IsEnabled=false;CancelPointer();lifecycle.Hide();HidePresentation(true);Refresh();
-        try{await startup;await positionSave;await StopTextDrop();await StopSelection();allowClose=true;Close();}
+        try{await startup;await positionSave;await StopTextDrop();await StopSelection();await StopHotkeyScreenshot();await StopHotkeys();allowClose=true;Close();}
         catch(Exception error){exiting=false;button.IsEnabled=true;Report("退出清理尚未完成",error);}
     }
     private void ClosedShell(object? sender,EventArgs e)

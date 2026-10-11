@@ -35,16 +35,19 @@ public sealed class SettingsCoordinator(SettingsStore store,SecretFileStore secr
     {
         using var lease=await TransactionLease(cancellation);var snapshot=await store.LoadAsync(cancellation);if(!snapshot.ReadOnly)await Recover(snapshot,cancellation);Volatile.Write(ref effective,snapshot);return new SettingsDraft(snapshot);
     },cancellation);
-    public Task<SettingsSnapshot> SaveAsync(SettingsDraft draft,SettingsRecovery recovery=SettingsRecovery.None,CancellationToken cancellation=default)=>Serialized(async()=>
+    public Task<SettingsSnapshot> SaveAsync(SettingsDraft draft,SettingsRecovery recovery=SettingsRecovery.None,CancellationToken cancellation=default)=>SaveCore(draft,recovery,cancellation,null);
+    public Task<SettingsSnapshot> SaveWithHotkeysAsync(SettingsDraft draft,ISettingsHotkeyParticipant hotkeys,SettingsRecovery recovery=SettingsRecovery.None,CancellationToken cancellation=default)=>SaveCore(draft,recovery,cancellation,hotkeys??throw new ArgumentNullException(nameof(hotkeys)));
+    private Task<SettingsSnapshot> SaveCore(SettingsDraft draft,SettingsRecovery recovery,CancellationToken cancellation,ISettingsHotkeyParticipant? hotkeys)=>Serialized(async()=>
     {
-        var captured=draft.BeginSave();bool committed=false;var staged=new List<string>();Guid id=Guid.NewGuid();string journal=JournalPath(id);bool journalWritten=false;
+        var captured=draft.BeginSave();ISettingsHotkeyTransaction? hotkeyTransaction=null;bool committed=false,publicationUnconfirmed=false;var staged=new List<string>();Guid id=Guid.NewGuid();string journal=JournalPath(id);bool journalWritten=false;
         try
         {
             using var lease=await TransactionLease(cancellation);var current=await store.LoadAsync(cancellation);await Recover(current,cancellation);
             if(current.Version!=draft.Basis.Version)throw new SettingsConflictException();if(current.ReadOnly)throw new UnknownSettingsSchemaException(-1);
             if(current.RequiresRecovery&&recovery==SettingsRecovery.None)throw new SettingsRecoveryRequiredException();
             SettingsJson.Validate(captured.Data);
-            if(!captured.Data.Hotkeys.OrderBy(p=>p.Key).SequenceEqual(draft.Basis.Data.Hotkeys.OrderBy(p=>p.Key))||!captured.Data.Privacy.ClipboardAllowedApplications.SequenceEqual(draft.Basis.Data.Privacy.ClipboardAllowedApplications)||!captured.Data.Privacy.ConsentedEndpointOrigins.SequenceEqual(draft.Basis.Data.Privacy.ConsentedEndpointOrigins))throw new SettingsValidationException("deferredAuthorizationOrHotkeyTransaction");
+            if(hotkeys==null&&!captured.Data.Hotkeys.OrderBy(p=>p.Key).SequenceEqual(draft.Basis.Data.Hotkeys.OrderBy(p=>p.Key))||!captured.Data.Privacy.ClipboardAllowedApplications.SequenceEqual(draft.Basis.Data.Privacy.ClipboardAllowedApplications)||!captured.Data.Privacy.ConsentedEndpointOrigins.SequenceEqual(draft.Basis.Data.Privacy.ConsentedEndpointOrigins))throw new SettingsValidationException("deferredAuthorizationOrHotkeyTransaction");
+            if(hotkeys!=null&&!captured.Data.Hotkeys.OrderBy(p=>p.Key).SequenceEqual(draft.Basis.Data.Hotkeys.OrderBy(p=>p.Key)))hotkeyTransaction=await hotkeys.PrepareAsync(captured.Data.Hotkeys,cancellation);
             foreach(var p in captured.Data.Profiles)if(p.SecretRef!=null&&secrets.IsRevoked(p.SecretRef))throw new SettingsValidationException("revokedSecretRef");
             var data=captured.Data with{WriteId=id};var replacements=new Dictionary<string,string>();
             foreach(var key in captured.Keys){if(!data.Profiles.Any(p=>p.Id==key.Key))continue;string reference=await secrets.SaveNewAsync(key.Value,cancellation);staged.Add(reference);replacements[key.Key]=reference;}
@@ -58,22 +61,24 @@ public sealed class SettingsCoordinator(SettingsStore store,SecretFileStore secr
             try{saved=await store.SaveAsync(draft.Basis,data,recovery,cancellation);}
             catch(Exception error)
             {
-                if(error is SettingsConflictException or UnknownSettingsSchemaException or SettingsRecoveryRequiredException or OperationCanceledException){foreach(var reference in staged)await secrets.DeleteUnpublishedAsync(reference);File.Delete(journal);journalWritten=false;throw;}
+                if(error is SettingsConflictException or UnknownSettingsSchemaException or SettingsRecoveryRequiredException){foreach(var reference in staged)await secrets.DeleteUnpublishedAsync(reference);File.Delete(journal);journalWritten=false;throw;}
                 // An error after atomic publication must not be represented as a rollback.
-                var observed=await store.LoadAsync();
+                SettingsSnapshot observed;try{observed=await store.LoadAsync();}catch(Exception probe){publicationUnconfirmed=true;throw new AggregateException("Settings publication unconfirmed; hotkey transaction retained.",error,probe);}
                 if(!observed.ReadOnly&&!observed.RequiresRecovery&&observed.Data.WriteId==id)saved=observed;
                 else if(observed.Version==draft.Basis.Version){foreach(var reference in staged)await secrets.DeleteUnpublishedAsync(reference);File.Delete(journal);journalWritten=false;throw;}
-                else throw new SettingsTransactionUnconfirmedException();
+                else{publicationUnconfirmed=true;throw new SettingsTransactionUnconfirmedException();}
             }
             committed=true;Volatile.Write(ref effective,saved); // Whole immutable configuration changes only after disk publication.
+            if(hotkeyTransaction!=null)await hotkeyTransaction.CommitAsync(saved);
             PublishCommitted(saved,change);
             // No cancellation after commit: finish durable deletion, or retain journal for recovery.
             foreach(var reference in retired)await secrets.RevokeAsync(reference);
             File.Delete(journal);journalWritten=false;return saved;
         }
-        catch
+        catch(Exception error)
         {
             if(!journalWritten&&!committed)foreach(var reference in staged)await secrets.DeleteUnpublishedAsync(reference);
+            if(!committed&&!publicationUnconfirmed&&hotkeyTransaction!=null)try{await hotkeyTransaction.RollbackAsync();}catch(Exception rollback){throw new AggregateException("Settings unchanged but hotkey rollback unconfirmed; own registrations retained.",error,rollback);}
             throw;
         }
         finally{foreach(var value in captured.Keys.Values)CryptographicOperations.ZeroMemory(value);draft.EndSave(committed);}

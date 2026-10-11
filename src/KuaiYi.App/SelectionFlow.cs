@@ -10,9 +10,9 @@ namespace KuaiYi.App;
 internal sealed partial class ShellWindow
 {
     private SelectionBrokerClient? selectionBroker;private ClipboardCaptureClient? clipboardCapture;private SelectionCaptureCoordinator? selectionCapture;private SelectionMouseHook? selectionHook;private SelectionInputBridge? selectionInput;
-    private Task selectionReconcile=Task.CompletedTask,selectionEvents=Task.CompletedTask;private ScreenshotHotkey? selectionHotkey;
+    private Task selectionReconcile=Task.CompletedTask,selectionEvents=Task.CompletedTask;
     private SelectionSourceSnapshot? selectionSource;private Window? sourceViewer;private TextBox? sourceText;
-    private (long Epoch,string? Version)? selectionState;private string? registeredSelectionChord;
+    private (long Epoch,string? Version)? selectionState;
     private readonly Dictionary<(string Application,SelectionCaptureStatus Status),long> selectionFailureNotices=[];private long lastCopyRecoveryNotice;
     private sealed class SelectionPlatform(SelectionBrokerClient broker,ClipboardCaptureClient clipboard):ISelectionCapturePlatform,ISelectionCopyPlatform
     {public bool IsCurrent(SelectionWindow window)=>SelectionDesktop.IsCurrent(window);public bool IsCopyCurrent(SelectionWindow source,SelectionCopyEvidence evidence)=>CopyInputGuard.IsCurrent(source,evidence);public Task<SelectionCaptureResult> CaptureAsync(SelectionGesture gesture,CancellationToken cancellation)=>broker.CaptureAsync(gesture,cancellation);public Task<SelectionCaptureResult> CaptureCopiedAsync(SelectionGesture gesture,SelectionCopyEvidence evidence,Func<uint,ClipboardCopyStart?> issueCopy,Func<bool> current,CancellationToken cancellation)=>clipboard.CaptureAsync(gesture,evidence,issueCopy,current,cancellation);public ClipboardCopyStart? TryIssueCopy(SelectionGesture gesture,SelectionCopyEvidence evidence,uint sequence)=>CopyInputGuard.Send(gesture,evidence,sequence);}
@@ -24,21 +24,12 @@ internal sealed partial class ShellWindow
         var tracker=new SelectionGestureTracker(Math.Max(1,SelectionDesktop.GetSystemMetrics(68)),Math.Max(1,SelectionDesktop.GetSystemMetrics(69)),checked((int)SelectionDesktop.GetDoubleClickTime()),Math.Max(1,SelectionDesktop.GetSystemMetrics(36)),Math.Max(1,SelectionDesktop.GetSystemMetrics(37)));
         selectionCapture=new(lifecycle.Gate,()=>lifecycle.Settings,new SelectionPlatform(selectionBroker,clipboardCapture),tracker,(uint)Environment.ProcessId,new DispatcherSynchronizationContext(Dispatcher),AcceptSelection,SelectionFailed,clipboardRecoveryWarning:CopyRecoveryWarning);
         selectionInput=new(lifecycle.Gate,()=>lifecycle.Settings,()=>selectionHook?.Identity.HookId,input=>SelectionDesktop.Resolve(input.Foreground,input.Point),SelectionDesktop.IsCurrent,selectionCapture,new DispatcherSynchronizationContext(Dispatcher));
-        selectionHotkey=new((HwndSource)PresentationSource.FromVisual(this),()=>_=ObserveSelection(ReadCurrentSelection()),SchedulePlacement);
     }
     private void RefreshSelection()
     {
         RefreshTextDrop();if(selectionCapture==null)return;var state=(lifecycle.Gate.Snapshot.Epoch,lifecycle.Settings?.Version);
         if(selectionState!=state){selectionState=state;selectionCapture.CancelPending();selectionReconcile=ReconcileSelection(selectionReconcile);}
-        string? chord=lifecycle.Settings?.Data.Hotkeys.GetValueOrDefault("translateSelection");
-        if(chord!=registeredSelectionChord&&chord!=null)
-        {
-            var parts=chord.Split('+');uint modifiers=0;bool valid=parts.Length>=2;
-            foreach(string part in parts[..^1]){modifiers|=part switch{"Ctrl"=>2u,"Alt"=>1u,"Shift"=>4u,"Win"=>8u,_=>0};if(part is not ("Ctrl" or "Alt" or "Shift" or "Win"))valid=false;}
-            uint key=parts[^1].Length==1?(uint)parts[^1][0]:0;
-            if(valid&&selectionHotkey!.Set(modifiers,key))registeredSelectionChord=chord;else button.ToolTip="主动取词快捷键不可用；可从右键菜单读取选区。";
-        }
-        else if(chord==null&&registeredSelectionChord!=null&&selectionHotkey!.Set(0,0))registeredSelectionChord=null;
+
     }
     private async Task ReconcileSelection(Task previous)
     {
@@ -104,7 +95,7 @@ internal sealed partial class ShellWindow
     private void ClearSelectionSource(){selectionCapture?.CancelPending(clearSource:true);selectionSource=null;sourceText?.Clear();sourceViewer?.Close();}
     private async Task StopSelection()
     {
-        ClearSelectionSource();selectionHotkey?.Dispose();selectionHotkey=null;
+        ClearSelectionSource();
         await selectionReconcile;if(selectionHook!=null){selectionHook.Stop();await selectionHook.DisposeAsync();await selectionEvents;selectionHook=null;}
         if(selectionCapture!=null)await selectionCapture.DisposeAsync();if(selectionBroker!=null)await selectionBroker.DisposeAsync();if(clipboardCapture!=null)await clipboardCapture.DisposeAsync();
     }

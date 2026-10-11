@@ -1,0 +1,48 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.29]     KuaiYi.Core.Tests.HotkeyTests.ReentrantSentMessageCannotDispatchWhileNativeQueueFenceIsBeingEstablished(transition: "recover") [FAIL]
+[xUnit.net 00:00:00.30]     KuaiYi.Core.Tests.HotkeyTests.ReentrantSentMessageCannotDispatchWhileNativeQueueFenceIsBeingEstablished(transition: "unlock") [FAIL]
+[xUnit.net 00:00:00.30]     KuaiYi.Core.Tests.HotkeyTests.ReentrantSentMessageCannotDispatchWhileNativeQueueFenceIsBeingEstablished(transition: "reconcile") [FAIL]
+  Failed KuaiYi.Core.Tests.HotkeyTests.ReentrantSentMessageCannotDispatchWhileNativeQueueFenceIsBeingEstablished(transition: "recover") [26 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyDispatch { Action = toggle, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 2, SettingsVersion = v1 }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyTests.ReentrantSentMessageCannotDispatchWhileNativeQueueFenceIsBeingEstablished(String transition) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyTests.cs:line 56
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed KuaiYi.Core.Tests.HotkeyTests.ReentrantSentMessageCannotDispatchWhileNativeQueueFenceIsBeingEstablished(transition: "unlock") [< 1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyDispatch { Action = toggle, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 3, SettingsVersion = v1 }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyTests.ReentrantSentMessageCannotDispatchWhileNativeQueueFenceIsBeingEstablished(String transition) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyTests.cs:line 56
+   at InvokeStub_HotkeyTests.ReentrantSentMessageCannotDispatchWhileNativeQueueFenceIsBeingEstablished(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.HotkeyTests.ReentrantSentMessageCannotDispatchWhileNativeQueueFenceIsBeingEstablished(transition: "reconcile") [1 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   HotkeyDispatch { Action = toggle, Id = 8192, Chord = HotkeyChord { Modifiers = Control, Key = 81, Text = Ctrl+Q, AltGrRisk = False }, Revision = 2, SettingsVersion = v2 }
+  Stack Trace:
+     at KuaiYi.Core.Tests.HotkeyTests.ReentrantSentMessageCannotDispatchWhileNativeQueueFenceIsBeingEstablished(String transition) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HotkeyTests.cs:line 56
+   at InvokeStub_HotkeyTests.ReentrantSentMessageCannotDispatchWhileNativeQueueFenceIsBeingEstablished(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+Results File: /workspace/KuaiYi/artifacts/test-results/hotkeys/hotkeys-fence-before.trx
+
+Failed!  - Failed:     3, Passed:     0, Skipped:     0, Total:     3, Duration: 50 ms - KuaiYi.Core.Tests.dll (net10.0)

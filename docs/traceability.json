@@ -37,9 +37,13 @@
       "evidence": [
         "docs/p1-shell-review.md",
         "docs/p1-shell-windows-checklist.md",
-        "docs/test-evidence/2026-10-11-p1-shell-summary.json"
+        "docs/test-evidence/2026-10-11-p1-shell-summary.json",
+        "docs/p3-hotkeys-review.md",
+        "docs/p3-hotkeys-windows-checklist.md",
+        "docs/adr/0014-transactional-hotkeys.md",
+        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json"
       ],
-      "note": " P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed."
+      "note": " P1 startup shell actual source wired; portable production lifecycle + child mutex scope verified; Windows rendering/SID/DACL/tray/DPI/exit remain NotRun. Whole case/phase not passed. P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun."
     },
     {
       "id": "R03",
@@ -256,10 +260,15 @@
         "P3",
         "H"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": [],
-      "note": " P3 source acquisition production wiring: reuse actual MTA GetSelection Broker, bounded physical gesture queue/debounce, source/selection identities, final destination ticket/config check, 600ms held-child deadline and cooldown.50 portable/process cases added; real Windows UIA/mouse/compatibility NotRun. Copy consent/full hotkey/OLE text drop/P4 dispatcher not delivered; whole case/stage not passed. P3 review fixes: frozen birth ticket/config/hookId + callback HWND/PID/time, production raw-channel and UI-dispatch bridge rejects obsolete input, old hooks replaced; abandoned completed read always observed/zeroed.22 additional portable cases; Windows and whole acceptance remain NotRun. Absolute deadline follow-up: one monotonic capture origin across startup/reads/exit/final validation, token checked after completed reads before ownership delivery;15 additional cases. Relative timer alone was insufficient; Windows/whole cases still NotRun."
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/p3-hotkeys-review.md",
+        "docs/p3-hotkeys-windows-checklist.md",
+        "docs/adr/0014-transactional-hotkeys.md",
+        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json"
+      ],
+      "note": " P3 source acquisition production wiring: reuse actual MTA GetSelection Broker, bounded physical gesture queue/debounce, source/selection identities, final destination ticket/config check, 600ms held-child deadline and cooldown.50 portable/process cases added; real Windows UIA/mouse/compatibility NotRun. Copy consent/full hotkey/OLE text drop/P4 dispatcher not delivered; whole case/stage not passed. P3 review fixes: frozen birth ticket/config/hookId + callback HWND/PID/time, production raw-channel and UI-dispatch bridge rejects obsolete input, old hooks replaced; abandoned completed read always observed/zeroed.22 additional portable cases; Windows and whole acceptance remain NotRun. Absolute deadline follow-up: one monotonic capture origin across startup/reads/exit/final validation, token checked after completed reads before ownership delivery;15 additional cases. Relative timer alone was insufficient; Windows/whole cases still NotRun. P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun."
     },
     {
       "id": "R15",
@@ -728,10 +737,15 @@
         "实现快捷键录制、保留组合检查、实际注册、事务替换",
         "HotkeyService 和冲突占用器测试工具"
       ],
-      "implementationStatus": "NotStarted",
-      "validationStatus": "NotRun",
-      "evidence": [],
-      "note": " P3 source acquisition production wiring: reuse actual MTA GetSelection Broker, bounded physical gesture queue/debounce, source/selection identities, final destination ticket/config check, 600ms held-child deadline and cooldown.50 portable/process cases added; real Windows UIA/mouse/compatibility NotRun. Copy consent/full hotkey/OLE text drop/P4 dispatcher not delivered; whole case/stage not passed. P3 review fixes: frozen birth ticket/config/hookId + callback HWND/PID/time, production raw-channel and UI-dispatch bridge rejects obsolete input, old hooks replaced; abandoned completed read always observed/zeroed.22 additional portable cases; Windows and whole acceptance remain NotRun. Absolute deadline follow-up: one monotonic capture origin across startup/reads/exit/final validation, token checked after completed reads before ownership delivery;15 additional cases. Relative timer alone was insufficient; Windows/whole cases still NotRun."
+      "implementationStatus": "InProgress",
+      "validationStatus": "Blocked",
+      "evidence": [
+        "docs/p3-hotkeys-review.md",
+        "docs/p3-hotkeys-windows-checklist.md",
+        "docs/adr/0014-transactional-hotkeys.md",
+        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json"
+      ],
+      "note": " P3 source acquisition production wiring: reuse actual MTA GetSelection Broker, bounded physical gesture queue/debounce, source/selection identities, final destination ticket/config check, 600ms held-child deadline and cooldown.50 portable/process cases added; real Windows UIA/mouse/compatibility NotRun. Copy consent/full hotkey/OLE text drop/P4 dispatcher not delivered; whole case/stage not passed. P3 review fixes: frozen birth ticket/config/hookId + callback HWND/PID/time, production raw-channel and UI-dispatch bridge rejects obsolete input, old hooks replaced; abandoned completed read always observed/zeroed.22 additional portable cases; Windows and whole acceptance remain NotRun. Absolute deadline follow-up: one monotonic capture origin across startup/reads/exit/final validation, token checked after completed reads before ownership delivery;15 additional cases. Relative timer alone was insufficient; Windows/whole cases still NotRun. P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun."
     },
     {
       "id": "P3-06",
@@ -2157,9 +2171,15 @@
         "为所有第 8.4 节动作分别录制、清除和恢复建议值",
         "每个动作均支持；空热键不注册；录制仅限控件聚焦期间"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p3-hotkeys-review.md",
+        "docs/p3-hotkeys-windows-checklist.md",
+        "docs/adr/0014-transactional-hotkeys.md",
+        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json"
+      ],
+      "note": " P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun."
     },
     {
       "id": "H02",
@@ -2169,9 +2189,15 @@
         "两个动作输入同组合；输入 F12、单字母、保留组合",
         "保存前指出具体问题；不抢占不可配置系统组合"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p3-hotkeys-review.md",
+        "docs/p3-hotkeys-windows-checklist.md",
+        "docs/adr/0014-transactional-hotkeys.md",
+        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json"
+      ],
+      "note": " P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun."
     },
     {
       "id": "H03",
@@ -2181,9 +2207,15 @@
         "由测试程序先注册某组合，再设置到快译",
         "检出实际注册失败；不编造占用进程名称"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p3-hotkeys-review.md",
+        "docs/p3-hotkeys-windows-checklist.md",
+        "docs/adr/0014-transactional-hotkeys.md",
+        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json"
+      ],
+      "note": " P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun."
     },
     {
       "id": "H04",
@@ -2193,9 +2225,15 @@
         "已有有效热键，修改为占用组合；再交换两个有效动作",
         "失败保留原热键；交换事务成功或完整回滚；无丢失恢复入口"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p3-hotkeys-review.md",
+        "docs/p3-hotkeys-windows-checklist.md",
+        "docs/adr/0014-transactional-hotkeys.md",
+        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json"
+      ],
+      "note": " P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun."
     },
     {
       "id": "H05",
@@ -2205,9 +2243,15 @@
         "某应用内部有同组合但全局注册成功",
         "UI 只声称当前已注册，并说明局部冲突检测边界"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p3-hotkeys-review.md",
+        "docs/p3-hotkeys-windows-checklist.md",
+        "docs/adr/0014-transactional-hotkeys.md",
+        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json"
+      ],
+      "note": " P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun."
     },
     {
       "id": "H06",
@@ -2217,9 +2261,15 @@
         "切换 AltGr 键盘布局、锁屏/解锁、程序异常退出后重启",
         "有布局风险提示；不形成隐藏键盘监听；注册状态可重新确认"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/p3-hotkeys-review.md",
+        "docs/p3-hotkeys-windows-checklist.md",
+        "docs/adr/0014-transactional-hotkeys.md",
+        "docs/test-evidence/2026-10-11-p3-hotkeys-summary.json"
+      ],
+      "note": " P3-05 source: shared focused recorder/policy, real STA HWND RegisterHotKey, group swap/new-first/rollback, actual settings transaction/cancel/restart/journal recovery, public native occupier.99 portable/native-port+real-file cases; Windows HWND/occupancy/AltGr/lock/Explorer/restart NotRun. P4 regenerate and full P6 image translation not integrated. Whole acceptance remains NotRun."
     },
     {
       "id": "I01",

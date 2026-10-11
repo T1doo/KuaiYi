@@ -29,7 +29,7 @@ public sealed class SettingsRecoveryDraft:IDisposable
             choice=selection;return true;
         }
     }
-    public Task<SettingsSnapshot> SaveAsync(SettingsCoordinator coordinator,CancellationToken cancellation=default)
+    public Task<SettingsSnapshot> SaveAsync(SettingsCoordinator coordinator,CancellationToken cancellation=default,ISettingsHotkeyParticipant? hotkeys=null)
     {
         SettingsDraft selected;SettingsRecovery selection;
         lock(sync)
@@ -39,7 +39,7 @@ public sealed class SettingsRecoveryDraft:IDisposable
         }
         return SaveOriginal();
         async Task<SettingsSnapshot> SaveOriginal()
-        {try{return await coordinator.SaveAsync(selected,selection,cancellation).ConfigureAwait(false);}finally{lock(sync)saving=false;}}
+        {try{return hotkeys==null?await coordinator.SaveAsync(selected,selection,cancellation).ConfigureAwait(false):await coordinator.SaveWithHotkeysAsync(selected,hotkeys,selection,cancellation).ConfigureAwait(false);}finally{lock(sync)saving=false;}}
     }
     public void Dispose()
     {
