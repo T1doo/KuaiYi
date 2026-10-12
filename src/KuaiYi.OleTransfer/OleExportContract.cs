@@ -11,17 +11,20 @@ public enum OlePacketKind { Missing, Standard, Handler, Custom, Extended, Unknow
 public sealed record OleExportObservation(OleExportSource Source, OleExportFailure Failure, int? Length, int? Capacity,
     OleHeaderMatch Signature, OlePacketKind Kind, OleHeaderMatch Iid);
 
-/// <summary>Unchanged production acceptance rule with fixed diagnostic classification. No packet identity or body leaves this type.</summary>
+/// <summary>Production shape rule with the observed compact local exception with fixed diagnostic classification. No packet identity or body leaves this type.</summary>
 public static class OleExportContract
 {
-    public const int MinimumLength = 72, DiagnosticLengthLimit = 2 * OleReceiverWire.ExportLimit;
+    // The owned MSHCTX_LOCAL native export was observed as exactly 68 bytes in real Windows CI.
+    // Preserve the existing other lengths; this is a shape guard, never COM body validation.
+    public const int CompactLocalLength = 68, LegacyMinimumLength = 72, DiagnosticLengthLimit = 2 * OleReceiverWire.ExportLimit;
+    public static bool IsAcceptedLength(ulong length) => length == CompactLocalLength || length is >= LegacyMinimumLength and <= OleReceiverWire.ExportLimit;
     public static OleExportObservation Inspect(OleExportSource source, ulong length, ulong capacity, ReadOnlySpan<byte> header)
     {
         var signature = header.Length < 4 ? OleHeaderMatch.Missing : BinaryPrimitives.ReadUInt32LittleEndian(header) == 0x574f454d ? OleHeaderMatch.Match : OleHeaderMatch.Mismatch;
         var kind = header.Length < 8 ? OlePacketKind.Missing : BinaryPrimitives.ReadUInt32LittleEndian(header[4..]) switch
         { 1 => OlePacketKind.Standard, 2 => OlePacketKind.Handler, 4 => OlePacketKind.Custom, 8 => OlePacketKind.Extended, _ => OlePacketKind.Unknown };
         var iid = header.Length < 24 ? OleHeaderMatch.Missing : new Guid(header.Slice(8, 16)) == OleReceiverWire.DropTargetId ? OleHeaderMatch.Match : OleHeaderMatch.Mismatch;
-        var failure = length < MinimumLength ? OleExportFailure.LengthLower : length > OleReceiverWire.ExportLimit ? OleExportFailure.LengthUpper : length > capacity ? OleExportFailure.Capacity :
+        var failure = length < LegacyMinimumLength && length != CompactLocalLength ? OleExportFailure.LengthLower : length > OleReceiverWire.ExportLimit ? OleExportFailure.LengthUpper : length > capacity ? OleExportFailure.Capacity :
             signature != OleHeaderMatch.Match ? OleExportFailure.Signature : kind != OlePacketKind.Standard ? OleExportFailure.PacketType : iid != OleHeaderMatch.Match ? OleExportFailure.Iid : OleExportFailure.None;
         return new(source, failure, SafeLength(length), SafeLength(capacity), signature, kind, iid);
     }

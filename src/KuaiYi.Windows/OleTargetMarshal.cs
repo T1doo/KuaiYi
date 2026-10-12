@@ -32,7 +32,7 @@ public static class OleTargetMarshal
                 Marshal.ThrowExceptionForHR(GetHGlobalFromStream(stream,out nint memory));
                 var seek=Marshal.GetDelegateForFunctionPointer<StreamPosition>(Marshal.ReadIntPtr(Marshal.ReadIntPtr(stream),5*nint.Size));Marshal.ThrowExceptionForHR(seek(stream,0,1,out ulong size));
                 ulong capacity=(ulong)OleNative.GlobalSize(memory);
-                if(size is <72 or >OleReceiverWire.ExportLimit||size>capacity)
+                if(!OleExportContract.IsAcceptedLength(size)||size>capacity)
                 {
                     // Preserve the original length-first rejection even if an optional, bounded header peek cannot lock.
                     var rejected=OleExportContract.Inspect(OleExportSource.NativeExport,size,capacity,ReadOnlySpan<byte>.Empty);

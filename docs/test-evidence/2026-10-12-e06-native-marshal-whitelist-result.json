@@ -1,0 +1,100 @@
+{
+  "Kind": "ReviewedNativeMarshalWhitelistResult",
+  "SourceCommit": "200c7cfefa84431c266089f3ebd7b7ed212fd3c4",
+  "RunId": 38279366571,
+  "JobId": 114912594819,
+  "RunUrl": "https://github.com/T1doo/KuaiYi/actions/runs/38279366571",
+  "Conclusion": "Fail",
+  "HostedContract": {
+    "SourceCommit": "200c7cfefa84431c266089f3ebd7b7ed212fd3c4",
+    "Scope": "OwnedNativeMarshalOnly",
+    "NativeStatus": "Pass",
+    "NativeDlls": 1,
+    "CTestsPassed": 0,
+    "PeChecksPassed": 1,
+    "DllLoadsPassed": 1,
+    "ExportsPassed": 1,
+    "MarshalStatus": "Fail",
+    "ExitCode": 3
+  },
+  "ManagedBuilds": {
+    "Count": 2,
+    "Status": "Pass",
+    "Warnings": 0,
+    "Errors": 0
+  },
+  "MarshalReceipt": {
+    "Kind": "OwnedNativeMarshalContract",
+    "Status": "Fail",
+    "ModelCalls": 0,
+    "ExportSource": "ActualNativeTargetInOwnedReceiver",
+    "ProductionValidator": true,
+    "ProductionImport": true,
+    "ImportAttempted": false,
+    "Imported": false,
+    "IndependentParentSta": false,
+    "ImporterReleased": true,
+    "OwnedFinalized": true,
+    "ReceiverExitCode": 3,
+    "DiagnosticReadSettled": true,
+    "DiagnosticReadFailure": "None",
+    "ExportObservations": [
+      {
+        "Source": "NativeExport",
+        "Failure": "LengthLower",
+        "Length": 68,
+        "Capacity": 68,
+        "Signature": "Missing",
+        "Kind": "Missing",
+        "Iid": "Missing"
+      },
+      {
+        "Source": "NativeExport",
+        "Failure": "LengthLower",
+        "Length": 68,
+        "Capacity": 68,
+        "Signature": "Match",
+        "Kind": "Standard",
+        "Iid": "Match"
+      }
+    ],
+    "ParentImportObservation": null,
+    "StartupFailure": {
+      "Stage": "ParentExportRead",
+      "Exception": "Io",
+      "HResult": -2147024858
+    },
+    "ContractFailure": {
+      "Stage": "ParentRegister",
+      "Exception": "Io",
+      "HResult": -2147024858
+    },
+    "ImportFailure": null,
+    "RegistrationAttempted": false,
+    "ActualDrop": "NotRun",
+    "GetData": "NotRun",
+    "CloseRecovery": "NotRun",
+    "PhysicalE06": "NotRun",
+    "Windows11Acceptance": "NotRun",
+    "ExitCode": 3
+  },
+  "PostRepair": {
+    "Scope": "ExactCompactLocal68",
+    "DirectXunitAssertions": {
+      "Passed": 69,
+      "Failed": 0,
+      "VSTest": "NotRun"
+    },
+    "ScriptContracts": {
+      "Passed": 33,
+      "Failed": 0
+    },
+    "WindowsImport": "NotRun",
+    "ActualDrop": "NotRun",
+    "GetData": "NotRun",
+    "CloseRecovery": "NotRun",
+    "PhysicalE06": "NotRun",
+    "Windows11Acceptance": "NotRun",
+    "P0": "Blocked"
+  }
+}

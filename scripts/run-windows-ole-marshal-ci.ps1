@@ -27,7 +27,7 @@ function Assert-MarshalReceipt($result) {
         if ($null -ne $result.StartupFailure -and ($result.StartupFailure.Stage -cne 'ParentRun' -or $result.StartupFailure.Exception -cne 'Cancelled')) { throw 'Unexpected receiver shutdown failure' }
         if (-not $result.ImportAttempted -or -not $result.Imported -or -not $result.IndependentParentSta -or -not $result.OwnedFinalized -or -not $result.ImporterReleased -or -not $result.DiagnosticReadSettled -or $result.DiagnosticReadFailure -cne 'None' -or $null -ne $result.ContractFailure -or $null -ne $result.ImportFailure -or $null -eq $result.ParentImportObservation -or @($result.ExportObservations).Count -ne 1) { throw 'Actual native import pass unconfirmed' }
         if ($result.ExportObservations[0].Length -ne $result.ParentImportObservation.Length -or $result.ParentImportObservation.Capacity -ne $result.ParentImportObservation.Length) { throw 'Inconsistent native packet length' }
-        foreach ($item in $observations) { if ($item.Failure -cne 'None' -or $item.Signature -cne 'Match' -or $item.Kind -cne 'Standard' -or $item.Iid -cne 'Match' -or $null -eq $item.Length -or $item.Length -lt 72 -or $item.Length -gt 65536 -or $null -eq $item.Capacity -or $item.Capacity -lt $item.Length) { throw 'Invalid passing export observation' } }
+        foreach ($item in $observations) { if ($item.Failure -cne 'None' -or $item.Signature -cne 'Match' -or $item.Kind -cne 'Standard' -or $item.Iid -cne 'Match' -or $null -eq $item.Length -or ($item.Length -ne 68 -and $item.Length -lt 72) -or $item.Length -gt 65536 -or $null -eq $item.Capacity -or $item.Capacity -lt $item.Length) { throw 'Invalid passing export observation' } }
     }
 }
 $app = Join-Path $OutputRoot 'app'

@@ -38,6 +38,8 @@ Reject 'raw stderr field' { param($r) $r | Add-Member RawStderr 'PUBLIC_SENTINEL
 Reject 'OID in observation' { param($r) $r.ExportObservations[0] | Add-Member OID 'PUBLIC_SENTINEL' }
 Reject 'wrong source category' { param($r) $r.ExportObservations[0].Source = 'PUBLIC_SENTINEL' }
 Reject 'wrong exporter origin' { param($r) $r.ExportObservations[0].Source = 'ParentImport' }
+Check 'observed compact local receipt shape' { $r = $valid | ConvertTo-Json -Depth 10 | ConvertFrom-Json; $r.ExportObservations[0].Length = 68; $r.ExportObservations[0].Capacity = 68; $r.ParentImportObservation.Length = 68; $r.ParentImportObservation.Capacity = 68; Assert-MarshalReceipt $r }
+foreach ($size in @(69,70,71)) { Reject ('unobserved short length ' + $size) { param($r) $r.ExportObservations[0].Length = $size; $r.ParentImportObservation.Length = $size; $r.ParentImportObservation.Capacity = $size } }
 Reject 'wrong importer origin' { param($r) $r.ParentImportObservation.Source = 'NativeExport' }
 Reject 'different native packet lengths' { param($r) $r.ParentImportObservation.Length = 73; $r.ParentImportObservation.Capacity = 73 }
 Reject 'parent capacity differs from packet' { param($r) $r.ParentImportObservation.Capacity = 80 }

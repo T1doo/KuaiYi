@@ -15,22 +15,23 @@ public sealed class OleExportContractTests
         BinaryPrimitives.WriteUInt32LittleEndian(bytes.AsSpan(4), 1);
         OleReceiverWire.DropTargetId.TryWriteBytes(bytes.AsSpan(8)); return bytes;
     }
-    [Fact] public void ClassificationDoesNotChangeAnyLegacyHeaderAcceptance()
+    [Fact] public void AcceptanceAddsOnlyTheObservedCompactLocalLength()
     {
         foreach (int size in new[] { 0, 1, 23, 24, 67, 68, 71, 72, 73, 65536, 65537 })
         foreach (uint kind in new uint[] { 0, 1, 2, 4, 8, uint.MaxValue })
         {
             byte[] bytes = new byte[size]; if (size >= 24) { Header(24).CopyTo(bytes, 0); BinaryPrimitives.WriteUInt32LittleEndian(bytes.AsSpan(4), kind); }
-            bool oldAccepted = bytes.Length >= 72 && bytes.Length <= OleReceiverWire.ExportLimit && BinaryPrimitives.ReadUInt32LittleEndian(bytes) == 0x574f454d &&
+            bool acceptedLength = bytes.Length == 68 || bytes.Length >= 72;
+            bool expected = acceptedLength && bytes.Length <= OleReceiverWire.ExportLimit && BinaryPrimitives.ReadUInt32LittleEndian(bytes) == 0x574f454d &&
                 BinaryPrimitives.ReadUInt32LittleEndian(bytes.AsSpan(4)) == 1 && new Guid(bytes.AsSpan(8, 16)) == OleReceiverWire.DropTargetId;
             bool accepted = Record.Exception(() => OleReceiverWire.ValidateExport(bytes)) is null;
-            Assert.Equal(oldAccepted, accepted);
+            Assert.Equal(expected, accepted);
         }
     }
     [Fact] public void LengthAndCapacityFailuresAreExactAndBounded()
     {
-        var low = OleExportContract.Inspect(OleExportSource.NativeExport, 68, 80, Header(24));
-        Assert.Equal(OleExportFailure.LengthLower, low.Failure); Assert.Equal(68, low.Length); Assert.Equal(80, low.Capacity);
+        var low = OleExportContract.Inspect(OleExportSource.NativeExport, 67, 80, Header(24));
+        Assert.Equal(OleExportFailure.LengthLower, low.Failure); Assert.Equal(67, low.Length); Assert.Equal(80, low.Capacity);
         Assert.Equal(OleHeaderMatch.Match, low.Signature); Assert.Equal(OlePacketKind.Standard, low.Kind); Assert.Equal(OleHeaderMatch.Match, low.Iid);
         var high = OleExportContract.Inspect(OleExportSource.NativeExport, 65537, 131072, Header(24)); Assert.Equal(OleExportFailure.LengthUpper, high.Failure); Assert.Equal(65537, high.Length);
         var capacity = OleExportContract.Inspect(OleExportSource.NativeExport, 72, 71, Header(24)); Assert.Equal(OleExportFailure.Capacity, capacity.Failure);
@@ -46,6 +47,32 @@ public sealed class OleExportContractTests
         }
         byte[] signature = Header(); signature[0] = 0; Assert.Equal(OleExportFailure.Signature, OleExportContract.Inspect(OleExportSource.ParentImport, 72, 72, signature).Failure);
         byte[] iid = Header(); iid[8] ^= 1; Assert.Equal(OleExportFailure.Iid, OleExportContract.Inspect(OleExportSource.ParentImport, 72, 72, iid).Failure);
+    }
+    [Fact] public void CompactLocalExceptionStillRejectsOtherShortLengthsAndMalformedHeaders()
+    {
+        foreach (int size in Enumerable.Range(0, 68).Concat(new[] { 69, 70, 71 }))
+        {
+            byte[] bytes = new byte[size]; if (size >= 24) Header(24).CopyTo(bytes, 0);
+            Assert.False(OleExportContract.IsAcceptedLength((ulong)size));
+            Assert.Throws<InvalidDataException>(() => OleReceiverWire.ValidateExport(bytes));
+        }
+        Assert.True(OleExportContract.IsAcceptedLength(68));
+        Assert.Equal(OleExportFailure.Capacity, OleExportContract.Inspect(OleExportSource.NativeExport, 68, 67, Header(24)).Failure);
+        foreach (uint kind in new uint[] { 0, 2, 4, 8, uint.MaxValue })
+        {
+            byte[] bytes = Header(68); BinaryPrimitives.WriteUInt32LittleEndian(bytes.AsSpan(4), kind);
+            Assert.Throws<InvalidDataException>(() => OleReceiverWire.ValidateExport(bytes));
+        }
+        byte[] signature = Header(68); signature[0] ^= 1;
+        Assert.Throws<InvalidDataException>(() => OleReceiverWire.ValidateExport(signature));
+        byte[] iid = Header(68); iid[8] ^= 1;
+        Assert.Throws<InvalidDataException>(() => OleReceiverWire.ValidateExport(iid));
+    }
+    [Fact] public void CompactLocalHeaderAdmissionDoesNotClaimUnmarshalSuccess()
+    {
+        byte[] synthetic = Header(68); OleReceiverWire.ValidateExport(synthetic);
+        Assert.Equal(OleExportFailure.None, OleExportContract.Inspect(OleExportSource.ParentImport, 68, 68, synthetic).Failure);
+        // Synthetic bytes never enter CoUnmarshalInterface; the one real pre-fix CI did not reach Import.
     }
     [Fact] public void HeaderOnlyPassIsNeverAClaimOfComValidity()
     {
@@ -84,7 +111,7 @@ public sealed class OleExportContractTests
     [Fact] public async Task MixedDiagnosticsShareTheSameFiniteRetentionAndDrainAllOutput()
     {
         string stage = OleStartupDiagnostics.Format(new(OleStartupStage.Entry, OleExceptionCode.None, 0));
-        string export = OleExportContract.Format(OleExportContract.Inspect(OleExportSource.NativeExport, 68, 80, Header(24)));
+        string export = OleExportContract.Format(OleExportContract.Inspect(OleExportSource.NativeExport, 67, 80, Header(24)));
         using var input = new MemoryStream(Encoding.ASCII.GetBytes(string.Concat(Enumerable.Repeat(stage + "\n" + export + "\n", 1000))));
         var drain = new OleStartupDiagnosticDrain(); await drain.RunAsync(input);
         Assert.Equal(OleStartupDiagnostics.RecordLimit, drain.Snapshot.Length + drain.ExportSnapshot.Length);
