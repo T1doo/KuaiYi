@@ -175,7 +175,8 @@ internal sealed partial class ShellWindow:Window
         if(allowClose)return;e.Cancel=true;if(exiting)return;
         if(opening||settings!=null){exitRequested=true;lifecycle.Hide();Refresh();settings?.RequestCloseWhenSettled();button.ToolTip="正在等待设置草稿和原保存任务结束后退出。";return;}
         QueuePositionSave();exiting=true;button.IsEnabled=false;CancelPointer();lifecycle.Hide();HidePresentation(true);Refresh();
-        try{await startup;await positionSave;await StopTextDrop();await StopSelection();await StopHotkeyScreenshot();await StopHotkeys();await StopTranslation();allowClose=true;Close();}
+        // Completed cleanup tasks may never yield: leave the original Closing stack before closing again.
+        try{await startup;await positionSave;await StopTextDrop();await StopSelection();await StopHotkeyScreenshot();await StopHotkeys();await StopTranslation();allowClose=true;await Dispatcher.InvokeAsync(Close);}
         catch(Exception error){exiting=false;button.IsEnabled=true;Report("退出清理尚未完成",error);}
     }
     private void ClosedShell(object? sender,EventArgs e)

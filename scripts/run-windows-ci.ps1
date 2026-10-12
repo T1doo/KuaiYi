@@ -79,8 +79,10 @@ try {
             $executable = Join-Path $script:RepositoryRoot 'tools/KuaiYi.GrowthHarness/bin/Release/net10.0-windows/win-x64/KuaiYi.GrowthHarness.exe'
             $csv = Join-Path $root 'overlay.csv'
             $info = [Diagnostics.ProcessStartInfo]::new($executable); $info.UseShellExecute = $false
+            $info.RedirectStandardOutput = $true; $info.RedirectStandardError = $true
             [void]$info.ArgumentList.Add('--ci-actual-overlay'); [void]$info.ArgumentList.Add($csv)
             $child = [Diagnostics.Process]::Start($info)
+            $stdout = $child.StandardOutput.ReadToEndAsync(); $stderr = $child.StandardError.ReadToEndAsync()
             try {
                 if (-not $child.WaitForExit(35000)) {
                     $child.Kill($true)
@@ -97,7 +99,14 @@ try {
                 if ($null -eq $report.OverlayReport) { throw 'Missing actual overlay receipt' }
                 $report.OverlayChecksPassed = Assert-CiOverlayReport $report.OverlayReport
                 $report.OverlayStatus = 'Pass'
-            } finally { $child.Dispose() }
+            } finally {
+                foreach ($drain in @($stdout,$stderr)) {
+                    if ($drain.IsCompletedSuccessfully) { Write-Host $drain.GetAwaiter().GetResult() }
+                    else { Write-Host 'Owned probe output drain incomplete; no unbounded wait.' }
+                }
+                if (Test-Path -LiteralPath ($csv + '.phases.log')) { Get-Content -LiteralPath ($csv + '.phases.log') | ForEach-Object { Write-Host ('PUBLIC_OVERLAY_PHASE ' + $_) } }
+                $child.Dispose()
+            }
         }
     }
 } catch {

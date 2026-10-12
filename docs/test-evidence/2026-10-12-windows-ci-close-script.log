@@ -1,0 +1,62 @@
+PASS Win32 facts interop compiles, no Win32 call on this host
+PASS PowerShell parses windows-ci-common.ps1
+PASS PowerShell parses run-windows-ci.ps1
+PASS Synthetic x64 PE32+ DLL header accepted (not a loadable DLL)
+PASS PE rejects dos
+PASS PE rejects offset-small
+PASS PE rejects offset-large
+PASS PE rejects offset-overflow
+PASS PE rejects signature
+PASS PE rejects machine-x86
+PASS PE rejects optional-small
+PASS PE rejects optional-truncated
+PASS PE rejects executable
+PASS PE rejects pe32
+PASS PE rejects truncated
+PASS Server/admin fixture session allowed only as limited contract capability
+PASS Desktop capability rejects IsWindows
+PASS Desktop capability rejects UserInteractive
+PASS Desktop capability rejects SessionId
+PASS Desktop capability rejects InputDesktop
+PASS Desktop capability rejects Monitors
+PASS Desktop capability rejects HasShell
+PASS Desktop capability rejects DwmEnabled
+PASS CTest counts one executed success
+PASS CTest empty/wrong/skipped/failed/duplicate result rejects
+PASS CTest empty/wrong/skipped/failed/duplicate result rejects
+PASS CTest empty/wrong/skipped/failed/duplicate result rejects
+PASS CTest empty/wrong/skipped/failed/duplicate result rejects
+PASS CTest empty/wrong/skipped/failed/duplicate result rejects
+PASS CTest empty/wrong/skipped/failed/duplicate result rejects
+PASS Complete synthetic overlay receipt counts nine checks
+PASS Overlay receipt rejects Source
+PASS Overlay receipt rejects DesktopAcceptance
+PASS Overlay receipt rejects RetainedFrames
+PASS Overlay receipt rejects Errors
+PASS Overlay receipt rejects StreamCompleted
+PASS Overlay receipt rejects nonbool-completed
+PASS Overlay receipt rejects ExitCode
+PASS Overlay receipt rejects ModelCalls
+PASS Overlay receipt rejects DiscardedFrames
+PASS Overlay receipt rejects false-check
+PASS Overlay receipt rejects nonbool-check
+PASS Overlay receipt rejects extra-check
+KUAIYI_ENVIRONMENT_BEGIN
+{"IsWindows":false,"Architecture":"X64","UserInteractive":true,"SessionId":771627,"Os":null,"Administrator":null,"IntegrityLevel":null,"EnableLua":null,"WindowStation":"NotRun","InputDesktop":"NotRun","DesktopProbeError":null,"Monitors":[],"ProbeDpiAwareness":null,"HasShell":false,"DwmEnabled":false,"PowerShell":"7.6.6","ImageOS":null,"ImageVersion":null,"Sdk":null,"DesktopRuntime":false,"CMake":null,"CTest":null,"VisualStudio":null,"Toolset":null,"WindowsSdk":"10.0.26100.0","NativeBlockers":["WindowsRequired"],"DesktopBlockers":["WindowsRequired"],"Scope":"HostedWindowsContractsOnly","Windows11Acceptance":"NotRun"}
+KUAIYI_ENVIRONMENT_END
+KUAIYI_SPECIFICATION_BYTES [{"Bytes":146706,"Name":"SPEC.md","CRLF":0,"Sha256":"EA3AA6529405BCC703986988FD089F476EE8F991D867E2220B3B20C439126166","LF":1826},{"Bytes":146706,"Name":"快译_产品与技术开发规格_v1.0.md","CRLF":0,"Sha256":"EA3AA6529405BCC703986988FD089F476EE8F991D867E2220B3B20C439126166","LF":1826}]
+KUAIYI_CONTRACT_REPORT_BEGIN
+{"Kind":"HostedWindowsContracts","Scope":"ServerOrClientFixtureContractsOnly","Windows11Acceptance":"NotRun","SourceCommit":"7eb28be63c5e9601934fcf9608317ce9bf4e5497","RunUrl":null,"SourceDirty":true,"SpecificationBytes":[{"Bytes":146706,"Name":"SPEC.md","CRLF":0,"Sha256":"EA3AA6529405BCC703986988FD089F476EE8F991D867E2220B3B20C439126166","LF":1826},{"Bytes":146706,"Name":"快译_产品与技术开发规格_v1.0.md","CRLF":0,"Sha256":"EA3AA6529405BCC703986988FD089F476EE8F991D867E2220B3B20C439126166","LF":1826}],"Environment":{"IsWindows":false,"Architecture":"X64","UserInteractive":true,"SessionId":771627,"Os":null,"Administrator":null,"IntegrityLevel":null,"EnableLua":null,"WindowStation":"NotRun","InputDesktop":"NotRun","DesktopProbeError":null,"Monitors":[],"ProbeDpiAwareness":null,"HasShell":false,"DwmEnabled":false,"PowerShell":"7.6.6","ImageOS":null,"ImageVersion":null,"Sdk":null,"DesktopRuntime":false,"CMake":null,"CTest":null,"VisualStudio":null,"Toolset":null,"WindowsSdk":"10.0.26100.0","NativeBlockers":["WindowsRequired"],"DesktopBlockers":["WindowsRequired"],"Scope":"HostedWindowsContractsOnly","Windows11Acceptance":"NotRun"},"NativeStatus":"Blocked","NativeDlls":0,"CTestsPassed":0,"PeChecksPassed":0,"DllLoadsPassed":0,"ExportsPassed":0,"NativeArtifacts":[],"OverlayStatus":"Blocked","OverlayChecksPassed":0,"OverlayReport":null,"Errors":[],"ExitCode":2}
+KUAIYI_CONTRACT_REPORT_END
+
+PASS Actual Linux entry subprocess ProbeOnly=False
+KUAIYI_ENVIRONMENT_BEGIN
+{"IsWindows":false,"Architecture":"X64","UserInteractive":true,"SessionId":771627,"Os":null,"Administrator":null,"IntegrityLevel":null,"EnableLua":null,"WindowStation":"NotRun","InputDesktop":"NotRun","DesktopProbeError":null,"Monitors":[],"ProbeDpiAwareness":null,"HasShell":false,"DwmEnabled":false,"PowerShell":"7.6.6","ImageOS":null,"ImageVersion":null,"Sdk":null,"DesktopRuntime":false,"CMake":null,"CTest":null,"VisualStudio":null,"Toolset":null,"WindowsSdk":"10.0.26100.0","NativeBlockers":["WindowsRequired"],"DesktopBlockers":["WindowsRequired"],"Scope":"HostedWindowsContractsOnly","Windows11Acceptance":"NotRun"}
+KUAIYI_ENVIRONMENT_END
+KUAIYI_SPECIFICATION_BYTES [{"CRLF":0,"Bytes":146706,"Sha256":"EA3AA6529405BCC703986988FD089F476EE8F991D867E2220B3B20C439126166","LF":1826,"Name":"SPEC.md"},{"CRLF":0,"Bytes":146706,"Sha256":"EA3AA6529405BCC703986988FD089F476EE8F991D867E2220B3B20C439126166","LF":1826,"Name":"快译_产品与技术开发规格_v1.0.md"}]
+KUAIYI_CONTRACT_REPORT_BEGIN
+{"Kind":"HostedWindowsContracts","Scope":"ServerOrClientFixtureContractsOnly","Windows11Acceptance":"NotRun","SourceCommit":"7eb28be63c5e9601934fcf9608317ce9bf4e5497","RunUrl":null,"SourceDirty":true,"SpecificationBytes":[{"CRLF":0,"Bytes":146706,"Sha256":"EA3AA6529405BCC703986988FD089F476EE8F991D867E2220B3B20C439126166","LF":1826,"Name":"SPEC.md"},{"CRLF":0,"Bytes":146706,"Sha256":"EA3AA6529405BCC703986988FD089F476EE8F991D867E2220B3B20C439126166","LF":1826,"Name":"快译_产品与技术开发规格_v1.0.md"}],"Environment":{"IsWindows":false,"Architecture":"X64","UserInteractive":true,"SessionId":771627,"Os":null,"Administrator":null,"IntegrityLevel":null,"EnableLua":null,"WindowStation":"NotRun","InputDesktop":"NotRun","DesktopProbeError":null,"Monitors":[],"ProbeDpiAwareness":null,"HasShell":false,"DwmEnabled":false,"PowerShell":"7.6.6","ImageOS":null,"ImageVersion":null,"Sdk":null,"DesktopRuntime":false,"CMake":null,"CTest":null,"VisualStudio":null,"Toolset":null,"WindowsSdk":"10.0.26100.0","NativeBlockers":["WindowsRequired"],"DesktopBlockers":["WindowsRequired"],"Scope":"HostedWindowsContractsOnly","Windows11Acceptance":"NotRun"},"NativeStatus":"NotRun","NativeDlls":0,"CTestsPassed":0,"PeChecksPassed":0,"DllLoadsPassed":0,"ExportsPassed":0,"NativeArtifacts":[],"OverlayStatus":"NotRun","OverlayChecksPassed":0,"OverlayReport":null,"Errors":[],"ExitCode":0}
+KUAIYI_CONTRACT_REPORT_END
+
+PASS Actual Linux entry subprocess ProbeOnly=True
+Script contracts: 45 passed; synthetic headers/receipts only; Windows DLL/desktop NotRun.

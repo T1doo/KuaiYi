@@ -24,7 +24,7 @@ jobs:
           set-safe-directory: false
           fetch-depth: 1
       - name: Probe preinstalled tools, build native DLLs, run bounded public contracts
-        # Revalidate the OCR C++/WinRT collection iterator include found by real MSVC.
+        # Revalidate native DLLs and the actual production Closing/Dispatcher lifecycle.
         shell: pwsh
         run: |
           & ./scripts/run-windows-ci.ps1

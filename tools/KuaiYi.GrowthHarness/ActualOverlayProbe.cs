@@ -16,11 +16,24 @@ internal static class ActualOverlayProbe
         bool burst=rate=="burst";double perSecond=0;
         if(!burst&&(!double.TryParse(rate,System.Globalization.NumberStyles.Float,System.Globalization.CultureInfo.InvariantCulture,out perSecond)||!double.IsFinite(perSecond)||perSecond is <1 or >10000))return 2;
         output=Path.GetFullPath(output);Directory.CreateDirectory(Path.GetDirectoryName(output)!);
+        var phaseClock=Stopwatch.StartNew();
+        void Phase(string value)
+        {
+            if(!boundedCi)return;
+            string line=FormattableString.Invariant($"{phaseClock.Elapsed.TotalMilliseconds:F3} {value}");
+            File.AppendAllText(output+".phases.log",line+Environment.NewLine);Console.Error.WriteLine("KuaiYi public overlay phase: "+line);
+        }
+        Phase("RunEntered");
         string root=Path.Combine(Path.GetTempPath(),"kuaiyi-overlay-probe-"+Guid.NewGuid().ToString("N"));
         var coordinator=new SettingsCoordinator(new SettingsStore(Path.Combine(root,"config")),new SecretFileStore(Path.Combine(root,"secrets"),new NoKeys(),new DirectoryPolicy()));
+        Phase("CoordinatorCreated");
         using(var draft=coordinator.OpenDraftAsync().GetAwaiter().GetResult())
-        {draft.Update(s=>s with{ActiveProfileId="public",Profiles=[new(){Id="public",Model="public-fixture",BaseUrl="https://public.invalid",Authentication=ApiAuthentication.None}]});coordinator.SaveAsync(draft).GetAwaiter().GetResult();}
+        {Phase("DraftOpened");draft.Update(s=>s with{ActiveProfileId="public",Profiles=[new(){Id="public",Model="public-fixture",BaseUrl="https://public.invalid",Authentication=ApiAuthentication.None}]});coordinator.SaveAsync(draft).GetAwaiter().GetResult();}
+        Phase("PublicSettingsSaved");
         var app=new Application();var window=new ShellWindow("KuaiYi.PublicOverlayProbe."+Guid.NewGuid().ToString("N"),coordinator,enableSelectionPlatform:false){Title="快译 · 公开测试浮窗（非模型）"};
+        Phase("ProductionWindowConstructed");
+        window.SourceInitialized+=(_,_)=>Phase("SourceInitialized");window.Closing+=(_,_)=>Phase("Closing");window.Closed+=(_,_)=>Phase("Closed");
+        app.DispatcherUnhandledException+=(_,e)=>Phase("DispatcherUnhandled:"+e.Exception.GetType().Name);
         var timer=new DispatcherTimer{Interval=TimeSpan.FromMilliseconds(50)};RequestIdentity? current=null;int offset=0;bool busy=false;double budget=0;long feedTime=Stopwatch.GetTimestamp();
         string stream=string.Concat(Enumerable.Repeat(PublicText,24));var errors=new List<string>();
         bool completed=false,timedOut=false;long completedAt=0;
@@ -29,11 +42,11 @@ internal static class ActualOverlayProbe
         PixelRect? firstAnchor=null;
         async Task Start()
         {
-            await window.PresentationStartup;var gate=window.PresentationGate;var origin=new EndpointOrigin(new Uri("https://public.invalid"));gate.ConsentTo(origin);
+            Phase("StartupAwait");await window.PresentationStartup;Phase("StartupReady");var gate=window.PresentationGate;var origin=new EndpointOrigin(new Uri("https://public.invalid"));gate.ConsentTo(origin);
             if(!gate.TryEnable(origin,true)||!gate.TryGetProfileBinding("public",out var binding)||!gate.TryStartProfileRequest(binding,Guid.NewGuid(),Guid.NewGuid(),null,out var id,out _)){errors.Add("PublicRequestRejected");return;}
             current=id;offset=0;budget=0;
             if(!await window.ReceivePresentationAsync(id,new(OverlayResultEventKind.Begin))){errors.Add("BeginRejected");return;}
-            feedTime=Stopwatch.GetTimestamp();timer.Start();
+            Phase("BeginAccepted");feedTime=Stopwatch.GetTimestamp();timer.Start();
         }
         timer.Tick+=async(_,_)=>
         {
@@ -41,7 +54,7 @@ internal static class ActualOverlayProbe
             try
             {
                 long now=Stopwatch.GetTimestamp();budget+=burst?2000:perSecond*Stopwatch.GetElapsedTime(feedTime,now).TotalSeconds;feedTime=now;int count=Math.Min((int)Math.Min(budget,stream.Length-offset),stream.Length-offset);budget-=count;if(count>0){bool accepted=await window.ReceivePresentationAsync(id,new(OverlayResultEventKind.Delta,stream.Substring(offset,count)));if(!accepted){timer.Stop();errors.Add("DeltaRejected");return;}offset+=count;}
-                if(offset==stream.Length){timer.Stop();completed=await window.ReceivePresentationAsync(id,new(OverlayResultEventKind.Complete));if(!completed)errors.Add("CompleteRejected");completedAt=Stopwatch.GetTimestamp();}
+                if(offset==stream.Length){timer.Stop();completed=await window.ReceivePresentationAsync(id,new(OverlayResultEventKind.Complete));if(!completed)errors.Add("CompleteRejected");completedAt=Stopwatch.GetTimestamp();Phase(completed?"StreamCompleted":"CompleteRejected");}
             }
             catch(Exception error){timer.Stop();errors.Add(error.GetType().Name);}
             finally{busy=false;}
@@ -51,8 +64,8 @@ internal static class ActualOverlayProbe
         window.Closed+=(_,_)=>{timer.Stop();deadline.Stop();};
         deadline.Tick+=(_,_)=>
         {
-            if(errors.Count>0||(completed&&Stopwatch.GetElapsedTime(completedAt).TotalMilliseconds>=1200)){deadline.Stop();window.Close();return;}
-            if(Stopwatch.GetElapsedTime(startedAt).TotalSeconds>=20){timedOut=true;errors.Add("ProbeDeadlineExceeded");deadline.Stop();window.Close();}
+            if(errors.Count>0||(completed&&Stopwatch.GetElapsedTime(completedAt).TotalMilliseconds>=1200)){Phase("CloseRequested");deadline.Stop();window.Close();return;}
+            if(Stopwatch.GetElapsedTime(startedAt).TotalSeconds>=20){timedOut=true;errors.Add("ProbeDeadlineExceeded");Phase("DeadlineCloseRequested");deadline.Stop();window.Close();}
         };
         if(boundedCi)deadline.Start();
         var frames=new Queue<string>();int discarded=0;nint initialForeground=KuaiYi.Windows.NativeDesktop.GetForegroundWindow();var clock=Stopwatch.StartNew();
@@ -74,7 +87,7 @@ internal static class ActualOverlayProbe
         };
         System.Windows.Media.CompositionTarget.Rendering+=observe;
         int result;
-        try{result=app.Run(window);}
+        try{result=app.Run(window);Phase("RunReturned");}
         catch(Exception error)when(boundedCi){errors.Add(error.GetType().Name);throw;}
         finally
         {
