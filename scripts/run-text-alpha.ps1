@@ -6,8 +6,8 @@ param([Parameter(Mandatory)][string]$BundleRoot,
 $BundleRoot=[IO.Path]::GetFullPath($BundleRoot)
 $manifest=Assert-AlphaBundle $BundleRoot
 if(-not $Execute -or $Mode -eq 'Preflight') {
-    @{Kind='TextAlphaPreflight';BundleValidated=$true;SourceCommit=$manifest.SourceCommit;SourceDirty=$manifest.SourceDirty;Runtime=$manifest.Runtime;SelfContained=$true;Installer=$false;WindowsExecution='NotRun';ProcessesStarted=0;Requirement='Authorized Windows11 x64 unlocked ordinary interactive desktop and controlled public fixture apps';Modes=@('TextAlpha','SelectionProbe','Overlay');RealModels='NotRequested'} | ConvertTo-Json
-    return
+    @{Kind='TextAlphaPreflight';Outcome=@{Kind='PreflightOnly';Status='Pass';ExitCode=0};BundleValidated=$true;SourceCommit=$manifest.SourceCommit;SourceDirty=$manifest.SourceDirty;Runtime=$manifest.Runtime;SelfContained=$true;Installer=$false;WindowsExecution='NotRun';ProcessesStarted=0;Requirement='Authorized Windows11 x64 unlocked ordinary interactive desktop and controlled public fixture apps';Modes=@('TextAlpha','SelectionProbe','Overlay');RealModels='NotRequested'} | ConvertTo-Json
+    exit 0
 }
 Assert-AlphaDesktop # Before directories, provider or desktop child processes.
 $run=[Guid]::NewGuid().ToString('N')
@@ -15,6 +15,7 @@ $evidence=Join-Path ([IO.Path]::GetTempPath()) "KuaiYi-Alpha-Evidence-$run"
 New-Item -ItemType Directory -Path $evidence | Out-Null
 $provider=$null;$child=$null;$receipt=$null;$sourceCheck='NotRun';$wrong=0;$selected=0;$fixed=0
 $childExitCode=$null;$timedOut=$false
+$outcome=$null
 function Start-AlphaChild([string]$Path,[string[]]$Arguments,[bool]$ReadOutput=$true,[bool]$Hidden=$false) {
     $info=[Diagnostics.ProcessStartInfo]::new($Path);$info.UseShellExecute=$false;$info.CreateNoWindow=$Hidden
     $info.WorkingDirectory=Split-Path $Path -Parent;$info.RedirectStandardOutput=$true;$info.RedirectStandardError=$true
@@ -74,6 +75,8 @@ try {
     }
 } finally {
     try{Stop-AlphaChild $child}finally{Stop-AlphaChild $provider}
-    @{Kind='BoundedWindowsTextAlphaSession';Mode=$Mode;SourceCommit=$manifest.SourceCommit;SourceDirty=$manifest.SourceDirty;OS=[Runtime.InteropServices.RuntimeInformation]::OSDescription;DurationSeconds=$DurationSeconds;ChildExitCode=$childExitCode;BoundedTimeout=$timedOut;Receipt=$receipt;WholeAcceptance='NotRun';WindowsCompatibilityMatrix='NotRun';NativeProductDlls='NotIncluded';Installer=$false;RealModelCalls='None';Registration='None';Credentials='None';ManualPending=@('Off/On privacy and focus','production take-words/source association','actual rendered growth and collapse/reopen','both protocol settings','mixed-DPI boundaries','full core compatibility matrix')} | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $evidence 'session.json') -Encoding utf8NoBOM
-    Write-Output "Evidence directory: $evidence; whole acceptance remains NotRun."
+    $outcome=Get-AlphaSessionOutcome $Mode $childExitCode $timedOut $receipt
+    @{Kind='BoundedWindowsTextAlphaSession';Outcome=$outcome;Mode=$Mode;SourceCommit=$manifest.SourceCommit;SourceDirty=$manifest.SourceDirty;OS=[Runtime.InteropServices.RuntimeInformation]::OSDescription;DurationSeconds=$DurationSeconds;ChildExitCode=$childExitCode;BoundedTimeout=$timedOut;Receipt=$receipt;WholeAcceptance='NotRun';WindowsCompatibilityMatrix='NotRun';NativeProductDlls='NotIncluded';Installer=$false;RealModelCalls='None';Registration='None';Credentials='None';ManualPending=@('Off/On privacy and focus','production take-words/source association','actual rendered growth and collapse/reopen','both protocol settings','mixed-DPI boundaries','full core compatibility matrix')} | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $evidence 'session.json') -Encoding utf8NoBOM
+    Write-Output "Evidence directory: $evidence; outcome=$($outcome.Kind), exit=$($outcome.ExitCode); whole acceptance remains NotRun."
 }
+exit ([int]$outcome.ExitCode)

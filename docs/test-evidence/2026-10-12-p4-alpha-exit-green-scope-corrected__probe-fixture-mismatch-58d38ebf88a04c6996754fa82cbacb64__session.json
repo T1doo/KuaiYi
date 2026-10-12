@@ -1,0 +1,34 @@
+{
+  "Registration": "None",
+  "RealModelCalls": "None",
+  "OS": "Debian GNU/Linux 13 (trixie)",
+  "DurationSeconds": 10,
+  "Mode": "SelectionProbe",
+  "SourceCommit": "TEST_COMPLETION_ONLY",
+  "Kind": "BoundedWindowsTextAlphaSession",
+  "Outcome": {
+    "Status": "Fail",
+    "ExitCode": 3,
+    "Reason": "PROBE_FIXTURE_MISMATCH",
+    "Kind": "Failure"
+  },
+  "ManualPending": [
+    "Off/On privacy and focus",
+    "production take-words/source association",
+    "actual rendered growth and collapse/reopen",
+    "both protocol settings",
+    "mixed-DPI boundaries",
+    "full core compatibility matrix"
+  ],
+  "ChildExitCode": 0,
+  "WindowsCompatibilityMatrix": "NotRun",
+  "Receipt": {
+    "matchesFixture": false
+  },
+  "Installer": false,
+  "BoundedTimeout": false,
+  "Credentials": "None",
+  "WholeAcceptance": "NotRun",
+  "NativeProductDlls": "NotIncluded",
+  "SourceDirty": false
+}

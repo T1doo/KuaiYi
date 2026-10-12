@@ -12,7 +12,7 @@ try {
         Assert-WindowsDesktop
         if(-not $BundleRoot -or -not $ExecuteWindows -or $WindowsMode -eq 'Preflight'){throw 'Blocked: Windows run requires the verified Alpha BundleRoot, explicit ExecuteWindows and a selected bounded WindowsMode. Preflight is not a Windows test.'}
         & "$PSScriptRoot/run-desktop-tests.ps1" -BundleRoot $BundleRoot -Mode $WindowsMode -Execute -DurationSeconds $DesktopDurationSeconds
-        return
+        exit $LASTEXITCODE
     }
     Assert-Sdk
     if ($Suite -eq 'Live') { throw 'Blocked: live API testing needs separate explicit authorization; this script does not read credentials.' }

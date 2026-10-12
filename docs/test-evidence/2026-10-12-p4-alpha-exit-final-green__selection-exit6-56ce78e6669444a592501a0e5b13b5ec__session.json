@@ -1,0 +1,34 @@
+{
+  "Credentials": "None",
+  "WholeAcceptance": "NotRun",
+  "Kind": "BoundedWindowsTextAlphaSession",
+  "WindowsCompatibilityMatrix": "NotRun",
+  "Installer": false,
+  "NativeProductDlls": "NotIncluded",
+  "OS": "Debian GNU/Linux 13 (trixie)",
+  "DurationSeconds": 10,
+  "BoundedTimeout": false,
+  "SourceCommit": "TEST_COMPLETION_ONLY",
+  "Registration": "None",
+  "Outcome": {
+    "Status": "Fail",
+    "Reason": "CHILD_EXIT_NONZERO",
+    "Kind": "Failure",
+    "ExitCode": 6
+  },
+  "Mode": "SelectionProbe",
+  "ChildExitCode": 6,
+  "RealModelCalls": "None",
+  "ManualPending": [
+    "Off/On privacy and focus",
+    "production take-words/source association",
+    "actual rendered growth and collapse/reopen",
+    "both protocol settings",
+    "mixed-DPI boundaries",
+    "full core compatibility matrix"
+  ],
+  "Receipt": {
+    "matchesFixture": false
+  },
+  "SourceDirty": false
+}

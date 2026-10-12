@@ -1,0 +1,250 @@
+{
+  "ModelCalls": 0,
+  "Passed": 24,
+  "Kind": "ActualProductionCompletionAndWrapperWithRealOwnedTestChild",
+  "Failed": 0,
+  "Total": 24,
+  "Cases": [
+    {
+      "Log": "/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/final-green/selection-exit5-d512806a83c94cb790ade195c4e4684b/launcher.log",
+      "Pass": true,
+      "ActualExit": 5,
+      "ActualKind": "Failure",
+      "ExpectedExit": 5,
+      "Layer": "launcher",
+      "ExpectedKind": "Failure",
+      "Case": "selection-exit5"
+    },
+    {
+      "Log": "/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/final-green/selection-exit5-d512806a83c94cb790ade195c4e4684b/desktop-wrapper.log",
+      "Pass": true,
+      "ActualExit": 5,
+      "ActualKind": "Failure",
+      "ExpectedExit": 5,
+      "Layer": "desktop-wrapper",
+      "ExpectedKind": "Failure",
+      "Case": "selection-exit5"
+    },
+    {
+      "Log": "/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/final-green/selection-exit5-d512806a83c94cb790ade195c4e4684b/windows-suite-tail.log",
+      "Pass": true,
+      "ActualExit": 5,
+      "ActualKind": "Failure",
+      "ExpectedExit": 5,
+      "Layer": "windows-suite-tail",
+      "ExpectedKind": "Failure",
+      "Case": "selection-exit5"
+    },
+    {
+      "Log": "/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/final-green/selection-exit6-56ce78e6669444a592501a0e5b13b5ec/launcher.log",
+      "Pass": true,
+      "ActualExit": 6,
+      "ActualKind": "Failure",
+      "ExpectedExit": 6,
+      "Layer": "launcher",
+      "ExpectedKind": "Failure",
+      "Case": "selection-exit6"
+    },
+    {
+      "Log": "/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/final-green/selection-exit6-56ce78e6669444a592501a0e5b13b5ec/desktop-wrapper.log",
+      "Pass": true,
+      "ActualExit": 6,
+      "ActualKind": "Failure",
+      "ExpectedExit": 6,
+      "Layer": "desktop-wrapper",
+      "ExpectedKind": "Failure",
+      "Case": "selection-exit6"
+    },
+    {
+      "Log": "/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/final-green/selection-exit6-56ce78e6669444a592501a0e5b13b5ec/windows-suite-tail.log",
+      "Pass": true,
+      "ActualExit": 6,
+      "ActualKind": "Failure",
+      "ExpectedExit": 6,
+      "Layer": "windows-suite-tail",
+      "ExpectedKind": "Failure",
+      "Case": "selection-exit6"
+    },
+    {
+      "Log": "/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/final-green/wrong-source-687c593f619d41fa89b729aa53ffeafd/launcher.log",
+      "Pass": true,
+      "ActualExit": 3,
+      "ActualKind": "Failure",
+      "ExpectedExit": 3,
+      "Layer": "launcher",
+      "ExpectedKind": "Failure",
+      "Case": "wrong-source"
+    },
+    {
+      "Log": "/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/final-green/wrong-source-687c593f619d41fa89b729aa53ffeafd/desktop-wrapper.log",
+      "Pass": true,
+      "ActualExit": 3,
+      "ActualKind": "Failure",
+      "ExpectedExit": 3,
+      "Layer": "desktop-wrapper",
+      "ExpectedKind": "Failure",
+      "Case": "wrong-source"
+    },
+    {
+      "Log": "/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/final-green/wrong-source-687c593f619d41fa89b729aa53ffeafd/windows-suite-tail.log",
+      "Pass": true,
+      "ActualExit": 3,
+      "ActualKind": "Failure",
+      "ExpectedExit": 3,
+      "Layer": "windows-suite-tail",
+      "ExpectedKind": "Failure",
+      "Case": "wrong-source"
+    },
+    {
+      "Log": "/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/final-green/app-exit7-5f48a191063148f593b6ef479e9c2e04/launcher.log",
+      "Pass": true,
+      "ActualExit": 7,
+      "ActualKind": "Failure",
+      "ExpectedExit": 7,
+      "Layer": "launcher",
+      "ExpectedKind": "Failure",
+      "Case": "app-exit7"
+    },
+    {
+      "Log": "/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/final-green/app-exit7-5f48a191063148f593b6ef479e9c2e04/desktop-wrapper.log",
+      "Pass": true,
+      "ActualExit": 7,
+      "ActualKind": "Failure",
+      "ExpectedExit": 7,
+      "Layer": "desktop-wrapper",
+      "ExpectedKind": "Failure",
+      "Case": "app-exit7"
+    },
+    {
+      "Log": "/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/final-green/app-exit7-5f48a191063148f593b6ef479e9c2e04/windows-suite-tail.log",
+      "Pass": true,
+      "ActualExit": 7,
+      "ActualKind": "Failure",
+      "ExpectedExit": 7,
+      "Layer": "windows-suite-tail",
+      "ExpectedKind": "Failure",
+      "Case": "app-exit7"
+    },
+    {
+      "Log": "/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/final-green/no-source-notrun-39f8a01713ec4c57855dc7ef42167f43/launcher.log",
+      "Pass": true,
+      "ActualExit": 2,
+      "ActualKind": "NotRun",
+      "ExpectedExit": 2,
+      "Layer": "launcher",
+      "ExpectedKind": "NotRun",
+      "Case": "no-source-notrun"
+    },
+    {
+      "Log": "/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/final-green/no-source-notrun-39f8a01713ec4c57855dc7ef42167f43/desktop-wrapper.log",
+      "Pass": true,
+      "ActualExit": 2,
+      "ActualKind": "NotRun",
+      "ExpectedExit": 2,
+      "Layer": "desktop-wrapper",
+      "ExpectedKind": "NotRun",
+      "Case": "no-source-notrun"
+    },
+    {
+      "Log": "/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/final-green/no-source-notrun-39f8a01713ec4c57855dc7ef42167f43/windows-suite-tail.log",
+      "Pass": true,
+      "ActualExit": 2,
+      "ActualKind": "NotRun",
+      "ExpectedExit": 2,
+      "Layer": "windows-suite-tail",
+      "ExpectedKind": "NotRun",
+      "Case": "no-source-notrun"
+    },
+    {
+      "Log": "/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/final-green/bounded-valid-source-014c5972f04f4c8dbe9baf80c74bcd67/launcher.log",
+      "Pass": true,
+      "ActualExit": 0,
+      "ActualKind": "BoundedSessionEnded",
+      "ExpectedExit": 0,
+      "Layer": "launcher",
+      "ExpectedKind": "BoundedSessionEnded",
+      "Case": "bounded-valid-source"
+    },
+    {
+      "Log": "/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/final-green/bounded-valid-source-014c5972f04f4c8dbe9baf80c74bcd67/desktop-wrapper.log",
+      "Pass": true,
+      "ActualExit": 0,
+      "ActualKind": "BoundedSessionEnded",
+      "ExpectedExit": 0,
+      "Layer": "desktop-wrapper",
+      "ExpectedKind": "BoundedSessionEnded",
+      "Case": "bounded-valid-source"
+    },
+    {
+      "Log": "/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/final-green/bounded-valid-source-014c5972f04f4c8dbe9baf80c74bcd67/windows-suite-tail.log",
+      "Pass": true,
+      "ActualExit": 0,
+      "ActualKind": "BoundedSessionEnded",
+      "ExpectedExit": 0,
+      "Layer": "windows-suite-tail",
+      "ExpectedKind": "BoundedSessionEnded",
+      "Case": "bounded-valid-source"
+    },
+    {
+      "Log": "/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/final-green/probe-fixture-mismatch-5ee73882083046cd913b5895d75e8780/launcher.log",
+      "Pass": true,
+      "ActualExit": 3,
+      "ActualKind": "Failure",
+      "ExpectedExit": 3,
+      "Layer": "launcher",
+      "ExpectedKind": "Failure",
+      "Case": "probe-fixture-mismatch"
+    },
+    {
+      "Log": "/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/final-green/probe-fixture-mismatch-5ee73882083046cd913b5895d75e8780/desktop-wrapper.log",
+      "Pass": true,
+      "ActualExit": 3,
+      "ActualKind": "Failure",
+      "ExpectedExit": 3,
+      "Layer": "desktop-wrapper",
+      "ExpectedKind": "Failure",
+      "Case": "probe-fixture-mismatch"
+    },
+    {
+      "Log": "/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/final-green/probe-fixture-mismatch-5ee73882083046cd913b5895d75e8780/windows-suite-tail.log",
+      "Pass": true,
+      "ActualExit": 3,
+      "ActualKind": "Failure",
+      "ExpectedExit": 3,
+      "Layer": "windows-suite-tail",
+      "ExpectedKind": "Failure",
+      "Case": "probe-fixture-mismatch"
+    },
+    {
+      "Log": "/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/final-green/probe-fixture-pass-c6955efddcea40b7b1d9c30c20e14e46/launcher.log",
+      "Pass": true,
+      "ActualExit": 0,
+      "ActualKind": "LimitedSessionEnded",
+      "ExpectedExit": 0,
+      "Layer": "launcher",
+      "ExpectedKind": "LimitedSessionEnded",
+      "Case": "probe-fixture-pass"
+    },
+    {
+      "Log": "/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/final-green/probe-fixture-pass-c6955efddcea40b7b1d9c30c20e14e46/desktop-wrapper.log",
+      "Pass": true,
+      "ActualExit": 0,
+      "ActualKind": "LimitedSessionEnded",
+      "ExpectedExit": 0,
+      "Layer": "desktop-wrapper",
+      "ExpectedKind": "LimitedSessionEnded",
+      "Case": "probe-fixture-pass"
+    },
+    {
+      "Log": "/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/final-green/probe-fixture-pass-c6955efddcea40b7b1d9c30c20e14e46/windows-suite-tail.log",
+      "Pass": true,
+      "ActualExit": 0,
+      "ActualKind": "LimitedSessionEnded",
+      "ExpectedExit": 0,
+      "Layer": "windows-suite-tail",
+      "ExpectedKind": "LimitedSessionEnded",
+      "Case": "probe-fixture-pass"
+    }
+  ],
+  "WindowsExecuted": false
+}

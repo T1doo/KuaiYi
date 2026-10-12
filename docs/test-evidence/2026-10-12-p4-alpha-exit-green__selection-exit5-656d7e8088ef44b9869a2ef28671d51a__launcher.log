@@ -1,0 +1,7 @@
+Evidence directory: /workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/green/selection-exit5-656d7e8088ef44b9869a2ef28671d51a; outcome=Failure, exit=5; whole acceptance remains NotRun.
+InvalidOperation: /workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/green/selection-exit5-656d7e8088ef44b9869a2ef28671d51a/run-text-alpha.ps1:24
+Line |
+  24 |  exit ([int]$outcome.ExitCode)
+     |             ~~~~~~~~
+     | The variable '$outcome' cannot be retrieved because it has not been set.
+

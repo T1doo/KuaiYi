@@ -95,3 +95,5 @@ P4-04阶段预算高级配置、有效活动SSE/JSON读取已接生产路径，�
 实际消费者延迟队列的总预算/阶段资格补正已接生产 Receive/Apply，见[目标队列补正](docs/p4-queued-delivery-review.md)。124新生产消费者专项与完整1836 .NET/63 Node通过，仍待父审及Windows整体验收。
 
 已补自包含文字 Alpha 发布与受控本地启动入口，见[使用说明](docs/text-alpha.md)及[P0—P4交付缺口复核](docs/p4-text-alpha-review.md)。包内含固定.NET10.0.12运行时，无需在目标机安装.NET；仍无安装器/产品原生DLL，Windows闭环和整体验收未运行。
+
+文字Alpha启动退出合同已补正：使用新仓库/独立小补正脚本指向原大包，旧大包保持原字节。子失败/原文比较Fail非零，NotRun为2，预检与限定会话分开，见[退出合同补正](docs/p4-alpha-exit-review.md)。Windows实际功能仍未验。

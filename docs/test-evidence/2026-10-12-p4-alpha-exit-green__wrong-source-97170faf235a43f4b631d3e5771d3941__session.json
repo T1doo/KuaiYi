@@ -1,0 +1,35 @@
+{
+  "SourceCommit": "TEST_COMPLETION_ONLY",
+  "Kind": "BoundedWindowsTextAlphaSession",
+  "NativeProductDlls": "NotIncluded",
+  "DurationSeconds": 10,
+  "Mode": "TextAlpha",
+  "Receipt": {
+    "WrongSourceRequests": 1,
+    "Status": "Fail"
+  },
+  "WindowsCompatibilityMatrix": "NotRun",
+  "WholeAcceptance": "NotRun",
+  "ManualPending": [
+    "Off/On privacy and focus",
+    "production take-words/source association",
+    "actual rendered growth and collapse/reopen",
+    "both protocol settings",
+    "mixed-DPI boundaries",
+    "full core compatibility matrix"
+  ],
+  "Credentials": "None",
+  "ChildExitCode": 0,
+  "Registration": "None",
+  "SourceDirty": false,
+  "Outcome": {
+    "Status": "Fail",
+    "Kind": "Failure",
+    "ExitCode": 3,
+    "Reason": "SOURCE_COMPARISON_FAILED"
+  },
+  "OS": "Debian GNU/Linux 13 (trixie)",
+  "RealModelCalls": "None",
+  "Installer": false,
+  "BoundedTimeout": false
+}

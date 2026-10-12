@@ -1,0 +1,7 @@
+Evidence directory: /workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/green/wrong-source-97170faf235a43f4b631d3e5771d3941; outcome=Failure, exit=3; whole acceptance remains NotRun.
+run-desktop-tests.ps1: /workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/green/wrong-source-97170faf235a43f4b631d3e5771d3941/windows-suite-tail.ps1:3
+Line |
+   3 |  & "$PSScriptRoot/run-desktop-tests.ps1" -BundleRoot $BundleRoot -Mode …
+     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | The variable '$outcome' cannot be retrieved because it has not been set.
+

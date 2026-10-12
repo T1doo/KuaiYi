@@ -1,0 +1,35 @@
+{
+  "Mode": "TextAlpha",
+  "BoundedTimeout": false,
+  "ChildExitCode": 7,
+  "Receipt": {
+    "Status": "Pass",
+    "WrongSourceRequests": 0
+  },
+  "Kind": "BoundedWindowsTextAlphaSession",
+  "RealModelCalls": "None",
+  "OS": "Debian GNU/Linux 13 (trixie)",
+  "Installer": false,
+  "SourceCommit": "TEST_COMPLETION_ONLY",
+  "ManualPending": [
+    "Off/On privacy and focus",
+    "production take-words/source association",
+    "actual rendered growth and collapse/reopen",
+    "both protocol settings",
+    "mixed-DPI boundaries",
+    "full core compatibility matrix"
+  ],
+  "Registration": "None",
+  "DurationSeconds": 10,
+  "Credentials": "None",
+  "SourceDirty": false,
+  "WholeAcceptance": "NotRun",
+  "Outcome": {
+    "ExitCode": 7,
+    "Kind": "Failure",
+    "Status": "Fail",
+    "Reason": "CHILD_EXIT_NONZERO"
+  },
+  "WindowsCompatibilityMatrix": "NotRun",
+  "NativeProductDlls": "NotIncluded"
+}

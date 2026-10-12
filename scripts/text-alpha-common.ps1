@@ -1,5 +1,23 @@
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
+function Test-AlphaReceiptField($Receipt,[string]$Field) {
+    if($null -eq $Receipt){return $false}
+    if($Receipt -is [Collections.IDictionary]){return $Receipt.Contains($Field)}
+    return $Receipt.PSObject.Properties.Name -contains $Field
+}
+function Get-AlphaSessionOutcome([string]$Mode,[Nullable[int]]$ChildExitCode,[bool]$BoundedTimeout,$Receipt) {
+    # A completed/bounded diagnostic session is not whole Windows acceptance.
+    if($null -ne $ChildExitCode -and $ChildExitCode -ne 0){return @{Kind='Failure';Status='Fail';ExitCode=$(if($ChildExitCode -gt 0 -and $ChildExitCode -le 255){[int]$ChildExitCode}else{1});Reason='CHILD_EXIT_NONZERO'}}
+    if((Test-AlphaReceiptField $Receipt 'Status') -and $Receipt.Status -ceq 'Fail'){return @{Kind='Failure';Status='Fail';ExitCode=3;Reason='SOURCE_COMPARISON_FAILED'}}
+    if($Mode -ceq 'SelectionProbe') {
+        if($BoundedTimeout){return @{Kind='Failure';Status='Fail';ExitCode=4;Reason='PROBE_SESSION_TIMEOUT'}}
+        if(-not(Test-AlphaReceiptField $Receipt 'matchesFixture')){return @{Kind='NotRun';Status='NotRun';ExitCode=2;Reason='PROBE_RECEIPT_UNAVAILABLE'}}
+        if($Receipt.matchesFixture -ne $true){return @{Kind='Failure';Status='Fail';ExitCode=3;Reason='PROBE_FIXTURE_MISMATCH'}}
+    } elseif($Mode -ceq 'TextAlpha') {
+        if(-not(Test-AlphaReceiptField $Receipt 'Status') -or $Receipt.Status -cne 'Pass'){return @{Kind='NotRun';Status='NotRun';ExitCode=2;Reason='NO_VERIFIED_PUBLIC_SELECTION'}}
+    }
+    return @{Kind=$(if($BoundedTimeout){'BoundedSessionEnded'}else{'LimitedSessionEnded'});Status='NotRun';ExitCode=0;Reason='LIMITED_DIAGNOSTIC_ONLY_WHOLE_ACCEPTANCE_PENDING'}
+}
 function Assert-AlphaPe([string]$Path) {
     $bytes=[IO.File]::ReadAllBytes($Path)
     if($bytes.Length -lt 128 -or [BitConverter]::ToUInt16($bytes,0) -ne 0x5a4d){throw "Invalid PE: $Path"}

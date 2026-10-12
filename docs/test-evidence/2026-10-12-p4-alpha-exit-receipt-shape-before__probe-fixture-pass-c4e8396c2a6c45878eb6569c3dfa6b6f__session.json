@@ -1,0 +1,34 @@
+{
+  "Kind": "BoundedWindowsTextAlphaSession",
+  "NativeProductDlls": "NotIncluded",
+  "BoundedTimeout": false,
+  "Installer": false,
+  "WholeAcceptance": "NotRun",
+  "Receipt": {
+    "matchesFixture": true
+  },
+  "ChildExitCode": 0,
+  "Outcome": {
+    "Kind": "LimitedSessionEnded",
+    "Status": "NotRun",
+    "Reason": "LIMITED_DIAGNOSTIC_ONLY_WHOLE_ACCEPTANCE_PENDING",
+    "ExitCode": 0
+  },
+  "Credentials": "None",
+  "Registration": "None",
+  "RealModelCalls": "None",
+  "WindowsCompatibilityMatrix": "NotRun",
+  "OS": "Debian GNU/Linux 13 (trixie)",
+  "Mode": "SelectionProbe",
+  "DurationSeconds": 10,
+  "SourceCommit": "TEST_COMPLETION_ONLY",
+  "ManualPending": [
+    "Off/On privacy and focus",
+    "production take-words/source association",
+    "actual rendered growth and collapse/reopen",
+    "both protocol settings",
+    "mixed-DPI boundaries",
+    "full core compatibility matrix"
+  ],
+  "SourceDirty": false
+}

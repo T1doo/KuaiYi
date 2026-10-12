@@ -389,3 +389,9 @@ ccf998 尚未签收：响应头完成后未复核期限、phase.Check未查父�
 父限定签收dc70后核30任务：已有生产取词/协议/浮窗接线，仍缺真正自包含Alpha交付与有界执行入口。补六宿主独立publish/相同摘要共用/完整归属清单、1199文件SC包/9实际完整性和执行拒绝检查，13独立RID图锁保持27普通锁和原NuGet条目，SDK10.0.401/runtime10.0.12固定；Windows suite接明确Bundle/Execute/模式与有界进程所有权，不假造Windows通过。首次NU1004保全修独立发布锁，初始化后实际locked发布；当前普通CI1836 .NET/63 Node和27工程0warning/error。
 
 断连恢复05:13:07.806097Z真实命令/HEAD/文件/零活动任务证据保全，无重复启动或扩权；父再次问状态时工作已在进行，最后发布实际开始05:34:45Z。仅原云环境，未操作已连接桌面，未真实模型/密钥/注册/信任/新SDK协议；恢复日志/错误/包保全。Windows最小运行需求降到Windows11x64/普通解锁Default交互桌面/PowerShell7/受控公开fixture应用；源码原生构建、安装与混合DPI测试另需工具和环境。P0/E06仍Blocked，P1—P4InProgress，106整体NotRun；不跳P5/P6，等待有界Windows授权和实际验收。详见p4-text-alpha-review及summary。
+
+## 文字Alpha退出合同父审补正
+
+044发布准备限定接收，原launcher/desktop wrapper/Windows suite吞子退出/比较Fail。旧实际收尾AST+真实持有pwsh退出进程、完整wrapper及suite委托后语句红24/24失败（18退出码错误），夹具参数/子scope错误及真正Hashtable形态6失败均保全。最终实际形态24/24通过；退出5/6/7保留，比较3，探针timeout4，缺有效证据NotRun2，预检0/PreflightOnly，限定/有界会话0但WholeNotRun。三层明确exit，清理/finally仍生效，无Windows或模型执行。
+
+10:06:35Z实际恢复HEAD/远端044、保留test文件、无活动写入；未重开Git/写入者或扩权。没有重复1836/63未变化生产回归、没有重打大包；29历史+3Alpha共32旧包字节保持，独立约7KB脚本补正供未来授权Windows使用。旧包内旧脚本不改，运行新脚本以BundleRoot指向旧包。P0/E06Blocked、P1—P4InProgress、106整体NotRun，Windows实际条件仍待落实，不进入P5/P6。见p4-alpha-exit-review及summary。

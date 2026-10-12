@@ -1,0 +1,7 @@
+Evidence directory: /workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/green/probe-fixture-pass-d16a8a58b81b4e29848cf1ca84f0f78b; outcome=LimitedSessionEnded, exit=0; whole acceptance remains NotRun.
+InvalidOperation: /workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/green/probe-fixture-pass-d16a8a58b81b4e29848cf1ca84f0f78b/run-text-alpha.ps1:24
+Line |
+  24 |  exit ([int]$outcome.ExitCode)
+     |             ~~~~~~~~
+     | The variable '$outcome' cannot be retrieved because it has not been set.
+

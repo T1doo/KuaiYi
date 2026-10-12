@@ -1,0 +1,6 @@
+Get-Content: /workspace/KuaiYi/tests/scripts/alpha-exit.test.ps1:53
+Line |
+  53 |    $report=Get-Content -LiteralPath (Join-Path $folder 'session.json') …
+     |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Cannot find path
+     | '/workspace/KuaiYi/artifacts/test-results/p4-alpha-exit/red/selection-exit5-15f4c24ee0a04826960dcb3031e4e943/session.json' because it does not exist.

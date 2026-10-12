@@ -1,0 +1,70 @@
+param([string]$OutputRoot='artifacts/test-results/p4-alpha-exit',[string]$SourceRoot='scripts')
+Set-StrictMode -Version Latest
+$ErrorActionPreference='Stop'
+$repository=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
+$OutputRoot=[IO.Path]::GetFullPath((Join-Path $repository $OutputRoot));New-Item -ItemType Directory -Force $OutputRoot | Out-Null
+$source=[IO.Path]::GetFullPath((Join-Path $repository $SourceRoot))
+$tokens=$null;$errors=$null;$ast=[Management.Automation.Language.Parser]::ParseFile((Join-Path $source 'run-text-alpha.ps1'),[ref]$tokens,[ref]$errors)
+if($errors.Count){throw 'Production launcher did not parse.'}
+$outer=@($ast.EndBlock.Statements | Where-Object{$_ -is [Management.Automation.Language.TryStatementAst]})[-1]
+$cleanup=($ast.FindAll({param($n)$n -is [Management.Automation.Language.FunctionDefinitionAst] -and $n.Name -eq 'Stop-AlphaChild'},$true))[0].Extent.Text
+$after=@($ast.EndBlock.Statements | Where-Object{$_.Extent.StartOffset -gt $outer.Extent.EndOffset} | ForEach-Object{$_.Extent.Text}) -join "`n"
+$completion=$outer.Finally.Extent.Text
+$cases=@(
+ @{Name='selection-exit5';Mode='SelectionProbe';Child=5;Receipt=@{matchesFixture=$false};Timeout=$false;Expected=5;Kind='Failure'},
+ @{Name='selection-exit6';Mode='SelectionProbe';Child=6;Receipt=@{matchesFixture=$false};Timeout=$false;Expected=6;Kind='Failure'},
+ @{Name='wrong-source';Mode='TextAlpha';Child=0;Receipt=@{Status='Fail';WrongSourceRequests=1};Timeout=$false;Expected=3;Kind='Failure'},
+ @{Name='app-exit7';Mode='TextAlpha';Child=7;Receipt=@{Status='Pass';WrongSourceRequests=0};Timeout=$false;Expected=7;Kind='Failure'},
+ @{Name='no-source-notrun';Mode='TextAlpha';Child=0;Receipt=@{Status='NotRun';WrongSourceRequests=0};Timeout=$false;Expected=2;Kind='NotRun'},
+ @{Name='bounded-valid-source';Mode='TextAlpha';Child=0;Receipt=@{Status='Pass';WrongSourceRequests=0};Timeout=$true;Expected=0;Kind='BoundedSessionEnded'},
+ @{Name='probe-fixture-mismatch';Mode='SelectionProbe';Child=0;Receipt=@{matchesFixture=$false};Timeout=$false;Expected=3;Kind='Failure'},
+ @{Name='probe-fixture-pass';Mode='SelectionProbe';Child=0;Receipt=@{matchesFixture=$true};Timeout=$false;Expected=0;Kind='LimitedSessionEnded'}
+)
+$results=@();$anyFailure=$false
+foreach($case in $cases) {
+ $folder=Join-Path $OutputRoot ($case.Name+'-'+[Guid]::NewGuid().ToString('N'));New-Item -ItemType Directory -Path $folder | Out-Null
+ $common=Join-Path $source 'text-alpha-common.ps1';$receipt=($case.Receipt | ConvertTo-Json -Compress)
+ $prefix=@'
+param($BundleRoot,$Mode,[switch]$Execute,$DurationSeconds)
+. '__COMMON__'
+$Mode='__MODE__';$DurationSeconds=10;$timedOut=__TIMEOUT__
+$manifest=[pscustomobject]@{SourceCommit='TEST_COMPLETION_ONLY';SourceDirty=$false}
+$evidence=$PSScriptRoot;$provider=$null;$receipt='__RECEIPT__' | ConvertFrom-Json
+$info=[Diagnostics.ProcessStartInfo]::new((Join-Path $PSHOME 'pwsh'))
+$info.UseShellExecute=$false;$info.RedirectStandardOutput=$true;$info.RedirectStandardError=$true
+foreach($arg in @('-NoProfile','-Command','exit __CHILD__')){[void]$info.ArgumentList.Add($arg)}
+$process=[Diagnostics.Process]::Start($info);$output=$process.StandardOutput.ReadToEndAsync();$errorOutput=$process.StandardError.ReadToEndAsync()
+if(-not $process.WaitForExit(10000)){$process.Kill($true);throw 'Test-only child did not settle.'}
+$childExitCode=$process.ExitCode;$child=[pscustomobject]@{Process=$process;Output=$output;Error=$errorOutput}
+'@
+ $prefix=$prefix.Replace('__COMMON__',$common.Replace("'","''")).Replace('__MODE__',$case.Mode).Replace('__TIMEOUT__',$(if($case.Timeout){'$true'}else{'$false'})).Replace('__RECEIPT__',$receipt.Replace("'","''")).Replace('__CHILD__',[string]$case.Child)
+ # Exact production cleanup/final report and trailing statements. Only platform acquisition is omitted;
+ # inputs come from a real completed test-owned pwsh process, not a Windows probe or model.
+ $harness=Join-Path $folder 'run-text-alpha.ps1';$code=$prefix+"`n"+$cleanup+"`n& "+$completion+"`n"+$after
+ Set-Content -LiteralPath $harness -Value $code -Encoding utf8NoBOM
+ Copy-Item -LiteralPath (Join-Path $source 'run-desktop-tests.ps1') -Destination $folder
+ $testAst=[Management.Automation.Language.Parser]::ParseFile((Join-Path $source 'test.ps1'),[ref]$tokens,[ref]$errors)
+ $testOuter=@($testAst.EndBlock.Statements | Where-Object{$_ -is [Management.Automation.Language.TryStatementAst]})[-1]
+ $branch=@($testOuter.Body.Statements | Where-Object{$_ -is [Management.Automation.Language.IfStatementAst] -and $_.Extent.Text.Contains("`$Suite -eq 'Windows'")})[0].Clauses[0].Item2.Statements
+ $delegation=@($branch | Where-Object{$_.Extent.Text.Contains('run-desktop-tests.ps1')})[0]
+ $suiteTail=@($branch | Where-Object{$_.Extent.StartOffset -ge $delegation.Extent.StartOffset} | ForEach-Object{$_.Extent.Text}) -join "`n"
+ # Exact post-delegation Windows-suite statements only; acquisition/desktop guards are not simulated.
+ $suitePrefix="param(`$BundleRoot,`$Mode,[switch]`$Execute,`$DurationSeconds)`n`$WindowsMode=`$Mode;`$ExecuteWindows=`$Execute;`$DesktopDurationSeconds=`$DurationSeconds`n"
+ Set-Content -LiteralPath (Join-Path $folder 'windows-suite-tail.ps1') -Value ($suitePrefix+$suiteTail) -Encoding utf8NoBOM
+ foreach($layer in 'launcher','desktop-wrapper','windows-suite-tail') {
+  $path=if($layer -eq 'launcher'){$harness}elseif($layer -eq 'desktop-wrapper'){Join-Path $folder 'run-desktop-tests.ps1'}else{Join-Path $folder 'windows-suite-tail.ps1'}
+  $start=[Diagnostics.ProcessStartInfo]::new((Join-Path $PSHOME 'pwsh'));$start.UseShellExecute=$false;$start.RedirectStandardOutput=$true;$start.RedirectStandardError=$true
+  foreach($arg in @('-NoProfile','-File',$path,'-BundleRoot','TEST_ONLY_UNUSED','-Mode',$case.Mode,'-Execute','-DurationSeconds','10')){[void]$start.ArgumentList.Add($arg)}
+  $p=[Diagnostics.Process]::Start($start);$stdout=$p.StandardOutput.ReadToEndAsync();$stderr=$p.StandardError.ReadToEndAsync()
+  if(-not $p.WaitForExit(20000)){$p.Kill($true);throw 'Completion harness did not settle.'}
+  $actual=$p.ExitCode;$p.Dispose();$log=Join-Path $folder ($layer+'.log');Set-Content -LiteralPath $log -Value ($stdout.GetAwaiter().GetResult()+$stderr.GetAwaiter().GetResult()) -Encoding utf8NoBOM
+  $report=Get-Content -LiteralPath (Join-Path $folder 'session.json') -Raw | ConvertFrom-Json
+  $kind=if($report.PSObject.Properties.Name -contains 'Outcome'){$report.Outcome.Kind}else{'Missing'}
+  $pass=$actual -eq $case.Expected -and $kind -ceq $case.Kind
+  if(-not $pass){$anyFailure=$true}
+  $results+=@{Case=$case.Name;Layer=$layer;ExpectedExit=$case.Expected;ActualExit=$actual;ExpectedKind=$case.Kind;ActualKind=$kind;Pass=$pass;Log=$log}
+ }
+}
+@{Kind='ActualProductionCompletionAndWrapperWithRealOwnedTestChild';WindowsExecuted=$false;ModelCalls=0;Cases=$results;Total=$results.Count;Failed=@($results | Where-Object{-not $_.Pass}).Count;Passed=@($results | Where-Object{$_.Pass}).Count} | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $OutputRoot 'exit-results.json') -Encoding utf8NoBOM
+Get-Content -LiteralPath (Join-Path $OutputRoot 'exit-results.json')
+if($anyFailure){exit 1}
