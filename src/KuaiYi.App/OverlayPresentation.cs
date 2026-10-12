@@ -33,7 +33,7 @@ internal sealed partial class ShellWindow
     private OverlayResults overlayResults=null!;private IdentityEventReceiver<OverlayResultEvent> presentationReceiver=null!;
     private OverlayFrames? overlayFrames;private bool rendering,peek,dirty,follow=true,awaitingText,pendingReveal;private TimeSpan lastRender;private long resultRevision;
     private readonly Stopwatch frameClock=Stopwatch.StartNew();
-    private PixelRect? appliedRect;private int appliedRadius;private bool appliedVisible;
+    private PixelRect? appliedRect;private int appliedRadius;private bool appliedVisible,applyingOverlayFrame;
     internal RuntimeGate PresentationGate=>lifecycle.Gate;
     internal OverlayFrames? PresentationGeometry=>overlayFrames;
     internal PixelRect? PresentationButtonScreenBounds
@@ -181,6 +181,8 @@ internal sealed partial class ShellWindow
     private void StopFrames(){if(!rendering)return;CompositionTarget.Rendering-=RenderOverlay;rendering=false;}
     private void RenderOverlay(object? sender,EventArgs e)
     {
+        // HwndTarget can synchronously raise Rendering inside SetWindowPos. Keep the prepared frame frozen.
+        if(applyingOverlayFrame)return;
         try
         {if(exiting||!IsVisible||overlayFrames==null){StopFrames();return;}if(awaitingText&&overlayResults.Identity is {} id&&!lifecycle.Gate.CanApply(id)){awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();overlayResults.MarkStopped();}var now=frameClock.Elapsed;overlayFrames.Tick(now-lastRender,ReduceMotion);lastRender=now;progressRing.RenderTransform=ReduceMotion?Transform.Identity:new RotateTransform(now.TotalMilliseconds*.24);ApplyOverlayFrame();if(!awaitingText&&!overlayFrames.NeedsFrame)StopFrames();}
         catch(Exception error){StopFrames();lifecycle.Gate.Disable();Report("浮窗几何更新失败",error);}
@@ -192,8 +194,22 @@ internal sealed partial class ShellWindow
         bool expanded=rect!=anchor;
         double expansion=Math.Clamp((rect.Width-anchor.Width+rect.Height-anchor.Height)/(48*dpi.Factor),0,1);
         int radius=dpi.CeilingPixels(24-8*expansion);
-        if(forceNative||appliedRect!=rect||appliedRadius!=radius||appliedVisible!=IsVisible){NativeDesktop.ApplyBounds(hwnd,rect,radius,show:IsVisible);appliedRect=rect;appliedRadius=radius;appliedVisible=IsVisible;}
+        applyingOverlayFrame=true;
         try
+        {
+            PrepareVisuals();
+            CommitLayout();
+            // Resize may render before ApplyBounds returns: the visual tree must already describe this rectangle.
+            if(forceNative||appliedRect!=rect||appliedRadius!=radius||appliedVisible!=IsVisible){NativeDesktop.ApplyBounds(hwnd,rect,radius,show:IsVisible);appliedRect=rect;appliedRadius=radius;appliedVisible=IsVisible;}
+            CommitLayout();
+        }
+        finally{applyingOverlayFrame=false;}
+
+        void CommitLayout()
+        {
+            if(overlayCanvas.IsLoaded&&(!overlayCanvas.IsMeasureValid||!overlayCanvas.IsArrangeValid))overlayCanvas.UpdateLayout();
+        }
+        void PrepareVisuals()
         {
         double width=dpi.Dips(rect.Width),height=dpi.Dips(rect.Height);overlayCanvas.Width=width;overlayCanvas.Height=height;cardBackground.Width=width;cardBackground.Height=height;
         double bx=dpi.Dips(anchor.Left-rect.Left),by=dpi.Dips(anchor.Top-rect.Top);Canvas.SetLeft(button,bx);Canvas.SetTop(button,by);
@@ -217,12 +233,6 @@ internal sealed partial class ShellWindow
         Canvas.SetLeft(resultLabel,dpi.Dips(targetLeft+pad-rect.Left));Canvas.SetTop(resultLabel,dpi.Dips(top-rect.Top));resultLabel.Width=Math.Max(1,targetWidth-32);resultLabel.Height=labelHeight;resultLabel.Opacity=overlayFrames.ContentOpacity;resultLabel.Visibility=labelHeight>0&&bottom-top>dpi.CeilingPixels(labelHeight)?Visibility.Visible:Visibility.Collapsed;
         Canvas.SetLeft(body,dpi.Dips(targetLeft+pad-rect.Left));Canvas.SetTop(body,dpi.Dips(top-rect.Top)+labelHeight);body.Width=Math.Max(1,targetWidth-32);body.Height=Math.Max(0,dpi.Dips(bottom-top)-labelHeight);body.Opacity=overlayFrames.ContentOpacity;body.Visibility=body.Height>0?Visibility.Visible:Visibility.Collapsed;
         Canvas.SetLeft(newContent,Math.Max(0,width-90));Canvas.SetTop(newContent,Math.Max(0,height-30));
-        }
-        finally
-        {
-            // HWND movement is synchronous; Canvas coordinates otherwise remain deferred until a later arrange.
-            // Commit the complete property batch, including the compact early return, before exposing this frame.
-            if(overlayCanvas.IsLoaded&&(!overlayCanvas.IsMeasureValid||!overlayCanvas.IsArrangeValid))overlayCanvas.UpdateLayout();
         }
     }
     private void DisposePresentation(){StopFrames();flush.Stop();peekIn.Stop();peekOut.Stop();waiting.Stop();overlayResults.Clear();body.Clear();measurement.Text="";}

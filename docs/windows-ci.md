@@ -1,6 +1,6 @@
 # Hosted Windows 合同验证
 
-这套工作流只证明被记录的 runner 中的原生编译、DLL ABI 加载和公开 fixture 的 HWND 合同。GitHub 标准 x64 Windows runner 是 Server/管理员/UAC 禁用环境；它不替代 SPEC 的 Windows 11 x64 普通用户、跨应用、混合 DPI、OCR 身份、现代菜单或安装卸载验收。P0/E06 与 106 整体验收状态保持原状。
+这套工作流只证明被记录的 runner 中的原生编译、DLL ABI 加载和公开 fixture 的 HWND 合同。实际 runner 是 Server/管理员/high integrity，EnableLua=1；它不替代 SPEC 的 Windows 11 x64 普通用户、跨应用、混合 DPI、OCR 身份、现代菜单或安装卸载验收。P0/E06 与 106 整体验收状态保持原状。
 
 ## 入口与触发
 
@@ -37,3 +37,5 @@
 第四CI[38245204651](https://github.com/T1doo/KuaiYi/actions/runs/38245204651)原生/托管无编译或链接警告，公开Window完整流约5.49秒正常Closed/RunReturned，130帧八项true，但两帧实际按钮位置不符故整个HWND合同仍Fail。保留原坏帧：展开actual(770,488)对应新420×409 HWND里旧48×48 Canvas的半差居中；收起actualX1328对应旧372px Canvas.Left未Arrange。[WPF Canvas源代码](https://github.com/dotnet/wpf/blob/main/src/Microsoft.DotNet.Wpf/src/PresentationFramework/System/Windows/Controls/Canvas.cs)的SetLeft/Top只失效Arrange、[FrameworkElement](https://github.com/dotnet/wpf/blob/main/src/Microsoft.DotNet.Wpf/src/PresentationFramework/System/Windows/FrameworkElement.cs)默认Stretch对齐会居中；原生移动和WPF布局需同步提交。生产Canvas固定Left/Top，完整属性batch完成后、live布局无效时UpdateLayout，覆盖compact提前return；没有在测试getter补布局、跳帧、延时或改断言。CSV保留原18列并追加4个预期anchor坐标，下一实际CI核验全部帧与执行时长；混合DPI/性能/视觉品质仍不能据单屏VM通过。
 
 官方核对：[Server2022/VS2022镜像清单](https://github.com/actions/runner-images/blob/main/images/windows/Windows2022-Readme.md)、[首轮实际VS2026镜像清单](https://github.com/actions/runner-images/blob/win25-vs2026/20260925.250/images/windows/Windows2025-VS2026-Readme.md)、[runner 权限与公开仓库标准 runner 免费说明](https://docs.github.com/en/actions/reference/runners/github-hosted-runners)、[微软 GUI CI 说明](https://learn.microsoft.com/en-us/windows/apps/develop/ai-assisted/testing#run-tests-in-ci)、[workflow_dispatch 默认分支要求](https://docs.github.com/actions/managing-workflow-runs/manually-running-a-workflow)。
+
+第五CI[38246796562](https://github.com/T1doo/KuaiYi/actions/runs/38246796562)仍Fail：112帧保留、0丢帧、完整流、0模型调用、正常约5.56s退出，原生4DLL/4PE/4load/8export/2CTest继续Pass；仅两帧按钮保持旧Canvas.Left，说明左上对齐修掉居中但移动后的UpdateLayout晚于观察。独立诊断由[HwndTarget.OnResize](https://github.com/dotnet/wpf/blob/main/src/Microsoft.DotNet.Wpf/src/PresentationCore/System/Windows/InterOp/HwndTarget.cs)与[MediaContext.Resize](https://github.com/dotnet/wpf/blob/main/src/Microsoft.DotNet.Wpf/src/PresentationCore/System/Windows/Media/MediaContext.cs)确认：SetWindowPos过程中同步Rendering，不能等它返回后才准备布局。现先完整准备Canvas并条件UpdateLayout，再执行原生bounds，之后条件确认布局；local PrepareVisuals的compact return只结束准备，不跳过提交，UI准备异常不会移动半成品。生产RenderOverlay在提交期间仅阻止递归Tick，观察器、getter、全部逐帧断言、时限保持原样。缓存仍只在native成功返回后更新。混合DPI期间非Rendering的DpiPlacement同步重入风险仍需独立桌面验证，未据单屏称全平台原子提交。首次本地build漏Linux交叉构建EnableWindowsTargeting参数而NETSDK1100失败，原失败日志保留；修正执行参数不改项目平台约束。

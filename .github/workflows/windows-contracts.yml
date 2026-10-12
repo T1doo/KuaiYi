@@ -24,7 +24,7 @@ jobs:
           set-safe-directory: false
           fetch-depth: 1
       - name: Probe preinstalled tools, build native DLLs, run bounded public contracts
-        # Revalidate native DLLs and synchronous HWND/Canvas anchor layout, retaining every frame assertion.
+        # Revalidate visual preparation before synchronous HWND resize, retaining every frame assertion.
         shell: pwsh
         run: |
           & ./scripts/run-windows-ci.ps1
