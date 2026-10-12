@@ -31,10 +31,34 @@ public static class OleTargetMarshal
                 Guid id=OleReceiverWire.DropTargetId;Marshal.ThrowExceptionForHR(CoMarshalInterface(stream,ref id,target,0,0,1));marshaled=true; // LOCAL=0, TABLESTRONG=1.
                 Marshal.ThrowExceptionForHR(GetHGlobalFromStream(stream,out nint memory));
                 var seek=Marshal.GetDelegateForFunctionPointer<StreamPosition>(Marshal.ReadIntPtr(Marshal.ReadIntPtr(stream),5*nint.Size));Marshal.ThrowExceptionForHR(seek(stream,0,1,out ulong size));
-                if(size is <72 or >OleReceiverWire.ExportLimit||size>OleNative.GlobalSize(memory))throw new InvalidDataException("Invalid owned marshal length.");
+                ulong capacity=(ulong)OleNative.GlobalSize(memory);
+                if(size is <72 or >OleReceiverWire.ExportLimit||size>capacity)
+                {
+                    // Preserve the original length-first rejection even if an optional, bounded header peek cannot lock.
+                    var rejected=OleExportContract.Inspect(OleExportSource.NativeExport,size,capacity,ReadOnlySpan<byte>.Empty);
+                    OleExportContract.Emit(rejected); // Fixed length classification exists before any optional lock.
+                    if(Math.Min(size,capacity)>=24)
+                    {
+                        nint peek=OleNative.GlobalLock(memory);
+                        if(peek!=0)
+                        {
+                            byte[] prefix=new byte[24];
+                            try{Marshal.Copy(peek,prefix,0,24);rejected=OleExportContract.Inspect(OleExportSource.NativeExport,size,capacity,prefix);OleExportContract.Emit(rejected);}
+                            finally{CryptographicOperations.ZeroMemory(prefix);OleNative.GlobalUnlock(memory);}
+                        }
+                    }
+                    throw new InvalidDataException("Invalid owned marshal length.");
+                }
                 nint bits=OleNative.GlobalLock(memory);if(bits==0)throw new IOException("Cannot lock own marshal stream.");
-                try{Packet=new byte[(int)size];Marshal.Copy(bits,Packet,0,Packet.Length);OleReceiverWire.ValidateExport(Packet);}
-                finally{OleNative.GlobalUnlock(memory);}
+                byte[] header=new byte[24];
+                try
+                {
+                    Marshal.Copy(bits,header,0,header.Length);
+                    var observed=OleExportContract.Inspect(OleExportSource.NativeExport,size,capacity,header);
+                    OleExportContract.Emit(observed);
+                    Packet=new byte[(int)size];Marshal.Copy(bits,Packet,0,Packet.Length);OleReceiverWire.ValidateExport(Packet);
+                }
+                finally{CryptographicOperations.ZeroMemory(header);OleNative.GlobalUnlock(memory);}
             }
             catch{Dispose();throw;}
         }

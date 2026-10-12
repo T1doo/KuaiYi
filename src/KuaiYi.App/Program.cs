@@ -16,6 +16,7 @@ internal static class Program
     [STAThread] public static int Main(string[] args)
     {
 #if KUAIYI_WINDOWS_CI_PROBE
+        if(args.Length==2&&args[0]=="--ci-ole-marshal-contract")return HostedOleMarshalProbe.Run(args[1]);
         if(args.Length==4&&args[0]=="--ci-ole-responsiveness")return HostedOleProbe.Run(args[1],args[2],args[3]);
 #endif
         if (args.SequenceEqual(new[] { "--diagnose" })) { Console.WriteLine(JsonSerializer.Serialize(PackageIdentity.Read("KuaiYi"), ImageJson.Options)); return 0; }

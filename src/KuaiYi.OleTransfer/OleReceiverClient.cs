@@ -29,6 +29,7 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
         if(AfterDiagnosticReadForTest is {} barrier)await barrier().ConfigureAwait(false);
     }
     public OleStartupDiagnostic[] StartupDiagnostics=>diagnosticDrain.Snapshot;
+    public OleExportObservation[] ExportObservations=>diagnosticDrain.ExportSnapshot;
     public OleStartupDiagnostic? StartupFailure {get;private set;}
     public int? OwnedExitCode {get;private set;}
     public OleExceptionCode DiagnosticReadFailure=>diagnosticDrain.Failure;

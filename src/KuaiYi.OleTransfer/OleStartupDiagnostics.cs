@@ -71,6 +71,8 @@ public sealed class OleStartupDiagnosticDrain
 {
     private readonly object sync = new();
     private readonly List<OleStartupDiagnostic> items = [];
+    private readonly List<OleExportObservation> exports = [];
+    public OleExportObservation[] ExportSnapshot { get { lock (sync) return exports.ToArray(); } }
     public OleExceptionCode Failure { get; private set; }
     public OleStartupDiagnostic[] Snapshot { get { lock (sync) return items.ToArray(); } }
     public async Task RunAsync(Stream input, CancellationToken cancellation = default)
@@ -88,8 +90,13 @@ public sealed class OleStartupDiagnosticDrain
                     if (value == (byte)'\n')
                     {
                         int end = length > 0 && line[length - 1] == (byte)'\r' ? length - 1 : length;
-                        if (!discard && OleStartupDiagnostics.TryParse(line.AsSpan(0, end), out var item))
-                            lock (sync) if (items.Count < OleStartupDiagnostics.RecordLimit) items.Add(item!);
+                        if (!discard)
+                        {
+                            if (OleStartupDiagnostics.TryParse(line.AsSpan(0, end), out var item))
+                            { lock (sync) if (items.Count + exports.Count < OleStartupDiagnostics.RecordLimit) items.Add(item!); }
+                            else if (OleExportContract.TryParse(line.AsSpan(0, end), out var export))
+                            { lock (sync) if (items.Count + exports.Count < OleStartupDiagnostics.RecordLimit) exports.Add(export!); }
+                        }
                         CryptographicOperations.ZeroMemory(line); length = 0; discard = false;
                     }
                     else if (!discard)

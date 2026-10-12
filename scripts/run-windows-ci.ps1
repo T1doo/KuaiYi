@@ -1,5 +1,6 @@
-param([switch]$ProbeOnly,[switch]$OleOnly)
+param([switch]$ProbeOnly,[switch]$OleOnly,[switch]$OleMarshalOnly)
 . "$PSScriptRoot/windows-ci-common.ps1"
+if ($OleOnly -and $OleMarshalOnly) { throw 'Select one OLE scope' }
 $exitCode = 0
 $root = Join-Path $script:RepositoryRoot ('artifacts/windows-ci/' + [guid]::NewGuid().ToString('N'))
 [void][IO.Directory]::CreateDirectory($root)
@@ -13,6 +14,7 @@ $report = [ordered]@{
 }
 if ($env:GITHUB_SERVER_URL -and $env:GITHUB_REPOSITORY -and $env:GITHUB_RUN_ID) { $report.RunUrl = "$env:GITHUB_SERVER_URL/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID" }
 if ($OleOnly) { $report.Scope = 'HostedOleFixtureContractsOnly' }
+if ($OleMarshalOnly) { $report.Scope = 'OwnedNativeMarshalOnly'; $report['MarshalStatus'] = 'NotRun'; $report['MarshalReport'] = $null }
 Push-Location $script:RepositoryRoot
 try {
     $facts = $null
@@ -30,11 +32,11 @@ try {
     Write-Host ('KUAIYI_SPECIFICATION_BYTES ' + ($report.SpecificationBytes | ConvertTo-Json -Compress))
     Assert-SpecIntegrity # The exact original byte hash and all original assertions are unchanged.
     if ($null -eq $facts) {
-        $report.NativeStatus = 'Blocked'; $report.OverlayStatus = 'Blocked'; $report.OleStatus = 'Blocked'; $exitCode = 2
+        $report.NativeStatus = 'Blocked'; $report.OverlayStatus = 'Blocked'; $report.OleStatus = 'Blocked'; if ($OleMarshalOnly) { $report.MarshalStatus = 'Blocked' }; $exitCode = 2
     } elseif ($ProbeOnly) {
         $report.NativeStatus = 'NotRun'; $report.OverlayStatus = 'NotRun'
     } elseif ($facts.NativeBlockers.Count -gt 0) {
-        $report.NativeStatus = 'Blocked'; $report.OverlayStatus = 'Blocked'; $report.OleStatus = 'Blocked'; $exitCode = 2
+        $report.NativeStatus = 'Blocked'; $report.OverlayStatus = 'Blocked'; $report.OleStatus = 'Blocked'; if ($OleMarshalOnly) { $report.MarshalStatus = 'Blocked' }; $exitCode = 2
     } else {
         $report.NativeStatus = 'InProgress'
         $exports = [ordered]@{
@@ -43,7 +45,7 @@ try {
             'KuaiYi.CaptureNative' = @('KY_CaptureMonitor','KY_CaptureGdi')
             'KuaiYi.OleNativeBridge' = @('KY_CreateDropTarget')
         }
-        $components = if ($OleOnly) { @('KuaiYi.OleNativeBridge') } else { @($exports.Keys) }
+        $components = if ($OleOnly -or $OleMarshalOnly) { @('KuaiYi.OleNativeBridge') } else { @($exports.Keys) }
         foreach ($component in $components) {
             $build = Join-Path $root $component
             # Exact installed patch selected once, explicitly supplied to CMake and recorded above.
@@ -62,7 +64,7 @@ try {
             $report.NativeDlls++
             $report.NativeArtifacts += @{ Name = "$component.dll"; Bytes = (Get-Item -LiteralPath $dll).Length; Sha256 = (Get-FileHash -LiteralPath $dll -Algorithm SHA256).Hash; Exports = $exports[$component] }
         }
-        $tests = if ($OleOnly) { @() } else { @(@{ Component = 'KuaiYi.ShellExtension'; Name = 'CommandPolicy' },@{ Component = 'KuaiYi.CaptureNative'; Name = 'GdiReadOrderingContract' }) }
+        $tests = if ($OleOnly -or $OleMarshalOnly) { @() } else { @(@{ Component = 'KuaiYi.ShellExtension'; Name = 'CommandPolicy' },@{ Component = 'KuaiYi.CaptureNative'; Name = 'GdiReadOrderingContract' }) }
         foreach ($test in $tests) {
             $junit = Join-Path $root ($test.Name + '.xml')
             Invoke-Checked ctest @('--test-dir',(Join-Path $root $test.Component),'-C','Release','--output-on-failure','--output-junit',$junit)
@@ -73,10 +75,11 @@ try {
         if ($facts.DesktopBlockers.Count -gt 0 -or $facts.Sdk -cne '10.0.401' -or -not $facts.DesktopRuntime) {
             $report.OverlayStatus = 'Blocked'
             $report.OleStatus = 'Blocked'
+            if ($OleMarshalOnly) { $report.MarshalStatus = 'Blocked' }
             if ($facts.Sdk -cne '10.0.401') { $report.Errors += 'OverlayRequiredSdkMissing' }
             if (-not $facts.DesktopRuntime) { $report.Errors += 'OverlayRequiredDesktopRuntimeMissing' }
         } else {
-            if (-not $OleOnly) {
+            if (-not $OleOnly -and -not $OleMarshalOnly) {
             $report.OverlayStatus = 'InProgress'
             # Existing locked dependencies only; no setup-dotnet, WinAppCLI, installer or SDK installation.
             Invoke-Checked dotnet @('restore','tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj','--locked-mode')
@@ -113,6 +116,11 @@ try {
                 $child.Dispose()
             }
             }
+            if ($OleMarshalOnly) {
+            $report.MarshalStatus = 'InProgress'
+            $report.MarshalReport = & "$PSScriptRoot/run-windows-ole-marshal-ci.ps1" -NativeRoot $root -OutputRoot (Join-Path $root 'marshal-ci')
+            $report.MarshalStatus = $report.MarshalReport.Status
+            }
             if ($OleOnly) {
             $report.OleStatus = 'InProgress'
             $report.OleReport = & "$PSScriptRoot/run-windows-ole-ci.ps1" -NativeRoot $root -OutputRoot (Join-Path $root 'ole-ci')
@@ -123,6 +131,7 @@ try {
     }
 } catch {
     $report.Errors += $_.Exception.Message
+    if ($OleMarshalOnly -and $report.MarshalStatus -eq 'InProgress') { $report.MarshalStatus = 'Fail' }
     if ($report.NativeStatus -eq 'InProgress') { $report.NativeStatus = 'Fail' }
     if ($report.OverlayStatus -eq 'InProgress') { $report.OverlayStatus = 'Fail' }
     if ($report.OleStatus -eq 'InProgress') { $report.OleStatus = 'Fail' }
@@ -136,6 +145,7 @@ try {
     if ($env:GITHUB_STEP_SUMMARY) {
         $text = "Hosted Windows fixture contracts; Windows 11 ordinary-user acceptance: **NotRun**.`n`nNative: $($report.NativeStatus); DLLs: $($report.NativeDlls); CTests: $($report.CTestsPassed); PE checks: $($report.PeChecksPassed); loads: $($report.DllLoadsPassed); exports: $($report.ExportsPassed).`n`nOverlay: $($report.OverlayStatus); checks: $($report.OverlayChecksPassed). Exit: $exitCode.`n`nFull environment/receipt/CSV evidence is in the job log; no artifact upload.`n"
         if ($OleOnly) { $text += "`nOLE isolation/cancel/close/recovery: $($report.OleStatus); synthetic pointer: $($report.OleSyntheticPointerStatus); physical E06: **NotRun**. Earlier accepted CTests/HWND contracts were not rerun.`n" }
+        if ($OleMarshalOnly) { $text += "`nMinimal actual native export/import: $($report.MarshalStatus); actual Drop/GetData/close/recovery/physical E06: **NotRun**.`n" }
         [IO.File]::AppendAllText($env:GITHUB_STEP_SUMMARY,$text)
     }
 }

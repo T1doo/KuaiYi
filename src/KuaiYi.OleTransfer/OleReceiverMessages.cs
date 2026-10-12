@@ -20,7 +20,7 @@ public static class OleReceiverWire
     // Only owned-channel STANDARD OBJREF for the built-in IID; forbid custom/handler activation.
     public static void ValidateExport(ReadOnlySpan<byte> bytes)
     {
-        if(bytes.Length is <72 or >ExportLimit||BinaryPrimitives.ReadUInt32LittleEndian(bytes)!=0x574f454d||BinaryPrimitives.ReadUInt32LittleEndian(bytes[4..])!=1||new Guid(bytes.Slice(8,16))!=DropTargetId)throw new InvalidDataException("Invalid owned OLE standard packet.");
+        if(OleExportContract.Inspect(OleExportSource.ParentImport,(ulong)bytes.Length,(ulong)bytes.Length,bytes).Failure!=OleExportFailure.None)throw new InvalidDataException("Invalid owned OLE standard packet.");
     }
     public static string DecodeText(ReadOnlySpan<byte> bytes)
     {
