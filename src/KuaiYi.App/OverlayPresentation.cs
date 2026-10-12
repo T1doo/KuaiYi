@@ -25,7 +25,7 @@ internal sealed partial class ShellWindow
     private readonly TextBlock resultLabel=new(){FontSize=11,TextTrimming=TextTrimming.CharacterEllipsis,IsHitTestVisible=false,Visibility=Visibility.Collapsed};
     private readonly Canvas controls=new(){Height=48};private readonly List<Button> tools=[];private readonly List<Action> toolActions=[];
     private readonly Button moreTools=new(){Content="…",Width=28,Height=28,ToolTip="更多操作及版本"};
-    private readonly ContextMenu overflowMenu=new();
+    private readonly ContextMenu overflowMenu=new();private Button? styleTool;
     private readonly Button newContent=new(){Content="有新内容",Visibility=Visibility.Collapsed,MinHeight=28};
     private readonly Ellipse progressRing=new(){Width=42,Height=42,Stroke=Brushes.White,StrokeThickness=2,StrokeDashArray=new DoubleCollection{12,5},IsHitTestVisible=false,Visibility=Visibility.Collapsed,RenderTransformOrigin=new Point(.5,.5)};
     private readonly TextBlock connectionStatus=new(){Text="正在连接…",VerticalAlignment=VerticalAlignment.Center,Visibility=Visibility.Collapsed,IsHitTestVisible=false};
@@ -48,8 +48,8 @@ internal sealed partial class ShellWindow
         overlayResults=new(lifecycle.Gate);presentationReceiver=new(lifecycle.Gate,new DispatcherSynchronizationContext(Dispatcher));
         Content=overlayCanvas;overlayCanvas.Children.Add(cardBackground);overlayCanvas.Children.Add(body);overlayCanvas.Children.Add(resultLabel);overlayCanvas.Children.Add(controls);overlayCanvas.Children.Add(button);overlayCanvas.Children.Add(progressRing);overlayCanvas.Children.Add(connectionStatus);overlayCanvas.Children.Add(newContent);
         body.Visibility=controls.Visibility=Visibility.Collapsed;button.Width=button.Height=48;button.Padding=new Thickness(0);RefreshPresentationTheme();UpdateButtonGlyph(false);
-        Tool("回看",ReopenResult);Tool("收起",CollapseResult);Tool("停止",StopResult);Tool("重新生成",()=>RegenerateResult());Tool("复制",CopyResult);Tool("设置",()=>_=OpenSettings());
-        void Tool(string label,Action action){var b=new Button{Content=label,MinWidth=28,Height=28,FontSize=12,Padding=new Thickness(2)};System.Windows.Automation.AutomationProperties.SetName(b,label);b.Click+=(_,_)=>action();tools.Add(b);toolActions.Add(action);controls.Children.Add(b);}
+        styleTool=Tool("风格",()=>OpenOverflowMenu(styleTool!));Tool("回看",ReopenResult);Tool("收起",CollapseResult);Tool("停止",StopResult);Tool("重新生成",()=>RegenerateResult());Tool("复制",CopyResult);Tool("设置",()=>_=OpenSettings());
+        Button Tool(string label,Action action){var b=new Button{Content=label,MinWidth=28,Height=28,FontSize=12,Padding=new Thickness(2)};System.Windows.Automation.AutomationProperties.SetName(b,label);b.Click+=(_,_)=>action();tools.Add(b);toolActions.Add(action);controls.Children.Add(b);return b;}
         controls.Children.Add(moreTools);moreTools.Click+=(_,_)=>OpenOverflowMenu(moreTools);
         System.Windows.Automation.AutomationProperties.SetName(moreTools,"更多操作及版本");overflowMenu.Closed+=(_,_)=>PresentationMenuClosed();
         newContent.Click+=(_,_)=>{follow=true;body.ScrollToEnd();newContent.Visibility=Visibility.Collapsed;};
@@ -61,7 +61,7 @@ internal sealed partial class ShellWindow
         peekIn.Tick+=(_,_)=>{peekIn.Stop();if(!externalDropHover&&!gesture.Active&&IsMouseOver&&lifecycle.Gate.TryPeek(true)){peek=true;overlayFrames?.OpenToolbar();StartFrames();}};
         peekOut.Tick+=(_,_)=>{peekOut.Stop();if(!externalDropHover&&peek&&!IsMouseOver&&!IsKeyboardFocusWithin&&!overflowMenu.IsOpen&&button.ContextMenu?.IsOpen!=true&&lifecycle.Gate.TryPeek(false)){peek=false;overlayFrames?.Collapse();StartFrames();}};
         flush.Tick+=(_,_)=>{flush.Stop();FlushResult();};
-        waiting.Tick+=(_,_)=>{waiting.Stop();if(overlayResults.Identity is {} id&&lifecycle.Gate.CanApply(id)&&!overlayResults.HasText&&!gesture.Active&&lifecycle.Gate.TryRevealDelta(id)){peek=true;overlayFrames?.OpenToolbar();button.ToolTip="正在连接…";StartFrames();}};
+        waiting.Tick+=(_,_)=>{waiting.Stop();if(overlayResults.Identity is {} id&&lifecycle.Gate.CanApply(id)&&!overlayResults.HasText&&!gesture.Active&&lifecycle.Gate.TryRevealDelta(id)){peek=true;overlayFrames?.OpenToolbar();button.ToolTip=connectionStatus.Text;StartFrames();}};
     }
     private void UpdateButtonGlyph(bool on)
     {
@@ -122,15 +122,16 @@ internal sealed partial class ShellWindow
     private void OpenOverflowMenu(UIElement target)
     {
         peekOut.Stop();overflowMenu.Items.Clear();
-        for(int i=0;i<tools.Count;i++){int index=i;var item=new MenuItem{Header=tools[i].Content};item.Click+=(_,_)=>toolActions[index]();overflowMenu.Items.Add(item);}
+        for(int i=0;i<tools.Count;i++){int index=i;var item=new MenuItem{Header=Equals(tools[i].Content,"重新生成")?RegenerationMenuLabel():tools[i].Content,IsEnabled=tools[i].IsEnabled};item.Click+=(_,_)=>toolActions[index]();overflowMenu.Items.Add(item);}
+        AddSessionStyleMenu(overflowMenu);
         var versionsItem=new MenuItem{Header="本次会话版本"};
         foreach(var version in overlayResults.Versions)
         {
-            Guid id=version.Identity.VersionId;var item=new MenuItem{Header=$"版本 {id.ToString("N")[..8]} · {(version.Complete?"完成":version.Stopped?"已停止":"生成中")}",IsCheckable=true,IsChecked=overlayResults.SelectedVersionId==id,IsEnabled=version.Text.Length>0};
+            Guid id=version.Identity.VersionId;var item=new MenuItem{Header=$"版本 {version.Number} · {StyleLabel(translation?.SnapshotForVersion(id)?.Preset)} · {(version.Complete?"完成":version.Stopped?"已停止":"生成中")}",IsCheckable=true,IsChecked=overlayResults.SelectedVersionId==id,IsEnabled=version.Text.Length>0};
             item.Click+=(_,_)=>{if(overlayResults.SelectVersion(id)){RefreshResultLabel();resultRevision++;follow=true;dirty=true;pendingReveal=false;peek=false;OpenBody();}};versionsItem.Items.Add(item);
         }
         versionsItem.IsEnabled=versionsItem.Items.Count>0;overflowMenu.Items.Add(new Separator());overflowMenu.Items.Add(versionsItem);
-        var currentSettings=new MenuItem{Header="按当前设置重新翻译",IsEnabled=lifecycle.Gate.Snapshot.Activation==Activation.On&&translation?.SelectedSnapshot!=null};currentSettings.Click+=(_,_)=>RegenerateResult(true);overflowMenu.Items.Add(currentSettings);
+        var currentSettings=new MenuItem{Header=RegenerationMenuLabel(true),IsEnabled=lifecycle.Gate.Snapshot.Activation==Activation.On&&translation?.SelectedSnapshot!=null};currentSettings.Click+=(_,_)=>RegenerateResult(true);overflowMenu.Items.Add(currentSettings);
         overflowMenu.PlacementTarget=target;overflowMenu.IsOpen=true;
     }
     private void CollapseResult(){peek=false;pendingReveal=false;peekIn.Stop();peekOut.Stop();waiting.Stop();overlayResults.Collapse();overlayFrames?.Collapse();StartFrames();}

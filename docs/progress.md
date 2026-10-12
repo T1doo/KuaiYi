@@ -351,3 +351,9 @@ P3-04最后复核补未知UIA状态带CopyEvidence的真实child反例：原6项
 05dc一次测试授权/共享总预算获父限定成立，编辑取消遗漏清除已保存key：密码框空Clear无事件。将真实Clear按钮命令体提至partial并与preset直接清引用步骤共享入口，先ApiFormEdited再改引用；原统一编辑体仅移动，其他设置流程不扩张。检查SetKey仅非空新输入、显示/Mask不读旧key；preset实际同类遗漏一并补。原05dc Window/Api两份字节、等价抽出旧命令、红测与相同断言保留。初队列fixture误读null Post状态导致超时，修夹具后原6中5失败/1通过，修复同6全过。测试Link真实生产命令体，控件明确测试端口；真实配置/AES合成密文、原gate/workflow/lease、HTTP及目的队列执行。草稿不永久删旧key，结算释放请求lease，保存才原事务撤销。
 
 最终Core1262+Provider243=1505/1505、Node63/63、27locked Release零警告/错误；原1499逐项名称、27锁与规格不变。独立新包和23旧包/19历史精确commit核验，历史覆盖恢复事故继续保留。P0/E06 Blocked、P1—P4 InProgress、106整体NotRun，Windows真实Click/PasswordBox/DPAPI/原生/跨应用/动画/DPI/安装与远端CI未验；无真实key/模型/付费/安装/扩权/部署。详见p4-secret-command-review、Windows清单及summary。
+
+## P4-05 会话风格、序号与重生成约束
+
+322aea6获限定签收，断连后首命令真实成功，核HEAD/工作区后按Spec9.1—9.9/P4-05/D04—07/F/J补会话下次风格、菜单/标签版本N与regenerate@1。复用四模板原字节，普通所示快照+覆盖与当前已保存默认分流，运行中/旧版不重写。same-source fallback额外第四引用原1反例失败，删重复保护后当前来源真实三份；不同来源旧3+新1回退保持。序号与所示号分开，读旧/失败不回绕。原两协议约束2失败、首次拼接遗漏2失败、专项Last-event fixture竞态1失败保留；最后检查新版本首事件仍严格Begin+原快照。
+
+新35（Core8/Provider27）均过，完整1270+270=1540 .NET/63Node，27locked Release0warnings/errors。旧1505、27锁、产品书与四旧模板保留。独立新包与24旧包/20历史精确commit核验，旧覆盖恢复事故保持。P0/E06 Blocked、P1—P4 InProgress、106整体验收NotRun，WPF菜单/显示时序/焦点/动画/DPI/DPAPI/跨应用/安装/语义J/远端CI未验。无真实凭据/模型/付费/安装/依赖扩增/扩权/发布；详见p4-session-style-review、ADR0017及summary。

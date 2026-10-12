@@ -129,3 +129,5 @@ P4-01：ApiProfilePolicy共享解析/校验、ApiProfileMapper生成真实协议
 P4父审修复：connectionTestOrigin只供当前测试身份，不写普通consent；ProviderRequestBudget在秘密前冻结原点、HTTP使用剩余时间，阶段截止保留；所有表单编辑进DraftEdited revision/取消并在最终队列复核。原源码和红绿保全，详见p4-consent-review。
 
 密钥引用清除不依赖控件Changed：ClearApiKey与preset清引用共用ClearDraftApiKey，在引用修改前调用原ApiFormEdited撤销identity/草稿revision。生产partial命令体由测试Link，测试UI端口与真实Windows事件分开记录，见p4-secret-command-review。
+
+P4-05会话下次覆盖独立于已保存默认及各版冻结快照；普通/当前设置重生分流，regenerate@1事实保真约束仅一次。版本自然序号与会话序列分开，same-source最多三份，原不同来源fallback保持；Begin在传输前发布元数据，实际Windows呈现未验，见ADR0017。

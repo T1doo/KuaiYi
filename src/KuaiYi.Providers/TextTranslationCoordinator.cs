@@ -7,11 +7,13 @@ namespace KuaiYi.Providers;
 
 public enum TextSubmission { Started, ConfirmationRequired, Reopened, Rejected }
 public sealed record TextTranslationSnapshot(SelectionSourceSnapshot Source,SettingsSnapshot Settings,
-    SettingsProfile Profile,RequestProfileBinding Binding,ApiProfile Transport,string Prompt,string TemplateVersion);
+    SettingsProfile Profile,RequestProfileBinding Binding,ApiProfile Transport,string Prompt,string TemplateVersion,int VersionNumber=1,bool IsRegeneration=false)
+{public TranslationPreset Preset=>Settings.Data.Translation.Preset;public string? RegenerationTemplateVersion=>IsRegeneration?"regenerate@1":null;public string FullTemplateVersion=>TemplateVersion+(IsRegeneration?"+regenerate@1":"");}
+public sealed record TextGenerationPreview(int VersionNumber,TranslationPreset Preset,string Model);
 public sealed class TextTranslationOffer
 {
-    internal TextTranslationOffer(TextTranslationSnapshot snapshot,CaptureTicket ticket,bool regenerate,Guid session)
-    {Snapshot=snapshot;Ticket=ticket;Regenerate=regenerate;Session=session;}
+    internal TextTranslationOffer(TextTranslationSnapshot snapshot,CaptureTicket ticket,bool regenerate,Guid session,int versionNumber)
+    {Snapshot=snapshot with{VersionNumber=versionNumber};Ticket=ticket;Regenerate=regenerate;Session=session;}
     public TextTranslationSnapshot Snapshot{get;}
     internal CaptureTicket Ticket{get;} internal bool Regenerate{get;} internal Guid Session{get;}
     internal RequestIdentity? Identity{get;set;} internal bool Launched{get;set;} internal bool Finished{get;set;}
@@ -32,6 +34,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     private readonly Func<SettingsProfile,ApiProfile>? transportFactory;
     private readonly Dictionary<Guid,TextTranslationSnapshot> snapshots=[];
     private readonly HashSet<Task> jobs=[];private readonly object jobsSync=new();
+    private Guid? styleSession;private TranslationPreset? sessionStyle;
     private TextTranslationOffer? offered,submitted;private bool disposed;private Exception? deliveryFailure;
     private sealed record LiveRequest(RequestIdentity Identity,TextTranslationSnapshot Snapshot);
     private LiveRequest? liveRequest;
@@ -54,6 +57,24 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
         this.transportFactory=transportFactory;
     }
     public TextTranslationSnapshot? SelectedSnapshot=>Results.SelectedVersionId is {} id&&snapshots.TryGetValue(id,out var value)?value:null;
+    public TextTranslationSnapshot? SnapshotForVersion(Guid versionId)=>snapshots.GetValueOrDefault(versionId);
+    public TranslationPreset? SessionStyle=>SelectedSnapshot!=null&&SelectedSession==styleSession?sessionStyle:null;
+    private Guid? SelectedSession=>SelectedSnapshot!=null?Results.Identity?.SessionId:null; // All visible versions belong to the current retained source session; no body copy for preview.
+    public TextGenerationPreview? NextGeneration=>SelectedSnapshot is {} snapshot&&SelectedSession is {} session?new(Results.NextVersionNumber(session),SessionStyle??snapshot.Preset,snapshot.Profile.Model):null;
+    public bool SetSessionStyle(TranslationPreset? preset)
+    {
+        if(disposed||SelectedSession is not {} session||SelectedSnapshot==null||preset is {} value&&!Enum.IsDefined(value))return false;
+        // A style edit changes the next generation only. A pending confirmation must be discarded;
+        // an already launched request retains its immutable prompt/settings/version identity.
+        if(offered is {Launched:false,Identity:{} pending})gate.StopRequest(pending);
+        offered=null;styleSession=session;sessionStyle=preset;return true;
+    }
+    private static TextTranslationSnapshot RegenerationSnapshot(TextTranslationSnapshot snapshot,TranslationPreset? preset=null)
+    {
+        var frozen=snapshot.Settings;var chosen=preset??snapshot.Preset;
+        if(chosen!=snapshot.Preset)frozen=frozen with{Data=frozen.Data with{Translation=frozen.Data.Translation with{Preset=chosen}}};
+        string style=chosen.ToString().ToLowerInvariant();return snapshot with{Settings=frozen,Prompt=PromptBuilder.Build(style,frozen.Data.Translation.Domain,frozen.Data.Translation.ReaderBackground,true),TemplateVersion=$"base@1+{style}@1",IsRegeneration=true};
+    }
     public bool IsOfferCurrent(TextTranslationOffer offer)=>!disposed&&ReferenceEquals(offered,offer);
     public TextTranslationOffer? Prepare(SelectionSourceSnapshot source)=>PrepareCore(source,false);
     private TextTranslationOffer? PrepareCore(SelectionSourceSnapshot source,bool explicitUse)
@@ -73,7 +94,8 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
             string style=config.Data.Translation.Preset.ToString().ToLowerInvariant();
             var snapshot=new TextTranslationSnapshot(source,config,profile,binding,transport,
                 PromptBuilder.Build(style,config.Data.Translation.Domain,config.Data.Translation.ReaderBackground),$"base@1+{style}@1");
-            return offered=new(snapshot,ticket,false,Same(snapshot,submitted?.Snapshot)?submitted!.Session:Guid.NewGuid());
+            var session=Same(snapshot,submitted?.Snapshot)?submitted!.Session:Guid.NewGuid();
+            return offered=new(snapshot,ticket,false,session,Results.NextVersionNumber(session));
         }
         catch(Exception error)when(error is ArgumentException or SettingsValidationException){return Reject("PROFILE_INVALID");}
     }
@@ -86,11 +108,11 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
         {
             var current=PrepareCore(snapshot.Source with{SettingsVersion=settings()?.Version??""},true);
             if(current==null)return null;
-            return offered=new(current.Snapshot,current.Ticket,true,Results.Versions.First(v=>v.Identity.VersionId==Results.SelectedVersionId).Identity.SessionId);
+            var session=SelectedSession!.Value;return offered=new(RegenerationSnapshot(current.Snapshot),current.Ticket,true,session,Results.NextVersionNumber(session));
         }
         if(!gate.TryBeginPassiveCapture(gate.Snapshot.Mode,out var ticket)||!Eligible(snapshot,true))return Reject("REGENERATION_NOT_ELIGIBLE");
         var version=Results.Versions.First(v=>v.Identity.VersionId==Results.SelectedVersionId);
-        return offered=new(snapshot,ticket,true,version.Identity.SessionId);
+        return offered=new(RegenerationSnapshot(snapshot,SessionStyle),ticket,true,version.Identity.SessionId,Results.NextVersionNumber(version.Identity.SessionId));
     }
     public TextSubmission Submit(TextTranslationOffer offer,bool confirmed=false)
     {
@@ -118,7 +140,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     {if(ReferenceEquals(offered,offer)&&!offer.Launched){if(offer.Identity is {} id)gate.StopRequest(id);offered=submitted=null;}}
     private void Launch(TextTranslationOffer offer,RequestIdentity identity,bool explicitUse)
     {
-        offer.Launched=true;snapshots[identity.VersionId]=offer.Snapshot;
+        offer.Launched=true;if(styleSession!=identity.SessionId){styleSession=null;sessionStyle=null;}snapshots[identity.VersionId]=offer.Snapshot;
         if(!Results.Begin(identity))return;
         Volatile.Write(ref liveRequest,new(identity,offer.Snapshot));
         PruneSnapshots();
@@ -191,7 +213,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     public bool CanUseSettings(SettingsSnapshot current)=>DevelopmentSettingsAllowed(current);
     private void PruneSnapshots()
     {var retained=Results.RetainedVersionIds;foreach(var id in snapshots.Keys.Where(id=>!retained.Contains(id)).ToArray())snapshots.Remove(id);}
-    public void Clear(){Volatile.Write(ref liveRequest,null);if(submitted?.Identity is {} id)gate.StopRequest(id);offered=submitted=null;snapshots.Clear();Results.Clear();}
+    public void Clear(){styleSession=null;sessionStyle=null;Volatile.Write(ref liveRequest,null);if(submitted?.Identity is {} id)gate.StopRequest(id);offered=submitted=null;snapshots.Clear();Results.Clear();}
     public async ValueTask DisposeAsync()
     {
         disposed=true;if(submitted?.Identity is {} id)gate.StopRequest(id);offered=submitted=null;

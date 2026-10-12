@@ -1,0 +1,15 @@
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.44]     KuaiYi.Provider.Tests.SessionStyleTests.SessionSelectionPreviewsFrozenStyleNumberAndActualProtocolRequest(protocol: OpenAIChat, preset: Faithful) [FAIL]
+  Failed KuaiYi.Provider.Tests.SessionStyleTests.SessionSelectionPreviewsFrozenStyleNumberAndActualProtocolRequest(protocol: OpenAIChat, preset: Faithful) [26 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Begin
+Actual:   Complete
+  Stack Trace:
+     at KuaiYi.Provider.Tests.SessionStyleTests.SessionSelectionPreviewsFrozenStyleNumberAndActualProtocolRequest(ApiProtocol protocol, TranslationPreset preset) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/SessionStyleTests.cs:line 50
+   at KuaiYi.Provider.Tests.SessionStyleTests.SessionSelectionPreviewsFrozenStyleNumberAndActualProtocolRequest(ApiProtocol protocol, TranslationPreset preset) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/SessionStyleTests.cs:line 53
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/test-results/p4-session-style/style-frozen.trx
+
+Failed!  - Failed:     1, Passed:    26, Skipped:     0, Total:    27, Duration: 391 ms - KuaiYi.Provider.Tests.dll (net10.0)

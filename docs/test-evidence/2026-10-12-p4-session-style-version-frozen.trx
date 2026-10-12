@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="34115369-9937-4e27-80da-f872e68862c2" name="@552716c6b8c5 2026-10-12 00:15:05" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-12T00:15:05.5186206+00:00" queuing="2026-10-12T00:15:05.5186206+00:00" start="2026-10-12T00:15:04.9809101+00:00" finish="2026-10-12T00:15:05.5227249+00:00" />
+  <TestSettings name="default" id="cc9ef831-ed5e-41eb-9be4-ee49d6c9628b">
+    <Deployment runDeploymentRoot="_552716c6b8c5_2026-10-12_00_15_05" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="6ef8c976-088a-4df2-b9d9-5dc51cba3948" testId="6a27d7b0-cb39-2cab-805c-6c3adcbd4ea5" testName="KuaiYi.Core.Tests.SessionVersionTests.SameSourceFourthBeginRetainsOnlyThreeActualVersionReferences" computerName="552716c6b8c5" duration="00:00:00.0003418" startTime="2026-10-12T00:15:05.4504691+00:00" endTime="2026-10-12T00:15:05.4504892+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6ef8c976-088a-4df2-b9d9-5dc51cba3948" />
+    <UnitTestResult executionId="d9d9154c-33e8-4ef8-818b-6ff3cc561333" testId="95c421ed-8222-fe51-59e0-fb46b403a0e8" testName="KuaiYi.Core.Tests.SessionVersionTests.ClearResetsOrdinalAndNoOldIdentityCanAppend" computerName="552716c6b8c5" duration="00:00:00.0002674" startTime="2026-10-12T00:15:05.4505964+00:00" endTime="2026-10-12T00:15:05.4506153+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d9d9154c-33e8-4ef8-818b-6ff3cc561333" />
+    <UnitTestResult executionId="84e3a341-3747-419b-b2d7-a0830e20a5ef" testId="b6449e99-cb85-2679-3970-e47ce47ebb19" testName="KuaiYi.Core.Tests.SessionVersionTests.BrowsedRollbackVersionSurvivesNextSlotAndFailure" computerName="552716c6b8c5" duration="00:00:00.0015521" startTime="2026-10-12T00:15:05.4505344+00:00" endTime="2026-10-12T00:15:05.4505538+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="84e3a341-3747-419b-b2d7-a0830e20a5ef" />
+    <UnitTestResult executionId="00d6ab8a-6d9d-4294-a1ac-2567cecfd262" testId="fd33db97-e0bb-460b-d4f5-0f2ecd0c52da" testName="KuaiYi.Core.Tests.SessionVersionTests.NewSourceFailureRestoresOldDisplayAndKeepsItsSessionSequence(selectOld: True)" computerName="552716c6b8c5" duration="00:00:00.0040976" startTime="2026-10-12T00:15:05.4502925+00:00" endTime="2026-10-12T00:15:05.4503160+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="00d6ab8a-6d9d-4294-a1ac-2567cecfd262" />
+    <UnitTestResult executionId="34d19910-75e2-4c69-8410-2c21db839d62" testId="be7c47ab-e7dd-d689-0ed0-751e070eb172" testName="KuaiYi.Core.Tests.SessionVersionTests.OrdinalsRemainMonotonicWhenOldestVersionsAreEvicted(count: 8)" computerName="552716c6b8c5" duration="00:00:00.0009527" startTime="2026-10-12T00:15:05.4493606+00:00" endTime="2026-10-12T00:15:05.4494070+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="34d19910-75e2-4c69-8410-2c21db839d62" />
+    <UnitTestResult executionId="f8bffcf0-320b-486e-aba3-8a629060f819" testId="6a5265cc-43bb-b8d1-96c2-554e339b1019" testName="KuaiYi.Core.Tests.SessionVersionTests.OrdinalsRemainMonotonicWhenOldestVersionsAreEvicted(count: 20)" computerName="552716c6b8c5" duration="00:00:00.0000894" startTime="2026-10-12T00:15:05.4497659+00:00" endTime="2026-10-12T00:15:05.4497893+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f8bffcf0-320b-486e-aba3-8a629060f819" />
+    <UnitTestResult executionId="5be56038-b1c1-4a34-9bbf-de874840b4db" testId="0dce9182-a505-44ed-5a92-f783ea2b8cf3" testName="KuaiYi.Core.Tests.SessionVersionTests.OrdinalsRemainMonotonicWhenOldestVersionsAreEvicted(count: 4)" computerName="552716c6b8c5" duration="00:00:00.0134860" startTime="2026-10-12T00:15:05.4229163+00:00" endTime="2026-10-12T00:15:05.4402006+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5be56038-b1c1-4a34-9bbf-de874840b4db" />
+    <UnitTestResult executionId="4f29430f-b809-4f70-bc6d-7b6069e0c1d7" testId="a799a00c-2f59-0549-8b9e-d3a44a95f9b4" testName="KuaiYi.Core.Tests.SessionVersionTests.NewSourceFailureRestoresOldDisplayAndKeepsItsSessionSequence(selectOld: False)" computerName="552716c6b8c5" duration="00:00:00.0002765" startTime="2026-10-12T00:15:05.4503612+00:00" endTime="2026-10-12T00:15:05.4503815+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4f29430f-b809-4f70-bc6d-7b6069e0c1d7" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.SessionVersionTests.ClearResetsOrdinalAndNoOldIdentityCanAppend" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="95c421ed-8222-fe51-59e0-fb46b403a0e8">
+      <Execution id="d9d9154c-33e8-4ef8-818b-6ff3cc561333" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SessionVersionTests" name="ClearResetsOrdinalAndNoOldIdentityCanAppend" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SessionVersionTests.SameSourceFourthBeginRetainsOnlyThreeActualVersionReferences" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="6a27d7b0-cb39-2cab-805c-6c3adcbd4ea5">
+      <Execution id="6ef8c976-088a-4df2-b9d9-5dc51cba3948" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SessionVersionTests" name="SameSourceFourthBeginRetainsOnlyThreeActualVersionReferences" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SessionVersionTests.NewSourceFailureRestoresOldDisplayAndKeepsItsSessionSequence(selectOld: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a799a00c-2f59-0549-8b9e-d3a44a95f9b4">
+      <Execution id="4f29430f-b809-4f70-bc6d-7b6069e0c1d7" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SessionVersionTests" name="NewSourceFailureRestoresOldDisplayAndKeepsItsSessionSequence" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SessionVersionTests.OrdinalsRemainMonotonicWhenOldestVersionsAreEvicted(count: 8)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="be7c47ab-e7dd-d689-0ed0-751e070eb172">
+      <Execution id="34d19910-75e2-4c69-8410-2c21db839d62" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SessionVersionTests" name="OrdinalsRemainMonotonicWhenOldestVersionsAreEvicted" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SessionVersionTests.OrdinalsRemainMonotonicWhenOldestVersionsAreEvicted(count: 20)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="6a5265cc-43bb-b8d1-96c2-554e339b1019">
+      <Execution id="f8bffcf0-320b-486e-aba3-8a629060f819" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SessionVersionTests" name="OrdinalsRemainMonotonicWhenOldestVersionsAreEvicted" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SessionVersionTests.NewSourceFailureRestoresOldDisplayAndKeepsItsSessionSequence(selectOld: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="fd33db97-e0bb-460b-d4f5-0f2ecd0c52da">
+      <Execution id="00d6ab8a-6d9d-4294-a1ac-2567cecfd262" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SessionVersionTests" name="NewSourceFailureRestoresOldDisplayAndKeepsItsSessionSequence" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SessionVersionTests.OrdinalsRemainMonotonicWhenOldestVersionsAreEvicted(count: 4)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="0dce9182-a505-44ed-5a92-f783ea2b8cf3">
+      <Execution id="5be56038-b1c1-4a34-9bbf-de874840b4db" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SessionVersionTests" name="OrdinalsRemainMonotonicWhenOldestVersionsAreEvicted" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SessionVersionTests.BrowsedRollbackVersionSurvivesNextSlotAndFailure" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b6449e99-cb85-2679-3970-e47ce47ebb19">
+      <Execution id="84e3a341-3747-419b-b2d7-a0830e20a5ef" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SessionVersionTests" name="BrowsedRollbackVersionSurvivesNextSlotAndFailure" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="6a27d7b0-cb39-2cab-805c-6c3adcbd4ea5" executionId="6ef8c976-088a-4df2-b9d9-5dc51cba3948" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="95c421ed-8222-fe51-59e0-fb46b403a0e8" executionId="d9d9154c-33e8-4ef8-818b-6ff3cc561333" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b6449e99-cb85-2679-3970-e47ce47ebb19" executionId="84e3a341-3747-419b-b2d7-a0830e20a5ef" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fd33db97-e0bb-460b-d4f5-0f2ecd0c52da" executionId="00d6ab8a-6d9d-4294-a1ac-2567cecfd262" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="be7c47ab-e7dd-d689-0ed0-751e070eb172" executionId="34d19910-75e2-4c69-8410-2c21db839d62" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6a5265cc-43bb-b8d1-96c2-554e339b1019" executionId="f8bffcf0-320b-486e-aba3-8a629060f819" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0dce9182-a505-44ed-5a92-f783ea2b8cf3" executionId="5be56038-b1c1-4a34-9bbf-de874840b4db" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a799a00c-2f59-0549-8b9e-d3a44a95f9b4" executionId="4f29430f-b809-4f70-bc6d-7b6069e0c1d7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="8" executed="8" passed="8" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.06]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.20]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.22]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.26]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -1,0 +1,105 @@
+using System.Net.Http.Json;
+using System.Text.Json;
+using KuaiYi.Core;
+using KuaiYi.Core.Settings;
+using KuaiYi.MockProvider;
+using KuaiYi.Providers;
+using Xunit;
+using Protocol=KuaiYi.Core.Settings.ApiProtocol;
+namespace KuaiYi.Provider.Tests;
+public sealed class SessionStyleTests(ServerFixture fixture):IClassFixture<ServerFixture>
+{
+    private const string Constraint="在保持内容准确的前提下重新组织表达，不为了差异改变事实、数字或结论。";
+    private sealed class Destination:SynchronizationContext{public override void Post(SendOrPostCallback callback,object? state)=>callback(state);}
+    private sealed class Rig:IAsyncDisposable
+    {
+        public RuntimeGate Gate=new(requireProfileBinding:true);public ProviderClient Provider=new();public SettingsSnapshot Settings;public OverlayResults Results;public TextTranslationCoordinator Flow;public List<TextTranslationUpdate> Updates=[];
+        public string Run=Guid.NewGuid().ToString("N");public bool SourceValid=true;public int SourceChecks;public Uri Root;
+        public Rig(Uri root,Protocol protocol=Protocol.OpenAIChat,string scenario="fragmented",SynchronizationContext? destination=null)
+        {
+            Root=root;var prefix=new Uri(root,$"runs/{Run}/{scenario}/");Settings=new(new(){ActiveProfileId="p",Profiles=[new(){Id="p",Protocol=protocol,BaseUrl=prefix.AbsoluteUri,Model="PUBLIC_SESSION_MODEL",Authentication=ApiAuthentication.None,AllowLoopbackHttp=true,Temperature=0.3,Capabilities=new(){Temperature=Capability.Supported},MaxOutputTokens=321}],Translation=new(){Preset=TranslationPreset.Faithful,Domain="PUBLIC_DOMAIN",ReaderBackground="PUBLIC_BACKGROUND"}},"initial",SettingsLoadState.Current);
+            Gate.ObserveSettingsMetadata(Settings);Gate.ConsentTo(new(prefix));Assert.True(Gate.TryEnable(new(prefix),true));Results=new(Gate);Flow=new(Gate,()=>Settings,(_,_)=>{SourceChecks++;return SourceValid;},Provider,destination??new Destination(),Results,Updates.Add);
+        }
+        public SelectionSourceSnapshot Source(string text="PUBLIC source: 12.5 mg, version 2, no loss.")=>new(new(17,93845,132000,@"C:\Fixtures\fixture-editor.exe"),text,text,[],[7,8],Settings.Version,text.EnumerateRunes().Count(),false);
+        public async Task Start(string? source=null){Assert.Equal(TextSubmission.Started,Flow.Submit(Flow.Prepare(Source(source??"PUBLIC source: 12.5 mg, version 2, no loss."))!));await Flow.Running;}
+        public void Change(Func<AppSettings,AppSettings> edit){Settings=Settings with{Data=edit(Settings.Data),Version=Guid.NewGuid().ToString("N")};Gate.ApplyCommittedSettings(Settings,null);Flow.ObserveSettings(Settings);}
+        public void Scenario(string scenario)=>Change(s=>s with{Profiles=[s.Profiles[0] with{BaseUrl=new Uri(Root,$"runs/{Run}/{scenario}/").AbsoluteUri}]});
+        public async Task Regenerate(bool current=false){Assert.Equal(TextSubmission.Started,Flow.Submit(Flow.PrepareRegeneration(current)!));await Flow.Running;}
+        public async ValueTask DisposeAsync(){Gate.Disable();await Flow.DisposeAsync();Provider.Dispose();}
+    }
+    private async Task<CapturedRequest[]> Requests(Rig rig){using var http=new HttpClient();return(await http.GetFromJsonAsync<CapturedRequest[]>(new Uri(fixture.BaseUri,$"requests/{rig.Run}")))!;}
+    private static string SystemPrompt(CapturedRequest request,Protocol protocol){using var json=JsonDocument.Parse(request.Body);return protocol==Protocol.OpenAIChat?json.RootElement.GetProperty("messages")[0].GetProperty("content").GetString()!:json.RootElement.GetProperty("system").GetString()!;}
+    [Theory] [InlineData(Protocol.OpenAIChat)] [InlineData(Protocol.AnthropicMessages)]
+    public async Task ActualRegenerationAddsFactPreservationConstraintOnce(Protocol protocol)
+    {
+        await using var rig=new Rig(fixture.BaseUri,protocol);await rig.Start();await rig.Regenerate();await rig.Regenerate();var requests=await Requests(rig);Assert.Equal(3,requests.Length);Assert.DoesNotContain(Constraint,SystemPrompt(requests[0],protocol));
+        foreach(var request in requests.Skip(1)){var prompt=SystemPrompt(request,protocol);Assert.Contains(Constraint,prompt);Assert.Equal(1,prompt.Split(Constraint).Length-1);using var body=JsonDocument.Parse(request.Body);Assert.Equal("PUBLIC_SESSION_MODEL",body.RootElement.GetProperty("model").GetString());}
+    }
+
+    private async Task Barrier(Rig rig)
+    {using var http=new HttpClient();using var deadline=new CancellationTokenSource(TimeSpan.FromSeconds(6));while(true){var value=await http.GetFromJsonAsync<JsonElement>(new Uri(fixture.BaseUri,$"barriers/{rig.Run}"),deadline.Token);if(value.GetProperty("ready").GetBoolean())return;await Task.Delay(10,deadline.Token);}}
+    private async Task Release(Rig rig){using var http=new HttpClient();using var reply=await http.PostAsync(new Uri(fixture.BaseUri,$"barriers/{rig.Run}/release"),null);reply.EnsureSuccessStatusCode();}
+    [Theory]
+    [InlineData(Protocol.OpenAIChat,TranslationPreset.Faithful)] [InlineData(Protocol.OpenAIChat,TranslationPreset.Plain)] [InlineData(Protocol.OpenAIChat,TranslationPreset.Professional)] [InlineData(Protocol.OpenAIChat,TranslationPreset.Explain)]
+    [InlineData(Protocol.AnthropicMessages,TranslationPreset.Faithful)] [InlineData(Protocol.AnthropicMessages,TranslationPreset.Plain)] [InlineData(Protocol.AnthropicMessages,TranslationPreset.Professional)] [InlineData(Protocol.AnthropicMessages,TranslationPreset.Explain)]
+    public async Task SessionSelectionPreviewsFrozenStyleNumberAndActualProtocolRequest(Protocol protocol,TranslationPreset preset)
+    {
+        await using var rig=new Rig(fixture.BaseUri,protocol);await rig.Start();var old=rig.Flow.SelectedSnapshot!;var oldId=rig.Results.SelectedVersionId!.Value;var global=rig.Settings;
+        Assert.True(rig.Flow.SetSessionStyle(preset));Assert.Same(old,rig.Flow.SelectedSnapshot);Assert.Same(global,rig.Settings);Assert.Single(await Requests(rig));Assert.Equal(new TextGenerationPreview(2,preset,old.Profile.Model),rig.Flow.NextGeneration);
+        var offer=rig.Flow.PrepareRegeneration()!;Assert.Equal(2,offer.Snapshot.VersionNumber);Assert.Equal(preset,offer.Snapshot.Preset);Assert.Equal("regenerate@1",offer.Snapshot.RegenerationTemplateVersion);Assert.EndsWith("+regenerate@1",offer.Snapshot.FullTemplateVersion);Assert.Same(old.Profile,offer.Snapshot.Profile);Assert.Equal(old.Transport,offer.Snapshot.Transport);
+        Assert.Equal(TextSubmission.Started,rig.Flow.Submit(offer));var begin=rig.Updates.Last();Assert.Equal(OverlayResultEventKind.Begin,begin.Presentation.Kind);Assert.Same(offer.Snapshot,begin.Snapshot);await rig.Flow.Running;
+        Assert.Same(old,rig.Flow.SnapshotForVersion(oldId));Assert.Equal(TranslationPreset.Faithful,old.Preset);Assert.Equal(PromptBuilder.Build(preset.ToString().ToLowerInvariant(),"PUBLIC_DOMAIN","PUBLIC_BACKGROUND",true),offer.Snapshot.Prompt);
+        var requests=await Requests(rig);Assert.Equal(2,requests.Length);Assert.Equal(offer.Snapshot.Prompt,SystemPrompt(requests[1],protocol));using var body=JsonDocument.Parse(requests[1].Body);Assert.Equal(0.3,body.RootElement.GetProperty("temperature").GetDouble());Assert.Equal(321,body.RootElement.GetProperty(protocol==Protocol.OpenAIChat?"max_completion_tokens":"max_tokens").GetInt32());Assert.DoesNotContain("seed",requests[1].Body);
+        string source=protocol==Protocol.OpenAIChat?body.RootElement.GetProperty("messages")[1].GetProperty("content").GetString()!:body.RootElement.GetProperty("messages")[0].GetProperty("content")[0].GetProperty("text").GetString()!;Assert.Equal(old.Source.Text,source);Assert.Equal(2,rig.Results.Versions.Count);
+    }
+    [Theory] [InlineData(Protocol.OpenAIChat)] [InlineData(Protocol.AnthropicMessages)]
+    public async Task StyleSwitchDuringHeadersOnlyChangesNextGeneration(Protocol protocol)
+    {
+        await using var rig=new Rig(fixture.BaseUri,protocol,"held-headers");var offer=rig.Flow.Prepare(rig.Source())!;rig.Flow.Submit(offer);var first=rig.Flow.Running;await Barrier(rig);Assert.True(rig.Flow.SetSessionStyle(TranslationPreset.Plain));Assert.Equal(TranslationPreset.Faithful,rig.Flow.SelectedSnapshot!.Preset);await Release(rig);await first;
+        var second=rig.Flow.PrepareRegeneration()!;Assert.Equal(TranslationPreset.Plain,second.Snapshot.Preset);rig.Flow.Submit(second);await Barrier(rig);await Release(rig);await rig.Flow.Running;var requests=await Requests(rig);Assert.Equal(2,requests.Length);Assert.Equal(offer.Snapshot.Prompt,SystemPrompt(requests[0],protocol));Assert.Equal(second.Snapshot.Prompt,SystemPrompt(requests[1],protocol));Assert.Equal(TranslationPreset.Faithful,rig.Flow.SnapshotForVersion(rig.Results.Versions[0].Identity.VersionId)!.Preset);
+    }
+    [Theory] [InlineData("off")] [InlineData("stop")] [InlineData("lock")] [InlineData("replacement")]
+    public async Task SwitchingAndThenInvalidationCannotAcceptLateOldFlow(string action)
+    {
+        await using var rig=new Rig(fixture.BaseUri,scenario:"held-headers");rig.Flow.Submit(rig.Flow.Prepare(rig.Source())!);var old=rig.Flow.Running;await Barrier(rig);rig.Flow.SetSessionStyle(TranslationPreset.Explain);
+        if(action=="off")rig.Gate.Disable();else if(action=="lock")rig.Gate.SetSessionLocked(true);else if(action=="stop")rig.Gate.StopGeneration();else{rig.Scenario("fragmented");await rig.Start("PUBLIC replacement source");}
+        await Release(rig);await old;Assert.DoesNotContain(rig.Updates,u=>u.Snapshot.Source.Text!="PUBLIC replacement source"&&u.Presentation.Kind!=OverlayResultEventKind.Begin);
+        if(action=="replacement"){Assert.Equal("PUBLIC replacement source",rig.Flow.SelectedSnapshot!.Source.Text);Assert.Null(rig.Flow.SessionStyle);Assert.Equal(1,rig.Flow.SelectedSnapshot.VersionNumber);}else{Assert.Empty(rig.Results.Text);Assert.Single(await Requests(rig));}
+    }
+    [Theory] [InlineData("off")] [InlineData("source")] [InlineData("delete")] [InlineData("binding")]
+    public async Task RegenerationEligibilityStillRejectsInvalidSourceOrAuthority(string action)
+    {
+        await using var rig=new Rig(fixture.BaseUri);await rig.Start();rig.Flow.SetSessionStyle(TranslationPreset.Plain);if(action=="off")rig.Gate.Disable();else if(action=="source")rig.SourceValid=false;else if(action=="delete")rig.Change(s=>s with{Profiles=[]});else rig.Change(s=>s with{Profiles=[s.Profiles[0] with{SecretRef="key/"+new string('b',32)}]});Assert.Null(rig.Flow.PrepareRegeneration());Assert.Single(await Requests(rig));
+    }
+    [Fact] public async Task GlobalDefaultChangeAndExplicitCurrentSettingsStayDistinct()
+    {
+        await using var rig=new Rig(fixture.BaseUri);await rig.Start();var old=rig.Flow.SelectedSnapshot!;rig.Flow.SetSessionStyle(TranslationPreset.Plain);rig.Change(s=>s with{Translation=s.Translation with{Preset=TranslationPreset.Explain,Domain="NEW_DOMAIN"},Profiles=[s.Profiles[0] with{Model="PUBLIC_NEW_MODEL",MaxOutputTokens=456}]});
+        await rig.Regenerate();Assert.Equal(TranslationPreset.Plain,rig.Flow.SelectedSnapshot!.Preset);Assert.Equal(old.Profile,rig.Flow.SelectedSnapshot.Profile);Assert.Equal("PUBLIC_DOMAIN",rig.Flow.SelectedSnapshot.Settings.Data.Translation.Domain);
+        await rig.Regenerate(true);Assert.Equal(TranslationPreset.Explain,rig.Flow.SelectedSnapshot!.Preset);Assert.Equal("PUBLIC_NEW_MODEL",rig.Flow.SelectedSnapshot.Profile.Model);Assert.Equal(456,rig.Flow.SelectedSnapshot.Transport.MaxOutputTokens);Assert.Equal("NEW_DOMAIN",rig.Flow.SelectedSnapshot.Settings.Data.Translation.Domain);Assert.Contains(Constraint,rig.Flow.SelectedSnapshot.Prompt);Assert.Equal(TranslationPreset.Faithful,old.Preset);Assert.Equal(TranslationPreset.Explain,rig.Settings.Data.Translation.Preset);
+    }
+    [Fact] public async Task SwitchingInvalidatesPendingRegenerationConfirmationWithoutSending()
+    {
+        await using var rig=new Rig(fixture.BaseUri);var original=rig.Flow.Prepare(rig.Source(new string('a',12001)))!;Assert.Equal(TextSubmission.Started,rig.Flow.Submit(original,true));await rig.Flow.Running;var pending=rig.Flow.PrepareRegeneration()!;Assert.Equal(TextSubmission.ConfirmationRequired,rig.Flow.Submit(pending));Assert.True(rig.Flow.SetSessionStyle(TranslationPreset.Professional));Assert.Equal(TextSubmission.Rejected,rig.Flow.Submit(pending,true));Assert.Single(await Requests(rig));Assert.Equal(TranslationPreset.Faithful,rig.Flow.SelectedSnapshot!.Preset);
+    }
+    [Fact] public async Task FailedNewStyleVersionRollsBackWithoutMutatingSuccessfulSnapshot()
+    {
+        await using var rig=new Rig(fixture.BaseUri);await rig.Start();var original=rig.Flow.SelectedSnapshot!;var first=rig.Results.SelectedVersionId!.Value;rig.Scenario("disconnect");rig.Change(s=>s with{Translation=s.Translation with{Preset=TranslationPreset.Explain}});rig.Flow.SetSessionStyle(TranslationPreset.Explain);await rig.Regenerate(true);var failed=rig.Results.Versions.Single(v=>v.Identity.VersionId!=first);Assert.True(failed.Stopped);Assert.False(failed.Complete);Assert.Equal(first,rig.Results.SelectedVersionId);Assert.Same(original,rig.Flow.SelectedSnapshot);
+        Assert.Equal(TranslationPreset.Faithful,original.Preset);Assert.Equal(TranslationPreset.Explain,rig.Flow.SnapshotForVersion(failed.Identity.VersionId)!.Preset);Assert.Contains(Constraint,rig.Flow.SnapshotForVersion(failed.Identity.VersionId)!.Prompt);Assert.Equal(2,failed.Number);Assert.Equal(MockProviderHost.FixtureOutput,rig.Results.Text);Assert.Equal(3,rig.Flow.NextGeneration!.VersionNumber);
+    }
+    [Fact] public async Task EvictionBrowsingAndResetPreserveEveryRetainedSnapshot()
+    {
+        await using var rig=new Rig(fixture.BaseUri);await rig.Start();for(int i=0;i<6;i++){rig.Flow.SetSessionStyle((TranslationPreset)(i%4));await rig.Regenerate();Assert.InRange(rig.Results.Versions.Count,1,3);Assert.Equal(rig.Results.Versions.Count,rig.Flow.RetainedSnapshotCount);foreach(var version in rig.Results.Versions)Assert.Equal(version.Number,rig.Flow.SnapshotForVersion(version.Identity.VersionId)!.VersionNumber);}
+        var oldest=rig.Results.Versions[0];var snapshot=rig.Flow.SnapshotForVersion(oldest.Identity.VersionId)!;Assert.True(rig.Results.SelectVersion(oldest.Identity.VersionId));Assert.Same(snapshot,rig.Flow.SelectedSnapshot);Assert.True(rig.Flow.SetSessionStyle(null));Assert.Equal(snapshot.Preset,rig.Flow.NextGeneration!.Preset);Assert.Equal(8,rig.Flow.NextGeneration.VersionNumber);await rig.Regenerate();Assert.Equal(snapshot.Preset,rig.Flow.SelectedSnapshot!.Preset);Assert.Equal(snapshot.Profile,rig.Flow.SelectedSnapshot.Profile);Assert.Equal(3,rig.Flow.RetainedSnapshotCount);
+    }
+    [Fact] public async Task InvalidStyleAndNoSessionCannotAlterOrSendAnything()
+    {await using var rig=new Rig(fixture.BaseUri);Assert.False(rig.Flow.SetSessionStyle(TranslationPreset.Plain));Assert.Null(rig.Flow.NextGeneration);await rig.Start();Assert.False(rig.Flow.SetSessionStyle((TranslationPreset)999));Assert.Null(rig.Flow.SessionStyle);Assert.Single(await Requests(rig));rig.Flow.Clear();Assert.Null(rig.Flow.NextGeneration);Assert.False(rig.Flow.SetSessionStyle(TranslationPreset.Explain));}
+    private sealed class QueuedDestination:SynchronizationContext
+    {public bool Hold=true;public TaskCompletionSource Entered=new(TaskCreationOptions.RunContinuationsAsynchronously);private readonly System.Collections.Concurrent.ConcurrentQueue<Action> queue=new();public override void Post(SendOrPostCallback callback,object? state){if(!Hold){callback(state);return;}queue.Enqueue(()=>callback(state));Entered.TrySetResult();}public void Drain(){Hold=false;while(queue.TryDequeue(out var callback))callback();}}
+    [Theory] [InlineData("off")] [InlineData("replacement")]
+    public async Task DelayedDestinationCannotRelabelOrOverwriteAnotherVersion(string action)
+    {
+        var destination=new QueuedDestination();await using var rig=new Rig(fixture.BaseUri,destination:destination);rig.Flow.Submit(rig.Flow.Prepare(rig.Source())!);var old=rig.Flow.Running;await destination.Entered.Task.WaitAsync(TimeSpan.FromSeconds(5));rig.Flow.SetSessionStyle(TranslationPreset.Professional);
+        if(action=="off")rig.Gate.Disable();else rig.Gate.StopGeneration();await old.WaitAsync(TimeSpan.FromSeconds(5));destination.Drain();Assert.Empty(rig.Results.Text);Assert.DoesNotContain(rig.Updates,u=>u.Presentation.Kind!=OverlayResultEventKind.Begin);
+        if(action=="replacement"){await rig.Start("PUBLIC another source");Assert.Equal(TranslationPreset.Faithful,rig.Flow.SelectedSnapshot!.Preset);Assert.Null(rig.Flow.SessionStyle);Assert.Equal("PUBLIC another source",rig.Flow.SelectedSnapshot.Source.Text);}
+    }
+}
