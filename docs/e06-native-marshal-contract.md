@@ -20,3 +20,5 @@ Verification after the repair:
 - Normal App/test restore in the saved Linux environment remains blocked by NU1900 at the official NuGet audit service. Audit, warnings, dependency pins, lock files and network policy were preserved.
 
 No additional Windows CI was run after this repair. Post-repair native export/import compatibility, actual Drop/GetData, close/recovery, physical E06 and Windows 11 acceptance remain NotRun. A later explicitly authorized minimal Windows verification must use the repaired source before broader OLE desktop tests. P0 is not passed.
+
+The next authorized post-repair check reuses the unchanged minimal native contract. Its scope requires actual receiver export, production validation, independent parent STA production Import, imported pointer release, original diagnostic-read settlement and owned receiver finalization. It runs once after the exact-source review; no additional diagnostics, software sources, permissions, artifacts or model calls are introduced. Outcome remains pending until actual completion.

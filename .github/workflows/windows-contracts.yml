@@ -24,7 +24,7 @@ jobs:
           set-safe-directory: false
           fetch-depth: 1
       - name: Probe preinstalled tools, build native DLLs, run bounded public contracts
-        # One minimal actual native export/import contract; fixed failure and length projection, actual Drop/GetData NotRun.
+        # One post-repair actual native export/import/release contract; all owned settlement gates required, Drop/GetData NotRun.
         shell: pwsh
         run: |
           & ./scripts/run-windows-ci.ps1 -OleMarshalOnly
