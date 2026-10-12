@@ -7,19 +7,27 @@ $report = [ordered]@{
     Kind = 'HostedWindowsContracts'; Scope = 'ServerOrClientFixtureContractsOnly'; Windows11Acceptance = 'NotRun'
     SourceCommit = (& git -C $script:RepositoryRoot rev-parse HEAD).Trim(); RunUrl = $null
     SourceDirty = @(& git -C $script:RepositoryRoot status --porcelain).Count -gt 0
+    SpecificationBytes = @()
     Environment = $null; NativeStatus = 'NotRun'; NativeDlls = 0; CTestsPassed = 0; PeChecksPassed = 0; DllLoadsPassed = 0; ExportsPassed = 0
     NativeArtifacts = @(); OverlayStatus = 'NotRun'; OverlayChecksPassed = 0; OverlayReport = $null; Errors = @(); ExitCode = 0
 }
 if ($env:GITHUB_SERVER_URL -and $env:GITHUB_REPOSITORY -and $env:GITHUB_RUN_ID) { $report.RunUrl = "$env:GITHUB_SERVER_URL/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID" }
 Push-Location $script:RepositoryRoot
 try {
-    Assert-SpecIntegrity
     $facts = $null
     try { $facts = Get-CiEnvironment; $report.Environment = $facts }
     catch { $report.Errors += 'EnvironmentInventoryFailed:' + $_.Exception.GetType().Name }
     Write-Host 'KUAIYI_ENVIRONMENT_BEGIN'
     Write-Host ($facts | ConvertTo-Json -Depth 10 -Compress)
     Write-Host 'KUAIYI_ENVIRONMENT_END'
+    foreach ($name in @('SPEC.md','快译_产品与技术开发规格_v1.0.md')) {
+        $bytes = [IO.File]::ReadAllBytes((Join-Path $script:RepositoryRoot $name))
+        $lf = 0; $crlf = 0
+        for ($i = 0; $i -lt $bytes.Length; $i++) { if ($bytes[$i] -eq 10) { $lf++; if ($i -gt 0 -and $bytes[$i - 1] -eq 13) { $crlf++ } } }
+        $report.SpecificationBytes += @{ Name = $name; Bytes = $bytes.Length; Sha256 = [Convert]::ToHexString([Security.Cryptography.SHA256]::HashData($bytes)); LF = $lf; CRLF = $crlf }
+    }
+    Write-Host ('KUAIYI_SPECIFICATION_BYTES ' + ($report.SpecificationBytes | ConvertTo-Json -Compress))
+    Assert-SpecIntegrity # The exact original byte hash and all original assertions are unchanged.
     if ($null -eq $facts) {
         $report.NativeStatus = 'Blocked'; $report.OverlayStatus = 'Blocked'; $exitCode = 2
     } elseif ($ProbeOnly) {

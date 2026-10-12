@@ -1,2 +1,6 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+# These two normative source files have a fixed byte-level integrity contract.
+# Preserve the committed bytes on Windows regardless of core.autocrlf.
+SPEC.md -text
+快译_产品与技术开发规格_v1.0.md -text

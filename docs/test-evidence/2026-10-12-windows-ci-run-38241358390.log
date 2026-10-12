@@ -1,0 +1,169 @@
+﻿2026-10-12T11:14:21.4940269Z Current runner version: '2.337.0'
+2026-10-12T11:14:21.4970538Z ##[group]Runner Image Provisioner
+2026-10-12T11:14:21.4971310Z Hosted Compute Agent
+2026-10-12T11:14:21.4971874Z Version: 20260901.588
+2026-10-12T11:14:21.4972394Z Commit: f88ec8081b781fac6c440065ac7ff9e710ce3d0b
+2026-10-12T11:14:21.4973063Z Build Date: 2026-09-01T19:56:44Z
+2026-10-12T11:14:21.4973686Z Worker ID: {4d86024c-dad4-4e29-9bff-c05072893210}
+2026-10-12T11:14:21.4974423Z Azure Region: centralus
+2026-10-12T11:14:21.4974900Z ##[endgroup]
+2026-10-12T11:14:21.4976200Z ##[group]Operating System
+2026-10-12T11:14:21.4977066Z Microsoft Windows Server 2025
+2026-10-12T11:14:21.4977600Z 10.0.26100
+2026-10-12T11:14:21.4978122Z Datacenter
+2026-10-12T11:14:21.4978569Z ##[endgroup]
+2026-10-12T11:14:21.4979017Z ##[group]Runner Image
+2026-10-12T11:14:21.4979528Z Image: windows-2025-vs2026
+2026-10-12T11:14:21.4980063Z Version: 20260925.250.1
+2026-10-12T11:14:21.4981479Z Included Software: https://github.com/actions/runner-images/blob/win25-vs2026/20260925.250/images/windows/Windows2025-VS2026-Readme.md
+2026-10-12T11:14:21.4982988Z Image Release: https://github.com/actions/runner-images/releases/tag/win25-vs2026%2F20260925.250
+2026-10-12T11:14:21.4983815Z ##[endgroup]
+2026-10-12T11:14:21.4984822Z ##[group]GITHUB_TOKEN Permissions
+2026-10-12T11:14:21.4986757Z Contents: read
+2026-10-12T11:14:21.4987292Z Metadata: read
+2026-10-12T11:14:21.4987831Z ##[endgroup]
+2026-10-12T11:14:21.4990030Z Secret source: Actions
+2026-10-12T11:14:21.4990832Z Cache mode: write
+2026-10-12T11:14:21.4991569Z Prepare workflow directory
+2026-10-12T11:14:21.5358639Z Prepare all required actions
+2026-10-12T11:14:21.5407253Z Getting action download info
+2026-10-12T11:14:21.7596081Z Download action repository 'actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+2026-10-12T11:14:21.9372113Z Complete job name: contracts
+2026-10-12T11:14:22.0596220Z ##[group]Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+2026-10-12T11:14:22.0597155Z with:
+2026-10-12T11:14:22.0597398Z   persist-credentials: false
+2026-10-12T11:14:22.0597675Z   set-safe-directory: false
+2026-10-12T11:14:22.0597934Z   fetch-depth: 1
+2026-10-12T11:14:22.0598174Z   repository: T1doo/KuaiYi
+2026-10-12T11:14:22.0600562Z   token: ***
+2026-10-12T11:14:22.0600892Z   ssh-strict: true
+2026-10-12T11:14:22.0601171Z   ssh-user: git
+2026-10-12T11:14:22.0601497Z   clean: true
+2026-10-12T11:14:22.0601839Z   sparse-checkout-cone-mode: true
+2026-10-12T11:14:22.0602194Z   fetch-tags: false
+2026-10-12T11:14:22.0602434Z   show-progress: true
+2026-10-12T11:14:22.0602668Z   lfs: false
+2026-10-12T11:14:22.0602885Z   submodules: false
+2026-10-12T11:14:22.0603131Z   allow-unsafe-pr-checkout: false
+2026-10-12T11:14:22.0603545Z env:
+2026-10-12T11:14:22.0603766Z   DOTNET_CLI_TELEMETRY_OPTOUT: 1
+2026-10-12T11:14:22.0604091Z   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+2026-10-12T11:14:22.0604389Z   POWERSHELL_TELEMETRY_OPTOUT: 1
+2026-10-12T11:14:22.0604659Z   CI: true
+2026-10-12T11:14:22.0604866Z ##[endgroup]
+2026-10-12T11:14:22.1680018Z Syncing repository: T1doo/KuaiYi
+2026-10-12T11:14:22.1681153Z ##[group]Getting Git version info
+2026-10-12T11:14:22.1681486Z Working directory is 'D:\a\KuaiYi\KuaiYi'
+2026-10-12T11:14:22.2190213Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-12T11:14:22.6209862Z git version 2.55.0.windows.5
+2026-10-12T11:14:22.6248889Z ##[endgroup]
+2026-10-12T11:14:22.6254574Z Deleting the contents of 'D:\a\KuaiYi\KuaiYi'
+2026-10-12T11:14:22.6259575Z ##[group]Determining repository object format
+2026-10-12T11:14:22.6261289Z ##[endgroup]
+2026-10-12T11:14:22.6261717Z ##[group]Initializing the repository
+2026-10-12T11:14:22.6268256Z [command]"C:\Program Files\Git\bin\git.exe" init D:\a\KuaiYi\KuaiYi
+2026-10-12T11:14:22.7189224Z Initialized empty Git repository in D:/a/KuaiYi/KuaiYi/.git/
+2026-10-12T11:14:22.7228283Z [command]"C:\Program Files\Git\bin\git.exe" remote add origin https://github.com/T1doo/KuaiYi
+2026-10-12T11:14:22.7764083Z ##[endgroup]
+2026-10-12T11:14:22.7764857Z ##[group]Disabling automatic garbage collection
+2026-10-12T11:14:22.7771753Z [command]"C:\Program Files\Git\bin\git.exe" config --local gc.auto 0
+2026-10-12T11:14:22.8180732Z ##[endgroup]
+2026-10-12T11:14:22.8181222Z ##[group]Setting up auth
+2026-10-12T11:14:22.8181602Z Removing SSH command configuration
+2026-10-12T11:14:22.8189941Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-12T11:14:22.8416304Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-12T11:14:24.2197672Z Removing HTTP extra header
+2026-10-12T11:14:24.2207435Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-12T11:14:24.2448849Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-12T11:14:24.7023317Z Removing includeIf entries pointing to credentials config files
+2026-10-12T11:14:24.7032871Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-12T11:14:24.7279348Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-12T11:14:25.1797862Z [command]"C:\Program Files\Git\bin\git.exe" config --file D:\a\_temp\git-credentials-23ec0c41-dd70-4c14-b6bc-16894fd36da0.config http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
+2026-10-12T11:14:25.2068404Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:D:/a/KuaiYi/KuaiYi/.git.path D:\a\_temp\git-credentials-23ec0c41-dd70-4c14-b6bc-16894fd36da0.config
+2026-10-12T11:14:25.2323469Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:D:/a/KuaiYi/KuaiYi/.git/worktrees/*.path D:\a\_temp\git-credentials-23ec0c41-dd70-4c14-b6bc-16894fd36da0.config
+2026-10-12T11:14:25.2625789Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-23ec0c41-dd70-4c14-b6bc-16894fd36da0.config
+2026-10-12T11:14:25.2871453Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-23ec0c41-dd70-4c14-b6bc-16894fd36da0.config
+2026-10-12T11:14:25.3129618Z ##[endgroup]
+2026-10-12T11:14:25.3129952Z ##[group]Fetching the repository
+2026-10-12T11:14:25.3141069Z [command]"C:\Program Files\Git\bin\git.exe" -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +48ea2918e00242d9d5771950e43b985546f41a29:refs/remotes/origin/dev/p0-foundations
+2026-10-12T11:14:31.1966461Z From https://github.com/T1doo/KuaiYi
+2026-10-12T11:14:31.1967203Z  * [new ref]         48ea2918e00242d9d5771950e43b985546f41a29 -> origin/dev/p0-foundations
+2026-10-12T11:14:31.2019418Z [command]"C:\Program Files\Git\bin\git.exe" branch --list --remote origin/dev/p0-foundations
+2026-10-12T11:14:31.2332511Z   origin/dev/p0-foundations
+2026-10-12T11:14:31.2375910Z [command]"C:\Program Files\Git\bin\git.exe" rev-parse refs/remotes/origin/dev/p0-foundations
+2026-10-12T11:14:31.2593365Z 48ea2918e00242d9d5771950e43b985546f41a29
+2026-10-12T11:14:31.2626963Z ##[endgroup]
+2026-10-12T11:14:31.2627249Z ##[group]Determining the checkout info
+2026-10-12T11:14:31.2628763Z ##[endgroup]
+2026-10-12T11:14:31.2636394Z [command]"C:\Program Files\Git\bin\git.exe" sparse-checkout disable
+2026-10-12T11:14:31.2996503Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all extensions.worktreeConfig
+2026-10-12T11:14:31.3230783Z ##[group]Checking out the ref
+2026-10-12T11:14:31.3238718Z [command]"C:\Program Files\Git\bin\git.exe" checkout --progress --force -B dev/p0-foundations refs/remotes/origin/dev/p0-foundations
+2026-10-12T11:14:31.8295529Z Switched to a new branch 'dev/p0-foundations'
+2026-10-12T11:14:31.8357231Z branch 'dev/p0-foundations' set up to track 'origin/dev/p0-foundations'.
+2026-10-12T11:14:31.8424507Z ##[endgroup]
+2026-10-12T11:14:31.8794815Z [command]"C:\Program Files\Git\bin\git.exe" log -1 --format=%H
+2026-10-12T11:14:31.9029171Z 48ea2918e00242d9d5771950e43b985546f41a29
+2026-10-12T11:14:31.9069748Z ##[group]Removing auth
+2026-10-12T11:14:31.9069974Z Removing SSH command configuration
+2026-10-12T11:14:31.9078104Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-12T11:14:31.9319508Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-12T11:14:32.3724318Z Removing HTTP extra header
+2026-10-12T11:14:32.3732397Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-12T11:14:32.3951320Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-12T11:14:32.8172181Z Removing includeIf entries pointing to credentials config files
+2026-10-12T11:14:32.8183803Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-12T11:14:32.8392483Z includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git.path
+2026-10-12T11:14:32.8392956Z includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git/worktrees/*.path
+2026-10-12T11:14:32.8395564Z includeif.gitdir:/github/workspace/.git.path
+2026-10-12T11:14:32.8396198Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-12T11:14:32.8441824Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git.path
+2026-10-12T11:14:32.8650059Z D:\a\_temp\git-credentials-23ec0c41-dd70-4c14-b6bc-16894fd36da0.config
+2026-10-12T11:14:32.8692695Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git.path D:\a\_temp\git-credentials-23ec0c41-dd70-4c14-b6bc-16894fd36da0.config
+2026-10-12T11:14:32.8943536Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git/worktrees/*.path
+2026-10-12T11:14:32.9151898Z D:\a\_temp\git-credentials-23ec0c41-dd70-4c14-b6bc-16894fd36da0.config
+2026-10-12T11:14:32.9185454Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git/worktrees/*.path D:\a\_temp\git-credentials-23ec0c41-dd70-4c14-b6bc-16894fd36da0.config
+2026-10-12T11:14:32.9432295Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-12T11:14:32.9639293Z /github/runner_temp/git-credentials-23ec0c41-dd70-4c14-b6bc-16894fd36da0.config
+2026-10-12T11:14:32.9682778Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-23ec0c41-dd70-4c14-b6bc-16894fd36da0.config
+2026-10-12T11:14:32.9923492Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-12T11:14:33.0128140Z /github/runner_temp/git-credentials-23ec0c41-dd70-4c14-b6bc-16894fd36da0.config
+2026-10-12T11:14:33.0166874Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-23ec0c41-dd70-4c14-b6bc-16894fd36da0.config
+2026-10-12T11:14:33.0405922Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-12T11:14:33.4490407Z Removing credentials config 'D:\a\_temp\git-credentials-23ec0c41-dd70-4c14-b6bc-16894fd36da0.config'
+2026-10-12T11:14:33.4500604Z ##[endgroup]
+2026-10-12T11:14:33.4778503Z ##[group]Run ./scripts/run-windows-ci.ps1
+2026-10-12T11:14:33.4778817Z [36;1m./scripts/run-windows-ci.ps1[0m
+2026-10-12T11:14:33.5421941Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-12T11:14:33.5422169Z env:
+2026-10-12T11:14:33.5422308Z   DOTNET_CLI_TELEMETRY_OPTOUT: 1
+2026-10-12T11:14:33.5422457Z   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+2026-10-12T11:14:33.5422606Z   POWERSHELL_TELEMETRY_OPTOUT: 1
+2026-10-12T11:14:33.5422731Z   CI: true
+2026-10-12T11:14:33.5422832Z ##[endgroup]
+2026-10-12T11:14:34.5160964Z KUAIYI_CONTRACT_REPORT_BEGIN
+2026-10-12T11:14:34.5168151Z {"Kind":"HostedWindowsContracts","Scope":"ServerOrClientFixtureContractsOnly","Windows11Acceptance":"NotRun","SourceCommit":"48ea2918e00242d9d5771950e43b985546f41a29","RunUrl":"https://github.com/T1doo/KuaiYi/actions/runs/38241358390","SourceDirty":false,"Environment":null,"NativeStatus":"NotRun","NativeDlls":0,"CTestsPassed":0,"PeChecksPassed":0,"DllLoadsPassed":0,"ExportsPassed":0,"NativeArtifacts":[],"OverlayStatus":"NotRun","OverlayChecksPassed":0,"OverlayReport":null,"Errors":["SPEC or original source has changed; update the explicit specification decision and traceability."],"ExitCode":3}
+2026-10-12T11:14:34.5170276Z KUAIYI_CONTRACT_REPORT_END
+2026-10-12T11:14:34.5709716Z ##[error]Process completed with exit code 1.
+2026-10-12T11:14:34.5919448Z Post job cleanup.
+2026-10-12T11:14:34.7000556Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-12T11:14:34.7209479Z git version 2.55.0.windows.5
+2026-10-12T11:14:34.7253103Z Removing SSH command configuration
+2026-10-12T11:14:34.7262183Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-12T11:14:34.7524160Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-12T11:14:35.1826602Z Removing HTTP extra header
+2026-10-12T11:14:35.1834125Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-12T11:14:35.2038645Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-12T11:14:35.6484366Z Removing includeIf entries pointing to credentials config files
+2026-10-12T11:14:35.6494735Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-12T11:14:35.6696107Z includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git.path
+2026-10-12T11:14:35.6696939Z includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git/worktrees/*.path
+2026-10-12T11:14:35.6736657Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git.path
+2026-10-12T11:14:35.6929565Z D:\a\_temp\git-credentials-23ec0c41-dd70-4c14-b6bc-16894fd36da0.config
+2026-10-12T11:14:35.6968130Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git.path D:\a\_temp\git-credentials-23ec0c41-dd70-4c14-b6bc-16894fd36da0.config
+2026-10-12T11:14:35.7192207Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git/worktrees/*.path
+2026-10-12T11:14:35.7373088Z D:\a\_temp\git-credentials-23ec0c41-dd70-4c14-b6bc-16894fd36da0.config
+2026-10-12T11:14:35.7408968Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git/worktrees/*.path D:\a\_temp\git-credentials-23ec0c41-dd70-4c14-b6bc-16894fd36da0.config
+2026-10-12T11:14:35.7629092Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-12T11:14:36.1655566Z Removing credentials config 'D:\a\_temp\git-credentials-23ec0c41-dd70-4c14-b6bc-16894fd36da0.config'
+2026-10-12T11:14:36.1815485Z Cleaning up orphan processes
