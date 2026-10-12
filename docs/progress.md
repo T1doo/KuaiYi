@@ -363,3 +363,9 @@ P3-04最后复核补未知UIA状态带CopyEvidence的真实child反例：原6项
 父限定签收222b057后核Spec8.2/9.1/9.9，补四模式查看/复制为自定义/恢复默认/完整预览；schema1可选字典，旧v1读取不写、v0迁移保留。统一单次白名单Compose，base不可配置，source_text固定独立user资料引用、原文完整user；模板8192/展开28000/system32768有界。自定义hash版本及旧全映射快照，普通/当前设置重生分流，结构相等去重。命令先DraftEdited再改草稿，不扩大普通当前流取消；固定连接测试忽略模板。
 
 原4配置+2HTTP反例全失败保存，修后同断言通过；新67（Core30/Provider37），全Core1300+Provider307=1607、Node63、27locked Release零警告/错误。多余testfixture括号编译日志保留修语法，明确异常类型断言。断连后00:53:20Z真实命令和PID563098健康CI证据保全，没有重复启动；首1606/63通过，补组合顺序断言后最终回归。原1540、规格/内置模板资源/27锁保留；独立包及25旧包/21历史摘要核验，原旧包恢复事实保持。P0/E06 Blocked，P1—P4 InProgress，106整体NotRun；WPF/跨应用/焦点/DPI/DPAPI/安装/模型语义J/远端CI未验，无真实key/模型/付费/扩权/依赖安装/部署。详见p4-custom-templates-review、ADR0018与summary。
+
+## P4-04 冻结阶段配置与有效内容截止
+
+646c991获限定签收，核Spec10.7与官方.NET接口，补RequestTimeouts默认10/30/30/20及四有界字段/mapper/旧快照。真实连接池按秒数有限缓存、ConnectCallback原socket/固定回环+token，TLS系统ConnectTimeout；控clock dial明确seam。SSE底层每次Read用阶段token，JSON增量识别选中可解码正文/已知协议，保持完整结算后一次展示；无效/ping/空byte不刷新有效origin或total。原总预算仍凭据前起，旧测观测不弱化；旧快照/配置取消实际验证。
+
+原Core4失败、正确flush下旧源改类名重放6期限反例全失败，初夹具6失败中4是headers屏障错，保留并收窄；首生产12中2comment-only挂起修真实ReadAsync token，后46中2异常族/clock安装交错保留修复。最终新61（15Core/46Provider），全1315+353=1668 .NET/63Node、27locked Release零警告/错误，原1607/27锁/规格/内置模板保持。断连01:44:46Z实命令/proc确认无活动test，未重复/扩权；独立包及26旧包/22历史摘要核验，旧包恢复事实保持。P0/E06 Blocked、P1—P4 InProgress、106整体NotRun；WPF/代理/DNS/跨应用/焦点/DPI/DPAPI/安装/真实模型/远端CI未验，无真实key/付费/依赖安装/部署，详见review/ADR0019/summary。

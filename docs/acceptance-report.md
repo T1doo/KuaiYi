@@ -110,3 +110,5 @@ P4命令补正：05dc对已保存密钥空PasswordBox.Clear漏编辑失效。真
 P4-05源码补齐：会话四风格/预览版本N/事实保真重生，原35专项通过（Core8/Provider27）；原3反例与实施/夹具失败保存。最终Core1270+Provider270=1540，Node63，27locked Release通过，旧1505/锁/产品书/四模板保留。WPF/真实服务语义/J评分/P4文字Alpha/106整体NotRun，见p4-session-style-review和本轮summary。
 
 P4-05模板实际设置→保存重启→生产Compose→两协议HTTP闭环：原6反例保存，修后通过，新67专项/全1607 .NET/63Node，27locked Release。完整预览只用公开样例，不能替代真实模型语义和WPF验证；source_text不把原文插system，发送/密钥/测试权限独立于模板。旧1540/规格/模板/27锁保留，106整体NotRun，见p4-custom-templates-review与summary。
+
+P4-04新增61阶段专项，全1668 NET/63Node及27locked Release通过，原1607保留。原Core4/修正确HTTP屏障后旧传输6期限红测及首次夹具/生产2/2失败记录保全；真实loopback/TLS验证不代表Windows代理/DNS/完整P4/106整体通过。配置四字段/旧快照、SSE有效期限/JSON真正读取有实际路径，见p4-phase-timeouts-review/summary。

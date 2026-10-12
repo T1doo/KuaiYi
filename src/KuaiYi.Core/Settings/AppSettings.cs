@@ -43,6 +43,7 @@ public sealed record ApiProfile
     public bool AllowInsecureHttp{get;init;}
     [SettingsRange(1,600)]public int TimeoutSeconds{get;init;}=120;
     public bool Streaming{get;init;}=true;
+    public RequestTimeouts Timeouts{get;init;}=new();
     public ImmutableDictionary<string,string> Headers{get;init;}=ImmutableDictionary<string,string>.Empty;
 }
 public sealed record TranslationSettings

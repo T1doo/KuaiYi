@@ -1,0 +1,41 @@
+{
+  "allPassed": true,
+  "checks": 7785,
+  "historicalSummaries": 22,
+  "archives": 27,
+  "currentArchive": {
+    "archive": "artifacts/KuaiYi-P4-phase-timeouts-managed-win-x64.zip",
+    "bytes": 2165159,
+    "sha256": "231ed070c8baeb4bf5017be2083b014b092c48b80f627cabad3a4bfc6c442b96",
+    "installer": false,
+    "FrameworkDependent": true,
+    "NativeDlls": "NotIncluded",
+    "WindowsRuntime": "NotRun",
+    "ModelCalls": "None",
+    "TestHttp": "Real loopback only",
+    "files": 89,
+    "appFiles": 51,
+    "publicProbeFiles": 27,
+    "testProviderFiles": 6,
+    "actualPe32PlusX64Hosts": [
+      "app/KuaiYi.App.exe",
+      "app/KuaiYi.CaptureBroker.exe",
+      "app/KuaiYi.CaptureHost.exe",
+      "app/KuaiYi.ClipboardHost.exe",
+      "app/KuaiYi.ImageWorker.exe",
+      "app/KuaiYi.NativeHost.exe",
+      "app/KuaiYi.OleReceiver.exe",
+      "public-probe/KuaiYi.App.exe",
+      "public-probe/KuaiYi.GrowthHarness.exe",
+      "public-probe/KuaiYi.NativeHost.exe"
+    ],
+    "manifestHashes": "Pass",
+    "productionMockReference": false
+  },
+  "tests": 1668,
+  "focused": 61,
+  "Node": 63,
+  "Windows": "NotRun",
+  "RemoteCi": "NotRun",
+  "ModelCalls": "None"
+}

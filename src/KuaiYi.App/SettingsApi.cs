@@ -11,6 +11,7 @@ namespace KuaiYi.App;
 internal sealed partial class SettingsWindow
 {
     private readonly ApiConnectionTestWorkflow? apiTests;
+    private readonly TextBox connectTimeout=new(),headersTimeout=new(),firstTimeout=new(),idleTimeout=new();
     private readonly TextBox endpointPath=new(),temperature=new(),contextTokens=new(),imageBytes=new(),authHeader=new(),headers=new(){AcceptsReturn=true,MinHeight=60};
     private readonly ComboBox outputParameter=Choice<OutputTokenParameter>(),streamCapability=Choice<Capability>(),visionCapability=Choice<Capability>(),temperatureCapability=Choice<Capability>(),jsonCapability=Choice<Capability>(),usageCapability=Choice<Capability>();
     private readonly CheckBox localHttp=new(){Content="允许已明确确认的本机回环 HTTP"},insecureHttp=new(){Content="风险开关：允许远端 / 局域网非加密 HTTP"},storeFalse=new(){Content="发送 store:false（仅明确支持此字段的 OpenAI 服务）"};
@@ -23,6 +24,7 @@ internal sealed partial class SettingsWindow
         foreach(var pair in new[]{("OpenAI 官方预设",Protocol.OpenAIChat),("Anthropic 官方预设",Protocol.AnthropicMessages)})
         {var button=new Button{Content=pair.Item1,Margin=new Thickness(4)};presets.Children.Add(button);button.Click+=(_,_)=>ApplyApiPreset(pair.Item2);}
         Field(page,"端点路径（空为协议默认；完整端点模式不追加）",endpointPath);Field(page,"输出 token 参数方式",outputParameter);Field(page,"温度（空为省略）",temperature);Field(page,"上下文 token 上限（可空，非精确计数）",contextTokens);Field(page,"图像字节上限（65536—4194304）",imageBytes);
+        Field(page,"连接截止（1—60秒，默认10）",connectTimeout);Field(page,"响应头截止（1—180秒，默认30）",headersTimeout);Field(page,"首有效协议响应（1—300秒，默认30）",firstTimeout);Field(page,"无有效活动截止（1—180秒，默认20）",idleTimeout);Note(page,"阶段截止不延长总预算。ping、未知事件、JSON空白等不重置有效内容计时；更大阶段值仍受上方总时限约束。");
         Field(page,"流式能力",streamCapability);Field(page,"图像能力",visionCapability);Field(page,"温度能力",temperatureCapability);Field(page,"结构化 JSON 能力",jsonCapability);Field(page,"流式用量能力",usageCapability);
         Note(page,"Unknown=未知，Supported=已确认支持，Unsupported=不支持。更改协议、模型或地址会重置能力。温度仅在明确支持时发送；图像能力未知不会作为已支持。");
         Field(page,"自定义认证头名（仅 CustomHeader；值使用上面的加密 API Key）",authHeader);Field(page,"非敏感自定义头（每行 Name: value；凭据只能用加密认证字段）",headers);
@@ -30,7 +32,7 @@ internal sealed partial class SettingsWindow
         foreach(var checkbox in new[]{localHttp,insecureHttp,storeFalse})checkbox.Click+=(_,_)=>{apiTests?.Cancel();PreviewEndpoint();};
         endpointPath.TextChanged+=(_,_)=>ApiIdentityEdited();headers.TextChanged+=(_,_)=>{if(!loading)apiTests?.Cancel();};authentication.SelectionChanged+=(_,_)=>{if(!loading)apiTests?.Cancel();};
         // Every request-affecting edit revokes the test, including keyboard toggles and masked credential edits.
-        foreach(var field in new[]{profileName,url,model,tokens,timeout,endpointPath,temperature,contextTokens,imageBytes,authHeader,headers,reveal})field.TextChanged+=(_,_)=>ApiFormEdited();
+        foreach(var field in new[]{profileName,url,model,tokens,timeout,connectTimeout,headersTimeout,firstTimeout,idleTimeout,endpointPath,temperature,contextTokens,imageBytes,authHeader,headers,reveal})field.TextChanged+=(_,_)=>ApiFormEdited();
         password.PasswordChanged+=(_,_)=>ApiFormEdited();
         foreach(var field in new[]{protocol,addressMode,authentication,outputParameter,streamCapability,visionCapability,temperatureCapability,jsonCapability,usageCapability,profiles,textProfile,visionProfile})field.SelectionChanged+=(_,_)=>ApiFormEdited();
         foreach(var field in new[]{stream,localHttp,insecureHttp,storeFalse}){field.Checked+=(_,_)=>ApiFormEdited();field.Unchecked+=(_,_)=>ApiFormEdited();}
@@ -52,18 +54,19 @@ internal sealed partial class SettingsWindow
     }
     private void LoadApiAdvanced(Profile? profile)
     {
+        connectTimeout.Text=(profile?.Timeouts.ConnectSeconds??10).ToString(CultureInfo.InvariantCulture);headersTimeout.Text=(profile?.Timeouts.HeadersSeconds??30).ToString(CultureInfo.InvariantCulture);firstTimeout.Text=(profile?.Timeouts.FirstResponseSeconds??30).ToString(CultureInfo.InvariantCulture);idleTimeout.Text=(profile?.Timeouts.IdleSeconds??20).ToString(CultureInfo.InvariantCulture);
         endpointPath.Text=profile?.EndpointPath??"";authHeader.Text=profile?.AuthenticationHeader??"";temperature.Text=profile?.Temperature?.ToString(CultureInfo.InvariantCulture)??"";contextTokens.Text=profile?.MaxContextTokens?.ToString(CultureInfo.InvariantCulture)??"";imageBytes.Text=(profile?.ImageByteLimit??4194304).ToString(CultureInfo.InvariantCulture);
         outputParameter.SelectedItem=profile?.OutputLimitParameter??OutputTokenParameter.ProtocolDefault;localHttp.IsChecked=profile?.AllowLoopbackHttp??false;insecureHttp.IsChecked=profile?.AllowInsecureHttp??false;storeFalse.IsChecked=profile?.SendStoreFalse??false;
         streamCapability.SelectedItem=profile?.Capabilities.Streaming??Capability.Unknown;visionCapability.SelectedItem=profile?.Capabilities.Vision??Capability.Unknown;temperatureCapability.SelectedItem=profile?.Capabilities.Temperature??Capability.Unknown;jsonCapability.SelectedItem=profile?.Capabilities.StructuredJson??Capability.Unknown;usageCapability.SelectedItem=profile?.Capabilities.UsageInStream??Capability.Unknown;
         headers.Text=profile==null?"":string.Join("\n",profile.Headers.Select(p=>p.Key+": "+p.Value));
-        foreach(var control in new Control[]{endpointPath,authHeader,temperature,contextTokens,imageBytes,outputParameter,streamCapability,visionCapability,temperatureCapability,jsonCapability,usageCapability,headers,localHttp,insecureHttp,storeFalse})control.IsEnabled=profile!=null;
+        foreach(var control in new Control[]{connectTimeout,headersTimeout,firstTimeout,idleTimeout,endpointPath,authHeader,temperature,contextTokens,imageBytes,outputParameter,streamCapability,visionCapability,temperatureCapability,jsonCapability,usageCapability,headers,localHttp,insecureHttp,storeFalse})control.IsEnabled=profile!=null;
     }
     private Profile CaptureApiAdvanced(Profile profile)
     {
         var publicHeaders=ImmutableDictionary.CreateBuilder<string,string>(StringComparer.OrdinalIgnoreCase);
         foreach(var line in headers.Text.Split(new[]{'\r','\n'},StringSplitOptions.RemoveEmptyEntries|StringSplitOptions.TrimEntries))
         {int split=line.IndexOf(':');if(split<=0||publicHeaders.ContainsKey(line[..split].Trim()))throw new SettingsValidationException("profile.headers");publicHeaders.Add(line[..split].Trim(),line[(split+1)..].Trim());}
-        var result=profile with{EndpointPath=profile.AddressMode==ApiAddressMode.ExactEndpoint?"":endpointPath.Text,AuthenticationHeader=profile.Authentication==ApiAuthentication.CustomHeader?authHeader.Text:"",
+        var result=profile with{Timeouts=new(){ConnectSeconds=Integer(connectTimeout.Text,"profile.timeouts.connectSeconds"),HeadersSeconds=Integer(headersTimeout.Text,"profile.timeouts.headersSeconds"),FirstResponseSeconds=Integer(firstTimeout.Text,"profile.timeouts.firstResponseSeconds"),IdleSeconds=Integer(idleTimeout.Text,"profile.timeouts.idleSeconds")},EndpointPath=profile.AddressMode==ApiAddressMode.ExactEndpoint?"":endpointPath.Text,AuthenticationHeader=profile.Authentication==ApiAuthentication.CustomHeader?authHeader.Text:"",
             OutputLimitParameter=(OutputTokenParameter)(outputParameter.SelectedItem??OutputTokenParameter.ProtocolDefault),Temperature=string.IsNullOrWhiteSpace(temperature.Text)?null:Number(temperature.Text,"profile.temperature"),MaxContextTokens=string.IsNullOrWhiteSpace(contextTokens.Text)?null:Integer(contextTokens.Text,"profile.maxContextTokens"),ImageByteLimit=Integer(imageBytes.Text,"profile.imageByteLimit"),AllowLoopbackHttp=localHttp.IsChecked==true,AllowInsecureHttp=insecureHttp.IsChecked==true,SendStoreFalse=storeFalse.IsChecked==true,Headers=publicHeaders.ToImmutable(),
             Capabilities=new(){Streaming=(Capability)(streamCapability.SelectedItem??Capability.Unknown),Vision=(Capability)(visionCapability.SelectedItem??Capability.Unknown),Temperature=(Capability)(temperatureCapability.SelectedItem??Capability.Unknown),StructuredJson=(Capability)(jsonCapability.SelectedItem??Capability.Unknown),UsageInStream=(Capability)(usageCapability.SelectedItem??Capability.Unknown)}};
         ApiProfilePolicy.ValidateParameters(result);_=ApiProfilePolicy.Resolve(result);return result;

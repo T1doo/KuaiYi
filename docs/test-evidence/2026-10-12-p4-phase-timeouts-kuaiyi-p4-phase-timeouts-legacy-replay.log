@@ -1,0 +1,63 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.84]     KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(protocol: AnthropicMessages) [FAIL]
+[xUnit.net 00:00:01.35]     KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(protocol: OpenAIChat) [FAIL]
+  Failed KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(protocol: AnthropicMessages) [584 ms]
+  Error Message:
+   Configured phase must terminate this real socket independently of total.
+  Stack Trace:
+     at KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.Rig.AssertTimedOut(Int32 seconds, String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LegacyPhaseDeadlineReplayTests.cs:line 17
+   at KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LegacyPhaseDeadlineReplayTests.cs:line 22
+   at KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LegacyPhaseDeadlineReplayTests.cs:line 22
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(protocol: OpenAIChat) [511 ms]
+  Error Message:
+   Configured phase must terminate this real socket independently of total.
+  Stack Trace:
+     at KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.Rig.AssertTimedOut(Int32 seconds, String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LegacyPhaseDeadlineReplayTests.cs:line 17
+   at KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LegacyPhaseDeadlineReplayTests.cs:line 22
+   at KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LegacyPhaseDeadlineReplayTests.cs:line 22
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:01.85]     KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.ResponseHeadersUseTheSavedFrozenLimit(protocol: AnthropicMessages) [FAIL]
+[xUnit.net 00:00:02.36]     KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.ResponseHeadersUseTheSavedFrozenLimit(protocol: OpenAIChat) [FAIL]
+[xUnit.net 00:00:02.87]     KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.KeepaliveCannotReplaceFirstEffectiveProtocolResponse(protocol: AnthropicMessages) [FAIL]
+  Failed KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.ResponseHeadersUseTheSavedFrozenLimit(protocol: AnthropicMessages) [503 ms]
+  Error Message:
+   Configured phase must terminate this real socket independently of total.
+  Stack Trace:
+     at KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.Rig.AssertTimedOut(Int32 seconds, String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LegacyPhaseDeadlineReplayTests.cs:line 17
+   at KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.ResponseHeadersUseTheSavedFrozenLimit(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LegacyPhaseDeadlineReplayTests.cs:line 28
+   at KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.ResponseHeadersUseTheSavedFrozenLimit(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LegacyPhaseDeadlineReplayTests.cs:line 28
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.ResponseHeadersUseTheSavedFrozenLimit(protocol: OpenAIChat) [506 ms]
+  Error Message:
+   Configured phase must terminate this real socket independently of total.
+  Stack Trace:
+     at KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.Rig.AssertTimedOut(Int32 seconds, String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LegacyPhaseDeadlineReplayTests.cs:line 17
+   at KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.ResponseHeadersUseTheSavedFrozenLimit(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LegacyPhaseDeadlineReplayTests.cs:line 28
+   at KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.ResponseHeadersUseTheSavedFrozenLimit(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LegacyPhaseDeadlineReplayTests.cs:line 28
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.KeepaliveCannotReplaceFirstEffectiveProtocolResponse(protocol: AnthropicMessages) [506 ms]
+  Error Message:
+   Configured phase must terminate this real socket independently of total.
+  Stack Trace:
+     at KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.Rig.AssertTimedOut(Int32 seconds, String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LegacyPhaseDeadlineReplayTests.cs:line 17
+   at KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.KeepaliveCannotReplaceFirstEffectiveProtocolResponse(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LegacyPhaseDeadlineReplayTests.cs:line 25
+   at KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.KeepaliveCannotReplaceFirstEffectiveProtocolResponse(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LegacyPhaseDeadlineReplayTests.cs:line 25
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:03.37]     KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.KeepaliveCannotReplaceFirstEffectiveProtocolResponse(protocol: OpenAIChat) [FAIL]
+  Failed KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.KeepaliveCannotReplaceFirstEffectiveProtocolResponse(protocol: OpenAIChat) [501 ms]
+  Error Message:
+   Configured phase must terminate this real socket independently of total.
+  Stack Trace:
+     at KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.Rig.AssertTimedOut(Int32 seconds, String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LegacyPhaseDeadlineReplayTests.cs:line 17
+   at KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.KeepaliveCannotReplaceFirstEffectiveProtocolResponse(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LegacyPhaseDeadlineReplayTests.cs:line 25
+   at KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests.KeepaliveCannotReplaceFirstEffectiveProtocolResponse(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/LegacyPhaseDeadlineReplayTests.cs:line 25
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/test-results/p4-phase-timeouts/phase-legacy-replay-red.trx
+
+Failed!  - Failed:     6, Passed:     0, Skipped:     0, Total:     6, Duration: 3 s - KuaiYi.Provider.Tests.dll (net10.0)

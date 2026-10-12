@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="2585bfae-ac6f-4a09-9b64-5a0b0493c2b3" name="@552716c6b8c5 2026-10-12 01:45:16" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-12T01:45:16.4895942+00:00" queuing="2026-10-12T01:45:16.4895942+00:00" start="2026-10-12T01:45:15.8024875+00:00" finish="2026-10-12T01:45:16.5309427+00:00" />
+  <TestSettings name="default" id="348c7b2e-88d5-46e0-8661-ac4f85b46238">
+    <Deployment runDeploymentRoot="_552716c6b8c5_2026-10-12_01_45_16" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="5fd78791-6668-45c7-8e35-acb21c0b46a1" testId="97c7843d-c08a-ddee-275a-df7a01b3d9e1" testName="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.MaximumValuesAndFrozenRecordSurviveSaveAndSemanticComparison" computerName="552716c6b8c5" duration="00:00:00.0253032" startTime="2026-10-12T01:45:16.4677717+00:00" endTime="2026-10-12T01:45:16.4717267+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5fd78791-6668-45c7-8e35-acb21c0b46a1" />
+    <UnitTestResult executionId="f998d78a-523b-4fc3-bf04-6a8c19725ab7" testId="b8657db9-a3b0-d4e5-a265-9aa1f1d47fa2" testName="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.InvalidPhaseValuesCannotBeReadAsValidSettings(field: &quot;firstResponseSeconds&quot;, value: 0)" computerName="552716c6b8c5" duration="00:00:00.0000227" startTime="2026-10-12T01:45:16.4493284+00:00" endTime="2026-10-12T01:45:16.4493478+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f998d78a-523b-4fc3-bf04-6a8c19725ab7" />
+    <UnitTestResult executionId="70cf72df-f960-48e3-9311-a42bbf1d0c09" testId="6bb43b6b-da7a-bc7c-2e34-aecdada20ecb" testName="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.NullAndUnknownTimeoutFieldsAreRejectedExplicitly" computerName="552716c6b8c5" duration="00:00:00.0009760" startTime="2026-10-12T01:45:16.4724337+00:00" endTime="2026-10-12T01:45:16.4733264+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="70cf72df-f960-48e3-9311-a42bbf1d0c09" />
+    <UnitTestResult executionId="99c561e4-148c-48f5-9419-9b1cff92a261" testId="8783c965-4005-c6af-354c-4841e5168e94" testName="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.OldProfileDefaultsRemainCompatibleAndFinite" computerName="552716c6b8c5" duration="00:00:00.0013319" startTime="2026-10-12T01:45:16.4718142+00:00" endTime="2026-10-12T01:45:16.4723544+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="99c561e4-148c-48f5-9419-9b1cff92a261" />
+    <UnitTestResult executionId="4a030312-feb1-48ba-8841-c6c5c0b21808" testId="3b193a95-50c1-baaa-f7f6-4c9a90b29b02" testName="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.InvalidPhaseValuesCannotBeReadAsValidSettings(field: &quot;connectSeconds&quot;, value: 0)" computerName="552716c6b8c5" duration="00:00:00.0000198" startTime="2026-10-12T01:45:16.4493786+00:00" endTime="2026-10-12T01:45:16.4493975+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4a030312-feb1-48ba-8841-c6c5c0b21808" />
+    <UnitTestResult executionId="984f1688-9cca-4693-b72a-94a70dd4f071" testId="67b60ede-c60a-ed67-eeb6-b30dabfe036c" testName="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.ValidPhaseSettingMustSurviveActualJsonReadAndWrite(field: &quot;firstResponseSeconds&quot;, value: 13)" computerName="552716c6b8c5" duration="00:00:00.0003843" startTime="2026-10-12T01:45:16.4485804+00:00" endTime="2026-10-12T01:45:16.4486063+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="984f1688-9cca-4693-b72a-94a70dd4f071" />
+    <UnitTestResult executionId="4eb985e9-3711-4361-8c9c-412c186af16d" testId="248b85c2-dcd8-9fd4-ef83-85559a3ecf40" testName="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.InvalidPhaseValuesCannotBeReadAsValidSettings(field: &quot;firstResponseSeconds&quot;, value: 301)" computerName="552716c6b8c5" duration="00:00:00.0000217" startTime="2026-10-12T01:45:16.4651688+00:00" endTime="2026-10-12T01:45:16.4652111+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4eb985e9-3711-4361-8c9c-412c186af16d" />
+    <UnitTestResult executionId="18e40c47-ae3a-4265-8908-9a749e4e29af" testId="a0ceed53-2ee5-79c3-e275-e73a53c710ef" testName="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.InvalidPhaseValuesCannotBeReadAsValidSettings(field: &quot;headersSeconds&quot;, value: 0)" computerName="552716c6b8c5" duration="00:00:00.0006882" startTime="2026-10-12T01:45:16.4491568+00:00" endTime="2026-10-12T01:45:16.4491809+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="18e40c47-ae3a-4265-8908-9a749e4e29af" />
+    <UnitTestResult executionId="abeb0318-1e58-4402-a5f7-e55ebfc4b2b3" testId="1de13b54-fd7c-20c9-faa8-88d501aef1d6" testName="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.InvalidPhaseValuesCannotBeReadAsValidSettings(field: &quot;idleSeconds&quot;, value: 181)" computerName="552716c6b8c5" duration="00:00:00.0002310" startTime="2026-10-12T01:45:16.4492259+00:00" endTime="2026-10-12T01:45:16.4492461+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="abeb0318-1e58-4402-a5f7-e55ebfc4b2b3" />
+    <UnitTestResult executionId="868b00da-f77d-4d44-9fe2-79fa1ff2efde" testId="2d955d90-86ab-afcf-256d-f4f5e0f6c33a" testName="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.ValidPhaseSettingMustSurviveActualJsonReadAndWrite(field: &quot;connectSeconds&quot;, value: 7)" computerName="552716c6b8c5" duration="00:00:00.0004342" startTime="2026-10-12T01:45:16.4486785+00:00" endTime="2026-10-12T01:45:16.4486995+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="868b00da-f77d-4d44-9fe2-79fa1ff2efde" />
+    <UnitTestResult executionId="cf2782fc-4a02-49e0-8387-c24523b577df" testId="9ee12b32-0b1c-673a-7a80-9b3c55a06019" testName="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.ValidPhaseSettingMustSurviveActualJsonReadAndWrite(field: &quot;idleSeconds&quot;, value: 17)" computerName="552716c6b8c5" duration="00:00:00.0701299" startTime="2026-10-12T01:45:16.3630263+00:00" endTime="2026-10-12T01:45:16.4398613+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cf2782fc-4a02-49e0-8387-c24523b577df" />
+    <UnitTestResult executionId="9de8c25c-6068-4aff-bcf1-759df7b8f7d5" testId="85ac6e6e-02d3-9a30-1dc1-68e9cc86a25a" testName="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.InvalidPhaseValuesCannotBeReadAsValidSettings(field: &quot;idleSeconds&quot;, value: 0)" computerName="552716c6b8c5" duration="00:00:00.0000297" startTime="2026-10-12T01:45:16.4492784+00:00" endTime="2026-10-12T01:45:16.4492973+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9de8c25c-6068-4aff-bcf1-759df7b8f7d5" />
+    <UnitTestResult executionId="f58dcb18-3daa-408d-8316-41d0adc5850b" testId="b7f58737-613f-3f84-2281-ca1e70a489ba" testName="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.ValidPhaseSettingMustSurviveActualJsonReadAndWrite(field: &quot;headersSeconds&quot;, value: 11)" computerName="552716c6b8c5" duration="00:00:00.0011084" startTime="2026-10-12T01:45:16.4481665+00:00" endTime="2026-10-12T01:45:16.4482462+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f58dcb18-3daa-408d-8316-41d0adc5850b" />
+    <UnitTestResult executionId="dd246dbe-d32b-4061-813b-e533088c5c3c" testId="e471f4a7-376b-4d54-7de3-3e4896fae8f0" testName="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.InvalidPhaseValuesCannotBeReadAsValidSettings(field: &quot;headersSeconds&quot;, value: 181)" computerName="552716c6b8c5" duration="00:00:00.0000196" startTime="2026-10-12T01:45:16.4668497+00:00" endTime="2026-10-12T01:45:16.4668694+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dd246dbe-d32b-4061-813b-e533088c5c3c" />
+    <UnitTestResult executionId="cce981f0-d821-44c1-ad62-73e258684694" testId="e4c1199e-94b5-56b3-740a-0c2fe35a1302" testName="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.InvalidPhaseValuesCannotBeReadAsValidSettings(field: &quot;connectSeconds&quot;, value: 61)" computerName="552716c6b8c5" duration="00:00:00.0000194" startTime="2026-10-12T01:45:16.4667725+00:00" endTime="2026-10-12T01:45:16.4667976+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cce981f0-d821-44c1-ad62-73e258684694" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.InvalidPhaseValuesCannotBeReadAsValidSettings(field: &quot;firstResponseSeconds&quot;, value: 0)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b8657db9-a3b0-d4e5-a265-9aa1f1d47fa2">
+      <Execution id="f998d78a-523b-4fc3-bf04-6a8c19725ab7" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests" name="InvalidPhaseValuesCannotBeReadAsValidSettings" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.ValidPhaseSettingMustSurviveActualJsonReadAndWrite(field: &quot;connectSeconds&quot;, value: 7)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="2d955d90-86ab-afcf-256d-f4f5e0f6c33a">
+      <Execution id="868b00da-f77d-4d44-9fe2-79fa1ff2efde" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests" name="ValidPhaseSettingMustSurviveActualJsonReadAndWrite" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.NullAndUnknownTimeoutFieldsAreRejectedExplicitly" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="6bb43b6b-da7a-bc7c-2e34-aecdada20ecb">
+      <Execution id="70cf72df-f960-48e3-9311-a42bbf1d0c09" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests" name="NullAndUnknownTimeoutFieldsAreRejectedExplicitly" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.InvalidPhaseValuesCannotBeReadAsValidSettings(field: &quot;headersSeconds&quot;, value: 181)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="e471f4a7-376b-4d54-7de3-3e4896fae8f0">
+      <Execution id="dd246dbe-d32b-4061-813b-e533088c5c3c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests" name="InvalidPhaseValuesCannotBeReadAsValidSettings" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.InvalidPhaseValuesCannotBeReadAsValidSettings(field: &quot;headersSeconds&quot;, value: 0)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a0ceed53-2ee5-79c3-e275-e73a53c710ef">
+      <Execution id="18e40c47-ae3a-4265-8908-9a749e4e29af" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests" name="InvalidPhaseValuesCannotBeReadAsValidSettings" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.ValidPhaseSettingMustSurviveActualJsonReadAndWrite(field: &quot;idleSeconds&quot;, value: 17)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="9ee12b32-0b1c-673a-7a80-9b3c55a06019">
+      <Execution id="cf2782fc-4a02-49e0-8387-c24523b577df" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests" name="ValidPhaseSettingMustSurviveActualJsonReadAndWrite" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.OldProfileDefaultsRemainCompatibleAndFinite" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="8783c965-4005-c6af-354c-4841e5168e94">
+      <Execution id="99c561e4-148c-48f5-9419-9b1cff92a261" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests" name="OldProfileDefaultsRemainCompatibleAndFinite" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.InvalidPhaseValuesCannotBeReadAsValidSettings(field: &quot;idleSeconds&quot;, value: 181)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="1de13b54-fd7c-20c9-faa8-88d501aef1d6">
+      <Execution id="abeb0318-1e58-4402-a5f7-e55ebfc4b2b3" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests" name="InvalidPhaseValuesCannotBeReadAsValidSettings" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.InvalidPhaseValuesCannotBeReadAsValidSettings(field: &quot;connectSeconds&quot;, value: 61)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="e4c1199e-94b5-56b3-740a-0c2fe35a1302">
+      <Execution id="cce981f0-d821-44c1-ad62-73e258684694" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests" name="InvalidPhaseValuesCannotBeReadAsValidSettings" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.InvalidPhaseValuesCannotBeReadAsValidSettings(field: &quot;firstResponseSeconds&quot;, value: 301)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="248b85c2-dcd8-9fd4-ef83-85559a3ecf40">
+      <Execution id="4eb985e9-3711-4361-8c9c-412c186af16d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests" name="InvalidPhaseValuesCannotBeReadAsValidSettings" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.ValidPhaseSettingMustSurviveActualJsonReadAndWrite(field: &quot;firstResponseSeconds&quot;, value: 13)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="67b60ede-c60a-ed67-eeb6-b30dabfe036c">
+      <Execution id="984f1688-9cca-4693-b72a-94a70dd4f071" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests" name="ValidPhaseSettingMustSurviveActualJsonReadAndWrite" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.ValidPhaseSettingMustSurviveActualJsonReadAndWrite(field: &quot;headersSeconds&quot;, value: 11)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b7f58737-613f-3f84-2281-ca1e70a489ba">
+      <Execution id="f58dcb18-3daa-408d-8316-41d0adc5850b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests" name="ValidPhaseSettingMustSurviveActualJsonReadAndWrite" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.InvalidPhaseValuesCannotBeReadAsValidSettings(field: &quot;connectSeconds&quot;, value: 0)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="3b193a95-50c1-baaa-f7f6-4c9a90b29b02">
+      <Execution id="4a030312-feb1-48ba-8841-c6c5c0b21808" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests" name="InvalidPhaseValuesCannotBeReadAsValidSettings" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.MaximumValuesAndFrozenRecordSurviveSaveAndSemanticComparison" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="97c7843d-c08a-ddee-275a-df7a01b3d9e1">
+      <Execution id="5fd78791-6668-45c7-8e35-acb21c0b46a1" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests" name="MaximumValuesAndFrozenRecordSurviveSaveAndSemanticComparison" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests.InvalidPhaseValuesCannotBeReadAsValidSettings(field: &quot;idleSeconds&quot;, value: 0)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="85ac6e6e-02d3-9a30-1dc1-68e9cc86a25a">
+      <Execution id="9de8c25c-6068-4aff-bcf1-759df7b8f7d5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.PhaseTimeoutSettingsTests" name="InvalidPhaseValuesCannotBeReadAsValidSettings" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="97c7843d-c08a-ddee-275a-df7a01b3d9e1" executionId="5fd78791-6668-45c7-8e35-acb21c0b46a1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b8657db9-a3b0-d4e5-a265-9aa1f1d47fa2" executionId="f998d78a-523b-4fc3-bf04-6a8c19725ab7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6bb43b6b-da7a-bc7c-2e34-aecdada20ecb" executionId="70cf72df-f960-48e3-9311-a42bbf1d0c09" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8783c965-4005-c6af-354c-4841e5168e94" executionId="99c561e4-148c-48f5-9419-9b1cff92a261" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3b193a95-50c1-baaa-f7f6-4c9a90b29b02" executionId="4a030312-feb1-48ba-8841-c6c5c0b21808" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="67b60ede-c60a-ed67-eeb6-b30dabfe036c" executionId="984f1688-9cca-4693-b72a-94a70dd4f071" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="248b85c2-dcd8-9fd4-ef83-85559a3ecf40" executionId="4eb985e9-3711-4361-8c9c-412c186af16d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a0ceed53-2ee5-79c3-e275-e73a53c710ef" executionId="18e40c47-ae3a-4265-8908-9a749e4e29af" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1de13b54-fd7c-20c9-faa8-88d501aef1d6" executionId="abeb0318-1e58-4402-a5f7-e55ebfc4b2b3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2d955d90-86ab-afcf-256d-f4f5e0f6c33a" executionId="868b00da-f77d-4d44-9fe2-79fa1ff2efde" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9ee12b32-0b1c-673a-7a80-9b3c55a06019" executionId="cf2782fc-4a02-49e0-8387-c24523b577df" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="85ac6e6e-02d3-9a30-1dc1-68e9cc86a25a" executionId="9de8c25c-6068-4aff-bcf1-759df7b8f7d5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b7f58737-613f-3f84-2281-ca1e70a489ba" executionId="f58dcb18-3daa-408d-8316-41d0adc5850b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e471f4a7-376b-4d54-7de3-3e4896fae8f0" executionId="dd246dbe-d32b-4061-813b-e533088c5c3c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e4c1199e-94b5-56b3-740a-0c2fe35a1302" executionId="cce981f0-d821-44c1-ad62-73e258684694" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="15" executed="15" passed="15" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.07]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.22]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.25]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.38]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

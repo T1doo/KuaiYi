@@ -21,6 +21,8 @@ internal static class ProtocolJson
 public sealed class OpenAiChatAdapter : IProtocolAdapter
 {
     public ApiProtocol Protocol => ApiProtocol.OpenAIChat;
+    public bool LastEventWasEffective{get;private set;}
+    private bool roleSeen,finishSeen;private TokenUsage? previousUsage;
     public JsonObject BuildBody(TranslationRequest request)
     {
         JsonNode content = JsonValue.Create(request.SourceText)!;
@@ -41,10 +43,11 @@ public sealed class OpenAiChatAdapter : IProtocolAdapter
     }
     public IReadOnlyList<ModelEvent> ParseEvent(string data)
     {
-        if (data == "[DONE]") return [new(ModelEventKind.Completed, Reason: "done")];
+        LastEventWasEffective=false;
+        if (data == "[DONE]"){LastEventWasEffective=true;return [new(ModelEventKind.Completed, Reason: "done")];}
         using var document = ProtocolJson.Parse(data);
         JsonElement root = document.RootElement;
-        if (root.TryGetProperty("error", out _)) return [new(ModelEventKind.Failed, Reason: "PROVIDER_ERROR")];
+        if (root.TryGetProperty("error", out _)){LastEventWasEffective=true;return [new(ModelEventKind.Failed, Reason: "PROVIDER_ERROR")];}
         List<ModelEvent> events = [];
         if (root.TryGetProperty("usage", out var usage) && usage.ValueKind == JsonValueKind.Object)
             events.Add(new(ModelEventKind.Usage, Usage: new(ProtocolJson.Number(usage, "prompt_tokens"), ProtocolJson.Number(usage, "completion_tokens"))));
@@ -54,6 +57,7 @@ public sealed class OpenAiChatAdapter : IProtocolAdapter
             if (ProtocolJson.Number(choice, "index") != 0) continue;
             if (choice.TryGetProperty("delta", out var delta) && delta.ValueKind == JsonValueKind.Object)
             {
+                if(ProtocolJson.String(delta,"role")=="assistant"&&!roleSeen){roleSeen=true;LastEventWasEffective=true;}
                 string? text = ProtocolJson.String(delta, "content");
                 if (!string.IsNullOrEmpty(text)) events.Add(new(ModelEventKind.TextDelta, text));
                 if (!string.IsNullOrEmpty(ProtocolJson.String(delta, "refusal"))) events.Add(new(ModelEventKind.Failed, Reason: "CONTENT_REFUSED"));
@@ -61,9 +65,11 @@ public sealed class OpenAiChatAdapter : IProtocolAdapter
                     events.Add(new(ModelEventKind.Failed, Reason: "UNSUPPORTED_TOOL_RESPONSE"));
             }
             string? finish = ProtocolJson.String(choice, "finish_reason");
+            if(finish=="stop"&&!finishSeen){finishSeen=true;LastEventWasEffective=true;}
             if (finish is "length" or "content_filter" or "tool_calls" or "function_call")
                 events.Add(new(ModelEventKind.Failed, Reason: finish == "length" ? "OUTPUT_TRUNCATED" : finish == "content_filter" ? "CONTENT_REFUSED" : "UNSUPPORTED_TOOL_RESPONSE"));
         }
+        foreach(var item in events){if(item.Kind is ModelEventKind.Completed or ModelEventKind.Failed||item.Kind==ModelEventKind.TextDelta&&item.Text?.Length>0)LastEventWasEffective=true;else if(item.Kind==ModelEventKind.Usage&&item.Usage is {} counts&&(counts.InputTokens!=null||counts.OutputTokens!=null)&&counts!=previousUsage){LastEventWasEffective=true;previousUsage=counts;}}
         return events;
     }
     public IReadOnlyList<ModelEvent> ParseNonStreaming(string json)
@@ -88,10 +94,12 @@ public sealed class OpenAiChatAdapter : IProtocolAdapter
 
 public sealed class AnthropicMessagesAdapter : IProtocolAdapter
 {
-    private bool started, stopped, validStopReason;
+    private bool started, stopped, validStopReason,stopReasonSeen;
     private readonly Dictionary<long, string> activeBlocks = [];
     private readonly HashSet<long> seenBlocks = [];
     public ApiProtocol Protocol => ApiProtocol.AnthropicMessages;
+    public bool LastEventWasEffective{get;private set;}
+    private TokenUsage? previousUsage;
     public JsonObject BuildBody(TranslationRequest request)
     {
         var content = new JsonArray();
@@ -107,6 +115,7 @@ public sealed class AnthropicMessagesAdapter : IProtocolAdapter
     }
     public IReadOnlyList<ModelEvent> ParseEvent(string data)
     {
+        LastEventWasEffective=false;
         using var document = ProtocolJson.Parse(data);
         var root = document.RootElement;
         if (stopped) throw new InvalidDataException("Anthropic event after message_stop.");
@@ -119,14 +128,14 @@ public sealed class AnthropicMessagesAdapter : IProtocolAdapter
                 if (root.TryGetProperty("delta", out var delta) && ProtocolJson.String(delta, "type") == "text_delta")
                 {
                     if (blockType != "text" || ProtocolJson.String(delta, "text") is not { } text) throw new InvalidDataException("Text delta outside a text block.");
-                    return [new(ModelEventKind.TextDelta, text)];
+                    LastEventWasEffective=text.Length>0;return [new(ModelEventKind.TextDelta, text)];
                 }
                 break;
             case "message_start":
                 if (started) throw new InvalidDataException("Duplicate Anthropic message_start.");
-                started = true;
+                started = true;LastEventWasEffective=true;
                 if (root.TryGetProperty("message", out var message) && message.TryGetProperty("usage", out var startUsage))
-                    return [new(ModelEventKind.Usage, Usage: new(ProtocolJson.Number(startUsage, "input_tokens"), ProtocolJson.Number(startUsage, "output_tokens")))];
+                    {previousUsage=new(ProtocolJson.Number(startUsage,"input_tokens"),ProtocolJson.Number(startUsage,"output_tokens"));return [new(ModelEventKind.Usage,Usage:previousUsage)];}
                 break;
             case "message_delta":
                 RequireStarted();
@@ -135,27 +144,28 @@ public sealed class AnthropicMessagesAdapter : IProtocolAdapter
                 if (root.TryGetProperty("usage", out var usage)) events.Add(new(ModelEventKind.Usage, Usage: new(ProtocolJson.Number(usage, "input_tokens"), ProtocolJson.Number(usage, "output_tokens"))));
                 if (root.TryGetProperty("delta", out var final) && ProtocolJson.String(final, "stop_reason") is { } reason)
                 {
-                    validStopReason = reason is "end_turn" or "stop_sequence";
+                    validStopReason = reason is "end_turn" or "stop_sequence";LastEventWasEffective=!stopReasonSeen;stopReasonSeen=true;
                     if (!validStopReason) events.Add(new(ModelEventKind.Failed, Reason: reason == "max_tokens" ? "OUTPUT_TRUNCATED" : "UNSUPPORTED_OR_REFUSED"));
                 }
+                if(events.Any(item=>item.Usage is {} counts&&(counts.InputTokens!=null||counts.OutputTokens!=null)&&counts!=previousUsage)){LastEventWasEffective=true;previousUsage=events.First(item=>item.Kind==ModelEventKind.Usage).Usage;}
                 return events;
             case "message_stop":
                 RequireStarted();
                 if (activeBlocks.Count != 0 || !validStopReason) throw new InvalidDataException("Incomplete Anthropic message lifecycle.");
-                stopped = true; return [new(ModelEventKind.Completed, Reason: "message_stop")];
-            case "error": return [new(ModelEventKind.Failed, Reason: "PROVIDER_ERROR")];
+                stopped = true;LastEventWasEffective=true; return [new(ModelEventKind.Completed, Reason: "message_stop")];
+            case "error":LastEventWasEffective=true; return [new(ModelEventKind.Failed, Reason: "PROVIDER_ERROR")];
             case "content_block_start":
                 RequireStarted();
                 long index = BlockIndex(root);
                 if (seenBlocks.Count >= 128 || !seenBlocks.Add(index)) throw new InvalidDataException("Invalid/duplicate content block.");
                 if (!root.TryGetProperty("content_block", out var block) || ProtocolJson.String(block, "type") is not { } type) throw new InvalidDataException("Missing content block type.");
                 if (type is "tool_use" or "server_tool_use") return [new(ModelEventKind.Failed, Reason: "UNSUPPORTED_TOOL_RESPONSE")];
-                activeBlocks.Add(index, type);
-                if (type == "text" && ProtocolJson.String(block, "text") is { Length: > 0 } initial) return [new(ModelEventKind.TextDelta, initial)];
+                activeBlocks.Add(index, type);LastEventWasEffective=false;
+                if (type == "text" && ProtocolJson.String(block, "text") is { Length: > 0 } initial){LastEventWasEffective=true;return [new(ModelEventKind.TextDelta, initial)];}
                 break;
             case "content_block_stop":
                 RequireStarted();
-                if (!activeBlocks.Remove(BlockIndex(root))) throw new InvalidDataException("Stop without active content block.");
+                long stoppedIndex=BlockIndex(root);if(!activeBlocks.TryGetValue(stoppedIndex,out var endedType)||!activeBlocks.Remove(stoppedIndex))throw new InvalidDataException("Stop without active content block.");LastEventWasEffective=false;
                 break;
         }
         return [];

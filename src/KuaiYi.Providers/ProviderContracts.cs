@@ -17,11 +17,13 @@ public sealed record ApiProfile(ApiProtocol Protocol, Uri BaseUrl, string Endpoi
     int MaxOutputTokens = 4096, bool Stream = true, bool AllowLoopbackHttp = false, string AnthropicVersion = "2023-06-01",
     DevelopmentTranslationBoundary? DevelopmentBoundary = null,double? Temperature=null,bool IncludeUsage=false,bool SendStoreFalse=false,
     bool AllowInsecureHttp=false,string AuthenticationHeader="",System.Collections.Immutable.ImmutableDictionary<string,string>? Headers=null,
-    int ImageByteLimit=4194304,KuaiYi.Core.Settings.Capability? VisionCapability=null,int TotalTimeoutSeconds=120)
+    int ImageByteLimit=4194304,KuaiYi.Core.Settings.Capability? VisionCapability=null,int TotalTimeoutSeconds=120,KuaiYi.Core.Settings.RequestTimeouts? Timeouts=null)
 {
+    public KuaiYi.Core.Settings.RequestTimeouts PhaseTimeouts=>Timeouts??KuaiYi.Core.Settings.RequestTimeouts.Default;
     public bool IsDevelopmentFixture=>DevelopmentBoundary?.Allows(this)==true;
     public Uri ResolveEndpoint()
     {
+        try{PhaseTimeouts.Validate();}catch(KuaiYi.Core.Settings.SettingsValidationException){throw new ArgumentException("Invalid phase timeout.");}
         var endpoint=ResolveEndpointCore();
         if(DevelopmentBoundary is {} boundary&&!boundary.AllowsEndpoint(this,endpoint))throw new ArgumentException("Test transport outside authorization.");
         return endpoint;
@@ -83,6 +85,7 @@ public sealed class SecretLease : IDisposable
 public interface IProtocolAdapter
 {
     ApiProtocol Protocol { get; }
+    bool LastEventWasEffective{get;}
     JsonObject BuildBody(TranslationRequest request);
     IReadOnlyList<ModelEvent> ParseEvent(string data);
     IReadOnlyList<ModelEvent> ParseNonStreaming(string json);

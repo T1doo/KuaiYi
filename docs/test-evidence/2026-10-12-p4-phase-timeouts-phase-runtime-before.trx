@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="e5304d7b-93c7-44e6-8445-f6a52a3119ff" name="@552716c6b8c5 2026-10-12 01:27:21" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-12T01:27:21.5535949+00:00" queuing="2026-10-12T01:27:21.5535949+00:00" start="2026-10-12T01:27:15.0552109+00:00" finish="2026-10-12T01:27:40.6028225+00:00" />
+  <TestSettings name="default" id="d8694824-8381-4c62-903c-5e87f6810e97">
+    <Deployment runDeploymentRoot="_552716c6b8c5_2026-10-12_01_27_21" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="d7644c42-8596-4377-8143-d2652b79379c" testId="62e60035-c62b-b96d-e837-de85781fb051" testName="KuaiYi.Provider.Tests.PhaseDeadlineTests.KeepaliveCannotReplaceFirstEffectiveProtocolResponse(protocol: OpenAIChat)" computerName="552716c6b8c5" duration="00:00:06.0007409" startTime="2026-10-12T01:27:28.5456875+00:00" endTime="2026-10-12T01:27:34.5463998+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d7644c42-8596-4377-8143-d2652b79379c">
+      <Output>
+        <ErrorInfo>
+          <Message>System.TimeoutException : The operation has timed out.</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.PhaseDeadlineTests.KeepaliveCannotReplaceFirstEffectiveProtocolResponse(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs:line 25
+   at KuaiYi.Provider.Tests.PhaseDeadlineTests.KeepaliveCannotReplaceFirstEffectiveProtocolResponse(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs:line 25
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="57faf9af-9dfc-456e-a54d-0a2c6d7e796b" testId="e02cc9cc-cde5-99c9-73e5-1d3648384ad8" testName="KuaiYi.Provider.Tests.PhaseDeadlineTests.ResponseHeadersUseTheSavedFrozenLimit(protocol: OpenAIChat)" computerName="552716c6b8c5" duration="00:00:00.5027560" startTime="2026-10-12T01:27:27.5376412+00:00" endTime="2026-10-12T01:27:28.0411990+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="57faf9af-9dfc-456e-a54d-0a2c6d7e796b">
+      <Output>
+        <ErrorInfo>
+          <Message>Configured phase must terminate this real socket independently of total.</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.PhaseDeadlineTests.Rig.AssertTimedOut(Int32 seconds, String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs:line 17
+   at KuaiYi.Provider.Tests.PhaseDeadlineTests.ResponseHeadersUseTheSavedFrozenLimit(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs:line 28
+   at KuaiYi.Provider.Tests.PhaseDeadlineTests.ResponseHeadersUseTheSavedFrozenLimit(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs:line 28
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="37481822-75b4-44d0-8c26-fda8de377333" testId="cb0ddd2b-cba5-2a42-867c-6b2b51a3f69f" testName="KuaiYi.Provider.Tests.PhaseDeadlineTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(protocol: AnthropicMessages)" computerName="552716c6b8c5" duration="00:00:06.0299694" startTime="2026-10-12T01:27:15.4801413+00:00" endTime="2026-10-12T01:27:21.5247866+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="37481822-75b4-44d0-8c26-fda8de377333">
+      <Output>
+        <ErrorInfo>
+          <Message>System.TimeoutException : The operation has timed out.</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.PhaseDeadlineTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs:line 22
+   at KuaiYi.Provider.Tests.PhaseDeadlineTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs:line 22
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c85a5143-8a58-42a7-85b3-198deb4a59ad" testId="a5c005c5-6c84-44e5-b1ba-b91d7c466a8f" testName="KuaiYi.Provider.Tests.PhaseDeadlineTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(protocol: OpenAIChat)" computerName="552716c6b8c5" duration="00:00:06.0057443" startTime="2026-10-12T01:27:21.5451855+00:00" endTime="2026-10-12T01:27:27.5352157+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c85a5143-8a58-42a7-85b3-198deb4a59ad">
+      <Output>
+        <ErrorInfo>
+          <Message>System.TimeoutException : The operation has timed out.</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.PhaseDeadlineTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs:line 22
+   at KuaiYi.Provider.Tests.PhaseDeadlineTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs:line 22
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4bb3fec8-75b7-4684-9dd9-6e859898d7c3" testId="a0f9092b-faf3-7a31-2cff-c7d9db540e57" testName="KuaiYi.Provider.Tests.PhaseDeadlineTests.KeepaliveCannotReplaceFirstEffectiveProtocolResponse(protocol: AnthropicMessages)" computerName="552716c6b8c5" duration="00:00:06.0031530" startTime="2026-10-12T01:27:34.5472336+00:00" endTime="2026-10-12T01:27:40.5501390+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4bb3fec8-75b7-4684-9dd9-6e859898d7c3">
+      <Output>
+        <ErrorInfo>
+          <Message>System.TimeoutException : The operation has timed out.</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.PhaseDeadlineTests.KeepaliveCannotReplaceFirstEffectiveProtocolResponse(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs:line 25
+   at KuaiYi.Provider.Tests.PhaseDeadlineTests.KeepaliveCannotReplaceFirstEffectiveProtocolResponse(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs:line 25
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a6b2f144-8695-484c-9178-ffb0d3520dfb" testId="885172aa-cc82-85f4-65fe-77ed2a8701b3" testName="KuaiYi.Provider.Tests.PhaseDeadlineTests.ResponseHeadersUseTheSavedFrozenLimit(protocol: AnthropicMessages)" computerName="552716c6b8c5" duration="00:00:00.5036239" startTime="2026-10-12T01:27:28.0431692+00:00" endTime="2026-10-12T01:27:28.5449391+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a6b2f144-8695-484c-9178-ffb0d3520dfb">
+      <Output>
+        <ErrorInfo>
+          <Message>Configured phase must terminate this real socket independently of total.</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.PhaseDeadlineTests.Rig.AssertTimedOut(Int32 seconds, String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs:line 17
+   at KuaiYi.Provider.Tests.PhaseDeadlineTests.ResponseHeadersUseTheSavedFrozenLimit(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs:line 28
+   at KuaiYi.Provider.Tests.PhaseDeadlineTests.ResponseHeadersUseTheSavedFrozenLimit(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs:line 28
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.PhaseDeadlineTests.ResponseHeadersUseTheSavedFrozenLimit(protocol: OpenAIChat)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="e02cc9cc-cde5-99c9-73e5-1d3648384ad8">
+      <Execution id="57faf9af-9dfc-456e-a54d-0a2c6d7e796b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.PhaseDeadlineTests" name="ResponseHeadersUseTheSavedFrozenLimit" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.PhaseDeadlineTests.KeepaliveCannotReplaceFirstEffectiveProtocolResponse(protocol: AnthropicMessages)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="a0f9092b-faf3-7a31-2cff-c7d9db540e57">
+      <Execution id="4bb3fec8-75b7-4684-9dd9-6e859898d7c3" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.PhaseDeadlineTests" name="KeepaliveCannotReplaceFirstEffectiveProtocolResponse" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.PhaseDeadlineTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(protocol: AnthropicMessages)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="cb0ddd2b-cba5-2a42-867c-6b2b51a3f69f">
+      <Execution id="37481822-75b4-44d0-8c26-fda8de377333" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.PhaseDeadlineTests" name="JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.PhaseDeadlineTests.KeepaliveCannotReplaceFirstEffectiveProtocolResponse(protocol: OpenAIChat)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="62e60035-c62b-b96d-e837-de85781fb051">
+      <Execution id="d7644c42-8596-4377-8143-d2652b79379c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.PhaseDeadlineTests" name="KeepaliveCannotReplaceFirstEffectiveProtocolResponse" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.PhaseDeadlineTests.ResponseHeadersUseTheSavedFrozenLimit(protocol: AnthropicMessages)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="885172aa-cc82-85f4-65fe-77ed2a8701b3">
+      <Execution id="a6b2f144-8695-484c-9178-ffb0d3520dfb" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.PhaseDeadlineTests" name="ResponseHeadersUseTheSavedFrozenLimit" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.PhaseDeadlineTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(protocol: OpenAIChat)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="a5c005c5-6c84-44e5-b1ba-b91d7c466a8f">
+      <Execution id="c85a5143-8a58-42a7-85b3-198deb4a59ad" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.PhaseDeadlineTests" name="JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="62e60035-c62b-b96d-e837-de85781fb051" executionId="d7644c42-8596-4377-8143-d2652b79379c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e02cc9cc-cde5-99c9-73e5-1d3648384ad8" executionId="57faf9af-9dfc-456e-a54d-0a2c6d7e796b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cb0ddd2b-cba5-2a42-867c-6b2b51a3f69f" executionId="37481822-75b4-44d0-8c26-fda8de377333" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a5c005c5-6c84-44e5-b1ba-b91d7c466a8f" executionId="c85a5143-8a58-42a7-85b3-198deb4a59ad" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a0f9092b-faf3-7a31-2cff-c7d9db540e57" executionId="4bb3fec8-75b7-4684-9dd9-6e859898d7c3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="885172aa-cc82-85f4-65fe-77ed2a8701b3" executionId="a6b2f144-8695-484c-9178-ffb0d3520dfb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="6" executed="6" passed="0" failed="6" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.05]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.11]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.13]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:06.25]       System.TimeoutException : The operation has timed out.
+[xUnit.net 00:00:06.25]       Stack Trace:
+[xUnit.net 00:00:06.26]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs(22,0): at KuaiYi.Provider.Tests.PhaseDeadlineTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(ApiProtocol protocol)
+[xUnit.net 00:00:06.26]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs(22,0): at KuaiYi.Provider.Tests.PhaseDeadlineTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(ApiProtocol protocol)
+[xUnit.net 00:00:06.26]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:12.26]       System.TimeoutException : The operation has timed out.
+[xUnit.net 00:00:12.26]       Stack Trace:
+[xUnit.net 00:00:12.26]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs(22,0): at KuaiYi.Provider.Tests.PhaseDeadlineTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(ApiProtocol protocol)
+[xUnit.net 00:00:12.26]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs(22,0): at KuaiYi.Provider.Tests.PhaseDeadlineTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(ApiProtocol protocol)
+[xUnit.net 00:00:12.26]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:12.77]       Configured phase must terminate this real socket independently of total.
+[xUnit.net 00:00:12.77]       Stack Trace:
+[xUnit.net 00:00:12.77]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs(17,0): at KuaiYi.Provider.Tests.PhaseDeadlineTests.Rig.AssertTimedOut(Int32 seconds, String reason)
+[xUnit.net 00:00:12.77]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs(28,0): at KuaiYi.Provider.Tests.PhaseDeadlineTests.ResponseHeadersUseTheSavedFrozenLimit(ApiProtocol protocol)
+[xUnit.net 00:00:12.77]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs(28,0): at KuaiYi.Provider.Tests.PhaseDeadlineTests.ResponseHeadersUseTheSavedFrozenLimit(ApiProtocol protocol)
+[xUnit.net 00:00:12.77]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:13.27]       Configured phase must terminate this real socket independently of total.
+[xUnit.net 00:00:13.27]       Stack Trace:
+[xUnit.net 00:00:13.27]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs(17,0): at KuaiYi.Provider.Tests.PhaseDeadlineTests.Rig.AssertTimedOut(Int32 seconds, String reason)
+[xUnit.net 00:00:13.27]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs(28,0): at KuaiYi.Provider.Tests.PhaseDeadlineTests.ResponseHeadersUseTheSavedFrozenLimit(ApiProtocol protocol)
+[xUnit.net 00:00:13.27]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs(28,0): at KuaiYi.Provider.Tests.PhaseDeadlineTests.ResponseHeadersUseTheSavedFrozenLimit(ApiProtocol protocol)
+[xUnit.net 00:00:13.27]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:19.27]       System.TimeoutException : The operation has timed out.
+[xUnit.net 00:00:19.27]       Stack Trace:
+[xUnit.net 00:00:19.27]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs(25,0): at KuaiYi.Provider.Tests.PhaseDeadlineTests.KeepaliveCannotReplaceFirstEffectiveProtocolResponse(ApiProtocol protocol)
+[xUnit.net 00:00:19.27]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs(25,0): at KuaiYi.Provider.Tests.PhaseDeadlineTests.KeepaliveCannotReplaceFirstEffectiveProtocolResponse(ApiProtocol protocol)
+[xUnit.net 00:00:19.27]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:25.27]       System.TimeoutException : The operation has timed out.
+[xUnit.net 00:00:25.27]       Stack Trace:
+[xUnit.net 00:00:25.27]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs(25,0): at KuaiYi.Provider.Tests.PhaseDeadlineTests.KeepaliveCannotReplaceFirstEffectiveProtocolResponse(ApiProtocol protocol)
+[xUnit.net 00:00:25.27]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs(25,0): at KuaiYi.Provider.Tests.PhaseDeadlineTests.KeepaliveCannotReplaceFirstEffectiveProtocolResponse(ApiProtocol protocol)
+[xUnit.net 00:00:25.27]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:25.28]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T01:27:21.5318161+00:00">
+        <Text>[xUnit.net 00:00:06.25]     KuaiYi.Provider.Tests.PhaseDeadlineTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(protocol: AnthropicMessages) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T01:27:27.5373988+00:00">
+        <Text>[xUnit.net 00:00:12.26]     KuaiYi.Provider.Tests.PhaseDeadlineTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(protocol: OpenAIChat) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T01:27:28.0432837+00:00">
+        <Text>[xUnit.net 00:00:12.77]     KuaiYi.Provider.Tests.PhaseDeadlineTests.ResponseHeadersUseTheSavedFrozenLimit(protocol: OpenAIChat) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T01:27:28.5467527+00:00">
+        <Text>[xUnit.net 00:00:13.27]     KuaiYi.Provider.Tests.PhaseDeadlineTests.ResponseHeadersUseTheSavedFrozenLimit(protocol: AnthropicMessages) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T01:27:34.5476172+00:00">
+        <Text>[xUnit.net 00:00:19.27]     KuaiYi.Provider.Tests.PhaseDeadlineTests.KeepaliveCannotReplaceFirstEffectiveProtocolResponse(protocol: OpenAIChat) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T01:27:40.5507572+00:00">
+        <Text>[xUnit.net 00:00:25.27]     KuaiYi.Provider.Tests.PhaseDeadlineTests.KeepaliveCannotReplaceFirstEffectiveProtocolResponse(protocol: AnthropicMessages) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

@@ -1,0 +1,38 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.34]     KuaiYi.Provider.Tests.JsonProtocolProgressTests.InvalidDuplicateAndEscapedContentDoesNotQualifyAsValidActivity(json: "{\"choices\":[{\"index\":0,\"message\":{\"content\"···) [FAIL]
+  Failed KuaiYi.Provider.Tests.JsonProtocolProgressTests.InvalidDuplicateAndEscapedContentDoesNotQualifyAsValidActivity(json: "{\"choices\":[{\"index\":0,\"message\":{\"content\"···) [5 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(System.Text.Json.JsonException)
+Actual:   typeof(System.Text.Json.JsonReaderException)
+---- System.Text.Json.JsonReaderException : 'q' is an invalid escapable character within a JSON string. The string should be correctly escaped. LineNumber: 0 | BytePositionInLine: 46.
+  Stack Trace:
+     at KuaiYi.Provider.Tests.JsonProtocolProgressTests.InvalidDuplicateAndEscapedContentDoesNotQualifyAsValidActivity(String json) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/JsonProtocolProgressTests.cs:line 15
+   at InvokeStub_JsonProtocolProgressTests.InvalidDuplicateAndEscapedContentDoesNotQualifyAsValidActivity(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+----- Inner Stack Trace -----
+   at System.Text.Json.ThrowHelper.ThrowJsonReaderException(Utf8JsonReader& json, ExceptionResource resource, Byte nextByte, ReadOnlySpan`1 bytes)
+   at System.Text.Json.Utf8JsonReader.ConsumeStringAndValidate(ReadOnlySpan`1 data, Int32 idx)
+   at System.Text.Json.Utf8JsonReader.ConsumeString()
+   at System.Text.Json.Utf8JsonReader.ConsumeValue(Byte marker)
+   at System.Text.Json.Utf8JsonReader.ReadSingleSegment()
+   at System.Text.Json.Utf8JsonReader.Read()
+   at KuaiYi.Providers.JsonProtocolProgress.Scan(ReadOnlySpan`1 all, Boolean final) in /workspace/KuaiYi/src/KuaiYi.Providers/JsonProtocolProgress.cs:line 16
+   at KuaiYi.Provider.Tests.JsonProtocolProgressTests.<>c__DisplayClass1_0.<InvalidDuplicateAndEscapedContentDoesNotQualifyAsValidActivity>b__0() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/JsonProtocolProgressTests.cs:line 15
+[xUnit.net 00:00:01.39]     KuaiYi.Provider.Tests.PhaseDeadlineTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(protocol: AnthropicMessages) [FAIL]
+  Failed KuaiYi.Provider.Tests.PhaseDeadlineTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(protocol: AnthropicMessages) [509 ms]
+  Error Message:
+   Configured phase must terminate this real socket independently of total.
+  Stack Trace:
+     at KuaiYi.Provider.Tests.PhaseDeadlineTests.Rig.AssertTimedOut(Int32 seconds, String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs:line 17
+   at KuaiYi.Provider.Tests.PhaseDeadlineTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs:line 22
+   at KuaiYi.Provider.Tests.PhaseDeadlineTests.JsonBodyWithoutValidProtocolHasItsOwnFirstDeadline(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs:line 22
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/test-results/p4-phase-timeouts/phase-final-focused.trx
+
+Failed!  - Failed:     2, Passed:    44, Skipped:     0, Total:    46, Duration: 1 s - KuaiYi.Provider.Tests.dll (net10.0)

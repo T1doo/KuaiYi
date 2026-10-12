@@ -24,6 +24,7 @@ public static class ApiProfilePolicy
     }
     public static void ValidateParameters(ApiProfile profile)
     {
+        if(profile.Timeouts==null)throw new SettingsValidationException("profile.timeouts");profile.Timeouts.Validate();
         if(!Enum.IsDefined(profile.OutputLimitParameter))throw new SettingsValidationException("profile.outputLimitParameter");
         if(profile.Protocol==ApiProtocol.AnthropicMessages&&(profile.OutputLimitParameter is OutputTokenParameter.MaxCompletionTokens or OutputTokenParameter.Omit))throw new SettingsValidationException("profile.anthropicRequiresMaxTokens");
         if(profile.Temperature is {} temperature&&(!double.IsFinite(temperature)||temperature<0||temperature>(profile.Protocol==ApiProtocol.AnthropicMessages?1:2)))throw new SettingsValidationException("profile.temperature");

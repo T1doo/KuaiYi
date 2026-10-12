@@ -133,3 +133,5 @@ P4父审修复：connectionTestOrigin只供当前测试身份，不写普通cons
 P4-05会话下次覆盖独立于已保存默认及各版冻结快照；普通/当前设置重生分流，regenerate@1事实保真约束仅一次。版本自然序号与会话序列分开，same-source最多三份，原不同来源fallback保持；Begin在传输前发布元数据，实际Windows呈现未验，见ADR0017。
 
 模板设置采用schema1可选四模式不可变字典，单次白名单数据渲染、固定base先于自定义，原文仅user。预览与正式请求共用Compose并标示来源；hash版本/完整旧映射冻结/结构相等去重。命令修改前取消配置测试，已发普通生成不重写；固定公开测试不受模板影响。见ADR0018，WPF/J质量未验。
+
+P4阶段配置不可变随profile/版本，headers/first/idle依据实际阶段origin，total从凭据前贯穿。连接按有限秒数池缓存，真实socket/原固定边界和TLS保持；SSE实际Read token、JSON增量协议意义检测不靠收到字节刷新，有效预算仍受total。测试seam与实际TLS/Windows证据分开，见ADR0019。

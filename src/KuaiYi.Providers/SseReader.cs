@@ -11,7 +11,7 @@ public static class SseReader
 {
     public const int MaximumEventBytes = 1024 * 1024;
     public static async IAsyncEnumerable<SseEvent> ReadAsync(Stream stream,
-        [EnumeratorCancellation] CancellationToken cancellation = default)
+        [EnumeratorCancellation] CancellationToken cancellation = default,Func<CancellationToken>? readCancellation=null)
     {
         byte[] buffer = ArrayPool<byte>.Shared.Rent(4096);
         var line = new ArrayBufferWriter<byte>(256);
@@ -24,7 +24,7 @@ public static class SseReader
         {
             while (true)
             {
-                int count = await stream.ReadAsync(buffer.AsMemory(0, 4096), cancellation).ConfigureAwait(false);
+                int count = await stream.ReadAsync(buffer.AsMemory(0, 4096), (readCancellation?.Invoke()??cancellation)).ConfigureAwait(false);
                 if (count == 0) yield break; // EOF never dispatches an event lacking its final blank line.
                 for (int i = 0; i < count; i++)
                 {

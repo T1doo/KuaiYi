@@ -95,7 +95,7 @@ internal sealed partial class ShellWindow
         styles.Items.Add(new Separator());var original=new MenuItem{Header="沿用所示版本风格",IsEnabled=translation?.SessionStyle!=null};original.Click+=(_,_)=>{if(translation?.SetSessionStyle(null)==true)RefreshResultLabel();};styles.Items.Add(original);menu.Items.Add(styles);
     }
     private static string SourceLabel(TextTranslationSnapshot value)=>value.Source.SourceKind switch{SelectionSourceKind.Clipboard=>"复制兼容",SelectionSourceKind.OleDrop=>"拖放文字",_=>"选区"};
-    private static string FailureLabel(string reason)=>reason switch{"AUTH_FAILED" or "SECRET_UNAVAILABLE"=>"密钥不可用，请检查设置","REQUEST_TIMEOUT"=>"服务响应超时","NETWORK_ERROR" or "TLS_ERROR"=>"无法连接服务","RATE_LIMITED"=>"服务限流，请稍后重试","ENDPOINT_NOT_FOUND" or "CONFIG_INVALID"=>"服务配置无效","TEST_BOUNDARY_REJECTED"=>"测试配置越出本地授权边界，已拒绝发送","CANCELLED_OR_UNCONSENTED" or "SOURCE_OR_SETTINGS_CHANGED"=>"来源或授权已改变","STREAM_INTERRUPTED"=>"输出中断","LOCAL_OUTPUT_LIMIT"=>"输出超过本地安全上限",_=>"请求未完成，请检查服务设置"};
+    private static string FailureLabel(string reason)=>reason switch{"AUTH_FAILED" or "SECRET_UNAVAILABLE"=>"密钥不可用，请检查设置","REQUEST_TIMEOUT"=>"总时限已到","CONNECT_TIMEOUT"=>"连接超时","RESPONSE_HEADERS_TIMEOUT"=>"响应头超时","FIRST_RESPONSE_TIMEOUT"=>"首有效响应超时","READ_IDLE_TIMEOUT"=>"有效内容读取停滞","NETWORK_ERROR" or "TLS_ERROR"=>"无法连接服务","RATE_LIMITED"=>"服务限流，请稍后重试","ENDPOINT_NOT_FOUND" or "CONFIG_INVALID"=>"服务配置无效","TEST_BOUNDARY_REJECTED"=>"测试配置越出本地授权边界，已拒绝发送","CANCELLED_OR_UNCONSENTED" or "SOURCE_OR_SETTINGS_CHANGED"=>"来源或授权已改变","STREAM_INTERRUPTED"=>"输出中断","LOCAL_OUTPUT_LIMIT"=>"输出超过本地安全上限",_=>"请求未完成，请检查服务设置"};
     private async Task StopTranslation()
     {
         var owned=translation;translation=null;if(apiTests!=null){await apiTests.DisposeAsync();apiTests=null;}
