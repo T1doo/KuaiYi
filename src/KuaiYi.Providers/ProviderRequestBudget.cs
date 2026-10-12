@@ -8,14 +8,15 @@ public sealed class ProviderRequestBudget
     {if(seconds is <1 or >600)throw new ArgumentOutOfRangeException(nameof(seconds));Seconds=seconds;this.clock=clock??TimeProvider.System;started=this.clock.GetTimestamp();}
     public TimeSpan Remaining=>TimeSpan.FromTicks(Math.Max(0,TimeSpan.FromSeconds(Seconds).Ticks-clock.GetElapsedTime(started).Ticks));
     public void Check(){if(Remaining==TimeSpan.Zero)throw new OperationCanceledException("Frozen request budget expired.");}
-    public Deadline Link(CancellationToken parent)=>new(Remaining,clock,parent);
+    public Deadline Link(CancellationToken parent)=>new(this,clock,parent);
     public sealed class Deadline:IDisposable
     {
-        private readonly CancellationTokenSource timer,linked;
-        internal Deadline(TimeSpan remaining,TimeProvider clock,CancellationToken parent)
-        {timer=new(remaining,clock);linked=CancellationTokenSource.CreateLinkedTokenSource(parent,timer.Token);}
+        private readonly CancellationTokenSource timer,linked;private readonly ProviderRequestBudget budget;
+        internal Deadline(ProviderRequestBudget budget,TimeProvider clock,CancellationToken parent)
+        {this.budget=budget;timer=new(budget.Remaining,clock);linked=CancellationTokenSource.CreateLinkedTokenSource(parent,timer.Token);if(budget.Remaining==TimeSpan.Zero)timer.Cancel();}
         public CancellationToken Token=>linked.Token;
-        public bool IsCancellationRequested=>linked.IsCancellationRequested;
+        public bool IsCancellationRequested=>linked.IsCancellationRequested||budget.Remaining==TimeSpan.Zero;
+        public void Check(){linked.Token.ThrowIfCancellationRequested();budget.Check();}
         public void Dispose(){linked.Dispose();timer.Dispose();}
     }
 }

@@ -89,3 +89,5 @@ P4-05会话内四风格、版本N预览与事实保真重生成已接源码，�
 P4-05模板设置已接查看/复制/恢复/完整预览及真实配置→生产请求，见[自定义模板审阅](docs/p4-custom-templates-review.md)。固定base与发送权限独立于模板，原文仅user；真实WPF/模型语义/完整P4仍未验。
 
 P4-04阶段预算高级配置、有效活动SSE/JSON读取已接生产路径，见[阶段超时审阅](docs/p4-phase-timeouts-review.md)。61专项与真实loopback/TLS部分验证不替代Windows/真实服务验收。
+
+父审发现阶段转换与事件交付的截止竞争，已补绝对总预算/父取消/阶段期限检查，见[截止交付补正](docs/p4-completion-races-review.md)。新44项竞争回归通过，完整1712 .NET/63 Node；原阶段切片及本补正仍待父审，Windows整体验收未完成。

@@ -135,3 +135,5 @@ P4-05会话下次覆盖独立于已保存默认及各版冻结快照；普通/�
 模板设置采用schema1可选四模式不可变字典，单次白名单数据渲染、固定base先于自定义，原文仅user。预览与正式请求共用Compose并标示来源；hash版本/完整旧映射冻结/结构相等去重。命令修改前取消配置测试，已发普通生成不重写；固定公开测试不受模板影响。见ADR0018，WPF/J质量未验。
 
 P4阶段配置不可变随profile/版本，headers/first/idle依据实际阶段origin，total从凭据前贯穿。连接按有限秒数池缓存，真实socket/原固定边界和TLS保持；SSE实际Read token、JSON增量协议意义检测不靠收到字节刷新，有效预算仍受total。测试seam与实际TLS/Windows证据分开，见ADR0019。
+
+P4父审补正：每次阶段转换、read/parse完成和实际事件交付复核同一原始ProviderRequestBudget绝对期限、父取消及活动期限；首响应起点早于Started，Effective不能救活已过期阶段，timer取消通知延后也不能延展预算。outer envelope共享同一budget；迟到连接释放，不写HTTP。见[ADR0020](adr/0020-absolute-deadlines-at-delivery.md)。

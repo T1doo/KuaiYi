@@ -1,0 +1,399 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.36]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(protocol: OpenAIChat, mime: "text/event-stream", kind: "deferred-total") [FAIL]
+[xUnit.net 00:00:00.38]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(protocol: OpenAIChat, mime: "application/json", kind: "cancel") [FAIL]
+[xUnit.net 00:00:00.39]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(protocol: AnthropicMessages, mime: "application/json", kind: "deferred-total") [FAIL]
+[xUnit.net 00:00:00.40]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(protocol: AnthropicMessages, mime: "application/json", kind: "total") [FAIL]
+[xUnit.net 00:00:00.40]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(protocol: OpenAIChat, mime: "text/event-stream", kind: "cancel") [FAIL]
+[xUnit.net 00:00:00.41]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(protocol: AnthropicMessages, mime: "application/json", kind: "cancel") [FAIL]
+[xUnit.net 00:00:00.41]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(protocol: OpenAIChat, mime: "application/json", kind: "deferred-total") [FAIL]
+[xUnit.net 00:00:00.41]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(protocol: OpenAIChat, mime: "application/json", kind: "total") [FAIL]
+[xUnit.net 00:00:00.42]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(protocol: AnthropicMessages, mime: "text/event-stream", kind: "cancel") [FAIL]
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(protocol: OpenAIChat, mime: "text/event-stream", kind: "deferred-total") [118 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(ApiProtocol protocol, String mime, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 107
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(ApiProtocol protocol, String mime, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 107
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(protocol: OpenAIChat, mime: "application/json", kind: "cancel") [16 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(ApiProtocol protocol, String mime, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 107
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(ApiProtocol protocol, String mime, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 107
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(protocol: AnthropicMessages, mime: "application/json", kind: "deferred-total") [5 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(ApiProtocol protocol, String mime, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 107
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(ApiProtocol protocol, String mime, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 107
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(protocol: AnthropicMessages, mime: "application/json", kind: "total") [13 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(ApiProtocol protocol, String mime, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 107
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(ApiProtocol protocol, String mime, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 107
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(protocol: OpenAIChat, mime: "text/event-stream", kind: "cancel") [3 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(ApiProtocol protocol, String mime, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 107
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(ApiProtocol protocol, String mime, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 107
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(protocol: AnthropicMessages, mime: "application/json", kind: "cancel") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(ApiProtocol protocol, String mime, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 107
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(ApiProtocol protocol, String mime, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 107
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(protocol: OpenAIChat, mime: "application/json", kind: "deferred-total") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(ApiProtocol protocol, String mime, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 107
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(ApiProtocol protocol, String mime, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 107
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(protocol: OpenAIChat, mime: "application/json", kind: "total") [4 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(ApiProtocol protocol, String mime, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 107
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(ApiProtocol protocol, String mime, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 107
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(protocol: AnthropicMessages, mime: "text/event-stream", kind: "cancel") [3 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(ApiProtocol protocol, String mime, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 107
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(ApiProtocol protocol, String mime, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 107
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.44]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(protocol: AnthropicMessages, mime: "text/event-stream", kind: "deferred-total") [FAIL]
+[xUnit.net 00:00:00.46]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(protocol: AnthropicMessages, mime: "text/event-stream", kind: "total") [FAIL]
+[xUnit.net 00:00:00.47]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(protocol: OpenAIChat, mime: "text/event-stream", kind: "total") [FAIL]
+[xUnit.net 00:00:00.47]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(protocol: AnthropicMessages, kind: "first") [FAIL]
+[xUnit.net 00:00:00.48]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(protocol: OpenAIChat, kind: "total") [FAIL]
+[xUnit.net 00:00:00.48]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(protocol: OpenAIChat, kind: "first") [FAIL]
+[xUnit.net 00:00:00.49]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(protocol: AnthropicMessages, kind: "total") [FAIL]
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(protocol: AnthropicMessages, mime: "text/event-stream", kind: "deferred-total") [16 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(ApiProtocol protocol, String mime, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 107
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(ApiProtocol protocol, String mime, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 107
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(protocol: AnthropicMessages, mime: "text/event-stream", kind: "total") [14 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(ApiProtocol protocol, String mime, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 107
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(ApiProtocol protocol, String mime, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 107
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(protocol: OpenAIChat, mime: "text/event-stream", kind: "total") [7 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(ApiProtocol protocol, String mime, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 107
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CancellationOrExpiryBeforeTerminalEventCannotBecomeSuccess(ApiProtocol protocol, String mime, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 107
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(protocol: AnthropicMessages, kind: "first") [5 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 91
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 91
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(protocol: OpenAIChat, kind: "total") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 91
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 91
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(protocol: OpenAIChat, kind: "first") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 91
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 91
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(protocol: AnthropicMessages, kind: "total") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 91
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 91
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.49]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: "deferred-total") [FAIL]
+[xUnit.net 00:00:00.49]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: "total") [FAIL]
+[xUnit.net 00:00:00.49]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: "idle") [FAIL]
+[xUnit.net 00:00:00.50]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: "cancel") [FAIL]
+[xUnit.net 00:00:00.50]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: "deferred-total") [FAIL]
+[xUnit.net 00:00:00.51]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: "cancel") [FAIL]
+[xUnit.net 00:00:00.51]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: "deferred-total") [FAIL]
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: "deferred-total") [3 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+             ↓ (pos 2)
+Expected: "REQUEST_TIMEOUT"
+Actual:   "READ_IDLE_TIMEOUT"
+             ↑ (pos 2)
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 83
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 83
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: "total") [2 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 83
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 83
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: "idle") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 83
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 83
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: "cancel") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 83
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 83
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: "deferred-total") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 83
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 83
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: "cancel") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 83
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 83
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: "deferred-total") [2 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.52]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: "idle") [FAIL]
+[xUnit.net 00:00:00.52]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: "total") [FAIL]
+[xUnit.net 00:00:00.52]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: "idle") [FAIL]
+[xUnit.net 00:00:00.52]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: "deferred-total") [FAIL]
+[xUnit.net 00:00:00.52]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: "cancel") [FAIL]
+[xUnit.net 00:00:00.53]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: "total") [FAIL]
+[xUnit.net 00:00:00.53]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: "cancel") [FAIL]
+[xUnit.net 00:00:00.53]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(protocol: OpenAIChat, mime: "text/event-stream") [FAIL]
+[xUnit.net 00:00:00.53]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(protocol: AnthropicMessages, mime: "application/json") [FAIL]
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: "idle") [5 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: "total") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: "idle") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: "deferred-total") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: "cancel") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: "total") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: "cancel") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(protocol: OpenAIChat, mime: "text/event-stream") [2 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(ApiProtocol protocol, String mime) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 67
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(ApiProtocol protocol, String mime) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 67
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(protocol: AnthropicMessages, mime: "application/json") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(ApiProtocol protocol, String mime) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 67
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(ApiProtocol protocol, String mime) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 67
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.53]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(protocol: AnthropicMessages, mime: "text/event-stream") [FAIL]
+[xUnit.net 00:00:00.54]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(protocol: OpenAIChat, mime: "application/json") [FAIL]
+[xUnit.net 00:00:00.54]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CompletedHeadersCannotCrossAnExpiredOrCancelledTransition(kind: "total") [FAIL]
+[xUnit.net 00:00:00.54]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CompletedHeadersCannotCrossAnExpiredOrCancelledTransition(kind: "headers") [FAIL]
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(protocol: AnthropicMessages, mime: "text/event-stream") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(ApiProtocol protocol, String mime) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 67
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(ApiProtocol protocol, String mime) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 67
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(protocol: OpenAIChat, mime: "application/json") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(ApiProtocol protocol, String mime) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 67
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(ApiProtocol protocol, String mime) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 67
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CompletedHeadersCannotCrossAnExpiredOrCancelledTransition(kind: "total") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Started
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CompletedHeadersCannotCrossAnExpiredOrCancelledTransition(String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 60
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CompletedHeadersCannotCrossAnExpiredOrCancelledTransition(String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 60
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CompletedHeadersCannotCrossAnExpiredOrCancelledTransition(kind: "headers") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Started
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CompletedHeadersCannotCrossAnExpiredOrCancelledTransition(String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 60
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CompletedHeadersCannotCrossAnExpiredOrCancelledTransition(String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 60
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/test-results/p4-completion-races/completion-races-expanded-before.trx
+
+Failed!  - Failed:    36, Passed:     5, Skipped:     0, Total:    41, Duration: 319 ms - KuaiYi.Provider.Tests.dll (net10.0)

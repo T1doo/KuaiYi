@@ -1,0 +1,43 @@
+{
+  "allPassed": true,
+  "checks": 8711,
+  "historicalSummaries": 23,
+  "archives": 28,
+  "tests": 1712,
+  "newRaceCases": 44,
+  "focused": 94,
+  "Node": 63,
+  "archive": {
+    "archive": "artifacts/KuaiYi-P4-completion-races-managed-win-x64.zip",
+    "bytes": 2166780,
+    "sha256": "d148a96bb8f29d919d74db2f124e05df608132c7f2155e9481f995d82016a8f1",
+    "installer": false,
+    "FrameworkDependent": true,
+    "NativeDlls": "NotIncluded",
+    "WindowsRuntime": "NotRun",
+    "ModelCalls": "None",
+    "TestHttp": "Real loopback only",
+    "files": 89,
+    "appFiles": 51,
+    "publicProbeFiles": 27,
+    "testProviderFiles": 6,
+    "actualPe32PlusX64Hosts": [
+      "app/KuaiYi.App.exe",
+      "app/KuaiYi.CaptureBroker.exe",
+      "app/KuaiYi.CaptureHost.exe",
+      "app/KuaiYi.ClipboardHost.exe",
+      "app/KuaiYi.ImageWorker.exe",
+      "app/KuaiYi.NativeHost.exe",
+      "app/KuaiYi.OleReceiver.exe",
+      "public-probe/KuaiYi.App.exe",
+      "public-probe/KuaiYi.GrowthHarness.exe",
+      "public-probe/KuaiYi.NativeHost.exe"
+    ],
+    "manifestHashes": "Pass",
+    "productionMockReference": false
+  },
+  "Windows": "NotRun",
+  "RemoteCi": "NotRun",
+  "ModelCalls": "None",
+  "ParentAcceptance": "Pending"
+}

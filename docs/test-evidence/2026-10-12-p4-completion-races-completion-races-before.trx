@@ -1,0 +1,744 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="e02dee93-14d7-42f9-83de-a6cd3d733a11" name="@552716c6b8c5 2026-10-12 02:20:14" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-12T02:20:14.7048973+00:00" queuing="2026-10-12T02:20:14.7048973+00:00" start="2026-10-12T02:20:14.0486324+00:00" finish="2026-10-12T02:20:14.7883130+00:00" />
+  <TestSettings name="default" id="42ee5647-b138-463b-a1f4-57f5a38c1eef">
+    <Deployment runDeploymentRoot="_552716c6b8c5_2026-10-12_02_20_14" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="9a6a87a5-e906-419b-bd01-7535d89594d1" testId="083d88ab-c988-059b-8357-9e5b5f3e1538" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(protocol: AnthropicMessages, mime: &quot;application/json&quot;)" computerName="552716c6b8c5" duration="00:00:00.0019432" startTime="2026-10-12T02:20:14.7145508+00:00" endTime="2026-10-12T02:20:14.7166457+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9a6a87a5-e906-419b-bd01-7535d89594d1">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(ApiProtocol protocol, String mime) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 67
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(ApiProtocol protocol, String mime) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 67
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2cbc593e-f727-4363-98a9-71a1dfce6bdc" testId="91e5bd22-9296-ce5b-65b1-85ba28d55a46" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: &quot;cancel&quot;)" computerName="552716c6b8c5" duration="00:00:00.0015587" startTime="2026-10-12T02:20:14.7009093+00:00" endTime="2026-10-12T02:20:14.7017143+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2cbc593e-f727-4363-98a9-71a1dfce6bdc">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2379a264-0bc7-47b3-bf4a-8b41e1423a9b" testId="c0ec7bf3-4c78-b929-ae79-ba79b98b0146" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: &quot;cancel&quot;)" computerName="552716c6b8c5" duration="00:00:00.0011129" startTime="2026-10-12T02:20:14.6858736+00:00" endTime="2026-10-12T02:20:14.6858938+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2379a264-0bc7-47b3-bf4a-8b41e1423a9b">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 83
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 83
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3d1ba05e-a363-49aa-b58d-c1ccde4a5b95" testId="fbec6eb7-3730-1dab-0919-a27cf461c9ef" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: &quot;total&quot;)" computerName="552716c6b8c5" duration="00:00:00.0034127" startTime="2026-10-12T02:20:14.6665015+00:00" endTime="2026-10-12T02:20:14.6700836+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3d1ba05e-a363-49aa-b58d-c1ccde4a5b95">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 83
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 83
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="14bdd51f-1932-4a77-852d-127b6383114f" testId="ed9d8333-1c53-4a0d-a2b5-ba94ce5de431" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(protocol: OpenAIChat, mime: &quot;application/json&quot;)" computerName="552716c6b8c5" duration="00:00:00.0014695" startTime="2026-10-12T02:20:14.7186927+00:00" endTime="2026-10-12T02:20:14.7210951+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="14bdd51f-1932-4a77-852d-127b6383114f">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(ApiProtocol protocol, String mime) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 67
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(ApiProtocol protocol, String mime) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 67
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6bed7b12-3495-4959-b486-e69dc05b3535" testId="1630317a-c5d9-89bf-4f94-375d61fbd811" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(protocol: AnthropicMessages, mime: &quot;text/event-stream&quot;)" computerName="552716c6b8c5" duration="00:00:00.0014717" startTime="2026-10-12T02:20:14.7169282+00:00" endTime="2026-10-12T02:20:14.7185029+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6bed7b12-3495-4959-b486-e69dc05b3535">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(ApiProtocol protocol, String mime) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 67
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(ApiProtocol protocol, String mime) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 67
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b6e381fe-98a4-4417-b24f-68b3cbdeaedd" testId="96d61f35-b0cd-8ab5-24c7-4ab904db1402" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: &quot;cancel&quot;)" computerName="552716c6b8c5" duration="00:00:00.0047219" startTime="2026-10-12T02:20:14.7061968+00:00" endTime="2026-10-12T02:20:14.7111419+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b6e381fe-98a4-4417-b24f-68b3cbdeaedd">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0ab2f63f-b56a-458f-85dc-1485615c1d63" testId="8e5e9d56-9c12-1171-6877-a44605cf15b2" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: &quot;total&quot;)" computerName="552716c6b8c5" duration="00:00:00.0038614" startTime="2026-10-12T02:20:14.7018805+00:00" endTime="2026-10-12T02:20:14.7060089+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0ab2f63f-b56a-458f-85dc-1485615c1d63">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e24c6058-1de2-4461-b13c-0170a7537ac1" testId="d3928041-a027-e0d1-4c39-9e77c63cf70c" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: &quot;idle&quot;)" computerName="552716c6b8c5" duration="00:00:00.0016032" startTime="2026-10-12T02:20:14.6702726+00:00" endTime="2026-10-12T02:20:14.6721532+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e24c6058-1de2-4461-b13c-0170a7537ac1">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 83
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 83
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f0a3403d-4830-4062-98db-6f1f1d3a2239" testId="225f9af3-8ece-0165-3fe8-55ed76d97dd7" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: &quot;deferred-total&quot;)" computerName="552716c6b8c5" duration="00:00:00.0063496" startTime="2026-10-12T02:20:14.6612316+00:00" endTime="2026-10-12T02:20:14.6661527+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f0a3403d-4830-4062-98db-6f1f1d3a2239">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+             ↓ (pos 2)
+Expected: "REQUEST_TIMEOUT"
+Actual:   "READ_IDLE_TIMEOUT"
+             ↑ (pos 2)</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 83
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 83
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3c076f22-76b5-4cf1-95fc-d9630d131c0f" testId="3fbe52bb-6c6c-9485-3039-2e732c7b5ef9" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: &quot;idle&quot;)" computerName="552716c6b8c5" duration="00:00:00.0035439" startTime="2026-10-12T02:20:14.6851190+00:00" endTime="2026-10-12T02:20:14.6851531+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3c076f22-76b5-4cf1-95fc-d9630d131c0f" />
+    <UnitTestResult executionId="a0611595-ef8f-4114-b522-06f87a6ea09b" testId="dd93bac8-14b8-0d32-ffa5-fdc0d03e8d21" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(protocol: OpenAIChat, kind: &quot;first&quot;)" computerName="552716c6b8c5" duration="00:00:00.0017494" startTime="2026-10-12T02:20:14.6554445+00:00" endTime="2026-10-12T02:20:14.6570746+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a0611595-ef8f-4114-b522-06f87a6ea09b">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 91
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 91
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="39384f6a-73f1-4f15-95bf-aa9b472dc86e" testId="c587aa1b-7c61-e33d-84dc-04a6ef3205ba" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: &quot;deferred-total&quot;)" computerName="552716c6b8c5" duration="00:00:00.0058196" startTime="2026-10-12T02:20:14.6991562+00:00" endTime="2026-10-12T02:20:14.7007263+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="39384f6a-73f1-4f15-95bf-aa9b472dc86e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a8b84a16-3484-4db7-8102-ddda0b66e5c5" testId="506f4ac8-e27b-de8f-fd57-9dc9fd5dfb7a" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: &quot;idle&quot;)" computerName="552716c6b8c5" duration="00:00:00.0015936" startTime="2026-10-12T02:20:14.6918902+00:00" endTime="2026-10-12T02:20:14.6937301+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a8b84a16-3484-4db7-8102-ddda0b66e5c5">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6fea9e22-b5ac-4b99-933c-714b17547627" testId="63f2b371-46d3-c367-082e-39e246828612" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: &quot;total&quot;)" computerName="552716c6b8c5" duration="00:00:00.0014011" startTime="2026-10-12T02:20:14.6858180+00:00" endTime="2026-10-12T02:20:14.6858388+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6fea9e22-b5ac-4b99-933c-714b17547627" />
+    <UnitTestResult executionId="a8dd193c-9e88-43b3-b064-7e271b17c34e" testId="147edb2e-828d-e2d4-36e7-0a3b99797383" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(protocol: OpenAIChat, kind: &quot;cancel&quot;)" computerName="552716c6b8c5" duration="00:00:00.0069584" startTime="2026-10-12T02:20:14.6536373+00:00" endTime="2026-10-12T02:20:14.6538448+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a8dd193c-9e88-43b3-b064-7e271b17c34e" />
+    <UnitTestResult executionId="aeb5b0fb-50dd-4a7f-81f0-a2b28d26508d" testId="8e1766ba-7401-45fd-1f6a-0d79b2546e66" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CompletedHeadersCannotCrossAnExpiredOrCancelledTransition(kind: &quot;total&quot;)" computerName="552716c6b8c5" duration="00:00:00.0023559" startTime="2026-10-12T02:20:14.7275341+00:00" endTime="2026-10-12T02:20:14.7289870+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aeb5b0fb-50dd-4a7f-81f0-a2b28d26508d">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Started</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CompletedHeadersCannotCrossAnExpiredOrCancelledTransition(String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 60
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CompletedHeadersCannotCrossAnExpiredOrCancelledTransition(String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 60
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9d73aca5-7844-44bf-af69-42e51b76648d" testId="54256ca6-2d1f-964e-c04a-ec1b798ae3d6" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: &quot;total&quot;)" computerName="552716c6b8c5" duration="00:00:00.0013171" startTime="2026-10-12T02:20:14.6904887+00:00" endTime="2026-10-12T02:20:14.6917249+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9d73aca5-7844-44bf-af69-42e51b76648d">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2351e7e8-d90f-40da-bbde-b3b799017d06" testId="73872a26-46d1-2603-61c4-b92f8f6b54ac" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CompletedHeadersCannotCrossAnExpiredOrCancelledTransition(kind: &quot;cancel&quot;)" computerName="552716c6b8c5" duration="00:00:00.0054481" startTime="2026-10-12T02:20:14.7213315+00:00" endTime="2026-10-12T02:20:14.7261559+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2351e7e8-d90f-40da-bbde-b3b799017d06" />
+    <UnitTestResult executionId="10e9fc21-d065-4580-bf58-554703506336" testId="acc41b53-0504-0ced-f66f-3e6317adba96" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: &quot;cancel&quot;)" computerName="552716c6b8c5" duration="00:00:00.0017730" startTime="2026-10-12T02:20:14.6854515+00:00" endTime="2026-10-12T02:20:14.6854771+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="10e9fc21-d065-4580-bf58-554703506336">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 83
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 83
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9be99a04-6032-4ecb-a667-1212691fde8b" testId="1310d734-8f99-0df7-f0a9-2a6a434a18e4" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(protocol: AnthropicMessages, kind: &quot;total&quot;)" computerName="552716c6b8c5" duration="00:00:00.0014379" startTime="2026-10-12T02:20:14.6572836+00:00" endTime="2026-10-12T02:20:14.6601473+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9be99a04-6032-4ecb-a667-1212691fde8b">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 91
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 91
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d672ebdd-4f54-45a3-b9f0-382d1eb982b8" testId="d3a6336e-597b-8eed-2f23-71ec685e8f40" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CompletedHeadersCannotCrossAnExpiredOrCancelledTransition(kind: &quot;headers&quot;)" computerName="552716c6b8c5" duration="00:00:00.0015058" startTime="2026-10-12T02:20:14.7292062+00:00" endTime="2026-10-12T02:20:14.7308101+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d672ebdd-4f54-45a3-b9f0-382d1eb982b8">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Started</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CompletedHeadersCannotCrossAnExpiredOrCancelledTransition(String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 60
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CompletedHeadersCannotCrossAnExpiredOrCancelledTransition(String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 60
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6a6c26d2-d5cf-42fb-91ff-6c89a3bd846e" testId="826c91c9-9ea8-4e30-c780-19ede4512ea5" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: &quot;deferred-total&quot;)" computerName="552716c6b8c5" duration="00:00:00.0031636" startTime="2026-10-12T02:20:14.6860181+00:00" endTime="2026-10-12T02:20:14.6885628+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6a6c26d2-d5cf-42fb-91ff-6c89a3bd846e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="5c790f27-5940-436c-a2dd-a03bc53f7d9c" testId="e5448032-c2f8-ac7f-8c87-bea8dbf33532" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: &quot;idle&quot;)" computerName="552716c6b8c5" duration="00:00:00.0014747" startTime="2026-10-12T02:20:14.6887766+00:00" endTime="2026-10-12T02:20:14.6903164+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5c790f27-5940-436c-a2dd-a03bc53f7d9c">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 75
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9d83e1fb-35bb-4254-b9de-5887564eec29" testId="8b534c66-147e-7d57-0110-223025dc3f0b" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(protocol: OpenAIChat, kind: &quot;total&quot;)" computerName="552716c6b8c5" duration="00:00:00.0029066" startTime="2026-10-12T02:20:14.6545626+00:00" endTime="2026-10-12T02:20:14.6550042+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9d83e1fb-35bb-4254-b9de-5887564eec29">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 91
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 91
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="898fd94c-939f-4846-bcf2-f6622c60692c" testId="4596b0e8-c651-e141-56e3-909d137252c8" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(protocol: OpenAIChat, mime: &quot;text/event-stream&quot;)" computerName="552716c6b8c5" duration="00:00:00.0027495" startTime="2026-10-12T02:20:14.7114267+00:00" endTime="2026-10-12T02:20:14.7143005+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="898fd94c-939f-4846-bcf2-f6622c60692c">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(ApiProtocol protocol, String mime) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 67
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(ApiProtocol protocol, String mime) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 67
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="5cb15130-a152-44af-a87d-554d1b9f1449" testId="ada8b75c-ace8-2c7d-8601-ebb6b43e5359" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: &quot;deferred-total&quot;)" computerName="552716c6b8c5" duration="00:00:00.0013357" startTime="2026-10-12T02:20:14.6856810+00:00" endTime="2026-10-12T02:20:14.6857066+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5cb15130-a152-44af-a87d-554d1b9f1449">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 35
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 83
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 83
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="72106659-a2aa-4e12-93a6-714eb3d472f6" testId="89ebc699-c567-ebe2-1d0d-84ea3f989fa4" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(protocol: AnthropicMessages, kind: &quot;first&quot;)" computerName="552716c6b8c5" duration="00:00:00.1019345" startTime="2026-10-12T02:20:14.5243150+00:00" endTime="2026-10-12T02:20:14.6389993+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="72106659-a2aa-4e12-93a6-714eb3d472f6">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 91
+   at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs:line 91
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="041b889d-6a29-49e5-8acd-1f535ad05b31" testId="2cdc76df-d292-acac-a1b0-14b1787424ff" testName="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(protocol: AnthropicMessages, kind: &quot;cancel&quot;)" computerName="552716c6b8c5" duration="00:00:00.0025770" startTime="2026-10-12T02:20:14.6544403+00:00" endTime="2026-10-12T02:20:14.6544809+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="041b889d-6a29-49e5-8acd-1f535ad05b31" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(protocol: AnthropicMessages, mime: &quot;application/json&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="083d88ab-c988-059b-8357-9e5b5f3e1538">
+      <Execution id="9a6a87a5-e906-419b-bd01-7535d89594d1" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="AlreadyCompletedBodyReadStillChecksAbsoluteTotal" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(protocol: AnthropicMessages, kind: &quot;cancel&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="2cdc76df-d292-acac-a1b0-14b1787424ff">
+      <Execution id="041b889d-6a29-49e5-8acd-1f535ad05b31" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="PauseAfterStartedDoesNotStartANewBodyBudget" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: &quot;deferred-total&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="c587aa1b-7c61-e33d-84dc-04a6ef3205ba">
+      <Execution id="39384f6a-73f1-4f15-95bf-aa9b472dc86e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="JsonEventDeliveryAfterConsumerPauseCannotComplete" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: &quot;deferred-total&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="ada8b75c-ace8-2c7d-8601-ebb6b43e5359">
+      <Execution id="5cb15130-a152-44af-a87d-554d1b9f1449" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="SseBufferedEventsAfterConsumerPauseCannotComplete" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: &quot;total&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="8e5e9d56-9c12-1171-6877-a44605cf15b2">
+      <Execution id="0ab2f63f-b56a-458f-85dc-1485615c1d63" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="JsonEventDeliveryAfterConsumerPauseCannotComplete" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(protocol: AnthropicMessages, kind: &quot;total&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="1310d734-8f99-0df7-f0a9-2a6a434a18e4">
+      <Execution id="9be99a04-6032-4ecb-a667-1212691fde8b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="PauseAfterStartedDoesNotStartANewBodyBudget" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: &quot;deferred-total&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="225f9af3-8ece-0165-3fe8-55ed76d97dd7">
+      <Execution id="f0a3403d-4830-4062-98db-6f1f1d3a2239" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="SseBufferedEventsAfterConsumerPauseCannotComplete" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: &quot;total&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="63f2b371-46d3-c367-082e-39e246828612">
+      <Execution id="6fea9e22-b5ac-4b99-933c-714b17547627" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="SseBufferedEventsAfterConsumerPauseCannotComplete" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: &quot;total&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="fbec6eb7-3730-1dab-0919-a27cf461c9ef">
+      <Execution id="3d1ba05e-a363-49aa-b58d-c1ccde4a5b95" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="SseBufferedEventsAfterConsumerPauseCannotComplete" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(protocol: AnthropicMessages, kind: &quot;first&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="89ebc699-c567-ebe2-1d0d-84ea3f989fa4">
+      <Execution id="72106659-a2aa-4e12-93a6-714eb3d472f6" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="PauseAfterStartedDoesNotStartANewBodyBudget" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: &quot;idle&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="3fbe52bb-6c6c-9485-3039-2e732c7b5ef9">
+      <Execution id="3c076f22-76b5-4cf1-95fc-d9630d131c0f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="SseBufferedEventsAfterConsumerPauseCannotComplete" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: &quot;idle&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="d3928041-a027-e0d1-4c39-9e77c63cf70c">
+      <Execution id="e24c6058-1de2-4461-b13c-0170a7537ac1" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="SseBufferedEventsAfterConsumerPauseCannotComplete" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(protocol: AnthropicMessages, mime: &quot;text/event-stream&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="1630317a-c5d9-89bf-4f94-375d61fbd811">
+      <Execution id="6bed7b12-3495-4959-b486-e69dc05b3535" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="AlreadyCompletedBodyReadStillChecksAbsoluteTotal" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CompletedHeadersCannotCrossAnExpiredOrCancelledTransition(kind: &quot;cancel&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="73872a26-46d1-2603-61c4-b92f8f6b54ac">
+      <Execution id="2351e7e8-d90f-40da-bbde-b3b799017d06" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="CompletedHeadersCannotCrossAnExpiredOrCancelledTransition" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(protocol: OpenAIChat, mime: &quot;application/json&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="ed9d8333-1c53-4a0d-a2b5-ba94ce5de431">
+      <Execution id="14bdd51f-1932-4a77-852d-127b6383114f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="AlreadyCompletedBodyReadStillChecksAbsoluteTotal" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(protocol: OpenAIChat, kind: &quot;total&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="8b534c66-147e-7d57-0110-223025dc3f0b">
+      <Execution id="9d83e1fb-35bb-4254-b9de-5887564eec29" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="PauseAfterStartedDoesNotStartANewBodyBudget" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CompletedHeadersCannotCrossAnExpiredOrCancelledTransition(kind: &quot;total&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="8e1766ba-7401-45fd-1f6a-0d79b2546e66">
+      <Execution id="aeb5b0fb-50dd-4a7f-81f0-a2b28d26508d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="CompletedHeadersCannotCrossAnExpiredOrCancelledTransition" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(protocol: OpenAIChat, mime: &quot;text/event-stream&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="4596b0e8-c651-e141-56e3-909d137252c8">
+      <Execution id="898fd94c-939f-4846-bcf2-f6622c60692c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="AlreadyCompletedBodyReadStillChecksAbsoluteTotal" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: &quot;total&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="54256ca6-2d1f-964e-c04a-ec1b798ae3d6">
+      <Execution id="9d73aca5-7844-44bf-af69-42e51b76648d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="JsonEventDeliveryAfterConsumerPauseCannotComplete" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: &quot;deferred-total&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="826c91c9-9ea8-4e30-c780-19ede4512ea5">
+      <Execution id="6a6c26d2-d5cf-42fb-91ff-6c89a3bd846e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="JsonEventDeliveryAfterConsumerPauseCannotComplete" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: &quot;cancel&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="91e5bd22-9296-ce5b-65b1-85ba28d55a46">
+      <Execution id="2cbc593e-f727-4363-98a9-71a1dfce6bdc" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="JsonEventDeliveryAfterConsumerPauseCannotComplete" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: &quot;cancel&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="96d61f35-b0cd-8ab5-24c7-4ab904db1402">
+      <Execution id="b6e381fe-98a4-4417-b24f-68b3cbdeaedd" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="JsonEventDeliveryAfterConsumerPauseCannotComplete" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: &quot;cancel&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="c0ec7bf3-4c78-b929-ae79-ba79b98b0146">
+      <Execution id="2379a264-0bc7-47b3-bf4a-8b41e1423a9b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="SseBufferedEventsAfterConsumerPauseCannotComplete" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: &quot;idle&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="e5448032-c2f8-ac7f-8c87-bea8dbf33532">
+      <Execution id="5c790f27-5940-436c-a2dd-a03bc53f7d9c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="JsonEventDeliveryAfterConsumerPauseCannotComplete" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(protocol: OpenAIChat, kind: &quot;first&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="dd93bac8-14b8-0d32-ffa5-fdc0d03e8d21">
+      <Execution id="a0611595-ef8f-4114-b522-06f87a6ea09b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="PauseAfterStartedDoesNotStartANewBodyBudget" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: &quot;cancel&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="acc41b53-0504-0ced-f66f-3e6317adba96">
+      <Execution id="10e9fc21-d065-4580-bf58-554703506336" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="SseBufferedEventsAfterConsumerPauseCannotComplete" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: &quot;idle&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="506f4ac8-e27b-de8f-fd57-9dc9fd5dfb7a">
+      <Execution id="a8b84a16-3484-4db7-8102-ddda0b66e5c5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="JsonEventDeliveryAfterConsumerPauseCannotComplete" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(protocol: OpenAIChat, kind: &quot;cancel&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="147edb2e-828d-e2d4-36e7-0a3b99797383">
+      <Execution id="a8dd193c-9e88-43b3-b064-7e271b17c34e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="PauseAfterStartedDoesNotStartANewBodyBudget" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CompletedHeadersCannotCrossAnExpiredOrCancelledTransition(kind: &quot;headers&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="d3a6336e-597b-8eed-2f23-71ec685e8f40">
+      <Execution id="d672ebdd-4f54-45a3-b9f0-382d1eb982b8" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.CompletionBoundaryRaceTests" name="CompletedHeadersCannotCrossAnExpiredOrCancelledTransition" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="083d88ab-c988-059b-8357-9e5b5f3e1538" executionId="9a6a87a5-e906-419b-bd01-7535d89594d1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="91e5bd22-9296-ce5b-65b1-85ba28d55a46" executionId="2cbc593e-f727-4363-98a9-71a1dfce6bdc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c0ec7bf3-4c78-b929-ae79-ba79b98b0146" executionId="2379a264-0bc7-47b3-bf4a-8b41e1423a9b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fbec6eb7-3730-1dab-0919-a27cf461c9ef" executionId="3d1ba05e-a363-49aa-b58d-c1ccde4a5b95" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ed9d8333-1c53-4a0d-a2b5-ba94ce5de431" executionId="14bdd51f-1932-4a77-852d-127b6383114f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1630317a-c5d9-89bf-4f94-375d61fbd811" executionId="6bed7b12-3495-4959-b486-e69dc05b3535" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="96d61f35-b0cd-8ab5-24c7-4ab904db1402" executionId="b6e381fe-98a4-4417-b24f-68b3cbdeaedd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8e5e9d56-9c12-1171-6877-a44605cf15b2" executionId="0ab2f63f-b56a-458f-85dc-1485615c1d63" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d3928041-a027-e0d1-4c39-9e77c63cf70c" executionId="e24c6058-1de2-4461-b13c-0170a7537ac1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="225f9af3-8ece-0165-3fe8-55ed76d97dd7" executionId="f0a3403d-4830-4062-98db-6f1f1d3a2239" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3fbe52bb-6c6c-9485-3039-2e732c7b5ef9" executionId="3c076f22-76b5-4cf1-95fc-d9630d131c0f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dd93bac8-14b8-0d32-ffa5-fdc0d03e8d21" executionId="a0611595-ef8f-4114-b522-06f87a6ea09b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c587aa1b-7c61-e33d-84dc-04a6ef3205ba" executionId="39384f6a-73f1-4f15-95bf-aa9b472dc86e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="506f4ac8-e27b-de8f-fd57-9dc9fd5dfb7a" executionId="a8b84a16-3484-4db7-8102-ddda0b66e5c5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="63f2b371-46d3-c367-082e-39e246828612" executionId="6fea9e22-b5ac-4b99-933c-714b17547627" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="147edb2e-828d-e2d4-36e7-0a3b99797383" executionId="a8dd193c-9e88-43b3-b064-7e271b17c34e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8e1766ba-7401-45fd-1f6a-0d79b2546e66" executionId="aeb5b0fb-50dd-4a7f-81f0-a2b28d26508d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="54256ca6-2d1f-964e-c04a-ec1b798ae3d6" executionId="9d73aca5-7844-44bf-af69-42e51b76648d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="73872a26-46d1-2603-61c4-b92f8f6b54ac" executionId="2351e7e8-d90f-40da-bbde-b3b799017d06" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="acc41b53-0504-0ced-f66f-3e6317adba96" executionId="10e9fc21-d065-4580-bf58-554703506336" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1310d734-8f99-0df7-f0a9-2a6a434a18e4" executionId="9be99a04-6032-4ecb-a667-1212691fde8b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d3a6336e-597b-8eed-2f23-71ec685e8f40" executionId="d672ebdd-4f54-45a3-b9f0-382d1eb982b8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="826c91c9-9ea8-4e30-c780-19ede4512ea5" executionId="6a6c26d2-d5cf-42fb-91ff-6c89a3bd846e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e5448032-c2f8-ac7f-8c87-bea8dbf33532" executionId="5c790f27-5940-436c-a2dd-a03bc53f7d9c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8b534c66-147e-7d57-0110-223025dc3f0b" executionId="9d83e1fb-35bb-4254-b9de-5887564eec29" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4596b0e8-c651-e141-56e3-909d137252c8" executionId="898fd94c-939f-4846-bcf2-f6622c60692c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ada8b75c-ace8-2c7d-8601-ebb6b43e5359" executionId="5cb15130-a152-44af-a87d-554d1b9f1449" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="89ebc699-c567-ebe2-1d0d-84ea3f989fa4" executionId="72106659-a2aa-4e12-93a6-714eb3d472f6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2cdc76df-d292-acac-a1b0-14b1787424ff" executionId="041b889d-6a29-49e5-8acd-1f535ad05b31" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="29" executed="29" passed="5" failed="24" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.06]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.13]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.17]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.37]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.37]       Expected: Failed
+[xUnit.net 00:00:00.37]       Actual:   TextDelta
+[xUnit.net 00:00:00.37]       Stack Trace:
+[xUnit.net 00:00:00.37]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(91,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.37]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(91,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.37]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.38]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.38]       Expected: Failed
+[xUnit.net 00:00:00.38]       Actual:   TextDelta
+[xUnit.net 00:00:00.38]       Stack Trace:
+[xUnit.net 00:00:00.38]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(91,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.38]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(91,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.38]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.38]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.38]       Expected: Failed
+[xUnit.net 00:00:00.38]       Actual:   TextDelta
+[xUnit.net 00:00:00.38]       Stack Trace:
+[xUnit.net 00:00:00.38]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(91,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.38]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(91,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.38]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.38]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.38]       Expected: Failed
+[xUnit.net 00:00:00.38]       Actual:   TextDelta
+[xUnit.net 00:00:00.38]       Stack Trace:
+[xUnit.net 00:00:00.38]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(91,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.38]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(91,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.38]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.39]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:00.39]                    ↓ (pos 2)
+[xUnit.net 00:00:00.39]       Expected: "REQUEST_TIMEOUT"
+[xUnit.net 00:00:00.39]       Actual:   "READ_IDLE_TIMEOUT"
+[xUnit.net 00:00:00.39]                    ↑ (pos 2)
+[xUnit.net 00:00:00.39]       Stack Trace:
+[xUnit.net 00:00:00.39]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(35,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason)
+[xUnit.net 00:00:00.39]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(83,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.39]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(83,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.39]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.39]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.39]       Expected: Failed
+[xUnit.net 00:00:00.39]       Actual:   TextDelta
+[xUnit.net 00:00:00.39]       Stack Trace:
+[xUnit.net 00:00:00.39]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(35,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason)
+[xUnit.net 00:00:00.39]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(83,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.39]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(83,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.39]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.40]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.40]       Expected: Failed
+[xUnit.net 00:00:00.40]       Actual:   TextDelta
+[xUnit.net 00:00:00.40]       Stack Trace:
+[xUnit.net 00:00:00.40]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(35,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason)
+[xUnit.net 00:00:00.40]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(83,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.40]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(83,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.40]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.41]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.41]       Expected: Failed
+[xUnit.net 00:00:00.41]       Actual:   TextDelta
+[xUnit.net 00:00:00.41]       Stack Trace:
+[xUnit.net 00:00:00.41]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(35,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason)
+[xUnit.net 00:00:00.41]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(83,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.41]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(83,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.41]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.41]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.41]       Expected: Failed
+[xUnit.net 00:00:00.41]       Actual:   TextDelta
+[xUnit.net 00:00:00.41]       Stack Trace:
+[xUnit.net 00:00:00.41]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(35,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason)
+[xUnit.net 00:00:00.41]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(83,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.41]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(83,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.41]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.41]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.41]       Expected: Failed
+[xUnit.net 00:00:00.41]       Actual:   TextDelta
+[xUnit.net 00:00:00.41]       Stack Trace:
+[xUnit.net 00:00:00.41]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(35,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason)
+[xUnit.net 00:00:00.41]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(83,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.41]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(83,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.41]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.41]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.41]       Expected: Failed
+[xUnit.net 00:00:00.41]       Actual:   Usage
+[xUnit.net 00:00:00.41]       Stack Trace:
+[xUnit.net 00:00:00.41]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(35,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason)
+[xUnit.net 00:00:00.41]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(75,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.41]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(75,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.41]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.41]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.41]       Expected: Failed
+[xUnit.net 00:00:00.41]       Actual:   Usage
+[xUnit.net 00:00:00.41]       Stack Trace:
+[xUnit.net 00:00:00.41]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(35,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason)
+[xUnit.net 00:00:00.41]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(75,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.41]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(75,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.41]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.42]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.42]       Expected: Failed
+[xUnit.net 00:00:00.42]       Actual:   Usage
+[xUnit.net 00:00:00.42]       Stack Trace:
+[xUnit.net 00:00:00.42]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(35,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason)
+[xUnit.net 00:00:00.42]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(75,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.42]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(75,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.42]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.42]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.42]       Expected: Failed
+[xUnit.net 00:00:00.42]       Actual:   Usage
+[xUnit.net 00:00:00.42]       Stack Trace:
+[xUnit.net 00:00:00.42]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(35,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason)
+[xUnit.net 00:00:00.42]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(75,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.42]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(75,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.42]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.42]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.42]       Expected: Failed
+[xUnit.net 00:00:00.42]       Actual:   Usage
+[xUnit.net 00:00:00.42]       Stack Trace:
+[xUnit.net 00:00:00.42]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(35,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason)
+[xUnit.net 00:00:00.42]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(75,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.42]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(75,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.42]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.43]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.43]       Expected: Failed
+[xUnit.net 00:00:00.43]       Actual:   Usage
+[xUnit.net 00:00:00.43]       Stack Trace:
+[xUnit.net 00:00:00.43]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(35,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason)
+[xUnit.net 00:00:00.43]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(75,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.43]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(75,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.43]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.43]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.43]       Expected: Failed
+[xUnit.net 00:00:00.43]       Actual:   Usage
+[xUnit.net 00:00:00.43]       Stack Trace:
+[xUnit.net 00:00:00.43]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(35,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason)
+[xUnit.net 00:00:00.43]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(75,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.43]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(75,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.43]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.43]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.43]       Expected: Failed
+[xUnit.net 00:00:00.43]       Actual:   Usage
+[xUnit.net 00:00:00.43]       Stack Trace:
+[xUnit.net 00:00:00.43]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(35,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason)
+[xUnit.net 00:00:00.44]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(75,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.44]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(75,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(ApiProtocol protocol, String kind)
+[xUnit.net 00:00:00.44]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.44]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.44]       Expected: Failed
+[xUnit.net 00:00:00.44]       Actual:   Usage
+[xUnit.net 00:00:00.44]       Stack Trace:
+[xUnit.net 00:00:00.44]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(67,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(ApiProtocol protocol, String mime)
+[xUnit.net 00:00:00.44]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(67,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(ApiProtocol protocol, String mime)
+[xUnit.net 00:00:00.44]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.44]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.44]       Expected: Failed
+[xUnit.net 00:00:00.44]       Actual:   TextDelta
+[xUnit.net 00:00:00.44]       Stack Trace:
+[xUnit.net 00:00:00.44]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(67,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(ApiProtocol protocol, String mime)
+[xUnit.net 00:00:00.44]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(67,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(ApiProtocol protocol, String mime)
+[xUnit.net 00:00:00.44]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.44]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.44]       Expected: Failed
+[xUnit.net 00:00:00.44]       Actual:   Usage
+[xUnit.net 00:00:00.44]       Stack Trace:
+[xUnit.net 00:00:00.44]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(67,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(ApiProtocol protocol, String mime)
+[xUnit.net 00:00:00.44]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(67,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(ApiProtocol protocol, String mime)
+[xUnit.net 00:00:00.44]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.44]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.44]       Expected: Failed
+[xUnit.net 00:00:00.44]       Actual:   TextDelta
+[xUnit.net 00:00:00.44]       Stack Trace:
+[xUnit.net 00:00:00.44]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(67,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(ApiProtocol protocol, String mime)
+[xUnit.net 00:00:00.44]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(67,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(ApiProtocol protocol, String mime)
+[xUnit.net 00:00:00.44]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.45]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.45]       Expected: Failed
+[xUnit.net 00:00:00.45]       Actual:   Started
+[xUnit.net 00:00:00.45]       Stack Trace:
+[xUnit.net 00:00:00.45]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(35,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason)
+[xUnit.net 00:00:00.45]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(60,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CompletedHeadersCannotCrossAnExpiredOrCancelledTransition(String kind)
+[xUnit.net 00:00:00.45]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(60,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CompletedHeadersCannotCrossAnExpiredOrCancelledTransition(String kind)
+[xUnit.net 00:00:00.45]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.45]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.45]       Expected: Failed
+[xUnit.net 00:00:00.45]       Actual:   Started
+[xUnit.net 00:00:00.45]       Stack Trace:
+[xUnit.net 00:00:00.45]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(35,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.Rig.Failed(String reason)
+[xUnit.net 00:00:00.45]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(60,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CompletedHeadersCannotCrossAnExpiredOrCancelledTransition(String kind)
+[xUnit.net 00:00:00.45]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs(60,0): at KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CompletedHeadersCannotCrossAnExpiredOrCancelledTransition(String kind)
+[xUnit.net 00:00:00.45]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.47]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T02:20:14.6431282+00:00">
+        <Text>[xUnit.net 00:00:00.37]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(protocol: AnthropicMessages, kind: "first") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T02:20:14.6553501+00:00">
+        <Text>[xUnit.net 00:00:00.38]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(protocol: OpenAIChat, kind: "total") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T02:20:14.6575525+00:00">
+        <Text>[xUnit.net 00:00:00.38]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(protocol: OpenAIChat, kind: "first") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T02:20:14.6603227+00:00">
+        <Text>[xUnit.net 00:00:00.38]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.PauseAfterStartedDoesNotStartANewBodyBudget(protocol: AnthropicMessages, kind: "total") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T02:20:14.6666419+00:00">
+        <Text>[xUnit.net 00:00:00.39]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: "deferred-total") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T02:20:14.6706208+00:00">
+        <Text>[xUnit.net 00:00:00.39]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: "total") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T02:20:14.6727121+00:00">
+        <Text>[xUnit.net 00:00:00.40]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: "idle") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T02:20:14.7089330+00:00">
+        <Text>[xUnit.net 00:00:00.41]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: "cancel") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T02:20:14.7089534+00:00">
+        <Text>[xUnit.net 00:00:00.41]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: "deferred-total") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T02:20:14.7089681+00:00">
+        <Text>[xUnit.net 00:00:00.41]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.SseBufferedEventsAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: "cancel") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T02:20:14.7089814+00:00">
+        <Text>[xUnit.net 00:00:00.41]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: "deferred-total") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T02:20:14.7092018+00:00">
+        <Text>[xUnit.net 00:00:00.41]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: "idle") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T02:20:14.7092221+00:00">
+        <Text>[xUnit.net 00:00:00.42]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: "total") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T02:20:14.7092353+00:00">
+        <Text>[xUnit.net 00:00:00.42]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: "idle") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T02:20:14.7100960+00:00">
+        <Text>[xUnit.net 00:00:00.42]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: "deferred-total") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T02:20:14.7101109+00:00">
+        <Text>[xUnit.net 00:00:00.43]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: AnthropicMessages, kind: "cancel") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T02:20:14.7101306+00:00">
+        <Text>[xUnit.net 00:00:00.43]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: "total") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T02:20:14.7126112+00:00">
+        <Text>[xUnit.net 00:00:00.43]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.JsonEventDeliveryAfterConsumerPauseCannotComplete(protocol: OpenAIChat, kind: "cancel") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T02:20:14.7147036+00:00">
+        <Text>[xUnit.net 00:00:00.44]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(protocol: OpenAIChat, mime: "text/event-stream") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T02:20:14.7168950+00:00">
+        <Text>[xUnit.net 00:00:00.44]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(protocol: AnthropicMessages, mime: "application/json") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T02:20:14.7188043+00:00">
+        <Text>[xUnit.net 00:00:00.44]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(protocol: AnthropicMessages, mime: "text/event-stream") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T02:20:14.7215160+00:00">
+        <Text>[xUnit.net 00:00:00.44]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.AlreadyCompletedBodyReadStillChecksAbsoluteTotal(protocol: OpenAIChat, mime: "application/json") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T02:20:14.7294524+00:00">
+        <Text>[xUnit.net 00:00:00.45]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CompletedHeadersCannotCrossAnExpiredOrCancelledTransition(kind: "total") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="552716c6b8c5" outcome="Error" timestamp="2026-10-12T02:20:14.7310915+00:00">
+        <Text>[xUnit.net 00:00:00.45]     KuaiYi.Provider.Tests.CompletionBoundaryRaceTests.CompletedHeadersCannotCrossAnExpiredOrCancelledTransition(kind: "headers") [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

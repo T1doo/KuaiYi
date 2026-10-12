@@ -369,3 +369,11 @@ P3-04最后复核补未知UIA状态带CopyEvidence的真实child反例：原6项
 646c991获限定签收，核Spec10.7与官方.NET接口，补RequestTimeouts默认10/30/30/20及四有界字段/mapper/旧快照。真实连接池按秒数有限缓存、ConnectCallback原socket/固定回环+token，TLS系统ConnectTimeout；控clock dial明确seam。SSE底层每次Read用阶段token，JSON增量识别选中可解码正文/已知协议，保持完整结算后一次展示；无效/ping/空byte不刷新有效origin或total。原总预算仍凭据前起，旧测观测不弱化；旧快照/配置取消实际验证。
 
 原Core4失败、正确flush下旧源改类名重放6期限反例全失败，初夹具6失败中4是headers屏障错，保留并收窄；首生产12中2comment-only挂起修真实ReadAsync token，后46中2异常族/clock安装交错保留修复。最终新61（15Core/46Provider），全1315+353=1668 .NET/63Node、27locked Release零警告/错误，原1607/27锁/规格/内置模板保持。断连01:44:46Z实命令/proc确认无活动test，未重复/扩权；独立包及26旧包/22历史摘要核验，旧包恢复事实保持。P0/E06 Blocked、P1—P4 InProgress、106整体NotRun；WPF/代理/DNS/跨应用/焦点/DPI/DPAPI/安装/真实模型/远端CI未验，无真实key/付费/依赖安装/部署，详见review/ADR0019/summary。
+
+## P4-04 截止交付父审阻断修复
+
+ccf998 尚未签收：响应头完成后未复核期限、phase.Check未查父取消、JSON逐个交付未查total，确有迟到成功缺口。原生产路径29例24失败/5通过、扩41例36失败/5通过，字节已完成/延迟timer callback/消费者暂停反例均保全；修后原41过，再补连接完成3例，共44新回归、94专项全过。连接/发送资格/headers/read/parse/Effective/每次交付复核原绝对total、父取消及阶段期限，first起点冻结在Started之前，outer envelope共享budget；迟到连接释放，不发送HTTP，失效身份仍丢弃。
+
+完整Core1315+Provider397=1712/1712、Node63/63，27locked Release零警告/错误。原1668逐名保留、27锁/规格/内置提示词未变；当前独立ZIP与27旧包/23历史精确commit摘要核对，ccf原证据字节不改，旧覆盖恢复事故记录保持。最终回归后运行源码/测试未改；等待父独审。P0/E06 Blocked、P1—P4 InProgress、106整体NotRun，Windows/跨应用/DPI/DPAPI/真实代理DNS/安装/模型/远端CI仍NotRun，无真实调用/安装/扩权/发布。详见[p4-completion-races-review.md](p4-completion-races-review.md)、ADR0020及summary。
+
+本轮打包复制脚本遗漏大写P4目的名，暂时覆盖ccf原ZIP；冻结检查失败后，由未动原staging恢复原2165159 bytes及SHA256 231ed070c8baeb4bf5017be2083b014b092c48b80f627cabad3a4bfc6c442b96。未改原摘要/哈希断言。新脚本修正独立输出并增加全部27历史ZIP前后哈希检查及历史路径拒绝，重跑证据保留。
