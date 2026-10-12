@@ -1,0 +1,23 @@
+{
+  "host": "Linux",
+  "entryProcessCases": [
+    {
+      "case": "linux-blocked",
+      "exit": 2,
+      "nativeStatus": "Blocked",
+      "windowsAcceptance": "NotRun",
+      "counts": 0
+    },
+    {
+      "case": "linux-probe",
+      "exit": 0,
+      "nativeStatus": "NotRun",
+      "windowsAcceptance": "NotRun",
+      "counts": 0
+    }
+  ],
+  "workflowStructureChecks": "Pass",
+  "windowsCi": "NotRun; independent review before first push",
+  "nativeDllBuildAndLoad": "NotRun",
+  "desktopContracts": "NotRun"
+}

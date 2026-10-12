@@ -395,3 +395,9 @@ ccf998 尚未签收：响应头完成后未复核期限、phase.Check未查父�
 044发布准备限定接收，原launcher/desktop wrapper/Windows suite吞子退出/比较Fail。旧实际收尾AST+真实持有pwsh退出进程、完整wrapper及suite委托后语句红24/24失败（18退出码错误），夹具参数/子scope错误及真正Hashtable形态6失败均保全。最终实际形态24/24通过；退出5/6/7保留，比较3，探针timeout4，缺有效证据NotRun2，预检0/PreflightOnly，限定/有界会话0但WholeNotRun。三层明确exit，清理/finally仍生效，无Windows或模型执行。
 
 10:06:35Z实际恢复HEAD/远端044、保留test文件、无活动写入；未重开Git/写入者或扩权。没有重复1836/63未变化生产回归、没有重打大包；29历史+3Alpha共32旧包字节保持，独立约7KB脚本补正供未来授权Windows使用。旧包内旧脚本不改，运行新脚本以BundleRoot指向旧包。P0/E06Blocked、P1—P4InProgress、106整体NotRun，Windows实际条件仍待落实，不进入P5/P6。见p4-alpha-exit-review及summary。
+
+## 最小 hosted Windows 平台合同 CI（执行前）
+
+用户通过父线程放行最小CI实现：核实公开仓库当前HEAD/main无工作流、Actions runs 0，正式预装windows-2025镜像可望补原生编译但不是Win11普通用户验收。新增限定dev分支+工作流自身路径push、固定checkout SHA/只读权限/无凭据持久化/15分钟入口；真实OS ProductType/管理员/完整性/UAC/桌面/DPI/工具事实探测，四既有C++ DLL的x64 Release及2既有CTest、4 PE/4加载/8导出；仅图形条件满足才真实ShellWindow公开fixture有界合同。Alpha守卫、系统安全/账户/证书/组件均不改，无模型/密钥/付费/安装/发布；不上传artifact，不重打包。
+
+本地45/45脚本合同（43合成/解析+2实际入口进程）、49/49既有overlay纯逻辑、9工程GrowthHarness locked Release零警告/错误。辅助用例动态作用域参数错误原日志保留后修复；首次pwsh缺可写XDG在测试前退出134未计测试，使用既有云XDG恢复。正式入口Linux返回2/Blocked，ProbeOnly0/NotRun，Windows计数均0。生产核心未改，1836/63全量未重跑。远端Windows构建/桌面/CI仍NotRun，独审后才推送首次触发；无run URL不假报通过。P0/E06Blocked、P1—P4InProgress、106整体NotRun、不跳P5/P6。见windows-ci-review与windows-ci说明及本轮原始日志。

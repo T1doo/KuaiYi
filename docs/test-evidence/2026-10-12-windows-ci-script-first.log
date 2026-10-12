@@ -1,0 +1,6 @@
+PASS Win32 facts interop compiles, no Win32 call on this host
+Exception: /workspace/KuaiYi/tests/scripts/windows-ci.test.ps1:10
+Line |
+  10 |  … Check([bool]$Value) { if (-not $Value) { throw 'Assertion failed' } }
+     |                                             ~~~~~~~~~~~~~~~~~~~~~~~~
+     | Assertion failed

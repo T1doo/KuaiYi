@@ -1,0 +1,42 @@
+PASS Win32 facts interop compiles, no Win32 call on this host
+PASS PowerShell parses windows-ci-common.ps1
+PASS PowerShell parses run-windows-ci.ps1
+PASS Synthetic x64 PE32+ DLL header accepted (not a loadable DLL)
+PASS PE rejects dos
+PASS PE rejects offset-small
+PASS PE rejects offset-large
+PASS PE rejects offset-overflow
+PASS PE rejects signature
+PASS PE rejects machine-x86
+PASS PE rejects optional-small
+PASS PE rejects optional-truncated
+PASS PE rejects executable
+PASS PE rejects pe32
+PASS PE rejects truncated
+PASS Server/admin fixture session allowed only as limited contract capability
+PASS Desktop capability rejects IsWindows
+PASS Desktop capability rejects UserInteractive
+PASS Desktop capability rejects SessionId
+PASS Desktop capability rejects InputDesktop
+PASS Desktop capability rejects Monitors
+PASS Desktop capability rejects HasShell
+PASS Desktop capability rejects DwmEnabled
+PASS CTest counts one executed success
+PASS CTest empty/wrong/skipped/failed/duplicate result rejects
+PASS CTest empty/wrong/skipped/failed/duplicate result rejects
+PASS CTest empty/wrong/skipped/failed/duplicate result rejects
+PASS CTest empty/wrong/skipped/failed/duplicate result rejects
+PASS CTest empty/wrong/skipped/failed/duplicate result rejects
+PASS Complete synthetic overlay receipt counts nine checks
+PASS Overlay receipt rejects Source
+PASS Overlay receipt rejects DesktopAcceptance
+PASS Overlay receipt rejects RetainedFrames
+PASS Overlay receipt rejects Errors
+PASS Overlay receipt rejects StreamCompleted
+PASS Overlay receipt rejects ExitCode
+PASS Overlay receipt rejects ModelCalls
+PASS Overlay receipt rejects DiscardedFrames
+PASS Overlay receipt rejects false-check
+PASS Overlay receipt rejects nonbool-check
+PASS Overlay receipt rejects extra-check
+Script contracts: 41 passed; synthetic headers/receipts only; Windows DLL/desktop NotRun.
