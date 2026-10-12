@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "runtime": "10.0.12",
+  "rid": "win-x64",
+  "roles": [
+    {"project":"src/KuaiYi.App/KuaiYi.App.csproj","name":"KuaiYi.App","folder":"app"},
+    {"project":"src/KuaiYi.CaptureBroker/KuaiYi.CaptureBroker.csproj","name":"KuaiYi.CaptureBroker","folder":"app"},
+    {"project":"src/KuaiYi.ClipboardHost/KuaiYi.ClipboardHost.csproj","name":"KuaiYi.ClipboardHost","folder":"app"},
+    {"project":"tools/KuaiYi.CompatibilityProbe/KuaiYi.CompatibilityProbe.csproj","name":"KuaiYi.CompatibilityProbe","folder":"diagnostics"},
+    {"project":"tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj","name":"KuaiYi.GrowthHarness","folder":"diagnostics"},
+    {"project":"tools/KuaiYi.MockProvider/KuaiYi.MockProvider.csproj","name":"KuaiYi.MockProvider","folder":"test-provider"}
+  ],
+  "scope":"P0/P4 managed text Alpha preparation; actual Windows execution and whole acceptance pending",
+  "installer":false,
+  "productNativeDlls":"NotIncluded"
+}

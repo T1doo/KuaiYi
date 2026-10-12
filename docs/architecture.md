@@ -139,3 +139,5 @@ P4阶段配置不可变随profile/版本，headers/first/idle依据实际阶段o
 P4父审补正：每次阶段转换、read/parse完成和实际事件交付复核同一原始ProviderRequestBudget绝对期限、父取消及活动期限；首响应起点早于Started，Effective不能救活已过期阶段，timer取消通知延后也不能延展预算。outer envelope共享同一budget；迟到连接释放，不写HTTP。见[ADR0020](adr/0020-absolute-deadlines-at-delivery.md)。
 
 P4队列应用补正：ModelEvent/Envelope内部携带不可变资格，只含原budget、请求取消token及已存在的phase origin/limit；ProviderEventReceiver在目标canonical gate内复核，Coordinator正常/错误接收均传原budget，Workflow在Current返回后再次验身份/取消与资格。晚到数据转换同identity失败、终止消费，不刷新total/phase；已应用正文与回退保留。见[ADR0021](adr/0021-frozen-eligibility-at-destination.md)。
+
+文字Alpha工程入口：KuaiYiTextAlpha条件选择独立13份RID发布锁，27普通锁不改；六宿主独立SC发布，只有相同摘要允许共用依赖，完整归属保留。默认包验证不执行任何桌面进程，Execute前验Windows11x64/普通解锁Default桌面/已有实例，只有本次持有的进程被清理。实际Windows测试结果不由跨发布或子source比较推断。见[text-alpha.md](text-alpha.md)。

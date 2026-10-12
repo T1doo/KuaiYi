@@ -383,3 +383,9 @@ ccf998 尚未签收：响应头完成后未复核期限、phase.Check未查父�
 893ebc未签收：生成器检查未覆盖UI队列应用，原lifetime.Token与Current不能拦截止前入队/截止后apply，也无phase origin。实际HTTP→两个实际消费者→生产Receive/Apply→受控Post队列红例104中68失败，112中68失败，恢复六份原源码精确字节的最终124中80失败/44通过，源码/断言/TRX均保存。冻结事件资格携带同一budget、原阶段origin/limit及token，canonical身份/取消检查后复核；晚到内容/usage/成功/错误转对应Failed，已应用正文保留，旧身份丢弃。Workflow在Current返回后再次gate+Admit，终止只影响该identity，旧回调前后排空均不停止新真实请求。
 
 最终124新+94旧专项218/218，完整Core1315+Provider521=1836/1836、Node63/63，27locked Release零警告/错误。原1712逐名保留、27锁/规格/提示词不变；回归后运行/测试未改。打包预核独立目的名、前后核28旧ZIP，ccf恢复字节及893旧包保持精确，旧事故不抹去；当前独立包与24历史精确commit核验，等待父审。P0/E06 Blocked、P1—P4 InProgress、106整体NotRun，实际WindowsUI/跨应用/DPI/DPAPI/安装/原生/真实模型/远端CI未验；无真实key/模型/付费/安装/扩权/发布。见p4-queued-delivery-review、ADR0021及summary。
+
+## P0—P4云内交付缺口与文字Alpha发布链
+
+父限定签收dc70后核30任务：已有生产取词/协议/浮窗接线，仍缺真正自包含Alpha交付与有界执行入口。补六宿主独立publish/相同摘要共用/完整归属清单、1199文件SC包/9实际完整性和执行拒绝检查，13独立RID图锁保持27普通锁和原NuGet条目，SDK10.0.401/runtime10.0.12固定；Windows suite接明确Bundle/Execute/模式与有界进程所有权，不假造Windows通过。首次NU1004保全修独立发布锁，初始化后实际locked发布；当前普通CI1836 .NET/63 Node和27工程0warning/error。
+
+断连恢复05:13:07.806097Z真实命令/HEAD/文件/零活动任务证据保全，无重复启动或扩权；父再次问状态时工作已在进行，最后发布实际开始05:34:45Z。仅原云环境，未操作已连接桌面，未真实模型/密钥/注册/信任/新SDK协议；恢复日志/错误/包保全。Windows最小运行需求降到Windows11x64/普通解锁Default交互桌面/PowerShell7/受控公开fixture应用；源码原生构建、安装与混合DPI测试另需工具和环境。P0/E06仍Blocked，P1—P4InProgress，106整体NotRun；不跳P5/P6，等待有界Windows授权和实际验收。详见p4-text-alpha-review及summary。

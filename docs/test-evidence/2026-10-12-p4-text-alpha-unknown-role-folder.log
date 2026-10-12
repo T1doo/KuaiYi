@@ -1,0 +1,5 @@
+Exception: /workspace/KuaiYi/scripts/text-alpha-common.ps1:21
+Line |
+  21 |  … variant() -cne $entry.Sha256){throw "Bundle bytes differ: $relative"}
+     |                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Bundle bytes differ: app/Accessibility.dll

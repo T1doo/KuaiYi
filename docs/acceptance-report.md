@@ -116,3 +116,5 @@ P4-04新增61阶段专项，全1668 NET/63Node及27locked Release通过，原160
 P4-04截止竞争补正：ccf998未签收，新44生产路径竞争回归通过（原41红例36失败保全），94专项通过；完整Core1315+Provider397=1712/1712、Node63，27locked Release零警告/错误，原1668全部保留。绝对期限/父取消在阶段转换和逐事件交付复核，当前源审阅见[p4-completion-races-review.md](p4-completion-races-review.md)。本地证据和父签收分开；106整体验收仍NotRun、P0/E06仍Blocked，Windows实机/安装/真实模型/远端CI未执行。
 
 P4-04实际消费者队列补正：893ebc未签收，新增124生产HTTP/两个消费者/真实Receive-Apply延迟队列用例（原124红80失败/44通过保留），修后124及旧94专项218/218；完整Core1315+Provider521=1836/1836、Node63，27locked Release零警告/错误，原1712保留。总预算与事件冻结阶段资格在实际目标应用前复核，Current自身跨期也不越过期限；原ZIP精确字节保护/旧事故记录保持。见[p4-queued-delivery-review.md](p4-queued-delivery-review.md)。父签收待完成，106整体验收NotRun、P0/E06仍Blocked，Windows/安装/真实模型/远端CI未执行。
+
+P0—P4工程交付补齐：自包含文字Alpha/13独立RID锁/六实际宿主/1199文件与有界启动入口完成云端发布核验，普通CI1836 .NET/63 Node、27managed Release0warning/error，27原锁/原测试保留。9包完整性/拒绝实验不算平台微测通过；真实Windows程序没有启动，106整体验收NotRun、P0/E06Blocked、P1—P4InProgress、安装器/产品原生DLL仍缺。无用户桌面/真实key模型/安装注册或新SDK协议，见[p4-text-alpha-review.md](p4-text-alpha-review.md)。

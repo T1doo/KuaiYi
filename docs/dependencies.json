@@ -151,5 +151,37 @@
     "javascriptPackages": [],
     "testRuntime": "Node 24.19.0 standard library only, not part of product distribution",
     "browser": "Chrome/Edge MV3 APIs; installation/registration not performed"
+  },
+  "p4TextAlpha": {
+    "sdk": "10.0.401",
+    "rid": "win-x64",
+    "runtime": "10.0.12",
+    "alphaLockFiles": 13,
+    "ordinaryLockFilesUnchanged": 27,
+    "runtimePacks": [
+      {
+        "id": "Microsoft.NETCore.App.Runtime.win-x64",
+        "version": "10.0.12",
+        "license": "MIT",
+        "requireLicenseAcceptanceFlag": false
+      },
+      {
+        "id": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+        "version": "10.0.12",
+        "license": "MIT",
+        "requireLicenseAcceptanceFlag": false
+      },
+      {
+        "id": "Microsoft.AspNetCore.App.Runtime.win-x64",
+        "version": "10.0.12",
+        "license": "MIT",
+        "requireLicenseAcceptanceFlag": true
+      }
+    ],
+    "acquisition": "Standard NuGet restore into original cloud cache; no new Windows SDK agreement/install or desktop action",
+    "selfContained": true,
+    "installer": false,
+    "productNativeDlls": "NotIncluded",
+    "WindowsExecution": "NotRun"
   }
 }

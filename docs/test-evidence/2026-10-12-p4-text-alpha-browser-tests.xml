@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites>
+	<testcase name="actual extension/host/production receiver waits over five seconds for explicit synthetic desktop decision" time="6.158761" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: allow-after-six" time="0.171836" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: no-answer" time="0.121276" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: reject" time="0.112234" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: cancel" time="0.109290" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: off" time="0.108363" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: disconnect" time="0.124324" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: late-answer" time="0.120475" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: late-answer-no-timer" time="0.115166" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="actual ServiceWorker/native host/production receiver confirmation boundary: late-ready" time="0.119510" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="offer without explicit confirmation state still expires at five seconds" time="0.000927" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="ordinary Begin acknowledgement keeps its five-second budget after long confirmation" time="0.000359" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="idle acquisition has a thirty-second transfer budget and disconnect cancels the owning signal" time="0.000310" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="late Ready rejected by monotonic deadline even when wall clock moves backwards before timer dispatch" time="0.000279" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="total operation deadline cannot be renewed by confirmation or Ready" time="0.000246" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="confirmation stage cannot obtain a renewed timer with invalid progress: id" time="0.000193" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="confirmation stage cannot obtain a renewed timer with invalid progress: budget" time="0.000107" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="confirmation stage cannot obtain a renewed timer with invalid progress: protocol" time="0.000126" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="confirmation stage cannot obtain a renewed timer with invalid progress: extra" time="0.000115" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="confirmation stage cannot obtain a renewed timer with invalid progress: duplicate" time="0.000142" classname="test" file="/workspace/KuaiYi/tests/browser/confirmation.test.mjs"/>
+	<testcase name="manifest has exactly three used permissions and no web entry points" time="0.005395" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="context comes only from top-frame active image click" time="0.000220" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="context rejects cross-frame" time="0.000166" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="context rejects wrong-menu" time="0.000076" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="context rejects text" time="0.000075" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="context rejects javascript" time="0.000081" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="context rejects file" time="0.000042" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="context rejects userinfo" time="0.000041" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="context rejects navigated" time="0.000050" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="context rejects inactive" time="0.000147" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="context rejects restricted" time="0.000087" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="UTF-8 bytes include multibyte body and JSON envelope" time="0.000834" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="190KiB worst base64 fits complete native frame" time="0.004632" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="PNG dimensions rejected before host submission" time="0.000191" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="original fetch never attaches credentials/referrer or follows redirects" time="0.017875" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="cross-origin/blob originals cannot call fetch" time="0.000296" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="declared and streamed original byte limits independent" time="0.010971" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="crop remains strictly inside target physical rectangle" time="0.000253" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="crop rejects DPI" time="0.000066" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="crop rejects size mismatch" time="0.001614" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="crop rejects outside viewport" time="0.000067" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="crop rejects empty" time="0.000040" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="crop rejects NaN" time="0.000022" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="crop rejects infinite" time="0.000019" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="ambiguous element refuses capture before screenshot" time="0.000188" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="moved target cannot reach screenshot, measurement or decode" time="0.000254" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="actual acquisition refuses unproven viewport ownership: corner-overlay" time="0.000330" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="actual acquisition refuses unproven viewport ownership: edge-overlay" time="0.000156" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="actual acquisition refuses unproven viewport ownership: opposite-corner-overlay" time="0.000111" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="actual acquisition refuses unproven viewport ownership: clip-path" time="0.000078" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="actual acquisition refuses unproven viewport ownership: border" time="0.000082" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="actual acquisition refuses unproven viewport ownership: padding" time="0.000080" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="actual acquisition refuses unproven viewport ownership: object-fit" time="0.000083" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="actual acquisition refuses unproven viewport ownership: mask" time="0.000077" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="actual acquisition refuses unproven viewport ownership: apparently-clear" time="0.000121" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="actual service worker acquisition pipeline: corner-overlay" time="0.002040" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="actual service worker acquisition pipeline: clip-path" time="0.000896" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="actual service worker acquisition pipeline: original" time="0.006652" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="disconnect rejects an outstanding frame immediately" time="0.000231" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="cancellation sends one explicit cancel and disconnects" time="0.000123" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="wrong operation cannot acknowledge pending frame" time="0.000106" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="desktop Off prevents image acquisition" time="0.000109" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<testcase name="actual extension sender to independent host loop commits ordered maximum chunks" time="0.140582" classname="test" file="/workspace/KuaiYi/tests/browser/protocol.test.mjs"/>
+	<!-- tests 63 -->
+	<!-- suites 0 -->
+	<!-- pass 63 -->
+	<!-- fail 0 -->
+	<!-- cancelled 0 -->
+	<!-- skipped 0 -->
+	<!-- todo 0 -->
+	<!-- duration_ms 7542.423014 -->
+</testsuites>

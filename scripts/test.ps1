@@ -1,13 +1,20 @@
 param([ValidateSet('Offline','Windows','Live')][string]$Suite = 'Offline',
-      [ValidateSet('Debug','Release')][string]$Configuration = 'Release')
+      [ValidateSet('Debug','Release')][string]$Configuration = 'Release',
+      [string]$BundleRoot,[ValidateSet('Preflight','TextAlpha','SelectionProbe','Overlay')][string]$WindowsMode='Preflight',
+      [switch]$ExecuteWindows,[ValidateRange(10,900)][int]$DesktopDurationSeconds=120)
 . "$PSScriptRoot/common.ps1"
 Push-Location $script:RepositoryRoot
 $process = $null
 $oldProvider = [Environment]::GetEnvironmentVariable('KUAIYI_TEST_PROVIDER_URL')
 try {
     Assert-SpecIntegrity
+    if ($Suite -eq 'Windows') {
+        Assert-WindowsDesktop
+        if(-not $BundleRoot -or -not $ExecuteWindows -or $WindowsMode -eq 'Preflight'){throw 'Blocked: Windows run requires the verified Alpha BundleRoot, explicit ExecuteWindows and a selected bounded WindowsMode. Preflight is not a Windows test.'}
+        & "$PSScriptRoot/run-desktop-tests.ps1" -BundleRoot $BundleRoot -Mode $WindowsMode -Execute -DurationSeconds $DesktopDurationSeconds
+        return
+    }
     Assert-Sdk
-    if ($Suite -eq 'Windows') { Assert-WindowsDesktop; throw 'NotRun: Windows integration test runner is not implemented in this P0 slice.' }
     if ($Suite -eq 'Live') { throw 'Blocked: live API testing needs separate explicit authorization; this script does not read credentials.' }
     & "$PSScriptRoot/build.ps1" -Scope Offline -Configuration $Configuration
     $folder = Join-Path $script:RepositoryRoot 'artifacts/test-results/offline'
