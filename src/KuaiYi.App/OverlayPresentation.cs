@@ -18,7 +18,7 @@ internal static class OverlayTokens
 }
 internal sealed partial class ShellWindow
 {
-    private readonly Canvas overlayCanvas=new(){ClipToBounds=true};
+    private readonly Canvas overlayCanvas=new(){ClipToBounds=true,HorizontalAlignment=HorizontalAlignment.Left,VerticalAlignment=VerticalAlignment.Top};
     private readonly Border cardBackground=new(){Background=Brushes.White,IsHitTestVisible=false};
     private readonly TextBox body=new(){IsReadOnly=true,TextWrapping=TextWrapping.Wrap,AcceptsReturn=true,BorderThickness=new Thickness(0),Padding=new Thickness(0),VerticalScrollBarVisibility=ScrollBarVisibility.Auto,HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled,FontFamily=new("Segoe UI"),Background=Brushes.Transparent};
     private readonly TextBlock measurement=new(){TextWrapping=TextWrapping.Wrap,FontFamily=new("Segoe UI")};
@@ -193,6 +193,8 @@ internal sealed partial class ShellWindow
         double expansion=Math.Clamp((rect.Width-anchor.Width+rect.Height-anchor.Height)/(48*dpi.Factor),0,1);
         int radius=dpi.CeilingPixels(24-8*expansion);
         if(forceNative||appliedRect!=rect||appliedRadius!=radius||appliedVisible!=IsVisible){NativeDesktop.ApplyBounds(hwnd,rect,radius,show:IsVisible);appliedRect=rect;appliedRadius=radius;appliedVisible=IsVisible;}
+        try
+        {
         double width=dpi.Dips(rect.Width),height=dpi.Dips(rect.Height);overlayCanvas.Width=width;overlayCanvas.Height=height;cardBackground.Width=width;cardBackground.Height=height;
         double bx=dpi.Dips(anchor.Left-rect.Left),by=dpi.Dips(anchor.Top-rect.Top);Canvas.SetLeft(button,bx);Canvas.SetTop(button,by);
         Canvas.SetLeft(progressRing,bx+3);Canvas.SetTop(progressRing,by+3);
@@ -215,6 +217,13 @@ internal sealed partial class ShellWindow
         Canvas.SetLeft(resultLabel,dpi.Dips(targetLeft+pad-rect.Left));Canvas.SetTop(resultLabel,dpi.Dips(top-rect.Top));resultLabel.Width=Math.Max(1,targetWidth-32);resultLabel.Height=labelHeight;resultLabel.Opacity=overlayFrames.ContentOpacity;resultLabel.Visibility=labelHeight>0&&bottom-top>dpi.CeilingPixels(labelHeight)?Visibility.Visible:Visibility.Collapsed;
         Canvas.SetLeft(body,dpi.Dips(targetLeft+pad-rect.Left));Canvas.SetTop(body,dpi.Dips(top-rect.Top)+labelHeight);body.Width=Math.Max(1,targetWidth-32);body.Height=Math.Max(0,dpi.Dips(bottom-top)-labelHeight);body.Opacity=overlayFrames.ContentOpacity;body.Visibility=body.Height>0?Visibility.Visible:Visibility.Collapsed;
         Canvas.SetLeft(newContent,Math.Max(0,width-90));Canvas.SetTop(newContent,Math.Max(0,height-30));
+        }
+        finally
+        {
+            // HWND movement is synchronous; Canvas coordinates otherwise remain deferred until a later arrange.
+            // Commit the complete property batch, including the compact early return, before exposing this frame.
+            if(overlayCanvas.IsLoaded&&(!overlayCanvas.IsMeasureValid||!overlayCanvas.IsArrangeValid))overlayCanvas.UpdateLayout();
+        }
     }
     private void DisposePresentation(){StopFrames();flush.Stop();peekIn.Stop();peekOut.Stop();waiting.Stop();overlayResults.Clear();body.Clear();measurement.Text="";}
 }

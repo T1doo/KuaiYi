@@ -82,7 +82,7 @@ internal static class ActualOverlayProbe
             checks["ForegroundUnchanged"]&=KuaiYi.Windows.NativeDesktop.GetForegroundWindow()==initialForeground;
             checks["ActualButtonMatchesAnchor"]&=actualButton==state.Anchor;checks["AnchorStable"]&=firstAnchor==state.Anchor;
             checks["Grew"]|=state.Current.Width>state.Anchor.Width&&state.Current.Height>state.Anchor.Height;
-            frames.Enqueue(FormattableString.Invariant($"{clock.Elapsed.TotalMilliseconds:F3},{state.Transition},{state.Monitor.Dpi.Factor:F3},{state.Current.Left},{state.Current.Top},{state.Current.Right},{state.Current.Bottom},{state.Current.Contains(state.Anchor)},{work.Contains(state.Current)},{read&&actual.ToPixels()==state.Current},{read&&actual.ToPixels().Contains(state.Anchor)},{read&&work.Contains(actual.ToPixels())},{KuaiYi.Windows.NativeDesktop.GetForegroundWindow()==initialForeground},{actualButton==state.Anchor},{actualButton?.Left},{actualButton?.Top},{actualButton?.Right},{actualButton?.Bottom}"));
+            frames.Enqueue(FormattableString.Invariant($"{clock.Elapsed.TotalMilliseconds:F3},{state.Transition},{state.Monitor.Dpi.Factor:F3},{state.Current.Left},{state.Current.Top},{state.Current.Right},{state.Current.Bottom},{state.Current.Contains(state.Anchor)},{work.Contains(state.Current)},{read&&actual.ToPixels()==state.Current},{read&&actual.ToPixels().Contains(state.Anchor)},{read&&work.Contains(actual.ToPixels())},{KuaiYi.Windows.NativeDesktop.GetForegroundWindow()==initialForeground},{actualButton==state.Anchor},{actualButton?.Left},{actualButton?.Top},{actualButton?.Right},{actualButton?.Bottom},{state.Anchor.Left},{state.Anchor.Top},{state.Anchor.Right},{state.Anchor.Bottom}"));
             if(frames.Count>100000){frames.Dequeue();discarded++;}
         };
         System.Windows.Media.CompositionTarget.Rendering+=observe;
@@ -92,7 +92,7 @@ internal static class ActualOverlayProbe
         finally
         {
             System.Windows.Media.CompositionTarget.Rendering-=observe;timer.Stop();deadline.Stop();
-            File.WriteAllLines(output,new[]{"ms,stage,dpi,left,top,right,bottom,anchorContained,workContained,nativeMatches,actualAnchorContained,actualWorkContained,foregroundUnchanged,actualButtonMatchesAnchor,buttonLeft,buttonTop,buttonRight,buttonBottom"}.Concat(frames));
+            File.WriteAllLines(output,new[]{"ms,stage,dpi,left,top,right,bottom,anchorContained,workContained,nativeMatches,actualAnchorContained,actualWorkContained,foregroundUnchanged,actualButtonMatchesAnchor,buttonLeft,buttonTop,buttonRight,buttonBottom,anchorLeft,anchorTop,anchorRight,anchorBottom"}.Concat(frames));
             File.WriteAllText(output+".summary.json",System.Text.Json.JsonSerializer.Serialize(new{Kind="ActualProductionOverlayPublicProbe",Rate=rate,RetainedFrames=frames.Count,DiscardedFrames=discarded,Errors=errors,ModelCalls=0,Source="PublicFixtureOnly",DesktopAcceptance="NotEvaluated",Mode=boundedCi?"BoundedCi":"Interactive",StreamCompleted=completed,Checks=checks,ExitCode=boundedCi?ExitCode():0}));
             if(Directory.Exists(root))Directory.Delete(root,true);
         }
