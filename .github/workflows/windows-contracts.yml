@@ -24,7 +24,7 @@ jobs:
           set-safe-directory: false
           fetch-depth: 1
       - name: Probe preinstalled tools, build native DLLs, run bounded public contracts
-        # Add bounded real production OLE isolation/cancel/close/recovery with public fault data; physical E06 remains NotRun.
+        # One bounded OLE run with whitelist-only receiver startup diagnostics; physical E06 remains NotRun.
         shell: pwsh
         run: |
           & ./scripts/run-windows-ci.ps1 -OleOnly

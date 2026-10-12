@@ -1,10 +1,26 @@
 using System.Buffers.Binary;
 using System.Text;
+using System.Security.Cryptography;
 using KuaiYi.Contracts;
 using KuaiYi.Core;
 using KuaiYi.OleTransfer;
 // Explicit synthetic backend, real child/private pipes/production server. This packet is NEVER unmarshaled.
+int statusAt=Array.IndexOf(args,"--test-status");
+if(statusAt>=0){if(statusAt+2!=args.Length)return 2;FixtureStatus.Path=args[statusAt+1];args=args[..statusAt];}
 string mode=args.LastOrDefault()??"normal";
+if(mode=="startup-diagnostic-fail")
+{
+    var frame=await IpcFrameCodec.ReadAsync(Console.OpenStandardInput())??throw new EndOfStreamException();
+    try{if(frame.Type!=IpcMessageType.OleHello)return 2;}
+    finally{CryptographicOperations.ZeroMemory(frame.Payload);}
+    OleStartupDiagnostics.Emit(OleStartupStage.ParentVerify,new InvalidOperationException("PUBLIC_SENTINEL never projected"));return 3;
+}
+if(mode=="startup-diagnostic-flood")
+{
+    using var stderr=Console.OpenStandardError();byte[] output=Enumerable.Repeat((byte)'x',1024*1024).ToArray();
+    await stderr.WriteAsync(output);await stderr.WriteAsync(new byte[]{(byte)'\n'});Array.Clear(output);
+    OleStartupDiagnostics.Emit(OleStartupStage.Entry);
+}
 return await OleReceiverServer.RunAsync(Console.OpenStandardInput(),Console.OpenStandardOutput(),(hello,send)=>Task.FromResult<IOleReceiverBackend>(new Backend(hello,send,mode)));
 sealed class Backend:IOleReceiverBackend,IOleReceiverControlBackend
 {
@@ -22,7 +38,7 @@ sealed class Backend:IOleReceiverBackend,IOleReceiverControlBackend
     }
     public void SetEnabled(long epoch,bool enabled)
     {
-        if(!enabled){Console.Error.WriteLine("off:"+epoch);return;}
+        if(!enabled){FixtureStatus.Write("off:"+epoch);return;}
         if(Interlocked.Exchange(ref started,1)==0)_=Task.Run(()=>Transfer(epoch));
     }
     private async Task Transfer(long epoch)
@@ -30,10 +46,10 @@ sealed class Backend:IOleReceiverBackend,IOleReceiverControlBackend
         if(hello.ProductionTextDrop){await Formal(epoch);return;}
         Guid id=Guid.NewGuid();
         void Event(string phase,bool cleaned=false,uint effect=0,int length=0)=>send(new(IpcMessageType.OleEvent,id,OleReceiverWire.Serialize(new OleReceiverEvent(mode=="wrong-instance"?Guid.NewGuid():hello.Instance,epoch,id,phase,cleaned,effect,length))));
-        if(mode=="query-stall"){Event("QueryBegin");Console.Error.WriteLine("blocked:query");await Task.Delay(Timeout.Infinite);return;}
+        if(mode=="query-stall"){Event("QueryBegin");FixtureStatus.Write("blocked:query");await Task.Delay(Timeout.Infinite);return;}
         Event("DropBegin");
-        if(mode=="drop-stall"){Console.Error.WriteLine("blocked:drop");await Task.Delay(Timeout.Infinite);return;}
-        if(mode=="release-stall"){Event("CleanupFailed");Console.Error.WriteLine("blocked:release");await Task.Delay(Timeout.Infinite);return;}
+        if(mode=="drop-stall"){FixtureStatus.Write("blocked:drop");await Task.Delay(Timeout.Infinite);return;}
+        if(mode=="release-stall"){Event("CleanupFailed");FixtureStatus.Write("blocked:release");await Task.Delay(Timeout.Infinite);return;}
         if(mode=="late")await Task.Delay(500);
         if(mode!="missing-cleanup")Event("CleanupComplete",true);
         byte[] body=mode=="bad-utf8"?[0xff]:Encoding.UTF8.GetBytes("public local fixture 文本");
@@ -54,7 +70,7 @@ sealed class Backend:IOleReceiverBackend,IOleReceiverControlBackend
         if(mode=="formal-hover-only")return;
         Event("DropBegin",effect:1);
         if(mode=="formal-duplicate-begin")Event("DropBegin",effect:1);
-        if(mode=="formal-stall"){Console.Error.WriteLine("blocked:formal");await Task.Delay(Timeout.Infinite);return;}
+        if(mode=="formal-stall"){FixtureStatus.Write("blocked:formal");await Task.Delay(Timeout.Infinite);return;}
         if(mode=="formal-late")await Task.Delay(350);
         string text=mode=="formal-url"?"https://public.invalid/path":"public formal 文本 😀";
         if(mode!="formal-missing-cleanup")Event("CleanupComplete",true);
@@ -63,4 +79,18 @@ sealed class Backend:IOleReceiverBackend,IOleReceiverControlBackend
         Event("DropEnd",true,mode=="formal-move"?2u:1u,text.Length);
     }
     public Task ShutdownAsync(){Array.Clear(ExportPacket);return Task.CompletedTask;}
+}
+
+// Explicit test-owned metadata channel; never used by the production receiver or diagnostic parser.
+static class FixtureStatus
+{
+    public static string? Path;private static readonly object Sync=new();
+    public static void Write(string status)
+    {
+        lock(Sync)if(Path is {} path)
+        {
+            using var file=new FileStream(path,FileMode.Append,FileAccess.Write,FileShare.ReadWrite);
+            using var text=new StreamWriter(file);text.WriteLine(status);
+        }
+    }
 }

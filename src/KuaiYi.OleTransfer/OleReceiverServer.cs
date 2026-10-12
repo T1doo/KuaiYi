@@ -12,18 +12,25 @@ public interface IOleReceiverBackend
 public interface IOleReceiverControlBackend{void ApplyControl(OleReceiverControl control);}
 public static class OleReceiverServer
 {
-    public static async Task<int> RunAsync(Stream input,Stream output,Func<OleReceiverHello,Action<IpcFrame>,Task<IOleReceiverBackend>> create,CancellationToken cancellation=default)
+    public static async Task<int> RunAsync(Stream input,Stream output,Func<OleReceiverHello,Action<IpcFrame>,Task<IOleReceiverBackend>> create,CancellationToken cancellation=default,Action<OleStartupStage,Exception?>? diagnostic=null)
     {
         using var lifetime=CancellationTokenSource.CreateLinkedTokenSource(cancellation);
         var queue=Channel.CreateBounded<IpcFrame>(new BoundedChannelOptions(64){SingleReader=true,FullMode=BoundedChannelFullMode.Wait});
-        Task? writing=null;IOleReceiverBackend? backend=null;OleReceiverHello? hello=null;
+        Task? writing=null;IOleReceiverBackend? backend=null;OleReceiverHello? hello=null;OleStartupStage stage=OleStartupStage.HelloRead;
         try
         {
+            diagnostic?.Invoke(stage,null);
             var frame=await IpcFrameCodec.ReadAsync(input,lifetime.Token)??throw new EndOfStreamException();
             try{if(frame.Type!=IpcMessageType.OleHello)throw new InvalidDataException();hello=OleReceiverWire.Read<OleReceiverHello>(frame.Payload);OleReceiverWire.Validate(hello);if(frame.RequestId!=hello.Instance)throw new InvalidDataException();}
             finally{CryptographicOperations.ZeroMemory(frame.Payload);}
+            stage=OleStartupStage.HelloValidated;diagnostic?.Invoke(stage,null);
             writing=WriteLoop();Send(new(IpcMessageType.OleHello,hello.Instance,hello.Nonce.ToArray()));CryptographicOperations.ZeroMemory(hello.Nonce);
-            backend=await create(hello,Send).ConfigureAwait(false);OleReceiverWire.ValidateExport(backend.ExportPacket);Send(new(IpcMessageType.OleExport,hello.Instance,backend.ExportPacket.ToArray()));backend.SetEnabled(hello.Epoch,false);
+            stage=OleStartupStage.BackendCreate;diagnostic?.Invoke(stage,null);
+            backend=await create(hello,Send).ConfigureAwait(false);
+            stage=OleStartupStage.ExportValidate;diagnostic?.Invoke(stage,null);OleReceiverWire.ValidateExport(backend.ExportPacket);
+            Send(new(IpcMessageType.OleExport,hello.Instance,backend.ExportPacket.ToArray()));
+            stage=OleStartupStage.ExportQueued;diagnostic?.Invoke(stage,null);backend.SetEnabled(hello.Epoch,false);
+            stage=OleStartupStage.Controls;
             while(await IpcFrameCodec.ReadAsync(input,lifetime.Token) is {} control)
             {
                 try
@@ -34,7 +41,7 @@ public static class OleReceiverServer
             }
             return 0;
         }
-        catch(Exception error){Console.Error.WriteLine("OleReceiver failure: "+error.GetType().Name);return 3;}
+        catch(Exception error){diagnostic?.Invoke(stage,error);return 3;}
         finally
         {
             lifetime.Cancel();queue.Writer.TryComplete();if(hello!=null)CryptographicOperations.ZeroMemory(hello.Nonce);

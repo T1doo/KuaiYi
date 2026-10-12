@@ -44,10 +44,14 @@ internal sealed class ReceiverHost:IOleReceiverBackend,IOleReceiverControlBacken
     {if(Production)Metadata(transaction,epoch,visible?"Hover":"Leave",source:source,point:new(point.X,point.Y),format:format);else Preview(visible);}
     public ReceiverHost(OleReceiverHello hello,Action<IpcFrame> send)
     {
-        this.hello=hello;this.send=send;gate.Set(hello.Epoch,false);parent=OleReceiverParent.Verify(hello);
-        try{activation=new(hello);}catch{parent.Dispose();throw;}
+        this.hello=hello;this.send=send;gate.Set(hello.Epoch,false);
+        OleStartupDiagnostics.Emit(OleStartupStage.ParentVerify);
+        try{parent=OleReceiverParent.Verify(hello);}catch(Exception error){OleStartupDiagnostics.Emit(OleStartupStage.ParentVerify,error);throw;}
+        OleStartupDiagnostics.Emit(OleStartupStage.ActivationOpen);
+        try{activation=new(hello);}catch(Exception error){OleStartupDiagnostics.Emit(OleStartupStage.ActivationOpen,error);parent.Dispose();throw;}
         target=new(this);callback=Dispatch;
-        try{export=new(callback);}catch{activation.Dispose();parent.Dispose();throw;}
+        OleStartupDiagnostics.Emit(OleStartupStage.NativeExportCreate);
+        try{export=new(callback);}catch(Exception error){OleStartupDiagnostics.Emit(OleStartupStage.NativeExportCreate,error);activation.Dispose();parent.Dispose();throw;}
     }
     private int Dispatch(int kind,nint data,uint keys,OlePoint point,ref uint effect)
     {

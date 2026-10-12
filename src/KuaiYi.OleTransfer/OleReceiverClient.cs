@@ -19,6 +19,20 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
     /// <summary>Cached diagnostic identity of the actual owned child; retained after finalization, never used to kill by PID.</summary>
     public int? OwnedProcessId{get{int id=Volatile.Read(ref ownedProcessId);return id==0?null:id;}}
     private Task? registration;
+    private readonly OleStartupDiagnosticDrain diagnosticDrain=new();
+    private readonly CancellationTokenSource diagnosticStop=new();
+    private Task diagnosticRead=Task.CompletedTask;
+    internal Func<Task>? AfterDiagnosticReadForTest {get;init;}
+    private async Task ReadDiagnosticsAsync(Stream input)
+    {
+        await diagnosticDrain.RunAsync(input,diagnosticStop.Token).ConfigureAwait(false);
+        if(AfterDiagnosticReadForTest is {} barrier)await barrier().ConfigureAwait(false);
+    }
+    public OleStartupDiagnostic[] StartupDiagnostics=>diagnosticDrain.Snapshot;
+    public OleStartupDiagnostic? StartupFailure {get;private set;}
+    public int? OwnedExitCode {get;private set;}
+    public OleExceptionCode DiagnosticReadFailure=>diagnosticDrain.Failure;
+    public bool DiagnosticReadSettled=>Volatile.Read(ref diagnosticRead).IsCompleted;
     private Task? revocation;
     private readonly HashSet<Task> readSettlements=[];
     internal Func<Task<IpcFrame?>,Task>? BeforeReadSettlementForTest{get;set;}
@@ -60,7 +74,7 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
         Cancel();bool exited=await process.TryFinalizeAsync(retry).ConfigureAwait(false);
         bool revoked=await registrar.TryFinalizeAsync().ConfigureAwait(false);
         Task? remoteRevoke;lock(watchSync)remoteRevoke=revocation;
-        bool finalized=exited&&revoked&&Volatile.Read(ref started)!=1&&registration is not {IsCompleted:false}&&registrar.IsSettledAndRevoked&&Volatile.Read(ref deliverySettlement) is not {IsCompleted:false}&&remoteRevoke is not {IsCompleted:false};
+        bool finalized=exited&&revoked&&DiagnosticReadSettled&&Volatile.Read(ref started)!=1&&registration is not {IsCompleted:false}&&registrar.IsSettledAndRevoked&&Volatile.Read(ref deliverySettlement) is not {IsCompleted:false}&&remoteRevoke is not {IsCompleted:false};
         lock(watchSync)finalized=finalized&&readSettlements.All(task=>task.IsCompleted);if(finalized)activation.Dispose();return finalized;
     }
     public async ValueTask DisposeAsync(){if(!await TryFinalizeAsync())throw new OleReceiverException(!process.ObserveExit()?OleReceiverFailure.ExitUnconfirmed:!registrar.IsSettledAndRevoked?OleReceiverFailure.RegistrarUnconfirmed:OleReceiverFailure.SettlementUnconfirmed);}
@@ -108,31 +122,36 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
         using var startup=new CancellationTokenSource(TimeSpan.FromSeconds(10),timeProvider??TimeProvider.System);
         using var beginning=CancellationTokenSource.CreateLinkedTokenSource(lifetime.Token,startup.Token);
         byte[]? pending=null;Guid transaction=Guid.Empty,queryIdentity=Guid.Empty,dropIdentity=Guid.Empty;long payloadEpoch=0;Task? watchdog=null;SelectionWindow? sourceIdentity=null;PixelPoint? dropPoint=null;OleTextFormat selectedFormat=OleTextFormat.None;
+        OleStartupStage startupStage=OleStartupStage.ParentStart;
         var starting=process.Start(OwnedProcessSession.Info(executable,managedAssembly),beginning.Token);
         lock(watchSync)watch.Start(instance,hello.Epoch);
         try
         {
             child=await starting.WaitAsync(beginning.Token).ConfigureAwait(false);
             Volatile.Write(ref ownedProcessId,child.Id);
+            Volatile.Write(ref diagnosticRead,ReadDiagnosticsAsync(child.StandardError.BaseStream));
+            startupStage=OleStartupStage.ParentHelloWrite;
             byte[] command=OleReceiverWire.Serialize(hello);
             try{await IpcFrameCodec.WriteAsync(child.StandardInput.BaseStream,new(IpcMessageType.OleHello,instance,command),beginning.Token);await child.StandardInput.BaseStream.FlushAsync(beginning.Token);}
             finally{CryptographicOperations.ZeroMemory(command);}
+            startupStage=OleStartupStage.ParentHelloRead;
             var response=await Read(beginning.Token);
             bool transferred=false;
             try
             {
                 if(response.Type!=IpcMessageType.OleHello||response.RequestId!=instance||!CryptographicOperations.FixedTimeEquals(response.Payload,hello.Nonce))throw new OleReceiverException(OleReceiverFailure.Protocol);
             }finally{CryptographicOperations.ZeroMemory(response.Payload);}
+            startupStage=OleStartupStage.ParentExportRead;
             var export=await Read(beginning.Token);
             try
             {
                 if(export.Type!=IpcMessageType.OleExport||export.RequestId!=instance)throw new OleReceiverException(OleReceiverFailure.Protocol);
                 OleReceiverWire.ValidateExport(export.Payload);transferred=true;
-                registration=registrar.RegisterAsync(hello.Hwnd,export.Payload,lifetime.Token);
+                startupStage=OleStartupStage.ParentRegister;registration=registrar.RegisterAsync(hello.Hwnd,export.Payload,lifetime.Token);
                 await registration.WaitAsync(beginning.Token).ConfigureAwait(false);
                 beginning.Token.ThrowIfCancellationRequested();lock(watchSync){if(watch.Expired)throw new OleReceiverException(OleReceiverFailure.Timeout);watch.Reset();}
             }finally{if(!transferred)CryptographicOperations.ZeroMemory(export.Payload);}
-            lock(activationSync){beginning.Token.ThrowIfCancellationRequested();ready=true;}feedback(new(instance,hello.Epoch,Guid.Empty,"Ready"));watchdog=Watchdog(lifetime.Token);
+            lock(activationSync){beginning.Token.ThrowIfCancellationRequested();ready=true;}startupStage=OleStartupStage.ParentReady;feedback(new(instance,hello.Epoch,Guid.Empty,"Ready"));watchdog=Watchdog(lifetime.Token);startupStage=OleStartupStage.ParentRun;
             while(true)
             {
                 var frame=await Read(lifetime.Token);bool retained=false;
@@ -186,12 +205,18 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
                 }finally{if(!retained)CryptographicOperations.ZeroMemory(frame.Payload);}
             }
         }
-        catch(OperationCanceledException)when((timedOut||startup.IsCancellationRequested)&&!cancellation.IsCancellationRequested&&!stop.IsCancellationRequested){throw new OleReceiverException(OleReceiverFailure.Timeout);}
+        catch(OperationCanceledException error)when((timedOut||startup.IsCancellationRequested)&&!cancellation.IsCancellationRequested&&!stop.IsCancellationRequested){StartupFailure=OleStartupDiagnostics.Project(startupStage,error);throw new OleReceiverException(OleReceiverFailure.Timeout);}
+        catch(Exception error){StartupFailure=OleStartupDiagnostics.Project(startupStage,error);throw;}
         finally
         {
             lock(activationSync){ready=false;eligibility.Set(long.MaxValue,false);activation.Set(long.MaxValue,false);}lifetime.Cancel();if(pending!=null)CryptographicOperations.ZeroMemory(pending);
             if(registration!=null)_ = ObserveRegistration(registration);
-            await process.StopAsync().ConfigureAwait(false);await registrar.TryFinalizeAsync().ConfigureAwait(false);
+            await process.StopAsync().ConfigureAwait(false);
+            try{if(child is {} owned&&owned.HasExited)OwnedExitCode=owned.ExitCode;}
+            catch(Exception error){StartupFailure??=OleStartupDiagnostics.Project(OleStartupStage.ParentShutdown,error);}
+            try{await Volatile.Read(ref diagnosticRead).WaitAsync(TimeSpan.FromSeconds(1)).ConfigureAwait(false);}
+            catch(TimeoutException){diagnosticStop.Cancel();} // Original read is retained; finalization still requires its actual settlement.
+            await registrar.TryFinalizeAsync().ConfigureAwait(false);
             if(watchdog!=null)await watchdog.ConfigureAwait(false);
             if(!process.ObserveExit())throw new OleReceiverException(OleReceiverFailure.ExitUnconfirmed);
             if(registration is {IsCompleted:false}||!registrar.IsSettledAndRevoked)throw new OleReceiverException(OleReceiverFailure.RegistrarUnconfirmed);

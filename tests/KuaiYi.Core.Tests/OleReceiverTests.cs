@@ -8,6 +8,17 @@ public sealed class OleReceiverTests
 {
     private sealed class Starter(string mode="normal"):IOwnedProcessStarter,IDisposable
     {
+        private readonly string statusFile=Path.Combine(Path.GetTempPath(),"kuaiyi-public-status-"+Guid.NewGuid().ToString("N"));private int statusLine;
+        public async Task<string> ReadStatusAsync()
+        {
+            var limit=Stopwatch.StartNew();
+            while(limit.Elapsed<TimeSpan.FromSeconds(3))
+            {
+                if(File.Exists(statusFile)){using var file=new FileStream(statusFile,FileMode.Open,FileAccess.Read,FileShare.ReadWrite);using var reader=new StreamReader(file);string[] complete=(await reader.ReadToEndAsync()).Split('\n');if(statusLine<complete.Length-1)return complete[statusLine++].TrimEnd('\r');}
+                await Task.Delay(10);
+            }
+            throw new TimeoutException("Public fixture status deadline.");
+        }
         public ManualResetEventSlim? Barrier{get;init;}
         public bool Fail{get;init;}
         public TaskCompletionSource<int> Entered{get;}=new(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -17,9 +28,9 @@ public sealed class OleReceiverTests
             Entered.TrySetResult(Environment.CurrentManagedThreadId);
             if(Barrier!=null&&!Barrier.Wait(TimeSpan.FromSeconds(10)))throw new TimeoutException("public OLE startup barrier");
             if(Fail)throw new IOException("public OLE startup failure");
-            info.ArgumentList.Add(mode);var child=SystemOwnedProcessStarter.Instance.Start(info);Created.TrySetResult(child);return child;
+            info.ArgumentList.Add(mode);info.ArgumentList.Add("--test-status");info.ArgumentList.Add(statusFile);var child=SystemOwnedProcessStarter.Instance.Start(info);Created.TrySetResult(child);return child;
         }
-        public void Dispose(){Barrier?.Set();Barrier?.Dispose();}
+        public void Dispose(){Barrier?.Set();Barrier?.Dispose();if(File.Exists(statusFile))File.Delete(statusFile);}
     }
     // Explicit test substitutes: no HWND/COM/Windows mapping is exercised by these portable tests.
     private sealed class Activation(Guid instance):IOleActivationLease
@@ -76,7 +87,7 @@ public sealed class OleReceiverTests
         try
         {
             await ready.Task.WaitAsync(TimeSpan.FromSeconds(4));Assert.True(await client.SetEnabledAsync(1,true));var child=await starter.Created.Task;
-            Assert.Equal("off:1",await child.StandardError.ReadLineAsync());Assert.StartsWith("blocked:",await child.StandardError.ReadLineAsync().WaitAsync(TimeSpan.FromSeconds(3)));
+            Assert.Equal("off:1",await starter.ReadStatusAsync());Assert.StartsWith("blocked:",await starter.ReadStatusAsync().WaitAsync(TimeSpan.FromSeconds(3)));
             var gesture=new OverlayPointerGesture();var anchor=new PixelRect(-120,20,-72,68);
             Assert.Equal(OverlayPointerAction.Ignored,gesture.Move(new(-100,30),out _));Assert.Equal(OverlayPointerAction.Pressed,gesture.Down(new(-100,30),anchor,true));Assert.Equal(OverlayPointerAction.Moved,gesture.Move(new(-50,50),out var desired));Assert.Equal(new PixelPoint(-70,40),desired);Assert.Equal(OverlayPointerAction.Released,gesture.Up());
             Assert.False(run.IsCompleted);var failure=await Assert.ThrowsAsync<OleReceiverException>(()=>run.WaitAsync(TimeSpan.FromSeconds(5)));Assert.Equal(OleReceiverFailure.Timeout,failure.Failure);Assert.True(child.HasExited);Assert.True(client.ObserveExit());Assert.False(activation.Enabled);Assert.Equal(0,delivered);
@@ -103,7 +114,7 @@ public sealed class OleReceiverTests
     [Fact]public async Task KillFailureKeepsRealChildAndLeaseButOffReachesIndependentControlLoop()
     {
         Guid id=Guid.NewGuid();using var starter=new Starter("drop-stall");var registrar=new Registrar();var activation=new Activation(id);var client=new OleReceiverClient(Environment.GetEnvironmentVariable("DOTNET_HOST_PATH")??"dotnet",registrar,activation,AssemblyPath(),starter){LifetimeForTest=p=>new FailedKill(p)};var ready=new TaskCompletionSource();var run=Run(client,id,ready);
-        try{await ready.Task.WaitAsync(TimeSpan.FromSeconds(4));Assert.True(await client.SetEnabledAsync(1,true));var child=await starter.Created.Task;Assert.Equal("off:1",await child.StandardError.ReadLineAsync());Assert.Equal("blocked:drop",await child.StandardError.ReadLineAsync());client.Cancel();Assert.False(activation.Enabled);Assert.Equal("off:"+long.MaxValue,await child.StandardError.ReadLineAsync().WaitAsync(TimeSpan.FromSeconds(3)));Assert.Equal(OleReceiverFailure.ExitUnconfirmed,(await Assert.ThrowsAsync<OleReceiverException>(()=>run.WaitAsync(TimeSpan.FromSeconds(3)))).Failure);Assert.False(child.HasExited);Assert.False(await client.TryFinalizeAsync());Assert.False(activation.Disposed);Assert.Equal(HostExitState.TerminationFailed,client.ExitState);}
+        try{await ready.Task.WaitAsync(TimeSpan.FromSeconds(4));Assert.True(await client.SetEnabledAsync(1,true));var child=await starter.Created.Task;Assert.Equal("off:1",await starter.ReadStatusAsync());Assert.Equal("blocked:drop",await starter.ReadStatusAsync());client.Cancel();Assert.False(activation.Enabled);Assert.Equal("off:"+long.MaxValue,await starter.ReadStatusAsync().WaitAsync(TimeSpan.FromSeconds(3)));Assert.Equal(OleReceiverFailure.ExitUnconfirmed,(await Assert.ThrowsAsync<OleReceiverException>(()=>run.WaitAsync(TimeSpan.FromSeconds(3)))).Failure);Assert.False(child.HasExited);Assert.False(await client.TryFinalizeAsync());Assert.False(activation.Disposed);Assert.Equal(HostExitState.TerminationFailed,client.ExitState);}
         finally{await Cleanup(client,starter,registrar,run);}
     }
     [Theory][InlineData("wrong-instance")][InlineData("missing-cleanup")][InlineData("duplicate")][InlineData("move")][InlineData("bad-utf8")][InlineData("cleanup-false")]

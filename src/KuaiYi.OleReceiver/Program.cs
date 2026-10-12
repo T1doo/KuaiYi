@@ -8,10 +8,18 @@ internal static class Program
     [STAThread]public static int Main(string[] args)
     {
         if(args.Length!=1||args[0]!="--private-stdio"||!OperatingSystem.IsWindows())return 2;
-        using var apartment=new OleApartment();var dispatcher=Dispatcher.CurrentDispatcher;
-        Task<int> run=Task.Run(()=>OleReceiverServer.RunAsync(Console.OpenStandardInput(),Console.OpenStandardOutput(),Create));
-        _ =run.ContinueWith(_=>dispatcher.BeginInvokeShutdown(DispatcherPriority.Send),TaskScheduler.Default);
-        Dispatcher.Run();return run.GetAwaiter().GetResult(); // Receiver STA only, after its pump exits; never App presentation.
-        async Task<IOleReceiverBackend> Create(OleReceiverHello hello,Action<IpcFrame> send)=>await dispatcher.InvokeAsync(()=>new ReceiverHost(hello,send));
+        OleStartupStage stage=OleStartupStage.Entry;
+        try
+        {
+            OleStartupDiagnostics.Emit(stage);
+            stage=OleStartupStage.Apartment;OleStartupDiagnostics.Emit(stage);
+            using var apartment=new OleApartment();var dispatcher=Dispatcher.CurrentDispatcher;
+            Task<int> run=Task.Run(()=>OleReceiverServer.RunAsync(Console.OpenStandardInput(),Console.OpenStandardOutput(),Create,diagnostic:OleStartupDiagnostics.Emit));
+            _ =run.ContinueWith(_=>dispatcher.BeginInvokeShutdown(DispatcherPriority.Send),TaskScheduler.Default);
+            stage=OleStartupStage.Dispatcher;OleStartupDiagnostics.Emit(stage);
+            Dispatcher.Run();return run.GetAwaiter().GetResult();
+            async Task<IOleReceiverBackend> Create(OleReceiverHello hello,Action<IpcFrame> send)=>await dispatcher.InvokeAsync(()=>new ReceiverHost(hello,send));
+        }
+        catch(Exception error){OleStartupDiagnostics.Emit(stage,error);return 3;}
     }
 }
