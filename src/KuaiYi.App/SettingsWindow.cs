@@ -63,7 +63,7 @@ internal sealed partial class SettingsWindow:Window
         Field(p,"名称",profileName);Field(p,"协议",protocol);Field(p,"地址模式",addressMode);Field(p,"Base URL / 完整端点",url);Field(p,"最终端点预览",endpointPreview);Field(p,"模型 ID（可手动填写）",model);Field(p,"认证方式",authentication);Field(p,"API Key（留空保留现有引用）",password);p.Children.Add(reveal);p.Children.Add(keyStatus);
         var keyButtons=new StackPanel{Orientation=Orientation.Horizontal};var show=new Button{Content="短时显示新输入",Margin=new Thickness(4)};var clear=new Button{Content="清除密钥（保存后生效）",Margin=new Thickness(4)};keyButtons.Children.Add(show);keyButtons.Children.Add(clear);p.Children.Add(keyButtons);
         show.Click+=(_,_)=>{reveal.Text=password.Password;password.Visibility=Visibility.Collapsed;reveal.Visibility=Visibility.Visible;reveal.Focus();revealTimer.Start();};
-        clear.Click+=(_,_)=>{if(selectedId==null)return;Mask();password.Clear();draft.ClearKey(selectedId);keyStatus.Text="本草稿已清除引用；取消会保留原密钥。";};
+        clear.Click+=(_,_)=>ClearApiKey();
         Field(p,"最大输出 token",tokens);Field(p,"请求超时（秒）",timeout);p.Children.Add(stream);Field(p,"默认文字配置（空为未配置）",textProfile);Field(p,"默认视觉配置（能力默认为未知）",visionProfile);
         SetupApiAdvanced(p);Note(p,"保存不会发送请求。连接测试仅在明确确认后发送固定公开样本；请先保存配置和密钥。能力默认未知，可手动修正；不自动遍历模型测试。密钥不读取到表单。");url.TextChanged+=(_,_)=>ApiIdentityEdited();model.TextChanged+=(_,_)=>ApiIdentityEdited();protocol.SelectionChanged+=(_,_)=>ApiIdentityEdited();addressMode.SelectionChanged+=(_,_)=>ApiIdentityEdited();return p;
     }

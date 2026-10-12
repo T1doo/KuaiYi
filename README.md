@@ -6,7 +6,7 @@ Windows 11 x64 AI 翻译软件，完整产品与验收规格见 [SPEC.md](SPEC.m
 
 已运行的检查、失败修复与平台阻塞见 [开发进度](docs/progress.md)、[验收状态](docs/acceptance-report.md) 和 [需求追踪](docs/traceability.json)。不得将这些离线测试等同于真实 Windows UIA、OLE、焦点、截图、多屏 DPI 或安装验收。
 
-最新离线 .NET 测试 1499 项、扩展 Node 测试 63 项通过；旧错误晚到缺口见 [专项审查](docs/late-event-review.md)，最大分片 JSON 外壳缺口见 [协议边界审查](docs/protocol-boundary-review.md)。OLE 联合实验与未证实的宿主假设见 [OLE 探针说明](docs/ole-probe.md)。清理终结与退出确认修复见 [清理监督审查](docs/ole-cleanup-review.md)。新增独立 ImageWorker、真实原生 OCR/Shell 源码、双 EXE 开发身份清单与安装态验证脚本，见 [图片与身份说明](docs/imageworker-identity.md)。原生编译和 Windows OCR/菜单仍未执行。图片窗口的迟到状态与实际启动线程修复见 [UI 收尾审查](docs/image-ui-review.md)。最新子进程发布/启动终结竞态修复见 [清理竞态审查](docs/image-finalization-review.md)。最小 MV3 扩展、实际 NativeHost 分片/取消与授权边界见 [浏览器协议审查](docs/browser-native-host.md)。真实安装与浏览器取图未运行。GitHub CI 未运行。
+最新离线 .NET 测试 1505 项、扩展 Node 测试 63 项通过；旧错误晚到缺口见 [专项审查](docs/late-event-review.md)，最大分片 JSON 外壳缺口见 [协议边界审查](docs/protocol-boundary-review.md)。OLE 联合实验与未证实的宿主假设见 [OLE 探针说明](docs/ole-probe.md)。清理终结与退出确认修复见 [清理监督审查](docs/ole-cleanup-review.md)。新增独立 ImageWorker、真实原生 OCR/Shell 源码、双 EXE 开发身份清单与安装态验证脚本，见 [图片与身份说明](docs/imageworker-identity.md)。原生编译和 Windows OCR/菜单仍未执行。图片窗口的迟到状态与实际启动线程修复见 [UI 收尾审查](docs/image-ui-review.md)。最新子进程发布/启动终结竞态修复见 [清理竞态审查](docs/image-finalization-review.md)。最小 MV3 扩展、实际 NativeHost 分片/取消与授权边界见 [浏览器协议审查](docs/browser-native-host.md)。真实安装与浏览器取图未运行。GitHub CI 未运行。
 
 ## 构建与离线测试
 
@@ -81,3 +81,5 @@ P3-06 父审指出测试配置可变为远程而仍标本地，已修不可变�
 P4-01 已接统一地址/参数映射、能力编辑与明确确认的固定公开内容连接测试；测试不启用主开关、不采集内容、已有生成时拒绝。原本地测试模式边界保留，见 [配置闭环审查](docs/p4-profile-review.md)、[Windows待测](docs/p4-profile-windows-checklist.md)。完整P4与Windows文字Alpha未验。
 
 P4父审补正：固定样本许可不再扩张普通内容会话授权，测试成功后真实上传仍独立确认；统一冻结总预算与全部草稿编辑撤销。见 [授权与预算审查](docs/p4-consent-review.md)。其他父审和完整Windows验收尚待完成。
+
+已保存密钥空密码框的清除命令与预设清引用现先显式撤销测试再修改草稿，见[命令入口补正](docs/p4-secret-command-review.md)。生产命令体六项回归使用明确测试控件端口；实际WPF按钮和DPAPI仍NotRun。

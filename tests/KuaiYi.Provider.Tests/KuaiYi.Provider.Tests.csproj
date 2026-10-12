@@ -6,5 +6,6 @@
     <PackageReference Include="xunit.runner.visualstudio"><PrivateAssets>all</PrivateAssets></PackageReference>
     <ProjectReference Include="../../src/KuaiYi.Providers/KuaiYi.Providers.csproj" />
     <ProjectReference Include="../../tools/KuaiYi.MockProvider/KuaiYi.MockProvider.csproj" />
+    <Compile Include="../../src/KuaiYi.App/SettingsSecretCommands.cs" Link="Production/SettingsSecretCommands.cs" />
   </ItemGroup>
 </Project>

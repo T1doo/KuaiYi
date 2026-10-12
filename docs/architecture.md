@@ -127,3 +127,5 @@ P3-06 父审补正：显式命令原 URL 的不可变 DevelopmentTranslationBoun
 P4-01：ApiProfilePolicy共享解析/校验、ApiProfileMapper生成真实协议参数和省略提示；五态能力实际为五项三态Unknown/Supported/Unsupported，不能从模型名推断。ApiConnectionTestWorkflow在同一Gate独立请求目的中仅发送固定公开source/system，Off仍不允许获取用户内容。正式消费者liveRequest按profile/参数切换取消，通用绑定与旧快照保证不改。详见ADR0016。
 
 P4父审修复：connectionTestOrigin只供当前测试身份，不写普通consent；ProviderRequestBudget在秘密前冻结原点、HTTP使用剩余时间，阶段截止保留；所有表单编辑进DraftEdited revision/取消并在最终队列复核。原源码和红绿保全，详见p4-consent-review。
+
+密钥引用清除不依赖控件Changed：ClearApiKey与preset清引用共用ClearDraftApiKey，在引用修改前调用原ApiFormEdited撤销identity/草稿revision。生产partial命令体由测试Link，测试UI端口与真实Windows事件分开记录，见p4-secret-command-review。

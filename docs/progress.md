@@ -345,3 +345,9 @@ P3-04最后复核补未知UIA状态带CopyEvidence的真实child反例：原6项
 7fecdf尚未签收：一次公开测试误写普通内容consent、传输120硬cap及相关表单编辑取消不全。授权17反例旧11失败/6通过；现在目标仅绑定测试identity，失败/取消不污染普通权限，Shell真实enable独立确认。总预算在秘密访问前一次单调冻结，传HTTP同一对象按剩余取消，30/20等阶段截止保留；旧源码计时重放3中2失败，修后同断言验证60/120/180。表单Text/Password/Selection/Checked/Unchecked全接DraftEdited，待确认/排队事件复核revision。
 
 新30专项最终通过，Core1262+Provider237=1499、Node63、27locked Release零警告/错误。首套bounds旧进程测试因额外并行负载600ms硬截止失败不改原断言/截止；第二套旧test factory漏新timeout映射补夹具而非改预期；新shellfixture顺序/旧time观察编译和亚毫秒失误均保留日志。原1469/锁/规格保留，独立包及22旧包/18历史固定commit核验，原覆盖恢复事故不抹去。其他父审等待、P0/E06 Blocked、P1—P4 InProgress、106整体NotRun；Windows/实际UI编辑/DPAPI/焦点/动画/DPI/安装/原生/远端CI未验，没有真实key/模型/付费/扩权/安装或部署。
+
+## P4 空控件密钥清除命令父审补正
+
+05dc一次测试授权/共享总预算获父限定成立，编辑取消遗漏清除已保存key：密码框空Clear无事件。将真实Clear按钮命令体提至partial并与preset直接清引用步骤共享入口，先ApiFormEdited再改引用；原统一编辑体仅移动，其他设置流程不扩张。检查SetKey仅非空新输入、显示/Mask不读旧key；preset实际同类遗漏一并补。原05dc Window/Api两份字节、等价抽出旧命令、红测与相同断言保留。初队列fixture误读null Post状态导致超时，修夹具后原6中5失败/1通过，修复同6全过。测试Link真实生产命令体，控件明确测试端口；真实配置/AES合成密文、原gate/workflow/lease、HTTP及目的队列执行。草稿不永久删旧key，结算释放请求lease，保存才原事务撤销。
+
+最终Core1262+Provider243=1505/1505、Node63/63、27locked Release零警告/错误；原1499逐项名称、27锁与规格不变。独立新包和23旧包/19历史精确commit核验，历史覆盖恢复事故继续保留。P0/E06 Blocked、P1—P4 InProgress、106整体NotRun，Windows真实Click/PasswordBox/DPAPI/原生/跨应用/动画/DPI/安装与远端CI未验；无真实key/模型/付费/安装/扩权/部署。详见p4-secret-command-review、Windows清单及summary。

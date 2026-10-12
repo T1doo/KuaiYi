@@ -37,10 +37,9 @@ internal sealed partial class SettingsWindow
         testConnection.IsEnabled=apiTests!=null;testConnection.Click+=async(_,_)=>await TestApi();stopTest.Click+=(_,_)=>{apiTests?.Cancel();status.Text="已取消连接测试。服务端是否已停止处理无法保证。";};
         Closing+=async(_,e)=>{if(apiTestTask.IsCompleted)return;e.Cancel=true;if(testClosePending)return;testClosePending=true;apiTests?.Cancel();try{await apiTestTask;}finally{testClosePending=false;Close();}};
     }
-    private void ApiFormEdited(){if(loading)return;apiTests?.DraftEdited();if(!apiTestTask.IsCompleted)status.Text="配置已编辑，原连接测试已取消；请保存后重新测试。";}
     private void ApplyApiPreset(Protocol value)
     {
-        if(selectedId==null){status.Text="请先新增或选择一个配置。";return;}apiTests?.Cancel();draft.ClearKey(selectedId);password.Clear();
+        if(selectedId==null){status.Text="请先新增或选择一个配置。";return;}ClearDraftApiKey(selectedId);password.Clear();
         protocol.SelectedItem=value;authentication.SelectedItem=value==Protocol.OpenAIChat?ApiAuthentication.Bearer:ApiAuthentication.ApiKey;authHeader.Text="";
         addressMode.SelectedItem=ApiAddressMode.BasePrefix;url.Text=value==Protocol.OpenAIChat?"https://api.openai.com/v1":"https://api.anthropic.com/v1";endpointPath.Text="";model.Text="";
         outputParameter.SelectedItem=OutputTokenParameter.ProtocolDefault;temperature.Clear();headers.Clear();localHttp.IsChecked=insecureHttp.IsChecked=false;storeFalse.IsChecked=value==Protocol.OpenAIChat;

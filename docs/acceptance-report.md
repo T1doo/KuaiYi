@@ -104,3 +104,5 @@ P3-06 生产接线限定验证：66 新用例、Core1216+Provider131=1347、Node
 P4-01限定代码/离线证据：新增Core40/Provider43，完整1256+213=1469、Node63、27 locked Release；真实配置文件/AES合成密文到两协议loopback请求和返回，以及Off固定样本限制已验证。Windows设置UI/焦点/关闭等待/DPAPI、跨应用/动画/DPI、安装/真实服务仍NotRun；106整体NotRun，不签收完整P4 Alpha。
 
 P4授权/预算父审补正：新30项、完整Core1262+Provider237=1499/1499、Node63、27locked Release；旧授权17中11失败与旧预算3中2失败原证据保留，原1469名称/27锁/规格不变。其他父审未验，106整体验收NotRun；Windows/native/DPAPI/UI编辑/焦点/动画/DPI/安装/真实模型/远端CI不签收。
+
+P4命令补正：05dc对已保存密钥空PasswordBox.Clear漏编辑失效。真实按钮命令体/preset秘密步骤先统一DraftEdited再清引用；新6同体/实际临时密文+HTTP+lease测试通过，原红6中5失败及初夹具失败保存。完整Core1262+Provider243=1505、Node63、27locked Release通过。WPF事件和DPAPI NotRun，106整体验收不改；详见p4-secret-command-review及summary。

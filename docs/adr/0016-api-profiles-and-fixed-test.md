@@ -11,3 +11,7 @@
 ## 父审补正：测试目的与普通上传授权分开
 
 7fecdf曾在固定测试Start中调用ConsentTo，把一次样本许可变成普通内容许可；该声明不能签收。临时目标现在在身份创建锁内绑定，只供同一connectionTest identity发送，失败/退出不写普通consent，Shell真实enable仍独立确认。另删除transport120硬上限，使用Consumer在凭据前冻结的同一单调ProviderRequestBudget，传输使用剩余值，独立阶段截止保留。表单所有相关事件统一推进draft revision并取消，最终UI队列重检。详情见p4-consent-review与原始红绿证据，实际Windows事件/图形仍NotRun。
+
+## 父审补正：命令修改密钥引用必须显式失效
+
+空PasswordBox.Clear不保证Changed，原05dc清除已保存引用能绕过DraftEdited。Clear按钮生产命令体与preset秘密清除共用入口，引用变更前调用原统一ApiFormEdited；不读保存key、不提前永久撤销草稿以外秘密。请求租约随原任务结算释放，保存仍原事务撤销磁盘引用。测试工程Link同一partial命令文件，UI端口明确测试专用，Windows真实事件仍需补验。
