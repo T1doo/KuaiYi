@@ -47,16 +47,31 @@ public sealed class ApiConnectionTestWorkflow:IAsyncDisposable
             if(intent.Plan.Transport.Authentication!=Authentication.None)secret=await openSecret(identity,intent,timeout.Token).ConfigureAwait(false);
             await foreach(var item in provider.GenerateEnvelopesAsync(new(intent.Plan.Transport,ApiConnectionTestContent.System,ApiConnectionTestContent.Source),gate,identity,secret,timeout.Token,()=>Current(intent),budget).ConfigureAwait(false))
             {
-                if(!await receiver.ReceiveAsync(item,value=>{if(Current(intent))apply(new(identity,value.Kind==ModelEventKind.Failed&&timeout.IsCancellationRequested&&!lifetime.IsCancellationRequested?value with{Reason="REQUEST_TIMEOUT"}:value,intent.Plan));},lifetime.Token).ConfigureAwait(false))break;
+                bool terminal=false;
+                if(!await receiver.ReceiveAsync(item,value=>terminal=ApplyCurrent(intent,identity,item,value,budget,lifetime.Token,apply),lifetime.Token,budget).ConfigureAwait(false)||terminal)break;
             }
         }
         catch(OperationCanceledException)when(lifetime.IsCancellationRequested){ /* Explicit cancellation/Off/profile replacement owns the final state. */ }
         catch(Exception error)
         {
             string reason=error is OperationCanceledException?"REQUEST_TIMEOUT":"TEST_REQUEST_FAILED";
-            await receiver.ReceiveAsync(new(identity,new(ModelEventKind.Failed,Reason:reason)),value=>{if(Current(intent))apply(new(identity,value,intent.Plan));},lifetime.Token).ConfigureAwait(false);
+            var failure=new ModelEventEnvelope(identity,new(ModelEventKind.Failed,Reason:reason));
+            await receiver.ReceiveAsync(failure,value=>ApplyCurrent(intent,identity,failure,value,budget,lifetime.Token,apply),lifetime.Token,budget).ConfigureAwait(false);
         }
         finally{secret?.Dispose();gate.MarkRequestTerminal(identity);gate.StopRequest(identity);lock(sync)if(active==identity)active=null;}
+    }
+    private bool ApplyCurrent(ApiTestIntent intent,RequestIdentity identity,ModelEventEnvelope envelope,ModelEvent value,
+        ProviderRequestBudget budget,CancellationToken lifetime,Action<ApiTestUpdate> apply)
+    {
+        if(!Current(intent))return false;
+        bool terminal=false;
+        // Current may consult external settings code. Recheck identity/cancellation and deadline after it returns.
+        gate.TryApply(identity,()=>
+        {
+            if(lifetime.IsCancellationRequested)return;
+            var admitted=ProviderEventReceiver.Admit(envelope,value,budget);
+            apply(new(identity,admitted,intent.Plan));terminal=admitted.Kind is ModelEventKind.Completed or ModelEventKind.Failed;
+        });return terminal;
     }
     public void Cancel(){RequestIdentity? identity;lock(sync)identity=active;if(identity is {} id)gate.StopRequest(id);}
     public void DraftEdited(){Interlocked.Increment(ref draftRevision);Cancel();}

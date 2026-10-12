@@ -159,7 +159,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
         try
         {
             bool SendEligible()=>Eligible(snapshot,explicitUse)&&(regenerate||settings()?.Version==snapshot.Settings.Version)&&gate.IsRequestProfileBindingCurrent(identity,snapshot.Binding);
-            if(!SendEligible()||!gate.CanApply(identity)){await FailAsync(identity,snapshot,"SOURCE_OR_SETTINGS_CHANGED",lifetime.Token).ConfigureAwait(false);return;}
+            if(!SendEligible()||!gate.CanApply(identity)){await FailAsync(identity,snapshot,"SOURCE_OR_SETTINGS_CHANGED",lifetime.Token,budget).ConfigureAwait(false);return;}
             if(snapshot.Transport.Authentication!=Authentication.None)secret=await openSecret(identity,snapshot,timeout.Token).ConfigureAwait(false);
             await foreach(var envelope in provider.GenerateEnvelopesAsync(new(snapshot.Transport,snapshot.Prompt,snapshot.Source.Text),gate,identity,secret,timeout.Token,
                 SendEligible,budget).ConfigureAwait(false))
@@ -171,22 +171,22 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
                     else if(value.Kind==ModelEventKind.Completed&&Results.Complete(identity)){presentation=new(OverlayResultEventKind.Complete);terminal=true;MarkFinished(identity);PruneSnapshots();}
                     else if(value.Kind==ModelEventKind.Failed&&Results.Fail(identity)){presentation=new(OverlayResultEventKind.Stopped);terminal=true;MarkFinished(identity);PruneSnapshots();}
                     if(presentation!=null)Publish(new(identity,presentation,snapshot,value.Kind==ModelEventKind.Failed?timeout.IsCancellationRequested&&!lifetime.IsCancellationRequested?"REQUEST_TIMEOUT":value.Reason:null));
-                },lifetime.Token).ConfigureAwait(false);
-                if(!received)break;
+                },lifetime.Token,budget).ConfigureAwait(false);
+                if(!received||terminal)break;
             }
-            if(!terminal&&gate.CanApply(identity))await FailAsync(identity,snapshot,"REQUEST_NOT_COMPLETED",lifetime.Token).ConfigureAwait(false);
+            if(!terminal&&gate.CanApply(identity))await FailAsync(identity,snapshot,"REQUEST_NOT_COMPLETED",lifetime.Token,budget).ConfigureAwait(false);
         }
         catch(OperationCanceledException)when(lifetime.IsCancellationRequested){ /* Replaced/Off/lock/stop: gate rejects every late event. */ }
         catch(Exception error)when(error is not DestinationFailure)
         {
             string reason=error is OperationCanceledException?"REQUEST_TIMEOUT":error is System.Security.Cryptography.CryptographicException?"SECRET_UNAVAILABLE":"CLIENT_FAILURE";
-            await FailAsync(identity,snapshot,reason,lifetime.Token).ConfigureAwait(false);
+            await FailAsync(identity,snapshot,reason,lifetime.Token,budget).ConfigureAwait(false);
         }
         finally{secret?.Dispose();}
     }
-    private Task<bool> FailAsync(RequestIdentity identity,TextTranslationSnapshot snapshot,string reason,CancellationToken cancellation)
-        =>receiver.ReceiveAsync(new(identity,new(ModelEventKind.Failed,Reason:reason)),_=>
-        {if(Results.Fail(identity)){MarkFinished(identity);PruneSnapshots();Publish(new(identity,new(OverlayResultEventKind.Stopped),snapshot,reason));}},cancellation);
+    private Task<bool> FailAsync(RequestIdentity identity,TextTranslationSnapshot snapshot,string reason,CancellationToken cancellation,ProviderRequestBudget budget)
+        =>receiver.ReceiveAsync(new(identity,new(ModelEventKind.Failed,Reason:reason)),value=>
+        {if(Results.Fail(identity)){MarkFinished(identity);PruneSnapshots();Publish(new(identity,new(OverlayResultEventKind.Stopped),snapshot,value.Reason));}},cancellation,budget);
     private void Publish(TextTranslationUpdate update)
     {try{changed(update);}catch(Exception error){deliveryFailure=error;gate.StopRequest(update.Identity);throw new DestinationFailure(error);}}
     private void MarkFinished(RequestIdentity identity){gate.MarkRequestTerminal(identity);if(submitted?.Identity==identity)submitted.Finished=true;var live=Volatile.Read(ref liveRequest);if(live?.Identity==identity)Interlocked.CompareExchange(ref liveRequest,null,live);}

@@ -377,3 +377,9 @@ ccf998 尚未签收：响应头完成后未复核期限、phase.Check未查父�
 完整Core1315+Provider397=1712/1712、Node63/63，27locked Release零警告/错误。原1668逐名保留、27锁/规格/内置提示词未变；当前独立ZIP与27旧包/23历史精确commit摘要核对，ccf原证据字节不改，旧覆盖恢复事故记录保持。最终回归后运行源码/测试未改；等待父独审。P0/E06 Blocked、P1—P4 InProgress、106整体NotRun，Windows/跨应用/DPI/DPAPI/真实代理DNS/安装/模型/远端CI仍NotRun，无真实调用/安装/扩权/发布。详见[p4-completion-races-review.md](p4-completion-races-review.md)、ADR0020及summary。
 
 本轮打包复制脚本遗漏大写P4目的名，暂时覆盖ccf原ZIP；冻结检查失败后，由未动原staging恢复原2165159 bytes及SHA256 231ed070c8baeb4bf5017be2083b014b092c48b80f627cabad3a4bfc6c442b96。未改原摘要/哈希断言。新脚本修正独立输出并增加全部27历史ZIP前后哈希检查及历史路径拒绝，重跑证据保留。
+
+## P4-04 实际消费者目标队列父审阻断修复
+
+893ebc未签收：生成器检查未覆盖UI队列应用，原lifetime.Token与Current不能拦截止前入队/截止后apply，也无phase origin。实际HTTP→两个实际消费者→生产Receive/Apply→受控Post队列红例104中68失败，112中68失败，恢复六份原源码精确字节的最终124中80失败/44通过，源码/断言/TRX均保存。冻结事件资格携带同一budget、原阶段origin/limit及token，canonical身份/取消检查后复核；晚到内容/usage/成功/错误转对应Failed，已应用正文保留，旧身份丢弃。Workflow在Current返回后再次gate+Admit，终止只影响该identity，旧回调前后排空均不停止新真实请求。
+
+最终124新+94旧专项218/218，完整Core1315+Provider521=1836/1836、Node63/63，27locked Release零警告/错误。原1712逐名保留、27锁/规格/提示词不变；回归后运行/测试未改。打包预核独立目的名、前后核28旧ZIP，ccf恢复字节及893旧包保持精确，旧事故不抹去；当前独立包与24历史精确commit核验，等待父审。P0/E06 Blocked、P1—P4 InProgress、106整体NotRun，实际WindowsUI/跨应用/DPI/DPAPI/安装/原生/真实模型/远端CI未验；无真实key/模型/付费/安装/扩权/发布。见p4-queued-delivery-review、ADR0021及summary。

@@ -91,3 +91,5 @@ P4-05模板设置已接查看/复制/恢复/完整预览及真实配置→生产
 P4-04阶段预算高级配置、有效活动SSE/JSON读取已接生产路径，见[阶段超时审阅](docs/p4-phase-timeouts-review.md)。61专项与真实loopback/TLS部分验证不替代Windows/真实服务验收。
 
 父审发现阶段转换与事件交付的截止竞争，已补绝对总预算/父取消/阶段期限检查，见[截止交付补正](docs/p4-completion-races-review.md)。新44项竞争回归通过，完整1712 .NET/63 Node；原阶段切片及本补正仍待父审，Windows整体验收未完成。
+
+实际消费者延迟队列的总预算/阶段资格补正已接生产 Receive/Apply，见[目标队列补正](docs/p4-queued-delivery-review.md)。124新生产消费者专项与完整1836 .NET/63 Node通过，仍待父审及Windows整体验收。

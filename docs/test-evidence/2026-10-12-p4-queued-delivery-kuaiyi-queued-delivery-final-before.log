@@ -1,0 +1,817 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.50]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "application/json", ordinal: 2, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.51]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "application/json", ordinal: 3, kind: "total") [FAIL]
+[xUnit.net 00:00:00.51]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "application/json", ordinal: 2, kind: "phase") [FAIL]
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "application/json", ordinal: 2, kind: "phase") [7 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "application/json", ordinal: 3, kind: "total") [3 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "application/json", ordinal: 2, kind: "phase") [3 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.51]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 1, kind: "total") [FAIL]
+[xUnit.net 00:00:00.51]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "application/json", ordinal: 0, kind: "total") [FAIL]
+[xUnit.net 00:00:00.52]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 3, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.52]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 3, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.52]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "application/json", ordinal: 1, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.52]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "application/json", ordinal: 2, kind: "total") [FAIL]
+[xUnit.net 00:00:00.52]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "application/json", ordinal: 3, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.53]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 3, kind: "total") [FAIL]
+[xUnit.net 00:00:00.53]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "application/json", ordinal: 3, kind: "phase") [FAIL]
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 1, kind: "total") [2 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "application/json", ordinal: 0, kind: "total") [3 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 3, kind: "phase") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 3, kind: "phase") [2 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "application/json", ordinal: 1, kind: "phase") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "application/json", ordinal: 2, kind: "total") [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "application/json", ordinal: 3, kind: "phase") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 3, kind: "total") [1 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "application/json", ordinal: 3, kind: "phase") [1 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.53]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "application/json", ordinal: 0, kind: "total") [FAIL]
+[xUnit.net 00:00:00.53]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 2, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.54]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "application/json", ordinal: 2, kind: "total") [FAIL]
+[xUnit.net 00:00:00.54]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "application/json", ordinal: 3, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.54]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "application/json", ordinal: 1, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.54]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "application/json", ordinal: 1, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.54]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 3, kind: "total") [FAIL]
+[xUnit.net 00:00:00.54]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 0, kind: "total") [FAIL]
+[xUnit.net 00:00:00.55]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 0, kind: "phase") [FAIL]
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "application/json", ordinal: 0, kind: "total") [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 2, kind: "phase") [2 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "application/json", ordinal: 2, kind: "total") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "application/json", ordinal: 3, kind: "phase") [1 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "application/json", ordinal: 1, kind: "phase") [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "application/json", ordinal: 1, kind: "phase") [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 3, kind: "total") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 0, kind: "total") [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 0, kind: "phase") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Started
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.55]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "application/json", ordinal: 1, kind: "total") [FAIL]
+[xUnit.net 00:00:00.55]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 2, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.56]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 3, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.56]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 2, kind: "total") [FAIL]
+[xUnit.net 00:00:00.56]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "application/json", ordinal: 1, kind: "total") [FAIL]
+[xUnit.net 00:00:00.56]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 1, kind: "total") [FAIL]
+[xUnit.net 00:00:00.56]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 1, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.57]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 2, kind: "total") [FAIL]
+[xUnit.net 00:00:00.57]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 1, kind: "total") [FAIL]
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "application/json", ordinal: 1, kind: "total") [2 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 2, kind: "phase") [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 3, kind: "phase") [4 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 2, kind: "total") [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "application/json", ordinal: 1, kind: "total") [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 1, kind: "total") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 1, kind: "phase") [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 2, kind: "total") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 1, kind: "total") [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.57]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "application/json", ordinal: 3, kind: "total") [FAIL]
+[xUnit.net 00:00:00.57]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 0, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.57]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "application/json", ordinal: 3, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.58]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 2, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.58]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "application/json", ordinal: 0, kind: "total") [FAIL]
+[xUnit.net 00:00:00.58]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "application/json", ordinal: 2, kind: "total") [FAIL]
+[xUnit.net 00:00:00.58]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "application/json", ordinal: 2, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.58]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "application/json", ordinal: 2, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.58]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 0, kind: "phase") [FAIL]
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "application/json", ordinal: 3, kind: "total") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 0, kind: "phase") [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "application/json", ordinal: 3, kind: "phase") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 2, kind: "phase") [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "application/json", ordinal: 0, kind: "total") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Started
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "application/json", ordinal: 2, kind: "total") [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "application/json", ordinal: 2, kind: "phase") [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "application/json", ordinal: 2, kind: "phase") [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 0, kind: "phase") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Started
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.59]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "application/json", ordinal: 1, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.59]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "application/json", ordinal: 0, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.59]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 3, kind: "total") [FAIL]
+[xUnit.net 00:00:00.59]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "application/json", ordinal: 3, kind: "total") [FAIL]
+[xUnit.net 00:00:00.59]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "application/json", ordinal: 0, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.59]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 2, kind: "total") [FAIL]
+[xUnit.net 00:00:00.60]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "application/json", ordinal: 0, kind: "total") [FAIL]
+[xUnit.net 00:00:00.60]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "application/json", ordinal: 1, kind: "total") [FAIL]
+[xUnit.net 00:00:00.60]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 0, kind: "total") [FAIL]
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "application/json", ordinal: 1, kind: "phase") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "application/json", ordinal: 0, kind: "phase") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Started
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 3, kind: "total") [1 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "application/json", ordinal: 3, kind: "total") [1 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "application/json", ordinal: 0, kind: "phase") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Started
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 2, kind: "total") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "application/json", ordinal: 0, kind: "total") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Started
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "application/json", ordinal: 1, kind: "total") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 0, kind: "total") [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.60]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 0, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.60]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 0, kind: "total") [FAIL]
+[xUnit.net 00:00:00.60]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 1, kind: "total") [FAIL]
+[xUnit.net 00:00:00.61]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 3, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.61]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 2, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.61]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 3, kind: "total") [FAIL]
+[xUnit.net 00:00:00.61]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 1, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.61]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "application/json", ordinal: 3, kind: "total") [FAIL]
+[xUnit.net 00:00:00.62]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 1, kind: "phase") [FAIL]
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 0, kind: "phase") [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 0, kind: "total") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Started
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 1, kind: "total") [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 3, kind: "phase") [1 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 2, kind: "phase") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 3, kind: "total") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: AnthropicMessages, mime: "text/event-stream", ordinal: 1, kind: "phase") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "application/json", ordinal: 3, kind: "total") [1 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 1, kind: "phase") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   TextDelta
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.62]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 0, kind: "total") [FAIL]
+[xUnit.net 00:00:00.62]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 1, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.62]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "application/json", ordinal: 0, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.62]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "application/json", ordinal: 1, kind: "total") [FAIL]
+[xUnit.net 00:00:00.63]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 2, kind: "total") [FAIL]
+[xUnit.net 00:00:00.63]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "application/json", ordinal: 2, kind: "total") [FAIL]
+[xUnit.net 00:00:00.63]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "application/json", ordinal: 0, kind: "phase") [FAIL]
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 0, kind: "total") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Started
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 1, kind: "phase") [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "application/json", ordinal: 0, kind: "phase") [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: AnthropicMessages, mime: "application/json", ordinal: 1, kind: "total") [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "text/event-stream", ordinal: 2, kind: "total") [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: True, protocol: OpenAIChat, mime: "application/json", ordinal: 2, kind: "total") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 68
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(connectionTest: False, protocol: OpenAIChat, mime: "application/json", ordinal: 0, kind: "phase") [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 69
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualQueuedApplyRejectsExpiredEventAndPreservesEarlierText(Boolean connectionTest, ApiProtocol protocol, String mime, Int32 ordinal, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 70
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.99]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualCurrentCheckCannotCrossDeadlineBeforeFixedTestApply(protocol: AnthropicMessages, kind: "phase") [FAIL]
+[xUnit.net 00:00:00.99]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualCurrentCheckCannotCrossDeadlineBeforeFixedTestApply(protocol: OpenAIChat, kind: "total") [FAIL]
+[xUnit.net 00:00:01.00]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualCurrentCheckCannotCrossDeadlineBeforeFixedTestApply(protocol: AnthropicMessages, kind: "total") [FAIL]
+[xUnit.net 00:00:01.00]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualCurrentCheckCannotCrossDeadlineBeforeFixedTestApply(protocol: OpenAIChat, kind: "phase") [FAIL]
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualCurrentCheckCannotCrossDeadlineBeforeFixedTestApply(protocol: AnthropicMessages, kind: "phase") [5 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualCurrentCheckCannotCrossDeadlineBeforeFixedTestApply(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 126
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualCurrentCheckCannotCrossDeadlineBeforeFixedTestApply(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 126
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualCurrentCheckCannotCrossDeadlineBeforeFixedTestApply(protocol: OpenAIChat, kind: "total") [6 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualCurrentCheckCannotCrossDeadlineBeforeFixedTestApply(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 126
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualCurrentCheckCannotCrossDeadlineBeforeFixedTestApply(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 126
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualCurrentCheckCannotCrossDeadlineBeforeFixedTestApply(protocol: AnthropicMessages, kind: "total") [3 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualCurrentCheckCannotCrossDeadlineBeforeFixedTestApply(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 126
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualCurrentCheckCannotCrossDeadlineBeforeFixedTestApply(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 126
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualCurrentCheckCannotCrossDeadlineBeforeFixedTestApply(protocol: OpenAIChat, kind: "phase") [3 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualCurrentCheckCannotCrossDeadlineBeforeFixedTestApply(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 126
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.ActualCurrentCheckCannotCrossDeadlineBeforeFixedTestApply(ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 126
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:01.02]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RealTimerCancellationWhileCompletionQueuedStillStopsWithoutSuccess(connectionTest: True, protocol: AnthropicMessages) [FAIL]
+[xUnit.net 00:00:01.02]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RealTimerCancellationWhileCompletionQueuedStillStopsWithoutSuccess(connectionTest: False, protocol: OpenAIChat) [FAIL]
+[xUnit.net 00:00:01.03]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RealTimerCancellationWhileCompletionQueuedStillStopsWithoutSuccess(connectionTest: False, protocol: AnthropicMessages) [FAIL]
+[xUnit.net 00:00:01.03]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RealTimerCancellationWhileCompletionQueuedStillStopsWithoutSuccess(connectionTest: True, protocol: OpenAIChat) [FAIL]
+[xUnit.net 00:00:01.04]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RepeatedUsageQueuedLaterCannotRestartOriginalIdleOrigin(connectionTest: False, protocol: OpenAIChat) [FAIL]
+[xUnit.net 00:00:01.04]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RepeatedUsageQueuedLaterCannotRestartOriginalIdleOrigin(connectionTest: True, protocol: OpenAIChat) [FAIL]
+[xUnit.net 00:00:01.05]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RepeatedUsageQueuedLaterCannotRestartOriginalIdleOrigin(connectionTest: False, protocol: AnthropicMessages) [FAIL]
+[xUnit.net 00:00:01.06]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RepeatedUsageQueuedLaterCannotRestartOriginalIdleOrigin(connectionTest: True, protocol: AnthropicMessages) [FAIL]
+[xUnit.net 00:00:01.06]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.QueuedProtocolErrorAfterPartialTextUsesCurrentDeadline(connectionTest: True, protocol: OpenAIChat, kind: "phase") [FAIL]
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RealTimerCancellationWhileCompletionQueuedStillStopsWithoutSuccess(connectionTest: True, protocol: AnthropicMessages) [16 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RealTimerCancellationWhileCompletionQueuedStillStopsWithoutSuccess(Boolean connectionTest, ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 118
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RealTimerCancellationWhileCompletionQueuedStillStopsWithoutSuccess(Boolean connectionTest, ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 119
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RealTimerCancellationWhileCompletionQueuedStillStopsWithoutSuccess(connectionTest: False, protocol: OpenAIChat) [4 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RealTimerCancellationWhileCompletionQueuedStillStopsWithoutSuccess(Boolean connectionTest, ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 119
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RealTimerCancellationWhileCompletionQueuedStillStopsWithoutSuccess(Boolean connectionTest, ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 119
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RealTimerCancellationWhileCompletionQueuedStillStopsWithoutSuccess(connectionTest: False, protocol: AnthropicMessages) [5 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RealTimerCancellationWhileCompletionQueuedStillStopsWithoutSuccess(Boolean connectionTest, ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 119
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RealTimerCancellationWhileCompletionQueuedStillStopsWithoutSuccess(Boolean connectionTest, ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 119
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RealTimerCancellationWhileCompletionQueuedStillStopsWithoutSuccess(connectionTest: True, protocol: OpenAIChat) [3 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Completed
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RealTimerCancellationWhileCompletionQueuedStillStopsWithoutSuccess(Boolean connectionTest, ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 118
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RealTimerCancellationWhileCompletionQueuedStillStopsWithoutSuccess(Boolean connectionTest, ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 119
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RepeatedUsageQueuedLaterCannotRestartOriginalIdleOrigin(connectionTest: False, protocol: OpenAIChat) [6 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+Expected: "READ_IDLE_TIMEOUT"
+Actual:   null
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RepeatedUsageQueuedLaterCannotRestartOriginalIdleOrigin(Boolean connectionTest, ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 137
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RepeatedUsageQueuedLaterCannotRestartOriginalIdleOrigin(Boolean connectionTest, ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 138
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RepeatedUsageQueuedLaterCannotRestartOriginalIdleOrigin(connectionTest: True, protocol: OpenAIChat) [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RepeatedUsageQueuedLaterCannotRestartOriginalIdleOrigin(Boolean connectionTest, ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 136
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RepeatedUsageQueuedLaterCannotRestartOriginalIdleOrigin(Boolean connectionTest, ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 138
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RepeatedUsageQueuedLaterCannotRestartOriginalIdleOrigin(connectionTest: False, protocol: AnthropicMessages) [7 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+Expected: "READ_IDLE_TIMEOUT"
+Actual:   null
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RepeatedUsageQueuedLaterCannotRestartOriginalIdleOrigin(Boolean connectionTest, ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 137
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RepeatedUsageQueuedLaterCannotRestartOriginalIdleOrigin(Boolean connectionTest, ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 138
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RepeatedUsageQueuedLaterCannotRestartOriginalIdleOrigin(connectionTest: True, protocol: AnthropicMessages) [6 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Usage
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RepeatedUsageQueuedLaterCannotRestartOriginalIdleOrigin(Boolean connectionTest, ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 136
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.RepeatedUsageQueuedLaterCannotRestartOriginalIdleOrigin(Boolean connectionTest, ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 138
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.QueuedProtocolErrorAfterPartialTextUsesCurrentDeadline(connectionTest: True, protocol: OpenAIChat, kind: "phase") [2 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "READ_IDLE_TIMEOUT"
+Actual:   "INVALID_PROTOCOL"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.QueuedProtocolErrorAfterPartialTextUsesCurrentDeadline(Boolean connectionTest, ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 79
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.QueuedProtocolErrorAfterPartialTextUsesCurrentDeadline(Boolean connectionTest, ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 81
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:01.07]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.QueuedProtocolErrorAfterPartialTextUsesCurrentDeadline(connectionTest: False, protocol: AnthropicMessages, kind: "phase") [FAIL]
+[xUnit.net 00:00:01.07]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.QueuedProtocolErrorAfterPartialTextUsesCurrentDeadline(connectionTest: False, protocol: OpenAIChat, kind: "phase") [FAIL]
+[xUnit.net 00:00:01.07]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.QueuedProtocolErrorAfterPartialTextUsesCurrentDeadline(connectionTest: True, protocol: AnthropicMessages, kind: "phase") [FAIL]
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.QueuedProtocolErrorAfterPartialTextUsesCurrentDeadline(connectionTest: False, protocol: AnthropicMessages, kind: "phase") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "READ_IDLE_TIMEOUT"
+Actual:   "INVALID_PROTOCOL"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.QueuedProtocolErrorAfterPartialTextUsesCurrentDeadline(Boolean connectionTest, ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 80
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.QueuedProtocolErrorAfterPartialTextUsesCurrentDeadline(Boolean connectionTest, ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 81
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.QueuedProtocolErrorAfterPartialTextUsesCurrentDeadline(connectionTest: False, protocol: OpenAIChat, kind: "phase") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "READ_IDLE_TIMEOUT"
+Actual:   "INVALID_PROTOCOL"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.QueuedProtocolErrorAfterPartialTextUsesCurrentDeadline(Boolean connectionTest, ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 80
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.QueuedProtocolErrorAfterPartialTextUsesCurrentDeadline(Boolean connectionTest, ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 81
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.QueuedProtocolErrorAfterPartialTextUsesCurrentDeadline(connectionTest: True, protocol: AnthropicMessages, kind: "phase") [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "READ_IDLE_TIMEOUT"
+Actual:   "INVALID_PROTOCOL"
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.QueuedProtocolErrorAfterPartialTextUsesCurrentDeadline(Boolean connectionTest, ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 79
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.QueuedProtocolErrorAfterPartialTextUsesCurrentDeadline(Boolean connectionTest, ApiProtocol protocol, String kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 81
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/test-results/p4-queued-delivery/queued-consumers-final-before.trx
+
+Failed!  - Failed:    80, Passed:    44, Skipped:     0, Total:   124, Duration: 822 ms - KuaiYi.Provider.Tests.dll (net10.0)

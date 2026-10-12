@@ -114,3 +114,5 @@ P4-05模板实际设置→保存重启→生产Compose→两协议HTTP闭环：�
 P4-04新增61阶段专项，全1668 NET/63Node及27locked Release通过，原1607保留。原Core4/修正确HTTP屏障后旧传输6期限红测及首次夹具/生产2/2失败记录保全；真实loopback/TLS验证不代表Windows代理/DNS/完整P4/106整体通过。配置四字段/旧快照、SSE有效期限/JSON真正读取有实际路径，见p4-phase-timeouts-review/summary。
 
 P4-04截止竞争补正：ccf998未签收，新44生产路径竞争回归通过（原41红例36失败保全），94专项通过；完整Core1315+Provider397=1712/1712、Node63，27locked Release零警告/错误，原1668全部保留。绝对期限/父取消在阶段转换和逐事件交付复核，当前源审阅见[p4-completion-races-review.md](p4-completion-races-review.md)。本地证据和父签收分开；106整体验收仍NotRun、P0/E06仍Blocked，Windows实机/安装/真实模型/远端CI未执行。
+
+P4-04实际消费者队列补正：893ebc未签收，新增124生产HTTP/两个消费者/真实Receive-Apply延迟队列用例（原124红80失败/44通过保留），修后124及旧94专项218/218；完整Core1315+Provider521=1836/1836、Node63，27locked Release零警告/错误，原1712保留。总预算与事件冻结阶段资格在实际目标应用前复核，Current自身跨期也不越过期限；原ZIP精确字节保护/旧事故记录保持。见[p4-queued-delivery-review.md](p4-queued-delivery-review.md)。父签收待完成，106整体验收NotRun、P0/E06仍Blocked，Windows/安装/真实模型/远端CI未执行。

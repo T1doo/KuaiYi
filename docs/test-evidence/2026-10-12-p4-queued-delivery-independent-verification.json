@@ -1,0 +1,43 @@
+{
+  "allPassed": true,
+  "checks": 9170,
+  "historicalSummaries": 24,
+  "archives": 29,
+  "tests": 1836,
+  "newQueueCases": 124,
+  "focused": 218,
+  "Node": 63,
+  "archive": {
+    "archive": "artifacts/KuaiYi-P4-queued-delivery-managed-win-x64.zip",
+    "bytes": 2170590,
+    "sha256": "e2249408a425f4e3206115baacd92295138feceed3c7b986fcaf1c58f43a5e0a",
+    "installer": false,
+    "FrameworkDependent": true,
+    "NativeDlls": "NotIncluded",
+    "WindowsRuntime": "NotRun",
+    "ModelCalls": "None",
+    "TestHttp": "Real loopback only",
+    "files": 89,
+    "appFiles": 51,
+    "publicProbeFiles": 27,
+    "testProviderFiles": 6,
+    "actualPe32PlusX64Hosts": [
+      "app/KuaiYi.App.exe",
+      "app/KuaiYi.CaptureBroker.exe",
+      "app/KuaiYi.CaptureHost.exe",
+      "app/KuaiYi.ClipboardHost.exe",
+      "app/KuaiYi.ImageWorker.exe",
+      "app/KuaiYi.NativeHost.exe",
+      "app/KuaiYi.OleReceiver.exe",
+      "public-probe/KuaiYi.App.exe",
+      "public-probe/KuaiYi.GrowthHarness.exe",
+      "public-probe/KuaiYi.NativeHost.exe"
+    ],
+    "manifestHashes": "Pass",
+    "productionMockReference": false
+  },
+  "Windows": "NotRun",
+  "RemoteCi": "NotRun",
+  "ModelCalls": "None",
+  "ParentAcceptance": "Pending"
+}

@@ -83,17 +83,21 @@ public sealed class ProviderClient : IDisposable
         using var pinnedTransport=boundary!=null?CreateClient(boundary,request.Profile.PhaseTimeouts.ConnectSeconds):null;
         var transport=pinnedTransport??Client(request.Profile.PhaseTimeouts.ConnectSeconds);
         var budget=requestBudget??FreezeBudget(request.Profile);
+        ProviderEventAdmission? headersAdmission=null;
+        ModelEvent Qualify(ModelEvent value,ProviderReadActivity? activity=null)=>value with{Admission=activity?.FreezeAdmission(budget,cancellation)??headersAdmission??new ProviderEventAdmission(budget,cancellation)};
         using (message)
         using (var total = budget.Link(cancellation))
         {
-            if(budget.Seconds!=request.Profile.TotalTimeoutSeconds){if(gate.CanApply(identity))yield return new(ModelEventKind.Failed,Reason:"CONFIG_INVALID");yield break;}
+            if(budget.Seconds!=request.Profile.TotalTimeoutSeconds){if(gate.CanApply(identity))yield return Qualify(new(ModelEventKind.Failed,Reason:"CONFIG_INVALID"));yield break;}
             HttpResponseMessage? response = null;
             ProviderReadActivity? acceptedBodyActivity=null;
             string? sendError = null;
             for (int attempt = 0; attempt < 2; attempt++)
             {
+                acceptedBodyActivity=null;
                 if(boundary!=null&&!boundary.Allows(request.Profile,secret)){sendError="TEST_BOUNDARY_REJECTED";break;}
                 using var headersDeadline=new ProviderPhaseDeadline(TimeSpan.FromSeconds(request.Profile.PhaseTimeouts.HeadersSeconds),PhaseClock,total.Token,"RESPONSE_HEADERS_TIMEOUT");
+                headersAdmission=headersDeadline.FreezeAdmission(budget,cancellation);
                 var connection=new ConnectionObservation{Total=total};
                 try
                 {
@@ -122,11 +126,11 @@ public sealed class ProviderClient : IDisposable
                 catch (OperationCanceledException error) { sendError = DeadlineError(error,cancellation,total,headersDeadline);if(sendError=="REQUEST_TIMEOUT"&&!total.IsCancellationRequested&&!cancellation.IsCancellationRequested&&Volatile.Read(ref connection.Attempted)==1&&Volatile.Read(ref connection.Ready)==0)sendError="CONNECT_TIMEOUT"; break; }
                 catch (HttpRequestException e) { sendError = DeliveryError(cancellation,total)??PhaseReason(e)??(headersDeadline.Expired?headersDeadline.Reason:e.HttpRequestError == HttpRequestError.SecureConnectionError ? "TLS_ERROR" : "NETWORK_ERROR"); break; }
             }
-            if (sendError is not null) { response?.Dispose(); if (gate.CanApply(identity)) yield return new(ModelEventKind.Failed, Reason: DeliveryError(cancellation,total)??sendError); yield break; }
+            if (sendError is not null) { response?.Dispose(); if (gate.CanApply(identity)) yield return Qualify(new(ModelEventKind.Failed, Reason: DeliveryError(cancellation,total)??sendError),acceptedBodyActivity); yield break; }
             using (response!)
             {
                 string? transitionError=DeliveryError(cancellation,total);
-                if(transitionError!=null){if(gate.CanApply(identity))yield return new(ModelEventKind.Failed,Reason:transitionError);yield break;}
+                if(transitionError!=null){if(gate.CanApply(identity))yield return Qualify(new(ModelEventKind.Failed,Reason:transitionError),acceptedBodyActivity);yield break;}
                 if (!response!.IsSuccessStatusCode)
                 {
                     string reason = (int)response.StatusCode is >= 300 and < 400 ? "REDIRECT_REJECTED" : response.StatusCode switch
@@ -138,15 +142,15 @@ public sealed class ProviderClient : IDisposable
                         _ => "PROVIDER_HTTP_ERROR"
                     };
                     // Never surface the untrusted error body; it can echo credentials/source or contain HTML.
-                    if (gate.CanApply(identity)) yield return new(ModelEventKind.Failed, Reason: DeliveryError(cancellation,total)??reason);
+                    if (gate.CanApply(identity)) yield return Qualify(new(ModelEventKind.Failed, Reason: DeliveryError(cancellation,total)??reason),acceptedBodyActivity);
                     yield break;
                 }
                 if (!gate.CanApply(identity)) yield break;
                 // Origin is frozen at accepted headers, before the consumer can suspend Started.
                 var activity=acceptedBodyActivity!;
                 transitionError=DeliveryError(cancellation,total,activity);
-                if(transitionError!=null){yield return new(ModelEventKind.Failed,Reason:transitionError);yield break;}
-                yield return new(ModelEventKind.Started);
+                if(transitionError!=null){yield return Qualify(new(ModelEventKind.Failed,Reason:transitionError),activity);yield break;}
+                yield return Qualify(new(ModelEventKind.Started),activity);
                 if (!gate.CanApply(identity)) yield break;
                 Stream? openedBody = null;
                 string? openError = null;
@@ -155,7 +159,7 @@ public sealed class ProviderClient : IDisposable
                 if (openError is not null)
                 {
                     if(openedBody!=null)await openedBody.DisposeAsync().ConfigureAwait(false);
-                    if (gate.CanApply(identity)) yield return new(ModelEventKind.Failed, Reason: DeliveryError(cancellation,total,activity)??openError);
+                    if (gate.CanApply(identity)) yield return Qualify(new(ModelEventKind.Failed, Reason: DeliveryError(cancellation,total,activity)??openError),activity);
                     yield break;
                 }
                 await using Stream body = openedBody!;
@@ -166,22 +170,22 @@ public sealed class ProviderClient : IDisposable
                     string? failure = null;
                     try { events = adapter.ParseNonStreaming(await ReadBoundedJsonAsync(body,request.Profile.Protocol,activity,total).ConfigureAwait(false));total.Check();activity.Check(); }
                     catch (Exception e) when (IsProtocolOrReadFailure(e)) { failure = ErrorFor(e, cancellation,total); }
-                    if (failure is not null) { if (gate.CanApply(identity)) yield return new(ModelEventKind.Failed, Reason: DeliveryError(cancellation,total,activity)??failure); yield break; }
+                    if (failure is not null) { if (gate.CanApply(identity)) yield return Qualify(new(ModelEventKind.Failed, Reason: DeliveryError(cancellation,total,activity)??failure),activity); yield break; }
                     int output = 0;
                     foreach (var item in events!)
                     {
                         if (!gate.CanApply(identity)) yield break;
                         string? deliveryError=DeliveryError(cancellation,total,activity);
-                        if(deliveryError!=null){yield return new(ModelEventKind.Failed,Reason:deliveryError);yield break;}
+                        if(deliveryError!=null){yield return Qualify(new(ModelEventKind.Failed,Reason:deliveryError),activity);yield break;}
                         if (item.Kind == ModelEventKind.TextDelta && (output += item.Text!.Length) > MaximumOutputCodeUnits)
-                        { yield return new(ModelEventKind.Failed, Reason: "LOCAL_OUTPUT_LIMIT"); yield break; }
-                        yield return item;
+                        { yield return Qualify(new(ModelEventKind.Failed, Reason: "LOCAL_OUTPUT_LIMIT"),activity); yield break; }
+                        yield return Qualify(item,activity);
                     }
                     yield break;
                 }
                 transitionError=DeliveryError(cancellation,total,activity);
-                if(transitionError!=null){if(gate.CanApply(identity))yield return new(ModelEventKind.Failed,Reason:transitionError);yield break;}
-                if (mime != "text/event-stream") { if (gate.CanApply(identity)) yield return new(ModelEventKind.Failed, Reason: "UNSUPPORTED_CONTENT_TYPE"); yield break; }
+                if(transitionError!=null){if(gate.CanApply(identity))yield return Qualify(new(ModelEventKind.Failed,Reason:transitionError),activity);yield break;}
+                if (mime != "text/event-stream") { if (gate.CanApply(identity)) yield return Qualify(new(ModelEventKind.Failed, Reason: "UNSUPPORTED_CONTENT_TYPE"),activity); yield break; }
                 CancellationToken currentReadToken=total.Token;
                 await using var enumerator = SseReader.ReadAsync(body,total.Token,()=>currentReadToken).GetAsyncEnumerator(total.Token);
                 int outputLength = 0;
@@ -205,26 +209,26 @@ public sealed class ProviderClient : IDisposable
                     catch (Exception e) when (IsProtocolOrReadFailure(e)) { failure = DeadlineError(e,cancellation,total,idle); }
                     finally{idle?.Dispose();}
                     if (!gate.CanApply(identity)) yield break;
-                    if (failure is not null) { yield return new(ModelEventKind.Failed, Reason: DeliveryError(cancellation,total,activity)??failure); yield break; }
-                    if (!more) { yield return new(ModelEventKind.Failed, Reason: DeliveryError(cancellation,total,activity)??"STREAM_INTERRUPTED"); yield break; }
+                    if (failure is not null) { yield return Qualify(new(ModelEventKind.Failed, Reason: DeliveryError(cancellation,total,activity)??failure),activity); yield break; }
+                    if (!more) { yield return Qualify(new(ModelEventKind.Failed, Reason: DeliveryError(cancellation,total,activity)??"STREAM_INTERRUPTED"),activity); yield break; }
                     foreach (var item in events!)
                     {
                         if (!gate.CanApply(identity)) yield break;
                         string? deliveryError=DeliveryError(cancellation,total,activity);
-                        if(deliveryError!=null){yield return new(ModelEventKind.Failed,Reason:deliveryError);yield break;}
+                        if(deliveryError!=null){yield return Qualify(new(ModelEventKind.Failed,Reason:deliveryError),activity);yield break;}
                         if (item.Kind == ModelEventKind.TextDelta)
                         {
                             int remaining = MaximumOutputCodeUnits - outputLength;
                             if (item.Text!.Length > remaining)
                             {
                                 if (remaining > 0 && char.IsHighSurrogate(item.Text[remaining - 1])) remaining--;
-                                if (remaining > 0) yield return item with { Text = item.Text[..remaining] };
-                                if (gate.CanApply(identity)) yield return new(ModelEventKind.Failed, Reason: DeliveryError(cancellation,total,activity)??"LOCAL_OUTPUT_LIMIT");
+                                if (remaining > 0) yield return Qualify(item with { Text = item.Text[..remaining] },activity);
+                                if (gate.CanApply(identity)) yield return Qualify(new(ModelEventKind.Failed, Reason: DeliveryError(cancellation,total,activity)??"LOCAL_OUTPUT_LIMIT"),activity);
                                 yield break;
                             }
                             outputLength += item.Text.Length;
                         }
-                        yield return item;
+                        yield return Qualify(item,activity);
                         if (item.Kind is ModelEventKind.Completed or ModelEventKind.Failed) yield break;
                     }
                 }
@@ -246,7 +250,7 @@ public sealed class ProviderClient : IDisposable
             string? deliveryError=null;
             try{requestLifetime.Token.ThrowIfCancellationRequested();budget?.Check();}
             catch(OperationCanceledException){deliveryError=requestLifetime.IsCancellationRequested?"CANCELLED":"REQUEST_TIMEOUT";}
-            if(deliveryError!=null){yield return new(identity,new(ModelEventKind.Failed,Reason:deliveryError));yield break;}
+            if(deliveryError!=null){yield return new(identity,item with{Kind=ModelEventKind.Failed,Text=null,Usage=null,Reason=deliveryError});yield break;}
             yield return new(identity, item);
         }
     }
