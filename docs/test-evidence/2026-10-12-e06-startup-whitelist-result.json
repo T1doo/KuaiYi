@@ -1,0 +1,59 @@
+{
+  "Kind": "E06StartupDiagnosticsWhitelistResult",
+  "SourceCommit": "1a65a1df3d6ad65a8146711623bc1efbd95ef425",
+  "RunUrl": "https://github.com/T1doo/KuaiYi/actions/runs/38271957014",
+  "CIConclusion": "failure",
+  "NativeBuild": "Pass",
+  "ManagedBuilds": [
+    {
+      "Role": "Receiver",
+      "Status": "Pass",
+      "Warnings": 0,
+      "Errors": 0
+    },
+    {
+      "Role": "FaultSource",
+      "Status": "Pass",
+      "Warnings": 0,
+      "Errors": 0
+    },
+    {
+      "Role": "CiApp",
+      "Status": "Pass",
+      "Warnings": 0,
+      "Errors": 0
+    }
+  ],
+  "ReceiverFailure": {
+    "Stage": "NativeExportCreate",
+    "Exception": "InvalidData",
+    "HResult": -2146233087,
+    "HResultHex": "0x80131501",
+    "ExitCode": 3,
+    "DiagnosticReadSettled": true
+  },
+  "ParentFailure": {
+    "Stage": "ParentExportRead",
+    "Exception": "Io",
+    "HResult": -2147024858,
+    "HResultHex": "0x80070026"
+  },
+  "RootCause": "NotConfirmed: export length check or standard-packet validation; this run cannot distinguish them.",
+  "ActualDrop": "NotRun",
+  "GetDataBlockedScenario": "NotRun",
+  "RecoveryScenario": "NotRun",
+  "CloseDuringGetData": "NotRun",
+  "PhysicalE06": "NotRun",
+  "Windows11Acceptance": "NotRun",
+  "P0": "Blocked",
+  "LocalAssertions": {
+    "NewDiagnostics": 11,
+    "RelatedExisting": 48,
+    "Passed": 59,
+    "Failed": 0,
+    "Runner": "Direct invocation of existing xUnit assertions; VSTest NotRun"
+  },
+  "ModelCalls": 0,
+  "AdditionalCiRuns": 0,
+  "FullLogUpload": false
+}
