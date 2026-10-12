@@ -1,0 +1,259 @@
+﻿2026-10-12T11:25:55.5679283Z Current runner version: '2.337.0'
+2026-10-12T11:25:55.5715657Z ##[group]Runner Image Provisioner
+2026-10-12T11:25:55.5717052Z Hosted Compute Agent
+2026-10-12T11:25:55.5718068Z Version: 20261002.596
+2026-10-12T11:25:55.5719231Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+2026-10-12T11:25:55.5720543Z Build Date: 2026-10-02T22:28:27Z
+2026-10-12T11:25:55.5721735Z Worker ID: {eca550ce-4c0e-4662-b9c9-bed0572f3a16}
+2026-10-12T11:25:55.5722892Z Region: eastus
+2026-10-12T11:25:55.5723717Z Cloud: Azure
+2026-10-12T11:25:55.5724558Z ##[endgroup]
+2026-10-12T11:25:55.5726817Z ##[group]Operating System
+2026-10-12T11:25:55.5727863Z Microsoft Windows Server 2022
+2026-10-12T11:25:55.5728857Z 10.0.20348
+2026-10-12T11:25:55.5729645Z Datacenter
+2026-10-12T11:25:55.5730476Z ##[endgroup]
+2026-10-12T11:25:55.5731388Z ##[group]Runner Image
+2026-10-12T11:25:55.5732615Z Image: windows-2022
+2026-10-12T11:25:55.5733590Z Version: 20261004.326.1
+2026-10-12T11:25:55.5736122Z Included Software: https://github.com/actions/runner-images/blob/win22/20261004.326/images/windows/Windows2022-Readme.md
+2026-10-12T11:25:55.5739041Z Image Release: https://github.com/actions/runner-images/releases/tag/win22%2F20261004.326
+2026-10-12T11:25:55.5740861Z ##[endgroup]
+2026-10-12T11:25:55.5742718Z ##[group]GITHUB_TOKEN Permissions
+2026-10-12T11:25:55.5745824Z Contents: read
+2026-10-12T11:25:55.5746739Z Metadata: read
+2026-10-12T11:25:55.5747622Z ##[endgroup]
+2026-10-12T11:25:55.5750438Z Secret source: Actions
+2026-10-12T11:25:55.5751874Z Cache mode: write
+2026-10-12T11:25:55.5752997Z Prepare workflow directory
+2026-10-12T11:25:55.7544829Z Prepare all required actions
+2026-10-12T11:25:55.7594251Z Getting action download info
+2026-10-12T11:25:55.8941595Z Download action repository 'actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+2026-10-12T11:25:56.1186036Z Complete job name: contracts
+2026-10-12T11:25:56.4294672Z ##[group]Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+2026-10-12T11:25:56.4296289Z with:
+2026-10-12T11:25:56.4296838Z   persist-credentials: false
+2026-10-12T11:25:56.4297478Z   set-safe-directory: false
+2026-10-12T11:25:56.4298066Z   fetch-depth: 1
+2026-10-12T11:25:56.4298604Z   repository: T1doo/KuaiYi
+2026-10-12T11:25:56.4302703Z   token: ***
+2026-10-12T11:25:56.4303097Z   ssh-strict: true
+2026-10-12T11:25:56.4303489Z   ssh-user: git
+2026-10-12T11:25:56.4303860Z   clean: true
+2026-10-12T11:25:56.4304257Z   sparse-checkout-cone-mode: true
+2026-10-12T11:25:56.4304730Z   fetch-tags: false
+2026-10-12T11:25:56.4305120Z   show-progress: true
+2026-10-12T11:25:56.4305520Z   lfs: false
+2026-10-12T11:25:56.4305890Z   submodules: false
+2026-10-12T11:25:56.4306309Z   allow-unsafe-pr-checkout: false
+2026-10-12T11:25:56.4306984Z env:
+2026-10-12T11:25:56.4307370Z   DOTNET_CLI_TELEMETRY_OPTOUT: 1
+2026-10-12T11:25:56.4307908Z   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+2026-10-12T11:25:56.4308432Z   POWERSHELL_TELEMETRY_OPTOUT: 1
+2026-10-12T11:25:56.4308902Z   CI: true
+2026-10-12T11:25:56.4309255Z ##[endgroup]
+2026-10-12T11:25:56.5864387Z Syncing repository: T1doo/KuaiYi
+2026-10-12T11:25:56.5866887Z ##[group]Getting Git version info
+2026-10-12T11:25:56.5867901Z Working directory is 'D:\a\KuaiYi\KuaiYi'
+2026-10-12T11:25:56.7079589Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-12T11:25:57.0950659Z git version 2.56.0.windows.1
+2026-10-12T11:25:57.0994170Z ##[endgroup]
+2026-10-12T11:25:57.1001768Z Deleting the contents of 'D:\a\KuaiYi\KuaiYi'
+2026-10-12T11:25:57.1009214Z ##[group]Determining repository object format
+2026-10-12T11:25:57.1013272Z ##[endgroup]
+2026-10-12T11:25:57.1014642Z ##[group]Initializing the repository
+2026-10-12T11:25:57.1025349Z [command]"C:\Program Files\Git\bin\git.exe" init D:\a\KuaiYi\KuaiYi
+2026-10-12T11:25:57.2141971Z Initialized empty Git repository in D:/a/KuaiYi/KuaiYi/.git/
+2026-10-12T11:25:57.2177181Z [command]"C:\Program Files\Git\bin\git.exe" remote add origin https://github.com/T1doo/KuaiYi
+2026-10-12T11:25:57.2807948Z ##[endgroup]
+2026-10-12T11:25:57.2809215Z ##[group]Disabling automatic garbage collection
+2026-10-12T11:25:57.2817353Z [command]"C:\Program Files\Git\bin\git.exe" config --local gc.auto 0
+2026-10-12T11:25:57.3334768Z ##[endgroup]
+2026-10-12T11:25:57.3335912Z ##[group]Setting up auth
+2026-10-12T11:25:57.3337395Z Removing SSH command configuration
+2026-10-12T11:25:57.3349241Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-12T11:25:57.3632960Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-12T11:25:59.0002043Z Removing HTTP extra header
+2026-10-12T11:25:59.0013240Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-12T11:25:59.0337784Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-12T11:25:59.4840744Z Removing includeIf entries pointing to credentials config files
+2026-10-12T11:25:59.4852044Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-12T11:25:59.5138146Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-12T11:25:59.9826515Z [command]"C:\Program Files\Git\bin\git.exe" config --file D:\a\_temp\git-credentials-677a0cf6-538a-4210-a1da-b19f65642810.config http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
+2026-10-12T11:26:00.0218117Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:D:/a/KuaiYi/KuaiYi/.git.path D:\a\_temp\git-credentials-677a0cf6-538a-4210-a1da-b19f65642810.config
+2026-10-12T11:26:00.0516922Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:D:/a/KuaiYi/KuaiYi/.git/worktrees/*.path D:\a\_temp\git-credentials-677a0cf6-538a-4210-a1da-b19f65642810.config
+2026-10-12T11:26:00.0870781Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-677a0cf6-538a-4210-a1da-b19f65642810.config
+2026-10-12T11:26:00.1157631Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-677a0cf6-538a-4210-a1da-b19f65642810.config
+2026-10-12T11:26:00.1443750Z ##[endgroup]
+2026-10-12T11:26:00.1444468Z ##[group]Fetching the repository
+2026-10-12T11:26:00.1458507Z [command]"C:\Program Files\Git\bin\git.exe" -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +be3817d3a8b10b694f7fc2f52816a3e99bfbe95f:refs/remotes/origin/dev/p0-foundations
+2026-10-12T11:26:05.2632335Z From https://github.com/T1doo/KuaiYi
+2026-10-12T11:26:05.2633311Z  * [new ref]         be3817d3a8b10b694f7fc2f52816a3e99bfbe95f -> origin/dev/p0-foundations
+2026-10-12T11:26:05.2683877Z [command]"C:\Program Files\Git\bin\git.exe" branch --list --remote origin/dev/p0-foundations
+2026-10-12T11:26:05.3059576Z   origin/dev/p0-foundations
+2026-10-12T11:26:05.3096915Z [command]"C:\Program Files\Git\bin\git.exe" rev-parse refs/remotes/origin/dev/p0-foundations
+2026-10-12T11:26:05.3426323Z be3817d3a8b10b694f7fc2f52816a3e99bfbe95f
+2026-10-12T11:26:05.3448370Z ##[endgroup]
+2026-10-12T11:26:05.3448778Z ##[group]Determining the checkout info
+2026-10-12T11:26:05.3450190Z ##[endgroup]
+2026-10-12T11:26:05.3458971Z [command]"C:\Program Files\Git\bin\git.exe" sparse-checkout disable
+2026-10-12T11:26:05.3884740Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all extensions.worktreeConfig
+2026-10-12T11:26:05.4162460Z ##[group]Checking out the ref
+2026-10-12T11:26:05.4170472Z [command]"C:\Program Files\Git\bin\git.exe" checkout --progress --force -B dev/p0-foundations refs/remotes/origin/dev/p0-foundations
+2026-10-12T11:26:06.1021619Z Switched to a new branch 'dev/p0-foundations'
+2026-10-12T11:26:06.1043639Z branch 'dev/p0-foundations' set up to track 'origin/dev/p0-foundations'.
+2026-10-12T11:26:06.1099218Z ##[endgroup]
+2026-10-12T11:26:06.1552303Z [command]"C:\Program Files\Git\bin\git.exe" log -1 --format=%H
+2026-10-12T11:26:06.1828548Z be3817d3a8b10b694f7fc2f52816a3e99bfbe95f
+2026-10-12T11:26:06.1859856Z ##[group]Removing auth
+2026-10-12T11:26:06.1860144Z Removing SSH command configuration
+2026-10-12T11:26:06.1868387Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-12T11:26:06.2161936Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-12T11:26:06.6654710Z Removing HTTP extra header
+2026-10-12T11:26:06.6665591Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-12T11:26:06.6963834Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-12T11:26:07.1531842Z Removing includeIf entries pointing to credentials config files
+2026-10-12T11:26:07.1539934Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-12T11:26:07.1799142Z includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git.path
+2026-10-12T11:26:07.1800475Z includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git/worktrees/*.path
+2026-10-12T11:26:07.1803340Z includeif.gitdir:/github/workspace/.git.path
+2026-10-12T11:26:07.1804293Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-12T11:26:07.1841732Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git.path
+2026-10-12T11:26:07.2105019Z D:\a\_temp\git-credentials-677a0cf6-538a-4210-a1da-b19f65642810.config
+2026-10-12T11:26:07.2137461Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git.path D:\a\_temp\git-credentials-677a0cf6-538a-4210-a1da-b19f65642810.config
+2026-10-12T11:26:07.2422848Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git/worktrees/*.path
+2026-10-12T11:26:07.2684781Z D:\a\_temp\git-credentials-677a0cf6-538a-4210-a1da-b19f65642810.config
+2026-10-12T11:26:07.2714654Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git/worktrees/*.path D:\a\_temp\git-credentials-677a0cf6-538a-4210-a1da-b19f65642810.config
+2026-10-12T11:26:07.2997524Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-12T11:26:07.3269731Z /github/runner_temp/git-credentials-677a0cf6-538a-4210-a1da-b19f65642810.config
+2026-10-12T11:26:07.3301462Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-677a0cf6-538a-4210-a1da-b19f65642810.config
+2026-10-12T11:26:07.3598058Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-12T11:26:07.3849701Z /github/runner_temp/git-credentials-677a0cf6-538a-4210-a1da-b19f65642810.config
+2026-10-12T11:26:07.3882422Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-677a0cf6-538a-4210-a1da-b19f65642810.config
+2026-10-12T11:26:07.4175661Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-12T11:26:07.8738838Z Removing credentials config 'D:\a\_temp\git-credentials-677a0cf6-538a-4210-a1da-b19f65642810.config'
+2026-10-12T11:26:07.8751004Z ##[endgroup]
+2026-10-12T11:26:07.9327540Z ##[group]Run & ./scripts/run-windows-ci.ps1
+2026-10-12T11:26:07.9328017Z [36;1m& ./scripts/run-windows-ci.ps1[0m
+2026-10-12T11:26:07.9328294Z [36;1mexit $LASTEXITCODE[0m
+2026-10-12T11:26:07.9452795Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-12T11:26:07.9453151Z env:
+2026-10-12T11:26:07.9453338Z   DOTNET_CLI_TELEMETRY_OPTOUT: 1
+2026-10-12T11:26:07.9453603Z   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+2026-10-12T11:26:07.9453872Z   POWERSHELL_TELEMETRY_OPTOUT: 1
+2026-10-12T11:26:07.9454090Z   CI: true
+2026-10-12T11:26:07.9454252Z ##[endgroup]
+2026-10-12T11:26:19.4768828Z KUAIYI_ENVIRONMENT_BEGIN
+2026-10-12T11:26:19.4892703Z {"IsWindows":true,"Architecture":"X64","UserInteractive":true,"SessionId":2,"Os":{"Size":284,"Major":10,"Minor":0,"Build":20348,"Platform":2,"ServicePack":"","ServicePackMajor":0,"ServicePackMinor":0,"SuiteMask":400,"ProductType":3,"Reserved":0},"Administrator":true,"IntegrityLevel":12288,"EnableLua":1,"WindowStation":"WinSta0","InputDesktop":"Default","DesktopProbeError":null,"Monitors":[{"Bounds":{"Left":0,"Top":0,"Right":1024,"Bottom":768},"WorkArea":{"Left":0,"Top":0,"Right":1024,"Bottom":728},"DpiX":96,"DpiY":96,"DpiHResult":0,"Primary":true}],"ProbeDpiAwareness":0,"HasShell":true,"DwmEnabled":true,"PowerShell":"7.6.6","ImageOS":"win22","ImageVersion":"20261004.326.1","Sdk":"10.0.401","DesktopRuntime":true,"CMake":"3.31.6","CTest":"3.31.6","VisualStudio":{"Version":"17.14.37710.0","Path":"C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise"},"Toolset":"14.44.35207","WindowsSdk":"10.0.26100.0","NativeBlockers":[],"DesktopBlockers":[],"Scope":"HostedWindowsContractsOnly","Windows11Acceptance":"NotRun"}
+2026-10-12T11:26:19.4897389Z KUAIYI_ENVIRONMENT_END
+2026-10-12T11:26:19.8823492Z KUAIYI_SPECIFICATION_BYTES [{"LF":1826,"Sha256":"EA3AA6529405BCC703986988FD089F476EE8F991D867E2220B3B20C439126166","CRLF":0,"Name":"SPEC.md","Bytes":146706},{"LF":1826,"Sha256":"EA3AA6529405BCC703986988FD089F476EE8F991D867E2220B3B20C439126166","CRLF":0,"Name":"快译_产品与技术开发规格_v1.0.md","Bytes":146706}]
+2026-10-12T11:26:32.3132677Z -- The CXX compiler identification is MSVC 19.44.35229.0
+2026-10-12T11:26:32.4839880Z -- Detecting CXX compiler ABI info
+2026-10-12T11:26:33.5675938Z -- Detecting CXX compiler ABI info - done
+2026-10-12T11:26:33.5809716Z -- Check for working CXX compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe - skipped
+2026-10-12T11:26:33.5825947Z -- Detecting CXX compile features
+2026-10-12T11:26:33.5894739Z -- Detecting CXX compile features - done
+2026-10-12T11:26:33.5985894Z -- Configuring done (13.7s)
+2026-10-12T11:26:33.6159196Z -- Generating done (0.0s)
+2026-10-12T11:26:33.6166019Z -- Build files have been written to: D:/a/KuaiYi/KuaiYi/artifacts/windows-ci/b335bd55b8c34ee48237021d1a2dc48a/KuaiYi.OcrNative
+2026-10-12T11:26:33.7183032Z MSBuild version 17.14.60+43b635718 for .NET Framework
+2026-10-12T11:26:33.7473243Z 
+2026-10-12T11:26:34.1193410Z   1>Checking Build System
+2026-10-12T11:26:34.2836736Z   Building Custom Rule D:/a/KuaiYi/KuaiYi/src/KuaiYi.OcrNative/CMakeLists.txt
+2026-10-12T11:26:34.3282554Z   Scanning sources for module dependencies...
+2026-10-12T11:26:34.4549522Z   OcrNative.cpp
+2026-10-12T11:26:38.2005220Z   Compiling...
+2026-10-12T11:26:38.2352025Z   OcrNative.cpp
+2026-10-12T11:26:43.4930183Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(82,76): error C3779: 'winrt::impl::consume_Windows_Foundation_Collections_IIterable<D,T>::begin': a function that returns 'auto' cannot be used before it is defined [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.4932366Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(82,76): error C3779:         with [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.4935972Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(82,76): error C3779:         [ [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.4937973Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(82,76): error C3779:             D=winrt::Windows::Foundation::Collections::IVectorView<winrt::Windows::Globalization::Language>, [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.4939871Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(82,76): error C3779:             T=winrt::Windows::Globalization::Language [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.4941309Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(82,76): error C3779:         ] [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.4942353Z       C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\cppwinrt\winrt\impl\Windows.Foundation.Collections.0.h(240,14):
+2026-10-12T11:26:43.4943068Z       see declaration of 'winrt::impl::consume_Windows_Foundation_Collections_IIterable<D,T>::begin'
+2026-10-12T11:26:43.4943489Z           with
+2026-10-12T11:26:43.4944167Z           [
+2026-10-12T11:26:43.4944657Z               D=winrt::Windows::Foundation::Collections::IVectorView<winrt::Windows::Globalization::Language>,
+2026-10-12T11:26:43.4945156Z               T=winrt::Windows::Globalization::Language
+2026-10-12T11:26:43.4945422Z           ]
+2026-10-12T11:26:43.4945584Z   
+2026-10-12T11:26:43.4946734Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(82,76): error C3779: 'winrt::impl::consume_Windows_Foundation_Collections_IIterable<D,T>::end': a function that returns 'auto' cannot be used before it is defined [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.4948483Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(82,76): error C3779:         with [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.4949757Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(82,76): error C3779:         [ [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.4951365Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(82,76): error C3779:             D=winrt::Windows::Foundation::Collections::IVectorView<winrt::Windows::Globalization::Language>, [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.4953121Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(82,76): error C3779:             T=winrt::Windows::Globalization::Language [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.4954527Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(82,76): error C3779:         ] [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.4955557Z       C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\cppwinrt\winrt\impl\Windows.Foundation.Collections.0.h(241,14):
+2026-10-12T11:26:43.4956258Z       see declaration of 'winrt::impl::consume_Windows_Foundation_Collections_IIterable<D,T>::end'
+2026-10-12T11:26:43.4956667Z           with
+2026-10-12T11:26:43.4956831Z           [
+2026-10-12T11:26:43.4957212Z               D=winrt::Windows::Foundation::Collections::IVectorView<winrt::Windows::Globalization::Language>,
+2026-10-12T11:26:43.4958509Z               T=winrt::Windows::Globalization::Language
+2026-10-12T11:26:43.4958773Z           ]
+2026-10-12T11:26:43.4958929Z   
+2026-10-12T11:26:43.4960200Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(82,76): error C3536: '<begin>$L0': cannot be used before it is initialized [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.4961789Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(82,76): error C3536: '<end>$L0': cannot be used before it is initialized [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.5076068Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(82,78): error C2100: you cannot dereference an operand of type '<error type>' [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.5080159Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(116,45): error C3779: 'winrt::impl::consume_Windows_Foundation_Collections_IIterable<D,T>::begin': a function that returns 'auto' cannot be used before it is defined [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.5082280Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(116,45): error C3779:         with [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.5083885Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(116,45): error C3779:         [ [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.5085783Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(116,45): error C3779:             D=winrt::Windows::Foundation::Collections::IVectorView<winrt::Windows::Media::Ocr::OcrLine>, [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.5088021Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(116,45): error C3779:             T=winrt::Windows::Media::Ocr::OcrLine [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.5089558Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(116,45): error C3779:         ] [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.5090846Z       C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\cppwinrt\winrt\impl\Windows.Foundation.Collections.0.h(240,14):
+2026-10-12T11:26:43.5091589Z       see declaration of 'winrt::impl::consume_Windows_Foundation_Collections_IIterable<D,T>::begin'
+2026-10-12T11:26:43.5092020Z           with
+2026-10-12T11:26:43.5092190Z           [
+2026-10-12T11:26:43.5092565Z               D=winrt::Windows::Foundation::Collections::IVectorView<winrt::Windows::Media::Ocr::OcrLine>,
+2026-10-12T11:26:43.5093028Z               T=winrt::Windows::Media::Ocr::OcrLine
+2026-10-12T11:26:43.5093278Z           ]
+2026-10-12T11:26:43.5093436Z   
+2026-10-12T11:26:43.5094596Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(116,45): error C3779: 'winrt::impl::consume_Windows_Foundation_Collections_IIterable<D,T>::end': a function that returns 'auto' cannot be used before it is defined [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.5096591Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(116,45): error C3779:         with [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.5097881Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(116,45): error C3779:         [ [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.5099713Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(116,45): error C3779:             D=winrt::Windows::Foundation::Collections::IVectorView<winrt::Windows::Media::Ocr::OcrLine>, [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.5104291Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(116,45): error C3779:             T=winrt::Windows::Media::Ocr::OcrLine [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.5105895Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(116,45): error C3779:         ] [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.5107139Z       C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\cppwinrt\winrt\impl\Windows.Foundation.Collections.0.h(241,14):
+2026-10-12T11:26:43.5107871Z       see declaration of 'winrt::impl::consume_Windows_Foundation_Collections_IIterable<D,T>::end'
+2026-10-12T11:26:43.5108288Z           with
+2026-10-12T11:26:43.5108465Z           [
+2026-10-12T11:26:43.5108826Z               D=winrt::Windows::Foundation::Collections::IVectorView<winrt::Windows::Media::Ocr::OcrLine>,
+2026-10-12T11:26:43.5109292Z               T=winrt::Windows::Media::Ocr::OcrLine
+2026-10-12T11:26:43.5109542Z           ]
+2026-10-12T11:26:43.5109694Z   
+2026-10-12T11:26:43.5110553Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(116,45): error C3536: '<begin>$L0': cannot be used before it is initialized [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.5112140Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(116,45): error C3536: '<end>$L0': cannot be used before it is initialized [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.5113739Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(116,47): error C2100: you cannot dereference an operand of type '<error type>' [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.5115293Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(120,30): error C2530: 'word': references must be initialized [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.5116898Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(120,30): error C3531: 'word': a symbol whose type contains 'auto' must have an initializer [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.5118494Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(120,35): error C2143: syntax error: missing ';' before ':' [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.5119974Z D:\a\KuaiYi\KuaiYi\src\KuaiYi.OcrNative\OcrNative.cpp(120,49): error C2143: syntax error: missing ';' before ')' [D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\b335bd55b8c34ee48237021d1a2dc48a\KuaiYi.OcrNative\KuaiYi.OcrNative.vcxproj]
+2026-10-12T11:26:43.5757212Z KUAIYI_CONTRACT_REPORT_BEGIN
+2026-10-12T11:26:43.5771842Z {"Kind":"HostedWindowsContracts","Scope":"ServerOrClientFixtureContractsOnly","Windows11Acceptance":"NotRun","SourceCommit":"be3817d3a8b10b694f7fc2f52816a3e99bfbe95f","RunUrl":"https://github.com/T1doo/KuaiYi/actions/runs/38242594071","SourceDirty":false,"SpecificationBytes":[{"LF":1826,"Sha256":"EA3AA6529405BCC703986988FD089F476EE8F991D867E2220B3B20C439126166","CRLF":0,"Name":"SPEC.md","Bytes":146706},{"LF":1826,"Sha256":"EA3AA6529405BCC703986988FD089F476EE8F991D867E2220B3B20C439126166","CRLF":0,"Name":"快译_产品与技术开发规格_v1.0.md","Bytes":146706}],"Environment":{"IsWindows":true,"Architecture":"X64","UserInteractive":true,"SessionId":2,"Os":{"Size":284,"Major":10,"Minor":0,"Build":20348,"Platform":2,"ServicePack":"","ServicePackMajor":0,"ServicePackMinor":0,"SuiteMask":400,"ProductType":3,"Reserved":0},"Administrator":true,"IntegrityLevel":12288,"EnableLua":1,"WindowStation":"WinSta0","InputDesktop":"Default","DesktopProbeError":null,"Monitors":[{"Bounds":{"Left":0,"Top":0,"Right":1024,"Bottom":768},"WorkArea":{"Left":0,"Top":0,"Right":1024,"Bottom":728},"DpiX":96,"DpiY":96,"DpiHResult":0,"Primary":true}],"ProbeDpiAwareness":0,"HasShell":true,"DwmEnabled":true,"PowerShell":"7.6.6","ImageOS":"win22","ImageVersion":"20261004.326.1","Sdk":"10.0.401","DesktopRuntime":true,"CMake":"3.31.6","CTest":"3.31.6","VisualStudio":{"Version":"17.14.37710.0","Path":"C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise"},"Toolset":"14.44.35207","WindowsSdk":"10.0.26100.0","NativeBlockers":[],"DesktopBlockers":[],"Scope":"HostedWindowsContractsOnly","Windows11Acceptance":"NotRun"},"NativeStatus":"Fail","NativeDlls":0,"CTestsPassed":0,"PeChecksPassed":0,"DllLoadsPassed":0,"ExportsPassed":0,"NativeArtifacts":[],"OverlayStatus":"NotRun","OverlayChecksPassed":0,"OverlayReport":null,"Errors":["cmake failed with exit code 1."],"ExitCode":3}
+2026-10-12T11:26:43.5778421Z KUAIYI_CONTRACT_REPORT_END
+2026-10-12T11:26:43.6043740Z ##[error]Process completed with exit code 1.
+2026-10-12T11:26:43.7934030Z Post job cleanup.
+2026-10-12T11:26:44.0073138Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-12T11:26:44.0340746Z git version 2.56.0.windows.1
+2026-10-12T11:26:44.0384505Z Removing SSH command configuration
+2026-10-12T11:26:44.0397131Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-12T11:26:44.0689389Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-12T11:26:44.5723458Z Removing HTTP extra header
+2026-10-12T11:26:44.5733931Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-12T11:26:44.6057244Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-12T11:26:45.0694785Z Removing includeIf entries pointing to credentials config files
+2026-10-12T11:26:45.0707005Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-12T11:26:45.0970969Z includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git.path
+2026-10-12T11:26:45.0971765Z includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git/worktrees/*.path
+2026-10-12T11:26:45.1002959Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git.path
+2026-10-12T11:26:45.1310823Z D:\a\_temp\git-credentials-677a0cf6-538a-4210-a1da-b19f65642810.config
+2026-10-12T11:26:45.1345554Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git.path D:\a\_temp\git-credentials-677a0cf6-538a-4210-a1da-b19f65642810.config
+2026-10-12T11:26:45.1632330Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git/worktrees/*.path
+2026-10-12T11:26:45.1883180Z D:\a\_temp\git-credentials-677a0cf6-538a-4210-a1da-b19f65642810.config
+2026-10-12T11:26:45.1920280Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git/worktrees/*.path D:\a\_temp\git-credentials-677a0cf6-538a-4210-a1da-b19f65642810.config
+2026-10-12T11:26:45.2213157Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-12T11:26:45.6773718Z Removing credentials config 'D:\a\_temp\git-credentials-677a0cf6-538a-4210-a1da-b19f65642810.config'
+2026-10-12T11:26:45.6940180Z Cleaning up orphan processes
+2026-10-12T11:26:45.7184086Z Terminate orphan process: pid (4632) (vctip)
