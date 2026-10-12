@@ -51,6 +51,7 @@ public sealed record TranslationSettings
     public string TargetLanguage{get;init;}="zh-CN";
     public string Domain{get;init;}="";
     public string ReaderBackground{get;init;}="";
+    public ImmutableDictionary<TranslationPreset,string> CustomTemplates{get;init;}=ImmutableDictionary<TranslationPreset,string>.Empty;
     [SettingsRange(80,800)]public int SelectionDebounceMs{get;init;}=180;
     [SettingsRange(1000,50000)]public int AutoSoftLimitScalars{get;init;}=12000;
     [SettingsRange(50000,50000)]public int HardLimitScalars{get;init;}=50000;

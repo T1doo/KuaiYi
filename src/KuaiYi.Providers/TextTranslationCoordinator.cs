@@ -73,7 +73,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     {
         var frozen=snapshot.Settings;var chosen=preset??snapshot.Preset;
         if(chosen!=snapshot.Preset)frozen=frozen with{Data=frozen.Data with{Translation=frozen.Data.Translation with{Preset=chosen}}};
-        string style=chosen.ToString().ToLowerInvariant();return snapshot with{Settings=frozen,Prompt=PromptBuilder.Build(style,frozen.Data.Translation.Domain,frozen.Data.Translation.ReaderBackground,true),TemplateVersion=$"base@1+{style}@1",IsRegeneration=true};
+        var composition=PromptBuilder.Compose(frozen.Data.Translation,snapshot.Source.Text,true);return snapshot with{Settings=frozen,Prompt=composition.System,TemplateVersion=composition.TemplateVersion,IsRegeneration=true};
     }
     public bool IsOfferCurrent(TextTranslationOffer offer)=>!disposed&&ReferenceEquals(offered,offer);
     public TextTranslationOffer? Prepare(SelectionSourceSnapshot source)=>PrepareCore(source,false);
@@ -91,9 +91,9 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
         {
             var transport=transportFactory?.Invoke(profile)??ProfileTransport(profile,developmentBoundary!=null,developmentBoundary);
             if(developmentBoundary!=null&&!developmentBoundary.Allows(transport))return Reject("TEST_BOUNDARY_REJECTED");
-            string style=config.Data.Translation.Preset.ToString().ToLowerInvariant();
+            var composition=PromptBuilder.Compose(config.Data.Translation,source.Text);
             var snapshot=new TextTranslationSnapshot(source,config,profile,binding,transport,
-                PromptBuilder.Build(style,config.Data.Translation.Domain,config.Data.Translation.ReaderBackground),$"base@1+{style}@1");
+                composition.System,composition.TemplateVersion);
             var session=Same(snapshot,submitted?.Snapshot)?submitted!.Session:Guid.NewGuid();
             return offered=new(snapshot,ticket,false,session,Results.NextVersionNumber(session));
         }
@@ -221,7 +221,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
         snapshots.Clear();if(deliveryFailure!=null)throw new InvalidOperationException("Translation destination delivery failed.",deliveryFailure);
     }
     private static bool Same(TextTranslationSnapshot a,TextTranslationSnapshot? b)=>b!=null&&a.Profile with{Headers=b.Profile.Headers}==b.Profile&&a.Profile.Headers.OrderBy(p=>p.Key).SequenceEqual(b.Profile.Headers.OrderBy(p=>p.Key))&&a.Binding==b.Binding&&
-        a.Settings.Data.Translation==b.Settings.Data.Translation&&a.Source.Window==b.Source.Window&&a.Source.Text==b.Source.Text&&a.Source.SourceKind==b.Source.SourceKind&&
+        PromptTemplatePolicy.Equivalent(a.Settings.Data.Translation,b.Settings.Data.Translation)&&a.Source.Window==b.Source.Window&&a.Source.Text==b.Source.Text&&a.Source.SourceKind==b.Source.SourceKind&&
         a.Source.RuntimeId.SequenceEqual(b.Source.RuntimeId)&&a.Source.Ranges.SequenceEqual(b.Source.Ranges)&&a.Source.DropReceiver==b.Source.DropReceiver;
     private static bool ValidText(SelectionSourceSnapshot source,int hardLimit)
     {

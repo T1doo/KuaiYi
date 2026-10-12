@@ -1,0 +1,29 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.29]     KuaiYi.Provider.Tests.CustomTemplateHttpTests.SavedCustomTemplateMustReachProductionRequestAfterActualFileRead(protocol: OpenAIChat) [FAIL]
+[xUnit.net 00:00:00.31]     KuaiYi.Provider.Tests.CustomTemplateHttpTests.SavedCustomTemplateMustReachProductionRequestAfterActualFileRead(protocol: AnthropicMessages) [FAIL]
+  Failed KuaiYi.Provider.Tests.CustomTemplateHttpTests.SavedCustomTemplateMustReachProductionRequestAfterActualFileRead(protocol: OpenAIChat) [77 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CustomTemplateHttpTests.Rig.Create(Uri server, ApiProtocol protocol, String template, String scenario) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CustomTemplateHttpTests.cs:line 25
+   at KuaiYi.Provider.Tests.CustomTemplateHttpTests.SavedCustomTemplateMustReachProductionRequestAfterActualFileRead(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CustomTemplateHttpTests.cs:line 37
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.CustomTemplateHttpTests.SavedCustomTemplateMustReachProductionRequestAfterActualFileRead(protocol: AnthropicMessages) [10 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.CustomTemplateHttpTests.Rig.Create(Uri server, ApiProtocol protocol, String template, String scenario) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CustomTemplateHttpTests.cs:line 25
+   at KuaiYi.Provider.Tests.CustomTemplateHttpTests.SavedCustomTemplateMustReachProductionRequestAfterActualFileRead(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/CustomTemplateHttpTests.cs:line 37
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/test-results/p4-custom-templates/template-http-before.trx
+
+Failed!  - Failed:     2, Passed:     0, Skipped:     0, Total:     2, Duration: 101 ms - KuaiYi.Provider.Tests.dll (net10.0)

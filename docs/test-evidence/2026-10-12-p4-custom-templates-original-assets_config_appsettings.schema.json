@@ -1,0 +1,423 @@
+{
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1
+    },
+    "writeId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "activeProfileId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "visionProfileId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "triggerMode": {
+      "enum": [
+        "Selection",
+        "Drop"
+      ]
+    },
+    "profiles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "protocol": {
+            "enum": [
+              "OpenAIChat",
+              "AnthropicMessages"
+            ]
+          },
+          "addressMode": {
+            "enum": [
+              "BasePrefix",
+              "ExactEndpoint"
+            ]
+          },
+          "baseUrl": {
+            "type": "string"
+          },
+          "endpointPath": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "secretRef": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "authentication": {
+            "enum": [
+              "Bearer",
+              "ApiKey",
+              "None",
+              "CustomHeader"
+            ]
+          },
+          "authenticationHeader": {
+            "type": "string"
+          },
+          "capabilities": {
+            "type": "object",
+            "properties": {
+              "streaming": {
+                "enum": [
+                  "Unknown",
+                  "Supported",
+                  "Unsupported"
+                ]
+              },
+              "vision": {
+                "enum": [
+                  "Unknown",
+                  "Supported",
+                  "Unsupported"
+                ]
+              },
+              "temperature": {
+                "enum": [
+                  "Unknown",
+                  "Supported",
+                  "Unsupported"
+                ]
+              },
+              "structuredJson": {
+                "enum": [
+                  "Unknown",
+                  "Supported",
+                  "Unsupported"
+                ]
+              },
+              "usageInStream": {
+                "enum": [
+                  "Unknown",
+                  "Supported",
+                  "Unsupported"
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "maxOutputTokens": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 131072
+          },
+          "maxContextTokens": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1,
+            "maximum": 10000000
+          },
+          "imageByteLimit": {
+            "type": "integer",
+            "minimum": 65536,
+            "maximum": 4194304
+          },
+          "outputLimitParameter": {
+            "enum": [
+              "ProtocolDefault",
+              "MaxCompletionTokens",
+              "MaxTokens",
+              "Omit"
+            ]
+          },
+          "temperature": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 2
+          },
+          "sendStoreFalse": {
+            "type": "boolean"
+          },
+          "allowLoopbackHttp": {
+            "type": "boolean"
+          },
+          "allowInsecureHttp": {
+            "type": "boolean"
+          },
+          "timeoutSeconds": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 600
+          },
+          "streaming": {
+            "type": "boolean"
+          },
+          "headers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "translation": {
+      "type": "object",
+      "properties": {
+        "preset": {
+          "enum": [
+            "Faithful",
+            "Plain",
+            "Professional",
+            "Explain"
+          ]
+        },
+        "targetLanguage": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "string"
+        },
+        "readerBackground": {
+          "type": "string"
+        },
+        "selectionDebounceMs": {
+          "type": "integer",
+          "minimum": 80,
+          "maximum": 800
+        },
+        "autoSoftLimitScalars": {
+          "type": "integer",
+          "minimum": 1000,
+          "maximum": 50000
+        },
+        "hardLimitScalars": {
+          "type": "integer",
+          "minimum": 50000,
+          "maximum": 50000
+        }
+      },
+      "additionalProperties": false
+    },
+    "overlay": {
+      "type": "object",
+      "properties": {
+        "fontSizeDip": {
+          "type": "number",
+          "minimum": 12,
+          "maximum": 22
+        },
+        "preferredWidthDip": {
+          "type": "number",
+          "minimum": 240,
+          "maximum": 960
+        },
+        "reduceMotion": {
+          "enum": [
+            "FollowSystem",
+            "Reduce",
+            "Full"
+          ]
+        },
+        "theme": {
+          "enum": [
+            "FollowSystem",
+            "Light",
+            "Dark"
+          ]
+        },
+        "rememberPosition": {
+          "type": "boolean"
+        },
+        "lastPosition": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "monitorId": {
+              "type": "string"
+            },
+            "x": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "y": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "offsetXDip": {
+              "type": "number",
+              "minimum": -10000,
+              "maximum": 10000
+            },
+            "offsetYDip": {
+              "type": "number",
+              "minimum": -10000,
+              "maximum": 10000
+            }
+          },
+          "additionalProperties": false
+        },
+        "showSource": {
+          "type": "boolean"
+        },
+        "memoryVersions": {
+          "type": "integer",
+          "minimum": 3,
+          "maximum": 3
+        }
+      },
+      "additionalProperties": false
+    },
+    "images": {
+      "type": "object",
+      "properties": {
+        "smartRouting": {
+          "type": "boolean"
+        },
+        "previewScreenshotBeforeSend": {
+          "type": "boolean"
+        },
+        "mixedContentExplain": {
+          "type": "boolean"
+        },
+        "defaultLongEdgePixels": {
+          "type": "integer",
+          "minimum": 2560,
+          "maximum": 2560
+        },
+        "maxPreparedBytes": {
+          "type": "integer",
+          "minimum": 4194304,
+          "maximum": 4194304
+        }
+      },
+      "additionalProperties": false
+    },
+    "privacy": {
+      "type": "object",
+      "properties": {
+        "persistHistory": {
+          "type": "boolean"
+        },
+        "clipboardFallbackDefault": {
+          "type": "boolean"
+        },
+        "telemetryEnabled": {
+          "type": "boolean"
+        },
+        "blockedApplications": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "clipboardAllowedApplications": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "consentedEndpointOrigins": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "hotkeys": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "launchAtSignIn": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "default": {
+    "schemaVersion": 1,
+    "writeId": "00000000-0000-0000-0000-000000000000",
+    "activeProfileId": null,
+    "visionProfileId": null,
+    "triggerMode": "Selection",
+    "profiles": [],
+    "translation": {
+      "preset": "Faithful",
+      "targetLanguage": "zh-CN",
+      "domain": "",
+      "readerBackground": "",
+      "selectionDebounceMs": 180,
+      "autoSoftLimitScalars": 12000,
+      "hardLimitScalars": 50000
+    },
+    "overlay": {
+      "fontSizeDip": 15,
+      "preferredWidthDip": 420,
+      "reduceMotion": "FollowSystem",
+      "theme": "FollowSystem",
+      "rememberPosition": true,
+      "lastPosition": null,
+      "showSource": false,
+      "memoryVersions": 3
+    },
+    "images": {
+      "smartRouting": true,
+      "previewScreenshotBeforeSend": false,
+      "mixedContentExplain": true,
+      "defaultLongEdgePixels": 2560,
+      "maxPreparedBytes": 4194304
+    },
+    "privacy": {
+      "persistHistory": false,
+      "clipboardFallbackDefault": false,
+      "telemetryEnabled": false,
+      "blockedApplications": [],
+      "clipboardAllowedApplications": [],
+      "consentedEndpointOrigins": []
+    },
+    "hotkeys": {
+      "captureRegion": "Ctrl\u002BAlt\u002BS",
+      "translateSelection": "Ctrl\u002BAlt\u002BD",
+      "regenerate": "Ctrl\u002BAlt\u002BR",
+      "focusResult": null,
+      "toggleResult": "Ctrl\u002BAlt\u002BSpace",
+      "openSettings": null,
+      "toggle": "Ctrl\u002BAlt\u002BT",
+      "stopGeneration": null,
+      "hideOverlay": null
+    },
+    "launchAtSignIn": false
+  }
+}

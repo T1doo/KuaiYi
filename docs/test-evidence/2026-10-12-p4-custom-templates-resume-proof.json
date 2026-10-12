@@ -1,0 +1,47 @@
+{
+  "kind": "ActualPostDisconnectRead",
+  "firstSuccessfulCommandUtc": "2026-10-12 00:53:20 UTC",
+  "capturedUtc": "2026-10-12T00:53:44.093238+00:00",
+  "head": "222b057ef3f36efdfe14d8ce4a00cd8f720c5fc4",
+  "status": " M assets/config/appsettings.schema.json\n M assets/config/settings-defaults.json\n M src/KuaiYi.App/SettingsWindow.cs\n M src/KuaiYi.Core/Settings/AppSettings.cs\n M src/KuaiYi.Core/Settings/SettingsJson.cs\n M src/KuaiYi.Providers/ProviderContracts.cs\n M src/KuaiYi.Providers/TextTranslationCoordinator.cs\n?? src/KuaiYi.App/SettingsTranslation.cs\n?? src/KuaiYi.Core/Settings/PromptTemplatePolicy.cs\n?? src/KuaiYi.Providers/PromptBuilder.cs\n?? src/KuaiYi.Providers/PromptTemplateEditor.cs\n?? tests/KuaiYi.Core.Tests/CustomTemplateBaselineTests.cs\n?? tests/KuaiYi.Core.Tests/PromptTemplatePolicyTests.cs\n?? tests/KuaiYi.Provider.Tests/CustomTemplateHttpTests.cs\n?? tests/KuaiYi.Provider.Tests/PromptTemplateEditorTests.cs\n",
+  "processes": [
+    {
+      "pid": 563098,
+      "name": "pwsh",
+      "args": "pwsh -NoProfile -File scripts/ci-offline.ps1 "
+    },
+    {
+      "pid": 563462,
+      "name": "dotnet",
+      "args": "/workspace/.kuaiyi-setup/dotnet/dotnet /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll "
+    },
+    {
+      "pid": 563481,
+      "name": "dotnet",
+      "args": "/workspace/.kuaiyi-setup/dotnet/dotnet test tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj --no-build --no-restore --configuration Release --logger trx;LogFileName=KuaiYi.Core.Tests.trx --results-directory /workspace/KuaiYi/artifacts/test-results/offline "
+    },
+    {
+      "pid": 563497,
+      "name": "dotnet",
+      "args": "/workspace/.kuaiyi-setup/dotnet/dotnet exec /workspace/.kuaiyi-setup/dotnet/sdk/10.0.401/vstest.console.dll --framework:.NETCoreApp,Version=v10.0 --logger:trx;LogFileName=KuaiYi.Core.Tests.trx --resultsDirectory:/workspace/KuaiYi/artifacts/test-results/offline /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll --log"
+    },
+    {
+      "pid": 563510,
+      "name": "dotnet",
+      "args": "/workspace/.kuaiyi-setup/dotnet/dotnet exec --runtimeconfig /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.runtimeconfig.json --depsfile /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.deps.json /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/testhost.dll --port 36919 --"
+    },
+    {
+      "pid": 568850,
+      "name": "dotnet",
+      "args": "/workspace/.kuaiyi-setup/dotnet/dotnet /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll --private-stdio "
+    },
+    {
+      "pid": 568914,
+      "name": "dotnet",
+      "args": "/workspace/.kuaiyi-setup/dotnet/dotnet /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll --private-stdio query-stall "
+    }
+  ],
+  "originalCiPid": 563098,
+  "duplicateStarted": false,
+  "permissionsExpanded": false
+}

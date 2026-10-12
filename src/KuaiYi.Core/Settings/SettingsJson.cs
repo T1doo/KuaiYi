@@ -19,6 +19,8 @@ public static class SettingsJson
         if(bytes.Length is <2 or >MaximumBytes)throw new SettingsValidationException("fileSize");
         using var document=JsonDocument.Parse(bytes,new(){MaxDepth=16});Check(document.RootElement.ValueKind==JsonValueKind.Object,"document");RejectDuplicates(document.RootElement);
         if(!document.RootElement.TryGetProperty("schemaVersion",out var schema)||schema.ValueKind!=JsonValueKind.Number||!schema.TryGetInt32(out int version))throw new SettingsValidationException("schemaVersion");
+        if(version==AppSettings.CurrentSchema&&document.RootElement.TryGetProperty("translation",out var translation)&&translation.ValueKind==JsonValueKind.Object&&translation.TryGetProperty("customTemplates",out var templates)&&templates.ValueKind==JsonValueKind.Object)
+            foreach(var entry in templates.EnumerateObject())if(!Enum.TryParse<TranslationPreset>(entry.Name,false,out var mode)||!Enum.IsDefined(mode)||entry.Name!=mode.ToString())throw new SettingsValidationException("translation.customTemplates.mode");
         migrated=false;AppSettings settings;
         if(version==AppSettings.CurrentSchema)settings=JsonSerializer.Deserialize<AppSettings>(bytes,Options)??throw new SettingsValidationException("document");
         else if(version==0)
@@ -48,6 +50,8 @@ public static class SettingsJson
     {
         var schema=Options.GetJsonSchemaAsNode(typeof(AppSettings),new(){TreatNullObliviousAsNonNullable=true,TransformSchemaNode=(context,node)=>
         {if(context.PropertyInfo?.AttributeProvider?.GetCustomAttributes(typeof(SettingsRangeAttribute),true).OfType<SettingsRangeAttribute>().FirstOrDefault() is {} range&&node is JsonObject o){o["minimum"]=range.Minimum;o["maximum"]=range.Maximum;}return node;}});
+        var templates=schema["properties"]!["translation"]!["properties"]!["customTemplates"]!;
+        templates["maxProperties"]=4;templates["propertyNames"]=new JsonObject{["enum"]=new JsonArray(Enum.GetNames<TranslationPreset>().Select(name=>(JsonNode?)JsonValue.Create(name)).ToArray())};templates["additionalProperties"]=new JsonObject{["type"]="string",["minLength"]=1,["maxLength"]=PromptTemplatePolicy.MaximumTemplateCharacters};
         schema["required"]=new JsonArray(JsonValue.Create("schemaVersion"));schema["$schema"]="https://json-schema.org/draft/2020-12/schema";schema["default"]=JsonSerializer.SerializeToNode(new AppSettings(),Options);return schema;
     }
     public static void Validate(AppSettings s)
@@ -66,7 +70,7 @@ public static class SettingsJson
             ApiProfilePolicy.ValidateParameters(p);_=ApiProfilePolicy.Resolve(p);
         }
         Check(s.ActiveProfileId==null||ids.Contains(s.ActiveProfileId),"activeProfileId");Check(s.VisionProfileId==null||ids.Contains(s.VisionProfileId),"visionProfileId");
-        Check(s.Translation!=null&&Enum.IsDefined(s.Translation.Preset),"translation");Text(s.Translation!.TargetLanguage,32,"targetLanguage");Text(s.Translation.Domain,512,"domain");Text(s.Translation.ReaderBackground,2048,"readerBackground");
+        Check(s.Translation!=null&&Enum.IsDefined(s.Translation.Preset),"translation");Text(s.Translation!.TargetLanguage,32,"targetLanguage");Text(s.Translation.Domain,512,"domain");Text(s.Translation.ReaderBackground,2048,"readerBackground");PromptTemplatePolicy.Validate(s.Translation);
         Check(s.Overlay!=null&&Enum.IsDefined(s.Overlay.ReduceMotion)&&Enum.IsDefined(s.Overlay.Theme),"overlay");if(s.Overlay!.LastPosition is {} position){Text(position.MonitorId,256,"monitorId");Check(position.MonitorId.Length>0,"monitorId");}
         Check(s.Images!=null&&s.Privacy!=null,"images/privacy");Check(!s.Privacy!.PersistHistory&&!s.Privacy.TelemetryEnabled&&!s.Privacy.ClipboardFallbackDefault,"privacy.fixedDefaults");
         Strings(s.Privacy.BlockedApplications,128,260,"blockedApplications");Strings(s.Privacy.ClipboardAllowedApplications,128,260,"clipboardAllowedApplications");Strings(s.Privacy.ConsentedEndpointOrigins,128,2048,"consentedEndpointOrigins");

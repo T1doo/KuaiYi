@@ -357,3 +357,9 @@ P3-04最后复核补未知UIA状态带CopyEvidence的真实child反例：原6项
 322aea6获限定签收，断连后首命令真实成功，核HEAD/工作区后按Spec9.1—9.9/P4-05/D04—07/F/J补会话下次风格、菜单/标签版本N与regenerate@1。复用四模板原字节，普通所示快照+覆盖与当前已保存默认分流，运行中/旧版不重写。same-source fallback额外第四引用原1反例失败，删重复保护后当前来源真实三份；不同来源旧3+新1回退保持。序号与所示号分开，读旧/失败不回绕。原两协议约束2失败、首次拼接遗漏2失败、专项Last-event fixture竞态1失败保留；最后检查新版本首事件仍严格Begin+原快照。
 
 新35（Core8/Provider27）均过，完整1270+270=1540 .NET/63Node，27locked Release0warnings/errors。旧1505、27锁、产品书与四旧模板保留。独立新包与24旧包/20历史精确commit核验，旧覆盖恢复事故保持。P0/E06 Blocked、P1—P4 InProgress、106整体验收NotRun，WPF菜单/显示时序/焦点/动画/DPI/DPAPI/跨应用/安装/语义J/远端CI未验。无真实凭据/模型/付费/安装/依赖扩增/扩权/发布；详见p4-session-style-review、ADR0017及summary。
+
+## P4-05 模板设置与生产组合闭环
+
+父限定签收222b057后核Spec8.2/9.1/9.9，补四模式查看/复制为自定义/恢复默认/完整预览；schema1可选字典，旧v1读取不写、v0迁移保留。统一单次白名单Compose，base不可配置，source_text固定独立user资料引用、原文完整user；模板8192/展开28000/system32768有界。自定义hash版本及旧全映射快照，普通/当前设置重生分流，结构相等去重。命令先DraftEdited再改草稿，不扩大普通当前流取消；固定连接测试忽略模板。
+
+原4配置+2HTTP反例全失败保存，修后同断言通过；新67（Core30/Provider37），全Core1300+Provider307=1607、Node63、27locked Release零警告/错误。多余testfixture括号编译日志保留修语法，明确异常类型断言。断连后00:53:20Z真实命令和PID563098健康CI证据保全，没有重复启动；首1606/63通过，补组合顺序断言后最终回归。原1540、规格/内置模板资源/27锁保留；独立包及25旧包/21历史摘要核验，原旧包恢复事实保持。P0/E06 Blocked，P1—P4 InProgress，106整体NotRun；WPF/跨应用/焦点/DPI/DPAPI/安装/模型语义J/远端CI未验，无真实key/模型/付费/扩权/依赖安装/部署。详见p4-custom-templates-review、ADR0018与summary。

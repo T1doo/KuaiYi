@@ -10,6 +10,7 @@
     "targetLanguage": "zh-CN",
     "domain": "",
     "readerBackground": "",
+    "customTemplates": {},
     "selectionDebounceMs": 180,
     "autoSoftLimitScalars": 12000,
     "hardLimitScalars": 50000
@@ -40,15 +41,15 @@
     "consentedEndpointOrigins": []
   },
   "hotkeys": {
+    "focusResult": null,
+    "stopGeneration": null,
+    "toggle": "Ctrl\u002BAlt\u002BT",
     "translateSelection": "Ctrl\u002BAlt\u002BD",
     "captureRegion": "Ctrl\u002BAlt\u002BS",
-    "regenerate": "Ctrl\u002BAlt\u002BR",
-    "toggle": "Ctrl\u002BAlt\u002BT",
-    "hideOverlay": null,
-    "toggleResult": "Ctrl\u002BAlt\u002BSpace",
-    "focusResult": null,
     "openSettings": null,
-    "stopGeneration": null
+    "toggleResult": "Ctrl\u002BAlt\u002BSpace",
+    "hideOverlay": null,
+    "regenerate": "Ctrl\u002BAlt\u002BR"
   },
   "launchAtSignIn": false
 }

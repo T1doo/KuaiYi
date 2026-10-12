@@ -1,0 +1,94 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.33]     KuaiYi.Core.Tests.CustomTemplateBaselineTests.ValidCustomStyleMustRoundTripThroughActualSettingsJson(mode: "Explain") [FAIL]
+[xUnit.net 00:00:00.33]     KuaiYi.Core.Tests.CustomTemplateBaselineTests.ValidCustomStyleMustRoundTripThroughActualSettingsJson(mode: "Faithful") [FAIL]
+[xUnit.net 00:00:00.34]     KuaiYi.Core.Tests.CustomTemplateBaselineTests.ValidCustomStyleMustRoundTripThroughActualSettingsJson(mode: "Professional") [FAIL]
+[xUnit.net 00:00:00.34]     KuaiYi.Core.Tests.CustomTemplateBaselineTests.ValidCustomStyleMustRoundTripThroughActualSettingsJson(mode: "Plain") [FAIL]
+  Failed KuaiYi.Core.Tests.CustomTemplateBaselineTests.ValidCustomStyleMustRoundTripThroughActualSettingsJson(mode: "Explain") [36 ms]
+  Error Message:
+   System.Text.Json.JsonException : The JSON property 'customTemplates' could not be mapped to any .NET member contained in type 'KuaiYi.Core.Settings.TranslationSettings'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonException_UnmappedJsonProperty(Type type, String unmappedPropertyName)
+   at System.Text.Json.JsonSerializer.LookupProperty(Object obj, ReadOnlySpan`1 unescapedPropertyName, ReadStack& state, JsonSerializerOptions options, Boolean& useExtensionProperty, Boolean createExtensionProperty)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.ReadJsonAndSetMember(Object obj, ReadStack& state, Utf8JsonReader& reader)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Deserialize(Utf8JsonReader& reader, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 utf8Json, JsonTypeInfo`1 jsonTypeInfo, Nullable`1 actualByteCount)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 23
+   at KuaiYi.Core.Tests.CustomTemplateBaselineTests.ValidCustomStyleMustRoundTripThroughActualSettingsJson(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/CustomTemplateBaselineTests.cs:line 11
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed KuaiYi.Core.Tests.CustomTemplateBaselineTests.ValidCustomStyleMustRoundTripThroughActualSettingsJson(mode: "Faithful") [< 1 ms]
+  Error Message:
+   System.Text.Json.JsonException : The JSON property 'customTemplates' could not be mapped to any .NET member contained in type 'KuaiYi.Core.Settings.TranslationSettings'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonException_UnmappedJsonProperty(Type type, String unmappedPropertyName)
+   at System.Text.Json.JsonSerializer.LookupProperty(Object obj, ReadOnlySpan`1 unescapedPropertyName, ReadStack& state, JsonSerializerOptions options, Boolean& useExtensionProperty, Boolean createExtensionProperty)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.ReadJsonAndSetMember(Object obj, ReadStack& state, Utf8JsonReader& reader)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Deserialize(Utf8JsonReader& reader, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 utf8Json, JsonTypeInfo`1 jsonTypeInfo, Nullable`1 actualByteCount)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 23
+   at KuaiYi.Core.Tests.CustomTemplateBaselineTests.ValidCustomStyleMustRoundTripThroughActualSettingsJson(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/CustomTemplateBaselineTests.cs:line 11
+   at InvokeStub_CustomTemplateBaselineTests.ValidCustomStyleMustRoundTripThroughActualSettingsJson(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.CustomTemplateBaselineTests.ValidCustomStyleMustRoundTripThroughActualSettingsJson(mode: "Professional") [< 1 ms]
+  Error Message:
+   System.Text.Json.JsonException : The JSON property 'customTemplates' could not be mapped to any .NET member contained in type 'KuaiYi.Core.Settings.TranslationSettings'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonException_UnmappedJsonProperty(Type type, String unmappedPropertyName)
+   at System.Text.Json.JsonSerializer.LookupProperty(Object obj, ReadOnlySpan`1 unescapedPropertyName, ReadStack& state, JsonSerializerOptions options, Boolean& useExtensionProperty, Boolean createExtensionProperty)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.ReadJsonAndSetMember(Object obj, ReadStack& state, Utf8JsonReader& reader)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Deserialize(Utf8JsonReader& reader, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 utf8Json, JsonTypeInfo`1 jsonTypeInfo, Nullable`1 actualByteCount)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 23
+   at KuaiYi.Core.Tests.CustomTemplateBaselineTests.ValidCustomStyleMustRoundTripThroughActualSettingsJson(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/CustomTemplateBaselineTests.cs:line 11
+   at InvokeStub_CustomTemplateBaselineTests.ValidCustomStyleMustRoundTripThroughActualSettingsJson(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.CustomTemplateBaselineTests.ValidCustomStyleMustRoundTripThroughActualSettingsJson(mode: "Plain") [< 1 ms]
+  Error Message:
+   System.Text.Json.JsonException : The JSON property 'customTemplates' could not be mapped to any .NET member contained in type 'KuaiYi.Core.Settings.TranslationSettings'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonException_UnmappedJsonProperty(Type type, String unmappedPropertyName)
+   at System.Text.Json.JsonSerializer.LookupProperty(Object obj, ReadOnlySpan`1 unescapedPropertyName, ReadStack& state, JsonSerializerOptions options, Boolean& useExtensionProperty, Boolean createExtensionProperty)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.ReadJsonAndSetMember(Object obj, ReadStack& state, Utf8JsonReader& reader)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Deserialize(Utf8JsonReader& reader, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 utf8Json, JsonTypeInfo`1 jsonTypeInfo, Nullable`1 actualByteCount)
+   at KuaiYi.Core.Settings.SettingsJson.Read(Byte[] bytes, Boolean& migrated) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 23
+   at KuaiYi.Core.Tests.CustomTemplateBaselineTests.ValidCustomStyleMustRoundTripThroughActualSettingsJson(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/CustomTemplateBaselineTests.cs:line 11
+   at InvokeStub_CustomTemplateBaselineTests.ValidCustomStyleMustRoundTripThroughActualSettingsJson(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+Results File: /workspace/KuaiYi/artifacts/test-results/p4-custom-templates/template-json-before.trx
+
+Failed!  - Failed:     4, Passed:     0, Skipped:     0, Total:     4, Duration: 53 ms - KuaiYi.Core.Tests.dll (net10.0)

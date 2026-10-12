@@ -108,3 +108,5 @@ P4授权/预算父审补正：新30项、完整Core1262+Provider237=1499/1499、
 P4命令补正：05dc对已保存密钥空PasswordBox.Clear漏编辑失效。真实按钮命令体/preset秘密步骤先统一DraftEdited再清引用；新6同体/实际临时密文+HTTP+lease测试通过，原红6中5失败及初夹具失败保存。完整Core1262+Provider243=1505、Node63、27locked Release通过。WPF事件和DPAPI NotRun，106整体验收不改；详见p4-secret-command-review及summary。
 
 P4-05源码补齐：会话四风格/预览版本N/事实保真重生，原35专项通过（Core8/Provider27）；原3反例与实施/夹具失败保存。最终Core1270+Provider270=1540，Node63，27locked Release通过，旧1505/锁/产品书/四模板保留。WPF/真实服务语义/J评分/P4文字Alpha/106整体NotRun，见p4-session-style-review和本轮summary。
+
+P4-05模板实际设置→保存重启→生产Compose→两协议HTTP闭环：原6反例保存，修后通过，新67专项/全1607 .NET/63Node，27locked Release。完整预览只用公开样例，不能替代真实模型语义和WPF验证；source_text不把原文插system，发送/密钥/测试权限独立于模板。旧1540/规格/模板/27锁保留，106整体NotRun，见p4-custom-templates-review与summary。

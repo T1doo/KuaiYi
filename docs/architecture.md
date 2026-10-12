@@ -131,3 +131,5 @@ P4父审修复：connectionTestOrigin只供当前测试身份，不写普通cons
 密钥引用清除不依赖控件Changed：ClearApiKey与preset清引用共用ClearDraftApiKey，在引用修改前调用原ApiFormEdited撤销identity/草稿revision。生产partial命令体由测试Link，测试UI端口与真实Windows事件分开记录，见p4-secret-command-review。
 
 P4-05会话下次覆盖独立于已保存默认及各版冻结快照；普通/当前设置重生分流，regenerate@1事实保真约束仅一次。版本自然序号与会话序列分开，same-source最多三份，原不同来源fallback保持；Begin在传输前发布元数据，实际Windows呈现未验，见ADR0017。
+
+模板设置采用schema1可选四模式不可变字典，单次白名单数据渲染、固定base先于自定义，原文仅user。预览与正式请求共用Compose并标示来源；hash版本/完整旧映射冻结/结构相等去重。命令修改前取消配置测试，已发普通生成不重写；固定公开测试不受模板影响。见ADR0018，WPF/J质量未验。
