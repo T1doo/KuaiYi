@@ -24,8 +24,8 @@ jobs:
           set-safe-directory: false
           fetch-depth: 1
       - name: Probe preinstalled tools, build native DLLs, run bounded public contracts
-        # Revalidate visual preparation before synchronous HWND resize, retaining every frame assertion.
+        # Add bounded real production OLE isolation/cancel/close/recovery with public fault data; physical E06 remains NotRun.
         shell: pwsh
         run: |
-          & ./scripts/run-windows-ci.ps1
+          & ./scripts/run-windows-ci.ps1 -OleOnly
           exit $LASTEXITCODE

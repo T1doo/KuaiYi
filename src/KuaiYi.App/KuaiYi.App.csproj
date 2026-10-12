@@ -1,4 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup><TargetFramework>net10.0-windows</TargetFramework><OutputType>WinExe</OutputType><RuntimeIdentifier>win-x64</RuntimeIdentifier><SelfContained>false</SelfContained><UseWPF>true</UseWPF><AllowUnsafeBlocks>true</AllowUnsafeBlocks><ApplicationManifest>app.manifest</ApplicationManifest></PropertyGroup>
   <ItemGroup><ProjectReference Include="../KuaiYi.Providers/KuaiYi.Providers.csproj" /><ProjectReference Include="../KuaiYi.Imaging/KuaiYi.Imaging.csproj" /><ProjectReference Include="../KuaiYi.NativeHost/KuaiYi.NativeHost.csproj" /><ProjectReference Include="../KuaiYi.Windows/KuaiYi.Windows.csproj" /></ItemGroup>
+  <PropertyGroup Condition="'$(KuaiYiIncludeWindowsCiProbe)' == 'true'"><DefineConstants>$(DefineConstants);KUAIYI_WINDOWS_CI_PROBE</DefineConstants></PropertyGroup>
+  <ItemGroup Condition="'$(KuaiYiIncludeWindowsCiProbe)' == 'true'"><Compile Include="../../tools/KuaiYi.OleCi/*.cs" Link="WindowsCi/%(Filename)%(Extension)" /></ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
@@ -16,10 +17,12 @@ internal static class Program
 {
     [STAThread] public static int Main(string[] args)
     {
+        bool ci=args.Length==5&&args[0]=="--ci-stdio";if(ci)args=args[1..];
         if (args.Length != 4 || !Enum.TryParse(args[1], true, out Fault fault) || !Enum.IsDefined(fault) || !Enum.TryParse(args[2], true, out Offered offered) || !Enum.IsDefined(offered))
         { Console.Error.WriteLine($"Usage: KuaiYi.OleFaultSource.exe PUBLIC_FIXTURE {string.Join('|', Enum.GetNames<Fault>())} Copy|CopyMove|MoveOnly METADATA_JSONL"); return 2; }
         string text = File.ReadAllText(Path.GetFullPath(args[0]), Encoding.UTF8).Trim();
-        var app = new Application(); app.Run(new SourceWindow(text, fault, offered, Path.GetFullPath(args[3]))); return 0;
+        if(ci&&(fault!=Fault.GetDataBlocked||offered!=Offered.Copy))return 2;
+        var app = new Application(); app.Run(new SourceWindow(text, fault, offered, Path.GetFullPath(args[3]),ci)); return 0;
     }
 }
 public enum Fault { Sync, Async, AsyncDisabled, StartRejected, GetDataFailure, GetDataBlocked, QueryBlocked, ModeBlocked, Oversized, InvalidUtf16, MissingTerminator, AsyncGetDataBlocked, AsyncEndBlocked, AsyncEndFailure, QueryReleaseBlocked, QueryReleaseFailure, DropReleaseBlocked, DropReleaseFailure, AsyncReleaseBlocked, AsyncReleaseFailure }
@@ -32,13 +35,13 @@ internal sealed class SourceWindow : Window
     private readonly List<FixtureData> retained = new();
     private readonly TextBlock status = new() { TextWrapping = TextWrapping.Wrap };
     private readonly OleApartment apartment = new();
-    public SourceWindow(string text, Fault fault, Offered offered, string output)
+    public SourceWindow(string text, Fault fault, Offered offered, string output,bool ci=false)
     {
         Title = $"KuaiYi real OLE fault source: {fault} / {offered}"; Width = 620; Height = 300;
         var panel = new StackPanel { Margin = new Thickness(15) }; Content = panel;
         panel.Children.Add(new TextBlock { Text = "公开测试文本；按住下方按钮开始 OLE 拖放。每次动作后退出保存元数据。阻塞场景会故意卡住来源 5 秒。", TextWrapping = TextWrapping.Wrap });
         var button = new Button { Content = "拖动此按钮到快译绿色按钮", Margin = new Thickness(8), Height = 65 }; panel.Children.Add(button); panel.Children.Add(status);
-        void Record(object value) { if (metadata.Count == 100_000) metadata.Dequeue(); metadata.Enqueue(JsonSerializer.Serialize(new { utc = DateTimeOffset.UtcNow, managedThreadId = Environment.CurrentManagedThreadId, apartment = Thread.CurrentThread.GetApartmentState().ToString(), item = value })); }
+        void Record(object value) { if (metadata.Count == 100_000) metadata.Dequeue(); string line=JsonSerializer.Serialize(new { utc = DateTimeOffset.UtcNow,timestamp=Stopwatch.GetTimestamp(),frequency=Stopwatch.Frequency,processId=Environment.ProcessId,nativeThreadId=NativeDesktop.GetCurrentThreadId(),managedThreadId = Environment.CurrentManagedThreadId, apartment = Thread.CurrentThread.GetApartmentState().ToString(), item = value });metadata.Enqueue(line);if(ci){Console.WriteLine(line);Console.Out.Flush();} }
         button.PreviewMouseLeftButtonDown += (_, e) =>
         {
             retained.RemoveAll(x => !x.Active);
@@ -48,13 +51,23 @@ internal sealed class SourceWindow : Window
             if (data is AsyncFixtureData asyncSource) Marshal.ThrowExceptionForHR(asyncSource.SetAsyncMode(fault != Fault.AsyncDisabled));
             retained.Add(data);
             uint effects = offered switch { Offered.Copy => 1, Offered.CopyMove => 3, Offered.MoveOnly => 2, _ => throw new InvalidOperationException() };
-            int result = OleNative.DoDragDrop(data, new FixtureDropSource(), effects, out uint performed);
+            Record(new{kind="DoDragDropBegin"});int result = OleNative.DoDragDrop(data, new FixtureDropSource(), effects, out uint performed);
             // Mark the source as deleted only if a buggy target reports MOVE; public fixture bytes remain immutable.
             bool sourceWouldDelete = performed == 2;
             status.Text = $"HRESULT={result:X8}; effect={performed}; sourceWouldDelete={sourceWouldDelete}; InOperation={data.Active}";
             Record(new { kind = "DoDragDropReturn", fault = fault.ToString(), offered = offered.ToString(), result, performed, sourceWouldDelete, active = data.Active }); e.Handled = true;
         };
         Closed += (_, _) => { Record(new { kind = "SourceClosed", unfinishedAsync = retained.Count(x => x.Active) }); Directory.CreateDirectory(Path.GetDirectoryName(output)!); File.WriteAllLines(output, metadata, new UTF8Encoding(false)); apartment.Dispose(); };
+        if(ci)
+        {
+            Left=100;Top=100;
+            Loaded+=(_,_)=>
+            {
+                Activate();var point=button.PointToScreen(new Point(button.ActualWidth/2,button.ActualHeight/2));
+                Record(new{kind="SourceReady",hwnd=new System.Windows.Interop.WindowInteropHelper(this).Handle.ToInt64(),x=(int)Math.Round(point.X),y=(int)Math.Round(point.Y)});
+                _=Task.Run(async()=>{string? command=await Console.In.ReadLineAsync();if(command=="close")await Dispatcher.InvokeAsync(Close);});
+            };
+        }
     }
 }
 
@@ -78,7 +91,10 @@ public class FixtureData(string text, Fault fault, Action<object> record) : ComD
     {
         medium = default; reads++; Record(new { kind = "GetData", reads, queries, active = Active });
         if (QueryFormat(format) != 0) Throw(unchecked((int)0x80040064));
-        if (Scenario is Fault.GetDataBlocked or Fault.AsyncGetDataBlocked) Thread.Sleep(5000); // Deliberate native data-provider fault, never used in production.
+        if (Scenario is Fault.GetDataBlocked or Fault.AsyncGetDataBlocked)
+        {
+            Record(new{kind="GetDataBlocking",delayMs=5000});Thread.Sleep(5000);Record(new{kind="GetDataBlockReturned"}); // Real synchronous source call; deliberate test-only fault.
+        }
         if (Scenario == Fault.GetDataFailure) Throw(OleNative.Failure);
         byte[] bytes = Scenario switch
         {

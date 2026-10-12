@@ -1,0 +1,48 @@
+{
+  "Kind": "OleCiLocalPreparation",
+  "ReviewedSourceBeforeCloseCheck": "9ec5356f9aa347bcd903161d74547ad64be16b56",
+  "ManagedCrossBuilds": {
+    "CiApp": {
+      "Projects": 8,
+      "Warnings": 0,
+      "Errors": 0
+    },
+    "FaultSource": {
+      "Projects": 6,
+      "Warnings": 0,
+      "Errors": 0
+    },
+    "Receiver": {
+      "Projects": 6,
+      "Warnings": 0,
+      "Errors": 0
+    }
+  },
+  "ScriptContractsPassed": 45,
+  "OleHelperParse": "Pass",
+  "ActualLinuxOleOnlyEntry": {
+    "ExitCode": 2,
+    "Status": "Blocked",
+    "WindowsDlls": 0,
+    "WindowsOleScenarios": 0
+  },
+  "OrdinaryAppCiCodeIncluded": false,
+  "CoreOleTests": {
+    "Status": "Blocked",
+    "Executed": 0,
+    "Reason": "Sandbox denies MSBuild named-pipe and VSTest socket creation; no permissions escalated."
+  },
+  "WindowsOle": "NotRun",
+  "PhysicalE06": "NotRun",
+  "P0": "Blocked",
+  "ModelCalls": 0,
+  "ArtifactUpload": false,
+  "ReviewedSourceAfterCloseCheck": "9ad689e6e49bb7406f16256dfd62a7fc9d46d230",
+  "CiAppCloseCheckRebuild": {
+    "Projects": 8,
+    "Warnings": 0,
+    "Errors": 0,
+    "ElapsedSeconds": 13.45,
+    "Log": "2026-10-12-ole-ci-app-close-recheck-build.log"
+  }
+}

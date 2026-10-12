@@ -15,7 +15,9 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
     private readonly object watchSync=new();
     private readonly object activationSync=new();
     private readonly OleCallWatch watch=new(timeProvider);
-    private Process? child;private Guid instance;private int started;private volatile bool ready,timedOut;
+    private Process? child;private Guid instance;private int started,ownedProcessId;private volatile bool ready,timedOut;
+    /// <summary>Cached diagnostic identity of the actual owned child; retained after finalization, never used to kill by PID.</summary>
+    public int? OwnedProcessId{get{int id=Volatile.Read(ref ownedProcessId);return id==0?null:id;}}
     private Task? registration;
     private Task? revocation;
     private readonly HashSet<Task> readSettlements=[];
@@ -111,6 +113,7 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
         try
         {
             child=await starting.WaitAsync(beginning.Token).ConfigureAwait(false);
+            Volatile.Write(ref ownedProcessId,child.Id);
             byte[] command=OleReceiverWire.Serialize(hello);
             try{await IpcFrameCodec.WriteAsync(child.StandardInput.BaseStream,new(IpcMessageType.OleHello,instance,command),beginning.Token);await child.StandardInput.BaseStream.FlushAsync(beginning.Token);}
             finally{CryptographicOperations.ZeroMemory(command);}

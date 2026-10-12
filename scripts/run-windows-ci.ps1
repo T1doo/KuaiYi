@@ -1,4 +1,4 @@
-param([switch]$ProbeOnly)
+param([switch]$ProbeOnly,[switch]$OleOnly)
 . "$PSScriptRoot/windows-ci-common.ps1"
 $exitCode = 0
 $root = Join-Path $script:RepositoryRoot ('artifacts/windows-ci/' + [guid]::NewGuid().ToString('N'))
@@ -9,9 +9,10 @@ $report = [ordered]@{
     SourceDirty = @(& git -C $script:RepositoryRoot status --porcelain).Count -gt 0
     SpecificationBytes = @()
     Environment = $null; NativeStatus = 'NotRun'; NativeDlls = 0; CTestsPassed = 0; PeChecksPassed = 0; DllLoadsPassed = 0; ExportsPassed = 0
-    NativeArtifacts = @(); OverlayStatus = 'NotRun'; OverlayChecksPassed = 0; OverlayReport = $null; Errors = @(); ExitCode = 0
+    NativeArtifacts = @(); OverlayStatus = 'NotRun'; OverlayChecksPassed = 0; OverlayReport = $null; OleStatus = 'NotRun'; OleSyntheticPointerStatus = 'NotRun'; E06PhysicalAcceptance = 'NotRun'; OleReport = $null; Errors = @(); ExitCode = 0
 }
 if ($env:GITHUB_SERVER_URL -and $env:GITHUB_REPOSITORY -and $env:GITHUB_RUN_ID) { $report.RunUrl = "$env:GITHUB_SERVER_URL/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID" }
+if ($OleOnly) { $report.Scope = 'HostedOleFixtureContractsOnly' }
 Push-Location $script:RepositoryRoot
 try {
     $facts = $null
@@ -29,11 +30,11 @@ try {
     Write-Host ('KUAIYI_SPECIFICATION_BYTES ' + ($report.SpecificationBytes | ConvertTo-Json -Compress))
     Assert-SpecIntegrity # The exact original byte hash and all original assertions are unchanged.
     if ($null -eq $facts) {
-        $report.NativeStatus = 'Blocked'; $report.OverlayStatus = 'Blocked'; $exitCode = 2
+        $report.NativeStatus = 'Blocked'; $report.OverlayStatus = 'Blocked'; $report.OleStatus = 'Blocked'; $exitCode = 2
     } elseif ($ProbeOnly) {
         $report.NativeStatus = 'NotRun'; $report.OverlayStatus = 'NotRun'
     } elseif ($facts.NativeBlockers.Count -gt 0) {
-        $report.NativeStatus = 'Blocked'; $report.OverlayStatus = 'Blocked'; $exitCode = 2
+        $report.NativeStatus = 'Blocked'; $report.OverlayStatus = 'Blocked'; $report.OleStatus = 'Blocked'; $exitCode = 2
     } else {
         $report.NativeStatus = 'InProgress'
         $exports = [ordered]@{
@@ -42,7 +43,8 @@ try {
             'KuaiYi.CaptureNative' = @('KY_CaptureMonitor','KY_CaptureGdi')
             'KuaiYi.OleNativeBridge' = @('KY_CreateDropTarget')
         }
-        foreach ($component in $exports.Keys) {
+        $components = if ($OleOnly) { @('KuaiYi.OleNativeBridge') } else { @($exports.Keys) }
+        foreach ($component in $components) {
             $build = Join-Path $root $component
             # Exact installed patch selected once, explicitly supplied to CMake and recorded above.
             Invoke-Checked cmake @('-S',"src/$component",'-B',$build,'-G','Visual Studio 17 2022','-A','x64','-T',"v143,version=$($facts.Toolset)","-DCMAKE_GENERATOR_INSTANCE=$($facts.VisualStudio.Path)","-DCMAKE_SYSTEM_VERSION=$($facts.WindowsSdk)")
@@ -60,7 +62,8 @@ try {
             $report.NativeDlls++
             $report.NativeArtifacts += @{ Name = "$component.dll"; Bytes = (Get-Item -LiteralPath $dll).Length; Sha256 = (Get-FileHash -LiteralPath $dll -Algorithm SHA256).Hash; Exports = $exports[$component] }
         }
-        foreach ($test in @(@{ Component = 'KuaiYi.ShellExtension'; Name = 'CommandPolicy' },@{ Component = 'KuaiYi.CaptureNative'; Name = 'GdiReadOrderingContract' })) {
+        $tests = if ($OleOnly) { @() } else { @(@{ Component = 'KuaiYi.ShellExtension'; Name = 'CommandPolicy' },@{ Component = 'KuaiYi.CaptureNative'; Name = 'GdiReadOrderingContract' }) }
+        foreach ($test in $tests) {
             $junit = Join-Path $root ($test.Name + '.xml')
             Invoke-Checked ctest @('--test-dir',(Join-Path $root $test.Component),'-C','Release','--output-on-failure','--output-junit',$junit)
             $report.CTestsPassed += Assert-CiCtestResults $junit $test.Name
@@ -69,9 +72,11 @@ try {
         $report.NativeStatus = 'Pass'
         if ($facts.DesktopBlockers.Count -gt 0 -or $facts.Sdk -cne '10.0.401' -or -not $facts.DesktopRuntime) {
             $report.OverlayStatus = 'Blocked'
+            $report.OleStatus = 'Blocked'
             if ($facts.Sdk -cne '10.0.401') { $report.Errors += 'OverlayRequiredSdkMissing' }
             if (-not $facts.DesktopRuntime) { $report.Errors += 'OverlayRequiredDesktopRuntimeMissing' }
         } else {
+            if (-not $OleOnly) {
             $report.OverlayStatus = 'InProgress'
             # Existing locked dependencies only; no setup-dotnet, WinAppCLI, installer or SDK installation.
             Invoke-Checked dotnet @('restore','tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj','--locked-mode')
@@ -107,12 +112,20 @@ try {
                 if (Test-Path -LiteralPath ($csv + '.phases.log')) { Get-Content -LiteralPath ($csv + '.phases.log') | ForEach-Object { Write-Host ('PUBLIC_OVERLAY_PHASE ' + $_) } }
                 $child.Dispose()
             }
+            }
+            if ($OleOnly) {
+            $report.OleStatus = 'InProgress'
+            $report.OleReport = & "$PSScriptRoot/run-windows-ole-ci.ps1" -NativeRoot $root -OutputRoot (Join-Path $root 'ole-ci')
+            $report.OleStatus = $report.OleReport.IsolationStatus
+            $report.OleSyntheticPointerStatus = $report.OleReport.SyntheticPointerStatus
+            }
         }
     }
 } catch {
     $report.Errors += $_.Exception.Message
     if ($report.NativeStatus -eq 'InProgress') { $report.NativeStatus = 'Fail' }
     if ($report.OverlayStatus -eq 'InProgress') { $report.OverlayStatus = 'Fail' }
+    if ($report.OleStatus -eq 'InProgress') { $report.OleStatus = 'Fail' }
     $exitCode = 3
 } finally {
     Pop-Location
@@ -122,6 +135,7 @@ try {
     Write-Host 'KUAIYI_CONTRACT_REPORT_BEGIN'; Write-Host $json; Write-Host 'KUAIYI_CONTRACT_REPORT_END'
     if ($env:GITHUB_STEP_SUMMARY) {
         $text = "Hosted Windows fixture contracts; Windows 11 ordinary-user acceptance: **NotRun**.`n`nNative: $($report.NativeStatus); DLLs: $($report.NativeDlls); CTests: $($report.CTestsPassed); PE checks: $($report.PeChecksPassed); loads: $($report.DllLoadsPassed); exports: $($report.ExportsPassed).`n`nOverlay: $($report.OverlayStatus); checks: $($report.OverlayChecksPassed). Exit: $exitCode.`n`nFull environment/receipt/CSV evidence is in the job log; no artifact upload.`n"
+        if ($OleOnly) { $text += "`nOLE isolation/cancel/close/recovery: $($report.OleStatus); synthetic pointer: $($report.OleSyntheticPointerStatus); physical E06: **NotRun**. Earlier accepted CTests/HWND contracts were not rerun.`n" }
         [IO.File]::AppendAllText($env:GITHUB_STEP_SUMMARY,$text)
     }
 }

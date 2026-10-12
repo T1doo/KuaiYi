@@ -16,7 +16,11 @@ internal sealed partial class ShellWindow
     private readonly TextBlock dropHint=new(){Text="松开\n翻译",FontSize=11,TextAlignment=TextAlignment.Center,IsHitTestVisible=false,Visibility=Visibility.Collapsed};
     private void SetupTextDrop()
     {
+#if KUAIYI_WINDOWS_CI_PROBE
+        if(!enableSelectionPlatform&&!CiTextDropEnabled)return;
+#else
         if(!enableSelectionPlatform)return; // Public growth probe remains isolated from every real selection/Drop backend.
+#endif
         overlayCanvas.Children.Add(dropHint);
         dropCapture=new(lifecycle.Gate,()=>lifecycle.Settings,SelectionDesktop.IsDropSourceCurrent,()=>Volatile.Read(ref dropVisible),(uint)Environment.ProcessId,new DispatcherSynchronizationContext(Dispatcher),AcceptSelection,status=>button.ToolTip="拖放未取得可信文本，旧来源保留 · "+status);
         dropPoll.Tick+=(_,_)=>RefreshTextDrop();dropPoll.Start();PublishDropBounds();
@@ -61,6 +65,9 @@ internal sealed partial class ShellWindow
             Guid instance=Guid.NewGuid();var lease=dropCapture!.Open(instance,state.Epoch,target);if(lease==null)return;
             activation=new(instance);var registrar=new OleTargetRegistrar();var client=new OleReceiverClient(Path.Combine(AppContext.BaseDirectory,"KuaiYi.OleReceiver.exe"),registrar,activation);var cancellation=CancellationTokenSource.CreateLinkedTokenSource(lifetime.Token);
             var peer=new TextDropPeer(client,lease,cancellation,config.Data.Privacy.BlockedApplications.ToArray());dropPeer=peer;activation=null;
+#if KUAIYI_WINDOWS_CI_PROBE
+            CiReceiverCreated(client,registrar,instance,()=>peer.Run,()=>peer.Control);
+#endif
             var hello=new OleReceiverHello(instance,lease.WireEpoch,Environment.ProcessId,hwnd.ToInt64(),RandomNumberGenerator.GetBytes(32),OleReceiverWire.ActivationName(instance),ProductionTextDrop:true);
             peer.Run=RunTextDrop(peer,hello);
         }
@@ -72,6 +79,9 @@ internal sealed partial class ShellWindow
         {
             await peer.Client.RunAsync(hello,item=>
             {
+#if KUAIYI_WINDOWS_CI_PROBE
+                CiReceiverFeedback(item,peer.Client);
+#endif
                 if(!ReferenceEquals(Volatile.Read(ref dropPeer),peer)||Volatile.Read(ref peer.Stopping)!=0||dropCapture?.Lease!=peer.Lease||item.Instance!=peer.Lease.Receiver||item.Epoch!=peer.Lease.WireEpoch)return;
                 if(item.Phase=="QueryEnd"&&item.Effect==1&&item.Source is {} origin&&item.Point is {} point)dropCapture.Enter(peer.Lease,item.Transaction,origin,point,OleEffect.Copy);
                 else if(item.Phase=="DropBegin"&&item.Source is {} source&&item.Point is {} dropped)dropCapture.Begin(peer.Lease,item.Transaction,source,dropped,(OleEffect)item.Effect);

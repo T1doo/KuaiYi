@@ -15,6 +15,9 @@ internal static class Program
 {
     [STAThread] public static int Main(string[] args)
     {
+#if KUAIYI_WINDOWS_CI_PROBE
+        if(args.Length==4&&args[0]=="--ci-ole-responsiveness")return HostedOleProbe.Run(args[1],args[2],args[3]);
+#endif
         if (args.SequenceEqual(new[] { "--diagnose" })) { Console.WriteLine(JsonSerializer.Serialize(PackageIdentity.Read("KuaiYi"), ImageJson.Options)); return 0; }
         if (args.Length == 3 && args[0] == "--ocr-probe")
             return Probe(args[1], args[2]).GetAwaiter().GetResult(); // Explicit synthetic fixture command, never automatic selection capture.
