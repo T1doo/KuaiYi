@@ -1,0 +1,594 @@
+﻿2026-10-12T12:13:25.4422844Z Current runner version: '2.337.0'
+2026-10-12T12:13:25.4444855Z ##[group]Runner Image Provisioner
+2026-10-12T12:13:25.4445617Z Hosted Compute Agent
+2026-10-12T12:13:25.4446094Z Version: 20261002.596
+2026-10-12T12:13:25.4446571Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+2026-10-12T12:13:25.4447116Z Build Date: 2026-10-02T22:28:27Z
+2026-10-12T12:13:25.4447647Z Worker ID: {f32a7e5a-e7f8-40a5-b7e2-b63ea507241d}
+2026-10-12T12:13:25.4448174Z Region: centralus
+2026-10-12T12:13:25.4448547Z Cloud: Azure
+2026-10-12T12:13:25.4448978Z ##[endgroup]
+2026-10-12T12:13:25.4450208Z ##[group]Operating System
+2026-10-12T12:13:25.4450698Z Microsoft Windows Server 2022
+2026-10-12T12:13:25.4451159Z 10.0.20348
+2026-10-12T12:13:25.4451575Z Datacenter
+2026-10-12T12:13:25.4451971Z ##[endgroup]
+2026-10-12T12:13:25.4452348Z ##[group]Runner Image
+2026-10-12T12:13:25.4452768Z Image: windows-2022
+2026-10-12T12:13:25.4453194Z Version: 20261004.326.1
+2026-10-12T12:13:25.4454321Z Included Software: https://github.com/actions/runner-images/blob/win22/20261004.326/images/windows/Windows2022-Readme.md
+2026-10-12T12:13:25.4455515Z Image Release: https://github.com/actions/runner-images/releases/tag/win22%2F20261004.326
+2026-10-12T12:13:25.4456205Z ##[endgroup]
+2026-10-12T12:13:25.4457057Z ##[group]GITHUB_TOKEN Permissions
+2026-10-12T12:13:25.4458889Z Contents: read
+2026-10-12T12:13:25.4459336Z Metadata: read
+2026-10-12T12:13:25.4459766Z ##[endgroup]
+2026-10-12T12:13:25.4461358Z Secret source: Actions
+2026-10-12T12:13:25.4461972Z Cache mode: write
+2026-10-12T12:13:25.4463111Z Prepare workflow directory
+2026-10-12T12:13:25.4815925Z Prepare all required actions
+2026-10-12T12:13:25.4857967Z Getting action download info
+2026-10-12T12:13:25.7309219Z Download action repository 'actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+2026-10-12T12:13:25.9272978Z Complete job name: contracts
+2026-10-12T12:13:26.0699420Z ##[group]Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+2026-10-12T12:13:26.0700842Z with:
+2026-10-12T12:13:26.0701248Z   persist-credentials: false
+2026-10-12T12:13:26.0701756Z   set-safe-directory: false
+2026-10-12T12:13:26.0702194Z   fetch-depth: 1
+2026-10-12T12:13:26.0702589Z   repository: T1doo/KuaiYi
+2026-10-12T12:13:26.0707674Z   token: ***
+2026-10-12T12:13:26.0708355Z   ssh-strict: true
+2026-10-12T12:13:26.0709809Z   ssh-user: git
+2026-10-12T12:13:26.0710499Z   clean: true
+2026-10-12T12:13:26.0710948Z   sparse-checkout-cone-mode: true
+2026-10-12T12:13:26.0711399Z   fetch-tags: false
+2026-10-12T12:13:26.0711776Z   show-progress: true
+2026-10-12T12:13:26.0712212Z   lfs: false
+2026-10-12T12:13:26.0712567Z   submodules: false
+2026-10-12T12:13:26.0713369Z   allow-unsafe-pr-checkout: false
+2026-10-12T12:13:26.0714334Z env:
+2026-10-12T12:13:26.0714981Z   DOTNET_CLI_TELEMETRY_OPTOUT: 1
+2026-10-12T12:13:26.0715590Z   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+2026-10-12T12:13:26.0716050Z   POWERSHELL_TELEMETRY_OPTOUT: 1
+2026-10-12T12:13:26.0716512Z   CI: true
+2026-10-12T12:13:26.0716854Z ##[endgroup]
+2026-10-12T12:13:26.2286608Z Syncing repository: T1doo/KuaiYi
+2026-10-12T12:13:26.2288341Z ##[group]Getting Git version info
+2026-10-12T12:13:26.2288958Z Working directory is 'D:\a\KuaiYi\KuaiYi'
+2026-10-12T12:13:26.3147117Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-12T12:13:26.6451518Z git version 2.56.0.windows.1
+2026-10-12T12:13:26.6492826Z ##[endgroup]
+2026-10-12T12:13:26.6499166Z Deleting the contents of 'D:\a\KuaiYi\KuaiYi'
+2026-10-12T12:13:26.6504859Z ##[group]Determining repository object format
+2026-10-12T12:13:26.6507155Z ##[endgroup]
+2026-10-12T12:13:26.6508094Z ##[group]Initializing the repository
+2026-10-12T12:13:26.6516431Z [command]"C:\Program Files\Git\bin\git.exe" init D:\a\KuaiYi\KuaiYi
+2026-10-12T12:13:26.7407519Z Initialized empty Git repository in D:/a/KuaiYi/KuaiYi/.git/
+2026-10-12T12:13:26.7444494Z [command]"C:\Program Files\Git\bin\git.exe" remote add origin https://github.com/T1doo/KuaiYi
+2026-10-12T12:13:26.7959102Z ##[endgroup]
+2026-10-12T12:13:26.7959942Z ##[group]Disabling automatic garbage collection
+2026-10-12T12:13:26.7966441Z [command]"C:\Program Files\Git\bin\git.exe" config --local gc.auto 0
+2026-10-12T12:13:26.8402155Z ##[endgroup]
+2026-10-12T12:13:26.8403574Z ##[group]Setting up auth
+2026-10-12T12:13:26.8404367Z Removing SSH command configuration
+2026-10-12T12:13:26.8414926Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-12T12:13:26.8683189Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-12T12:13:28.2067353Z Removing HTTP extra header
+2026-10-12T12:13:28.2077542Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-12T12:13:28.2339742Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-12T12:13:28.6712986Z Removing includeIf entries pointing to credentials config files
+2026-10-12T12:13:28.6725788Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-12T12:13:28.6983584Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-12T12:13:29.1272459Z [command]"C:\Program Files\Git\bin\git.exe" config --file D:\a\_temp\git-credentials-7b1794d1-fcb6-4863-a23c-928e35e77808.config http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
+2026-10-12T12:13:29.1541835Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:D:/a/KuaiYi/KuaiYi/.git.path D:\a\_temp\git-credentials-7b1794d1-fcb6-4863-a23c-928e35e77808.config
+2026-10-12T12:13:29.1790058Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:D:/a/KuaiYi/KuaiYi/.git/worktrees/*.path D:\a\_temp\git-credentials-7b1794d1-fcb6-4863-a23c-928e35e77808.config
+2026-10-12T12:13:29.2084737Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-7b1794d1-fcb6-4863-a23c-928e35e77808.config
+2026-10-12T12:13:29.2331355Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-7b1794d1-fcb6-4863-a23c-928e35e77808.config
+2026-10-12T12:13:29.2583008Z ##[endgroup]
+2026-10-12T12:13:29.2583447Z ##[group]Fetching the repository
+2026-10-12T12:13:29.2594155Z [command]"C:\Program Files\Git\bin\git.exe" -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +4ff83e510b326d1d1bffc49dec2fd06315871ee1:refs/remotes/origin/dev/p0-foundations
+2026-10-12T12:13:34.6075993Z From https://github.com/T1doo/KuaiYi
+2026-10-12T12:13:34.6077069Z  * [new ref]         4ff83e510b326d1d1bffc49dec2fd06315871ee1 -> origin/dev/p0-foundations
+2026-10-12T12:13:34.6129811Z [command]"C:\Program Files\Git\bin\git.exe" branch --list --remote origin/dev/p0-foundations
+2026-10-12T12:13:34.6472956Z   origin/dev/p0-foundations
+2026-10-12T12:13:34.6506391Z [command]"C:\Program Files\Git\bin\git.exe" rev-parse refs/remotes/origin/dev/p0-foundations
+2026-10-12T12:13:34.6783360Z 4ff83e510b326d1d1bffc49dec2fd06315871ee1
+2026-10-12T12:13:34.6807037Z ##[endgroup]
+2026-10-12T12:13:34.6807523Z ##[group]Determining the checkout info
+2026-10-12T12:13:34.6808116Z ##[endgroup]
+2026-10-12T12:13:34.6815974Z [command]"C:\Program Files\Git\bin\git.exe" sparse-checkout disable
+2026-10-12T12:13:34.7182013Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all extensions.worktreeConfig
+2026-10-12T12:13:34.7431286Z ##[group]Checking out the ref
+2026-10-12T12:13:34.7439086Z [command]"C:\Program Files\Git\bin\git.exe" checkout --progress --force -B dev/p0-foundations refs/remotes/origin/dev/p0-foundations
+2026-10-12T12:13:35.2821168Z Switched to a new branch 'dev/p0-foundations'
+2026-10-12T12:13:35.2839183Z branch 'dev/p0-foundations' set up to track 'origin/dev/p0-foundations'.
+2026-10-12T12:13:35.2917099Z ##[endgroup]
+2026-10-12T12:13:35.3284629Z [command]"C:\Program Files\Git\bin\git.exe" log -1 --format=%H
+2026-10-12T12:13:35.3530219Z 4ff83e510b326d1d1bffc49dec2fd06315871ee1
+2026-10-12T12:13:35.3564073Z ##[group]Removing auth
+2026-10-12T12:13:35.3564478Z Removing SSH command configuration
+2026-10-12T12:13:35.3571942Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-12T12:13:35.3838658Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-12T12:13:35.8256516Z Removing HTTP extra header
+2026-10-12T12:13:35.8265812Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-12T12:13:35.8533277Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-12T12:13:36.2792520Z Removing includeIf entries pointing to credentials config files
+2026-10-12T12:13:36.2799761Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-12T12:13:36.3025101Z includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git.path
+2026-10-12T12:13:36.3025569Z includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git/worktrees/*.path
+2026-10-12T12:13:36.3027107Z includeif.gitdir:/github/workspace/.git.path
+2026-10-12T12:13:36.3027612Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-12T12:13:36.3063536Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git.path
+2026-10-12T12:13:36.3291400Z D:\a\_temp\git-credentials-7b1794d1-fcb6-4863-a23c-928e35e77808.config
+2026-10-12T12:13:36.3326018Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git.path D:\a\_temp\git-credentials-7b1794d1-fcb6-4863-a23c-928e35e77808.config
+2026-10-12T12:13:36.3588327Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git/worktrees/*.path
+2026-10-12T12:13:36.3823890Z D:\a\_temp\git-credentials-7b1794d1-fcb6-4863-a23c-928e35e77808.config
+2026-10-12T12:13:36.3856761Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git/worktrees/*.path D:\a\_temp\git-credentials-7b1794d1-fcb6-4863-a23c-928e35e77808.config
+2026-10-12T12:13:36.4116538Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-12T12:13:36.4347046Z /github/runner_temp/git-credentials-7b1794d1-fcb6-4863-a23c-928e35e77808.config
+2026-10-12T12:13:36.4378864Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-7b1794d1-fcb6-4863-a23c-928e35e77808.config
+2026-10-12T12:13:36.4649405Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-12T12:13:36.4876139Z /github/runner_temp/git-credentials-7b1794d1-fcb6-4863-a23c-928e35e77808.config
+2026-10-12T12:13:36.4912862Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-7b1794d1-fcb6-4863-a23c-928e35e77808.config
+2026-10-12T12:13:36.5183649Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-12T12:13:36.9517140Z Removing credentials config 'D:\a\_temp\git-credentials-7b1794d1-fcb6-4863-a23c-928e35e77808.config'
+2026-10-12T12:13:36.9531111Z ##[endgroup]
+2026-10-12T12:13:36.9832740Z ##[group]Run & ./scripts/run-windows-ci.ps1
+2026-10-12T12:13:36.9833239Z [36;1m& ./scripts/run-windows-ci.ps1[0m
+2026-10-12T12:13:36.9833534Z [36;1mexit $LASTEXITCODE[0m
+2026-10-12T12:13:36.9936604Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-12T12:13:36.9936987Z env:
+2026-10-12T12:13:36.9937316Z   DOTNET_CLI_TELEMETRY_OPTOUT: 1
+2026-10-12T12:13:36.9937633Z   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+2026-10-12T12:13:36.9937925Z   POWERSHELL_TELEMETRY_OPTOUT: 1
+2026-10-12T12:13:36.9938210Z   CI: true
+2026-10-12T12:13:36.9938561Z ##[endgroup]
+2026-10-12T12:13:47.0581297Z KUAIYI_ENVIRONMENT_BEGIN
+2026-10-12T12:13:47.0681239Z {"IsWindows":true,"Architecture":"X64","UserInteractive":true,"SessionId":2,"Os":{"Size":284,"Major":10,"Minor":0,"Build":20348,"Platform":2,"ServicePack":"","ServicePackMajor":0,"ServicePackMinor":0,"SuiteMask":400,"ProductType":3,"Reserved":0},"Administrator":true,"IntegrityLevel":12288,"EnableLua":1,"WindowStation":"WinSta0","InputDesktop":"Default","DesktopProbeError":null,"Monitors":[{"Bounds":{"Left":0,"Top":0,"Right":1024,"Bottom":768},"WorkArea":{"Left":0,"Top":0,"Right":1024,"Bottom":728},"DpiX":96,"DpiY":96,"DpiHResult":0,"Primary":true}],"ProbeDpiAwareness":0,"HasShell":true,"DwmEnabled":true,"PowerShell":"7.6.6","ImageOS":"win22","ImageVersion":"20261004.326.1","Sdk":"10.0.401","DesktopRuntime":true,"CMake":"3.31.6","CTest":"3.31.6","VisualStudio":{"Version":"17.14.37710.0","Path":"C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise"},"Toolset":"14.44.35207","WindowsSdk":"10.0.26100.0","NativeBlockers":[],"DesktopBlockers":[],"Scope":"HostedWindowsContractsOnly","Windows11Acceptance":"NotRun"}
+2026-10-12T12:13:47.0685383Z KUAIYI_ENVIRONMENT_END
+2026-10-12T12:13:47.3098435Z KUAIYI_SPECIFICATION_BYTES [{"Name":"SPEC.md","Sha256":"EA3AA6529405BCC703986988FD089F476EE8F991D867E2220B3B20C439126166","Bytes":146706,"LF":1826,"CRLF":0},{"Name":"快译_产品与技术开发规格_v1.0.md","Sha256":"EA3AA6529405BCC703986988FD089F476EE8F991D867E2220B3B20C439126166","Bytes":146706,"LF":1826,"CRLF":0}]
+2026-10-12T12:13:57.9882431Z -- The CXX compiler identification is MSVC 19.44.35229.0
+2026-10-12T12:13:58.1132002Z -- Detecting CXX compiler ABI info
+2026-10-12T12:13:59.0957692Z -- Detecting CXX compiler ABI info - done
+2026-10-12T12:13:59.1090973Z -- Check for working CXX compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe - skipped
+2026-10-12T12:13:59.1103513Z -- Detecting CXX compile features
+2026-10-12T12:13:59.1152301Z -- Detecting CXX compile features - done
+2026-10-12T12:13:59.1227202Z -- Configuring done (11.8s)
+2026-10-12T12:13:59.1360628Z -- Generating done (0.0s)
+2026-10-12T12:13:59.1366458Z -- Build files have been written to: D:/a/KuaiYi/KuaiYi/artifacts/windows-ci/9d950eb08bf34ef98429bea2395f6bb2/KuaiYi.OcrNative
+2026-10-12T12:13:59.2213663Z MSBuild version 17.14.60+43b635718 for .NET Framework
+2026-10-12T12:13:59.2473794Z 
+2026-10-12T12:13:59.5911950Z   1>Checking Build System
+2026-10-12T12:13:59.7438717Z   Building Custom Rule D:/a/KuaiYi/KuaiYi/src/KuaiYi.OcrNative/CMakeLists.txt
+2026-10-12T12:13:59.7839027Z   Scanning sources for module dependencies...
+2026-10-12T12:13:59.8939588Z   OcrNative.cpp
+2026-10-12T12:14:03.3343160Z   Compiling...
+2026-10-12T12:14:03.3636095Z   OcrNative.cpp
+2026-10-12T12:14:10.8176449Z      Creating library D:/a/KuaiYi/KuaiYi/artifacts/windows-ci/9d950eb08bf34ef98429bea2395f6bb2/KuaiYi.OcrNative/Release/KuaiYi.OcrNative.lib and object D:/a/KuaiYi/KuaiYi/artifacts/windows-ci/9d950eb08bf34ef98429bea2395f6bb2/KuaiYi.OcrNative/Release/KuaiYi.OcrNative.exp
+2026-10-12T12:14:11.0074663Z   KuaiYi.OcrNative.vcxproj -> D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\9d950eb08bf34ef98429bea2395f6bb2\KuaiYi.OcrNative\Release\KuaiYi.OcrNative.dll
+2026-10-12T12:14:11.0530956Z   Building Custom Rule D:/a/KuaiYi/KuaiYi/src/KuaiYi.OcrNative/CMakeLists.txt
+2026-10-12T12:14:12.0722292Z -- The CXX compiler identification is MSVC 19.44.35229.0
+2026-10-12T12:14:12.1042261Z -- Detecting CXX compiler ABI info
+2026-10-12T12:14:12.6959670Z -- Detecting CXX compiler ABI info - done
+2026-10-12T12:14:12.7089663Z -- Check for working CXX compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe - skipped
+2026-10-12T12:14:12.7092698Z -- Detecting CXX compile features
+2026-10-12T12:14:12.7101943Z -- Detecting CXX compile features - done
+2026-10-12T12:14:12.7121950Z -- Configuring done (1.5s)
+2026-10-12T12:14:12.7312613Z -- Generating done (0.0s)
+2026-10-12T12:14:12.7318109Z -- Build files have been written to: D:/a/KuaiYi/KuaiYi/artifacts/windows-ci/9d950eb08bf34ef98429bea2395f6bb2/KuaiYi.ShellExtension
+2026-10-12T12:14:12.8178876Z MSBuild version 17.14.60+43b635718 for .NET Framework
+2026-10-12T12:14:12.8441295Z 
+2026-10-12T12:14:13.1072547Z   1>Checking Build System
+2026-10-12T12:14:13.2937444Z   Building Custom Rule D:/a/KuaiYi/KuaiYi/src/KuaiYi.ShellExtension/CMakeLists.txt
+2026-10-12T12:14:13.3321223Z   Scanning sources for module dependencies...
+2026-10-12T12:14:13.4528901Z   command-policy-test.cpp
+2026-10-12T12:14:13.5546019Z   Compiling...
+2026-10-12T12:14:13.5578288Z   Building Custom Rule D:/a/KuaiYi/KuaiYi/src/KuaiYi.ShellExtension/CMakeLists.txt
+2026-10-12T12:14:13.5899118Z   command-policy-test.cpp
+2026-10-12T12:14:13.6078718Z   Scanning sources for module dependencies...
+2026-10-12T12:14:13.7211631Z   ExplorerCommand.cpp
+2026-10-12T12:14:14.5598531Z   Compiling...
+2026-10-12T12:14:14.5922715Z   ExplorerCommand.cpp
+2026-10-12T12:14:14.8045031Z   KuaiYi.CommandPolicyTests.vcxproj -> D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\9d950eb08bf34ef98429bea2395f6bb2\KuaiYi.ShellExtension\Release\KuaiYi.CommandPolicyTests.exe
+2026-10-12T12:14:15.6562072Z      Creating library D:/a/KuaiYi/KuaiYi/artifacts/windows-ci/9d950eb08bf34ef98429bea2395f6bb2/KuaiYi.ShellExtension/Release/KuaiYi.ShellExtension.lib and object D:/a/KuaiYi/KuaiYi/artifacts/windows-ci/9d950eb08bf34ef98429bea2395f6bb2/KuaiYi.ShellExtension/Release/KuaiYi.ShellExtension.exp
+2026-10-12T12:14:15.7455412Z   KuaiYi.ShellExtension.vcxproj -> D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\9d950eb08bf34ef98429bea2395f6bb2\KuaiYi.ShellExtension\Release\KuaiYi.ShellExtension.dll
+2026-10-12T12:14:15.8160577Z   Building Custom Rule D:/a/KuaiYi/KuaiYi/src/KuaiYi.ShellExtension/CMakeLists.txt
+2026-10-12T12:14:16.7759547Z -- The CXX compiler identification is MSVC 19.44.35229.0
+2026-10-12T12:14:16.8114897Z -- Detecting CXX compiler ABI info
+2026-10-12T12:14:17.3955250Z -- Detecting CXX compiler ABI info - done
+2026-10-12T12:14:17.4102684Z -- Check for working CXX compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe - skipped
+2026-10-12T12:14:17.4106336Z -- Detecting CXX compile features
+2026-10-12T12:14:17.4115021Z -- Detecting CXX compile features - done
+2026-10-12T12:14:17.6394611Z -- Configuring done (1.7s)
+2026-10-12T12:14:17.6700623Z -- Generating done (0.0s)
+2026-10-12T12:14:17.6706705Z -- Build files have been written to: D:/a/KuaiYi/KuaiYi/artifacts/windows-ci/9d950eb08bf34ef98429bea2395f6bb2/KuaiYi.CaptureNative
+2026-10-12T12:14:17.7580564Z MSBuild version 17.14.60+43b635718 for .NET Framework
+2026-10-12T12:14:17.7844972Z 
+2026-10-12T12:14:18.0391760Z   1>Checking Build System
+2026-10-12T12:14:18.1836362Z   Building Custom Rule D:/a/KuaiYi/KuaiYi/src/KuaiYi.CaptureNative/CMakeLists.txt
+2026-10-12T12:14:18.1918867Z   Building Custom Rule D:/a/KuaiYi/KuaiYi/src/KuaiYi.CaptureNative/CMakeLists.txt
+2026-10-12T12:14:18.2356151Z   Scanning sources for module dependencies...
+2026-10-12T12:14:18.2409093Z   Scanning sources for module dependencies...
+2026-10-12T12:14:18.2805523Z   CaptureNative.cpp
+2026-10-12T12:14:18.3470445Z   GdiReadContractTests.cpp
+2026-10-12T12:14:18.4580477Z   Compiling...
+2026-10-12T12:14:18.4914578Z   GdiReadContractTests.cpp
+2026-10-12T12:14:19.3532653Z   GdiReadContractTests.vcxproj -> D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\9d950eb08bf34ef98429bea2395f6bb2\KuaiYi.CaptureNative\Release\GdiReadContractTests.exe
+2026-10-12T12:14:22.8341027Z   Compiling...
+2026-10-12T12:14:22.8666333Z   CaptureNative.cpp
+2026-10-12T12:14:27.7277478Z      Creating library D:/a/KuaiYi/KuaiYi/artifacts/windows-ci/9d950eb08bf34ef98429bea2395f6bb2/KuaiYi.CaptureNative/Release/KuaiYi.CaptureNative.lib and object D:/a/KuaiYi/KuaiYi/artifacts/windows-ci/9d950eb08bf34ef98429bea2395f6bb2/KuaiYi.CaptureNative/Release/KuaiYi.CaptureNative.exp
+2026-10-12T12:14:27.7918101Z   KuaiYi.CaptureNative.vcxproj -> D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\9d950eb08bf34ef98429bea2395f6bb2\KuaiYi.CaptureNative\Release\KuaiYi.CaptureNative.dll
+2026-10-12T12:14:27.8465437Z   Building Custom Rule D:/a/KuaiYi/KuaiYi/src/KuaiYi.CaptureNative/CMakeLists.txt
+2026-10-12T12:14:28.7805209Z -- The CXX compiler identification is MSVC 19.44.35229.0
+2026-10-12T12:14:28.8118581Z -- Detecting CXX compiler ABI info
+2026-10-12T12:14:29.3992626Z -- Detecting CXX compiler ABI info - done
+2026-10-12T12:14:29.4129084Z -- Check for working CXX compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe - skipped
+2026-10-12T12:14:29.4132649Z -- Detecting CXX compile features
+2026-10-12T12:14:29.4140164Z -- Detecting CXX compile features - done
+2026-10-12T12:14:29.4159308Z -- Configuring done (1.5s)
+2026-10-12T12:14:29.4302417Z -- Generating done (0.0s)
+2026-10-12T12:14:29.4307422Z -- Build files have been written to: D:/a/KuaiYi/KuaiYi/artifacts/windows-ci/9d950eb08bf34ef98429bea2395f6bb2/KuaiYi.OleNativeBridge
+2026-10-12T12:14:29.5161482Z MSBuild version 17.14.60+43b635718 for .NET Framework
+2026-10-12T12:14:29.5436076Z 
+2026-10-12T12:14:29.8018573Z   1>Checking Build System
+2026-10-12T12:14:29.9417010Z   Building Custom Rule D:/a/KuaiYi/KuaiYi/src/KuaiYi.OleNativeBridge/CMakeLists.txt
+2026-10-12T12:14:29.9811852Z   Scanning sources for module dependencies...
+2026-10-12T12:14:30.0788284Z   DropTargetBridge.cpp
+2026-10-12T12:14:30.2485844Z   Compiling...
+2026-10-12T12:14:30.2806810Z   DropTargetBridge.cpp
+2026-10-12T12:14:30.6201317Z      Creating library D:/a/KuaiYi/KuaiYi/artifacts/windows-ci/9d950eb08bf34ef98429bea2395f6bb2/KuaiYi.OleNativeBridge/Release/KuaiYi.OleNativeBridge.lib and object D:/a/KuaiYi/KuaiYi/artifacts/windows-ci/9d950eb08bf34ef98429bea2395f6bb2/KuaiYi.OleNativeBridge/Release/KuaiYi.OleNativeBridge.exp
+2026-10-12T12:14:30.6829177Z   KuaiYi.OleNativeBridge.vcxproj -> D:\a\KuaiYi\KuaiYi\artifacts\windows-ci\9d950eb08bf34ef98429bea2395f6bb2\KuaiYi.OleNativeBridge\Release\KuaiYi.OleNativeBridge.dll
+2026-10-12T12:14:30.7283660Z   Building Custom Rule D:/a/KuaiYi/KuaiYi/src/KuaiYi.OleNativeBridge/CMakeLists.txt
+2026-10-12T12:14:30.8179607Z Internal ctest changing into directory: D:/a/KuaiYi/KuaiYi/artifacts/windows-ci/9d950eb08bf34ef98429bea2395f6bb2/KuaiYi.ShellExtension
+2026-10-12T12:14:30.8186507Z Test project D:/a/KuaiYi/KuaiYi/artifacts/windows-ci/9d950eb08bf34ef98429bea2395f6bb2/KuaiYi.ShellExtension
+2026-10-12T12:14:30.8511364Z     Start 1: CommandPolicy
+2026-10-12T12:14:30.8638838Z 1/1 Test #1: CommandPolicy ....................   Passed    0.01 sec
+2026-10-12T12:14:30.8644240Z 
+2026-10-12T12:14:30.8644561Z 100% tests passed, 0 tests failed out of 1
+2026-10-12T12:14:30.8644752Z 
+2026-10-12T12:14:30.8644890Z Total Test time (real) =   0.05 sec
+2026-10-12T12:14:30.8889255Z <?xml version="1.0" encoding="UTF-8"?>
+2026-10-12T12:14:30.8889792Z <testsuite name="(empty)"
+2026-10-12T12:14:30.8890157Z 	tests="1"
+2026-10-12T12:14:30.8890454Z 	failures="0"
+2026-10-12T12:14:30.8890715Z 	disabled="0"
+2026-10-12T12:14:30.8890986Z 	skipped="0"
+2026-10-12T12:14:30.8891263Z 	hostname=""
+2026-10-12T12:14:30.8891566Z 	time="0"
+2026-10-12T12:14:30.8891849Z 	timestamp="2026-10-12T12:14:30"
+2026-10-12T12:14:30.8892535Z 	>
+2026-10-12T12:14:30.8893637Z 	<testcase name="CommandPolicy" classname="CommandPolicy" time="0.008062" status="run">
+2026-10-12T12:14:30.8894153Z 		<properties/>
+2026-10-12T12:14:30.8894614Z 		<system-out></system-out>
+2026-10-12T12:14:30.8894906Z 	</testcase>
+2026-10-12T12:14:30.8895140Z </testsuite>
+2026-10-12T12:14:30.8895272Z 
+2026-10-12T12:14:30.9039288Z Internal ctest changing into directory: D:/a/KuaiYi/KuaiYi/artifacts/windows-ci/9d950eb08bf34ef98429bea2395f6bb2/KuaiYi.CaptureNative
+2026-10-12T12:14:30.9045419Z Test project D:/a/KuaiYi/KuaiYi/artifacts/windows-ci/9d950eb08bf34ef98429bea2395f6bb2/KuaiYi.CaptureNative
+2026-10-12T12:14:30.9055131Z     Start 1: GdiReadOrderingContract
+2026-10-12T12:14:30.9136909Z 1/1 Test #1: GdiReadOrderingContract ..........   Passed    0.01 sec
+2026-10-12T12:14:30.9144613Z 
+2026-10-12T12:14:30.9144950Z 100% tests passed, 0 tests failed out of 1
+2026-10-12T12:14:30.9145376Z 
+2026-10-12T12:14:30.9145590Z Total Test time (real) =   0.01 sec
+2026-10-12T12:14:30.9212307Z <?xml version="1.0" encoding="UTF-8"?>
+2026-10-12T12:14:30.9212865Z <testsuite name="Win32-MSBuild"
+2026-10-12T12:14:30.9213277Z 	tests="1"
+2026-10-12T12:14:30.9213898Z 	failures="0"
+2026-10-12T12:14:30.9214325Z 	disabled="0"
+2026-10-12T12:14:30.9214626Z 	skipped="0"
+2026-10-12T12:14:30.9214918Z 	hostname="runnervmtn0fv"
+2026-10-12T12:14:30.9215324Z 	time="0"
+2026-10-12T12:14:30.9215588Z 	timestamp="2026-10-12T12:14:30"
+2026-10-12T12:14:30.9215939Z 	>
+2026-10-12T12:14:30.9216527Z 	<testcase name="GdiReadOrderingContract" classname="GdiReadOrderingContract" time="0.0077592" status="run">
+2026-10-12T12:14:30.9217198Z 		<properties/>
+2026-10-12T12:14:30.9217775Z 		<system-out>GDI portable contract: 7 passed; synthetic flush/drawing only, no Windows GDI claim.
+2026-10-12T12:14:30.9218334Z </system-out>
+2026-10-12T12:14:30.9218771Z 	</testcase>
+2026-10-12T12:14:30.9219061Z </testsuite>
+2026-10-12T12:14:30.9219245Z 
+2026-10-12T12:14:35.2388497Z   Determining projects to restore...
+2026-10-12T12:14:37.8885318Z   Restored D:\a\KuaiYi\KuaiYi\src\KuaiYi.NativeHost\KuaiYi.NativeHost.csproj (in 219 ms).
+2026-10-12T12:14:37.8887278Z   Restored D:\a\KuaiYi\KuaiYi\src\KuaiYi.Contracts\KuaiYi.Contracts.csproj (in 195 ms).
+2026-10-12T12:14:37.8888689Z   Restored D:\a\KuaiYi\KuaiYi\src\KuaiYi.OleTransfer\KuaiYi.OleTransfer.csproj (in 218 ms).
+2026-10-12T12:14:37.8950991Z   Restored D:\a\KuaiYi\KuaiYi\src\KuaiYi.App\KuaiYi.App.csproj (in 219 ms).
+2026-10-12T12:14:37.8996708Z   Restored D:\a\KuaiYi\KuaiYi\src\KuaiYi.Core\KuaiYi.Core.csproj (in 2 ms).
+2026-10-12T12:14:37.9013635Z   Restored D:\a\KuaiYi\KuaiYi\src\KuaiYi.Imaging\KuaiYi.Imaging.csproj (in 3 ms).
+2026-10-12T12:14:37.9047980Z   Restored D:\a\KuaiYi\KuaiYi\tools\KuaiYi.GrowthHarness\KuaiYi.GrowthHarness.csproj (in 7 ms).
+2026-10-12T12:14:37.9050191Z   Restored D:\a\KuaiYi\KuaiYi\src\KuaiYi.Windows\KuaiYi.Windows.csproj (in 3 ms).
+2026-10-12T12:14:37.9062168Z   Restored D:\a\KuaiYi\KuaiYi\src\KuaiYi.Providers\KuaiYi.Providers.csproj (in 2 ms).
+2026-10-12T12:14:46.6302653Z   KuaiYi.Contracts -> D:\a\KuaiYi\KuaiYi\src\KuaiYi.Contracts\bin\Release\net10.0\KuaiYi.Contracts.dll
+2026-10-12T12:14:46.7640702Z   KuaiYi.Core -> D:\a\KuaiYi\KuaiYi\src\KuaiYi.Core\bin\Release\net10.0\KuaiYi.Core.dll
+2026-10-12T12:14:47.7169060Z   KuaiYi.OleTransfer -> D:\a\KuaiYi\KuaiYi\src\KuaiYi.OleTransfer\bin\Release\net10.0\KuaiYi.OleTransfer.dll
+2026-10-12T12:14:47.7961172Z   KuaiYi.Providers -> D:\a\KuaiYi\KuaiYi\src\KuaiYi.Providers\bin\Release\net10.0\KuaiYi.Providers.dll
+2026-10-12T12:14:48.0449062Z   KuaiYi.Imaging -> D:\a\KuaiYi\KuaiYi\src\KuaiYi.Imaging\bin\Release\net10.0\KuaiYi.Imaging.dll
+2026-10-12T12:14:48.8775592Z   KuaiYi.NativeHost -> D:\a\KuaiYi\KuaiYi\src\KuaiYi.NativeHost\bin\Release\net10.0\win-x64\KuaiYi.NativeHost.dll
+2026-10-12T12:14:49.4484827Z   KuaiYi.Windows -> D:\a\KuaiYi\KuaiYi\src\KuaiYi.Windows\bin\Release\net10.0-windows\KuaiYi.Windows.dll
+2026-10-12T12:14:50.4217650Z   KuaiYi.App -> D:\a\KuaiYi\KuaiYi\src\KuaiYi.App\bin\Release\net10.0-windows\win-x64\KuaiYi.App.dll
+2026-10-12T12:14:50.6749465Z   KuaiYi.GrowthHarness -> D:\a\KuaiYi\KuaiYi\tools\KuaiYi.GrowthHarness\bin\Release\net10.0-windows\win-x64\KuaiYi.GrowthHarness.dll
+2026-10-12T12:14:50.6899150Z 
+2026-10-12T12:14:50.6905100Z Build succeeded.
+2026-10-12T12:14:50.6909029Z     0 Warning(s)
+2026-10-12T12:14:50.6909292Z     0 Error(s)
+2026-10-12T12:14:50.6910651Z 
+2026-10-12T12:14:50.6910872Z Time Elapsed 00:00:12.52
+2026-10-12T12:14:58.5443168Z KUAIYI_OVERLAY_FRAMES_BEGIN
+2026-10-12T12:14:58.5468812Z ms,stage,dpi,left,top,right,bottom,anchorContained,workContained,nativeMatches,actualAnchorContained,actualWorkContained,foregroundUnchanged,actualButtonMatchesAnchor,buttonLeft,buttonTop,buttonRight,buttonBottom,anchorLeft,anchorTop,anchorRight,anchorBottom
+2026-10-12T12:14:58.5474413Z 198.001,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5482596Z 416.604,Closing,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5488222Z 423.464,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5493746Z 447.045,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5499434Z 457.690,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5504713Z 477.653,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5510036Z 488.591,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5516099Z 509.682,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5523389Z 520.652,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5529758Z 540.660,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5535717Z 551.644,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5542573Z 572.642,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5550306Z 583.630,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5556651Z 606.188,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5563121Z 615.769,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5569843Z 636.806,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5577074Z 647.687,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5583887Z 667.794,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5591029Z 677.809,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5597263Z 682.511,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5604373Z 698.620,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5612095Z 715.359,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5618246Z 737.649,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5625425Z 758.645,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5633040Z 769.550,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5641157Z 791.646,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5646132Z 801.617,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5653053Z 822.272,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5660328Z 833.277,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5666580Z 854.287,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5673999Z 865.277,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5680408Z 886.389,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5685333Z 896.267,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5692309Z 917.295,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5698073Z 927.274,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5704717Z 949.382,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5711771Z 960.423,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5718420Z 971.291,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5724526Z 992.408,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5731062Z 1013.409,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5738189Z 1496.267,Opening,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5743917Z 1641.573,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5750455Z 1644.023,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5756941Z 1647.456,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5763659Z 1648.336,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5769462Z 1648.735,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5775010Z 1692.679,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5781036Z 1704.453,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5786698Z 1729.141,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5792754Z 1739.964,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5798640Z 1760.030,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5804458Z 1771.047,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5810758Z 1792.875,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5817346Z 1803.498,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5824003Z 1824.651,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5830042Z 1835.597,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5836817Z 1856.842,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5841743Z 1921.074,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5848154Z 1922.344,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5854564Z 1927.081,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5861403Z 1936.455,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5866312Z 1953.220,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5872821Z 1996.041,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5878997Z 2006.955,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5884986Z 2028.939,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5891659Z 2049.940,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5897389Z 2071.182,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5903653Z 2082.026,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5909484Z 2103.078,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5915444Z 2114.191,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5922096Z 2135.115,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5928034Z 2145.076,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5932927Z 2166.084,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5939148Z 2177.079,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5945146Z 2198.095,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5950476Z 2209.037,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5956586Z 2231.156,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5962869Z 2240.987,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5968989Z 2262.099,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5975080Z 2273.148,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5981303Z 2284.040,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5987422Z 2304.082,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5993348Z 2315.009,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.5999305Z 2336.097,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6005731Z 2346.983,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6011674Z 2368.176,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6017851Z 2379.110,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6023234Z 2400.092,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6029236Z 2411.057,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6035099Z 2432.097,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6040507Z 2443.104,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6045523Z 2464.052,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6050463Z 2475.073,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6055524Z 2497.088,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6060430Z 2508.030,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6065522Z 2527.958,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6070333Z 2538.917,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6075058Z 2549.932,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6080665Z 2570.942,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6084412Z 2580.935,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6089559Z 2602.968,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6094184Z 2614.033,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6100301Z 2634.984,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6105003Z 2645.049,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6110259Z 2667.057,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6115619Z 2677.012,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6120691Z 2698.053,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6125676Z 2709.059,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6130723Z 2731.035,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6136583Z 2742.002,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6141750Z 2752.934,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6146822Z 2773.973,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6152681Z 2783.926,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6158378Z 2807.026,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6162901Z 2818.021,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6167880Z 2838.903,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6172823Z 2848.971,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6178008Z 2869.054,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6183481Z 2880.052,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6188550Z 2901.067,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6193310Z 2911.043,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6198050Z 2932.049,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6203677Z 2942.916,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6209062Z 2964.041,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6214893Z 2975.024,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6220849Z 2995.922,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6226588Z 3006.889,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6233427Z 3027.930,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6238064Z 3037.919,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6243561Z 3059.008,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6249273Z 3069.988,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6255440Z 3090.918,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6261026Z 3100.894,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6266715Z 3111.999,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6273279Z 3134.082,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6278514Z 3145.001,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6284257Z 3165.964,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6291019Z 3177.011,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6298101Z 3197.042,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6303862Z 3207.939,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6309381Z 3227.987,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6313448Z 3239.003,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6317378Z 3260.003,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6318946Z 3270.033,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6321169Z 3290.983,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6324808Z 3301.931,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6327643Z 3322.894,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6330112Z 3332.890,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6332492Z 3353.857,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6335067Z 3363.862,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6337689Z 3385.947,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6339789Z 3396.665,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6342483Z 3417.256,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6344591Z 3427.227,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6346943Z 3447.446,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6349193Z 3458.387,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6351799Z 3479.370,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6354169Z 3490.321,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6356328Z 3510.397,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6358585Z 3520.369,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6360905Z 3541.371,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6363040Z 3552.389,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6365575Z 3573.384,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6367709Z 3583.354,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6370137Z 3604.329,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6372547Z 3615.314,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6375272Z 3636.253,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6377900Z 3647.231,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6380052Z 3667.401,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6382529Z 3677.432,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6384528Z 3699.457,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6388113Z 3710.440,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6388996Z 3721.419,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6392072Z 3742.464,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6394687Z 3753.338,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6397223Z 3775.273,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6399847Z 3786.330,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6402035Z 3808.027,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6404066Z 3818.111,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6406137Z 3840.037,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6408130Z 3850.919,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6410194Z 3871.932,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6414330Z 3882.992,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6416404Z 3892.971,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6422554Z 3913.931,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6428551Z 3934.983,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6434012Z 3945.974,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6439437Z 3955.976,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6444776Z 3977.935,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6449673Z 3988.922,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6455161Z 4010.941,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6460808Z 4020.945,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6464898Z 4041.936,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6470268Z 4052.910,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6476414Z 4073.912,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6482297Z 4083.921,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6488128Z 4106.047,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6493338Z 4116.003,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6498943Z 4137.016,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6504907Z 4147.934,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6510298Z 4158.989,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6516600Z 4180.028,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6522539Z 4190.938,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6528635Z 4212.970,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6533953Z 4223.931,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6539833Z 4244.948,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6545484Z 4254.952,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6551243Z 4276.932,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6557203Z 4287.940,Expanded,1.000,584,307,1004,716,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6563120Z 4295.678,Compact,1.000,956,307,1004,355,True,True,True,True,True,True,True,956,307,1004,355,956,307,1004,355
+2026-10-12T12:14:58.6570289Z KUAIYI_OVERLAY_FRAMES_END
+2026-10-12T12:14:58.6942572Z 
+2026-10-12T12:14:58.6949662Z KuaiYi public overlay phase: 0.448 RunEntered
+2026-10-12T12:14:58.6950307Z KuaiYi public overlay phase: 3.687 CoordinatorCreated
+2026-10-12T12:14:58.6950849Z KuaiYi public overlay phase: 21.329 DraftOpened
+2026-10-12T12:14:58.6951370Z KuaiYi public overlay phase: 229.501 PublicSettingsSaved
+2026-10-12T12:14:58.6951876Z KuaiYi public overlay phase: 2521.517 ProductionWindowConstructed
+2026-10-12T12:14:58.6952409Z KuaiYi public overlay phase: 2709.435 SourceInitialized
+2026-10-12T12:14:58.6952824Z KuaiYi public overlay phase: 2718.382 StartupAwait
+2026-10-12T12:14:58.6953308Z KuaiYi public overlay phase: 2926.934 StartupReady
+2026-10-12T12:14:58.6953757Z KuaiYi public overlay phase: 2936.666 BeginAccepted
+2026-10-12T12:14:58.6954184Z KuaiYi public overlay phase: 4230.989 StreamCompleted
+2026-10-12T12:14:58.6954629Z KuaiYi public overlay phase: 6811.078 CloseRequested
+2026-10-12T12:14:58.6955076Z KuaiYi public overlay phase: 6825.472 Closing
+2026-10-12T12:14:58.6955497Z KuaiYi public overlay phase: 6825.847 Closing
+2026-10-12T12:14:58.6955912Z KuaiYi public overlay phase: 6841.835 Closed
+2026-10-12T12:14:58.6956315Z KuaiYi public overlay phase: 6853.374 RunReturned
+2026-10-12T12:14:58.6956589Z 
+2026-10-12T12:14:58.6969036Z PUBLIC_OVERLAY_PHASE 0.448 RunEntered
+2026-10-12T12:14:58.6974879Z PUBLIC_OVERLAY_PHASE 3.687 CoordinatorCreated
+2026-10-12T12:14:58.6980667Z PUBLIC_OVERLAY_PHASE 21.329 DraftOpened
+2026-10-12T12:14:58.6987780Z PUBLIC_OVERLAY_PHASE 229.501 PublicSettingsSaved
+2026-10-12T12:14:58.6993491Z PUBLIC_OVERLAY_PHASE 2521.517 ProductionWindowConstructed
+2026-10-12T12:14:58.6999621Z PUBLIC_OVERLAY_PHASE 2709.435 SourceInitialized
+2026-10-12T12:14:58.7006110Z PUBLIC_OVERLAY_PHASE 2718.382 StartupAwait
+2026-10-12T12:14:58.7012534Z PUBLIC_OVERLAY_PHASE 2926.934 StartupReady
+2026-10-12T12:14:58.7018326Z PUBLIC_OVERLAY_PHASE 2936.666 BeginAccepted
+2026-10-12T12:14:58.7024458Z PUBLIC_OVERLAY_PHASE 4230.989 StreamCompleted
+2026-10-12T12:14:58.7031221Z PUBLIC_OVERLAY_PHASE 6811.078 CloseRequested
+2026-10-12T12:14:58.7037657Z PUBLIC_OVERLAY_PHASE 6825.472 Closing
+2026-10-12T12:14:58.7042674Z PUBLIC_OVERLAY_PHASE 6825.847 Closing
+2026-10-12T12:14:58.7047369Z PUBLIC_OVERLAY_PHASE 6841.835 Closed
+2026-10-12T12:14:58.7052896Z PUBLIC_OVERLAY_PHASE 6853.374 RunReturned
+2026-10-12T12:14:58.7110861Z KUAIYI_CONTRACT_REPORT_BEGIN
+2026-10-12T12:14:58.7129992Z {"Kind":"HostedWindowsContracts","Scope":"ServerOrClientFixtureContractsOnly","Windows11Acceptance":"NotRun","SourceCommit":"4ff83e510b326d1d1bffc49dec2fd06315871ee1","RunUrl":"https://github.com/T1doo/KuaiYi/actions/runs/38247667426","SourceDirty":false,"SpecificationBytes":[{"Name":"SPEC.md","Sha256":"EA3AA6529405BCC703986988FD089F476EE8F991D867E2220B3B20C439126166","Bytes":146706,"LF":1826,"CRLF":0},{"Name":"快译_产品与技术开发规格_v1.0.md","Sha256":"EA3AA6529405BCC703986988FD089F476EE8F991D867E2220B3B20C439126166","Bytes":146706,"LF":1826,"CRLF":0}],"Environment":{"IsWindows":true,"Architecture":"X64","UserInteractive":true,"SessionId":2,"Os":{"Size":284,"Major":10,"Minor":0,"Build":20348,"Platform":2,"ServicePack":"","ServicePackMajor":0,"ServicePackMinor":0,"SuiteMask":400,"ProductType":3,"Reserved":0},"Administrator":true,"IntegrityLevel":12288,"EnableLua":1,"WindowStation":"WinSta0","InputDesktop":"Default","DesktopProbeError":null,"Monitors":[{"Bounds":{"Left":0,"Top":0,"Right":1024,"Bottom":768},"WorkArea":{"Left":0,"Top":0,"Right":1024,"Bottom":728},"DpiX":96,"DpiY":96,"DpiHResult":0,"Primary":true}],"ProbeDpiAwareness":0,"HasShell":true,"DwmEnabled":true,"PowerShell":"7.6.6","ImageOS":"win22","ImageVersion":"20261004.326.1","Sdk":"10.0.401","DesktopRuntime":true,"CMake":"3.31.6","CTest":"3.31.6","VisualStudio":{"Version":"17.14.37710.0","Path":"C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise"},"Toolset":"14.44.35207","WindowsSdk":"10.0.26100.0","NativeBlockers":[],"DesktopBlockers":[],"Scope":"HostedWindowsContractsOnly","Windows11Acceptance":"NotRun"},"NativeStatus":"Pass","NativeDlls":4,"CTestsPassed":2,"PeChecksPassed":4,"DllLoadsPassed":4,"ExportsPassed":8,"NativeArtifacts":[{"Name":"KuaiYi.OcrNative.dll","Sha256":"4AF62A144E2472E12F46C024730DD7AABEE6D0C488D2709680B1A2EBD250780C","Bytes":279040,"Exports":["KY_OcrDiagnose","KY_OcrRecognize","KY_OcrFree"]},{"Name":"KuaiYi.ShellExtension.dll","Sha256":"59F962FF04271B3EA9D4C659CE459EB24F11B4EB850E6EF5C40CA17618AF214D","Bytes":141824,"Exports":["DllGetClassObject","DllCanUnloadNow"]},{"Name":"KuaiYi.CaptureNative.dll","Sha256":"035EEFB218054BDC9EFDE2745A88BE7BB39993C5DE1B0CF290060CE8114E8A01","Bytes":156672,"Exports":["KY_CaptureMonitor","KY_CaptureGdi"]},{"Name":"KuaiYi.OleNativeBridge.dll","Sha256":"42AEB00268B4ED2701A994DB80092129A624866E0C82E591CA63DBC1AB22D46B","Bytes":116224,"Exports":["KY_CreateDropTarget"]}],"OverlayStatus":"Pass","OverlayChecksPassed":9,"OverlayReport":{"Kind":"ActualProductionOverlayPublicProbe","Rate":"2400","RetainedFrames":210,"DiscardedFrames":0,"Errors":[],"ModelCalls":0,"Source":"PublicFixtureOnly","DesktopAcceptance":"NotEvaluated","Mode":"BoundedCi","StreamCompleted":true,"Checks":{"AnchorContained":true,"WorkContained":true,"NativeMatches":true,"ActualAnchorContained":true,"ActualWorkContained":true,"ForegroundUnchanged":true,"ActualButtonMatchesAnchor":true,"AnchorStable":true,"Grew":true},"ExitCode":0},"Errors":[],"ExitCode":0}
+2026-10-12T12:14:58.7141309Z KUAIYI_CONTRACT_REPORT_END
+2026-10-12T12:14:58.7863895Z Post job cleanup.
+2026-10-12T12:14:58.9576106Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-12T12:14:58.9823956Z git version 2.56.0.windows.1
+2026-10-12T12:14:58.9870896Z Removing SSH command configuration
+2026-10-12T12:14:58.9882758Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-12T12:14:59.0174208Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-12T12:14:59.6442073Z Removing HTTP extra header
+2026-10-12T12:14:59.6453663Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-12T12:14:59.6798623Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-12T12:15:00.1379840Z Removing includeIf entries pointing to credentials config files
+2026-10-12T12:15:00.1392354Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-12T12:15:00.1651084Z includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git.path
+2026-10-12T12:15:00.1651698Z includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git/worktrees/*.path
+2026-10-12T12:15:00.1691032Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git.path
+2026-10-12T12:15:00.1927766Z D:\a\_temp\git-credentials-7b1794d1-fcb6-4863-a23c-928e35e77808.config
+2026-10-12T12:15:00.1962878Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git.path D:\a\_temp\git-credentials-7b1794d1-fcb6-4863-a23c-928e35e77808.config
+2026-10-12T12:15:00.2231280Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git/worktrees/*.path
+2026-10-12T12:15:00.2455885Z D:\a\_temp\git-credentials-7b1794d1-fcb6-4863-a23c-928e35e77808.config
+2026-10-12T12:15:00.2493837Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/KuaiYi/KuaiYi/.git/worktrees/*.path D:\a\_temp\git-credentials-7b1794d1-fcb6-4863-a23c-928e35e77808.config
+2026-10-12T12:15:00.2776735Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-12T12:15:00.7431154Z Removing credentials config 'D:\a\_temp\git-credentials-7b1794d1-fcb6-4863-a23c-928e35e77808.config'
+2026-10-12T12:15:00.7611928Z Cleaning up orphan processes
+2026-10-12T12:15:00.8013749Z Terminate orphan process: pid (3288) (vctip)
+2026-10-12T12:15:00.8056975Z Terminate orphan process: pid (8100) (MSBuild)
+2026-10-12T12:15:00.8169725Z Terminate orphan process: pid (5904) (conhost)
+2026-10-12T12:15:00.8253527Z Terminate orphan process: pid (6672) (dotnet)
+2026-10-12T12:15:00.8361371Z Terminate orphan process: pid (6540) (conhost)
+2026-10-12T12:15:00.8502689Z Terminate orphan process: pid (8084) (dotnet)
+2026-10-12T12:15:00.8634272Z Terminate orphan process: pid (7048) (dotnet)
+2026-10-12T12:15:00.8830636Z Terminate orphan process: pid (8180) (VBCSCompiler)
+2026-10-12T12:15:00.8964591Z Terminate orphan process: pid (7388) (conhost)

@@ -1,5 +1,10 @@
 # 当前验收报告（P0 独立切片）
 
+2026-10-12 最新限定平台证据：已独审源码 `4ff83e510b326d1d1bffc49dec2fd06315871ee1` 的 [Windows CI 38247667426](https://github.com/T1doo/KuaiYi/actions/runs/38247667426) completed/success，真实四原生DLL编译/PE/加载/八导出、两个CTest、公开生产HWND九项合同通过，210次Rendering观察无违反、无丢弃、完整流、0模型调用、正常退出。详细环境、每个DLL哈希、CSV与完整日志见 [Windows CI报告](windows-ci.md) 和 [summary](test-evidence/2026-10-12-windows-ci-summary.json)。历史批次中“原生/GUI/远端CI未运行”仅指当时状态，由本段更新这部分限定证据；原Alpha包未补入DLL或生成安装器。
+
+本轮Server2022/管理员/high完整性/EnableLua=1/单屏96DPI不是Windows11普通用户验收。Rendering观察不等于独立呈现帧，最大相邻观察间隔482.858ms，视觉品质/性能/混合DPI及DpiPlacement其他再入仍需实测。P0/E06仍Blocked、P1—P4仍InProgress、A—L的106条整体验收仍NotRun；跨应用划词、实际OLE/剪贴板/热键/DPAPI、截图OCR业务/包身份/现代菜单/安装卸载和真实模型语义均未获通过。本次没有上传artifact、覆盖历史包或改变main。
+
+
 不是 v1.0 完整验收或发布报告。环境与构建入口见 environment.md / README。
 
 - 原始规格 SHA256：`ea3aa6529405bcc703986988fd089f476ee8f991d867e2220b3b20c439126166`。

@@ -1,0 +1,258 @@
+{
+  "Kind": "RecordedHostedWindowsContractEvidence",
+  "SourceCommit": "4ff83e510b326d1d1bffc49dec2fd06315871ee1",
+  "RunId": 38247667426,
+  "JobId": 114805544563,
+  "Conclusion": "success",
+  "Attempt": 1,
+  "Report": {
+    "Kind": "HostedWindowsContracts",
+    "Scope": "ServerOrClientFixtureContractsOnly",
+    "Windows11Acceptance": "NotRun",
+    "SourceCommit": "4ff83e510b326d1d1bffc49dec2fd06315871ee1",
+    "RunUrl": "https://github.com/T1doo/KuaiYi/actions/runs/38247667426",
+    "SourceDirty": false,
+    "SpecificationBytes": [
+      {
+        "Name": "SPEC.md",
+        "Sha256": "EA3AA6529405BCC703986988FD089F476EE8F991D867E2220B3B20C439126166",
+        "Bytes": 146706,
+        "LF": 1826,
+        "CRLF": 0
+      },
+      {
+        "Name": "快译_产品与技术开发规格_v1.0.md",
+        "Sha256": "EA3AA6529405BCC703986988FD089F476EE8F991D867E2220B3B20C439126166",
+        "Bytes": 146706,
+        "LF": 1826,
+        "CRLF": 0
+      }
+    ],
+    "Environment": {
+      "IsWindows": true,
+      "Architecture": "X64",
+      "UserInteractive": true,
+      "SessionId": 2,
+      "Os": {
+        "Size": 284,
+        "Major": 10,
+        "Minor": 0,
+        "Build": 20348,
+        "Platform": 2,
+        "ServicePack": "",
+        "ServicePackMajor": 0,
+        "ServicePackMinor": 0,
+        "SuiteMask": 400,
+        "ProductType": 3,
+        "Reserved": 0
+      },
+      "Administrator": true,
+      "IntegrityLevel": 12288,
+      "EnableLua": 1,
+      "WindowStation": "WinSta0",
+      "InputDesktop": "Default",
+      "DesktopProbeError": null,
+      "Monitors": [
+        {
+          "Bounds": {
+            "Left": 0,
+            "Top": 0,
+            "Right": 1024,
+            "Bottom": 768
+          },
+          "WorkArea": {
+            "Left": 0,
+            "Top": 0,
+            "Right": 1024,
+            "Bottom": 728
+          },
+          "DpiX": 96,
+          "DpiY": 96,
+          "DpiHResult": 0,
+          "Primary": true
+        }
+      ],
+      "ProbeDpiAwareness": 0,
+      "HasShell": true,
+      "DwmEnabled": true,
+      "PowerShell": "7.6.6",
+      "ImageOS": "win22",
+      "ImageVersion": "20261004.326.1",
+      "Sdk": "10.0.401",
+      "DesktopRuntime": true,
+      "CMake": "3.31.6",
+      "CTest": "3.31.6",
+      "VisualStudio": {
+        "Version": "17.14.37710.0",
+        "Path": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise"
+      },
+      "Toolset": "14.44.35207",
+      "WindowsSdk": "10.0.26100.0",
+      "NativeBlockers": [],
+      "DesktopBlockers": [],
+      "Scope": "HostedWindowsContractsOnly",
+      "Windows11Acceptance": "NotRun"
+    },
+    "NativeStatus": "Pass",
+    "NativeDlls": 4,
+    "CTestsPassed": 2,
+    "PeChecksPassed": 4,
+    "DllLoadsPassed": 4,
+    "ExportsPassed": 8,
+    "NativeArtifacts": [
+      {
+        "Name": "KuaiYi.OcrNative.dll",
+        "Sha256": "4AF62A144E2472E12F46C024730DD7AABEE6D0C488D2709680B1A2EBD250780C",
+        "Bytes": 279040,
+        "Exports": [
+          "KY_OcrDiagnose",
+          "KY_OcrRecognize",
+          "KY_OcrFree"
+        ]
+      },
+      {
+        "Name": "KuaiYi.ShellExtension.dll",
+        "Sha256": "59F962FF04271B3EA9D4C659CE459EB24F11B4EB850E6EF5C40CA17618AF214D",
+        "Bytes": 141824,
+        "Exports": [
+          "DllGetClassObject",
+          "DllCanUnloadNow"
+        ]
+      },
+      {
+        "Name": "KuaiYi.CaptureNative.dll",
+        "Sha256": "035EEFB218054BDC9EFDE2745A88BE7BB39993C5DE1B0CF290060CE8114E8A01",
+        "Bytes": 156672,
+        "Exports": [
+          "KY_CaptureMonitor",
+          "KY_CaptureGdi"
+        ]
+      },
+      {
+        "Name": "KuaiYi.OleNativeBridge.dll",
+        "Sha256": "42AEB00268B4ED2701A994DB80092129A624866E0C82E591CA63DBC1AB22D46B",
+        "Bytes": 116224,
+        "Exports": [
+          "KY_CreateDropTarget"
+        ]
+      }
+    ],
+    "OverlayStatus": "Pass",
+    "OverlayChecksPassed": 9,
+    "OverlayReport": {
+      "Kind": "ActualProductionOverlayPublicProbe",
+      "Rate": "2400",
+      "RetainedFrames": 210,
+      "DiscardedFrames": 0,
+      "Errors": [],
+      "ModelCalls": 0,
+      "Source": "PublicFixtureOnly",
+      "DesktopAcceptance": "NotEvaluated",
+      "Mode": "BoundedCi",
+      "StreamCompleted": true,
+      "Checks": {
+        "AnchorContained": true,
+        "WorkContained": true,
+        "NativeMatches": true,
+        "ActualAnchorContained": true,
+        "ActualWorkContained": true,
+        "ForegroundUnchanged": true,
+        "ActualButtonMatchesAnchor": true,
+        "AnchorStable": true,
+        "Grew": true
+      },
+      "ExitCode": 0
+    },
+    "Errors": [],
+    "ExitCode": 0
+  },
+  "RawDecodedLog": {
+    "Path": "docs/test-evidence/2026-10-12-windows-ci-run-38247667426.log",
+    "Sha256": "80230c175d27ac296a8110df15e56ad48eaa92ed92a19e11edcf7ae8199afa5a",
+    "Normalization": "Connector-decoded text; CRLF normalized to LF. Digest describes this saved file, not the original GitHub archive bytes."
+  },
+  "IndependentCsvAudit": {
+    "ObservationCount": 210,
+    "ViolationCounts": {
+      "anchorContained": 0,
+      "workContained": 0,
+      "nativeMatches": 0,
+      "actualAnchorContained": 0,
+      "actualWorkContained": 0,
+      "foregroundUnchanged": 0,
+      "actualButtonMatchesAnchor": 0
+    },
+    "ActualButtonsEqualRecordedAnchors": true,
+    "UniqueAnchors": [
+      [
+        956,
+        307,
+        1004,
+        355
+      ]
+    ],
+    "AnchorStable": true,
+    "Grew": true,
+    "Stages": {
+      "Closing": 1,
+      "Compact": 40,
+      "Expanded": 168,
+      "Opening": 1
+    },
+    "FirstObservationMs": 198.001,
+    "LastObservationMs": 4295.678,
+    "MaxAdjacentObservationGapMs": 482.858,
+    "Interpretation": "Rendering callbacks include resize-triggered observations; not distinct compositor presentations or an FPS/animation-quality acceptance."
+  },
+  "OwnedProcessPhases": [
+    "0.448 RunEntered",
+    "3.687 CoordinatorCreated",
+    "21.329 DraftOpened",
+    "229.501 PublicSettingsSaved",
+    "2521.517 ProductionWindowConstructed",
+    "2709.435 SourceInitialized",
+    "2718.382 StartupAwait",
+    "2926.934 StartupReady",
+    "2936.666 BeginAccepted",
+    "4230.989 StreamCompleted",
+    "6811.078 CloseRequested",
+    "6825.472 Closing",
+    "6825.847 Closing",
+    "6841.835 Closed",
+    "6853.374 RunReturned"
+  ],
+  "LocalChecks": {
+    "ManagedReleaseBuild": {
+      "Projects": 9,
+      "Warnings": 0,
+      "Errors": 0,
+      "Log": "docs/test-evidence/2026-10-12-windows-ci-resize-order-build.log",
+      "Scope": "Linux cross-build only"
+    },
+    "ExistingLifecycleOverlayTests": {
+      "Passed": 73,
+      "Failed": 0,
+      "Skipped": 0,
+      "Log": "docs/test-evidence/2026-10-12-windows-ci-resize-order-core-tests.log"
+    },
+    "PreviousUnchangedScriptChecks": {
+      "Passed": 45,
+      "GitCheckoutChecksPassed": 4,
+      "Scope": "Earlier recorded checks; not rerun or summed as newly executed here"
+    }
+  },
+  "Boundaries": {
+    "Windows11OrdinaryUserAcceptance": "NotRun",
+    "P0E06": "Blocked",
+    "Whole106Acceptance": "NotRun",
+    "CrossApplicationSelection": "NotRun",
+    "MixedDpi": "NotRun",
+    "VisualAnimationQuality": "NotRun",
+    "RealOcrCaptureShellOleBusiness": "NotRun",
+    "InstallerAndUninstaller": "NotRun",
+    "RealModelCalls": 0,
+    "ArtifactUpload": false,
+    "MainUnchanged": "51d077481cf6303602fcf5d2718213da9cf05178",
+    "MixedDpiNonRenderingReentrancy": "Unverified; single-monitor commit guard does not resolve or validate all DpiPlacement reentry."
+  }
+}

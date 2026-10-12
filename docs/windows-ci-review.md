@@ -23,3 +23,9 @@
 无安装组件/显式协议接受、无真实 API Key/模型/付费、无账户/UAC/证书/安全策略变更、无main修改/部署/发布。即使CI全部合同通过，Windows11Acceptance仍NotRun，P0/E06及106整体门槛不变。
 
 证据入口：`docs/test-evidence/2026-10-12-windows-ci-script-ready.log`、`2026-10-12-windows-ci-overlay-tests.log`、`2026-10-12-windows-ci-growth-final-build.log`、`2026-10-12-windows-ci-host-summary.json`。设计及复现说明见 `docs/windows-ci.md`。
+
+## 实际执行与修复独审记录
+
+首次准备审查属于48ea291推送前状态；当前结果见windows-ci.md及最终summary，不再将历史NotRun作为当前限定合同状态。后续同一只读独审依次通过be3817d（规格字节/VS2022 runner）、7eb28be（WinRT Collections完整头）、a5e734f（Closing异步切栈及Shell输出名）、86ba819（Canvas左上及布局同步）、4ff83e510b326d1d1bffc49dec2fd06315871ee1（视觉准备先于同步resize、生产Tick重入保护）。每轮实际先审后正常push/run；前五次失败均保留。最终第六次CI终态success只支持Server单屏公开fixture限定合同，不扩大Windows11/P0/E06/106验收状态。
+
+最后4ff83e5本地9工程0warnings/errors、原有73/73生命周期与浮窗测试；漏EnableWindowsTargeting的执行参数错误保留原日志，不修改项目平台要求。独审确认compact local return仍完成提交，准备异常不移动半成品，native缓存成功后更新，finally释放生产重入标志；公开观察器/getter/九断言/全部时限未改。混合DPI非Rendering重入尚未证明解决，后续实机验证必须覆盖。
