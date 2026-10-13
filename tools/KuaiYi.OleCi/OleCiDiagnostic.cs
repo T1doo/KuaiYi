@@ -28,6 +28,7 @@ public sealed class OleCiOwnerDiagnostic
     public string CloseWrite { get; set; } = "UNKNOWN";
     public string CloseFlush { get; set; } = "UNKNOWN";
     public string ExitWait { get; set; } = "UNKNOWN";
+    public string[] TargetTrace { get; set; } = Array.Empty<string>();
     public string RegistrarTask { get; set; } = "UNKNOWN";
     public string RegistrarStage { get; set; } = "UNKNOWN";
     public string RegistrarFailureStage { get; set; } = "UNKNOWN";

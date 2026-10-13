@@ -12,7 +12,7 @@ public interface IOleReceiverBackend
 public interface IOleReceiverControlBackend{void ApplyControl(OleReceiverControl control);}
 public static class OleReceiverServer
 {
-    public static async Task<int> RunAsync(Stream input,Stream output,Func<OleReceiverHello,Action<IpcFrame>,Task<IOleReceiverBackend>> create,CancellationToken cancellation=default,Action<OleStartupStage,Exception?>? diagnostic=null)
+    public static async Task<int> RunAsync(Stream input,Stream output,Func<OleReceiverHello,Action<IpcFrame>,Task<IOleReceiverBackend>> create,CancellationToken cancellation=default,Action<OleStartupStage,Exception?>? diagnostic=null,OleTargetDiagnostics? targetDiagnostic=null)
     {
         using var lifetime=CancellationTokenSource.CreateLinkedTokenSource(cancellation);
         var queue=Channel.CreateBounded<IpcFrame>(new BoundedChannelOptions(64){SingleReader=true,FullMode=BoundedChannelFullMode.Wait});
@@ -55,7 +55,16 @@ public static class OleReceiverServer
         }
         async Task WriteLoop()
         {
-            try{await foreach(var frame in queue.Reader.ReadAllAsync(lifetime.Token))try{await IpcFrameCodec.WriteAsync(output,frame,lifetime.Token);await output.FlushAsync(lifetime.Token);}finally{CryptographicOperations.ZeroMemory(frame.Payload);}}
+            try{await foreach(var frame in queue.Reader.ReadAllAsync(lifetime.Token))try{await IpcFrameCodec.WriteAsync(output,frame,lifetime.Token);await output.FlushAsync(lifetime.Token);
+                if(frame.Type==IpcMessageType.OleEvent&&targetDiagnostic!=null)
+                {
+                    try
+                    {
+                        var item=OleReceiverWire.Read<OleReceiverEvent>(frame.Payload);
+                        if(item.Phase is "QueryEnd" or "DropBegin")targetDiagnostic.Observe(item.Phase=="QueryEnd"?OleTargetObservation.QueryWritten:OleTargetObservation.DropWritten);
+                    }
+                    catch(Exception){ /* Diagnostic parsing cannot cancel a successful production write. Missing observation stays unknown. */ }
+                }}finally{CryptographicOperations.ZeroMemory(frame.Payload);}}
             finally{lifetime.Cancel();}
         }
     }

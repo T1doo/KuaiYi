@@ -72,6 +72,8 @@ public sealed class OleStartupDiagnosticDrain
     private readonly object sync = new();
     private readonly List<OleStartupDiagnostic> items = [];
     private readonly List<OleExportObservation> exports = [];
+    private readonly OleTargetDiagnostics targets = new();
+    public OleTargetObservation[] TargetSnapshot => targets.Snapshot;
     public OleExportObservation[] ExportSnapshot { get { lock (sync) return exports.ToArray(); } }
     public OleExceptionCode Failure { get; private set; }
     public OleStartupDiagnostic[] Snapshot { get { lock (sync) return items.ToArray(); } }
@@ -94,6 +96,7 @@ public sealed class OleStartupDiagnosticDrain
                         {
                             if (OleStartupDiagnostics.TryParse(line.AsSpan(0, end), out var item))
                             { lock (sync) if (items.Count + exports.Count < OleStartupDiagnostics.RecordLimit) items.Add(item!); }
+                            else if (OleTargetDiagnostics.TryParse(line.AsSpan(0, end), out var target)) targets.Observe(target);
                             else if (OleExportContract.TryParse(line.AsSpan(0, end), out var export))
                             { lock (sync) if (items.Count + exports.Count < OleStartupDiagnostics.RecordLimit) exports.Add(export!); }
                         }

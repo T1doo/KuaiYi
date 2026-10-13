@@ -31,6 +31,8 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
         await diagnosticDrain.RunAsync(input,diagnosticStop.Token).ConfigureAwait(false);
         if(AfterDiagnosticReadForTest is {} barrier)await barrier().ConfigureAwait(false);
     }
+    private readonly OleTargetDiagnostics targetObservations=new();
+    public OleTargetObservation[] TargetObservations=>diagnosticDrain.TargetSnapshot.Concat(targetObservations.Snapshot).Distinct().ToArray();
     public OleStartupDiagnostic[] StartupDiagnostics=>diagnosticDrain.Snapshot;
     public OleExportObservation[] ExportObservations=>diagnosticDrain.ExportSnapshot;
     public OleStartupDiagnostic? StartupFailure {get;private set;}
@@ -171,7 +173,13 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
                     if(frame.Type!=IpcMessageType.OleEvent)throw new OleReceiverException(OleReceiverFailure.Protocol);
                     var item=OleReceiverWire.Read<OleReceiverEvent>(frame.Payload);
                     if(item.Instance!=instance||item.Transaction!=frame.RequestId||item.Effect is not (0 or 1)||item.CodeUnits is <0 or >OleUnicodeText.MaximumReadUnits)throw new OleReceiverException(OleReceiverFailure.Protocol);
-                    if(item.Epoch!=eligibility.Snapshot.Epoch)continue;
+                    bool queryObservation=item.Phase=="QueryEnd",dropObservation=item.Phase=="DropBegin";
+                    if(queryObservation||dropObservation)targetObservations.Observe(queryObservation?OleTargetObservation.QueryRead:OleTargetObservation.DropRead);
+                    if(item.Epoch!=eligibility.Snapshot.Epoch)
+                    {
+                        if(queryObservation||dropObservation)targetObservations.Observe(queryObservation?OleTargetObservation.QueryStaleEpoch:OleTargetObservation.DropStaleEpoch);
+                        continue;
+                    }
                     if(hello.ProductionTextDrop&&item.Phase is "QueryBegin" or "Hover" or "QueryEnd" or "DropBegin" or "CleanupComplete" or "DropEnd")
                     {
                         if(item.Source is not {} origin||origin.Handle==0||origin.ProcessId==0||origin.ProcessStartUtcTicks<=0||origin.Executable is not {Length:>0 and <=260}||item.Point==null||!Enum.IsDefined(item.TextFormat)||item.TextFormat==OleTextFormat.None&&item.Phase!="QueryBegin"&&!(item.Phase=="QueryEnd"&&item.Effect==0))throw new OleReceiverException(OleReceiverFailure.Protocol);
@@ -207,6 +215,7 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
                         else if(item.Effect!=0||item.CodeUnits!=0)throw new OleReceiverException(OleReceiverFailure.Protocol);
                     }
                     feedback(item);
+                    if(queryObservation||dropObservation)targetObservations.Observe(queryObservation?OleTargetObservation.QueryAccepted:OleTargetObservation.DropAccepted);
                 }finally{if(!retained)CryptographicOperations.ZeroMemory(frame.Payload);}
             }
         }

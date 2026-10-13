@@ -38,6 +38,7 @@ internal sealed partial class ShellWindow
     {
         var row=new OleCiOwnerDiagnostic {Kind="Receiver",Run=OleCiDiagnostic.TaskState(pair.Value.OriginalRun),Control=pair.Value.ControlsOverflow?"UNKNOWN":OleCiDiagnostic.TasksState(pair.Value.OriginalControls.ToArray())};
         row.ErrorRead=OleCiDiagnostic.StatusState(pair.Key.DiagnosticReadTaskStatus);
+        row.TargetTrace=pair.Key.TargetObservations.Select(item=>item.ToString()).ToArray();
         if(CiRegistrars.TryGetValue(pair.Key,out var registrar)){row.RegistrarTask=OleCiDiagnostic.StatusState(registrar.DiagnosticTaskStatus);row.RegistrarStage=registrar.DiagnosticStage.ToString();row.RegistrarFailureStage=registrar.DiagnosticFailureStage.ToString();}
         if(pair.Key.StartupFailure is {} f)row.StartupFailure=new(){Stage=f.Stage.ToString(),Exception=f.Exception.ToString(),HResult=f.HResult};
         try { row.ExitCode=pair.Key.OwnedExitCode;if(row.ExitCode.HasValue)row.ProcessState="EXITED";else if(pair.Value.HeldProcess is {} held)row.ProcessState=held.HasExited?"EXITED":"RUNNING";else if(pair.Key.OwnedProcessId.HasValue&&pair.Key.ObserveExit())row.ProcessState="EXITED"; } catch { }
@@ -116,6 +117,12 @@ internal static class HostedOleProbe
         Pointer.Trace=diagnostic.Trace;
         var diagnosticSources=new ConcurrentQueue<PublicSource>();
         diagnostic.Owners=()=>window.CiDiagnosticOwners().Concat(diagnosticSources.Select(source=>source.Snapshot())).Take(8).ToArray();
+        int snapshotBusy=0;
+        using var lateSnapshots=new Timer(_=>
+        {
+            if(Interlocked.CompareExchange(ref snapshotBusy,1,0)!=0)return;
+            try{diagnostic.Snapshot();}catch{ /* Optional checkpoint never changes the retained failure. */ }finally{Volatile.Write(ref snapshotBusy,0);}
+        },null,Timeout.InfiniteTimeSpan,Timeout.InfiniteTimeSpan);
         window.CiObservePointer();var heartbeat=new DispatcherTimer{Interval=TimeSpan.FromMilliseconds(25)};heartbeat.Tick+=(_,_)=>window.CiHeartbeat++;
         var closed=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);window.Closed+=(_,_)=>{heartbeat.Stop();closed.TrySetResult();};
         var events=new ConcurrentQueue<object>();var scenarios=new List<object>();var errors=new List<string>();string inputStatus="NotRun";bool recovered=false,closeConfirmed=false;
@@ -253,6 +260,8 @@ internal static class HostedOleProbe
                 {
                     try { Pointer.ReleaseOwnedPress(); }
                     catch(Exception error){diagnostic.Fail(error,true);errors.Add("InputReleaseUnconfirmed:"+error.GetType().Name);}
+                    // Keep a later checkpoint while owned receiver tasks are settling, even if WPF close is blocked.
+                    lateSnapshots.Change(TimeSpan.FromSeconds(1),TimeSpan.FromSeconds(1));
                     try { if(!closed.Task.IsCompleted)await UiAction(window.Close); }
                     catch(Exception error){diagnostic.Fail(error,true);errors.Add("CloseUnconfirmed:"+error.GetType().Name);}
                     diagnostic.Snapshot();

@@ -21,7 +21,9 @@ if(mode=="startup-diagnostic-flood")
     await stderr.WriteAsync(output);await stderr.WriteAsync(new byte[]{(byte)'\n'});Array.Clear(output);
     OleStartupDiagnostics.Emit(OleStartupStage.Entry);
 }
-return await OleReceiverServer.RunAsync(Console.OpenStandardInput(),Console.OpenStandardOutput(),(hello,send)=>Task.FromResult<IOleReceiverBackend>(new Backend(hello,send,mode)));
+using var targetOutput=Console.OpenStandardError();var observations=new OleTargetDiagnostics(targetOutput);
+try { return await OleReceiverServer.RunAsync(Console.OpenStandardInput(),Console.OpenStandardOutput(),(hello,send)=>Task.FromResult<IOleReceiverBackend>(new Backend(hello,send,mode)),targetDiagnostic:observations); }
+finally { observations.CompleteOutput();if(observations.OriginalOutputTask is {} original)await original; }
 sealed class Backend:IOleReceiverBackend,IOleReceiverControlBackend
 {
     private readonly OleReceiverHello hello;private readonly Action<IpcFrame> send;private readonly string mode;private int started;
@@ -66,6 +68,7 @@ sealed class Backend:IOleReceiverBackend,IOleReceiverControlBackend
             var location=mode=="formal-point-swap"&&phase=="CleanupComplete"?new PixelPoint(25,24):point;
             send(new(IpcMessageType.OleEvent,id,OleReceiverWire.Serialize(new OleReceiverEvent(hello.Instance,epoch,id,phase,cleaned,effect,length,Source:mode=="formal-missing-source"?null:origin,Point:location,TextFormat:phase=="QueryBegin"?OleTextFormat.None:format))));
         }
+        if(mode=="formal-stale-query")send(new(IpcMessageType.OleEvent,id,OleReceiverWire.Serialize(new OleReceiverEvent(hello.Instance,epoch-1,id,"QueryEnd",true,1))));
         Event("QueryBegin");Event("Hover");Event("QueryEnd",true,1);
         if(mode=="formal-hover-only")return;
         Event("DropBegin",effect:1);

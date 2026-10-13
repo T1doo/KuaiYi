@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Threading;
 using KuaiYi.Core;
 using KuaiYi.Windows;
+using KuaiYi.OleTransfer;
 namespace KuaiYi.OleReceiver;
     internal sealed class NativeDropTarget(ReceiverHost owner) : IOleDropTarget
     {
@@ -22,14 +23,15 @@ namespace KuaiYi.OleReceiver;
         public int DragEnter(nint data, uint keys, OlePoint point, ref uint effect)
         {
             Guid query = transaction.Enter(); id = query; advertised = false;
-            if (!owner.Enabled || active || !owner.Hit(point) || ((OleEffect)effect & OleEffect.Copy) == 0) { effect = 0; return 0; }
-            source=owner.Production?owner.CaptureSource():null;format=OleTextFormat.None;if(owner.Production&&source==null){effect=0;return 0;}
+            uint offeredEffect=effect;
+            if (!OleTargetDiagnostics.AdmitEnter(()=>owner.Enabled,()=>active,()=>owner.Hit(point),()=>((OleEffect)offeredEffect & OleEffect.Copy)!=0,owner.Observe)) { effect = 0; return 0; }
+            source=owner.Production?owner.CaptureSource():null;format=OleTextFormat.None;if(owner.Production&&source==null){owner.Observe(OleTargetObservation.EnterSourceRejected);effect=0;return 0;}
             long generation = owner.Epoch; hoverEpoch = generation; nint foreground = NativeDesktop.GetForegroundWindow();
             owner.Emit(query, "QueryBegin", "Format query and cleanup deadline",source:source,point:new(point.X,point.Y),format:OleTextFormat.None);
             var scope = new OleCleanupScope(); string status = "Format query and native cleanup completed";
             try
             {
-                var reference = OleDataReference.FromBorrowed(data);
+                var reference = OleDataReference.FromBorrowed(data,owner.Observations);
                 scope.Own(() => owner.ReleaseOwned(query, generation, "QueryRelease", reference.Dispose));
                 if(owner.CanCommit(query,generation)){format=owner.Production?reference.OfferedText():reference.OffersUnicode()?OleTextFormat.Unicode:OleTextFormat.None;advertised=format!=OleTextFormat.None;}
             }
@@ -51,7 +53,7 @@ namespace KuaiYi.OleReceiver;
             string? text = null; string status = "Synchronous copy and all cleanup completed"; bool priorCleanupFailed = false;
             try
             {
-                var reference = OleDataReference.FromBorrowed(data);
+                var reference = OleDataReference.FromBorrowed(data,owner.Observations);
                 var dataLease = scope.Own(() => owner.ReleaseOwned(operation, generation, "DropRelease", reference.Dispose));
                 if(!owner.CanCommit(operation,generation))throw new OperationCanceledException();
                 var capability = reference.QueryAsync(); bool mode = false, started = false;
@@ -82,7 +84,7 @@ namespace KuaiYi.OleReceiver;
                     effect = (uint)OleEffect.Copy; return 0; // The origin scope remains owned until FinishWorker.
                 }
                 if(!owner.CanCommit(operation,generation))throw new OperationCanceledException();
-                text = owner.Production?reference.ReadText(format):reference.ReadUnicode();
+                owner.Observe(OleTargetObservation.ExtractionBegin);text = owner.Production?reference.ReadText(format):reference.ReadUnicode();owner.Observe(OleTargetObservation.ExtractionReturned);
             }
             catch (Exception error) { text = null; status = error.GetType().Name; priorCleanupFailed = error is OleCleanupException; }
             if (!Clean(scope, operation, generation, priorCleanupFailed)) return 0;
@@ -124,10 +126,10 @@ namespace KuaiYi.OleReceiver;
                             Guid iid = OleNative.DataObjectId; transfer.StreamReleased = true;
                             int hr = OleNative.CoGetInterfaceAndReleaseStream(transfer.Stream, ref iid, out nint pointer);
                             transfer.Unmarshaled = hr >= 0; Marshal.ThrowExceptionForHR(hr);
-                            var reference = new OleDataReference(pointer); scope.Own(reference.Dispose);
+                            var reference = new OleDataReference(pointer,owner.Observations); scope.Own(reference.Dispose);
                             var capability = reference.QueryAsync() ?? throw new COMException("Async capability disappeared."); scope.Own(capability.Dispose);
                             int extractionHr = OleNative.Failure;
-                            try { if(!owner.CanCommit(operation,generation))throw new OperationCanceledException();owner.WorkerMetadata(operation, generation, "WorkerReadBegin"); text = owner.Production?reference.ReadText(format):reference.ReadUnicode(); extractionHr = 0; }
+                            try { if(!owner.CanCommit(operation,generation))throw new OperationCanceledException();owner.WorkerMetadata(operation, generation, "WorkerReadBegin"); owner.Observe(OleTargetObservation.ExtractionBegin);text = owner.Production?reference.ReadText(format):reference.ReadUnicode();owner.Observe(OleTargetObservation.ExtractionReturned); extractionHr = 0; }
                             catch (Exception error) { text = null; status = error.GetType().Name; nativeCleanupFailed = error is OleCleanupException; }
                             finally
                             {

@@ -186,6 +186,27 @@ public sealed class SyntheticOleProcess {
         $safe=ConvertTo-OleDiagnostic $d
         if ($safe.Owners[0].RegistrarTask -cne 'PENDING' -or $safe.Owners[0].RegistrarStage -cne 'Revoke' -or $safe.CloseConfirmed -cne 'UNKNOWN') { throw 'Registrar observation overclaims settlement' }
     }
+    Case 'target callback and transmission observations never promote acceptance' {
+        $d=New-OleDiagnostic 'Probe';$owner=[KuaiYi.App.OleCiOwnerDiagnostic]::new()
+        $owner.TargetTrace=@('ControlEnabled','CallbackEnter','EnterOutside','QueryWritten','QueryStaleEpoch')
+        $d.Owners=@($owner | ConvertTo-Json -Depth 8 | ConvertFrom-Json)
+        $safe=ConvertTo-OleDiagnostic $d
+        if ($safe.Owners[0].TargetTrace.Count -ne 5 -or $safe.GetDataObserved -cne 'UNKNOWN' -or $safe.DropObserved -cne 'UNKNOWN' -or $safe.CloseConfirmed -cne 'UNKNOWN') { throw 'Target observations promoted acceptance' }
+    }
+    foreach ($mode in @('Unknown','NonString','Scalar','Oversized','Duplicate')) {
+        Case "target observations reject unsafe field $mode" {
+            $d=New-OleDiagnostic 'Probe';$owner=[KuaiYi.App.OleCiOwnerDiagnostic]::new() | ConvertTo-Json -Depth 8 | ConvertFrom-Json
+            switch ($mode) {
+                Unknown { $owner.TargetTrace=@('PRIVATE_SENTINEL') }
+                NonString { $owner.TargetTrace=@(17) }
+                Scalar { $owner.TargetTrace='CallbackEnter' }
+                Oversized { $owner.TargetTrace=@('CallbackEnter') * 33 }
+                Duplicate { $owner.TargetTrace=@('CallbackEnter','CallbackEnter') }
+            }
+            $d.Owners=@($owner);$threw=$false;try { $null=ConvertTo-OleDiagnostic $d } catch { $threw=$true }
+            if (-not $threw) { throw 'Unsafe target observation accepted' }
+        }
+    }
     Write-Host "OLE_FAILURE_PATH_CONTRACTS passed=$checks failed=0; actual parser/checkpoint/helper paths with synthetic failures only; Windows GetData NotRun"
 } finally {
     Remove-Item Env:KUAIYI_SYNTHETIC_FAIL_STAGE -ErrorAction SilentlyContinue

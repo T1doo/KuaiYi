@@ -60,6 +60,14 @@ function ConvertTo-OleDiagnostic($Value) {
             $row.StartupFailure=[pscustomobject]@{Stage=$f.Stage;Exception=$f.Exception;HResult=$f.HResult}
         }
         foreach ($key in @('Run','Control','MetadataRead','ErrorRead','CloseWrite','CloseFlush','ExitWait')) { if ($owner.$key -cnotin $tasks) { throw 'Invalid original OLE task state' };$row[$key]=$owner.$key }
+        $targetEvents=@('ControlEnabled','ControlDisabled','ControlRejected','CallbackEnter','CallbackDrop','CallbackRejected','EnterDisabled','EnterBusy','EnterOutside','EnterNoCopy','EnterSourceRejected','QueryQueued','QueryWritten','QueryRead','QueryStaleEpoch','QueryAccepted','DropQueued','DropWritten','DropRead','DropStaleEpoch','DropAccepted','ExtractionBegin','GetDataInvoking','ExtractionReturned')
+        $row.TargetTrace=@()
+        if ($owner.PSObject.Properties.Name -contains 'TargetTrace') {
+            if ($owner.TargetTrace -isnot [array] -or $owner.TargetTrace.Count -gt 32) { throw 'Invalid OLE target trace bound' }
+            foreach ($event in $owner.TargetTrace) { if ($event -isnot [string] -or $event -cnotin $targetEvents) { throw 'Invalid OLE target observation' } }
+            if (@($owner.TargetTrace | Select-Object -Unique).Count -ne $owner.TargetTrace.Count) { throw 'Duplicate OLE target observation' }
+            $row.TargetTrace=@($owner.TargetTrace)
+        }
         foreach ($key in @('RegistrarTask','RegistrarStage','RegistrarFailureStage')) {
             $n=if ($owner.PSObject.Properties.Name -contains $key) { $owner.$key } else { 'UNKNOWN' }
             $allowed=if ($key -ceq 'RegistrarTask') { $tasks } else { @('UNKNOWN','Apartment','Import','Register','Pump','Revoke','Release','Uninitialize','Complete') }

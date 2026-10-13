@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Security.Cryptography;
 using KuaiYi.Core;
+using KuaiYi.OleTransfer;
 
 namespace KuaiYi.Windows;
 
@@ -84,18 +85,26 @@ public sealed class OleApartment : IDisposable
 public sealed class OleDataReference : IDisposable
 {
     private nint pointer;
+    private readonly OleTargetDiagnostics? diagnostics;
     private readonly int thread = Environment.CurrentManagedThreadId;
-    public static OleDataReference FromBorrowed(nint borrowedPointer)
+    public static OleDataReference FromBorrowed(nint borrowedPointer,OleTargetDiagnostics? diagnostics=null)
     {
         if (borrowedPointer == 0) throw new ArgumentException("Missing borrowed IDataObject.");
-        Marshal.AddRef(borrowedPointer); return new(borrowedPointer);
+        Marshal.AddRef(borrowedPointer); return new(borrowedPointer,diagnostics);
     }
-    public OleDataReference(nint ownedPointer) => pointer = ownedPointer != 0 ? ownedPointer : throw new ArgumentException("Missing COM interface.");
+    public OleDataReference(nint ownedPointer,OleTargetDiagnostics? diagnostics=null)
+    {pointer=ownedPointer!=0?ownedPointer:throw new ArgumentException("Missing COM interface.");this.diagnostics=diagnostics;}
     public nint Pointer { get { EnsureThread(); return pointer != 0 ? pointer : throw new ObjectDisposedException(nameof(OleDataReference)); } }
     private void EnsureThread() { if (thread != Environment.CurrentManagedThreadId) throw new InvalidOperationException("Unmarshaled COM interface crossed apartments."); }
     [UnmanagedFunctionPointer(CallingConvention.StdCall)] private delegate int QueryData(nint self, ref FORMATETC format);
     [UnmanagedFunctionPointer(CallingConvention.StdCall)] private delegate int GetData(nint self, ref FORMATETC format, out OleMedium medium);
     private T Method<T>(int slot) where T : Delegate => Marshal.GetDelegateForFunctionPointer<T>(Marshal.ReadIntPtr(Marshal.ReadIntPtr(Pointer), slot * nint.Size));
+    private int ReadMedium(ref FORMATETC format,out OleMedium medium)
+    {
+        var getData=Method<GetData>(3);nint data=Pointer;
+        diagnostics?.Observe(OleTargetObservation.GetDataInvoking); // Nonblocking, immediately before the actual vtable call.
+        return getData(data,ref format,out medium);
+    }
     public bool OffersUnicode() { var format = OleNative.UnicodeFormat; return Method<QueryData>(5)(Pointer, ref format) == 0; }
     public OleTextFormat OfferedText()
     {
@@ -108,13 +117,13 @@ public sealed class OleDataReference : IDisposable
     }
     public string ReadText(OleTextFormat kind)
     {
-        var format=OleNative.TextFormat(kind);Marshal.ThrowExceptionForHR(Method<GetData>(3)(Pointer,ref format,out var medium));var scope=new OleCleanupScope();scope.Own(()=>OleNative.ReleaseStgMedium(ref medium));
+        var format=OleNative.TextFormat(kind);Marshal.ThrowExceptionForHR(ReadMedium(ref format,out var medium));var scope=new OleCleanupScope();scope.Own(()=>OleNative.ReleaseStgMedium(ref medium));
         return scope.Run(()=>{if(medium.Tymed!=(uint)TYMED.TYMED_HGLOBAL||medium.Union==0)throw new InvalidDataException("Drop text requires HGLOBAL.");nuint size=OleNative.GlobalSize(medium.Union);if(size<1||size>(nuint)OleDroppedText.ByteLimit(kind))throw new InvalidDataException("Drop allocation limit.");nint pointer=OleNative.GlobalLock(medium.Union);if(pointer==0)throw new Win32Exception(Marshal.GetLastWin32Error());scope.Own(()=>{Marshal.SetLastPInvokeError(0);bool stillLocked=OleNative.GlobalUnlock(medium.Union);int error=Marshal.GetLastPInvokeError();if(!stillLocked&&error!=0)throw new Win32Exception(error);});byte[]? copy=null;try{copy=new byte[(int)size];Marshal.Copy(pointer,copy,0,copy.Length);return OleDroppedText.Decode(kind,copy);}finally{if(copy!=null)CryptographicOperations.ZeroMemory(copy);}});
     }
     public string ReadUnicode()
     {
         var format = OleNative.UnicodeFormat;
-        Marshal.ThrowExceptionForHR(Method<GetData>(3)(Pointer, ref format, out var medium));
+        Marshal.ThrowExceptionForHR(ReadMedium(ref format,out var medium));
         var mediumScope = new OleCleanupScope(); mediumScope.Own(() => OleNative.ReleaseStgMedium(ref medium));
         return mediumScope.Run(() =>
         {

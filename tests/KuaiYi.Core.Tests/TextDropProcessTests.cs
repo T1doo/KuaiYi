@@ -32,6 +32,11 @@ public sealed class TextDropProcessTests
             else{Assert.NotNull(await Record.ExceptionAsync(()=>run.WaitAsync(TimeSpan.FromSeconds(4))));Assert.Equal(0,accepted);Assert.Null(actual);}
         }
         finally{client.Cancel();capture.Invalidate(true);queue.Drain();await Record.ExceptionAsync(()=>run.WaitAsync(TimeSpan.FromSeconds(4)));await client.DeliverySettlementForTest.WaitAsync(TimeSpan.FromSeconds(4));await client.RevocationSettlementForTest.WaitAsync(TimeSpan.FromSeconds(4));Assert.True(starter.Child!.HasExited);Assert.True(client.ObserveExit());Assert.True(await client.TryFinalizeAsync(true));await client.DisposeAsync();}
+        if(mode=="formal")
+        {
+            Assert.Contains(OleTargetObservation.QueryWritten,client.TargetObservations);Assert.Contains(OleTargetObservation.QueryRead,client.TargetObservations);Assert.Contains(OleTargetObservation.QueryAccepted,client.TargetObservations);
+            Assert.DoesNotContain(OleTargetObservation.CallbackEnter,client.TargetObservations); // Synthetic backend never proves native dispatch.
+        }
     }
     [Theory][InlineData("off")][InlineData("mode")][InlineData("settings")][InlineData("source")][InlineData("deadline")]
     public async Task ActualWireDeliveryCannotCommitAfterQueuedIdentityExpires(string change)

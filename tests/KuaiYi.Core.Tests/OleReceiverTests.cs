@@ -79,6 +79,21 @@ public sealed class OleReceiverTests
         var run=Run(client,id,ready,(epoch,txn,bytes,token)=>{Assert.Equal(1,epoch);Assert.NotEqual(Guid.Empty,txn);Assert.Equal("public local fixture 文本",OleReceiverWire.DecodeText(bytes.Span));Assert.True(MemoryMarshal.TryGetArray(bytes,out var segment));Interlocked.Increment(ref count);delivered.SetResult(segment.Array!);return Task.CompletedTask;});
         try{await ready.Task.WaitAsync(TimeSpan.FromSeconds(4));Assert.False(activation.Enabled);Assert.True(await client.SetEnabledAsync(1,true));byte[] actual=await delivered.Task.WaitAsync(TimeSpan.FromSeconds(4));await Task.Yield();client.Cancel();await Record.ExceptionAsync(()=>run);Assert.All(actual,b=>Assert.Equal(0,b));Assert.Equal(1,count);Assert.False(activation.Enabled);Assert.All(registrar.Packet!,b=>Assert.Equal(0,b));Assert.True(client.ObserveExit());}
         finally{await Cleanup(client,starter,registrar,run);}
+        Assert.Contains(OleTargetObservation.DropWritten,client.TargetObservations);
+        Assert.Contains(OleTargetObservation.DropRead,client.TargetObservations);
+        Assert.Contains(OleTargetObservation.DropAccepted,client.TargetObservations);
+        Assert.DoesNotContain(OleTargetObservation.CallbackDrop,client.TargetObservations); // Fixture protocol is not a native callback.
+    }
+    [Fact] public async Task RealParentReadDistinguishesStaleQueryFromAcceptedProductionFeedback()
+    {
+        Guid id=Guid.NewGuid();using var starter=new Starter("formal-stale-query");var registrar=new Registrar();var activation=new Activation(id);var client=Client(starter,registrar,activation);
+        var ready=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var delivered=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var hello=Hello(id) with {ProductionTextDrop=true};
+        var run=client.RunAsync(hello,e=>{if(e.Phase=="Ready")ready.TrySetResult();},(_,_,_,_)=>{delivered.TrySetResult();return Task.CompletedTask;});
+        try { await ready.Task.WaitAsync(TimeSpan.FromSeconds(4));Assert.True(await client.SetEnabledAsync(2,true,new(new(0,0,48,48),new(0,0,48,48),24),[]));await delivered.Task.WaitAsync(TimeSpan.FromSeconds(4)); }
+        finally { await Cleanup(client,starter,registrar,run); }
+        Assert.Contains(OleTargetObservation.QueryWritten,client.TargetObservations);Assert.Contains(OleTargetObservation.QueryRead,client.TargetObservations);
+        Assert.Contains(OleTargetObservation.QueryStaleEpoch,client.TargetObservations);Assert.Contains(OleTargetObservation.QueryAccepted,client.TargetObservations);
     }
     [Theory][InlineData("query-stall")][InlineData("drop-stall")][InlineData("release-stall")]
     public async Task RealBlockingChildTimesOutWhileOwnPointerAndOffRemainIndependent(string mode)

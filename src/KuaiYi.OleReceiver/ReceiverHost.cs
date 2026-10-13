@@ -12,6 +12,9 @@ using KuaiYi.Windows;
 namespace KuaiYi.OleReceiver;
 internal sealed class ReceiverHost:IOleReceiverBackend,IOleReceiverControlBackend
 {
+    private readonly OleTargetDiagnostics observations;
+    public OleTargetDiagnostics Observations=>observations;
+    public void Observe(OleTargetObservation item)=>observations.Observe(item);
     private readonly OleReceiverHello hello;private readonly Action<IpcFrame> send;
     private readonly OleReceiverGate gate=new();private readonly NativeDropTarget target;
     private readonly OleTargetMarshal.Callback callback;
@@ -27,7 +30,7 @@ internal sealed class ReceiverHost:IOleReceiverBackend,IOleReceiverControlBacken
     public void ApplyControl(OleReceiverControl control)
     {
         if(Production&&control.Enabled&&(control.Target?.Valid!=true||control.BlockedApplications is not {Length:<=128}||control.BlockedApplications.Any(value=>value is null||value.Length is <1 or >260)))throw new InvalidDataException("Invalid production Drop control.");
-        Volatile.Write(ref productionControl,control);gate.Set(control.Epoch,control.Enabled);
+        Volatile.Write(ref productionControl,control);bool applied=gate.Set(control.Epoch,control.Enabled);Observe(!applied?OleTargetObservation.ControlRejected:control.Enabled?OleTargetObservation.ControlEnabled:OleTargetObservation.ControlDisabled);
     }
     public bool Hit(OlePoint point)=>!Production||Volatile.Read(ref productionControl) is {} control&&control.Enabled&&control.Epoch==Epoch&&control.Target?.Contains(new(point.X,point.Y))==true;
     public SelectionWindow? CaptureSource()
@@ -42,9 +45,9 @@ internal sealed class ReceiverHost:IOleReceiverBackend,IOleReceiverControlBacken
     }
     public void Feedback(Guid transaction,long epoch,bool visible,OlePoint point,SelectionWindow? source,OleTextFormat format)
     {if(Production)Metadata(transaction,epoch,visible?"Hover":"Leave",source:source,point:new(point.X,point.Y),format:format);else Preview(visible);}
-    public ReceiverHost(OleReceiverHello hello,Action<IpcFrame> send)
+    public ReceiverHost(OleReceiverHello hello,Action<IpcFrame> send,OleTargetDiagnostics observations)
     {
-        this.hello=hello;this.send=send;gate.Set(hello.Epoch,false);
+        this.hello=hello;this.send=send;this.observations=observations;gate.Set(hello.Epoch,false);
         OleStartupDiagnostics.Emit(OleStartupStage.ParentVerify);
         try{parent=OleReceiverParent.Verify(hello);}catch(Exception error){OleStartupDiagnostics.Emit(OleStartupStage.ParentVerify,error);throw;}
         OleStartupDiagnostics.Emit(OleStartupStage.ActivationOpen);
@@ -57,10 +60,11 @@ internal sealed class ReceiverHost:IOleReceiverBackend,IOleReceiverControlBacken
     {
         try
         {
+            if(kind is 1 or 4)Observe(kind==1?OleTargetObservation.CallbackEnter:OleTargetObservation.CallbackDrop);
             if(Environment.CurrentManagedThreadId!=originThread||Thread.CurrentThread.GetApartmentState()!=ApartmentState.STA||parent.HasExited)throw new InvalidOperationException("OLE callback apartment/parent mismatch.");
             return kind switch{1=>target.DragEnter(data,keys,point,ref effect),2=>target.DragOver(keys,point,ref effect),3=>target.DragLeave(),4=>target.Drop(data,keys,point,ref effect),_=>OleNative.Failure};
         }
-        catch(Exception error){effect=0;gate.Set(long.MaxValue,false);Console.Error.WriteLine("OleReceiver callback failure: "+error.GetType().Name);return OleNative.Failure;}
+        catch(Exception error){Observe(OleTargetObservation.CallbackRejected);effect=0;gate.Set(long.MaxValue,false);Console.Error.WriteLine("OleReceiver callback failure: "+error.GetType().Name);return OleNative.Failure;}
     }
     public void SetEnabled(long epoch,bool enabled){gate.Set(epoch,enabled);} // No COM/WPF; Off applies even when OLE STA blocks.
     public void Preview(bool visible)
@@ -84,7 +88,8 @@ internal sealed class ReceiverHost:IOleReceiverBackend,IOleReceiverControlBacken
     {
         lock(groupsSync)if(groups.TryGetValue(transaction,out var group)){source??=group.Source;point??=group.Point;if(format==OleTextFormat.None)format=group.Format;}
         var item=new OleReceiverEvent(hello.Instance,epoch,transaction,phase,clean,(uint)effect,length,Environment.CurrentManagedThreadId,Thread.CurrentThread.GetApartmentState().ToString(),NativeDesktop.GetCurrentThreadId(),source,point,format);
-        send(new(IpcMessageType.OleEvent,transaction,OleReceiverWire.Serialize(item))); // Bounded queue; native call never synchronously waits on App.
+        send(new(IpcMessageType.OleEvent,transaction,OleReceiverWire.Serialize(item)));
+        if(phase is "QueryEnd" or "DropBegin")Observe(phase=="QueryEnd"?OleTargetObservation.QueryQueued:OleTargetObservation.DropQueued); // Bounded queue; native call never synchronously waits on App.
     }
     public bool CanCommit(Guid transaction,long epoch)
     {

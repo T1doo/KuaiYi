@@ -1,0 +1,21 @@
+# Target admission and transport diagnosis
+
+The previous probe reached source DoDragDrop and a source format query, released its owned press, and confirmed source exit and registrar completion. It still timed out waiting for the matching receiver QueryEnd with COPY. A source query cannot identify its caller. Missing parent feedback cannot establish that the target callback never ran.
+
+The next falsifiable hypotheses are:
+
+| Hypothesis | Positive distinguishing observations |
+| --- | --- |
+| Target dispatch reached but admission rejected | CallbackEnter followed by EnterDisabled, EnterBusy, EnterOutside, EnterNoCopy or EnterSourceRejected |
+| Native callback identity/apartment guard rejected | CallbackEnter or CallbackDrop and CallbackRejected |
+| Receiver output progressed but parent feedback did not | QueryQueued, QueryWritten, QueryRead and QueryAccepted distinguish enqueue, actual pipe flush, validated frame read and completed feedback; QueryStaleEpoch identifies filtering |
+| Parent control write did not establish receiver eligibility | ControlEnabled/ControlDisabled means the receiver gate accepted that control; ControlRejected records an ignored control. It does not certify the current shared activation or geometry. |
+| Actual extraction was reached | CallbackDrop and ExtractionBegin identify the receiver path; GetDataInvoking is immediately before the receiver's real IDataObject vtable call; source GetData remains the separate evidence of a source callback. ExtractionReturned means full text extraction returned, not that all cleanup settled. |
+
+Each observation is a named finite enum, deduplicated per owned receiver. The stderr drain accepts only canonical KYOT1 records, independently of the existing startup retention budget, continues draining unknown/oversized content and ignores incomplete lines. CI checkpoints reproject the whitelist into TargetTrace with a 32-entry bound; no identifiers, text, titles, coordinates, arbitrary errors or COM bytes enter this field. Native observations use only finite memory and nonblocking TryWrite into a 32-entry queue (at most 24 unique values). A separately retained original output Task writes and flushes stderr; receiver shutdown completes the queue and observes that original task. Its failure cannot replace the primary production result. A blocked output task remains owned until actual settlement or the existing process supervisor terminates the owned receiver. Optional post-write diagnostic parsing is isolated from the production writer. No observation changes admission, extends the deadline or promotes acceptance.
+
+Enter checks use the same enabled/busy/hit/COPY order, short-circuit after the first refusal and evaluate each reached predicate once. Source validation remains in its original position. The receiver still exports the real standard-marshaled target; the production server, read loop and original task ownership remain authoritative.
+
+After a failure, the CI parent refreshes its existing checkpoint at most once per second, skipping overlapping callbacks, while its owned close remains pending, bounded by the existing application supervisor. This distinguishes an old task snapshot from later observed settlement; it does not turn a completed control write into an acknowledgement or a killed process into successful cleanup. The finite trace is not a complete timeline. Missing observations remain unknown, and a single observed ControlEnabled does not describe the latest control.
+
+Portable regression exercises actual parsers, diagnostic drains, short-circuit admission and real child production pipe paths with explicitly synthetic backends. Source typechecks do not execute COM. The next single standard Windows run must still supply native evidence; physical E06 and Windows 11 acceptance remain separate.

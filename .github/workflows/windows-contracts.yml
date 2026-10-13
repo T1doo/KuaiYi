@@ -28,7 +28,7 @@ jobs:
         run: |
           & ./tests/scripts/ole-failure-path.test.ps1
       - name: Run bounded actual GetData cancellation and recovery contracts
-        # Verify owned-input cleanup and finite drag observations; only validated summaries leave the child process.
+        # Observe native target admission and event transmission; only validated summaries leave the child process.
         shell: pwsh
         run: |
           & ./scripts/run-windows-getdata-ci.ps1
