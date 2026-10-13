@@ -24,4 +24,16 @@
 
 下一最小诊断复用原有 WaitForExitAsync 与绝对预算检查后的 held process.ExitCode 读取，只缓存非零 int?，每次入口先清空；不在 finally、Kill 或清理阶段补填，不增加等待、不读 stderr、不取原文或异常消息。Crash 状态、250/600ms 预算、归属校验与暂停规则不变。摘要仅允许已清理 Crash 且无 BrokerObservation 时携带有符号非零 Int32；完整 exit 0 BrokerFailure、超时、取消、暂停不得携带该码。退出码仅缩小故障范围，不证明 API 或应用兼容性。
 
-该退出码版本的实际 client/probe 源码类型检查 0 warning / 0 error；原 xUnit 断言直接执行 **166/166**，含真实 child exit 23、完整故障的无退出码、Kill 后超时不回填、下一次预取消/暂停清空；PowerShell 白名单 **44/44**，拒绝字符串/布尔值/越界/0/硬超时/完整故障/未清理退出码，并丢弃附加私有字段。Windows 退出码诊断尚未运行，独审冻结后仅执行一次新的六调用诊断，不重跑原 120 项或 GetData。
+该退出码版本的实际 client/probe 源码类型检查 0 warning / 0 error；原 xUnit 断言直接执行 **166/166**，含真实 child exit 23、完整故障的无退出码、Kill 后超时不回填、下一次预取消/暂停清空；PowerShell 白名单 **44/44**，拒绝字符串/布尔值/越界/0/硬超时/完整故障/未清理退出码，并丢弃附加私有字段。本段为退出码版本独审冻结时的运行前记录；后续仅执行一次新的六调用诊断，实际结果见下一节，未重跑原 120 项或 GetData。
+
+## 原进程退出码诊断结果
+
+执行源码与 Actions SHA 均为 `2270d00096d653ac63d896ec58e7872a8cc0ab0e`，tree `12f690fae4de1bbd1b88f96eac8e6c0413f33ae2`，sole parent `50018c754c055a228c70019e7de098540c036a2a`。[run 38377252994](https://github.com/T1doo/KuaiYi/actions/runs/38377252994)，[job 115228634932](https://github.com/T1doo/KuaiYi/actions/runs/38377252994/job/115228634932)，attempt 1。
+
+结果仍为 **DiagnosticOnly / Observed 0/6**：Chrome HTML 一次 HardTimeout；Chrome 只读框一次 SoftTimeout，完整观察为 SoftTimeout / Completed / None；Chrome 编辑框及 Edge 三视图各一次 Crash，完整观察 Unknown，但原持有子进程的退出码均为 `-1073741819`（无符号 `0xC0000005`）。该码在原自然退出与预算检查后取得，未从父方 Kill 或清理回填。其余两视图退出码为 null。
+
+[Microsoft 官方说明](https://learn.microsoft.com/en-us/shows/inside/c0000005)将此码定义为访问无效内存；这只确立故障类别，不能证明 fault module、UIA 调用或几何处理是原因。不得用增加普通 catch、延长预算、放宽归属或关闭暂停来伪造成功。需要进一步定位崩溃发生的调用边界，未定位前没有对应根因修复或兼容性通过结论。
+
+六视图 SequenceCompleted、BrokerCleanup、ApplicationCleanup、ProfileDeleted 及 RunnerSettled 均 true；实际 WPF 四项 Pass。ModelCalls 0，复制回退 Disabled。用户物理划词、Win11、PDF、Markdown 仍 NotRun，P0 整体未通过。前述 GetData 成功证据不变，不重跑。
+
+原日志本地忽略保存：20,254 bytes，SHA256 `8630d1a83a77bd2c41f2b2d7ab93a3541e007488c62bf01473e15f75277b8e69`。本次结果不以 CI success 表示取词 Pass。
