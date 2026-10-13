@@ -1,0 +1,13 @@
+cmake_minimum_required(VERSION 3.28)
+project(KuaiYiSelectionReuseNative LANGUAGES CXX)
+if(NOT WIN32 OR NOT MSVC OR NOT CMAKE_SIZEOF_VOID_P EQUAL 8)
+  message(FATAL_ERROR "Requires Windows x64 MSVC/SDK; Linux tests do not build or validate COM")
+endif()
+add_executable(KuaiYi.SelectionReuseNative NativeWorker.cpp)
+target_compile_features(KuaiYi.SelectionReuseNative PRIVATE cxx_std_20)
+target_compile_definitions(KuaiYi.SelectionReuseNative PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
+target_compile_options(KuaiYi.SelectionReuseNative PRIVATE /W4 /WX /EHsc)
+target_link_options(KuaiYi.SelectionReuseNative PRIVATE /MANIFEST:EMBED "/MANIFESTINPUT:${CMAKE_CURRENT_SOURCE_DIR}/../../src/KuaiYi.Windows/app.manifest")
+target_link_libraries(KuaiYi.SelectionReuseNative PRIVATE ole32 oleaut32 advapi32 uuid user32 kernel32)
+set_property(TARGET KuaiYi.SelectionReuseNative PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+# Independent diagnostic only. No workflow, installer, App or production backend reference.

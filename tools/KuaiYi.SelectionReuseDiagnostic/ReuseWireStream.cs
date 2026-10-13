@@ -26,6 +26,6 @@ public static class ReuseWireStream
             else await stream.WriteAsync(bytes,cancellation).ConfigureAwait(false);
             await stream.FlushAsync(cancellation).ConfigureAwait(false);
         }
-        finally{CryptographicOperations.ZeroMemory(bytes);}
+        finally{CryptographicOperations.ZeroMemory(bytes);if(frame.Payload!=null)CryptographicOperations.ZeroMemory(frame.Payload);}
     }
 }

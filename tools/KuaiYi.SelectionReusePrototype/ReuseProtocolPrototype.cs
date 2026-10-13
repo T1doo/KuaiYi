@@ -5,9 +5,9 @@ namespace KuaiYi.SelectionReusePrototype;
 
 // Offline protocol experiment only. No process, UIA, target access, timer or production reference.
 public enum ReuseState { Disabled, Fresh, Running, ResetPending, Idle, Retiring, Exited }
-public enum ReuseFailure { None, Protocol, ConcurrentRequest, IdentityChanged, Cancelled, HardTimeout, ResetFailed, Crash, Exhausted }
-public enum ReuseKind : byte { Begin=1, Initialized=2, Completed=3, Quiescent=4 }
-public enum ReuseOutcome : byte { None, Success, Empty, Sensitive, Stale, TooLarge, SoftTimeout }
+public enum ReuseFailure { None, Protocol, ConcurrentRequest, IdentityChanged, Cancelled, HardTimeout, ResetFailed, Crash, Exhausted, InitializationFailed }
+public enum ReuseKind : byte { Begin=1, Initialized=2, Completed=3, Quiescent=4, InitializationFailed=5 }
+public enum ReuseOutcome : byte { None, Success, Empty, Sensitive, Stale, TooLarge, SoftTimeout, InitializationFailed, BrokerFailure }
 [Flags] public enum PersistentResources : ushort { None=0, WindowlessMta=1, Automation=2 }
 [Flags] public enum RequestResources : ushort { None=0, Root=1, Focus=2, Hit=4, Pattern=8, Range=16, Attributes=32, Text=64, Buffers=128 }
 public readonly record struct ReuseTarget(int Pid,long StartTicks,long Hwnd)
@@ -26,7 +26,7 @@ public static class ReuseFrameCodec
     public static byte[] Encode(ReuseFrame frame)
     {
         var bytes=new byte[Size];
-        bytes[0]=1;bytes[1]=(byte)frame.Kind;bytes[2]=frame.Sequence;
+        bytes[0]=2;bytes[1]=(byte)frame.Kind;bytes[2]=frame.Sequence;
         bytes[3]=(byte)((frame.Reused?1:0)|(frame.ResetOk?2:0));bytes[4]=(byte)frame.Outcome;
         if(frame.Payload is {Length:>MaxPayload})throw new InvalidDataException("Frame bounds.");
         bytes[5]=(byte)(frame.Payload?.Length??0);
@@ -43,8 +43,8 @@ public static class ReuseFrameCodec
     }
     private static void Validate(ReadOnlySpan<byte> bytes)
     {
-        if(bytes.Length!=Size||bytes[0]!=1||bytes[1] is <1 or >4||bytes[2] is <1 or >2||
-            bytes[3]>3||bytes[4]>6||bytes[5]>MaxPayload||bytes[10]>64||bytes[11]!=0||
+        if(bytes.Length!=Size||bytes[0]!=2||bytes[1] is <1 or >5||bytes[2] is <1 or >2||
+            bytes[3]>3||bytes[4]>8||bytes[5]>MaxPayload||bytes[10]>64||bytes[11]!=0||
             BinaryPrimitives.ReadUInt16LittleEndian(bytes[6..])>3||BinaryPrimitives.ReadUInt16LittleEndian(bytes[8..])>255||
             bytes[56..64].ContainsAnyExcept((byte)0)||bytes[(64+bytes[5])..].ContainsAnyExcept((byte)0))
             throw new InvalidDataException("Frame bounds.");
@@ -138,12 +138,14 @@ public sealed class ReuseProtocolPrototype
                 {Retire(frame.Target!=active.Target?ReuseFailure.IdentityChanged:ReuseFailure.Protocol);return false;}
                 lastChildElapsed=frame.ElapsedMs;
                 if(frame.ElapsedMs>=600){Retire(ReuseFailure.HardTimeout);return false;}
+                if(frame.Kind==ReuseKind.InitializationFailed&&state==ReuseState.Running&&!initialized&&issued==1&&frame.Persistent==PersistentResources.None&&frame.Transient==RequestResources.None&&frame.PendingOperations==0&&!frame.ResetOk&&frame.Outcome is (ReuseOutcome.InitializationFailed or ReuseOutcome.SoftTimeout)&&frame.Payload!.Length==0)
+                {Retire(ReuseFailure.InitializationFailed);return true;}
                 if(frame.Kind==ReuseKind.Initialized&&state==ReuseState.Running&&!initialized&&issued==1&&
                     frame.Persistent==Allowed&&frame.Transient==RequestResources.None&&frame.PendingOperations==0&&
                     !frame.ResetOk&&frame.Outcome==ReuseOutcome.None&&frame.Payload!.Length==0)
                 {initialized=true;return true;}
                 if(frame.Kind==ReuseKind.Completed&&state==ReuseState.Running&&initialized&&frame.Persistent==Allowed&&
-                    frame.Outcome!=ReuseOutcome.None&&!frame.ResetOk)
+                    frame.Outcome is not (ReuseOutcome.None or ReuseOutcome.InitializationFailed)&&!frame.ResetOk)
                 {
                     if(frame.Outcome==ReuseOutcome.Stale){Retire(ReuseFailure.IdentityChanged);return false;}
                     if(frame.Outcome!=ReuseOutcome.Success&&frame.Payload!.Length!=0||
