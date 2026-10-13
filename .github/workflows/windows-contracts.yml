@@ -1,13 +1,13 @@
-name: Windows native and public HWND contracts (not acceptance)
+name: Installed browser UIA compatibility (not physical acceptance)
 on:
   push:
-    branches: [dev/p0-foundations]
+    branches: [dev/p0-installed-selection]
     paths: [.github/workflows/windows-contracts.yml]
 permissions:
   contents: read
 jobs:
   contracts:
-    if: github.repository == 'T1doo/KuaiYi' && github.ref == 'refs/heads/dev/p0-foundations'
+    if: github.repository == 'T1doo/KuaiYi' && github.ref == 'refs/heads/dev/p0-installed-selection'
     # First windows-2025 run resolved to VS2026; retain the reviewed VS2022 toolchain.
     runs-on: windows-2022
     timeout-minutes: 15
@@ -23,13 +23,12 @@ jobs:
           persist-credentials: false
           set-safe-directory: false
           fetch-depth: 1
-      - name: Run synthetic GetData receipt and output contracts
+      - name: Verify selection receipt boundary
         shell: pwsh
         run: |
-          & ./tests/scripts/ole-failure-path.test.ps1
-      - name: Run bounded actual GetData cancellation and recovery contracts
-        # Verify actual GetData and every ready or explicitly revoked handshake owner through full cleanup.
+          & ./tests/scripts/selection-ci-summary.test.ps1
+      - name: Capture actual selected public text from installed browsers
         shell: pwsh
         run: |
-          & ./scripts/run-windows-getdata-ci.ps1
+          & ./scripts/run-windows-selection-ci.ps1
           exit $LASTEXITCODE

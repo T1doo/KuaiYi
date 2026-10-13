@@ -22,6 +22,12 @@
           "KuaiYi.Core": "[1.0.0, )"
         }
       },
+      "kuaiyi.nativehost": {
+        "type": "Project",
+        "dependencies": {
+          "KuaiYi.Imaging": "[1.0.0, )"
+        }
+      },
       "kuaiyi.windows": {
         "type": "Project",
         "dependencies": {

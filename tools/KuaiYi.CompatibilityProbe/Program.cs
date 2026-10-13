@@ -4,6 +4,9 @@ using System.Text.Json;
 using KuaiYi.Contracts;
 using KuaiYi.Windows;
 
+if (args.Length == 5 && args[0] == "--ci-installed-selection")
+    return await KuaiYi.CompatibilityProbe.InstalledSelectionProbe.RunAsync(args[1], args[2], args[3], args[4]);
+
 if (args.Length != 2)
 {
     Console.Error.WriteLine("Usage: KuaiYi.CompatibilityProbe.exe <CaptureBroker.exe> <public-fixture.txt>. Select that fixture in the target app within five seconds. No model calls.");

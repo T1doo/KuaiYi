@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="../../src/KuaiYi.Windows/KuaiYi.Windows.csproj" />
     <ProjectReference Include="../../src/KuaiYi.Contracts/KuaiYi.Contracts.csproj" />
+    <ProjectReference Include="../../src/KuaiYi.NativeHost/KuaiYi.NativeHost.csproj" />
   </ItemGroup>
   <PropertyGroup><RuntimeIdentifier>win-x64</RuntimeIdentifier><SelfContained>false</SelfContained></PropertyGroup>
 </Project>
