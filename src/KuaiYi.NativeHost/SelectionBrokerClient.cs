@@ -31,13 +31,15 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
     public SelectionBrokerObservation? LastObservation{get;private set;}
     public int? LastProcessExitCode{get;private set;}
     public ImmutableArray<SelectionPhaseTiming>? LastPhaseTimings{get;private set;}
+    public SelectionProgressDiagnostic? LastProgressDiagnostic{get;private set;}
     internal Action? BeforeTimingDeliveryForTest{get;set;}
     private void PublishTimings(SelectionCaptureMetadata meta,CancellationToken cancellation,long started)
     {
         if(!timingDiagnostic)return;
         var projected=SelectionPhaseTimingProjection.Project(meta.PhaseTimings);
+        var progress=SelectionProgressProjection.Project(meta.ProgressDiagnostic);
         BeforeTimingDeliveryForTest?.Invoke();
-        lock(sync){CheckDelivery(cancellation,started);if(disposed)throw new TimingDeliveryCancelledException();LastPhaseTimings=projected;}
+        lock(sync){CheckDelivery(cancellation,started);if(disposed)throw new TimingDeliveryCancelledException();LastPhaseTimings=projected;LastProgressDiagnostic=progress;}
     }
     internal static SelectionBrokerObservation ObserveMetadata(SelectionCaptureMetadata metadata)
     {
@@ -50,7 +52,7 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
         long started=Clock.GetTimestamp();OwnedProcessSession session;DateTimeOffset now=Clock.GetUtcNow();
         lock(sync)
         {
-            LastObservation=null;LastProcessExitCode=null;LastReachedBoundary=null;LastPhaseTimings=null;BoundaryMarkerSetup=boundaryDiagnostic?"NotStarted":"Disabled";
+            LastObservation=null;LastProcessExitCode=null;LastReachedBoundary=null;LastPhaseTimings=null;LastProgressDiagnostic=null;BoundaryMarkerSetup=boundaryDiagnostic?"NotStarted":"Disabled";
             if(disposed)return new(SelectionCaptureStatus.Cancelled);
             if(paused.TryGetValue(gesture.Window.Executable,out var until)&&now<until)return new(SelectionCaptureStatus.Paused);
             if(owner!=null){if(cleanup?.IsCompleted==true)cleanup=CleanupAsync(owner);return new(SelectionCaptureStatus.CleanupPending);}
@@ -131,7 +133,7 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
         finally
         {
             if(status is SelectionCaptureStatus.HardTimeout or SelectionCaptureStatus.Cancelled or SelectionCaptureStatus.ProtocolFailure||status==SelectionCaptureStatus.Crash&&LastObservation?.Status!="BrokerFailure")LastObservation=null;
-            if(status is SelectionCaptureStatus.HardTimeout or SelectionCaptureStatus.Cancelled or SelectionCaptureStatus.ProtocolFailure or SelectionCaptureStatus.Crash)LastPhaseTimings=null;
+            if(status is SelectionCaptureStatus.HardTimeout or SelectionCaptureStatus.Cancelled or SelectionCaptureStatus.ProtocolFailure or SelectionCaptureStatus.Crash){LastPhaseTimings=null;LastProgressDiagnostic=null;}
             if(payload!=null)CryptographicOperations.ZeroMemory(payload);
             lock(sync)
             {

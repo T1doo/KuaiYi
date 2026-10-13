@@ -187,3 +187,31 @@ foreach($mode in @('PrivateStage','PrivateState','SecretNumber','Negative','Over
     elseif(-not $rejected){throw 'Invalid timing accepted'};$checks++
 }
 Write-Host "SELECTION_SUMMARY_TIMING_CONTRACTS passed=$checks failed=0"
+$p=[pscustomobject]@{Checkpoint='BeforeRange';TimeoutSource='Focus';BatchSource='Focus';CountState='Observed';RangeTotal=3;RangeCompleted=1;TextState='Measured';TextStartMs=200;TextEndMs=220;TextDurationMs=20}
+$timing.Views[0].Cases[0] | Add-Member ProgressDiagnostic $p
+$r=ConvertTo-SelectionSummary $timing 0 $commit -DiagnosticOnly -ComDiagnostic -TimingDiagnostic
+if($r.Views[0].ProgressDiagnostic[0].RangeCompleted -ne 1){throw 'Progress projection lost'};$checks++
+foreach($mode in @('SecretCheckpoint','SecretSource','CountOverflow','CompletedOverflow','TextOverflow','TextReverse','TextDifference','Private','UnknownCounts','Started','OverLimit','Late','UnknownObservation','NoneSourceMismatch','NoneBatch')){
+    $report=$timing | ConvertTo-Json -Depth 12 | ConvertFrom-Json;$p=$report.Views[0].Cases[0].ProgressDiagnostic;$rejected=$false
+    switch($mode){
+        SecretCheckpoint {$p.Checkpoint='PRIVATE_SENTINEL'}
+        SecretSource {$p.TimeoutSource='PRIVATE_SENTINEL'}
+        CountOverflow {$p.RangeTotal=65}
+        CompletedOverflow {$p.RangeCompleted=4}
+        TextOverflow {$p.TextEndMs=601}
+        TextReverse {$p.TextStartMs=221}
+        TextDifference {$p.TextDurationMs=21}
+        Private {$p | Add-Member Pointer 'PRIVATE_SENTINEL'}
+        UnknownCounts {$p.CountState='Unknown';$p.RangeTotal=$null;$p.RangeCompleted=$null}
+        Started {$p.TextState='Started';$p.TextEndMs=$null;$p.TextDurationMs=$null}
+        OverLimit {$p.TextState='OverLimit';$p.TextStartMs=$null;$p.TextEndMs=$null;$p.TextDurationMs=$null}
+        Late {$report.Views[0].Cases[0].Outcome='Cancelled';$report.Views[0].Cases[0].BrokerObservation=$null;$report.Views[0].Cases[0].PhaseTimings=$null}
+        UnknownObservation {$report.Views[0].Cases[0].BrokerObservation.Stage='Unknown'}
+        NoneSourceMismatch {$p.Checkpoint='None'}
+        NoneBatch {$p.BatchSource='None'}
+    }
+    try{$result=ConvertTo-SelectionSummary $report 0 $commit -DiagnosticOnly -ComDiagnostic -TimingDiagnostic}catch{$rejected=$true}
+    if($mode -cin @('Private','UnknownCounts','Started','OverLimit')){if($rejected -or ($result | ConvertTo-Json -Depth 12) -match 'PRIVATE_SENTINEL|Pointer'){throw 'Progress private value escaped'}}
+    elseif(-not $rejected){throw 'Invalid progress accepted'};$checks++
+}
+Write-Host "SELECTION_SUMMARY_PROGRESS_CONTRACTS passed=$checks failed=0"

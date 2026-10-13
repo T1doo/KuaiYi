@@ -263,9 +263,8 @@ std::int64_t elapsed(clock_type::time_point start)  {
 } template<class Trace> result capture(const input& in,marker& marks,clock_type::time_point origin,result& info,Trace& trace)  {
     auto preflight=trace.observe(0);
     p::soft_observation soft;
-    auto expired=[&] {
-        return soft.observe(elapsed(origin),info.stage);
-    };
+    auto expired=[&] {return soft.observe(elapsed(origin),info.stage);};
+    auto timed=[&](p::timeout_check check_point){if(check_point==p::timeout_check::focus_ancestors)info.stage=7;else if(check_point==p::timeout_check::hit_ancestors)info.stage=8;else if(check_point==p::timeout_check::before_bfs)info.stage=9;bool timeout=expired();if(timeout)trace.timeout(static_cast<int>(check_point));return timeout;};
     auto finish=[&](const char* status,int count=0) {
         result out;
         out.status=status;
@@ -326,23 +325,17 @@ std::int64_t elapsed(clock_type::time_point start)  {
     walker_phase.end();
     std::vector<ComPtr<IUIAutomationElement>> candidates;
     std::vector<double> copy_ranges;
-    auto ancestors=[&](ComPtr<IUIAutomationElement> element) {
-        auto path=p::bound_ancestors(element,root,
+    auto ancestors=[&](ComPtr<IUIAutomationElement> element,p::timeout_check checkpoint) {
+        return p::bound_ancestors(element,root,
             [&](const auto& e){return process_id(e.Get())==static_cast<int>(in.pid);},
             [&](const auto& e,const auto& original){return equal(api.Get(),e.Get(),original.Get());},
-            [&](const auto& e){ComPtr<IUIAutomationElement> next;check(walker->GetParentElement(e.Get(),&next));return next;},expired);
-        auto count=std::min(path.size(),static_cast<std::size_t>(p::candidate_limit)-candidates.size());
-        candidates.insert(candidates.end(),path.begin(),path.begin()+static_cast<std::ptrdiff_t>(count));
+            [&](const auto& e){ComPtr<IUIAutomationElement> next;check(walker->GetParentElement(e.Get(),&next));return next;},[&]{return timed(checkpoint);});
     };
-    info.stage=7;
-    auto ancestors_phase=trace.observe(8);
-    ancestors(focused);
-    ancestors_phase.end();
-    info.stage=8;
-    ancestors(hit);
-    info.candidates=static_cast<int>(candidates.size());
+    auto focus_path=[&]{info.stage=7;auto phase=trace.observe(8);return ancestors(focused,p::timeout_check::focus_ancestors);};
+    auto hit_path=[&]{info.stage=8;return ancestors(hit,p::timeout_check::hit_ancestors);};
     auto evaluate=[&](const ComPtr<IUIAutomationElement>& candidate)->std::optional<result> {
-        if(expired())return finish("SoftTimeout");
+        auto evaluating=trace.evaluating();
+        if(timed(p::timeout_check::before_candidate))return finish("SoftTimeout");
         if(!window_current(in))return finish("Stale");
         info.stage=10;
         if(password(candidate.Get()))return finish("Sensitive");
@@ -365,13 +358,14 @@ std::int64_t elapsed(clock_type::time_point start)  {
         if(count<0)throw failure {
             E_INVALIDARG
         };
-        if(count==0)return std::nullopt;
         if(count>64)return finish("TooLarge",count);
+        trace.ranges(count);
+        if(count==0)return std::nullopt;
         std::vector<std::wstring> parts;
         std::vector<double> rectangles;
         int units=0,observed=0;
         for(int i=0;i<count;++i)  {
-            if(expired())return finish("SoftTimeout");
+            if(timed(p::timeout_check::before_range))return finish("SoftTimeout");
             ComPtr<IUIAutomationTextRange> range;
             check(selections->GetElement(i,&range));
             if(!range)throw failure {
@@ -393,7 +387,10 @@ std::int64_t elapsed(clock_type::time_point start)  {
             marks.reach(9,false);
             {
                 bstr_owner text;
-                check(range->GetText(100002-units,&text.value));
+                trace.text_start();
+                HRESULT text_result=range->GetText(100002-units,&text.value);
+                trace.text_end();
+                check(text_result);
                 size=SysStringLen(text.value);
                 if(size<=static_cast<UINT>(100002-units))part.assign(text.value?text.value:L"",size);
             }
@@ -402,6 +399,7 @@ std::int64_t elapsed(clock_type::time_point start)  {
             units+=static_cast<int>(size);
             if(units>=100002)return finish("TooLarge",count);
             if(!p::blank(std::wstring_view(part)))parts.push_back(std::move(part));
+            trace.range_complete();
         } std::wstring text;
         for(const auto& part:parts) {
             if(!text.empty())text+=L'\n';
@@ -413,13 +411,13 @@ std::int64_t elapsed(clock_type::time_point start)  {
         if(!p::valid_text(std::wstring_view(text)))return finish("TooLargeOrInvalidUnicode",count);
         info.stage=16;
         if(!source_current(in,source.value,start))return finish("Stale");
-        if(expired())return finish("SoftTimeout");
+        if(timed(p::timeout_check::final_identity))return finish("SoftTimeout");
         info.stage=17;
         auto runtime=runtime_id(candidate.Get());
         if(runtime.empty())return finish("UnsupportedOrProtected");
-        if(expired())return finish("SoftTimeout");
+        if(timed(p::timeout_check::after_runtime))return finish("SoftTimeout");
         auto out=finish("Success",static_cast<int>(parts.size()));
-        if(soft.observe(out.elapsed,info.stage))return finish("SoftTimeout");
+        if(soft.observe(out.elapsed,info.stage)){trace.timeout(static_cast<int>(p::timeout_check::finish_snapshot));return finish("SoftTimeout");}
         info.stage=19;out.stage=19;
         out.runtime=std::move(runtime);
         out.rectangles=std::move(rectangles);
@@ -433,18 +431,18 @@ std::int64_t elapsed(clock_type::time_point start)  {
         info.stage=9;
         ComPtr<IUIAutomationElement> child;
         check(walker->GetFirstChildElement(parent.Get(),&child));
-        while(child&&queue.size()+visited<static_cast<std::size_t>(p::candidate_limit)&&!expired()) {
+        while(child&&queue.size()+visited<static_cast<std::size_t>(p::candidate_limit)&&!timed(p::timeout_check::bfs_expansion)) {
             if(process_id(child.Get())==static_cast<int>(in.pid))queue.push_back(child);
             ComPtr<IUIAutomationElement> next;
             check(walker->GetNextSiblingElement(child.Get(),&next));child=next;
         }
     };
-    auto record=[&](const auto& candidate){candidates.push_back(candidate);info.candidates=static_cast<int>(candidates.size());};
-    if(auto selected=p::evaluate_ordered<result>(std::span<const ComPtr<IUIAutomationElement>>(candidates),root,evaluate,expand,record,expired))return std::move(*selected);
-    if(!expired())info.stage=18;
+    auto record=[&](const auto& candidate,p::candidate_source source_kind){candidates.push_back(candidate);info.candidates=static_cast<int>(candidates.size());trace.candidate(static_cast<int>(source_kind));};
+    if(auto selected=p::evaluate_focus_then_hit<result>(root,focus_path,hit_path,evaluate,expand,record,timed))return std::move(*selected);
+    if(!timed(p::timeout_check::after_candidate))info.stage=18;
 
     std::unique_ptr<copy_evidence> copy;
-    if(!expired()&&source_current(in,source.value,start)&&focused)  {
+    if(!timed(p::timeout_check::before_copy)&&source_current(in,source.value,start)&&focused)  {
         bool included=std::any_of(candidates.begin(),candidates.end(),[&](const auto& c) {
             return equal(api.Get(),c.Get(),focused.Get());
         });
@@ -476,9 +474,9 @@ std::int64_t elapsed(clock_type::time_point start)  {
             }
         }
     } if(!source_current(in,source.value,start))return finish("Stale");
-    bool timeout=expired();
+    bool timeout=timed(p::timeout_check::final_empty);
     auto out=finish(timeout?"SoftTimeout":"EmptyOrUnsupported");
-    if(soft.observe(out.elapsed,info.stage)){out.status="SoftTimeout";out.stage=soft.stage_or(info.stage);}
+    if(soft.observe(out.elapsed,info.stage)){trace.timeout(static_cast<int>(p::timeout_check::finish_snapshot));out.status="SoftTimeout";out.stage=soft.stage_or(info.stage);}
     else {info.stage=19;out.stage=19;}
     out.start=start;
     if(!p::soft_expired(out.elapsed))out.copy=std::move(copy);
@@ -491,7 +489,7 @@ std::int64_t elapsed(clock_type::time_point start)  {
         first=false;
         stream<<value;
     }stream<<']';
-} std::string metadata(const result& r,const std::array<std::int64_t,18>* timings)  {
+} std::string metadata(const result& r,const std::array<std::int64_t,18>* timings,const std::array<std::int64_t,7>* progress)  {
     std::ostringstream out;
     out.imbue(std::locale::classic());
     out.precision(17);
@@ -521,7 +519,8 @@ std::int64_t elapsed(clock_type::time_point start)  {
         bool first=true;
         for(auto value:*timings){if(!first)out<<',';first=false;if(value==-2)out<<"null";else out<<value;}
         out<<']';
-    }out<<'}';
+    }if(progress){out<<",\"ProgressDiagnostic\":[";bool first=true;for(auto value:*progress){if(!first)out<<',';first=false;if(value==-2)out<<"null";else out<<value;}out<<']';}
+    out<<'}';
     return out.str();
 } std::string utf8(const std::wstring& text)  {
     if(text.empty())return  {
@@ -594,7 +593,7 @@ std::int64_t elapsed(clock_type::time_point start)  {
         out.hr=f.hr;
         out.elapsed=elapsed(origin);
     } marks.reach(11,false);
-    auto meta=metadata(out,in.timing?&trace.values:nullptr);
+    auto meta=metadata(out,in.timing?&trace.values:nullptr,in.timing?&trace.progress:nullptr);
     auto text=utf8(out.text);
     marks.reach(11,true);
     marks.reach(12,false);

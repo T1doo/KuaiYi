@@ -1,6 +1,6 @@
 namespace KuaiYi.Contracts;
 public sealed record SelectionCaptureMetadata(string Status,int RangeCount,int CandidateCount,double ElapsedMs,
-    int[]? RuntimeId=null,double[]? RangeRectangles=null,double[]? ControlRectangle=null,long ProcessStartUtcTicks=0,CopyCompatibilityMetadata? Copy=null,SelectionBrokerDiagnostic? Diagnostic=null,long?[]? PhaseTimings=null);
+    int[]? RuntimeId=null,double[]? RangeRectangles=null,double[]? ControlRectangle=null,long ProcessStartUtcTicks=0,CopyCompatibilityMetadata? Copy=null,SelectionBrokerDiagnostic? Diagnostic=null,long?[]? PhaseTimings=null,long?[]? ProgressDiagnostic=null);
 
 public enum SelectionBrokerStage { Unknown, SourceIdentity, SensitiveCheck, Root, Focus, Hit, Password, FocusAncestors, HitAncestors, Descendants, CandidatePassword, TextPattern, ControlBounds, SelectionRanges, RangeBounds, RangeText, FinalIdentity, RuntimeId, CopyEvidence, Completed, MetadataSerialize }
 public enum SelectionBrokerException { None, Com, InvalidOperation, Win32, AccessDenied, ElementUnavailable, Argument, NullReference, NotSupported, TypeLoad, FileLoad }

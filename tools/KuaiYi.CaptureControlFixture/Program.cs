@@ -33,7 +33,7 @@ if(args.Length==11&&args[0]=="--selection-fixture")
     if(fault=="broker-failure")meta=new("BrokerFailure",0,0,5,Diagnostic:new(SelectionBrokerStage.MetadataSerialize,SelectionBrokerException.Argument,unchecked((int)0x80070057)));
     if(fault.StartsWith("copy-",StringComparison.Ordinal))meta=new(fault=="copy-status"?"Unknown":"EmptyOrUnsupported",0,3,5,ProcessStartUtcTicks:start,Copy:new(fault=="copy-focus"?0:234,fault=="copy-runtime"?[]:[12,4],fault=="copy-control"?[0,0,-1,20]:[0,0,500,200],fault=="copy-association"?[1000,1000,100,20]:[0,0,100,20],true));
     var request=fault=="identity"?Guid.NewGuid():id;
-    if(timing)meta=meta with{PhaseTimings=[0,200,200,210,210,240,240,245,245,251,251,252,252,253,253,254,254,255]};
+    if(timing)meta=meta with{PhaseTimings=[0,200,200,210,210,240,240,245,245,251,251,252,252,253,253,254,254,255],ProgressDiagnostic=fault=="soft"?[4,1,1,2,1,245,251]:[0,0,1,1,1,2,3]};
     await IpcFrameCodec.WriteAsync(stream,new(fault=="role"?IpcMessageType.ImageResult:IpcMessageType.Ping,request,System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(meta)));
     await IpcFrameCodec.WriteAsync(stream,new(IpcMessageType.BinaryChunk,request,System.Text.Encoding.UTF8.GetBytes(fault.StartsWith("copy-",StringComparison.Ordinal)||fault=="broker-failure"?"":fault=="oversize"?new string('a',100002):"public selected\n  code")));
     if(fault=="extra")await IpcFrameCodec.WriteAsync(stream,new(IpcMessageType.Ping,id,[]));await stream.FlushAsync();return 0;

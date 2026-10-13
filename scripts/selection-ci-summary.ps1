@@ -19,6 +19,26 @@ function ConvertTo-PhaseTimingSummary($Rows) {
     }
     return ,$result
 }
+function Assert-NormalDiagnosticDelivery($Case,$Observation) {
+    $normal=@{Success=@('Success');SoftTimeout=@('SoftTimeout','Success');Sensitive=@('Sensitive','SensitiveOrElevated','UnsupportedOrProtected');Stale=@('Stale');TooLarge=@('TooLarge','TooLargeOrInvalidUnicode');EmptyOrUnsupported=@('EmptyOrUnsupported')}
+    if(-not $normal.ContainsKey($Case.Outcome) -or -not $Case.BrokerSettled -or $Observation.Stage -ceq 'Unknown' -or $Observation.Status -cnotin $normal[$Case.Outcome]){throw 'Incomplete diagnostic delivery'}
+}
+function ConvertTo-ProgressSummary($r) {
+    if($r.Checkpoint -cnotin @('None','FocusAncestors','HitAncestors','BeforeCandidate','BeforeRange','FinalIdentity','AfterRuntime','AfterCandidate','BeforeBfs','BfsExpansion','FinalEmpty','FinishSnapshot','BeforeCopy') -or $r.TimeoutSource -cnotin @('None','Focus','Hit','Bfs') -or $r.BatchSource -cnotin @('None','Focus','Hit','Bfs') -or $r.Checkpoint -ceq 'None' -and $r.TimeoutSource -cne 'None'){throw 'Progress identity invalid'}
+    if($r.CountState -ceq 'Observed') {
+        Assert-SelectionInteger $r.RangeTotal 0 64;Assert-SelectionInteger $r.RangeCompleted 0 64
+        if($r.RangeCompleted -gt $r.RangeTotal -or $r.BatchSource -ceq 'None'){throw 'Progress count invalid'}
+    } elseif($r.CountState -cne 'Unknown' -or $null -ne $r.RangeTotal -or $null -ne $r.RangeCompleted){throw 'Progress count invalid'}
+    if($r.TextState -ceq 'Measured') {
+        foreach($n in @('TextStartMs','TextEndMs','TextDurationMs')){Assert-SelectionInteger $r.$n 0 600}
+        if($r.TextEndMs -lt $r.TextStartMs -or $r.TextDurationMs -ne $r.TextEndMs-$r.TextStartMs){throw 'Progress time invalid'}
+    } elseif($r.TextState -ceq 'Started') {
+        Assert-SelectionInteger $r.TextStartMs 0 600
+        if($null -ne $r.TextEndMs -or $null -ne $r.TextDurationMs){throw 'Progress time invalid'}
+    } elseif($r.TextState -cnotin @('NotRun','OverLimit') -or $null -ne $r.TextStartMs -or $null -ne $r.TextEndMs -or $null -ne $r.TextDurationMs){throw 'Progress time invalid'}
+    if($r.TextState -cne 'NotRun' -and $r.BatchSource -ceq 'None'){throw 'Progress source invalid'}
+    return [pscustomobject][ordered]@{Checkpoint=$r.Checkpoint;TimeoutSource=$r.TimeoutSource;BatchSource=$r.BatchSource;CountState=$r.CountState;RangeTotal=$r.RangeTotal;RangeCompleted=$r.RangeCompleted;TextState=$r.TextState;TextStartMs=$r.TextStartMs;TextEndMs=$r.TextEndMs;TextDurationMs=$r.TextDurationMs}
+}
 function Assert-SelectionInteger($Value, [int]$Minimum, [int]$Maximum) {
     if (($Value -isnot [int] -and $Value -isnot [long]) -or $Value -lt $Minimum -or $Value -gt $Maximum) { throw 'Invalid integer evidence' }
 }
@@ -45,7 +65,7 @@ function ConvertTo-SelectionSummary($Report, [int]$ChildExit, [string]$Commit, [
         $key=$view.Application+'/'+$view.View
         if ($seen.ContainsKey($key)) { throw 'Duplicate view' }; $seen[$key]=$true
         foreach ($name in @('SequenceCompleted','BrokerCleanup','ApplicationCleanup','ProfileDeleted')) { if ($view.$name -isnot [bool]) { throw 'Invalid cleanup evidence' } }
-        $correct=0; $mismatches=0; $outcomes=[ordered]@{};$observations=@();$exitCodes=@();$boundaries=@();$markerSetups=@();$timings=@()
+        $correct=0; $mismatches=0; $outcomes=[ordered]@{};$observations=@();$exitCodes=@();$boundaries=@();$markerSetups=@();$timings=@();$progress=@()
         for ($i=0; $i -lt $perView; $i++) {
             $case=$view.Cases[$i]
             Assert-SelectionInteger $case.Index $i $i
@@ -83,11 +103,13 @@ function ConvertTo-SelectionSummary($Report, [int]$ChildExit, [string]$Commit, [
             if($TimingDiagnostic) {
                 $phase=$null
                 if($null -ne $case.PSObject.Properties['PhaseTimings'] -and $null -ne $case.PhaseTimings) {
-                    $normal=@{Success=@('Success');SoftTimeout=@('SoftTimeout','Success');Sensitive=@('Sensitive','SensitiveOrElevated','UnsupportedOrProtected');Stale=@('Stale');TooLarge=@('TooLarge','TooLargeOrInvalidUnicode');EmptyOrUnsupported=@('EmptyOrUnsupported')}
-                    if(-not $normal.ContainsKey($case.Outcome) -or -not $case.BrokerSettled -or $observation.Stage -ceq 'Unknown' -or $observation.Status -cnotin $normal[$case.Outcome]){throw 'Incomplete timing delivery'}
+                    Assert-NormalDiagnosticDelivery $case $observation
                     $phase=ConvertTo-PhaseTimingSummary $case.PhaseTimings
                 }
                 $timings+=,$phase
+                $detail=$null
+                if($null -ne $case.PSObject.Properties['ProgressDiagnostic'] -and $null -ne $case.ProgressDiagnostic){Assert-NormalDiagnosticDelivery $case $observation;$detail=ConvertTo-ProgressSummary $case.ProgressDiagnostic}
+                $progress+=,$detail
             }
             $boundaries+=,$reached;$markerSetups+=,$setup
             $exitCodes+=,$exitCode
@@ -98,7 +120,7 @@ function ConvertTo-SelectionSummary($Report, [int]$ChildExit, [string]$Commit, [
         $observed=$view.Reason -ceq 'Completed' -and $view.SequenceCompleted -and $view.BrokerCleanup -and $view.ApplicationCleanup -and $view.ProfileDeleted -and @($view.Cases | Where-Object {-not $_.BrokerSettled}).Count -eq 0
         if ((-not $DiagnosticOnly -and (($view.Status -ceq 'Pass') -ne $pass)) -or ($DiagnosticOnly -and (($view.Status -ceq 'Observed') -ne $observed)) -or $view.Status -ceq 'Blocked' -and ($correct -ne 0 -or $outcomes.Count -ne 1 -or -not $outcomes.Contains('NotRun'))) { throw 'Invalid view status' }
         $projectedView=[pscustomobject][ordered]@{Application=$view.Application;Version=$view.Version;View=$view.View;Status=$view.Status;Reason=$view.Reason;SequenceCompleted=$view.SequenceCompleted;Planned=$perView;Correct=$correct;Mismatches=$mismatches;Outcomes=[pscustomobject]$outcomes;BrokerObservations=$observations;BrokerExitCodes=$exitCodes;LastReachedBoundaries=$boundaries;BoundaryMarkerSetups=$markerSetups;BrokerCleanup=$view.BrokerCleanup;ApplicationCleanup=$view.ApplicationCleanup;ProfileDeleted=$view.ProfileDeleted}
-        if($TimingDiagnostic){$projectedView | Add-Member PhaseTimings $timings}
+        if($TimingDiagnostic){$projectedView | Add-Member PhaseTimings $timings;$projectedView | Add-Member ProgressDiagnostic $progress}
         $views+= $projectedView
     }
     $status=if (@($views | Where-Object Status -CEQ 'Fail').Count -gt 0) {'Fail'} elseif (@($views | Where-Object Status -CEQ 'Blocked').Count -gt 0) {'Blocked'} elseif ($DiagnosticOnly) {'Observed'} else {'Pass'}
