@@ -1,4 +1,4 @@
-name: Six Windows SDK COM differential calls (not acceptance)
+name: Bounded Windows SDK compile evidence (no UIA)
 on:
   push:
     branches: [dev/p0-com-selection-diagnostic]
@@ -23,12 +23,12 @@ jobs:
           persist-credentials: false
           set-safe-directory: false
           fetch-depth: 1
-      - name: Verify selection receipt boundary
+      - name: Verify compiler evidence redaction
         shell: pwsh
         run: |
-          & ./tests/scripts/selection-ci-summary.test.ps1
-      - name: Diagnose six public selections through official SDK COM
+          & ./tests/scripts/sdk-compile-evidence.test.ps1
+      - name: Compile SDK probe only and emit fixed error evidence
         shell: pwsh
         run: |
-          & ./scripts/run-windows-selection-ci.ps1 -DiagnosticOnly -ComDiagnostic
+          & ./scripts/run-windows-sdk-build-ci.ps1
           exit $LASTEXITCODE

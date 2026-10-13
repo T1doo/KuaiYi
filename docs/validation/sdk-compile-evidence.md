@@ -1,0 +1,19 @@
+# SDK 仅编译取证与修复
+
+起点为干净 `6f26b02be9c21fe90b4f0144a3fe6907a3e5fcc0`，分支 `dev/p0-com-selection-diagnostic`。上次 run38385630442/job115256586368 的固定状态为 SdkBuildFailed，SDK COM 六场景 NotRun；没有足够证据推断是签名、编译警告、链接、manifest 或其他构建问题。
+
+监督方现明确授权公开有限官方错误码、固定仓库源码类别及有界行号，并允许同一免费范围内仅编译取证；仍不得公开任意路径、命令行、原文、环境或私有日志。没有新的权限、凭据、安装、费用或生产默认切换。
+
+## 实现与纯测试
+
+`sdk-compile-evidence.ps1` 只接受有限的官方 MSVC/链接/MSBuild/manifest 代码白名单；未列出的匹配代码归 Unknown。每项只含 Code、Source、Line：源码类别 Probe/Policy/Unknown，位置只识别 ComCaptureProbe.cpp 与 SelectionPolicy.h 且仅解析错误分隔符之前的定位信息，行号 1—100000。未知文件或坏/越界位置为 Unknown/null。输出去重、至多16项；输入至多4Mi字符，每行至多8192字符。丢弃整条消息、路径、命令、环境、指针、文件名与私有日志，不将空证据当成构建成功。
+
+合成秘密测试覆盖 private path/token/环境/指针/消息、重复错误、未知代码/文件、消息中伪造第二诊断、0/负/大数/字符串行号、文件名后缀与前缀、MSBuild前缀、官方 command-line warning、manifest错误、空/超长输入和16项上限。**37/37 Pass**。环境检查调用点隔离2—6输出流，新增含合成秘密的全流测试确认成功返回值保留而其余流不可见。独审发现此缺口后修正，仅修改新runner调用点。仅编译 runner 的 PowerShell 语法解析 Pass；该纯测不是 Windows SDK 编译证明。
+
+## Windows 门槛
+
+新 workflow 仅配置/编译 `tools/KuaiYi.ComCaptureProbe`：现有 windows-2022、VS2022/v143精确补丁、SDK26100，read-only，15分钟上限。保留 `/W4 /WX`，不改变原生源码以猜测规避错误。依赖及SDK缺失标为 Blocked；configure/build各自记录实际进程退出码，摘要 ExitCode 独立表示门槛结论。raw输出仅本地忽略文件；公开仅白名单结构。只有构建返回0且预期exe确实存在才 BuildStatus Pass，未知/空错误码仍保持真实失败。
+
+入口不启动生成的exe、浏览器、用户应用、UIA、OCR、剪贴板或模型，不执行六场景、120项、GetData；因此 Uia 始终 NotRun。先独审精确冻结，再执行一次仅编译 CI；取得实际错误后做针对源码/构建配置的最小修复，保留所有安全/时间门与 `/WX`，不凭猜测改接口。是否已有 Windows 修复后验证必须分开记录，不将离线修改或纯测试记为 SDK 编译通过。
+
+原 GetData CODE 与 Actions SHA `220060f813a3640487d593920a1b1824aa779a00` 保留独立，不重跑。SDK COM 实际取词、原两个超时、Win11 物理划词、PDF/Markdown、多DPI/安装与P0整体无新增通过结论。
