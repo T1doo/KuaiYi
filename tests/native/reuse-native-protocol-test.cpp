@@ -12,5 +12,7 @@ int main(){
     auto soft=r::reply(begin,3,6,251,true,false);require(soft[4]==6&&soft[5]==0&&r::field<std::int64_t>(soft,48)==251);
     auto quiet=r::reply(begin,4,6,252,true,true);require(quiet[3]==2&&quiet[5]==0&&r::field<std::uint16_t>(quiet,8)==0&&quiet[10]==0);
     require(std::equal(begin.begin()+12,begin.begin()+48,quiet.begin()+12));
+    for(const auto& value:std::initializer_list<std::pair<std::string_view,unsigned char>>{{"Success",1},{"EmptyOrUnsupported",2},{"Sensitive",3},{"SensitiveOrElevated",3},{"Stale",4},{"TooLarge",5},{"TooLargeOrInvalidUnicode",5},{"SoftTimeout",6},{"UnsupportedOrProtected",9},{"BrokerFailure",8},{"Unknown",8},{"",8}})require(r::status_code(value.first)==value.second);
+    require(r::status_code("UnsupportedOrProtected")!=r::status_code("Sensitive"));
     std::cout<<"REUSE_NATIVE_PROTOCOL passed="<<checks<<" failed=0; portable packet layout, Windows worker NotRun\n";
 }

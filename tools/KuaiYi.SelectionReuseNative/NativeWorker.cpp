@@ -11,7 +11,6 @@ enum class input_state { complete,closed,truncated,error };
 input_state read_packet(packet& bytes){std::size_t offset=0;while(offset<bytes.size()){DWORD done=0;if(!ReadFile(GetStdHandle(STD_INPUT_HANDLE),bytes.data()+offset,static_cast<DWORD>(bytes.size()-offset),&done,nullptr)){return GetLastError()==ERROR_BROKEN_PIPE?(offset==0?input_state::closed:input_state::truncated):input_state::error;}if(done==0)return offset==0?input_state::closed:input_state::truncated;offset+=done;}return input_state::complete;}
 bool write_packet(const packet& bytes){std::size_t offset=0;while(offset<bytes.size()){DWORD done=0;if(!WriteFile(GetStdHandle(STD_OUTPUT_HANDLE),bytes.data()+offset,static_cast<DWORD>(bytes.size()-offset),&done,nullptr)||done==0)return false;offset+=done;}return true;}
 std::int64_t request_age(std::int64_t origin){LARGE_INTEGER now{},frequency{};wincheck(QueryPerformanceCounter(&now)!=FALSE&&QueryPerformanceFrequency(&frequency)!=FALSE);if(frequency.QuadPart<=0||origin<=0||origin>now.QuadPart)throw failure{E_INVALIDARG};auto ms=static_cast<long double>(now.QuadPart-origin)*1000/static_cast<long double>(frequency.QuadPart);return ms>=600?600:static_cast<std::int64_t>(ms);}
-unsigned char status_code(const result& value){if(value.status=="Success")return 1;if(value.status=="EmptyOrUnsupported")return 2;if(value.status=="Sensitive"||value.status=="SensitiveOrElevated"||value.status=="UnsupportedOrProtected")return 3;if(value.status=="Stale")return 4;if(value.status=="TooLarge"||value.status=="TooLargeOrInvalidUnicode")return 5;if(value.status=="SoftTimeout")return 6;return 8;}
 r::request_bytes encode_text(const r::request_wstring& text){if(text.empty())return {};if(text.size()>100002)throw failure{E_INVALIDARG};int n=WideCharToMultiByte(CP_UTF8,WC_ERR_INVALID_CHARS,text.data(),static_cast<int>(text.size()),nullptr,0,nullptr,nullptr);wincheck(n>0);r::request_bytes bytes(static_cast<std::size_t>(n),'\0');wincheck(WideCharToMultiByte(CP_UTF8,WC_ERR_INVALID_CHARS,text.data(),static_cast<int>(text.size()),bytes.data(),n,nullptr,nullptr)==n);return bytes;}
 int wmain(int argc,wchar_t** argv){
     static_assert(sizeof(wchar_t)==2&&sizeof(void*)==8&&std::endian::native==std::endian::little);
@@ -46,7 +45,7 @@ int wmain(int argc,wchar_t** argv){
                     try{if(request_age(origin)>=250)out.status="SoftTimeout";else out=capture(in,marks,capture_origin,info,trace,automation.Get());}
                     catch(const failure& f){out.status=f.hr==UIA_E_ELEMENTNOTAVAILABLE?"Stale":"UnsupportedOrProtected";}
                     catch(const std::exception&){out.status="BrokerFailure";}
-                    outcome=status_code(out);
+                    outcome=r::status_code(std::string_view(out.status));
                     // Native diagnostic never transmits selected text or a text-derived hash.
                     // Validate/erase the owned UTF-8 copy, then wipe all own wstrings on scope exit.
                     auto encoded=encode_text(out.text);(void)encoded;

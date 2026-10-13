@@ -1,6 +1,6 @@
 $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
-# Pure 57 remain a distinct mode. This then executes only the 44 real synthetic-process cases.
+# Pure 57 remain a distinct mode. This then executes only the 45 real synthetic-process cases.
 & (Join-Path $PSScriptRoot 'run-selection-reuse-offline.ps1')
 if($LASTEXITCODE -ne 0){throw 'Pure prototype prerequisites failed.'}
 $repo=Split-Path (Split-Path $PSScriptRoot -Parent) -Parent

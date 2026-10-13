@@ -4,7 +4,19 @@
 #include <cstring>
 #include <bit>
 #include <algorithm>
+#include <string_view>
 namespace kuaiyi::reuse {
+// Fixed diagnostic outcomes; protected/unsupported failure is distinct from known sensitivity.
+inline unsigned char status_code(std::string_view status){
+    if(status=="Success")return 1;
+    if(status=="EmptyOrUnsupported")return 2;
+    if(status=="Sensitive"||status=="SensitiveOrElevated")return 3;
+    if(status=="Stale")return 4;
+    if(status=="TooLarge"||status=="TooLargeOrInvalidUnicode")return 5;
+    if(status=="SoftTimeout")return 6;
+    if(status=="UnsupportedOrProtected")return 9;
+    return 8;
+}
 using packet=std::array<unsigned char,96>;
 template<class T> T field(const packet& bytes,std::size_t offset){T value{};std::memcpy(&value,bytes.data()+offset,sizeof(T));return value;}
 template<class T> void put(packet& bytes,std::size_t offset,T value){std::memcpy(bytes.data()+offset,&value,sizeof(T));}

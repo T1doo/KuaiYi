@@ -1,6 +1,6 @@
 Set-StrictMode -Version Latest
 # Public detail is only a finite code, fixed repository/SDK category and bounded line.
-function Get-SdkCompilerEvidence([string]$Output) {
+function Get-SdkCompilerEvidence([string]$Output, [ValidateSet('Capture','NativeReuse')][string]$Profile='Capture') {
     if ($null -eq $Output -or $Output.Length -gt 4194304) { return }
     $allowed=@('C1001','C1083','C2001','C2011','C2039','C2061','C2065','C2079','C2143','C2146','C2182','C2220','C2440','C2504','C2511','C2660','C2664','C2672','C2678','C2993','C3646','C3861','C4099','C4127','C4172','C4189','C4244','C4245','C4267','C4389','C4456','C4458','C4800','C4996','D8003','D8004','D8021','D9002','D9024','D9025','LNK1104','LNK1112','LNK1120','LNK2001','LNK2019','MSB8003','MSB8020','MSB8036','MSB8066','C1010001')
     $allowed+=@('C2059','C4430')
@@ -12,6 +12,7 @@ function Get-SdkCompilerEvidence([string]$Output) {
         'objidl.h'='SdkOle';'objidlbase.h'='SdkOle';'objbase.h'='SdkOle';'combaseapi.h'='SdkOle';'unknwn.h'='SdkOle'
         'rpc.h'='SdkRpc';'rpcndr.h'='SdkRpc';'rpcsal.h'='SdkRpc'
     }
+    if($Profile -ceq 'NativeReuse'){$files=@{'nativeworker.cpp'='NativeWorker';'selectioncapture.h'='SelectionCapture';'requestlifetime.h'='RequestLifetime';'nativeprotocol.h'='NativeProtocol'}}
     $seen=@{};$count=0
     foreach($line in ($Output -split '\r?\n')) {
         if ($line.Length -gt 8192) { continue }
@@ -27,7 +28,7 @@ function Get-SdkCompilerEvidence([string]$Output) {
             $candidate=[int]$known.Groups['Line'].Value
             $basename=($known.Groups['Path'].Value -split '[\\/]')[-1].ToLowerInvariant()
             if($candidate -ge 1 -and $candidate -le 100000 -and $files.ContainsKey($basename)){$source=$files[$basename];$number=$candidate}
-            elseif($candidate -ge 1 -and $candidate -le 100000 -and $known.Groups['Path'].Value -match '(?:^|[\\/])wrl[\\/]client\.h$'){$source='WrlClient';$number=$candidate}
+            elseif($Profile -ceq 'Capture' -and $candidate -ge 1 -and $candidate -le 100000 -and $known.Groups['Path'].Value -match '(?:^|[\\/])wrl[\\/]client\.h$'){$source='WrlClient';$number=$candidate}
         }
         $key=$code+'/'+$source+'/'+$number
         if($seen.ContainsKey($key)){continue};$seen[$key]=$true

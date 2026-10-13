@@ -7,7 +7,7 @@ namespace KuaiYi.SelectionReusePrototype;
 public enum ReuseState { Disabled, Fresh, Running, ResetPending, Idle, Retiring, Exited }
 public enum ReuseFailure { None, Protocol, ConcurrentRequest, IdentityChanged, Cancelled, HardTimeout, ResetFailed, Crash, Exhausted, InitializationFailed }
 public enum ReuseKind : byte { Begin=1, Initialized=2, Completed=3, Quiescent=4, InitializationFailed=5 }
-public enum ReuseOutcome : byte { None, Success, Empty, Sensitive, Stale, TooLarge, SoftTimeout, InitializationFailed, BrokerFailure }
+public enum ReuseOutcome : byte { None, Success, Empty, Sensitive, Stale, TooLarge, SoftTimeout, InitializationFailed, BrokerFailure, UnsupportedOrProtected }
 [Flags] public enum PersistentResources : ushort { None=0, WindowlessMta=1, Automation=2 }
 [Flags] public enum RequestResources : ushort { None=0, Root=1, Focus=2, Hit=4, Pattern=8, Range=16, Attributes=32, Text=64, Buffers=128 }
 public readonly record struct ReuseTarget(int Pid,long StartTicks,long Hwnd)
@@ -44,7 +44,7 @@ public static class ReuseFrameCodec
     private static void Validate(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length!=Size||bytes[0]!=2||bytes[1] is <1 or >5||bytes[2] is <1 or >2||
-            bytes[3]>3||bytes[4]>8||bytes[5]>MaxPayload||bytes[10]>64||bytes[11]!=0||
+            bytes[3]>3||bytes[4]>9||bytes[5]>MaxPayload||bytes[10]>64||bytes[11]!=0||
             BinaryPrimitives.ReadUInt16LittleEndian(bytes[6..])>3||BinaryPrimitives.ReadUInt16LittleEndian(bytes[8..])>255||
             bytes[56..64].ContainsAnyExcept((byte)0)||bytes[(64+bytes[5])..].ContainsAnyExcept((byte)0))
             throw new InvalidDataException("Frame bounds.");

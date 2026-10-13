@@ -4,7 +4,7 @@ using KuaiYi.SelectionReusePrototype;
 using KuaiYi.SelectionReuseDiagnostic;
 
 // Real synthetic child; the resource bits below are fixture declarations, not COM objects.
-if(args.Length!=2||args[0]!="--synthetic-child"||args[1] is not ("normal" or "fragmented" or "truncated" or "disconnect" or "extra" or "hang" or "late" or "crash" or "reset-failed" or "pending" or "mismatch" or "soft" or "empty" or "sensitive" or "init-failed" or "crash-other" or "stderr-flood" or "init-soft" or "stale"))return 2;
+if(args.Length!=2||args[0]!="--synthetic-child"||args[1] is not ("normal" or "fragmented" or "truncated" or "disconnect" or "extra" or "hang" or "late" or "crash" or "reset-failed" or "pending" or "mismatch" or "soft" or "empty" or "sensitive" or "init-failed" or "crash-other" or "stderr-flood" or "init-soft" or "stale" or "protected"))return 2;
 string mode=args[1];using var input=Console.OpenStandardInput();using var output=Console.OpenStandardOutput();
 Guid previous=Guid.Empty;ReuseTarget? identity=null;
 for(byte sequence=1;sequence<=2;sequence++)
@@ -27,7 +27,7 @@ for(byte sequence=1;sequence<=2;sequence++)
         if(sequence==1)await Send(frame with{Kind=ReuseKind.Initialized});
         if(mode=="truncated")
         {var partial=ReuseFrameCodec.Encode(frame with{Kind=ReuseKind.Completed,Outcome=ReuseOutcome.Success});try{await output.WriteAsync(partial.AsMemory(0,48));await output.FlushAsync();}finally{CryptographicOperations.ZeroMemory(partial);}return 0;}
-        var outcome=mode switch{"soft"=>ReuseOutcome.SoftTimeout,"empty"=>ReuseOutcome.Empty,"sensitive"=>ReuseOutcome.Sensitive,"stale"=>ReuseOutcome.Stale,_=>ReuseOutcome.Success};
+        var outcome=mode switch{"soft"=>ReuseOutcome.SoftTimeout,"empty"=>ReuseOutcome.Empty,"sensitive"=>ReuseOutcome.Sensitive,"stale"=>ReuseOutcome.Stale,"protected"=>ReuseOutcome.UnsupportedOrProtected,_=>ReuseOutcome.Success};
         byte[] payload=outcome!=ReuseOutcome.Success?[]:mode=="mismatch"?[4,5,6]:[1,2,3];
         try{await Send(frame with{Kind=ReuseKind.Completed,Outcome=outcome,Payload=payload});}finally{CryptographicOperations.ZeroMemory(payload);}
         if(outcome==ReuseOutcome.Stale)return 0;
