@@ -39,3 +39,16 @@ Uia **NotRun**，ModelCalls **0**；未启动生成程序、Broker、浏览器�
 逐项静态核对微软官方 win32metadata：UIAutomation.h包含Core/Client/CoreApi；Core导入oaidl/oleacc，二者引windows/ole2，oaidl引objidl；Client引Core。生产源参数对应声明：ElementFromHandle(UIA_HWND, Element**)，ElementFromPoint(POINT, Element**)，GetCurrentPatternAs(PATTERNID, REFIID, void**)，TextPattern.GetSelection(TextRangeArray**)，TextRange.GetBoundingRectangles(SAFEARRAY**)，TextRange.GetText(int, BSTR*)，CurrentNativeWindowHandle(UIA_HWND*)；WRL ComPtr输出地址与对应指针类型相符。未发现可从现有证据离线确定的接口/包含修复，因此不修改接口与所有权逻辑，/WX保留。依据监督方追加指导和微软UIAutomationDocumentClient示例，在windows.h后、UIAutomation.h前显式include ole2.h作为单行候选修复；聚合头可能已有间接包含，不宣称已确定根因。这些上游main声明核对不是对实际SDK26100编译成功的替代。
 
 参考：[微软同类示例包含顺序](https://github.com/microsoft/Windows-classic-samples/blob/main/Samples/UIAutomationDocumentClient/cpp/UiaDocumentClient.cpp)、[MSVC定位格式](https://learn.microsoft.com/en-us/cpp/build/formatting-the-output-of-a-custom-build-step-or-build-event?view=msvc-170)、[官方C4430文档](https://github.com/MicrosoftDocs/cpp-docs/blob/main/docs/error-messages/compiler-warnings/compiler-warning-c4430.md)、[官方UIAutomationClient声明](https://github.com/microsoft/win32metadata/blob/main/generation/WinSDK/RecompiledIdlHeaders/um/UIAutomationClient.h)。新一次CI仍只编译、不启动UIA，需精确冻结独审后执行；新结果待测。
+
+
+## 本轮唯一仅编译 CI：Pass
+
+代码与 Actions SHA 均为 `1e69b5d075952e82c43cba616e460d793fa64130`，tree `f300fa85df40b5c3bdccee910a51342054037c56`，父提交 `acd67c4a81e8908ba7d589231a308246bd84b5e5`。精确独审本地冻结 `694ca4a84db216adabd40091815c5712f4e7bf0f` 与其树一致。仅一次 [run38390705858](https://github.com/T1doo/KuaiYi/actions/runs/38390705858)，job115273500883，attempt1，结论 **success**。
+
+Windows 脱敏合约 **91/91 Pass**。实际 ConfigureExit **0** / ConfigureStatus Pass；实际 BuildExit **0** / BuildStatus Pass；预期 exe 存在（runner成功门已核），总 Status Pass / Reason Completed / ExitCode **0**，CompilerFaults为空。CMake原有 `/W4 /WX /EHsc`、SDK/VS版本选择与所有接口代码未改，唯一原生差异为显式 `#include <ole2.h>`。
+
+这证明该版本SDK原生编译/链接与exe存在门通过；此前C2146在当前版本已不再导致构建失败。由于上一原始诊断位置未保留，不声称已确定具体出错头/符号或原始Unknown码；不将无报错误写为旧位置已成功提取。固定SDK类别的格式解析已通过合成正反例，当前真实成功日志没有错误可供验证位置投影。
+
+公开字段 Uia **NotRun** / ModelCalls **0**。严格未运行生成exe、Broker、浏览器、六场景、120项或GetData。SDK真实取词、原GetText边界四次0xC0000005和两个超时是否消失、Win11物理划词/PDF/Markdown/DPI/安装卸载及P0整体仍无新增通过结论。下一步是另行授权的有界SDK COM六场景；编译Pass不能替代这项实测。
+
+公共job日志本地忽略留证 `artifacts/windows-selection/windows-sdkcompile-38390705858.local.log`，**17283 bytes**，SHA256 `3857f8ca5c5a144f37ab6fa394ba79fff3492c76bf88ce2efd86b4f98e31c6e8`。这仍不是runner内部原始编译log。原GetData代码与Actions SHA `220060f813a3640487d593920a1b1824aa779a00` 独立保留、未重跑。
