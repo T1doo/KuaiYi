@@ -43,6 +43,31 @@ Check (@(Get-SdkCompilerEvidence '1>ComCaptureProbe.cpp(25): error C2440: PRIVAT
 Check (@(Get-SdkCompilerEvidence '  2>SelectionPolicy.h(14) : warning C4267: PRIVATE_SENTINEL')[0].Line -eq 14)
 Check (@(Get-SdkCompilerEvidence 'cl : command line warning D9002: PRIVATE_SENTINEL')[0].Code -ceq 'D9002')
 Check (@(Get-SdkCompilerEvidence 'cl : warning D9002: PRIVATE_SENTINEL')[0].Code -ceq 'D9002')
+# SDK source categories and MSVC location grammar remain closed.
+$sdkCases=@(
+    @('UIAutomation.h','SdkUiaApi'),@('UIAutomationCore.h','SdkUiaCore'),@('UIAutomationClient.h','SdkUiaClient'),@('UIAutomationCoreApi.h','SdkUiaApi'),
+    @('oaidl.h','SdkOle'),@('oleacc.h','SdkOle'),@('ole2.h','SdkOle'),@('oleauto.h','SdkOle'),
+    @('objidl.h','SdkOle'),@('objidlbase.h','SdkOle'),@('objbase.h','SdkOle'),@('combaseapi.h','SdkOle'),@('unknwn.h','SdkOle'),
+    @('rpc.h','SdkRpc'),@('rpcndr.h','SdkRpc'),@('rpcsal.h','SdkRpc'),@('wrl\client.h','WrlClient')
+)
+foreach($case in $sdkCases){
+    $r=@(Get-SdkCompilerEvidence "C:\$secret\Windows Kits\10\Include\10.0.26100.0\um\$($case[0])(124,8): error C2146: $secret")
+    Check ($r.Count -eq 1 -and $r[0].Source -ceq $case[1] -and $r[0].Line -eq 124 -and $r[0].Code -ceq 'C2146')
+    Check (($r | ConvertTo-Json) -notmatch 'PRIVATE_SENTINEL|Windows Kits|26100|\.h|[\\/]')
+}
+foreach($location in @('1>C:\private\ComCaptureProbe.cpp(23,8)','  2>  C:/private/ComCaptureProbe.cpp(23, 8)','"C:\private\ComCaptureProbe.cpp"(23,8)','ComCaptureProbe.cpp(23) ')){
+    $r=@(Get-SdkCompilerEvidence ($location+': error C2146: PRIVATE_SENTINEL'))
+    Check ($r.Count -eq 1 -and $r[0].Source -ceq 'Probe' -and $r[0].Line -eq 23)
+}
+foreach($location in @('private.cpp(124,8)','client.h(124,8)','notwrl/client.h(124,8)','NotUIAutomationClient.h(124,8)','UIAutomationClient.h.backup(124,8)','UIAutomationClient.h(0,8)','UIAutomationClient.h(100001,8)','UIAutomationClient.h(-1,8)','UIAutomationClient.h(124,PRIVATE_SENTINEL)','"UIAutomationClient.h(124,8)','UIAutomationClient.h"(124,8)','UIAutomationClient.h(124,8) extra')){
+    $r=@(Get-SdkCompilerEvidence ($location+': error C2146: PRIVATE_SENTINEL'))
+    Check ($r.Count -eq 1 -and $r[0].Source -ceq 'Unknown' -and $null -eq $r[0].Line)
+}
+Check (@(Get-SdkCompilerEvidence 'UIAutomationClient.h(124,8): error C4430: PRIVATE_SENTINEL')[0].Code -ceq 'C4430')
+Check (@(Get-SdkCompilerEvidence 'UIAutomationClient.h(124,8): error C2059: PRIVATE_SENTINEL')[0].Code -ceq 'C2059')
+Check (@(Get-SdkCompilerEvidence 'private.cpp(1): error C9999: UIAutomationClient.h(124,8): error C4430: PRIVATE_SENTINEL')[0].Source -ceq 'Unknown')
+$different=@(Get-SdkCompilerEvidence "UIAutomationCore.h(21,3): error C2146: PRIVATE_SENTINEL`nUIAutomationClient.h(22,4): error C2146: PRIVATE_SENTINEL`nUIAutomationCore.h(23,5): error C2146: PRIVATE_SENTINEL")
+Check ($different.Count -eq 3 -and $different[0].Source -ceq 'SdkUiaCore' -and $different[1].Source -ceq 'SdkUiaClient' -and $different[2].Line -eq 23)
 # Exercise the runner's environment boundary with secrets on every non-success stream.
 function Get-SyntheticCiEnvironment {
     Write-Error $secret -ErrorAction Continue

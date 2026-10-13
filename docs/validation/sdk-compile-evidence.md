@@ -28,3 +28,14 @@ Windows 脱敏合约 **37/37 Pass**。ConfigureStatus Pass / ConfigureExit **0**
 Uia **NotRun**，ModelCalls **0**；未启动生成程序、Broker、浏览器或六场景。job日志私下存入忽略的 `artifacts/windows-selection/windows-sdkcompile-38389154626.local.log`：17460 bytes，SHA256 `cc5eec8b8190571557c1ff712d173405e60c4658d87e3c808ed418ca93813aa7`。runner内部原始编译输出未上传，任务结束后不可回收；此哈希是公共job日志的本地留证，不是内部原始编译log。
 
 已核对微软 [C2146说明](https://learn.microsoft.com/en-us/cpp/error-messages/compiler-errors-1/compiler-error-c2146?view=msvc-170) 与 [win32metadata官方UIAutomation头文件](https://github.com/microsoft/win32metadata/blob/main/generation/WinSDK/RecompiledIdlHeaders/um/UIAutomation.h)：C2146具有多种可能成因，官方头文件内容不能替代当前SDK26100的具体出错位置。当前证据尚不足以确定普通源码修复；原生源码保持未修改，`/W4 /WX` 保留，SDK构建仍 **Fail**，修复后SDK构建 **NotRun**。一次仅编译授权已消费，不自动制造多轮CI。需要监督方据这些实际字段决定下一步最小取证范围，禁止直接继续六场景或声明P0通过。
+
+
+## 定位投影补正（第二次授权范围）
+
+监督方明确允许在相同安全/费用边界增加固定SDK头文件类别，并至多一次必要的免费仅编译CI。只读核查确认旧parser可识别官方 `filename(line,column): error code:` 格式（包括完整Windows路径），此前 Unknown/null 不证明通用正则失效：只允许两个仓库basename，所以SDK头文件被归Unknown；C4430未在码白名单，不能据此反推上一实际Unknown即C4430。
+
+新增官方 C2059/C4430及预定义SDK/OLE/RPC头、WRL client头映射：公开类别仅 SdkUiaCore、SdkUiaClient、SdkUiaApi、SdkOle、SdkRpc、WrlClient（另保留仓库Probe/Policy）。16个固定SDK basename，WRL必须额外匹配 wrl/client.h 路径后缀；其他client.h不被接受。所有来源仍按固定basename分类，分类不是文件真实身份校验。任意其他文件归Unknown/null；位置仅解析首个诊断分隔符之前，兼容有界MSBuild前缀、成对路径引号、列前空格；不返回路径、原basename、列号或正文。行号仍1—100000，16条/输入上限/去重/输出三字段未变。新增格式正反例与全部17映射、同码不同文件/行、未知client头、合成秘密测试，**91/91 Pass**。
+
+逐项静态核对微软官方 win32metadata：UIAutomation.h包含Core/Client/CoreApi；Core导入oaidl/oleacc，二者引windows/ole2，oaidl引objidl；Client引Core。生产源参数对应声明：ElementFromHandle(UIA_HWND, Element**)，ElementFromPoint(POINT, Element**)，GetCurrentPatternAs(PATTERNID, REFIID, void**)，TextPattern.GetSelection(TextRangeArray**)，TextRange.GetBoundingRectangles(SAFEARRAY**)，TextRange.GetText(int, BSTR*)，CurrentNativeWindowHandle(UIA_HWND*)；WRL ComPtr输出地址与对应指针类型相符。未发现可从现有证据离线确定的接口/包含修复，因此不修改接口与所有权逻辑，/WX保留。依据监督方追加指导和微软UIAutomationDocumentClient示例，在windows.h后、UIAutomation.h前显式include ole2.h作为单行候选修复；聚合头可能已有间接包含，不宣称已确定根因。这些上游main声明核对不是对实际SDK26100编译成功的替代。
+
+参考：[微软同类示例包含顺序](https://github.com/microsoft/Windows-classic-samples/blob/main/Samples/UIAutomationDocumentClient/cpp/UiaDocumentClient.cpp)、[MSVC定位格式](https://learn.microsoft.com/en-us/cpp/build/formatting-the-output-of-a-custom-build-step-or-build-event?view=msvc-170)、[官方C4430文档](https://github.com/MicrosoftDocs/cpp-docs/blob/main/docs/error-messages/compiler-warnings/compiler-warning-c4430.md)、[官方UIAutomationClient声明](https://github.com/microsoft/win32metadata/blob/main/generation/WinSDK/RecompiledIdlHeaders/um/UIAutomationClient.h)。新一次CI仍只编译、不启动UIA，需精确冻结独审后执行；新结果待测。
