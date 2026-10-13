@@ -8,7 +8,7 @@ using KuaiYi.Contracts;
 using KuaiYi.Core;
 namespace KuaiYi.NativeHost;
 /// <summary>Only a held owned child may be terminated; restart waits for startup and exit settlement.</summary>
-public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter? starter=null,TimeProvider? clock=null,bool boundaryDiagnostic=false):IAsyncDisposable
+public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter? starter=null,TimeProvider? clock=null,bool boundaryDiagnostic=false,bool timingDiagnostic=false):IAsyncDisposable
 {
     private SelectionBoundaryMap? boundaryMap;
     internal Func<Guid,SelectionBoundaryMap?>? BoundaryFactoryForTest{get;set;}
@@ -21,6 +21,7 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
     private TimeProvider Clock=>clock??TimeProvider.System;
     private static readonly TimeSpan HardBudget=TimeSpan.FromMilliseconds(600);
     private sealed class AbsoluteDeadlineException:TimeoutException;
+    private sealed class TimingDeliveryCancelledException:OperationCanceledException;
     private void CheckDelivery(CancellationToken cancellation,long? started)
     {
         cancellation.ThrowIfCancellationRequested();
@@ -29,6 +30,15 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
     public HostExitState? ExitState{get{lock(sync)return owner?.ExitState;}}
     public SelectionBrokerObservation? LastObservation{get;private set;}
     public int? LastProcessExitCode{get;private set;}
+    public ImmutableArray<SelectionPhaseTiming>? LastPhaseTimings{get;private set;}
+    internal Action? BeforeTimingDeliveryForTest{get;set;}
+    private void PublishTimings(SelectionCaptureMetadata meta,CancellationToken cancellation,long started)
+    {
+        if(!timingDiagnostic)return;
+        var projected=SelectionPhaseTimingProjection.Project(meta.PhaseTimings);
+        BeforeTimingDeliveryForTest?.Invoke();
+        lock(sync){CheckDelivery(cancellation,started);if(disposed)throw new TimingDeliveryCancelledException();LastPhaseTimings=projected;}
+    }
     internal static SelectionBrokerObservation ObserveMetadata(SelectionCaptureMetadata metadata)
     {
         string status=metadata.Status switch{"Success" or "Stale" or "Sensitive" or "SensitiveOrElevated" or "UnsupportedOrProtected" or "SoftTimeout" or "TooLarge" or "TooLargeOrInvalidUnicode" or "EmptyOrUnsupported" or "BrokerFailure"=>metadata.Status,_=>"Unknown"};
@@ -40,7 +50,7 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
         long started=Clock.GetTimestamp();OwnedProcessSession session;DateTimeOffset now=Clock.GetUtcNow();
         lock(sync)
         {
-            LastObservation=null;LastProcessExitCode=null;LastReachedBoundary=null;BoundaryMarkerSetup=boundaryDiagnostic?"NotStarted":"Disabled";
+            LastObservation=null;LastProcessExitCode=null;LastReachedBoundary=null;LastPhaseTimings=null;BoundaryMarkerSetup=boundaryDiagnostic?"NotStarted":"Disabled";
             if(disposed)return new(SelectionCaptureStatus.Cancelled);
             if(paused.TryGetValue(gesture.Window.Executable,out var until)&&now<until)return new(SelectionCaptureStatus.Paused);
             if(owner!=null){if(cleanup?.IsCompleted==true)cleanup=CleanupAsync(owner);return new(SelectionCaptureStatus.CleanupPending);}
@@ -65,6 +75,7 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
                 }
             }
             CheckDelivery(deadline.Token,started);
+            if(timingDiagnostic){if(!boundaryDiagnostic)throw new ArgumentException("Timing requires diagnostic mode.");info.ArgumentList.Add("--phase-timing");}
             // Timer wakes blocked operations; the single monotonic origin decides every delivery.
             var remaining=HardBudget-Clock.GetElapsedTime(started);if(remaining<=TimeSpan.Zero)throw new AbsoluteDeadlineException();deadline.CancelAfter(remaining);
             var process=await session.Start(info,deadline.Token).WaitAsync(deadline.Token).ConfigureAwait(false);
@@ -100,9 +111,9 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
                     if(meta.Status!="EmptyOrUnsupported"||meta.ElapsedMs>250||meta.ProcessStartUtcTicks!=gesture.Window.ProcessStartUtcTicks||copy.FocusHandle==0||copy.RuntimeId is not {Length:>0 and <=64}||copy.ControlRectangle is not {Length:4}||copy.SelectionRectangles==null)throw new InvalidDataException("Untrusted copy evidence.");
                     var bounds=Rectangles(copy.ControlRectangle).Single();var selection=Rectangles(copy.SelectionRectangles);evidence=new(copy.FocusHandle,copy.RuntimeId.ToImmutableArray(),bounds,selection,copy.AutomaticTrusted);if(!SelectionTextPolicy.CopyTrusted(gesture,evidence)&&copy.AutomaticTrusted)throw new InvalidDataException("Copy gesture association missing.");
                 }
-                CheckDelivery(deadline.Token,started);return new(status,CopyEvidence:evidence);
+                CheckDelivery(deadline.Token,started);PublishTimings(meta,deadline.Token,started);return new(status,CopyEvidence:evidence);
             }
-            if(meta.ElapsedMs>250)return new(status=SelectionCaptureStatus.SoftTimeout);
+            if(meta.ElapsedMs>250){PublishTimings(meta,deadline.Token,started);return new(status=SelectionCaptureStatus.SoftTimeout);}
             if(meta.ProcessStartUtcTicks!=gesture.Window.ProcessStartUtcTicks||meta.RuntimeId is not {Length:>0 and <=64}||meta.RangeCount<1)throw new InvalidDataException("Selection source mismatch.");
             string text=new UTF8Encoding(false,true).GetString(second.Payload);
             if(string.IsNullOrWhiteSpace(text)||text.Length>=100002||text.EnumerateRunes().Count()>50000)throw new InvalidDataException("Selection content limit.");
@@ -110,14 +121,17 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
             var result=new SelectionCaptureResult(status,text,ranges,meta.RuntimeId.ToImmutableArray(),control);
             BeforeSelectionDeliveryForTest?.Invoke(payload!);
             CheckDelivery(deadline.Token,started);
+            PublishTimings(meta,deadline.Token,started);
             return result;
         }
+        catch(TimingDeliveryCancelledException){status=SelectionCaptureStatus.Cancelled;return new(status);}
         catch(AbsoluteDeadlineException){status=cancellation.IsCancellationRequested?SelectionCaptureStatus.Cancelled:SelectionCaptureStatus.HardTimeout;return new(status);}
         catch(OperationCanceledException)when(deadline.IsCancellationRequested){status=cancellation.IsCancellationRequested?SelectionCaptureStatus.Cancelled:SelectionCaptureStatus.HardTimeout;return new(status);}
         catch(Exception error)when(error is IOException or InvalidDataException or JsonException or DecoderFallbackException or InvalidOperationException or System.ComponentModel.Win32Exception or OverflowException or ArgumentException){status=SelectionCaptureStatus.ProtocolFailure;return new(status);}
         finally
         {
             if(status is SelectionCaptureStatus.HardTimeout or SelectionCaptureStatus.Cancelled or SelectionCaptureStatus.ProtocolFailure||status==SelectionCaptureStatus.Crash&&LastObservation?.Status!="BrokerFailure")LastObservation=null;
+            if(status is SelectionCaptureStatus.HardTimeout or SelectionCaptureStatus.Cancelled or SelectionCaptureStatus.ProtocolFailure or SelectionCaptureStatus.Crash)LastPhaseTimings=null;
             if(payload!=null)CryptographicOperations.ZeroMemory(payload);
             lock(sync)
             {

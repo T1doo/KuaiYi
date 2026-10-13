@@ -3,6 +3,7 @@
 #include <UIAutomation.h>
 #include <wrl/client.h>
 #include "CandidateOrder.h"
+#include "PhaseTiming.h"
 #include <algorithm>
 #include <chrono>
 #include <cstring>
@@ -141,7 +142,7 @@ struct input  {
     GUID id {
     };
     std::int64_t start=0;
-    bool automatic=false,markers=false;
+    bool automatic=false,markers=false,timing=false;
 };
 struct copy_evidence  {
     std::int64_t focus=0;
@@ -259,7 +260,8 @@ std::int64_t elapsed(clock_type::time_point start)  {
     array_owner array;
     check(e->GetRuntimeId(&array.value));
     return read_array<int>(array.value,VT_I4,64);
-} result capture(const input& in,marker& marks,clock_type::time_point origin,result& info)  {
+} template<class Trace> result capture(const input& in,marker& marks,clock_type::time_point origin,result& info,Trace& trace)  {
+    auto preflight=trace.observe(0);
     p::soft_observation soft;
     auto expired=[&] {
         return soft.observe(elapsed(origin),info.stage);
@@ -283,30 +285,45 @@ std::int64_t elapsed(clock_type::time_point start)  {
     DWORD source_level=integrity(in.pid,marks,1);
     DWORD own_level=integrity(GetCurrentProcessId(),marks,4);
     if(p::elevated(source_level,own_level))return finish("SensitiveOrElevated");
+    preflight.end();
+    auto com_phase=trace.observe(1);
     apartment com;
+    com_phase.end();
     ComPtr<IUIAutomation> api;
+    auto create_phase=trace.observe(2);
     check(CoCreateInstance(__uuidof(CUIAutomation),nullptr,CLSCTX_INPROC_SERVER,IID_PPV_ARGS(api.GetAddressOf())));
+    create_phase.end();
     info.stage=3;
+    auto root_phase=trace.observe(3);
     ComPtr<IUIAutomationElement> root;
     check(api->ElementFromHandle(in.hwnd,&root));
     if(!root)throw failure {
         E_POINTER
     };
+    root_phase.end();
     info.stage=4;
+    auto focus_phase=trace.observe(4);
     ComPtr<IUIAutomationElement> focused;
     check(api->GetFocusedElement(&focused));
+    focus_phase.end();
     info.stage=5;
+    auto hit_phase=trace.observe(5);
     ComPtr<IUIAutomationElement> hit;
     check(api->ElementFromPoint(POINT {
         in.x,in.y
     },&hit));
+    hit_phase.end();
     info.stage=6;
+    auto password_phase=trace.observe(6);
     if((focused&&password(focused.Get()))||password(hit.Get()))return finish("Sensitive");
+    password_phase.end();
+    auto walker_phase=trace.observe(7);
     ComPtr<IUIAutomationTreeWalker> walker;
     check(api->get_ControlViewWalker(&walker));
     if(!walker)throw failure {
         E_POINTER
     };
+    walker_phase.end();
     std::vector<ComPtr<IUIAutomationElement>> candidates;
     std::vector<double> copy_ranges;
     auto ancestors=[&](ComPtr<IUIAutomationElement> element) {
@@ -318,7 +335,9 @@ std::int64_t elapsed(clock_type::time_point start)  {
         candidates.insert(candidates.end(),path.begin(),path.begin()+static_cast<std::ptrdiff_t>(count));
     };
     info.stage=7;
+    auto ancestors_phase=trace.observe(8);
     ancestors(focused);
+    ancestors_phase.end();
     info.stage=8;
     ancestors(hit);
     info.candidates=static_cast<int>(candidates.size());
@@ -472,7 +491,7 @@ std::int64_t elapsed(clock_type::time_point start)  {
         first=false;
         stream<<value;
     }stream<<']';
-} std::string metadata(const result& r)  {
+} std::string metadata(const result& r,const std::array<std::int64_t,18>* timings)  {
     std::ostringstream out;
     out.imbue(std::locale::classic());
     out.precision(17);
@@ -497,6 +516,11 @@ std::int64_t elapsed(clock_type::time_point start)  {
         out<<",\"SelectionRectangles\":";
         json_array(out,r.copy->selection);
         out<<",\"AutomaticTrusted\":"<<(r.copy->automatic?"true":"false")<<'}';
+    }if(timings) {
+        out<<",\"PhaseTimings\":[";
+        bool first=true;
+        for(auto value:*timings){if(!first)out<<',';first=false;if(value==-2)out<<"null";else out<<value;}
+        out<<']';
     }out<<'}';
     return out.str();
 } std::string utf8(const std::wstring& text)  {
@@ -536,14 +560,18 @@ std::int64_t elapsed(clock_type::time_point start)  {
     return errno==0&&end&&*end==0;
 } int wmain(int argc,wchar_t** argv)  {
     static_assert(sizeof(wchar_t)==2&&sizeof(void*)==8);
-    if(argc!=10&&argc!=11)return 2;
+    if(argc<10||argc>12)return 2;
     input in;
     std::int64_t hwnd=0,pid=0,x=0,y=0,dx=0,dy=0;
     if(!number(argv[1],hwnd)||!number(argv[2],pid)||pid<=0||pid>UINT32_MAX||!number(argv[3],x)||!number(argv[4],y)||!number(argv[6],dx)||!number(argv[7],dy)||!number(argv[9],in.start)||in.start<=0||x<INT_MIN||x>INT_MAX||y<INT_MIN||y>INT_MAX||dx<INT_MIN||dx>INT_MAX||dy<INT_MIN||dy>INT_MAX)return 2;
     std::wstring guid=L"{"+std::wstring(argv[5])+L"}";
     if(FAILED(CLSIDFromString(guid.c_str(),&in.id))||IsEqualGUID(in.id,GUID_NULL))return 2;
     if(std::wcscmp(argv[8],L"explicit")!=0&&std::wcscmp(argv[8],L"gesture")!=0)return 2;
-    if(argc==11&&std::wcscmp(argv[10],L"--boundary-marker")!=0)return 2;
+    for(int i=10;i<argc;++i){
+        if(std::wcscmp(argv[i],L"--boundary-marker")==0&&!in.markers)in.markers=true;
+        else if(std::wcscmp(argv[i],L"--phase-timing")==0&&!in.timing)in.timing=true;
+        else return 2;
+    }
     in.hwnd=reinterpret_cast<HWND>(hwnd);
     in.pid=static_cast<DWORD>(pid);
     in.x=static_cast<int>(x);
@@ -551,13 +579,13 @@ std::int64_t elapsed(clock_type::time_point start)  {
     in.down_x=static_cast<int>(dx);
     in.down_y=static_cast<int>(dy);
     in.automatic=std::wcscmp(argv[8],L"gesture")==0;
-    in.markers=argc==11;
     auto origin=clock_type::now();
     marker marks(in.id,in.markers);
+    p::phase_timings trace(in.timing,[&]{return elapsed(origin);});
     result info,out;
     try {
         marks.reach(10,false);
-        out=capture(in,marks,origin,info);
+        out=capture(in,marks,origin,info,trace);
         marks.reach(10,true);
     }catch(const failure& f) {
         out.status=f.hr==UIA_E_ELEMENTNOTAVAILABLE?"Stale":"UnsupportedOrProtected";
@@ -566,7 +594,7 @@ std::int64_t elapsed(clock_type::time_point start)  {
         out.hr=f.hr;
         out.elapsed=elapsed(origin);
     } marks.reach(11,false);
-    auto meta=metadata(out);
+    auto meta=metadata(out,in.timing?&trace.values:nullptr);
     auto text=utf8(out.text);
     marks.reach(11,true);
     marks.reach(12,false);

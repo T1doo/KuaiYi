@@ -1,29 +1,51 @@
 Set-StrictMode -Version Latest
+function ConvertTo-PhaseTimingSummary($Rows) {
+    $names=@('Preflight','ComInitialize','AutomationCreate','Root','Focus','Hit','Password','Walker','FocusAncestors')
+    if(@($Rows).Count -ne 9){throw 'Timing length invalid'}
+    $result=@();$previous=0;$ended=$false;$over=$false
+    for($i=0;$i -lt 9;$i++){
+        $r=$Rows[$i]
+        if($r.Stage -cne $names[$i] -or $r.State -cnotin @('Measured','NotRun','OverLimit')){throw 'Timing identity invalid'}
+        if($r.State -ceq 'Measured'){
+            if($ended -or $over){throw 'Timing prefix invalid'}
+            foreach($n in @('StartMs','EndMs','DurationMs')){Assert-SelectionInteger $r.$n 0 600}
+            if($r.StartMs -lt $previous -or $r.EndMs -lt $r.StartMs -or $r.DurationMs -ne $r.EndMs-$r.StartMs){throw 'Timing order invalid'}
+            $previous=$r.EndMs
+        } else {
+            if($null -ne $r.StartMs -or $null -ne $r.EndMs -or $null -ne $r.DurationMs){throw 'Timing null invalid'}
+            if($r.State -ceq 'NotRun'){$ended=$true}else{if($ended){throw 'Timing prefix invalid'};$over=$true}
+        }
+        $result+= [pscustomobject][ordered]@{Stage=$names[$i];State=$r.State;StartMs=$r.StartMs;EndMs=$r.EndMs;DurationMs=$r.DurationMs}
+    }
+    return ,$result
+}
 function Assert-SelectionInteger($Value, [int]$Minimum, [int]$Maximum) {
     if (($Value -isnot [int] -and $Value -isnot [long]) -or $Value -lt $Minimum -or $Value -gt $Maximum) { throw 'Invalid integer evidence' }
 }
-function ConvertTo-SelectionSummary($Report, [int]$ChildExit, [string]$Commit, [switch]$DiagnosticOnly,[switch]$ComDiagnostic) {
+function ConvertTo-SelectionSummary($Report, [int]$ChildExit, [string]$Commit, [switch]$DiagnosticOnly,[switch]$ComDiagnostic,[switch]$TimingDiagnostic) {
+    if($TimingDiagnostic -and (-not $ComDiagnostic -or -not $DiagnosticOnly)){throw 'Timing scope invalid'}
     if($ComDiagnostic -and -not $DiagnosticOnly){throw 'COM receipt is diagnostic only'}
     $backend='ManagedUia'
     if($null -ne $Report.PSObject.Properties['Backend']){$backend=$Report.Backend}
     $expectedBackend=if($ComDiagnostic){'SdkCom'}else{'ManagedUia'}
     if($backend -cne $expectedBackend){throw 'Invalid backend evidence'}
-    $planned=if ($DiagnosticOnly) {6} else {120};$perView=if ($DiagnosticOnly) {1} else {20}
-    $kind=if ($DiagnosticOnly) {'HostedInstalledSelectionDiagnostic'} else {'HostedInstalledSelection'}
-    $scope=if ($DiagnosticOnly) {'DiagnosticOnly'} else {'ExplicitProductionUiaOnly'}
+    $planned=if ($TimingDiagnostic) {1} elseif ($DiagnosticOnly) {6} else {120};$perView=if ($DiagnosticOnly) {1} else {20}
+    $kind=if ($TimingDiagnostic) {'HostedInstalledSelectionTimingDiagnostic'} elseif ($DiagnosticOnly) {'HostedInstalledSelectionDiagnostic'} else {'HostedInstalledSelection'}
+    $scope=if ($TimingDiagnostic) {'TimingDiagnosticOnly'} elseif ($DiagnosticOnly) {'DiagnosticOnly'} else {'ExplicitProductionUiaOnly'}
     $viewStates=if ($DiagnosticOnly) {@('Observed','Fail','Blocked')} else {@('Pass','Fail','Blocked')}
     Assert-SelectionInteger $Report.ModelCalls 0 0; Assert-SelectionInteger $Report.Planned $planned $planned
     if ($Commit -cnotmatch '^[0-9a-f]{40}$' -or $Report.SourceCommit -cne $Commit -or $Report.Kind -cne $kind -or $Report.Scope -cne $scope -or $Report.Accessibility -cne 'DefaultOnDemand' -or $Report.PhysicalSelection -cne 'NotRun' -or $Report.Windows11Acceptance -cne 'NotRun' -or $Report.ModelCalls -ne 0 -or $ChildExit -notin @(0,2,3)) { throw 'Invalid source or scope' }
-    if (@($Report.Views).Count -ne 6) { throw 'Invalid view denominator' }
+    if (@($Report.Views).Count -ne $(if($TimingDiagnostic){1}else{6})) { throw 'Invalid view denominator' }
     $seen = @{}; $views = @(); $statuses = @('Success','EmptyOrUnsupported','Sensitive','Stale','SoftTimeout','HardTimeout','Crash','Cancelled','ProtocolFailure','CleanupPending','Paused','TooLarge','UntrustedGesture','ClipboardUnsupported','ClipboardTimeout','ClipboardUnrelated','ClipboardBusy','NotRun','SourceNotCurrent')
     $kinds = @('Word','Letter','Paragraph','Unicode','Formula','Long') * 3 + @('Paragraphs','Mixed')
     foreach ($view in $Report.Views) {
+        if($TimingDiagnostic -and ($view.Application -cne 'Chrome' -or $view.View -cne 'Html')){throw 'Timing view invalid'}
         Assert-SelectionInteger $view.Planned $perView $perView; Assert-SelectionInteger $view.Correct 0 $perView; Assert-SelectionInteger $view.Mismatches 0 $perView
         if ($view.Application -cnotin @('Chrome','Edge') -or $view.View -cnotin @('Html','ReadOnly','Input') -or $view.Version -cnotmatch '^(Unknown|[0-9]+(\.[0-9]+){1,3})$' -or @($view.Cases).Count -ne $perView -or $view.Status -cnotin $viewStates -or $view.Reason -cnotin @('Completed','UnavailableOrUnverified','PreviousCleanupOrDeadline','SourceNotCurrent','BrokerCleanupUnconfirmed','ProbeDeadline','SequenceUnconfirmed','FixtureOrSourceFailure','ProfileDeletionFailed')) { throw 'Invalid view evidence' }
         $key=$view.Application+'/'+$view.View
         if ($seen.ContainsKey($key)) { throw 'Duplicate view' }; $seen[$key]=$true
         foreach ($name in @('SequenceCompleted','BrokerCleanup','ApplicationCleanup','ProfileDeleted')) { if ($view.$name -isnot [bool]) { throw 'Invalid cleanup evidence' } }
-        $correct=0; $mismatches=0; $outcomes=[ordered]@{};$observations=@();$exitCodes=@();$boundaries=@();$markerSetups=@()
+        $correct=0; $mismatches=0; $outcomes=[ordered]@{};$observations=@();$exitCodes=@();$boundaries=@();$markerSetups=@();$timings=@()
         for ($i=0; $i -lt $perView; $i++) {
             $case=$view.Cases[$i]
             Assert-SelectionInteger $case.Index $i $i
@@ -58,6 +80,15 @@ function ConvertTo-SelectionSummary($Report, [int]$ChildExit, [string]$Commit, [
                 Assert-SelectionInteger $b.Sequence 1 16384
                 $reached=[pscustomobject]@{Boundary=$b.Boundary;Position=$b.Position;Sequence=$b.Sequence}
             }
+            if($TimingDiagnostic) {
+                $phase=$null
+                if($null -ne $case.PSObject.Properties['PhaseTimings'] -and $null -ne $case.PhaseTimings) {
+                    $normal=@{Success=@('Success');SoftTimeout=@('SoftTimeout','Success');Sensitive=@('Sensitive','SensitiveOrElevated','UnsupportedOrProtected');Stale=@('Stale');TooLarge=@('TooLarge','TooLargeOrInvalidUnicode');EmptyOrUnsupported=@('EmptyOrUnsupported')}
+                    if(-not $normal.ContainsKey($case.Outcome) -or -not $case.BrokerSettled -or $observation.Stage -ceq 'Unknown' -or $observation.Status -cnotin $normal[$case.Outcome]){throw 'Incomplete timing delivery'}
+                    $phase=ConvertTo-PhaseTimingSummary $case.PhaseTimings
+                }
+                $timings+=,$phase
+            }
             $boundaries+=,$reached;$markerSetups+=,$setup
             $exitCodes+=,$exitCode
             $observations+=$observation
@@ -66,11 +97,13 @@ function ConvertTo-SelectionSummary($Report, [int]$ChildExit, [string]$Commit, [
         $pass=$view.Reason -ceq 'Completed' -and $view.SequenceCompleted -and $correct -ge 19 -and $mismatches -eq 0 -and $view.BrokerCleanup -and $view.ApplicationCleanup -and $view.ProfileDeleted
         $observed=$view.Reason -ceq 'Completed' -and $view.SequenceCompleted -and $view.BrokerCleanup -and $view.ApplicationCleanup -and $view.ProfileDeleted -and @($view.Cases | Where-Object {-not $_.BrokerSettled}).Count -eq 0
         if ((-not $DiagnosticOnly -and (($view.Status -ceq 'Pass') -ne $pass)) -or ($DiagnosticOnly -and (($view.Status -ceq 'Observed') -ne $observed)) -or $view.Status -ceq 'Blocked' -and ($correct -ne 0 -or $outcomes.Count -ne 1 -or -not $outcomes.Contains('NotRun'))) { throw 'Invalid view status' }
-        $views += [pscustomobject][ordered]@{Application=$view.Application;Version=$view.Version;View=$view.View;Status=$view.Status;Reason=$view.Reason;SequenceCompleted=$view.SequenceCompleted;Planned=$perView;Correct=$correct;Mismatches=$mismatches;Outcomes=[pscustomobject]$outcomes;BrokerObservations=$observations;BrokerExitCodes=$exitCodes;LastReachedBoundaries=$boundaries;BoundaryMarkerSetups=$markerSetups;BrokerCleanup=$view.BrokerCleanup;ApplicationCleanup=$view.ApplicationCleanup;ProfileDeleted=$view.ProfileDeleted}
+        $projectedView=[pscustomobject][ordered]@{Application=$view.Application;Version=$view.Version;View=$view.View;Status=$view.Status;Reason=$view.Reason;SequenceCompleted=$view.SequenceCompleted;Planned=$perView;Correct=$correct;Mismatches=$mismatches;Outcomes=[pscustomobject]$outcomes;BrokerObservations=$observations;BrokerExitCodes=$exitCodes;LastReachedBoundaries=$boundaries;BoundaryMarkerSetups=$markerSetups;BrokerCleanup=$view.BrokerCleanup;ApplicationCleanup=$view.ApplicationCleanup;ProfileDeleted=$view.ProfileDeleted}
+        if($TimingDiagnostic){$projectedView | Add-Member PhaseTimings $timings}
+        $views+= $projectedView
     }
     $status=if (@($views | Where-Object Status -CEQ 'Fail').Count -gt 0) {'Fail'} elseif (@($views | Where-Object Status -CEQ 'Blocked').Count -gt 0) {'Blocked'} elseif ($DiagnosticOnly) {'Observed'} else {'Pass'}
     $exit=if ($status -cin @('Pass','Observed')) {0} elseif ($status -ceq 'Blocked') {2} else {3}
     if ($ChildExit -ne $exit) { throw 'Invalid child outcome' }
-    $summaryKind=if ($DiagnosticOnly) {'HostedSelectionDiagnosticSummary'} else {'HostedSelectionSummary'}
+    $summaryKind=if ($TimingDiagnostic) {'HostedSelectionTimingDiagnosticSummary'} elseif ($DiagnosticOnly) {'HostedSelectionDiagnosticSummary'} else {'HostedSelectionSummary'}
     return [pscustomobject][ordered]@{Kind=$summaryKind;Backend=$backend;SourceCommit=$Commit;Status=$status;Scope=$scope;Accessibility='DefaultOnDemand';Planned=$planned;Correct=($views | Measure-Object Correct -Sum).Sum;ModelCalls=0;ClipboardFallback='Disabled';PhysicalSelection='NotRun';Windows11Acceptance='NotRun';Pdf='NotRun';MarkdownEditors='NotRun';Views=$views;ExitCode=$exit}
 }

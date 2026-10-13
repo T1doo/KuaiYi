@@ -147,3 +147,43 @@ foreach($mode in @('Default','Acceptance','UnknownBackend','MissingBackend')){
     if(-not $rejected){throw 'Unscoped COM evidence accepted'};$checks++
 }
 Write-Host "SELECTION_SUMMARY_COM_CONTRACTS passed=$checks failed=0"
+$timing=$diagnostic | ConvertTo-Json -Depth 10 | ConvertFrom-Json
+$timing | Add-Member Backend 'SdkCom'
+$timing.Kind='HostedInstalledSelectionTimingDiagnostic';$timing.Scope='TimingDiagnosticOnly';$timing.Planned=1;$timing.Views=@($timing.Views[0])
+$rows=@();$names=@('Preflight','ComInitialize','AutomationCreate','Root','Focus','Hit','Password','Walker','FocusAncestors')
+for($i=0;$i -lt 9;$i++){$rows+=[pscustomobject]@{Stage=$names[$i];State='Measured';StartMs=$i*20;EndMs=($i+1)*20;DurationMs=20}}
+$timing.Views[0].Cases[0] | Add-Member PhaseTimings $rows
+$t=ConvertTo-SelectionSummary $timing 0 $commit -DiagnosticOnly -ComDiagnostic -TimingDiagnostic
+if($t.Planned -ne 1 -or $t.Views.Count -ne 1 -or $t.Views[0].PhaseTimings[0].Count -ne 9){throw 'Timing single scope lost'};$checks++
+foreach($mode in @('PrivateStage','PrivateState','SecretNumber','Negative','Overflow','Boolean','Reverse','Difference','Backwards','WrongLength','Late','WrongView','WrongBrowser','ExtraView','PrivateField','Null','OverLimit','Paused','CleanupPending','SourceNotCurrent','UnknownObservation','Gap','AfterOver')){
+    $r=$timing | ConvertTo-Json -Depth 12 | ConvertFrom-Json;$rejected=$false;$row=$r.Views[0].Cases[0].PhaseTimings[0]
+    switch($mode){
+        PrivateStage {$row.Stage='PRIVATE_SENTINEL'}
+        PrivateState {$row.State='PRIVATE_SENTINEL'}
+        SecretNumber {$row.StartMs='PRIVATE_SENTINEL'}
+        Negative {$row.StartMs=-1}
+        Overflow {$row.EndMs=601}
+        Boolean {$row.EndMs=$true}
+        Reverse {$row.EndMs=0;$row.StartMs=1}
+        Difference {$row.DurationMs=21}
+        Backwards {$r.Views[0].Cases[0].PhaseTimings[1].StartMs=0}
+        WrongLength {$r.Views[0].Cases[0].PhaseTimings=@($row)}
+        Late {$r.Views[0].Cases[0].Outcome='HardTimeout';$r.Views[0].Cases[0].BrokerObservation=$null}
+        WrongView {$r.Views[0].View='Input'}
+        WrongBrowser {$r.Views[0].Application='Edge'}
+        ExtraView {$r.Views+= $r.Views[0]}
+        PrivateField {$row | Add-Member Path 'PRIVATE_SENTINEL';$r.Views[0].Cases[0] | Add-Member ObjectId 'PRIVATE_SENTINEL'}
+        Null {$row=$r.Views[0].Cases[0].PhaseTimings[8];$row.State='NotRun';$row.StartMs=$null;$row.EndMs=$null;$row.DurationMs=$null}
+        OverLimit {$row=$r.Views[0].Cases[0].PhaseTimings[8];$row.State='OverLimit';$row.StartMs=$null;$row.EndMs=$null;$row.DurationMs=$null}
+        Paused {$r.Views[0].Cases[0].Outcome='Paused';$r.Views[0].Cases[0].BrokerObservation=$null}
+        CleanupPending {$r.Views[0].Cases[0].Outcome='CleanupPending';$r.Views[0].Cases[0].BrokerObservation=$null}
+        SourceNotCurrent {$r.Views[0].Cases[0].Outcome='SourceNotCurrent';$r.Views[0].Cases[0].BrokerObservation=$null}
+        UnknownObservation {$r.Views[0].Cases[0].BrokerObservation.Stage='Unknown'}
+        Gap {$row.State='NotRun';$row.StartMs=$null;$row.EndMs=$null;$row.DurationMs=$null}
+        AfterOver {$row.State='OverLimit';$row.StartMs=$null;$row.EndMs=$null;$row.DurationMs=$null}
+    }
+    try{$result=ConvertTo-SelectionSummary $r 0 $commit -DiagnosticOnly -ComDiagnostic -TimingDiagnostic}catch{$rejected=$true}
+    if($mode -cin @('PrivateField','Null','OverLimit')){if($rejected -or ($result | ConvertTo-Json -Depth 12) -match 'PRIVATE_SENTINEL|ObjectId|Path'){throw 'Timing safe projection lost'}}
+    elseif(-not $rejected){throw 'Invalid timing accepted'};$checks++
+}
+Write-Host "SELECTION_SUMMARY_TIMING_CONTRACTS passed=$checks failed=0"

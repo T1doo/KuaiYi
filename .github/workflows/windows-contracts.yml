@@ -1,4 +1,4 @@
-name: Bounded ancestor-first SDK COM selection differential
+name: Bounded first Chrome HTML SDK phase timing
 on:
   push:
     branches: [dev/p0-com-selection-diagnostic]
@@ -31,8 +31,8 @@ jobs:
         shell: pwsh
         run: |
           & ./tests/scripts/selection-ci-summary.test.ps1
-      - name: Observe SDK COM selection once per browser and synthetic view
+      - name: Observe only the first Chrome HTML SDK request
         shell: pwsh
         run: |
-          & ./scripts/run-windows-selection-ci.ps1 -DiagnosticOnly -ComDiagnostic
+          & ./scripts/run-windows-selection-ci.ps1 -DiagnosticOnly -ComDiagnostic -TimingDiagnostic
           exit $LASTEXITCODE

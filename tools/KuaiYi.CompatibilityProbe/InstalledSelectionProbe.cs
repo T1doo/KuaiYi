@@ -7,13 +7,14 @@ using KuaiYi.NativeHost;
 using KuaiYi.Windows;
 namespace KuaiYi.CompatibilityProbe;
 
-internal sealed record SelectionCaseEvidence(int Index, string Kind, string Outcome, bool Captured, bool Matches, bool ForegroundStable, bool MarkerStable, bool BrokerSettled,SelectionBrokerObservation? BrokerObservation=null,int? BrokerExitCode=null,SelectionReachedBoundary? LastReachedBoundary=null,string BoundaryMarkerSetup="Disabled");
+internal sealed record SelectionCaseEvidence(int Index, string Kind, string Outcome, bool Captured, bool Matches, bool ForegroundStable, bool MarkerStable, bool BrokerSettled,SelectionBrokerObservation? BrokerObservation=null,int? BrokerExitCode=null,SelectionReachedBoundary? LastReachedBoundary=null,string BoundaryMarkerSetup="Disabled",System.Collections.Immutable.ImmutableArray<SelectionPhaseTiming>? PhaseTimings=null);
 internal sealed record SelectionViewEvidence(string Application, string Version, string View, string Status, string Reason, bool SequenceCompleted, int Planned, int Correct, int Mismatches, bool BrokerCleanup, bool ApplicationCleanup, bool ProfileDeleted, SelectionCaseEvidence[] Cases);
 internal sealed record SelectionProbeReceipt(string Kind, string SourceCommit, string Scope, string Accessibility, string PhysicalSelection, string Windows11Acceptance, int ModelCalls, int Planned, SelectionViewEvidence[] Views,string Backend="ManagedUia");
 internal static class InstalledSelectionProbe
 {
-    internal static async Task<int> RunAsync(string broker, string receipt, string chrome, string edge,bool diagnosticOnly=false,bool comDiagnostic=false)
+    internal static async Task<int> RunAsync(string broker, string receipt, string chrome, string edge,bool diagnosticOnly=false,bool comDiagnostic=false,bool timingDiagnostic=false)
     {
+        if(timingDiagnostic&&(!diagnosticOnly||!comDiagnostic))return 2;
         if(comDiagnostic&&(!diagnosticOnly||Path.GetFileName(broker)!="KuaiYi.ComCaptureProbe.exe"))return 2;
         if (!OperatingSystem.IsWindows() || Environment.GetEnvironmentVariable("CI") != "true" ||
             Environment.GetEnvironmentVariable("GITHUB_SHA") is not { } source || !Regex.IsMatch(source, "^[0-9a-f]{40}$") || !File.Exists(broker)) return 2;
@@ -21,11 +22,13 @@ internal static class InstalledSelectionProbe
         using var deadline = new CancellationTokenSource(TimeSpan.FromMinutes(8));
         foreach (var app in new[] { (Name: "Chrome", Path: chrome), (Name: "Edge", Path: edge) })
         {
+            if(timingDiagnostic&&app.Name!="Chrome")continue;
             bool installed = IsFixedInstalledPath(app.Name, app.Path);
             string version = installed ? FileVersionInfo.GetVersionInfo(app.Path).FileVersion ?? "Unknown" : "Unknown";
             if (!Regex.IsMatch(version, "^[0-9]+(\\.[0-9]+){1,3}$")) version = "Unknown";
             foreach (string view in PublicSelectionFixtures.Views)
             {
+                if(timingDiagnostic&&view!="Html")continue;
                 var cases = PublicSelectionFixtures.Cases().Take(diagnosticOnly?1:20).ToArray();
                 var results = cases.Select((c, i) => new SelectionCaseEvidence(i, c.Kind, "NotRun", false, false, false, false, false)).ToArray();
                 if (!installed || !continueAllowed || deadline.IsCancellationRequested)
@@ -46,7 +49,7 @@ internal static class InstalledSelectionProbe
                     await File.WriteAllTextAsync(file, PublicSelectionFixtures.Html(view, marker,cases.Length), deadline.Token);
                     application = await OwnedApplicationJob.StartAsync(app.Path,
                         ["--user-data-dir=" + Path.Combine(profile, "browser"), "--no-first-run", "--no-default-browser-check", "--disable-background-networking", "--app=" + new Uri(file).AbsoluteUri], profile);
-                    client = new SelectionBrokerClient(Path.GetFullPath(broker),boundaryDiagnostic:diagnosticOnly);
+                    client = new SelectionBrokerClient(Path.GetFullPath(broker),boundaryDiagnostic:diagnosticOnly,timingDiagnostic:timingDiagnostic);
                     var watch = Stopwatch.StartNew(); int previous = -1;
                     while (watch.Elapsed < TimeSpan.FromSeconds(80) && !deadline.IsCancellationRequested)
                     {
@@ -72,7 +75,7 @@ internal static class InstalledSelectionProbe
                             var cleanupWatch = Stopwatch.StartNew();
                             while (client.ExitState != null && cleanupWatch.Elapsed < TimeSpan.FromSeconds(2)) await Task.Delay(20);
                             bool settled = client.ExitState == null;
-                            results[index] = new(index, cases[index].Kind, captured.Status.ToString(), captured.Status == SelectionCaptureStatus.Success, matches && settled, foreground, stable, settled,client.LastObservation,client.LastProcessExitCode,client.LastReachedBoundary,client.BoundaryMarkerSetup);
+                            results[index] = new(index, cases[index].Kind, captured.Status.ToString(), captured.Status == SelectionCaptureStatus.Success, matches && settled, foreground, stable, settled,client.LastObservation,client.LastProcessExitCode,client.LastReachedBoundary,client.BoundaryMarkerSetup,client.LastPhaseTimings);
                             captured = null!;
                             if (!settled) { brokerCleanup = false; reason = "BrokerCleanupUnconfirmed"; break; }
                         }
@@ -107,7 +110,7 @@ internal static class InstalledSelectionProbe
                 views.Add(new(app.Name, version, view, diagnosticOnly?(observed?"Observed":"Fail"):pass?"Pass":"Fail", reason, sequenceCompleted, cases.Length, correct, mismatches, brokerCleanup, applicationCleanup, profileDeleted, results));
             }
         }
-        var report = new SelectionProbeReceipt(diagnosticOnly?"HostedInstalledSelectionDiagnostic":"HostedInstalledSelection", source, diagnosticOnly?"DiagnosticOnly":"ExplicitProductionUiaOnly", "DefaultOnDemand", "NotRun", "NotRun", 0, diagnosticOnly?6:120, views.ToArray(),comDiagnostic?"SdkCom":"ManagedUia");
+        var report = new SelectionProbeReceipt(timingDiagnostic?"HostedInstalledSelectionTimingDiagnostic":diagnosticOnly?"HostedInstalledSelectionDiagnostic":"HostedInstalledSelection", source, timingDiagnostic?"TimingDiagnosticOnly":diagnosticOnly?"DiagnosticOnly":"ExplicitProductionUiaOnly", "DefaultOnDemand", "NotRun", "NotRun", 0, timingDiagnostic?1:diagnosticOnly?6:120, views.ToArray(),comDiagnostic?"SdkCom":"ManagedUia");
         await File.WriteAllTextAsync(receipt, JsonSerializer.Serialize(report));
         return views.Any(v => v.Status == "Fail") ? 3 : views.Any(v => v.Status == "Blocked") ? 2 : 0;
     }
