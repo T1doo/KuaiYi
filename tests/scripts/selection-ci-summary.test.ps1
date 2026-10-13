@@ -73,3 +73,10 @@ foreach ($mode in @('WrongScope','FakePass','PrivateStage','LateObservation','Pe
     $checks++
 }
 Write-Host "SELECTION_SUMMARY_CONTRACTS_TOTAL passed=$checks failed=0"
+$reported=$diagnostic | ConvertTo-Json -Depth 10 | ConvertFrom-Json
+foreach($v in $reported.Views){$c=$v.Cases[0];$c.Outcome='Crash';$c.BrokerObservation.Status='BrokerFailure';$c.BrokerObservation.Stage='MetadataSerialize';$c.BrokerObservation.Exception='Argument';$c.BrokerObservation.HResult=-2147024809}
+if((ConvertTo-SelectionSummary $reported 0 $commit -DiagnosticOnly).Views[0].BrokerObservations[0].Status -cne 'BrokerFailure'){throw 'Reported code failure lost'};$checks++
+$reported.Views[0].Cases[0].BrokerObservation.Status='Success';$rejected=$false
+try{$null=ConvertTo-SelectionSummary $reported 0 $commit -DiagnosticOnly}catch{$rejected=$true}
+if(-not $rejected){throw 'Unknown process crash reused success observation'};$checks++
+Write-Host "SELECTION_SUMMARY_FAILURE_CONTRACTS passed=$checks failed=0"

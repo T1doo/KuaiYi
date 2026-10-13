@@ -29,10 +29,13 @@ internal static class Program
         catch (ElementNotAvailableException error) { result = (new("Stale", 0, 0, watch.Elapsed.TotalMilliseconds,Diagnostic:diagnostic.Failure(error)), ""); }
         catch (Exception e) when (e is COMException or InvalidOperationException or Win32Exception or UnauthorizedAccessException)
         { result = (new("UnsupportedOrProtected", 0, 0, watch.Elapsed.TotalMilliseconds,Diagnostic:diagnostic.Failure(e)), ""); }
+        catch (Exception error) when (error is ArgumentException or NullReferenceException or NotSupportedException or TypeLoadException or FileLoadException)
+        { result = (new("BrokerFailure",0,0,watch.Elapsed.TotalMilliseconds,Diagnostic:diagnostic.Failure(error)),""); }
         result.metadata = result.metadata with { Diagnostic = result.metadata.Diagnostic ?? new(diagnostic.Stage,SelectionBrokerException.None) };
+        var prepared=SelectionCaptureOutput.Prepare(result.metadata,result.text,watch.Elapsed.TotalMilliseconds);
         using Stream stdout = Console.OpenStandardOutput();
-        IpcFrameCodec.WriteAsync(stdout, new(IpcMessageType.Ping, requestId, JsonSerializer.SerializeToUtf8Bytes(result.metadata))).AsTask().GetAwaiter().GetResult();
-        IpcFrameCodec.WriteAsync(stdout, new(IpcMessageType.BinaryChunk, requestId, Encoding.UTF8.GetBytes(result.text))).AsTask().GetAwaiter().GetResult();
+        IpcFrameCodec.WriteAsync(stdout, new(IpcMessageType.Ping, requestId, prepared.Metadata)).AsTask().GetAwaiter().GetResult();
+        IpcFrameCodec.WriteAsync(stdout, new(IpcMessageType.BinaryChunk, requestId, Encoding.UTF8.GetBytes(prepared.Text))).AsTask().GetAwaiter().GetResult();
         return 0;
     }
 
@@ -45,6 +48,11 @@ internal static class Program
             COMException => SelectionBrokerException.Com,
             Win32Exception => SelectionBrokerException.Win32,
             UnauthorizedAccessException => SelectionBrokerException.AccessDenied,
+            ArgumentException => SelectionBrokerException.Argument,
+            NullReferenceException => SelectionBrokerException.NullReference,
+            NotSupportedException => SelectionBrokerException.NotSupported,
+            TypeLoadException => SelectionBrokerException.TypeLoad,
+            FileLoadException => SelectionBrokerException.FileLoad,
             _ => SelectionBrokerException.InvalidOperation
         },error.HResult);
     }

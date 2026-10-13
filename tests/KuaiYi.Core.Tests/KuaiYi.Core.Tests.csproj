@@ -5,6 +5,7 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="../../src/KuaiYi.CaptureBroker/SelectionCaptureOutput.cs" Link="WindowsCi/SelectionCaptureOutput.cs" />
     <Compile Include="../../tools/KuaiYi.CompatibilityProbe/PublicSelectionFixtures.cs" Link="WindowsCi/PublicSelectionFixtures.cs" />
     <Compile Include="../../tools/KuaiYi.OleCi/OleCiSourcePipe.cs" Link="WindowsCi/OleCiSourcePipe.cs" />
     <Compile Include="../../tools/KuaiYi.OleCi/OleCiScenarioCleanup.cs" Link="WindowsCi/OleCiScenarioCleanup.cs" />

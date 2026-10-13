@@ -49,6 +49,18 @@ public sealed class SelectionBrokerProcessTests
         using var cancellation=new CancellationTokenSource();cancellation.Cancel();
         Assert.Equal(SelectionCaptureStatus.Cancelled,(await client.CaptureAsync(Gesture(),cancellation.Token)).Status);Assert.Null(client.LastObservation);Assert.Equal(1,starter.Starts);
     }
+    [Fact]public async Task CompleteReportedBrokerFailureStillCountsTowardTheOriginalPauseRule()
+    {
+        var starter=new FixtureStarter("broker-failure");var clock=new Clock();await using var client=new SelectionBrokerClient("public-fixture",starter,clock);
+        for(int i=0;i<3;i++)
+        {
+            var result=await client.CaptureAsync(Gesture(),default);Assert.Equal(SelectionCaptureStatus.Crash,result.Status);Assert.Equal("",result.Text);
+            Assert.Equal("BrokerFailure",client.LastObservation?.Status);Assert.Equal("MetadataSerialize",client.LastObservation?.Stage);Assert.Equal("Argument",client.LastObservation?.Exception);
+            Assert.Equal(unchecked((int)0x80070057),client.LastObservation?.HResult);
+            using var guard=new CancellationTokenSource(TimeSpan.FromSeconds(5));while(client.ExitState!=null)await Task.Delay(5,guard.Token);
+        }
+        Assert.Equal(SelectionCaptureStatus.Paused,(await client.CaptureAsync(Gesture(),default)).Status);Assert.Null(client.LastObservation);Assert.Equal(3,starter.Starts);
+    }
     [Theory][InlineData("normal",SelectionCaptureStatus.Success)][InlineData("identity",SelectionCaptureStatus.ProtocolFailure)][InlineData("role",SelectionCaptureStatus.ProtocolFailure)][InlineData("source",SelectionCaptureStatus.ProtocolFailure)][InlineData("runtime",SelectionCaptureStatus.ProtocolFailure)][InlineData("bounds",SelectionCaptureStatus.ProtocolFailure)][InlineData("oversize",SelectionCaptureStatus.ProtocolFailure)][InlineData("extra",SelectionCaptureStatus.ProtocolFailure)][InlineData("soft",SelectionCaptureStatus.SoftTimeout)][InlineData("error-text",SelectionCaptureStatus.EmptyOrUnsupported)][InlineData("crash",SelectionCaptureStatus.Crash)]
     public async Task ActualOwnedFixtureEnforcesSelectionWireAndIdentity(string fault,SelectionCaptureStatus expected)
     {

@@ -25,7 +25,7 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
     public SelectionBrokerObservation? LastObservation{get;private set;}
     internal static SelectionBrokerObservation ObserveMetadata(SelectionCaptureMetadata metadata)
     {
-        string status=metadata.Status switch{"Success" or "Stale" or "Sensitive" or "SensitiveOrElevated" or "UnsupportedOrProtected" or "SoftTimeout" or "TooLarge" or "TooLargeOrInvalidUnicode" or "EmptyOrUnsupported"=>metadata.Status,_=>"Unknown"};
+        string status=metadata.Status switch{"Success" or "Stale" or "Sensitive" or "SensitiveOrElevated" or "UnsupportedOrProtected" or "SoftTimeout" or "TooLarge" or "TooLargeOrInvalidUnicode" or "EmptyOrUnsupported" or "BrokerFailure"=>metadata.Status,_=>"Unknown"};
         var diagnostic=metadata.Diagnostic;
         return new(status,diagnostic==null?"Unknown":Enum.GetName(diagnostic.Stage)??"Unknown",diagnostic==null?"Unknown":Enum.GetName(diagnostic.Exception)??"Unknown",diagnostic is {Exception:not SelectionBrokerException.None}?diagnostic.HResult:null);
     }
@@ -88,7 +88,7 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
         catch(Exception error)when(error is IOException or InvalidDataException or JsonException or DecoderFallbackException or InvalidOperationException or System.ComponentModel.Win32Exception or OverflowException or ArgumentException){status=SelectionCaptureStatus.ProtocolFailure;return new(status);}
         finally
         {
-            if(status is SelectionCaptureStatus.HardTimeout or SelectionCaptureStatus.Cancelled or SelectionCaptureStatus.Crash or SelectionCaptureStatus.ProtocolFailure)LastObservation=null;
+            if(status is SelectionCaptureStatus.HardTimeout or SelectionCaptureStatus.Cancelled or SelectionCaptureStatus.ProtocolFailure||status==SelectionCaptureStatus.Crash&&LastObservation?.Status!="BrokerFailure")LastObservation=null;
             if(payload!=null)CryptographicOperations.ZeroMemory(payload);
             lock(sync)
             {
@@ -125,5 +125,5 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
     }
     private async Task ObserveLateRead(Task<IpcFrame?> pending)
     {LateReadObserverStartedForTest?.Invoke(pending);try{var result=await pending.ConfigureAwait(false);if(result!=null)CryptographicOperations.ZeroMemory(result.Payload);}catch(Exception error){LateReadFailureCode=error.GetType().Name;}}
-    private static SelectionCaptureStatus ParseStatus(string status)=>status switch{"Success"=>SelectionCaptureStatus.Success,"Stale"=>SelectionCaptureStatus.Stale,"Sensitive" or "SensitiveOrElevated" or "UnsupportedOrProtected"=>SelectionCaptureStatus.Sensitive,"SoftTimeout"=>SelectionCaptureStatus.SoftTimeout,"TooLarge" or "TooLargeOrInvalidUnicode"=>SelectionCaptureStatus.TooLarge,_=>SelectionCaptureStatus.EmptyOrUnsupported};
+    private static SelectionCaptureStatus ParseStatus(string status)=>status switch{"Success"=>SelectionCaptureStatus.Success,"Stale"=>SelectionCaptureStatus.Stale,"Sensitive" or "SensitiveOrElevated" or "UnsupportedOrProtected"=>SelectionCaptureStatus.Sensitive,"BrokerFailure"=>SelectionCaptureStatus.Crash,"SoftTimeout"=>SelectionCaptureStatus.SoftTimeout,"TooLarge" or "TooLargeOrInvalidUnicode"=>SelectionCaptureStatus.TooLarge,_=>SelectionCaptureStatus.EmptyOrUnsupported};
 }
