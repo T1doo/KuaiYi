@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Windows;
 using System.Windows.Automation;
 using KuaiYi.Contracts;
+using KuaiYi.Core;
 using KuaiYi.Windows;
 
 namespace KuaiYi.CaptureBroker;
@@ -100,13 +101,12 @@ internal static class Program
             diagnostic.Stage=SelectionBrokerStage.SelectionRanges;var ranges = ((TextPattern)pattern).GetSelection();
             if (ranges is null || ranges.Length == 0) continue;
             if (ranges.Length > 64) return (new("TooLarge", ranges.Length, candidates.Count, watch.Elapsed.TotalMilliseconds), "");
-            List<string> parts = [];List<double> rectangles=[]; int units = 0;
+            List<string> parts = [];List<double> rectangles=[]; int units = 0, observedRectangles = 0;
             foreach (var range in ranges)
             {
                 if(watch.ElapsedMilliseconds>=250)return(new("SoftTimeout",0,candidates.Count,watch.Elapsed.TotalMilliseconds),"");
-                diagnostic.Stage=SelectionBrokerStage.RangeBounds;double[] bounds=range.GetBoundingRectangles().SelectMany(r=>new[]{r.X,r.Y,r.Width,r.Height}).ToArray();
-                if(bounds.Length>1024-rectangles.Count||bounds.Length%4!=0||bounds.Any(v=>!double.IsFinite(v)))return(new("UnsupportedOrProtected",0,candidates.Count,watch.Elapsed.TotalMilliseconds),"");
-                rectangles.AddRange(bounds);
+                diagnostic.Stage=SelectionBrokerStage.RangeBounds;var bounds=range.GetBoundingRectangles();
+                if(!SelectionRangeBounds.TryAppend(bounds?.Select(r=>new SelectionRangeRectangle(r.X,r.Y,r.Width,r.Height)),rectangles,ref observedRectangles))return(new("UnsupportedOrProtected",0,candidates.Count,watch.Elapsed.TotalMilliseconds),"");
                 int remaining = 100_002 - units;
                 diagnostic.Stage=SelectionBrokerStage.RangeText;string part = range.GetText(remaining);
                 units += part.Length;

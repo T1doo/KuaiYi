@@ -4,6 +4,7 @@ using System.Text.Json;
 using KuaiYi.Contracts;
 using KuaiYi.Windows;
 
+if(args.Length==1&&args[0]=="--ci-range-geometry")return KuaiYi.CompatibilityProbe.SelectionGeometryContracts.Run();
 if (args.Length == 5 && args[0] is "--ci-installed-selection" or "--ci-selection-diagnostic")
     return await KuaiYi.CompatibilityProbe.InstalledSelectionProbe.RunAsync(args[1], args[2], args[3], args[4],args[0]=="--ci-selection-diagnostic");
 

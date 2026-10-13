@@ -1,4 +1,4 @@
-name: Installed browser UIA six-case diagnostics (not acceptance)
+name: Installed browser UIA geometry repair regression (not physical acceptance)
 on:
   push:
     branches: [dev/p0-installed-selection]
@@ -27,8 +27,8 @@ jobs:
         shell: pwsh
         run: |
           & ./tests/scripts/selection-ci-summary.test.ps1
-      - name: Observe six production UIA calls with bounded diagnostics
+      - name: Verify real WPF geometry and 120 actual browser selections
         shell: pwsh
         run: |
-          & ./scripts/run-windows-selection-ci.ps1 -DiagnosticOnly
+          & ./scripts/run-windows-selection-ci.ps1
           exit $LASTEXITCODE

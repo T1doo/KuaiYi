@@ -5,6 +5,7 @@ $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent
 $summary=[pscustomobject]@{Kind='HostedSelectionSummary';Status='Fail';Reason='RunnerFailure';PhysicalSelection='NotRun';Windows11Acceptance='NotRun';ModelCalls=0;ExitCode=3}
 $child=$null; $stdout=$null; $stderr=$null
+$geometryVerified=$false
 try {
     if (-not $IsWindows -or $env:CI -cne 'true') { $summary.Status='Blocked';$summary.Reason='HostedWindowsRequired';$summary.ExitCode=2 }
     else {
@@ -45,6 +46,9 @@ public static class KuaiYiSelectionDiscard {
         $chrome=Find-OfficialInstalledBrowser 'Google/Chrome/Application/chrome.exe' '(^|,\s*)CN=Google LLC(,|$)'
         $edge=Find-OfficialInstalledBrowser 'Microsoft/Edge/Application/msedge.exe' '(^|,\s*)CN=Microsoft Corporation(,|$)'
         $exe=Join-Path $root 'tools/KuaiYi.CompatibilityProbe/bin/Release/net10.0-windows/win-x64/KuaiYi.CompatibilityProbe.exe'
+        & $exe --ci-range-geometry *> (Join-Path $output 'geometry.local.log')
+        if ($LASTEXITCODE -ne 0) { $summary.Reason='WpfGeometryContractFailed';throw 'Geometry contract failed' }
+        $geometryVerified=$true
         $broker=Join-Path $root 'src/KuaiYi.CaptureBroker/bin/Release/net10.0-windows/win-x64/KuaiYi.CaptureBroker.exe'
         $receipt=Join-Path $output 'receipt.local.json'
         $info=[Diagnostics.ProcessStartInfo]::new($exe)
@@ -75,5 +79,7 @@ public static class KuaiYiSelectionDiscard {
         else { $script:UnsettledSelectionChild=$child;$script:UnsettledSelectionReads=@($stdout,$stderr);$summary.Status='Fail';$summary.ExitCode=3;$summary | Add-Member -Force CleanupReason 'OriginalOwnerSettlementUnconfirmed' }
     }
 }
+$summary | Add-Member WpfGeometryContracts $(if ($geometryVerified) {'Pass'} else {'NotRun'})
+$summary | Add-Member WpfGeometryChecks $(if ($geometryVerified) {4} else {0})
 Write-Host ('KUAIYI_SELECTION_SUMMARY '+($summary | ConvertTo-Json -Depth 8 -Compress))
 exit $summary.ExitCode
