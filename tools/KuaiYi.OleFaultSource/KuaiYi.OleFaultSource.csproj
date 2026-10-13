@@ -3,6 +3,8 @@
     <OutputType>WinExe</OutputType><TargetFramework>net10.0-windows</TargetFramework><UseWPF>true</UseWPF>
     <ApplicationManifest>../../src/KuaiYi.Windows/app.manifest</ApplicationManifest>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier><SelfContained>false</SelfContained>
+    <!-- Explicit public CI source represents an external application, not a KuaiYi capture source. -->
+    <AssemblyName Condition="'$(KuaiYiPublicOleSource)' == 'true'">PublicOleFaultSource</AssemblyName>
   </PropertyGroup>
   <ItemGroup><ProjectReference Include="../../src/KuaiYi.Windows/KuaiYi.Windows.csproj" /></ItemGroup>
 </Project>

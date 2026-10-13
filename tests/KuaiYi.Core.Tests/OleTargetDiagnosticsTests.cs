@@ -2,11 +2,22 @@ using System.Text;
 using KuaiYi.OleTransfer;
 using KuaiYi.Contracts;
 using System.Buffers.Binary;
+using KuaiYi.Core;
+using KuaiYi.Core.Settings;
 using Xunit;
 
 namespace KuaiYi.Core.Tests;
 public sealed class OleTargetDiagnosticsTests
 {
+    [Fact] public void PublicExternalFixtureIdentityPreservesSelfTerminalAndExplicitBlockExclusions()
+    {
+        var settings=new AppSettings();var source=new SelectionWindow(123,456,789,"C:\\public\\PublicOleFaultSource.exe");
+        Assert.False(SelectionTextPolicy.Excluded(source,settings,999));
+        Assert.True(SelectionTextPolicy.Excluded(source with {Executable="C:\\public\\KuaiYi.OleFaultSource.exe"},settings,999));
+        Assert.True(SelectionTextPolicy.Excluded(source,settings,456));
+        Assert.True(SelectionTextPolicy.Excluded(source with {Executable="C:\\public\\pwsh.exe"},settings,999));
+        Assert.True(SelectionTextPolicy.Excluded(source,settings with {Privacy=new(){BlockedApplications=["PublicOleFaultSource.exe"]}},999));
+    }
     [Fact] public void OnlyNamedFiniteObservationsRoundTrip()
     {
         foreach(var value in Enum.GetValues<OleTargetObservation>())

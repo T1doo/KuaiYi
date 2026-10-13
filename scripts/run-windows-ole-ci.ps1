@@ -129,20 +129,23 @@ $app = Join-Path $OutputRoot 'app'
 Set-OleStage 'RestoreReceiver'
 Invoke-OleBuild @('restore','src/KuaiYi.OleReceiver/KuaiYi.OleReceiver.csproj','--locked-mode')
 Set-OleStage 'RestoreSource'
-Invoke-OleBuild @('restore','tools/KuaiYi.OleFaultSource/KuaiYi.OleFaultSource.csproj','--locked-mode')
+Invoke-OleBuild @('restore','tools/KuaiYi.OleFaultSource/KuaiYi.OleFaultSource.csproj','--locked-mode','-p:KuaiYiPublicOleSource=true')
 Set-OleStage 'RestoreApp'
 Invoke-OleBuild @('restore','src/KuaiYi.App/KuaiYi.App.csproj','--locked-mode')
 Set-OleStage 'BuildReceiver'
 Invoke-OleBuild @('build','src/KuaiYi.OleReceiver/KuaiYi.OleReceiver.csproj','--configuration','Release','--no-restore')
 Set-OleStage 'BuildSource'
-Invoke-OleBuild @('build','tools/KuaiYi.OleFaultSource/KuaiYi.OleFaultSource.csproj','--configuration','Release','--no-restore')
+Invoke-OleBuild @('build','tools/KuaiYi.OleFaultSource/KuaiYi.OleFaultSource.csproj','--configuration','Release','--no-restore','-p:KuaiYiPublicOleSource=true')
 Set-OleStage 'BuildApp'
 Invoke-OleBuild @('build','src/KuaiYi.App/KuaiYi.App.csproj','--configuration','Release','--no-restore','--output',$app,'-p:KuaiYiIncludeWindowsCiProbe=true')
 Set-OleStage 'StageFiles'
 $receiver = Join-Path $script:RepositoryRoot 'src/KuaiYi.OleReceiver/bin/Release/net10.0-windows/win-x64'
 foreach ($name in @('KuaiYi.OleReceiver.exe','KuaiYi.OleReceiver.dll','KuaiYi.OleReceiver.runtimeconfig.json','KuaiYi.OleReceiver.deps.json')) { Copy-Item -LiteralPath (Join-Path $receiver $name) -Destination $app }
 Copy-Item -LiteralPath (Join-Path $NativeRoot 'KuaiYi.OleNativeBridge/Release/KuaiYi.OleNativeBridge.dll') -Destination $app
-$source = Join-Path $script:RepositoryRoot 'tools/KuaiYi.OleFaultSource/bin/Release/net10.0-windows/win-x64/KuaiYi.OleFaultSource.exe'
+$source = Join-Path $script:RepositoryRoot 'tools/KuaiYi.OleFaultSource/bin/Release/net10.0-windows/win-x64/PublicOleFaultSource.exe'
+foreach ($extension in @('exe','dll','deps.json','runtimeconfig.json')) {
+    if (-not (Test-Path -LiteralPath (Join-Path (Split-Path $source -Parent) ('PublicOleFaultSource.'+$extension)) -PathType Leaf)) { throw 'Public OLE source build output missing' }
+}
 $receipt = Join-Path $OutputRoot 'ole-report.json'
 $info = [Diagnostics.ProcessStartInfo]::new((Join-Path $app 'KuaiYi.App.exe')); $info.UseShellExecute = $false
 $info.RedirectStandardOutput = $true; $info.RedirectStandardError = $true

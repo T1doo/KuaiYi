@@ -69,6 +69,7 @@ $ErrorActionPreference='Stop'
 $script:RepositoryRoot=$PSScriptRoot
 function Invoke-Checked([string]$Command,[string[]]$Arguments) {
     $global:LASTEXITCODE=0
+    if ($diagnostic.Stage -cin @('RestoreSource','BuildSource') -and $Arguments -cnotcontains '-p:KuaiYiPublicOleSource=true') { throw 'Source identity configuration missing' }
     if ($diagnostic.Stage -ceq $env:KUAIYI_SYNTHETIC_FAIL_STAGE) { $global:LASTEXITCODE=42;throw 'PRIVATE_SENTINEL' }
 }
 '@ | Set-Content (Join-Path $fixture 'windows-ci-common.ps1')
@@ -79,6 +80,9 @@ function Invoke-Checked([string]$Command,[string[]]$Arguments) {
                 $receiver=Join-Path $fixture 'src/KuaiYi.OleReceiver/bin/Release/net10.0-windows/win-x64'
                 [void][IO.Directory]::CreateDirectory($receiver)
                 foreach ($name in @('KuaiYi.OleReceiver.exe','KuaiYi.OleReceiver.dll','KuaiYi.OleReceiver.runtimeconfig.json','KuaiYi.OleReceiver.deps.json')) { [IO.File]::WriteAllText((Join-Path $receiver $name),'synthetic staging placeholder') }
+                $sourceOutput=Join-Path $fixture 'tools/KuaiYi.OleFaultSource/bin/Release/net10.0-windows/win-x64'
+                [void][IO.Directory]::CreateDirectory($sourceOutput)
+                foreach ($extension in @('exe','dll','deps.json','runtimeconfig.json')) { [IO.File]::WriteAllText((Join-Path $sourceOutput ('PublicOleFaultSource.'+$extension)),'synthetic staging placeholder') }
                 $native=Join-Path $temp 'KuaiYi.OleNativeBridge/Release';[void][IO.Directory]::CreateDirectory($native)
                 [IO.File]::WriteAllText((Join-Path $native 'KuaiYi.OleNativeBridge.dll'),'synthetic staging placeholder')
             }
@@ -89,6 +93,12 @@ function Invoke-Checked([string]$Command,[string[]]$Arguments) {
             if (-not $threw -or $d.FailureStage -cne $stage -or $d.CommandExitCode -ne $expectedExit -or $d.ChildExitCode -ne $null -or $d.ProcessState -cne 'UNKNOWN' -or $d.StdoutTask -cne 'UNKNOWN') { throw 'Real helper stage lost' }
             if (($d | ConvertTo-Json -Depth 8) -match 'PRIVATE_SENTINEL') { throw 'Raw command failure escaped' }
         }
+    }
+    Case 'actual helper source output resolves to the external public executable' {
+        $script:RepositoryRoot=$root
+        $assignment=$helperAst.Find({param($n) $n -is [Management.Automation.Language.AssignmentStatementAst] -and $n.Left.Extent.Text -ceq '$source'},$true)
+        $source=Invoke-Expression $assignment.Right.Extent.Text
+        if ([IO.Path]::GetFileName($source) -cne 'PublicOleFaultSource.exe') { throw 'Helper still launches a self-excluded source' }
     }
     Add-Type -TypeDefinition @'
 public sealed class SyntheticOleProcess {
