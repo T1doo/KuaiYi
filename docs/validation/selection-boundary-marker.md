@@ -23,3 +23,22 @@
 GetData 成功代码及 Actions 源码 SHA 独立保留为 `220060f813a3640487d593920a1b1824aa779a00`（run 38347142627/job 115131066822）。P0 整体、Win11 物理划词、PDF、Markdown、多屏 DPI 与安装卸载均没有新增通过结论。
 
 本地正式 Contracts 构建及实际 NativeDesktop/Broker/client/probe 源码类型检查均 0 warning / 0 error。原 xUnit 断言直接执行 **196/196**（忽略日志 `artifacts/windows-selection/boundary-marker-contracts.local.log`），PowerShell 摘要边界 **57/57**。新增测试还验证父 Dispose 在原退出之后、交付之前发生时不迟发边界且释放映射。Linux 匿名映射及测试回调不等于 Windows 命名跨进程或 UIA Pass。新 Windows 六场景尚未运行。
+
+## 唯一一次 Windows 六场景结果
+
+执行源码与 Actions SHA 均为 `ba5a3232fe469590f2b0ce493f863d16b776e16d`；tree `b746efd2d2b1522399364b153c7be4c931c2f92f`；唯一 parent `66761a2b7470fc2a82d70f6c04cbc5a17c2511bd`。精确独审本地冻结 `da2af03dbe494c2433a1730df3c1d2c4e29bbf3e` 与执行 tree 相同。[run 38380832881](https://github.com/T1doo/KuaiYi/actions/runs/38380832881)，[job 115240534403](https://github.com/T1doo/KuaiYi/actions/runs/38380832881/job/115240534403)，attempt 1。workflow success 仅表示诊断基础设施正常结束。
+
+| 实际应用/视图 | 取词结果 | 原退出码 | LastReachedBoundary |
+| --- | --- | --- | --- |
+| Chrome 154.0.8037.98 HTML | HardTimeout | null | null |
+| Chrome 154.0.8037.98 只读框 | HardTimeout | null | null |
+| Chrome 154.0.8037.98 编辑框 | Crash | -1073741819 / 0xC0000005 | GetText / Enter / 18 |
+| Edge 152.0.4191.66 HTML | Crash | -1073741819 / 0xC0000005 | GetText / Enter / 18 |
+| Edge 152.0.4191.66 只读框 | Crash | -1073741819 / 0xC0000005 | GetText / Enter / 18 |
+| Edge 152.0.4191.66 编辑框 | Crash | -1073741819 / 0xC0000005 | GetText / Enter / 18 |
+
+摘要仍为 **DiagnosticOnly / Observed 0/6**，六个 LastObservation 均 Unknown，marker setup 均 Ready。四个跨进程有效原子记录证明这些请求的诊断通道工作，不能由 Ready 单独声称另外两个子进程已打开映射。两次超时没有读取或回填 Kill 后标记/退出码。四次 Crash 最后到达 GetText Enter，未记录 Returned；按本版发布顺序，序号 18 位于 Capture Enter、Source/Own 六个指针边界、GetSelection 与 GetBoundingRectangles 返回标记之后。该记录缩小排查到进入 GetText 后、其返回标记尚未发布的区间，不能作为故障指令、模块或 GetText 根因实证，也不能解释另外两个超时。
+
+六视图 SequenceCompleted、BrokerCleanup、ApplicationCleanup、ProfileDeleted 和 RunnerSettled 全为 true；真实 WPF GeometryContracts Pass、Checks 4。ModelCalls 0，ClipboardFallback Disabled，物理划词、Win11、PDF、Markdown 均 NotRun。没有新增取词兼容 Pass、根因修复或 P0 整体通过结论。
+
+日志仅保存在本地忽略目录 `artifacts/windows-selection/windows-boundary-38380832881.local.log`：20,924 bytes，SHA256 `784c9d5a9a085d01533d61fada6db783bed9ceae0d62cda49330b7d4e1bb1f5f`。本轮仅运行上述一个六场景 job；不追加六次、120 项或 GetData。下一步应审查官方 .NET UIA GetText 包装、原生接口和故障定位方案，再作具体可复审修复；本次不凭边界记录换 STA 或强制释放 COM。
