@@ -50,3 +50,8 @@ Idle等待前冻结单调起点，120ms timer作为唤醒；同步/异步回调�
 最终可复现脚本实际输出 **SELECTION_REUSE_OFFLINE 57/57**（原18Fact+39InlineData不变）、**SELECTION_REUSE_HOST 26/26**（原21+新增5），两种口径独立。新增五项：最终尾帧、真实无效可执行路径、预启动取消且starter0调用、Idle返回越绝对期限、runner超时原任务/自有进程收尾。新增首轮26曾25Pass/1Fail：预取消后测试未等异步启动Task完成便断言空owner；补await真实结算后保持原断言，26全部Pass，不提前放行pending启动。测试/runner均0warning/0error，原期限、断言和生产门不变。
 
 本轮仍无真实COM、Windows UIA/Windows子进程退出/取词或性能验收；父进程突然被OS强杀的fault角色孤儿保障未测，不能据正常stdin EOF或显式断开通知宣称已支持。源码修复后的精确冻结待再次独审；只放行修复后同树正常开发推送，不启动Windows实验。
+
+
+## 修复后精确独审放行
+
+源码冻结 **`d5bed2f0e32ff3dc2169b5b9009c2ce8b46f5ec3`**，tree **`48a5f63b919b2801625fd637b6e8202c4ca79692`**，唯一parent **`60f26305f9bb209329f6bd2158953c493fcda734`**，工作区干净。独立只读复审确认两项生命周期阻断已消除，Idle绝对检查/新增五项覆盖及失败历史边界准确，允许仅正常推送该精确tree。审阅者未独立重跑57/26、未写文件、未触发Windows/CI。该放行不等于真实COM、Windows、安全桌面或性能通过；生产仍无接线。后续仅文档结论补记，正常开发分支以连接器同树映射推送并保全本地原始SHA，不触发workflow文件路径。
