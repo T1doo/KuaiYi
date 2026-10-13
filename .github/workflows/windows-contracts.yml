@@ -1,4 +1,4 @@
-name: Bounded Windows SDK compile evidence v2 (no UIA)
+name: Bounded SDK COM selection differential (six synthetic cases)
 on:
   push:
     branches: [dev/p0-com-selection-diagnostic]
@@ -27,8 +27,12 @@ jobs:
         shell: pwsh
         run: |
           & ./tests/scripts/sdk-compile-evidence.test.ps1
-      - name: Compile SDK probe only and emit fixed error evidence
+      - name: Verify selection summary contracts
         shell: pwsh
         run: |
-          & ./scripts/run-windows-sdk-build-ci.ps1
+          & ./tests/scripts/selection-ci-summary.test.ps1
+      - name: Observe SDK COM selection once per browser and synthetic view
+        shell: pwsh
+        run: |
+          & ./scripts/run-windows-selection-ci.ps1 -DiagnosticOnly -ComDiagnostic
           exit $LASTEXITCODE

@@ -53,7 +53,7 @@ public static class KuaiYiSelectionDiscard {
         $broker=Join-Path $root 'src/KuaiYi.CaptureBroker/bin/Release/net10.0-windows/win-x64/KuaiYi.CaptureBroker.exe'
         if($ComDiagnostic) {
             . "$PSScriptRoot/windows-ci-common.ps1"
-            $facts=Get-CiEnvironment
+            $facts=Get-CiEnvironment 2>$null 3>$null 4>$null 5>$null 6>$null
             if(@($facts.NativeBlockers).Count -ne 0){$summary.Reason='SdkPrerequisiteUnavailable';throw 'SDK unavailable'}
             $native=Join-Path $output 'sdk-com'
             & cmake -S (Join-Path $root 'tools/KuaiYi.ComCaptureProbe') -B $native -G 'Visual Studio 17 2022' -A x64 -T "v143,version=$($facts.Toolset)" "-DCMAKE_GENERATOR_INSTANCE=$($facts.VisualStudio.Path)" "-DCMAKE_SYSTEM_VERSION=$($facts.WindowsSdk)" *> $buildLog

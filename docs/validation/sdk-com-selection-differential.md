@@ -35,3 +35,12 @@ workflow 只限新 dev 分支、read-only 权限、现有 windows-2022/VS2022/MS
 原日志本地忽略保存为 `artifacts/windows-selection/windows-com-38385630442.local.log`：17,974 bytes，SHA256 `fe4c91f7acf597d5e5b4c81eff50ea849491a40202347c2f3339f947800f3958`。按照现有隐私边界，编译 stdout/stderr 重定向至 ephemeral runner 的 build.local.log，公开日志中没有 MSVC/LNK 错误码或源行；本环境无法读取已结束 runner 的该文件。未依据猜测改 SDK 接口、关 /WX、降限额或重复 CI。
 
 本轮仅启动这一个有界 job；下一步最小取证缺口是原生编译失败的错误码及公开源码行位置，而非继续运行 UIA。可审阅方案：仅编译原生诊断 exe，纯测试验证报告器从本地编译日志中提取有限 MSVC/LNK 错误码枚举、固定源码类别（ComCaptureProbe/SelectionPolicy/SDK/Link）和有限行号，丢弃完整消息、路径、命令、源码内容与任意文本；独审后进行一次编译门槛检查，再决定是否存在具体可修复编译问题。该方案暂未实现或执行；因当前委托明确限定公开字段为封闭状态、match、HRESULT/exit 和已有标记，新增编译定位字段须由监督方审阅放行，不能自行扩大公开日志范围。没有新的系统权限、凭据或组件安装缺口。
+
+
+## SDK 编译已通过，接续一次六场景授权
+
+编译门已经独核接收：代码/Actions SHA `1e69b5d075952e82c43cba616e460d793fa64130`，run38390705858/job115273500883，Windows脱敏91/91、配置/构建exit0、exe存在；最终记录HEAD `b073453a6359c6413384e1d4cb063da923875712`。具体证据见 `sdk-compile-evidence.md`，上方首次SDK构建阻塞保持历史失败，不再代表当前编译状态。
+
+监督方明确授权立即接续仅一次SDK COM六场景。新runner在Get-CiEnvironment调用点隔离2—6输出流，与已测试的仅编译runner一致；成功返回facts保留，所有非成功流丢弃，外层仍只固定summary。纯测试：脱敏91/91、selection摘要62/62、runner语法解析Pass。
+
+workflow明确同时传 `-DiagnosticOnly -ComDiagnostic`：Chrome/Edge × Html/Input/ReadOnly，各一次合成预选文本；不重复旧ManagedUia六次、120项或GetData，不触发鼠标划词/自动模式/剪贴板回退/翻译/模型。SDK后端default-off、固定完整接口和MTA、250/600ms预算、源身份/密码/完整性/精确Ordinal内部文本比较、失败暂停、原子清理均未修改。仅新一次SDK差分运行，结果待测；即使6/6也只证明该合成显式取词范围候选可行，后续须定向安全回归。旧四个AV与两个超时、P0和物理桌面验收仍保留。
