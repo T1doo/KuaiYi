@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="OfflineRunner.cs" />
+    <Reference Include="KuaiYi.Core.Tests"><HintPath>../../tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll</HintPath></Reference>
+    <Reference Include="xunit.core"><HintPath>../../tests/KuaiYi.Core.Tests/bin/Release/net10.0/xunit.core.dll</HintPath></Reference>
+    <Reference Include="xunit.assert"><HintPath>../../tests/KuaiYi.Core.Tests/bin/Release/net10.0/xunit.assert.dll</HintPath></Reference>
+    <Reference Include="xunit.abstractions"><HintPath>../../tests/KuaiYi.Core.Tests/bin/Release/net10.0/xunit.abstractions.dll</HintPath></Reference>
+  </ItemGroup>
+</Project>
