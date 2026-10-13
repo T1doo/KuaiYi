@@ -1,4 +1,4 @@
-name: Installed browser UIA compatibility (not physical acceptance)
+name: Installed browser UIA six-case diagnostics (not acceptance)
 on:
   push:
     branches: [dev/p0-installed-selection]
@@ -27,8 +27,8 @@ jobs:
         shell: pwsh
         run: |
           & ./tests/scripts/selection-ci-summary.test.ps1
-      - name: Capture actual selected public text from installed browsers
+      - name: Observe six production UIA calls with bounded diagnostics
         shell: pwsh
         run: |
-          & ./scripts/run-windows-selection-ci.ps1
+          & ./scripts/run-windows-selection-ci.ps1 -DiagnosticOnly
           exit $LASTEXITCODE

@@ -31,13 +31,13 @@ internal static class PublicSelectionFixtures
         Add("Mixed", "English 中文 😀\tpublic\nnext line", 1);
         return result.ToArray();
     }
-    internal static string Html(string view, string marker)
+    internal static string Html(string view, string marker,int count=20)
     {
-        if (!Views.Contains(view) || marker.Length != 32 || marker.Any(c => !char.IsAsciiHexDigit(c)))
+        if (!Views.Contains(view) || marker.Length != 32 || marker.Any(c => !char.IsAsciiHexDigit(c)) || count is not (1 or 20))
             throw new ArgumentException("Invalid fixture identity.");
         string element = view == "Html" ? "<pre id=sample tabindex=0></pre>" :
             view == "ReadOnly" ? "<textarea id=sample readonly></textarea>" : "<textarea id=sample></textarea>";
-        string cases = JsonSerializer.Serialize(Cases());
+        string cases = JsonSerializer.Serialize(Cases().Take(count));
         return "<!doctype html><meta charset=utf-8><meta http-equiv=Content-Security-Policy content=\"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'\">" +
             "<title>KYSEL-" + marker + "-WAIT</title><style>body{margin:0;background:white;color:black}#sample{box-sizing:border-box;width:100vw;height:90vh;margin:0;padding:24px;border:0;font:18px monospace;white-space:pre-wrap;overflow:auto}</style>" + element +
             "<script>const cases=" + cases + ";const sample=document.getElementById('sample');let i=-1;function next(){i++;if(i>=cases.length){document.title='KYSEL-" + marker + "-DONE';return;}" +

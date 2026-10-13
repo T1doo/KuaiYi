@@ -22,7 +22,7 @@ public sealed class SelectionBrokerProcessTests
     public async Task FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(int elapsed,SelectionCaptureStatus expected)
     {
         var clock=new MonotonicClock();var starter=new FixtureStarter("normal");byte[]? held=null;await using var client=new SelectionBrokerClient("public-fixture",starter,clock){BeforeSelectionDeliveryForTest=payload=>{held=payload;clock.Milliseconds+=elapsed;clock.Utc=clock.Utc.AddDays(-3);}};
-        var result=await client.CaptureAsync(Gesture(),default);Assert.Equal(expected,result.Status);Assert.Equal(expected==SelectionCaptureStatus.Success?"public selected\n  code":"",result.Text);Assert.NotNull(held);Assert.All(held!,b=>Assert.Equal(0,b));await client.DisposeAsync();Assert.Null(client.ExitState);Assert.Equal(1,starter.Starts);
+        var result=await client.CaptureAsync(Gesture(),default);Assert.Equal(expected,result.Status);Assert.Equal(expected==SelectionCaptureStatus.Success?"public selected\n  code":"",result.Text);Assert.NotNull(held);Assert.All(held!,b=>Assert.Equal(0,b));if(expected==SelectionCaptureStatus.HardTimeout)Assert.Null(client.LastObservation);await client.DisposeAsync();Assert.Null(client.ExitState);Assert.Equal(1,starter.Starts);
     }
     [Fact]public async Task CancellationAtFinalValidationCannotDeliverDecodedSelection()
     {
@@ -41,6 +41,14 @@ public sealed class SelectionBrokerProcessTests
         }
     }
     private static SelectionGesture Gesture(string application="public.exe")=>new(new(123,456,789,application),new(3,3),new(70,3),1,1);
+    [Fact]public async Task APrecancelledAttemptCannotReuseThePreviousCompleteMetadata()
+    {
+        var starter=new FixtureStarter("normal");await using var client=new SelectionBrokerClient("public-fixture",starter);
+        Assert.Equal(SelectionCaptureStatus.Success,(await client.CaptureAsync(Gesture(),default)).Status);Assert.Equal("Success",client.LastObservation?.Status);
+        using var guard=new CancellationTokenSource(TimeSpan.FromSeconds(5));while(client.ExitState!=null)await Task.Delay(5,guard.Token);
+        using var cancellation=new CancellationTokenSource();cancellation.Cancel();
+        Assert.Equal(SelectionCaptureStatus.Cancelled,(await client.CaptureAsync(Gesture(),cancellation.Token)).Status);Assert.Null(client.LastObservation);Assert.Equal(1,starter.Starts);
+    }
     [Theory][InlineData("normal",SelectionCaptureStatus.Success)][InlineData("identity",SelectionCaptureStatus.ProtocolFailure)][InlineData("role",SelectionCaptureStatus.ProtocolFailure)][InlineData("source",SelectionCaptureStatus.ProtocolFailure)][InlineData("runtime",SelectionCaptureStatus.ProtocolFailure)][InlineData("bounds",SelectionCaptureStatus.ProtocolFailure)][InlineData("oversize",SelectionCaptureStatus.ProtocolFailure)][InlineData("extra",SelectionCaptureStatus.ProtocolFailure)][InlineData("soft",SelectionCaptureStatus.SoftTimeout)][InlineData("error-text",SelectionCaptureStatus.EmptyOrUnsupported)][InlineData("crash",SelectionCaptureStatus.Crash)]
     public async Task ActualOwnedFixtureEnforcesSelectionWireAndIdentity(string fault,SelectionCaptureStatus expected)
     {

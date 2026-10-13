@@ -22,11 +22,19 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
         if(started is {} timestamp&&Clock.GetElapsedTime(timestamp)>=HardBudget)throw new AbsoluteDeadlineException();
     }
     public HostExitState? ExitState{get{lock(sync)return owner?.ExitState;}}
+    public SelectionBrokerObservation? LastObservation{get;private set;}
+    internal static SelectionBrokerObservation ObserveMetadata(SelectionCaptureMetadata metadata)
+    {
+        string status=metadata.Status switch{"Success" or "Stale" or "Sensitive" or "SensitiveOrElevated" or "UnsupportedOrProtected" or "SoftTimeout" or "TooLarge" or "TooLargeOrInvalidUnicode" or "EmptyOrUnsupported"=>metadata.Status,_=>"Unknown"};
+        var diagnostic=metadata.Diagnostic;
+        return new(status,diagnostic==null?"Unknown":Enum.GetName(diagnostic.Stage)??"Unknown",diagnostic==null?"Unknown":Enum.GetName(diagnostic.Exception)??"Unknown",diagnostic is {Exception:not SelectionBrokerException.None}?diagnostic.HResult:null);
+    }
     public async Task<SelectionCaptureResult> CaptureAsync(SelectionGesture gesture,CancellationToken cancellation)
     {
         long started=Clock.GetTimestamp();OwnedProcessSession session;DateTimeOffset now=Clock.GetUtcNow();
         lock(sync)
         {
+            LastObservation=null;
             if(disposed)return new(SelectionCaptureStatus.Cancelled);
             if(paused.TryGetValue(gesture.Window.Executable,out var until)&&now<until)return new(SelectionCaptureStatus.Paused);
             if(owner!=null){if(cleanup?.IsCompleted==true)cleanup=CleanupAsync(owner);return new(SelectionCaptureStatus.CleanupPending);}
@@ -53,6 +61,7 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
             if(first?.RequestId!=id||second?.RequestId!=id||first.Type!=IpcMessageType.Ping||second.Type!=IpcMessageType.BinaryChunk)throw new InvalidDataException("Selection frame identity/type mismatch.");
             var meta=JsonSerializer.Deserialize<SelectionCaptureMetadata>(first.Payload)??throw new InvalidDataException("Missing metadata.");
             if(!double.IsFinite(meta.ElapsedMs)||meta.ElapsedMs<0||meta.CandidateCount is <0 or >64||meta.RangeCount is <0 or >64)throw new InvalidDataException("Invalid diagnostic bounds.");
+            LastObservation=ObserveMetadata(meta);
             status=ParseStatus(meta.Status);
             if(status!=SelectionCaptureStatus.Success)
             {
@@ -79,6 +88,7 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
         catch(Exception error)when(error is IOException or InvalidDataException or JsonException or DecoderFallbackException or InvalidOperationException or System.ComponentModel.Win32Exception or OverflowException or ArgumentException){status=SelectionCaptureStatus.ProtocolFailure;return new(status);}
         finally
         {
+            if(status is SelectionCaptureStatus.HardTimeout or SelectionCaptureStatus.Cancelled or SelectionCaptureStatus.Crash or SelectionCaptureStatus.ProtocolFailure)LastObservation=null;
             if(payload!=null)CryptographicOperations.ZeroMemory(payload);
             lock(sync)
             {

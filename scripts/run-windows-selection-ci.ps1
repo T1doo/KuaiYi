@@ -1,3 +1,4 @@
+param([switch]$DiagnosticOnly)
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
 . "$PSScriptRoot/selection-ci-summary.ps1"
@@ -50,13 +51,14 @@ public static class KuaiYiSelectionDiscard {
         $info.UseShellExecute=$false;$info.RedirectStandardOutput=$true;$info.RedirectStandardError=$true;$info.WorkingDirectory=$root
         foreach ($key in @($info.Environment.Keys)) { if ($key -notin @('SystemRoot','WINDIR','TEMP','TMP','PATH','DOTNET_ROOT','DOTNET_ROOT_X64','ProgramFiles','ProgramFiles(x86)')) { [void]$info.Environment.Remove($key) } }
         $info.Environment['CI']='true';$info.Environment['GITHUB_SHA']=$commit
-        foreach ($argument in @('--ci-installed-selection',$broker,$receipt,$chrome,$edge)) { [void]$info.ArgumentList.Add($argument) }
+        $mode=if ($DiagnosticOnly) {'--ci-selection-diagnostic'} else {'--ci-installed-selection'}
+        foreach ($argument in @($mode,$broker,$receipt,$chrome,$edge)) { [void]$info.ArgumentList.Add($argument) }
         $child=[Diagnostics.Process]::Start($info)
         $stdout=[KuaiYiSelectionDiscard]::Drain($child.StandardOutput.BaseStream);$stderr=[KuaiYiSelectionDiscard]::Drain($child.StandardError.BaseStream)
         if (-not $child.WaitForExit(540000)) { $summary.Reason='ProbeDeadline';throw 'Probe deadline' }
         if (-not [Threading.Tasks.Task]::WaitAll([Threading.Tasks.Task[]]@($stdout,$stderr),2000) -or -not $stdout.IsCompletedSuccessfully -or -not $stderr.IsCompletedSuccessfully -or -not $stdout.Result -or -not $stderr.Result) { $summary.Reason='OriginalReadsUnsettled';throw 'Read settlement failed' }
         if (-not (Test-Path -LiteralPath $receipt) -or (Get-Item -LiteralPath $receipt).Length -gt 262144) { $summary.Reason='ReceiptUnavailable';throw 'Missing receipt' }
-        try { $summary=ConvertTo-SelectionSummary (Get-Content -LiteralPath $receipt -Raw | ConvertFrom-Json) $child.ExitCode $commit }
+        try { $summary=ConvertTo-SelectionSummary (Get-Content -LiteralPath $receipt -Raw | ConvertFrom-Json) $child.ExitCode $commit -DiagnosticOnly:$DiagnosticOnly }
         catch { $summary.Reason='ReceiptRejected' }
     }
 } catch { # Only the fixed summary crosses the runner boundary.

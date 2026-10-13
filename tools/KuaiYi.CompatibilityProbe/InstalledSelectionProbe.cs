@@ -2,16 +2,17 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using KuaiYi.Core;
+using KuaiYi.Contracts;
 using KuaiYi.NativeHost;
 using KuaiYi.Windows;
 namespace KuaiYi.CompatibilityProbe;
 
-internal sealed record SelectionCaseEvidence(int Index, string Kind, string Outcome, bool Captured, bool Matches, bool ForegroundStable, bool MarkerStable, bool BrokerSettled);
+internal sealed record SelectionCaseEvidence(int Index, string Kind, string Outcome, bool Captured, bool Matches, bool ForegroundStable, bool MarkerStable, bool BrokerSettled,SelectionBrokerObservation? BrokerObservation=null);
 internal sealed record SelectionViewEvidence(string Application, string Version, string View, string Status, string Reason, bool SequenceCompleted, int Planned, int Correct, int Mismatches, bool BrokerCleanup, bool ApplicationCleanup, bool ProfileDeleted, SelectionCaseEvidence[] Cases);
 internal sealed record SelectionProbeReceipt(string Kind, string SourceCommit, string Scope, string Accessibility, string PhysicalSelection, string Windows11Acceptance, int ModelCalls, int Planned, SelectionViewEvidence[] Views);
 internal static class InstalledSelectionProbe
 {
-    internal static async Task<int> RunAsync(string broker, string receipt, string chrome, string edge)
+    internal static async Task<int> RunAsync(string broker, string receipt, string chrome, string edge,bool diagnosticOnly=false)
     {
         if (!OperatingSystem.IsWindows() || Environment.GetEnvironmentVariable("CI") != "true" ||
             Environment.GetEnvironmentVariable("GITHUB_SHA") is not { } source || !Regex.IsMatch(source, "^[0-9a-f]{40}$") || !File.Exists(broker)) return 2;
@@ -24,11 +25,11 @@ internal static class InstalledSelectionProbe
             if (!Regex.IsMatch(version, "^[0-9]+(\\.[0-9]+){1,3}$")) version = "Unknown";
             foreach (string view in PublicSelectionFixtures.Views)
             {
-                var cases = PublicSelectionFixtures.Cases();
+                var cases = PublicSelectionFixtures.Cases().Take(diagnosticOnly?1:20).ToArray();
                 var results = cases.Select((c, i) => new SelectionCaseEvidence(i, c.Kind, "NotRun", false, false, false, false, false)).ToArray();
                 if (!installed || !continueAllowed || deadline.IsCancellationRequested)
                 {
-                    views.Add(new(app.Name, version, view, "Blocked", !installed ? "UnavailableOrUnverified" : "PreviousCleanupOrDeadline", false, 20, 0, 0, false, false, false, results));
+                    views.Add(new(app.Name, version, view, "Blocked", !installed ? "UnavailableOrUnverified" : "PreviousCleanupOrDeadline", false, cases.Length, 0, 0, false, false, false, results));
                     continue;
                 }
                 string profile = Path.Combine(Path.GetTempPath(), "KuaiYi-public-selection-" + Guid.NewGuid().ToString("N"));
@@ -41,7 +42,7 @@ internal static class InstalledSelectionProbe
                     Directory.CreateDirectory(profile);
                     Directory.CreateDirectory(Path.Combine(profile, "local")); Directory.CreateDirectory(Path.Combine(profile, "roaming"));
                     string file = Path.Combine(profile, "public.html");
-                    await File.WriteAllTextAsync(file, PublicSelectionFixtures.Html(view, marker), deadline.Token);
+                    await File.WriteAllTextAsync(file, PublicSelectionFixtures.Html(view, marker,cases.Length), deadline.Token);
                     application = await OwnedApplicationJob.StartAsync(app.Path,
                         ["--user-data-dir=" + Path.Combine(profile, "browser"), "--no-first-run", "--no-default-browser-check", "--disable-background-networking", "--app=" + new Uri(file).AbsoluteUri], profile);
                     client = new SelectionBrokerClient(Path.GetFullPath(broker));
@@ -51,7 +52,7 @@ internal static class InstalledSelectionProbe
                         nint window = application.FindWindow(prefix);
                         string? value = application.CaseMarker(window, prefix);
                         if (value == "DO") { sequenceCompleted = true; break; }
-                        if (int.TryParse(value, out int index) && index is >= 0 and < 20 && index > previous)
+                        if (int.TryParse(value, out int index) && index >=0 && index<cases.Length && index > previous)
                         {
                             previous = index;
                             if (NativeDesktop.GetForegroundWindow() != window) application.Activate(window);
@@ -70,7 +71,7 @@ internal static class InstalledSelectionProbe
                             var cleanupWatch = Stopwatch.StartNew();
                             while (client.ExitState != null && cleanupWatch.Elapsed < TimeSpan.FromSeconds(2)) await Task.Delay(20);
                             bool settled = client.ExitState == null;
-                            results[index] = new(index, cases[index].Kind, captured.Status.ToString(), captured.Status == SelectionCaptureStatus.Success, matches && settled, foreground, stable, settled);
+                            results[index] = new(index, cases[index].Kind, captured.Status.ToString(), captured.Status == SelectionCaptureStatus.Success, matches && settled, foreground, stable, settled,client.LastObservation);
                             captured = null!;
                             if (!settled) { brokerCleanup = false; reason = "BrokerCleanupUnconfirmed"; break; }
                         }
@@ -101,10 +102,11 @@ internal static class InstalledSelectionProbe
                 int correct = results.Count(c => c.Matches);
                 int mismatches = results.Count(c => c.Captured && c.ForegroundStable && c.MarkerStable && !c.Matches);
                 bool pass = reason == "Completed" && sequenceCompleted && correct >= 19 && mismatches == 0 && brokerCleanup && applicationCleanup && profileDeleted;
-                views.Add(new(app.Name, version, view, pass ? "Pass" : "Fail", reason, sequenceCompleted, 20, correct, mismatches, brokerCleanup, applicationCleanup, profileDeleted, results));
+                bool observed = reason=="Completed"&&sequenceCompleted&&brokerCleanup&&applicationCleanup&&profileDeleted&&results.All(c=>c.BrokerSettled);
+                views.Add(new(app.Name, version, view, diagnosticOnly?(observed?"Observed":"Fail"):pass?"Pass":"Fail", reason, sequenceCompleted, cases.Length, correct, mismatches, brokerCleanup, applicationCleanup, profileDeleted, results));
             }
         }
-        var report = new SelectionProbeReceipt("HostedInstalledSelection", source, "ExplicitProductionUiaOnly", "DefaultOnDemand", "NotRun", "NotRun", 0, 120, views.ToArray());
+        var report = new SelectionProbeReceipt(diagnosticOnly?"HostedInstalledSelectionDiagnostic":"HostedInstalledSelection", source, diagnosticOnly?"DiagnosticOnly":"ExplicitProductionUiaOnly", "DefaultOnDemand", "NotRun", "NotRun", 0, diagnosticOnly?6:120, views.ToArray());
         await File.WriteAllTextAsync(receipt, JsonSerializer.Serialize(report));
         return views.Any(v => v.Status == "Fail") ? 3 : views.Any(v => v.Status == "Blocked") ? 2 : 0;
     }

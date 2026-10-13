@@ -50,3 +50,26 @@ if ((ConvertTo-SelectionSummary $nineteen 0 $commit).Status -cne 'Pass') {throw 
 $safe=Copy-Report;$safe | Add-Member RawStderr 'PRIVATE_SENTINEL';$safe.Views[0] | Add-Member Path 'PRIVATE_SENTINEL';$safe.Views[0].Cases[0] | Add-Member Text 'PRIVATE_SENTINEL'
 if ((ConvertTo-SelectionSummary $safe 0 $commit | ConvertTo-Json -Depth 10) -match 'PRIVATE_SENTINEL|RawStderr') {throw 'Private field escaped'};$checks++
 Write-Host "SELECTION_SUMMARY_CONTRACTS passed=$checks failed=0"
+$diagnostic=Copy-Report;$diagnostic.Kind='HostedInstalledSelectionDiagnostic';$diagnostic.Scope='DiagnosticOnly';$diagnostic.Planned=6
+foreach ($v in $diagnostic.Views) {
+    $v.Status='Observed';$v.Planned=1;$v.Correct=0;$v.Cases=@($v.Cases[0]);$v.Cases[0].Outcome='Sensitive';$v.Cases[0].Captured=$false;$v.Cases[0].Matches=$false
+    $v.Cases[0] | Add-Member BrokerObservation ([pscustomobject]@{Status='UnsupportedOrProtected';Stage='Root';Exception='Com';HResult=-2147024891})
+}
+$d=ConvertTo-SelectionSummary $diagnostic 0 $commit -DiagnosticOnly
+if ($d.Kind -cne 'HostedSelectionDiagnosticSummary' -or $d.Scope -cne 'DiagnosticOnly' -or $d.Status -cne 'Observed' -or $d.Planned -ne 6 -or $d.Views[0].BrokerObservations[0].Status -cne 'UnsupportedOrProtected') { throw 'Diagnostic scope or status lost' };$checks++
+foreach ($mode in @('WrongScope','FakePass','PrivateStage','LateObservation','PendingCleanup','Message')) {
+    $r=$diagnostic | ConvertTo-Json -Depth 10 | ConvertFrom-Json;$rejected=$false
+    switch ($mode) {
+        WrongScope {$r.Scope='ExplicitProductionUiaOnly'}
+        FakePass {$r.Views[0].Status='Pass'}
+        PrivateStage {$r.Views[0].Cases[0].BrokerObservation.Stage='PRIVATE_SENTINEL'}
+        LateObservation {$r.Views[0].Cases[0].Outcome='HardTimeout'}
+        PendingCleanup {$r.Views[0].BrokerCleanup=$false}
+        Message {$r.Views[0].Cases[0].BrokerObservation | Add-Member Message 'PRIVATE_SENTINEL'}
+    }
+    try {$result=ConvertTo-SelectionSummary $r 0 $commit -DiagnosticOnly} catch {$rejected=$true}
+    if ($mode -ceq 'Message') {if ($rejected -or ($result | ConvertTo-Json -Depth 10) -match 'PRIVATE_SENTINEL|Message') {throw 'Exception message escaped'}}
+    elseif (-not $rejected) {throw 'Invalid diagnostic evidence accepted'}
+    $checks++
+}
+Write-Host "SELECTION_SUMMARY_CONTRACTS_TOTAL passed=$checks failed=0"
