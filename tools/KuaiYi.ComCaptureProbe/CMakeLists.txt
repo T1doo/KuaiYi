@@ -1,0 +1,13 @@
+cmake_minimum_required(VERSION 3.28)
+project(KuaiYiComCaptureProbe LANGUAGES CXX)
+if(NOT WIN32 OR NOT MSVC OR NOT CMAKE_SIZEOF_VOID_P EQUAL 8)
+  message(FATAL_ERROR "Requires existing Windows x64 MSVC/SDK; not a Linux COM proof")
+endif()
+add_executable(KuaiYi.ComCaptureProbe ComCaptureProbe.cpp)
+target_compile_features(KuaiYi.ComCaptureProbe PRIVATE cxx_std_20)
+target_compile_definitions(KuaiYi.ComCaptureProbe PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
+target_compile_options(KuaiYi.ComCaptureProbe PRIVATE /W4 /WX /EHsc)
+target_link_options(KuaiYi.ComCaptureProbe PRIVATE /MANIFEST:EMBED "/MANIFESTINPUT:${CMAKE_CURRENT_SOURCE_DIR}/../../src/KuaiYi.Windows/app.manifest")
+target_link_libraries(KuaiYi.ComCaptureProbe PRIVATE ole32 oleaut32 advapi32 uuid user32 kernel32)
+set_property(TARGET KuaiYi.ComCaptureProbe PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+# Diagnostic-only executable: not part of App staging or installer.

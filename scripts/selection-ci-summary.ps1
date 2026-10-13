@@ -2,7 +2,12 @@ Set-StrictMode -Version Latest
 function Assert-SelectionInteger($Value, [int]$Minimum, [int]$Maximum) {
     if (($Value -isnot [int] -and $Value -isnot [long]) -or $Value -lt $Minimum -or $Value -gt $Maximum) { throw 'Invalid integer evidence' }
 }
-function ConvertTo-SelectionSummary($Report, [int]$ChildExit, [string]$Commit, [switch]$DiagnosticOnly) {
+function ConvertTo-SelectionSummary($Report, [int]$ChildExit, [string]$Commit, [switch]$DiagnosticOnly,[switch]$ComDiagnostic) {
+    if($ComDiagnostic -and -not $DiagnosticOnly){throw 'COM receipt is diagnostic only'}
+    $backend='ManagedUia'
+    if($null -ne $Report.PSObject.Properties['Backend']){$backend=$Report.Backend}
+    $expectedBackend=if($ComDiagnostic){'SdkCom'}else{'ManagedUia'}
+    if($backend -cne $expectedBackend){throw 'Invalid backend evidence'}
     $planned=if ($DiagnosticOnly) {6} else {120};$perView=if ($DiagnosticOnly) {1} else {20}
     $kind=if ($DiagnosticOnly) {'HostedInstalledSelectionDiagnostic'} else {'HostedInstalledSelection'}
     $scope=if ($DiagnosticOnly) {'DiagnosticOnly'} else {'ExplicitProductionUiaOnly'}
@@ -67,5 +72,5 @@ function ConvertTo-SelectionSummary($Report, [int]$ChildExit, [string]$Commit, [
     $exit=if ($status -cin @('Pass','Observed')) {0} elseif ($status -ceq 'Blocked') {2} else {3}
     if ($ChildExit -ne $exit) { throw 'Invalid child outcome' }
     $summaryKind=if ($DiagnosticOnly) {'HostedSelectionDiagnosticSummary'} else {'HostedSelectionSummary'}
-    return [pscustomobject][ordered]@{Kind=$summaryKind;SourceCommit=$Commit;Status=$status;Scope=$scope;Accessibility='DefaultOnDemand';Planned=$planned;Correct=($views | Measure-Object Correct -Sum).Sum;ModelCalls=0;ClipboardFallback='Disabled';PhysicalSelection='NotRun';Windows11Acceptance='NotRun';Pdf='NotRun';MarkdownEditors='NotRun';Views=$views;ExitCode=$exit}
+    return [pscustomobject][ordered]@{Kind=$summaryKind;Backend=$backend;SourceCommit=$Commit;Status=$status;Scope=$scope;Accessibility='DefaultOnDemand';Planned=$planned;Correct=($views | Measure-Object Correct -Sum).Sum;ModelCalls=0;ClipboardFallback='Disabled';PhysicalSelection='NotRun';Windows11Acceptance='NotRun';Pdf='NotRun';MarkdownEditors='NotRun';Views=$views;ExitCode=$exit}
 }

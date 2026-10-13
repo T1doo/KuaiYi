@@ -130,3 +130,20 @@ foreach($mode in @('PrivateBoundary','PrivatePosition','Zero','Overflow','String
 }
 Reject 'marker enabled in compatibility acceptance' {param($r) $r.Views[0].Cases[0] | Add-Member BoundaryMarkerSetup 'Ready'}
 Write-Host "SELECTION_SUMMARY_MARKER_CONTRACTS passed=$checks failed=0"
+
+$com=$marked | ConvertTo-Json -Depth 10 | ConvertFrom-Json;$com | Add-Member Backend 'SdkCom'
+$comSummary=ConvertTo-SelectionSummary $com 0 $commit -DiagnosticOnly -ComDiagnostic
+if($comSummary.Backend -cne 'SdkCom' -or $comSummary.Scope -cne 'DiagnosticOnly' -or $comSummary.Status -cne 'Observed'){throw 'COM mode lost'};$checks++
+foreach($mode in @('Default','Acceptance','UnknownBackend','MissingBackend')){
+    $r=$com | ConvertTo-Json -Depth 10 | ConvertFrom-Json;$rejected=$false
+    try{
+        switch($mode){
+            Default {$null=ConvertTo-SelectionSummary $r 0 $commit -DiagnosticOnly}
+            Acceptance {$null=ConvertTo-SelectionSummary $r 0 $commit -ComDiagnostic}
+            UnknownBackend {$r.Backend='PRIVATE_SENTINEL';$null=ConvertTo-SelectionSummary $r 0 $commit -DiagnosticOnly -ComDiagnostic}
+            MissingBackend {$r.PSObject.Properties.Remove('Backend');$null=ConvertTo-SelectionSummary $r 0 $commit -DiagnosticOnly -ComDiagnostic}
+        }
+    }catch{$rejected=$true}
+    if(-not $rejected){throw 'Unscoped COM evidence accepted'};$checks++
+}
+Write-Host "SELECTION_SUMMARY_COM_CONTRACTS passed=$checks failed=0"

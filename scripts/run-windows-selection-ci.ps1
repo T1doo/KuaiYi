@@ -1,7 +1,8 @@
-param([switch]$DiagnosticOnly)
+param([switch]$DiagnosticOnly,[switch]$ComDiagnostic)
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
 . "$PSScriptRoot/selection-ci-summary.ps1"
+if($ComDiagnostic -and -not $DiagnosticOnly){throw 'COM differential is diagnostic only'}
 $root=Split-Path $PSScriptRoot -Parent
 $summary=[pscustomobject]@{Kind='HostedSelectionSummary';Status='Fail';Reason='RunnerFailure';PhysicalSelection='NotRun';Windows11Acceptance='NotRun';ModelCalls=0;ExitCode=3}
 $child=$null; $stdout=$null; $stderr=$null
@@ -50,19 +51,31 @@ public static class KuaiYiSelectionDiscard {
         if ($LASTEXITCODE -ne 0) { $summary.Reason='WpfGeometryContractFailed';throw 'Geometry contract failed' }
         $geometryVerified=$true
         $broker=Join-Path $root 'src/KuaiYi.CaptureBroker/bin/Release/net10.0-windows/win-x64/KuaiYi.CaptureBroker.exe'
+        if($ComDiagnostic) {
+            . "$PSScriptRoot/windows-ci-common.ps1"
+            $facts=Get-CiEnvironment
+            if(@($facts.NativeBlockers).Count -ne 0){$summary.Reason='SdkPrerequisiteUnavailable';throw 'SDK unavailable'}
+            $native=Join-Path $output 'sdk-com'
+            & cmake -S (Join-Path $root 'tools/KuaiYi.ComCaptureProbe') -B $native -G 'Visual Studio 17 2022' -A x64 -T "v143,version=$($facts.Toolset)" "-DCMAKE_GENERATOR_INSTANCE=$($facts.VisualStudio.Path)" "-DCMAKE_SYSTEM_VERSION=$($facts.WindowsSdk)" *> $buildLog
+            if($LASTEXITCODE -ne 0){$summary.Reason='SdkConfigureFailed';throw 'SDK configure'}
+            & cmake --build $native --config Release --parallel 2 *> $buildLog
+            if($LASTEXITCODE -ne 0){$summary.Reason='SdkBuildFailed';throw 'SDK build'}
+            $broker=Join-Path $native 'Release/KuaiYi.ComCaptureProbe.exe'
+            if(-not (Test-Path -LiteralPath $broker -PathType Leaf)){$summary.Reason='SdkExecutableUnavailable';throw 'SDK executable'}
+        }
         $receipt=Join-Path $output 'receipt.local.json'
         $info=[Diagnostics.ProcessStartInfo]::new($exe)
         $info.UseShellExecute=$false;$info.RedirectStandardOutput=$true;$info.RedirectStandardError=$true;$info.WorkingDirectory=$root
         foreach ($key in @($info.Environment.Keys)) { if ($key -notin @('SystemRoot','WINDIR','TEMP','TMP','PATH','DOTNET_ROOT','DOTNET_ROOT_X64','ProgramFiles','ProgramFiles(x86)')) { [void]$info.Environment.Remove($key) } }
         $info.Environment['CI']='true';$info.Environment['GITHUB_SHA']=$commit
-        $mode=if ($DiagnosticOnly) {'--ci-selection-diagnostic'} else {'--ci-installed-selection'}
+        $mode=if ($ComDiagnostic) {'--ci-com-selection-diagnostic'} elseif ($DiagnosticOnly) {'--ci-selection-diagnostic'} else {'--ci-installed-selection'}
         foreach ($argument in @($mode,$broker,$receipt,$chrome,$edge)) { [void]$info.ArgumentList.Add($argument) }
         $child=[Diagnostics.Process]::Start($info)
         $stdout=[KuaiYiSelectionDiscard]::Drain($child.StandardOutput.BaseStream);$stderr=[KuaiYiSelectionDiscard]::Drain($child.StandardError.BaseStream)
         if (-not $child.WaitForExit(540000)) { $summary.Reason='ProbeDeadline';throw 'Probe deadline' }
         if (-not [Threading.Tasks.Task]::WaitAll([Threading.Tasks.Task[]]@($stdout,$stderr),2000) -or -not $stdout.IsCompletedSuccessfully -or -not $stderr.IsCompletedSuccessfully -or -not $stdout.Result -or -not $stderr.Result) { $summary.Reason='OriginalReadsUnsettled';throw 'Read settlement failed' }
         if (-not (Test-Path -LiteralPath $receipt) -or (Get-Item -LiteralPath $receipt).Length -gt 262144) { $summary.Reason='ReceiptUnavailable';throw 'Missing receipt' }
-        try { $summary=ConvertTo-SelectionSummary (Get-Content -LiteralPath $receipt -Raw | ConvertFrom-Json) $child.ExitCode $commit -DiagnosticOnly:$DiagnosticOnly }
+        try { $summary=ConvertTo-SelectionSummary (Get-Content -LiteralPath $receipt -Raw | ConvertFrom-Json) $child.ExitCode $commit -DiagnosticOnly:$DiagnosticOnly -ComDiagnostic:$ComDiagnostic }
         catch { $summary.Reason='ReceiptRejected' }
     }
 } catch { # Only the fixed summary crosses the runner boundary.

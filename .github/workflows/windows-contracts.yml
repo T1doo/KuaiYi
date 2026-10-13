@@ -1,13 +1,13 @@
-name: Six nonpersistent crash boundary diagnostics (not acceptance)
+name: Six Windows SDK COM differential calls (not acceptance)
 on:
   push:
-    branches: [dev/p0-installed-selection]
+    branches: [dev/p0-com-selection-diagnostic]
     paths: [.github/workflows/windows-contracts.yml]
 permissions:
   contents: read
 jobs:
   contracts:
-    if: github.repository == 'T1doo/KuaiYi' && github.ref == 'refs/heads/dev/p0-installed-selection'
+    if: github.repository == 'T1doo/KuaiYi' && github.ref == 'refs/heads/dev/p0-com-selection-diagnostic'
     # First windows-2025 run resolved to VS2026; retain the reviewed VS2022 toolchain.
     runs-on: windows-2022
     timeout-minutes: 15
@@ -27,8 +27,8 @@ jobs:
         shell: pwsh
         run: |
           & ./tests/scripts/selection-ci-summary.test.ps1
-      - name: Diagnose six original exits with fixed shared memory boundaries
+      - name: Diagnose six public selections through official SDK COM
         shell: pwsh
         run: |
-          & ./scripts/run-windows-selection-ci.ps1 -DiagnosticOnly
+          & ./scripts/run-windows-selection-ci.ps1 -DiagnosticOnly -ComDiagnostic
           exit $LASTEXITCODE

@@ -9,11 +9,12 @@ namespace KuaiYi.CompatibilityProbe;
 
 internal sealed record SelectionCaseEvidence(int Index, string Kind, string Outcome, bool Captured, bool Matches, bool ForegroundStable, bool MarkerStable, bool BrokerSettled,SelectionBrokerObservation? BrokerObservation=null,int? BrokerExitCode=null,SelectionReachedBoundary? LastReachedBoundary=null,string BoundaryMarkerSetup="Disabled");
 internal sealed record SelectionViewEvidence(string Application, string Version, string View, string Status, string Reason, bool SequenceCompleted, int Planned, int Correct, int Mismatches, bool BrokerCleanup, bool ApplicationCleanup, bool ProfileDeleted, SelectionCaseEvidence[] Cases);
-internal sealed record SelectionProbeReceipt(string Kind, string SourceCommit, string Scope, string Accessibility, string PhysicalSelection, string Windows11Acceptance, int ModelCalls, int Planned, SelectionViewEvidence[] Views);
+internal sealed record SelectionProbeReceipt(string Kind, string SourceCommit, string Scope, string Accessibility, string PhysicalSelection, string Windows11Acceptance, int ModelCalls, int Planned, SelectionViewEvidence[] Views,string Backend="ManagedUia");
 internal static class InstalledSelectionProbe
 {
-    internal static async Task<int> RunAsync(string broker, string receipt, string chrome, string edge,bool diagnosticOnly=false)
+    internal static async Task<int> RunAsync(string broker, string receipt, string chrome, string edge,bool diagnosticOnly=false,bool comDiagnostic=false)
     {
+        if(comDiagnostic&&(!diagnosticOnly||Path.GetFileName(broker)!="KuaiYi.ComCaptureProbe.exe"))return 2;
         if (!OperatingSystem.IsWindows() || Environment.GetEnvironmentVariable("CI") != "true" ||
             Environment.GetEnvironmentVariable("GITHUB_SHA") is not { } source || !Regex.IsMatch(source, "^[0-9a-f]{40}$") || !File.Exists(broker)) return 2;
         var views = new List<SelectionViewEvidence>(); bool continueAllowed = true;
@@ -67,7 +68,7 @@ internal static class InstalledSelectionProbe
                             var captured = await client.CaptureAsync(new(sourceWindow, point, point, Environment.TickCount64, 0, true), deadline.Token);
                             bool foreground = application.OwnsSource(sourceWindow) && SelectionDesktop.IsCurrent(sourceWindow);
                             bool stable = application.CaseMarker(window, prefix) == value;
-                            bool matches = captured.Status == SelectionCaptureStatus.Success && foreground && stable && PublicSelectionFixtures.Matches(captured.Text, cases[index].Expected);
+                            bool matches = captured.Status == SelectionCaptureStatus.Success && foreground && stable && (comDiagnostic?string.Equals(captured.Text,cases[index].Expected,StringComparison.Ordinal):PublicSelectionFixtures.Matches(captured.Text, cases[index].Expected));
                             var cleanupWatch = Stopwatch.StartNew();
                             while (client.ExitState != null && cleanupWatch.Elapsed < TimeSpan.FromSeconds(2)) await Task.Delay(20);
                             bool settled = client.ExitState == null;
@@ -106,7 +107,7 @@ internal static class InstalledSelectionProbe
                 views.Add(new(app.Name, version, view, diagnosticOnly?(observed?"Observed":"Fail"):pass?"Pass":"Fail", reason, sequenceCompleted, cases.Length, correct, mismatches, brokerCleanup, applicationCleanup, profileDeleted, results));
             }
         }
-        var report = new SelectionProbeReceipt(diagnosticOnly?"HostedInstalledSelectionDiagnostic":"HostedInstalledSelection", source, diagnosticOnly?"DiagnosticOnly":"ExplicitProductionUiaOnly", "DefaultOnDemand", "NotRun", "NotRun", 0, diagnosticOnly?6:120, views.ToArray());
+        var report = new SelectionProbeReceipt(diagnosticOnly?"HostedInstalledSelectionDiagnostic":"HostedInstalledSelection", source, diagnosticOnly?"DiagnosticOnly":"ExplicitProductionUiaOnly", "DefaultOnDemand", "NotRun", "NotRun", 0, diagnosticOnly?6:120, views.ToArray(),comDiagnostic?"SdkCom":"ManagedUia");
         await File.WriteAllTextAsync(receipt, JsonSerializer.Serialize(report));
         return views.Any(v => v.Status == "Fail") ? 3 : views.Any(v => v.Status == "Blocked") ? 2 : 0;
     }
