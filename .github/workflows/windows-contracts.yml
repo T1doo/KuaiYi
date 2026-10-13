@@ -23,9 +23,14 @@ jobs:
           persist-credentials: false
           set-safe-directory: false
           fetch-depth: 1
-      - name: Probe preinstalled tools, build native DLLs, run bounded public contracts
-        # One post-repair actual native export/import/release contract; all owned settlement gates required, Drop/GetData NotRun.
+      - name: Run synthetic GetData receipt and output contracts
         shell: pwsh
         run: |
-          & ./scripts/run-windows-ci.ps1 -OleMarshalOnly
+          & ./tests/scripts/ole-responsiveness-ci.test.ps1
+          & ./tests/scripts/getdata-ci.test.ps1
+      - name: Run bounded actual GetData cancellation and recovery contracts
+        # One OleNativeBridge build and owned public fixtures; only validated summaries leave the child process.
+        shell: pwsh
+        run: |
+          & ./scripts/run-windows-getdata-ci.ps1
           exit $LASTEXITCODE

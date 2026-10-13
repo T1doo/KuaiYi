@@ -1,8 +1,8 @@
-param([switch]$ProbeOnly,[switch]$OleOnly,[switch]$OleMarshalOnly)
+param([switch]$ProbeOnly,[switch]$OleOnly,[switch]$OleMarshalOnly,[string]$OutputRoot)
 . "$PSScriptRoot/windows-ci-common.ps1"
 if ($OleOnly -and $OleMarshalOnly) { throw 'Select one OLE scope' }
 $exitCode = 0
-$root = Join-Path $script:RepositoryRoot ('artifacts/windows-ci/' + [guid]::NewGuid().ToString('N'))
+$root = if ($OutputRoot) { [IO.Path]::GetFullPath($OutputRoot) } else { Join-Path $script:RepositoryRoot ('artifacts/windows-ci/' + [guid]::NewGuid().ToString('N')) }
 [void][IO.Directory]::CreateDirectory($root)
 $report = [ordered]@{
     Kind = 'HostedWindowsContracts'; Scope = 'ServerOrClientFixtureContractsOnly'; Windows11Acceptance = 'NotRun'
