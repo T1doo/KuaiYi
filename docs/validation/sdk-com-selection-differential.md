@@ -25,3 +25,13 @@ workflow 只限新 dev 分支、read-only 权限、现有 windows-2022/VS2022/MS
 本地 portable 策略纯测 40/40，验证限额、Unicode、源身份/时间、排除及完整性、自动几何关联、坏几何和聚合上限的原子失败。PS 摘要 62/62，新增 backend 必须与显式 COM DiagnosticOnly 一致、禁止套入兼容 Pass。实际托管 probe 类型检查 0 warning / 0 error。Windows SDK 原生编译、COM 及真实跨进程 SDK 差分尚未运行；Linux 纯策略不是 Windows SDK 编译或 UIA 通过证明。
 
 原 GetData CODE 与 Actions SHA 独立保留为 `220060f813a3640487d593920a1b1824aa779a00`（run38347142627/job115131066822），不重跑。P0、Win11 物理划词、PDF、Markdown、多屏 DPI、安装卸载均无新增通过结论。
+
+## 本轮 Windows 构建阻塞（尚未执行 COM 场景）
+
+源码/Actions 完整 SHA `98dfa217725fae30e2d9c0a3a37e3d18002cbcbe`，tree `ab869388b46158972fcef9a440a0086fb46f9ab0`，唯一 parent `05d5330885b46ffdefcd1ef62a21d67826902f6b`。精确独审冻结 `934eb3612281b87e2535f7450f39582f98bb09b6` 为同树。[run 38385630442](https://github.com/T1doo/KuaiYi/actions/runs/38385630442)，[job 115256586368](https://github.com/T1doo/KuaiYi/actions/runs/38385630442/job/115256586368)，attempt 1，结论 failure。
+
+62 项摘要检查在 Windows 通过，真实 WPF GeometryContracts Pass / Checks 4。固定摘要为 **Fail / SdkBuildFailed / exit 3 / ModelCalls 0**。SDK 配置已完成，但 `/W4 /WX` 构建返回非零；此阶段位于 probe child 启动之前，因此六个 SDK COM 取词场景 **NotRun**。不能将本结果写成 SDK GetText 崩溃、0/6 取词失败、SDK 编译通过或候选修复成功。旧的四个访问违规与两个超时仍仅属于前次 .NET 路径证据。
+
+原日志本地忽略保存为 `artifacts/windows-selection/windows-com-38385630442.local.log`：17,974 bytes，SHA256 `fe4c91f7acf597d5e5b4c81eff50ea849491a40202347c2f3339f947800f3958`。按照现有隐私边界，编译 stdout/stderr 重定向至 ephemeral runner 的 build.local.log，公开日志中没有 MSVC/LNK 错误码或源行；本环境无法读取已结束 runner 的该文件。未依据猜测改 SDK 接口、关 /WX、降限额或重复 CI。
+
+本轮仅启动这一个有界 job；下一步最小取证缺口是原生编译失败的错误码及公开源码行位置，而非继续运行 UIA。可审阅方案：仅编译原生诊断 exe，纯测试验证报告器从本地编译日志中提取有限 MSVC/LNK 错误码枚举、固定源码类别（ComCaptureProbe/SelectionPolicy/SDK/Link）和有限行号，丢弃完整消息、路径、命令、源码内容与任意文本；独审后进行一次编译门槛检查，再决定是否存在具体可修复编译问题。该方案暂未实现或执行；因当前委托明确限定公开字段为封闭状态、match、HRESULT/exit 和已有标记，新增编译定位字段须由监督方审阅放行，不能自行扩大公开日志范围。没有新的系统权限、凭据或组件安装缺口。
