@@ -6,6 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="../../tools/KuaiYi.OleCi/OleCiSourcePipe.cs" Link="WindowsCi/OleCiSourcePipe.cs" />
+    <Compile Include="../../tools/KuaiYi.OleCi/OleCiScenarioCleanup.cs" Link="WindowsCi/OleCiScenarioCleanup.cs" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.runner.visualstudio"><PrivateAssets>all</PrivateAssets></PackageReference>

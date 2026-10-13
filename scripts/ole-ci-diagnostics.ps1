@@ -1,6 +1,6 @@
 # Shared by the real runner and offline failure-path tests. Never serialize an unvalidated input object.
 function New-OleDiagnostic([string]$Boundary='Runner') {
-    return [pscustomobject]@{ Version=1; Boundary=$Boundary; Stage='Entry'; FailureStage='UNKNOWN'; FailureCode='UNKNOWN'; HResult=$null; CleanupCode='UNKNOWN'; ProcessState='UNKNOWN'; ChildExitCode=$null; CommandExitCode=$null; StdoutTask='UNKNOWN'; StderrTask='UNKNOWN'; ReceiptState='UNKNOWN'; DropObserved='UNKNOWN'; GetDataObserved='UNKNOWN'; CancelConfirmed='UNKNOWN'; RecoveryConfirmed='UNKNOWN'; CloseConfirmed='UNKNOWN'; Owners=@() }
+    return [pscustomobject]@{ Version=1; Boundary=$Boundary; Stage='Entry'; FailureStage='UNKNOWN'; FailureCode='UNKNOWN'; HResult=$null; CleanupCode='UNKNOWN'; ProcessState='UNKNOWN'; ChildExitCode=$null; CommandExitCode=$null; StdoutTask='UNKNOWN'; StderrTask='UNKNOWN'; ReceiptState='UNKNOWN'; DropObserved='UNKNOWN'; GetDataObserved='UNKNOWN'; CancelConfirmed='UNKNOWN'; RecoveryConfirmed='UNKNOWN'; CloseConfirmed='UNKNOWN'; Trace=@(); Owners=@() }
 }
 function Get-OleTaskState($Task) {
     if ($null -eq $Task) { return 'UNKNOWN' }
@@ -30,6 +30,13 @@ function ConvertTo-OleDiagnostic($Value) {
     $tasks=@('UNKNOWN','PENDING','RAN_TO_COMPLETION','FAULTED','CANCELED')
     if ($Value.Version -ne 1 -or $Value.Boundary -cnotin @('Runner','Probe') -or $Value.Stage -cnotin $stages -or $Value.FailureStage -cnotin $stages -or $Value.FailureCode -cnotin $codes -or $Value.CleanupCode -cnotin $codes -or $Value.ProcessState -cnotin @('UNKNOWN','RUNNING','EXITED') -or $Value.StdoutTask -cnotin $tasks -or $Value.StderrTask -cnotin $tasks -or $Value.ReceiptState -cnotin @('UNKNOWN','MISSING','OVERSIZED','MALFORMED','REJECTED','VALID') -or @($Value.Owners).Count -gt 8) { throw 'Invalid safe OLE diagnostic' }
     $out=New-OleDiagnostic $Value.Boundary
+    $traceEvents=@('ReceiverReady','ReceiverQueryBegin','ReceiverQueryEndCopy','ReceiverQueryEndNoCopy','ReceiverDropBegin','SourceReady','SourceDragBegin','SourceDragReturn','SourceQuery','SourceGetData','SourceGetDataBlocking','SourceGetDataReturned','OwnedPressDown','OwnedPressUp','OwnedInputCleanupSettled','OwnedInputCleanupFailed','SourceCleanupBegin','SourceCleanupCompleted','SourceCleanupFailed')
+    if ($Value.PSObject.Properties.Name -contains 'Trace') {
+        if ($Value.Trace -isnot [array] -or $Value.Trace.Count -gt 32) { throw 'Invalid OLE trace bound' }
+        foreach ($event in $Value.Trace) { if ($event -isnot [string] -or $event -cnotin $traceEvents) { throw 'Invalid OLE trace event' } }
+        if (@($Value.Trace | Select-Object -Unique).Count -ne $Value.Trace.Count) { throw 'Duplicate OLE trace event' }
+        $out.Trace=@($Value.Trace)
+    }
     foreach ($key in @('Stage','FailureStage','FailureCode','CleanupCode','ProcessState','StdoutTask','StderrTask','ReceiptState')) { $out.$key=$Value.$key }
     foreach ($key in @('HResult','ChildExitCode','CommandExitCode')) {
         $n=$Value.$key
@@ -53,6 +60,11 @@ function ConvertTo-OleDiagnostic($Value) {
             $row.StartupFailure=[pscustomobject]@{Stage=$f.Stage;Exception=$f.Exception;HResult=$f.HResult}
         }
         foreach ($key in @('Run','Control','MetadataRead','ErrorRead','CloseWrite','CloseFlush','ExitWait')) { if ($owner.$key -cnotin $tasks) { throw 'Invalid original OLE task state' };$row[$key]=$owner.$key }
+        foreach ($key in @('RegistrarTask','RegistrarStage','RegistrarFailureStage')) {
+            $n=if ($owner.PSObject.Properties.Name -contains $key) { $owner.$key } else { 'UNKNOWN' }
+            $allowed=if ($key -ceq 'RegistrarTask') { $tasks } else { @('UNKNOWN','Apartment','Import','Register','Pump','Revoke','Release','Uninitialize','Complete') }
+            if ($n -isnot [string] -or $n -cnotin $allowed) { throw 'Invalid OLE registrar observation' };$row[$key]=$n
+        }
         [pscustomobject]$row
     })
     return $out

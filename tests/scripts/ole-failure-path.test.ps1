@@ -152,6 +152,40 @@ public sealed class SyntheticOleProcess {
         if ([KuaiYi.App.OleCiDiagnostic]::TaskState($fault) -cne 'FAULTED' -or [KuaiYi.App.OleCiDiagnostic]::TaskState($cancel) -cne 'CANCELED' -or [KuaiYi.App.OleCiDiagnostic]::TaskState($null) -cne 'UNKNOWN' -or [KuaiYi.App.OleCiDiagnostic]::TasksState([Threading.Tasks.Task[]]@($fault,[Threading.Tasks.Task]::CompletedTask)) -cne 'FAULTED') { throw 'Original state collapsed' }
         $null=$fault.Exception
     }
+    Case 'finite trace deduplicates observations and cleanup retains its first failure' {
+        $path=Join-Path $temp 'trace.json';$d=[KuaiYi.App.OleCiDiagnostic]::new($path)
+        $d.At('DragEnterWait');$d.Trace([KuaiYi.App.OleCiTraceEvent]::SourceDragBegin);$d.Trace([KuaiYi.App.OleCiTraceEvent]::SourceDragBegin)
+        $d.Trace([KuaiYi.App.OleCiTraceEvent]::ReceiverQueryEndNoCopy);$d.Fail([TimeoutException]::new('PRIVATE_SENTINEL'))
+        $d.Fail([IO.IOException]::new('PRIVATE_SENTINEL'),$true);$d.Fail([InvalidOperationException]::new('PRIVATE_SENTINEL'),$true)
+        $saved=Read-OleDiagnostic $path
+        if ($saved.Trace.Count -ne 2 -or $saved.Trace[0] -cne 'SourceDragBegin' -or $saved.Trace[1] -cne 'ReceiverQueryEndNoCopy' -or $saved.FailureStage -cne 'DragEnterWait' -or $saved.FailureCode -cne 'Timeout' -or $saved.CleanupCode -cne 'Io' -or $saved.GetDataObserved -cne 'UNKNOWN') { throw 'Trace or primary/cleanup semantics lost' }
+        if (($saved | ConvertTo-Json -Depth 8) -match 'PRIVATE_SENTINEL') { throw 'Private error escaped' }
+    }
+    foreach ($mode in @('Unknown','NonString','Scalar','Oversized','Duplicate','RegistrarTask','RegistrarStage','RegistrarFailureStage')) {
+        Case "diagnostic rejects unsafe trace or registrar observation $mode" {
+            $d=New-OleDiagnostic 'Probe'
+            switch ($mode) {
+                Unknown { $d.Trace=@('PRIVATE_SENTINEL') }
+                NonString { $d.Trace=@(17) }
+                Scalar { $d.Trace='SourceDragBegin' }
+                Oversized { $d.Trace=@('SourceDragBegin') * 33 }
+                Duplicate { $d.Trace=@('SourceDragBegin','SourceDragBegin') }
+                default {
+                    $owner=[KuaiYi.App.OleCiOwnerDiagnostic]::new();$owner.$mode='PRIVATE_SENTINEL'
+                    $d.Owners=@($owner | ConvertTo-Json -Depth 8 | ConvertFrom-Json)
+                }
+            }
+            $threw=$false;try { $null=ConvertTo-OleDiagnostic $d } catch { $threw=$true }
+            if (-not $threw) { throw 'Unsafe diagnostic accepted' }
+        }
+    }
+    Case 'registrar original pending task is independent of cleanup stage' {
+        $d=New-OleDiagnostic 'Probe';$owner=[KuaiYi.App.OleCiOwnerDiagnostic]::new()
+        $owner.RegistrarTask='PENDING';$owner.RegistrarStage='Revoke';$owner.RegistrarFailureStage='UNKNOWN'
+        $d.Owners=@($owner | ConvertTo-Json -Depth 8 | ConvertFrom-Json)
+        $safe=ConvertTo-OleDiagnostic $d
+        if ($safe.Owners[0].RegistrarTask -cne 'PENDING' -or $safe.Owners[0].RegistrarStage -cne 'Revoke' -or $safe.CloseConfirmed -cne 'UNKNOWN') { throw 'Registrar observation overclaims settlement' }
+    }
     Write-Host "OLE_FAILURE_PATH_CONTRACTS passed=$checks failed=0; actual parser/checkpoint/helper paths with synthetic failures only; Windows GetData NotRun"
 } finally {
     Remove-Item Env:KUAIYI_SYNTHETIC_FAIL_STAGE -ErrorAction SilentlyContinue

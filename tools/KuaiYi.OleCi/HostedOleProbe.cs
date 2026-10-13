@@ -19,6 +19,7 @@ namespace KuaiYi.App;
 internal sealed partial class ShellWindow
 {
     internal bool CiTextDropEnabled;
+    internal Action<OleCiTraceEvent>? CiTrace;
     internal readonly ConcurrentQueue<OleReceiverEvent> CiOleEvents=new();
     internal readonly ConcurrentDictionary<OleReceiverClient,OleTargetRegistrar> CiRegistrars=new();
     internal readonly ConcurrentDictionary<OleReceiverClient,CiLifetime> CiLifetimes=new();
@@ -37,6 +38,7 @@ internal sealed partial class ShellWindow
     {
         var row=new OleCiOwnerDiagnostic {Kind="Receiver",Run=OleCiDiagnostic.TaskState(pair.Value.OriginalRun),Control=pair.Value.ControlsOverflow?"UNKNOWN":OleCiDiagnostic.TasksState(pair.Value.OriginalControls.ToArray())};
         row.ErrorRead=OleCiDiagnostic.StatusState(pair.Key.DiagnosticReadTaskStatus);
+        if(CiRegistrars.TryGetValue(pair.Key,out var registrar)){row.RegistrarTask=OleCiDiagnostic.StatusState(registrar.DiagnosticTaskStatus);row.RegistrarStage=registrar.DiagnosticStage.ToString();row.RegistrarFailureStage=registrar.DiagnosticFailureStage.ToString();}
         if(pair.Key.StartupFailure is {} f)row.StartupFailure=new(){Stage=f.Stage.ToString(),Exception=f.Exception.ToString(),HResult=f.HResult};
         try { row.ExitCode=pair.Key.OwnedExitCode;if(row.ExitCode.HasValue)row.ProcessState="EXITED";else if(pair.Value.HeldProcess is {} held)row.ProcessState=held.HasExited?"EXITED":"RUNNING";else if(pair.Key.OwnedProcessId.HasValue&&pair.Key.ObserveExit())row.ProcessState="EXITED"; } catch { }
         return row;
@@ -51,6 +53,13 @@ internal sealed partial class ShellWindow
     internal void CiReceiverFeedback(OleReceiverEvent item,OleReceiverClient client)
     {
         CiOleEvents.Enqueue(item);
+        switch(item.Phase)
+        {
+            case "Ready": CiTrace?.Invoke(OleCiTraceEvent.ReceiverReady); break;
+            case "QueryBegin": CiTrace?.Invoke(OleCiTraceEvent.ReceiverQueryBegin); break;
+            case "QueryEnd": CiTrace?.Invoke(item.Effect==1?OleCiTraceEvent.ReceiverQueryEndCopy:OleCiTraceEvent.ReceiverQueryEndNoCopy); break;
+            case "DropBegin": CiTrace?.Invoke(OleCiTraceEvent.ReceiverDropBegin); break;
+        }
         if(item.Phase=="DropBegin")CiDropBegins[item.Instance]=Stopwatch.GetTimestamp();
         if(item.Phase=="Ready")
         {
@@ -103,7 +112,8 @@ internal static class HostedOleProbe
         using var self=Process.GetCurrentProcess();
         diagnostic.At("WindowCreate");
         var app=new Application();OleOwnershipProbe.Verify(app);
-        var window=new ShellWindow("KuaiYi.OleCi."+Guid.NewGuid().ToString("N"),coordinator,enableSelectionPlatform:false){CiTextDropEnabled=true};
+        var window=new ShellWindow("KuaiYi.OleCi."+Guid.NewGuid().ToString("N"),coordinator,enableSelectionPlatform:false){CiTextDropEnabled=true,CiTrace=diagnostic.Trace};
+        Pointer.Trace=diagnostic.Trace;
         var diagnosticSources=new ConcurrentQueue<PublicSource>();
         diagnostic.Owners=()=>window.CiDiagnosticOwners().Concat(diagnosticSources.Select(source=>source.Snapshot())).Take(8).ToArray();
         window.CiObservePointer();var heartbeat=new DispatcherTimer{Interval=TimeSpan.FromMilliseconds(25)};heartbeat.Tick+=(_,_)=>window.CiHeartbeat++;
@@ -146,8 +156,9 @@ internal static class HostedOleProbe
             if(uiPid!=Environment.ProcessId||uiThread==peer.Registrar.NativeRegistrationThreadId)throw new InvalidOperationException("Presentation and registrar thread identity mismatch.");
             Record("ReceiverReady",new{name,peer.Instance,pid=receiver.Id,uiPid,uiThread,registrarThread=peer.Registrar.NativeRegistrationThreadId});
             diagnostic.At("SourceStart");
-            var source=new PublicSource(sourceExecutable,publicFixture,output+"."+name+".source.jsonl",Record);
+            var source=new PublicSource(sourceExecutable,publicFixture,output+"."+name+".source.jsonl",Record,diagnostic.Trace);
             diagnosticSources.Enqueue(source);
+            Exception? scenarioFailure=null;
             try {
             diagnostic.At("SourceReadyWait");
             var ready=await source.Ready.Task.WaitAsync(TimeSpan.FromSeconds(8),overall.Token);
@@ -186,6 +197,7 @@ internal static class HostedOleProbe
             else
             {
                 bool attemptedBeforeExit=!receiver.HasExited&&!peer.Run.IsCompleted;
+                Exception? inputFailure=null;
                 try
                 {
                     RequireStillBlocked();Pointer.RequireIdle();Pointer.RequireForeground((nint)ready.Hwnd);Pointer.Move(before.Center.X,before.Center.Y,hwnd);Pointer.Down();await Task.Delay(50,overall.Token);
@@ -196,7 +208,12 @@ internal static class HostedOleProbe
                     Record("SyntheticDragObserved",new{inputStatus,attemptedBeforeExit,down,up,before,after,moved,elapsedMs=Stopwatch.GetElapsedTime(blockingStarted).TotalMilliseconds,receiverExitedByEnd=receiver.HasExited});
                 }
                 catch(InputBlocked error){inputStatus="Blocked";Record("SyntheticInputBlocked",new{reason=error.Message});}
-                finally{Pointer.ReleaseOwnedPress();}
+                catch(Exception error){inputFailure=error;throw;}
+                finally
+                {
+                    await OleCiScenarioCleanup.CompleteAsync(inputFailure,Pointer.ReleaseOwnedPress,()=>ValueTask.CompletedTask,
+                        error=>{diagnostic.Fail(error,true);if(inputFailure==null)diagnostic.Fail(error,atStage:"Cleanup");});
+                }
                 // An actual self-drag may already cancel the lease. This direct production command proves lifecycle only.
                 diagnostic.At("Cancel");
                 await UiAction(window.CiCancelDrop);diagnostic.At("CancelFinalize");
@@ -212,8 +229,18 @@ internal static class HostedOleProbe
                 if(!await FinalizePeer(next,nextReceiver))throw new InvalidOperationException("Recovery cleanup unconfirmed.");
             }
             scenarios.Add(new{name,realProductionDrop=true,realGetDataBlocked=true,uiHeartbeatAdvanced=beats>beatAtBlock,heartbeatBefore=beatsBefore,heartbeatAtBlock=beatAtBlock,heartbeatAfter=beats,receiverPid=receiver.Id,sourcePid=source.Process.Id,registrarThread=peer.Registrar.NativeRegistrationThreadId,receiverThread=drop.NativeThreadId});
-            } catch(Exception error) { diagnostic.Fail(error);throw; }
-            finally { try { await source.DisposeAsync(); } catch(Exception error) { diagnostic.Fail(error,true);diagnostic.Fail(error,atStage:"Cleanup");throw; } finally { diagnostic.Snapshot(); } }
+            } catch(Exception error) { scenarioFailure=error;diagnostic.Fail(error);throw; }
+            finally
+            {
+                try
+                {
+                    await OleCiScenarioCleanup.CompleteAsync(scenarioFailure,
+                        ()=>{try{Pointer.ReleaseOwnedPress();diagnostic.Trace(OleCiTraceEvent.OwnedInputCleanupSettled);}catch{diagnostic.Trace(OleCiTraceEvent.OwnedInputCleanupFailed);throw;}},
+                        async()=>{diagnostic.Trace(OleCiTraceEvent.SourceCleanupBegin);try{await source.DisposeAsync();diagnostic.Trace(OleCiTraceEvent.SourceCleanupCompleted);}catch{diagnostic.Trace(OleCiTraceEvent.SourceCleanupFailed);throw;}},
+                        error=>{diagnostic.Fail(error,true);if(scenarioFailure==null)diagnostic.Fail(error,atStage:"Cleanup");});
+                }
+                finally { diagnostic.Snapshot(); }
+            }
         }
         window.Loaded+=(_,_)=>
         {
@@ -224,7 +251,9 @@ internal static class HostedOleProbe
                 catch(Exception error){diagnostic.Fail(error);errors.Add(error.GetType().Name+":"+error.Message);Record("ContractFailure",new{type=error.GetType().Name,error.Message});}
                 finally
                 {
-                    try { Pointer.ReleaseOwnedPress();if(!closed.Task.IsCompleted)await UiAction(window.Close); }
+                    try { Pointer.ReleaseOwnedPress(); }
+                    catch(Exception error){diagnostic.Fail(error,true);errors.Add("InputReleaseUnconfirmed:"+error.GetType().Name);}
+                    try { if(!closed.Task.IsCompleted)await UiAction(window.Close); }
                     catch(Exception error){diagnostic.Fail(error,true);errors.Add("CloseUnconfirmed:"+error.GetType().Name);}
                     diagnostic.Snapshot();
                 }
@@ -258,7 +287,7 @@ internal static class HostedOleProbe
         public bool BlockReturned=>Volatile.Read(ref blockReturned)!=0;
         private readonly Task read;private readonly Task<bool> errors;private Task? closingWrite,closingFlush,closingExitWait;
         private static readonly HashSet<PublicSource> Unsettled=[];
-        public PublicSource(string executable,string fixture,string log,Action<string,object?> record)
+        public PublicSource(string executable,string fixture,string log,Action<string,object?> record,Action<OleCiTraceEvent> trace)
         {
             lock(Unsettled)if(Unsettled.Count!=0)throw new InvalidOperationException("Prior owned source settlement unconfirmed.");
             var start=new ProcessStartInfo(executable){UseShellExecute=false,RedirectStandardInput=true,RedirectStandardOutput=true,RedirectStandardError=true};
@@ -268,6 +297,16 @@ internal static class HostedOleProbe
             {
                     if(line.Length>8192)throw new InvalidDataException("Source metadata bound.");using var doc=JsonDocument.Parse(line);var root=doc.RootElement;var item=root.GetProperty("item");string? kind=item.GetProperty("kind").GetString();
                     record("SourceMetadata",root.Clone());
+                    switch(kind)
+                    {
+                        case "SourceReady": trace(OleCiTraceEvent.SourceReady); break;
+                        case "DoDragDropBegin": trace(OleCiTraceEvent.SourceDragBegin); break;
+                        case "DoDragDropReturn": trace(OleCiTraceEvent.SourceDragReturn); break;
+                        case "QueryGetData": trace(OleCiTraceEvent.SourceQuery); break;
+                        case "GetData": trace(OleCiTraceEvent.SourceGetData); break;
+                        case "GetDataBlocking": trace(OleCiTraceEvent.SourceGetDataBlocking); break;
+                        case "GetDataBlockReturned": trace(OleCiTraceEvent.SourceGetDataReturned); break;
+                    }
                     if(kind=="SourceReady")Ready.TrySetResult(new(root.GetProperty("processId").GetInt32(),item.GetProperty("hwnd").GetInt64(),item.GetProperty("x").GetInt32(),item.GetProperty("y").GetInt32()));
                     if(kind=="GetDataBlocking"){if(root.GetProperty("frequency").GetInt64()!=Stopwatch.Frequency)throw new InvalidDataException("Source monotonic frequency mismatch.");BlockingTimestamp=root.GetProperty("timestamp").GetInt64();BlockingNativeThread=root.GetProperty("nativeThreadId").GetUInt32();Blocking.TrySetResult();}
                     if(kind=="GetDataBlockReturned")Volatile.Write(ref blockReturned,1);
@@ -321,7 +360,8 @@ internal static class HostedOleProbe
         [DllImport("user32.dll")]private static extern nint WindowFromPoint(NativeDesktop.Point point);
         [DllImport("user32.dll")]private static extern nint GetAncestor(nint hwnd,uint flags);
         [DllImport("user32.dll")][return:MarshalAs(UnmanagedType.Bool)]private static extern bool GetGUIThreadInfo(uint thread,ref GuiInfo info);
-        private static bool pressed;
+        private static readonly OleCiOwnedPress press=new(()=>Send(new(){Mouse=new(){Flags=2}}),()=>Send(new(){Mouse=new(){Flags=4}}));
+        internal static Action<OleCiTraceEvent>? Trace;
         public static void RequireIdle(){if(new[]{1,2,16,17,18,27,91,92}.Any(key=>(GetAsyncKeyState(key)&0x8000)!=0))throw new InputBlocked("MouseOrModifierAlreadyHeld");}
         public static void RequireForeground(nint expected){if(NativeDesktop.GetForegroundWindow()!=expected)throw new InputBlocked("OwnedSourceNotForeground");}
         public static void RequireCapture(uint thread,nint hwnd){var info=new GuiInfo{Size=(uint)Marshal.SizeOf<GuiInfo>()};if(!GetGUIThreadInfo(thread,ref info)||info.Capture!=hwnd)throw new InputBlocked("PresentationDidNotCaptureSyntheticPress");}
@@ -329,8 +369,8 @@ internal static class HostedOleProbe
         public static void Move(int x,int y,nint expected){if(GetAncestor(WindowFromPoint(new(){X=x,Y=y}),2)!=expected)throw new InputBlocked("OwnedWindowNotAtInputPoint");MoveCaptured(x,y);}
         public static void MoveCaptured(int x,int y)
         {int left=GetSystemMetrics(76),top=GetSystemMetrics(77),width=GetSystemMetrics(78),height=GetSystemMetrics(79);if(width<2||height<2||x<left||y<top||x>=left+width||y>=top+height)throw new InputBlocked("InputOutsideVirtualDesktop");Send(new(){Mouse=new(){X=(int)Math.Round((x-left)*65535.0/(width-1)),Y=(int)Math.Round((y-top)*65535.0/(height-1)),Flags=0xc001}});}
-        public static void Down(){Send(new(){Mouse=new(){Flags=2}});pressed=true;}
-        public static void Up(){Send(new(){Mouse=new(){Flags=4}});pressed=false;}
-        public static void ReleaseOwnedPress(){if(pressed)Up();}
+        public static void Down(){press.Down();Trace?.Invoke(OleCiTraceEvent.OwnedPressDown);}
+        public static void Up(){if(press.Release())Trace?.Invoke(OleCiTraceEvent.OwnedPressUp);}
+        public static void ReleaseOwnedPress()=>Up();
     }
 }
