@@ -17,3 +17,14 @@
 入口不启动生成的exe、浏览器、用户应用、UIA、OCR、剪贴板或模型，不执行六场景、120项、GetData；因此 Uia 始终 NotRun。先独审精确冻结，再执行一次仅编译 CI；取得实际错误后做针对源码/构建配置的最小修复，保留所有安全/时间门与 `/WX`，不凭猜测改接口。是否已有 Windows 修复后验证必须分开记录，不将离线修改或纯测试记为 SDK 编译通过。
 
 原 GetData CODE 与 Actions SHA `220060f813a3640487d593920a1b1824aa779a00` 保留独立，不重跑。SDK COM 实际取词、原两个超时、Win11 物理划词、PDF/Markdown、多DPI/安装与P0整体无新增通过结论。
+
+
+## 本次仅编译实测
+
+代码与 Actions 执行 SHA 均为 `ac0d7f421059a5267a69e1be82950ff7a7846944`，tree `3be0583d5aaea242db546f06cde3cd9160450f13`，父提交 `6f26b02be9c21fe90b4f0144a3fe6907a3e5fcc0`。独审本地冻结 `6e10b2a841bd7273550ac85d743c64c17a9cc8a3` 与其树完全一致。仅一次 [run38389154626](https://github.com/T1doo/KuaiYi/actions/runs/38389154626)，job115268311522，attempt1，结论 failure。
+
+Windows 脱敏合约 **37/37 Pass**。ConfigureStatus Pass / ConfigureExit **0**；BuildStatus Fail / BuildExit **1**；摘要 Status Fail / Reason SdkBuildFailed / ExitCode **3**。实际公开编译证据仅两项：`Unknown / Unknown / null` 与 `C2146 / Unknown / null`。Unknown 不代表具体错误码、SDK文件或仓库行号；不得从它推断签名、包含顺序、警告或链接根因。
+
+Uia **NotRun**，ModelCalls **0**；未启动生成程序、Broker、浏览器或六场景。job日志私下存入忽略的 `artifacts/windows-selection/windows-sdkcompile-38389154626.local.log`：17460 bytes，SHA256 `cc5eec8b8190571557c1ff712d173405e60c4658d87e3c808ed418ca93813aa7`。runner内部原始编译输出未上传，任务结束后不可回收；此哈希是公共job日志的本地留证，不是内部原始编译log。
+
+已核对微软 [C2146说明](https://learn.microsoft.com/en-us/cpp/error-messages/compiler-errors-1/compiler-error-c2146?view=msvc-170) 与 [win32metadata官方UIAutomation头文件](https://github.com/microsoft/win32metadata/blob/main/generation/WinSDK/RecompiledIdlHeaders/um/UIAutomation.h)：C2146具有多种可能成因，官方头文件内容不能替代当前SDK26100的具体出错位置。当前证据尚不足以确定普通源码修复；原生源码保持未修改，`/W4 /WX` 保留，SDK构建仍 **Fail**，修复后SDK构建 **NotRun**。一次仅编译授权已消费，不自动制造多轮CI。需要监督方据这些实际字段决定下一步最小取证范围，禁止直接继续六场景或声明P0通过。
