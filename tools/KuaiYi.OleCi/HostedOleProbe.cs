@@ -3,8 +3,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Windows;
 using System.Windows.Interop;
+using System.Windows.Input;
 using System.Windows.Threading;
 using KuaiYi.Core;
 using KuaiYi.Core.Settings;
@@ -26,7 +28,7 @@ internal sealed partial class ShellWindow
     internal sealed record CiLifetime(Guid Instance,Func<Task> Run,Func<Task> Control){public Process? HeldProcess;}
     internal void CiReceiverCreated(OleReceiverClient client,OleTargetRegistrar registrar,Guid instance,Func<Task> run,Func<Task> control)
     {
-        var prior=CiLifetimes.Select(pair=>new{pair.Value.Instance,pid=pair.Key.OwnedProcessId,actualExit=pair.Value.HeldProcess?.HasExited==true,runSettled=pair.Value.Run().IsCompleted,controlSettled=pair.Value.Control().IsCompleted,ownedExit=pair.Key.ObserveExit(),revoked=CiRegistrars[pair.Key].IsSettledAndRevoked}).ToArray();
+        var prior=CiLifetimes.Select(pair=>new{pair.Value.Instance,pid=pair.Key.OwnedProcessId,actualExit=pair.Value.HeldProcess?.HasExited??pair.Key.ObserveExit(),runSettled=pair.Value.Run().IsCompleted,controlSettled=pair.Value.Control().IsCompleted,ownedExit=pair.Key.ObserveExit(),revoked=CiRegistrars[pair.Key].IsSettledAndRevoked}).ToArray();
         bool safe=prior.All(p=>p.actualExit&&p.runSettled&&p.controlSettled&&p.ownedExit&&p.revoked);if(!safe)CiUnsafeCreation=true;
         CiReceiverTransitions.Enqueue(new{utc=DateTimeOffset.UtcNow,timestamp=Stopwatch.GetTimestamp(),phase="Created",instance,safe,prior});
         CiRegistrars[client]=registrar;CiLifetimes[client]=new(instance,run,control);
@@ -44,9 +46,9 @@ internal sealed partial class ShellWindow
     internal int CiDown,CiMove,CiUp,CiHeartbeat;
     internal void CiObservePointer()
     {
-        button.PreviewMouseLeftButtonDown+=(_,_)=>CiDown++;
-        button.PreviewMouseMove+=(_,_)=>CiMove++;
-        button.PreviewMouseLeftButtonUp+=(_,_)=>CiUp++;
+        button.AddHandler(UIElement.PreviewMouseLeftButtonDownEvent,new MouseButtonEventHandler((_,_)=>CiDown++),handledEventsToo:true);
+        button.AddHandler(UIElement.PreviewMouseMoveEvent,new MouseEventHandler((_,_)=>CiMove++),handledEventsToo:true);
+        button.AddHandler(UIElement.PreviewMouseLeftButtonUpEvent,new MouseButtonEventHandler((_,_)=>CiUp++),handledEventsToo:true);
     }
     internal void CiEnableDrop()
     {
@@ -64,7 +66,7 @@ internal sealed partial class ShellWindow
 
 internal static class HostedOleProbe
 {
-    private static readonly JsonSerializerOptions Json=new(){WriteIndented=false};
+    private static readonly JsonSerializerOptions Json=new(){WriteIndented=false,Converters={new JsonStringEnumConverter()}};
     private sealed class InputBlocked(string message):Exception(message);
     public static int Run(string output,string sourceExecutable,string publicFixture)
     {
@@ -183,7 +185,8 @@ internal static class HostedOleProbe
         string isolation=scenarios.Count==2&&recovered&&closeConfirmed&&errors.Count==0&&!window.CiUnsafeCreation?"Pass":errors.Count>0&&inputStatus=="Blocked"&&scenarios.Count==0?"Blocked":"Fail";
         int exit=isolation=="Pass"?0:isolation=="Blocked"?2:3;
         File.WriteAllLines(output+".events.jsonl",events.Select(e=>JsonSerializer.Serialize(e,Json)));
-        File.WriteAllText(output,JsonSerializer.Serialize(new{Kind="HostedOleResponsivenessPublicProbe",Source="PublicFixtureOnly",ModelCalls=0,ProductionTextDrop=true,IsolationStatus=isolation,SyntheticPointerStatus=inputStatus,PhysicalMouseAcceptance="NotRun",Windows11Acceptance="NotRun",RecoveredAfterConfirmedExit=recovered,CloseConfirmed=closeConfirmed,AllReceiverCreationsAfterConfirmedExit=!window.CiUnsafeCreation,ReceiverTransitions=window.CiReceiverTransitions,Scenarios=scenarios,Errors=errors,ReceiverEvents=window.CiOleEvents.Select(e=>new{e.Instance,e.Transaction,e.Phase,e.Effect,e.CodeUnits,e.ThreadId,e.NativeThreadId,e.Apartment,e.CleanupCompleted,SourcePid=e.Source?.ProcessId}),StartupDiagnostics=window.CiLifetimes.Keys.Select(c=>new{c.OwnedProcessId,c.OwnedExitCode,c.StartupFailure,c.DiagnosticReadFailure,c.DiagnosticReadSettled,Records=c.StartupDiagnostics}),Registrars=window.CiRegistrars.Values.Select(r=>new{r.NativeRegistrationThreadId,r.RegistrationThreadId,r.IsSettledAndRevoked,r.FailureCode}),ExitCode=exit},Json));
+        var finalDiagnostics=window.CiLifetimes.Select(pair=>new{pair.Value.Instance,pair.Key.OwnedProcessId,pair.Key.OwnedExitCode,pair.Key.StartupFailure,pair.Key.DiagnosticReadFailure,pair.Key.DiagnosticReadSettled,OriginalRunSettled=pair.Value.Run().IsCompleted,OriginalControlSettled=pair.Value.Control().IsCompleted,OwnedFinalized=pair.Key.TryFinalizeAsync().AsTask().GetAwaiter().GetResult()}).ToArray();
+        File.WriteAllText(output,JsonSerializer.Serialize(new{Kind="HostedOleResponsivenessPublicProbe",Source="PublicFixtureOnly",ModelCalls=0,ProductionTextDrop=true,IsolationStatus=isolation,SyntheticPointerStatus=inputStatus,PhysicalMouseAcceptance="NotRun",Windows11Acceptance="NotRun",RecoveredAfterConfirmedExit=recovered,CloseConfirmed=closeConfirmed,AllReceiverCreationsAfterConfirmedExit=!window.CiUnsafeCreation,ReceiverTransitions=window.CiReceiverTransitions,Scenarios=scenarios,Errors=errors,ReceiverEvents=window.CiOleEvents.Select(e=>new{e.Instance,e.Transaction,e.Phase,e.Effect,e.CodeUnits,e.ThreadId,e.NativeThreadId,e.Apartment,e.CleanupCompleted,SourcePid=e.Source?.ProcessId}),StartupDiagnostics=finalDiagnostics,Registrars=window.CiRegistrars.Select(pair=>new{window.CiLifetimes[pair.Key].Instance,pair.Value.NativeRegistrationThreadId,pair.Value.RegistrationThreadId,pair.Value.IsSettledAndRevoked,pair.Value.FailureCode}),ExitCode=exit},Json));
         foreach(var life in window.CiLifetimes.Values)life.HeldProcess?.Dispose();
         if(Directory.Exists(config))Directory.Delete(config,true);return exit;
     }
@@ -199,36 +202,49 @@ internal static class HostedOleProbe
         public long BlockingTimestamp;
         private int blockReturned;
         public bool BlockReturned=>Volatile.Read(ref blockReturned)!=0;
-        private readonly Task read;private readonly Task<string> errors;
+        private readonly Task read;private readonly Task<bool> errors;private Task? closingWrite,closingFlush,closingExitWait;
+        private static readonly HashSet<PublicSource> Unsettled=[];
         public PublicSource(string executable,string fixture,string log,Action<string,object?> record)
         {
+            lock(Unsettled)if(Unsettled.Count!=0)throw new InvalidOperationException("Prior owned source settlement unconfirmed.");
             var start=new ProcessStartInfo(executable){UseShellExecute=false,RedirectStandardInput=true,RedirectStandardOutput=true,RedirectStandardError=true};
             foreach(string arg in new[]{"--ci-stdio",fixture,"GetDataBlocked","Copy",log})start.ArgumentList.Add(arg);
-            Process=Process.Start(start)??throw new IOException("Owned source start failed.");errors=Process.StandardError.ReadToEndAsync();
-            read=Task.Run(async()=>
+            Process=Process.Start(start)??throw new IOException("Owned source start failed.");errors=OleCiSourcePipe.DrainErrorsAsync(Process.StandardError.BaseStream);
+            read=OleCiSourcePipe.ReadMetadataAsync(Process.StandardOutput.BaseStream,line=>
             {
-                while(await Process.StandardOutput.ReadLineAsync() is {} line)
-                {
                     if(line.Length>8192)throw new InvalidDataException("Source metadata bound.");using var doc=JsonDocument.Parse(line);var root=doc.RootElement;var item=root.GetProperty("item");string? kind=item.GetProperty("kind").GetString();
                     record("SourceMetadata",root.Clone());
                     if(kind=="SourceReady")Ready.TrySetResult(new(root.GetProperty("processId").GetInt32(),item.GetProperty("hwnd").GetInt64(),item.GetProperty("x").GetInt32(),item.GetProperty("y").GetInt32()));
                     if(kind=="GetDataBlocking"){if(root.GetProperty("frequency").GetInt64()!=Stopwatch.Frequency)throw new InvalidDataException("Source monotonic frequency mismatch.");BlockingTimestamp=root.GetProperty("timestamp").GetInt64();BlockingNativeThread=root.GetProperty("nativeThreadId").GetUInt32();Blocking.TrySetResult();}
                     if(kind=="GetDataBlockReturned")Volatile.Write(ref blockReturned,1);
-                }
             });
         }
         public async ValueTask DisposeAsync()
         {
             try
             {
-                if(!Process.HasExited){await Process.StandardInput.WriteLineAsync("close");await Process.StandardInput.FlushAsync();await Process.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(8));}
-                await read.WaitAsync(TimeSpan.FromSeconds(1));string stderr=await errors.WaitAsync(TimeSpan.FromSeconds(1));
-                if(Process.ExitCode!=0||stderr.Length>0)throw new IOException("Owned source failed: "+Process.ExitCode);
+                if(!Process.HasExited){closingWrite=Process.StandardInput.WriteLineAsync("close");await closingWrite.WaitAsync(TimeSpan.FromSeconds(1));closingFlush=Process.StandardInput.FlushAsync();await closingFlush.WaitAsync(TimeSpan.FromSeconds(1));closingExitWait=Process.WaitForExitAsync();await closingExitWait.WaitAsync(TimeSpan.FromSeconds(8));}
+                await read.WaitAsync(TimeSpan.FromSeconds(1));bool empty=await errors.WaitAsync(TimeSpan.FromSeconds(1));
+                if(Process.ExitCode!=0||!empty)throw new IOException("Owned source failed: "+Process.ExitCode);
             }
             finally
             {
-                if(!Process.HasExited){Process.Kill(true);if(!Process.WaitForExit(3000))throw new IOException("Owned source exit unconfirmed.");}
-                Process.Dispose();
+                bool finalized=false;
+                try
+                {
+                    if(!Process.HasExited){Process.Kill(true);if(!Process.WaitForExit(3000))throw new IOException("Owned source exit unconfirmed.");}
+                    try{await read.WaitAsync(TimeSpan.FromSeconds(1));}catch(Exception){if(!read.IsCompleted)throw;}
+                    await errors.WaitAsync(TimeSpan.FromSeconds(1));
+                    foreach(Task pending in new[]{closingWrite,closingFlush,closingExitWait}.OfType<Task>())
+                        try{await pending.WaitAsync(TimeSpan.FromSeconds(1));}catch(Exception){if(!pending.IsCompleted)throw;}
+                    finalized=Process.HasExited&&read.IsCompleted&&errors.IsCompleted&&closingWrite is not {IsCompleted:false}&&closingFlush is not {IsCompleted:false}&&closingExitWait is not {IsCompleted:false};
+                }
+                finally
+                {
+                    if(finalized){lock(Unsettled)Unsettled.Remove(this);Process.Dispose();}
+                    else{lock(Unsettled)Unsettled.Add(this);}
+                }
+                if(!finalized)throw new IOException("Owned source original settlement unconfirmed.");
             }
         }
     }
