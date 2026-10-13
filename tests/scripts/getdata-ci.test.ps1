@@ -18,7 +18,7 @@ function Reject([string]$name,[scriptblock]$mutate) {
     if (-not $rejected) { throw "Expected rejection: $name" }
     $script:passes++; Write-Host "PASS rejects $name"
 }
-$owner=@{OriginalRunSettled=$true;OriginalControlSettled=$true;OwnedFinalized=$true;DiagnosticReadSettled=$true;DiagnosticReadFailure='None';OwnedExitCode=-1;StartupFailure=$null}
+$owner=@{Admission='Ready';OriginalRunSettled=$true;OriginalControlSettled=$true;OwnedFinalized=$true;DiagnosticReadSettled=$true;DiagnosticReadFailure='None';OwnedExitCode=-1;StartupFailure=$null}
 $valid=@{
     Kind='HostedWindowsContracts';Scope='HostedOleFixtureContractsOnly';SourceCommit=$commit;SourceDirty=$false
     Windows11Acceptance='NotRun';E06PhysicalAcceptance='NotRun';NativeStatus='Pass';OleStatus='Pass';ExitCode=0
@@ -94,6 +94,8 @@ Reject 'no actual drop' {param($r) $r.OleReport.Scenarios[0].realProductionDrop=
 Reject 'no actual GetData block' {param($r) $r.OleReport.Scenarios[0].realGetDataBlocked=$false}
 Reject 'no heartbeat' {param($r) $r.OleReport.Scenarios[0].uiHeartbeatAdvanced=$false}
 Reject 'string heartbeat' {param($r) $r.OleReport.Scenarios[0].uiHeartbeatAdvanced='true'}
+Reject 'unknown admission' {param($r) $r.OleReport.StartupDiagnostics[0].Admission='UNKNOWN'}
+Reject 'no ready owners' {param($r) foreach($d in $r.OleReport.StartupDiagnostics){$d.Admission='CancelledBeforeRegistration'}}
 Reject 'original run pending' {param($r) $r.OleReport.StartupDiagnostics[0].OriginalRunSettled=$false}
 Reject 'original control pending' {param($r) $r.OleReport.StartupDiagnostics[0].OriginalControlSettled=$false}
 Reject 'original owner pending' {param($r) $r.OleReport.StartupDiagnostics[0].OwnedFinalized=$false}

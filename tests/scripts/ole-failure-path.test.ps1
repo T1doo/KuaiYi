@@ -42,6 +42,20 @@ try {
         if ($x.Status -cne 'Fail' -or $x.OleEvidence.Reasons[0] -cne 'ReceiverReadyDeadline' -or $x.OleEvidence.StartupDiagnostics[0].StartupFailure.Stage -cne 'ParentExportRead' -or $x.OleEvidence.CompletedScenarios -ne 0 -or $x.GetData -cne 'UNKNOWN' -or $persisted.ReceiptState -cne 'VALID') { throw 'Failure evidence lost in real parser chain' }
         if (($x | ConvertTo-Json -Depth 12) -match 'PRIVATE_SENTINEL|RawStderr|receiverPid') { throw 'Unsafe evidence escaped' }
     }
+    Case 'unproven handshake receipt fails with a fixed first validation rule' {
+        $r=Add-UnreadyCancelledReceiver ($rawTemplate | ConvertTo-Json -Depth 12 | ConvertFrom-Json)
+        $r.StartupDiagnostics[3].RevocationRequested=$false;$r | Add-Member RawStderr 'PRIVATE_SENTINEL'
+        $r | ConvertTo-Json -Depth 12 | Set-Content $receipt
+        $d=New-OleDiagnostic;$threw=$false
+        try { $null=Read-OleContractReceipt $receipt 0 $d $diagnosticPath } catch { $threw=$true }
+        $saved=Read-OleDiagnostic $diagnosticPath
+        if (-not $threw -or $saved.ReceiptRule -cne 'UnreadyCancellation' -or $saved.ReceiptState -cne 'REJECTED' -or $saved.FailureStage -cne 'ReceiptValidate' -or ($saved | ConvertTo-Json -Depth 8) -match 'PRIVATE_SENTINEL') { throw 'Specific validation failure lost or leaked content' }
+    }
+    Case 'receipt rule rejects arbitrary exception text' {
+        $d=New-OleDiagnostic;$d.ReceiptRule='PRIVATE_SENTINEL';$threw=$false
+        try { $null=ConvertTo-OleDiagnostic $d } catch { $threw=$true }
+        if (-not $threw) { throw 'Unsafe receipt rule accepted' }
+    }
     foreach ($mode in @('MISSING','OVERSIZED','MALFORMED','REJECTED','ExitMismatch')) {
         Case "actual receipt early failure $mode keeps stage and receipt state" {
             if (Test-Path $receipt) { Remove-Item -LiteralPath $receipt }

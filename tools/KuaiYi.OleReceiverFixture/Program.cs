@@ -8,6 +8,12 @@ using KuaiYi.OleTransfer;
 int statusAt=Array.IndexOf(args,"--test-status");
 if(statusAt>=0){if(statusAt+2!=args.Length)return 2;FixtureStatus.Path=args[statusAt+1];args=args[..statusAt];}
 string mode=args.LastOrDefault()??"normal";
+if(mode=="startup-pending")
+{
+    var hello=await IpcFrameCodec.ReadAsync(Console.OpenStandardInput())??throw new EndOfStreamException();
+    try { if(hello.Type!=IpcMessageType.OleHello)return 2;FixtureStatus.Write("blocked:startup");await Task.Delay(Timeout.Infinite);return 0; }
+    finally { CryptographicOperations.ZeroMemory(hello.Payload); }
+}
 if(mode=="startup-diagnostic-fail")
 {
     var frame=await IpcFrameCodec.ReadAsync(Console.OpenStandardInput())??throw new EndOfStreamException();

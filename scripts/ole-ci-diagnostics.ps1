@@ -1,6 +1,6 @@
 # Shared by the real runner and offline failure-path tests. Never serialize an unvalidated input object.
 function New-OleDiagnostic([string]$Boundary='Runner') {
-    return [pscustomobject]@{ Version=1; Boundary=$Boundary; Stage='Entry'; FailureStage='UNKNOWN'; FailureCode='UNKNOWN'; HResult=$null; CleanupCode='UNKNOWN'; ProcessState='UNKNOWN'; ChildExitCode=$null; CommandExitCode=$null; StdoutTask='UNKNOWN'; StderrTask='UNKNOWN'; ReceiptState='UNKNOWN'; DropObserved='UNKNOWN'; GetDataObserved='UNKNOWN'; CancelConfirmed='UNKNOWN'; RecoveryConfirmed='UNKNOWN'; CloseConfirmed='UNKNOWN'; Trace=@(); Owners=@() }
+    return [pscustomobject]@{ Version=1; Boundary=$Boundary; Stage='Entry'; FailureStage='UNKNOWN'; FailureCode='UNKNOWN'; HResult=$null; CleanupCode='UNKNOWN'; ProcessState='UNKNOWN'; ChildExitCode=$null; CommandExitCode=$null; StdoutTask='UNKNOWN'; StderrTask='UNKNOWN'; ReceiptState='UNKNOWN'; ReceiptRule='UNKNOWN'; DropObserved='UNKNOWN'; GetDataObserved='UNKNOWN'; CancelConfirmed='UNKNOWN'; RecoveryConfirmed='UNKNOWN'; CloseConfirmed='UNKNOWN'; Trace=@(); Owners=@() }
 }
 function Get-OleTaskState($Task) {
     if ($null -eq $Task) { return 'UNKNOWN' }
@@ -29,7 +29,10 @@ function ConvertTo-OleDiagnostic($Value) {
     $codes=@('UNKNOWN','None','Timeout','Cancelled','InvalidData','Io','Unauthorized','InvalidOperation','Other','InputBlocked','DiagnosticWriteFailed')
     $tasks=@('UNKNOWN','PENDING','RAN_TO_COMPLETION','FAULTED','CANCELED')
     if ($Value.Version -ne 1 -or $Value.Boundary -cnotin @('Runner','Probe') -or $Value.Stage -cnotin $stages -or $Value.FailureStage -cnotin $stages -or $Value.FailureCode -cnotin $codes -or $Value.CleanupCode -cnotin $codes -or $Value.ProcessState -cnotin @('UNKNOWN','RUNNING','EXITED') -or $Value.StdoutTask -cnotin $tasks -or $Value.StderrTask -cnotin $tasks -or $Value.ReceiptState -cnotin @('UNKNOWN','MISSING','OVERSIZED','MALFORMED','REJECTED','VALID') -or @($Value.Owners).Count -gt 8) { throw 'Invalid safe OLE diagnostic' }
+    $rule=if ($Value.PSObject.Properties.Name -contains 'ReceiptRule') { $Value.ReceiptRule } else { 'UNKNOWN' }
+    if ($rule -isnot [string] -or $rule -cnotin @('UNKNOWN','TaskSettlement','UnreadyCancellation','RegistrarTask','RegistrationCleanup','CreationGate','PriorSettlement','ReadyBinding','DropBinding','InstanceBinding')) { throw 'Invalid OLE receipt rule' }
     $out=New-OleDiagnostic $Value.Boundary
+    $out.ReceiptRule=$rule
     $traceEvents=@('ReceiverReady','ReceiverQueryBegin','ReceiverQueryEndCopy','ReceiverQueryEndNoCopy','ReceiverDropBegin','SourceReady','SourceDragBegin','SourceDragReturn','SourceQuery','SourceGetData','SourceGetDataBlocking','SourceGetDataReturned','OwnedPressDown','OwnedPressUp','OwnedInputCleanupSettled','OwnedInputCleanupFailed','SourceCleanupBegin','SourceCleanupCompleted','SourceCleanupFailed')
     if ($Value.PSObject.Properties.Name -contains 'Trace') {
         if ($Value.Trace -isnot [array] -or $Value.Trace.Count -gt 32) { throw 'Invalid OLE trace bound' }

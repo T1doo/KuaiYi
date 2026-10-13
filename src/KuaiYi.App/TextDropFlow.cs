@@ -28,7 +28,13 @@ internal sealed partial class ShellWindow
     private void RevokeTextDrop(bool clearSource=false)
     {
         dropCapture?.Invalidate(clearSource);var peer=Volatile.Read(ref dropPeer);
-        if(peer!=null&&Interlocked.Exchange(ref peer.Stopping,1)==0){peer.Client.Cancel();peer.Cancellation.Cancel();}
+        if(peer!=null&&Interlocked.Exchange(ref peer.Stopping,1)==0)
+        {
+#if KUAIYI_WINDOWS_CI_PROBE
+            CiReceiverRevoking(peer.Client,!peer.Cancellation.IsCancellationRequested);
+#endif
+            peer.Client.Cancel();peer.Cancellation.Cancel();
+        }
     }
     private void RefreshTextDrop()
     {

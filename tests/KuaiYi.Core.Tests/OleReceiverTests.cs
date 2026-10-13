@@ -95,6 +95,31 @@ public sealed class OleReceiverTests
         Assert.Contains(OleTargetObservation.QueryWritten,client.TargetObservations);Assert.Contains(OleTargetObservation.QueryRead,client.TargetObservations);
         Assert.Contains(OleTargetObservation.QueryStaleEpoch,client.TargetObservations);Assert.Contains(OleTargetObservation.QueryAccepted,client.TargetObservations);
     }
+    [Fact] public async Task ActualOwnedHandshakeRevocationCancelsOriginalBeforeAnyRegistration()
+    {
+        Guid id=Guid.NewGuid();using var starter=new Starter("startup-pending");var registrar=new Registrar();var activation=new Activation(id);var client=Client(starter,registrar,activation);
+        var run=Run(client,id,new(TaskCreationOptions.RunContinuationsAsynchronously));
+        try
+        {
+            Assert.Equal("blocked:startup",await starter.ReadStatusAsync());Assert.False(run.IsCompleted);Assert.False(client.WasEverReady);Assert.False(client.RegistrationAttempted);Assert.Null(registrar.Packet);Assert.False(client.StopRequested);
+            client.Cancel();Assert.True(client.StopRequested);await Assert.ThrowsAnyAsync<OperationCanceledException>(()=>run.WaitAsync(TimeSpan.FromSeconds(4)));
+            Assert.True(run.IsCanceled);Assert.Equal(OleStartupStage.ParentHelloRead,client.StartupFailure!.Stage);Assert.Equal(OleExceptionCode.Cancelled,client.StartupFailure.Exception);
+            Assert.False(client.DeadlineObserved);Assert.False(client.RegistrationAttempted);Assert.True(client.ObserveExit());Assert.True(client.DiagnosticReadSettled);Assert.True(await client.TryFinalizeAsync(true));
+        }
+        finally { await Cleanup(client,starter,registrar,run); }
+    }
+    [Fact] public async Task ActualStartupDeadlineIsFaultedAndCannotMasqueradeAsExplicitRevocation()
+    {
+        Guid id=Guid.NewGuid();using var starter=new Starter("startup-pending");var registrar=new Registrar();var activation=new Activation(id);var client=Client(starter,registrar,activation);
+        var run=Run(client,id,new(TaskCreationOptions.RunContinuationsAsynchronously));
+        try
+        {
+            Assert.Equal("blocked:startup",await starter.ReadStatusAsync());
+            var failure=await Assert.ThrowsAsync<OleReceiverException>(()=>run.WaitAsync(TimeSpan.FromSeconds(12)));
+            Assert.Equal(OleReceiverFailure.Timeout,failure.Failure);Assert.True(run.IsFaulted);Assert.True(client.DeadlineObserved);Assert.False(client.WasEverReady);Assert.False(client.RegistrationAttempted);Assert.Null(registrar.Packet);
+        }
+        finally { await Cleanup(client,starter,registrar,run); }
+    }
     [Theory][InlineData("query-stall")][InlineData("drop-stall")][InlineData("release-stall")]
     public async Task RealBlockingChildTimesOutWhileOwnPointerAndOffRemainIndependent(string mode)
     {

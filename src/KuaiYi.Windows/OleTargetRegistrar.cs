@@ -11,6 +11,7 @@ public sealed class OleTargetRegistrar(KuaiYi.Core.OleWindowOwnership ownership)
     public int RegistrationThreadId{get;private set;}
     public uint NativeRegistrationThreadId{get;private set;}
     private int diagnosticStage,diagnosticFailureStage;
+    public bool RegistrationAttempted=>Volatile.Read(ref started)!=0;
     public OleRegistrarStage DiagnosticStage=>(OleRegistrarStage)Volatile.Read(ref diagnosticStage);
     public OleRegistrarStage DiagnosticFailureStage=>(OleRegistrarStage)Volatile.Read(ref diagnosticFailureStage);
     public TaskStatus? DiagnosticTaskStatus{get{lock(sync)return original?.Status;}}

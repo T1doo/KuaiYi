@@ -19,7 +19,9 @@ function Get-OleResponsivenessWhitelist($result) {
     $stages = @('Entry','Apartment','Dispatcher','HelloRead','HelloValidated','BackendCreate','ParentVerify','ActivationOpen','NativeExportCreate','ExportValidate','ExportQueued','Controls','ParentStart','ParentHelloWrite','ParentHelloRead','ParentExportRead','ParentRegister','ParentReady','ParentRun','ParentShutdown')
     $codes = @('None','Argument','InvalidOperation','InvalidData','Io','FileMissing','DirectoryMissing','Unauthorized','DllMissing','BadImage','Com','Cancelled','Disposed','Timeout','Other')
     foreach ($item in @($result.StartupDiagnostics)) {
-        foreach ($name in @('OriginalRunSettled','OriginalControlSettled','OwnedFinalized')) { if ($item.$name -isnot [bool]) { throw 'Invalid original OLE task observation' } }
+        foreach ($name in @('OriginalRunSettled','OriginalControlSettled','OwnedFinalized','WasEverReady','RegistrationAttempted','ControlAttempted','DeadlineObserved','RevocationRequested','RevokeRunPending','RevokeFailureAbsent','RevokeStopFresh')) { if ($item.$name -isnot [bool]) { throw 'Invalid original OLE task observation' } }
+        if ($item.OriginalRunState -cnotin @('UNKNOWN','PENDING','RAN_TO_COMPLETION','FAULTED','CANCELED') -or $item.RevocationReason -cnotin @('UNKNOWN','Closing','Off','Suspended','LeaseInvalidated')) { throw 'Invalid OLE cancellation observation' }
+
         if ($item.DiagnosticReadSettled -isnot [bool] -or $item.DiagnosticReadFailure -cnotin $codes -or ($null -ne $item.OwnedExitCode -and (($item.OwnedExitCode -isnot [int] -and $item.OwnedExitCode -isnot [long]) -or $item.OwnedExitCode -lt [int]::MinValue -or $item.OwnedExitCode -gt [int]::MaxValue))) { throw 'Invalid OLE original diagnostic settlement' }
         $failure = $null
         if ($null -ne $item.StartupFailure) {
@@ -27,12 +29,34 @@ function Get-OleResponsivenessWhitelist($result) {
             if ($f.Stage -cnotin $stages -or $f.Exception -cnotin $codes -or ($f.HResult -isnot [int] -and $f.HResult -isnot [long]) -or $f.HResult -lt [int]::MinValue -or $f.HResult -gt [int]::MaxValue) { throw 'Invalid OLE fixed startup failure' }
             $failure = [pscustomobject]@{ Stage = $f.Stage; Exception = $f.Exception; HResult = $f.HResult }
         }
-        $diagnostics += [pscustomobject]@{ OwnedExitCode = $item.OwnedExitCode; StartupFailure = $failure; DiagnosticReadSettled = $item.DiagnosticReadSettled; DiagnosticReadFailure = $item.DiagnosticReadFailure; OriginalRunSettled = $item.OriginalRunSettled; OriginalControlSettled = $item.OriginalControlSettled; OwnedFinalized = $item.OwnedFinalized }
+        $diagnostics += [pscustomobject]@{ OwnedExitCode = $item.OwnedExitCode; StartupFailure = $failure; DiagnosticReadSettled = $item.DiagnosticReadSettled; DiagnosticReadFailure = $item.DiagnosticReadFailure; OriginalRunSettled = $item.OriginalRunSettled; OriginalControlSettled = $item.OriginalControlSettled; OwnedFinalized = $item.OwnedFinalized; Admission = 'UNKNOWN' }
     }
     if ($result.IsolationStatus -ceq 'Pass') {
         if (-not $result.AllReceiverCreationsAfterConfirmedExit -or -not $result.RecoveredAfterConfirmedExit -or -not $result.CloseConfirmed -or @($scenarios).Count -ne 2 -or @($result.Errors).Count -ne 0 -or @($result.StartupDiagnostics).Count -lt 3 -or @($result.StartupDiagnostics).Count -ne @($result.Registrars).Count) { throw 'Actual OLE isolation pass unconfirmed' }
         foreach ($scenario in $scenarios) { if (-not $scenario.realProductionDrop -or -not $scenario.realGetDataBlocked -or -not $scenario.uiHeartbeatAdvanced) { throw 'Actual OLE scenario pass unconfirmed' } }
-        foreach ($item in $diagnostics) { if (($null -ne $item.OwnedExitCode -and $item.OwnedExitCode -notin @(0,-1)) -or -not $item.OriginalRunSettled -or -not $item.OriginalControlSettled -or -not $item.OwnedFinalized -or -not $item.DiagnosticReadSettled -or $item.DiagnosticReadFailure -cne 'None' -or ($null -ne $item.StartupFailure -and ($item.StartupFailure.Stage -cne 'ParentRun' -or ($item.StartupFailure.Exception -cne 'Cancelled' -and ($item.StartupFailure.Exception -cne 'Io' -or $item.StartupFailure.HResult -ne -2147024858))))) { throw 'Actual OLE diagnostic settlement unconfirmed' } }
+        foreach ($item in $diagnostics) {
+            if (($null -ne $item.OwnedExitCode -and $item.OwnedExitCode -notin @(0,-1)) -or -not $item.OriginalRunSettled -or -not $item.OriginalControlSettled -or -not $item.OwnedFinalized -or -not $item.DiagnosticReadSettled -or $item.DiagnosticReadFailure -cne 'None') { throw 'Actual OLE diagnostic settlement unconfirmed' }
+        }
+        $ownerIndex=0
+        foreach ($owner in @($result.StartupDiagnostics)) {
+            $reg=@($result.Registrars | Where-Object { $_.Instance -ceq $owner.Instance })
+            if ($reg.Count -ne 1 -or $reg[0].RegistrationAttempted -isnot [bool] -or $reg[0].OriginalTaskState -cnotin @('UNKNOWN','PENDING','RAN_TO_COMPLETION','FAULTED','CANCELED')) { throw 'Actual registrar task association unconfirmed' }
+            if ($owner.WasEverReady) {
+                $binding=@($result.ReceiverTransitions | Where-Object { $_.phase -ceq 'Ready' -and $_.Instance -ceq $owner.Instance -and $_.pid -eq $owner.OwnedProcessId -and $_.registrarThread -eq $reg[0].NativeRegistrationThreadId })
+                if ($binding.Count -ne 1 -or @($result.ReceiverTransitions | Where-Object { $_.phase -ceq 'Ready' -and $_.Instance -ceq $owner.Instance }).Count -ne 1) { throw 'Actual original receiver binding unconfirmed' }
+                $f=$owner.StartupFailure
+                $terminal=if ($null -eq $f) { $owner.OriginalRunState -ceq 'RAN_TO_COMPLETION' } else { $f.Stage -ceq 'ParentRun' -and (($f.Exception -ceq 'Cancelled' -and $f.HResult -eq -2146233029 -and $owner.OriginalRunState -ceq 'CANCELED') -or ($f.Exception -ceq 'Io' -and $f.HResult -eq -2147024858 -and $owner.OriginalRunState -ceq 'FAULTED')) }
+                if (-not $owner.RegistrationAttempted -or -not $reg[0].RegistrationAttempted -or $reg[0].OriginalTaskState -cne 'RAN_TO_COMPLETION' -or $owner.DeadlineObserved -or -not $terminal) { throw 'Actual OLE diagnostic settlement unconfirmed' }
+                $diagnostics[$ownerIndex].Admission='Ready'
+
+            } else {
+                $f=$owner.StartupFailure
+                if (-not $owner.RevocationRequested -or -not $owner.RevokeRunPending -or -not $owner.RevokeFailureAbsent -or -not $owner.RevokeStopFresh -or $owner.RevocationReason -ceq 'UNKNOWN' -or $owner.DeadlineObserved -or $owner.OriginalRunState -cne 'CANCELED' -or $owner.ControlAttempted -or $owner.RegistrationAttempted -or $reg[0].RegistrationAttempted -or $reg[0].OriginalTaskState -cne 'UNKNOWN' -or $reg[0].NativeRegistrationThreadId -ne 0 -or $reg[0].RegistrationThreadId -ne 0 -or ($owner.OwnedProcessId -isnot [int] -and $owner.OwnedProcessId -isnot [long]) -or $owner.OwnedProcessId -le 0 -or $null -eq $owner.OwnedExitCode -or $null -eq $f -or $f.Stage -cnotin @('ParentHelloWrite','ParentHelloRead','ParentExportRead') -or $f.Exception -cne 'Cancelled' -or $f.HResult -ne -2146233029 -or @($result.ReceiverTransitions | Where-Object { $_.phase -ceq 'Ready' -and $_.Instance -ceq $owner.Instance }).Count -ne 0 -or @($result.ReceiverEvents | Where-Object { $_.Instance -ceq $owner.Instance }).Count -ne 0) { throw 'Unready OLE cancellation unconfirmed' }
+                $diagnostics[$ownerIndex].Admission='CancelledBeforeRegistration'
+            }
+            $ownerIndex++
+        }
+
         foreach ($registrar in @($result.Registrars)) { if ($registrar.IsSettledAndRevoked -isnot [bool] -or -not $registrar.IsSettledAndRevoked -or $null -ne $registrar.FailureCode) { throw 'Actual OLE registration cleanup unconfirmed' } }
         $created = @($result.ReceiverTransitions | Where-Object { $_.phase -ceq 'Created' })
         $ready = @($result.ReceiverTransitions | Where-Object { $_.phase -ceq 'Ready' })
@@ -40,7 +64,7 @@ function Get-OleResponsivenessWhitelist($result) {
         for ($i=0; $i -lt $created.Count; $i++) {
             $creation=$created[$i];$parsed=[guid]::Empty
             if (-not [guid]::TryParse([string]$creation.Instance,[ref]$parsed) -or $parsed -eq [guid]::Empty -or @($creation.prior).Count -ne $i -or @($created | Where-Object { $_.Instance -ceq $creation.Instance }).Count -ne 1 -or @($result.StartupDiagnostics | Where-Object { $_.Instance -ceq $creation.Instance }).Count -ne 1 -or @($result.Registrars | Where-Object { $_.Instance -ceq $creation.Instance }).Count -ne 1) { throw 'Invalid original receiver instance association' }
-            if ($creation.safe -isnot [bool] -or -not $creation.safe) { throw 'Actual receiver creation gate unconfirmed' }
+            if ($creation.safe -isnot [bool] -or -not $creation.safe -or $creation.wanted -isnot [bool] -or -not $creation.wanted -or $creation.leaseCurrent -isnot [bool] -or -not $creation.leaseCurrent) { throw 'Actual receiver creation gate unconfirmed' }
             foreach ($prior in @($creation.prior)) {
                 $earlier=@($created | Select-Object -First $i | Where-Object { $_.Instance -ceq $prior.Instance })
                 $owner=@($result.StartupDiagnostics | Where-Object { $_.Instance -ceq $prior.Instance })
@@ -91,7 +115,16 @@ function Read-OleContractReceipt([string]$Path,[int]$ChildExit,$Diagnostic,[stri
         if ((Get-Item -LiteralPath $Path).Length -gt 1048576) { $Diagnostic.ReceiptState='OVERSIZED'; throw 'Oversized owned OLE receipt' }
         try { $result=Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json } catch { $Diagnostic.ReceiptState='MALFORMED'; throw }
         $Diagnostic.Stage='ReceiptValidate'; Write-OleDiagnostic $DiagnosticPath $Diagnostic
-        try { $projected=Resolve-OleReceipt $result $ChildExit } catch { $Diagnostic.ReceiptState='REJECTED'; throw }
+        try { $projected=Resolve-OleReceipt $result $ChildExit } catch {
+            $Diagnostic.ReceiptState='REJECTED'
+            $rules=@{
+                'Actual OLE diagnostic settlement unconfirmed'='TaskSettlement';'Unready OLE cancellation unconfirmed'='UnreadyCancellation';'Actual registrar task association unconfirmed'='RegistrarTask'
+                'Actual OLE registration cleanup unconfirmed'='RegistrationCleanup';'Actual receiver creation gate unconfirmed'='CreationGate';'Prior original receiver settlement unconfirmed'='PriorSettlement'
+                'Actual original receiver binding unconfirmed'='ReadyBinding';'Actual Drop source/STA binding unconfirmed'='DropBinding';'Invalid original receiver instance association'='InstanceBinding'
+            }
+            if ($rules.ContainsKey($_.Exception.Message)) { $Diagnostic.ReceiptRule=$rules[$_.Exception.Message] }
+            throw
+        }
         $Diagnostic.ReceiptState='VALID';$Diagnostic.Stage='ContractResult'
         return $projected
     } catch {

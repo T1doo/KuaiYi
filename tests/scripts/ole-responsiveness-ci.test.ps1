@@ -18,9 +18,9 @@ function Reject([string]$name,[scriptblock]$mutate) {
 $diags=@(); $regs=@(); $transitions=@(); $prior=@()
 for ($i=0;$i -lt 3;$i++) {
     $instance='00000000-0000-0000-0000-00000000000'+($i+1)
-    $diags+=@{Instance=$instance;OriginalRunSettled=$true;OriginalControlSettled=$true;OwnedFinalized=$true;OwnedProcessId=1001+$i;OwnedExitCode=-1;StartupFailure=@{Stage='ParentRun';Exception='Cancelled';HResult=-2146233029};DiagnosticReadSettled=$true;DiagnosticReadFailure='None';Records=@()}
-    $regs+=@{Instance=$instance;IsSettledAndRevoked=$true;FailureCode=$null;NativeRegistrationThreadId=201+$i}
-    $transitions+=@{phase='Created';instance=$instance;safe=$true;prior=@($prior)}
+    $diags+=@{Instance=$instance;OriginalRunSettled=$true;OriginalRunState='CANCELED';WasEverReady=$true;RegistrationAttempted=$true;ControlAttempted=$true;DeadlineObserved=$false;RevocationRequested=$true;RevokeRunPending=$true;RevokeFailureAbsent=$true;RevokeStopFresh=$true;RevocationReason='Off';OriginalControlSettled=$true;OwnedFinalized=$true;OwnedProcessId=1001+$i;OwnedExitCode=-1;StartupFailure=@{Stage='ParentRun';Exception='Cancelled';HResult=-2146233029};DiagnosticReadSettled=$true;DiagnosticReadFailure='None';Records=@()}
+    $regs+=@{Instance=$instance;IsSettledAndRevoked=$true;FailureCode=$null;RegistrationAttempted=$true;OriginalTaskState='RAN_TO_COMPLETION';RegistrationThreadId=401+$i;NativeRegistrationThreadId=201+$i}
+    $transitions+=@{phase='Created';instance=$instance;safe=$true;wanted=$true;leaseCurrent=$true;prior=@($prior)}
     $transitions+=@{phase='Ready';Instance=$instance;pid=1001+$i;registrarThread=201+$i}
     $prior+=@{Instance=$instance;pid=1001+$i;actualExit=$true;runSettled=$true;controlSettled=$true;ownedExit=$true;revoked=$true}
 }
@@ -69,6 +69,9 @@ Reject 'original run still pending' { param($r) $r.StartupDiagnostics[0].Origina
 Reject 'original control still pending' { param($r) $r.StartupDiagnostics[0].OriginalControlSettled=$false }
 Reject 'original owner not finalized' { param($r) $r.StartupDiagnostics[0].OwnedFinalized=$false }
 Reject 'no original diagnostic settlement' { param($r) $r.StartupDiagnostics[0].DiagnosticReadSettled=$false }
+Reject 'ready original run state contradicts cancellation' { param($r) $r.StartupDiagnostics[0].OriginalRunState='FAULTED' }
+Reject 'ready registrar original still pending' { param($r) $r.Registrars[0].OriginalTaskState='PENDING' }
+Reject 'ready owner deadline fired' { param($r) $r.StartupDiagnostics[0].DeadlineObserved=$true }
 Reject 'diagnostic failure' { param($r) $r.StartupDiagnostics[0].DiagnosticReadFailure='Io' }
 Reject 'unknown startup failure enum' { param($r) $r.StartupDiagnostics[0].StartupFailure.Stage='PUBLIC_SENTINEL' }
 Reject 'unexpected startup EOF' { param($r) $r.StartupDiagnostics[0].StartupFailure.Stage='ParentExportRead';$r.StartupDiagnostics[0].StartupFailure.Exception='Io' }
@@ -96,7 +99,7 @@ Check 'additional safe original receiver is verified instead of rejected by ordi
     $g=$r.Registrars[0] | ConvertTo-Json -Depth 8 | ConvertFrom-Json;$g.Instance=$instance;$g.NativeRegistrationThreadId=204
     $p=@($r.StartupDiagnostics | ForEach-Object { @{Instance=$_.Instance;pid=$_.OwnedProcessId;actualExit=$true;runSettled=$true;controlSettled=$true;ownedExit=$true;revoked=$true} })
     $r.StartupDiagnostics+=@($d);$r.Registrars+=@($g)
-    $r.ReceiverTransitions+=@(@{phase='Created';instance=$instance;safe=$true;prior=$p},@{phase='Ready';Instance=$instance;pid=1004;registrarThread=204})
+    $r.ReceiverTransitions+=@(@{phase='Created';instance=$instance;safe=$true;wanted=$true;leaseCurrent=$true;prior=$p},@{phase='Ready';Instance=$instance;pid=1004;registrarThread=204})
     $r=$r | ConvertTo-Json -Depth 12 | ConvertFrom-Json
     $x=Get-OleResponsivenessWhitelist $r
     if ($x.IsolationStatus -cne 'Pass' -or @($x.StartupDiagnostics).Count -ne 4) { throw 'Finite verified receiver rejected' }
@@ -105,5 +108,60 @@ Check 'synthetic input blocked does not become physical acceptance or erase real
     $r=$valid | ConvertTo-Json -Depth 12 | ConvertFrom-Json;$r.SyntheticPointerStatus='Blocked'
     $x=Get-OleResponsivenessWhitelist $r
     if ($x.IsolationStatus -cne 'Pass' -or $x.SyntheticPointerStatus -cne 'Blocked' -or $x.PhysicalMouseAcceptance -cne 'NotRun') { throw 'Evidence scopes conflated' }
+}
+function Add-UnreadyCancelledReceiver($r) {
+    $instance='00000000-0000-0000-0000-000000000004'
+    $d=$r.StartupDiagnostics[0] | ConvertTo-Json -Depth 8 | ConvertFrom-Json
+    $d.Instance=$instance;$d.OwnedProcessId=1004;$d.WasEverReady=$false;$d.RegistrationAttempted=$false;$d.ControlAttempted=$false;$d.StartupFailure.Stage='ParentHelloRead'
+    $g=$r.Registrars[0] | ConvertTo-Json -Depth 8 | ConvertFrom-Json
+    $g.Instance=$instance;$g.RegistrationAttempted=$false;$g.OriginalTaskState='UNKNOWN';$g.NativeRegistrationThreadId=0;$g.RegistrationThreadId=0
+    $p=@($r.StartupDiagnostics | ForEach-Object { @{Instance=$_.Instance;pid=$_.OwnedProcessId;actualExit=$true;runSettled=$true;controlSettled=$true;ownedExit=$true;revoked=$true} })
+    $r.StartupDiagnostics+=@($d);$r.Registrars+=@($g)
+    $r.ReceiverTransitions+=@(@{phase='Created';instance=$instance;safe=$true;wanted=$true;leaseCurrent=$true;prior=$p})
+    return $r | ConvertTo-Json -Depth 12 | ConvertFrom-Json
+}
+Check 'fully settled explicit handshake revocation retains every original owner' {
+    $r=Add-UnreadyCancelledReceiver ($valid | ConvertTo-Json -Depth 12 | ConvertFrom-Json)
+    $x=Get-OleResponsivenessWhitelist $r
+    if ($x.IsolationStatus -cne 'Pass' -or $x.StartupDiagnostics.Count -ne 4 -or $x.StartupDiagnostics[3].Admission -cne 'CancelledBeforeRegistration' -or $x.StartupDiagnostics[0].Admission -cne 'Ready') { throw 'Explicit cancelled owner was lost or confused with ready admission' }
+}
+foreach ($mode in @('NoRequest','NoReason','AfterRun','AfterFailure','AfterStop','Deadline','RunFaulted','RunPending','OwnerPending','ReadPending','ControlPending','NoExit','ControlStarted','RegisterStarted','RegistrarStarted','RegistrarPending','ThreadStarted','ReadyClaim','EventClaim','Stage','HRESULT','CreatedOff','CreatedStale')) {
+    Check "unready cancellation still rejects missing evidence $mode" {
+        $r=Add-UnreadyCancelledReceiver ($valid | ConvertTo-Json -Depth 12 | ConvertFrom-Json)
+        $d=$r.StartupDiagnostics[3];$g=$r.Registrars[3]
+        switch ($mode) {
+            NoRequest { $d.RevocationRequested=$false }
+            AfterRun { $d.RevokeRunPending=$false }
+            AfterFailure { $d.RevokeFailureAbsent=$false }
+            AfterStop { $d.RevokeStopFresh=$false }
+            NoReason { $d.RevocationReason='UNKNOWN' }
+            Deadline { $d.DeadlineObserved=$true }
+            RunFaulted { $d.OriginalRunState='FAULTED' }
+            RunPending { $d.OriginalRunState='PENDING' }
+            OwnerPending { $d.OwnedFinalized=$false }
+            ReadPending { $d.DiagnosticReadSettled=$false }
+            ControlPending { $d.OriginalControlSettled=$false }
+            NoExit { $d.OwnedExitCode=$null }
+            ControlStarted { $d.ControlAttempted=$true }
+            RegisterStarted { $d.RegistrationAttempted=$true }
+            RegistrarStarted { $g.RegistrationAttempted=$true }
+            RegistrarPending { $g.OriginalTaskState='PENDING' }
+            ThreadStarted { $g.NativeRegistrationThreadId=204 }
+            ReadyClaim { $r.ReceiverTransitions+=@([pscustomobject]@{phase='Ready';Instance=$d.Instance;pid=1004;registrarThread=204}) }
+            EventClaim { $r.ReceiverEvents+=@([pscustomobject]@{Instance=$d.Instance;Phase='DropBegin';SourcePid=2004;NativeThreadId=304;Apartment='STA'}) }
+            Stage { $d.StartupFailure.Stage='ParentRegister' }
+            HRESULT { $d.StartupFailure.HResult=-1 }
+            CreatedOff { $r.ReceiverTransitions[-1].wanted=$false }
+            CreatedStale { $r.ReceiverTransitions[-1].leaseCurrent=$false }
+        }
+        $failed=$false;try { $null=Get-OleResponsivenessWhitelist $r } catch { $failed=$true }
+        if (-not $failed) { throw ('Unproven handshake cancellation accepted: '+$mode) }
+    }
+}
+Check 'claimed ready extra owner requires its own Ready binding' {
+    $r=Add-UnreadyCancelledReceiver ($valid | ConvertTo-Json -Depth 12 | ConvertFrom-Json)
+    $d=$r.StartupDiagnostics[3];$g=$r.Registrars[3];$d.WasEverReady=$true;$d.RegistrationAttempted=$true;$d.ControlAttempted=$true;$d.StartupFailure.Stage='ParentRun';$g.RegistrationAttempted=$true;$g.OriginalTaskState='RAN_TO_COMPLETION';$g.NativeRegistrationThreadId=204;$g.RegistrationThreadId=404
+    $failed=$false;try { $null=Get-OleResponsivenessWhitelist $r } catch { $failed=$true }
+    if (-not $failed) { throw 'Extra ready owner without Ready evidence accepted' }
 }
 Write-Host "OLE_RESPONSIVENESS_SCRIPT_CONTRACTS passed=$passes failed=0; synthetic receipt schema only, Windows GetData NotRun"

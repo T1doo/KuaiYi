@@ -22,7 +22,9 @@ function Get-GetDataSummary($Report,[int]$ChildExit,[string]$ExpectedCommit) {
     foreach ($owner in $ole.StartupDiagnostics) {
         foreach ($name in @('OriginalRunSettled','OriginalControlSettled','OwnedFinalized','DiagnosticReadSettled')) { if ($owner.$name -isnot [bool] -or -not $owner.$name) { throw 'GetData original task pending' } }
         if ($owner.DiagnosticReadFailure -cne 'None') { throw 'GetData diagnostic read failed' }
+        if ($owner.Admission -cnotin @('Ready','CancelledBeforeRegistration')) { throw 'GetData admission unconfirmed' }
     }
+    if (@($ole.StartupDiagnostics | Where-Object { $_.Admission -ceq 'Ready' }).Count -lt 3) { throw 'GetData ready owners unconfirmed' }
     $result.Status='Pass'; $result.SyntheticPointerStatus=$ole.SyntheticPointerStatus; $result.ActualDrop='Pass'; $result.GetData='Pass'; $result.CancelRecovery='Pass'; $result.Close='Pass'; $result.OriginalTasksSettled=$true; $result.ReceiverCount=$count; $result.ExitCode=0
     return [pscustomobject]$result
 }

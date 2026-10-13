@@ -26,7 +26,7 @@ internal sealed partial class ShellWindow
     internal readonly ConcurrentQueue<object> CiReceiverTransitions=new();
     internal readonly ConcurrentDictionary<Guid,long> CiDropBegins=new();
     internal bool CiUnsafeCreation;
-    internal sealed record CiLifetime(Guid Instance,Func<Task> Run,Func<Task> Control){public Process? HeldProcess;public Task? OriginalRun;public readonly ConcurrentQueue<Task> OriginalControls=new();public bool ControlsOverflow;}
+    internal sealed record CiLifetime(Guid Instance,Func<Task> Run,Func<Task> Control){public Process? HeldProcess;public Task? OriginalRun;public readonly ConcurrentQueue<Task> OriginalControls=new();public bool ControlsOverflow;public bool RevokeRunPending,RevokeFailureAbsent,RevokeStopFresh;public volatile bool RevocationRequested;public string RevocationReason="UNKNOWN";}
     internal void CiTrackOriginal(OleReceiverClient client,Task task,bool run)
     {
         if(!CiLifetimes.TryGetValue(client,out var life))return;
@@ -48,8 +48,16 @@ internal sealed partial class ShellWindow
     {
         var prior=CiLifetimes.Select(pair=>new{pair.Value.Instance,pid=pair.Key.OwnedProcessId,actualExit=pair.Value.HeldProcess?.HasExited??pair.Key.ObserveExit(),runSettled=pair.Value.Run().IsCompleted,controlSettled=pair.Value.Control().IsCompleted,ownedExit=pair.Key.ObserveExit(),revoked=CiRegistrars[pair.Key].IsSettledAndRevoked}).ToArray();
         bool safe=prior.All(p=>p.actualExit&&p.runSettled&&p.controlSettled&&p.ownedExit&&p.revoked);if(!safe)CiUnsafeCreation=true;
-        CiReceiverTransitions.Enqueue(new{utc=DateTimeOffset.UtcNow,timestamp=Stopwatch.GetTimestamp(),phase="Created",instance,safe,prior});
+        CiReceiverTransitions.Enqueue(new{utc=DateTimeOffset.UtcNow,timestamp=Stopwatch.GetTimestamp(),phase="Created",instance,safe,prior,wanted=dropVisible&&!exiting&&lifecycle.Gate.Snapshot.Activation==Activation.On&&lifecycle.Gate.Snapshot.Mode==TriggerMode.Drop&&lifecycle.Gate.Snapshot.Suspension==Suspension.None,leaseCurrent=dropPeer is {} peer&&ReferenceEquals(peer.Client,client)&&lifecycle.Gate.IsCaptureCurrent(peer.Lease.Ticket)});
         CiRegistrars[client]=registrar;CiLifetimes[client]=new(instance,run,control);
+    }
+    internal void CiReceiverRevoking(OleReceiverClient client,bool parentTokenFresh)
+    {
+        if(!CiLifetimes.TryGetValue(client,out var life)||life.RevocationRequested)return;
+        var state=lifecycle.Gate.Snapshot;
+        life.RevokeRunPending=life.OriginalRun is {IsCompleted:false};life.RevokeFailureAbsent=client.StartupFailure==null;life.RevokeStopFresh=parentTokenFresh&&!client.StopRequested;
+        life.RevocationReason=exiting?"Closing":state.Activation==Activation.Off?"Off":state.Suspension!=Suspension.None?"Suspended":"LeaseInvalidated";
+        life.RevocationRequested=true; // Recorded before this parent's actual Cancel, never backfilled by finalization.
     }
     internal void CiReceiverFeedback(OleReceiverEvent item,OleReceiverClient client)
     {
@@ -275,9 +283,9 @@ internal static class HostedOleProbe
         int exit=isolation=="Pass"?0:isolation=="Blocked"?2:3;
         diagnostic.At("FinalSnapshot");
         File.WriteAllLines(output+".events.jsonl",events.Select(e=>JsonSerializer.Serialize(e,Json)));
-        var finalDiagnostics=window.CiLifetimes.Select(pair=>new{pair.Value.Instance,pair.Key.OwnedProcessId,pair.Key.OwnedExitCode,pair.Key.StartupFailure,pair.Key.DiagnosticReadFailure,pair.Key.DiagnosticReadSettled,OriginalRunSettled=pair.Value.Run().IsCompleted,OriginalControlSettled=pair.Value.Control().IsCompleted,OwnedFinalized=pair.Key.TryFinalizeAsync().AsTask().GetAwaiter().GetResult()}).ToArray();
+        var finalDiagnostics=window.CiLifetimes.Select(pair=>new{pair.Value.Instance,pair.Key.OwnedProcessId,pair.Key.OwnedExitCode,pair.Key.StartupFailure,pair.Key.DiagnosticReadFailure,pair.Key.DiagnosticReadSettled,pair.Key.WasEverReady,pair.Key.RegistrationAttempted,pair.Key.DeadlineObserved,pair.Value.RevocationRequested,pair.Value.RevocationReason,pair.Value.RevokeRunPending,pair.Value.RevokeFailureAbsent,pair.Value.RevokeStopFresh,ControlAttempted=pair.Value.OriginalControls.Count!=0,OriginalRunState=OleCiDiagnostic.TaskState(pair.Value.OriginalRun),OriginalRunSettled=pair.Value.Run().IsCompleted,OriginalControlSettled=pair.Value.Control().IsCompleted,OwnedFinalized=pair.Key.TryFinalizeAsync().AsTask().GetAwaiter().GetResult()}).ToArray();
         diagnostic.At("ReceiptWrite");
-        File.WriteAllText(output,JsonSerializer.Serialize(new{Kind="HostedOleResponsivenessPublicProbe",Source="PublicFixtureOnly",ModelCalls=0,ProductionTextDrop=true,IsolationStatus=isolation,SyntheticPointerStatus=inputStatus,PhysicalMouseAcceptance="NotRun",Windows11Acceptance="NotRun",RecoveredAfterConfirmedExit=recovered,CloseConfirmed=closeConfirmed,AllReceiverCreationsAfterConfirmedExit=!window.CiUnsafeCreation,ReceiverTransitions=window.CiReceiverTransitions,Scenarios=scenarios,Errors=errors,ReceiverEvents=window.CiOleEvents.Select(e=>new{e.Instance,e.Transaction,e.Phase,e.Effect,e.CodeUnits,e.ThreadId,e.NativeThreadId,e.Apartment,e.CleanupCompleted,SourcePid=e.Source?.ProcessId}),StartupDiagnostics=finalDiagnostics,Registrars=window.CiRegistrars.Select(pair=>new{window.CiLifetimes[pair.Key].Instance,pair.Value.NativeRegistrationThreadId,pair.Value.RegistrationThreadId,pair.Value.IsSettledAndRevoked,pair.Value.FailureCode}),ExitCode=exit},Json));
+        File.WriteAllText(output,JsonSerializer.Serialize(new{Kind="HostedOleResponsivenessPublicProbe",Source="PublicFixtureOnly",ModelCalls=0,ProductionTextDrop=true,IsolationStatus=isolation,SyntheticPointerStatus=inputStatus,PhysicalMouseAcceptance="NotRun",Windows11Acceptance="NotRun",RecoveredAfterConfirmedExit=recovered,CloseConfirmed=closeConfirmed,AllReceiverCreationsAfterConfirmedExit=!window.CiUnsafeCreation,ReceiverTransitions=window.CiReceiverTransitions,Scenarios=scenarios,Errors=errors,ReceiverEvents=window.CiOleEvents.Select(e=>new{e.Instance,e.Transaction,e.Phase,e.Effect,e.CodeUnits,e.ThreadId,e.NativeThreadId,e.Apartment,e.CleanupCompleted,SourcePid=e.Source?.ProcessId}),StartupDiagnostics=finalDiagnostics,Registrars=window.CiRegistrars.Select(pair=>new{window.CiLifetimes[pair.Key].Instance,pair.Value.NativeRegistrationThreadId,pair.Value.RegistrationThreadId,pair.Value.IsSettledAndRevoked,pair.Value.FailureCode,pair.Value.RegistrationAttempted,OriginalTaskState=OleCiDiagnostic.StatusState(pair.Value.DiagnosticTaskStatus)}),ExitCode=exit},Json));
         diagnostic.At("Cleanup");
         foreach(var life in window.CiLifetimes.Values)life.HeldProcess?.Dispose();
         if(Directory.Exists(config))Directory.Delete(config,true);diagnostic.At("Complete");return exit;

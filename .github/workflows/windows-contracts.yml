@@ -28,7 +28,7 @@ jobs:
         run: |
           & ./tests/scripts/ole-failure-path.test.ps1
       - name: Run bounded actual GetData cancellation and recovery contracts
-        # Verify the external public fault source through actual GetData, cancellation, recovery and owned cleanup.
+        # Verify actual GetData and every ready or explicitly revoked handshake owner through full cleanup.
         shell: pwsh
         run: |
           & ./scripts/run-windows-getdata-ci.ps1

@@ -15,7 +15,11 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
     private readonly object watchSync=new();
     private readonly object activationSync=new();
     private readonly OleCallWatch watch=new(timeProvider);
-    private Process? child;private Guid instance;private int started,ownedProcessId;private volatile bool ready,timedOut;
+    private Process? child;private Guid instance;private int started,ownedProcessId;private volatile bool ready,timedOut,everReady;private int registrationAttempted,startupDeadlineObserved;
+    public bool WasEverReady=>everReady;
+    public bool StopRequested=>stop.IsCancellationRequested;
+    public bool RegistrationAttempted=>Volatile.Read(ref registrationAttempted)!=0;
+    public bool DeadlineObserved=>timedOut||Volatile.Read(ref startupDeadlineObserved)!=0;
     /// <summary>Cached diagnostic identity of the actual owned child; retained after finalization, never used to kill by PID.</summary>
     public int? OwnedProcessId{get{int id=Volatile.Read(ref ownedProcessId);return id==0?null:id;}}
     private Task? registration;
@@ -154,11 +158,11 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
             {
                 if(export.Type!=IpcMessageType.OleExport||export.RequestId!=instance)throw new OleReceiverException(OleReceiverFailure.Protocol);
                 OleReceiverWire.ValidateExport(export.Payload);transferred=true;
-                startupStage=OleStartupStage.ParentRegister;registration=registrar.RegisterAsync(hello.Hwnd,export.Payload,lifetime.Token);
+                startupStage=OleStartupStage.ParentRegister;Volatile.Write(ref registrationAttempted,1);registration=registrar.RegisterAsync(hello.Hwnd,export.Payload,lifetime.Token);
                 await registration.WaitAsync(beginning.Token).ConfigureAwait(false);
                 beginning.Token.ThrowIfCancellationRequested();lock(watchSync){if(watch.Expired)throw new OleReceiverException(OleReceiverFailure.Timeout);watch.Reset();}
             }finally{if(!transferred)CryptographicOperations.ZeroMemory(export.Payload);}
-            lock(activationSync){beginning.Token.ThrowIfCancellationRequested();ready=true;}startupStage=OleStartupStage.ParentReady;feedback(new(instance,hello.Epoch,Guid.Empty,"Ready"));watchdog=Watchdog(lifetime.Token);startupStage=OleStartupStage.ParentRun;
+            lock(activationSync){beginning.Token.ThrowIfCancellationRequested();ready=true;everReady=true;}startupStage=OleStartupStage.ParentReady;feedback(new(instance,hello.Epoch,Guid.Empty,"Ready"));watchdog=Watchdog(lifetime.Token);startupStage=OleStartupStage.ParentRun;
             while(true)
             {
                 var frame=await Read(lifetime.Token);bool retained=false;
@@ -223,6 +227,7 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
         catch(Exception error){StartupFailure=OleStartupDiagnostics.Project(startupStage,error);throw;}
         finally
         {
+            if(!everReady&&startup.IsCancellationRequested)Volatile.Write(ref startupDeadlineObserved,1);
             lock(activationSync){ready=false;eligibility.Set(long.MaxValue,false);activation.Set(long.MaxValue,false);}lifetime.Cancel();if(pending!=null)CryptographicOperations.ZeroMemory(pending);
             if(registration!=null)_ = ObserveRegistration(registration);
             await process.StopAsync().ConfigureAwait(false);
