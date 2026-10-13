@@ -43,7 +43,14 @@ internal sealed partial class ShellWindow
     }
     private async Task PublishDropControl(TextDropPeer peer,Task previous,DropTargetGeometry target)
     {
-        try{await previous;if(ReferenceEquals(dropPeer,peer)&&Volatile.Read(ref peer.Stopping)==0&&dropCapture?.Lease==peer.Lease&&lifecycle.Gate.IsCaptureCurrent(peer.Lease.Ticket)&&lifecycle.Settings?.Version==peer.Lease.SettingsVersion)await peer.Client.SetEnabledAsync(peer.Lease.WireEpoch,true,target,peer.Blocked);}
+        try{await previous;if(ReferenceEquals(dropPeer,peer)&&Volatile.Read(ref peer.Stopping)==0&&dropCapture?.Lease==peer.Lease&&lifecycle.Gate.IsCaptureCurrent(peer.Lease.Ticket)&&lifecycle.Settings?.Version==peer.Lease.SettingsVersion)
+        {
+            var originalControl=peer.Client.SetEnabledAsync(peer.Lease.WireEpoch,true,target,peer.Blocked);
+#if KUAIYI_WINDOWS_CI_PROBE
+            CiTrackOriginal(peer.Client,originalControl,false);
+#endif
+            await originalControl;
+        }}
         catch(Exception error){if(ReferenceEquals(dropPeer,peer)&&Volatile.Read(ref peer.Stopping)==0){RevokeTextDrop();Report("拖放门控发布未完成",error);}else peer.Client.Cancel();}
     }
     private async Task ReconcileTextDrop()
@@ -77,7 +84,7 @@ internal sealed partial class ShellWindow
     {
         try
         {
-            await peer.Client.RunAsync(hello,item=>
+            var originalRun=peer.Client.RunAsync(hello,item=>
             {
 #if KUAIYI_WINDOWS_CI_PROBE
                 CiReceiverFeedback(item,peer.Client);
@@ -94,7 +101,11 @@ internal sealed partial class ShellWindow
                     else if(item.Phase=="QueryEnd"&&item.Effect==0)button.ToolTip="此投放不是可复制的受支持文本；图片/文件/仅链接尚不走文字路径。";
                     RefreshTextDrop();
                 });
-            },(epoch,transaction,bytes,token)=>dropCapture!.ReceiveAsync(peer.Lease,transaction,bytes,action=>peer.Client.TryApplyDrop(epoch,transaction,action),token,()=>peer.Client.IsDropCurrent(epoch,transaction)),peer.Cancellation.Token).ConfigureAwait(false);
+            },(epoch,transaction,bytes,token)=>dropCapture!.ReceiveAsync(peer.Lease,transaction,bytes,action=>peer.Client.TryApplyDrop(epoch,transaction,action),token,()=>peer.Client.IsDropCurrent(epoch,transaction)),peer.Cancellation.Token);
+#if KUAIYI_WINDOWS_CI_PROBE
+            CiTrackOriginal(peer.Client,originalRun,true);
+#endif
+            await originalRun.ConfigureAwait(false);
         }
         catch(OperationCanceledException)when(peer.Cancellation.IsCancellationRequested){ }
         catch(Exception error)

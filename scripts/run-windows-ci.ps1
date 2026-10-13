@@ -1,5 +1,6 @@
 param([switch]$ProbeOnly,[switch]$OleOnly,[switch]$OleMarshalOnly,[string]$OutputRoot)
 . "$PSScriptRoot/windows-ci-common.ps1"
+. "$PSScriptRoot/ole-ci-diagnostics.ps1"
 if ($OleOnly -and $OleMarshalOnly) { throw 'Select one OLE scope' }
 $exitCode = 0
 $root = if ($OutputRoot) { [IO.Path]::GetFullPath($OutputRoot) } else { Join-Path $script:RepositoryRoot ('artifacts/windows-ci/' + [guid]::NewGuid().ToString('N')) }
@@ -15,8 +16,13 @@ $report = [ordered]@{
 if ($env:GITHUB_SERVER_URL -and $env:GITHUB_REPOSITORY -and $env:GITHUB_RUN_ID) { $report.RunUrl = "$env:GITHUB_SERVER_URL/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID" }
 if ($OleOnly) { $report.Scope = 'HostedOleFixtureContractsOnly' }
 if ($OleMarshalOnly) { $report.Scope = 'OwnedNativeMarshalOnly'; $report['MarshalStatus'] = 'NotRun'; $report['MarshalReport'] = $null }
+$parentDiagnostic=New-OleDiagnostic
+function Set-ParentStage([string]$Stage) {
+    if ($OleOnly) { $parentDiagnostic.Stage=$Stage; Write-OleDiagnostic (Join-Path $root 'parent-diagnostic.json') $parentDiagnostic }
+}
 Push-Location $script:RepositoryRoot
 try {
+    Set-ParentStage 'Environment'
     $facts = $null
     try { $facts = Get-CiEnvironment; $report.Environment = $facts }
     catch { $report.Errors += 'EnvironmentInventoryFailed:' + $_.Exception.GetType().Name }
@@ -30,6 +36,7 @@ try {
         $report.SpecificationBytes += @{ Name = $name; Bytes = $bytes.Length; Sha256 = [Convert]::ToHexString([Security.Cryptography.SHA256]::HashData($bytes)); LF = $lf; CRLF = $crlf }
     }
     Write-Host ('KUAIYI_SPECIFICATION_BYTES ' + ($report.SpecificationBytes | ConvertTo-Json -Compress))
+    Set-ParentStage 'Specification'
     Assert-SpecIntegrity # The exact original byte hash and all original assertions are unchanged.
     if ($null -eq $facts) {
         $report.NativeStatus = 'Blocked'; $report.OverlayStatus = 'Blocked'; $report.OleStatus = 'Blocked'; if ($OleMarshalOnly) { $report.MarshalStatus = 'Blocked' }; $exitCode = 2
@@ -49,9 +56,12 @@ try {
         foreach ($component in $components) {
             $build = Join-Path $root $component
             # Exact installed patch selected once, explicitly supplied to CMake and recorded above.
+            Set-ParentStage 'NativeConfigure'
             Invoke-Checked cmake @('-S',"src/$component",'-B',$build,'-G','Visual Studio 17 2022','-A','x64','-T',"v143,version=$($facts.Toolset)","-DCMAKE_GENERATOR_INSTANCE=$($facts.VisualStudio.Path)","-DCMAKE_SYSTEM_VERSION=$($facts.WindowsSdk)")
+            Set-ParentStage 'NativeBuild'
             Invoke-Checked cmake @('--build',$build,'--config','Release','--parallel','2')
             $dll = Join-Path $build "Release/$component.dll"
+            Set-ParentStage 'NativeLoad'
             Assert-CiNativePe $dll; $report.PeChecksPassed++
             $handle = [Runtime.InteropServices.NativeLibrary]::Load($dll)
             try {
@@ -72,6 +82,7 @@ try {
             Write-Host (Get-Content -LiteralPath $junit -Raw)
         }
         $report.NativeStatus = 'Pass'
+        Set-ParentStage 'DesktopPrerequisites'
         if ($facts.DesktopBlockers.Count -gt 0 -or $facts.Sdk -cne '10.0.401' -or -not $facts.DesktopRuntime) {
             $report.OverlayStatus = 'Blocked'
             $report.OleStatus = 'Blocked'
@@ -122,14 +133,17 @@ try {
             $report.MarshalStatus = $report.MarshalReport.Status
             }
             if ($OleOnly) {
+            Set-ParentStage 'OleInvoke'
             $report.OleStatus = 'InProgress'
             $report.OleReport = & "$PSScriptRoot/run-windows-ole-ci.ps1" -NativeRoot $root -OutputRoot (Join-Path $root 'ole-ci')
             $report.OleStatus = $report.OleReport.IsolationStatus
             $report.OleSyntheticPointerStatus = $report.OleReport.SyntheticPointerStatus
+            $exitCode = $report.OleReport.ExitCode
             }
         }
     }
 } catch {
+    $parentDiagnostic.FailureStage=$parentDiagnostic.Stage; $parentDiagnostic.FailureCode=Get-OleExceptionCode $_.Exception; $parentDiagnostic.HResult=$_.Exception.HResult
     $report.Errors += $_.Exception.Message
     if ($OleMarshalOnly -and $report.MarshalStatus -eq 'InProgress') { $report.MarshalStatus = 'Fail' }
     if ($report.NativeStatus -eq 'InProgress') { $report.NativeStatus = 'Fail' }
@@ -137,6 +151,7 @@ try {
     if ($report.OleStatus -eq 'InProgress') { $report.OleStatus = 'Fail' }
     $exitCode = 3
 } finally {
+    if ($OleOnly) { try { Write-OleDiagnostic (Join-Path $root 'parent-diagnostic.json') $parentDiagnostic } catch { } }
     Pop-Location
     $report.ExitCode = $exitCode
     $json = $report | ConvertTo-Json -Depth 12 -Compress

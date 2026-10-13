@@ -1,6 +1,7 @@
 # Synthetic output/receipt contracts; no Windows COM or pointer input is performed here.
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
+. "$PSScriptRoot/../../scripts/ole-ci-diagnostics.ps1"
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 $tokens=$null; $errors=$null
 $ast=[Management.Automation.Language.Parser]::ParseFile((Join-Path $root 'scripts/run-windows-getdata-ci.ps1'),[ref]$tokens,[ref]$errors)
@@ -17,7 +18,7 @@ function Reject([string]$name,[scriptblock]$mutate) {
     if (-not $rejected) { throw "Expected rejection: $name" }
     $script:passes++; Write-Host "PASS rejects $name"
 }
-$owner=@{OriginalRunSettled=$true;OriginalControlSettled=$true;OwnedFinalized=$true;DiagnosticReadSettled=$true;DiagnosticReadFailure='None'}
+$owner=@{OriginalRunSettled=$true;OriginalControlSettled=$true;OwnedFinalized=$true;DiagnosticReadSettled=$true;DiagnosticReadFailure='None';OwnedExitCode=-1;StartupFailure=$null}
 $valid=@{
     Kind='HostedWindowsContracts';Scope='HostedOleFixtureContractsOnly';SourceCommit=$commit;SourceDirty=$false
     Windows11Acceptance='NotRun';E06PhysicalAcceptance='NotRun';NativeStatus='Pass';OleStatus='Pass';ExitCode=0
@@ -46,7 +47,7 @@ Check 'native prerequisite blocked is not success' {
     $r=$valid | ConvertTo-Json -Depth 12 | ConvertFrom-Json
     $r.NativeStatus='Blocked';$r.OleStatus='Blocked';$r.OleReport=$null;$r.ExitCode=2
     $x=Get-GetDataSummary $r 2 $commit
-    if ($x.Status -cne 'Blocked' -or $x.ExitCode -ne 2 -or $x.GetData -cne 'NotRun') { throw 'Blocked became pass' }
+    if ($x.Status -cne 'Blocked' -or $x.ExitCode -ne 2 -or $x.GetData -cne 'UNKNOWN') { throw 'Blocked became pass' }
 }
 Check 'desktop blocked even when legacy process exits zero stays blocked' {
     $r=$valid | ConvertTo-Json -Depth 12 | ConvertFrom-Json;$r.OleStatus='Blocked';$r.OleReport=$null

@@ -73,14 +73,17 @@ public sealed class OleStartupDiagnosticsTests
         var release = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         var client = new OleReceiverClient(Environment.GetEnvironmentVariable("DOTNET_HOST_PATH") ?? "dotnet", registrar, activation, FixturePath(), new Starter("startup-diagnostic-fail"))
         { AfterDiagnosticReadForTest = () => release.Task };
+        Assert.Null(client.DiagnosticReadTaskStatus); // The initial CompletedTask placeholder is not an observed read.
         var run = client.RunAsync(Hello(id), _ => Assert.Fail("Failed child must not become Ready."), (_, _, _, _) => Task.CompletedTask);
         try
         {
             Assert.IsType<EndOfStreamException>(await Record.ExceptionAsync(() => run.WaitAsync(TimeSpan.FromSeconds(4))));
             Assert.Equal(3, client.OwnedExitCode); Assert.False(client.DiagnosticReadSettled);
+            Assert.Equal(TaskStatus.WaitingForActivation, client.DiagnosticReadTaskStatus);
             Assert.False(await client.TryFinalizeAsync()); Assert.False(activation.Disposed);
             release.TrySetResult();
             await UntilDiagnosticSettled(client).WaitAsync(TimeSpan.FromSeconds(2));
+            Assert.Equal(TaskStatus.RanToCompletion, client.DiagnosticReadTaskStatus);
             Assert.True(await client.TryFinalizeAsync(true)); Assert.True(activation.Disposed);
         }
         finally { release.TrySetResult(); await Cleanup(client, run); }

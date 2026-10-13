@@ -1,11 +1,12 @@
 # Bounded entry for the existing real OLE probe. Raw child output and receipts stay on the ephemeral runner.
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
+. "$PSScriptRoot/ole-ci-diagnostics.ps1"
 function Get-GetDataSummary($Report,[int]$ChildExit,[string]$ExpectedCommit) {
     if ($ExpectedCommit -cnotmatch '^[0-9a-f]{40}$' -or $Report.SourceCommit -cne $ExpectedCommit -or $Report.SourceDirty -isnot [bool] -or $Report.SourceDirty -or $Report.Kind -cne 'HostedWindowsContracts' -or $Report.Scope -cne 'HostedOleFixtureContractsOnly' -or $Report.Windows11Acceptance -cne 'NotRun' -or $Report.E06PhysicalAcceptance -cne 'NotRun') { throw 'Invalid GetData source or scope' }
     if ($Report.ExitCode -isnot [long] -and $Report.ExitCode -isnot [int]) { throw 'Invalid GetData exit type' }
     if ($ChildExit -ne $Report.ExitCode -or $ChildExit -notin @(0,2,3) -or $Report.NativeStatus -cnotin @('Pass','Blocked','Fail') -or $Report.OleStatus -cnotin @('Pass','Blocked','Fail','NotRun')) { throw 'Invalid GetData outcome' }
-    $result = [ordered]@{ Kind='HostedGetDataSummary'; SourceCommit=$ExpectedCommit; Status='Fail'; ModelCalls=0; NativeStatus=$Report.NativeStatus; IsolationStatus=$Report.OleStatus; SyntheticPointerStatus='NotRun'; ActualDrop='NotRun'; GetData='NotRun'; CancelRecovery='NotRun'; Close='NotRun'; OriginalTasksSettled=$false; ReceiverCount=0; PhysicalE06='NotRun'; Windows11Acceptance='NotRun'; ExitCode=3 }
+    $result = [ordered]@{ Kind='HostedGetDataSummary'; SourceCommit=$ExpectedCommit; Status='Fail'; ModelCalls=0; NativeStatus=$Report.NativeStatus; IsolationStatus=$Report.OleStatus; SyntheticPointerStatus='UNKNOWN'; ActualDrop='UNKNOWN'; GetData='UNKNOWN'; CancelRecovery='UNKNOWN'; Close='UNKNOWN'; OriginalTasksSettled='UNKNOWN'; ReceiverCount=$null; OleEvidence=(Get-OleFailureEvidence $Report.OleReport); PhysicalE06='NotRun'; Windows11Acceptance='NotRun'; ExitCode=3 }
     if ($ChildExit -eq 3 -or $Report.NativeStatus -ceq 'Fail' -or $Report.OleStatus -ceq 'Fail') { return [pscustomobject]$result }
     if ($Report.NativeStatus -ceq 'Blocked' -or $Report.OleStatus -ceq 'Blocked') { $result.Status='Blocked'; $result.ExitCode=2; return [pscustomobject]$result }
     foreach ($name in @('NativeDlls','PeChecksPassed','DllLoadsPassed','ExportsPassed')) { if (($Report.$name -isnot [int] -and $Report.$name -isnot [long]) -or $Report.$name -ne 1) { throw 'Native GetData prerequisite unconfirmed' } }
@@ -27,7 +28,8 @@ function Get-GetDataSummary($Report,[int]$ChildExit,[string]$ExpectedCommit) {
 }
 
 $root=Split-Path $PSScriptRoot -Parent
-$child=$null; $stdout=$null; $stderr=$null
+$child=$null; $stdout=$null; $stderr=$null; $output=$null
+$observedProcessState='UNKNOWN'; $observedProcessExit=$null
 $summary=[pscustomobject]@{Kind='HostedGetDataSummary';Status='Fail';Reason='RunnerFailure';PhysicalE06='NotRun';Windows11Acceptance='NotRun';ExitCode=3}
 try {
     if (-not $IsWindows) { $summary.Status='Blocked'; $summary.Reason='WindowsRequired'; $summary.ExitCode=2 }
@@ -68,15 +70,28 @@ public static class KuaiYiGetDataDiscard {
         $settled=$false
         try {
             if (-not $child.HasExited) { $child.Kill($true); [void]$child.WaitForExit(5000) }
+        } catch { $settled=$false }
+        try {
+            $observation=Get-OleProcessObservation $child $stdout $stderr
+            $observedProcessState=$observation.State; $observedProcessExit=$observation.ExitCode
+        } catch { $observedProcessState='UNKNOWN' }
+        try {
             if ($null -ne $stdout -and $null -ne $stderr) { [void][Threading.Tasks.Task]::WaitAll([Threading.Tasks.Task[]]@($stdout,$stderr),2000) }
             $settled=$child.HasExited -and $null -ne $stdout -and $null -ne $stderr -and $stdout.IsCompletedSuccessfully -and $stderr.IsCompletedSuccessfully -and $stdout.Result -and $stderr.Result
         } catch { $settled=$false }
         if ($settled) { $child.Dispose() }
         else {
             $script:UnsettledGetDataChild=$child; $script:UnsettledGetDataReads=@($stdout,$stderr)
-            $summary=[pscustomobject]@{Kind='HostedGetDataSummary';Status='Fail';Reason='OriginalChildSettlementUnconfirmed';PhysicalE06='NotRun';Windows11Acceptance='NotRun';ExitCode=3}
+            $summary.Status='Fail'; $summary.ExitCode=3
+            $summary | Add-Member -Force CleanupReason 'OriginalChildSettlementUnconfirmed'
         }
     }
 }
-Write-Host ('KUAIYI_GETDATA_SUMMARY ' + ($summary | ConvertTo-Json -Depth 4 -Compress))
+$processState='UNKNOWN';$processExit=$null
+if ($null -ne $child) { # Use the cached observation made before disposal below.
+    $processState=$observedProcessState; $processExit=$observedProcessExit
+}
+$summary | Add-Member RunnerProcess ([pscustomobject]@{State=$processState;ExitCode=$processExit;StdoutTask=(Get-OleTaskState $stdout);StderrTask=(Get-OleTaskState $stderr)})
+if ($null -ne $output) { $summary=Add-GetDataDiagnostics $summary $output }
+Write-Host ('KUAIYI_GETDATA_SUMMARY ' + ($summary | ConvertTo-Json -Depth 12 -Compress))
 exit $summary.ExitCode

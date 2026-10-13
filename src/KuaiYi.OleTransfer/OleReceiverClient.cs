@@ -22,6 +22,9 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
     private readonly OleStartupDiagnosticDrain diagnosticDrain=new();
     private readonly CancellationTokenSource diagnosticStop=new();
     private Task diagnosticRead=Task.CompletedTask;
+    private int diagnosticReadStarted;
+    /// <summary>Observation of the original read task, not a wait/continuation or the initial placeholder.</summary>
+    public TaskStatus? DiagnosticReadTaskStatus=>Volatile.Read(ref diagnosticReadStarted)==0?null:Volatile.Read(ref diagnosticRead).Status;
     internal Func<Task>? AfterDiagnosticReadForTest {get;init;}
     private async Task ReadDiagnosticsAsync(Stream input)
     {
@@ -131,6 +134,7 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
             child=await starting.WaitAsync(beginning.Token).ConfigureAwait(false);
             Volatile.Write(ref ownedProcessId,child.Id);
             Volatile.Write(ref diagnosticRead,ReadDiagnosticsAsync(child.StandardError.BaseStream));
+            Volatile.Write(ref diagnosticReadStarted,1);
             startupStage=OleStartupStage.ParentHelloWrite;
             byte[] command=OleReceiverWire.Serialize(hello);
             try{await IpcFrameCodec.WriteAsync(child.StandardInput.BaseStream,new(IpcMessageType.OleHello,instance,command),beginning.Token);await child.StandardInput.BaseStream.FlushAsync(beginning.Token);}

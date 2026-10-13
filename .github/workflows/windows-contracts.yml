@@ -26,8 +26,7 @@ jobs:
       - name: Run synthetic GetData receipt and output contracts
         shell: pwsh
         run: |
-          & ./tests/scripts/ole-responsiveness-ci.test.ps1
-          & ./tests/scripts/getdata-ci.test.ps1
+          & ./tests/scripts/ole-failure-path.test.ps1
       - name: Run bounded actual GetData cancellation and recovery contracts
         # One OleNativeBridge build and owned public fixtures; only validated summaries leave the child process.
         shell: pwsh

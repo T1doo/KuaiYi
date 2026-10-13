@@ -25,7 +25,22 @@ internal sealed partial class ShellWindow
     internal readonly ConcurrentQueue<object> CiReceiverTransitions=new();
     internal readonly ConcurrentDictionary<Guid,long> CiDropBegins=new();
     internal bool CiUnsafeCreation;
-    internal sealed record CiLifetime(Guid Instance,Func<Task> Run,Func<Task> Control){public Process? HeldProcess;}
+    internal sealed record CiLifetime(Guid Instance,Func<Task> Run,Func<Task> Control){public Process? HeldProcess;public Task? OriginalRun;public readonly ConcurrentQueue<Task> OriginalControls=new();public bool ControlsOverflow;}
+    internal void CiTrackOriginal(OleReceiverClient client,Task task,bool run)
+    {
+        if(!CiLifetimes.TryGetValue(client,out var life))return;
+        if(run)life.OriginalRun=task;
+        else if(life.OriginalControls.Count<256)life.OriginalControls.Enqueue(task);
+        else life.ControlsOverflow=true;
+    }
+    internal OleCiOwnerDiagnostic[] CiDiagnosticOwners()=>CiLifetimes.Take(8).Select(pair=>
+    {
+        var row=new OleCiOwnerDiagnostic {Kind="Receiver",Run=OleCiDiagnostic.TaskState(pair.Value.OriginalRun),Control=pair.Value.ControlsOverflow?"UNKNOWN":OleCiDiagnostic.TasksState(pair.Value.OriginalControls.ToArray())};
+        row.ErrorRead=OleCiDiagnostic.StatusState(pair.Key.DiagnosticReadTaskStatus);
+        if(pair.Key.StartupFailure is {} f)row.StartupFailure=new(){Stage=f.Stage.ToString(),Exception=f.Exception.ToString(),HResult=f.HResult};
+        try { row.ExitCode=pair.Key.OwnedExitCode;if(row.ExitCode.HasValue)row.ProcessState="EXITED";else if(pair.Value.HeldProcess is {} held)row.ProcessState=held.HasExited?"EXITED":"RUNNING";else if(pair.Key.OwnedProcessId.HasValue&&pair.Key.ObserveExit())row.ProcessState="EXITED"; } catch { }
+        return row;
+    }).ToArray();
     internal void CiReceiverCreated(OleReceiverClient client,OleTargetRegistrar registrar,Guid instance,Func<Task> run,Func<Task> control)
     {
         var prior=CiLifetimes.Select(pair=>new{pair.Value.Instance,pid=pair.Key.OwnedProcessId,actualExit=pair.Value.HeldProcess?.HasExited??pair.Key.ObserveExit(),runSettled=pair.Value.Run().IsCompleted,controlSettled=pair.Value.Control().IsCompleted,ownedExit=pair.Key.ObserveExit(),revoked=CiRegistrars[pair.Key].IsSettledAndRevoked}).ToArray();
@@ -70,14 +85,26 @@ internal static class HostedOleProbe
     private sealed class InputBlocked(string message):Exception(message);
     public static int Run(string output,string sourceExecutable,string publicFixture)
     {
+        var diagnostic=new OleCiDiagnostic(Path.GetFullPath(output)+".diagnostic.json");
+        diagnostic.At("Entry");
+        try { return RunCore(output,sourceExecutable,publicFixture,diagnostic); }
+        catch(Exception error) { diagnostic.Fail(error); return 3; }
+        finally { diagnostic.Snapshot(); }
+    }
+    private static int RunCore(string output,string sourceExecutable,string publicFixture,OleCiDiagnostic diagnostic)
+    {
         output=Path.GetFullPath(output);sourceExecutable=Path.GetFullPath(sourceExecutable);publicFixture=Path.GetFullPath(publicFixture);
         Directory.CreateDirectory(Path.GetDirectoryName(output)!);
+        diagnostic.At("Config");
         string config=Path.Combine(Path.GetTempPath(),"KuaiYi-public-ole-ci-"+Guid.NewGuid().ToString("N"));
         var coordinator=new SettingsCoordinator(new(Path.Combine(config,"config")),new(Path.Combine(config,"secrets"),new NoKeys(),new DirectoryPolicy()));
         using(var draft=coordinator.OpenDraftAsync().GetAwaiter().GetResult())
         {draft.Update(s=>s with{TriggerMode=TriggerMode.Drop,ActiveProfileId="public",Profiles=[new(){Id="public",Model="public-fixture",BaseUrl="https://public.invalid",Authentication=ApiAuthentication.None}]});coordinator.SaveAsync(draft).GetAwaiter().GetResult();}
         using var self=Process.GetCurrentProcess();
+        diagnostic.At("WindowCreate");
         var app=new Application();var window=new ShellWindow("KuaiYi.OleCi."+Guid.NewGuid().ToString("N"),coordinator,enableSelectionPlatform:false){CiTextDropEnabled=true};
+        var diagnosticSources=new ConcurrentQueue<PublicSource>();
+        diagnostic.Owners=()=>window.CiDiagnosticOwners().Concat(diagnosticSources.Select(source=>source.Snapshot())).Take(8).ToArray();
         window.CiObservePointer();var heartbeat=new DispatcherTimer{Interval=TimeSpan.FromMilliseconds(25)};heartbeat.Tick+=(_,_)=>window.CiHeartbeat++;
         var closed=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);window.Closed+=(_,_)=>{heartbeat.Stop();closed.TrySetResult();};
         var events=new ConcurrentQueue<object>();var scenarios=new List<object>();var errors=new List<string>();string inputStatus="NotRun";bool recovered=false,closeConfirmed=false;
@@ -89,6 +116,7 @@ internal static class HostedOleProbe
         {long started=Stopwatch.GetTimestamp();while(!await ready()){overall.Token.ThrowIfCancellationRequested();if(Stopwatch.GetElapsedTime(started).TotalMilliseconds>=milliseconds)throw new TimeoutException(reason);await Task.Delay(20,overall.Token);}}
         async Task<ShellWindow.CiPeer> ReadyPeer()
         {
+            diagnostic.At("ReceiverReadyWait");
             await Until(async()=>await Ui(()=>window.CiCurrentPeer()?.Client.IsReady==true),12000,"ReceiverReadyDeadline");
             var peer=await Ui(()=>window.CiCurrentPeer()!)
                 ??throw new InvalidOperationException("Missing receiver owner.");
@@ -116,14 +144,20 @@ internal static class HostedOleProbe
             uint uiThread=NativeDesktop.GetWindowThreadProcessId(hwnd,out uint uiPid);
             if(uiPid!=Environment.ProcessId||uiThread==peer.Registrar.NativeRegistrationThreadId)throw new InvalidOperationException("Presentation and registrar thread identity mismatch.");
             Record("ReceiverReady",new{name,peer.Instance,pid=receiver.Id,uiPid,uiThread,registrarThread=peer.Registrar.NativeRegistrationThreadId});
-            await using var source=new PublicSource(sourceExecutable,publicFixture,output+"."+name+".source.jsonl",Record);
+            diagnostic.At("SourceStart");
+            var source=new PublicSource(sourceExecutable,publicFixture,output+"."+name+".source.jsonl",Record);
+            diagnosticSources.Enqueue(source);
+            try {
+            diagnostic.At("SourceReadyWait");
             var ready=await source.Ready.Task.WaitAsync(TimeSpan.FromSeconds(8),overall.Token);
             if(ready.ProcessId!=source.Process.Id)throw new InvalidOperationException("Owned source identity mismatch.");
             var before=await Ui(()=>window.CiAnchor);int downBefore=await Ui(()=>window.CiDown),beatsBefore=await Ui(()=>window.CiHeartbeat);
             Pointer.RequireIdle();Pointer.RequireForeground((nint)ready.Hwnd);
             Pointer.Move(ready.X,ready.Y,(nint)ready.Hwnd);Pointer.Down();await Task.Delay(100,overall.Token);
             Pointer.Move(before.Center.X,before.Center.Y,hwnd);
+            diagnostic.At("DragEnterWait");
             await Until(()=>Task.FromResult(window.CiOleEvents.Any(e=>e.Instance==peer.Instance&&e.Phase=="QueryEnd"&&e.Effect==1)),1000,"RealDragEnterNotObserved");
+            diagnostic.At("GetDataWait");
             Pointer.Up();await source.Blocking.Task.WaitAsync(TimeSpan.FromSeconds(2),overall.Token);
             var drop=window.CiOleEvents.LastOrDefault(e=>e.Instance==peer.Instance&&e.Phase=="DropBegin");
             if(drop==null||drop.Apartment!="STA"||drop.NativeThreadId==0||drop.NativeThreadId==uiThread||drop.Source?.ProcessId!=(uint)source.Process.Id)throw new InvalidOperationException("Real production Drop/source/apartment not observed.");
@@ -134,16 +168,19 @@ internal static class HostedOleProbe
                 if(receiver.HasExited||peer.Run.IsCompleted||source.BlockReturned||Stopwatch.GetElapsedTime(blockingStarted).TotalMilliseconds>=1500||Stopwatch.GetElapsedTime(dropStarted).TotalMilliseconds>=1500)throw new InvalidOperationException("Original GetData/Drop no longer live before response action.");
             }
             Record("GetDataBlockingObserved",new{name,pid=source.Process.Id,receiverPid=receiver.Id,drop.NativeThreadId,drop.ThreadId,drop.Apartment,uiThread,registrarThread=peer.Registrar.NativeRegistrationThreadId,sourceThread=source.BlockingNativeThread,receiverStillRunning=!receiver.HasExited,sourceStillRunning=!source.Process.HasExited});
-            RequireStillBlocked();
+            RequireStillBlocked();diagnostic.Observed("Drop");diagnostic.Observed("GetData");diagnostic.At("Heartbeat");
             await Task.Delay(100,overall.Token);int beats=await Ui(()=>window.CiHeartbeat);
             if(beats<=beatAtBlock)throw new InvalidOperationException("Presentation heartbeat stopped during real GetData.");
             if(closing)
             {
                 RequireStillBlocked();
                 Record("CloseRequestedDuringGetData",new{elapsedMs=Stopwatch.GetElapsedTime(blockingStarted).TotalMilliseconds});
+                diagnostic.At("Close");
                 await UiAction(()=>{RequireStillBlocked();window.Close();});await closed.Task.WaitAsync(TimeSpan.FromSeconds(6),overall.Token);
+                diagnostic.At("CloseFinalize");
                 closeConfirmed=await FinalizePeer(peer,receiver);
                 if(!closeConfirmed)throw new InvalidOperationException("Close ownership unconfirmed.");
+                diagnostic.Observed("Close");
             }
             else
             {
@@ -160,35 +197,51 @@ internal static class HostedOleProbe
                 catch(InputBlocked error){inputStatus="Blocked";Record("SyntheticInputBlocked",new{reason=error.Message});}
                 finally{Pointer.ReleaseOwnedPress();}
                 // An actual self-drag may already cancel the lease. This direct production command proves lifecycle only.
-                await UiAction(window.CiCancelDrop);
+                diagnostic.At("Cancel");
+                await UiAction(window.CiCancelDrop);diagnostic.At("CancelFinalize");
                 if(!await FinalizePeer(peer,receiver))throw new InvalidOperationException("Cancel ownership unconfirmed.");
+                diagnostic.Observed("Cancel");
                 if(await Ui(()=>window.CiHasSource))throw new InvalidOperationException("Blocked/late source committed.");
+                diagnostic.At("Recovery");
                 await UiAction(window.CiEnableDrop);var next=await ReadyPeer();
                 if(next.Instance==peer.Instance||next.Client.OwnedProcessId==peer.Client.OwnedProcessId)throw new InvalidOperationException("Old receiver reused.");
-                recovered=true;Record("RecoveryAfterConfirmedExit",new{oldInstance=peer.Instance,newInstance=next.Instance,oldPid=peer.Client.OwnedProcessId,newPid=next.Client.OwnedProcessId});
+                recovered=true;diagnostic.Observed("Recovery");Record("RecoveryAfterConfirmedExit",new{oldInstance=peer.Instance,newInstance=next.Instance,oldPid=peer.Client.OwnedProcessId,newPid=next.Client.OwnedProcessId});
                 using var nextReceiver=HoldReceiver(next);await UiAction(window.CiCancelDrop);
+                diagnostic.At("RecoveryFinalize");
                 if(!await FinalizePeer(next,nextReceiver))throw new InvalidOperationException("Recovery cleanup unconfirmed.");
             }
             scenarios.Add(new{name,realProductionDrop=true,realGetDataBlocked=true,uiHeartbeatAdvanced=beats>beatAtBlock,heartbeatBefore=beatsBefore,heartbeatAtBlock=beatAtBlock,heartbeatAfter=beats,receiverPid=receiver.Id,sourcePid=source.Process.Id,registrarThread=peer.Registrar.NativeRegistrationThreadId,receiverThread=drop.NativeThreadId});
+            } catch(Exception error) { diagnostic.Fail(error);throw; }
+            finally { try { await source.DisposeAsync(); } catch(Exception error) { diagnostic.Fail(error,true);diagnostic.Fail(error,atStage:"Cleanup");throw; } finally { diagnostic.Snapshot(); } }
         }
         window.Loaded+=(_,_)=>
         {
             heartbeat.Start();workflow=Task.Run(async()=>
             {
-                try{await window.PresentationStartup;await RunScenario("cancel-recover",false);await RunScenario("close",true);}
-                catch(InputBlocked error){inputStatus="Blocked";errors.Add(error.Message);Record("EnvironmentInputBlocked",new{error.Message});}
-                catch(Exception error){errors.Add(error.GetType().Name+":"+error.Message);Record("ContractFailure",new{type=error.GetType().Name,error.Message});}
-                finally{Pointer.ReleaseOwnedPress();if(!closed.Task.IsCompleted)try{await UiAction(window.Close);}catch(Exception error){errors.Add("CloseUnconfirmed:"+error.GetType().Name);}}
+                try{diagnostic.At("PresentationReady");await window.PresentationStartup;await RunScenario("cancel-recover",false);await RunScenario("close",true);}
+                catch(InputBlocked error){diagnostic.Fail(error);inputStatus="Blocked";errors.Add(error.Message);Record("EnvironmentInputBlocked",new{error.Message});}
+                catch(Exception error){diagnostic.Fail(error);errors.Add(error.GetType().Name+":"+error.Message);Record("ContractFailure",new{type=error.GetType().Name,error.Message});}
+                finally
+                {
+                    try { Pointer.ReleaseOwnedPress();if(!closed.Task.IsCompleted)await UiAction(window.Close); }
+                    catch(Exception error){diagnostic.Fail(error,true);errors.Add("CloseUnconfirmed:"+error.GetType().Name);}
+                    diagnostic.Snapshot();
+                }
             });
         };
-        app.Run(window);workflow?.WaitAsync(TimeSpan.FromSeconds(10)).GetAwaiter().GetResult();
+        app.Run(window);
+        try { workflow?.WaitAsync(TimeSpan.FromSeconds(10)).GetAwaiter().GetResult(); }
+        catch(Exception error) { diagnostic.Fail(error,atStage:"WorkflowJoin");throw; }
         string isolation=scenarios.Count==2&&recovered&&closeConfirmed&&errors.Count==0&&!window.CiUnsafeCreation?"Pass":errors.Count>0&&inputStatus=="Blocked"&&scenarios.Count==0?"Blocked":"Fail";
         int exit=isolation=="Pass"?0:isolation=="Blocked"?2:3;
+        diagnostic.At("FinalSnapshot");
         File.WriteAllLines(output+".events.jsonl",events.Select(e=>JsonSerializer.Serialize(e,Json)));
         var finalDiagnostics=window.CiLifetimes.Select(pair=>new{pair.Value.Instance,pair.Key.OwnedProcessId,pair.Key.OwnedExitCode,pair.Key.StartupFailure,pair.Key.DiagnosticReadFailure,pair.Key.DiagnosticReadSettled,OriginalRunSettled=pair.Value.Run().IsCompleted,OriginalControlSettled=pair.Value.Control().IsCompleted,OwnedFinalized=pair.Key.TryFinalizeAsync().AsTask().GetAwaiter().GetResult()}).ToArray();
+        diagnostic.At("ReceiptWrite");
         File.WriteAllText(output,JsonSerializer.Serialize(new{Kind="HostedOleResponsivenessPublicProbe",Source="PublicFixtureOnly",ModelCalls=0,ProductionTextDrop=true,IsolationStatus=isolation,SyntheticPointerStatus=inputStatus,PhysicalMouseAcceptance="NotRun",Windows11Acceptance="NotRun",RecoveredAfterConfirmedExit=recovered,CloseConfirmed=closeConfirmed,AllReceiverCreationsAfterConfirmedExit=!window.CiUnsafeCreation,ReceiverTransitions=window.CiReceiverTransitions,Scenarios=scenarios,Errors=errors,ReceiverEvents=window.CiOleEvents.Select(e=>new{e.Instance,e.Transaction,e.Phase,e.Effect,e.CodeUnits,e.ThreadId,e.NativeThreadId,e.Apartment,e.CleanupCompleted,SourcePid=e.Source?.ProcessId}),StartupDiagnostics=finalDiagnostics,Registrars=window.CiRegistrars.Select(pair=>new{window.CiLifetimes[pair.Key].Instance,pair.Value.NativeRegistrationThreadId,pair.Value.RegistrationThreadId,pair.Value.IsSettledAndRevoked,pair.Value.FailureCode}),ExitCode=exit},Json));
+        diagnostic.At("Cleanup");
         foreach(var life in window.CiLifetimes.Values)life.HeldProcess?.Dispose();
-        if(Directory.Exists(config))Directory.Delete(config,true);return exit;
+        if(Directory.Exists(config))Directory.Delete(config,true);diagnostic.At("Complete");return exit;
     }
     private sealed class DirectoryPolicy:ISecretDirectoryPolicy{public void EnsurePrivate(string directory)=>Directory.CreateDirectory(directory);}
     private sealed class NoKeys:ISecretProtector{public byte[] Protect(ReadOnlySpan<byte> plain)=>throw new InvalidOperationException("No keys in public OLE fixture.");public byte[] Unprotect(ReadOnlySpan<byte> encrypted)=>throw new InvalidOperationException("No keys in public OLE fixture.");}
@@ -219,6 +272,14 @@ internal static class HostedOleProbe
                     if(kind=="GetDataBlockReturned")Volatile.Write(ref blockReturned,1);
             });
         }
+        private OleCiOwnerDiagnostic? finalSnapshot;
+        public OleCiOwnerDiagnostic Snapshot()
+        {
+            if(finalSnapshot is {} final)return final;
+            var row=new OleCiOwnerDiagnostic {Kind="Source",MetadataRead=OleCiDiagnostic.TaskState(read),ErrorRead=OleCiDiagnostic.TaskState(errors),CloseWrite=OleCiDiagnostic.TaskState(closingWrite),CloseFlush=OleCiDiagnostic.TaskState(closingFlush),ExitWait=OleCiDiagnostic.TaskState(closingExitWait)};
+            try { row.ProcessState=Process.HasExited?"EXITED":"RUNNING";if(Process.HasExited)row.ExitCode=Process.ExitCode; } catch { }
+            return row;
+        }
         public async ValueTask DisposeAsync()
         {
             try
@@ -241,7 +302,7 @@ internal static class HostedOleProbe
                 }
                 finally
                 {
-                    if(finalized){lock(Unsettled)Unsettled.Remove(this);Process.Dispose();}
+                    if(finalized){finalSnapshot=Snapshot();lock(Unsettled)Unsettled.Remove(this);Process.Dispose();}
                     else{lock(Unsettled)Unsettled.Add(this);}
                 }
                 if(!finalized)throw new IOException("Owned source original settlement unconfirmed.");

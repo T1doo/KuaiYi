@@ -1,5 +1,6 @@
 param([Parameter(Mandatory)][string]$NativeRoot,[Parameter(Mandatory)][string]$OutputRoot)
 . "$PSScriptRoot/windows-ci-common.ps1"
+. "$PSScriptRoot/ole-ci-diagnostics.ps1"
 function Get-OleResponsivenessWhitelist($result) {
     if ($result.Kind -cne 'HostedOleResponsivenessPublicProbe' -or $result.Source -cne 'PublicFixtureOnly' -or ($result.ModelCalls -isnot [int] -and $result.ModelCalls -isnot [long]) -or $result.ModelCalls -ne 0 -or $result.IsolationStatus -cnotin @('Pass','Fail','Blocked') -or $result.SyntheticPointerStatus -cnotin @('Pass','Blocked','NotRun') -or $result.PhysicalMouseAcceptance -cne 'NotRun' -or $result.Windows11Acceptance -cne 'NotRun') { throw 'Invalid OLE evidence boundary' }
     if (($result.ExitCode -isnot [int] -and $result.ExitCode -isnot [long]) -or $result.ExitCode -cnotin @(0,2,3) -or ($result.IsolationStatus -ceq 'Pass' -and $result.ExitCode -ne 0) -or ($result.IsolationStatus -ceq 'Blocked' -and $result.ExitCode -ne 2) -or ($result.IsolationStatus -ceq 'Fail' -and $result.ExitCode -ne 3)) { throw 'Invalid OLE exit status' }
@@ -78,15 +79,66 @@ function Get-OleResponsivenessWhitelist($result) {
     }
 }
 
+function Resolve-OleReceipt($Result,[int]$ChildExit) {
+    $projected=Get-OleResponsivenessWhitelist $Result
+    if ($ChildExit -ne $projected.ExitCode) { throw 'Actual OLE process/receipt exit mismatch' }
+    return $projected # Fail and Blocked are evidence, not exceptions that discard the receipt.
+}
+function Read-OleContractReceipt([string]$Path,[int]$ChildExit,$Diagnostic,[string]$DiagnosticPath) {
+    try {
+        $Diagnostic.Stage='ReceiptRead'; Write-OleDiagnostic $DiagnosticPath $Diagnostic
+        if (-not (Test-Path -LiteralPath $Path)) { $Diagnostic.ReceiptState='MISSING'; throw 'Missing owned OLE receipt' }
+        if ((Get-Item -LiteralPath $Path).Length -gt 1048576) { $Diagnostic.ReceiptState='OVERSIZED'; throw 'Oversized owned OLE receipt' }
+        try { $result=Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json } catch { $Diagnostic.ReceiptState='MALFORMED'; throw }
+        $Diagnostic.Stage='ReceiptValidate'; Write-OleDiagnostic $DiagnosticPath $Diagnostic
+        try { $projected=Resolve-OleReceipt $result $ChildExit } catch { $Diagnostic.ReceiptState='REJECTED'; throw }
+        $Diagnostic.ReceiptState='VALID';$Diagnostic.Stage='ContractResult'
+        return $projected
+    } catch {
+        $Diagnostic.FailureStage=$Diagnostic.Stage;$Diagnostic.FailureCode=Get-OleExceptionCode $_.Exception;$Diagnostic.HResult=$_.Exception.HResult
+        throw
+    } finally {
+        try { Write-OleDiagnostic $DiagnosticPath $Diagnostic }
+        catch { $Diagnostic.CleanupCode='DiagnosticWriteFailed';if ($Diagnostic.FailureStage -ceq 'UNKNOWN') { throw } }
+    }
+}
+function Wait-OleApp($Child,$Stdout,$Stderr,$Diagnostic,[string]$DiagnosticPath) {
+    $Diagnostic.Stage='AppWait';Write-OleDiagnostic $DiagnosticPath $Diagnostic
+    if (-not $Child.WaitForExit(75000)) {
+        $Child.Kill($true)
+        if (-not $Child.WaitForExit(5000)) { throw [TimeoutException]::new('Owned OLE App exit unconfirmed') }
+        throw [TimeoutException]::new('Owned OLE App deadline exceeded')
+    }
+    $Diagnostic.Stage='OutputDrain';Write-OleDiagnostic $DiagnosticPath $Diagnostic
+    if (-not [Threading.Tasks.Task]::WaitAll([Threading.Tasks.Task[]]@($Stdout,$Stderr),1000) -or -not $Stdout.IsCompletedSuccessfully -or -not $Stderr.IsCompletedSuccessfully -or -not $Stdout.Result -or -not $Stderr.Result) { throw 'Owned OLE output drain unconfirmed' }
+}
+$diagnostic=New-OleDiagnostic
+[void][IO.Directory]::CreateDirectory($OutputRoot)
+$diagnosticPath=Join-Path $OutputRoot 'runner-diagnostic.json'
+$child=$null; $stdout=$null; $stderr=$null
+function Set-OleStage([string]$Stage) { $diagnostic.Stage=$Stage; Write-OleDiagnostic $diagnosticPath $diagnostic }
+function Invoke-OleBuild([string[]]$Arguments) {
+    $global:LASTEXITCODE=$null; $diagnostic.CommandExitCode=$null
+    try { Invoke-Checked dotnet $Arguments | ForEach-Object { Write-Host $_ } }
+    finally { if ($global:LASTEXITCODE -is [int]) { $diagnostic.CommandExitCode=$global:LASTEXITCODE } }
+}
+try {
 # An ordinary build directory, not a publish/bundle/installer. Use only the already restored, locked projects.
 $app = Join-Path $OutputRoot 'app'
 [void][IO.Directory]::CreateDirectory($app)
-Invoke-Checked dotnet @('restore','src/KuaiYi.OleReceiver/KuaiYi.OleReceiver.csproj','--locked-mode') | ForEach-Object { Write-Host $_ }
-Invoke-Checked dotnet @('restore','tools/KuaiYi.OleFaultSource/KuaiYi.OleFaultSource.csproj','--locked-mode') | ForEach-Object { Write-Host $_ }
-Invoke-Checked dotnet @('restore','src/KuaiYi.App/KuaiYi.App.csproj','--locked-mode') | ForEach-Object { Write-Host $_ }
-Invoke-Checked dotnet @('build','src/KuaiYi.OleReceiver/KuaiYi.OleReceiver.csproj','--configuration','Release','--no-restore') | ForEach-Object { Write-Host $_ }
-Invoke-Checked dotnet @('build','tools/KuaiYi.OleFaultSource/KuaiYi.OleFaultSource.csproj','--configuration','Release','--no-restore') | ForEach-Object { Write-Host $_ }
-Invoke-Checked dotnet @('build','src/KuaiYi.App/KuaiYi.App.csproj','--configuration','Release','--no-restore','--output',$app,'-p:KuaiYiIncludeWindowsCiProbe=true') | ForEach-Object { Write-Host $_ }
+Set-OleStage 'RestoreReceiver'
+Invoke-OleBuild @('restore','src/KuaiYi.OleReceiver/KuaiYi.OleReceiver.csproj','--locked-mode')
+Set-OleStage 'RestoreSource'
+Invoke-OleBuild @('restore','tools/KuaiYi.OleFaultSource/KuaiYi.OleFaultSource.csproj','--locked-mode')
+Set-OleStage 'RestoreApp'
+Invoke-OleBuild @('restore','src/KuaiYi.App/KuaiYi.App.csproj','--locked-mode')
+Set-OleStage 'BuildReceiver'
+Invoke-OleBuild @('build','src/KuaiYi.OleReceiver/KuaiYi.OleReceiver.csproj','--configuration','Release','--no-restore')
+Set-OleStage 'BuildSource'
+Invoke-OleBuild @('build','tools/KuaiYi.OleFaultSource/KuaiYi.OleFaultSource.csproj','--configuration','Release','--no-restore')
+Set-OleStage 'BuildApp'
+Invoke-OleBuild @('build','src/KuaiYi.App/KuaiYi.App.csproj','--configuration','Release','--no-restore','--output',$app,'-p:KuaiYiIncludeWindowsCiProbe=true')
+Set-OleStage 'StageFiles'
 $receiver = Join-Path $script:RepositoryRoot 'src/KuaiYi.OleReceiver/bin/Release/net10.0-windows/win-x64'
 foreach ($name in @('KuaiYi.OleReceiver.exe','KuaiYi.OleReceiver.dll','KuaiYi.OleReceiver.runtimeconfig.json','KuaiYi.OleReceiver.deps.json')) { Copy-Item -LiteralPath (Join-Path $receiver $name) -Destination $app }
 Copy-Item -LiteralPath (Join-Path $NativeRoot 'KuaiYi.OleNativeBridge/Release/KuaiYi.OleNativeBridge.dll') -Destination $app
@@ -112,23 +164,29 @@ public static class KuaiYiCiDiscard {
 }
 $heldApp = Get-Variable -Name UnconfirmedOleApp -Scope Script -ErrorAction SilentlyContinue
 if ($null -ne $heldApp -and $null -ne $heldApp.Value) { throw 'Prior owned OLE App settlement unconfirmed' }
+Set-OleStage 'AppStart'
 $child = [Diagnostics.Process]::Start($info)
+$diagnostic.ProcessState='RUNNING'
 $stdout = [KuaiYiCiDiscard]::Drain($child.StandardOutput.BaseStream); $stderr = [KuaiYiCiDiscard]::Drain($child.StandardError.BaseStream)
-try {
-    if (-not $child.WaitForExit(75000)) {
-        $child.Kill($true)
-        if (-not $child.WaitForExit(5000)) { throw 'Owned OLE App exit unconfirmed' }
-        throw 'Owned OLE App deadline exceeded'
-    }
-    if (-not [Threading.Tasks.Task]::WaitAll([Threading.Tasks.Task[]]@($stdout,$stderr),1000) -or -not $stdout.IsCompletedSuccessfully -or -not $stderr.IsCompletedSuccessfully -or -not $stdout.Result -or -not $stderr.Result) { throw 'Owned OLE output drain unconfirmed' }
-    if (-not (Test-Path -LiteralPath $receipt) -or (Get-Item -LiteralPath $receipt).Length -gt 1048576) { throw 'Missing or oversized owned OLE receipt' }
-    try { $result = Get-Content -LiteralPath $receipt -Raw | ConvertFrom-Json; $projected = Get-OleResponsivenessWhitelist $result }
-    catch { throw 'Owned OLE receipt validation failed' }
-    Write-Host 'KUAIYI_OLE_REPORT_BEGIN'; Write-Host ($projected | ConvertTo-Json -Depth 8 -Compress); Write-Host 'KUAIYI_OLE_REPORT_END'
-    if ($result.IsolationStatus -ceq 'Blocked' -and $child.ExitCode -eq 2 -and $result.ExitCode -eq 2) { return $projected }
-    if ($child.ExitCode -ne 0 -or $result.ExitCode -ne 0 -or $result.IsolationStatus -cne 'Pass') { throw 'Actual OLE isolation/cancel/close/recovery contract failed' }
+Wait-OleApp $child $stdout $stderr $diagnostic $diagnosticPath
+    $projected=Read-OleContractReceipt $receipt $child.ExitCode $diagnostic $diagnosticPath
     return $projected
+} catch {
+    $diagnostic.FailureStage=$diagnostic.Stage
+    $diagnostic.FailureCode=Get-OleExceptionCode $_.Exception
+    $diagnostic.HResult=$_.Exception.HResult
+    throw
 } finally {
-    if ($child.HasExited -and $stdout.IsCompleted -and $stderr.IsCompleted) { $child.Dispose() }
-    else { $script:UnconfirmedOleApp = $child; $script:UnconfirmedOleDrains = @($stdout,$stderr); throw 'Owned OLE App and original reads retained; settlement unconfirmed' }
+    if ($null -ne $child) {
+        try {
+            $diagnostic.ProcessState=if ($child.HasExited) { 'EXITED' } else { 'RUNNING' }
+            if ($child.HasExited) { $diagnostic.ChildExitCode=$child.ExitCode }
+        } catch { $diagnostic.CleanupCode=Get-OleExceptionCode $_.Exception }
+        $diagnostic.StdoutTask=Get-OleTaskState $stdout
+        $diagnostic.StderrTask=Get-OleTaskState $stderr
+        if ($diagnostic.ProcessState -ceq 'EXITED' -and $null -ne $stdout -and $null -ne $stderr -and $stdout.IsCompleted -and $stderr.IsCompleted) { $child.Dispose() }
+        else { $script:UnconfirmedOleApp=$child; $script:UnconfirmedOleDrains=@($stdout,$stderr); $diagnostic.CleanupCode='InvalidOperation' }
+    }
+    try { Write-OleDiagnostic $diagnosticPath $diagnostic } catch { # Keep the original failure; absence/rejection is explicitly reported by the outer reader.
+    }
 }
