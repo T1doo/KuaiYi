@@ -44,3 +44,27 @@ workflow 只限新 dev 分支、read-only 权限、现有 windows-2022/VS2022/MS
 监督方明确授权立即接续仅一次SDK COM六场景。新runner在Get-CiEnvironment调用点隔离2—6输出流，与已测试的仅编译runner一致；成功返回facts保留，所有非成功流丢弃，外层仍只固定summary。纯测试：脱敏91/91、selection摘要62/62、runner语法解析Pass。
 
 workflow明确同时传 `-DiagnosticOnly -ComDiagnostic`：Chrome/Edge × Html/Input/ReadOnly，各一次合成预选文本；不重复旧ManagedUia六次、120项或GetData，不触发鼠标划词/自动模式/剪贴板回退/翻译/模型。SDK后端default-off、固定完整接口和MTA、250/600ms预算、源身份/密码/完整性/精确Ordinal内部文本比较、失败暂停、原子清理均未修改。仅新一次SDK差分运行，结果待测；即使6/6也只证明该合成显式取词范围候选可行，后续须定向安全回归。旧四个AV与两个超时、P0和物理桌面验收仍保留。
+
+
+## 一次 SDK COM 六场景实际结果：5/6，Chrome HTML 软超时仍未解决
+
+源码与Actions执行SHA均为 `670d2a6020deefdaaf4cbf9018a74694dbdbc2b4`，tree `b0f3055049ba48d5bcbdcb3835f6c0fb08e5e73b`，唯一父提交 `b073453a6359c6413384e1d4cb063da923875712`。独审本地冻结 `f38ee3ad4f5edabd1c3a8acf72f84a24ace64117` 与其树完全一致。[run38391659923](https://github.com/T1doo/KuaiYi/actions/runs/38391659923)，job115276674098，attempt1，**success**（有界诊断执行/清理成功）。未追加其他job或重跑。
+
+实际白名单摘要为 **Observed / SdkCom / DiagnosticOnly / Planned6 / Correct5 / ExitCode0**。这不是6/6通过，更不是兼容性或P0通过。Windows测试：脱敏91/91、选择摘要62/62、真实WPF几何4/4。
+
+| 浏览器 | 合成视图 | 精确匹配 | Outcome | Broker observation |
+|---|---|---:|---|---|
+| Chrome 154.0.8037.98 | Html | 0/1 | SoftTimeout | SoftTimeout / Completed / None |
+| Chrome 154.0.8037.98 | ReadOnly | 1/1 | Success | Success / Completed / None |
+| Chrome 154.0.8037.98 | Input | 1/1 | Success | Success / Completed / None |
+| Edge 152.0.4191.66 | Html | 1/1 | Success | Success / Completed / None |
+| Edge 152.0.4191.66 | ReadOnly | 1/1 | Success | Success / Completed / None |
+| Edge 152.0.4191.66 | Input | 1/1 | Success | Success / Completed / None |
+
+每场景Mismatches0、SequenceCompleted true、BrokerCleanup/ApplicationCleanup/ProfileDeleted true。六个marker setup为Ready，BrokerExitCodes全null、LastReachedBoundaries全null；没有Crash或HardTimeout观测。正常/软超时没有有效非零退出marker记录，不能从null边界定位耗时或推断具体原生调用指令。RunnerSettled true。
+
+四个旧.NET路径AV对应视图（Chrome Input与Edge三视图）本轮均为SDK COM Success；旧Chrome ReadOnly硬超时视图本轮也成功；Chrome Html旧硬超时本轮为软超时，仍未满足250ms捕获预算。旧结果完整保留，未重新运行旧后端；这是不同runner时刻的后端差分，不是单调用因果证明，不宣称原AV根因已修复或长期崩溃率为0。250/600ms及限额均保持。
+
+ModelCalls0，ClipboardFallback Disabled；生产默认后端未切换。旧Managed六次、120项、GetData、物理鼠标划词、Win11、PDF/Markdown、多DPI、安装卸载均 **NotRun**。SDK后端仅在此合成显式取词范围表现为候选可行，Chrome HTML软超时及定向安全回归仍是下一门槛；不得跳过密码/高完整性/排除/来源变化/自动几何/失败暂停与清理等真实回归直接切生产。
+
+公共job日志本地忽略文件 `artifacts/windows-selection/windows-com-38391659923.local.log`：**21625 bytes**，SHA256 `6cb1906dee7c0d072f2e71c1c5264c7de92993fbe3f4f93466416df4016818af`，没有上传私有原始stdio/receipt。原GetData CODE与Actions SHA `220060f813a3640487d593920a1b1824aa779a00` 继续独立保留、不重跑。
