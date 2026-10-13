@@ -84,7 +84,7 @@ public static class NativeDesktop
         nint previous = SetWindowLongPtrW(hwnd, -20, new nint(styles));
         if (previous == 0 && Marshal.GetLastWin32Error() != 0) throw new Win32Exception(Marshal.GetLastWin32Error());
     }
-    public static uint IntegrityLevel(uint processId)
+    public static uint IntegrityLevel(uint processId,Action<int,bool>? boundary=null)
     {
         using var process = OpenProcess(0x1000, false, processId);
         if (process.IsInvalid) throw new Win32Exception(Marshal.GetLastWin32Error());
@@ -97,10 +97,10 @@ public static class NativeDesktop
             try
             {
                 if (!GetTokenInformation(token, 25, buffer, size, out _)) throw new Win32Exception(Marshal.GetLastWin32Error());
-                nint sid = Marshal.ReadIntPtr(buffer);
-                byte count = Marshal.ReadByte(GetSidSubAuthorityCount(sid));
+                boundary?.Invoke(0,false);nint sid = Marshal.ReadIntPtr(buffer);boundary?.Invoke(0,true);
+                boundary?.Invoke(1,false);byte count = Marshal.ReadByte(GetSidSubAuthorityCount(sid));boundary?.Invoke(1,true);
                 if (count == 0) throw new InvalidOperationException("Invalid integrity SID.");
-                return unchecked((uint)Marshal.ReadInt32(GetSidSubAuthority(sid, (uint)(count - 1))));
+                boundary?.Invoke(2,false);uint value=unchecked((uint)Marshal.ReadInt32(GetSidSubAuthority(sid, (uint)(count - 1))));boundary?.Invoke(2,true);return value;
             }
             finally { Marshal.FreeHGlobal(buffer); }
         }

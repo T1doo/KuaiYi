@@ -1,4 +1,4 @@
-name: Six original broker exit code diagnostics (not acceptance)
+name: Six nonpersistent crash boundary diagnostics (not acceptance)
 on:
   push:
     branches: [dev/p0-installed-selection]
@@ -27,7 +27,7 @@ jobs:
         shell: pwsh
         run: |
           & ./tests/scripts/selection-ci-summary.test.ps1
-      - name: Diagnose six original child exits without post-kill evidence
+      - name: Diagnose six original exits with fixed shared memory boundaries
         shell: pwsh
         run: |
           & ./scripts/run-windows-selection-ci.ps1 -DiagnosticOnly

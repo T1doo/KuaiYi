@@ -17,30 +17,39 @@ internal static class Program
     [MTAThread]
     public static int Main(string[] args)
     {
-        if (args.Length is not (5 or 9) || !long.TryParse(args[0], out long hwnd) || !uint.TryParse(args[1], out uint pid) ||
+        if (args.Length is not (5 or 9 or 10) || !long.TryParse(args[0], out long hwnd) || !uint.TryParse(args[1], out uint pid) ||
             !int.TryParse(args[2], out int x) || !int.TryParse(args[3], out int y) || !Guid.TryParse(args[4], out Guid requestId) || requestId == Guid.Empty) return 2;
         int downX=x,downY=y;long expectedStart=0;bool automatic=false;
-        if(args.Length==9&&(!int.TryParse(args[5],out downX)||!int.TryParse(args[6],out downY)||args[7] is not ("explicit" or "gesture")||!long.TryParse(args[8],out expectedStart)||expectedStart<=0))return 2;
-        if(args.Length==9)automatic=args[7]=="gesture";
+        if(args.Length>=9&&(!int.TryParse(args[5],out downX)||!int.TryParse(args[6],out downY)||args[7] is not ("explicit" or "gesture")||!long.TryParse(args[8],out expectedStart)||expectedStart<=0))return 2;
+        if(args.Length==10&&args[9]!="--boundary-marker")return 2;
+        if(args.Length>=9)automatic=args[7]=="gesture";
         (SelectionCaptureMetadata metadata, string text) result;
         var watch = Stopwatch.StartNew();
-        var diagnostic = new DiagnosticContext();
-        try { result = Capture(new nint(hwnd), pid, x, y, downX,downY,automatic,expectedStart,watch,diagnostic); }
+        using var boundary=args.Length==10?SelectionBoundaryMap.TryOpen(requestId):null;
+        var diagnostic = new DiagnosticContext(boundary);
+        try { boundary?.Reach(SelectionBoundary.CaptureReturned,SelectionBoundaryPosition.Enter);result = Capture(new nint(hwnd), pid, x, y, downX,downY,automatic,expectedStart,watch,diagnostic);boundary?.Reach(SelectionBoundary.CaptureReturned,SelectionBoundaryPosition.Returned); }
         catch (ElementNotAvailableException error) { result = (new("Stale", 0, 0, watch.Elapsed.TotalMilliseconds,Diagnostic:diagnostic.Failure(error)), ""); }
         catch (Exception e) when (e is COMException or InvalidOperationException or Win32Exception or UnauthorizedAccessException)
         { result = (new("UnsupportedOrProtected", 0, 0, watch.Elapsed.TotalMilliseconds,Diagnostic:diagnostic.Failure(e)), ""); }
         catch (Exception error) when (error is ArgumentException or NullReferenceException or NotSupportedException or TypeLoadException or FileLoadException)
         { result = (new("BrokerFailure",0,0,watch.Elapsed.TotalMilliseconds,Diagnostic:diagnostic.Failure(error)),""); }
         result.metadata = result.metadata with { Diagnostic = result.metadata.Diagnostic ?? new(diagnostic.Stage,SelectionBrokerException.None) };
+        boundary?.Reach(SelectionBoundary.MetadataPrepared,SelectionBoundaryPosition.Enter);
         var prepared=SelectionCaptureOutput.Prepare(result.metadata,result.text,watch.Elapsed.TotalMilliseconds);
+        boundary?.Reach(SelectionBoundary.MetadataPrepared,SelectionBoundaryPosition.Returned);
+        boundary?.Reach(SelectionBoundary.FramesWritten,SelectionBoundaryPosition.Enter);
         using Stream stdout = Console.OpenStandardOutput();
         IpcFrameCodec.WriteAsync(stdout, new(IpcMessageType.Ping, requestId, prepared.Metadata)).AsTask().GetAwaiter().GetResult();
         IpcFrameCodec.WriteAsync(stdout, new(IpcMessageType.BinaryChunk, requestId, Encoding.UTF8.GetBytes(prepared.Text))).AsTask().GetAwaiter().GetResult();
+        boundary?.Reach(SelectionBoundary.FramesWritten,SelectionBoundaryPosition.Returned);
+        boundary?.Reach(SelectionBoundary.MainReturning,SelectionBoundaryPosition.Enter);
         return 0;
     }
 
-    private sealed class DiagnosticContext
+    private sealed class DiagnosticContext(SelectionBoundaryMap? boundary)
     {
+        public void Reach(SelectionBoundary stage,SelectionBoundaryPosition position)=>boundary?.Reach(stage,position);
+        public Action<int,bool>? Integrity(bool own)=>boundary==null?null:(stage,returned)=>Reach((SelectionBoundary)((own?(int)SelectionBoundary.OwnIntegritySid:(int)SelectionBoundary.SourceIntegritySid)+stage),returned?SelectionBoundaryPosition.Returned:SelectionBoundaryPosition.Enter);
         public SelectionBrokerStage Stage = SelectionBrokerStage.SourceIdentity;
         public SelectionBrokerDiagnostic Failure(Exception error) => new(Stage,error switch
         {
@@ -64,7 +73,7 @@ internal static class Program
         string process = sourceProcess.ProcessName;
         diagnostic.Stage=SelectionBrokerStage.SensitiveCheck;
         if (process.StartsWith("KuaiYi", StringComparison.OrdinalIgnoreCase) || process.ToLowerInvariant() is "cmd" or "powershell" or "pwsh" or "windowsterminal" or "conhost" ||
-            NativeDesktop.IntegrityLevel(pid) > NativeDesktop.IntegrityLevel((uint)Environment.ProcessId))
+            NativeDesktop.IntegrityLevel(pid,diagnostic.Integrity(false)) > NativeDesktop.IntegrityLevel((uint)Environment.ProcessId,diagnostic.Integrity(true)))
             return (new("SensitiveOrElevated", 0, 0, watch.Elapsed.TotalMilliseconds), "");
         diagnostic.Stage=SelectionBrokerStage.Root;var root = AutomationElement.FromHandle(hwnd);
         diagnostic.Stage=SelectionBrokerStage.Focus;var focused=AutomationElement.FocusedElement;
@@ -106,17 +115,17 @@ internal static class Program
             if (!candidate.TryGetCurrentPattern(TextPattern.Pattern, out var pattern)) continue;
             diagnostic.Stage=SelectionBrokerStage.ControlBounds;var control=candidate.Current.BoundingRectangle;
             if(automatic&&(control.IsEmpty||!control.Contains(new Point(downX,downY))||!control.Contains(new Point(x,y))))continue;
-            diagnostic.Stage=SelectionBrokerStage.SelectionRanges;var ranges = ((TextPattern)pattern).GetSelection();
+            diagnostic.Stage=SelectionBrokerStage.SelectionRanges;diagnostic.Reach(SelectionBoundary.GetSelection,SelectionBoundaryPosition.Enter);var ranges = ((TextPattern)pattern).GetSelection();diagnostic.Reach(SelectionBoundary.GetSelection,SelectionBoundaryPosition.Returned);
             if (ranges is null || ranges.Length == 0) continue;
             if (ranges.Length > 64) return (new("TooLarge", ranges.Length, candidates.Count, watch.Elapsed.TotalMilliseconds), "");
             List<string> parts = [];List<double> rectangles=[]; int units = 0, observedRectangles = 0;
             foreach (var range in ranges)
             {
                 if(watch.ElapsedMilliseconds>=250)return(new("SoftTimeout",0,candidates.Count,watch.Elapsed.TotalMilliseconds),"");
-                diagnostic.Stage=SelectionBrokerStage.RangeBounds;var bounds=range.GetBoundingRectangles();
+                diagnostic.Stage=SelectionBrokerStage.RangeBounds;diagnostic.Reach(SelectionBoundary.GetBoundingRectangles,SelectionBoundaryPosition.Enter);var bounds=range.GetBoundingRectangles();diagnostic.Reach(SelectionBoundary.GetBoundingRectangles,SelectionBoundaryPosition.Returned);
                 if(!SelectionRangeBounds.TryAppend(bounds?.Select(r=>new SelectionRangeRectangle(r.X,r.Y,r.Width,r.Height)),rectangles,ref observedRectangles))return(new("UnsupportedOrProtected",0,candidates.Count,watch.Elapsed.TotalMilliseconds),"");
                 int remaining = 100_002 - units;
-                diagnostic.Stage=SelectionBrokerStage.RangeText;string part = range.GetText(remaining);
+                diagnostic.Stage=SelectionBrokerStage.RangeText;diagnostic.Reach(SelectionBoundary.GetText,SelectionBoundaryPosition.Enter);string part = range.GetText(remaining);diagnostic.Reach(SelectionBoundary.GetText,SelectionBoundaryPosition.Returned);
                 units += part.Length;
                 if (units >= 100_002) return (new("TooLarge", ranges.Length, candidates.Count, watch.Elapsed.TotalMilliseconds), "");
                 if (!string.IsNullOrWhiteSpace(part)) parts.Add(part);

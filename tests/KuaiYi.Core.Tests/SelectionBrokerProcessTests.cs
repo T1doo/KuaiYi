@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using KuaiYi.Core;
+using KuaiYi.Contracts;
 using KuaiYi.NativeHost;
 using Xunit;
 namespace KuaiYi.Core.Tests;
@@ -36,9 +37,84 @@ public sealed class SelectionBrokerProcessTests
         {
             Interlocked.Increment(ref Starts);string configuration=new DirectoryInfo(AppContext.BaseDirectory).Parent!.Name;
             string assembly=Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"../../../../../tools/KuaiYi.CaptureControlFixture/bin",configuration,"net10.0/KuaiYi.CaptureControlFixture.dll"));
-            var info=OwnedProcessSession.Info(Environment.GetEnvironmentVariable("DOTNET_HOST_PATH")??"dotnet",null);info.ArgumentList.Clear();info.ArgumentList.Add(assembly);info.ArgumentList.Add("--selection-fixture");info.ArgumentList.Add(fault);foreach(string argument in original.ArgumentList)info.ArgumentList.Add(argument);
+            var info=OwnedProcessSession.Info(Environment.GetEnvironmentVariable("DOTNET_HOST_PATH")??"dotnet",null);info.ArgumentList.Clear();info.ArgumentList.Add(assembly);info.ArgumentList.Add("--selection-fixture");info.ArgumentList.Add(fault);foreach(string argument in original.ArgumentList.Take(9))info.ArgumentList.Add(argument);
+            Assert.True(original.ArgumentList.Count is 9 or 10);
+            if(original.ArgumentList.Count==10)Assert.Equal("--boundary-marker",original.ArgumentList[9]);
             return Child=Process.Start(info)??throw new IOException("Public fixture start failed.");
         }
+    }
+    private sealed class BoundaryStarter(Action enter,string fault="crash"):FixtureStarter(fault)
+    {
+        public override Process Start(ProcessStartInfo info)
+        {
+            enter();if(info.ArgumentList.Count==10&&info.ArgumentList[9]=="--boundary-marker")info.ArgumentList.RemoveAt(9);
+            return base.Start(info);
+        }
+    }
+    [Theory][InlineData(false)][InlineData(true)]
+    public async Task OriginalNonzeroExitMayCarryOnlyItsReachedEnterOrReturnedBoundary(bool returned)
+    {
+        SelectionBoundaryMap? map=null;var starter=new BoundaryStarter(()=>{map!.Reach(SelectionBoundary.GetText,SelectionBoundaryPosition.Enter);if(returned)map.Reach(SelectionBoundary.GetText,SelectionBoundaryPosition.Returned);});
+        await using var client=new SelectionBrokerClient("public-fixture",starter,boundaryDiagnostic:true){BoundaryFactoryForTest=id=>map=SelectionBoundaryMap.CreateAnonymousForTest(id)};
+        var result=await client.CaptureAsync(Gesture(),default);Assert.Equal(SelectionCaptureStatus.Crash,result.Status);Assert.Equal("",result.Text);Assert.Null(client.LastObservation);Assert.Equal(23,client.LastProcessExitCode);
+        Assert.Equal("Ready",client.BoundaryMarkerSetup);Assert.Equal(new SelectionReachedBoundary("GetText",returned?"Returned":"Enter",returned?2:1),client.LastReachedBoundary);
+        await client.DisposeAsync();Assert.Null(client.ExitState);Assert.Throws<ObjectDisposedException>(()=>map!.Read(Guid.NewGuid()));
+    }
+    [Theory][InlineData("Stale")][InlineData("Corrupt")][InlineData("Unavailable")]
+    public async Task UnavailableOrInvalidMarkerCannotChangeOriginalCrashOrCreateObservation(string mode)
+    {
+        SelectionBoundaryMap? map=null;var starter=new BoundaryStarter(()=>map?.Reach(mode=="Corrupt"?(SelectionBoundary)255:SelectionBoundary.GetSelection,SelectionBoundaryPosition.Enter));
+        await using var client=new SelectionBrokerClient("public-fixture",starter,boundaryDiagnostic:true){BoundaryFactoryForTest=id=>mode=="Unavailable"?null:map=SelectionBoundaryMap.CreateAnonymousForTest(mode=="Stale"?Guid.NewGuid():id)};
+        Assert.Equal(SelectionCaptureStatus.Crash,(await client.CaptureAsync(Gesture(),default)).Status);Assert.Null(client.LastReachedBoundary);Assert.Null(client.LastObservation);Assert.Equal(23,client.LastProcessExitCode);Assert.Equal(mode=="Unavailable"?"Unavailable":"Ready",client.BoundaryMarkerSetup);await client.DisposeAsync();Assert.Null(client.ExitState);
+    }
+    [Theory][InlineData(false)][InlineData(true)]
+    public async Task CancellationOrAbsoluteDeadlineDuringMarkerValidationRejectsLateExitEvidence(bool cancelled)
+    {
+        var clock=new MonotonicClock();using var cancellation=new CancellationTokenSource();SelectionBoundaryMap? map=null;
+        var starter=new BoundaryStarter(()=>map!.Reach(SelectionBoundary.GetText,SelectionBoundaryPosition.Enter));
+        await using var client=new SelectionBrokerClient("public-fixture",starter,clock,boundaryDiagnostic:true){BoundaryFactoryForTest=id=>map=SelectionBoundaryMap.CreateAnonymousForTest(id),BeforeBoundaryDeliveryForTest=()=>{if(cancelled)cancellation.Cancel();else clock.Milliseconds+=600;}};
+        Assert.Equal(cancelled?SelectionCaptureStatus.Cancelled:SelectionCaptureStatus.HardTimeout,(await client.CaptureAsync(Gesture(),cancellation.Token)).Status);
+        Assert.Null(client.LastReachedBoundary);Assert.Null(client.LastProcessExitCode);Assert.Null(client.LastObservation);await client.DisposeAsync();Assert.Null(client.ExitState);Assert.Throws<ObjectDisposedException>(()=>map!.Read(Guid.NewGuid()));
+    }
+    [Theory][InlineData("normal",SelectionCaptureStatus.Success)][InlineData("broker-failure",SelectionCaptureStatus.Crash)][InlineData("identity",SelectionCaptureStatus.ProtocolFailure)]
+    public async Task ExitZeroOrInvalidProtocolNeverBorrowsReachedMarker(string fault,SelectionCaptureStatus expected)
+    {
+        SelectionBoundaryMap? map=null;var starter=new BoundaryStarter(()=>map!.Reach(SelectionBoundary.GetText,SelectionBoundaryPosition.Enter),fault);
+        await using var client=new SelectionBrokerClient("public-fixture",starter,boundaryDiagnostic:true){BoundaryFactoryForTest=id=>map=SelectionBoundaryMap.CreateAnonymousForTest(id)};
+        Assert.Equal(expected,(await client.CaptureAsync(Gesture(),default)).Status);Assert.Null(client.LastReachedBoundary);Assert.Null(client.LastProcessExitCode);
+        if(fault=="broker-failure")Assert.Equal("BrokerFailure",client.LastObservation?.Status);
+        if(fault=="identity")Assert.Null(client.LastObservation);
+        await client.DisposeAsync();Assert.Throws<ObjectDisposedException>(()=>map!.Read(Guid.NewGuid()));
+    }
+    [Fact]public async Task DisposeAfterOriginalExitBeforeDeliveryRejectsReachedEvidenceAndReleasesMapping()
+    {
+        SelectionBoundaryMap? map=null;var starter=new BoundaryStarter(()=>map!.Reach(SelectionBoundary.GetText,SelectionBoundaryPosition.Enter));
+        var client=new SelectionBrokerClient("public-fixture",starter,boundaryDiagnostic:true){BoundaryFactoryForTest=id=>map=SelectionBoundaryMap.CreateAnonymousForTest(id)};
+        client.BeforeBoundaryDeliveryForTest=()=>client.DisposeAsync().AsTask().GetAwaiter().GetResult();
+        Assert.Equal(SelectionCaptureStatus.Cancelled,(await client.CaptureAsync(Gesture(),default)).Status);Assert.Null(client.LastReachedBoundary);Assert.Null(client.LastProcessExitCode);Assert.Null(client.ExitState);Assert.Throws<ObjectDisposedException>(()=>map!.Read(Guid.NewGuid()));
+        await client.DisposeAsync();
+    }
+    [Fact]public async Task FreshMappingsKeepOriginalPauseAndNextPrecancelClearsReachedEvidence()
+    {
+        var maps=new List<SelectionBoundaryMap>();SelectionBoundaryMap? map=null;var starter=new BoundaryStarter(()=>map!.Reach(SelectionBoundary.GetSelection,SelectionBoundaryPosition.Enter));
+        await using var client=new SelectionBrokerClient("public-fixture",starter,new Clock(),boundaryDiagnostic:true){BoundaryFactoryForTest=id=>{map=SelectionBoundaryMap.CreateAnonymousForTest(id);maps.Add(map);return map;}};
+        for(int i=0;i<3;i++)
+        {
+            Assert.Equal(SelectionCaptureStatus.Crash,(await client.CaptureAsync(Gesture(),default)).Status);Assert.NotNull(client.LastReachedBoundary);
+            using var guard=new CancellationTokenSource(TimeSpan.FromSeconds(5));while(client.ExitState!=null)await Task.Delay(5,guard.Token);
+        }
+        Assert.Equal(SelectionCaptureStatus.Paused,(await client.CaptureAsync(Gesture(),default)).Status);Assert.Null(client.LastReachedBoundary);Assert.Null(client.LastProcessExitCode);Assert.Equal("NotStarted",client.BoundaryMarkerSetup);Assert.Equal(3,starter.Starts);Assert.Equal(3,maps.Count);
+        using var cancellation=new CancellationTokenSource();cancellation.Cancel();Assert.Equal(SelectionCaptureStatus.Cancelled,(await client.CaptureAsync(Gesture("other.exe"),cancellation.Token)).Status);Assert.Null(client.LastReachedBoundary);Assert.Equal(3,maps.Count);
+        Assert.All(maps,m=>Assert.Throws<ObjectDisposedException>(()=>m.Read(Guid.NewGuid())));
+    }
+    [Fact]public async Task PendingOriginalStartupRetainsMappingUntilActualHeldChildSettlement()
+    {
+        var starter=new DelayedStarter();SelectionBoundaryMap? map=null;Guid request=default;
+        var client=new SelectionBrokerClient("public-fixture",starter,boundaryDiagnostic:true){BoundaryFactoryForTest=id=>{request=id;return map=SelectionBoundaryMap.CreateAnonymousForTest(id);}};
+        var pending=client.CaptureAsync(Gesture(),default);await starter.Entered.Task.WaitAsync(TimeSpan.FromSeconds(5));
+        try{Assert.Equal(SelectionCaptureStatus.HardTimeout,(await pending).Status);Assert.Null(map!.Read(request));Assert.Equal(SelectionCaptureStatus.CleanupPending,(await client.CaptureAsync(Gesture(),default)).Status);Assert.Null(client.LastReachedBoundary);}
+        finally{starter.Release.TrySetResult();await client.DisposeAsync();}
+        Assert.Null(client.ExitState);Assert.Throws<ObjectDisposedException>(()=>map!.Read(request));
     }
     private static SelectionGesture Gesture(string application="public.exe")=>new(new(123,456,789,application),new(3,3),new(70,3),1,1);
     [Fact]public async Task APrecancelledAttemptCannotReuseThePreviousCompleteMetadata()

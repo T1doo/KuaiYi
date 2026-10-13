@@ -8,8 +8,13 @@ using KuaiYi.Contracts;
 using KuaiYi.Core;
 namespace KuaiYi.NativeHost;
 /// <summary>Only a held owned child may be terminated; restart waits for startup and exit settlement.</summary>
-public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter? starter=null,TimeProvider? clock=null):IAsyncDisposable
+public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter? starter=null,TimeProvider? clock=null,bool boundaryDiagnostic=false):IAsyncDisposable
 {
+    private SelectionBoundaryMap? boundaryMap;
+    internal Func<Guid,SelectionBoundaryMap?>? BoundaryFactoryForTest{get;set;}
+    internal Action? BeforeBoundaryDeliveryForTest{get;set;}
+    public SelectionReachedBoundary? LastReachedBoundary{get;private set;}
+    public string BoundaryMarkerSetup{get;private set;}="Disabled";
     private readonly object sync=new();private OwnedProcessSession? owner;private Task? cleanup;private bool disposed;
     private readonly Dictionary<string,Queue<DateTimeOffset>> failures=new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<string,DateTimeOffset> paused=new(StringComparer.OrdinalIgnoreCase);
@@ -35,7 +40,7 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
         long started=Clock.GetTimestamp();OwnedProcessSession session;DateTimeOffset now=Clock.GetUtcNow();
         lock(sync)
         {
-            LastObservation=null;LastProcessExitCode=null;
+            LastObservation=null;LastProcessExitCode=null;LastReachedBoundary=null;BoundaryMarkerSetup=boundaryDiagnostic?"NotStarted":"Disabled";
             if(disposed)return new(SelectionCaptureStatus.Cancelled);
             if(paused.TryGetValue(gesture.Window.Executable,out var until)&&now<until)return new(SelectionCaptureStatus.Paused);
             if(owner!=null){if(cleanup?.IsCompleted==true)cleanup=CleanupAsync(owner);return new(SelectionCaptureStatus.CleanupPending);}
@@ -49,6 +54,17 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
         try
         {
             CheckDelivery(deadline.Token,started);
+            if(boundaryDiagnostic)
+            {
+                lock(sync)
+                {
+                    if(disposed){status=SelectionCaptureStatus.Cancelled;return new(status);}
+                    boundaryMap=(BoundaryFactoryForTest??SelectionBoundaryMap.TryCreate)(id);
+                    BoundaryMarkerSetup=boundaryMap==null?"Unavailable":"Ready";
+                    if(boundaryMap!=null)info.ArgumentList.Add("--boundary-marker");
+                }
+            }
+            CheckDelivery(deadline.Token,started);
             // Timer wakes blocked operations; the single monotonic origin decides every delivery.
             var remaining=HardBudget-Clock.GetElapsedTime(started);if(remaining<=TimeSpan.Zero)throw new AbsoluteDeadlineException();deadline.CancelAfter(remaining);
             var process=await session.Start(info,deadline.Token).WaitAsync(deadline.Token).ConfigureAwait(false);
@@ -59,7 +75,18 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
             await process.WaitForExitAsync(deadline.Token).ConfigureAwait(false);
             CheckDelivery(deadline.Token,started);
             int exitCode=process.ExitCode;
-            if(exitCode!=0){LastProcessExitCode=exitCode;status=SelectionCaptureStatus.Crash;return new(status);}
+            if(exitCode!=0)
+            {
+                SelectionReachedBoundary? reached;
+                lock(sync)reached=disposed?null:boundaryMap?.Read(id);
+                BeforeBoundaryDeliveryForTest?.Invoke();
+                lock(sync)
+                {
+                    CheckDelivery(deadline.Token,started);
+                    if(disposed){status=SelectionCaptureStatus.Cancelled;return new(status);}
+                    LastProcessExitCode=exitCode;LastReachedBoundary=reached;status=SelectionCaptureStatus.Crash;return new(status);
+                }
+            }
             if(first?.RequestId!=id||second?.RequestId!=id||first.Type!=IpcMessageType.Ping||second.Type!=IpcMessageType.BinaryChunk)throw new InvalidDataException("Selection frame identity/type mismatch.");
             var meta=JsonSerializer.Deserialize<SelectionCaptureMetadata>(first.Payload)??throw new InvalidDataException("Missing metadata.");
             if(!double.IsFinite(meta.ElapsedMs)||meta.ElapsedMs<0||meta.CandidateCount is <0 or >64||meta.RangeCount is <0 or >64)throw new InvalidDataException("Invalid diagnostic bounds.");
@@ -105,10 +132,10 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
     {
         bool finalized=await session.TryFinalizeAsync().ConfigureAwait(false);
         if(!finalized){try{await session.StartupSettlement.ConfigureAwait(false);}catch(Exception){/* The session retains the typed startup failure; no child may be abandoned. */}finalized=await session.TryFinalizeAsync(retry:true).ConfigureAwait(false);}
-        lock(sync)if(finalized&&owner==session)owner=null;
+        lock(sync)if(finalized&&owner==session){boundaryMap?.Dispose();boundaryMap=null;owner=null;}
     }
     public async ValueTask DisposeAsync()
-    {Task? task;OwnedProcessSession? session;lock(sync){disposed=true;task=cleanup;session=owner;}if(task!=null){try{await task.WaitAsync(TimeSpan.FromSeconds(2)).ConfigureAwait(false);}catch(TimeoutException){throw new IOException("Selection Broker startup/cleanup still pending; held ownership retained.");}}if(session!=null){bool finished=await session.TryFinalizeAsync(retry:true).ConfigureAwait(false);if(!finished)throw new IOException("Selection Broker exit/startup settlement unconfirmed.");lock(sync)if(owner==session)owner=null;}}
+    {Task? task;OwnedProcessSession? session;lock(sync){disposed=true;task=cleanup;session=owner;}if(task!=null){try{await task.WaitAsync(TimeSpan.FromSeconds(2)).ConfigureAwait(false);}catch(TimeoutException){throw new IOException("Selection Broker startup/cleanup still pending; held ownership retained.");}}if(session!=null){bool finished=await session.TryFinalizeAsync(retry:true).ConfigureAwait(false);if(!finished)throw new IOException("Selection Broker exit/startup settlement unconfirmed.");lock(sync)if(owner==session){boundaryMap?.Dispose();boundaryMap=null;owner=null;}}}
     private static ImmutableArray<PixelRect> Rectangles(double[]? values)
     {
         if(values==null)return [];if(values.Length>1024||values.Length%4!=0||values.Any(v=>!double.IsFinite(v)))throw new InvalidDataException("Invalid range rectangles.");

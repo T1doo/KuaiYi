@@ -103,3 +103,30 @@ foreach($mode in @('String','Boolean','Overflow','Zero','Timeout','ReportedFailu
     $checks++
 }
 Write-Host "SELECTION_SUMMARY_EXIT_CONTRACTS passed=$checks failed=0"
+
+$marked=$exited | ConvertTo-Json -Depth 10 | ConvertFrom-Json
+foreach($v in $marked.Views){$c=$v.Cases[0];$c | Add-Member BoundaryMarkerSetup 'Ready';$c | Add-Member LastReachedBoundary ([pscustomobject]@{Boundary='GetBoundingRectangles';Position='Enter';Sequence=3})}
+$markerSummary=ConvertTo-SelectionSummary $marked 0 $commit -DiagnosticOnly
+if($markerSummary.Views[0].LastReachedBoundaries[0].Boundary -cne 'GetBoundingRectangles' -or $markerSummary.Views[0].BrokerObservations[0].Status -cne 'Unknown' -or $markerSummary.Status -cne 'Observed'){throw 'Independent reached boundary lost'};$checks++
+foreach($mode in @('PrivateBoundary','PrivatePosition','Zero','Overflow','StringSequence','BooleanSequence','Timeout','NoExit','Unavailable','StaleObservation','PrivateField')){
+    $r=$marked | ConvertTo-Json -Depth 10 | ConvertFrom-Json;$c=$r.Views[0].Cases[0];$rejected=$false
+    switch($mode){
+        PrivateBoundary {$c.LastReachedBoundary.Boundary='PRIVATE_SENTINEL'}
+        PrivatePosition {$c.LastReachedBoundary.Position='PRIVATE_SENTINEL'}
+        Zero {$c.LastReachedBoundary.Sequence=0}
+        Overflow {$c.LastReachedBoundary.Sequence=16385}
+        StringSequence {$c.LastReachedBoundary.Sequence='3'}
+        BooleanSequence {$c.LastReachedBoundary.Sequence=$true}
+        Timeout {$c.Outcome='HardTimeout';$c.BrokerExitCode=$null}
+        NoExit {$c.BrokerExitCode=$null}
+        Unavailable {$c.BoundaryMarkerSetup='Unavailable'}
+        StaleObservation {$c.BrokerObservation=[pscustomobject]@{Status='BrokerFailure';Stage='MetadataSerialize';Exception='Argument';HResult=-2147024809}}
+        PrivateField {$c.LastReachedBoundary | Add-Member Pointer 'PRIVATE_SENTINEL';$c | Add-Member MapName 'PRIVATE_SENTINEL'}
+    }
+    try{$result=ConvertTo-SelectionSummary $r 0 $commit -DiagnosticOnly}catch{$rejected=$true}
+    if($mode -ceq 'PrivateField'){if($rejected -or ($result | ConvertTo-Json -Depth 10) -match 'PRIVATE_SENTINEL|Pointer|MapName'){throw 'Marker private field escaped'}}
+    elseif(-not $rejected){throw 'Invalid marker evidence accepted'}
+    $checks++
+}
+Reject 'marker enabled in compatibility acceptance' {param($r) $r.Views[0].Cases[0] | Add-Member BoundaryMarkerSetup 'Ready'}
+Write-Host "SELECTION_SUMMARY_MARKER_CONTRACTS passed=$checks failed=0"

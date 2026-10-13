@@ -7,7 +7,7 @@ using KuaiYi.NativeHost;
 using KuaiYi.Windows;
 namespace KuaiYi.CompatibilityProbe;
 
-internal sealed record SelectionCaseEvidence(int Index, string Kind, string Outcome, bool Captured, bool Matches, bool ForegroundStable, bool MarkerStable, bool BrokerSettled,SelectionBrokerObservation? BrokerObservation=null,int? BrokerExitCode=null);
+internal sealed record SelectionCaseEvidence(int Index, string Kind, string Outcome, bool Captured, bool Matches, bool ForegroundStable, bool MarkerStable, bool BrokerSettled,SelectionBrokerObservation? BrokerObservation=null,int? BrokerExitCode=null,SelectionReachedBoundary? LastReachedBoundary=null,string BoundaryMarkerSetup="Disabled");
 internal sealed record SelectionViewEvidence(string Application, string Version, string View, string Status, string Reason, bool SequenceCompleted, int Planned, int Correct, int Mismatches, bool BrokerCleanup, bool ApplicationCleanup, bool ProfileDeleted, SelectionCaseEvidence[] Cases);
 internal sealed record SelectionProbeReceipt(string Kind, string SourceCommit, string Scope, string Accessibility, string PhysicalSelection, string Windows11Acceptance, int ModelCalls, int Planned, SelectionViewEvidence[] Views);
 internal static class InstalledSelectionProbe
@@ -45,7 +45,7 @@ internal static class InstalledSelectionProbe
                     await File.WriteAllTextAsync(file, PublicSelectionFixtures.Html(view, marker,cases.Length), deadline.Token);
                     application = await OwnedApplicationJob.StartAsync(app.Path,
                         ["--user-data-dir=" + Path.Combine(profile, "browser"), "--no-first-run", "--no-default-browser-check", "--disable-background-networking", "--app=" + new Uri(file).AbsoluteUri], profile);
-                    client = new SelectionBrokerClient(Path.GetFullPath(broker));
+                    client = new SelectionBrokerClient(Path.GetFullPath(broker),boundaryDiagnostic:diagnosticOnly);
                     var watch = Stopwatch.StartNew(); int previous = -1;
                     while (watch.Elapsed < TimeSpan.FromSeconds(80) && !deadline.IsCancellationRequested)
                     {
@@ -71,7 +71,7 @@ internal static class InstalledSelectionProbe
                             var cleanupWatch = Stopwatch.StartNew();
                             while (client.ExitState != null && cleanupWatch.Elapsed < TimeSpan.FromSeconds(2)) await Task.Delay(20);
                             bool settled = client.ExitState == null;
-                            results[index] = new(index, cases[index].Kind, captured.Status.ToString(), captured.Status == SelectionCaptureStatus.Success, matches && settled, foreground, stable, settled,client.LastObservation,client.LastProcessExitCode);
+                            results[index] = new(index, cases[index].Kind, captured.Status.ToString(), captured.Status == SelectionCaptureStatus.Success, matches && settled, foreground, stable, settled,client.LastObservation,client.LastProcessExitCode,client.LastReachedBoundary,client.BoundaryMarkerSetup);
                             captured = null!;
                             if (!settled) { brokerCleanup = false; reason = "BrokerCleanupUnconfirmed"; break; }
                         }
