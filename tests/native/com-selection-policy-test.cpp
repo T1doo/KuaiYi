@@ -18,5 +18,12 @@ int main() {
     auto before=dest;int count=observed;require(!p::append_rectangles(std::array<double,4>{0,0,std::numeric_limits<double>::quiet_NaN(),1},dest,observed));require(dest==before&&observed==count);
     std::vector<double> empty(255*4,0);dest.clear();observed=0;require(p::append_rectangles(empty,dest,observed));require(observed==255&&dest.empty());require(!p::append_rectangles(std::array<double,8>{0,0,0,0,0,0,0,0},dest,observed));require(observed==255&&dest.empty());
     require(p::associated(std::array<double,4>{0,0,10,10},0,0,10,10));require(!p::associated(std::array<double,4>{0,0,10,10},20,20,21,21));require(!p::associated({},0,0,1,1));
+    require(!p::current(false,true,3,3,true,7,7));require(!p::current(true,true,0,0,true,7,7));
+    require(!p::append_rectangles(std::array<double,3>{1,2,3},dest,observed));
+    dest.clear();observed=0;require(p::append_rectangles(std::vector<double>(256*4,0),dest,observed));require(observed==256&&dest.empty());
+    require(!p::append_rectangles(std::array<double,4>{0,0,0,0},dest,observed));require(observed==256&&dest.empty());
+    std::u16string surrogate;for(int i=0;i<50000;++i)surrogate+=u"\U0001f600";
+    require(p::valid_text(std::u16string_view(surrogate)));surrogate+=u"\U0001f600";require(!p::valid_text(std::u16string_view(surrogate)));
+    require(p::valid_text(std::u16string_view(u"a\0b",3)));require(!p::blank(std::u16string_view(u"\0",1)));
     std::cout<<"COM_SELECTION_POLICY passed="<<checks<<" failed=0; no Windows COM proof\n";
 }

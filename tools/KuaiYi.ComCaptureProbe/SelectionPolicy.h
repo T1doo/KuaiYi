@@ -19,6 +19,15 @@ template<class C> bool excluded_name(std::basic_string_view<C> name) {
     return ascii.starts_with("kuaiyi")||ascii=="cmd"||ascii=="powershell"||ascii=="pwsh"||ascii=="windowsterminal"||ascii=="conhost";
 }
 inline bool soft_expired(std::int64_t elapsed) {return elapsed>=soft_ms;}
+struct soft_observation {
+    int first_stage=0;
+    bool observe(std::int64_t elapsed,int stage) {
+        if(!soft_expired(elapsed))return false;
+        if(first_stage==0)first_stage=stage;
+        return true;
+    }
+    int stage_or(int fallback) const {return first_stage==0?fallback:first_stage;}
+};
 inline bool whitespace(std::uint32_t c) {return (c>=9&&c<=13)||c==32||c==0x85||c==0xa0||c==0x1680||(c>=0x2000&&c<=0x200a)||c==0x2028||c==0x2029||c==0x202f||c==0x205f||c==0x3000;}
 template<class C> bool blank(std::basic_string_view<C> text) {for(C c:text)if(!whitespace(static_cast<std::uint32_t>(c)))return false;return true;}
 template<class C> bool valid_text(std::basic_string_view<C> text) {
