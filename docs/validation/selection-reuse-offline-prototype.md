@@ -40,3 +40,10 @@
 生产引用扫描与git diff检查通过；没有生产源/solution/workflow/包装/默认设置变更，没有新Windowsrun，也没有模型/费用/凭据/权限变化。请求资源释放和terminate/exit仅在纯状态机中注入合成声明，均不能冒充真实运行时实测。独立审阅待精确源码冻结；最终报告补冻结SHA和审阅结论。
 
 旧两个SDK5/6、managed四AV/HardTimeout和两次首HTML Correct0均保留。GetData代码与Actions **`220060f813a3640487d593920a1b1824aa779a00`** 独立保留、不重跑；物理划词、Windows11、真实密码/提权/不同HWND、PDF/Markdown、多屏DPI/安装卸载及P0整体验收仍未通过。
+
+
+## 精确冻结独审结论
+
+本轮协议/测试/脚本源码冻结 **`a317a0e2a583f99158b1ded71920454e684cd148`**，tree **`582e6f8fd812ed0e11d00824603ab1bc1471f6cf`**，唯一parent **`72b54c454dfde4c00d8b44997eb8f6f352bdf652`**，独审时工作区干净。独立只读审阅核对该精确冻结、源码与用例，**无阻断本次离线原型留存/报告的问题**；未独立重跑测试、Windows或CI，57/217为执行方实际证据。两次顺序、独立nonce/预算、同源、复位/清零、退役及退出确认均符合纯状态机约束。
+
+该结论**不允许接生产或宣称真实进程复用可用**：MTA/IUIAutomation只是允许保留的声明位，真实引用释放、Kill和WaitForExit均未实现；owner token和Quiescent是trusted-host/合成输入，不证明实际退出或COM内部静止。生产EOF+自然exit0隔离仍保持。本文结论补记只改文档；本轮未远端推送、未启动新的Windows/CI，交监督方依据精确源码及这些风险决定后续，不自发追加请求对照或改安全设置。
