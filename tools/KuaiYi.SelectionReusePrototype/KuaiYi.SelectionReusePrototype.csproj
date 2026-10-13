@@ -7,6 +7,7 @@
   <ItemGroup>
     <Compile Include="OfflineRunner.cs" />
     <Reference Include="KuaiYi.Core.Tests"><HintPath>../../tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll</HintPath></Reference>
+    <Reference Include="KuaiYi.SelectionReuseDiagnostic"><HintPath>../../tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll</HintPath></Reference>
     <Reference Include="xunit.core"><HintPath>../../tests/KuaiYi.Core.Tests/bin/Release/net10.0/xunit.core.dll</HintPath></Reference>
     <Reference Include="xunit.assert"><HintPath>../../tests/KuaiYi.Core.Tests/bin/Release/net10.0/xunit.assert.dll</HintPath></Reference>
     <Reference Include="xunit.abstractions"><HintPath>../../tests/KuaiYi.Core.Tests/bin/Release/net10.0/xunit.abstractions.dll</HintPath></Reference>

@@ -5,7 +5,7 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="../../tools/KuaiYi.SelectionReusePrototype/ReuseProtocolPrototype.cs" Link="Offline/ReuseProtocolPrototype.cs" />
+    <ProjectReference Include="../../tools/KuaiYi.SelectionReuseDiagnostic/KuaiYi.SelectionReuseDiagnostic.csproj" />
     <Compile Include="../../src/KuaiYi.CaptureBroker/SelectionCaptureOutput.cs" Link="WindowsCi/SelectionCaptureOutput.cs" />
     <Compile Include="../../tools/KuaiYi.CompatibilityProbe/PublicSelectionFixtures.cs" Link="WindowsCi/PublicSelectionFixtures.cs" />
     <Compile Include="../../tools/KuaiYi.OleCi/OleCiSourcePipe.cs" Link="WindowsCi/OleCiSourcePipe.cs" />

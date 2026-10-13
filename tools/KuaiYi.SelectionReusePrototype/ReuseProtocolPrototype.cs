@@ -119,6 +119,9 @@ public sealed class ReuseProtocolPrototype
     {lock(sync){if(identity!=null&&identity!=target)Retire(ReuseFailure.IdentityChanged);}}
     public void Cancel(){lock(sync)Retire(ReuseFailure.Cancelled);}
     public void Crash(){lock(sync)Retire(ReuseFailure.Crash);}
+    public void FinishRound(){lock(sync)Retire(ReuseFailure.Exhausted);}
+    public void ProtocolFault(){lock(sync)Retire(ReuseFailure.Protocol);}
+    internal void DiscardBufferedPayload(){lock(sync){if(buffered!=null)CryptographicOperations.ZeroMemory(buffered);buffered=null;}}
     // Host takes ownership of the complete fixed frame and clears it even if late or invalid.
     public bool ReceiveOwnedFrame(byte[] bytes)
     {
