@@ -13,7 +13,7 @@ using KuaiYi.Windows;
 using DpiScale=KuaiYi.Core.DpiScale;
 namespace KuaiYi.App;
 /// <summary>P1 production startup; platform experiments remain behind --platform-review.</summary>
-internal sealed partial class ShellWindow:Window
+internal sealed partial class ShellWindow:OleDropWindow
 {
     private readonly Button button=new(){Content="译",FontSize=18,Foreground=Brushes.White,Background=Brushes.Firebrick,BorderThickness=new Thickness(0)};
     private readonly ShellLifecycle lifecycle;private readonly SettingsCoordinator coordinator;

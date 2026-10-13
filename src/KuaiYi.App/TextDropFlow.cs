@@ -70,7 +70,7 @@ internal sealed partial class ShellWindow
         {
             if(!File.Exists(Path.Combine(AppContext.BaseDirectory,"KuaiYi.OleNativeBridge.dll")))throw new FileNotFoundException("Native OLE component has not been built/installed.");
             Guid instance=Guid.NewGuid();var lease=dropCapture!.Open(instance,state.Epoch,target);if(lease==null)return;
-            activation=new(instance);var registrar=new OleTargetRegistrar();var client=new OleReceiverClient(Path.Combine(AppContext.BaseDirectory,"KuaiYi.OleReceiver.exe"),registrar,activation);var cancellation=CancellationTokenSource.CreateLinkedTokenSource(lifetime.Token);
+            activation=new(instance);var registrar=CreateDropRegistrar();var client=new OleReceiverClient(Path.Combine(AppContext.BaseDirectory,"KuaiYi.OleReceiver.exe"),registrar,activation);var cancellation=CancellationTokenSource.CreateLinkedTokenSource(lifetime.Token);
             var peer=new TextDropPeer(client,lease,cancellation,config.Data.Privacy.BlockedApplications.ToArray());dropPeer=peer;activation=null;
 #if KUAIYI_WINDOWS_CI_PROBE
             CiReceiverCreated(client,registrar,instance,()=>peer.Run,()=>peer.Control);

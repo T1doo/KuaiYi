@@ -10,7 +10,7 @@ using KuaiYi.OleTransfer;
 using KuaiYi.Windows;
 namespace KuaiYi.App;
 /// <summary>One real App-owned floating HWND. No worker-owned visuals or hit proxy. P0 local delivery only.</summary>
-internal sealed class OlePresentationWindow:Window
+internal sealed class OlePresentationWindow:OleDropWindow
 {
     private readonly RuntimeGate gate;private readonly Action<RequestIdentity,string> localText;private readonly Action<string> report;
     private readonly Border button=new(){Width=48,Height=48,CornerRadius=new CornerRadius(24),Background=Brushes.Firebrick,Child=new TextBlock{Text="译",Foreground=Brushes.White,FontSize=18,HorizontalAlignment=HorizontalAlignment.Center,VerticalAlignment=VerticalAlignment.Center}};
@@ -99,7 +99,7 @@ internal sealed class OlePresentationWindow:Window
         try
         {
             Guid instance=Guid.NewGuid();activation=new OleSharedActivation(instance);
-            registrationOwner=new();var owner=new OleReceiverClient(Path.Combine(AppContext.BaseDirectory,"KuaiYi.OleReceiver.exe"),registrationOwner,activation);client=owner;
+            registrationOwner=CreateDropRegistrar();var owner=new OleReceiverClient(Path.Combine(AppContext.BaseDirectory,"KuaiYi.OleReceiver.exe"),registrationOwner,activation);client=owner;
             var hello=new OleReceiverHello(instance,gate.Snapshot.Epoch,Environment.ProcessId,hwnd.ToInt64(),RandomNumberGenerator.GetBytes(32),activation.Name);
             run=Run(owner,hello);
         }

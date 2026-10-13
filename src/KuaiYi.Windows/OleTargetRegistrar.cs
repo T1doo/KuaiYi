@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using System.Windows.Threading;
 using KuaiYi.OleTransfer;
 namespace KuaiYi.Windows;
-public sealed class OleTargetRegistrar:IOleTargetRegistrar
+public sealed class OleTargetRegistrar(KuaiYi.Core.OleWindowOwnership ownership):IOleTargetRegistrar
 {
     private readonly object sync=new();private Task? original;private Dispatcher? dispatcher;private volatile bool stopping;private bool revoked=true;private int started;
     public string? FailureCode{get;private set;}
@@ -16,6 +16,9 @@ public sealed class OleTargetRegistrar:IOleTargetRegistrar
         var ready=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         var done=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         if(Interlocked.Exchange(ref started,1)!=0){CryptographicOperations.ZeroMemory(ownedPacket);throw new InvalidOperationException("One registration per registrar.");}
+        KuaiYi.Core.OleWindowOwnership.Lease reservation;
+        try{reservation=ownership.Reserve(hwnd,done.Task);}
+        catch{CryptographicOperations.ZeroMemory(ownedPacket);throw;}
         lock(sync){original=done.Task;revoked=false;}
         var thread=new Thread(()=>
         {
@@ -36,11 +39,11 @@ public sealed class OleTargetRegistrar:IOleTargetRegistrar
             {
                 CryptographicOperations.ZeroMemory(ownedPacket);
                 try{scope.Dispose();lock(sync)revoked=scope.CleanupCompleted;}catch(Exception error){FailureCode=error.GetType().Name;lock(sync)revoked=false;}
-                done.SetResult();
+                reservation.ConfirmCleanup(revoked);done.SetResult();
             }
         }){IsBackground=true,Name="KuaiYi OLE registrar STA (no presentation)"};
         try{thread.SetApartmentState(ApartmentState.STA);thread.Start();}
-        catch(Exception error){CryptographicOperations.ZeroMemory(ownedPacket);FailureCode=error.GetType().Name;lock(sync)revoked=true;ready.SetException(error);done.SetResult();}
+        catch(Exception error){CryptographicOperations.ZeroMemory(ownedPacket);FailureCode=error.GetType().Name;lock(sync)revoked=true;reservation.ConfirmCleanup(true);ready.SetException(error);done.SetResult();}
         return ready.Task;
     }
     private void RequestStop()

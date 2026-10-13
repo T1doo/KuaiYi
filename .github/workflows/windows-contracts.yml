@@ -28,7 +28,7 @@ jobs:
         run: |
           & ./tests/scripts/ole-failure-path.test.ps1
       - name: Run bounded actual GetData cancellation and recovery contracts
-        # One OleNativeBridge build and owned public fixtures; only validated summaries leave the child process.
+        # Verify initial WPF registration ownership, then real GetData; only validated summaries leave the child process.
         shell: pwsh
         run: |
           & ./scripts/run-windows-getdata-ci.ps1

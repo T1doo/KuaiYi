@@ -102,7 +102,8 @@ internal static class HostedOleProbe
         {draft.Update(s=>s with{TriggerMode=TriggerMode.Drop,ActiveProfileId="public",Profiles=[new(){Id="public",Model="public-fixture",BaseUrl="https://public.invalid",Authentication=ApiAuthentication.None}]});coordinator.SaveAsync(draft).GetAwaiter().GetResult();}
         using var self=Process.GetCurrentProcess();
         diagnostic.At("WindowCreate");
-        var app=new Application();var window=new ShellWindow("KuaiYi.OleCi."+Guid.NewGuid().ToString("N"),coordinator,enableSelectionPlatform:false){CiTextDropEnabled=true};
+        var app=new Application();OleOwnershipProbe.Verify(app);
+        var window=new ShellWindow("KuaiYi.OleCi."+Guid.NewGuid().ToString("N"),coordinator,enableSelectionPlatform:false){CiTextDropEnabled=true};
         var diagnosticSources=new ConcurrentQueue<PublicSource>();
         diagnostic.Owners=()=>window.CiDiagnosticOwners().Concat(diagnosticSources.Select(source=>source.Snapshot())).Take(8).ToArray();
         window.CiObservePointer();var heartbeat=new DispatcherTimer{Interval=TimeSpan.FromMilliseconds(25)};heartbeat.Tick+=(_,_)=>window.CiHeartbeat++;
