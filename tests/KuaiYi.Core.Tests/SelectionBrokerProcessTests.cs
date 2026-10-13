@@ -47,7 +47,7 @@ public sealed class SelectionBrokerProcessTests
         Assert.Equal(SelectionCaptureStatus.Success,(await client.CaptureAsync(Gesture(),default)).Status);Assert.Equal("Success",client.LastObservation?.Status);
         using var guard=new CancellationTokenSource(TimeSpan.FromSeconds(5));while(client.ExitState!=null)await Task.Delay(5,guard.Token);
         using var cancellation=new CancellationTokenSource();cancellation.Cancel();
-        Assert.Equal(SelectionCaptureStatus.Cancelled,(await client.CaptureAsync(Gesture(),cancellation.Token)).Status);Assert.Null(client.LastObservation);Assert.Equal(1,starter.Starts);
+        Assert.Equal(SelectionCaptureStatus.Cancelled,(await client.CaptureAsync(Gesture(),cancellation.Token)).Status);Assert.Null(client.LastObservation);Assert.Null(client.LastProcessExitCode);Assert.Equal(1,starter.Starts);
     }
     [Fact]public async Task CompleteReportedBrokerFailureStillCountsTowardTheOriginalPauseRule()
     {
@@ -56,21 +56,32 @@ public sealed class SelectionBrokerProcessTests
         {
             var result=await client.CaptureAsync(Gesture(),default);Assert.Equal(SelectionCaptureStatus.Crash,result.Status);Assert.Equal("",result.Text);
             Assert.Equal("BrokerFailure",client.LastObservation?.Status);Assert.Equal("MetadataSerialize",client.LastObservation?.Stage);Assert.Equal("Argument",client.LastObservation?.Exception);
-            Assert.Equal(unchecked((int)0x80070057),client.LastObservation?.HResult);
+            Assert.Equal(unchecked((int)0x80070057),client.LastObservation?.HResult);Assert.Null(client.LastProcessExitCode);
             using var guard=new CancellationTokenSource(TimeSpan.FromSeconds(5));while(client.ExitState!=null)await Task.Delay(5,guard.Token);
         }
-        Assert.Equal(SelectionCaptureStatus.Paused,(await client.CaptureAsync(Gesture(),default)).Status);Assert.Null(client.LastObservation);Assert.Equal(3,starter.Starts);
+        Assert.Equal(SelectionCaptureStatus.Paused,(await client.CaptureAsync(Gesture(),default)).Status);Assert.Null(client.LastObservation);Assert.Null(client.LastProcessExitCode);Assert.Equal(3,starter.Starts);
+    }
+    [Fact]public async Task PrecancelledAttemptAndCleanupCannotReuseOriginalCrashExitCode()
+    {
+        var starter=new FixtureStarter("crash");await using var client=new SelectionBrokerClient("public-fixture",starter);
+        Assert.Equal(SelectionCaptureStatus.Crash,(await client.CaptureAsync(Gesture(),default)).Status);Assert.Equal(23,client.LastProcessExitCode);
+        using var guard=new CancellationTokenSource(TimeSpan.FromSeconds(5));while(client.ExitState!=null)await Task.Delay(5,guard.Token);
+        Assert.Equal(23,client.LastProcessExitCode);
+        using var cancellation=new CancellationTokenSource();cancellation.Cancel();
+        Assert.Equal(SelectionCaptureStatus.Cancelled,(await client.CaptureAsync(Gesture(),cancellation.Token)).Status);Assert.Null(client.LastProcessExitCode);Assert.Null(client.LastObservation);Assert.Equal(1,starter.Starts);
     }
     [Theory][InlineData("normal",SelectionCaptureStatus.Success)][InlineData("identity",SelectionCaptureStatus.ProtocolFailure)][InlineData("role",SelectionCaptureStatus.ProtocolFailure)][InlineData("source",SelectionCaptureStatus.ProtocolFailure)][InlineData("runtime",SelectionCaptureStatus.ProtocolFailure)][InlineData("bounds",SelectionCaptureStatus.ProtocolFailure)][InlineData("oversize",SelectionCaptureStatus.ProtocolFailure)][InlineData("extra",SelectionCaptureStatus.ProtocolFailure)][InlineData("soft",SelectionCaptureStatus.SoftTimeout)][InlineData("error-text",SelectionCaptureStatus.EmptyOrUnsupported)][InlineData("crash",SelectionCaptureStatus.Crash)]
     public async Task ActualOwnedFixtureEnforcesSelectionWireAndIdentity(string fault,SelectionCaptureStatus expected)
     {
         var starter=new FixtureStarter(fault);await using var client=new SelectionBrokerClient("public-fixture",starter);var result=await client.CaptureAsync(Gesture(),default);Assert.Equal(expected,result.Status);Assert.Equal(1,starter.Starts);
+        Assert.Equal(expected==SelectionCaptureStatus.Crash?23:(int?)null,client.LastProcessExitCode);
+        if(expected==SelectionCaptureStatus.Crash)Assert.Null(client.LastObservation);
         if(expected==SelectionCaptureStatus.Success){Assert.Equal("public selected\n  code",result.Text);Assert.Equal(new[]{12,4},result.RuntimeId);Assert.Equal(new PixelRect(0,0,100,20),Assert.Single(result.Ranges));}else Assert.Equal("",result.Text);
     }
     [Theory][InlineData("hang")][InlineData("late")]
     public async Task HardDeadlineReturnsBeforeCleanupAndHeldChildActuallyExits(string fault)
     {
-        var starter=new FixtureStarter(fault);var client=new SelectionBrokerClient("public-fixture",starter);var watch=Stopwatch.StartNew();var result=await client.CaptureAsync(Gesture(),default);Assert.Equal(SelectionCaptureStatus.HardTimeout,result.Status);Assert.True(watch.Elapsed<TimeSpan.FromSeconds(2));Assert.Equal("",result.Text);await client.DisposeAsync();Assert.Null(client.ExitState);Assert.Equal(1,starter.Starts);
+        var starter=new FixtureStarter(fault);var client=new SelectionBrokerClient("public-fixture",starter);var watch=Stopwatch.StartNew();var result=await client.CaptureAsync(Gesture(),default);Assert.Equal(SelectionCaptureStatus.HardTimeout,result.Status);Assert.True(watch.Elapsed<TimeSpan.FromSeconds(2));Assert.Equal("",result.Text);await client.DisposeAsync();Assert.Null(client.ExitState);Assert.Null(client.LastProcessExitCode);Assert.Equal(1,starter.Starts);
     }
     [Fact]public async Task CancellationDuringActualChildWaitNeverAllowsLateText()
     {
@@ -94,7 +105,7 @@ public sealed class SelectionBrokerProcessTests
     {
         var starter=new FixtureStarter("crash");var clock=new Clock();await using var client=new SelectionBrokerClient("public-fixture",starter,clock);
         for(int i=0;i<3;i++)Assert.Equal(SelectionCaptureStatus.Crash,(await client.CaptureAsync(Gesture(),default)).Status);
-        Assert.Equal(SelectionCaptureStatus.Paused,(await client.CaptureAsync(Gesture(),default)).Status);Assert.Equal(3,starter.Starts);
+        Assert.Equal(SelectionCaptureStatus.Paused,(await client.CaptureAsync(Gesture(),default)).Status);Assert.Null(client.LastProcessExitCode);Assert.Equal(3,starter.Starts);
         Assert.Equal(SelectionCaptureStatus.Crash,(await client.CaptureAsync(Gesture("other.exe"),default)).Status);clock.Now=clock.Now.AddSeconds(31);Assert.Equal(SelectionCaptureStatus.Crash,(await client.CaptureAsync(Gesture(),default)).Status);Assert.Equal(5,starter.Starts);
     }
 }

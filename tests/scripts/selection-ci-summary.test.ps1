@@ -80,3 +80,26 @@ $reported.Views[0].Cases[0].BrokerObservation.Status='Success';$rejected=$false
 try{$null=ConvertTo-SelectionSummary $reported 0 $commit -DiagnosticOnly}catch{$rejected=$true}
 if(-not $rejected){throw 'Unknown process crash reused success observation'};$checks++
 Write-Host "SELECTION_SUMMARY_FAILURE_CONTRACTS passed=$checks failed=0"
+
+$exited=$diagnostic | ConvertTo-Json -Depth 10 | ConvertFrom-Json
+foreach($v in $exited.Views){$c=$v.Cases[0];$c.Outcome='Crash';$c.BrokerObservation=$null;$c | Add-Member BrokerExitCode ([int]-532462766)}
+$exitSummary=ConvertTo-SelectionSummary $exited 0 $commit -DiagnosticOnly
+if($exitSummary.Views[0].BrokerExitCodes[0] -ne -532462766 -or $exitSummary.Status -cne 'Observed'){throw 'Original exit code lost'};$checks++
+foreach($mode in @('String','Boolean','Overflow','Zero','Timeout','ReportedFailure','Unsettled','PrivateField')){
+    $r=$exited | ConvertTo-Json -Depth 10 | ConvertFrom-Json;$c=$r.Views[0].Cases[0];$rejected=$false
+    switch($mode){
+        String {$c.BrokerExitCode='PRIVATE_SENTINEL'}
+        Boolean {$c.BrokerExitCode=$true}
+        Overflow {$c.BrokerExitCode=2147483648}
+        Zero {$c.BrokerExitCode=0}
+        Timeout {$c.Outcome='HardTimeout'}
+        ReportedFailure {$c.BrokerObservation=[pscustomobject]@{Status='BrokerFailure';Stage='MetadataSerialize';Exception='Argument';HResult=-2147024809}}
+        Unsettled {$c.BrokerSettled=$false}
+        PrivateField {$c | Add-Member RawStderr 'PRIVATE_SENTINEL'}
+    }
+    try{$result=ConvertTo-SelectionSummary $r 0 $commit -DiagnosticOnly}catch{$rejected=$true}
+    if($mode -ceq 'PrivateField'){if($rejected -or ($result | ConvertTo-Json -Depth 10) -match 'PRIVATE_SENTINEL|RawStderr'){throw 'Exit diagnostics leaked private field'}}
+    elseif(-not $rejected){throw 'Invalid original exit evidence accepted'}
+    $checks++
+}
+Write-Host "SELECTION_SUMMARY_EXIT_CONTRACTS passed=$checks failed=0"

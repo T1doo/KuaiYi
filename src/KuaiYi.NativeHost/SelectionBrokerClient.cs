@@ -23,6 +23,7 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
     }
     public HostExitState? ExitState{get{lock(sync)return owner?.ExitState;}}
     public SelectionBrokerObservation? LastObservation{get;private set;}
+    public int? LastProcessExitCode{get;private set;}
     internal static SelectionBrokerObservation ObserveMetadata(SelectionCaptureMetadata metadata)
     {
         string status=metadata.Status switch{"Success" or "Stale" or "Sensitive" or "SensitiveOrElevated" or "UnsupportedOrProtected" or "SoftTimeout" or "TooLarge" or "TooLargeOrInvalidUnicode" or "EmptyOrUnsupported" or "BrokerFailure"=>metadata.Status,_=>"Unknown"};
@@ -34,7 +35,7 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
         long started=Clock.GetTimestamp();OwnedProcessSession session;DateTimeOffset now=Clock.GetUtcNow();
         lock(sync)
         {
-            LastObservation=null;
+            LastObservation=null;LastProcessExitCode=null;
             if(disposed)return new(SelectionCaptureStatus.Cancelled);
             if(paused.TryGetValue(gesture.Window.Executable,out var until)&&now<until)return new(SelectionCaptureStatus.Paused);
             if(owner!=null){if(cleanup?.IsCompleted==true)cleanup=CleanupAsync(owner);return new(SelectionCaptureStatus.CleanupPending);}
@@ -57,7 +58,8 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
             var extra=await ReadAsync(process.StandardOutput.BaseStream,deadline.Token,started).ConfigureAwait(false);if(extra!=null){CryptographicOperations.ZeroMemory(extra.Payload);throw new InvalidDataException("Unexpected selection frame.");}
             await process.WaitForExitAsync(deadline.Token).ConfigureAwait(false);
             CheckDelivery(deadline.Token,started);
-            if(process.ExitCode!=0){status=SelectionCaptureStatus.Crash;return new(status);}
+            int exitCode=process.ExitCode;
+            if(exitCode!=0){LastProcessExitCode=exitCode;status=SelectionCaptureStatus.Crash;return new(status);}
             if(first?.RequestId!=id||second?.RequestId!=id||first.Type!=IpcMessageType.Ping||second.Type!=IpcMessageType.BinaryChunk)throw new InvalidDataException("Selection frame identity/type mismatch.");
             var meta=JsonSerializer.Deserialize<SelectionCaptureMetadata>(first.Payload)??throw new InvalidDataException("Missing metadata.");
             if(!double.IsFinite(meta.ElapsedMs)||meta.ElapsedMs<0||meta.CandidateCount is <0 or >64||meta.RangeCount is <0 or >64)throw new InvalidDataException("Invalid diagnostic bounds.");

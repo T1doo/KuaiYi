@@ -1,4 +1,4 @@
-name: Six owned broker failure diagnostics (not acceptance)
+name: Six original broker exit code diagnostics (not acceptance)
 on:
   push:
     branches: [dev/p0-installed-selection]
@@ -27,7 +27,7 @@ jobs:
         shell: pwsh
         run: |
           & ./tests/scripts/selection-ci-summary.test.ps1
-      - name: Diagnose six owned UIA calls and preserve failure admission
+      - name: Diagnose six original child exits without post-kill evidence
         shell: pwsh
         run: |
           & ./scripts/run-windows-selection-ci.ps1 -DiagnosticOnly

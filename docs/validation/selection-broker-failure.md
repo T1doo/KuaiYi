@@ -12,4 +12,16 @@
 
 前一成功原生 GetData 代码完整 SHA 与 Actions 执行 SHA 均为 `220060f813a3640487d593920a1b1824aa779a00`；[run 38347142627](https://github.com/T1doo/KuaiYi/actions/runs/38347142627)，[job 115131066822](https://github.com/T1doo/KuaiYi/actions/runs/38347142627/job/115131066822)。该闭环不重跑、结论不改写。P0 整体、用户 Win11 物理划词、PDF 与 Markdown 仍无通过结论。
 
-本地 Contracts 正常构建及实际 Broker/client/fixture/probe 源码类型检查均 0 warning / 0 error；原 xUnit 断言直接执行 165/165，含三次完整 BrokerFailure 仍触发暂停及实际序列化退避不得输出捕获文本；PowerShell 摘要边界 35/35。新 Windows 诊断尚未执行。新代码的 Crash 可为真实非零退出，也可为正常退出但完整报告代码故障，后续报告须据 BrokerObservation 区分，不能统称非零退出。
+本地 Contracts 正常构建及实际 Broker/client/fixture/probe 源码类型检查均 0 warning / 0 error；原 xUnit 断言直接执行 165/165，含三次完整 BrokerFailure 仍触发暂停及实际序列化退避不得输出捕获文本；PowerShell 摘要边界 35/35。此段为该版本运行前验证，实际 Windows 结果见下文。新代码的 Crash 可为真实非零退出，也可为正常退出但完整报告代码故障，后续报告须据 BrokerObservation 区分，不能统称非零退出。
+
+## 六次代码故障诊断结果与原进程退出码取证
+
+执行源码完整 SHA `50018c754c055a228c70019e7de098540c036a2a`，tree `5e1beaac1b9b277bd30fa9be650d95fe48a71605`，sole parent `b904cbf8fa7b2c5a933f01e407dc96546bd28098`。[run 38376111033](https://github.com/T1doo/KuaiYi/actions/runs/38376111033)，[job 115224775371](https://github.com/T1doo/KuaiYi/actions/runs/38376111033/job/115224775371)，attempt 1。
+
+基础设施成功结束，摘要仅为 **DiagnosticOnly / Observed 0/6**。Chrome HTML、只读框各一次 HardTimeout；Chrome 编辑框及 Edge 三视图各一次 Crash；六个观察均 Unknown，没有完整 BrokerFailure 元数据。按该版本现有串行读取分支，四个 Crash 来自原子进程非零退出，但没有记录具体退出码，尚不能确定异常或故障原因。真实 WPF 几何四项 Pass，六视图序列与 Broker/application/profile 清理以及 RunnerSettled 均 true。ModelCalls 0、复制回退禁用；不能由 workflow success、零错译或清理通过推导取词兼容通过。
+
+日志只保存本地忽略目录：19,921 bytes，SHA256 `3428acff9cef85d6237de9b9c1f42be5e2980d4514c2148abfa2287e1b476263`。独审核对唯一摘要、来源及此哈希，确认结论。
+
+下一最小诊断复用原有 WaitForExitAsync 与绝对预算检查后的 held process.ExitCode 读取，只缓存非零 int?，每次入口先清空；不在 finally、Kill 或清理阶段补填，不增加等待、不读 stderr、不取原文或异常消息。Crash 状态、250/600ms 预算、归属校验与暂停规则不变。摘要仅允许已清理 Crash 且无 BrokerObservation 时携带有符号非零 Int32；完整 exit 0 BrokerFailure、超时、取消、暂停不得携带该码。退出码仅缩小故障范围，不证明 API 或应用兼容性。
+
+该退出码版本的实际 client/probe 源码类型检查 0 warning / 0 error；原 xUnit 断言直接执行 **166/166**，含真实 child exit 23、完整故障的无退出码、Kill 后超时不回填、下一次预取消/暂停清空；PowerShell 白名单 **44/44**，拒绝字符串/布尔值/越界/0/硬超时/完整故障/未清理退出码，并丢弃附加私有字段。Windows 退出码诊断尚未运行，独审冻结后仅执行一次新的六调用诊断，不重跑原 120 项或 GetData。

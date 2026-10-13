@@ -18,7 +18,7 @@ function ConvertTo-SelectionSummary($Report, [int]$ChildExit, [string]$Commit, [
         $key=$view.Application+'/'+$view.View
         if ($seen.ContainsKey($key)) { throw 'Duplicate view' }; $seen[$key]=$true
         foreach ($name in @('SequenceCompleted','BrokerCleanup','ApplicationCleanup','ProfileDeleted')) { if ($view.$name -isnot [bool]) { throw 'Invalid cleanup evidence' } }
-        $correct=0; $mismatches=0; $outcomes=[ordered]@{};$observations=@()
+        $correct=0; $mismatches=0; $outcomes=[ordered]@{};$observations=@();$exitCodes=@()
         for ($i=0; $i -lt $perView; $i++) {
             $case=$view.Cases[$i]
             Assert-SelectionInteger $case.Index $i $i
@@ -36,13 +36,20 @@ function ConvertTo-SelectionSummary($Report, [int]$ChildExit, [string]$Commit, [
                 if ($case.Outcome -cin @('HardTimeout','Cancelled','ProtocolFailure') -or ($case.Outcome -ceq 'Crash' -and $o.Status -cne 'BrokerFailure') -or ($o.Status -ceq 'BrokerFailure' -and $case.Outcome -cne 'Crash')) { throw 'Late broker observation' }
                 $observation=[pscustomobject]@{Status=$o.Status;Stage=$o.Stage;Exception=$o.Exception;HResult=$o.HResult}
             }
+            $exitCode=$null
+            if ($null -ne $case.PSObject.Properties['BrokerExitCode'] -and $null -ne $case.BrokerExitCode) {
+                Assert-SelectionInteger $case.BrokerExitCode ([int]::MinValue) ([int]::MaxValue)
+                if ($case.BrokerExitCode -eq 0 -or $case.Outcome -cne 'Crash' -or -not $case.BrokerSettled -or ($null -ne $case.PSObject.Properties['BrokerObservation'] -and $null -ne $case.BrokerObservation)) { throw 'Invalid original process exit' }
+                $exitCode=$case.BrokerExitCode
+            }
+            $exitCodes+=,$exitCode
             $observations+=$observation
         }
         if ($view.Correct -ne $correct -or $view.Mismatches -ne $mismatches) { throw 'Invalid case totals' }
         $pass=$view.Reason -ceq 'Completed' -and $view.SequenceCompleted -and $correct -ge 19 -and $mismatches -eq 0 -and $view.BrokerCleanup -and $view.ApplicationCleanup -and $view.ProfileDeleted
         $observed=$view.Reason -ceq 'Completed' -and $view.SequenceCompleted -and $view.BrokerCleanup -and $view.ApplicationCleanup -and $view.ProfileDeleted -and @($view.Cases | Where-Object {-not $_.BrokerSettled}).Count -eq 0
         if ((-not $DiagnosticOnly -and (($view.Status -ceq 'Pass') -ne $pass)) -or ($DiagnosticOnly -and (($view.Status -ceq 'Observed') -ne $observed)) -or $view.Status -ceq 'Blocked' -and ($correct -ne 0 -or $outcomes.Count -ne 1 -or -not $outcomes.Contains('NotRun'))) { throw 'Invalid view status' }
-        $views += [pscustomobject][ordered]@{Application=$view.Application;Version=$view.Version;View=$view.View;Status=$view.Status;Reason=$view.Reason;SequenceCompleted=$view.SequenceCompleted;Planned=$perView;Correct=$correct;Mismatches=$mismatches;Outcomes=[pscustomobject]$outcomes;BrokerObservations=$observations;BrokerCleanup=$view.BrokerCleanup;ApplicationCleanup=$view.ApplicationCleanup;ProfileDeleted=$view.ProfileDeleted}
+        $views += [pscustomobject][ordered]@{Application=$view.Application;Version=$view.Version;View=$view.View;Status=$view.Status;Reason=$view.Reason;SequenceCompleted=$view.SequenceCompleted;Planned=$perView;Correct=$correct;Mismatches=$mismatches;Outcomes=[pscustomobject]$outcomes;BrokerObservations=$observations;BrokerExitCodes=$exitCodes;BrokerCleanup=$view.BrokerCleanup;ApplicationCleanup=$view.ApplicationCleanup;ProfileDeleted=$view.ProfileDeleted}
     }
     $status=if (@($views | Where-Object Status -CEQ 'Fail').Count -gt 0) {'Fail'} elseif (@($views | Where-Object Status -CEQ 'Blocked').Count -gt 0) {'Blocked'} elseif ($DiagnosticOnly) {'Observed'} else {'Pass'}
     $exit=if ($status -cin @('Pass','Observed')) {0} elseif ($status -ceq 'Blocked') {2} else {3}
