@@ -29,3 +29,8 @@ P0/E06 remains Blocked; four lifecycle cases, UIA text/matching, performance, Wi
 ## Independent local audit correction
 
 The read-only reviewer held initial diagnostic freeze83ff9ecd36a615b0b5cdafd2afd1dd081a57a64c: FlushFileBuffers now had an error-reading path but its existing import lacked SetLastError=true. The correction adds that attribute and13 pure reflection assertions for every import whose failure is captured by the diagnostic; no ABI, Job setting or process permission is changed. Two additional checks reject an otherwise fully valid success receipt after rescue or a recorded failure. Latest local synthetic contracts86/86 pass. The first reflection harness mistakenly used the C# extension method GetCustomAttribute as an instance method in PowerShell; its failed source is privately preserved, then corrected to GetCustomAttributes without weakening the import assertions. Initial71/71 and both harness failures remain historical observations rather than rewritten results. No Windows execution or remote mutation followed.
+
+
+## Delivery-state correction after approval
+
+The approved eight-file patch has now been normally delivered as `4bc4ee3ea471ed1dc51f83c8d04827ad02f92ed2`, with exactly the reviewed tree `ac8a07e77e1d74b314b3091028ec6fab61ba3b61`. Statements above about only-local evidence or blocked uploading describe the earlier preparation, not current remote delivery. The original failed receipt and its hash are unchanged. No new CI or Windows run was started by that delivery. A new SourceHead-only preparation is local and awaits separate authorization; see [source-head-next-diagnostic.md](source-head-next-diagnostic.md).

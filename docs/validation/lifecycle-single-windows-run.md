@@ -35,3 +35,8 @@ Only SourceHead was attempted. Its receipt is Status=Failure, Exit=Unknown, Root
 | Watchdog | NotRun |
 
 CompilerFaults=[] because execution never reached compilation; this is not a zero-error build result. Runtime=NotRun, Cases=[]; no newly built DLL/exe was invoked. UIA text, target matching, performance, real cross-application selection, COM lifecycle verification, multi-monitor DPI, install/uninstall and normal Windows11 user acceptance remain unverified. Production reuse remains Off and ModelCalls=0. The previous SDK-only compilation and Linux119/16/9 and wrapper45/45 evidence keep their original scope, and cannot substitute for these missing Windows cases. P0/E06 remains Blocked, P1—P4 InProgress and the106-case overall acceptance NotRun.
+
+
+## Delivery-state correction after approval
+
+The approved eight-file patch has now been normally delivered as `4bc4ee3ea471ed1dc51f83c8d04827ad02f92ed2`, with exactly the reviewed tree `ac8a07e77e1d74b314b3091028ec6fab61ba3b61`. Statements above about only-local evidence or blocked uploading describe the earlier preparation, not current remote delivery. The original failed receipt and its hash are unchanged. No new CI or Windows run was started by that delivery. A new SourceHead-only preparation is local and awaits separate authorization; see [source-head-next-diagnostic.md](source-head-next-diagnostic.md).

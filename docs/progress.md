@@ -455,3 +455,10 @@ a5e734f独审后第四CI38245204651/job114797239356继续4DLL/4PE/4load/8export/
 本轮证据提交04c5bb仅本地：自动审批拒绝向公开仓库创建完整progress blob，父进一步要求停止上传/不得绕过；远端仍ae965，无新失败证据文件路径更新。原始connector job日志私有保全，固定摘要不改。按父独立诊断边界仅本地补固定启动阶段/Created/Resumed/有限错误分类及WAIT_FAILED、实际timeout、cleanup未知区分；纯分类71/71、原包装45/45，无新Windows/PInvoke/模型执行。初次测试invalid enum注入被PowerShell提前拒绝，保留失败源码后用Enum.ToObject恢复真实projection断言。详见lifecycle-operation-local-diagnostics，不据分类补正猜SourceHead根因。
 
 只读独审暂hold83ff的FlushFileBuffers错误读取：补现有导入SetLastError=true及13纯反射合同，另两条确保完整success字段仍不能救援/带已记录失败后Pass；最新86/86纯分类合同通过。新增reflection harness初用C#扩展方法被PowerShell实例调用拒绝，保留失败源后改实际GetCustomAttributes，不弱化断言。该补正仍仅本地，无新Windows/上传。
+
+
+## 2026-10-14 交付状态更正及 SourceHead 专项本地准备
+
+八文件已按用户直接批准正常交付4bc4ee3ea471ed1dc51f83c8d04827ad02f92ed2/tree ac8a07e77e1d74b314b3091028ec6fab61ba3b61；旧“只在本地/上传被拒”文字为历史状态。原三个提交、bundle和失败receipt保持，无新Windows/CI。父后续仅允许本地准备：新SourceHead入口一次owned Git，固定启动stage/error/Created/Resumed及退出清理字段，不编译产品、不跑四case/UIA/模型；Add-Type现有interop载入、原30s预算与救援观察范围、step2min/job10min明确列入待批准执行范围。未来单parent交付锁4bc，精确event SHA/depth4，未先push触发。
+
+新59/59本地合同含真实浅克隆depth3缺locked/depth4可diff、Linux入口Blocked和纯输出/门控分类；无WinPInvoke调用。本地Get-Command发现4个Git程序候选，真实C#字符串参数会将数组拼成单字符串，新入口明确仅首个程序；不据此认定原Windows失败根因。初始数组乘法harness失败及随后多Git定位失败保留，再修脚本语法/定位，未减断言。详细scope及未来八文件清单见[SourceHead准备说明](validation/source-head-next-diagnostic.md)。原native/managed生命周期编译及四case均NotRun/P0E06Blocked；本轮无上传、远端ref修改或执行授权。

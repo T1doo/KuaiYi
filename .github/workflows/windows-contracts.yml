@@ -1,4 +1,4 @@
-name: Single bounded non-target lifecycle diagnostic
+name: Single SourceHead bootstrap diagnostic
 on:
   push:
     branches: [dev/p0-com-selection-diagnostic]
@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
 jobs:
-  non-target-lifecycle:
+  source-head-only:
     if: github.repository == 'T1doo/KuaiYi' && github.ref == 'refs/heads/dev/p0-com-selection-diagnostic'
     runs-on: windows-2022
     timeout-minutes: 10
@@ -19,10 +19,13 @@ jobs:
         with:
           persist-credentials: false
           set-safe-directory: false
-          fetch-depth: 2
-      - name: Build and run four fixed non-target lifecycle cases
-        timeout-minutes: 8
+          ref: ${{ github.sha }}
+          # Future delivery must be a single child of reviewed 4bc4ee3:
+          # delivery -> 4bc4ee3 -> ae96589 -> locked 3ae6941.
+          fetch-depth: 4
+      - name: Observe one bounded SourceHead operation only
+        timeout-minutes: 2
         shell: pwsh
         run: |
-          & ./tests/scripts/run-lifecycle-windows-ci.ps1
+          & ./tests/scripts/run-source-head-windows-ci.ps1
           exit $LASTEXITCODE
