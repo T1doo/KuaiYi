@@ -15,3 +15,23 @@ Actual Linux wrapper contracts45/45 passed: closed schemas/redaction/adversarial
 Windows has not started at this preparation freeze. After independent source review, one ordinary expected-SHA development push changing the workflow will trigger the authorized single attempt. Actual compile, case and cleanup evidence will be appended after it exists; any failure is preserved without automatic rerun. No other writer/agent is introduced.
 
 Pre-run independent review caught a definite shallow-checkout block in initial wrapper freeze d73631d861f75d11b4a7058fb92cfe8ae0fa01ce: depth1 omitted locked parent3ae694 needed by the source-equivalence diff. Checkout now takes exactly two commits; delivered workflow commit has the locked source as its sole parent. SourceCompare is retained and no runtime input is bypassed. No Windows attempt occurred before this fix. Official CreateProcessW/process-creation-flags documentation was checked for suspended start and Unicode environment; source guarantees still require real Windows observation.
+
+
+## Actual single Windows attempt: Fail before compilation
+
+Independent read-only review accepted corrected local freeze `9894d58f4918712c3ebd40b8c842a133bcee73dd`, tree `da61ad6489a74ecb7c3dc90ab52f6f3a07fdeb07`. API delivery/execution commit is `ae965898ad13c97d0b83651dded7f345847e0006`, exactly the same tree and sole parent `3ae69419a1152ea9694a3a9cf11130fbae645fa3`; local original freeze and initial rejected freeze remain in reviewed branches and verified bundles. The metadata-only SHA mapping does not change any file. No forced update, main change or installed-selection branch change was made.
+
+The authorized [Windows run38443925339](https://github.com/T1doo/KuaiYi/actions/runs/38443925339), job115457262309, attempt1, completed/failure. Checkout and post-checkout succeeded; the bounded execution step failed. No retry or second workflow push was issued. Actual [fixed whitelist receipt](../test-evidence/2026-10-13-lifecycle-38443925339.json) SHA256 is `11342729e0e4f79f856c620158417147856ef466c8c29f75c0d66c28ec0cbde5`. The connector job log was used only to extract this closed summary; raw compiler, runtime, path, exception and other arbitrary log text was not added to the repository or uploaded as an artifact.
+
+Only SourceHead was attempted. Its receipt is Status=Failure, Exit=Unknown, RootExitConfirmed=false, JobEmpty=false, RescueUsed=false, CleanupConfirmed=true. SourceCommit is null and SourceEquivalent=false. Overall Status=Fail, Reason=OperationTimeoutOrCleanupFailure, ExitCode=3. This combined reason does **not** establish a timeout: the helper's actual operation status is Failure. Its created=false catch/finally path sets CleanupConfirmed=true without any created child, so that field does **not** prove actual root exit or Job emptiness. There was no rescue or case receipt. The fixed schema lacks the failing Win32 call stage/error; the specific bootstrap failure cannot be determined from retained evidence. A future diagnostic change would need finite stage/error evidence and separate authorization for any new Windows attempt. No such run or code change is claimed here.
+
+| Authorized item | Actual result |
+|---|---|
+| Native lifecycle executable compilation | NotRun |
+| Managed lifecycle DLL compilation | NotRun |
+| Normal | NotRun |
+| BoundParentDeath | NotRun |
+| BeforeBindParentDeath | NotRun |
+| Watchdog | NotRun |
+
+CompilerFaults=[] because execution never reached compilation; this is not a zero-error build result. Runtime=NotRun, Cases=[]; no newly built DLL/exe was invoked. UIA text, target matching, performance, real cross-application selection, COM lifecycle verification, multi-monitor DPI, install/uninstall and normal Windows11 user acceptance remain unverified. Production reuse remains Off and ModelCalls=0. The previous SDK-only compilation and Linux119/16/9 and wrapper45/45 evidence keep their original scope, and cannot substitute for these missing Windows cases. P0/E06 remains Blocked, P1—P4 InProgress and the106-case overall acceptance NotRun.

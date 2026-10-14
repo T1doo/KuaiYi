@@ -1,0 +1,30 @@
+{
+  "Kind": "NonTargetLifecycleCiSummary",
+  "SourceCommit": null,
+  "LockedSource": "3ae69419a1152ea9694a3a9cf11130fbae645fa3",
+  "LockedTree": "870a72ed3ef2ee31252c10e2d63cbcb859e7fd7b",
+  "SourceEquivalent": false,
+  "Scope": "FourFixedNonTargetCasesOnly",
+  "Status": "Fail",
+  "Reason": "OperationTimeoutOrCleanupFailure",
+  "Operations": [
+    {
+      "Kind": "SourceHead",
+      "Status": "Failure",
+      "Exit": "Unknown",
+      "RootExitConfirmed": false,
+      "JobEmpty": false,
+      "RescueUsed": false,
+      "CleanupConfirmed": true
+    }
+  ],
+  "CompilerFaults": [],
+  "Cases": [],
+  "Runtime": "NotRun",
+  "UiaText": "NotRun",
+  "Match": "NotRun",
+  "Performance": "NotRun",
+  "ProductionReuse": "Off",
+  "ModelCalls": 0,
+  "ExitCode": 3
+}

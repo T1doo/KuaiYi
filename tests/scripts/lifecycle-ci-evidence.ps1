@@ -1,5 +1,12 @@
 Set-StrictMode -Version Latest
 . "$PSScriptRoot/../../scripts/sdk-compile-evidence.ps1"
+function Get-LifecycleOperationEvidence([string]$Kind,$Receipt) {
+    $kinds=@('SourceHead','SourceStatus','SourceCompare','CMakeVersion','DotnetVersion','VisualStudioInventory','NativeConfigure','NativeBuild','ManagedRestore','ManagedBuild','LifecycleRuntime')
+    if($Kind -cnotin $kinds -or $Receipt -isnot [KuaiYiLifecycleOperation+Receipt]){throw 'Invalid operation receipt'}
+    if($Receipt.Status -cnotin @('Failure','Timeout','Completed','CleanupFailure') -or $Receipt.Exit -cnotin @('Unknown','Other','0','1','2','3')){throw 'Invalid operation receipt'}
+    foreach($value in @($Receipt.Stage,$Receipt.Failure,$Receipt.Error)){if(-not [Enum]::IsDefined($value.GetType(),$value)){throw 'Invalid operation receipt'}}
+    return [pscustomobject][ordered]@{Kind=$Kind;Status=$Receipt.Status;Exit=$Receipt.Exit;Stage=$Receipt.Stage.ToString();FailureKind=$Receipt.Failure.ToString();ErrorCode=$Receipt.Error.ToString();ProcessCreated=$Receipt.ProcessCreated;Resumed=$Receipt.Resumed;RootExitConfirmed=$Receipt.RootExitConfirmed;JobEmpty=$Receipt.JobEmpty;RescueUsed=$Receipt.RescueUsed;CleanupConfirmed=$Receipt.CleanupConfirmed}
+}
 function Get-LifecycleBuildEvidence([string]$Output) {
     if($null -eq $Output -or $Output.Length -gt 4194304){return}
     $rows=[Collections.Generic.List[object]]::new()

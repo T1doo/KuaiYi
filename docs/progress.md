@@ -443,3 +443,15 @@ a5e734f独审后第四CI38245204651/job114797239356继续4DLL/4PE/4load/8export/
 本地执行证据（非Windows）：9ec5356通过独审后，CI App默认并行build退出1（汇总0warn/0error、未完成编译）；既有OLE tests在MSBuild本地NamedPipe socket bind被当前沙箱拒绝（MSB1025/SocketException13），随后no-build单进程VSTest明确SocketServer/TcpListener Permission denied、Test Run Aborted，0项测试执行，不记Pass/Fail断言数。未扩权；改执行参数-m:1/-nr:false/UseSharedCompilation=false后，CI App8工程、FaultSource6、Receiver6编译各0warning/error；45既有PS合同通过、OLE helper Parse通过、真实Linux-OleOnly入口exit2/全部Windows计数0/Blocked，普通App MSBuild items明确无CI文件/define。所有失败log保留，未削弱原测试。关闭动作再在实际UI调用点复核live原GetData/Drop，排除排队后才关闭的时序误认；此一行待精确增量审后重新编译App。Windows E06仍未启动，实体鼠标NotRun/P0Blocked保持。
 
 独审已通过9ad689e6/tree a8f58468的关闭调用点live复核与真实失败日志口径；此源码再次仅CI App增量构建8工程0warning/error，13.45s，原始输出另存不覆盖之前日志。Windows OLE尚未启动。云shell Git传输仍不可用，既有授权GitHub连接器已只读核原base/tree；准备通过普通非force/CAS更新同一dev分支。先核逐blob和完整tree与审过本地源码一致，再审实际远端commit身份；不改main/权限/网络/模型设置。
+
+
+## 2026-10-13 非目标生命周期唯一 Windows 尝试：预启动失败
+
+按父限定授权，仅开发分支执行一次 Windows2022/10min job，每外部操作30s有界，目标为编译新 lifecycle exe/DLL及 Normal、BoundParentDeath、BeforeBindParentDeath、Watchdog。初始包装d736独审发现depth1不含锁定parent，未启动即修至depth2并保留原freeze；修正freeze9894d58f4918712c3ebd40b8c842a133bcee73dd/tree da61ad6489a74ecb7c3dc90ab52f6f3a07fdeb07经同一只读独审放行、本地45/45脚本合同通过（无WindowsPInvoke）。普通CAS交付ae965898ad13c97d0b83651dded7f345847e0006与审定tree精确相同，唯一parent锁定3ae694；运行源码未改。
+
+真实 [run38443925339](https://github.com/T1doo/KuaiYi/actions/runs/38443925339)/job115457262309/attempt1 completed failure。只有SourceHead执行，StatusFailure/ExitUnknown/RootExitConfirmedfalse/JobEmptyfalse/RescueUsedfalse/CleanupConfirmedtrue，未进入编译或任何四case；SourceCommitnull/SourceEquivalentfalse/Cases[]/RuntimeNotRun。Cleanuptrue来自created=false分支，不能称子进程实际退出或Job清空Pass；Reason组合标签不能推导为timeout。有限receipt未记录具体失败API阶段/Win32code，故不猜根因。没有重试、额外workflow推送、安装、扩权、模型调用或生产reuse。固定脱敏receipt和scope见 [lifecycle-single-windows-run.md](validation/lifecycle-single-windows-run.md)。不上传raw日志，不把CompilerFaults[]称编译通过。P0/E06Blocked、P1—P4InProgress、106整体NotRun；UIA原文、匹配/性能、Windows11普通用户/多屏DPI/安装卸载均未借此通过。
+
+
+本轮证据提交04c5bb仅本地：自动审批拒绝向公开仓库创建完整progress blob，父进一步要求停止上传/不得绕过；远端仍ae965，无新失败证据文件路径更新。原始connector job日志私有保全，固定摘要不改。按父独立诊断边界仅本地补固定启动阶段/Created/Resumed/有限错误分类及WAIT_FAILED、实际timeout、cleanup未知区分；纯分类71/71、原包装45/45，无新Windows/PInvoke/模型执行。初次测试invalid enum注入被PowerShell提前拒绝，保留失败源码后用Enum.ToObject恢复真实projection断言。详见lifecycle-operation-local-diagnostics，不据分类补正猜SourceHead根因。
+
+只读独审暂hold83ff的FlushFileBuffers错误读取：补现有导入SetLastError=true及13纯反射合同，另两条确保完整success字段仍不能救援/带已记录失败后Pass；最新86/86纯分类合同通过。新增reflection harness初用C#扩展方法被PowerShell实例调用拒绝，保留失败源后改实际GetCustomAttributes，不弱化断言。该补正仍仅本地，无新Windows/上传。

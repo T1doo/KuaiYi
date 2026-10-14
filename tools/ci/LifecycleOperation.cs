@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -9,11 +10,36 @@ using System.Threading;
 // Windows CI safety envelope only. No COM, target queries or production references.
 public static class KuaiYiLifecycleOperation
 {
+    public enum OperationStage { Start,CreateJob,VerifyJobInheritance,SetJobLimits,OpenOutput,OpenInput,PrepareProcess,CreateProcess,AssignJob,VerifyJobMembership,ResumeThread,WaitRoot,ReadExit,WaitJobEmpty,FlushOutput,Completed }
+    public enum FailureKind { None,Win32,MissingLibrary,MissingEntry,Argument,Io,ManagedOther,Timeout }
+    public enum NativeError { None,Zero,FileNotFound,PathNotFound,AccessDenied,InvalidHandle,InvalidParameter,BadImage,EnvVarMissing,DirectoryInvalid,ElevationRequired,Other }
+    public enum WaitOutcome { Completed,Timeout,Failed,Unexpected }
+    public enum OperationReason { Completed,OperationFailure,OperationTimeout,OperationCleanupFailure }
     public sealed class Receipt
     {
         public string Status="Failure";public string Exit="Unknown";
         public bool RootExitConfirmed,JobEmpty,RescueUsed,CleanupConfirmed;
+        public bool ProcessCreated,Resumed;
+        public OperationStage Stage=OperationStage.Start;
+        public FailureKind Failure=FailureKind.None;
+        public NativeError Error=NativeError.None;
     }
+    // Finite projection only: never copy exception messages, paths, command lines or Data.
+    public static void RecordFailure(Receipt receipt,Exception error)
+    {
+        receipt.Error=NativeError.None;
+        if(error is Win32Exception native){receipt.Failure=FailureKind.Win32;receipt.Error=native.NativeErrorCode switch {0=>NativeError.Zero,2=>NativeError.FileNotFound,3=>NativeError.PathNotFound,5=>NativeError.AccessDenied,6=>NativeError.InvalidHandle,87=>NativeError.InvalidParameter,193=>NativeError.BadImage,203=>NativeError.EnvVarMissing,267=>NativeError.DirectoryInvalid,740=>NativeError.ElevationRequired,_=>NativeError.Other};}
+        else receipt.Failure=error is TimeoutException?FailureKind.Timeout:error is DllNotFoundException?FailureKind.MissingLibrary:error is EntryPointNotFoundException?FailureKind.MissingEntry:error is ArgumentException?FailureKind.Argument:error is IOException?FailureKind.Io:FailureKind.ManagedOther;
+    }
+    public static WaitOutcome ClassifyWait(uint value,bool expired){return value==uint.MaxValue?WaitOutcome.Failed:value==258?WaitOutcome.Timeout:value!=0?WaitOutcome.Unexpected:expired?WaitOutcome.Timeout:WaitOutcome.Completed;}
+    public static OperationReason GetReason(Receipt r)
+    {
+        if(r.Status=="CleanupFailure"||!r.CleanupConfirmed)return OperationReason.OperationCleanupFailure;
+        if(r.Status=="Timeout"&&r.Failure==FailureKind.Timeout)return OperationReason.OperationTimeout;
+        if(r.Status=="Completed"&&r.ProcessCreated&&r.Resumed&&r.RootExitConfirmed&&r.JobEmpty&&!r.RescueUsed&&r.Failure==FailureKind.None)return OperationReason.Completed;
+        return OperationReason.OperationFailure;
+    }
+    private static Win32Exception NativeFailure(){return new Win32Exception(Marshal.GetLastWin32Error());}
     public static string Quote(string value)
     {
         var text=new StringBuilder("\"");int slashes=0;
@@ -25,35 +51,51 @@ public static class KuaiYiLifecycleOperation
         var r=new Receipt();var clock=Stopwatch.StartNew();IntPtr job=IntPtr.Zero,output=IntPtr.Zero,input=IntPtr.Zero;ProcessInfo child=new ProcessInfo();bool created=false;
         try
         {
-            job=CreateJobObjectW(IntPtr.Zero,null);if(job==IntPtr.Zero)throw new IOException();
-            if(!SetHandleInformation(job,1,0)||!GetHandleInformation(job,out uint inheritance)||(inheritance&1)!=0)throw new IOException();
+            r.Stage=OperationStage.CreateJob;job=CreateJobObjectW(IntPtr.Zero,null);if(job==IntPtr.Zero)throw NativeFailure();
+            r.Stage=OperationStage.VerifyJobInheritance;
+            if(!SetHandleInformation(job,1,0))throw NativeFailure();
+            if(!GetHandleInformation(job,out uint inheritance))throw NativeFailure();
+            if((inheritance&1)!=0)throw new IOException();
             var limits=new ExtendedLimits();limits.Basic.Flags=0x2000;
-            if(!SetInformationJobObject(job,9,ref limits,(uint)Marshal.SizeOf(typeof(ExtendedLimits))))throw new IOException();
+            r.Stage=OperationStage.SetJobLimits;
+            if(!SetInformationJobObject(job,9,ref limits,(uint)Marshal.SizeOf(typeof(ExtendedLimits))))throw NativeFailure();
             var security=new SecurityAttributes{Length=Marshal.SizeOf(typeof(SecurityAttributes)),Inherit=1};
+            r.Stage=OperationStage.OpenOutput;
             output=CreateFileW(log,0x40000000,1,ref security,2,0x80,IntPtr.Zero);
+            if(output==new IntPtr(-1))throw NativeFailure();
+            r.Stage=OperationStage.OpenInput;
             input=CreateFileW("NUL",0x80000000,3,ref security,3,0x80,IntPtr.Zero);
-            if(output==new IntPtr(-1)||input==new IntPtr(-1))throw new IOException();
+            if(input==new IntPtr(-1))throw NativeFailure();
+            r.Stage=OperationStage.PrepareProcess;
             var startup=new StartupInfo{Size=Marshal.SizeOf(typeof(StartupInfo)),Flags=0x100,Input=input,Output=output,Error=output};
             var command=new StringBuilder(Quote(executable));foreach(string arg in arguments)command.Append(' ').Append(Quote(arg));
             IntPtr environment=Marshal.StringToHGlobalUni(ChildEnvironment());
-            try{created=CreateProcessW(executable,command,IntPtr.Zero,IntPtr.Zero,true,0x08000004|0x400,environment,directory,ref startup,out child);}finally{Marshal.FreeHGlobal(environment);}
-            if(!created)throw new IOException();
+            // Capture last error before FreeHGlobal or any other native operation can replace it.
+            int creationError=0;r.Stage=OperationStage.CreateProcess;
+            try{created=CreateProcessW(executable,command,IntPtr.Zero,IntPtr.Zero,true,0x08000004|0x400,environment,directory,ref startup,out child);if(!created)creationError=Marshal.GetLastWin32Error();r.ProcessCreated=created;}finally{Marshal.FreeHGlobal(environment);}
+            if(!created)throw new Win32Exception(creationError);
             // Suspended creation binds the complete operation graph before any code can spawn children.
-            if(!AssignProcessToJobObject(job,child.Process)||!IsProcessInJob(child.Process,job,out bool member)||!member)throw new IOException();
-            if(clock.ElapsedMilliseconds>=30000||ResumeThread(child.Thread)==uint.MaxValue)throw new IOException();
+            r.Stage=OperationStage.AssignJob;if(!AssignProcessToJobObject(job,child.Process))throw NativeFailure();
+            r.Stage=OperationStage.VerifyJobMembership;if(!IsProcessInJob(child.Process,job,out bool member))throw NativeFailure();if(!member)throw new IOException();
+            r.Stage=OperationStage.ResumeThread;if(clock.ElapsedMilliseconds>=30000)throw new TimeoutException();if(ResumeThread(child.Thread)==uint.MaxValue)throw NativeFailure();r.Resumed=true;
+            r.Stage=OperationStage.WaitRoot;
             uint wait=WaitForSingleObject(child.Process,(uint)Math.Max(0,30000-clock.ElapsedMilliseconds));
-            if(wait!=0||clock.ElapsedMilliseconds>=30000){r.Status="Timeout";r.RescueUsed=true;}
+            int waitError=wait==uint.MaxValue?Marshal.GetLastWin32Error():0;
+            WaitOutcome outcome=ClassifyWait(wait,clock.ElapsedMilliseconds>=30000);
+            if(outcome==WaitOutcome.Failed)throw new Win32Exception(waitError);
+            if(outcome==WaitOutcome.Unexpected)throw new IOException();
+            if(outcome==WaitOutcome.Timeout){r.Status="Timeout";r.Failure=FailureKind.Timeout;r.RescueUsed=true;}
             else
             {
                 r.RootExitConfirmed=true;
-                if(!GetExitCodeProcess(child.Process,out uint code))throw new IOException();
+                r.Stage=OperationStage.ReadExit;if(!GetExitCodeProcess(child.Process,out uint code))throw NativeFailure();
                 r.Exit=code<=3?code.ToString(System.Globalization.CultureInfo.InvariantCulture):"Other";
-                while(!Empty(job)&&clock.ElapsedMilliseconds<30000)Thread.Sleep(10);
+                r.Stage=OperationStage.WaitJobEmpty;while(!Empty(job)&&clock.ElapsedMilliseconds<30000)Thread.Sleep(10);
                 r.JobEmpty=Empty(job);
-                if(!r.JobEmpty||clock.ElapsedMilliseconds>=30000){r.Status="Timeout";r.RescueUsed=true;}else r.Status="Completed";
+                if(!r.JobEmpty||clock.ElapsedMilliseconds>=30000){r.Status="Timeout";r.Failure=FailureKind.Timeout;r.RescueUsed=true;}else r.Status="Completed";
             }
         }
-        catch{r.Status="Failure";r.RescueUsed=created;}
+        catch(Exception error){RecordFailure(r,error);r.Status=r.Failure==FailureKind.Timeout?"Timeout":"Failure";r.RescueUsed=created;}
         finally
         {
             try
@@ -70,16 +112,17 @@ public static class KuaiYiLifecycleOperation
                 }
                 r.CleanupConfirmed=created?r.RootExitConfirmed&&r.JobEmpty:true;
                 if(!r.CleanupConfirmed)r.Status="CleanupFailure";
-                if(output!=IntPtr.Zero&&output!=new IntPtr(-1))if(!FlushFileBuffers(output)){r.Status="CleanupFailure";r.CleanupConfirmed=false;}
+                if(output!=IntPtr.Zero&&output!=new IntPtr(-1))if(!FlushFileBuffers(output)){if(r.Failure==FailureKind.None){r.Stage=OperationStage.FlushOutput;RecordFailure(r,NativeFailure());}r.Status="CleanupFailure";r.CleanupConfirmed=false;}
             }
-            catch{r.Status="CleanupFailure";r.CleanupConfirmed=false;}
+            catch(Exception error){if(r.Failure==FailureKind.None)RecordFailure(r,error);r.Status="CleanupFailure";r.CleanupConfirmed=false;}
             if(child.Thread!=IntPtr.Zero)CloseHandle(child.Thread);if(child.Process!=IntPtr.Zero)CloseHandle(child.Process);
             if(input!=IntPtr.Zero&&input!=new IntPtr(-1))CloseHandle(input);if(output!=IntPtr.Zero&&output!=new IntPtr(-1))CloseHandle(output);
             if(job!=IntPtr.Zero)CloseHandle(job);
+            if(r.Status=="Completed")r.Stage=OperationStage.Completed;
         }
         return r;
     }
-    private static bool Empty(IntPtr job){var data=new Accounting();if(!QueryInformationJobObject(job,1,ref data,(uint)Marshal.SizeOf(typeof(Accounting)),IntPtr.Zero))throw new IOException();return data.Active==0;}
+    private static bool Empty(IntPtr job){var data=new Accounting();if(!QueryInformationJobObject(job,1,ref data,(uint)Marshal.SizeOf(typeof(Accounting)),IntPtr.Zero))throw NativeFailure();return data.Active==0;}
     private static string ChildEnvironment()
     {
         var values=new SortedDictionary<string,string>(StringComparer.OrdinalIgnoreCase);
@@ -107,7 +150,7 @@ public static class KuaiYiLifecycleOperation
     [DllImport("kernel32.dll",SetLastError=true)] private static extern bool GetExitCodeProcess(IntPtr process,out uint code);
     [DllImport("kernel32.dll",SetLastError=true)] private static extern uint ResumeThread(IntPtr thread);
     [DllImport("kernel32.dll")] private static extern bool CloseHandle(IntPtr handle);
-    [DllImport("kernel32.dll")] private static extern bool FlushFileBuffers(IntPtr handle);
+    [DllImport("kernel32.dll",SetLastError=true)] private static extern bool FlushFileBuffers(IntPtr handle);
     [DllImport("kernel32.dll",CharSet=CharSet.Unicode,SetLastError=true)] private static extern IntPtr CreateFileW(string path,uint access,uint share,ref SecurityAttributes security,uint creation,uint flags,IntPtr template);
     [DllImport("kernel32.dll",CharSet=CharSet.Unicode,SetLastError=true)] private static extern bool CreateProcessW(string application,StringBuilder command,IntPtr processAttributes,IntPtr threadAttributes,bool inherit,uint flags,IntPtr environment,string directory,ref StartupInfo startup,out ProcessInfo child);
 }

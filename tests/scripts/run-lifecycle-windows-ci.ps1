@@ -8,8 +8,9 @@ $output=$null;$runtimeLog=$null;$allLogs=[Collections.Generic.List[string]]::new
 function Invoke-BoundedLifecycleOperation([string]$Kind,[string]$Executable,[string[]]$Arguments) {
     $log=Join-Path $script:output ($Kind+'.local.log');$script:allLogs.Add($log);if($Kind -ceq 'LifecycleRuntime'){$script:runtimeLog=$log}
     $receipt=[KuaiYiLifecycleOperation]::Run($Executable,$Arguments,$script:repo,$log)
-    $script:operations.Add([pscustomobject][ordered]@{Kind=$Kind;Status=$receipt.Status;Exit=$receipt.Exit;RootExitConfirmed=$receipt.RootExitConfirmed;JobEmpty=$receipt.JobEmpty;RescueUsed=$receipt.RescueUsed;CleanupConfirmed=$receipt.CleanupConfirmed})
-    if($receipt.Status -cne 'Completed' -or $receipt.RescueUsed -or -not $receipt.CleanupConfirmed){$script:summary.Reason='OperationTimeoutOrCleanupFailure';throw 'Operation failed'}
+    $script:operations.Add((Get-LifecycleOperationEvidence $Kind $receipt))
+    $reason=[KuaiYiLifecycleOperation]::GetReason($receipt)
+    if($reason -ne [KuaiYiLifecycleOperation+OperationReason]::Completed){$script:summary.Reason=$reason.ToString();throw 'Operation failed'}
     return [pscustomobject]@{Exit=$receipt.Exit;Log=$log}
 }
 try {
