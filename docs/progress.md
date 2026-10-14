@@ -462,3 +462,10 @@ a5e734f独审后第四CI38245204651/job114797239356继续4DLL/4PE/4load/8export/
 八文件已按用户直接批准正常交付4bc4ee3ea471ed1dc51f83c8d04827ad02f92ed2/tree ac8a07e77e1d74b314b3091028ec6fab61ba3b61；旧“只在本地/上传被拒”文字为历史状态。原三个提交、bundle和失败receipt保持，无新Windows/CI。父后续仅允许本地准备：新SourceHead入口一次owned Git，固定启动stage/error/Created/Resumed及退出清理字段，不编译产品、不跑四case/UIA/模型；Add-Type现有interop载入、原30s预算与救援观察范围、step2min/job10min明确列入待批准执行范围。未来单parent交付锁4bc，精确event SHA/depth4，未先push触发。
 
 新59/59本地合同含真实浅克隆depth3缺locked/depth4可diff、Linux入口Blocked和纯输出/门控分类；无WinPInvoke调用。本地Get-Command发现4个Git程序候选，真实C#字符串参数会将数组拼成单字符串，新入口明确仅首个程序；不据此认定原Windows失败根因。初始数组乘法harness失败及随后多Git定位失败保留，再修脚本语法/定位，未减断言。详细scope及未来八文件清单见[SourceHead准备说明](validation/source-head-next-diagnostic.md)。原native/managed生命周期编译及四case均NotRun/P0E06Blocked；本轮无上传、远端ref修改或执行授权。
+
+
+## SourceHead 唯一实测结果及完整 runner 后续本地准备
+
+准备13414b51已按新明确批准交付b39a9076e69bec3c277e5664428ff142eaaef9f5/tree2bcfa3dd1a23c0da085f9d5303d491354e668686；唯一run38524993308/job115723148036/attempt1 success，SourceHead Exit0、Created/Resumed/held-root退出/Job空/cleanup全确认，无rescue，返回SHA匹配。旧授权/未上传文字是历史准备时点，本次授权已消耗，无重跑。原失败receipt不改，旧Windows具体根因仍unknown，native/managed生命周期编译及四case/UIA/匹配/性能均NotRun。
+
+父仅允许后续本地准备：完整runner统一git/cmake/dotnet取首个ApplicationInfo，不拼多路径；新增精确HEAD、唯一审定parent、locked祖先/tree及完整runtime输入diff。未来一child锁b39→4bc→ae→3ae，真实local浅克隆depth4失败/depth5可验证；独立新workflow只匹配自身路径，不改旧SourceHead入口，job10min/step8min/每外部操作原30s及既有清理观察，不改250/600/120/2000ms生产门。新72/72合同（真实git/dotnet2、cmake缺失拒绝1）和原45/45通过；初始harness假设cmake存在失败已保全，改为缺失时明确拒绝，不安装/不弱断言。原源/Job/协议未改，无新Windows、上传、push、模型或安全网络权限操作。[完整下一验证合同](validation/lifecycle-full-next-validation.md)列准确八文件及未验范围；需后续独立批准才可推送触发。

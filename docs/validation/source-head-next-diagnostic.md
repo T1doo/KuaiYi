@@ -32,3 +32,8 @@ The initial test harness failed because unparenthesized PowerShell multiplicatio
 8. docs/validation/lifecycle-single-windows-run.md — appended current-delivery correction.
 
 No file in this new list has been published in this preparation task. Existing raw private log, failed receipt, reviewed branches and verified source bundles remain intact. Current state remains P0/E06Blocked, Windows startup root cause unknown, native/managed lifecycle compilation and all four cases NotRun, ProductionReuseOff, ModelCalls0.
+
+
+## Actual SourceHead execution after approval
+
+The prepared eight files were delivered as b39a9076e69bec3c277e5664428ff142eaaef9f5 with the reviewed tree2bcfa3dd1a23c0da085f9d5303d491354e668686. Run38524993308/job115723148036/attempt1 completed success: one SourceHead Exit0, creation/resume/root exit/Job empty/cleanup all confirmed, RescueUsedfalse, returned SHA matched. Fixed receipt SHA256cf71da04ecb8260f4c0d31cf69e37a384c5a5ee0e2c565c52d00b73bb4edcebb is privately preserved. Earlier authorization/local-only statements describe preparation time. This one-run authorization is consumed; no rerun is permitted. Locked ancestry, product compilation, four cases, UIA/matching/performance remained NotRun. Original Windows root cause is still unknown. The next full-runner candidate is only local; see lifecycle-full-next-validation.md.

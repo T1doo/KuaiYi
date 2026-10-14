@@ -1,7 +1,7 @@
 Set-StrictMode -Version Latest
 . "$PSScriptRoot/../../scripts/sdk-compile-evidence.ps1"
 function Get-LifecycleOperationEvidence([string]$Kind,$Receipt) {
-    $kinds=@('SourceHead','SourceStatus','SourceCompare','CMakeVersion','DotnetVersion','VisualStudioInventory','NativeConfigure','NativeBuild','ManagedRestore','ManagedBuild','LifecycleRuntime')
+    $kinds=@('SourceHead','SourceParent','SourceAncestry','SourceLockedTree','SourceStatus','SourceCompare','CMakeVersion','DotnetVersion','VisualStudioInventory','NativeConfigure','NativeBuild','ManagedRestore','ManagedBuild','LifecycleRuntime')
     if($Kind -cnotin $kinds -or $Receipt -isnot [KuaiYiLifecycleOperation+Receipt]){throw 'Invalid operation receipt'}
     if($Receipt.Status -cnotin @('Failure','Timeout','Completed','CleanupFailure') -or $Receipt.Exit -cnotin @('Unknown','Other','0','1','2','3')){throw 'Invalid operation receipt'}
     foreach($value in @($Receipt.Stage,$Receipt.Failure,$Receipt.Error)){if(-not [Enum]::IsDefined($value.GetType(),$value)){throw 'Invalid operation receipt'}}

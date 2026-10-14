@@ -1,0 +1,30 @@
+name: One locked lifecycle compilation and four cases
+on:
+  push:
+    branches: [dev/p0-com-selection-diagnostic]
+    paths: [.github/workflows/windows-lifecycle-validation.yml]
+permissions:
+  contents: read
+jobs:
+  fixed-four-lifecycle:
+    if: github.repository == 'T1doo/KuaiYi' && github.ref == 'refs/heads/dev/p0-com-selection-diagnostic'
+    runs-on: windows-2022
+    timeout-minutes: 10
+    env:
+      POWERSHELL_TELEMETRY_OPTOUT: '1'
+      CI: 'true'
+    steps:
+      - name: Checkout exact reviewed delivery and required ancestors
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          set-safe-directory: false
+          ref: ${{ github.sha }}
+          # Only valid for delivery -> b39a907 -> 4bc4ee3 -> ae96589 -> locked3ae694.
+          fetch-depth: 5
+      - name: Build two lifecycle tools and run four fixed non-target cases once
+        timeout-minutes: 8
+        shell: pwsh
+        run: |
+          & ./tests/scripts/run-lifecycle-windows-ci.ps1
+          exit $LASTEXITCODE

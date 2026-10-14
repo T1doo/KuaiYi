@@ -1,9 +1,10 @@
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
 . "$PSScriptRoot/lifecycle-ci-evidence.ps1"
+. "$PSScriptRoot/lifecycle-runner-contracts.ps1"
 $repo=Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 $locked='3ae69419a1152ea9694a3a9cf11130fbae645fa3'
-$summary=[pscustomobject][ordered]@{Kind='NonTargetLifecycleCiSummary';SourceCommit=$null;LockedSource=$locked;LockedTree='870a72ed3ef2ee31252c10e2d63cbcb859e7fd7b';SourceEquivalent=$false;Scope='FourFixedNonTargetCasesOnly';Status='Fail';Reason='RunnerFailure';Operations=@();CompilerFaults=@();Cases=@();Runtime='NotRun';UiaText='NotRun';Match='NotRun';Performance='NotRun';ProductionReuse='Off';ModelCalls=0;ExitCode=3}
+$summary=[pscustomobject][ordered]@{Kind='NonTargetLifecycleCiSummary';SourceCommit=$null;ReviewedParent='b39a9076e69bec3c277e5664428ff142eaaef9f5';ParentVerified=$false;AncestorVerified=$false;LockedSource=$locked;LockedTree='870a72ed3ef2ee31252c10e2d63cbcb859e7fd7b';LockedTreeVerified=$false;SourceEquivalent=$false;Scope='FourFixedNonTargetCasesOnly';Status='Fail';Reason='RunnerFailure';Operations=@();CompilerFaults=@();Cases=@();Runtime='NotRun';UiaText='NotRun';Match='NotRun';Performance='NotRun';ProductionReuse='Off';ModelCalls=0;ExitCode=3}
 $output=$null;$runtimeLog=$null;$allLogs=[Collections.Generic.List[string]]::new();$operations=[Collections.Generic.List[object]]::new()
 function Invoke-BoundedLifecycleOperation([string]$Kind,[string]$Executable,[string[]]$Arguments) {
     $log=Join-Path $script:output ($Kind+'.local.log');$script:allLogs.Add($log);if($Kind -ceq 'LifecycleRuntime'){$script:runtimeLog=$log}
@@ -20,16 +21,22 @@ try {
         if([Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString() -cne 'X64'){throw 'Invalid architecture'}
         $output=Join-Path $repo ('artifacts/lifecycle-ci/'+[guid]::NewGuid().ToString('N'));[void](New-Item -ItemType Directory -Path $output)
         Add-Type -Path (Join-Path $repo 'tools/ci/LifecycleOperation.cs') 2>$null 3>$null 4>$null 5>$null 6>$null
-        $git=(Get-Command git -CommandType Application).Source
+        $git=Get-LifecycleApplicationPath 'git'
         $head=Invoke-BoundedLifecycleOperation 'SourceHead' $git @('-C',$repo,'rev-parse','HEAD')
-        $commit=(Get-Content -LiteralPath $head.Log -Raw).Trim()
+        $commit=Read-LifecycleExactSha (Get-Content -LiteralPath $head.Log -Raw)
         if($head.Exit -cne '0' -or $commit -cnotmatch '^[0-9a-f]{40}$' -or $commit -cne $env:GITHUB_SHA){throw 'Invalid source'};$summary.SourceCommit=$commit
+        $parent=Invoke-BoundedLifecycleOperation 'SourceParent' $git @('-C',$repo,'rev-list','--parents','-n','1','HEAD')
+        if($parent.Exit -cne '0' -or -not (Test-LifecycleSingleParent (Get-Content -LiteralPath $parent.Log -Raw) $summary.SourceCommit $summary.ReviewedParent)){$summary.Reason='ReviewedParentMismatch';throw 'Invalid parent'};$summary.ParentVerified=$true
+        $ancestry=Invoke-BoundedLifecycleOperation 'SourceAncestry' $git @('-C',$repo,'merge-base','--is-ancestor',$locked,'HEAD')
+        if($ancestry.Exit -cne '0'){$summary.Reason='LockedAncestorUnavailable';throw 'Invalid ancestry'};$summary.AncestorVerified=$true
+        $lockedTree=Invoke-BoundedLifecycleOperation 'SourceLockedTree' $git @('-C',$repo,'rev-parse',($locked+'^{tree}'))
+        if($lockedTree.Exit -cne '0' -or (Read-LifecycleExactSha (Get-Content -LiteralPath $lockedTree.Log -Raw)) -cne $summary.LockedTree){$summary.Reason='LockedTreeMismatch';throw 'Invalid locked tree'};$summary.LockedTreeVerified=$true
         $state=Invoke-BoundedLifecycleOperation 'SourceStatus' $git @('-C',$repo,'status','--porcelain','--untracked-files=no')
         if($state.Exit -cne '0' -or (Get-Item -LiteralPath $state.Log).Length -ne 0){throw 'Invalid source'}
         # Exact locked source subtrees and shared inputs remain unchanged, despite the workflow commit.
-        $compare=Invoke-BoundedLifecycleOperation 'SourceCompare' $git @('-C',$repo,'diff','--quiet',$locked,'HEAD','--','tools/KuaiYi.ReuseLifecycle','tools/KuaiYi.ReuseLifecycleNative','tools/KuaiYi.SelectionReuseDiagnostic/ExclusiveKillJob.cs','tools/KuaiYi.SelectionReuseNative/RequestLifetime.h','src/KuaiYi.Windows/app.manifest','global.json','Directory.Build.props','Directory.Build.targets')
+        $compare=Invoke-BoundedLifecycleOperation 'SourceCompare' $git (@('-C',$repo,'diff','--quiet',$locked,'HEAD','--')+(Get-LifecycleRuntimePaths))
         if($compare.Exit -cne '0') {throw 'Source changed'};$summary.SourceEquivalent=$true
-        $cmake=(Get-Command cmake -CommandType Application).Source;$dotnet=(Get-Command dotnet -CommandType Application).Source
+        $cmake=Get-LifecycleApplicationPath 'cmake';$dotnet=Get-LifecycleApplicationPath 'dotnet'
         $version=Invoke-BoundedLifecycleOperation 'CMakeVersion' $cmake @('--version')
         $line=Get-Content -LiteralPath $version.Log -TotalCount 1
         if($version.Exit -cne '0' -or $line -cnotmatch '^cmake version (\d+\.\d+\.\d+)$' -or [version]$Matches[1] -lt [version]'3.28.0'){throw 'Missing prerequisite'}
