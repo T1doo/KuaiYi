@@ -707,3 +707,13 @@ WPF布局/像素释放/阅读/选择/实际截图、COM/broker/所有权和取�
 最终Provider1014/1014=父923完整+新91（55解析/目标、34生产链路、2图片文案），App最终0W/E。真实Coordinator三版本/Stop/Clear/迟到门执行，仅本机确认/launcher及原生数据端口替换，不打开真实外部网址。r01定向186/188的两失败为新测试误将Capture/Settings暂停当取消已有请求，保原件并按原Gate契约修新额外断言；r02 219/219、r03 1007/1007及两次App成功均保全。独审无阻断，补确认中稳定尾段/换单元格、空userinfo与数字IPv4策略；10份新原始log/TRX精确-text、父81原件不变。详见[实现与失败边界](validation/overlay-explicit-links.md)及[固定证据](test-evidence/2026-10-15-overlay-explicit-links.json)。
 
 WPF真实路由/测量/选择/阅读位置/确认框/浏览器启动、截图/COM/所有权与取消时限及完整P2/P6/11.5仍NotRun，无外围工具/Windows CI/CMake实验。250/600ms和全部安全门、生产离线Off保持；旧覆盖字节/证书Unknown不读改，所有dotnet显式false、Actions不查询/绕拒绝、CIUnknown；无main/强推/部署/依赖费用凭据权限协议或真实模型。
+
+### 2026-10-15 P6-04/05独立离线截图分类与生成编排
+
+从父97a17e7f4f3f201a15471936881681a26f73f4d9核实际文件/clean/单worktree/唯一写入者/默认远端及祖先，建dev/screenshot-image-routing。先读SPEC16依赖/退出门、7章及原双协议/截图合同；Linux无DISPLAY/WAYLAND/WindowsDesktop，P2/P4原生验收不可执行，B06/B07/B12、真实Alpha与图像质量继续NotRun。不造新验收工具/CI、不绕隔离；依AGENTS及SPEC16.11/18.1仅推进不依赖实机/凭据的离线切片。
+
+新增严格有限ImageClassification、路由/模式覆盖及OfflineScreenshotCoordinator：只接现有截图owner，构造必须固定合成loopback边界、AuthNone/TEST_ONLY_FIXTURE、明确Supported视觉能力；Adopt不发送，仅On+显式用户动作启动两阶段。JSON须协议完整终态后严格验证，不入正文；本次用户要求非法/不完整fail-closed，直接停止而不按旧SPEC非法降级继续外发，合法uncertain才带提示解释。无可靠OCR的纯文字也带图按所选style翻译，混合/视觉阶段携同一图；复用原PNG编码与双协议序列化、共享单调总预算，原crop超过2560/4MiB/profile限制即拒绝，无UI缩略图替代/新规范化。会话模式与三版再生成/显式重判、source/version/epoch/binding及取消清除锁屏退出迟到门执行；正常Shell/截图/菜单没有接发送，生产离线复用Off及阶段门保持。
+
+最终Provider1118/1118=父1014完整+新104（55分类/路由、45编排、4导出所有权），App两次0W/E。实际生产组件和原Provider/Kestrel双协议流式/非流式、同图MIME/base64、缺终止、排队A/B及clear/Stop/cleanup执行。独审找到Gate先安装新id再取消旧CTS抛错导致新Job无归属：r04实际2通过/1失败，原源码/测试和原回执保全；组件捕获后只结算实际out新id并保原错/清理错，Core不改。r01 100/100、r02 1107/1107、r05 115/115、r06最终通过及r03/r07App均保全。12 SDK原log/TRX+2红版源码精确-text，父91原回执不变。详见[阶段与实现边界](validation/screenshot-image-routing.md)和[固定证据](test-evidence/2026-10-15-screenshot-image-routing.json)。
+
+P6-04/05仅InProgress、整体验证NotRun；真实截图/多格式规范化/OCR、视觉语义/质量、WPF测量选择阅读焦点、COM所有权/时限及完整P2/P4/P6仍未验，不能宣称图像Beta或生产通过。250/600ms及全部来源/密码/完整性/取消/清理门保持；无新依赖、模型、费用凭据权限协议、Windows/CMake实验/main/强推/部署。每次dotnet显式false，证书存储信任/旧覆盖字节Unknown不读改/重造，Actions不查询/绕拒绝、远端CIUnknown。

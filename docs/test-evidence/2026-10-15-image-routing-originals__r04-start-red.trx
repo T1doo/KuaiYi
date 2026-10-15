@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="68e942da-6170-4e59-8f1c-93e65888a93a" name="@68e6e3cca8ba 2026-10-15 23:38:07" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-15T23:38:07.0841278+00:00" queuing="2026-10-15T23:38:07.0841279+00:00" start="2026-10-15T23:38:05.9892667+00:00" finish="2026-10-15T23:38:07.0903485+00:00" />
+  <TestSettings name="default" id="575e003d-5927-49aa-bc10-e13d69e19490">
+    <Deployment runDeploymentRoot="_68e6e3cca8ba_2026-10-15_23_38_07" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="beebb067-2478-494b-82b6-cf2a1def6549" testId="c3094a29-a247-d6e0-dcf3-55345e22553c" testName="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.CompleteClassificationJsonWithoutProtocolTerminalCannotAuthorizeFinalGeneration(protocol: AnthropicMessages)" computerName="68e6e3cca8ba" duration="00:00:00.0393212" startTime="2026-10-15T23:38:06.9225236+00:00" endTime="2026-10-15T23:38:06.9527615+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="beebb067-2478-494b-82b6-cf2a1def6549" />
+    <UnitTestResult executionId="bfdb4dc8-8ddb-4a17-91bc-db4a1d397ae5" testId="e874783f-5dae-343f-bda9-a2b8ea4ba28a" testName="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.CompleteClassificationJsonWithoutProtocolTerminalCannotAuthorizeFinalGeneration(protocol: OpenAIChat)" computerName="68e6e3cca8ba" duration="00:00:00.2497985" startTime="2026-10-15T23:38:06.6567502+00:00" endTime="2026-10-15T23:38:06.9125517+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bfdb4dc8-8ddb-4a17-91bc-db4a1d397ae5" />
+    <UnitTestResult executionId="1f3d2bb9-e3b5-4481-a8be-f69e32caaca5" testId="e88e4173-ec39-5489-ac46-255aea72716b" testName="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.ThrowingOldCancellationCannotLeaveAnUnownedNewRequestAcrossClearOrDispose" computerName="68e6e3cca8ba" duration="00:00:00.0348902" startTime="2026-10-15T23:38:06.9541288+00:00" endTime="2026-10-15T23:38:06.9920310+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1f3d2bb9-e3b5-4481-a8be-f69e32caaca5">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.ThrowingOldCancellationCannotLeaveAnUnownedNewRequestAcrossClearOrDispose() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 132
+   at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.ThrowingOldCancellationCannotLeaveAnUnownedNewRequestAcrossClearOrDispose() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 135
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.ThrowingOldCancellationCannotLeaveAnUnownedNewRequestAcrossClearOrDispose" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="e88e4173-ec39-5489-ac46-255aea72716b">
+      <Execution id="1f3d2bb9-e3b5-4481-a8be-f69e32caaca5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests" name="ThrowingOldCancellationCannotLeaveAnUnownedNewRequestAcrossClearOrDispose" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.CompleteClassificationJsonWithoutProtocolTerminalCannotAuthorizeFinalGeneration(protocol: AnthropicMessages)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="c3094a29-a247-d6e0-dcf3-55345e22553c">
+      <Execution id="beebb067-2478-494b-82b6-cf2a1def6549" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests" name="CompleteClassificationJsonWithoutProtocolTerminalCannotAuthorizeFinalGeneration" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.CompleteClassificationJsonWithoutProtocolTerminalCannotAuthorizeFinalGeneration(protocol: OpenAIChat)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="e874783f-5dae-343f-bda9-a2b8ea4ba28a">
+      <Execution id="bfdb4dc8-8ddb-4a17-91bc-db4a1d397ae5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests" name="CompleteClassificationJsonWithoutProtocolTerminalCannotAuthorizeFinalGeneration" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="c3094a29-a247-d6e0-dcf3-55345e22553c" executionId="beebb067-2478-494b-82b6-cf2a1def6549" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e874783f-5dae-343f-bda9-a2b8ea4ba28a" executionId="bfdb4dc8-8ddb-4a17-91bc-db4a1d397ae5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e88e4173-ec39-5489-ac46-255aea72716b" executionId="1f3d2bb9-e3b5-4481-a8be-f69e32caaca5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="3" executed="3" passed="2" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.11]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.31]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.34]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.69]       Assert.False() Failure
+[xUnit.net 00:00:00.69]       Expected: False
+[xUnit.net 00:00:00.69]       Actual:   True
+[xUnit.net 00:00:00.70]       Stack Trace:
+[xUnit.net 00:00:00.70]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs(132,0): at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.ThrowingOldCancellationCannotLeaveAnUnownedNewRequestAcrossClearOrDispose()
+[xUnit.net 00:00:00.70]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs(135,0): at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.ThrowingOldCancellationCannotLeaveAnUnownedNewRequestAcrossClearOrDispose()
+[xUnit.net 00:00:00.70]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.70]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-15T23:38:06.9950468+00:00">
+        <Text>[xUnit.net 00:00:00.69]     KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.ThrowingOldCancellationCannotLeaveAnUnownedNewRequestAcrossClearOrDispose [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

@@ -1134,9 +1134,13 @@
         "实现两种协议的图片输入、严格分类 JSON 与路由",
         "纯文字/混合/不确定路径测试"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/validation/screenshot-image-routing.md",
+        "docs/test-evidence/2026-10-15-screenshot-image-routing.json"
+      ],
+      "note": "Independent offline screenshot-only functional slice: strict complete classification, same-image two-protocol fixture dispatch, current-image mode and cached-classification regeneration/three versions.1118 Provider cases preserve1014 baseline+104 new; native P2/P4/P6 and visual quality NotRun. Immutable loopback/AuthNone fixture authority only; normal Shell screenshot sending remains closed. User explicitly requires invalid/incomplete classification fail-closed, no second request; valid uncertain may explain. Full task/stage not passed."
     },
     {
       "id": "P6-05",
@@ -1146,9 +1150,13 @@
         "实现图文解释、位置说明、当前条模式覆盖与图像重新生成",
         "提示词及视觉质量评估材料"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/validation/screenshot-image-routing.md",
+        "docs/test-evidence/2026-10-15-screenshot-image-routing.json"
+      ],
+      "note": "Independent offline screenshot-only functional slice: strict complete classification, same-image two-protocol fixture dispatch, current-image mode and cached-classification regeneration/three versions.1118 Provider cases preserve1014 baseline+104 new; native P2/P4/P6 and visual quality NotRun. Immutable loopback/AuthNone fixture authority only; normal Shell screenshot sending remains closed. User explicitly requires invalid/incomplete classification fail-closed, no second request; valid uncertain may explain. Full task/stage not passed."
     },
     {
       "id": "P6-06",

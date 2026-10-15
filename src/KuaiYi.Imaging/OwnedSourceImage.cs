@@ -41,4 +41,23 @@ public sealed class OwnedSourceImage:IDisposable
         }
     }
     public void Dispose(){lock(sync){pixels?.Dispose();pixels=null;}}
+    /// <summary>Exact screenshot crop only; no preview reuse, resizing or file decoding. Oversize requires a smaller crop.
+    /// Caller owns the PNG. A bounded pixel copy lets Clear release the original during background encoding.</summary>
+    public ScreenshotPng CreateRequestPng(int byteLimit,CancellationToken cancellation=default)
+    {
+        if(byteLimit is <65536 or >4194304)throw new ArgumentOutOfRangeException(nameof(byteLimit));
+        ScreenshotPixels copy;
+        lock(sync)
+        {
+            if(pixels==null)throw new ObjectDisposedException(nameof(OwnedSourceImage));cancellation.ThrowIfCancellationRequested();
+            if(Width>2560||Height>2560)throw new InvalidOperationException("SMALLER_SCREENSHOT_REQUIRED");
+            copy=new(new PixelRect(0,0,Width,Height),pixels.Bytes.ToArray());
+        }
+        using(copy)
+        {
+            var png=ScreenshotPngEncoder.Encode(copy,cancellation);
+            if(png.Bytes.Length<=byteLimit)return png;
+            png.Dispose();throw new InvalidOperationException("SMALLER_SCREENSHOT_REQUIRED");
+        }
+    }
 }

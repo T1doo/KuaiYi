@@ -1,0 +1,144 @@
+using System.Collections.Concurrent;
+using System.Text.Json;
+using KuaiYi.App;
+using KuaiYi.Core;
+using KuaiYi.Core.Settings;
+using KuaiYi.Imaging;
+using KuaiYi.Providers;
+using Xunit;
+using Protocol=KuaiYi.Providers.ApiProtocol;
+namespace KuaiYi.Provider.Tests;
+
+public sealed class OfflineScreenshotRoutingTests
+{
+    private sealed class Immediate:SynchronizationContext {public override void Post(SendOrPostCallback action,object? state)=>action(state);}
+    private sealed class Deferred:SynchronizationContext
+    {
+        private readonly ConcurrentQueue<Action> callbacks=new();public int Pending=>callbacks.Count;
+        public override void Post(SendOrPostCallback action,object? state)=>callbacks.Enqueue(()=>action(state));
+        public void Drain(){while(callbacks.TryDequeue(out var action))action();}
+    }
+    private sealed class Rig:IAsyncDisposable
+    {
+        public readonly PhaseHttpFixture Server=new();public PhaseHttpFixture.Script Script=null!;
+        public readonly RuntimeGate Gate=new(requireProfileBinding:true);
+        public SettingsSnapshot Settings=null!;public OfflineScreenshotCoordinator Flow=null!;
+        public readonly List<ScreenshotGenerationUpdate> Events=[];public Action<ScreenshotGenerationUpdate>? OnUpdate;
+        public OwnedSourceImage Image=null!;public byte[] Raw=[];public Guid SourceVersion;public bool Current=true;
+        public Protocol Protocol;public bool Streaming;
+        public static async Task<Rig> Create(Protocol protocol,bool on=true,bool stream=false,SynchronizationContext? destination=null)
+        {
+            var r=new Rig{Protocol=protocol,Streaming=stream};await r.Server.InitializeAsync();r.Script=r.Server.Add("runs",stream?"text/event-stream":"application/json");
+            var prefix=new Uri(r.Server.BaseUri,$"runs/{Guid.NewGuid():N}/fragmented/");var boundary=DevelopmentTranslationBoundary.FromPrefix(prefix);
+            r.Settings=new(new(){ActiveProfileId="image-fixture",Profiles=[new(){Id="image-fixture",Protocol=protocol==Protocol.OpenAIChat?KuaiYi.Core.Settings.ApiProtocol.OpenAIChat:KuaiYi.Core.Settings.ApiProtocol.AnthropicMessages,BaseUrl=prefix.AbsoluteUri,Model=DevelopmentTranslationBoundary.FixtureModel,Authentication=ApiAuthentication.None,Streaming=stream,Capabilities=new(){Vision=Capability.Supported},TimeoutSeconds=20}],Translation=new(){Preset=TranslationPreset.Professional}},"image-synthetic",SettingsLoadState.Current);
+            r.Gate.ObserveSettingsMetadata(r.Settings);r.Gate.ConsentTo(new(prefix));if(on)Assert.True(r.Gate.TryEnable(new(prefix),true));
+            r.Flow=new(r.Gate,()=>r.Settings,(version,id)=>r.Current&&version==r.SourceVersion&&id==r.Image.SourceId,boundary,destination??new Immediate(),update=>{lock(r.Events)r.Events.Add(update);r.OnUpdate?.Invoke(update);});r.Adopt();return r;
+        }
+        public void Adopt(int width=8,int height=8)
+        {Raw=Enumerable.Range(0,width*height*4).Select(i=>(byte)(i%4==3?255:i%251+1)).ToArray();Image=new(new ScreenshotPixels(new(0,0,width,height),Raw));SourceVersion=Guid.NewGuid();Flow.AdoptScreenshot(SourceVersion,Image);}
+        public async Task Requests(int count)
+        {using var limit=new CancellationTokenSource(TimeSpan.FromSeconds(6));while(Volatile.Read(ref Script.Requests)<count)await Task.Delay(5,limit.Token);}
+        public async Task Reply(string text,string finish="stop")
+        {
+            if(!Streaming)
+            {
+                string json=Protocol==Protocol.OpenAIChat?JsonSerializer.Serialize(new{choices=new[]{new{index=0,message=new{content=text},finish_reason=finish}},usage=new{prompt_tokens=11,completion_tokens=7}}):JsonSerializer.Serialize(new{type="message",content=new[]{new{type="text",text}},stop_reason=finish=="stop"?"end_turn":finish,usage=new{input_tokens=11,output_tokens=7}});
+                await Script.Write(json,true);return;
+            }
+            if(Protocol==Protocol.AnthropicMessages)await Script.Write("data: {\"type\":\"message_start\",\"message\":{\"usage\":{\"input_tokens\":11,\"output_tokens\":0}}}\n\ndata: {\"type\":\"content_block_start\",\"index\":0,\"content_block\":{\"type\":\"text\",\"text\":\"\"}}\n\n");
+            foreach(string part in new[]{text[..(text.Length/3)],text[(text.Length/3)..(2*text.Length/3)],text[(2*text.Length/3)..]})
+            {
+                string json=Protocol==Protocol.OpenAIChat?JsonSerializer.Serialize(new{choices=new[]{new{index=0,delta=new{content=part}}}}):JsonSerializer.Serialize(new{type="content_block_delta",index=0,delta=new{type="text_delta",text=part}});await Script.Write("data: "+json+"\n\n");
+            }
+            if(Protocol==Protocol.OpenAIChat)await Script.Write("data: {\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"stop\"}]}\n\ndata: [DONE]\n\n",true);
+            else await Script.Write("data: {\"type\":\"content_block_stop\",\"index\":0}\n\ndata: {\"type\":\"message_delta\",\"delta\":{\"stop_reason\":\"end_turn\"},\"usage\":{\"output_tokens\":7}}\n\ndata: {\"type\":\"message_stop\"}\n\n",true);
+        }
+        public async Task Generate(string kind="text_only",string final="公开合成视觉输出",bool regenerate=false,bool reclassify=false)
+        {
+            int count=Script.Requests;bool classified=regenerate&&!reclassify&&Flow.SelectedSnapshot?.Classification!=null;
+            Assert.True(Flow.TryStart(true,regenerate,reclassify));await Requests(count+1);
+            if(!classified){await Reply(ImageClassificationTests.Json(kind));await Requests(count+2);}await Reply(final);await Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal(final,Flow.Results.Text);
+        }
+        public async ValueTask DisposeAsync(){try{await Flow.DisposeAsync();}finally{await Server.DisposeAsync();}}
+    }
+    private static (string System,string User,byte[] Image) Body(Protocol protocol,string body)
+    {
+        using var document=JsonDocument.Parse(body);var root=document.RootElement;var content=root.GetProperty("messages")[protocol==Protocol.OpenAIChat?1:0].GetProperty("content");
+        Assert.Equal(DevelopmentTranslationBoundary.FixtureModel,root.GetProperty("model").GetString());
+        string system=protocol==Protocol.OpenAIChat?root.GetProperty("messages")[0].GetProperty("content").GetString()!:root.GetProperty("system").GetString()!;
+        if(protocol==Protocol.OpenAIChat){Assert.Equal("text",content[0].GetProperty("type").GetString());string data=content[1].GetProperty("image_url").GetProperty("url").GetString()!;Assert.StartsWith("data:image/png;base64,",data);return(system,content[0].GetProperty("text").GetString()!,Convert.FromBase64String(data[22..]));}
+        Assert.Equal("image/png",content[0].GetProperty("source").GetProperty("media_type").GetString());Assert.Equal("base64",content[0].GetProperty("source").GetProperty("type").GetString());return(system,content[1].GetProperty("text").GetString()!,Convert.FromBase64String(content[0].GetProperty("source").GetProperty("data").GetString()!));
+    }
+    [Theory][InlineData(Protocol.OpenAIChat,false)][InlineData(Protocol.AnthropicMessages,false)][InlineData(Protocol.OpenAIChat,true)][InlineData(Protocol.AnthropicMessages,true)]
+    public async Task ActualTwoProtocolImagesClassifyPrivatelyThenGenerateWithTheSameExactCrop(Protocol protocol,bool stream)
+    {
+        await using var r=await Rig.Create(protocol,stream:stream);await r.Generate("diagram_or_mixed");var bodies=r.Script.Bodies.ToArray();Assert.Equal(2,bodies.Length);var classify=Body(protocol,bodies[0]);var final=Body(protocol,bodies[1]);
+        Assert.Contains(PromptBuilder.Read("image-classify"),classify.System);Assert.Contains(PromptBuilder.Read("image-explain"),final.System);Assert.Equal(classify.Image,final.Image);Assert.Equal(new ImageSize(8,8),ImagePolicy.InspectPng(final.Image));
+        Assert.Equal(TranslationPreset.Explain,r.Flow.SelectedSnapshot!.Plan!.Preset);Assert.Equal(TranslationPreset.Professional,r.Settings.Data.Translation.Preset);Assert.DoesNotContain(r.Events,e=>e.Kind==ScreenshotGenerationEvent.Delta&&e.Text!.Contains("hasMeaningfulVisualStructure"));Assert.Equal(r.Image.SourceId,r.Flow.SelectedSnapshot.SourceId);Assert.Equal(r.SourceVersion,r.Flow.SelectedSnapshot.SourceVersion);
+    }
+    [Theory][InlineData("text_only",ImageOutputMode.TranslateText)][InlineData("visual_only",ImageOutputMode.ExplainImage)][InlineData("uncertain",ImageOutputMode.ExplainImage)]
+    public async Task TextWithoutOcrStillUsesImageAndUncertainIsAnExplicitValidRoute(string kind,ImageOutputMode expected)
+    {await using var r=await Rig.Create(Protocol.OpenAIChat);await r.Generate(kind);var plan=r.Flow.SelectedSnapshot!.Plan!;Assert.Equal(expected,plan.Mode);Assert.NotEmpty(Body(r.Protocol,r.Script.Bodies.Last()).Image);if(kind=="uncertain")Assert.Equal("图像结构判断不确定",plan.Notice);if(kind=="visual_only")Assert.Equal("未发现足够可翻译文字",plan.Notice);}
+    [Theory][InlineData("{}","stop","CLASSIFICATION_INVALID")][InlineData("{\"kind\":","stop","CLASSIFICATION_INVALID")][InlineData("valid","length","OUTPUT_TRUNCATED")][InlineData("oversize","stop","CLASSIFICATION_TOO_LARGE")][InlineData("unreadable","stop","CLEARER_IMAGE_REQUIRED")]
+    public async Task InvalidIncompleteOrUnreadableClassificationNeverSendsSecondRequest(string source,string finish,string expected)
+    {
+        await using var r=await Rig.Create(Protocol.OpenAIChat);Assert.True(r.Flow.TryStart(true));await r.Requests(1);string text=source switch{"valid"=>ImageClassificationTests.Json(),"oversize"=>new string('x',8193),"unreadable"=>ImageClassificationTests.Json(readability:"unreadable"),_=>source};await r.Reply(text,finish);await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal(1,r.Script.Requests);Assert.Empty(r.Flow.Results.Text);Assert.Equal(expected,Assert.Single(r.Events,e=>e.Kind==ScreenshotGenerationEvent.Failed).Reason);Assert.DoesNotContain(r.Events,e=>e.Kind==ScreenshotGenerationEvent.Generating);Assert.False(r.Gate.HasRunningGeneration);
+    }
+    [Theory][InlineData("off")][InlineData("automatic")][InlineData("unknown-vision")][InlineData("unsupported-vision")][InlineData("remote")][InlineData("credential")][InlineData("source")][InlineData("suspended")][InlineData("hidden")]
+    public async Task AdoptionNeverSendsAndStartRequiresExplicitOnSourceVisionAndImmutableFixtureAuthority(string condition)
+    {
+        await using var r=await Rig.Create(Protocol.OpenAIChat,on:condition!="off");
+        if(condition is "unknown-vision" or "unsupported-vision" or "remote" or "credential")
+        {var p=r.Settings.Data.Profiles[0];p=condition switch{"unknown-vision"=>p with{Capabilities=new(){Vision=Capability.Unknown}},"unsupported-vision"=>p with{Capabilities=new(){Vision=Capability.Unsupported}},"remote"=>p with{BaseUrl="https://public.invalid/"},_=>p with{Authentication=ApiAuthentication.Bearer,SecretRef="synthetic-reference"}};r.Settings=r.Settings with{Data=r.Settings.Data with{Profiles=[p]}};r.Gate.ObserveSettingsMetadata(r.Settings);}
+        if(condition=="source")r.Current=false;if(condition=="suspended")r.Gate.SetSuspension(Suspension.Settings,true);if(condition=="hidden")r.Gate.Disable(hide:true);
+        Assert.Empty(r.Script.Bodies);Assert.False(r.Flow.TryStart(condition!="automatic"));Assert.Equal(0,r.Script.Requests);Assert.Empty(r.Events);
+    }
+    [Fact]public async Task SessionOverrideAndRegenerationReuseClassificationAndRetainOnlyThreeVersions()
+    {
+        await using var r=await Rig.Create(Protocol.AnthropicMessages);await r.Generate("diagram_or_mixed",final:"version1");var classification=r.Flow.SelectedSnapshot!.Classification;
+        Assert.True(r.Flow.SetMode(ImageOutputMode.TranslateText));await r.Generate(final:"version2",regenerate:true);Assert.Same(classification,r.Flow.SelectedSnapshot!.Classification);Assert.Equal(ImageOutputMode.TranslateText,r.Flow.SelectedSnapshot.Plan!.Mode);Assert.Equal(3,r.Script.Requests);
+        await r.Generate(final:"version3",regenerate:true);await r.Generate(final:"version4",regenerate:true);Assert.Equal(3,r.Flow.Results.Versions.Count);Assert.Equal(new[]{2,3,4},r.Flow.Results.Versions.Select(v=>v.Number));Assert.Equal(5,r.Script.Requests);
+        Assert.True(r.Flow.Results.SelectVersion(r.Flow.Results.Versions[0].Identity.VersionId));Assert.Equal("version2",r.Flow.Results.Text);await r.Generate("text_only","version5",regenerate:true,reclassify:true);Assert.Equal(7,r.Script.Requests);Assert.NotSame(classification,r.Flow.SelectedSnapshot!.Classification);
+        var old=r.Raw;r.Adopt();Assert.All(old,b=>Assert.Equal(0,b));Assert.Equal(ImageOutputMode.Automatic,r.Flow.Mode);Assert.Empty(r.Flow.Results.Versions);Assert.Equal(TranslationPreset.Professional,r.Settings.Data.Translation.Preset);
+    }
+    [Theory][InlineData("stop")][InlineData("clear")][InlineData("lock")][InlineData("hide")][InlineData("replace")][InlineData("source")][InlineData("off")][InlineData("settings")][InlineData("binding")]
+    public async Task ClassifierToFinalBoundaryRejectsCancelledChangedOrUnownedSource(string action)
+    {
+        await using var r=await Rig.Create(Protocol.OpenAIChat);var raw=r.Raw;r.OnUpdate=u=>
+        {
+            if(u.Kind!=ScreenshotGenerationEvent.Generating)return;
+            switch(action){case "stop":r.Flow.Stop();break;case "clear":r.Flow.Clear();break;case "lock":r.Flow.LockSession();break;case "hide":r.Flow.Hide();break;case "replace":r.Adopt();break;case "source":r.Current=false;break;case "off":r.Gate.Disable();break;case "settings":r.Gate.SetSuspension(Suspension.Settings,true);break;case "binding":r.Settings=r.Settings with{Data=r.Settings.Data with{Profiles=[]}};r.Gate.ObserveSettingsMetadata(r.Settings);break;}
+        };
+        Assert.True(r.Flow.TryStart(true));await r.Requests(1);await r.Reply(ImageClassificationTests.Json());await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal(1,r.Script.Requests);Assert.DoesNotContain(r.Events,e=>e.Kind==ScreenshotGenerationEvent.Delta);Assert.False(r.Gate.HasRunningGeneration);if(action is "clear" or "lock" or "hide" or "replace")Assert.All(raw,b=>Assert.Equal(0,b));
+    }
+    [Fact]public async Task QueuedClassifierFromAAfterReplacementCannotCreateBOrAFinalRequest()
+    {
+        var destination=new Deferred();await using var r=await Rig.Create(Protocol.OpenAIChat,destination:destination);Assert.True(r.Flow.TryStart(true));
+        using var limit=new CancellationTokenSource(TimeSpan.FromSeconds(6));while(destination.Pending==0)await Task.Delay(5,limit.Token);destination.Drain();await r.Requests(1);await r.Reply(ImageClassificationTests.Json("diagram_or_mixed"));while(destination.Pending==0)await Task.Delay(5,limit.Token);
+        var oldRaw=r.Raw;Task old=r.Flow.Running;r.Adopt();destination.Drain();await old.WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal(1,r.Script.Requests);Assert.Empty(r.Flow.Results.Versions);Assert.DoesNotContain(r.Events,e=>e.Kind==ScreenshotGenerationEvent.Generating);Assert.All(oldRaw,b=>Assert.Equal(0,b));
+    }
+    [Fact]public async Task ExitDuringClassificationClearsOwnerAndWaitsOnlyForOwnedWork()
+    {
+        var r=await Rig.Create(Protocol.AnthropicMessages);Assert.True(r.Flow.TryStart(true));await r.Requests(1);await r.Flow.DisposeAsync();Assert.All(r.Raw,b=>Assert.Equal(0,b));Assert.True(r.Flow.Running.IsCompleted);Assert.Empty(r.Flow.Results.Versions);Assert.False(r.Flow.TryStart(true));await r.Server.DisposeAsync();
+    }
+    [Fact]public async Task OversizeScreenshotRequiresSmallerCropBeforeAnyHttpInsteadOfSendingPreview()
+    {await using var r=await Rig.Create(Protocol.OpenAIChat);r.Adopt(2561,8);Assert.True(r.Flow.TryStart(true));await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal(0,r.Script.Requests);Assert.Equal(ScreenshotGenerationEvent.Failed,Assert.Single(r.Events).Kind);Assert.False(r.Image.IsDisposed);}
+    [Fact]public async Task ThrowingOldCancellationCannotLeaveAnUnownedNewRequestAcrossClearOrDispose()
+    {
+        await using var r=await Rig.Create(Protocol.OpenAIChat);Assert.True(r.Flow.TryStart(true));await r.Requests(1);var old=r.Flow.Results.Identity!.Value;
+        Assert.True(r.Gate.TryLinkRequestCancellation(old,default,out var linked));using var lifetime=linked!;using var callback=lifetime.Token.Register(()=>throw new IOException("Synthetic old cancellation failure"));
+        try
+        {
+            var failure=Assert.ThrowsAny<Exception>(()=>r.Flow.TryStart(true));Assert.Contains("Synthetic old cancellation failure",failure.ToString());Assert.False(r.Gate.HasRunningGeneration);
+            await r.Flow.ClearAsync();Assert.False(r.Gate.HasRunningGeneration);Assert.All(r.Raw,b=>Assert.Equal(0,b));Assert.Equal(1,r.Script.Requests);Assert.Empty(r.Flow.Results.Versions);
+        }
+        finally{r.Gate.Disable();} // Only this fixture's known gate; never an external process or lock.
+    }
+    [Theory][InlineData(Protocol.OpenAIChat)][InlineData(Protocol.AnthropicMessages)]
+    public async Task CompleteClassificationJsonWithoutProtocolTerminalCannotAuthorizeFinalGeneration(Protocol protocol)
+    {
+        await using var r=await Rig.Create(protocol,stream:true);Assert.True(r.Flow.TryStart(true));await r.Requests(1);string classification=ImageClassificationTests.Json();string text=JsonSerializer.Serialize(classification);
+        string events=protocol==Protocol.OpenAIChat?"data: {\"choices\":[{\"index\":0,\"delta\":{\"content\":"+text+"}}]}\n\n":"data: {\"type\":\"message_start\",\"message\":{\"usage\":{\"input_tokens\":11}}}\n\ndata: {\"type\":\"content_block_start\",\"index\":0,\"content_block\":{\"type\":\"text\",\"text\":\"\"}}\n\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":"+text+"}}\n\ndata: {\"type\":\"content_block_stop\",\"index\":0}\n\ndata: {\"type\":\"message_delta\",\"delta\":{\"stop_reason\":\"end_turn\"}}\n\n";
+        await r.Script.Write(events,true);await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal(1,r.Script.Requests);Assert.DoesNotContain(r.Events,e=>e.Kind==ScreenshotGenerationEvent.Generating);Assert.Empty(r.Flow.Results.Text);Assert.Null(r.Flow.SelectedSnapshot!.Classification);Assert.Equal("STREAM_INTERRUPTED",Assert.Single(r.Events,e=>e.Kind==ScreenshotGenerationEvent.Failed).Reason);
+    }
+}

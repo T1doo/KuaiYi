@@ -19,6 +19,7 @@ public sealed class PhaseHttpFixture:IAsyncLifetime
         internal Channel<(byte[] Bytes,bool End,TaskCompletionSource Ack)> Chunks=Channel.CreateUnbounded<(byte[],bool,TaskCompletionSource)>(new(){SingleReader=true});
         public TaskCompletionSource Received=new(TaskCreationOptions.RunContinuationsAsynchronously),AllowHeaders=new(TaskCreationOptions.RunContinuationsAsynchronously),HeadersSent=new(TaskCreationOptions.RunContinuationsAsynchronously);
         public string Mime="text/event-stream",Body="";public int Requests;
+        public ConcurrentQueue<string> Bodies {get;}=new();
         public async Task Write(string value,bool end=false)=>await Write(Encoding.UTF8.GetBytes(value),end);
         public async Task Write(byte[] value,bool end=false){var ack=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);await Chunks.Writer.WriteAsync((value,end,ack));await ack.Task.WaitAsync(TimeSpan.FromSeconds(6));}
     }
@@ -32,7 +33,7 @@ public sealed class PhaseHttpFixture:IAsyncLifetime
             if(!scripts.TryGetValue(run,out var script)){context.Response.StatusCode=404;return;}
             try
             {
-                using var reader=new StreamReader(context.Request.Body,new UTF8Encoding(false,true));script.Body=await reader.ReadToEndAsync(context.RequestAborted);Interlocked.Increment(ref script.Requests);script.Received.TrySetResult();await script.AllowHeaders.Task.WaitAsync(context.RequestAborted);context.Response.ContentType=script.Mime;await context.Response.StartAsync(context.RequestAborted);await context.Response.Body.FlushAsync(context.RequestAborted);script.HeadersSent.TrySetResult();
+                using var reader=new StreamReader(context.Request.Body,new UTF8Encoding(false,true));script.Body=await reader.ReadToEndAsync(context.RequestAborted);script.Bodies.Enqueue(script.Body);Interlocked.Increment(ref script.Requests);script.Received.TrySetResult();await script.AllowHeaders.Task.WaitAsync(context.RequestAborted);context.Response.ContentType=script.Mime;await context.Response.StartAsync(context.RequestAborted);await context.Response.Body.FlushAsync(context.RequestAborted);script.HeadersSent.TrySetResult();
                 await foreach(var chunk in script.Chunks.Reader.ReadAllAsync(context.RequestAborted))
                 {await context.Response.Body.WriteAsync(chunk.Bytes,context.RequestAborted);await context.Response.Body.FlushAsync(context.RequestAborted);chunk.Ack.TrySetResult();if(chunk.End)break;}
             }
