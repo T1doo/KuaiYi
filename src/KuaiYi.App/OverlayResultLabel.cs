@@ -11,6 +11,7 @@ internal sealed partial class ShellWindow
         resultLabel.ToolTip=snapshot==null?null:$"此版本快照 · {snapshot.FullTemplateVersion} · {new EndpointOrigin(snapshot.Transport.ResolveEndpoint()).Value}";
         var next=translation?.NextGeneration;if(styleTool!=null){styleTool.IsEnabled=next!=null;styleTool.Content=next?.Preset switch{TranslationPreset.Faithful=>"忠实",TranslationPreset.Plain=>"通俗",TranslationPreset.Professional=>"专业",TranslationPreset.Explain=>"解释",_=>"风格"};System.Windows.Automation.AutomationProperties.SetName(styleTool,next==null?"会话风格":$"下次生成风格：{StyleLabel(next.Preset)}");styleTool.ToolTip=next==null?"无保留会话":$"下次生成：版本 {next.VersionNumber} · {StyleLabel(next.Preset)}；不改变已有版本";}
         foreach(var tool in tools)if(Equals(tool.Content,"重新生成")){tool.IsEnabled=lifecycle.Gate.Snapshot.Activation==Activation.On&&snapshot!=null;tool.ToolTip=next==null?"无保留原文":$"重新生成：版本 {next.VersionNumber} · {StyleLabel(next.Preset)} · {next.Model}";}
+        foreach(var tool in tools)if(Equals(tool.Content,"查看原文"))tool.IsEnabled=CanReadOriginalSource()&&snapshot!=null;
     }
     private static string StyleLabel(TextTranslationSnapshot value)=>StyleLabel(value.Preset);
     private static string StyleLabel(TranslationPreset? preset)=>preset switch{TranslationPreset.Faithful=>"忠实翻译",TranslationPreset.Plain=>"通俗翻译",TranslationPreset.Professional=>"专业翻译",TranslationPreset.Explain=>"解释",_=>"公开探针"};

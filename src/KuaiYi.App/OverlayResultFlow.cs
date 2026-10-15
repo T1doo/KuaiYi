@@ -12,7 +12,7 @@ internal sealed partial class ShellWindow
         switch(value.Kind)
         {
             case OverlayResultEventKind.Begin:
-                if(!alreadyApplied&&!overlayResults.Begin(identity))return;resultRevision++;ResetBodyReaderFollow();dirty=true;peek=false;pendingReveal=false;awaitingText=true;progressRing.Visibility=Visibility.Visible;if(!gesture.Active)overlayFrames?.Collapse();StartFrames();waiting.Stop();waiting.Start();Dispatcher.BeginInvoke(()=>{if(!exiting)Refresh();});break;
+                if(!alreadyApplied&&!overlayResults.Begin(identity))return;ClearOriginalSource();resultRevision++;ResetBodyReaderFollow();dirty=true;peek=false;pendingReveal=false;awaitingText=true;progressRing.Visibility=Visibility.Visible;if(!gesture.Active)overlayFrames?.Collapse();StartFrames();waiting.Stop();waiting.Start();Dispatcher.BeginInvoke(()=>{if(!exiting)Refresh();});break;
             case OverlayResultEventKind.Delta:
                 if(!alreadyApplied&&!overlayResults.Append(identity,value.Text))return;dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();
                 if(overlayResults.TryAutoReveal(identity)&&(peek||overlayFrames?.IsExpanded!=true))pendingReveal=true;break;
@@ -21,7 +21,7 @@ internal sealed partial class ShellWindow
             case OverlayResultEventKind.Stopped:if(!alreadyApplied)overlayResults.MarkStopped();dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();break;
             default:throw new ArgumentOutOfRangeException(nameof(value));
         }
-        if(dirty&&!flush.IsEnabled)flush.Start();
+        ValidateOriginalSourceBinding();if(dirty&&!flush.IsEnabled)flush.Start();
     }
     private int MeasureBody(LayoutPlan plan)
     {
@@ -43,7 +43,7 @@ internal sealed partial class ShellWindow
         }
         ApplyOverlayFrame();
     }
-    private void CollapseResult(){InvalidateBodyScrollRestore();peek=false;pendingReveal=false;peekIn.Stop();peekOut.Stop();waiting.Stop();overlayResults.Collapse();overlayFrames?.Collapse();StartFrames();}
+    private void CollapseResult(){InvalidateBodyScrollRestore();ClearOriginalSource();peek=false;pendingReveal=false;peekIn.Stop();peekOut.Stop();waiting.Stop();overlayResults.Collapse();overlayFrames?.Collapse();StartFrames();}
     private void StopResult()
     {
         if(exiting||!lifecycle.Gate.HasRunningGeneration)return;

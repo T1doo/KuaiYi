@@ -32,7 +32,7 @@ namespace KuaiYi.App
         private readonly Button button=new();
         private readonly TextBlock resultLabel=new();
         private readonly Button? styleTool=new(){Content="风格"};
-        private readonly List<Button> tools=[new(){Content="重新生成"}];
+        private readonly List<Button> tools=[new(){Content="重新生成"},new(){Content="查看原文"}];
         private TextTranslationCoordinator? translation=null;
         private OverlayFrames? overlayFrames=null;
         private readonly OverlayPointerGesture gesture=new();
@@ -67,5 +67,10 @@ namespace KuaiYi.App
         internal void WithGeometry()
         {overlayFrames=new(new(100,100,148,148),new("synthetic",new(0,0,1920,1040),new(1)));MarkdownMeasurement.DesiredSize=new(388,320);}
         internal void OpenForTest()=>OpenBody();
+        private bool IsVisible=true;
+        private void ShowOverlay(){if(CanReadOriginalSource())IsVisible=true;}
+        internal void ShowSourceForTest()=>ShowSelectionSource();
+        internal void ClearSourceForTest()=>ClearOriginalSource();
+        internal bool OriginalSourceCommandEnabled=>tools.Single(t=>Equals(t.Content,"查看原文")).IsEnabled;
     }
 }

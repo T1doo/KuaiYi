@@ -16,17 +16,39 @@ internal sealed class MarkdownFlowView
     private readonly Action? observeReader;
     private readonly Func<Func<bool>>? captureReaderGuard;
     private readonly Func<bool>? shouldFollow;
+    private readonly Action? sourceChanged;
+    private readonly Func<Guid,bool>? canReadSource;
+    private MarkdownSourceRegion? sourceRegion;
+    private BlockUIContainer? sourceBlock;
+    private Guid? sourceVersion;
     private Guid? appliedVersion;
     private MarkdownViewport viewport=new(388,560);
     private double appliedFontSize=double.NaN;
     private static readonly FontFamily ProseFont=new("Segoe UI"),CodeFont=new("Consolas");
-    public MarkdownFlowView(RichTextBox host,Action? observeReader=null,Func<Func<bool>>? captureReaderGuard=null,Func<bool>? shouldFollow=null)
+    public MarkdownFlowView(RichTextBox host,Action? observeReader=null,Func<Func<bool>>? captureReaderGuard=null,Func<bool>? shouldFollow=null,Action? sourceChanged=null,Func<Guid,bool>? canReadSource=null)
     {
-        this.host=host;this.observeReader=observeReader;this.captureReaderGuard=captureReaderGuard;this.shouldFollow=shouldFollow;host.Document=new FlowDocument{PagePadding=new Thickness(0),ColumnGap=0};
+        this.host=host;this.observeReader=observeReader;this.captureReaderGuard=captureReaderGuard;this.shouldFollow=shouldFollow;this.sourceChanged=sourceChanged;this.canReadSource=canReadSource;host.Document=new FlowDocument{PagePadding=new Thickness(0),ColumnGap=0};
         host.IsReadOnly=true;host.IsUndoEnabled=false;host.IsDocumentEnabled=true;host.HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled;host.VerticalScrollBarVisibility=ScrollBarVisibility.Visible;host.ClipToBounds=true;
         SetViewport(viewport);
     }
-    public void Clear(){foreach(var region in codeRegions.Values)region.Dispose();foreach(var region in tableRegions.Values)region.Dispose();codeRegions.Clear();tableRegions.Clear();host.Document.Blocks.Clear();applied.Clear();elements.Clear();appliedVersion=null;}
+    public void Clear(){ClearSource();foreach(var region in codeRegions.Values)region.Dispose();foreach(var region in tableRegions.Values)region.Dispose();codeRegions.Clear();tableRegions.Clear();host.Document.Blocks.Clear();applied.Clear();elements.Clear();appliedVersion=null;}
+    public bool SourceExpanded=>sourceRegion?.View.IsExpanded==true;
+    public void ExpandSource()=>sourceRegion?.Expand();
+    public void ClearSource()
+    {sourceRegion?.Dispose();if(sourceBlock!=null)host.Document.Blocks.Remove(sourceBlock);sourceRegion=null;sourceBlock=null;sourceVersion=null;}
+    public void RetainSourceVersion(Guid? version){if(sourceVersion!=version)ClearSource();}
+    public void SetSource(Guid? version,string? source,bool? expanded=null)
+    {
+        if(version==null||source==null){ClearSource();return;}
+        if(sourceRegion==null||sourceVersion!=version||!sourceRegion.Matches(source))
+        {
+            ClearSource();sourceVersion=version;sourceRegion=new(source,observeReader,sourceChanged,()=>canReadSource?.Invoke(version.Value)!=false,captureReaderGuard);
+            sourceBlock=new(sourceRegion.View){Margin=new Thickness(0,8,0,0)};host.Document.Blocks.Add(sourceBlock);
+        }
+        if(expanded.HasValue)sourceRegion.SetExpanded(expanded.Value);
+        ConstrainSource();
+    }
+    private void ConstrainSource()=>sourceRegion?.Constrain(host.Document.PageWidth,viewport.MaximumHeightDip,host.FontSize,host.Foreground);
     public void SetViewport(MarkdownViewport value)
     {
         value.Validate();viewport=value;host.Width=host.MaxWidth=value.WidthDip;host.MaxHeight=value.MaximumHeightDip;
@@ -34,11 +56,13 @@ internal sealed class MarkdownFlowView
         host.Document.PageWidth=host.Document.ColumnWidth=contentWidth;
         foreach(var region in codeRegions.Values)region.Constrain(contentWidth,value.CodeMaximumHeightDip);
         foreach(var region in tableRegions.Values)region.Constrain(contentWidth,value.TableMaximumHeightDip);
+        ConstrainSource();
     }
     public void RefreshCodeAppearance()
     {
         foreach(var region in codeRegions.Values){region.View.FontSize=host.FontSize;region.View.Foreground=host.Foreground;}
         foreach(var region in tableRegions.Values)region.RefreshAppearance(host.FontSize,host.Foreground);
+        ConstrainSource();
     }
     public void FollowTailEnd()
     {
@@ -80,7 +104,7 @@ internal sealed class MarkdownFlowView
                 if(data.Kind is MarkdownBlockKind.Bullet or MarkdownBlockKind.Numbered)
                     element=new System.Windows.Documents.List(new ListItem(paragraph)){MarkerStyle=data.Kind==MarkdownBlockKind.Numbered?TextMarkerStyle.Decimal:TextMarkerStyle.Disc,StartIndex=data.Number,Margin=new Thickness(20,0,0,0),Padding=new Thickness(0)};
             }
-            applied.Add(data);elements.Add(element);host.Document.Blocks.Add(element);
+            applied.Add(data);elements.Add(element);if(sourceBlock!=null)host.Document.Blocks.InsertBefore(sourceBlock,element);else host.Document.Blocks.Add(element);
         }
         int styleStart=fontSize==appliedFontSize?keep:0;
         if(fontSize!=appliedFontSize)host.FontSize=host.Document.FontSize=fontSize;

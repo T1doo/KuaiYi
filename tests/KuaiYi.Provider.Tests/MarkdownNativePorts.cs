@@ -21,6 +21,8 @@ namespace System.Windows
         public double MaxHeight {get;set;}=double.PositiveInfinity;
         public event EventHandler<RoutedEventArgs>? Loaded;
         internal void RaiseLoaded()=>Loaded?.Invoke(this,new());
+        internal int BringIntoViewCalls {get;private set;}
+        public void BringIntoView()=>BringIntoViewCalls++;
     }
     internal sealed class TouchEventArgs:EventArgs;
     internal sealed class RoutedEventArgs:EventArgs;
@@ -83,7 +85,7 @@ namespace System.Windows.Documents
     }
     internal sealed class FlowDocument
     {
-        public System.Collections.Generic.List<Block> Blocks {get;}=[];
+        public BlockCollection Blocks {get;}=[];
         public Thickness PagePadding {get;set;}
         public double FontSize {get;set;}
         public double ColumnGap {get;set;}
@@ -94,6 +96,8 @@ namespace System.Windows.Documents
         public TextPointer ContentStart=>new(this,0);
         public TextPointer ContentEnd=>new(this,SymbolLength);
     }
+    internal sealed class BlockCollection:System.Collections.Generic.List<Block>
+    {public void InsertBefore(Block sibling,Block block)=>Insert(IndexOf(sibling),block);}
     internal enum LogicalDirection { Forward, Backward }
     internal sealed class TextPointer(FlowDocument document,int offset,int? insertionOffset=null)
     {

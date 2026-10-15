@@ -669,3 +669,13 @@ AccountingV1准备实际验证完成：独立来源5项通过，真实浅clone21
 最终相同28专项旧Stop7通过/21断言失败，修后完整Provider802/802=前774+新28，相关281；App Release交叉构建0W/E。覆盖排空/待刷、围栏/表格终态、未闭保文、空结果、取消不发事件、真实缓存标签、Stop排队前后版本切换的实际render、确认保留/连接测试边界、收起和阅读选区偏移。原r01的19生产失败+1夹具超时及r02/03夹具超时分开保留，仅修夹具自身等待的取消释放，不宣称真实HTTP/服务端时限。独审与实际回执见[修复说明](validation/overlay-stop-finalize.md)及[固定证据](test-evidence/2026-10-15-overlay-stop-finalize.json)。
 
 前批16份现存原回执及本批19份成功/失败log/TRX复制唯一受-text保护路径持久提交；旧七份保持，前批frozen覆盖前字节Unknown/未保全不回填。8workflow/43锁/1581旧证据与45Core生产文件原字节，250/600ms及全部安全门/生产离线Off保持。WPF排版/选择/阅读位置/路由、取消时限和B组仍NotRun，P2-04/完整11.5未完成。Actions不查询不绕Forbidden、CIUnknown；dotnet显式false，证书Unknown且不读不改；无Windows/CMake实验、main/强推/部署/新依赖/凭据费用权限协议或真实模型。
+
+### 2026-10-15 所选版本原文折叠与实时绑定
+
+父签收3235cf86af6652addd032de03b6123498ec2d875后，核干净工作树/单worktree/唯一写入者/远端一致，从精确父建dev/overlay-original-source。指定环境仍Linux、仅NETCore/AspNetCore10.0.12、无WindowsDesktop/DISPLAY/WAYLAND；B06/B12/B07含代码/表格暂停Stop、历史重开和50次反向均NotRun。补充现有Windows清单的最小解阻与入口能力边界，不建外围工具/CI，不拿数据端口冒充原生。
+
+推进SPEC4.2文本原文折叠：移除最近采集缓存+独立Window的错配路径，只读所选SelectedSnapshot.RawText，卡片内原生Expander/TextBox默认折叠，惰性纯文本、同版流式追加保原文选区。footer独立于Markdown模型与尾区，正文/测量共享有限预算、原文高度有界；展开/阅读接原暂停门，显式查看才排受保护的布局后定位。独审补长译文顶部命令可见性和B失败回退A时Flush前实时版本资格/同步清理，原文/发送Text、结果复制、Stop/Off本地回看分开保持。
+
+最终Provider840/840=原802+新38，相关319；App Release0W/E。首52/53是新夹具漏计空段，保留原失败、精确修为6块并核末段；中间827/837/839及三次App构建回执均保留。13份本批原始log/TRX复制唯一精确-text路径，父42份已提交回执逐字节核准；38源码manifest和8workflow/43锁/1617旧证据/45Core及2344其余既有文件保持核验。见[实现/失败与原生限制](validation/overlay-original-source.md)和[固定证据](test-evidence/2026-10-15-overlay-original-source.json)。
+
+原生Expander测量/样式、BringIntoView位置、系统选择/阅读锚点/路由/取消时限与完整P2仍未验；图片预览、生产一键清空入口明确留后续，本批内部Clear测试不冒充已有用户命令。250/600ms和全部安全门、生产离线Off保持；Actions不查询不绕Forbidden、CIUnknown，dotnet每次显式false，证书Unknown且不读不改。旧覆盖前字节Unknown不回填，无main/强推/部署/新依赖/费用凭据权限协议/真实模型或Windows/CMake实验。

@@ -16,6 +16,9 @@ internal sealed partial class ShellWindow
     private void RefreshMarkdown(bool renderBody)
     {
         var selected=overlayResults.Versions.FirstOrDefault(v=>v.Identity.VersionId==overlayResults.SelectedVersionId);
+        var source=CanReadOriginalSource()?translation?.SelectedSnapshot?.Source.RawText:null;
+        bodyMarkdown.SetSource(overlayResults.SelectedVersionId,source);
+        measurementMarkdown.SetSource(overlayResults.SelectedVersionId,source,bodyMarkdown.SourceExpanded);
         markdown.Update(overlayResults.SelectedVersionId,overlayResults.Text,selected?.Complete==true||selected?.Stopped==true);
         double size=lifecycle.Settings?.Data.Overlay.FontSizeDip??15;
         measurementMarkdown.Apply(markdown.Blocks,size,markdownViewport,overlayResults.SelectedVersionId);

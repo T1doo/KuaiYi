@@ -20,7 +20,12 @@ public sealed class OverlayStopFlowTests
         if(source is not null)Assert.True(await w.ReceivePresentationAsync(id,new(OverlayResultEventKind.Delta,source)));return(id,ct);
     }
     private static TextBox Code(ShellWindow w)=>Assert.IsType<TextBox>(Assert.IsType<BlockUIContainer>(Assert.Single(w.MarkdownBody.Document.Blocks)).Child);
-    private static string Plain(ShellWindow w)=>Assert.IsType<Run>(Assert.Single(Assert.IsType<Paragraph>(Assert.Single(w.MarkdownBody.Document.Blocks)).Inlines)).Text;
+    private static string Plain(ShellWindow w)
+    {
+        var blocks=w.MarkdownBody.Document.Blocks;Assert.InRange(blocks.Count,1,2);
+        if(blocks.Count==2)Assert.IsType<Expander>(Assert.IsType<BlockUIContainer>(blocks[1]).Child);
+        return Assert.IsType<Run>(Assert.Single(Assert.IsType<Paragraph>(blocks[0]).Inlines)).Text;
+    }
     private static void Drain(ShellWindow w)
     {for(int i=0;i<4&&w.FlushPending;i++)w.TickForTest();Assert.False(w.FlushPending);}
     private sealed class DeferredDestination:SynchronizationContext
@@ -98,7 +103,7 @@ public sealed class OverlayStopFlowTests
         var w=Window();await Begin(w,"accepted");Drain(w);long epoch=w.MarkdownGate.Snapshot.Epoch;w.Exit();w.StopForTest();Assert.Equal(epoch,w.MarkdownGate.Snapshot.Epoch);Assert.False(w.FlushPending);Assert.Null(w.ButtonTip);
     }
 
-    private sealed class RealCoordinatorRig:IAsyncDisposable
+    internal sealed class RealCoordinatorRig:IAsyncDisposable
     {
         public ShellWindow Window {get;}=new();
         public ProviderClient Provider {get;}
@@ -123,9 +128,9 @@ public sealed class OverlayStopFlowTests
             Flow=new(Window.MarkdownGate,()=>Settings,(_,_)=>true,Provider,new Immediate(),Window.MarkdownResults,u=>{Updates.Enqueue(u);Window.CoordinatorUpdate(u);},(_,_,_)=>throw new InvalidOperationException("Fixed AuthNone fixture must never read secrets."));Window.UseTranslation(Flow,Settings);
         }
         private sealed class Immediate:SynchronizationContext{public override void Post(SendOrPostCallback callback,object? state)=>callback(state);}
-        public async Task<RequestIdentity> Start(bool regenerate=false,string source="Synthetic public source")
+        public async Task<RequestIdentity> Start(bool regenerate=false,string source="Synthetic public source",string? rawSource=null)
         {
-            connected=new(TaskCreationOptions.RunContinuationsAsynchronously);var snapshot=new SelectionSourceSnapshot(new(17,92823,132000,@"C:\Synthetic\fixture-editor.exe"),source,source,[new(1,2,20,22)],[7,8],Settings.Version,source.Length,false);
+            connected=new(TaskCreationOptions.RunContinuationsAsynchronously);var snapshot=new SelectionSourceSnapshot(new(17,92823,132000,@"C:\Synthetic\fixture-editor.exe"),rawSource??source,source,[new(1,2,20,22)],[7,8],Settings.Version,source.Length,false);
             var offer=regenerate?Flow.PrepareRegeneration():Flow.Prepare(snapshot);Assert.NotNull(offer);Assert.Equal(TextSubmission.Started,Flow.Submit(offer));
             try{await connected.Task.WaitAsync(TimeSpan.FromSeconds(5));}
             catch(TimeoutException error){throw new InvalidOperationException($"Synthetic connector did not enter version {offer.Snapshot.VersionNumber}; running completed={Flow.Running.IsCompleted}; updates={string.Join(',',Updates.Select(u=>$"{u.Snapshot.VersionNumber}:{u.Presentation.Kind}:{u.Failure}"))}",error);}

@@ -11,7 +11,6 @@ internal sealed partial class ShellWindow
 {
     private SelectionBrokerClient? selectionBroker;private ClipboardCaptureClient? clipboardCapture;private SelectionCaptureCoordinator? selectionCapture;private SelectionMouseHook? selectionHook;private SelectionInputBridge? selectionInput;
     private Task selectionReconcile=Task.CompletedTask,selectionEvents=Task.CompletedTask;
-    private SelectionSourceSnapshot? selectionSource;private Window? sourceViewer;private TextBox? sourceText;
     private (long Epoch,string? Version)? selectionState;
     private readonly Dictionary<(string Application,SelectionCaptureStatus Status),long> selectionFailureNotices=[];private long lastCopyRecoveryNotice;
     private sealed class SelectionPlatform(SelectionBrokerClient broker,ClipboardCaptureClient clipboard):ISelectionCapturePlatform,ISelectionCopyPlatform
@@ -76,9 +75,7 @@ internal sealed partial class ShellWindow
     }
     private void AcceptSelection(SelectionSourceSnapshot source,bool duplicate)
     {
-        selectionSource=source;
         button.ToolTip=$"已读取实际{(source.SourceKind==SelectionSourceKind.OleDrop?"投放":"选区")} · {source.SourceKind} · {source.Scalars} 字符{(source.Recovery is ClipboardRecovery.Unconfirmed or ClipboardRecovery.Changed?" · 剪贴板恢复未确认":"")}";
-        if(sourceViewer!=null&&sourceText!=null)sourceText.Text=source.RawText;
         QueueTranslation(source);
     }
     private void SelectionFailed(SelectionCaptureStatus status)
@@ -87,14 +84,7 @@ internal sealed partial class ShellWindow
         button.ToolTip=status==SelectionCaptureStatus.Paused?"此应用的自动取词暂缓30秒，请稍后重试。":"无法读取可信选区，可使用截图或从设置中按应用授权复制兼容。 · "+status;
     }
     private void CopyRecoveryWarning(ClipboardRecovery recovery){if(exiting||lifecycle.Gate.Snapshot.Suspension.HasFlag(Suspension.SessionLocked))return;long now=Environment.TickCount64;if(now-lastCopyRecoveryNotice<30000&&lastCopyRecoveryNotice!=0)return;lastCopyRecoveryNotice=now;button.ToolTip="复制兼容的剪贴板恢复未确认；未尝试覆盖后续复制，系统历史无法保证删除。";}
-    private void ShowSelectionSource()
-    {
-        if(selectionSource==null||lifecycle.Gate.Snapshot.Suspension.HasFlag(Suspension.SessionLocked))return;
-        if(sourceViewer!=null){sourceViewer.Activate();return;}
-        sourceText=new(){Text=selectionSource.RawText,IsReadOnly=true,TextWrapping=TextWrapping.Wrap,VerticalScrollBarVisibility=ScrollBarVisibility.Auto,Margin=new Thickness(16)};
-        sourceViewer=new(){Title="快译 · 实际选区原文（不是译文）",Owner=this,Width=520,Height=360,Content=sourceText};sourceViewer.Closed+=(_,_)=>{sourceText?.Clear();sourceText=null;sourceViewer=null;};sourceViewer.Show();
-    }
-    private void ClearSelectionSource(){selectionCapture?.CancelPending(clearSource:true);selectionSource=null;sourceText?.Clear();sourceViewer?.Close();}
+    private void ClearSelectionSource(){selectionCapture?.CancelPending(clearSource:true);ClearOriginalSource();}
     private async Task StopSelection()
     {
         ClearSelectionSource();
