@@ -2,14 +2,36 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
 . "$PSScriptRoot/lifecycle-ci-evidence.ps1"
 . "$PSScriptRoot/lifecycle-runner-contracts.ps1"
+$configureDiagnosticReady=$false
+try {. "$PSScriptRoot/lifecycle-configure-diagnostics.ps1";$configureDiagnosticReady=$true} catch {$configureDiagnosticReady=$false}
 $repo=Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 $locked='3ae69419a1152ea9694a3a9cf11130fbae645fa3'
 $summary=[pscustomobject][ordered]@{Kind='NonTargetLifecycleCiSummary';SourceCommit=$null;ReviewedParent='1f78ac3cf2073895dab8c6a3ab3e936ce064d143';ParentVerified=$false;AncestorVerified=$false;LockedSource=$locked;LockedTree='870a72ed3ef2ee31252c10e2d63cbcb859e7fd7b';LockedTreeVerified=$false;SourceEquivalent=$false;Scope='FourFixedNonTargetCasesOnly';Status='Fail';Reason='RunnerFailure';Operations=@();CompilerFaults=@();Cases=@();Runtime='NotRun';UiaText='NotRun';Match='NotRun';Performance='NotRun';ProductionReuse='Off';ModelCalls=0;ExitCode=3}
 $output=$null;$runtimeLog=$null;$allLogs=[Collections.Generic.List[string]]::new();$operations=[Collections.Generic.List[object]]::new()
+$configureLease=$null;$configureDiagnostic=$null
 function Invoke-BoundedLifecycleOperation([string]$Kind,[string]$Executable,[string[]]$Arguments) {
-    $log=Join-Path $script:output ($Kind+'.local.log');$script:allLogs.Add($log);if($Kind -ceq 'LifecycleRuntime'){$script:runtimeLog=$log}
+    $log=Join-Path $script:output ($Kind+'.local.log')
     $receipt=[KuaiYiLifecycleOperation]::Run($Executable,$Arguments,$script:repo,$log)
     $script:operations.Add((Get-LifecycleOperationEvidence $Kind $receipt))
+    # Run has returned after its original rescue, flush and handle cleanup.
+    # The bounded configure collector owns these two logs; never rescan them
+    # through the old 4MiB compiler parser. The original version prerequisite stays.
+    if($receipt.CleanupConfirmed -and $Kind -cnotin @('CMakeVersion','NativeConfigure')){$script:allLogs.Add($log);if($Kind -ceq 'LifecycleRuntime'){$script:runtimeLog=$log}}
+    if($Kind -ceq 'NativeConfigure'){
+        if(-not $script:configureDiagnosticReady){$script:configureDiagnostic=[pscustomobject]@{DiagnosticStatus='ReaderUnavailable';Files=@()}}
+        else {$script:configureDiagnostic=Complete-LifecycleConfigureDiagnostic $receipt $script:configureLease {
+            param($lease)
+            $python=@(Get-Command python -CommandType Application -ErrorAction Stop)[0].Source
+            $collector=Join-Path $script:repo 'tools/ci/lifecycle_configure_collect.py'
+            $diagnosticLog=Join-Path $script:output 'ConfigureDiagnostic.local.json'
+            $arguments=@('-I','-B',$collector,'confirmed',[string]$lease.SourceProcess,[string]$lease.Handle,[string]$lease.Volume,[string]$lease.Index)
+            # Separate owned operation; never append to original receipts/allLogs.
+            $diagnosticReceipt=[KuaiYiLifecycleOperation]::Run($python,$arguments,$script:repo,$diagnosticLog)
+            if([KuaiYiLifecycleOperation]::GetReason($diagnosticReceipt) -ne [KuaiYiLifecycleOperation+OperationReason]::Completed -or $diagnosticReceipt.Exit -cne '0' -or (Get-Item -LiteralPath $diagnosticLog).Length -gt 8192){throw 'Diagnostic unavailable'}
+            return (Get-Content -LiteralPath $diagnosticLog -Raw)
+        }}
+        $script:configureLease=$null
+    }
     $reason=[KuaiYiLifecycleOperation]::GetReason($receipt)
     if($reason -ne [KuaiYiLifecycleOperation+OperationReason]::Completed){$script:summary.Reason=$reason.ToString();throw 'Operation failed'}
     return [pscustomobject]@{Exit=$receipt.Exit;Log=$log}
@@ -21,6 +43,8 @@ try {
         if([Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString() -cne 'X64'){throw 'Invalid architecture'}
         $output=Join-Path $repo ('artifacts/lifecycle-ci/'+[guid]::NewGuid().ToString('N'));[void](New-Item -ItemType Directory -Path $output)
         Add-Type -Path (Join-Path $repo 'tools/ci/LifecycleOperation.cs') 2>$null 3>$null 4>$null 5>$null 6>$null
+        # Root identity is held before any configure. Failure disables only diagnostics.
+        if($configureDiagnosticReady){try {Add-Type -Path (Join-Path $repo 'tools/ci/ConfigureRootLease.cs') 2>$null 3>$null 4>$null 5>$null 6>$null;$configureLease=[KuaiYiConfigureRootLease]::Open($output)} catch {$configureLease=$null}}
         $git=Get-LifecycleApplicationPath 'git'
         $head=Invoke-BoundedLifecycleOperation 'SourceHead' $git @('-C',$repo,'rev-parse','HEAD')
         $commit=Read-LifecycleExactSha (Get-Content -LiteralPath $head.Log -Raw)
@@ -71,10 +95,12 @@ try {
     }
 } catch { # No exception, original compiler/dotnet text or paths cross public streams.
 } finally {
+    if($null -ne $configureLease){try {$configureLease.Dispose()} catch {$configureDiagnostic=New-LifecycleConfigureDiagnostic 'LeaseCloseFailed'};$configureLease=$null}
     if($summary.Runtime -ceq 'InProgress'){$summary.Runtime='Fail'}
     if($runtimeLog -and (Test-Path -LiteralPath $runtimeLog -PathType Leaf) -and (Get-Item -LiteralPath $runtimeLog).Length -le 4194304){try{$partial=Read-LifecyclePublicCases (Get-Content -LiteralPath $runtimeLog -Raw);$summary.Cases=$partial.Cases}catch{}}
     $summary.Operations=$operations.ToArray()
     try{$faults=[Collections.Generic.List[object]]::new();foreach($log in $allLogs){if((Test-Path -LiteralPath $log -PathType Leaf) -and (Get-Item -LiteralPath $log).Length -le 4194304){foreach($row in @(Get-LifecycleBuildEvidence (Get-Content -LiteralPath $log -Raw))){if($faults.Count -lt 16){$faults.Add($row)}}}};$summary.CompilerFaults=$faults.ToArray()}catch{$summary.Status='Fail';$summary.Reason='EvidenceFailure';$summary.ExitCode=3}
 }
+if($null -ne $configureDiagnostic){try {Write-Host ('KUAIYI_CONFIGURE_DIAGNOSTIC '+($configureDiagnostic | ConvertTo-Json -Depth 8 -Compress))} catch {Write-Host 'KUAIYI_CONFIGURE_DIAGNOSTIC {"DiagnosticStatus":"ProjectionError","Files":[]}'}}
 Write-Host ('KUAIYI_LIFECYCLE_CI_SUMMARY '+($summary | ConvertTo-Json -Depth 8 -Compress))
 exit $summary.ExitCode

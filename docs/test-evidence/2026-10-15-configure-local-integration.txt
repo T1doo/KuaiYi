@@ -1,0 +1,26 @@
+CONFIGURE_LOCAL_ONLY_TEST_EVIDENCE 2026-10-15
+Base=b62af2fbd150d5921a789ed0767533f161dac066
+Host=Linux-x64; Python=3.12.14; PowerShell=7.5.3
+Windows=NotRun; CMake=NotRun; FourCases=NotRun; ModelCalls=0; RemoteWrites=0
+collector-bridge: Exit=0; OutputSha256=1b78dd50162d74e159df4bee7174e1f77cf51e40ef4b3c14d9950be4a82eb619
+Ran 14 tests in 0.110s
+runner-integration: Exit=0; OutputSha256=31fb1ececd6d301f861ee845b88a6f31aba881b8962e0d7359014f36fa302f57
+CONFIGURE_LOCAL_INTEGRATION passed=127 failed=0; injected operations/file reads only; Windows/CMake/FourCases NotRun
+existing-file-adapter: Exit=0; OutputSha256=b99addce6ebf826ffdd918d94673c1a6ecb97863956d8696deecfbba1ec7a03a
+Ran 21 tests in 0.004s
+existing-isolated-fixture: Exit=0; OutputSha256=710bde7e7cc637eccb7eff6a3235da76692d8934a9b03b5dbca79faf7d725a0f
+Ran 16 tests in 0.006s
+existing-no-target-source: Exit=0; OutputSha256=e56540d38987d9c114e36e273a8f9e629e6fc7f3a84ee774c4a47656ce41bdbc
+LIFECYCLE_NO_TARGET_SOURCE passed=9 failed=0; source assertions only, Windows NotRun
+existing-public-evidence: Exit=0; OutputSha256=3aee6c0c1860e9b01117b9bc6a735067aec1bd81824a8e5374293c6bdfedf5ca
+LIFECYCLE_CI_EVIDENCE_CONTRACTS passed=45 failed=0; Windows operation wrapper NotRun
+existing-runner-contracts: Exit=0; OutputSha256=eae3490839b719a73fd4afca7fcc4f2fcc083ab0c24040b0658dbfd1b227b8d7
+FULL_LIFECYCLE_RUNNER_CONTRACTS passed=72 failed=0; actualLookups=1 missingRejected=2; local Git/pure checks only; Windows NotRun
+SourceSha256:
+0b697e9153c70f97719ac68afebb729a47e77117844e3fc08f86159e9009c7da  tools/ci/ConfigureRootLease.cs
+2ec7778a2d2f5622be3cf681ec043d7fdba6c793ad46d750832d65e2466c81d5  tools/ci/lifecycle_configure_collect.py
+0afeee6f4ae4b85c0dcb2cd22a05ec3bac055eb659f4a756f8f88dabf3579df3  tests/scripts/lifecycle-configure-diagnostics.ps1
+84d099f1ab8e1dd592e5dfb67ffaf449b50d491ff4afbf9a71661342a983123a  tests/scripts/run-lifecycle-windows-ci.ps1
+65e2feeca7d766052a20ce6b49141003f1b5d9998739fcd04ae59db8aab1c3de  tests/scripts/lifecycle-configure-integration.test.ps1
+1c1efa55d2e7b4cdc9d38afdfaae56e145ffc5c71aa5645d313cff536edfbe28  tests/scripts/lifecycle-configure-collect.test.py
+SDK10.0.401SetterRegression=NotRun (SDK not installed); no assertion removed or weakened
