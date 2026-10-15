@@ -517,3 +517,9 @@ a5e734f独审后第四CI38245204651/job114797239356继续4DLL/4PE/4load/8export/
 bridge结果三文档已交付 b4592d5，查询无新workflow run。后续本地新分支 dev/configure-only-diagnostic 只准备 configure→清理门→有限采集→结束的独立入口；configure成功也不进入build/restore/四case。旧runner、四workflow和原operation/lease/adapter/生产不改。新来源锁b459唯一child、完整parent tree、locked3ae/tree及runtime输入；实际owned浅克隆depth11拒绝、depth12通过，新workflow只匹配新分支与自身路径，未push或执行。
 
 实际取回旧run38669606027/job116209346264的原解码日志并保全，确认NativeConfigure root Exit0、WaitJobEmpty Timeout、救援前NonEmpty/BudgetExpired、救援后cleanup确认；四原文件仍全部缺失，不推断残留进程根因。新增171注入与6来源/句柄引用次序检查通过，collector清理未知时零JSON读取、独立Unknown状态及原结果保留；不是新的Windows实测。原30秒/救援/清理、安全门及P0/E06边界保持，详见[本地准备与剩余缺口](validation/configure-only-next-run.md)。
+
+### 2026-10-15 Configure-only 唯一实测：原超时保留，有限采集完成
+
+后续单次执行授权下，精确4b29c3f95e9f5e5d16dfc501c445a7428fe74f27/tree50ceebb928f553640e1027b36799a7ced05392fa/唯一parent b4592d5正常交付dev/configure-only-diagnostic。九文件blob、祖先、单一写入锁及旧文件字节核验通过；该SHA仅一条run38690235831/job116274201714/attempt1，completed failure，无重跑。前九项来源/工具操作完成；NativeConfigure仍root Exit0、WaitJobEmpty Timeout、救援前NonEmpty/BudgetExpired，救援后JobEmpty/CleanupConfirmed true。runner Fail/OperationTimeout/ExitCode3未被诊断覆盖；Actions外层实际进程exit1单独保留。
+
+清理确认后collector独立CleanupConfirmed，四真实文件有限投影均Projected/未截断：CMake3.31.6，ConfigureDone/GenerateDone/CompilerIdSeen，ABI Done/Working Skipped，VS2022 generator，try_compile事件。旧四原文件仍不可得，无补造；本次不导出四文件原文，64KiB×4是代码上限而非实测字节计数。记录仍不含救援前残留进程身份，根因unknown，未据完成标记宣称原Job正常收尾或生命周期修复。NativeBuild/ManagedRestore/ManagedBuild/四case及UIA/Match/Performance全NotRun，ProductionReuse Off/ModelCalls0、安全门和P0/E06边界不变。[完整实际结果](validation/configure-only-windows-result.md)及[固定回执](test-evidence/2026-10-15-configure-only-windows.json)单独归档；仅文档变化，无新运行代码或Windows尝试。
