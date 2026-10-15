@@ -523,3 +523,9 @@ bridge结果三文档已交付 b4592d5，查询无新workflow run。后续本地
 后续单次执行授权下，精确4b29c3f95e9f5e5d16dfc501c445a7428fe74f27/tree50ceebb928f553640e1027b36799a7ced05392fa/唯一parent b4592d5正常交付dev/configure-only-diagnostic。九文件blob、祖先、单一写入锁及旧文件字节核验通过；该SHA仅一条run38690235831/job116274201714/attempt1，completed failure，无重跑。前九项来源/工具操作完成；NativeConfigure仍root Exit0、WaitJobEmpty Timeout、救援前NonEmpty/BudgetExpired，救援后JobEmpty/CleanupConfirmed true。runner Fail/OperationTimeout/ExitCode3未被诊断覆盖；Actions外层实际进程exit1单独保留。
 
 清理确认后collector独立CleanupConfirmed，四真实文件有限投影均Projected/未截断：CMake3.31.6，ConfigureDone/GenerateDone/CompilerIdSeen，ABI Done/Working Skipped，VS2022 generator，try_compile事件。旧四原文件仍不可得，无补造；本次不导出四文件原文，64KiB×4是代码上限而非实测字节计数。记录仍不含救援前残留进程身份，根因unknown，未据完成标记宣称原Job正常收尾或生命周期修复。NativeBuild/ManagedRestore/ManagedBuild/四case及UIA/Match/Performance全NotRun，ProductionReuse Off/ModelCalls0、安全门和P0/E06边界不变。[完整实际结果](validation/configure-only-windows-result.md)及[固定回执](test-evidence/2026-10-15-configure-only-windows.json)单独归档；仅文档变化，无新运行代码或Windows尝试。
+
+### 2026-10-15 Configure-only 外层退出码仅本地补正
+
+从本地归档aa96555继续，在dev/configure-shell-exit-local仅将执行步骤改为官方custom pwsh -File模板并对占位路径加双引号，显式保留ErrorActionPreference Stop和exit LASTEXITCODE。真实Linux shell进程复现旧包装3→1，新包装保留0/1/2/3、异常失败与cleanup=false原摘要；实际Linux入口Blocked2/零操作。首版7项argv测试独审Hold其空格路径证明，保留原输出后改为真实.NET Arguments字符串、补未引号exit64及显式正文无runner修整反例，最终9项通过；原6项来源测试和171项注入断言通过。原runner/operation/lease/采集器/旧workflow共12文件字节不变，已有YAML解析及diff检查通过。[本地说明与根因缺口](validation/configure-shell-exit-local.md)、[固定证据](test-evidence/2026-10-15-configure-shell-exit-local.txt)记录准确范围。
+
+原来源锁/depth/预算不改，此本地后代仍被已执行候选的来源门拒绝，不作为下一Windows冻结候选。Job等待超时仍缺救援前成员身份，未猜测性修改编译选项或放宽Job空/清理要求；没有push、新CI、CMake/四生命周期或模型调用，原实测failure与P0/E06/生产验收边界保持。

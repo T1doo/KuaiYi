@@ -49,7 +49,8 @@ jobs:
           Write-Host ('ConfigureOnlySourceIdentityVerified Head='+$head+' Tree='+$tree)
       - name: Configure once, collect after cleanup, then stop
         timeout-minutes: 7
-        shell: pwsh
+        shell: pwsh -NoLogo -NoProfile -NonInteractive -File "{0}"
         run: |
+          $ErrorActionPreference='Stop'
           & ./tests/scripts/run-configure-only-windows.ps1
           exit $LASTEXITCODE

@@ -1,0 +1,29 @@
+CONFIGURE_SHELL_EXIT_LOCAL_EVIDENCE 2026-10-15
+Base=aa965555ca681161e334a13540e4c7c906c94b43
+HistoricalExecution=4b29c3f95e9f5e5d16dfc501c445a7428fe74f27
+Branch=dev/configure-shell-exit-local
+Host=Linux-x64; PowerShell=7.5.3
+NewTests=9 passed; actual local shell processes; synthetic receipts except Linux Blocked entry
+BuiltinCommandWrapper=RunnerExit3/OuterExit1 reproduced
+CustomFileWrapper=Exit0/1/2/3 preserved
+CleanupFailureSynthetic=ReceiptFail/CleanupFalse/Exit3 preserved
+WriteError=Exit1/NoLaterOutput; Throw=Exit1/NoLaterOutput
+ActualLinuxEntry=Blocked/Exit2/OperationsEmpty/CollectorNotStarted
+OwnedTemporaryPath=SpacesAndSingleQuote; ActualDotNetArgumentsStringParsing
+UnquotedTemplateRegression=Exit64; QuotedTemplate=OriginalExitPreserved
+RunnerFixup=CurrentPwshPrefixSuffixApplied; ExplicitBodyAlsoTestedWithoutFixup
+InitialReview=HoldForArgvOnlyPathCoverage; CorrectedToArgumentsStringAndQuotedPlaceholder
+ExistingSourceTests=6 passed; real local owned shallow Git and in-memory handle references
+ExistingFailureIsolationAssertions=171 passed; injected operations only
+PreservedFiles=12 byte-identical; original runner, operation, lease, collector, diagnostic helper, four old workflows
+YAML=ParsedWithExistingPyYAML
+DiffWhitespaceCheck=Pass
+Windows=NotRun; CMake=NotRun; NativeBuild=NotRun; ManagedRestore=NotRun; ManagedBuild=NotRun; FourCases=NotRun
+Push=NotPerformed; NewCI=0; Rerun=0; ModelCalls=0
+SourceGate=OriginalFrozenParentDepthAndFileScopeUnchanged; LocalDescendantRejected; NotNextRunCandidate
+OriginalJobEmptyTimeoutRootCause=Unknown; NoPreRescueMemberIdentity
+OutputSha256:
+00eb726ca0a1c3b5fba2fd3d7eaf970a600add18660a622e5f931451bf92d901  shell-exit.log
+8e2b744898bb9db64521c1fe842d844e0a03eca67d230832c82ed30fbede8d97  shell-exit-argv-only-before-review.log
+62a9c41734a039d6c35c8ca6e8dd51a48b5f917d187a0a9b2852219e2a61be87  configure-only-source.log
+0355e628623f123e74b64b56d1cd12e62dea5db1a56d3ff4c7588120df1fa502  configure-only-contracts.log
