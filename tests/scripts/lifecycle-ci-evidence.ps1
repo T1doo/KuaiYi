@@ -7,6 +7,20 @@ function Get-LifecycleOperationEvidence([string]$Kind,$Receipt) {
     foreach($value in @($Receipt.Stage,$Receipt.Failure,$Receipt.Error,$Receipt.PreRescueJobState)){if(-not [Enum]::IsDefined($value.GetType(),$value)){throw 'Invalid operation receipt'}}
     return [pscustomobject][ordered]@{Kind=$Kind;Status=$Receipt.Status;Exit=$Receipt.Exit;Stage=$Receipt.Stage.ToString();FailureKind=$Receipt.Failure.ToString();ErrorCode=$Receipt.Error.ToString();ProcessCreated=$Receipt.ProcessCreated;Resumed=$Receipt.Resumed;RootExitConfirmed=$Receipt.RootExitConfirmed;JobEmpty=$Receipt.JobEmpty;PreRescueJobState=$Receipt.PreRescueJobState.ToString();BudgetExpired=$Receipt.BudgetExpired;RescueUsed=$Receipt.RescueUsed;CleanupConfirmed=$Receipt.CleanupConfirmed}
 }
+function Get-LifecycleAccountingEvidence($Receipt) {
+    if($Receipt -isnot [KuaiYiLifecycleOperation+Receipt]){throw 'Invalid accounting receipt'}
+    $rows=@()
+    foreach($snapshot in @($Receipt.Accounting.FirstWait,$Receipt.Accounting.LastPreRescue)){
+        $rows+=,[pscustomobject][ordered]@{State=$(if($snapshot.Known){'Known'}else{'Unknown'});ActiveProcesses=$snapshot.ActiveProcesses;TotalProcesses=$snapshot.TotalProcesses}
+    }
+    return [pscustomobject][ordered]@{Kind='ExistingJobAccounting';Scope='PreRescueWaitQueriesOnly';FirstWait=$rows[0];LastPreRescue=$rows[1]}
+}
+function Write-LifecycleAccountingEvidence($Receipt) {
+    try {
+        Write-Host ('KUAIYI_JOB_ACCOUNTING '+((Get-LifecycleAccountingEvidence $Receipt) | ConvertTo-Json -Depth 4 -Compress))
+        return 'Projected'
+    } catch {return 'Unavailable'} # Independent diagnostic status; never replace the operation result.
+}
 function Get-LifecycleBuildEvidence([string]$Output) {
     if($null -eq $Output -or $Output.Length -gt 4194304){return}
     $rows=[Collections.Generic.List[object]]::new()

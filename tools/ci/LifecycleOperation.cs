@@ -16,8 +16,26 @@ public static class KuaiYiLifecycleOperation
     public enum JobState { Unknown,Empty,NonEmpty }
     public enum WaitOutcome { Completed,Timeout,Failed,Unexpected }
     public enum OperationReason { Completed,OperationFailure,OperationTimeout,OperationCleanupFailure }
+    // Fixed-size copies of EXISTING successful accounting queries; never a new probe.
+    public readonly struct AccountingSnapshot
+    {
+        public bool Known { get; }
+        public uint? ActiveProcesses { get; }
+        public uint? TotalProcesses { get; }
+        internal AccountingSnapshot(uint active,uint total){Known=true;ActiveProcesses=active;TotalProcesses=total;}
+    }
+    public sealed class AccountingDiagnostic
+    {
+        public AccountingSnapshot FirstWait { get; private set; }
+        public AccountingSnapshot LastPreRescue { get; private set; }
+        private bool seen,recordFirst;
+        internal void BeginQuery(){recordFirst=!seen;seen=true;LastPreRescue=default;}
+        internal void RecordSuccess(uint active,uint total)
+        {var snapshot=new AccountingSnapshot(active,total);if(recordFirst)FirstWait=snapshot;LastPreRescue=snapshot;}
+    }
     public sealed class Receipt
     {
+        public readonly AccountingDiagnostic Accounting=new AccountingDiagnostic();
         public string Status="Failure";public string Exit="Unknown";
         public bool RootExitConfirmed,JobEmpty,RescueUsed,CleanupConfirmed;
         public bool ProcessCreated,Resumed;
@@ -52,7 +70,7 @@ public static class KuaiYiLifecycleOperation
     private static bool ObserveJobEmpty(IntPtr job,Receipt r)
     {
         r.PreRescueJobState=JobState.Unknown;
-        bool empty=Empty(job);RecordJobObservation(r,empty);return empty;
+        bool empty=Empty(job,r.Accounting);RecordJobObservation(r,empty);return empty;
     }
     private static Win32Exception NativeFailure(){return new Win32Exception(Marshal.GetLastWin32Error());}
     public static string Quote(string value)
@@ -138,7 +156,13 @@ public static class KuaiYiLifecycleOperation
         }
         return r;
     }
-    private static bool Empty(IntPtr job){var data=new Accounting();if(!QueryInformationJobObject(job,1,ref data,(uint)Marshal.SizeOf(typeof(Accounting)),IntPtr.Zero))throw NativeFailure();return data.Active==0;}
+    private static bool Empty(IntPtr job,AccountingDiagnostic diagnostic=null)
+    {
+        var data=new Accounting();if(diagnostic!=null)diagnostic.BeginQuery();
+        if(!QueryInformationJobObject(job,1,ref data,(uint)Marshal.SizeOf(typeof(Accounting)),IntPtr.Zero))throw NativeFailure();
+        if(diagnostic!=null)diagnostic.RecordSuccess(data.Active,data.Total);
+        return data.Active==0;
+    }
     private static string ChildEnvironment()
     {
         var values=new SortedDictionary<string,string>(StringComparer.OrdinalIgnoreCase);

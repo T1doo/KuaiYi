@@ -1,0 +1,187 @@
+{
+  "Scope": "ExistingAccountingCopiesOnly; local injected queries",
+  "Parent": "118981aead5dc230351efb8ff210963d87d5522c",
+  "ParentTree": "faf47e06c6a9d20f598bf8589b4463ae9214912f",
+  "Windows": "NotRun",
+  "OriginalConfigureRootCause": "Unknown",
+  "NewRetriesWaitsThreadsProcessHandles": 0,
+  "Tests": {
+    "TargetAssertions": 162,
+    "TargetScenarios": 11,
+    "ConfigureRegressionAssertions": 171,
+    "LegacyEvidenceAssertions": 45
+  },
+  "OldSourceAudit": {
+    "Tests": 6,
+    "Passed": 5,
+    "Rejected": 1,
+    "Reason": "Old execution candidate requires original LifecycleOperation.cs bytes; accounting-copy change is rejected. Gate retained unchanged; not an executable CI candidate."
+  },
+  "TraceComparisons": [
+    {
+      "Baseline": "Query:0:5,Query:0:5,Clock",
+      "Case": "AlreadyEmpty",
+      "Candidate": "Query:0:5,Query:0:5,Clock",
+      "FirstWait": {
+        "State": "Known",
+        "ActiveProcesses": 0,
+        "TotalProcesses": 5
+      },
+      "LastPreRescue": {
+        "State": "Known",
+        "ActiveProcesses": 0,
+        "TotalProcesses": 5
+      }
+    },
+    {
+      "Baseline": "Query:1:5,Clock,Sleep10,Query:0:6,Query:0:6,Clock",
+      "Case": "BecomesEmpty",
+      "Candidate": "Query:1:5,Clock,Sleep10,Query:0:6,Query:0:6,Clock",
+      "FirstWait": {
+        "State": "Known",
+        "ActiveProcesses": 1,
+        "TotalProcesses": 5
+      },
+      "LastPreRescue": {
+        "State": "Known",
+        "ActiveProcesses": 0,
+        "TotalProcesses": 6
+      }
+    },
+    {
+      "Baseline": "Query:1:5,Clock,Query:1:6,Clock",
+      "Case": "Timeout",
+      "Candidate": "Query:1:5,Clock,Query:1:6,Clock",
+      "FirstWait": {
+        "State": "Known",
+        "ActiveProcesses": 1,
+        "TotalProcesses": 5
+      },
+      "LastPreRescue": {
+        "State": "Known",
+        "ActiveProcesses": 1,
+        "TotalProcesses": 6
+      }
+    },
+    {
+      "Baseline": "Query:F",
+      "Case": "FirstFails",
+      "Candidate": "Query:F",
+      "FirstWait": {
+        "State": "Unknown",
+        "ActiveProcesses": null,
+        "TotalProcesses": null
+      },
+      "LastPreRescue": {
+        "State": "Unknown",
+        "ActiveProcesses": null,
+        "TotalProcesses": null
+      }
+    },
+    {
+      "Baseline": "Query:1:5,Clock,Sleep10,Query:F",
+      "Case": "LaterFails",
+      "Candidate": "Query:1:5,Clock,Sleep10,Query:F",
+      "FirstWait": {
+        "State": "Known",
+        "ActiveProcesses": 1,
+        "TotalProcesses": 5
+      },
+      "LastPreRescue": {
+        "State": "Unknown",
+        "ActiveProcesses": null,
+        "TotalProcesses": null
+      }
+    },
+    {
+      "Baseline": "Query:1:5,Clock,Sleep10,Query:0:6,Query:F",
+      "Case": "FinalFails",
+      "Candidate": "Query:1:5,Clock,Sleep10,Query:0:6,Query:F",
+      "FirstWait": {
+        "State": "Known",
+        "ActiveProcesses": 1,
+        "TotalProcesses": 5
+      },
+      "LastPreRescue": {
+        "State": "Unknown",
+        "ActiveProcesses": null,
+        "TotalProcesses": null
+      }
+    },
+    {
+      "Baseline": "Query:T",
+      "Case": "QueryThrows",
+      "Candidate": "Query:T",
+      "FirstWait": {
+        "State": "Unknown",
+        "ActiveProcesses": null,
+        "TotalProcesses": null
+      },
+      "LastPreRescue": {
+        "State": "Unknown",
+        "ActiveProcesses": null,
+        "TotalProcesses": null
+      }
+    },
+    {
+      "Baseline": "Query:4294967295:4294967295,Clock,Sleep10,Query:0:4294967295,Query:0:4294967295,Clock",
+      "Case": "Uint32Counts",
+      "Candidate": "Query:4294967295:4294967295,Clock,Sleep10,Query:0:4294967295,Query:0:4294967295,Clock",
+      "FirstWait": {
+        "State": "Known",
+        "ActiveProcesses": 4294967295,
+        "TotalProcesses": 4294967295
+      },
+      "LastPreRescue": {
+        "State": "Known",
+        "ActiveProcesses": 0,
+        "TotalProcesses": 4294967295
+      }
+    }
+  ],
+  "Logs": {
+    "projection-1.log": {
+      "Bytes": 159,
+      "Sha256": "910c20203c467c4d4febf036baa9ac1b5ce81fb00175a72664a7f5c36191d7cb"
+    },
+    "projection-2.log": {
+      "Bytes": 159,
+      "Sha256": "b52e93a90e8d070c760967d720b416651ef79b7045c0a10d22e77de47cfd1b34"
+    },
+    "configure-regression.log": {
+      "Bytes": 103,
+      "Sha256": "0355e628623f123e74b64b56d1cd12e62dea5db1a56d3ff4c7588120df1fa502"
+    },
+    "evidence-regression.log": {
+      "Bytes": 85,
+      "Sha256": "3aee6c0c1860e9b01117b9bc6a735067aec1bd81824a8e5374293c6bdfedf5ca"
+    },
+    "old-source-rejection.log": {
+      "Bytes": 1798,
+      "Sha256": "a6b7f0632711e85eefe5c36ef2bd69b6d83264c3cefee47d390222c3ef4c108d"
+    },
+    "projection-3.log": {
+      "Bytes": 159,
+      "Sha256": "7acd15ec4717d3d4b59f2f8823d4a1fd41ccc2cae7385b671d453e555fe22840"
+    }
+  },
+  "TraceSha256": "42eebfab414c23bd1428b7097b67ce2dd6e0526eb4b6a89a4946efee3a4e5040",
+  "SourceSha256": {
+    "tools/ci/LifecycleOperation.cs": "585a20758ce699fdc0c927ddd451239008b11985134e2a529929ba28bea893a3",
+    "tests/scripts/lifecycle-ci-evidence.ps1": "fcebcab0813a3302a40564cdbb11e9a98ca445f2bc7f356bdb5a78b88abae7ea",
+    "tests/scripts/run-configure-only-windows.ps1": "3e49882c849162b4f6a9fd9ea4af650dea31dbcc65964b25b86e2fd4912958fc",
+    "tests/scripts/lifecycle-accounting-projection.test.ps1": "de09ec80709a6adbf0049b4bb3242ee6247767dfb0cab485a0587222be5b0528"
+  },
+  "ProtectedPresentFiles": 17,
+  "PreservedMissingPaths": [
+    "Directory.Build.targets"
+  ],
+  "OldEvidenceManifestsUnchanged": true,
+  "Semantics": "ActiveProcesses is job association accounting, not count of executing children. TotalProcesses includes terminated historical associations. TotalTerminatedProcesses is not used to infer all exits. Unknown is null, never fabricated zero.",
+  "AccountingOutputFailure": "Unavailable diagnostic status, no retry; original summary and exit3 retained in injected output failures",
+  "ProductionReuse": "Off",
+  "ModelCalls": 0,
+  "NewNativeJobCallsWithinOperation": 0,
+  "NewClockReadsWithinOperation": 0,
+  "ReasonCheck": "Legacy reason and receipt checked both before and after identical injected successful settlement; actual native Run not invoked"
+}

@@ -8,13 +8,14 @@ $repo=Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 $locked='3ae69419a1152ea9694a3a9cf11130fbae645fa3'
 $summary=[pscustomobject][ordered]@{Kind='ConfigureOnlyCiSummary';SourceCommit=$null;ReviewedParent='b4592d5d60d38cbbf186a38dbba2b1ae07b0482c';ParentVerified=$false;AncestorVerified=$false;LockedSource=$locked;LockedTree='870a72ed3ef2ee31252c10e2d63cbcb859e7fd7b';LockedTreeVerified=$false;SourceEquivalent=$false;Scope='NativeConfigureOnly';Status='Fail';Reason='RunnerFailure';Operations=@();CollectorSettlement='NotStarted';NativeBuild='NotRun';ManagedRestore='NotRun';ManagedBuild='NotRun';FourCases='NotRun';UiaText='NotRun';Match='NotRun';Performance='NotRun';ProductionReuse='Off';ModelCalls=0;ExitCode=3}
 $output=$null;$operations=[Collections.Generic.List[object]]::new()
-$configureLease=$null;$configureDiagnostic=$null
+$configureLease=$null;$configureDiagnostic=$null;$configureAccountingReceipt=$null;$configureAccountingOutputStatus='NotAttempted'
 function Invoke-ConfigureOnlyOperation([string]$Kind,[string]$Executable,[string[]]$Arguments) {
     $log=Join-Path $script:output ($Kind+'.local.log')
     $receipt=[KuaiYiLifecycleOperation]::Run($Executable,$Arguments,$script:repo,$log)
     $script:operations.Add((Get-LifecycleOperationEvidence $Kind $receipt))
     # Original operation has returned through its unchanged rescue/cleanup envelope.
     if($Kind -ceq 'NativeConfigure'){
+        $script:configureAccountingReceipt=$receipt
         if(-not $script:configureDiagnosticReady){$script:configureDiagnostic=[pscustomobject]@{DiagnosticStatus='ReaderUnavailable';Files=@()}}
         else {$script:configureDiagnostic=Complete-LifecycleConfigureDiagnostic $receipt $script:configureLease {
             param($lease)
@@ -84,6 +85,7 @@ try {
     if($null -ne $configureLease){try {$configureLease.Dispose()} catch {$configureDiagnostic=New-LifecycleConfigureDiagnostic 'LeaseCloseFailed'};$configureLease=$null}
     $summary.Operations=$operations.ToArray()
 }
+if($null -ne $configureAccountingReceipt){$configureAccountingOutputStatus=Write-LifecycleAccountingEvidence $configureAccountingReceipt}
 if($null -ne $configureDiagnostic){try {Write-Host ('KUAIYI_CONFIGURE_DIAGNOSTIC '+($configureDiagnostic | ConvertTo-Json -Depth 8 -Compress))} catch {Write-Host 'KUAIYI_CONFIGURE_DIAGNOSTIC {"DiagnosticStatus":"ProjectionError","Files":[]}'}}
 Write-Host ('KUAIYI_CONFIGURE_ONLY_SUMMARY '+($summary | ConvertTo-Json -Depth 8 -Compress))
 exit $summary.ExitCode

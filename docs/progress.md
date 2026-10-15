@@ -569,3 +569,9 @@ bridge结果三文档已交付 b4592d5，查询无新workflow run。后续本地
 保全1dfafc成功Windows归档及两套原日志，从其唯一parent状态本地核查WaitJobEmpty接入。同步once probe可在软预算契约下实现返回/异常后的状态隔离与原finally顺序，但不能保证不返回时及时救援；29700→30100ms的有限迟返反例中，Job于29900ms空，原真实CompleteJobWait仍会由本可Completed变Timeout，即使helper已清事实为SkippedBudget。原Run本有同步API且没有CancellationToken，不能把“不直接覆盖receipt”混同为反事实时序结果不变。
 
 新增纯提案可行性合同42断言/13场景通过，复用原Capture/CompleteJobWait/GetReason，虚拟时钟/注入IProbe，未运行原Run/Win32。首轮PowerShell long::MaxValue语法失败log保留，修正后通过。真实hook暂HOLD，11份原源/入口/六workflow/成功结果原字节保持，成功/失败两套manifest核对不变；无push或新Windows。请父核软预算风险是否在现有契约内，或采用只投影既有Accounting返回值、零新增native探针的最小替代，不能硬接或削弱原超时/清理门。[精确冲突、最小替代与条件执行计划](validation/job-member-runner-integration-review.md)和[固定离线证据](test-evidence/2026-10-15-job-member-runner-feasibility.json)记录范围。原configure根因Unknown，P0/E06及生产验收不变。
+
+### 2026-10-15 既有 Accounting 两点快照最小接入
+
+环境实际命令/文件恢复可用，核118981a精确parent和单一写入者后，仅复制既有成功Accounting查询的Active/Total，固定FirstWait/LastPreRescue两点；未查询/失败Unknown/null，清理Empty(job)不携带诊断对象，不能覆盖预救援值。原整个Run、while短路/clock/等待及finally字节保持，零新增native/Stopwatch读取/重试/线程/进程句柄；不承诺绝对零指令耗时。只在原操作与lease结算后另输出闭合计数行，旧Operations/operation JSON投影与原因不变，投影/新前缀输出失败独立Unavailable且原summary/exit继续。
+
+针对性162断言/11场景、原configure171及旧证据45回归通过，父/当前等待轨迹逐项一致，清理布尔/异常及旧receipt原因一致。旧来源6项中5通过1拒绝当前Accounting改动，保留旧冻结门和完整失败日志，当前不是可直接执行CI候选。17份原文件/六workflow/配置原字节及两套旧manifest核对；原缺失Directory.Build.targets未补造。Active只是Job关联数、Total包括已终止，不用Terminated推断全部退出或根因。输出合成样例、轨迹、精确范围及后续单次计划见[本地接入说明](validation/configure-accounting-local.md)和[固定离线证据](test-evidence/2026-10-15-configure-accounting-local.json)。本轮无push/新Windows/CMake/四case；原根因Unknown，所有原安全门和生产验收保持。
