@@ -58,4 +58,39 @@ $r.Stage=[KuaiYiLifecycleOperation+OperationStage]::Start;$r.Status=$private;Rej
 $r.Status='Failure';$r.Exit=$private;Reject {Get-LifecycleOperationEvidence 'SourceHead' $r}
 $original=Get-Content -LiteralPath "$PSScriptRoot/../../docs/test-evidence/2026-10-13-lifecycle-38443925339.json" -Raw | ConvertFrom-Json
 Check ($original.Reason -ceq 'OperationTimeoutOrCleanupFailure' -and $original.Operations[0].Status -ceq 'Failure' -and $original.Runtime -ceq 'NotRun')
-Write-Host "LIFECYCLE_OPERATION_DIAGNOSTICS passed=$checks failed=0; synthetic classification only; Windows NotRun"
+# Pure environment projection: no Run/native import. Host cannot turn reusable nodes back on.
+$savedReuse=$env:MSBUILDDISABLENODEREUSE
+try {
+    $env:MSBUILDDISABLENODEREUSE='0'
+    $method=[KuaiYiLifecycleOperation].GetMethod('ChildEnvironment',[Reflection.BindingFlags]'NonPublic,Static')
+    $block=[string]$method.Invoke($null,@());$entries=@($block.Split([char]0) | Where-Object {$_ -ne ''})
+    Check (@($entries | Where-Object {$_ -ceq 'MSBUILDDISABLENODEREUSE=1'}).Count -eq 1)
+    Check (@($entries | Where-Object {$_ -ceq 'MSBUILDDISABLENODEREUSE=0'}).Count -eq 0)
+    Check ($block.EndsWith(([string][char]0)+[char]0))
+    # Exercise the actual installed SDK setter, without creating a BuildManager or running a build.
+    $sdk=Join-Path $env:DOTNET_ROOT 'sdk/10.0.401'
+    [void][Reflection.Assembly]::LoadFrom((Join-Path $sdk 'Microsoft.Build.Framework.dll'))
+    $assembly=[Reflection.Assembly]::LoadFrom((Join-Path $sdk 'Microsoft.Build.dll'))
+    $type=$assembly.GetType('Microsoft.Build.Execution.BuildParameters',$true);$property=$type.GetProperty('EnableNodeReuse')
+    foreach($value in @('0','1')){
+        $env:MSBUILDDISABLENODEREUSE=$value;$parameters=[Runtime.CompilerServices.RuntimeHelpers]::GetUninitializedObject($type);$property.SetValue($parameters,$true)
+        Check ($property.GetValue($parameters) -eq ($value -ceq '0'))
+    }
+}finally{$env:MSBUILDDISABLENODEREUSE=$savedReuse}
+# Actual shared decision helper preserves both operands and stays distinct from final cleanup.
+foreach($empty in @($false,$true)){foreach($expired in @($false,$true)){
+    $r=[KuaiYiLifecycleOperation+Receipt]::new()
+    $timeout=[KuaiYiLifecycleOperation]::CompleteJobWait($r,$empty,$expired)
+    Check ($timeout -eq (-not $empty -or $expired))
+    $expected=if($empty){'Empty'}else{'NonEmpty'}
+    Check ($r.PreRescueJobState.ToString() -ceq $expected -and $r.BudgetExpired -eq $expired)
+    $r.JobEmpty=$true;$r.CleanupConfirmed=$true;$r.RescueUsed=$true
+    $row=Get-LifecycleOperationEvidence 'NativeConfigure' $r
+    Check ($row.PreRescueJobState -ceq $expected -and $row.BudgetExpired -eq $expired -and $row.JobEmpty -and $row.CleanupConfirmed)
+}}
+$r=[KuaiYiLifecycleOperation+Receipt]::new();$r.JobEmpty=$true;$r.CleanupConfirmed=$true
+$row=Get-LifecycleOperationEvidence 'SourceHead' $r
+Check ($row.PreRescueJobState -ceq 'Unknown' -and -not $row.BudgetExpired -and $row.JobEmpty)
+$r.PreRescueJobState=[Enum]::ToObject([KuaiYiLifecycleOperation+JobState],999)
+Reject {Get-LifecycleOperationEvidence 'NativeConfigure' $r}
+Write-Host "LIFECYCLE_OPERATION_DIAGNOSTICS passed=$checks failed=0; pure classification/environment/SDK setter; Windows NotRun"

@@ -20,8 +20,8 @@ jobs:
           persist-credentials: false
           set-safe-directory: false
           ref: ${{ github.sha }}
-          # Only valid for delivery -> b39a907 -> 4bc4ee3 -> ae96589 -> locked3ae694.
-          fetch-depth: 5
+          # Only valid for delivery -> 1f78ac3 -> b39a907 -> 4bc4ee3 -> ae96589 -> locked3ae694.
+          fetch-depth: 6
       - name: Build two lifecycle tools and run four fixed non-target cases once
         timeout-minutes: 8
         shell: pwsh

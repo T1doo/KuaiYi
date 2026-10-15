@@ -469,3 +469,15 @@ a5e734f独审后第四CI38245204651/job114797239356继续4DLL/4PE/4load/8export/
 准备13414b51已按新明确批准交付b39a9076e69bec3c277e5664428ff142eaaef9f5/tree2bcfa3dd1a23c0da085f9d5303d491354e668686；唯一run38524993308/job115723148036/attempt1 success，SourceHead Exit0、Created/Resumed/held-root退出/Job空/cleanup全确认，无rescue，返回SHA匹配。旧授权/未上传文字是历史准备时点，本次授权已消耗，无重跑。原失败receipt不改，旧Windows具体根因仍unknown，native/managed生命周期编译及四case/UIA/匹配/性能均NotRun。
 
 父仅允许后续本地准备：完整runner统一git/cmake/dotnet取首个ApplicationInfo，不拼多路径；新增精确HEAD、唯一审定parent、locked祖先/tree及完整runtime输入diff。未来一child锁b39→4bc→ae→3ae，真实local浅克隆depth4失败/depth5可验证；独立新workflow只匹配自身路径，不改旧SourceHead入口，job10min/step8min/每外部操作原30s及既有清理观察，不改250/600/120/2000ms生产门。新72/72合同（真实git/dotnet2、cmake缺失拒绝1）和原45/45通过；初始harness假设cmake存在失败已保全，改为缺失时明确拒绝，不安装/不弱断言。原源/Job/协议未改，无新Windows、上传、push、模型或安全网络权限操作。[完整下一验证合同](validation/lifecycle-full-next-validation.md)列准确八文件及未验范围；需后续独立批准才可推送触发。
+
+
+## 2026-10-14 完整生命周期唯一尝试失败及本地补正
+
+审定16d3ff37已正常交付1f78ac3cf2073895dab8c6a3ab3e936ce064d143，完整tree381bd52c与审定源码相同、唯一parent b39a907。run38595908121/job115962449373/attempt1 completed failure；九项来源与工具检查Completed0且无rescue，NativeConfigure root Exit0但WaitJobEmpty Timeout，救援后JobEmpty/cleanup确认。没有救援前具体子进程身份，具体根因unknown；CompilerFaults[]不证明目标编译通过。原生目标build、managed restore/build、四case全NotRun，UIA/Match/Performance NotRun，ProductionReuse Off/ModelCalls0。失败即结束该次授权，没有自动重跑。
+
+仅本地补正ChildEnvironment固定MSBUILDDISABLENODEREUSE=1；官方及实际SDK setter证明开关语义，不据此声称修复Windows根因。原86加5合同91/91；未来parent1f78/depth6真实浅克隆合同72/72，原evidence45/45。未减断言、未放宽Job空/救援/预算/生产守卫；不安装、不push新准备、不启动Windows。固定receipt及完整口径见[失败报告](validation/full-lifecycle-configure-timeout.md)。P0/E06Blocked、普通Windows11/多屏DPI/真实取词/安装验收保持未验。
+
+
+## 2026-10-14 救援前有限诊断与仅本地交接
+
+父要求补正精确诊断：14534bd未单独记录救援前Job状态/BudgetExpired，旧receipt保留原字节且不回填。新有限Unknown/Empty/NonEmpty记录原等待查询，BudgetExpired记录原预算决策；finally仅更新旧清理字段，不覆盖前态。沿原!empty||expired、不新增查询或放宽预算/救援/隔离；不能认定MSBuild残留根因。受控ChildEnvironment固定禁节点复用仍为候选修复。新增14纯断言加原91=105/105，runner72/72、evidence45/45实际通过；本轮无Windows/上传/push。精确冻结身份、逐文件hash/diff及独审见本地handoff，后续唯一尝试需父核验和新授权。[最小方案](validation/lifecycle-safe-diagnostic-handoff.md)。

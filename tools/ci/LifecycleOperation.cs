@@ -13,6 +13,7 @@ public static class KuaiYiLifecycleOperation
     public enum OperationStage { Start,CreateJob,VerifyJobInheritance,SetJobLimits,OpenOutput,OpenInput,PrepareProcess,CreateProcess,AssignJob,VerifyJobMembership,ResumeThread,WaitRoot,ReadExit,WaitJobEmpty,FlushOutput,Completed }
     public enum FailureKind { None,Win32,MissingLibrary,MissingEntry,Argument,Io,ManagedOther,Timeout }
     public enum NativeError { None,Zero,FileNotFound,PathNotFound,AccessDenied,InvalidHandle,InvalidParameter,BadImage,EnvVarMissing,DirectoryInvalid,ElevationRequired,Other }
+    public enum JobState { Unknown,Empty,NonEmpty }
     public enum WaitOutcome { Completed,Timeout,Failed,Unexpected }
     public enum OperationReason { Completed,OperationFailure,OperationTimeout,OperationCleanupFailure }
     public sealed class Receipt
@@ -20,6 +21,8 @@ public static class KuaiYiLifecycleOperation
         public string Status="Failure";public string Exit="Unknown";
         public bool RootExitConfirmed,JobEmpty,RescueUsed,CleanupConfirmed;
         public bool ProcessCreated,Resumed;
+        public JobState PreRescueJobState=JobState.Unknown;
+        public bool BudgetExpired;
         public OperationStage Stage=OperationStage.Start;
         public FailureKind Failure=FailureKind.None;
         public NativeError Error=NativeError.None;
@@ -38,6 +41,18 @@ public static class KuaiYiLifecycleOperation
         if(r.Status=="Timeout"&&r.Failure==FailureKind.Timeout)return OperationReason.OperationTimeout;
         if(r.Status=="Completed"&&r.ProcessCreated&&r.Resumed&&r.RootExitConfirmed&&r.JobEmpty&&!r.RescueUsed&&r.Failure==FailureKind.None)return OperationReason.Completed;
         return OperationReason.OperationFailure;
+    }
+    // Diagnostic snapshots only. Cleanup must never overwrite these pre-rescue observations.
+    public static void RecordJobObservation(Receipt r,bool empty){r.PreRescueJobState=empty?JobState.Empty:JobState.NonEmpty;}
+    public static bool CompleteJobWait(Receipt r,bool empty,bool expired)
+    {
+        RecordJobObservation(r,empty);r.BudgetExpired=expired;r.JobEmpty=empty;
+        return !empty||expired;
+    }
+    private static bool ObserveJobEmpty(IntPtr job,Receipt r)
+    {
+        r.PreRescueJobState=JobState.Unknown;
+        bool empty=Empty(job);RecordJobObservation(r,empty);return empty;
     }
     private static Win32Exception NativeFailure(){return new Win32Exception(Marshal.GetLastWin32Error());}
     public static string Quote(string value)
@@ -77,11 +92,12 @@ public static class KuaiYiLifecycleOperation
             // Suspended creation binds the complete operation graph before any code can spawn children.
             r.Stage=OperationStage.AssignJob;if(!AssignProcessToJobObject(job,child.Process))throw NativeFailure();
             r.Stage=OperationStage.VerifyJobMembership;if(!IsProcessInJob(child.Process,job,out bool member))throw NativeFailure();if(!member)throw new IOException();
-            r.Stage=OperationStage.ResumeThread;if(clock.ElapsedMilliseconds>=30000)throw new TimeoutException();if(ResumeThread(child.Thread)==uint.MaxValue)throw NativeFailure();r.Resumed=true;
+            r.Stage=OperationStage.ResumeThread;r.BudgetExpired=clock.ElapsedMilliseconds>=30000;if(r.BudgetExpired)throw new TimeoutException();if(ResumeThread(child.Thread)==uint.MaxValue)throw NativeFailure();r.Resumed=true;
             r.Stage=OperationStage.WaitRoot;
             uint wait=WaitForSingleObject(child.Process,(uint)Math.Max(0,30000-clock.ElapsedMilliseconds));
             int waitError=wait==uint.MaxValue?Marshal.GetLastWin32Error():0;
-            WaitOutcome outcome=ClassifyWait(wait,clock.ElapsedMilliseconds>=30000);
+            r.BudgetExpired=clock.ElapsedMilliseconds>=30000;
+            WaitOutcome outcome=ClassifyWait(wait,r.BudgetExpired);
             if(outcome==WaitOutcome.Failed)throw new Win32Exception(waitError);
             if(outcome==WaitOutcome.Unexpected)throw new IOException();
             if(outcome==WaitOutcome.Timeout){r.Status="Timeout";r.Failure=FailureKind.Timeout;r.RescueUsed=true;}
@@ -90,9 +106,9 @@ public static class KuaiYiLifecycleOperation
                 r.RootExitConfirmed=true;
                 r.Stage=OperationStage.ReadExit;if(!GetExitCodeProcess(child.Process,out uint code))throw NativeFailure();
                 r.Exit=code<=3?code.ToString(System.Globalization.CultureInfo.InvariantCulture):"Other";
-                r.Stage=OperationStage.WaitJobEmpty;while(!Empty(job)&&clock.ElapsedMilliseconds<30000)Thread.Sleep(10);
-                r.JobEmpty=Empty(job);
-                if(!r.JobEmpty||clock.ElapsedMilliseconds>=30000){r.Status="Timeout";r.Failure=FailureKind.Timeout;r.RescueUsed=true;}else r.Status="Completed";
+                r.Stage=OperationStage.WaitJobEmpty;while(!ObserveJobEmpty(job,r)&&clock.ElapsedMilliseconds<30000)Thread.Sleep(10);
+                bool empty=ObserveJobEmpty(job,r);
+                if(CompleteJobWait(r,empty,clock.ElapsedMilliseconds>=30000)){r.Status="Timeout";r.Failure=FailureKind.Timeout;r.RescueUsed=true;}else r.Status="Completed";
             }
         }
         catch(Exception error){RecordFailure(r,error);r.Status=r.Failure==FailureKind.Timeout?"Timeout":"Failure";r.RescueUsed=created;}
@@ -128,6 +144,8 @@ public static class KuaiYiLifecycleOperation
         var values=new SortedDictionary<string,string>(StringComparer.OrdinalIgnoreCase);
         foreach(string name in new[]{"SystemRoot","WINDIR","SystemDrive","TEMP","TMP","PATH","COMSPEC","ProgramFiles","ProgramFiles(x86)","ProgramW6432","USERPROFILE","LOCALAPPDATA","APPDATA","DOTNET_ROOT","DOTNET_ROOT_X64"}){string value=Environment.GetEnvironmentVariable(name);if(value!=null)values[name]=value;}
         values["DOTNET_CLI_TELEMETRY_OPTOUT"]="1";values["DOTNET_SKIP_FIRST_TIME_EXPERIENCE"]="1";
+        // Configure-time compiler probes invoke MSBuild too; do not retain reusable build nodes.
+        values["MSBUILDDISABLENODEREUSE"]="1";
         var block=new StringBuilder();foreach(var pair in values)block.Append(pair.Key).Append('=').Append(pair.Value).Append('\0');return block.Append('\0').ToString();
     }
     [StructLayout(LayoutKind.Sequential)] private struct SecurityAttributes{public int Length;public IntPtr Descriptor;public int Inherit;}

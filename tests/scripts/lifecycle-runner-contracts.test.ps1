@@ -6,7 +6,7 @@ Add-Type -Path "$PSScriptRoot/../../tools/ci/LifecycleOperation.cs"
 $checks=0;$actualLookups=0;$missingLookups=0
 function Check([bool]$Condition){if(-not $Condition){throw ('Full runner contract failed '+$script:checks)};$script:checks++}
 function Reject([scriptblock]$Operation){$failed=$false;try{& $Operation | Out-Null}catch{$failed=$true};Check $failed}
-$private='PRIVATE_SENTINEL_SYNTHETIC_sk';$base='b39a9076e69bec3c277e5664428ff142eaaef9f5';$locked='3ae69419a1152ea9694a3a9cf11130fbae645fa3';$tree='870a72ed3ef2ee31252c10e2d63cbcb859e7fd7b'
+$private='PRIVATE_SENTINEL_SYNTHETIC_sk';$base='1f78ac3cf2073895dab8c6a3ab3e936ce064d143';$locked='3ae69419a1152ea9694a3a9cf11130fbae645fa3';$tree='870a72ed3ef2ee31252c10e2d63cbcb859e7fd7b'
 function Candidate([string]$Path){return [pscustomobject]@{CommandType=[Management.Automation.CommandTypes]::Application;Source=$Path}}
 foreach($name in @('git','cmake','dotnet')){
     $first=Candidate ('/fixture/'+$name+'-first');$second=Candidate ('/fixture/'+$name+'-second')
@@ -34,7 +34,7 @@ foreach($kind in @('SourceParent','SourceAncestry','SourceLockedTree')){
 Check ($runner.Contains("'LifecycleRuntime' "+'$dotnet @($dll,'+"'--supervise',"+'$exe)'))
 Check ($runner -notmatch 'Install-|upload-artifact|KuaiYi\.ReuseLifecycle\.exe')
 $workflow=Get-Content -LiteralPath "$PSScriptRoot/../../.github/workflows/windows-lifecycle-validation.yml" -Raw
-Check ($workflow -match 'fetch-depth: 5' -and $workflow.Contains('ref: ${{ github.sha }}') -and $workflow -match 'timeout-minutes: 10' -and $workflow -match 'timeout-minutes: 8' -and $workflow -match 'runs-on: windows-2022')
+Check ($workflow -match 'fetch-depth: 6' -and $workflow.Contains('ref: ${{ github.sha }}') -and $workflow -match 'timeout-minutes: 10' -and $workflow -match 'timeout-minutes: 8' -and $workflow -match 'runs-on: windows-2022')
 Check ($workflow -match 'run-lifecycle-windows-ci.ps1' -and $workflow -notmatch 'run-source-head-windows-ci.ps1|rerun|upload-artifact')
 Check ($workflow -match 'paths: \[.github/workflows/windows-lifecycle-validation.yml\]')
 if(-not $IsWindows){
@@ -48,14 +48,14 @@ $temp=Join-Path $repo ('artifacts/full-runner-tests/'+[guid]::NewGuid().ToString
 $git=Get-LifecycleApplicationPath 'git';$log=Join-Path $temp 'git.local.log'
 function GitCode([string[]]$Arguments){& $script:git @Arguments *> $script:log;return $LASTEXITCODE}
 $bare=Join-Path $temp 'history.git';Check ((GitCode @('clone','--bare','--shared',$repo,$bare)) -eq 0)
-Check ((GitCode @('-C',$bare,'-c','user.name=KuaiYiSynthetic','-c','user.email=fixture@example.invalid','commit-tree','2bcfa3dd1a23c0da085f9d5303d491354e668686','-p',$base,'-m','Full lifecycle checkout fixture')) -eq 0)
+Check ((GitCode @('-C',$bare,'-c','user.name=KuaiYiSynthetic','-c','user.email=fixture@example.invalid','commit-tree','381bd52c7dcab8d807b56af4c884c856443cb84b','-p',$base,'-m','Full lifecycle checkout fixture')) -eq 0)
 $future=(Get-Content -LiteralPath $log -Raw).Trim();Check ($future -cmatch '^[0-9a-f]{40}$');Check ((GitCode @('-C',$bare,'update-ref','refs/heads/future',$future)) -eq 0)
 $uri=[Uri]::new($bare+[IO.Path]::DirectorySeparatorChar).AbsoluteUri
-foreach($depth in @(4,5)){
+foreach($depth in @(5,6)){
     $clone=Join-Path $temp ('depth'+$depth);Check ((GitCode @('clone','--no-checkout','--depth',[string]$depth,'--single-branch','--branch','future',$uri,$clone)) -eq 0)
     Check ((GitCode @('-C',$clone,'rev-list','--parents','-n','1','HEAD')) -eq 0);Check (Test-LifecycleSingleParent (Get-Content -LiteralPath $log -Raw) $future $base)
     $code=GitCode @('-C',$clone,'merge-base','--is-ancestor',$locked,'HEAD')
-    if($depth -eq 4){Check ($code -ne 0)}else{
+    if($depth -eq 5){Check ($code -ne 0)}else{
         Check ($code -eq 0);Check ((GitCode @('-C',$clone,'rev-parse',($locked+'^{tree}'))) -eq 0);Check ((Read-LifecycleExactSha (Get-Content -LiteralPath $log -Raw)) -ceq $tree)
         Check ((GitCode (@('-C',$clone,'diff','--quiet',$locked,'HEAD','--')+(Get-LifecycleRuntimePaths))) -eq 0)
         Check ((GitCode @('-C',$clone,'checkout','--quiet','HEAD')) -eq 0)

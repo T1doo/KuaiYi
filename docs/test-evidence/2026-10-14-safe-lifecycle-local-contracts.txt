@@ -1,0 +1,10 @@
+Actual Linux local runs; no Windows Run/native calls or model calls.
+
+operation.log
+LIFECYCLE_OPERATION_DIAGNOSTICS passed=105 failed=0; pure classification/environment/SDK setter; Windows NotRun
+
+lifecycle-runner-contracts.log
+FULL_LIFECYCLE_RUNNER_CONTRACTS passed=72 failed=0; actualLookups=2 missingRejected=1; local Git/pure checks only; Windows NotRun
+
+lifecycle-ci-evidence.log
+LIFECYCLE_CI_EVIDENCE_CONTRACTS passed=45 failed=0; Windows operation wrapper NotRun

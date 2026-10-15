@@ -4,7 +4,7 @@ $ErrorActionPreference='Stop'
 . "$PSScriptRoot/lifecycle-runner-contracts.ps1"
 $repo=Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 $locked='3ae69419a1152ea9694a3a9cf11130fbae645fa3'
-$summary=[pscustomobject][ordered]@{Kind='NonTargetLifecycleCiSummary';SourceCommit=$null;ReviewedParent='b39a9076e69bec3c277e5664428ff142eaaef9f5';ParentVerified=$false;AncestorVerified=$false;LockedSource=$locked;LockedTree='870a72ed3ef2ee31252c10e2d63cbcb859e7fd7b';LockedTreeVerified=$false;SourceEquivalent=$false;Scope='FourFixedNonTargetCasesOnly';Status='Fail';Reason='RunnerFailure';Operations=@();CompilerFaults=@();Cases=@();Runtime='NotRun';UiaText='NotRun';Match='NotRun';Performance='NotRun';ProductionReuse='Off';ModelCalls=0;ExitCode=3}
+$summary=[pscustomobject][ordered]@{Kind='NonTargetLifecycleCiSummary';SourceCommit=$null;ReviewedParent='1f78ac3cf2073895dab8c6a3ab3e936ce064d143';ParentVerified=$false;AncestorVerified=$false;LockedSource=$locked;LockedTree='870a72ed3ef2ee31252c10e2d63cbcb859e7fd7b';LockedTreeVerified=$false;SourceEquivalent=$false;Scope='FourFixedNonTargetCasesOnly';Status='Fail';Reason='RunnerFailure';Operations=@();CompilerFaults=@();Cases=@();Runtime='NotRun';UiaText='NotRun';Match='NotRun';Performance='NotRun';ProductionReuse='Off';ModelCalls=0;ExitCode=3}
 $output=$null;$runtimeLog=$null;$allLogs=[Collections.Generic.List[string]]::new();$operations=[Collections.Generic.List[object]]::new()
 function Invoke-BoundedLifecycleOperation([string]$Kind,[string]$Executable,[string[]]$Arguments) {
     $log=Join-Path $script:output ($Kind+'.local.log');$script:allLogs.Add($log);if($Kind -ceq 'LifecycleRuntime'){$script:runtimeLog=$log}
