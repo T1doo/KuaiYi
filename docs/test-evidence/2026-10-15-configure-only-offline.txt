@@ -1,0 +1,35 @@
+CONFIGURE_ONLY_OFFLINE_EVIDENCE 2026-10-15
+Parent=b4592d5d60d38cbbf186a38dbba2b1ae07b0482c
+ParentTree=0b420e3ffe04d332422f9f1aa16b6a09331f2f39
+Host=Linux-x64; Python=3.12.14; PowerShell=7.5.3
+Windows=NotRun; ActualCMake=NotRun; FourCases=NotRun; ModelCalls=0; NewCIRuns=0
+Assertions=480; New=171+6; Existing=8+14+21+16+127+45+72
+OwnedGitCandidateDepth11=RejectedMissingLockedAncestor; Depth12=Verified
+OriginalFourFiles=Missing; NoReconstruction=true
+configure-only-source: Exit=0; Expected=0; OutputSha256=d5d69b13bbe0a6c673989528bee7f25020d4523aa7a1d2cc4d736a98e7500ae5
+Ran 6 tests in 1.601s
+bridge-fixture: Exit=0; Expected=0; OutputSha256=4011f3c28b86003bccc4462168ca0b6c8d1004ff3826802212eacc2bdfa95f3c
+Ran 8 tests in 0.071s
+bridge-collector: Exit=0; Expected=0; OutputSha256=1d7a5929fe2edb2dc672a390c4be99ab7999a009d093546aa803e0de41a2dfda
+Ran 14 tests in 0.184s
+file-adapter: Exit=0; Expected=0; OutputSha256=f4b59fb996e889843e1ea825508a1a18ba2e657d1f628cff91632b69a50495c2
+Ran 21 tests in 0.006s
+file-fixture: Exit=0; Expected=0; OutputSha256=08d7aaa274553283d09f01b1ad69cd40efd0621c23863a64071ee18a8951aab3
+Ran 16 tests in 0.004s
+configure-only-contracts: Exit=0; Expected=0; OutputSha256=0355e628623f123e74b64b56d1cd12e62dea5db1a56d3ff4c7588120df1fa502
+CONFIGURE_ONLY_CONTRACTS passed=171 failed=0; injected operations only; Windows/CMake/FourCases NotRun
+runner-integration: Exit=0; Expected=0; OutputSha256=31fb1ececd6d301f861ee845b88a6f31aba881b8962e0d7359014f36fa302f57
+CONFIGURE_LOCAL_INTEGRATION passed=127 failed=0; injected operations/file reads only; Windows/CMake/FourCases NotRun
+public-evidence: Exit=0; Expected=0; OutputSha256=3aee6c0c1860e9b01117b9bc6a735067aec1bd81824a8e5374293c6bdfedf5ca
+LIFECYCLE_CI_EVIDENCE_CONTRACTS passed=45 failed=0; Windows operation wrapper NotRun
+runner-contracts: Exit=0; Expected=0; OutputSha256=eae3490839b719a73fd4afca7fcc4f2fcc083ab0c24040b0658dbfd1b227b8d7
+FULL_LIFECYCLE_RUNNER_CONTRACTS passed=72 failed=0; actualLookups=1 missingRejected=2; local Git/pure checks only; Windows NotRun
+linux-gate: Exit=2; Expected=2; OutputSha256=2dafe05a1395353d6f973689af123f9ec2af6fbfad74e7a93094b0e8a21841e7
+LinuxGate=Blocked/HostedWindowsRequired; Exit=2; Operations=[]; CollectorSettlement=NotStarted
+SDK10.0.401Setter105=NotRun (SDK unavailable); no Windows native call
+SourceSha256:
+ab7adbd8ea76a43c026f8465eb3b662323e37ba395ee039940ef06739bbe36a2  .github/workflows/windows-configure-only.yml
+c5d661f0b674ad2c670b3f70153ac6fa76c37bde6f8bc9fd3060b47eecafe416  tests/scripts/run-configure-only-windows.ps1
+a90d2765e5bcca7680ed6ddb2d52b94e7d72952dba33bfc53fad540b65df8e9d  tests/scripts/configure-only-contracts.test.ps1
+65575b09745734b1547f5eba536820b4f86fca6a84ebd6af5b7129f9e366cae4  tests/scripts/configure-only-source.test.py
+3f01de7aed192dbe85fec5ae3864d450abc58f18b8bf9fd5130314cc251e1b3e  tests/scripts/configure-files-fixture.test.py

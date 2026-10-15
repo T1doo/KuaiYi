@@ -511,3 +511,9 @@ a5e734f独审后第四CI38245204651/job114797239356继续4DLL/4PE/4load/8export/
 精确独审 66d671e526d81a1013e6401f2664b436a1468533 / tree 427b65347b392b55d10ac2bc825813c8daef8d9a 通过后一次正常 push 到隔离分支；[run38686940470](https://github.com/T1doo/KuaiYi/actions/runs/38686940470) / job116263848345 / attempt1 completed success。HEAD/parent/八文件门通过，15项真实桥、受控读取、无效证明拒绝及清理检查全部通过，CleanupConfirmed true/CleanupFailed false/OriginalResultPreserved true/Exit0。完整固定回执见[Windows证据](test-evidence/2026-10-15-configure-bridge-windows.json)，完整解码job日志与303项离线复核原始输出保存在本地ignored artifacts。源码提交仅有这一条新workflow运行，未重试或再次推送运行源码，旧分支/main不变。
 
 原CMake与四生命周期NotRun，原失败/救援receipt在本fixture中仅合成注入，原NativeConfigure Timeout/PreRescueJobStateNonEmpty/BudgetExpired具体根因仍unknown。真实bridge通过不表示原生命周期或P0/E06/生产验收通过；250/600ms、来源/密码/完整性/取消/清理门不变，模型调用0。此实际结果的三份文档单独归档，运行源码与workflow字节不变，不命中任何workflow触发路径。
+
+### 2026-10-15 独立 configure-only 本地准备
+
+bridge结果三文档已交付 b4592d5，查询无新workflow run。后续本地新分支 dev/configure-only-diagnostic 只准备 configure→清理门→有限采集→结束的独立入口；configure成功也不进入build/restore/四case。旧runner、四workflow和原operation/lease/adapter/生产不改。新来源锁b459唯一child、完整parent tree、locked3ae/tree及runtime输入；实际owned浅克隆depth11拒绝、depth12通过，新workflow只匹配新分支与自身路径，未push或执行。
+
+实际取回旧run38669606027/job116209346264的原解码日志并保全，确认NativeConfigure root Exit0、WaitJobEmpty Timeout、救援前NonEmpty/BudgetExpired、救援后cleanup确认；四原文件仍全部缺失，不推断残留进程根因。新增171注入与6来源/句柄引用次序检查通过，collector清理未知时零JSON读取、独立Unknown状态及原结果保留；不是新的Windows实测。原30秒/救援/清理、安全门及P0/E06边界保持，详见[本地准备与剩余缺口](validation/configure-only-next-run.md)。

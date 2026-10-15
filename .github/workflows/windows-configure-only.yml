@@ -1,0 +1,55 @@
+name: One configure-only diagnostic attempt
+on:
+  push:
+    branches: [dev/configure-only-diagnostic]
+    paths: [.github/workflows/windows-configure-only.yml]
+permissions:
+  contents: read
+jobs:
+  configure-only:
+    if: github.repository == 'T1doo/KuaiYi' && github.ref == 'refs/heads/dev/configure-only-diagnostic' && github.event_name == 'push'
+    runs-on: windows-2022
+    timeout-minutes: 10
+    env:
+      CI: 'true'
+      POWERSHELL_TELEMETRY_OPTOUT: '1'
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - name: Checkout exact reviewed event and locked ancestry
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          ref: ${{ github.sha }}
+          # Candidate -> b4592d5 -> ... -> locked3ae694: 12 commits inclusive.
+          fetch-depth: 12
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Verify exact source identities and complete changed file scope
+        timeout-minutes: 1
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $head=(& git rev-parse HEAD).Trim()
+          if($LASTEXITCODE -ne 0 -or $head -cne $env:GITHUB_SHA -or $head -cnotmatch '^[0-9a-f]{40}$'){throw 'Source identity rejected'}
+          $parent='b4592d5d60d38cbbf186a38dbba2b1ae07b0482c'
+          $parentTree='0b420e3ffe04d332422f9f1aa16b6a09331f2f39'
+          $parents=(& git rev-list --parents -n 1 HEAD).Trim().Split(' ')
+          if($LASTEXITCODE -ne 0 -or $parents.Count -ne 2 -or $parents[0] -cne $head -or $parents[1] -cne $parent){throw 'Parent identity rejected'}
+          $tree=(& git rev-parse ($parent+'^{tree}')).Trim()
+          if($LASTEXITCODE -ne 0 -or $tree -cne $parentTree){throw 'Parent tree rejected'}
+          $locked='3ae69419a1152ea9694a3a9cf11130fbae645fa3'
+          & git merge-base --is-ancestor $locked HEAD
+          if($LASTEXITCODE -ne 0){throw 'Locked ancestor rejected'}
+          $tree=(& git rev-parse ($locked+'^{tree}')).Trim()
+          if($LASTEXITCODE -ne 0 -or $tree -cne '870a72ed3ef2ee31252c10e2d63cbcb859e7fd7b'){throw 'Locked tree rejected'}
+          $allowed=@('.github/workflows/windows-configure-only.yml','docs/progress.md','docs/test-evidence/2026-10-15-configure-only-offline.txt','docs/test-evidence/2026-10-15-original-configure-timeout.json','docs/validation/configure-only-next-run.md','tests/scripts/configure-files-fixture.test.py','tests/scripts/configure-only-contracts.test.ps1','tests/scripts/configure-only-source.test.py','tests/scripts/run-configure-only-windows.ps1')
+          $changed=@(& git diff --name-only $parent HEAD --)
+          if($LASTEXITCODE -ne 0 -or @(Compare-Object $allowed $changed).Count -ne 0){throw 'File scope rejected'}
+          $tree=(& git rev-parse 'HEAD^{tree}').Trim()
+          if($LASTEXITCODE -ne 0 -or $tree -cnotmatch '^[0-9a-f]{40}$'){throw 'Execution tree rejected'}
+          Write-Host ('ConfigureOnlySourceIdentityVerified Head='+$head+' Tree='+$tree)
+      - name: Configure once, collect after cleanup, then stop
+        timeout-minutes: 7
+        shell: pwsh
+        run: |
+          & ./tests/scripts/run-configure-only-windows.ps1
+          exit $LASTEXITCODE
