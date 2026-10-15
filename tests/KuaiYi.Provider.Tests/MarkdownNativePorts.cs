@@ -10,6 +10,7 @@ namespace System.Windows
     internal enum TextAlignment { Left, Center, Right }
     internal enum TextWrapping { NoWrap, Wrap }
     internal readonly record struct Size(double Width,double Height);
+    internal readonly record struct GridLength(double Value);
     internal static class SystemParameters {public const double VerticalScrollBarWidth=17;}
     internal class UIElement {public bool ClipToBounds {get;set;}public string? AutomationName {get;set;}}
     internal class FrameworkElement:UIElement
@@ -55,11 +56,20 @@ namespace System.Windows.Documents
         public System.Collections.Generic.List<TableColumn> Columns {get;}=[];
         public System.Collections.Generic.List<TableRowGroup> RowGroups {get;}=[];
     }
-    internal sealed class TableColumn;
+    internal sealed class TableColumn {public GridLength Width {get;set;}}
     internal sealed class TableRowGroup {public System.Collections.Generic.List<TableRow> Rows {get;}=[];}
     internal sealed class TableRow {public System.Collections.Generic.List<TableCell> Cells {get;}=[];}
     internal sealed class TableCell(Paragraph paragraph)
-    {public Paragraph Paragraph {get;}=paragraph;public Thickness Padding {get;set;}}
+    {
+        public System.Collections.Generic.List<Block> Blocks {get;}=[paragraph];public Paragraph Paragraph=>(Paragraph)Blocks[0];public Thickness Padding {get;set;}
+        private readonly FlowDocument boundary=new();
+        public int SymbolStart {get;set;}
+        public int SymbolEnd {get;set;}=1000000;
+        public int? InsertionStart {get;set;}
+        public int? InsertionEnd {get;set;}
+        public TextPointer ContentStart=>new(boundary,SymbolStart,InsertionStart);
+        public TextPointer ContentEnd=>new(boundary,SymbolEnd,InsertionEnd);
+    }
     internal sealed class ListItem(Paragraph paragraph) {public Paragraph Paragraph {get;}=paragraph;}
     internal sealed class List(ListItem item):Block
     {
@@ -76,12 +86,32 @@ namespace System.Windows.Documents
         public double ColumnGap {get;set;}
         public double PageWidth {get;set;}
         public double ColumnWidth {get;set;}
+        // Explicit test-controlled symbol boundary, not a layout/text-tree simulation.
+        public int SymbolLength {get;set;}=1000000;
+        public TextPointer ContentStart=>new(this,0);
+        public TextPointer ContentEnd=>new(this,SymbolLength);
+    }
+    internal enum LogicalDirection { Forward, Backward }
+    internal sealed class TextPointer(FlowDocument document,int offset,int? insertionOffset=null)
+    {
+        internal int Offset=>offset;
+        public int CompareTo(TextPointer other)=>offset.CompareTo(other.Offset);
+        public TextPointer GetInsertionPosition(LogicalDirection direction)=>new(document,insertionOffset??offset);
+        public int GetOffsetToPosition(TextPointer other)=>other.Offset-offset;
+        public TextPointer? GetPositionAtOffset(int value)=>offset+value>=0&&offset+value<=document.SymbolLength?new(document,offset+value):null;
+    }
+    internal sealed class TextSelection(Func<FlowDocument> document)
+    {
+        private TextPointer? start,end;
+        public TextPointer Start=>start??document().ContentStart;
+        public TextPointer End=>end??document().ContentStart;
+        public void Select(TextPointer from,TextPointer to){start=from;end=to;}
     }
 }
 namespace System.Windows.Controls
 {
     internal enum ScrollBarVisibility { Disabled, Auto, Hidden, Visible }
-    internal sealed class RichTextBox:FrameworkElement
+    internal sealed partial class RichTextBox:FrameworkElement
     {
         public Documents.FlowDocument Document {get;set;}=new();
         public double FontSize {get;set;}

@@ -17,7 +17,7 @@ public sealed class MarkdownTableProductionTests
     {
         Assert.True(window.MarkdownGate.TryStartRequest(session,Guid.NewGuid(),null,out var id,out _));Assert.True(window.MarkdownResults.Begin(id));Assert.True(window.MarkdownResults.Append(id,source));if(complete)Assert.True(window.MarkdownResults.Complete(id));return id;
     }
-    private static Table Native(RichTextBox host,int index=0)=>Assert.IsType<Table>(host.Document.Blocks[index]);
+    private static Table Native(RichTextBox host,int index=0)=>Assert.IsType<Table>(Assert.Single(Assert.IsType<RichTextBox>(Assert.IsType<BlockUIContainer>(host.Document.Blocks[index]).Child).Document.Blocks));
     private static string Text(Paragraph paragraph)=>string.Concat(paragraph.Inlines.Select(i=>i is Run r?r.Text:string.Concat(Assert.IsType<Span>(i).Inlines.Select(n=>Assert.IsType<Run>(n).Text))));
     [Fact]public void BodyAndMeasurementBothConstructActualNativeTableRowsCellsAndAlignment()
     {
@@ -53,7 +53,7 @@ public sealed class MarkdownTableProductionTests
         Assert.Equal(3,window.MarkdownResults.Versions.Count);Assert.True(window.MarkdownResults.SelectVersion(ids[1].VersionId));window.RenderMarkdown();Assert.Equal("version 1",Text(Native(window.MarkdownBody).RowGroups[0].Rows[1].Cells[0].Paragraph));
         var failed=Begin(window,session,"a|b\n---|---\n*unclosed|y",false);Assert.True(window.MarkdownResults.Fail(failed));window.RenderMarkdown();Assert.Equal(ids[1].VersionId,window.MarkdownResults.SelectedVersionId);Assert.Equal(Source.Replace("x\\|y","version 1",StringComparison.Ordinal),window.MarkdownResults.Text);
         Assert.False(window.MarkdownResults.Append(ids[0],"late evicted"));Assert.False(window.MarkdownResults.Append(failed,"late failed"));window.RenderMarkdown();Assert.Equal("version 1",Text(Native(window.MarkdownMeasurement).RowGroups[0].Rows[1].Cells[0].Paragraph));
-        var active=Begin(window,session,Source,false);window.RenderMarkdown();window.MarkdownGate.Disable();window.MarkdownResults.MarkStopped();window.RenderMarkdown();Assert.False(window.MarkdownResults.Append(active,"late canceled"));Assert.IsType<Table>(window.MarkdownBody.Document.Blocks[0]);
+        var active=Begin(window,session,Source,false);window.RenderMarkdown();window.MarkdownGate.Disable();window.MarkdownResults.MarkStopped();window.RenderMarkdown();Assert.False(window.MarkdownResults.Append(active,"late canceled"));Native(window.MarkdownBody);
         window.MarkdownGate.SetSessionLocked(true);window.MarkdownResults.Clear();window.DropMarkdown();Assert.Empty(window.MarkdownModel.Blocks);Assert.Empty(window.MarkdownBody.Document.Blocks);Assert.Empty(window.MarkdownMeasurement.Document.Blocks);Assert.False(window.MarkdownResults.Append(active,"late cleared"));
     }
     [Fact]public void WholeCapacityFallbackIsRenderedLiterallyInBothDocumentsAndRawCopyData()

@@ -645,3 +645,11 @@ AccountingV1准备实际验证完成：独立来源5项通过，真实浅clone21
 局部输入接阅读意图和原修订门；独审发现初版outer-bottom重开follow及开放代码重建丢状态后，补明确代码阅读暂停与显式恢复/版本重置、同版本追加复用控件及受局部/全局输入/结果/锁屏退出守卫保护的选择偏移恢复；测量不排队，替换/容量/清空解绑清文。最终Provider699/699=原657+新42，App交叉构建0W/E；首次端口可空性CS8622编译失败0执行原log、171/174专项和中间695均保留，旧19回执hash保持。真实WPF横滚/测量/选择/阅读锚点/父子路由均NotRun，不称B12或P2完成。
 
 8workflow/43锁/旧证据及全部Core安全文件原字节保持，250/600ms和安全门/生产离线复用Off不变。Actions访问继续停止不绕，运行数Unknown；所有dotnet显式false，证书不读不改仍Unknown。无Windows/CMake实验、main/强推/部署/费用凭据权限/真实模型。详见[局部代码说明](validation/overlay-code-scroll.md)与[固定证据](test-evidence/2026-10-15-overlay-code-scroll.json)。
+
+### 2026-10-15 长表格局部横向滚动
+
+从已接收06d1df264c737a09bda81ac2e597cdc7dcec0e1d核文件/单一写入者/HEAD与默认网络远端祖先后建立dev/overlay-table-scroll，只接SPEC4.2长表格视口。原生Table/Row/Cell/Run/Span保持，外包只读RichTextBox/FlowDocument局部滚动，宽度与正文/测量共同有限页宽一致，高度min(320DIP,正文上限)，列96—480DIP、内部页宽最多8192；字体估宽不是实测。开放表追加复用原生表及稳定cells，局部阅读复用原暂停/修订守卫，替换/容量/清空解绑清文；原文复制与惰性处理保持，解析器和代码区实现不改。
+
+独审修复全局symbol offset及末格闭符后移两个选区缺口，改稳定cell内offset并归一有效插入边界，合并追加和迟到恢复受局部/输入/结果/锁屏/退出门保护。最终Provider740/740=前699+新41，App最终交叉构建0W/E；首xUnit2031编译失败0执行原log、218专项和初版App回执均保留，旧29回执hash保持。Linux显式符号端口仅测生产协议，真实WPF表格宽度/横滚/排版/多格跨区域选择/系统复制/阅读锚点/路由仍NotRun，B12与P2-04未完成。
+
+8workflow/43锁/1570旧证据及全部45Core生产文件原字节保持，250/600ms及全部安全门/离线复用Off保持。Actions停止查询不绕拒绝、CIUnknown；dotnet显式false，证书不读不改Unknown。无Windows/CMake实验、main/强推/部署/费用凭据权限/真实模型。详见[表格局部说明](validation/overlay-table-scroll.md)与[固定证据](test-evidence/2026-10-15-overlay-table-scroll.json)。

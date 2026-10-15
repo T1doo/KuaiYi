@@ -1,0 +1,390 @@
+{
+  "SourceParent": "06d1df264c737a09bda81ac2e597cdc7dcec0e1d",
+  "Branch": "dev/overlay-table-scroll",
+  "MainBaseline": "51d077481cf6303602fcf5d2718213da9cf05178",
+  "Environment": {
+    "Repository": "/workspace/KuaiYi",
+    "OS": "Linux x86_64",
+    "Sdk": "10.0.401",
+    "InitialHeadAndRemoteCode": "06d1df264c737a09bda81ac2e597cdc7dcec0e1d",
+    "InitialWorktree": "Clean",
+    "SingleWriter": "Root only; reviewer read-only; old instances not resumed",
+    "DefaultNetwork": "git ls-remote success; no Actions requests",
+    "UnknownLocksAndProcesses": "Preserved; no deletion or termination"
+  },
+  "ProductionAndTestSha256": {
+    "src/KuaiYi.App/MarkdownViewport.cs": "99b4794b6742ad6b2e9395e4cff1df48b2ce5a6c342090c23857b960b2236c78",
+    "src/KuaiYi.App/MarkdownCodeRegion.cs": "9a8b643f8be4767f48884d8c89a0c76a5e59a39630be7cac801b2d9b510d0eb0",
+    "src/KuaiYi.App/MarkdownFlowView.cs": "6fd7bcc7e34bc4c60877897c1175bb9ffbee05764ad0e4cd83d8a525e6fd7073",
+    "src/KuaiYi.App/OverlayMarkdown.cs": "8acd39fd8988f941772cb7ccd17e03e148b5de2789d482f6db388a40f82eae96",
+    "src/KuaiYi.App/OverlayPresentation.cs": "1946b0ee500d86f26901c7ebafd1242ba6c9bf7e7c493a267b12f3d54a659e24",
+    "src/KuaiYi.App/OverlayScrollFlow.cs": "f15dca090158d4a1d413efa2b154b9512e73021949208c23f648b38d1caa675a",
+    "src/KuaiYi.Core/RestrictedMarkdown.cs": "898dfcc1b6ccec150e0331f4be5f62cb4bf4854d717b3f8d9316a1203e892fa5",
+    "src/KuaiYi.Core/RestrictedMarkdownInlines.cs": "a902536ed0d13ee7986e7cc956323f7c5a8e967387a534a234fefbbbc662a121",
+    "src/KuaiYi.Core/RestrictedMarkdownTables.cs": "2b37171bc578e714a4d3df4fd012c44da3ec9f92805d6acfcdfcba8fbdaec003",
+    "src/KuaiYi.Core/OverlayResults.cs": "4dc33bb531e0e801d6bb098ffa0262213ccaf3773409b560421274a84a47432f",
+    "src/KuaiYi.Core/RuntimeGate.cs": "39c14f0f1df7d0758b42ede573ceea0f8a0d3a3d15e4d43e8913e0c917db3947",
+    "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj": "ba6f0b8e0a002b11118951e2d48f85f7e2702f11d06433d8bae0c591e3756515",
+    "tests/KuaiYi.Provider.Tests/MarkdownNativePorts.cs": "4c9d9ed5575161f2918756a552786b52a9ac89845964aeefdc27510c6f2c29ed",
+    "tests/KuaiYi.Provider.Tests/MarkdownCodeInputPorts.cs": "a88b18eebc9bab93d946c7059df2e11eb23f52bdfdcaf26cdd5fe4e9bf85d9a1",
+    "tests/KuaiYi.Provider.Tests/MarkdownProductionBridgeTests.cs": "6ffbbbdbe9d7d00cee51c22553f6d5aa86be5b1c73e65d6ca1a76c4f329448c7",
+    "tests/KuaiYi.Provider.Tests/MarkdownCodeScrollTests.cs": "cbbd523b60d467af5c20023eb2b627a00c41fc1e7e4ea3ac7b331ddfd62f82a7",
+    "tests/KuaiYi.Provider.Tests/OverlayScrollPorts.cs": "7de49d7ffa9ccb4694b4d2aaa06edce74d71ed0652181a7a71f1a74b738de25e",
+    "src/KuaiYi.App/MarkdownTableRegion.cs": "fecac623f9c41fa28c2171c66d96527ad3d927f3ae19276ce7edaf9811853adc",
+    "tests/KuaiYi.Provider.Tests/MarkdownTableInputPorts.cs": "950a494c5448942b45c9d66da848cad3226c78f427fc4250294df5d1b469c086",
+    "tests/KuaiYi.Provider.Tests/MarkdownTableScrollTests.cs": "aec989a2610099bb23c343407d467e41e8511a9aa83b5b512304fe4f6ededb16",
+    "tests/KuaiYi.Provider.Tests/MarkdownTableProductionTests.cs": "e5bcb38e62d7b80bdada537f7ff0d6726fae974cc29dc948a8431b740b330c9b",
+    "tests/KuaiYi.Provider.Tests/RestrictedMarkdownTableTests.cs": "3c11f8f88fb5f202694af37e60545c2d707dbbb65aba85dc74470e5b927993fd"
+  },
+  "SourceManifestSha256": "8c83ea54355e8ea1bddde1f0de224cf2b1f58497a4819e52203454d6fc46c26b",
+  "SourceManifestFormat": "SHA256 of ProductionAndTestSha256 mapping; JSON sort_keys=True, compact separators",
+  "Implementation": {
+    "NativeTable": "BlockUIContainer -> read-only RichTextBox -> FlowDocument -> original native Table/RowGroup/Row/Cell/Run/Span; header/alignment/inline semantics retained",
+    "LocalViewport": "HVisible/VVisible, no Undo/Drop, IsDocumentEnabled false, current font/foreground, clipped; same finite width in body and measurement",
+    "Dimensions": {
+      "LocalWidth": "max(1, shared body width - SystemParameters.VerticalScrollBarWidth)",
+      "LocalMaximumHeight": "min(320 DIP, shared maximum body height)",
+      "ColumnWidth": "clamp(8 + min(512, longest displayed cell UTF16 length) * fontSize * .65, 96, 480) DIP",
+      "InternalPageWidth": "min(8192, max(local available width, sum of columns + CellSpacing*(count+1)))",
+      "WidthPolicy": "Deterministic estimate, not actual font measurement",
+      "OuterPage": "Existing finite PageWidth/ColumnWidth; unchanged code/prose paths"
+    },
+    "Incremental": "Same version, Source append, compatible alignments and row count reuse Table/view/cells; update changed paragraphs and append rows only",
+    "Selection": "Retained cell row/column plus cell-local symbol offsets normalized inside first/last insertion positions; excludes moving table/row/run/paragraph closing symbols; coalesced snapshot and latest guarded Loaded restore",
+    "RestoreGuards": [
+      "Region revision",
+      "Global reader-intent epoch",
+      "resultRevision",
+      "Session lock",
+      "Exit",
+      "Dispose"
+    ],
+    "ReaderIntent": "Reuse existing code-reader pause callback for table wheel/left/drag/touch/navigation/Ctrl+A/scrollbar input; outer bottom does not resume; explicit follow/new result reset",
+    "Cleanup": "Detach all handlers, invalidate callbacks, clear nested document/table rows and columns, release model, clear selection and offsets on replacement/fallback/clear",
+    "RawCopy": "Original OverlayResults.Text retained; actual OS clipboard NotRun",
+    "ParserAndCodeRegion": "Unchanged",
+    "NewDependencies": 0,
+    "ResourcesLinksOrCodeExecution": false
+  },
+  "ActualTests": {
+    "ProviderPassed": 740,
+    "Failed": 0,
+    "Skipped": 0,
+    "ExistingCasesRerun": 699,
+    "NewTableScrollCases": 41,
+    "FinalFocusedSubsetWithinFullRun": 219,
+    "IntermediateFocusedPassed": 218,
+    "AppFinalReleaseCrossBuildWarnings": 0,
+    "AppFinalReleaseCrossBuildErrors": 0,
+    "FinalAppBuildAfterLastProductionEdit": true,
+    "InitialAppBuild": "0 warnings/errors before final insertion-position fix; preserved as intermediate",
+    "CoreTestsFullProject": "NotRun",
+    "TestPortScope": "Linked real production methods plus data/event delegate ports; explicit Symbol/Insertion boundaries supplied as inputs; no WPF layout/selection/routing simulation"
+  },
+  "FailureRecords": [
+    {
+      "File": "focused-first.log",
+      "Stage": "Test compilation",
+      "Diagnostic": "xUnit2031 Assert.Single must use predicate overload instead of preceding Where",
+      "Diagnostics": 1,
+      "ExecutedTests": 0,
+      "ExitCode": 1,
+      "Correction": "Use Assert.Single(collection, predicate); warning rules retained"
+    }
+  ],
+  "ReviewFindingsFixed": [
+    {
+      "Finding": "Document absolute symbol offset crossed moving row/table closing symbols into newly appended rows",
+      "Fix": "Cell-local anchors; explicit whole-table selection plus appended-row regression"
+    },
+    {
+      "Finding": "Old cell.ContentEnd symbol offset still contained Run/Paragraph closing symbols moved by growth of the final cell",
+      "Fix": "Normalize to inward insertion positions before capturing local offset; explicit final-cell-growth regression with separate content/structure tails"
+    }
+  ],
+  "ReceiptDirectory": "artifacts/table-scroll",
+  "Receipts": {
+    "app-final.log": {
+      "Bytes": 888,
+      "Sha256": "713f425db72d9f3cd318b6e1c91c7f82e31b8e0dbc5d25e55f1de834cff8e93e"
+    },
+    "app-first.log": {
+      "Bytes": 888,
+      "Sha256": "724e22b5862365be512cf497e80be18c8eb14f36582f2f13eaacde3934b7acda"
+    },
+    "focused-first.log": {
+      "Bytes": 665,
+      "Sha256": "8a9720e75ccb9045f66cfb62bca522c71403f77aef593e4417302ca4688172e7"
+    },
+    "focused-second.log": {
+      "Bytes": 810,
+      "Sha256": "3b8e5b1bd28722ac90d153e3a8ce42c9024e4ed8166d34953822805f40fdfd8e"
+    },
+    "focused-second.trx": {
+      "Bytes": 314105,
+      "Sha256": "f182f43d12cded17921a9342a2a1d180e76c86ae13f15e06779ba40b00ced118",
+      "Counters": {
+        "total": "218",
+        "executed": "218",
+        "passed": "218",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "RelevantClasses": {
+        "KuaiYi.Provider.Tests.MarkdownCodeScrollTests": 42,
+        "KuaiYi.Provider.Tests.MarkdownProductionBridgeTests": 6,
+        "KuaiYi.Provider.Tests.MarkdownTableProductionTests": 6,
+        "KuaiYi.Provider.Tests.MarkdownTableScrollTests": 40,
+        "KuaiYi.Provider.Tests.OverlayReaderIntentTests": 6,
+        "KuaiYi.Provider.Tests.OverlayScrollTests": 11,
+        "KuaiYi.Provider.Tests.RestrictedMarkdownInlineTests": 38,
+        "KuaiYi.Provider.Tests.RestrictedMarkdownTableTests": 41,
+        "KuaiYi.Provider.Tests.RestrictedMarkdownTests": 28
+      }
+    },
+    "provider-final.log": {
+      "Bytes": 807,
+      "Sha256": "7083d941e3d080c13eaf7cd00f441cfc55a834e896e103708e65cda2a27b1e83"
+    },
+    "provider-final.trx": {
+      "Bytes": 1080618,
+      "Sha256": "1e0c4c6840ed98484c796377946be61f7245ad950f2ea4ae01420dab20554192",
+      "Counters": {
+        "total": "740",
+        "executed": "740",
+        "passed": "740",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "RelevantClasses": {
+        "KuaiYi.Provider.Tests.MarkdownCodeScrollTests": 42,
+        "KuaiYi.Provider.Tests.MarkdownProductionBridgeTests": 6,
+        "KuaiYi.Provider.Tests.MarkdownTableProductionTests": 6,
+        "KuaiYi.Provider.Tests.MarkdownTableScrollTests": 41,
+        "KuaiYi.Provider.Tests.OverlayReaderIntentTests": 6,
+        "KuaiYi.Provider.Tests.OverlayScrollTests": 11,
+        "KuaiYi.Provider.Tests.RestrictedMarkdownInlineTests": 38,
+        "KuaiYi.Provider.Tests.RestrictedMarkdownTableTests": 41,
+        "KuaiYi.Provider.Tests.RestrictedMarkdownTests": 28
+      }
+    }
+  },
+  "PriorReceiptsVerified": {
+    "2026-10-15-restricted-markdown-inlines.json": {
+      "app-release.log": {
+        "Bytes": 888,
+        "Sha256": "a10ddac744f8c00ee6c30ce89de9f349bc2ba1c1abd9705c5ac78cec9ebd2cb9"
+      },
+      "app-restore.log": {
+        "Bytes": 711,
+        "Sha256": "9811f5017bf9835de216d4112df4bbf08b21e1551b1a46a7129530106456f655"
+      },
+      "focused-first.log": {
+        "Bytes": 26512,
+        "Sha256": "dface10fdddfdc365922ed6db78474df402bdf2ee0c43604101cb8a95918b10f"
+      },
+      "focused-fixed.log": {
+        "Bytes": 819,
+        "Sha256": "33e6ac7cd17d8b58b838eedb908ace839981234ac28da2b9b6a476a345cae638"
+      },
+      "inline-focused-fixed.trx": {
+        "Bytes": 106207,
+        "Sha256": "094f7411f285f1b24dfe621ec1c0a638447c15c4ca1da20f5125b3678a417212"
+      },
+      "inline-focused.trx": {
+        "Bytes": 157760,
+        "Sha256": "730e98638bd0fc1b82dceb86567d8d9ab251f7f24cccfcd18596422bb4e74a28"
+      },
+      "provider-full.log": {
+        "Bytes": 809,
+        "Sha256": "b2064fdf6538c43f481e3e8580d9241df4f9e0591637f7cc55d254c7f2a9b343"
+      },
+      "provider-full.trx": {
+        "Bytes": 893879,
+        "Sha256": "c4d2dfce27478f6cd06e5ba46dc826761d747e131f0362698eac029e981b1749"
+      },
+      "provider-restore.log": {
+        "Bytes": 394,
+        "Sha256": "75444842481fd274b68ab4103cacadd1f9f680a865d168cc7a91b26743256471"
+      },
+      "sdk.log": {
+        "Bytes": 9,
+        "Sha256": "93c11b5221b72e0032ab2d9f93d28c2c9b7a0bb2557effffcdfef45ab739a0da"
+      }
+    },
+    "2026-10-15-restricted-markdown-tables.json": {
+      "app-release.log": {
+        "Bytes": 888,
+        "Sha256": "fe0d085d4f9c2d26bb07fb63a98a051d84253a84dd65ddf37d1af765cb235229"
+      },
+      "baseline-markdown.log": {
+        "Bytes": 816,
+        "Sha256": "e0bff3d074f10105be61f78c2f0a6a3a67bdf0d8866ce3c368bb4bdc07ea9dca"
+      },
+      "baseline-markdown.trx": {
+        "Bytes": 106207,
+        "Sha256": "fc76b10006ffa55675bc037ca26dab85619b2b261c2521d99c51b057f19c25ab"
+      },
+      "provider-final.log": {
+        "Bytes": 810,
+        "Sha256": "5d6ae968aa2c80397faaedb501d6ac4f6c0a9cc0379589975aedba99a55881e5"
+      },
+      "provider-final.trx": {
+        "Bytes": 962655,
+        "Sha256": "1f2ab8965d5faebfd21550ef3e70acf8db597f5d7501c81fb3b5cef365940dbc"
+      },
+      "provider-full.log": {
+        "Bytes": 809,
+        "Sha256": "35be05a45af6612fd9ea033cb691646803a3b2495fa877f9523df33f942c0a3c"
+      },
+      "provider-full.trx": {
+        "Bytes": 962655,
+        "Sha256": "5a77957dbde57baad39a68040506670781d6d57d61dbd81c9fa5f70c2fb2ca53"
+      },
+      "tables-first.log": {
+        "Bytes": 811,
+        "Sha256": "a7fa7875f2b517c5756d0fbe04717eb87ca8c9d4b603931b0d0da055d7b5d93a"
+      },
+      "tables-first.trx": {
+        "Bytes": 172131,
+        "Sha256": "cb22006efe8fb6e488dbb9728d461a0a7f50e9b24d5a60c808a5c771918e0ba1"
+      }
+    },
+    "2026-10-15-overlay-code-scroll.json": {
+      "app-first.log": {
+        "Bytes": 888,
+        "Sha256": "e8ec7b2967b74523b0bc7f8ee38f4ba0d5c36781cb76691a9e01bed04bdbc576"
+      },
+      "baseline-first.log": {
+        "Bytes": 5086,
+        "Sha256": "879d8a25608bb447e644c9d38327928e344536057c7f8859d1ee5970557e82bf"
+      },
+      "focused.log": {
+        "Bytes": 802,
+        "Sha256": "ea67518c5712b08b2714f61ae9c34e567582093be0e2e8ee0a0ea6d42feb64e1"
+      },
+      "focused.trx": {
+        "Bytes": 247463,
+        "Sha256": "24ed7140eb611597a93c261ccb7c9e8da617b06fd573579a70a4f4f851cb5b3c"
+      },
+      "provider-final-guards.log": {
+        "Bytes": 813,
+        "Sha256": "5a9f4701b195b5d663bf9a6a5edd176ffb8795c95d204873f1239db99077c1ec"
+      },
+      "provider-final-guards.trx": {
+        "Bytes": 1022450,
+        "Sha256": "45d4266e8489267df754f87be48bd8088537662485772d78f63ffe5cd6e32c28"
+      },
+      "provider-final.log": {
+        "Bytes": 806,
+        "Sha256": "64f5576668c32c325d2530dceab6788b0279ea198184c97bf6f7d10bbad0c511"
+      },
+      "provider-final.trx": {
+        "Bytes": 1016660,
+        "Sha256": "b2e2ad00d0a0cd55b809fa69dd040ec64acc552a2579404403c08331458c2596"
+      },
+      "review-fixed.log": {
+        "Bytes": 807,
+        "Sha256": "9a17bcf02094b7250018d939b3b1603c81bc139535347b6854f66ba2cd4b99f8"
+      },
+      "review-fixed.trx": {
+        "Bytes": 251573,
+        "Sha256": "d04c2274624a6d3470b6330a8fdbf9e2d8bcaf916ddb2d6178ed16bc4c2cad42"
+      }
+    }
+  },
+  "Preservation": {
+    "Workflows": {
+      "Count": 8,
+      "BytesEqualToBase": true
+    },
+    "DependencyLocks": {
+      "Count": 43,
+      "BytesEqualToBase": true
+    },
+    "ExistingEvidence": {
+      "Count": 1570,
+      "BytesEqualToBase": true
+    },
+    "CoreProductionFiles": {
+      "Count": 45,
+      "BytesEqualToBase": true
+    },
+    "OtherTrackedFiles": {
+      "Count": 2293,
+      "BytesEqualToBase": true
+    }
+  },
+  "IndependentReview": {
+    "Agent": "/root/inline_review",
+    "Mode": "Read-only; no SDK/files/Git/Actions mutation",
+    "Status": "Final frozen read-only audit passed; no remaining blocking findings",
+    "FinalSourceManifestSha256": "8c83ea54355e8ea1bddde1f0de224cf2b1f58497a4819e52203454d6fc46c26b",
+    "ReviewerSdkAndActionsCalls": 0,
+    "Limitations": "Actual WPF selection/measurement/routing/local scrolling NotRun",
+    "Verified": [
+      "All 22 production/test hashes and source manifest",
+      "All 7 current and 29 prior receipt hashes/bytes",
+      "Final XML 740/740, 0 failed/skipped; related subset 219",
+      "Final App successful 0 warnings/errors",
+      "Initial xUnit2031 compilation failure, 0 test executions preserved",
+      "Independent byte comparison: 2293 existing files unchanged; 8 workflows, 43 locks, 1570 old evidence and 45 Core production files preserved",
+      "Cell-local anchors plus inward insertion boundaries fix both moving structure-tail cases; real WPF remains NotRun"
+    ]
+  },
+  "NotRun": [
+    "Actual WPF table horizontal/vertical scroll and scrollbar template geometry",
+    "Actual WPF font metrics, wrapping, DesiredSize and visual tree",
+    "Actual single/multiple-cell or whole-document selection and OS clipboard",
+    "Actual cell-symbol anchors and offset/selection restore under streaming WPF layout",
+    "Actual reading anchor and parent/child routed input",
+    "Actual code scroll remains unverified",
+    "Full B12/B06/B07, P2-04 and full SPEC11.5 acceptance",
+    "Core.Tests full project"
+  ],
+  "Safety": {
+    "Capture250_600msAndSourcePasswordIntegrityCancellationCleanupGates": "All Core production files byte-identical; no safety changes",
+    "ProductionOfflineReuse": "Off/unchanged",
+    "ActionsQueriesThisBatch": 0,
+    "ActionsDispatchesInitiated": 0,
+    "RemoteActionsCount": "Unknown; previous Forbidden respected; no alternate route",
+    "NewWindowsCmakeProbeExperiment": false,
+    "NewDependencies": 0,
+    "RealModelCalls": 0,
+    "MainChanged": false,
+    "ForcePushDeployFeesCredentialsPermissionsNewAgreements": false
+  },
+  "Certificate": {
+    "DOTNET_GENERATE_ASPNET_CERTIFICATE": "false explicitly before every dotnet invocation and exported for children",
+    "StoreAndTrust": "Unknown",
+    "StoreConfigurationReadTrustDelete": false,
+    "InstallPromptInCurrentLogs": false
+  },
+  "OfficialReferences": [
+    "https://learn.microsoft.com/en-us/dotnet/api/system.windows.documents.tablecolumn.width?view=windowsdesktop-10.0",
+    "https://learn.microsoft.com/en-us/dotnet/api/system.windows.documents.textpointer.getpositionatoffset?view=windowsdesktop-10.0",
+    "https://learn.microsoft.com/en-us/dotnet/api/system.windows.documents.textpointer.getinsertionposition?view=windowsdesktop-10.0"
+  ]
+}

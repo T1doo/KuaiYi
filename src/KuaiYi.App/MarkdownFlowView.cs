@@ -12,6 +12,7 @@ internal sealed class MarkdownFlowView
     private readonly List<MarkdownBlock> applied=[];
     private readonly List<Block> elements=[];
     private readonly Dictionary<Block,MarkdownCodeRegion> codeRegions=[];
+    private readonly Dictionary<Block,MarkdownTableRegion> tableRegions=[];
     private readonly Action? observeReader;
     private readonly Func<Func<bool>>? captureReaderGuard;
     private Guid? appliedVersion;
@@ -24,16 +25,20 @@ internal sealed class MarkdownFlowView
         host.IsReadOnly=true;host.IsUndoEnabled=false;host.IsDocumentEnabled=true;host.HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled;host.VerticalScrollBarVisibility=ScrollBarVisibility.Visible;host.ClipToBounds=true;
         SetViewport(viewport);
     }
-    public void Clear(){foreach(var region in codeRegions.Values)region.Dispose();codeRegions.Clear();host.Document.Blocks.Clear();applied.Clear();elements.Clear();appliedVersion=null;}
+    public void Clear(){foreach(var region in codeRegions.Values)region.Dispose();foreach(var region in tableRegions.Values)region.Dispose();codeRegions.Clear();tableRegions.Clear();host.Document.Blocks.Clear();applied.Clear();elements.Clear();appliedVersion=null;}
     public void SetViewport(MarkdownViewport value)
     {
         value.Validate();viewport=value;host.Width=host.MaxWidth=value.WidthDip;host.MaxHeight=value.MaximumHeightDip;
         double contentWidth=Math.Max(1,value.WidthDip-SystemParameters.VerticalScrollBarWidth);
         host.Document.PageWidth=host.Document.ColumnWidth=contentWidth;
         foreach(var region in codeRegions.Values)region.Constrain(contentWidth,value.CodeMaximumHeightDip);
+        foreach(var region in tableRegions.Values)region.Constrain(contentWidth,value.TableMaximumHeightDip);
     }
     public void RefreshCodeAppearance()
-    {foreach(var region in codeRegions.Values){region.View.FontSize=host.FontSize;region.View.Foreground=host.Foreground;}}
+    {
+        foreach(var region in codeRegions.Values){region.View.FontSize=host.FontSize;region.View.Foreground=host.Foreground;}
+        foreach(var region in tableRegions.Values)region.RefreshAppearance(host.FontSize,host.Foreground);
+    }
     public void Apply(IReadOnlyList<MarkdownBlock> blocks,double fontSize,MarkdownViewport viewport,Guid? selectedVersion)
     {
         SetViewport(viewport);
@@ -42,8 +47,10 @@ internal sealed class MarkdownFlowView
         // The open fenced-code tail can grow without replacing its selectable native region.
         if(appliedVersion==selectedVersion&&keep<applied.Count&&keep<blocks.Count&&applied[keep].Kind==MarkdownBlockKind.Code&&blocks[keep].Kind==MarkdownBlockKind.Code&&blocks[keep].Source.StartsWith(applied[keep].Source,StringComparison.Ordinal)&&codeRegions.TryGetValue(elements[keep],out var growing))
         {growing.UpdateText(blocks[keep].Text);applied[keep]=blocks[keep];keep++;}
+        if(appliedVersion==selectedVersion&&keep<applied.Count&&keep<blocks.Count&&applied[keep].Table is not null&&blocks[keep].Table is {} tableTail&&blocks[keep].Source.StartsWith(applied[keep].Source,StringComparison.Ordinal)&&tableRegions.TryGetValue(elements[keep],out var growingTable)&&growingTable.CanAppend(tableTail))
+        {growingTable.UpdateTable(tableTail);applied[keep]=blocks[keep];keep++;}
         appliedVersion=selectedVersion;
-        for(int i=elements.Count-1;i>=keep;i--){if(codeRegions.Remove(elements[i],out var region))region.Dispose();host.Document.Blocks.Remove(elements[i]);elements.RemoveAt(i);applied.RemoveAt(i);}
+        for(int i=elements.Count-1;i>=keep;i--){if(codeRegions.Remove(elements[i],out var region))region.Dispose();if(tableRegions.Remove(elements[i],out var tableRegion))tableRegion.Dispose();host.Document.Blocks.Remove(elements[i]);elements.RemoveAt(i);applied.RemoveAt(i);}
         for(int i=keep;i<blocks.Count;i++)
         {
             var data=blocks[i];Block element;
@@ -52,7 +59,11 @@ internal sealed class MarkdownFlowView
                 var region=new MarkdownCodeRegion(data.Text,observeReader,captureReaderGuard);region.Constrain(host.Document.PageWidth,viewport.CodeMaximumHeightDip);
                 element=new BlockUIContainer(region.View){Margin=new Thickness(0)};codeRegions.Add(element,region);
             }
-            else if(data.Table is {} table)element=CreateTable(table);
+            else if(data.Table is {} table)
+            {
+                var region=new MarkdownTableRegion(table,CreateTable,CreateTableParagraph,observeReader,captureReaderGuard);region.Constrain(host.Document.PageWidth,viewport.TableMaximumHeightDip);
+                element=new BlockUIContainer(region.View){Margin=new Thickness(0)};tableRegions.Add(element,region);
+            }
             else
             {
                 var paragraph=CreateParagraph(data.Text,data.Inlines);element=paragraph;
@@ -102,12 +113,17 @@ internal sealed class MarkdownFlowView
             var row=new TableRow();group.Rows.Add(row);
             for(int column=0;column<data.Alignments.Count;column++)
             {
-                var cell=data.Rows[index].Cells[column];var paragraph=CreateParagraph(cell.Text,cell.Inlines);
-                paragraph.TextAlignment=data.Alignments[column] switch{MarkdownTableAlignment.Center=>TextAlignment.Center,MarkdownTableAlignment.Right=>TextAlignment.Right,_=>TextAlignment.Left};
-                if(index==0)paragraph.FontWeight=FontWeights.SemiBold;
+                var paragraph=CreateTableParagraph(data.Rows[index].Cells[column],data.Alignments[column],index==0);
                 row.Cells.Add(new TableCell(paragraph){Padding=new Thickness(4,2,4,2)});
             }
         }
         return table;
+    }
+    private static Paragraph CreateTableParagraph(MarkdownTableCell cell,MarkdownTableAlignment alignment,bool header)
+    {
+        var paragraph=CreateParagraph(cell.Text,cell.Inlines);
+        paragraph.TextAlignment=alignment switch{MarkdownTableAlignment.Center=>TextAlignment.Center,MarkdownTableAlignment.Right=>TextAlignment.Right,_=>TextAlignment.Left};
+        if(header)paragraph.FontWeight=FontWeights.SemiBold;
+        return paragraph;
     }
 }
