@@ -543,3 +543,9 @@ bridge结果三文档已交付 b4592d5，查询无新workflow run。后续本地
 真实A8 ABI与受控B单候选非成员拒绝分开验证，不声称实际发生PID复用；失败/预算/清理未确认均不发布观察事实。所有自有root退出、两Job空及全部句柄关闭才确认清理，最后JobClose不冒充已观察清理。离线反例与独审并行，完整计数及最终冻结见[单次计划](validation/job-member-windows-plan.md)和[准备证据](test-evidence/2026-10-15-job-member-fixture-offline.json)。本准备批不推workflow候选、不触发CI/CMake/四case；父核精确源码、范围与授权后再接续一次Windows。原超时仍Unknown、安全门及P0/E06/生产验收保持。
 
 本地实回执：新fixture992断言/49场景、真实浅克隆来源门5测试、既有成员诊断411断言/63场景、旧文件fixture16测试通过；Layout x64五结构尺寸仅为本地布局检查，Windows仍NotRun。新增Marshal.SizeOf断言因PS泛型重载先失败，原log保全，再以C#强Type重载修正；独审补live状态只接受WAIT_TIMEOUT，UnknownWait在Observe前拒绝。所有关闭后再次检查5秒清理截止，整体Fail不发布观察事实；未为此重跑旧CI。
+
+### 2026-10-15 独立合成 Job 单次 Windows 结果
+
+父核既有授权与独审后，精确候选2d736642c32bfb9f9871c0fec81741fc519f1861/tree ff960d06f2a766dc7b9a678d5cd14a518e0604da正常推新分支；该SHA仅run 38699679076/job 116304547116/attempt1，来源门Pass，fixture在OwnedJobCounts处Fail/Exit3。已创建并绑定9个自有root，清理确认：root退出、两Job空、fixture句柄关闭；未用直接终止，主/清理预算均未过期。两个成员诊断NotRun，观察和计数null；未证明A8真实查询ABI或受控非成员反例。独审按C#求值顺序确认OwnedJobCounts数量表达式已完成且false；实际数量未导出，不能区分A不等于8或A等于8但B不等于1，不猜测数量不符或子进程退出原因。
+
+完整日志与tool回执保全在本地artifacts/job-member-windows-result，固定[结果证据](test-evidence/2026-10-15-job-member-windows-result.json)含运行链接及日志hash。失败后未重跑、不修改或再次推送执行候选；原configure/诊断/main远端未变，五旧workflow、原runner、CMake与四生命周期未运行。原configure超时根因仍Unknown，生产验收不变。
