@@ -1,0 +1,90 @@
+{
+  "ExecutionCommit": "66d671e526d81a1013e6401f2664b436a1468533",
+  "ExecutionTree": "427b65347b392b55d10ac2bc825813c8daef8d9a",
+  "Branch": "dev/configure-bridge-fixture",
+  "RunId": 38686940470,
+  "RunAttempt": 1,
+  "RunUrl": "https://github.com/T1doo/KuaiYi/actions/runs/38686940470",
+  "RunStatus": "completed",
+  "RunConclusion": "success",
+  "Workflow": ".github/workflows/windows-configure-bridge.yml",
+  "RunsForExecutionCommit": 1,
+  "JobId": 116263848345,
+  "JobStatus": "completed",
+  "JobConclusion": "success",
+  "JobSteps": [
+    {
+      "name": "Set up job",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 1
+    },
+    {
+      "name": "Checkout exact reviewed event",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 2
+    },
+    {
+      "name": "Verify exact head, parent and file scope",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 3
+    },
+    {
+      "name": "Run one owned synthetic handle bridge fixture",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 4
+    },
+    {
+      "name": "Post Checkout exact reviewed event",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 8
+    },
+    {
+      "name": "Complete job",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 9
+    }
+  ],
+  "Receipt": {
+    "Kind": "ConfigureBridgeWindowsFixture",
+    "SourceCommit": "66d671e526d81a1013e6401f2664b436a1468533",
+    "Scope": "SyntheticOwnedFilesOnly",
+    "Status": "Pass",
+    "Stage": "Completed",
+    "Checks": [
+      "CleanupGate",
+      "RootLeaseBeforeSynthetic",
+      "CallerLeaseAliveDuringCollection",
+      "SyntheticFourFacts",
+      "BridgeOwnership",
+      "OriginalResultPreserved",
+      "LeaseClosedOnce",
+      "SecondDisposeSafe",
+      "WrongIdentityNoRead",
+      "InvalidHandleNoRead",
+      "ClosedHandleNoRead",
+      "FourFileReadBound",
+      "TruncatedFactsCleared",
+      "MissingFilesNotFabricated",
+      "DiagnosticFailureIsolated"
+    ],
+    "CleanupConfirmed": true,
+    "CleanupFailed": false,
+    "OriginalResultPreserved": true,
+    "CMake": "NotRun",
+    "FourCases": "NotRun",
+    "ModelCalls": 0,
+    "ExitCode": 0
+  },
+  "DecodedJobLogSha256": "67cca980b7495bab9e1f0791c8823bf7dcff4fa015c688861fb5d7a69c2ea8e8",
+  "DecodedJobLogBytes": 19422,
+  "LogRepresentation": "Connector-decoded UTF-8 text; not the original GitHub ZIP bytes",
+  "WindowsFailures": [],
+  "OfflineFailureRecord": "Initial old fixture workflow-enumeration assertion failed once; isolated workflow was explicitly excluded while old branch filters remained. All 16 passed on rerun.",
+  "OriginalConfigureRootCause": "Unknown; original CMake and four lifecycle cases not rerun"
+}
