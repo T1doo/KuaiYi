@@ -557,3 +557,9 @@ bridge结果三文档已交付 b4592d5，查询无新workflow run。后续本地
 新注入2056断言/96场景通过，覆盖执行后退出/派生模拟、A错仍查B、所有九个创建/绑定/验证边界协作取消及清理取消、预算和关闭/清理异常；原helper411/63、旧文件fixture16通过。首轮来源合同在progress未产生差异时正确拒绝七文件范围，原log保留，完成记录后继续精确来源验证。完整计划、官方依据、一次运行边界与未完成项见[初始suspended计划](validation/job-member-suspended-plan.md)及[离线证据](test-evidence/2026-10-15-job-member-suspended-offline.json)。本批仅本地，不push、不新Windows、不重跑；两原诊断NotRun和原configure根因Unknown不改，不把离线结果冒充Windows或生产验收。
 
 最终来源合同5项通过：真实浅克隆depth1拒绝、depth2通过、篡改helper pin拒绝；来源门仍锁唯一bb0fae parent、完整parent tree、helper blob及七文件。14份原helper/entry/runner/旧workflow/历史结果文件和两套旧私有manifest全部核对原字节；当前无新Windows证据。
+
+### 2026-10-15 初始 suspended 自有 Job 单次 Windows 实测
+
+父核新阶段授权后，精确ddb62cb9fb2574ae9459161e9d7f52739c99a6e5/tree a4617837498c7f3c6f1522d0164c1e00f8551e23正常推dev/job-member-suspended-fixture，唯一run 38709320255/job 116336490490/attempt1 success，来源门与全部11项检查Pass/Exit0。Created9全程未Resume；A8/B1成立，原helper实际查询A8，Other8且所有未确认计数0；受控自有B非成员反例Partial/MembershipUnconfirmed1，单次List/Open/Member/Close各1，Wait/Image0。root退出、两Job空、fixture及查询句柄关闭均确认，主/清理预算未过期，无直接终止兜底。
+
+完整tool回执和21419字节原日志保存在本地artifacts/job-member-suspended-windows-result，准确字节/hash与闭合回执见[固定实测证据](test-evidence/2026-10-15-job-member-suspended-windows-result.json)。只证明本标准host上的初始suspended自有合成Job ABI、有限查询、受控非成员拒绝与清理；不声称真实PID复用或旧数量失败唯一根因。MembershipUnconfirmed合并No/Unknown，本回执不能区分明确非成员与原生成员查询未确认，只证明拒绝并零Wait/Image。旧run38699679076及bb0fae归档原字节保持；原configure超时根因仍Unknown、原runner未接入，CMake/四生命周期NotRun、ProductionReuse Off、ModelCalls0。没有重跑、改main、强推或额外workflow触发。
