@@ -15,15 +15,24 @@ internal sealed partial class ShellWindow
     }
     private void RefreshMarkdown(bool renderBody)
     {
-        var selected=overlayResults.Versions.FirstOrDefault(v=>v.Identity.VersionId==overlayResults.SelectedVersionId);
-        var source=CanReadOriginalSource()?translation?.SelectedSnapshot?.Source.RawText:null;
-        bodyMarkdown.SetSource(overlayResults.SelectedVersionId,source);
-        measurementMarkdown.SetSource(overlayResults.SelectedVersionId,source,bodyMarkdown.SourceExpanded);
-        markdown.Update(overlayResults.SelectedVersionId,overlayResults.Text,selected?.Complete==true||selected?.Stopped==true);
+        var selection=SelectedSource;
+        var selected=overlayResults.Versions.FirstOrDefault(v=>v.Identity.VersionId==selection.VersionId);
+        if(selection.Image is {} image&&CanReadOriginalSource())
+        {
+            bodyMarkdown.SetImageSource(selection.VersionId,image);
+            measurementMarkdown.SetImageSource(selection.VersionId,image,bodyMarkdown.SourceExpanded,materialize:false);
+        }
+        else
+        {
+            var source=CanReadOriginalSource()?selection.Text?.Source.RawText:null;
+            bodyMarkdown.SetSource(selection.VersionId,source);
+            measurementMarkdown.SetSource(selection.VersionId,source,bodyMarkdown.SourceExpanded);
+        }
+        markdown.Update(selection.VersionId,selection.Image!=null?"":overlayResults.Text,selection.Image!=null||selected?.Complete==true||selected?.Stopped==true);
         double size=lifecycle.Settings?.Data.Overlay.FontSizeDip??15;
-        measurementMarkdown.Apply(markdown.Blocks,size,markdownViewport,overlayResults.SelectedVersionId);
+        measurementMarkdown.Apply(markdown.Blocks,size,markdownViewport,selection.VersionId);
         bodyMarkdown.SetViewport(markdownViewport);
-        if(renderBody)bodyMarkdown.Apply(markdown.Blocks,size,markdownViewport,overlayResults.SelectedVersionId);
+        if(renderBody)bodyMarkdown.Apply(markdown.Blocks,size,markdownViewport,selection.VersionId);
     }
     private void ClearMarkdown(){ForgetCodeReaderIntent();markdown.Clear();bodyMarkdown.Clear();measurementMarkdown.Clear();}
 }

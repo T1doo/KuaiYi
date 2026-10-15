@@ -45,7 +45,7 @@ internal sealed partial class ShellWindow
     private void SetupPresentation()
     {
         overlayResults=new(lifecycle.Gate);presentationReceiver=new(lifecycle.Gate,new DispatcherSynchronizationContext(Dispatcher));
-        bodyMarkdown=new(body,ObserveCodeReaderIntent,CaptureBodyReaderGuard,()=>follow,OriginalSourceChanged,CanReadOriginalSourceVersion);measurementMarkdown=new(measurement,canReadSource:CanReadOriginalSourceVersion);
+        bodyMarkdown=new(body,ObserveCodeReaderIntent,CaptureBodyReaderGuard,()=>follow,OriginalSourceChanged,CanReadOriginalSourceVersion,ImageSourcePreviewFailed);measurementMarkdown=new(measurement,canReadSource:CanReadOriginalSourceVersion,sourceFailed:ImageSourcePreviewFailed);
         Content=overlayCanvas;overlayCanvas.Children.Add(cardBackground);overlayCanvas.Children.Add(body);overlayCanvas.Children.Add(resultLabel);overlayCanvas.Children.Add(controls);overlayCanvas.Children.Add(button);overlayCanvas.Children.Add(progressRing);overlayCanvas.Children.Add(connectionStatus);overlayCanvas.Children.Add(newContent);
         body.Visibility=controls.Visibility=Visibility.Collapsed;button.Width=button.Height=48;button.Padding=new Thickness(0);RefreshPresentationTheme();UpdateButtonGlyph(false);
         styleTool=Tool("风格",()=>OpenOverflowMenu(styleTool!));Tool("回看",ReopenResult);Tool("收起",CollapseResult);Tool("停止",StopResult);Tool("重新生成",()=>RegenerateResult());Tool("复制",CopyResult);Tool("查看原文",ShowSelectionSource);Tool("清除当前内容",()=>_=ClearCurrentContent());Tool("设置",()=>_=OpenSettings());
@@ -92,16 +92,17 @@ internal sealed partial class ShellWindow
         for(int i=0;i<tools.Count;i++){int index=i;var item=new MenuItem{Header=Equals(tools[i].Content,"重新生成")?RegenerationMenuLabel():tools[i].Content,IsEnabled=tools[i].IsEnabled};item.Click+=(_,_)=>toolActions[index]();overflowMenu.Items.Add(item);}
         AddSessionStyleMenu(overflowMenu);
         var versionsItem=new MenuItem{Header="本次会话版本"};
-        foreach(var version in overlayResults.Versions)
+        if(SelectedSource.Image!=null){var local=new MenuItem{Header="本地图片 · 未翻译",IsCheckable=true,IsChecked=true};local.Click+=(_,_)=>ReopenResult();versionsItem.Items.Add(local);}
+        foreach(var version in SelectedSource.Image!=null?Array.Empty<CachedOverlayVersion>():overlayResults.Versions)
         {
             Guid id=version.Identity.VersionId;var item=new MenuItem{Header=$"版本 {version.Number} · {StyleLabel(translation?.SnapshotForVersion(id)?.Preset)} · {(version.Complete?"完成":version.Stopped?"已停止":"生成中")}",IsCheckable=true,IsChecked=overlayResults.SelectedVersionId==id,IsEnabled=version.Text.Length>0};
             item.Click+=(_,_)=>{if(overlayResults.SelectVersion(id)){RefreshResultLabel();resultRevision++;ResetBodyReaderFollow();dirty=true;pendingReveal=false;peek=false;OpenBody();}};versionsItem.Items.Add(item);
         }
         versionsItem.IsEnabled=versionsItem.Items.Count>0;overflowMenu.Items.Add(new Separator());overflowMenu.Items.Add(versionsItem);
-        var currentSettings=new MenuItem{Header=RegenerationMenuLabel(true),IsEnabled=lifecycle.Gate.Snapshot.Activation==Activation.On&&translation?.SelectedSnapshot!=null};currentSettings.Click+=(_,_)=>RegenerateResult(true);overflowMenu.Items.Add(currentSettings);
+        var currentSettings=new MenuItem{Header=RegenerationMenuLabel(true),IsEnabled=lifecycle.Gate.Snapshot.Activation==Activation.On&&SelectedSource.Text!=null};currentSettings.Click+=(_,_)=>RegenerateResult(true);overflowMenu.Items.Add(currentSettings);
         overflowMenu.PlacementTarget=target;overflowMenu.IsOpen=true;
     }
-    private void CopyResult(){if(!overlayResults.HasText)return;try{Clipboard.SetText(overlayResults.Text);}catch(Exception error){Report("复制失败",error);}}
+    private void CopyResult(){if(SelectedSource.Image!=null||!overlayResults.HasText)return;try{Clipboard.SetText(overlayResults.Text);}catch(Exception error){Report("复制失败",error);}}
     private void StopPresentation(){overlayResults.MarkStopped();awaitingText=false;progressRing.Visibility=Visibility.Collapsed;CollapseResult();}
     private void BeginOverlayMove(){StopFrames();peekIn.Stop();peekOut.Stop();overlayFrames?.BeginMove();}
     private void MoveOverlay(PixelPoint desired,MonitorTopology topology)
@@ -200,5 +201,5 @@ internal sealed partial class ShellWindow
         Canvas.SetLeft(newContent,Math.Max(0,width-90));Canvas.SetTop(newContent,Math.Max(0,height-30));
         }
     }
-    private void DisposePresentation(){StopFrames();flush.Stop();peekIn.Stop();peekOut.Stop();waiting.Stop();overlayResults.Clear();ClearMarkdown();}
+    private void DisposePresentation(){StopFrames();flush.Stop();peekIn.Stop();peekOut.Stop();waiting.Stop();try{ClearMarkdown();}finally{ReleaseRetainedImage();overlayResults.Clear();}}
 }

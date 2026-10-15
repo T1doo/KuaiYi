@@ -12,12 +12,12 @@ internal sealed partial class ShellWindow
         switch(value.Kind)
         {
             case OverlayResultEventKind.Begin:
-                if(!alreadyApplied&&!overlayResults.Begin(identity))return;ClearOriginalSource();resultRevision++;ResetBodyReaderFollow();dirty=true;peek=false;pendingReveal=false;awaitingText=true;progressRing.Visibility=Visibility.Visible;if(!gesture.Active)overlayFrames?.Collapse();StartFrames();waiting.Stop();waiting.Start();Dispatcher.BeginInvoke(()=>{if(!exiting)Refresh();});break;
+                if(!alreadyApplied&&!overlayResults.Begin(identity))return;BeginTextSource();ClearOriginalSource();resultRevision++;ResetBodyReaderFollow();dirty=true;peek=false;pendingReveal=false;awaitingText=true;progressRing.Visibility=Visibility.Visible;if(!gesture.Active)overlayFrames?.Collapse();StartFrames();waiting.Stop();waiting.Start();Dispatcher.BeginInvoke(()=>{if(!exiting)Refresh();});break;
             case OverlayResultEventKind.Delta:
                 if(!alreadyApplied&&!overlayResults.Append(identity,value.Text))return;dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();
                 if(overlayResults.TryAutoReveal(identity)&&(peek||overlayFrames?.IsExpanded!=true))pendingReveal=true;break;
             case OverlayResultEventKind.Complete:
-                if(!alreadyApplied&&!overlayResults.Complete(identity))return;dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();break;
+                if(!alreadyApplied&&!overlayResults.Complete(identity))return;ReleaseRetainedImage();dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();break;
             case OverlayResultEventKind.Stopped:if(!alreadyApplied)overlayResults.MarkStopped();dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();break;
             default:throw new ArgumentOutOfRangeException(nameof(value));
         }
@@ -50,12 +50,22 @@ internal sealed partial class ShellWindow
         // Cancellation rejects every late receiver event, so the local command must commit
         // the terminal presentation through the existing coalesced flush, not await Stopped.
         lifecycle.Gate.StopGeneration();overlayResults.MarkStopped();pendingReveal=false;
+        if(overlayResults.HasText)ReleaseRetainedImage();else RestoreImageAfterTextFailure(overlayResults.Identity);
         awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();
         RefreshResultLabel();dirty=true;if(!flush.IsEnabled)flush.Start();
         button.ToolTip="已停止生成 · 结果保留在本次会话";
     }
     private void FlushResultTick(object? sender,EventArgs e){flush.Stop();FlushResult();}
-    private void ReopenResult(){if(!IsVisible)ShowOverlay();if(overlayResults.Reopen()){peek=false;OpenBody();}}
+    private void ReopenResult(){if(!IsVisible)ShowOverlay();if(SelectedSource.Image!=null?lifecycle.Gate.TryReopen(true):overlayResults.Reopen()){peek=false;OpenBody();}}
     private void HidePresentation(bool clear)
-    {InvalidateBodyScrollRestore();ClearOriginalSource();peek=false;overflowMenu.IsOpen=false;waiting.Stop();flush.Stop();peekIn.Stop();peekOut.Stop();StopFrames();awaitingText=false;progressRing.Visibility=Visibility.Collapsed;overlayResults.MarkStopped();if(clear){overlayResults.Clear();ClearMarkdown();resultRevision++;}overlayFrames?.Compact();ApplyOverlayFrame();}
+    {
+        List<Exception> errors=[];InvalidateBodyScrollRestore();ScreenshotPreviewCleanup.Attempt(errors,ClearOriginalSource);peek=false;
+        ScreenshotPreviewCleanup.Attempt(errors,()=>overflowMenu.IsOpen=false);waiting.Stop();flush.Stop();peekIn.Stop();peekOut.Stop();StopFrames();awaitingText=false;progressRing.Visibility=Visibility.Collapsed;overlayResults.MarkStopped();
+        if(clear)
+        {
+            ScreenshotPreviewCleanup.Attempt(errors,ClearMarkdown);ScreenshotPreviewCleanup.Attempt(errors,ReleaseRetainedImage);overlayResults.Clear();resultRevision++;
+        }
+        overlayFrames?.Compact();ScreenshotPreviewCleanup.Attempt(errors,()=>ApplyOverlayFrame());
+        if(errors.Count>0)throw new AggregateException("Presentation cleanup unconfirmed.",errors);
+    }
 }

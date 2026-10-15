@@ -11,7 +11,7 @@ internal sealed partial class ShellWindow
         ScreenshotPreviewCleanup.Attempt(errors,ClearSelectionSource);ScreenshotPreviewCleanup.Attempt(errors,()=>RevokeTextDrop(clearSource:true));
         externalDropHover=restoreDropBody=restoreDropPeek=false;ScreenshotPreviewCleanup.Attempt(errors,()=>dropHint.Visibility=System.Windows.Visibility.Collapsed);
         ScreenshotPreviewCleanup.Attempt(errors,()=>HidePresentation(clear:true));
-        ScreenshotPreviewCleanup.Attempt(errors,overlayResults.Clear);ScreenshotPreviewCleanup.Attempt(errors,ClearMarkdown);
+        ScreenshotPreviewCleanup.Attempt(errors,ReleaseRetainedImage);ScreenshotPreviewCleanup.Attempt(errors,overlayResults.Clear);ScreenshotPreviewCleanup.Attempt(errors,ClearMarkdown);
         if(lifecycle.Gate.Snapshot.Presentation!=KuaiYi.Core.Presentation.Hidden)lifecycle.Gate.Collapse();
         dirty=false;pendingReveal=false;ScreenshotPreviewCleanup.Attempt(errors,()=>newContent.Visibility=System.Windows.Visibility.Collapsed);ResetBodyReaderFollow();
         translationStatus=null;ScreenshotPreviewCleanup.Attempt(errors,()=>connectionStatus.Text="正在连接…");ScreenshotPreviewCleanup.Attempt(errors,RefreshResultLabel);

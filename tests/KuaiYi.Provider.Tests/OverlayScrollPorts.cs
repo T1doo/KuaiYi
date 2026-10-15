@@ -29,6 +29,7 @@ namespace KuaiYi.App
         private sealed class LifecyclePort
         {
             public RuntimeGate Gate {get;}=new();
+            public void Hide()=>Gate.Disable(hide:true);
             public KuaiYi.Core.Settings.SettingsSnapshot? Settings {get;set;}
         }
         private readonly BodyPort body=new();

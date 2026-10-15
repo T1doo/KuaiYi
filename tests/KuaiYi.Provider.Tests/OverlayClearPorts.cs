@@ -15,19 +15,22 @@ namespace System.Windows.Controls
 {
     internal sealed class ContextMenu {public bool IsOpen {get;set;}}
     internal sealed class Panel {public List<UIElement> Children {get;}=[];}
-    internal sealed class Image:FrameworkElement {public object? Source {get;set;}}
+    internal sealed class Image:FrameworkElement {public object? Source {get;set;}public Media.Stretch Stretch {get;set;}public Threading.CodeDispatcherPort Dispatcher {get;}=new();}
 }
 namespace System.Windows.Media.Imaging
 {
     internal sealed class WriteableBitmap(int width,int height)
     {
+        [ThreadStatic]internal static Action<WriteableBitmap>? Created;
+        public WriteableBitmap(int width,int height,double dpiX,double dpiY,object format,object? palette):this(width,height){Created?.Invoke(this);}
+        public bool ThrowOnFill {get;set;}
         public int PixelWidth=>width;
         public int PixelHeight=>height;
         public byte[] Pixels {get;}=Enumerable.Repeat((byte)51,width*height*4).ToArray();
         public int? FailRow {get;set;}
         public List<int> Writes {get;}=[];
         public void WritePixels(Int32Rect rect,byte[] zero,int stride,int offset)
-        {Writes.Add(rect.Y);if(FailRow==rect.Y)throw new InvalidOperationException("synthetic row failure");zero.AsSpan(offset,rect.Width*4).CopyTo(Pixels.AsSpan(rect.Y*width*4,rect.Width*4));}
+        {if(rect.Height>1&&ThrowOnFill)throw new IOException("synthetic initial fill failure");for(int row=0;row<rect.Height;row++){int y=rect.Y+row;Writes.Add(y);if(FailRow==y)throw new InvalidOperationException("synthetic row failure");zero.AsSpan(offset+row*stride,rect.Width*4).CopyTo(Pixels.AsSpan(y*width*4,rect.Width*4));}}
     }
 }
 namespace KuaiYi.Imaging

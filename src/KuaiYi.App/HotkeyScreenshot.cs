@@ -29,6 +29,7 @@ internal sealed partial class ShellWindow
         using var onCancel=cancellation.Token.Register(()=>Dispatcher.BeginInvoke(Restore));
         try
         {
+            var admission=CaptureImageAdmission(cancellation);
             long[] handles=visible.Select(w=>new WindowInteropHelper(w).Handle.ToInt64()).Order().ToArray();if(!CaptureBoundary.VisibleWindowsForProcess(Environment.ProcessId).SequenceEqual(handles))throw new CaptureException(CaptureFailure.HiddenWindowNotVerified);
             foreach(long handle in handles)if(!ScreenshotDesktop.ExcludeWindow(new(handle)))throw new CaptureException(CaptureFailure.HiddenWindowNotVerified);foreach(var window in visible)window.Hide();await Dispatcher.InvokeAsync(()=>{},DispatcherPriority.ApplicationIdle).Task.WaitAsync(cancellation.Token);
             if(!CaptureBoundary.HiddenForProcess(handles,Environment.ProcessId,true))throw new CaptureException(CaptureFailure.HiddenWindowNotVerified);
@@ -36,14 +37,13 @@ internal sealed partial class ShellWindow
             snapshot=await ScreenshotAcquisition.AcquireAsync(intent,token=>owner.RunAsync(job,token),cancellation.Token);
             if(await owner.TryFinalizeAsync())screenshotHotkeyOwner=null;if(screenshotHotkeyOwner!=null)throw new CaptureException(CaptureFailure.ExitUnconfirmed);
             selection=new(snapshot,()=>intent.IsCurrent);var region=await selection.RunAsync(cancellation.Token);selection=null;if(region==null||!intent.IsCurrent)return;
-            using var crop=snapshot.CropAndRelease(region.Value,new(ScreenshotDesktop.Displays().Select(d=>d.Monitor)),cancellation.Token);snapshot=null;Restore();
-            var bitmap=new WriteableBitmap(crop.Bounds.Width,crop.Bounds.Height,96,96,PixelFormats.Bgra32,null);Window? preview=null;StackPanel? panel=null;Image? image=null;
-            ScreenshotPreviewCleanup.Own(bitmap,()=>
+            ScreenshotPixels? crop=snapshot.CropAndRelease(region.Value,new(ScreenshotDesktop.Displays().Select(d=>d.Monitor)),cancellation.Token);snapshot=null;Restore();
+            try
             {
-                using(var memory=crop.Bytes.Pin())unsafe{bitmap.WritePixels(new(0,0,bitmap.PixelWidth,bitmap.PixelHeight),(nint)memory.Pointer,crop.Bytes.Length,bitmap.PixelWidth*4);}
-                preview=new Window{Owner=this,Title="快译 · 本地截图预览（翻译尚未接入）",Width=500,Height=380,WindowStartupLocation=WindowStartupLocation.CenterOwner};panel=new StackPanel{Margin=new(16)};image=new Image{Source=bitmap,Height=270,Stretch=Stretch.Uniform};panel.Children.Add(image);var close=new Button{Content="关闭本地预览",IsCancel=true,IsDefault=true};close.Click+=(_,_)=>preview.Close();panel.Children.Add(new TextBlock{Text="本次仅准备所选区域；不启用翻译、不上传，模型调度尚未接入。",TextWrapping=TextWrapping.Wrap});panel.Children.Add(close);preview.Content=panel;
-                using var cancelled=cancellation.Token.Register(()=>Dispatcher.BeginInvoke(()=>{if(preview.IsLoaded)preview.Close();}));if(intent.IsCurrent)preview.ShowDialog();
-            },()=> (preview,panel,image));
+                if(!intent.IsCurrent||cancellation.IsCancellationRequested)return;
+                var image=new OwnedSourceImage(crop);crop=null;poll.Stop();AcceptLocalImage(admission,intent,image);
+            }
+            finally{crop?.Dispose();}
         }
         catch(OperationCanceledException)when(cancellation.IsCancellationRequested){ }
         catch(ScreenshotCleanupException error){previousCleanupFailure=error;}

@@ -44,7 +44,7 @@ namespace KuaiYi.App
         {InitializeMarkdown();presentationReceiver=new(lifecycle.Gate,new InlineDestination());flush.Tick+=FlushResultTick;}
         internal void ResultDestination(SynchronizationContext destination)=>presentationReceiver=new(lifecycle.Gate,destination);
         internal void UseTranslation(TextTranslationCoordinator value,SettingsSnapshot settings){translation=value;lifecycle.Settings=settings;}
-        internal void CoordinatorUpdate(TextTranslationUpdate update){ApplyResult(update.Identity,update.Presentation,true);RefreshResultLabel();}
+        internal void CoordinatorUpdate(TextTranslationUpdate update)=>TranslationChanged(update);
         internal void RefreshLabelForTest()=>RefreshResultLabel();
         internal void DrainResultDispatchForTest(){while(Dispatcher.Pending>0)Dispatcher.Run(0);}
         internal void StopForTest()=>StopResult();
@@ -68,7 +68,7 @@ namespace KuaiYi.App
         {overlayFrames=new(new(100,100,148,148),new("synthetic",new(0,0,1920,1040),new(1)));MarkdownMeasurement.DesiredSize=new(388,320);}
         internal void OpenForTest()=>OpenBody();
         private bool IsVisible=true;
-        private void ShowOverlay(){if(CanReadOriginalSource())IsVisible=true;}
+        private void ShowOverlay(){if(CanReadOriginalSource()&&!IsVisible){lifecycle.Gate.Disable();IsVisible=true;}}
         internal void ShowSourceForTest()=>ShowSelectionSource();
         internal void ClearSourceForTest()=>ClearOriginalSource();
         internal bool OriginalSourceCommandEnabled=>tools.Single(t=>Equals(t.Content,"查看原文")).IsEnabled;

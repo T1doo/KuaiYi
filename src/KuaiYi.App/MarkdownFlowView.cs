@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using KuaiYi.Core;
+using KuaiYi.Imaging;
 namespace KuaiYi.App;
 
 /// <summary>Only locally constructed native text elements; never XAML, HTML, resources or hyperlinks.</summary>
@@ -18,24 +19,26 @@ internal sealed class MarkdownFlowView
     private readonly Func<bool>? shouldFollow;
     private readonly Action? sourceChanged;
     private readonly Func<Guid,bool>? canReadSource;
+    private readonly Action<Exception>? sourceFailed;
     private MarkdownSourceRegion? sourceRegion;
+    private MarkdownImageSourceRegion? imageSourceRegion;
     private BlockUIContainer? sourceBlock;
     private Guid? sourceVersion;
     private Guid? appliedVersion;
     private MarkdownViewport viewport=new(388,560);
     private double appliedFontSize=double.NaN;
     private static readonly FontFamily ProseFont=new("Segoe UI"),CodeFont=new("Consolas");
-    public MarkdownFlowView(RichTextBox host,Action? observeReader=null,Func<Func<bool>>? captureReaderGuard=null,Func<bool>? shouldFollow=null,Action? sourceChanged=null,Func<Guid,bool>? canReadSource=null)
+    public MarkdownFlowView(RichTextBox host,Action? observeReader=null,Func<Func<bool>>? captureReaderGuard=null,Func<bool>? shouldFollow=null,Action? sourceChanged=null,Func<Guid,bool>? canReadSource=null,Action<Exception>? sourceFailed=null)
     {
-        this.host=host;this.observeReader=observeReader;this.captureReaderGuard=captureReaderGuard;this.shouldFollow=shouldFollow;this.sourceChanged=sourceChanged;this.canReadSource=canReadSource;host.Document=new FlowDocument{PagePadding=new Thickness(0),ColumnGap=0};
+        this.host=host;this.observeReader=observeReader;this.captureReaderGuard=captureReaderGuard;this.shouldFollow=shouldFollow;this.sourceChanged=sourceChanged;this.canReadSource=canReadSource;this.sourceFailed=sourceFailed;host.Document=new FlowDocument{PagePadding=new Thickness(0),ColumnGap=0};
         host.IsReadOnly=true;host.IsUndoEnabled=false;host.IsDocumentEnabled=true;host.HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled;host.VerticalScrollBarVisibility=ScrollBarVisibility.Visible;host.ClipToBounds=true;
         SetViewport(viewport);
     }
     public void Clear(){ClearSource();foreach(var region in codeRegions.Values)region.Dispose();foreach(var region in tableRegions.Values)region.Dispose();codeRegions.Clear();tableRegions.Clear();host.Document.Blocks.Clear();applied.Clear();elements.Clear();appliedVersion=null;}
-    public bool SourceExpanded=>sourceRegion?.View.IsExpanded==true;
-    public void ExpandSource()=>sourceRegion?.Expand();
+    public bool SourceExpanded=>sourceRegion?.View.IsExpanded==true||imageSourceRegion?.View.IsExpanded==true;
+    public void ExpandSource(){sourceRegion?.Expand();imageSourceRegion?.Expand();}
     public void ClearSource()
-    {sourceRegion?.Dispose();if(sourceBlock!=null)host.Document.Blocks.Remove(sourceBlock);sourceRegion=null;sourceBlock=null;sourceVersion=null;}
+    {sourceRegion?.Dispose();imageSourceRegion?.Dispose();imageSourceRegion=null;if(sourceBlock!=null)host.Document.Blocks.Remove(sourceBlock);sourceRegion=null;sourceBlock=null;sourceVersion=null;}
     public void RetainSourceVersion(Guid? version){if(sourceVersion!=version)ClearSource();}
     public void SetSource(Guid? version,string? source,bool? expanded=null)
     {
@@ -48,7 +51,19 @@ internal sealed class MarkdownFlowView
         if(expanded.HasValue)sourceRegion.SetExpanded(expanded.Value);
         ConstrainSource();
     }
-    private void ConstrainSource()=>sourceRegion?.Constrain(host.Document.PageWidth,viewport.MaximumHeightDip,host.FontSize,host.Foreground);
+    public void SetImageSource(Guid? version,OwnedSourceImage? source,bool? expanded=null,bool materialize=true)
+    {
+        if(version==null||source==null||source.IsDisposed){ClearSource();return;}
+        if(imageSourceRegion==null||sourceVersion!=version||!imageSourceRegion.Matches(source))
+        {
+            ClearSource();sourceVersion=version;imageSourceRegion=new(source,observeReader,sourceChanged,()=>canReadSource?.Invoke(version.Value)!=false,captureReaderGuard,sourceFailed);
+            sourceBlock=new(imageSourceRegion.View){Margin=new Thickness(0,8,0,0)};host.Document.Blocks.Add(sourceBlock);
+        }
+        if(expanded.HasValue)imageSourceRegion.SetExpanded(expanded.Value,materialize);
+        ConstrainSource();
+    }
+    private void ConstrainSource()
+    {sourceRegion?.Constrain(host.Document.PageWidth,viewport.MaximumHeightDip,host.FontSize,host.Foreground);imageSourceRegion?.Constrain(host.Document.PageWidth,viewport.MaximumHeightDip,host.FontSize,host.Foreground);}
     public void SetViewport(MarkdownViewport value)
     {
         value.Validate();viewport=value;host.Width=host.MaxWidth=value.WidthDip;host.MaxHeight=value.MaximumHeightDip;

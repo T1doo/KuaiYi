@@ -87,8 +87,17 @@ internal sealed partial class ShellWindow
     private void ClearSelectionSource(){selectionCapture?.CancelPending(clearSource:true);ClearOriginalSource();}
     private async Task StopSelection()
     {
-        ClearSelectionSource();
-        await selectionReconcile;if(selectionHook!=null){selectionHook.Stop();await selectionHook.DisposeAsync();await selectionEvents;selectionHook=null;}
-        if(selectionCapture!=null)await selectionCapture.DisposeAsync();if(selectionBroker!=null)await selectionBroker.DisposeAsync();if(clipboardCapture!=null)await clipboardCapture.DisposeAsync();
+        List<Exception> errors=[];ScreenshotPreviewCleanup.Attempt(errors,ClearSelectionSource);
+        async Task Settle(Func<Task> step){try{await step();}catch(Exception error){errors.Add(error);}}
+        await Settle(()=>selectionReconcile);
+        if(selectionHook is {} hook)
+        {
+            ScreenshotPreviewCleanup.Attempt(errors,hook.Stop);
+            await Settle(async()=>{await hook.DisposeAsync();await selectionEvents;if(ReferenceEquals(selectionHook,hook))selectionHook=null;});
+        }
+        if(selectionCapture!=null)await Settle(async()=>await selectionCapture.DisposeAsync());
+        if(selectionBroker!=null)await Settle(async()=>await selectionBroker.DisposeAsync());
+        if(clipboardCapture!=null)await Settle(async()=>await clipboardCapture.DisposeAsync());
+        if(errors.Count>0)throw new AggregateException("Selection cleanup unconfirmed.",errors);
     }
 }

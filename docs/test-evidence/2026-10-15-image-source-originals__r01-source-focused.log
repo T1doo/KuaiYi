@@ -1,0 +1,28 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.41]     KuaiYi.Provider.Tests.ImageSourcePreviewTests.ClearLockExitAndReplacementReleaseOwnerAndRejectOldExpansionAndLoaded(action: 0) [FAIL]
+  Failed KuaiYi.Provider.Tests.ImageSourcePreviewTests.ClearLockExitAndReplacementReleaseOwnerAndRejectOldExpansionAndLoaded(action: 0) [3 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.ImageSourcePreviewTests.ClearLockExitAndReplacementReleaseOwnerAndRejectOldExpansionAndLoaded(Int32 action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageSourcePreviewTests.cs:line 31
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.58]     KuaiYi.Provider.Tests.ImageSourcePreviewTests.ActualTextFailureCanReturnRetainedLocalVersionFoldedWithoutChangingIdentityOrImage [FAIL]
+  Failed KuaiYi.Provider.Tests.ImageSourcePreviewTests.ActualTextFailureCanReturnRetainedLocalVersionFoldedWithoutChangingIdentityOrImage [9 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.ImageSourcePreviewTests.ActualTextFailureCanReturnRetainedLocalVersionFoldedWithoutChangingIdentityOrImage() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageSourcePreviewTests.cs:line 54
+   at KuaiYi.Provider.Tests.ImageSourcePreviewTests.ActualTextFailureCanReturnRetainedLocalVersionFoldedWithoutChangingIdentityOrImage() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageSourcePreviewTests.cs:line 54
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/image-source/r01-source-focused.trx
+
+Failed!  - Failed:     2, Passed:    26, Skipped:     0, Total:    28, Duration: 709 ms - KuaiYi.Provider.Tests.dll (net10.0)

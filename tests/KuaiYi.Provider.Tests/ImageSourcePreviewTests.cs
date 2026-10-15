@@ -1,0 +1,106 @@
+using KuaiYi.App;
+using KuaiYi.Core;
+using KuaiYi.Imaging;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using Xunit;
+namespace KuaiYi.Provider.Tests;
+public sealed class ImageSourcePreviewTests
+{
+    private static OwnedSourceImage Image(out byte[] original,int width=8,int height=8)
+    {original=Enumerable.Range(0,checked(width*height*4)).Select(i=>(byte)(i%251+1)).ToArray();return new(new ScreenshotPixels(new(0,0,width,height),original));}
+    private static Expander Source(ShellWindow w)=>Assert.IsType<Expander>(Assert.IsType<BlockUIContainer>(w.MarkdownBody.Document.Blocks[^1]).Child);
+    private static System.Windows.Controls.Image View(Expander source)=>Assert.IsType<System.Windows.Controls.Image>(source.Content);
+    private static void Drain(ShellWindow w){for(int i=0;i<4&&w.FlushPending;i++)w.TickForTest();Assert.False(w.FlushPending);}
+    private static OwnedSourceImage Accept(ShellWindow w,out byte[] raw)
+    {var input=w.ImageInputForTest();using(input.Intent)using(input.Cancellation){try{var image=Image(out raw);Assert.True(input.Commit(image));return image;}finally{w.EndRestoreForTest(input.Cancellation);}}}
+    [Fact]public void LocalAcceptanceHasRealDistinctSourceVersionAndPreservesOffWithoutARequestOrFakeResult()
+    {
+        var w=new ShellWindow();w.InitializeResultFlow();w.WithGeometry();var image=Accept(w,out var raw);var source=Source(w);Assert.False(source.IsExpanded);Assert.Null(View(source).Source);Assert.Equal(image,w.SelectedImageForTest);Assert.NotNull(w.SelectedSourceVersionForTest);Assert.Null(w.MarkdownResults.SelectedVersionId);Assert.Empty(w.MarkdownResults.Versions);Assert.Empty(w.MarkdownResults.Text);Assert.Empty(w.MarkdownModel.Blocks);Assert.Equal(Activation.Off,w.MarkdownGate.Snapshot.Activation);Assert.False(w.MarkdownGate.HasRunningGeneration);Assert.False(image.IsDisposed);Assert.Equal("本地图片 · 未翻译 · 8 × 8",w.ResultLabel);Assert.True(w.OriginalSourceCommandEnabled);Assert.True(w.Frames!.IsExpanded);Assert.Contains(raw,b=>b!=0);w.ClearImagePresentationForTest();Assert.All(raw,b=>Assert.Equal(0,b));
+    }
+    [Fact]public void ExplicitExpansionOnlyAllocatesBodyBitmapAndMeasurementUsesDimensions()
+    {
+        var w=new ShellWindow();w.InitializeResultFlow();w.WithGeometry();var owned=Accept(w,out var raw);w.ShowSourceForTest();var source=Source(w);var view=View(source);var bitmap=Assert.IsType<WriteableBitmap>(view.Source);Assert.Equal(raw,bitmap.Pixels);Assert.False(w.Following);Drain(w);var measured=Assert.IsType<Expander>(Assert.IsType<BlockUIContainer>(w.MarkdownMeasurement.Document.Blocks[^1]).Child);Assert.True(measured.IsExpanded);Assert.Null(View(measured).Source);Assert.InRange(view.MaxHeight,1,180);Assert.InRange(view.MaxWidth,1,388);source.IsExpanded=false;Assert.Null(view.Source);Assert.All(bitmap.Pixels,b=>Assert.Equal(0,b));Assert.False(owned.IsDisposed);w.ShowSourceForTest();Assert.NotSame(bitmap,View(Source(w)).Source);w.ClearImagePresentationForTest();Assert.True(owned.IsDisposed);Assert.All(raw,b=>Assert.Equal(0,b));
+    }
+    [Theory][InlineData(0)][InlineData(1)][InlineData(2)][InlineData(3)]
+    public async Task ClearLockExitAndReplacementReleaseOwnerAndRejectOldExpansionAndLoaded(int action)
+    {
+        var w=new ShellWindow();w.InitializeResultFlow();w.WithGeometry();var owned=Accept(w,out var raw);w.ShowSourceForTest();var source=Source(w);var view=View(source);var bitmap=Assert.IsType<WriteableBitmap>(view.Source);Action late=source.CaptureExpand();
+        switch(action){case 0:Assert.True(await w.ClearContentForTest());break;case 1:w.Lock();w.ClearImagePresentationForTest();break;case 2:w.Exit();w.ClearImagePresentationForTest();break;case 3:Accept(w,out _);break;}
+        Assert.True(owned.IsDisposed);Assert.All(raw,b=>Assert.Equal(0,b));Assert.Null(view.Source);Assert.Null(source.Content);Assert.Equal(0,source.Handlers);Assert.All(bitmap.Pixels,b=>Assert.Equal(0,b));late();while(view.Dispatcher.Pending>0)view.Dispatcher.Deliver();Assert.Equal(0,source.BringIntoViewCalls);Assert.Null(view.Source);Assert.NotSame(owned,w.SelectedImageForTest);w.ClearImagePresentationForTest();
+    }
+    [Fact]public void CancelledNewCaptureKeepsPriorSessionButRecreatesOnlyFoldedCurrentVersion()
+    {
+        var w=new ShellWindow();w.InitializeResultFlow();w.WithGeometry();var owned=Accept(w,out var raw);var version=w.SelectedSourceVersionForTest;w.ShowSourceForTest();var old=Source(w);var oldView=View(old);var bitmap=Assert.IsType<WriteableBitmap>(oldView.Source);var pending=w.ImageInputForTest();using(pending.Intent)using(pending.Cancellation){pending.Cancellation.Cancel();var candidate=Image(out var staged);Assert.False(pending.Commit(candidate));Assert.True(candidate.IsDisposed);Assert.All(staged,b=>Assert.Equal(0,b));}
+        w.RenderMarkdown();Assert.Equal(version,w.SelectedSourceVersionForTest);Assert.Same(owned,w.SelectedImageForTest);Assert.False(owned.IsDisposed);Assert.Contains(raw,b=>b!=0);Assert.False(Source(w).IsExpanded);Assert.Null(View(Source(w)).Source);Assert.Null(old.Content);Assert.All(bitmap.Pixels,b=>Assert.Equal(0,b));while(oldView.Dispatcher.Pending>0)oldView.Dispatcher.Deliver();Assert.Equal(0,old.BringIntoViewCalls);w.ClearImagePresentationForTest();
+    }
+    [Theory][InlineData(0)][InlineData(1)][InlineData(2)][InlineData(3)][InlineData(4)][InlineData(5)]
+    public async Task StaleAdmissionCannotRestoreSourceAfterCancelClearLockExitNewOwnerOrNewResult(int action)
+    {
+        var w=new ShellWindow();w.InitializeResultFlow();var pending=w.ImageInputForTest();using(pending.Intent)using(pending.Cancellation)
+        {
+            switch(action){case 0:pending.Cancellation.Cancel();break;case 1:Assert.True(await w.ClearContentForTest());break;case 2:w.Lock();break;case 3:w.Exit();break;case 4:w.ScreenshotForTest(Task.CompletedTask,new CancellationTokenSource());break;case 5:w.ReplaceResult();break;}
+            var image=Image(out var raw);Assert.False(pending.Commit(image));Assert.True(image.IsDisposed);Assert.All(raw,b=>Assert.Equal(0,b));Assert.Null(w.SelectedImageForTest);Assert.Empty(w.MarkdownBody.Document.Blocks);
+        }
+    }
+    [Fact]public async Task ActualNewTextVersionOwnsTextAndSuccessfulCompletionReleasesFallbackImage()
+    {
+        await using var rig=new OverlayStopFlowTests.RealCoordinatorRig();var w=rig.Window;w.WithGeometry();var owned=Accept(w,out var raw);var local=w.SelectedSourceVersionForTest;var id=await rig.Start();Assert.Null(w.SelectedImageForTest);Assert.Equal(id.VersionId,w.SelectedSourceVersionForTest);Assert.NotEqual(local,w.SelectedSourceVersionForTest);Assert.False(owned.IsDisposed);Assert.True(await w.ReceivePresentationAsync(id,new(OverlayResultEventKind.Delta,"text output")));Assert.True(await w.ReceivePresentationAsync(id,new(OverlayResultEventKind.Complete)));Drain(w);Assert.True(owned.IsDisposed);Assert.All(raw,b=>Assert.Equal(0,b));w.ShowSourceForTest();Assert.IsType<TextBox>(Source(w).Content);Assert.Equal("text output",w.MarkdownResults.Text);
+    }
+    [Fact]public async Task ActualTextFailureCanReturnRetainedLocalVersionFoldedWithoutChangingIdentityOrImage()
+    {
+        await using var rig=new OverlayStopFlowTests.RealCoordinatorRig();var w=rig.Window;w.WithGeometry();var owned=Accept(w,out var raw);var local=w.SelectedSourceVersionForTest;var id=await rig.Start();Assert.True(await w.ReceivePresentationAsync(id,new(OverlayResultEventKind.Delta,"partial failed")));var snapshot=Assert.IsType<KuaiYi.Providers.TextTranslationSnapshot>(rig.Flow.SnapshotForVersion(id.VersionId));Assert.True(w.MarkdownResults.Fail(id));w.CoordinatorUpdate(new(id,new(OverlayResultEventKind.Stopped),snapshot,"NETWORK_ERROR"));Drain(w);Assert.Equal(local,w.SelectedSourceVersionForTest);Assert.Same(owned,w.SelectedImageForTest);Assert.False(Source(w).IsExpanded);Assert.Null(View(Source(w)).Source);Assert.False(owned.IsDisposed);Assert.Empty(w.MarkdownResults.Versions);Assert.False(await w.ReceivePresentationAsync(id,new(OverlayResultEventKind.Delta,"late")));Assert.True(await w.ClearContentForTest());Assert.True(owned.IsDisposed);Assert.All(raw,b=>Assert.Equal(0,b));
+    }
+    [Theory][InlineData(false)][InlineData(true)]
+    public void ReopenAndViewAfterOffPreserveOnlyCurrentImageVersion(bool hide)
+    {
+        var w=new ShellWindow();w.InitializeResultFlow();w.WithGeometry();var image=Accept(w,out _);var version=w.SelectedSourceVersionForTest;w.ShowSourceForTest();w.CollapseForTest();if(hide)w.HideImageWindowForTest();else w.MarkdownGate.Disable();w.ReopenForTest();w.ShowSourceForTest();Assert.Equal(version,w.SelectedSourceVersionForTest);Assert.Same(image,w.SelectedImageForTest);Assert.True(Source(w).IsExpanded);Assert.Equal(Activation.Off,w.MarkdownGate.Snapshot.Activation);Assert.False(w.MarkdownGate.HasRunningGeneration);w.ClearImagePresentationForTest();
+    }
+    [Fact]public void NativeWipeFailureRemainsOwnedForClearRetryAndNeverReleasesSourceOwner()
+    {
+        using var image=Image(out _);using var region=new MarkdownImageSourceRegion(image,null,null,()=>true);region.Expand();var bitmap=Assert.IsType<WriteableBitmap>(region.Image.Source);bitmap.FailRow=2;region.View.IsExpanded=false;Assert.Null(region.Image.Source);Assert.False(image.IsDisposed);bitmap.FailRow=null;region.Dispose();Assert.All(bitmap.Pixels,b=>Assert.Equal(0,b));Assert.False(image.IsDisposed);
+    }
+    [Fact]public void FailedCollapseReportsAndNextExpandRetriesWipeBeforeReplacingBitmap()
+    {
+        using var image=Image(out _);var failures=new List<Exception>();using var region=new MarkdownImageSourceRegion(image,null,null,()=>true,failed:failures.Add);region.Expand();var first=Assert.IsType<WriteableBitmap>(region.Image.Source);first.FailRow=2;region.View.IsExpanded=false;Assert.Single(failures);Assert.Null(region.Image.Source);region.Expand();Assert.Equal(2,failures.Count);Assert.False(region.View.IsExpanded);Assert.Null(region.Image.Source);first.FailRow=null;region.Expand();Assert.True(region.View.IsExpanded);Assert.NotSame(first,region.Image.Source);Assert.All(first.Pixels,b=>Assert.Equal(0,b));
+    }
+    [Fact]public void FillAndCleanupFailuresAreBothReportedWithoutEscapingNativeExpansion()
+    {
+        using var image=Image(out _);var failures=new List<Exception>();using var region=new MarkdownImageSourceRegion(image,null,null,()=>true,failed:failures.Add);WriteableBitmap? failed=null;
+        try{WriteableBitmap.Created=value=>{failed=value;value.ThrowOnFill=true;value.FailRow=2;};region.View.IsExpanded=true;}
+        finally{WriteableBitmap.Created=null;}
+        var aggregate=Assert.IsType<ScreenshotCleanupException>(Assert.Single(failures));var all=aggregate.Flatten().InnerExceptions;Assert.Contains(all,e=>e is IOException&&e.Message.Contains("initial fill"));Assert.Contains(all,e=>e is InvalidOperationException&&e.Message.Contains("row"));Assert.False(region.View.IsExpanded);Assert.Null(region.Image.Source);Assert.NotNull(failed);failed.FailRow=null;region.Dispose();Assert.All(failed.Pixels,b=>Assert.Equal(0,b));Assert.False(image.IsDisposed);
+    }
+    [Theory][InlineData(0)][InlineData(1)][InlineData(2)]
+    public async Task ActualClearLockAndExitContinueReleasingSourceAndOtherOwnersWhenNativeWipeFails(int action)
+    {
+        var w=new ShellWindow();w.InitializeResultFlow();w.WithGeometry();var image=Accept(w,out var raw);w.ShowSourceForTest();var source=Source(w);var view=View(source);var bitmap=Assert.IsType<WriteableBitmap>(view.Source);bitmap.FailRow=2;var captureOwner=new CaptureHostClient();w.ScreenshotForTest(Task.CompletedTask,owner:captureOwner);
+        switch(action)
+        {
+            case 0:Assert.False(await w.ClearContentForTest());break;
+            case 1:w.ApplyLockForTest();Assert.Equal(1,w.PrivacyHides);Assert.True(w.ClearErrors>0);break;
+            case 2:w.SelectionExit=Task.FromException(new IOException("synthetic selection owner pending"));await Assert.ThrowsAsync<AggregateException>(()=>w.ExitContentForTest());Assert.Equal(1,w.PrivacyHides);Assert.Equal(1,w.SelectionExitCalls);Assert.Equal(1,w.HotkeyExitCalls);Assert.Equal(1,w.TranslationExitCalls);Assert.Equal(1,captureOwner.Calls);break;
+        }
+        Assert.True(image.IsDisposed);Assert.All(raw,b=>Assert.Equal(0,b));Assert.Null(view.Source);Assert.Null(w.SelectedImageForTest);Assert.Null(source.Content);bitmap.FailRow=null;w.ClearImagePresentationForTest();Assert.All(bitmap.Pixels,b=>Assert.Equal(0,b));
+    }
+    [Fact]public async Task ProductionFailureEntryPreservesReadableTextRollbackInsteadOfRestoringOlderImage()
+    {
+        await using var rig=new OverlayStopFlowTests.RealCoordinatorRig();var w=rig.Window;w.WithGeometry();var image=Accept(w,out var raw);var first=await rig.Start();Assert.True(await w.ReceivePresentationAsync(first,new(OverlayResultEventKind.Delta,"readable text A")));var second=await rig.Start(true);var snapshot=Assert.IsType<KuaiYi.Providers.TextTranslationSnapshot>(rig.Flow.SnapshotForVersion(second.VersionId));Assert.True(w.MarkdownResults.Fail(second));Assert.Equal(first.VersionId,w.MarkdownResults.SelectedVersionId);
+        w.CoordinatorUpdate(new(second,new(OverlayResultEventKind.Stopped),snapshot,"NETWORK_ERROR"));Drain(w);Assert.Equal(first.VersionId,w.SelectedSourceVersionForTest);Assert.Equal("readable text A",w.MarkdownResults.Text);Assert.Null(w.SelectedImageForTest);Assert.True(image.IsDisposed);Assert.All(raw,b=>Assert.Equal(0,b));Assert.Equal(2,w.MarkdownResults.Versions.Count);
+    }
+    [Fact]public void ReadingInputInvalidatesImageCommandLoadedCallbackWithoutChangingCurrentSource()
+    {
+        var w=new ShellWindow();w.InitializeResultFlow();w.WithGeometry();Accept(w,out _);w.ShowSourceForTest();var source=Source(w);var view=View(source);w.ReaderScroll(99);while(view.Dispatcher.Pending>0)view.Dispatcher.Deliver();Assert.Equal(0,source.BringIntoViewCalls);Assert.Equal(99,w.ScrollOffset);Assert.True(source.IsExpanded);w.ClearImagePresentationForTest();
+    }
+    [Fact]public void HiddenPresentationRejectsQueuedImageRevealBeforeAnyWindowCleanupRuns()
+    {
+        var w=new ShellWindow();w.InitializeResultFlow();w.WithGeometry();Accept(w,out _);w.ShowSourceForTest();var source=Source(w);var view=View(source);w.MarkdownGate.Disable(hide:true);while(view.Dispatcher.Pending>0)view.Dispatcher.Deliver();Assert.Equal(0,source.BringIntoViewCalls);w.ClearImagePresentationForTest();
+    }
+    [Theory][InlineData(false)][InlineData(true)]
+    public void ExitWhileSettingsSettleReleasesImageAndStillRequestsDraftCloseWhenBitmapCleanupFails(bool fail)
+    {
+        var w=new ShellWindow();w.InitializeResultFlow();w.WithGeometry();var image=Accept(w,out var raw);w.ShowSourceForTest();var source=Source(w);var view=View(source);var bitmap=Assert.IsType<WriteableBitmap>(view.Source);if(fail)bitmap.FailRow=2;int closes=0;w.SettingsExitForTest(()=>closes++);Assert.Equal(1,closes);Assert.Equal(0,w.PrivacyHides);Assert.True(image.IsDisposed);Assert.All(raw,b=>Assert.Equal(0,b));Assert.Null(view.Source);Assert.Null(w.SelectedImageForTest);Assert.Equal(fail?1:0,w.ClearErrors);while(view.Dispatcher.Pending>0)view.Dispatcher.Deliver();Assert.Equal(0,source.BringIntoViewCalls);bitmap.FailRow=null;w.ClearImagePresentationForTest();Assert.All(bitmap.Pixels,b=>Assert.Equal(0,b));
+    }
+}

@@ -689,3 +689,13 @@ AccountingV1准备实际验证完成：独立来源5项通过，真实浅clone21
 最终Provider884/884=原840完整+新41Clear+3Drop调度，App交叉构建0W/E。真实Coordinator/请求门、Source/Markdown清除及实际Snapshot/Crop/PNG缓冲归零执行；WPF位图、窗口、owner及Drop调用仅端口协议，真实平台/取消时限/B组仍NotRun。首17/29的12例共同提示状态缺失与修后29/29、两次881、最终884及三次成功App原回执全部保全；另保留r08漏EnableWindowsTargeting的NETSDK1100零执行/0W1E，r09修命令后通过。独审补退出与迟到Refresh对同peer重复finalize的最小latch，真实调度测试用原生端口而非OLE实机；完整884含原本地HTTP测试，无socket仅限新增Clear用例。新14份精确-text，父55份原件不变；独审/manifest/失败和限制见[说明](validation/overlay-clear-content.md)及[证据](test-evidence/2026-10-15-overlay-clear-content.json)。
 
 250/600ms及全部安全门、生产离线Off保持，旧覆盖前字节Unknown不回填，dotnet每次false且证书Unknown不读不改。Actions不查询不绕Forbidden、CIUnknown，无main/强推/部署/依赖费用凭据权限协议/真实模型或Windows/CMake实验。
+
+### 2026-10-15 所选本地图片来源折叠预览
+
+父签收2a51a5ec06f24948cb412dcd5eb06e11cf8caaf3后核clean/单worktree/唯一写入者/远端一致，建dev/overlay-image-source。现有Shell没有图片译文版本，故只将真实截图最终裁剪图接为明确“本地图片·未翻译”的来源卡，独立版本ID、不造正文/请求/启用或上传；文件/浏览器/视觉调度及P6仍未交付。SelectedSource统一接正文/测量/来源/标签/菜单/回看/复制/风格再生成边界，原生Expander/Image默认折叠。
+
+单owner转移裁剪BGRA，24MP/16384限制；原图不随版本或测量复制，展开才产生最多1024²的有界本地缩略图。折叠释放显示副本，清空/锁定/退出/真正替换释放原图，失败保held bitmap重试；读图及Loaded接版本/owner/阅读/Capture/Hidden门。取消新框选保旧会话但撤旧展开，文字失败优先可读文字rollback，再兜底原图片版本折叠。独审补事件异常/双故障聚合、空白重试、截图主try、锁屏/正常退出及等待设置退出的独立清理；不以取消令牌证明COM结束。
+
+最终Provider923/923=父884完整+新39（28预览/接线、11像素所有权），App两次0W/E。r01的26/28为新夹具漏EndScreenshotRestore、r05的922/923为隐藏重显端口未映射真实Show，均保原log/TRX且补真实生命周期不降断言；r02 28/28、r03 920/920、r07最终通过。12份新原始回执精确-text保全，父69份保持；说明/独审/manifest/实际失败见[图片预览说明](validation/overlay-image-source.md)和[固定证据](test-evidence/2026-10-15-overlay-image-source.json)。
+
+WPF布局/像素释放/阅读/选择/实际截图、COM/broker/所有权和取消时限及完整P2/P6/B组仍NotRun。250/600ms与全部安全门、生产离线Off保持，旧覆盖字节/证书存储信任Unknown不读改；每次dotnet显式false，无Actions查询/绕拒绝、Windows/CMake实验、main/强推/部署/依赖费用凭据权限协议/真实模型。
