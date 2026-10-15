@@ -597,3 +597,11 @@ AccountingV1准备实际验证完成：独立来源5项通过，真实浅clone21
 ### 2026-10-15 EmbeddedExecV1 唯一 Windows 对照回执
 
 精确执行5acccc753/tree74a77d7，唯一父b771f1e，真实提交浅clone24拒绝/25通过、最终来源独审通过后正常推新branch一次。run38719840129/job116371397705/attempt1最终failure，根Exit0/脚本及Actions Exit3分列：仍WaitJobEmpty Timeout、救援前NonEmpty、预算过期，救援后JobEmpty/清理与collector清理均确认；两点Known Active2/Total33、四文件Projected/Facts及CMake3.31.6与baseline38716240995相同。存在明确环境漂移：image20261012.333.1→20261004.326.1、provisioner20261012.601→20261002.596，不能称完全同环境或排除CompilerId/链接器PDB。已停止不重跑、不加成员probe；根因Unknown/真实四案例与生产验收未通过。事实与边界见[结果说明](validation/configure-embedded-windows-result.md)和[固定实测证据](test-evidence/2026-10-15-configure-embedded-windows-result.json)。本结果仅本地归档，原安全门及Off/0保持。
+
+### 2026-10-15 独立产品推进：P2-04阅读滚动回调
+
+核SPEC P0—P8和当前代码/最近文字Alpha计划后，选择现有P2生产阅读缺口，不扩到未退出的P5/P6。原Loaded回调仅resultRevision不能拒绝已观察阅读动作后的旧滚动；新增UI滚动序号，接真实wheel/key/mouse/touch、捕获滚动、“有新内容”及隐藏/收起入口，保留结果/锁屏/退出守卫。相同最终11断言的owned旧回调6失败/5通过；修后Provider532/532（含11专项）通过，App locked Release交叉构建0警告/错误。FIFO与逆序端口测试明确区分，不能替代WPF输入/内部滚动/完整B组实机验收。
+
+现有两次CI保全目录没有四原文件字节，MSVC版本/debug格式/ABI命令无法从有限投影恢复，不补造/不新增投影或CI。rootExit0/configure+generate完成与JobEmpty等待失败、脚本Exit3分开保留。详细阶段依赖、诊断可用性和测试边界见[修复说明](validation/overlay-reading-scroll.md)与[固定证据](test-evidence/2026-10-15-overlay-reading-scroll.json)。本批只本地实现/独审/测试，不push/Windows/CMake/成员probe，原250/600ms及全部安全门、P0/E06/生产验收状态和Off/0保持。
+
+独立/tmp专项11/11通过；额外首次SDK启动报告安装ASP.NET Core HTTPS开发证书，未执行trust。按私人路径限制未核证书存储，实际变化Unknown，原输出保留，不宣称证书状态未变。

@@ -52,8 +52,15 @@ internal sealed partial class ShellWindow
         Button Tool(string label,Action action){var b=new Button{Content=label,MinWidth=28,Height=28,FontSize=12,Padding=new Thickness(2)};System.Windows.Automation.AutomationProperties.SetName(b,label);b.Click+=(_,_)=>action();tools.Add(b);toolActions.Add(action);controls.Children.Add(b);return b;}
         controls.Children.Add(moreTools);moreTools.Click+=(_,_)=>OpenOverflowMenu(moreTools);
         System.Windows.Automation.AutomationProperties.SetName(moreTools,"更多操作及版本");overflowMenu.Closed+=(_,_)=>PresentationMenuClosed();
-        newContent.Click+=(_,_)=>{follow=true;body.ScrollToEnd();newContent.Visibility=Visibility.Collapsed;};
-        body.AddHandler(ScrollViewer.ScrollChangedEvent,new ScrollChangedEventHandler((_,e)=>{if(e.ExtentHeightChange==0&&e.VerticalChange!=0){follow=body.ExtentHeight-body.ViewportHeight-body.VerticalOffset<=24;if(follow)newContent.Visibility=Visibility.Collapsed;}}));
+        newContent.Click+=(_,_)=>{FollowBodyEnd();newContent.Visibility=Visibility.Collapsed;};
+        body.AddHandler(ScrollViewer.ScrollChangedEvent,new ScrollChangedEventHandler((_,e)=>{if(e.ExtentHeightChange==0&&e.VerticalChange!=0){if(body.IsMouseCaptureWithin)InvalidateBodyScrollRestore();follow=body.ExtentHeight-body.ViewportHeight-body.VerticalOffset<=24;if(follow)newContent.Visibility=Visibility.Collapsed;}}));
+        // Reader intent must fence an already queued layout restore before WPF changes the viewport.
+        body.AddHandler(Mouse.PreviewMouseWheelEvent,new MouseWheelEventHandler((_,_)=>InvalidateBodyScrollRestore()),true);
+        body.AddHandler(Keyboard.PreviewKeyDownEvent,new KeyEventHandler((_,_)=>InvalidateBodyScrollRestore()),true);
+        body.AddHandler(Mouse.PreviewMouseDownEvent,new MouseButtonEventHandler((_,_)=>InvalidateBodyScrollRestore()),true);
+        body.AddHandler(Mouse.PreviewMouseMoveEvent,new MouseEventHandler((_,e)=>{if(e.LeftButton==MouseButtonState.Pressed)InvalidateBodyScrollRestore();}),true);
+        body.AddHandler(UIElement.PreviewTouchDownEvent,new EventHandler<TouchEventArgs>((_,_)=>InvalidateBodyScrollRestore()),true);
+        body.AddHandler(UIElement.PreviewTouchMoveEvent,new EventHandler<TouchEventArgs>((_,_)=>InvalidateBodyScrollRestore()),true);
         body.PreviewMouseLeftButtonDown+=(_,_)=>{NativeDesktop.SetOverlayStyle(hwnd,true);Activate();};
         PreviewKeyDown+=(_,e)=>{if(e.Key==Key.Escape){NativeDesktop.SetOverlayStyle(hwnd,false);CollapseResult();e.Handled=true;}};
         MouseEnter+=(_,_)=>{peekOut.Stop();if(overlayFrames?.IsExpanded!=true)peekIn.Start();};
@@ -107,9 +114,9 @@ internal sealed partial class ShellWindow
     private void FlushResult()
     {
         if(!dirty||exiting)return;dirty=false;
-        double offset=body.VerticalOffset;body.Text=overlayResults.Text;bool bottom=follow;long revision=resultRevision;
+        double offset=body.VerticalOffset;body.Text=overlayResults.Text;bool bottom=follow;
         if(!bottom&&overlayResults.HasText)newContent.Visibility=Visibility.Visible;
-        Dispatcher.BeginInvoke(DispatcherPriority.Loaded,()=>{if(exiting||revision!=resultRevision||lifecycle.Gate.Snapshot.Suspension.HasFlag(Suspension.SessionLocked))return;if(bottom&&follow)body.ScrollToEnd();else body.ScrollToVerticalOffset(offset);});
+        ScheduleBodyScrollRestore(bottom,offset);
         if(overlayFrames!=null&&!gesture.Active&&overlayFrames.Transition!=OverlayTransition.Moving)
         {
             if(pendingReveal&&overlayResults.Identity is {} id&&overlayResults.TryAutoReveal(id)){pendingReveal=false;peek=false;OpenBody();}
@@ -134,12 +141,12 @@ internal sealed partial class ShellWindow
         var currentSettings=new MenuItem{Header=RegenerationMenuLabel(true),IsEnabled=lifecycle.Gate.Snapshot.Activation==Activation.On&&translation?.SelectedSnapshot!=null};currentSettings.Click+=(_,_)=>RegenerateResult(true);overflowMenu.Items.Add(currentSettings);
         overflowMenu.PlacementTarget=target;overflowMenu.IsOpen=true;
     }
-    private void CollapseResult(){peek=false;pendingReveal=false;peekIn.Stop();peekOut.Stop();waiting.Stop();overlayResults.Collapse();overlayFrames?.Collapse();StartFrames();}
+    private void CollapseResult(){InvalidateBodyScrollRestore();peek=false;pendingReveal=false;peekIn.Stop();peekOut.Stop();waiting.Stop();overlayResults.Collapse();overlayFrames?.Collapse();StartFrames();}
     private void StopResult(){lifecycle.Gate.StopGeneration();overlayResults.MarkStopped();awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();button.ToolTip="已停止生成 · 结果保留在本次会话";}
     private void CopyResult(){if(!overlayResults.HasText)return;try{Clipboard.SetText(overlayResults.Text);}catch(Exception error){Report("复制失败",error);}}
     private void StopPresentation(){overlayResults.MarkStopped();awaitingText=false;progressRing.Visibility=Visibility.Collapsed;CollapseResult();}
     private void HidePresentation(bool clear)
-    {peek=false;overflowMenu.IsOpen=false;waiting.Stop();flush.Stop();peekIn.Stop();peekOut.Stop();StopFrames();awaitingText=false;progressRing.Visibility=Visibility.Collapsed;overlayResults.MarkStopped();if(clear){overlayResults.Clear();body.Clear();measurement.Text="";resultRevision++;}overlayFrames?.Compact();ApplyOverlayFrame();}
+    {InvalidateBodyScrollRestore();peek=false;overflowMenu.IsOpen=false;waiting.Stop();flush.Stop();peekIn.Stop();peekOut.Stop();StopFrames();awaitingText=false;progressRing.Visibility=Visibility.Collapsed;overlayResults.MarkStopped();if(clear){overlayResults.Clear();body.Clear();measurement.Text="";resultRevision++;}overlayFrames?.Compact();ApplyOverlayFrame();}
     private void BeginOverlayMove(){StopFrames();peekIn.Stop();peekOut.Stop();overlayFrames?.BeginMove();}
     private void MoveOverlay(PixelPoint desired,MonitorTopology topology)
     {

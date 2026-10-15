@@ -1,0 +1,260 @@
+{
+  "Parent": "f741e047ced54d95c0f3745d79a4532084da9366",
+  "ParentTree": "1765de4b4cbea4363b1ad2d162e8ec17f4482a93",
+  "Scope": "P2-04/R07 observed reader-intent fence for deferred outer Loaded callback; production App wiring",
+  "OldEquivalentClosureWithFinal11Assertions": {
+    "Passed": 5,
+    "Failed": 6,
+    "Skipped": 0
+  },
+  "FinalProviderRegression": {
+    "Passed": 532,
+    "Failed": 0,
+    "Skipped": 0,
+    "ScrollTests": 11
+  },
+  "AppLockedReleaseCrossBuild": {
+    "Warnings": 0,
+    "Errors": 0,
+    "WindowsTargeting": true,
+    "Sdk": "10.0.401"
+  },
+  "EvidenceCounters": {
+    "scroll-red-final.trx": {
+      "total": "11",
+      "executed": "11",
+      "passed": "5",
+      "failed": "6",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "provider-final.trx": {
+      "total": "532",
+      "executed": "532",
+      "passed": "532",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    }
+  },
+  "DiagnosticAvailability": [
+    {
+      "Evidence": "configure-accounting-windows-result",
+      "OriginalFiles": [
+        {
+          "Kind": "CMakeVersion.local.log",
+          "OriginalBytesPreservedInResultDirectory": false
+        },
+        {
+          "Kind": "NativeConfigure.local.log",
+          "OriginalBytesPreservedInResultDirectory": false
+        },
+        {
+          "Kind": "CMakeCache.txt",
+          "OriginalBytesPreservedInResultDirectory": false
+        },
+        {
+          "Kind": "CMakeConfigureLog.yaml",
+          "OriginalBytesPreservedInResultDirectory": false
+        }
+      ],
+      "LogSha256": "49ad10ff2d6e29e51893a23229b6266ba6072145aed20761c457c1cfaa76be77",
+      "MsvcVersionLines": 0,
+      "Z7Tokens": 0,
+      "AbiSourceMarkers": 0,
+      "RootExit": "0",
+      "ConfigureDone": true,
+      "GenerateDone": true,
+      "Stage": "WaitJobEmpty",
+      "Status": "Timeout",
+      "ScriptExit": 3,
+      "PreciseMsvcVersion": null,
+      "ActualDebugFormat": null,
+      "AbiCommand": null,
+      "UnavailableReason": "Four original byte streams were not preserved; current finite facts cannot reconstruct discarded values"
+    },
+    {
+      "Evidence": "configure-embedded-windows-result",
+      "OriginalFiles": [
+        {
+          "Kind": "CMakeVersion.local.log",
+          "OriginalBytesPreservedInResultDirectory": false
+        },
+        {
+          "Kind": "NativeConfigure.local.log",
+          "OriginalBytesPreservedInResultDirectory": false
+        },
+        {
+          "Kind": "CMakeCache.txt",
+          "OriginalBytesPreservedInResultDirectory": false
+        },
+        {
+          "Kind": "CMakeConfigureLog.yaml",
+          "OriginalBytesPreservedInResultDirectory": false
+        }
+      ],
+      "LogSha256": "a8eb2955fbb9a34e1629e3aca1a83dd29383da6aebdce1e8b810d975f92427cd",
+      "MsvcVersionLines": 0,
+      "Z7Tokens": 0,
+      "AbiSourceMarkers": 0,
+      "RootExit": "0",
+      "ConfigureDone": true,
+      "GenerateDone": true,
+      "Stage": "WaitJobEmpty",
+      "Status": "Timeout",
+      "ScriptExit": 3,
+      "PreciseMsvcVersion": null,
+      "ActualDebugFormat": null,
+      "AbiCommand": null,
+      "UnavailableReason": "Four original byte streams were not preserved; current finite facts cannot reconstruct discarded values"
+    }
+  ],
+  "Limitations": [
+    "No real WPF input/layout executed",
+    "Same-priority WPF dispatch remains FIFO; reverse delivery is only an adversarial test port",
+    "Loaded priority can precede pending Input: only already observed intent invalidates callbacks",
+    "Does not retract WPF scroll commands already issued",
+    "Not full P2/B-group or platform acceptance"
+  ],
+  "DevelopmentFailures": [
+    "dotnet test --locked-mode is not valid; corrected to RestoreLockedMode=true before actual tests",
+    "Initial lock test port used SetSuspension(SessionLocked) and threw; corrected to canonical SetSessionLocked; assertions unchanged"
+  ],
+  "Logs": {
+    "app-cross-build-final.log": {
+      "Bytes": 888,
+      "Sha256": "a1124770d11a296cc9b2bc22a210e152349029625c9d2d3094b3d8c1b2bb5101"
+    },
+    "app-cross-build.log": {
+      "Bytes": 1595,
+      "Sha256": "cba2aba15055fba97ca252d5f6b4a995a1f8997cf65f84b5fd56817e69471e95"
+    },
+    "diagnostic-availability.json": {
+      "Bytes": 2155,
+      "Sha256": "721fd38f1715e882480f55621e8998765c356b0462ad3c4b34380524beb2e000"
+    },
+    "fixed-scroll-closure.cs.txt": {
+      "Bytes": 893,
+      "Sha256": "d3939d83c5de9e25a75d28e4ba5dc20214d2c0bf37ca4a540135df44dba6d865"
+    },
+    "old-scroll-closure.cs.txt": {
+      "Bytes": 744,
+      "Sha256": "931abc0f2d1582b258532a45b816fc48ef8d0f302df8bbcb585d4bb29a9e1dd3"
+    },
+    "original-OverlayPresentation.cs.txt": {
+      "Bytes": 23181,
+      "Sha256": "424b98044a65ddfefafb19a923a6da04f14c287ae13bf5bc56587752def7ad3c"
+    },
+    "provider-final.log": {
+      "Bytes": 817,
+      "Sha256": "aa560e40ace14f5d9b61d9850b3ac3642d92f73bd58b0350e3150f352e2337a8"
+    },
+    "provider-final.trx": {
+      "Bytes": 780979,
+      "Sha256": "276b8d998e16266da60a6a60dd014122d0ffb6b4a38147ee18b3ea33e6770be3"
+    },
+    "provider-regression.log": {
+      "Bytes": 822,
+      "Sha256": "3a44b9d61cd65b550796cab0dd90d793026360efd56aa7b20aed242c77471199"
+    },
+    "provider-regression.trx": {
+      "Bytes": 779673,
+      "Sha256": "bf03933b87667f77ffffdd996950e5308fc9a0698a135b6d0f80e8dff60896fe"
+    },
+    "scroll-green-fixture-error.log": {
+      "Bytes": 1747,
+      "Sha256": "6b15cb296bc8bad3a8f5fc54fd08f652ce9726580344c122b1967ce5b67b6e98"
+    },
+    "scroll-green-fixture-error.trx": {
+      "Bytes": 16621,
+      "Sha256": "23f16d5c03aa007ee2433d8f4f68834aa59d97305db59df27f2d711a4be7fff0"
+    },
+    "scroll-green.log": {
+      "Bytes": 817,
+      "Sha256": "6894b3a842032644efbf0c98b3e73a894a534041050a804410f80e29f0c716b5"
+    },
+    "scroll-green.trx": {
+      "Bytes": 14583,
+      "Sha256": "501d8cfd5f0debea6ed2468e2bd96c5a2967d29d943385a1c3861ae1f06d0645"
+    },
+    "scroll-red-corrected.log": {
+      "Bytes": 4266,
+      "Sha256": "0480ac7620f439afc2b9ad80cc6a857eebe1c9464550cc49e0e03df5502d5fc2"
+    },
+    "scroll-red-corrected.trx": {
+      "Bytes": 22094,
+      "Sha256": "ea82fcfc3f92b712df731067924ce93fffc0646d0baaca702f43982b26726ee8"
+    },
+    "scroll-red-final.log": {
+      "Bytes": 5698,
+      "Sha256": "ff7ac9535620067e349bd2b1c91a029d8acdc4cf15bae36743613fa193e6921f"
+    },
+    "scroll-red-final.trx": {
+      "Bytes": 25723,
+      "Sha256": "b3a1ac5a0a424a51fbb29982ed4c8d7ae90511e18b38c80cfac4304a26a565d2"
+    },
+    "scroll-red.log": {
+      "Bytes": 5583,
+      "Sha256": "81aa8c0a362e90748e638b6842eaeecb268077595d91be2ace3eae88eaf98d47"
+    },
+    "scroll-red.trx": {
+      "Bytes": 24105,
+      "Sha256": "ce0512345397267f18b4016e05a89e4ecacceebe36bfffc889074922cac2652b"
+    },
+    "test-command-switch-error.log": {
+      "Bytes": 1488,
+      "Sha256": "67278830e7a2c2ddacdf73d435c0c629c0e76f8457b0f4667d9c1c413d4c2840"
+    }
+  },
+  "WindowsCi": "NotRun",
+  "CMakeLifecycle": "NotRun",
+  "MemberQueriesAdded": 0,
+  "ModelCalls": 0,
+  "ProductionReuse": "Off",
+  "IndependentReviewToolObservation": {
+    "IndependentScrollTests": 11,
+    "ExitCode": 0,
+    "SdkFirstRunMessage": "Installed an ASP.NET Core HTTPS development certificate.",
+    "TemporaryCliHome": true,
+    "TrustCommandExecuted": false,
+    "ActualCertificateStoreChange": "Unknown; not inspected due explicit private-path constraint",
+    "ClaimCertificateStateUnchanged": false,
+    "FutureEnvironment": "Reuse existing CLI home and explicitly disable ASP.NET certificate generation; no new commands in this batch",
+    "AgentInspectedPrivateCertificateStore": false,
+    "AgentRanCertificateStoreMutationCommands": false
+  },
+  "IndependentReviewArtifacts": {
+    "independent-review.log": {
+      "Bytes": 2143,
+      "Sha256": "06661ca6ba13beccaa2b665778df804cc9d7414f2812195eef081cfb5a953f27"
+    },
+    "independent-review.trx": {
+      "Bytes": 16549,
+      "Sha256": "09982f109f5d894a7ebf68b0d3f8b45655b190a4567e6c8399196e4058255a0a"
+    },
+    "independent-review-tool-observation.json": {
+      "Bytes": 575,
+      "Sha256": "a0551a8240b4a2ea553843a037e9034098fbd9de031986ee9ca10c0157ee37d1"
+    }
+  }
+}

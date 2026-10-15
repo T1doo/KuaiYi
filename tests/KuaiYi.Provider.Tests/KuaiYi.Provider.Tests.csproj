@@ -7,5 +7,6 @@
     <ProjectReference Include="../../src/KuaiYi.Providers/KuaiYi.Providers.csproj" />
     <ProjectReference Include="../../tools/KuaiYi.MockProvider/KuaiYi.MockProvider.csproj" />
     <Compile Include="../../src/KuaiYi.App/SettingsSecretCommands.cs" Link="Production/SettingsSecretCommands.cs" />
+    <Compile Include="../../src/KuaiYi.App/OverlayScrollFlow.cs" Link="Production/OverlayScrollFlow.cs" />
   </ItemGroup>
 </Project>
