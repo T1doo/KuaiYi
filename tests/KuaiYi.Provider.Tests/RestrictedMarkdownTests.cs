@@ -11,7 +11,13 @@ public sealed class RestrictedMarkdownTests
     {
         var model=new RestrictedMarkdown();string text="";
         foreach(string part in chunks){text+=part;model.Update(Version,text);Assert.Equal(text,string.Concat(model.Blocks.Select(b=>b.Source)));}
-        model.Update(Version,text,true);Assert.Equal(source,text);Assert.Equal(Whole(source),model.Blocks.ToArray());
+        model.Update(Version,text,true);Assert.Equal(source,text);var expected=Whole(source);Assert.Equal(expected.Length,model.Blocks.Count);
+        for(int i=0;i<expected.Length;i++)
+        {
+            var actual=model.Blocks[i];var block=expected[i];
+            Assert.Equal((block.Kind,block.Source,block.Text,block.Level,block.Number,block.Closed),(actual.Kind,actual.Source,actual.Text,actual.Level,actual.Number,actual.Closed));
+            Assert.Equal(block.Inlines,actual.Inlines);
+        }
     }
     public static IEnumerable<object[]> Samples()=>new[]{
         "# 标题\r\n\r\n段落🙂\r\n第二行\r\n\r\n- one\r\n2. two\r\n```csharp\r\nvar x = \"<img>\";\r\n```\r\n尾段",
@@ -48,7 +54,7 @@ public sealed class RestrictedMarkdownTests
     {
         var block=Assert.Single(Whole("~~~lang\n字🙂\r\n~~"));Assert.Equal(MarkdownBlockKind.Code,block.Kind);Assert.False(block.Closed);Assert.Equal("字🙂\r\n~~",block.Text);
     }
-    [Theory][InlineData("# **bold**\r\n")][InlineData("- [link](https://public.invalid)\n")][InlineData("<img src='https://public.invalid'>\n")][InlineData("|a|b|\n|--|--|\n")][InlineData("![image](file:///inert)\n")]
+    [Theory][InlineData("# ***nested***\r\n")][InlineData("- [link](https://public.invalid)\n")][InlineData("<img src='https://public.invalid'>\n")][InlineData("|a|b|\n|--|--|\n")][InlineData("![image](file:///inert)\n")]
     public void UnsupportedSyntaxIsOneCompleteLiteralBlock(string source)
     {var block=Assert.Single(Whole(source));Assert.Equal(MarkdownBlockKind.Plain,block.Kind);Assert.Equal(source,block.Text);Assert.Equal(source,block.Source);}
     [Fact]public void LongCodeLineIsNotTruncated()

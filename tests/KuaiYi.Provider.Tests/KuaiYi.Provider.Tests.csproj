@@ -8,5 +8,7 @@
     <ProjectReference Include="../../tools/KuaiYi.MockProvider/KuaiYi.MockProvider.csproj" />
     <Compile Include="../../src/KuaiYi.App/SettingsSecretCommands.cs" Link="Production/SettingsSecretCommands.cs" />
     <Compile Include="../../src/KuaiYi.App/OverlayScrollFlow.cs" Link="Production/OverlayScrollFlow.cs" />
+    <Compile Include="../../src/KuaiYi.App/MarkdownFlowView.cs" Link="Production/MarkdownFlowView.cs" />
+    <Compile Include="../../src/KuaiYi.App/OverlayMarkdown.cs" Link="Production/OverlayMarkdown.cs" />
   </ItemGroup>
 </Project>

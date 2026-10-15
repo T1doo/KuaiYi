@@ -23,7 +23,21 @@ internal sealed class MarkdownFlowView
         for(int i=elements.Count-1;i>=keep;i--){host.Document.Blocks.Remove(elements[i]);elements.RemoveAt(i);applied.RemoveAt(i);}
         for(int i=keep;i<blocks.Count;i++)
         {
-            var data=blocks[i];var paragraph=new Paragraph(new Run(data.Text)){Margin=new Thickness(0)};
+            var data=blocks[i];var paragraph=new Paragraph{Margin=new Thickness(0)};
+            if(data.Inlines.Count==0)paragraph.Inlines.Add(new Run(data.Text));
+            else foreach(var part in data.Inlines)
+            {
+                var run=new Run(part.Text);
+                if(part.Kind==MarkdownInlineKind.Text)paragraph.Inlines.Add(run);
+                else
+                {
+                    var span=new Span(run);
+                    if(part.Kind==MarkdownInlineKind.Code){span.FontFamily=CodeFont;span.FontWeight=FontWeights.Normal;span.FontStyle=FontStyles.Normal;}
+                    else if(part.Kind==MarkdownInlineKind.Bold)span.FontWeight=FontWeights.Bold;
+                    else if(part.Kind==MarkdownInlineKind.Italic)span.FontStyle=FontStyles.Italic;
+                    paragraph.Inlines.Add(span);
+                }
+            }
             Block element=paragraph;
             if(data.Kind is MarkdownBlockKind.Bullet or MarkdownBlockKind.Numbered)
                 element=new System.Windows.Documents.List(new ListItem(paragraph)){MarkerStyle=data.Kind==MarkdownBlockKind.Numbered?TextMarkerStyle.Decimal:TextMarkerStyle.Disc,StartIndex=data.Number,Margin=new Thickness(20,0,0,0),Padding=new Thickness(0)};

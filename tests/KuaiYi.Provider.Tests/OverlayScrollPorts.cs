@@ -24,7 +24,11 @@ namespace KuaiYi.App
             public void BeginInvoke(System.Windows.Threading.DispatcherPriority priority,Action action)=>callbacks.Add(action);
             public void Run(int index){var action=callbacks[index];callbacks.RemoveAt(index);action();}
         }
-        private sealed class LifecyclePort { public RuntimeGate Gate {get;}=new(); }
+        private sealed class LifecyclePort
+        {
+            public RuntimeGate Gate {get;}=new();
+            public KuaiYi.Core.Settings.SettingsSnapshot? Settings {get;set;}
+        }
         private readonly BodyPort body=new();
         private readonly LifecyclePort lifecycle=new();
         private readonly DispatcherPort Dispatcher=new();

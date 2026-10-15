@@ -1,35 +1,38 @@
 namespace KuaiYi.Core;
 
 public enum MarkdownBlockKind { Plain, Paragraph, Heading, Bullet, Numbered, Code }
-public sealed record MarkdownBlock(MarkdownBlockKind Kind,string Source,string Text,int Level=0,int Number=1,bool Closed=true);
+public sealed record MarkdownBlock(MarkdownBlockKind Kind,string Source,string Text,int Level=0,int Number=1,bool Closed=true)
+{
+    public IReadOnlyList<MarkdownInline> Inlines {get;init;}=Array.Empty<MarkdownInline>();
+}
 
 /// <summary>Bounded presentation data only. Original source is never interpreted as markup by WPF.</summary>
 public sealed class RestrictedMarkdown
 {
-    public const int MaximumFormattedCharacters=120000,MaximumBlocks=2048;
+    public const int MaximumFormattedCharacters=120000,MaximumBlocks=2048,MaximumInlines=4096;
     private readonly List<MarkdownBlock> blocks=[];
     private readonly IReadOnlyList<MarkdownBlock> view;
-    private string source="";private Guid? version;private int stableCount,stableEnd;private bool final;
+    private string source="";private Guid? version;private int stableCount,stableEnd,stableInlines;private bool final;
     public RestrictedMarkdown()=>view=blocks.AsReadOnly();
     public IReadOnlyList<MarkdownBlock> Blocks=>view;
     public bool CapacityFallback {get;private set;}
     public int StableCount=>stableCount;
-    public void Clear(){blocks.Clear();source="";version=null;stableCount=stableEnd=0;final=CapacityFallback=false;}
+    public void Clear(){blocks.Clear();source="";version=null;stableCount=stableEnd=stableInlines=0;final=CapacityFallback=false;}
     public void Update(Guid? selectedVersion,string text,bool complete=false)
     {
         ArgumentNullException.ThrowIfNull(text);
         if(text.Length>OverlayResults.MaximumCharacters)throw new ArgumentOutOfRangeException(nameof(text));
         if(version==selectedVersion&&source==text&&final==complete)return;
         bool append=version==selectedVersion&&!CapacityFallback&&!final&&text.StartsWith(source,StringComparison.Ordinal);
-        if(!append){blocks.Clear();stableCount=stableEnd=0;}
+        if(!append){blocks.Clear();stableCount=stableEnd=stableInlines=0;}
         else blocks.RemoveRange(stableCount,blocks.Count-stableCount);
         source=text;version=selectedVersion;final=complete;CapacityFallback=false;
         if(text.Length>MaximumFormattedCharacters){Fallback();return;}
-        int position=stableEnd;
+        int position=stableEnd,inlineCount=stableInlines;
         while(position<source.Length)
         {
             int start=position;var line=Line(position);string content=source[start..line.ContentEnd];
-            MarkdownBlock block;bool stable;
+            MarkdownBlock block;bool stable,inlineCapacityExceeded=false;
             if(Fence(content,out char marker,out int width))
             {
                 int bodyStart=line.End,end=line.End,bodyEnd=source.Length;bool closed=false;
@@ -43,11 +46,11 @@ public sealed class RestrictedMarkdown
             }
             else if(Heading(content,out int level,out int headingStart))
             {
-                position=line.End;block=InlineUnsupported(content[headingStart..])?Plain(start,position):new(MarkdownBlockKind.Heading,source[start..position],content[headingStart..],Level:level);stable=line.Terminated||complete;
+                position=line.End;block=Formatted(MarkdownBlockKind.Heading,start,position,content[headingStart..],out inlineCapacityExceeded,level:level);stable=line.Terminated||complete;
             }
             else if(ListItem(content,out bool numbered,out int number,out int itemStart))
             {
-                position=line.End;block=InlineUnsupported(content[itemStart..])?Plain(start,position):new(numbered?MarkdownBlockKind.Numbered:MarkdownBlockKind.Bullet,source[start..position],content[itemStart..],Number:number);stable=line.Terminated||complete;
+                position=line.End;block=Formatted(numbered?MarkdownBlockKind.Numbered:MarkdownBlockKind.Bullet,start,position,content[itemStart..],out inlineCapacityExceeded,number:number);stable=line.Terminated||complete;
             }
             else if(string.IsNullOrWhiteSpace(content))
             {
@@ -62,15 +65,21 @@ public sealed class RestrictedMarkdown
                     if((next.Terminated||complete)&&(string.IsNullOrWhiteSpace(value)||Fence(value,out _,out _)||Heading(value,out _,out _)||ListItem(value,out _,out _,out _)))break;
                     position=next.End;
                 }
-                string raw=source[start..position];block=InlineUnsupported(raw)?Plain(start,position):new(MarkdownBlockKind.Paragraph,raw,raw.TrimEnd('\r','\n'));stable=position<source.Length||complete;
+                string raw=source[start..position];block=Formatted(MarkdownBlockKind.Paragraph,start,position,raw.TrimEnd('\r','\n'),out inlineCapacityExceeded);stable=position<source.Length||complete;
             }
             blocks.Add(block);
-            if(blocks.Count>MaximumBlocks){Fallback();return;}
-            if(stable){stableCount=blocks.Count;stableEnd=position;}
+            inlineCount+=Math.Max(1,block.Inlines.Count);
+            if(blocks.Count>MaximumBlocks||inlineCount>MaximumInlines||inlineCapacityExceeded){Fallback();return;}
+            if(stable){stableCount=blocks.Count;stableEnd=position;stableInlines=inlineCount;}
         }
     }
     private MarkdownBlock Plain(int start,int end)=>new(MarkdownBlockKind.Plain,source[start..end],source[start..end]);
-    private void Fallback(){blocks.Clear();if(source.Length>0)blocks.Add(Plain(0,source.Length));stableCount=stableEnd=0;CapacityFallback=true;}
+    private MarkdownBlock Formatted(MarkdownBlockKind kind,int start,int end,string text,out bool capacityExceeded,int level=0,int number=1)
+    {
+        if(!RestrictedMarkdownInlines.TryParse(text,MaximumInlines,out var inlines,out capacityExceeded))return Plain(start,end);
+        return new(kind,source[start..end],string.Concat(inlines.Select(part=>part.Text)),level,number){Inlines=inlines};
+    }
+    private void Fallback(){blocks.Clear();if(source.Length>0)blocks.Add(Plain(0,source.Length));stableCount=stableEnd=stableInlines=0;CapacityFallback=true;}
     private (int ContentEnd,int End,bool Terminated) Line(int start)
     {
         int i=start;while(i<source.Length&&source[i] is not ('\r' or '\n'))i++;
@@ -97,6 +106,4 @@ public sealed class RestrictedMarkdown
     }
     private static bool ClosingFence(string text,char marker,int width)
     {int i=0;while(i<text.Length&&text[i]==marker)i++;return i>=width&&text.AsSpan(i).Trim().Length==0;}
-    // Unsupported inline syntax stays literal as a whole block, including its original block markers.
-    private static bool InlineUnsupported(string text)=>text.IndexOfAny(['*','_','`','[',']','<','>','|','\\'])>=0;
 }

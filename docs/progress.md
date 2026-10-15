@@ -621,3 +621,11 @@ AccountingV1准备实际验证完成：独立来源5项通过，真实浅clone21
 原OverlayResults/50ms刷新链改用原生只读FlowDocument展示段落、ATX标题、顶层单行列表和围栏代码；有界模型保留精确Source，只重解析变动尾段，稳定块与原生块按引用复用。粗体/斜体/行内代码/表格/复杂列表/打开链接未实现，不支持部分保留完整字面文本；HTML/图片/链接不加载或执行。120000单元/2048块以上整份有限结果纯文本回退，工具栏复制仍取原始结果；三版本、失败回退、迟到隔离、取消/锁屏清空及阅读/提示守卫保留，无新依赖。
 
 最终Provider566/566=新28+原538、App交叉构建0警告/错误；保留首assets缺失0执行、首26/27夹具误选已淘汰版本及中间565回执。WPF排版/选择复制/横向滚动/阅读锚点、B06/B07与完整§11.5均NotRun/未完成，P2-04仍InProgress。旧证书Unknown与false变量、250/600ms及所有原安全门保持，无新CMake/Windows实验。详见[生产切片说明](validation/restricted-markdown.md)及[固定证据](test-evidence/2026-10-15-restricted-markdown.json)。
+
+### 2026-10-15 §11.5原生行内格式续接
+
+新环境实际核文件/Git/默认网络/进程和祖先后，从250548896d4f1d61669f20e9b575ed9d85c23bde建立dev/overlay-inline-markdown；旧任务不恢复，本任务唯一写入者、独审只读，未知Git锁保留。正式RestrictedMarkdown→FlowView新增平面行内代码、粗体/斜体与ASCII标点转义，直接构造Run/Span；保留块和片段精确Source、原始结果复制、未闭/嵌套交叉/歧义整块字面回退、稳定前缀与变动尾段。新增4096累计行内片段上限，稳定计数随清空重置，超限整份纯文本不截断；无依赖或加载/执行入口。
+
+实际专项72/72、完整Provider610/610（前566+新44）通过；6项直接链接生产FlowView/OverlayMarkdown的Linux数据端口测试加38项真实Core行内测试，覆盖实际三版本缓存/失败回退/原始文本/取消锁屏清空/迟到门。首轮71/72的非追加夹具误用保留原log/TRX，修为真实追加后通过，未改变生产契约。App Release交叉构建0W/E，独审无阻塞；WPF排版/选择/实际字体继承/阅读锚点及B06/B07仍NotRun，基础表格和代码横向滚动明确未完成，P2-04仍InProgress。
+
+八workflow、43锁及既有证据原字节保持，250/600ms与全部安全门/生产离线复用Off保持。所有dotnet前显式false证书变量，旧存储/信任Unknown，不读库/配置/trust/delete。一次只读Actions查询Forbidden后停止、不绕拒绝；未主动发起CI，服务端运行数Unknown，不能声称已核0run。无新Windows/CMake实验、main/强推/部署/真实模型或权限费用变化。详见[续接说明](validation/restricted-markdown-inlines.md)及[固定证据](test-evidence/2026-10-15-restricted-markdown-inlines.json)。
