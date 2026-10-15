@@ -549,3 +549,11 @@ bridge结果三文档已交付 b4592d5，查询无新workflow run。后续本地
 父核既有授权与独审后，精确候选2d736642c32bfb9f9871c0fec81741fc519f1861/tree ff960d06f2a766dc7b9a678d5cd14a518e0604da正常推新分支；该SHA仅run 38699679076/job 116304547116/attempt1，来源门Pass，fixture在OwnedJobCounts处Fail/Exit3。已创建并绑定9个自有root，清理确认：root退出、两Job空、fixture句柄关闭；未用直接终止，主/清理预算均未过期。两个成员诊断NotRun，观察和计数null；未证明A8真实查询ABI或受控非成员反例。独审按C#求值顺序确认OwnedJobCounts数量表达式已完成且false；实际数量未导出，不能区分A不等于8或A等于8但B不等于1，不猜测数量不符或子进程退出原因。
 
 完整日志与tool回执保全在本地artifacts/job-member-windows-result，固定[结果证据](test-evidence/2026-10-15-job-member-windows-result.json)含运行链接及日志hash。失败后未重跑、不修改或再次推送执行候选；原configure/诊断/main远端未变，五旧workflow、原runner、CMake与四生命周期未运行。原configure超时根因仍Unknown，生产验收不变。
+
+### 2026-10-15 初始 suspended 的自有 Job fixture 本地修复
+
+保留bb0fae原失败归档与全部原日志，从该唯一parent建立本地dev/job-member-suspended-fixture。独立核查确认旧循环在集合数量检查前逐个Resume会允许脚本执行改变成员集合；这属于设计缺口，实际A/B数量未导出，不能认定旧失败唯一原因。移除Resume接口/调用/PInvoke，九root保持初始suspended至自有Job统一清理；A/B查询分开设固定阶段并检查共同预算，数量不符不短路B，异常/预算仍立即停止。原helper/entry/runner/五旧workflow和旧结果不改。
+
+新注入2056断言/96场景通过，覆盖执行后退出/派生模拟、A错仍查B、所有九个创建/绑定/验证边界协作取消及清理取消、预算和关闭/清理异常；原helper411/63、旧文件fixture16通过。首轮来源合同在progress未产生差异时正确拒绝七文件范围，原log保留，完成记录后继续精确来源验证。完整计划、官方依据、一次运行边界与未完成项见[初始suspended计划](validation/job-member-suspended-plan.md)及[离线证据](test-evidence/2026-10-15-job-member-suspended-offline.json)。本批仅本地，不push、不新Windows、不重跑；两原诊断NotRun和原configure根因Unknown不改，不把离线结果冒充Windows或生产验收。
+
+最终来源合同5项通过：真实浅克隆depth1拒绝、depth2通过、篡改helper pin拒绝；来源门仍锁唯一bb0fae parent、完整parent tree、helper blob及七文件。14份原helper/entry/runner/旧workflow/历史结果文件和两套旧私有manifest全部核对原字节；当前无新Windows证据。

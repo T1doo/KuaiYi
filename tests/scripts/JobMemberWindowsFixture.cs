@@ -21,7 +21,7 @@ public static class KuaiYiJobMemberWindowsFixture
         bool Supported { get; }
         IntPtr NewJob();bool LimitJob(IntPtr job);
         bool CreateSuspended(string executable,out Child child);
-        bool Bind(IntPtr job,IntPtr process);bool Member(IntPtr job,IntPtr process);bool Resume(IntPtr thread);
+        bool Bind(IntPtr job,IntPtr process);bool Member(IntPtr job,IntPtr process);
         uint Active(IntPtr job);bool LimitsIntact(IntPtr job);
         KuaiYiJobMemberDiagnostic.Observation Observe(IntPtr job);
         Rejection RejectOwnedNonMember(IntPtr job,uint otherOwnedId);
@@ -98,10 +98,13 @@ public static class KuaiYiJobMemberWindowsFixture
                 Require(Valid(child.Process)&&Valid(child.Thread)&&child.Id!=0);
                 Guard(result,elapsed);Require(api.Bind(jobs[children[i].Job],child.Process));
                 Require(api.Member(jobs[children[i].Job],child.Process));children[i].Bound=true;
-                Guard(result,elapsed);Require(api.Resume(child.Thread));
             }
-            Check(result,checks,"NineSuspendedBoundBeforeResume",result.Created==9);
-            Guard(result,elapsed);Check(result,checks,"OwnedJobCounts",api.Active(jobs[0])==8&&api.Active(jobs[1])==1);
+            // No ResumeThread call: primary threads stay initially suspended until owned cleanup.
+            Check(result,checks,"NineBoundInitiallySuspended",result.Created==9);
+            Guard(result,elapsed);result.Stage="PrimaryJobAccounting";uint countA=api.Active(jobs[0]);
+            Guard(result,elapsed);result.Stage="OtherJobAccounting";uint countB=api.Active(jobs[1]);
+            Guard(result,elapsed);
+            Check(result,checks,"OwnedJobCounts",countA==8&&countB==1);
             Guard(result,elapsed);Check(result,checks,"JobLimitsBeforeProbe",api.LimitsIntact(jobs[0])&&api.LimitsIntact(jobs[1]));
             Guard(result,elapsed);Check(result,checks,"OwnedRootsLiveBeforeProbe",RootsRunning(api,children,result.Created));
             Guard(result,elapsed);result.Stage="NativeCapture";result.NativeObservation=api.Observe(jobs[0]);
@@ -114,7 +117,10 @@ public static class KuaiYiJobMemberWindowsFixture
             Guard(result,elapsed);
             Check(result,checks,"OwnedPidReplacementRejected",n!=null&&n.Observation!=null&&n.Observation.State==KuaiYiJobMemberDiagnostic.Status.Partial&&n.Observation.Listed==1&&n.Observation.MembershipUnconfirmed==1&&Classes(n.Observation)==0);
             Check(result,checks,"NonMemberZeroImageRead",n.Lists==1&&n.Opens==1&&n.MembershipChecks==1&&n.RunningChecks==0&&n.ImageReads==0&&n.Closes==1&&result.QueryHandlesClosed);
-            Guard(result,elapsed);Check(result,checks,"BorrowedJobsPreserved",api.Active(jobs[0])==8&&api.Active(jobs[1])==1&&api.LimitsIntact(jobs[0])&&api.LimitsIntact(jobs[1]));
+            Guard(result,elapsed);result.Stage="PreservedPrimaryJobAccounting";countA=api.Active(jobs[0]);
+            Guard(result,elapsed);result.Stage="PreservedOtherJobAccounting";countB=api.Active(jobs[1]);
+            Guard(result,elapsed);
+            Check(result,checks,"BorrowedJobsPreserved",countA==8&&countB==1&&api.LimitsIntact(jobs[0])&&api.LimitsIntact(jobs[1]));
             Guard(result,elapsed);Check(result,checks,"OwnedRootsLiveAfterProbe",RootsRunning(api,children,result.Created));
             Guard(result,elapsed);result.Status="Pass";result.Stage="Completed";result.ExitCode=0;
         }
@@ -204,7 +210,6 @@ public static class KuaiYiJobMemberWindowsFixture
         }
         public bool Bind(IntPtr job,IntPtr process){return AssignProcessToJobObject(job,process);}
         public bool Member(IntPtr job,IntPtr process){return IsProcessInJob(process,job,out bool member)&&member;}
-        public bool Resume(IntPtr thread){return ResumeThread(thread)==1;}
         public uint Active(IntPtr job){var info=new Accounting();if(!QueryAccounting(job,1,ref info,(uint)Marshal.SizeOf<Accounting>(),IntPtr.Zero))throw new InvalidOperationException();return info.Active;}
         public bool LimitsIntact(IntPtr job)
         {var limits=new ExtendedLimits();return GetHandleInformation(job,out uint flags)&&flags==0&&QueryLimits(job,9,ref limits,(uint)Marshal.SizeOf<ExtendedLimits>(),IntPtr.Zero)&&limits.Basic.Flags==0x2000;}
@@ -259,7 +264,6 @@ public static class KuaiYiJobMemberWindowsFixture
     [DllImport("kernel32.dll",CharSet=CharSet.Unicode,SetLastError=true)] private static extern bool CreateProcessW(string application,StringBuilder command,IntPtr processAttributes,IntPtr threadAttributes,bool inherit,uint flags,IntPtr environment,string directory,ref StartupInfo startup,out ProcessInfo child);
     [DllImport("kernel32.dll",SetLastError=true)] private static extern bool AssignProcessToJobObject(IntPtr job,IntPtr process);
     [DllImport("kernel32.dll",SetLastError=true)] private static extern bool IsProcessInJob(IntPtr process,IntPtr job,out bool member);
-    [DllImport("kernel32.dll",SetLastError=true)] private static extern uint ResumeThread(IntPtr thread);
     [DllImport("kernel32.dll",SetLastError=true)] private static extern uint WaitForSingleObject(IntPtr handle,uint milliseconds);
     [DllImport("kernel32.dll",SetLastError=true)] private static extern bool TerminateJobObject(IntPtr job,uint code);
     [DllImport("kernel32.dll",SetLastError=true)] private static extern bool TerminateProcess(IntPtr process,uint code);

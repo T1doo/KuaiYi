@@ -1,13 +1,13 @@
-name: One isolated owned Job member Windows fixture
+name: One isolated suspended owned Job member Windows fixture
 on:
   push:
-    branches: [dev/job-member-windows-fixture]
+    branches: [dev/job-member-suspended-fixture]
     paths: [.github/workflows/windows-job-member-fixture.yml]
 permissions:
   contents: read
 jobs:
   owned-job-members-only:
-    if: github.repository == 'T1doo/KuaiYi' && github.ref == 'refs/heads/dev/job-member-windows-fixture' && github.event_name == 'push'
+    if: github.repository == 'T1doo/KuaiYi' && github.ref == 'refs/heads/dev/job-member-suspended-fixture' && github.event_name == 'push'
     runs-on: windows-2022
     timeout-minutes: 5
     env:
@@ -29,14 +29,14 @@ jobs:
           $ErrorActionPreference='Stop'
           $head=(& git rev-parse HEAD).Trim()
           if($LASTEXITCODE -ne 0 -or $head -cne $env:GITHUB_SHA -or $head -cnotmatch '^[0-9a-f]{40}$'){throw 'Source identity rejected'}
-          $parent='33de717defa074aea93a6974dd0d7a3f0dc1f2dc'
+          $parent='bb0fae011046daaff2f0cdfe9b7a7f00de7d1919'
           $parents=(& git rev-list --parents -n 1 HEAD).Trim().Split(' ')
           if($LASTEXITCODE -ne 0 -or $parents.Count -ne 2 -or $parents[0] -cne $head -or $parents[1] -cne $parent){throw 'Parent identity rejected'}
           $parentTree=(& git rev-parse ($parent+'^{tree}')).Trim()
-          if($LASTEXITCODE -ne 0 -or $parentTree -cne '4a96c0c53e170bfc0f627d62bf6a0331e1f2afb1'){throw 'Parent tree rejected'}
+          if($LASTEXITCODE -ne 0 -or $parentTree -cne '062ac230125b8da99c95a88b0cde75f658094470'){throw 'Parent tree rejected'}
           $helper=(& git rev-parse 'HEAD:tools/ci/JobMemberDiagnostic.cs').Trim()
           if($LASTEXITCODE -ne 0 -or $helper -cne '227378ffa3a59e80c65da7fc43c0cffcd21d70f7'){throw 'Helper identity rejected'}
-          $allowed=@('.github/workflows/windows-job-member-fixture.yml','docs/progress.md','docs/test-evidence/2026-10-15-job-member-fixture-offline.json','docs/validation/job-member-windows-plan.md','tests/scripts/configure-files-fixture.test.py','tests/scripts/job-member-fixture.test.py','tests/scripts/job-member-fixture-contracts.test.ps1','tests/scripts/JobMemberWindowsFixture.cs','tests/scripts/run-job-member-windows.ps1')
+          $allowed=@('.github/workflows/windows-job-member-fixture.yml','docs/progress.md','docs/test-evidence/2026-10-15-job-member-suspended-offline.json','docs/validation/job-member-suspended-plan.md','tests/scripts/job-member-fixture.test.py','tests/scripts/job-member-fixture-contracts.test.ps1','tests/scripts/JobMemberWindowsFixture.cs')
           $changed=@(& git diff --name-only $parent HEAD --)
           if($LASTEXITCODE -ne 0 -or @(Compare-Object $allowed $changed).Count -ne 0){throw 'File scope rejected'}
           $tree=(& git rev-parse 'HEAD^{tree}').Trim()

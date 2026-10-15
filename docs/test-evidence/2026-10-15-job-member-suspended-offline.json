@@ -1,0 +1,72 @@
+{
+  "Scope": "LocalInjectedOnly",
+  "Parent": "bb0fae011046daaff2f0cdfe9b7a7f00de7d1919",
+  "ParentTree": "062ac230125b8da99c95a88b0cde75f658094470",
+  "Windows": "NotRun",
+  "CandidatePushed": false,
+  "OriginalRun": 38699679076,
+  "OriginalAttempt": 1,
+  "OriginalResult": "Fail/OwnedJobCounts/Exit3/CleanupConfirmed",
+  "OriginalNativeDiagnostic": "NotRun",
+  "OriginalNonMemberDiagnostic": "NotRun",
+  "OriginalConfigureRootCause": "Unknown",
+  "Tests": {
+    "FixtureAssertions": 2056,
+    "FixtureScenarios": 96,
+    "SourceTests": 5,
+    "HelperAssertions": 411,
+    "HelperScenarios": 63,
+    "OldFileFixtureTests": 16
+  },
+  "Evidence": {
+    "contracts-1.log": {
+      "Bytes": 129,
+      "Sha256": "0ec9b4ef7a974ec14b7f48e8faab1de1e9d7732ac5ac8d43588166791b027f5c"
+    },
+    "contracts-2.log": {
+      "Bytes": 129,
+      "Sha256": "5dccac497b554b83cdf262c9907153d559effb482295d2ac7f26f905a47ca790"
+    },
+    "source-1.log": {
+      "Bytes": 1663,
+      "Sha256": "5afcdb4f4802dd23177992035a8e567f554dc86037ef8f64d67b0cf2986f05ce"
+    },
+    "source-2.log": {
+      "Bytes": 822,
+      "Sha256": "a05d476675d02b1c055ebe32583f6c061d2c59da4175bcc7a31656207542808c"
+    },
+    "helper-1.log": {
+      "Bytes": 1273,
+      "Sha256": "28414c283fa98bf742514fb0606c416645ce6113d9729b5d2d043f48c413eba9"
+    },
+    "files-1.log": {
+      "Bytes": 2311,
+      "Sha256": "f3243a3e3366d5af2ef9967c3aff896d3db1039ea37b5607283f1f191611785a"
+    },
+    "contracts-3.log": {
+      "Bytes": 129,
+      "Sha256": "c6d529bdbb86fc20b4874309382f2392b22b5984235861420fa7fe82a9dc94e3"
+    }
+  },
+  "SourceSha256": {
+    ".github/workflows/windows-job-member-fixture.yml": "f4a1d464a99525e47b69897bebff4d7550d747b373075dde123c4dd0eb86b24d",
+    "tests/scripts/JobMemberWindowsFixture.cs": "08532dc77d7f49cd72a3b434224eecad28d320e08b3ad446fc23db48df7a044d",
+    "tests/scripts/job-member-fixture-contracts.test.ps1": "32f2ca1c91b92182f2b878e7db0bf32a23feafd683a402bd0791fb15e1d6c2b3",
+    "tests/scripts/job-member-fixture.test.py": "51c818d6532391c355006054b21662aa4454f7ca27649e9a2644cbddf323ad16"
+  },
+  "PreservedFiles": 14,
+  "PreservedOldPrivateManifests": true,
+  "Invariant": "No Resume interface/call/PInvoke; nine initial suspended roots bound and retained until owned cleanup",
+  "Counterexamples": [
+    "Legacy execution exit/descendant simulated only; fixed path never executes",
+    "Wrong A still queries B; wrong B fails before observation",
+    "Query exception records own stage; budget stops before next query",
+    "All nine Create/Bind/Member cooperative cancellation points clean owned resources",
+    "Cleanup cancellation including both TerminateJob calls, both accounting queries, Close and Pause; unknown/close/deadline never reports confirmed success",
+    "Failure hides observations and counters; sensitive output rejected"
+  ],
+  "CancellationLimit": "Cooperative injection only; host forced termination does not guarantee finally or cleanup",
+  "RetainedDevelopmentFailure": "Source gate first rejected missing progress diff against required seven-file scope; full log retained, seven-file assertion unchanged",
+  "ProductionReuse": "Off",
+  "ModelCalls": 0
+}

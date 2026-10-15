@@ -10,15 +10,12 @@ import unittest
 import yaml
 
 ROOT = Path(__file__).resolve().parents[2]
-PARENT = '33de717defa074aea93a6974dd0d7a3f0dc1f2dc'
-TREE = '4a96c0c53e170bfc0f627d62bf6a0331e1f2afb1'
+PARENT = 'bb0fae011046daaff2f0cdfe9b7a7f00de7d1919'
+TREE = '062ac230125b8da99c95a88b0cde75f658094470'
 HELPER = '227378ffa3a59e80c65da7fc43c0cffcd21d70f7'
 WORKFLOW = '.github/workflows/windows-job-member-fixture.yml'
-BRANCH = 'dev/job-member-windows-fixture'
-FILES = [WORKFLOW, 'docs/progress.md', 'docs/test-evidence/2026-10-15-job-member-fixture-offline.json',
-         'docs/validation/job-member-windows-plan.md', 'tests/scripts/configure-files-fixture.test.py',
-         'tests/scripts/job-member-fixture.test.py', 'tests/scripts/job-member-fixture-contracts.test.ps1',
-         'tests/scripts/JobMemberWindowsFixture.cs', 'tests/scripts/run-job-member-windows.ps1']
+BRANCH = 'dev/job-member-suspended-fixture'
+FILES = ['.github/workflows/windows-job-member-fixture.yml', 'docs/progress.md', 'docs/test-evidence/2026-10-15-job-member-suspended-offline.json', 'docs/validation/job-member-suspended-plan.md', 'tests/scripts/job-member-fixture.test.py', 'tests/scripts/job-member-fixture-contracts.test.ps1', 'tests/scripts/JobMemberWindowsFixture.cs']
 PWSH = os.environ.get('KUAIYI_TEST_PWSH', '/tmp/kuaiyi-pwsh/pwsh')
 
 
@@ -112,6 +109,9 @@ class JobMemberFixtureTests(unittest.TestCase):
         self.assertIn('new Child[9]', fixture)
         self.assertIn('i<8?0:1', fixture)
         self.assertIn('SubstitutedOwnedNonMember', fixture)
+        self.assertIn('NineBoundInitiallySuspended', fixture)
+        self.assertNotRegex(fixture, r'api[.]Resume|extern.*ResumeThread|public bool Resume')
+        self.assertNotIn('api.Active(jobs[0])==8&&api.Active(jobs[1])', fixture)
         self.assertIn('bool publish=Status=="Pass"&&CleanupConfirmed&&!BudgetExpired', fixture)
         self.assertIn('cleanup.ElapsedMilliseconds>=5000', fixture)
         self.assertNotRegex(fixture + entry, r'KuaiYiLifecycleOperation|BREAKAWAY|AdjustTokenPrivileges|GetProcesses|Toolhelp|OpenJobObject|DuplicateHandle|cmake|dotnet restore|--build|--supervise')

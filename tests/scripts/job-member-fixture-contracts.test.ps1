@@ -7,16 +7,16 @@ $fakePath=Join-Path $out 'FakeFixtureApi.cs'
 using System;using System.Collections.Generic;
 public sealed class JobMemberFixtureFake : KuaiYiJobMemberWindowsFixture.IFixtureApi
 {
- public string Scenario="Good",ThrowAt="";public bool Platform=true,Cleaning;
- public int NewJobs,Created,Resumed,Closed,CleanupTicks,ClockCalls;
+ public string Scenario="Good",ThrowAt="",CancelAt="",LegacyEffect="";public bool Platform=true,Cleaning;
+ public int NewJobs,Created,Executed,Closed,CleanupTicks,ClockCalls,ActiveACalls;
  public readonly List<string> Events=new List<string>();
  public readonly List<IntPtr> Owned=new List<IntPtr>();
  public readonly Dictionary<IntPtr,int> CloseAttempts=new Dictionary<IntPtr,int>();
  private readonly Dictionary<IntPtr,int> binding=new Dictionary<IntPtr,int>();
  private readonly HashSet<IntPtr> exited=new HashSet<IntPtr>();
  public bool Supported=>Platform;
- private void Event(string value){Events.Add(value);if(ThrowAt==value)throw new Exception("PRIVATE_SYNTHETIC_SENTINEL");}
- public long Elapsed(){ClockCalls++;return Scenario=="BudgetAtStart"||Scenario=="BudgetAfterObserve"&&Events.Contains("Observe")?29750:0;}
+ private void Event(string value){Events.Add(value);if(CancelAt==value)throw new OperationCanceledException("PRIVATE_SYNTHETIC_SENTINEL");if(ThrowAt==value)throw new Exception("PRIVATE_SYNTHETIC_SENTINEL");}
+ public long Elapsed(){ClockCalls++;return Scenario=="BudgetAtStart"||Scenario=="BudgetAfterObserve"&&Events.Contains("Observe")||Scenario=="BudgetAfterCreate"&&Created>0||Scenario=="BudgetBetweenQueries"&&ActiveACalls>0||Scenario=="BudgetAfterReject"&&Events.Contains("Reject")?29750:0;}
  public IntPtr NewJob(){NewJobs++;Event("NewJob"+NewJobs);if(Scenario=="SecondJobMissing"&&NewJobs==2)return IntPtr.Zero;IntPtr h=new IntPtr(NewJobs*100);Owned.Add(h);return h;}
  public bool LimitJob(IntPtr job){Event("Limit"+job.ToInt64()/100);return Scenario!="LimitFailure";}
  public bool CreateSuspended(string executable,out KuaiYiJobMemberWindowsFixture.Child child)
@@ -28,12 +28,14 @@ public sealed class JobMemberFixtureFake : KuaiYiJobMemberWindowsFixture.IFixtur
  }
  public bool Bind(IntPtr job,IntPtr process){Event("Bind"+(process.ToInt64()-1000));if(Scenario=="BindFailure")return false;binding[process]=(int)(job.ToInt64()/100);return true;}
  public bool Member(IntPtr job,IntPtr process){Event("Member"+(process.ToInt64()-1000));return Scenario!="MemberFailure";}
- public bool Resume(IntPtr thread){Event("Resume"+(thread.ToInt64()-2000));Resumed++;return Scenario!="ResumeFailure";}
+ public void SimulateLegacyResume(){Executed++;}
+ public uint SimulatedLegacyCount=>Executed==0?8u:LegacyEffect=="Exit"?7u:9u;
  public uint Active(IntPtr job)
  {
   Event((Cleaning?"CleanActive":"Active")+job.ToInt64()/100);
   if(Cleaning)return Scenario=="JobUnsettled"?1u:0u;
-  return job.ToInt64()==100?(Scenario=="WrongCount"?7u:8u):1u;
+  if(job.ToInt64()==100)ActiveACalls++;
+  return job.ToInt64()==100?(Scenario=="WrongCount"?7u:SimulatedLegacyCount):(Scenario=="WrongBCount"?2u:1u);
  }
  public bool LimitsIntact(IntPtr job){Event("LimitsIntact"+job.ToInt64()/100);return Scenario!="ChangedLimits";}
  public KuaiYiJobMemberDiagnostic.Observation Observe(IntPtr job)
@@ -62,8 +64,8 @@ public sealed class JobMemberFixtureFake : KuaiYiJobMemberWindowsFixture.IFixtur
  public bool RootExited(IntPtr process){Event(Cleaning?"CleanRoot":"LiveRoot");return Cleaning?Scenario!="RootUnsettled"&&exited.Contains(process):Scenario=="EarlyExit";}
  public bool Close(IntPtr handle)
  {
-  Event("Close");if(!Owned.Contains(handle))throw new Exception("Unowned close");
-  CloseAttempts[handle]=CloseAttempts.ContainsKey(handle)?CloseAttempts[handle]+1:1;Closed++;
+  if(!Owned.Contains(handle))throw new Exception("Unowned close");
+  CloseAttempts[handle]=CloseAttempts.ContainsKey(handle)?CloseAttempts[handle]+1:1;Closed++;Event("Close");
   if(Scenario=="CloseThrows")throw new Exception("PRIVATE_SYNTHETIC_SENTINEL");
   return Scenario!="CloseFalse";
  }
@@ -80,6 +82,7 @@ function Execute($api,[string]$Expected){
     $script:cases++
     $r=[KuaiYiJobMemberWindowsFixture]::Run($api,'OWNED_SYNTHETIC_EXECUTABLE',[Func[long]]{$api.Elapsed()})
     Check ($r.Status -ceq $Expected)
+    Check ($api.Executed -eq 0)
     $json=$r.PublicJson();Check ($json.Length -le 4096 -and $json -notmatch 'PRIVATE|OWNED_SYNTHETIC_EXECUTABLE|3009|Exception|[\\/]')
     $public=$json|ConvertFrom-Json -AsHashtable
     Check ($public.CMake -ceq 'NotRun' -and $public.FourCases -ceq 'NotRun' -and $public.ModelCalls -eq 0 -and $public.PidReuseScope -ceq 'SubstitutedOwnedNonMember')
@@ -89,29 +92,57 @@ function Execute($api,[string]$Expected){
 }
 $f=[JobMemberFixtureFake]::new();$r=Execute $f 'Pass'
 Check ($r.ExitCode -eq 0 -and $r.CleanupConfirmed -and -not $r.CleanupFailed -and $r.Created -eq 9 -and $r.Checks.Count -eq 11)
-Check ($f.NewJobs -eq 2 -and $f.Created -eq 9 -and $f.Resumed -eq 9 -and $f.Closed -eq 20)
+Check ($f.NewJobs -eq 2 -and $f.Created -eq 9 -and $f.Executed -eq 0 -and $f.Closed -eq 20)
 $events=$f.Events -join ','
-foreach($i in 1..9){Check ($events.IndexOf('Create'+$i) -lt $events.IndexOf('Bind'+$i));Check ($events.IndexOf('Bind'+$i) -lt $events.IndexOf('Member'+$i));Check ($events.IndexOf('Member'+$i) -lt $events.IndexOf('Resume'+$i))}
+foreach($i in 1..9){Check ($events.IndexOf('Create'+$i) -lt $events.IndexOf('Bind'+$i));Check ($events.IndexOf('Bind'+$i) -lt $events.IndexOf('Member'+$i));Check ($events.IndexOf('Member'+$i) -lt $events.IndexOf('Active1'))}
 Check ($events.IndexOf('Observe') -lt $events.IndexOf('Reject') -and $events.IndexOf('Reject') -lt $events.IndexOf('BeginCleanup'))
 Check (($r.PublicJson()|ConvertFrom-Json).NativeObservation.Other -eq 8)
 $f=[JobMemberFixtureFake]::new();$f.Platform=$false;$r=Execute $f 'Blocked';Check ($r.ExitCode -eq 2 -and $f.Owned.Count -eq 0 -and $f.Events.Count -eq 0)
-foreach($scenario in @('BudgetAtStart','BudgetAfterObserve','SecondJobMissing','LimitFailure','CreateFailure','InvalidPid','BindFailure','MemberFailure','ResumeFailure','WrongCount','ChangedLimits','EarlyExit','UnknownWait','NullObservation','ProbeFailure','ProbeWrongCount','ProbeCloseUnknown','NullRejection','NullRejectionObservation','RejectionAccepted','UnexpectedClass','UnexpectedImage','UnexpectedWait','RejectCloseUnknown','TerminateFailure','RootUnsettled','JobUnsettled','CloseFalse','CloseThrows','CloseCrossesDeadline')){
+foreach($scenario in @('BudgetAtStart','BudgetAfterObserve','BudgetAfterCreate','BudgetBetweenQueries','BudgetAfterReject','SecondJobMissing','LimitFailure','CreateFailure','InvalidPid','BindFailure','MemberFailure','WrongCount','WrongBCount','ChangedLimits','EarlyExit','UnknownWait','NullObservation','ProbeFailure','ProbeWrongCount','ProbeCloseUnknown','NullRejection','NullRejectionObservation','RejectionAccepted','UnexpectedClass','UnexpectedImage','UnexpectedWait','RejectCloseUnknown','TerminateFailure','RootUnsettled','JobUnsettled','CloseFalse','CloseThrows','CloseCrossesDeadline')){
     $f=[JobMemberFixtureFake]::new();$f.Scenario=$scenario;$r=Execute $f 'Fail';Check ($r.ExitCode -eq 3)
     if($scenario -ceq 'BudgetAtStart'){Check ($f.Owned.Count -eq 0 -and $r.BudgetExpired)}
+    if($scenario -ceq 'BudgetAfterCreate'){Check ($r.Created -eq 1 -and $r.BudgetExpired -and $r.DirectTerminationUsed -and $r.CleanupConfirmed -and -not $f.Events.Contains('Bind1'))}
+    if($scenario -ceq 'BudgetBetweenQueries'){Check ($r.BudgetExpired -and -not $f.Events.Contains('Active2') -and -not $f.Events.Contains('Observe'))}
+    if($scenario -ceq 'BudgetAfterReject'){Check ($r.BudgetExpired -and $r.CleanupConfirmed)}
     if($scenario -ceq 'BudgetAfterObserve'){Check ($r.BudgetExpired -and -not $f.Events.Contains('Reject'))}
-    if($scenario -ceq 'BindFailure'){Check ($r.Created -eq 1 -and $f.Events.Contains('TerminateRoot') -and -not $f.Events.Contains('Resume1'))}
+    if($scenario -ceq 'BindFailure'){Check ($r.Created -eq 1 -and $f.Events.Contains('TerminateRoot'))}
+    if($scenario -cin @('WrongCount','WrongBCount')){Check ($r.Stage -ceq 'OwnedJobCounts' -and $f.Events.Contains('Active1') -and $f.Events.Contains('Active2') -and -not $f.Events.Contains('Observe'))}
     if($scenario -ceq 'UnknownWait'){Check (-not $f.Events.Contains('Observe'))}
     if($scenario -cin @('RootUnsettled','JobUnsettled','CloseCrossesDeadline')){Check ($r.CleanupBudgetExpired -and -not $r.CleanupConfirmed)}
     if($scenario -cin @('ProbeCloseUnknown','RejectCloseUnknown','CloseFalse','CloseThrows')){Check (-not $r.CleanupConfirmed -and $r.CleanupFailed)}
 }
-foreach($throwAt in @('NewJob1','NewJob2','Limit1','Create1','Create4','Bind1','Member1','Resume1','Active1','LimitsIntact1','LiveRoot','Observe','Reject','BeginCleanup','TerminateJob1','CleanRoot','CleanActive1')){
+foreach($throwAt in @('NewJob1','NewJob2','Limit1','Create1','Create4','Bind1','Member1','Active1','Active2','LimitsIntact1','LiveRoot','Observe','Reject','BeginCleanup','TerminateJob1','CleanRoot','CleanActive1')){
     $f=[JobMemberFixtureFake]::new();$f.ThrowAt=$throwAt;$r=Execute $f 'Fail';Check ($r.ExitCode -eq 3)
+    if($throwAt -ceq 'Active1'){Check ($r.Stage -ceq 'PrimaryJobAccounting' -and -not $f.Events.Contains('Active2'))}
+    if($throwAt -ceq 'Active2'){Check ($r.Stage -ceq 'OtherJobAccounting')}
 }
+# Legacy execution can remove a root or add a descendant; unchanged suspended setup never executes it.
+foreach($effect in @('Exit','Descendant')){
+    $legacy=[JobMemberFixtureFake]::new();$legacy.LegacyEffect=$effect
+    Check ($legacy.SimulatedLegacyCount -eq 8);$legacy.SimulateLegacyResume();Check ($legacy.SimulatedLegacyCount -ne 8)
+    $f=[JobMemberFixtureFake]::new();$f.LegacyEffect=$effect;$r=Execute $f 'Pass'
+    Check ($r.Checks -ccontains 'NineBoundInitiallySuspended' -and $r.CleanupConfirmed -and $f.Executed -eq 0)
+}
+# Cooperative cancellation at each acquisition/probe boundary must still clean all owned suspended resources.
+foreach($cancelAt in @(@(1..9|ForEach-Object {'Create'+$_;'Bind'+$_;'Member'+$_})+@('Active1','Active2','LimitsIntact1','LiveRoot','Observe','Reject'))){
+    $f=[JobMemberFixtureFake]::new();$f.CancelAt=$cancelAt;$r=Execute $f 'Fail'
+    Check ($r.ExitCode -eq 3 -and $r.CleanupConfirmed -and $f.Executed -eq 0)
+    if($cancelAt -cmatch '^(Bind|Member)'){Check ($r.DirectTerminationUsed)}
+}
+# Cancellation during cleanup cannot skip later closes or turn unknown cleanup into success.
+foreach($cancelAt in @('BeginCleanup','TerminateJob1','TerminateJob2','CleanRoot','CleanActive1','CleanActive2','Close')){
+    $f=[JobMemberFixtureFake]::new();$f.CancelAt=$cancelAt;$r=Execute $f 'Fail'
+    Check (-not $r.CleanupConfirmed -and $r.CleanupFailed -and $f.Closed -eq 20)
+}
+$f=[JobMemberFixtureFake]::new();$f.Scenario='JobUnsettled';$f.CancelAt='Pause';$r=Execute $f 'Fail'
+Check (-not $r.CleanupConfirmed -and $r.CleanupFailed -and $f.Closed -eq 20)
+$f=[JobMemberFixtureFake]::new();$f.Scenario='BindFailure';$f.CancelAt='TerminateRoot';$r=Execute $f 'Fail'
+Check ($r.DirectTerminationUsed -and -not $r.CleanupConfirmed -and $r.CleanupFailed)
 $prior=$env:KUAIYI_FIXTURE_SYNTHETIC_SECRET
 try {$env:KUAIYI_FIXTURE_SYNTHETIC_SECRET='PRIVATE_SYNTHETIC_SENTINEL';$environment=[KuaiYiJobMemberWindowsFixture]::ChildEnvironment();Check ($environment -notmatch 'KUAIYI_FIXTURE_SYNTHETIC_SECRET|PRIVATE_SYNTHETIC_SENTINEL|GITHUB_TOKEN');Check ($environment.Contains('POWERSHELL_TELEMETRY_OPTOUT=1') -and $environment.EndsWith("`0`0"))} finally {$env:KUAIYI_FIXTURE_SYNTHETIC_SECRET=$prior}
 Check ([KuaiYiJobMemberWindowsFixture]::Quote('C:\Program Files\pwsh.exe') -ceq '"C:\Program Files\pwsh.exe"')
 $source=[IO.File]::ReadAllText((Join-Path $PSScriptRoot 'JobMemberWindowsFixture.cs'))
-Check ($source.Contains('false,0x08000404,environment') -and $source.Contains('ResumeThread(thread)==1') -and $source.Contains('limits.Basic.Flags==0x2000'))
+Check ($source.Contains('false,0x08000404,environment') -and $source -notmatch 'api[.]Resume|extern.*ResumeThread|public bool Resume' -and $source.Contains('limits.Basic.Flags==0x2000'))
 Check ($source -notmatch 'BREAKAWAY|AdjustTokenPrivileges|GetProcesses|Toolhelp|OpenJobObject|DuplicateHandle|KuaiYiLifecycleOperation|Process.Start')
 if([IntPtr]::Size -eq 8){
     foreach($pair in @(@('BasicLimits',64),@('ExtendedLimits',144),@('Accounting',48),@('StartupInfo',104),@('ProcessInfo',24))){
