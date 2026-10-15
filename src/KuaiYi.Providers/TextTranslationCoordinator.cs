@@ -214,6 +214,11 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     private void PruneSnapshots()
     {var retained=Results.RetainedVersionIds;foreach(var id in snapshots.Keys.Where(id=>!retained.Contains(id)).ToArray())snapshots.Remove(id);}
     public void Clear(){styleSession=null;sessionStyle=null;Volatile.Write(ref liveRequest,null);if(submitted?.Identity is {} id)gate.StopRequest(id);offered=submitted=null;snapshots.Clear();Results.Clear();}
+    public Task ClearAsync()
+    {
+        Clear();Task[] pending;lock(jobsSync)pending=jobs.ToArray();
+        return Task.WhenAll(pending); // Only jobs owned at this clear; a later valid generation is independent.
+    }
     public async ValueTask DisposeAsync()
     {
         disposed=true;if(submitted?.Identity is {} id)gate.StopRequest(id);offered=submitted=null;

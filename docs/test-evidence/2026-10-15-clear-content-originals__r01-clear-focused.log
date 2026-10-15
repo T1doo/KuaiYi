@@ -1,0 +1,135 @@
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.50]     KuaiYi.Provider.Tests.OverlayClearContentTests.DropSettlementMustConfirmAndDoesNotSkipImageSettlement [FAIL]
+[xUnit.net 00:00:00.52]     KuaiYi.Provider.Tests.OverlayClearContentTests.ActualClearImmediatelyCancelsAndClearsPendingOrRenderedResultAndSource(rendered: False) [FAIL]
+  Failed KuaiYi.Provider.Tests.OverlayClearContentTests.DropSettlementMustConfirmAndDoesNotSkipImageSettlement [3 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayClearContentTests.Empty(ShellWindow w) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 17
+   at KuaiYi.Provider.Tests.OverlayClearContentTests.DropSettlementMustConfirmAndDoesNotSkipImageSettlement() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 74
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OverlayClearContentTests.ActualClearImmediatelyCancelsAndClearsPendingOrRenderedResultAndSource(rendered: False) [2 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayClearContentTests.Empty(ShellWindow w) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 17
+   at KuaiYi.Provider.Tests.OverlayClearContentTests.ActualClearImmediatelyCancelsAndClearsPendingOrRenderedResultAndSource(Boolean rendered) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 23
+   at KuaiYi.Provider.Tests.OverlayClearContentTests.ActualClearImmediatelyCancelsAndClearsPendingOrRenderedResultAndSource(Boolean rendered) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 24
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.53]     KuaiYi.Provider.Tests.OverlayClearContentTests.ScreenshotFailureStillAttemptsKnownOwnerAndNeverClaimsComplete [FAIL]
+[xUnit.net 00:00:00.57]     KuaiYi.Provider.Tests.OverlayClearContentTests.ClearCancelsActualImageLifetimeAndZerosSnapshotCropOrPng(stage: 2) [FAIL]
+[xUnit.net 00:00:00.58]     KuaiYi.Provider.Tests.OverlayClearContentTests.ClearCancelsActualImageLifetimeAndZerosSnapshotCropOrPng(stage: 0) [FAIL]
+[xUnit.net 00:00:00.58]     KuaiYi.Provider.Tests.OverlayClearContentTests.ClearCancelsActualImageLifetimeAndZerosSnapshotCropOrPng(stage: 1) [FAIL]
+  Failed KuaiYi.Provider.Tests.OverlayClearContentTests.ScreenshotFailureStillAttemptsKnownOwnerAndNeverClaimsComplete [11 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayClearContentTests.Empty(ShellWindow w) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 17
+   at KuaiYi.Provider.Tests.OverlayClearContentTests.ScreenshotFailureStillAttemptsKnownOwnerAndNeverClaimsComplete() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 66
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OverlayClearContentTests.ClearCancelsActualImageLifetimeAndZerosSnapshotCropOrPng(stage: 2) [40 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayClearContentTests.Empty(ShellWindow w) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 17
+   at KuaiYi.Provider.Tests.OverlayClearContentTests.ClearCancelsActualImageLifetimeAndZerosSnapshotCropOrPng(Int32 stage) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 88
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OverlayClearContentTests.ClearCancelsActualImageLifetimeAndZerosSnapshotCropOrPng(stage: 0) [1 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayClearContentTests.Empty(ShellWindow w) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 17
+   at KuaiYi.Provider.Tests.OverlayClearContentTests.ClearCancelsActualImageLifetimeAndZerosSnapshotCropOrPng(Int32 stage) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 88
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OverlayClearContentTests.ClearCancelsActualImageLifetimeAndZerosSnapshotCropOrPng(stage: 1) [1 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayClearContentTests.Empty(ShellWindow w) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 17
+   at KuaiYi.Provider.Tests.OverlayClearContentTests.ClearCancelsActualImageLifetimeAndZerosSnapshotCropOrPng(Int32 stage) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 88
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.60]     KuaiYi.Provider.Tests.OverlayClearContentTests.ActualDestinationRejectsQueuedOldEventsAfterClear(kind: Stopped) [FAIL]
+[xUnit.net 00:00:00.60]     KuaiYi.Provider.Tests.OverlayClearContentTests.ActualDestinationRejectsQueuedOldEventsAfterClear(kind: Begin) [FAIL]
+[xUnit.net 00:00:00.61]     KuaiYi.Provider.Tests.OverlayClearContentTests.ActualDestinationRejectsQueuedOldEventsAfterClear(kind: Complete) [FAIL]
+[xUnit.net 00:00:00.61]     KuaiYi.Provider.Tests.OverlayClearContentTests.ActualDestinationRejectsQueuedOldEventsAfterClear(kind: Delta) [FAIL]
+[xUnit.net 00:00:00.61]     KuaiYi.Provider.Tests.OverlayClearContentTests.ClearInvalidatesPreparedConfirmationCaptureTicketAndHotkeyInput [FAIL]
+  Failed KuaiYi.Provider.Tests.OverlayClearContentTests.ActualDestinationRejectsQueuedOldEventsAfterClear(kind: Stopped) [4 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayClearContentTests.Empty(ShellWindow w) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 17
+   at KuaiYi.Provider.Tests.OverlayClearContentTests.ActualDestinationRejectsQueuedOldEventsAfterClear(OverlayResultEventKind kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 38
+   at KuaiYi.Provider.Tests.OverlayClearContentTests.ActualDestinationRejectsQueuedOldEventsAfterClear(OverlayResultEventKind kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 38
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OverlayClearContentTests.ActualDestinationRejectsQueuedOldEventsAfterClear(kind: Begin) [2 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayClearContentTests.Empty(ShellWindow w) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 17
+   at KuaiYi.Provider.Tests.OverlayClearContentTests.ActualDestinationRejectsQueuedOldEventsAfterClear(OverlayResultEventKind kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 38
+   at KuaiYi.Provider.Tests.OverlayClearContentTests.ActualDestinationRejectsQueuedOldEventsAfterClear(OverlayResultEventKind kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 38
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OverlayClearContentTests.ActualDestinationRejectsQueuedOldEventsAfterClear(kind: Complete) [1 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayClearContentTests.Empty(ShellWindow w) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 17
+   at KuaiYi.Provider.Tests.OverlayClearContentTests.ActualDestinationRejectsQueuedOldEventsAfterClear(OverlayResultEventKind kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 38
+   at KuaiYi.Provider.Tests.OverlayClearContentTests.ActualDestinationRejectsQueuedOldEventsAfterClear(OverlayResultEventKind kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 38
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OverlayClearContentTests.ActualDestinationRejectsQueuedOldEventsAfterClear(kind: Delta) [2 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayClearContentTests.Empty(ShellWindow w) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 17
+   at KuaiYi.Provider.Tests.OverlayClearContentTests.ActualDestinationRejectsQueuedOldEventsAfterClear(OverlayResultEventKind kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 38
+   at KuaiYi.Provider.Tests.OverlayClearContentTests.ActualDestinationRejectsQueuedOldEventsAfterClear(OverlayResultEventKind kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 38
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OverlayClearContentTests.ClearInvalidatesPreparedConfirmationCaptureTicketAndHotkeyInput [1 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayClearContentTests.Empty(ShellWindow w) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 17
+   at KuaiYi.Provider.Tests.OverlayClearContentTests.ClearInvalidatesPreparedConfirmationCaptureTicketAndHotkeyInput() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 43
+   at KuaiYi.Provider.Tests.OverlayClearContentTests.ClearInvalidatesPreparedConfirmationCaptureTicketAndHotkeyInput() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 43
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.62]     KuaiYi.Provider.Tests.OverlayClearContentTests.RepeatedEmptyClearStillFencesNewWorkAndDoesNotCreateFakeVersion [FAIL]
+  Failed KuaiYi.Provider.Tests.OverlayClearContentTests.RepeatedEmptyClearStillFencesNewWorkAndDoesNotCreateFakeVersion [< 1 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayClearContentTests.Empty(ShellWindow w) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 17
+   at KuaiYi.Provider.Tests.OverlayClearContentTests.RepeatedEmptyClearStillFencesNewWorkAndDoesNotCreateFakeVersion() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs:line 47
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/clear-content/r01-clear-focused.trx
+
+Failed!  - Failed:    12, Passed:    17, Skipped:     0, Total:    29, Duration: 300 ms - KuaiYi.Provider.Tests.dll (net10.0)

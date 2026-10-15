@@ -11,21 +11,21 @@ using KuaiYi.Windows;
 namespace KuaiYi.App;
 internal sealed partial class ShellWindow
 {
-    private Task screenshotHotkeyTask=Task.CompletedTask;private CancellationTokenSource? screenshotHotkeyStop;private CaptureHostClient? screenshotHotkeyOwner;
     private Task StartHotkeyScreenshot(HotkeyInputIdentity input)
     {
         if(!lifecycle.Gate.IsHotkeyInputCurrent(input))return Task.CompletedTask;
+        if(!screenshotHotkeyCleanup.IsCompleted)return screenshotHotkeyCleanup;
+        if(screenshotHotkeyCleanup.IsFaulted||screenshotHotkeyCleanup.IsCanceled||screenshotHotkeyTask.IsFaulted||screenshotHotkeyTask.IsCanceled){button.ToolTip="旧截图清理尚未确认；暂不开始新截图。";return Task.CompletedTask;}
         if(!screenshotHotkeyTask.IsCompleted){screenshotHotkeyStop?.Cancel();return screenshotHotkeyTask;}
         if(screenshotHotkeyOwner!=null){button.ToolTip="旧截图进程退出尚未确认；暂不再启动。";return Task.CompletedTask;}
-        if(!IsVisible){ShowOverlay();button.ToolTip="已显示浮窗，请再次按截图快捷键开始框选。";return Task.CompletedTask;}return screenshotHotkeyTask=ObserveHotkeyScreenshot(input);
+        if(!IsVisible){ShowOverlay();button.ToolTip="已显示浮窗，请再次按截图快捷键开始框选。";return Task.CompletedTask;}long revision=resultRevision;screenshotHotkeyTask=PrepareHotkeyScreenshot(input,revision);_=ObserveHotkeyScreenshot(screenshotHotkeyTask,revision);return screenshotHotkeyTask;
     }
-    private async Task ObserveHotkeyScreenshot(HotkeyInputIdentity input)
-    {try{await PrepareHotkeyScreenshot(input);}catch(Exception error){Report("截图原操作未正常结束；退出前继续核实所有权",error);}}
-    private async Task PrepareHotkeyScreenshot(HotkeyInputIdentity input)
+    private async Task PrepareHotkeyScreenshot(HotkeyInputIdentity input,long revision)
     {
-        using var intent=new ScreenshotIntent(lifecycle.Gate,input);using var cancellation=CancellationTokenSource.CreateLinkedTokenSource(lifetime.Token);screenshotHotkeyStop=cancellation;ScreenshotSnapshot? snapshot=null;ScreenshotSelection? selection=null;
+        using var intent=new ScreenshotIntent(lifecycle.Gate,input);using var cancellation=CancellationTokenSource.CreateLinkedTokenSource(lifetime.Token);screenshotHotkeyStop=cancellation;ScreenshotSnapshot? snapshot=null;ScreenshotSelection? selection=null;ScreenshotCleanupException? previousCleanupFailure=null;
         var visible=Application.Current.Windows.Cast<Window>().Where(w=>w.IsVisible).ToArray();var closed=new HashSet<Window>();void OnClosed(object? sender,EventArgs args){if(sender is Window window)closed.Add(window);}foreach(var window in visible)window.Closed+=OnClosed;var poll=new DispatcherTimer{Interval=TimeSpan.FromMilliseconds(100)};poll.Tick+=(_,_)=>{if(!intent.IsCurrent||exiting)cancellation.Cancel();};poll.Start();Refresh();
-        void Restore(){if(exiting||lifecycle.Gate.Snapshot.Suspension.HasFlag(KuaiYi.Core.Suspension.SessionLocked))return;foreach(var window in visible)if(!closed.Contains(window)&&!window.IsVisible)window.Show();}
+        var mayRestore=CaptureScreenshotRestoreGuard(cancellation);
+        void Restore(){if(!mayRestore())return;foreach(var window in visible)if(!closed.Contains(window)&&!window.IsVisible)window.Show();}
         using var onCancel=cancellation.Token.Register(()=>Dispatcher.BeginInvoke(Restore));
         try
         {
@@ -37,13 +37,26 @@ internal sealed partial class ShellWindow
             if(await owner.TryFinalizeAsync())screenshotHotkeyOwner=null;if(screenshotHotkeyOwner!=null)throw new CaptureException(CaptureFailure.ExitUnconfirmed);
             selection=new(snapshot,()=>intent.IsCurrent);var region=await selection.RunAsync(cancellation.Token);selection=null;if(region==null||!intent.IsCurrent)return;
             using var crop=snapshot.CropAndRelease(region.Value,new(ScreenshotDesktop.Displays().Select(d=>d.Monitor)),cancellation.Token);snapshot=null;Restore();
-            var bitmap=new WriteableBitmap(crop.Bounds.Width,crop.Bounds.Height,96,96,PixelFormats.Bgra32,null);using(var memory=crop.Bytes.Pin())unsafe{bitmap.WritePixels(new(0,0,bitmap.PixelWidth,bitmap.PixelHeight),(nint)memory.Pointer,crop.Bytes.Length,bitmap.PixelWidth*4);}
-            var preview=new Window{Owner=this,Title="快译 · 本地截图预览（翻译尚未接入）",Width=500,Height=380,WindowStartupLocation=WindowStartupLocation.CenterOwner};var panel=new StackPanel{Margin=new(16)};panel.Children.Add(new Image{Source=bitmap,Height=270,Stretch=Stretch.Uniform});var close=new Button{Content="关闭本地预览",IsCancel=true,IsDefault=true};close.Click+=(_,_)=>preview.Close();panel.Children.Add(new TextBlock{Text="本次仅准备所选区域；不启用翻译、不上传，模型调度尚未接入。",TextWrapping=TextWrapping.Wrap});panel.Children.Add(close);preview.Content=panel;
-            using var cancelled=cancellation.Token.Register(()=>Dispatcher.BeginInvoke(()=>{if(preview.IsLoaded)preview.Close();}));try{if(intent.IsCurrent)preview.ShowDialog();}finally{preview.Close();byte[] zero=new byte[bitmap.PixelWidth*4];for(int y=0;y<bitmap.PixelHeight;y++)bitmap.WritePixels(new(0,y,bitmap.PixelWidth,1),zero,zero.Length,0);}
+            var bitmap=new WriteableBitmap(crop.Bounds.Width,crop.Bounds.Height,96,96,PixelFormats.Bgra32,null);Window? preview=null;StackPanel? panel=null;Image? image=null;
+            ScreenshotPreviewCleanup.Own(bitmap,()=>
+            {
+                using(var memory=crop.Bytes.Pin())unsafe{bitmap.WritePixels(new(0,0,bitmap.PixelWidth,bitmap.PixelHeight),(nint)memory.Pointer,crop.Bytes.Length,bitmap.PixelWidth*4);}
+                preview=new Window{Owner=this,Title="快译 · 本地截图预览（翻译尚未接入）",Width=500,Height=380,WindowStartupLocation=WindowStartupLocation.CenterOwner};panel=new StackPanel{Margin=new(16)};image=new Image{Source=bitmap,Height=270,Stretch=Stretch.Uniform};panel.Children.Add(image);var close=new Button{Content="关闭本地预览",IsCancel=true,IsDefault=true};close.Click+=(_,_)=>preview.Close();panel.Children.Add(new TextBlock{Text="本次仅准备所选区域；不启用翻译、不上传，模型调度尚未接入。",TextWrapping=TextWrapping.Wrap});panel.Children.Add(close);preview.Content=panel;
+                using var cancelled=cancellation.Token.Register(()=>Dispatcher.BeginInvoke(()=>{if(preview.IsLoaded)preview.Close();}));if(intent.IsCurrent)preview.ShowDialog();
+            },()=> (preview,panel,image));
         }
         catch(OperationCanceledException)when(cancellation.IsCancellationRequested){ }
+        catch(ScreenshotCleanupException error){previousCleanupFailure=error;}
         catch(Exception error){if(intent.IsCurrent)Report("截图入口尚不可用或未完成；没有发送",error);}
-        finally{poll.Stop();selection?.Dispose();snapshot?.Dispose();intent.Dispose();screenshotHotkeyStop=null;Restore();foreach(var window in visible)window.Closed-=OnClosed;if(screenshotHotkeyOwner is {} owner&&await owner.TryFinalizeAsync())screenshotHotkeyOwner=null;Refresh();}
+        finally
+        {
+            List<Exception> errors=[];if(previousCleanupFailure!=null)errors.Add(previousCleanupFailure);ScreenshotPreviewCleanup.Attempt(errors,poll.Stop);
+            ScreenshotPreviewCleanup.Attempt(errors,()=>selection?.Dispose());ScreenshotPreviewCleanup.Attempt(errors,()=>snapshot?.Dispose());
+            ScreenshotPreviewCleanup.Attempt(errors,intent.Dispose);ScreenshotPreviewCleanup.Attempt(errors,Restore);EndScreenshotRestore(cancellation);
+            foreach(var window in visible)ScreenshotPreviewCleanup.Attempt(errors,()=>window.Closed-=OnClosed);
+            // Pending owner stays held for the shared Stop retry. It is not a lost bitmap/mask failure.
+            if(screenshotHotkeyOwner is {} owner)try{if(await owner.TryFinalizeAsync())screenshotHotkeyOwner=null;}catch(Exception error){if(!exiting&&revision==resultRevision&&CanReadOriginalSource())Report("截图进程清理待核实，保留原所有权",error);}
+            ScreenshotPreviewCleanup.Attempt(errors,Refresh);if(errors.Count>0)throw new ScreenshotCleanupException(errors);
+        }
     }
-    private async Task StopHotkeyScreenshot(){screenshotHotkeyStop?.Cancel();await screenshotHotkeyTask;if(screenshotHotkeyOwner is {} owner){if(!await owner.TryFinalizeAsync(true))throw new IOException("Screenshot hotkey owner exit unconfirmed.");screenshotHotkeyOwner=null;}}
 }

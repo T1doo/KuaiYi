@@ -36,17 +36,6 @@ internal sealed partial class ShellWindow
             peer.Client.Cancel();peer.Cancellation.Cancel();
         }
     }
-    private void RefreshTextDrop()
-    {
-        if(dropCapture==null)return;if(lifecycle.Gate.Snapshot.Mode!=TriggerMode.Drop)dropUnavailable=null;Volatile.Write(ref dropVisible,IsVisible&&!exiting&&geometryReady);
-        var state=lifecycle.Gate.Snapshot;bool wanted=dropVisible&&state.Activation==Activation.On&&state.Mode==TriggerMode.Drop&&state.Suspension==Suspension.None;
-        if(dropPeer is {} current&&(!wanted||dropCapture.Lease!=current.Lease||!lifecycle.Gate.IsCaptureCurrent(current.Lease.Ticket)||lifecycle.Settings?.Version!=current.Lease.SettingsVersion))RevokeTextDrop();
-        if(!wanted&&externalDropHover)SetDropHover(false);
-        if(dropReconcile.IsCompleted&&(dropPeer==null&&wanted||dropPeer is {Stopping:1}))dropReconcile=ReconcileTextDrop();
-        if(wanted&&dropPeer is {Stopping:0} peer&&peer.Client.IsReady&&dropBounds is {} target&&peer.SentTarget!=target)
-        {peer.SentTarget=target;peer.Control=PublishDropControl(peer,peer.Control,target);}
-        if(!wanted&&state.Mode==TriggerMode.Drop&&state.Activation==Activation.Off&&!exiting)button.ToolTip=dropUnavailable??"请先启用翻译，再投放文字。";
-    }
     private async Task PublishDropControl(TextDropPeer peer,Task previous,DropTargetGeometry target)
     {
         try{await previous;if(ReferenceEquals(dropPeer,peer)&&Volatile.Read(ref peer.Stopping)==0&&dropCapture?.Lease==peer.Lease&&lifecycle.Gate.IsCaptureCurrent(peer.Lease.Ticket)&&lifecycle.Settings?.Version==peer.Lease.SettingsVersion)
@@ -70,7 +59,7 @@ internal sealed partial class ShellWindow
             if(ReferenceEquals(dropPeer,old)){dropPeer=null;old.Cancellation.Dispose();}
         }
         var state=lifecycle.Gate.Snapshot;
-        if(exiting||!dropVisible||state.Activation!=Activation.On||state.Mode!=TriggerMode.Drop||state.Suspension!=Suspension.None||dropBounds is not {} target||lifecycle.Settings is not {} config)return;
+        if(dropStopping||exiting||!dropVisible||state.Activation!=Activation.On||state.Mode!=TriggerMode.Drop||state.Suspension!=Suspension.None||dropBounds is not {} target||lifecycle.Settings is not {} config)return;
         OleSharedActivation? activation=null;
         try
         {
@@ -146,11 +135,5 @@ internal sealed partial class ShellWindow
             Canvas.SetLeft(dropHint,dpi.Dips((left?bounds.Left:anchor.Right)-rect.Left));Canvas.SetTop(dropHint,dpi.Dips(anchor.Top-rect.Top+8));dropHint.Width=Math.Max(0,dpi.Dips(bounds.Width-anchor.Width));dropHint.Height=32;dropHint.Foreground=body.Foreground;dropHint.Visibility=dropHint.Width>=20?Visibility.Visible:Visibility.Collapsed;
         }
         RefreshTextDrop();
-    }
-    private async Task StopTextDrop()
-    {
-        dropPoll.Stop();RevokeTextDrop(true);await dropReconcile;
-        if(dropPeer is {} peer){await peer.Run.WaitAsync(TimeSpan.FromSeconds(3));await peer.Control;if(!await peer.Client.TryFinalizeAsync(true))throw new IOException("Drop ownership/registration is unconfirmed.");dropPeer=null;peer.Cancellation.Dispose();}
-        if(dropCapture!=null)await dropCapture.DisposeAsync();
     }
 }

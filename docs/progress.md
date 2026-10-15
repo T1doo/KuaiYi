@@ -679,3 +679,13 @@ AccountingV1准备实际验证完成：独立来源5项通过，真实浅clone21
 最终Provider840/840=原802+新38，相关319；App Release0W/E。首52/53是新夹具漏计空段，保留原失败、精确修为6块并核末段；中间827/837/839及三次App构建回执均保留。13份本批原始log/TRX复制唯一精确-text路径，父42份已提交回执逐字节核准；38源码manifest和8workflow/43锁/1617旧证据/45Core及2344其余既有文件保持核验。见[实现/失败与原生限制](validation/overlay-original-source.md)和[固定证据](test-evidence/2026-10-15-overlay-original-source.json)。
 
 原生Expander测量/样式、BringIntoView位置、系统选择/阅读锚点/路由/取消时限与完整P2仍未验；图片预览、生产一键清空入口明确留后续，本批内部Clear测试不冒充已有用户命令。250/600ms和全部安全门、生产离线Off保持；Actions不查询不绕Forbidden、CIUnknown，dotnet每次显式false，证书Unknown且不读不改。旧覆盖前字节Unknown不回填，无main/强推/部署/新依赖/费用凭据权限协议/真实模型或Windows/CMake实验。
+
+### 2026-10-15 生产清除当前内容与图片任务释放
+
+父签收74ad0c9b0266f33b3708bf3ecb55d870306aff70后核clean单worktree/唯一写入者/远端一致，建dev/overlay-clear-content。SPEC8/14.1清除入口现接主按钮菜单、浮窗更多和设置隐私页；每次同步epoch fence并复用Coordinator.Clear清所有版本/源/结果/控件/捕获与Drop意图，ClearAsync只等待本次旧jobs。On/Off/Hidden/Settings保留，不读删设置、凭据或未知磁盘文件；新任务不被旧清除完成提示覆盖。
+
+复用并加固既有本地截图清理：原任务故障不吞，首次填充至UI构造/显示都在bitmap Own范围内，尝试detach并逐行zero、所有cleanup失败保留；selection/snapshot/intent/owner分步结算，单纯held owner可安全重试。共享截图cleanup给重复Clear/退出，旧Restore/observer隔离；Drop Clear等待原reconcile，退出await前锁存停止，Refresh/Clear不再发起结算，在途reconcile不能建立新peer；失败保held owner、显式退出重试，未确认不报完成。图片原文预览仍下一轮，无新功能绕行。
+
+最终Provider884/884=原840完整+新41Clear+3Drop调度，App交叉构建0W/E。真实Coordinator/请求门、Source/Markdown清除及实际Snapshot/Crop/PNG缓冲归零执行；WPF位图、窗口、owner及Drop调用仅端口协议，真实平台/取消时限/B组仍NotRun。首17/29的12例共同提示状态缺失与修后29/29、两次881、最终884及三次成功App原回执全部保全；另保留r08漏EnableWindowsTargeting的NETSDK1100零执行/0W1E，r09修命令后通过。独审补退出与迟到Refresh对同peer重复finalize的最小latch，真实调度测试用原生端口而非OLE实机；完整884含原本地HTTP测试，无socket仅限新增Clear用例。新14份精确-text，父55份原件不变；独审/manifest/失败和限制见[说明](validation/overlay-clear-content.md)及[证据](test-evidence/2026-10-15-overlay-clear-content.json)。
+
+250/600ms及全部安全门、生产离线Off保持，旧覆盖前字节Unknown不回填，dotnet每次false且证书Unknown不读不改。Actions不查询不绕Forbidden、CIUnknown，无main/强推/部署/依赖费用凭据权限协议/真实模型或Windows/CMake实验。

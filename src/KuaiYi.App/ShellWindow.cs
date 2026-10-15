@@ -30,7 +30,7 @@ internal sealed partial class ShellWindow:OleDropWindow
         lifecycle=new(coordinator);showMessage=NativeTray.ShowMessage(instanceScope);
         Title="快译";Width=Height=48;WindowStyle=WindowStyle.None;ResizeMode=ResizeMode.NoResize;ShowInTaskbar=false;ShowActivated=false;Topmost=true;
         SetupPresentation();SetupTranslation(developmentBoundary);AutomationProperties.SetName(button,"快译：未启用翻译");button.ToolTip="未启用翻译 · 右键打开设置";
-        var menu=new ContextMenu();Add("启用 / 停用翻译",Toggle);Add("回看当前结果",ReopenResult);Add("收起",CollapseResult);Add("停止生成",StopResult);Add("复制结果",CopyResult);Add("设置",()=>_=OpenSettings());Add("更多操作及版本",()=>OpenOverflowMenu(button));Add("隐藏浮窗（同时停用）",HideOverlay);Add("聚焦浮窗",FocusOverlay);Add("退出",Close);
+        var menu=new ContextMenu();Add("启用 / 停用翻译",Toggle);Add("回看当前结果",ReopenResult);Add("收起",CollapseResult);Add("停止生成",StopResult);Add("复制结果",CopyResult);Add("清除当前内容",()=>_=ClearCurrentContent());Add("设置",()=>_=OpenSettings());Add("更多操作及版本",()=>OpenOverflowMenu(button));Add("隐藏浮窗（同时停用）",HideOverlay);Add("聚焦浮窗",FocusOverlay);Add("退出",Close);
         Add("读取当前选区",()=>_=ObserveSelection(ReadCurrentSelection()));Add("重新生成",()=>RegenerateResult());Add("按当前设置重新翻译",()=>RegenerateResult(true));Add("查看原文",ShowSelectionSource);button.ContextMenu=menu;menu.Closed+=(_,_)=>PresentationMenuClosed();
         menu.Opened+=(_,_)=>{foreach(var item in menu.Items.OfType<MenuItem>()){if(Equals(item.Tag,"重新生成")||Equals(item.Tag,"按当前设置重新翻译")){item.Header=RegenerationMenuLabel(Equals(item.Tag,"按当前设置重新翻译"));item.IsEnabled=lifecycle.Gate.Snapshot.Activation==Activation.On&&translation?.SelectedSnapshot!=null;}else if(Equals(item.Tag,"查看原文"))item.IsEnabled=CanReadOriginalSource()&&translation?.SelectedSnapshot!=null;}};
         void Add(string text,Action action){var item=new MenuItem{Header=text,Tag=text};item.Click+=(_,_)=>action();menu.Items.Add(item);}
@@ -106,7 +106,7 @@ internal sealed partial class ShellWindow:OleDropWindow
             await startup;await hotkeySetup;await positionSave;if(exiting)return;lifecycle.Gate.SetSuspension(Suspension.Settings,true);RefreshSelection();
             var draft=await coordinator.OpenDraftAsync(lifetime.Token);
             if(exiting){draft.Dispose();return;}
-            try{settings=new(coordinator,draft,selectionCapture?.LastFailureWindow?.Executable,globalHotkeys,()=>globalHotkeys?.Status??[],apiTests){Owner=this};}catch{draft.Dispose();throw;}
+            try{settings=new(coordinator,draft,selectionCapture?.LastFailureWindow?.Executable,globalHotkeys,()=>globalHotkeys?.Status??[],apiTests,ClearCurrentContent){Owner=this};}catch{draft.Dispose();throw;}
             settings.Closed+=(_,_)=>{settings=null;lifecycle.Gate.SetSuspension(Suspension.Settings,false);Refresh();QueuePositionSave();if(exitRequested)Dispatcher.BeginInvoke(Close);};settings.Show();
         }
         catch(OperationCanceledException)when(lifetime.IsCancellationRequested){ /* Exit awaits this owned opening path. */ }

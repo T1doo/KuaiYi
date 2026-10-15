@@ -55,4 +55,7 @@ internal sealed partial class ShellWindow
         button.ToolTip="已停止生成 · 结果保留在本次会话";
     }
     private void FlushResultTick(object? sender,EventArgs e){flush.Stop();FlushResult();}
+    private void ReopenResult(){if(!IsVisible)ShowOverlay();if(overlayResults.Reopen()){peek=false;OpenBody();}}
+    private void HidePresentation(bool clear)
+    {InvalidateBodyScrollRestore();ClearOriginalSource();peek=false;overflowMenu.IsOpen=false;waiting.Stop();flush.Stop();peekIn.Stop();peekOut.Stop();StopFrames();awaitingText=false;progressRing.Visibility=Visibility.Collapsed;overlayResults.MarkStopped();if(clear){overlayResults.Clear();ClearMarkdown();resultRevision++;}overlayFrames?.Compact();ApplyOverlayFrame();}
 }
