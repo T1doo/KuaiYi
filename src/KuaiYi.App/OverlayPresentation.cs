@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -53,14 +54,14 @@ internal sealed partial class ShellWindow
         controls.Children.Add(moreTools);moreTools.Click+=(_,_)=>OpenOverflowMenu(moreTools);
         System.Windows.Automation.AutomationProperties.SetName(moreTools,"更多操作及版本");overflowMenu.Closed+=(_,_)=>PresentationMenuClosed();
         newContent.Click+=(_,_)=>{FollowBodyEnd();newContent.Visibility=Visibility.Collapsed;};
-        body.AddHandler(ScrollViewer.ScrollChangedEvent,new ScrollChangedEventHandler((_,e)=>{if(e.ExtentHeightChange==0&&e.VerticalChange!=0){if(body.IsMouseCaptureWithin)InvalidateBodyScrollRestore();follow=body.ExtentHeight-body.ViewportHeight-body.VerticalOffset<=24;if(follow)newContent.Visibility=Visibility.Collapsed;}}));
+        body.AddHandler(ScrollBar.ScrollEvent,new ScrollEventHandler((_,_)=>ObserveBodyReaderIntent()),true);
         // Reader intent must fence an already queued layout restore before WPF changes the viewport.
-        body.AddHandler(Mouse.PreviewMouseWheelEvent,new MouseWheelEventHandler((_,_)=>InvalidateBodyScrollRestore()),true);
-        body.AddHandler(Keyboard.PreviewKeyDownEvent,new KeyEventHandler((_,_)=>InvalidateBodyScrollRestore()),true);
-        body.AddHandler(Mouse.PreviewMouseDownEvent,new MouseButtonEventHandler((_,_)=>InvalidateBodyScrollRestore()),true);
-        body.AddHandler(Mouse.PreviewMouseMoveEvent,new MouseEventHandler((_,e)=>{if(e.LeftButton==MouseButtonState.Pressed)InvalidateBodyScrollRestore();}),true);
-        body.AddHandler(UIElement.PreviewTouchDownEvent,new EventHandler<TouchEventArgs>((_,_)=>InvalidateBodyScrollRestore()),true);
-        body.AddHandler(UIElement.PreviewTouchMoveEvent,new EventHandler<TouchEventArgs>((_,_)=>InvalidateBodyScrollRestore()),true);
+        body.AddHandler(Mouse.PreviewMouseWheelEvent,new MouseWheelEventHandler((_,_)=>ObserveBodyReaderIntent()),true);
+        body.AddHandler(Keyboard.PreviewKeyDownEvent,new KeyEventHandler((_,e)=>{if(e.Key is Key.Up or Key.Down or Key.Left or Key.Right or Key.PageUp or Key.PageDown or Key.Home or Key.End)ObserveBodyReaderIntent();}),true);
+        body.AddHandler(Mouse.PreviewMouseDownEvent,new MouseButtonEventHandler((_,e)=>{if(e.ChangedButton==MouseButton.Left)ObserveBodyReaderIntent();}),true);
+        body.AddHandler(Mouse.PreviewMouseMoveEvent,new MouseEventHandler((_,e)=>{if(e.LeftButton==MouseButtonState.Pressed)ObserveBodyReaderIntent();}),true);
+        body.AddHandler(UIElement.PreviewTouchDownEvent,new EventHandler<TouchEventArgs>((_,_)=>ObserveBodyReaderIntent()),true);
+        body.AddHandler(UIElement.PreviewTouchMoveEvent,new EventHandler<TouchEventArgs>((_,_)=>ObserveBodyReaderIntent()),true);
         body.PreviewMouseLeftButtonDown+=(_,_)=>{NativeDesktop.SetOverlayStyle(hwnd,true);Activate();};
         PreviewKeyDown+=(_,e)=>{if(e.Key==Key.Escape){NativeDesktop.SetOverlayStyle(hwnd,false);CollapseResult();e.Handled=true;}};
         MouseEnter+=(_,_)=>{peekOut.Stop();if(overlayFrames?.IsExpanded!=true)peekIn.Start();};

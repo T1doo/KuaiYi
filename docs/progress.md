@@ -605,3 +605,9 @@ AccountingV1准备实际验证完成：独立来源5项通过，真实浅clone21
 现有两次CI保全目录没有四原文件字节，MSVC版本/debug格式/ABI命令无法从有限投影恢复，不补造/不新增投影或CI。rootExit0/configure+generate完成与JobEmpty等待失败、脚本Exit3分开保留。详细阶段依赖、诊断可用性和测试边界见[修复说明](validation/overlay-reading-scroll.md)与[固定证据](test-evidence/2026-10-15-overlay-reading-scroll.json)。本批只本地实现/独审/测试，不push/Windows/CMake/成员probe，原250/600ms及全部安全门、P0/E06/生产验收状态和Off/0保持。
 
 独立/tmp专项11/11通过；额外首次SDK启动报告安装ASP.NET Core HTTPS开发证书，未执行trust。按私人路径限制未核证书存储，实际变化Unknown，原输出保留，不宣称证书状态未变。
+
+### 2026-10-15 P2-04实际阅读输入接线接续
+
+新授权后已正常推送4a99e260及f741归档到不匹配保留CI分支的dev/overlay-reading-input；八workflow字节不变。继续核实际接线，移除把程序化ScrollChanged当阅读的follow写入，改由明确阅读输入/ScrollBar.Scroll立即pause，受修订号保护的Background观察当前几何后用原24DIP阈值恢复；新刷新抢先则保守保持pause。隐藏重显/Begin/版本切换已有失效门保留，不扩原纯队列fixture。新增6项生产policy测试，Provider538/538、App Release交叉构建0警告/错误，独立源码审查通过。Windows真实布局输入及P2/B组未验，原CMake根因Unknown与250/600ms/全部安全门保持。
+
+原证书提示日志/TRX保全，旧精确独审命令未记录，不补造；实际存储/信任Unknown，不读库、不trust/delete。当前每次dotnet前显式DOTNET_GENERATE_ASPNET_CERTIFICATE=false并继承到子进程，临时CLI home不代表证书隔离。详情和限制见[接线说明](validation/overlay-reader-intent.md)及[固定证据](test-evidence/2026-10-15-overlay-reader-intent.json)。

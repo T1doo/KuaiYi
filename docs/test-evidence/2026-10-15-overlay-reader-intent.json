@@ -1,0 +1,81 @@
+{
+  "SourceParent": "4a99e26078ff9ac5dcbbc2ef64f7dd5421fbedf5",
+  "Branch": "dev/overlay-reading-input",
+  "CodeSha256": {
+    "src/KuaiYi.App/OverlayPresentation.cs": "e2e2f322a7618c38453ee9d1980da2f526a72da7a3152d01b392382d717b5cf5",
+    "src/KuaiYi.App/OverlayScrollFlow.cs": "3c9c7987b251415d6bbbf38d9558ff89b7a792aec96795123cd2d8bc0a3f3c2c",
+    "tests/KuaiYi.Provider.Tests/OverlayScrollPorts.cs": "610cfab0c0a2e17e39e777e559265633a60f5a793a6da2093bdcfe19337ce772",
+    "tests/KuaiYi.Provider.Tests/OverlayReaderIntentTests.cs": "d90d1ac8f0dcdd178d8b23c98e573faecc1ce363f4b38d8301c7f27d9543e10c"
+  },
+  "Tests": {
+    "ProviderPassed": 538,
+    "ProviderFailed": 0,
+    "ProviderSkipped": 0,
+    "NewReaderIntentCases": 6,
+    "ExistingTestsIncludingPriorScrollCases": 532,
+    "AppReleaseCrossBuildWarnings": 0,
+    "AppReleaseCrossBuildErrors": 0
+  },
+  "Review": {
+    "Reviewer": "/root/scroll_wiring_review",
+    "Result": "PASS source and policy test review; no independent SDK execution in this batch"
+  },
+  "SourceWiringAudit": {
+    "ScrollChangedSubscriptionRemoved": true,
+    "ScrollBarScrollObservedWhenHandled": true,
+    "NavigationKeysOnly": true,
+    "InputNotMarkedHandled": true,
+    "ImmediatePauseBeforeGeometry": true,
+    "BackgroundObservationGuardedByScrollResultExitLock": true,
+    "HideBeginVersionInvalidationPreserved": true,
+    "ProtectedPriorFilesVerified": 61,
+    "EightWorkflowBytesUnchanged": true
+  },
+  "Dotnet": {
+    "GenerateAspnetCertificate": "false explicitly exported before every invocation",
+    "CliHome": "Existing setup home reused; not a certificate isolation boundary",
+    "NewCertificateInstallMessageInTwoLogs": false,
+    "CertificateStoreInspected": false,
+    "TrustCommandExecuted": false,
+    "DeleteCommandExecuted": false,
+    "ActualPriorCertificateStoreAndTrustState": "Unknown",
+    "PriorLogAndTrxUnchanged": true,
+    "ExactPriorIndependentCliCommand": "Unavailable; not reconstructed"
+  },
+  "PrivateReceipts": {
+    "provider.log": {
+      "Bytes": 817,
+      "Sha256": "b940c42c6627681e8235af3003e3701c29abe41ba2b5c87414597df3e2a29303"
+    },
+    "reader-intent.trx": {
+      "Bytes": 789216,
+      "Sha256": "a92a8aeccd0c5ebe47ec6f92dc0a7f68ca5c19315a0aa8c01b04717dd8d8e012"
+    },
+    "app-build.log": {
+      "Bytes": 888,
+      "Sha256": "86fbd34110d12838ccfdcff61c267e9e9dc7500f87a359bd807d704d27d71956"
+    }
+  },
+  "Limits": [
+    "Windows WPF routed input/layout/internal scrolling NotRun",
+    "Background observes current geometry; no attribution of arbitrary ScrollChanged to users",
+    "New flush before observation conservatively keeps following paused",
+    "No retraction of ScrollTo already submitted to WPF",
+    "P0 CMake lifecycle root cause, actual debug format, exact MSVC version and ABI command remain Unknown",
+    "250/600ms and source/password/integrity/cancellation/cleanup gates unchanged"
+  ],
+  "CurrentBatch": {
+    "NewWindowsExperiment": false,
+    "OriginalCmakeLifecycleRun": false,
+    "RealModelCall": false,
+    "PrivateCertificateStoreAccess": false,
+    "MainModified": false,
+    "ForcePush": false
+  },
+  "PushScope": {
+    "FirstPushHead": "4a99e26078ff9ac5dcbbc2ef64f7dd5421fbedf5",
+    "FirstPushIncludedArchive": "f741e047ced54d95c0f3745d79a4532084da9366",
+    "SelectedProductBranchMatchesExistingWorkflow": false,
+    "ActualActionsApiRead": "Unavailable (URLError); no retry or permissions change"
+  }
+}

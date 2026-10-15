@@ -2,8 +2,9 @@ using KuaiYi.Core;
 namespace System.Windows.Threading
 {
     // The Linux test port models deferred dispatch only; it does not execute WPF layout or routed input.
-    internal enum DispatcherPriority { Loaded }
+    internal enum DispatcherPriority { Loaded, Background }
 }
+namespace System.Windows { internal enum Visibility { Visible, Collapsed } }
 namespace KuaiYi.App
 {
     internal sealed partial class ShellWindow
@@ -11,6 +12,8 @@ namespace KuaiYi.App
         private sealed class BodyPort
         {
             public double Offset;
+            public double ExtentHeight=1200,ViewportHeight=200;
+            public double VerticalOffset=>Offset;
             public int ScrollCalls;
             public void ScrollToEnd(){Offset=1000;ScrollCalls++;}
             public void ScrollToVerticalOffset(double value){Offset=value;ScrollCalls++;}
@@ -25,6 +28,8 @@ namespace KuaiYi.App
         private readonly BodyPort body=new();
         private readonly LifecyclePort lifecycle=new();
         private readonly DispatcherPort Dispatcher=new();
+        private sealed class BadgePort { public System.Windows.Visibility Visibility=System.Windows.Visibility.Visible; }
+        private readonly BadgePort newContent=new();
         private long resultRevision=1;
         private bool exiting,follow=true;
         internal double ScrollOffset=>body.Offset;
@@ -37,5 +42,9 @@ namespace KuaiYi.App
         internal void Lock()=>lifecycle.Gate.SetSessionLocked(true);
         internal void Exit()=>exiting=true;
         internal void Deliver(int index=0)=>Dispatcher.Run(index);
+        internal bool Following=>follow;
+        internal bool NewContentVisible=>newContent.Visibility==System.Windows.Visibility.Visible;
+        internal void ObserveReaderInput()=>ObserveBodyReaderIntent();
+        internal void ChangeGeometry(double extent,double viewport,double offset){body.ExtentHeight=extent;body.ViewportHeight=viewport;body.Offset=offset;}
     }
 }
