@@ -1,0 +1,309 @@
+{
+  "ExecutionCommit": "a0e8519e63d90e44560316478dc65358a18a8868",
+  "ExecutionTree": "712d5a9f67884b14d497cff41620552cb31da66a",
+  "ExecutionParent": "9d75368aa246b40e2bfc9517eb390384c6faf470",
+  "RunId": 38716240995,
+  "JobId": 116359501515,
+  "Attempt": 1,
+  "RunUrl": "https://github.com/T1doo/KuaiYi/actions/runs/38716240995",
+  "Conclusion": "failure",
+  "SameShaRunCount": 1,
+  "RunnerLabel": "windows-2022",
+  "SourceGate": "Pass",
+  "LimitsMinutes": {
+    "Source": 1,
+    "Execution": 7,
+    "Job": 10
+  },
+  "ActionsStepExitCode": 3,
+  "Accounting": {
+    "Kind": "ExistingJobAccounting",
+    "Scope": "PreRescueWaitQueriesOnly",
+    "FirstWait": {
+      "State": "Known",
+      "ActiveProcesses": 2,
+      "TotalProcesses": 33
+    },
+    "LastPreRescue": {
+      "State": "Known",
+      "ActiveProcesses": 2,
+      "TotalProcesses": 33
+    }
+  },
+  "Diagnostic": {
+    "DiagnosticStatus": "Collected",
+    "Files": [
+      {
+        "Kind": "CMakeVersion",
+        "ReadStatus": "Projected",
+        "Truncated": false,
+        "Facts": {
+          "CMakeVersion": "3.31.6",
+          "ConfigureDone": false,
+          "GenerateDone": false,
+          "CompilerIdSeen": false,
+          "AbiResult": "Unknown",
+          "WorkingResult": "Unknown",
+          "VisualStudio2022": false,
+          "TryCompileEvent": false
+        }
+      },
+      {
+        "Kind": "NativeConfigure",
+        "ReadStatus": "Projected",
+        "Truncated": false,
+        "Facts": {
+          "CMakeVersion": null,
+          "ConfigureDone": true,
+          "GenerateDone": true,
+          "CompilerIdSeen": true,
+          "AbiResult": "Done",
+          "WorkingResult": "Skipped",
+          "VisualStudio2022": false,
+          "TryCompileEvent": false
+        }
+      },
+      {
+        "Kind": "CMakeCache",
+        "ReadStatus": "Projected",
+        "Truncated": false,
+        "Facts": {
+          "CMakeVersion": null,
+          "ConfigureDone": false,
+          "GenerateDone": false,
+          "CompilerIdSeen": false,
+          "AbiResult": "Unknown",
+          "WorkingResult": "Unknown",
+          "VisualStudio2022": true,
+          "TryCompileEvent": false
+        }
+      },
+      {
+        "Kind": "ConfigureEvents",
+        "ReadStatus": "Projected",
+        "Truncated": false,
+        "Facts": {
+          "CMakeVersion": null,
+          "ConfigureDone": false,
+          "GenerateDone": false,
+          "CompilerIdSeen": false,
+          "AbiResult": "Unknown",
+          "WorkingResult": "Unknown",
+          "VisualStudio2022": false,
+          "TryCompileEvent": true
+        }
+      }
+    ]
+  },
+  "Summary": {
+    "Kind": "ConfigureOnlyCiSummary",
+    "SourceCommit": "a0e8519e63d90e44560316478dc65358a18a8868",
+    "ReviewedParent": "9d75368aa246b40e2bfc9517eb390384c6faf470",
+    "ParentVerified": true,
+    "AncestorVerified": true,
+    "LockedSource": "3ae69419a1152ea9694a3a9cf11130fbae645fa3",
+    "LockedTree": "870a72ed3ef2ee31252c10e2d63cbcb859e7fd7b",
+    "LockedTreeVerified": true,
+    "SourceEquivalent": true,
+    "Scope": "NativeConfigureOnly",
+    "Status": "Fail",
+    "Reason": "OperationTimeout",
+    "Operations": [
+      {
+        "Kind": "SourceHead",
+        "Status": "Completed",
+        "Exit": "0",
+        "Stage": "Completed",
+        "FailureKind": "None",
+        "ErrorCode": "None",
+        "ProcessCreated": true,
+        "Resumed": true,
+        "RootExitConfirmed": true,
+        "JobEmpty": true,
+        "PreRescueJobState": "Empty",
+        "BudgetExpired": false,
+        "RescueUsed": false,
+        "CleanupConfirmed": true
+      },
+      {
+        "Kind": "SourceParent",
+        "Status": "Completed",
+        "Exit": "0",
+        "Stage": "Completed",
+        "FailureKind": "None",
+        "ErrorCode": "None",
+        "ProcessCreated": true,
+        "Resumed": true,
+        "RootExitConfirmed": true,
+        "JobEmpty": true,
+        "PreRescueJobState": "Empty",
+        "BudgetExpired": false,
+        "RescueUsed": false,
+        "CleanupConfirmed": true
+      },
+      {
+        "Kind": "SourceAncestry",
+        "Status": "Completed",
+        "Exit": "0",
+        "Stage": "Completed",
+        "FailureKind": "None",
+        "ErrorCode": "None",
+        "ProcessCreated": true,
+        "Resumed": true,
+        "RootExitConfirmed": true,
+        "JobEmpty": true,
+        "PreRescueJobState": "Empty",
+        "BudgetExpired": false,
+        "RescueUsed": false,
+        "CleanupConfirmed": true
+      },
+      {
+        "Kind": "SourceLockedTree",
+        "Status": "Completed",
+        "Exit": "0",
+        "Stage": "Completed",
+        "FailureKind": "None",
+        "ErrorCode": "None",
+        "ProcessCreated": true,
+        "Resumed": true,
+        "RootExitConfirmed": true,
+        "JobEmpty": true,
+        "PreRescueJobState": "Empty",
+        "BudgetExpired": false,
+        "RescueUsed": false,
+        "CleanupConfirmed": true
+      },
+      {
+        "Kind": "SourceStatus",
+        "Status": "Completed",
+        "Exit": "0",
+        "Stage": "Completed",
+        "FailureKind": "None",
+        "ErrorCode": "None",
+        "ProcessCreated": true,
+        "Resumed": true,
+        "RootExitConfirmed": true,
+        "JobEmpty": true,
+        "PreRescueJobState": "Empty",
+        "BudgetExpired": false,
+        "RescueUsed": false,
+        "CleanupConfirmed": true
+      },
+      {
+        "Kind": "SourceCompare",
+        "Status": "Completed",
+        "Exit": "0",
+        "Stage": "Completed",
+        "FailureKind": "None",
+        "ErrorCode": "None",
+        "ProcessCreated": true,
+        "Resumed": true,
+        "RootExitConfirmed": true,
+        "JobEmpty": true,
+        "PreRescueJobState": "Empty",
+        "BudgetExpired": false,
+        "RescueUsed": false,
+        "CleanupConfirmed": true
+      },
+      {
+        "Kind": "CMakeVersion",
+        "Status": "Completed",
+        "Exit": "0",
+        "Stage": "Completed",
+        "FailureKind": "None",
+        "ErrorCode": "None",
+        "ProcessCreated": true,
+        "Resumed": true,
+        "RootExitConfirmed": true,
+        "JobEmpty": true,
+        "PreRescueJobState": "Empty",
+        "BudgetExpired": false,
+        "RescueUsed": false,
+        "CleanupConfirmed": true
+      },
+      {
+        "Kind": "DotnetVersion",
+        "Status": "Completed",
+        "Exit": "0",
+        "Stage": "Completed",
+        "FailureKind": "None",
+        "ErrorCode": "None",
+        "ProcessCreated": true,
+        "Resumed": true,
+        "RootExitConfirmed": true,
+        "JobEmpty": true,
+        "PreRescueJobState": "Empty",
+        "BudgetExpired": false,
+        "RescueUsed": false,
+        "CleanupConfirmed": true
+      },
+      {
+        "Kind": "VisualStudioInventory",
+        "Status": "Completed",
+        "Exit": "0",
+        "Stage": "Completed",
+        "FailureKind": "None",
+        "ErrorCode": "None",
+        "ProcessCreated": true,
+        "Resumed": true,
+        "RootExitConfirmed": true,
+        "JobEmpty": true,
+        "PreRescueJobState": "Empty",
+        "BudgetExpired": false,
+        "RescueUsed": false,
+        "CleanupConfirmed": true
+      },
+      {
+        "Kind": "NativeConfigure",
+        "Status": "Timeout",
+        "Exit": "0",
+        "Stage": "WaitJobEmpty",
+        "FailureKind": "Timeout",
+        "ErrorCode": "None",
+        "ProcessCreated": true,
+        "Resumed": true,
+        "RootExitConfirmed": true,
+        "JobEmpty": true,
+        "PreRescueJobState": "NonEmpty",
+        "BudgetExpired": true,
+        "RescueUsed": true,
+        "CleanupConfirmed": true
+      }
+    ],
+    "CollectorSettlement": "CleanupConfirmed",
+    "NativeBuild": "NotRun",
+    "ManagedRestore": "NotRun",
+    "ManagedBuild": "NotRun",
+    "FourCases": "NotRun",
+    "UiaText": "NotRun",
+    "Match": "NotRun",
+    "Performance": "NotRun",
+    "ProductionReuse": "Off",
+    "ModelCalls": 0,
+    "ExitCode": 3
+  },
+  "LogBytes": 28213,
+  "LogSha256": "49ad10ff2d6e29e51893a23229b6266ba6072145aed20761c457c1cfaa76be77",
+  "CommittedSourceDepth": [
+    {
+      "Depth": 21,
+      "ExitCode": 1,
+      "Gate": "Rejected",
+      "Commit": "a0e8519e63d90e44560316478dc65358a18a8868"
+    },
+    {
+      "Depth": 22,
+      "ExitCode": 0,
+      "Gate": "Pass",
+      "Commit": "a0e8519e63d90e44560316478dc65358a18a8868"
+    }
+  ],
+  "OriginalConfigureRootCause": "Unknown",
+  "AccountingMeaning": "ActiveProcesses is current Job association accounting, not running child count; TotalProcesses includes terminated processes; no identities or cause inferred",
+  "FourFiles": "All four real target files Projected, no truncation reported; at most 64KiB each and 256KiB total; read only after original cleanup confirmed",
+  "MemberProbe": "NotRun",
+  "Rerun": false,
+  "ArchivePushed": false,
+  "ProductionReuse": "Off",
+  "ModelCalls": 0
+}
