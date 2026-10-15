@@ -116,7 +116,7 @@ internal sealed partial class ShellWindow
     {
         if(!dirty||exiting)return;dirty=false;
         double offset=body.VerticalOffset;body.Text=overlayResults.Text;bool bottom=follow;
-        if(!bottom&&overlayResults.HasText)newContent.Visibility=Visibility.Visible;
+        newContent.Visibility=!bottom&&overlayResults.HasText?Visibility.Visible:Visibility.Collapsed;
         ScheduleBodyScrollRestore(bottom,offset);
         if(overlayFrames!=null&&!gesture.Active&&overlayFrames.Transition!=OverlayTransition.Moving)
         {

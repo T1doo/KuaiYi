@@ -1,0 +1,67 @@
+{
+  "SourceParent": "afa883f5582dd8d4fab548b06a8f0cd441b1118d",
+  "Branch": "dev/overlay-reading-input",
+  "Change": "Synchronize new-content visibility on every FlushResult, including clearing after version change/follow/no text",
+  "ProductionFile": "src/KuaiYi.App/OverlayPresentation.cs",
+  "ProductionSha256": "8b2160232471620f794cc3b1cf6df76dc2b61b17795f0c6e85407280d53a62e9",
+  "ExactSourceDelta": "One existing conditional visibility write changed to a total visibility assignment",
+  "Validation": {
+    "AppReleaseCrossBuild": "Pass",
+    "Warnings": 0,
+    "Errors": 0,
+    "IndependentReviewRequiredBeforePush": true,
+    "NewRuntimeTests": 0,
+    "PreviousProvider538Tests": "Prior passing receipt preserved; not rerun in this batch",
+    "B06ActualWpf": "NotRun",
+    "B07ActualWpf": "NotRun",
+    "FullBGroup": "NotRun",
+    "ProductionAcceptance": "NotRun"
+  },
+  "Platform": {
+    "OS": "Linux",
+    "RealWpfCapability": false,
+    "ExistingApprovedEntry": "GrowthHarness --actual-overlay constructs production ShellWindow; requires Windows; no B06/B07 automatic input sequences",
+    "NewAdapters": false,
+    "NewWindowsExperiment": false
+  },
+  "Evidence": {
+    "BuildLogBytes": 888,
+    "BuildLogSha256": "cc96ec721635eff2d226df11f312b15063e0d6095560f9c95a39943dd1fef31e",
+    "ProtectedFilesUnchanged": 61,
+    "EightWorkflowSha256": {
+      ".github/workflows/windows-configure-accounting.yml": "a040d806703163abac32cb3111123039e367c93b756d138f0b5c4ddaa2fb3824",
+      ".github/workflows/windows-configure-bridge.yml": "ea16217b863b25c9d4f5b2e16d34efb2cf55e984cb84a13706c5f6df17230ba2",
+      ".github/workflows/windows-configure-embedded.yml": "fef5400b6f6693498f622c8597b90970e6f00f32f7169fc2b90bb75189d2b450",
+      ".github/workflows/windows-configure-files.yml": "5881548630c16575f2a7e5cdcbeb91f4955247f5d2404995371194785044781d",
+      ".github/workflows/windows-configure-only.yml": "f7771f23b94fa0383660252a3ea6534762d86d4e6c48453632eb8ff81764e39f",
+      ".github/workflows/windows-contracts.yml": "0e7789bf268a83f439fb6e3df44ce94d5918c4f2bba52e11e1f024780b20455b",
+      ".github/workflows/windows-job-member-fixture.yml": "f4a1d464a99525e47b69897bebff4d7550d747b373075dde123c4dd0eb86b24d",
+      ".github/workflows/windows-lifecycle-validation.yml": "47eb6293dbd63f775bc1855fd5d030e3482ff269b10778a2692edf52175f53a5"
+    }
+  },
+  "Certificate": {
+    "GenerateAspnetCertificate": "false explicitly before SDK invocation and inherited by child processes",
+    "PriorStoreAndTrustState": "Unknown",
+    "ReadStore": false,
+    "Trust": false,
+    "Delete": false,
+    "NewInstallMessageInBuildLog": false,
+    "OldEvidencePreserved": true
+  },
+  "RemainingGaps": [
+    "Windows long-text scroll/selection/layout and refresh interleaving",
+    "New-content button reachability including upward growth",
+    "50 collapse/reopen cycles including animation reversal, anchor/flicker/frame time",
+    "Original CMake lifecycle root cause Unknown"
+  ],
+  "Safety": {
+    "P2_04": "InProgress",
+    "Budgets250_600msUnchanged": true,
+    "SourcePasswordIntegrityCancellationCleanupGatesUnchanged": true,
+    "RealModelCalls": 0,
+    "NewCredentialFeePermission": false,
+    "MainModified": false,
+    "ForcePush": false,
+    "Deploy": false
+  }
+}

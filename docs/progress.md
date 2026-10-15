@@ -611,3 +611,7 @@ AccountingV1准备实际验证完成：独立来源5项通过，真实浅clone21
 新授权后已正常推送4a99e260及f741归档到不匹配保留CI分支的dev/overlay-reading-input；八workflow字节不变。继续核实际接线，移除把程序化ScrollChanged当阅读的follow写入，改由明确阅读输入/ScrollBar.Scroll立即pause，受修订号保护的Background观察当前几何后用原24DIP阈值恢复；新刷新抢先则保守保持pause。隐藏重显/Begin/版本切换已有失效门保留，不扩原纯队列fixture。新增6项生产policy测试，Provider538/538、App Release交叉构建0警告/错误，独立源码审查通过。Windows真实布局输入及P2/B组未验，原CMake根因Unknown与250/600ms/全部安全门保持。
 
 原证书提示日志/TRX保全，旧精确独审命令未记录，不补造；实际存储/信任Unknown，不读库、不trust/delete。当前每次dotnet前显式DOTNET_GENERATE_ASPNET_CERTIFICATE=false并继承到子进程，临时CLI home不代表证书隔离。详情和限制见[接线说明](validation/overlay-reader-intent.md)及[固定证据](test-evidence/2026-10-15-overlay-reader-intent.json)。
+
+### 2026-10-15 P2-04/B06/B07有限接续：新内容提示归位
+
+指定环境仍Linux，无真实WPF能力；已有实际浮窗入口需Windows且不自动执行B06输入交错/B07连续反向，实际交互均NotRun。审查发现上读提示显示后切换缓存版本会follow=true，但Flush只显示不清除提示，展开态旧提示可跨版本残留；仅补齐Flush属性同步，有正文且暂停才显示，其他情况Collapsed。未改滚动守卫/收起动画、不增外围适配器或重复原队列测试；旧538/538仅前批基线，本轮不重跑。App交叉构建和独立源码审查的实际结果见[修复说明](validation/overlay-notice-reset.md)及[固定证据](test-evidence/2026-10-15-overlay-notice-reset.json)。Windows输入/布局/提示可达性、B07反向/帧时间、P0原CMake根因仍未解决，P2-04 InProgress；false证书变量、Unknown存储/信任和所有原安全门保持。
