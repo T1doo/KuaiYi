@@ -11,20 +11,48 @@ internal sealed class MarkdownFlowView
     private readonly RichTextBox host;
     private readonly List<MarkdownBlock> applied=[];
     private readonly List<Block> elements=[];
+    private readonly Dictionary<Block,MarkdownCodeRegion> codeRegions=[];
+    private readonly Action? observeReader;
+    private readonly Func<Func<bool>>? captureReaderGuard;
+    private Guid? appliedVersion;
+    private MarkdownViewport viewport=new(388,560);
     private double appliedFontSize=double.NaN;
     private static readonly FontFamily ProseFont=new("Segoe UI"),CodeFont=new("Consolas");
-    public MarkdownFlowView(RichTextBox host)
-    {this.host=host;host.Document=new FlowDocument{PagePadding=new Thickness(0)};}
-    public void Clear(){host.Document.Blocks.Clear();applied.Clear();elements.Clear();}
-    public void Apply(IReadOnlyList<MarkdownBlock> blocks,double fontSize)
+    public MarkdownFlowView(RichTextBox host,Action? observeReader=null,Func<Func<bool>>? captureReaderGuard=null)
     {
+        this.host=host;this.observeReader=observeReader;this.captureReaderGuard=captureReaderGuard;host.Document=new FlowDocument{PagePadding=new Thickness(0),ColumnGap=0};
+        host.IsReadOnly=true;host.IsUndoEnabled=false;host.IsDocumentEnabled=true;host.HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled;host.VerticalScrollBarVisibility=ScrollBarVisibility.Visible;host.ClipToBounds=true;
+        SetViewport(viewport);
+    }
+    public void Clear(){foreach(var region in codeRegions.Values)region.Dispose();codeRegions.Clear();host.Document.Blocks.Clear();applied.Clear();elements.Clear();appliedVersion=null;}
+    public void SetViewport(MarkdownViewport value)
+    {
+        value.Validate();viewport=value;host.Width=host.MaxWidth=value.WidthDip;host.MaxHeight=value.MaximumHeightDip;
+        double contentWidth=Math.Max(1,value.WidthDip-SystemParameters.VerticalScrollBarWidth);
+        host.Document.PageWidth=host.Document.ColumnWidth=contentWidth;
+        foreach(var region in codeRegions.Values)region.Constrain(contentWidth,value.CodeMaximumHeightDip);
+    }
+    public void RefreshCodeAppearance()
+    {foreach(var region in codeRegions.Values){region.View.FontSize=host.FontSize;region.View.Foreground=host.Foreground;}}
+    public void Apply(IReadOnlyList<MarkdownBlock> blocks,double fontSize,MarkdownViewport viewport,Guid? selectedVersion)
+    {
+        SetViewport(viewport);
         using var change=host.DeclareChangeBlock();
         int keep=0;while(keep<applied.Count&&keep<blocks.Count&&ReferenceEquals(applied[keep],blocks[keep]))keep++;
-        for(int i=elements.Count-1;i>=keep;i--){host.Document.Blocks.Remove(elements[i]);elements.RemoveAt(i);applied.RemoveAt(i);}
+        // The open fenced-code tail can grow without replacing its selectable native region.
+        if(appliedVersion==selectedVersion&&keep<applied.Count&&keep<blocks.Count&&applied[keep].Kind==MarkdownBlockKind.Code&&blocks[keep].Kind==MarkdownBlockKind.Code&&blocks[keep].Source.StartsWith(applied[keep].Source,StringComparison.Ordinal)&&codeRegions.TryGetValue(elements[keep],out var growing))
+        {growing.UpdateText(blocks[keep].Text);applied[keep]=blocks[keep];keep++;}
+        appliedVersion=selectedVersion;
+        for(int i=elements.Count-1;i>=keep;i--){if(codeRegions.Remove(elements[i],out var region))region.Dispose();host.Document.Blocks.Remove(elements[i]);elements.RemoveAt(i);applied.RemoveAt(i);}
         for(int i=keep;i<blocks.Count;i++)
         {
             var data=blocks[i];Block element;
-            if(data.Table is {} table)element=CreateTable(table);
+            if(data.Kind==MarkdownBlockKind.Code)
+            {
+                var region=new MarkdownCodeRegion(data.Text,observeReader,captureReaderGuard);region.Constrain(host.Document.PageWidth,viewport.CodeMaximumHeightDip);
+                element=new BlockUIContainer(region.View){Margin=new Thickness(0)};codeRegions.Add(element,region);
+            }
+            else if(data.Table is {} table)element=CreateTable(table);
             else
             {
                 var paragraph=CreateParagraph(data.Text,data.Inlines);element=paragraph;
@@ -44,6 +72,7 @@ internal sealed class MarkdownFlowView
             element.FontWeight=data.Kind==MarkdownBlockKind.Heading?FontWeights.SemiBold:FontWeights.Normal;
             element.FontFamily=data.Kind==MarkdownBlockKind.Code?CodeFont:ProseFont;
         }
+        RefreshCodeAppearance();
     }
     private static Paragraph CreateParagraph(string text,IReadOnlyList<MarkdownInline> inlines)
     {

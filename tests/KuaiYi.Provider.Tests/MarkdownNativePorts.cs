@@ -8,10 +8,26 @@ namespace System.Windows
     internal static class FontStyles {public const string Normal="Normal",Italic="Italic";}
     internal enum TextMarkerStyle { Decimal, Disc }
     internal enum TextAlignment { Left, Center, Right }
+    internal enum TextWrapping { NoWrap, Wrap }
+    internal readonly record struct Size(double Width,double Height);
+    internal static class SystemParameters {public const double VerticalScrollBarWidth=17;}
+    internal class UIElement {public bool ClipToBounds {get;set;}public string? AutomationName {get;set;}}
+    internal class FrameworkElement:UIElement
+    {
+        public double Width {get;set;}=double.NaN;
+        public double Height {get;set;}=double.NaN;
+        public double MaxWidth {get;set;}=double.PositiveInfinity;
+        public double MaxHeight {get;set;}=double.PositiveInfinity;
+    }
+    internal sealed class TouchEventArgs:EventArgs;
 }
+namespace System.Windows.Automation
+{internal static class AutomationProperties {public static void SetName(UIElement element,string value)=>element.AutomationName=value;}}
 namespace System.Windows.Media
 {
     internal sealed record FontFamily(string Source);
+    internal sealed record Brush(string Name);
+    internal static class Brushes {public static readonly Brush Transparent=new("Transparent"),Black=new("Black"),White=new("White");}
 }
 namespace System.Windows.Documents
 {
@@ -30,6 +46,7 @@ namespace System.Windows.Documents
         public double LineHeight {get;set;}
         public Thickness Margin {get;set;}
     }
+    internal sealed class BlockUIContainer(UIElement child):Block {public UIElement Child {get;}=child;}
     internal sealed class Paragraph:Block
     {public System.Collections.Generic.List<Inline> Inlines {get;}=[];public TextAlignment TextAlignment {get;set;}}
     internal sealed class Table:Block
@@ -56,14 +73,27 @@ namespace System.Windows.Documents
         public System.Collections.Generic.List<Block> Blocks {get;}=[];
         public Thickness PagePadding {get;set;}
         public double FontSize {get;set;}
+        public double ColumnGap {get;set;}
+        public double PageWidth {get;set;}
+        public double ColumnWidth {get;set;}
     }
 }
 namespace System.Windows.Controls
 {
-    internal sealed class RichTextBox
+    internal enum ScrollBarVisibility { Disabled, Auto, Hidden, Visible }
+    internal sealed class RichTextBox:FrameworkElement
     {
         public Documents.FlowDocument Document {get;set;}=new();
         public double FontSize {get;set;}
+        public Media.Brush Foreground {get;set;}=Media.Brushes.Black;
+        public bool IsDocumentEnabled {get;set;}
+        public bool IsReadOnly {get;set;}
+        public bool IsUndoEnabled {get;set;}
+        public ScrollBarVisibility HorizontalScrollBarVisibility {get;set;}
+        public ScrollBarVisibility VerticalScrollBarVisibility {get;set;}
+        public Size LastMeasure {get;private set;}
+        public Size DesiredSize {get;set;}
+        public void Measure(Size size)=>LastMeasure=size;
         public IDisposable DeclareChangeBlock()=>new ChangeBlock();
         private sealed class ChangeBlock:IDisposable {public void Dispose(){}}
     }

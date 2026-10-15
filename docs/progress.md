@@ -637,3 +637,11 @@ AccountingV1准备实际验证完成：独立来源5项通过，真实浅clone21
 正文和测量均经生产FlowView实际构造Table/RowGroup/Row/Cell及原生Run/Span；无新依赖或图片/链接/资源执行。最终Provider657/657（前610+新47，41真实Core+6链接生产桥接）通过，App交叉构建0W/E；本轮无失败，保留72/117/中间657回执及前批71/72原失败hash。独审补强逐行列有序断言和转义奇偶覆盖后复跑全量，未把审查当父级重跑。WPF实际宽度/布局/选择/阅读锚点/开放表重建与B组仍NotRun；代码横向滚动仍未完成，P2-04仍InProgress。
 
 250/600ms及全部安全门、生产离线复用Off、8workflow/43锁/旧证据保持。Actions访问拒绝继续停止、不再查询、不绕路，CIUnknown；dotnet前显式false，证书不读不改且原状态Unknown。无main/强推/部署/费用凭据权限/真实模型或Windows/CMake实验。详见[表格生产说明](validation/restricted-markdown-tables.md)及[固定证据](test-evidence/2026-10-15-restricted-markdown-tables.json)。
+
+### 2026-10-15 围栏代码局部不折行滚动
+
+从已接收93fa2eed5ab5287f58affb9daa3e8bf7bc7baace核单一写入者/HEAD/默认网络远端和干净工作树后建立dev/overlay-code-scroll。生产围栏代码改为本地只读BlockUIContainer/TextBox，NoWrap、双Visible局部滚动条、有限宽度和240DIP/正文高度上限；正文/测量使用共同有限页宽/高度及HDisabled/VVisible外层策略，真实MeasureMarkdown有限Measure调用，普通段落不设无限宽，拖动跨小屏夹紧。原文复制和惰性文本、无新依赖保持。
+
+局部输入接阅读意图和原修订门；独审发现初版outer-bottom重开follow及开放代码重建丢状态后，补明确代码阅读暂停与显式恢复/版本重置、同版本追加复用控件及受局部/全局输入/结果/锁屏退出守卫保护的选择偏移恢复；测量不排队，替换/容量/清空解绑清文。最终Provider699/699=原657+新42，App交叉构建0W/E；首次端口可空性CS8622编译失败0执行原log、171/174专项和中间695均保留，旧19回执hash保持。真实WPF横滚/测量/选择/阅读锚点/父子路由均NotRun，不称B12或P2完成。
+
+8workflow/43锁/旧证据及全部Core安全文件原字节保持，250/600ms和安全门/生产离线复用Off不变。Actions访问继续停止不绕，运行数Unknown；所有dotnet显式false，证书不读不改仍Unknown。无Windows/CMake实验、main/强推/部署/费用凭据权限/真实模型。详见[局部代码说明](validation/overlay-code-scroll.md)与[固定证据](test-evidence/2026-10-15-overlay-code-scroll.json)。

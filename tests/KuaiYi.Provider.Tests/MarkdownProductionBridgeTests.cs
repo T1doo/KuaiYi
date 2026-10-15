@@ -12,11 +12,15 @@ namespace KuaiYi.App
         private OverlayResults overlayResults=null!;
         internal RichTextBox MarkdownBody {get;}=new();
         internal RichTextBox MarkdownMeasurement {get;}=new();
+        private RichTextBox measurement=>MarkdownMeasurement;
         internal RuntimeGate MarkdownGate=>lifecycle.Gate;
         internal OverlayResults MarkdownResults=>overlayResults;
         internal RestrictedMarkdown MarkdownModel=>markdown;
         internal void InitializeMarkdown()
-        {overlayResults=new(lifecycle.Gate);bodyMarkdown=new(MarkdownBody);measurementMarkdown=new(MarkdownMeasurement);}
+        {overlayResults=new(lifecycle.Gate);bodyMarkdown=new(MarkdownBody,ObserveCodeReaderIntent,CaptureBodyReaderGuard);measurementMarkdown=new(MarkdownMeasurement);}
+        internal void MarkdownViewportForTest(MarkdownViewport viewport)=>SetMarkdownViewport(viewport);
+        internal double MeasureMarkdownForTest(LayoutPlan plan,bool label)=>MeasureMarkdown(plan,label);
+        internal void ResetMarkdownReadingForTest()=>ResetBodyReaderFollow();
         internal void RenderMarkdown(bool renderBody=true)=>RefreshMarkdown(renderBody);
         internal void DropMarkdown()=>ClearMarkdown();
         internal void MarkdownSize(double size)=>lifecycle.Settings=new(new(){Overlay=new(){FontSizeDip=size}},"public",SettingsLoadState.Current);
@@ -92,11 +96,11 @@ namespace KuaiYi.Provider.Tests
             Assert.Empty(window.MarkdownResults.Versions);Assert.Empty(window.MarkdownModel.Blocks);Assert.Empty(window.MarkdownBody.Document.Blocks);Assert.Empty(window.MarkdownMeasurement.Document.Blocks);
             Assert.False(window.MarkdownResults.Append(identity,"late after clear"));window.RenderMarkdown();Assert.Empty(window.MarkdownBody.Document.Blocks);Assert.Empty(window.MarkdownMeasurement.Document.Blocks);
         }
-        [Fact]public void ActualRendererLeavesUnsupportedBlocksAndFencedCodeAsSingleLiteralRuns()
+        [Fact]public void ActualRendererLeavesUnsupportedBlocksAndFencedCodeAsLiteralText()
         {
             var window=Window();Begin(window,Guid.NewGuid(),"# **good** [link](file:///inert)\n\n```\n**literal** <img>\n```");window.RenderMarkdown();
             var literal=First(window.MarkdownBody);Assert.Equal("# **good** [link](file:///inert)\n",Assert.IsType<Run>(Assert.Single(literal.Inlines)).Text);
-            var code=Assert.IsType<Paragraph>(window.MarkdownBody.Document.Blocks[^1]);Assert.Equal("Consolas",code.FontFamily!.Source);Assert.Equal("**literal** <img>\n",Assert.IsType<Run>(Assert.Single(code.Inlines)).Text);
+            var code=Assert.IsType<TextBox>(Assert.IsType<BlockUIContainer>(window.MarkdownBody.Document.Blocks[^1]).Child);Assert.Equal("Consolas",code.FontFamily!.Source);Assert.Equal("**literal** <img>\n",code.Text);Assert.True(code.IsReadOnly);Assert.False(code.IsUndoEnabled);
         }
     }
 }

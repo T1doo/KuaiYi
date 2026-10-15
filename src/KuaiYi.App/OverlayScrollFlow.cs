@@ -5,9 +5,18 @@ namespace KuaiYi.App;
 internal sealed partial class ShellWindow
 {
     // UI destination only: a newer flush or reader intent invalidates deferred layout work.
-    private long bodyScrollRevision;
-    private void InvalidateBodyScrollRestore()=>bodyScrollRevision++;
-    private void FollowBodyEnd(){InvalidateBodyScrollRestore();follow=true;body.ScrollToEnd();}
+    private long bodyScrollRevision,bodyReaderIntentRevision;
+    private bool codeReaderPaused;
+    private void InvalidateBodyScrollRestore(){bodyScrollRevision++;bodyReaderIntentRevision++;}
+    private void ForgetCodeReaderIntent(){InvalidateBodyScrollRestore();codeReaderPaused=false;}
+    private void ResetBodyReaderFollow(){ForgetCodeReaderIntent();follow=true;}
+    private void FollowBodyEnd(){ResetBodyReaderFollow();body.ScrollToEnd();}
+    private void ObserveCodeReaderIntent(){InvalidateBodyScrollRestore();codeReaderPaused=true;follow=false;}
+    private Func<bool> CaptureBodyReaderGuard()
+    {
+        long input=bodyReaderIntentRevision,revision=resultRevision;
+        return()=>!exiting&&input==bodyReaderIntentRevision&&revision==resultRevision&&!lifecycle.Gate.Snapshot.Suspension.HasFlag(Suspension.SessionLocked);
+    }
     private void ObserveBodyReaderIntent()
     {
         InvalidateBodyScrollRestore();follow=false;
@@ -16,6 +25,7 @@ internal sealed partial class ShellWindow
         Dispatcher.BeginInvoke(DispatcherPriority.Background,()=>
         {
             if(exiting||scroll!=bodyScrollRevision||revision!=resultRevision||lifecycle.Gate.Snapshot.Suspension.HasFlag(Suspension.SessionLocked))return;
+            if(codeReaderPaused)return;
             follow=body.ExtentHeight-body.ViewportHeight-body.VerticalOffset<=24;
             if(follow)newContent.Visibility=Visibility.Collapsed;
         });
