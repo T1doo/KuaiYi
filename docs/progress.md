@@ -629,3 +629,11 @@ AccountingV1准备实际验证完成：独立来源5项通过，真实浅clone21
 实际专项72/72、完整Provider610/610（前566+新44）通过；6项直接链接生产FlowView/OverlayMarkdown的Linux数据端口测试加38项真实Core行内测试，覆盖实际三版本缓存/失败回退/原始文本/取消锁屏清空/迟到门。首轮71/72的非追加夹具误用保留原log/TRX，修为真实追加后通过，未改变生产契约。App Release交叉构建0W/E，独审无阻塞；WPF排版/选择/实际字体继承/阅读锚点及B06/B07仍NotRun，基础表格和代码横向滚动明确未完成，P2-04仍InProgress。
 
 八workflow、43锁及既有证据原字节保持，250/600ms与全部安全门/生产离线复用Off保持。所有dotnet前显式false证书变量，旧存储/信任Unknown，不读库/配置/trust/delete。一次只读Actions查询Forbidden后停止、不绕拒绝；未主动发起CI，服务端运行数Unknown，不能声称已核0run。无新Windows/CMake实验、main/强推/部署/真实模型或权限费用变化。详见[续接说明](validation/restricted-markdown-inlines.md)及[固定证据](test-evidence/2026-10-15-restricted-markdown-inlines.json)。
+
+### 2026-10-15 §11.5基础表格生产续接
+
+从已接收063969062de54c6fda50bc9d683d185789e7d25c核工作树/单一写入者/默认网络及远端祖先后建立dev/overlay-markdown-tables，旧实例不恢复、独审只读。受限基础表格支持分隔行和左/中/右对齐、转义及代码内管道、平面行内样式；16列/128行、2048累计单元格与原4096片段/120000单元/2048块共同约束，超限整份保文回退，复杂/未闭单元格整表字面回退。精确块/行/分隔行/cell Source及原始复制路径保持；表头和分隔行前瞻，部分非pipe尾界不提前冻结，开放表整块尾部更新、确定边界后复用。
+
+正文和测量均经生产FlowView实际构造Table/RowGroup/Row/Cell及原生Run/Span；无新依赖或图片/链接/资源执行。最终Provider657/657（前610+新47，41真实Core+6链接生产桥接）通过，App交叉构建0W/E；本轮无失败，保留72/117/中间657回执及前批71/72原失败hash。独审补强逐行列有序断言和转义奇偶覆盖后复跑全量，未把审查当父级重跑。WPF实际宽度/布局/选择/阅读锚点/开放表重建与B组仍NotRun；代码横向滚动仍未完成，P2-04仍InProgress。
+
+250/600ms及全部安全门、生产离线复用Off、8workflow/43锁/旧证据保持。Actions访问拒绝继续停止、不再查询、不绕路，CIUnknown；dotnet前显式false，证书不读不改且原状态Unknown。无main/强推/部署/费用凭据权限/真实模型或Windows/CMake实验。详见[表格生产说明](validation/restricted-markdown-tables.md)及[固定证据](test-evidence/2026-10-15-restricted-markdown-tables.json)。

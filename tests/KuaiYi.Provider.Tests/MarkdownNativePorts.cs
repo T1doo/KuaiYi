@@ -7,6 +7,7 @@ namespace System.Windows
     internal static class FontWeights {public const string Normal="Normal",Bold="Bold",SemiBold="SemiBold";}
     internal static class FontStyles {public const string Normal="Normal",Italic="Italic";}
     internal enum TextMarkerStyle { Decimal, Disc }
+    internal enum TextAlignment { Left, Center, Right }
 }
 namespace System.Windows.Media
 {
@@ -29,7 +30,19 @@ namespace System.Windows.Documents
         public double LineHeight {get;set;}
         public Thickness Margin {get;set;}
     }
-    internal sealed class Paragraph:Block {public System.Collections.Generic.List<Inline> Inlines {get;}=[];}
+    internal sealed class Paragraph:Block
+    {public System.Collections.Generic.List<Inline> Inlines {get;}=[];public TextAlignment TextAlignment {get;set;}}
+    internal sealed class Table:Block
+    {
+        public double CellSpacing {get;set;}
+        public System.Collections.Generic.List<TableColumn> Columns {get;}=[];
+        public System.Collections.Generic.List<TableRowGroup> RowGroups {get;}=[];
+    }
+    internal sealed class TableColumn;
+    internal sealed class TableRowGroup {public System.Collections.Generic.List<TableRow> Rows {get;}=[];}
+    internal sealed class TableRow {public System.Collections.Generic.List<TableCell> Cells {get;}=[];}
+    internal sealed class TableCell(Paragraph paragraph)
+    {public Paragraph Paragraph {get;}=paragraph;public Thickness Padding {get;set;}}
     internal sealed class ListItem(Paragraph paragraph) {public Paragraph Paragraph {get;}=paragraph;}
     internal sealed class List(ListItem item):Block
     {

@@ -17,6 +17,7 @@ public sealed class RestrictedMarkdownTests
             var actual=model.Blocks[i];var block=expected[i];
             Assert.Equal((block.Kind,block.Source,block.Text,block.Level,block.Number,block.Closed),(actual.Kind,actual.Source,actual.Text,actual.Level,actual.Number,actual.Closed));
             Assert.Equal(block.Inlines,actual.Inlines);
+            MarkdownTableAssertions.Equal(block.Table,actual.Table);
         }
     }
     public static IEnumerable<object[]> Samples()=>new[]{

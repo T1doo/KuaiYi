@@ -24,6 +24,7 @@ public sealed class RestrictedMarkdownInlineTests
         {
             var a=expected.Blocks[i];var b=actual.Blocks[i];
             Assert.Equal((a.Kind,a.Source,a.Text,a.Level,a.Number,a.Closed),(b.Kind,b.Source,b.Text,b.Level,b.Number,b.Closed));Assert.Equal(a.Inlines,b.Inlines);
+            MarkdownTableAssertions.Equal(a.Table,b.Table);
         }
     }
     [Theory][InlineData("**bold**",MarkdownInlineKind.Bold,"bold")][InlineData("__bold__",MarkdownInlineKind.Bold,"bold")]

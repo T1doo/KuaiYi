@@ -23,24 +23,14 @@ internal sealed class MarkdownFlowView
         for(int i=elements.Count-1;i>=keep;i--){host.Document.Blocks.Remove(elements[i]);elements.RemoveAt(i);applied.RemoveAt(i);}
         for(int i=keep;i<blocks.Count;i++)
         {
-            var data=blocks[i];var paragraph=new Paragraph{Margin=new Thickness(0)};
-            if(data.Inlines.Count==0)paragraph.Inlines.Add(new Run(data.Text));
-            else foreach(var part in data.Inlines)
+            var data=blocks[i];Block element;
+            if(data.Table is {} table)element=CreateTable(table);
+            else
             {
-                var run=new Run(part.Text);
-                if(part.Kind==MarkdownInlineKind.Text)paragraph.Inlines.Add(run);
-                else
-                {
-                    var span=new Span(run);
-                    if(part.Kind==MarkdownInlineKind.Code){span.FontFamily=CodeFont;span.FontWeight=FontWeights.Normal;span.FontStyle=FontStyles.Normal;}
-                    else if(part.Kind==MarkdownInlineKind.Bold)span.FontWeight=FontWeights.Bold;
-                    else if(part.Kind==MarkdownInlineKind.Italic)span.FontStyle=FontStyles.Italic;
-                    paragraph.Inlines.Add(span);
-                }
+                var paragraph=CreateParagraph(data.Text,data.Inlines);element=paragraph;
+                if(data.Kind is MarkdownBlockKind.Bullet or MarkdownBlockKind.Numbered)
+                    element=new System.Windows.Documents.List(new ListItem(paragraph)){MarkerStyle=data.Kind==MarkdownBlockKind.Numbered?TextMarkerStyle.Decimal:TextMarkerStyle.Disc,StartIndex=data.Number,Margin=new Thickness(20,0,0,0),Padding=new Thickness(0)};
             }
-            Block element=paragraph;
-            if(data.Kind is MarkdownBlockKind.Bullet or MarkdownBlockKind.Numbered)
-                element=new System.Windows.Documents.List(new ListItem(paragraph)){MarkerStyle=data.Kind==MarkdownBlockKind.Numbered?TextMarkerStyle.Decimal:TextMarkerStyle.Disc,StartIndex=data.Number,Margin=new Thickness(20,0,0,0),Padding=new Thickness(0)};
             applied.Add(data);elements.Add(element);host.Document.Blocks.Add(element);
         }
         int styleStart=fontSize==appliedFontSize?keep:0;
@@ -54,5 +44,41 @@ internal sealed class MarkdownFlowView
             element.FontWeight=data.Kind==MarkdownBlockKind.Heading?FontWeights.SemiBold:FontWeights.Normal;
             element.FontFamily=data.Kind==MarkdownBlockKind.Code?CodeFont:ProseFont;
         }
+    }
+    private static Paragraph CreateParagraph(string text,IReadOnlyList<MarkdownInline> inlines)
+    {
+        var paragraph=new Paragraph{Margin=new Thickness(0)};
+        if(inlines.Count==0)paragraph.Inlines.Add(new Run(text));
+        else foreach(var part in inlines)
+        {
+            var run=new Run(part.Text);
+            if(part.Kind==MarkdownInlineKind.Text)paragraph.Inlines.Add(run);
+            else
+            {
+                var span=new Span(run);
+                if(part.Kind==MarkdownInlineKind.Code){span.FontFamily=CodeFont;span.FontWeight=FontWeights.Normal;span.FontStyle=FontStyles.Normal;}
+                else if(part.Kind==MarkdownInlineKind.Bold)span.FontWeight=FontWeights.Bold;
+                else if(part.Kind==MarkdownInlineKind.Italic)span.FontStyle=FontStyles.Italic;
+                paragraph.Inlines.Add(span);
+            }
+        }
+        return paragraph;
+    }
+    private static Table CreateTable(MarkdownTable data)
+    {
+        var table=new Table{CellSpacing=4,Margin=new Thickness(0)};var group=new TableRowGroup();table.RowGroups.Add(group);
+        foreach(var _ in data.Alignments)table.Columns.Add(new TableColumn());
+        for(int index=0;index<data.Rows.Count;index++)
+        {
+            var row=new TableRow();group.Rows.Add(row);
+            for(int column=0;column<data.Alignments.Count;column++)
+            {
+                var cell=data.Rows[index].Cells[column];var paragraph=CreateParagraph(cell.Text,cell.Inlines);
+                paragraph.TextAlignment=data.Alignments[column] switch{MarkdownTableAlignment.Center=>TextAlignment.Center,MarkdownTableAlignment.Right=>TextAlignment.Right,_=>TextAlignment.Left};
+                if(index==0)paragraph.FontWeight=FontWeights.SemiBold;
+                row.Cells.Add(new TableCell(paragraph){Padding=new Thickness(4,2,4,2)});
+            }
+        }
+        return table;
     }
 }
