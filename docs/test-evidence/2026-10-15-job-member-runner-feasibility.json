@@ -1,0 +1,64 @@
+{
+  "Scope": "DeterministicProposedPlacementSimulationOnly",
+  "Parent": "1dfafc36da5c393b511c2143ac3894fac3f90e9a",
+  "ParentTree": "4d8b18904d843b2e38598f2ecf232002328f24da",
+  "Tests": {
+    "Assertions": 42,
+    "Scenarios": 13,
+    "Result": "Pass"
+  },
+  "ProposalDecision": "HOLD until soft-budget versus unchanged-counterfactual-result contract is resolved",
+  "ActualRunnerHook": "NotImplemented",
+  "OriginalRunnerWindows": "NotRun",
+  "NewWindowsCi": "NotRun",
+  "OriginalConfigureRootCause": "Unknown",
+  "RetainedPassingFixture": {
+    "Commit": "ddb62cb9fb2574ae9459161e9d7f52739c99a6e5",
+    "Run": 38709320255,
+    "Attempt": 1,
+    "Result": "Pass"
+  },
+  "BoundaryCounterexample": {
+    "FirstNonemptyMs": 29700,
+    "RemainingMs": 300,
+    "JobEmptyAtMs": 29900,
+    "ReaderReturnsMs": 30100,
+    "NoProbeResult": "Completed/no rescue",
+    "WithProbeResult": "Timeout/rescue",
+    "ActualHelperResult": "SkippedBudget; facts cleared",
+    "ActualDecisionsUsed": [
+      "KuaiYiJobMemberDiagnostic.Capture",
+      "KuaiYiLifecycleOperation.CompleteJobWait",
+      "KuaiYiLifecycleOperation.GetReason"
+    ],
+    "NativeCalls": 0
+  },
+  "ReturnedFailureCases": [
+    "ReaderFailure",
+    "Reader OperationCanceledException isolated as ReaderFailure; not original-operation cancellation",
+    "HandleCloseUnknown"
+  ],
+  "OtherCoverage": [
+    "At most one proposed capture",
+    "Original virtual deadline reused without reset",
+    "Remaining <=250ms zero calls",
+    "Empty job zero calls",
+    "Returned diagnostic failure still reaches simulated original rescue/close",
+    "Failure/late/closeunknown clears diagnostic facts"
+  ],
+  "Limit": "Does not execute original Run or prove native cancellation; callback no-return blocks same-thread finally by control flow; tests do not change production source",
+  "ProtectedFiles": 11,
+  "OldEvidenceManifestsUnchanged": true,
+  "DevelopmentFailure": "First harness run used long::MaxValue instead of [long]::MaxValue in PowerShell; original failed log retained; corrected harness passed",
+  "Logs": {
+    "contracts-1.log": {
+      "Bytes": 502,
+      "Sha256": "e2a425140eb9ea1d3bc582fe0d6028fb17868b1003e4fba587da7e91a5ea482a"
+    },
+    "contracts-2.log": {
+      "Bytes": 167,
+      "Sha256": "671ac3061085503ebf5c5d9d7d2ed225af801243361dffbf7ed2504f7b2b07c4"
+    }
+  },
+  "TestSourceSha256": "dd9692f0044948b4842c4d9a20f4e6d6b7b81aa93e1f7a7d48189b2b57d288df"
+}

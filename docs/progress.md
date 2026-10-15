@@ -563,3 +563,9 @@ bridge结果三文档已交付 b4592d5，查询无新workflow run。后续本地
 父核新阶段授权后，精确ddb62cb9fb2574ae9459161e9d7f52739c99a6e5/tree a4617837498c7f3c6f1522d0164c1e00f8551e23正常推dev/job-member-suspended-fixture，唯一run 38709320255/job 116336490490/attempt1 success，来源门与全部11项检查Pass/Exit0。Created9全程未Resume；A8/B1成立，原helper实际查询A8，Other8且所有未确认计数0；受控自有B非成员反例Partial/MembershipUnconfirmed1，单次List/Open/Member/Close各1，Wait/Image0。root退出、两Job空、fixture及查询句柄关闭均确认，主/清理预算未过期，无直接终止兜底。
 
 完整tool回执和21419字节原日志保存在本地artifacts/job-member-suspended-windows-result，准确字节/hash与闭合回执见[固定实测证据](test-evidence/2026-10-15-job-member-suspended-windows-result.json)。只证明本标准host上的初始suspended自有合成Job ABI、有限查询、受控非成员拒绝与清理；不声称真实PID复用或旧数量失败唯一根因。MembershipUnconfirmed合并No/Unknown，本回执不能区分明确非成员与原生成员查询未确认，只证明拒绝并零Wait/Image。旧run38699679076及bb0fae归档原字节保持；原configure超时根因仍Unknown、原runner未接入，CMake/四生命周期NotRun、ProductionReuse Off、ModelCalls0。没有重跑、改main、强推或额外workflow触发。
+
+### 2026-10-15 原 runner 成员诊断接入可行性审查
+
+保全1dfafc成功Windows归档及两套原日志，从其唯一parent状态本地核查WaitJobEmpty接入。同步once probe可在软预算契约下实现返回/异常后的状态隔离与原finally顺序，但不能保证不返回时及时救援；29700→30100ms的有限迟返反例中，Job于29900ms空，原真实CompleteJobWait仍会由本可Completed变Timeout，即使helper已清事实为SkippedBudget。原Run本有同步API且没有CancellationToken，不能把“不直接覆盖receipt”混同为反事实时序结果不变。
+
+新增纯提案可行性合同42断言/13场景通过，复用原Capture/CompleteJobWait/GetReason，虚拟时钟/注入IProbe，未运行原Run/Win32。首轮PowerShell long::MaxValue语法失败log保留，修正后通过。真实hook暂HOLD，11份原源/入口/六workflow/成功结果原字节保持，成功/失败两套manifest核对不变；无push或新Windows。请父核软预算风险是否在现有契约内，或采用只投影既有Accounting返回值、零新增native探针的最小替代，不能硬接或削弱原超时/清理门。[精确冲突、最小替代与条件执行计划](validation/job-member-runner-integration-review.md)和[固定离线证据](test-evidence/2026-10-15-job-member-runner-feasibility.json)记录范围。原configure根因Unknown，P0/E06及生产验收不变。
