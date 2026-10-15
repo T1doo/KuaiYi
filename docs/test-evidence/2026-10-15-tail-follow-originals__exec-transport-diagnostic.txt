@@ -1,0 +1,8 @@
+Stage: frozen test invocation transport failure
+Tool diagnostic: exec_command failed: CreateProcess { message: "Rejected(\"Failed to create unified exec process: exec-server transport disconnected\")" }
+First attempt SDK execution: Unknown, not safely inferable from the transport error.
+A subsequent invocation reused provider-frozen.trx and provider-frozen.log; observed VSTest warning: WARNING: Overwriting results file: /workspace/KuaiYi/artifacts/tail-follow/provider-frozen.trx
+Pre-overwrite frozen-attempt bytes were not preserved; their content/result is Unknown.
+The current frozen log/TRX records 774/774 and the overwrite warning; both are retained without claiming complete first-attempt provenance.
+The seven 8226f11 original receipts and all other current batch logs/TRX are separately preserved and hash verified.
+No Actions/auth/access-denial bypass occurred.

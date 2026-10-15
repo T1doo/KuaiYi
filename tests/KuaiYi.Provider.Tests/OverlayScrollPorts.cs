@@ -21,7 +21,9 @@ namespace KuaiYi.App
         private sealed class DispatcherPort
         {
             private readonly List<Action> callbacks=[];
+            public int Pending=>callbacks.Count;
             public void BeginInvoke(System.Windows.Threading.DispatcherPriority priority,Action action)=>callbacks.Add(action);
+            public void BeginInvoke(Action action)=>callbacks.Add(action);
             public void Run(int index){var action=callbacks[index];callbacks.RemoveAt(index);action();}
         }
         private sealed class LifecyclePort

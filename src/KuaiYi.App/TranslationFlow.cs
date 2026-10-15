@@ -69,16 +69,6 @@ internal sealed partial class ShellWindow
         ApplyResult(update.Identity,update.Presentation,alreadyApplied:true);
         RefreshResultLabel();button.ToolTip=update.Presentation.Kind==OverlayResultEventKind.Begin?connectionStatus.Text:translationStatus;
     }
-    private void RefreshResultLabel()
-    {
-        var snapshot=translation?.SelectedSnapshot;var selected=overlayResults.Versions.FirstOrDefault(v=>v.Identity.VersionId==overlayResults.SelectedVersionId);
-        resultLabel.Text=snapshot==null?"":$"{(snapshot.Transport.IsDevelopmentFixture?"本地测试输出 · ":snapshot.Transport.BaseUrl.Scheme=="http"?"非加密 HTTP · ":"")}{(selected?.Complete==true||selected?.Stopped==true?"版本":"生成版本")} {snapshot.VersionNumber} · {StyleLabel(snapshot)} · {SourceLabel(snapshot)} · {snapshot.Profile.Model}{(selected?.Stopped==true?" · 已停止":"")}";
-        resultLabel.ToolTip=snapshot==null?null:$"此版本快照 · {snapshot.FullTemplateVersion} · {new EndpointOrigin(snapshot.Transport.ResolveEndpoint()).Value}";
-        var next=translation?.NextGeneration;if(styleTool!=null){styleTool.IsEnabled=next!=null;styleTool.Content=next?.Preset switch{TranslationPreset.Faithful=>"忠实",TranslationPreset.Plain=>"通俗",TranslationPreset.Professional=>"专业",TranslationPreset.Explain=>"解释",_=>"风格"};System.Windows.Automation.AutomationProperties.SetName(styleTool,next==null?"会话风格":$"下次生成风格：{StyleLabel(next.Preset)}");styleTool.ToolTip=next==null?"无保留会话":$"下次生成：版本 {next.VersionNumber} · {StyleLabel(next.Preset)}；不改变已有版本";}
-        foreach(var tool in tools)if(Equals(tool.Content,"重新生成")){tool.IsEnabled=lifecycle.Gate.Snapshot.Activation==Activation.On&&snapshot!=null;tool.ToolTip=next==null?"无保留原文":$"重新生成：版本 {next.VersionNumber} · {StyleLabel(next.Preset)} · {next.Model}";}
-    }
-    private static string StyleLabel(TextTranslationSnapshot value)=>StyleLabel(value.Preset);
-    private static string StyleLabel(TranslationPreset? preset)=>preset switch{TranslationPreset.Faithful=>"忠实翻译",TranslationPreset.Plain=>"通俗翻译",TranslationPreset.Professional=>"专业翻译",TranslationPreset.Explain=>"解释",_=>"公开探针"};
     private string RegenerationMenuLabel(bool currentSettings=false)
     {
         string action=currentSettings?"按当前设置重新翻译":"重新生成";var next=translation?.NextGeneration;
@@ -94,7 +84,6 @@ internal sealed partial class ShellWindow
         }
         styles.Items.Add(new Separator());var original=new MenuItem{Header="沿用所示版本风格",IsEnabled=translation?.SessionStyle!=null};original.Click+=(_,_)=>{if(translation?.SetSessionStyle(null)==true)RefreshResultLabel();};styles.Items.Add(original);menu.Items.Add(styles);
     }
-    private static string SourceLabel(TextTranslationSnapshot value)=>value.Source.SourceKind switch{SelectionSourceKind.Clipboard=>"复制兼容",SelectionSourceKind.OleDrop=>"拖放文字",_=>"选区"};
     private static string FailureLabel(string reason)=>reason switch{"AUTH_FAILED" or "SECRET_UNAVAILABLE"=>"密钥不可用，请检查设置","REQUEST_TIMEOUT"=>"总时限已到","CONNECT_TIMEOUT"=>"连接超时","RESPONSE_HEADERS_TIMEOUT"=>"响应头超时","FIRST_RESPONSE_TIMEOUT"=>"首有效响应超时","READ_IDLE_TIMEOUT"=>"有效内容读取停滞","NETWORK_ERROR" or "TLS_ERROR"=>"无法连接服务","RATE_LIMITED"=>"服务限流，请稍后重试","ENDPOINT_NOT_FOUND" or "CONFIG_INVALID"=>"服务配置无效","TEST_BOUNDARY_REJECTED"=>"测试配置越出本地授权边界，已拒绝发送","CANCELLED_OR_UNCONSENTED" or "SOURCE_OR_SETTINGS_CHANGED"=>"来源或授权已改变","STREAM_INTERRUPTED"=>"输出中断","LOCAL_OUTPUT_LIMIT"=>"输出超过本地安全上限",_=>"请求未完成，请检查服务设置"};
     private async Task StopTranslation()
     {

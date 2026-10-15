@@ -1,0 +1,771 @@
+{
+  "SourceParent": "70c03a5f2d40d294ff04a3bdd9396526bf77cb7e",
+  "Branch": "dev/overlay-stop-finalize",
+  "MainBaseline": "51d077481cf6303602fcf5d2718213da9cf05178",
+  "PriorRawReceiptPreservation": {
+    "SourceCommit": "70c03a5f2d40d294ff04a3bdd9396526bf77cb7e",
+    "PreservedCurrent774Batch": {
+      "docs/test-evidence/2026-10-15-tail-follow-originals__app-final.log": {
+        "Bytes": 888,
+        "Sha256": "a3e91b2c89bfeae7fb5afff7d163ecf36b066e0816aae9e77ad78bf659c3441b"
+      },
+      "docs/test-evidence/2026-10-15-tail-follow-originals__exec-transport-diagnostic.txt": {
+        "Bytes": 876,
+        "Sha256": "7667201887afeca53cf1e118b5a5fc49f6db361800c9da5999a5ebd72ab831fe"
+      },
+      "docs/test-evidence/2026-10-15-tail-follow-originals__focused-first.log": {
+        "Bytes": 1660,
+        "Sha256": "2238aa9549a69bf9a0be556c4a6b5a7e89ddf8ecee158b0028d900d99c3ad3ba"
+      },
+      "docs/test-evidence/2026-10-15-tail-follow-originals__focused-first.trx": {
+        "Bytes": 358999,
+        "Sha256": "4fffbfd98ee9529349ddcfa390efa3bfa66f5a43b6d8de5f71e84c930395e4f7"
+      },
+      "docs/test-evidence/2026-10-15-tail-follow-originals__focused-fixed.log": {
+        "Bytes": 808,
+        "Sha256": "62f6a5dee4a385e0f9dd3d678f04b574206933d929316dfa426c23c468927dea"
+      },
+      "docs/test-evidence/2026-10-15-tail-follow-originals__focused-fixed.trx": {
+        "Bytes": 357276,
+        "Sha256": "e71cddf6f51752e003ffc59daf15d3eb8e7af9505fb1be0a53b8c7eb1cf73c6c"
+      },
+      "docs/test-evidence/2026-10-15-tail-follow-originals__growth-final.log": {
+        "Bytes": 1020,
+        "Sha256": "a09683d832e975bf10a505c07c827aa0fa2ff540521655826d904f5f29976888"
+      },
+      "docs/test-evidence/2026-10-15-tail-follow-originals__growth-restore.log": {
+        "Bytes": 180,
+        "Sha256": "bfd0ad4c07f3c972449c1837fc9bd178528b48ad4e5c7d859a8f8ebacd194eb1"
+      },
+      "docs/test-evidence/2026-10-15-tail-follow-originals__provider-corpus-final.log": {
+        "Bytes": 2486,
+        "Sha256": "e444ee0ce32af8c527b4cbd53dae6f9149b90106e1c118e9fd160e9c625ebaa5"
+      },
+      "docs/test-evidence/2026-10-15-tail-follow-originals__provider-corpus-final.trx": {
+        "Bytes": 1132895,
+        "Sha256": "240e1790c5947d0171d11eed94fda248329be4d621655baa3a60f43dfacad3ff"
+      },
+      "docs/test-evidence/2026-10-15-tail-follow-originals__provider-final-fixed.log": {
+        "Bytes": 812,
+        "Sha256": "b52d6a990b584ee6304a941cfb85feeda7f8fe7ac7a23f737a99e8d024f43d5f"
+      },
+      "docs/test-evidence/2026-10-15-tail-follow-originals__provider-final-fixed.trx": {
+        "Bytes": 1129523,
+        "Sha256": "0fdede9aba38e6cfec3f3fa7f3cc5d5032a024e9ea8b474afd47bdd9b8cfc569"
+      },
+      "docs/test-evidence/2026-10-15-tail-follow-originals__provider-final.log": {
+        "Bytes": 806,
+        "Sha256": "a97e1b0fd8eb9bda8418052d12a9697bdc4691b2d9e734f8c14dbee55c216d06"
+      },
+      "docs/test-evidence/2026-10-15-tail-follow-originals__provider-final.trx": {
+        "Bytes": 1126629,
+        "Sha256": "0aeea43d4eb87111b64bc526d138bff4e1916d476dd421f323d0f8a576762d44"
+      },
+      "docs/test-evidence/2026-10-15-tail-follow-originals__provider-frozen.log": {
+        "Bytes": 902,
+        "Sha256": "f6480a790c9a920cf9175b81b01dd220f7848f88adb96744d2d68c144f626192"
+      },
+      "docs/test-evidence/2026-10-15-tail-follow-originals__provider-frozen.trx": {
+        "Bytes": 1129523,
+        "Sha256": "635a8bf2bccf8c78a26508e4928de4c8e5517d78569bd972ae4b2a78f20223d0"
+      }
+    },
+    "OldSevenVerified": {
+      "docs/test-evidence/2026-10-15-table-scroll-originals__app-final.log": {
+        "Bytes": 888,
+        "Sha256": "713f425db72d9f3cd318b6e1c91c7f82e31b8e0dbc5d25e55f1de834cff8e93e"
+      },
+      "docs/test-evidence/2026-10-15-table-scroll-originals__app-first.log": {
+        "Bytes": 888,
+        "Sha256": "724e22b5862365be512cf497e80be18c8eb14f36582f2f13eaacde3934b7acda"
+      },
+      "docs/test-evidence/2026-10-15-table-scroll-originals__focused-first.log": {
+        "Bytes": 665,
+        "Sha256": "8a9720e75ccb9045f66cfb62bca522c71403f77aef593e4417302ca4688172e7"
+      },
+      "docs/test-evidence/2026-10-15-table-scroll-originals__focused-second.log": {
+        "Bytes": 810,
+        "Sha256": "3b8e5b1bd28722ac90d153e3a8ce42c9024e4ed8166d34953822805f40fdfd8e"
+      },
+      "docs/test-evidence/2026-10-15-table-scroll-originals__focused-second.trx": {
+        "Bytes": 314105,
+        "Sha256": "f182f43d12cded17921a9342a2a1d180e76c86ae13f15e06779ba40b00ced118"
+      },
+      "docs/test-evidence/2026-10-15-table-scroll-originals__provider-final.log": {
+        "Bytes": 807,
+        "Sha256": "7083d941e3d080c13eaf7cd00f441cfc55a834e896e103708e65cda2a27b1e83"
+      },
+      "docs/test-evidence/2026-10-15-table-scroll-originals__provider-final.trx": {
+        "Bytes": 1080618,
+        "Sha256": "1e0c4c6840ed98484c796377946be61f7245ad950f2ea4ae01420dab20554192"
+      }
+    },
+    "FrozenPreOverwriteBytes": "Unknown, not preserved; current provider-frozen bytes only"
+  },
+  "ExactMovedSlices": {
+    "Receiver": {
+      "Sha256": "a9f6b7e98cbf995f3476af570ce62c13506fa2b3ec0c73e30cb6590f68857912",
+      "Bytes": 250,
+      "Exact": true
+    },
+    "Preferences": {
+      "Sha256": "b073c1bb0440a39eec2f99963bf21ea071b0d395d4e10f5a0ad286d401c2fdca",
+      "Bytes": 111,
+      "Exact": true
+    },
+    "ApplyMeasureOpenFlush": {
+      "Sha256": "b57e7b44a2ebdb667241e28664825145dd0bfd428011aac3c87d529b2b2f7931",
+      "Bytes": 2682,
+      "Exact": true
+    },
+    "Collapse": {
+      "Sha256": "a525e8ffac0e0ec000555e7cda7b4c22da8fc7dc9f7bfb2b9af9b3c33fe5ede9",
+      "Bytes": 207,
+      "Exact": true
+    },
+    "LabelAndStyles": {
+      "Sha256": "93554a2e86c490e696cfbda09c5b7ab9e31272620677964d7b954bc5f24f48cc",
+      "Bytes": 2029,
+      "Exact": true
+    },
+    "SourceLabel": {
+      "Sha256": "106d09d940283bd95c3e668260afac1d489649f0562553119de53b49d772e435",
+      "Bytes": 205,
+      "Exact": true
+    }
+  },
+  "R06FixedSourceRestoredAndMatchesFinal": true,
+  "ProductionAndTestSha256": {
+    "src/KuaiYi.App/MarkdownViewport.cs": "99b4794b6742ad6b2e9395e4cff1df48b2ce5a6c342090c23857b960b2236c78",
+    "src/KuaiYi.App/MarkdownCodeRegion.cs": "2e4c5adfc6c606c04daef40bbc29aae37065a216d72bca6acd2edc35b32d1f06",
+    "src/KuaiYi.App/MarkdownFlowView.cs": "808ee06978d081f8e1147333eb0230a8924bd1fb9e62a43cc721b82c3da27672",
+    "src/KuaiYi.App/OverlayMarkdown.cs": "8acd39fd8988f941772cb7ccd17e03e148b5de2789d482f6db388a40f82eae96",
+    "src/KuaiYi.App/OverlayPresentation.cs": "7faab74de3c3553ec716dfdd7cb2b5b5f33451fe6334cb997fb3cbf47399d121",
+    "src/KuaiYi.App/OverlayScrollFlow.cs": "fed38295cb6c4df922267f007ca1e3155dabdc7ad8ec6156765da3dd94f4a597",
+    "src/KuaiYi.Core/RestrictedMarkdown.cs": "898dfcc1b6ccec150e0331f4be5f62cb4bf4854d717b3f8d9316a1203e892fa5",
+    "src/KuaiYi.Core/RestrictedMarkdownInlines.cs": "a902536ed0d13ee7986e7cc956323f7c5a8e967387a534a234fefbbbc662a121",
+    "src/KuaiYi.Core/RestrictedMarkdownTables.cs": "2b37171bc578e714a4d3df4fd012c44da3ec9f92805d6acfcdfcba8fbdaec003",
+    "src/KuaiYi.Core/OverlayResults.cs": "4dc33bb531e0e801d6bb098ffa0262213ccaf3773409b560421274a84a47432f",
+    "src/KuaiYi.Core/RuntimeGate.cs": "39c14f0f1df7d0758b42ede573ceea0f8a0d3a3d15e4d43e8913e0c917db3947",
+    "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj": "839b97bfe817ac34b8ca9c4af0e01334690dd10871865b5d67d33754301358c7",
+    "tests/KuaiYi.Provider.Tests/MarkdownNativePorts.cs": "336335881a87f19f581d31780b9e7f035e1c946673f665a7117b90888fb67ed8",
+    "tests/KuaiYi.Provider.Tests/MarkdownCodeInputPorts.cs": "917ac48607e445053ec08a90808ce830da70a7d4fabe58e1b409357cbadce394",
+    "tests/KuaiYi.Provider.Tests/MarkdownProductionBridgeTests.cs": "e8682d094931da49b1846b8d891d519bced75eab0f80bc190d0de6402b17fd4c",
+    "tests/KuaiYi.Provider.Tests/MarkdownCodeScrollTests.cs": "cbbd523b60d467af5c20023eb2b627a00c41fc1e7e4ea3ac7b331ddfd62f82a7",
+    "tests/KuaiYi.Provider.Tests/OverlayScrollPorts.cs": "cb6be0a70d9ebaf1bfc6cbeccf61eb0b065925440a92e4c4a728cd27e53d4abb",
+    "src/KuaiYi.App/MarkdownTableRegion.cs": "599020877f6530444f2a2d7898f8fb1dcf0927c0673ce34612334be1875d88ac",
+    "tests/KuaiYi.Provider.Tests/MarkdownTableInputPorts.cs": "8d53d1b7e1c5d09a119326b43ca622bbca8734349c9d8a0cb187eee15f699ae9",
+    "tests/KuaiYi.Provider.Tests/MarkdownTableScrollTests.cs": "aec989a2610099bb23c343407d467e41e8511a9aa83b5b512304fe4f6ededb16",
+    "tests/KuaiYi.Provider.Tests/MarkdownTableProductionTests.cs": "e5bcb38e62d7b80bdada537f7ff0d6726fae974cc29dc948a8431b740b330c9b",
+    "tests/KuaiYi.Provider.Tests/RestrictedMarkdownTableTests.cs": "3c11f8f88fb5f202694af37e60545c2d707dbbb65aba85dc74470e5b927993fd",
+    "tools/KuaiYi.GrowthHarness/ActualOverlayProbe.cs": "53bd6aa55eba0f4a841cdc4e8b9ee4c591b40fa771c157d8d63e96072b53a8c8",
+    "tools/KuaiYi.GrowthHarness/Program.cs": "2b4b2d4d0df8b33265cf91215b0c5629ec051bddcbde41585e9fdf3ab383fdaf",
+    "tools/KuaiYi.GrowthHarness/MarkdownReviewText.cs": "63b85cc932a1c3156953c0abd3b20fca8514d437169ffc770503d095f3b0f981",
+    "tests/KuaiYi.Provider.Tests/MarkdownTailFollowTests.cs": "a2e80b04c82fd9ce5c99cb61f0f850c450b495baa92f070c9243459355f22d60",
+    "tests/KuaiYi.Provider.Tests/MarkdownReviewCorpusTests.cs": "177f0f9b069001616ac48bb7627271c7cd73f8e697fadafec6619dfb7300b33c",
+    "src/KuaiYi.App/OverlayResultFlow.cs": "fbb0b49c41e2ae15da5e42165870c0521c7bfa8870e78a4b385e28704dc155fa",
+    "src/KuaiYi.App/OverlayResultLabel.cs": "fcf0429a332769b0a3d12a7df0ac0011eefe641dc087aa71b5d4cf1fde63895b",
+    "src/KuaiYi.App/TranslationFlow.cs": "e844167de3cdc451331ea3db4397f937ad57bf01a1386d1953ee4fa452e2eb6f",
+    "tests/KuaiYi.Provider.Tests/OverlayResultPorts.cs": "6cba2bf40896916a14e33d503b00972c0f70f5b555a74081701a383f74bf57bf",
+    "tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs": "c217a5b36e721a28c76703832c3e507a57677eb0a8143317d630b402d89b7d69"
+  },
+  "SourceManifestSha256": "eb8d7d17d29f039f72d3c5d5d1ffbfa869bbfb56ebd1a2e29c875435a6033815",
+  "SourceManifestFormat": "SHA256 of mapping JSON sort_keys=True compact separators",
+  "OriginalReceiptCopies": {
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r01-legacy-stop.log": {
+      "Bytes": 13730,
+      "Sha256": "ebe40615281939ca994e9151c2927e5d7ef78bbec175f4c871b658ab789f6e61",
+      "Original": "artifacts/stop-finalize/r01-legacy-stop.log"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r01-legacy-stop.trx": {
+      "Bytes": 59778,
+      "Sha256": "77b0b3634ca43b96a2848463353793a0c47c320338f918fd3b6e4f06e1d9355e",
+      "Original": "artifacts/stop-finalize/r01-legacy-stop.trx",
+      "Counters": {
+        "total": "23",
+        "executed": "23",
+        "passed": "3",
+        "failed": "20",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Classes": {
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests": 23
+      },
+      "FailedTests": [
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.EmptyActiveRequestStopsWaitingAndFlushesWithoutCreatingText",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Complete)",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.DrainedStopSchedulesRealTimerTickAndFinalizesNoLfClosingFence",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Stopped)",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.StopKeepsPausedOuterAndNativeSelectionOffsets(table: False)",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.StopKeepsPausedOuterAndNativeSelectionOffsets(table: True)",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Delta)",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Begin)",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.RepeatedStopIsNoOpAndDoesNotScheduleOrInvalidateAgain",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource(source: \"[inert](file:///fixture)\")",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualCoordinatorCancellationPublishesNoStoppedButLocalStopUpdatesActualVersionLabel",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.CompletedBeforeStopKeepsCompletedStatusAndHasNoStopSideEffects",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.ExitingStopDoesNotScheduleNewUiOrMutateRequest",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.NoTaskStopChangesNothingAndCreatesNoFakeStoppedState",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.PendingDeltaUsesOneExistingTimerAndRetainsEveryAcceptedCharacter",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.NoLfTableSeparatorBecomesNativeOnlyAtLocalStopTerminalFlush",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualSnapshotCacheKeepsSelectedOldVersionWhileCurrentGenerationStops",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.TrulyUnclosedFenceKeepsCodeAndDoesNotInventClosingMarker",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource(source: \"**unclosed\")",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource(source: \"a|b\\n---|\")"
+      ]
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r02-fixed-stop.log": {
+      "Bytes": 1823,
+      "Sha256": "0fb8e359fc7227e72f34d9d0b240b4ef36b193f134ba8f9f9c28527805948437",
+      "Original": "artifacts/stop-finalize/r02-fixed-stop.log"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r02-fixed-stop.trx": {
+      "Bytes": 35364,
+      "Sha256": "29345dd5c59751d273745581023789d0d1b2715392b64fb5d880e30f7a732b26",
+      "Original": "artifacts/stop-finalize/r02-fixed-stop.trx",
+      "Counters": {
+        "total": "23",
+        "executed": "23",
+        "passed": "22",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Classes": {
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests": 23
+      },
+      "FailedTests": [
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualSnapshotCacheKeepsSelectedOldVersionWhileCurrentGenerationStops"
+      ]
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r03-cache-diagnostic.log": {
+      "Bytes": 2186,
+      "Sha256": "2c59c8acacc2fab3cea2e0137592afeb41dc251643cf645cbb018154172e517c",
+      "Original": "artifacts/stop-finalize/r03-cache-diagnostic.log"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r03-cache-diagnostic.trx": {
+      "Bytes": 5807,
+      "Sha256": "7d06ec3ee9619618534aa2109dce18e724552d2f51540909c87d4299ea7e2912",
+      "Original": "artifacts/stop-finalize/r03-cache-diagnostic.trx",
+      "Counters": {
+        "total": "1",
+        "executed": "1",
+        "passed": "0",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Classes": {
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests": 1
+      },
+      "FailedTests": [
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualSnapshotCacheKeepsSelectedOldVersionWhileCurrentGenerationStops"
+      ]
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r04-fixture-fixed.log": {
+      "Bytes": 814,
+      "Sha256": "e1c705f3b3bfe287ada9d9827aaf115afb95eadad1667179620aabeef970928e",
+      "Original": "artifacts/stop-finalize/r04-fixture-fixed.log"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r04-fixture-fixed.trx": {
+      "Bytes": 33304,
+      "Sha256": "8b5fbddf21e0a36f3ac45290c4966fc05d3858b8340f65e68a7ee168e078f232",
+      "Original": "artifacts/stop-finalize/r04-fixture-fixed.trx",
+      "Counters": {
+        "total": "23",
+        "executed": "23",
+        "passed": "23",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Classes": {
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests": 23
+      },
+      "FailedTests": []
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r05-expanded-stop.log": {
+      "Bytes": 814,
+      "Sha256": "32e480f63e81268a0f527639425977f64d008e0cf2c28dc4bd250402585fbd88",
+      "Original": "artifacts/stop-finalize/r05-expanded-stop.log"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r05-expanded-stop.trx": {
+      "Bytes": 38834,
+      "Sha256": "fbb9854423e1c52584936ebc177ffb54ebfb60f2f4d4deefc0e49e82b80dbce7",
+      "Original": "artifacts/stop-finalize/r05-expanded-stop.trx",
+      "Counters": {
+        "total": "27",
+        "executed": "27",
+        "passed": "27",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Classes": {
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests": 27
+      },
+      "FailedTests": []
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r06-final-legacy.log": {
+      "Bytes": 14265,
+      "Sha256": "de76131129368aa9e0ceb96d236f1a7a2823941c2c512a713804799bbdba21ca",
+      "Original": "artifacts/stop-finalize/r06-final-legacy.log"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r06-final-legacy.trx": {
+      "Bytes": 67958,
+      "Sha256": "7ec82dd398d51e5346b168f6e78b96385f9d0b15a6312718dc7c1966dd6cde03",
+      "Original": "artifacts/stop-finalize/r06-final-legacy.trx",
+      "Counters": {
+        "total": "28",
+        "executed": "28",
+        "passed": "7",
+        "failed": "21",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Classes": {
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests": 28
+      },
+      "FailedTests": [
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.DrainedStopSchedulesRealTimerTickAndFinalizesNoLfClosingFence",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Delta)",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Begin)",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource(source: \"[inert](file:///fixture)\")",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.EmptyActiveRequestStopsWaitingAndFlushesWithoutCreatingText",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.RepeatedStopIsNoOpAndDoesNotScheduleOrInvalidateAgain",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Complete)",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource(source: \"**unclosed\")",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.ConnectionTestIsNotGenerationAndStopDoesNotCancelIt",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.ExitingStopDoesNotScheduleNewUiOrMutateRequest",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.CompletedBeforeStopKeepsCompletedStatusAndHasNoStopSideEffects",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.NoLfTableSeparatorBecomesNativeOnlyAtLocalStopTerminalFlush",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.StopKeepsPausedOuterAndNativeSelectionOffsets(table: True)",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.NoTaskStopChangesNothingAndCreatesNoFakeStoppedState",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource(source: \"a|b\\n---|\")",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualCoordinatorCancellationPublishesNoStoppedButLocalStopUpdatesActualVersionLabel",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.StopKeepsPausedOuterAndNativeSelectionOffsets(table: False)",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.TrulyUnclosedFenceKeepsCodeAndDoesNotInventClosingMarker",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Stopped)",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualPendingConfirmationStopsWithoutLaunchingOrCreatingAnotherVersion",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.PendingDeltaUsesOneExistingTimerAndRetainsEveryAcceptedCharacter"
+      ]
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r07-provider-final.log": {
+      "Bytes": 812,
+      "Sha256": "e1a18889b3130b62992616f6ddfdea1ed90e46fc0ab9ebda3b028ef3a83d98d1",
+      "Original": "artifacts/stop-finalize/r07-provider-final.log"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r07-provider-final.trx": {
+      "Bytes": 1168285,
+      "Sha256": "727b1034ef7893e216b69f27926e5f35c65d6dac083cf64301ec1377d3ca702a",
+      "Original": "artifacts/stop-finalize/r07-provider-final.trx",
+      "Counters": {
+        "total": "802",
+        "executed": "802",
+        "passed": "802",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Classes": {
+        "KuaiYi.Provider.Tests.AnthropicLifecycleTests": 8,
+        "KuaiYi.Provider.Tests.ApiProfileIntegrationTests": 43,
+        "KuaiYi.Provider.Tests.CompletionBoundaryRaceTests": 44,
+        "KuaiYi.Provider.Tests.ConnectionConsentRegressionTests": 14,
+        "KuaiYi.Provider.Tests.CustomTemplateHttpTests": 24,
+        "KuaiYi.Provider.Tests.DevelopmentBoundaryRegressionTests": 39,
+        "KuaiYi.Provider.Tests.HttpContractTests": 20,
+        "KuaiYi.Provider.Tests.JsonProtocolProgressTests": 6,
+        "KuaiYi.Provider.Tests.LateEventIsolationTests": 20,
+        "KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests": 6,
+        "KuaiYi.Provider.Tests.LegacyTimeoutRedTests": 3,
+        "KuaiYi.Provider.Tests.MarkdownCodeScrollTests": 42,
+        "KuaiYi.Provider.Tests.MarkdownProductionBridgeTests": 6,
+        "KuaiYi.Provider.Tests.MarkdownReviewCorpusTests": 2,
+        "KuaiYi.Provider.Tests.MarkdownTableProductionTests": 6,
+        "KuaiYi.Provider.Tests.MarkdownTableScrollTests": 41,
+        "KuaiYi.Provider.Tests.MarkdownTailFollowTests": 32,
+        "KuaiYi.Provider.Tests.OverlayReaderIntentTests": 6,
+        "KuaiYi.Provider.Tests.OverlayScrollTests": 11,
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests": 28,
+        "KuaiYi.Provider.Tests.PhaseConnectionTests": 4,
+        "KuaiYi.Provider.Tests.PhaseConsumerTests": 3,
+        "KuaiYi.Provider.Tests.PhaseDeadlineTests": 27,
+        "KuaiYi.Provider.Tests.PromptTemplateEditorTests": 13,
+        "KuaiYi.Provider.Tests.ProviderEventReceiverTests": 14,
+        "KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests": 124,
+        "KuaiYi.Provider.Tests.RequestBudgetTests": 7,
+        "KuaiYi.Provider.Tests.RestrictedMarkdownInlineTests": 38,
+        "KuaiYi.Provider.Tests.RestrictedMarkdownTableTests": 41,
+        "KuaiYi.Provider.Tests.RestrictedMarkdownTests": 28,
+        "KuaiYi.Provider.Tests.SessionStyleTests": 27,
+        "KuaiYi.Provider.Tests.SettingsSecretCommandTests": 6,
+        "KuaiYi.Provider.Tests.SseAndProfileTests": 15,
+        "KuaiYi.Provider.Tests.TextTranslationTests": 54
+      },
+      "FailedTests": []
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r08-app-final.log": {
+      "Bytes": 888,
+      "Sha256": "f2c5cd4d5907e9f0e1574a7eb55aaa9e560cae8a1b44d80eddb562eee493d119",
+      "Original": "artifacts/stop-finalize/r08-app-final.log"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r09-final-legacy.log": {
+      "Bytes": 14262,
+      "Sha256": "4d7407585ffa7da10ac3ff30d76591208bcecb4b11749242148b366ca4a962ed",
+      "Original": "artifacts/stop-finalize/r09-final-legacy.log"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r09-final-legacy.trx": {
+      "Bytes": 67958,
+      "Sha256": "29231e72822a16e669b2648ea5a466be63ad8135661197c470d900530c5199cb",
+      "Original": "artifacts/stop-finalize/r09-final-legacy.trx",
+      "Counters": {
+        "total": "28",
+        "executed": "28",
+        "passed": "7",
+        "failed": "21",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Classes": {
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests": 28
+      },
+      "FailedTests": [
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.CompletedBeforeStopKeepsCompletedStatusAndHasNoStopSideEffects",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualCoordinatorCancellationPublishesNoStoppedButLocalStopUpdatesActualVersionLabel",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.EmptyActiveRequestStopsWaitingAndFlushesWithoutCreatingText",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.StopKeepsPausedOuterAndNativeSelectionOffsets(table: False)",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Stopped)",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.DrainedStopSchedulesRealTimerTickAndFinalizesNoLfClosingFence",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.TrulyUnclosedFenceKeepsCodeAndDoesNotInventClosingMarker",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Delta)",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Begin)",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource(source: \"**unclosed\")",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.ExitingStopDoesNotScheduleNewUiOrMutateRequest",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.NoLfTableSeparatorBecomesNativeOnlyAtLocalStopTerminalFlush",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.StopKeepsPausedOuterAndNativeSelectionOffsets(table: True)",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource(source: \"a|b\\n---|\")",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.ConnectionTestIsNotGenerationAndStopDoesNotCancelIt",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.NoTaskStopChangesNothingAndCreatesNoFakeStoppedState",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.RepeatedStopIsNoOpAndDoesNotScheduleOrInvalidateAgain",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource(source: \"[inert](file:///fixture)\")",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Complete)",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.PendingDeltaUsesOneExistingTimerAndRetainsEveryAcceptedCharacter",
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualPendingConfirmationStopsWithoutLaunchingOrCreatingAnotherVersion"
+      ]
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r10-provider-final.log": {
+      "Bytes": 812,
+      "Sha256": "403d1568bf2296ae9acfec455454d00bf5e5164237bb02093dbd3f8abdf31732",
+      "Original": "artifacts/stop-finalize/r10-provider-final.log"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r10-provider-final.trx": {
+      "Bytes": 1168285,
+      "Sha256": "61660867f8be541bc22a2e77b473ba74b0fbcde54eca9b835b3f2f23af5809cd",
+      "Original": "artifacts/stop-finalize/r10-provider-final.trx",
+      "Counters": {
+        "total": "802",
+        "executed": "802",
+        "passed": "802",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Classes": {
+        "KuaiYi.Provider.Tests.AnthropicLifecycleTests": 8,
+        "KuaiYi.Provider.Tests.ApiProfileIntegrationTests": 43,
+        "KuaiYi.Provider.Tests.CompletionBoundaryRaceTests": 44,
+        "KuaiYi.Provider.Tests.ConnectionConsentRegressionTests": 14,
+        "KuaiYi.Provider.Tests.CustomTemplateHttpTests": 24,
+        "KuaiYi.Provider.Tests.DevelopmentBoundaryRegressionTests": 39,
+        "KuaiYi.Provider.Tests.HttpContractTests": 20,
+        "KuaiYi.Provider.Tests.JsonProtocolProgressTests": 6,
+        "KuaiYi.Provider.Tests.LateEventIsolationTests": 20,
+        "KuaiYi.Provider.Tests.LegacyPhaseDeadlineReplayTests": 6,
+        "KuaiYi.Provider.Tests.LegacyTimeoutRedTests": 3,
+        "KuaiYi.Provider.Tests.MarkdownCodeScrollTests": 42,
+        "KuaiYi.Provider.Tests.MarkdownProductionBridgeTests": 6,
+        "KuaiYi.Provider.Tests.MarkdownReviewCorpusTests": 2,
+        "KuaiYi.Provider.Tests.MarkdownTableProductionTests": 6,
+        "KuaiYi.Provider.Tests.MarkdownTableScrollTests": 41,
+        "KuaiYi.Provider.Tests.MarkdownTailFollowTests": 32,
+        "KuaiYi.Provider.Tests.OverlayReaderIntentTests": 6,
+        "KuaiYi.Provider.Tests.OverlayScrollTests": 11,
+        "KuaiYi.Provider.Tests.OverlayStopFlowTests": 28,
+        "KuaiYi.Provider.Tests.PhaseConnectionTests": 4,
+        "KuaiYi.Provider.Tests.PhaseConsumerTests": 3,
+        "KuaiYi.Provider.Tests.PhaseDeadlineTests": 27,
+        "KuaiYi.Provider.Tests.PromptTemplateEditorTests": 13,
+        "KuaiYi.Provider.Tests.ProviderEventReceiverTests": 14,
+        "KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests": 124,
+        "KuaiYi.Provider.Tests.RequestBudgetTests": 7,
+        "KuaiYi.Provider.Tests.RestrictedMarkdownInlineTests": 38,
+        "KuaiYi.Provider.Tests.RestrictedMarkdownTableTests": 41,
+        "KuaiYi.Provider.Tests.RestrictedMarkdownTests": 28,
+        "KuaiYi.Provider.Tests.SessionStyleTests": 27,
+        "KuaiYi.Provider.Tests.SettingsSecretCommandTests": 6,
+        "KuaiYi.Provider.Tests.SseAndProfileTests": 15,
+        "KuaiYi.Provider.Tests.TextTranslationTests": 54
+      },
+      "FailedTests": []
+    }
+  },
+  "Preservation": {
+    "Workflows": {
+      "Count": 8,
+      "BytesEqualToBase": true
+    },
+    "DependencyLocks": {
+      "Count": 43,
+      "BytesEqualToBase": true
+    },
+    "ExistingEvidence": {
+      "Count": 1581,
+      "BytesEqualToBase": true
+    },
+    "CoreProductionFiles": {
+      "Count": 45,
+      "BytesEqualToBase": true
+    },
+    "OtherTrackedFiles": {
+      "Count": 2312,
+      "BytesEqualToBase": true
+    }
+  },
+  "ExistingChangedPaths": [
+    ".gitattributes",
+    "docs/progress.md",
+    "src/KuaiYi.App/OverlayPresentation.cs",
+    "src/KuaiYi.App/TranslationFlow.cs",
+    "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+    "tests/KuaiYi.Provider.Tests/OverlayScrollPorts.cs"
+  ],
+  "R09FixedSourceRestoredAndMatchesFinal": true,
+  "ActualTests": {
+    "FinalReceipt": "r10-provider-final.trx",
+    "ProviderPassed": 802,
+    "Failed": 0,
+    "Skipped": 0,
+    "Baseline774TestNameMultisetExactSubset": true,
+    "AddedTestNameMultisetExactlyFinal28RegressionCases": true,
+    "NewLinkedProductionStopCases": 28,
+    "FinalRelatedSubset": 281,
+    "FinalSameFixtureLegacy": {
+      "Receipt": "r09-final-legacy.trx",
+      "Passed": 7,
+      "Failed": 21,
+      "FixtureTimeouts": 0,
+      "Source": "Only StopResult restored from exact parent; EXIT restored final bytes"
+    },
+    "AppReleaseCrossBuild": {
+      "Receipt": "r08-app-final.log",
+      "Warnings": 0,
+      "Errors": 0,
+      "ProductionSourcesUnchangedThroughFinalTests": true
+    },
+    "FullCoreTestsProject": "NotRun",
+    "Scope": "Linked production Stop/Receiver/Apply/timer tick/Flush/label/Markdown/reading code; explicit Linux UI data ports, no WPF geometry or timing acceptance"
+  },
+  "Implementation": {
+    "NoTask": "Exit or !Gate.HasRunningGeneration -> return; excludes connection tests, includes pending confirmation reservation",
+    "StopOrder": "Gate.StopGeneration -> OverlayResults.MarkStopped -> clear pendingReveal and wait/progress -> real RefreshResultLabel -> dirty and original flush if not already enabled",
+    "Finalization": "Existing FlushResult reads current selected version and existing RefreshMarkdown terminal Complete||Stopped",
+    "Unchanged": "Non-Stop moved methods exact; original 50ms timer; raw copy/source, coalescing, stable blocks, selected version, retention, reader intent, collapse and all safety guards",
+    "NoSecondStateMachine": true,
+    "TimerTick": "Original lambda body moved to named FlushResultTick; UI port fires same handler"
+  },
+  "FailureRecords": [
+    {
+      "Receipt": "r01-legacy-stop.trx",
+      "Passed": 3,
+      "Failed": 20,
+      "ProductionAssertionFailures": 19,
+      "SyntheticFixtureTimeouts": 1,
+      "Explanation": "Legacy Stop did not schedule final flush/refresh label or no-op on no task; separate second-generation synthetic connection wait timeout"
+    },
+    {
+      "Receipt": "r02-fixed-stop.trx",
+      "Passed": 22,
+      "Failed": 1,
+      "SyntheticFixtureTimeouts": 1,
+      "Explanation": "Same cache fixture second generation wait; not another Stop regression"
+    },
+    {
+      "Receipt": "r03-cache-diagnostic.trx",
+      "Passed": 0,
+      "Failed": 1,
+      "Explanation": "Version2 Begin observed, Running incomplete, connector not entered; real network/pool root cause not proven"
+    },
+    {
+      "Correction": "Only synthetic connector infinite wait linked to current RuntimeGate request cancellation token; releases own local wait without socket. No production HTTP change, no server/HTTP cancellation latency claim",
+      "After": "r04 23/23; r05 expanded27/27"
+    },
+    {
+      "Receipt": "r06-final-legacy.trx",
+      "Passed": 7,
+      "Failed": 21,
+      "Explanation": "Pre-render-assertion same28 regression; retained with r07 full802 as intermediate receipts"
+    },
+    {
+      "Receipt": "r09-final-legacy.trx",
+      "Passed": 7,
+      "Failed": 21,
+      "Explanation": "Final same28 assertion-only regression; r10 fixed full802 pass"
+    }
+  ],
+  "CurrentReceiptProvenance": {
+    "RawCopies": 19,
+    "UniqueNewNames": true,
+    "StdoutNoclobberAndPrecheck": true,
+    "CurrentBatchOverwrites": 0,
+    "R06AndR09OwnedBackupsMatchFinalFlow": true,
+    "PriorFrozenFirstExecution": "Unknown",
+    "PriorFrozenPreOverwriteBytes": "Unknown, not preserved; current warning and diagnostic preserved, no reconstruction"
+  },
+  "TransportFixture": {
+    "Real": "TextTranslationCoordinator, ProviderClient, RuntimeGate, snapshots/cache and production UI partials",
+    "Synthetic": "AuthNone public.invalid/no socket connector, fixed public source and presentation delta, immediate context",
+    "RealModelsOrSecrets": false,
+    "CancellationScope": "Request gate cancels fixture local infinite wait; no real Sockets/HTTP/server timing claim"
+  },
+  "Review": {
+    "Agent": "/root/inline_review",
+    "Status": "Final frozen read-only audit passed; no production blocking findings",
+    "SourceManifestSha256": "eb8d7d17d29f039f72d3c5d5d1ffbfa869bbfb56ebd1a2e29c875435a6033815",
+    "SdkActionsWindowsCalls": 0,
+    "Verified": [
+      "32 source/test hashes and manifest",
+      "Final same28 r09 legacy7/28 assertion failures versus fixed r10 full802/802; exact774 baseline test-name preservation plus28",
+      "Related281 and App cross-build0 warnings/errors",
+      "35 new raw copies, old7 and earlier36 receipts exact hashes/bytes;35 exact -text rules",
+      "Exact method migration and minimal Stop behavior with current selected version/reading/late gates",
+      "8 workflows/43 locks/1581 old evidence/45 Core and other2312 existing files byte-identical",
+      "47 staged paths equal working bytes; cached diff check passed",
+      "All fixture failures and prior frozen pre-overwrite Unknown preserved; WPF/UI/HTTP and full-stage limits accurate"
+    ]
+  },
+  "NotRun": [
+    "Real WPF measure/font metrics/wrapping/scrollbar geometry",
+    "Real WPF selection/system clipboard/reading position/Loaded/routed input",
+    "UI p95 and real HTTP/server cancellation latency",
+    "Windows B12/B06/B07, full P2-04 and full SPEC11.5",
+    "Full Core.Tests project"
+  ],
+  "Safety": {
+    "Capture250_600msAndSourcePasswordIntegrityCancellationCleanupGates": "Unchanged",
+    "ProductionOfflineReuse": "Off",
+    "CoreProductionByteIdentical": true,
+    "NewDependencies": 0,
+    "ActionsQueries": 0,
+    "ActionsDispatches": 0,
+    "ActionsRemoteCount": "Unknown; previous Forbidden respected, no alternate route",
+    "WindowsCmakeProbesRun": 0,
+    "NewWindowsCi": false,
+    "RealModelCalls": 0,
+    "MainChanged": false,
+    "ForcePushDeployFeesCredentialsPermissionsNewAgreements": false
+  },
+  "Certificate": {
+    "DOTNET_GENERATE_ASPNET_CERTIFICATE": "false explicitly every dotnet command plus export",
+    "StoreAndTrust": "Unknown",
+    "ReadStoreConfigurationTrustDelete": false,
+    "PromptInCurrentLogs": false
+  },
+  "PriorKnownGap": "70c03a5 KnownNextProductionGap Stop rendering/label fixed here; original evidence unchanged; no full-stage pass claimed",
+  "ReceiptByteAttributes": {
+    "NewExactPaths": 35,
+    "WildcardRulesAdded": false
+  },
+  "ValidationDocument": "docs/validation/overlay-stop-finalize.md"
+}

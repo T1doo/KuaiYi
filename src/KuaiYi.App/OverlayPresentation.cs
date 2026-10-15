@@ -42,8 +42,6 @@ internal sealed partial class ShellWindow
         get{if(!button.IsVisible||button.ActualWidth<=0)return null;Point first=button.PointToScreen(new Point(0,0)),last=button.PointToScreen(new Point(button.ActualWidth,button.ActualHeight));return new((int)Math.Round(first.X),(int)Math.Round(first.Y),(int)Math.Round(last.X),(int)Math.Round(last.Y));}
     }
     internal Task PresentationStartup=>startup;
-    internal Task<bool> ReceivePresentationAsync(RequestIdentity identity,OverlayResultEvent update,CancellationToken cancellation=default)
-        =>presentationReceiver.ReceiveAsync(identity,update,value=>ApplyResult(identity,value),cancellation);
     private void SetupPresentation()
     {
         overlayResults=new(lifecycle.Gate);presentationReceiver=new(lifecycle.Gate,new DispatcherSynchronizationContext(Dispatcher));
@@ -69,7 +67,7 @@ internal sealed partial class ShellWindow
         MouseLeave+=(_,_)=>{peekIn.Stop();if(peek)peekOut.Start();};
         peekIn.Tick+=(_,_)=>{peekIn.Stop();if(!externalDropHover&&!gesture.Active&&IsMouseOver&&lifecycle.Gate.TryPeek(true)){peek=true;overlayFrames?.OpenToolbar();StartFrames();}};
         peekOut.Tick+=(_,_)=>{peekOut.Stop();if(!externalDropHover&&peek&&!IsMouseOver&&!IsKeyboardFocusWithin&&!overflowMenu.IsOpen&&button.ContextMenu?.IsOpen!=true&&lifecycle.Gate.TryPeek(false)){peek=false;overlayFrames?.Collapse();StartFrames();}};
-        flush.Tick+=(_,_)=>{flush.Stop();FlushResult();};
+        flush.Tick+=FlushResultTick;
         waiting.Tick+=(_,_)=>{waiting.Stop();if(overlayResults.Identity is {} id&&lifecycle.Gate.CanApply(id)&&!overlayResults.HasText&&!gesture.Active&&lifecycle.Gate.TryRevealDelta(id)){peek=true;overlayFrames?.OpenToolbar();button.ToolTip=connectionStatus.Text;StartFrames();}};
     }
     private void UpdateButtonGlyph(bool on)
@@ -79,7 +77,6 @@ internal sealed partial class ShellWindow
             Data=Geometry.Parse(on?"M 2,1 L 8,1 L 8,19 L 2,19 Z M 12,1 L 18,1 L 18,19 L 12,19 Z":"M 4,1 L 18,10 L 4,19 Z")};button.Content=glyph;
         if(SystemParameters.HighContrast)button.Background=SystemColors.HighlightBrush;
     }
-    private LayoutPreferences Preferences()=>new(lifecycle.Settings?.Data.Overlay.PreferredWidthDip??420,640);
     private bool ReduceMotion=>lifecycle.Settings?.Data.Overlay.ReduceMotion==MotionPreference.Reduce||lifecycle.Settings?.Data.Overlay.ReduceMotion!=MotionPreference.Full&&!SystemParameters.ClientAreaAnimation;
     private void RefreshPresentationTheme()
     {
@@ -87,43 +84,6 @@ internal sealed partial class ShellWindow
         if(lifecycle.Settings?.Data.Overlay.Theme is null or ThemePreference.FollowSystem){try{dark=Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize","AppsUseLightTheme",1) is int value&&value==0;}catch(Exception error)when(error is System.Security.SecurityException or UnauthorizedAccessException or System.IO.IOException){Report("系统主题读取失败",error);}}
         cardBackground.Background=SystemParameters.HighContrast?SystemColors.WindowBrush:dark?OverlayTokens.Dark:Brushes.White;body.Foreground=SystemParameters.HighContrast?SystemColors.WindowTextBrush:dark?Brushes.WhiteSmoke:Brushes.Black;measurement.Foreground=body.Document.Foreground=measurement.Document.Foreground=body.Foreground;connectionStatus.Foreground=resultLabel.Foreground=body.Foreground;
         bodyMarkdown.RefreshCodeAppearance();measurementMarkdown.RefreshCodeAppearance();
-    }
-    private void ApplyResult(RequestIdentity identity,OverlayResultEvent value,bool alreadyApplied=false)
-    {
-        if(exiting)return;
-        switch(value.Kind)
-        {
-            case OverlayResultEventKind.Begin:
-                if(!alreadyApplied&&!overlayResults.Begin(identity))return;resultRevision++;ResetBodyReaderFollow();dirty=true;peek=false;pendingReveal=false;awaitingText=true;progressRing.Visibility=Visibility.Visible;if(!gesture.Active)overlayFrames?.Collapse();StartFrames();waiting.Stop();waiting.Start();Dispatcher.BeginInvoke(()=>{if(!exiting)Refresh();});break;
-            case OverlayResultEventKind.Delta:
-                if(!alreadyApplied&&!overlayResults.Append(identity,value.Text))return;dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();
-                if(overlayResults.TryAutoReveal(identity)&&(peek||overlayFrames?.IsExpanded!=true))pendingReveal=true;break;
-            case OverlayResultEventKind.Complete:
-                if(!alreadyApplied&&!overlayResults.Complete(identity))return;dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();break;
-            case OverlayResultEventKind.Stopped:if(!alreadyApplied)overlayResults.MarkStopped();dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();break;
-            default:throw new ArgumentOutOfRangeException(nameof(value));
-        }
-        if(dirty&&!flush.IsEnabled)flush.Start();
-    }
-    private int MeasureBody(LayoutPlan plan)
-    {
-        if(overlayFrames==null)return 48;
-        bool hasLabel=resultLabel.Text.Length>0;
-        return plan.Dpi.CeilingPixels(48+32+(hasLabel?20:0)+MeasureMarkdown(plan,hasLabel));
-    }
-    private void OpenBody(){if(overlayFrames==null)return;overlayFrames.OpenMeasured(Preferences(),MeasureBody);dirty=true;if(!flush.IsEnabled)flush.Start();StartFrames();}
-    private void FlushResult()
-    {
-        if(!dirty||exiting)return;dirty=false;
-        double offset=body.VerticalOffset;RefreshMarkdown(renderBody:true);bool bottom=follow;
-        newContent.Visibility=!bottom&&overlayResults.HasText?Visibility.Visible:Visibility.Collapsed;
-        ScheduleBodyScrollRestore(bottom,offset);
-        if(overlayFrames!=null&&!gesture.Active&&overlayFrames.Transition!=OverlayTransition.Moving)
-        {
-            if(pendingReveal&&overlayResults.Identity is {} id&&overlayResults.TryAutoReveal(id)){pendingReveal=false;peek=false;OpenBody();}
-            else if(overlayFrames.IsExpanded&&!peek&&overlayFrames.Plan is {} plan){overlayFrames.Grow(MeasureBody(plan));StartFrames();}
-        }
-        ApplyOverlayFrame();
     }
     private void ReopenResult(){if(!IsVisible)ShowOverlay();if(overlayResults.Reopen()){peek=false;OpenBody();}}
     private void PresentationMenuClosed(){if(peek&&!IsMouseOver&&!exiting)peekOut.Start();}
@@ -142,8 +102,6 @@ internal sealed partial class ShellWindow
         var currentSettings=new MenuItem{Header=RegenerationMenuLabel(true),IsEnabled=lifecycle.Gate.Snapshot.Activation==Activation.On&&translation?.SelectedSnapshot!=null};currentSettings.Click+=(_,_)=>RegenerateResult(true);overflowMenu.Items.Add(currentSettings);
         overflowMenu.PlacementTarget=target;overflowMenu.IsOpen=true;
     }
-    private void CollapseResult(){InvalidateBodyScrollRestore();peek=false;pendingReveal=false;peekIn.Stop();peekOut.Stop();waiting.Stop();overlayResults.Collapse();overlayFrames?.Collapse();StartFrames();}
-    private void StopResult(){lifecycle.Gate.StopGeneration();overlayResults.MarkStopped();awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();button.ToolTip="已停止生成 · 结果保留在本次会话";}
     private void CopyResult(){if(!overlayResults.HasText)return;try{Clipboard.SetText(overlayResults.Text);}catch(Exception error){Report("复制失败",error);}}
     private void StopPresentation(){overlayResults.MarkStopped();awaitingText=false;progressRing.Visibility=Visibility.Collapsed;CollapseResult();}
     private void HidePresentation(bool clear)

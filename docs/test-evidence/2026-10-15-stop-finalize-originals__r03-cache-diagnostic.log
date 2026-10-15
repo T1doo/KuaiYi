@@ -1,0 +1,21 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:05.47]     KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualSnapshotCacheKeepsSelectedOldVersionWhileCurrentGenerationStops [FAIL]
+  Failed KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualSnapshotCacheKeepsSelectedOldVersionWhileCurrentGenerationStops [5 s]
+  Error Message:
+   System.InvalidOperationException : Synthetic connector did not enter version 2; running completed=False; updates=1:Begin:,2:Begin:
+---- System.TimeoutException : The operation has timed out.
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayStopFlowTests.RealCoordinatorRig.Start(Boolean regenerate, String source) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 122
+   at KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualSnapshotCacheKeepsSelectedOldVersionWhileCurrentGenerationStops() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 135
+   at KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualSnapshotCacheKeepsSelectedOldVersionWhileCurrentGenerationStops() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 136
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at KuaiYi.Provider.Tests.OverlayStopFlowTests.RealCoordinatorRig.Start(Boolean regenerate, String source) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 121
+Results File: /workspace/KuaiYi/artifacts/stop-finalize/r03-cache-diagnostic.trx
+
+Failed!  - Failed:     1, Passed:     0, Skipped:     0, Total:     1, Duration: 5 s - KuaiYi.Provider.Tests.dll (net10.0)

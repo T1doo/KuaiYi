@@ -661,3 +661,11 @@ AccountingV1准备实际验证完成：独立来源5项通过，真实浅clone21
 按SPEC4.6/B06优先修实际“有新内容只滚外层”缺口：唯一末尾代码/表格接全局follow与原局部24DIP判断、明确跟随、首次Loaded，保选区/H偏移和暂停阅读；多次追加合并、输入/版本/锁屏退出清空迟到门保持。独审补主题重载one-shot、incoming表尾提升和失去尾资格时降级原锚点恢复。最终Provider774/774=前740+32生产跟随+2语料，App/GrowthHarness交叉build各0W/E；保留247/248生产失败、772/774语料误用及各中间回执。冻结通道断连后同名TRX覆盖警告保留，首次执行/覆盖前字节Unknown且未保全，不补造；七原回执不受影响。
 
 原生准备只扩既有Production ShellWindow工具的固定合成--actual-markdown入口，保存与源码SHA一致的公开语料并更新Windows清单；无新外围工具/CI/抓取/模型/凭据或加载入口。Linux缺WindowsDesktop，WPF真实横滚/测量/选择/阅读锚点/路由/剪贴板均NotRun，B12/P2-04仍未完成；Stop终态Flush/标签缺口明确留后续。8workflow/43锁/1571旧证据与45Core生产文件原字节、安全门/250/600ms/离线Off保持；Actions停止查询CIUnknown，dotnet显式false、证书Unknown且不读不改。见[本轮说明与失败边界](validation/overlay-tail-follow.md)及[固定证据](test-evidence/2026-10-15-overlay-tail-follow.json)。
+
+### 2026-10-15 Stop终态Flush与真实版本标签
+
+从已接收70c03a5f2d40d294ff04a3bdd9396526bf77cb7e核文件/单写入者/默认网络/HEAD和远端祖先后建立dev/overlay-stop-finalize，补上批明确留下的生产缺口：主动取消不发Stopped，原Stop没有dirty/Flush/标签更新。现原Stop先取消门控，标停止并清等待/自动展开，刷新真实所选版本标签，复用原50ms合并刷新；无任务/重复/已完成时无操作，不改阅读/收起/三版本与迟到门。为直接测试，原Apply/Flush/标签逐段精确迁移到链接的正式partial，不增第二套状态机。
+
+最终相同28专项旧Stop7通过/21断言失败，修后完整Provider802/802=前774+新28，相关281；App Release交叉构建0W/E。覆盖排空/待刷、围栏/表格终态、未闭保文、空结果、取消不发事件、真实缓存标签、Stop排队前后版本切换的实际render、确认保留/连接测试边界、收起和阅读选区偏移。原r01的19生产失败+1夹具超时及r02/03夹具超时分开保留，仅修夹具自身等待的取消释放，不宣称真实HTTP/服务端时限。独审与实际回执见[修复说明](validation/overlay-stop-finalize.md)及[固定证据](test-evidence/2026-10-15-overlay-stop-finalize.json)。
+
+前批16份现存原回执及本批19份成功/失败log/TRX复制唯一受-text保护路径持久提交；旧七份保持，前批frozen覆盖前字节Unknown/未保全不回填。8workflow/43锁/1581旧证据与45Core生产文件原字节，250/600ms及全部安全门/生产离线Off保持。WPF排版/选择/阅读位置/路由、取消时限和B组仍NotRun，P2-04/完整11.5未完成。Actions不查询不绕Forbidden、CIUnknown；dotnet显式false，证书Unknown且不读不改；无Windows/CMake实验、main/强推/部署/新依赖/凭据费用权限协议或真实模型。

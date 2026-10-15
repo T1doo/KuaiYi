@@ -1,0 +1,29 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:01.84]     KuaiYi.Provider.Tests.MarkdownReviewCorpusTests.FixedReviewInputUsesActualIncrementalParserAcrossStreamingChunksWithoutLosingSource [FAIL]
+[xUnit.net 00:00:01.84]     KuaiYi.Provider.Tests.MarkdownReviewCorpusTests.FixedReviewInputFitsExistingBoundsAndContainsRealNativeCodeAndTableModels [FAIL]
+  Failed KuaiYi.Provider.Tests.MarkdownReviewCorpusTests.FixedReviewInputUsesActualIncrementalParserAcrossStreamingChunksWithoutLosingSource [64 ms]
+  Error Message:
+   Assert.IsType() Failure: Value is null
+Expected: typeof(KuaiYi.Core.MarkdownTable)
+Actual:   null
+  Stack Trace:
+     at KuaiYi.Provider.Tests.MarkdownReviewCorpusTests.FixedReviewInputUsesActualIncrementalParserAcrossStreamingChunksWithoutLosingSource() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/MarkdownReviewCorpusTests.cs:line 18
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  Failed KuaiYi.Provider.Tests.MarkdownReviewCorpusTests.FixedReviewInputFitsExistingBoundsAndContainsRealNativeCodeAndTableModels [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Table
+Actual:   Plain
+  Stack Trace:
+     at KuaiYi.Provider.Tests.MarkdownReviewCorpusTests.FixedReviewInputFitsExistingBoundsAndContainsRealNativeCodeAndTableModels() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/MarkdownReviewCorpusTests.cs:line 11
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+Results File: /workspace/KuaiYi/artifacts/tail-follow/provider-corpus-final.trx
+
+Failed!  - Failed:     2, Passed:   772, Skipped:     0, Total:   774, Duration: 3 s - KuaiYi.Provider.Tests.dll (net10.0)

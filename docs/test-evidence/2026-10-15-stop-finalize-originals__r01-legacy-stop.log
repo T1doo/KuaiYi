@@ -1,0 +1,191 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.42]     KuaiYi.Provider.Tests.OverlayStopFlowTests.ExitingStopDoesNotScheduleNewUiOrMutateRequest [FAIL]
+[xUnit.net 00:00:00.44]     KuaiYi.Provider.Tests.OverlayStopFlowTests.TrulyUnclosedFenceKeepsCodeAndDoesNotInventClosingMarker [FAIL]
+[xUnit.net 00:00:00.44]     KuaiYi.Provider.Tests.OverlayStopFlowTests.RepeatedStopIsNoOpAndDoesNotScheduleOrInvalidateAgain [FAIL]
+  Failed KuaiYi.Provider.Tests.OverlayStopFlowTests.ExitingStopDoesNotScheduleNewUiOrMutateRequest [26 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: 1
+Actual:   2
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayStopFlowTests.ExitingStopDoesNotScheduleNewUiOrMutateRequest() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 98
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OverlayStopFlowTests.TrulyUnclosedFenceKeepsCodeAndDoesNotInventClosingMarker [2 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayStopFlowTests.TrulyUnclosedFenceKeepsCodeAndDoesNotInventClosingMarker() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 55
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OverlayStopFlowTests.RepeatedStopIsNoOpAndDoesNotScheduleOrInvalidateAgain [< 1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: 2
+Actual:   3
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayStopFlowTests.RepeatedStopIsNoOpAndDoesNotScheduleOrInvalidateAgain() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 63
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:05.52]     KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualSnapshotCacheKeepsSelectedOldVersionWhileCurrentGenerationStops [FAIL]
+  Failed KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualSnapshotCacheKeepsSelectedOldVersionWhileCurrentGenerationStops [5 s]
+  Error Message:
+   System.TimeoutException : The operation has timed out.
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayStopFlowTests.RealCoordinatorRig.Start(Boolean regenerate, String source) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 120
+   at KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualSnapshotCacheKeepsSelectedOldVersionWhileCurrentGenerationStops() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 132
+   at KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualSnapshotCacheKeepsSelectedOldVersionWhileCurrentGenerationStops() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 133
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:05.53]     KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Begin) [FAIL]
+[xUnit.net 00:00:05.53]     KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Stopped) [FAIL]
+[xUnit.net 00:00:05.53]     KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Complete) [FAIL]
+[xUnit.net 00:00:05.54]     KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Delta) [FAIL]
+[xUnit.net 00:00:05.54]     KuaiYi.Provider.Tests.OverlayStopFlowTests.EmptyActiveRequestStopsWaitingAndFlushesWithoutCreatingText [FAIL]
+[xUnit.net 00:00:05.56]     KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualCoordinatorCancellationPublishesNoStoppedButLocalStopUpdatesActualVersionLabel [FAIL]
+[xUnit.net 00:00:05.57]     KuaiYi.Provider.Tests.OverlayStopFlowTests.StopKeepsPausedOuterAndNativeSelectionOffsets(table: True) [FAIL]
+[xUnit.net 00:00:05.57]     KuaiYi.Provider.Tests.OverlayStopFlowTests.StopKeepsPausedOuterAndNativeSelectionOffsets(table: False) [FAIL]
+[xUnit.net 00:00:05.58]     KuaiYi.Provider.Tests.OverlayStopFlowTests.PendingDeltaUsesOneExistingTimerAndRetainsEveryAcceptedCharacter [FAIL]
+  Failed KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Begin) [6 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(OverlayResultEventKind kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 76
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Stopped) [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(OverlayResultEventKind kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 76
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Complete) [1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(OverlayResultEventKind kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 76
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Delta) [6 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(OverlayResultEventKind kind) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 76
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OverlayStopFlowTests.EmptyActiveRequestStopsWaitingAndFlushesWithoutCreatingText [< 1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayStopFlowTests.EmptyActiveRequestStopsWaitingAndFlushesWithoutCreatingText() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 59
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualCoordinatorCancellationPublishesNoStoppedButLocalStopUpdatesActualVersionLabel [10 ms]
+  Error Message:
+   Assert.StartsWith() Failure: String start does not match
+String:         "生成版本 1 · 忠实翻译 · 选区 · TEST_ONLY_STOP_MODEL"
+Expected start: "版本 1"
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualCoordinatorCancellationPublishesNoStoppedButLocalStopUpdatesActualVersionLabel() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 127
+   at KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualCoordinatorCancellationPublishesNoStoppedButLocalStopUpdatesActualVersionLabel() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 127
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OverlayStopFlowTests.StopKeepsPausedOuterAndNativeSelectionOffsets(table: True) [16 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayStopFlowTests.StopKeepsPausedOuterAndNativeSelectionOffsets(Boolean table) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 92
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OverlayStopFlowTests.StopKeepsPausedOuterAndNativeSelectionOffsets(table: False) [< 1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayStopFlowTests.StopKeepsPausedOuterAndNativeSelectionOffsets(Boolean table) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 92
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OverlayStopFlowTests.PendingDeltaUsesOneExistingTimerAndRetainsEveryAcceptedCharacter [4 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayStopFlowTests.PendingDeltaUsesOneExistingTimerAndRetainsEveryAcceptedCharacter() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 41
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:05.58]     KuaiYi.Provider.Tests.OverlayStopFlowTests.UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource(source: "a|b\n---|") [FAIL]
+[xUnit.net 00:00:05.58]     KuaiYi.Provider.Tests.OverlayStopFlowTests.UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource(source: "**unclosed") [FAIL]
+[xUnit.net 00:00:05.58]     KuaiYi.Provider.Tests.OverlayStopFlowTests.UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource(source: "[inert](file:///fixture)") [FAIL]
+[xUnit.net 00:00:05.58]     KuaiYi.Provider.Tests.OverlayStopFlowTests.NoLfTableSeparatorBecomesNativeOnlyAtLocalStopTerminalFlush [FAIL]
+[xUnit.net 00:00:05.60]     KuaiYi.Provider.Tests.OverlayStopFlowTests.NoTaskStopChangesNothingAndCreatesNoFakeStoppedState [FAIL]
+[xUnit.net 00:00:05.61]     KuaiYi.Provider.Tests.OverlayStopFlowTests.CompletedBeforeStopKeepsCompletedStatusAndHasNoStopSideEffects [FAIL]
+  Failed KuaiYi.Provider.Tests.OverlayStopFlowTests.UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource(source: "a|b\n---|") [< 1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayStopFlowTests.UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource(String source) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 46
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OverlayStopFlowTests.UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource(source: "**unclosed") [< 1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayStopFlowTests.UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource(String source) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 46
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OverlayStopFlowTests.UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource(source: "[inert](file:///fixture)") [< 1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayStopFlowTests.UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource(String source) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 46
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OverlayStopFlowTests.NoLfTableSeparatorBecomesNativeOnlyAtLocalStopTerminalFlush [2 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayStopFlowTests.NoLfTableSeparatorBecomesNativeOnlyAtLocalStopTerminalFlush() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 50
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OverlayStopFlowTests.NoTaskStopChangesNothingAndCreatesNoFakeStoppedState [< 1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: 0
+Actual:   1
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayStopFlowTests.NoTaskStopChangesNothingAndCreatesNoFakeStoppedState() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 67
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  Failed KuaiYi.Provider.Tests.OverlayStopFlowTests.CompletedBeforeStopKeepsCompletedStatusAndHasNoStopSideEffects [1 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: 1
+Actual:   2
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayStopFlowTests.CompletedBeforeStopKeepsCompletedStatusAndHasNoStopSideEffects() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 71
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:05.61]     KuaiYi.Provider.Tests.OverlayStopFlowTests.DrainedStopSchedulesRealTimerTickAndFinalizesNoLfClosingFence [FAIL]
+  Failed KuaiYi.Provider.Tests.OverlayStopFlowTests.DrainedStopSchedulesRealTimerTickAndFinalizesNoLfClosingFence [< 1 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OverlayStopFlowTests.DrainedStopSchedulesRealTimerTickAndFinalizesNoLfClosingFence() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 35
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/stop-finalize/r01-legacy-stop.trx
+
+Failed!  - Failed:    20, Passed:     3, Skipped:     0, Total:    23, Duration: 5 s - KuaiYi.Provider.Tests.dll (net10.0)

@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="95b3b7f6-d371-40d1-8a23-70c22ef6384d" name="@68e6e3cca8ba 2026-10-15 17:41:27" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-15T17:41:27.1651603+00:00" queuing="2026-10-15T17:41:27.1651604+00:00" start="2026-10-15T17:41:25.3286100+00:00" finish="2026-10-15T17:41:31.3087280+00:00" />
+  <TestSettings name="default" id="b28eb128-2f53-4bc8-8cee-93ee9c8b0f1e">
+    <Deployment runDeploymentRoot="_68e6e3cca8ba_2026-10-15_17_41_27" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="54658cdd-9952-4778-93ac-2be71001d81c" testId="dabf3138-69d2-21aa-3ca6-14d1cc267ac9" testName="KuaiYi.Provider.Tests.OverlayStopFlowTests.NoTaskStopChangesNothingAndCreatesNoFakeStoppedState" computerName="68e6e3cca8ba" duration="00:00:00.0009484" startTime="2026-10-15T17:41:31.2405223+00:00" endTime="2026-10-15T17:41:31.2413271+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="54658cdd-9952-4778-93ac-2be71001d81c" />
+    <UnitTestResult executionId="ad933e0e-bbbf-4412-a4d9-2d7eabc11b93" testId="4d9a32b0-985f-eb29-4682-4796f868e0dd" testName="KuaiYi.Provider.Tests.OverlayStopFlowTests.EmptyActiveRequestStopsWaitingAndFlushesWithoutCreatingText" computerName="68e6e3cca8ba" duration="00:00:00.0016218" startTime="2026-10-15T17:41:31.1855184+00:00" endTime="2026-10-15T17:41:31.1867453+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ad933e0e-bbbf-4412-a4d9-2d7eabc11b93" />
+    <UnitTestResult executionId="3a905967-feb7-4553-a710-745bf20bf947" testId="4ade6e12-9c95-e3a7-fbc8-0964c999ff45" testName="KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualCoordinatorCancellationPublishesNoStoppedButLocalStopUpdatesActualVersionLabel" computerName="68e6e3cca8ba" duration="00:00:00.0128452" startTime="2026-10-15T17:41:31.1868795+00:00" endTime="2026-10-15T17:41:31.2001468+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3a905967-feb7-4553-a710-745bf20bf947" />
+    <UnitTestResult executionId="9c5386e3-bf04-4acd-bb64-e068a7747279" testId="f3701609-f439-c590-91e2-8cbf7b564c0e" testName="KuaiYi.Provider.Tests.OverlayStopFlowTests.StopPreservesCollapsedAndExpandedGeometryWithoutAutoReveal(collapsed: False)" computerName="68e6e3cca8ba" duration="00:00:00.0004207" startTime="2026-10-15T17:41:31.2400850+00:00" endTime="2026-10-15T17:41:31.2402134+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9c5386e3-bf04-4acd-bb64-e068a7747279" />
+    <UnitTestResult executionId="7c4653d3-b01e-4db0-b398-7cd58b63cf87" testId="05c14ba2-0910-d095-d828-2285bd89b4d0" testName="KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Complete)" computerName="68e6e3cca8ba" duration="00:00:00.0006806" startTime="2026-10-15T17:41:31.1843865+00:00" endTime="2026-10-15T17:41:31.1844531+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7c4653d3-b01e-4db0-b398-7cd58b63cf87" />
+    <UnitTestResult executionId="5a82c7cf-8c2d-4fcb-b7cd-4a59138e156c" testId="eebfefb5-b767-1dbb-6946-c667140cfdef" testName="KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Delta)" computerName="68e6e3cca8ba" duration="00:00:00.0008275" startTime="2026-10-15T17:41:31.1846180+00:00" endTime="2026-10-15T17:41:31.1853854+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5a82c7cf-8c2d-4fcb-b7cd-4a59138e156c" />
+    <UnitTestResult executionId="06aa2e1b-53b2-49aa-a50c-02af7c2f58d0" testId="fa4b34b2-915c-3e3d-6851-69f83c166eec" testName="KuaiYi.Provider.Tests.OverlayStopFlowTests.TrulyUnclosedFenceKeepsCodeAndDoesNotInventClosingMarker" computerName="68e6e3cca8ba" duration="00:00:00.0082974" startTime="2026-10-15T17:41:26.0681530+00:00" endTime="2026-10-15T17:41:26.0683323+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="06aa2e1b-53b2-49aa-a50c-02af7c2f58d0" />
+    <UnitTestResult executionId="a04a66e8-ac1d-441b-8acf-554ff9a0adb1" testId="49f7f4e6-2318-b65e-249d-49ec5cad2000" testName="KuaiYi.Provider.Tests.OverlayStopFlowTests.PendingDeltaUsesOneExistingTimerAndRetainsEveryAcceptedCharacter" computerName="68e6e3cca8ba" duration="00:00:00.0010516" startTime="2026-10-15T17:41:31.2209253+00:00" endTime="2026-10-15T17:41:31.2219327+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a04a66e8-ac1d-441b-8acf-554ff9a0adb1" />
+    <UnitTestResult executionId="c01a5253-603f-4692-b95b-981cf8294731" testId="f0421451-98e8-186d-4e07-3a5b2ee3b5f0" testName="KuaiYi.Provider.Tests.OverlayStopFlowTests.RepeatedStopIsNoOpAndDoesNotScheduleOrInvalidateAgain" computerName="68e6e3cca8ba" duration="00:00:00.0054335" startTime="2026-10-15T17:41:26.0690631+00:00" endTime="2026-10-15T17:41:26.0701443+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c01a5253-603f-4692-b95b-981cf8294731" />
+    <UnitTestResult executionId="415b6688-7fce-46de-8363-6214c5f47dd5" testId="3bf8d8e3-0e4b-a11c-5d07-b7626c8d2e6a" testName="KuaiYi.Provider.Tests.OverlayStopFlowTests.DrainedStopSchedulesRealTimerTickAndFinalizesNoLfClosingFence" computerName="68e6e3cca8ba" duration="00:00:00.0007053" startTime="2026-10-15T17:41:31.2472632+00:00" endTime="2026-10-15T17:41:31.2474899+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="415b6688-7fce-46de-8363-6214c5f47dd5" />
+    <UnitTestResult executionId="372ada5d-bcb6-4dec-b358-0634a19bc158" testId="8c53035f-ec50-f605-32c2-3ad9b5305091" testName="KuaiYi.Provider.Tests.OverlayStopFlowTests.StopKeepsPausedOuterAndNativeSelectionOffsets(table: False)" computerName="68e6e3cca8ba" duration="00:00:00.0025590" startTime="2026-10-15T17:41:31.2184267+00:00" endTime="2026-10-15T17:41:31.2207857+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="372ada5d-bcb6-4dec-b358-0634a19bc158" />
+    <UnitTestResult executionId="20dee466-ef27-48ad-a583-625d5685637b" testId="d1308fac-028c-760b-0ef2-fd79ac53bd06" testName="KuaiYi.Provider.Tests.OverlayStopFlowTests.NewBeginBeforeOldStopTickRendersCurrentStateOnly" computerName="68e6e3cca8ba" duration="00:00:00.0041434" startTime="2026-10-15T17:41:31.2414651+00:00" endTime="2026-10-15T17:41:31.2454910+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="20dee466-ef27-48ad-a583-625d5685637b" />
+    <UnitTestResult executionId="4c9caddc-a554-42f7-b9b0-91169a66d668" testId="905f95bf-73b1-7e12-90aa-0490616447c2" testName="KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualSnapshotCacheKeepsSelectedOldVersionWhileCurrentGenerationStops" computerName="68e6e3cca8ba" duration="00:00:05.0933895" startTime="2026-10-15T17:41:26.0703373+00:00" endTime="2026-10-15T17:41:31.1740818+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4c9caddc-a554-42f7-b9b0-91169a66d668">
+      <Output>
+        <ErrorInfo>
+          <Message>System.TimeoutException : The operation has timed out.</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.OverlayStopFlowTests.RealCoordinatorRig.Start(Boolean regenerate, String source) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 120
+   at KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualSnapshotCacheKeepsSelectedOldVersionWhileCurrentGenerationStops() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 132
+   at KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualSnapshotCacheKeepsSelectedOldVersionWhileCurrentGenerationStops() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs:line 133
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4da81642-f393-442d-bde1-33233ee222e2" testId="088a6c13-cb98-013a-6ed7-2e2072a8882c" testName="KuaiYi.Provider.Tests.OverlayStopFlowTests.StopKeepsPausedOuterAndNativeSelectionOffsets(table: True)" computerName="68e6e3cca8ba" duration="00:00:00.0178281" startTime="2026-10-15T17:41:31.2004559+00:00" endTime="2026-10-15T17:41:31.2181760+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4da81642-f393-442d-bde1-33233ee222e2" />
+    <UnitTestResult executionId="1b98ca95-d5de-41ab-9510-746e4a742445" testId="68c3b2d8-6e9f-0e66-081c-b8d18fb44139" testName="KuaiYi.Provider.Tests.OverlayStopFlowTests.UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource(source: &quot;[inert](file:///fixture)&quot;)" computerName="68e6e3cca8ba" duration="00:00:00.0000503" startTime="2026-10-15T17:41:31.2251992+00:00" endTime="2026-10-15T17:41:31.2252366+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1b98ca95-d5de-41ab-9510-746e4a742445" />
+    <UnitTestResult executionId="8c54da6e-dca8-41d6-9942-77b3332c2031" testId="4027d5bb-4f57-b3dd-0129-e070d7393a27" testName="KuaiYi.Provider.Tests.OverlayStopFlowTests.UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource(source: &quot;a|b\n---|&quot;)" computerName="68e6e3cca8ba" duration="00:00:00.0008226" startTime="2026-10-15T17:41:31.2248039+00:00" endTime="2026-10-15T17:41:31.2248556+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8c54da6e-dca8-41d6-9942-77b3332c2031" />
+    <UnitTestResult executionId="b71330b6-6e64-4b22-bcbd-4af6a04e594c" testId="c3e6ee4c-5182-893e-5c78-1a6cef704689" testName="KuaiYi.Provider.Tests.OverlayStopFlowTests.ExitingStopDoesNotScheduleNewUiOrMutateRequest" computerName="68e6e3cca8ba" duration="00:00:00.0232687" startTime="2026-10-15T17:41:26.0263974+00:00" endTime="2026-10-15T17:41:26.0560614+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b71330b6-6e64-4b22-bcbd-4af6a04e594c" />
+    <UnitTestResult executionId="cf9f7aa6-a92b-4764-831a-dc64ca0a9dc5" testId="be3eee50-951d-c2ee-fe4c-1bdab8009616" testName="KuaiYi.Provider.Tests.OverlayStopFlowTests.StopPreservesCollapsedAndExpandedGeometryWithoutAutoReveal(collapsed: True)" computerName="68e6e3cca8ba" duration="00:00:00.0130550" startTime="2026-10-15T17:41:31.2266560+00:00" endTime="2026-10-15T17:41:31.2397959+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cf9f7aa6-a92b-4764-831a-dc64ca0a9dc5" />
+    <UnitTestResult executionId="1f803c24-11b2-46f6-8ae6-b3543fdef6c8" testId="4b76379d-61e3-6161-ef4a-b4d31d252410" testName="KuaiYi.Provider.Tests.OverlayStopFlowTests.CompletedBeforeStopKeepsCompletedStatusAndHasNoStopSideEffects" computerName="68e6e3cca8ba" duration="00:00:00.0010210" startTime="2026-10-15T17:41:31.2456251+00:00" endTime="2026-10-15T17:41:31.2465594+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1f803c24-11b2-46f6-8ae6-b3543fdef6c8" />
+    <UnitTestResult executionId="167b8782-5b82-4078-8283-e5a05a12d9c6" testId="a8002cb0-7872-67ec-7bb8-15723947dc94" testName="KuaiYi.Provider.Tests.OverlayStopFlowTests.UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource(source: &quot;**unclosed&quot;)" computerName="68e6e3cca8ba" duration="00:00:00.0001840" startTime="2026-10-15T17:41:31.2249451+00:00" endTime="2026-10-15T17:41:31.2251114+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="167b8782-5b82-4078-8283-e5a05a12d9c6" />
+    <UnitTestResult executionId="a033092a-4b0a-4154-beaf-c23b6b858e8c" testId="8e80c000-87a7-65d6-f015-07dc2cf7f380" testName="KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Begin)" computerName="68e6e3cca8ba" duration="00:00:00.0053196" startTime="2026-10-15T17:41:31.1839031+00:00" endTime="2026-10-15T17:41:31.1840158+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a033092a-4b0a-4154-beaf-c23b6b858e8c" />
+    <UnitTestResult executionId="7999e73a-ee4e-4860-92e1-9df2cd7a00b3" testId="611bcba1-8f5e-10a6-f5a7-a4e199b342d6" testName="KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Stopped)" computerName="68e6e3cca8ba" duration="00:00:00.0013979" startTime="2026-10-15T17:41:31.1841613+00:00" endTime="2026-10-15T17:41:31.1842080+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7999e73a-ee4e-4860-92e1-9df2cd7a00b3" />
+    <UnitTestResult executionId="7c109f52-68d5-4e06-828e-55ecc606d3a4" testId="28d5f87f-384e-a81b-9d0b-197116072785" testName="KuaiYi.Provider.Tests.OverlayStopFlowTests.NoLfTableSeparatorBecomesNativeOnlyAtLocalStopTerminalFlush" computerName="68e6e3cca8ba" duration="00:00:00.0030442" startTime="2026-10-15T17:41:31.2253702+00:00" endTime="2026-10-15T17:41:31.2265336+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7c109f52-68d5-4e06-828e-55ecc606d3a4" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.OverlayStopFlowTests.StopPreservesCollapsedAndExpandedGeometryWithoutAutoReveal(collapsed: True)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="be3eee50-951d-c2ee-fe4c-1bdab8009616">
+      <Execution id="cf9f7aa6-a92b-4764-831a-dc64ca0a9dc5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OverlayStopFlowTests" name="StopPreservesCollapsedAndExpandedGeometryWithoutAutoReveal" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OverlayStopFlowTests.StopPreservesCollapsedAndExpandedGeometryWithoutAutoReveal(collapsed: False)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="f3701609-f439-c590-91e2-8cbf7b564c0e">
+      <Execution id="9c5386e3-bf04-4acd-bb64-e068a7747279" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OverlayStopFlowTests" name="StopPreservesCollapsedAndExpandedGeometryWithoutAutoReveal" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Complete)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="05c14ba2-0910-d095-d828-2285bd89b4d0">
+      <Execution id="7c4653d3-b01e-4db0-b398-7cd58b63cf87" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OverlayStopFlowTests" name="QueuedEventsCannotCrossActualStopGate" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OverlayStopFlowTests.NoLfTableSeparatorBecomesNativeOnlyAtLocalStopTerminalFlush" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="28d5f87f-384e-a81b-9d0b-197116072785">
+      <Execution id="7c109f52-68d5-4e06-828e-55ecc606d3a4" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OverlayStopFlowTests" name="NoLfTableSeparatorBecomesNativeOnlyAtLocalStopTerminalFlush" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualCoordinatorCancellationPublishesNoStoppedButLocalStopUpdatesActualVersionLabel" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="4ade6e12-9c95-e3a7-fbc8-0964c999ff45">
+      <Execution id="3a905967-feb7-4553-a710-745bf20bf947" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OverlayStopFlowTests" name="ActualCoordinatorCancellationPublishesNoStoppedButLocalStopUpdatesActualVersionLabel" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OverlayStopFlowTests.NewBeginBeforeOldStopTickRendersCurrentStateOnly" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="d1308fac-028c-760b-0ef2-fd79ac53bd06">
+      <Execution id="20dee466-ef27-48ad-a583-625d5685637b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OverlayStopFlowTests" name="NewBeginBeforeOldStopTickRendersCurrentStateOnly" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OverlayStopFlowTests.StopKeepsPausedOuterAndNativeSelectionOffsets(table: True)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="088a6c13-cb98-013a-6ed7-2e2072a8882c">
+      <Execution id="4da81642-f393-442d-bde1-33233ee222e2" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OverlayStopFlowTests" name="StopKeepsPausedOuterAndNativeSelectionOffsets" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OverlayStopFlowTests.TrulyUnclosedFenceKeepsCodeAndDoesNotInventClosingMarker" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="fa4b34b2-915c-3e3d-6851-69f83c166eec">
+      <Execution id="06aa2e1b-53b2-49aa-a50c-02af7c2f58d0" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OverlayStopFlowTests" name="TrulyUnclosedFenceKeepsCodeAndDoesNotInventClosingMarker" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OverlayStopFlowTests.StopKeepsPausedOuterAndNativeSelectionOffsets(table: False)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="8c53035f-ec50-f605-32c2-3ad9b5305091">
+      <Execution id="372ada5d-bcb6-4dec-b358-0634a19bc158" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OverlayStopFlowTests" name="StopKeepsPausedOuterAndNativeSelectionOffsets" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OverlayStopFlowTests.NoTaskStopChangesNothingAndCreatesNoFakeStoppedState" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="dabf3138-69d2-21aa-3ca6-14d1cc267ac9">
+      <Execution id="54658cdd-9952-4778-93ac-2be71001d81c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OverlayStopFlowTests" name="NoTaskStopChangesNothingAndCreatesNoFakeStoppedState" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OverlayStopFlowTests.RepeatedStopIsNoOpAndDoesNotScheduleOrInvalidateAgain" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="f0421451-98e8-186d-4e07-3a5b2ee3b5f0">
+      <Execution id="c01a5253-603f-4692-b95b-981cf8294731" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OverlayStopFlowTests" name="RepeatedStopIsNoOpAndDoesNotScheduleOrInvalidateAgain" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OverlayStopFlowTests.UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource(source: &quot;a|b\n---|&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="4027d5bb-4f57-b3dd-0129-e070d7393a27">
+      <Execution id="8c54da6e-dca8-41d6-9942-77b3332c2031" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OverlayStopFlowTests" name="UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OverlayStopFlowTests.DrainedStopSchedulesRealTimerTickAndFinalizesNoLfClosingFence" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="3bf8d8e3-0e4b-a11c-5d07-b7626c8d2e6a">
+      <Execution id="415b6688-7fce-46de-8363-6214c5f47dd5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OverlayStopFlowTests" name="DrainedStopSchedulesRealTimerTickAndFinalizesNoLfClosingFence" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OverlayStopFlowTests.UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource(source: &quot;[inert](file:///fixture)&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="68c3b2d8-6e9f-0e66-081c-b8d18fb44139">
+      <Execution id="1b98ca95-d5de-41ab-9510-746e4a742445" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OverlayStopFlowTests" name="UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Stopped)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="611bcba1-8f5e-10a6-f5a7-a4e199b342d6">
+      <Execution id="7999e73a-ee4e-4860-92e1-9df2cd7a00b3" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OverlayStopFlowTests" name="QueuedEventsCannotCrossActualStopGate" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OverlayStopFlowTests.UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource(source: &quot;**unclosed&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="a8002cb0-7872-67ec-7bb8-15723947dc94">
+      <Execution id="167b8782-5b82-4078-8283-e5a05a12d9c6" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OverlayStopFlowTests" name="UnclosedAndUnsupportedTerminalMarkdownKeepsExactLiteralSource" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OverlayStopFlowTests.PendingDeltaUsesOneExistingTimerAndRetainsEveryAcceptedCharacter" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="49f7f4e6-2318-b65e-249d-49ec5cad2000">
+      <Execution id="a04a66e8-ac1d-441b-8acf-554ff9a0adb1" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OverlayStopFlowTests" name="PendingDeltaUsesOneExistingTimerAndRetainsEveryAcceptedCharacter" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Begin)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="8e80c000-87a7-65d6-f015-07dc2cf7f380">
+      <Execution id="a033092a-4b0a-4154-beaf-c23b6b858e8c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OverlayStopFlowTests" name="QueuedEventsCannotCrossActualStopGate" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OverlayStopFlowTests.QueuedEventsCannotCrossActualStopGate(kind: Delta)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="eebfefb5-b767-1dbb-6946-c667140cfdef">
+      <Execution id="5a82c7cf-8c2d-4fcb-b7cd-4a59138e156c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OverlayStopFlowTests" name="QueuedEventsCannotCrossActualStopGate" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualSnapshotCacheKeepsSelectedOldVersionWhileCurrentGenerationStops" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="905f95bf-73b1-7e12-90aa-0490616447c2">
+      <Execution id="4c9caddc-a554-42f7-b9b0-91169a66d668" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OverlayStopFlowTests" name="ActualSnapshotCacheKeepsSelectedOldVersionWhileCurrentGenerationStops" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OverlayStopFlowTests.EmptyActiveRequestStopsWaitingAndFlushesWithoutCreatingText" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="4d9a32b0-985f-eb29-4682-4796f868e0dd">
+      <Execution id="ad933e0e-bbbf-4412-a4d9-2d7eabc11b93" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OverlayStopFlowTests" name="EmptyActiveRequestStopsWaitingAndFlushesWithoutCreatingText" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OverlayStopFlowTests.ExitingStopDoesNotScheduleNewUiOrMutateRequest" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="c3e6ee4c-5182-893e-5c78-1a6cef704689">
+      <Execution id="b71330b6-6e64-4b22-bcbd-4af6a04e594c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OverlayStopFlowTests" name="ExitingStopDoesNotScheduleNewUiOrMutateRequest" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OverlayStopFlowTests.CompletedBeforeStopKeepsCompletedStatusAndHasNoStopSideEffects" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="4b76379d-61e3-6161-ef4a-b4d31d252410">
+      <Execution id="1f803c24-11b2-46f6-8ae6-b3543fdef6c8" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OverlayStopFlowTests" name="CompletedBeforeStopKeepsCompletedStatusAndHasNoStopSideEffects" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="dabf3138-69d2-21aa-3ca6-14d1cc267ac9" executionId="54658cdd-9952-4778-93ac-2be71001d81c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4d9a32b0-985f-eb29-4682-4796f868e0dd" executionId="ad933e0e-bbbf-4412-a4d9-2d7eabc11b93" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4ade6e12-9c95-e3a7-fbc8-0964c999ff45" executionId="3a905967-feb7-4553-a710-745bf20bf947" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f3701609-f439-c590-91e2-8cbf7b564c0e" executionId="9c5386e3-bf04-4acd-bb64-e068a7747279" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="05c14ba2-0910-d095-d828-2285bd89b4d0" executionId="7c4653d3-b01e-4db0-b398-7cd58b63cf87" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="eebfefb5-b767-1dbb-6946-c667140cfdef" executionId="5a82c7cf-8c2d-4fcb-b7cd-4a59138e156c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fa4b34b2-915c-3e3d-6851-69f83c166eec" executionId="06aa2e1b-53b2-49aa-a50c-02af7c2f58d0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="49f7f4e6-2318-b65e-249d-49ec5cad2000" executionId="a04a66e8-ac1d-441b-8acf-554ff9a0adb1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f0421451-98e8-186d-4e07-3a5b2ee3b5f0" executionId="c01a5253-603f-4692-b95b-981cf8294731" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3bf8d8e3-0e4b-a11c-5d07-b7626c8d2e6a" executionId="415b6688-7fce-46de-8363-6214c5f47dd5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8c53035f-ec50-f605-32c2-3ad9b5305091" executionId="372ada5d-bcb6-4dec-b358-0634a19bc158" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d1308fac-028c-760b-0ef2-fd79ac53bd06" executionId="20dee466-ef27-48ad-a583-625d5685637b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="905f95bf-73b1-7e12-90aa-0490616447c2" executionId="4c9caddc-a554-42f7-b9b0-91169a66d668" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="088a6c13-cb98-013a-6ed7-2e2072a8882c" executionId="4da81642-f393-442d-bde1-33233ee222e2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="68c3b2d8-6e9f-0e66-081c-b8d18fb44139" executionId="1b98ca95-d5de-41ab-9510-746e4a742445" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4027d5bb-4f57-b3dd-0129-e070d7393a27" executionId="8c54da6e-dca8-41d6-9942-77b3332c2031" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c3e6ee4c-5182-893e-5c78-1a6cef704689" executionId="b71330b6-6e64-4b22-bcbd-4af6a04e594c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="be3eee50-951d-c2ee-fe4c-1bdab8009616" executionId="cf9f7aa6-a92b-4764-831a-dc64ca0a9dc5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4b76379d-61e3-6161-ef4a-b4d31d252410" executionId="1f803c24-11b2-46f6-8ae6-b3543fdef6c8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a8002cb0-7872-67ec-7bb8-15723947dc94" executionId="167b8782-5b82-4078-8283-e5a05a12d9c6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8e80c000-87a7-65d6-f015-07dc2cf7f380" executionId="a033092a-4b0a-4154-beaf-c23b6b858e8c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="611bcba1-8f5e-10a6-f5a7-a4e199b342d6" executionId="7999e73a-ee4e-4860-92e1-9df2cd7a00b3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="28d5f87f-384e-a81b-9d0b-197116072785" executionId="7c109f52-68d5-4e06-828e-55ecc606d3a4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="23" executed="23" passed="22" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.11]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.28]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.31]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:05.49]       System.TimeoutException : The operation has timed out.
+[xUnit.net 00:00:05.49]       Stack Trace:
+[xUnit.net 00:00:05.49]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs(120,0): at KuaiYi.Provider.Tests.OverlayStopFlowTests.RealCoordinatorRig.Start(Boolean regenerate, String source)
+[xUnit.net 00:00:05.49]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs(132,0): at KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualSnapshotCacheKeepsSelectedOldVersionWhileCurrentGenerationStops()
+[xUnit.net 00:00:05.49]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs(133,0): at KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualSnapshotCacheKeepsSelectedOldVersionWhileCurrentGenerationStops()
+[xUnit.net 00:00:05.49]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:05.56]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-15T17:41:31.1808276+00:00">
+        <Text>[xUnit.net 00:00:05.49]     KuaiYi.Provider.Tests.OverlayStopFlowTests.ActualSnapshotCacheKeepsSelectedOldVersionWhileCurrentGenerationStops [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>
