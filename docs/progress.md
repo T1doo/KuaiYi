@@ -585,3 +585,7 @@ AccountingV1准备实际验证完成：独立来源5项通过，真实浅clone21
 ### 2026-10-15 AccountingV1 唯一 Windows configure-only 回执
 
 最终冻结独审后，a0e8519/tree712d5a9 唯一父9d75368正常推新开发分支一次；真实提交浅clone21拒绝/22通过，Windows来源门成功。同SHA唯一run38716240995/job116359501515/attempt1最终failure：NativeConfigure仍WaitJobEmpty Timeout，root Exit0，救援前NonEmpty/预算过期，救援后JobEmpty与CleanupConfirmed均true，summary及Actions步骤均Exit3。两次既有成功Accounting查询均Known Active2/Total33；仅Job关联/累计计数，不能识别进程或根因。四真实文件均Projected无截断，collector清理确认；有限诊断未覆盖原失败。完整回执及边界见[结果说明](validation/configure-accounting-windows-result.md)与[固定实测证据](test-evidence/2026-10-15-configure-accounting-windows-result.json)。不重跑，本结果仅本地归档；原根因Unknown、四case未执行、安全门及Off/0保持。
+
+### 2026-10-15 EmbeddedV1 单变量静态候选准备
+
+原失败结果a1291b99已归档。精确CMake3.31.6 peeled commit859ca5c4下，CompilerId独立VS模板不消费该变量，ABI source try_compile传播变量及CMP0141；现工程3.28 minimum在project前已使CMP0141 NEW。准备仅新增CMAKE_MSVC_DEBUG_INFORMATION_FORMAT=Embedded配置，ReviewedParent仅同步来源身份；编译端/Z7有明确机制，链接/debug和MSBuild节点复用保持，不能推断原两个Job关联成员身份或承诺修复。静态链接及不确定性见[候选说明](validation/configure-embedded-static.md)与[来源合同](test-evidence/2026-10-15-configure-embedded-source.json)。本批本地独审/来源测试后交父复核，Windows/CMake/四case/CI均NotRun，不push，原安全门和Off/0保持。

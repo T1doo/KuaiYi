@@ -6,7 +6,7 @@ $configureDiagnosticReady=$false
 try {. "$PSScriptRoot/lifecycle-configure-diagnostics.ps1";$configureDiagnosticReady=$true} catch {$configureDiagnosticReady=$false}
 $repo=Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 $locked='3ae69419a1152ea9694a3a9cf11130fbae645fa3'
-$summary=[pscustomobject][ordered]@{Kind='ConfigureOnlyCiSummary';SourceCommit=$null;ReviewedParent='9d75368aa246b40e2bfc9517eb390384c6faf470';ParentVerified=$false;AncestorVerified=$false;LockedSource=$locked;LockedTree='870a72ed3ef2ee31252c10e2d63cbcb859e7fd7b';LockedTreeVerified=$false;SourceEquivalent=$false;Scope='NativeConfigureOnly';Status='Fail';Reason='RunnerFailure';Operations=@();CollectorSettlement='NotStarted';NativeBuild='NotRun';ManagedRestore='NotRun';ManagedBuild='NotRun';FourCases='NotRun';UiaText='NotRun';Match='NotRun';Performance='NotRun';ProductionReuse='Off';ModelCalls=0;ExitCode=3}
+$summary=[pscustomobject][ordered]@{Kind='ConfigureOnlyCiSummary';SourceCommit=$null;ReviewedParent='a1291b99f12d46bedc96805f70a10215e53d6247';ParentVerified=$false;AncestorVerified=$false;LockedSource=$locked;LockedTree='870a72ed3ef2ee31252c10e2d63cbcb859e7fd7b';LockedTreeVerified=$false;SourceEquivalent=$false;Scope='NativeConfigureOnly';Status='Fail';Reason='RunnerFailure';Operations=@();CollectorSettlement='NotStarted';NativeBuild='NotRun';ManagedRestore='NotRun';ManagedBuild='NotRun';FourCases='NotRun';UiaText='NotRun';Match='NotRun';Performance='NotRun';ProductionReuse='Off';ModelCalls=0;ExitCode=3}
 $output=$null;$operations=[Collections.Generic.List[object]]::new()
 $configureLease=$null;$configureDiagnostic=$null;$configureAccountingReceipt=$null;$configureAccountingOutputStatus='NotAttempted'
 function Invoke-ConfigureOnlyOperation([string]$Kind,[string]$Executable,[string[]]$Arguments) {
@@ -75,7 +75,7 @@ try {
         $sdkRoot=Join-Path ${env:ProgramFiles(x86)} 'Windows Kits/10'
         foreach($file in @('Include/10.0.26100.0/um/Windows.h','Include/10.0.26100.0/um/UIAutomation.h','Lib/10.0.26100.0/um/x64/ole32.lib')){if(-not (Test-Path -LiteralPath (Join-Path $sdkRoot $file) -PathType Leaf)){throw 'Missing prerequisite'}}
         $native=Join-Path $output 'native'
-        $configure=Invoke-ConfigureOnlyOperation 'NativeConfigure' $cmake @('-S',(Join-Path $repo 'tools/KuaiYi.ReuseLifecycleNative'),'-B',$native,'-G','Visual Studio 17 2022','-A','x64','-T',"v143,version=$toolset","-DCMAKE_GENERATOR_INSTANCE=$vs",'-DCMAKE_SYSTEM_VERSION=10.0.26100.0')
+        $configure=Invoke-ConfigureOnlyOperation 'NativeConfigure' $cmake @('-S',(Join-Path $repo 'tools/KuaiYi.ReuseLifecycleNative'),'-B',$native,'-G','Visual Studio 17 2022','-A','x64','-T',"v143,version=$toolset","-DCMAKE_GENERATOR_INSTANCE=$vs",'-DCMAKE_SYSTEM_VERSION=10.0.26100.0','-DCMAKE_MSVC_DEBUG_INFORMATION_FORMAT=Embedded')
         if($configure.Exit -cne '0'){$summary.Reason='NativeConfigureFailed';throw 'Build failed'}
         # Terminal operation: successful configure never enters build or runtime.
         $summary.Status='Pass';$summary.Reason='Completed';$summary.ExitCode=0
