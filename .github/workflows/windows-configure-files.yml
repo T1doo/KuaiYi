@@ -1,0 +1,40 @@
+name: One isolated Windows configure file fixture
+on:
+  push:
+    branches: [dev/configure-files-fixture]
+    paths: [.github/workflows/windows-configure-files.yml]
+permissions:
+  contents: read
+jobs:
+  owned-files-only:
+    if: github.repository == 'T1doo/KuaiYi' && github.ref == 'refs/heads/dev/configure-files-fixture' && github.event_name == 'push'
+    runs-on: windows-2022
+    timeout-minutes: 5
+    env:
+      CI: 'true'
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 2
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Verify exact event head and single reviewed parent
+        timeout-minutes: 1
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $head=(& git rev-parse HEAD).Trim()
+          if($LASTEXITCODE -ne 0 -or $head -cne $env:GITHUB_SHA){throw 'Source identity rejected'}
+          $parents=(& git rev-list --parents -n 1 HEAD).Trim().Split(' ')
+          if($LASTEXITCODE -ne 0 -or $parents.Count -ne 2 -or $parents[0] -cne $head -or $parents[1] -cne 'bf0330cd80abe79a201762f47a9db92a0135f3c7'){throw 'Parent identity rejected'}
+          Write-Host 'SourceIdentityVerified'
+      - name: Public owned files once with existing Python
+        timeout-minutes: 2
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $python=Get-Command python -CommandType Application -ErrorAction Stop | Select-Object -First 1
+          & $python.Source -I -B ./tests/scripts/run-configure-files-windows.py
+          exit $LASTEXITCODE

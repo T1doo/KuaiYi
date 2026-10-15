@@ -481,3 +481,12 @@ a5e734f独审后第四CI38245204651/job114797239356继续4DLL/4PE/4load/8export/
 ## 2026-10-14 救援前有限诊断与仅本地交接
 
 父要求补正精确诊断：14534bd未单独记录救援前Job状态/BudgetExpired，旧receipt保留原字节且不回填。新有限Unknown/Empty/NonEmpty记录原等待查询，BudgetExpired记录原预算决策；finally仅更新旧清理字段，不覆盖前态。沿原!empty||expired、不新增查询或放宽预算/救援/隔离；不能认定MSBuild残留根因。受控ChildEnvironment固定禁节点复用仍为候选修复。新增14纯断言加原91=105/105，runner72/72、evidence45/45实际通过；本轮无Windows/上传/push。精确冻结身份、逐文件hash/diff及独审见本地handoff，后续唯一尝试需父核验和新授权。[最小方案](validation/lifecycle-safe-diagnostic-handoff.md)。
+
+
+## 2026-10-15 独立Windows文件fixture一次准备
+
+从已审30098抽取原字节parser/Windowsadapter与21合同到正常新分支dev/configure-files-fixture；最小十文件基于treece453400（本地2f125729/远端bf033等价），不上传全部本地历史。新16/16离线fixture合同与Linux入口Blocked已实测；Windows仍NotRun。既有两workflow仅原诊断分支且字节不变，新workflow仅新分支/新路径，公开标准windows-2022唯一job5min，先独审manifest再一次交付。只owned临时目录public数据的实际文件/metadata/share/junction/上限/close；不CMake/四case、无安装/权限/服务/进程扫描。任何失败停，不重跑；同步文件不称硬超时，不接救援。详情见[独立fixture合同](validation/configure-files-windows-single-run.md)。
+
+0976预执行独审Hold，未执行Windows；补fixture专用SetFileTime共享兼容metadata变化、权限错误才Blocked、独立全资源清理与原stage保留、非法SHA不输出、两个adapter -text避免CRLF字节门误拒。原7加9反例16/16通过，旧freeze和全部原件保留；原adapter及旧运行路径不改，复审后才一次发布。
+
+4ed复审Hold指出setup临时句柄登记遗漏；native_open取得即登记独立fixture_handles，关闭成功才移除，最终合并全部自有资源清理；补两反例至16/16通过，保持caller与adapter集合区别，不假cleanup确认。仍无Windows/上传，待精确复审。

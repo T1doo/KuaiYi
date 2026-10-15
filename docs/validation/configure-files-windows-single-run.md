@@ -1,0 +1,34 @@
+# 一次独立Windows文件fixture发布合同
+
+用户/父授予正常开发分支推送及一次有界免费CI；本轮不重跑CMake配置、构建或四生命周期案例。原30098b23264fee2d3ebba51e8f7f636ce19a60cd/treebe794442fc514c3823ae8fcbc0718e7724da5d92/parentd02ac2c已核，开始worktree clean、仅root写入。选择的执行环境为Linux，无已选Windows执行机，不操作用户桌面。
+
+## 最小发布清单与来源
+
+新正常分支dev/configure-files-fixture，本地parent2f125729（treece45340065dbff7021b1f2431e3e3a603ab14f79）。远端待交付parent bf0330cd80abe79a201762f47a9db92a0135f3c7 **与该本地parent完整tree相同**；已有父独立核对该映射。本地审定commit与API交付commit身份会不同，必须逐blob/完整tree相等，API提交唯一parent必须bf033，不能把本地parent误称bf033。本地30098及完整父链保留原分支，不把全部未上传历史混入本次最小清单。
+
+共十文件：新workflow windows-configure-files.yml；原纯parser lifecycle_configure_projection.py（与d02原字节相同）；原Windowsadapter lifecycle_configure_windows.py（与30098原字节相同）；原21合同测试 lifecycle-configure-windows.test.py；新真实文件fixture run-configure-files-windows.py；新16条离线fixture合同 configure-files-fixture.test.py；16条原输出；本合同；progress；仅两条精确adapter -text规则的.gitattributes。精确路径/字节/hash在发布前冻结manifest，未列raw日志、bundle或私有元数据不会上传。
+
+当前远端dev/p0-com-selection-diagnostic=bf033；远端实际Git tree递归读取未截断，只有windows-contracts.yml与windows-lifecycle-validation.yml，两者branch均仅dev/p0-com-selection-diagnostic且job同样guard。两旧workflow相对远端base不变。新workflow只匹配dev/configure-files-fixture与自身路径；唯一push触发、无dispatch/retry/matrix/其他事件。新branch直接创建在审定交付commit上，一次push；若分支已存在/远端base漂移/身份或tree不一致就停，不覆盖重试。公开仓库T1doo/KuaiYi已实核private=false/visibility=public；标准windows-2022，GitHub官方文档确认公开标准runner免费，不用larger/selfhosted/付费服务、artifact/cache或安装依赖。连接器workflow列表endpoint返回400不支持后停止该接口，使用获准Git tree/文件读取核对实际定义，没有扩权或更改网络。
+
+## CI范围与失败规则
+
+唯一job5min、源检查step1min、fixturestep2min；checkout固定event SHA/depth2、pinned action d23441a48e516b6c34aea4fa41551a30e30af803、persist-credentials=false、contents:read。git确认HEAD=GITHUB_SHA、唯一parentbf033后，仅使用已装Python>=3.8/x64运行-I -B脚本，不装Python/SDK、不build、不运行旧测试。脚本校验两个adapter源码SHA256固定等于既有审定版本。
+
+只在本进程自建临时容器中：用OBJ_DONT_REPARSE绝对打开新private容器，再用持有父句柄相对FILE_CREATE创建owned-root；原根handle在public文件写入前捕获并持续持有。所有公开writer关闭之后才cleanup True，不是旧Job或生产进程清理证明。
+
+固定11检查：CleanupGate、RootIdentity、FourFacts、ReadBounds、WriteShareConflict、HeldDirectoryRename、MetadataChangeRejected、ReparseRejected、CallerHandleAlive、AdapterHandlesClosed、FixtureRemoved。读假定版本字符串3.31.6只是公开fixture内容，不是host CMake版本。真实Nt文件句柄、ReadFile上限、metadata修改拒绝；持有读句柄时写入请求必须STATUS_SHARING_VIOLATION，目录rename必须被阻止。metadata变化使用仅fixture自有目录的FILE_WRITE_ATTRIBUTES/READ_ATTRIBUTES、share READ|WRITE|DELETE兼容句柄和SetFileTime，确认实际written变化后再核adapter拒绝；不用可能零共享冲突的os.utime。仅自有目录用FSCTL_SET_REPARSE_POINT建立mount-point junction，target同样在owned容器，验证adapter拒绝跟随。无提权、token/服务配置、DeveloperMode、进程扫描或外部终止。仅明确AccessDenied/PrivilegeNotHeld的NT状态或Win32错误5/1314记Blocked；错误参数、错误buffer、未知状态等记Fail，不掩盖实现缺陷。GetLastError紧跟失败DeviceIoControl捕获，无fallback命令或权限变更。
+
+任何identity/assertion/setup/cleanup失败结束该一次attempt，不自动重跑/推送修正以触发第二次。全部自有句柄关闭，原根句柄存活核对后关闭，删除仅owned临时容器。清理失败也Fail；残留自有adapter句柄、caller根、parent和目录分别独立尝试，前一个异常不跳过后续，CleanupFailed/FixtureCleanupConfirmed独立报告且不覆盖原Stage。SourceCommit初始null，仅通过40位小写hex校验后赋值，非法环境值不输出。stdout只固定schema/有限stage/check/标准SHA，不输出原异常、真实路径、命令、identity/PID或日志原文。Windows环境为托管Server2022，不是普通Win11验收。
+
+源adapter不集成原helper/runner/救援路径。同步API无硬耗时保障；此独立fixture没有原操作在等救援，job/step上限不是每次API硬界限。以后读取真实配置日志仍须原操作和救援已结算并满足caller的原根lease，不能从这次fixture推导原CMake根因或旧四案例通过。
+
+## 本地证据与平台未验
+
+新16/16离线fixture合同通过：真实Windows参数构造使用假API，junction buffer tag/长度/offset，非Windows/旧Python拒绝、异常脱敏、触发隔离及scope。真实Linux入口exit2/Blocked/WindowsNotRun，无Win32调用；完整原输出保留。原adapter21与parser25不重跑，不拿它们冒充Windows结果。独立审查先核全部十文件与触发/费用隔离，再进行唯一交付/Windows尝试。CI之前所有Windows实际项仍NotRun。
+
+
+## 预执行独审补正（无Windows执行）
+
+0976a44旧freeze独审Hold，未上传、未启动CI：发现os.utime目录零共享可能与held handle冲突；junction错误分类过宽；finally关闭异常会跳过后续清理；未校验SHA可泄露环境文本；另root已发现CRLF门问题。均只修fixture/字节传输规则，不改已审adapter。保留原7合同并新增9反例，现16/16通过，所有本地原输出保留。依据[CPython Windows utime源码](https://raw.githubusercontent.com/python/cpython/3.12/Modules/posixmodule.c)、[SetFileTime](https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-setfiletime)、[DeviceIoControl错误读取](https://learn.microsoft.com/en-us/windows/win32/api/ioapiset/nf-ioapiset-deviceiocontrol)。新精确freeze需要复审后才交付，不把静态Hold记成Windows失败或消耗唯一尝试。
+
+4ed复审另Hold临时setup句柄关闭失败未登记；现native_open任何非空返回句柄（含失败状态）登记独立fixture_handles，close成功才移除；最终与adapter owned/root/parent合并清理。AdapterHandlesClosed同时确认fixture表仅剩caller root/parent，不把caller正常持有误认为adapter泄漏。新增两条失败句柄登记/关闭失败反例，16/16通过；旧7、14合同及所有原件保留。首次绝对私有容器的NT路径/DOS设备解析及所有本机API行为仍待真实Windows验证，失败不fallback标志/权限。

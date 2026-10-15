@@ -4,3 +4,7 @@
 # Preserve the committed bytes on Windows regardless of core.autocrlf.
 SPEC.md -text
 快译_产品与技术开发规格_v1.0.md -text
+
+# Preserve reviewed adapter bytes for the isolated Windows fixture integrity gate.
+tools/ci/lifecycle_configure_projection.py -text
+tools/ci/lifecycle_configure_windows.py -text
