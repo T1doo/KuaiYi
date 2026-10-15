@@ -1,0 +1,43 @@
+name: One isolated configure bridge Windows fixture
+on:
+  push:
+    branches: [dev/configure-bridge-fixture]
+    paths: [.github/workflows/windows-configure-bridge.yml]
+permissions:
+  contents: read
+jobs:
+  synthetic-bridge-only:
+    if: github.repository == 'T1doo/KuaiYi' && github.ref == 'refs/heads/dev/configure-bridge-fixture' && github.event_name == 'push'
+    runs-on: windows-2022
+    timeout-minutes: 10
+    env:
+      CI: 'true'
+      POWERSHELL_TELEMETRY_OPTOUT: '1'
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - name: Checkout exact reviewed event
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 2
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Verify exact head, parent and file scope
+        timeout-minutes: 1
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $head=(& git rev-parse HEAD).Trim()
+          if($LASTEXITCODE -ne 0 -or $head -cne $env:GITHUB_SHA -or $head -cnotmatch '^[0-9a-f]{40}$'){throw 'Source identity rejected'}
+          $parents=(& git rev-list --parents -n 1 HEAD).Trim().Split(' ')
+          if($LASTEXITCODE -ne 0 -or $parents.Count -ne 2 -or $parents[0] -cne $head -or $parents[1] -cne '2798893ddd3f0aadbbbb5811cc3ca81f9996f918'){throw 'Parent identity rejected'}
+          $allowed=@('.github/workflows/windows-configure-bridge.yml','docs/progress.md','docs/test-evidence/2026-10-15-configure-bridge-offline.txt','docs/validation/configure-bridge-windows-plan.md','tests/scripts/configure-bridge-fixture.test.py','tests/scripts/configure-bridge-owned-probe.py','tests/scripts/configure-files-fixture.test.py','tests/scripts/run-configure-bridge-windows.ps1')
+          $changed=@(& git diff --name-only '2798893ddd3f0aadbbbb5811cc3ca81f9996f918' HEAD --)
+          if($LASTEXITCODE -ne 0 -or @(Compare-Object $allowed $changed).Count -ne 0){throw 'File scope rejected'}
+          Write-Host 'BridgeSourceIdentityVerified'
+      - name: Run one owned synthetic handle bridge fixture
+        timeout-minutes: 7
+        shell: pwsh
+        run: |
+          & ./tests/scripts/run-configure-bridge-windows.ps1
+          exit $LASTEXITCODE

@@ -1,0 +1,14 @@
+CONFIGURE_BRIDGE_OFFLINE_EVIDENCE 2026-10-15
+Baseline=2798893ddd3f0aadbbbb5811cc3ca81f9996f918
+Host=Linux-x64; Python=3.12.14; PowerShell=7.5.3
+Windows=NotRun; CMake=NotRun; FourCases=NotRun; ModelCalls=0
+new-bridge-fixture: Exit=0; Ran 8 tests; OK
+existing-bridge-collector: Exit=0; Ran 14 tests; OK
+existing-Windows-file-adapter: Exit=0; Ran 21 tests; OK
+existing-file-fixture: Exit=0; Ran 16 tests; OK
+existing-runner-integration: Exit=0; CONFIGURE_LOCAL_INTEGRATION passed=127 failed=0
+existing-public-evidence: Exit=0; LIFECYCLE_CI_EVIDENCE_CONTRACTS passed=45 failed=0
+existing-runner-contracts: Exit=0; FULL_LIFECYCLE_RUNNER_CONTRACTS passed=72 failed=0
+new-Windows-entry-on-Linux: Exit=2; Status=Blocked; Stage=HostedWindowsRequired; Checks=[]; no Win32 or CMake call
+The first old file-fixture test run failed one workflow-enumeration assertion when it saw the new isolated workflow. Its assertion was updated to exclude only that newly tested workflow; the original workflow branch assertions remain. The rerun passed all 16.
+The original 30-second/job envelope, rescue and cleanup were not actually executed on Linux. Their offline injected contracts passed; cross-process native behavior awaits the single isolated Windows attempt. No original logs were created.

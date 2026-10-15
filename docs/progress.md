@@ -501,3 +501,7 @@ a5e734f独审后第四CI38245204651/job114797239356继续4DLL/4PE/4load/8export/
 新指定环境初始51d0774，从已核远端b62af2f建立dev/configure-files-local-integration，bf033为祖先；唯一root集成写入、独审只读，旧任务不恢复。原四日志在此环境均缺失，未补造；CI38669606027的失败事实来自本次交接，未声称重新取回原件。原LifecycleOperation/两adapter/生产/三workflow不变，独立根lease在configure前持有；原Run救援/清理返回后、原失败抛出前通过真实源进程DuplicateHandle复制到Python，再用原adapter采集。未清理/无lease零collector，诊断异常不改原结果；四固定文件各64KiB/总256KiB，闭合事实及独立回执，lease最后关闭。旧compiler扫描不再整读两个configure日志，其他日志也只在确认清理后读取；原CMakeVersion前置首行门保留。
 
 实际本地新bridge14/14、新runner注入127/127，原adapter21/21、fixture离线16/16、静态no-target9、evidence45、runner72通过；原SDKsetter105因SDK缺失NotRun。独审补正重复关闭目标句柄和枚举数组类型绕过；新C#仅编译/布局/非法输入检查，没有Win32或原CMake/四生命周期执行。尚未验证新lease/跨进程桥的真实Windows行为，不能用旧fixture11检查代替。原退出码/30秒/JobEmpty/救援/清理/250/600ms及安全门不变；根因仍unknown、ProductionReuse Off/ModelCalls0、P0/E06Blocked。无推送/新CI/main/强推/部署/新费用凭据安全网络权限。见[接入与边界](validation/configure-local-integration.md)和[本地固定证据](test-evidence/2026-10-15-configure-local-integration.txt)。
+
+### 2026-10-15 隔离 Windows 跨进程桥验证准备
+
+仅在新开发分支 `dev/configure-bridge-fixture` 准备独立工作流：只对该分支新增工作流文件的 push 触发，精确审定 HEAD/唯一 parent `2798893`/八文件差异，标准 windows-2022 单 job 上限10分钟、步骤7分钟。自有临时目录与合成四文件；先持有真实 C# root lease，再通过原30秒/job救援和清理封套启动真实 Python 子进程，检查实际 DuplicateHandle/文件投影/64KiB×4上限/拒绝无效证明/缺失/关句柄/删除。原超时 receipt 仅离线注入，原 CMake 与四生命周期仍 NotRun，模型调用0。旧工作流源码不变；旧文件fixture的 workflow 枚举合同补识别新隔离工作流，不削弱原分支过滤断言。离线与 Windows 实测结果分别记录，不把 bridge 通过声称原故障修复。[范围与边界](validation/configure-bridge-windows-plan.md)。
