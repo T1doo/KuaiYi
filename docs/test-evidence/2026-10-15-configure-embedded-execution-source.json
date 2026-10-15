@@ -1,0 +1,91 @@
+{
+  "Version": "EmbeddedExecV1",
+  "Parent": "b771f1e8442d453b3df65144f006f694a2b7a294",
+  "ParentTree": "300daf380032eaeecd476f90111055075b51b231",
+  "Locked": "3ae69419a1152ea9694a3a9cf11130fbae645fa3",
+  "LockedTree": "870a72ed3ef2ee31252c10e2d63cbcb859e7fd7b",
+  "Branch": "dev/configure-embedded-windows",
+  "Workflow": ".github/workflows/windows-configure-embedded.yml",
+  "Files": [
+    ".github/workflows/windows-configure-embedded.yml",
+    "docs/progress.md",
+    "docs/test-evidence/2026-10-15-configure-embedded-execution-source.json",
+    "docs/validation/configure-embedded-execution.md",
+    "tests/scripts/configure-embedded-execution-source.test.py",
+    "tests/scripts/run-configure-only-windows.ps1"
+  ],
+  "RuntimeCanonicalVersions": {
+    "tools/ci/LifecycleOperation.cs": {
+      "Blob": "b8b6fcf80cc763bf4289591765bb42e4bb31df37",
+      "Sha256": "585a20758ce699fdc0c927ddd451239008b11985134e2a529929ba28bea893a3"
+    },
+    "tests/scripts/lifecycle-ci-evidence.ps1": {
+      "Blob": "208b2df950a05511078f5205f0b7442fabf4ca8e",
+      "Sha256": "fcebcab0813a3302a40564cdbb11e9a98ca445f2bc7f356bdb5a78b88abae7ea"
+    },
+    "tests/scripts/run-configure-only-windows.ps1": {
+      "Blob": "59cc44e75b4014ba8949b6f51a4ba1f84b05d04e",
+      "Sha256": "ca859f95168861b2fae195c121ac688d609f368daebf874516d3ba5578ed493d"
+    }
+  },
+  "CheckoutDepth": 25,
+  "BaselineRun": 38716240995,
+  "BaselineCommit": "a0e8519e63d90e44560316478dc65358a18a8868",
+  "RuntimeChange": "Only Embedded argument plus exact ReviewedParent synchronization",
+  "OldAccountingV1": "Contract/workflow/logs unchanged; rejection audited separately",
+  "Original171": "Not claimed unchanged pass; only owned exact new expected command injection can pass",
+  "Windows": "NotRun at preparation",
+  "OriginalRootCause": "Unknown",
+  "ProductionReuse": "Off",
+  "ModelCalls": 0,
+  "LocalTests": {
+    "NewContract": 8,
+    "Depth24": "Rejected",
+    "Depth25": "Pass",
+    "AccountingV1": {
+      "Total": 5,
+      "Passed": 2,
+      "Failed": 2,
+      "Errors": 1,
+      "Error": "New workflow absent at frozen old parent",
+      "ContractModified": false
+    },
+    "LegacySource": {
+      "Total": 6,
+      "Passed": 4,
+      "Rejected": 2,
+      "ContractModified": false
+    },
+    "OriginalConfigureContract": "Rejected after 163 passed at unchanged old command equality",
+    "OwnedExactNewCommandContract": 171,
+    "Prior162And45": "Previously passed static evidence preserved; not claimed rerun here",
+    "DevelopmentFailure": "source-1: missing ENTRY constant in transplanted owned fixture method; fixed; original failed log retained",
+    "Logs": {
+      "source-1.log": {
+        "Bytes": 1835,
+        "Sha256": "b175a9dc5abe2efed164c842645732f6e6ff3e36ae10ee2533938521b9de493e"
+      },
+      "source-2.log": {
+        "Bytes": 1243,
+        "Sha256": "fc04421e0df66bed3b5fc77cb14b688a996494887c0f9f8ff50662a6c1919674"
+      },
+      "old-configure-rejection.log": {
+        "Bytes": 290,
+        "Sha256": "f430a2f0e79d38d277d720f50bf65930a3d5a74d3a1a0f7d424a1eb4ec400f1c"
+      },
+      "embedded-injected-configure.log": {
+        "Bytes": 103,
+        "Sha256": "0355e628623f123e74b64b56d1cd12e62dea5db1a56d3ff4c7588120df1fa502"
+      },
+      "accounting-v1-rejection.log": {
+        "Bytes": 4007,
+        "Sha256": "5eb765050f1121861d5942264d73c0ea336b181c1c0d75a0ad4b3ee35bb6d3ad"
+      },
+      "legacy-source-rejection.log": {
+        "Bytes": 12555,
+        "Sha256": "09397b81b318a1a6ada09db44ee6626dc5d146c3d9ec78fb500f1aad4473a39b"
+      }
+    }
+  },
+  "CMakePrerequisite": "Original >=3.28 unchanged; compare actual projected version to baseline3.31.6; any drift limits attribution"
+}

@@ -589,3 +589,7 @@ AccountingV1准备实际验证完成：独立来源5项通过，真实浅clone21
 ### 2026-10-15 EmbeddedV1 单变量静态候选准备
 
 原失败结果a1291b99已归档。精确CMake3.31.6 peeled commit859ca5c4下，CompilerId独立VS模板不消费该变量，ABI source try_compile传播变量及CMP0141；现工程3.28 minimum在project前已使CMP0141 NEW。准备仅新增CMAKE_MSVC_DEBUG_INFORMATION_FORMAT=Embedded配置，ReviewedParent仅同步来源身份；编译端/Z7有明确机制，链接/debug和MSBuild节点复用保持，不能推断原两个Job关联成员身份或承诺修复。静态链接及不确定性见[候选说明](validation/configure-embedded-static.md)与[来源合同](test-evidence/2026-10-15-configure-embedded-source.json)。本批本地独审/来源测试后交父复核，Windows/CMake/四case/CI均NotRun，不push，原安全门和Off/0保持。
+
+### 2026-10-15 EmbeddedExecV1 执行来源门准备
+
+父已授权最终精确独审通过后唯一一次configure-only对照。以b771f1e/tree300daf为唯一父，新显式EmbeddedExecV1门、新branch+selfpath隔离；七旧workflow/AccountingV1合同/原日志保持。runner相对静态候选仅ReviewedParent同步，相对baseline仍唯一Embedded运行配置及身份差异。新child实际重测checkout深度，原30秒/JobEmpty/救援清理和全部采集安全边界保持；原171合同拒绝保留，owned精确更新期望后的171不能称旧门原样过。限制和对照字段见[执行计划](validation/configure-embedded-execution.md)。准备快照尚无新CI，实际结果另档。
