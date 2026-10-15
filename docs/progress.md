@@ -529,3 +529,9 @@ bridge结果三文档已交付 b4592d5，查询无新workflow run。后续本地
 从本地归档aa96555继续，在dev/configure-shell-exit-local仅将执行步骤改为官方custom pwsh -File模板并对占位路径加双引号，显式保留ErrorActionPreference Stop和exit LASTEXITCODE。真实Linux shell进程复现旧包装3→1，新包装保留0/1/2/3、异常失败与cleanup=false原摘要；实际Linux入口Blocked2/零操作。首版7项argv测试独审Hold其空格路径证明，保留原输出后改为真实.NET Arguments字符串、补未引号exit64及显式正文无runner修整反例，最终9项通过；原6项来源测试和171项注入断言通过。原runner/operation/lease/采集器/旧workflow共12文件字节不变，已有YAML解析及diff检查通过。[本地说明与根因缺口](validation/configure-shell-exit-local.md)、[固定证据](test-evidence/2026-10-15-configure-shell-exit-local.txt)记录准确范围。
 
 原来源锁/depth/预算不改，此本地后代仍被已执行候选的来源门拒绝，不作为下一Windows冻结候选。Job等待超时仍缺救援前成员身份，未猜测性修改编译选项或放宽Job空/清理要求；没有push、新CI、CMake/四生命周期或模型调用，原实测failure与P0/E06/生产验收边界保持。
+
+### 2026-10-15 自有 Job 成员有限诊断：独立本地实现
+
+核对02043精确独审/远端/未推送差异后，在dev/job-member-diagnostic-local新增独立成员观察器和注入合同。只借用调用者持有的自有Job，单次固定72字节/8成员列表；进程仅最小查询+同步权利、前后成员/Wait0复核、固定映像buffer，闭合basename类别与未确认计数，无PID/路径/命令/异常导出。预算前/中/最终检查，错误或关闭未知清事实，原receipt不变；不复制/关闭/改变Job，不扫描系统、不扩权。独审补进程X64+指针8+OSX64门；411断言/63注入场景、6来源回归通过，16原文件/历史证据字节保持。三个相同Active1/原OperationTimeout反例分别区分MSBuild/PdbServer/Other，均SyntheticInjectedOnly，不能认作真实残留身份或根因。
+
+同步native查询不保证硬耗时，工具尚无原Run/入口/workflow调用点，未影响原30秒及救援/清理；Windows真实布局/权限/句柄验证NotRun，也不是下一可执行CI候选。下一步应先冻结独立owned synthetic Job fixture及单次范围交父核授权，不重跑原失败CI。02043推原configure分支会命中workflow路径，不能以来源门拒绝冒充不触发；新本地开发分支不匹配五workflow过滤。本轮仍无push/新CI/CMake/四case/模型，原超时Unknown和生产安全门保持。[实现、取舍与下一步](validation/job-member-diagnostic-local.md)及[固定本地证据](test-evidence/2026-10-15-job-member-local.json)记录完整边界。

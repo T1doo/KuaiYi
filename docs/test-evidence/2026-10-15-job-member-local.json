@@ -1,0 +1,134 @@
+{
+  "Date": "2026-10-15",
+  "BaseCommit": "02043d2f8bb429d416b54586f30f17d54bb38d5a",
+  "Scope": "IndependentJobMemberHelperOnly",
+  "Host": "Linux x64; existing PowerShell 7.5.3",
+  "NativeWindowsCalls": "NotRun",
+  "WindowsCI": "NotRun",
+  "CMake": "NotRun",
+  "FourCases": "NotRun",
+  "ModelCalls": 0,
+  "Pushed": false,
+  "OriginalRunCallSiteAdded": false,
+  "OriginalRunnerBudgetAndRescueChanged": false,
+  "Tests": {
+    "InjectedAssertions": 411,
+    "InjectedScenarios": 63,
+    "SourceRegressionTests": 6,
+    "Result": "Pass",
+    "ReceiptPreservation": "Injected historical-shaped timeout receipt remains byte-equivalent and OperationTimeout",
+    "PreservedRealFiles": 16
+  },
+  "Bounds": {
+    "MemberCapacity": 8,
+    "ListBufferBytes": 72,
+    "ImageBufferCharacters": 1024,
+    "MemberListQueries": 1,
+    "ListRetries": 0,
+    "MaxExplicitProbeApiCallsIncludingClose": 57,
+    "ReserveMilliseconds": 250,
+    "TimeGuarantee": "Checks original remaining budget; synchronous API execution has no hard cancellation bound; helper is not integrated into Run"
+  },
+  "Rights": {
+    "Job": "Borrowed caller-owned handle; JOB_OBJECT_QUERY; never duplicated, closed or modified",
+    "Process": "PROCESS_QUERY_LIMITED_INFORMATION | SYNCHRONIZE (0x101000); inherit=false",
+    "Ownership": "Controlled in-process caller holds job for the complete synchronous Capture; no concurrent close/reuse; numeric validity proves neither provenance nor lifetime"
+  },
+  "Output": "Fixed status, bounded counts, diagnostic-handle settlement; no PID, handle, path, command or exception",
+  "IdentityMeaning": "Rechecked live job member image basename category; no publisher/component authentication or root-cause conclusion",
+  "SyntheticCounterexamples": [
+    {
+      "Case": "MSBuildImage",
+      "Scope": "SyntheticInjectedOnly",
+      "OriginalAccountingActive": 1,
+      "OriginalReason": "OperationTimeout",
+      "Observation": {
+        "Status": "Observed",
+        "Listed": 1,
+        "MSBuild": 1,
+        "PdbServer": 0,
+        "Compiler": 0,
+        "Linker": 0,
+        "CMake": 0,
+        "Other": 0,
+        "OpenUnavailable": 0,
+        "MembershipUnconfirmed": 0,
+        "RunningUnconfirmed": 0,
+        "ImageUnavailable": 0,
+        "DiagnosticHandlesClosed": true
+      }
+    },
+    {
+      "Case": "PdbServerImage",
+      "Scope": "SyntheticInjectedOnly",
+      "OriginalAccountingActive": 1,
+      "OriginalReason": "OperationTimeout",
+      "Observation": {
+        "Status": "Observed",
+        "Listed": 1,
+        "MSBuild": 0,
+        "PdbServer": 1,
+        "Compiler": 0,
+        "Linker": 0,
+        "CMake": 0,
+        "Other": 0,
+        "OpenUnavailable": 0,
+        "MembershipUnconfirmed": 0,
+        "RunningUnconfirmed": 0,
+        "ImageUnavailable": 0,
+        "DiagnosticHandlesClosed": true
+      }
+    },
+    {
+      "Case": "OtherImage",
+      "Scope": "SyntheticInjectedOnly",
+      "OriginalAccountingActive": 1,
+      "OriginalReason": "OperationTimeout",
+      "Observation": {
+        "Status": "Observed",
+        "Listed": 1,
+        "MSBuild": 0,
+        "PdbServer": 0,
+        "Compiler": 0,
+        "Linker": 0,
+        "CMake": 0,
+        "Other": 1,
+        "OpenUnavailable": 0,
+        "MembershipUnconfirmed": 0,
+        "RunningUnconfirmed": 0,
+        "ImageUnavailable": 0,
+        "DiagnosticHandlesClosed": true
+      }
+    }
+  ],
+  "InitialFailure": {
+    "Scope": "Offline test harness only",
+    "Reason": "PowerShell array concatenation precedence",
+    "PreservedLog": "job-member-tests-1.log",
+    "LogSha256": "c30b16a796b9f37a4763b83126143a29e3ba2a61d9d617479a29bb112d58d01e"
+  },
+  "ReviewCorrections": [
+    "Reject 32-bit process on x64 OS via pointer/process/OS architecture checks",
+    "Check remaining budget once more before returning facts",
+    "Never duplicate or close borrowed job handle"
+  ],
+  "TriggerAnalysis": {
+    "WorkflowCount": 5,
+    "DocsOnlyToConfigureBranch": [],
+    "ShellStackToConfigureBranch": [
+      ".github/workflows/windows-configure-only.yml"
+    ],
+    "ShellStackToOwnBranch": [],
+    "StackToMemberLocalBranch": [],
+    "NoPushPerformed": true
+  },
+  "OriginalConfigureRootCause": "Unknown; real pre-rescue member identities not captured",
+  "Outputs": {
+    "job-member-tests-5.log": "28414c283fa98bf742514fb0606c416645ce6113d9729b5d2d043f48c413eba9",
+    "source-regression.log": "d9cf945ddbbd6e7433b9bdfe6717884e4b1b0e3fb2adf149732924c7c856eccd"
+  },
+  "SourceSha256": {
+    "tools/ci/JobMemberDiagnostic.cs": "a076de9d71e87a4275031bfa621cdabf1ab5fbbfd6e90e8aa70d2b2a1fa38e88",
+    "tests/scripts/job-member-diagnostic.test.ps1": "e22a6b86b0939eedaa74676455edae34cfc60dd4ceeccbf92504507597dc58dc"
+  }
+}
