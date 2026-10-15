@@ -535,3 +535,11 @@ bridge结果三文档已交付 b4592d5，查询无新workflow run。后续本地
 核对02043精确独审/远端/未推送差异后，在dev/job-member-diagnostic-local新增独立成员观察器和注入合同。只借用调用者持有的自有Job，单次固定72字节/8成员列表；进程仅最小查询+同步权利、前后成员/Wait0复核、固定映像buffer，闭合basename类别与未确认计数，无PID/路径/命令/异常导出。预算前/中/最终检查，错误或关闭未知清事实，原receipt不变；不复制/关闭/改变Job，不扫描系统、不扩权。独审补进程X64+指针8+OSX64门；411断言/63注入场景、6来源回归通过，16原文件/历史证据字节保持。三个相同Active1/原OperationTimeout反例分别区分MSBuild/PdbServer/Other，均SyntheticInjectedOnly，不能认作真实残留身份或根因。
 
 同步native查询不保证硬耗时，工具尚无原Run/入口/workflow调用点，未影响原30秒及救援/清理；Windows真实布局/权限/句柄验证NotRun，也不是下一可执行CI候选。下一步应先冻结独立owned synthetic Job fixture及单次范围交父核授权，不重跑原失败CI。02043推原configure分支会命中workflow路径，不能以来源门拒绝冒充不触发；新本地开发分支不匹配五workflow过滤。本轮仍无push/新CI/CMake/四case/模型，原超时Unknown和生产安全门保持。[实现、取舍与下一步](validation/job-member-diagnostic-local.md)及[固定本地证据](test-evidence/2026-10-15-job-member-local.json)记录完整边界。
+
+### 2026-10-15 独立合成 Job 的 Windows 验证准备
+
+按新授权先核33de精确freeze/独审/远端和五workflow分支门，正常非force将aa965→02043→33de三提交保全到dev/job-member-diagnostic-local；该SHA推送前后run查询均0，原configure/main分支未动。新本地dev/job-member-windows-fixture只新增独立A8/B1自有Job fixture与新branch+selfpath workflow，parent33de/tree4a96/helperblob227378锁定，depth2完整九文件来源门。标准windows2022单job5分钟、来源1分钟、fixture2分钟；内部30秒共同观察截止及5秒清理，固定公开sleep进程、最小权限/白名单环境，无继承/扫描/原runner调用。
+
+真实A8 ABI与受控B单候选非成员拒绝分开验证，不声称实际发生PID复用；失败/预算/清理未确认均不发布观察事实。所有自有root退出、两Job空及全部句柄关闭才确认清理，最后JobClose不冒充已观察清理。离线反例与独审并行，完整计数及最终冻结见[单次计划](validation/job-member-windows-plan.md)和[准备证据](test-evidence/2026-10-15-job-member-fixture-offline.json)。本准备批不推workflow候选、不触发CI/CMake/四case；父核精确源码、范围与授权后再接续一次Windows。原超时仍Unknown、安全门及P0/E06/生产验收保持。
+
+本地实回执：新fixture992断言/49场景、真实浅克隆来源门5测试、既有成员诊断411断言/63场景、旧文件fixture16测试通过；Layout x64五结构尺寸仅为本地布局检查，Windows仍NotRun。新增Marshal.SizeOf断言因PS泛型重载先失败，原log保全，再以C#强Type重载修正；独审补live状态只接受WAIT_TIMEOUT，UnknownWait在Observe前拒绝。所有关闭后再次检查5秒清理截止，整体Fail不发布观察事实；未为此重跑旧CI。

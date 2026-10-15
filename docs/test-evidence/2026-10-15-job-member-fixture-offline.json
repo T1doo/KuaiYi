@@ -1,0 +1,81 @@
+{
+  "Date": "2026-10-15",
+  "Scope": "OwnedSyntheticJobFixturePreparation",
+  "Parent": "33de717defa074aea93a6974dd0d7a3f0dc1f2dc",
+  "ParentTree": "4a96c0c53e170bfc0f627d62bf6a0331e1f2afb1",
+  "HelperBlob": "227378ffa3a59e80c65da7fc43c0cffcd21d70f7",
+  "Branch": "dev/job-member-windows-fixture",
+  "FixturePushed": false,
+  "Windows": "NotRun",
+  "CMake": "NotRun",
+  "FourCases": "NotRun",
+  "ModelCalls": 0,
+  "Tests": {
+    "FixtureInjectedAssertions": 992,
+    "FixtureInjectedScenarios": 49,
+    "SourceContracts": 5,
+    "OriginalHelperAssertions": 411,
+    "OriginalHelperScenarios": 63,
+    "OriginalFileFixtureTests": 16,
+    "Result": "Pass"
+  },
+  "LocalOnlyProofs": [
+    "Actual C# compilation using existing PowerShell",
+    "X64 managed layout sizes Basic64 Extended144 Accounting48 Startup104 ProcessInfo24",
+    "Linux entry Blocked2 with no resources or Win32 calls",
+    "Owned real Git source gate rejects depth1, accepts depth2 and rejects tampered helper pin",
+    "Only new branch plus its own workflow path matches the new workflow; other five unchanged",
+    "Failure/expired/unclean result publishes no observation or nonmember counters"
+  ],
+  "InitialFailure": {
+    "Scope": "New local test harness",
+    "Reason": "PowerShell Marshal.SizeOf RuntimeType generic overload binding",
+    "Log": "fixture-contracts-2.log",
+    "ExitCode": 1,
+    "Preserved": true,
+    "Correction": "C# NativeSize(Type) invokes explicit Marshal.SizeOf(Type); five layout assertions passed"
+  },
+  "ReviewCorrections": [
+    "Final cleanup expiry check after all Close calls",
+    "Exact Job flag comparison 0x2000 and before/after original roots",
+    "RootRunning only WAIT_TIMEOUT; unknown waiting rejected before observation",
+    "Strict ResumeThread expected previous suspend count1"
+  ],
+  "PidReuseProof": "Controlled single B candidate, real native nonmembership path planned; not a claimed real Windows PID reuse event",
+  "FixtureLimits": {
+    "PrimaryJobMembers": 8,
+    "OtherOwnedJobMembers": 1,
+    "FixtureOwnedHandlesNormalPath": 20,
+    "LiveBudgetMilliseconds": 30000,
+    "CleanupBudgetMilliseconds": 5000,
+    "JobTimeoutMinutes": 5,
+    "SourceStepMinutes": 1,
+    "FixtureStepMinutes": 2,
+    "HardSynchronousTimeGuarantee": false
+  },
+  "PreservationDelivery": {
+    "Commit": "33de717defa074aea93a6974dd0d7a3f0dc1f2dc",
+    "Tree": "4a96c0c53e170bfc0f627d62bf6a0331e1f2afb1",
+    "Branch": "dev/job-member-diagnostic-local",
+    "NormalNonForcePush": true,
+    "PrePushRuns": 0,
+    "PostPushRuns": 0
+  },
+  "OriginalRootCause": "Unknown",
+  "Outputs": {
+    "fixture-contracts-1.log": "e3495043bfefd9884e698af3671f2982f7340e734e1851fee16f02a224e953ec",
+    "fixture-contracts-2.log": "5bacc8a4f30268494817bf56dd17101c67de813c3d34fcb79093b3dd7297ba3a",
+    "fixture-contracts-3.log": "18c84565027338abaf9e8af0787f8a9e91878fbbd8928e8cba0b38d5d0907fcb",
+    "fixture-source-1.log": "93fc18689d9187b92743feec96628332048c17ebd167e217fff63d06617ad366",
+    "member-regression.log": "28414c283fa98bf742514fb0606c416645ce6113d9729b5d2d043f48c413eba9",
+    "file-fixture-regression.log": "620bedab349982e1838e27e144aaf30ac2b3ea30ab728c30618fc6d5c6033fa2"
+  },
+  "SourceSha256": {
+    ".github/workflows/windows-job-member-fixture.yml": "627177bad84a19e8a1b895e201853bb7903730ef00248a16b50fb55063c0b5ea",
+    "tests/scripts/JobMemberWindowsFixture.cs": "62a201be88c55bba0c52542501dbbb2c5fdb6fe7db8762492e34c8264d8a993e",
+    "tests/scripts/run-job-member-windows.ps1": "c37d0f204a43209956e37383f60817536f708b85e5a2f2c0358a250e02415167",
+    "tests/scripts/job-member-fixture-contracts.test.ps1": "77ceba81ed46efd675b2bc4e9b493ae6059587c7e963f97af8b611e2aaad68dc",
+    "tests/scripts/job-member-fixture.test.py": "16744b5fe1a3ebc5e52d2bac08ae66626ca174d281880509364cae91201c48a8",
+    "tests/scripts/configure-files-fixture.test.py": "aee0f3f95bc066d07887446706231dd7302b5f44b5c0056754f937e2a515c1dc"
+  }
+}

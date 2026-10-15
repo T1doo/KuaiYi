@@ -203,7 +203,7 @@ class FixtureContracts(unittest.TestCase):
         # Existing workflows' branch filters cannot match new branch; unchanged blobs
         # are separately checked against the actual reviewed remote tree.
         for path in (REPO/'.github/workflows').glob('*.yml'):
-            if path.name not in ('windows-configure-files.yml', 'windows-configure-bridge.yml', 'windows-configure-only.yml'):
+            if path.name not in ('windows-configure-files.yml', 'windows-configure-bridge.yml', 'windows-configure-only.yml', 'windows-job-member-fixture.yml'):
                 self.assertIn('branches: [dev/p0-com-selection-diagnostic]', path.read_text())
                 self.assertNotIn('dev/configure-files-fixture', path.read_text())
 

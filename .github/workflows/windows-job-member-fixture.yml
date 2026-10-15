@@ -1,0 +1,51 @@
+name: One isolated owned Job member Windows fixture
+on:
+  push:
+    branches: [dev/job-member-windows-fixture]
+    paths: [.github/workflows/windows-job-member-fixture.yml]
+permissions:
+  contents: read
+jobs:
+  owned-job-members-only:
+    if: github.repository == 'T1doo/KuaiYi' && github.ref == 'refs/heads/dev/job-member-windows-fixture' && github.event_name == 'push'
+    runs-on: windows-2022
+    timeout-minutes: 5
+    env:
+      CI: 'true'
+      POWERSHELL_TELEMETRY_OPTOUT: '1'
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - name: Checkout exact reviewed event
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 2
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Verify exact head parent tree helper and changed file scope
+        timeout-minutes: 1
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $head=(& git rev-parse HEAD).Trim()
+          if($LASTEXITCODE -ne 0 -or $head -cne $env:GITHUB_SHA -or $head -cnotmatch '^[0-9a-f]{40}$'){throw 'Source identity rejected'}
+          $parent='33de717defa074aea93a6974dd0d7a3f0dc1f2dc'
+          $parents=(& git rev-list --parents -n 1 HEAD).Trim().Split(' ')
+          if($LASTEXITCODE -ne 0 -or $parents.Count -ne 2 -or $parents[0] -cne $head -or $parents[1] -cne $parent){throw 'Parent identity rejected'}
+          $parentTree=(& git rev-parse ($parent+'^{tree}')).Trim()
+          if($LASTEXITCODE -ne 0 -or $parentTree -cne '4a96c0c53e170bfc0f627d62bf6a0331e1f2afb1'){throw 'Parent tree rejected'}
+          $helper=(& git rev-parse 'HEAD:tools/ci/JobMemberDiagnostic.cs').Trim()
+          if($LASTEXITCODE -ne 0 -or $helper -cne '227378ffa3a59e80c65da7fc43c0cffcd21d70f7'){throw 'Helper identity rejected'}
+          $allowed=@('.github/workflows/windows-job-member-fixture.yml','docs/progress.md','docs/test-evidence/2026-10-15-job-member-fixture-offline.json','docs/validation/job-member-windows-plan.md','tests/scripts/configure-files-fixture.test.py','tests/scripts/job-member-fixture.test.py','tests/scripts/job-member-fixture-contracts.test.ps1','tests/scripts/JobMemberWindowsFixture.cs','tests/scripts/run-job-member-windows.ps1')
+          $changed=@(& git diff --name-only $parent HEAD --)
+          if($LASTEXITCODE -ne 0 -or @(Compare-Object $allowed $changed).Count -ne 0){throw 'File scope rejected'}
+          $tree=(& git rev-parse 'HEAD^{tree}').Trim()
+          if($LASTEXITCODE -ne 0 -or $tree -cnotmatch '^[0-9a-f]{40}$'){throw 'Execution tree rejected'}
+          Write-Host ('JobMemberSourceVerified Head='+$head+' Tree='+$tree+' Parent='+$parent)
+      - name: Run one synthetic owned Job fixture and stop
+        timeout-minutes: 2
+        shell: pwsh -NoLogo -NoProfile -NonInteractive -File "{0}"
+        run: |
+          $ErrorActionPreference='Stop'
+          & ./tests/scripts/run-job-member-windows.ps1
+          exit $LASTEXITCODE
