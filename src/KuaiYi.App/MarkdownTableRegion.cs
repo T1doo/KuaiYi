@@ -21,6 +21,8 @@ internal sealed class MarkdownTableRegion:IDisposable
     private readonly record struct CellAnchor(int Row,int Column,int Offset);
     private (CellAnchor Start,CellAnchor End,double Horizontal,double Vertical)? pendingSelection;
     private Func<bool>? pendingGuard;
+    private Func<bool>? shouldFollow;
+    private bool isTail,pendingFollow,loadedOnce;
     private bool disposed;
     public RichTextBox View {get;}=new()
     {
@@ -37,9 +39,19 @@ internal sealed class MarkdownTableRegion:IDisposable
         View.PreviewMouseWheel+=Wheel;View.PreviewMouseDown+=MouseDown;View.PreviewMouseMove+=MouseMove;
         View.PreviewKeyDown+=KeyDown;View.PreviewTouchDown+=Touch;View.PreviewTouchMove+=Touch;
         scrollHandler=Scroll;View.AddHandler(ScrollBar.ScrollEvent,scrollHandler,true);
+        View.Loaded+=Loaded;
     }
     public void Constrain(double width,double maximumHeight)
     {View.Width=View.MaxWidth=width;View.MaxHeight=maximumHeight;SizeColumns();}
+    public void ConfigureTail(bool value,Func<bool>? follow){isTail=value;shouldFollow=follow;}
+    private bool CanFollow()=>!disposed&&isTail&&shouldFollow?.Invoke()==true;
+    private void Loaded(object? sender,RoutedEventArgs e){if(loadedOnce)return;loadedOnce=true;if(CanFollow())FollowEnd();}
+    public void FollowEnd()
+    {
+        if(!CanFollow()||captureReaderGuard?.Invoke() is not {} guard)return;
+        var state=pendingSelection is {} pending&&pendingGuard?.Invoke()==true?pending:(CaptureAnchor(View.Selection.Start),CaptureAnchor(View.Selection.End),View.HorizontalOffset,View.VerticalOffset);
+        Restore(state,true,++revision,guard);
+    }
     public void RefreshAppearance(double fontSize,Brush foreground)
     {
         View.FontSize=View.Document.FontSize=table.FontSize=fontSize;View.Foreground=foreground;
@@ -64,7 +76,9 @@ internal sealed class MarkdownTableRegion:IDisposable
     {
         if(!CanAppend(next))throw new InvalidOperationException("Only the same table tail may grow.");
         var previous=data!;
-        var state=pendingSelection is {} pending&&pendingGuard?.Invoke()==true?pending:(CaptureAnchor(View.Selection.Start),CaptureAnchor(View.Selection.End),View.HorizontalOffset,View.VerticalOffset);
+        bool coalesced=pendingSelection is not null&&pendingGuard?.Invoke()==true;
+        var state=coalesced?pendingSelection!.Value:(CaptureAnchor(View.Selection.Start),CaptureAnchor(View.Selection.End),View.HorizontalOffset,View.VerticalOffset);
+        bool end=CanFollow()&&(coalesced?pendingFollow:View.ExtentHeight-View.ViewportHeight-View.VerticalOffset<=24);
         long current=++revision;var canRestore=captureReaderGuard?.Invoke();
         var rows=table.RowGroups[0].Rows;
         for(int index=0;index<next.Rows.Count;index++)
@@ -82,12 +96,17 @@ internal sealed class MarkdownTableRegion:IDisposable
         }
         data=next;SizeColumns();
         if(canRestore is null)return; // Measurement has no reader state or deferred work.
-        pendingSelection=state;pendingGuard=canRestore;
+        Restore(state,end,current,canRestore);
+    }
+    private void Restore((CellAnchor Start,CellAnchor End,double Horizontal,double Vertical) state,bool end,long current,Func<bool> canRestore)
+    {
+        pendingSelection=state;pendingGuard=canRestore;pendingFollow=end;
         View.Dispatcher.BeginInvoke(DispatcherPriority.Loaded,()=>
         {
             if(disposed||current!=revision||!canRestore())return;
             View.Selection.Select(ResolveAnchor(state.Item1),ResolveAnchor(state.Item2));
-            View.ScrollToHorizontalOffset(state.Item3);View.ScrollToVerticalOffset(state.Item4);pendingSelection=null;pendingGuard=null;
+            if(end&&CanFollow())View.ScrollToEnd();else View.ScrollToVerticalOffset(state.Item4);
+            View.ScrollToHorizontalOffset(state.Item3);pendingSelection=null;pendingGuard=null;pendingFollow=false;
         });
     }
     private CellAnchor CaptureAnchor(TextPointer point)
@@ -137,6 +156,7 @@ internal sealed class MarkdownTableRegion:IDisposable
         if(disposed)return;disposed=true;revision++;pendingSelection=null;pendingGuard=null;data=null;
         View.PreviewMouseWheel-=Wheel;View.PreviewMouseDown-=MouseDown;View.PreviewMouseMove-=MouseMove;
         View.PreviewKeyDown-=KeyDown;View.PreviewTouchDown-=Touch;View.PreviewTouchMove-=Touch;View.RemoveHandler(ScrollBar.ScrollEvent,scrollHandler);
+        View.Loaded-=Loaded;shouldFollow=null;
         View.Document.Blocks.Clear();table.RowGroups.Clear();table.Columns.Clear();View.Selection.Select(View.Document.ContentStart,View.Document.ContentStart);View.ScrollToHorizontalOffset(0);View.ScrollToVerticalOffset(0);
     }
 }

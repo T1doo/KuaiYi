@@ -10,7 +10,36 @@
 4. 同屏展开态拖动保持可见尺寸，文字继续缓存；整体卡片夹紧工作区。跨125/150/200%DPI时保留同一次捕获手势、原始按下抓取比例、Moved闩锁与资格，重新基准屏幕坐标；松手必须Released并保存，不能变成Click切On。拖到较小屏允许立即缩小以确保A⊆C⊆W，松手后重规划/测量。包含“拖动时首批正文到达”以及动画未完就拖动。
 5. 监视器移除、任务栏/工作区变化、系统取消鼠标捕获、锁屏或隐藏：废弃旧过渡并安全收束；消失屏可夹紧到可用屏，取消不能误触启用，保存最后合法位置。普通主题事件在拓扑未变时不重开卡片。真实Windows消息顺序和WPF DPI transform处理必须记录，不用合成事件顺序证明实机。
 6. Hover350ms工具条、离开整个按钮/条250ms收回；跨越按钮到设置不闪退，键盘焦点留在条中不收回。展开控制栏保留主钮、收起和停止；很窄屏通过主钮右键/键盘菜单访问其他操作。正文选择/复制显式激活，其他自动生长不得抢前台。
-7. 到高度上限内部滚动；距底24DIP内才跟随，向上阅读保持滚动位置并显示“有新内容”。向上生长不反转文字。试验表格/长代码/200%系统文字/高对比度/减少动画，实际排版与无闪烁待验；当前为纯文本，Markdown结构渲染留P4。
-8. `pwsh scripts/ci-offline.ps1 -Configuration Release` 可运行实际锁定构建、便携HTTP/协议测试和Node测试，输出解析原TRX/JUnit的计数。它不是Windows桌面测试；当前没有远端GitHub workflow或实跑记录。不得因为CI脚本零退出便声称P0/E06、B组、60fps或安装卸载通过。
+7. 到高度上限内部滚动；距底24DIP内才跟随，向上阅读保持滚动位置并显示“有新内容”。向上生长不反转文字。当前源码已接受限Markdown原生段落/标题/列表/行内/代码/表格及局部滚动；历史审查包不会自动更新。表格/长代码/200%系统文字/高对比度/减少动画的实际排版与无闪烁仍待验，新增跟随协议测试不能替代实机。
+8. `pwsh scripts/ci-offline.ps1 -Configuration Release` 可运行实际锁定构建、便携HTTP/协议测试和Node测试，输出解析原TRX/JUnit的计数。它不是Windows桌面测试；本清单B组无对应Windows实机通过证据，既有workflow及阶段运行按各自记录。不得因为CI脚本零退出便声称P0/E06、B组、60fps或安装卸载通过。
 
 检查正常生产app目录无PublicText/MockProvider/GrowthHarness角色；测试流只在工具程序集。本包包含公开探针以便复核，并不称为开发安装包。
+
+## 2026-10-15 当前源码的原生 Markdown 验收准备（未执行）
+
+指定环境是 Linux x86_64，无 DISPLAY/WAYLAND 和 WindowsDesktop 运行时；没有尝试 Wine、远端 Actions、Windows/CMake 或桌面探针。下列步骤只为未来已授权的 Windows 交互会话准备，本次全部 **NotRun**，不是操作授权或 Windows 通过回执。旧入口/CI输入不变，新 `--actual-markdown` 只选择既有 Production ShellWindow 工具内固定合成语料；禁捕获/Translation/Drop/Hotkeys 后端、无模型/凭据，不读取外部文件。框架依赖输出不是安装包，不注册身份、不签名或信任证书。
+
+如使用 Windows 11 与已安装的 .NET 10 Desktop Runtime，按当前源码构建，所有 dotnet 前保留 false 变量；实际运行需单独记录完整提交/工具摘要、系统和 DPI。以下命令本次未在 Windows 执行：
+
+```powershell
+$env:DOTNET_GENERATE_ASPNET_CERTIFICATE='false'
+dotnet restore tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj --locked-mode -p:EnableWindowsTargeting=true
+dotnet build tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj --no-restore -c Release -p:EnableWindowsTargeting=true
+tools/KuaiYi.GrowthHarness/bin/Release/net10.0-windows/win-x64/KuaiYi.GrowthHarness.exe --actual-markdown artifacts/native-markdown/run.csv 1000
+```
+
+固定输入 V1 的源码为 `tools/KuaiYi.GrowthHarness/MarkdownReviewText.cs`；[逐字节文本](test-evidence/2026-10-15-native-markdown-v1.txt)仅含合成公开数据，32575 UTF-16 单元、35747 UTF-8 字节，SHA256 `4b2a6cd375c4fa39d56d3a7a685840f81545bd4085d2124c66ee6272679b863e`。两项真实 Core 测试核固定摘要、完整 Source、最终128行代码/12列65行表和137字符分片；它们不是 WPF 排版。1000字符/秒约33秒；F5重新开始同一固定流，`burst`用于突发。不要把测试文本换成用户原文或真实配置。
+
+分别记录以下场景，缺任何实测数据均保持 NotRun：
+
+| 场景 | 实际操作与应观察结果 |
+|---|---|
+| 有限视口/结构（B12） | 代码区横滚，表格横滚/纵滚，普通1200无空格字符和中文标点换行；表头/左右中对齐/Run/Span保留；实际 HWND、正文页宽、滚动条不撑出工作区 |
+| 自动跟随（§4.6/B06） | 在末尾代码或表格生成期间距局部底部24DIP与25DIP分别追加；仅前者且外层仍follow时跟随；首次挂载按follow展示尾部；主题重载不重新强制跳底 |
+| 阅读暂停与明确恢复 | 表内滚轮/拖选/键盘上读，即使外层到底也保持锚点；“有新内容”只使当前末尾区域和外层到底，水平偏移和原选区不变；继续追加可跟随 |
+| 尾部结构变换 | 代码闭合转普通段落、部分pipe行变表格末行；不再是末块时仅恢复原选区/偏移，不能跳旧区底部；变为末块按incoming结构判断24DIP |
+| 输入交错/清理 | 新输入抢在Loaded恢复前、反向排队、F5新结果、锁屏/隐藏/退出；旧回调不能改新阅读状态或保留旧内容；正常清理完成再结束记录 |
+| 选择复制 | 单格/多格、代码、跨嵌套区域分别试选及复制，只用固定语料；完整原文复制与局部选择分开核，不假定独立编辑控件支持整文统一选择 |
+| 尺寸/可访问性 | 100/150/200%DPI、极小可用区、200%文字、高对比度、减少动画；实际 DesiredSize/阅读位置/按钮边界及B06/B07需对应原始实机证据 |
+
+工具 CSV 仍只记录时间、坐标、布尔，无原文/截图。summary 的 `DesktopAcceptance=NotEvaluated`、交互程序 Exit0 或几何检查为 true 均不代表上述场景通过。自动无输入场景的 ForegroundUnchanged/AnchorStable 与主动点击/拖动场景分开评估：用户交互可合理改变前台或锚点。原始 CSV/summary、人工操作记录和仅含合成窗口的必要图像一起核验后才能更新状态；本次没有创建任何 Windows截图或测量值。详见[本轮生产改动与证据边界](validation/overlay-tail-follow.md)。

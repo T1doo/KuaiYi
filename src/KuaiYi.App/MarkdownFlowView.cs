@@ -15,13 +15,14 @@ internal sealed class MarkdownFlowView
     private readonly Dictionary<Block,MarkdownTableRegion> tableRegions=[];
     private readonly Action? observeReader;
     private readonly Func<Func<bool>>? captureReaderGuard;
+    private readonly Func<bool>? shouldFollow;
     private Guid? appliedVersion;
     private MarkdownViewport viewport=new(388,560);
     private double appliedFontSize=double.NaN;
     private static readonly FontFamily ProseFont=new("Segoe UI"),CodeFont=new("Consolas");
-    public MarkdownFlowView(RichTextBox host,Action? observeReader=null,Func<Func<bool>>? captureReaderGuard=null)
+    public MarkdownFlowView(RichTextBox host,Action? observeReader=null,Func<Func<bool>>? captureReaderGuard=null,Func<bool>? shouldFollow=null)
     {
-        this.host=host;this.observeReader=observeReader;this.captureReaderGuard=captureReaderGuard;host.Document=new FlowDocument{PagePadding=new Thickness(0),ColumnGap=0};
+        this.host=host;this.observeReader=observeReader;this.captureReaderGuard=captureReaderGuard;this.shouldFollow=shouldFollow;host.Document=new FlowDocument{PagePadding=new Thickness(0),ColumnGap=0};
         host.IsReadOnly=true;host.IsUndoEnabled=false;host.IsDocumentEnabled=true;host.HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled;host.VerticalScrollBarVisibility=ScrollBarVisibility.Visible;host.ClipToBounds=true;
         SetViewport(viewport);
     }
@@ -39,11 +40,18 @@ internal sealed class MarkdownFlowView
         foreach(var region in codeRegions.Values){region.View.FontSize=host.FontSize;region.View.Foreground=host.Foreground;}
         foreach(var region in tableRegions.Values)region.RefreshAppearance(host.FontSize,host.Foreground);
     }
+    public void FollowTailEnd()
+    {
+        if(elements.Count==0)return;var tail=elements[^1];
+        if(codeRegions.TryGetValue(tail,out var code))code.FollowEnd();
+        if(tableRegions.TryGetValue(tail,out var table))table.FollowEnd();
+    }
     public void Apply(IReadOnlyList<MarkdownBlock> blocks,double fontSize,MarkdownViewport viewport,Guid? selectedVersion)
     {
         SetViewport(viewport);
         using var change=host.DeclareChangeBlock();
         int keep=0;while(keep<applied.Count&&keep<blocks.Count&&ReferenceEquals(applied[keep],blocks[keep]))keep++;
+        ConfigureTail(blocks.Count-1); // Incoming structure decides whether a retained region is the tail.
         // The open fenced-code tail can grow without replacing its selectable native region.
         if(appliedVersion==selectedVersion&&keep<applied.Count&&keep<blocks.Count&&applied[keep].Kind==MarkdownBlockKind.Code&&blocks[keep].Kind==MarkdownBlockKind.Code&&blocks[keep].Source.StartsWith(applied[keep].Source,StringComparison.Ordinal)&&codeRegions.TryGetValue(elements[keep],out var growing))
         {growing.UpdateText(blocks[keep].Text);applied[keep]=blocks[keep];keep++;}
@@ -57,11 +65,13 @@ internal sealed class MarkdownFlowView
             if(data.Kind==MarkdownBlockKind.Code)
             {
                 var region=new MarkdownCodeRegion(data.Text,observeReader,captureReaderGuard);region.Constrain(host.Document.PageWidth,viewport.CodeMaximumHeightDip);
+                region.ConfigureTail(i==blocks.Count-1,shouldFollow);
                 element=new BlockUIContainer(region.View){Margin=new Thickness(0)};codeRegions.Add(element,region);
             }
             else if(data.Table is {} table)
             {
                 var region=new MarkdownTableRegion(table,CreateTable,CreateTableParagraph,observeReader,captureReaderGuard);region.Constrain(host.Document.PageWidth,viewport.TableMaximumHeightDip);
+                region.ConfigureTail(i==blocks.Count-1,shouldFollow);
                 element=new BlockUIContainer(region.View){Margin=new Thickness(0)};tableRegions.Add(element,region);
             }
             else
@@ -84,6 +94,12 @@ internal sealed class MarkdownFlowView
             element.FontFamily=data.Kind==MarkdownBlockKind.Code?CodeFont:ProseFont;
         }
         RefreshCodeAppearance();
+    }
+    private void ConfigureTail(int index)
+    {
+        var tail=index>=0&&index<elements.Count?elements[index]:null;
+        foreach(var pair in codeRegions)pair.Value.ConfigureTail(ReferenceEquals(pair.Key,tail),shouldFollow);
+        foreach(var pair in tableRegions)pair.Value.ConfigureTail(ReferenceEquals(pair.Key,tail),shouldFollow);
     }
     private static Paragraph CreateParagraph(string text,IReadOnlyList<MarkdownInline> inlines)
     {

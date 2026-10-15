@@ -20,6 +20,7 @@ internal static class Program
     {
         if(args.Length==2&&args[0]=="--ci-actual-overlay")return ActualOverlayProbe.Run(args[1],"2400",boundedCi:true);
         if(args.Length is 2 or 3&&args[0]=="--actual-overlay")return ActualOverlayProbe.Run(args[1],args.Length==3?args[2]:"240");
+        if(args.Length is 2 or 3&&args[0]=="--actual-markdown")return ActualOverlayProbe.Run(args[1],args.Length==3?args[2]:"1000",markdownReview:true);
         string output = args.Length == 1 ? Path.GetFullPath(args[0]) : Path.GetFullPath("artifacts/growth-probe.csv");
         Directory.CreateDirectory(Path.GetDirectoryName(output)!);
         var application = new Application();

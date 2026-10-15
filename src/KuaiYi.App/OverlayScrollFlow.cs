@@ -10,7 +10,7 @@ internal sealed partial class ShellWindow
     private void InvalidateBodyScrollRestore(){bodyScrollRevision++;bodyReaderIntentRevision++;}
     private void ForgetCodeReaderIntent(){InvalidateBodyScrollRestore();codeReaderPaused=false;}
     private void ResetBodyReaderFollow(){ForgetCodeReaderIntent();follow=true;}
-    private void FollowBodyEnd(){ResetBodyReaderFollow();body.ScrollToEnd();}
+    private void FollowBodyEnd(){ResetBodyReaderFollow();bodyMarkdown?.FollowTailEnd();body.ScrollToEnd();}
     private void ObserveCodeReaderIntent(){InvalidateBodyScrollRestore();codeReaderPaused=true;follow=false;}
     private Func<bool> CaptureBodyReaderGuard()
     {

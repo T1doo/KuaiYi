@@ -47,7 +47,7 @@ internal sealed partial class ShellWindow
     private void SetupPresentation()
     {
         overlayResults=new(lifecycle.Gate);presentationReceiver=new(lifecycle.Gate,new DispatcherSynchronizationContext(Dispatcher));
-        bodyMarkdown=new(body,ObserveCodeReaderIntent,CaptureBodyReaderGuard);measurementMarkdown=new(measurement);
+        bodyMarkdown=new(body,ObserveCodeReaderIntent,CaptureBodyReaderGuard,()=>follow);measurementMarkdown=new(measurement);
         Content=overlayCanvas;overlayCanvas.Children.Add(cardBackground);overlayCanvas.Children.Add(body);overlayCanvas.Children.Add(resultLabel);overlayCanvas.Children.Add(controls);overlayCanvas.Children.Add(button);overlayCanvas.Children.Add(progressRing);overlayCanvas.Children.Add(connectionStatus);overlayCanvas.Children.Add(newContent);
         body.Visibility=controls.Visibility=Visibility.Collapsed;button.Width=button.Height=48;button.Padding=new Thickness(0);RefreshPresentationTheme();UpdateButtonGlyph(false);
         styleTool=Tool("风格",()=>OpenOverflowMenu(styleTool!));Tool("回看",ReopenResult);Tool("收起",CollapseResult);Tool("停止",StopResult);Tool("重新生成",()=>RegenerateResult());Tool("复制",CopyResult);Tool("设置",()=>_=OpenSettings());

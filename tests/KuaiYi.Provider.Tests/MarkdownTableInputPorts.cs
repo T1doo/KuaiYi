@@ -13,6 +13,10 @@ namespace System.Windows.Controls
         public Documents.TextSelection Selection {get;}
         public double HorizontalOffset {get;private set;}
         public double VerticalOffset {get;private set;}
+        public double ExtentHeight {get;set;}=1200;
+        public double ViewportHeight {get;set;}=200;
+        public int EndCalls {get;private set;}
+        public void ScrollToEnd(){VerticalOffset=Math.Max(0,ExtentHeight-ViewportHeight);EndCalls++;}
         public void ScrollToHorizontalOffset(double value)=>HorizontalOffset=value;
         public void ScrollToVerticalOffset(double value)=>VerticalOffset=value;
         public event EventHandler<Input.MouseWheelEventArgs>? PreviewMouseWheel;

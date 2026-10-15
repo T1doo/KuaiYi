@@ -45,6 +45,10 @@ namespace System.Windows.Controls
         public int SelectionLength {get;private set;}
         public double HorizontalOffset {get;private set;}
         public double VerticalOffset {get;private set;}
+        public double ExtentHeight {get;set;}=1200;
+        public double ViewportHeight {get;set;}=200;
+        public int EndCalls {get;private set;}
+        public void ScrollToEnd(){VerticalOffset=Math.Max(0,ExtentHeight-ViewportHeight);EndCalls++;}
         public event EventHandler<Input.MouseWheelEventArgs>? PreviewMouseWheel;
         public event EventHandler<Input.MouseButtonEventArgs>? PreviewMouseDown;
         public event EventHandler<Input.MouseEventArgs>? PreviewMouseMove;

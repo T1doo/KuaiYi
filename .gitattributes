@@ -8,3 +8,13 @@ SPEC.md -text
 # Preserve reviewed adapter bytes for the isolated Windows fixture integrity gate.
 tools/ci/lifecycle_configure_projection.py -text
 tools/ci/lifecycle_configure_windows.py -text
+
+# Exact public review receipts/corpus must keep their reviewed bytes on Windows too.
+docs/test-evidence/2026-10-15-table-scroll-originals__app-final.log -text
+docs/test-evidence/2026-10-15-table-scroll-originals__app-first.log -text
+docs/test-evidence/2026-10-15-table-scroll-originals__focused-first.log -text
+docs/test-evidence/2026-10-15-table-scroll-originals__focused-second.log -text
+docs/test-evidence/2026-10-15-table-scroll-originals__focused-second.trx -text
+docs/test-evidence/2026-10-15-table-scroll-originals__provider-final.log -text
+docs/test-evidence/2026-10-15-table-scroll-originals__provider-final.trx -text
+docs/test-evidence/2026-10-15-native-markdown-v1.txt -text

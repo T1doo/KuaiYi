@@ -11,7 +11,7 @@ namespace KuaiYi.GrowthHarness;
 internal static class ActualOverlayProbe
 {
     private const string PublicText="快译公开浮窗验证。没有读取其他应用，没有请求模型。\n\n同一个按钮是整张卡片的锚点；文字按最终宽度排版，窗口从按钮生长，跨DPI拖动后松手保存。\n\n";
-    public static int Run(string output,string rate,bool boundedCi=false)
+    public static int Run(string output,string rate,bool boundedCi=false,bool markdownReview=false)
     {
         bool burst=rate=="burst";double perSecond=0;
         if(!burst&&(!double.TryParse(rate,System.Globalization.NumberStyles.Float,System.Globalization.CultureInfo.InvariantCulture,out perSecond)||!double.IsFinite(perSecond)||perSecond is <1 or >10000))return 2;
@@ -35,7 +35,7 @@ internal static class ActualOverlayProbe
         window.SourceInitialized+=(_,_)=>Phase("SourceInitialized");window.Closing+=(_,_)=>Phase("Closing");window.Closed+=(_,_)=>Phase("Closed");
         app.DispatcherUnhandledException+=(_,e)=>Phase("DispatcherUnhandled:"+e.Exception.GetType().Name);
         var timer=new DispatcherTimer{Interval=TimeSpan.FromMilliseconds(50)};RequestIdentity? current=null;int offset=0;bool busy=false;double budget=0;long feedTime=Stopwatch.GetTimestamp();
-        string stream=string.Concat(Enumerable.Repeat(PublicText,24));var errors=new List<string>();
+        string stream=markdownReview?MarkdownReviewText.Text:string.Concat(Enumerable.Repeat(PublicText,24));var errors=new List<string>();
         bool completed=false,timedOut=false;long completedAt=0;
         var deadline=new DispatcherTimer{Interval=TimeSpan.FromMilliseconds(100)};long startedAt=Stopwatch.GetTimestamp();
         var checks=new Dictionary<string,bool>{{"AnchorContained",true},{"WorkContained",true},{"NativeMatches",true},{"ActualAnchorContained",true},{"ActualWorkContained",true},{"ForegroundUnchanged",true},{"ActualButtonMatchesAnchor",true},{"AnchorStable",true},{"Grew",false}};
@@ -93,7 +93,7 @@ internal static class ActualOverlayProbe
         {
             System.Windows.Media.CompositionTarget.Rendering-=observe;timer.Stop();deadline.Stop();
             File.WriteAllLines(output,new[]{"ms,stage,dpi,left,top,right,bottom,anchorContained,workContained,nativeMatches,actualAnchorContained,actualWorkContained,foregroundUnchanged,actualButtonMatchesAnchor,buttonLeft,buttonTop,buttonRight,buttonBottom,anchorLeft,anchorTop,anchorRight,anchorBottom"}.Concat(frames));
-            File.WriteAllText(output+".summary.json",System.Text.Json.JsonSerializer.Serialize(new{Kind="ActualProductionOverlayPublicProbe",Rate=rate,RetainedFrames=frames.Count,DiscardedFrames=discarded,Errors=errors,ModelCalls=0,Source="PublicFixtureOnly",DesktopAcceptance="NotEvaluated",Mode=boundedCi?"BoundedCi":"Interactive",StreamCompleted=completed,Checks=checks,ExitCode=boundedCi?ExitCode():0}));
+            File.WriteAllText(output+".summary.json",System.Text.Json.JsonSerializer.Serialize(new{Kind=markdownReview?"ActualProductionMarkdownPublicReview":"ActualProductionOverlayPublicProbe",Rate=rate,RetainedFrames=frames.Count,DiscardedFrames=discarded,Errors=errors,ModelCalls=0,Source=markdownReview?"FixedMarkdownReviewV1":"PublicFixtureOnly",DesktopAcceptance="NotEvaluated",Mode=boundedCi?"BoundedCi":"Interactive",StreamCompleted=completed,Checks=checks,ExitCode=boundedCi?ExitCode():0}));
             if(Directory.Exists(root))Directory.Delete(root,true);
         }
         return boundedCi?ExitCode():result;

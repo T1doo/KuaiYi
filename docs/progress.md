@@ -653,3 +653,11 @@ AccountingV1准备实际验证完成：独立来源5项通过，真实浅clone21
 独审修复全局symbol offset及末格闭符后移两个选区缺口，改稳定cell内offset并归一有效插入边界，合并追加和迟到恢复受局部/输入/结果/锁屏/退出门保护。最终Provider740/740=前699+新41，App最终交叉构建0W/E；首xUnit2031编译失败0执行原log、218专项和初版App回执均保留，旧29回执hash保持。Linux显式符号端口仅测生产协议，真实WPF表格宽度/横滚/排版/多格跨区域选择/系统复制/阅读锚点/路由仍NotRun，B12与P2-04未完成。
 
 8workflow/43锁/1570旧证据及全部45Core生产文件原字节保持，250/600ms及全部安全门/离线复用Off保持。Actions停止查询不绕拒绝、CIUnknown；dotnet显式false，证书不读不改Unknown。无Windows/CMake实验、main/强推/部署/费用凭据权限/真实模型。详见[表格局部说明](validation/overlay-table-scroll.md)与[固定证据](test-evidence/2026-10-15-overlay-table-scroll.json)。
+
+### 2026-10-15 原回执保全、末尾区域跟随及原生验收准备
+
+从8226f11d66719afab2413e06166591c3e245af54核实际文件/远端/单一写入者后建立dev/overlay-tail-follow。七份原始回执重新独立逐字节/hash/XML核740/218及219/40/41，两次App0W/E、首xUnit2031零执行、22源blob与前29回执一致；七原字节复制唯一新证据路径，原产物不改，仅含合成测试/runner元数据。[独立核验](test-evidence/2026-10-15-table-scroll-independent-audit.json)和原副本持久化保全。
+
+按SPEC4.6/B06优先修实际“有新内容只滚外层”缺口：唯一末尾代码/表格接全局follow与原局部24DIP判断、明确跟随、首次Loaded，保选区/H偏移和暂停阅读；多次追加合并、输入/版本/锁屏退出清空迟到门保持。独审补主题重载one-shot、incoming表尾提升和失去尾资格时降级原锚点恢复。最终Provider774/774=前740+32生产跟随+2语料，App/GrowthHarness交叉build各0W/E；保留247/248生产失败、772/774语料误用及各中间回执。冻结通道断连后同名TRX覆盖警告保留，首次执行/覆盖前字节Unknown且未保全，不补造；七原回执不受影响。
+
+原生准备只扩既有Production ShellWindow工具的固定合成--actual-markdown入口，保存与源码SHA一致的公开语料并更新Windows清单；无新外围工具/CI/抓取/模型/凭据或加载入口。Linux缺WindowsDesktop，WPF真实横滚/测量/选择/阅读锚点/路由/剪贴板均NotRun，B12/P2-04仍未完成；Stop终态Flush/标签缺口明确留后续。8workflow/43锁/1571旧证据与45Core生产文件原字节、安全门/250/600ms/离线Off保持；Actions停止查询CIUnknown，dotnet显式false、证书Unknown且不读不改。见[本轮说明与失败边界](validation/overlay-tail-follow.md)及[固定证据](test-evidence/2026-10-15-overlay-tail-follow.json)。

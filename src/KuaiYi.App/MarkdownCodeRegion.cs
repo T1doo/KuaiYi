@@ -15,6 +15,8 @@ internal sealed class MarkdownCodeRegion:IDisposable
     private long revision;
     private (int Start,int Length,double Horizontal,double Vertical)? pendingSelection;
     private Func<bool>? pendingGuard;
+    private Func<bool>? shouldFollow;
+    private bool isTail,pendingFollow,loadedOnce;
     private bool disposed;
     public TextBox View {get;}=new()
     {
@@ -30,23 +32,40 @@ internal sealed class MarkdownCodeRegion:IDisposable
         View.PreviewMouseWheel+=Wheel;View.PreviewMouseDown+=MouseDown;View.PreviewMouseMove+=MouseMove;
         View.PreviewKeyDown+=KeyDown;View.PreviewTouchDown+=Touch;View.PreviewTouchMove+=Touch;
         scrollHandler=Scroll;View.AddHandler(ScrollBar.ScrollEvent,scrollHandler,true);
+        View.Loaded+=Loaded;
     }
     public void Constrain(double width,double maximumHeight)
     {View.Width=View.MaxWidth=width;View.MaxHeight=maximumHeight;}
+    public void ConfigureTail(bool value,Func<bool>? follow){isTail=value;shouldFollow=follow;}
+    private bool CanFollow()=>!disposed&&isTail&&shouldFollow?.Invoke()==true;
+    private void Loaded(object? sender,RoutedEventArgs e){if(loadedOnce)return;loadedOnce=true;if(CanFollow())FollowEnd();}
+    public void FollowEnd()
+    {
+        if(!CanFollow()||captureReaderGuard?.Invoke() is not {} guard)return;
+        var state=pendingSelection is {} pending&&pendingGuard?.Invoke()==true?pending:(View.SelectionStart,View.SelectionLength,View.HorizontalOffset,View.VerticalOffset);
+        Restore(state,true,++revision,guard);
+    }
     public void UpdateText(string text)
     {
         if(View.Text==text)return;
-        var state=pendingSelection is {} pending&&pendingGuard?.Invoke()==true?pending:(View.SelectionStart,View.SelectionLength,View.HorizontalOffset,View.VerticalOffset);
+        bool coalesced=pendingSelection is not null&&pendingGuard?.Invoke()==true;
+        var state=coalesced?pendingSelection!.Value:(View.SelectionStart,View.SelectionLength,View.HorizontalOffset,View.VerticalOffset);
+        bool end=CanFollow()&&(coalesced?pendingFollow:View.ExtentHeight-View.ViewportHeight-View.VerticalOffset<=24);
         long current=++revision;
         var canRestore=captureReaderGuard?.Invoke();
         if(text.StartsWith(View.Text,StringComparison.Ordinal))View.AppendText(text[View.Text.Length..]);else View.Text=text;
         if(canRestore is null)return; // Measurement controls have no reader state or deferred work.
-        pendingSelection=state;pendingGuard=canRestore;
+        Restore(state,end,current,canRestore);
+    }
+    private void Restore((int Start,int Length,double Horizontal,double Vertical) state,bool end,long current,Func<bool> canRestore)
+    {
+        pendingSelection=state;pendingGuard=canRestore;pendingFollow=end;
         View.Dispatcher.BeginInvoke(DispatcherPriority.Loaded,()=>
         {
             if(disposed||current!=revision||!canRestore())return;
             int selected=Math.Min(state.Item1,View.Text.Length);View.Select(selected,Math.Min(state.Item2,View.Text.Length-selected));
-            View.ScrollToHorizontalOffset(state.Item3);View.ScrollToVerticalOffset(state.Item4);pendingSelection=null;pendingGuard=null;
+            if(end&&CanFollow())View.ScrollToEnd();else View.ScrollToVerticalOffset(state.Item4);
+            View.ScrollToHorizontalOffset(state.Item3);pendingSelection=null;pendingGuard=null;pendingFollow=false;
         });
     }
     private void Observe(){if(!disposed){revision++;pendingSelection=null;pendingGuard=null;observeReader?.Invoke();}}
@@ -62,6 +81,7 @@ internal sealed class MarkdownCodeRegion:IDisposable
         if(disposed)return;disposed=true;revision++;pendingSelection=null;pendingGuard=null;
         View.PreviewMouseWheel-=Wheel;View.PreviewMouseDown-=MouseDown;View.PreviewMouseMove-=MouseMove;
         View.PreviewKeyDown-=KeyDown;View.PreviewTouchDown-=Touch;View.PreviewTouchMove-=Touch;View.RemoveHandler(ScrollBar.ScrollEvent,scrollHandler);
+        View.Loaded-=Loaded;shouldFollow=null;
         View.Clear();View.Select(0,0);View.ScrollToHorizontalOffset(0);View.ScrollToVerticalOffset(0);
     }
 }

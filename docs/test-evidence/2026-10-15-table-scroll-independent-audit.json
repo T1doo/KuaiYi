@@ -1,0 +1,133 @@
+{
+  "VerifiedCommit": "8226f11d66719afab2413e06166591c3e245af54",
+  "Platform": "Linux",
+  "WpfRuntime": "NotRun: Linux cannot execute Microsoft.WindowsDesktop.App",
+  "Receipts": {
+    "app-final.log": {
+      "Bytes": 888,
+      "Sha256": "713f425db72d9f3cd318b6e1c91c7f82e31b8e0dbc5d25e55f1de834cff8e93e"
+    },
+    "app-first.log": {
+      "Bytes": 888,
+      "Sha256": "724e22b5862365be512cf497e80be18c8eb14f36582f2f13eaacde3934b7acda"
+    },
+    "focused-first.log": {
+      "Bytes": 665,
+      "Sha256": "8a9720e75ccb9045f66cfb62bca522c71403f77aef593e4417302ca4688172e7"
+    },
+    "focused-second.log": {
+      "Bytes": 810,
+      "Sha256": "3b8e5b1bd28722ac90d153e3a8ce42c9024e4ed8166d34953822805f40fdfd8e"
+    },
+    "focused-second.trx": {
+      "Bytes": 314105,
+      "Sha256": "f182f43d12cded17921a9342a2a1d180e76c86ae13f15e06779ba40b00ced118",
+      "Counters": {
+        "total": "218",
+        "executed": "218",
+        "passed": "218",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "RelevantClasses": {
+        "KuaiYi.Provider.Tests.MarkdownCodeScrollTests": 42,
+        "KuaiYi.Provider.Tests.MarkdownProductionBridgeTests": 6,
+        "KuaiYi.Provider.Tests.MarkdownTableProductionTests": 6,
+        "KuaiYi.Provider.Tests.MarkdownTableScrollTests": 40,
+        "KuaiYi.Provider.Tests.OverlayReaderIntentTests": 6,
+        "KuaiYi.Provider.Tests.OverlayScrollTests": 11,
+        "KuaiYi.Provider.Tests.RestrictedMarkdownInlineTests": 38,
+        "KuaiYi.Provider.Tests.RestrictedMarkdownTableTests": 41,
+        "KuaiYi.Provider.Tests.RestrictedMarkdownTests": 28
+      }
+    },
+    "provider-final.log": {
+      "Bytes": 807,
+      "Sha256": "7083d941e3d080c13eaf7cd00f441cfc55a834e896e103708e65cda2a27b1e83"
+    },
+    "provider-final.trx": {
+      "Bytes": 1080618,
+      "Sha256": "1e0c4c6840ed98484c796377946be61f7245ad950f2ea4ae01420dab20554192",
+      "Counters": {
+        "total": "740",
+        "executed": "740",
+        "passed": "740",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "RelevantClasses": {
+        "KuaiYi.Provider.Tests.MarkdownCodeScrollTests": 42,
+        "KuaiYi.Provider.Tests.MarkdownProductionBridgeTests": 6,
+        "KuaiYi.Provider.Tests.MarkdownTableProductionTests": 6,
+        "KuaiYi.Provider.Tests.MarkdownTableScrollTests": 41,
+        "KuaiYi.Provider.Tests.OverlayReaderIntentTests": 6,
+        "KuaiYi.Provider.Tests.OverlayScrollTests": 11,
+        "KuaiYi.Provider.Tests.RestrictedMarkdownInlineTests": 38,
+        "KuaiYi.Provider.Tests.RestrictedMarkdownTableTests": 41,
+        "KuaiYi.Provider.Tests.RestrictedMarkdownTests": 28
+      }
+    }
+  },
+  "SourceManifestSha256": "8c83ea54355e8ea1bddde1f0de224cf2b1f58497a4819e52203454d6fc46c26b",
+  "SourceFiles": 22,
+  "PriorReceiptsVerified": 29,
+  "PreservedOriginalCopies": {
+    "docs/test-evidence/2026-10-15-table-scroll-originals__app-final.log": {
+      "Bytes": 888,
+      "Sha256": "713f425db72d9f3cd318b6e1c91c7f82e31b8e0dbc5d25e55f1de834cff8e93e"
+    },
+    "docs/test-evidence/2026-10-15-table-scroll-originals__app-first.log": {
+      "Bytes": 888,
+      "Sha256": "724e22b5862365be512cf497e80be18c8eb14f36582f2f13eaacde3934b7acda"
+    },
+    "docs/test-evidence/2026-10-15-table-scroll-originals__focused-first.log": {
+      "Bytes": 665,
+      "Sha256": "8a9720e75ccb9045f66cfb62bca522c71403f77aef593e4417302ca4688172e7"
+    },
+    "docs/test-evidence/2026-10-15-table-scroll-originals__focused-second.log": {
+      "Bytes": 810,
+      "Sha256": "3b8e5b1bd28722ac90d153e3a8ce42c9024e4ed8166d34953822805f40fdfd8e"
+    },
+    "docs/test-evidence/2026-10-15-table-scroll-originals__focused-second.trx": {
+      "Bytes": 314105,
+      "Sha256": "f182f43d12cded17921a9342a2a1d180e76c86ae13f15e06779ba40b00ced118"
+    },
+    "docs/test-evidence/2026-10-15-table-scroll-originals__provider-final.log": {
+      "Bytes": 807,
+      "Sha256": "7083d941e3d080c13eaf7cd00f441cfc55a834e896e103708e65cda2a27b1e83"
+    },
+    "docs/test-evidence/2026-10-15-table-scroll-originals__provider-final.trx": {
+      "Bytes": 1080618,
+      "Sha256": "1e0c4c6840ed98484c796377946be61f7245ad950f2ea4ae01420dab20554192"
+    }
+  },
+  "IndependentReviewer": {
+    "Agent": "/root/inline_review",
+    "Status": "Read-only independent audit passed; actual bytes/hash/XML and baseline commit blobs verified",
+    "SdkActionsOrPlatformCalls": 0
+  },
+  "Scope": "Original execution receipts bound to 8226f11d66719afab2413e06166591c3e245af54, not reruns of the later changed production",
+  "Privacy": "Fixed synthetic test inputs, build paths and test runner/container metadata; two TRX outputs only runner StdOut, no ErrorInfo/StdErr, no captured user source or secrets observed."
+}

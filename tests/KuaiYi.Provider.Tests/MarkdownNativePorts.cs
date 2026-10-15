@@ -19,8 +19,11 @@ namespace System.Windows
         public double Height {get;set;}=double.NaN;
         public double MaxWidth {get;set;}=double.PositiveInfinity;
         public double MaxHeight {get;set;}=double.PositiveInfinity;
+        public event EventHandler<RoutedEventArgs>? Loaded;
+        internal void RaiseLoaded()=>Loaded?.Invoke(this,new());
     }
     internal sealed class TouchEventArgs:EventArgs;
+    internal sealed class RoutedEventArgs:EventArgs;
 }
 namespace System.Windows.Automation
 {internal static class AutomationProperties {public static void SetName(UIElement element,string value)=>element.AutomationName=value;}}
