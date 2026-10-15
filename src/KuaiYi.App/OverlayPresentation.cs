@@ -21,8 +21,8 @@ internal sealed partial class ShellWindow
 {
     private readonly Canvas overlayCanvas=new(){ClipToBounds=true,HorizontalAlignment=HorizontalAlignment.Left,VerticalAlignment=VerticalAlignment.Top};
     private readonly Border cardBackground=new(){Background=Brushes.White,IsHitTestVisible=false};
-    private readonly TextBox body=new(){IsReadOnly=true,TextWrapping=TextWrapping.Wrap,AcceptsReturn=true,BorderThickness=new Thickness(0),Padding=new Thickness(0),VerticalScrollBarVisibility=ScrollBarVisibility.Auto,HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled,FontFamily=new("Segoe UI"),Background=Brushes.Transparent};
-    private readonly TextBlock measurement=new(){TextWrapping=TextWrapping.Wrap,FontFamily=new("Segoe UI")};
+    private readonly RichTextBox body=new(){IsReadOnly=true,IsUndoEnabled=false,IsDocumentEnabled=false,BorderThickness=new Thickness(0),Padding=new Thickness(0),VerticalScrollBarVisibility=ScrollBarVisibility.Auto,HorizontalScrollBarVisibility=ScrollBarVisibility.Auto,FontFamily=new("Segoe UI"),Background=Brushes.Transparent};
+    private readonly RichTextBox measurement=new(){IsReadOnly=true,IsUndoEnabled=false,IsDocumentEnabled=false,BorderThickness=new Thickness(0),Padding=new Thickness(0),VerticalScrollBarVisibility=ScrollBarVisibility.Disabled,HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled};
     private readonly TextBlock resultLabel=new(){FontSize=11,TextTrimming=TextTrimming.CharacterEllipsis,IsHitTestVisible=false,Visibility=Visibility.Collapsed};
     private readonly Canvas controls=new(){Height=48};private readonly List<Button> tools=[];private readonly List<Action> toolActions=[];
     private readonly Button moreTools=new(){Content="…",Width=28,Height=28,ToolTip="更多操作及版本"};
@@ -47,6 +47,7 @@ internal sealed partial class ShellWindow
     private void SetupPresentation()
     {
         overlayResults=new(lifecycle.Gate);presentationReceiver=new(lifecycle.Gate,new DispatcherSynchronizationContext(Dispatcher));
+        bodyMarkdown=new(body);measurementMarkdown=new(measurement);
         Content=overlayCanvas;overlayCanvas.Children.Add(cardBackground);overlayCanvas.Children.Add(body);overlayCanvas.Children.Add(resultLabel);overlayCanvas.Children.Add(controls);overlayCanvas.Children.Add(button);overlayCanvas.Children.Add(progressRing);overlayCanvas.Children.Add(connectionStatus);overlayCanvas.Children.Add(newContent);
         body.Visibility=controls.Visibility=Visibility.Collapsed;button.Width=button.Height=48;button.Padding=new Thickness(0);RefreshPresentationTheme();UpdateButtonGlyph(false);
         styleTool=Tool("风格",()=>OpenOverflowMenu(styleTool!));Tool("回看",ReopenResult);Tool("收起",CollapseResult);Tool("停止",StopResult);Tool("重新生成",()=>RegenerateResult());Tool("复制",CopyResult);Tool("设置",()=>_=OpenSettings());
@@ -84,7 +85,7 @@ internal sealed partial class ShellWindow
     {
         bool dark=lifecycle.Settings?.Data.Overlay.Theme==ThemePreference.Dark;
         if(lifecycle.Settings?.Data.Overlay.Theme is null or ThemePreference.FollowSystem){try{dark=Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize","AppsUseLightTheme",1) is int value&&value==0;}catch(Exception error)when(error is System.Security.SecurityException or UnauthorizedAccessException or System.IO.IOException){Report("系统主题读取失败",error);}}
-        cardBackground.Background=SystemParameters.HighContrast?SystemColors.WindowBrush:dark?OverlayTokens.Dark:Brushes.White;body.Foreground=SystemParameters.HighContrast?SystemColors.WindowTextBrush:dark?Brushes.WhiteSmoke:Brushes.Black;connectionStatus.Foreground=resultLabel.Foreground=body.Foreground;
+        cardBackground.Background=SystemParameters.HighContrast?SystemColors.WindowBrush:dark?OverlayTokens.Dark:Brushes.White;body.Foreground=SystemParameters.HighContrast?SystemColors.WindowTextBrush:dark?Brushes.WhiteSmoke:Brushes.Black;body.Document.Foreground=measurement.Document.Foreground=body.Foreground;connectionStatus.Foreground=resultLabel.Foreground=body.Foreground;
     }
     private void ApplyResult(RequestIdentity identity,OverlayResultEvent value,bool alreadyApplied=false)
     {
@@ -107,15 +108,15 @@ internal sealed partial class ShellWindow
     {
         if(overlayFrames==null)return 48;
         double size=lifecycle.Settings?.Data.Overlay.FontSizeDip??15;
-        body.FontSize=measurement.FontSize=size;TextBlock.SetLineHeight(body,size*1.55);measurement.LineHeight=size*1.55;
-        measurement.Text=overlayResults.Text;measurement.Measure(new Size(Math.Max(1,plan.Dpi.Dips(plan.Target.Width)-32),double.PositiveInfinity));
+        body.FontSize=measurement.FontSize=size;RefreshMarkdown(renderBody:false);
+        measurement.Measure(new Size(Math.Max(1,plan.Dpi.Dips(plan.Target.Width)-32),double.PositiveInfinity));
         return plan.Dpi.CeilingPixels(48+32+(resultLabel.Text.Length>0?20:0)+measurement.DesiredSize.Height);
     }
     private void OpenBody(){if(overlayFrames==null)return;overlayFrames.OpenMeasured(Preferences(),MeasureBody);dirty=true;if(!flush.IsEnabled)flush.Start();StartFrames();}
     private void FlushResult()
     {
         if(!dirty||exiting)return;dirty=false;
-        double offset=body.VerticalOffset;body.Text=overlayResults.Text;bool bottom=follow;
+        double offset=body.VerticalOffset;RefreshMarkdown(renderBody:true);bool bottom=follow;
         newContent.Visibility=!bottom&&overlayResults.HasText?Visibility.Visible:Visibility.Collapsed;
         ScheduleBodyScrollRestore(bottom,offset);
         if(overlayFrames!=null&&!gesture.Active&&overlayFrames.Transition!=OverlayTransition.Moving)
@@ -147,7 +148,7 @@ internal sealed partial class ShellWindow
     private void CopyResult(){if(!overlayResults.HasText)return;try{Clipboard.SetText(overlayResults.Text);}catch(Exception error){Report("复制失败",error);}}
     private void StopPresentation(){overlayResults.MarkStopped();awaitingText=false;progressRing.Visibility=Visibility.Collapsed;CollapseResult();}
     private void HidePresentation(bool clear)
-    {InvalidateBodyScrollRestore();peek=false;overflowMenu.IsOpen=false;waiting.Stop();flush.Stop();peekIn.Stop();peekOut.Stop();StopFrames();awaitingText=false;progressRing.Visibility=Visibility.Collapsed;overlayResults.MarkStopped();if(clear){overlayResults.Clear();body.Clear();measurement.Text="";resultRevision++;}overlayFrames?.Compact();ApplyOverlayFrame();}
+    {InvalidateBodyScrollRestore();peek=false;overflowMenu.IsOpen=false;waiting.Stop();flush.Stop();peekIn.Stop();peekOut.Stop();StopFrames();awaitingText=false;progressRing.Visibility=Visibility.Collapsed;overlayResults.MarkStopped();if(clear){overlayResults.Clear();ClearMarkdown();resultRevision++;}overlayFrames?.Compact();ApplyOverlayFrame();}
     private void BeginOverlayMove(){StopFrames();peekIn.Stop();peekOut.Stop();overlayFrames?.BeginMove();}
     private void MoveOverlay(PixelPoint desired,MonitorTopology topology)
     {
@@ -243,5 +244,5 @@ internal sealed partial class ShellWindow
         Canvas.SetLeft(newContent,Math.Max(0,width-90));Canvas.SetTop(newContent,Math.Max(0,height-30));
         }
     }
-    private void DisposePresentation(){StopFrames();flush.Stop();peekIn.Stop();peekOut.Stop();waiting.Stop();overlayResults.Clear();body.Clear();measurement.Text="";}
+    private void DisposePresentation(){StopFrames();flush.Stop();peekIn.Stop();peekOut.Stop();waiting.Stop();overlayResults.Clear();ClearMarkdown();}
 }

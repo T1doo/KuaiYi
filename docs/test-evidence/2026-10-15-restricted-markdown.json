@@ -1,0 +1,141 @@
+{
+  "SourceParent": "dd9c0796b3708acea92cb420128c035b6947bfe7",
+  "Branch": "dev/overlay-reading-input",
+  "Scope": "Restricted SPEC11.5 paragraphs, ATX headings, top-level single-line lists and fenced code; incomplete full specification",
+  "ProductionAndTestSha256": {
+    "src/KuaiYi.Core/RestrictedMarkdown.cs": "7b32bf7f4bf4948c8cf596f9ee5eb5cc8c6a9efabe34e58e59de69bbaddb6675",
+    "src/KuaiYi.App/MarkdownFlowView.cs": "45bed9bbadca1d365fb6f6c4a675c12382dae606aa76e35e9852de72106764f5",
+    "src/KuaiYi.App/OverlayMarkdown.cs": "3730bf09dd31a520d24f315825782f06721a642d6afb0a4b864ca3182c364506",
+    "src/KuaiYi.App/OverlayPresentation.cs": "8fe6be93a4c4000b5e099d926b2f95fc5e141799abe7c7b2c371699c1052e8d4",
+    "tests/KuaiYi.Provider.Tests/RestrictedMarkdownTests.cs": "63978427f73afd795ec511944f77cad0b0e38d9d31aad36fd6941c1342821cd6"
+  },
+  "Implementation": {
+    "DependenciesAdded": 0,
+    "NativeFlowDocumentOnly": true,
+    "StableParserPrefixReused": true,
+    "StableNativeBlocksReusedByReferencePrefix": true,
+    "TailOnlyTextUpdates": true,
+    "SelectedVersionIdentityUsed": true,
+    "RawCopyToolUnchanged": true,
+    "UndoDisabled": true,
+    "ClearDropsModelAndBothDocuments": true,
+    "HtmlImagesLinks": "Literal text only; no loader, Hyperlink, XamlReader, resource URI or execution",
+    "UnsupportedSyntax": "Whole unformatted block retains original source",
+    "Limits": {
+      "FormattedUtf16": 120000,
+      "FormattedBlocks": 2048,
+      "UpstreamUtf16": 1048576,
+      "Overflow": "Single complete plain-text block; no truncation"
+    }
+  },
+  "ActualTests": {
+    "ProviderPassed": 566,
+    "Failed": 0,
+    "Skipped": 0,
+    "NewProductionModelCases": 28,
+    "ExistingCases": 538,
+    "Scope": [
+      "Every two-way split and single UTF16-unit feeds across 12 samples",
+      "50 fixed-seed chunk runs with Unicode and CRLF",
+      "Unclosed fences, long 50000-character code line",
+      "Exact 120000 and 2048 limits followed by overflow",
+      "Source partition conservation and unsupported syntax literal fallback",
+      "Stable block reference reuse and changing tail",
+      "Actual OverlayResults three-version retention and failed-generation fallback",
+      "Cancellation/lock/clear/late-event rejection"
+    ],
+    "AppReleaseCrossBuildWarnings": 0,
+    "AppReleaseCrossBuildErrors": 0,
+    "CoreTestSuite": "NotRun; initial no-restore attempt failed NETSDK1004, then tests placed in already restored Provider project"
+  },
+  "FailureRecords": [
+    {
+      "File": "focused-first.log",
+      "Result": "NETSDK1004 missing Core test assets; no test execution"
+    },
+    {
+      "Files": [
+        "focused.log",
+        "markdown-focused.trx"
+      ],
+      "Passed": 26,
+      "Failed": 1,
+      "Reason": "Test fixture attempted selecting an already-evicted version; corrected to protected selected predecessor and added explicit eviction assertion; production cache unchanged"
+    },
+    {
+      "Files": [
+        "provider-final.log",
+        "provider-final.trx"
+      ],
+      "Result": "Intermediate 565/565 pass before exact boundary additions and fallback case"
+    }
+  ],
+  "Receipts": {
+    "provider-final.log": {
+      "Bytes": 814,
+      "Sha256": "f316e08aea84392b072ef32cd462ec768e6bd62c1f60217cfedcd5041903d67e"
+    },
+    "provider-final-boundaries.trx": {
+      "Bytes": 829330,
+      "Sha256": "f3decd8bce60cb1317d36cf69087b2270a1c5e3db731354400a15aa72f759655"
+    },
+    "provider-final-boundaries.log": {
+      "Bytes": 825,
+      "Sha256": "2b71e66a5551c19772ff8d36b298cbb7b230ba35b041812ee8e78b2416c5e845"
+    },
+    "focused.log": {
+      "Bytes": 1605,
+      "Sha256": "c330a9ed07ff786cc4dfe10468f56791f79ae1deaf28a218c04a606a103aa9cd"
+    },
+    "markdown-focused.trx": {
+      "Bytes": 41857,
+      "Sha256": "fe0ddde7c46bb06bd8c581db0e70d225f5b69348838f0247eea3e90d182232af"
+    },
+    "app-first.log": {
+      "Bytes": 888,
+      "Sha256": "d17511f6680140e6ca293c3ac5b4769c3bc0afd918c586aeb5461069a875b1a1"
+    },
+    "provider-final.trx": {
+      "Bytes": 827913,
+      "Sha256": "82e412fcf53f56e18592cbb6da7eb0253931cd3978ca9512fd0853fc86fa2122"
+    },
+    "focused-first.log": {
+      "Bytes": 359,
+      "Sha256": "aa845bb5f12570422f8c3c2175c4dc76a25c1b78c6b3bf0eead1a161702b8523"
+    }
+  },
+  "Preservation": {
+    "EightWorkflowBytesUnchanged": true,
+    "LocksUnchanged": 43,
+    "PriorEvidenceVerified": {
+      "overlay-reading-scroll": 33,
+      "overlay-wiring-followup": 11,
+      "overlay-notice-reset": 6
+    },
+    "Budgets250_600msAndSafetyGates": "Unchanged",
+    "LockScope": "All tracked *packages.lock.json, including named Alpha locks"
+  },
+  "NotRun": [
+    "WPF native layout and selection/copy behavior",
+    "Horizontal scrolling: code currently uses FlowDocument default wrapping, no unwrapped-code guarantee",
+    "Native block object reuse observed at runtime",
+    "Reading position, input/refresh interleaving and new-content notice in RichTextBox",
+    "B06/B07, full B group, full SPEC11.5 and production acceptance"
+  ],
+  "RemainingSyntax": [
+    "Bold",
+    "Italic",
+    "Inline code",
+    "Tables",
+    "Nested/multiline list semantics",
+    "Explicit external-link opening"
+  ],
+  "Certificate": {
+    "GenerateAspnetCertificate": "false explicitly before every SDK invocation, inherited by children",
+    "StoreAndTrustState": "Unknown",
+    "ReadTrustDelete": false,
+    "InstallPromptInCurrentLogs": false
+  },
+  "NoNewWindowsCmakeExperiment": true,
+  "NoRealModelCalls": true
+}

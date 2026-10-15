@@ -615,3 +615,9 @@ AccountingV1准备实际验证完成：独立来源5项通过，真实浅clone21
 ### 2026-10-15 P2-04/B06/B07有限接续：新内容提示归位
 
 指定环境仍Linux，无真实WPF能力；已有实际浮窗入口需Windows且不自动执行B06输入交错/B07连续反向，实际交互均NotRun。审查发现上读提示显示后切换缓存版本会follow=true，但Flush只显示不清除提示，展开态旧提示可跨版本残留；仅补齐Flush属性同步，有正文且暂停才显示，其他情况Collapsed。未改滚动守卫/收起动画、不增外围适配器或重复原队列测试；旧538/538仅前批基线，本轮不重跑。App交叉构建和独立源码审查的实际结果见[修复说明](validation/overlay-notice-reset.md)及[固定证据](test-evidence/2026-10-15-overlay-notice-reset.json)。Windows输入/布局/提示可达性、B07反向/帧时间、P0原CMake根因仍未解决，P2-04 InProgress；false证书变量、Unknown存储/信任和所有原安全门保持。
+
+### 2026-10-15 §11.5受限Markdown接正式浮窗
+
+原OverlayResults/50ms刷新链改用原生只读FlowDocument展示段落、ATX标题、顶层单行列表和围栏代码；有界模型保留精确Source，只重解析变动尾段，稳定块与原生块按引用复用。粗体/斜体/行内代码/表格/复杂列表/打开链接未实现，不支持部分保留完整字面文本；HTML/图片/链接不加载或执行。120000单元/2048块以上整份有限结果纯文本回退，工具栏复制仍取原始结果；三版本、失败回退、迟到隔离、取消/锁屏清空及阅读/提示守卫保留，无新依赖。
+
+最终Provider566/566=新28+原538、App交叉构建0警告/错误；保留首assets缺失0执行、首26/27夹具误选已淘汰版本及中间565回执。WPF排版/选择复制/横向滚动/阅读锚点、B06/B07与完整§11.5均NotRun/未完成，P2-04仍InProgress。旧证书Unknown与false变量、250/600ms及所有原安全门保持，无新CMake/Windows实验。详见[生产切片说明](validation/restricted-markdown.md)及[固定证据](test-evidence/2026-10-15-restricted-markdown.json)。
