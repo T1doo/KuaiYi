@@ -1,0 +1,118 @@
+{
+  "Version": "AccountingV1",
+  "Parent": "9d75368aa246b40e2bfc9517eb390384c6faf470",
+  "ParentTree": "2f0d8993206519bf42991055ee0abda92627db3b",
+  "Locked": "3ae69419a1152ea9694a3a9cf11130fbae645fa3",
+  "LockedTree": "870a72ed3ef2ee31252c10e2d63cbcb859e7fd7b",
+  "Branch": "dev/configure-accounting-windows",
+  "Workflow": ".github/workflows/windows-configure-accounting.yml",
+  "Files": [
+    ".github/workflows/windows-configure-accounting.yml",
+    "docs/progress.md",
+    "docs/test-evidence/2026-10-15-configure-accounting-source.json",
+    "docs/validation/configure-accounting-next-run.md",
+    "tests/scripts/configure-accounting-source.test.py",
+    "tests/scripts/run-configure-only-windows.ps1"
+  ],
+  "RuntimeCanonicalVersions": {
+    "tools/ci/LifecycleOperation.cs": {
+      "Blob": "b8b6fcf80cc763bf4289591765bb42e4bb31df37",
+      "Sha256": "585a20758ce699fdc0c927ddd451239008b11985134e2a529929ba28bea893a3"
+    },
+    "tests/scripts/lifecycle-ci-evidence.ps1": {
+      "Blob": "208b2df950a05511078f5205f0b7442fabf4ca8e",
+      "Sha256": "fcebcab0813a3302a40564cdbb11e9a98ca445f2bc7f356bdb5a78b88abae7ea"
+    },
+    "tests/scripts/run-configure-only-windows.ps1": {
+      "Blob": "71e742f1642090c8690a3b44b5b704687bdb442d",
+      "Sha256": "a04683f16bb55d453821440071d41b2994594f0580e2cc0f23cb7e31c9848efc"
+    }
+  },
+  "CandidateInclusiveCheckoutDepth": 22,
+  "DepthEvidence": "20 single-parent nodes from locked exclusive to base; actual owned shallow clone depth21 rejected and depth22 full gate passed",
+  "Tests": {
+    "IndependentSourceTests": 5,
+    "AccountingAssertions": 162,
+    "AccountingScenarios": 11,
+    "ConfigureAssertions": 171,
+    "LegacyEvidenceAssertions": 45
+  },
+  "LegacySourceAudit": {
+    "Tests": 6,
+    "Passed": 4,
+    "Rejected": 2,
+    "RejectedChecks": [
+      "original LifecycleOperation.cs bytes",
+      "entry ReviewedParent=b4592d5"
+    ],
+    "OldContractModified": false
+  },
+  "Counterexamples": [
+    "extra file",
+    "case-only file path drift",
+    "committed entry byte drift",
+    "working content drift",
+    "wrong unique parent",
+    "wrong event SHA",
+    "wrong SHA256 pin"
+  ],
+  "LineEndings": "Git existing text normalization only; CRLF checkout accepted, canonical blob SHA256 exact; no attributes changes or broad code exemptions",
+  "DevelopmentFailures": [
+    "source1/2 exposed multiple Get-Command Git paths; selected first Application",
+    "source5 bare update-index --force-remove missing work-tree; fixed owned index prefix"
+  ],
+  "Logs": {
+    "legacy-source-rejection.log": {
+      "Bytes": 12504,
+      "Sha256": "5449696c6412bd109067bf07239fdc42e471c298a091963a2d5659da1fd8c6fa"
+    },
+    "source-3.log": {
+      "Bytes": 658,
+      "Sha256": "d0a7365d7a49430fc8594f196719289af4dfbae3cdf237733ec34dbab617c303"
+    },
+    "source-6.log": {
+      "Bytes": 795,
+      "Sha256": "5e732c80e8b98dc839dea6648031461484d9b54f3d44b03472842fa0af2dda2b"
+    },
+    "source-2.log": {
+      "Bytes": 2130,
+      "Sha256": "f416d38180312904554e593b6e9710f227d769e52cba37e02bb229bc62b09d51"
+    },
+    "source-5.log": {
+      "Bytes": 2009,
+      "Sha256": "6fd0e8d17d82bc5489beeca20f37ef41346bd605000bb434945c7d34d488fe49"
+    },
+    "source-1.log": {
+      "Bytes": 1612,
+      "Sha256": "361586d11c9236de14305cde4c465169a734ce2b401bf0ff8e6bf7faea6259a6"
+    },
+    "projection.log": {
+      "Bytes": 159,
+      "Sha256": "7acd15ec4717d3d4b59f2f8823d4a1fd41ccc2cae7385b671d453e555fe22840"
+    },
+    "evidence.log": {
+      "Bytes": 85,
+      "Sha256": "3aee6c0c1860e9b01117b9bc6a735067aec1bd81824a8e5374293c6bdfedf5ca"
+    },
+    "configure.log": {
+      "Bytes": 103,
+      "Sha256": "0355e628623f123e74b64b56d1cd12e62dea5db1a56d3ff4c7588120df1fa502"
+    },
+    "source-4.log": {
+      "Bytes": 795,
+      "Sha256": "abf85ab54c806f1ad7753c13a60035264348a34defbbbe9230410e60b60424d8"
+    }
+  },
+  "TraceSha256": "a548defc065329dc5cfc7ce70921936a411b4256ada8fd71cf4c45b63e71f074",
+  "SourceSha256": {
+    ".github/workflows/windows-configure-accounting.yml": "a040d806703163abac32cb3111123039e367c93b756d138f0b5c4ddaa2fb3824",
+    "tests/scripts/configure-accounting-source.test.py": "c2029db0f6bfbe9ddd9a4f91f81acb48db048981d08742f15e3bce6b2021c286"
+  },
+  "Windows": "NotRun at preparation",
+  "OriginalConfigureRootCause": "Unknown",
+  "Scope": "Only two existing successful Accounting query copies; no member probe, build, restore or FourCases",
+  "ProtectedFiles": 11,
+  "OldPrivateEvidenceManifestsUnchanged": true,
+  "ModelCalls": 0,
+  "ProductionReuse": "Off"
+}

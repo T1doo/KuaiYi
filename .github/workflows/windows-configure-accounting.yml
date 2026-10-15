@@ -1,0 +1,81 @@
+name: One configure-only existing Accounting attempt
+on:
+  push:
+    branches: [dev/configure-accounting-windows]
+    paths: [.github/workflows/windows-configure-accounting.yml]
+permissions:
+  contents: read
+jobs:
+  configure-accounting-only:
+    if: github.repository == 'T1doo/KuaiYi' && github.ref == 'refs/heads/dev/configure-accounting-windows' && github.event_name == 'push'
+    runs-on: windows-2022
+    timeout-minutes: 10
+    env:
+      CI: 'true'
+      POWERSHELL_TELEMETRY_OPTOUT: '1'
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - name: Checkout exact AccountingV1 candidate and full locked ancestry
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 22
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Verify AccountingV1 parent scope and three exact runtime versions
+        timeout-minutes: 1
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          try {
+            $head=(& git rev-parse HEAD).Trim()
+            if($LASTEXITCODE -ne 0 -or $head -cne $env:GITHUB_SHA -or $head -cnotmatch '^[0-9a-f]{40}$'){throw 'Head rejected'}
+            $parent='9d75368aa246b40e2bfc9517eb390384c6faf470';$parentTree='2f0d8993206519bf42991055ee0abda92627db3b'
+            $parents=(& git rev-list --parents -n 1 HEAD).Trim().Split(' ')
+            if($LASTEXITCODE -ne 0 -or $parents.Count -ne 2 -or $parents[0] -cne $head -or $parents[1] -cne $parent){throw 'Parent rejected'}
+            $actual=(& git rev-parse ($parent+'^{tree}')).Trim()
+            if($LASTEXITCODE -ne 0 -or $actual -cne $parentTree){throw 'Parent tree rejected'}
+            $locked='3ae69419a1152ea9694a3a9cf11130fbae645fa3'
+            & git merge-base --is-ancestor $locked HEAD
+            if($LASTEXITCODE -ne 0){throw 'Ancestor rejected'}
+            $actual=(& git rev-parse ($locked+'^{tree}')).Trim()
+            if($LASTEXITCODE -ne 0 -or $actual -cne '870a72ed3ef2ee31252c10e2d63cbcb859e7fd7b'){throw 'Locked tree rejected'}
+            $allowed=@('.github/workflows/windows-configure-accounting.yml','docs/progress.md','docs/test-evidence/2026-10-15-configure-accounting-source.json','docs/validation/configure-accounting-next-run.md','tests/scripts/configure-accounting-source.test.py','tests/scripts/run-configure-only-windows.ps1')
+            $changed=@(& git diff --name-only $parent HEAD --)
+            if($LASTEXITCODE -ne 0 -or @(Compare-Object -CaseSensitive $allowed $changed).Count -ne 0){throw 'File scope rejected'}
+            $pins=@(
+              @{Path='tools/ci/LifecycleOperation.cs';Blob='b8b6fcf80cc763bf4289591765bb42e4bb31df37';Sha256='585a20758ce699fdc0c927ddd451239008b11985134e2a529929ba28bea893a3'}
+              @{Path='tests/scripts/lifecycle-ci-evidence.ps1';Blob='208b2df950a05511078f5205f0b7442fabf4ca8e';Sha256='fcebcab0813a3302a40564cdbb11e9a98ca445f2bc7f356bdb5a78b88abae7ea'}
+              @{Path='tests/scripts/run-configure-only-windows.ps1';Blob='71e742f1642090c8690a3b44b5b704687bdb442d';Sha256='a04683f16bb55d453821440071d41b2994594f0580e2cc0f23cb7e31c9848efc'}
+            )
+            $git=@(Get-Command git -CommandType Application -ErrorAction Stop)[0].Source
+            foreach($pin in $pins){
+              $actual=(& git rev-parse ('HEAD:'+$pin.Path)).Trim()
+              if($LASTEXITCODE -ne 0 -or $actual -cne $pin.Blob){throw 'Runtime blob rejected'}
+              # Verify working content after the repository's existing Git text normalization.
+              $working=(& git hash-object ('--path='+$pin.Path) -- $pin.Path).Trim()
+              if($LASTEXITCODE -ne 0 -or $working -cne $pin.Blob){throw 'Working content rejected'}
+              # Hash exact canonical blob bytes, without PowerShell line/encoding transformations.
+              $process=[Diagnostics.Process]::new()
+              try {
+                $process.StartInfo.FileName=$git;$process.StartInfo.UseShellExecute=$false
+                $process.StartInfo.RedirectStandardOutput=$true;$process.StartInfo.RedirectStandardError=$true
+                $process.StartInfo.ArgumentList.Add('show');$process.StartInfo.ArgumentList.Add('HEAD:'+$pin.Path)
+                if(-not $process.Start()){throw 'Blob reader rejected'}
+                $errorRead=$process.StandardError.ReadToEndAsync()
+                $sha=[Convert]::ToHexString([Security.Cryptography.SHA256]::HashData($process.StandardOutput.BaseStream)).ToLowerInvariant()
+                $process.WaitForExit();$stderr=$errorRead.GetAwaiter().GetResult()
+                if($process.ExitCode -ne 0 -or $stderr.Length -ne 0 -or $sha -cne $pin.Sha256){throw 'Runtime hash rejected'}
+              } finally {$process.Dispose()}
+            }
+            $tree=(& git rev-parse 'HEAD^{tree}').Trim()
+            if($LASTEXITCODE -ne 0 -or $tree -cnotmatch '^[0-9a-f]{40}$'){throw 'Tree rejected'}
+            Write-Host ('AccountingSourceVerified Version=AccountingV1 Head='+$head+' Tree='+$tree+' Parent='+$parent)
+          } catch {throw 'Accounting source gate rejected'}
+      - name: Configure once and collect finite diagnostics after settlement
+        timeout-minutes: 7
+        shell: pwsh -NoLogo -NoProfile -NonInteractive -File "{0}"
+        run: |
+          $ErrorActionPreference='Stop'
+          & ./tests/scripts/run-configure-only-windows.ps1
+          exit $LASTEXITCODE

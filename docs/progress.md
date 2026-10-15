@@ -575,3 +575,9 @@ bridge结果三文档已交付 b4592d5，查询无新workflow run。后续本地
 环境实际命令/文件恢复可用，核118981a精确parent和单一写入者后，仅复制既有成功Accounting查询的Active/Total，固定FirstWait/LastPreRescue两点；未查询/失败Unknown/null，清理Empty(job)不携带诊断对象，不能覆盖预救援值。原整个Run、while短路/clock/等待及finally字节保持，零新增native/Stopwatch读取/重试/线程/进程句柄；不承诺绝对零指令耗时。只在原操作与lease结算后另输出闭合计数行，旧Operations/operation JSON投影与原因不变，投影/新前缀输出失败独立Unavailable且原summary/exit继续。
 
 针对性162断言/11场景、原configure171及旧证据45回归通过，父/当前等待轨迹逐项一致，清理布尔/异常及旧receipt原因一致。旧来源6项中5通过1拒绝当前Accounting改动，保留旧冻结门和完整失败日志，当前不是可直接执行CI候选。17份原文件/六workflow/配置原字节及两套旧manifest核对；原缺失Directory.Build.targets未补造。Active只是Job关联数、Total包括已终止，不用Terminated推断全部退出或根因。输出合成样例、轨迹、精确范围及后续单次计划见[本地接入说明](validation/configure-accounting-local.md)和[固定离线证据](test-evidence/2026-10-15-configure-accounting-local.json)。本轮无push/新Windows/CMake/四case；原根因Unknown，所有原安全门和生产验收保持。
+
+### 2026-10-15 AccountingV1 独立来源合同准备
+
+从9d75368精确父基线准备唯一child，旧门/旧workflow/日志保持。三runtime版本精确固定，新入口ReviewedParent同步9d75368；实际checkout深度门及离线反例验证中，本地尚未推送或执行CI。
+
+AccountingV1准备实际验证完成：独立来源5项通过，真实浅clone21拒绝/22通过；三运行blob/canonical SHA精确固定、working text归一核验，错误父/event/hash、runtime漂移、额外/大小写scope全部拒绝。旧六来源合同原字节保留，当前4通过2拒绝，旧日志不回填。162/11、171、45本阶段实际复跑通过。新独立branch+selfpath workflow来源1分钟/执行7分钟/job10分钟，六旧workflow保持，最终freeze独审后按本阶段明确授权仅正常推精确SHA一次；此准备记录尚未执行Windows。[完整来源及唯一执行计划](validation/configure-accounting-next-run.md)与[准备证据](test-evidence/2026-10-15-configure-accounting-source.json)保留精确范围和失败harness日志。
