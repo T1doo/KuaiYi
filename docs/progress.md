@@ -490,3 +490,8 @@ a5e734f独审后第四CI38245204651/job114797239356继续4DLL/4PE/4load/8export/
 0976预执行独审Hold，未执行Windows；补fixture专用SetFileTime共享兼容metadata变化、权限错误才Blocked、独立全资源清理与原stage保留、非法SHA不输出、两个adapter -text避免CRLF字节门误拒。原7加9反例16/16通过，旧freeze和全部原件保留；原adapter及旧运行路径不改，复审后才一次发布。
 
 4ed复审Hold指出setup临时句柄登记遗漏；native_open取得即登记独立fixture_handles，关闭成功才移除，最终合并全部自有资源清理；补两反例至16/16通过，保持caller与adapter集合区别，不假cleanup确认。仍无Windows/上传，待精确复审。
+
+
+## 2026-10-15 独立Windows文件fixture实际通过
+
+14a43a01/tree8a7ee95b十文件已正常交付37fb5d5d63c27239567cf084c9109cdedcf1f504（唯一parentbf033）；新dev/configure-files-fixture，原main/诊断分支不变。唯一run38674331460/job116224363738/attempt1 completed success；精确HEAD/parent gate及11真实文件fixture检查全Pass，FixtureCleanupConfirmed true/CleanupFailed false。真实句柄/64KiB×4/share/目录变更/junction拒绝及关闭删除在自有public临时fixture范围通过；合成版本不称host CMake版本。CMake/四case/原Lifecycle全NotRun，ModelCalls0/SecurityChanges0，无安装/权限/服务/扫描/重试。原失败原件保留。WindowsServer2022 public文件范围，不是P0/E06/普通Win11/UIA/OLE/多屏/安装验收。[实际回执与范围](validation/configure-files-windows-result.md)。后续此三文档证据不会改变workflow，不再触发CI。

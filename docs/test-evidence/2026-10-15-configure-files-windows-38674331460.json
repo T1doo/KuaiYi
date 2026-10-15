@@ -1,0 +1,29 @@
+{
+  "Kind": "ConfigureFilesWindowsFixture",
+  "SourceCommit": "37fb5d5d63c27239567cf084c9109cdedcf1f504",
+  "ReviewedParent": "bf0330cd80abe79a201762f47a9db92a0135f3c7",
+  "Scope": "OwnedTemporaryFilesOnly",
+  "Status": "Pass",
+  "Stage": "Completed",
+  "Checks": {
+    "CleanupGate": "Pass",
+    "RootIdentity": "Pass",
+    "FourFacts": "Pass",
+    "ReadBounds": "Pass",
+    "WriteShareConflict": "Pass",
+    "HeldDirectoryRename": "Pass",
+    "MetadataChangeRejected": "Pass",
+    "ReparseRejected": "Pass",
+    "CallerHandleAlive": "Pass",
+    "AdapterHandlesClosed": "Pass",
+    "FixtureRemoved": "Pass"
+  },
+  "Windows": "Executed",
+  "CMake": "NotRun",
+  "FourCases": "NotRun",
+  "OriginalLifecycle": "NotRun",
+  "ModelCalls": 0,
+  "SecurityChanges": 0,
+  "FixtureCleanupConfirmed": true,
+  "CleanupFailed": false
+}

@@ -1,0 +1,11 @@
+# 独立Windows文件fixture实际结果
+
+审定源码14a43a019c1b55563a014a4b635ead32fd0f67b9已正常交付为37fb5d5d63c27239567cf084c9109cdedcf1f504，完整tree同为8a7ee95b0d2da329b00efa3a6ca16351ba0313a8；交付唯一parent bf0330cd80abe79a201762f47a9db92a0135f3c7。正常新分支dev/configure-files-fixture，无force、无main/原诊断分支变更。十文件逐blob及完整tree核对后才创建分支，触发一次push。
+
+唯一 [run38674331460](https://github.com/T1doo/KuaiYi/actions/runs/38674331460) / [job116224363738](https://github.com/T1doo/KuaiYi/actions/runs/38674331460/job/116224363738) / attempt1 completed/success。精确event HEAD与唯一parent gate成功；无其他source-SHA工作流，无重试。公开仓库标准windows-2022/job5min/fixturestep2min、只读contents；无安装、artifact/cache、权限变更或付费服务。不能把job/step上限称单次同步API硬超时。
+
+[固定原回执](../test-evidence/2026-10-15-configure-files-windows-38674331460.json) SHA256 ba5869084f3978b5d24251f07b38f5e2c7f904eecf5d44e4b9228b893477f934。11项全Pass：CleanupGate、RootIdentity、FourFacts、ReadBounds、WriteShareConflict、HeldDirectoryRename、MetadataChangeRejected、ReparseRejected、CallerHandleAlive、AdapterHandlesClosed、FixtureRemoved。Windows Executed、FixtureCleanupConfirmed true、CleanupFailed false。真实NT路径/相对句柄、四文件ReadFile、每文件64KiB/总256KiB截断事实清空、写共享冲突、held目录rename阻止、SetFileTime实际变更后的拒绝、同owned容器junction拒绝、caller根存活、关闭及删除均在这一public fixture范围通过。没有复用旧本地假DLL结果冒充此轮通过。
+
+FourFacts中的版本3.31.6来自公开合成输入，不是本次host CMake版本或一次真实configure采集。CMake、FourCases、OriginalLifecycle全部NotRun，ModelCalls0/SecurityChanges0。测试只有自有临时目录，无真实配置日志、用户文本/截图、跨应用、进程扫描或成员查询；不证明CMake残留根因，也不证明原四案例或P0/E06通过。托管Windows Server2022范围，不是Windows11普通用户、多屏DPI、安装卸载或UIA/OLE验收。
+
+当前adapter仍不接原helper/runner/救援路径。今后采集真实configure信息仍需原操作/救援结算及原根lease来源，另行工程集成与验证；此轮不自动扩大范围。原三次失败回执和原始日志保持本地旧分支及ignored证据原件，未覆盖或上传任意raw日志。connector返回本次job原始文本仅本地mode0600；公开只固定schema回执。本报告及progress更新为后续纯文档证据，不包含新workflow变化、不重跑Windows。
