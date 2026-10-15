@@ -593,3 +593,7 @@ AccountingV1准备实际验证完成：独立来源5项通过，真实浅clone21
 ### 2026-10-15 EmbeddedExecV1 执行来源门准备
 
 父已授权最终精确独审通过后唯一一次configure-only对照。以b771f1e/tree300daf为唯一父，新显式EmbeddedExecV1门、新branch+selfpath隔离；七旧workflow/AccountingV1合同/原日志保持。runner相对静态候选仅ReviewedParent同步，相对baseline仍唯一Embedded运行配置及身份差异。新child实际重测checkout深度，原30秒/JobEmpty/救援清理和全部采集安全边界保持；原171合同拒绝保留，owned精确更新期望后的171不能称旧门原样过。限制和对照字段见[执行计划](validation/configure-embedded-execution.md)。准备快照尚无新CI，实际结果另档。
+
+### 2026-10-15 EmbeddedExecV1 唯一 Windows 对照回执
+
+精确执行5acccc753/tree74a77d7，唯一父b771f1e，真实提交浅clone24拒绝/25通过、最终来源独审通过后正常推新branch一次。run38719840129/job116371397705/attempt1最终failure，根Exit0/脚本及Actions Exit3分列：仍WaitJobEmpty Timeout、救援前NonEmpty、预算过期，救援后JobEmpty/清理与collector清理均确认；两点Known Active2/Total33、四文件Projected/Facts及CMake3.31.6与baseline38716240995相同。存在明确环境漂移：image20261012.333.1→20261004.326.1、provisioner20261012.601→20261002.596，不能称完全同环境或排除CompilerId/链接器PDB。已停止不重跑、不加成员probe；根因Unknown/真实四案例与生产验收未通过。事实与边界见[结果说明](validation/configure-embedded-windows-result.md)和[固定实测证据](test-evidence/2026-10-15-configure-embedded-windows-result.json)。本结果仅本地归档，原安全门及Off/0保持。
