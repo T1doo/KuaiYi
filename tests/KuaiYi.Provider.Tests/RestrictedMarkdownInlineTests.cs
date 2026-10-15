@@ -56,7 +56,13 @@ public sealed class RestrictedMarkdownInlineTests
     [InlineData("**line\nbreak**")][InlineData("`line\nbreak`")][InlineData("# **bold** [link](https://public.invalid)")]
     [InlineData("# **bold** <img src='https://public.invalid'>")][InlineData("- `ok` |table|")]
     public void UnsupportedAmbiguousAndUnclosedBlocksFallBackInFull(string source)
-    {var model=Parse(source);var block=Assert.Single(model.Blocks);Assert.Equal(MarkdownBlockKind.Plain,block.Kind);Assert.Equal(source,block.Source);Assert.Equal(source,block.Text);Assert.Empty(block.Inlines);Conserved(model,source);}
+    {
+        var model=Parse(source);var block=Assert.Single(model.Blocks);Assert.Equal(source,block.Source);Conserved(model,source);
+        // The old HTTP(S) fixture becomes a supported heading; ambiguous fixtures stay literal.
+        if(source=="# **bold** [link](https://public.invalid)")
+        {Assert.Equal(MarkdownBlockKind.Heading,block.Kind);Assert.Equal("bold link",block.Text);Assert.Equal(MarkdownInlineKind.Bold,block.Inlines[0].Kind);Assert.Equal(MarkdownInlineKind.Link,block.Inlines[2].Kind);Assert.Equal("public.invalid",block.Inlines[2].Link!.Domain);}
+        else {Assert.Equal(MarkdownBlockKind.Plain,block.Kind);Assert.Equal(source,block.Text);Assert.Empty(block.Inlines);}
+    }
 
     public static IEnumerable<object[]> StreamingSamples()=>new[]{
         "# **标题🙂** *斜体* `x`\r\n\r\n- __one__\r\n2. _two_\r\n\r\n尾**段**",

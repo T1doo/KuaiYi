@@ -34,7 +34,7 @@ public sealed class MarkdownTableScrollTests
         foreach(var host in new[]{w.MarkdownBody,w.MarkdownMeasurement})
         {
             Assert.IsType<Paragraph>(host.Document.Blocks[0]);var view=Region(host);var table=Native(view);
-            Assert.True(view.IsReadOnly);Assert.False(view.IsUndoEnabled);Assert.False(view.AllowDrop);Assert.False(view.IsDocumentEnabled);Assert.True(view.IsReadOnlyCaretVisible);Assert.True(view.ClipToBounds);
+            Assert.True(view.IsReadOnly);Assert.False(view.IsUndoEnabled);Assert.False(view.AllowDrop);Assert.True(view.IsDocumentEnabled);Assert.True(view.IsReadOnlyCaretVisible);Assert.True(view.ClipToBounds);
             Assert.Equal("表格",view.AutomationName);Assert.Equal(ScrollBarVisibility.Visible,view.HorizontalScrollBarVisibility);Assert.Equal(ScrollBarVisibility.Visible,view.VerticalScrollBarVisibility);
             Assert.Equal(283,view.Width);Assert.Equal(view.Width,view.MaxWidth);Assert.Equal(320,view.MaxHeight);Assert.Equal(300,host.Width);Assert.Equal(283,host.Document.PageWidth);Assert.Equal(283,host.Document.ColumnWidth);Assert.Equal(400,host.MaxHeight);Assert.Equal(ScrollBarVisibility.Disabled,host.HorizontalScrollBarVisibility);
             Assert.Equal(16,table.Columns.Count);Assert.All(table.Columns,c=>Assert.Equal(480,c.Width.Value));Assert.Equal(7748,view.Document.PageWidth);Assert.Equal(view.Document.PageWidth,view.Document.ColumnWidth);

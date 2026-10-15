@@ -17,7 +17,7 @@ namespace KuaiYi.App
         internal OverlayResults MarkdownResults=>overlayResults;
         internal RestrictedMarkdown MarkdownModel=>markdown;
         internal void InitializeMarkdown()
-        {overlayResults=new(lifecycle.Gate);bodyMarkdown=new(MarkdownBody,ObserveCodeReaderIntent,CaptureBodyReaderGuard,()=>follow,OriginalSourceChanged,CanReadOriginalSourceVersion,ImageSourcePreviewFailed);measurementMarkdown=new(MarkdownMeasurement,canReadSource:CanReadOriginalSourceVersion,sourceFailed:ImageSourcePreviewFailed);}
+        {overlayResults=new(lifecycle.Gate);bodyMarkdown=new(MarkdownBody,ObserveCodeReaderIntent,CaptureBodyReaderGuard,()=>follow,OriginalSourceChanged,CanReadOriginalSourceVersion,ImageSourcePreviewFailed,OpenMarkdownLink);measurementMarkdown=new(MarkdownMeasurement,canReadSource:CanReadOriginalSourceVersion,sourceFailed:ImageSourcePreviewFailed);}
         internal void MarkdownViewportForTest(MarkdownViewport viewport)=>SetMarkdownViewport(viewport);
         internal double MeasureMarkdownForTest(LayoutPlan plan,bool label)=>MeasureMarkdown(plan,label);
         internal void ResetMarkdownReadingForTest()=>ResetBodyReaderFollow();

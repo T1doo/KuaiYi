@@ -57,7 +57,13 @@ public sealed class RestrictedMarkdownTests
     }
     [Theory][InlineData("# ***nested***\r\n")][InlineData("- [link](https://public.invalid)\n")][InlineData("<img src='https://public.invalid'>\n")][InlineData("|a|b|\n|--|--|\n")][InlineData("![image](file:///inert)\n")]
     public void UnsupportedSyntaxIsOneCompleteLiteralBlock(string source)
-    {var block=Assert.Single(Whole(source));Assert.Equal(MarkdownBlockKind.Plain,block.Kind);Assert.Equal(source,block.Text);Assert.Equal(source,block.Source);}
+    {
+        var block=Assert.Single(Whole(source));Assert.Equal(source,block.Source);
+        // SPEC 11.5 now supports this previously literal explicit HTTP(S) case.
+        if(source=="- [link](https://public.invalid)\n")
+        {Assert.Equal(MarkdownBlockKind.Bullet,block.Kind);Assert.Equal("link",block.Text);var link=Assert.Single(block.Inlines);Assert.Equal(MarkdownInlineKind.Link,link.Kind);Assert.Equal("https://public.invalid/",link.Link!.Url);}
+        else {Assert.Equal(MarkdownBlockKind.Plain,block.Kind);Assert.Equal(source,block.Text);}
+    }
     [Fact]public void LongCodeLineIsNotTruncated()
     {string line=new('x',50000);var block=Assert.Single(Whole("```\n"+line+"\n```"));Assert.Equal(line+"\n",block.Text);}
     [Fact]public void CharacterCapacityFallsBackWithoutLosingSourceAndCanReset()

@@ -16,6 +16,12 @@ public sealed class ImageSourcePreviewTests
     private static void Drain(ShellWindow w){for(int i=0;i<4&&w.FlushPending;i++)w.TickForTest();Assert.False(w.FlushPending);}
     private static OwnedSourceImage Accept(ShellWindow w,out byte[] raw)
     {var input=w.ImageInputForTest();using(input.Intent)using(input.Cancellation){try{var image=Image(out raw);Assert.True(input.Commit(image));return image;}finally{w.EndRestoreForTest(input.Cancellation);}}}
+    [Theory][InlineData(false)][InlineData(true)]
+    public void LocalImageTipDescribesUntranslatedPreviewWithoutMisstatingOnOrOff(bool on)
+    {
+        var w=new ShellWindow();w.InitializeResultFlow();w.WithGeometry();if(on){var origin=new EndpointOrigin(new Uri("https://public.invalid"));w.MarkdownGate.ConsentTo(origin);Assert.True(w.MarkdownGate.TryEnable(origin,true));}
+        Accept(w,out _);Assert.Contains("本地预览尚未翻译、未发送",w.ResultTip);Assert.DoesNotContain("未启用翻译",w.ResultTip);Assert.Equal(on?Activation.On:Activation.Off,w.MarkdownGate.Snapshot.Activation);Assert.False(w.MarkdownGate.HasRunningGeneration);w.ClearImagePresentationForTest();
+    }
     [Fact]public void LocalAcceptanceHasRealDistinctSourceVersionAndPreservesOffWithoutARequestOrFakeResult()
     {
         var w=new ShellWindow();w.InitializeResultFlow();w.WithGeometry();var image=Accept(w,out var raw);var source=Source(w);Assert.False(source.IsExpanded);Assert.Null(View(source).Source);Assert.Equal(image,w.SelectedImageForTest);Assert.NotNull(w.SelectedSourceVersionForTest);Assert.Null(w.MarkdownResults.SelectedVersionId);Assert.Empty(w.MarkdownResults.Versions);Assert.Empty(w.MarkdownResults.Text);Assert.Empty(w.MarkdownModel.Blocks);Assert.Equal(Activation.Off,w.MarkdownGate.Snapshot.Activation);Assert.False(w.MarkdownGate.HasRunningGeneration);Assert.False(image.IsDisposed);Assert.Equal("本地图片 · 未翻译 · 8 × 8",w.ResultLabel);Assert.True(w.OriginalSourceCommandEnabled);Assert.True(w.Frames!.IsExpanded);Assert.Contains(raw,b=>b!=0);w.ClearImagePresentationForTest();Assert.All(raw,b=>Assert.Equal(0,b));

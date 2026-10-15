@@ -11,7 +11,8 @@ namespace KuaiYi.App;
 /// <summary>A bounded local viewport around a native Table; no external document, resource or markup loading.</summary>
 internal sealed class MarkdownTableRegion:IDisposable
 {
-    private readonly Func<MarkdownTableCell,MarkdownTableAlignment,bool,Paragraph> createParagraph;
+    private Func<MarkdownTableCell,MarkdownTableAlignment,bool,Paragraph>? createParagraph;
+    private Action<Paragraph>? releaseParagraph;
     private readonly Action? observeReader;
     private readonly Func<Func<bool>>? captureReaderGuard;
     private readonly ScrollEventHandler scrollHandler;
@@ -26,14 +27,14 @@ internal sealed class MarkdownTableRegion:IDisposable
     private bool disposed;
     public RichTextBox View {get;}=new()
     {
-        IsReadOnly=true,IsUndoEnabled=false,IsReadOnlyCaretVisible=true,IsDocumentEnabled=false,AllowDrop=false,
+        IsReadOnly=true,IsUndoEnabled=false,IsReadOnlyCaretVisible=true,IsDocumentEnabled=true,AllowDrop=false,
         HorizontalScrollBarVisibility=ScrollBarVisibility.Visible,VerticalScrollBarVisibility=ScrollBarVisibility.Visible,
         BorderThickness=new Thickness(0),Padding=new Thickness(0),Background=Brushes.Transparent,ClipToBounds=true,
         Document=new FlowDocument{PagePadding=new Thickness(0),ColumnGap=0}
     };
-    public MarkdownTableRegion(MarkdownTable data,Func<MarkdownTable,Table> createTable,Func<MarkdownTableCell,MarkdownTableAlignment,bool,Paragraph> createParagraph,Action? observeReader,Func<Func<bool>>? captureReaderGuard)
+    public MarkdownTableRegion(MarkdownTable data,Func<MarkdownTable,Table> createTable,Func<MarkdownTableCell,MarkdownTableAlignment,bool,Paragraph> createParagraph,Action? observeReader,Func<Func<bool>>? captureReaderGuard,Action<Paragraph>? releaseParagraph=null)
     {
-        this.data=data;this.createParagraph=createParagraph;this.observeReader=observeReader;this.captureReaderGuard=captureReaderGuard;
+        this.data=data;this.createParagraph=createParagraph;this.releaseParagraph=releaseParagraph;this.observeReader=observeReader;this.captureReaderGuard=captureReaderGuard;
         table=createTable(data);View.Document.Blocks.Add(table);
         System.Windows.Automation.AutomationProperties.SetName(View,"表格");
         View.PreviewMouseWheel+=Wheel;View.PreviewMouseDown+=MouseDown;View.PreviewMouseMove+=MouseMove;
@@ -89,9 +90,9 @@ internal sealed class MarkdownTableRegion:IDisposable
                 var cell=next.Rows[index].Cells[column];
                 if(!added&&cell==previous.Rows[index].Cells[column])continue;
                 if(!added&&cell.Source==previous.Rows[index].Cells[column].Source&&cell.Text==previous.Rows[index].Cells[column].Text&&cell.Inlines.SequenceEqual(previous.Rows[index].Cells[column].Inlines))continue;
-                var paragraph=createParagraph(cell,next.Alignments[column],index==0);
+                var paragraph=createParagraph!(cell,next.Alignments[column],index==0);
                 if(added)rows[index].Cells.Add(new TableCell(paragraph){Padding=new Thickness(4,2,4,2)});
-                else {rows[index].Cells[column].Blocks.Clear();rows[index].Cells[column].Blocks.Add(paragraph);}
+                else {foreach(var old in rows[index].Cells[column].Blocks.OfType<Paragraph>())releaseParagraph?.Invoke(old);rows[index].Cells[column].Blocks.Clear();rows[index].Cells[column].Blocks.Add(paragraph);}
             }
         }
         data=next;SizeColumns();
@@ -153,7 +154,7 @@ internal sealed class MarkdownTableRegion:IDisposable
     private void Scroll(object? sender,ScrollEventArgs e)=>Observe();
     public void Dispose()
     {
-        if(disposed)return;disposed=true;revision++;pendingSelection=null;pendingGuard=null;data=null;
+        if(disposed)return;disposed=true;revision++;pendingSelection=null;pendingGuard=null;data=null;createParagraph=null;releaseParagraph=null;
         View.PreviewMouseWheel-=Wheel;View.PreviewMouseDown-=MouseDown;View.PreviewMouseMove-=MouseMove;
         View.PreviewKeyDown-=KeyDown;View.PreviewTouchDown-=Touch;View.PreviewTouchMove-=Touch;View.RemoveHandler(ScrollBar.ScrollEvent,scrollHandler);
         View.Loaded-=Loaded;shouldFollow=null;

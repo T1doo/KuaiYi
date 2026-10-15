@@ -6,7 +6,7 @@ using KuaiYi.Core;
 using KuaiYi.Imaging;
 namespace KuaiYi.App;
 
-/// <summary>Only locally constructed native text elements; never XAML, HTML, resources or hyperlinks.</summary>
+/// <summary>Only locally constructed native text elements; never XAML, HTML or resource loading; links have an explicit guarded action.</summary>
 internal sealed class MarkdownFlowView
 {
     private readonly RichTextBox host;
@@ -14,6 +14,9 @@ internal sealed class MarkdownFlowView
     private readonly List<Block> elements=[];
     private readonly Dictionary<Block,MarkdownCodeRegion> codeRegions=[];
     private readonly Dictionary<Block,MarkdownTableRegion> tableRegions=[];
+    private readonly Dictionary<Paragraph,List<MarkdownLinkRegion>> paragraphLinks=[];
+    private readonly Dictionary<Block,List<Paragraph>> elementParagraphs=[];
+    private readonly Action<Guid,MarkdownHttpTarget,Func<bool>>? openLink;
     private readonly Action? observeReader;
     private readonly Func<Func<bool>>? captureReaderGuard;
     private readonly Func<bool>? shouldFollow;
@@ -28,13 +31,17 @@ internal sealed class MarkdownFlowView
     private MarkdownViewport viewport=new(388,560);
     private double appliedFontSize=double.NaN;
     private static readonly FontFamily ProseFont=new("Segoe UI"),CodeFont=new("Consolas");
-    public MarkdownFlowView(RichTextBox host,Action? observeReader=null,Func<Func<bool>>? captureReaderGuard=null,Func<bool>? shouldFollow=null,Action? sourceChanged=null,Func<Guid,bool>? canReadSource=null,Action<Exception>? sourceFailed=null)
+    public MarkdownFlowView(RichTextBox host,Action? observeReader=null,Func<Func<bool>>? captureReaderGuard=null,Func<bool>? shouldFollow=null,Action? sourceChanged=null,Func<Guid,bool>? canReadSource=null,Action<Exception>? sourceFailed=null,Action<Guid,MarkdownHttpTarget,Func<bool>>? openLink=null)
     {
-        this.host=host;this.observeReader=observeReader;this.captureReaderGuard=captureReaderGuard;this.shouldFollow=shouldFollow;this.sourceChanged=sourceChanged;this.canReadSource=canReadSource;this.sourceFailed=sourceFailed;host.Document=new FlowDocument{PagePadding=new Thickness(0),ColumnGap=0};
+        this.host=host;this.observeReader=observeReader;this.captureReaderGuard=captureReaderGuard;this.shouldFollow=shouldFollow;this.sourceChanged=sourceChanged;this.canReadSource=canReadSource;this.sourceFailed=sourceFailed;this.openLink=openLink;host.Document=new FlowDocument{PagePadding=new Thickness(0),ColumnGap=0};
         host.IsReadOnly=true;host.IsUndoEnabled=false;host.IsDocumentEnabled=true;host.HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled;host.VerticalScrollBarVisibility=ScrollBarVisibility.Visible;host.ClipToBounds=true;
         SetViewport(viewport);
     }
-    public void Clear(){ClearSource();foreach(var region in codeRegions.Values)region.Dispose();foreach(var region in tableRegions.Values)region.Dispose();codeRegions.Clear();tableRegions.Clear();host.Document.Blocks.Clear();applied.Clear();elements.Clear();appliedVersion=null;}
+    public void Clear()
+    {
+        try{ClearSource();}
+        finally{foreach(var links in paragraphLinks.Values)foreach(var link in links)link.Dispose();paragraphLinks.Clear();elementParagraphs.Clear();foreach(var region in codeRegions.Values)region.Dispose();foreach(var region in tableRegions.Values)region.Dispose();codeRegions.Clear();tableRegions.Clear();host.Document.Blocks.Clear();applied.Clear();elements.Clear();appliedVersion=null;}
+    }
     public bool SourceExpanded=>sourceRegion?.View.IsExpanded==true||imageSourceRegion?.View.IsExpanded==true;
     public void ExpandSource(){sourceRegion?.Expand();imageSourceRegion?.Expand();}
     public void ClearSource()
@@ -97,10 +104,10 @@ internal sealed class MarkdownFlowView
         if(appliedVersion==selectedVersion&&keep<applied.Count&&keep<blocks.Count&&applied[keep].Table is not null&&blocks[keep].Table is {} tableTail&&blocks[keep].Source.StartsWith(applied[keep].Source,StringComparison.Ordinal)&&tableRegions.TryGetValue(elements[keep],out var growingTable)&&growingTable.CanAppend(tableTail))
         {growingTable.UpdateTable(tableTail);applied[keep]=blocks[keep];keep++;}
         appliedVersion=selectedVersion;
-        for(int i=elements.Count-1;i>=keep;i--){if(codeRegions.Remove(elements[i],out var region))region.Dispose();if(tableRegions.Remove(elements[i],out var tableRegion))tableRegion.Dispose();host.Document.Blocks.Remove(elements[i]);elements.RemoveAt(i);applied.RemoveAt(i);}
+        for(int i=elements.Count-1;i>=keep;i--){if(elementParagraphs.Remove(elements[i],out var paragraphs))foreach(var paragraph in paragraphs)ReleaseParagraph(paragraph);if(codeRegions.Remove(elements[i],out var region))region.Dispose();if(tableRegions.Remove(elements[i],out var tableRegion))tableRegion.Dispose();host.Document.Blocks.Remove(elements[i]);elements.RemoveAt(i);applied.RemoveAt(i);}
         for(int i=keep;i<blocks.Count;i++)
         {
-            var data=blocks[i];Block element;
+            var data=blocks[i];Block element;List<Paragraph> paragraphs=[];
             if(data.Kind==MarkdownBlockKind.Code)
             {
                 var region=new MarkdownCodeRegion(data.Text,observeReader,captureReaderGuard);region.Constrain(host.Document.PageWidth,viewport.CodeMaximumHeightDip);
@@ -109,17 +116,18 @@ internal sealed class MarkdownFlowView
             }
             else if(data.Table is {} table)
             {
-                var region=new MarkdownTableRegion(table,CreateTable,CreateTableParagraph,observeReader,captureReaderGuard);region.Constrain(host.Document.PageWidth,viewport.TableMaximumHeightDip);
+                Paragraph Cell(MarkdownTableCell cell,MarkdownTableAlignment alignment,bool header)=>CreateTableParagraph(cell,alignment,header,selectedVersion,paragraphs);
+                var region=new MarkdownTableRegion(table,data=>CreateTable(data,Cell),Cell,observeReader,captureReaderGuard,paragraph=>{ReleaseParagraph(paragraph);paragraphs.Remove(paragraph);});region.Constrain(host.Document.PageWidth,viewport.TableMaximumHeightDip);
                 region.ConfigureTail(i==blocks.Count-1,shouldFollow);
                 element=new BlockUIContainer(region.View){Margin=new Thickness(0)};tableRegions.Add(element,region);
             }
             else
             {
-                var paragraph=CreateParagraph(data.Text,data.Inlines);element=paragraph;
+                var paragraph=CreateParagraph(data.Text,data.Inlines,selectedVersion,paragraphs);element=paragraph;
                 if(data.Kind is MarkdownBlockKind.Bullet or MarkdownBlockKind.Numbered)
                     element=new System.Windows.Documents.List(new ListItem(paragraph)){MarkerStyle=data.Kind==MarkdownBlockKind.Numbered?TextMarkerStyle.Decimal:TextMarkerStyle.Disc,StartIndex=data.Number,Margin=new Thickness(20,0,0,0),Padding=new Thickness(0)};
             }
-            applied.Add(data);elements.Add(element);if(sourceBlock!=null)host.Document.Blocks.InsertBefore(sourceBlock,element);else host.Document.Blocks.Add(element);
+            elementParagraphs.Add(element,paragraphs);applied.Add(data);elements.Add(element);if(sourceBlock!=null)host.Document.Blocks.InsertBefore(sourceBlock,element);else host.Document.Blocks.Add(element);
         }
         int styleStart=fontSize==appliedFontSize?keep:0;
         if(fontSize!=appliedFontSize)host.FontSize=host.Document.FontSize=fontSize;
@@ -140,14 +148,21 @@ internal sealed class MarkdownFlowView
         foreach(var pair in codeRegions)pair.Value.ConfigureTail(ReferenceEquals(pair.Key,tail),shouldFollow);
         foreach(var pair in tableRegions)pair.Value.ConfigureTail(ReferenceEquals(pair.Key,tail),shouldFollow);
     }
-    private static Paragraph CreateParagraph(string text,IReadOnlyList<MarkdownInline> inlines)
+    private Paragraph CreateParagraph(string text,IReadOnlyList<MarkdownInline> inlines,Guid? version,List<Paragraph> owned)
     {
-        var paragraph=new Paragraph{Margin=new Thickness(0)};
+        var paragraph=new Paragraph{Margin=new Thickness(0)};owned.Add(paragraph);
         if(inlines.Count==0)paragraph.Inlines.Add(new Run(text));
         else foreach(var part in inlines)
         {
             var run=new Run(part.Text);
-            if(part.Kind==MarkdownInlineKind.Text)paragraph.Inlines.Add(run);
+            if(part.Kind==MarkdownInlineKind.Link)
+            {
+                if(part.Link is not {} target||!MarkdownHttpTarget.TryParse(target.Url,out var checkedTarget)||checkedTarget!=target){paragraph.Inlines.Add(new Run(part.Source));continue;}
+                Action<MarkdownHttpTarget,Func<bool>>? action=version is {} id&&openLink!=null?(value,current)=>openLink(id,value,current):null;
+                var link=new MarkdownLinkRegion(part.Text,target,observeReader,action,()=>appliedVersion==version);
+                if(!paragraphLinks.TryGetValue(paragraph,out var links))paragraphLinks.Add(paragraph,links=[]);links.Add(link);paragraph.Inlines.Add(link.View);
+            }
+            else if(part.Kind==MarkdownInlineKind.Text)paragraph.Inlines.Add(run);
             else
             {
                 var span=new Span(run);
@@ -159,7 +174,9 @@ internal sealed class MarkdownFlowView
         }
         return paragraph;
     }
-    private static Table CreateTable(MarkdownTable data)
+    private void ReleaseParagraph(Paragraph paragraph)
+    {if(paragraphLinks.Remove(paragraph,out var links))foreach(var link in links)link.Dispose();}
+    private static Table CreateTable(MarkdownTable data,Func<MarkdownTableCell,MarkdownTableAlignment,bool,Paragraph> createParagraph)
     {
         var table=new Table{CellSpacing=4,Margin=new Thickness(0)};var group=new TableRowGroup();table.RowGroups.Add(group);
         foreach(var _ in data.Alignments)table.Columns.Add(new TableColumn());
@@ -168,15 +185,15 @@ internal sealed class MarkdownFlowView
             var row=new TableRow();group.Rows.Add(row);
             for(int column=0;column<data.Alignments.Count;column++)
             {
-                var paragraph=CreateTableParagraph(data.Rows[index].Cells[column],data.Alignments[column],index==0);
+                var paragraph=createParagraph(data.Rows[index].Cells[column],data.Alignments[column],index==0);
                 row.Cells.Add(new TableCell(paragraph){Padding=new Thickness(4,2,4,2)});
             }
         }
         return table;
     }
-    private static Paragraph CreateTableParagraph(MarkdownTableCell cell,MarkdownTableAlignment alignment,bool header)
+    private Paragraph CreateTableParagraph(MarkdownTableCell cell,MarkdownTableAlignment alignment,bool header,Guid? version,List<Paragraph> owned)
     {
-        var paragraph=CreateParagraph(cell.Text,cell.Inlines);
+        var paragraph=CreateParagraph(cell.Text,cell.Inlines,version,owned);
         paragraph.TextAlignment=alignment switch{MarkdownTableAlignment.Center=>TextAlignment.Center,MarkdownTableAlignment.Right=>TextAlignment.Right,_=>TextAlignment.Left};
         if(header)paragraph.FontWeight=FontWeights.SemiBold;
         return paragraph;

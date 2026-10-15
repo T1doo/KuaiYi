@@ -25,7 +25,7 @@ namespace System.Windows
         public void BringIntoView()=>BringIntoViewCalls++;
     }
     internal sealed class TouchEventArgs:EventArgs;
-    internal sealed class RoutedEventArgs:EventArgs;
+    internal sealed class RoutedEventArgs:EventArgs {public bool Handled {get;set;}}
 }
 namespace System.Windows.Automation
 {internal static class AutomationProperties {public static void SetName(UIElement element,string value)=>element.AutomationName=value;}}
@@ -46,7 +46,17 @@ namespace System.Windows.Documents
     }
     internal abstract class Inline:TextElement;
     internal sealed class Run(string text):Inline {public string Text {get;}=text;}
-    internal sealed class Span(Run run):Inline {public System.Collections.Generic.List<Inline> Inlines {get;}=[run];}
+    internal class Span(Run run):Inline {public System.Collections.Generic.List<Inline> Inlines {get;}=[run];}
+    // Explicit activation/lifetime data only. No native routing or browser is executed.
+    internal sealed class Hyperlink(Run run):Span(run)
+    {
+        public object? ToolTip {get;set;}
+        public Uri? NavigateUri {get;set;}
+        public event EventHandler<RoutedEventArgs>? Click;
+        public int HandlerCount=>Click?.GetInvocationList().Length??0;
+        public Action CaptureClick(){var handler=Click;return()=>handler?.Invoke(this,new());}
+        public RoutedEventArgs RaiseClick(){var args=new RoutedEventArgs();Click?.Invoke(this,args);return args;}
+    }
     internal abstract class Block:TextElement
     {
         public double LineHeight {get;set;}

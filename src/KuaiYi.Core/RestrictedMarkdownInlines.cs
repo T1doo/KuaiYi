@@ -2,13 +2,15 @@ using System.Text;
 
 namespace KuaiYi.Core;
 
-public enum MarkdownInlineKind { Text, Code, Bold, Italic }
-public sealed record MarkdownInline(MarkdownInlineKind Kind,string Source,string Text);
+public enum MarkdownInlineKind { Text, Code, Bold, Italic, Link }
+public sealed record MarkdownInline(MarkdownInlineKind Kind,string Source,string Text)
+{public MarkdownHttpTarget? Link {get;init;}}
 
 /// <summary>A flat, bounded subset. Ambiguous or unsupported markup rejects the entire block.</summary>
 internal static class RestrictedMarkdownInlines
 {
     internal const int MaximumDelimiterLength=32;
+    internal const int MaximumLinkLabelLength=512;
     private const string Escapable="!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
 
     internal static bool TryParse(string text,int budget,out IReadOnlyList<MarkdownInline> inlines,out bool capacityExceeded)
@@ -19,6 +21,13 @@ internal static class RestrictedMarkdownInlines
         {
             char marker=text[i];
             if(Escape(text,ref i,literal))continue;
+            if(marker=='[')
+            {
+                int linkStart=i;
+                if(linkStart>0&&text[linkStart-1]=='!'||!TryLink(text,ref i,out var label,out var target))return false;
+                if(!FlushLiteral(linkStart)||result.Count>=budget){capacityExceeded=true;return false;}
+                result.Add(new(MarkdownInlineKind.Link,text[linkStart..i],label){Link=target});literalStart=i;continue;
+            }
             if(Unsupported(marker))return false;
             if(marker is not ('`' or '*' or '_')){literal.Append(marker);i++;continue;}
             int start=i,width=RunLength(text,i);i+=width;
@@ -60,6 +69,22 @@ internal static class RestrictedMarkdownInlines
             if(result.Count>=budget)return false;
             result.Add(new(MarkdownInlineKind.Text,text[literalStart..end],literal.ToString()));literal.Clear();return true;
         }
+    }
+    private static bool TryLink(string text,ref int position,out string label,out MarkdownHttpTarget? target)
+    {
+        label="";target=null;int start=position,i=start+1;var body=new StringBuilder();
+        while(i<text.Length&&i-start<=MaximumLinkLabelLength)
+        {
+            if(Escape(text,ref i,body))continue;
+            char c=text[i];if(c==']')break;
+            if(c is '[' or '<' or '>' or '`' or '*' or '_' or '|' or '\r' or '\n')return false;
+            body.Append(c);i++;
+        }
+        if(i>=text.Length||text[i]!=']'||body.Length==0||body.Length>MaximumLinkLabelLength||char.IsWhiteSpace(body[0])||char.IsWhiteSpace(body[^1])||i+1>=text.Length||text[i+1]!='(')return false;
+        int destination=i+2,end=destination;
+        while(end<text.Length&&end-destination<=MarkdownHttpTarget.MaximumLength&&text[end]!=')')end++;
+        if(end>=text.Length||text[end]!=')'||!MarkdownHttpTarget.TryParse(text[destination..end],out target))return false;
+        label=body.ToString();position=end+1;return true;
     }
     private static bool Escape(string text,ref int position,StringBuilder output)
     {

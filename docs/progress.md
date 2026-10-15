@@ -699,3 +699,11 @@ AccountingV1准备实际验证完成：独立来源5项通过，真实浅clone21
 最终Provider923/923=父884完整+新39（28预览/接线、11像素所有权），App两次0W/E。r01的26/28为新夹具漏EndScreenshotRestore、r05的922/923为隐藏重显端口未映射真实Show，均保原log/TRX且补真实生命周期不降断言；r02 28/28、r03 920/920、r07最终通过。12份新原始回执精确-text保全，父69份保持；说明/独审/manifest/实际失败见[图片预览说明](validation/overlay-image-source.md)和[固定证据](test-evidence/2026-10-15-overlay-image-source.json)。
 
 WPF布局/像素释放/阅读/选择/实际截图、COM/broker/所有权和取消时限及完整P2/P6/B组仍NotRun。250/600ms与全部安全门、生产离线Off保持，旧覆盖字节/证书存储信任Unknown不读改；每次dotnet显式false，无Actions查询/绕拒绝、Windows/CMake实验、main/强推/部署/依赖费用凭据权限协议/真实模型。
+
+### 2026-10-15 受限HTTP/HTTPS显式链接
+
+从已签收8fa5cb38cdd43467302c7ad8a27d28aad2fb7e91核clean/单worktree/唯一写入者/默认网络远端后建dev/overlay-explicit-links。SPEC11.5平面链接由Core产精确Source/显示Text/不可变规范目标，实际正文/测量接原生Hyperlink；无NavigateUri/自动加载，只有正文显式Click，经域名确认、所选版本/元素/reader/result/epoch及可见展开/取消/锁屏退出重验才请求系统浏览器。测量无动作，代码惰性、复杂或危险语法整块/整表保文，原始复制及稳定块/尾段保持；表格替换单元格及Clear解绑旧链接。URL/label及原文档预算有界，禁非HTTP(S)/userinfo/控制/格式字符/反斜杠等，域名ASCII IDN及混淆IPv4规范后明示；图片On提示改为“本地预览尚未翻译、未发送”。
+
+最终Provider1014/1014=父923完整+新91（55解析/目标、34生产链路、2图片文案），App最终0W/E。真实Coordinator三版本/Stop/Clear/迟到门执行，仅本机确认/launcher及原生数据端口替换，不打开真实外部网址。r01定向186/188的两失败为新测试误将Capture/Settings暂停当取消已有请求，保原件并按原Gate契约修新额外断言；r02 219/219、r03 1007/1007及两次App成功均保全。独审无阻断，补确认中稳定尾段/换单元格、空userinfo与数字IPv4策略；10份新原始log/TRX精确-text、父81原件不变。详见[实现与失败边界](validation/overlay-explicit-links.md)及[固定证据](test-evidence/2026-10-15-overlay-explicit-links.json)。
+
+WPF真实路由/测量/选择/阅读位置/确认框/浏览器启动、截图/COM/所有权与取消时限及完整P2/P6/11.5仍NotRun，无外围工具/Windows CI/CMake实验。250/600ms和全部安全门、生产离线Off保持；旧覆盖字节/证书Unknown不读改，所有dotnet显式false、Actions不查询/绕拒绝、CIUnknown；无main/强推/部署/依赖费用凭据权限协议或真实模型。
