@@ -761,3 +761,11 @@ r02专项101/101；r03 170P/2F均为新增夹具错误要求跨零相加恒等�
 本批只交付12份官方元数据/许可/库存原件与核验记录、原一次性worker/分片/尺寸/方向/取消/真实exit合同设计；没有解码实现、样本红绿/SDK/App/Windows实际执行，父1379与App0W/E不冒充本批测试。初始API/ZIP nuspec逐字节断言因BOM/换行失败，分别保原件后核规范化文本相同，未改原件；只读路径误猜与web/403失败完整注明。独审/版本许可与资产摘要及阻塞见[依赖前置说明](validation/image-isolated-decode-dependency-audit.md)和[固定证据](test-evidence/2026-10-16-image-isolated-decode-dependency-audit.json)。
 
 P6-02保持InProgress/Blocked，P6-04/05 InProgress/NotRun。生产离线复用Off，普通截图本地未翻译未发送；250/600ms、Job/process及来源/密码/完整性/取消/清理门不改。Skia需获明确许可并解决实际源码组件审查才接入；全格式/EXIF/OCR/一般缩图可读性与真实Windows/WPF/COM及完整P2/P4/P6仍未验。无SDK/证书库配置trust删除、Actions查询调度绕拒绝、新协议接受/权限/费用/凭据/真实模型/WindowsCI/CMake实验、main/强推/部署。
+
+### 2026-10-16 现有ImageWorker私有传输/取消/清理闭环
+
+父83c821f47937b076889c64f881db68034d0f925c核HEAD/clean/单worktree/默认远端及唯一root写入者，建dev/image-worker-transfer-cleanup，worker_review只读独审。不接Skia，沿原私有worker实际缺口修终态Receiver复活、非协作读挡finally、hello异常未清nonce、control先失败清仍被recognize借用原图。Receiver锁存终态/清identity；Client取消等待与原I/O任务分开，晚读只清/观察，原write+Flush真正settle才清发送buffer，nonce独立比较副本。原调用/IO/进程或启动未结算拒最终释放，process已退但IO未清报SettlementUnconfirmed并保同owner；二次Run不重置active。实际WorkerSession保持Program原NativeOcr绑定，hello finally与不可跳过recognize/control双join，正常reply先于EOF，次要故障只记有界类型。
+
+r01新夹具7诊断编译失败0执行/无TRX，源码原件保全后修夹具；r02真实0P/9F全部生产缺口，原代码及红源码保全。r03 9/9、r04 23/23、r05 locked restore/r06 35/35、r07 1414/1414；r08Worker及r09App交叉构建0W/E；独审补latecontrol真实3byte清零与2条线协议边界后r10最终Provider1416/1416=父1379完整+新37，无跳过。真实托管child与测试引用Worker DLL逐次按配置/hash绑定，另固定4对实际依赖DLL；合成识别/流屏障仅验生产协议所有权，Linux正常结果UnsupportedPlatform，不冒充PNG/JPEG/NativeOCR。17SDK log/TRX+10baseline/编译/红源码精确-text保全，父192原件/1777旧证据保持。详见[说明](validation/image-worker-transfer-cleanup.md)和[固定证据](test-evidence/2026-10-16-image-worker-transfer-cleanup.json)。
+
+现有第三方版本/contentHash全保持，仅Provider测试锁增加3个自有Project节点，其余42锁/8workflow/8模板及Core/Contracts/App/Provider生产保持。所有dotnet激活前后、命令与测试子进程显式false；无新包或协议接受/权限费用凭据模型/main/强推/部署/CI/CMake/Windows探针。250/600ms、原15秒worker/client和来源/密码/完整性/Job/process/取消清理门保持，生产复用Off；Actions不查调不绕拒绝、run数Unknown，证书Unknown不读改trust删除。P6-02仍InProgress/Blocked，04/05 InProgress/NotRun；Skia四包许可待答/源码403、PNG/JPEG codec/EXIF/OCR、WPF真实测量选择阅读、Windows/COM/取消时限与完整P2/P4/P6仍未验。

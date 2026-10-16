@@ -1,0 +1,13 @@
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs(58,55): error CS8752: The type 'IpcFrame[]' may not be used as the target type of new() [/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj]
+/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs(60,25): error CS1690: Accessing a member on 'ImageWorkerTransferTests.FailingEcho.Echo' may cause a runtime exception because it is a field of a marshal-by-reference class [/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj]
+/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs(60,57): error CS1690: Accessing a member on 'ImageWorkerTransferTests.FailingEcho.Echo' may cause a runtime exception because it is a field of a marshal-by-reference class [/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj]
+/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs(74,73): error CS8752: The type 'IpcFrame[]' may not be used as the target type of new() [/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj]
+/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs(111,25): error CS1690: Accessing a member on 'ImageWorkerTransferTests.HeldRead.Borrowed' may cause a runtime exception because it is a field of a marshal-by-reference class [/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj]
+/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs(118,39): error CS1690: Accessing a member on 'ImageWorkerTransferTests.HeldRead.Borrowed' may cause a runtime exception because it is a field of a marshal-by-reference class [/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj]
+/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs(82,78): error xUnit1031: Test methods should not use blocking task operations, as they can cause deadlocks. Use an async test method and await instead. (https://xunit.net/xunit.analyzers/rules/xUnit1031) [/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj]

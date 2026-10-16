@@ -87,8 +87,24 @@
           "xunit.extensibility.core": "[2.9.3]"
         }
       },
+      "kuaiyi.contracts": {
+        "type": "Project"
+      },
       "kuaiyi.core": {
         "type": "Project"
+      },
+      "kuaiyi.imageworker": {
+        "type": "Project",
+        "dependencies": {
+          "KuaiYi.Imaging": "[1.0.0, )"
+        }
+      },
+      "kuaiyi.imaging": {
+        "type": "Project",
+        "dependencies": {
+          "KuaiYi.Contracts": "[1.0.0, )",
+          "KuaiYi.Core": "[1.0.0, )"
+        }
       },
       "kuaiyi.mockprovider": {
         "type": "Project"

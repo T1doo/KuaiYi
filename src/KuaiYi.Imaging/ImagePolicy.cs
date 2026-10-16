@@ -1,7 +1,7 @@
 using System.Buffers.Binary;
 namespace KuaiYi.Imaging;
 
-public enum ImageFailure { None, UnsupportedPlatform, IdentityMissing, IdentityMismatch, NativeUnavailable, LanguageUnavailable, InvalidImage, ImageTooLarge, OcrDimensionExceeded, Cancelled, NativeFailure, ProtocolFailure, Timeout, ExitUnconfirmed }
+public enum ImageFailure { None, UnsupportedPlatform, IdentityMissing, IdentityMismatch, NativeUnavailable, LanguageUnavailable, InvalidImage, ImageTooLarge, OcrDimensionExceeded, Cancelled, NativeFailure, ProtocolFailure, Timeout, ExitUnconfirmed, SettlementUnconfirmed }
 public sealed class ImageJobException(ImageFailure code) : Exception(code.ToString()) { public ImageFailure Code { get; } = code; }
 public readonly record struct ImageSize(uint Width, uint Height);
 public static class ImagePolicy

@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="d75c9f19-880a-4572-b9a5-c2804bb7f3aa" name="@68e6e3cca8ba 2026-10-16 05:14:36" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-16T05:14:36.1770968+00:00" queuing="2026-10-16T05:14:36.1770969+00:00" start="2026-10-16T05:14:34.3843321+00:00" finish="2026-10-16T05:14:39.4386187+00:00" />
+  <TestSettings name="default" id="a81dc4ed-3b0d-46b2-8ad8-a630ad23ea59">
+    <Deployment runDeploymentRoot="_68e6e3cca8ba_2026-10-16_05_14_36" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="a01aabcf-3754-4b8b-b190-4e55e3348b03" testId="92dbbe7b-0ad6-c37c-71c8-ce24e982a37f" testName="KuaiYi.Provider.Tests.ImageWorkerTransferTests.HelloEchoFailureClearsTheActualNonceBuffer" computerName="68e6e3cca8ba" duration="00:00:00.0075880" startTime="2026-10-16T05:14:39.3707359+00:00" endTime="2026-10-16T05:14:39.3777449+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a01aabcf-3754-4b8b-b190-4e55e3348b03">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure
+Expected: True
+Actual:   False</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ImageWorkerTransferTests.HelloEchoFailureClearsTheActualNonceBuffer() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs:line 60
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b1c0ccb5-96dc-4aa5-ae7e-54f6e6d103f4" testId="5d29c25b-f7ad-d3b2-389e-7bc56e1db9d3" testName="KuaiYi.Provider.Tests.ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(cause: &quot;dispose&quot;)" computerName="68e6e3cca8ba" duration="00:00:00.0000385" startTime="2026-10-16T05:14:35.1768888+00:00" endTime="2026-10-16T05:14:35.1769233+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b1c0ccb5-96dc-4aa5-ae7e-54f6e6d103f4">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown
+Expected: typeof(System.IO.InvalidDataException)</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(String cause) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs:line 33
+   at InvokeStub_ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="5963f5cd-3aaa-43a2-8358-42e75e384e5f" testId="70351f9e-26dc-5d7e-7fd8-6cbd2a35f6e4" testName="KuaiYi.Provider.Tests.ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(cause: &quot;bad-chunk&quot;)" computerName="68e6e3cca8ba" duration="00:00:00.0002470" startTime="2026-10-16T05:14:35.1765827+00:00" endTime="2026-10-16T05:14:35.1766356+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5963f5cd-3aaa-43a2-8358-42e75e384e5f">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown
+Expected: typeof(System.IO.InvalidDataException)</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(String cause) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs:line 33
+   at InvokeStub_ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="85cdf225-c62d-4d1e-855c-9d63ad71b41a" testId="c3d512a2-4d00-f6a4-05b8-6043707de11e" testName="KuaiYi.Provider.Tests.ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(cause: &quot;bad-begin&quot;)" computerName="68e6e3cca8ba" duration="00:00:00.0131851" startTime="2026-10-16T05:14:35.1286241+00:00" endTime="2026-10-16T05:14:35.1531197+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="85cdf225-c62d-4d1e-855c-9d63ad71b41a">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown
+Expected: typeof(System.IO.InvalidDataException)</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(String cause) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs:line 33
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1553dccc-72c9-4c60-9b54-5a2b6f60b086" testId="ea74e383-680d-1c7d-2004-da6626d7bfad" testName="KuaiYi.Provider.Tests.ImageWorkerTransferTests.InvalidControlCannotDisposeTheImageWhileOriginalOperationStillOwnsIt(fault: &quot;wrong-role&quot;)" computerName="68e6e3cca8ba" duration="00:00:00.0024175" startTime="2026-10-16T05:14:39.3675598+00:00" endTime="2026-10-16T05:14:39.3697223+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1553dccc-72c9-4c60-9b54-5a2b6f60b086">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.NotSame() Failure: Values are the same instance</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ImageWorkerTransferTests.InvalidControlCannotDisposeTheImageWhileOriginalOperationStillOwnsIt(String fault) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs:line 76
+   at KuaiYi.Provider.Tests.ImageWorkerTransferTests.InvalidControlCannotDisposeTheImageWhileOriginalOperationStillOwnsIt(String fault) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs:line 82
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2bbc8c89-6701-438f-8941-8ab4d4b48527" testId="b1ea219f-aed8-6758-bf0d-38d694a36bf7" testName="KuaiYi.Provider.Tests.ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(cause: &quot;short-commit&quot;)" computerName="68e6e3cca8ba" duration="00:00:00.0010728" startTime="2026-10-16T05:14:35.1754842+00:00" endTime="2026-10-16T05:14:35.1755586+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2bbc8c89-6701-438f-8941-8ab4d4b48527">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown
+Expected: typeof(System.IO.InvalidDataException)</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(String cause) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs:line 33
+   at InvokeStub_ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="416ed58b-ff45-4847-904b-404b28769539" testId="aa74fc47-ba3b-b897-ccec-5f7bab5c98ba" testName="KuaiYi.Provider.Tests.ImageWorkerTransferTests.InvalidControlCannotDisposeTheImageWhileOriginalOperationStillOwnsIt(fault: &quot;read-error&quot;)" computerName="68e6e3cca8ba" duration="00:00:00.0145737" startTime="2026-10-16T05:14:39.3529307+00:00" endTime="2026-10-16T05:14:39.3666937+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="416ed58b-ff45-4847-904b-404b28769539">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.NotSame() Failure: Values are the same instance</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ImageWorkerTransferTests.InvalidControlCannotDisposeTheImageWhileOriginalOperationStillOwnsIt(String fault) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs:line 76
+   at KuaiYi.Provider.Tests.ImageWorkerTransferTests.InvalidControlCannotDisposeTheImageWhileOriginalOperationStillOwnsIt(String fault) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs:line 82
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3d59ce84-0c5e-49ff-8398-ab8465a2bcaa" testId="5295794f-f2f2-5fab-bc6d-b861afb996ab" testName="KuaiYi.Provider.Tests.ImageWorkerTransferTests.RealWorkerReadCancellationStopsTheOwnedChildAndRetainsLateReadLease(phase: 1)" computerName="68e6e3cca8ba" duration="00:00:02.0644760" startTime="2026-10-16T05:14:35.1825944+00:00" endTime="2026-10-16T05:14:37.2228072+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3d59ce84-0c5e-49ff-8398-ab8465a2bcaa">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.IsNotType() Failure: Value is the exact type
+Expected: typeof(System.TimeoutException)
+Actual:   typeof(System.TimeoutException)</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ImageWorkerTransferTests.RealWorkerReadCancellationStopsTheOwnedChildAndRetainsLateReadLease(Int32 phase) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs:line 109
+   at KuaiYi.Provider.Tests.ImageWorkerTransferTests.RealWorkerReadCancellationStopsTheOwnedChildAndRetainsLateReadLease(Int32 phase) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs:line 118
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="24239a00-fa74-438e-a759-834c731e60ec" testId="bd00b9b5-bb3c-b65a-2e6f-94e96e09ad45" testName="KuaiYi.Provider.Tests.ImageWorkerTransferTests.RealWorkerReadCancellationStopsTheOwnedChildAndRetainsLateReadLease(phase: 2)" computerName="68e6e3cca8ba" duration="00:00:02.1239786" startTime="2026-10-16T05:14:37.2251226+00:00" endTime="2026-10-16T05:14:39.3500723+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="24239a00-fa74-438e-a759-834c731e60ec">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.IsNotType() Failure: Value is the exact type
+Expected: typeof(System.TimeoutException)
+Actual:   typeof(System.TimeoutException)</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ImageWorkerTransferTests.RealWorkerReadCancellationStopsTheOwnedChildAndRetainsLateReadLease(Int32 phase) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs:line 109
+   at KuaiYi.Provider.Tests.ImageWorkerTransferTests.RealWorkerReadCancellationStopsTheOwnedChildAndRetainsLateReadLease(Int32 phase) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs:line 118
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.ImageWorkerTransferTests.InvalidControlCannotDisposeTheImageWhileOriginalOperationStillOwnsIt(fault: &quot;wrong-role&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="ea74e383-680d-1c7d-2004-da6626d7bfad">
+      <Execution id="1553dccc-72c9-4c60-9b54-5a2b6f60b086" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ImageWorkerTransferTests" name="InvalidControlCannotDisposeTheImageWhileOriginalOperationStillOwnsIt" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(cause: &quot;dispose&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="5d29c25b-f7ad-d3b2-389e-7bc56e1db9d3">
+      <Execution id="b1c0ccb5-96dc-4aa5-ae7e-54f6e6d103f4" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ImageWorkerTransferTests" name="TerminalReceiverCannotBeResurrectedByNewBegin" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ImageWorkerTransferTests.RealWorkerReadCancellationStopsTheOwnedChildAndRetainsLateReadLease(phase: 2)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="bd00b9b5-bb3c-b65a-2e6f-94e96e09ad45">
+      <Execution id="24239a00-fa74-438e-a759-834c731e60ec" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ImageWorkerTransferTests" name="RealWorkerReadCancellationStopsTheOwnedChildAndRetainsLateReadLease" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ImageWorkerTransferTests.InvalidControlCannotDisposeTheImageWhileOriginalOperationStillOwnsIt(fault: &quot;read-error&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="aa74fc47-ba3b-b897-ccec-5f7bab5c98ba">
+      <Execution id="416ed58b-ff45-4847-904b-404b28769539" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ImageWorkerTransferTests" name="InvalidControlCannotDisposeTheImageWhileOriginalOperationStillOwnsIt" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(cause: &quot;bad-chunk&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="70351f9e-26dc-5d7e-7fd8-6cbd2a35f6e4">
+      <Execution id="5963f5cd-3aaa-43a2-8358-42e75e384e5f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ImageWorkerTransferTests" name="TerminalReceiverCannotBeResurrectedByNewBegin" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ImageWorkerTransferTests.HelloEchoFailureClearsTheActualNonceBuffer" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="92dbbe7b-0ad6-c37c-71c8-ce24e982a37f">
+      <Execution id="a01aabcf-3754-4b8b-b190-4e55e3348b03" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ImageWorkerTransferTests" name="HelloEchoFailureClearsTheActualNonceBuffer" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ImageWorkerTransferTests.RealWorkerReadCancellationStopsTheOwnedChildAndRetainsLateReadLease(phase: 1)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="5295794f-f2f2-5fab-bc6d-b861afb996ab">
+      <Execution id="3d59ce84-0c5e-49ff-8398-ab8465a2bcaa" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ImageWorkerTransferTests" name="RealWorkerReadCancellationStopsTheOwnedChildAndRetainsLateReadLease" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(cause: &quot;short-commit&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="b1ea219f-aed8-6758-bf0d-38d694a36bf7">
+      <Execution id="2bbc8c89-6701-438f-8941-8ab4d4b48527" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ImageWorkerTransferTests" name="TerminalReceiverCannotBeResurrectedByNewBegin" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(cause: &quot;bad-begin&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="c3d512a2-4d00-f6a4-05b8-6043707de11e">
+      <Execution id="85cdf225-c62d-4d1e-855c-9d63ad71b41a" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ImageWorkerTransferTests" name="TerminalReceiverCannotBeResurrectedByNewBegin" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="92dbbe7b-0ad6-c37c-71c8-ce24e982a37f" executionId="a01aabcf-3754-4b8b-b190-4e55e3348b03" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5d29c25b-f7ad-d3b2-389e-7bc56e1db9d3" executionId="b1c0ccb5-96dc-4aa5-ae7e-54f6e6d103f4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="70351f9e-26dc-5d7e-7fd8-6cbd2a35f6e4" executionId="5963f5cd-3aaa-43a2-8358-42e75e384e5f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c3d512a2-4d00-f6a4-05b8-6043707de11e" executionId="85cdf225-c62d-4d1e-855c-9d63ad71b41a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ea74e383-680d-1c7d-2004-da6626d7bfad" executionId="1553dccc-72c9-4c60-9b54-5a2b6f60b086" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b1ea219f-aed8-6758-bf0d-38d694a36bf7" executionId="2bbc8c89-6701-438f-8941-8ab4d4b48527" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="aa74fc47-ba3b-b897-ccec-5f7bab5c98ba" executionId="416ed58b-ff45-4847-904b-404b28769539" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5295794f-f2f2-5fab-bc6d-b861afb996ab" executionId="3d59ce84-0c5e-49ff-8398-ab8465a2bcaa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bd00b9b5-bb3c-b65a-2e6f-94e96e09ad45" executionId="24239a00-fa74-438e-a759-834c731e60ec" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="9" executed="9" passed="0" failed="9" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.09]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.38]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.41]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.46]       Assert.Throws() Failure: No exception was thrown
+[xUnit.net 00:00:00.46]       Expected: typeof(System.IO.InvalidDataException)
+[xUnit.net 00:00:00.46]       Stack Trace:
+[xUnit.net 00:00:00.46]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs(33,0): at KuaiYi.Provider.Tests.ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(String cause)
+[xUnit.net 00:00:00.46]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:00.46]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+[xUnit.net 00:00:00.48]       Assert.Throws() Failure: No exception was thrown
+[xUnit.net 00:00:00.48]       Expected: typeof(System.IO.InvalidDataException)
+[xUnit.net 00:00:00.48]       Stack Trace:
+[xUnit.net 00:00:00.48]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs(33,0): at KuaiYi.Provider.Tests.ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(String cause)
+[xUnit.net 00:00:00.48]            at InvokeStub_ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(Object, Span`1)
+[xUnit.net 00:00:00.48]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.48]       Assert.Throws() Failure: No exception was thrown
+[xUnit.net 00:00:00.48]       Expected: typeof(System.IO.InvalidDataException)
+[xUnit.net 00:00:00.48]       Stack Trace:
+[xUnit.net 00:00:00.48]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs(33,0): at KuaiYi.Provider.Tests.ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(String cause)
+[xUnit.net 00:00:00.48]            at InvokeStub_ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(Object, Span`1)
+[xUnit.net 00:00:00.48]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.48]       Assert.Throws() Failure: No exception was thrown
+[xUnit.net 00:00:00.48]       Expected: typeof(System.IO.InvalidDataException)
+[xUnit.net 00:00:00.48]       Stack Trace:
+[xUnit.net 00:00:00.48]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs(33,0): at KuaiYi.Provider.Tests.ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(String cause)
+[xUnit.net 00:00:00.48]            at InvokeStub_ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(Object, Span`1)
+[xUnit.net 00:00:00.48]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:02.52]       Assert.IsNotType() Failure: Value is the exact type
+[xUnit.net 00:00:02.52]       Expected: typeof(System.TimeoutException)
+[xUnit.net 00:00:02.52]       Actual:   typeof(System.TimeoutException)
+[xUnit.net 00:00:02.52]       Stack Trace:
+[xUnit.net 00:00:02.52]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs(109,0): at KuaiYi.Provider.Tests.ImageWorkerTransferTests.RealWorkerReadCancellationStopsTheOwnedChildAndRetainsLateReadLease(Int32 phase)
+[xUnit.net 00:00:02.52]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs(118,0): at KuaiYi.Provider.Tests.ImageWorkerTransferTests.RealWorkerReadCancellationStopsTheOwnedChildAndRetainsLateReadLease(Int32 phase)
+[xUnit.net 00:00:02.52]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:04.65]       Assert.IsNotType() Failure: Value is the exact type
+[xUnit.net 00:00:04.65]       Expected: typeof(System.TimeoutException)
+[xUnit.net 00:00:04.65]       Actual:   typeof(System.TimeoutException)
+[xUnit.net 00:00:04.65]       Stack Trace:
+[xUnit.net 00:00:04.65]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs(109,0): at KuaiYi.Provider.Tests.ImageWorkerTransferTests.RealWorkerReadCancellationStopsTheOwnedChildAndRetainsLateReadLease(Int32 phase)
+[xUnit.net 00:00:04.65]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs(118,0): at KuaiYi.Provider.Tests.ImageWorkerTransferTests.RealWorkerReadCancellationStopsTheOwnedChildAndRetainsLateReadLease(Int32 phase)
+[xUnit.net 00:00:04.65]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:04.67]       Assert.NotSame() Failure: Values are the same instance
+[xUnit.net 00:00:04.67]       Stack Trace:
+[xUnit.net 00:00:04.67]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs(76,0): at KuaiYi.Provider.Tests.ImageWorkerTransferTests.InvalidControlCannotDisposeTheImageWhileOriginalOperationStillOwnsIt(String fault)
+[xUnit.net 00:00:04.67]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs(82,0): at KuaiYi.Provider.Tests.ImageWorkerTransferTests.InvalidControlCannotDisposeTheImageWhileOriginalOperationStillOwnsIt(String fault)
+[xUnit.net 00:00:04.67]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:04.67]       Assert.NotSame() Failure: Values are the same instance
+[xUnit.net 00:00:04.67]       Stack Trace:
+[xUnit.net 00:00:04.67]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs(76,0): at KuaiYi.Provider.Tests.ImageWorkerTransferTests.InvalidControlCannotDisposeTheImageWhileOriginalOperationStillOwnsIt(String fault)
+[xUnit.net 00:00:04.67]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs(82,0): at KuaiYi.Provider.Tests.ImageWorkerTransferTests.InvalidControlCannotDisposeTheImageWhileOriginalOperationStillOwnsIt(String fault)
+[xUnit.net 00:00:04.67]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:04.68]       Assert.True() Failure
+[xUnit.net 00:00:04.68]       Expected: True
+[xUnit.net 00:00:04.68]       Actual:   False
+[xUnit.net 00:00:04.68]       Stack Trace:
+[xUnit.net 00:00:04.68]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageWorkerTransferTests.cs(60,0): at KuaiYi.Provider.Tests.ImageWorkerTransferTests.HelloEchoFailureClearsTheActualNonceBuffer()
+[xUnit.net 00:00:04.68]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:04.69]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T05:14:35.1572206+00:00">
+        <Text>[xUnit.net 00:00:00.46]     KuaiYi.Provider.Tests.ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(cause: "bad-begin") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T05:14:35.1773043+00:00">
+        <Text>[xUnit.net 00:00:00.48]     KuaiYi.Provider.Tests.ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(cause: "short-commit") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T05:14:35.1774323+00:00">
+        <Text>[xUnit.net 00:00:00.48]     KuaiYi.Provider.Tests.ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(cause: "bad-chunk") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T05:14:35.1774521+00:00">
+        <Text>[xUnit.net 00:00:00.48]     KuaiYi.Provider.Tests.ImageWorkerTransferTests.TerminalReceiverCannotBeResurrectedByNewBegin(cause: "dispose") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T05:14:37.2238494+00:00">
+        <Text>[xUnit.net 00:00:02.52]     KuaiYi.Provider.Tests.ImageWorkerTransferTests.RealWorkerReadCancellationStopsTheOwnedChildAndRetainsLateReadLease(phase: 1) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T05:14:39.3532083+00:00">
+        <Text>[xUnit.net 00:00:04.65]     KuaiYi.Provider.Tests.ImageWorkerTransferTests.RealWorkerReadCancellationStopsTheOwnedChildAndRetainsLateReadLease(phase: 2) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T05:14:39.3670844+00:00">
+        <Text>[xUnit.net 00:00:04.67]     KuaiYi.Provider.Tests.ImageWorkerTransferTests.InvalidControlCannotDisposeTheImageWhileOriginalOperationStillOwnsIt(fault: "read-error") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T05:14:39.3699118+00:00">
+        <Text>[xUnit.net 00:00:04.67]     KuaiYi.Provider.Tests.ImageWorkerTransferTests.InvalidControlCannotDisposeTheImageWhileOriginalOperationStillOwnsIt(fault: "wrong-role") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T05:14:39.3779983+00:00">
+        <Text>[xUnit.net 00:00:04.68]     KuaiYi.Provider.Tests.ImageWorkerTransferTests.HelloEchoFailureClearsTheActualNonceBuffer [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

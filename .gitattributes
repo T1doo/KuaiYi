@@ -225,3 +225,32 @@ docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__LICENSE.txt
 docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__THIRD-PARTY-NOTICES.txt -text
 docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__package-inventory.json -text
 docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__nuget-registration.json -text
+
+# Exact worker transfer/cleanup SDK and pre-fix source originals.
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__baseline__ImageMessages.cs.txt -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__baseline__ImageWorkerClient.cs.txt -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__baseline__Program.cs.txt -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__r00-existing-graph-restore.log -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__r01-compile-source__ImageWorkerSession.cs.txt -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__r01-compile-source__ImageWorkerTransferTests.cs.txt -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__r01-red.log -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__r02-before-fix__ImageMessages.cs.txt -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__r02-before-fix__ImageWorkerClient.cs.txt -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__r02-before-fix__ImageWorkerSession.cs.txt -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__r02-before-fix__ImageWorkerTransferTests.cs.txt -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__r02-before-fix__Program.cs.txt -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__r02-red.log -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__r02-red.trx -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__r03-first-fix.log -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__r03-first-fix.trx -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__r04-ownership-matrix.log -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__r04-ownership-matrix.trx -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__r05-locked-restore.log -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__r06-focused-final.log -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__r06-focused-final.trx -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__r07-provider-final.log -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__r07-provider-final.trx -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__r08-worker-final.log -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__r09-app-final.log -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__r10-provider-bound-final.log -text
+docs/test-evidence/2026-10-16-image-worker-transfer-originals__r10-provider-bound-final.trx -text

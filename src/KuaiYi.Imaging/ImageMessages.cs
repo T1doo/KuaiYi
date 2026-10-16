@@ -35,12 +35,12 @@ public sealed class ImageJobReceiver : IDisposable
 {
     private byte[]? data;
     private int filled, next;
-    private bool committed;
+    private bool committed,terminal;
     public Guid RequestId { get; private set; }
     public ImageJob? Job { get; private set; }
     public void Begin(IpcFrame frame)
     {
-        if (frame.Type != IpcMessageType.ImageBegin || data != null || committed || frame.RequestId == Guid.Empty) Abort();
+        if (terminal || frame.Type != IpcMessageType.ImageBegin || data != null || committed || frame.RequestId == Guid.Empty) Abort();
         try
         {
             var job = ImageJson.Read<ImageJob>(frame.Payload);
@@ -64,5 +64,5 @@ public sealed class ImageJobReceiver : IDisposable
         return data!;
     }
     private void Abort() { Dispose(); throw new InvalidDataException("Invalid private image transfer."); }
-    public void Dispose() { if (data != null) CryptographicOperations.ZeroMemory(data); data = null; Job = null; }
+    public void Dispose() { terminal=true;if (data != null) CryptographicOperations.ZeroMemory(data); data = null; Job = null;RequestId=Guid.Empty;filled=next=0; }
 }

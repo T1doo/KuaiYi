@@ -10,15 +10,27 @@ public sealed class ImageWorkerClient(string executable, string? managedAssembly
 {
     private readonly OwnedProcessSession process=new(processStarter);
     private int started;
+    private readonly object ioSync=new();
+    private readonly List<Task> ioSettlements=[];
+    public string? IoFailureCode {get;private set;}
+    private bool IoSettled {get{lock(ioSync)return ioSettlements.All(task=>task.IsCompleted);}}
+    private void Track(Task task){lock(ioSync)ioSettlements.Add(task);}
     public string? StartupFailureCode=>process.StartupFailureCode;
     public string? FinalizationFailureCode=>process.FinalizationFailureCode;
     internal Action<Process>? OwnershipPublishedForTest {init{process.OwnershipPublishedForTest=value;}}
     internal Task StartupSettlementForTest=>process.StartupSettlement;
     public HostExitState? ExitState=>process.ExitState;
     public bool ObserveExit()=>process.ObserveExit();
+    internal Func<Stream,Stream>? ReadStreamForTest {get;init;}
+    internal Func<Stream,Stream>? WriteStreamForTest {get;init;}
     public async Task<ImageReply> RunAsync(ReadOnlyMemory<byte> image, ImageJob job, CancellationToken cancellation = default)
     {
-        if (Interlocked.Exchange(ref started,1) != 0) throw new InvalidOperationException("Image client is single use.");
+        if (Interlocked.CompareExchange(ref started,1,0) != 0) throw new InvalidOperationException("Image client is single use.");
+        try{return await RunOwnedAsync(image,job,cancellation).ConfigureAwait(false);}
+        finally{Volatile.Write(ref started,2);}
+    }
+    private async Task<ImageReply> RunOwnedAsync(ReadOnlyMemory<byte> image,ImageJob job,CancellationToken cancellation)
+    {
         cancellation.ThrowIfCancellationRequested();
         ImagePolicy.InspectPng(image.Span);
         if (image.Length != job.ByteLength) throw new InvalidDataException("Image length mismatch.");
@@ -31,30 +43,30 @@ public sealed class ImageWorkerClient(string executable, string? managedAssembly
         {
             Process child = await pending.WaitAsync(linked.Token).ConfigureAwait(false);
             linked.Token.ThrowIfCancellationRequested();
-            var send = child.StandardInput.BaseStream; var receive = child.StandardOutput.BaseStream;
+            var send = WriteStreamForTest?.Invoke(child.StandardInput.BaseStream)??child.StandardInput.BaseStream; var receive = ReadStreamForTest?.Invoke(child.StandardOutput.BaseStream)??child.StandardOutput.BaseStream;
             byte[] nonce = RandomNumberGenerator.GetBytes(32);
             try
             {
-                await IpcFrameCodec.WriteAsync(send, new(IpcMessageType.ImageHello, id, nonce), linked.Token); await send.FlushAsync(linked.Token);
-                var hello = await IpcFrameCodec.ReadAsync(receive, linked.Token) ?? throw new EndOfStreamException();
+                // The writer owns its independent buffer until the ORIGINAL write/flush settles.
+                await Write(send,new(IpcMessageType.ImageHello,id,nonce.ToArray()),linked.Token,true);
+                var hello = await Read(receive,linked.Token);
                 try { if (hello.Type != IpcMessageType.ImageHello || hello.RequestId != id || !CryptographicOperations.FixedTimeEquals(nonce, hello.Payload)) throw new InvalidDataException("Worker hello mismatch."); }
                 finally { CryptographicOperations.ZeroMemory(hello.Payload); }
             }
             finally { CryptographicOperations.ZeroMemory(nonce); }
             byte[] begin = ImageJson.Serialize(job);
-            try { await IpcFrameCodec.WriteAsync(send, new(IpcMessageType.ImageBegin, id, begin), linked.Token); }
-            finally { CryptographicOperations.ZeroMemory(begin); }
+            await Write(send,new(IpcMessageType.ImageBegin,id,begin),linked.Token);
             int index = 0;
             for (int offset = 0; offset < image.Length;)
             {
                 int size = Math.Min(IpcFrameCodec.BinaryLimit - 4, image.Length - offset);
                 byte[] chunk = new byte[size + 4];
-                try { BinaryPrimitives.WriteUInt32LittleEndian(chunk, (uint)index++); image.Span.Slice(offset,size).CopyTo(chunk.AsSpan(4)); await IpcFrameCodec.WriteAsync(send, new(IpcMessageType.BinaryChunk,id,chunk), linked.Token); }
-                finally { CryptographicOperations.ZeroMemory(chunk); }
+                BinaryPrimitives.WriteUInt32LittleEndian(chunk,(uint)index++);image.Span.Slice(offset,size).CopyTo(chunk.AsSpan(4));
+                await Write(send,new(IpcMessageType.BinaryChunk,id,chunk),linked.Token);
                 offset += size;
             }
-            await IpcFrameCodec.WriteAsync(send, new(IpcMessageType.ImageCommit,id,[]), linked.Token); await send.FlushAsync(linked.Token);
-            var frame = await IpcFrameCodec.ReadAsync(receive, linked.Token) ?? throw new EndOfStreamException();
+            await Write(send,new(IpcMessageType.ImageCommit,id,[]),linked.Token,true);
+            var frame = await Read(receive,linked.Token);
             ImageReply reply;
             try
             {
@@ -76,6 +88,34 @@ public sealed class ImageWorkerClient(string executable, string? managedAssembly
         {
             await process.StopAsync().ConfigureAwait(false);
             if (!ObserveExit()) throw new ImageJobException(ImageFailure.ExitUnconfirmed); // Raw child exit cannot clear an unsettled startup.
+            if (!IoSettled) throw new ImageJobException(ImageFailure.SettlementUnconfirmed);
+        }
+    }
+    private async Task<IpcFrame> Read(Stream stream,CancellationToken cancellation)
+    {
+        var reading=IpcFrameCodec.ReadAsync(stream,cancellation).AsTask();bool delivered=false;
+        try
+        {
+            var frame=await reading.WaitAsync(cancellation).ConfigureAwait(false);cancellation.ThrowIfCancellationRequested();
+            delivered=true;return frame??throw new EndOfStreamException();
+        }
+        finally{if(!delivered)Track(ClearLateRead(reading));}
+    }
+    private async Task ClearLateRead(Task<IpcFrame?> reading)
+    {
+        try{var frame=await reading.ConfigureAwait(false);if(frame!=null)CryptographicOperations.ZeroMemory(frame.Payload);}
+        catch(Exception error){IoFailureCode=error.GetType().Name;} // Observe every original fault; no late result can be delivered.
+    }
+    private async Task Write(Stream stream,IpcFrame frame,CancellationToken cancellation,bool flush=false)
+    {
+        Task writing=WriteOriginal();Task settlement=ClearAfterWrite();Track(settlement);
+        try{await writing.WaitAsync(cancellation).ConfigureAwait(false);cancellation.ThrowIfCancellationRequested();}
+        finally{if(writing.IsCompleted)await settlement.ConfigureAwait(false);}
+        async Task WriteOriginal(){await IpcFrameCodec.WriteAsync(stream,frame,cancellation).ConfigureAwait(false);if(flush)await stream.FlushAsync(cancellation).ConfigureAwait(false);}
+        async Task ClearAfterWrite()
+        {
+            try{await writing.ConfigureAwait(false);}catch(Exception error){IoFailureCode=error.GetType().Name;}
+            finally{CryptographicOperations.ZeroMemory(frame.Payload);}
         }
     }
     public static void ValidateOutput(OcrOutput result, ImageSize expected, string language)
@@ -92,9 +132,14 @@ public sealed class ImageWorkerClient(string executable, string? managedAssembly
                     word.X < 0 || word.Y < 0 || word.Width < 0 || word.Height < 0 || word.X + word.Width > expected.Width || word.Y + word.Height > expected.Height) throw new InvalidDataException("Invalid OCR word bounds.");
         }
     }
-    public ValueTask<bool> TryFinalizeAsync()=>process.TryFinalizeAsync();
+    public async ValueTask<bool> TryFinalizeAsync()
+    {
+        await process.StopAsync().ConfigureAwait(false);
+        if(Volatile.Read(ref started)==1||!IoSettled||!process.ObserveExit())return false;
+        return await process.TryFinalizeAsync().ConfigureAwait(false);
+    }
     public async ValueTask DisposeAsync()
     {
-        if (!await TryFinalizeAsync().ConfigureAwait(false)) throw new ImageJobException(ImageFailure.ExitUnconfirmed);
+        if (!await TryFinalizeAsync().ConfigureAwait(false)) throw new ImageJobException(process.ObserveExit()?ImageFailure.SettlementUnconfirmed:ImageFailure.ExitUnconfirmed);
     }
 }
