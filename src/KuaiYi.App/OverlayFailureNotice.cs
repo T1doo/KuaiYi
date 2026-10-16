@@ -2,19 +2,28 @@ using KuaiYi.Core;
 namespace KuaiYi.App;
 internal sealed partial class ShellWindow
 {
-    private RequestIdentity? pendingFailureReveal;
+    private RequestIdentity? pendingFailureReveal;private Guid? inspectedFailureVersion;
     private void OfferFailureReveal(RequestIdentity identity)
-    {if(overlayResults.LastFailure?.Identity==identity&&lifecycle.Gate.TryRevealDelta(identity))pendingFailureReveal=identity;}
+    {if(overlayResults.LastFailure?.Identity!=identity)return;inspectedFailureVersion=null;if(lifecycle.Gate.TryRevealDelta(identity))pendingFailureReveal=identity;}
     private bool TryRevealFailure()
     {
         var pending=pendingFailureReveal;pendingFailureReveal=null;
         return pending is {} id&&!exiting&&IsVisible&&overlayResults.LastFailure?.Identity==id&&lifecycle.Gate.CanApply(id)&&lifecycle.Gate.TryRevealDelta(id);
     }
-    private CachedOverlayVersion? FailureNoticeVersion=>SelectedSource.Image!=null?null:overlayResults.Versions.FirstOrDefault(v=>v.Identity.VersionId==overlayResults.SelectedVersionId&&v.Failure!=null)??overlayResults.LastFailure;
+    private CachedOverlayVersion? FailureNoticeVersion
+    {
+        get
+        {
+            if(SelectedSource.Image!=null)return null;
+            var selected=overlayResults.Versions.FirstOrDefault(v=>v.Identity.VersionId==overlayResults.SelectedVersionId&&v.Failure!=null);
+            // Automatic rollback announces the latest attempt. Explicit inspection reads the selected version.
+            return inspectedFailureVersion==overlayResults.SelectedVersionId?selected??overlayResults.LastFailure:overlayResults.LastFailure??selected;
+        }
+    }
     private double FailureNoticeHeight=>FailureNoticeVersion==null?0:32;
     private void RefreshFailureNotice()
     {
-        var failed=FailureNoticeVersion;
+        var failed=FailureNoticeVersion;if(failed==null)inspectedFailureVersion=null;
         string text=failed==null?"":FailureSummary(failed);
         failureNotice.Content=failed==null?"":overlayResults.SelectedVersionId==failed.Identity.VersionId?$"未完成 · {ShortFailureLabel(failed.Failure!.Value)} · 状态/恢复":"新尝试未完成 · 正文为旧结果 · 查看";
         failureNotice.ToolTip=text;System.Windows.Automation.AutomationProperties.SetName(failureNotice,text);
@@ -29,7 +38,7 @@ internal sealed partial class ShellWindow
     }
     private void ShowFailureRecovery()=>OpenOverflowMenu(failureNotice);
     private void SelectResultVersion(Guid id)
-    {if(overlayResults.SelectVersion(id)){RefreshResultLabel();resultRevision++;ResetBodyReaderFollow();dirty=true;pendingReveal=false;peek=false;OpenBody();}}
+    {if(overlayResults.SelectVersion(id)){inspectedFailureVersion=id;RefreshResultLabel();resultRevision++;ResetBodyReaderFollow();dirty=true;pendingReveal=false;peek=false;OpenBody();}}
     private static string FailureLabel(string reason)=>FailureLabel(TranslationFailures.Normalize(reason));
     private static string FailureLabel(TranslationFailureReason reason)=>reason switch
     {

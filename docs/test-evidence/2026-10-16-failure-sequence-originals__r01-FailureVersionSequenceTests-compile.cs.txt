@@ -1,0 +1,20 @@
+using KuaiYi.Core;
+using KuaiYi.Core.Settings;
+using Xunit;
+using Protocol=KuaiYi.Providers.ApiProtocol;
+namespace KuaiYi.Provider.Tests;
+public sealed class FailureVersionSequenceTests
+{
+    [Theory][InlineData(Protocol.OpenAIChat,false)][InlineData(Protocol.OpenAIChat,true)][InlineData(Protocol.AnthropicMessages,false)][InlineData(Protocol.AnthropicMessages,true)]
+    public async Task ConsecutiveFailedRecoveryNeverReusesTheRetainedSessionsVersionNumber(Protocol protocol,bool stream)
+    {
+        await using var r=await TextUsageRig.Create(protocol,stream);var a=r.Start(r.Source("PUBLIC SOURCE A"));await r.Requests(1);await r.Reply(r.Counts(10,1),"PUBLIC COMPLETE A1");var original=r.Version(a);
+        var b=r.Start(r.Source("PUBLIC SOURCE B",SelectionSourceKind.OleDrop));await r.Requests(2);await r.Reply(r.Counts(20,2),"PUBLIC PARTIAL B1",finish:protocol==Protocol.OpenAIChat?"length":"max_tokens");Assert.Equal(a.VersionId,r.Results.SelectedVersionId);Assert.Equal(original,r.Version(a));Assert.Equal(1,r.Version(b).Number);r.Window.SelectFailureVersionForTest(b.VersionId);Assert.Equal("PUBLIC SOURCE B",r.Flow.SelectedSnapshot!.Source.Text);Assert.Equal(2,r.Flow.NextGeneration!.VersionNumber);
+        for(int expected=2;expected<=5;expected++)
+        {
+            int requests=r.Script.Requests;var offer=Assert.IsType<KuaiYi.Providers.TextTranslationOffer>(r.Flow.PrepareRegeneration());Assert.Equal(requests,r.Script.Requests);Assert.Equal(expected,offer.Snapshot.VersionNumber);Assert.Equal(b.SessionId,offer.Session);Assert.Equal("PUBLIC SOURCE B",offer.Snapshot.Source.Text);Assert.Equal(TextSubmission.Started,r.Flow.Submit(offer));var next=r.Results.Identity!.Value;Assert.NotEqual(b,next);Assert.Equal(b.SessionId,next.SessionId);Assert.Equal(expected,r.Version(next).Number);Assert.Null(r.Version(next).Failure);Assert.Equal(TranslationUsage.Unknown,r.Version(next).Usage);await r.Requests(expected+1);await r.Reply(r.Counts(expected*10,expected),"PUBLIC PARTIAL B"+expected,finish:protocol==Protocol.OpenAIChat?"length":"max_tokens");
+            var failed=r.Version(next);Assert.Equal(expected,failed.Number);Assert.Equal(TranslationFailureReason.OutputTruncated,failed.Failure);Assert.Equal(new TranslationUsage(expected*10,expected),failed.Usage);Assert.Equal(b.VersionId,r.Results.SelectedVersionId);Assert.Equal("PUBLIC PARTIAL B1",r.Results.Text);Assert.Equal(new TranslationUsage(20,2),r.Version(b).Usage);Assert.Equal(expected+1,r.Flow.NextGeneration!.VersionNumber);Assert.Equal(expected+1,r.Results.NextVersionNumber(b.SessionId));Assert.InRange(r.Results.Versions.Count,1,3);Assert.Equal(r.Results.Versions.Count,r.Flow.RetainedSnapshotCount);Assert.All(r.Results.Versions.GroupBy(v=>(v.Identity.SessionId,v.Number)),g=>Assert.Single(g));Assert.False(r.Results.Append(next,"PUBLIC LATE"));Assert.False(r.Results.ObserveUsage(next,999,999));Assert.False(r.Results.Fail(next,"AUTH_FAILED"));Assert.Equal(failed,r.Version(next));
+        }
+        Assert.Equal(6,r.Script.Requests);Assert.False(r.Gate.HasRunningGeneration);Assert.True(await r.Window.ClearContentForTest());Assert.Empty(r.Results.Versions);Assert.Null(r.Results.LastFailure);Assert.Equal(0,r.Flow.RetainedSnapshotCount);Assert.Equal("",r.Window.FailureNoticeText);
+    }
+}

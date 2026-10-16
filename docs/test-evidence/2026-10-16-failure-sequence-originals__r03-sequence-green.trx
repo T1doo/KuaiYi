@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="e8f19f9c-09e6-4091-9105-dd8400caee13" name="@68e6e3cca8ba 2026-10-16 10:41:02" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-16T10:41:02.5832090+00:00" queuing="2026-10-16T10:41:02.5832091+00:00" start="2026-10-16T10:41:00.9910215+00:00" finish="2026-10-16T10:41:02.6247991+00:00" />
+  <TestSettings name="default" id="50f11938-5161-4ca7-bb4e-f9c570e754a1">
+    <Deployment runDeploymentRoot="_68e6e3cca8ba_2026-10-16_10_41_02" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="9a04d2cb-b57b-4a5e-80d5-06e995520d60" testId="1ba94b8d-e335-1fd3-4be4-461478c367df" testName="KuaiYi.Provider.Tests.FailureVersionSequenceTests.AutomaticRollbackAnnouncesNewestAttemptAndExplicitOldSelectionShowsItsOwnFailure(protocol: AnthropicMessages, stream: False)" computerName="68e6e3cca8ba" duration="00:00:00.0371878" startTime="2026-10-16T10:41:02.4536678+00:00" endTime="2026-10-16T10:41:02.4910837+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9a04d2cb-b57b-4a5e-80d5-06e995520d60" />
+    <UnitTestResult executionId="737055ba-1dd0-4157-8038-7e4677572dc1" testId="12504ed2-32fe-4c7f-48e3-31e3c548eeba" testName="KuaiYi.Provider.Tests.FailureVersionSequenceTests.ConsecutiveFailedRecoveryNeverReusesTheRetainedSessionsVersionNumber(protocol: AnthropicMessages, stream: False)" computerName="68e6e3cca8ba" duration="00:00:00.0740272" startTime="2026-10-16T10:41:02.2398769+00:00" endTime="2026-10-16T10:41:02.3039595+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="737055ba-1dd0-4157-8038-7e4677572dc1" />
+    <UnitTestResult executionId="b1ab331a-42c4-4d04-abca-d31264bbb458" testId="e763fa9d-2606-fbb0-cd96-9c704adf9909" testName="KuaiYi.Provider.Tests.FailureVersionSequenceTests.ConsecutiveFailedRecoveryNeverReusesTheRetainedSessionsVersionNumber(protocol: OpenAIChat, stream: False)" computerName="68e6e3cca8ba" duration="00:00:00.0553627" startTime="2026-10-16T10:41:02.3045510+00:00" endTime="2026-10-16T10:41:02.3598904+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b1ab331a-42c4-4d04-abca-d31264bbb458" />
+    <UnitTestResult executionId="6c52ee9e-9474-4c87-b560-5c659df7b98b" testId="0dd16ae6-3d58-644e-7c26-8c1c1939b1af" testName="KuaiYi.Provider.Tests.FailureVersionSequenceTests.FailAndNeutralAbandonRetainTheNewestOrdinalWhenFallbackIsTheSameSession(abandon: False)" computerName="68e6e3cca8ba" duration="00:00:00.0007997" startTime="2026-10-16T10:41:02.5588210+00:00" endTime="2026-10-16T10:41:02.5588688+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6c52ee9e-9474-4c87-b560-5c659df7b98b" />
+    <UnitTestResult executionId="ad228fe8-cbde-4aba-b2e6-376fe0b0893d" testId="fe9062c4-a10d-0d84-00f4-2ca810444670" testName="KuaiYi.Provider.Tests.FailureVersionSequenceTests.FailAndNeutralAbandonRetainTheNewestOrdinalWhenFallbackIsTheSameSession(abandon: True)" computerName="68e6e3cca8ba" duration="00:00:00.0016992" startTime="2026-10-16T10:41:02.5487931+00:00" endTime="2026-10-16T10:41:02.5489282+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ad228fe8-cbde-4aba-b2e6-376fe0b0893d" />
+    <UnitTestResult executionId="88b94dff-35e7-43a4-8a75-24bae4cfaee8" testId="3a02af47-0bc2-6b7d-18ac-5daa1b903a51" testName="KuaiYi.Provider.Tests.FailureVersionSequenceTests.AutomaticRollbackAnnouncesNewestAttemptAndExplicitOldSelectionShowsItsOwnFailure(protocol: AnthropicMessages, stream: True)" computerName="68e6e3cca8ba" duration="00:00:00.0399382" startTime="2026-10-16T10:41:02.4148464+00:00" endTime="2026-10-16T10:41:02.4535211+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="88b94dff-35e7-43a4-8a75-24bae4cfaee8" />
+    <UnitTestResult executionId="e21e004e-3c74-4406-9d13-03fc21eda4dc" testId="79738018-0b58-2888-4850-9b9ba19aa201" testName="KuaiYi.Provider.Tests.FailureVersionSequenceTests.AutomaticRollbackAnnouncesNewestAttemptAndExplicitOldSelectionShowsItsOwnFailure(protocol: OpenAIChat, stream: False)" computerName="68e6e3cca8ba" duration="00:00:00.0273216" startTime="2026-10-16T10:41:02.4912183+00:00" endTime="2026-10-16T10:41:02.5187934+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e21e004e-3c74-4406-9d13-03fc21eda4dc" />
+    <UnitTestResult executionId="21d7aea9-c684-4da9-b340-ae7ac78af311" testId="d56bf823-c341-2e4a-fa81-e3aaed7178b5" testName="KuaiYi.Provider.Tests.FailureVersionSequenceTests.ConsecutiveFailedRecoveryNeverReusesTheRetainedSessionsVersionNumber(protocol: OpenAIChat, stream: True)" computerName="68e6e3cca8ba" duration="00:00:00.0516963" startTime="2026-10-16T10:41:02.3600525+00:00" endTime="2026-10-16T10:41:02.4113129+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="21d7aea9-c684-4da9-b340-ae7ac78af311" />
+    <UnitTestResult executionId="131ddc94-85e0-48e5-9b27-a5cb1dc856e0" testId="a6072891-ab73-63f8-6f22-9e773d43d2ae" testName="KuaiYi.Provider.Tests.FailureVersionSequenceTests.AutomaticRollbackAnnouncesNewestAttemptAndExplicitOldSelectionShowsItsOwnFailure(protocol: OpenAIChat, stream: True)" computerName="68e6e3cca8ba" duration="00:00:00.0273153" startTime="2026-10-16T10:41:02.5189997+00:00" endTime="2026-10-16T10:41:02.5485301+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="131ddc94-85e0-48e5-9b27-a5cb1dc856e0" />
+    <UnitTestResult executionId="d251aa50-b52b-45be-9ab5-a9fa6f30280e" testId="48a4a480-3835-7add-083f-71cfe93731a9" testName="KuaiYi.Provider.Tests.FailureVersionSequenceTests.ConsecutiveFailedRecoveryNeverReusesTheRetainedSessionsVersionNumber(protocol: AnthropicMessages, stream: True)" computerName="68e6e3cca8ba" duration="00:00:00.3791899" startTime="2026-10-16T10:41:01.8386850+00:00" endTime="2026-10-16T10:41:02.2303709+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d251aa50-b52b-45be-9ab5-a9fa6f30280e" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.FailureVersionSequenceTests.ConsecutiveFailedRecoveryNeverReusesTheRetainedSessionsVersionNumber(protocol: OpenAIChat, stream: False)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="e763fa9d-2606-fbb0-cd96-9c704adf9909">
+      <Execution id="b1ab331a-42c4-4d04-abca-d31264bbb458" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.FailureVersionSequenceTests" name="ConsecutiveFailedRecoveryNeverReusesTheRetainedSessionsVersionNumber" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.FailureVersionSequenceTests.AutomaticRollbackAnnouncesNewestAttemptAndExplicitOldSelectionShowsItsOwnFailure(protocol: AnthropicMessages, stream: True)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="3a02af47-0bc2-6b7d-18ac-5daa1b903a51">
+      <Execution id="88b94dff-35e7-43a4-8a75-24bae4cfaee8" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.FailureVersionSequenceTests" name="AutomaticRollbackAnnouncesNewestAttemptAndExplicitOldSelectionShowsItsOwnFailure" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.FailureVersionSequenceTests.ConsecutiveFailedRecoveryNeverReusesTheRetainedSessionsVersionNumber(protocol: AnthropicMessages, stream: False)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="12504ed2-32fe-4c7f-48e3-31e3c548eeba">
+      <Execution id="737055ba-1dd0-4157-8038-7e4677572dc1" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.FailureVersionSequenceTests" name="ConsecutiveFailedRecoveryNeverReusesTheRetainedSessionsVersionNumber" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.FailureVersionSequenceTests.AutomaticRollbackAnnouncesNewestAttemptAndExplicitOldSelectionShowsItsOwnFailure(protocol: AnthropicMessages, stream: False)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="1ba94b8d-e335-1fd3-4be4-461478c367df">
+      <Execution id="9a04d2cb-b57b-4a5e-80d5-06e995520d60" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.FailureVersionSequenceTests" name="AutomaticRollbackAnnouncesNewestAttemptAndExplicitOldSelectionShowsItsOwnFailure" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.FailureVersionSequenceTests.AutomaticRollbackAnnouncesNewestAttemptAndExplicitOldSelectionShowsItsOwnFailure(protocol: OpenAIChat, stream: False)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="79738018-0b58-2888-4850-9b9ba19aa201">
+      <Execution id="e21e004e-3c74-4406-9d13-03fc21eda4dc" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.FailureVersionSequenceTests" name="AutomaticRollbackAnnouncesNewestAttemptAndExplicitOldSelectionShowsItsOwnFailure" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.FailureVersionSequenceTests.FailAndNeutralAbandonRetainTheNewestOrdinalWhenFallbackIsTheSameSession(abandon: False)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="0dd16ae6-3d58-644e-7c26-8c1c1939b1af">
+      <Execution id="6c52ee9e-9474-4c87-b560-5c659df7b98b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.FailureVersionSequenceTests" name="FailAndNeutralAbandonRetainTheNewestOrdinalWhenFallbackIsTheSameSession" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.FailureVersionSequenceTests.AutomaticRollbackAnnouncesNewestAttemptAndExplicitOldSelectionShowsItsOwnFailure(protocol: OpenAIChat, stream: True)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="a6072891-ab73-63f8-6f22-9e773d43d2ae">
+      <Execution id="131ddc94-85e0-48e5-9b27-a5cb1dc856e0" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.FailureVersionSequenceTests" name="AutomaticRollbackAnnouncesNewestAttemptAndExplicitOldSelectionShowsItsOwnFailure" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.FailureVersionSequenceTests.ConsecutiveFailedRecoveryNeverReusesTheRetainedSessionsVersionNumber(protocol: OpenAIChat, stream: True)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="d56bf823-c341-2e4a-fa81-e3aaed7178b5">
+      <Execution id="21d7aea9-c684-4da9-b340-ae7ac78af311" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.FailureVersionSequenceTests" name="ConsecutiveFailedRecoveryNeverReusesTheRetainedSessionsVersionNumber" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.FailureVersionSequenceTests.FailAndNeutralAbandonRetainTheNewestOrdinalWhenFallbackIsTheSameSession(abandon: True)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="fe9062c4-a10d-0d84-00f4-2ca810444670">
+      <Execution id="ad228fe8-cbde-4aba-b2e6-376fe0b0893d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.FailureVersionSequenceTests" name="FailAndNeutralAbandonRetainTheNewestOrdinalWhenFallbackIsTheSameSession" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.FailureVersionSequenceTests.ConsecutiveFailedRecoveryNeverReusesTheRetainedSessionsVersionNumber(protocol: AnthropicMessages, stream: True)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="48a4a480-3835-7add-083f-71cfe93731a9">
+      <Execution id="d251aa50-b52b-45be-9ab5-a9fa6f30280e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.FailureVersionSequenceTests" name="ConsecutiveFailedRecoveryNeverReusesTheRetainedSessionsVersionNumber" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="1ba94b8d-e335-1fd3-4be4-461478c367df" executionId="9a04d2cb-b57b-4a5e-80d5-06e995520d60" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="12504ed2-32fe-4c7f-48e3-31e3c548eeba" executionId="737055ba-1dd0-4157-8038-7e4677572dc1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e763fa9d-2606-fbb0-cd96-9c704adf9909" executionId="b1ab331a-42c4-4d04-abca-d31264bbb458" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0dd16ae6-3d58-644e-7c26-8c1c1939b1af" executionId="6c52ee9e-9474-4c87-b560-5c659df7b98b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fe9062c4-a10d-0d84-00f4-2ca810444670" executionId="ad228fe8-cbde-4aba-b2e6-376fe0b0893d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3a02af47-0bc2-6b7d-18ac-5daa1b903a51" executionId="88b94dff-35e7-43a4-8a75-24bae4cfaee8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="79738018-0b58-2888-4850-9b9ba19aa201" executionId="e21e004e-3c74-4406-9d13-03fc21eda4dc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d56bf823-c341-2e4a-fa81-e3aaed7178b5" executionId="21d7aea9-c684-4da9-b340-ae7ac78af311" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a6072891-ab73-63f8-6f22-9e773d43d2ae" executionId="131ddc94-85e0-48e5-9b27-a5cb1dc856e0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="48a4a480-3835-7add-083f-71cfe93731a9" executionId="d251aa50-b52b-45be-9ab5-a9fa6f30280e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="10" executed="10" passed="10" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.14]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.47]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.50]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:01.25]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

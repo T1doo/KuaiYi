@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="2a1b0c82-c01a-4fca-8744-bb08100d0a83" name="@68e6e3cca8ba 2026-10-16 10:44:01" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-16T10:44:01.9676206+00:00" queuing="2026-10-16T10:44:01.9676207+00:00" start="2026-10-16T10:44:00.5870800+00:00" finish="2026-10-16T10:44:01.9739680+00:00" />
+  <TestSettings name="default" id="57d8d3b1-b939-4221-9798-91f59563325f">
+    <Deployment runDeploymentRoot="_68e6e3cca8ba_2026-10-16_10_44_01" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="79fc61c8-eb22-4bb1-9746-e18f80c9e8b1" testId="539bc8e0-1738-a65c-3091-9c22ee122d0a" testName="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.PreparationReentryCReceivesOnlyItsOwnMappingPngAndLaterEvents(protocol: OpenAIChat, replaceSource: True)" computerName="68e6e3cca8ba" duration="00:00:00.3286208" startTime="2026-10-16T10:44:01.4514604+00:00" endTime="2026-10-16T10:44:01.7877960+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="79fc61c8-eb22-4bb1-9746-e18f80c9e8b1" />
+    <UnitTestResult executionId="67ae7a05-11e0-4a47-acbf-b52a3c0aaaa8" testId="b08be596-8288-cb14-c14e-0f51f2184261" testName="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.PreparationReentryCReceivesOnlyItsOwnMappingPngAndLaterEvents(protocol: AnthropicMessages, replaceSource: False)" computerName="68e6e3cca8ba" duration="00:00:00.0402568" startTime="2026-10-16T10:44:01.7991582+00:00" endTime="2026-10-16T10:44:01.8291035+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="67ae7a05-11e0-4a47-acbf-b52a3c0aaaa8" />
+    <UnitTestResult executionId="19ea80fb-027c-4059-9893-2e46b42f1f91" testId="4d0601ea-6663-bdc3-5eea-b297839e9829" testName="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.PreparationReentryCReceivesOnlyItsOwnMappingPngAndLaterEvents(protocol: AnthropicMessages, replaceSource: True)" computerName="68e6e3cca8ba" duration="00:00:00.0200878" startTime="2026-10-16T10:44:01.8467516+00:00" endTime="2026-10-16T10:44:01.8670954+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="19ea80fb-027c-4059-9893-2e46b42f1f91" />
+    <UnitTestResult executionId="8444da88-3883-45cd-9cf0-6cd527bdf5d6" testId="1595e704-d3e6-b7ab-4941-baf6713e0270" testName="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.PreparationReentryCReceivesOnlyItsOwnMappingPngAndLaterEvents(protocol: OpenAIChat, replaceSource: False)" computerName="68e6e3cca8ba" duration="00:00:00.0171809" startTime="2026-10-16T10:44:01.8298509+00:00" endTime="2026-10-16T10:44:01.8466083+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8444da88-3883-45cd-9cf0-6cd527bdf5d6" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.PreparationReentryCReceivesOnlyItsOwnMappingPngAndLaterEvents(protocol: OpenAIChat, replaceSource: False)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="1595e704-d3e6-b7ab-4941-baf6713e0270">
+      <Execution id="8444da88-3883-45cd-9cf0-6cd527bdf5d6" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests" name="PreparationReentryCReceivesOnlyItsOwnMappingPngAndLaterEvents" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.PreparationReentryCReceivesOnlyItsOwnMappingPngAndLaterEvents(protocol: OpenAIChat, replaceSource: True)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="539bc8e0-1738-a65c-3091-9c22ee122d0a">
+      <Execution id="79fc61c8-eb22-4bb1-9746-e18f80c9e8b1" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests" name="PreparationReentryCReceivesOnlyItsOwnMappingPngAndLaterEvents" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.PreparationReentryCReceivesOnlyItsOwnMappingPngAndLaterEvents(protocol: AnthropicMessages, replaceSource: False)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="b08be596-8288-cb14-c14e-0f51f2184261">
+      <Execution id="67ae7a05-11e0-4a47-acbf-b52a3c0aaaa8" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests" name="PreparationReentryCReceivesOnlyItsOwnMappingPngAndLaterEvents" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.PreparationReentryCReceivesOnlyItsOwnMappingPngAndLaterEvents(protocol: AnthropicMessages, replaceSource: True)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="4d0601ea-6663-bdc3-5eea-b297839e9829">
+      <Execution id="19ea80fb-027c-4059-9893-2e46b42f1f91" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests" name="PreparationReentryCReceivesOnlyItsOwnMappingPngAndLaterEvents" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="539bc8e0-1738-a65c-3091-9c22ee122d0a" executionId="79fc61c8-eb22-4bb1-9746-e18f80c9e8b1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b08be596-8288-cb14-c14e-0f51f2184261" executionId="67ae7a05-11e0-4a47-acbf-b52a3c0aaaa8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4d0601ea-6663-bdc3-5eea-b297839e9829" executionId="19ea80fb-027c-4059-9893-2e46b42f1f91" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1595e704-d3e6-b7ab-4941-baf6713e0270" executionId="8444da88-3883-45cd-9cf0-6cd527bdf5d6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="4" executed="4" passed="4" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.12]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.47]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.50]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.95]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

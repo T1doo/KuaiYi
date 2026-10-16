@@ -69,7 +69,7 @@ public sealed class OverlayResults(RuntimeGate gate)
                 var failed=new CachedOverlayVersion(current,text.ToString(),false,true,versionNumber,usage,failure);
                 // One failed attempt plus the selected fallback and at most one other old version: still three total.
                 versions.Clear();versions.AddRange(fallback.Where(v=>v.Identity.VersionId!=prior.Identity.VersionId).TakeLast(1));versions.Add(failed);
-                identity=prior.Identity;versionNumber=prior.Number;sessionSequence=fallback.Where(v=>v.Identity.SessionId==prior.Identity.SessionId).Max(v=>v.Number);text.Clear();text.Append(prior.Text);usage=prior.Usage??TranslationUsage.Unknown;failure=prior.Failure;complete=prior.Complete;stopped=prior.Stopped;selectedVersionId=prior.Identity.VersionId;
+                identity=prior.Identity;versionNumber=prior.Number;sessionSequence=fallback.Append(failed).Where(v=>v.Identity.SessionId==prior.Identity.SessionId).Max(v=>v.Number);text.Clear();text.Append(prior.Text);usage=prior.Usage??TranslationUsage.Unknown;failure=prior.Failure;complete=prior.Complete;stopped=prior.Stopped;selectedVersionId=prior.Identity.VersionId;
             }
             fallback=[];fallbackSelected=null;rollbackVersionId=null;applied=true;
         });return applied;

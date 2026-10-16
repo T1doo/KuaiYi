@@ -817,3 +817,11 @@ F04 InProgress/NotRun，P4-04/05 InProgress/NotRun，所有P6不改。真实WPF�
 最终1948/1948=父1857全保留+新91（87双协议/三来源/生命周期/展示、4发送前抛错零连接），App/Worker各0W/E。r01 125P2F为旧“丢弃跨源失败”断言；r02 224P1F为旧图片清缓存/late receiver断言；严格改为失败和旧正文元数据各自保留及terminal内容不变。r05完整1940P2F：真实回归来源失效漏fallback修中性Abandon，旧视觉HTTP先到事件后到竞态只加等待；均保原log/TRX/精确源码。r03 231/231、r04 241/241、r06 1942/1942；之后独审补无正文secret异常terminal返回缺口与4实际0dials用例，r07 1946/1946后复核OpenAI JSON拒答早退丢合法content/usage，保候选源码后修，强化48拒答部分正文组合并加2精确refusal分离例；r10最终1948/1948、r11/r12最终App/Worker各0W/E。42新原件精确-text，r01原TRX8行SDK原生行尾空格使首次cachedcheck失败，仅该精确回执-whitespace保原字节；父346累计原件/1937旧证据保持；43锁8workflow8prompt/依赖无变，测试项目仅1生产partial Compilelink。详见[实现和失败记录](validation/text-terminal-failures.md)、[固定证据](test-evidence/2026-10-16-text-terminal-failures.json)。
 
 纠正当前缺口记法：基础表格、代码及表格局部横滚已在更早生产源码/便携测试接线，629/637等历史段仅指当时状态，restricted系列加历史注；父vision误沿用缺失句已纠正，其旧JSON原字节保留。真实WPF焦点/Tab/菜单/实际显示/选择/横滚/阅读锚点和B12/完整11.5仍NotRun，不把源审+端口/几何/交叉构建当实机。P4-04/F06/F08/P2-04及全部P6不抬整体状态；图片生产复用Off、Skia/403/Actions/Windows门及250/600ms保持。所有dotnet证书生成显式false，证书库/信任Unknown且不读改/trust/删，无真实模型/费用/凭据/安全权限/协议接受/main/强推/部署/新CI/CMake。
+
+## 2026-10-16 · 父审P2：连续失败版本号与回退提示
+
+父8666a62f93aeefa6b6cc96488c33bddb63a89709核clean/单worktree/唯一root/默认远端与250祖先后建dev/failure-version-sequence，failure_sequence_review只读独审。实际A1成功→B1失败回退A1→选B1手动B2→B2失败回B1，r02父生产10执行0P10F（6项next应3实2，4项旧失败notice遮新失败），红绑定核源码等父和执行DLL。Core仅fallback.Append(failed)按回退session取max，保旧高号也纳入刚失败号，不改显示掩盖；同源续到B5/next6、identity/source/usage归属/三版/晚到/取消/Abandon/Clear保持。notice默认公告最新失败、正文旧；手选旧失败才读其原因，新失败撤销手选意图，原控制/尺寸/门不改。
+
+r01新测试少using编译0执行无TRX原件保留；r03同测试SHA10/10绿，r04完整1958/1958=父1948+新10。新增notice四例继续补手选B1→B3失败重置；r05完整1957P1F为旧离线图片重入C正文为空，根因未实证，原测试/回执保全，r06原样隔离4/4不当已证明。补等待时r07过宽测试编辑产生两项过早Complete失败，保精确源码/回执后仅原失败单方法补确切C完成身份事件等待和Complete/Completed断言，保全部原断言及其它方法原字节；未改图片生产。r08最终1958/1958、App/Worker最终各0W/E，独审最终源码与证据；28新原件、父388累计原件/1980旧证据/43锁8workflow8prompt及项目依赖不变。详见[红绿与范围](validation/failure-version-sequence.md)、[固定证据](test-evidence/2026-10-16-failure-version-sequence.json)。父批r05仍准确保一项来源失效丢正文真实回归、一项视觉事件等待竞态，绝不全称夹具。
+
+本批只修Core序号与同路径notice，不推进新片；旧离线例等待/调度解释仍未证明，生产复用Off。所有dotnet证书生成显式false，证书存储/信任Unknown且不读改/trust/删；Skia/403/Actions/Windows门不动，Actions数Unknown；无main/强推/部署/付费/凭据/安全扩权/真实模型/待批许可接受。真实WPF可见/键盘路由与Windows/OCR/COM/nativeJob/250/600ms和整体验收仍NotRun。
