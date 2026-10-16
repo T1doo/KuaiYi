@@ -1,0 +1,32 @@
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.57]     KuaiYi.Provider.Tests.OcrOnlyTests.SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr(phase: "admission") [FAIL]
+[xUnit.net 00:00:00.61]     KuaiYi.Provider.Tests.OcrOnlyTests.SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr(phase: "approve") [FAIL]
+  Failed KuaiYi.Provider.Tests.OcrOnlyTests.SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr(phase: "admission") [116 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OcrOnlyTests.SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr(String phase) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 193
+   at KuaiYi.Provider.Tests.OcrOnlyTests.SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr(String phase) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 196
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OcrOnlyTests.SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr(phase: "approve") [11 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   SelectionSourceSnapshot { Window = SelectionWindow { Handle = 0, ProcessId = 0, ProcessStartUtcTicks = 0, Executable =  }, RawText = PUBLIC SYNTHETIC OCR TEXT, Text = PUBLIC SYNTHETIC OCR TEXT, Ranges = System.Collections.Immutable.ImmutableArray`1[KuaiYi.Core.PixelRect], RuntimeId = System.Collections.Immutable.ImmutableArray`1[System.Int32], SettingsVersion = ocr-synthetic, Scalars = 25, RequiresConfirmation = True, SourceKind = OcrOnly, Recovery = NotNeeded, DropReceiver = 00000000-0000-0000-0000-000000000000, DropTransaction = 00000000-0000-0000-0000-000000000000, Ocr = OcrTextProvenance { SourceVersion = d515ca27-a793-4a2d-a15b-12a64398c90e, SourceId = 1f180abb-ee38-420e-8b5e-e896e03970ad, PreviewId = 2169960d-5b09-4297-be7e-63345c46977b } }
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OcrOnlyTests.SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr(String phase) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 188
+   at KuaiYi.Provider.Tests.OcrOnlyTests.SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr(String phase) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 196
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/ocr-only-confirmation/r06-proof-reentry-red.trx
+
+Failed!  - Failed:     2, Passed:     1, Skipped:     0, Total:     3, Duration: 178 ms - KuaiYi.Provider.Tests.dll (net10.0)

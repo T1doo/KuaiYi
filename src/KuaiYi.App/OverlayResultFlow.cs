@@ -59,7 +59,7 @@ internal sealed partial class ShellWindow
     private void ReopenResult(){if(!IsVisible)ShowOverlay();if(SelectedSource.Image!=null?lifecycle.Gate.TryReopen(true):overlayResults.Reopen()){peek=false;OpenBody();}}
     private void HidePresentation(bool clear)
     {
-        List<Exception> errors=[];InvalidateBodyScrollRestore();ScreenshotPreviewCleanup.Attempt(errors,ClearOriginalSource);peek=false;
+        List<Exception> errors=[];ScreenshotPreviewCleanup.Attempt(errors,()=>OcrSourceChanged(true));InvalidateBodyScrollRestore();ScreenshotPreviewCleanup.Attempt(errors,ClearOriginalSource);peek=false;
         ScreenshotPreviewCleanup.Attempt(errors,()=>overflowMenu.IsOpen=false);waiting.Stop();flush.Stop();peekIn.Stop();peekOut.Stop();StopFrames();awaitingText=false;progressRing.Visibility=Visibility.Collapsed;overlayResults.MarkStopped();
         if(clear)
         {

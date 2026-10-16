@@ -25,7 +25,10 @@ internal sealed partial class ShellWindow
             {
                 using var encryptedLease=await coordinator.OpenRequestSecretAsync(lifecycle.Gate,identity,snapshot.Binding,new(snapshot.Transport.ResolveEndpoint()),cancellation).ConfigureAwait(false);
                 return new KuaiYi.Providers.SecretLease(encryptedLease.Bytes.Span);
-            },developmentBoundary:developmentBoundary);
+            },developmentBoundary:developmentBoundary,ocrSourceCurrent:source=>ocrOnly?.IsApprovedSourceCurrent(source)==true);
+        ocrOnly=new(lifecycle.Gate,()=>lifecycle.Settings,
+            (version,source)=>!exiting&&imageSelected&&retainedImage is {} image&&image.VersionId==version&&image.Image.SourceId==source&&!image.Image.IsDisposed,
+            new DispatcherSynchronizationContext(Dispatcher),()=>new KuaiYi.Imaging.ImageWorkerClient(System.IO.Path.Combine(AppContext.BaseDirectory,"KuaiYi.ImageWorker.exe")));
     }
     private void QueueTranslation(SelectionSourceSnapshot source)
     {
@@ -44,8 +47,11 @@ internal sealed partial class ShellWindow
             case TextSubmission.ConfirmationRequired:
                 StopPresentation();
                 var snapshot=offer.Snapshot;
-                bool confirmed=MessageBox.Show(this,$"实际原文包含 {snapshot.Source.Scalars:N0} 个 Unicode 字符，超过自动发送上限 {snapshot.Settings.Data.Translation.AutoSoftLimitScalars:N0}。\n是否将完整选区发送到 {new EndpointOrigin(snapshot.Transport.ResolveEndpoint()).Value}？\n模型：{snapshot.Profile.Model}；可能产生服务费用。","快译 · 长文本发送确认",MessageBoxButton.OKCancel,MessageBoxImage.Information)==MessageBoxResult.OK;
-                if(!confirmed){translation.RejectConfirmation(offer);translationStatus="已取消长文本发送，旧结果保留";}
+                string explanation=snapshot.Source.SourceKind==SelectionSourceKind.OcrOnly
+                    ?KuaiYi.Imaging.OcrOnlyCoordinator.Warning+"\n是否发送已核对的本地 OCR 文字？"
+                    :$"实际原文包含 {snapshot.Source.Scalars:N0} 个 Unicode 字符，超过自动发送上限 {snapshot.Settings.Data.Translation.AutoSoftLimitScalars:N0}。\n是否发送完整选区？";
+                bool confirmed=MessageBox.Show(this,$"{explanation}\n目标：{new EndpointOrigin(snapshot.Transport.ResolveEndpoint()).Value}\n模型：{snapshot.Profile.Model}；可能产生服务费用。","快译 · 文字发送确认",MessageBoxButton.OKCancel,MessageBoxImage.Information)==MessageBoxResult.OK;
+                if(!confirmed){translation.RejectConfirmation(offer);translationStatus="已取消文字发送，旧结果保留";}
                 else if(translation.Submit(offer,true)!=TextSubmission.Started)translationStatus="来源、启用状态或配置已改变，未发送";
                 button.ToolTip=translationStatus;break;
             case TextSubmission.Rejected:button.ToolTip="来源、启用状态或配置已改变，未发送";break;
@@ -77,6 +83,7 @@ internal sealed partial class ShellWindow
     }
     private async Task StopTranslation()
     {
+        if(ocrOnly!=null){await ocrOnly.DisposeAsync();ocrOnly=null;}
         var owned=translation;translation=null;if(apiTests!=null){await apiTests.DisposeAsync();apiTests=null;}
         try{if(owned!=null)await owned.DisposeAsync();}
         finally{owned?.Clear();translationProvider?.Dispose();translationProvider=null;}

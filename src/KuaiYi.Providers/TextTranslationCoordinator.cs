@@ -17,7 +17,7 @@ public sealed class TextTranslationOffer
     public TextTranslationSnapshot Snapshot{get;}
     internal CaptureTicket Ticket{get;} internal bool Regenerate{get;} internal Guid Session{get;}
     internal RequestIdentity? Identity{get;set;} internal bool Launched{get;set;} internal bool Finished{get;set;}
-    public bool RequiresConfirmation=>Snapshot.Source.Scalars>Snapshot.Settings.Data.Translation.AutoSoftLimitScalars;
+    public bool RequiresConfirmation=>Snapshot.Source.SourceKind==SelectionSourceKind.OcrOnly||Snapshot.Source.Scalars>Snapshot.Settings.Data.Translation.AutoSoftLimitScalars;
 }
 public sealed record TextTranslationUpdate(RequestIdentity Identity,OverlayResultEvent Presentation,
     TextTranslationSnapshot Snapshot,string? Failure=null);
@@ -28,6 +28,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
 {
     private readonly RuntimeGate gate;private readonly Func<SettingsSnapshot?> settings;
     private readonly Func<SelectionSourceSnapshot,bool,bool> sourceCurrent;
+    private readonly Func<SelectionSourceSnapshot,bool> ocrSourceCurrent;
     private readonly ProviderClient provider;private readonly ProviderEventReceiver receiver;
     private readonly Func<RequestIdentity,TextTranslationSnapshot,CancellationToken,Task<SecretLease?>> openSecret;
     private readonly Action<TextTranslationUpdate> changed;private readonly DevelopmentTranslationBoundary? developmentBoundary;
@@ -48,13 +49,14 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
         OverlayResults results,Action<TextTranslationUpdate> changed,
         Func<RequestIdentity,TextTranslationSnapshot,CancellationToken,Task<SecretLease?>>? openSecret=null,
         bool allowDevelopmentLoopback=false,DevelopmentTranslationBoundary? developmentBoundary=null,
-        Func<SettingsProfile,ApiProfile>? transportFactory=null)
+        Func<SettingsProfile,ApiProfile>? transportFactory=null,Func<SelectionSourceSnapshot,bool>? ocrSourceCurrent=null)
     {
         this.gate=gate;this.settings=settings;this.sourceCurrent=sourceCurrent;this.provider=provider;
         receiver=new(gate,destination);Results=results;this.changed=changed;
         this.openSecret=openSecret??((_,_,_)=>throw new InvalidOperationException("Credential store unavailable."));
         this.developmentBoundary=developmentBoundary??(allowDevelopmentLoopback?DevelopmentTranslationBoundary.FromProfile(settings()?.Data.Profiles.FirstOrDefault(p=>p.Id==settings()?.Data.ActiveProfileId)??throw new ArgumentException("Initial test profile required.")):null);
         this.transportFactory=transportFactory;
+        this.ocrSourceCurrent=ocrSourceCurrent??(_=>false);
     }
     public TextTranslationSnapshot? SelectedSnapshot=>Results.SelectedVersionId is {} id&&snapshots.TryGetValue(id,out var value)?value:null;
     public TextTranslationSnapshot? SnapshotForVersion(Guid versionId)=>snapshots.GetValueOrDefault(versionId);
@@ -77,13 +79,16 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     }
     public bool IsOfferCurrent(TextTranslationOffer offer)=>!disposed&&ReferenceEquals(offered,offer);
     public TextTranslationOffer? Prepare(SelectionSourceSnapshot source)=>PrepareCore(source,false);
-    private TextTranslationOffer? PrepareCore(SelectionSourceSnapshot source,bool explicitUse)
+    public TextTranslationOffer? PrepareOcr(SelectionSourceSnapshot source,TranslationPreset preset)
+        =>source.SourceKind==SelectionSourceKind.OcrOnly&&Enum.IsDefined(preset)?PrepareCore(source,false,preset):Reject("OCR_SOURCE_REQUIRED");
+    private TextTranslationOffer? PrepareCore(SelectionSourceSnapshot source,bool explicitUse,TranslationPreset? preset=null,bool currentOcrSettings=false)
     {
         LastRejection=null;offered=null;
-        if(disposed||settings() is not {} config||config.ReadOnly||config.RequiresRecovery||config.Version!=source.SettingsVersion)return Reject("SETTINGS_CHANGED");
+        if(disposed||settings() is not {} config||config.ReadOnly||config.RequiresRecovery||config.Version!=source.SettingsVersion&&!(currentOcrSettings&&explicitUse&&source.SourceKind==SelectionSourceKind.OcrOnly))return Reject("SETTINGS_CHANGED");
         if(!DevelopmentSettingsAllowed(config))return Reject("TEST_BOUNDARY_REJECTED");
         if(!ValidText(source,config.Data.Translation.HardLimitScalars))return Reject("SOURCE_INVALID_OR_TOO_LARGE");
-        if(SelectionTextPolicy.Excluded(source.Window,config.Data,(uint)Environment.ProcessId)||!sourceCurrent(source,explicitUse))return Reject("SOURCE_CHANGED_OR_EXCLUDED");
+        if(!SourceAllowed(source,config,explicitUse))return Reject("SOURCE_CHANGED_OR_EXCLUDED");
+        if(preset is {} chosen)config=config with{Data=config.Data with{Translation=config.Data.Translation with{Preset=chosen}}};
         if(!gate.TryBeginPassiveCapture(gate.Snapshot.Mode,out var ticket))return Reject("ENABLE_REQUIRED");
         var profile=config.Data.Profiles.FirstOrDefault(p=>p.Id==config.Data.ActiveProfileId);
         if(profile==null||!gate.TryGetProfileBinding(profile.Id,out var binding))return Reject("PROFILE_REQUIRED");
@@ -106,7 +111,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
         if(disposed||SelectedSnapshot is not {} snapshot)return Reject("NO_RETAINED_SOURCE");
         if(useCurrentSettings)
         {
-            var current=PrepareCore(snapshot.Source with{SettingsVersion=settings()?.Version??""},true);
+            var current=snapshot.Source.SourceKind==SelectionSourceKind.OcrOnly?PrepareCore(snapshot.Source,true,currentOcrSettings:true):PrepareCore(snapshot.Source with{SettingsVersion=settings()?.Version??""},true);
             if(current==null)return null;
             var session=SelectedSession!.Value;return offered=new(RegenerationSnapshot(current.Snapshot),current.Ticket,true,session,Results.NextVersionNumber(session));
         }
@@ -131,6 +136,10 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
             (submitted is{Finished:false,Identity:{} existing}&&gate.CanApply(existing)||Results.HasText&&SelectedSnapshot is {} selected&&Same(snapshot,selected)))
         {Results.Reopen();return TextSubmission.Reopened;}
         if(!gate.TryStartProfileRequest(snapshot.Binding,offer.Session,Guid.NewGuid(),offer.Ticket,out var identity,out _))return TextSubmission.Rejected;
+        // Cancelling the prior request can synchronously replace/clear this offer. Commit only
+        // the still-winning command; StopRequest never cancels a newer request installed by it.
+        if(!ReferenceEquals(offered,offer)||offer.Launched||!gate.CanApply(identity)||!Eligible(snapshot,explicitUse)||!offer.Regenerate&&settings()?.Version!=snapshot.Settings.Version)
+        {gate.StopRequest(identity);return TextSubmission.Rejected;}
         offer.Identity=identity;submitted=offer;
         // A valid new source supersedes the previous request even while awaiting length confirmation.
         if(offer.RequiresConfirmation&&!confirmed)return TextSubmission.ConfirmationRequired;
@@ -195,9 +204,17 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
         var current=settings();if(disposed||current==null||current.ReadOnly||current.RequiresRecovery||
             !DevelopmentSettingsAllowed(current)||developmentBoundary!=null&&(!developmentBoundary.Allows(snapshot.Profile)||!developmentBoundary.Allows(snapshot.Transport))||
             !gate.TryGetProfileBinding(snapshot.Profile.Id,out var binding)||binding!=snapshot.Binding||
-            !gate.HasConsentTo(new(snapshot.Transport.ResolveEndpoint()))||SelectionTextPolicy.Excluded(snapshot.Source.Window,current.Data,(uint)Environment.ProcessId))return false;
+            !gate.HasConsentTo(new(snapshot.Transport.ResolveEndpoint())))return false;
         if(snapshot.Source.SourceKind==SelectionSourceKind.Clipboard&&!ClipboardApplicationConsent.Allowed(snapshot.Source.Window.Executable,current.Data.Privacy))return false;
-        return sourceCurrent(snapshot.Source,explicitUse);
+        return SourceAllowed(snapshot.Source,current,explicitUse);
+    }
+    private bool SourceAllowed(SelectionSourceSnapshot source,SettingsSnapshot config,bool explicitUse)
+    {
+        if(source.SourceKind==SelectionSourceKind.OcrOnly)
+            return source.Ocr is {SourceVersion:var version,SourceId:var id,PreviewId:var preview}&&version!=Guid.Empty&&id!=Guid.Empty&&preview!=Guid.Empty&&
+                source.Window==new SelectionWindow(0,0,0,"")&&source.Ranges.IsEmpty&&source.RuntimeId.IsEmpty&&source.DropReceiver==Guid.Empty&&source.DropTransaction==Guid.Empty&&
+                source.Recovery==ClipboardRecovery.NotNeeded&&source.RequiresConfirmation&&ocrSourceCurrent(source);
+        return Enum.IsDefined(source.SourceKind)&&source.Ocr==null&&!SelectionTextPolicy.Excluded(source.Window,config.Data,(uint)Environment.ProcessId)&&sourceCurrent(source,explicitUse);
     }
     private bool DevelopmentSettingsAllowed(SettingsSnapshot current)
     {
@@ -227,7 +244,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     }
     private static bool Same(TextTranslationSnapshot a,TextTranslationSnapshot? b)=>b!=null&&a.Profile with{Headers=b.Profile.Headers}==b.Profile&&a.Profile.Headers.OrderBy(p=>p.Key).SequenceEqual(b.Profile.Headers.OrderBy(p=>p.Key))&&a.Binding==b.Binding&&
         PromptTemplatePolicy.Equivalent(a.Settings.Data.Translation,b.Settings.Data.Translation)&&a.Source.Window==b.Source.Window&&a.Source.Text==b.Source.Text&&a.Source.SourceKind==b.Source.SourceKind&&
-        a.Source.RuntimeId.SequenceEqual(b.Source.RuntimeId)&&a.Source.Ranges.SequenceEqual(b.Source.Ranges)&&a.Source.DropReceiver==b.Source.DropReceiver;
+        a.Source.RuntimeId.SequenceEqual(b.Source.RuntimeId)&&a.Source.Ranges.SequenceEqual(b.Source.Ranges)&&a.Source.DropReceiver==b.Source.DropReceiver&&ReferenceEquals(a.Source.Ocr,b.Source.Ocr);
     private static bool ValidText(SelectionSourceSnapshot source,int hardLimit)
     {
         if(string.IsNullOrWhiteSpace(source.Text)||source.Text.Length>=100002||source.RuntimeId.IsDefault||source.Ranges.IsDefault)return false;

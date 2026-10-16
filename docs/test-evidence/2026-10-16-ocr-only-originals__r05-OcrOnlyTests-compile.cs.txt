@@ -1,0 +1,225 @@
+extern alias ImageProduction;
+extern alias WorkerProduction;
+using System.Collections.Concurrent;
+using System.Diagnostics;
+using System.Security.Cryptography;
+using System.Text.Json;
+using KuaiYi.Core;
+using KuaiYi.Core.Settings;
+using KuaiYi.Providers;
+using Xunit;
+using P=ImageProduction::KuaiYi.Imaging;
+namespace KuaiYi.Provider.Tests;
+
+public sealed class OcrOnlyTests
+{
+    [Theory][InlineData(true)][InlineData(false)]
+    public void OutputRejectsPositiveExtentPastExactEdgeEvenWhenAdditionRounds(bool horizontal)
+    {
+        var word=new P.OcrWord("synthetic",horizontal?1:0,horizontal?0:1,horizontal?double.Epsilon:1,horizontal?1:double.Epsilon);
+        var output=new P.OcrOutput(1,1,"en-US","synthetic",[new("synthetic",[word])]);
+        Assert.Throws<InvalidDataException>(()=>P.ImageWorkerClient.ValidateOutput(output,new(1,1),"en-US"));
+    }
+    [Theory][InlineData(1,0,0,1)][InlineData(0,1,1,0)][InlineData(0.25,0.5,0.75,0.5)]
+    public void OutputAllowsExactResidualAndZeroExtentEdges(double x,double y,double width,double height)
+        =>P.ImageWorkerClient.ValidateOutput(new(1,1,"en-US","synthetic",[new("synthetic",[new("synthetic",x,y,width,height)])]),new(1,1),"en-US");
+    private sealed class Immediate:SynchronizationContext{public override void Post(SendOrPostCallback action,object? state)=>action(state);}
+    private sealed class Deferred:SynchronizationContext
+    {
+        private readonly ConcurrentQueue<Action> queue=new();public int Count=>queue.Count;
+        public override void Post(SendOrPostCallback action,object? state)=>queue.Enqueue(()=>action(state));
+        public void Drain(){while(queue.TryDequeue(out var callback))callback();}
+    }
+    private sealed class SyntheticOcr:P.ILocalOcrWorker
+    {
+        public P.ImageFailure Failure;public string Text="PUBLIC SYNTHETIC OCR TEXT";
+        public bool Finalized=true,Disposed,Hold,WrongJob,InvalidBounds,FinalizeThrows;
+        public Action? OnDispose;
+        public TaskCompletionSource Entered=new(TaskCreationOptions.RunContinuationsAsynchronously),Release=new(TaskCreationOptions.RunContinuationsAsynchronously);
+        public ReadOnlyMemory<byte> Borrowed;public CancellationToken Token;public int Calls;
+        public async Task<P.ImageReply> RunAsync(ReadOnlyMemory<byte> image,P.ImageJob job,CancellationToken cancellation=default)
+        {
+            Calls++;Borrowed=image;Token=cancellation;Entered.TrySetResult();if(Hold)await Release.Task;
+            return new(WrongJob?job with{Version=job.Version+1}:job,Failure,Failure==P.ImageFailure.None?new(8,8,job.Language,Text,InvalidBounds?[new("synthetic",[new("synthetic",8,0,double.Epsilon,1)])]:[]):null);
+        }
+        public ValueTask<bool> TryFinalizeAsync()=>FinalizeThrows?ValueTask.FromException<bool>(new IOException("synthetic cleanup failure")):ValueTask.FromResult(Finalized);
+        public ValueTask DisposeAsync(){Disposed=true;OnDispose?.Invoke();return ValueTask.CompletedTask;}
+    }
+    private sealed class Rig:IAsyncDisposable
+    {
+        public readonly PhaseHttpFixture Server=new();public PhaseHttpFixture.Script Script=null!;
+        public readonly RuntimeGate Gate=new(requireProfileBinding:true);public readonly ProviderClient Provider=new();
+        public SettingsSnapshot Settings=null!;public P.OcrOnlyCoordinator Local=null!;public TextTranslationCoordinator Text=null!;public OverlayResults Results=null!;
+        public P.OwnedSourceImage Image=new(new P.ScreenshotPixels(new(0,0,8,8),Enumerable.Repeat((byte)255,256).ToArray()));
+        public Guid Version=Guid.NewGuid();public bool Current=true;public SyntheticOcr Worker=new();public Func<P.ILocalOcrWorker>? Factory;
+        public KuaiYi.Core.Settings.ApiProtocol Protocol;public int Factories;
+        public static async Task<Rig> Create(KuaiYi.Core.Settings.ApiProtocol protocol=KuaiYi.Core.Settings.ApiProtocol.OpenAIChat,SynchronizationContext? destination=null,bool enabled=true)
+        {
+            var r=new Rig{Protocol=protocol};await r.Server.InitializeAsync();r.Script=r.Server.Add("runs","application/json");
+            var prefix=new Uri(r.Server.BaseUri,$"runs/{Guid.NewGuid():N}/fragmented/");var boundary=DevelopmentTranslationBoundary.FromPrefix(prefix);
+            r.Settings=new(new(){ActiveProfileId="ocr-fixture",Profiles=[new(){Id="ocr-fixture",Protocol=protocol,BaseUrl=prefix.AbsoluteUri,Model=DevelopmentTranslationBoundary.FixtureModel,Authentication=ApiAuthentication.None,Streaming=false,Capabilities=new(){Vision=Capability.Unsupported}}]},"ocr-synthetic",SettingsLoadState.Current);
+            r.Gate.ObserveSettingsMetadata(r.Settings);r.Gate.ConsentTo(new(prefix));if(enabled)Assert.True(r.Gate.TryEnable(new(prefix),true));r.Results=new(r.Gate);
+            r.Local=new(r.Gate,()=>r.Settings,(version,source)=>r.Current&&r.Version==version&&r.Image.SourceId==source,destination??new Immediate(),()=>{r.Factories++;return r.Factory?.Invoke()??r.Worker;});
+            r.Text=new(r.Gate,()=>r.Settings,(_,_)=>true,r.Provider,new Immediate(),r.Results,_=>{},developmentBoundary:boundary,ocrSourceCurrent:r.Local.IsApprovedSourceCurrent);
+            return r;
+        }
+        public async Task<P.OcrTextPreview> Preview()
+        {Assert.True(Local.Start(Version,Image,"en-US"));await Local.Running.WaitAsync(TimeSpan.FromSeconds(6));return Assert.IsType<P.OcrTextPreview>(Local.Preview);}
+        public async Task Reply(string output="PUBLIC SYNTHETIC TRANSLATION")
+        {
+            string json=Protocol==KuaiYi.Core.Settings.ApiProtocol.OpenAIChat?JsonSerializer.Serialize(new{choices=new[]{new{index=0,message=new{content=output},finish_reason="stop"}}}):JsonSerializer.Serialize(new{type="message",content=new[]{new{type="text",text=output}},stop_reason="end_turn"});
+            await Script.Write(json,true);await Text.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal(output,Results.Text);
+        }
+        public async ValueTask DisposeAsync()
+        {Gate.Disable();Worker.Release.TrySetResult();Worker.Finalized=true;Worker.FinalizeThrows=false;await Local.DisposeAsync();await Text.DisposeAsync();Image.Dispose();Provider.Dispose();await Server.DisposeAsync();}
+    }
+    [Theory]
+    [InlineData(KuaiYi.Core.Settings.ApiProtocol.OpenAIChat,TranslationPreset.Faithful)]
+    [InlineData(KuaiYi.Core.Settings.ApiProtocol.OpenAIChat,TranslationPreset.Plain)]
+    [InlineData(KuaiYi.Core.Settings.ApiProtocol.OpenAIChat,TranslationPreset.Professional)]
+    [InlineData(KuaiYi.Core.Settings.ApiProtocol.OpenAIChat,TranslationPreset.Explain)]
+    [InlineData(KuaiYi.Core.Settings.ApiProtocol.AnthropicMessages,TranslationPreset.Faithful)]
+    [InlineData(KuaiYi.Core.Settings.ApiProtocol.AnthropicMessages,TranslationPreset.Plain)]
+    [InlineData(KuaiYi.Core.Settings.ApiProtocol.AnthropicMessages,TranslationPreset.Professional)]
+    [InlineData(KuaiYi.Core.Settings.ApiProtocol.AnthropicMessages,TranslationPreset.Explain)]
+    public async Task SyntheticOcrRequiresPreviewAndConfirmationThenRealWireUsesOnlyText(KuaiYi.Core.Settings.ApiProtocol protocol,TranslationPreset preset)
+    {
+        await using var rig=await Rig.Create(protocol);var preview=await rig.Preview();Assert.Equal(0,rig.Script.Requests);Assert.True(rig.Worker.Disposed);
+        Assert.True(rig.Worker.Borrowed.Span.IndexOfAnyExcept((byte)0)<0);Assert.Null(rig.Local.Approve(preview with{}));
+        var source=rig.Local.Approve(preview)!;Assert.NotNull(source.Ocr);Assert.Equal(new SelectionWindow(0,0,0,""),source.Window);
+        Assert.Null(rig.Text.PrepareOcr(source with{},preset)); // Value-equivalent record does not confer approval.
+        var offer=rig.Text.PrepareOcr(source,preset)!;Assert.Equal(preset,offer.Snapshot.Preset);Assert.Equal(TranslationPreset.Faithful,rig.Settings.Data.Translation.Preset);
+        Assert.True(offer.RequiresConfirmation);Assert.Equal(TextSubmission.ConfirmationRequired,rig.Text.Submit(offer));Assert.Equal(0,rig.Script.Requests);
+        Assert.Equal(TextSubmission.Started,rig.Text.Submit(offer,true));Assert.Equal(TextSubmission.Rejected,rig.Text.Submit(offer,true));await rig.Script.Received.Task.WaitAsync(TimeSpan.FromSeconds(6));
+        using var document=JsonDocument.Parse(rig.Script.Body);var root=document.RootElement;var user=root.GetProperty("messages")[protocol==KuaiYi.Core.Settings.ApiProtocol.OpenAIChat?1:0].GetProperty("content");
+        Assert.Equal(rig.Worker.Text,user.ValueKind==JsonValueKind.String?user.GetString():user[0].GetProperty("text").GetString());
+        foreach(string forbidden in new[]{"image_url","base64","image/png","data:image","iVBOR"})Assert.DoesNotContain(forbidden,rig.Script.Body,StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("图形关系未分析",P.OcrOnlyCoordinator.Warning);await rig.Reply();
+        Assert.Equal(SelectionSourceKind.OcrOnly,rig.Text.SelectedSnapshot!.Source.SourceKind);Assert.Equal(preset,rig.Text.SelectedSnapshot.Preset);
+    }
+    [Theory][InlineData(P.ImageFailure.UnsupportedPlatform)][InlineData(P.ImageFailure.IdentityMissing)][InlineData(P.ImageFailure.IdentityMismatch)][InlineData(P.ImageFailure.LanguageUnavailable)][InlineData(P.ImageFailure.NativeUnavailable)][InlineData(P.ImageFailure.Cancelled)]
+    public async Task MissingCapabilityAndCancelledWorkerNeverProduceConfirmableTextOrHttp(P.ImageFailure failure)
+    {
+        await using var rig=await Rig.Create();rig.Worker.Failure=failure;Assert.True(rig.Local.Start(rig.Version,rig.Image,"en-US"));await rig.Local.Running;
+        Assert.Null(rig.Local.Preview);Assert.Equal(failure.ToString(),rig.Local.Failure);Assert.Equal(0,rig.Script.Requests);Assert.True(rig.Worker.Disposed);
+    }
+    [Theory][InlineData("empty")][InlineData("surrogate")][InlineData("large")][InlineData("bounds")][InlineData("job")]
+    public async Task InvalidOcrOutputCannotBeApprovedOrSent(string fault)
+    {
+        await using var rig=await Rig.Create();rig.Worker.Text=fault=="empty"?" \t\r\n":fault=="surrogate"?new string('\ud800',1):fault=="large"?new string('x',50001):"synthetic";
+        rig.Worker.InvalidBounds=fault=="bounds";rig.Worker.WrongJob=fault=="job";
+        Assert.True(rig.Local.Start(rig.Version,rig.Image,"en-US"));await rig.Local.Running;Assert.Null(rig.Local.Preview);Assert.Equal("OCR_FAILED",rig.Local.Failure);Assert.Equal(0,rig.Script.Requests);
+    }
+    [Theory][InlineData("off")][InlineData("locked")][InlineData("hidden")][InlineData("settings")][InlineData("source")][InlineData("mode")][InlineData("clear")]
+    public async Task StalePreviewCannotBeConfirmedAndDropsItsPublicTextReference(string change)
+    {
+        await using var rig=await Rig.Create();var preview=await rig.Preview();Invalidate(rig,change);
+        Assert.False(rig.Local.IsPreviewCurrent(preview));Assert.Null(rig.Local.Preview);Assert.Null(rig.Local.Approve(preview));Assert.Equal(0,rig.Script.Requests);
+    }
+    private static void Invalidate(Rig rig,string change)
+    {
+        switch(change)
+        {
+            case "off":rig.Gate.Disable();break;case "locked":rig.Gate.SetSessionLocked(true);break;case "hidden":rig.Gate.Disable(hide:true);break;
+            case "settings":rig.Settings=rig.Settings with{Version="changed"};rig.Gate.ApplyCommittedSettings(rig.Settings,null);break;
+            case "source":rig.Current=false;break;case "mode":rig.Gate.SetMode(TriggerMode.Drop);break;case "clear":rig.Local.Clear();break;
+        }
+    }
+    [Theory][InlineData("off")][InlineData("locked")][InlineData("hidden")][InlineData("settings")][InlineData("source")][InlineData("mode")][InlineData("clear")]
+    public async Task QueuedOcrDeliveryAfterInvalidationCannotRestorePreviewOrSend(string change)
+    {
+        var destination=new Deferred();await using var rig=await Rig.Create(destination:destination);Assert.True(rig.Local.Start(rig.Version,rig.Image,"en-US"));
+        using var limit=new CancellationTokenSource(TimeSpan.FromSeconds(6));while(destination.Count==0)await Task.Delay(5,limit.Token);
+        Invalidate(rig,change);destination.Drain();await rig.Local.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Null(rig.Local.Preview);Assert.Equal(0,rig.Script.Requests);
+    }
+    [Fact] public async Task CancelDoesNotFreeBorrowedPngUntilOriginalWorkerOperationReturns()
+    {
+        await using var rig=await Rig.Create();rig.Worker.Hold=true;Assert.True(rig.Local.Start(rig.Version,rig.Image,"en-US"));await rig.Worker.Entered.Task;
+        var borrowed=rig.Worker.Borrowed;Assert.True(borrowed.Span.IndexOfAnyExcept((byte)0)>=0);var clear=rig.Local.ClearAsync();Assert.True(rig.Worker.Token.IsCancellationRequested);
+        Assert.False(clear.IsCompleted);Assert.False(rig.Local.Start(rig.Version,rig.Image,"en-US"));Assert.True(borrowed.Span.IndexOfAnyExcept((byte)0)>=0);
+        rig.Worker.Release.TrySetResult();await clear;Assert.True(borrowed.Span.IndexOfAnyExcept((byte)0)<0);Assert.Null(rig.Local.Preview);Assert.Equal(0,rig.Script.Requests);
+    }
+    [Fact] public async Task UnconfirmedCleanupRetainsOriginalOwnerAndRefusesNewOcrUntilFinalized()
+    {
+        await using var rig=await Rig.Create();rig.Worker.Finalized=false;Assert.True(rig.Local.Start(rig.Version,rig.Image,"en-US"));await rig.Local.Running;
+        Assert.Null(rig.Local.Preview);Assert.Equal("CLEANUP_UNCONFIRMED",rig.Local.Failure);Assert.True(rig.Local.CleanupPending);Assert.False(rig.Worker.Disposed);
+        Assert.False(rig.Local.Start(rig.Version,rig.Image,"en-US"));Assert.Equal(P.ImageFailure.SettlementUnconfirmed,(await Assert.ThrowsAsync<P.ImageJobException>(()=>rig.Local.ClearAsync())).Code);
+        rig.Worker.Finalized=true;await rig.Local.ClearAsync();Assert.True(rig.Worker.Disposed);Assert.False(rig.Local.CleanupPending);Assert.Equal(1,rig.Factories);Assert.Equal(0,rig.Script.Requests);
+    }
+    [Fact] public async Task ThrowingCleanupKeepsItsOwnerAndReportsBoundedVisibleFailure()
+    {
+        await using var rig=await Rig.Create();rig.Worker.FinalizeThrows=true;Assert.True(rig.Local.Start(rig.Version,rig.Image,"en-US"));await rig.Local.Running;
+        Assert.Equal("CLEANUP_UNCONFIRMED",rig.Local.Failure);Assert.True(rig.Local.CleanupPending);Assert.False(rig.Worker.Disposed);Assert.Null(rig.Local.Preview);Assert.Equal(0,rig.Script.Requests);
+        rig.Worker.FinalizeThrows=false;await rig.Local.ClearAsync();Assert.True(rig.Worker.Disposed);
+    }
+    [Theory][InlineData("off")][InlineData("source")][InlineData("language")][InlineData("profile")][InlineData("readonly")][InlineData("disposed")]
+    public async Task InvalidAdmissionCannotStartWorkerOrHttp(string reason)
+    {
+        await using var rig=await Rig.Create(enabled:reason!="off");string language="en-US";
+        if(reason=="source")rig.Current=false;if(reason=="language")language="../invalid";
+        if(reason=="profile")rig.Settings=rig.Settings with{Data=rig.Settings.Data with{ActiveProfileId="missing"}};
+        if(reason=="readonly")rig.Settings=rig.Settings with{LoadState=SettingsLoadState.FutureReadOnly};
+        if(reason=="disposed")rig.Image.Dispose();
+        Assert.False(rig.Local.Start(rig.Version,rig.Image,language));Assert.Equal(0,rig.Factories);Assert.Equal(0,rig.Script.Requests);
+    }
+    [Theory][InlineData("clear")][InlineData("newer")]
+    public async Task ConfirmCancellationReentryCannotSendStaleOcrOrCancelANewerRequest(string action)
+    {
+        await using var rig=await Rig.Create();var preview=await rig.Preview();var source=rig.Local.Approve(preview)!;var offer=rig.Text.PrepareOcr(source,TranslationPreset.Plain)!;
+        Assert.True(rig.Gate.TryLinkRequestCancellation(preview.Identity,CancellationToken.None,out var oldLifetime));using var lifetime=oldLifetime!;
+        Assert.True(rig.Gate.TryGetProfileBinding("ocr-fixture",out var binding));RequestIdentity newer=default;
+        using var registration=lifetime.Token.Register(()=>{if(action=="clear")rig.Local.Clear();else{Assert.True(rig.Gate.TryStartProfileRequest(binding,Guid.NewGuid(),Guid.NewGuid(),null,out newer,out _));}});
+        Assert.Equal(TextSubmission.Rejected,rig.Text.Submit(offer,true));Assert.Empty(rig.Results.Versions);Assert.Equal(0,rig.Script.Requests);if(action=="newer")Assert.True(rig.Gate.CanApply(newer));
+    }
+    [Fact] public async Task NewPictureWithIdenticalOcrTextStartsADifferentRetainedSession()
+    {
+        await using var rig=await Rig.Create();var first=rig.Local.Approve(await rig.Preview())!;var offer=rig.Text.PrepareOcr(first,TranslationPreset.Plain)!;
+        Assert.Equal(TextSubmission.Started,rig.Text.Submit(offer,true));await rig.Script.Received.Task;await rig.Reply("first");var session=rig.Results.Identity!.Value.SessionId;
+        rig.Image.Dispose();rig.Image=new(new P.ScreenshotPixels(new(0,0,8,8),Enumerable.Repeat((byte)255,256).ToArray()));rig.Version=Guid.NewGuid();rig.Worker=new();
+        var second=rig.Local.Approve(await rig.Preview())!;Assert.Equal(first.Text,second.Text);Assert.NotEqual(first.Ocr,second.Ocr);
+        Assert.Equal(TextSubmission.Started,rig.Text.Submit(rig.Text.PrepareOcr(second,TranslationPreset.Plain)!,true));
+        using var limit=new CancellationTokenSource(TimeSpan.FromSeconds(6));while(rig.Script.Requests<2)await Task.Delay(5,limit.Token);await rig.Reply("second");Assert.NotEqual(session,rig.Results.Identity!.Value.SessionId);
+    }
+    [Fact] public async Task DefaultTextCoordinatorRejectsOcrEvenWhenDesktopCallbackWouldAccept()
+    {
+        await using var rig=await Rig.Create();var source=rig.Local.Approve(await rig.Preview())!;
+        await using var untrusted=new TextTranslationCoordinator(rig.Gate,()=>rig.Settings,(_,_)=>true,rig.Provider,new Immediate(),new(rig.Gate),_=>{});
+        Assert.Null(untrusted.Prepare(source));Assert.Null(untrusted.Prepare(source with{SourceKind=SelectionSourceKind.Uia}));Assert.Equal(0,rig.Script.Requests);
+    }
+    [Fact] public async Task RejectConfirmationAndPreviewCancellationHaveZeroHttp()
+    {
+        await using var rig=await Rig.Create();var preview=await rig.Preview();rig.Local.Clear(false);Assert.Null(rig.Local.Approve(preview));Assert.Equal(0,rig.Script.Requests);
+        preview=await rig.Preview();var source=rig.Local.Approve(preview)!;var offer=rig.Text.PrepareOcr(source,TranslationPreset.Plain)!;
+        Assert.Equal(TextSubmission.ConfirmationRequired,rig.Text.Submit(offer));rig.Text.RejectConfirmation(offer);Assert.Equal(TextSubmission.Rejected,rig.Text.Submit(offer,true));Assert.Equal(0,rig.Script.Requests);
+    }
+    [Fact] public async Task ApprovedTextKeepsThreeVersionsAndStylesAfterOwnedImageIsReleased()
+    {
+        await using var rig=await Rig.Create();var source=rig.Local.Approve(await rig.Preview())!;
+        Assert.Equal(TextSubmission.Started,rig.Text.Submit(rig.Text.PrepareOcr(source,TranslationPreset.Faithful)!,true));await rig.Script.Received.Task;await rig.Reply("first");
+        rig.Image.Dispose();rig.Current=false;
+        foreach(var preset in new[]{TranslationPreset.Plain,TranslationPreset.Professional,TranslationPreset.Explain})
+        {
+            Assert.True(rig.Text.SetSessionStyle(preset));var offer=rig.Text.PrepareRegeneration()!;Assert.NotNull(offer);Assert.Equal(TextSubmission.Started,rig.Text.Submit(offer,true));
+            using var limit=new CancellationTokenSource(TimeSpan.FromSeconds(6));while(rig.Script.Requests<offer.Snapshot.VersionNumber)await Task.Delay(5,limit.Token);
+            await rig.Reply(preset.ToString());Assert.Equal(preset,rig.Text.SelectedSnapshot!.Preset);
+        }
+        Assert.Equal(3,rig.Results.Versions.Count);Assert.Equal(3,rig.Text.RetainedSnapshotCount);await rig.Text.ClearAsync();await rig.Local.ClearAsync();Assert.Empty(rig.Results.Versions);Assert.Null(rig.Text.PrepareOcr(source,TranslationPreset.Plain));
+    }
+    [Theory][InlineData("clear")][InlineData("newer")]
+    public async Task OcrAdmissionCancellationReentryCannotRestoreTheRejectedCommand(string action)
+    {
+        await using var rig=await Rig.Create();Assert.True(rig.Gate.TryGetProfileBinding("ocr-fixture",out var binding));Assert.True(rig.Gate.TryStartProfileRequest(binding,Guid.NewGuid(),Guid.NewGuid(),null,out _,out var oldToken));
+        RequestIdentity newer=default;using var registration=oldToken.Register(()=>{if(action=="clear")rig.Local.Clear();else{Assert.True(rig.Gate.TryStartProfileRequest(binding,Guid.NewGuid(),Guid.NewGuid(),null,out newer,out _));}});
+        Assert.False(rig.Local.Start(rig.Version,rig.Image,"en-US"));Assert.Null(rig.Local.Preview);Assert.Equal(0,rig.Factories);Assert.Equal(0,rig.Script.Requests);if(action=="newer")Assert.True(rig.Gate.CanApply(newer));
+    }
+    [Fact] public async Task ActualManagedWorkerOnLinuxReturnsUnsupportedPlatformWithZeroHttp()
+    {
+        Assert.False(OperatingSystem.IsWindows());await using var rig=await Rig.Create();string configuration=new DirectoryInfo(AppContext.BaseDirectory).Parent!.Name;
+        string assembly=Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"../../../../../src/KuaiYi.ImageWorker/bin",configuration,"net10.0/win-x64/KuaiYi.ImageWorker.dll"));
+        Assert.Equal(SHA256.HashData(File.ReadAllBytes(typeof(WorkerProduction::KuaiYi.ImageWorker.ImageWorkerSession).Assembly.Location)),SHA256.HashData(File.ReadAllBytes(assembly)));
+        rig.Factory=()=>new P.ImageWorkerClient(Environment.GetEnvironmentVariable("DOTNET_HOST_PATH")??"dotnet",assembly,new Starter());
+        Assert.True(rig.Local.Start(rig.Version,rig.Image,"en-US"));await rig.Local.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Null(rig.Local.Preview);Assert.Equal("UnsupportedPlatform",rig.Local.Failure);Assert.False(rig.Local.CleanupPending);Assert.Equal(0,rig.Script.Requests);
+    }
+    private sealed class Starter:P.IImageProcessStarter
+    {public Process Start(ProcessStartInfo info){info.Environment["DOTNET_GENERATE_ASPNET_CERTIFICATE"]="false";return Process.Start(info)!;}}
+}

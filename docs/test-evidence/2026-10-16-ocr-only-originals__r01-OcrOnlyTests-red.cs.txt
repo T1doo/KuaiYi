@@ -1,0 +1,15 @@
+extern alias ImageProduction;
+using Xunit;
+using P=ImageProduction::KuaiYi.Imaging;
+namespace KuaiYi.Provider.Tests;
+
+public sealed class OcrOnlyTests
+{
+    [Theory][InlineData(true)][InlineData(false)]
+    public void OutputRejectsPositiveExtentPastExactEdgeEvenWhenAdditionRounds(bool horizontal)
+    {
+        var word=new P.OcrWord("synthetic",horizontal?1:0,horizontal?0:1,horizontal?double.Epsilon:1,horizontal?1:double.Epsilon);
+        var output=new P.OcrOutput(1,1,"en-US","synthetic",[new("synthetic",[word])]);
+        Assert.Throws<InvalidDataException>(()=>P.ImageWorkerClient.ValidateOutput(output,new(1,1),"en-US"));
+    }
+}

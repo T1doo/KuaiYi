@@ -17,6 +17,10 @@ namespace KuaiYi.App
         internal Guid? SelectedSourceVersionForTest=>SelectedSource.VersionId;
         internal OwnedSourceImage? SelectedImageForTest=>SelectedSource.Image;
         internal void ClearImagePresentationForTest()=>HidePresentation(clear:true);
+        internal Action? OcrCleanupForTest=null;
+        partial void OcrSourceChanged(bool clearApproved)=>OcrCleanupForTest?.Invoke();
+        internal void ReleaseImageForTest()=>ReleaseRetainedImage();
+        internal void BeginTextSourceForTest()=>BeginTextSource();
         internal void HideImageWindowForTest(){lifecycle.Gate.Disable(hide:true);HidePresentation(clear:false);Hide();}
         private readonly Task startup=Task.CompletedTask,positionSave=Task.CompletedTask;
         internal Task SelectionExit=Task.CompletedTask,HotkeyExit=Task.CompletedTask,TranslationExit=Task.CompletedTask;

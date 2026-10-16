@@ -769,3 +769,13 @@ P6-02保持InProgress/Blocked，P6-04/05 InProgress/NotRun。生产离线复用O
 r01新夹具7诊断编译失败0执行/无TRX，源码原件保全后修夹具；r02真实0P/9F全部生产缺口，原代码及红源码保全。r03 9/9、r04 23/23、r05 locked restore/r06 35/35、r07 1414/1414；r08Worker及r09App交叉构建0W/E；独审补latecontrol真实3byte清零与2条线协议边界后r10最终Provider1416/1416=父1379完整+新37，无跳过。真实托管child与测试引用Worker DLL逐次按配置/hash绑定，另固定4对实际依赖DLL；合成识别/流屏障仅验生产协议所有权，Linux正常结果UnsupportedPlatform，不冒充PNG/JPEG/NativeOCR。17SDK log/TRX+10baseline/编译/红源码精确-text保全，父192原件/1777旧证据保持。详见[说明](validation/image-worker-transfer-cleanup.md)和[固定证据](test-evidence/2026-10-16-image-worker-transfer-cleanup.json)。
 
 现有第三方版本/contentHash全保持，仅Provider测试锁增加3个自有Project节点，其余42锁/8workflow/8模板及Core/Contracts/App/Provider生产保持。所有dotnet激活前后、命令与测试子进程显式false；无新包或协议接受/权限费用凭据模型/main/强推/部署/CI/CMake/Windows探针。250/600ms、原15秒worker/client和来源/密码/完整性/Job/process/取消清理门保持，生产复用Off；Actions不查调不绕拒绝、run数Unknown，证书Unknown不读改trust删除。P6-02仍InProgress/Blocked，04/05 InProgress/NotRun；Skia四包许可待答/源码403、PNG/JPEG codec/EXIF/OCR、WPF真实测量选择阅读、Windows/COM/取消时限与完整P2/P4/P6仍未验。
+
+### 2026-10-16 P6-03 OCR-only 本地预览与显式文字发送
+
+从30425cc03130f3fa9ecc94777a54aac64219fd71核实际文件/cleanGit/单worktree/唯一root写入者及默认远端/main祖先，建dev/ocr-only-confirmation；只读ocr_review独审。核P0只有本地OCR、正常Shell只有图片预览后接正式截图PNG→原Worker/NativeOcr→本地只读预览→显式确认→既有TextCoordinator四风格。显示“当前模型不支持图像理解，图形关系未分析”、文字目标/模型/费用提示；独立provenance+当前已批准对象引用，默认拒OCR、普通取词排除门不变。无图片送文字模型、分类或非法分类自动降级，缺平台/身份/语言/取消零HTTP，不下载重试或伪置信度。
+
+先保1×1/正subnormal贴边红测0P/2F，ValidateOutput改严格剩余宽高判界，无epsilon，零extent/精确剩余合法。原worker/IO终结前不批准；未确认保owner拒新任务，原Run持有PNG直到返回，旧Clear只结算捕获owner；App异步返回重验原图版本/引用及epoch/On/可见状态，不覆盖新源提示，捕获原协调器并核当前字段引用，退出不访问已清空字段。Gate→局部锁序；回调后复核revision/ref/identity/epoch/设置，r06新增来源证明重入真实1P/2F及原源码保全后修复。确认正常交接只清预览，已批准文字可在PNG释放后保三版和按当前设置/会话风格再生成；清空/换源/Off/锁/隐藏及迟到门保持。
+
+r02 2/2、r03/r04各46/46；r05夹具编译3诊断0执行/无TRX保全，修字段/枚举/初始化；r07 59/59、r09 62/62；r10/r16 Provider1478/1478，最终r17 Provider1481/1481=父1416完整+新65（62OCR合同+3链接生产Shell清理端口）、0失败/跳过，双协议×四风格真实本地HTTP文字wire、合成OCR成功，实际托管worker仅Linux UnsupportedPlatform。补取消异常不跳过原清理：OCR Clear/Close分开汇总，Hide沿Attempt、Begin/Release finally推进状态/释放图像。r08/r11/r12/r13/r14/r15 App/Worker/最终App交叉构建各0W/E，独审无阻断。27SDK log/TRX+7原源码+3核验记录精确-text保全，父219原件/1805旧证据原字节；43锁/8workflow/8模板/项目引用不改，无新依赖。详见[说明](validation/ocr-only-confirmation.md)及[固定证据](test-evidence/2026-10-16-ocr-only-confirmation.json)。
+
+P6-03 InProgress/NotRun，02仍InProgress/Blocked，04/05不改。Windows真实OCR/包身份/语言与质量、WPF窗口/测量/选择/阅读/焦点、COM/实际取消时限及完整P0/P2/P4/P6/I/J仍未验。生产离线复用Off、250/600ms及全部来源/密码/完整性/Job/process/取消清理门和原15秒保持。所有dotnet激活前后/命令/新子进程显式false；证书/旧覆盖字节Unknown不读改trust/delete。Skia许可待答、源码403与Actions拒绝门保持，不查询调度绕拒绝，CI run数Unknown；无真实模型、新费用/凭据/权限/协议接受、Windows/CMake探针/新CI、main/强推/部署。

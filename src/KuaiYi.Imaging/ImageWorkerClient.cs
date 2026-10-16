@@ -6,7 +6,7 @@ using KuaiYi.Core;
 namespace KuaiYi.Imaging;
 
 /// <summary>Owned one-shot process. Private inherited stdio is a P0 transport, not the production named-pipe ACL endpoint.</summary>
-public sealed class ImageWorkerClient(string executable, string? managedAssembly = null, IImageProcessStarter? processStarter = null) : IAsyncDisposable
+public sealed class ImageWorkerClient(string executable, string? managedAssembly = null, IImageProcessStarter? processStarter = null) : ILocalOcrWorker
 {
     private readonly OwnedProcessSession process=new(processStarter);
     private int started;
@@ -129,7 +129,8 @@ public sealed class ImageWorkerClient(string executable, string? managedAssembly
             count += line.Words.Length;
             foreach (var word in line.Words)
                 if (word == null || word.Text == null || word.Text.Length > 50_000 || !double.IsFinite(word.X) || !double.IsFinite(word.Y) || !double.IsFinite(word.Width) || !double.IsFinite(word.Height) ||
-                    word.X < 0 || word.Y < 0 || word.Width < 0 || word.Height < 0 || word.X + word.Width > expected.Width || word.Y + word.Height > expected.Height) throw new InvalidDataException("Invalid OCR word bounds.");
+                    word.X < 0 || word.Y < 0 || word.Width < 0 || word.Height < 0 || word.X > expected.Width || word.Y > expected.Height ||
+                    word.Width > expected.Width-word.X || word.Height > expected.Height-word.Y) throw new InvalidDataException("Invalid OCR word bounds.");
         }
     }
     public async ValueTask<bool> TryFinalizeAsync()

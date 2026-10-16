@@ -19,7 +19,8 @@ internal sealed partial class ShellWindow
         button.ToolTip="当前文字内容已清除 · 正在结束当前任务";
         Task screenshotCleanup=Task.CompletedTask,dropCleanup=Task.CompletedTask;
         ScreenshotPreviewCleanup.Attempt(errors,()=>screenshotCleanup=StopHotkeyScreenshot());ScreenshotPreviewCleanup.Attempt(errors,()=>dropCleanup=SettleClearedTextDrop());
-        var cleanup=Task.WhenAll(translationCleanup,screenshotCleanup,dropCleanup);
+        Task ocrCleanup=Task.CompletedTask;ScreenshotPreviewCleanup.Attempt(errors,()=>CollectOcrCleanup(ref ocrCleanup));
+        var cleanup=Task.WhenAll(translationCleanup,screenshotCleanup,dropCleanup,ocrCleanup);
         try{await cleanup;}catch(Exception error){errors.Add(cleanup.Exception??error);}
         bool current=!exiting&&revision==resultRevision&&CanReadOriginalSource()&&!lifecycle.Gate.HasRunningGeneration&&
             !lifecycle.Gate.Snapshot.Suspension.HasFlag(KuaiYi.Core.Suspension.Capture);

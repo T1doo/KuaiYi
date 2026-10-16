@@ -1,0 +1,21 @@
+{
+  "TrackedParent": 2599,
+  "IntentionallyChangedExisting": [
+    "src/KuaiYi.App/OverlayClearContent.cs",
+    "src/KuaiYi.App/OverlayImageSource.cs",
+    "src/KuaiYi.App/OverlayResultFlow.cs",
+    "src/KuaiYi.App/OverlayResultLabel.cs",
+    "src/KuaiYi.App/ShellWindow.cs",
+    "src/KuaiYi.App/TranslationFlow.cs",
+    "src/KuaiYi.Core/SelectionCapture.cs",
+    "src/KuaiYi.Imaging/ImageWorkerClient.cs",
+    "src/KuaiYi.Providers/TextTranslationCoordinator.cs"
+  ],
+  "UnchangedTrackedBytes": 2590,
+  "ExistingEvidenceUnchanged": 1805,
+  "PreviousRawUnchanged": 219,
+  "All43LocksUnchanged": true,
+  "EightWorkflowsUnchanged": 8,
+  "Verification": "git cat-file HEAD exact bytes versus filesystem; previous219 raw SHA256 independently matched parent evidence",
+  "ToolingFailure": "First helper parsed quoted git ls-files paths and failed at non-ASCII path (IndexError), no existing file mutation. Corrected to -z and completed."
+}

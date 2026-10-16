@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="252e25a9-6831-4d29-92ac-2aa5aba52d6d" name="@68e6e3cca8ba 2026-10-16 05:50:33" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-16T05:50:33.0895850+00:00" queuing="2026-10-16T05:50:33.0895850+00:00" start="2026-10-16T05:50:32.0259910+00:00" finish="2026-10-16T05:50:33.0947355+00:00" />
+  <TestSettings name="default" id="b765044a-2d54-42e8-86f4-4ffc63421e2d">
+    <Deployment runDeploymentRoot="_68e6e3cca8ba_2026-10-16_05_50_33" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="64f52f87-8781-4d8d-a714-1f77440b22f5" testId="39ee8a46-3b46-a0c4-f653-0537436215b1" testName="KuaiYi.Provider.Tests.OcrOnlyTests.SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr(phase: &quot;delivery&quot;)" computerName="68e6e3cca8ba" duration="00:00:00.0330047" startTime="2026-10-16T05:50:32.9701977+00:00" endTime="2026-10-16T05:50:32.9905313+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="64f52f87-8781-4d8d-a714-1f77440b22f5" />
+    <UnitTestResult executionId="efff72e0-b6c0-4eb1-bcb1-cf42c4f83743" testId="b696b0f9-ced0-69e2-c25c-dd7ce0096c36" testName="KuaiYi.Provider.Tests.OcrOnlyTests.SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr(phase: &quot;approve&quot;)" computerName="68e6e3cca8ba" duration="00:00:00.0116008" startTime="2026-10-16T05:50:32.9916127+00:00" endTime="2026-10-16T05:50:33.0026916+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="efff72e0-b6c0-4eb1-bcb1-cf42c4f83743">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   SelectionSourceSnapshot { Window = SelectionWindow { Handle = 0, ProcessId = 0, ProcessStartUtcTicks = 0, Executable =  }, RawText = PUBLIC SYNTHETIC OCR TEXT, Text = PUBLIC SYNTHETIC OCR TEXT, Ranges = System.Collections.Immutable.ImmutableArray`1[KuaiYi.Core.PixelRect], RuntimeId = System.Collections.Immutable.ImmutableArray`1[System.Int32], SettingsVersion = ocr-synthetic, Scalars = 25, RequiresConfirmation = True, SourceKind = OcrOnly, Recovery = NotNeeded, DropReceiver = 00000000-0000-0000-0000-000000000000, DropTransaction = 00000000-0000-0000-0000-000000000000, Ocr = OcrTextProvenance { SourceVersion = d515ca27-a793-4a2d-a15b-12a64398c90e, SourceId = 1f180abb-ee38-420e-8b5e-e896e03970ad, PreviewId = 2169960d-5b09-4297-be7e-63345c46977b } }</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.OcrOnlyTests.SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr(String phase) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 188
+   at KuaiYi.Provider.Tests.OcrOnlyTests.SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr(String phase) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 196
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7bdb8bd3-6388-4416-a6d1-83b074a18e64" testId="0e7793be-3c66-e421-d70a-897c68a3a3ae" testName="KuaiYi.Provider.Tests.OcrOnlyTests.SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr(phase: &quot;admission&quot;)" computerName="68e6e3cca8ba" duration="00:00:00.1166620" startTime="2026-10-16T05:50:32.8245492+00:00" endTime="2026-10-16T05:50:32.9562490+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7bdb8bd3-6388-4416-a6d1-83b074a18e64">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.OcrOnlyTests.SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr(String phase) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 193
+   at KuaiYi.Provider.Tests.OcrOnlyTests.SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr(String phase) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 196
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.OcrOnlyTests.SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr(phase: &quot;approve&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="b696b0f9-ced0-69e2-c25c-dd7ce0096c36">
+      <Execution id="efff72e0-b6c0-4eb1-bcb1-cf42c4f83743" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OcrOnlyTests" name="SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OcrOnlyTests.SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr(phase: &quot;delivery&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="39ee8a46-3b46-a0c4-f653-0537436215b1">
+      <Execution id="64f52f87-8781-4d8d-a714-1f77440b22f5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OcrOnlyTests" name="SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OcrOnlyTests.SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr(phase: &quot;admission&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="0e7793be-3c66-e421-d70a-897c68a3a3ae">
+      <Execution id="7bdb8bd3-6388-4416-a6d1-83b074a18e64" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OcrOnlyTests" name="SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="39ee8a46-3b46-a0c4-f653-0537436215b1" executionId="64f52f87-8781-4d8d-a714-1f77440b22f5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b696b0f9-ced0-69e2-c25c-dd7ce0096c36" executionId="efff72e0-b6c0-4eb1-bcb1-cf42c4f83743" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0e7793be-3c66-e421-d70a-897c68a3a3ae" executionId="7bdb8bd3-6388-4416-a6d1-83b074a18e64" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="3" executed="3" passed="1" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.09]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.38]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.41]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.57]       Assert.False() Failure
+[xUnit.net 00:00:00.57]       Expected: False
+[xUnit.net 00:00:00.57]       Actual:   True
+[xUnit.net 00:00:00.57]       Stack Trace:
+[xUnit.net 00:00:00.57]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs(193,0): at KuaiYi.Provider.Tests.OcrOnlyTests.SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr(String phase)
+[xUnit.net 00:00:00.57]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs(196,0): at KuaiYi.Provider.Tests.OcrOnlyTests.SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr(String phase)
+[xUnit.net 00:00:00.57]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.61]       Assert.Null() Failure: Value is not null
+[xUnit.net 00:00:00.61]       Expected: null
+[xUnit.net 00:00:00.61]       Actual:   SelectionSourceSnapshot { Window = SelectionWindow { Handle = 0, ProcessId = 0, ProcessStartUtcTicks = 0, Executable =  }, RawText = PUBLIC SYNTHETIC OCR TEXT, Text = PUBLIC SYNTHETIC OCR TEXT, Ranges = System.Collections.Immutable.ImmutableArray`1[KuaiYi.Core.PixelRect], RuntimeId = System.Collections.Immutable.ImmutableArray`1[System.Int32], SettingsVersion = ocr-synthetic, Scalars = 25, RequiresConfirmation = True, SourceKind = OcrOnly, Recovery = NotNeeded, DropReceiver = 00000000-0000-0000-0000-000000000000, DropTransaction = 00000000-0000-0000-0000-000000000000, Ocr = OcrTextProvenance { SourceVersion = d515ca27-a793-4a2d-a15b-12a64398c90e, SourceId = 1f180abb-ee38-420e-8b5e-e896e03970ad, PreviewId = 2169960d-5b09-4297-be7e-63345c46977b } }
+[xUnit.net 00:00:00.61]       Stack Trace:
+[xUnit.net 00:00:00.61]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs(188,0): at KuaiYi.Provider.Tests.OcrOnlyTests.SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr(String phase)
+[xUnit.net 00:00:00.61]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs(196,0): at KuaiYi.Provider.Tests.OcrOnlyTests.SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr(String phase)
+[xUnit.net 00:00:00.61]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.62]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T05:50:32.9599871+00:00">
+        <Text>[xUnit.net 00:00:00.57]     KuaiYi.Provider.Tests.OcrOnlyTests.SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr(phase: "admission") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T05:50:33.0033334+00:00">
+        <Text>[xUnit.net 00:00:00.61]     KuaiYi.Provider.Tests.OcrOnlyTests.SourceProofReentryClearCannotRestoreTextOrCommitStaleOcr(phase: "approve") [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

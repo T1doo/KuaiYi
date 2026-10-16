@@ -104,6 +104,17 @@ public sealed class ImageSourcePreviewTests
     {
         var w=new ShellWindow();w.InitializeResultFlow();w.WithGeometry();Accept(w,out _);w.ShowSourceForTest();var source=Source(w);var view=View(source);w.MarkdownGate.Disable(hide:true);while(view.Dispatcher.Pending>0)view.Dispatcher.Deliver();Assert.Equal(0,source.BringIntoViewCalls);w.ClearImagePresentationForTest();
     }
+    [Theory][InlineData("hide")][InlineData("release")][InlineData("begin-text")]
+    public void OcrCancellationFailureCannotSkipOriginalImageSourceCleanup(string action)
+    {
+        var w=new ShellWindow();w.InitializeResultFlow();w.WithGeometry();var image=Accept(w,out var raw);w.ShowSourceForTest();
+        w.OcrCleanupForTest=()=>throw new InvalidOperationException("synthetic OCR cancellation failure");
+        var error=Record.Exception(()=>{if(action=="hide")w.ClearImagePresentationForTest();else if(action=="release")w.ReleaseImageForTest();else w.BeginTextSourceForTest();});
+        Assert.NotNull(error);Assert.Null(w.SelectedImageForTest);
+        if(action!="begin-text"){Assert.True(image.IsDisposed);Assert.All(raw,b=>Assert.Equal(0,b));}
+        else Assert.False(image.IsDisposed); // Existing text-failure fallback still owns the original image.
+        w.OcrCleanupForTest=null;w.ClearImagePresentationForTest();Assert.True(image.IsDisposed);Assert.All(raw,b=>Assert.Equal(0,b));
+    }
     [Theory][InlineData(false)][InlineData(true)]
     public void ExitWhileSettingsSettleReleasesImageAndStillRequestsDraftCloseWhenBitmapCleanupFails(bool fail)
     {

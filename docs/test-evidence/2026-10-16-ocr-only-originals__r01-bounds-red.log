@@ -1,0 +1,30 @@
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.45]     KuaiYi.Provider.Tests.OcrOnlyTests.OutputRejectsPositiveExtentPastExactEdgeEvenWhenAdditionRounds(horizontal: True) [FAIL]
+[xUnit.net 00:00:00.46]     KuaiYi.Provider.Tests.OcrOnlyTests.OutputRejectsPositiveExtentPastExactEdgeEvenWhenAdditionRounds(horizontal: False) [FAIL]
+  Failed KuaiYi.Provider.Tests.OcrOnlyTests.OutputRejectsPositiveExtentPastExactEdgeEvenWhenAdditionRounds(horizontal: True) [6 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(System.IO.InvalidDataException)
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OcrOnlyTests.OutputRejectsPositiveExtentPastExactEdgeEvenWhenAdditionRounds(Boolean horizontal) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 13
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed KuaiYi.Provider.Tests.OcrOnlyTests.OutputRejectsPositiveExtentPastExactEdgeEvenWhenAdditionRounds(horizontal: False) [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(System.IO.InvalidDataException)
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OcrOnlyTests.OutputRejectsPositiveExtentPastExactEdgeEvenWhenAdditionRounds(Boolean horizontal) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 13
+   at InvokeStub_OcrOnlyTests.OutputRejectsPositiveExtentPastExactEdgeEvenWhenAdditionRounds(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+Results File: /workspace/KuaiYi/artifacts/ocr-only-confirmation/r01-bounds-red.trx
+
+Failed!  - Failed:     2, Passed:     0, Skipped:     0, Total:     2, Duration: 37 ms - KuaiYi.Provider.Tests.dll (net10.0)

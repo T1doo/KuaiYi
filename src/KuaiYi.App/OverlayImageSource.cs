@@ -11,6 +11,8 @@ internal sealed partial class ShellWindow
     private LocalImageVersion? retainedImage;
     private bool imageSelected;
     private long imageInputRevision;
+    partial void OcrSourceChanged(bool clearApproved);
+    partial void CollectOcrCleanup(ref Task cleanup);
     // All display/source/menu consumers use this selection. A local preview is never a request or a translation.
     private SourceSelection SelectedSource=>imageSelected
         ?retainedImage is {} image&&!image.Image.IsDisposed?new(image.VersionId,null,image.Image):default
@@ -45,8 +47,8 @@ internal sealed partial class ShellWindow
         finally{if(!accepted)image.Dispose();}
     }
     private void ImageSourcePreviewFailed(Exception error){if(CanReadOriginalSource())Report("图片预览未完成；可清除当前内容后重试",error);}
-    private void BeginTextSource(){imageInputRevision++;imageSelected=false;}
-    private void ReleaseRetainedImage(){imageInputRevision++;imageSelected=false;retainedImage?.Image.Dispose();retainedImage=null;}
+    private void BeginTextSource(){try{OcrSourceChanged(translation?.SelectedSnapshot?.Source.SourceKind!=SelectionSourceKind.OcrOnly);}finally{imageInputRevision++;imageSelected=false;}}
+    private void ReleaseRetainedImage(){try{OcrSourceChanged(false);}finally{imageInputRevision++;imageSelected=false;retainedImage?.Image.Dispose();retainedImage=null;}}
     private bool RestoreImageAfterTextFailure(RequestIdentity? failed=null)
     {
         if(retainedImage==null||imageSelected)return false;

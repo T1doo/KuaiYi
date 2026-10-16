@@ -1,0 +1,135 @@
+using System.Text;
+using KuaiYi.Core;
+using KuaiYi.Core.Settings;
+namespace KuaiYi.Imaging;
+
+public interface ILocalOcrWorker:IAsyncDisposable
+{
+    Task<ImageReply> RunAsync(ReadOnlyMemory<byte> image,ImageJob job,CancellationToken cancellation=default);
+    ValueTask<bool> TryFinalizeAsync();
+}
+public sealed record OcrTextPreview(Guid Id,Guid SourceVersion,Guid SourceId,string Text,string Language,string SettingsVersion,RequestIdentity Identity);
+
+/// <summary>Destination-thread commands; bounded local OCR only. No provider or HTTP dependency.
+/// Original worker/IO ownership must settle before any preview can be approved.</summary>
+public sealed class OcrOnlyCoordinator:IAsyncDisposable
+{
+    public const string Warning="当前模型不支持图像理解，图形关系未分析";
+    private readonly RuntimeGate gate;
+    private readonly Func<SettingsSnapshot?> settings;
+    private readonly Func<Guid,Guid,bool> sourceCurrent;
+    private readonly Func<ILocalOcrWorker> createWorker;
+    private readonly IdentityEventReceiver<Completion> receiver;
+    private readonly object sync=new();
+    private long revision;
+    private bool disposed;
+    private Operation? active;
+    private ILocalOcrWorker? ownedWorker;
+    private SelectionSourceSnapshot? approved;
+    private sealed record Completion(OcrTextPreview? Preview,string? Failure);
+    private sealed record Operation(long Revision,Guid Version,OwnedSourceImage Source,SettingsSnapshot Settings,RequestProfileBinding Binding,RequestIdentity Identity,CancellationTokenSource Cancellation);
+    public OcrOnlyCoordinator(RuntimeGate gate,Func<SettingsSnapshot?> settings,Func<Guid,Guid,bool> sourceCurrent,
+        SynchronizationContext destination,Func<ILocalOcrWorker> createWorker)
+    {this.gate=gate;this.settings=settings;this.sourceCurrent=sourceCurrent;this.createWorker=createWorker;receiver=new(gate,destination);}
+    public Task Running{get;private set;}=Task.CompletedTask;
+    private OcrTextPreview? preview;
+    public OcrTextPreview? Preview{get{lock(sync){if(preview!=null&&!IsPreviewCurrent(preview))preview=null;return preview;}}private set=>preview=value;}
+    public string? Failure{get;private set;}
+    public bool CleanupPending{get{lock(sync)return ownedWorker!=null;}}
+    public bool Start(Guid version,OwnedSourceImage source,string language)
+    {
+        lock(sync)
+        {
+            if(disposed||active!=null||ownedWorker!=null||version==Guid.Empty||source.IsDisposed||!sourceCurrent(version,source.SourceId)||
+                string.IsNullOrWhiteSpace(language)||language.Length>64||language.Any(c=>!char.IsAsciiLetterOrDigit(c)&&c!='-')||
+                settings() is not {} config||config.ReadOnly||config.RequiresRecovery||!gate.TryBeginPassiveCapture(gate.Snapshot.Mode,out var ticket)||
+                config.Data.Profiles.FirstOrDefault(p=>p.Id==config.Data.ActiveProfileId) is not {} profile||!gate.TryGetProfileBinding(profile.Id,out var binding))return false;
+            long command=++revision;Preview=null;Failure=null;approved=null;
+            if(!gate.TryStartProfileRequest(binding,Guid.NewGuid(),Guid.NewGuid(),ticket,out var identity,out var token))return false;
+            // TryStart synchronously cancels the previous request; its callback may clear/start C.
+            if(command!=revision||disposed||active!=null||ownedWorker!=null||!gate.CanApply(identity)||gate.Snapshot.Epoch!=identity.Epoch||
+                settings()?.Version!=config.Version||!sourceCurrent(version,source.SourceId)||source.IsDisposed)
+            {gate.StopRequest(identity);return false;}
+            var operation=new Operation(command,version,source,config,binding,identity,CancellationTokenSource.CreateLinkedTokenSource(token));
+            active=operation;Running=RunAsync(operation,language);return true;
+        }
+    }
+    private bool Current(Operation operation)=>!disposed&&ReferenceEquals(active,operation)&&operation.Revision==revision&&
+        !operation.Cancellation.IsCancellationRequested&&gate.CanApply(operation.Identity)&&gate.Snapshot.Epoch==operation.Identity.Epoch&&
+        gate.Snapshot.Suspension==Suspension.None&&gate.Snapshot.Presentation!=Presentation.Hidden&&settings() is {} config&&!config.ReadOnly&&!config.RequiresRecovery&&config.Version==operation.Settings.Version&&
+        config.Data.ActiveProfileId==operation.Binding.ProfileId&&gate.IsRequestProfileBindingCurrent(operation.Identity,operation.Binding)&&
+        !operation.Source.IsDisposed&&sourceCurrent(operation.Version,operation.Source.SourceId);
+    private async Task RunAsync(Operation operation,string language)
+    {
+        await Task.Yield();Completion completion;
+        try
+        {
+            lock(sync){if(!Current(operation))throw new OperationCanceledException();ownedWorker=createWorker();}
+            using var png=await Task.Run(()=>operation.Source.CreateRequestPng(4194304,operation.Cancellation.Token)).ConfigureAwait(false);
+            var job=new ImageJob(operation.Identity.SessionId,operation.Revision,operation.Identity.Epoch,language,png.Bytes.Length);
+            var reply=await ownedWorker.RunAsync(png.Bytes,job,operation.Cancellation.Token).ConfigureAwait(false);
+            if(reply.Job!=job)throw new InvalidDataException("OCR job mismatch.");
+            if(reply.Failure!=ImageFailure.None)throw new ImageJobException(reply.Failure);
+            if(reply.Output is not {} output)throw new InvalidDataException("OCR output absent.");
+            ImageWorkerClient.ValidateOutput(output,ImagePolicy.InspectPng(png.Bytes.Span),language);
+            if(!ValidText(output.Text,operation.Settings.Data.Translation.HardLimitScalars))throw new InvalidDataException("OCR text invalid.");
+            completion=new(new(Guid.NewGuid(),operation.Version,operation.Source.SourceId,output.Text,language,operation.Settings.Version,operation.Identity),null);
+        }
+        catch(OperationCanceledException){completion=new(null,"Cancelled");}
+        catch(ImageJobException error){completion=new(null,error.Code.ToString());}
+        catch(Exception)
+        {completion=new(null,"OCR_FAILED");}
+        try
+        {
+            if(ownedWorker!=null)
+            {
+                if(await ownedWorker.TryFinalizeAsync().ConfigureAwait(false)){await ownedWorker.DisposeAsync().ConfigureAwait(false);lock(sync)ownedWorker=null;}
+                else completion=new(null,"CLEANUP_UNCONFIRMED");
+            }
+            await receiver.ReceiveAsync(operation.Identity,completion,value=>
+            {lock(sync){if(!Current(operation))return;Preview=value.Preview;Failure=value.Failure;gate.MarkRequestTerminal(operation.Identity);}},operation.Cancellation.Token).ConfigureAwait(false);
+        }
+        finally{lock(sync){if(ReferenceEquals(active,operation))active=null;}operation.Cancellation.Dispose();}
+    }
+    public bool IsPreviewCurrent(OcrTextPreview preview)
+    {
+        lock(sync)return !disposed&&ReferenceEquals(this.preview,preview)&&ownedWorker==null&&gate.CanApply(preview.Identity)&&gate.Snapshot.Epoch==preview.Identity.Epoch&&
+            gate.Snapshot.Suspension==Suspension.None&&gate.Snapshot.Presentation!=Presentation.Hidden&&settings() is {} config&&!config.ReadOnly&&!config.RequiresRecovery&&config.Version==preview.SettingsVersion&&sourceCurrent(preview.SourceVersion,preview.SourceId);
+    }
+    /// <summary>Call only for the preview's explicit confirmation. Text dispatch still requires confirmed Submit.</summary>
+    public SelectionSourceSnapshot? Approve(OcrTextPreview preview)
+    {
+        lock(sync)
+        {
+            if(!IsPreviewCurrent(preview))return null;
+            approved=new(new(0,0,0,""),preview.Text,preview.Text,[],[],preview.SettingsVersion,preview.Text.EnumerateRunes().Count(),true,
+                SelectionSourceKind.OcrOnly,Ocr:new(preview.SourceVersion,preview.SourceId,preview.Id));Preview=null;return approved;
+        }
+    }
+    public bool IsApprovedSourceCurrent(SelectionSourceSnapshot source)
+    {lock(sync)return !disposed&&ReferenceEquals(approved,source)&&gate.Snapshot.Activation==Activation.On&&gate.Snapshot.Suspension==Suspension.None&&gate.Snapshot.Presentation!=Presentation.Hidden;}
+    public void Clear(bool clearApproved=true)
+    {
+        lock(sync)
+        {
+            revision++;var operation=active;var preview=Preview;Preview=null;Failure=null;if(clearApproved)approved=null;
+            if(operation!=null)gate.StopRequest(operation.Identity);else if(preview!=null)gate.StopRequest(preview.Identity);
+        }
+    }
+    public async Task ClearAsync()
+    {
+        Task pending;lock(sync){Clear();pending=Running;}await pending.ConfigureAwait(false);
+        if(ownedWorker!=null)
+        {
+            if(!await ownedWorker.TryFinalizeAsync().ConfigureAwait(false))throw new ImageJobException(ImageFailure.SettlementUnconfirmed);
+            await ownedWorker.DisposeAsync().ConfigureAwait(false);lock(sync)ownedWorker=null;
+        }
+    }
+    public async ValueTask DisposeAsync(){lock(sync)disposed=true;await ClearAsync().ConfigureAwait(false);}
+    private static bool ValidText(string text,int limit)
+    {
+        if(string.IsNullOrWhiteSpace(text)||text.Length>50000)return false;
+        int scalars=0;for(int i=0;i<text.Length;i++,scalars++){if(char.IsHighSurrogate(text[i])){if(++i>=text.Length||!char.IsLowSurrogate(text[i]))return false;}else if(char.IsLowSurrogate(text[i]))return false;}
+        return scalars<=limit;
+    }
+}

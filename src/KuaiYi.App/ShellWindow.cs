@@ -31,8 +31,8 @@ internal sealed partial class ShellWindow:OleDropWindow
         Title="快译";Width=Height=48;WindowStyle=WindowStyle.None;ResizeMode=ResizeMode.NoResize;ShowInTaskbar=false;ShowActivated=false;Topmost=true;
         SetupPresentation();SetupTranslation(developmentBoundary);AutomationProperties.SetName(button,"快译：未启用翻译");button.ToolTip="未启用翻译 · 右键打开设置";
         var menu=new ContextMenu();Add("启用 / 停用翻译",Toggle);Add("回看当前结果",ReopenResult);Add("收起",CollapseResult);Add("停止生成",StopResult);Add("复制结果",CopyResult);Add("清除当前内容",()=>_=ClearCurrentContent());Add("设置",()=>_=OpenSettings());Add("更多操作及版本",()=>OpenOverflowMenu(button));Add("隐藏浮窗（同时停用）",HideOverlay);Add("聚焦浮窗",FocusOverlay);Add("退出",Close);
-        Add("读取当前选区",()=>_=ObserveSelection(ReadCurrentSelection()));Add("重新生成",()=>RegenerateResult());Add("按当前设置重新翻译",()=>RegenerateResult(true));Add("查看原文",ShowSelectionSource);button.ContextMenu=menu;menu.Closed+=(_,_)=>PresentationMenuClosed();
-        menu.Opened+=(_,_)=>{foreach(var item in menu.Items.OfType<MenuItem>()){if(Equals(item.Tag,"重新生成")||Equals(item.Tag,"按当前设置重新翻译")){item.Header=RegenerationMenuLabel(Equals(item.Tag,"按当前设置重新翻译"));item.IsEnabled=lifecycle.Gate.Snapshot.Activation==Activation.On&&SelectedSource.Text!=null;}else if(Equals(item.Tag,"查看原文"))item.IsEnabled=CanReadOriginalSource()&&SelectedSource.HasSource;}};
+        Add("读取当前选区",()=>_=ObserveSelection(ReadCurrentSelection()));Add("仅提取图片文字并翻译",()=>_=TranslateImageText());Add("重新生成",()=>RegenerateResult());Add("按当前设置重新翻译",()=>RegenerateResult(true));Add("查看原文",ShowSelectionSource);button.ContextMenu=menu;menu.Closed+=(_,_)=>PresentationMenuClosed();
+        menu.Opened+=(_,_)=>{foreach(var item in menu.Items.OfType<MenuItem>()){if(Equals(item.Tag,"仅提取图片文字并翻译"))item.IsEnabled=!ocrFlowBusy&&ocrOnly is {CleanupPending:false}&&lifecycle.Gate.Snapshot.Activation==Activation.On&&SelectedSource.Image!=null;else if(Equals(item.Tag,"重新生成")||Equals(item.Tag,"按当前设置重新翻译")){item.Header=RegenerationMenuLabel(Equals(item.Tag,"按当前设置重新翻译"));item.IsEnabled=lifecycle.Gate.Snapshot.Activation==Activation.On&&SelectedSource.Text!=null;}else if(Equals(item.Tag,"查看原文"))item.IsEnabled=CanReadOriginalSource()&&SelectedSource.HasSource;}};
         void Add(string text,Action action){var item=new MenuItem{Header=text,Tag=text};item.Click+=(_,_)=>action();menu.Items.Add(item);}
         SourceInitialized+=(_,_)=>
         {
@@ -91,6 +91,7 @@ internal sealed partial class ShellWindow:OleDropWindow
     }
     private void Refresh()
     {
+        ObserveOcrState();
         RefreshSelection();RefreshTextDrop();
         RefreshPresentationTheme();
         RefreshResultLabel();

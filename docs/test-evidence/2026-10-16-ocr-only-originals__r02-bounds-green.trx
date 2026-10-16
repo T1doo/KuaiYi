@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="7c67bc86-ef40-4aca-80b5-17b20e3dbcd4" name="@68e6e3cca8ba 2026-10-16 05:45:30" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-16T05:45:30.6930939+00:00" queuing="2026-10-16T05:45:30.6930939+00:00" start="2026-10-16T05:45:29.6903412+00:00" finish="2026-10-16T05:45:30.6982162+00:00" />
+  <TestSettings name="default" id="39732aec-3533-4898-bb04-00bf1955ce2c">
+    <Deployment runDeploymentRoot="_68e6e3cca8ba_2026-10-16_05_45_30" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="9795fa6c-0f53-4f70-9850-3427b59e5faa" testId="12ab8847-5fac-0333-8586-f252f462e211" testName="KuaiYi.Provider.Tests.OcrOnlyTests.OutputRejectsPositiveExtentPastExactEdgeEvenWhenAdditionRounds(horizontal: False)" computerName="68e6e3cca8ba" duration="00:00:00.0002163" startTime="2026-10-16T05:45:30.5953906+00:00" endTime="2026-10-16T05:45:30.5954570+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9795fa6c-0f53-4f70-9850-3427b59e5faa" />
+    <UnitTestResult executionId="f526fd85-b33e-47fb-8fa7-38dcbf1b6fc4" testId="fb08b016-ac7f-e707-3620-88c959221bda" testName="KuaiYi.Provider.Tests.OcrOnlyTests.OutputRejectsPositiveExtentPastExactEdgeEvenWhenAdditionRounds(horizontal: True)" computerName="68e6e3cca8ba" duration="00:00:00.0043048" startTime="2026-10-16T05:45:30.5793373+00:00" endTime="2026-10-16T05:45:30.5873174+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f526fd85-b33e-47fb-8fa7-38dcbf1b6fc4" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.OcrOnlyTests.OutputRejectsPositiveExtentPastExactEdgeEvenWhenAdditionRounds(horizontal: False)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="12ab8847-5fac-0333-8586-f252f462e211">
+      <Execution id="9795fa6c-0f53-4f70-9850-3427b59e5faa" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OcrOnlyTests" name="OutputRejectsPositiveExtentPastExactEdgeEvenWhenAdditionRounds" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OcrOnlyTests.OutputRejectsPositiveExtentPastExactEdgeEvenWhenAdditionRounds(horizontal: True)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="fb08b016-ac7f-e707-3620-88c959221bda">
+      <Execution id="f526fd85-b33e-47fb-8fa7-38dcbf1b6fc4" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OcrOnlyTests" name="OutputRejectsPositiveExtentPastExactEdgeEvenWhenAdditionRounds" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="12ab8847-5fac-0333-8586-f252f462e211" executionId="9795fa6c-0f53-4f70-9850-3427b59e5faa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fb08b016-ac7f-e707-3620-88c959221bda" executionId="f526fd85-b33e-47fb-8fa7-38dcbf1b6fc4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.09]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.44]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.47]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.52]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
