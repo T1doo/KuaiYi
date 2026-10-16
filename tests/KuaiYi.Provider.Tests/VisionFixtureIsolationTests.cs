@@ -1,0 +1,56 @@
+using System.Reflection;
+using KuaiYi.Core;
+using KuaiYi.Core.Settings;
+using KuaiYi.Providers;
+using Xunit;
+using Protocol=KuaiYi.Providers.ApiProtocol;
+namespace KuaiYi.Provider.Tests;
+public sealed class VisionFixtureIsolationTests
+{
+    public static IEnumerable<object[]> Changes(){foreach(var p in Enum.GetValues<Protocol>())foreach(string c in new[]{"cancel","draft","off","lock","version","profile","readonly","recovery"})yield return[p,c];}
+    [Theory][MemberData(nameof(Changes))]
+    public async Task ChangedIdentityOrSettingsCannotApplyQueuedOldEvents(Protocol protocol,string change)
+    {
+        await using var r=await VisionFixtureRig.Create(protocol);_=r.Start();await r.Requests(1);r.Context.Hold=true;await r.Script.Write(r.Response(),true);await VisionFixtureRig.Wait(()=>r.Context.Pending>0);int count=r.Updates.Count;
+        switch(change){case "cancel":r.Flow.Cancel();break;case "draft":r.Flow.DraftEdited();break;case "off":r.Gate.Disable();break;case "lock":r.Gate.SetSessionLocked(true);break;case "version":r.Settings=new(r.Settings.Data,"another-version",SettingsLoadState.Current);break;case "profile":r.Settings=r.Settings with{Data=r.Settings.Data with{Profiles=[r.Settings.Data.Profiles[0] with{Model="CHANGED_PUBLIC_TEST"}]}};break;case "readonly":r.Settings=new(r.Settings.Data,r.Settings.Version,SettingsLoadState.ReadOnlyUnknown);break;case "recovery":r.Settings=new(r.Settings.Data,r.Settings.Version,SettingsLoadState.RecoverableDefaults);break;}
+        r.Context.Hold=false;r.Context.Drain();await r.Job.WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal(count,r.Updates.Count);Assert.DoesNotContain(r.Updates,u=>u.Event.Kind is ModelEventKind.TextDelta or ModelEventKind.Completed);Assert.Equal(1,r.Script.Requests);Assert.False(r.Gate.HasRunningGeneration);Assert.Equal(0,r.SecretReads);
+    }
+    [Theory][InlineData(Protocol.OpenAIChat,"headers",3,"RESPONSE_HEADERS_TIMEOUT")][InlineData(Protocol.AnthropicMessages,"headers",3,"RESPONSE_HEADERS_TIMEOUT")][InlineData(Protocol.OpenAIChat,"first",4,"FIRST_RESPONSE_TIMEOUT")][InlineData(Protocol.AnthropicMessages,"first",4,"FIRST_RESPONSE_TIMEOUT")][InlineData(Protocol.OpenAIChat,"idle",5,"READ_IDLE_TIMEOUT")][InlineData(Protocol.AnthropicMessages,"idle",5,"READ_IDLE_TIMEOUT")][InlineData(Protocol.OpenAIChat,"total",20,"REQUEST_TIMEOUT")][InlineData(Protocol.AnthropicMessages,"total",20,"REQUEST_TIMEOUT")]
+    public async Task DedicatedProbeUsesActualFrozenTransportAndTotalDeadlines(Protocol protocol,string phase,int seconds,string reason)
+    {
+        await using var r=await VisionFixtureRig.Create(protocol,true,clock:true,headers:phase!="headers");_=r.Start();await r.Requests(1);
+        if(phase is "idle" or "total")await r.Script.Write(r.StartFrames+ProgressFrame(protocol));
+        if(phase=="total")
+        {
+            // Dispatch is deliberately delayed: receiver's timestamp admission must still reject.
+            r.Context.Hold=true;await r.Script.Write(r.EndFrames(),true);await VisionFixtureRig.Wait(()=>r.Context.Pending>0);r.Clock!.Advance(TimeSpan.FromSeconds(seconds),false);r.Context.Hold=false;r.Context.Drain();
+        }
+        else{await r.Clock!.WaitDeadline(seconds);r.Clock.Advance(TimeSpan.FromSeconds(seconds));}
+        await r.Job.WaitAsync(TimeSpan.FromSeconds(6));Assert.Contains(r.Updates,u=>u.Event.Kind==ModelEventKind.Failed&&u.Event.Reason==reason);Assert.DoesNotContain(r.Updates,u=>u.Event.Kind==ModelEventKind.Completed);Assert.Equal(1,r.Script.Requests);Assert.False(r.Gate.HasRunningGeneration);
+    }
+    private static string ProgressFrame(Protocol protocol)=>protocol==Protocol.OpenAIChat?"data: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"PUBLIC PARTIAL\"}}]}\n\n":"data: {\"type\":\"content_block_start\",\"index\":0,\"content_block\":{\"type\":\"text\",\"text\":\"PUBLIC PARTIAL\"}}\n\n";
+    [Theory][InlineData("draft")][InlineData("replace")][InlineData("throw")]
+    public async Task ExternalSettingsProofAfterInstallationCannotCommitRevokedOrReplaceNewerIdentity(string change)
+    {
+        await using var r=await VisionFixtureRig.Create();var intent=r.Prepare();int reads=0;RequestIdentity successor=default;CancellationToken successorToken=default;var original=new IOException("synthetic settings proof failure");
+        r.OnRead=()=>{if(++reads!=2)return;if(change=="draft")r.Flow.DraftEdited();if(change=="throw")throw original;if(change=="replace"){r.Gate.StopGeneration();Assert.True(r.Gate.TryStartConnectionTest(intent.Binding,new(r.Prefix),r.Gate.Snapshot.Epoch,out successor,out successorToken));}};
+        if(change=="throw")Assert.Same(original,Record.Exception(()=>{_=r.Flow.Start(intent,true,r.Updates.Enqueue);}));else Assert.Null(r.Flow.Start(intent,true,r.Updates.Enqueue));r.OnRead=null;Assert.Equal(0,r.Script.Requests);Assert.Empty(r.Updates);if(change=="replace"){Assert.True(r.Gate.CanApply(successor));Assert.False(successorToken.IsCancellationRequested);r.Gate.StopRequest(successor);}Assert.False(r.Gate.HasRunningGeneration);
+    }
+    [Theory][InlineData("none",false)][InlineData("old",false)][InlineData("none",true)][InlineData("cleanup",true)]
+    public async Task ThrowingOldCancellationSettlesInstalledBPreservesBothErrorsAndNeverClobbersC(string newerWhen,bool cleanupThrows)
+    {
+        await using var r=await VisionFixtureRig.Create();var intent=r.Prepare();Assert.True(r.Gate.TryStartConnectionTest(intent.Binding,new(r.Prefix),intent.Epoch,out var old,out var oldToken));r.Gate.MarkRequestTerminal(old);intent=r.Prepare();var original=new IOException("synthetic old cancellation failure");var cleanup=new InvalidOperationException("synthetic cleanup cancellation failure");RequestIdentity installed=default,newer=default;CancellationToken newerToken=default;CancellationTokenRegistration cleanupRegistration=default;
+        void StartC(){r.Gate.MarkRequestTerminal(installed);Assert.True(r.Gate.TryStartConnectionTest(intent.Binding,new(r.Prefix),r.Gate.Snapshot.Epoch,out newer,out newerToken));}
+        using var registration=oldToken.Register(()=>{installed=(RequestIdentity)typeof(RuntimeGate).GetField("active",BindingFlags.Instance|BindingFlags.NonPublic)!.GetValue(r.Gate)!;var cts=(CancellationTokenSource)typeof(RuntimeGate).GetField("activeCancellation",BindingFlags.Instance|BindingFlags.NonPublic)!.GetValue(r.Gate)!;if(cleanupThrows)cleanupRegistration=cts.Token.Register(()=>{if(newerWhen=="cleanup")StartC();throw cleanup;});if(newerWhen=="old")StartC();throw original;});
+        try{var error=Assert.IsAssignableFrom<Exception>(Record.Exception(()=>{_=r.Flow.Start(intent,true,r.Updates.Enqueue);}));var errors=error is AggregateException aggregate?aggregate.Flatten().InnerExceptions.ToArray():[error];Assert.Contains(errors,e=>ReferenceEquals(e,original));if(cleanupThrows)Assert.Contains(errors,e=>ReferenceEquals(e,cleanup));else Assert.Single(errors);Assert.NotEqual(default,installed);Assert.False(r.Gate.CanApply(installed));Assert.Equal(0,r.Script.Requests);Assert.Empty(r.Updates);if(newerWhen!="none"){Assert.True(r.Gate.CanApply(newer));Assert.False(newerToken.IsCancellationRequested);}}
+        finally{cleanupRegistration.Dispose();}
+    }
+    [Theory][InlineData("draft")][InlineData("replace")][InlineData("configuration")]
+    public async Task ReentrantFinalSendProofMustRecheckCanonicalIdentityAndNeverSend(string change)
+    {
+        await using var r=await VisionFixtureRig.Create();var intent=r.Prepare();int reads=0;RequestIdentity newer=default;CancellationToken newerToken=default;
+        r.OnRead=()=>{if(++reads!=4)return;if(change=="draft")r.Flow.DraftEdited();if(change=="configuration")r.Settings=r.Settings with{Data=r.Settings.Data with{Profiles=[r.Settings.Data.Profiles[0] with{Model="CHANGED_PUBLIC_TEST"}]}};if(change=="replace"){r.Gate.StopGeneration();Assert.True(r.Gate.TryStartConnectionTest(intent.Binding,new(r.Prefix),r.Gate.Snapshot.Epoch,out newer,out newerToken));}};
+        _=r.Start(intent);await r.Job.WaitAsync(TimeSpan.FromSeconds(6));r.OnRead=null;Assert.True(reads>=4);Assert.Equal(0,r.Script.Requests);Assert.DoesNotContain(r.Updates,u=>u.Event.Kind==ModelEventKind.Completed);if(change=="replace"){Assert.True(r.Gate.CanApply(newer));Assert.False(newerToken.IsCancellationRequested);}
+    }
+
+}

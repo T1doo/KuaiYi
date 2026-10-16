@@ -61,10 +61,19 @@ public sealed class ProviderClient : IDisposable
         if (!gate.CanApply(identity)) yield break;
         if(gate.IsConnectionTest(identity)&&(request.SourceText!=ApiConnectionTestContent.Source||request.SystemPrompt!=ApiConnectionTestContent.System||request.Image!=null))
         {yield return new(ModelEventKind.Failed,Reason:"FIXED_TEST_CONTENT_REQUIRED");yield break;}
-        if(request.Image is {} image&&(image.Length>request.Profile.ImageByteLimit||request.Profile.VisionCapability is not(null or KuaiYi.Core.Settings.Capability.Supported)))
+        bool visionTest=gate.IsVisionTest(identity);
+        if(visionTest)
+        {
+            // Snapshot before validating: later caller mutation cannot change the image actually serialized.
+            if(request.Image is not {Length:2034}){yield return new(ModelEventKind.Failed,Reason:"FIXED_VISION_TEST_CONTENT_REQUIRED");yield break;}
+            request=request with{Image=request.Image.ToArray()};
+            if(!ApiVisionTestContent.Matches(request)){yield return new(ModelEventKind.Failed,Reason:"FIXED_VISION_TEST_CONTENT_REQUIRED");yield break;}
+        }
+        if(request.Image is {} image&&(image.Length>request.Profile.ImageByteLimit||!visionTest&&request.Profile.VisionCapability is not(null or KuaiYi.Core.Settings.Capability.Supported)))
         {yield return new(ModelEventKind.Failed,Reason:"VISION_UNAVAILABLE_OR_IMAGE_LIMIT");yield break;}
         // The client boundary is fixed at startup. Removing/changing a record marker cannot widen it.
         var boundary=developmentBoundary??request.Profile.DevelopmentBoundary;
+        if(visionTest&&(boundary==null||request.Profile.AuthenticationHeader.Length!=0||request.Profile.Headers?.Count>0||request.Profile.AnthropicVersion!="2023-06-01")){yield return new(ModelEventKind.Failed,Reason:"VISION_TEST_LOCAL_FIXTURE_ONLY");yield break;}
         if(boundary!=null&&!boundary.Allows(request.Profile,secret))
         {if(gate.CanApply(identity))yield return new(ModelEventKind.Failed,Reason:"TEST_BOUNDARY_REJECTED");yield break;}
         Uri endpoint;
@@ -92,7 +101,8 @@ public sealed class ProviderClient : IDisposable
             HttpResponseMessage? response = null;
             ProviderReadActivity? acceptedBodyActivity=null;
             string? sendError = null;
-            for (int attempt = 0; attempt < 2; attempt++)
+            int attempts=visionTest?1:2;
+            for (int attempt = 0; attempt < attempts; attempt++)
             {
                 acceptedBodyActivity=null;
                 if(boundary!=null&&!boundary.Allows(request.Profile,secret)){sendError="TEST_BOUNDARY_REJECTED";break;}
@@ -107,6 +117,7 @@ public sealed class ProviderClient : IDisposable
                     bool FinalAdmission()
                     {
                         bool eligible=(boundary==null||boundary.Allows(request.Profile,secret))&&(sendAdmission?.Invoke()??true)&&(boundary==null||boundary.Allows(request.Profile,secret));
+                        if(visionTest)eligible=eligible&&gate.IsVisionTestDestination(identity,endpoint,request.Profile.Protocol==ApiProtocol.OpenAIChat?KuaiYi.Core.Settings.ApiProtocol.OpenAIChat:KuaiYi.Core.Settings.ApiProtocol.AnthropicMessages)&&ApiVisionTestContent.Matches(request);
                         total.Check();headersDeadline.Check();return eligible;
                     }
                     if (!gate.TryBeginSend(identity, new EndpointOrigin(endpoint), FinalAdmission,
@@ -116,7 +127,7 @@ public sealed class ProviderClient : IDisposable
                     total.Check();headersDeadline.Check();
                     acceptedBodyActivity=new(request.Profile.PhaseTimeouts,PhaseClock);
                     if (!gate.CanApply(identity)) { sendError = "STALE_IDENTITY"; break; }
-                    if (response.StatusCode is not (HttpStatusCode.TooManyRequests or HttpStatusCode.ServiceUnavailable) || attempt == 1) break;
+                    if (response.StatusCode is not (HttpStatusCode.TooManyRequests or HttpStatusCode.ServiceUnavailable) || attempt == attempts-1) break;
                     TimeSpan? retry = response.Headers.RetryAfter?.Delta ?? (response.Headers.RetryAfter?.Date is { } date ? date - DateTimeOffset.UtcNow : null);
                     if (retry is { } delay && (delay < TimeSpan.Zero || delay > TimeSpan.FromSeconds(15))) break;
                     response.Dispose(); response = null;

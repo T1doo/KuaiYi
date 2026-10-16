@@ -1,0 +1,31 @@
+using System.Text;
+using KuaiYi.Core;
+using KuaiYi.Core.Settings;
+namespace System.Windows
+{
+    internal enum MessageBoxButton{OKCancel} internal enum MessageBoxImage{Information} internal enum MessageBoxResult{OK,Cancel}
+    internal static class MessageBox
+    {internal static MessageBoxResult Show(KuaiYi.App.SettingsWindow owner,string message,string title,MessageBoxButton buttons,MessageBoxImage image)=>owner.ConfirmApiForTest(message,title);}
+}
+namespace KuaiYi.App
+{
+    // Modal/control/data ports only. The linked command source owns confirmation/admission/status and cleanup.
+    internal sealed partial class SettingsWindow
+    {
+        private sealed class ApiButtonPort{public bool IsEnabled=true;}
+        private sealed class ApiResultPort{public string Text="";public object? ToolTip;public void Clear()=>Text="";}
+        private SettingsCoordinator coordinator=null!;
+        private readonly ApiButtonPort testConnection=new(),testVision=new(),stopTest=new(){IsEnabled=false};
+        private readonly ApiResultPort testResult=new();private readonly StringBuilder testText=new();
+        internal Func<System.Windows.MessageBoxResult> ConfirmApi=()=>System.Windows.MessageBoxResult.Cancel;
+        internal string LastApiConfirmation="",LastApiTitle="";internal int ApiConfirmations,CaptureCalls;internal Action? OnCaptureApi=null;
+        private void CaptureProfile(){CaptureCalls++;OnCaptureApi?.Invoke();}
+        internal void ApiCoordinatorForTest(SettingsCoordinator value)=>coordinator=value;
+        internal Task InvokeApiForTest(bool vision=true)=>TestApi(vision?ApiTestPurpose.VisionFixture:ApiTestPurpose.TextConnection);
+        internal void StopApiForTest()=>CancelApiTest();internal void EditApiForTest()=>ApiFormEdited();internal void CloseApiForTest()=>RevokeApiTestView();
+        internal void SelectApiForTest(string? id){selectedId=id;ApiFormEdited();}
+        internal string ApiStatus=>status.Text;internal string ApiOutput=>testResult.Text;internal object? ApiUsage=>testResult.ToolTip;
+        internal (bool Text,bool Vision,bool Stop) ApiButtons=>(testConnection.IsEnabled,testVision.IsEnabled,stopTest.IsEnabled);
+        internal System.Windows.MessageBoxResult ConfirmApiForTest(string message,string title){ApiConfirmations++;LastApiConfirmation=message;LastApiTitle=title;return ConfirmApi();}
+    }
+}

@@ -1,0 +1,30 @@
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:01.45]     KuaiYi.Provider.Tests.VisionFixtureIsolationTests.ChangedIdentityOrSettingsCannotApplyQueuedOldEvents(protocol: OpenAIChat, change: "lock") [FAIL]
+  Failed KuaiYi.Provider.Tests.VisionFixtureIsolationTests.ChangedIdentityOrSettingsCannotApplyQueuedOldEvents(protocol: OpenAIChat, change: "lock") [26 ms]
+  Error Message:
+   System.ArgumentException : Use SetSessionLocked for session changes. (Parameter 'reason')
+  Stack Trace:
+     at KuaiYi.Core.RuntimeGate.SetSuspension(Suspension reason, Boolean suspended) in /workspace/KuaiYi/src/KuaiYi.Core/RuntimeGate.cs:line 184
+   at KuaiYi.Provider.Tests.VisionFixtureIsolationTests.ChangedIdentityOrSettingsCannotApplyQueuedOldEvents(ApiProtocol protocol, String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/VisionFixtureIsolationTests.cs:line 15
+   at KuaiYi.Provider.Tests.VisionFixtureIsolationTests.ChangedIdentityOrSettingsCannotApplyQueuedOldEvents(ApiProtocol protocol, String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/VisionFixtureIsolationTests.cs:line 16
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:01.68]     KuaiYi.Provider.Tests.VisionFixtureIsolationTests.ChangedIdentityOrSettingsCannotApplyQueuedOldEvents(protocol: AnthropicMessages, change: "lock") [FAIL]
+  Failed KuaiYi.Provider.Tests.VisionFixtureIsolationTests.ChangedIdentityOrSettingsCannotApplyQueuedOldEvents(protocol: AnthropicMessages, change: "lock") [22 ms]
+  Error Message:
+   System.ArgumentException : Use SetSessionLocked for session changes. (Parameter 'reason')
+  Stack Trace:
+     at KuaiYi.Core.RuntimeGate.SetSuspension(Suspension reason, Boolean suspended) in /workspace/KuaiYi/src/KuaiYi.Core/RuntimeGate.cs:line 184
+   at KuaiYi.Provider.Tests.VisionFixtureIsolationTests.ChangedIdentityOrSettingsCannotApplyQueuedOldEvents(ApiProtocol protocol, String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/VisionFixtureIsolationTests.cs:line 15
+   at KuaiYi.Provider.Tests.VisionFixtureIsolationTests.ChangedIdentityOrSettingsCannotApplyQueuedOldEvents(ApiProtocol protocol, String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/VisionFixtureIsolationTests.cs:line 16
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/settings-vision-fixture-test/r04-vision-targeted.trx
+
+Failed!  - Failed:     2, Passed:   115, Skipped:     0, Total:   117, Duration: 1 s - KuaiYi.Provider.Tests.dll (net10.0)

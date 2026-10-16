@@ -66,7 +66,7 @@ internal sealed partial class SettingsWindow:Window
         show.Click+=(_,_)=>{reveal.Text=password.Password;password.Visibility=Visibility.Collapsed;reveal.Visibility=Visibility.Visible;reveal.Focus();revealTimer.Start();};
         clear.Click+=(_,_)=>ClearApiKey();
         Field(p,"最大输出 token",tokens);Field(p,"请求超时（秒）",timeout);p.Children.Add(stream);Field(p,"默认文字配置（空为未配置）",textProfile);Field(p,"默认视觉配置（能力默认为未知）",visionProfile);
-        SetupApiAdvanced(p);Note(p,"保存不会发送请求。连接测试仅在明确确认后发送固定公开样本；请先保存配置和密钥。能力默认未知，可手动修正；不自动遍历模型测试。密钥不读取到表单。");url.TextChanged+=(_,_)=>ApiIdentityEdited();model.TextChanged+=(_,_)=>ApiIdentityEdited();protocol.SelectionChanged+=(_,_)=>ApiIdentityEdited();addressMode.SelectionChanged+=(_,_)=>ApiIdentityEdited();return p;
+        SetupApiAdvanced(p);Note(p,"保存不会发送请求。连接测试仅在明确确认后发送固定公开样本；请先保存配置和密钥。视觉测试本批仅限明确授权的本机 fixture，不调用真实模型；普通图像能力门不变。能力默认未知，可手动修正；不自动遍历模型测试。密钥不读取到表单。");url.TextChanged+=(_,_)=>ApiIdentityEdited();model.TextChanged+=(_,_)=>ApiIdentityEdited();protocol.SelectionChanged+=(_,_)=>ApiIdentityEdited();addressMode.SelectionChanged+=(_,_)=>ApiIdentityEdited();return p;
     }
 
     private StackPanel Overlay(){var p=Page();Field(p,"触发模式",mode);Field(p,"选区稳定等待（80—800 ms）",delay);Field(p,"自动发送软上限（1000—50000 字符）",softLimit);Field(p,"字号（12—22 DIP）",font);Field(p,"首选宽度（240—960 DIP）",width);Field(p,"主题",theme);Field(p,"减少动画",motion);p.Children.Add(remember);var reset=new Button{Content="重置已保存浮窗位置（保存后生效）"};reset.Click+=(_,_)=>draft.Update(s=>s with{Overlay=s.Overlay with{LastPosition=null}});p.Children.Add(reset);Note(p,"自动划词与完整翻译浮窗尚未交付。设置模式不授予采集或上传权限。");return p;}

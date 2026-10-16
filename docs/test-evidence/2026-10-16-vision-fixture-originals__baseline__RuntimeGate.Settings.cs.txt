@@ -1,0 +1,45 @@
+using KuaiYi.Core.Settings;
+namespace KuaiYi.Core;
+/// <summary>Opaque runtime binding identity; contains a secret reference, never secret bytes.</summary>
+public readonly record struct RequestProfileBinding(string ProfileId,string? SecretReference,Guid BindingId);
+public sealed partial class RuntimeGate
+{
+    private Dictionary<string,RequestProfileBinding> profileBindings=new(StringComparer.Ordinal);
+    private RequestProfileBinding? activeProfileBinding;
+    private bool HasSendBindingLocked()=>!requireProfileBinding||activeProfileBinding is {} binding&&profileBindings.TryGetValue(binding.ProfileId,out var current)&&current==binding;
+    public bool TryGetProfileBinding(string profileId,out RequestProfileBinding binding)
+    {lock(sync){binding=default;return !string.IsNullOrEmpty(profileId)&&profileBindings.TryGetValue(profileId,out binding);}}
+    public bool IsRequestProfileBindingCurrent(RequestIdentity identity,RequestProfileBinding binding)
+    {lock(sync)return CanApply(identity)&&activeProfileBinding==binding&&profileBindings.TryGetValue(binding.ProfileId,out var current)&&current==binding;}
+    public bool TryStartProfileRequest(RequestProfileBinding binding,Guid sessionId,Guid versionId,CaptureTicket? passiveTicket,
+        out RequestIdentity identity,out CancellationToken cancellation)
+        =>TryStartRequestCore(sessionId,versionId,passiveTicket,binding,out identity,out cancellation);
+    public void ObserveSettingsMetadata(SettingsSnapshot snapshot)=>ApplyCommittedSettings(snapshot,null);
+    public void ApplyCommittedSettings(SettingsSnapshot snapshot,SettingsChange? change)
+        =>TryApplyCommittedSettings(snapshot,change,static()=>true);
+    internal bool TryApplyCommittedSettings(SettingsSnapshot snapshot,SettingsChange? change,Func<bool> stillCurrent)
+    {
+        if(snapshot.ReadOnly||snapshot.RequiresRecovery)return false;
+        CancellationTokenSource? cancellation=null;
+        lock(sync)
+        {
+            if(!stillCurrent())return false; // The coordinator's volatile publication and disposal admission are checked at final application.
+            if(change?.ClipboardPermissionsChanged==true)epoch++; // Immediate application consent/revocation invalidates every pending passive copy.
+            var next=new Dictionary<string,RequestProfileBinding>(StringComparer.Ordinal);
+            foreach(var profile in snapshot.Data.Profiles)
+            {
+                bool revoked=change?.RevokedProfileBindings.Any(r=>r.ProfileId==profile.Id&&r.PreviousSecretReference==profile.SecretRef)==true;
+                next[profile.Id]=!revoked&&profileBindings.TryGetValue(profile.Id,out var old)&&old.SecretReference==profile.SecretRef?old:new(profile.Id,profile.SecretRef,Guid.NewGuid());
+            }
+            if(profileBindings.Count!=next.Count||profileBindings.Any(p=>!next.TryGetValue(p.Key,out var n)||n!=p.Value))epoch++; // Invalidate pending capture; unaffected active request identities survive.
+            profileBindings=next;
+            if(active!=null&&activeProfileBinding is {} binding&&(!next.TryGetValue(binding.ProfileId,out var current)||current!=binding))
+            {
+                active=null;connectionTestOrigin=null;activeProfileBinding=null;cancellation=activeCancellation;activeCancellation=null;
+            }
+        }
+        // Per-request cancellation only. Never revoke a shared ciphertext or switch unrelated consumers Off.
+        try{cancellation?.Cancel();}finally{cancellation?.Dispose();}
+        return true;
+    }
+}

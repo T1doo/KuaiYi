@@ -3,5 +3,6 @@
   <ItemGroup>
     <ProjectReference Include="../KuaiYi.Core/KuaiYi.Core.csproj" />
     <EmbeddedResource Include="../../assets/prompts/*.txt" LogicalName="KuaiYi.Prompts.%(Filename)%(Extension)" />
+    <EmbeddedResource Include="../../assets/fixtures/vision-test@1.png" LogicalName="KuaiYi.VisionTest.Sample.png" />
   </ItemGroup>
 </Project>
