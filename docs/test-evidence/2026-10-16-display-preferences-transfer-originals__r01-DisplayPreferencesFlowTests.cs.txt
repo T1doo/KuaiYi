@@ -1,0 +1,68 @@
+using System.Collections.Immutable;
+using System.Text;
+using KuaiYi.App;
+using KuaiYi.Core.Settings;
+using Xunit;
+namespace KuaiYi.Provider.Tests;
+
+public sealed class DisplayPreferencesFlowTests
+{
+    private static readonly DisplayPreferences Imported=new(18.5,640,ThemePreference.Dark,MotionPreference.Reduce);
+    private static SettingsDraft Draft(AppSettings? data=null)=>new(new(data??new(),"PUBLIC-basis",SettingsLoadState.Current));
+    [Fact]public async Task ImportPreviewAndExplicitApplyPatchOnlyFourFieldsEvenWithUnavailableOtherConfiguration()
+    {
+        var position=new OverlayPosition{MonitorId="PUBLIC_PRIVATE_MONITOR",X=double.NaN};var before=new AppSettings{Profiles=default,Translation=null!,Images=null!,Privacy=null!,Hotkeys=null!,LaunchAtSignIn=true,Overlay=new(){LastPosition=position,RememberPosition=false,ShowSource=true,MemoryVersions=99}};
+        using var draft=Draft(before);using var transfer=new DisplayPreferencesTransfer();var snapshot=draft.CaptureDisplayPreferences();var preview=Assert.IsType<DisplayPreferencesPreview>(await transfer.ImportAsync(snapshot,_=>Task.FromResult(Imported)));Assert.Same(before,draft.Data);
+        Assert.True(transfer.ApplyImport(preview,draft));Assert.Equal(Imported,draft.CaptureDisplayPreferences().Value);Assert.Same(before.Translation,draft.Data.Translation);Assert.Same(before.Images,draft.Data.Images);Assert.Same(before.Privacy,draft.Data.Privacy);Assert.Same(before.Hotkeys,draft.Data.Hotkeys);Assert.True(draft.Data.Profiles.IsDefault);Assert.Same(position,draft.Data.Overlay.LastPosition);Assert.False(draft.Data.Overlay.RememberPosition);Assert.True(draft.Data.Overlay.ShowSource);Assert.Equal(99,draft.Data.Overlay.MemoryVersions);Assert.True(draft.Data.LaunchAtSignIn);
+        Assert.False(transfer.ApplyImport(preview,draft));Assert.Null(transfer.Preview);
+        var document=Encoding.UTF8.GetString(DisplayPreferencesDocument.Write(draft.CaptureDisplayPreferences().Value));Assert.DoesNotContain("PUBLIC_PRIVATE",document);Assert.DoesNotContain("Position",document);Assert.DoesNotContain("Profiles",document);
+    }
+    [Theory][InlineData("edit")][InlineData("aba")][InlineData("key")][InlineData("clear-key")][InlineData("wrong-draft")][InlineData("closed")][InlineData("cancel")]
+    public async Task StaleOwnersEditsPendingKeysAndCancellationCannotApplyAnOldPreview(string change)
+    {
+        using var draft=Draft(new(){Profiles=[new(){Id="p",BaseUrl="PUBLIC_PRIVATE_ENDPOINT",Model="PUBLIC"}]});using var other=Draft();using var transfer=new DisplayPreferencesTransfer();var basis=draft.CaptureDisplayPreferences();var preview=(await transfer.ImportAsync(basis,_=>Task.FromResult(Imported)))!;
+        if(change=="edit")draft.Update(s=>s with{Overlay=s.Overlay with{FontSizeDip=17}});
+        if(change=="aba"){draft.Update(s=>s with{Overlay=s.Overlay with{FontSizeDip=17}});draft.Update(s=>s with{Overlay=s.Overlay with{FontSizeDip=15}});}
+        if(change=="key")draft.SetKey("p","PUBLIC_SYNTHETIC_PENDING_KEY"u8);if(change=="clear-key")draft.ClearKey("p");if(change=="closed")draft.Dispose();if(change=="cancel")transfer.Cancel();
+        var current=draft.Data;Assert.False(transfer.ApplyImport(preview,change=="wrong-draft"?other:draft));Assert.Same(current,draft.Data);Assert.Equal(new DisplayPreferences(15,420,ThemePreference.FollowSystem,MotionPreference.FollowSystem),other.CaptureDisplayPreferences().Value);
+    }
+    [Fact]public async Task ACancelledReadThatIgnoresItsTokenCannotReplaceANewerPreview()
+    {
+        using var draft=Draft();using var transfer=new DisplayPreferencesTransfer();var released=new TaskCompletionSource<DisplayPreferences>(TaskCreationOptions.RunContinuationsAsynchronously);var entered=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var first=transfer.ImportAsync(draft.CaptureDisplayPreferences(),_=>{entered.SetResult();return released.Task;});await entered.Task;var newer=transfer.PrepareExport(new(20,700,ThemePreference.Light,MotionPreference.Full));released.SetResult(Imported);Assert.Null(await first);Assert.Same(newer,transfer.Preview);Assert.False(transfer.ApplyImport(newer,draft));
+    }
+    [Fact]public async Task CallerCancellationAfterReadAndDisposedViewRejectLateApply()
+    {
+        using var draft=Draft();using var transfer=new DisplayPreferencesTransfer();using var cancellation=new CancellationTokenSource();var preview=(await transfer.ImportAsync(draft.CaptureDisplayPreferences(),_=>Task.FromResult(Imported),cancellation.Token))!;cancellation.Cancel();Assert.Null(transfer.Preview);Assert.False(transfer.ApplyImport(preview,draft));
+        var pending=new TaskCompletionSource<DisplayPreferences>(TaskCreationOptions.RunContinuationsAsynchronously);var read=transfer.ImportAsync(draft.CaptureDisplayPreferences(),_=>pending.Task);transfer.Dispose();pending.SetResult(Imported);Assert.Null(await read);Assert.Null(transfer.Preview);
+    }
+    [Fact]public async Task ConcurrentAppliesHaveOneWinnerWithoutOverwritingNewDraftState()
+    {
+        using var draft=Draft();using var a=new DisplayPreferencesTransfer();using var b=new DisplayPreferencesTransfer();var basis=draft.CaptureDisplayPreferences();var pa=(await a.ImportAsync(basis,_=>Task.FromResult(Imported)))!;var other=Imported with{FontSizeDip=20};var pb=(await b.ImportAsync(basis,_=>Task.FromResult(other)))!;
+        bool[] results=await Task.WhenAll(Task.Run(()=>a.ApplyImport(pa,draft)),Task.Run(()=>b.ApplyImport(pb,draft)));Assert.Single(results.Where(x=>x));Assert.Equal(results[0]?Imported:other,draft.CaptureDisplayPreferences().Value);
+    }
+    [Fact]public async Task LinkedExportCommandPublishesARealWhitelistFileAndReportsSuccess()
+    {
+        using var root=new TemporaryDirectory();using var draft=Draft();var window=new SettingsWindow(draft,null);window.EditDisplayForTest("18.5","640",ThemePreference.Dark,MotionPreference.Reduce);var original=draft.Data;
+        window.PreviewDisplayForTest();Assert.Contains("字号：18.5",window.DisplayPreviewForTest);Assert.Equal((false,true),window.DisplayButtonsForTest);Assert.Empty(Directory.GetFiles(root.Path));
+        string path=System.IO.Path.Combine(root.Path,"display.json");var result=await window.ExportDisplayForTest(path);Assert.Equal(DisplayPreferencesExportStatus.Published,result!.Status);Assert.Equal(Imported,await DisplayPreferencesFiles.ReadAsync(path));Assert.Contains("已导出",window.DisplayStatusForTest);Assert.Same(original,draft.Data);Assert.Equal(0,window.CaptureCalls);Assert.Equal("",window.PasswordText);Assert.Equal((false,false),window.DisplayButtonsForTest);window.CloseDisplayForTest();
+    }
+    [Fact]public async Task LinkedImportDoesNotApplyUntilExplicitActionAndAnEditInvalidatesItsPreview()
+    {
+        using var root=new TemporaryDirectory();string path=System.IO.Path.Combine(root.Path,"input.json");await File.WriteAllBytesAsync(path,DisplayPreferencesDocument.Write(Imported));using var draft=Draft();var before=draft.Data;var window=new SettingsWindow(draft,null);
+        await window.ImportDisplayForTest(path);Assert.Same(before,draft.Data);Assert.Equal((true,false),window.DisplayButtonsForTest);Assert.Contains("导入预览",window.DisplayPreviewForTest);window.EditDisplayForTest("invalid","420");window.ApplyDisplayForTest();Assert.Same(before,draft.Data);
+        await window.ImportDisplayForTest(path);window.ApplyDisplayForTest();Assert.Equal(Imported,draft.CaptureDisplayPreferences().Value);Assert.Contains("保存后生效",window.DisplayStatusForTest);Assert.Equal(0,window.CaptureCalls);Assert.Equal("",window.PasswordText);window.CloseDisplayForTest();
+    }
+    [Theory][InlineData("cancel")][InlineData("close")][InlineData("saving")]
+    public async Task LinkedViewCancellationAndSaveAdmissionWithdrawPreparedImports(string change)
+    {
+        using var root=new TemporaryDirectory();string path=System.IO.Path.Combine(root.Path,"input.json");await File.WriteAllBytesAsync(path,DisplayPreferencesDocument.Write(Imported));using var draft=Draft();var before=draft.Data;var window=new SettingsWindow(draft,null);await window.ImportDisplayForTest(path);
+        if(change=="cancel")window.CancelDisplayForTest();else if(change=="close")window.CloseDisplayForTest();else window.SavingDisplayForTest(true);window.ApplyDisplayForTest();Assert.Same(before,draft.Data);Assert.Equal((false,false),window.DisplayButtonsForTest);window.CloseDisplayForTest();
+    }
+    [Fact]public async Task InvalidImportedInputNeverEchoesRawFieldsOrPathsToTheView()
+    {
+        using var root=new TemporaryDirectory();string path=System.IO.Path.Combine(root.Path,"PUBLIC_PRIVATE_PATH.json");await File.WriteAllTextAsync(path,"{\"PUBLIC_PRIVATE_FIELD\":\"PUBLIC_PRIVATE_VALUE\"}");using var draft=Draft();var before=draft.Data;var window=new SettingsWindow(draft,null);await window.ImportDisplayForTest(path);Assert.DoesNotContain("PUBLIC_PRIVATE",window.DisplayStatusForTest);Assert.Equal("",window.DisplayPreviewForTest);Assert.Same(before,draft.Data);window.CloseDisplayForTest();
+    }
+    internal sealed class TemporaryDirectory:IDisposable
+    {public string Path{get;}=System.IO.Path.Combine(System.IO.Path.GetTempPath(),"kuaiyi-display-test-"+Guid.NewGuid().ToString("N"));public TemporaryDirectory()=>Directory.CreateDirectory(Path);public void Dispose()=>Directory.Delete(Path,true);}
+}

@@ -1,0 +1,39 @@
+namespace KuaiYi.Core.Settings;
+
+public interface IPreparedDisplayPreferencesExport:IDisposable{void Publish();}
+public static class DisplayPreferencesFiles
+{
+    private static string LocalPath(string path)
+    {
+        if(path.Length is <1 or >4096||!Path.IsPathFullyQualified(path)||path.StartsWith(@"\\",StringComparison.Ordinal)||path.StartsWith("//",StringComparison.Ordinal))throw new DisplayPreferencesException(DisplayPreferencesIssue.File);
+        string full=Path.GetFullPath(path);
+        if(OperatingSystem.IsWindows()&&new DriveInfo(Path.GetPathRoot(full)!).DriveType==DriveType.Network)throw new DisplayPreferencesException(DisplayPreferencesIssue.File);
+        for(string? directory=Path.GetDirectoryName(full);directory!=null;directory=Path.GetDirectoryName(directory))SettingsStore.RejectLink(directory);
+        return full;
+    }
+    public static async Task<DisplayPreferences> ReadAsync(string path,CancellationToken cancellation=default)
+    {
+        cancellation.ThrowIfCancellationRequested();string full=LocalPath(path);
+        var attributes=File.GetAttributes(full);if((attributes&(FileAttributes.ReparsePoint|FileAttributes.Directory|FileAttributes.Device))!=0)throw new DisplayPreferencesException(DisplayPreferencesIssue.File);
+        await using var file=new FileStream(full,FileMode.Open,FileAccess.Read,FileShare.Read,4096,FileOptions.Asynchronous);
+        return await DisplayPreferencesDocument.ReadAsync(file,cancellation).ConfigureAwait(false);
+    }
+    public static async Task<IPreparedDisplayPreferencesExport> PrepareNewAsync(string path,ReadOnlyMemory<byte> document,CancellationToken cancellation=default)
+    {
+        cancellation.ThrowIfCancellationRequested();string full=LocalPath(path);_=DisplayPreferencesDocument.Read(document);
+        string temporary=Path.Combine(Path.GetDirectoryName(full)!,".kuaiyi-display-"+Guid.NewGuid().ToString("N")+".tmp");
+        // Creation proves ownership. Never remove an existing file when creation fails.
+        var stream=new FileStream(temporary,FileMode.CreateNew,FileAccess.Write,FileShare.Read|FileShare.Delete,4096,FileOptions.Asynchronous);
+        var prepared=new Prepared(stream,temporary,full);
+        try{await stream.WriteAsync(document,cancellation).ConfigureAwait(false);await stream.FlushAsync(cancellation).ConfigureAwait(false);cancellation.ThrowIfCancellationRequested();return prepared;}
+        catch{prepared.Dispose();throw;}
+    }
+    private sealed class Prepared(FileStream stream,string temporary,string target):IPreparedDisplayPreferencesExport
+    {
+        private bool published,disposed;
+        public void Publish()
+        {ObjectDisposedException.ThrowIf(disposed,this);if(published)throw new InvalidOperationException("Already published.");_=LocalPath(target);File.Move(temporary,target,overwrite:false);published=true;}
+        public void Dispose()
+        {if(disposed)return;disposed=true;try{stream.Dispose();}finally{if(!published)File.Delete(temporary);}}
+    }
+}

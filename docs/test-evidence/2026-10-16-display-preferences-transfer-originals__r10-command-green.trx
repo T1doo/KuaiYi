@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="d6e7e36a-758d-4520-9704-d7d9b06409f5" name="@2d50236122aa 2026-10-16 14:52:33" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-16T14:52:33.9213551+00:00" queuing="2026-10-16T14:52:33.9213551+00:00" start="2026-10-16T14:52:32.7731230+00:00" finish="2026-10-16T14:52:33.9268446+00:00" />
+  <TestSettings name="default" id="22cd293a-a67f-404f-b898-f73249db4d8f">
+    <Deployment runDeploymentRoot="_2d50236122aa_2026-10-16_14_52_33" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="6aa13914-7d9d-4b31-a047-df397d414961" testId="22e5608f-363e-e16a-0b36-97570399fe8c" testName="KuaiYi.Provider.Tests.DisplayPreferencesCommandConcurrencyTests.DuplicateLinkedExportCannotStealTheFirstPublicationStatusOwner" computerName="2d50236122aa" duration="00:00:00.0521060" startTime="2026-10-16T14:52:33.7326067+00:00" endTime="2026-10-16T14:52:33.7961363+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6aa13914-7d9d-4b31-a047-df397d414961" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.DisplayPreferencesCommandConcurrencyTests.DuplicateLinkedExportCannotStealTheFirstPublicationStatusOwner" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="22e5608f-363e-e16a-0b36-97570399fe8c">
+      <Execution id="6aa13914-7d9d-4b31-a047-df397d414961" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.DisplayPreferencesCommandConcurrencyTests" name="DuplicateLinkedExportCannotStealTheFirstPublicationStatusOwner" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="22e5608f-363e-e16a-0b36-97570399fe8c" executionId="6aa13914-7d9d-4b31-a047-df397d414961" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.12]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.54]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.57]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.68]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -1,0 +1,80 @@
+using System.Globalization;
+using System.IO;
+using KuaiYi.Core.Settings;
+namespace KuaiYi.App;
+
+internal sealed partial class SettingsWindow
+{
+    private readonly DisplayPreferencesTransfer displayTransfer=new();
+    private Func<string,ReadOnlyMemory<byte>,CancellationToken,Task<IPreparedDisplayPreferencesExport>> prepareDisplayExport=DisplayPreferencesFiles.PrepareNewAsync;
+    private object? displayCommand;private bool displayViewClosed,loadingDisplay;
+    private bool CanDisplayTransfer()=>!displayViewClosed&&!saving&&!draft.IsClosed&&!draft.Basis.ReadOnly;
+    private void CancelDisplayPreferences(bool announce=false)
+    {
+        displayCommand=null;displayTransfer.Cancel();displayPreview.Text="";displayApply.IsEnabled=displayWrite.IsEnabled=false;
+        if(announce)status.Text="未应用的显示偏好预览已撤销；已完成的导出文件会保留。";
+    }
+    private void CloseDisplayPreferencesView(){displayViewClosed=true;CancelDisplayPreferences();displayTransfer.Dispose();}
+    private void DisplayFieldsEdited(){if(!loadingDisplay)CancelDisplayPreferences(announce:displayTransfer.Preview!=null||displayCommand!=null);}
+    private DisplayPreferences ReadDisplayFields()
+    {
+        if(!double.TryParse(font.Text,NumberStyles.Float,CultureInfo.InvariantCulture,out double size))throw new DisplayPreferencesException(DisplayPreferencesIssue.FontSize);
+        if(!double.TryParse(width.Text,NumberStyles.Float,CultureInfo.InvariantCulture,out double preferred))throw new DisplayPreferencesException(DisplayPreferencesIssue.Width);
+        if(theme.SelectedItem is not ThemePreference selectedTheme)throw new DisplayPreferencesException(DisplayPreferencesIssue.Theme);
+        if(motion.SelectedItem is not MotionPreference selectedMotion)throw new DisplayPreferencesException(DisplayPreferencesIssue.Motion);
+        var value=new DisplayPreferences(size,preferred,selectedTheme,selectedMotion);DisplayPreferencesDocument.Validate(value);return value;
+    }
+    private void RenderDisplayPreview(DisplayPreferencesPreview value)
+    {
+        displayPreview.Text=$"{(value.Kind==DisplayPreferencesPreviewKind.Import?"导入预览":"导出预览")} · 显示偏好 v1\n字号：{value.Value.FontSizeDip.ToString("G",CultureInfo.InvariantCulture)} DIP\n首选宽度：{value.Value.PreferredWidthDip.ToString("G",CultureInfo.InvariantCulture)} DIP\n主题：{value.Value.Theme}\n减少动画：{value.Value.ReduceMotion}";
+        displayApply.IsEnabled=value.Kind==DisplayPreferencesPreviewKind.Import;displayWrite.IsEnabled=value.Kind==DisplayPreferencesPreviewKind.Export;
+    }
+    private async Task PreviewDisplayImport(string? path)
+    {
+        if(!CanDisplayTransfer()||path==null)return;CancelDisplayPreferences();object command=new();displayCommand=command;var owner=draft;
+        try
+        {
+            var basis=owner.CaptureDisplayPreferences();var value=await displayTransfer.ImportAsync(basis,ct=>DisplayPreferencesFiles.ReadAsync(path,ct));
+            if(displayViewClosed||!ReferenceEquals(displayCommand,command)||!ReferenceEquals(draft,owner)||value==null||!displayTransfer.IsCurrent(value))return;
+            RenderDisplayPreview(value);status.Text="文件已校验；请核对四字段预览，再明确应用到草稿。尚未保存。";
+        }
+        catch(Exception error)when(IsDisplayFileError(error))
+        {if(!displayViewClosed&&ReferenceEquals(displayCommand,command))status.Text=DisplayFileError(error);}
+        finally{if(ReferenceEquals(displayCommand,command))displayCommand=null;}
+    }
+    private void PreviewDisplayExport()
+    {
+        if(!CanDisplayTransfer())return;CancelDisplayPreferences();
+        try{RenderDisplayPreview(displayTransfer.PrepareExport(ReadDisplayFields()));status.Text="仅导出预览中的四个显示字段；确认后选择新文件。";}
+        catch(DisplayPreferencesException error){status.Text=DisplayFileError(error);}
+    }
+    private void ApplyDisplayImport()
+    {
+        if(!CanDisplayTransfer()||displayTransfer.Preview is not {} value)return;
+        if(!displayTransfer.ApplyImport(value,draft)){CancelDisplayPreferences();status.Text="预览已失效，请重新导入并核对。";return;}
+        loadingDisplay=true;
+        try{font.Text=value.Value.FontSizeDip.ToString("G",CultureInfo.InvariantCulture);width.Text=value.Value.PreferredWidthDip.ToString("G",CultureInfo.InvariantCulture);theme.SelectedItem=value.Value.Theme;motion.SelectedItem=value.Value.ReduceMotion;}
+        finally{loadingDisplay=false;}
+        CancelDisplayPreferences();status.Text="四字段已应用到设置草稿；保存后生效，取消窗口会放弃。";
+    }
+    private async Task<DisplayPreferencesExportResult?> WriteDisplayExport(string? path)
+    {
+        if(!CanDisplayTransfer()||path==null||displayTransfer.Preview is not {} value||value.Kind!=DisplayPreferencesPreviewKind.Export)return null;
+        object command=new();displayCommand=command;displayWrite.IsEnabled=false;
+        try
+        {
+            var result=await displayTransfer.ExportAsync(value,(bytes,ct)=>prepareDisplayExport(path,bytes,ct));
+            if(!displayViewClosed&&ReferenceEquals(displayCommand,command))
+            {
+                status.Text=result.Status switch{DisplayPreferencesExportStatus.Published=>"显示偏好已导出到新文件；设置草稿未更改。",DisplayPreferencesExportStatus.PublishedCleanupUnconfirmed=>"显示偏好文件已导出，文件资源关闭尚未确认。",DisplayPreferencesExportStatus.Cancelled=>"未完成的导出已取消。",DisplayPreferencesExportStatus.Busy=>"已有显示偏好导出正在处理。",_=>"显示偏好未导出；请检查文件是否已存在或不可写，并选择新文件。"};
+                if(result.Status is DisplayPreferencesExportStatus.Published or DisplayPreferencesExportStatus.PublishedCleanupUnconfirmed)CancelDisplayPreferences();
+                else if(displayTransfer.IsCurrent(value))displayWrite.IsEnabled=true;
+            }
+            return result;
+        }
+        finally{if(ReferenceEquals(displayCommand,command))displayCommand=null;}
+    }
+    private static bool IsDisplayFileError(Exception error)=>error is DisplayPreferencesException or IOException or UnauthorizedAccessException or ArgumentException or NotSupportedException or InvalidOperationException or UnknownSettingsSchemaException;
+    private static string DisplayFileError(Exception error)=>error is DisplayPreferencesException known?known.Issue switch
+    {DisplayPreferencesIssue.FontSize=>"显示偏好未读取：字号须为12—22 DIP。",DisplayPreferencesIssue.Width=>"显示偏好未读取：首选宽度须为240—960 DIP。",DisplayPreferencesIssue.Theme or DisplayPreferencesIssue.Motion=>"显示偏好未读取：主题或减少动画选项无效。",DisplayPreferencesIssue.SchemaVersion=>"显示偏好未读取：不支持此文档版本。",DisplayPreferencesIssue.FileSize=>"显示偏好未读取：文档须不超过4096字节。",_=>"显示偏好未读取：只接受完整的四字段显示偏好文档。"}:"显示偏好未读取：文件不可用或草稿已失效。";
+}

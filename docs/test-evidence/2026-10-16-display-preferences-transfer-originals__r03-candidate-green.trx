@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="65f0a112-74ea-44fa-81cb-86531af8c264" name="@2d50236122aa 2026-10-16 14:49:19" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-16T14:49:19.3780202+00:00" queuing="2026-10-16T14:49:19.3780203+00:00" start="2026-10-16T14:49:18.1282087+00:00" finish="2026-10-16T14:49:19.3833121+00:00" />
+  <TestSettings name="default" id="3f6947a6-9700-462f-9411-da68a9038c90">
+    <Deployment runDeploymentRoot="_2d50236122aa_2026-10-16_14_49_19" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="6b3d5915-8dba-478a-be22-9b14ec8d5422" testId="e0b5414a-84b3-8cd4-22a1-47db45547340" testName="KuaiYi.Provider.Tests.DisplayPreferencesTests.MalformedUtf8AndUnpairedEscapesDoNotEscapeAsRawParserExceptions" computerName="2d50236122aa" duration="00:00:00.0074326" startTime="2026-10-16T14:49:19.2426370+00:00" endTime="2026-10-16T14:49:19.2545649+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6b3d5915-8dba-478a-be22-9b14ec8d5422" />
+    <UnitTestResult executionId="0dc2bb04-0b69-40b3-a359-db8c91fb3b12" testId="66231dd2-0e0d-0649-94d3-8b8b66bdfc83" testName="KuaiYi.Provider.Tests.DisplayPreferencesFlowTests.LinkedExportCommandPublishesARealWhitelistFileAndReportsSuccess" computerName="2d50236122aa" duration="00:00:00.0356035" startTime="2026-10-16T14:49:19.2413388+00:00" endTime="2026-10-16T14:49:19.2836965+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0dc2bb04-0b69-40b3-a359-db8c91fb3b12" />
+    <UnitTestResult executionId="663227f6-8888-49d2-9b2e-b383b12b9309" testId="97394d4f-1058-b480-366c-35fc440d77a2" testName="KuaiYi.Provider.Tests.DisplayPreferencesFileTests.DirectoryReplacementCannotDeleteAnUnrelatedSameNamedFileDuringCleanup" computerName="2d50236122aa" duration="00:00:00.0344588" startTime="2026-10-16T14:49:19.2426738+00:00" endTime="2026-10-16T14:49:19.2835712+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="663227f6-8888-49d2-9b2e-b383b12b9309" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.DisplayPreferencesFlowTests.LinkedExportCommandPublishesARealWhitelistFileAndReportsSuccess" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="66231dd2-0e0d-0649-94d3-8b8b66bdfc83">
+      <Execution id="0dc2bb04-0b69-40b3-a359-db8c91fb3b12" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.DisplayPreferencesFlowTests" name="LinkedExportCommandPublishesARealWhitelistFileAndReportsSuccess" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.DisplayPreferencesFileTests.DirectoryReplacementCannotDeleteAnUnrelatedSameNamedFileDuringCleanup" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="97394d4f-1058-b480-366c-35fc440d77a2">
+      <Execution id="663227f6-8888-49d2-9b2e-b383b12b9309" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.DisplayPreferencesFileTests" name="DirectoryReplacementCannotDeleteAnUnrelatedSameNamedFileDuringCleanup" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.DisplayPreferencesTests.MalformedUtf8AndUnpairedEscapesDoNotEscapeAsRawParserExceptions" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="e0b5414a-84b3-8cd4-22a1-47db45547340">
+      <Execution id="6b3d5915-8dba-478a-be22-9b14ec8d5422" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.DisplayPreferencesTests" name="MalformedUtf8AndUnpairedEscapesDoNotEscapeAsRawParserExceptions" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="e0b5414a-84b3-8cd4-22a1-47db45547340" executionId="6b3d5915-8dba-478a-be22-9b14ec8d5422" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="66231dd2-0e0d-0649-94d3-8b8b66bdfc83" executionId="0dc2bb04-0b69-40b3-a359-db8c91fb3b12" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="97394d4f-1058-b480-366c-35fc440d77a2" executionId="663227f6-8888-49d2-9b2e-b383b12b9309" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="3" executed="3" passed="3" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.14]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.64]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.67]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.74]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

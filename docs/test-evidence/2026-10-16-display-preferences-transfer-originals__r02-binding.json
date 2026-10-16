@@ -1,0 +1,21 @@
+{
+  "Candidate": "Initial Cancel restored for actual candidate regressions, not parent production red",
+  "ExitCode": 1,
+  "SourceSha256": {
+    "src/KuaiYi.App/SettingsDisplayPreferenceCommands.cs": "72ac254043c7b4633d4f7d8973854f8decb68dd00018430e3b0bf6d679b12588",
+    "src/KuaiYi.Core/Settings/DisplayPreferencesDocument.cs": "aa9356ba001d185378e0feb137274cb805af99789ddfeab7d6ab08b7aa6d95ea",
+    "src/KuaiYi.Core/Settings/DisplayPreferencesFiles.cs": "f7e85f13bcd403d83e96fea9f7a7f9e817950e30cb5a1fe72dfcbe27dca65dc0",
+    "tests/KuaiYi.Provider.Tests/DisplayPreferencesTests.cs": "cfcaae9e18a39cbb08773b8c61fe07559f1b05dddda214e3b88f5010d2263167",
+    "tests/KuaiYi.Provider.Tests/DisplayPreferencesFlowTests.cs": "63383b8b9b5bf9c1fef1fa5f288e8f996a63b64567a72713291511a8b491c6f4",
+    "tests/KuaiYi.Provider.Tests/DisplayPreferencesFileTests.cs": "5eb4fb3b0140ec75fa3f2c6e85b0872c965a6818343a7eabb0e1e703c50cb100"
+  },
+  "ExecutedDlls": {
+    "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.ImageWorker.dll": "ff1609543ae369392db41c95a59eaac0e37d153e11d4a20d3e15d0eb1d0a3575",
+    "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll": "378d53ccb4102b1512f34271aba12f2b8a8521e079aba2d5ac543d2792e1033e",
+    "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "262ad460e9ab9ae1e1db9cb8f5404a5ce73f7cae8c2af3750895bf2e4b8e6656",
+    "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": "4887f5e657c915c1ac4643c412dbc5f9b9f64bcc30ff5ffe1bbd07cca08af4e3",
+    "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "f115838d3c9a1519281fb61f3d03fa124a1d1a92ba9a3a20b9e89d797eb036cd",
+    "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.MockProvider.dll": "9bcd0b9e316058b66171bfae5e61a90079e0f067caf4a3f22613bb9af6ac7ff5",
+    "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": "66acc0cbb1b6e87de9d44c4a3deff180f4980b0625c412be0bb8ff69b5d3bd87"
+  }
+}

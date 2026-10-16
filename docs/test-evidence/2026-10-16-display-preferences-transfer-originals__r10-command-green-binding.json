@@ -1,0 +1,18 @@
+{
+  "Command": "dotnet test tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj -c Release --no-restore --filter FullyQualifiedName~DuplicateLinkedExportCannotStealTheFirstPublicationStatusOwner --logger \"trx;LogFileName=r10-command-green.trx\" --results-directory /workspace/KuaiYi/artifacts/display-preferences-transfer",
+  "ExitCode": 0,
+  "SourceSha256": {
+    "src/KuaiYi.App/SettingsDisplayPreferenceCommands.cs": "48b7db73a38a5224f0fed415431cf610d35f43dbd35a2a23634bed76fef821ae",
+    "tests/KuaiYi.Provider.Tests/DisplayPreferencesPorts.cs": "73204aba61f77e91e31ba3b3e8104caaa0ff9b354a2d174cf529194da63ffa2e",
+    "tests/KuaiYi.Provider.Tests/DisplayPreferencesCommandConcurrencyTests.cs": "c32608d50b7471c92e2d049e1c15017d9570a4df90cd615d559aa67024c92b74"
+  },
+  "ExecutedDlls": {
+    "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.ImageWorker.dll": "0f2c6f476a8e607575701fe9e256890d226da8f43fa7e9658788d7f34f467bf5",
+    "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll": "378d53ccb4102b1512f34271aba12f2b8a8521e079aba2d5ac543d2792e1033e",
+    "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "0e12ea7f8b6e86f1471648f3501ee083fa0c4e3902c6a33ed9c7189e07e770ed",
+    "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": "0a5f678619ceef008ab2dddc37b7523cc55563e45c45fc476c820a877f8cbde7",
+    "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "a04b34ba1df1ca4856fd2901e806ed0bb9d343e43ebc55751ebd6e3f51d3fc59",
+    "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.MockProvider.dll": "9bcd0b9e316058b66171bfae5e61a90079e0f067caf4a3f22613bb9af6ac7ff5",
+    "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": "231f67f921fc17f8a8175304bc0b3f56d82ce73c368a34d41386a322393416e8"
+  }
+}

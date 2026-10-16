@@ -837,3 +837,12 @@ r01新测试少using编译0执行无TRX原件保留；r03同测试SHA10/10绿，
 从已独审8b902b1在dev/retry-after-advice正常接续。每HTTP响应在typed读取前有界解析Retry-After（单值≤128字符，delta/date，0..86400秒），仅最终429/503失败绑定UTC建议时间；过期/非法/超长/多值/超界不保留，最终无值也覆盖前响应。ModelEvent→原身份/截止门→Core失败版本→原状态Tooltip/Automation和版本菜单显示明确UTC与手动重试，非倒计时；不留原始私密头。Begin/Clear/淘汰、失败回退及旧版source/正文/usage/建议归属保持，timeout/cancel改判清建议，Abandon不伪失败。原10.7条件/最多一次/15秒/默认1秒/Delay及发送门不改，没有新后台计时/重发。
 
 r01父生产4F、r02同测试4P；r03两项新测试请求数假设错误（超长数字typed无有效值，原缺省重试一次，实际2），r04四项新测试把跨来源上下文前缀误认为B身份恢复后不变，精确失败候选source/log/TRX保全、不算产品红测；校正后r05最终81P。r07完整Provider2047P=父1966全名保留+81，r09完整Core1551P，均0失败/跳过；r11/r12 App/Worker各0W/E，独立代码/测试审查无P1/P2/P3；证据见[报告](validation/retry-after-advice.md)及[原件](test-evidence/2026-10-16-retry-after-advice.json)。唯一旧测试文件变更是PhaseHttpFixture新增逐响应头/状态供新测试，旧断言不改。旧图片根因未知与复用Off、Windows/WPF/模型/250600/全SPEC NotRun及Skia/403/Actions拒绝边界保持，无main/强推/费用/权限/真实模型。
+
+
+## 2026-10-16 · SPEC8.3：四字段显示偏好本地导入导出
+
+从已独审0bdf754df6b44b2764bea014c63e6e6d51424d60核clean、唯一root写入者/单worktree/默认远端与main祖先后，正常建dev/display-preferences-transfer。独立六键JSON文档只含format/schemaVersion及字号、首选宽度、主题、减少动画；手写白名单/4096字节/精确版本、类型、未知/重复转义键和有限范围校验，不用全配置SettingsJson，不遍历秘密或配置档。实际设置入口先预览，再明确应用草稿，原保存/取消和CAS/恢复不变；导出冻结四表单值预览，仅新文件不覆盖，文件已发布后不伪报撤回。对象+revision原子apply，编辑/BeginSave即使失败/只读/关闭/取消/迟到/新预览隔离，重复命令不抢UI归属；文件逐层本地/reparse与自身打开句柄路径复核，不能确认暂存归属就保留并报Cleanup，路径核对与Move/Delete两步不冒称恶意换名原子保证。
+
+r01新测试xUnit2031编译0执行无TRX；r02候选3F→r03同三测试源码/名称3P（UTF8外逸、目录替换清理误删合成未知文件、导出成功提示被撤销覆盖）；不是父生产红。独审再发现命令Busy抢UI owner，r09→r10同测试1F→1P。最终r11专项110P，r12完整Provider2157P=父2047全名保留+新110；r08完整Core1553P1F为旧OLE QueryWritten观测缺失，原源码/log/TRX保留，旧测试/OLE未改，Core DLL因cleanup安全码处理不同；r13按最终候选完整复测1554P=父1551+新3，不能据通过宣称其根因解决。r15/r16 App/Worker各0W/E，锁定恢复无新依赖。详见[实现与边界](validation/display-preferences-transfer.md)及[红绿和回归原件](test-evidence/2026-10-16-display-preferences-transfer.json)。
+
+真实store保存/取消/冲突、四字段投影保持其它引用、NeverProtector=0和linked命令不捕获密码有实测；WPF对话框/可见性/键盘/Windows句柄/DPAPI/ACL、模型与完整SPEC仍NotRun。P1-03/A10/L01/L06仅补子项证据，全部P6整体状态不变。旧图片间歇根因未知，图片生产源码未改、复用Off；250/600ms和来源/密码/完整性/取消/清理门保持。Skia许可/403与Actions先前拒绝不查不绕，无main/强推/部署/费用/凭据/安全权限/新许可/真实模型，未知锁数据日志进程保全。

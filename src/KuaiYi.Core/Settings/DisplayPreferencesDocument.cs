@@ -1,0 +1,63 @@
+using System.Security.Cryptography;
+using System.Text.Json;
+namespace KuaiYi.Core.Settings;
+
+// This is deliberately not OverlaySettings or an AppSettings export.
+public sealed record DisplayPreferences(double FontSizeDip,double PreferredWidthDip,ThemePreference Theme,MotionPreference ReduceMotion);
+public enum DisplayPreferencesIssue{Document,FileSize,SchemaVersion,UnknownField,DuplicateField,MissingField,FontSize,Width,Theme,Motion,File,Cleanup}
+public sealed class DisplayPreferencesException(DisplayPreferencesIssue issue):Exception("Display preferences: "+issue)
+{public DisplayPreferencesIssue Issue{get;}=issue;}
+public static class DisplayPreferencesDocument
+{
+    public const int MaximumBytes=4096;
+    public const string Format="KuaiYi.DisplayPreferences";
+    public static void Validate(DisplayPreferences value)
+    {
+        if(!double.IsFinite(value.FontSizeDip)||value.FontSizeDip is <12 or >22)throw new DisplayPreferencesException(DisplayPreferencesIssue.FontSize);
+        if(!double.IsFinite(value.PreferredWidthDip)||value.PreferredWidthDip is <240 or >960)throw new DisplayPreferencesException(DisplayPreferencesIssue.Width);
+        if(!Enum.IsDefined(value.Theme))throw new DisplayPreferencesException(DisplayPreferencesIssue.Theme);
+        if(!Enum.IsDefined(value.ReduceMotion))throw new DisplayPreferencesException(DisplayPreferencesIssue.Motion);
+    }
+    public static DisplayPreferences Read(ReadOnlyMemory<byte> bytes)
+    {
+        if(bytes.Length is <2 or >MaximumBytes)throw new DisplayPreferencesException(DisplayPreferencesIssue.FileSize);
+        try
+        {
+            using var doc=JsonDocument.Parse(bytes,new(){MaxDepth=4});var root=doc.RootElement;
+            if(root.ValueKind!=JsonValueKind.Object)throw new DisplayPreferencesException(DisplayPreferencesIssue.Document);
+            var names=new HashSet<string>(StringComparer.Ordinal);
+            foreach(var property in root.EnumerateObject())
+            {
+                if(!names.Add(property.Name))throw new DisplayPreferencesException(DisplayPreferencesIssue.DuplicateField);
+                if(property.Name is not("format" or "schemaVersion" or "fontSizeDip" or "preferredWidthDip" or "theme" or "reduceMotion"))throw new DisplayPreferencesException(DisplayPreferencesIssue.UnknownField);
+            }
+            if(names.Count!=6)throw new DisplayPreferencesException(DisplayPreferencesIssue.MissingField);
+            if(root.GetProperty("format").ValueKind!=JsonValueKind.String||root.GetProperty("format").GetString()!=Format)throw new DisplayPreferencesException(DisplayPreferencesIssue.Document);
+            var schema=root.GetProperty("schemaVersion");if(schema.ValueKind!=JsonValueKind.Number||!schema.TryGetInt32(out int version)||version!=1)throw new DisplayPreferencesException(DisplayPreferencesIssue.SchemaVersion);
+            double Number(string name,DisplayPreferencesIssue issue)
+            {var item=root.GetProperty(name);return item.ValueKind==JsonValueKind.Number&&item.TryGetDouble(out double value)?value:throw new DisplayPreferencesException(issue);}
+            T Choice<T>(string name,DisplayPreferencesIssue issue)where T:struct,Enum
+            {var item=root.GetProperty(name);return item.ValueKind==JsonValueKind.String&&Enum.TryParse<T>(item.GetString(),false,out var value)&&Enum.IsDefined(value)&&value.ToString()==item.GetString()?value:throw new DisplayPreferencesException(issue);}
+            var result=new DisplayPreferences(Number("fontSizeDip",DisplayPreferencesIssue.FontSize),Number("preferredWidthDip",DisplayPreferencesIssue.Width),Choice<ThemePreference>("theme",DisplayPreferencesIssue.Theme),Choice<MotionPreference>("reduceMotion",DisplayPreferencesIssue.Motion));Validate(result);return result;
+        }
+        catch(Exception error)when(error is JsonException or InvalidOperationException or System.Text.DecoderFallbackException)
+        {throw new DisplayPreferencesException(DisplayPreferencesIssue.Document);}
+    }
+    public static byte[] Write(DisplayPreferences value)
+    {
+        Validate(value);using var output=new MemoryStream();using(var writer=new Utf8JsonWriter(output,new(){Indented=true}))
+        {writer.WriteStartObject();writer.WriteString("format",Format);writer.WriteNumber("schemaVersion",1);writer.WriteNumber("fontSizeDip",value.FontSizeDip);writer.WriteNumber("preferredWidthDip",value.PreferredWidthDip);writer.WriteString("theme",value.Theme.ToString());writer.WriteString("reduceMotion",value.ReduceMotion.ToString());writer.WriteEndObject();}
+        return output.ToArray();
+    }
+    public static async Task<DisplayPreferences> ReadAsync(Stream stream,CancellationToken cancellation=default)
+    {
+        byte[] bytes=new byte[MaximumBytes+1];int count=0;
+        try
+        {
+            while(true)
+            {cancellation.ThrowIfCancellationRequested();int n=await stream.ReadAsync(bytes.AsMemory(count,bytes.Length-count),cancellation).ConfigureAwait(false);cancellation.ThrowIfCancellationRequested();if(n==0)break;count+=n;if(count>MaximumBytes)throw new DisplayPreferencesException(DisplayPreferencesIssue.FileSize);}
+            return Read(bytes.AsMemory(0,count));
+        }
+        finally{CryptographicOperations.ZeroMemory(bytes);}
+    }
+}

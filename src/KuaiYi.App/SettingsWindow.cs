@@ -69,7 +69,7 @@ internal sealed partial class SettingsWindow:Window
         SetupApiAdvanced(p);Note(p,"保存不会发送请求。连接测试仅在明确确认后发送固定公开样本；请先保存配置和密钥。视觉测试本批仅限明确授权的本机 fixture，不调用真实模型；普通图像能力门不变。能力默认未知，可手动修正；不自动遍历模型测试。密钥不读取到表单。");url.TextChanged+=(_,_)=>ApiIdentityEdited();model.TextChanged+=(_,_)=>ApiIdentityEdited();protocol.SelectionChanged+=(_,_)=>ApiIdentityEdited();addressMode.SelectionChanged+=(_,_)=>ApiIdentityEdited();return p;
     }
 
-    private StackPanel Overlay(){var p=Page();Field(p,"触发模式",mode);Field(p,"选区稳定等待（80—800 ms）",delay);Field(p,"自动发送软上限（1000—50000 字符）",softLimit);Field(p,"字号（12—22 DIP）",font);Field(p,"首选宽度（240—960 DIP）",width);Field(p,"主题",theme);Field(p,"减少动画",motion);p.Children.Add(remember);var reset=new Button{Content="重置已保存浮窗位置（保存后生效）"};reset.Click+=(_,_)=>draft.Update(s=>s with{Overlay=s.Overlay with{LastPosition=null}});p.Children.Add(reset);Note(p,"自动划词与完整翻译浮窗尚未交付。设置模式不授予采集或上传权限。");return p;}
+    private StackPanel Overlay(){var p=Page();Field(p,"触发模式",mode);Field(p,"选区稳定等待（80—800 ms）",delay);Field(p,"自动发送软上限（1000—50000 字符）",softLimit);Field(p,"字号（12—22 DIP）",font);Field(p,"首选宽度（240—960 DIP）",width);Field(p,"主题",theme);Field(p,"减少动画",motion);SetupDisplayPreferences(p);p.Children.Add(remember);var reset=new Button{Content="重置已保存浮窗位置（保存后生效）"};reset.Click+=(_,_)=>draft.Update(s=>s with{Overlay=s.Overlay with{LastPosition=null}});p.Children.Add(reset);Note(p,"自动划词与完整翻译浮窗尚未交付。设置模式不授予采集或上传权限。");return p;}
     private StackPanel Images(){var p=Page();p.Children.Add(smart);p.Children.Add(preview);Note(p,"这些是后续图片翻译的偏好。资源管理器与浏览器真实安装状态不由本页修改或伪报成功。");return p;}
     private StackPanel Privacy(){var p=Page();Field(p,"排除应用（每行一个应用标识）",blocked);blocked.AcceptsReturn=true;blocked.MinHeight=100;Note(p,"磁盘历史、遥测和默认复制兼容固定关闭。应用授权与端点发送同意不会通过保存草稿自动授予。密钥删除在保存提交后生效。");var permission=new Button{Content="复制兼容：逐应用授权 / 撤销（即时生效）",Margin=new Thickness(0,8,0,8)};permission.Click+=(_,_)=>{var window=new ClipboardPermissionsWindow(coordinator,clipboardApplication){Owner=this};window.ShowDialog();status.Text="应用授权单独即时生效。若有修改，请关闭并重新打开设置后保存其他草稿，避免覆盖新配置。";};p.Children.Add(permission);var clear=new Button{Content="清除当前内容（立即生效）",IsEnabled=clearCurrentContent!=null,Margin=new Thickness(0,8,0,8)};clear.Click+=async(_,_)=>{clear.IsEnabled=false;try{status.Text=await clearCurrentContent!()?"当前内容已清除；设置与密钥保留。":"内容清理尚未全部确认，请查看浮窗状态。";}finally{clear.IsEnabled=true;}};p.Children.Add(clear);return p;}
     private void LoadGeneral()
@@ -104,6 +104,7 @@ internal sealed partial class SettingsWindow:Window
         if(saving||recoveryDraft.IsSaving||draft.IsClosed||draft.Basis.ReadOnly){RestoreRecoverySelection();return;}
         var choice=recovery.SelectedIndex==1?SettingsRecovery.UseBackup:recovery.SelectedIndex==2?SettingsRecovery.UseDefaults:SettingsRecovery.None;
         if(choice==recoveryDraft.Choice)return;
+        CancelDisplayPreferences();
         try
         {
             CaptureProfile();CapturePreferences();
@@ -121,6 +122,7 @@ internal sealed partial class SettingsWindow:Window
     private async Task Save()
     {
         if(saving||draft.Basis.ReadOnly)return;
+        CancelDisplayPreferences();
         try
         {
             CaptureProfile();CapturePreferences();
