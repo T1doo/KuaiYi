@@ -6,7 +6,24 @@ diagram_or_mixed：图表、流程、示意、结构关系或重要行列关系�
 visual_only：主要为非文字图像，可翻译文字极少或没有。
 uncertain：结构或画质使分类不足以确定。
 
-只输出合法 JSON，包含 kind、readability、hasMeaningfulVisualStructure、regions、uncertaintyNote。
-regions 最多 12 项，每项为 id、position、bbox；bbox 是 [x,y,width,height] 的 0—1 归一化矩形。
+只输出一个合法 JSON 对象。以下五个字段全部必需，名称和枚举大小写精确；不允许未知字段、重复字段或额外说明。
+kind 是字符串，只允许 text_only / diagram_or_mixed / visual_only / uncertain。
+readability 是字符串，只允许 clear / partly_unclear / unreadable：分别表示清晰可读、部分不可读、无法可靠辨识文字。
+hasMeaningfulVisualStructure 是布尔值 true 或 false，不能写成字符串或数字；text_only 必须为 false，diagram_or_mixed 必须为 true。
+regions 是数组，允许空数组，最多 12 个对象。每个对象只包含 id、position、bbox，三个字段全部必需且不重复。
+id 是唯一的非空字符串，1—32 个 ASCII 字母、数字、下划线或连字符。
+position 是非空且不全为空白的字符串，最多 160 个 UTF-16 单元。位置只是辅助说明，不能作为精确检测结论。
+bbox 恰好包含四个有限 JSON 数值 [x,y,width,height]，不能使用字符串、NaN 或 Infinity；0≤x<1、0≤y<1、width>0、height>0，width≤1-x、height≤1-y。坐标相对于当前完整截图归一化，不裁掉任何部分。
+uncertaintyNote 是字符串，最多 512 个 UTF-16 单元；没有不确定说明时必须为空字符串，不能省略或用 null。
+所有字符串禁止控制字符和方向等 Unicode 格式控制字符。整个 JSON 最多 8192 个 UTF-16 单元，嵌套深度最多 6。
 无法可靠定位时 regions 输出空数组，不编造坐标。
 不要转录整张图，不输出 Markdown 代码围栏，不输出其他说明。
+
+格式示例（不能照抄判定，必须按本图实际内容选择）：
+{
+  "kind": "text_only",
+  "readability": "clear",
+  "hasMeaningfulVisualStructure": false,
+  "regions": [{"id": "r1", "position": "上方正文", "bbox": [0.05, 0.08, 0.92, 0.30]}],
+  "uncertaintyNote": ""
+}

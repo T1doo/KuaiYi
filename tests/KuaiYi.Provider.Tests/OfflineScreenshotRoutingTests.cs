@@ -167,4 +167,84 @@ public sealed class OfflineScreenshotRoutingTests
     {
         await using var r=await Rig.Create(Protocol.OpenAIChat);Assert.Throws<InvalidOperationException>(()=>r.Flow.AdoptScreenshot(r.SourceVersion,r.Image));Assert.False(r.Image.IsDisposed);var disposed=new OwnedSourceImage(new(new(0,0,8,8),new byte[256]));disposed.Dispose();Assert.Throws<InvalidOperationException>(()=>r.Flow.AdoptScreenshot(Guid.NewGuid(),disposed));Assert.False(r.Image.IsDisposed);Assert.Equal(0,r.Script.Requests);
     }
+    [Theory][InlineData("clear")][InlineData("stop")][InlineData("adopt")][InlineData("dispose")]
+    public async Task NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(string action)
+    {
+        await using var r=await Rig.Create(Protocol.OpenAIChat);Assert.True(r.Flow.TryStart(true));await r.Requests(1);var a=r.Flow.Results.Identity!.Value;var original=r.Image;var originalRaw=r.Raw;Task aTask=r.Flow.Running;Task? closing=null;
+        Assert.True(r.Gate.TryLinkRequestCancellation(a,default,out var linked));using var lifetime=linked!;using var callback=lifetime.Token.Register(()=>
+        {switch(action){case "clear":r.Flow.Clear();break;case "stop":r.Flow.Stop();break;case "adopt":r.Adopt();break;case "dispose":closing=r.Flow.DisposeAsync().AsTask();break;}});
+        try
+        {
+            Assert.False(r.Flow.TryStart(true));await aTask.WaitAsync(TimeSpan.FromSeconds(6));if(closing!=null)await closing.WaitAsync(TimeSpan.FromSeconds(6));
+            Assert.False(r.Gate.HasRunningGeneration);Assert.Equal(1,r.Script.Requests);Assert.DoesNotContain(r.Events,e=>e.Identity!=a);
+            if(action=="stop"){Assert.Equal(a,Assert.Single(r.Flow.Results.Versions).Identity);Assert.True(r.Flow.Results.Versions[0].Stopped);Assert.False(original.IsDisposed);}
+            else {Assert.Empty(r.Flow.Results.Versions);Assert.Null(r.Flow.SelectedSnapshot);Assert.True(original.IsDisposed);Assert.All(originalRaw,b=>Assert.Equal(0,b));}
+            if(action=="adopt"){Assert.False(r.Image.IsDisposed);Assert.NotSame(original,r.Image);Assert.Equal(ImageOutputMode.Automatic,r.Flow.Mode);}
+        }
+        finally{if(closing!=null)await closing.WaitAsync(TimeSpan.FromSeconds(6));}
+    }
+    [Theory][InlineData(false)][InlineData(true)]
+    public async Task CancellationReentryStartingCLeavesCIntactWhenOuterBIsRejected(bool replaceSource)
+    {
+        var destination=new Deferred();await using var r=await Rig.Create(Protocol.OpenAIChat,destination:destination);
+        async Task PumpUntil(Func<bool> ready){using var limit=new CancellationTokenSource(TimeSpan.FromSeconds(6));while(!ready()){destination.Drain();await Task.Delay(5,limit.Token);}}
+        Assert.True(r.Flow.TryStart(true));await PumpUntil(()=>r.Script.Requests==1);var a=r.Flow.Results.Identity!.Value;RequestIdentity c=default;
+        Assert.True(r.Gate.TryLinkRequestCancellation(a,default,out var linked));using var lifetime=linked!;using var callback=lifetime.Token.Register(()=>
+        {if(replaceSource)r.Adopt();Assert.True(r.Flow.TryStart(true));c=r.Flow.Results.Identity!.Value;});
+        Assert.False(r.Flow.TryStart(true));Assert.NotEqual(default,c);Assert.NotEqual(a,c);Assert.Equal(c,r.Flow.Results.Identity);Assert.False(r.Flow.Results.Versions.Single(v=>v.Identity==c).Stopped);
+        await PumpUntil(()=>r.Script.Requests>=2||r.Flow.Running.IsCompleted);Assert.Equal(2,r.Script.Requests);Assert.True(r.Gate.CanApply(c));Assert.False(r.Image.IsDisposed);
+        await r.Reply(ImageClassificationTests.Json());await PumpUntil(()=>r.Script.Requests==3);await r.Reply("C public output");await PumpUntil(()=>r.Flow.Running.IsCompleted);await r.Flow.Running;
+        Assert.Equal("C public output",r.Flow.Results.Text);Assert.Equal(c.VersionId,r.Flow.Results.SelectedVersionId);Assert.Equal(r.Image.SourceId,r.Flow.SelectedSnapshot!.SourceId);Assert.Equal(3,r.Script.Requests);
+    }
+    [Theory][InlineData(Protocol.OpenAIChat)][InlineData(Protocol.AnthropicMessages)]
+    public async Task ActualClassificationWireDefinesTheStrictParserContract(Protocol protocol)
+    {
+        await using var r=await Rig.Create(protocol);Assert.True(r.Flow.TryStart(true));await r.Requests(1);var sent=Body(protocol,Assert.Single(r.Script.Bodies));
+        foreach(string required in new[]{"clear / partly_unclear / unreadable","布尔","字符串","8192","512","160","32","12","有限","未知字段","重复字段"})Assert.Contains(required,sent.System);
+        const string marker="格式示例（不能照抄判定，必须按本图实际内容选择）：";int index=sent.System.IndexOf(marker,StringComparison.Ordinal);Assert.True(index>=0);string example=sent.System[(index+marker.Length)..].Trim();Assert.True(ImageClassification.TryParse(example,out var sample));Assert.NotNull(sample);
+        await r.Reply(example);await r.Requests(2);await r.Reply("contract public output");await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal("contract public output",r.Flow.Results.Text);
+    }
+    [Theory][InlineData(Protocol.OpenAIChat)][InlineData(Protocol.AnthropicMessages)]
+    public async Task CompleteButInvalidReadabilityContractStillHasZeroFinalRequests(Protocol protocol)
+    {
+        await using var r=await Rig.Create(protocol);Assert.True(r.Flow.TryStart(true));await r.Requests(1);await r.Reply(ImageClassificationTests.Json(readability:"readable"));await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal(1,r.Script.Requests);Assert.Equal("CLASSIFICATION_INVALID",Assert.Single(r.Events,e=>e.Kind==ScreenshotGenerationEvent.Failed).Reason);Assert.DoesNotContain(r.Events,e=>e.Kind==ScreenshotGenerationEvent.Generating);Assert.Empty(r.Flow.Results.Text);
+    }
+    [Theory][InlineData("settings")][InlineData("capture-roundtrip")][InlineData("mode")][InlineData("profile")][InlineData("source")][InlineData("lock")][InlineData("hide")][InlineData("owner-disposed")]
+    public async Task AdmissionRechecksEpochSettingsBindingModeAndSourceAfterCancellationCallbacks(string action)
+    {
+        await using var r=await Rig.Create(Protocol.OpenAIChat);Assert.True(r.Flow.TryStart(true));await r.Requests(1);var a=r.Flow.Results.Identity!.Value;Task old=r.Flow.Running;
+        Assert.True(r.Gate.TryLinkRequestCancellation(a,default,out var linked));using var lifetime=linked!;using var callback=lifetime.Token.Register(()=>
+        {
+            switch(action)
+            {
+                case "settings":r.Settings=r.Settings with{Version="changed-during-admission"};break;
+                case "capture-roundtrip":r.Gate.SetSuspension(Suspension.Capture,true);r.Gate.SetSuspension(Suspension.Capture,false);break;
+                case "mode":Assert.True(r.Flow.SetMode(ImageOutputMode.ExplainImage));break;
+                case "profile":var p=r.Settings.Data.Profiles[0] with{Capabilities=new(){Vision=Capability.Unknown}};r.Settings=r.Settings with{Data=r.Settings.Data with{Profiles=[p]}};r.Gate.ObserveSettingsMetadata(r.Settings);break;
+                case "source":r.Current=false;break;
+                case "lock":r.Flow.LockSession();break;
+                case "hide":r.Flow.Hide();break;
+                case "owner-disposed":r.Image.Dispose();break;
+            }
+        });
+        Assert.False(r.Flow.TryStart(true));await old.WaitAsync(TimeSpan.FromSeconds(6));Assert.False(r.Gate.HasRunningGeneration);Assert.Equal(1,r.Script.Requests);Assert.All(r.Flow.Results.Versions,v=>Assert.Equal(a,v.Identity));Assert.DoesNotContain(r.Events,e=>e.Identity!=a);
+        if(action=="mode")Assert.Equal(ImageOutputMode.ExplainImage,r.Flow.Mode);if(action is "lock" or "hide")Assert.Empty(r.Flow.Results.Versions);
+    }
+    [Theory][InlineData(Protocol.OpenAIChat)][InlineData(Protocol.AnthropicMessages)]
+    public async Task NonMutatingCancellationCallbackStillAllowsTheExplicitNewGeneration(Protocol protocol)
+    {
+        await using var r=await Rig.Create(protocol);Assert.True(r.Flow.TryStart(true));await r.Requests(1);var a=r.Flow.Results.Identity!.Value;Task old=r.Flow.Running;int callbacks=0;
+        Assert.True(r.Gate.TryLinkRequestCancellation(a,default,out var linked));using var lifetime=linked!;using var callback=lifetime.Token.Register(()=>callbacks++);
+        Assert.True(r.Flow.TryStart(true));var b=r.Flow.Results.Identity!.Value;Assert.NotEqual(a,b);Assert.Equal(1,callbacks);await old.WaitAsync(TimeSpan.FromSeconds(6));await r.Requests(2);await r.Reply(ImageClassificationTests.Json());await r.Requests(3);await r.Reply("B public output");await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal("B public output",r.Flow.Results.Text);Assert.Equal(b.VersionId,r.Flow.Results.SelectedVersionId);Assert.False(r.Image.IsDisposed);
+    }
+    [Theory][InlineData(Protocol.OpenAIChat,"mode")][InlineData(Protocol.AnthropicMessages,"mode")][InlineData(Protocol.OpenAIChat,"settings")][InlineData(Protocol.AnthropicMessages,"settings")]
+    public async Task RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(Protocol protocol,string action)
+    {
+        await using var r=await Rig.Create(protocol,stream:true);Assert.True(r.Flow.TryStart(true));await r.Requests(1);await r.Reply(ImageClassificationTests.Json());await r.Requests(2);
+        string delta=protocol==Protocol.OpenAIChat?"data: {\"choices\":[{\"index\":0,\"delta\":{\"content\":\"partial A\"}}]}\n\n":"data: {\"type\":\"message_start\",\"message\":{\"usage\":{\"input_tokens\":11}}}\n\ndata: {\"type\":\"content_block_start\",\"index\":0,\"content_block\":{\"type\":\"text\",\"text\":\"\"}}\n\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\"partial A\"}}\n\n";
+        await r.Script.Write(delta);using var limit=new CancellationTokenSource(TimeSpan.FromSeconds(6));while(r.Flow.Results.Text!="partial A")await Task.Delay(5,limit.Token);
+        var a=r.Flow.Results.Identity!.Value;var classification=r.Flow.SelectedSnapshot!.Classification;Task old=r.Flow.Running;Assert.False(Assert.Single(r.Flow.Results.Versions).Stopped);
+        Assert.True(r.Gate.TryLinkRequestCancellation(a,default,out var linked));using var lifetime=linked!;using var callback=lifetime.Token.Register(()=>{if(action=="mode")Assert.True(r.Flow.SetMode(ImageOutputMode.ExplainImage));else r.Settings=r.Settings with{Version="partial-admission-change"};});
+        Assert.False(r.Flow.TryStart(true));await old.WaitAsync(TimeSpan.FromSeconds(6));var retained=Assert.Single(r.Flow.Results.Versions);Assert.Equal(a,retained.Identity);Assert.Equal("partial A",retained.Text);Assert.True(retained.Stopped);Assert.False(retained.Complete);Assert.False(r.Gate.HasRunningGeneration);Assert.Equal(2,r.Script.Requests);Assert.False(r.Image.IsDisposed);Assert.Same(classification,r.Flow.SelectedSnapshot!.Classification);
+    }
 }

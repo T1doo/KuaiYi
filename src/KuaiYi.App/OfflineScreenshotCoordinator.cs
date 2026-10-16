@@ -31,7 +31,7 @@ internal sealed class OfflineScreenshotCoordinator:IAsyncDisposable
     private readonly Action<ScreenshotGenerationUpdate> changed;
     private readonly Dictionary<Guid,ScreenshotGenerationSnapshot> snapshots=[];
     private readonly HashSet<Task> jobs=[];private readonly object jobsSync=new();
-    private Source? source;private Job? active;private bool disposed;private Exception? deliveryFailure;
+    private Source? source;private Job? active;private bool disposed;private Exception? deliveryFailure;private long commandRevision;
     public OverlayResults Results {get;}
     public Task Running {get;private set;}=Task.CompletedTask;
     public ScreenshotGenerationSnapshot? SelectedSnapshot=>Results.SelectedVersionId is {} version?snapshots.GetValueOrDefault(version):null;
@@ -51,7 +51,7 @@ internal sealed class OfflineScreenshotCoordinator:IAsyncDisposable
         try{Clear();source=new(version,owned);}catch{owned.Dispose();throw;}
     }
     public bool SetMode(ImageOutputMode mode)
-    {if(disposed||source==null||!Enum.IsDefined(mode))return false;source.Mode=mode;return true;}
+    {if(disposed||source==null||!Enum.IsDefined(mode))return false;commandRevision++;source.Mode=mode;return true;}
     // Explicit action authorizes the two bounded offline phases; adopting a screenshot never calls this.
     public bool TryStart(bool userAction,bool regenerate=false,bool reclassify=false)
     {
@@ -68,20 +68,53 @@ internal sealed class OfflineScreenshotCoordinator:IAsyncDisposable
         if(!gate.HasConsentTo(new(transport.ResolveEndpoint()))||!gate.TryBeginPassiveCapture(gate.Snapshot.Mode,out var ticket))return false;
         var analysis=reclassify?null:regenerate?SelectedSnapshot?.Classification:selected.Analysis;
         int number=Results.NextVersionNumber(selected.Session);
-        RequestIdentity identity=default;
-        try{if(!gate.TryStartProfileRequest(binding,selected.Session,Guid.NewGuid(),ticket,out identity,out _))return false;}
+        long admission=++commandRevision;var requestedMode=selected.Mode;var previous=active;RequestIdentity identity=default;
+        try
+        {
+            if(!gate.TryStartProfileRequest(binding,selected.Session,Guid.NewGuid(),ticket,out identity,out _))return false;
+            Job? admitted=null;
+            // Cancelling A can synchronously Clear/Stop/Adopt/Dispose or admit C after Gate installs B.
+            // Commit only if this exact command, source and identity still own the canonical destination.
+            gate.TryApply(identity,()=>
+            {
+                if(!AdmissionCurrent(selected,frozen,profile,transport,binding,identity,admission,regenerate))return;
+                var snapshot=new ScreenshotGenerationSnapshot(selected.Version,selected.Image.SourceId,frozen,profile,transport,binding,number,requestedMode,regenerate,analysis);
+                if(!Results.Begin(identity))return;
+                if(reclassify)selected.Analysis=null;
+                admitted=new(selected,identity,identity.Epoch,snapshot);active=admitted;snapshots[identity.VersionId]=snapshot;Prune();
+            });
+            if(admitted==null){RejectAdmission(identity,previous);return false;}
+            Running=Run(admitted);lock(jobsSync)jobs.Add(Running);_=Observe(Running);return true;
+        }
         catch(Exception error)
         {
             // Gate installs the new identity before synchronously cancelling its predecessor.
             // If that cancellation throws, this generation has no Job yet: settle its actual identity.
-            List<Exception> errors=[error];if(identity!=default)ScreenshotPreviewCleanup.Attempt(errors,()=>gate.StopRequest(identity));
+            List<Exception> errors=[error];if(identity!=default)ScreenshotPreviewCleanup.Attempt(errors,()=>RejectAdmission(identity,previous));
             throw new AggregateException("Offline image request admission failed.",errors);
         }
-        if(reclassify)selected.Analysis=null;
-        var snapshot=new ScreenshotGenerationSnapshot(selected.Version,selected.Image.SourceId,frozen,profile,transport,binding,number,selected.Mode,regenerate,analysis);
-        var job=new Job(selected,identity,gate.Snapshot.Epoch,snapshot);active=job;snapshots[identity.VersionId]=snapshot;
-        if(!Results.Begin(identity)){active=null;gate.StopRequest(identity);return false;}
-        Prune();Running=Run(job);lock(jobsSync)jobs.Add(Running);_=Observe(Running);return true;
+    }
+    private void RejectAdmission(RequestIdentity identity,Job? previous)
+    {
+        try{gate.StopRequest(identity);}
+        finally
+        {
+            // B cancelled A even when B cannot commit. Mark only that retained A, never a callback's C.
+            if(previous!=null&&ReferenceEquals(active,previous)&&Results.Identity==previous.Identity&&!gate.CanApply(previous.Identity))
+            {active=null;Results.MarkStopped();}
+        }
+    }
+    private bool AdmissionCurrent(Source selected,SettingsSnapshot frozen,SettingsProfile profile,KuaiYi.Providers.ApiProfile transport,
+        RequestProfileBinding binding,RequestIdentity identity,long admission,bool regenerate)
+    {
+        if(disposed||!ReferenceEquals(source,selected)||selected.Image.IsDisposed||settings() is not {} current||current.ReadOnly||current.RequiresRecovery||
+            !regenerate&&current.Version!=frozen.Version)return false;
+        var live=current.Data.Profiles.FirstOrDefault(p=>p.Id==current.Data.ActiveProfileId);
+        if(live==null||live.Id!=profile.Id||!ApiProfilePolicy.RequestEquivalent(profile,live)||!boundary.Allows(live)||!boundary.Allows(transport)||transport.VisionCapability!=Capability.Supported)return false;
+        bool sameSource=sourceCurrent(selected.Version,selected.Image.SourceId);var state=gate.Snapshot;
+        return sameSource&&commandRevision==admission&&!disposed&&ReferenceEquals(source,selected)&&!selected.Image.IsDisposed&&
+            state.Epoch==identity.Epoch&&state.Activation==Activation.On&&state.Suspension==Suspension.None&&state.Presentation!=Presentation.Hidden&&
+            gate.IsRequestProfileBindingCurrent(identity,binding)&&gate.HasConsentTo(new(transport.ResolveEndpoint()));
     }
     private bool Eligible(Job job)
     {
@@ -173,7 +206,7 @@ internal sealed class OfflineScreenshotCoordinator:IAsyncDisposable
     private async Task Observe(Task task)
     {try{await task.ConfigureAwait(false);}catch(Exception error){deliveryFailure=error;}finally{lock(jobsSync)jobs.Remove(task);}}
     private void Prune(){var retained=Results.RetainedVersionIds;foreach(var id in snapshots.Keys.Where(id=>!retained.Contains(id)).ToArray())snapshots.Remove(id);}
-    public void Stop(){var job=active;active=null;if(job!=null)try{gate.StopRequest(job.Identity);}finally{Results.MarkStopped();}}
+    public void Stop(){commandRevision++;var job=active;active=null;if(job!=null)try{gate.StopRequest(job.Identity);}finally{Results.MarkStopped();}}
     public void Clear()
     {
         List<Exception> errors=[];ScreenshotPreviewCleanup.Attempt(errors,Stop);var previous=source;source=null;snapshots.Clear();Results.Clear();

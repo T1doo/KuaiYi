@@ -1138,9 +1138,11 @@
       "validationStatus": "NotRun",
       "evidence": [
         "docs/validation/screenshot-image-routing.md",
-        "docs/test-evidence/2026-10-15-screenshot-image-routing.json"
+        "docs/test-evidence/2026-10-15-screenshot-image-routing.json",
+        "docs/validation/image-admission-reentry.md",
+        "docs/test-evidence/2026-10-16-image-admission-reentry.json"
       ],
-      "note": "Independent offline screenshot-only functional slice: strict complete classification, same-image two-protocol fixture dispatch, current-image mode and cached-classification regeneration/three versions.1118 Provider cases preserve1014 baseline+104 new; native P2/P4/P6 and visual quality NotRun. Immutable loopback/AuthNone fixture authority only; normal Shell screenshot sending remains closed. User explicitly requires invalid/incomplete classification fail-closed, no second request; valid uncertain may explain. Full task/stage not passed."
+      "note": "Independent offline screenshot-only functional slice: strict complete classification, same-image two-protocol fixture dispatch, current-image mode and cached-classification regeneration/three versions.1118 Provider cases preserve1014 baseline+104 new; native P2/P4/P6 and visual quality NotRun. Immutable loopback/AuthNone fixture authority only; normal Shell screenshot sending remains closed. User explicitly requires invalid/incomplete classification fail-closed, no second request; valid uncertain may explain. Full task/stage not passed. Admission follow-up: 1142 cases preserve1118+24; Gate callback reentry cannot resurrect B or clobber C; cancelled retained partial A is stopped. Actual classification system template now specifies strict readability/types/bounds/example; invalid JSON still sends no final. Two actual red runs archived. No production/native release."
     },
     {
       "id": "P6-05",
@@ -1154,9 +1156,11 @@
       "validationStatus": "NotRun",
       "evidence": [
         "docs/validation/screenshot-image-routing.md",
-        "docs/test-evidence/2026-10-15-screenshot-image-routing.json"
+        "docs/test-evidence/2026-10-15-screenshot-image-routing.json",
+        "docs/validation/image-admission-reentry.md",
+        "docs/test-evidence/2026-10-16-image-admission-reentry.json"
       ],
-      "note": "Independent offline screenshot-only functional slice: strict complete classification, same-image two-protocol fixture dispatch, current-image mode and cached-classification regeneration/three versions.1118 Provider cases preserve1014 baseline+104 new; native P2/P4/P6 and visual quality NotRun. Immutable loopback/AuthNone fixture authority only; normal Shell screenshot sending remains closed. User explicitly requires invalid/incomplete classification fail-closed, no second request; valid uncertain may explain. Full task/stage not passed."
+      "note": "Independent offline screenshot-only functional slice: strict complete classification, same-image two-protocol fixture dispatch, current-image mode and cached-classification regeneration/three versions.1118 Provider cases preserve1014 baseline+104 new; native P2/P4/P6 and visual quality NotRun. Immutable loopback/AuthNone fixture authority only; normal Shell screenshot sending remains closed. User explicitly requires invalid/incomplete classification fail-closed, no second request; valid uncertain may explain. Full task/stage not passed. Admission follow-up: 1142 cases preserve1118+24; Gate callback reentry cannot resurrect B or clobber C; cancelled retained partial A is stopped. Actual classification system template now specifies strict readability/types/bounds/example; invalid JSON still sends no final. Two actual red runs archived. No production/native release."
     },
     {
       "id": "P6-06",

@@ -1,0 +1,990 @@
+{
+  "SourceParent": "04f4cdb85634d46726b4de78c3b18e018fa15932",
+  "ParentTree": "9b8b99f20e0f708c2be35cdf30f5ec17cdc31583",
+  "Branch": "dev/image-admission-reentry",
+  "MainBaseline": "51d077481cf6303602fcf5d2718213da9cf05178",
+  "Preflight": {
+    "Parent": "04f4cdb85634d46726b4de78c3b18e018fa15932",
+    "Tree": "9b8b99f20e0f708c2be35cdf30f5ec17cdc31583",
+    "Branch": "dev/image-admission-reentry",
+    "InitialClean": true,
+    "RemoteParent": "04f4cdb85634d46726b4de78c3b18e018fa15932",
+    "Main": "51d077481cf6303602fcf5d2718213da9cf05178",
+    "Writer": "root only; inline_review read-only",
+    "OS": "Linux",
+    "Display": false,
+    "WindowsDesktop": false,
+    "P2P4P6Native": "NotRun; no Windows/permission/isolation/probe workaround",
+    "Actions": "No query/dispatch; prior Forbidden respected",
+    "HistoricalUnknown": "Certificate store/trust and overwritten prior bytes Unknown; no read/config/trust/delete/reconstruction",
+    "Scope": "Priority parent two-P2 repair only; usage feature paused; normal screenshot remains local preview"
+  },
+  "Scope": "Priority two-P2 repair of independent offline screenshot component; related retained-A terminal state fixed after independent review; usage feature paused; no normal screenshot sending",
+  "ProductionAndTestSha256": {
+    "assets/prompts/base@1.txt": "1a82351510c833e6e2e89b92ae8ef6a1fa379b0f50aecc97b0b0de58097cc494",
+    "assets/prompts/explain@1.txt": "75b1db8d8b953d594e2e6a3a909e76b08dab5de047e725891c2821f256c52d9a",
+    "assets/prompts/faithful@1.txt": "342b3a7f1d133d5f37054de2e23ccac0399119c424cf410a4a9fbed52b220c70",
+    "assets/prompts/image-classify@1.txt": "77e769e3429b11dfa367aa8928481f1f599d8c70b0af87a3e2f6160f059df888",
+    "assets/prompts/image-explain@1.txt": "5f1a95bd13a2e9e61c52810c7357b660883f13c61450bd511836dba209537977",
+    "assets/prompts/plain@1.txt": "60e90705c8586a1e8cdf9d661598e19690179f4dc0be466b89699ef906eb632f",
+    "assets/prompts/professional@1.txt": "fe7572d7b832dba9032acc42a90dfcb9dba033814ac32bdef3fe5afe9feebaae",
+    "assets/prompts/regenerate@1.txt": "359c6f87d954f7c0e697b0802c5d1a2901514703b43de7fbfdadc75ab45da140",
+    "src/KuaiYi.App/DesktopMarkdownLinks.cs": "6441e938b775deaa973d2d52524959e16604b75d014284ab46401bbca2e709e3",
+    "src/KuaiYi.App/HotkeyScreenshot.cs": "a42b6bdc9ac67481ee577c74c47e119a8aeb4bc7a5491e636f50e3fbe7b2f3bf",
+    "src/KuaiYi.App/HotkeyScreenshotLifetime.cs": "81c0c45ca9d3a539983174204cc52b8e66ca8e89b7a7dbd1b43a9791d7b2727e",
+    "src/KuaiYi.App/MarkdownCodeRegion.cs": "2e4c5adfc6c606c04daef40bbc29aae37065a216d72bca6acd2edc35b32d1f06",
+    "src/KuaiYi.App/MarkdownFlowView.cs": "5b9e6dc494cee6ae54b37a8a55d5a90a963c6617676e7567aa04ce0212be1399",
+    "src/KuaiYi.App/MarkdownImageSourceRegion.cs": "d75a881f7c5673f73b365b76294c0712179b469bc8e386520e1b3b86f8823e43",
+    "src/KuaiYi.App/MarkdownLinkActions.cs": "d88c51cce427c489d9cfa4002874ac22abda4da988d96856585d4636abba2c25",
+    "src/KuaiYi.App/MarkdownLinkRegion.cs": "ec970a15fb0bd8680156956fbe023b95015235b37ebe059f830033675116f7fe",
+    "src/KuaiYi.App/MarkdownSourceRegion.cs": "26a66a61f24690103dc93e8f77fbdc151a73b1ba5583ab2a634d46d6d3ff709e",
+    "src/KuaiYi.App/MarkdownTableRegion.cs": "f85f5388855648695bda4b0d65378950fb66f210b6e952f7b034f12848dd50a7",
+    "src/KuaiYi.App/MarkdownViewport.cs": "99b4794b6742ad6b2e9395e4cff1df48b2ce5a6c342090c23857b960b2236c78",
+    "src/KuaiYi.App/OfflineScreenshotCoordinator.cs": "d9de3717618bab4d29ada0aa50a2ddc52e46dd4a5a10b328f9b926c45acca22b",
+    "src/KuaiYi.App/OverlayClearContent.cs": "5b6f271c2a462d67ab38a53c93dc7f45869f05884ad3d99c12a53b5e79d6546b",
+    "src/KuaiYi.App/OverlayImageSource.cs": "bb3178a577c33e6e5d4fbe0c9211f167d626c8ac114c31e49dd9ea669f43df3a",
+    "src/KuaiYi.App/OverlayLinkFlow.cs": "c76c166e1ab4d04e0278aa53001103b59b1a979faa93a56ffbae0c9ca1fbafbd",
+    "src/KuaiYi.App/OverlayMarkdown.cs": "a1463b03b5a73d7d47e43189cc602b2b9bf871a97cadd03ddc300565cb294705",
+    "src/KuaiYi.App/OverlayPresentation.cs": "39fef4f656b2a94b9fc36c2c4fe091445ffcbd063d5fe7aafb6a98f137cd94ad",
+    "src/KuaiYi.App/OverlayPrivacyFlow.cs": "74f6c1fa0dbff24dbcfb92b502f39db931f0c1857f90aac95903ea7deb03c7be",
+    "src/KuaiYi.App/OverlayResultFlow.cs": "3f2573aff3500512e97e96cd069935deeb4e7ab8187e66263f07029592acc21e",
+    "src/KuaiYi.App/OverlayResultLabel.cs": "2c5af439e90cf2841d3b69c5eae828c49a6bc19bbcbe2873532878aa1ce4d0b7",
+    "src/KuaiYi.App/OverlayScrollFlow.cs": "fed38295cb6c4df922267f007ca1e3155dabdc7ad8ec6156765da3dd94f4a597",
+    "src/KuaiYi.App/OverlaySource.cs": "d84ddd339492842cefb8fd6cf1f998b4c7b734ea82ae9e29e0159e17e81f5e37",
+    "src/KuaiYi.App/OverlayTranslationEvents.cs": "d8339a9971c497da3011bc7a5ff89d67838f6730bbe04b7126d43dfc6a5f3500",
+    "src/KuaiYi.App/ScreenshotPreviewCleanup.cs": "407b1f49e97772a5ff68e726a35404c8476df4be3c48120458d9862f6c2af8cc",
+    "src/KuaiYi.App/SelectionFlow.cs": "9a7441c7e5db6df0dc88886aa679cec09ae65df04690d266d87bbd6dcb2c1851",
+    "src/KuaiYi.App/SettingsWindow.cs": "23128616d64ff2e190412f3ef17c3d0c01934d05dc7afd56bccafdf6eb0df3d6",
+    "src/KuaiYi.App/ShellWindow.cs": "e70d23e77b4ae82a673611ede9c0b0ccc5ceb0aaf7cd32550e7571dcd2a569de",
+    "src/KuaiYi.App/TextDropFlow.cs": "f689341a06f9a1a2194ab3ed861ce405ed3ef656da5bdf1693e66eec209d9e9d",
+    "src/KuaiYi.App/TextDropLifetime.cs": "60e6e5b6bf2086e4c440fdb3d0ca0c87c06651cf91adc2d85044409a4844c537",
+    "src/KuaiYi.App/TranslationFlow.cs": "35cbb1b4ab7ffe0fba333cca174d7cae9978b5fee5a466b7b62af83f042a3d1a",
+    "src/KuaiYi.Core/IdentityEventReceiver.cs": "270f1e014b71ea48878aee03ff291ebfc2fd0345f79dcf2a19468abc7a059530",
+    "src/KuaiYi.Core/MarkdownHttpTarget.cs": "f369019f30150aad31eb76e073fb48ca335b2beb1d90fa060744ad91ca1b0bed",
+    "src/KuaiYi.Core/OverlayResults.cs": "4dc33bb531e0e801d6bb098ffa0262213ccaf3773409b560421274a84a47432f",
+    "src/KuaiYi.Core/RestrictedMarkdown.cs": "898dfcc1b6ccec150e0331f4be5f62cb4bf4854d717b3f8d9316a1203e892fa5",
+    "src/KuaiYi.Core/RestrictedMarkdownInlines.cs": "5c2bab224463b6c739d814a7af2cf42bd14a0f7679477bced3463b10e1741569",
+    "src/KuaiYi.Core/RestrictedMarkdownTables.cs": "2b37171bc578e714a4d3df4fd012c44da3ec9f92805d6acfcdfcba8fbdaec003",
+    "src/KuaiYi.Core/RuntimeGate.Settings.cs": "0bd8fd5d7a8895c8bd52e6ff363d454ebf9aa5a935212069a470191f5aea4795",
+    "src/KuaiYi.Core/RuntimeGate.cs": "39c14f0f1df7d0758b42ede573ceea0f8a0d3a3d15e4d43e8913e0c917db3947",
+    "src/KuaiYi.Core/Settings/ApiProfilePolicy.cs": "9d09d1d136f06b199c1732e64185d03ad579880fda68f3d3eecbf9c490093bd6",
+    "src/KuaiYi.Core/Settings/AppSettings.cs": "1e7af937c055145a37b998bd6bc19e73070947cf5563feaf86fd2af069f8e909",
+    "src/KuaiYi.Core/Settings/PromptTemplatePolicy.cs": "a42961cbf860b0a886414b3e73d09bcd78a84f002b9cbb7d154f99bc5959f8a8",
+    "src/KuaiYi.Imaging/ImagePolicy.cs": "81bc6800248587edca69cb57d3e0b4d3d249154543044d5692c3d90ce7d6f0be",
+    "src/KuaiYi.Imaging/OwnedSourceImage.cs": "5584b2c359fa98c4a8373d6ec92fea833465a1f2b544e1e18250ee59b20c8d9b",
+    "src/KuaiYi.Imaging/ScreenshotIntent.cs": "f1629f5b7876905398baa9427d0273deec8cf4a70ea562dcd97b1c6da0de1b70",
+    "src/KuaiYi.Imaging/ScreenshotPixels.cs": "cd88ed54528d312a264ad22775ac35139cf79d9210f9d858cf2d87702ecdeaf3",
+    "src/KuaiYi.Providers/ApiProfileMapper.cs": "49d5f6638d20e0c4d17f739a4e133dcffce1cec90afcaf1d49055f94ce9833d2",
+    "src/KuaiYi.Providers/DevelopmentTranslationBoundary.cs": "9b9bc4656fb50be156474736057ac42c4beda01ec874b8fac0838f72860a55f5",
+    "src/KuaiYi.Providers/ImageClassification.cs": "d7e3f0bb6611750f85ff470c309ba50ecbb72fc6559504916da018f4a5e8af15",
+    "src/KuaiYi.Providers/ImageTranslationPlan.cs": "47842d9ab713e39910f6651097d735559e0b939de2728343744c14f8e2344fdc",
+    "src/KuaiYi.Providers/PromptBuilder.cs": "e4c61edb4c7296c09bba958e0413814e4c39a3e0e50d55aba3cc0151537879fe",
+    "src/KuaiYi.Providers/ProtocolAdapters.cs": "1fa9f55cc9f705d84c8c9130edec7f5e549425857207c25adcd112f72ed83910",
+    "src/KuaiYi.Providers/ProviderClient.cs": "f2124e784e041e6da953354c2e2533696b65efb8b98c5787fff69faea7e91836",
+    "src/KuaiYi.Providers/ProviderContracts.cs": "f5ab94cf6ee162f5be2dbb2ced048176e00f7f59b93d1f8f4422105198c3d308",
+    "src/KuaiYi.Providers/ProviderEventAdmission.cs": "4cce6e50244ea9d6d20074d190fc15af6c142667ceccb7ca28c83eb4e0902b30",
+    "src/KuaiYi.Providers/ProviderEventReceiver.cs": "7a5e4f9393048b722cd101507b24517f886165f376470466ee0a59d05e53d833",
+    "src/KuaiYi.Providers/ProviderPhaseDeadline.cs": "566312601894a3d565ed9c727e9e8b72448f20a8e11a2f57cccf466c7b70c4a6",
+    "src/KuaiYi.Providers/ProviderRequestBudget.cs": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+    "src/KuaiYi.Providers/TextTranslationCoordinator.cs": "bc36461e8cd8136beaa8faff824701e0e9e38daaf99863cbdeeb0a5e8e2eb060",
+    "tests/KuaiYi.Provider.Tests/ImageClassificationTests.cs": "371dc93ca2cc6ca489018102de49c0a8d280d3ef251a6e7c38d73fd59ebd9ee9",
+    "tests/KuaiYi.Provider.Tests/ImageSourcePorts.cs": "a71cd8b7c3f03f196926eb0c657e8ae0bfd6e7a565d2c62d6e77d9107bf12f51",
+    "tests/KuaiYi.Provider.Tests/ImageSourcePreviewTests.cs": "d35f6a0d33abe8239c6ebf8f53668ae55d32a5019e467f2b55ed74e6d5fc696d",
+    "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj": "e6e104e77248dc014f75f471483e148decde86d52167bb9ffaea23fed7646e05",
+    "tests/KuaiYi.Provider.Tests/MarkdownCodeInputPorts.cs": "917ac48607e445053ec08a90808ce830da70a7d4fabe58e1b409357cbadce394",
+    "tests/KuaiYi.Provider.Tests/MarkdownCodeScrollTests.cs": "cbbd523b60d467af5c20023eb2b627a00c41fc1e7e4ea3ac7b331ddfd62f82a7",
+    "tests/KuaiYi.Provider.Tests/MarkdownLinkPorts.cs": "026d113ae99bd026e730cde2d2fa4989ab2c7a5b60281747cc80de4b9addb20d",
+    "tests/KuaiYi.Provider.Tests/MarkdownLinkProductionTests.cs": "debcd626d7ee4bade62f6ff8571dc9c7e4c88b56011f94aed726cd72227e1902",
+    "tests/KuaiYi.Provider.Tests/MarkdownNativePorts.cs": "058f4bf94a04fabdaa3bbd08e6b263db43218a92d46b7b6624042ce21b319ee5",
+    "tests/KuaiYi.Provider.Tests/MarkdownProductionBridgeTests.cs": "e857f60731eda8c15b2559c2aae762bdd701b57ae33e57f4ed5b4368607386ba",
+    "tests/KuaiYi.Provider.Tests/MarkdownReviewCorpusTests.cs": "177f0f9b069001616ac48bb7627271c7cd73f8e697fadafec6619dfb7300b33c",
+    "tests/KuaiYi.Provider.Tests/MarkdownSourceInputPorts.cs": "006c0ea1efea3490442775a8b2e193647d45d836029a86d1722a82d83cda34d2",
+    "tests/KuaiYi.Provider.Tests/MarkdownSourceTests.cs": "2742602016e3328c27f725892e9aee1b03a0875944124ddb538f1c9703e40d53",
+    "tests/KuaiYi.Provider.Tests/MarkdownTableInputPorts.cs": "8d53d1b7e1c5d09a119326b43ca622bbca8734349c9d8a0cb187eee15f699ae9",
+    "tests/KuaiYi.Provider.Tests/MarkdownTableProductionTests.cs": "e5bcb38e62d7b80bdada537f7ff0d6726fae974cc29dc948a8431b740b330c9b",
+    "tests/KuaiYi.Provider.Tests/MarkdownTableScrollTests.cs": "ccabb3098d9a65dd07f7275b0c7e53b535eb94f8aa8ca96fdf6bfb01a9a5f632",
+    "tests/KuaiYi.Provider.Tests/MarkdownTailFollowTests.cs": "a2e80b04c82fd9ce5c99cb61f0f850c450b495baa92f070c9243459355f22d60",
+    "tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs": "a7a245f6a89b26769b7dd1318e43739029ede6d99047e33e53cfa3798e0cb794",
+    "tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs": "6a2b0426b20650aca901d8080081a0ff84297fcb69448a7d0af506bc7fc6822b",
+    "tests/KuaiYi.Provider.Tests/OverlayClearPorts.cs": "e1fb97d26f27796ea103a17ea18f4c6f2396c5b9497beb01ff7e702704242406",
+    "tests/KuaiYi.Provider.Tests/OverlayResultPorts.cs": "985662b6e94160fe595f8254e74c433fc6a94e17f0d07bfc42028858ad8d1766",
+    "tests/KuaiYi.Provider.Tests/OverlayScrollPorts.cs": "706141c3416d4bce15816746d66ea9fab6cdbe94c6f15e858461da87f847c8b9",
+    "tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs": "a3d09ff3bd45c545990d1e1f3bda756b1691e36484262fd84bc01ee92d404c78",
+    "tests/KuaiYi.Provider.Tests/OwnedSourceImageTests.cs": "6e6d19778ee63c6289e8703466c5f5ad8ff8d61b74c8f3230782a99d7beb3adf",
+    "tests/KuaiYi.Provider.Tests/PhaseHttpFixture.cs": "1e5c84f27e8a02268011f78c1e5ddebedf3260fdff9559e27f1b1bab60b9936f",
+    "tests/KuaiYi.Provider.Tests/RestrictedMarkdownInlineTests.cs": "6c69744cfc497d7b866f0999865778dfa2d74644db5120ef3eae21f1fdda010a",
+    "tests/KuaiYi.Provider.Tests/RestrictedMarkdownLinkTests.cs": "72d592c099af99a6ab977cf2517bbbb4c93fd332c01acffe1eeea9c9c7d7ddb2",
+    "tests/KuaiYi.Provider.Tests/RestrictedMarkdownTableTests.cs": "3c11f8f88fb5f202694af37e60545c2d707dbbb65aba85dc74470e5b927993fd",
+    "tests/KuaiYi.Provider.Tests/RestrictedMarkdownTests.cs": "d3603ef776dca27f06e09b45a980ddb86ec1330f3ab8aafebe7d441c6af066cc",
+    "tests/KuaiYi.Provider.Tests/TextDropLifetimePorts.cs": "fa8d17dcfa2b904a7698d60154fa9588311f741d25d22040c83c0319c3e329da",
+    "tests/KuaiYi.Provider.Tests/TextDropLifetimeTests.cs": "2ad905cb22bae687f2aeabf0a2e3ef6896058dee565da0840fde1a3063c1a988",
+    "tools/KuaiYi.GrowthHarness/ActualOverlayProbe.cs": "53bd6aa55eba0f4a841cdc4e8b9ee4c591b40fa771c157d8d63e96072b53a8c8",
+    "tools/KuaiYi.GrowthHarness/MarkdownReviewText.cs": "63b85cc932a1c3156953c0abd3b20fca8514d437169ffc770503d095f3b0f981",
+    "tools/KuaiYi.GrowthHarness/Program.cs": "2b4b2d4d0df8b33265cf91215b0c5629ec051bddcbde41585e9fdf3ab383fdaf"
+  },
+  "SourceManifestSha256": "f1b8342441045d2a1d20c8a957af17de6917283d54efc1108f9b51e6bce0b99d",
+  "SourceManifestFormat": "SHA256 of mapping JSON sort_keys=True compact separators",
+  "OriginalReceiptCopies": {
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r01-before-fix__production.txt": {
+      "Original": "artifacts/image-admission-reentry/r01-before-fix__production.txt",
+      "Bytes": 16646,
+      "Sha256": "a05aae92c82007323bbe5b0e25105460ca3b19cd6d9455d603f6124432f300de",
+      "Kind": "Red source snapshot"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r01-before-fix__prompt.txt": {
+      "Original": "artifacts/image-admission-reentry/r01-before-fix__prompt.txt",
+      "Bytes": 884,
+      "Sha256": "9b23779a81121416fe8bcb2a14678626fdfbd6a4678e82a74d79772e9ff6e1e0",
+      "Kind": "Red source snapshot"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r01-before-fix__tests.txt": {
+      "Original": "artifacts/image-admission-reentry/r01-before-fix__tests.txt",
+      "Bytes": 27305,
+      "Sha256": "b67bc371f5df95b5ceca16cad6203dfbc29f5c10d8bd2160e93cf879e0025b81",
+      "Kind": "Red source snapshot"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r01-reentry-red.log": {
+      "Original": "artifacts/image-admission-reentry/r01-reentry-red.log",
+      "Bytes": 9509,
+      "Sha256": "9bfec3987bb50a4537a19cf4f002a40baecfcacfd625684cf0c2a4bdc74b9a9d",
+      "Kind": "SDK original"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r01-reentry-red.trx": {
+      "Original": "artifacts/image-admission-reentry/r01-reentry-red.trx",
+      "Bytes": 33388,
+      "Sha256": "958e4d814ca429b77698dcae51a42ab53d938d2410b9ca6b854ac06f5e24179c",
+      "Kind": "SDK original"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r02-reentry-fixed.log": {
+      "Original": "artifacts/image-admission-reentry/r02-reentry-fixed.log",
+      "Bytes": 821,
+      "Sha256": "10af017864579847f232b7ae65202edbe4c29e111c89f39ebf1d44634483218a",
+      "Kind": "SDK original"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r02-reentry-fixed.trx": {
+      "Original": "artifacts/image-admission-reentry/r02-reentry-fixed.trx",
+      "Bytes": 208261,
+      "Sha256": "be709ed15bf92339c362452ac29511013fe00f248735a08a5c8c6f67631c921f",
+      "Kind": "SDK original"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r03-provider.log": {
+      "Original": "artifacts/image-admission-reentry/r03-provider.log",
+      "Bytes": 816,
+      "Sha256": "f76cf35865d1061219c11d1322c3ae719a3b84010a00f91140a1745c9d71868c",
+      "Kind": "SDK original"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r03-provider.trx": {
+      "Original": "artifacts/image-admission-reentry/r03-provider.trx",
+      "Bytes": 1663969,
+      "Sha256": "9f22b17b84ffb35bebc0d86982e990858fbbb626b08f3c9b931f05bee528ddf6",
+      "Kind": "SDK original"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r04-app.log": {
+      "Original": "artifacts/image-admission-reentry/r04-app.log",
+      "Bytes": 888,
+      "Sha256": "96bcabee4dd014851600b5a73808812a77b89d6ecafcaf99e7f571afe32aa3ef",
+      "Kind": "SDK original"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r05-before-partial-fix__production.txt": {
+      "Original": "artifacts/image-admission-reentry/r05-before-partial-fix__production.txt",
+      "Bytes": 18586,
+      "Sha256": "dbf06a6cf29268a9f1474542ecb90380cf6e4946f0592c772db9affda4d2ca5b",
+      "Kind": "Red source snapshot"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r05-before-partial-fix__tests.txt": {
+      "Original": "artifacts/image-admission-reentry/r05-before-partial-fix__tests.txt",
+      "Bytes": 32443,
+      "Sha256": "dbbaf039c5cbc0f42a9bc1495a60d45f6065680b470007d2e3ba5eb7fd26f750",
+      "Kind": "Red source snapshot"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r05-partial-red.log": {
+      "Original": "artifacts/image-admission-reentry/r05-partial-red.log",
+      "Bytes": 4867,
+      "Sha256": "d191a528b03eb9d8d519f31ec7a0ecd820b02bea416aa3fa8ea7d675d923ad9f",
+      "Kind": "SDK original"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r05-partial-red.trx": {
+      "Original": "artifacts/image-admission-reentry/r05-partial-red.trx",
+      "Bytes": 18217,
+      "Sha256": "2158e96ef780e929cc35776411d64a4d6fccc48e7ef3dae52b52f6d49fb6d0a4",
+      "Kind": "SDK original"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r06-partial-fixed.log": {
+      "Original": "artifacts/image-admission-reentry/r06-partial-fixed.log",
+      "Bytes": 821,
+      "Sha256": "1a8f87c84111911db62b76c195d4b09cee6de7eceda9a6c1241b8d131ad3a186",
+      "Kind": "SDK original"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r06-partial-fixed.trx": {
+      "Original": "artifacts/image-admission-reentry/r06-partial-fixed.trx",
+      "Bytes": 214345,
+      "Sha256": "67fed3980220984050bc60b6fc8435eb372c5d417af32b9049e54f864cb4bfd8",
+      "Kind": "SDK original"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r07-provider-final.log": {
+      "Original": "artifacts/image-admission-reentry/r07-provider-final.log",
+      "Bytes": 822,
+      "Sha256": "43f66502e39b4f838d7a778b56136505227794586a65d09a9e4df1412a9fddf9",
+      "Kind": "SDK original"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r07-provider-final.trx": {
+      "Original": "artifacts/image-admission-reentry/r07-provider-final.trx",
+      "Bytes": 1670053,
+      "Sha256": "71b30f74d3bb386c57549109643270e3e81134e4ae5b74b6fb5dcd7c188b1c30",
+      "Kind": "SDK original"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r08-app-final.log": {
+      "Original": "artifacts/image-admission-reentry/r08-app-final.log",
+      "Bytes": 888,
+      "Sha256": "fb7ca804617bec0ab9daf615900824a174ba445f59ce0f630fe5b3d20db98f23",
+      "Kind": "SDK original"
+    }
+  },
+  "Parent105RawReceiptsVerifiedUnchanged": {
+    "docs/test-evidence/2026-10-15-original-source-originals__r01-source-focused.log": {
+      "Bytes": 1601,
+      "Sha256": "82e557cb36e244b91443c51ba3ab0d6d34459563a6b19a0a83518b45dc01aac4"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r01-source-focused.trx": {
+      "Bytes": 76635,
+      "Sha256": "0dcfdb4a2d1891ccb57c8b7ff3b84a891d4332b4ed12c839c6e496185488e7a6"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r02-provider.log": {
+      "Bytes": 808,
+      "Sha256": "b636c9b2a45588cea1bdf06956b2ec58559ae566011d729a2a25d2eee00b48a2"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r02-provider.trx": {
+      "Bytes": 1202994,
+      "Sha256": "dbdc9c730d0ee9082386738186270f4345d5d13c3e5d7b9edc8734340ad9b837"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r03-app.log": {
+      "Bytes": 888,
+      "Sha256": "e64a4f4f8a46310281365af8548ae9d7272fbfdd8297b5bde06f94b7b0683531"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r04-provider.log": {
+      "Bytes": 808,
+      "Sha256": "06ad9eabbb1368d9d97a3c4e92508051a559f4ea4e2696c0b3b9771a1a0a49d6"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r04-provider.trx": {
+      "Bytes": 1217223,
+      "Sha256": "810c8cfbde591fc773e3ea21b49bfe16183d24fbe52e7515cbdd45a76c3ae20f"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r05-app.log": {
+      "Bytes": 888,
+      "Sha256": "bd97c991b8019bb346f89b2b7ce97b2d57dcbe04adaded02bf5343adbdb29626"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r06-provider-final.log": {
+      "Bytes": 814,
+      "Sha256": "3544e4a0b9604ae6b70af5e599e0b318b15441a92e516f6e5f916c134328ab71"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r06-provider-final.trx": {
+      "Bytes": 1220149,
+      "Sha256": "bbbcef132fb62495c3ad1d9da8b32e5a1a3f20122ddbe4915d1d954ee06fc03c"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r07-provider-frozen.log": {
+      "Bytes": 815,
+      "Sha256": "4d27cddf2f4caaab3a63d7ef4496415d2a7b78dfbd75e0e9771f4435c7cffc9d"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r07-provider-frozen.trx": {
+      "Bytes": 1221569,
+      "Sha256": "6566eb96a53773949194f65f0c3caec3602fe4ece99b03c66f1e3825f72bf448"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r08-app-frozen.log": {
+      "Bytes": 888,
+      "Sha256": "24eff98f0dc043089ef5bac3cd79f30a8b8284fcf29c849c203499699cd01d56"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__app-final.log": {
+      "Bytes": 888,
+      "Sha256": "a3e91b2c89bfeae7fb5afff7d163ecf36b066e0816aae9e77ad78bf659c3441b"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__exec-transport-diagnostic.txt": {
+      "Bytes": 876,
+      "Sha256": "7667201887afeca53cf1e118b5a5fc49f6db361800c9da5999a5ebd72ab831fe"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__focused-first.log": {
+      "Bytes": 1660,
+      "Sha256": "2238aa9549a69bf9a0be556c4a6b5a7e89ddf8ecee158b0028d900d99c3ad3ba"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__focused-first.trx": {
+      "Bytes": 358999,
+      "Sha256": "4fffbfd98ee9529349ddcfa390efa3bfa66f5a43b6d8de5f71e84c930395e4f7"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__focused-fixed.log": {
+      "Bytes": 808,
+      "Sha256": "62f6a5dee4a385e0f9dd3d678f04b574206933d929316dfa426c23c468927dea"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__focused-fixed.trx": {
+      "Bytes": 357276,
+      "Sha256": "e71cddf6f51752e003ffc59daf15d3eb8e7af9505fb1be0a53b8c7eb1cf73c6c"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__growth-final.log": {
+      "Bytes": 1020,
+      "Sha256": "a09683d832e975bf10a505c07c827aa0fa2ff540521655826d904f5f29976888"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__growth-restore.log": {
+      "Bytes": 180,
+      "Sha256": "bfd0ad4c07f3c972449c1837fc9bd178528b48ad4e5c7d859a8f8ebacd194eb1"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__provider-corpus-final.log": {
+      "Bytes": 2486,
+      "Sha256": "e444ee0ce32af8c527b4cbd53dae6f9149b90106e1c118e9fd160e9c625ebaa5"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__provider-corpus-final.trx": {
+      "Bytes": 1132895,
+      "Sha256": "240e1790c5947d0171d11eed94fda248329be4d621655baa3a60f43dfacad3ff"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__provider-final-fixed.log": {
+      "Bytes": 812,
+      "Sha256": "b52d6a990b584ee6304a941cfb85feeda7f8fe7ac7a23f737a99e8d024f43d5f"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__provider-final-fixed.trx": {
+      "Bytes": 1129523,
+      "Sha256": "0fdede9aba38e6cfec3f3fa7f3cc5d5032a024e9ea8b474afd47bdd9b8cfc569"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__provider-final.log": {
+      "Bytes": 806,
+      "Sha256": "a97e1b0fd8eb9bda8418052d12a9697bdc4691b2d9e734f8c14dbee55c216d06"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__provider-final.trx": {
+      "Bytes": 1126629,
+      "Sha256": "0aeea43d4eb87111b64bc526d138bff4e1916d476dd421f323d0f8a576762d44"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__provider-frozen.log": {
+      "Bytes": 902,
+      "Sha256": "f6480a790c9a920cf9175b81b01dd220f7848f88adb96744d2d68c144f626192"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__provider-frozen.trx": {
+      "Bytes": 1129523,
+      "Sha256": "635a8bf2bccf8c78a26508e4928de4c8e5517d78569bd972ae4b2a78f20223d0"
+    },
+    "docs/test-evidence/2026-10-15-table-scroll-originals__app-final.log": {
+      "Bytes": 888,
+      "Sha256": "713f425db72d9f3cd318b6e1c91c7f82e31b8e0dbc5d25e55f1de834cff8e93e"
+    },
+    "docs/test-evidence/2026-10-15-table-scroll-originals__app-first.log": {
+      "Bytes": 888,
+      "Sha256": "724e22b5862365be512cf497e80be18c8eb14f36582f2f13eaacde3934b7acda"
+    },
+    "docs/test-evidence/2026-10-15-table-scroll-originals__focused-first.log": {
+      "Bytes": 665,
+      "Sha256": "8a9720e75ccb9045f66cfb62bca522c71403f77aef593e4417302ca4688172e7"
+    },
+    "docs/test-evidence/2026-10-15-table-scroll-originals__focused-second.log": {
+      "Bytes": 810,
+      "Sha256": "3b8e5b1bd28722ac90d153e3a8ce42c9024e4ed8166d34953822805f40fdfd8e"
+    },
+    "docs/test-evidence/2026-10-15-table-scroll-originals__focused-second.trx": {
+      "Bytes": 314105,
+      "Sha256": "f182f43d12cded17921a9342a2a1d180e76c86ae13f15e06779ba40b00ced118"
+    },
+    "docs/test-evidence/2026-10-15-table-scroll-originals__provider-final.log": {
+      "Bytes": 807,
+      "Sha256": "7083d941e3d080c13eaf7cd00f441cfc55a834e896e103708e65cda2a27b1e83"
+    },
+    "docs/test-evidence/2026-10-15-table-scroll-originals__provider-final.trx": {
+      "Bytes": 1080618,
+      "Sha256": "1e0c4c6840ed98484c796377946be61f7245ad950f2ea4ae01420dab20554192"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r01-legacy-stop.log": {
+      "Bytes": 13730,
+      "Sha256": "ebe40615281939ca994e9151c2927e5d7ef78bbec175f4c871b658ab789f6e61"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r01-legacy-stop.trx": {
+      "Bytes": 59778,
+      "Sha256": "77b0b3634ca43b96a2848463353793a0c47c320338f918fd3b6e4f06e1d9355e"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r02-fixed-stop.log": {
+      "Bytes": 1823,
+      "Sha256": "0fb8e359fc7227e72f34d9d0b240b4ef36b193f134ba8f9f9c28527805948437"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r02-fixed-stop.trx": {
+      "Bytes": 35364,
+      "Sha256": "29345dd5c59751d273745581023789d0d1b2715392b64fb5d880e30f7a732b26"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r03-cache-diagnostic.log": {
+      "Bytes": 2186,
+      "Sha256": "2c59c8acacc2fab3cea2e0137592afeb41dc251643cf645cbb018154172e517c"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r03-cache-diagnostic.trx": {
+      "Bytes": 5807,
+      "Sha256": "7d06ec3ee9619618534aa2109dce18e724552d2f51540909c87d4299ea7e2912"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r04-fixture-fixed.log": {
+      "Bytes": 814,
+      "Sha256": "e1c705f3b3bfe287ada9d9827aaf115afb95eadad1667179620aabeef970928e"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r04-fixture-fixed.trx": {
+      "Bytes": 33304,
+      "Sha256": "8b5fbddf21e0a36f3ac45290c4966fc05d3858b8340f65e68a7ee168e078f232"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r05-expanded-stop.log": {
+      "Bytes": 814,
+      "Sha256": "32e480f63e81268a0f527639425977f64d008e0cf2c28dc4bd250402585fbd88"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r05-expanded-stop.trx": {
+      "Bytes": 38834,
+      "Sha256": "fbb9854423e1c52584936ebc177ffb54ebfb60f2f4d4deefc0e49e82b80dbce7"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r06-final-legacy.log": {
+      "Bytes": 14265,
+      "Sha256": "de76131129368aa9e0ceb96d236f1a7a2823941c2c512a713804799bbdba21ca"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r06-final-legacy.trx": {
+      "Bytes": 67958,
+      "Sha256": "7ec82dd398d51e5346b168f6e78b96385f9d0b15a6312718dc7c1966dd6cde03"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r07-provider-final.log": {
+      "Bytes": 812,
+      "Sha256": "e1a18889b3130b62992616f6ddfdea1ed90e46fc0ab9ebda3b028ef3a83d98d1"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r07-provider-final.trx": {
+      "Bytes": 1168285,
+      "Sha256": "727b1034ef7893e216b69f27926e5f35c65d6dac083cf64301ec1377d3ca702a"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r08-app-final.log": {
+      "Bytes": 888,
+      "Sha256": "f2c5cd4d5907e9f0e1574a7eb55aaa9e560cae8a1b44d80eddb562eee493d119"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r09-final-legacy.log": {
+      "Bytes": 14262,
+      "Sha256": "4d7407585ffa7da10ac3ff30d76591208bcecb4b11749242148b366ca4a962ed"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r09-final-legacy.trx": {
+      "Bytes": 67958,
+      "Sha256": "29231e72822a16e669b2648ea5a466be63ad8135661197c470d900530c5199cb"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r10-provider-final.log": {
+      "Bytes": 812,
+      "Sha256": "403d1568bf2296ae9acfec455454d00bf5e5164237bb02093dbd3f8abdf31732"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r10-provider-final.trx": {
+      "Bytes": 1168285,
+      "Sha256": "61660867f8be541bc22a2e77b473ba74b0fbcde54eca9b835b3f2f23af5809cd"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r01-clear-focused.log": {
+      "Bytes": 11566,
+      "Sha256": "30b57c4a47417a54400c890e53c341a7dc3710e9108cf8c10a2e1a56d48cba78"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r01-clear-focused.trx": {
+      "Bytes": 64431,
+      "Sha256": "c4e1ec70ad40c18b71cd924ccdbe87d678e1cead9f472bf14c96d45291867a74"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r02-clear-focused.log": {
+      "Bytes": 814,
+      "Sha256": "58022eaac43601c606e3cb72cb382b2940c016ec370bd5067510be4f6be36da0"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r02-clear-focused.trx": {
+      "Bytes": 42336,
+      "Sha256": "6f4b51b7b9a509cd3ddc36361486bf2be49005358a192128db0d27b2488f780c"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r03-provider.log": {
+      "Bytes": 806,
+      "Sha256": "43e6a5c7bbe567d9b0d1ebd36e05809bdb7e67c9b8f15a4a30a38607a385af61"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r03-provider.trx": {
+      "Bytes": 1279302,
+      "Sha256": "a601ea8145676399aa82aee6a85234f78e076075ae09931dacb4557bd5f9b320"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r04-app.log": {
+      "Bytes": 888,
+      "Sha256": "5ced44568b60df9bb445ccb81fa646c5e8ea716940c3437f76c194b99fd6e610"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r05-provider-frozen.log": {
+      "Bytes": 813,
+      "Sha256": "ebd33d9fd12c582e780f35f38dce1edd910316bf83b14d6a4783093a4c30a9ff"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r05-provider-frozen.trx": {
+      "Bytes": 1279302,
+      "Sha256": "695b1966ce3198f2989baeab360c3dea4f0f93bf7b8a98f3753bd39ee60dfe99"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r06-app-frozen.log": {
+      "Bytes": 888,
+      "Sha256": "f7c8efb154a6f24c3abb7d5582ca2540efb9d0624e2a3e20029231472a215652"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r07-provider-final.log": {
+      "Bytes": 812,
+      "Sha256": "28856c3fc54a7a97658400882bef8077fd3693cbf73db0733ccea5a95072f111"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r07-provider-final.trx": {
+      "Bytes": 1283485,
+      "Sha256": "9d16d898921b7253b6b8ef8380d296291780b4cb60e186f63818326bc2e1ccc1"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r08-app-final.log": {
+      "Bytes": 718,
+      "Sha256": "7c825a843a7250452e1ac9051fb6e2dd92b0379ed305396f1722362032351a31"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r09-app-final.log": {
+      "Bytes": 888,
+      "Sha256": "ebc31b282dbe6801a70ab86d071363fb5953a43b4db89988e77ab4914f0704fa"
+    },
+    "docs/test-evidence/2026-10-15-image-source-originals__r01-source-focused.log": {
+      "Bytes": 2370,
+      "Sha256": "c20d5b562617a5d1f42e3ddbee94ca67be8ca69cb0e41ba6a9c9db0eff946988"
+    },
+    "docs/test-evidence/2026-10-15-image-source-originals__r01-source-focused.trx": {
+      "Bytes": 44996,
+      "Sha256": "7a8aba4fed4ae132a6cb5b2e76509e2f24120189c4406fa56856bbc1f8d7e037"
+    },
+    "docs/test-evidence/2026-10-15-image-source-originals__r02-source-focused.log": {
+      "Bytes": 814,
+      "Sha256": "8d893061bd6647b15b466546a383f518dc04fb2a700a8895ca14d8c7e05dcbfa"
+    },
+    "docs/test-evidence/2026-10-15-image-source-originals__r02-source-focused.trx": {
+      "Bytes": 41901,
+      "Sha256": "050ae9dc9c90212da46bf3b0d99e7c1fafa41eef9dea332d9cd64bf563e10252"
+    },
+    "docs/test-evidence/2026-10-15-image-source-originals__r03-provider.log": {
+      "Bytes": 805,
+      "Sha256": "942d19cde638386305fb7058f636f43cf015fe1ef2e324f41b96f6bff3000a58"
+    },
+    "docs/test-evidence/2026-10-15-image-source-originals__r03-provider.trx": {
+      "Bytes": 1335301,
+      "Sha256": "135f0d4e2504d9ffc99a2f2be57ee053da2e6ac66615b6aec5e8f8e34a13d528"
+    },
+    "docs/test-evidence/2026-10-15-image-source-originals__r04-app.log": {
+      "Bytes": 888,
+      "Sha256": "c82cd93e5eef37b98840b67f854b8480f44614c8a3d71e70e22e820880cd40e6"
+    },
+    "docs/test-evidence/2026-10-15-image-source-originals__r05-provider-final.log": {
+      "Bytes": 1640,
+      "Sha256": "f6a2c95a1a734c4ddf424a2fc0e9c9054db9e23ffee7543afa08e88231982be2"
+    },
+    "docs/test-evidence/2026-10-15-image-source-originals__r05-provider-final.trx": {
+      "Bytes": 1341414,
+      "Sha256": "73e10c07929c1f2b9ed3361f5ea54d33e1170d5240cdf142d514d1cf2cec9483"
+    },
+    "docs/test-evidence/2026-10-15-image-source-originals__r06-app-final.log": {
+      "Bytes": 888,
+      "Sha256": "a7a4e23e21709ee4d4602f3449e2ecfa4d357dd175973e6fca76f5edacf83698"
+    },
+    "docs/test-evidence/2026-10-15-image-source-originals__r07-provider-final.log": {
+      "Bytes": 811,
+      "Sha256": "64d0ee3e963294b904e33bdffa2822379530886ffb8d9e5106815c1222495904"
+    },
+    "docs/test-evidence/2026-10-15-image-source-originals__r07-provider-final.trx": {
+      "Bytes": 1339680,
+      "Sha256": "64f9fcaf6eda0cd413e1dbc3add46c8d97abc0629661c94c8ec0341b13580a8a"
+    },
+    "docs/test-evidence/2026-10-15-explicit-links-originals__r01-links-focused.log": {
+      "Bytes": 2567,
+      "Sha256": "6ef152492636e419cac6c7fc038c2305ac37c49f60fe8fb853b47ec842e9cc49"
+    },
+    "docs/test-evidence/2026-10-15-explicit-links-originals__r01-links-focused.trx": {
+      "Bytes": 278094,
+      "Sha256": "79ae8e61eb55f550b12624ff8a68166a1ba104971528b3478c77586b1a41fc47"
+    },
+    "docs/test-evidence/2026-10-15-explicit-links-originals__r02-links-focused.log": {
+      "Bytes": 815,
+      "Sha256": "d8f97341aa17bf2a552ca58e6140b67224b4171ef779b7161774f69c214bf2db"
+    },
+    "docs/test-evidence/2026-10-15-explicit-links-originals__r02-links-focused.trx": {
+      "Bytes": 319212,
+      "Sha256": "129576ec152e1c6b1856af96b57b3a44556004f3610f9593af5cc93becf19ba4"
+    },
+    "docs/test-evidence/2026-10-15-explicit-links-originals__r03-provider.log": {
+      "Bytes": 807,
+      "Sha256": "39ffac3ac08ba15289c11ea798b1acf20b6204e2fcc03dcb6f3a96254d8f071c"
+    },
+    "docs/test-evidence/2026-10-15-explicit-links-originals__r03-provider.trx": {
+      "Bytes": 1462786,
+      "Sha256": "3112c3fc0eabd5d77468d67e06c15d5526a1bc366b8f9bd5e4e89daaa3678027"
+    },
+    "docs/test-evidence/2026-10-15-explicit-links-originals__r04-app.log": {
+      "Bytes": 888,
+      "Sha256": "2b45af30537a1ab1d108787c1d1aa850f30ac79575f3b43bcd4b017ebf1d8760"
+    },
+    "docs/test-evidence/2026-10-15-explicit-links-originals__r05-provider-final.log": {
+      "Bytes": 813,
+      "Sha256": "5884e1cceed5436ce8440ecb013377b4f294097480069c0886bee105ebf7ab90"
+    },
+    "docs/test-evidence/2026-10-15-explicit-links-originals__r05-provider-final.trx": {
+      "Bytes": 1473139,
+      "Sha256": "23a82d7e7a5d90e7f3bc03050fcc1882860d97d65894ff2459b187513bcffa52"
+    },
+    "docs/test-evidence/2026-10-15-explicit-links-originals__r06-app-final.log": {
+      "Bytes": 888,
+      "Sha256": "a1714737596f0877d7ea85f1c280ed2fe338f1e95999115cdb0bbc7a4cb1bb35"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r01-image-focused.log": {
+      "Bytes": 811,
+      "Sha256": "c39d8000e08debd984ca52c2147eff474b13a1a316fd63a7cf1680765973f769"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r01-image-focused.trx": {
+      "Bytes": 156667,
+      "Sha256": "cadddf6f4eab8c85e302df359b0ee780ba5c6ebece6aaa7d1f52d850358bc021"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r02-provider.log": {
+      "Bytes": 806,
+      "Sha256": "c94243e4a2e703ea0e698c6762712594432be0874f4c39a78403a565514c2cb0"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r02-provider.trx": {
+      "Bytes": 1618043,
+      "Sha256": "5c6d0bc13f0c453d3d2ddde10ba2799d49e088de12f52863accc32952cddb0aa"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r03-app.log": {
+      "Bytes": 888,
+      "Sha256": "3f9c8f431570c96db7ff9baa7e87f167a742e5ebeeb67204bdba1c24ccf81a7b"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r04-before-start-fix__production.cs.txt": {
+      "Bytes": 16124,
+      "Sha256": "4249742c216183d1447a4a7f17167e44e1294224e8620a7f90d3e3ceb03a9a5e"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r04-before-start-fix__tests.cs.txt": {
+      "Bytes": 18358,
+      "Sha256": "540f7ea4ce908b7b2312417d440ce8133f8fd9e1f34fd2990ec63e11975d57fd"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r04-start-red.log": {
+      "Bytes": 1705,
+      "Sha256": "d78251d2a3f004d26babe35f9bca618e0d84ca82b79720d47aa1b18b20782f81"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r04-start-red.trx": {
+      "Bytes": 7823,
+      "Sha256": "62693db4e2e4e02717cf2ce47b3732528a5a37c374341edd5c4be4501a6bc92c"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r05-image-fixed.log": {
+      "Bytes": 809,
+      "Sha256": "8dbaa7c8e633992aed246e94089c0d45521483ae08bb39190d688afb4341b3f9"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r05-image-fixed.trx": {
+      "Bytes": 178609,
+      "Sha256": "b98fd1d957e116b567d161f148d3c9efe97d107b328341198beea2410522bf15"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r06-provider-final.log": {
+      "Bytes": 812,
+      "Sha256": "807dfb96dba71e366e7dd3d5a412085eda4e99c2c7a949ef02630430ebdcfb5b"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r06-provider-final.trx": {
+      "Bytes": 1634317,
+      "Sha256": "75cea5eef85b02deda64e0bedcbc86fe8873d08ff0d4437f4d1c31b9d4431571"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r07-app-final.log": {
+      "Bytes": 888,
+      "Sha256": "cb2dd5b4fc9c175ee20212febd5c856c9ba8da70d25273c1262c9fb8501950af"
+    }
+  },
+  "Preservation": {
+    "Workflows": {
+      "Count": 8,
+      "BytesEqualToParent": true
+    },
+    "DependencyLocks": {
+      "Count": 43,
+      "BytesEqualToParent": true
+    },
+    "ExistingEvidence": {
+      "Count": 1685,
+      "BytesEqualToParent": true
+    },
+    "AllExistingCoreFiles": {
+      "Count": 46,
+      "BytesEqualToParent": true
+    },
+    "AllExistingProviderFiles": {
+      "Count": 21,
+      "BytesEqualToParent": true
+    },
+    "AllExistingImagingFiles": {
+      "Count": 19,
+      "BytesEqualToParent": true
+    },
+    "OtherExistingAppFiles": {
+      "Count": 50,
+      "BytesEqualToParent": true
+    },
+    "OtherPromptTemplates": {
+      "Count": 7,
+      "BytesEqualToParent": true
+    },
+    "AllOtherTrackedFiles": {
+      "Count": 2459,
+      "BytesEqualToParent": true
+    }
+  },
+  "ExistingChangedPaths": [
+    ".gitattributes",
+    "assets/prompts/image-classify@1.txt",
+    "docs/progress.md",
+    "docs/traceability.json",
+    "src/KuaiYi.App/OfflineScreenshotCoordinator.cs",
+    "tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs"
+  ],
+  "ActualTests": {
+    "ProviderPassed": 1142,
+    "Failed": 0,
+    "Skipped": 0,
+    "Baseline1118TestNameMultisetExactSubset": true,
+    "AddedCases": 24,
+    "AddedTestNames": {
+      "KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.ActualClassificationWireDefinesTheStrictParserContract(protocol: AnthropicMessages)": 1,
+      "KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.ActualClassificationWireDefinesTheStrictParserContract(protocol: OpenAIChat)": 1,
+      "KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.AdmissionRechecksEpochSettingsBindingModeAndSourceAfterCancellationCallbacks(action: \"capture-roundtrip\")": 1,
+      "KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.AdmissionRechecksEpochSettingsBindingModeAndSourceAfterCancellationCallbacks(action: \"hide\")": 1,
+      "KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.AdmissionRechecksEpochSettingsBindingModeAndSourceAfterCancellationCallbacks(action: \"lock\")": 1,
+      "KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.AdmissionRechecksEpochSettingsBindingModeAndSourceAfterCancellationCallbacks(action: \"mode\")": 1,
+      "KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.AdmissionRechecksEpochSettingsBindingModeAndSourceAfterCancellationCallbacks(action: \"owner-disposed\")": 1,
+      "KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.AdmissionRechecksEpochSettingsBindingModeAndSourceAfterCancellationCallbacks(action: \"profile\")": 1,
+      "KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.AdmissionRechecksEpochSettingsBindingModeAndSourceAfterCancellationCallbacks(action: \"settings\")": 1,
+      "KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.AdmissionRechecksEpochSettingsBindingModeAndSourceAfterCancellationCallbacks(action: \"source\")": 1,
+      "KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.CancellationReentryStartingCLeavesCIntactWhenOuterBIsRejected(replaceSource: False)": 1,
+      "KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.CancellationReentryStartingCLeavesCIntactWhenOuterBIsRejected(replaceSource: True)": 1,
+      "KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.CompleteButInvalidReadabilityContractStillHasZeroFinalRequests(protocol: AnthropicMessages)": 1,
+      "KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.CompleteButInvalidReadabilityContractStillHasZeroFinalRequests(protocol: OpenAIChat)": 1,
+      "KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonMutatingCancellationCallbackStillAllowsTheExplicitNewGeneration(protocol: AnthropicMessages)": 1,
+      "KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonMutatingCancellationCallbackStillAllowsTheExplicitNewGeneration(protocol: OpenAIChat)": 1,
+      "KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(action: \"adopt\")": 1,
+      "KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(action: \"clear\")": 1,
+      "KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(action: \"dispose\")": 1,
+      "KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(action: \"stop\")": 1,
+      "KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(protocol: AnthropicMessages, action: \"mode\")": 1,
+      "KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(protocol: AnthropicMessages, action: \"settings\")": 1,
+      "KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(protocol: OpenAIChat, action: \"mode\")": 1,
+      "KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(protocol: OpenAIChat, action: \"settings\")": 1
+    },
+    "RunCounters": {
+      "r01-reentry-red.trx": {
+        "total": "10",
+        "executed": "10",
+        "passed": "2",
+        "failed": "8",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "r02-reentry-fixed.trx": {
+        "total": "135",
+        "executed": "135",
+        "passed": "135",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "r03-provider.trx": {
+        "total": "1138",
+        "executed": "1138",
+        "passed": "1138",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "r05-partial-red.trx": {
+        "total": "6",
+        "executed": "6",
+        "passed": "2",
+        "failed": "4",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "r06-partial-fixed.trx": {
+        "total": "139",
+        "executed": "139",
+        "passed": "139",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "r07-provider-final.trx": {
+        "total": "1142",
+        "executed": "1142",
+        "passed": "1142",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    "AppBuilds": {
+      "r04-app.log": "0 warnings / 0 errors",
+      "r08-app-final.log": "0 warnings / 0 errors; final production sources"
+    }
+  },
+  "CurrentFailureRecords": [
+    {
+      "Run": "r01-reentry-red",
+      "Passed": 2,
+      "Failed": 8,
+      "ExitCode": 1,
+      "Class": "Actual production admission reentry and actual wire template contract defects",
+      "Detail": "4 Clear/Stop/Adopt/Dispose callbacks admitted rejected B,2 callback-C isolation failures,2 missing actual readability/system contracts;2 invalid-readability fail-closed already passed.",
+      "RedSourceSnapshots": {
+        "src/KuaiYi.App/OfflineScreenshotCoordinator.cs": {
+          "Artifact": "artifacts/image-admission-reentry/r01-before-fix__production.txt",
+          "Bytes": 16646,
+          "Sha256": "a05aae92c82007323bbe5b0e25105460ca3b19cd6d9455d603f6124432f300de",
+          "EqualsParent": true
+        },
+        "assets/prompts/image-classify@1.txt": {
+          "Artifact": "artifacts/image-admission-reentry/r01-before-fix__prompt.txt",
+          "Bytes": 884,
+          "Sha256": "9b23779a81121416fe8bcb2a14678626fdfbd6a4678e82a74d79772e9ff6e1e0",
+          "EqualsParent": true
+        },
+        "tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs": {
+          "Artifact": "artifacts/image-admission-reentry/r01-before-fix__tests.txt",
+          "Bytes": 27305,
+          "Sha256": "b67bc371f5df95b5ceca16cad6203dfbc29f5c10d8bd2160e93cf879e0025b81",
+          "EqualsParent": false
+        }
+      },
+      "AfterFix": "r02 focused135/135,r03 full1138/1138; further review fix verified r06/r07"
+    },
+    {
+      "Run": "r05-partial-red",
+      "Passed": 2,
+      "Failed": 4,
+      "ExitCode": 1,
+      "Class": "Actual related retained partial predecessor terminal-state defect found by independent review",
+      "Detail": "4 two-protocol mode/settings callback cases kept cancelled A Stopped=false;2 callback-C non-Stopped checks already passed.",
+      "RedSourceSnapshots": {
+        "src/KuaiYi.App/OfflineScreenshotCoordinator.cs": {
+          "Artifact": "artifacts/image-admission-reentry/r05-before-partial-fix__production.txt",
+          "Bytes": 18586,
+          "Sha256": "dbf06a6cf29268a9f1474542ecb90380cf6e4946f0592c772db9affda4d2ca5b"
+        },
+        "tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs": {
+          "Artifact": "artifacts/image-admission-reentry/r05-before-partial-fix__tests.txt",
+          "Bytes": 32443,
+          "Sha256": "dbbaf039c5cbc0f42a9bc1495a60d45f6065680b470007d2e3ba5eb7fd26f750"
+        }
+      },
+      "AfterFix": "r06 focused139/139,r07 full1142/1142,r08 App0W/E"
+    }
+  ],
+  "CurrentToolingFailureRecords": [
+    {
+      "Action": "Parent blob preservation audit, first Python invocation",
+      "Failure": "git ls-tree default quoted the Chinese original SPEC path; lookup assertion stopped before evidence JSON creation.",
+      "Resolution": "NUL-delimited git ls-tree -rz names; successful complete byte comparison separately saved in preservation.json. Archives created once; no overwrite, code change, or SDK rerun for this tooling correction."
+    }
+  ],
+  "ReceiptProvenance": {
+    "SdkLogTrxCopies": 14,
+    "RedSourceCopies": 5,
+    "TotalNewRawCopies": 19,
+    "UniqueNoclobber": true,
+    "CurrentOverwrites": 0,
+    "ParentCommittedRaw": 105,
+    "PriorOverwrittenBytes": "Unknown; no reconstruction",
+    "FixtureChanges": "r01 tests had initial10 new cases; final adds14 and marker omits line ending for LF/CRLF. r05 tests preserved before terminal fix; final freezes original classification for meaningful Same assertion. No removal or weakened behavior assertion."
+  },
+  "IndependentReview": {
+    "Agent": "/root/inline_review",
+    "Status": "Pass; no P1/P2 after frozen source/template manifest, raw archives, XML name multiset, index-byte and preservation review",
+    "ImplementationStatus": "Pass; retained-A terminal-state P2 found, red-reproduced and fixed before final acceptance",
+    "SdkWindowsNetworkCalls": 0,
+    "SourceManifestSha256": "f1b8342441045d2a1d20c8a957af17de6917283d54efc1108f9b51e6bce0b99d",
+    "FrozenStagedPaths": 27,
+    "StagedEqualsWorking": true,
+    "Scope": "100 source/template hashes;19 exact raw artifacts plus105 parent receipts;1685 old evidence;1142 exact1118+24;two App0W/E;red2/10 and2/6 plus5 source snapshots;all other2459 parent files unchanged;P6/native/normal-send boundaries closed"
+  },
+  "Safety": {
+    "ClassificationInvalidOrIncomplete": "Fail closed, one classifier HTTP/no final/no repair loop",
+    "VisualCapability": "Explicit Supported only",
+    "Authority": "Mandatory immutable credential-free TEST_ONLY_FIXTURE loopback boundary, owned pinned ProviderClient",
+    "UserAction": "Adoption is local; only explicit user action while On starts bounded phases",
+    "ScreenshotInput": "Existing final OwnedSourceImage crop only; exact <=2560 side, <=4MiB/profile PNG; no preview reuse/new decoder/resizer",
+    "TwoProtocols": "Existing ProtocolAdapters/ProviderClient unchanged",
+    "TotalBudget": "One monotonic budget across preparation/classification/final; existing phase and finite retry guards unchanged",
+    "SourcePasswordIntegrityCancelCleanupGates": "Unchanged; offline job adds owner/source/version/epoch/settings/binding/lifecycle checks",
+    "Delay250And600Milliseconds": "Unchanged",
+    "OfflineReuseProduction": "Off",
+    "NewDependencies": 0,
+    "ActualModelsCredentialsFeesPermissionsAgreements": 0,
+    "NativeCiOrCmakeExperiments": 0,
+    "MainForcePushDeploy": "None",
+    "Actions": "No query/dispatch; prior Forbidden respected, remote run count Unknown",
+    "CleanupSemantics": "Clear/adopt/lock/hide synchronously revoke and release original owner/cache/versions; ClearAsync/Dispose await only owned old jobs, whose finally clears PNG/transport derivatives. No native timing/physical-erasure claim.",
+    "NormalScreenshotSending": "Closed; component not installed in normal Shell/menu/screenshot path",
+    "CoreProviderParserSerializer": "All unchanged",
+    "ClassificationPrompt": "Intentional unreleased image-classify@1 contract correction only;other7 templates unchanged",
+    "FailedAdmission": "Recheck inside canonical gate before any B result/cache publication;stop actual B identity only;retained cancelled A stopped only while exact A active/results still owned;callback C unchanged",
+    "Usage": "Paused; not added"
+  },
+  "Certificate": "All dotnet commands explicitly DOTNET_GENERATE_ASPNET_CERTIFICATE=false, exported before and after activation; store/trust Unknown; no store/config/trust/delete operation",
+  "NotRun": [
+    "P2/P4 native acceptance and real text Alpha",
+    "WPF measure/layout/selection/reading/focus, COM/broker/native ownership/cancellation timing",
+    "Real screenshot/OCR/identity/languages/multi-format preprocessing",
+    "Classifier/image translation/visual quality and full P6/I/J/B groups",
+    "Production image sending/UI integration; not enabled"
+  ],
+  "Traceability": "Only P6-04/05 evidence/note appended; implementation InProgress and validation NotRun unchanged; other items semantically unchanged",
+  "ValidationDocument": "docs/validation/image-admission-reentry.md",
+  "Commands": {
+    "Setup": "export DOTNET_GENERATE_ASPNET_CERTIFICATE=false;source /workspace/.kuaiyi-setup/activate.sh;export DOTNET_GENERATE_ASPNET_CERTIFICATE=false",
+    "Tests": "DOTNET_GENERATE_ASPNET_CERTIFICATE=false dotnet test tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj --configuration Release --no-restore --logger 'trx;LogFileName=<unique run.trx>' --results-directory artifacts/image-admission-reentry",
+    "Focused": "FullyQualifiedName~ImageClassificationTests|FullyQualifiedName~OfflineScreenshotRoutingTests|FullyQualifiedName~OwnedSourceImageTests",
+    "RedR01": "FullyQualifiedName~NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission|FullyQualifiedName~CancellationReentryStartingCLeavesCIntactWhenOuterBIsRejected|FullyQualifiedName~ActualClassificationWireDefinesTheStrictParserContract|FullyQualifiedName~CompleteButInvalidReadabilityContractStillHasZeroFinalRequests",
+    "RedR05": "FullyQualifiedName~RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped|FullyQualifiedName~CancellationReentryStartingCLeavesCIntactWhenOuterBIsRejected",
+    "App": "DOTNET_GENERATE_ASPNET_CERTIFICATE=false dotnet build src/KuaiYi.App/KuaiYi.App.csproj --configuration Release --no-restore -p:EnableWindowsTargeting=true"
+  },
+  "ReceiptAttributes": {
+    "NewExactPaths": 19,
+    "CachedGitTextAttribute": "unset (-text)",
+    "Verified": true
+  },
+  "PrecommitRemote": {
+    "refs/heads/main": "51d077481cf6303602fcf5d2718213da9cf05178",
+    "refs/heads/dev/screenshot-image-routing": "04f4cdb85634d46726b4de78c3b18e018fa15932",
+    "refs/heads/dev/image-admission-reentry": "Absent",
+    "DefaultNetworkRead": "Succeeded; no permission or access workaround",
+    "Worktrees": 1
+  }
+}

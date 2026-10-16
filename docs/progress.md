@@ -717,3 +717,11 @@ WPF真实路由/测量/选择/阅读位置/确认框/浏览器启动、截图/CO
 最终Provider1118/1118=父1014完整+新104（55分类/路由、45编排、4导出所有权），App两次0W/E。实际生产组件和原Provider/Kestrel双协议流式/非流式、同图MIME/base64、缺终止、排队A/B及clear/Stop/cleanup执行。独审找到Gate先安装新id再取消旧CTS抛错导致新Job无归属：r04实际2通过/1失败，原源码/测试和原回执保全；组件捕获后只结算实际out新id并保原错/清理错，Core不改。r01 100/100、r02 1107/1107、r05 115/115、r06最终通过及r03/r07App均保全。12 SDK原log/TRX+2红版源码精确-text，父91原回执不变。详见[阶段与实现边界](validation/screenshot-image-routing.md)和[固定证据](test-evidence/2026-10-15-screenshot-image-routing.json)。
 
 P6-04/05仅InProgress、整体验证NotRun；真实截图/多格式规范化/OCR、视觉语义/质量、WPF测量选择阅读焦点、COM所有权/时限及完整P2/P4/P6仍未验，不能宣称图像Beta或生产通过。250/600ms及全部来源/密码/完整性/取消/清理门保持；无新依赖、模型、费用凭据权限协议、Windows/CMake实验/main/强推/部署。每次dotnet显式false，证书存储信任/旧覆盖字节Unknown不读改/重造，Actions不查询/绕拒绝、远端CIUnknown。
+
+### 2026-10-16 P6接纳重入与实际分类提示契约修复
+
+从04f4cdb85634d46726b4de78c3b18e018fa15932核文件、Git/default网络远端祖先与单一写入者，建立dev/image-admission-reentry，独审只读，main保持原SHA。本批先修两项P2，usage新增暂停。真实红测r01 10项8失败2通过：Gate安装B后取消A，Clear/Stop/Adopt/Dispose非抛错回调仍能被外层B恢复旧状态，回调启动C也会被B覆盖；实际分类system未给出parser要求的readability等合同。修为canonical Gate内按命令修订、原source/owner、settings/binding/epoch/lifecycle二次证明后才提交结果及缓存；拒绝仅结算B，保留C。修正尚未发布image-classify@1的精确字段、枚举/类型/上限及可解析示例，双协议实际wire验证；非法完整JSON仍不发final，无parser弱化。
+
+初版修后专项135/135、全量1138/1138、App0W/E。独审发现拒B后已取消partial A仍可能显示生成中，r05真实6项4失败2通过保全；仅当active和结果仍是原A且Gate已不接受A时清active/标Stopped，保留partial、原图及分类，并断言C不被标停。最终专项139/139、Provider1142/1142（父1118完整+新24）、App0W/E；14份SDK log/TRX及5份两次红版源码精确-text保全，父105原回执与1685既有证据不改。详见[修复说明](validation/image-admission-reentry.md)及[固定证据](test-evidence/2026-10-16-image-admission-reentry.json)。
+
+Core/Provider parser与序列化、正常Shell截图、其余7模板、8workflow/43锁不变。250/600ms及来源/密码/完整性/取消/清理门、生产离线复用Off保持，普通截图仍本地未翻译未发送；P6-04/05 InProgress/validation NotRun，真实Windows/WPF/COM/采集/OCR/模型质量及完整P2/P4/P6 NotRun。所有dotnet显式false，旧证书存储信任/旧覆盖字节Unknown不读改重造；Actions不查询调度绕拒绝，run数Unknown。无main/强推/部署/新依赖费用凭据权限协议、Windows/CMake实验或新CI。

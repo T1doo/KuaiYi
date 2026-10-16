@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ac106dc9-3779-4c1d-acd3-7bff853620d9" name="@68e6e3cca8ba 2026-10-16 01:45:06" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-16T01:45:06.0115586+00:00" queuing="2026-10-16T01:45:06.0115586+00:00" start="2026-10-16T01:45:04.4991563+00:00" finish="2026-10-16T01:45:06.0181079+00:00" />
+  <TestSettings name="default" id="ddddff55-4617-4cad-89a6-64e449b26a1e">
+    <Deployment runDeploymentRoot="_68e6e3cca8ba_2026-10-16_01_45_06" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="8888065a-a69f-481a-9e75-5b9df0fe0149" testId="5517ce65-05c0-23cc-09f4-15ae2fccc2ac" testName="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(protocol: OpenAIChat, action: &quot;settings&quot;)" computerName="68e6e3cca8ba" duration="00:00:00.0266164" startTime="2026-10-16T01:45:05.6565248+00:00" endTime="2026-10-16T01:45:05.6830110+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8888065a-a69f-481a-9e75-5b9df0fe0149">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure
+Expected: True
+Actual:   False</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(ApiProtocol protocol, String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 248
+   at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(ApiProtocol protocol, String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 248
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="88605000-d996-4aa0-b872-e9b793a30da0" testId="8588c888-c12b-a741-570f-1c27145ab368" testName="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(protocol: AnthropicMessages, action: &quot;mode&quot;)" computerName="68e6e3cca8ba" duration="00:00:00.2834837" startTime="2026-10-16T01:45:05.2846843+00:00" endTime="2026-10-16T01:45:05.5813662+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="88605000-d996-4aa0-b872-e9b793a30da0">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure
+Expected: True
+Actual:   False</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(ApiProtocol protocol, String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 248
+   at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(ApiProtocol protocol, String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 248
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="20912bb9-4467-4379-a44b-4bbe3a2a52d5" testId="062f826d-4cfd-c742-ef41-bb8d059b9794" testName="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(protocol: OpenAIChat, action: &quot;mode&quot;)" computerName="68e6e3cca8ba" duration="00:00:00.0468868" startTime="2026-10-16T01:45:05.6019210+00:00" endTime="2026-10-16T01:45:05.6275363+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="20912bb9-4467-4379-a44b-4bbe3a2a52d5">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure
+Expected: True
+Actual:   False</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(ApiProtocol protocol, String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 248
+   at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(ApiProtocol protocol, String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 248
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c65efae3-9a44-4a9e-9982-311e47b65eb5" testId="ad7ed866-c93d-b135-6a2f-f6208c9e226f" testName="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(protocol: AnthropicMessages, action: &quot;settings&quot;)" computerName="68e6e3cca8ba" duration="00:00:00.0269002" startTime="2026-10-16T01:45:05.6293961+00:00" endTime="2026-10-16T01:45:05.6554505+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c65efae3-9a44-4a9e-9982-311e47b65eb5">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure
+Expected: True
+Actual:   False</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(ApiProtocol protocol, String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 248
+   at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(ApiProtocol protocol, String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 248
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3d8a177c-8546-47e3-b227-fa12e161985d" testId="6776a124-7ddc-dcdf-b4c6-ccb6e922e798" testName="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.CancellationReentryStartingCLeavesCIntactWhenOuterBIsRejected(replaceSource: True)" computerName="68e6e3cca8ba" duration="00:00:00.1164102" startTime="2026-10-16T01:45:05.7997345+00:00" endTime="2026-10-16T01:45:05.9153129+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3d8a177c-8546-47e3-b227-fa12e161985d" />
+    <UnitTestResult executionId="6cd88ab1-bcf9-4b64-9086-f7eac0bcfba8" testId="dacd331f-a2e4-b1ec-af41-04e3e48176de" testName="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.CancellationReentryStartingCLeavesCIntactWhenOuterBIsRejected(replaceSource: False)" computerName="68e6e3cca8ba" duration="00:00:00.1136813" startTime="2026-10-16T01:45:05.6847187+00:00" endTime="2026-10-16T01:45:05.7987796+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6cd88ab1-bcf9-4b64-9086-f7eac0bcfba8" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(protocol: OpenAIChat, action: &quot;settings&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="5517ce65-05c0-23cc-09f4-15ae2fccc2ac">
+      <Execution id="8888065a-a69f-481a-9e75-5b9df0fe0149" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests" name="RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(protocol: AnthropicMessages, action: &quot;settings&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="ad7ed866-c93d-b135-6a2f-f6208c9e226f">
+      <Execution id="c65efae3-9a44-4a9e-9982-311e47b65eb5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests" name="RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.CancellationReentryStartingCLeavesCIntactWhenOuterBIsRejected(replaceSource: False)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="dacd331f-a2e4-b1ec-af41-04e3e48176de">
+      <Execution id="6cd88ab1-bcf9-4b64-9086-f7eac0bcfba8" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests" name="CancellationReentryStartingCLeavesCIntactWhenOuterBIsRejected" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.CancellationReentryStartingCLeavesCIntactWhenOuterBIsRejected(replaceSource: True)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="6776a124-7ddc-dcdf-b4c6-ccb6e922e798">
+      <Execution id="3d8a177c-8546-47e3-b227-fa12e161985d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests" name="CancellationReentryStartingCLeavesCIntactWhenOuterBIsRejected" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(protocol: OpenAIChat, action: &quot;mode&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="062f826d-4cfd-c742-ef41-bb8d059b9794">
+      <Execution id="20912bb9-4467-4379-a44b-4bbe3a2a52d5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests" name="RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(protocol: AnthropicMessages, action: &quot;mode&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="8588c888-c12b-a741-570f-1c27145ab368">
+      <Execution id="88605000-d996-4aa0-b872-e9b793a30da0" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests" name="RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="5517ce65-05c0-23cc-09f4-15ae2fccc2ac" executionId="8888065a-a69f-481a-9e75-5b9df0fe0149" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8588c888-c12b-a741-570f-1c27145ab368" executionId="88605000-d996-4aa0-b872-e9b793a30da0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="062f826d-4cfd-c742-ef41-bb8d059b9794" executionId="20912bb9-4467-4379-a44b-4bbe3a2a52d5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ad7ed866-c93d-b135-6a2f-f6208c9e226f" executionId="c65efae3-9a44-4a9e-9982-311e47b65eb5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6776a124-7ddc-dcdf-b4c6-ccb6e922e798" executionId="3d8a177c-8546-47e3-b227-fa12e161985d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dacd331f-a2e4-b1ec-af41-04e3e48176de" executionId="6cd88ab1-bcf9-4b64-9086-f7eac0bcfba8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="6" executed="6" passed="2" failed="4" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.11]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.35]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.40]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.73]       Assert.True() Failure
+[xUnit.net 00:00:00.73]       Expected: True
+[xUnit.net 00:00:00.73]       Actual:   False
+[xUnit.net 00:00:00.73]       Stack Trace:
+[xUnit.net 00:00:00.73]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs(248,0): at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(ApiProtocol protocol, String action)
+[xUnit.net 00:00:00.73]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs(248,0): at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(ApiProtocol protocol, String action)
+[xUnit.net 00:00:00.73]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.77]       Assert.True() Failure
+[xUnit.net 00:00:00.77]       Expected: True
+[xUnit.net 00:00:00.77]       Actual:   False
+[xUnit.net 00:00:00.77]       Stack Trace:
+[xUnit.net 00:00:00.77]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs(248,0): at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(ApiProtocol protocol, String action)
+[xUnit.net 00:00:00.77]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs(248,0): at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(ApiProtocol protocol, String action)
+[xUnit.net 00:00:00.77]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.80]       Assert.True() Failure
+[xUnit.net 00:00:00.80]       Expected: True
+[xUnit.net 00:00:00.80]       Actual:   False
+[xUnit.net 00:00:00.80]       Stack Trace:
+[xUnit.net 00:00:00.80]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs(248,0): at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(ApiProtocol protocol, String action)
+[xUnit.net 00:00:00.80]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs(248,0): at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(ApiProtocol protocol, String action)
+[xUnit.net 00:00:00.80]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.82]       Assert.True() Failure
+[xUnit.net 00:00:00.82]       Expected: True
+[xUnit.net 00:00:00.82]       Actual:   False
+[xUnit.net 00:00:00.82]       Stack Trace:
+[xUnit.net 00:00:00.82]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs(248,0): at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(ApiProtocol protocol, String action)
+[xUnit.net 00:00:00.82]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs(248,0): at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(ApiProtocol protocol, String action)
+[xUnit.net 00:00:00.82]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.07]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T01:45:05.5862421+00:00">
+        <Text>[xUnit.net 00:00:00.73]     KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(protocol: AnthropicMessages, action: "mode") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T01:45:05.6283036+00:00">
+        <Text>[xUnit.net 00:00:00.77]     KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(protocol: OpenAIChat, action: "mode") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T01:45:05.6561023+00:00">
+        <Text>[xUnit.net 00:00:00.80]     KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(protocol: AnthropicMessages, action: "settings") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T01:45:05.6837156+00:00">
+        <Text>[xUnit.net 00:00:00.82]     KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.RejectedAdmissionMarksOnlyItsCancelledPartialPredecessorStopped(protocol: OpenAIChat, action: "settings") [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

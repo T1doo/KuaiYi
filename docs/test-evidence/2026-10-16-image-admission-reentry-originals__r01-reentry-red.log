@@ -1,0 +1,93 @@
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.64]     KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(action: "adopt") [FAIL]
+[xUnit.net 00:00:00.68]     KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(action: "stop") [FAIL]
+[xUnit.net 00:00:00.69]     KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(action: "dispose") [FAIL]
+[xUnit.net 00:00:00.71]     KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(action: "clear") [FAIL]
+[xUnit.net 00:00:00.73]     KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.ActualClassificationWireDefinesTheStrictParserContract(protocol: OpenAIChat) [FAIL]
+[xUnit.net 00:00:00.75]     KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.ActualClassificationWireDefinesTheStrictParserContract(protocol: AnthropicMessages) [FAIL]
+[xUnit.net 00:00:00.77]     KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.CancellationReentryStartingCLeavesCIntactWhenOuterBIsRejected(replaceSource: False) [FAIL]
+[xUnit.net 00:00:00.79]     KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.CancellationReentryStartingCLeavesCIntactWhenOuterBIsRejected(replaceSource: True) [FAIL]
+  Failed KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(action: "adopt") [246 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 178
+   at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 184
+   at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 184
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(action: "stop") [40 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 178
+   at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 184
+   at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 184
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(action: "dispose") [12 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 178
+   at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 184
+   at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 184
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(action: "clear") [14 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 178
+   at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 184
+   at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.NonThrowingCancellationReentryCannotRepublishTheRejectedAdmission(String action) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 184
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.ActualClassificationWireDefinesTheStrictParserContract(protocol: OpenAIChat) [24 ms]
+  Error Message:
+   Assert.Contains() Failure: Sub-string not found
+String:    "你是“快译”的翻译与阅读辅助模块。依据本次指定模式处理用户提供的原文或图片，输出简"···
+Not found: "clear / partly_unclear / unreadable"
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.ActualClassificationWireDefinesTheStrictParserContract(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 203
+   at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.ActualClassificationWireDefinesTheStrictParserContract(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 205
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.ActualClassificationWireDefinesTheStrictParserContract(protocol: AnthropicMessages) [11 ms]
+  Error Message:
+   Assert.Contains() Failure: Sub-string not found
+String:    "你是“快译”的翻译与阅读辅助模块。依据本次指定模式处理用户提供的原文或图片，输出简"···
+Not found: "clear / partly_unclear / unreadable"
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.ActualClassificationWireDefinesTheStrictParserContract(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 203
+   at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.ActualClassificationWireDefinesTheStrictParserContract(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 205
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.CancellationReentryStartingCLeavesCIntactWhenOuterBIsRejected(replaceSource: False) [26 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: 2
+Actual:   1
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.CancellationReentryStartingCLeavesCIntactWhenOuterBIsRejected(Boolean replaceSource) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 195
+   at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.CancellationReentryStartingCLeavesCIntactWhenOuterBIsRejected(Boolean replaceSource) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 197
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.CancellationReentryStartingCLeavesCIntactWhenOuterBIsRejected(replaceSource: True) [19 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: 2
+Actual:   1
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.CancellationReentryStartingCLeavesCIntactWhenOuterBIsRejected(Boolean replaceSource) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 195
+   at KuaiYi.Provider.Tests.OfflineScreenshotRoutingTests.CancellationReentryStartingCLeavesCIntactWhenOuterBIsRejected(Boolean replaceSource) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs:line 197
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/image-admission-reentry/r01-reentry-red.trx
+
+Failed!  - Failed:     8, Passed:     2, Skipped:     0, Total:    10, Duration: 462 ms - KuaiYi.Provider.Tests.dll (net10.0)
