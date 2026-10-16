@@ -725,3 +725,13 @@ P6-04/05仅InProgress、整体验证NotRun；真实截图/多格式规范化/OCR
 初版修后专项135/135、全量1138/1138、App0W/E。独审发现拒B后已取消partial A仍可能显示生成中，r05真实6项4失败2通过保全；仅当active和结果仍是原A且Gate已不接受A时清active/标Stopped，保留partial、原图及分类，并断言C不被标停。最终专项139/139、Provider1142/1142（父1118完整+新24）、App0W/E；14份SDK log/TRX及5份两次红版源码精确-text保全，父105原回执与1685既有证据不改。详见[修复说明](validation/image-admission-reentry.md)及[固定证据](test-evidence/2026-10-16-image-admission-reentry.json)。
 
 Core/Provider parser与序列化、正常Shell截图、其余7模板、8workflow/43锁不变。250/600ms及来源/密码/完整性/取消/清理门、生产离线复用Off保持，普通截图仍本地未翻译未发送；P6-04/05 InProgress/validation NotRun，真实Windows/WPF/COM/采集/OCR/模型质量及完整P2/P4/P6 NotRun。所有dotnet显式false，旧证书存储信任/旧覆盖字节Unknown不读改重造；Actions不查询调度绕拒绝，run数Unknown。无main/强推/部署/新依赖费用凭据权限协议、Windows/CMake实验或新CI。
+
+### 2026-10-16 P6分类与生成独立usage回执
+
+从a3b01123d452a9eb11c1f27d66b98a13a220e878核实际文件/干净Git/单worktree唯一写入者/默认远端祖先，建dev/image-stage-usage，独审只读，main不动。续接离线截图组件的两阶段usage：每阶段不可变观察回执绑定本地枚举ID、完整canonical身份、原图/来源版本与实际协议；字段仅取服务端实际报告，Unknown不补0、不猜token/费用。每字段最后有效值替换（含0/向下修正），重复不加、不取最大值；Usage事件与正文、完成/失败解耦。缺失/非法usage元数据保持未知但不破坏合法正文/协议终态，原choice/block严格解析、完整分类和取消门不改。
+
+analysis与分类回执同canonical缓存，再生成引用原回执并标Reused，不造第二笔分类消耗；三版淘汰后只保有限原元数据，显式重判同时更新缓存。当前请求usage按job.Identity归属，浏览旧版本不串账，跨协议生成保留原分类协议并用新协议生成。失败/中断/停止保已接纳观察，Clear/换图/锁屏/隐藏清除引用；Usage通知重入及排队迟到沿原Eligible门拒绝后续写回，模式只影响下一次显式生成。本地InvocationId仅是一次Provider枚举尝试，不能证明发出/计费/覆盖服务端未知消耗；无价格/总额或费用零假设。
+
+首轮数据契约已加而消费逻辑尚旧，实际双协议流/非流HTTP红测0过/4失败及3份红源码保全；接入后r02 73/73、扩展r03 155/155、r04全量1228/1228、r05归属4/4、r06及r08最终Provider1232/1232（父1142完整+新90：58编排、32parser）、App0W/E。r08仅收紧异步用例等Usage通知的同步条件，防止读取快照抢先，生产未改。覆盖实际请求body/阶段、缺失/坏数/重复/向下修正、usage不完成、两阶段失败中断/取消/迟到、Clear/Adopt/模式/C重入、三版重判/旧版阅读/跨协议复用。15 SDK log/TRX+3红源码精确-text，父124原件与1705既有证据不改。详见[合同与回执说明](validation/image-stage-usage.md)及[固定证据](test-evidence/2026-10-16-image-stage-usage.json)。
+
+普通Shell/截图/菜单仍未接发送，On截图本地未翻译未发送，生产离线复用Off；250/600ms和来源/密码/完整性/取消/清理门保持。Core、ProviderClient/receiver/budget/请求序列化、8模板/8workflow/43锁不变，无新依赖。P6-04/05 InProgress/validation NotRun，真实WPF/Windows/COM/截图/OCR/模型和视觉质量及完整P2/P4/P6 NotRun；不造Windows/CMake实验/新CI/绕隔离。dotnet激活前后及命令前显式false，旧证书/覆盖字节Unknown不读改重造，Actions不查不调不绕拒绝、run数Unknown；无main/强推/部署/费用凭据权限新协议/真实模型。

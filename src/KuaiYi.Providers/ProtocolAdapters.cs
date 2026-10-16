@@ -7,6 +7,19 @@ internal static class ProtocolJson
 {
     public static JsonDocument Parse(string text) => JsonDocument.Parse(text, new JsonDocumentOptions { MaxDepth = 32 });
     public static long? Number(JsonElement root, string property) => root.TryGetProperty(property, out var p) && p.TryGetInt64(out long n) && n >= 0 ? n : null;
+    // Usage metadata may be incomplete without invalidating an otherwise valid protocol response.
+    public static TokenUsage Usage(JsonElement root,string input,string output)
+    {
+        if(!Unique(root,"usage",out var usage)||usage.ValueKind!=JsonValueKind.Object)return new(null,null);
+        return new(UsageNumber(usage,input),UsageNumber(usage,output));
+    }
+    private static long? UsageNumber(JsonElement root,string name)=>Unique(root,name,out var value)&&value.ValueKind==JsonValueKind.Number&&value.TryGetInt64(out long count)&&count>=0?count:null;
+    private static bool Unique(JsonElement root,string name,out JsonElement value)
+    {
+        value=default;if(root.ValueKind!=JsonValueKind.Object)return false;bool found=false;
+        foreach(var property in root.EnumerateObject())if(property.NameEquals(name)){if(found)return false;found=true;value=property.Value;}
+        return found;
+    }
     public static string? String(JsonElement root, string property) => root.TryGetProperty(property, out var p) && p.ValueKind == JsonValueKind.String ? p.GetString() : null;
     public static JsonObject ImageRequest(byte[] image, string mime, bool openAi)
     {
@@ -50,7 +63,7 @@ public sealed class OpenAiChatAdapter : IProtocolAdapter
         if (root.TryGetProperty("error", out _)){LastEventWasEffective=true;return [new(ModelEventKind.Failed, Reason: "PROVIDER_ERROR")];}
         List<ModelEvent> events = [];
         if (root.TryGetProperty("usage", out var usage) && usage.ValueKind == JsonValueKind.Object)
-            events.Add(new(ModelEventKind.Usage, Usage: new(ProtocolJson.Number(usage, "prompt_tokens"), ProtocolJson.Number(usage, "completion_tokens"))));
+            events.Add(new(ModelEventKind.Usage, Usage: ProtocolJson.Usage(root,"prompt_tokens","completion_tokens")));
         if (!root.TryGetProperty("choices", out var choices) || choices.ValueKind != JsonValueKind.Array) throw new InvalidDataException("Invalid OpenAI choices.");
         foreach (JsonElement choice in choices.EnumerateArray())
         {
@@ -86,7 +99,7 @@ public sealed class OpenAiChatAdapter : IProtocolAdapter
         if (text is null) throw new InvalidDataException("Missing OpenAI text.");
         List<ModelEvent> events = [new(ModelEventKind.TextDelta, text)];
         if (root.TryGetProperty("usage", out var usage) && usage.ValueKind == JsonValueKind.Object)
-            events.Add(new(ModelEventKind.Usage, Usage: new(ProtocolJson.Number(usage, "prompt_tokens"), ProtocolJson.Number(usage, "completion_tokens"))));
+            events.Add(new(ModelEventKind.Usage, Usage: ProtocolJson.Usage(root,"prompt_tokens","completion_tokens")));
         events.Add(finish == "stop" ? new(ModelEventKind.Completed, Reason: "non-streaming") : new(ModelEventKind.Failed, Reason: finish == "length" ? "OUTPUT_TRUNCATED" : "STREAM_INTERRUPTED"));
         return events;
     }
@@ -135,13 +148,13 @@ public sealed class AnthropicMessagesAdapter : IProtocolAdapter
                 if (started) throw new InvalidDataException("Duplicate Anthropic message_start.");
                 started = true;LastEventWasEffective=true;
                 if (root.TryGetProperty("message", out var message) && message.TryGetProperty("usage", out var startUsage))
-                    {previousUsage=new(ProtocolJson.Number(startUsage,"input_tokens"),ProtocolJson.Number(startUsage,"output_tokens"));return [new(ModelEventKind.Usage,Usage:previousUsage)];}
+                    {previousUsage=ProtocolJson.Usage(message,"input_tokens","output_tokens");return [new(ModelEventKind.Usage,Usage:previousUsage)];}
                 break;
             case "message_delta":
                 RequireStarted();
                 if (activeBlocks.Count != 0) throw new InvalidDataException("Message delta before content blocks stopped.");
                 List<ModelEvent> events = [];
-                if (root.TryGetProperty("usage", out var usage)) events.Add(new(ModelEventKind.Usage, Usage: new(ProtocolJson.Number(usage, "input_tokens"), ProtocolJson.Number(usage, "output_tokens"))));
+                if (root.TryGetProperty("usage", out var usage)) events.Add(new(ModelEventKind.Usage, Usage: ProtocolJson.Usage(root,"input_tokens","output_tokens")));
                 if (root.TryGetProperty("delta", out var final) && ProtocolJson.String(final, "stop_reason") is { } reason)
                 {
                     validStopReason = reason is "end_turn" or "stop_sequence";LastEventWasEffective=!stopReasonSeen;stopReasonSeen=true;
@@ -184,7 +197,7 @@ public sealed class AnthropicMessagesAdapter : IProtocolAdapter
             if (ProtocolJson.String(block, "type") == "text" && ProtocolJson.String(block, "text") is { } text) events.Add(new(ModelEventKind.TextDelta, text));
             else if (ProtocolJson.String(block, "type") is "tool_use" or "server_tool_use") return [new(ModelEventKind.Failed, Reason: "UNSUPPORTED_TOOL_RESPONSE")];
         }
-        if (root.TryGetProperty("usage", out var usage)) events.Add(new(ModelEventKind.Usage, Usage: new(ProtocolJson.Number(usage, "input_tokens"), ProtocolJson.Number(usage, "output_tokens"))));
+        if (root.TryGetProperty("usage", out var usage)) events.Add(new(ModelEventKind.Usage, Usage: ProtocolJson.Usage(root,"input_tokens","output_tokens")));
         string? reason = ProtocolJson.String(root, "stop_reason");
         events.Add(reason is "end_turn" or "stop_sequence" ? new(ModelEventKind.Completed, Reason: "non-streaming") : new(ModelEventKind.Failed, Reason: reason == "max_tokens" ? "OUTPUT_TRUNCATED" : "UNSUPPORTED_OR_REFUSED"));
         return events;

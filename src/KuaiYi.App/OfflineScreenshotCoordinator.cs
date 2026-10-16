@@ -7,10 +7,16 @@ using KuaiYi.Providers;
 using SettingsProfile=KuaiYi.Core.Settings.ApiProfile;
 namespace KuaiYi.App;
 
-internal enum ScreenshotGenerationEvent { Classifying, Generating, Delta, Completed, Failed }
+internal enum ScreenshotGenerationEvent { Classifying, Generating, Delta, Completed, Failed, Usage }
+internal enum ScreenshotUsageStage { Classification, Generation }
+// InvocationId is local correlation for one provider enumeration, not a server receipt/billing identifier.
+// Counts are nullable observations, not a total; Reported means at least one valid count was accepted.
+internal sealed record ScreenshotUsageReceipt(Guid InvocationId,ScreenshotUsageStage Stage,RequestIdentity Identity,
+    Guid SourceVersion,Guid SourceId,KuaiYi.Providers.ApiProtocol Protocol,TokenUsage Tokens,bool Reported=false);
 internal sealed record ScreenshotGenerationSnapshot(Guid SourceVersion,Guid SourceId,SettingsSnapshot Settings,SettingsProfile Profile,
     KuaiYi.Providers.ApiProfile Transport,RequestProfileBinding Binding,int Number,ImageOutputMode RequestedMode,bool Regeneration,
-    ImageClassification? Classification=null,ImageTranslationPlan? Plan=null);
+    ImageClassification? Classification=null,ImageTranslationPlan? Plan=null,ScreenshotUsageReceipt? ClassificationUsage=null,
+    ScreenshotUsageReceipt? GenerationUsage=null,bool ClassificationUsageReused=false);
 internal sealed record ScreenshotGenerationUpdate(RequestIdentity Identity,ScreenshotGenerationEvent Kind,ScreenshotGenerationSnapshot Snapshot,string? Text=null,string? Reason=null);
 
 /// <summary>Independent offline P6 protocol slice. Never installed in the normal Shell screenshot path.
@@ -19,9 +25,9 @@ internal sealed record ScreenshotGenerationUpdate(RequestIdentity Identity,Scree
 internal sealed class OfflineScreenshotCoordinator:IAsyncDisposable
 {
     private sealed class Source(Guid version,OwnedSourceImage image)
-    {public readonly Guid Version=version,Session=Guid.NewGuid();public readonly OwnedSourceImage Image=image;public ImageClassification? Analysis;public ImageOutputMode Mode;}
+    {public readonly Guid Version=version,Session=Guid.NewGuid();public readonly OwnedSourceImage Image=image;public ImageClassification? Analysis;public ScreenshotUsageReceipt? AnalysisUsage;public ImageOutputMode Mode;}
     private sealed class Job(Source source,RequestIdentity identity,long epoch,ScreenshotGenerationSnapshot snapshot)
-    {public readonly Source Source=source;public readonly RequestIdentity Identity=identity;public readonly long Epoch=epoch;public ScreenshotGenerationSnapshot Snapshot=snapshot;public bool Terminal;}
+    {public readonly Source Source=source;public readonly RequestIdentity Identity=identity;public readonly long Epoch=epoch;public ScreenshotGenerationSnapshot Snapshot=snapshot;public bool Terminal;public ScreenshotUsageStage? Stage;}
     private readonly RuntimeGate gate;
     private readonly Func<SettingsSnapshot?> settings;
     private readonly Func<Guid,Guid,bool> sourceCurrent;
@@ -58,7 +64,7 @@ internal sealed class OfflineScreenshotCoordinator:IAsyncDisposable
         if(!userAction||disposed||source is not {} selected||selected.Image.IsDisposed||
             gate.Snapshot.Activation!=Activation.On||gate.Snapshot.Suspension!=Suspension.None||gate.Snapshot.Presentation==Presentation.Hidden||
             !sourceCurrent(selected.Version,selected.Image.SourceId)||settings() is not {} current||current.ReadOnly||current.RequiresRecovery)return false;
-        var frozen=regenerate?SelectedSnapshot?.Settings:current;if(frozen==null)return false;
+        var selectedSnapshot=regenerate?SelectedSnapshot:null;var frozen=regenerate?selectedSnapshot?.Settings:current;if(frozen==null)return false;
         var profile=frozen.Data.Profiles.FirstOrDefault(p=>p.Id==frozen.Data.ActiveProfileId);
         var live=current.Data.Profiles.FirstOrDefault(p=>p.Id==current.Data.ActiveProfileId);
         if(profile==null||live==null||profile.Id!=live.Id||!ApiProfilePolicy.RequestEquivalent(profile,live)||!boundary.Allows(profile)||!boundary.Allows(live)||
@@ -66,7 +72,8 @@ internal sealed class OfflineScreenshotCoordinator:IAsyncDisposable
         KuaiYi.Providers.ApiProfile transport;
         try{transport=ApiProfileMapper.Plan(profile,boundary).Transport;}catch(Exception error)when(error is ArgumentException or SettingsValidationException){return false;}
         if(!gate.HasConsentTo(new(transport.ResolveEndpoint()))||!gate.TryBeginPassiveCapture(gate.Snapshot.Mode,out var ticket))return false;
-        var analysis=reclassify?null:regenerate?SelectedSnapshot?.Classification:selected.Analysis;
+        var analysis=reclassify?null:regenerate?selectedSnapshot?.Classification:selected.Analysis;
+        var analysisUsage=analysis==null?null:regenerate?selectedSnapshot?.ClassificationUsage:selected.AnalysisUsage;
         int number=Results.NextVersionNumber(selected.Session);
         long admission=++commandRevision;var requestedMode=selected.Mode;var previous=active;RequestIdentity identity=default;
         try
@@ -78,9 +85,10 @@ internal sealed class OfflineScreenshotCoordinator:IAsyncDisposable
             gate.TryApply(identity,()=>
             {
                 if(!AdmissionCurrent(selected,frozen,profile,transport,binding,identity,admission,regenerate))return;
-                var snapshot=new ScreenshotGenerationSnapshot(selected.Version,selected.Image.SourceId,frozen,profile,transport,binding,number,requestedMode,regenerate,analysis);
+                var snapshot=new ScreenshotGenerationSnapshot(selected.Version,selected.Image.SourceId,frozen,profile,transport,binding,number,requestedMode,regenerate,analysis,
+                    ClassificationUsage:analysisUsage,ClassificationUsageReused:analysis!=null);
                 if(!Results.Begin(identity))return;
-                if(reclassify)selected.Analysis=null;
+                if(reclassify){selected.Analysis=null;selected.AnalysisUsage=null;}
                 admitted=new(selected,identity,identity.Epoch,snapshot);active=admitted;snapshots[identity.VersionId]=snapshot;Prune();
             });
             if(admitted==null){RejectAdmission(identity,previous);return false;}
@@ -146,7 +154,8 @@ internal sealed class OfflineScreenshotCoordinator:IAsyncDisposable
                 {
                     if(!await Receive(job,envelope,value=>
                     {
-                        if(value.Kind==ModelEventKind.TextDelta)
+                        if(value.Kind==ModelEventKind.Usage)ApplyUsage(job,ScreenshotUsageStage.Classification,value.Usage);
+                        else if(value.Kind==ModelEventKind.TextDelta)
                         {if(value.Text!.Length>ImageClassification.MaximumCharacters-content.Length)failure="CLASSIFICATION_TOO_LARGE";else content.Append(value.Text);}
                         else if(value.Kind==ModelEventKind.Completed)complete=true;
                         else if(value.Kind==ModelEventKind.Failed)failure=value.Reason??"CLASSIFICATION_FAILED";
@@ -157,19 +166,20 @@ internal sealed class OfflineScreenshotCoordinator:IAsyncDisposable
                 {await Fail(job,failure??(!complete?"CLASSIFICATION_INCOMPLETE":"CLASSIFICATION_INVALID"),lifetime.Token,budget).ConfigureAwait(false);return;}
                 // Commit cache only on the canonical destination after full protocol completion and JSON validation.
                 if(!await Receive(job,new(job.Identity,new(ModelEventKind.Started)),_=>
-                {job.Source.Analysis=classification;job.Snapshot=job.Snapshot with{Classification=classification};snapshots[job.Identity.VersionId]=job.Snapshot;},lifetime.Token,budget).ConfigureAwait(false))return;
+                {job.Source.Analysis=classification;job.Source.AnalysisUsage=job.Snapshot.ClassificationUsage;job.Snapshot=job.Snapshot with{Classification=classification};snapshots[job.Identity.VersionId]=job.Snapshot;},lifetime.Token,budget).ConfigureAwait(false))return;
             }
             if(job.Snapshot.Classification!.Readability==ImageReadability.Unreadable)
             {await Fail(job,"CLEARER_IMAGE_REQUIRED",lifetime.Token,budget).ConfigureAwait(false);return;}
             var plan=ImageTranslationPlanner.Create(job.Snapshot.Classification,job.Snapshot.Settings.Data.Translation,job.Snapshot.RequestedMode,job.Snapshot.Regeneration);
             if(!await Receive(job,new(job.Identity,new(ModelEventKind.Started)),_=>
-            {job.Snapshot=job.Snapshot with{Plan=plan};snapshots[job.Identity.VersionId]=job.Snapshot;Publish(job,ScreenshotGenerationEvent.Generating);},lifetime.Token,budget).ConfigureAwait(false))return;
+            {job.Snapshot=job.Snapshot with{Plan=plan};BeginUsageStage(job,ScreenshotUsageStage.Generation);Publish(job,ScreenshotGenerationEvent.Generating);},lifetime.Token,budget).ConfigureAwait(false))return;
             var final=new TranslationRequest(job.Snapshot.Transport,plan.System,plan.User,bytes);
             await foreach(var envelope in provider.GenerateEnvelopesAsync(final,gate,job.Identity,null,timeout.Token,()=>Eligible(job),budget).ConfigureAwait(false))
             {
                 if(!await Receive(job,envelope,value=>
                 {
-                    if(value.Kind==ModelEventKind.TextDelta&&Results.Append(job.Identity,value.Text!))Publish(job,ScreenshotGenerationEvent.Delta,value.Text);
+                    if(value.Kind==ModelEventKind.Usage)ApplyUsage(job,ScreenshotUsageStage.Generation,value.Usage);
+                    else if(value.Kind==ModelEventKind.TextDelta&&Results.Append(job.Identity,value.Text!))Publish(job,ScreenshotGenerationEvent.Delta,value.Text);
                     else if(value.Kind==ModelEventKind.Completed&&Results.Complete(job.Identity)){Finish(job);Publish(job,ScreenshotGenerationEvent.Completed);}
                     else if(value.Kind==ModelEventKind.Failed&&Results.Fail(job.Identity)){Finish(job);Publish(job,ScreenshotGenerationEvent.Failed,reason:value.Reason);}
                 },lifetime.Token,budget).ConfigureAwait(false))return;
@@ -195,7 +205,24 @@ internal sealed class OfflineScreenshotCoordinator:IAsyncDisposable
         return delivered&&accepted&&!job.Terminal&&Eligible(job);
     }
     private Task<bool> State(Job job,ScreenshotGenerationEvent kind,CancellationToken cancellation,ProviderRequestBudget budget)
-        =>Receive(job,new(job.Identity,new(ModelEventKind.Started)),_=>Publish(job,kind),cancellation,budget);
+        =>Receive(job,new(job.Identity,new(ModelEventKind.Started)),_=>{BeginUsageStage(job,ScreenshotUsageStage.Classification);Publish(job,kind);},cancellation,budget);
+    private void BeginUsageStage(Job job,ScreenshotUsageStage stage)
+    {
+        job.Stage=stage;var receipt=new ScreenshotUsageReceipt(Guid.NewGuid(),stage,job.Identity,job.Snapshot.SourceVersion,job.Snapshot.SourceId,job.Snapshot.Transport.Protocol,new(null,null));
+        job.Snapshot=stage==ScreenshotUsageStage.Classification?job.Snapshot with{ClassificationUsage=receipt,ClassificationUsageReused=false}:job.Snapshot with{GenerationUsage=receipt};
+        snapshots[job.Identity.VersionId]=job.Snapshot;
+    }
+    private void ApplyUsage(Job job,ScreenshotUsageStage stage,TokenUsage? usage)
+    {
+        if(job.Stage!=stage||usage==null)return;
+        var previous=stage==ScreenshotUsageStage.Classification?job.Snapshot.ClassificationUsage:job.Snapshot.GenerationUsage;if(previous==null)return;
+        long? input=usage.InputTokens is >=0?usage.InputTokens:null,output=usage.OutputTokens is >=0?usage.OutputTokens:null;
+        if(input==null&&output==null)return;
+        // Each field is the last valid server report. No summing, estimating, maximum, or completion inference.
+        var next=previous with{Tokens=new(input??previous.Tokens.InputTokens,output??previous.Tokens.OutputTokens),Reported=true};if(next==previous)return;
+        job.Snapshot=stage==ScreenshotUsageStage.Classification?job.Snapshot with{ClassificationUsage=next}:job.Snapshot with{GenerationUsage=next};
+        snapshots[job.Identity.VersionId]=job.Snapshot;Publish(job,ScreenshotGenerationEvent.Usage);
+    }
     private Task<bool> Fail(Job job,string reason,CancellationToken cancellation,ProviderRequestBudget budget)
         =>Receive(job,new(job.Identity,new(ModelEventKind.Failed,Reason:reason)),value=>
         {if(Results.Fail(job.Identity)){Finish(job);Publish(job,ScreenshotGenerationEvent.Failed,reason:value.Reason);}},cancellation,budget);
