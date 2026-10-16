@@ -53,6 +53,8 @@ internal sealed partial class ShellWindow
     {
         if(retainedImage==null||imageSelected)return false;
         if(failed is {} failure&&overlayResults.SelectedVersionId is {} selected&&selected!=failure.VersionId&&overlayResults.HasText){ReleaseRetainedImage();return false;}
+        // A failed OCR-confirmed text version owns its reason/source and recovery; keep it readable.
+        if(failed is {} terminal&&overlayResults.Versions.Any(v=>v.Identity==terminal&&v.Failure!=null))return false;
         ClearOriginalSource();translation?.Clear();overlayResults.Clear();ClearMarkdown();imageSelected=true;resultRevision++;ResetBodyReaderFollow();dirty=true;if(!flush.IsEnabled)flush.Start();return true;
     }
 }

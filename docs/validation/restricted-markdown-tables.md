@@ -1,5 +1,7 @@
 # SPEC §11.5：基础表格接正式正文和测量
 
+> 2026-10-16 当前状态更正：下文“未实现/未完成”是本页原批次时点。后续已接入[基础表格](restricted-markdown-tables.md)、[代码局部横向滚动](overlay-code-scroll.md)及[表格局部横向滚动](overlay-table-scroll.md)，并有生产代码/便携测试及 App 交叉构建证据；当前不能继续记为缺少实现。真实 WPF 排版、选择、横滚、阅读锚点与 B12/完整 §11.5 验收仍 NotRun；历史数字和原始回执保持。
+
 本批唯一父提交为已接收的 `063969062de54c6fda50bc9d683d185789e7d25c`，正常新分支 `dev/overlay-markdown-tables`。先实际核 `/workspace/KuaiYi` 文件/Git/worktree、默认网络远端和进程：HEAD 与远端行内分支一致、工作树干净；main 仍 `51d077481cf6303602fcf5d2718213da9cf05178`。没有恢复旧实例，本任务唯一写入者；独审代理只读。既有 Git 僵尸、SDK 编译服务和未知 `codex-index-refresh.lock` 均未删除或终止。未假设跨容器 artifacts 共享，本轮使用本环境实际存在的已恢复 SDK/obj，并单独保存本批回执。
 
 读取 AGENTS 与 SPEC §11.5，沿用[行内切片](restricted-markdown-inlines.md)。本批实现基础管道表格的完整生产路径，不把完整 §11.5、P2-04、B 组或生产验收登记为完成；P2-04 仍 InProgress。

@@ -27,6 +27,7 @@ internal sealed partial class ShellWindow
     private readonly Canvas controls=new(){Height=48};private readonly List<Button> tools=[];private readonly List<Action> toolActions=[];
     private readonly Button moreTools=new(){Content="…",Width=28,Height=28,ToolTip="更多操作及版本"};
     private readonly ContextMenu overflowMenu=new();private Button? styleTool;
+    private readonly Button failureNotice=new(){Height=28,FontSize=12,Focusable=true,Visibility=Visibility.Collapsed,Padding=new Thickness(2)};
     private readonly Button newContent=new(){Content="有新内容",Visibility=Visibility.Collapsed,MinHeight=28};
     private readonly Ellipse progressRing=new(){Width=42,Height=42,Stroke=Brushes.White,StrokeThickness=2,StrokeDashArray=new DoubleCollection{12,5},IsHitTestVisible=false,Visibility=Visibility.Collapsed,RenderTransformOrigin=new Point(.5,.5)};
     private readonly TextBlock connectionStatus=new(){Text="正在连接…",VerticalAlignment=VerticalAlignment.Center,Visibility=Visibility.Collapsed,IsHitTestVisible=false};
@@ -46,12 +47,13 @@ internal sealed partial class ShellWindow
     {
         overlayResults=new(lifecycle.Gate);presentationReceiver=new(lifecycle.Gate,new DispatcherSynchronizationContext(Dispatcher));
         bodyMarkdown=new(body,ObserveCodeReaderIntent,CaptureBodyReaderGuard,()=>follow,OriginalSourceChanged,CanReadOriginalSourceVersion,ImageSourcePreviewFailed,OpenMarkdownLink);measurementMarkdown=new(measurement,canReadSource:CanReadOriginalSourceVersion,sourceFailed:ImageSourcePreviewFailed);
-        Content=overlayCanvas;overlayCanvas.Children.Add(cardBackground);overlayCanvas.Children.Add(body);overlayCanvas.Children.Add(resultLabel);overlayCanvas.Children.Add(controls);overlayCanvas.Children.Add(button);overlayCanvas.Children.Add(progressRing);overlayCanvas.Children.Add(connectionStatus);overlayCanvas.Children.Add(newContent);
+        Content=overlayCanvas;overlayCanvas.Children.Add(cardBackground);overlayCanvas.Children.Add(body);overlayCanvas.Children.Add(resultLabel);overlayCanvas.Children.Add(failureNotice);overlayCanvas.Children.Add(controls);overlayCanvas.Children.Add(button);overlayCanvas.Children.Add(progressRing);overlayCanvas.Children.Add(connectionStatus);overlayCanvas.Children.Add(newContent);
         body.Visibility=controls.Visibility=Visibility.Collapsed;button.Width=button.Height=48;button.Padding=new Thickness(0);RefreshPresentationTheme();UpdateButtonGlyph(false);
         styleTool=Tool("风格",()=>OpenOverflowMenu(styleTool!));Tool("回看",ReopenResult);Tool("收起",CollapseResult);Tool("停止",StopResult);Tool("重新生成",()=>RegenerateResult());Tool("复制",CopyResult);Tool("查看原文",ShowSelectionSource);Tool("清除当前内容",()=>_=ClearCurrentContent());Tool("设置",()=>_=OpenSettings());
         Button Tool(string label,Action action){var b=new Button{Content=label,MinWidth=28,Height=28,FontSize=12,Padding=new Thickness(2)};System.Windows.Automation.AutomationProperties.SetName(b,label);b.Click+=(_,_)=>action();tools.Add(b);toolActions.Add(action);controls.Children.Add(b);return b;}
         controls.Children.Add(moreTools);moreTools.Click+=(_,_)=>OpenOverflowMenu(moreTools);
         System.Windows.Automation.AutomationProperties.SetName(moreTools,"更多操作及版本");overflowMenu.Closed+=(_,_)=>PresentationMenuClosed();
+        failureNotice.Click+=(_,_)=>ShowFailureRecovery();
         newContent.Click+=(_,_)=>{FollowBodyEnd();newContent.Visibility=Visibility.Collapsed;};
         body.AddHandler(ScrollBar.ScrollEvent,new ScrollEventHandler((_,_)=>ObserveBodyReaderIntent()),true);
         // Reader intent must fence an already queued layout restore before WPF changes the viewport.
@@ -95,8 +97,8 @@ internal sealed partial class ShellWindow
         if(SelectedSource.Image!=null){var local=new MenuItem{Header="本地图片 · 未翻译",IsCheckable=true,IsChecked=true};local.Click+=(_,_)=>ReopenResult();versionsItem.Items.Add(local);}
         foreach(var version in SelectedSource.Image!=null?Array.Empty<CachedOverlayVersion>():overlayResults.Versions)
         {
-            Guid id=version.Identity.VersionId;var item=new MenuItem{Header=VersionMenuLabel(version),IsCheckable=true,IsChecked=overlayResults.SelectedVersionId==id,IsEnabled=version.Text.Length>0};
-            item.Click+=(_,_)=>{if(overlayResults.SelectVersion(id)){RefreshResultLabel();resultRevision++;ResetBodyReaderFollow();dirty=true;pendingReveal=false;peek=false;OpenBody();}};versionsItem.Items.Add(item);
+            Guid id=version.Identity.VersionId;var item=new MenuItem{Header=VersionMenuLabel(version),IsCheckable=true,IsChecked=overlayResults.SelectedVersionId==id,IsEnabled=version.Text.Length>0||version.Failure!=null};
+            item.Click+=(_,_)=>SelectResultVersion(id);versionsItem.Items.Add(item);
         }
         versionsItem.IsEnabled=versionsItem.Items.Count>0;overflowMenu.Items.Add(new Separator());overflowMenu.Items.Add(versionsItem);
         var currentSettings=new MenuItem{Header=RegenerationMenuLabel(true),IsEnabled=lifecycle.Gate.Snapshot.Activation==Activation.On&&SelectedSource.Text!=null};currentSettings.Click+=(_,_)=>RegenerateResult(true);overflowMenu.Items.Add(currentSettings);
@@ -114,7 +116,8 @@ internal sealed partial class ShellWindow
     {
         if(overlayFrames?.Transition!=OverlayTransition.Moving)return;
         bool reveal=pendingReveal;pendingReveal=false;
-        if(reveal&&overlayResults.Identity is {} id&&overlayResults.TryAutoReveal(id)){peek=false;OpenBody();}
+        if(TryRevealFailure()){peek=false;OpenBody();}
+        else if(reveal&&overlayResults.Identity is {} id&&overlayResults.TryAutoReveal(id)){peek=false;OpenBody();}
         else if(peek)overlayFrames.OpenToolbar();else if(overlayFrames.IsExpanded)OpenBody();else overlayFrames.EndMove(Preferences());StartFrames();
     }
     private void DpiPlacement()
@@ -188,16 +191,17 @@ internal sealed partial class ShellWindow
         double used=toolbar.OverflowOffsetDip is {} last?last+28:toolbar.Slots.Select(s=>s.OffsetDip+s.WidthDip).DefaultIfEmpty(0).Max();
         connectionStatus.Visibility=!externalDropHover&&awaitingText&&peek&&expanded&&available-used>=104?Visibility.Visible:Visibility.Collapsed;Canvas.SetLeft(connectionStatus,start+used+8);Canvas.SetTop(connectionStatus,by+14);
         PublishDropBounds();
-        var plan=overlayFrames.Plan;var direction=overlayFrames.ContentDirection;if(direction==null||peek||!expanded){body.Visibility=resultLabel.Visibility=Visibility.Collapsed;newContent.Visibility=Visibility.Collapsed;return;}
+        var plan=overlayFrames.Plan;var direction=overlayFrames.ContentDirection;if(direction==null||peek||!expanded){body.Visibility=resultLabel.Visibility=failureNotice.Visibility=Visibility.Collapsed;newContent.Visibility=Visibility.Collapsed;return;}
         bool down=direction is GrowthDirection.RightDown or GrowthDirection.LeftDown or GrowthDirection.BalancedDown;
         int pad=dpi.CeilingPixels(16),top=down?anchor.Bottom+pad:rect.Top+pad,bottom=down?rect.Bottom-pad:anchor.Top-pad;
         double targetWidth=overlayFrames.TextWidthDip;
         if(overlayFrames.Transition==OverlayTransition.Moving)targetWidth=Math.Min(targetWidth,width);
         int targetLeft=plan?.Target.Left??(direction is GrowthDirection.RightDown or GrowthDirection.RightUp?anchor.Left:direction is GrowthDirection.LeftDown or GrowthDirection.LeftUp?anchor.Right-dpi.CeilingPixels(targetWidth):anchor.Center.X-dpi.CeilingPixels(targetWidth)/2);
-        double labelHeight=resultLabel.Text.Length>0?20:0;
-        SetMarkdownViewport(plan is not null?MarkdownViewport.FromPlan(plan,labelHeight>0):MarkdownViewport.FromCard(targetWidth,height,labelHeight>0));
+        double labelHeight=resultLabel.Text.Length>0?20:0,noticeHeight=FailureNoticeHeight;
+        SetMarkdownViewport(plan is not null?MarkdownViewport.FromPlan(plan,labelHeight>0,noticeHeight):MarkdownViewport.FromCard(targetWidth,height,labelHeight>0,noticeHeight));
         Canvas.SetLeft(resultLabel,dpi.Dips(targetLeft+pad-rect.Left));Canvas.SetTop(resultLabel,dpi.Dips(top-rect.Top));resultLabel.Width=Math.Max(1,targetWidth-32);resultLabel.Height=labelHeight;resultLabel.Opacity=overlayFrames.ContentOpacity;resultLabel.Visibility=labelHeight>0&&bottom-top>dpi.CeilingPixels(labelHeight)?Visibility.Visible:Visibility.Collapsed;
-        Canvas.SetLeft(body,dpi.Dips(targetLeft+pad-rect.Left));Canvas.SetTop(body,dpi.Dips(top-rect.Top)+labelHeight);body.Width=Math.Max(1,targetWidth-32);body.Height=Math.Max(0,dpi.Dips(bottom-top)-labelHeight);body.Opacity=overlayFrames.ContentOpacity;body.Visibility=body.Height>0?Visibility.Visible:Visibility.Collapsed;
+        Canvas.SetLeft(failureNotice,dpi.Dips(targetLeft+pad-rect.Left));Canvas.SetTop(failureNotice,dpi.Dips(top-rect.Top)+labelHeight);failureNotice.Width=Math.Max(1,targetWidth-32);failureNotice.Opacity=overlayFrames.ContentOpacity;failureNotice.Visibility=noticeHeight>0&&bottom-top>dpi.CeilingPixels(labelHeight+noticeHeight)?Visibility.Visible:Visibility.Collapsed;
+        Canvas.SetLeft(body,dpi.Dips(targetLeft+pad-rect.Left));Canvas.SetTop(body,dpi.Dips(top-rect.Top)+labelHeight+noticeHeight);body.Width=Math.Max(1,targetWidth-32);body.Height=Math.Max(0,dpi.Dips(bottom-top)-labelHeight-noticeHeight);body.Opacity=overlayFrames.ContentOpacity;body.Visibility=body.Height>0?Visibility.Visible:Visibility.Collapsed;
         Canvas.SetLeft(newContent,Math.Max(0,width-90));Canvas.SetTop(newContent,Math.Max(0,height-30));
         }
     }

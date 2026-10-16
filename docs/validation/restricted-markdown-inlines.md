@@ -1,5 +1,7 @@
 # SPEC §11.5：原生行内代码、粗体、斜体
 
+> 2026-10-16 当前状态更正：下文“未实现/未完成”是本页原批次时点。后续已接入[基础表格](restricted-markdown-tables.md)、[代码局部横向滚动](overlay-code-scroll.md)及[表格局部横向滚动](overlay-table-scroll.md)，并有生产代码/便携测试及 App 交叉构建证据；当前不能继续记为缺少实现。真实 WPF 排版、选择、横滚、阅读锚点与 B12/完整 §11.5 验收仍 NotRun；历史数字和原始回执保持。
+
 从远端 `dev/overlay-reading-input` 的 `250548896d4f1d61669f20e9b575ed9d85c23bde`（父 `dd9c0796b3708acea92cb420128c035b6947bfe7`）建立正常开发分支 `dev/overlay-inline-markdown`。新容器实际仓库为 `/workspace/KuaiYi`；初始 HEAD/work 与远端 main 均为 `51d077481cf6303602fcf5d2718213da9cf05178`，工作树干净。先检查进程、worktree、文件和远端，未恢复旧实例；本任务单一写入者，独审代理仅只读。保留发现的未知 `.git/codex-index-refresh.lock`。默认网络下 `git ls-remote` 成功，默认 fetch refspec 仅取 main，第一次默认 fetch 未取得开发 ref，随后显式获取开发 ref 并核祖先后开分支。没有假设旧容器 artifacts/obj 已共享；本容器起初两者均不存在。
 
 已读根 AGENTS、SPEC 的交互、测量、安全、§11.5 与执行边界；仓库未找到其他 AGENTS/SKILL。旧[块级切片记录](restricted-markdown.md)及原证据保留为历史。本文接续行内格式，P2-04 仍 InProgress，完整 §11.5 和 P2/B 组没有变为 Pass。

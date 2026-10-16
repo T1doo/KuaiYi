@@ -61,7 +61,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     public TextTranslationSnapshot? SelectedSnapshot=>Results.SelectedVersionId is {} id&&snapshots.TryGetValue(id,out var value)?value:null;
     public TextTranslationSnapshot? SnapshotForVersion(Guid versionId)=>snapshots.GetValueOrDefault(versionId);
     public TranslationPreset? SessionStyle=>SelectedSnapshot!=null&&SelectedSession==styleSession?sessionStyle:null;
-    private Guid? SelectedSession=>SelectedSnapshot!=null?Results.Identity?.SessionId:null; // All visible versions belong to the current retained source session; no body copy for preview.
+    private Guid? SelectedSession=>Results.Versions.FirstOrDefault(v=>v.Identity.VersionId==Results.SelectedVersionId)?.Identity.SessionId; // All visible versions belong to the current retained source session; no body copy for preview.
     public TextGenerationPreview? NextGeneration=>SelectedSnapshot is {} snapshot&&SelectedSession is {} session?new(Results.NextVersionNumber(session),SessionStyle??snapshot.Preset,snapshot.Profile.Model):null;
     public bool SetSessionStyle(TranslationPreset? preset)
     {
@@ -165,38 +165,46 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
         if(!gate.TryLinkRequestCancellation(identity,CancellationToken.None,out var linked))return;
         using var lifetime=linked!;var budget=provider.FreezeBudget(snapshot.Transport);using var timeout=budget.Link(lifetime.Token);
         SecretLease? secret=null;bool terminal=false;
+        bool SendEligible()=>Eligible(snapshot,explicitUse)&&(regenerate||settings()?.Version==snapshot.Settings.Version)&&gate.IsRequestProfileBindingCurrent(identity,snapshot.Binding);
         try
         {
-            bool SendEligible()=>Eligible(snapshot,explicitUse)&&(regenerate||settings()?.Version==snapshot.Settings.Version)&&gate.IsRequestProfileBindingCurrent(identity,snapshot.Binding);
-            if(!SendEligible()||!gate.CanApply(identity)){await FailAsync(identity,snapshot,"SOURCE_OR_SETTINGS_CHANGED",lifetime.Token,budget).ConfigureAwait(false);return;}
+            if(!SendEligible()||!gate.CanApply(identity)){terminal=await FailAsync(identity,snapshot,"SOURCE_OR_SETTINGS_CHANGED",lifetime.Token,budget,SendEligible).ConfigureAwait(false);return;}
             if(snapshot.Transport.Authentication!=Authentication.None)secret=await openSecret(identity,snapshot,timeout.Token).ConfigureAwait(false);
             await foreach(var envelope in provider.GenerateEnvelopesAsync(new(snapshot.Transport,snapshot.Prompt,snapshot.Source.Text),gate,identity,secret,timeout.Token,
                 SendEligible,budget).ConfigureAwait(false))
             {
+                bool rejected=false;
                 bool received=await receiver.ReceiveAsync(envelope,value=>
                 {
+                    if(!SendEligible()||!gate.CanApply(identity)){rejected=true;Abandon(identity,snapshot);return;}
                     OverlayResultEvent? presentation=null;
                     if(value.Kind==ModelEventKind.TextDelta&&Results.Append(identity,value.Text!))presentation=new(OverlayResultEventKind.Delta,value.Text!);
-                    else if(value.Kind==ModelEventKind.Usage&&value.Usage is {} usage&&SendEligible()&&gate.CanApply(identity)&&Results.ObserveUsage(identity,usage.InputTokens,usage.OutputTokens))presentation=new(OverlayResultEventKind.Usage);
+                    else if(value.Kind==ModelEventKind.Usage&&value.Usage is {} usage&&Results.ObserveUsage(identity,usage.InputTokens,usage.OutputTokens))presentation=new(OverlayResultEventKind.Usage);
                     else if(value.Kind==ModelEventKind.Completed&&Results.Complete(identity)){presentation=new(OverlayResultEventKind.Complete);terminal=true;MarkFinished(identity);PruneSnapshots();}
-                    else if(value.Kind==ModelEventKind.Failed&&Results.Fail(identity)){presentation=new(OverlayResultEventKind.Stopped);terminal=true;MarkFinished(identity);PruneSnapshots();}
+                    else if(value.Kind==ModelEventKind.Failed&&Results.Fail(identity,timeout.IsCancellationRequested&&!lifetime.IsCancellationRequested?"REQUEST_TIMEOUT":value.Reason)){presentation=new(OverlayResultEventKind.Stopped);terminal=true;MarkFinished(identity);PruneSnapshots();}
                     if(presentation!=null)Publish(new(identity,presentation,snapshot,value.Kind==ModelEventKind.Failed?timeout.IsCancellationRequested&&!lifetime.IsCancellationRequested?"REQUEST_TIMEOUT":value.Reason:null));
                 },lifetime.Token,budget).ConfigureAwait(false);
-                if(!received||terminal)break;
+                if(!received||terminal||rejected)break;
             }
-            if(!terminal&&gate.CanApply(identity))await FailAsync(identity,snapshot,"REQUEST_NOT_COMPLETED",lifetime.Token,budget).ConfigureAwait(false);
+            if(!terminal&&gate.CanApply(identity))terminal=await FailAsync(identity,snapshot,"REQUEST_NOT_COMPLETED",lifetime.Token,budget,SendEligible).ConfigureAwait(false);
         }
         catch(OperationCanceledException)when(lifetime.IsCancellationRequested){ /* Replaced/Off/lock/stop: gate rejects every late event. */ }
         catch(Exception error)when(error is not DestinationFailure)
         {
             string reason=error is OperationCanceledException?"REQUEST_TIMEOUT":error is System.Security.Cryptography.CryptographicException?"SECRET_UNAVAILABLE":"CLIENT_FAILURE";
-            await FailAsync(identity,snapshot,reason,lifetime.Token,budget).ConfigureAwait(false);
+            terminal=await FailAsync(identity,snapshot,reason,lifetime.Token,budget,SendEligible).ConfigureAwait(false);
         }
-        finally{secret?.Dispose();}
+        finally{secret?.Dispose();if(!terminal){MarkFinished(identity);gate.StopRequest(identity);}}
     }
-    private Task<bool> FailAsync(RequestIdentity identity,TextTranslationSnapshot snapshot,string reason,CancellationToken cancellation,ProviderRequestBudget budget)
-        =>receiver.ReceiveAsync(new(identity,new(ModelEventKind.Failed,Reason:reason)),value=>
-        {if(Results.Fail(identity)){MarkFinished(identity);PruneSnapshots();Publish(new(identity,new(OverlayResultEventKind.Stopped),snapshot,value.Reason));}},cancellation,budget);
+    private async Task<bool> FailAsync(RequestIdentity identity,TextTranslationSnapshot snapshot,string reason,CancellationToken cancellation,ProviderRequestBudget budget,Func<bool> eligible)
+    {
+        bool terminal=false;
+        await receiver.ReceiveAsync(new(identity,new(ModelEventKind.Failed,Reason:reason)),value=>
+        {if(!eligible()||!gate.CanApply(identity)){Abandon(identity,snapshot);return;}if(Results.Fail(identity,value.Reason)){terminal=true;MarkFinished(identity);PruneSnapshots();Publish(new(identity,new(OverlayResultEventKind.Stopped),snapshot,value.Reason));}},cancellation,budget).ConfigureAwait(false);
+        return terminal; // Receiver delivery alone does not prove this version accepted a terminal event.
+    }
+    private void Abandon(RequestIdentity identity,TextTranslationSnapshot snapshot)
+    {if(Results.Abandon(identity)){MarkFinished(identity);PruneSnapshots();Publish(new(identity,new(OverlayResultEventKind.Stopped),snapshot));}}
     private void Publish(TextTranslationUpdate update)
     {try{changed(update);}catch(Exception error){deliveryFailure=error;gate.StopRequest(update.Identity);throw new DestinationFailure(error);}}
     private void MarkFinished(RequestIdentity identity){gate.MarkRequestTerminal(identity);if(submitted?.Identity==identity)submitted.Finished=true;var live=Volatile.Read(ref liveRequest);if(live?.Identity==identity)Interlocked.CompareExchange(ref liveRequest,null,live);}

@@ -1,5 +1,7 @@
 # SPEC §11.5：受限 Markdown 生产展示切片
 
+> 2026-10-16 当前状态更正：下文“未实现/未完成”是本页原批次时点。后续已接入[行内粗体/斜体/代码](restricted-markdown-inlines.md)、[基础表格](restricted-markdown-tables.md)、[代码局部横向滚动](overlay-code-scroll.md)及[表格局部横向滚动](overlay-table-scroll.md)，并有生产代码/便携测试及 App 交叉构建证据；当前不能继续记为缺少实现。真实 WPF 排版、选择、横滚、阅读锚点与 B12/完整 §11.5 验收仍 NotRun；历史数字和原始回执保持。
+
 基线dd9c0796b3708acea92cb420128c035b6947bfe7，原产品分支dev/overlay-reading-input，root持独占写入锁、独审只读。此批直接接原OverlayResults→50ms Flush→正式浮窗，没有新的展示窗口或网络入口，没有新增依赖/许可证。**这是§11.5的受限切片，整个§11.5、P2/B组与生产验收均未完成。**
 
 ## 实际支持与回退

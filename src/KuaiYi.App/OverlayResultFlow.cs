@@ -13,13 +13,14 @@ internal sealed partial class ShellWindow
         {
             case OverlayResultEventKind.Usage:RefreshResultLabel();return;
             case OverlayResultEventKind.Begin:
+                pendingFailureReveal=null;
                 if(!alreadyApplied&&!overlayResults.Begin(identity))return;BeginTextSource();ClearOriginalSource();resultRevision++;ResetBodyReaderFollow();dirty=true;peek=false;pendingReveal=false;awaitingText=true;progressRing.Visibility=Visibility.Visible;if(!gesture.Active)overlayFrames?.Collapse();StartFrames();waiting.Stop();waiting.Start();Dispatcher.BeginInvoke(()=>{if(!exiting)Refresh();});break;
             case OverlayResultEventKind.Delta:
                 if(!alreadyApplied&&!overlayResults.Append(identity,value.Text))return;dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();
                 if(overlayResults.TryAutoReveal(identity)&&(peek||overlayFrames?.IsExpanded!=true))pendingReveal=true;break;
             case OverlayResultEventKind.Complete:
                 if(!alreadyApplied&&!overlayResults.Complete(identity))return;ReleaseRetainedImage();dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();break;
-            case OverlayResultEventKind.Stopped:if(!alreadyApplied)overlayResults.MarkStopped();dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();break;
+            case OverlayResultEventKind.Stopped:if(!alreadyApplied)overlayResults.MarkStopped();OfferFailureReveal(identity);dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();break;
             default:throw new ArgumentOutOfRangeException(nameof(value));
         }
         ValidateOriginalSourceBinding();if(dirty&&!flush.IsEnabled)flush.Start();
@@ -28,7 +29,7 @@ internal sealed partial class ShellWindow
     {
         if(overlayFrames==null)return 48;
         bool hasLabel=resultLabel.Text.Length>0;
-        return plan.Dpi.CeilingPixels(48+32+(hasLabel?20:0)+MeasureMarkdown(plan,hasLabel));
+        return plan.Dpi.CeilingPixels(48+32+(hasLabel?20:0)+FailureNoticeHeight+MeasureMarkdown(plan,hasLabel));
     }
     private void OpenBody(){if(overlayFrames==null)return;overlayFrames.OpenMeasured(Preferences(),MeasureBody);dirty=true;if(!flush.IsEnabled)flush.Start();StartFrames();}
     private void FlushResult()
@@ -39,12 +40,13 @@ internal sealed partial class ShellWindow
         ScheduleBodyScrollRestore(bottom,offset);
         if(overlayFrames!=null&&!gesture.Active&&overlayFrames.Transition!=OverlayTransition.Moving)
         {
-            if(pendingReveal&&overlayResults.Identity is {} id&&overlayResults.TryAutoReveal(id)){pendingReveal=false;peek=false;OpenBody();}
+            if(TryRevealFailure()){peek=false;OpenBody();}
+            else if(pendingReveal&&overlayResults.Identity is {} id&&overlayResults.TryAutoReveal(id)){pendingReveal=false;peek=false;OpenBody();}
             else if(overlayFrames.IsExpanded&&!peek&&overlayFrames.Plan is {} plan){overlayFrames.Grow(MeasureBody(plan));StartFrames();}
         }
         ApplyOverlayFrame();
     }
-    private void CollapseResult(){InvalidateBodyScrollRestore();ClearOriginalSource();peek=false;pendingReveal=false;peekIn.Stop();peekOut.Stop();waiting.Stop();overlayResults.Collapse();overlayFrames?.Collapse();StartFrames();}
+    private void CollapseResult(){InvalidateBodyScrollRestore();ClearOriginalSource();pendingFailureReveal=null;peek=false;pendingReveal=false;peekIn.Stop();peekOut.Stop();waiting.Stop();overlayResults.Collapse();overlayFrames?.Collapse();StartFrames();}
     private void StopResult()
     {
         if(exiting||!lifecycle.Gate.HasRunningGeneration)return;
@@ -60,7 +62,7 @@ internal sealed partial class ShellWindow
     private void ReopenResult(){if(!IsVisible)ShowOverlay();if(SelectedSource.Image!=null?lifecycle.Gate.TryReopen(true):overlayResults.Reopen()){peek=false;OpenBody();}}
     private void HidePresentation(bool clear)
     {
-        List<Exception> errors=[];ScreenshotPreviewCleanup.Attempt(errors,()=>OcrSourceChanged(true));InvalidateBodyScrollRestore();ScreenshotPreviewCleanup.Attempt(errors,ClearOriginalSource);peek=false;
+        List<Exception> errors=[];ScreenshotPreviewCleanup.Attempt(errors,()=>OcrSourceChanged(true));InvalidateBodyScrollRestore();ScreenshotPreviewCleanup.Attempt(errors,ClearOriginalSource);pendingFailureReveal=null;peek=false;
         ScreenshotPreviewCleanup.Attempt(errors,()=>overflowMenu.IsOpen=false);waiting.Stop();flush.Stop();peekIn.Stop();peekOut.Stop();StopFrames();awaitingText=false;progressRing.Visibility=Visibility.Collapsed;overlayResults.MarkStopped();
         if(clear)
         {

@@ -1,0 +1,32 @@
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:05.04]     KuaiYi.Provider.Tests.TextTranslationTests.RapidReplacementBoundsSnapshotsAndKeepsLastSuccessfulSource [FAIL]
+  Failed KuaiYi.Provider.Tests.TextTranslationTests.RapidReplacementBoundsSnapshotsAndKeepsLastSuccessfulSource [9 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: RequestIdentity { SessionId = c94d268c-da39-4189-bd51-e5a1d3be42ff, VersionId = da448c5b-47ab-478a-ab6e-544724566949, RequestId = 9fc066aa-94e7-4c0e-8a7d-8331a86fd39a, Epoch = 2 }
+Actual:   RequestIdentity { SessionId = aa741eb4-1a5d-4202-8c68-ad591f17227c, VersionId = 54c4bef4-5723-46c9-9b8c-524c48dc0c32, RequestId = 60cea9fb-15ed-4971-9779-640967fb616b, Epoch = 14 }
+  Stack Trace:
+     at KuaiYi.Provider.Tests.TextTranslationTests.RapidReplacementBoundsSnapshotsAndKeepsLastSuccessfulSource() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs:line 240
+   at KuaiYi.Provider.Tests.TextTranslationTests.RapidReplacementBoundsSnapshotsAndKeepsLastSuccessfulSource() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/TextTranslationTests.cs:line 240
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:07.84]     KuaiYi.Provider.Tests.VisionFixtureWorkflowTests.DedicatedVisionPurposeUsesOnlyExactBuiltinImageOnTwoProtocolsAndNeverChangesCapabilities(protocol: AnthropicMessages, stream: True, capability: Unknown) [FAIL]
+  Failed KuaiYi.Provider.Tests.VisionFixtureWorkflowTests.DedicatedVisionPurposeUsesOnlyExactBuiltinImageOnTwoProtocolsAndNeverChangesCapabilities(protocol: AnthropicMessages, stream: True, capability: Unknown) [13 ms]
+  Error Message:
+   System.InvalidOperationException : Sequence contains no elements
+  Stack Trace:
+     at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at KuaiYi.Provider.Tests.VisionFixtureWorkflowTests.DedicatedVisionPurposeUsesOnlyExactBuiltinImageOnTwoProtocolsAndNeverChangesCapabilities(ApiProtocol protocol, Boolean stream, Capability capability) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/VisionFixtureWorkflowTests.cs:line 18
+   at KuaiYi.Provider.Tests.VisionFixtureWorkflowTests.DedicatedVisionPurposeUsesOnlyExactBuiltinImageOnTwoProtocolsAndNeverChangesCapabilities(ApiProtocol protocol, Boolean stream, Capability capability) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/VisionFixtureWorkflowTests.cs:line 20
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/text-terminal-failures/r05-provider-full.trx
+
+Failed!  - Failed:     2, Passed:  1940, Skipped:     0, Total:  1942, Duration: 10 s - KuaiYi.Provider.Tests.dll (net10.0)

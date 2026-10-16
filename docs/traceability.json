@@ -725,9 +725,10 @@
       "evidence": [
         "docs/p2-overlay-review.md",
         "docs/p2-overlay-windows-checklist.md",
-        "docs/test-evidence/2026-10-11-p2-overlay-summary.json"
+        "docs/test-evidence/2026-10-11-p2-overlay-summary.json",
+        "docs/validation/text-terminal-failures.md"
       ],
-      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete."
+      "note": " P2 production WPF/actual HWND source wired; 34 portable core cases, 2000 synthetic event sequences, no Windows rendering/drag/DPI/performance claim. Whole stage/case incomplete. Current-status correction:basic tables and native code/table horizontal scroll already wired in earlier batches,portable production tests/build only;older notimplemented wording is historical. RealWPF width/selection/scroll/reader/B12 andwhole11.5 remainNotRun."
     },
     {
       "id": "P2-05",
@@ -949,9 +950,11 @@
         "docs/p4-phase-timeouts-windows-checklist.md",
         "docs/test-evidence/2026-10-12-p4-phase-timeouts-summary.json",
         "docs/validation/text-version-usage.md",
-        "docs/test-evidence/2026-10-16-text-version-usage.json"
+        "docs/test-evidence/2026-10-16-text-version-usage.json",
+        "docs/validation/text-terminal-failures.md",
+        "docs/test-evidence/2026-10-16-text-terminal-failures.json"
       ],
-      "note": " P3-06 production source snapshot to real protocol and streaming overlay wired;66 new portable/test-HTTP cases. Explicit local fixture mode labeled/isolated, no real model/key. Windows capture/focus/animation/native/whole case NotRun; full P3/P4 not passed. P3-06 parent test-mode boundary blocker corrected: immutable startup fixture authorization, no credentials, every admission/send and pinned client check, proof-based label;39 portable production/real loopback cases. Other supervisory review and all Windows/whole cases remain pending. P4-01 real profile mapping/parameter/capability UI/fixed public test source wired;83 new portable production/real loopback cases. Existing test-mode boundary retained; Windows/native/whole Alpha NotRun. P4 supervisory fixed-sample temporary identity consent/monotonic shared total budget/all draft edit invalidation correction;30 new cases and1499/63 offline. Other review and whole Windows/P4 NotRun. P4 frozen bounded phase config/real socket/SSE tokens/JSON valid-progress read,61 cases+1668/63; total unchanged, Windows/proxy/DNS/whole NotRun. Text usage follow-up:normal selection/OLE text/OCR-confirmed text now consumes existing two-protocol Usage through original destination admission;immutable Core per-version actual input/output,Unknown for missing,last valid field replaces including0/downward,no summing/estimating. Existing label and full version-menu formatter show selected version metadata;usage-only event leaves body/reader/complete untouched. Independent regeneration/threeversions/rollback/fallback/Clear/stop/queuedlate/source/settings/C gates covered.1737=parent1575+119newusage+43unchangedCore-regression source cases;App/Worker0W/E. Four old deadline expectations extended strictly to include newUsage and actualcounts,all old names retained. Actual Windows/WPF/nativeOCR/quality/timing/fullacceptance NotRun;production image reuse Off."
+      "note": " P3-06 production source snapshot to real protocol and streaming overlay wired;66 new portable/test-HTTP cases. Explicit local fixture mode labeled/isolated, no real model/key. Windows capture/focus/animation/native/whole case NotRun; full P3/P4 not passed. P3-06 parent test-mode boundary blocker corrected: immutable startup fixture authorization, no credentials, every admission/send and pinned client check, proof-based label;39 portable production/real loopback cases. Other supervisory review and all Windows/whole cases remain pending. P4-01 real profile mapping/parameter/capability UI/fixed public test source wired;83 new portable production/real loopback cases. Existing test-mode boundary retained; Windows/native/whole Alpha NotRun. P4 supervisory fixed-sample temporary identity consent/monotonic shared total budget/all draft edit invalidation correction;30 new cases and1499/63 offline. Other review and whole Windows/P4 NotRun. P4 frozen bounded phase config/real socket/SSE tokens/JSON valid-progress read,61 cases+1668/63; total unchanged, Windows/proxy/DNS/whole NotRun. Text usage follow-up:normal selection/OLE text/OCR-confirmed text now consumes existing two-protocol Usage through original destination admission;immutable Core per-version actual input/output,Unknown for missing,last valid field replaces including0/downward,no summing/estimating. Existing label and full version-menu formatter show selected version metadata;usage-only event leaves body/reader/complete untouched. Independent regeneration/threeversions/rollback/fallback/Clear/stop/queuedlate/source/settings/C gates covered.1737=parent1575+119newusage+43unchangedCore-regression source cases;App/Worker0W/E. Four old deadline expectations extended strictly to include newUsage and actualcounts,all old names retained. Actual Windows/WPF/nativeOCR/quality/timing/fullacceptance NotRun;production image reuse Off. SPEC10.8 bounded failure enum retained per exact version;safe explicit truncation/refusal/EOF/protocol/auth state;failed-source fallback retains failed version plus selectedold within3 and own snapshot/usage/ordinal. Persistent native focusable status button/AutomationName reuses existing version/regeneration/APIsettings menu;empty failures selectable,reveal honors collapse/identity. Three-source actual localHTTP and linkedShell command/data-port regressions;no raw service error/refusal/exception body,no automatic recovery request/token increase;existing10.7 bounded429/503transportpolicy unchanged. RealWPF/keyboard/layout/quality/fullacceptance NotRun."
     },
     {
       "id": "P4-05",
@@ -2260,9 +2263,11 @@
       "evidence": [
         "docs/p4-profile-review.md",
         "docs/p4-profile-windows-checklist.md",
-        "docs/test-evidence/2026-10-11-p4-profile-summary.json"
+        "docs/test-evidence/2026-10-11-p4-profile-summary.json",
+        "docs/validation/text-terminal-failures.md",
+        "docs/test-evidence/2026-10-16-text-terminal-failures.json"
       ],
-      "note": " P4-01 real profile mapping/parameter/capability UI/fixed public test source wired;83 new portable production/real loopback cases. Existing test-mode boundary retained; Windows/native/whole Alpha NotRun."
+      "note": " P4-01 real profile mapping/parameter/capability UI/fixed public test source wired;83 new portable production/real loopback cases. Existing test-mode boundary retained; Windows/native/whole Alpha NotRun. SPEC10.8 bounded failure enum retained per exact version;safe explicit truncation/refusal/EOF/protocol/auth state;failed-source fallback retains failed version plus selectedold within3 and own snapshot/usage/ordinal. Persistent native focusable status button/AutomationName reuses existing version/regeneration/APIsettings menu;empty failures selectable,reveal honors collapse/identity. Three-source actual localHTTP and linkedShell command/data-port regressions;no raw service error/refusal/exception body,no automatic recovery request/token increase;existing10.7 bounded429/503transportpolicy unchanged. RealWPF/keyboard/layout/quality/fullacceptance NotRun."
     },
     {
       "id": "F07",
@@ -2308,9 +2313,11 @@
         "docs/test-evidence/2026-10-12-p4-secret-command-summary.json",
         "docs/p4-phase-timeouts-review.md",
         "docs/p4-phase-timeouts-windows-checklist.md",
-        "docs/test-evidence/2026-10-12-p4-phase-timeouts-summary.json"
+        "docs/test-evidence/2026-10-12-p4-phase-timeouts-summary.json",
+        "docs/validation/text-terminal-failures.md",
+        "docs/test-evidence/2026-10-16-text-terminal-failures.json"
       ],
-      "note": " P4-01 real profile mapping/parameter/capability UI/fixed public test source wired;83 new portable production/real loopback cases. Existing test-mode boundary retained; Windows/native/whole Alpha NotRun. P4 supervisory fixed-sample temporary identity consent/monotonic shared total budget/all draft edit invalidation correction;30 new cases and1499/63 offline. Other review and whole Windows/P4 NotRun. Parent05dc clear saved key with empty password omitted explicit draft invalidation; Clear/preset production command correction,6 shared-source tests and1505/63; actual WPF/DPAPI whole acceptance NotRun. P4 frozen bounded phase config/real socket/SSE tokens/JSON valid-progress read,61 cases+1668/63; total unchanged, Windows/proxy/DNS/whole NotRun."
+      "note": " P4-01 real profile mapping/parameter/capability UI/fixed public test source wired;83 new portable production/real loopback cases. Existing test-mode boundary retained; Windows/native/whole Alpha NotRun. P4 supervisory fixed-sample temporary identity consent/monotonic shared total budget/all draft edit invalidation correction;30 new cases and1499/63 offline. Other review and whole Windows/P4 NotRun. Parent05dc clear saved key with empty password omitted explicit draft invalidation; Clear/preset production command correction,6 shared-source tests and1505/63; actual WPF/DPAPI whole acceptance NotRun. P4 frozen bounded phase config/real socket/SSE tokens/JSON valid-progress read,61 cases+1668/63; total unchanged, Windows/proxy/DNS/whole NotRun. SPEC10.8 bounded failure enum retained per exact version;safe explicit truncation/refusal/EOF/protocol/auth state;failed-source fallback retains failed version plus selectedold within3 and own snapshot/usage/ordinal. Persistent native focusable status button/AutomationName reuses existing version/regeneration/APIsettings menu;empty failures selectable,reveal honors collapse/identity. Three-source actual localHTTP and linkedShell command/data-port regressions;no raw service error/refusal/exception body,no automatic recovery request/token increase;existing10.7 bounded429/503transportpolicy unchanged. RealWPF/keyboard/layout/quality/fullacceptance NotRun."
     },
     {
       "id": "F09",

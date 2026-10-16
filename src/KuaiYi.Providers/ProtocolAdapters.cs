@@ -94,13 +94,13 @@ public sealed class OpenAiChatAdapter : IProtocolAdapter
         if (choice.ValueKind != JsonValueKind.Object || !choice.TryGetProperty("message", out var message)) throw new InvalidDataException("Missing selected choice.");
         string? text = ProtocolJson.String(message, "content");
         string? finish = ProtocolJson.String(choice, "finish_reason");
-        if (message.TryGetProperty("tool_calls", out _) || !string.IsNullOrEmpty(ProtocolJson.String(message, "refusal")))
-            return [new(ModelEventKind.Failed, Reason: "UNSUPPORTED_OR_REFUSED")];
-        if (text is null) throw new InvalidDataException("Missing OpenAI text.");
-        List<ModelEvent> events = [new(ModelEventKind.TextDelta, text)];
+        bool refused=!string.IsNullOrEmpty(ProtocolJson.String(message,"refusal"))||finish=="content_filter";
+        if(message.TryGetProperty("tool_calls",out _))return [new(ModelEventKind.Failed,Reason:"UNSUPPORTED_TOOL_RESPONSE")];
+        if (text is null&&!refused) throw new InvalidDataException("Missing OpenAI text.");
+        List<ModelEvent> events = text==null?[]:[new(ModelEventKind.TextDelta, text)];
         if (root.TryGetProperty("usage", out var usage) && usage.ValueKind == JsonValueKind.Object)
             events.Add(new(ModelEventKind.Usage, Usage: ProtocolJson.Usage(root,"prompt_tokens","completion_tokens")));
-        events.Add(finish == "stop" ? new(ModelEventKind.Completed, Reason: "non-streaming") : new(ModelEventKind.Failed, Reason: finish == "length" ? "OUTPUT_TRUNCATED" : "STREAM_INTERRUPTED"));
+        events.Add(refused?new(ModelEventKind.Failed,Reason:"CONTENT_REFUSED"):finish == "stop" ? new(ModelEventKind.Completed, Reason: "non-streaming") : new(ModelEventKind.Failed, Reason: finish == "length" ? "OUTPUT_TRUNCATED" : "STREAM_INTERRUPTED"));
         return events;
     }
 }
@@ -158,7 +158,7 @@ public sealed class AnthropicMessagesAdapter : IProtocolAdapter
                 if (root.TryGetProperty("delta", out var final) && ProtocolJson.String(final, "stop_reason") is { } reason)
                 {
                     validStopReason = reason is "end_turn" or "stop_sequence";LastEventWasEffective=!stopReasonSeen;stopReasonSeen=true;
-                    if (!validStopReason) events.Add(new(ModelEventKind.Failed, Reason: reason == "max_tokens" ? "OUTPUT_TRUNCATED" : "UNSUPPORTED_OR_REFUSED"));
+                    if (!validStopReason) events.Add(new(ModelEventKind.Failed, Reason: reason == "max_tokens" ? "OUTPUT_TRUNCATED" : reason=="refusal"?"CONTENT_REFUSED":"UNSUPPORTED_OR_REFUSED"));
                 }
                 if(events.Any(item=>item.Usage is {} counts&&(counts.InputTokens!=null||counts.OutputTokens!=null)&&counts!=previousUsage)){LastEventWasEffective=true;previousUsage=events.First(item=>item.Kind==ModelEventKind.Usage).Usage;}
                 return events;
@@ -199,7 +199,7 @@ public sealed class AnthropicMessagesAdapter : IProtocolAdapter
         }
         if (root.TryGetProperty("usage", out var usage)) events.Add(new(ModelEventKind.Usage, Usage: ProtocolJson.Usage(root,"input_tokens","output_tokens")));
         string? reason = ProtocolJson.String(root, "stop_reason");
-        events.Add(reason is "end_turn" or "stop_sequence" ? new(ModelEventKind.Completed, Reason: "non-streaming") : new(ModelEventKind.Failed, Reason: reason == "max_tokens" ? "OUTPUT_TRUNCATED" : "UNSUPPORTED_OR_REFUSED"));
+        events.Add(reason is "end_turn" or "stop_sequence" ? new(ModelEventKind.Completed, Reason: "non-streaming") : new(ModelEventKind.Failed, Reason: reason == "max_tokens" ? "OUTPUT_TRUNCATED" : reason=="refusal"?"CONTENT_REFUSED":"UNSUPPORTED_OR_REFUSED"));
         return events;
     }
 }

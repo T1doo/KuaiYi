@@ -9,7 +9,7 @@ internal sealed partial class ShellWindow
     {viewport.Validate();markdownViewport=viewport;bodyMarkdown.SetViewport(viewport);measurementMarkdown.SetViewport(viewport);}
     private double MeasureMarkdown(LayoutPlan plan,bool hasLabel)
     {
-        SetMarkdownViewport(MarkdownViewport.FromPlan(plan,hasLabel));RefreshMarkdown(renderBody:false);
+        SetMarkdownViewport(MarkdownViewport.FromPlan(plan,hasLabel,FailureNoticeHeight));RefreshMarkdown(renderBody:false);
         measurement.Measure(new System.Windows.Size(markdownViewport.WidthDip,markdownViewport.MaximumHeightDip));
         return measurement.DesiredSize.Height;
     }
