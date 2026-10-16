@@ -735,3 +735,13 @@ analysis与分类回执同canonical缓存，再生成引用原回执并标Reused
 首轮数据契约已加而消费逻辑尚旧，实际双协议流/非流HTTP红测0过/4失败及3份红源码保全；接入后r02 73/73、扩展r03 155/155、r04全量1228/1228、r05归属4/4、r06及r08最终Provider1232/1232（父1142完整+新90：58编排、32parser）、App0W/E。r08仅收紧异步用例等Usage通知的同步条件，防止读取快照抢先，生产未改。覆盖实际请求body/阶段、缺失/坏数/重复/向下修正、usage不完成、两阶段失败中断/取消/迟到、Clear/Adopt/模式/C重入、三版重判/旧版阅读/跨协议复用。15 SDK log/TRX+3红源码精确-text，父124原件与1705既有证据不改。详见[合同与回执说明](validation/image-stage-usage.md)及[固定证据](test-evidence/2026-10-16-image-stage-usage.json)。
 
 普通Shell/截图/菜单仍未接发送，On截图本地未翻译未发送，生产离线复用Off；250/600ms和来源/密码/完整性/取消/清理门保持。Core、ProviderClient/receiver/budget/请求序列化、8模板/8workflow/43锁不变，无新依赖。P6-04/05 InProgress/validation NotRun，真实WPF/Windows/COM/截图/OCR/模型和视觉质量及完整P2/P4/P6 NotRun；不造Windows/CMake实验/新CI/绕隔离。dotnet激活前后及命令前显式false，旧证书/覆盖字节Unknown不读改重造，Actions不查不调不绕拒绝、run数Unknown；无main/强推/部署/费用凭据权限新协议/真实模型。
+
+### 2026-10-16 P6-02最终crop白底归一化与强类型ImageTransform
+
+从f463dd419df2593eb0e799f64644c5b38d477458核实际文件/原实现、cleanGit、单worktree/唯一写入者/默认远端祖先，建dev/screenshot-normalization，独审只读。OwnedSourceImage新增受限PrepareRequest：既有最终straight BGRA crop白底合成，1:1保可视像素；只对白底后全图RGB逐像素严格恒定的极窄无结构例外等比fit到2560，其他需要缩小的图像保原预览并返回SMALLER_SCREENSHOT_REQUIRED、零HTTP。不能靠ratio/采样/平均亮度代替文字可读性，不能先发分类论证缩图；lossless PNG与工作缓冲4MiB/profile硬cap，超限重截，不循环降质/裁边/使用缩略图。旧原尺寸导出保超2560拒绝合同，正常截图入口仍只本地预览。
+
+ImageTransform规划与可发送owner分开，记录原crop物理Bounds/尺寸、identity截图方向、整数输出与实际每轴比例。Original/Normalized/Desktop点和矩形分别强类型，UnitImageRectangle另表分类[0,1]，pixel-edge双向/实际bbox映射，拒绝非有限/越界。source锁内逐行复制，锁外合成/扫描/编码及取消检查，临时owned像素/PNG在finally清零；Prepared事件在原canonical提交点写映射后再Eligible，分类/生成只用同一PNG，analysis同步缓存原mapping并拒绝不等价复用，模式/三版/usage原回执保留。无EXIF/OCR/文件解码或新依赖。
+
+实际r01白底红测1P/5F，原owner/encoder及初6测试保全；r02 CS0121重载歧义编译失败0执行、无TRX，原log/源码保全后修明确point类型。r03 185/185、r04 211/211；独审发现新mapping复用坐标类型，r05真实0P/1F及两份红源码保全，拆独立空间后r06 216/216。最终Provider1306/1306（父1232完整+新74：44归一化、30编排），App0W/E；实际PNG解码CRC/白底、原件清零/有限cap/取消、1000随机坐标往返/非法边界、双协议两阶段同图、Prepared无缓存/缓存Stop/C重入及排队迟到均执行。14份SDK log/TRX+6修前源码精确-text，父142原件和1724旧证据不改。详见[实现与可读性边界](validation/screenshot-normalization.md)及[固定证据](test-evidence/2026-10-16-screenshot-normalization.json)。
+
+P6-02保持InProgress/原validation Blocked，P6-04/05保持InProgress/NotRun；完整多格式样本、SkiaSharp版本/许可证审查、EXIF、隔离解码、OCR/一般文字缩小可读性均未完成，真实WPF/Win32/COM/图像质量及完整P2/P4/P6/I/J NotRun。250/600ms和来源/密码/完整性/取消/清理门、生产复用Off、Core/Provider/8模板/8workflow/43锁保持。dotnet每次显式false，证书/旧覆盖字节Unknown不读改重造；Actions不查询调度绕拒绝、run数Unknown；无main/强推/部署/新费用凭据权限协议/真实模型或Windows/CMake/新CI实验。

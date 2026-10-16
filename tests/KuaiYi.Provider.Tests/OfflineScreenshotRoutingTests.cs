@@ -35,7 +35,9 @@ public sealed class OfflineScreenshotRoutingTests
             r.Flow=new(r.Gate,()=>r.Settings,(version,id)=>r.Current&&version==r.SourceVersion&&id==r.Image.SourceId,boundary,destination??new Immediate(),update=>{lock(r.Events)r.Events.Add(update);r.OnUpdate?.Invoke(update);});r.Adopt();return r;
         }
         public void Adopt(int width=8,int height=8)
-        {Raw=Enumerable.Range(0,width*height*4).Select(i=>(byte)(i%4==3?255:i%251+1)).ToArray();Image=new(new ScreenshotPixels(new(0,0,width,height),Raw));SourceVersion=Guid.NewGuid();Flow.AdoptScreenshot(SourceVersion,Image);}
+        {AdoptRaw(new(0,0,width,height),Enumerable.Range(0,width*height*4).Select(i=>(byte)(i%4==3?255:i%251+1)).ToArray());}
+        public void AdoptRaw(PixelRect bounds,byte[] raw)
+        {Raw=raw;Image=new(new ScreenshotPixels(bounds,raw));SourceVersion=Guid.NewGuid();Flow.AdoptScreenshot(SourceVersion,Image);}
         public async Task Requests(int count)
         {using var limit=new CancellationTokenSource(TimeSpan.FromSeconds(6));while(Volatile.Read(ref Script.Requests)<count)await Task.Delay(5,limit.Token);}
         public async Task Reply(string text,string finish="stop")
@@ -366,5 +368,66 @@ public sealed class OfflineScreenshotRoutingTests
         var profile=r.Settings.Data.Profiles[0] with{Protocol=next==Protocol.OpenAIChat?KuaiYi.Core.Settings.ApiProtocol.OpenAIChat:KuaiYi.Core.Settings.ApiProtocol.AnthropicMessages};r.Settings=r.Settings with{Data=r.Settings.Data with{Profiles=[profile]},Version="explicit-new-protocol"};r.Gate.ObserveSettingsMetadata(r.Settings);r.Protocol=next;
         Assert.True(r.Flow.TryStart(true));await r.Requests(3);await UsageReply(r,"new protocol generation",Counts(next,53,23));await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));var snapshot=r.Flow.SelectedSnapshot!;
         Assert.Equal(3,r.Script.Requests);Assert.True(snapshot.ClassificationUsageReused);Assert.Same(original,snapshot.ClassificationUsage);Assert.Equal(initialProtocol,snapshot.ClassificationUsage!.Protocol);Assert.Equal(next,snapshot.GenerationUsage!.Protocol);Assert.Equal(new TokenUsage(53,23),snapshot.GenerationUsage.Tokens);Assert.NotEqual(original.Identity,snapshot.GenerationUsage.Identity);Assert.Equal(original.SourceId,snapshot.GenerationUsage.SourceId);
+    }
+    [Theory][InlineData(Protocol.OpenAIChat,false)][InlineData(Protocol.AnthropicMessages,false)][InlineData(Protocol.OpenAIChat,true)][InlineData(Protocol.AnthropicMessages,true)]
+    public async Task ActualClassificationAndGenerationUseOneWhiteNormalizedPngWithTheSameLocalTransform(Protocol protocol,bool downscale)
+    {
+        await using var r=await Rig.Create(protocol);int width=downscale?4096:8,height=16;var bounds=new PixelRect(-234,91,width-234,height+91);r.AdoptRaw(bounds,ScreenshotNormalizationTests.Solid(width,height,0,0,0,downscale?(byte)128:(byte)0));var original=r.Raw.ToArray();await r.Generate(final:"normalized public output");var snapshot=r.Flow.SelectedSnapshot!;var map=Assert.IsType<ImageTransform>(snapshot.Transform);
+        Assert.Equal(ImageTransform.Plan(bounds),map);Assert.Equal(downscale?ScreenshotNormalizationProof.ConstantCompositeDownscale:ScreenshotNormalizationProof.NativeSizeWhiteComposite,snapshot.NormalizationProof);Assert.Equal(original,r.Raw);var bodies=r.Script.Bodies.ToArray();var first=Body(protocol,bodies[0]);var final=Body(protocol,bodies[1]);Assert.Equal(first.Image,final.Image);Assert.Equal(map.NormalizedSize,ImagePolicy.InspectPng(final.Image));var rgb=ScreenshotNormalizationTests.DecodeRgb(final.Image);int stride=(int)map.NormalizedSize.Width*3+1;
+        for(int y=0;y<map.NormalizedSize.Height;y++)Assert.All(rgb.AsSpan(y*stride+1,stride-1).ToArray(),b=>Assert.Equal(downscale?127:255,b));Assert.DoesNotContain("ImageTransform",first.System+first.User+final.System+final.User);Assert.DoesNotContain("-234",first.System+first.User+final.System+final.User);
+        Assert.Same(map,Assert.Single(r.Events,e=>e.Kind==ScreenshotGenerationEvent.Prepared).Snapshot.Transform);Assert.Same(map,Assert.Single(r.Events,e=>e.Kind==ScreenshotGenerationEvent.Classifying).Snapshot.Transform);Assert.Same(map,Assert.Single(r.Events,e=>e.Kind==ScreenshotGenerationEvent.Generating).Snapshot.Transform);
+        var region=Assert.Single(snapshot.Classification!.Regions);var unit=new UnitImageRectangle(region.X,region.Y,region.Width,region.Height);var originalRegion=map.RelativeToOriginal(unit);Assert.InRange(Math.Abs(originalRegion.X-width*region.X),0,1e-8);Assert.InRange(Math.Abs(originalRegion.Height-height*region.Height),0,1e-8);var physicalRegion=map.NormalizedToDesktop(map.RelativeToNormalized(unit));Assert.InRange(Math.Abs(physicalRegion.X-(bounds.Left+width*region.X)),0,1e-8);
+        var classification=snapshot.Classification;var receipt=snapshot.ClassificationUsage;await r.Generate(final:"normalized regeneration",regenerate:true);Assert.Equal(3,r.Script.Requests);Assert.Same(classification,r.Flow.SelectedSnapshot!.Classification);Assert.Same(receipt,r.Flow.SelectedSnapshot.ClassificationUsage);Assert.Equal(map,r.Flow.SelectedSnapshot.Transform);Assert.Equal(final.Image,Body(protocol,r.Script.Bodies.Last()).Image);
+    }
+    [Theory][InlineData(Protocol.OpenAIChat)][InlineData(Protocol.AnthropicMessages)]
+    public async Task NonConstantOversizeAndEncodedCapRequireLocalCropWithNoClassifierOrUsage(Protocol protocol)
+    {
+        await using var r=await Rig.Create(protocol);r.Adopt(3001,8);var raw=r.Raw.ToArray();Assert.True(r.Flow.TryStart(true));await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal(0,r.Script.Requests);Assert.Equal(raw,r.Raw);Assert.False(r.Image.IsDisposed);Assert.Equal("SMALLER_SCREENSHOT_REQUIRED",Assert.Single(r.Events,e=>e.Kind==ScreenshotGenerationEvent.Failed).Reason);Assert.Null(r.Flow.SelectedSnapshot!.Transform);Assert.Null(r.Flow.SelectedSnapshot.ClassificationUsage);Assert.Null(r.Flow.SelectedSnapshot.GenerationUsage);
+        r.Events.Clear();byte[] noisy=new byte[256*256*4];new Random(7639).NextBytes(noisy);for(int i=3;i<noisy.Length;i+=4)noisy[i]=255;r.AdoptRaw(new(-11,-13,245,243),noisy);var profile=r.Settings.Data.Profiles[0] with{ImageByteLimit=65536};r.Settings=r.Settings with{Data=r.Settings.Data with{Profiles=[profile]}};r.Gate.ObserveSettingsMetadata(r.Settings);
+        Assert.True(r.Flow.TryStart(true));await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal(0,r.Script.Requests);Assert.False(r.Image.IsDisposed);Assert.Equal("SMALLER_SCREENSHOT_REQUIRED",Assert.Single(r.Events,e=>e.Kind==ScreenshotGenerationEvent.Failed).Reason);Assert.DoesNotContain(r.Events,e=>e.Kind is ScreenshotGenerationEvent.Prepared or ScreenshotGenerationEvent.Classifying or ScreenshotGenerationEvent.Usage);
+    }
+    public static IEnumerable<object[]> PreparationCancellationCases()
+    {foreach(var p in Enum.GetValues<Protocol>())foreach(string action in new[]{"stop","clear","adopt","lock","hide"})yield return [p,action];}
+    [Theory][MemberData(nameof(PreparationCancellationCases))]
+    public async Task PreparedCallbackCancellationCannotStartClassificationOrResurrectMappedSource(Protocol protocol,string action)
+    {
+        await using var r=await Rig.Create(protocol);r.AdoptRaw(new(-17,-19,4079,-3),ScreenshotNormalizationTests.Solid(4096,16,0,0,0,128));var raw=r.Raw;bool acted=false;r.OnUpdate=u=>
+        {
+            if(u.Kind!=ScreenshotGenerationEvent.Prepared)return;r.OnUpdate=null;acted=true;
+            switch(action){case "stop":r.Flow.Stop();break;case "clear":r.Flow.Clear();break;case "adopt":r.Adopt();break;case "lock":r.Flow.LockSession();break;case "hide":r.Flow.Hide();break;}
+        };
+        Assert.True(r.Flow.TryStart(true));await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.True(acted);Assert.Equal(0,r.Script.Requests);Assert.False(r.Gate.HasRunningGeneration);Assert.DoesNotContain(r.Events,e=>e.Kind is ScreenshotGenerationEvent.Classifying or ScreenshotGenerationEvent.Generating or ScreenshotGenerationEvent.Usage);
+        if(action=="stop"){Assert.True(Assert.Single(r.Flow.Results.Versions).Stopped);Assert.NotNull(r.Flow.SelectedSnapshot!.Transform);Assert.Null(r.Flow.SelectedSnapshot.Classification);Assert.False(r.Image.IsDisposed);}
+        else {Assert.Empty(r.Flow.Results.Versions);Assert.Null(r.Flow.SelectedSnapshot);Assert.All(raw,b=>Assert.Equal(0,b));}
+    }
+    [Theory][InlineData(Protocol.OpenAIChat,false)][InlineData(Protocol.AnthropicMessages,false)][InlineData(Protocol.OpenAIChat,true)][InlineData(Protocol.AnthropicMessages,true)]
+    public async Task PreparationReentryCReceivesOnlyItsOwnMappingPngAndLaterEvents(Protocol protocol,bool replaceSource)
+    {
+        await using var r=await Rig.Create(protocol);r.AdoptRaw(new(-117,31,3979,47),ScreenshotNormalizationTests.Solid(4096,16,0,0,0,128));RequestIdentity a=default,c=default;ImageTransform? aMap=null;
+        r.OnUpdate=u=>{if(u.Kind!=ScreenshotGenerationEvent.Prepared)return;r.OnUpdate=null;a=u.Identity;aMap=u.Snapshot.Transform;if(replaceSource)r.Adopt();Assert.True(r.Flow.TryStart(true));c=r.Flow.Results.Identity!.Value;};
+        Assert.True(r.Flow.TryStart(true));Task old=r.Flow.Running;await r.Requests(1);await r.Reply(ImageClassificationTests.Json());await r.Requests(2);await r.Reply("C prepared output");await old.WaitAsync(TimeSpan.FromSeconds(6));await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));var snapshot=r.Flow.SelectedSnapshot!;
+        Assert.NotEqual(a,c);Assert.Equal(c,r.Flow.Results.Identity);Assert.Equal(c,snapshot.GenerationUsage!.Identity);Assert.Equal(r.Image.SourceId,snapshot.SourceId);Assert.Equal(replaceSource?new ImageSize(8,8):new ImageSize(2560,10),snapshot.Transform!.NormalizedSize);if(replaceSource)Assert.NotEqual(aMap,snapshot.Transform);else Assert.Equal(aMap,snapshot.Transform);
+        Assert.Equal("C prepared output",r.Flow.Results.Text);Assert.Equal(2,r.Script.Requests);Assert.Equal(Body(protocol,r.Script.Bodies.First()).Image,Body(protocol,r.Script.Bodies.Last()).Image);Assert.DoesNotContain(r.Events,e=>e.Identity==a&&e.Kind!=ScreenshotGenerationEvent.Prepared);Assert.False(r.Flow.Results.Versions.Single(v=>v.Identity==c).Stopped);
+    }
+    [Theory][InlineData(Protocol.OpenAIChat,false)][InlineData(Protocol.AnthropicMessages,false)][InlineData(Protocol.OpenAIChat,true)][InlineData(Protocol.AnthropicMessages,true)]
+    public async Task QueuedPreparedMappingAfterClearOrAdoptionCannotPublishOrSend(Protocol protocol,bool adopt)
+    {
+        var queue=new Deferred();await using var r=await Rig.Create(protocol,destination:queue);r.AdoptRaw(new(-700,81,3396,97),ScreenshotNormalizationTests.Solid(4096,16,0,0,0,128));var raw=r.Raw;Assert.True(r.Flow.TryStart(true));Task old=r.Flow.Running;using var limit=new CancellationTokenSource(TimeSpan.FromSeconds(6));while(queue.Pending==0)await Task.Delay(5,limit.Token);
+        if(adopt)r.Adopt();else r.Flow.Clear();queue.Drain();await old.WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal(0,r.Script.Requests);Assert.Empty(r.Flow.Results.Versions);Assert.Null(r.Flow.SelectedSnapshot);Assert.Empty(r.Events);Assert.All(raw,b=>Assert.Equal(0,b));if(adopt)Assert.False(r.Image.IsDisposed);
+    }
+    [Theory][InlineData(Protocol.OpenAIChat)][InlineData(Protocol.AnthropicMessages)]
+    public async Task PreparedModeEditCannotChangeTheCurrentFrozenPlanOrImage(Protocol protocol)
+    {
+        await using var r=await Rig.Create(protocol);r.OnUpdate=u=>{if(u.Kind==ScreenshotGenerationEvent.Prepared)Assert.True(r.Flow.SetMode(ImageOutputMode.ExplainImage));};await r.Generate();Assert.Equal(ImageOutputMode.TranslateText,r.Flow.SelectedSnapshot!.Plan!.Mode);r.OnUpdate=null;await r.Generate(regenerate:true);Assert.Equal(ImageOutputMode.ExplainImage,r.Flow.SelectedSnapshot!.Plan!.Mode);Assert.Equal(3,r.Script.Requests);Assert.Equal(Body(protocol,r.Script.Bodies.First()).Image,Body(protocol,r.Script.Bodies.Last()).Image);
+    }
+    [Theory][InlineData(Protocol.OpenAIChat,false)][InlineData(Protocol.AnthropicMessages,false)][InlineData(Protocol.OpenAIChat,true)][InlineData(Protocol.AnthropicMessages,true)]
+    public async Task CachedClassificationPreparationReentryCannotPublishOrSendTheRejectedFinal(Protocol protocol,bool startC)
+    {
+        await using var r=await Rig.Create(protocol);r.AdoptRaw(new(-17,-19,4079,-3),ScreenshotNormalizationTests.Solid(4096,16,0,0,0,128));await r.Generate(final:"original classified version");var original=r.Flow.SelectedSnapshot!;RequestIdentity b=default,c=default;
+        r.OnUpdate=u=>{if(u.Kind!=ScreenshotGenerationEvent.Prepared)return;r.OnUpdate=null;b=u.Identity;if(startC){Assert.True(r.Flow.TryStart(true,regenerate:true));c=r.Flow.Results.Identity!.Value;}else r.Flow.Stop();};
+        Assert.True(r.Flow.TryStart(true,regenerate:true));Task rejected=r.Flow.Running;
+        if(startC){await r.Requests(3);await r.Reply("C cached final");await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));}await rejected.WaitAsync(TimeSpan.FromSeconds(6));Assert.NotEqual(default,b);
+        Assert.DoesNotContain(r.Events,e=>e.Identity==b&&e.Kind is ScreenshotGenerationEvent.Generating or ScreenshotGenerationEvent.Classifying or ScreenshotGenerationEvent.Usage);Assert.Equal(startC?3:2,r.Script.Requests);Assert.Same(original.ClassificationUsage,r.Flow.SelectedSnapshot!.ClassificationUsage);Assert.Equal(original.Transform,r.Flow.SelectedSnapshot.Transform);
+        if(startC){Assert.Equal(c,r.Flow.Results.Identity);Assert.Equal("C cached final",r.Flow.Results.Text);Assert.Equal(c,r.Flow.SelectedSnapshot.GenerationUsage!.Identity);}else{Assert.True(r.Flow.Results.Versions.Single(v=>v.Identity==b).Stopped);Assert.Null(r.Flow.SelectedSnapshot.GenerationUsage);Assert.False(r.Gate.HasRunningGeneration);}
     }
 }

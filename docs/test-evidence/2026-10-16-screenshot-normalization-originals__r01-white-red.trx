@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="400bc283-2c85-4753-a31f-d4d1bf84311a" name="@68e6e3cca8ba 2026-10-16 03:09:05" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-16T03:09:05.7975153+00:00" queuing="2026-10-16T03:09:05.7975153+00:00" start="2026-10-16T03:09:04.9131926+00:00" finish="2026-10-16T03:09:05.8053276+00:00" />
+  <TestSettings name="default" id="2bdb0c44-54dc-4cf7-b582-d527bfd0a4cc">
+    <Deployment runDeploymentRoot="_68e6e3cca8ba_2026-10-16_03_09_05" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="f1ec8597-d276-423a-8ada-b4065fa7c2cd" testId="44fec36d-0af8-f2c5-6826-be4ced29249d" testName="KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(b: 0, g: 0, red: 0, alpha: 254, expectedR: 1, expectedG: 1, expectedB: 1)" computerName="68e6e3cca8ba" duration="00:00:00.0000832" startTime="2026-10-16T03:09:05.7067337+00:00" endTime="2026-10-16T03:09:05.7067912+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f1ec8597-d276-423a-8ada-b4065fa7c2cd">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ
+           ↓ (pos 0)
+Expected: [1, 1, 1]
+Actual:   [0, 0, 0]
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(Byte b, Byte g, Byte red, Byte alpha, Byte expectedR, Byte expectedG, Byte expectedB) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ScreenshotNormalizationTests.cs:line 27
+   at InvokeStub_ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="11329e57-447a-4e9f-afd0-6b7ce59fc7a0" testId="b8f49d97-badf-0f55-995b-53b07bed0b41" testName="KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(b: 0, g: 0, red: 0, alpha: 128, expectedR: 127, expectedG: 127, expectedB: 127)" computerName="68e6e3cca8ba" duration="00:00:00.0000766" startTime="2026-10-16T03:09:05.7062539+00:00" endTime="2026-10-16T03:09:05.7063330+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="11329e57-447a-4e9f-afd0-6b7ce59fc7a0">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ
+           ↓ (pos 0)
+Expected: [127, 127, 127]
+Actual:   [0, 0, 0]
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(Byte b, Byte g, Byte red, Byte alpha, Byte expectedR, Byte expectedG, Byte expectedB) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ScreenshotNormalizationTests.cs:line 27
+   at InvokeStub_ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="59e66e2c-5683-4021-a9b4-19bce931cd10" testId="24377f02-04d0-344f-85ce-248c64a398e5" testName="KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(b: 10, g: 20, red: 30, alpha: 255, expectedR: 30, expectedG: 20, expectedB: 10)" computerName="68e6e3cca8ba" duration="00:00:00.0008683" startTime="2026-10-16T03:09:05.7048926+00:00" endTime="2026-10-16T03:09:05.7051424+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="59e66e2c-5683-4021-a9b4-19bce931cd10" />
+    <UnitTestResult executionId="277b301b-885d-420b-9a3e-25a223319519" testId="a5ff56c6-3943-ee1f-d140-cdc27078af6e" testName="KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(b: 255, g: 0, red: 0, alpha: 64, expectedR: 191, expectedG: 191, expectedB: 255)" computerName="68e6e3cca8ba" duration="00:00:00.0307593" startTime="2026-10-16T03:09:05.6487027+00:00" endTime="2026-10-16T03:09:05.6911257+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="277b301b-885d-420b-9a3e-25a223319519">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ
+           ↓ (pos 0)
+Expected: [191, 191, 255]
+Actual:   [0, 0, 255]
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(Byte b, Byte g, Byte red, Byte alpha, Byte expectedR, Byte expectedG, Byte expectedB) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ScreenshotNormalizationTests.cs:line 27
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="71328807-d4f4-40c4-850e-99cdb711afd6" testId="96d88c08-cb87-5a34-0d64-648f4fd2c956" testName="KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(b: 0, g: 20, red: 40, alpha: 0, expectedR: 255, expectedG: 255, expectedB: 255)" computerName="68e6e3cca8ba" duration="00:00:00.0001246" startTime="2026-10-16T03:09:05.7059020+00:00" endTime="2026-10-16T03:09:05.7059386+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="71328807-d4f4-40c4-850e-99cdb711afd6">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ
+           ↓ (pos 0)
+Expected: [255, 255, 255]
+Actual:   [40, 20, 0]
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(Byte b, Byte g, Byte red, Byte alpha, Byte expectedR, Byte expectedG, Byte expectedB) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ScreenshotNormalizationTests.cs:line 27
+   at InvokeStub_ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="742edad8-dec7-45e4-9ee2-bfe8fe7e6e3f" testId="82f493d2-d4d5-3326-7f9a-b05313a3a456" testName="KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(b: 0, g: 0, red: 0, alpha: 1, expectedR: 254, expectedG: 254, expectedB: 254)" computerName="68e6e3cca8ba" duration="00:00:00.0006376" startTime="2026-10-16T03:09:05.7038718+00:00" endTime="2026-10-16T03:09:05.7039440+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="742edad8-dec7-45e4-9ee2-bfe8fe7e6e3f">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ
+           ↓ (pos 0)
+Expected: [254, 254, 254]
+Actual:   [0, 0, 0]
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(Byte b, Byte g, Byte red, Byte alpha, Byte expectedR, Byte expectedG, Byte expectedB) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ScreenshotNormalizationTests.cs:line 27
+   at InvokeStub_ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(b: 0, g: 0, red: 0, alpha: 128, expectedR: 127, expectedG: 127, expectedB: 127)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="b8f49d97-badf-0f55-995b-53b07bed0b41">
+      <Execution id="11329e57-447a-4e9f-afd0-6b7ce59fc7a0" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ScreenshotNormalizationTests" name="RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(b: 0, g: 0, red: 0, alpha: 254, expectedR: 1, expectedG: 1, expectedB: 1)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="44fec36d-0af8-f2c5-6826-be4ced29249d">
+      <Execution id="f1ec8597-d276-423a-8ada-b4065fa7c2cd" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ScreenshotNormalizationTests" name="RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(b: 0, g: 20, red: 40, alpha: 0, expectedR: 255, expectedG: 255, expectedB: 255)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="96d88c08-cb87-5a34-0d64-648f4fd2c956">
+      <Execution id="71328807-d4f4-40c4-850e-99cdb711afd6" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ScreenshotNormalizationTests" name="RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(b: 0, g: 0, red: 0, alpha: 1, expectedR: 254, expectedG: 254, expectedB: 254)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="82f493d2-d4d5-3326-7f9a-b05313a3a456">
+      <Execution id="742edad8-dec7-45e4-9ee2-bfe8fe7e6e3f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ScreenshotNormalizationTests" name="RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(b: 10, g: 20, red: 30, alpha: 255, expectedR: 30, expectedG: 20, expectedB: 10)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="24377f02-04d0-344f-85ce-248c64a398e5">
+      <Execution id="59e66e2c-5683-4021-a9b4-19bce931cd10" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ScreenshotNormalizationTests" name="RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(b: 255, g: 0, red: 0, alpha: 64, expectedR: 191, expectedG: 191, expectedB: 255)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="a5ff56c6-3943-ee1f-d140-cdc27078af6e">
+      <Execution id="277b301b-885d-420b-9a3e-25a223319519" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ScreenshotNormalizationTests" name="RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="44fec36d-0af8-f2c5-6826-be4ced29249d" executionId="f1ec8597-d276-423a-8ada-b4065fa7c2cd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b8f49d97-badf-0f55-995b-53b07bed0b41" executionId="11329e57-447a-4e9f-afd0-6b7ce59fc7a0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="24377f02-04d0-344f-85ce-248c64a398e5" executionId="59e66e2c-5683-4021-a9b4-19bce931cd10" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a5ff56c6-3943-ee1f-d140-cdc27078af6e" executionId="277b301b-885d-420b-9a3e-25a223319519" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="96d88c08-cb87-5a34-0d64-648f4fd2c956" executionId="71328807-d4f4-40c4-850e-99cdb711afd6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="82f493d2-d4d5-3326-7f9a-b05313a3a456" executionId="742edad8-dec7-45e4-9ee2-bfe8fe7e6e3f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="6" executed="6" passed="1" failed="5" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.09]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.35]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.38]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.44]       Assert.Equal() Failure: Collections differ
+[xUnit.net 00:00:00.44]                  ↓ (pos 0)
+[xUnit.net 00:00:00.44]       Expected: [191, 191, 255]
+[xUnit.net 00:00:00.44]       Actual:   [0, 0, 255]
+[xUnit.net 00:00:00.44]                  ↑ (pos 0)
+[xUnit.net 00:00:00.44]       Stack Trace:
+[xUnit.net 00:00:00.45]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ScreenshotNormalizationTests.cs(27,0): at KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(Byte b, Byte g, Byte red, Byte alpha, Byte expectedR, Byte expectedG, Byte expectedB)
+[xUnit.net 00:00:00.45]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:00.45]            at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.45]       Assert.Equal() Failure: Collections differ
+[xUnit.net 00:00:00.45]                  ↓ (pos 0)
+[xUnit.net 00:00:00.45]       Expected: [254, 254, 254]
+[xUnit.net 00:00:00.45]       Actual:   [0, 0, 0]
+[xUnit.net 00:00:00.45]                  ↑ (pos 0)
+[xUnit.net 00:00:00.45]       Stack Trace:
+[xUnit.net 00:00:00.45]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ScreenshotNormalizationTests.cs(27,0): at KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(Byte b, Byte g, Byte red, Byte alpha, Byte expectedR, Byte expectedG, Byte expectedB)
+[xUnit.net 00:00:00.45]            at InvokeStub_ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(Object, Span`1)
+[xUnit.net 00:00:00.45]            at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.46]       Assert.Equal() Failure: Collections differ
+[xUnit.net 00:00:00.46]                  ↓ (pos 0)
+[xUnit.net 00:00:00.46]       Expected: [255, 255, 255]
+[xUnit.net 00:00:00.46]       Actual:   [40, 20, 0]
+[xUnit.net 00:00:00.46]                  ↑ (pos 0)
+[xUnit.net 00:00:00.46]       Stack Trace:
+[xUnit.net 00:00:00.46]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ScreenshotNormalizationTests.cs(27,0): at KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(Byte b, Byte g, Byte red, Byte alpha, Byte expectedR, Byte expectedG, Byte expectedB)
+[xUnit.net 00:00:00.46]            at InvokeStub_ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(Object, Span`1)
+[xUnit.net 00:00:00.46]            at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.46]       Assert.Equal() Failure: Collections differ
+[xUnit.net 00:00:00.46]                  ↓ (pos 0)
+[xUnit.net 00:00:00.46]       Expected: [127, 127, 127]
+[xUnit.net 00:00:00.46]       Actual:   [0, 0, 0]
+[xUnit.net 00:00:00.46]                  ↑ (pos 0)
+[xUnit.net 00:00:00.46]       Stack Trace:
+[xUnit.net 00:00:00.46]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ScreenshotNormalizationTests.cs(27,0): at KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(Byte b, Byte g, Byte red, Byte alpha, Byte expectedR, Byte expectedG, Byte expectedB)
+[xUnit.net 00:00:00.46]            at InvokeStub_ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(Object, Span`1)
+[xUnit.net 00:00:00.46]            at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.46]       Assert.Equal() Failure: Collections differ
+[xUnit.net 00:00:00.46]                  ↓ (pos 0)
+[xUnit.net 00:00:00.46]       Expected: [1, 1, 1]
+[xUnit.net 00:00:00.46]       Actual:   [0, 0, 0]
+[xUnit.net 00:00:00.46]                  ↑ (pos 0)
+[xUnit.net 00:00:00.46]       Stack Trace:
+[xUnit.net 00:00:00.46]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ScreenshotNormalizationTests.cs(27,0): at KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(Byte b, Byte g, Byte red, Byte alpha, Byte expectedR, Byte expectedG, Byte expectedB)
+[xUnit.net 00:00:00.46]            at InvokeStub_ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(Object, Span`1)
+[xUnit.net 00:00:00.46]            at System.Reflection.MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.46]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T03:09:05.6945828+00:00">
+        <Text>[xUnit.net 00:00:00.44]     KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(b: 255, g: 0, red: 0, alpha: 64, expectedR: 191, expectedG: 191, expectedB: 255) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T03:09:05.7041975+00:00">
+        <Text>[xUnit.net 00:00:00.45]     KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(b: 0, g: 0, red: 0, alpha: 1, expectedR: 254, expectedG: 254, expectedB: 254) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T03:09:05.7061018+00:00">
+        <Text>[xUnit.net 00:00:00.46]     KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(b: 0, g: 20, red: 40, alpha: 0, expectedR: 255, expectedG: 255, expectedB: 255) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T03:09:05.7067167+00:00">
+        <Text>[xUnit.net 00:00:00.46]     KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(b: 0, g: 0, red: 0, alpha: 128, expectedR: 127, expectedG: 127, expectedB: 127) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T03:09:05.7071805+00:00">
+        <Text>[xUnit.net 00:00:00.46]     KuaiYi.Provider.Tests.ScreenshotNormalizationTests.RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(b: 0, g: 0, red: 0, alpha: 254, expectedR: 1, expectedG: 1, expectedB: 1) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

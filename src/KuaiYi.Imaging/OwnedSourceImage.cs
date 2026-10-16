@@ -41,23 +41,31 @@ public sealed class OwnedSourceImage:IDisposable
         }
     }
     public void Dispose(){lock(sync){pixels?.Dispose();pixels=null;}}
-    /// <summary>Exact screenshot crop only; no preview reuse, resizing or file decoding. Oversize requires a smaller crop.
-    /// Caller owns the PNG. A bounded pixel copy lets Clear release the original during background encoding.</summary>
+    /// <summary>Legacy native-size export, now white-composited. Oversize still requires a smaller crop.</summary>
     public ScreenshotPng CreateRequestPng(int byteLimit,CancellationToken cancellation=default)
     {
-        if(byteLimit is <65536 or >4194304)throw new ArgumentOutOfRangeException(nameof(byteLimit));
-        ScreenshotPixels copy;
+        try{using var prepared=PrepareRequestCore(byteLimit,false,cancellation);return prepared.TakePng();}
+        catch(ScreenshotNormalizationException){throw new InvalidOperationException("SMALLER_SCREENSHOT_REQUIRED");}
+    }
+    /// <summary>Final crop only. Native-size white composition; only provably constant visible images may shrink.
+    /// Caller owns the prepared PNG/mapping. No preview reuse, file decoding, lossy quality loop or crop omission.</summary>
+    public PreparedScreenshot PrepareRequest(int byteLimit,CancellationToken cancellation=default)=>PrepareRequestCore(byteLimit,true,cancellation);
+    private PreparedScreenshot PrepareRequestCore(int byteLimit,bool allowConstantDownscale,CancellationToken cancellation)
+    {
+        if(byteLimit is <65536 or >4194304)throw new ArgumentOutOfRangeException(nameof(byteLimit));ScreenshotPixels copy;
         lock(sync)
         {
             if(pixels==null)throw new ObjectDisposedException(nameof(OwnedSourceImage));cancellation.ThrowIfCancellationRequested();
-            if(Width>2560||Height>2560)throw new InvalidOperationException("SMALLER_SCREENSHOT_REQUIRED");
-            copy=new(new PixelRect(0,0,Width,Height),pixels.Bytes.ToArray());
+            if(!allowConstantDownscale&&(Width>ImageTransform.LongEdgeLimit||Height>ImageTransform.LongEdgeLimit))throw new ScreenshotNormalizationException();
+            byte[]? raw=new byte[checked(Width*Height*4)];
+            try
+            {
+                for(int y=0;y<Height;y++){cancellation.ThrowIfCancellationRequested();pixels.Bytes.Span.Slice(y*Width*4,Width*4).CopyTo(raw.AsSpan(y*Width*4,Width*4));}
+                cancellation.ThrowIfCancellationRequested();copy=new(pixels.Bounds,raw);raw=null;
+            }
+            finally{if(raw!=null)CryptographicOperations.ZeroMemory(raw);}
         }
-        using(copy)
-        {
-            var png=ScreenshotPngEncoder.Encode(copy,cancellation);
-            if(png.Bytes.Length<=byteLimit)return png;
-            png.Dispose();throw new InvalidOperationException("SMALLER_SCREENSHOT_REQUIRED");
-        }
+        // The original lock is released before scanning/compositing/encoding: Clear can release its owner.
+        using(copy)return ScreenshotNormalizer.Prepare(copy,SourceId,byteLimit,allowConstantDownscale,cancellation);
     }
 }

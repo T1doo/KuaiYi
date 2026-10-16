@@ -41,7 +41,8 @@ public sealed class ScreenshotTopology
         if(r.Width>ImagePolicy.SideLimit||r.Height>ImagePolicy.SideLimit||(long)r.Width*r.Height>(long)ImagePolicy.PixelLimit)throw new ScreenshotException(ScreenshotFailure.RegionTooLarge);
     }
 }
-/// <summary>Takes exclusive ownership of a tightly packed top-down BGRA buffer. No implicit disk/string copies.</summary>
+/// <summary>Takes exclusive ownership of tightly packed top-down straight BGRA (not premultiplied).
+/// Captured desktop buffers explicitly set alpha to255. No implicit disk/string copies.</summary>
 public sealed class ScreenshotPixels:IDisposable
 {
     private byte[]? pixels;
@@ -113,10 +114,11 @@ public sealed class ScreenshotPng:IDisposable
 /// <summary>Real lossless RGB PNG encoder; rows and compressed working buffers cleared, no metadata or resizing.</summary>
 public static class ScreenshotPngEncoder
 {
-    public static ScreenshotPng Encode(ScreenshotPixels crop,CancellationToken cancellation=default)
+    public static ScreenshotPng Encode(ScreenshotPixels crop,CancellationToken cancellation=default,int maximumBytes=ImagePolicy.ByteLimit)
     {
+        if(maximumBytes is <1 or >ImagePolicy.ByteLimit)throw new ArgumentOutOfRangeException(nameof(maximumBytes));
         var size=crop.Bounds;ImagePolicy.ValidateDimensions((uint)size.Width,(uint)size.Height);
-        using var compressed=new BoundedMemory();using var result=new BoundedMemory();byte[] row=new byte[checked(size.Width*3+1)];
+        using var compressed=new BoundedMemory(maximumBytes);using var result=new BoundedMemory(maximumBytes);byte[] row=new byte[checked(size.Width*3+1)];
         try
         {
             using(var zip=new ZLibStream(compressed,CompressionLevel.Fastest,true))
@@ -137,12 +139,12 @@ public static class ScreenshotPngEncoder
         uint crc=uint.MaxValue;foreach(byte b in type)Acc(b);foreach(byte b in data)Acc(b);BinaryPrimitives.WriteUInt32BigEndian(number,~crc);output.Write(number);
         void Acc(byte b){crc^=b;for(int i=0;i<8;i++)crc=(crc>>1)^((crc&1)!=0?0xedb88320u:0u);}
     }
-    private sealed class BoundedMemory:MemoryStream
+    private sealed class BoundedMemory(int limit):MemoryStream
     {
         private void Check(int count)
         {
-            long required=Position+count;if(required>ImagePolicy.ByteLimit)throw new ScreenshotException(ScreenshotFailure.RegionTooLarge);
-            if(required>Capacity){byte[] old=GetBuffer();Capacity=(int)Math.Min(ImagePolicy.ByteLimit,Math.Max(required,Math.Max(256L,(long)Capacity*2)));CryptographicOperations.ZeroMemory(old);}
+            long required=Position+count;if(required>limit)throw new ScreenshotException(ScreenshotFailure.RegionTooLarge);
+            if(required>Capacity){byte[] old=GetBuffer();Capacity=(int)Math.Min(limit,Math.Max(required,Math.Max(256L,(long)Capacity*2)));CryptographicOperations.ZeroMemory(old);}
         }
         public override void Write(byte[] buffer,int offset,int count){Check(count);base.Write(buffer,offset,count);}
         public override void Write(ReadOnlySpan<byte> buffer){Check(buffer.Length);base.Write(buffer);}

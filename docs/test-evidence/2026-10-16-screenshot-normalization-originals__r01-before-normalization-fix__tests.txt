@@ -1,0 +1,29 @@
+using System.Buffers.Binary;
+using System.IO.Compression;
+using KuaiYi.Core;
+using KuaiYi.Imaging;
+using Xunit;
+namespace KuaiYi.Provider.Tests;
+
+public sealed class ScreenshotNormalizationTests
+{
+    internal static byte[] DecodeRgb(ReadOnlyMemory<byte> png)
+    {
+        var bytes=png.Span;var size=ImagePolicy.InspectPng(bytes);using var idat=new MemoryStream();var names=new List<string>();int offset=8;
+        while(offset<bytes.Length)
+        {
+            int count=checked((int)BinaryPrimitives.ReadUInt32BigEndian(bytes[offset..]));string name=System.Text.Encoding.ASCII.GetString(bytes.Slice(offset+4,4));names.Add(name);
+            uint crc=uint.MaxValue;foreach(byte b in bytes.Slice(offset+4,count+4)){crc^=b;for(int bit=0;bit<8;bit++)crc=(crc>>1)^((crc&1)!=0?0xedb88320u:0u);}Assert.Equal(~crc,BinaryPrimitives.ReadUInt32BigEndian(bytes.Slice(offset+8+count,4)));
+            if(name=="IDAT")idat.Write(bytes.Slice(offset+8,count));offset+=count+12;
+        }
+        Assert.Equal(bytes.Length,offset);Assert.Equal(new[]{"IHDR","IDAT","IEND"},names);idat.Position=0;using var zip=new ZLibStream(idat,CompressionMode.Decompress);byte[] raster=new byte[checked((int)((size.Width*3+1)*size.Height))];zip.ReadExactly(raster);Assert.Equal(-1,zip.ReadByte());return raster;
+    }
+    internal static byte[] Solid(int width,int height,byte b,byte g,byte r,byte alpha)
+    {var bytes=new byte[checked(width*height*4)];for(int i=0;i<bytes.Length;i+=4){bytes[i]=b;bytes[i+1]=g;bytes[i+2]=r;bytes[i+3]=alpha;}return bytes;}
+    [Theory][InlineData(0,20,40,0,255,255,255)][InlineData(10,20,30,255,30,20,10)][InlineData(0,0,0,128,127,127,127)][InlineData(255,0,0,64,191,191,255)][InlineData(0,0,0,254,1,1,1)][InlineData(0,0,0,1,254,254,254)]
+    public void RequestPngCompositesStraightBgraOntoWhiteInsteadOfDiscardingAlpha(byte b,byte g,byte red,byte alpha,byte expectedR,byte expectedG,byte expectedB)
+    {
+        byte[] raw=Solid(8,8,b,g,red,alpha),original=raw.ToArray();using var image=new OwnedSourceImage(new(new(-17,-9,-9,-1),raw));using var png=image.CreateRequestPng(4194304);var rgb=DecodeRgb(png.Bytes);
+        for(int y=0;y<8;y++){Assert.Equal(0,rgb[y*25]);for(int x=0;x<8;x++)Assert.Equal(new[]{expectedR,expectedG,expectedB},rgb.AsSpan(y*25+1+x*3,3).ToArray());}Assert.Equal(original,raw);
+    }
+}
