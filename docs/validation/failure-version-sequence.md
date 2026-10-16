@@ -29,3 +29,28 @@ r05的等待/调度可能性来自静态观察：测试的 Immediate destination
 [固定证据](../test-evidence/2026-10-16-failure-version-sequence.json) 保存红/绿绑定、源码manifest、实际执行DLL、逐测试名连续性和原件。28新原件含5父源码/项目、4测试候选/失败源码、红绑定JSON/preflight、10 SDK log及7 TRX；父388累计原件、1980旧证据和未改父文件原字节保持。旧测试仅一个方法同步/终态断言补强，不删测试、不降断言；项目、依赖、43锁/8workflow/8prompt不改。P4-04/F06/F08仅追加缺陷与证据，整体验收和P6不抬状态。
 
 所有 dotnet 激活前后与命令显式 `DOTNET_GENERATE_ASPNET_CERTIFICATE=false`；证书存储/信任Unknown，不读改库/配置、不trust/删除。无真实模型/费用/凭据/安全权限/待授权协议接受；Skia许可/403、Actions拒绝门保持，不查询调度Actions，run数Unknown。无main/强推/部署/Windows/CMake探针/新CI。真实WPF显示/键盘、Windows/OCR/COM/nativeJob、250/600ms和完整阶段仍NotRun。
+
+## 2026-10-16 续修：跨来源淘汰后的独立高水位
+
+接续父提交 `d45ba9d4ab1af3675cb7d0a36cfe0f77618965d0`，仍在 `dev/failure-version-sequence`。新实例初始 HEAD 为 main 早期快照 `51d077481cf6303602fcf5d2718213da9cf05178`；默认网络 ls-remote 确认远端开发分支为指定父提交，正常 fetch 后建立本地同名分支，核其 main 祖先，未恢复旧任务实例写入。当前 root 是唯一写入者，`high_water_review` 只读独审。没有依赖跨实例文件共享或原 bin/obj；以锁文件重新 restore 已有依赖。
+
+上一批局部修复未覆盖这个残留：A1/A2/A3 成功；B1 失败回 A3；手选 B1 生成 B2 再失败回 B1；C1 失败回 B1 并淘汰 B2；D1 失败回 B1。原 `FinishUnsuccessful` 再次从已经失去 B2 的列表重算 `sessionSequence=1`，下一 B 的 NextGeneration/Prepare/Begin 重用 2，实际应为 3。缓存里没有两个 B2 也不能证明编号正确。上文上一批 10F→10P 与 1958P 原件不改，不把它们当本路径已覆盖。
+
+生产仅修改 `OverlayResults.cs`：用来源 session GUID 到最大已用编号的独立字典替代单一 `sessionSequence`。只有接受有效身份的 Begin 消耗新号，预览/Prepare/拒绝/晚到不消耗；回退只恢复该版正文、身份、用量与状态，不再重算高水位。Begin 淘汰后、Complete、Fail/Abandon 都按 `versions + fallback + identity` 的来源集合清理，Clear 清空；仍有任一可回看版或隐藏 fallback 的来源保留高水位，来源完全释放后归零。这个集合最多是三版 fallback 加当前新来源，即最多四项 GUID/int 元数据，不保存额外正文、快照或无限历史。三版结果淘汰规则、请求门、Coordinator/notice/图片生产代码均未改。
+
+| 本续修实际执行 | 结果 |
+|---|---|
+| r00/r06/r08 | Provider、Core、App locked-mode restore 成功；没有新依赖/Skia 包 |
+| r01 父红 | 8 执行、0P/8F；6 项应3实2，2 项隐藏 fallback 应3实1；源码/DLL绑定原件保存 |
+| r02 初修 | 6P/2F；两项新增生命周期夹具错误地假设没有 A3 时 B2 会被淘汰，原规则实际会保留 B2。精确候选源码/log/TRX保全，没有把测试编辑错误算产品回归 |
+| r03 最终候选父红 | 8 执行、0P/8F；生命周期夹具补齐 A1/A2/A3，保留原淘汰及后续生命周期断言；临时用精确父生产 blob 实跑后恢复修复 |
+| r04 最终绿 | 同 r03 测试字节/8 个完整测试名，8P/0F/0跳过 |
+| r05 完整 Provider | **1966/1966**、0失败/跳过；父1958全部测试名保留，恰好新增8 |
+| r07 完整 Core | **1551/1551**、0失败/跳过；未改原测试或项目；这是 Linux 便携与 owned managed fixtures，平台不支持分支不算 Windows 实机通过 |
+| r09/r10 | 最终 App、ImageWorker Release 交叉构建，各0警告/0错误 |
+
+新增四项真实本地 Kestrel HTTP（两协议 × 流/JSON）严格复现 A/B/C/D 淘汰反例，逐段核 NextGeneration、Prepare 不发送、offer 编号/来源、实际 Begin 编号、完整身份、B1原文/拖放来源/usage/截断原因、各次新失败身份及自动新失败公告、手选 B1 自身失败、三版与 snapshot 同步、B2 snapshot释放、晚到拒绝和 Clear。另四项 Core 分别覆盖 Fail/中性 Abandon 的同一路径及80次来源替换清理、隐藏 fallback、快速新来源替换、成功释放和生成中 Clear。没有弱化原断言、修改旧测试或只断缓存唯一。
+
+[本续修固定证据](../test-evidence/2026-10-16-retained-source-high-water.json) 另存红绿来源/DLL绑定、原件清单、全测试名连续性及保全核对；旧 JSON 和旧原件原字节保持。最终 App/Worker 构建各0警告/0错误；独立只读审查未发现需要修复的问题，最终原件与保全另核。
+
+历史图片间歇失败根因仍未实证：本次全回归通过不证明已消除，也不声称图片产品修复；生产图片复用保持 Off。真实 WPF 可见性/键盘、Windows/OCR/COM/nativeJob、250/600ms/完整 SPEC、真实模型验收仍 NotRun，原 P4-04/F06/F08 整体状态和全部 P6 不抬。所有 dotnet 显式 `DOTNET_GENERATE_ASPNET_CERTIFICATE=false`；不读改证书/凭据/安全权限。Skia4.153.1四包许可待批及源码403门保持，不安装运行、不绕过；GitHub Actions访问先前拒绝，未查询/调度/换路，运行数 Unknown。未改 main/强推/部署/付费/真实模型，未删除未知锁、数据、日志或未知进程。

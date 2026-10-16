@@ -825,3 +825,9 @@ F04 InProgress/NotRun，P4-04/05 InProgress/NotRun，所有P6不改。真实WPF�
 r01新测试少using编译0执行无TRX原件保留；r03同测试SHA10/10绿，r04完整1958/1958=父1948+新10。新增notice四例继续补手选B1→B3失败重置；r05完整1957P1F为旧离线图片重入C正文为空，根因未实证，原测试/回执保全，r06原样隔离4/4不当已证明。补等待时r07过宽测试编辑产生两项过早Complete失败，保精确源码/回执后仅原失败单方法补确切C完成身份事件等待和Complete/Completed断言，保全部原断言及其它方法原字节；未改图片生产。r08最终1958/1958、App/Worker最终各0W/E，独审最终源码与证据；28新原件、父388累计原件/1980旧证据/43锁8workflow8prompt及项目依赖不变。详见[红绿与范围](validation/failure-version-sequence.md)、[固定证据](test-evidence/2026-10-16-failure-version-sequence.json)。父批r05仍准确保一项来源失效丢正文真实回归、一项视觉事件等待竞态，绝不全称夹具。
 
 本批只修Core序号与同路径notice，不推进新片；旧离线例等待/调度解释仍未证明，生产复用Off。所有dotnet证书生成显式false，证书存储/信任Unknown且不读改/trust/删；Skia/403/Actions/Windows门不动，Actions数Unknown；无main/强推/部署/付费/凭据/安全扩权/真实模型/待批许可接受。真实WPF可见/键盘路由与Windows/OCR/COM/nativeJob/250/600ms和整体验收仍NotRun。
+
+## 2026-10-16 · 父审P2续修：淘汰后的来源高水位
+
+从远端 d45ba9d4ab1af3675cb7d0a36cfe0f77618965d0 在 dev/failure-version-sequence 正常接续；新实例初始为main早期快照，经默认网络核远端/fetch/祖先后切开发分支，不恢复旧实例。A1/A2/A3成功→B1失败回A3→选B1/B2失败回B1→C1失败淘汰B2→D1失败后原next重用2，实际应3。生产仅OverlayResults改独立session高水位，Begin才消费，Fail/Abandon回退不重算；按仍保留版本/隐藏fallback来源维护与清理，Clear释放，最多四项GUID/int；原source/usage/identity/晚到/notice/三版规则不改。
+
+本续修r01父红8F；r02初修6P2F是新增生命周期夹具缺A3而误断B2被淘汰，精确源码/log/TRX保留，补齐初始路径不降断言；r03最终候选父红8F、r04同测试字节8P。r05完整Provider1966P（父1958全名保留+新8），r07完整Core1551P，均0失败/跳过；Core仅Linux便携与owned托管夹具，Windows实机不抬；App/Worker Release交叉构建各0W/E，独立只读审查未发现需要修复的问题。证据见[追加报告](validation/failure-version-sequence.md)、[本续修原始证据](test-evidence/2026-10-16-retained-source-high-water.json)。旧测试、原证据、项目依赖/锁/workflow/prompt原字节保持，P4-04/F06/F08及全部P6整体状态不变。历史图片间歇根因仍未实证，未改图片生产，复用Off。Actions先前拒绝不查不绕；Skia许可/403待批；真实WPF/Windows/模型/250600/全SPEC仍NotRun，无main/强推/部署/费用/凭据/安全扩权/新许可。

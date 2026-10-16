@@ -1,0 +1,106 @@
+using KuaiYi.Core;
+using KuaiYi.Providers;
+using Xunit;
+using Protocol=KuaiYi.Providers.ApiProtocol;
+namespace KuaiYi.Provider.Tests;
+
+public sealed class RetainedSourceHighWaterTests
+{
+    [Theory][InlineData(Protocol.OpenAIChat,false)][InlineData(Protocol.OpenAIChat,true)][InlineData(Protocol.AnthropicMessages,false)][InlineData(Protocol.AnthropicMessages,true)]
+    public async Task EvictedB2StillCountsInPreviewOfferAndBeginAfterCAndDFail(Protocol protocol,bool stream)
+    {
+        await using var r=await TextUsageRig.Create(protocol,stream);
+        var a=r.Start(r.Source("PUBLIC SOURCE A"));await r.Requests(1);await r.Reply(r.Counts(10,1),"PUBLIC A1");
+        var a2=r.Start(regenerate:true);await r.Requests(2);await r.Reply(r.Counts(20,2),"PUBLIC A2");
+        var a3=r.Start(regenerate:true);await r.Requests(3);await r.Reply(r.Counts(30,3),"PUBLIC A3");
+        Assert.Equal(new[]{1,2,3},r.Results.Versions.Select(v=>v.Number));Assert.Equal(a.SessionId,a3.SessionId);Assert.Equal(a.SessionId,a2.SessionId);
+        var b=r.Start(r.Source("PUBLIC SOURCE B",SelectionSourceKind.OleDrop));await r.Requests(4);
+        await r.Reply(r.Counts(40,4),"PUBLIC B1",finish:protocol==Protocol.OpenAIChat?"length":"max_tokens");
+        Assert.Equal(a3.VersionId,r.Results.SelectedVersionId);var savedB=r.Version(b);var sourceB=r.Flow.SnapshotForVersion(b.VersionId)!.Source;
+        r.Window.SelectFailureVersionForTest(b.VersionId);
+        var b2=r.Start(regenerate:true);await r.Requests(5);
+        await r.Reply(r.Counts(50,5),"PUBLIC B2",finish:protocol==Protocol.OpenAIChat?"content_filter":"refusal");
+        Assert.Equal(2,r.Version(b2).Number);Assert.Equal(b.VersionId,r.Results.SelectedVersionId);
+        foreach(string name in new[]{"C","D"})
+        {
+            var id=r.Start(r.Source("PUBLIC SOURCE "+name));await r.Requests(name=="C"?6:7);
+            await r.Reply(r.Counts(60,6),"PUBLIC "+name+"1",finish:protocol==Protocol.OpenAIChat?"content_filter":"refusal");
+            Assert.Equal(1,r.Version(id).Number);Assert.Equal(b.VersionId,r.Results.SelectedVersionId);Assert.Equal(savedB,r.Version(b));
+            Assert.Equal(id,r.Results.LastFailure!.Identity);Assert.Equal("PUBLIC B1",r.Results.Text);
+            Assert.Contains("新尝试未完成",r.Window.FailureNoticeText);Assert.Contains("另一来源尝试",r.Window.FailureNoticeFull);Assert.Contains("模型未提供",r.Window.FailureNoticeFull);
+            Assert.Equal(sourceB,r.Flow.SelectedSnapshot!.Source);Assert.Equal(3,r.Results.Versions.Count);Assert.Equal(3,r.Flow.RetainedSnapshotCount);
+            Assert.DoesNotContain(r.Results.Versions,v=>v.Identity==b2);Assert.Null(r.Flow.SnapshotForVersion(b2.VersionId));
+            foreach(var late in new[]{a,a2,a3,b,b2,id})
+            {
+                Assert.False(r.Results.Append(late,"PUBLIC LATE"));Assert.False(r.Results.ObserveUsage(late,999,999));
+                Assert.False(r.Results.Complete(late));Assert.False(r.Results.Fail(late,"AUTH_FAILED"));Assert.False(r.Results.Abandon(late));
+            }
+        }
+        // Cache uniqueness alone misses the bug: B2 is already gone, but its ordinal was spent.
+        Assert.Equal(3,r.Flow.NextGeneration!.VersionNumber);Assert.Equal(3,r.Results.NextVersionNumber(b.SessionId));
+        r.Window.SelectFailureVersionForTest(b.VersionId);Assert.Contains("达到模型输出限制",r.Window.FailureNoticeFull);Assert.DoesNotContain("新尝试未完成",r.Window.FailureNoticeText);
+        var offer=Assert.IsType<TextTranslationOffer>(r.Flow.PrepareRegeneration());Assert.Equal(7,r.Script.Requests);
+        Assert.Equal(3,offer.Snapshot.VersionNumber);Assert.Equal(b.SessionId,offer.Session);Assert.Equal(sourceB,offer.Snapshot.Source);Assert.Equal(SelectionSourceKind.OleDrop,offer.Snapshot.Source.SourceKind);
+        Assert.Equal(TextSubmission.Started,r.Flow.Submit(offer));var b3=r.Results.Identity!.Value;
+        Assert.Equal(b.SessionId,b3.SessionId);Assert.NotEqual(b2.VersionId,b3.VersionId);Assert.NotEqual(b2.RequestId,b3.RequestId);Assert.True(b3.Epoch>b2.Epoch);
+        Assert.Equal(3,r.Version(b3).Number);Assert.Equal(TranslationUsage.Unknown,r.Version(b3).Usage);Assert.Equal(savedB,r.Version(b));
+        foreach(var forged in new[]{b3 with{SessionId=Guid.NewGuid()},b3 with{VersionId=Guid.NewGuid()},b3 with{RequestId=Guid.NewGuid()},b3 with{Epoch=b3.Epoch-1}})
+        {Assert.False(r.Results.Begin(forged));Assert.False(r.Results.Append(forged,"PUBLIC FORGED"));Assert.False(r.Results.Fail(forged));Assert.False(r.Results.Abandon(forged));}
+        await r.Requests(8);await r.Reply(r.Counts(80,8),"PUBLIC B3 COMPLETE");Assert.True(r.Version(b3).Complete);Assert.Equal(new TranslationUsage(80,8),r.Version(b3).Usage);
+        Assert.Equal(4,r.Flow.NextGeneration!.VersionNumber);Assert.InRange(r.Results.Versions.Count,1,3);Assert.Equal(r.Results.Versions.Count,r.Flow.RetainedSnapshotCount);
+        Assert.True(await r.Window.ClearContentForTest());Assert.Empty(r.Results.Versions);Assert.Empty(r.Results.RetainedVersionIds);Assert.Equal(0,r.Flow.RetainedSnapshotCount);Assert.Null(r.Flow.NextGeneration);Assert.Null(r.Results.LastFailure);Assert.Equal(1,r.Results.NextVersionNumber(b.SessionId));
+    }
+
+    [Theory][InlineData(false)][InlineData(true)]
+    public void FailOrAbandonCannotLowerRetainedSourceHighWaterAfterThreeVersionEviction(bool abandon)
+    {
+        var (gate,results)=Create();
+        RequestIdentity Start(Guid session){Assert.True(gate.TryStartRequest(session,Guid.NewGuid(),null,out var id,out _));Assert.True(results.Begin(id));return id;}
+        void End(RequestIdentity id)=>Assert.True(abandon?results.Abandon(id):results.Fail(id,"OUTPUT_TRUNCATED"));
+        var sessionA=Guid.NewGuid();RequestIdentity a=default;
+        for(int n=1;n<=3;n++){a=Start(sessionA);Assert.True(results.Append(a,"PUBLIC A"+n));Assert.True(results.Complete(a));}
+        var sessionB=Guid.NewGuid();var b=Start(sessionB);Assert.True(results.Append(b,"PUBLIC B1"));Assert.True(results.Fail(b,"OUTPUT_TRUNCATED"));Assert.Equal(a.VersionId,results.SelectedVersionId);
+        Assert.True(results.SelectVersion(b.VersionId));var b2=Start(sessionB);End(b2);Assert.Equal(b.VersionId,results.SelectedVersionId);
+        var c=Start(Guid.NewGuid());End(c);Assert.DoesNotContain(results.Versions,v=>v.Identity==b2);
+        var d=Start(Guid.NewGuid());End(d);Assert.Equal(b.VersionId,results.SelectedVersionId);Assert.Equal(3,results.NextVersionNumber(sessionB));
+        Assert.Equal("PUBLIC B1",results.Text);Assert.Equal(TranslationFailureReason.OutputTruncated,results.Versions.Single(v=>v.Identity==b).Failure);
+        Assert.Equal(abandon?null:d,results.LastFailure?.Identity);
+        var b3=Start(sessionB);Assert.Equal(3,results.Versions.Single(v=>v.Identity==b3).Number);End(b3);Assert.Equal(4,results.NextVersionNumber(sessionB));
+        gate.StopRequest(b3);Assert.False(results.Begin(b3));Assert.False(results.Fail(b3));Assert.False(results.Abandon(b3));Assert.Equal(4,results.NextVersionNumber(sessionB));
+        results.Clear();Assert.Empty(results.RetainedVersionIds);Assert.Equal(1,results.NextVersionNumber(sessionA));Assert.Equal(1,results.NextVersionNumber(sessionB));
+    }
+
+    [Theory][InlineData(false)][InlineData(true)]
+    public void HighWaterLivesOnlyAsLongAsItsSourceIncludingPendingFallbackAndClear(bool abandon)
+    {
+        var (gate,results)=Create();
+        RequestIdentity Start(Guid session){Assert.True(gate.TryStartRequest(session,Guid.NewGuid(),null,out var id,out _));Assert.True(results.Begin(id));return id;}
+        void End(RequestIdentity id)=>Assert.True(abandon?results.Abandon(id):results.Fail(id,"CONTENT_REFUSED"));
+        var anchor=Guid.NewGuid();
+        for(int n=1;n<=3;n++){var id=Start(anchor);Assert.True(results.Append(id,"PUBLIC ANCHOR "+n));Assert.True(results.Complete(id));}
+        var retained=Guid.NewGuid();var first=Start(retained);Assert.True(results.Append(first,"PUBLIC RETAINED"));Assert.True(results.Fail(first,"OUTPUT_TRUNCATED"));Assert.True(results.SelectVersion(first.VersionId));
+        var second=Start(retained);End(second);Assert.Equal(3,results.NextVersionNumber(retained));
+        var removed=new List<Guid>();
+        for(int n=0;n<80;n++)
+        {
+            var id=Start(Guid.NewGuid());Assert.Equal(3,results.NextVersionNumber(retained));End(id);removed.Add(id.SessionId);
+            Assert.Equal(first.VersionId,results.SelectedVersionId);Assert.Equal("PUBLIC RETAINED",results.Text);Assert.InRange(results.Versions.Count,1,3);
+            var sessions=results.Versions.Select(v=>v.Identity.SessionId).ToHashSet();
+            foreach(var session in removed.Where(s=>!sessions.Contains(s)))Assert.Equal(1,results.NextVersionNumber(session));
+        }
+        Assert.DoesNotContain(results.Versions,v=>v.Identity==second);Assert.Equal(3,results.NextVersionNumber(retained));
+        // A rapid replacement keeps the hidden fallback alive; a successful new source releases it.
+        var pending=Start(Guid.NewGuid());var replacement=Start(Guid.NewGuid());Assert.Equal(3,results.NextVersionNumber(retained));Assert.Equal(1,results.NextVersionNumber(pending.SessionId));
+        Assert.True(results.Append(replacement,"PUBLIC REPLACEMENT"));Assert.True(results.Complete(replacement));Assert.Equal(1,results.NextVersionNumber(retained));
+        Assert.Equal(2,results.NextVersionNumber(replacement.SessionId));results.Clear();Assert.Equal(1,results.NextVersionNumber(replacement.SessionId));
+        // Clear also releases metadata while the old source exists only in fallback.
+        var resumed=Start(retained);Assert.Equal(1,results.Versions.Single(v=>v.Identity==resumed).Number);Assert.True(results.Append(resumed,"PUBLIC AGAIN"));Assert.True(results.Complete(resumed));
+        var again=Start(retained);End(again);var final=Start(Guid.NewGuid());Assert.Equal(3,results.NextVersionNumber(retained));results.Clear();
+        Assert.Empty(results.Versions);Assert.Empty(results.RetainedVersionIds);Assert.Equal(1,results.NextVersionNumber(retained));Assert.Equal(1,results.NextVersionNumber(final.SessionId));
+    }
+
+    private static (RuntimeGate,OverlayResults) Create()
+    {
+        var gate=new RuntimeGate();var origin=new EndpointOrigin(new Uri("https://public.invalid"));gate.ConsentTo(origin);Assert.True(gate.TryEnable(origin,true));return(gate,new(gate));
+    }
+}

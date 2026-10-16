@@ -10,7 +10,9 @@ public sealed class OverlayResults(RuntimeGate gate)
     private readonly StringBuilder text=new();private readonly List<CachedOverlayVersion> versions=[];
     private RequestIdentity? identity;private bool complete,stopped;
     private TranslationUsage usage=TranslationUsage.Unknown;private TranslationFailureReason? failure;private RequestIdentity? lastFailureIdentity;
-    private Guid? selectedVersionId,rollbackVersionId;private int versionNumber,sessionSequence;
+    private Guid? selectedVersionId,rollbackVersionId;private int versionNumber;
+    // Ordinals belong to retained sources, independently of which result versions survive eviction.
+    private readonly Dictionary<Guid,int> sessionHighWatermarks=[];
     private CachedOverlayVersion[] fallback=[];private Guid? fallbackSelected;
     public string Text=>selectedVersionId==identity?.VersionId?text.ToString():versions.FirstOrDefault(v=>v.Identity.VersionId==selectedVersionId)?.Text??"";
     public bool HasText=>selectedVersionId==identity?.VersionId?text.Length>0:Text.Length>0;
@@ -20,20 +22,21 @@ public sealed class OverlayResults(RuntimeGate gate)
     public IReadOnlyList<CachedOverlayVersion> Versions=>(identity is {} id?versions.Append(new(id,text.ToString(),complete,stopped,versionNumber,usage,failure)):versions).OrderBy(v=>v.Number).ToArray();
     public IReadOnlySet<Guid> RetainedVersionIds=>Versions.Concat(fallback).Select(v=>v.Identity.VersionId).ToHashSet();
     public CachedOverlayVersion? LastFailure=>Versions.FirstOrDefault(v=>v.Identity==lastFailureIdentity);
-    public int NextVersionNumber(Guid session)=>identity?.SessionId==session?checked(sessionSequence+1):checked(Versions.Where(v=>v.Identity.SessionId==session).Select(v=>v.Number).DefaultIfEmpty(0).Max()+1);
+    public int NextVersionNumber(Guid session)=>checked(sessionHighWatermarks.GetValueOrDefault(session)+1);
     public bool Begin(RequestIdentity current)
     {
         bool applied=false;gate.TryApply(current,()=>
         {
-            if(identity==current)return;
+            if(identity==current)return;int next=NextVersionNumber(current.SessionId);
             // Rapid source replacement must retain the last readable fallback, not replace it with an empty generation.
             if(complete||fallback.Length==0){fallback=Versions.OrderBy(v=>v.Number).ToArray();fallbackSelected=selectedVersionId;}
-            if(identity?.SessionId!=current.SessionId){int next=NextVersionNumber(current.SessionId);versions.Clear();rollbackVersionId=null;versionNumber=sessionSequence=next;}
-            else{if(!complete)stopped=true;SaveVersion();rollbackVersionId=selectedVersionId;versionNumber=sessionSequence=checked(sessionSequence+1);fallback=[];fallbackSelected=null;}
+            if(identity?.SessionId!=current.SessionId){versions.Clear();rollbackVersionId=null;}
+            else{if(!complete)stopped=true;SaveVersion();rollbackVersionId=selectedVersionId;fallback=[];fallbackSelected=null;}
+            versionNumber=next;sessionHighWatermarks[current.SessionId]=next;
             identity=current;failure=null;lastFailureIdentity=null;text.Clear();usage=TranslationUsage.Unknown;complete=stopped=false;selectedVersionId=current.VersionId;
             // Reserve the generating slot immediately. Protect the displayed predecessor for rollback.
             while(versions.Count>2){int victim=versions.FindIndex(v=>v.Identity.VersionId!=rollbackVersionId);if(victim<0)throw new InvalidOperationException("No evictable version.");versions.RemoveAt(victim);}
-            applied=true;
+            PruneSessionHighWatermarks();applied=true;
         });return applied;
     }
     public bool Append(RequestIdentity current,string delta)
@@ -42,7 +45,7 @@ public sealed class OverlayResults(RuntimeGate gate)
         gate.TryApply(current,()=>{if(identity!=current||complete||stopped)return;if(delta.Length>MaximumCharacters-text.Length)throw new InvalidOperationException("Result memory limit exceeded.");text.Append(delta);applied=true;});return applied;
     }
     public bool Complete(RequestIdentity current)
-    {bool applied=false;gate.TryApply(current,()=>{if(identity!=current||stopped||complete)return;complete=true;rollbackVersionId=null;fallback=[];fallbackSelected=null;applied=true;});return applied;}
+    {bool applied=false;gate.TryApply(current,()=>{if(identity!=current||stopped||complete)return;complete=true;rollbackVersionId=null;fallback=[];fallbackSelected=null;PruneSessionHighWatermarks();applied=true;});return applied;}
     public bool ObserveUsage(RequestIdentity current,long? inputTokens,long? outputTokens)
     {
         bool applied=false;gate.TryApply(current,()=>
@@ -69,9 +72,9 @@ public sealed class OverlayResults(RuntimeGate gate)
                 var failed=new CachedOverlayVersion(current,text.ToString(),false,true,versionNumber,usage,failure);
                 // One failed attempt plus the selected fallback and at most one other old version: still three total.
                 versions.Clear();versions.AddRange(fallback.Where(v=>v.Identity.VersionId!=prior.Identity.VersionId).TakeLast(1));versions.Add(failed);
-                identity=prior.Identity;versionNumber=prior.Number;sessionSequence=fallback.Append(failed).Where(v=>v.Identity.SessionId==prior.Identity.SessionId).Max(v=>v.Number);text.Clear();text.Append(prior.Text);usage=prior.Usage??TranslationUsage.Unknown;failure=prior.Failure;complete=prior.Complete;stopped=prior.Stopped;selectedVersionId=prior.Identity.VersionId;
+                identity=prior.Identity;versionNumber=prior.Number;text.Clear();text.Append(prior.Text);usage=prior.Usage??TranslationUsage.Unknown;failure=prior.Failure;complete=prior.Complete;stopped=prior.Stopped;selectedVersionId=prior.Identity.VersionId;
             }
-            fallback=[];fallbackSelected=null;rollbackVersionId=null;applied=true;
+            fallback=[];fallbackSelected=null;rollbackVersionId=null;PruneSessionHighWatermarks();applied=true;
         });return applied;
     }
     public bool TryAutoReveal(RequestIdentity current)=>identity==current&&selectedVersionId==current.VersionId&&HasText&&gate.TryRevealDelta(current);
@@ -84,7 +87,13 @@ public sealed class OverlayResults(RuntimeGate gate)
         selectedVersionId=versionId;return true;
     }
     public void MarkStopped(){if(identity==null)return;stopped=!complete;}
-    public void Clear(){identity=null;selectedVersionId=rollbackVersionId=fallbackSelected=null;text.Clear();usage=TranslationUsage.Unknown;failure=null;lastFailureIdentity=null;versions.Clear();fallback=[];versionNumber=sessionSequence=0;complete=stopped=false;}
+    public void Clear(){identity=null;selectedVersionId=rollbackVersionId=fallbackSelected=null;text.Clear();usage=TranslationUsage.Unknown;failure=null;lastFailureIdentity=null;versions.Clear();fallback=[];sessionHighWatermarks.Clear();versionNumber=0;complete=stopped=false;}
+    private void PruneSessionHighWatermarks()
+    {
+        // Bounded by visible versions and the pending fallback; stores no text or source snapshots.
+        var retained=versions.Concat(fallback).Select(v=>v.Identity.SessionId).ToHashSet();if(identity is {} id)retained.Add(id.SessionId);
+        foreach(var session in sessionHighWatermarks.Keys.Where(session=>!retained.Contains(session)).ToArray())sessionHighWatermarks.Remove(session);
+    }
     private void SaveVersion()
     {
         if(identity is not {} id)return;

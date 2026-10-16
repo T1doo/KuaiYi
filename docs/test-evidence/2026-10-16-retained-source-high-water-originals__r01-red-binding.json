@@ -1,0 +1,66 @@
+{
+  "Parent": "d45ba9d4ab1af3675cb7d0a36cfe0f77618965d0",
+  "ProductionEqualsParent": {
+    "src/KuaiYi.Core/OverlayResults.cs": true,
+    "src/KuaiYi.App/OverlayFailureNotice.cs": true,
+    "src/KuaiYi.Providers/TextTranslationCoordinator.cs": true
+  },
+  "TestSha256": "2cec5a4b721a4aab238fa7ef03de0f9498f03574b461ccacc2f74a49b4351678",
+  "ExecutedDlls": {
+    "src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll": "64e49489370d5903a3aedb95f8c0f3ef1a3e2773d297fc84c942707e6f8ba4b6",
+    "src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll": "f900df61469db5b5d7dc7860b03b3dd6ceee224eeb95dc971280ddcd9aa20eca",
+    "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": "b5eba3b46d6e2f6427b12bce03c707cc1da8c299ed68dcab280a01f46d1ab6a3"
+  },
+  "Counters": {
+    "total": "8",
+    "executed": "8",
+    "passed": "0",
+    "failed": "8",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "Failures": [
+    {
+      "Name": "KuaiYi.Provider.Tests.RetainedSourceHighWaterTests.HighWaterLivesOnlyAsLongAsItsSourceIncludingPendingFallbackAndClear(abandon: True)",
+      "Message": "Assert.Equal() Failure: Values differ\nExpected: 3\nActual:   1"
+    },
+    {
+      "Name": "KuaiYi.Provider.Tests.RetainedSourceHighWaterTests.EvictedB2StillCountsInPreviewOfferAndBeginAfterCAndDFail(protocol: AnthropicMessages, stream: True)",
+      "Message": "Assert.Equal() Failure: Values differ\nExpected: 3\nActual:   2"
+    },
+    {
+      "Name": "KuaiYi.Provider.Tests.RetainedSourceHighWaterTests.FailOrAbandonCannotLowerRetainedSourceHighWaterAfterThreeVersionEviction(abandon: False)",
+      "Message": "Assert.Equal() Failure: Values differ\nExpected: 3\nActual:   2"
+    },
+    {
+      "Name": "KuaiYi.Provider.Tests.RetainedSourceHighWaterTests.EvictedB2StillCountsInPreviewOfferAndBeginAfterCAndDFail(protocol: OpenAIChat, stream: False)",
+      "Message": "Assert.Equal() Failure: Values differ\nExpected: 3\nActual:   2"
+    },
+    {
+      "Name": "KuaiYi.Provider.Tests.RetainedSourceHighWaterTests.EvictedB2StillCountsInPreviewOfferAndBeginAfterCAndDFail(protocol: AnthropicMessages, stream: False)",
+      "Message": "Assert.Equal() Failure: Values differ\nExpected: 3\nActual:   2"
+    },
+    {
+      "Name": "KuaiYi.Provider.Tests.RetainedSourceHighWaterTests.HighWaterLivesOnlyAsLongAsItsSourceIncludingPendingFallbackAndClear(abandon: False)",
+      "Message": "Assert.Equal() Failure: Values differ\nExpected: 3\nActual:   1"
+    },
+    {
+      "Name": "KuaiYi.Provider.Tests.RetainedSourceHighWaterTests.FailOrAbandonCannotLowerRetainedSourceHighWaterAfterThreeVersionEviction(abandon: True)",
+      "Message": "Assert.Equal() Failure: Values differ\nExpected: 3\nActual:   2"
+    },
+    {
+      "Name": "KuaiYi.Provider.Tests.RetainedSourceHighWaterTests.EvictedB2StillCountsInPreviewOfferAndBeginAfterCAndDFail(protocol: OpenAIChat, stream: True)",
+      "Message": "Assert.Equal() Failure: Values differ\nExpected: 3\nActual:   2"
+    }
+  ]
+}

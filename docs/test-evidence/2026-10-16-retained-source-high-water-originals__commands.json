@@ -1,0 +1,28 @@
+{
+  "Environment": {
+    "Setup": "source /workspace/.kuaiyi-setup/activate.sh",
+    "DOTNET_GENERATE_ASPNET_CERTIFICATE": "false explicitly before/after activation",
+    "Configuration": "Release",
+    "SDK": "10.0.401",
+    "Network": "default; no Actions"
+  },
+  "Restore": [
+    "dotnet restore tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj --locked-mode -p:EnableWindowsTargeting=true",
+    "dotnet restore tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj --locked-mode -p:EnableWindowsTargeting=true",
+    "dotnet restore src/KuaiYi.App/KuaiYi.App.csproj --locked-mode -p:EnableWindowsTargeting=true"
+  ],
+  "Focused": "dotnet test tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj -c Release --no-restore --filter FullyQualifiedName~RetainedSourceHighWaterTests --logger trx;LogFileName=<run>.trx --results-directory artifacts/retained-source-high-water",
+  "Full": [
+    "dotnet test tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj -c Release --no-restore --logger trx;LogFileName=r05-provider-full.trx --results-directory artifacts/retained-source-high-water",
+    "dotnet test tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj -c Release --no-restore --logger trx;LogFileName=r07-core-full.trx --results-directory artifacts/retained-source-high-water"
+  ],
+  "Builds": [
+    "dotnet build src/KuaiYi.App/KuaiYi.App.csproj -c Release --no-restore -p:EnableWindowsTargeting=true",
+    "dotnet build src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj -c Release --no-restore -p:EnableWindowsTargeting=true"
+  ],
+  "FinalRed": "r03 used exact parent OverlayResults blob in try/finally; restored fixed bytes before r04; all other production equals parent; test exact r03 snapshot equals r04 and final",
+  "ToolingRecords": [
+    "Initial /workspace is not git root; repository found /workspace/KuaiYi",
+    "First fetch populated FETCH_HEAD only; explicit refspec fetched remote-tracking ref. Repository fetch mapping only main prevented --track; used --no-track branch at verified d45; no config changes or alternative Actions access."
+  ]
+}

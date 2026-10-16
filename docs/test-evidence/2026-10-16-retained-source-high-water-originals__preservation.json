@@ -1,0 +1,44 @@
+{
+  "Parent": "d45ba9d4ab1af3675cb7d0a36cfe0f77618965d0",
+  "ParentTree": "c5f03d32960620a4616e36a897252ea7b6793217",
+  "ParentTracked": 2832,
+  "IntentionallyChangedExisting": [
+    ".gitattributes",
+    "docs/progress.md",
+    "docs/traceability.json",
+    "docs/validation/failure-version-sequence.md",
+    "src/KuaiYi.Core/OverlayResults.cs"
+  ],
+  "UnchangedExcludingPendingAttributes": {
+    "Count": 2828,
+    "Sha256Manifest": "4dce8ae7a0993601b169d126c165d8ae5a6e22b8411a54b41f90caef6224e0a1"
+  },
+  "OldEvidence": {
+    "Count": 2009,
+    "EqualBytes": true,
+    "Sha256Manifest": "2422cc29a62e6be3a1b910d1c580477041902e70979d91d575da696c79d5b859"
+  },
+  "AllParentTests": {
+    "Count": 216,
+    "EqualBytes": true,
+    "Sha256Manifest": "a14259cd98fac33b95104fb69c16c5755208764d677b8b49f9f4b3fc08890223"
+  },
+  "LockedUnchanged": {
+    "Locks": 43,
+    "Workflows": 8,
+    "Prompts": 8,
+    "Projects": 30
+  },
+  "ProductionOnly": [
+    "src/KuaiYi.Core/OverlayResults.cs"
+  ],
+  "OtherProductionEqualBytes": true,
+  "ReportProgressAppendOnly": true,
+  "TraceabilityChangedIds": [
+    "P4-04",
+    "F06",
+    "F08"
+  ],
+  "AllTraceabilityStatusesAndP6Unchanged": true,
+  "ManifestFormat": "SHA256(json.dumps(path_to_sha256,sort_keys=True,separators=(comma,colon),ensure_ascii=True).encode(UTF8)); unchanged manifest includes .gitattributes before new raw attributes appended"
+}

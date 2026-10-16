@@ -1,0 +1,489 @@
+{
+  "SourceParent": "d45ba9d4ab1af3675cb7d0a36cfe0f77618965d0",
+  "ParentTree": "c5f03d32960620a4616e36a897252ea7b6793217",
+  "Branch": "dev/failure-version-sequence",
+  "MainBaseline": "51d077481cf6303602fcf5d2718213da9cf05178",
+  "Preflight": {
+    "Parent": "d45ba9d4ab1af3675cb7d0a36cfe0f77618965d0",
+    "Branch": "dev/failure-version-sequence",
+    "RemotePreflight": "d45ba9d4ab1af3675cb7d0a36cfe0f77618965d0\trefs/heads/dev/failure-version-sequence\n51d077481cf6303602fcf5d2718213da9cf05178\trefs/heads/main\n",
+    "Worktree": "/workspace/KuaiYi  d45ba9d [dev/failure-version-sequence]\n",
+    "InitialTrackedClean": true,
+    "InitialLocalHead": "51d077481cf6303602fcf5d2718213da9cf05178",
+    "DefaultNetwork": "ls-remote and normal fetch succeeded; no Actions queries",
+    "Scope": "Retained-source bounded high water P2 only; root sole writer; parent evidence preserved",
+    "RedSource": {
+      "src/KuaiYi.Core/OverlayResults.cs": {
+        "Sha256": "4e3a5982d5695ebbeaecb8e66316cdc023b61d3098dd364b0e6852a099517d14",
+        "Bytes": 8000
+      },
+      "src/KuaiYi.App/OverlayFailureNotice.cs": {
+        "Sha256": "c00e1ac05c9d672e89f8dcdaf6664f7c8c64d1c6360792351773e211fbd138bc",
+        "Bytes": 5233
+      },
+      "src/KuaiYi.Providers/TextTranslationCoordinator.cs": {
+        "Sha256": "8ff3c71b458cff311399866eca449d8a29ec8b5b9ac644ed99fd2090fabe10c6",
+        "Bytes": 23727
+      },
+      "tests/KuaiYi.Provider.Tests/RetainedSourceHighWaterTests.cs": {
+        "Sha256": "2cec5a4b721a4aab238fa7ef03de0f9498f03574b461ccacc2f74a49b4351678",
+        "Bytes": 10178
+      }
+    }
+  },
+  "Scope": "Residual P2 only: retained B source must not forget ordinal2 after B2 eviction and C/D cross-source failures; independent bounded GUID/int high water, lifecycle prune, no new feature.",
+  "ProductionOnly": [
+    "src/KuaiYi.Core/OverlayResults.cs"
+  ],
+  "FinalSourceSha256": {
+    "src/KuaiYi.Core/OverlayResults.cs": "600e3cd5fbeac78402f6bc4257b8c639faaff7e4b0f103c371df43a4668d0a0c",
+    "tests/KuaiYi.Provider.Tests/RetainedSourceHighWaterTests.cs": "7c29afb7e152e0667322fee94ec5a726b241922cffb640b6e1cf8ad41a778d32",
+    "src/KuaiYi.App/OverlayFailureNotice.cs": "c00e1ac05c9d672e89f8dcdaf6664f7c8c64d1c6360792351773e211fbd138bc",
+    "src/KuaiYi.Providers/TextTranslationCoordinator.cs": "8ff3c71b458cff311399866eca449d8a29ec8b5b9ac644ed99fd2090fabe10c6",
+    "tests/KuaiYi.Provider.Tests/FailureVersionSequenceTests.cs": "261503a0eb54b5b05f39d43032452f77153841346cfa5e3ba5b51b0aa14aad11",
+    "tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs": "4ff1bb6ca33860068d2360a25dea38f23bfaca23085d248bfedc1c3b19ecc158"
+  },
+  "Behavior": {
+    "Begin": "Only accepted full-identity Begin consumes the next per-session ordinal; preview/Prepare/forged/duplicate/late events do not.",
+    "Retention": "Prune on Begin/Complete/Fail/Abandon by versions+fallback+identity session set; Clear clears map; no extra text or snapshots, maximum4 GUID/int entries under existing 3-version bound.",
+    "Preserved": "Existing version eviction/source/usage/full identity/late rejection/automatic latest failed notice and explicit selected-own failure; no coordinator/notice/image production changes."
+  },
+  "Counters": {
+    "r02-green": {
+      "total": "8",
+      "executed": "8",
+      "passed": "6",
+      "failed": "2",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r05-provider-full": {
+      "total": "1966",
+      "executed": "1966",
+      "passed": "1966",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r07-core-full": {
+      "total": "1551",
+      "executed": "1551",
+      "passed": "1551",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r03-final-parent-red": {
+      "total": "8",
+      "executed": "8",
+      "passed": "0",
+      "failed": "8",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r01-parent-red": {
+      "total": "8",
+      "executed": "8",
+      "passed": "0",
+      "failed": "8",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r04-final-green": {
+      "total": "8",
+      "executed": "8",
+      "passed": "8",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    }
+  },
+  "ExecutionRecords": {
+    "r00r06r08": "locked-mode restore of existing dependency graph succeeded; no new dependency/Skia",
+    "r01": "Parent actual8F (6 Expected3Actual2,2 pendingfallback Expected3Actual1); initial candidate raw/source/DLL binding preserved",
+    "r02": "Initial fix6P2F; new lifecycle fixture wrongly expected B2 eviction without A3; existing eviction keptB2. Exact failed candidate source/log/TRX preserved; not product regression",
+    "r03": "Final candidate includes A1/A2/A3 anchor, preserves eviction and subsequent lifecycle assertions; only initial lifecycle fixture setup changed; parent actual8F (6 Expected3Actual2,2 pendingfallback Expected3Actual1). Exact parent blob, executed DLL hashes and fixed-source restoration recorded",
+    "r04": "Same r03 test bytes and same8 full test names ->8P,0F,0skip",
+    "r05": "FullProvider1966P=parent1958 names retained +8 new; no failed/skipped",
+    "r07": "FullCore1551P,0F,0skip; unchanged project/tests, Linux portable and owned managed fixtures; UnsupportedPlatform results do not prove Windows/native acceptance",
+    "r09r10": "App/Worker Release crossbuild0warnings0errors"
+  },
+  "RedGreen": {
+    "ExactSameTestSha": true,
+    "ExactSameEightNames": true,
+    "ParentProductionEquals": true,
+    "RedBinding": "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r03-red-binding.json",
+    "GreenBinding": "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r04-green-binding.json"
+  },
+  "Regression": {
+    "Parent1958NamesAllRetained": true,
+    "AddedNames": [
+      "KuaiYi.Provider.Tests.RetainedSourceHighWaterTests.EvictedB2StillCountsInPreviewOfferAndBeginAfterCAndDFail(protocol: AnthropicMessages, stream: False)",
+      "KuaiYi.Provider.Tests.RetainedSourceHighWaterTests.EvictedB2StillCountsInPreviewOfferAndBeginAfterCAndDFail(protocol: OpenAIChat, stream: True)",
+      "KuaiYi.Provider.Tests.RetainedSourceHighWaterTests.FailOrAbandonCannotLowerRetainedSourceHighWaterAfterThreeVersionEviction(abandon: True)",
+      "KuaiYi.Provider.Tests.RetainedSourceHighWaterTests.EvictedB2StillCountsInPreviewOfferAndBeginAfterCAndDFail(protocol: OpenAIChat, stream: False)",
+      "KuaiYi.Provider.Tests.RetainedSourceHighWaterTests.HighWaterLivesOnlyAsLongAsItsSourceIncludingPendingFallbackAndClear(abandon: True)",
+      "KuaiYi.Provider.Tests.RetainedSourceHighWaterTests.HighWaterLivesOnlyAsLongAsItsSourceIncludingPendingFallbackAndClear(abandon: False)",
+      "KuaiYi.Provider.Tests.RetainedSourceHighWaterTests.FailOrAbandonCannotLowerRetainedSourceHighWaterAfterThreeVersionEviction(abandon: False)",
+      "KuaiYi.Provider.Tests.RetainedSourceHighWaterTests.EvictedB2StillCountsInPreviewOfferAndBeginAfterCAndDFail(protocol: AnthropicMessages, stream: True)"
+    ],
+    "Evidence": "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r05-regression-binding.json"
+  },
+  "BuildAndCoreBinding": "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r10-build-binding.json",
+  "OriginalFiles": {
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__commands.json": {
+      "Original": "artifacts/retained-source-high-water/commands.json",
+      "Bytes": 2072,
+      "Sha256": "f6c1d796a61e169dba5473633a9c9b456dee835ae2ef3e9aa6c08d694c12e1a8"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__preflight.json": {
+      "Original": "artifacts/retained-source-high-water/preflight.json",
+      "Bytes": 1313,
+      "Sha256": "2d2350f71c45b9f63912860fc720079432d4995d3b0db89346215d4484ec9a32"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__preservation.json": {
+      "Original": "artifacts/retained-source-high-water/preservation.json",
+      "Bytes": 1390,
+      "Sha256": "70bc33edd047d84074ced0ce21c5c56224a62e09e75c7375426d9642a9e6b8ee"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r00-restore.log": {
+      "Original": "artifacts/retained-source-high-water/r00-restore.log",
+      "Bytes": 662,
+      "Sha256": "bcf69ee87f8f311dd0693ecdfc4e2e7debbba5fa7316fb8985d5ffb1c07cecc3"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r01-OverlayFailureNotice.cs.txt": {
+      "Original": "artifacts/retained-source-high-water/r01-OverlayFailureNotice.cs.txt",
+      "Bytes": 5233,
+      "Sha256": "c00e1ac05c9d672e89f8dcdaf6664f7c8c64d1c6360792351773e211fbd138bc"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r01-OverlayResults.cs.txt": {
+      "Original": "artifacts/retained-source-high-water/r01-OverlayResults.cs.txt",
+      "Bytes": 8000,
+      "Sha256": "4e3a5982d5695ebbeaecb8e66316cdc023b61d3098dd364b0e6852a099517d14"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r01-RetainedSourceHighWaterTests.cs.txt": {
+      "Original": "artifacts/retained-source-high-water/r01-RetainedSourceHighWaterTests.cs.txt",
+      "Bytes": 10178,
+      "Sha256": "2cec5a4b721a4aab238fa7ef03de0f9498f03574b461ccacc2f74a49b4351678"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r01-TextTranslationCoordinator.cs.txt": {
+      "Original": "artifacts/retained-source-high-water/r01-TextTranslationCoordinator.cs.txt",
+      "Bytes": 23727,
+      "Sha256": "8ff3c71b458cff311399866eca449d8a29ec8b5b9ac644ed99fd2090fabe10c6"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r01-parent-red.log": {
+      "Original": "artifacts/retained-source-high-water/r01-parent-red.log",
+      "Bytes": 8701,
+      "Sha256": "79aa7ca7306831d27196874939979f820112fefe042933a919a46e3b118544f9"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r01-parent-red.trx": {
+      "Original": "artifacts/retained-source-high-water/r01-parent-red.trx",
+      "Bytes": 28001,
+      "Sha256": "f08739e365927fc07ad98f9d0c0314fd91ad65632abeee6f02c1f39c065d4545"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r01-red-binding.json": {
+      "Original": "artifacts/retained-source-high-water/r01-red-binding.json",
+      "Bytes": 3211,
+      "Sha256": "9cbe21ee61737c024e8b767ee269257506d68cc86c7a9dc3021b40053f84e84c"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r02-OverlayResults.cs.txt": {
+      "Original": "artifacts/retained-source-high-water/r02-OverlayResults.cs.txt",
+      "Bytes": 8481,
+      "Sha256": "30a2e037a46eb4767b4b453067b7c8a6ce69c8eb7d9229e07a764caad6de3a9e"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r02-RetainedSourceHighWaterTests.cs.txt": {
+      "Original": "artifacts/retained-source-high-water/r02-RetainedSourceHighWaterTests.cs.txt",
+      "Bytes": 10178,
+      "Sha256": "2cec5a4b721a4aab238fa7ef03de0f9498f03574b461ccacc2f74a49b4351678"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r02-green.log": {
+      "Original": "artifacts/retained-source-high-water/r02-green.log",
+      "Bytes": 6578,
+      "Sha256": "fd7274068ab3cf9731efe52a73040f58c7785b32be6f9205833bed45c66da5f8"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r02-green.trx": {
+      "Original": "artifacts/retained-source-high-water/r02-green.trx",
+      "Bytes": 24140,
+      "Sha256": "9689ff3c92a829879fa3943fcd4f5fc32e4721a64f5bfe2feb44462ac1c6ffab"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r03-RetainedSourceHighWaterTests.cs.txt": {
+      "Original": "artifacts/retained-source-high-water/r03-RetainedSourceHighWaterTests.cs.txt",
+      "Bytes": 10418,
+      "Sha256": "7c29afb7e152e0667322fee94ec5a726b241922cffb640b6e1cf8ad41a778d32"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r03-final-parent-red.log": {
+      "Original": "artifacts/retained-source-high-water/r03-final-parent-red.log",
+      "Bytes": 8707,
+      "Sha256": "dd4e11c59f63486b0809cda3bacb4aae3dce964427a5dc3c4c3dbef563b17ea8"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r03-final-parent-red.trx": {
+      "Original": "artifacts/retained-source-high-water/r03-final-parent-red.trx",
+      "Bytes": 28001,
+      "Sha256": "53ed0916aecdcd978a61d0dbe47e49417ef8caece93cc3f494912956b2887ea7"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r03-red-binding.json": {
+      "Original": "artifacts/retained-source-high-water/r03-red-binding.json",
+      "Bytes": 715,
+      "Sha256": "5333ffcf74325757b906186b2fb9192c0ea3df72adc9292ef58828d10569944d"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r04-OverlayResults.cs.txt": {
+      "Original": "artifacts/retained-source-high-water/r04-OverlayResults.cs.txt",
+      "Bytes": 8476,
+      "Sha256": "600e3cd5fbeac78402f6bc4257b8c639faaff7e4b0f103c371df43a4668d0a0c"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r04-RetainedSourceHighWaterTests.cs.txt": {
+      "Original": "artifacts/retained-source-high-water/r04-RetainedSourceHighWaterTests.cs.txt",
+      "Bytes": 10418,
+      "Sha256": "7c29afb7e152e0667322fee94ec5a726b241922cffb640b6e1cf8ad41a778d32"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r04-final-green.log": {
+      "Original": "artifacts/retained-source-high-water/r04-final-green.log",
+      "Bytes": 1139,
+      "Sha256": "afa403f446a4013f2321655292e17eb3c91bae56e19e101b43dd242f14ac27a5"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r04-final-green.trx": {
+      "Original": "artifacts/retained-source-high-water/r04-final-green.trx",
+      "Bytes": 13267,
+      "Sha256": "956ff8c272706473f9d05d543c7327d5c3e7e1e1c86cee5467be7513d757e942"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r04-green-binding.json": {
+      "Original": "artifacts/retained-source-high-water/r04-green-binding.json",
+      "Bytes": 1576,
+      "Sha256": "762833e6306f7a23a602c78830352159eca7fc7347c4a7647e007f7071a51b09"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r05-provider-full.log": {
+      "Original": "artifacts/retained-source-high-water/r05-provider-full.log",
+      "Bytes": 1138,
+      "Sha256": "492183acb32c9d9b06eb85df3ce2b4996f7b569863e0aeb0a94141f1c296e840"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r05-provider-full.trx": {
+      "Original": "artifacts/retained-source-high-water/r05-provider-full.trx",
+      "Bytes": 2901010,
+      "Sha256": "dd4314a8fd9a9b681656cb42daa502bfdf28dbb61798ec024b4a12a2e6424367"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r05-regression-binding.json": {
+      "Original": "artifacts/retained-source-high-water/r05-regression-binding.json",
+      "Bytes": 2775,
+      "Sha256": "89e372857d954b5c4f8645ae3b22f0fd7f1e931bd0121abfc3e1f5bbe7e57cdd"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r06-core-restore.log": {
+      "Original": "artifacts/retained-source-high-water/r06-core-restore.log",
+      "Bytes": 1118,
+      "Sha256": "7ce7c7437e60aae3e67a8cdc8720a071d120c299faccf29bbed8e51e764590fc"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r07-core-full.log": {
+      "Original": "artifacts/retained-source-high-water/r07-core-full.log",
+      "Bytes": 2070,
+      "Sha256": "af649592d49262f4130f5f1deea6ffb0124960ab70bf4b62b9e47df2d59df882"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r07-core-full.trx": {
+      "Original": "artifacts/retained-source-high-water/r07-core-full.trx",
+      "Bytes": 2152676,
+      "Sha256": "8963a1d1d75581fdfa4c78da0cbc4788d46e65aa0fbf4f63568c1791b506e34d"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r08-app-restore.log": {
+      "Original": "artifacts/retained-source-high-water/r08-app-restore.log",
+      "Bytes": 241,
+      "Sha256": "a3c92a4495609a1e3c92fa0115b5c1d647519ddd2a662b1f16a83e9cae1e6a97"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r09-app-build.log": {
+      "Original": "artifacts/retained-source-high-water/r09-app-build.log",
+      "Bytes": 888,
+      "Sha256": "f387c82ed79f94df0271332d17d3dd78ddd90eec6934402da3fa5992d12c7838"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r10-build-binding.json": {
+      "Original": "artifacts/retained-source-high-water/r10-build-binding.json",
+      "Bytes": 1887,
+      "Sha256": "93da9f32045c5570ea907d1eab12252b4e5fc4f9e3bd11021fa8492805a3e6b6"
+    },
+    "docs/test-evidence/2026-10-16-retained-source-high-water-originals__r10-worker-build.log": {
+      "Original": "artifacts/retained-source-high-water/r10-worker-build.log",
+      "Bytes": 477,
+      "Sha256": "24ff183465e45dc68e56922b3fb7f3ecabe56776e79d20eb26866749006c0aab"
+    }
+  },
+  "Preservation": {
+    "Parent": "d45ba9d4ab1af3675cb7d0a36cfe0f77618965d0",
+    "ParentTree": "c5f03d32960620a4616e36a897252ea7b6793217",
+    "ParentTracked": 2832,
+    "IntentionallyChangedExisting": [
+      ".gitattributes",
+      "docs/progress.md",
+      "docs/traceability.json",
+      "docs/validation/failure-version-sequence.md",
+      "src/KuaiYi.Core/OverlayResults.cs"
+    ],
+    "UnchangedExcludingPendingAttributes": {
+      "Count": 2828,
+      "Sha256Manifest": "4dce8ae7a0993601b169d126c165d8ae5a6e22b8411a54b41f90caef6224e0a1"
+    },
+    "OldEvidence": {
+      "Count": 2009,
+      "EqualBytes": true,
+      "Sha256Manifest": "2422cc29a62e6be3a1b910d1c580477041902e70979d91d575da696c79d5b859"
+    },
+    "AllParentTests": {
+      "Count": 216,
+      "EqualBytes": true,
+      "Sha256Manifest": "a14259cd98fac33b95104fb69c16c5755208764d677b8b49f9f4b3fc08890223"
+    },
+    "LockedUnchanged": {
+      "Locks": 43,
+      "Workflows": 8,
+      "Prompts": 8,
+      "Projects": 30
+    },
+    "ProductionOnly": [
+      "src/KuaiYi.Core/OverlayResults.cs"
+    ],
+    "OtherProductionEqualBytes": true,
+    "ReportProgressAppendOnly": true,
+    "TraceabilityChangedIds": [
+      "P4-04",
+      "F06",
+      "F08"
+    ],
+    "AllTraceabilityStatusesAndP6Unchanged": true,
+    "ManifestFormat": "SHA256(json.dumps(path_to_sha256,sort_keys=True,separators=(comma,colon),ensure_ascii=True).encode(UTF8)); unchanged manifest includes .gitattributes before new raw attributes appended"
+  },
+  "IndependentReview": {
+    "Agent": "high_water_review",
+    "Mode": "Read-only; no SDK/network/writes; root sole writer",
+    "CodeAndTests": "No P1/P2/P3 findings; checked all high-water maintenance points, bounded lifetime, final test correction,8 matching redgreen names/SHA,Provider/Core actual counters,AppWorker logs and known uncertainty",
+    "FinalEvidenceAudit": "Pass/no P1/P2/P3 blockers. Independently checked34 ignored/working/staged raw Bytes/SHA256 and exact-text attrs; all8 redgreen names and same test bytes;1958parentnames retained/1966P andCore1551P;AppWorker0W/E and executedDLL binding;2832parent-5intended=2827unchanged digest b262c16825ddf7d08b25eb4b620d277dfa092087c827f9cadc5940fdcb77461a;2009oldevidence/216testfiles/30projects/43locks/8workflows/8prompts exactbytes;report/progress appendonly;3trace note/evidence only,status/P6 unchanged;41staged/unstagedempty/diffcheckclean. Only this review field updated after final audit."
+  },
+  "KnownUncertainty": {
+    "OldImageIntermittent": "Historical r05 image PreparationReentry failure root cause remains experimentally unproven. This full regression passed; no image production fix claimed, original JSON and raw evidence unchanged.",
+    "PriorHistory": "Parent text-terminal-failures r05 included one genuine lost-readable-source regression and one visual event waiting race; preserved distinctly; previous failure-version-sequence r07 was test-edit error. New r02 here is a new lifecycle fixture error."
+  },
+  "Safety": {
+    "Actions": "Previously denied; no query/dispatch/alternate route; run count Unknown",
+    "Skia": "4.153.1 four packages pending license approval, source403 hold; no install/load/run/acceptance/bypass",
+    "Models": "Local synthetic loopback only; no real model, fee, credentials or permission changes",
+    "ProductionImageReuse": "Off; image production unchanged",
+    "Certificate": "DOTNET_GENERATE_ASPNET_CERTIFICATE=false for every dotnet; no certificate store/trust read/change/delete",
+    "Git": "Normal development branch only; no main/forcepush/deploy",
+    "Data": "Unknown locks/data/logs/processes preserved; fixtures only own random temporary paths/children"
+  },
+  "NotRun": [
+    "Actual WPF visibility/keyboard/menu/Automation",
+    "Actual Windows/OCR/COM/nativeJob/CMake",
+    "Real model quality/vision",
+    "Actual250/600ms and wholeSPEC/platform acceptance"
+  ],
+  "Traceability": {
+    "ChangedIds": [
+      "P4-04",
+      "F06",
+      "F08"
+    ],
+    "AllStatusesAndP6Unchanged": true
+  },
+  "ValidationDocument": "docs/validation/failure-version-sequence.md",
+  "Commands": {
+    "Environment": {
+      "Setup": "source /workspace/.kuaiyi-setup/activate.sh",
+      "DOTNET_GENERATE_ASPNET_CERTIFICATE": "false explicitly before/after activation",
+      "Configuration": "Release",
+      "SDK": "10.0.401",
+      "Network": "default; no Actions"
+    },
+    "Restore": [
+      "dotnet restore tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj --locked-mode -p:EnableWindowsTargeting=true",
+      "dotnet restore tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj --locked-mode -p:EnableWindowsTargeting=true",
+      "dotnet restore src/KuaiYi.App/KuaiYi.App.csproj --locked-mode -p:EnableWindowsTargeting=true"
+    ],
+    "Focused": "dotnet test tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj -c Release --no-restore --filter FullyQualifiedName~RetainedSourceHighWaterTests --logger trx;LogFileName=<run>.trx --results-directory artifacts/retained-source-high-water",
+    "Full": [
+      "dotnet test tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj -c Release --no-restore --logger trx;LogFileName=r05-provider-full.trx --results-directory artifacts/retained-source-high-water",
+      "dotnet test tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj -c Release --no-restore --logger trx;LogFileName=r07-core-full.trx --results-directory artifacts/retained-source-high-water"
+    ],
+    "Builds": [
+      "dotnet build src/KuaiYi.App/KuaiYi.App.csproj -c Release --no-restore -p:EnableWindowsTargeting=true",
+      "dotnet build src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj -c Release --no-restore -p:EnableWindowsTargeting=true"
+    ],
+    "FinalRed": "r03 used exact parent OverlayResults blob in try/finally; restored fixed bytes before r04; all other production equals parent; test exact r03 snapshot equals r04 and final",
+    "ToolingRecords": [
+      "Initial /workspace is not git root; repository found /workspace/KuaiYi",
+      "First fetch populated FETCH_HEAD only; explicit refspec fetched remote-tracking ref. Repository fetch mapping only main prevented --track; used --no-track branch at verified d45; no config changes or alternative Actions access."
+    ]
+  },
+  "FinalPreservation": {
+    "ParentTracked": 2832,
+    "UnchangedCount": 2827,
+    "UnchangedSha256Manifest": "b262c16825ddf7d08b25eb4b620d277dfa092087c827f9cadc5940fdcb77461a",
+    "ModifiedExisting": [
+      ".gitattributes",
+      "docs/progress.md",
+      "docs/traceability.json",
+      "docs/validation/failure-version-sequence.md",
+      "src/KuaiYi.Core/OverlayResults.cs"
+    ],
+    "NewRawOriginals": 34,
+    "OriginalWorkingStagedBytesEqual": true,
+    "RawAttributes": "All34 exactpaths text unset(-text); no new whitespace overrides",
+    "NoUnstagedChangesBeforeSummaryUpdate": true,
+    "FinalDllsEqualGreen": true,
+    "Note": "The earlier preservation.json raw captures pre-attribute-append state; this final manifest excludes the five intended modified files."
+  }
+}

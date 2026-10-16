@@ -1,0 +1,28 @@
+{
+  "Parent": "d45ba9d4ab1af3675cb7d0a36cfe0f77618965d0",
+  "Branch": "dev/failure-version-sequence",
+  "RemotePreflight": "d45ba9d4ab1af3675cb7d0a36cfe0f77618965d0\trefs/heads/dev/failure-version-sequence\n51d077481cf6303602fcf5d2718213da9cf05178\trefs/heads/main\n",
+  "Worktree": "/workspace/KuaiYi  d45ba9d [dev/failure-version-sequence]\n",
+  "InitialTrackedClean": true,
+  "InitialLocalHead": "51d077481cf6303602fcf5d2718213da9cf05178",
+  "DefaultNetwork": "ls-remote and normal fetch succeeded; no Actions queries",
+  "Scope": "Retained-source bounded high water P2 only; root sole writer; parent evidence preserved",
+  "RedSource": {
+    "src/KuaiYi.Core/OverlayResults.cs": {
+      "Sha256": "4e3a5982d5695ebbeaecb8e66316cdc023b61d3098dd364b0e6852a099517d14",
+      "Bytes": 8000
+    },
+    "src/KuaiYi.App/OverlayFailureNotice.cs": {
+      "Sha256": "c00e1ac05c9d672e89f8dcdaf6664f7c8c64d1c6360792351773e211fbd138bc",
+      "Bytes": 5233
+    },
+    "src/KuaiYi.Providers/TextTranslationCoordinator.cs": {
+      "Sha256": "8ff3c71b458cff311399866eca449d8a29ec8b5b9ac644ed99fd2090fabe10c6",
+      "Bytes": 23727
+    },
+    "tests/KuaiYi.Provider.Tests/RetainedSourceHighWaterTests.cs": {
+      "Sha256": "2cec5a4b721a4aab238fa7ef03de0f9498f03574b461ccacc2f74a49b4351678",
+      "Bytes": 10178
+    }
+  }
+}
