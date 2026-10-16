@@ -1,0 +1,9 @@
+{
+  "Parent": "8b902b1da0d253c9f43a0bc50e535a5703d6311b",
+  "PolicyBlockUtf8Sha256": "9738ea5884c1de9096b18ff880dd892bcb5eae093dd90a0a9a4a0cfe95fdc751",
+  "ExactContiguousBlockPreserved": true,
+  "Policy": "                    if (response.StatusCode is not (HttpStatusCode.TooManyRequests or HttpStatusCode.ServiceUnavailable) || attempt == attempts-1) break;\n                    TimeSpan? retry = response.Headers.RetryAfter?.Delta ?? (response.Headers.RetryAfter?.Date is { } date ? date - DateTimeOffset.UtcNow : null);\n                    if (retry is { } delay && (delay < TimeSpan.Zero || delay > TimeSpan.FromSeconds(15))) break;\n                    response.Dispose(); response = null;\n                    await Task.Delay(retry ?? TimeSpan.FromSeconds(1), total.Token).ConfigureAwait(false);\n                    total.Check();",
+  "AttemptsLinePreserved": true,
+  "AddedTimersOrAutomaticSends": false,
+  "Reason": "Only per-response bounded advice capture inserted before existing policy; no new delay/send code."
+}

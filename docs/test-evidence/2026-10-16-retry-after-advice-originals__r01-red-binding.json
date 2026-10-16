@@ -1,0 +1,36 @@
+{
+  "Parent": "8b902b1da0d253c9f43a0bc50e535a5703d6311b",
+  "Branch": "dev/retry-after-advice",
+  "Main": "51d077481cf6303602fcf5d2718213da9cf05178",
+  "InitialClean": true,
+  "SoleWriter": "root; independent review read-only",
+  "ProductionEqualsParent": {
+    "src/KuaiYi.Providers/ProviderClient.cs": true,
+    "src/KuaiYi.Core/OverlayResults.cs": true,
+    "src/KuaiYi.App/OverlayFailureNotice.cs": true,
+    "src/KuaiYi.Providers/TextTranslationCoordinator.cs": true,
+    "src/KuaiYi.Providers/ProviderEventReceiver.cs": true,
+    "src/KuaiYi.Providers/ProviderContracts.cs": true,
+    "src/KuaiYi.Core/TranslationFailures.cs": true
+  },
+  "SourceSha256": {
+    "src/KuaiYi.Providers/ProviderClient.cs": "60fd7c5a7bc89409bd1e23af54f4739a834aa2cbb98c4c2a86c5668f751d7658",
+    "src/KuaiYi.Core/OverlayResults.cs": "600e3cd5fbeac78402f6bc4257b8c639faaff7e4b0f103c371df43a4668d0a0c",
+    "src/KuaiYi.App/OverlayFailureNotice.cs": "c00e1ac05c9d672e89f8dcdaf6664f7c8c64d1c6360792351773e211fbd138bc",
+    "src/KuaiYi.Providers/TextTranslationCoordinator.cs": "8ff3c71b458cff311399866eca449d8a29ec8b5b9ac644ed99fd2090fabe10c6",
+    "src/KuaiYi.Providers/ProviderEventReceiver.cs": "7a5e4f9393048b722cd101507b24517f886165f376470466ee0a59d05e53d833",
+    "src/KuaiYi.Providers/ProviderContracts.cs": "f5ab94cf6ee162f5be2dbb2ced048176e00f7f59b93d1f8f4422105198c3d308",
+    "src/KuaiYi.Core/TranslationFailures.cs": "837a60b476ef4768cd88184865d6bd5eb0a8f0a198c2d401b5d7a8a984c0c763",
+    "tests/KuaiYi.Provider.Tests/RetryAfterAdviceTests.cs": "49fafce04c44968b419a21373c1d22a1b1b20a1d6d16a8fe9b771af353580aa6",
+    "tests/KuaiYi.Provider.Tests/PhaseHttpFixture.cs": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2"
+  },
+  "ExecutedDlls": {
+    "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.ImageWorker.dll": "35456b1c95a3499fa105304e41a55fa84296668e7cf02d5b909087a53160a957",
+    "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll": "881c6e9e60e5382c3873a76ac77170f097a39022509a680e1d499f89f90116bf",
+    "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "e98f5ae5081cb96e01d5c8dd5a559d140c50a659309d55fc29fafab306d6c1cc",
+    "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": "2ff3d22df683488008f4358e076e454e0942a468623b187dba93c4ebed2de203",
+    "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "72c512081ae575f4390e85d901ddb456022a124b9e7eff2b86e9f38251fa9a18",
+    "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.MockProvider.dll": "62999dc0e4ae03dc36f0b4229c75ce3cc7edfeeea4e26bac2bcbe09484b72323",
+    "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": "b6e6fd629f9e2fc66ce2665cd96afab55976062176e3d5b4782d109b351173d9"
+  }
+}

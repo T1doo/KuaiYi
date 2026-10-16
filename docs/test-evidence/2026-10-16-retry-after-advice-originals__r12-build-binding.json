@@ -1,0 +1,43 @@
+{
+  "CoreCounters": {
+    "total": "1551",
+    "executed": "1551",
+    "passed": "1551",
+    "failed": "0",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "CoreExecutedDlls": {
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll": "37784a39a5b16609e99d53f86efa112efb8eecb26787d8c3639f825c36cad0c4",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll": "881c6e9e60e5382c3873a76ac77170f097a39022509a680e1d499f89f90116bf",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "d0e9e2785662c80ba0a23a87847851ddbf3af6e7dcffcbd3133f524d3fc7050c",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "107016704e8af342104c7db8df4b7f2c4286764570662b88f114c07057f90e2b",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "69968270544f9d858863ee713597fc7cbb81a08933df95f705bf52e842fdea26",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "8507f08202854d7f45706e854724a9205c2a4fa14f1a5a179cbebb68b84ffe23",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.OleTransfer.dll": "6b3de2db6064f84a9fb933477ae5a0dd33daff0b4b5e1c0e490678ee8669bf62"
+  },
+  "Builds": {
+    "App": {
+      "Path": "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.App.dll",
+      "Sha256": "73090c45e148c8a2ed4183c235fdbde2bf99c1f5cd7c919fc8104bb9a1c238dd",
+      "Warnings": 0,
+      "Errors": 0
+    },
+    "Worker": {
+      "Path": "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll",
+      "Sha256": "b96f2c7d83cf78e0ce42afa75f764c5bba1200fa260acd9f0c8c4609e0d70fdd",
+      "Warnings": 0,
+      "Errors": 0
+    }
+  }
+}

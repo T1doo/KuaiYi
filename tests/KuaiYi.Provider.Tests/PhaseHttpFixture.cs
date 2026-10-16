@@ -16,6 +16,8 @@ public sealed class PhaseHttpFixture:IAsyncLifetime
 {
     public sealed class Script
     {
+        public sealed record Response(int StatusCode,string? RetryAfter=null);
+        public Func<int,Response>? ResponseForRequest;
         internal Channel<(byte[] Bytes,bool End,TaskCompletionSource Ack)> Chunks=Channel.CreateUnbounded<(byte[],bool,TaskCompletionSource)>(new(){SingleReader=true});
         public TaskCompletionSource Received=new(TaskCreationOptions.RunContinuationsAsynchronously),AllowHeaders=new(TaskCreationOptions.RunContinuationsAsynchronously),HeadersSent=new(TaskCreationOptions.RunContinuationsAsynchronously);
         public string Mime="text/event-stream",Body="";public int Requests;public int StatusCode=200;
@@ -33,7 +35,7 @@ public sealed class PhaseHttpFixture:IAsyncLifetime
             if(!scripts.TryGetValue(run,out var script)){context.Response.StatusCode=404;return;}
             try
             {
-                using var reader=new StreamReader(context.Request.Body,new UTF8Encoding(false,true));script.Body=await reader.ReadToEndAsync(context.RequestAborted);script.Bodies.Enqueue(script.Body);Interlocked.Increment(ref script.Requests);script.Received.TrySetResult();await script.AllowHeaders.Task.WaitAsync(context.RequestAborted);context.Response.StatusCode=script.StatusCode;context.Response.ContentType=script.Mime;await context.Response.StartAsync(context.RequestAborted);await context.Response.Body.FlushAsync(context.RequestAborted);script.HeadersSent.TrySetResult();if(script.StatusCode!=200)return;
+                using var reader=new StreamReader(context.Request.Body,new UTF8Encoding(false,true));script.Body=await reader.ReadToEndAsync(context.RequestAborted);script.Bodies.Enqueue(script.Body);int request=Interlocked.Increment(ref script.Requests);script.Received.TrySetResult();await script.AllowHeaders.Task.WaitAsync(context.RequestAborted);var response=script.ResponseForRequest?.Invoke(request)??new(script.StatusCode);context.Response.StatusCode=response.StatusCode;context.Response.ContentType=script.Mime;if(response.RetryAfter is {} retryAfter)context.Response.Headers["Retry-After"]=retryAfter;await context.Response.StartAsync(context.RequestAborted);await context.Response.Body.FlushAsync(context.RequestAborted);script.HeadersSent.TrySetResult();if(response.StatusCode!=200)return;
                 await foreach(var chunk in script.Chunks.Reader.ReadAllAsync(context.RequestAborted))
                 {await context.Response.Body.WriteAsync(chunk.Bytes,context.RequestAborted);await context.Response.Body.FlushAsync(context.RequestAborted);chunk.Ack.TrySetResult();if(chunk.End)break;}
             }

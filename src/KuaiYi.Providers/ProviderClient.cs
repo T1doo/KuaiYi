@@ -99,11 +99,13 @@ public sealed class ProviderClient : IDisposable
         {
             if(budget.Seconds!=request.Profile.TotalTimeoutSeconds){if(gate.CanApply(identity))yield return Qualify(new(ModelEventKind.Failed,Reason:"CONFIG_INVALID"));yield break;}
             HttpResponseMessage? response = null;
+            RetryAfterAdvice? responseAdvice=null;
             ProviderReadActivity? acceptedBodyActivity=null;
             string? sendError = null;
             int attempts=visionTest?1:2;
             for (int attempt = 0; attempt < attempts; attempt++)
             {
+                responseAdvice=null;
                 acceptedBodyActivity=null;
                 if(boundary!=null&&!boundary.Allows(request.Profile,secret)){sendError="TEST_BOUNDARY_REJECTED";break;}
                 using var headersDeadline=new ProviderPhaseDeadline(TimeSpan.FromSeconds(request.Profile.PhaseTimeouts.HeadersSeconds),PhaseClock,total.Token,"RESPONSE_HEADERS_TIMEOUT");
@@ -127,6 +129,8 @@ public sealed class ProviderClient : IDisposable
                     total.Check();headersDeadline.Check();
                     acceptedBodyActivity=new(request.Profile.PhaseTimeouts,PhaseClock);
                     if (!gate.CanApply(identity)) { sendError = "STALE_IDENTITY"; break; }
+                    // Bound the original value before the existing typed retry-policy read can normalize it.
+                    responseAdvice=RetryAfterParser.Read(response,clock.GetUtcNow());
                     if (response.StatusCode is not (HttpStatusCode.TooManyRequests or HttpStatusCode.ServiceUnavailable) || attempt == attempts-1) break;
                     TimeSpan? retry = response.Headers.RetryAfter?.Delta ?? (response.Headers.RetryAfter?.Date is { } date ? date - DateTimeOffset.UtcNow : null);
                     if (retry is { } delay && (delay < TimeSpan.Zero || delay > TimeSpan.FromSeconds(15))) break;
@@ -153,7 +157,8 @@ public sealed class ProviderClient : IDisposable
                         _ => "PROVIDER_HTTP_ERROR"
                     };
                     // Never surface the untrusted error body; it can echo credentials/source or contain HTML.
-                    if (gate.CanApply(identity)) yield return Qualify(new(ModelEventKind.Failed, Reason: DeliveryError(cancellation,total)??reason),acceptedBodyActivity);
+                    string finalReason=DeliveryError(cancellation,total)??reason;
+                    if (gate.CanApply(identity)) yield return Qualify(new(ModelEventKind.Failed, Reason: finalReason,RetryAfter:finalReason==reason?responseAdvice:null),acceptedBodyActivity);
                     yield break;
                 }
                 if (!gate.CanApply(identity)) yield break;
@@ -261,7 +266,7 @@ public sealed class ProviderClient : IDisposable
             string? deliveryError=null;
             try{requestLifetime.Token.ThrowIfCancellationRequested();budget?.Check();}
             catch(OperationCanceledException){deliveryError=requestLifetime.IsCancellationRequested?"CANCELLED":"REQUEST_TIMEOUT";}
-            if(deliveryError!=null){yield return new(identity,item with{Kind=ModelEventKind.Failed,Text=null,Usage=null,Reason=deliveryError});yield break;}
+            if(deliveryError!=null){yield return new(identity,item with{Kind=ModelEventKind.Failed,Text=null,Usage=null,Reason=deliveryError,RetryAfter=null});yield break;}
             yield return new(identity, item);
         }
     }

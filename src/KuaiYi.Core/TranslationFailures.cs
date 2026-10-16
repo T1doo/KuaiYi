@@ -1,4 +1,17 @@
 namespace KuaiYi.Core;
+// Only a normalized UTC instant survives the HTTP response; never retain the raw header.
+public sealed record RetryAfterAdvice
+{
+    public const int MaximumWaitSeconds=86400;
+    public DateTimeOffset NotBeforeUtc{get;}
+    private RetryAfterAdvice(DateTimeOffset notBeforeUtc)=>NotBeforeUtc=notBeforeUtc;
+    public static RetryAfterAdvice? FromDelay(DateTimeOffset receivedAt,TimeSpan delay)
+    {
+        if(delay<TimeSpan.Zero||delay>TimeSpan.FromSeconds(MaximumWaitSeconds))return null;
+        var utc=receivedAt.ToUniversalTime();if(utc>DateTimeOffset.MaxValue-delay)return null;
+        return new(utc+delay);
+    }
+}
 // Bounded request metadata. No provider text, exception message, URL, key, or arbitrary code is retained.
 public enum TranslationFailureReason
 {RequestIncomplete,OutputTruncated,ContentRefused,Interrupted,RequestTimeout,ConnectTimeout,HeadersTimeout,FirstResponseTimeout,IdleTimeout,Authentication,Endpoint,RateLimited,Network,Tls,InvalidProtocol,ProviderError,LocalOutputLimit,SourceOrSettingsChanged,UnsupportedResponse,LocalBoundary}

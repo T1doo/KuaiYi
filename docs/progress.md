@@ -831,3 +831,9 @@ r01新测试少using编译0执行无TRX原件保留；r03同测试SHA10/10绿，
 从远端 d45ba9d4ab1af3675cb7d0a36cfe0f77618965d0 在 dev/failure-version-sequence 正常接续；新实例初始为main早期快照，经默认网络核远端/fetch/祖先后切开发分支，不恢复旧实例。A1/A2/A3成功→B1失败回A3→选B1/B2失败回B1→C1失败淘汰B2→D1失败后原next重用2，实际应3。生产仅OverlayResults改独立session高水位，Begin才消费，Fail/Abandon回退不重算；按仍保留版本/隐藏fallback来源维护与清理，Clear释放，最多四项GUID/int；原source/usage/identity/晚到/notice/三版规则不改。
 
 本续修r01父红8F；r02初修6P2F是新增生命周期夹具缺A3而误断B2被淘汰，精确源码/log/TRX保留，补齐初始路径不降断言；r03最终候选父红8F、r04同测试字节8P。r05完整Provider1966P（父1958全名保留+新8），r07完整Core1551P，均0失败/跳过；Core仅Linux便携与owned托管夹具，Windows实机不抬；App/Worker Release交叉构建各0W/E，独立只读审查未发现需要修复的问题。证据见[追加报告](validation/failure-version-sequence.md)、[本续修原始证据](test-evidence/2026-10-16-retained-source-high-water.json)。旧测试、原证据、项目依赖/锁/workflow/prompt原字节保持，P4-04/F06/F08及全部P6整体状态不变。历史图片间歇根因仍未实证，未改图片生产，复用Off。Actions先前拒绝不查不绕；Skia许可/403待批；真实WPF/Windows/模型/250600/全SPEC仍NotRun，无main/强推/部署/费用/凭据/安全扩权/新许可。
+
+## 2026-10-16 · SPEC10.8：失败版本等待建议
+
+从已独审8b902b1在dev/retry-after-advice正常接续。每HTTP响应在typed读取前有界解析Retry-After（单值≤128字符，delta/date，0..86400秒），仅最终429/503失败绑定UTC建议时间；过期/非法/超长/多值/超界不保留，最终无值也覆盖前响应。ModelEvent→原身份/截止门→Core失败版本→原状态Tooltip/Automation和版本菜单显示明确UTC与手动重试，非倒计时；不留原始私密头。Begin/Clear/淘汰、失败回退及旧版source/正文/usage/建议归属保持，timeout/cancel改判清建议，Abandon不伪失败。原10.7条件/最多一次/15秒/默认1秒/Delay及发送门不改，没有新后台计时/重发。
+
+r01父生产4F、r02同测试4P；r03两项新测试请求数假设错误（超长数字typed无有效值，原缺省重试一次，实际2），r04四项新测试把跨来源上下文前缀误认为B身份恢复后不变，精确失败候选source/log/TRX保全、不算产品红测；校正后r05最终81P。r07完整Provider2047P=父1966全名保留+81，r09完整Core1551P，均0失败/跳过；r11/r12 App/Worker各0W/E，独立代码/测试审查无P1/P2/P3；证据见[报告](validation/retry-after-advice.md)及[原件](test-evidence/2026-10-16-retry-after-advice.json)。唯一旧测试文件变更是PhaseHttpFixture新增逐响应头/状态供新测试，旧断言不改。旧图片根因未知与复用Off、Windows/WPF/模型/250600/全SPEC NotRun及Skia/403/Actions拒绝边界保持，无main/强推/费用/权限/真实模型。

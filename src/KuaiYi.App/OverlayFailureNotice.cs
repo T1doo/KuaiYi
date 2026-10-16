@@ -32,6 +32,7 @@ internal sealed partial class ShellWindow
     {
         var snapshot=translation?.SnapshotForVersion(failed.Identity.VersionId);
         return $"{(overlayResults.Identity is {} current&&current.SessionId!=failed.Identity.SessionId?"另一来源尝试 · ":"")}版本 {failed.Number} · {(snapshot==null?"文字尝试":SourceLabel(snapshot))}：{FailureLabel(failed.Failure!.Value)}。"+
+            (failed.RetryAfter is {} advice?$"服务端建议不早于 {advice.NotBeforeUtc.ToString("yyyy-MM-dd HH:mm:ss 'UTC'",System.Globalization.CultureInfo.InvariantCulture)} 手动重试；这是收到最终响应时的建议，不是倒计时。":"")+
             (failed.Text.Length>0?"此失败版本保留部分结果，未完成。":"此失败版本没有可显示正文，未完成。")+
             (overlayResults.SelectedVersionId!=failed.Identity.VersionId?"当前显示旧结果，此原因属于上述失败尝试。":"")+
             "打开状态/恢复，在本次会话版本中查看失败或旧版本；可明确重新生成，或打开设置检查 API。不会自动重发或增加输出限制。";
@@ -57,5 +58,5 @@ internal sealed partial class ShellWindow
         _=>"请求未完成，请检查 API 设置"
     };
     private static string ShortFailureLabel(TranslationFailureReason reason)=>reason switch
-    {TranslationFailureReason.OutputTruncated=>"输出达上限",TranslationFailureReason.ContentRefused=>"未提供翻译",TranslationFailureReason.Interrupted=>"生成中断",_=>"结果不完整"};
+    {TranslationFailureReason.OutputTruncated=>"输出达上限",TranslationFailureReason.ContentRefused=>"未提供翻译",TranslationFailureReason.Interrupted=>"生成中断",TranslationFailureReason.RateLimited=>"暂时限流",_=>"结果不完整"};
 }

@@ -9,7 +9,7 @@ public enum Authentication { None, Bearer, ApiKey, CustomHeader }
 public enum OutputLimitParameter { MaxCompletionTokens, MaxTokens, Omit, ProtocolDefault }
 public enum ModelEventKind { Started, TextDelta, Usage, Completed, Failed }
 public sealed record TokenUsage(long? InputTokens, long? OutputTokens);
-public sealed record ModelEvent(ModelEventKind Kind, string? Text = null, string? Reason = null, TokenUsage? Usage = null)
+public sealed record ModelEvent(ModelEventKind Kind, string? Text = null, string? Reason = null, TokenUsage? Usage = null,RetryAfterAdvice? RetryAfter=null)
 {internal ProviderEventAdmission? Admission{get;init;}}
 public sealed record ModelEventEnvelope(RequestIdentity Identity, ModelEvent Event)
 {internal ProviderEventAdmission? Admission=>Event.Admission;}

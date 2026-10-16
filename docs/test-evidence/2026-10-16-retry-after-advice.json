@@ -1,0 +1,653 @@
+{
+  "SourceParent": "8b902b1da0d253c9f43a0bc50e535a5703d6311b",
+  "ParentTree": "2467d8fea4007c7075daee5007ac7a720f958a31",
+  "Branch": "dev/retry-after-advice",
+  "MainBaseline": "51d077481cf6303602fcf5d2718213da9cf05178",
+  "Scope": "Original SPEC10.8 RATE_LIMITED available waiting advice; final429/503 response normalized to boundedUTC time and bound to exact failed version in existing state entry/menu. No extra timer/retry/feature, no expansion of10.7.",
+  "Preflight": {
+    "Parent": "8b902b1da0d253c9f43a0bc50e535a5703d6311b",
+    "InitialBranch": "dev/failure-version-sequence",
+    "WorkingBranch": "dev/retry-after-advice",
+    "InitialClean": true,
+    "SourceRemoteAtStart": "8b902b1da0d253c9f43a0bc50e535a5703d6311b",
+    "MainBaseline": "51d077481cf6303602fcf5d2718213da9cf05178",
+    "PrecommitDefaultRemote": "8b902b1da0d253c9f43a0bc50e535a5703d6311b\trefs/heads/dev/failure-version-sequence\n51d077481cf6303602fcf5d2718213da9cf05178\trefs/heads/main\n",
+    "Worktrees": "/workspace/KuaiYi  8b902b1 [dev/retry-after-advice]\n",
+    "RootSoleWriter": true,
+    "ReviewAgent": "high_water_review read-only",
+    "NoOldInstanceResumed": true,
+    "MainAndParentAncestryVerified": true
+  },
+  "MetadataBounds": {
+    "SingleRetryAfterValue": true,
+    "MaximumHeaderCharacters": 128,
+    "DelaySecondsInclusive": [
+      0,
+      86400
+    ],
+    "Representation": "Core RetryAfterAdvice.NotBeforeUtc only; no raw/private header/error body. Reject expired/malformed/oversized/multiple/overflow; never clamp a long wait to a shorter suggestion.",
+    "AutomaticPolicy": "Original429503/lastattempt/one retry/15seconds/default1second/Task.Delay/sendgate contiguous block unchanged. Metadata upper bound does not schedule retries.",
+    "ResponseOverwrite": "Capture before typed RetryAfter read; every response starts null and replaces prior, including unknown; only final failed event publishes."
+  },
+  "ExecutionRecords": {
+    "r01": "Actual parent production4F/0P two protocols xdelta/date existing-state-entry missing suggestion. Test fixture extended only; parent production source/DLL binding preserved.",
+    "r02": "Same r01 exact test-source bytes and same4 names ->4P.",
+    "r03": "Two NEW test request-count expectation errors,Expected1Actual2: extremely long leading-zero delta rejected by.NET typed parser; original default1s policy retried once. Not product red or experimentally proved normalization bypass. Exact test/Provider source/log/TRX kept; no r03 DLL digest was captured.",
+    "r04": "New boundaries61executed57P4F: new per-version assertion wrongly retained cross-source prefix after B identity restoration. Version data/advice already correct; source/log/TRX/executedDLL binding preserved. Corrected full-string context expectation; no old assertions removed.",
+    "r05": "Final81P/0F/0skip; finalsource and actualexecutedDLL binding. Initialentrymethod later strengthened with productionmenu assertions, new cases added; finalfile differs from initial4-test redgreen snapshots.",
+    "r06r08r10": "Existing dependency graph locked restores; no dependency/project/lock changes",
+    "r07": "FullProvider2047P/0F/0skip=parent1966names allretained+81new",
+    "r09": "FullCore1551P/0F/0skip; Linuxportable/owned managed fixtures, not Windowsnative acceptance",
+    "r11r12": "App/WorkerReleasecrossbuild each0W/E"
+  },
+  "Counters": {
+    "r03-raw-boundary-red": {
+      "total": "2",
+      "executed": "2",
+      "passed": "0",
+      "failed": "2",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r04-boundaries": {
+      "total": "61",
+      "executed": "61",
+      "passed": "57",
+      "failed": "4",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r07-provider-full": {
+      "total": "2047",
+      "executed": "2047",
+      "passed": "2047",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r02-entry-green": {
+      "total": "4",
+      "executed": "4",
+      "passed": "4",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r05-boundaries-final": {
+      "total": "81",
+      "executed": "81",
+      "passed": "81",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r01-parent-red": {
+      "total": "4",
+      "executed": "4",
+      "passed": "0",
+      "failed": "4",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r09-core-full": {
+      "total": "1551",
+      "executed": "1551",
+      "passed": "1551",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    }
+  },
+  "RedGreen": {
+    "InitialSameFourNames": true,
+    "InitialSameTestSha": true,
+    "RedBinding": "docs/test-evidence/2026-10-16-retry-after-advice-originals__r01-red-binding.json",
+    "GreenBinding": "docs/test-evidence/2026-10-16-retry-after-advice-originals__r02-green-binding.json",
+    "Final81Binding": "docs/test-evidence/2026-10-16-retry-after-advice-originals__r05-final-binding.json"
+  },
+  "FinalSourcesSha256": {
+    "src/KuaiYi.Core/TranslationFailures.cs": "1ac031d4d7b0227642464148520bf96cfe24429e09ef81822ad0b914ba76e639",
+    "src/KuaiYi.Providers/RetryAfterParser.cs": "7252b3ee37f9388b5a1d4a6867f6ef84f7de4099190c84d0dd7b392237fcffbe",
+    "src/KuaiYi.Providers/ProviderContracts.cs": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+    "src/KuaiYi.Providers/ProviderClient.cs": "0fea22604852a8e6b0c399d162e37b7158eff3785d560570420ff5d6186b7e4e",
+    "src/KuaiYi.Providers/ProviderEventReceiver.cs": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+    "src/KuaiYi.Providers/TextTranslationCoordinator.cs": "26279c7b19b25dabac77cca0189c21848c7c7aa5a56ef8f5b4feb5a667900ea1",
+    "src/KuaiYi.Core/OverlayResults.cs": "888e1b253942cf641ab458525db75acba24061e7e4f1284a57f2022583dbb5a3",
+    "src/KuaiYi.App/OverlayFailureNotice.cs": "e85b520c0c4bcf92dd2577e1f05485ebe389f615767861106b0f6a7a83736e8d",
+    "tests/KuaiYi.Provider.Tests/RetryAfterAdviceTests.cs": "834eb9152036fab2e155f0a8a992b141ee1232f57254f2c1b24de6cd2de039eb",
+    "tests/KuaiYi.Provider.Tests/RetryAfterBoundaryTests.cs": "925ed5169db06c73807eb608535cd506cdbdcb0a00e11a1ffff3a4aef96325d3",
+    "tests/KuaiYi.Provider.Tests/RetryAfterMenuPorts.cs": "ab3a3ccbbceb41c15e051e7c80c54439b9947751eed11164cf30032f6dbd1650",
+    "tests/KuaiYi.Provider.Tests/PhaseHttpFixture.cs": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2"
+  },
+  "FinalRegression": {
+    "ParentCount": 1966,
+    "FinalCount": 2047,
+    "MissingParentNames": [],
+    "NewCount": 81,
+    "NameAndDllBinding": "docs/test-evidence/2026-10-16-retry-after-advice-originals__r07-full-binding.json"
+  },
+  "BuildAndCoreBinding": "docs/test-evidence/2026-10-16-retry-after-advice-originals__r12-build-binding.json",
+  "PolicyProof": "docs/test-evidence/2026-10-16-retry-after-advice-originals__policy-proof.json",
+  "Preservation": {
+    "Parent": "8b902b1da0d253c9f43a0bc50e535a5703d6311b",
+    "ParentTree": "2467d8fea4007c7075daee5007ac7a720f958a31",
+    "ParentTracked": 2868,
+    "IntentionallyChangedExisting": [
+      ".gitattributes",
+      "docs/progress.md",
+      "docs/traceability.json",
+      "tests/KuaiYi.Provider.Tests/PhaseHttpFixture.cs",
+      "src/KuaiYi.App/OverlayFailureNotice.cs",
+      "src/KuaiYi.Core/OverlayResults.cs",
+      "src/KuaiYi.Core/TranslationFailures.cs",
+      "src/KuaiYi.Providers/ProviderClient.cs",
+      "src/KuaiYi.Providers/ProviderContracts.cs",
+      "src/KuaiYi.Providers/ProviderEventReceiver.cs",
+      "src/KuaiYi.Providers/TextTranslationCoordinator.cs"
+    ],
+    "Unchanged": {
+      "Count": 2857,
+      "Sha256Manifest": "846de91b4866cbbaa9832fa6fcb8fe0799a42d122322971b38a6b9d4495d996c",
+      "EqualBytes": true
+    },
+    "OldEvidence": {
+      "Count": 2044,
+      "Sha256Manifest": "964fd558c9574e1624eae7baec01ac2898f4669f62c7e4f173a7631c396aa566",
+      "EqualBytes": true
+    },
+    "OtherOldTests": {
+      "Count": 216,
+      "Sha256Manifest": "b23c6a7c512cd5a65ec68233157b22f0b43597d4a0aa598a528cba47fda965ad",
+      "EqualBytes": true,
+      "Exception": "Only PhaseHttpFixture.cs intentionally extended; all old test assertions and other files unchanged"
+    },
+    "LockedUnchanged": {
+      "Projects": 30,
+      "Locks": 43,
+      "Workflows": 8,
+      "Prompts": 8
+    },
+    "ProductionModified": [
+      "src/KuaiYi.App/OverlayFailureNotice.cs",
+      "src/KuaiYi.Core/OverlayResults.cs",
+      "src/KuaiYi.Core/TranslationFailures.cs",
+      "src/KuaiYi.Providers/ProviderClient.cs",
+      "src/KuaiYi.Providers/ProviderContracts.cs",
+      "src/KuaiYi.Providers/ProviderEventReceiver.cs",
+      "src/KuaiYi.Providers/TextTranslationCoordinator.cs"
+    ],
+    "ProductionAdded": [
+      "src/KuaiYi.Providers/RetryAfterParser.cs"
+    ],
+    "ImageFlowProductionUnchanged": true,
+    "ProgressAppendOnly": true,
+    "TraceabilityChangedIds": [
+      "P4-04",
+      "F06",
+      "F08"
+    ],
+    "AllStatusesAndP6Unchanged": true,
+    "ManifestFormat": "SHA256(json.dumps(path_to_sha256,sort_keys=True,separators=(comma,colon),ensure_ascii=True).encode(UTF8)); excludes all11 intentional paths including attributes before appending new raw attributes"
+  },
+  "OriginalFiles": {
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__commands.json": {
+      "Original": "artifacts/retry-after-advice/commands.json",
+      "Bytes": 1752,
+      "Sha256": "0853a3db2e4badac8ec09cfe55c74cdfbcfd93945aa328e6b5180583e084895b"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__policy-proof.json": {
+      "Original": "artifacts/retry-after-advice/policy-proof.json",
+      "Bytes": 1031,
+      "Sha256": "dfeb6bddb95dc3ea13f15f1ee942d96d324ba27b772ffd8dc711483b37b23114"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__preflight.json": {
+      "Original": "artifacts/retry-after-advice/preflight.json",
+      "Bytes": 703,
+      "Sha256": "3ce7385b9b987b5d02031a03058e2ea293a35c2c31e795a208dddae490548db7"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__preservation.json": {
+      "Original": "artifacts/retry-after-advice/preservation.json",
+      "Bytes": 2182,
+      "Sha256": "4460e2502833c709ccd4f3e3f32613ae6250b4925f0268f86249055129c0408f"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r00-parent-PhaseHttpFixture.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r00-parent-PhaseHttpFixture.cs.txt",
+      "Bytes": 3963,
+      "Sha256": "65d324068a1b758257c3bbe0da1dd7c27f4e3509524efd306dfd27c64d87419d"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r01-OverlayFailureNotice.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r01-OverlayFailureNotice.cs.txt",
+      "Bytes": 5233,
+      "Sha256": "c00e1ac05c9d672e89f8dcdaf6664f7c8c64d1c6360792351773e211fbd138bc"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r01-OverlayResults.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r01-OverlayResults.cs.txt",
+      "Bytes": 8476,
+      "Sha256": "600e3cd5fbeac78402f6bc4257b8c639faaff7e4b0f103c371df43a4668d0a0c"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r01-PhaseHttpFixture.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r01-PhaseHttpFixture.cs.txt",
+      "Bytes": 4284,
+      "Sha256": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r01-ProviderClient.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r01-ProviderClient.cs.txt",
+      "Bytes": 25670,
+      "Sha256": "60fd7c5a7bc89409bd1e23af54f4739a834aa2cbb98c4c2a86c5668f751d7658"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r01-ProviderContracts.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r01-ProviderContracts.cs.txt",
+      "Bytes": 6538,
+      "Sha256": "f5ab94cf6ee162f5be2dbb2ced048176e00f7f59b93d1f8f4422105198c3d308"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r01-ProviderEventReceiver.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r01-ProviderEventReceiver.cs.txt",
+      "Bytes": 1353,
+      "Sha256": "7a5e4f9393048b722cd101507b24517f886165f376470466ee0a59d05e53d833"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r01-RetryAfterAdviceTests.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r01-RetryAfterAdviceTests.cs.txt",
+      "Bytes": 1975,
+      "Sha256": "49fafce04c44968b419a21373c1d22a1b1b20a1d6d16a8fe9b771af353580aa6"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r01-TextTranslationCoordinator.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r01-TextTranslationCoordinator.cs.txt",
+      "Bytes": 23727,
+      "Sha256": "8ff3c71b458cff311399866eca449d8a29ec8b5b9ac644ed99fd2090fabe10c6"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r01-TranslationFailures.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r01-TranslationFailures.cs.txt",
+      "Bytes": 2081,
+      "Sha256": "837a60b476ef4768cd88184865d6bd5eb0a8f0a198c2d401b5d7a8a984c0c763"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r01-parent-red.log": {
+      "Original": "artifacts/retry-after-advice/r01-parent-red.log",
+      "Bytes": 5555,
+      "Sha256": "2995be667eeafdd6afeb3ed2d3655e0c43967b54ab2f392b1e60822d5bd7733f"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r01-parent-red.trx": {
+      "Original": "artifacts/retry-after-advice/r01-parent-red.trx",
+      "Bytes": 16017,
+      "Sha256": "cd4e0c56d27df8bbe64b4a96c3fcad4eaa63451ec81fd5ded511c3c14597e25d"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r01-red-binding.json": {
+      "Original": "artifacts/retry-after-advice/r01-red-binding.json",
+      "Bytes": 2769,
+      "Sha256": "c53c9f8d90b800a0d8c953b8cde139cbcaeb1180eaefafbc53ad027a4e33941c"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r02-OverlayFailureNotice.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r02-OverlayFailureNotice.cs.txt",
+      "Bytes": 5546,
+      "Sha256": "e85b520c0c4bcf92dd2577e1f05485ebe389f615767861106b0f6a7a83736e8d"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r02-OverlayResults.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r02-OverlayResults.cs.txt",
+      "Bytes": 8824,
+      "Sha256": "888e1b253942cf641ab458525db75acba24061e7e4f1284a57f2022583dbb5a3"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r02-ProviderClient.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r02-ProviderClient.cs.txt",
+      "Bytes": 25824,
+      "Sha256": "72ea8103183b40d46d938d42f2bb4ac8a91838e2072131fdff833662ca654533"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r02-ProviderContracts.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r02-ProviderContracts.cs.txt",
+      "Bytes": 6572,
+      "Sha256": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r02-ProviderEventReceiver.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r02-ProviderEventReceiver.cs.txt",
+      "Bytes": 1369,
+      "Sha256": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r02-RetryAfterAdviceTests.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r02-RetryAfterAdviceTests.cs.txt",
+      "Bytes": 1975,
+      "Sha256": "49fafce04c44968b419a21373c1d22a1b1b20a1d6d16a8fe9b771af353580aa6"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r02-RetryAfterParser.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r02-RetryAfterParser.cs.txt",
+      "Bytes": 847,
+      "Sha256": "7252b3ee37f9388b5a1d4a6867f6ef84f7de4099190c84d0dd7b392237fcffbe"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r02-TextTranslationCoordinator.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r02-TextTranslationCoordinator.cs.txt",
+      "Bytes": 23781,
+      "Sha256": "26279c7b19b25dabac77cca0189c21848c7c7aa5a56ef8f5b4feb5a667900ea1"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r02-TranslationFailures.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r02-TranslationFailures.cs.txt",
+      "Bytes": 2709,
+      "Sha256": "1ac031d4d7b0227642464148520bf96cfe24429e09ef81822ad0b914ba76e639"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r02-entry-green.log": {
+      "Original": "artifacts/retry-after-advice/r02-entry-green.log",
+      "Bytes": 1131,
+      "Sha256": "fe93cd9fbbb29ef7e3c99208e80ad888559fbaeb857781768d3ffff8b2ab106d"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r02-entry-green.trx": {
+      "Original": "artifacts/retry-after-advice/r02-entry-green.trx",
+      "Bytes": 7393,
+      "Sha256": "4957d95c367fe46ccfd09f2d839134996e7a6aa6f61a0f9448d3ebdd29953736"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r02-green-binding.json": {
+      "Original": "artifacts/retry-after-advice/r02-green-binding.json",
+      "Bytes": 2116,
+      "Sha256": "e297905b17245dfb2b3bd049ef44bc6b4cf47f02d6bcc3220ac28bc1b8514827"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r03-ProviderClient.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r03-ProviderClient.cs.txt",
+      "Bytes": 25824,
+      "Sha256": "72ea8103183b40d46d938d42f2bb4ac8a91838e2072131fdff833662ca654533"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r03-RetryAfterAdviceTests.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r03-RetryAfterAdviceTests.cs.txt",
+      "Bytes": 2586,
+      "Sha256": "570e2a05e58e89919cda6c67d5166c7dc7e3bf0170ac6a3bb7b0e48f4d009150"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r03-raw-boundary-red.log": {
+      "Original": "artifacts/retry-after-advice/r03-raw-boundary-red.log",
+      "Bytes": 2969,
+      "Sha256": "7dcdcba571c20f82e184083d834fb9a8fa676d6d79b470fe5b709224ee10993d"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r03-raw-boundary-red.trx": {
+      "Original": "artifacts/retry-after-advice/r03-raw-boundary-red.trx",
+      "Bytes": 8074,
+      "Sha256": "1c5ff7ef63a43596fc3acf8651f0c2484f0c5a7e0fd7dde20961a7cf7b87131c"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r04-ProviderClient.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r04-ProviderClient.cs.txt",
+      "Bytes": 26073,
+      "Sha256": "0fea22604852a8e6b0c399d162e37b7158eff3785d560570420ff5d6186b7e4e"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r04-RetryAfterAdviceTests.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r04-RetryAfterAdviceTests.cs.txt",
+      "Bytes": 2588,
+      "Sha256": "9a8b3917a7fa2cedbc5b14550d09fa26990ff5d82accc50b5edb74947cdc41c6"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r04-RetryAfterBoundaryTests.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r04-RetryAfterBoundaryTests.cs.txt",
+      "Bytes": 12180,
+      "Sha256": "75ebd2180dba5607cc587203e656f51eb44b2ea77adbc559725513537a076c0b"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r04-binding.json": {
+      "Original": "artifacts/retry-after-advice/r04-binding.json",
+      "Bytes": 1429,
+      "Sha256": "3d9559e17714b7e7136bc67771490398e51c8e20d0d146f171672ef1bdf497ba"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r04-boundaries.log": {
+      "Original": "artifacts/retry-after-advice/r04-boundaries.log",
+      "Bytes": 6107,
+      "Sha256": "8c9691d3f825458bc5b89626013af57e2503dbbc0c54d3815b6c3ebea6d19145"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r04-boundaries.trx": {
+      "Original": "artifacts/retry-after-advice/r04-boundaries.trx",
+      "Bytes": 100957,
+      "Sha256": "9094e8fe190abe247a2a0ad1db41e5f83d2a93306ece5f4fd9e293cdce44a8f0"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r05-OverlayFailureNotice.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r05-OverlayFailureNotice.cs.txt",
+      "Bytes": 5546,
+      "Sha256": "e85b520c0c4bcf92dd2577e1f05485ebe389f615767861106b0f6a7a83736e8d"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r05-OverlayResults.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r05-OverlayResults.cs.txt",
+      "Bytes": 8824,
+      "Sha256": "888e1b253942cf641ab458525db75acba24061e7e4f1284a57f2022583dbb5a3"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r05-PhaseHttpFixture.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r05-PhaseHttpFixture.cs.txt",
+      "Bytes": 4284,
+      "Sha256": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r05-ProviderClient.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r05-ProviderClient.cs.txt",
+      "Bytes": 26073,
+      "Sha256": "0fea22604852a8e6b0c399d162e37b7158eff3785d560570420ff5d6186b7e4e"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r05-ProviderContracts.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r05-ProviderContracts.cs.txt",
+      "Bytes": 6572,
+      "Sha256": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r05-ProviderEventReceiver.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r05-ProviderEventReceiver.cs.txt",
+      "Bytes": 1369,
+      "Sha256": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r05-RetryAfterAdviceTests.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r05-RetryAfterAdviceTests.cs.txt",
+      "Bytes": 2781,
+      "Sha256": "834eb9152036fab2e155f0a8a992b141ee1232f57254f2c1b24de6cd2de039eb"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r05-RetryAfterBoundaryTests.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r05-RetryAfterBoundaryTests.cs.txt",
+      "Bytes": 14085,
+      "Sha256": "925ed5169db06c73807eb608535cd506cdbdcb0a00e11a1ffff3a4aef96325d3"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r05-RetryAfterMenuPorts.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r05-RetryAfterMenuPorts.cs.txt",
+      "Bytes": 282,
+      "Sha256": "ab3a3ccbbceb41c15e051e7c80c54439b9947751eed11164cf30032f6dbd1650"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r05-RetryAfterParser.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r05-RetryAfterParser.cs.txt",
+      "Bytes": 847,
+      "Sha256": "7252b3ee37f9388b5a1d4a6867f6ef84f7de4099190c84d0dd7b392237fcffbe"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r05-TextTranslationCoordinator.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r05-TextTranslationCoordinator.cs.txt",
+      "Bytes": 23781,
+      "Sha256": "26279c7b19b25dabac77cca0189c21848c7c7aa5a56ef8f5b4feb5a667900ea1"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r05-TranslationFailures.cs.txt": {
+      "Original": "artifacts/retry-after-advice/r05-TranslationFailures.cs.txt",
+      "Bytes": 2709,
+      "Sha256": "1ac031d4d7b0227642464148520bf96cfe24429e09ef81822ad0b914ba76e639"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r05-boundaries-final.log": {
+      "Original": "artifacts/retry-after-advice/r05-boundaries-final.log",
+      "Bytes": 1133,
+      "Sha256": "7f269142c6d77abab527bfe4fe0670a825bc834a296714214a3eb8039b99b80e"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r05-boundaries-final.trx": {
+      "Original": "artifacts/retry-after-advice/r05-boundaries-final.trx",
+      "Bytes": 121487,
+      "Sha256": "ec215cc340c5ae0049fc6ed32b616ff26a501c26dd0c56406bb1b7ad38222121"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r05-final-binding.json": {
+      "Original": "artifacts/retry-after-advice/r05-final-binding.json",
+      "Bytes": 2495,
+      "Sha256": "642c2fa5b902baf2742e415c7d5a296239e32c9ad47363052912177c47bf2b04"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r06-provider-restore.log": {
+      "Original": "artifacts/retry-after-advice/r06-provider-restore.log",
+      "Bytes": 80,
+      "Sha256": "40d104602671164ab3958225da3e1c8cabd55f0251d6df6bc911d9d5a24f44ce"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r07-full-binding.json": {
+      "Original": "artifacts/retry-after-advice/r07-full-binding.json",
+      "Bytes": 14268,
+      "Sha256": "8ac149e6a9392fb7c7772e4c722a8baf5df4e45436db06f3d3a3bd2e01e5f6fc"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r07-provider-full.log": {
+      "Original": "artifacts/retry-after-advice/r07-provider-full.log",
+      "Bytes": 1131,
+      "Sha256": "9590dba32f9ad273ea661c7e2b230554416f15180aced12a06d9ccd2039b103f"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r07-provider-full.trx": {
+      "Original": "artifacts/retry-after-advice/r07-provider-full.trx",
+      "Bytes": 3020953,
+      "Sha256": "3a04e1e78e09541ef2e0f47f5d396f0aa1ea0077aaf40d95d38d398ef33f8ff4"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r08-core-restore.log": {
+      "Original": "artifacts/retry-after-advice/r08-core-restore.log",
+      "Bytes": 80,
+      "Sha256": "40d104602671164ab3958225da3e1c8cabd55f0251d6df6bc911d9d5a24f44ce"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r09-core-full.log": {
+      "Original": "artifacts/retry-after-advice/r09-core-full.log",
+      "Bytes": 2062,
+      "Sha256": "b6d92769986e798b21782f045bbae593204ae2660808412a4824c0fbdd7348a9"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r09-core-full.trx": {
+      "Original": "artifacts/retry-after-advice/r09-core-full.trx",
+      "Bytes": 2152676,
+      "Sha256": "9ef9804a9aba907dfe480e717e59a7cd7fbded95f08e2e12b6ffe01170c30966"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r10-app-restore.log": {
+      "Original": "artifacts/retry-after-advice/r10-app-restore.log",
+      "Bytes": 80,
+      "Sha256": "40d104602671164ab3958225da3e1c8cabd55f0251d6df6bc911d9d5a24f44ce"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r11-app-build.log": {
+      "Original": "artifacts/retry-after-advice/r11-app-build.log",
+      "Bytes": 888,
+      "Sha256": "43c45be2e80121576ea373110eea31d9116e06d4fe140b6953760080b012f9b3"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r12-build-binding.json": {
+      "Original": "artifacts/retry-after-advice/r12-build-binding.json",
+      "Bytes": 1887,
+      "Sha256": "5cc320350c493ca069456de564a9128d3d281053bfb9d4cc3da97c6afa019329"
+    },
+    "docs/test-evidence/2026-10-16-retry-after-advice-originals__r12-worker-build.log": {
+      "Original": "artifacts/retry-after-advice/r12-worker-build.log",
+      "Bytes": 477,
+      "Sha256": "9865f289be667c8f958ff17760e46a2e9a15d8fc36d3803bfad7172a7e7e20ad"
+    }
+  },
+  "IndependentReview": {
+    "Agent": "high_water_review",
+    "Mode": "Read-only, no SDK/network/writes; root sole writer",
+    "CodeTestsReports": "No P1/P2/P3. Reviewed normalized-bound parser, typed-read order, finalresponse overwrite includingnull,unchanged retry contiguous block,Core/source/usage/failure/identity/cancel/timeout/Abandon/clear,menu/automaticlatest/manualown,81case classification and rawr01r02/r03r04 truth;full2047/1551,AppWorker0W/E.",
+    "FinalEvidenceAudit": "Pass/no P1/P2/P3 blockers. Independently verified65 original/working/staged Bytes/SHA256 and exact-text attrs;82 staged paths match scope,unstagedempty/diffcheckclean;parent2868-11intentional=2857unchanged digest846de91b4866cbbaa9832fa6fcb8fe0799a42d122322971b38a6b9d4495d996c;2044 oldevidence/216otheroldtestfiles/30projects/43locks/8workflows/8prompts exactbytes;progress appendonly,trace3note/evidence only,status/P6unchanged;4samebyte redgreen/81final/2047Provider/1551Core/AppWorker0W/E and actualDLLsource bindings;unchanged originalretry policy block;legacy uncertainty and r03/r04 testerror records accurate. Only this review field updated after audit."
+  },
+  "KnownUncertainty": {
+    "OldImageIntermittent": "Root cause remains unproven. Full regressions passing does not establish resolution; old receipts and JSON unchanged. No image workflow source fix claimed, production reuseOff.",
+    "NormalizationRisk": "Static concern about typed header representation motivated capture order, not experimentally proved a product defect; r03 was a test expectation error."
+  },
+  "Safety": {
+    "Actions": "Prior access denied; no query/dispatch/alternate route; run count Unknown",
+    "Skia": "4.153.1 four-package license pending/source403; no install/load/run/acceptance/bypass",
+    "Models": "Synthetic local realHTTP only, no real model or fees",
+    "Certificates": "Everydotnet explicit DOTNET_GENERATE_ASPNET_CERTIFICATE=false; no store/trust/config read/change/delete",
+    "Git": "Normal development branch only, no main/forcepush/deploy",
+    "Permissions": "No credentials/security permission changes or new legal acceptance",
+    "UnknownData": "Unknown locks/data/logs/processes preserved; fixture cleanup owns its random paths/children"
+  },
+  "NotRun": [
+    "ActualWPFvisibility/keyboard/menu/Automation",
+    "Windows/OCR/COM/nativeJob/CMake",
+    "Realmodel/visionquality",
+    "Actual250/600ms/fullSPEC/platform acceptance"
+  ],
+  "Traceability": {
+    "Ids": [
+      "P4-04",
+      "F06",
+      "F08"
+    ],
+    "OnlyNoteAndEvidence": true,
+    "AllStatusesAndP6Unchanged": true
+  },
+  "ValidationDocument": "docs/validation/retry-after-advice.md",
+  "Commands": {
+    "Environment": "source /workspace/.kuaiyi-setup/activate.sh; explicit DOTNET_GENERATE_ASPNET_CERTIFICATE=false before and after; SDK10.0.401; Release",
+    "Restore": [
+      "dotnet restore tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj --locked-mode -p:EnableWindowsTargeting=true",
+      "dotnet restore tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj --locked-mode -p:EnableWindowsTargeting=true",
+      "dotnet restore src/KuaiYi.App/KuaiYi.App.csproj --locked-mode -p:EnableWindowsTargeting=true"
+    ],
+    "Focused": "dotnet test tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj -c Release --no-restore --filter <RetryAfterAdviceTests and/or RetryAfterBoundaryTests; r03 original method only> --logger trx;LogFileName=<run>.trx --results-directory artifacts/retry-after-advice",
+    "Full": [
+      "dotnet test tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj -c Release --no-restore --logger trx;LogFileName=r07-provider-full.trx --results-directory artifacts/retry-after-advice",
+      "dotnet test tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj -c Release --no-restore --logger trx;LogFileName=r09-core-full.trx --results-directory artifacts/retry-after-advice"
+    ],
+    "Builds": [
+      "dotnet build src/KuaiYi.App/KuaiYi.App.csproj -c Release --no-restore -p:EnableWindowsTargeting=true",
+      "dotnet build src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj -c Release --no-restore -p:EnableWindowsTargeting=true"
+    ],
+    "NoActionsOrCMakeOrRealModels": true,
+    "ToolingRecords": [
+      "Read attempts ProviderEvents.cs,PhaseClocks.cs,TextFailureRecoveryTests.cs,TextUsagePorts.cs absent; actual ProviderContracts.cs/PhaseClock.cs/TextTerminalFailureTests.cs/OverlayResultPorts.cs read; no changes based on guessed paths."
+    ]
+  },
+  "StagedAudit": {
+    "Paths": 82,
+    "RawOriginals": 65,
+    "OriginalWorkingStagedBytesAndSha256Equal": true,
+    "Attributes": "All65 exact text unset(-text); no new whitespace overrides",
+    "FinalSourcesAndExecutedDllsMatch81Green": true,
+    "NoUnstagedChangesBeforeThisMetadataField": true
+  }
+}

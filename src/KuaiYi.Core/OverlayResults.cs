@@ -2,7 +2,7 @@ using System.Text;
 namespace KuaiYi.Core;
 public sealed record TranslationUsage(long? InputTokens=null,long? OutputTokens=null)
 {public static readonly TranslationUsage Unknown=new();}
-public sealed record CachedOverlayVersion(RequestIdentity Identity,string Text,bool Complete,bool Stopped,int Number=1,TranslationUsage? Usage=null,TranslationFailureReason? Failure=null);
+public sealed record CachedOverlayVersion(RequestIdentity Identity,string Text,bool Complete,bool Stopped,int Number=1,TranslationUsage? Usage=null,TranslationFailureReason? Failure=null,RetryAfterAdvice? RetryAfter=null);
 /// <summary>Session memory only. Call on the UI destination; each incoming mutation is serialized by the canonical request gate.</summary>
 public sealed class OverlayResults(RuntimeGate gate)
 {
@@ -10,6 +10,7 @@ public sealed class OverlayResults(RuntimeGate gate)
     private readonly StringBuilder text=new();private readonly List<CachedOverlayVersion> versions=[];
     private RequestIdentity? identity;private bool complete,stopped;
     private TranslationUsage usage=TranslationUsage.Unknown;private TranslationFailureReason? failure;private RequestIdentity? lastFailureIdentity;
+    private RetryAfterAdvice? retryAfter;
     private Guid? selectedVersionId,rollbackVersionId;private int versionNumber;
     // Ordinals belong to retained sources, independently of which result versions survive eviction.
     private readonly Dictionary<Guid,int> sessionHighWatermarks=[];
@@ -19,7 +20,7 @@ public sealed class OverlayResults(RuntimeGate gate)
     public RequestIdentity? Identity=>identity;
     public Guid? SelectedVersionId=>selectedVersionId;
     public Guid? RollbackVersionId=>rollbackVersionId;
-    public IReadOnlyList<CachedOverlayVersion> Versions=>(identity is {} id?versions.Append(new(id,text.ToString(),complete,stopped,versionNumber,usage,failure)):versions).OrderBy(v=>v.Number).ToArray();
+    public IReadOnlyList<CachedOverlayVersion> Versions=>(identity is {} id?versions.Append(new(id,text.ToString(),complete,stopped,versionNumber,usage,failure,retryAfter)):versions).OrderBy(v=>v.Number).ToArray();
     public IReadOnlySet<Guid> RetainedVersionIds=>Versions.Concat(fallback).Select(v=>v.Identity.VersionId).ToHashSet();
     public CachedOverlayVersion? LastFailure=>Versions.FirstOrDefault(v=>v.Identity==lastFailureIdentity);
     public int NextVersionNumber(Guid session)=>checked(sessionHighWatermarks.GetValueOrDefault(session)+1);
@@ -33,7 +34,7 @@ public sealed class OverlayResults(RuntimeGate gate)
             if(identity?.SessionId!=current.SessionId){versions.Clear();rollbackVersionId=null;}
             else{if(!complete)stopped=true;SaveVersion();rollbackVersionId=selectedVersionId;fallback=[];fallbackSelected=null;}
             versionNumber=next;sessionHighWatermarks[current.SessionId]=next;
-            identity=current;failure=null;lastFailureIdentity=null;text.Clear();usage=TranslationUsage.Unknown;complete=stopped=false;selectedVersionId=current.VersionId;
+            identity=current;failure=null;retryAfter=null;lastFailureIdentity=null;text.Clear();usage=TranslationUsage.Unknown;complete=stopped=false;selectedVersionId=current.VersionId;
             // Reserve the generating slot immediately. Protect the displayed predecessor for rollback.
             while(versions.Count>2){int victim=versions.FindIndex(v=>v.Identity.VersionId!=rollbackVersionId);if(victim<0)throw new InvalidOperationException("No evictable version.");versions.RemoveAt(victim);}
             PruneSessionHighWatermarks();applied=true;
@@ -57,22 +58,22 @@ public sealed class OverlayResults(RuntimeGate gate)
             if(next==usage)return;usage=next;applied=true;
         });return applied;
     }
-    public bool Fail(RequestIdentity current,string? reason=null)=>FinishUnsuccessful(current,TranslationFailures.Normalize(reason));
+    public bool Fail(RequestIdentity current,string? reason=null,RetryAfterAdvice? advice=null)=>FinishUnsuccessful(current,TranslationFailures.Normalize(reason),advice);
     public bool Abandon(RequestIdentity current)=>FinishUnsuccessful(current,null);
-    private bool FinishUnsuccessful(RequestIdentity current,TranslationFailureReason? reason)
+    private bool FinishUnsuccessful(RequestIdentity current,TranslationFailureReason? reason,RetryAfterAdvice? advice=null)
     {
         bool applied=false;gate.TryApply(current,()=>
         {
-            if(identity!=current||complete||stopped)return;stopped=true;failure=reason;lastFailureIdentity=reason==null?null:current;
+            if(identity!=current||complete||stopped)return;stopped=true;failure=reason;retryAfter=reason is TranslationFailureReason.RateLimited or TranslationFailureReason.ProviderError?advice:null;lastFailureIdentity=reason==null?null:current;
             if(rollbackVersionId is {} previous&&versions.Any(v=>v.Identity.VersionId==previous))selectedVersionId=previous;
             else if(fallback.Length>0)
             {
                 // A different source must not destroy the last readable result when its request fails.
                 var prior=fallback.FirstOrDefault(v=>v.Identity.VersionId==fallbackSelected)??fallback[^1];
-                var failed=new CachedOverlayVersion(current,text.ToString(),false,true,versionNumber,usage,failure);
+                var failed=new CachedOverlayVersion(current,text.ToString(),false,true,versionNumber,usage,failure,retryAfter);
                 // One failed attempt plus the selected fallback and at most one other old version: still three total.
                 versions.Clear();versions.AddRange(fallback.Where(v=>v.Identity.VersionId!=prior.Identity.VersionId).TakeLast(1));versions.Add(failed);
-                identity=prior.Identity;versionNumber=prior.Number;text.Clear();text.Append(prior.Text);usage=prior.Usage??TranslationUsage.Unknown;failure=prior.Failure;complete=prior.Complete;stopped=prior.Stopped;selectedVersionId=prior.Identity.VersionId;
+                identity=prior.Identity;versionNumber=prior.Number;text.Clear();text.Append(prior.Text);usage=prior.Usage??TranslationUsage.Unknown;failure=prior.Failure;retryAfter=prior.RetryAfter;complete=prior.Complete;stopped=prior.Stopped;selectedVersionId=prior.Identity.VersionId;
             }
             fallback=[];fallbackSelected=null;rollbackVersionId=null;PruneSessionHighWatermarks();applied=true;
         });return applied;
@@ -87,7 +88,7 @@ public sealed class OverlayResults(RuntimeGate gate)
         selectedVersionId=versionId;return true;
     }
     public void MarkStopped(){if(identity==null)return;stopped=!complete;}
-    public void Clear(){identity=null;selectedVersionId=rollbackVersionId=fallbackSelected=null;text.Clear();usage=TranslationUsage.Unknown;failure=null;lastFailureIdentity=null;versions.Clear();fallback=[];sessionHighWatermarks.Clear();versionNumber=0;complete=stopped=false;}
+    public void Clear(){identity=null;selectedVersionId=rollbackVersionId=fallbackSelected=null;text.Clear();usage=TranslationUsage.Unknown;failure=null;retryAfter=null;lastFailureIdentity=null;versions.Clear();fallback=[];sessionHighWatermarks.Clear();versionNumber=0;complete=stopped=false;}
     private void PruneSessionHighWatermarks()
     {
         // Bounded by visible versions and the pending fallback; stores no text or source snapshots.
@@ -97,7 +98,7 @@ public sealed class OverlayResults(RuntimeGate gate)
     private void SaveVersion()
     {
         if(identity is not {} id)return;
-        versions.RemoveAll(v=>v.Identity.VersionId==id.VersionId);versions.Add(new(id,text.ToString(),complete,stopped,versionNumber,usage,failure));versions.Sort((a,b)=>a.Number.CompareTo(b.Number));
+        versions.RemoveAll(v=>v.Identity.VersionId==id.VersionId);versions.Add(new(id,text.ToString(),complete,stopped,versionNumber,usage,failure,retryAfter));versions.Sort((a,b)=>a.Number.CompareTo(b.Number));
     }
 }
 public enum OverlayResultEventKind{Begin,Delta,Complete,Stopped,Usage}

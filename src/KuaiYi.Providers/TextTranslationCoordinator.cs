@@ -181,7 +181,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
                     if(value.Kind==ModelEventKind.TextDelta&&Results.Append(identity,value.Text!))presentation=new(OverlayResultEventKind.Delta,value.Text!);
                     else if(value.Kind==ModelEventKind.Usage&&value.Usage is {} usage&&Results.ObserveUsage(identity,usage.InputTokens,usage.OutputTokens))presentation=new(OverlayResultEventKind.Usage);
                     else if(value.Kind==ModelEventKind.Completed&&Results.Complete(identity)){presentation=new(OverlayResultEventKind.Complete);terminal=true;MarkFinished(identity);PruneSnapshots();}
-                    else if(value.Kind==ModelEventKind.Failed&&Results.Fail(identity,timeout.IsCancellationRequested&&!lifetime.IsCancellationRequested?"REQUEST_TIMEOUT":value.Reason)){presentation=new(OverlayResultEventKind.Stopped);terminal=true;MarkFinished(identity);PruneSnapshots();}
+                    else if(value.Kind==ModelEventKind.Failed&&Results.Fail(identity,timeout.IsCancellationRequested&&!lifetime.IsCancellationRequested?"REQUEST_TIMEOUT":value.Reason,timeout.IsCancellationRequested?null:value.RetryAfter)){presentation=new(OverlayResultEventKind.Stopped);terminal=true;MarkFinished(identity);PruneSnapshots();}
                     if(presentation!=null)Publish(new(identity,presentation,snapshot,value.Kind==ModelEventKind.Failed?timeout.IsCancellationRequested&&!lifetime.IsCancellationRequested?"REQUEST_TIMEOUT":value.Reason:null));
                 },lifetime.Token,budget).ConfigureAwait(false);
                 if(!received||terminal||rejected)break;

@@ -1,0 +1,32 @@
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:02.10]     KuaiYi.Provider.Tests.RetryAfterAdviceTests.FirstResponseCannotHideAnOversizedRawHeaderBehindTypedNormalization(protocol: AnthropicMessages) [FAIL]
+  Failed KuaiYi.Provider.Tests.RetryAfterAdviceTests.FirstResponseCannotHideAnOversizedRawHeaderBehindTypedNormalization(protocol: AnthropicMessages) [1 s]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: 1
+Actual:   2
+  Stack Trace:
+     at KuaiYi.Provider.Tests.RetryAfterAdviceTests.FirstResponseCannotHideAnOversizedRawHeaderBehindTypedNormalization(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/RetryAfterAdviceTests.cs:line 14
+   at KuaiYi.Provider.Tests.RetryAfterAdviceTests.FirstResponseCannotHideAnOversizedRawHeaderBehindTypedNormalization(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/RetryAfterAdviceTests.cs:line 15
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:03.14]     KuaiYi.Provider.Tests.RetryAfterAdviceTests.FirstResponseCannotHideAnOversizedRawHeaderBehindTypedNormalization(protocol: OpenAIChat) [FAIL]
+  Failed KuaiYi.Provider.Tests.RetryAfterAdviceTests.FirstResponseCannotHideAnOversizedRawHeaderBehindTypedNormalization(protocol: OpenAIChat) [1 s]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: 1
+Actual:   2
+  Stack Trace:
+     at KuaiYi.Provider.Tests.RetryAfterAdviceTests.FirstResponseCannotHideAnOversizedRawHeaderBehindTypedNormalization(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/RetryAfterAdviceTests.cs:line 14
+   at KuaiYi.Provider.Tests.RetryAfterAdviceTests.FirstResponseCannotHideAnOversizedRawHeaderBehindTypedNormalization(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/RetryAfterAdviceTests.cs:line 15
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/retry-after-advice/r03-raw-boundary-red.trx
+
+Failed!  - Failed:     2, Passed:     0, Skipped:     0, Total:     2, Duration: 2 s - KuaiYi.Provider.Tests.dll (net10.0)

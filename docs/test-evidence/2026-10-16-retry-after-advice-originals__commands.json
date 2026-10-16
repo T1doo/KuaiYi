@@ -1,0 +1,21 @@
+{
+  "Environment": "source /workspace/.kuaiyi-setup/activate.sh; explicit DOTNET_GENERATE_ASPNET_CERTIFICATE=false before and after; SDK10.0.401; Release",
+  "Restore": [
+    "dotnet restore tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj --locked-mode -p:EnableWindowsTargeting=true",
+    "dotnet restore tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj --locked-mode -p:EnableWindowsTargeting=true",
+    "dotnet restore src/KuaiYi.App/KuaiYi.App.csproj --locked-mode -p:EnableWindowsTargeting=true"
+  ],
+  "Focused": "dotnet test tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj -c Release --no-restore --filter <RetryAfterAdviceTests and/or RetryAfterBoundaryTests; r03 original method only> --logger trx;LogFileName=<run>.trx --results-directory artifacts/retry-after-advice",
+  "Full": [
+    "dotnet test tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj -c Release --no-restore --logger trx;LogFileName=r07-provider-full.trx --results-directory artifacts/retry-after-advice",
+    "dotnet test tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj -c Release --no-restore --logger trx;LogFileName=r09-core-full.trx --results-directory artifacts/retry-after-advice"
+  ],
+  "Builds": [
+    "dotnet build src/KuaiYi.App/KuaiYi.App.csproj -c Release --no-restore -p:EnableWindowsTargeting=true",
+    "dotnet build src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj -c Release --no-restore -p:EnableWindowsTargeting=true"
+  ],
+  "NoActionsOrCMakeOrRealModels": true,
+  "ToolingRecords": [
+    "Read attempts ProviderEvents.cs,PhaseClocks.cs,TextFailureRecoveryTests.cs,TextUsagePorts.cs absent; actual ProviderContracts.cs/PhaseClock.cs/TextTerminalFailureTests.cs/OverlayResultPorts.cs read; no changes based on guessed paths."
+  ]
+}

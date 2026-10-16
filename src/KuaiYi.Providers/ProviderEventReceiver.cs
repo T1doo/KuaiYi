@@ -18,6 +18,6 @@ public sealed class ProviderEventReceiver(RuntimeGate gate, SynchronizationConte
     internal static ModelEvent Admit(ModelEventEnvelope envelope,ModelEvent value,ProviderRequestBudget? requestBudget)
     {
         string? failure=requestBudget?.Remaining==TimeSpan.Zero?"REQUEST_TIMEOUT":envelope.Admission?.FailureReason();
-        return failure==null?value:value with{Kind=ModelEventKind.Failed,Text=null,Usage=null,Reason=failure};
+        return failure==null?value:value with{Kind=ModelEventKind.Failed,Text=null,Usage=null,Reason=failure,RetryAfter=null};
     }
 }

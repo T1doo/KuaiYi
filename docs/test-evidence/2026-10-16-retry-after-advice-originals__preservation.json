@@ -1,0 +1,61 @@
+{
+  "Parent": "8b902b1da0d253c9f43a0bc50e535a5703d6311b",
+  "ParentTree": "2467d8fea4007c7075daee5007ac7a720f958a31",
+  "ParentTracked": 2868,
+  "IntentionallyChangedExisting": [
+    ".gitattributes",
+    "docs/progress.md",
+    "docs/traceability.json",
+    "tests/KuaiYi.Provider.Tests/PhaseHttpFixture.cs",
+    "src/KuaiYi.App/OverlayFailureNotice.cs",
+    "src/KuaiYi.Core/OverlayResults.cs",
+    "src/KuaiYi.Core/TranslationFailures.cs",
+    "src/KuaiYi.Providers/ProviderClient.cs",
+    "src/KuaiYi.Providers/ProviderContracts.cs",
+    "src/KuaiYi.Providers/ProviderEventReceiver.cs",
+    "src/KuaiYi.Providers/TextTranslationCoordinator.cs"
+  ],
+  "Unchanged": {
+    "Count": 2857,
+    "Sha256Manifest": "846de91b4866cbbaa9832fa6fcb8fe0799a42d122322971b38a6b9d4495d996c",
+    "EqualBytes": true
+  },
+  "OldEvidence": {
+    "Count": 2044,
+    "Sha256Manifest": "964fd558c9574e1624eae7baec01ac2898f4669f62c7e4f173a7631c396aa566",
+    "EqualBytes": true
+  },
+  "OtherOldTests": {
+    "Count": 216,
+    "Sha256Manifest": "b23c6a7c512cd5a65ec68233157b22f0b43597d4a0aa598a528cba47fda965ad",
+    "EqualBytes": true,
+    "Exception": "Only PhaseHttpFixture.cs intentionally extended; all old test assertions and other files unchanged"
+  },
+  "LockedUnchanged": {
+    "Projects": 30,
+    "Locks": 43,
+    "Workflows": 8,
+    "Prompts": 8
+  },
+  "ProductionModified": [
+    "src/KuaiYi.App/OverlayFailureNotice.cs",
+    "src/KuaiYi.Core/OverlayResults.cs",
+    "src/KuaiYi.Core/TranslationFailures.cs",
+    "src/KuaiYi.Providers/ProviderClient.cs",
+    "src/KuaiYi.Providers/ProviderContracts.cs",
+    "src/KuaiYi.Providers/ProviderEventReceiver.cs",
+    "src/KuaiYi.Providers/TextTranslationCoordinator.cs"
+  ],
+  "ProductionAdded": [
+    "src/KuaiYi.Providers/RetryAfterParser.cs"
+  ],
+  "ImageFlowProductionUnchanged": true,
+  "ProgressAppendOnly": true,
+  "TraceabilityChangedIds": [
+    "P4-04",
+    "F06",
+    "F08"
+  ],
+  "AllStatusesAndP6Unchanged": true,
+  "ManifestFormat": "SHA256(json.dumps(path_to_sha256,sort_keys=True,separators=(comma,colon),ensure_ascii=True).encode(UTF8)); excludes all11 intentional paths including attributes before appending new raw attributes"
+}
