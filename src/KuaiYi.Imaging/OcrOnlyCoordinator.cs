@@ -48,22 +48,34 @@ public sealed class OcrOnlyCoordinator:IAsyncDisposable
             if(disposed||active!=null||ownedWorker!=null)return false;
             command=++revision;Preview=null;Failure=null;approved=null;
         }
-        if(!gate.TryStartProfileRequest(binding,Guid.NewGuid(),Guid.NewGuid(),ticket,out var identity,out _))return false;
-        bool started=false;
-        // All nested locking is gate -> local state, including queued delivery. Never invert it.
-        gate.TryApply(identity,()=>
+        RequestIdentity identity=default;
+        try
         {
-            bool liveSource=sourceCurrent(version,source.SourceId);var currentSettings=settings();
-            lock(sync)
+            // The gate writes this out identity BEFORE synchronously cancelling the previous
+            // request. Even when that callback throws, this caller owns settlement of B only.
+            if(!gate.TryStartProfileRequest(binding,Guid.NewGuid(),Guid.NewGuid(),ticket,out identity,out _))return false;
+            bool started=false;
+            // All nested locking is gate -> local state, including queued delivery. Never invert it.
+            gate.TryApply(identity,()=>
             {
-                if(!liveSource||command!=revision||disposed||active!=null||ownedWorker!=null||!gate.CanApply(identity)||gate.Snapshot.Epoch!=identity.Epoch||
-                    currentSettings?.Version!=config.Version||source.IsDisposed||
-                    !gate.TryLinkRequestCancellation(identity,CancellationToken.None,out var linked))return;
-                var operation=new Operation(command,version,source,config,binding,identity,linked!);
-                active=operation;Running=RunAsync(operation,language);started=true;
-            }
-        });
-        if(!started)gate.StopRequest(identity);return started;
+                bool liveSource=sourceCurrent(version,source.SourceId);var currentSettings=settings();
+                lock(sync)
+                {
+                    if(!liveSource||command!=revision||disposed||active!=null||ownedWorker!=null||!gate.CanApply(identity)||gate.Snapshot.Epoch!=identity.Epoch||
+                        currentSettings?.Version!=config.Version||source.IsDisposed||
+                        !gate.TryLinkRequestCancellation(identity,CancellationToken.None,out var linked))return;
+                    var operation=new Operation(command,version,source,config,binding,identity,linked!);
+                    active=operation;Running=RunAsync(operation,language);started=true;
+                }
+            });
+            if(!started)gate.StopRequest(identity);return started;
+        }
+        catch(Exception original)
+        {
+            try{if(identity!=default)gate.StopRequest(identity);}
+            catch(Exception cleanup){throw new AggregateException("OCR admission and cleanup failed.",original,cleanup);}
+            throw;
+        }
     }
     private bool Current(Operation operation)
     {
@@ -109,7 +121,13 @@ public sealed class OcrOnlyCoordinator:IAsyncDisposable
             await receiver.ReceiveAsync(operation.Identity,completion,value=>
             {lock(sync){if(!Current(operation))return;Preview=value.Preview;Failure=value.Failure;gate.MarkRequestTerminal(operation.Identity);}},operation.Cancellation.Token).ConfigureAwait(false);
         }
-        finally{lock(sync){if(ReferenceEquals(active,operation))active=null;}operation.Cancellation.Dispose();}
+        finally
+        {
+            // Display eligibility can expire without cancelling this canonical identity.
+            // Settlement is unconditional and identity-specific, so it cannot mark C terminal.
+            gate.MarkRequestTerminal(operation.Identity);
+            lock(sync){if(ReferenceEquals(active,operation))active=null;}operation.Cancellation.Dispose();
+        }
     }
     public bool IsPreviewCurrent(OcrTextPreview preview)
     {

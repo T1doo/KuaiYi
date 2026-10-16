@@ -779,3 +779,11 @@ r01新夹具7诊断编译失败0执行/无TRX，源码原件保全后修夹具�
 r02 2/2、r03/r04各46/46；r05夹具编译3诊断0执行/无TRX保全，修字段/枚举/初始化；r07 59/59、r09 62/62；r10/r16 Provider1478/1478，最终r17 Provider1481/1481=父1416完整+新65（62OCR合同+3链接生产Shell清理端口）、0失败/跳过，双协议×四风格真实本地HTTP文字wire、合成OCR成功，实际托管worker仅Linux UnsupportedPlatform。补取消异常不跳过原清理：OCR Clear/Close分开汇总，Hide沿Attempt、Begin/Release finally推进状态/释放图像。r08/r11/r12/r13/r14/r15 App/Worker/最终App交叉构建各0W/E，独审无阻断。27SDK log/TRX+7原源码+3核验记录精确-text保全，父219原件/1805旧证据原字节；43锁/8workflow/8模板/项目引用不改，无新依赖。详见[说明](validation/ocr-only-confirmation.md)及[固定证据](test-evidence/2026-10-16-ocr-only-confirmation.json)。
 
 P6-03 InProgress/NotRun，02仍InProgress/Blocked，04/05不改。Windows真实OCR/包身份/语言与质量、WPF窗口/测量/选择/阅读/焦点、COM/实际取消时限及完整P0/P2/P4/P6/I/J仍未验。生产离线复用Off、250/600ms及全部来源/密码/完整性/Job/process/取消清理门和原15秒保持。所有dotnet激活前后/命令/新子进程显式false；证书/旧覆盖字节Unknown不读改trust/delete。Skia许可待答、源码403与Actions拒绝门保持，不查询调度绕拒绝，CI run数Unknown；无真实模型、新费用/凭据/权限/协议接受、Windows/CMake探针/新CI、main/强推/部署。
+
+### 2026-10-16 OCR 孤儿 canonical 身份终结
+
+从f78401d8803f80f8302e19d8d88c7c0bf9b5e354核clean/单worktree/唯一root写入者与默认远端/main祖先，建dev/ocr-terminal-identity；UNKNOWN不恢复，ocr_terminal_review只读独审。先保真实r01 1P/6F：Settings/Mode失效完成跳终态却清局部active；Gate安装B后旧A取消回调抛错、B尚未保存也成孤儿。生产仅OCR协调器：Run finally无条件Mark本次identity，Start try覆盖Gate安装及后续证明，异常只Stop已out的B，不清共享owner/Running或全局Stop；原错bare throw，清理另错aggregate保两对象，后继C不伤。
+
+r02 7/7、r03专项77/77；r04完整1499/1499=父1481完整+新18，无失败/跳过，独审逐项核测试名。覆盖启动前worker/factory/HTTP0及恢复连接测试准入、held/queued阶段Settings/Mode/C与原owner清理、A/B清理回调创建Gate或Local C后抛错、原错/清理错对象保全；Local C明确Drain后单独worker1预览、HTTP始终0。App/Worker交叉构建各0W/E。10SDK+3源码+1preflight原件精确-text保全，父37/累计256原回执和1843旧证据不变；43锁/8workflow/8模板/项目引用/依赖不改。详见[修复说明](validation/ocr-terminal-identity.md)及[固定证据](test-evidence/2026-10-16-ocr-terminal-identity.json)。
+
+Core Gate/Provider/App/其余生产与原断言不改；P6-03 InProgress/NotRun，02 InProgress/Blocked、04/05不改。生产复用Off，250/600ms/原15秒及来源/密码/完整性/Job/process/取消清理门保持；Windows真实OCR/包身份/语言/质量、WPF测量选择阅读/窗口、COM/原生取消时限及完整P0/P2/P4/P6/I/J仍NotRun。所有dotnet激活前后/命令显式false；证书Unknown不读改trust/delete，Skia许可待答/源码403及Actions拒绝门不绕，Actions不查不调run数Unknown；无main/强推/部署/新依赖协议费用凭据权限真实模型、Windows/CMake探针或新CI。

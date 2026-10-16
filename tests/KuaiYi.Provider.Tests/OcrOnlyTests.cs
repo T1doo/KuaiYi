@@ -2,6 +2,7 @@ extern alias ImageProduction;
 extern alias WorkerProduction;
 using System.Collections.Concurrent;
 using System.Diagnostics;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text.Json;
 using KuaiYi.Core;
@@ -259,4 +260,94 @@ public sealed class OcrOnlyTests
     }
     private sealed class Starter:P.IImageProcessStarter
     {public Process Start(ProcessStartInfo info){info.Environment["DOTNET_GENERATE_ASPNET_CERTIFICATE"]="false";return Process.Start(info)!;}}
+    [Theory][InlineData("settings")][InlineData("mode")]
+    public async Task InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission(string change)
+    {
+        await using var rig=await Rig.Create();var kickoff=new Deferred();var previous=SynchronizationContext.Current;
+        try{SynchronizationContext.SetSynchronizationContext(kickoff);Assert.True(rig.Local.Start(rig.Version,rig.Image,"en-US"));}
+        finally{SynchronizationContext.SetSynchronizationContext(previous);}
+        Assert.True(rig.Gate.HasRunningGeneration);Invalidate(rig,change);kickoff.Drain();await rig.Local.Running.WaitAsync(TimeSpan.FromSeconds(6));
+        Assert.Equal(0,rig.Factories);Assert.Equal(0,rig.Worker.Calls);Assert.Equal(0,rig.Script.Requests);Assert.Null(rig.Local.Preview);Assert.False(rig.Local.CleanupPending);
+        Assert.False(rig.Gate.HasRunningGeneration);
+        rig.Settings=rig.Settings with{Version="restored"};rig.Gate.ApplyCommittedSettings(rig.Settings,null);rig.Gate.SetMode(TriggerMode.Selection);
+        var prefix=new Uri(rig.Settings.Data.Profiles[0].BaseUrl);var boundary=DevelopmentTranslationBoundary.FromPrefix(prefix);
+        await using var connection=new ApiConnectionTestWorkflow(rig.Gate,()=>rig.Settings,rig.Provider,new Immediate(),(_,_,_)=>throw new InvalidOperationException("No HTTP or secrets in admission test."),boundary);
+        var intent=connection.Prepare("ocr-fixture",out var reason);Assert.NotNull(intent);Assert.Equal("",reason);
+        Assert.True(rig.Gate.TryStartConnectionTest(intent.Binding,new(prefix),rig.Gate.Snapshot.Epoch,out var identity,out _));Assert.True(rig.Gate.IsConnectionTest(identity));rig.Gate.StopRequest(identity);
+        Assert.Equal(0,rig.Script.Requests);
+    }
+    private static (RequestIdentity Identity,CancellationToken Token) InstalledRequest(RuntimeGate gate)
+    {
+        // Fault injection only: observe the actual canonical B installed before A.Cancel, then
+        // register on its actual CTS. Start/Stop/connection/worker paths remain production code.
+        var identity=(RequestIdentity)typeof(RuntimeGate).GetField("active",BindingFlags.Instance|BindingFlags.NonPublic)!.GetValue(gate)!;
+        var cancellation=(CancellationTokenSource)typeof(RuntimeGate).GetField("activeCancellation",BindingFlags.Instance|BindingFlags.NonPublic)!.GetValue(gate)!;
+        return(identity,cancellation.Token);
+    }
+    [Theory][InlineData("none",false)][InlineData("old",false)][InlineData("none",true)][InlineData("cleanup",true)][InlineData("old-local",false)][InlineData("cleanup-local",true)]
+    public async Task OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(string newerWhen,bool cleanupThrows)
+    {
+        await using var rig=await Rig.Create();Assert.True(rig.Gate.TryGetProfileBinding("ocr-fixture",out var binding));
+        Assert.True(rig.Gate.TryStartProfileRequest(binding,Guid.NewGuid(),Guid.NewGuid(),null,out _,out var oldToken));
+        var original=new InvalidOperationException("synthetic original cancellation failure");var cleanup=new IOException("synthetic cleanup cancellation failure");
+        RequestIdentity newer=default,installed=default;CancellationToken newerToken=default;CancellationTokenRegistration cleanupRegistration=default;
+        bool localSuccessor=newerWhen.EndsWith("-local",StringComparison.Ordinal);var kickoff=new Deferred();
+        void StartNewer()
+        {
+            if(localSuccessor){Assert.True(rig.Local.Start(rig.Version,rig.Image,"en-US"));var actual=InstalledRequest(rig.Gate);newer=actual.Identity;newerToken=actual.Token;}
+            else Assert.True(rig.Gate.TryStartProfileRequest(binding,Guid.NewGuid(),Guid.NewGuid(),null,out newer,out newerToken));
+        }
+        using var oldRegistration=oldToken.Register(()=>
+        {
+            var actual=InstalledRequest(rig.Gate);installed=actual.Identity;
+            if(cleanupThrows)cleanupRegistration=actual.Token.Register(()=>{if(newerWhen.StartsWith("cleanup",StringComparison.Ordinal))StartNewer();throw cleanup;});
+            if(newerWhen.StartsWith("old",StringComparison.Ordinal))StartNewer();throw original;
+        });
+        try
+        {
+            Exception? caught;var previous=SynchronizationContext.Current;
+            try{if(localSuccessor)SynchronizationContext.SetSynchronizationContext(kickoff);caught=Record.Exception(()=>rig.Local.Start(rig.Version,rig.Image,"en-US"));}
+            finally{SynchronizationContext.SetSynchronizationContext(previous);}
+            var error=Assert.IsAssignableFrom<Exception>(caught);
+            var errors=error is AggregateException aggregate?aggregate.Flatten().InnerExceptions.ToArray():[error];
+            Assert.Contains(errors,e=>ReferenceEquals(original,e));if(cleanupThrows)Assert.Contains(errors,e=>ReferenceEquals(cleanup,e));else Assert.Single(errors);
+            Assert.NotEqual(default,installed);Assert.False(rig.Gate.CanApply(installed));Assert.Equal(0,rig.Factories);Assert.Equal(0,rig.Worker.Calls);Assert.Equal(0,rig.Script.Requests);Assert.False(rig.Local.CleanupPending);Assert.Null(rig.Local.Preview);Assert.Equal(!localSuccessor,rig.Local.Running.IsCompleted);
+            if(newerWhen!="none"){Assert.True(rig.Gate.CanApply(newer));Assert.True(rig.Gate.HasRunningGeneration);Assert.False(newerToken.IsCancellationRequested);}
+            else Assert.False(rig.Gate.HasRunningGeneration);
+            if(localSuccessor){kickoff.Drain();await rig.Local.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal(newer,rig.Local.Preview!.Identity);Assert.Equal(1,rig.Factories);Assert.Equal(1,rig.Worker.Calls);Assert.Equal(0,rig.Script.Requests);}
+        }
+        finally{cleanupRegistration.Dispose();kickoff.Drain();}
+    }
+    [Fact] public async Task ThrowingPostInstallSourceProofSettlesBAndPreservesTheOriginalExceptionObject()
+    {
+        await using var rig=await Rig.Create();var original=new InvalidOperationException("synthetic source proof failure");int checks=0;
+        rig.OnSourceCheck=()=>{if(++checks==2)throw original;};
+        var error=Record.Exception(()=>rig.Local.Start(rig.Version,rig.Image,"en-US"));Assert.Same(original,error);Assert.False(rig.Gate.HasRunningGeneration);
+        Assert.Equal(0,rig.Factories);Assert.Equal(0,rig.Worker.Calls);Assert.Equal(0,rig.Script.Requests);Assert.False(rig.Local.CleanupPending);
+    }
+    [Theory][InlineData("settings",false)][InlineData("mode",false)][InlineData("settings",true)][InlineData("mode",true)][InlineData("newer",false)][InlineData("newer",true)]
+    public async Task IneligibleWorkerCompletionSettlesOnlyItsIdentityEvenWhenCleanupIsUnconfirmed(string change,bool cleanupPending)
+    {
+        await using var rig=await Rig.Create();rig.Worker.Hold=true;rig.Worker.Finalized=!cleanupPending;Assert.True(rig.Local.Start(rig.Version,rig.Image,"en-US"));await rig.Worker.Entered.Task;
+        var original=InstalledRequest(rig.Gate).Identity;RequestIdentity newer=default;CancellationToken newerToken=default;
+        if(change=="newer"){Assert.True(rig.Gate.TryGetProfileBinding("ocr-fixture",out var binding));Assert.True(rig.Gate.TryStartProfileRequest(binding,Guid.NewGuid(),Guid.NewGuid(),null,out newer,out newerToken));}
+        else Invalidate(rig,change);
+        rig.Worker.Release.TrySetResult();await rig.Local.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Null(rig.Local.Preview);Assert.Equal(1,rig.Worker.Calls);Assert.Equal(0,rig.Script.Requests);Assert.Equal(cleanupPending,rig.Local.CleanupPending);
+        Assert.Equal(!cleanupPending,rig.Worker.Disposed);Assert.True(rig.Worker.Borrowed.Span.IndexOfAnyExcept((byte)0)<0);
+        if(change=="newer"){Assert.True(rig.Gate.CanApply(newer));Assert.True(rig.Gate.HasRunningGeneration);Assert.False(newerToken.IsCancellationRequested);}
+        else{Assert.True(rig.Gate.CanApply(original));Assert.False(rig.Gate.HasRunningGeneration);}
+        rig.Worker.Finalized=true;await rig.Local.ClearAsync();if(change=="newer"){Assert.True(rig.Gate.CanApply(newer));Assert.True(rig.Gate.HasRunningGeneration);Assert.False(newerToken.IsCancellationRequested);}
+    }
+    [Theory][InlineData("settings")][InlineData("mode")][InlineData("newer")]
+    public async Task QueuedOcrCompletionAlwaysSettlesBWithoutMarkingNewerCTerminal(string change)
+    {
+        var destination=new Deferred();await using var rig=await Rig.Create(destination:destination);Assert.True(rig.Local.Start(rig.Version,rig.Image,"en-US"));
+        using var limit=new CancellationTokenSource(TimeSpan.FromSeconds(6));while(destination.Count==0)await Task.Delay(5,limit.Token);
+        Assert.True(rig.Gate.HasRunningGeneration);RequestIdentity newer=default;CancellationToken newerToken=default;
+        if(change=="newer"){Assert.True(rig.Gate.TryGetProfileBinding("ocr-fixture",out var binding));Assert.True(rig.Gate.TryStartProfileRequest(binding,Guid.NewGuid(),Guid.NewGuid(),null,out newer,out newerToken));}
+        else Invalidate(rig,change);
+        destination.Drain();await rig.Local.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Null(rig.Local.Preview);Assert.Equal(1,rig.Factories);Assert.Equal(1,rig.Worker.Calls);Assert.True(rig.Worker.Disposed);Assert.Equal(0,rig.Script.Requests);
+        if(change=="newer"){Assert.True(rig.Gate.CanApply(newer));Assert.True(rig.Gate.HasRunningGeneration);Assert.False(newerToken.IsCancellationRequested);}
+        else Assert.False(rig.Gate.HasRunningGeneration);
+    }
 }

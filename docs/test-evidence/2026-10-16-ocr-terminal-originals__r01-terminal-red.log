@@ -1,0 +1,80 @@
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.86]     KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(newerWhen: "none", cleanupThrows: False) [FAIL]
+[xUnit.net 00:00:00.87]     KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(newerWhen: "none", cleanupThrows: True) [FAIL]
+[xUnit.net 00:00:00.88]     KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(newerWhen: "cleanup", cleanupThrows: True) [FAIL]
+[xUnit.net 00:00:00.90]     KuaiYi.Provider.Tests.OcrOnlyTests.InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission(change: "mode") [FAIL]
+[xUnit.net 00:00:00.91]     KuaiYi.Provider.Tests.OcrOnlyTests.InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission(change: "settings") [FAIL]
+[xUnit.net 00:00:00.92]     KuaiYi.Provider.Tests.OcrOnlyTests.ThrowingPostInstallSourceProofSettlesBAndPreservesTheOriginalExceptionObject [FAIL]
+  Failed KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(newerWhen: "none", cleanupThrows: False) [23 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(String newerWhen, Boolean cleanupThrows) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 306
+   at KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(String newerWhen, Boolean cleanupThrows) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 310
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(newerWhen: "none", cleanupThrows: True) [10 ms]
+  Error Message:
+   Assert.Contains() Failure: Filter not matched in collection
+Collection: [System.InvalidOperationException: synthetic original cancellation failure
+   at KuaiYi.Provider.Tests.OcrOnlyTests.<>c__DisplayClass29_0.<OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork>b__1() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 299
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.CancellationTokenSource.ExecuteCallbackHandlers(Boolean throwOnFirstException)]
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(String newerWhen, Boolean cleanupThrows) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 305
+   at KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(String newerWhen, Boolean cleanupThrows) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 310
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(newerWhen: "cleanup", cleanupThrows: True) [7 ms]
+  Error Message:
+   Assert.Contains() Failure: Filter not matched in collection
+Collection: [System.InvalidOperationException: synthetic original cancellation failure
+   at KuaiYi.Provider.Tests.OcrOnlyTests.<>c__DisplayClass29_0.<OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork>b__1() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 299
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.CancellationTokenSource.ExecuteCallbackHandlers(Boolean throwOnFirstException)]
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(String newerWhen, Boolean cleanupThrows) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 305
+   at KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(String newerWhen, Boolean cleanupThrows) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 310
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OcrOnlyTests.InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission(change: "mode") [16 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OcrOnlyTests.InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission(String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 271
+   at KuaiYi.Provider.Tests.OcrOnlyTests.InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission(String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 277
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OcrOnlyTests.InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission(change: "settings") [8 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OcrOnlyTests.InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission(String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 271
+   at KuaiYi.Provider.Tests.OcrOnlyTests.InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission(String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 277
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.OcrOnlyTests.ThrowingPostInstallSourceProofSettlesBAndPreservesTheOriginalExceptionObject [4 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.OcrOnlyTests.ThrowingPostInstallSourceProofSettlesBAndPreservesTheOriginalExceptionObject() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 316
+   at KuaiYi.Provider.Tests.OcrOnlyTests.ThrowingPostInstallSourceProofSettlesBAndPreservesTheOriginalExceptionObject() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 317
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/ocr-terminal-identity/r01-terminal-red.trx
+
+Failed!  - Failed:     6, Passed:     1, Skipped:     0, Total:     7, Duration: 262 ms - KuaiYi.Provider.Tests.dll (net10.0)

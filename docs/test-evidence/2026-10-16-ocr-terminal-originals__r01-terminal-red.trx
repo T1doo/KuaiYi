@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="1989cdc7-6c02-44f1-a7c0-234fc1cfa32e" name="@68e6e3cca8ba 2026-10-16 06:41:00" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-16T06:41:00.9732626+00:00" queuing="2026-10-16T06:41:00.9732627+00:00" start="2026-10-16T06:40:59.5297220+00:00" finish="2026-10-16T06:41:00.9808356+00:00" />
+  <TestSettings name="default" id="62227132-e14d-44c5-891c-ff9aa37cb821">
+    <Deployment runDeploymentRoot="_68e6e3cca8ba_2026-10-16_06_41_00" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="f4844e9d-8f40-40c7-8bc2-72ae20033ce4" testId="de233492-699e-f2b8-15c9-0c9ed2cf9d5f" testName="KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(newerWhen: &quot;old&quot;, cleanupThrows: False)" computerName="68e6e3cca8ba" duration="00:00:00.1635431" startTime="2026-10-16T06:41:00.6001721+00:00" endTime="2026-10-16T06:41:00.7758888+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f4844e9d-8f40-40c7-8bc2-72ae20033ce4" />
+    <UnitTestResult executionId="b286767c-9337-4791-9ff7-a0a468e79100" testId="2da0b18a-2adf-52a0-4592-ce84ef0d9e96" testName="KuaiYi.Provider.Tests.OcrOnlyTests.InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission(change: &quot;settings&quot;)" computerName="68e6e3cca8ba" duration="00:00:00.0083862" startTime="2026-10-16T06:41:00.8477483+00:00" endTime="2026-10-16T06:41:00.8570977+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b286767c-9337-4791-9ff7-a0a468e79100">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.OcrOnlyTests.InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission(String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 271
+   at KuaiYi.Provider.Tests.OcrOnlyTests.InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission(String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 277
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b9b500ee-8799-499a-9bdd-ee08554f0cef" testId="0408ed26-e082-9b13-deda-c3228e783ea4" testName="KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(newerWhen: &quot;none&quot;, cleanupThrows: False)" computerName="68e6e3cca8ba" duration="00:00:00.0235746" startTime="2026-10-16T06:41:00.7867434+00:00" endTime="2026-10-16T06:41:00.8085909+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b9b500ee-8799-499a-9bdd-ee08554f0cef">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(String newerWhen, Boolean cleanupThrows) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 306
+   at KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(String newerWhen, Boolean cleanupThrows) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 310
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e6eac83c-0adb-4778-9858-439269b285a4" testId="769fa409-77d0-582c-7c80-c176033627eb" testName="KuaiYi.Provider.Tests.OcrOnlyTests.ThrowingPostInstallSourceProofSettlesBAndPreservesTheOriginalExceptionObject" computerName="68e6e3cca8ba" duration="00:00:00.0041742" startTime="2026-10-16T06:41:00.8580008+00:00" endTime="2026-10-16T06:41:00.8621973+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e6eac83c-0adb-4778-9858-439269b285a4">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.OcrOnlyTests.ThrowingPostInstallSourceProofSettlesBAndPreservesTheOriginalExceptionObject() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 316
+   at KuaiYi.Provider.Tests.OcrOnlyTests.ThrowingPostInstallSourceProofSettlesBAndPreservesTheOriginalExceptionObject() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 317
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="78e5a94d-6fd9-4b29-808c-c2ff9912e5e4" testId="f361cb40-9d16-af4f-aa75-3754c2da85c7" testName="KuaiYi.Provider.Tests.OcrOnlyTests.InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission(change: &quot;mode&quot;)" computerName="68e6e3cca8ba" duration="00:00:00.0165811" startTime="2026-10-16T06:41:00.8332627+00:00" endTime="2026-10-16T06:41:00.8468638+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="78e5a94d-6fd9-4b29-808c-c2ff9912e5e4">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.OcrOnlyTests.InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission(String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 271
+   at KuaiYi.Provider.Tests.OcrOnlyTests.InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission(String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 277
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f6149f3e-ff68-4e58-a35c-7d2660f0fc4a" testId="e01e86e1-3f3b-e997-9981-6a4045984514" testName="KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(newerWhen: &quot;none&quot;, cleanupThrows: True)" computerName="68e6e3cca8ba" duration="00:00:00.0104200" startTime="2026-10-16T06:41:00.8156771+00:00" endTime="2026-10-16T06:41:00.8202524+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f6149f3e-ff68-4e58-a35c-7d2660f0fc4a">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Contains() Failure: Filter not matched in collection
+Collection: [System.InvalidOperationException: synthetic original cancellation failure
+   at KuaiYi.Provider.Tests.OcrOnlyTests.&lt;&gt;c__DisplayClass29_0.&lt;OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork&gt;b__1() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 299
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.CancellationTokenSource.ExecuteCallbackHandlers(Boolean throwOnFirstException)]</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(String newerWhen, Boolean cleanupThrows) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 305
+   at KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(String newerWhen, Boolean cleanupThrows) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 310
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2157df25-778f-475a-b057-aec3ad45301f" testId="2e9a4af8-1b15-8852-255a-bd1fd566f540" testName="KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(newerWhen: &quot;cleanup&quot;, cleanupThrows: True)" computerName="68e6e3cca8ba" duration="00:00:00.0076201" startTime="2026-10-16T06:41:00.8214050+00:00" endTime="2026-10-16T06:41:00.8314870+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2157df25-778f-475a-b057-aec3ad45301f">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Contains() Failure: Filter not matched in collection
+Collection: [System.InvalidOperationException: synthetic original cancellation failure
+   at KuaiYi.Provider.Tests.OcrOnlyTests.&lt;&gt;c__DisplayClass29_0.&lt;OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork&gt;b__1() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 299
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.CancellationTokenSource.ExecuteCallbackHandlers(Boolean throwOnFirstException)]</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(String newerWhen, Boolean cleanupThrows) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 305
+   at KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(String newerWhen, Boolean cleanupThrows) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 310
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(newerWhen: &quot;none&quot;, cleanupThrows: False)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="0408ed26-e082-9b13-deda-c3228e783ea4">
+      <Execution id="b9b500ee-8799-499a-9bdd-ee08554f0cef" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OcrOnlyTests" name="OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OcrOnlyTests.ThrowingPostInstallSourceProofSettlesBAndPreservesTheOriginalExceptionObject" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="769fa409-77d0-582c-7c80-c176033627eb">
+      <Execution id="e6eac83c-0adb-4778-9858-439269b285a4" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OcrOnlyTests" name="ThrowingPostInstallSourceProofSettlesBAndPreservesTheOriginalExceptionObject" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OcrOnlyTests.InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission(change: &quot;mode&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="f361cb40-9d16-af4f-aa75-3754c2da85c7">
+      <Execution id="78e5a94d-6fd9-4b29-808c-c2ff9912e5e4" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OcrOnlyTests" name="InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(newerWhen: &quot;cleanup&quot;, cleanupThrows: True)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="2e9a4af8-1b15-8852-255a-bd1fd566f540">
+      <Execution id="2157df25-778f-475a-b057-aec3ad45301f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OcrOnlyTests" name="OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OcrOnlyTests.InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission(change: &quot;settings&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="2da0b18a-2adf-52a0-4592-ce84ef0d9e96">
+      <Execution id="b286767c-9337-4791-9ff7-a0a468e79100" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OcrOnlyTests" name="InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(newerWhen: &quot;old&quot;, cleanupThrows: False)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="de233492-699e-f2b8-15c9-0c9ed2cf9d5f">
+      <Execution id="f4844e9d-8f40-40c7-8bc2-72ae20033ce4" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OcrOnlyTests" name="OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(newerWhen: &quot;none&quot;, cleanupThrows: True)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="e01e86e1-3f3b-e997-9981-6a4045984514">
+      <Execution id="f6149f3e-ff68-4e58-a35c-7d2660f0fc4a" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.OcrOnlyTests" name="OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="de233492-699e-f2b8-15c9-0c9ed2cf9d5f" executionId="f4844e9d-8f40-40c7-8bc2-72ae20033ce4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2da0b18a-2adf-52a0-4592-ce84ef0d9e96" executionId="b286767c-9337-4791-9ff7-a0a468e79100" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0408ed26-e082-9b13-deda-c3228e783ea4" executionId="b9b500ee-8799-499a-9bdd-ee08554f0cef" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="769fa409-77d0-582c-7c80-c176033627eb" executionId="e6eac83c-0adb-4778-9858-439269b285a4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f361cb40-9d16-af4f-aa75-3754c2da85c7" executionId="78e5a94d-6fd9-4b29-808c-c2ff9912e5e4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e01e86e1-3f3b-e997-9981-6a4045984514" executionId="f6149f3e-ff68-4e58-a35c-7d2660f0fc4a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2e9a4af8-1b15-8852-255a-bd1fd566f540" executionId="2157df25-778f-475a-b057-aec3ad45301f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="7" executed="7" passed="1" failed="6" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.16]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.59]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.63]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.87]       Assert.False() Failure
+[xUnit.net 00:00:00.87]       Expected: False
+[xUnit.net 00:00:00.87]       Actual:   True
+[xUnit.net 00:00:00.87]       Stack Trace:
+[xUnit.net 00:00:00.87]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs(306,0): at KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(String newerWhen, Boolean cleanupThrows)
+[xUnit.net 00:00:00.87]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs(310,0): at KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(String newerWhen, Boolean cleanupThrows)
+[xUnit.net 00:00:00.87]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.87]       Assert.Contains() Failure: Filter not matched in collection
+[xUnit.net 00:00:00.87]       Collection: [System.InvalidOperationException: synthetic original cancellation failure
+[xUnit.net 00:00:00.87]          at KuaiYi.Provider.Tests.OcrOnlyTests.&lt;&gt;c__DisplayClass29_0.&lt;OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork&gt;b__1() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 299
+[xUnit.net 00:00:00.87]          at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+[xUnit.net 00:00:00.87]       --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.87]          at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+[xUnit.net 00:00:00.87]          at System.Threading.CancellationTokenSource.ExecuteCallbackHandlers(Boolean throwOnFirstException)]
+[xUnit.net 00:00:00.87]       Stack Trace:
+[xUnit.net 00:00:00.87]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs(305,0): at KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(String newerWhen, Boolean cleanupThrows)
+[xUnit.net 00:00:00.87]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs(310,0): at KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(String newerWhen, Boolean cleanupThrows)
+[xUnit.net 00:00:00.87]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.88]       Assert.Contains() Failure: Filter not matched in collection
+[xUnit.net 00:00:00.88]       Collection: [System.InvalidOperationException: synthetic original cancellation failure
+[xUnit.net 00:00:00.88]          at KuaiYi.Provider.Tests.OcrOnlyTests.&lt;&gt;c__DisplayClass29_0.&lt;OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork&gt;b__1() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs:line 299
+[xUnit.net 00:00:00.88]          at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+[xUnit.net 00:00:00.88]       --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.88]          at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+[xUnit.net 00:00:00.88]          at System.Threading.CancellationTokenSource.ExecuteCallbackHandlers(Boolean throwOnFirstException)]
+[xUnit.net 00:00:00.88]       Stack Trace:
+[xUnit.net 00:00:00.88]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs(305,0): at KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(String newerWhen, Boolean cleanupThrows)
+[xUnit.net 00:00:00.88]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs(310,0): at KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(String newerWhen, Boolean cleanupThrows)
+[xUnit.net 00:00:00.88]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.90]       Assert.False() Failure
+[xUnit.net 00:00:00.90]       Expected: False
+[xUnit.net 00:00:00.90]       Actual:   True
+[xUnit.net 00:00:00.90]       Stack Trace:
+[xUnit.net 00:00:00.90]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs(271,0): at KuaiYi.Provider.Tests.OcrOnlyTests.InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission(String change)
+[xUnit.net 00:00:00.90]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs(277,0): at KuaiYi.Provider.Tests.OcrOnlyTests.InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission(String change)
+[xUnit.net 00:00:00.90]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.91]       Assert.False() Failure
+[xUnit.net 00:00:00.91]       Expected: False
+[xUnit.net 00:00:00.91]       Actual:   True
+[xUnit.net 00:00:00.91]       Stack Trace:
+[xUnit.net 00:00:00.91]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs(271,0): at KuaiYi.Provider.Tests.OcrOnlyTests.InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission(String change)
+[xUnit.net 00:00:00.91]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs(277,0): at KuaiYi.Provider.Tests.OcrOnlyTests.InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission(String change)
+[xUnit.net 00:00:00.91]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.92]       Assert.False() Failure
+[xUnit.net 00:00:00.92]       Expected: False
+[xUnit.net 00:00:00.92]       Actual:   True
+[xUnit.net 00:00:00.92]       Stack Trace:
+[xUnit.net 00:00:00.92]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs(316,0): at KuaiYi.Provider.Tests.OcrOnlyTests.ThrowingPostInstallSourceProofSettlesBAndPreservesTheOriginalExceptionObject()
+[xUnit.net 00:00:00.92]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/OcrOnlyTests.cs(317,0): at KuaiYi.Provider.Tests.OcrOnlyTests.ThrowingPostInstallSourceProofSettlesBAndPreservesTheOriginalExceptionObject()
+[xUnit.net 00:00:00.92]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.92]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T06:41:00.8132338+00:00">
+        <Text>[xUnit.net 00:00:00.86]     KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(newerWhen: "none", cleanupThrows: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T06:41:00.8208687+00:00">
+        <Text>[xUnit.net 00:00:00.87]     KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(newerWhen: "none", cleanupThrows: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T06:41:00.8319489+00:00">
+        <Text>[xUnit.net 00:00:00.88]     KuaiYi.Provider.Tests.OcrOnlyTests.OcrAdmissionFailureSettlesOnlyInstalledBPreservesBothErrorsAndNeverStartsWork(newerWhen: "cleanup", cleanupThrows: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T06:41:00.8476595+00:00">
+        <Text>[xUnit.net 00:00:00.90]     KuaiYi.Provider.Tests.OcrOnlyTests.InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission(change: "mode") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T06:41:00.8604754+00:00">
+        <Text>[xUnit.net 00:00:00.91]     KuaiYi.Provider.Tests.OcrOnlyTests.InvalidatedOcrBeforeWorkerStartSettlesItsIdentityAndRestoresConnectionTestAdmission(change: "settings") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T06:41:00.8646074+00:00">
+        <Text>[xUnit.net 00:00:00.92]     KuaiYi.Provider.Tests.OcrOnlyTests.ThrowingPostInstallSourceProofSettlesBAndPreservesTheOriginalExceptionObject [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>
