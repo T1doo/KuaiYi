@@ -98,7 +98,12 @@ public sealed class OleReceiverTests
         var ready=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var delivered=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         var hello=Hello(id) with {ProductionTextDrop=true};
         var run=client.RunAsync(hello,e=>{if(e.Phase=="Ready")ready.TrySetResult();},(_,_,_,_)=>{delivered.TrySetResult();return Task.CompletedTask;});
-        try { await ready.Task.WaitAsync(TimeSpan.FromSeconds(4));Assert.True(await client.SetEnabledAsync(2,true,new(new(0,0,48,48),new(0,0,48,48),24),[]));await delivered.Task.WaitAsync(TimeSpan.FromSeconds(4)); }
+        try
+        {
+            await ready.Task.WaitAsync(TimeSpan.FromSeconds(4));Assert.True(await client.SetEnabledAsync(2,true,new(new(0,0,48,48),new(0,0,48,48),24),[]));await delivered.Task.WaitAsync(TimeSpan.FromSeconds(4));
+            // Stdout delivery is independent of the child's optional stderr writer. Require its real receipt before killing it.
+            await OleTargetReceipt.WaitAsync(client,OleTargetObservation.QueryWritten);
+        }
         finally { await Cleanup(client,starter,registrar,run); }
         Assert.Contains(OleTargetObservation.QueryWritten,client.TargetObservations);Assert.Contains(OleTargetObservation.QueryRead,client.TargetObservations);
         Assert.Contains(OleTargetObservation.QueryStaleEpoch,client.TargetObservations);Assert.Contains(OleTargetObservation.QueryAccepted,client.TargetObservations);

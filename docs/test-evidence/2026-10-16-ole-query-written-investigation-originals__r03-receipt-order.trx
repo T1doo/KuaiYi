@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="19d8de3e-5621-4421-824c-ee3929b1abc2" name="@2d50236122aa 2026-10-16 15:25:08" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-16T15:25:08.1542560+00:00" queuing="2026-10-16T15:25:08.1542560+00:00" start="2026-10-16T15:25:06.6587346+00:00" finish="2026-10-16T15:25:08.1604181+00:00" />
+  <TestSettings name="default" id="f6fdf7c0-d55f-4f18-8ad8-66fe3a40e738">
+    <Deployment runDeploymentRoot="_2d50236122aa_2026-10-16_15_25_08" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="2cea4ba9-ac20-45ea-a0ad-17dd8d04244d" testId="b2cc1fd7-bc24-bb02-b54d-1ca73438f660" testName="KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests.DeliveredStdoutThenOwnedTerminationCannotRecoverUnwrittenChildDiagnostics" computerName="2d50236122aa" duration="00:00:00.2743655" startTime="2026-10-16T15:25:07.5845525+00:00" endTime="2026-10-16T15:25:07.8693343+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2cea4ba9-ac20-45ea-a0ad-17dd8d04244d">
+      <Output>
+        <StdOut>before-kill ticks=14090571832909 pid=83277 exit=Running diagnostic=WaitingForActivation failure=None target=QueryRead,QueryStaleEpoch,QueryAccepted,DropRead,DropAccepted
+after-kill ticks=14090604712392 pid=83277 exit=ExitConfirmed diagnostic=RanToCompletion failure=None target=QueryRead,QueryStaleEpoch,QueryAccepted,DropRead,DropAccepted</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4ad1b7be-47ad-4e27-bdc6-3ba8127ce7aa" testId="09fd9fa3-0453-91c3-2873-4b363989f810" testName="KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests.HeldChildDiagnosticMustReachItsOwnReceiptBeforeOriginalCleanupAssertions" computerName="2d50236122aa" duration="00:00:00.1799639" startTime="2026-10-16T15:25:07.8826142+00:00" endTime="2026-10-16T15:25:08.0538717+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4ad1b7be-47ad-4e27-bdc6-3ba8127ce7aa">
+      <Output>
+        <StdOut>delivered-before-cleanup ticks=14090789243465 pid=83298 exit=Running diagnostic=WaitingForActivation failure=None target=QueryRead,QueryStaleEpoch,QueryAccepted,DropRead,DropAccepted
+actual-receipt-before-cleanup ticks=14090798034946 pid=83298 exit=Running diagnostic=WaitingForActivation failure=None target=QueryWritten,DropWritten,QueryRead,QueryStaleEpoch,QueryAccepted,DropRead,DropAccepted
+settled ticks=14090800480422 pid=83298 exit=ExitConfirmed diagnostic=RanToCompletion failure=None target=QueryWritten,DropWritten,QueryRead,QueryStaleEpoch,QueryAccepted,DropRead,DropAccepted</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests.DeliveredStdoutThenOwnedTerminationCannotRecoverUnwrittenChildDiagnostics" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b2cc1fd7-bc24-bb02-b54d-1ca73438f660">
+      <Execution id="2cea4ba9-ac20-45ea-a0ad-17dd8d04244d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests" name="DeliveredStdoutThenOwnedTerminationCannotRecoverUnwrittenChildDiagnostics" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests.HeldChildDiagnosticMustReachItsOwnReceiptBeforeOriginalCleanupAssertions" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="09fd9fa3-0453-91c3-2873-4b363989f810">
+      <Execution id="4ad1b7be-47ad-4e27-bdc6-3ba8127ce7aa" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests" name="HeldChildDiagnosticMustReachItsOwnReceiptBeforeOriginalCleanupAssertions" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="b2cc1fd7-bc24-bb02-b54d-1ca73438f660" executionId="2cea4ba9-ac20-45ea-a0ad-17dd8d04244d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="09fd9fa3-0453-91c3-2873-4b363989f810" executionId="4ad1b7be-47ad-4e27-bdc6-3ba8127ce7aa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.10]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.45]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.48]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.98]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

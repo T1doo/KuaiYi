@@ -1,0 +1,1764 @@
+{
+  "SourceParent": "9bf335c1a64c634fb2cfaa88caaef1721cbcdbb9",
+  "ParentTree": "563f5689ccf6e3d90107d786d4ce36e15ea5931c",
+  "Branch": "dev/ole-query-written-investigation",
+  "MainBaseline": "51d077481cf6303602fcf5d2718213da9cf05178",
+  "Scope": "Investigate historical r08 missing OLE QueryWritten; only proven regression-test cross-channel synchronization corrected. No production source or protocol/cancellation/termination changes.",
+  "Preflight": {
+    "Parent": "9bf335c1a64c634fb2cfaa88caaef1721cbcdbb9",
+    "ParentTree": "563f5689ccf6e3d90107d786d4ce36e15ea5931c",
+    "Branch": "dev/ole-query-written-investigation",
+    "InitialClean": true,
+    "Worktrees": "worktree /workspace/KuaiYi\nHEAD 9bf335c1a64c634fb2cfaa88caaef1721cbcdbb9\nbranch refs/heads/dev/ole-query-written-investigation\n\n",
+    "Remote": "9bf335c1a64c634fb2cfaa88caaef1721cbcdbb9\trefs/heads/dev/display-preferences-transfer\n51d077481cf6303602fcf5d2718213da9cf05178\trefs/heads/main\n",
+    "RootSoleWriter": true,
+    "ReviewAgent": "high_water_review read-only",
+    "ParentSource": {
+      "src/KuaiYi.OleTransfer/OleReceiverServer.cs": {
+        "Sha256": "09bbdd5a455119edc6cb6edd0704dab4a856b4b70e4f9ea3ce7f94f3c6608ea3",
+        "GitBlob": "5e174fd6661bb851d4e26c141e4fd047df4ddd52"
+      },
+      "src/KuaiYi.OleTransfer/OleReceiverClient.cs": {
+        "Sha256": "b6b20b0666af3137532d7577ba4915340b41001a86c354e7d2e67260474dd73f",
+        "GitBlob": "07f97436e17fffb13aaede7096536b716df0f3c6"
+      },
+      "src/KuaiYi.OleTransfer/OleTargetDiagnostics.cs": {
+        "Sha256": "7c3ecd0e0d3bf93ecf05fc2258471455c42f4cde6466ccb289bfc95fab51f59e",
+        "GitBlob": "fb202f16fad710795a444f94232bf807ea3ae308"
+      },
+      "src/KuaiYi.OleTransfer/OleStartupDiagnostics.cs": {
+        "Sha256": "8f7a9e008a8c4aac5746a049ec183c1f804e8940116af71e9ace36fccb042550",
+        "GitBlob": "332ba52f15c5f192a7ba3ebc2294b870150eca2d"
+      },
+      "src/KuaiYi.Core/OwnedProcessSession.cs": {
+        "Sha256": "124d109458ea487a50aa7fb8fa760cc31b80eaebfdce974f101e79db0ef7cf88",
+        "GitBlob": "a40251cb562aea3d453ce2309769d093e3cf6c7a"
+      },
+      "src/KuaiYi.Core/OwnedHostTermination.cs": {
+        "Sha256": "fe4284d719517c3d72118f429b98de9f520054621ab0175676fcc53d0990d2ac",
+        "GitBlob": "838d097138606f0ab264e5434518bac2820e481d"
+      },
+      "tests/KuaiYi.Core.Tests/OleReceiverTests.cs": {
+        "Sha256": "24312ea7f4a3d330845d4dacbe84aa940177d6f2ab2c574183c111906eacdb28",
+        "GitBlob": "7ff496ddbeb30f13a716f5d6f6daabdabe9cccdd"
+      },
+      "tools/KuaiYi.OleReceiverFixture/Program.cs": {
+        "Sha256": "1768c51c803003d638a01dbecb62071e7e74695e066a1357dde0fa33791c9abf",
+        "GitBlob": "f7f2c7cad6e040669ea13eaebc77d40de29a0af0"
+      },
+      "src/KuaiYi.OleReceiver/Program.cs": {
+        "Sha256": "57dac1d9625f7d4a39ec9d3ffc76fb06eba5bd043e2398ab82e0efd5f4a3dae6",
+        "GitBlob": "699585d5fc5fc1432892a0973d6f349556274a37"
+      }
+    },
+    "ActualInitialDlls": {
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll": "9c25dbe53110d0ae75f5391a4604c078948e5a04fa8d3496ac2fe5644d2ba3f2",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll": "378d53ccb4102b1512f34271aba12f2b8a8521e079aba2d5ac543d2792e1033e",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "0e12ea7f8b6e86f1471648f3501ee083fa0c4e3902c6a33ed9c7189e07e770ed",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "391a25abade173e75f573c254ec9a5fffd0ba5e6b2eb78d75e01f93aced4bad6",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "a04b34ba1df1ca4856fd2901e806ed0bb9d343e43ebc55751ebd6e3f51d3fc59",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "cb7e90dcb48f8defa942bcad0c182a1e51d928a00bc14a9ad8a10adcb71c4512",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.OleTransfer.dll": "81160df0d46f730d5b594a70458893cb799399a5037ea7ad8c4ac6503c0604d8",
+      "tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.Contracts.dll": "378d53ccb4102b1512f34271aba12f2b8a8521e079aba2d5ac543d2792e1033e",
+      "tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.Core.dll": "0e12ea7f8b6e86f1471648f3501ee083fa0c4e3902c6a33ed9c7189e07e770ed",
+      "tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll": "70266507e5906283c57db8afc965cef248583213c87cba3478d8183f76a6dfc1",
+      "tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleTransfer.dll": "81160df0d46f730d5b594a70458893cb799399a5037ea7ad8c4ac6503c0604d8"
+    },
+    "OldR08Dlls": "Original recorded digests retained; actual historical r08 binaries not available/reconstructed. Current parent/r13 actual outputs hashed separately."
+  },
+  "Conclusion": {
+    "ProvenTestDefect": "Delivered stdout did not synchronize optional child stderr. Legacy cleanup could kill owned child before QueryWritten bytes were written; normal EOF cannot recover unwritten metadata.",
+    "HistoricalR08ExactCause": "Unknown: initial20 baseline passes; old run lacks child queue/write and optional-exception timeline. Controlled mechanism reproduction is not proof of that particular schedule.",
+    "Fix": "Original target test waits max4seconds for actual parent parsed QueryWritten before original cleanup; all4 Contains unchanged; conditional5ms polling + fail on EOF, no fixed sleep success.",
+    "ProductionSourceChanged": false,
+    "DiagnosticReceiptMeaning": "Only actual parsed stderr whitelist; never inferred from QueryRead/Accepted.",
+    "R02R03Label": "Same names/original assertions, test synchronization body changed. Not same test-source-byte redgreen; not a production-code repair."
+  },
+  "ExecutionRecords": {
+    "r00": "Exact oldr08/r13 logs/TRX/bindings retained;9parent source Gitblob/SHA and actual initial parent/child DLL mapping",
+    "r01": "Original target on last-verified r13 outputs (not historical r08 binaries):20 bounded no-build/no-restore attempts20P/0F, no natural reproduction. r00 initial actual parent/child paths/digests; no per-run post-DLL hashes captured.",
+    "r02": "2executed1P1F with real owned child and fixture-only pre-first-byte stderr gate. Legacy cleanup assertion fails with same missing-record collection as oldr08; negative control normal EOF still no receipt.",
+    "r03": "2P/0F: explicitly release existing epoch+2 disabled control and wait actual parent receipt before original assertions/cleanup. Same production+fixture DLLs asr02; only Core.Tests.dll changed.",
+    "r04": "DLL comparison/current generated9bf AssemblyInfo/SourceLink captured. Initial output SHA differs from rebuilt; no historical binary reconstruction or assertion differences only metadata.",
+    "r05r08r10": "Core/Provider/App locked restores, no dependency/lock/project changes",
+    "r06": "52focusedP/0F/0skip",
+    "r07": "Core1556P/0F/0skip=parent1554 full name multiset retained+2new investigation cases",
+    "r09": "Provider2157P/0F/0skip=parent full name multiset unchanged",
+    "r11r12": "App/WorkerReleasecrossbuild each0W/E",
+    "r13": "Fixed original target20 bounded repetitions20P/0F, not historical-root-cause closure"
+  },
+  "CounterByRun": {
+    "r00-preserved-r08-core-full": {
+      "total": "1554",
+      "executed": "1554",
+      "passed": "1553",
+      "failed": "1",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r00-preserved-r13-core-full-final": {
+      "total": "1554",
+      "executed": "1554",
+      "passed": "1554",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r01-baseline-01": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r01-baseline-02": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r01-baseline-03": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r01-baseline-04": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r01-baseline-05": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r01-baseline-06": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r01-baseline-07": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r01-baseline-08": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r01-baseline-09": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r01-baseline-10": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r01-baseline-11": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r01-baseline-12": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r01-baseline-13": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r01-baseline-14": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r01-baseline-15": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r01-baseline-16": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r01-baseline-17": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r01-baseline-18": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r01-baseline-19": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r01-baseline-20": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r02-held-old-order": {
+      "total": "2",
+      "executed": "2",
+      "passed": "1",
+      "failed": "1",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r03-receipt-order": {
+      "total": "2",
+      "executed": "2",
+      "passed": "2",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r06-focused-final": {
+      "total": "52",
+      "executed": "52",
+      "passed": "52",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r07-core-full": {
+      "total": "1556",
+      "executed": "1556",
+      "passed": "1556",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r09-provider-full": {
+      "total": "2157",
+      "executed": "2157",
+      "passed": "2157",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r13-fixed-repetition-01": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r13-fixed-repetition-02": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r13-fixed-repetition-03": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r13-fixed-repetition-04": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r13-fixed-repetition-05": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r13-fixed-repetition-06": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r13-fixed-repetition-07": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r13-fixed-repetition-08": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r13-fixed-repetition-09": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r13-fixed-repetition-10": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r13-fixed-repetition-11": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r13-fixed-repetition-12": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r13-fixed-repetition-13": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r13-fixed-repetition-14": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r13-fixed-repetition-15": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r13-fixed-repetition-16": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r13-fixed-repetition-17": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r13-fixed-repetition-18": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r13-fixed-repetition-19": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r13-fixed-repetition-20": {
+      "total": "1",
+      "executed": "1",
+      "passed": "1",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    }
+  },
+  "TestContinuity": {
+    "R02R03SameNames": [
+      "KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests.HeldChildDiagnosticMustReachItsOwnReceiptBeforeOriginalCleanupAssertions",
+      "KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests.DeliveredStdoutThenOwnedTerminationCannotRecoverUnwrittenChildDiagnostics"
+    ],
+    "OriginalFourContainsStatementsByteIdentical": true,
+    "OriginalContainsStatements": [
+      "        Assert.Contains(OleTargetObservation.QueryWritten,client.TargetObservations);Assert.Contains(OleTargetObservation.QueryRead,client.TargetObservations);",
+      "        Assert.Contains(OleTargetObservation.QueryStaleEpoch,client.TargetObservations);Assert.Contains(OleTargetObservation.QueryAccepted,client.TargetObservations);"
+    ],
+    "CoreParentCount": 1554,
+    "CoreFinalCount": 1556,
+    "CoreParentMultisetRetained": true,
+    "CoreNewNames": [
+      "KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests.HeldChildDiagnosticMustReachItsOwnReceiptBeforeOriginalCleanupAssertions",
+      "KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests.DeliveredStdoutThenOwnedTerminationCannotRecoverUnwrittenChildDiagnostics"
+    ],
+    "ProviderParentFinalSameMultiset": true,
+    "ProviderCount": 2157,
+    "ControlledRedFailures": [
+      {
+        "Name": "KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests.HeldChildDiagnosticMustReachItsOwnReceiptBeforeOriginalCleanupAssertions",
+        "Message": "Assert.Contains() Failure: Item not found in collection\nCollection: [QueryRead, QueryStaleEpoch, QueryAccepted, DropRead, DropAccepted]\nNot found:  QueryWritten",
+        "Output": "delivered-before-cleanup ticks=14048965975653 pid=83077 exit=Running diagnostic=WaitingForActivation failure=None target=QueryRead,QueryStaleEpoch,QueryAccepted,DropRead,DropAccepted\nsettled ticks=14048978116778 pid=83077 exit=ExitConfirmed diagnostic=RanToCompletion failure=None target=QueryRead,QueryStaleEpoch,QueryAccepted,DropRead,DropAccepted"
+      }
+    ]
+  },
+  "DllMapping": {
+    "InitialEqualsPriorR13AtComparedActualPaths": {
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll": "9c25dbe53110d0ae75f5391a4604c078948e5a04fa8d3496ac2fe5644d2ba3f2",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll": "378d53ccb4102b1512f34271aba12f2b8a8521e079aba2d5ac543d2792e1033e",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "0e12ea7f8b6e86f1471648f3501ee083fa0c4e3902c6a33ed9c7189e07e770ed",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "391a25abade173e75f573c254ec9a5fffd0ba5e6b2eb78d75e01f93aced4bad6",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "a04b34ba1df1ca4856fd2901e806ed0bb9d343e43ebc55751ebd6e3f51d3fc59",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "cb7e90dcb48f8defa942bcad0c182a1e51d928a00bc14a9ad8a10adcb71c4512",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.OleTransfer.dll": "81160df0d46f730d5b594a70458893cb799399a5037ea7ad8c4ac6503c0604d8"
+    },
+    "R02R03ProductionFixtureDllsExactEqual": true,
+    "R02R03OnlyDifferentAssembly": "KuaiYi.Core.Tests.dll",
+    "ParentChildContractsCoreOleDllsMatch": true,
+    "FinalSources": {
+      "tests/KuaiYi.Core.Tests/OleQueryWrittenInvestigationTests.cs": "3c54ab2f1aa660c1e139998bda2b4354fe072399b8c3d4ca2641755251074f34",
+      "tests/KuaiYi.Core.Tests/OleReceiverTests.cs": "441057d0a3d9ffa00e63f2dbe9cf0e2aff969b35b166a0508491f2e12ca7f149",
+      "tools/KuaiYi.OleReceiverFixture/Program.cs": "9f6259c1fdd83270f1df4f6bc0bbe3b6a51d6ac98a78e783d587649b2bee22ed"
+    },
+    "DetailedOriginals": [
+      "2026-10-16-ole-query-written-investigation-originals__r00-preflight-source-dll.json",
+      "2026-10-16-ole-query-written-investigation-originals__r02-held-old-order-binding.json",
+      "2026-10-16-ole-query-written-investigation-originals__r03-receipt-order-binding.json",
+      "2026-10-16-ole-query-written-investigation-originals__r04-dll-mapping.json",
+      "2026-10-16-ole-query-written-investigation-originals__r07-core-full-binding.json",
+      "2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetitions.json"
+    ],
+    "Caveat": "Initial and rebuilt DLL digests differ despite unchanged production source; use actual per-run paths/digests. Current generated metadata stamps9bf; historicr08 DLLs not reconstructed. Source/Binary equivalence not asserted solely from HEAD."
+  },
+  "Preservation": {
+    "ParentTrackedFiles": 3066,
+    "IntentionalChangedParentPaths": [
+      ".gitattributes",
+      "docs/e06-target-diagnostics.md",
+      "docs/progress.md",
+      "docs/traceability.json",
+      "tests/KuaiYi.Core.Tests/OleReceiverTests.cs",
+      "tools/KuaiYi.OleReceiverFixture/Program.cs"
+    ],
+    "AllOtherParentFilesByteEqual": 3060,
+    "AllProductionSourceFilesByteEqual": 242,
+    "AllProjectFilesByteEqual": 30,
+    "OldEvidenceFilesByteEqual": 2223,
+    "OldRawOriginalFilesByteEqual": 627,
+    "Locks": 43,
+    "Workflows": 8,
+    "PromptTemplates": 8,
+    "DetailedIntegrity": "2026-10-16-ole-query-written-investigation-originals__r14-parent-integrity.json"
+  },
+  "IndependentReview": {
+    "Agent": "high_water_review",
+    "Mode": "read-only; root sole writer",
+    "CodeTests": "Passed: proven test synchronization, controlled legacy order failure vs actual receipt, original assertions retained, no P1/P2; historical uncertainty and initial/rebuilt DLL distinctions preserved.",
+    "FinalSealedEvidence": "Passed:141 raw ignored/working/index exact bytes+size+SHA and cached -text;150 staged paths exact;3060 other parent files exact;242 production source/30 projects/43 locks/8 workflows/8 prompts/2223 old evidence/627 raw exact. No remaining P1/P2. Full diff-check exit2 only three preserved generated raw AssemblyInfo EOF blank lines;9 nonraw paths check0. No raw normalization or whitespace override."
+  },
+  "OriginalFiles": {
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r00-parent-source__src__KuaiYi.Core__OwnedHostTermination.cs.txt": {
+      "Original": "artifacts/ole-query-written-investigation/r00-parent-source__src__KuaiYi.Core__OwnedHostTermination.cs.txt",
+      "Sha256": "fe4284d719517c3d72118f429b98de9f520054621ab0175676fcc53d0990d2ac",
+      "Bytes": 2781
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r00-parent-source__src__KuaiYi.Core__OwnedProcessSession.cs.txt": {
+      "Original": "artifacts/ole-query-written-investigation/r00-parent-source__src__KuaiYi.Core__OwnedProcessSession.cs.txt",
+      "Sha256": "124d109458ea487a50aa7fb8fa760cc31b80eaebfdce974f101e79db0ef7cf88",
+      "Bytes": 5321
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r00-parent-source__src__KuaiYi.OleReceiver__Program.cs.txt": {
+      "Original": "artifacts/ole-query-written-investigation/r00-parent-source__src__KuaiYi.OleReceiver__Program.cs.txt",
+      "Sha256": "57dac1d9625f7d4a39ec9d3ffc76fb06eba5bd043e2398ab82e0efd5f4a3dae6",
+      "Bytes": 1764
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r00-parent-source__src__KuaiYi.OleTransfer__OleReceiverClient.cs.txt": {
+      "Original": "artifacts/ole-query-written-investigation/r00-parent-source__src__KuaiYi.OleTransfer__OleReceiverClient.cs.txt",
+      "Sha256": "b6b20b0666af3137532d7577ba4915340b41001a86c354e7d2e67260474dd73f",
+      "Bytes": 23458
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r00-parent-source__src__KuaiYi.OleTransfer__OleReceiverServer.cs.txt": {
+      "Original": "artifacts/ole-query-written-investigation/r00-parent-source__src__KuaiYi.OleTransfer__OleReceiverServer.cs.txt",
+      "Sha256": "09bbdd5a455119edc6cb6edd0704dab4a856b4b70e4f9ea3ce7f94f3c6608ea3",
+      "Bytes": 5093
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r00-parent-source__src__KuaiYi.OleTransfer__OleStartupDiagnostics.cs.txt": {
+      "Original": "artifacts/ole-query-written-investigation/r00-parent-source__src__KuaiYi.OleTransfer__OleStartupDiagnostics.cs.txt",
+      "Sha256": "8f7a9e008a8c4aac5746a049ec183c1f804e8940116af71e9ace36fccb042550",
+      "Bytes": 6531
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r00-parent-source__src__KuaiYi.OleTransfer__OleTargetDiagnostics.cs.txt": {
+      "Original": "artifacts/ole-query-written-investigation/r00-parent-source__src__KuaiYi.OleTransfer__OleTargetDiagnostics.cs.txt",
+      "Sha256": "7c3ecd0e0d3bf93ecf05fc2258471455c42f4cde6466ccb289bfc95fab51f59e",
+      "Bytes": 3547
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r00-parent-source__tests__KuaiYi.Core.Tests__OleReceiverTests.cs.txt": {
+      "Original": "artifacts/ole-query-written-investigation/r00-parent-source__tests__KuaiYi.Core.Tests__OleReceiverTests.cs.txt",
+      "Sha256": "24312ea7f4a3d330845d4dacbe84aa940177d6f2ab2c574183c111906eacdb28",
+      "Bytes": 28951
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r00-parent-source__tools__KuaiYi.OleReceiverFixture__Program.cs.txt": {
+      "Original": "artifacts/ole-query-written-investigation/r00-parent-source__tools__KuaiYi.OleReceiverFixture__Program.cs.txt",
+      "Sha256": "1768c51c803003d638a01dbecb62071e7e74695e066a1357dde0fa33791c9abf",
+      "Bytes": 6891
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r00-preflight-source-dll.json": {
+      "Original": "artifacts/ole-query-written-investigation/r00-preflight-source-dll.json",
+      "Sha256": "13632c583a1f25c1c33cbb1dd200f3baeb4a9f4315050584507186135486dcfd",
+      "Bytes": 4215
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r00-preserved-r08-core-full-binding.json": {
+      "Original": "artifacts/ole-query-written-investigation/r00-preserved-r08-core-full-binding.json",
+      "Sha256": "cf51d1f42104d8ef2e60e3958e00c9aeb4a16123cae82c7c515548fd78a0f494",
+      "Bytes": 3114
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r00-preserved-r08-core-full.log": {
+      "Original": "artifacts/ole-query-written-investigation/r00-preserved-r08-core-full.log",
+      "Sha256": "41d7e0037f42661f9e3b7c2c4073035764cd79f89fbc352129035e0c80ca64fc",
+      "Bytes": 2764
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r00-preserved-r08-core-full.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r00-preserved-r08-core-full.trx",
+      "Sha256": "5cf364c66ee6ee515ce2a2e15536e42f5befe26e5e513300da9bbd8a3ff8edd2",
+      "Bytes": 2158226
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r00-preserved-r13-core-full-final-binding.json": {
+      "Original": "artifacts/ole-query-written-investigation/r00-preserved-r13-core-full-final-binding.json",
+      "Sha256": "798ec15e587d7d7bf8408a5c72b1d7ab97cf04bb35aaba5b3886249ca3e53380",
+      "Bytes": 3409
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r00-preserved-r13-core-full-final.log": {
+      "Original": "artifacts/ole-query-written-investigation/r00-preserved-r13-core-full-final.log",
+      "Sha256": "522491ef26c759a9c1aab55a3185cf3412ce9ca28f5d20a9d648dcee5510c846",
+      "Bytes": 2078
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r00-preserved-r13-core-full-final.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r00-preserved-r13-core-full-final.trx",
+      "Sha256": "e908330385a953b107e5c08a97d25e0dc2da6a3764736cb896e826a45d9a592b",
+      "Bytes": 2156778
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-01.log": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-01.log",
+      "Sha256": "090002d4620c8007d325a0d798f17f749f1d1c0489b50ffb6b0e548b37eabe0b",
+      "Bytes": 397
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-01.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-01.trx",
+      "Sha256": "2500c86a1ff9e98eb3822963b436ce5ca3c418dba6950624c325558db777b618",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-02.log": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-02.log",
+      "Sha256": "4b7c6dbddb25b7c11fadbef47a9efa5ad0dc66cb4194f14147b4e3e4d3fbecf9",
+      "Bytes": 397
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-02.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-02.trx",
+      "Sha256": "7990c2c7396af64ab2eef99f700961b0d68d0a45505e6a84870b44fecfb8f311",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-03.log": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-03.log",
+      "Sha256": "852ee6dc72781747311518da849ec7274b517320a091e598c0ea847cc17a8a4a",
+      "Bytes": 397
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-03.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-03.trx",
+      "Sha256": "d6f6c01646ffd68d3fc63af27206a93229bd549c47e85ea97fdddb4732880748",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-04.log": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-04.log",
+      "Sha256": "9fab101417c03ca1097ef271a33af06ca5e9b635316eec17081096ba4910b907",
+      "Bytes": 397
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-04.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-04.trx",
+      "Sha256": "3400031dc0792569401f916463291ff0483396f7d6399178f9b37f51e1e0b0f0",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-05.log": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-05.log",
+      "Sha256": "db755d625499d9af2dcbf21400ef29e8b58b54ee991d927319c5078356aeee4f",
+      "Bytes": 397
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-05.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-05.trx",
+      "Sha256": "d1d5fb5a4e0047509703d41e161bd79bda989d29d379bade0368ccf0695bb452",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-06.log": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-06.log",
+      "Sha256": "fdc17aa8c2081d02223f1135f2add10708aa69fef1a85af4f0930e9b7aa0bcea",
+      "Bytes": 397
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-06.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-06.trx",
+      "Sha256": "13f3ba509e47878361c6c111188eac1382eb9aca086ac8134b2fdf7ee3d31d99",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-07.log": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-07.log",
+      "Sha256": "b9f4b6ad0895ac034d8c7b118f6600b81544c757f155f5dc1cac4ae9177d6eee",
+      "Bytes": 397
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-07.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-07.trx",
+      "Sha256": "5b7763a37eee49895d87c22b9ac7d3fb6f24709c33eb6adf31ccfed8617153fd",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-08.log": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-08.log",
+      "Sha256": "b0154fe934006d6dfea34d6a9d6589d3537835531f1bd43e9cbdd0400a731a4f",
+      "Bytes": 397
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-08.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-08.trx",
+      "Sha256": "69642a2ba3d43d62d37775f6ddd97e7fc274f766d13e2a00d3838cef1692fb31",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-09.log": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-09.log",
+      "Sha256": "3a6fb353c3bdded6ff1169286766ed0dd3e8e394ff15ccbf9769c2eb6fc68cc6",
+      "Bytes": 397
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-09.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-09.trx",
+      "Sha256": "9e6c5c905716d36d0ac17218a967ee2e7e1507725af2dbc1d3a40792deb598aa",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-10.log": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-10.log",
+      "Sha256": "a2f51ec62ecf67276355e7a1e0ddb4c96a05b85644e347cfd9e18c628b6139d3",
+      "Bytes": 397
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-10.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-10.trx",
+      "Sha256": "0852813a415d08715dcf9847c0e3fe04b036fd27ebe8244a0981b17fc9d6e7f8",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-11.log": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-11.log",
+      "Sha256": "f93d2755dcbb5d1547a0704dc41e9a833e6b61a3b9d724f1ab1c07745be298d4",
+      "Bytes": 397
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-11.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-11.trx",
+      "Sha256": "4a402f8a1e597e7664282001b1432789f8907288c79f6e9af9ae5907bd92fe03",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-12.log": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-12.log",
+      "Sha256": "a609674dea1f8f849d55d630fb7303f8ae5563a70be01f93a7b86f78f62582c2",
+      "Bytes": 397
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-12.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-12.trx",
+      "Sha256": "d2b5ef5502ab401b9831eaeb2437980a4513be54dcc3a469e5b217d4aef152e6",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-13.log": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-13.log",
+      "Sha256": "2b105e31bae55645c621af837491538d639cfab868f5a34b24c75562aed0cbff",
+      "Bytes": 397
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-13.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-13.trx",
+      "Sha256": "2055289691069191d635d79dbce3aef943f88f4adf4e12e679f53de3406cb8b8",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-14.log": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-14.log",
+      "Sha256": "49ee3de03e5d53574e404fae4b67f4e32a29a7932309dae970acc346ea2aa066",
+      "Bytes": 397
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-14.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-14.trx",
+      "Sha256": "edd36ac549e21a2ab61506037fca2c5b5194ad77cddea37bb354b874eb87f652",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-15.log": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-15.log",
+      "Sha256": "b102ab6de5d4517f2f3e69cbe733f494b5ed237aa8803456a67f877ad00c8553",
+      "Bytes": 397
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-15.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-15.trx",
+      "Sha256": "afccc49a37d7a6dfc448b55f675260da8e188603f3ca1c0d245c9d6304ee7cd5",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-16.log": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-16.log",
+      "Sha256": "789a64fedc0a76a4e482df28ece9e584bb0a680a951b7d962c820f9375dc4e3c",
+      "Bytes": 397
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-16.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-16.trx",
+      "Sha256": "4a3d34d39288fe5d49be576dc5436d70eb280fec325fbdd92d867b1d74c234fc",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-17.log": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-17.log",
+      "Sha256": "97fd8132dfd024dbe6513317d3ce4c7a5adf40f0d5111035ac620258465e6b76",
+      "Bytes": 397
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-17.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-17.trx",
+      "Sha256": "582b4d6189669cb081c2ea72ad47b554238aab60eaa99d01f509bf2e0dc67ef6",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-18.log": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-18.log",
+      "Sha256": "2b0edd8ab513d802646c3ccac50773cbc2b071dbd1a19d08f8f543f6270312cf",
+      "Bytes": 397
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-18.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-18.trx",
+      "Sha256": "67ebb87d84910f94128f904b6249995b9708ad58f55defd48e72a68968d2eb5c",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-19.log": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-19.log",
+      "Sha256": "1e8fa1e3f990d2edae962aebb620a5725e3cafdec8ba6724ccb982be784a4773",
+      "Bytes": 397
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-19.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-19.trx",
+      "Sha256": "b782d31bbebb48c662ba3734e1c9f19527046f5cac2f9a3fca82019269b6e7ec",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-20.log": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-20.log",
+      "Sha256": "167f757070b35668369efba60d95ce666cc94a1edef5d670f400e838d559f799",
+      "Bytes": 397
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-20.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-20.trx",
+      "Sha256": "aafd8f7c615436c4f10ff5575cdcf6a5839c06304c15972f15249d5336936a50",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r01-baseline-runs.json": {
+      "Original": "artifacts/ole-query-written-investigation/r01-baseline-runs.json",
+      "Sha256": "f049d9bdeab8c6548a1b85a094c0d34b18b9953a9d232e1c59a557b1b960f902",
+      "Bytes": 17016
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r02-held-old-order-binding.json": {
+      "Original": "artifacts/ole-query-written-investigation/r02-held-old-order-binding.json",
+      "Sha256": "1d818c72a869ef8f97e7e6a88583178ffa5cde8ac3272587e112bd89de74e7ee",
+      "Bytes": 2333
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r02-held-old-order.log": {
+      "Original": "artifacts/ole-query-written-investigation/r02-held-old-order.log",
+      "Sha256": "989fc5e3cc8553a9842d65adec21d4f08ea28c075dc0152a44c2aa2afd9b567e",
+      "Bytes": 3238
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r02-held-old-order.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r02-held-old-order.trx",
+      "Sha256": "17ed67b0220622aa4d76d20d409706d3721887bb812c2e10869d26920a7597e1",
+      "Bytes": 7167
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r02-held-old-order__tests__KuaiYi.Core.Tests__OleQueryWrittenInvestigationTests.cs.txt": {
+      "Original": "artifacts/ole-query-written-investigation/r02-held-old-order__tests__KuaiYi.Core.Tests__OleQueryWrittenInvestigationTests.cs.txt",
+      "Sha256": "c46620474a49ae12aaf73e599f24e8951064b419dd8356dcb8280e843d5e12a6",
+      "Bytes": 5918
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r02-held-old-order__tests__KuaiYi.Core.Tests__OleReceiverTests.cs.txt": {
+      "Original": "artifacts/ole-query-written-investigation/r02-held-old-order__tests__KuaiYi.Core.Tests__OleReceiverTests.cs.txt",
+      "Sha256": "24312ea7f4a3d330845d4dacbe84aa940177d6f2ab2c574183c111906eacdb28",
+      "Bytes": 28951
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r02-held-old-order__tools__KuaiYi.OleReceiverFixture__Program.cs.txt": {
+      "Original": "artifacts/ole-query-written-investigation/r02-held-old-order__tools__KuaiYi.OleReceiverFixture__Program.cs.txt",
+      "Sha256": "9f6259c1fdd83270f1df4f6bc0bbe3b6a51d6ac98a78e783d587649b2bee22ed",
+      "Bytes": 9166
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r03-receipt-order-binding.json": {
+      "Original": "artifacts/ole-query-written-investigation/r03-receipt-order-binding.json",
+      "Sha256": "f984ba094ad18ae5ec6d47681b6fe62cfeb2af653c832733c47356eb94ca7639",
+      "Bytes": 2332
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r03-receipt-order.log": {
+      "Original": "artifacts/ole-query-written-investigation/r03-receipt-order.log",
+      "Sha256": "3e51ea5f83aec6a70679a5977771574b42d263c06d682d7b7b86008fd40fced8",
+      "Bytes": 2081
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r03-receipt-order.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r03-receipt-order.trx",
+      "Sha256": "e802fe5ee0e2b8836ea1a0ab63caa988ab27b04314799f382191fc50e5a40f3a",
+      "Bytes": 5458
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r03-receipt-order__tests__KuaiYi.Core.Tests__OleQueryWrittenInvestigationTests.cs.txt": {
+      "Original": "artifacts/ole-query-written-investigation/r03-receipt-order__tests__KuaiYi.Core.Tests__OleQueryWrittenInvestigationTests.cs.txt",
+      "Sha256": "ebda9e5f67263d901c1353c55bea695f7bb1af7b392b05b4ae45a24c09c867ae",
+      "Bytes": 6757
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r03-receipt-order__tests__KuaiYi.Core.Tests__OleReceiverTests.cs.txt": {
+      "Original": "artifacts/ole-query-written-investigation/r03-receipt-order__tests__KuaiYi.Core.Tests__OleReceiverTests.cs.txt",
+      "Sha256": "441057d0a3d9ffa00e63f2dbe9cf0e2aff969b35b166a0508491f2e12ca7f149",
+      "Bytes": 29196
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r03-receipt-order__tools__KuaiYi.OleReceiverFixture__Program.cs.txt": {
+      "Original": "artifacts/ole-query-written-investigation/r03-receipt-order__tools__KuaiYi.OleReceiverFixture__Program.cs.txt",
+      "Sha256": "9f6259c1fdd83270f1df4f6bc0bbe3b6a51d6ac98a78e783d587649b2bee22ed",
+      "Bytes": 9166
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r04-dll-mapping.json": {
+      "Original": "artifacts/ole-query-written-investigation/r04-dll-mapping.json",
+      "Sha256": "54bde2c05daed218ee38449869deb4d95e9015aa4212d6e5f9e6bde56f4c42db",
+      "Bytes": 8738
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r04-generated__KuaiYi.Contracts.AssemblyInfo.cs.txt": {
+      "Original": "artifacts/ole-query-written-investigation/r04-generated__KuaiYi.Contracts.AssemblyInfo.cs.txt",
+      "Sha256": "c5fffd9603bf7e77ddf1c453df18cc791a54f8a3d6dabb0ee7976b5277de2e51",
+      "Bytes": 1002
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r04-generated__KuaiYi.Contracts.sourcelink.json.txt": {
+      "Original": "artifacts/ole-query-written-investigation/r04-generated__KuaiYi.Contracts.sourcelink.json.txt",
+      "Sha256": "b2563de9afbbd70ef646a038e4ff4835c8d713805ba04c1883d669e92419a8db",
+      "Bytes": 129
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r04-generated__KuaiYi.Core.AssemblyInfo.cs.txt": {
+      "Original": "artifacts/ole-query-written-investigation/r04-generated__KuaiYi.Core.AssemblyInfo.cs.txt",
+      "Sha256": "1f9ff15fa757ef39c9c9b83ca31e6a4b9e8725c47e59a72a3c86dffd94b691ea",
+      "Bytes": 987
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r04-generated__KuaiYi.Core.sourcelink.json.txt": {
+      "Original": "artifacts/ole-query-written-investigation/r04-generated__KuaiYi.Core.sourcelink.json.txt",
+      "Sha256": "b2563de9afbbd70ef646a038e4ff4835c8d713805ba04c1883d669e92419a8db",
+      "Bytes": 129
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r04-generated__KuaiYi.OleTransfer.AssemblyInfo.cs.txt": {
+      "Original": "artifacts/ole-query-written-investigation/r04-generated__KuaiYi.OleTransfer.AssemblyInfo.cs.txt",
+      "Sha256": "9066bdfd4d04c3b76037cfb0e8db5e6771edd80ff69035f5a7604f768c732314",
+      "Bytes": 1008
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r04-generated__KuaiYi.OleTransfer.sourcelink.json.txt": {
+      "Original": "artifacts/ole-query-written-investigation/r04-generated__KuaiYi.OleTransfer.sourcelink.json.txt",
+      "Sha256": "b2563de9afbbd70ef646a038e4ff4835c8d713805ba04c1883d669e92419a8db",
+      "Bytes": 129
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r05-core-restore-binding.json": {
+      "Original": "artifacts/ole-query-written-investigation/r05-core-restore-binding.json",
+      "Sha256": "657e28e38ef6f8f11520152e00bccc30299bc51ff21022abd47b05378e00b4ab",
+      "Bytes": 2166
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r05-core-restore.log": {
+      "Original": "artifacts/ole-query-written-investigation/r05-core-restore.log",
+      "Sha256": "40d104602671164ab3958225da3e1c8cabd55f0251d6df6bc911d9d5a24f44ce",
+      "Bytes": 80
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r05-final-source__tests__KuaiYi.Core.Tests__OleQueryWrittenInvestigationTests.cs.txt": {
+      "Original": "artifacts/ole-query-written-investigation/r05-final-source__tests__KuaiYi.Core.Tests__OleQueryWrittenInvestigationTests.cs.txt",
+      "Sha256": "3c54ab2f1aa660c1e139998bda2b4354fe072399b8c3d4ca2641755251074f34",
+      "Bytes": 6894
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r05-final-source__tests__KuaiYi.Core.Tests__OleReceiverTests.cs.txt": {
+      "Original": "artifacts/ole-query-written-investigation/r05-final-source__tests__KuaiYi.Core.Tests__OleReceiverTests.cs.txt",
+      "Sha256": "441057d0a3d9ffa00e63f2dbe9cf0e2aff969b35b166a0508491f2e12ca7f149",
+      "Bytes": 29196
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r05-final-source__tools__KuaiYi.OleReceiverFixture__Program.cs.txt": {
+      "Original": "artifacts/ole-query-written-investigation/r05-final-source__tools__KuaiYi.OleReceiverFixture__Program.cs.txt",
+      "Sha256": "9f6259c1fdd83270f1df4f6bc0bbe3b6a51d6ac98a78e783d587649b2bee22ed",
+      "Bytes": 9166
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r06-focused-final-binding.json": {
+      "Original": "artifacts/ole-query-written-investigation/r06-focused-final-binding.json",
+      "Sha256": "ee1a843a013c0198e11a112b808543ccc04d11b050f99f5d8cf7f51f0e890d57",
+      "Bytes": 2466
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r06-focused-final.log": {
+      "Original": "artifacts/ole-query-written-investigation/r06-focused-final.log",
+      "Sha256": "21bccfb97eea030fa52dd090a8b993e1415909d118f2d4c91dddf0db4bd90bc1",
+      "Bytes": 2079
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r06-focused-final.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r06-focused-final.trx",
+      "Sha256": "976d92bbcee3ec53d1affd59bb7b5a54d2903eec6129aed655c640b5062d167f",
+      "Bytes": 73763
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r07-core-full-binding.json": {
+      "Original": "artifacts/ole-query-written-investigation/r07-core-full-binding.json",
+      "Sha256": "e0f54fb996d91508d36cd5c1bf766403b1df0eadcadf72c2900b068b0654607b",
+      "Bytes": 2269
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r07-core-full.log": {
+      "Original": "artifacts/ole-query-written-investigation/r07-core-full.log",
+      "Sha256": "5bb1a5ea1e4e7381a1f268980094497ea41e62da898a7ad16b1f98c48332ae86",
+      "Bytes": 2075
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r07-core-full.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r07-core-full.trx",
+      "Sha256": "3fe5326fe981719f86117122b301839276f15ac49feb08a7ef734bc6d19522fa",
+      "Bytes": 2160711
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r08-provider-restore-binding.json": {
+      "Original": "artifacts/ole-query-written-investigation/r08-provider-restore-binding.json",
+      "Sha256": "c6e334d02181bb517d38fc8468a6b798b97d3fc1b9dcd4e3453e32b7e610d997",
+      "Bytes": 2174
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r08-provider-restore.log": {
+      "Original": "artifacts/ole-query-written-investigation/r08-provider-restore.log",
+      "Sha256": "40d104602671164ab3958225da3e1c8cabd55f0251d6df6bc911d9d5a24f44ce",
+      "Bytes": 80
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r09-provider-full-binding.json": {
+      "Original": "artifacts/ole-query-written-investigation/r09-provider-full-binding.json",
+      "Sha256": "11c0186c634da6a0c851f1eb255745c4b0e17825f5776b352e08701e27f90b97",
+      "Bytes": 3292
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r09-provider-full.log": {
+      "Original": "artifacts/ole-query-written-investigation/r09-provider-full.log",
+      "Sha256": "e3cac68b6b6763bad33a19a06151075eb31046b741245a0697dcf7e3ea88c790",
+      "Bytes": 1144
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r09-provider-full.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r09-provider-full.trx",
+      "Sha256": "832bc031c254a1a8ad7129b0423df77d377588feeb0327b15e5d633a8611fd1c",
+      "Bytes": 3181158
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r10-app-restore-binding.json": {
+      "Original": "artifacts/ole-query-written-investigation/r10-app-restore-binding.json",
+      "Sha256": "7ac749501bf8b553cf85f43043715165f7ab217e5eade3623eed483f3ae422d8",
+      "Bytes": 2150
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r10-app-restore.log": {
+      "Original": "artifacts/ole-query-written-investigation/r10-app-restore.log",
+      "Sha256": "40d104602671164ab3958225da3e1c8cabd55f0251d6df6bc911d9d5a24f44ce",
+      "Bytes": 80
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r11-app-build-binding.json": {
+      "Original": "artifacts/ole-query-written-investigation/r11-app-build-binding.json",
+      "Sha256": "4f68a10b36ace49fb19671abdb085cae0631e5e9c6379bd613013ba9bdf43364",
+      "Bytes": 3322
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r11-app-build.log": {
+      "Original": "artifacts/ole-query-written-investigation/r11-app-build.log",
+      "Sha256": "0519c18324829554e4b4ef52fba1e35a24721f4f0645268877869a938f3efe08",
+      "Bytes": 888
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r12-worker-build-binding.json": {
+      "Original": "artifacts/ole-query-written-investigation/r12-worker-build-binding.json",
+      "Sha256": "834f147909d6ca7715616ba9599df137400f941916c0b3de3aa026a09034cfb5",
+      "Bytes": 2757
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r12-worker-build.log": {
+      "Original": "artifacts/ole-query-written-investigation/r12-worker-build.log",
+      "Sha256": "d4aba6c0f96833d1f6570ee5bd4e354f41a1927b0a28ecd27920f9cb77bff533",
+      "Bytes": 477
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-01.log": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-01.log",
+      "Sha256": "26375383e3107b8c10acb0ab840da328e46a2722dead8ed513a6242fb20b1289",
+      "Bytes": 405
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-01.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-01.trx",
+      "Sha256": "30ce2427517ba1ed825b80e7fc319e7abb8be30d34e7438d4cea253ae176c095",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-02.log": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-02.log",
+      "Sha256": "38439888ea117f14be73a1a76d0f42a77d803cf07c7f95982112076b2774c3f2",
+      "Bytes": 405
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-02.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-02.trx",
+      "Sha256": "b21371d8dbf9125ff17a57a8020adda53923bdb2ed0e0038da8722a75a76e267",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-03.log": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-03.log",
+      "Sha256": "9409ebef147694a0f5cc24ae1550da2716d1c7a28f3158c38e50c20d9670e900",
+      "Bytes": 405
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-03.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-03.trx",
+      "Sha256": "cfa9934bc5edfea0311472f76192a856e3f0a3e7fd1dfae5f0b826b3edfd02de",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-04.log": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-04.log",
+      "Sha256": "f5f30d0d4e3d1bf516790900c80700b55df2ac82dd6b5cb2309205ccb079777b",
+      "Bytes": 405
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-04.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-04.trx",
+      "Sha256": "82eb8c7ec2093ca1537fc8d215e2786b4d63c4bfbebf72ef9a9ebb7a41ee5b3b",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-05.log": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-05.log",
+      "Sha256": "7c1af352979e72e58586d9012e12c1fa5c6e946dcee9eaa991c6d56cceade1b7",
+      "Bytes": 405
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-05.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-05.trx",
+      "Sha256": "52de34aac5442514dba6702bd832c8536963134b2064bb969d84974e437df8b6",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-06.log": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-06.log",
+      "Sha256": "313123dcec1b6741c66483a6e2ef80fd4e66c946e88fa062db16acbc85bd8b5d",
+      "Bytes": 405
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-06.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-06.trx",
+      "Sha256": "4ae954290e3d54fbbca27df770366b4dbd6c8df25bab48c5fe080ccb48fa47a3",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-07.log": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-07.log",
+      "Sha256": "6fda535c48b8308786941f60a0cc70398fb2bf4d92f06b33f1690dc3f4c7ba72",
+      "Bytes": 405
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-07.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-07.trx",
+      "Sha256": "0df19fca84a4c7a729db1bf5b5c0c3a9a81be5296a20e2e7119cc86840697a97",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-08.log": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-08.log",
+      "Sha256": "415d0e50fca7b0edd1b8c5123673d73cd9c0c56077c9773422b88662b80240f1",
+      "Bytes": 405
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-08.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-08.trx",
+      "Sha256": "801474975000e37d050c07e8a07c0b065628fdb598d8896743cf91c047655394",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-09.log": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-09.log",
+      "Sha256": "3652ed255870f2f89230149e2b3a6afc405443835488f96b7fce2467c394a4ef",
+      "Bytes": 405
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-09.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-09.trx",
+      "Sha256": "a585ccc476933abc7b3729cb11688f3d43ef3f42e387784084b2012092eecb83",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-10.log": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-10.log",
+      "Sha256": "aa108b5f8b068e6d4970509affff8a3d98a87f417afff74542584565f4ae508e",
+      "Bytes": 405
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-10.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-10.trx",
+      "Sha256": "bc6f661ccfba17bb40f95949209da254f2aab34961d99cde0a7630695c5a5b7f",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-11.log": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-11.log",
+      "Sha256": "c1b42e5c413f8e17f6116958a05ea7ead273805350f3ccdef0ca845d26f00d6d",
+      "Bytes": 405
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-11.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-11.trx",
+      "Sha256": "7abe98b3eed6d9f1a7812d12bc9d361465f5c3db3a2aa6595bb2ad9374023b99",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-12.log": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-12.log",
+      "Sha256": "dc2048fd4f53dac503ef75a116ddac772d61db9ccdad646740db8ef6af2a8e3d",
+      "Bytes": 405
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-12.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-12.trx",
+      "Sha256": "a44a673d29f1c9b449a1c07a3a6557895b409f9abeecfa5794f72e52c595aa61",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-13.log": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-13.log",
+      "Sha256": "70c3f03d380c23f77d70d12763ed8d640b2d958ab5e4db208ccd8360d31c3bcf",
+      "Bytes": 405
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-13.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-13.trx",
+      "Sha256": "b421fd49c85f68d9c1b7ddfec8dda687bbfa40b09707a5015fe2d6bf858be4db",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-14.log": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-14.log",
+      "Sha256": "731bdf33412b02b4ea42e8c56e757b3c15922d56f63578e7d7587f7fd2dea017",
+      "Bytes": 405
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-14.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-14.trx",
+      "Sha256": "f4798d73867626a338edd1c622d7b70b5f709af889a49c9a487094879198965c",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-15.log": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-15.log",
+      "Sha256": "840e9cd4720637ab409a6ede4dd2513d5948730c478d548b10b261158873a225",
+      "Bytes": 405
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-15.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-15.trx",
+      "Sha256": "d0754f45e1ad98e5f2ed8da49ff569a7c1d8a8e09f9d09868ff78555cf1c060b",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-16.log": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-16.log",
+      "Sha256": "e7661a8ed01c5130fc694ee5f86b4b2ae9fafb3dbdd0964e35d47553fb8b1dc9",
+      "Bytes": 405
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-16.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-16.trx",
+      "Sha256": "ede8875523825d90b52813473221d939e357bbfe99ee3ed600a5817bceb67c79",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-17.log": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-17.log",
+      "Sha256": "0c0a0b6da6fd9a77bfbf98b197142639dd8381d526034fde77d8a80e32f7500a",
+      "Bytes": 405
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-17.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-17.trx",
+      "Sha256": "6049e9d161a1fb54909e43b23270f9be3efabfdbcf9e910d8b4467aba786d86e",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-18.log": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-18.log",
+      "Sha256": "89a0bce65c76fd7c6d578cefe04217695bfc059271caed20c3b184cccace6739",
+      "Bytes": 405
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-18.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-18.trx",
+      "Sha256": "97a0fdf71a5b243e4eca47446b798195bee8f955f6e36c57207a351564e63a4b",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-19.log": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-19.log",
+      "Sha256": "4d1ad1d156167c562a24fdfd2ef11a264e560561075c06e1beada34217dcf84c",
+      "Bytes": 405
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-19.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-19.trx",
+      "Sha256": "466ab41b27463de0a7197220826c760c98ae34032cee6805b5d83a73d716ffe8",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-20.log": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-20.log",
+      "Sha256": "8484bb3f050c1add1107aacb6d5737cdcc31d101208ab7e07db26d3848504e88",
+      "Bytes": 405
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetition-20.trx": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetition-20.trx",
+      "Sha256": "286a12390644edde8f19f9df060020651ebd649c48580e32c81baedafc584100",
+      "Bytes": 2884
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r13-fixed-repetitions.json": {
+      "Original": "artifacts/ole-query-written-investigation/r13-fixed-repetitions.json",
+      "Sha256": "2120bf9b685e8255308f9b2226e9d41b2aac7b3608143180668f22bc4658e59b",
+      "Bytes": 19359
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r14-parent-integrity.json": {
+      "Original": "artifacts/ole-query-written-investigation/r14-parent-integrity.json",
+      "Sha256": "aea2183c80fa07ad757f03f36b0eac0c434bfcdf46e0c445804df7c0188196fc",
+      "Bytes": 1328256
+    },
+    "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r14-precommit-git.json": {
+      "Original": "artifacts/ole-query-written-investigation/r14-precommit-git.json",
+      "Sha256": "1f00ad7845dd4bc68ad2a898aa9d41c551720f43f57b37d73682a27e76cfeb0f",
+      "Bytes": 527
+    }
+  },
+  "OriginalCount": 141,
+  "RemainingLimits": [
+    "Historicalr08 exact schedule and optional diagnostic exception branches remainUnknown.",
+    "Old intermittent image root cause unproven; production image reuseOff.",
+    "Windows/WPF/COM/nativeOLE/real model/fullE06-P5 acceptance NotRun; no phase status raised."
+  ],
+  "SafetyGates": {
+    "Skia": "4.153.1 four-package license pending/source403 not bypassed; not installed/run",
+    "Actions": "Prior denial maintained; no query/dispatch/alternate route, countUnknown",
+    "AllDotnet": "Certificate generation explicitlyfalse before/after activation; certificate store/trustUnknown untouched",
+    "Existing250600SourcePasswordIntegrityCancelCleanup": "Unchanged; production source exact parent",
+    "NoMainForcePushDeployNewCostsCredentialsSecurityPermissionsLicenseAcceptanceRealModels": true,
+    "UnknownLocksDataLogsProcesses": "Preserved; tests only create and terminate their own held children"
+  },
+  "WhitespaceChecks": {
+    "FullCommand": "git diff --cached --check",
+    "FullExitCode": 2,
+    "FullOutput": "docs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r04-generated__KuaiYi.Contracts.AssemblyInfo.cs.txt:22: new blank line at EOF.\ndocs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r04-generated__KuaiYi.Core.AssemblyInfo.cs.txt:22: new blank line at EOF.\ndocs/test-evidence/2026-10-16-ole-query-written-investigation-originals__r04-generated__KuaiYi.OleTransfer.AssemblyInfo.cs.txt:22: new blank line at EOF.\n",
+    "OnlyFindings": [
+      "r04-generated__KuaiYi.Contracts.AssemblyInfo.cs.txt",
+      "r04-generated__KuaiYi.Core.AssemblyInfo.cs.txt",
+      "r04-generated__KuaiYi.OleTransfer.AssemblyInfo.cs.txt"
+    ],
+    "NonRawCommandPaths": [
+      ".gitattributes",
+      "docs/e06-target-diagnostics.md",
+      "docs/progress.md",
+      "docs/test-evidence/2026-10-16-ole-query-written-investigation.json",
+      "docs/traceability.json",
+      "docs/validation/ole-query-written-investigation.md",
+      "tests/KuaiYi.Core.Tests/OleQueryWrittenInvestigationTests.cs",
+      "tests/KuaiYi.Core.Tests/OleReceiverTests.cs",
+      "tools/KuaiYi.OleReceiverFixture/Program.cs"
+    ],
+    "NonRawExitCode": 0,
+    "RawBytesPreserved": true,
+    "NoWhitespaceOverrideAdded": true
+  }
+}

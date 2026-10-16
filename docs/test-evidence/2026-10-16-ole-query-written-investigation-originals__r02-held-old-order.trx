@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="0ef4c8e5-39a7-491d-b33a-ce32c09b38fc" name="@2d50236122aa 2026-10-16 15:24:26" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-16T15:24:26.3455034+00:00" queuing="2026-10-16T15:24:26.3455035+00:00" start="2026-10-16T15:24:24.6629269+00:00" finish="2026-10-16T15:24:26.3530820+00:00" />
+  <TestSettings name="default" id="5c5cf61a-cb03-4a1a-8a9c-b44509823d7c">
+    <Deployment runDeploymentRoot="_2d50236122aa_2026-10-16_15_24_26" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="17ced41e-ff5d-41ee-bff6-d06ddc3895bb" testId="09fd9fa3-0453-91c3-2873-4b363989f810" testName="KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests.HeldChildDiagnosticMustReachItsOwnReceiptBeforeOriginalCleanupAssertions" computerName="2d50236122aa" duration="00:00:00.2069148" startTime="2026-10-16T15:24:26.0397541+00:00" endTime="2026-10-16T15:24:26.2369561+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="17ced41e-ff5d-41ee-bff6-d06ddc3895bb">
+      <Output>
+        <StdOut>delivered-before-cleanup ticks=14048965975653 pid=83077 exit=Running diagnostic=WaitingForActivation failure=None target=QueryRead,QueryStaleEpoch,QueryAccepted,DropRead,DropAccepted
+settled ticks=14048978116778 pid=83077 exit=ExitConfirmed diagnostic=RanToCompletion failure=None target=QueryRead,QueryStaleEpoch,QueryAccepted,DropRead,DropAccepted</StdOut>
+        <ErrorInfo>
+          <Message>Assert.Contains() Failure: Item not found in collection
+Collection: [QueryRead, QueryStaleEpoch, QueryAccepted, DropRead, DropAccepted]
+Not found:  QueryWritten</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests.HeldChildDiagnosticMustReachItsOwnReceiptBeforeOriginalCleanupAssertions() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleQueryWrittenInvestigationTests.cs:line 22
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a0e8572b-d271-4e42-a66e-76e547235a48" testId="b2cc1fd7-bc24-bb02-b54d-1ca73438f660" testName="KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests.DeliveredStdoutThenOwnedTerminationCannotRecoverUnwrittenChildDiagnostics" computerName="2d50236122aa" duration="00:00:00.2834359" startTime="2026-10-16T15:24:25.7128714+00:00" endTime="2026-10-16T15:24:26.0142615+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a0e8572b-d271-4e42-a66e-76e547235a48">
+      <Output>
+        <StdOut>before-kill ticks=14048709828796 pid=83057 exit=Running diagnostic=WaitingForActivation failure=None target=QueryRead,QueryStaleEpoch,QueryAccepted,DropRead,DropAccepted
+after-kill ticks=14048747899346 pid=83057 exit=ExitConfirmed diagnostic=RanToCompletion failure=None target=QueryRead,QueryStaleEpoch,QueryAccepted,DropRead,DropAccepted</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests.DeliveredStdoutThenOwnedTerminationCannotRecoverUnwrittenChildDiagnostics" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b2cc1fd7-bc24-bb02-b54d-1ca73438f660">
+      <Execution id="a0e8572b-d271-4e42-a66e-76e547235a48" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests" name="DeliveredStdoutThenOwnedTerminationCannotRecoverUnwrittenChildDiagnostics" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests.HeldChildDiagnosticMustReachItsOwnReceiptBeforeOriginalCleanupAssertions" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="09fd9fa3-0453-91c3-2873-4b363989f810">
+      <Execution id="17ced41e-ff5d-41ee-bff6-d06ddc3895bb" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests" name="HeldChildDiagnosticMustReachItsOwnReceiptBeforeOriginalCleanupAssertions" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="09fd9fa3-0453-91c3-2873-4b363989f810" executionId="17ced41e-ff5d-41ee-bff6-d06ddc3895bb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b2cc1fd7-bc24-bb02-b54d-1ca73438f660" executionId="a0e8572b-d271-4e42-a66e-76e547235a48" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="1" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.16]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.55]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.58]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:01.13]       Assert.Contains() Failure: Item not found in collection
+[xUnit.net 00:00:01.13]       Collection: [QueryRead, QueryStaleEpoch, QueryAccepted, DropRead, DropAccepted]
+[xUnit.net 00:00:01.13]       Not found:  QueryWritten
+[xUnit.net 00:00:01.13]       Stack Trace:
+[xUnit.net 00:00:01.13]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/OleQueryWrittenInvestigationTests.cs(22,0): at KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests.HeldChildDiagnosticMustReachItsOwnReceiptBeforeOriginalCleanupAssertions()
+[xUnit.net 00:00:01.13]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.13]       Output:
+[xUnit.net 00:00:01.13]         delivered-before-cleanup ticks=14048965975653 pid=83077 exit=Running diagnostic=WaitingForActivation failure=None target=QueryRead,QueryStaleEpoch,QueryAccepted,DropRead,DropAccepted
+[xUnit.net 00:00:01.13]         settled ticks=14048978116778 pid=83077 exit=ExitConfirmed diagnostic=RanToCompletion failure=None target=QueryRead,QueryStaleEpoch,QueryAccepted,DropRead,DropAccepted
+[xUnit.net 00:00:01.14]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="2d50236122aa" outcome="Error" timestamp="2026-10-16T15:24:26.2418314+00:00">
+        <Text>[xUnit.net 00:00:01.13]     KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests.HeldChildDiagnosticMustReachItsOwnReceiptBeforeOriginalCleanupAssertions [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

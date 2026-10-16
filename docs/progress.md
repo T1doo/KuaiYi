@@ -846,3 +846,12 @@ r01父生产4F、r02同测试4P；r03两项新测试请求数假设错误（超�
 r01新测试xUnit2031编译0执行无TRX；r02候选3F→r03同三测试源码/名称3P（UTF8外逸、目录替换清理误删合成未知文件、导出成功提示被撤销覆盖）；不是父生产红。独审再发现命令Busy抢UI owner，r09→r10同测试1F→1P。最终r11专项110P，r12完整Provider2157P=父2047全名保留+新110；r08完整Core1553P1F为旧OLE QueryWritten观测缺失，原源码/log/TRX保留，旧测试/OLE未改，Core DLL因cleanup安全码处理不同；r13按最终候选完整复测1554P=父1551+新3，不能据通过宣称其根因解决。r15/r16 App/Worker各0W/E，锁定恢复无新依赖。详见[实现与边界](validation/display-preferences-transfer.md)及[红绿和回归原件](test-evidence/2026-10-16-display-preferences-transfer.json)。
 
 真实store保存/取消/冲突、四字段投影保持其它引用、NeverProtector=0和linked命令不捕获密码有实测；WPF对话框/可见性/键盘/Windows句柄/DPAPI/ACL、模型与完整SPEC仍NotRun。P1-03/A10/L01/L06仅补子项证据，全部P6整体状态不变。旧图片间歇根因未知，图片生产源码未改、复用Off；250/600ms和来源/密码/完整性/取消/清理门保持。Skia许可/403与Actions先前拒绝不查不绕，无main/强推/部署/费用/凭据/安全权限/新许可/真实模型，未知锁数据日志进程保全。
+
+
+## 2026-10-16 · r08 OLE QueryWritten 间歇回归调查
+
+已核9bf335c clean/实际远端/单worktree及唯一root写入，正常建dev/ole-query-written-investigation，high_water_review只读独审。保全历史r08/r13精确log/TRX/binding及父源码Git blob/SHA、父子实际DLL映射。原目标在上次已验构件不重编译有界20次20P，未自然复现。串行stdout writer的QueryEnd诊断调用应早于后续DropEnd交付，但可选stderr队列/独立Task不保证在交付时写出；原测试交付后立刻Cancel/Kill持有子进程，drain EOF不能恢复未写记录。
+
+新增显式fixture-only首字节屏障（stdout不拦，既有epoch+2 disabled明确release），真实owned child/原server/client旧清理顺序实际1P1F、失败集合与r08相同；收据顺序2P，负对照仍验证已交付/进程退出/drain正常EOF且缺Written时helper必须失败。仅原测试清理前有界等待父端实际解析收据，4秒上限/5ms谓词轮询，不是单纯sleep、不延长生产门或推断Written，原全部断言保留；生产src原字节，无协议/取消/终止变化。r02/r03同名称同原断言但测试正文不同，生产及fixture DLL相同，仅Core.Tests改变；初始旧构件与9bf元数据重编译SHA不同，不能混称同二进制或重造历史原件。
+
+最终专项52P、完整Core1556P=父1554全名多重集+2、Provider2157P原集合保持，均0失败/跳过；App/Worker各0W/E，修后固定20次重复结果见[调查报告](validation/ole-query-written-investigation.md)与[精确证据](test-evidence/2026-10-16-ole-query-written-investigation.json)。独审确认同步缺陷及实验边界；历史r08那次具体调度/可选异常仍Unknown，未以绿测关闭根因。E06/P5真实Windows/WPF/COM未验，旧图片间歇根因未知、复用Off及全部P6状态不变。Actions拒绝不查不绕，Skia许可/403隔离门和250/600ms/来源/密码/完整性/取消/清理保持；无main/强推/部署/新费用凭据安全权限许可或模型，未知锁数据日志进程保全。

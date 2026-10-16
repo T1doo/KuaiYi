@@ -1,0 +1,22 @@
+{
+  "Command": "dotnet restore tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj --locked-mode -p:EnableWindowsTargeting=true",
+  "ExitCode": 0,
+  "FinalSources": {
+    "tests/KuaiYi.Core.Tests/OleQueryWrittenInvestigationTests.cs": "3c54ab2f1aa660c1e139998bda2b4354fe072399b8c3d4ca2641755251074f34",
+    "tests/KuaiYi.Core.Tests/OleReceiverTests.cs": "441057d0a3d9ffa00e63f2dbe9cf0e2aff969b35b166a0508491f2e12ca7f149",
+    "tools/KuaiYi.OleReceiverFixture/Program.cs": "9f6259c1fdd83270f1df4f6bc0bbe3b6a51d6ac98a78e783d587649b2bee22ed"
+  },
+  "ActualDllsAtCompletion": {
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll": "26e2e8e53062fefcae2e10e6667becce65fdd118b156d71c6505bee765cecd15",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll": "fd92e99c777da76b9271e79583d868525131d13365b9e0b0136575b7dd0eb377",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "065864f69cfda507a719c60c62a90d521d8388d30efcb8627e1c4e893b7dacac",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "ab84b2ffba1e8253610e6430e90dbb09618474b53d858d75157ff6435705f4bf",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "45bb5c042f28e4b4d18ea0a587a5a84116f03e1c343320856102b407e2e72969",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "5d1fcbe83b2989a069c820eeaa1b14a170741f4fe9c6e1fb9d3b50757fba659d",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.OleTransfer.dll": "8db62d1feaa999e6fa9a45efecb1e0ea88135fb9710dadd6256b5e0ebb944db8",
+    "tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.Contracts.dll": "fd92e99c777da76b9271e79583d868525131d13365b9e0b0136575b7dd0eb377",
+    "tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.Core.dll": "065864f69cfda507a719c60c62a90d521d8388d30efcb8627e1c4e893b7dacac",
+    "tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll": "87395069ed3cac7054d39e4b546b084dab86ae91c4040d814651a8bd1e147871",
+    "tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleTransfer.dll": "8db62d1feaa999e6fa9a45efecb1e0ea88135fb9710dadd6256b5e0ebb944db8"
+  }
+}

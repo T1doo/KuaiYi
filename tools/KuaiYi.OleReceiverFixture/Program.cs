@@ -8,6 +8,8 @@ using KuaiYi.OleTransfer;
 int statusAt=Array.IndexOf(args,"--test-status");
 if(statusAt>=0){if(statusAt+2!=args.Length)return 2;FixtureStatus.Path=args[statusAt+1];args=args[..statusAt];}
 string mode=args.LastOrDefault()??"normal";
+bool holdTargetOutput=mode=="formal-stale-query-held-diagnostics";
+if(holdTargetOutput)mode="formal-stale-query";
 if(mode=="startup-pending")
 {
     var hello=await IpcFrameCodec.ReadAsync(Console.OpenStandardInput())??throw new EndOfStreamException();
@@ -27,16 +29,16 @@ if(mode=="startup-diagnostic-flood")
     await stderr.WriteAsync(output);await stderr.WriteAsync(new byte[]{(byte)'\n'});Array.Clear(output);
     OleStartupDiagnostics.Emit(OleStartupStage.Entry);
 }
-using var targetOutput=Console.OpenStandardError();var observations=new OleTargetDiagnostics(targetOutput);
-try { return await OleReceiverServer.RunAsync(Console.OpenStandardInput(),Console.OpenStandardOutput(),(hello,send)=>Task.FromResult<IOleReceiverBackend>(new Backend(hello,send,mode)),targetDiagnostic:observations); }
+using var targetOutput=Console.OpenStandardError();using var heldOutput=holdTargetOutput?new HeldTargetOutput(targetOutput):null;var observations=new OleTargetDiagnostics((Stream?)heldOutput??targetOutput);
+try { return await OleReceiverServer.RunAsync(Console.OpenStandardInput(),Console.OpenStandardOutput(),(hello,send)=>Task.FromResult<IOleReceiverBackend>(new Backend(hello,send,mode,(epoch,enabled)=>{if(!enabled&&epoch==hello.Epoch+2)heldOutput?.Release();})),targetDiagnostic:observations); }
 finally { observations.CompleteOutput();if(observations.OriginalOutputTask is {} original)await original; }
 sealed class Backend:IOleReceiverBackend,IOleReceiverControlBackend
 {
-    private readonly OleReceiverHello hello;private readonly Action<IpcFrame> send;private readonly string mode;private int started;
+    private readonly OleReceiverHello hello;private readonly Action<IpcFrame> send;private readonly string mode;private readonly Action<long,bool>? diagnosticControl;private int started;
     public byte[] ExportPacket{get;}=new byte[72];
-    public Backend(OleReceiverHello hello,Action<IpcFrame> send,string mode)
+    public Backend(OleReceiverHello hello,Action<IpcFrame> send,string mode,Action<long,bool>? diagnosticControl=null)
     {
-        this.hello=hello;this.send=send;this.mode=mode;
+        this.hello=hello;this.send=send;this.mode=mode;this.diagnosticControl=diagnosticControl;
         BinaryPrimitives.WriteUInt32LittleEndian(ExportPacket,0x574f454d);BinaryPrimitives.WriteUInt32LittleEndian(ExportPacket.AsSpan(4),1);OleReceiverWire.DropTargetId.TryWriteBytes(ExportPacket.AsSpan(8,16));
         if(mode=="bad-export")BinaryPrimitives.WriteUInt32LittleEndian(ExportPacket.AsSpan(4),4);
     }
@@ -46,6 +48,7 @@ sealed class Backend:IOleReceiverBackend,IOleReceiverControlBackend
     }
     public void SetEnabled(long epoch,bool enabled)
     {
+        diagnosticControl?.Invoke(epoch,enabled);
         if(!enabled){FixtureStatus.Write("off:"+epoch);return;}
         if(Interlocked.Exchange(ref started,1)==0)_=Task.Run(()=>Transfer(epoch));
     }
@@ -88,6 +91,22 @@ sealed class Backend:IOleReceiverBackend,IOleReceiverControlBackend
         Event("DropEnd",true,mode=="formal-move"?2u:1u,text.Length);
     }
     public Task ShutdownAsync(){Array.Clear(ExportPacket);return Task.CompletedTask;}
+}
+
+// Explicit fixture-only scheduler barrier: the production stderr writer has dequeued a fixed enum,
+// but not a single byte has reached stderr. Only a separate epoch+2 disabled control releases it.
+sealed class HeldTargetOutput(Stream destination):Stream
+{
+    private readonly TaskCompletionSource release=new(TaskCreationOptions.RunContinuationsAsynchronously);
+    public void Release(){FixtureStatus.Write("diagnostic:release");release.TrySetResult();}
+    public override async ValueTask WriteAsync(ReadOnlyMemory<byte> bytes,CancellationToken cancellation=default)
+    {
+        if(bytes.Length<2||bytes.Span[^1]!=(byte)'\n'||!OleTargetDiagnostics.TryParse(bytes.Span[..^1],out var item))throw new InvalidDataException("Public fixture accepts fixed diagnostic metadata only.");
+        FixtureStatus.Write("diagnostic:held:"+item);await release.Task.WaitAsync(cancellation);await destination.WriteAsync(bytes,cancellation);FixtureStatus.Write("diagnostic:written:"+item);
+    }
+    public override Task FlushAsync(CancellationToken cancellation)=>destination.FlushAsync(cancellation);
+    public override bool CanRead=>false;public override bool CanWrite=>true;public override bool CanSeek=>false;public override long Length=>throw new NotSupportedException();public override long Position{get=>throw new NotSupportedException();set=>throw new NotSupportedException();}
+    public override void Flush()=>destination.Flush();public override int Read(byte[] buffer,int offset,int count)=>throw new NotSupportedException();public override long Seek(long offset,SeekOrigin origin)=>throw new NotSupportedException();public override void SetLength(long value)=>throw new NotSupportedException();public override void Write(byte[] buffer,int offset,int count)=>throw new NotSupportedException();
 }
 
 // Explicit test-owned metadata channel; never used by the production receiver or diagnostic parser.

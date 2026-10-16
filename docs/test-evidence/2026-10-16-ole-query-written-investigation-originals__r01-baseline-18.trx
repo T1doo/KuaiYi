@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="afc27e46-c793-40e2-8994-a394297d63af" name="@2d50236122aa 2026-10-16 15:21:57" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-16T15:21:57.8700748+00:00" queuing="2026-10-16T15:21:57.8700748+00:00" start="2026-10-16T15:21:56.6596349+00:00" finish="2026-10-16T15:21:57.8793596+00:00" />
+  <TestSettings name="default" id="da89ad17-5fc5-4397-ab5b-eabb7dc61b10">
+    <Deployment runDeploymentRoot="_2d50236122aa_2026-10-16_15_21_57" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="4b927503-2227-4afe-b813-9c3a44568f36" testId="999354b5-444a-fccc-f319-df55372cef07" testName="KuaiYi.Core.Tests.OleReceiverTests.RealParentReadDistinguishesStaleQueryFromAcceptedProductionFeedback" computerName="2d50236122aa" duration="00:00:00.2376885" startTime="2026-10-16T15:21:57.5141185+00:00" endTime="2026-10-16T15:21:57.7614919+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4b927503-2227-4afe-b813-9c3a44568f36" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.OleReceiverTests.RealParentReadDistinguishesStaleQueryFromAcceptedProductionFeedback" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="999354b5-444a-fccc-f319-df55372cef07">
+      <Execution id="4b927503-2227-4afe-b813-9c3a44568f36" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.OleReceiverTests" name="RealParentReadDistinguishesStaleQueryFromAcceptedProductionFeedback" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="999354b5-444a-fccc-f319-df55372cef07" executionId="4b927503-2227-4afe-b813-9c3a44568f36" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.11]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.43]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.46]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.74]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

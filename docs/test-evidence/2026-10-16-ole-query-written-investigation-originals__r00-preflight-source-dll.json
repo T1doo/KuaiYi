@@ -1,0 +1,62 @@
+{
+  "Parent": "9bf335c1a64c634fb2cfaa88caaef1721cbcdbb9",
+  "ParentTree": "563f5689ccf6e3d90107d786d4ce36e15ea5931c",
+  "Branch": "dev/ole-query-written-investigation",
+  "InitialClean": true,
+  "Worktrees": "worktree /workspace/KuaiYi\nHEAD 9bf335c1a64c634fb2cfaa88caaef1721cbcdbb9\nbranch refs/heads/dev/ole-query-written-investigation\n\n",
+  "Remote": "9bf335c1a64c634fb2cfaa88caaef1721cbcdbb9\trefs/heads/dev/display-preferences-transfer\n51d077481cf6303602fcf5d2718213da9cf05178\trefs/heads/main\n",
+  "RootSoleWriter": true,
+  "ReviewAgent": "high_water_review read-only",
+  "ParentSource": {
+    "src/KuaiYi.OleTransfer/OleReceiverServer.cs": {
+      "Sha256": "09bbdd5a455119edc6cb6edd0704dab4a856b4b70e4f9ea3ce7f94f3c6608ea3",
+      "GitBlob": "5e174fd6661bb851d4e26c141e4fd047df4ddd52"
+    },
+    "src/KuaiYi.OleTransfer/OleReceiverClient.cs": {
+      "Sha256": "b6b20b0666af3137532d7577ba4915340b41001a86c354e7d2e67260474dd73f",
+      "GitBlob": "07f97436e17fffb13aaede7096536b716df0f3c6"
+    },
+    "src/KuaiYi.OleTransfer/OleTargetDiagnostics.cs": {
+      "Sha256": "7c3ecd0e0d3bf93ecf05fc2258471455c42f4cde6466ccb289bfc95fab51f59e",
+      "GitBlob": "fb202f16fad710795a444f94232bf807ea3ae308"
+    },
+    "src/KuaiYi.OleTransfer/OleStartupDiagnostics.cs": {
+      "Sha256": "8f7a9e008a8c4aac5746a049ec183c1f804e8940116af71e9ace36fccb042550",
+      "GitBlob": "332ba52f15c5f192a7ba3ebc2294b870150eca2d"
+    },
+    "src/KuaiYi.Core/OwnedProcessSession.cs": {
+      "Sha256": "124d109458ea487a50aa7fb8fa760cc31b80eaebfdce974f101e79db0ef7cf88",
+      "GitBlob": "a40251cb562aea3d453ce2309769d093e3cf6c7a"
+    },
+    "src/KuaiYi.Core/OwnedHostTermination.cs": {
+      "Sha256": "fe4284d719517c3d72118f429b98de9f520054621ab0175676fcc53d0990d2ac",
+      "GitBlob": "838d097138606f0ab264e5434518bac2820e481d"
+    },
+    "tests/KuaiYi.Core.Tests/OleReceiverTests.cs": {
+      "Sha256": "24312ea7f4a3d330845d4dacbe84aa940177d6f2ab2c574183c111906eacdb28",
+      "GitBlob": "7ff496ddbeb30f13a716f5d6f6daabdabe9cccdd"
+    },
+    "tools/KuaiYi.OleReceiverFixture/Program.cs": {
+      "Sha256": "1768c51c803003d638a01dbecb62071e7e74695e066a1357dde0fa33791c9abf",
+      "GitBlob": "f7f2c7cad6e040669ea13eaebc77d40de29a0af0"
+    },
+    "src/KuaiYi.OleReceiver/Program.cs": {
+      "Sha256": "57dac1d9625f7d4a39ec9d3ffc76fb06eba5bd043e2398ab82e0efd5f4a3dae6",
+      "GitBlob": "699585d5fc5fc1432892a0973d6f349556274a37"
+    }
+  },
+  "ActualInitialDlls": {
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll": "9c25dbe53110d0ae75f5391a4604c078948e5a04fa8d3496ac2fe5644d2ba3f2",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll": "378d53ccb4102b1512f34271aba12f2b8a8521e079aba2d5ac543d2792e1033e",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "0e12ea7f8b6e86f1471648f3501ee083fa0c4e3902c6a33ed9c7189e07e770ed",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "391a25abade173e75f573c254ec9a5fffd0ba5e6b2eb78d75e01f93aced4bad6",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "a04b34ba1df1ca4856fd2901e806ed0bb9d343e43ebc55751ebd6e3f51d3fc59",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "cb7e90dcb48f8defa942bcad0c182a1e51d928a00bc14a9ad8a10adcb71c4512",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.OleTransfer.dll": "81160df0d46f730d5b594a70458893cb799399a5037ea7ad8c4ac6503c0604d8",
+    "tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.Contracts.dll": "378d53ccb4102b1512f34271aba12f2b8a8521e079aba2d5ac543d2792e1033e",
+    "tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.Core.dll": "0e12ea7f8b6e86f1471648f3501ee083fa0c4e3902c6a33ed9c7189e07e770ed",
+    "tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll": "70266507e5906283c57db8afc965cef248583213c87cba3478d8183f76a6dfc1",
+    "tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleTransfer.dll": "81160df0d46f730d5b594a70458893cb799399a5037ea7ad8c4ac6503c0604d8"
+  },
+  "OldR08Dlls": "Original recorded digests retained; actual historical r08 binaries not available/reconstructed. Current parent/r13 actual outputs hashed separately."
+}
