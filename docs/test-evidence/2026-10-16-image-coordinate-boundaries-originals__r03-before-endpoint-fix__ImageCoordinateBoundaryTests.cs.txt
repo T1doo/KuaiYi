@@ -1,0 +1,120 @@
+using System.Text.Json.Nodes;
+using System.Globalization;
+using KuaiYi.Core;
+using KuaiYi.Imaging;
+using KuaiYi.Providers;
+using Xunit;
+namespace KuaiYi.Provider.Tests;
+
+public sealed class ImageCoordinateBoundaryTests
+{
+    [Fact]
+    public void NegativeDesktopOriginKeepsTouchingRightAndBottomEdgesThroughRoundTrip()
+    {
+        var transform=ImageTransform.Plan(new PixelRect(-715,-923,-615,-873));
+        var normalized=transform.OriginalToNormalized(new OriginalImageRectangle(.1,0,99.9,50));
+        var desktop=transform.NormalizedToDesktop(normalized);
+        var returned=transform.DesktopToNormalized(desktop);
+        Assert.Equal(100,returned.X+returned.Width);
+        Assert.Equal(50,returned.Y+returned.Height);
+        Assert.InRange(Math.Abs(returned.X-normalized.X),0,1e-12);
+    }
+    [Fact]
+    public void ClassifierAcceptsDecimalRightAndBottomComplementsFromExistingSchema()
+    {
+        var root=JsonNode.Parse(ImageClassificationTests.Json())!;
+        root["regions"]![0]!["bbox"]=JsonNode.Parse("[0.8,0,0.2,1]");
+        Assert.True(ImageClassification.TryParse(root.ToJsonString(),out var analysis));
+        var region=Assert.Single(analysis!.Regions);
+        Assert.Equal((.8,0,.2,1),(region.X,region.Y,region.Width,region.Height));
+    }
+    public static IEnumerable<object[]> Crops()
+    {
+        foreach(var (left,top) in new[]{(-715,-923),(715,923),(-715,17),(17,-923),(-2000000000,-2000000000),(2000000000,2000000000)})
+            foreach(var (width,height) in new[]{(100,50),(716,924),(3001,1777),(1777,3001)})yield return [left,top,width,height];
+    }
+    [Theory][MemberData(nameof(Crops))]
+    public void EndpointRoundTripsStayBoundedWhileAdjacentOutwardSizesAreRejected(int left,int top,int width,int height)
+    {
+        var t=ImageTransform.Plan(new PixelRect(left,top,left+width,top+height));
+        var original=new OriginalImageRectangle(.1,.1,width-.1,height-.1);
+        var normalized=t.OriginalToNormalized(original);
+        for(int i=0;i<20;i++)
+        {
+            var desktop=t.NormalizedToDesktop(normalized);
+            Assert.Equal((double)left+width,desktop.X+desktop.Width);
+            Assert.Equal((double)top+height,desktop.Y+desktop.Height);
+            Assert.Throws<ArgumentOutOfRangeException>(()=>t.DesktopToNormalized(desktop with{Width=Math.BitIncrement(desktop.Width)}));
+            Assert.Throws<ArgumentOutOfRangeException>(()=>t.DesktopToNormalized(desktop with{Height=Math.BitIncrement(desktop.Height)}));
+            normalized=t.DesktopToNormalized(desktop);
+            Assert.Equal((double)t.NormalizedSize.Width,normalized.X+normalized.Width);
+            Assert.Equal((double)t.NormalizedSize.Height,normalized.Y+normalized.Height);
+            // Translation can lose precision at large physical origins. Bound the test error by the
+            // actual representable desktop edge spacing; production validation has no tolerance.
+            double spacingX=Math.Max(Math.Abs(Math.BitIncrement((double)left)-left),Math.Abs(Math.BitDecrement((double)left)-left));
+            double spacingY=Math.Max(Math.Abs(Math.BitIncrement((double)top)-top),Math.Abs(Math.BitDecrement((double)top)-top));
+            Assert.InRange(Math.Abs(normalized.X-.1*t.ScaleX),0,4*spacingX*t.ScaleX+double.Epsilon);
+            Assert.InRange(Math.Abs(normalized.Y-.1*t.ScaleY),0,4*spacingY*t.ScaleY+double.Epsilon);
+        }
+        Assert.Throws<ArgumentOutOfRangeException>(()=>t.OriginalToNormalized(original with{Width=Math.BitIncrement(original.Width)}));
+        Assert.Throws<ArgumentOutOfRangeException>(()=>t.OriginalToNormalized(original with{Height=Math.BitIncrement(original.Height)}));
+    }
+    [Fact]
+    public void PhysicalNeighborMustBeRejectedBeforeOriginSubtractionCanEraseIt()
+    {
+        var t=ImageTransform.Plan(new PixelRect(-715,-923,1,1));double outside=Math.BitIncrement(1d);
+        Assert.Equal(716,outside+715);Assert.Equal(924,outside+923); // Demonstrates the cancellation.
+        Assert.Throws<ArgumentOutOfRangeException>(()=>t.DesktopToNormalized(new DesktopImagePoint(outside,0)));
+        Assert.Throws<ArgumentOutOfRangeException>(()=>t.DesktopToNormalized(new DesktopImagePoint(0,outside)));
+        Assert.Throws<ArgumentOutOfRangeException>(()=>t.DesktopToNormalized(new DesktopImageRectangle(outside,0,0,0)));
+        Assert.Throws<ArgumentOutOfRangeException>(()=>t.DesktopToNormalized(new DesktopImageRectangle(0,outside,0,0)));
+        Assert.Equal(new NormalizedImagePoint(716,924),t.DesktopToNormalized(new DesktopImagePoint(1,1)));
+    }
+    [Theory][MemberData(nameof(Crops))]
+    public void AllPhysicalEdgesRejectImmediateOutwardPointAndRectangleNeighbors(int left,int top,int width,int height)
+    {
+        var t=ImageTransform.Plan(new PixelRect(left,top,left+width,top+height));
+        foreach(var p in new[]{new DesktopImagePoint(Math.BitDecrement((double)left),top),new DesktopImagePoint(left,Math.BitDecrement((double)top)),new DesktopImagePoint(Math.BitIncrement((double)left+width),top),new DesktopImagePoint(left,Math.BitIncrement((double)top+height))})
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(()=>t.DesktopToNormalized(p));
+            Assert.Throws<ArgumentOutOfRangeException>(()=>t.DesktopToNormalized(new DesktopImageRectangle(p.X,p.Y,0,0)));
+        }
+        var full=t.DesktopToNormalized(new DesktopImageRectangle(left,top,width,height));
+        Assert.Equal(new NormalizedImageRectangle(0,0,t.NormalizedSize.Width,t.NormalizedSize.Height),full);
+    }
+    public static IEnumerable<object[]> Units()
+    {
+        yield return [.8,.2,true];yield return [.2,.8,true];yield return [.9,.1,true];yield return [.7,.3,true];
+        yield return [.8,Math.BitIncrement(.2),false];yield return [.9,Math.BitIncrement(.1),false];
+        yield return [.7,.3000000000000001,false];yield return [.7,1-.7,false];
+        yield return [0d,1d,true];yield return [1d,0d,true];yield return [0d,0d,true];
+        yield return [double.Epsilon,1d,false];yield return [1d,double.Epsilon,false];
+        yield return [1e-300,.9999999999999999,true];yield return [.9999999999999999,1.0000000000000001e-16,false];
+        yield return [Math.BitDecrement(0d),.5,false];yield return [.5,Math.BitDecrement(0d),false];
+        yield return [Math.BitIncrement(1d),0d,false];yield return [0d,Math.BitIncrement(1d),false];
+        yield return [double.NaN,.5,false];yield return [.5,double.PositiveInfinity,false];yield return [double.NegativeInfinity,.5,false];
+    }
+    [Theory][MemberData(nameof(Units))]
+    public void CanonicalDecimalUnitBoundaryIsSharedByClassifierAndTransform(double start,double length,bool contained)
+    {
+        Assert.Equal(contained,UnitInterval.Contains(start,length));var t=ImageTransform.Plan(new PixelRect(-715,-923,-615,-873));
+        foreach(bool horizontal in new[]{true,false})
+        {
+            var unit=horizontal?new UnitImageRectangle(start,0,length,1):new UnitImageRectangle(0,start,1,length);
+            if(contained)
+            {
+                var mapped=t.RelativeToNormalized(unit);var desktop=t.NormalizedToDesktop(mapped);_ = t.DesktopToNormalized(desktop);
+                Assert.InRange(mapped.X+mapped.Width,0,100);Assert.InRange(mapped.Y+mapped.Height,0,50);
+            }
+            else Assert.Throws<ArgumentOutOfRangeException>(()=>t.RelativeToNormalized(unit));
+            if(!double.IsFinite(start)||!double.IsFinite(length))continue;
+            string a=start.ToString("R",CultureInfo.InvariantCulture),b=length.ToString("R",CultureInfo.InvariantCulture);
+            var root=JsonNode.Parse(ImageClassificationTests.Json())!;
+            root["regions"]![0]!["bbox"]=JsonNode.Parse(horizontal?$"[{a},0,{b},1]":$"[0,{a},1,{b}]");
+            bool parsed=ImageClassification.TryParse(root.ToJsonString(),out var analysis);
+            Assert.Equal(contained&&start<1&&length>0,parsed);
+            if(parsed){var region=Assert.Single(analysis!.Regions);Assert.Equal(unit,new UnitImageRectangle(region.X,region.Y,region.Width,region.Height));}
+            else Assert.Null(analysis);
+        }
+    }
+}

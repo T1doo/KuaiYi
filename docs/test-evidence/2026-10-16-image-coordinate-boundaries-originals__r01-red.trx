@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="158036e0-70fa-4e07-b693-5e1e3bb4fedb" name="@68e6e3cca8ba 2026-10-16 04:08:09" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-16T04:08:09.2152277+00:00" queuing="2026-10-16T04:08:09.2152277+00:00" start="2026-10-16T04:08:08.2779510+00:00" finish="2026-10-16T04:08:09.2211183+00:00" />
+  <TestSettings name="default" id="b4f7c412-0283-4ee4-a38a-a00b269cac9d">
+    <Deployment runDeploymentRoot="_68e6e3cca8ba_2026-10-16_04_08_09" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="3bb57572-e4ab-41b2-a57f-94a40f98ef7a" testId="7c604e7b-ac3a-7648-e73b-a7f6e2a071bf" testName="KuaiYi.Provider.Tests.ImageCoordinateBoundaryTests.ClassifierAcceptsDecimalRightAndBottomComplementsFromExistingSchema" computerName="68e6e3cca8ba" duration="00:00:00.0056939" startTime="2026-10-16T04:08:09.0851654+00:00" endTime="2026-10-16T04:08:09.1060423+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3bb57572-e4ab-41b2-a57f-94a40f98ef7a">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure
+Expected: True
+Actual:   False</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ImageCoordinateBoundaryTests.ClassifierAcceptsDecimalRightAndBottomComplementsFromExistingSchema() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageCoordinateBoundaryTests.cs:line 26
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="76753d6a-06c0-4fb5-a156-3ec58b078584" testId="5613fe94-15ed-e717-ad90-0935e2fefe98" testName="KuaiYi.Provider.Tests.ImageCoordinateBoundaryTests.NegativeDesktopOriginKeepsTouchingRightAndBottomEdgesThroughRoundTrip" computerName="68e6e3cca8ba" duration="00:00:00.0019465" startTime="2026-10-16T04:08:09.1216869+00:00" endTime="2026-10-16T04:08:09.1217660+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="76753d6a-06c0-4fb5-a156-3ec58b078584">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentOutOfRangeException : Specified argument was out of the range of valid values. (Parameter 'width')</Message>
+          <StackTrace>   at KuaiYi.Imaging.ImageTransform.Check(Double x, Double y, Double width, Double height, ImageSize size) in /workspace/KuaiYi/src/KuaiYi.Imaging/ScreenshotNormalization.cs:line 71
+   at KuaiYi.Imaging.ImageTransform.OriginalToNormalized(OriginalImageRectangle region) in /workspace/KuaiYi/src/KuaiYi.Imaging/ScreenshotNormalization.cs:line 49
+   at KuaiYi.Imaging.ImageTransform.DesktopToNormalized(DesktopImageRectangle region) in /workspace/KuaiYi/src/KuaiYi.Imaging/ScreenshotNormalization.cs:line 54
+   at KuaiYi.Provider.Tests.ImageCoordinateBoundaryTests.NegativeDesktopOriginKeepsTouchingRightAndBottomEdgesThroughRoundTrip() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageCoordinateBoundaryTests.cs:line 16
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.ImageCoordinateBoundaryTests.NegativeDesktopOriginKeepsTouchingRightAndBottomEdgesThroughRoundTrip" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="5613fe94-15ed-e717-ad90-0935e2fefe98">
+      <Execution id="76753d6a-06c0-4fb5-a156-3ec58b078584" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ImageCoordinateBoundaryTests" name="NegativeDesktopOriginKeepsTouchingRightAndBottomEdgesThroughRoundTrip" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ImageCoordinateBoundaryTests.ClassifierAcceptsDecimalRightAndBottomComplementsFromExistingSchema" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="7c604e7b-ac3a-7648-e73b-a7f6e2a071bf">
+      <Execution id="3bb57572-e4ab-41b2-a57f-94a40f98ef7a" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ImageCoordinateBoundaryTests" name="ClassifierAcceptsDecimalRightAndBottomComplementsFromExistingSchema" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="7c604e7b-ac3a-7648-e73b-a7f6e2a071bf" executionId="3bb57572-e4ab-41b2-a57f-94a40f98ef7a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5613fe94-15ed-e717-ad90-0935e2fefe98" executionId="76753d6a-06c0-4fb5-a156-3ec58b078584" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="0" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.09]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.40]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.43]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.49]       Assert.True() Failure
+[xUnit.net 00:00:00.49]       Expected: True
+[xUnit.net 00:00:00.49]       Actual:   False
+[xUnit.net 00:00:00.49]       Stack Trace:
+[xUnit.net 00:00:00.49]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageCoordinateBoundaryTests.cs(26,0): at KuaiYi.Provider.Tests.ImageCoordinateBoundaryTests.ClassifierAcceptsDecimalRightAndBottomComplementsFromExistingSchema()
+[xUnit.net 00:00:00.49]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:00.49]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[xUnit.net 00:00:00.50]       System.ArgumentOutOfRangeException : Specified argument was out of the range of valid values. (Parameter 'width')
+[xUnit.net 00:00:00.50]       Stack Trace:
+[xUnit.net 00:00:00.50]         /workspace/KuaiYi/src/KuaiYi.Imaging/ScreenshotNormalization.cs(71,0): at KuaiYi.Imaging.ImageTransform.Check(Double x, Double y, Double width, Double height, ImageSize size)
+[xUnit.net 00:00:00.50]         /workspace/KuaiYi/src/KuaiYi.Imaging/ScreenshotNormalization.cs(49,0): at KuaiYi.Imaging.ImageTransform.OriginalToNormalized(OriginalImageRectangle region)
+[xUnit.net 00:00:00.50]         /workspace/KuaiYi/src/KuaiYi.Imaging/ScreenshotNormalization.cs(54,0): at KuaiYi.Imaging.ImageTransform.DesktopToNormalized(DesktopImageRectangle region)
+[xUnit.net 00:00:00.50]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageCoordinateBoundaryTests.cs(16,0): at KuaiYi.Provider.Tests.ImageCoordinateBoundaryTests.NegativeDesktopOriginKeepsTouchingRightAndBottomEdgesThroughRoundTrip()
+[xUnit.net 00:00:00.50]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:00.50]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[xUnit.net 00:00:00.50]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T04:08:09.1102048+00:00">
+        <Text>[xUnit.net 00:00:00.48]     KuaiYi.Provider.Tests.ImageCoordinateBoundaryTests.ClassifierAcceptsDecimalRightAndBottomComplementsFromExistingSchema [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="68e6e3cca8ba" outcome="Error" timestamp="2026-10-16T04:08:09.1221453+00:00">
+        <Text>[xUnit.net 00:00:00.50]     KuaiYi.Provider.Tests.ImageCoordinateBoundaryTests.NegativeDesktopOriginKeepsTouchingRightAndBottomEdgesThroughRoundTrip [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

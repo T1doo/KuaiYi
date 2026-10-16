@@ -1,6 +1,7 @@
 using System.Collections.Immutable;
 using System.Globalization;
 using System.Text.Json;
+using KuaiYi.Core;
 namespace KuaiYi.Providers;
 
 public enum ImageKind { TextOnly, DiagramOrMixed, VisualOnly, Uncertain }
@@ -35,7 +36,7 @@ public sealed record ImageClassification
                 if(!Fields(row,"id","position","bbox"))return false;string? id=String(row,"id"),position=String(row,"position");var box=row.GetProperty("bbox");
                 if(id is not {Length:>0 and <=32}||id.Any(c=>!char.IsAsciiLetterOrDigit(c)&&c is not('_' or '-'))||!ids.Add(id)||!Text(position,160,false)||box.ValueKind!=JsonValueKind.Array||box.GetArrayLength()!=4)return false;
                 double[] values=new double[4];int i=0;foreach(var value in box.EnumerateArray()){if(value.ValueKind!=JsonValueKind.Number||!value.TryGetDouble(out values[i])||!double.IsFinite(values[i]))return false;i++;}
-                var (x,y,w,h)=(values[0],values[1],values[2],values[3]);if(x<0||y<0||x>=1||y>=1||w<=0||h<=0||w>1-x||h>1-y)return false;
+                var (x,y,w,h)=(values[0],values[1],values[2],values[3]);if(x>=1||y>=1||w<=0||h<=0||!UnitInterval.Contains(x,w)||!UnitInterval.Contains(y,h))return false;
                 regions.Add(new(id,position!,x,y,w,h));
             }
             result=new(kind.Value,readability.Value,visual,regions.ToImmutable(),note!);return true;

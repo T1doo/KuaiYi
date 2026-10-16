@@ -1,0 +1,30 @@
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.48]     KuaiYi.Provider.Tests.ImageCoordinateBoundaryTests.ClassifierAcceptsDecimalRightAndBottomComplementsFromExistingSchema [FAIL]
+[xUnit.net 00:00:00.50]     KuaiYi.Provider.Tests.ImageCoordinateBoundaryTests.NegativeDesktopOriginKeepsTouchingRightAndBottomEdgesThroughRoundTrip [FAIL]
+  Failed KuaiYi.Provider.Tests.ImageCoordinateBoundaryTests.ClassifierAcceptsDecimalRightAndBottomComplementsFromExistingSchema [5 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.ImageCoordinateBoundaryTests.ClassifierAcceptsDecimalRightAndBottomComplementsFromExistingSchema() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageCoordinateBoundaryTests.cs:line 26
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  Failed KuaiYi.Provider.Tests.ImageCoordinateBoundaryTests.NegativeDesktopOriginKeepsTouchingRightAndBottomEdgesThroughRoundTrip [1 ms]
+  Error Message:
+   System.ArgumentOutOfRangeException : Specified argument was out of the range of valid values. (Parameter 'width')
+  Stack Trace:
+     at KuaiYi.Imaging.ImageTransform.Check(Double x, Double y, Double width, Double height, ImageSize size) in /workspace/KuaiYi/src/KuaiYi.Imaging/ScreenshotNormalization.cs:line 71
+   at KuaiYi.Imaging.ImageTransform.OriginalToNormalized(OriginalImageRectangle region) in /workspace/KuaiYi/src/KuaiYi.Imaging/ScreenshotNormalization.cs:line 49
+   at KuaiYi.Imaging.ImageTransform.DesktopToNormalized(DesktopImageRectangle region) in /workspace/KuaiYi/src/KuaiYi.Imaging/ScreenshotNormalization.cs:line 54
+   at KuaiYi.Provider.Tests.ImageCoordinateBoundaryTests.NegativeDesktopOriginKeepsTouchingRightAndBottomEdgesThroughRoundTrip() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ImageCoordinateBoundaryTests.cs:line 16
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+Results File: /workspace/KuaiYi/artifacts/image-coordinate-boundaries/r01-red.trx
+
+Failed!  - Failed:     2, Passed:     0, Skipped:     0, Total:     2, Duration: 36 ms - KuaiYi.Provider.Tests.dll (net10.0)

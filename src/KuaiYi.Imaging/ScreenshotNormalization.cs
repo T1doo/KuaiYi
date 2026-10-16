@@ -44,23 +44,44 @@ public sealed record ImageTransform
     {Check(point.X,point.Y,NormalizedSize);return new(Map(point.X,NormalizedSize.Width,OriginalSize.Width),Map(point.Y,NormalizedSize.Height,OriginalSize.Height));}
     public DesktopImagePoint NormalizedToDesktop(NormalizedImagePoint point)
     {var local=NormalizedToOriginal(point);return new(local.X+OriginalCrop.Left,local.Y+OriginalCrop.Top);}
-    public NormalizedImagePoint DesktopToNormalized(DesktopImagePoint point)=>OriginalToNormalized(new OriginalImagePoint(point.X-OriginalCrop.Left,point.Y-OriginalCrop.Top));
+    public NormalizedImagePoint DesktopToNormalized(DesktopImagePoint point)
+    {CheckDesktop(point.X,point.Y);return OriginalToNormalized(new OriginalImagePoint(point.X-OriginalCrop.Left,point.Y-OriginalCrop.Top));}
     public NormalizedImageRectangle OriginalToNormalized(OriginalImageRectangle region)
     {Check(region.X,region.Y,region.Width,region.Height,OriginalSize);var r=Map(region.X,region.Y,region.Width,region.Height,OriginalSize,NormalizedSize);return new(r.X,r.Y,r.Width,r.Height);}
     public OriginalImageRectangle NormalizedToOriginal(NormalizedImageRectangle region)
     {Check(region.X,region.Y,region.Width,region.Height,NormalizedSize);var r=Map(region.X,region.Y,region.Width,region.Height,NormalizedSize,OriginalSize);return new(r.X,r.Y,r.Width,r.Height);}
     public DesktopImageRectangle NormalizedToDesktop(NormalizedImageRectangle region)
-    {var local=NormalizedToOriginal(region);return new(local.X+OriginalCrop.Left,local.Y+OriginalCrop.Top,local.Width,local.Height);}
-    public NormalizedImageRectangle DesktopToNormalized(DesktopImageRectangle region)=>OriginalToNormalized(new OriginalImageRectangle(region.X-OriginalCrop.Left,region.Y-OriginalCrop.Top,region.Width,region.Height));
+    {
+        var local=NormalizedToOriginal(region);
+        double left=local.X+OriginalCrop.Left,top=local.Y+OriginalCrop.Top;
+        double right=End(local.X,local.Width,OriginalSize.Width)+OriginalCrop.Left,bottom=End(local.Y,local.Height,OriginalSize.Height)+OriginalCrop.Top;
+        return new(left,top,right-left,bottom-top);
+    }
+    public NormalizedImageRectangle DesktopToNormalized(DesktopImageRectangle region)
+    {
+        // Validate in the supplied physical space before subtraction can erase an outward neighbor.
+        CheckDesktop(region.X,region.Y);
+        if(!double.IsFinite(region.Width)||!double.IsFinite(region.Height)||region.Width<0||region.Height<0||region.Width>OriginalCrop.Right-region.X||region.Height>OriginalCrop.Bottom-region.Y)throw new ArgumentOutOfRangeException(nameof(region));
+        double left=region.X-OriginalCrop.Left,top=region.Y-OriginalCrop.Top;
+        // Only validated inputs reach these endpoint additions; min absorbs their rounding alone.
+        double right=End(region.X,region.Width,OriginalCrop.Right)-OriginalCrop.Left,bottom=End(region.Y,region.Height,OriginalCrop.Bottom)-OriginalCrop.Top;
+        return OriginalToNormalized(new OriginalImageRectangle(left,top,right-left,bottom-top));
+    }
     public NormalizedImageRectangle RelativeToNormalized(UnitImageRectangle region)
-    {Check(region.X,region.Y,region.Width,region.Height,new(1,1));var r=Map(region.X,region.Y,region.Width,region.Height,new(1,1),NormalizedSize);return new(r.X,r.Y,r.Width,r.Height);}
+    {
+        if(!UnitInterval.Contains(region.X,region.Width)||!UnitInterval.Contains(region.Y,region.Height))throw new ArgumentOutOfRangeException(nameof(region));
+        var r=Map(region.X,region.Y,region.Width,region.Height,new(1,1),NormalizedSize);return new(r.X,r.Y,r.Width,r.Height);
+    }
     public OriginalImageRectangle RelativeToOriginal(UnitImageRectangle region)=>NormalizedToOriginal(RelativeToNormalized(region));
-    private static double Map(double edge,uint from,uint to)=>edge==from?to:edge/from*to;
+    private static double Map(double edge,uint from,uint to)=>from==to?edge:edge==from?to:edge/from*to;
+    // For validated extents the maximal accepted width is exactly the rounded subtraction.
+    // Preserve its known endpoint: adding that width back may round to either side of the edge.
+    private static double End(double start,double length,double limit)=>length==limit-start?limit:Math.Min(limit,start+length);
     private static (double X,double Y,double Width,double Height) Map(double x,double y,double width,double height,ImageSize from,ImageSize to)
     {
         double left=Map(x,from.Width,to.Width),top=Map(y,from.Height,to.Height);
         // Inputs already validated; min only absorbs floating-point edge-addition roundoff.
-        double right=Map(Math.Min(from.Width,x+width),from.Width,to.Width),bottom=Map(Math.Min(from.Height,y+height),from.Height,to.Height);
+        double right=Map(End(x,width,from.Width),from.Width,to.Width),bottom=Map(End(y,height,from.Height),from.Height,to.Height);
         return (left,top,right-left,bottom-top);
     }
     private static void Check(double x,double y,ImageSize size)
@@ -70,6 +91,8 @@ public sealed record ImageTransform
         Check(x,y,size);
         if(!double.IsFinite(width)||!double.IsFinite(height)||width<0||height<0||width>size.Width-x||height>size.Height-y)throw new ArgumentOutOfRangeException(nameof(width));
     }
+    private void CheckDesktop(double x,double y)
+    {if(!double.IsFinite(x)||!double.IsFinite(y)||x<OriginalCrop.Left||y<OriginalCrop.Top||x>OriginalCrop.Right||y>OriginalCrop.Bottom)throw new ArgumentOutOfRangeException(nameof(x));}
 }
 
 /// <summary>Only successful, bounded preparations can construct this owner. Mapping is local metadata,

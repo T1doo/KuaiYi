@@ -1,0 +1,30 @@
+using System.Text.Json.Nodes;
+using KuaiYi.Core;
+using KuaiYi.Imaging;
+using KuaiYi.Providers;
+using Xunit;
+namespace KuaiYi.Provider.Tests;
+
+public sealed class ImageCoordinateBoundaryTests
+{
+    [Fact]
+    public void NegativeDesktopOriginKeepsTouchingRightAndBottomEdgesThroughRoundTrip()
+    {
+        var transform=ImageTransform.Plan(new PixelRect(-715,-923,-615,-873));
+        var normalized=transform.OriginalToNormalized(new OriginalImageRectangle(.1,0,99.9,50));
+        var desktop=transform.NormalizedToDesktop(normalized);
+        var returned=transform.DesktopToNormalized(desktop);
+        Assert.Equal(100,returned.X+returned.Width);
+        Assert.Equal(50,returned.Y+returned.Height);
+        Assert.InRange(Math.Abs(returned.X-normalized.X),0,1e-12);
+    }
+    [Fact]
+    public void ClassifierAcceptsDecimalRightAndBottomComplementsFromExistingSchema()
+    {
+        var root=JsonNode.Parse(ImageClassificationTests.Json())!;
+        root["regions"]![0]!["bbox"]=JsonNode.Parse("[0.8,0,0.2,1]");
+        Assert.True(ImageClassification.TryParse(root.ToJsonString(),out var analysis));
+        var region=Assert.Single(analysis!.Regions);
+        Assert.Equal((.8,0,.2,1),(region.X,region.Y,region.Width,region.Height));
+    }
+}

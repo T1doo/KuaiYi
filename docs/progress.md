@@ -745,3 +745,11 @@ ImageTransform规划与可发送owner分开，记录原crop物理Bounds/尺寸�
 实际r01白底红测1P/5F，原owner/encoder及初6测试保全；r02 CS0121重载歧义编译失败0执行、无TRX，原log/源码保全后修明确point类型。r03 185/185、r04 211/211；独审发现新mapping复用坐标类型，r05真实0P/1F及两份红源码保全，拆独立空间后r06 216/216。最终Provider1306/1306（父1232完整+新74：44归一化、30编排），App0W/E；实际PNG解码CRC/白底、原件清零/有限cap/取消、1000随机坐标往返/非法边界、双协议两阶段同图、Prepared无缓存/缓存Stop/C重入及排队迟到均执行。14份SDK log/TRX+6修前源码精确-text，父142原件和1724旧证据不改。详见[实现与可读性边界](validation/screenshot-normalization.md)及[固定证据](test-evidence/2026-10-16-screenshot-normalization.json)。
 
 P6-02保持InProgress/原validation Blocked，P6-04/05保持InProgress/NotRun；完整多格式样本、SkiaSharp版本/许可证审查、EXIF、隔离解码、OCR/一般文字缩小可读性均未完成，真实WPF/Win32/COM/图像质量及完整P2/P4/P6/I/J NotRun。250/600ms和来源/密码/完整性/取消/清理门、生产复用Off、Core/Provider/8模板/8workflow/43锁保持。dotnet每次显式false，证书/旧覆盖字节Unknown不读改重造；Actions不查询调度绕拒绝、run数Unknown；无main/强推/部署/新费用凭据权限协议/真实模型或Windows/CMake/新CI实验。
+
+### 2026-10-16 ImageTransform 贴边坐标与既有 bbox 错拒
+
+从已签收1b658b598f96f4af1790411ec1b68774a6e80be8核clean/单worktree/唯一写入者/默认远端与祖先，建dev/image-coordinate-boundaries。先保留给定负原点.1/99.9往返及旧分类.8/.2错拒红测0P/2F。桌面矩形按分别平移的端点重建宽高；物理点与框先验原空间边界/剩余宽高再减原点，防真实外邻值被消去。已验宽度等于limit-start时恢复其确定贴边端点，不用epsilon；identity轴保值。单位bbox另共用有限double最短往返十进制R的BigInteger精确比较，旧parser错拒同批修，明确.7/(1-.7)的canonical十进制超界会有意拒，不宣称二进制或原JSON任意精度合同。
+
+r02专项101/101；r03 170P/2F均为新增夹具错误要求跨零相加恒等，不是旧min生产失败证据，保4份原源码及失败回执，补精确End并将不可保证加法等式改为最大残差等式，外邻值及20轮断言保留；r04 172/172。最终Provider1379/1379=父1306完整+新73，App0W/E；24组crop含大正负/混合原点/两向缩放、四边/宽高立即邻值、跨零点反例、tiny/decimal精度反例与parser/transform共同单位合同执行。11SDK log/TRX+7红源码精确-text保全，父162原回执和1745旧证据保持。独审/源码manifest及限制见[修复说明](validation/image-coordinate-boundaries.md)和[固定证据](test-evidence/2026-10-16-image-coordinate-boundaries.json)。
+
+既有Core/全部App、其他Provider/Imaging、8模板/8workflow/43锁不改；250/600ms与全部来源/密码/完整性/取消/清理门保持，普通截图仍本地预览、生产离线复用Off。P6-02仍InProgress/Blocked，P6-04/05仍InProgress/NotRun，多格式/EXIF/隔离解码/Skia/OCR/一般缩图可读性及真实WPF测量选择阅读/Windows/COM/质量/取消时限与完整P2/P4/P6/I/J未验。所有dotnet显式false；证书/旧覆盖字节Unknown不读改重造，Actions不查询调度绕拒绝、run数Unknown；无main/强推/部署/新依赖费用凭据权限协议/真实模型、Windows/CMake或新CI实验。
