@@ -305,3 +305,29 @@ docs/test-evidence/2026-10-16-ocr-terminal-originals__r04-provider-full.log -tex
 docs/test-evidence/2026-10-16-ocr-terminal-originals__r04-provider-full.trx -text
 docs/test-evidence/2026-10-16-ocr-terminal-originals__r05-app-crossbuild.log -text
 docs/test-evidence/2026-10-16-ocr-terminal-originals__r06-worker-crossbuild.log -text
+
+# OCR installed-capability discovery: preserve exact original receipts.
+docs/test-evidence/2026-10-16-ocr-capabilities-originals__baseline__ImageMessages.cs.txt -text
+docs/test-evidence/2026-10-16-ocr-capabilities-originals__baseline__ImageWorkerClient.cs.txt -text
+docs/test-evidence/2026-10-16-ocr-capabilities-originals__baseline__ImageWorkerSession.cs.txt -text
+docs/test-evidence/2026-10-16-ocr-capabilities-originals__baseline__IpcFrame.cs.txt -text
+docs/test-evidence/2026-10-16-ocr-capabilities-originals__baseline__OcrCapabilitiesPolicy.cs.txt -text
+docs/test-evidence/2026-10-16-ocr-capabilities-originals__baseline__OcrOnlyCoordinator.cs.txt -text
+docs/test-evidence/2026-10-16-ocr-capabilities-originals__baseline__OcrOnlyFlow.cs.txt -text
+docs/test-evidence/2026-10-16-ocr-capabilities-originals__baseline__Program.cs.txt -text
+docs/test-evidence/2026-10-16-ocr-capabilities-originals__preflight.json -text
+docs/test-evidence/2026-10-16-ocr-capabilities-originals__r01-existing-worker-ocr.log -text
+docs/test-evidence/2026-10-16-ocr-capabilities-originals__r01-existing-worker-ocr.trx -text
+docs/test-evidence/2026-10-16-ocr-capabilities-originals__r02-capabilities-contract.log -text
+docs/test-evidence/2026-10-16-ocr-capabilities-originals__r02-capabilities-contract.trx -text
+docs/test-evidence/2026-10-16-ocr-capabilities-originals__r03-app-crossbuild.log -text
+docs/test-evidence/2026-10-16-ocr-capabilities-originals__r04-OcrCapabilitiesProtocolTests-compile.cs.txt -text
+docs/test-evidence/2026-10-16-ocr-capabilities-originals__r04-capabilities-private-protocol.log -text
+docs/test-evidence/2026-10-16-ocr-capabilities-originals__r05-capabilities-protocol-contract.log -text
+docs/test-evidence/2026-10-16-ocr-capabilities-originals__r05-capabilities-protocol-contract.trx -text
+docs/test-evidence/2026-10-16-ocr-capabilities-originals__r06-capabilities-reentry-limits.log -text
+docs/test-evidence/2026-10-16-ocr-capabilities-originals__r06-capabilities-reentry-limits.trx -text
+docs/test-evidence/2026-10-16-ocr-capabilities-originals__r07-provider-full.log -text
+docs/test-evidence/2026-10-16-ocr-capabilities-originals__r07-provider-full.trx -text
+docs/test-evidence/2026-10-16-ocr-capabilities-originals__r08-app-final-crossbuild.log -text
+docs/test-evidence/2026-10-16-ocr-capabilities-originals__r09-worker-final-crossbuild.log -text

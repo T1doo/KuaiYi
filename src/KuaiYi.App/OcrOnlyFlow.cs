@@ -32,15 +32,25 @@ internal sealed partial class ShellWindow
         long? operationEpoch=null;
         bool FlowCurrent()=>ReferenceEquals(ocrOnly,ocr)&&ReferenceEquals(translation,textFlow)&&InputCurrent()&&(operationEpoch==null||operationEpoch==lifecycle.Gate.Snapshot.Epoch);
         ocrFlowBusy=true;
-        // Language is an explicit local request, never a model download or guessed availability.
-        var language=new TextBox{Text="en-US",Margin=new Thickness(0,8,0,8)};
-        var choose=new Window{Owner=this,Title="本地 OCR 语言",Width=420,Height=210,ResizeMode=ResizeMode.NoResize,WindowStartupLocation=WindowStartupLocation.CenterOwner};
-        var panel=new StackPanel{Margin=new Thickness(16)};panel.Children.Add(new TextBlock{Text="输入已安装的 OCR 语言标签（如 en-US、zh-Hans）。缺少身份或语言时停止，不会上传图片。",TextWrapping=TextWrapping.Wrap});panel.Children.Add(language);
-        var next=new Button{Content="在本地提取文字"};next.Click+=(_,_)=>choose.DialogResult=true;panel.Children.Add(next);choose.Content=panel;ocrDialog=choose;
+        OcrCapabilitiesSnapshot? discovered=null;
         try
         {
-            if(choose.ShowDialog()!=true)return;ocrDialog=null;if(!InputCurrent())return;
-            if(!ocr.Start(version,image,language.Text)){button.ToolTip="图片、启用状态或配置已改变，或原 OCR 尚未清理；没有发送。";return;}
+            if(!ocr.Discover(version,image)){button.ToolTip="图片、启用状态或配置已改变，或原 OCR 尚未清理；没有发送。";return;}
+            operationEpoch=lifecycle.Gate.Snapshot.Epoch;button.ToolTip="正在检查本机 OCR 能力 · 尚未发送";
+            await ocr.Running;if(!FlowCurrent())return;
+            discovered=ocr.Capabilities;
+            if(discovered==null){button.ToolTip="本地 OCR 不可用 · "+OcrFailureLabel(ocr.Failure)+"；没有发送。";return;}
+            var capability=discovered;
+            var language=new ComboBox{ItemsSource=capability.Languages,SelectedIndex=0,IsEditable=false,Margin=new Thickness(0,8,0,8)};
+            bool fits=image.Width<=Math.Min(capability.MaxImageDimension,(uint)ImageTransform.LongEdgeLimit)&&image.Height<=Math.Min(capability.MaxImageDimension,(uint)ImageTransform.LongEdgeLimit);
+            var choose=new Window{Owner=this,Title="选择本机已安装的 OCR 语言",Width=480,Height=260,ResizeMode=ResizeMode.NoResize,WindowStartupLocation=WindowStartupLocation.CenterOwner};
+            var panel=new StackPanel{Margin=new Thickness(16)};
+            panel.Children.Add(new TextBlock{Text=$"本机已安装 {capability.Languages.Length} 种识别语言；OCR 最大边长 {capability.MaxImageDimension} 像素。\n当前截图 {image.Width} × {image.Height}；本地处理上限 {ImageTransform.LongEdgeLimit} 像素。"+(fits?"":"\n截图超出上限，请重新截取更小范围。"),TextWrapping=TextWrapping.Wrap});panel.Children.Add(language);
+            var next=new Button{Content="使用所选语言在本地提取文字",IsEnabled=fits};next.Click+=(_,_)=>choose.DialogResult=true;panel.Children.Add(next);choose.Content=panel;ocrDialog=choose;
+            var capabilityWatch=new DispatcherTimer{Interval=TimeSpan.FromMilliseconds(100)};capabilityWatch.Tick+=(_,_)=>{if(!ocr.IsCapabilitiesCurrent(capability))choose.Close();};capabilityWatch.Start();
+            bool languageConfirmed;try{languageConfirmed=choose.ShowDialog()==true;}finally{capabilityWatch.Stop();}ocrDialog=null;
+            if(!languageConfirmed||!FlowCurrent()||!ocr.IsCapabilitiesCurrent(capability)){ocr.RejectCapabilities(capability);return;}
+            if(language.SelectedItem is not string tag||!ocr.Start(capability,tag)){button.ToolTip="本地 OCR 未启动 · "+OcrFailureLabel(ocr.Failure)+"；没有发送。";return;}
             operationEpoch=lifecycle.Gate.Snapshot.Epoch;
             button.ToolTip="正在本地提取图片文字 · 尚未发送";
             await ocr.Running;
@@ -66,12 +76,17 @@ internal sealed partial class ShellWindow
             if(offer==null||textFlow.Submit(offer,true)!=TextSubmission.Started)button.ToolTip="来源、启用状态或配置已改变；没有发送。";
         }
         catch(Exception error){if(FlowCurrent()){ocr.Clear();Report("本地 OCR 未完成；没有发送",error);}}
-        finally{ocrDialog=null;ocrFlowBusy=false;}
+        finally
+        {
+            List<Exception> errors=[];if(discovered!=null)ScreenshotPreviewCleanup.Attempt(errors,()=>ocr.RejectCapabilities(discovered));ocrDialog=null;ocrFlowBusy=false;
+            if(errors.Count>0&&ReferenceEquals(ocrOnly,ocr)&&InputCurrent())Report("OCR 能力任务清理尚未确认",new AggregateException(errors));
+        }
     }
     private static string OcrFailureLabel(string? failure)=>failure switch
     {
         "UnsupportedPlatform"=>"当前系统不支持本地 OCR","IdentityMissing"=>"缺少应用包身份","IdentityMismatch"=>"Worker 包身份不匹配",
-        "LanguageUnavailable"=>"未安装所选 OCR 语言","NativeUnavailable"=>"本地 OCR 组件不可用","Cancelled"=>"已取消","Timeout"=>"本地 OCR 等待超时",
+        "LanguageUnavailable"=>"没有可用的已安装 OCR 语言","NativeUnavailable"=>"本地 OCR 组件不可用","Cancelled"=>"已取消","Timeout"=>"本地 OCR 等待超时",
+        "OcrDimensionExceeded"=>"截图超过本机 OCR 尺寸上限，请重新截取更小范围","SMALLER_SCREENSHOT_REQUIRED"=>"截图超过本地处理上限，请重新截取更小范围",
         "CLEANUP_UNCONFIRMED"=>"原 Worker 尚未确认清理，不能启动新任务",null=>"来源或启用状态已改变",_=>"图像或文字无法安全识别"
     };
 }

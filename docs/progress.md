@@ -787,3 +787,11 @@ P6-03 InProgress/NotRun，02仍InProgress/Blocked，04/05不改。Windows真实O
 r02 7/7、r03专项77/77；r04完整1499/1499=父1481完整+新18，无失败/跳过，独审逐项核测试名。覆盖启动前worker/factory/HTTP0及恢复连接测试准入、held/queued阶段Settings/Mode/C与原owner清理、A/B清理回调创建Gate或Local C后抛错、原错/清理错对象保全；Local C明确Drain后单独worker1预览、HTTP始终0。App/Worker交叉构建各0W/E。10SDK+3源码+1preflight原件精确-text保全，父37/累计256原回执和1843旧证据不变；43锁/8workflow/8模板/项目引用/依赖不改。详见[修复说明](validation/ocr-terminal-identity.md)及[固定证据](test-evidence/2026-10-16-ocr-terminal-identity.json)。
 
 Core Gate/Provider/App/其余生产与原断言不改；P6-03 InProgress/NotRun，02 InProgress/Blocked、04/05不改。生产复用Off，250/600ms/原15秒及来源/密码/完整性/Job/process/取消清理门保持；Windows真实OCR/包身份/语言/质量、WPF测量选择阅读/窗口、COM/原生取消时限及完整P0/P2/P4/P6/I/J仍NotRun。所有dotnet激活前后/命令显式false；证书Unknown不读改trust/delete，Skia许可待答/源码403及Actions拒绝门不绕，Actions不查不调run数Unknown；无main/强推/部署/新依赖协议费用凭据权限真实模型、Windows/CMake探针或新CI。
+
+### 2026-10-16 P6-03现有OCR菜单的已安装能力发现
+
+父1ac32bede4ce7a9415c22b676c08ba071eb67412核实际文件/clean/单worktree/默认远端祖先及唯一root写入者，建dev/ocr-installed-capabilities；旧UNKNOWN不恢复，ocr_capabilities_review只读独审。现有“仅提取图片文字”实际先经原隔离Worker的NativeOcr.Diagnose，新增受限私有105/106帧复用nonce/job/15秒/进程和原I/O结算，无图无HTTP；替换手输语言为不可编辑已安装语言选择，显示并消费本机尺寸及原2560/4MiB门。成功不可变快照绑定原图/来源版本/设置/完整身份，实际识别前再验；缺平台/身份/语言明确阻断，取消/迟到/换配置来源及后继C精确身份结算，保父B异常/终结修复。正常截图仍只本地预览，识别后仍需只读文字预览和既有显式确认才按四风格文字发送，无安装组件/自动视觉发送。
+
+最终Provider1575/1575=父1499完整+新76（58发现、18私有协议），App/Worker最终各0W/E。真实生产DLL及Provider/Kestrel双协议测试已安装语言/尺寸、错误能力、不可变快照、清理未确认、非协作原读写flush和worker诊断/control双join、精确缓冲清零与重入迟到；实际Linux托管子进程仅hello+diagnose，UnsupportedPlatform退出，四DLL与测试执行目录哈希相同。成功Windows能力为明确合成合同，不冒充实机。r04新测试CS8752/CS9174编译失败0执行无TRX，精确源码与log保全后修类型；r06后修新夹具default使三例实际测试非法成功报告，生产未变、中间测试源码未保全不重造，最终r07绑定当前源。24新原件精确-text，父270原回执/1858旧证据及未改父文件保持。详见[实现和验证边界](validation/ocr-installed-capabilities.md)及[固定证据](test-evidence/2026-10-16-ocr-installed-capabilities.json)。
+
+P6-03 InProgress/NotRun、P6-02 InProgress/Blocked、04/05不变。Windows真实包身份/语言/原生上限与识别质量、WPF语言窗口/焦点/测量/选择/阅读、Win32/COM/截图/原生Job/时限及完整P0/P2/P4/P6/I/J仍NotRun。250/600ms与全部来源/密码/完整性/取消/清理门、生产离线复用Off保持，Core/Provider/8模板/8workflow/43锁/依赖引用不改。每次dotnet显式false，证书存储信任Unknown不读改；Skia许可及源码403门保持不接不绕，Actions不查不调不绕拒绝、run数Unknown，无Windows/CMake/新CI/main/强推/部署/真实模型/费用凭据权限新协议。

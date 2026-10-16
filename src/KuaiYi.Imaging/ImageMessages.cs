@@ -6,6 +6,8 @@ namespace KuaiYi.Imaging;
 
 public sealed record ImageJob(Guid SessionId, long Version, long Epoch, string Language, int ByteLength);
 public sealed record WorkerDiagnostic(IdentityDiagnostic Identity, string[] Languages, uint MaxImageDimension, ImageFailure Failure);
+public sealed record OcrDiagnosticJob(Guid SessionId,long Version,long Epoch);
+public sealed record OcrDiagnosticReply(OcrDiagnosticJob Job,WorkerDiagnostic Diagnostic);
 public sealed record OcrWord(string Text, double X, double Y, double Width, double Height);
 public sealed record OcrLine(string Text, OcrWord[] Words);
 public sealed record OcrOutput(uint Width, uint Height, string Language, string Text, OcrLine[] Lines);

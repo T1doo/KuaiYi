@@ -6,7 +6,7 @@ namespace KuaiYi.ImageWorker;
 /// never substitutes for native OCR/PNG/JPEG acceptance.</summary>
 internal static class ImageWorkerSession
 {
-    internal static async Task RunAsync(Stream input,Stream output,Func<ReadOnlyMemory<byte>,string,CancellationToken,OcrOutput> recognizeOcr,Action<string>? diagnostic=null)
+    internal static async Task RunAsync(Stream input,Stream output,Func<ReadOnlyMemory<byte>,string,CancellationToken,OcrOutput> recognizeOcr,Action<string>? diagnostic=null,Func<WorkerDiagnostic>? diagnoseOcr=null)
     {
         using var receiver=new ImageJobReceiver();
         var hello=await IpcFrameCodec.ReadAsync(input)??throw new EndOfStreamException();Guid id=hello.RequestId;
@@ -17,8 +17,18 @@ internal static class ImageWorkerSession
         }
         finally{CryptographicOperations.ZeroMemory(hello.Payload);}
         var begin=await IpcFrameCodec.ReadAsync(input)??throw new EndOfStreamException();
-        try{if(begin.RequestId!=id)throw new InvalidDataException("Begin/hello identity mismatch.");receiver.Begin(begin);}
+        OcrDiagnosticJob? diagnosticJob=null;
+        try
+        {
+            if(begin.RequestId!=id)throw new InvalidDataException("Begin/hello identity mismatch.");
+            if(begin.Type==IpcMessageType.ImageDiagnose)
+            {
+                diagnosticJob=ImageJson.Read<OcrDiagnosticJob>(begin.Payload);OcrCapabilitiesPolicy.ValidateJob(diagnosticJob);
+            }
+            else receiver.Begin(begin);
+        }
         finally{CryptographicOperations.ZeroMemory(begin.Payload);}
+        if(diagnosticJob!=null){await DiagnoseAsync(input,output,id,diagnosticJob,diagnoseOcr??throw new InvalidDataException("Diagnostic role unavailable."),diagnostic);return;}
         ReadOnlyMemory<byte> image;
         while(true)
         {
@@ -74,5 +84,35 @@ internal static class ImageWorkerSession
             try{await original.ConfigureAwait(false);}
             catch(Exception error){diagnostic?.Invoke("settlement:"+error.GetType().Name);} // Bounded type only; preserve original-task lease through settlement.
         }
+    }
+    private static async Task DiagnoseAsync(Stream input,Stream output,Guid id,OcrDiagnosticJob job,Func<WorkerDiagnostic> diagnose,Action<string>? log)
+    {
+        using var cancellation=new CancellationTokenSource(TimeSpan.FromSeconds(15));
+        var operation=Task.Run(()=>{cancellation.Token.ThrowIfCancellationRequested();return diagnose();});var control=Task.Run(ReadControl);
+        try
+        {
+            if(await Task.WhenAny(operation,control)==control){await control;cancellation.Cancel();}
+            WorkerDiagnostic result;
+            try{result=await operation;cancellation.Token.ThrowIfCancellationRequested();OcrCapabilitiesPolicy.ValidateDiagnostic(result);}
+            catch(OperationCanceledException){result=Failure(ImageFailure.Cancelled);}
+            catch(Exception error){log?.Invoke(error.GetType().Name);result=Failure(ImageFailure.NativeFailure);}
+            byte[] response=ImageJson.Serialize(new OcrDiagnosticReply(job,result));
+            try
+            {
+                if(response.Length>IpcFrameCodec.JsonLimit)throw new InvalidDataException("Diagnostic response exceeds limit.");
+                await IpcFrameCodec.WriteAsync(output,new(IpcMessageType.ImageDiagnostic,id,response));await output.FlushAsync();
+            }
+            finally{CryptographicOperations.ZeroMemory(response);}
+            await control;
+        }
+        finally{try{cancellation.Cancel();}finally{try{await Observe(operation);}finally{await Observe(control);}}}
+        static WorkerDiagnostic Failure(ImageFailure code)=>new(new(OperatingSystem.IsWindows(),false,null,null,code),[],0,code);
+        async Task ReadControl()
+        {
+            IpcFrame? frame=null;
+            try{frame=await IpcFrameCodec.ReadAsync(input);if(frame!=null&&(frame.Type!=IpcMessageType.ImageCancel||frame.RequestId!=id||frame.Payload.Length!=0))throw new InvalidDataException("Invalid diagnostic control.");}
+            finally{try{if(frame!=null)CryptographicOperations.ZeroMemory(frame.Payload);}finally{cancellation.Cancel();}}
+        }
+        async Task Observe(Task task){try{await task.ConfigureAwait(false);}catch(Exception error){log?.Invoke("settlement:"+error.GetType().Name);}}
     }
 }

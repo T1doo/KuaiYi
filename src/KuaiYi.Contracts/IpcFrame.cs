@@ -7,6 +7,7 @@ public enum IpcMessageType : ushort
     Ping = 1, ShowSettings = 2, SubmitImage = 3, SubmitImagePath = 4, BinaryChunk = 5,
     // Private inherited ImageWorker channel only; never accepted by the external command gateway.
     ImageHello = 100, ImageBegin = 101, ImageCommit = 102, ImageResult = 103, ImageCancel = 104,
+    ImageDiagnose=105,ImageDiagnostic=106,
     // Separate one-shot CaptureHost inherited channel, never accepted by external App commands.
     CaptureHello=120,CaptureBegin=121,CaptureResult=122,CaptureCommit=123,
     OleHello=140,OleExport=141,OleControl=142,OleEvent=143

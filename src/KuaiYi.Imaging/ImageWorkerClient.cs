@@ -6,7 +6,7 @@ using KuaiYi.Core;
 namespace KuaiYi.Imaging;
 
 /// <summary>Owned one-shot process. Private inherited stdio is a P0 transport, not the production named-pipe ACL endpoint.</summary>
-public sealed class ImageWorkerClient(string executable, string? managedAssembly = null, IImageProcessStarter? processStarter = null) : ILocalOcrWorker
+public sealed class ImageWorkerClient(string executable, string? managedAssembly = null, IImageProcessStarter? processStarter = null) : ILocalOcrCapabilitiesWorker
 {
     private readonly OwnedProcessSession process=new(processStarter);
     private int started;
@@ -23,72 +23,88 @@ public sealed class ImageWorkerClient(string executable, string? managedAssembly
     public bool ObserveExit()=>process.ObserveExit();
     internal Func<Stream,Stream>? ReadStreamForTest {get;init;}
     internal Func<Stream,Stream>? WriteStreamForTest {get;init;}
-    public async Task<ImageReply> RunAsync(ReadOnlyMemory<byte> image, ImageJob job, CancellationToken cancellation = default)
+    public Task<ImageReply> RunAsync(ReadOnlyMemory<byte> image,ImageJob job,CancellationToken cancellation=default)
+        =>RunOnceAsync(()=>RunOwnedAsync(image,job,cancellation));
+    public Task<OcrDiagnosticReply> DiagnoseAsync(OcrDiagnosticJob job,CancellationToken cancellation=default)
+        =>RunOnceAsync(async()=>
+        {
+            cancellation.ThrowIfCancellationRequested();OcrCapabilitiesPolicy.ValidateJob(job);
+            return await UseChannelAsync(async(send,receive,id,token)=>
+            {
+                await Write(send,new(IpcMessageType.ImageDiagnose,id,ImageJson.Serialize(job)),token,true);
+                var frame=await Read(receive,token);
+                try
+                {
+                    if(frame.Type!=IpcMessageType.ImageDiagnostic||frame.RequestId!=id)throw new InvalidDataException("Worker diagnostic identity/type mismatch.");
+                    var reply=ImageJson.Read<OcrDiagnosticReply>(frame.Payload);
+                    if(reply.Job!=job||reply.Diagnostic==null)throw new InvalidDataException("Worker diagnostic job mismatch.");
+                    OcrCapabilitiesPolicy.ValidateDiagnostic(reply.Diagnostic);return reply;
+                }
+                finally{CryptographicOperations.ZeroMemory(frame.Payload);}
+            },cancellation).ConfigureAwait(false);
+        });
+    private async Task<T> RunOnceAsync<T>(Func<Task<T>> run)
     {
-        if (Interlocked.CompareExchange(ref started,1,0) != 0) throw new InvalidOperationException("Image client is single use.");
-        try{return await RunOwnedAsync(image,job,cancellation).ConfigureAwait(false);}
-        finally{Volatile.Write(ref started,2);}
+        if(Interlocked.CompareExchange(ref started,1,0)!=0)throw new InvalidOperationException("Image client is single use.");
+        try{return await run().ConfigureAwait(false);}finally{Volatile.Write(ref started,2);}
     }
     private async Task<ImageReply> RunOwnedAsync(ReadOnlyMemory<byte> image,ImageJob job,CancellationToken cancellation)
     {
-        cancellation.ThrowIfCancellationRequested();
-        ImagePolicy.InspectPng(image.Span);
-        if (image.Length != job.ByteLength) throw new InvalidDataException("Image length mismatch.");
+        cancellation.ThrowIfCancellationRequested();ImagePolicy.InspectPng(image.Span);
+        if(image.Length!=job.ByteLength)throw new InvalidDataException("Image length mismatch.");
+        return await UseChannelAsync(async(send,receive,id,token)=>
+        {
+            await Write(send,new(IpcMessageType.ImageBegin,id,ImageJson.Serialize(job)),token);
+            int index=0;
+            for(int offset=0;offset<image.Length;)
+            {
+                int size=Math.Min(IpcFrameCodec.BinaryLimit-4,image.Length-offset);byte[] chunk=new byte[size+4];
+                BinaryPrimitives.WriteUInt32LittleEndian(chunk,(uint)index++);image.Span.Slice(offset,size).CopyTo(chunk.AsSpan(4));
+                await Write(send,new(IpcMessageType.BinaryChunk,id,chunk),token);offset+=size;
+            }
+            await Write(send,new(IpcMessageType.ImageCommit,id,[]),token,true);var frame=await Read(receive,token);
+            try
+            {
+                if(frame.Type!=IpcMessageType.BinaryChunk||frame.RequestId!=id)throw new InvalidDataException("Worker reply mismatch.");
+                var reply=ImageJson.Read<ImageReply>(frame.Payload);
+                if(reply.Job!=job||!Enum.IsDefined(reply.Failure)||(reply.Failure==ImageFailure.None)!=(reply.Output!=null))throw new InvalidDataException("Worker result identity/status mismatch.");
+                if(reply.Output is {} result)ValidateOutput(result,ImagePolicy.InspectPng(image.Span),job.Language);return reply;
+            }
+            finally{CryptographicOperations.ZeroMemory(frame.Payload);}
+        },cancellation).ConfigureAwait(false);
+    }
+    private async Task<T> UseChannelAsync<T>(Func<Stream,Stream,Guid,CancellationToken,Task<T>> exchange,CancellationToken cancellation)
+    {
         var info=OwnedProcessSession.Info(executable,managedAssembly);
-        using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
-        using var linked = CancellationTokenSource.CreateLinkedTokenSource(cancellation, deadline.Token);
-        Task<Process> pending=process.Start(info,linked.Token);
-        Guid id = Guid.NewGuid();
+        using var deadline=new CancellationTokenSource(TimeSpan.FromSeconds(15));
+        using var linked=CancellationTokenSource.CreateLinkedTokenSource(cancellation,deadline.Token);
+        Task<Process> pending=process.Start(info,linked.Token);Guid id=Guid.NewGuid();
         try
         {
-            Process child = await pending.WaitAsync(linked.Token).ConfigureAwait(false);
-            linked.Token.ThrowIfCancellationRequested();
-            var send = WriteStreamForTest?.Invoke(child.StandardInput.BaseStream)??child.StandardInput.BaseStream; var receive = ReadStreamForTest?.Invoke(child.StandardOutput.BaseStream)??child.StandardOutput.BaseStream;
-            byte[] nonce = RandomNumberGenerator.GetBytes(32);
+            Process child=await pending.WaitAsync(linked.Token).ConfigureAwait(false);linked.Token.ThrowIfCancellationRequested();
+            var send=WriteStreamForTest?.Invoke(child.StandardInput.BaseStream)??child.StandardInput.BaseStream;
+            var receive=ReadStreamForTest?.Invoke(child.StandardOutput.BaseStream)??child.StandardOutput.BaseStream;
+            byte[] nonce=RandomNumberGenerator.GetBytes(32);
             try
             {
-                // The writer owns its independent buffer until the ORIGINAL write/flush settles.
                 await Write(send,new(IpcMessageType.ImageHello,id,nonce.ToArray()),linked.Token,true);
-                var hello = await Read(receive,linked.Token);
-                try { if (hello.Type != IpcMessageType.ImageHello || hello.RequestId != id || !CryptographicOperations.FixedTimeEquals(nonce, hello.Payload)) throw new InvalidDataException("Worker hello mismatch."); }
-                finally { CryptographicOperations.ZeroMemory(hello.Payload); }
+                var hello=await Read(receive,linked.Token);
+                try{if(hello.Type!=IpcMessageType.ImageHello||hello.RequestId!=id||!CryptographicOperations.FixedTimeEquals(nonce,hello.Payload))throw new InvalidDataException("Worker hello mismatch.");}
+                finally{CryptographicOperations.ZeroMemory(hello.Payload);}
             }
-            finally { CryptographicOperations.ZeroMemory(nonce); }
-            byte[] begin = ImageJson.Serialize(job);
-            await Write(send,new(IpcMessageType.ImageBegin,id,begin),linked.Token);
-            int index = 0;
-            for (int offset = 0; offset < image.Length;)
-            {
-                int size = Math.Min(IpcFrameCodec.BinaryLimit - 4, image.Length - offset);
-                byte[] chunk = new byte[size + 4];
-                BinaryPrimitives.WriteUInt32LittleEndian(chunk,(uint)index++);image.Span.Slice(offset,size).CopyTo(chunk.AsSpan(4));
-                await Write(send,new(IpcMessageType.BinaryChunk,id,chunk),linked.Token);
-                offset += size;
-            }
-            await Write(send,new(IpcMessageType.ImageCommit,id,[]),linked.Token,true);
-            var frame = await Read(receive,linked.Token);
-            ImageReply reply;
-            try
-            {
-                if (frame.Type != IpcMessageType.BinaryChunk || frame.RequestId != id) throw new InvalidDataException("Worker reply mismatch.");
-                reply = ImageJson.Read<ImageReply>(frame.Payload);
-                if (reply.Job != job || !Enum.IsDefined(reply.Failure) || (reply.Failure == ImageFailure.None) != (reply.Output != null)) throw new InvalidDataException("Worker result identity/status mismatch.");
-                if (reply.Output is { } result) ValidateOutput(result, ImagePolicy.InspectPng(image.Span), job.Language);
-            }
-            finally { CryptographicOperations.ZeroMemory(frame.Payload); }
-            child.StandardInput.Close();
-            await child.WaitForExitAsync(linked.Token);
-            if (child.ExitCode != 0) throw new ImageJobException(ImageFailure.ProtocolFailure);
-            if (!ObserveExit()) throw new ImageJobException(ImageFailure.ExitUnconfirmed);
-            cancellation.ThrowIfCancellationRequested();
-            return reply;
+            finally{CryptographicOperations.ZeroMemory(nonce);}
+            T result=await exchange(send,receive,id,linked.Token).ConfigureAwait(false);
+            child.StandardInput.Close();await child.WaitForExitAsync(linked.Token).ConfigureAwait(false);
+            if(child.ExitCode!=0)throw new ImageJobException(ImageFailure.ProtocolFailure);
+            if(!ObserveExit())throw new ImageJobException(ImageFailure.ExitUnconfirmed);
+            cancellation.ThrowIfCancellationRequested();return result;
         }
-        catch (OperationCanceledException) when (deadline.IsCancellationRequested && !cancellation.IsCancellationRequested) { throw new ImageJobException(ImageFailure.Timeout); }
+        catch(OperationCanceledException)when(deadline.IsCancellationRequested&&!cancellation.IsCancellationRequested){throw new ImageJobException(ImageFailure.Timeout);}
         finally
         {
             await process.StopAsync().ConfigureAwait(false);
-            if (!ObserveExit()) throw new ImageJobException(ImageFailure.ExitUnconfirmed); // Raw child exit cannot clear an unsettled startup.
-            if (!IoSettled) throw new ImageJobException(ImageFailure.SettlementUnconfirmed);
+            if(!ObserveExit())throw new ImageJobException(ImageFailure.ExitUnconfirmed);
+            if(!IoSettled)throw new ImageJobException(ImageFailure.SettlementUnconfirmed);
         }
     }
     private async Task<IpcFrame> Read(Stream stream,CancellationToken cancellation)
