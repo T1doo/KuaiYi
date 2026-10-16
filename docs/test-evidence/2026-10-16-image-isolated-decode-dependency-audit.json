@@ -1,0 +1,2152 @@
+{
+  "SourceParent": "fcf4271efa8e1283e3c0b803662e37f54d0a692e",
+  "ParentTree": "d2aabcd5a79eb97a41a0d9468a525ce16830f882",
+  "Branch": "dev/image-isolated-decode",
+  "MainBaseline": "51d077481cf6303602fcf5d2718213da9cf05178",
+  "Preflight": {
+    "Parent": "fcf4271efa8e1283e3c0b803662e37f54d0a692e",
+    "Tree": "d2aabcd5a79eb97a41a0d9468a525ce16830f882",
+    "SingleWriter": "root only;inline_review completed previous task;no duplicate running target",
+    "MainRemote": "51d077481cf6303602fcf5d2718213da9cf05178",
+    "Native": "Linux;production worker win-x64;no gate/time weakening or Windows tests",
+    "Urls": {
+      "skiasharp": "https://api.nuget.org/v3-flatcontainer/skiasharp/4.153.1/skiasharp.nuspec",
+      "skiasharp.nativeassets.win32": "https://api.nuget.org/v3-flatcontainer/skiasharp.nativeassets.win32/4.153.1/skiasharp.nativeassets.win32.nuspec",
+      "skiasharp.nativeassets.linux.nodependencies": "https://api.nuget.org/v3-flatcontainer/skiasharp.nativeassets.linux.nodependencies/4.153.1/skiasharp.nativeassets.linux.nodependencies.nuspec"
+    }
+  },
+  "Scope": "Read-only dependency/license/asset preflight and worker contract design ONLY;NO PNG/JPEG decoder delivery",
+  "Status": "Blocked:explicit license authorization pending;source/component audit API403;no dependency restore/install/load or decoder implementation",
+  "CandidateVersion": "4.153.1",
+  "VersionMeaning": "Observed official stable candidate,exact package hashes;not automatic newest recommendation,approved dependency selection,installed restore or packages.lock.json",
+  "PackageInventory": {
+    "skiasharp": {
+      "Url": "https://api.nuget.org/v3-flatcontainer/skiasharp/4.153.1/skiasharp.4.153.1.nupkg",
+      "Bytes": 9860648,
+      "Sha256": "9cf0fa681223d4956bfbd37995c9eaa8d259935ae3d195fac681ff9a4e9c4816",
+      "Sha512": "aaecdaa3157f83ee408b397039fe97cdd00b8b7720084cbaad0034e925b57decc0f8bae3d05285986e6feb98720ccdbaa83f9274beeed078d669d37d84e67014",
+      "Entries": {
+        "_rels/.rels": {
+          "Bytes": 476,
+          "Sha256": "07cd6cc1e7411c5edb04872e45dfcba3ef1364b304fffb20103d086b3f0a9b0f"
+        },
+        "SkiaSharp.nuspec": {
+          "Bytes": 6088,
+          "Sha256": "7c04ead5281ebf05c676af46a0ac7e674ade0f54c994336e842f3157a89feabe"
+        },
+        "LICENSE.txt": {
+          "Bytes": 1129,
+          "Sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+        },
+        "README.md": {
+          "Bytes": 4746,
+          "Sha256": "b0cf1f36769d1e890a500117f3912cc342187195590698dd0b07cb48488d4ec6"
+        },
+        "icon.png": {
+          "Bytes": 50737,
+          "Sha256": "c034604bcfdfe6e0ae31bf3580cc72cb43220676989c4cebd89b17e796d30230"
+        },
+        "lib/net10.0-android36.0/SkiaSharp.dll": {
+          "Bytes": 556384,
+          "Sha256": "71b9519e55652bda51784bf74a3c9134bce08df4ee2b0db9126a8da4bb4bf35b"
+        },
+        "lib/net10.0-android36.0/SkiaSharp.pdb": {
+          "Bytes": 244688,
+          "Sha256": "7aa91b9a63cc526d778240999f83afd3c35870abba220b002aaa6483959e3aa8"
+        },
+        "lib/net10.0-android36.0/SkiaSharp.xml": {
+          "Bytes": 1497067,
+          "Sha256": "7bc2573ed503eb503bab47988b7866ac031e1d4a5b7a7e519b75dcb3b9809b38"
+        },
+        "lib/net10.0-ios26.0/SkiaSharp.dll": {
+          "Bytes": 558944,
+          "Sha256": "6256ce6a2d57a1d933a61194a1f42cab01eecedd58c4193a0918de04f00584bd"
+        },
+        "lib/net10.0-ios26.0/SkiaSharp.pdb": {
+          "Bytes": 245600,
+          "Sha256": "113050d5a746094aa6fc50e2a3e789418ef864b663f7721d948fb234293b97fe"
+        },
+        "lib/net10.0-maccatalyst26.0/SkiaSharp.dll": {
+          "Bytes": 559416,
+          "Sha256": "e9228994712d50e425bab2df06bc94de92a48b4a5602cd13c3b1ac9fae964f4a"
+        },
+        "lib/net10.0-maccatalyst26.0/SkiaSharp.pdb": {
+          "Bytes": 245528,
+          "Sha256": "40477b9e4300fed9d03b12bc35bc8b4abef2768e03c6a25cd9eef448367c876a"
+        },
+        "lib/net10.0-macos26.0/SkiaSharp.dll": {
+          "Bytes": 558904,
+          "Sha256": "8ea84dbe84cfaed2829594a963b989488264ab9f4e1585a05efd4f5cee7b95f4"
+        },
+        "lib/net10.0-macos26.0/SkiaSharp.pdb": {
+          "Bytes": 245020,
+          "Sha256": "f148ecc3f7fed622e59bac172d45c39254aca01fc03ac38627aad3b11a4e544f"
+        },
+        "lib/net10.0-tizen10.0/SkiaSharp.dll": {
+          "Bytes": 576824,
+          "Sha256": "372d059e6fd2b4298646926347d7342692ebd9b7ecab6cb28e792801c86f60bc"
+        },
+        "lib/net10.0-tizen10.0/SkiaSharp.pdb": {
+          "Bytes": 251232,
+          "Sha256": "6bfcaa1458cb9083ce34242555942c9f33b82ccb5c36dae8981d12452d9a9194"
+        },
+        "lib/net10.0-tvos26.0/SkiaSharp.dll": {
+          "Bytes": 558944,
+          "Sha256": "32ed1a0f17c9df88a3cc6bdde4f2bf34d066a6c39b22e8f331e4ee167b176b49"
+        },
+        "lib/net10.0-tvos26.0/SkiaSharp.pdb": {
+          "Bytes": 245548,
+          "Sha256": "0232b96366b755ae6a24e61816e176319a50b5fce5f62ee0cd4757148df81deb"
+        },
+        "lib/net10.0-windows10.0.19041/SkiaSharp.dll": {
+          "Bytes": 561464,
+          "Sha256": "280a90c7d5cbc29669dff8b6d0fa6ea233237aa3c0c40c21a9541caec4c00733"
+        },
+        "lib/net10.0-windows10.0.19041/SkiaSharp.pdb": {
+          "Bytes": 246900,
+          "Sha256": "af2a12f82780f20374be987dbdeb6b13bd68fb6dd4ed69ec99e4be0e1cd502f3"
+        },
+        "lib/net10.0/SkiaSharp.dll": {
+          "Bytes": 560440,
+          "Sha256": "2c9bbbe1a3d0e9407894c319821b5cdcade1f302466a950a2e5d6024aee32422"
+        },
+        "lib/net10.0/SkiaSharp.pdb": {
+          "Bytes": 245460,
+          "Sha256": "95cc29f423bf5d5cdae1cb9a7e425a67e590bde33dff63a66d9c0131fd0e80f5"
+        },
+        "lib/net462/SkiaSharp.dll": {
+          "Bytes": 892728,
+          "Sha256": "32f467ab0c070e29577166f7daa0d1103109e38d326a8920871b9960d2895645"
+        },
+        "lib/net462/SkiaSharp.pdb": {
+          "Bytes": 277868,
+          "Sha256": "c102c1710f3fc73a0f5addb98f307c85705397588957bde7a0001dd4b142ebbb"
+        },
+        "lib/net48/SkiaSharp.dll": {
+          "Bytes": 892768,
+          "Sha256": "fcc2d65260dc1807edbc854728525a60f3793e57799c65595eec6987feda1e20"
+        },
+        "lib/net48/SkiaSharp.pdb": {
+          "Bytes": 271812,
+          "Sha256": "40a1f15106106c4acc8b811e5b717f9320ce416987e7ca31e878d44cbf926bfe"
+        },
+        "lib/net6.0-tizen8.0/SkiaSharp.dll": {
+          "Bytes": 549688,
+          "Sha256": "3f0b4820c2da234b918cb6ef62f4f13b3e27bce4491ceab3dec6122b973c2d59"
+        },
+        "lib/net6.0-tizen8.0/SkiaSharp.pdb": {
+          "Bytes": 211728,
+          "Sha256": "7bc79ace8d34f71ba2a3df07a91f2cab315dd6c3b5949cfaa15e9d808660e6ed"
+        },
+        "lib/net6.0/SkiaSharp.dll": {
+          "Bytes": 532320,
+          "Sha256": "a1355e19984ea92935090d7e54d084ab2018fd9633ded1abef446b530d806617"
+        },
+        "lib/net6.0/SkiaSharp.pdb": {
+          "Bytes": 205576,
+          "Sha256": "2e67de1926c99830c8aeac236d17d784f5bb30d8ab55a1b8e958907be64a3a03"
+        },
+        "lib/net9.0-android35.0/SkiaSharp.dll": {
+          "Bytes": 556384,
+          "Sha256": "6cc00d3b4ba6548f153179048793271860cedc9756b0e21d4c089ff0458c7c21"
+        },
+        "lib/net9.0-android35.0/SkiaSharp.pdb": {
+          "Bytes": 244288,
+          "Sha256": "b5bacd77169b8b6a2b1a62459aefce20a163ded9f4b3c16b16edf6bf5dcfe93e"
+        },
+        "lib/net9.0-android35.0/SkiaSharp.xml": {
+          "Bytes": 1497067,
+          "Sha256": "7bc2573ed503eb503bab47988b7866ac031e1d4a5b7a7e519b75dcb3b9809b38"
+        },
+        "lib/net9.0-ios18.0/SkiaSharp.dll": {
+          "Bytes": 558944,
+          "Sha256": "a090407f2767a24e84b00faa28b7dfb0e644a0674739e9f23eec5b2fca319042"
+        },
+        "lib/net9.0-ios18.0/SkiaSharp.pdb": {
+          "Bytes": 245128,
+          "Sha256": "2958cdceef9361e7db1f1fed67e151c0486eb236c03447c796b5183c0240fbeb"
+        },
+        "lib/net9.0-maccatalyst18.0/SkiaSharp.dll": {
+          "Bytes": 558944,
+          "Sha256": "cad6cd0f59dcec0ef705396bf8276cbcc83e9540adae53f03a62998a777a176c"
+        },
+        "lib/net9.0-maccatalyst18.0/SkiaSharp.pdb": {
+          "Bytes": 245004,
+          "Sha256": "fe9f690b805da6a8485839a8dc214559a83937ccae41ea77023a0a709fdfabd8"
+        },
+        "lib/net9.0-macos15.0/SkiaSharp.dll": {
+          "Bytes": 558904,
+          "Sha256": "e80ddf71fee90e16e45ca60fefa1a8c3022f99fe9880189207515b3a7bd909d6"
+        },
+        "lib/net9.0-macos15.0/SkiaSharp.pdb": {
+          "Bytes": 244532,
+          "Sha256": "80a99fe6f31071160b195a5409d39a726dc95d1f28848c292191508a4fc3c286"
+        },
+        "lib/net9.0-tizen8.0/SkiaSharp.dll": {
+          "Bytes": 576824,
+          "Sha256": "d5236c7502460938f7874c5c9a6756b244e31d70a34e31db02716caaf3bf5f23"
+        },
+        "lib/net9.0-tizen8.0/SkiaSharp.pdb": {
+          "Bytes": 250768,
+          "Sha256": "9280de87eb6c14643f47353ce0cff9e77c67ba246a2bf20359a574e8485ca381"
+        },
+        "lib/net9.0-tvos18.0/SkiaSharp.dll": {
+          "Bytes": 558904,
+          "Sha256": "9c6cbcc2a992e3a016fad1ddc84bc805e90b89c671de5348437bf6738beb9f10"
+        },
+        "lib/net9.0-tvos18.0/SkiaSharp.pdb": {
+          "Bytes": 245068,
+          "Sha256": "15c68099fef5a48d03575cc086427b7b502b16bdd6fd65e6ef55063357e57b4e"
+        },
+        "lib/net9.0-windows10.0.19041/SkiaSharp.dll": {
+          "Bytes": 561464,
+          "Sha256": "e049432dfd8c0c5cb17906d0870fdf14fa39c4b2950c83f2d2ebb6ae9eddd89a"
+        },
+        "lib/net9.0-windows10.0.19041/SkiaSharp.pdb": {
+          "Bytes": 246532,
+          "Sha256": "56740ed2ec79b10582162867f26841ab8b4455ac8a0904b02449450dbeb7339c"
+        },
+        "lib/net9.0/SkiaSharp.dll": {
+          "Bytes": 560440,
+          "Sha256": "a1887877f317eb73bcd764ccd7703162febadc59b640b60ff5a96af0a4b5f69e"
+        },
+        "lib/net9.0/SkiaSharp.pdb": {
+          "Bytes": 245092,
+          "Sha256": "3014168b798bfb283c7e08f398358bb05f6cb5339b7f0d54fefe5054bc6aa7a5"
+        },
+        "lib/netstandard2.0/SkiaSharp.dll": {
+          "Bytes": 540472,
+          "Sha256": "e3b251f57271d148fae63e5d545401a2a3aef81f2f148740c6f459558a8f47d3"
+        },
+        "lib/netstandard2.0/SkiaSharp.pdb": {
+          "Bytes": 230904,
+          "Sha256": "ea891f07030c37d856be40319dfcdd18d0d6d4f6fa968b26f00b0f6c66e6cea9"
+        },
+        "lib/netstandard2.1/SkiaSharp.dll": {
+          "Bytes": 536376,
+          "Sha256": "a3068d10e35c9c84f1e05579753eb56070d95d36d3fe294ee3a6124dcf9dd6c8"
+        },
+        "lib/netstandard2.1/SkiaSharp.pdb": {
+          "Bytes": 219968,
+          "Sha256": "dfe48af261b811db58f2af0c27e9453d9a32559ba1be0efe4a1ddd19e8365064"
+        },
+        "ref/net10.0-android36.0/SkiaSharp.dll": {
+          "Bytes": 336184,
+          "Sha256": "0820aa9faf34bbd1f1ee8571c54f246adfcccd9ca120fdc504a8a3ae1b800c45"
+        },
+        "ref/net10.0-ios26.0/SkiaSharp.dll": {
+          "Bytes": 338232,
+          "Sha256": "97f59dd09ca2b0c89c474ab9690476fbe762e0f25449bb44d6f9076b4a0aebec"
+        },
+        "ref/net10.0-maccatalyst26.0/SkiaSharp.dll": {
+          "Bytes": 338232,
+          "Sha256": "af281fea702cfc461ca3652869317cf1c0f9ac05353b23187afd395c897f0420"
+        },
+        "ref/net10.0-macos26.0/SkiaSharp.dll": {
+          "Bytes": 338232,
+          "Sha256": "9da44f8773e1c31d8226ca5cfef0659558a15dca0d3c5ecbdc8a7e25460e7917"
+        },
+        "ref/net10.0-tizen10.0/SkiaSharp.dll": {
+          "Bytes": 354616,
+          "Sha256": "235e83deb265519362d27acedf4b50a78d8c0a8128060dc284b5d2ad53ead925"
+        },
+        "ref/net10.0-tvos26.0/SkiaSharp.dll": {
+          "Bytes": 338272,
+          "Sha256": "d60ae93dc0398b305203607d3a9c47c0391dd867c206438f1f495d8ad9f53ca1"
+        },
+        "ref/net10.0-windows10.0.19041/SkiaSharp.dll": {
+          "Bytes": 338232,
+          "Sha256": "86b7429182976bcd4e20440c2dd34f3b06c530e668b36cd847d0daf345c294ea"
+        },
+        "ref/net10.0/SkiaSharp.dll": {
+          "Bytes": 337208,
+          "Sha256": "9e9db5013a76ffa94c6d233461e343a2ce1a1151815fd8be38612ce07c3c0efe"
+        },
+        "ref/net462/SkiaSharp.dll": {
+          "Bytes": 491872,
+          "Sha256": "ab2c125b732dc9b51a626ad70b92b54a5ab029336072fc443cf1e0989df0214f"
+        },
+        "ref/net48/SkiaSharp.dll": {
+          "Bytes": 491320,
+          "Sha256": "83fe7f4369d3999f458721c34846aadf3b73281b5dd148ed1fec5ca46c970d8f"
+        },
+        "ref/net6.0-tizen8.0/SkiaSharp.dll": {
+          "Bytes": 330552,
+          "Sha256": "c3985c8402f34a5353382f3f1f0187e79c05d14f669eec92e09562e0c88b2e67"
+        },
+        "ref/net6.0/SkiaSharp.dll": {
+          "Bytes": 313656,
+          "Sha256": "0e3b60fca518370fd8cd960d1f1d15990700f53c8dd92f6d59d1d19b64a3b67d"
+        },
+        "ref/net9.0-android35.0/SkiaSharp.dll": {
+          "Bytes": 336184,
+          "Sha256": "a4b1fefdb9b7bbeaa9b3fb591da7cc5f44df3306e494fbb172fc8d83854e3afc"
+        },
+        "ref/net9.0-ios18.0/SkiaSharp.dll": {
+          "Bytes": 338232,
+          "Sha256": "fdf11bca3e0af1780e3d1e468f6c612379788dfcd4009f1802644fba44628b01"
+        },
+        "ref/net9.0-maccatalyst18.0/SkiaSharp.dll": {
+          "Bytes": 338272,
+          "Sha256": "035590cf2fc89cc6170f8870b4e3a82bd98c3afa4cbeca1327ef096968ec683d"
+        },
+        "ref/net9.0-macos15.0/SkiaSharp.dll": {
+          "Bytes": 338272,
+          "Sha256": "c58bcc34b69913b0981046bfacc2f8d76c56e8944fdb25b8afba9f27b450dd89"
+        },
+        "ref/net9.0-tizen8.0/SkiaSharp.dll": {
+          "Bytes": 354616,
+          "Sha256": "ffebd9e45d57a30af13cd9c532bdb95f85e978d452e2bd8f5f00dbfce96457df"
+        },
+        "ref/net9.0-tvos18.0/SkiaSharp.dll": {
+          "Bytes": 338272,
+          "Sha256": "37b0bcdb8b6e65ae21cd57cda45f3cdcb08c3c67737af8cb03b1186ed557691b"
+        },
+        "ref/net9.0-windows10.0.19041/SkiaSharp.dll": {
+          "Bytes": 338232,
+          "Sha256": "4c42d84c5d1e6705ff4dc3f489a2e29d8ec5d50d0fee64f0ebb656266196d17c"
+        },
+        "ref/net9.0/SkiaSharp.dll": {
+          "Bytes": 337208,
+          "Sha256": "03aca93febc1e687813eaf9dc876d3e772fc00124c3cdef392ae57f31e70ac8b"
+        },
+        "ref/netstandard2.0/SkiaSharp.dll": {
+          "Bytes": 320824,
+          "Sha256": "a39c41f20d1a883c2f2a5725d57af94224fe1f0f1910e7467328992b5443052c"
+        },
+        "ref/netstandard2.1/SkiaSharp.dll": {
+          "Bytes": 318304,
+          "Sha256": "fc48a3e312cd99c0c52f8699cf6b4ad3920eac3e88916709f033c1dabd88e705"
+        },
+        "[Content_Types].xml": {
+          "Bytes": 779,
+          "Sha256": "34ddbf751bb98726b255004142e5d4d87c4d945f03f92df47ffb1f351ae3a2ed"
+        },
+        "package/services/metadata/core-properties/nuget.psmdcp": {
+          "Bytes": 895,
+          "Sha256": "2673448d991cf1713a11406789e57f3de87665b3bea8d64b97349fa30048a438"
+        },
+        ".signature.p7s": {
+          "Bytes": 26004,
+          "Sha256": "94306a8bce82e7c122ab8f1121c14d1b8c0b227648ffae8c2eab8147a73d7ee2"
+        }
+      },
+      "ApiVsArchiveNuspec": "Exact normalized text match; originals preserved separately; archive has BOM/line-ending difference"
+    },
+    "skiasharp.nativeassets.win32": {
+      "Url": "https://api.nuget.org/v3-flatcontainer/skiasharp.nativeassets.win32/4.153.1/skiasharp.nativeassets.win32.4.153.1.nupkg",
+      "Bytes": 86914944,
+      "Sha256": "c27b04338d1e4d400c20de534356310b9971e123e081c732af97e56f5572e1ae",
+      "Sha512": "fbe3bac52456654ec0e9e5cd432227eb43dcbfc5d5795a30a0faae5dd1be0b5b93e177134ed89e3d9327911d691ebc804b938aae42d16a2b6c582da2162fa1e0",
+      "Entries": {
+        "_rels/.rels": {
+          "Bytes": 495,
+          "Sha256": "fa9899583f1f47040a6a284e9c7e7e3b750687ef6156003b362f401f95537945"
+        },
+        "SkiaSharp.NativeAssets.Win32.nuspec": {
+          "Bytes": 1689,
+          "Sha256": "7ca8008c6c410b8b4d5cb2063e64b10da97c529ab70668c2b80776a34e7734d5"
+        },
+        "LICENSE.txt": {
+          "Bytes": 1129,
+          "Sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+        },
+        "README.md": {
+          "Bytes": 1921,
+          "Sha256": "94f2e9b48ff4be6dcad5b03747e3a6882ca15c561193accd0a3e0697327c3ee3"
+        },
+        "THIRD-PARTY-NOTICES.txt": {
+          "Bytes": 139775,
+          "Sha256": "21504c46c4c58aa64c1055bd2dcbc5f9a136b4b8c412ed3cc6740e22c5b127f5"
+        },
+        "build/net462/SkiaSharp.NativeAssets.Win32.targets": {
+          "Bytes": 1371,
+          "Sha256": "468127c0194215a9434eddc82c08cdf454c12b82d8aa907ae56f3125c051ae2a"
+        },
+        "build/net48/SkiaSharp.NativeAssets.Win32.targets": {
+          "Bytes": 1371,
+          "Sha256": "468127c0194215a9434eddc82c08cdf454c12b82d8aa907ae56f3125c051ae2a"
+        },
+        "buildTransitive/net462/SkiaSharp.NativeAssets.Win32.targets": {
+          "Bytes": 1371,
+          "Sha256": "468127c0194215a9434eddc82c08cdf454c12b82d8aa907ae56f3125c051ae2a"
+        },
+        "buildTransitive/net48/SkiaSharp.NativeAssets.Win32.targets": {
+          "Bytes": 1371,
+          "Sha256": "468127c0194215a9434eddc82c08cdf454c12b82d8aa907ae56f3125c051ae2a"
+        },
+        "icon.png": {
+          "Bytes": 50737,
+          "Sha256": "c034604bcfdfe6e0ae31bf3580cc72cb43220676989c4cebd89b17e796d30230"
+        },
+        "lib/net10.0-windows10.0.19041/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "lib/net10.0/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "lib/net462/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "lib/net48/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "lib/net6.0/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "lib/net9.0-windows10.0.19041/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "lib/net9.0/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "lib/netstandard2.0/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "lib/netstandard2.1/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "runtimes/win-arm64/native/libSkiaSharp.dll": {
+          "Bytes": 11036472,
+          "Sha256": "009e49c2c9d3cc0d75643754d42ec62bbc8f62ac54ed236e60984060e01b1f81"
+        },
+        "runtimes/win-arm64/native/libSkiaSharp.pdb": {
+          "Bytes": 92676096,
+          "Sha256": "a4b40954de3204744e295b262bec2c7fc18e280139ca75a4d3e76554407b9ce8"
+        },
+        "runtimes/win-x64/native/libSkiaSharp.dll": {
+          "Bytes": 12875576,
+          "Sha256": "935ef4a00462e6b0c4dadb870f734fa43679b4f561287fe0d28cbe2ba147e832"
+        },
+        "runtimes/win-x64/native/libSkiaSharp.pdb": {
+          "Bytes": 95985664,
+          "Sha256": "b44062dfd4fc32da8d5009ca99af8e08f3e30cb8045584b43a2c33dd2995e2b5"
+        },
+        "runtimes/win-x86/native/libSkiaSharp.dll": {
+          "Bytes": 11155768,
+          "Sha256": "1c6f7a9f863184ab50063a2c0ddcdc534cc87262940ce6a5c4fd435d6ea51723"
+        },
+        "runtimes/win-x86/native/libSkiaSharp.pdb": {
+          "Bytes": 98717696,
+          "Sha256": "c5babd5397b91685adb5baf79dba799d5e95a735218ae0d22f46a681d0dbbd94"
+        },
+        "[Content_Types].xml": {
+          "Bytes": 844,
+          "Sha256": "f24fb74ac37256dda9a8292698ed8ed95299975acdf6dceb4464a03a9eb22723"
+        },
+        "package/services/metadata/core-properties/nuget.psmdcp": {
+          "Bytes": 771,
+          "Sha256": "8dcc4a8e720b7014ec58e2b9ef5b13ba2da879b7a2258e3a80ae14f5bdee5cb1"
+        },
+        ".signature.p7s": {
+          "Bytes": 26005,
+          "Sha256": "fac123bc7c09d6d970ede4ed75f1dabc37695919a9624a1869fe3693463535ec"
+        }
+      },
+      "ApiVsArchiveNuspec": "Exact normalized text match; originals preserved separately; archive has BOM/line-ending difference"
+    },
+    "skiasharp.nativeassets.linux.nodependencies": {
+      "Url": "https://api.nuget.org/v3-flatcontainer/skiasharp.nativeassets.linux.nodependencies/4.153.1/skiasharp.nativeassets.linux.nodependencies.4.153.1.nupkg",
+      "Bytes": 62317297,
+      "Sha256": "1678572dd5d1488c3f39892460bec16c2b0942489f3a5149abfbcbae3da53431",
+      "Sha512": "f697280858c60e19122c02658095d4f4fa45cc56f1c120ec2554afe233899be1263eb3fb6fd16744f0b747d23ea905e3c382612dd7c73d16e2fbaeb7d264f630",
+      "Entries": {
+        "_rels/.rels": {
+          "Bytes": 510,
+          "Sha256": "9390fd1ac8246a3452cec35bb6ce5e2515dc63ce3cc89c54a08d530884361828"
+        },
+        "SkiaSharp.NativeAssets.Linux.NoDependencies.nuspec": {
+          "Bytes": 1616,
+          "Sha256": "577014811a90cfc3f846fcdfaad8a3d40ebb643cfb9c2b5eb233e0c4e939ef8a"
+        },
+        "LICENSE.txt": {
+          "Bytes": 1129,
+          "Sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+        },
+        "README.md": {
+          "Bytes": 2366,
+          "Sha256": "b3e6b14fb7deeb6afd3bd41ae713a0bca869475ac44ffc8f3138b82947005c7d"
+        },
+        "THIRD-PARTY-NOTICES.txt": {
+          "Bytes": 139775,
+          "Sha256": "21504c46c4c58aa64c1055bd2dcbc5f9a136b4b8c412ed3cc6740e22c5b127f5"
+        },
+        "build/net462/SkiaSharp.NativeAssets.Linux.NoDependencies.targets": {
+          "Bytes": 3582,
+          "Sha256": "18fa39ce49d39e21130cecaad8e1f24fd60e334c7f123993790ca2b61a52d31a"
+        },
+        "build/net48/SkiaSharp.NativeAssets.Linux.NoDependencies.targets": {
+          "Bytes": 3582,
+          "Sha256": "18fa39ce49d39e21130cecaad8e1f24fd60e334c7f123993790ca2b61a52d31a"
+        },
+        "buildTransitive/net462/SkiaSharp.NativeAssets.Linux.NoDependencies.targets": {
+          "Bytes": 3582,
+          "Sha256": "18fa39ce49d39e21130cecaad8e1f24fd60e334c7f123993790ca2b61a52d31a"
+        },
+        "buildTransitive/net48/SkiaSharp.NativeAssets.Linux.NoDependencies.targets": {
+          "Bytes": 3582,
+          "Sha256": "18fa39ce49d39e21130cecaad8e1f24fd60e334c7f123993790ca2b61a52d31a"
+        },
+        "icon.png": {
+          "Bytes": 50737,
+          "Sha256": "c034604bcfdfe6e0ae31bf3580cc72cb43220676989c4cebd89b17e796d30230"
+        },
+        "lib/net10.0/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "lib/net462/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "lib/net48/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "lib/net6.0/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "lib/net9.0/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "lib/netstandard2.0/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "lib/netstandard2.1/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "runtimes/linux-arm/native/libSkiaSharp.so": {
+          "Bytes": 8689680,
+          "Sha256": "ae64e427e92fed4eee8e49e6780ab74ae7e88d32efd808a416d8621c770396e8"
+        },
+        "runtimes/linux-arm64/native/libSkiaSharp.so": {
+          "Bytes": 12080232,
+          "Sha256": "04abf9a9f59b7a53487b9118b4d1a7c8c8d7e4e0690baf6a77ef6069af17d220"
+        },
+        "runtimes/linux-bionic-arm64/native/libSkiaSharp.so": {
+          "Bytes": 12361208,
+          "Sha256": "a2a7254a9e64627ed22202068bb94bb6c1cdd30a9dd6fa0cfc06e5fd47b39159"
+        },
+        "runtimes/linux-bionic-x64/native/libSkiaSharp.so": {
+          "Bytes": 12282104,
+          "Sha256": "7b73e3761cf7bcb6460a75165393ced26eb41754d2757ff1ce0e22d99d737c5d"
+        },
+        "runtimes/linux-loongarch64/native/libSkiaSharp.so": {
+          "Bytes": 11543704,
+          "Sha256": "16a1d9eb24a4c12f883ba039b451cf6340d530188152e01ce74d5a0afeea5c0f"
+        },
+        "runtimes/linux-musl-arm/native/libSkiaSharp.so": {
+          "Bytes": 8719180,
+          "Sha256": "f60514995b98de7814925f085e849f68e60aea5e8349161df003d22f4fc4b8d9"
+        },
+        "runtimes/linux-musl-arm64/native/libSkiaSharp.so": {
+          "Bytes": 12194768,
+          "Sha256": "337e632e157afd8769aee87806ff03dab83c7d1c0a060083329d15fb53c05715"
+        },
+        "runtimes/linux-musl-loongarch64/native/libSkiaSharp.so": {
+          "Bytes": 11911176,
+          "Sha256": "b559c6b692571abc4cedd8bca72ea8657c1e99dd42b4ce8d600f52706fcd83f1"
+        },
+        "runtimes/linux-musl-riscv64/native/libSkiaSharp.so": {
+          "Bytes": 11062200,
+          "Sha256": "dd8fab2040b50dd662e4808107e56464283f53d1c77a24bfc6027942483d0c6f"
+        },
+        "runtimes/linux-musl-x64/native/libSkiaSharp.so": {
+          "Bytes": 12334256,
+          "Sha256": "0d16b0f62b33f23f53d7f6a9aed0e45a028e1edf74a5b7a323598e2ef67433fc"
+        },
+        "runtimes/linux-riscv64/native/libSkiaSharp.so": {
+          "Bytes": 10891424,
+          "Sha256": "ac1f95b09a71a7f09015947e9403df94a2528af13e5438870e71f330a96d9b5b"
+        },
+        "runtimes/linux-x64/native/libSkiaSharp.so": {
+          "Bytes": 12208760,
+          "Sha256": "b25029b255f3fcfdf758187826b3a802376ec9ec4e8cb17a1e7a41c8f5243d2a"
+        },
+        "runtimes/linux-x86/native/libSkiaSharp.so": {
+          "Bytes": 13153308,
+          "Sha256": "b3c2309e636cb063dba4ec67c702cf275dc77dd696ae21f90529bda36cace084"
+        },
+        "[Content_Types].xml": {
+          "Bytes": 780,
+          "Sha256": "d8a6e762dbbf403ca18812372c6d141c4424b5609c87012097ccdc65e6070f22"
+        },
+        "package/services/metadata/core-properties/nuget.psmdcp": {
+          "Bytes": 801,
+          "Sha256": "8e81a9e9efe0a23f3ce5a2864ae073d500c33d86b05d5c5974b56c5c60152ae6"
+        },
+        ".signature.p7s": {
+          "Bytes": 26003,
+          "Sha256": "f2ca97b602b0d11305ef01bfa09d4504be250efa3f685b15594be6a8ecaed894"
+        }
+      },
+      "ApiVsArchiveNuspec": "Exact normalized text match; originals preserved separately; archive has BOM/line-ending difference"
+    },
+    "skiasharp.nativeassets.macos": {
+      "Url": "https://api.nuget.org/v3-flatcontainer/skiasharp.nativeassets.macos/4.153.1/skiasharp.nativeassets.macos.4.153.1.nupkg",
+      "Bytes": 7679269,
+      "Sha256": "da8967494eb11d881494d0fd2562893174e92056d41c22c907b2a36caf1032c9",
+      "Sha512": "c5e5c304559a4549218790ecbf3ae79b799b6364fc6137b9157b30e923276ec64196bf749f36311489d0296155fd98be1fffe0eeb21769f8a73e5bc783f40fb1",
+      "Entries": {
+        "_rels/.rels": {
+          "Bytes": 495,
+          "Sha256": "71a7c383612c4682368c34fa39c4f6bcbaa09e6afd10bb6b74fb0263edac28bc"
+        },
+        "SkiaSharp.NativeAssets.macOS.nuspec": {
+          "Bytes": 1673,
+          "Sha256": "e5b94ed7aa7339637b89450d18de1c1b3179032ea59e64e108336839f2a25462"
+        },
+        "LICENSE.txt": {
+          "Bytes": 1129,
+          "Sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+        },
+        "README.md": {
+          "Bytes": 1921,
+          "Sha256": "bfa887c3cdd6afaa80021340e8034a803ad697e7610741761b7c74966b8e5287"
+        },
+        "THIRD-PARTY-NOTICES.txt": {
+          "Bytes": 139775,
+          "Sha256": "21504c46c4c58aa64c1055bd2dcbc5f9a136b4b8c412ed3cc6740e22c5b127f5"
+        },
+        "build/net462/SkiaSharp.NativeAssets.macOS.targets": {
+          "Bytes": 947,
+          "Sha256": "9a9a568e90c5aeda470617a7c000f7d771de5df1e8895af168cf1c53cad5ccb7"
+        },
+        "build/net48/SkiaSharp.NativeAssets.macOS.targets": {
+          "Bytes": 947,
+          "Sha256": "9a9a568e90c5aeda470617a7c000f7d771de5df1e8895af168cf1c53cad5ccb7"
+        },
+        "buildTransitive/net10.0-macos26.0/SkiaSharp.NativeAssets.macOS.targets": {
+          "Bytes": 123,
+          "Sha256": "039d9d62356b678bcb8985a410ef9b7334db3a8895a65b523a97c9add4166e9e"
+        },
+        "buildTransitive/net462/SkiaSharp.NativeAssets.macOS.targets": {
+          "Bytes": 947,
+          "Sha256": "9a9a568e90c5aeda470617a7c000f7d771de5df1e8895af168cf1c53cad5ccb7"
+        },
+        "buildTransitive/net48/SkiaSharp.NativeAssets.macOS.targets": {
+          "Bytes": 947,
+          "Sha256": "9a9a568e90c5aeda470617a7c000f7d771de5df1e8895af168cf1c53cad5ccb7"
+        },
+        "buildTransitive/net9.0-macos15.0/SkiaSharp.NativeAssets.macOS.targets": {
+          "Bytes": 123,
+          "Sha256": "039d9d62356b678bcb8985a410ef9b7334db3a8895a65b523a97c9add4166e9e"
+        },
+        "icon.png": {
+          "Bytes": 50737,
+          "Sha256": "c034604bcfdfe6e0ae31bf3580cc72cb43220676989c4cebd89b17e796d30230"
+        },
+        "lib/net10.0-macos26.0/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "lib/net10.0/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "lib/net462/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "lib/net48/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "lib/net6.0/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "lib/net9.0-macos15.0/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "lib/net9.0/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "lib/netstandard2.0/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "lib/netstandard2.1/_._": {
+          "Bytes": 0,
+          "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "runtimes/osx/native/libSkiaSharp.dylib": {
+          "Bytes": 15863680,
+          "Sha256": "11a672e8df0701967aa041b449bb4db6f9af040a5e8b0ed9ea44a922ec0effaa"
+        },
+        "[Content_Types].xml": {
+          "Bytes": 783,
+          "Sha256": "de15dcde35be54546bcdac3de82b00b590961274b5fc30a6e5e14a8aa87ccc1f"
+        },
+        "package/services/metadata/core-properties/nuget.psmdcp": {
+          "Bytes": 771,
+          "Sha256": "c905ef9cb38ef812bea15468092df120bd1dd6f5752b86400a70cf2ce95e7365"
+        },
+        ".signature.p7s": {
+          "Bytes": 26004,
+          "Sha256": "bb80012b2ab4e341e26cddc1e047874e322a49d305687c92ef00d59f26df6d43"
+        }
+      },
+      "ApiVsArchiveNuspec": "Exact normalized text match; originals preserved separately; archive has BOM/line-ending difference"
+    }
+  },
+  "DeclaredSource": {
+    "Repository": "mono/SkiaSharp",
+    "Branch": "release/4.153.1",
+    "Commit": "4783f51448f9b070dda4f87b83e941c9599e466e",
+    "Meaning": "Package metadata declaration only;source-body/build configuration not obtained or verified"
+  },
+  "LicenseGate": {
+    "AllFourRequireLicenseAcceptance": true,
+    "PackageExpression": "MIT",
+    "NativeNotices": "Raw aggregate includes DNG SDK,libmicrohttpd LGPL/eCos and other terms;not a whole-binary MIT-only or component-linkage proof",
+    "ExplicitAcceptance": "Not performed;pending user authorization",
+    "RestoreInstallLoadExecute": "Not performed",
+    "LegalOrSupplyChainAcceptance": "Not claimed"
+  },
+  "NativeHeaders": {
+    "WinX64": {
+      "Format": "PE",
+      "Machine": "AMD64 0x8664",
+      "LoadedOrExecuted": false
+    },
+    "LinuxX64": {
+      "Format": "ELF64 little endian",
+      "Machine": "x86-64 62",
+      "LoadedOrExecuted": false
+    }
+  },
+  "OriginalReceiptCopies": {
+    "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__skiasharp.nuspec": {
+      "Original": "artifacts/image-isolated-decode/skiasharp.nuspec",
+      "Bytes": 6085,
+      "Sha256": "7af1ce9f83468d7dd1e53a9224f6f17a59ce956579f515193601b71137747402"
+    },
+    "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__skiasharp__SkiaSharp.nuspec": {
+      "Original": "artifacts/image-isolated-decode/skiasharp__SkiaSharp.nuspec",
+      "Bytes": 6088,
+      "Sha256": "7c04ead5281ebf05c676af46a0ac7e674ade0f54c994336e842f3157a89feabe"
+    },
+    "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__skiasharp.nativeassets.win32__SkiaSharp.NativeAssets.Win32.nuspec": {
+      "Original": "artifacts/image-isolated-decode/skiasharp.nativeassets.win32__SkiaSharp.NativeAssets.Win32.nuspec",
+      "Bytes": 1689,
+      "Sha256": "7ca8008c6c410b8b4d5cb2063e64b10da97c529ab70668c2b80776a34e7734d5"
+    },
+    "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__skiasharp.nativeassets.win32.nuspec": {
+      "Original": "artifacts/image-isolated-decode/skiasharp.nativeassets.win32.nuspec",
+      "Bytes": 1686,
+      "Sha256": "3d846fab89a7f5a9594ada3fde77059640ab252933c35056a64c80b8d9b209b8"
+    },
+    "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__skiasharp.nativeassets.linux.nodependencies.nuspec": {
+      "Original": "artifacts/image-isolated-decode/skiasharp.nativeassets.linux.nodependencies.nuspec",
+      "Bytes": 1613,
+      "Sha256": "46ffb6fef78a097d91663162f4fb276321f568eede3c2029186d5425bfefcb70"
+    },
+    "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__skiasharp.nativeassets.macos.nuspec": {
+      "Original": "artifacts/image-isolated-decode/skiasharp.nativeassets.macos.nuspec",
+      "Bytes": 1670,
+      "Sha256": "47832937188837705eba785cf510125eacae31378273ae7d8634066ea18efcb4"
+    },
+    "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__skiasharp.nativeassets.macos__SkiaSharp.NativeAssets.macOS.nuspec": {
+      "Original": "artifacts/image-isolated-decode/skiasharp.nativeassets.macos__SkiaSharp.NativeAssets.macOS.nuspec",
+      "Bytes": 1673,
+      "Sha256": "e5b94ed7aa7339637b89450d18de1c1b3179032ea59e64e108336839f2a25462"
+    },
+    "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__skiasharp.nativeassets.linux.nodependencies__SkiaSharp.NativeAssets.Linux.NoDependencies.nuspec": {
+      "Original": "artifacts/image-isolated-decode/skiasharp.nativeassets.linux.nodependencies__SkiaSharp.NativeAssets.Linux.NoDependencies.nuspec",
+      "Bytes": 1616,
+      "Sha256": "577014811a90cfc3f846fcdfaad8a3d40ebb643cfb9c2b5eb233e0c4e939ef8a"
+    },
+    "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__LICENSE.txt": {
+      "Original": "artifacts/image-isolated-decode/skiasharp__LICENSE.txt",
+      "Bytes": 1129,
+      "Sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+    },
+    "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__THIRD-PARTY-NOTICES.txt": {
+      "Original": "artifacts/image-isolated-decode/skiasharp.nativeassets.win32__THIRD-PARTY-NOTICES.txt",
+      "Bytes": 139775,
+      "Sha256": "21504c46c4c58aa64c1055bd2dcbc5f9a136b4b8c412ed3cc6740e22c5b127f5"
+    },
+    "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__package-inventory.json": {
+      "Original": "artifacts/image-isolated-decode/package-inventory.json",
+      "Bytes": 28466,
+      "Sha256": "4e5ccc824b2938a822b660f67693bd88ceedc410963e21567d5d0bd5d808cbba"
+    },
+    "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__nuget-registration.json": {
+      "Original": "artifacts/image-isolated-decode/nuget-registration.json",
+      "Bytes": 342,
+      "Sha256": "ebcbf843ef6a4258b48c624b881368e00e3fe561498981453ae0d63e48f3cfa1"
+    }
+  },
+  "Parent180RawReceiptsVerifiedUnchanged": {
+    "docs/test-evidence/2026-10-16-image-coordinate-boundaries-originals__r01-red.log": {
+      "Bytes": 2958,
+      "Sha256": "a80aef983f3e1556c0e8d1292ccec25234d165612b22a5f25618ea523db6038c"
+    },
+    "docs/test-evidence/2026-10-16-image-coordinate-boundaries-originals__r01-red.trx": {
+      "Bytes": 8760,
+      "Sha256": "a00e15892cb289ec1a931b1f5ae12e71080e55e4908b7ba5735659dbd0306bc3"
+    },
+    "docs/test-evidence/2026-10-16-image-coordinate-boundaries-originals__r01-red__ImageClassification.cs.txt": {
+      "Bytes": 4369,
+      "Sha256": "d7e3f0bb6611750f85ff470c309ba50ecbb72fc6559504916da018f4a5e8af15"
+    },
+    "docs/test-evidence/2026-10-16-image-coordinate-boundaries-originals__r01-red__ImageCoordinateBoundaryTests.cs.txt": {
+      "Bytes": 1249,
+      "Sha256": "e7e5d7484434a3807630388c1743fc5531372d587d91f5fefcc5b9ad00ece361"
+    },
+    "docs/test-evidence/2026-10-16-image-coordinate-boundaries-originals__r01-red__ScreenshotNormalization.cs.txt": {
+      "Bytes": 10403,
+      "Sha256": "fa051c7d1bdeb7933bee9caafed7e147f036e48c92287982076af1c91217e4ff"
+    },
+    "docs/test-evidence/2026-10-16-image-coordinate-boundaries-originals__r02-initial-fix.log": {
+      "Bytes": 826,
+      "Sha256": "2f2ddc833fc318d1fefafe840828192395e1f202ebed2e15680f63f5d9e07ae1"
+    },
+    "docs/test-evidence/2026-10-16-image-coordinate-boundaries-originals__r02-initial-fix.trx": {
+      "Bytes": 157109,
+      "Sha256": "0111f5c011f0e502732955e24cd344b8d22279caa109b60547528992c5a0adb7"
+    },
+    "docs/test-evidence/2026-10-16-image-coordinate-boundaries-originals__r03-before-endpoint-fix__ImageClassification.cs.txt": {
+      "Bytes": 4422,
+      "Sha256": "d0972cb0f5b409e9253e9bb1584e14f55188714632db27370768223080c69000"
+    },
+    "docs/test-evidence/2026-10-16-image-coordinate-boundaries-originals__r03-before-endpoint-fix__ImageCoordinateBoundaryTests.cs.txt": {
+      "Bytes": 8123,
+      "Sha256": "51250c385b0bf21f4da0c0e27c71d54344eb48048c679686bfbffea2de001ab8"
+    },
+    "docs/test-evidence/2026-10-16-image-coordinate-boundaries-originals__r03-before-endpoint-fix__ScreenshotNormalization.cs.txt": {
+      "Bytes": 11738,
+      "Sha256": "b379656e68e2beb2fc8aae2ba6fb60c682abe736d2a2c932867edeff5f67c235"
+    },
+    "docs/test-evidence/2026-10-16-image-coordinate-boundaries-originals__r03-before-endpoint-fix__UnitInterval.cs.txt": {
+      "Bytes": 1407,
+      "Sha256": "48b1e4edf739947293562b40761a87ec38720253ad7c05ef227ed0671db188bf"
+    },
+    "docs/test-evidence/2026-10-16-image-coordinate-boundaries-originals__r03-boundary-matrix.log": {
+      "Bytes": 2922,
+      "Sha256": "40c4a3aac7d17d836ba6438ec095e6c7f0a580dcf0ab4cef20ec1d20dfcd4b47"
+    },
+    "docs/test-evidence/2026-10-16-image-coordinate-boundaries-originals__r03-boundary-matrix.trx": {
+      "Bytes": 268982,
+      "Sha256": "b1b21549e3d2bb56ce35f2651110160c312284cc1b0bce5cfd2bad813f5382ea"
+    },
+    "docs/test-evidence/2026-10-16-image-coordinate-boundaries-originals__r04-endpoint-residual.log": {
+      "Bytes": 832,
+      "Sha256": "c0f3cec24e242e4bee257d3a9ac13d9ade8f784bdcb800c43a8a003bb9ac1670"
+    },
+    "docs/test-evidence/2026-10-16-image-coordinate-boundaries-originals__r04-endpoint-residual.trx": {
+      "Bytes": 265008,
+      "Sha256": "2a548a5c19a9cfc48c91a4cf014b38f4d290cd7739889f18411a4b65dded14fb"
+    },
+    "docs/test-evidence/2026-10-16-image-coordinate-boundaries-originals__r05-provider-final.log": {
+      "Bytes": 826,
+      "Sha256": "5e60158ebdb608e154ba042d30fc342ad3f855c97e8228dd4f5d759479176d8a"
+    },
+    "docs/test-evidence/2026-10-16-image-coordinate-boundaries-originals__r05-provider-final.trx": {
+      "Bytes": 2029065,
+      "Sha256": "dd559f85ddfea9cf6ee6fc075ab4030f348366530f057441e847bdb0b6342689"
+    },
+    "docs/test-evidence/2026-10-16-image-coordinate-boundaries-originals__r06-app-final.log": {
+      "Bytes": 888,
+      "Sha256": "50133a918f1ff17b9e8165690e09ffa45b4b3e682027dc158bddc26dc84cd9f6"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r01-source-focused.log": {
+      "Bytes": 1601,
+      "Sha256": "82e557cb36e244b91443c51ba3ab0d6d34459563a6b19a0a83518b45dc01aac4"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r01-source-focused.trx": {
+      "Bytes": 76635,
+      "Sha256": "0dcfdb4a2d1891ccb57c8b7ff3b84a891d4332b4ed12c839c6e496185488e7a6"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r02-provider.log": {
+      "Bytes": 808,
+      "Sha256": "b636c9b2a45588cea1bdf06956b2ec58559ae566011d729a2a25d2eee00b48a2"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r02-provider.trx": {
+      "Bytes": 1202994,
+      "Sha256": "dbdc9c730d0ee9082386738186270f4345d5d13c3e5d7b9edc8734340ad9b837"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r03-app.log": {
+      "Bytes": 888,
+      "Sha256": "e64a4f4f8a46310281365af8548ae9d7272fbfdd8297b5bde06f94b7b0683531"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r04-provider.log": {
+      "Bytes": 808,
+      "Sha256": "06ad9eabbb1368d9d97a3c4e92508051a559f4ea4e2696c0b3b9771a1a0a49d6"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r04-provider.trx": {
+      "Bytes": 1217223,
+      "Sha256": "810c8cfbde591fc773e3ea21b49bfe16183d24fbe52e7515cbdd45a76c3ae20f"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r05-app.log": {
+      "Bytes": 888,
+      "Sha256": "bd97c991b8019bb346f89b2b7ce97b2d57dcbe04adaded02bf5343adbdb29626"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r06-provider-final.log": {
+      "Bytes": 814,
+      "Sha256": "3544e4a0b9604ae6b70af5e599e0b318b15441a92e516f6e5f916c134328ab71"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r06-provider-final.trx": {
+      "Bytes": 1220149,
+      "Sha256": "bbbcef132fb62495c3ad1d9da8b32e5a1a3f20122ddbe4915d1d954ee06fc03c"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r07-provider-frozen.log": {
+      "Bytes": 815,
+      "Sha256": "4d27cddf2f4caaab3a63d7ef4496415d2a7b78dfbd75e0e9771f4435c7cffc9d"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r07-provider-frozen.trx": {
+      "Bytes": 1221569,
+      "Sha256": "6566eb96a53773949194f65f0c3caec3602fe4ece99b03c66f1e3825f72bf448"
+    },
+    "docs/test-evidence/2026-10-15-original-source-originals__r08-app-frozen.log": {
+      "Bytes": 888,
+      "Sha256": "24eff98f0dc043089ef5bac3cd79f30a8b8284fcf29c849c203499699cd01d56"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__app-final.log": {
+      "Bytes": 888,
+      "Sha256": "a3e91b2c89bfeae7fb5afff7d163ecf36b066e0816aae9e77ad78bf659c3441b"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__exec-transport-diagnostic.txt": {
+      "Bytes": 876,
+      "Sha256": "7667201887afeca53cf1e118b5a5fc49f6db361800c9da5999a5ebd72ab831fe"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__focused-first.log": {
+      "Bytes": 1660,
+      "Sha256": "2238aa9549a69bf9a0be556c4a6b5a7e89ddf8ecee158b0028d900d99c3ad3ba"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__focused-first.trx": {
+      "Bytes": 358999,
+      "Sha256": "4fffbfd98ee9529349ddcfa390efa3bfa66f5a43b6d8de5f71e84c930395e4f7"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__focused-fixed.log": {
+      "Bytes": 808,
+      "Sha256": "62f6a5dee4a385e0f9dd3d678f04b574206933d929316dfa426c23c468927dea"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__focused-fixed.trx": {
+      "Bytes": 357276,
+      "Sha256": "e71cddf6f51752e003ffc59daf15d3eb8e7af9505fb1be0a53b8c7eb1cf73c6c"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__growth-final.log": {
+      "Bytes": 1020,
+      "Sha256": "a09683d832e975bf10a505c07c827aa0fa2ff540521655826d904f5f29976888"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__growth-restore.log": {
+      "Bytes": 180,
+      "Sha256": "bfd0ad4c07f3c972449c1837fc9bd178528b48ad4e5c7d859a8f8ebacd194eb1"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__provider-corpus-final.log": {
+      "Bytes": 2486,
+      "Sha256": "e444ee0ce32af8c527b4cbd53dae6f9149b90106e1c118e9fd160e9c625ebaa5"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__provider-corpus-final.trx": {
+      "Bytes": 1132895,
+      "Sha256": "240e1790c5947d0171d11eed94fda248329be4d621655baa3a60f43dfacad3ff"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__provider-final-fixed.log": {
+      "Bytes": 812,
+      "Sha256": "b52d6a990b584ee6304a941cfb85feeda7f8fe7ac7a23f737a99e8d024f43d5f"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__provider-final-fixed.trx": {
+      "Bytes": 1129523,
+      "Sha256": "0fdede9aba38e6cfec3f3fa7f3cc5d5032a024e9ea8b474afd47bdd9b8cfc569"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__provider-final.log": {
+      "Bytes": 806,
+      "Sha256": "a97e1b0fd8eb9bda8418052d12a9697bdc4691b2d9e734f8c14dbee55c216d06"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__provider-final.trx": {
+      "Bytes": 1126629,
+      "Sha256": "0aeea43d4eb87111b64bc526d138bff4e1916d476dd421f323d0f8a576762d44"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__provider-frozen.log": {
+      "Bytes": 902,
+      "Sha256": "f6480a790c9a920cf9175b81b01dd220f7848f88adb96744d2d68c144f626192"
+    },
+    "docs/test-evidence/2026-10-15-tail-follow-originals__provider-frozen.trx": {
+      "Bytes": 1129523,
+      "Sha256": "635a8bf2bccf8c78a26508e4928de4c8e5517d78569bd972ae4b2a78f20223d0"
+    },
+    "docs/test-evidence/2026-10-15-table-scroll-originals__app-final.log": {
+      "Bytes": 888,
+      "Sha256": "713f425db72d9f3cd318b6e1c91c7f82e31b8e0dbc5d25e55f1de834cff8e93e"
+    },
+    "docs/test-evidence/2026-10-15-table-scroll-originals__app-first.log": {
+      "Bytes": 888,
+      "Sha256": "724e22b5862365be512cf497e80be18c8eb14f36582f2f13eaacde3934b7acda"
+    },
+    "docs/test-evidence/2026-10-15-table-scroll-originals__focused-first.log": {
+      "Bytes": 665,
+      "Sha256": "8a9720e75ccb9045f66cfb62bca522c71403f77aef593e4417302ca4688172e7"
+    },
+    "docs/test-evidence/2026-10-15-table-scroll-originals__focused-second.log": {
+      "Bytes": 810,
+      "Sha256": "3b8e5b1bd28722ac90d153e3a8ce42c9024e4ed8166d34953822805f40fdfd8e"
+    },
+    "docs/test-evidence/2026-10-15-table-scroll-originals__focused-second.trx": {
+      "Bytes": 314105,
+      "Sha256": "f182f43d12cded17921a9342a2a1d180e76c86ae13f15e06779ba40b00ced118"
+    },
+    "docs/test-evidence/2026-10-15-table-scroll-originals__provider-final.log": {
+      "Bytes": 807,
+      "Sha256": "7083d941e3d080c13eaf7cd00f441cfc55a834e896e103708e65cda2a27b1e83"
+    },
+    "docs/test-evidence/2026-10-15-table-scroll-originals__provider-final.trx": {
+      "Bytes": 1080618,
+      "Sha256": "1e0c4c6840ed98484c796377946be61f7245ad950f2ea4ae01420dab20554192"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r01-legacy-stop.log": {
+      "Bytes": 13730,
+      "Sha256": "ebe40615281939ca994e9151c2927e5d7ef78bbec175f4c871b658ab789f6e61"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r01-legacy-stop.trx": {
+      "Bytes": 59778,
+      "Sha256": "77b0b3634ca43b96a2848463353793a0c47c320338f918fd3b6e4f06e1d9355e"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r02-fixed-stop.log": {
+      "Bytes": 1823,
+      "Sha256": "0fb8e359fc7227e72f34d9d0b240b4ef36b193f134ba8f9f9c28527805948437"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r02-fixed-stop.trx": {
+      "Bytes": 35364,
+      "Sha256": "29345dd5c59751d273745581023789d0d1b2715392b64fb5d880e30f7a732b26"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r03-cache-diagnostic.log": {
+      "Bytes": 2186,
+      "Sha256": "2c59c8acacc2fab3cea2e0137592afeb41dc251643cf645cbb018154172e517c"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r03-cache-diagnostic.trx": {
+      "Bytes": 5807,
+      "Sha256": "7d06ec3ee9619618534aa2109dce18e724552d2f51540909c87d4299ea7e2912"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r04-fixture-fixed.log": {
+      "Bytes": 814,
+      "Sha256": "e1c705f3b3bfe287ada9d9827aaf115afb95eadad1667179620aabeef970928e"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r04-fixture-fixed.trx": {
+      "Bytes": 33304,
+      "Sha256": "8b5fbddf21e0a36f3ac45290c4966fc05d3858b8340f65e68a7ee168e078f232"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r05-expanded-stop.log": {
+      "Bytes": 814,
+      "Sha256": "32e480f63e81268a0f527639425977f64d008e0cf2c28dc4bd250402585fbd88"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r05-expanded-stop.trx": {
+      "Bytes": 38834,
+      "Sha256": "fbb9854423e1c52584936ebc177ffb54ebfb60f2f4d4deefc0e49e82b80dbce7"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r06-final-legacy.log": {
+      "Bytes": 14265,
+      "Sha256": "de76131129368aa9e0ceb96d236f1a7a2823941c2c512a713804799bbdba21ca"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r06-final-legacy.trx": {
+      "Bytes": 67958,
+      "Sha256": "7ec82dd398d51e5346b168f6e78b96385f9d0b15a6312718dc7c1966dd6cde03"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r07-provider-final.log": {
+      "Bytes": 812,
+      "Sha256": "e1a18889b3130b62992616f6ddfdea1ed90e46fc0ab9ebda3b028ef3a83d98d1"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r07-provider-final.trx": {
+      "Bytes": 1168285,
+      "Sha256": "727b1034ef7893e216b69f27926e5f35c65d6dac083cf64301ec1377d3ca702a"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r08-app-final.log": {
+      "Bytes": 888,
+      "Sha256": "f2c5cd4d5907e9f0e1574a7eb55aaa9e560cae8a1b44d80eddb562eee493d119"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r09-final-legacy.log": {
+      "Bytes": 14262,
+      "Sha256": "4d7407585ffa7da10ac3ff30d76591208bcecb4b11749242148b366ca4a962ed"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r09-final-legacy.trx": {
+      "Bytes": 67958,
+      "Sha256": "29231e72822a16e669b2648ea5a466be63ad8135661197c470d900530c5199cb"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r10-provider-final.log": {
+      "Bytes": 812,
+      "Sha256": "403d1568bf2296ae9acfec455454d00bf5e5164237bb02093dbd3f8abdf31732"
+    },
+    "docs/test-evidence/2026-10-15-stop-finalize-originals__r10-provider-final.trx": {
+      "Bytes": 1168285,
+      "Sha256": "61660867f8be541bc22a2e77b473ba74b0fbcde54eca9b835b3f2f23af5809cd"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r01-clear-focused.log": {
+      "Bytes": 11566,
+      "Sha256": "30b57c4a47417a54400c890e53c341a7dc3710e9108cf8c10a2e1a56d48cba78"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r01-clear-focused.trx": {
+      "Bytes": 64431,
+      "Sha256": "c4e1ec70ad40c18b71cd924ccdbe87d678e1cead9f472bf14c96d45291867a74"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r02-clear-focused.log": {
+      "Bytes": 814,
+      "Sha256": "58022eaac43601c606e3cb72cb382b2940c016ec370bd5067510be4f6be36da0"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r02-clear-focused.trx": {
+      "Bytes": 42336,
+      "Sha256": "6f4b51b7b9a509cd3ddc36361486bf2be49005358a192128db0d27b2488f780c"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r03-provider.log": {
+      "Bytes": 806,
+      "Sha256": "43e6a5c7bbe567d9b0d1ebd36e05809bdb7e67c9b8f15a4a30a38607a385af61"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r03-provider.trx": {
+      "Bytes": 1279302,
+      "Sha256": "a601ea8145676399aa82aee6a85234f78e076075ae09931dacb4557bd5f9b320"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r04-app.log": {
+      "Bytes": 888,
+      "Sha256": "5ced44568b60df9bb445ccb81fa646c5e8ea716940c3437f76c194b99fd6e610"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r05-provider-frozen.log": {
+      "Bytes": 813,
+      "Sha256": "ebd33d9fd12c582e780f35f38dce1edd910316bf83b14d6a4783093a4c30a9ff"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r05-provider-frozen.trx": {
+      "Bytes": 1279302,
+      "Sha256": "695b1966ce3198f2989baeab360c3dea4f0f93bf7b8a98f3753bd39ee60dfe99"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r06-app-frozen.log": {
+      "Bytes": 888,
+      "Sha256": "f7c8efb154a6f24c3abb7d5582ca2540efb9d0624e2a3e20029231472a215652"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r07-provider-final.log": {
+      "Bytes": 812,
+      "Sha256": "28856c3fc54a7a97658400882bef8077fd3693cbf73db0733ccea5a95072f111"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r07-provider-final.trx": {
+      "Bytes": 1283485,
+      "Sha256": "9d16d898921b7253b6b8ef8380d296291780b4cb60e186f63818326bc2e1ccc1"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r08-app-final.log": {
+      "Bytes": 718,
+      "Sha256": "7c825a843a7250452e1ac9051fb6e2dd92b0379ed305396f1722362032351a31"
+    },
+    "docs/test-evidence/2026-10-15-clear-content-originals__r09-app-final.log": {
+      "Bytes": 888,
+      "Sha256": "ebc31b282dbe6801a70ab86d071363fb5953a43b4db89988e77ab4914f0704fa"
+    },
+    "docs/test-evidence/2026-10-15-image-source-originals__r01-source-focused.log": {
+      "Bytes": 2370,
+      "Sha256": "c20d5b562617a5d1f42e3ddbee94ca67be8ca69cb0e41ba6a9c9db0eff946988"
+    },
+    "docs/test-evidence/2026-10-15-image-source-originals__r01-source-focused.trx": {
+      "Bytes": 44996,
+      "Sha256": "7a8aba4fed4ae132a6cb5b2e76509e2f24120189c4406fa56856bbc1f8d7e037"
+    },
+    "docs/test-evidence/2026-10-15-image-source-originals__r02-source-focused.log": {
+      "Bytes": 814,
+      "Sha256": "8d893061bd6647b15b466546a383f518dc04fb2a700a8895ca14d8c7e05dcbfa"
+    },
+    "docs/test-evidence/2026-10-15-image-source-originals__r02-source-focused.trx": {
+      "Bytes": 41901,
+      "Sha256": "050ae9dc9c90212da46bf3b0d99e7c1fafa41eef9dea332d9cd64bf563e10252"
+    },
+    "docs/test-evidence/2026-10-15-image-source-originals__r03-provider.log": {
+      "Bytes": 805,
+      "Sha256": "942d19cde638386305fb7058f636f43cf015fe1ef2e324f41b96f6bff3000a58"
+    },
+    "docs/test-evidence/2026-10-15-image-source-originals__r03-provider.trx": {
+      "Bytes": 1335301,
+      "Sha256": "135f0d4e2504d9ffc99a2f2be57ee053da2e6ac66615b6aec5e8f8e34a13d528"
+    },
+    "docs/test-evidence/2026-10-15-image-source-originals__r04-app.log": {
+      "Bytes": 888,
+      "Sha256": "c82cd93e5eef37b98840b67f854b8480f44614c8a3d71e70e22e820880cd40e6"
+    },
+    "docs/test-evidence/2026-10-15-image-source-originals__r05-provider-final.log": {
+      "Bytes": 1640,
+      "Sha256": "f6a2c95a1a734c4ddf424a2fc0e9c9054db9e23ffee7543afa08e88231982be2"
+    },
+    "docs/test-evidence/2026-10-15-image-source-originals__r05-provider-final.trx": {
+      "Bytes": 1341414,
+      "Sha256": "73e10c07929c1f2b9ed3361f5ea54d33e1170d5240cdf142d514d1cf2cec9483"
+    },
+    "docs/test-evidence/2026-10-15-image-source-originals__r06-app-final.log": {
+      "Bytes": 888,
+      "Sha256": "a7a4e23e21709ee4d4602f3449e2ecfa4d357dd175973e6fca76f5edacf83698"
+    },
+    "docs/test-evidence/2026-10-15-image-source-originals__r07-provider-final.log": {
+      "Bytes": 811,
+      "Sha256": "64d0ee3e963294b904e33bdffa2822379530886ffb8d9e5106815c1222495904"
+    },
+    "docs/test-evidence/2026-10-15-image-source-originals__r07-provider-final.trx": {
+      "Bytes": 1339680,
+      "Sha256": "64f9fcaf6eda0cd413e1dbc3add46c8d97abc0629661c94c8ec0341b13580a8a"
+    },
+    "docs/test-evidence/2026-10-15-explicit-links-originals__r01-links-focused.log": {
+      "Bytes": 2567,
+      "Sha256": "6ef152492636e419cac6c7fc038c2305ac37c49f60fe8fb853b47ec842e9cc49"
+    },
+    "docs/test-evidence/2026-10-15-explicit-links-originals__r01-links-focused.trx": {
+      "Bytes": 278094,
+      "Sha256": "79ae8e61eb55f550b12624ff8a68166a1ba104971528b3478c77586b1a41fc47"
+    },
+    "docs/test-evidence/2026-10-15-explicit-links-originals__r02-links-focused.log": {
+      "Bytes": 815,
+      "Sha256": "d8f97341aa17bf2a552ca58e6140b67224b4171ef779b7161774f69c214bf2db"
+    },
+    "docs/test-evidence/2026-10-15-explicit-links-originals__r02-links-focused.trx": {
+      "Bytes": 319212,
+      "Sha256": "129576ec152e1c6b1856af96b57b3a44556004f3610f9593af5cc93becf19ba4"
+    },
+    "docs/test-evidence/2026-10-15-explicit-links-originals__r03-provider.log": {
+      "Bytes": 807,
+      "Sha256": "39ffac3ac08ba15289c11ea798b1acf20b6204e2fcc03dcb6f3a96254d8f071c"
+    },
+    "docs/test-evidence/2026-10-15-explicit-links-originals__r03-provider.trx": {
+      "Bytes": 1462786,
+      "Sha256": "3112c3fc0eabd5d77468d67e06c15d5526a1bc366b8f9bd5e4e89daaa3678027"
+    },
+    "docs/test-evidence/2026-10-15-explicit-links-originals__r04-app.log": {
+      "Bytes": 888,
+      "Sha256": "2b45af30537a1ab1d108787c1d1aa850f30ac79575f3b43bcd4b017ebf1d8760"
+    },
+    "docs/test-evidence/2026-10-15-explicit-links-originals__r05-provider-final.log": {
+      "Bytes": 813,
+      "Sha256": "5884e1cceed5436ce8440ecb013377b4f294097480069c0886bee105ebf7ab90"
+    },
+    "docs/test-evidence/2026-10-15-explicit-links-originals__r05-provider-final.trx": {
+      "Bytes": 1473139,
+      "Sha256": "23a82d7e7a5d90e7f3bc03050fcc1882860d97d65894ff2459b187513bcffa52"
+    },
+    "docs/test-evidence/2026-10-15-explicit-links-originals__r06-app-final.log": {
+      "Bytes": 888,
+      "Sha256": "a1714737596f0877d7ea85f1c280ed2fe338f1e95999115cdb0bbc7a4cb1bb35"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r01-image-focused.log": {
+      "Bytes": 811,
+      "Sha256": "c39d8000e08debd984ca52c2147eff474b13a1a316fd63a7cf1680765973f769"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r01-image-focused.trx": {
+      "Bytes": 156667,
+      "Sha256": "cadddf6f4eab8c85e302df359b0ee780ba5c6ebece6aaa7d1f52d850358bc021"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r02-provider.log": {
+      "Bytes": 806,
+      "Sha256": "c94243e4a2e703ea0e698c6762712594432be0874f4c39a78403a565514c2cb0"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r02-provider.trx": {
+      "Bytes": 1618043,
+      "Sha256": "5c6d0bc13f0c453d3d2ddde10ba2799d49e088de12f52863accc32952cddb0aa"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r03-app.log": {
+      "Bytes": 888,
+      "Sha256": "3f9c8f431570c96db7ff9baa7e87f167a742e5ebeeb67204bdba1c24ccf81a7b"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r04-before-start-fix__production.cs.txt": {
+      "Bytes": 16124,
+      "Sha256": "4249742c216183d1447a4a7f17167e44e1294224e8620a7f90d3e3ceb03a9a5e"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r04-before-start-fix__tests.cs.txt": {
+      "Bytes": 18358,
+      "Sha256": "540f7ea4ce908b7b2312417d440ce8133f8fd9e1f34fd2990ec63e11975d57fd"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r04-start-red.log": {
+      "Bytes": 1705,
+      "Sha256": "d78251d2a3f004d26babe35f9bca618e0d84ca82b79720d47aa1b18b20782f81"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r04-start-red.trx": {
+      "Bytes": 7823,
+      "Sha256": "62693db4e2e4e02717cf2ce47b3732528a5a37c374341edd5c4be4501a6bc92c"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r05-image-fixed.log": {
+      "Bytes": 809,
+      "Sha256": "8dbaa7c8e633992aed246e94089c0d45521483ae08bb39190d688afb4341b3f9"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r05-image-fixed.trx": {
+      "Bytes": 178609,
+      "Sha256": "b98fd1d957e116b567d161f148d3c9efe97d107b328341198beea2410522bf15"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r06-provider-final.log": {
+      "Bytes": 812,
+      "Sha256": "807dfb96dba71e366e7dd3d5a412085eda4e99c2c7a949ef02630430ebdcfb5b"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r06-provider-final.trx": {
+      "Bytes": 1634317,
+      "Sha256": "75cea5eef85b02deda64e0bedcbc86fe8873d08ff0d4437f4d1c31b9d4431571"
+    },
+    "docs/test-evidence/2026-10-15-image-routing-originals__r07-app-final.log": {
+      "Bytes": 888,
+      "Sha256": "cb2dd5b4fc9c175ee20212febd5c856c9ba8da70d25273c1262c9fb8501950af"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r01-before-fix__production.txt": {
+      "Bytes": 16646,
+      "Sha256": "a05aae92c82007323bbe5b0e25105460ca3b19cd6d9455d603f6124432f300de"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r01-before-fix__prompt.txt": {
+      "Bytes": 884,
+      "Sha256": "9b23779a81121416fe8bcb2a14678626fdfbd6a4678e82a74d79772e9ff6e1e0"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r01-before-fix__tests.txt": {
+      "Bytes": 27305,
+      "Sha256": "b67bc371f5df95b5ceca16cad6203dfbc29f5c10d8bd2160e93cf879e0025b81"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r01-reentry-red.log": {
+      "Bytes": 9509,
+      "Sha256": "9bfec3987bb50a4537a19cf4f002a40baecfcacfd625684cf0c2a4bdc74b9a9d"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r01-reentry-red.trx": {
+      "Bytes": 33388,
+      "Sha256": "958e4d814ca429b77698dcae51a42ab53d938d2410b9ca6b854ac06f5e24179c"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r02-reentry-fixed.log": {
+      "Bytes": 821,
+      "Sha256": "10af017864579847f232b7ae65202edbe4c29e111c89f39ebf1d44634483218a"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r02-reentry-fixed.trx": {
+      "Bytes": 208261,
+      "Sha256": "be709ed15bf92339c362452ac29511013fe00f248735a08a5c8c6f67631c921f"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r03-provider.log": {
+      "Bytes": 816,
+      "Sha256": "f76cf35865d1061219c11d1322c3ae719a3b84010a00f91140a1745c9d71868c"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r03-provider.trx": {
+      "Bytes": 1663969,
+      "Sha256": "9f22b17b84ffb35bebc0d86982e990858fbbb626b08f3c9b931f05bee528ddf6"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r04-app.log": {
+      "Bytes": 888,
+      "Sha256": "96bcabee4dd014851600b5a73808812a77b89d6ecafcaf99e7f571afe32aa3ef"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r05-before-partial-fix__production.txt": {
+      "Bytes": 18586,
+      "Sha256": "dbf06a6cf29268a9f1474542ecb90380cf6e4946f0592c772db9affda4d2ca5b"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r05-before-partial-fix__tests.txt": {
+      "Bytes": 32443,
+      "Sha256": "dbbaf039c5cbc0f42a9bc1495a60d45f6065680b470007d2e3ba5eb7fd26f750"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r05-partial-red.log": {
+      "Bytes": 4867,
+      "Sha256": "d191a528b03eb9d8d519f31ec7a0ecd820b02bea416aa3fa8ea7d675d923ad9f"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r05-partial-red.trx": {
+      "Bytes": 18217,
+      "Sha256": "2158e96ef780e929cc35776411d64a4d6fccc48e7ef3dae52b52f6d49fb6d0a4"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r06-partial-fixed.log": {
+      "Bytes": 821,
+      "Sha256": "1a8f87c84111911db62b76c195d4b09cee6de7eceda9a6c1241b8d131ad3a186"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r06-partial-fixed.trx": {
+      "Bytes": 214345,
+      "Sha256": "67fed3980220984050bc60b6fc8435eb372c5d417af32b9049e54f864cb4bfd8"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r07-provider-final.log": {
+      "Bytes": 822,
+      "Sha256": "43f66502e39b4f838d7a778b56136505227794586a65d09a9e4df1412a9fddf9"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r07-provider-final.trx": {
+      "Bytes": 1670053,
+      "Sha256": "71b30f74d3bb386c57549109643270e3e81134e4ae5b74b6fb5dcd7c188b1c30"
+    },
+    "docs/test-evidence/2026-10-16-image-admission-reentry-originals__r08-app-final.log": {
+      "Bytes": 888,
+      "Sha256": "fb7ca804617bec0ab9daf615900824a174ba445f59ce0f630fe5b3d20db98f23"
+    },
+    "docs/test-evidence/2026-10-16-image-stage-usage-originals__r01-before-usage-fix__adapters.txt": {
+      "Bytes": 14277,
+      "Sha256": "1fa9f55cc9f705d84c8c9130edec7f5e549425857207c25adcd112f72ed83910"
+    },
+    "docs/test-evidence/2026-10-16-image-stage-usage-originals__r01-before-usage-fix__coordinator.txt": {
+      "Bytes": 19624,
+      "Sha256": "49ee2ab10a3e80c48ea365c4d68bffba202baa2bbf9ff3a173b49103ba3d4274"
+    },
+    "docs/test-evidence/2026-10-16-image-stage-usage-originals__r01-before-usage-fix__tests.txt": {
+      "Bytes": 35920,
+      "Sha256": "d4171f654eaeced593b5468c08ef32a7f9f3b73698f722355b39c595bbbb764d"
+    },
+    "docs/test-evidence/2026-10-16-image-stage-usage-originals__r01-usage-red.log": {
+      "Bytes": 5187,
+      "Sha256": "b977fe579f4dd5333ec70297f47f5232939ad27e0fa64326e0c0a7a6dcc4647a"
+    },
+    "docs/test-evidence/2026-10-16-image-stage-usage-originals__r01-usage-red.trx": {
+      "Bytes": 15905,
+      "Sha256": "430e7ae830efdeb01c2601fc115d33f84ec751b20d00a49990b69ffea3831d93"
+    },
+    "docs/test-evidence/2026-10-16-image-stage-usage-originals__r02-usage-fixed.log": {
+      "Bytes": 813,
+      "Sha256": "f17f8c0a8870f1d652e8c1bf24dc9d8c2a5d3484c7478725e794f339b302f841"
+    },
+    "docs/test-evidence/2026-10-16-image-stage-usage-originals__r02-usage-fixed.trx": {
+      "Bytes": 111259,
+      "Sha256": "f107d679ccb3d839983dc3d8cf90748adbad6247350019cd390db869c6c37e67"
+    },
+    "docs/test-evidence/2026-10-16-image-stage-usage-originals__r03-usage-expanded.log": {
+      "Bytes": 816,
+      "Sha256": "ca7e8010364eb000915da89125f999f7ba6d8e77cf290297fccbb61be52f8e5a"
+    },
+    "docs/test-evidence/2026-10-16-image-stage-usage-originals__r03-usage-expanded.trx": {
+      "Bytes": 236680,
+      "Sha256": "073930bbb3cc4f9fec4606c6fc98cc205794371cebe90bd393a28252564224e0"
+    },
+    "docs/test-evidence/2026-10-16-image-stage-usage-originals__r04-provider.log": {
+      "Bytes": 810,
+      "Sha256": "5872734e50d08d076fee52387eae13ee1156b549b0fe634b383f7bc4e7ae1273"
+    },
+    "docs/test-evidence/2026-10-16-image-stage-usage-originals__r04-provider.trx": {
+      "Bytes": 1801555,
+      "Sha256": "f5ba6a1ffc20a6e5428cd67fb918627eb4c4e65c9c03a7fe26d4d4420f179570"
+    },
+    "docs/test-evidence/2026-10-16-image-stage-usage-originals__r05-usage-ownership.log": {
+      "Bytes": 820,
+      "Sha256": "ac3e167eb540d8d2b971ac1c88d6de36dd76cbc614badbc33f71441ee0718e0f"
+    },
+    "docs/test-evidence/2026-10-16-image-stage-usage-originals__r05-usage-ownership.trx": {
+      "Bytes": 7513,
+      "Sha256": "74688615946006df1654ec8f54bd1da62023a8cc2db6faaa00fb596ccedb1b2c"
+    },
+    "docs/test-evidence/2026-10-16-image-stage-usage-originals__r06-provider-final.log": {
+      "Bytes": 816,
+      "Sha256": "5bb2b4048b073338a8a4e5976c89005985179d5937dd58e6a0e98c9d9efcce7f"
+    },
+    "docs/test-evidence/2026-10-16-image-stage-usage-originals__r06-provider-final.trx": {
+      "Bytes": 1807527,
+      "Sha256": "6398d1a5d83a98d0b4d2b44e2094d8aef722d56759fb1f21ac98138c5f2f93c9"
+    },
+    "docs/test-evidence/2026-10-16-image-stage-usage-originals__r07-app.log": {
+      "Bytes": 888,
+      "Sha256": "673bd30f29f767fa2a1b727b0812872a3b3f04f36274405927445785a3819a38"
+    },
+    "docs/test-evidence/2026-10-16-image-stage-usage-originals__r08-provider-notification-fence.log": {
+      "Bytes": 829,
+      "Sha256": "35b43cbd35232d8eafa20ffef19313c932ff2434223b1277ad453149c8f87caf"
+    },
+    "docs/test-evidence/2026-10-16-image-stage-usage-originals__r08-provider-notification-fence.trx": {
+      "Bytes": 1807527,
+      "Sha256": "8e91f79edcb31475b3c4077288d7a69d77db3af327ae4c4788ff38faa1475fe5"
+    },
+    "docs/test-evidence/2026-10-16-screenshot-normalization-originals__r01-before-normalization-fix__encoder.txt": {
+      "Bytes": 10117,
+      "Sha256": "cd88ed54528d312a264ad22775ac35139cf79d9210f9d858cf2d87702ecdeaf3"
+    },
+    "docs/test-evidence/2026-10-16-screenshot-normalization-originals__r01-before-normalization-fix__owner.txt": {
+      "Bytes": 3509,
+      "Sha256": "5584b2c359fa98c4a8373d6ec92fea833465a1f2b544e1e18250ee59b20c8d9b"
+    },
+    "docs/test-evidence/2026-10-16-screenshot-normalization-originals__r01-before-normalization-fix__tests.txt": {
+      "Bytes": 2321,
+      "Sha256": "7d41f64db2357f0dc145a4ad2b2b62fdc26fab84ca67af5b471eaa0dc289b130"
+    },
+    "docs/test-evidence/2026-10-16-screenshot-normalization-originals__r01-white-red.log": {
+      "Bytes": 6768,
+      "Sha256": "e4ab45264ad89313392b5cbebaa599686dcb74e617ad985c7d0aecccc234d171"
+    },
+    "docs/test-evidence/2026-10-16-screenshot-normalization-originals__r01-white-red.trx": {
+      "Bytes": 22166,
+      "Sha256": "d474350ac4e825950c2ee95f9cecb5c806d386481585fdc0c72a534df9a012b6"
+    },
+    "docs/test-evidence/2026-10-16-screenshot-normalization-originals__r02-before-compile-fix__normalization.txt": {
+      "Bytes": 8431,
+      "Sha256": "fad6138aaf24b9eefbf07d4067845533369f4ca654ebb2d1ca39879e0f532cda"
+    },
+    "docs/test-evidence/2026-10-16-screenshot-normalization-originals__r02-normalization-fixed.log": {
+      "Bytes": 700,
+      "Sha256": "9eb44fa9bba938919261a1742a2de72f6d89b897722e642b9ff7f17bdf9597cf"
+    },
+    "docs/test-evidence/2026-10-16-screenshot-normalization-originals__r03-normalization-expanded.log": {
+      "Bytes": 831,
+      "Sha256": "1d59ec71e9afc34a7dd31632e07a61050ed22c1d03d64df7c1542b144c64cf10"
+    },
+    "docs/test-evidence/2026-10-16-screenshot-normalization-originals__r03-normalization-expanded.trx": {
+      "Bytes": 279441,
+      "Sha256": "09e520ba740be68c65c06a32f9fa2cf4fb263f888d4a9ef90560723d24d802b8"
+    },
+    "docs/test-evidence/2026-10-16-screenshot-normalization-originals__r04-normalization-integration.log": {
+      "Bytes": 834,
+      "Sha256": "f273abd542e01a0d2d8ad96fa61fcc2896b57149c0caad12534bdf4cce4b44d5"
+    },
+    "docs/test-evidence/2026-10-16-screenshot-normalization-originals__r04-normalization-integration.trx": {
+      "Bytes": 319037,
+      "Sha256": "9e2c91ba07fb90fb44f5750371713f953de794087bde1d87135a1eaabbd62360"
+    },
+    "docs/test-evidence/2026-10-16-screenshot-normalization-originals__r05-before-space-fix__normalization.txt": {
+      "Bytes": 9122,
+      "Sha256": "9bc158590b901f7fc7aa3ce035eb9ef0a80900b4809295a28f1dd3086a372523"
+    },
+    "docs/test-evidence/2026-10-16-screenshot-normalization-originals__r05-before-space-fix__tests.txt": {
+      "Bytes": 11810,
+      "Sha256": "ea3320e8ac453c42adf882795da78b3b413dc3e3c21606546e14f699678816d2"
+    },
+    "docs/test-evidence/2026-10-16-screenshot-normalization-originals__r05-coordinate-space-red.log": {
+      "Bytes": 1705,
+      "Sha256": "52e9e5aae83ecfd60ef4c3d3d7dfd2c63b97e59a221c9229a4ac863e6be9c3ff"
+    },
+    "docs/test-evidence/2026-10-16-screenshot-normalization-originals__r05-coordinate-space-red.trx": {
+      "Bytes": 4764,
+      "Sha256": "b581efead5fe1ea1bebf766caf28821a0bb785d8abef74ef70016a232276afd2"
+    },
+    "docs/test-evidence/2026-10-16-screenshot-normalization-originals__r06-spaces-fixed.log": {
+      "Bytes": 821,
+      "Sha256": "d5a8988b56c20fb004378d5f4b304dd7abdd53638af49752d07205f5fe57a15b"
+    },
+    "docs/test-evidence/2026-10-16-screenshot-normalization-originals__r06-spaces-fixed.trx": {
+      "Bytes": 326559,
+      "Sha256": "7df363c614c2b612a4f27d3f28020f1fac54a7fb745980e6a2066c63761d6a22"
+    },
+    "docs/test-evidence/2026-10-16-screenshot-normalization-originals__r07-provider-final.log": {
+      "Bytes": 823,
+      "Sha256": "322f0f4fc851c57d5afccf583483e796bddada7f5cbc43139e177361ed6ea2a1"
+    },
+    "docs/test-evidence/2026-10-16-screenshot-normalization-originals__r07-provider-final.trx": {
+      "Bytes": 1918314,
+      "Sha256": "9080c9ac21804386e86d708e56d7e54a19e3625682644926016c44621884fd29"
+    },
+    "docs/test-evidence/2026-10-16-screenshot-normalization-originals__r08-app.log": {
+      "Bytes": 888,
+      "Sha256": "82bcf326adee71b656b08b47bc1061efa7677bf99163a39851403a9e60c4d942"
+    }
+  },
+  "Preservation": {
+    "OtherParentFiles": {
+      "Count": 2550,
+      "EqualParent": true,
+      "ManifestSha256": "95d9b913d8bca005589eafb8bfad3f76b067f484b6bf94149225f67dd62b0ab8"
+    },
+    "PriorEvidence": {
+      "Count": 1764,
+      "EqualParent": true
+    },
+    "ExistingProduction": {
+      "Count": 228,
+      "Sha256": {
+        "src/KuaiYi.App/AssemblyInfo.cs": "f5db501078082426f5a83904588a4396f645fc1a85543be3e98e4818251ba293",
+        "src/KuaiYi.App/ClipboardPermissionsWindow.cs": "3baf39c7a678770c4738045b8f37e380567feb790b7792370bbfa2825e4a2aa1",
+        "src/KuaiYi.App/DesktopLocalConfirmation.cs": "c516af7f39da5c454e11ba732f0c7c9f176561eeb0e8f9672cb0e2656fa84381",
+        "src/KuaiYi.App/DesktopMarkdownLinks.cs": "6441e938b775deaa973d2d52524959e16604b75d014284ab46401bbca2e709e3",
+        "src/KuaiYi.App/HotkeyFlow.cs": "3611a9dcd7fe216c4f1b0df66660ec97599d7c2c4305e54ef394c5795599627a",
+        "src/KuaiYi.App/HotkeyScreenshot.cs": "a42b6bdc9ac67481ee577c74c47e119a8aeb4bc7a5491e636f50e3fbe7b2f3bf",
+        "src/KuaiYi.App/HotkeyScreenshotLifetime.cs": "81c0c45ca9d3a539983174204cc52b8e66ca8e89b7a7dbd1b43a9791d7b2727e",
+        "src/KuaiYi.App/KuaiYi.App.csproj": "d5c70b63415e45853036444a27da18ec417d1f40ff7b720c9663ca81a2acc776",
+        "src/KuaiYi.App/MarkdownCodeRegion.cs": "2e4c5adfc6c606c04daef40bbc29aae37065a216d72bca6acd2edc35b32d1f06",
+        "src/KuaiYi.App/MarkdownFlowView.cs": "5b9e6dc494cee6ae54b37a8a55d5a90a963c6617676e7567aa04ce0212be1399",
+        "src/KuaiYi.App/MarkdownImageSourceRegion.cs": "d75a881f7c5673f73b365b76294c0712179b469bc8e386520e1b3b86f8823e43",
+        "src/KuaiYi.App/MarkdownLinkActions.cs": "d88c51cce427c489d9cfa4002874ac22abda4da988d96856585d4636abba2c25",
+        "src/KuaiYi.App/MarkdownLinkRegion.cs": "ec970a15fb0bd8680156956fbe023b95015235b37ebe059f830033675116f7fe",
+        "src/KuaiYi.App/MarkdownSourceRegion.cs": "26a66a61f24690103dc93e8f77fbdc151a73b1ba5583ab2a634d46d6d3ff709e",
+        "src/KuaiYi.App/MarkdownTableRegion.cs": "f85f5388855648695bda4b0d65378950fb66f210b6e952f7b034f12848dd50a7",
+        "src/KuaiYi.App/MarkdownViewport.cs": "99b4794b6742ad6b2e9395e4cff1df48b2ce5a6c342090c23857b960b2236c78",
+        "src/KuaiYi.App/OfflineScreenshotCoordinator.cs": "653232330aba4999e97de6972c74acda12c29428050ad1ea83f55b8c8b03e0a6",
+        "src/KuaiYi.App/OleDropWindow.cs": "c0639c8501adf023d8396e518352ce1f9634d0039e6c196a4951cf961317ab64",
+        "src/KuaiYi.App/OlePresentationFlow.cs": "75bf8e892142c119100e1fdd29cef3d9221c3ae9492e70169309b5882b7c37d7",
+        "src/KuaiYi.App/OlePresentationWindow.cs": "17c435b4e63f3419ed8aa570e2f6819eb18787b8bbaf52ac94147e78b62d5708",
+        "src/KuaiYi.App/OverlayClearContent.cs": "5b6f271c2a462d67ab38a53c93dc7f45869f05884ad3d99c12a53b5e79d6546b",
+        "src/KuaiYi.App/OverlayImageSource.cs": "bb3178a577c33e6e5d4fbe0c9211f167d626c8ac114c31e49dd9ea669f43df3a",
+        "src/KuaiYi.App/OverlayLinkFlow.cs": "c76c166e1ab4d04e0278aa53001103b59b1a979faa93a56ffbae0c9ca1fbafbd",
+        "src/KuaiYi.App/OverlayMarkdown.cs": "a1463b03b5a73d7d47e43189cc602b2b9bf871a97cadd03ddc300565cb294705",
+        "src/KuaiYi.App/OverlayPresentation.cs": "39fef4f656b2a94b9fc36c2c4fe091445ffcbd063d5fe7aafb6a98f137cd94ad",
+        "src/KuaiYi.App/OverlayPrivacyFlow.cs": "74f6c1fa0dbff24dbcfb92b502f39db931f0c1857f90aac95903ea7deb03c7be",
+        "src/KuaiYi.App/OverlayResultFlow.cs": "3f2573aff3500512e97e96cd069935deeb4e7ab8187e66263f07029592acc21e",
+        "src/KuaiYi.App/OverlayResultLabel.cs": "2c5af439e90cf2841d3b69c5eae828c49a6bc19bbcbe2873532878aa1ce4d0b7",
+        "src/KuaiYi.App/OverlayScrollFlow.cs": "fed38295cb6c4df922267f007ca1e3155dabdc7ad8ec6156765da3dd94f4a597",
+        "src/KuaiYi.App/OverlaySource.cs": "d84ddd339492842cefb8fd6cf1f998b4c7b734ea82ae9e29e0159e17e81f5e37",
+        "src/KuaiYi.App/OverlayTranslationEvents.cs": "d8339a9971c497da3011bc7a5ff89d67838f6730bbe04b7126d43dfc6a5f3500",
+        "src/KuaiYi.App/Program.cs": "21ed9f93ba4baf6ca8a7fe89f1b8a6ad0f6647c1c0993613762f9c978fc38339",
+        "src/KuaiYi.App/ScreenshotFlow.cs": "bdaa59b110372e4901a4bcdf0fb36a226cc2ee10b3f4f80ae8053746b38c7cd0",
+        "src/KuaiYi.App/ScreenshotHotkey.cs": "77bf76d59c2472b78cda9b52cad6268acfa31d8bcd0862910ba95c08f55b4121",
+        "src/KuaiYi.App/ScreenshotPreview.cs": "b2d7f82980494fa9895d468b806f4522a6401293cb45c42856dc7ae8fea677c6",
+        "src/KuaiYi.App/ScreenshotPreviewCleanup.cs": "407b1f49e97772a5ff68e726a35404c8476df4be3c48120458d9862f6c2af8cc",
+        "src/KuaiYi.App/ScreenshotSelection.cs": "460e144e42827b79858fd67f26829aedd7a3f3678079b7f2264ca1f43b4d01bd",
+        "src/KuaiYi.App/SelectionFlow.cs": "9a7441c7e5db6df0dc88886aa679cec09ae65df04690d266d87bbd6dcb2c1851",
+        "src/KuaiYi.App/SettingsApi.cs": "fa53bc0bb6884369c2794140d022dbde1f959d8a4beb8cf0520590fd3e4c165e",
+        "src/KuaiYi.App/SettingsFlow.cs": "d6f33f133334890f84f89f823993dad053654a75f0297ba5f2cfa6f3b201e41f",
+        "src/KuaiYi.App/SettingsHotkeys.cs": "eac63b8e24a70a126e11ade311ed2fea9cd08576495c4bb9fb07fcf82643dfa2",
+        "src/KuaiYi.App/SettingsPlacement.cs": "bcaa8fabe4d03acb0a78d8e31c88c9b9b91f7cc1610288d89892ec95b3aa389c",
+        "src/KuaiYi.App/SettingsSecretCommands.cs": "a6370860e51758f9432f389d5a83b63da78009e445d0f0d18c427baff120ca29",
+        "src/KuaiYi.App/SettingsTranslation.cs": "714f92b91c1f55a9fc270b2acc0b5b5efb4317861690c8d7a0d6386b5501dc0a",
+        "src/KuaiYi.App/SettingsWindow.cs": "23128616d64ff2e190412f3ef17c3d0c01934d05dc7afd56bccafdf6eb0df3d6",
+        "src/KuaiYi.App/ShellWindow.cs": "e70d23e77b4ae82a673611ede9c0b0ccc5ceb0aaf7cd32550e7571dcd2a569de",
+        "src/KuaiYi.App/TextDropFlow.cs": "f689341a06f9a1a2194ab3ed861ce405ed3ef656da5bdf1693e66eec209d9e9d",
+        "src/KuaiYi.App/TextDropLifetime.cs": "60e6e5b6bf2086e4c440fdb3d0ca0c87c06651cf91adc2d85044409a4844c537",
+        "src/KuaiYi.App/TranslationFlow.cs": "35cbb1b4ab7ffe0fba333cca174d7cae9978b5fee5a466b7b62af83f042a3d1a",
+        "src/KuaiYi.App/app.manifest": "974e127e63188fd7235ffbb5b8c6b06dfea8a03b2a2a5b2104aec858d647002e",
+        "src/KuaiYi.App/packages.lock.json": "f669bdee7a7c6d23ad59fd0993df4b2ceb62f3c711dcaea8b5d16d0ccdb4feed",
+        "src/KuaiYi.CaptureBroker/KuaiYi.CaptureBroker.csproj": "932d7d5cb2e2649702ea61bec126c2bf44702c045361adf52b8e69fcc2dcbb34",
+        "src/KuaiYi.CaptureBroker/Program.cs": "4e38741f4217824c03abf4e0af000b626dd032272b257516eadc2dac05e3a2e0",
+        "src/KuaiYi.CaptureBroker/SelectionCaptureOutput.cs": "155d3af1ab785c28e493425098ccccf98842d46e5ad1d1907d79cae5083d57e9",
+        "src/KuaiYi.CaptureBroker/packages.lock.json": "a0d9e1037d08cba43eaaad80b2476e6106195757041a2a6001d05bb13dce8cd2",
+        "src/KuaiYi.CaptureHost/KuaiYi.CaptureHost.csproj": "308126d7dc5aaa50cee03640b22de8542bcb4ea4bb23d523fbf569bde2c2b3a9",
+        "src/KuaiYi.CaptureHost/Program.cs": "d578db322c0a80cd93bd05a721d39d6b25c0acf60f50b6368064027a7715b2ff",
+        "src/KuaiYi.CaptureHost/app.manifest": "c7115cddc339c13bb7c865ea186363aced5ac69c3e01b2b22473123927d13f1f",
+        "src/KuaiYi.CaptureHost/packages.lock.json": "a0d9e1037d08cba43eaaad80b2476e6106195757041a2a6001d05bb13dce8cd2",
+        "src/KuaiYi.CaptureNative/CMakeLists.txt": "209440366bd192e7f25dd2c1a835c661df13580770e7ea77839d94b24feee865",
+        "src/KuaiYi.CaptureNative/CaptureNative.cpp": "4c9bcb3e10bf29e74eb7ef1e4b2483f96ec04bd3c3e84763b95b02916429b2fd",
+        "src/KuaiYi.CaptureNative/GdiReadContract.hpp": "a38721300e7cb49d1721ec249093e13d8afe15f2d5eb0b8f5def312fc85b13bd",
+        "src/KuaiYi.ClipboardHost/KuaiYi.ClipboardHost.csproj": "89d8ba2575b0c8e3730e7ed854bc003a59f3b2f46443d334c3160940d5437f69",
+        "src/KuaiYi.ClipboardHost/Program.cs": "495585bbf8c28b59842734e50ca207e0fcd2f6f458f6fcd7cf42fb803ee97bdb",
+        "src/KuaiYi.ClipboardHost/app.manifest": "c7115cddc339c13bb7c865ea186363aced5ac69c3e01b2b22473123927d13f1f",
+        "src/KuaiYi.ClipboardHost/packages.lock.json": "a0d9e1037d08cba43eaaad80b2476e6106195757041a2a6001d05bb13dce8cd2",
+        "src/KuaiYi.Contracts/BrowserTiming.cs": "8467112acd478fb25019953e978234c8a5ec61c1a8634e553a3736b8a852beab",
+        "src/KuaiYi.Contracts/ImageChunkWire.cs": "124ed1158e89589d171ef1e782c05f20fadeec6d83ec6c8ea27cbdfe60c84bcd",
+        "src/KuaiYi.Contracts/IpcFrame.cs": "e655a140095098fa3139b8cb9d5fbf9f38dfb6b26a48f62c275a76aca3b7e5a3",
+        "src/KuaiYi.Contracts/KuaiYi.Contracts.csproj": "41e1c25cf0d11ed76caee60d88e6100c506671b6cb1e65384cddefe718985e8a",
+        "src/KuaiYi.Contracts/NativeMessaging.cs": "1832b27edf7dc117ae897ec473b82b0760bd1851c7d2322e0c752519e26a1cf4",
+        "src/KuaiYi.Contracts/OleProbeMessages.cs": "8bab378ce6b5b69c74f11b877c462c9172490f5e9720940f9ee405dd86b90e8f",
+        "src/KuaiYi.Contracts/SelectionBoundaryMarker.cs": "fac712b3f21d0d6549bb509c7e6f9888f7f23287ce70dcde76455fdeaf27a2d6",
+        "src/KuaiYi.Contracts/SelectionCaptureWire.cs": "7e642f5df7273a964da6b92b92c44cab2b3ba20584e7bd1e22c3251b463b1a0f",
+        "src/KuaiYi.Contracts/SelectionPhaseTiming.cs": "70f9d10bcdca63efdc177026d4d42337088370ddd04398549eac40a4e840b441",
+        "src/KuaiYi.Contracts/SelectionProgressDiagnostic.cs": "6938f202faa696ef5294543053fd5e54800a8baf0a074fe3a3a004bafc05c692",
+        "src/KuaiYi.Contracts/packages.lock.json": "03eeadc5ef377c17f787ab65f41fb4c8a9c936bb7f7f4171111fdeec8a81cb46",
+        "src/KuaiYi.Core/ApiConnectionTest.cs": "3cce0ae705d81a5a4a8bb2f118218d472cf9a78e775afab6a3618f99c2aab2d2",
+        "src/KuaiYi.Core/AssemblyInfo.cs": "7d577dbe1acf98dda62b57c7c59ed137c0adc13fee4b862cfa0742a9a5c87abe",
+        "src/KuaiYi.Core/ClipboardCompatibility.cs": "1dec1ee12840677d429276849336e59aab81c6b4e8ced32068d8862c50ac6dad",
+        "src/KuaiYi.Core/DropCapture.cs": "6f14d0a834537a2768c3d252c3bb776740d35a1f47956563cfecfe1baba26b3e",
+        "src/KuaiYi.Core/HotkeyInputAdmission.cs": "99b14805315ed351af0d921f842d9f465c63b309c147638f3eb6d50e0678822e",
+        "src/KuaiYi.Core/Hotkeys.cs": "74bd1f11cda8beddbe64d702abfb5863a12e9fc39ee7af3d29dbb58b1047c752",
+        "src/KuaiYi.Core/IdentityEventReceiver.cs": "270f1e014b71ea48878aee03ff291ebfc2fd0345f79dcf2a19468abc7a059530",
+        "src/KuaiYi.Core/KuaiYi.Core.csproj": "ed7c0f20902846adddafbfc178137e3a0dd399bba0a8c656195f76855d2233bb",
+        "src/KuaiYi.Core/MarkdownHttpTarget.cs": "f369019f30150aad31eb76e073fb48ca335b2beb1d90fa060744ad91ca1b0bed",
+        "src/KuaiYi.Core/OleCallWatch.cs": "08d99f0ac2a32344d4fba0f735eb1472e2f011a7edc84136daab09287d898bc2",
+        "src/KuaiYi.Core/OleCleanupScope.cs": "4514df5c90348e1e3b5b9c3e88899925e487565544bec3023ae9d3fb2163751e",
+        "src/KuaiYi.Core/OleDroppedText.cs": "199207567a7151d6707a660810deb6fe34ffffae6c9aed0fc7213d2f5c1c1d85",
+        "src/KuaiYi.Core/OlePresentationConsent.cs": "c4772c2271577e5ef20444240891743986628f8b79b687b2d560a4aadf978986",
+        "src/KuaiYi.Core/OleTransferPolicy.cs": "d48a5aabb68aa64bac5bb41da92f5482ffcb2584c7761bedea4313f2a5fd8e2f",
+        "src/KuaiYi.Core/OleWindowOwnership.cs": "4ddf9c9d56f3967e00aacb7502a66db067dc9d1ca83ac062a583358c74d93847",
+        "src/KuaiYi.Core/OverlayFrames.cs": "0bebe2947abd4b8686c422131dabb6e429bda1a2fcbf0338d4e30926df58d592",
+        "src/KuaiYi.Core/OverlayGeometry.cs": "0b7da4ca6e4a3d58df98257e8cfe7a82d8d3988c7f00b790af6bd40b04adde40",
+        "src/KuaiYi.Core/OverlayPointerGesture.cs": "56ceea4a43e4981bd8cf6e194a78abcec7b708ed81d7a0007b28b1931177eafa",
+        "src/KuaiYi.Core/OverlayResults.cs": "4dc33bb531e0e801d6bb098ffa0262213ccaf3773409b560421274a84a47432f",
+        "src/KuaiYi.Core/OverlayToolbarLayout.cs": "961a0aacafaac2d80cecba29dda547ee094a5a7b84bbe4a9e9c4c521186ea376",
+        "src/KuaiYi.Core/OwnedHostTermination.cs": "fe4284d719517c3d72118f429b98de9f520054621ab0175676fcc53d0990d2ac",
+        "src/KuaiYi.Core/OwnedProcessSession.cs": "124d109458ea487a50aa7fb8fa760cc31b80eaebfdce974f101e79db0ef7cf88",
+        "src/KuaiYi.Core/OwnedProcessStarter.cs": "fd68d1382192654f2ecc99d4dd4f0dfd0ea38d9dd5e76308bb8af2d247f21a32",
+        "src/KuaiYi.Core/RestrictedMarkdown.cs": "898dfcc1b6ccec150e0331f4be5f62cb4bf4854d717b3f8d9316a1203e892fa5",
+        "src/KuaiYi.Core/RestrictedMarkdownInlines.cs": "5c2bab224463b6c739d814a7af2cf42bd14a0f7679477bced3463b10e1741569",
+        "src/KuaiYi.Core/RestrictedMarkdownTables.cs": "2b37171bc578e714a4d3df4fd012c44da3ec9f92805d6acfcdfcba8fbdaec003",
+        "src/KuaiYi.Core/RuntimeGate.Settings.cs": "0bd8fd5d7a8895c8bd52e6ff363d454ebf9aa5a935212069a470191f5aea4795",
+        "src/KuaiYi.Core/RuntimeGate.cs": "39c14f0f1df7d0758b42ede573ceea0f8a0d3a3d15e4d43e8913e0c917db3947",
+        "src/KuaiYi.Core/SelectionCapture.cs": "e1585b77397a83917452ae162985dd3026bfef5b9fdbbce59dd18f83e27c613f",
+        "src/KuaiYi.Core/SelectionInputBridge.cs": "85994e400e22129c135c935ea3e4d44c6db252a9d107b83cff5c70de60d2ada4",
+        "src/KuaiYi.Core/SelectionRangeBounds.cs": "ca0349833fd16e1009e357a79bbabd38e6ae61fa30c6cf9c62e0c07154f90def",
+        "src/KuaiYi.Core/SessionSingleInstance.cs": "1a4071df027c366285dd399492fba3f62fa4d5ba53ddb3869aa5e19cb84119fa",
+        "src/KuaiYi.Core/Settings/ApiProfilePolicy.cs": "9d09d1d136f06b199c1732e64185d03ad579880fda68f3d3eecbf9c490093bd6",
+        "src/KuaiYi.Core/Settings/AppSettings.cs": "1e7af937c055145a37b998bd6bc19e73070947cf5563feaf86fd2af069f8e909",
+        "src/KuaiYi.Core/Settings/OverlayPositionMapper.cs": "d18bc62a65f47f7850c6f07e5ac2b444641ae3b64926fc1eef5cc01a63c745e3",
+        "src/KuaiYi.Core/Settings/PromptTemplatePolicy.cs": "a42961cbf860b0a886414b3e73d09bcd78a84f002b9cbb7d154f99bc5959f8a8",
+        "src/KuaiYi.Core/Settings/RequestTimeouts.cs": "9cc299a9ba9cd575e9f1ea001dea986bc862ef9b4977f18d24d4cb008aad3dc3",
+        "src/KuaiYi.Core/Settings/SecretFileStore.cs": "3e7089d4f4694af38b9994d065a1276607a4f946ebe115f9ab83c895f7f2fd61",
+        "src/KuaiYi.Core/Settings/SettingsCoordinator.cs": "f09abfb4f07d62a8ee8f71ce897f31c2775a4f70bdff7209771276c51a1cacc4",
+        "src/KuaiYi.Core/Settings/SettingsDraft.cs": "10c7f586681b0359354efa129daee1784de92c4c31b2a07c420bd5be4832f730",
+        "src/KuaiYi.Core/Settings/SettingsJson.cs": "817a7b5563f3d325f1a56daf87fbb6c7c26ecea54cfc8a8bef2e4a34f4a3397e",
+        "src/KuaiYi.Core/Settings/SettingsRecoveryDraft.cs": "06b9d0ebc27cd1f02843b9a2cd346267c8ddba6892e18e1d4820878314c22773",
+        "src/KuaiYi.Core/Settings/SettingsRuntimeLink.cs": "4f830c86e89929947fb43bba7a981db9b3cb245aaa38b37b9500c1738fa095e0",
+        "src/KuaiYi.Core/Settings/SettingsStore.cs": "24d46ef6b51a4245024779039f8a0642757be9d708b3b5d08fc0f01b8f21cf1d",
+        "src/KuaiYi.Core/ShellLifecycle.cs": "6d444dace762e025ed2f7692ac33650f732f60655f8a3a71d9d7f3ccad6260e7",
+        "src/KuaiYi.Core/UnitInterval.cs": "48b1e4edf739947293562b40761a87ec38720253ad7c05ef227ed0671db188bf",
+        "src/KuaiYi.Core/packages.lock.json": "03eeadc5ef377c17f787ab65f41fb4c8a9c936bb7f7f4171111fdeec8a81cb46",
+        "src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj": "f6ba5505575d39e1822282890fdf379244f24ad8200795a7ec1332117b625f18",
+        "src/KuaiYi.ImageWorker/Program.cs": "742af43dc7e36be997f347b7ffc682e9c9ccbaead904b2987e61eba650827d9d",
+        "src/KuaiYi.ImageWorker/app.manifest": "b27991ae861df834d53d75a5aa5578f3adbd101dadfa4b955b29ce030a7273d3",
+        "src/KuaiYi.ImageWorker/packages.lock.json": "3adbbf52da4dcf4b68f0257d2325bfd0a8e29d1a135716549c7ee86eecbea3fa",
+        "src/KuaiYi.Imaging/AssemblyInfo.cs": "55ce9569123f84a4f6374c5842c0fa7165ebaa5d5b509b693a4214d624e24ee0",
+        "src/KuaiYi.Imaging/CaptureHostClient.cs": "6f378bff7d4e2ebd8cb41a4645d8d5e962ee7b17bd4e75b370be53de4434ee74",
+        "src/KuaiYi.Imaging/CaptureProtocol.cs": "dacf1f48f5211ccc2d4ee2d48ca1571f5f9d0f35f1db0005eb251e3250d4c50c",
+        "src/KuaiYi.Imaging/ImageMessages.cs": "ae5702a9f751bfc3a69f3827e8dff4dbab3953e473555ae1090a52c857a5f702",
+        "src/KuaiYi.Imaging/ImagePolicy.cs": "81bc6800248587edca69cb57d3e0b4d3d249154543044d5692c3d90ce7d6f0be",
+        "src/KuaiYi.Imaging/ImageProcessStarter.cs": "f728129386a6a87ae21d00a5260d164ed985395c2fa4ca42056f7ed37af984f7",
+        "src/KuaiYi.Imaging/ImageUiWorkflow.cs": "ba668d04a5c0d291694014fb400a74c6d3051bc1d47359b4ec1a3108a5190caa",
+        "src/KuaiYi.Imaging/ImageWorkerClient.cs": "62df54fb539168e2ff67750cb2dea92f965c6310e38bb4c14b815e0b3b4036a9",
+        "src/KuaiYi.Imaging/KuaiYi.Imaging.csproj": "1beb6eb70bf5ae28728e21c816598282c24ddeb93070ce9bee5d42dd72a7fb6f",
+        "src/KuaiYi.Imaging/LocalImageFile.cs": "9ea6781a06f7acbcc8692ed0e1dd8bf5ef3c1fde6d701df67a420c9a0a4c3f0d",
+        "src/KuaiYi.Imaging/NativeOcr.cs": "69a92ad50e78b2e6401ad3410236555b2c5ffa46ebf7b2f5c443374fbaf01604",
+        "src/KuaiYi.Imaging/OcrCapabilitiesPolicy.cs": "281b28bfce338e014c79dfde29a938b039aa6e60f83ab18295960989da4d5235",
+        "src/KuaiYi.Imaging/OwnedSourceImage.cs": "ca132b8f113d373620fb93ad0feb92f70de5e039ca13dd9dd3ba30c7a3df0055",
+        "src/KuaiYi.Imaging/PackageIdentity.cs": "5efbfe92733a3f904dfb1cd92b07493c9d80304d0698caa30c4ef523be3d7337",
+        "src/KuaiYi.Imaging/ScreenshotAcquisition.cs": "79538c78022b0519386b702771373243f74cbcc6caa58c8921cb8f7b86579ee1",
+        "src/KuaiYi.Imaging/ScreenshotDrag.cs": "f468a4ea609a1e845c566c688861e785f87e17c7626cb8d517d26fefe0bfe47c",
+        "src/KuaiYi.Imaging/ScreenshotIntent.cs": "f1629f5b7876905398baa9427d0273deec8cf4a70ea562dcd97b1c6da0de1b70",
+        "src/KuaiYi.Imaging/ScreenshotNormalization.cs": "e7b046c9a14be98844755cd3af671ab85310297c2edeca9774fcadefca1ece77",
+        "src/KuaiYi.Imaging/ScreenshotPixels.cs": "b5b88807aa9fef0ab13cd4097eebcf99be8938c63a40e244d669b14eb90684f8",
+        "src/KuaiYi.Imaging/packages.lock.json": "361e2d18f86f4f0f7be933d6fa19c532644723ba2130245ac2b473d1c29e8d81",
+        "src/KuaiYi.NativeHost/AssemblyInfo.cs": "527c9dc13c919b712f10ec463af86c6aac636a6dbc4ef283cadc200ad0283e13",
+        "src/KuaiYi.NativeHost/BrowserSession.cs": "08ae3404fcf98523f907d7e0f19942037c49f9a152831feeb8653aa19b3b51a3",
+        "src/KuaiYi.NativeHost/ClipboardCaptureClient.cs": "3b2f7bf2f514f0c3d7b0d296b0e4ebec8ef051602f9a9527fbf2c6d527f0a6b4",
+        "src/KuaiYi.NativeHost/DesktopPipeChannel.cs": "fe5aa32749a4c091e77250706f6004b9611093efaa6255cbe145769965786771",
+        "src/KuaiYi.NativeHost/DesktopReceiverSession.cs": "aade5024437524138375f1fe8b784d65cea505f8d30add5cb98f2db34b997e4b",
+        "src/KuaiYi.NativeHost/InstalledBrowserReceiver.cs": "f9b06e012007ab4e28897a13f3f125c6118f7b4c35bfa5f45d284689c76d871b",
+        "src/KuaiYi.NativeHost/InstalledDesktopChannel.cs": "6231eea01183cda308b7f82a93412fa00e71373445e714d0982568920ecb46be",
+        "src/KuaiYi.NativeHost/InstalledHostPolicy.cs": "1cf4a8c3e010e3a8aebccaae34432258cfd10c4865f6d715821eb39026a6525e",
+        "src/KuaiYi.NativeHost/InstalledRoleFiles.cs": "d3479582c2a8ee814b00966c34ffd88a7267ea18d3c66b743c3fe63a09ffe9b2",
+        "src/KuaiYi.NativeHost/KuaiYi.NativeHost.csproj": "0d3a9337928f412dd9f16a8731c73ef0f2309313307f42cd6d68358c1c5e7fcc",
+        "src/KuaiYi.NativeHost/LocalImageInbox.cs": "e1c75fb11103dc5b3f22bd9780b73191f62548b862cb4efa630093ead90f00ba",
+        "src/KuaiYi.NativeHost/Program.cs": "5b8420183d1a2cf529c5e81363d0c6ff300ee7ec12d040d7eb7c86c60096dc02",
+        "src/KuaiYi.NativeHost/SelectionBrokerClient.cs": "1945a2b3a2f1ddacff684f8af57ddec217b34cfce5a30db0321593a41e935911",
+        "src/KuaiYi.NativeHost/WindowsNativePeer.cs": "ec6935a3da9ca1fe1b54f70f91a7c9360a60d09619ec645f2fabae138c3c91f4",
+        "src/KuaiYi.NativeHost/packages.lock.json": "3adbbf52da4dcf4b68f0257d2325bfd0a8e29d1a135716549c7ee86eecbea3fa",
+        "src/KuaiYi.OcrNative/CMakeLists.txt": "d479426b1b48ba2495beb343de79e94cf7900f4fc1d988383bd97bd27293094c",
+        "src/KuaiYi.OcrNative/OcrNative.cpp": "f1802cbea2aa7780cb4baa04ce01e23db18cc7d93389d58bdec1f848939bed0e",
+        "src/KuaiYi.OleNativeBridge/CMakeLists.txt": "df962ad8b632e5164f4f36481b8b7e9e1094e809df04b553771043e96f6f9e59",
+        "src/KuaiYi.OleNativeBridge/DropTargetBridge.cpp": "678c7e7c703e1f763e4e5abad946bed1d5e61a7d21f1cb412d48e652cd3597eb",
+        "src/KuaiYi.OleReceiver/KuaiYi.OleReceiver.csproj": "59fff68b1110294dfb335b31bbf40cbfbb12b306cb57c698ecd6fa39ce69b6fa",
+        "src/KuaiYi.OleReceiver/NativeDropTarget.cs": "9360e4033bb62968a50ba4ffb31cef6ae3b6e5fcc147a0ba20f4f68a85e4b058",
+        "src/KuaiYi.OleReceiver/Program.cs": "57dac1d9625f7d4a39ec9d3ffc76fb06eba5bd043e2398ab82e0efd5f4a3dae6",
+        "src/KuaiYi.OleReceiver/ReceiverHost.cs": "7831e44f7938b2be979ea5d839381b9b9927c30aaddd18f3d23d7f483f0c2c9c",
+        "src/KuaiYi.OleReceiver/app.manifest": "5198c10a348c9049fe51c7a411b0ae4ecced8911831d346b7fbca5066ecf6dec",
+        "src/KuaiYi.OleReceiver/packages.lock.json": "a0d9e1037d08cba43eaaad80b2476e6106195757041a2a6001d05bb13dce8cd2",
+        "src/KuaiYi.OleTransfer/AssemblyInfo.cs": "55ce9569123f84a4f6374c5842c0fa7165ebaa5d5b509b693a4214d624e24ee0",
+        "src/KuaiYi.OleTransfer/KuaiYi.OleTransfer.csproj": "6ae16eee88b0aa45955748fe158d94be6421fd60cbcb775b4a1934fc85bcd244",
+        "src/KuaiYi.OleTransfer/OleExportContract.cs": "c5fdcc5c7c2655f7eacf27c58bbd836907182e874011c9f1aa0da88bab0a27f5",
+        "src/KuaiYi.OleTransfer/OleReceiverClient.cs": "b6b20b0666af3137532d7577ba4915340b41001a86c354e7d2e67260474dd73f",
+        "src/KuaiYi.OleTransfer/OleReceiverCommitAdmission.cs": "76241c02eb64cc1c347e878dafd4df27eaa4039ac11f74842685aa8601d8c136",
+        "src/KuaiYi.OleTransfer/OleReceiverMessages.cs": "6fa49f9838854e8848ff7e37d89c0b0d8569d7eb9bd7ce902a0d95874839258c",
+        "src/KuaiYi.OleTransfer/OleReceiverServer.cs": "09bbdd5a455119edc6cb6edd0704dab4a856b4b70e4f9ea3ce7f94f3c6608ea3",
+        "src/KuaiYi.OleTransfer/OleStartupDiagnostics.cs": "8f7a9e008a8c4aac5746a049ec183c1f804e8940116af71e9ace36fccb042550",
+        "src/KuaiYi.OleTransfer/OleTargetDiagnostics.cs": "7c3ecd0e0d3bf93ecf05fc2258471455c42f4cde6466ccb289bfc95fab51f59e",
+        "src/KuaiYi.OleTransfer/packages.lock.json": "361e2d18f86f4f0f7be933d6fa19c532644723ba2130245ac2b473d1c29e8d81",
+        "src/KuaiYi.Providers/ApiConnectionTestWorkflow.cs": "2f92e6ac5da47c05dd6bc7af2ab97744b5759cbc53f0f240e7be7b450e16eee3",
+        "src/KuaiYi.Providers/ApiProfileMapper.cs": "49d5f6638d20e0c4d17f739a4e133dcffce1cec90afcaf1d49055f94ce9833d2",
+        "src/KuaiYi.Providers/AssemblyInfo.cs": "cf73e97b5388c435e10bf1967cb47b577d515bcf4cc16ed1cf14578b3cca4aaf",
+        "src/KuaiYi.Providers/DevelopmentTranslationBoundary.cs": "9b9bc4656fb50be156474736057ac42c4beda01ec874b8fac0838f72860a55f5",
+        "src/KuaiYi.Providers/DevelopmentTranslationProfile.cs": "1c37db5a2f46669d10a6bc031edfcb48f3ab7a65e4b3c8d23f1e106cc9a0e73c",
+        "src/KuaiYi.Providers/ImageClassification.cs": "d0972cb0f5b409e9253e9bb1584e14f55188714632db27370768223080c69000",
+        "src/KuaiYi.Providers/ImageTranslationPlan.cs": "47842d9ab713e39910f6651097d735559e0b939de2728343744c14f8e2344fdc",
+        "src/KuaiYi.Providers/JsonProtocolProgress.cs": "1d9ea87c07f32de7201e49fbe4cb41697e66d584e55af96e8533ef5c78f6d78d",
+        "src/KuaiYi.Providers/KuaiYi.Providers.csproj": "973b49585e8749bc4aa5d5542ab0c8ad5654f3f591dbd5d4974e2c4b60248865",
+        "src/KuaiYi.Providers/PromptBuilder.cs": "e4c61edb4c7296c09bba958e0413814e4c39a3e0e50d55aba3cc0151537879fe",
+        "src/KuaiYi.Providers/PromptTemplateEditor.cs": "7f05e6dd8896da22e238de3a36c529f3f4369efc19e45e524fd485f9a4b3e62e",
+        "src/KuaiYi.Providers/ProtocolAdapters.cs": "24673b84c01d2b4c81d0978b3123d6e3f3387928ef2db595dd509cde1e392cc8",
+        "src/KuaiYi.Providers/ProviderClient.cs": "f2124e784e041e6da953354c2e2533696b65efb8b98c5787fff69faea7e91836",
+        "src/KuaiYi.Providers/ProviderContracts.cs": "f5ab94cf6ee162f5be2dbb2ced048176e00f7f59b93d1f8f4422105198c3d308",
+        "src/KuaiYi.Providers/ProviderEventAdmission.cs": "4cce6e50244ea9d6d20074d190fc15af6c142667ceccb7ca28c83eb4e0902b30",
+        "src/KuaiYi.Providers/ProviderEventReceiver.cs": "7a5e4f9393048b722cd101507b24517f886165f376470466ee0a59d05e53d833",
+        "src/KuaiYi.Providers/ProviderPhaseDeadline.cs": "566312601894a3d565ed9c727e9e8b72448f20a8e11a2f57cccf466c7b70c4a6",
+        "src/KuaiYi.Providers/ProviderRequestBudget.cs": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+        "src/KuaiYi.Providers/SseReader.cs": "d355d6b2e147a2a00303f356d0eeb64e247e671a981ad2c58548f45a623e75e4",
+        "src/KuaiYi.Providers/TextTranslationCoordinator.cs": "bc36461e8cd8136beaa8faff824701e0e9e38daaf99863cbdeeb0a5e8e2eb060",
+        "src/KuaiYi.Providers/packages.lock.json": "bdea240ae7ef5c4752c0a27419f5007239f856068181300133e7ca4c08c206fa",
+        "src/KuaiYi.ShellExtension/CMakeLists.txt": "198c63654344cf4858425dab0accee81870f9a90feadf7a68054d8f11a390aeb",
+        "src/KuaiYi.ShellExtension/CommandPolicy.h": "fc2b6e1936e63d49d16831d3daa6f5b3a2f7151adfe5955d27a60e0972bb535e",
+        "src/KuaiYi.ShellExtension/ExplorerCommand.cpp": "acc1e4572e75722a876ca351bd2b3f074ef8e0cbcd37fb206e9d29f6e87a26cf",
+        "src/KuaiYi.ShellExtension/Shell.rc": "f146913d8ef282a575cb047ca535c4f9e650f89a83ff67ff2b54bdb387d38b70",
+        "src/KuaiYi.ShellExtension/exports.def": "ce1a8cfa3ce7690b978e66aa14aa9b32dd113cdc769b27f4ee1d8e6b777f05b6",
+        "src/KuaiYi.Windows/CaptureBoundary.cs": "5bfc185069e6a76fee18957150acb9752f95850e0a0b489c919c2b38cdc8c251",
+        "src/KuaiYi.Windows/ClipboardNative.cs": "4261903f740338bc0eee3709f315860497c4e1a9e418a267c713a767049f0252",
+        "src/KuaiYi.Windows/HotkeyHost.cs": "aa7624e1e7ba7a90c930f4485ca4355fd3d92cd2e67c6023634032c9468d52c7",
+        "src/KuaiYi.Windows/KuaiYi.Windows.csproj": "4aa9770b051d0dab0f53a1209645122c89a42ae387b29f12d6c8422100f36e9a",
+        "src/KuaiYi.Windows/MonitorTopology.cs": "b4d7c41cb0e72d51ef2562ad98f2f24ce9934c424e07b4022164d338f8937cd2",
+        "src/KuaiYi.Windows/NativeDesktop.cs": "35f5638d73eb701d4abf220fd7ccbbcc797ebc3375fd7e9b04cf925863ef8bef",
+        "src/KuaiYi.Windows/NativeTray.cs": "9a18eb491f1b4d7bd2328d917f3de90bc6b43472e4b59415aa5d68a0c006bd22",
+        "src/KuaiYi.Windows/OleNative.cs": "5a233614ccd0cebf2bed0738d869c71ecf0b44e3ee4ca1a2c68679581d1fb02b",
+        "src/KuaiYi.Windows/OleReceiverParent.cs": "cf38b230c1250df24a782180c5445c675c5406a15394d04ac63b0012e12b5f66",
+        "src/KuaiYi.Windows/OleSharedActivation.cs": "83f1d5ebda80d89a6f96549b9a0c3b7cc24924f8398e0185184e6209f9c42161",
+        "src/KuaiYi.Windows/OleTargetMarshal.cs": "5b25f36c5649846c3cb1b6d4991753d19fb6e94c541c44ba28404a516b0545be",
+        "src/KuaiYi.Windows/OleTargetRegistrar.cs": "895c7b23c869a26c4d788a643ca1b0d81679000385c6825ac5e17dfcbd86c8d6",
+        "src/KuaiYi.Windows/OverlayRawMouse.cs": "6b442eb697bfe7abfdf6f47b944f18f099a10a9dbe582271e4e42a43cd56451b",
+        "src/KuaiYi.Windows/ScreenshotDesktop.cs": "419cf4102655d491f4fddaf3c2ab6cdcef92a8d4ab0eb7534cb85b21e64aa84b",
+        "src/KuaiYi.Windows/SelectionDesktop.cs": "6ce0c448af62eb964a8cf01628e226caae23fc35ad5261da7af592e0cf8621eb",
+        "src/KuaiYi.Windows/SelectionMouseHook.cs": "9d87e4d20b602d426d0bb6a6ff89734df240aa17bfccb52eb040c0b797bc7276",
+        "src/KuaiYi.Windows/WindowsSecrets.cs": "537309c0a7d8cc0a2b2e98005394be075d6f7d8416cf6f32ba0b8e4e55fa1f3d",
+        "src/KuaiYi.Windows/app.manifest": "c3ef0e95dfc811501e1ec781736eec0fbc30f281a77ee518f1519fd11602c4c8",
+        "src/KuaiYi.Windows/packages.lock.json": "bbaf8782f1707e0fbb080e2593a8073f46872be0378c5449aff63f77ba8fe32c"
+      },
+      "EqualParent": true
+    },
+    "AllTests": {
+      "Count": 201,
+      "Sha256": {
+        "tests/KuaiYi.Core.Tests/ApiProfilePolicyTests.cs": "395cd23bc3e40454c621313b869ab834fc2f15e54a05711aa6474ff00d3cc745",
+        "tests/KuaiYi.Core.Tests/BrowserHostTests.cs": "8339c16c52e23546ec728c1e202a125022f22aadedddf34b0789ac3fe03838b0",
+        "tests/KuaiYi.Core.Tests/BrowserReadOwnershipTests.cs": "cfb8e99d9ea7521f6d6d0f66e95a33bec23ff3bf381df895fbdf72751b1fecf8",
+        "tests/KuaiYi.Core.Tests/CaptureHostTests.cs": "a4ffe964f5bf6d6c1de21e2e17c39e5d1f82c77c9e37befff36f4b50bbf56827",
+        "tests/KuaiYi.Core.Tests/ClipboardCopyEvidenceTests.cs": "8e4c7487839053067c529fabd63e5ea9c1f86f4d4d652ce522ce818efb5dbbd9",
+        "tests/KuaiYi.Core.Tests/ClipboardPermissionTests.cs": "a5cf1a52067ff61b4e4baecb8001fe6dbedf1cca3a360d45b47baeee6e9b97b4",
+        "tests/KuaiYi.Core.Tests/ClipboardProcessTests.cs": "2647f9817276462c831c690e3011ad52da4a46557634832a061b582b0dce2cf5",
+        "tests/KuaiYi.Core.Tests/ClipboardReadOwnershipTests.cs": "8478faaa5ef07ae10a4e911e6dbcd719c8a30169d12ec84790682000fe3d781e",
+        "tests/KuaiYi.Core.Tests/ClipboardSelectionTests.cs": "02702ac1e42c242e415bc237bad8a71b08c714bd5ddece20d0e69a180194a093",
+        "tests/KuaiYi.Core.Tests/ClipboardTransactionTests.cs": "d536468961180433601e92b397ecebab336187b83e356ff0d7e0e759917140e7",
+        "tests/KuaiYi.Core.Tests/ConnectionConsentTests.cs": "b3a7e5d61927666b84ac6b0cb1515af955247afbf55c0f1ab74d4bfc79d8ff7d",
+        "tests/KuaiYi.Core.Tests/CustomTemplateBaselineTests.cs": "869bc0a54899350fac02bf134b625dce42247bba7fb8d3b4d84a0c7bcb9c4cfa",
+        "tests/KuaiYi.Core.Tests/DesktopReceiverTests.cs": "7fdf8f95d7cec7a89554fbedf74ff313763d72adbed2e0bd3d553c88de929b8c",
+        "tests/KuaiYi.Core.Tests/DropCaptureTests.cs": "bd725b402a11c84fc39954b374dd76e74a915410638b540b5bfa0d4d495dcd36",
+        "tests/KuaiYi.Core.Tests/GateTests.cs": "0556a55798a8717d303d26e54c2dc0173799ca14899e46a8831d946c494366a8",
+        "tests/KuaiYi.Core.Tests/GeometryTests.cs": "a2f0fbcb2ed94443570fb2132b7a8b852a26d7f784f5d5680cceb92f569667e5",
+        "tests/KuaiYi.Core.Tests/HostTerminationTests.cs": "059e78d681d4bd0bd9ae992e0839d62c532a9417fc4c350cc6dfa54beb32e7b6",
+        "tests/KuaiYi.Core.Tests/HotkeyLifecycleTests.cs": "9db3639929be762da1d4b5b8a4816a5671b960afaf6f557d1f8e06c6aae1f7f4",
+        "tests/KuaiYi.Core.Tests/HotkeyTests.cs": "f1da217bb802739b10cfd6786290aff21003d460b4041808d04b4717282e2873",
+        "tests/KuaiYi.Core.Tests/ImageChunkWireTests.cs": "beac16a956fd5e6699088ce47023f3a5634189db9b9bcecafb4b76f16b66a303",
+        "tests/KuaiYi.Core.Tests/ImageFinalizationTests.cs": "24cf3ea553eef99d5ae2c8cbbbab486568e7fa8e2ea69c7a76a5055adf7c91d9",
+        "tests/KuaiYi.Core.Tests/ImageJsonTests.cs": "9534433474697329f2cd961b22fe7ccfe2bebf52fdbfb95216de141e053f8349",
+        "tests/KuaiYi.Core.Tests/ImageStartupTests.cs": "e163010d9988d268f5e2d11337fe4464ab7b190b847920f0a158a9fc3a0784a6",
+        "tests/KuaiYi.Core.Tests/ImageUiWorkflowTests.cs": "9911a8528f949c403169b54ce23732c686d1f17bbcf13bc0b9e725ee55bcf694",
+        "tests/KuaiYi.Core.Tests/ImageWorkerTests.cs": "6f43742e19944724746def5aa22892a74584a3ebb00df2d138ff73169f9082bd",
+        "tests/KuaiYi.Core.Tests/InstalledRoleFilesTests.cs": "59fdf23099160b90e80eda70625e9995eb1007d82318eecfa70022c1a925bd87",
+        "tests/KuaiYi.Core.Tests/IpcTests.cs": "ffe8381c50b68918177fa35b5604b5205c3523726659754aa65e1f9eecc1ac92",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj": "d7bd48f5a28b4edd4b1fa24fdc0ffc4a887916c1c737d90e30fe6f854c71305e",
+        "tests/KuaiYi.Core.Tests/NativeMessagingTests.cs": "cd010e2f1f17e95611720a7942015b3261d6a829fb980b723fc49fff5c154211",
+        "tests/KuaiYi.Core.Tests/NativeProbeTests.cs": "9ae69294fbe578f818eee5abb893e858eebd4d7026ec053d82f6b8e528f8a0de",
+        "tests/KuaiYi.Core.Tests/OcrCapabilitiesTests.cs": "3dcc28ef188c16c35da178e1ac630c9da3e0538956d44381559b00668dd0d69f",
+        "tests/KuaiYi.Core.Tests/OleCiScenarioCleanupTests.cs": "5eac46535142936d217fab938b0792f2adc99bde29e83978049a929f847d4de4",
+        "tests/KuaiYi.Core.Tests/OleCiSourcePipeTests.cs": "53151a3cde40245c9f995d0e7334724f273b85ce5408bd0d6fa0239e43053ef4",
+        "tests/KuaiYi.Core.Tests/OleCleanupTests.cs": "d3741f7edf70531644734556766e06a1f043858071ee2252635f3dc87c20bc34",
+        "tests/KuaiYi.Core.Tests/OleControlProcessTests.cs": "bb30c75476fdf416b63e7217d2949e1a7378faf77ed6a9e3f56823c807a03628",
+        "tests/KuaiYi.Core.Tests/OleDroppedTextTests.cs": "a08efe8f4cfa80b5ae57e9694aeb2809aa1a4d216d81529fac2b0396960c96e5",
+        "tests/KuaiYi.Core.Tests/OleExportContractTests.cs": "182633c5392bd850207c67fa38a6c80378c74e541fb5d5abae5bbb58d209dc8d",
+        "tests/KuaiYi.Core.Tests/OlePresentationConsentTests.cs": "5b2fae01a149cbf91c8fc03b062eac1191d389e94eb26845d4d313ba978e1e55",
+        "tests/KuaiYi.Core.Tests/OleReadOwnershipTests.cs": "138c8c1e9c6a79f50dfbed23f24d00b4a097fc292978ff0d4105494a0bd22325",
+        "tests/KuaiYi.Core.Tests/OleReceiverBoundaryTests.cs": "fe0874df8d22fe605de5f4cfdfa956e3b114cb92ef10282cf606c02e0745341c",
+        "tests/KuaiYi.Core.Tests/OleReceiverCommitAdmissionTests.cs": "ebe2ce095a6835f64ac03ccc9303c50ecf3602e1974141d51f9027af908dfadc",
+        "tests/KuaiYi.Core.Tests/OleReceiverTests.cs": "24312ea7f4a3d330845d4dacbe84aa940177d6f2ab2c574183c111906eacdb28",
+        "tests/KuaiYi.Core.Tests/OleStartupDiagnosticsTests.cs": "f1ec69b96c576781f2972151636074ec0080faa848c93be02d9455fa4ea03b83",
+        "tests/KuaiYi.Core.Tests/OleTargetDiagnosticsTests.cs": "8747ef27c916a1c05f403a885eabfd59a51361610f16e60102386bd930b30073",
+        "tests/KuaiYi.Core.Tests/OleTransferTests.cs": "3c769e847a0f730d87c2cc3e1c570d26a54527c49af74abf269955a7bfc4f31c",
+        "tests/KuaiYi.Core.Tests/OleWindowOwnershipTests.cs": "65bef865b36bbc7527383d55b72eb4988826c59a491abf77940a49500389f4be",
+        "tests/KuaiYi.Core.Tests/OverlayPresentationTests.cs": "786bc4297d6fa945d26930eda37dfb88b67e5c0469a2e8a1088c13d64f4fb80c",
+        "tests/KuaiYi.Core.Tests/OverlayReviewFixTests.cs": "ef794317851a32ad05d81dd3f239552fa05d064f08dd415e89e27e028a4308d4",
+        "tests/KuaiYi.Core.Tests/PhaseTimeoutSettingsTests.cs": "028a8ddd8dfb164354a48e61df927cdffbc694d7664ff264d00f1610e55f4a05",
+        "tests/KuaiYi.Core.Tests/PromptTemplatePolicyTests.cs": "7e932a2fc9e286056f9e71700fd8dd403f7a7f5049c7c5a940a55735d9285248",
+        "tests/KuaiYi.Core.Tests/PublicSelectionFixtureTests.cs": "24ae5b3a7ea7aed3f5a2354177a0f99d37f0e854e7ed1c498b25e651176a2b42",
+        "tests/KuaiYi.Core.Tests/RequestSecretAdmissionTests.cs": "c2b41dac22c6d374b64d68cf4ad39f666e728a34ad675590168cdd9f6f8aa918",
+        "tests/KuaiYi.Core.Tests/ScreenshotTests.cs": "0999326ce18513242c77c689a4c7c5a87371c4162696cc633c573f27d68874a0",
+        "tests/KuaiYi.Core.Tests/SelectionBoundaryMarkerTests.cs": "3d0ad073367c5dff712bd6f18e8e24f298785e792af3fcf5da3b77d199f223bd",
+        "tests/KuaiYi.Core.Tests/SelectionBrokerObservationTests.cs": "32bba9b6646d159bbd48acb961aac76d822acc4b8b5a3e9133aa83ae4708ed8e",
+        "tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs": "c6d6c8cc0eb3f15fd3240559cb98d442e25b447a880113285649b5e507cde1d6",
+        "tests/KuaiYi.Core.Tests/SelectionCaptureOutputTests.cs": "be699b5820f2a08632817b4a2e1fe5b98ee38a5d0685d2d98407fe2f1373f62c",
+        "tests/KuaiYi.Core.Tests/SelectionCaptureTests.cs": "388ddbcda1770a54342d6574b6aeb635b4918553a6d5e8091511ee5a5c8ec2ab",
+        "tests/KuaiYi.Core.Tests/SelectionInputBridgeTests.cs": "a7b4a8c3211d6e5c42e034fc707818f8df43df85cf776981b4255f529f4fe925",
+        "tests/KuaiYi.Core.Tests/SelectionPhaseTimingTests.cs": "12cafed30d37f8f69746dbab4a74d07fc4ac4b4ea99070602e28f547ce6430bf",
+        "tests/KuaiYi.Core.Tests/SelectionProgressDiagnosticTests.cs": "34bf5b245e4b82a47045762f03562a2afee69aceac2015a553ecabef207656b6",
+        "tests/KuaiYi.Core.Tests/SelectionRangeBoundsTests.cs": "9dad7adbb5599a4c9c9ab800c904130650f76b8fc47021ec64bfd64fec6d8927",
+        "tests/KuaiYi.Core.Tests/SelectionReadOwnershipTests.cs": "1346eda3618da9be48e3ad22fb2bc1f105147818ee4eb0dca5f0d121589fedc5",
+        "tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs": "19d6216f271444ad3ad89cddbefa086ed0677c84fa7a27ffeb41fcc437317aac",
+        "tests/KuaiYi.Core.Tests/SelectionReusePrototypeTests.cs": "c0d7243e1e795273894518e80f80ed723cffefdac7aa2b2edaf059f9120fe12e",
+        "tests/KuaiYi.Core.Tests/SessionVersionTests.cs": "7a0968e6c6f5e356a545c101c5f640d9d8e9b95ad4fb8f6e425774cbc79dbcbd",
+        "tests/KuaiYi.Core.Tests/SettingsBindingTests.cs": "9652a1805a24e7c7792a734f9aa0940de5b8caef88f950932952c2bfa20b1278",
+        "tests/KuaiYi.Core.Tests/SettingsHotkeyTests.cs": "586d8432ae94363d7183a09507c735aed1ce85d97c78fd23ddac582aa57fe7b2",
+        "tests/KuaiYi.Core.Tests/SettingsRecoveryRegressionTests.cs": "895bff1a47aee7bbc92757d2e1e72c9b093c9ce0c96d5a68ca8ed85f1ede8d75",
+        "tests/KuaiYi.Core.Tests/SettingsTests.cs": "3a656f75ac529c92fc62856be9d3ba116d061b3669b8f65e746dea05824f7b5c",
+        "tests/KuaiYi.Core.Tests/ShellLifecycleTests.cs": "0f97ccc276fd4737740859868bb5b96598e8030c431e590a49a32b26cf8a5429",
+        "tests/KuaiYi.Core.Tests/TextDropProcessTests.cs": "02c05c75799b6dfb575b31f3b46fe1c61f37b52e5c0f888a88d2491378744d97",
+        "tests/KuaiYi.Core.Tests/packages.lock.json": "d9e2ceaf9da70383c7eed288b8589f8016473e71bc3f7378e4154bd073309ed4",
+        "tests/KuaiYi.Provider.Tests/AnthropicLifecycleTests.cs": "9133d95a30794a689730a94fc662a50452a7543d93c19a94e8760aff61a118ba",
+        "tests/KuaiYi.Provider.Tests/ApiProfileIntegrationTests.cs": "9ef9223edd7540131720581ebb290e836acb90805fe6ea602e776fc9ab4d9525",
+        "tests/KuaiYi.Provider.Tests/CompletionBoundaryRaceTests.cs": "9a8ab4df152faf1eca755c5508c40a3dc839868e59aaf37bbe409bd17636c029",
+        "tests/KuaiYi.Provider.Tests/ConnectionConsentRegressionTests.cs": "ad35de4280df96999c2fb968990ba55c92464391d6c12fdea77419c97ca7a329",
+        "tests/KuaiYi.Provider.Tests/CustomTemplateHttpTests.cs": "bb4fe68c9a6f52a5c90bcbd037cc022ddc16050bc09f29fa6198ea05e50618d7",
+        "tests/KuaiYi.Provider.Tests/DevelopmentBoundaryRegressionTests.cs": "33f26f6bf3424d2af92ec222fab665cdbb8479843b9f69ec8479d4b5b4ac65e4",
+        "tests/KuaiYi.Provider.Tests/HttpContractTests.cs": "9bda2e09310fce3125981e91a3b23301f2990b18c979d21218a594daffe438b8",
+        "tests/KuaiYi.Provider.Tests/ImageClassificationTests.cs": "371dc93ca2cc6ca489018102de49c0a8d280d3ef251a6e7c38d73fd59ebd9ee9",
+        "tests/KuaiYi.Provider.Tests/ImageCoordinateBoundaryTests.cs": "589d2cca3869f9b70d2023cf3b19c4f29473d8b6e0299d877b86aac19b28e6d3",
+        "tests/KuaiYi.Provider.Tests/ImageSourcePorts.cs": "a71cd8b7c3f03f196926eb0c657e8ae0bfd6e7a565d2c62d6e77d9107bf12f51",
+        "tests/KuaiYi.Provider.Tests/ImageSourcePreviewTests.cs": "d35f6a0d33abe8239c6ebf8f53668ae55d32a5019e467f2b55ed74e6d5fc696d",
+        "tests/KuaiYi.Provider.Tests/JsonProtocolProgressTests.cs": "6a088b31a6dd64aa1ba504e436918a420a8eecd7d073bddb2823deae69888ac7",
+        "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj": "f0b26155cf2dc1a09886056f80a42d2be5fc4fd7bd03bda28378578bcaf05dee",
+        "tests/KuaiYi.Provider.Tests/LateEventIsolationTests.cs": "45c7aac4d71b5cb8501f655c224cb5b11a8f45a38167492631e9809fdd7d9f42",
+        "tests/KuaiYi.Provider.Tests/LegacyPhaseDeadlineReplayTests.cs": "3f896796473b72085ed8476311ad47917202fc782be0e92a5b3c461293c00cd9",
+        "tests/KuaiYi.Provider.Tests/LegacyPhaseTransport.cs": "9b516fc95069bbafbb6a0da2d69bc04a3b63c87da04ab7163298008e9a68e91c",
+        "tests/KuaiYi.Provider.Tests/LegacyTimeoutObservation.cs": "f8fc3614f4739039c324a78c030959fef4f4e6a0ea009bd1e1044d1974268f03",
+        "tests/KuaiYi.Provider.Tests/LegacyTimeoutRedTests.cs": "93cf4d4d7a5729e1d3d8de340cfd81b3f2d2dec9298a8d60fc6282ad882bf9e0",
+        "tests/KuaiYi.Provider.Tests/MarkdownCodeInputPorts.cs": "917ac48607e445053ec08a90808ce830da70a7d4fabe58e1b409357cbadce394",
+        "tests/KuaiYi.Provider.Tests/MarkdownCodeScrollTests.cs": "cbbd523b60d467af5c20023eb2b627a00c41fc1e7e4ea3ac7b331ddfd62f82a7",
+        "tests/KuaiYi.Provider.Tests/MarkdownLinkPorts.cs": "026d113ae99bd026e730cde2d2fa4989ab2c7a5b60281747cc80de4b9addb20d",
+        "tests/KuaiYi.Provider.Tests/MarkdownLinkProductionTests.cs": "debcd626d7ee4bade62f6ff8571dc9c7e4c88b56011f94aed726cd72227e1902",
+        "tests/KuaiYi.Provider.Tests/MarkdownNativePorts.cs": "058f4bf94a04fabdaa3bbd08e6b263db43218a92d46b7b6624042ce21b319ee5",
+        "tests/KuaiYi.Provider.Tests/MarkdownProductionBridgeTests.cs": "e857f60731eda8c15b2559c2aae762bdd701b57ae33e57f4ed5b4368607386ba",
+        "tests/KuaiYi.Provider.Tests/MarkdownReviewCorpusTests.cs": "177f0f9b069001616ac48bb7627271c7cd73f8e697fadafec6619dfb7300b33c",
+        "tests/KuaiYi.Provider.Tests/MarkdownSourceInputPorts.cs": "006c0ea1efea3490442775a8b2e193647d45d836029a86d1722a82d83cda34d2",
+        "tests/KuaiYi.Provider.Tests/MarkdownSourceTests.cs": "2742602016e3328c27f725892e9aee1b03a0875944124ddb538f1c9703e40d53",
+        "tests/KuaiYi.Provider.Tests/MarkdownTableInputPorts.cs": "8d53d1b7e1c5d09a119326b43ca622bbca8734349c9d8a0cb187eee15f699ae9",
+        "tests/KuaiYi.Provider.Tests/MarkdownTableProductionTests.cs": "e5bcb38e62d7b80bdada537f7ff0d6726fae974cc29dc948a8431b740b330c9b",
+        "tests/KuaiYi.Provider.Tests/MarkdownTableScrollTests.cs": "ccabb3098d9a65dd07f7275b0c7e53b535eb94f8aa8ca96fdf6bfb01a9a5f632",
+        "tests/KuaiYi.Provider.Tests/MarkdownTailFollowTests.cs": "a2e80b04c82fd9ce5c99cb61f0f850c450b495baa92f070c9243459355f22d60",
+        "tests/KuaiYi.Provider.Tests/OfflineScreenshotRoutingTests.cs": "c5304f39ed102df76f61651036c131c34bc70be2432567462ce32e925bd17ad2",
+        "tests/KuaiYi.Provider.Tests/OverlayClearContentTests.cs": "6a2b0426b20650aca901d8080081a0ff84297fcb69448a7d0af506bc7fc6822b",
+        "tests/KuaiYi.Provider.Tests/OverlayClearPorts.cs": "e1fb97d26f27796ea103a17ea18f4c6f2396c5b9497beb01ff7e702704242406",
+        "tests/KuaiYi.Provider.Tests/OverlayReaderIntentTests.cs": "d90d1ac8f0dcdd178d8b23c98e573faecc1ce363f4b38d8301c7f27d9543e10c",
+        "tests/KuaiYi.Provider.Tests/OverlayResultPorts.cs": "985662b6e94160fe595f8254e74c433fc6a94e17f0d07bfc42028858ad8d1766",
+        "tests/KuaiYi.Provider.Tests/OverlayScrollPorts.cs": "706141c3416d4bce15816746d66ea9fab6cdbe94c6f15e858461da87f847c8b9",
+        "tests/KuaiYi.Provider.Tests/OverlayScrollTests.cs": "7a912916b6130cd7792127fd79db39682ef2564801f5a87140e7e64a9e8678c0",
+        "tests/KuaiYi.Provider.Tests/OverlayStopFlowTests.cs": "a3d09ff3bd45c545990d1e1f3bda756b1691e36484262fd84bc01ee92d404c78",
+        "tests/KuaiYi.Provider.Tests/OwnedSourceImageTests.cs": "6e6d19778ee63c6289e8703466c5f5ad8ff8d61b74c8f3230782a99d7beb3adf",
+        "tests/KuaiYi.Provider.Tests/PhaseClock.cs": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+        "tests/KuaiYi.Provider.Tests/PhaseConnectionTests.cs": "1d524cbe6a4997086d9dc02c7df8db5f95f8618c5327bb64e55312be438d940d",
+        "tests/KuaiYi.Provider.Tests/PhaseConsumerTests.cs": "203ce694a2f9114c6a1974ddb5fda5e289ca7fddff8893a22e86923e053e4865",
+        "tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs": "1924d5ead7d77a9b5d28398194ec3781be44ebe8e0ea9600c6c49aa4036fc4b6",
+        "tests/KuaiYi.Provider.Tests/PhaseHttpFixture.cs": "1e5c84f27e8a02268011f78c1e5ddebedf3260fdff9559e27f1b1bab60b9936f",
+        "tests/KuaiYi.Provider.Tests/PromptTemplateEditorTests.cs": "f35c91b33dd16f2f0438c9653ffc5108775cb01125ec7998a5b8169a7f73c10c",
+        "tests/KuaiYi.Provider.Tests/ProviderEventReceiverTests.cs": "97923c373cc7454c95f471eb678f30f82388656d3872f7f0056f786416225ead",
+        "tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs": "42985ac10f69c5d3bf4784cf015913d89290ae77214daf6d2e31723a9c85a5eb",
+        "tests/KuaiYi.Provider.Tests/RequestBudgetTests.cs": "7d226ae5c31b25d38c5418a06fc2bbaeb7835976e97540bb16c700ff31e0d629",
+        "tests/KuaiYi.Provider.Tests/RestrictedMarkdownInlineTests.cs": "6c69744cfc497d7b866f0999865778dfa2d74644db5120ef3eae21f1fdda010a",
+        "tests/KuaiYi.Provider.Tests/RestrictedMarkdownLinkTests.cs": "72d592c099af99a6ab977cf2517bbbb4c93fd332c01acffe1eeea9c9c7d7ddb2",
+        "tests/KuaiYi.Provider.Tests/RestrictedMarkdownTableTests.cs": "3c11f8f88fb5f202694af37e60545c2d707dbbb65aba85dc74470e5b927993fd",
+        "tests/KuaiYi.Provider.Tests/RestrictedMarkdownTests.cs": "d3603ef776dca27f06e09b45a980ddb86ec1330f3ab8aafebe7d441c6af066cc",
+        "tests/KuaiYi.Provider.Tests/ScreenshotNormalizationTests.cs": "9bb4c35b67aac4b5f732617bba2b719f9fbcc0d2905dba852c2bda22e5e4fc96",
+        "tests/KuaiYi.Provider.Tests/SessionStyleTests.cs": "5710dfbeceff5b7dfd549728fb8c159c10328929c11dd649f3b3795219e109cb",
+        "tests/KuaiYi.Provider.Tests/SettingsSecretCommandPorts.cs": "8b77364772f4a27a9465d8b61e53d7893f741918069c1cd78ee57760a2087dff",
+        "tests/KuaiYi.Provider.Tests/SettingsSecretCommandTests.cs": "db4d914bba8e47323f7b3e6ce72029798579bf4417dfb20ca8e54f526716cbd4",
+        "tests/KuaiYi.Provider.Tests/SseAndProfileTests.cs": "9bb4b5a397e1ea5d0942663f385531fdf6e0684ad6849ae9b7fc77ba42cbb146",
+        "tests/KuaiYi.Provider.Tests/TextDropLifetimePorts.cs": "fa8d17dcfa2b904a7698d60154fa9588311f741d25d22040c83c0319c3e329da",
+        "tests/KuaiYi.Provider.Tests/TextDropLifetimeTests.cs": "2ad905cb22bae687f2aeabf0a2e3ef6896058dee565da0840fde1a3063c1a988",
+        "tests/KuaiYi.Provider.Tests/TextTranslationTests.cs": "8d27da7c4ee5b5b4801d27ba7df392832c74675c8f7c309a8c973294d1efb043",
+        "tests/KuaiYi.Provider.Tests/UsageMetadataTests.cs": "56afc7461611a259b7239483345038fef2f945aa36273df999c93a71616d4a40",
+        "tests/KuaiYi.Provider.Tests/packages.lock.json": "5d02234d71b6f4c642a07aad1ca8fe21badaa3f8a70f41f2de47905f02e38b97",
+        "tests/browser/confirmation-harness.mjs": "5459c1560e4fe7849c4733ffb068296f1bb1d1788d9e4846aed56a787d5de16d",
+        "tests/browser/confirmation.test.mjs": "5254b32dc07e5129cb254eed624cea7ec4f9adf734596d01eb44ff3cb37c5772",
+        "tests/browser/ownership-fixtures.mjs": "e4d91b6e6de7fa3c979bb9df8d4cf81494c827c3c51874552f1f8d79d7764e59",
+        "tests/browser/protocol.test.mjs": "921d46211c9f5b996748cdaff1e64f06380daa7985ce98fa83613418089aa3a0",
+        "tests/fixtures/images/README.md": "06ffa8041250c5cbdf7422cb6260f39a86e0a3e4c6bc68f47700608f1094ba6a",
+        "tests/fixtures/images/kuaiyi-test.png": "21b267376fd764e726d41daa71e32526d6f513cf1343f26f5947008509a15b8d",
+        "tests/native/GdiReadContractTests.cpp": "5044943cdcad0d872976d6aa45a1abde4d1cb6b282e97ea8c7556be95423f9a5",
+        "tests/native/com-candidate-order-test.cpp": "d8a15565e5eb92cfed403f5f53d50f742fd5e198779204ca341e425965af1b05",
+        "tests/native/com-phase-timing-test.cpp": "9832b2c14af17bfa50c2b8fd43571b813edb220abde63783fae86a5e9e167c95",
+        "tests/native/com-phased-order-test.cpp": "47ed5991fb7c3a7700a001d24c00a001544d65b0a446a8f1e2c247ef47d386da",
+        "tests/native/com-selection-policy-test.cpp": "cbd31120529203e3d7016c8b9e1ad027c26d3b736564d98259d1de0816d223b2",
+        "tests/native/command-policy-test.cpp": "c901a1f0078bec8c0b972f7284ef4d454aaa23da88c438a2131d27f3e5b36ad2",
+        "tests/native/lifecycle-protocol-test.cpp": "f068a2c3465d9384b1005486e0f70bd4a95083204070430b60baedc503040db2",
+        "tests/native/reuse-native-protocol-test.cpp": "246479796d6da5c929c4732ea9208bf4f45f737bf978946aa0cc89558eeb0038",
+        "tests/native/reuse-request-lifetime-test.cpp": "5f642176dac02bc99420bdae78c7fd464d4457f0e48131a825fd6aaa44f6138f",
+        "tests/scripts/JobMemberWindowsFixture.cs": "08532dc77d7f49cd72a3b434224eecad28d320e08b3ad446fc23db48df7a044d",
+        "tests/scripts/alpha-exit.test.ps1": "571281316db5ef75ace1501d19f3043567bcf4cbe5e3fc91ba52b46d5709ce87",
+        "tests/scripts/build-native-reuse.ps1": "843d2336489a4dd1bc9768d2322939ac4d8f78a58a43fda367c28273b2043242",
+        "tests/scripts/configure-accounting-source.test.py": "c2029db0f6bfbe9ddd9a4f91f81acb48db048981d08742f15e3bce6b2021c286",
+        "tests/scripts/configure-bridge-fixture.test.py": "e8ffe64f6fe9e745490e310529b7653be456f1da243d9e670b0758b2cb1dbad6",
+        "tests/scripts/configure-bridge-owned-probe.py": "2a306ca951e0c8b7771f2c1f895131be9fa66c027e5ef6ccb7b95c7ba3b212c7",
+        "tests/scripts/configure-embedded-execution-source.test.py": "8cae2ea7343480416db2b40f712bd14818687704044c67242e3e8dd03b6d3bd8",
+        "tests/scripts/configure-embedded-source.test.py": "45532a9c0b658a94be64bed4c0ecfe5256082c26b93e307594c76e7d69470052",
+        "tests/scripts/configure-files-fixture.test.py": "aee0f3f95bc066d07887446706231dd7302b5f44b5c0056754f937e2a515c1dc",
+        "tests/scripts/configure-only-contracts.test.ps1": "a90d2765e5bcca7680ed6ddb2d52b94e7d72952dba33bfc53fad540b65df8e9d",
+        "tests/scripts/configure-only-source.test.py": "65575b09745734b1547f5eba536820b4f86fca6a84ebd6af5b7129f9e366cae4",
+        "tests/scripts/configure-shell-exit.test.py": "7d3eebac1475985c16561077d4d361adfa31397c12f29b9110688780769b1eb4",
+        "tests/scripts/getdata-ci.test.ps1": "dcbd7687452521f7532a6b9ce793c04ffcbd2b91bd93e0213d4c269b48423a42",
+        "tests/scripts/job-member-diagnostic.test.ps1": "e22a6b86b0939eedaa74676455edae34cfc60dd4ceeccbf92504507597dc58dc",
+        "tests/scripts/job-member-fixture-contracts.test.ps1": "32f2ca1c91b92182f2b878e7db0bf32a23feafd683a402bd0791fb15e1d6c2b3",
+        "tests/scripts/job-member-fixture.test.py": "51c818d6532391c355006054b21662aa4454f7ca27649e9a2644cbddf323ad16",
+        "tests/scripts/job-member-runner-feasibility.test.ps1": "dd9692f0044948b4842c4d9a20f4e6d6b7b81aa93e1f7a7d48189b2b57d288df",
+        "tests/scripts/lifecycle-accounting-projection.test.ps1": "de09ec80709a6adbf0049b4bb3242ee6247767dfb0cab485a0587222be5b0528",
+        "tests/scripts/lifecycle-ci-evidence.ps1": "fcebcab0813a3302a40564cdbb11e9a98ca445f2bc7f356bdb5a78b88abae7ea",
+        "tests/scripts/lifecycle-ci-evidence.test.ps1": "91a9d0cec5bfff5b19049b9726aa4434da10975f90ea192a811674b8c304ad19",
+        "tests/scripts/lifecycle-configure-collect.test.py": "1c1efa55d2e7b4cdc9d38afdfaae56e145ffc5c71aa5645d313cff536edfbe28",
+        "tests/scripts/lifecycle-configure-diagnostics.ps1": "0afeee6f4ae4b85c0dcb2cd22a05ec3bac055eb659f4a756f8f88dabf3579df3",
+        "tests/scripts/lifecycle-configure-integration.test.ps1": "65e2feeca7d766052a20ce6b49141003f1b5d9998739fcd04ae59db8aab1c3de",
+        "tests/scripts/lifecycle-configure-windows.test.py": "f9db2881e416684d056057846a6c2a0ebe12eac6a2e9629b45e05e94c5d88de1",
+        "tests/scripts/lifecycle-no-target-source.test.py": "591de7536769c96427b704045945e1b878a236e37c73b7fb6fc131d52ac4a5ec",
+        "tests/scripts/lifecycle-operation-diagnostics.test.ps1": "e8eb9e8720c562c722b98316159cbab76da3eb99c97456e1132cceb8ab7a4707",
+        "tests/scripts/lifecycle-runner-contracts.ps1": "3e42e440289e5a3b4d00056c078176b9ff6bf576668f9c7bdd509bfc46f72599",
+        "tests/scripts/lifecycle-runner-contracts.test.ps1": "3c286b1e3066a7eaa88f1b500b2d9ee86208074109c007f232b53b1b73749dbc",
+        "tests/scripts/native-reuse-compile-evidence.test.ps1": "3b71a8f0a383256a688252d5d40f738f5c4dbbd4d304c44795f22cfa8ee7e02c",
+        "tests/scripts/native-reuse-source-gate.ps1": "151a7c0cd06a5725f0f7230056911184a4dccce2bfa24f13d47a9c69e3cb8181",
+        "tests/scripts/native-reuse-source.test.py": "f1762bf3d59bd475dfada81ac309ece0595f323e4d4eecab1b9a8c4449aa6655",
+        "tests/scripts/ole-failure-path.test.ps1": "6dc0fdaf163fff8fc3db8a6f14349f7a9348e7e41c80787aa0a2bae88ee06901",
+        "tests/scripts/ole-marshal-ci.test.ps1": "6b0aebb79184a3ded051220a8337fc5a8d3544692755b2c64fafe5e5e7eb1bce",
+        "tests/scripts/ole-responsiveness-ci.test.ps1": "f6388eb8b9d5f6d0e5a93a7b6a02998c373dbbe369cafbcdaf9be553a5bc3d5f",
+        "tests/scripts/run-configure-bridge-windows.ps1": "295dace94b9f6ca8e75c9de95e4032c987e65d01019081b108324deb3d890532",
+        "tests/scripts/run-configure-files-windows.py": "1349bf1452f9cf0878059b61c4f83d630502ab2ed17132f43782946521e3c92e",
+        "tests/scripts/run-configure-only-windows.ps1": "ca859f95168861b2fae195c121ac688d609f368daebf874516d3ba5578ed493d",
+        "tests/scripts/run-job-member-windows.ps1": "c37d0f204a43209956e37383f60817536f708b85e5a2f2c0358a250e02415167",
+        "tests/scripts/run-lifecycle-offline.ps1": "a0e6e7f7bee2e837b6604b75c292abef49b4f28d8f7c8c772ad559c2e76c701c",
+        "tests/scripts/run-lifecycle-windows-ci.ps1": "84d099f1ab8e1dd592e5dfb67ffaf449b50d491ff4afbf9a71661342a983123a",
+        "tests/scripts/run-native-reuse-offline.ps1": "0f9827eb155a48c16fd74f4de2e5b7a82c9186182f4e2a660c63e14f143f2be2",
+        "tests/scripts/run-selection-reuse-host.ps1": "f5c66262876b95c640799e4a79dd97a91a346d6cf857e8d37e24fdc1c3a3c7e4",
+        "tests/scripts/run-selection-reuse-offline.ps1": "d19254bb02cac9ddb0ce8c787936ffe97fd20ad99622928b2d3c6ce4cdcfdb29",
+        "tests/scripts/run-source-head-windows-ci.ps1": "9ce14bd5e2b9d615fb4a170f7a493e21c229e6831401b68a0a8ca0bc05fe1340",
+        "tests/scripts/sdk-compile-evidence.test.ps1": "ab9c95597fa9128c3d47347749923a46e3ce04b59d2134a557992907f948e309",
+        "tests/scripts/selection-ci-summary.test.ps1": "7f77c0812bada18b44b3ced89370a9b92c2ff0c7dc31c8b98db5ec61b19e3149",
+        "tests/scripts/source-head-ci-evidence.ps1": "f30b414039933d92b1200b8a01d99be319e4a7682305749c6e757f00bfe3167d",
+        "tests/scripts/source-head-ci-evidence.test.ps1": "d59d1283e146f3d369d920ff9ada602e15a961ad3adbc46a835594772e00bd8c",
+        "tests/scripts/spec-checkout.test.py": "5fc3e73b7cdcfac7ab6ff96718284d26516e71ddfa3008a3c9ce5509afc0d1a4",
+        "tests/scripts/windows-ci.test.ps1": "4f0a9897cf19527e79dc53a011b45fb4f986891b912efb59e601e4b0f3a0805d"
+      },
+      "EqualParent": true
+    },
+    "Prompts": {
+      "Count": 8,
+      "Sha256": {
+        "assets/prompts/base@1.txt": "1a82351510c833e6e2e89b92ae8ef6a1fa379b0f50aecc97b0b0de58097cc494",
+        "assets/prompts/explain@1.txt": "75b1db8d8b953d594e2e6a3a909e76b08dab5de047e725891c2821f256c52d9a",
+        "assets/prompts/faithful@1.txt": "342b3a7f1d133d5f37054de2e23ccac0399119c424cf410a4a9fbed52b220c70",
+        "assets/prompts/image-classify@1.txt": "77e769e3429b11dfa367aa8928481f1f599d8c70b0af87a3e2f6160f059df888",
+        "assets/prompts/image-explain@1.txt": "5f1a95bd13a2e9e61c52810c7357b660883f13c61450bd511836dba209537977",
+        "assets/prompts/plain@1.txt": "60e90705c8586a1e8cdf9d661598e19690179f4dc0be466b89699ef906eb632f",
+        "assets/prompts/professional@1.txt": "fe7572d7b832dba9032acc42a90dfcb9dba033814ac32bdef3fe5afe9feebaae",
+        "assets/prompts/regenerate@1.txt": "359c6f87d954f7c0e697b0802c5d1a2901514703b43de7fbfdadc75ab45da140"
+      },
+      "EqualParent": true
+    },
+    "Workflows": {
+      "Count": 8,
+      "Sha256": {
+        ".github/workflows/windows-configure-accounting.yml": "a040d806703163abac32cb3111123039e367c93b756d138f0b5c4ddaa2fb3824",
+        ".github/workflows/windows-configure-bridge.yml": "ea16217b863b25c9d4f5b2e16d34efb2cf55e984cb84a13706c5f6df17230ba2",
+        ".github/workflows/windows-configure-embedded.yml": "fef5400b6f6693498f622c8597b90970e6f00f32f7169fc2b90bb75189d2b450",
+        ".github/workflows/windows-configure-files.yml": "5881548630c16575f2a7e5cdcbeb91f4955247f5d2404995371194785044781d",
+        ".github/workflows/windows-configure-only.yml": "f7771f23b94fa0383660252a3ea6534762d86d4e6c48453632eb8ff81764e39f",
+        ".github/workflows/windows-contracts.yml": "0e7789bf268a83f439fb6e3df44ce94d5918c4f2bba52e11e1f024780b20455b",
+        ".github/workflows/windows-job-member-fixture.yml": "f4a1d464a99525e47b69897bebff4d7550d747b373075dde123c4dd0eb86b24d",
+        ".github/workflows/windows-lifecycle-validation.yml": "47eb6293dbd63f775bc1855fd5d030e3482ff269b10778a2692edf52175f53a5"
+      },
+      "EqualParent": true
+    },
+    "DependencyLocks": {
+      "Count": 43,
+      "Sha256": {
+        "packaging/text-alpha-locks/KuaiYi.App.packages.lock.json": "f669bdee7a7c6d23ad59fd0993df4b2ceb62f3c711dcaea8b5d16d0ccdb4feed",
+        "packaging/text-alpha-locks/KuaiYi.CaptureBroker.packages.lock.json": "a0d9e1037d08cba43eaaad80b2476e6106195757041a2a6001d05bb13dce8cd2",
+        "packaging/text-alpha-locks/KuaiYi.ClipboardHost.packages.lock.json": "a0d9e1037d08cba43eaaad80b2476e6106195757041a2a6001d05bb13dce8cd2",
+        "packaging/text-alpha-locks/KuaiYi.CompatibilityProbe.packages.lock.json": "a0d9e1037d08cba43eaaad80b2476e6106195757041a2a6001d05bb13dce8cd2",
+        "packaging/text-alpha-locks/KuaiYi.Contracts.packages.lock.json": "8d84b21d9bedd16f93b526ec5aa5d9b49b034646d5463195d58ba4617420bc1f",
+        "packaging/text-alpha-locks/KuaiYi.Core.packages.lock.json": "8d84b21d9bedd16f93b526ec5aa5d9b49b034646d5463195d58ba4617420bc1f",
+        "packaging/text-alpha-locks/KuaiYi.GrowthHarness.packages.lock.json": "06b40edd125cc1c302c8c5ef7a358cf4380e6cc31fdadd1ede7b205f21184e04",
+        "packaging/text-alpha-locks/KuaiYi.Imaging.packages.lock.json": "ab06c9597225dbe1914027a4726890467b461d6e891645c442d1d764b8431d4d",
+        "packaging/text-alpha-locks/KuaiYi.MockProvider.packages.lock.json": "a1d091f0a56c469e0ee557881ce5fb4f83ce3a007b35207f5733cdd7a81de15e",
+        "packaging/text-alpha-locks/KuaiYi.NativeHost.packages.lock.json": "3adbbf52da4dcf4b68f0257d2325bfd0a8e29d1a135716549c7ee86eecbea3fa",
+        "packaging/text-alpha-locks/KuaiYi.OleTransfer.packages.lock.json": "ab06c9597225dbe1914027a4726890467b461d6e891645c442d1d764b8431d4d",
+        "packaging/text-alpha-locks/KuaiYi.Providers.packages.lock.json": "ae858d5dda8e1552b1117221e2601d30f6439fbb794ef9dd6d8d5f82a1061e81",
+        "packaging/text-alpha-locks/KuaiYi.Windows.packages.lock.json": "5a41b89a78360efec84fd71e504c96618af15df61d64c51e0ea68de5936b2ccb",
+        "src/KuaiYi.App/packages.lock.json": "f669bdee7a7c6d23ad59fd0993df4b2ceb62f3c711dcaea8b5d16d0ccdb4feed",
+        "src/KuaiYi.CaptureBroker/packages.lock.json": "a0d9e1037d08cba43eaaad80b2476e6106195757041a2a6001d05bb13dce8cd2",
+        "src/KuaiYi.CaptureHost/packages.lock.json": "a0d9e1037d08cba43eaaad80b2476e6106195757041a2a6001d05bb13dce8cd2",
+        "src/KuaiYi.ClipboardHost/packages.lock.json": "a0d9e1037d08cba43eaaad80b2476e6106195757041a2a6001d05bb13dce8cd2",
+        "src/KuaiYi.Contracts/packages.lock.json": "03eeadc5ef377c17f787ab65f41fb4c8a9c936bb7f7f4171111fdeec8a81cb46",
+        "src/KuaiYi.Core/packages.lock.json": "03eeadc5ef377c17f787ab65f41fb4c8a9c936bb7f7f4171111fdeec8a81cb46",
+        "src/KuaiYi.ImageWorker/packages.lock.json": "3adbbf52da4dcf4b68f0257d2325bfd0a8e29d1a135716549c7ee86eecbea3fa",
+        "src/KuaiYi.Imaging/packages.lock.json": "361e2d18f86f4f0f7be933d6fa19c532644723ba2130245ac2b473d1c29e8d81",
+        "src/KuaiYi.NativeHost/packages.lock.json": "3adbbf52da4dcf4b68f0257d2325bfd0a8e29d1a135716549c7ee86eecbea3fa",
+        "src/KuaiYi.OleReceiver/packages.lock.json": "a0d9e1037d08cba43eaaad80b2476e6106195757041a2a6001d05bb13dce8cd2",
+        "src/KuaiYi.OleTransfer/packages.lock.json": "361e2d18f86f4f0f7be933d6fa19c532644723ba2130245ac2b473d1c29e8d81",
+        "src/KuaiYi.Providers/packages.lock.json": "bdea240ae7ef5c4752c0a27419f5007239f856068181300133e7ca4c08c206fa",
+        "src/KuaiYi.Windows/packages.lock.json": "bbaf8782f1707e0fbb080e2593a8073f46872be0378c5449aff63f77ba8fe32c",
+        "tests/KuaiYi.Core.Tests/packages.lock.json": "d9e2ceaf9da70383c7eed288b8589f8016473e71bc3f7378e4154bd073309ed4",
+        "tests/KuaiYi.Provider.Tests/packages.lock.json": "5d02234d71b6f4c642a07aad1ca8fe21badaa3f8a70f41f2de47905f02e38b97",
+        "tools/KuaiYi.BrowserHostFixture/packages.lock.json": "8c5ea36a9e2d525d47fd14a137787bec2034592eb29ee8607ce35fdd629e130a",
+        "tools/KuaiYi.CaptureControlFixture/packages.lock.json": "2f22b84b30721c5a0679a89d40ddb50bc46e6741537a4e333d6568c963d5a706",
+        "tools/KuaiYi.CompatibilityProbe/packages.lock.json": "9c4564b995729b9b3f488c9b7427631f2281c72aedf2e40e47982e15ef100087",
+        "tools/KuaiYi.GrowthHarness/packages.lock.json": "06b40edd125cc1c302c8c5ef7a358cf4380e6cc31fdadd1ede7b205f21184e04",
+        "tools/KuaiYi.HotkeyOccupier/packages.lock.json": "39821567b4574e1db2bad844ba8cd24a2a6faf97cd97ee523f1d42d6325cc651",
+        "tools/KuaiYi.MockProvider/packages.lock.json": "03eeadc5ef377c17f787ab65f41fb4c8a9c936bb7f7f4171111fdeec8a81cb46",
+        "tools/KuaiYi.NativeMessagingProbe/packages.lock.json": "81906a80fcfc35ce041187bf14fa96507fdf0dc09b7ae5bc9a811c3325f8706a",
+        "tools/KuaiYi.OleControlFixture/packages.lock.json": "361e2d18f86f4f0f7be933d6fa19c532644723ba2130245ac2b473d1c29e8d81",
+        "tools/KuaiYi.OleFaultSource/packages.lock.json": "a0d9e1037d08cba43eaaad80b2476e6106195757041a2a6001d05bb13dce8cd2",
+        "tools/KuaiYi.OleProbe/packages.lock.json": "a0d9e1037d08cba43eaaad80b2476e6106195757041a2a6001d05bb13dce8cd2",
+        "tools/KuaiYi.OleReceiverFixture/packages.lock.json": "05eef54e058ed444b51e410a5608a3cf0645bcf2f90b633f7d6b9b31bac3d9c9",
+        "tools/KuaiYi.ReuseLifecycle/packages.lock.json": "03eeadc5ef377c17f787ab65f41fb4c8a9c936bb7f7f4171111fdeec8a81cb46",
+        "tools/KuaiYi.SelectionReuseDiagnostic/packages.lock.json": "bdea240ae7ef5c4752c0a27419f5007239f856068181300133e7ca4c08c206fa",
+        "tools/KuaiYi.SelectionReusePrototype/packages.lock.json": "98540f8c8005e000cc83cffb4598281f61900a13426b470f1d1114c62b54a63d",
+        "tools/KuaiYi.SettingsStoreFixture/packages.lock.json": "bdea240ae7ef5c4752c0a27419f5007239f856068181300133e7ca4c08c206fa"
+      },
+      "EqualParent": true
+    }
+  },
+  "ExistingChangedPaths": [
+    ".gitattributes",
+    "docs/progress.md",
+    "docs/traceability.json"
+  ],
+  "NewRuntimeOrDependencyChanges": [],
+  "ActualCurrentSdkTests": "NotRun;zero dotnet executions",
+  "CurrentAppBuild": "NotRun;no production changes",
+  "ParentTests": "1379/App0W0E historical parent evidence only,not rerun this batch",
+  "DesignReview": {
+    "Agent": "/root/inline_review",
+    "Status": "Audit record binding Pass;decoder implementation Blocked/NotRun;license authorization/source-component audit pending",
+    "NoSdkNetworkWrites": true,
+    "Constraints": [
+      "Skia only in owned worker,not App/Imaging codec loading",
+      "PNG/JPEG bounded precheck plus actual codec format/Info limits;complete Success only",
+      "No raster in OCR JSON;typed indexed binary chunks with checked total lengths",
+      "EXIF nonidentity/animation unsupported =>typed rejection,not ScreenshotIdentity",
+      "Nonce/request/session/version/epoch/source identity and current gate at publication",
+      "exit0+startup settlement+actual exit before deliver;unconfirmed exit retains owner;no new-client bypass",
+      "No sandbox/native memory/600ms acceptance claim"
+    ],
+    "EvidenceSha256BeforeOnlyReviewMetadataUpdate": "7b67bbbf80db3e04713b3faba780557322140e790c04a7b0b7f6b196be7a567a",
+    "FrozenStagedPaths": 17,
+    "StagedEqualsWorking": true,
+    "ExactRawPaths": 12,
+    "CachedTextAttribute": "unset (-text)",
+    "DiffCheckScope": "Five non-raw paths only;12 immutable upstream raw originals excluded to preserve original whitespace",
+    "PackageCount": 4,
+    "ZipEntrySha256Count": 162,
+    "Scope": "Four actual package SHA256/SHA512 and162 ZIP entry SHA256;Win PE8664/PE32+ andLinux ELF64LE62 headers;4MIT/3native notices exact;12 raw/180 parent raw/1764 old evidence/2550 other parent files/index binding;228source/201tests/43locks/8workflow/8prompts unchanged;zero SDK/network/writes by review;no decoder/legal/supply-chain acceptance claim",
+    "ReviewerToolingFailure": "Read-only doc assertion initially overstrict about spacing;whitespace-tolerant regex checked actual wording.No SDK/raw mutation or implementation/test failure."
+  },
+  "AccessRefusals": [
+    {
+      "Url": "https://api.github.com/repos/mono/SkiaSharp/git/trees/4783f51448f9b070dda4f87b83e941c9599e466e",
+      "Result": "Proxy tunnel403 Forbidden;stopped,no retry/bypass"
+    },
+    {
+      "Url": "https://api.github.com/repos/mono/SkiaSharp/releases/tags/v4.153.1",
+      "Result": "Proxy tunnel403 Forbidden;stopped,no retry/bypass"
+    }
+  ],
+  "CurrentFailureRecords": [
+    "Read-only guessed IpcFrameCodec.cs/Imaging OwnedProcessSession.cs paths absent;rg resolved actual paths;no writes/SDK",
+    "web tool4.148.0 package open failed;guessed no-extension LICENSE404;neither used as4.153.1 source evidence",
+    "First package inventory byte-equality assertion failed on API-vs-ZIP nuspec BOM/line-ending difference. Separate raw originals retained;normalized text equality checked;no reconstructed/overwritten bytes",
+    "Reviewer read-only guessed paths absent;rg resolved IpcFrame.cs/image-finalization-review.md/ADR0003;no SDK/network/writes"
+  ],
+  "Safety": "All production/test/lock/workflow files byte-identical to parent;250/600ms,Job/process/source/password/integrity/cancel/cleanup gates unchanged;production reuseOff;normal screenshot localonly;no UI/model/fees/credentials/permissions/new agreement acceptance/main/force/deployment/WindowsCI/CMake experiments;Actions noquery/nodispatch/no bypass,count Unknown",
+  "Certificate": "Zero dotnet executions this batch;certificate store/trust Unknown,no read/config/trust/delete;future dotnet must explicitly DOTNET_GENERATE_ASPNET_CERTIFICATE=false",
+  "Traceability": {
+    "P6-02": "InProgress/Blocked",
+    "P6-04": "InProgress/NotRun unchanged",
+    "P6-05": "InProgress/NotRun unchanged"
+  },
+  "NotRun": [
+    "PNG/JPEG decoder production implementation/synthetic positive and corruption-size-crash-cancel-late tests",
+    "Any current SDK/App build",
+    "Complete source/component/native-license/build review",
+    "NuGet signature trust verification/certificate-store operations",
+    "Windows worker executable/Job/package identity/native load/real cancellation deadlines",
+    "WPF/COM/multi-format/EXIF/OCR/general resized text readability/fullP2P4P6"
+  ],
+  "ValidationDocument": "docs/validation/image-isolated-decode-dependency-audit.md",
+  "ReceiptAttributes": {
+    "RawCopies": 12,
+    "ExpectedTextAttribute": "unset (-text)",
+    "RawUpstreamWhitespace": "Preserved;source/docs diffcheck separately excludes immutable raw audit originals",
+    "CachedTextAttribute": "unset (-text)",
+    "StagedBytesEqualWorking": true
+  },
+  "PrecommitRemote": "fcf4271efa8e1283e3c0b803662e37f54d0a692e\trefs/heads/dev/image-coordinate-boundaries\n51d077481cf6303602fcf5d2718213da9cf05178\trefs/heads/main\n",
+  "RegistrationResponse": {
+    "RawContent": "Gzip-compressed official HTTP response retained exactly despite source .json URL/filename;342 raw bytes,721 decoded bytes",
+    "Decoded": {
+      "@id": "https://api.nuget.org/v3/registration5-gz-semver2/skiasharp/4.153.1.json",
+      "@type": [
+        "Package",
+        "http://schema.nuget.org/catalog#Permalink"
+      ],
+      "catalogEntry": "https://api.nuget.org/v3/catalog0/data/2026.09.30.03.46.30/skiasharp.4.153.1.json",
+      "listed": true,
+      "packageContent": "https://api.nuget.org/v3-flatcontainer/skiasharp/4.153.1/skiasharp.4.153.1.nupkg",
+      "published": "2026-09-30T03:41:47.953+00:00",
+      "registration": "https://api.nuget.org/v3/registration5-gz-semver2/skiasharp/index.json",
+      "@context": {
+        "@vocab": "http://schema.nuget.org/schema#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "catalogEntry": {
+          "@type": "@id"
+        },
+        "registration": {
+          "@type": "@id"
+        },
+        "packageContent": {
+          "@type": "@id"
+        },
+        "published": {
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+    "EvidenceRole": "Listed/published/packageContent metadata only;not package signature trust verification"
+  }
+}

@@ -1,0 +1,686 @@
+{
+  "skiasharp": {
+    "Url": "https://api.nuget.org/v3-flatcontainer/skiasharp/4.153.1/skiasharp.4.153.1.nupkg",
+    "Bytes": 9860648,
+    "Sha256": "9cf0fa681223d4956bfbd37995c9eaa8d259935ae3d195fac681ff9a4e9c4816",
+    "Sha512": "aaecdaa3157f83ee408b397039fe97cdd00b8b7720084cbaad0034e925b57decc0f8bae3d05285986e6feb98720ccdbaa83f9274beeed078d669d37d84e67014",
+    "Entries": {
+      "_rels/.rels": {
+        "Bytes": 476,
+        "Sha256": "07cd6cc1e7411c5edb04872e45dfcba3ef1364b304fffb20103d086b3f0a9b0f"
+      },
+      "SkiaSharp.nuspec": {
+        "Bytes": 6088,
+        "Sha256": "7c04ead5281ebf05c676af46a0ac7e674ade0f54c994336e842f3157a89feabe"
+      },
+      "LICENSE.txt": {
+        "Bytes": 1129,
+        "Sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+      },
+      "README.md": {
+        "Bytes": 4746,
+        "Sha256": "b0cf1f36769d1e890a500117f3912cc342187195590698dd0b07cb48488d4ec6"
+      },
+      "icon.png": {
+        "Bytes": 50737,
+        "Sha256": "c034604bcfdfe6e0ae31bf3580cc72cb43220676989c4cebd89b17e796d30230"
+      },
+      "lib/net10.0-android36.0/SkiaSharp.dll": {
+        "Bytes": 556384,
+        "Sha256": "71b9519e55652bda51784bf74a3c9134bce08df4ee2b0db9126a8da4bb4bf35b"
+      },
+      "lib/net10.0-android36.0/SkiaSharp.pdb": {
+        "Bytes": 244688,
+        "Sha256": "7aa91b9a63cc526d778240999f83afd3c35870abba220b002aaa6483959e3aa8"
+      },
+      "lib/net10.0-android36.0/SkiaSharp.xml": {
+        "Bytes": 1497067,
+        "Sha256": "7bc2573ed503eb503bab47988b7866ac031e1d4a5b7a7e519b75dcb3b9809b38"
+      },
+      "lib/net10.0-ios26.0/SkiaSharp.dll": {
+        "Bytes": 558944,
+        "Sha256": "6256ce6a2d57a1d933a61194a1f42cab01eecedd58c4193a0918de04f00584bd"
+      },
+      "lib/net10.0-ios26.0/SkiaSharp.pdb": {
+        "Bytes": 245600,
+        "Sha256": "113050d5a746094aa6fc50e2a3e789418ef864b663f7721d948fb234293b97fe"
+      },
+      "lib/net10.0-maccatalyst26.0/SkiaSharp.dll": {
+        "Bytes": 559416,
+        "Sha256": "e9228994712d50e425bab2df06bc94de92a48b4a5602cd13c3b1ac9fae964f4a"
+      },
+      "lib/net10.0-maccatalyst26.0/SkiaSharp.pdb": {
+        "Bytes": 245528,
+        "Sha256": "40477b9e4300fed9d03b12bc35bc8b4abef2768e03c6a25cd9eef448367c876a"
+      },
+      "lib/net10.0-macos26.0/SkiaSharp.dll": {
+        "Bytes": 558904,
+        "Sha256": "8ea84dbe84cfaed2829594a963b989488264ab9f4e1585a05efd4f5cee7b95f4"
+      },
+      "lib/net10.0-macos26.0/SkiaSharp.pdb": {
+        "Bytes": 245020,
+        "Sha256": "f148ecc3f7fed622e59bac172d45c39254aca01fc03ac38627aad3b11a4e544f"
+      },
+      "lib/net10.0-tizen10.0/SkiaSharp.dll": {
+        "Bytes": 576824,
+        "Sha256": "372d059e6fd2b4298646926347d7342692ebd9b7ecab6cb28e792801c86f60bc"
+      },
+      "lib/net10.0-tizen10.0/SkiaSharp.pdb": {
+        "Bytes": 251232,
+        "Sha256": "6bfcaa1458cb9083ce34242555942c9f33b82ccb5c36dae8981d12452d9a9194"
+      },
+      "lib/net10.0-tvos26.0/SkiaSharp.dll": {
+        "Bytes": 558944,
+        "Sha256": "32ed1a0f17c9df88a3cc6bdde4f2bf34d066a6c39b22e8f331e4ee167b176b49"
+      },
+      "lib/net10.0-tvos26.0/SkiaSharp.pdb": {
+        "Bytes": 245548,
+        "Sha256": "0232b96366b755ae6a24e61816e176319a50b5fce5f62ee0cd4757148df81deb"
+      },
+      "lib/net10.0-windows10.0.19041/SkiaSharp.dll": {
+        "Bytes": 561464,
+        "Sha256": "280a90c7d5cbc29669dff8b6d0fa6ea233237aa3c0c40c21a9541caec4c00733"
+      },
+      "lib/net10.0-windows10.0.19041/SkiaSharp.pdb": {
+        "Bytes": 246900,
+        "Sha256": "af2a12f82780f20374be987dbdeb6b13bd68fb6dd4ed69ec99e4be0e1cd502f3"
+      },
+      "lib/net10.0/SkiaSharp.dll": {
+        "Bytes": 560440,
+        "Sha256": "2c9bbbe1a3d0e9407894c319821b5cdcade1f302466a950a2e5d6024aee32422"
+      },
+      "lib/net10.0/SkiaSharp.pdb": {
+        "Bytes": 245460,
+        "Sha256": "95cc29f423bf5d5cdae1cb9a7e425a67e590bde33dff63a66d9c0131fd0e80f5"
+      },
+      "lib/net462/SkiaSharp.dll": {
+        "Bytes": 892728,
+        "Sha256": "32f467ab0c070e29577166f7daa0d1103109e38d326a8920871b9960d2895645"
+      },
+      "lib/net462/SkiaSharp.pdb": {
+        "Bytes": 277868,
+        "Sha256": "c102c1710f3fc73a0f5addb98f307c85705397588957bde7a0001dd4b142ebbb"
+      },
+      "lib/net48/SkiaSharp.dll": {
+        "Bytes": 892768,
+        "Sha256": "fcc2d65260dc1807edbc854728525a60f3793e57799c65595eec6987feda1e20"
+      },
+      "lib/net48/SkiaSharp.pdb": {
+        "Bytes": 271812,
+        "Sha256": "40a1f15106106c4acc8b811e5b717f9320ce416987e7ca31e878d44cbf926bfe"
+      },
+      "lib/net6.0-tizen8.0/SkiaSharp.dll": {
+        "Bytes": 549688,
+        "Sha256": "3f0b4820c2da234b918cb6ef62f4f13b3e27bce4491ceab3dec6122b973c2d59"
+      },
+      "lib/net6.0-tizen8.0/SkiaSharp.pdb": {
+        "Bytes": 211728,
+        "Sha256": "7bc79ace8d34f71ba2a3df07a91f2cab315dd6c3b5949cfaa15e9d808660e6ed"
+      },
+      "lib/net6.0/SkiaSharp.dll": {
+        "Bytes": 532320,
+        "Sha256": "a1355e19984ea92935090d7e54d084ab2018fd9633ded1abef446b530d806617"
+      },
+      "lib/net6.0/SkiaSharp.pdb": {
+        "Bytes": 205576,
+        "Sha256": "2e67de1926c99830c8aeac236d17d784f5bb30d8ab55a1b8e958907be64a3a03"
+      },
+      "lib/net9.0-android35.0/SkiaSharp.dll": {
+        "Bytes": 556384,
+        "Sha256": "6cc00d3b4ba6548f153179048793271860cedc9756b0e21d4c089ff0458c7c21"
+      },
+      "lib/net9.0-android35.0/SkiaSharp.pdb": {
+        "Bytes": 244288,
+        "Sha256": "b5bacd77169b8b6a2b1a62459aefce20a163ded9f4b3c16b16edf6bf5dcfe93e"
+      },
+      "lib/net9.0-android35.0/SkiaSharp.xml": {
+        "Bytes": 1497067,
+        "Sha256": "7bc2573ed503eb503bab47988b7866ac031e1d4a5b7a7e519b75dcb3b9809b38"
+      },
+      "lib/net9.0-ios18.0/SkiaSharp.dll": {
+        "Bytes": 558944,
+        "Sha256": "a090407f2767a24e84b00faa28b7dfb0e644a0674739e9f23eec5b2fca319042"
+      },
+      "lib/net9.0-ios18.0/SkiaSharp.pdb": {
+        "Bytes": 245128,
+        "Sha256": "2958cdceef9361e7db1f1fed67e151c0486eb236c03447c796b5183c0240fbeb"
+      },
+      "lib/net9.0-maccatalyst18.0/SkiaSharp.dll": {
+        "Bytes": 558944,
+        "Sha256": "cad6cd0f59dcec0ef705396bf8276cbcc83e9540adae53f03a62998a777a176c"
+      },
+      "lib/net9.0-maccatalyst18.0/SkiaSharp.pdb": {
+        "Bytes": 245004,
+        "Sha256": "fe9f690b805da6a8485839a8dc214559a83937ccae41ea77023a0a709fdfabd8"
+      },
+      "lib/net9.0-macos15.0/SkiaSharp.dll": {
+        "Bytes": 558904,
+        "Sha256": "e80ddf71fee90e16e45ca60fefa1a8c3022f99fe9880189207515b3a7bd909d6"
+      },
+      "lib/net9.0-macos15.0/SkiaSharp.pdb": {
+        "Bytes": 244532,
+        "Sha256": "80a99fe6f31071160b195a5409d39a726dc95d1f28848c292191508a4fc3c286"
+      },
+      "lib/net9.0-tizen8.0/SkiaSharp.dll": {
+        "Bytes": 576824,
+        "Sha256": "d5236c7502460938f7874c5c9a6756b244e31d70a34e31db02716caaf3bf5f23"
+      },
+      "lib/net9.0-tizen8.0/SkiaSharp.pdb": {
+        "Bytes": 250768,
+        "Sha256": "9280de87eb6c14643f47353ce0cff9e77c67ba246a2bf20359a574e8485ca381"
+      },
+      "lib/net9.0-tvos18.0/SkiaSharp.dll": {
+        "Bytes": 558904,
+        "Sha256": "9c6cbcc2a992e3a016fad1ddc84bc805e90b89c671de5348437bf6738beb9f10"
+      },
+      "lib/net9.0-tvos18.0/SkiaSharp.pdb": {
+        "Bytes": 245068,
+        "Sha256": "15c68099fef5a48d03575cc086427b7b502b16bdd6fd65e6ef55063357e57b4e"
+      },
+      "lib/net9.0-windows10.0.19041/SkiaSharp.dll": {
+        "Bytes": 561464,
+        "Sha256": "e049432dfd8c0c5cb17906d0870fdf14fa39c4b2950c83f2d2ebb6ae9eddd89a"
+      },
+      "lib/net9.0-windows10.0.19041/SkiaSharp.pdb": {
+        "Bytes": 246532,
+        "Sha256": "56740ed2ec79b10582162867f26841ab8b4455ac8a0904b02449450dbeb7339c"
+      },
+      "lib/net9.0/SkiaSharp.dll": {
+        "Bytes": 560440,
+        "Sha256": "a1887877f317eb73bcd764ccd7703162febadc59b640b60ff5a96af0a4b5f69e"
+      },
+      "lib/net9.0/SkiaSharp.pdb": {
+        "Bytes": 245092,
+        "Sha256": "3014168b798bfb283c7e08f398358bb05f6cb5339b7f0d54fefe5054bc6aa7a5"
+      },
+      "lib/netstandard2.0/SkiaSharp.dll": {
+        "Bytes": 540472,
+        "Sha256": "e3b251f57271d148fae63e5d545401a2a3aef81f2f148740c6f459558a8f47d3"
+      },
+      "lib/netstandard2.0/SkiaSharp.pdb": {
+        "Bytes": 230904,
+        "Sha256": "ea891f07030c37d856be40319dfcdd18d0d6d4f6fa968b26f00b0f6c66e6cea9"
+      },
+      "lib/netstandard2.1/SkiaSharp.dll": {
+        "Bytes": 536376,
+        "Sha256": "a3068d10e35c9c84f1e05579753eb56070d95d36d3fe294ee3a6124dcf9dd6c8"
+      },
+      "lib/netstandard2.1/SkiaSharp.pdb": {
+        "Bytes": 219968,
+        "Sha256": "dfe48af261b811db58f2af0c27e9453d9a32559ba1be0efe4a1ddd19e8365064"
+      },
+      "ref/net10.0-android36.0/SkiaSharp.dll": {
+        "Bytes": 336184,
+        "Sha256": "0820aa9faf34bbd1f1ee8571c54f246adfcccd9ca120fdc504a8a3ae1b800c45"
+      },
+      "ref/net10.0-ios26.0/SkiaSharp.dll": {
+        "Bytes": 338232,
+        "Sha256": "97f59dd09ca2b0c89c474ab9690476fbe762e0f25449bb44d6f9076b4a0aebec"
+      },
+      "ref/net10.0-maccatalyst26.0/SkiaSharp.dll": {
+        "Bytes": 338232,
+        "Sha256": "af281fea702cfc461ca3652869317cf1c0f9ac05353b23187afd395c897f0420"
+      },
+      "ref/net10.0-macos26.0/SkiaSharp.dll": {
+        "Bytes": 338232,
+        "Sha256": "9da44f8773e1c31d8226ca5cfef0659558a15dca0d3c5ecbdc8a7e25460e7917"
+      },
+      "ref/net10.0-tizen10.0/SkiaSharp.dll": {
+        "Bytes": 354616,
+        "Sha256": "235e83deb265519362d27acedf4b50a78d8c0a8128060dc284b5d2ad53ead925"
+      },
+      "ref/net10.0-tvos26.0/SkiaSharp.dll": {
+        "Bytes": 338272,
+        "Sha256": "d60ae93dc0398b305203607d3a9c47c0391dd867c206438f1f495d8ad9f53ca1"
+      },
+      "ref/net10.0-windows10.0.19041/SkiaSharp.dll": {
+        "Bytes": 338232,
+        "Sha256": "86b7429182976bcd4e20440c2dd34f3b06c530e668b36cd847d0daf345c294ea"
+      },
+      "ref/net10.0/SkiaSharp.dll": {
+        "Bytes": 337208,
+        "Sha256": "9e9db5013a76ffa94c6d233461e343a2ce1a1151815fd8be38612ce07c3c0efe"
+      },
+      "ref/net462/SkiaSharp.dll": {
+        "Bytes": 491872,
+        "Sha256": "ab2c125b732dc9b51a626ad70b92b54a5ab029336072fc443cf1e0989df0214f"
+      },
+      "ref/net48/SkiaSharp.dll": {
+        "Bytes": 491320,
+        "Sha256": "83fe7f4369d3999f458721c34846aadf3b73281b5dd148ed1fec5ca46c970d8f"
+      },
+      "ref/net6.0-tizen8.0/SkiaSharp.dll": {
+        "Bytes": 330552,
+        "Sha256": "c3985c8402f34a5353382f3f1f0187e79c05d14f669eec92e09562e0c88b2e67"
+      },
+      "ref/net6.0/SkiaSharp.dll": {
+        "Bytes": 313656,
+        "Sha256": "0e3b60fca518370fd8cd960d1f1d15990700f53c8dd92f6d59d1d19b64a3b67d"
+      },
+      "ref/net9.0-android35.0/SkiaSharp.dll": {
+        "Bytes": 336184,
+        "Sha256": "a4b1fefdb9b7bbeaa9b3fb591da7cc5f44df3306e494fbb172fc8d83854e3afc"
+      },
+      "ref/net9.0-ios18.0/SkiaSharp.dll": {
+        "Bytes": 338232,
+        "Sha256": "fdf11bca3e0af1780e3d1e468f6c612379788dfcd4009f1802644fba44628b01"
+      },
+      "ref/net9.0-maccatalyst18.0/SkiaSharp.dll": {
+        "Bytes": 338272,
+        "Sha256": "035590cf2fc89cc6170f8870b4e3a82bd98c3afa4cbeca1327ef096968ec683d"
+      },
+      "ref/net9.0-macos15.0/SkiaSharp.dll": {
+        "Bytes": 338272,
+        "Sha256": "c58bcc34b69913b0981046bfacc2f8d76c56e8944fdb25b8afba9f27b450dd89"
+      },
+      "ref/net9.0-tizen8.0/SkiaSharp.dll": {
+        "Bytes": 354616,
+        "Sha256": "ffebd9e45d57a30af13cd9c532bdb95f85e978d452e2bd8f5f00dbfce96457df"
+      },
+      "ref/net9.0-tvos18.0/SkiaSharp.dll": {
+        "Bytes": 338272,
+        "Sha256": "37b0bcdb8b6e65ae21cd57cda45f3cdcb08c3c67737af8cb03b1186ed557691b"
+      },
+      "ref/net9.0-windows10.0.19041/SkiaSharp.dll": {
+        "Bytes": 338232,
+        "Sha256": "4c42d84c5d1e6705ff4dc3f489a2e29d8ec5d50d0fee64f0ebb656266196d17c"
+      },
+      "ref/net9.0/SkiaSharp.dll": {
+        "Bytes": 337208,
+        "Sha256": "03aca93febc1e687813eaf9dc876d3e772fc00124c3cdef392ae57f31e70ac8b"
+      },
+      "ref/netstandard2.0/SkiaSharp.dll": {
+        "Bytes": 320824,
+        "Sha256": "a39c41f20d1a883c2f2a5725d57af94224fe1f0f1910e7467328992b5443052c"
+      },
+      "ref/netstandard2.1/SkiaSharp.dll": {
+        "Bytes": 318304,
+        "Sha256": "fc48a3e312cd99c0c52f8699cf6b4ad3920eac3e88916709f033c1dabd88e705"
+      },
+      "[Content_Types].xml": {
+        "Bytes": 779,
+        "Sha256": "34ddbf751bb98726b255004142e5d4d87c4d945f03f92df47ffb1f351ae3a2ed"
+      },
+      "package/services/metadata/core-properties/nuget.psmdcp": {
+        "Bytes": 895,
+        "Sha256": "2673448d991cf1713a11406789e57f3de87665b3bea8d64b97349fa30048a438"
+      },
+      ".signature.p7s": {
+        "Bytes": 26004,
+        "Sha256": "94306a8bce82e7c122ab8f1121c14d1b8c0b227648ffae8c2eab8147a73d7ee2"
+      }
+    },
+    "ApiVsArchiveNuspec": "Exact normalized text match; originals preserved separately; archive has BOM/line-ending difference"
+  },
+  "skiasharp.nativeassets.win32": {
+    "Url": "https://api.nuget.org/v3-flatcontainer/skiasharp.nativeassets.win32/4.153.1/skiasharp.nativeassets.win32.4.153.1.nupkg",
+    "Bytes": 86914944,
+    "Sha256": "c27b04338d1e4d400c20de534356310b9971e123e081c732af97e56f5572e1ae",
+    "Sha512": "fbe3bac52456654ec0e9e5cd432227eb43dcbfc5d5795a30a0faae5dd1be0b5b93e177134ed89e3d9327911d691ebc804b938aae42d16a2b6c582da2162fa1e0",
+    "Entries": {
+      "_rels/.rels": {
+        "Bytes": 495,
+        "Sha256": "fa9899583f1f47040a6a284e9c7e7e3b750687ef6156003b362f401f95537945"
+      },
+      "SkiaSharp.NativeAssets.Win32.nuspec": {
+        "Bytes": 1689,
+        "Sha256": "7ca8008c6c410b8b4d5cb2063e64b10da97c529ab70668c2b80776a34e7734d5"
+      },
+      "LICENSE.txt": {
+        "Bytes": 1129,
+        "Sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+      },
+      "README.md": {
+        "Bytes": 1921,
+        "Sha256": "94f2e9b48ff4be6dcad5b03747e3a6882ca15c561193accd0a3e0697327c3ee3"
+      },
+      "THIRD-PARTY-NOTICES.txt": {
+        "Bytes": 139775,
+        "Sha256": "21504c46c4c58aa64c1055bd2dcbc5f9a136b4b8c412ed3cc6740e22c5b127f5"
+      },
+      "build/net462/SkiaSharp.NativeAssets.Win32.targets": {
+        "Bytes": 1371,
+        "Sha256": "468127c0194215a9434eddc82c08cdf454c12b82d8aa907ae56f3125c051ae2a"
+      },
+      "build/net48/SkiaSharp.NativeAssets.Win32.targets": {
+        "Bytes": 1371,
+        "Sha256": "468127c0194215a9434eddc82c08cdf454c12b82d8aa907ae56f3125c051ae2a"
+      },
+      "buildTransitive/net462/SkiaSharp.NativeAssets.Win32.targets": {
+        "Bytes": 1371,
+        "Sha256": "468127c0194215a9434eddc82c08cdf454c12b82d8aa907ae56f3125c051ae2a"
+      },
+      "buildTransitive/net48/SkiaSharp.NativeAssets.Win32.targets": {
+        "Bytes": 1371,
+        "Sha256": "468127c0194215a9434eddc82c08cdf454c12b82d8aa907ae56f3125c051ae2a"
+      },
+      "icon.png": {
+        "Bytes": 50737,
+        "Sha256": "c034604bcfdfe6e0ae31bf3580cc72cb43220676989c4cebd89b17e796d30230"
+      },
+      "lib/net10.0-windows10.0.19041/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "lib/net10.0/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "lib/net462/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "lib/net48/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "lib/net6.0/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "lib/net9.0-windows10.0.19041/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "lib/net9.0/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "lib/netstandard2.0/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "lib/netstandard2.1/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtimes/win-arm64/native/libSkiaSharp.dll": {
+        "Bytes": 11036472,
+        "Sha256": "009e49c2c9d3cc0d75643754d42ec62bbc8f62ac54ed236e60984060e01b1f81"
+      },
+      "runtimes/win-arm64/native/libSkiaSharp.pdb": {
+        "Bytes": 92676096,
+        "Sha256": "a4b40954de3204744e295b262bec2c7fc18e280139ca75a4d3e76554407b9ce8"
+      },
+      "runtimes/win-x64/native/libSkiaSharp.dll": {
+        "Bytes": 12875576,
+        "Sha256": "935ef4a00462e6b0c4dadb870f734fa43679b4f561287fe0d28cbe2ba147e832"
+      },
+      "runtimes/win-x64/native/libSkiaSharp.pdb": {
+        "Bytes": 95985664,
+        "Sha256": "b44062dfd4fc32da8d5009ca99af8e08f3e30cb8045584b43a2c33dd2995e2b5"
+      },
+      "runtimes/win-x86/native/libSkiaSharp.dll": {
+        "Bytes": 11155768,
+        "Sha256": "1c6f7a9f863184ab50063a2c0ddcdc534cc87262940ce6a5c4fd435d6ea51723"
+      },
+      "runtimes/win-x86/native/libSkiaSharp.pdb": {
+        "Bytes": 98717696,
+        "Sha256": "c5babd5397b91685adb5baf79dba799d5e95a735218ae0d22f46a681d0dbbd94"
+      },
+      "[Content_Types].xml": {
+        "Bytes": 844,
+        "Sha256": "f24fb74ac37256dda9a8292698ed8ed95299975acdf6dceb4464a03a9eb22723"
+      },
+      "package/services/metadata/core-properties/nuget.psmdcp": {
+        "Bytes": 771,
+        "Sha256": "8dcc4a8e720b7014ec58e2b9ef5b13ba2da879b7a2258e3a80ae14f5bdee5cb1"
+      },
+      ".signature.p7s": {
+        "Bytes": 26005,
+        "Sha256": "fac123bc7c09d6d970ede4ed75f1dabc37695919a9624a1869fe3693463535ec"
+      }
+    },
+    "ApiVsArchiveNuspec": "Exact normalized text match; originals preserved separately; archive has BOM/line-ending difference"
+  },
+  "skiasharp.nativeassets.linux.nodependencies": {
+    "Url": "https://api.nuget.org/v3-flatcontainer/skiasharp.nativeassets.linux.nodependencies/4.153.1/skiasharp.nativeassets.linux.nodependencies.4.153.1.nupkg",
+    "Bytes": 62317297,
+    "Sha256": "1678572dd5d1488c3f39892460bec16c2b0942489f3a5149abfbcbae3da53431",
+    "Sha512": "f697280858c60e19122c02658095d4f4fa45cc56f1c120ec2554afe233899be1263eb3fb6fd16744f0b747d23ea905e3c382612dd7c73d16e2fbaeb7d264f630",
+    "Entries": {
+      "_rels/.rels": {
+        "Bytes": 510,
+        "Sha256": "9390fd1ac8246a3452cec35bb6ce5e2515dc63ce3cc89c54a08d530884361828"
+      },
+      "SkiaSharp.NativeAssets.Linux.NoDependencies.nuspec": {
+        "Bytes": 1616,
+        "Sha256": "577014811a90cfc3f846fcdfaad8a3d40ebb643cfb9c2b5eb233e0c4e939ef8a"
+      },
+      "LICENSE.txt": {
+        "Bytes": 1129,
+        "Sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+      },
+      "README.md": {
+        "Bytes": 2366,
+        "Sha256": "b3e6b14fb7deeb6afd3bd41ae713a0bca869475ac44ffc8f3138b82947005c7d"
+      },
+      "THIRD-PARTY-NOTICES.txt": {
+        "Bytes": 139775,
+        "Sha256": "21504c46c4c58aa64c1055bd2dcbc5f9a136b4b8c412ed3cc6740e22c5b127f5"
+      },
+      "build/net462/SkiaSharp.NativeAssets.Linux.NoDependencies.targets": {
+        "Bytes": 3582,
+        "Sha256": "18fa39ce49d39e21130cecaad8e1f24fd60e334c7f123993790ca2b61a52d31a"
+      },
+      "build/net48/SkiaSharp.NativeAssets.Linux.NoDependencies.targets": {
+        "Bytes": 3582,
+        "Sha256": "18fa39ce49d39e21130cecaad8e1f24fd60e334c7f123993790ca2b61a52d31a"
+      },
+      "buildTransitive/net462/SkiaSharp.NativeAssets.Linux.NoDependencies.targets": {
+        "Bytes": 3582,
+        "Sha256": "18fa39ce49d39e21130cecaad8e1f24fd60e334c7f123993790ca2b61a52d31a"
+      },
+      "buildTransitive/net48/SkiaSharp.NativeAssets.Linux.NoDependencies.targets": {
+        "Bytes": 3582,
+        "Sha256": "18fa39ce49d39e21130cecaad8e1f24fd60e334c7f123993790ca2b61a52d31a"
+      },
+      "icon.png": {
+        "Bytes": 50737,
+        "Sha256": "c034604bcfdfe6e0ae31bf3580cc72cb43220676989c4cebd89b17e796d30230"
+      },
+      "lib/net10.0/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "lib/net462/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "lib/net48/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "lib/net6.0/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "lib/net9.0/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "lib/netstandard2.0/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "lib/netstandard2.1/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtimes/linux-arm/native/libSkiaSharp.so": {
+        "Bytes": 8689680,
+        "Sha256": "ae64e427e92fed4eee8e49e6780ab74ae7e88d32efd808a416d8621c770396e8"
+      },
+      "runtimes/linux-arm64/native/libSkiaSharp.so": {
+        "Bytes": 12080232,
+        "Sha256": "04abf9a9f59b7a53487b9118b4d1a7c8c8d7e4e0690baf6a77ef6069af17d220"
+      },
+      "runtimes/linux-bionic-arm64/native/libSkiaSharp.so": {
+        "Bytes": 12361208,
+        "Sha256": "a2a7254a9e64627ed22202068bb94bb6c1cdd30a9dd6fa0cfc06e5fd47b39159"
+      },
+      "runtimes/linux-bionic-x64/native/libSkiaSharp.so": {
+        "Bytes": 12282104,
+        "Sha256": "7b73e3761cf7bcb6460a75165393ced26eb41754d2757ff1ce0e22d99d737c5d"
+      },
+      "runtimes/linux-loongarch64/native/libSkiaSharp.so": {
+        "Bytes": 11543704,
+        "Sha256": "16a1d9eb24a4c12f883ba039b451cf6340d530188152e01ce74d5a0afeea5c0f"
+      },
+      "runtimes/linux-musl-arm/native/libSkiaSharp.so": {
+        "Bytes": 8719180,
+        "Sha256": "f60514995b98de7814925f085e849f68e60aea5e8349161df003d22f4fc4b8d9"
+      },
+      "runtimes/linux-musl-arm64/native/libSkiaSharp.so": {
+        "Bytes": 12194768,
+        "Sha256": "337e632e157afd8769aee87806ff03dab83c7d1c0a060083329d15fb53c05715"
+      },
+      "runtimes/linux-musl-loongarch64/native/libSkiaSharp.so": {
+        "Bytes": 11911176,
+        "Sha256": "b559c6b692571abc4cedd8bca72ea8657c1e99dd42b4ce8d600f52706fcd83f1"
+      },
+      "runtimes/linux-musl-riscv64/native/libSkiaSharp.so": {
+        "Bytes": 11062200,
+        "Sha256": "dd8fab2040b50dd662e4808107e56464283f53d1c77a24bfc6027942483d0c6f"
+      },
+      "runtimes/linux-musl-x64/native/libSkiaSharp.so": {
+        "Bytes": 12334256,
+        "Sha256": "0d16b0f62b33f23f53d7f6a9aed0e45a028e1edf74a5b7a323598e2ef67433fc"
+      },
+      "runtimes/linux-riscv64/native/libSkiaSharp.so": {
+        "Bytes": 10891424,
+        "Sha256": "ac1f95b09a71a7f09015947e9403df94a2528af13e5438870e71f330a96d9b5b"
+      },
+      "runtimes/linux-x64/native/libSkiaSharp.so": {
+        "Bytes": 12208760,
+        "Sha256": "b25029b255f3fcfdf758187826b3a802376ec9ec4e8cb17a1e7a41c8f5243d2a"
+      },
+      "runtimes/linux-x86/native/libSkiaSharp.so": {
+        "Bytes": 13153308,
+        "Sha256": "b3c2309e636cb063dba4ec67c702cf275dc77dd696ae21f90529bda36cace084"
+      },
+      "[Content_Types].xml": {
+        "Bytes": 780,
+        "Sha256": "d8a6e762dbbf403ca18812372c6d141c4424b5609c87012097ccdc65e6070f22"
+      },
+      "package/services/metadata/core-properties/nuget.psmdcp": {
+        "Bytes": 801,
+        "Sha256": "8e81a9e9efe0a23f3ce5a2864ae073d500c33d86b05d5c5974b56c5c60152ae6"
+      },
+      ".signature.p7s": {
+        "Bytes": 26003,
+        "Sha256": "f2ca97b602b0d11305ef01bfa09d4504be250efa3f685b15594be6a8ecaed894"
+      }
+    },
+    "ApiVsArchiveNuspec": "Exact normalized text match; originals preserved separately; archive has BOM/line-ending difference"
+  },
+  "skiasharp.nativeassets.macos": {
+    "Url": "https://api.nuget.org/v3-flatcontainer/skiasharp.nativeassets.macos/4.153.1/skiasharp.nativeassets.macos.4.153.1.nupkg",
+    "Bytes": 7679269,
+    "Sha256": "da8967494eb11d881494d0fd2562893174e92056d41c22c907b2a36caf1032c9",
+    "Sha512": "c5e5c304559a4549218790ecbf3ae79b799b6364fc6137b9157b30e923276ec64196bf749f36311489d0296155fd98be1fffe0eeb21769f8a73e5bc783f40fb1",
+    "Entries": {
+      "_rels/.rels": {
+        "Bytes": 495,
+        "Sha256": "71a7c383612c4682368c34fa39c4f6bcbaa09e6afd10bb6b74fb0263edac28bc"
+      },
+      "SkiaSharp.NativeAssets.macOS.nuspec": {
+        "Bytes": 1673,
+        "Sha256": "e5b94ed7aa7339637b89450d18de1c1b3179032ea59e64e108336839f2a25462"
+      },
+      "LICENSE.txt": {
+        "Bytes": 1129,
+        "Sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+      },
+      "README.md": {
+        "Bytes": 1921,
+        "Sha256": "bfa887c3cdd6afaa80021340e8034a803ad697e7610741761b7c74966b8e5287"
+      },
+      "THIRD-PARTY-NOTICES.txt": {
+        "Bytes": 139775,
+        "Sha256": "21504c46c4c58aa64c1055bd2dcbc5f9a136b4b8c412ed3cc6740e22c5b127f5"
+      },
+      "build/net462/SkiaSharp.NativeAssets.macOS.targets": {
+        "Bytes": 947,
+        "Sha256": "9a9a568e90c5aeda470617a7c000f7d771de5df1e8895af168cf1c53cad5ccb7"
+      },
+      "build/net48/SkiaSharp.NativeAssets.macOS.targets": {
+        "Bytes": 947,
+        "Sha256": "9a9a568e90c5aeda470617a7c000f7d771de5df1e8895af168cf1c53cad5ccb7"
+      },
+      "buildTransitive/net10.0-macos26.0/SkiaSharp.NativeAssets.macOS.targets": {
+        "Bytes": 123,
+        "Sha256": "039d9d62356b678bcb8985a410ef9b7334db3a8895a65b523a97c9add4166e9e"
+      },
+      "buildTransitive/net462/SkiaSharp.NativeAssets.macOS.targets": {
+        "Bytes": 947,
+        "Sha256": "9a9a568e90c5aeda470617a7c000f7d771de5df1e8895af168cf1c53cad5ccb7"
+      },
+      "buildTransitive/net48/SkiaSharp.NativeAssets.macOS.targets": {
+        "Bytes": 947,
+        "Sha256": "9a9a568e90c5aeda470617a7c000f7d771de5df1e8895af168cf1c53cad5ccb7"
+      },
+      "buildTransitive/net9.0-macos15.0/SkiaSharp.NativeAssets.macOS.targets": {
+        "Bytes": 123,
+        "Sha256": "039d9d62356b678bcb8985a410ef9b7334db3a8895a65b523a97c9add4166e9e"
+      },
+      "icon.png": {
+        "Bytes": 50737,
+        "Sha256": "c034604bcfdfe6e0ae31bf3580cc72cb43220676989c4cebd89b17e796d30230"
+      },
+      "lib/net10.0-macos26.0/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "lib/net10.0/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "lib/net462/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "lib/net48/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "lib/net6.0/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "lib/net9.0-macos15.0/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "lib/net9.0/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "lib/netstandard2.0/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "lib/netstandard2.1/_._": {
+        "Bytes": 0,
+        "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "runtimes/osx/native/libSkiaSharp.dylib": {
+        "Bytes": 15863680,
+        "Sha256": "11a672e8df0701967aa041b449bb4db6f9af040a5e8b0ed9ea44a922ec0effaa"
+      },
+      "[Content_Types].xml": {
+        "Bytes": 783,
+        "Sha256": "de15dcde35be54546bcdac3de82b00b590961274b5fc30a6e5e14a8aa87ccc1f"
+      },
+      "package/services/metadata/core-properties/nuget.psmdcp": {
+        "Bytes": 771,
+        "Sha256": "c905ef9cb38ef812bea15468092df120bd1dd6f5752b86400a70cf2ce95e7365"
+      },
+      ".signature.p7s": {
+        "Bytes": 26004,
+        "Sha256": "bb80012b2ab4e341e26cddc1e047874e322a49d305687c92ef00d59f26df6d43"
+      }
+    },
+    "ApiVsArchiveNuspec": "Exact normalized text match; originals preserved separately; archive has BOM/line-ending difference"
+  }
+}

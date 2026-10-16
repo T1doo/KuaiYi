@@ -753,3 +753,11 @@ P6-02保持InProgress/原validation Blocked，P6-04/05保持InProgress/NotRun；
 r02专项101/101；r03 170P/2F均为新增夹具错误要求跨零相加恒等，不是旧min生产失败证据，保4份原源码及失败回执，补精确End并将不可保证加法等式改为最大残差等式，外邻值及20轮断言保留；r04 172/172。最终Provider1379/1379=父1306完整+新73，App0W/E；24组crop含大正负/混合原点/两向缩放、四边/宽高立即邻值、跨零点反例、tiny/decimal精度反例与parser/transform共同单位合同执行。11SDK log/TRX+7红源码精确-text保全，父162原回执和1745旧证据保持。独审/源码manifest及限制见[修复说明](validation/image-coordinate-boundaries.md)和[固定证据](test-evidence/2026-10-16-image-coordinate-boundaries.json)。
 
 既有Core/全部App、其他Provider/Imaging、8模板/8workflow/43锁不改；250/600ms与全部来源/密码/完整性/取消/清理门保持，普通截图仍本地预览、生产离线复用Off。P6-02仍InProgress/Blocked，P6-04/05仍InProgress/NotRun，多格式/EXIF/隔离解码/Skia/OCR/一般缩图可读性及真实WPF测量选择阅读/Windows/COM/质量/取消时限与完整P2/P4/P6/I/J未验。所有dotnet显式false；证书/旧覆盖字节Unknown不读改重造，Actions不查询调度绕拒绝、run数Unknown；无main/强推/部署/新依赖费用凭据权限协议/真实模型、Windows/CMake或新CI实验。
+
+### 2026-10-16 P6-02隔离PNG/JPEG解码依赖前置审计（实现阻塞）
+
+父fcf4271efa8e1283e3c0b803662e37f54d0a692e核clean/单worktree/唯一写入者/默认远端后建dev/image-isolated-decode，无同目标运行实例。官方NuGet4.153.1四个固定候选包及全部条目摘要已核，net10实际传递Win32/macOS，Linux.NoDependencies只拟测试；包声明源码4783f51448f9b070dda4f87b83e941c9599e466e。四包实际requireLicenseAcceptance=true，MIT及原生第三方原文保全；原生notices含DNG SDK、LGPL/eCos等，不能概括全MIT或称完整组件审查通过。源码API两次403停止，不绕拒绝；显式许可授权待答，未restore/安装/加载/执行包、未改版本/锁/生产代码/测试或安全门，哈希是候选审计而非已安装锁定。
+
+本批只交付12份官方元数据/许可/库存原件与核验记录、原一次性worker/分片/尺寸/方向/取消/真实exit合同设计；没有解码实现、样本红绿/SDK/App/Windows实际执行，父1379与App0W/E不冒充本批测试。初始API/ZIP nuspec逐字节断言因BOM/换行失败，分别保原件后核规范化文本相同，未改原件；只读路径误猜与web/403失败完整注明。独审/版本许可与资产摘要及阻塞见[依赖前置说明](validation/image-isolated-decode-dependency-audit.md)和[固定证据](test-evidence/2026-10-16-image-isolated-decode-dependency-audit.json)。
+
+P6-02保持InProgress/Blocked，P6-04/05 InProgress/NotRun。生产离线复用Off，普通截图本地未翻译未发送；250/600ms、Job/process及来源/密码/完整性/取消/清理门不改。Skia需获明确许可并解决实际源码组件审查才接入；全格式/EXIF/OCR/一般缩图可读性与真实Windows/WPF/COM及完整P2/P4/P6仍未验。无SDK/证书库配置trust删除、Actions查询调度绕拒绝、新协议接受/权限/费用/凭据/真实模型/WindowsCI/CMake实验、main/强推/部署。
