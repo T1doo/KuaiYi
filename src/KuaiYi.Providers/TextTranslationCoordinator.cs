@@ -177,6 +177,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
                 {
                     OverlayResultEvent? presentation=null;
                     if(value.Kind==ModelEventKind.TextDelta&&Results.Append(identity,value.Text!))presentation=new(OverlayResultEventKind.Delta,value.Text!);
+                    else if(value.Kind==ModelEventKind.Usage&&value.Usage is {} usage&&SendEligible()&&gate.CanApply(identity)&&Results.ObserveUsage(identity,usage.InputTokens,usage.OutputTokens))presentation=new(OverlayResultEventKind.Usage);
                     else if(value.Kind==ModelEventKind.Completed&&Results.Complete(identity)){presentation=new(OverlayResultEventKind.Complete);terminal=true;MarkFinished(identity);PruneSnapshots();}
                     else if(value.Kind==ModelEventKind.Failed&&Results.Fail(identity)){presentation=new(OverlayResultEventKind.Stopped);terminal=true;MarkFinished(identity);PruneSnapshots();}
                     if(presentation!=null)Publish(new(identity,presentation,snapshot,value.Kind==ModelEventKind.Failed?timeout.IsCancellationRequested&&!lifetime.IsCancellationRequested?"REQUEST_TIMEOUT":value.Reason:null));

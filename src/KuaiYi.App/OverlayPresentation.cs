@@ -95,7 +95,7 @@ internal sealed partial class ShellWindow
         if(SelectedSource.Image!=null){var local=new MenuItem{Header="本地图片 · 未翻译",IsCheckable=true,IsChecked=true};local.Click+=(_,_)=>ReopenResult();versionsItem.Items.Add(local);}
         foreach(var version in SelectedSource.Image!=null?Array.Empty<CachedOverlayVersion>():overlayResults.Versions)
         {
-            Guid id=version.Identity.VersionId;var item=new MenuItem{Header=$"版本 {version.Number} · {StyleLabel(translation?.SnapshotForVersion(id)?.Preset)} · {(version.Complete?"完成":version.Stopped?"已停止":"生成中")}",IsCheckable=true,IsChecked=overlayResults.SelectedVersionId==id,IsEnabled=version.Text.Length>0};
+            Guid id=version.Identity.VersionId;var item=new MenuItem{Header=VersionMenuLabel(version),IsCheckable=true,IsChecked=overlayResults.SelectedVersionId==id,IsEnabled=version.Text.Length>0};
             item.Click+=(_,_)=>{if(overlayResults.SelectVersion(id)){RefreshResultLabel();resultRevision++;ResetBodyReaderFollow();dirty=true;pendingReveal=false;peek=false;OpenBody();}};versionsItem.Items.Add(item);
         }
         versionsItem.IsEnabled=versionsItem.Items.Count>0;overflowMenu.Items.Add(new Separator());overflowMenu.Items.Add(versionsItem);

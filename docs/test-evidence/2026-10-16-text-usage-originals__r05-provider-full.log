@@ -1,0 +1,60 @@
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:03.76]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.OrderedActualQueueBeforeDeadlineCompletesNormally(connectionTest: False, protocol: OpenAIChat, mime: "text/event-stream") [FAIL]
+[xUnit.net 00:00:03.78]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.OrderedActualQueueBeforeDeadlineCompletesNormally(connectionTest: False, protocol: AnthropicMessages, mime: "application/json") [FAIL]
+[xUnit.net 00:00:03.81]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.OrderedActualQueueBeforeDeadlineCompletesNormally(connectionTest: False, protocol: AnthropicMessages, mime: "text/event-stream") [FAIL]
+[xUnit.net 00:00:03.83]     KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.OrderedActualQueueBeforeDeadlineCompletesNormally(connectionTest: False, protocol: OpenAIChat, mime: "application/json") [FAIL]
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.OrderedActualQueueBeforeDeadlineCompletesNormally(connectionTest: False, protocol: OpenAIChat, mime: "text/event-stream") [29 ms]
+  Error Message:
+   Assert.Equal() Failure: Collections differ
+                                                                                                  ↓ (pos 2)
+Expected: OverlayResultEventKind[]                                                 [Begin, Delta, Complete]
+Actual:   IEnumerableSelectIterator<TextTranslationUpdate, OverlayResultEventKind> [Begin, Delta, Usage, Complete]
+                                                                                                  ↑ (pos 2)
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.OrderedActualQueueBeforeDeadlineCompletesNormally(Boolean connectionTest, ApiProtocol protocol, String mime) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 98
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.OrderedActualQueueBeforeDeadlineCompletesNormally(Boolean connectionTest, ApiProtocol protocol, String mime) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 99
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.OrderedActualQueueBeforeDeadlineCompletesNormally(connectionTest: False, protocol: AnthropicMessages, mime: "application/json") [23 ms]
+  Error Message:
+   Assert.Equal() Failure: Collections differ
+                                                                                                  ↓ (pos 2)
+Expected: OverlayResultEventKind[]                                                 [Begin, Delta, Complete]
+Actual:   IEnumerableSelectIterator<TextTranslationUpdate, OverlayResultEventKind> [Begin, Delta, Usage, Complete]
+                                                                                                  ↑ (pos 2)
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.OrderedActualQueueBeforeDeadlineCompletesNormally(Boolean connectionTest, ApiProtocol protocol, String mime) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 98
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.OrderedActualQueueBeforeDeadlineCompletesNormally(Boolean connectionTest, ApiProtocol protocol, String mime) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 99
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.OrderedActualQueueBeforeDeadlineCompletesNormally(connectionTest: False, protocol: AnthropicMessages, mime: "text/event-stream") [25 ms]
+  Error Message:
+   Assert.Equal() Failure: Collections differ
+                                                                                                  ↓ (pos 2)
+Expected: OverlayResultEventKind[]                                                 [Begin, Delta, Complete]
+Actual:   IEnumerableSelectIterator<TextTranslationUpdate, OverlayResultEventKind> [Begin, Delta, Usage, Complete]
+                                                                                                  ↑ (pos 2)
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.OrderedActualQueueBeforeDeadlineCompletesNormally(Boolean connectionTest, ApiProtocol protocol, String mime) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 98
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.OrderedActualQueueBeforeDeadlineCompletesNormally(Boolean connectionTest, ApiProtocol protocol, String mime) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 99
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.OrderedActualQueueBeforeDeadlineCompletesNormally(connectionTest: False, protocol: OpenAIChat, mime: "application/json") [18 ms]
+  Error Message:
+   Assert.Equal() Failure: Collections differ
+                                                                                                  ↓ (pos 2)
+Expected: OverlayResultEventKind[]                                                 [Begin, Delta, Complete]
+Actual:   IEnumerableSelectIterator<TextTranslationUpdate, OverlayResultEventKind> [Begin, Delta, Usage, Complete]
+                                                                                                  ↑ (pos 2)
+  Stack Trace:
+     at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.OrderedActualQueueBeforeDeadlineCompletesNormally(Boolean connectionTest, ApiProtocol protocol, String mime) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 98
+   at KuaiYi.Provider.Tests.QueuedConsumerDeadlineTests.OrderedActualQueueBeforeDeadlineCompletesNormally(Boolean connectionTest, ApiProtocol protocol, String mime) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/QueuedConsumerDeadlineTests.cs:line 99
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/text-version-usage/r05-provider-full.trx
+
+Failed!  - Failed:     4, Passed:  1690, Skipped:     0, Total:  1694, Duration: 9 s - KuaiYi.Provider.Tests.dll (net10.0)

@@ -66,7 +66,7 @@ public sealed class QueuedConsumerDeadlineTests(PhaseHttpFixture fixture):IClass
         rig.Clock.Advance(TimeSpan.FromSeconds(kind=="total"?5:2),dispatch:false);held.Apply();
         string reason=kind=="total"?"REQUEST_TIMEOUT":ordinal==0?"FIRST_RESPONSE_TIMEOUT":"READ_IDLE_TIMEOUT";
         if(connectionTest){var late=rig.TestUpdates.Last();Assert.Equal(ModelEventKind.Failed,late.Event.Kind);Assert.Equal(reason,late.Event.Reason);Assert.DoesNotContain(rig.TestUpdates,u=>u.Event.Kind==ModelEventKind.Completed);Assert.Equal(ordinal>1?"PUBLIC_BODY":"",string.Concat(rig.TestUpdates.Where(u=>u.Event.Kind==ModelEventKind.TextDelta).Select(u=>u.Event.Text)));}
-        else{var version=Assert.Single(rig.Results.Versions);Assert.False(version.Complete);Assert.True(version.Stopped);Assert.Equal(ordinal>1?"PUBLIC_BODY":"",rig.Results.Text);Assert.Equal(reason,rig.TextUpdates.Last().Failure);Assert.DoesNotContain(rig.TextUpdates,u=>u.Presentation.Kind==OverlayResultEventKind.Complete);}
+        else{var version=Assert.Single(rig.Results.Versions);Assert.False(version.Complete);Assert.True(version.Stopped);Assert.Equal(ordinal>1?"PUBLIC_BODY":"",rig.Results.Text);Assert.Equal(reason,rig.TextUpdates.Last().Failure);Assert.DoesNotContain(rig.TextUpdates,u=>u.Presentation.Kind==OverlayResultEventKind.Complete);Assert.Equal(new TranslationUsage(ordinal>2&&!(protocol==Protocol.AnthropicMessages&&mime=="text/event-stream")?1:null,ordinal>2?2:null),version.Usage);}
         await rig.Settle();Assert.Equal(1,rig.Script.Requests);Assert.Equal(0,rig.SecretReads);
     }
     [Theory]
@@ -95,7 +95,7 @@ public sealed class QueuedConsumerDeadlineTests(PhaseHttpFixture fixture):IClass
     {
         await using var rig=new Rig(fixture,connectionTest,protocol,mime);rig.Start();await rig.Script.Write(mime=="application/json"?Json(protocol):Sse(protocol),true);await rig.Settle();
         if(connectionTest)Assert.Equal(new[]{ModelEventKind.Started,ModelEventKind.TextDelta,ModelEventKind.Usage,ModelEventKind.Completed},rig.TestUpdates.Select(u=>u.Event.Kind));
-        else{Assert.True(Assert.Single(rig.Results.Versions).Complete);Assert.Equal(new[]{OverlayResultEventKind.Begin,OverlayResultEventKind.Delta,OverlayResultEventKind.Complete},rig.TextUpdates.Select(u=>u.Presentation.Kind));}
+        else{Assert.True(Assert.Single(rig.Results.Versions).Complete);Assert.Equal(new[]{OverlayResultEventKind.Begin,OverlayResultEventKind.Delta,OverlayResultEventKind.Usage,OverlayResultEventKind.Complete},rig.TextUpdates.Select(u=>u.Presentation.Kind));Assert.Equal(new TranslationUsage(protocol==Protocol.AnthropicMessages&&mime=="text/event-stream"?null:1,2),Assert.Single(rig.Results.Versions).Usage);}
         Assert.Equal(1,rig.Script.Requests);Assert.Equal(0,rig.SecretReads);
     }
     [Theory]

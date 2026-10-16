@@ -11,6 +11,7 @@ internal sealed partial class ShellWindow
         if(exiting)return;
         switch(value.Kind)
         {
+            case OverlayResultEventKind.Usage:RefreshResultLabel();return;
             case OverlayResultEventKind.Begin:
                 if(!alreadyApplied&&!overlayResults.Begin(identity))return;BeginTextSource();ClearOriginalSource();resultRevision++;ResetBodyReaderFollow();dirty=true;peek=false;pendingReveal=false;awaitingText=true;progressRing.Visibility=Visibility.Visible;if(!gesture.Active)overlayFrames?.Collapse();StartFrames();waiting.Stop();waiting.Start();Dispatcher.BeginInvoke(()=>{if(!exiting)Refresh();});break;
             case OverlayResultEventKind.Delta:

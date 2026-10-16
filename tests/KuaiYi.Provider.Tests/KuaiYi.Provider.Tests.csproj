@@ -37,5 +37,7 @@
     <Compile Include="../../src/KuaiYi.Imaging/ScreenshotPixels.cs" Link="Production/ScreenshotPixels.cs" />
     <Compile Include="../../src/KuaiYi.Imaging/ScreenshotIntent.cs" Link="Production/ScreenshotIntent.cs" />
     <Compile Include="../../src/KuaiYi.Imaging/ImagePolicy.cs" Link="Production/ImagePolicy.cs" />
+    <Compile Include="../KuaiYi.Core.Tests/OverlayPresentationTests.cs" Link="CoreRegression/OverlayPresentationTests.cs" />
+    <Compile Include="../KuaiYi.Core.Tests/SessionVersionTests.cs" Link="CoreRegression/SessionVersionTests.cs" />
   </ItemGroup>
 </Project>

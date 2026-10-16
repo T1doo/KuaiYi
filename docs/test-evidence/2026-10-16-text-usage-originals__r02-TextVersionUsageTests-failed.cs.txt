@@ -1,0 +1,177 @@
+extern alias ImageProduction;
+using System.Collections.Concurrent;
+using System.Text.Json;
+using KuaiYi.App;
+using KuaiYi.Core;
+using KuaiYi.Core.Settings;
+using KuaiYi.Providers;
+using Xunit;
+using Protocol=KuaiYi.Providers.ApiProtocol;
+using P=ImageProduction::KuaiYi.Imaging;
+namespace KuaiYi.Provider.Tests;
+
+// Real production coordinator/receivers/HTTP/parsers/results/linked Shell partials.
+// Native OCR success and Linux UI data ports are explicitly synthetic, not WPF/Windows acceptance.
+internal sealed class TextUsageRig:IAsyncDisposable
+{
+    internal sealed class Destination:SynchronizationContext
+    {
+        private readonly ConcurrentQueue<Action> callbacks=new();public volatile bool Hold;public int Pending=>callbacks.Count;
+        public override void Post(SendOrPostCallback action,object? state){if(Hold)callbacks.Enqueue(()=>action(state));else action(state);}
+        public void Drain(){while(callbacks.TryDequeue(out var action))action();}
+    }
+    private sealed class SyntheticOcr:P.ILocalOcrWorker
+    {
+        public Task<P.ImageReply> RunAsync(ReadOnlyMemory<byte> image,P.ImageJob job,CancellationToken cancellation=default)=>Task.FromResult(new P.ImageReply(job,P.ImageFailure.None,new(8,8,job.Language,"PUBLIC SYNTHETIC OCR TEXT",[])));
+        public ValueTask<bool> TryFinalizeAsync()=>ValueTask.FromResult(true);
+        public ValueTask DisposeAsync()=>ValueTask.CompletedTask;
+    }
+    public readonly PhaseHttpFixture Server=new();public PhaseHttpFixture.Script Script=null!;
+    public readonly ShellWindow Window=new();public RuntimeGate Gate=>Window.MarkdownGate;public OverlayResults Results=>Window.MarkdownResults;
+    public readonly ProviderClient Provider=new();public TextTranslationCoordinator Flow=null!;public SettingsSnapshot Settings=null!;
+    public readonly Destination Context=new();public readonly ConcurrentQueue<TextTranslationUpdate> Events=new();public Action<TextTranslationUpdate>? OnUpdate;
+    public Protocol Protocol;public bool Stream,Current=true;public P.OcrOnlyCoordinator? Local;private P.OwnedSourceImage? image;
+    public static async Task<TextUsageRig> Create(Protocol protocol=Protocol.OpenAIChat,bool stream=false,TranslationPreset preset=TranslationPreset.Faithful)
+    {
+        var r=new TextUsageRig{Protocol=protocol,Stream=stream};await r.Server.InitializeAsync();r.Script=r.Server.Add("runs",stream?"text/event-stream":"application/json");r.Window.InitializeResultFlow();r.Window.WithGeometry();
+        var prefix=new Uri(r.Server.BaseUri,$"runs/{Guid.NewGuid():N}/fragmented/");var boundary=DevelopmentTranslationBoundary.FromPrefix(prefix);
+        r.Settings=new(new(){ActiveProfileId="text-usage",Profiles=[new(){Id="text-usage",Protocol=protocol==Protocol.OpenAIChat?KuaiYi.Core.Settings.ApiProtocol.OpenAIChat:KuaiYi.Core.Settings.ApiProtocol.AnthropicMessages,BaseUrl=prefix.AbsoluteUri,Model=DevelopmentTranslationBoundary.FixtureModel,Authentication=ApiAuthentication.None,Streaming=stream,Capabilities=new(){UsageInStream=Capability.Supported},TimeoutSeconds=20}],Translation=new(){Preset=preset}},"text-usage-synthetic",SettingsLoadState.Current);
+        r.Gate.ObserveSettingsMetadata(r.Settings);r.Gate.ConsentTo(new(prefix));Assert.True(r.Gate.TryEnable(new(prefix),true));
+        r.Flow=new(r.Gate,()=>r.Settings,(_,_)=>r.Current,r.Provider,r.Context,r.Results,u=>{r.Window.CoordinatorUpdate(u);r.OnUpdate?.Invoke(u);r.Events.Enqueue(u);},(_,_,_)=>throw new InvalidOperationException("AuthNone fixture must not read credentials."),developmentBoundary:boundary,ocrSourceCurrent:s=>r.Local?.IsApprovedSourceCurrent(s)==true);
+        r.Window.UseTranslation(r.Flow,r.Settings);return r;
+    }
+    public SelectionSourceSnapshot Source(string text="PUBLIC SYNTHETIC SOURCE",SelectionSourceKind kind=SelectionSourceKind.Uia)=>new(new(17,92823,132000,@"C:\Synthetic\fixture-editor.exe"),text,text,[new(1,2,20,22)],[7,8],Settings.Version,text.Length,false,kind,DropReceiver:kind==SelectionSourceKind.OleDrop?Guid.NewGuid():Guid.Empty,DropTransaction:kind==SelectionSourceKind.OleDrop?Guid.NewGuid():Guid.Empty);
+    public async Task<SelectionSourceSnapshot> OcrSource()
+    {
+        image=new(new P.ScreenshotPixels(new(0,0,8,8),Enumerable.Repeat((byte)255,256).ToArray()));var version=Guid.NewGuid();
+        Local=new(Gate,()=>Settings,(v,id)=>Current&&v==version&&id==image.SourceId,new Destination(),()=>new SyntheticOcr());
+        Assert.True(Local.Start(version,image,"en-US"));await Local.Running.WaitAsync(TimeSpan.FromSeconds(6));var preview=Assert.IsType<P.OcrTextPreview>(Local.Preview);Assert.Equal(0,Script.Requests);return Assert.IsType<SelectionSourceSnapshot>(Local.Approve(preview));
+    }
+    public RequestIdentity Start(SelectionSourceSnapshot? source=null,bool regenerate=false)
+    {
+        source??=Source();var offer=regenerate?Flow.PrepareRegeneration():source.SourceKind==SelectionSourceKind.OcrOnly?Flow.PrepareOcr(source,Settings.Data.Translation.Preset):Flow.Prepare(source);Assert.NotNull(offer);
+        if(offer.RequiresConfirmation){int before=Script.Requests;Assert.Equal(TextSubmission.ConfirmationRequired,Flow.Submit(offer));Assert.Equal(before,Script.Requests);}
+        Assert.Equal(TextSubmission.Started,Flow.Submit(offer,offer.RequiresConfirmation));return Results.Identity!.Value;
+    }
+    public async Task Requests(int count)=>await Wait(()=>Volatile.Read(ref Script.Requests)>=count);
+    public static async Task Wait(Func<bool> condition){using var limit=new CancellationTokenSource(TimeSpan.FromSeconds(6));while(!condition())await Task.Delay(5,limit.Token);}
+    public string Counts(long input,long output)=>Protocol==Protocol.OpenAIChat?JsonSerializer.Serialize(new{prompt_tokens=input,completion_tokens=output}):JsonSerializer.Serialize(new{input_tokens=input,output_tokens=output});
+    public string OutputOnly(long count)=>"{\""+(Protocol==Protocol.OpenAIChat?"completion_tokens":"output_tokens")+"\":"+count+"}";
+    public string UsageFrame(string usage)=>Protocol==Protocol.OpenAIChat?"data: {\"choices\":[],\"usage\":"+usage+"}\n\n":"data: {\"type\":\"message_delta\",\"usage\":"+usage+"}\n\n";
+    public string StartFrames=>Protocol==Protocol.OpenAIChat?"data: {\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\"}}]}\n\n":"data: {\"type\":\"message_start\",\"message\":{}}\n\ndata: {\"type\":\"content_block_start\",\"index\":0,\"content_block\":{\"type\":\"text\",\"text\":\"\"}}\n\n";
+    public string EndFrames(string text="PUBLIC SYNTHETIC RESULT",bool terminal=true,string finish="stop")
+    {
+        string quoted=JsonSerializer.Serialize(text);
+        return Protocol==Protocol.OpenAIChat?"data: {\"choices\":[{\"index\":0,\"delta\":{\"content\":"+quoted+"}}]}\n\ndata: {\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\""+finish+"\"}]}\n\n"+(terminal?"data: [DONE]\n\n":""):
+            "data: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":"+quoted+"}}\n\ndata: {\"type\":\"content_block_stop\",\"index\":0}\n\ndata: {\"type\":\"message_delta\",\"delta\":{\"stop_reason\":\""+(finish=="stop"?"end_turn":finish)+"\"}}\n\n"+(terminal?"data: {\"type\":\"message_stop\"}\n\n":"");
+    }
+    public async Task Reply(string? usage,string text="PUBLIC SYNTHETIC RESULT",bool terminal=true,string finish="stop")
+    {
+        string field=usage==null?"":",\"usage\":"+usage;
+        string body=Stream?StartFrames+(usage==null?"":UsageFrame(usage))+EndFrames(text,terminal,finish):Protocol==Protocol.OpenAIChat?
+            "{\"choices\":[{\"index\":0,\"message\":{\"content\":"+JsonSerializer.Serialize(text)+"},\"finish_reason\":\""+finish+"\"}]"+field+"}":
+            "{\"type\":\"message\",\"content\":[{\"type\":\"text\",\"text\":"+JsonSerializer.Serialize(text)+"}],\"stop_reason\":\""+(finish=="stop"?"end_turn":finish)+"\""+field+"}";
+        await Script.Write(body,true);await Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));
+    }
+    public CachedOverlayVersion Version(RequestIdentity identity)=>Results.Versions.Single(v=>v.Identity==identity);
+    public async ValueTask DisposeAsync(){Gate.Disable();Context.Hold=false;Context.Drain();await Flow.DisposeAsync();if(Local!=null)await Local.DisposeAsync();image?.Dispose();Provider.Dispose();await Server.DisposeAsync();}
+}
+public sealed class TextVersionUsageTests
+{
+    public static IEnumerable<object[]> SourcesStylesAndProtocols()
+    {foreach(var p in Enum.GetValues<Protocol>())foreach(bool s in new[]{false,true})foreach(var k in new[]{SelectionSourceKind.Uia,SelectionSourceKind.OleDrop,SelectionSourceKind.OcrOnly})foreach(var style in Enum.GetValues<TranslationPreset>())yield return [p,s,k,style];}
+    [Theory][MemberData(nameof(SourcesStylesAndProtocols))]
+    public async Task RealTextWireAndNormalLabelKeepActualUsageForEverySourceAndStyle(Protocol protocol,bool stream,SelectionSourceKind kind,TranslationPreset preset)
+    {
+        await using var r=await TextUsageRig.Create(protocol,stream,preset);var source=kind==SelectionSourceKind.OcrOnly?await r.OcrSource():r.Source(kind:kind);var id=r.Start(source);var before=r.Version(id);
+        Assert.Equal(TranslationUsage.Unknown,before.Usage);Assert.Contains("Unknown（未知）",r.Window.ResultLabel);await r.Requests(1);await r.Reply(r.Counts(12,7));
+        Assert.Equal(new TranslationUsage(12,7),r.Version(id).Usage);Assert.Equal(TranslationUsage.Unknown,before.Usage);Assert.True(r.Version(id).Complete);Assert.Equal(preset,r.Flow.SelectedSnapshot!.Preset);Assert.Equal(kind,r.Flow.SelectedSnapshot.Source.SourceKind);
+        Assert.Contains("输入 token：12 · 输出 token：7",r.Window.ResultLabel);Assert.Contains("服务端报告",r.Window.ResultTip);Assert.Contains("不是费用",r.Window.ResultTip);Assert.Equal("PUBLIC SYNTHETIC RESULT",r.Results.Text);Assert.Equal(id.VersionId,r.Results.SelectedVersionId);
+        using var json=JsonDocument.Parse(Assert.Single(r.Script.Bodies));var user=json.RootElement.GetProperty("messages")[protocol==Protocol.OpenAIChat?1:0].GetProperty("content");Assert.Equal(source.Text,user.ValueKind==JsonValueKind.String?user.GetString():user[0].GetProperty("text").GetString());
+        foreach(string forbidden in new[]{"image_url","base64","image/png","data:image"})Assert.DoesNotContain(forbidden,r.Script.Body,StringComparison.OrdinalIgnoreCase);
+    }
+    public static IEnumerable<object[]> UnknownReports()
+    {foreach(var p in Enum.GetValues<Protocol>())foreach(bool s in new[]{false,true})foreach(string? raw in new string?[]{null,"null","{}","[]"})yield return [p,s,raw!];}
+    [Theory][MemberData(nameof(UnknownReports))]
+    public async Task AbsentOrMalformedUsageStaysUnknownThroughCompletionAndUi(Protocol protocol,bool stream,string? raw)
+    {
+        await using var r=await TextUsageRig.Create(protocol,stream);var id=r.Start();await r.Requests(1);await r.Reply(raw);
+        Assert.True(r.Version(id).Complete);Assert.Equal(TranslationUsage.Unknown,r.Version(id).Usage);Assert.Contains("输入 token：Unknown（未知） · 输出 token：Unknown（未知）",r.Window.ResultLabel);Assert.DoesNotContain(r.Events,e=>e.Presentation.Kind==OverlayResultEventKind.Usage);
+    }
+    [Theory][InlineData(Protocol.OpenAIChat)][InlineData(Protocol.AnthropicMessages)]
+    public async Task DuplicatePartialDownwardAndZeroReportsReplaceEachFieldWithoutDrivingBodyOrReader(Protocol protocol)
+    {
+        await using var r=await TextUsageRig.Create(protocol,true);var id=r.Start();await r.Requests(1);r.Window.TickForTest();r.Window.DrainResultDispatchForTest();r.Window.ReaderScroll(109);
+        var ui=(r.Window.ResultRevision,r.Window.FlushStarts,r.Window.FrameRequests,r.Window.FrameApplications,r.Window.ScrollCalls,r.Window.Awaiting,r.Window.Waiting,r.Window.ProgressVisible,r.Window.PendingReveal,r.Window.Following);
+        await r.Script.Write(r.StartFrames+r.UsageFrame(r.Counts(11,8))+r.UsageFrame(r.Counts(11,8))+r.UsageFrame(r.Counts(5,3))+r.UsageFrame(r.OutputOnly(7))+r.UsageFrame("null")+r.UsageFrame(r.Counts(0,0)));
+        await TextUsageRig.Wait(()=>r.Events.Count(e=>e.Presentation.Kind==OverlayResultEventKind.Usage)==4);
+        Assert.Equal(new TranslationUsage(0,0),r.Version(id).Usage);Assert.Empty(r.Results.Text);Assert.False(r.Version(id).Complete);Assert.True(r.Gate.HasRunningGeneration);
+        Assert.Equal(ui,(r.Window.ResultRevision,r.Window.FlushStarts,r.Window.FrameRequests,r.Window.FrameApplications,r.Window.ScrollCalls,r.Window.Awaiting,r.Window.Waiting,r.Window.ProgressVisible,r.Window.PendingReveal,r.Window.Following));
+        Assert.Contains("输入 token：0 · 输出 token：0",r.Window.ResultLabel);Assert.DoesNotContain(r.Events,e=>e.Presentation.Kind==OverlayResultEventKind.Delta||e.Presentation.Kind==OverlayResultEventKind.Complete);
+        await r.Script.Write(r.EndFrames(),true);await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal(new TranslationUsage(0,0),r.Version(id).Usage);
+    }
+    [Theory][InlineData(Protocol.OpenAIChat)][InlineData(Protocol.AnthropicMessages)]
+    public async Task PartialInvalidFieldsPreserveKnownInputAndAcceptLongMaxOutput(Protocol protocol)
+    {
+        await using var r=await TextUsageRig.Create(protocol,true);var id=r.Start();await r.Requests(1);string input=protocol==Protocol.OpenAIChat?"prompt_tokens":"input_tokens",output=protocol==Protocol.OpenAIChat?"completion_tokens":"output_tokens";
+        await r.Script.Write(r.StartFrames+r.UsageFrame(r.Counts(4,8))+r.UsageFrame("{\""+input+"\":-1,\""+output+"\":9223372036854775807}"));await TextUsageRig.Wait(()=>r.Events.Count(e=>e.Presentation.Kind==OverlayResultEventKind.Usage)==2);
+        Assert.Equal(new TranslationUsage(4,long.MaxValue),r.Version(id).Usage);Assert.Contains("9223372036854775807",r.Window.ResultLabel);await r.Script.Write(r.EndFrames(),true);await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));
+    }
+    [Fact] public async Task AnthropicMessageStartAndLaterOutputOnlyReportPreserveIndependentInput()
+    {
+        await using var r=await TextUsageRig.Create(Protocol.AnthropicMessages,true);var id=r.Start();await r.Requests(1);
+        await r.Script.Write("data: {\"type\":\"message_start\",\"message\":{\"usage\":{\"input_tokens\":17,\"output_tokens\":0}}}\n\ndata: {\"type\":\"content_block_start\",\"index\":0,\"content_block\":{\"type\":\"text\",\"text\":\"\"}}\n\n"+r.UsageFrame(r.OutputOnly(6)));
+        await TextUsageRig.Wait(()=>r.Events.Count(e=>e.Presentation.Kind==OverlayResultEventKind.Usage)==2);Assert.Equal(new TranslationUsage(17,6),r.Version(id).Usage);await r.Script.Write(r.EndFrames(),true);await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));
+    }
+    [Theory][InlineData(Protocol.OpenAIChat)][InlineData(Protocol.AnthropicMessages)]
+    public async Task RegenerationStartsUnknownOwnsUsageAcrossStylesAndPrunesWithThreeVersions(Protocol protocol)
+    {
+        await using var r=await TextUsageRig.Create(protocol);var first=r.Start();await r.Requests(1);await r.Reply(r.Counts(11,3));var frozen=r.Version(first);var source=r.Flow.SelectedSnapshot!.Source;
+        r.Results.Collapse();Assert.Equal(TextSubmission.Reopened,r.Flow.Submit(r.Flow.Prepare(source)!));Assert.Equal(1,r.Script.Requests);Assert.Equal(first,r.Results.Identity);
+        int n=1;var ids=new List<RequestIdentity>{first};
+        foreach(var style in Enum.GetValues<TranslationPreset>())
+        {
+            Assert.True(r.Flow.SetSessionStyle(style));var id=r.Start(regenerate:true);ids.Add(id);Assert.Equal(TranslationUsage.Unknown,r.Version(id).Usage);Assert.Equal(style,r.Flow.SelectedSnapshot!.Preset);Assert.Equal(first.SessionId,id.SessionId);Assert.NotEqual(first,id);await r.Requests(++n);
+            if(n==2){Assert.True(r.Results.SelectVersion(first.VersionId));r.Window.RefreshLabelForTest();}
+            await r.Reply(r.Counts(n,n+10),"public version "+n);
+            if(n==2){Assert.Equal(first.VersionId,r.Results.SelectedVersionId);Assert.Contains("输入 token：11 · 输出 token：3",r.Window.ResultLabel);Assert.Equal(new TranslationUsage(2,12),r.Version(id).Usage);Assert.True(r.Results.SelectVersion(id.VersionId));}
+        }
+        Assert.Equal(new[]{3,4,5},r.Results.Versions.Select(v=>v.Number));Assert.Equal(3,r.Flow.RetainedSnapshotCount);Assert.Null(r.Flow.SnapshotForVersion(first.VersionId));Assert.Equal(new TranslationUsage(11,3),frozen.Usage);Assert.Equal(5,r.Script.Requests);
+        foreach(var v in r.Results.Versions)Assert.Equal(new TranslationUsage(v.Number,v.Number+10),v.Usage);
+        await r.Window.ClearContentForTest();Assert.Empty(r.Results.Versions);Assert.Empty(r.Window.ResultLabel);Assert.Equal(0,r.Flow.RetainedSnapshotCount);Assert.Null(r.Flow.SelectedSnapshot);
+    }
+    [Theory][InlineData(Protocol.OpenAIChat,false)][InlineData(Protocol.OpenAIChat,true)][InlineData(Protocol.AnthropicMessages,false)][InlineData(Protocol.AnthropicMessages,true)]
+    public async Task FailureRollbackOrCrossSourceFallbackRestoresTheSelectedVersionsOwnUsage(Protocol protocol,bool sameSource)
+    {
+        await using var r=await TextUsageRig.Create(protocol);var first=r.Start();await r.Requests(1);await r.Reply(r.Counts(11,3));var next=r.Start(source:r.Source("PUBLIC DIFFERENT SOURCE"),regenerate:sameSource);await r.Requests(2);await r.Reply(r.Counts(31,8),"partial public result",finish:protocol==Protocol.OpenAIChat?"length":"max_tokens");
+        Assert.Equal(first.VersionId,r.Results.SelectedVersionId);Assert.Equal(new TranslationUsage(11,3),r.Version(first).Usage);Assert.Contains("输入 token：11 · 输出 token：3",r.Window.ResultLabel);
+        if(sameSource){Assert.True(r.Version(next).Stopped);Assert.Equal(new TranslationUsage(31,8),r.Version(next).Usage);Assert.True(r.Results.SelectVersion(next.VersionId));r.Window.RefreshLabelForTest();Assert.Contains("输入 token：31 · 输出 token：8",r.Window.ResultLabel);}else{Assert.Equal(first,r.Results.Identity);Assert.Null(r.Flow.SnapshotForVersion(next.VersionId));Assert.Single(r.Results.Versions);}
+    }
+    public static IEnumerable<object[]> QueuedChanges()
+    {foreach(var p in Enum.GetValues<Protocol>())foreach(string action in new[]{"clear","off","lock","hide","stop","mode","settings","source","new-source"})yield return [p,action];}
+    [Theory][MemberData(nameof(QueuedChanges))]
+    public async Task QueuedActualUsageCannotOutliveIdentitySourceOrSettings(Protocol protocol,string action)
+    {
+        await using var r=await TextUsageRig.Create(protocol,true);var oldId=r.Start();var old=r.Flow.Running;await r.Requests(1);r.Context.Hold=true;await r.Script.Write(r.StartFrames+r.UsageFrame(r.Counts(99,88)));await TextUsageRig.Wait(()=>r.Context.Pending>0);
+        RequestIdentity? newer=null;
+        switch(action)
+        {
+            case "clear":Assert.True(await r.Window.ClearContentForTest());break;
+            case "off":r.Gate.Disable();break;case "lock":r.Gate.SetSessionLocked(true);break;case "hide":r.Gate.Disable(hide:true);break;case "stop":r.Window.StopForTest();break;
+            case "mode":r.Gate.SetMode(TriggerMode.Drop);break;
+            case "settings":r.Settings=r.Settings with{Version="changed-before-delivery"};break;
+            case "source":r.Current=false;break;
+            case "new-source":newer=r.Start(r.Source("PUBLIC NEW C"));break;
+        }
+        r.Context.Hold=false;r.Context.Drain();Assert.DoesNotContain(r.Events,e=>e.Presentation.Kind==OverlayResultEventKind.Usage);r.Gate.StopRequest(oldId);await old.WaitAsync(TimeSpan.FromSeconds(6));
+        if(newer is {} next){await r.Requests(2);await r.Reply(r.Counts(3,2));Assert.Equal(new TranslationUsage(3,2),r.Version(next).Usage);Assert.Equal(next,r.Results.Identity);Assert.Single(r.Events,e=>e.Presentation.Kind==OverlayResultEventKind.Usage);}else if(action=="clear"){Assert.Empty(r.Results.Versions);Assert.Empty(r.Window.ResultLabel);}else Assert.Equal(TranslationUsage.Unknown,r.Version(oldId).Usage);
+    }
+    [Theory][InlineData(Protocol.OpenAIChat,false)][InlineData(Protocol.OpenAIChat,true)][InlineData(Protocol.AnthropicMessages,false)][InlineData(Protocol.AnthropicMessages,true)]
+    public async Task AcceptedUsageNotificationCanClearOrStartCWithoutOldTaskWritingBack(Protocol protocol,bool replace)
+    {
+        await using var r=await TextUsageRig.Create(protocol,true);var first=r.Start();var old=r.Flow.Running;await r.Requests(1);RequestIdentity? next=null;
+        r.OnUpdate=u=>{if(u.Presentation.Kind!=OverlayResultEventKind.Usage)return;r.OnUpdate=null;if(replace)next=r.Start(r.Source("PUBLIC REENTRANT C"));else r.Flow.Clear();};
+        await r.Script.Write(r.StartFrames+r.UsageFrame(r.Counts(31,9)));await TextUsageRig.Wait(()=>r.Events.Any(e=>e.Presentation.Kind==OverlayResultEventKind.Usage));await old.WaitAsync(TimeSpan.FromSeconds(6));Assert.False(r.Gate.CanApply(first));
+        if(replace){await r.Requests(2);Assert.NotNull(next);Assert.Equal(TranslationUsage.Unknown,r.Version(next.Value).Usage);await r.Reply(r.Counts(4,2));Assert.Equal(next,r.Results.Identity);Assert.Equal(new TranslationUsage(4,2),r.Version(next.Value).Usage);}else{Assert.Empty(r.Results.Versions);Assert.Null(r.Flow.SelectedSnapshot);Assert.Equal(0,r.Flow.RetainedSnapshotCount);}
+    }
+}
