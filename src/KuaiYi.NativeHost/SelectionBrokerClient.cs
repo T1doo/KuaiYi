@@ -110,12 +110,12 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
                 SelectionCopyEvidence? evidence=null;
                 if(status==SelectionCaptureStatus.EmptyOrUnsupported&&meta.Copy is {} copy)
                 {
-                    if(meta.Status!="EmptyOrUnsupported"||meta.ElapsedMs>250||meta.ProcessStartUtcTicks!=gesture.Window.ProcessStartUtcTicks||copy.FocusHandle==0||copy.RuntimeId is not {Length:>0 and <=64}||copy.ControlRectangle is not {Length:4}||copy.SelectionRectangles==null)throw new InvalidDataException("Untrusted copy evidence.");
+                    if(meta.Status!="EmptyOrUnsupported"||meta.ElapsedMs>=250||meta.ProcessStartUtcTicks!=gesture.Window.ProcessStartUtcTicks||copy.FocusHandle==0||copy.RuntimeId is not {Length:>0 and <=64}||copy.ControlRectangle is not {Length:4}||copy.SelectionRectangles==null)throw new InvalidDataException("Untrusted copy evidence.");
                     var bounds=Rectangles(copy.ControlRectangle).Single();var selection=Rectangles(copy.SelectionRectangles);evidence=new(copy.FocusHandle,copy.RuntimeId.ToImmutableArray(),bounds,selection,copy.AutomaticTrusted);if(!SelectionTextPolicy.CopyTrusted(gesture,evidence)&&copy.AutomaticTrusted)throw new InvalidDataException("Copy gesture association missing.");
                 }
                 CheckDelivery(deadline.Token,started);PublishTimings(meta,deadline.Token,started);return new(status,CopyEvidence:evidence);
             }
-            if(meta.ElapsedMs>250){PublishTimings(meta,deadline.Token,started);return new(status=SelectionCaptureStatus.SoftTimeout);}
+            if(meta.ElapsedMs>=250){PublishTimings(meta,deadline.Token,started);return new(status=SelectionCaptureStatus.SoftTimeout);}
             if(meta.ProcessStartUtcTicks!=gesture.Window.ProcessStartUtcTicks||meta.RuntimeId is not {Length:>0 and <=64}||meta.RangeCount<1)throw new InvalidDataException("Selection source mismatch.");
             string text=new UTF8Encoding(false,true).GetString(second.Payload);
             if(string.IsNullOrWhiteSpace(text)||text.Length>=100002||text.EnumerateRunes().Count()>50000)throw new InvalidDataException("Selection content limit.");

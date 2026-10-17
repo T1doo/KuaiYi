@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="62ee9c65-b434-4789-baa8-806910d691d6" name="@4cd0056ca8a8 2026-10-17 08:32:58" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-17T08:32:58.8091171+00:00" queuing="2026-10-17T08:32:58.8091171+00:00" start="2026-10-17T08:32:57.1345811+00:00" finish="2026-10-17T08:32:58.8138228+00:00" />
+  <TestSettings name="default" id="92a04f7e-ec8d-437b-b021-40c8cb659026">
+    <Deployment runDeploymentRoot="_4cd0056ca8a8_2026-10-17_08_32_58" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="4bb8be04-26a8-4a79-bca2-29f78ee6379b" testId="6d83b8d1-5a64-ebd3-24a4-a44dea1eb5d8" testName="KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: True, elapsed: 250, expected: ProtocolFailure)" computerName="4cd0056ca8a8" duration="00:00:00.0987149" startTime="2026-10-17T08:32:58.3177073+00:00" endTime="2026-10-17T08:32:58.4161239+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4bb8be04-26a8-4a79-bca2-29f78ee6379b">
+      <Output>
+        <StdOut>ReportedMs=250; Copy=True; WireStatus=ProtocolFailure; Accepted=False; CopyTransactions=0; CopyInputs=0; ChildStarts=1; CleanupSettled=True</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="65c1387f-a764-4f75-b82d-ff913e04b523" testId="3f75de1f-1dc0-702c-1a01-372446f945fc" testName="KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: False, elapsed: 250, expected: SoftTimeout)" computerName="4cd0056ca8a8" duration="00:00:00.0970868" startTime="2026-10-17T08:32:58.5139406+00:00" endTime="2026-10-17T08:32:58.6114344+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="65c1387f-a764-4f75-b82d-ff913e04b523">
+      <Output>
+        <StdOut>ReportedMs=250; Copy=False; WireStatus=SoftTimeout; Accepted=False; CopyTransactions=0; CopyInputs=0; ChildStarts=1; CleanupSettled=True</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="00f3cad7-a118-411b-98cc-d987800a7f0c" testId="ccf6e377-83d1-09cc-f38f-eed2b059af15" testName="KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: False, elapsed: 250.001, expected: SoftTimeout)" computerName="4cd0056ca8a8" duration="00:00:00.1013971" startTime="2026-10-17T08:32:58.2229943+00:00" endTime="2026-10-17T08:32:58.3170518+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="00f3cad7-a118-411b-98cc-d987800a7f0c">
+      <Output>
+        <StdOut>ReportedMs=250.001; Copy=False; WireStatus=SoftTimeout; Accepted=False; CopyTransactions=0; CopyInputs=0; ChildStarts=1; CleanupSettled=True</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="5667f37d-bf17-4340-aef6-8e6a7baf0eb2" testId="ca9e323f-3e6a-d4bf-c04a-08b3df6a5617" testName="KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: True, elapsed: 249.999, expected: EmptyOrUnsupported)" computerName="4cd0056ca8a8" duration="00:00:00.1018192" startTime="2026-10-17T08:32:58.6116382+00:00" endTime="2026-10-17T08:32:58.7176415+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5667f37d-bf17-4340-aef6-8e6a7baf0eb2">
+      <Output>
+        <StdOut>ReportedMs=249.999; Copy=True; WireStatus=EmptyOrUnsupported; Accepted=True; CopyTransactions=1; CopyInputs=1; ChildStarts=1; CleanupSettled=True</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0443b40c-6d73-4a2f-80ab-1d15e230f579" testId="06ec9658-8c05-303f-2c0f-ee5d63211069" testName="KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: False, elapsed: 249.999, expected: Success)" computerName="4cd0056ca8a8" duration="00:00:00.1967111" startTime="2026-10-17T08:32:58.0075737+00:00" endTime="2026-10-17T08:32:58.2145129+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0443b40c-6d73-4a2f-80ab-1d15e230f579">
+      <Output>
+        <StdOut>ReportedMs=249.999; Copy=False; WireStatus=Success; Accepted=True; CopyTransactions=0; CopyInputs=0; ChildStarts=1; CleanupSettled=True</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a372bf10-398a-427a-8a73-7b3aca588e0a" testId="081625d3-3a9a-0515-8d1c-8ba09fe4fa31" testName="KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: True, elapsed: 250.001, expected: ProtocolFailure)" computerName="4cd0056ca8a8" duration="00:00:00.0972893" startTime="2026-10-17T08:32:58.4162541+00:00" endTime="2026-10-17T08:32:58.5138031+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a372bf10-398a-427a-8a73-7b3aca588e0a">
+      <Output>
+        <StdOut>ReportedMs=250.001; Copy=True; WireStatus=ProtocolFailure; Accepted=False; CopyTransactions=0; CopyInputs=0; ChildStarts=1; CleanupSettled=True</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: False, elapsed: 250, expected: SoftTimeout)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="3f75de1f-1dc0-702c-1a01-372446f945fc">
+      <Execution id="65c1387f-a764-4f75-b82d-ff913e04b523" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests" name="BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: True, elapsed: 250, expected: ProtocolFailure)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="6d83b8d1-5a64-ebd3-24a4-a44dea1eb5d8">
+      <Execution id="4bb8be04-26a8-4a79-bca2-29f78ee6379b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests" name="BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: True, elapsed: 249.999, expected: EmptyOrUnsupported)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="ca9e323f-3e6a-d4bf-c04a-08b3df6a5617">
+      <Execution id="5667f37d-bf17-4340-aef6-8e6a7baf0eb2" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests" name="BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: True, elapsed: 250.001, expected: ProtocolFailure)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="081625d3-3a9a-0515-8d1c-8ba09fe4fa31">
+      <Execution id="a372bf10-398a-427a-8a73-7b3aca588e0a" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests" name="BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: False, elapsed: 249.999, expected: Success)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="06ec9658-8c05-303f-2c0f-ee5d63211069">
+      <Execution id="0443b40c-6d73-4a2f-80ab-1d15e230f579" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests" name="BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: False, elapsed: 250.001, expected: SoftTimeout)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="ccf6e377-83d1-09cc-f38f-eed2b059af15">
+      <Execution id="00f3cad7-a118-411b-98cc-d987800a7f0c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests" name="BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="6d83b8d1-5a64-ebd3-24a4-a44dea1eb5d8" executionId="4bb8be04-26a8-4a79-bca2-29f78ee6379b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3f75de1f-1dc0-702c-1a01-372446f945fc" executionId="65c1387f-a764-4f75-b82d-ff913e04b523" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ccf6e377-83d1-09cc-f38f-eed2b059af15" executionId="00f3cad7-a118-411b-98cc-d987800a7f0c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ca9e323f-3e6a-d4bf-c04a-08b3df6a5617" executionId="5667f37d-bf17-4340-aef6-8e6a7baf0eb2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="06ec9658-8c05-303f-2c0f-ee5d63211069" executionId="0443b40c-6d73-4a2f-80ab-1d15e230f579" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="081625d3-3a9a-0515-8d1c-8ba09fe4fa31" executionId="a372bf10-398a-427a-8a73-7b3aca588e0a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="6" executed="6" passed="6" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.13]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.42]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.46]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:01.20]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

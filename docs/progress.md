@@ -873,3 +873,12 @@ r01新测试xUnit2031编译0执行无TRX；r02候选3F→r03同三测试源码/�
 新增最多256条会话内白名单元数据、异常固定分类、设置底部真实预览窗口与显式新本地文件导出。默认不落盘/不上传/不遥测，退出/用户清除释放；不接受正文/秘密/路径/查询串等自由文本，未知重试/指标Unknown，未运行能力NotRun。报告含OS数字版本/工作区DPI/组件版本；预览快照与publication门、取消和文件归属保全。首次App语法失败保留修正；自身取消2F→绿，caller初提前完成假设1P未证实，准确gate反例1F→绿，全部原件保留，未把新功能缺类型当父红。最终专项31P，完整Core1587P（父1556全部结果行+31）、Provider2157P原集合，App/Worker各0W/E；代码只读独审通过，真实WPF仍未验。
 
 具体原范围剩余源码/依赖见[报告](validation/local-diagnostic-report.md)、[原始证据](test-evidence/2026-10-17-local-diagnostic-report.json)：P6普通图片解码/缩放和生产视觉链、P7完整安装升级卸载、Windows真实取词/COM/DPI/DPAPI与完整质量/浸泡仍未完，非仅重述标签。P1-06仅改InProgress/验证NotRun，其他整体状态保持；图片复用Off和旧间歇根因未知。无环境重复诊断/新依赖/Skia许可或403绕行/Actions访问调度/真实模型/main/强推/部署/费用/凭据安全权限变更，未知数据锁日志进程保全。
+
+
+## 2026-10-17 · UIA父客户端250ms准入边界
+
+父有限接受4f47990后按新优先核实实际HEAD/远端、clean、单worktree及唯一观测root写入，正常建dev/selection-soft-budget-boundary。250候选先前仅源码未实证，本次复用existingCaptureControlFixture和生产Client→SelectionCaptureCoordinator，在249.999/250/250.001ms各测Success及EmptyOrUnsupported+Copy：父4P2F，恰250文本接纳/复制替代端口事务输入各1并接纳来源，真实反例确认后才修改。
+
+生产只Client两处>250→>=250，文本SoftTimeout/copy沿用ProtocolFailure，600ms及来源/密码/完整性/身份/取消/清理均不变。r02同六测试与fixture字节6P；红绿测试/fixture/Core等DLL完全相同，仅NativeHost DLL变。独立只读代码审查通过；最终Core1593P（父1587全结果+6）、Provider2157P原集合、App/Worker各0W/E。实际stdout帧/owned进程、coordinator与替代copy issue计数明确，不称真实UIA/Windows剪贴板/Ctrl+C或250/600ms实机验收。
+
+见[边界报告](validation/selection-soft-budget-boundary.md)、[红绿与回归原件](test-evidence/2026-10-17-selection-soft-budget-boundary.json)。旧测试/证据/诊断/图片/usage/版本/项目/锁/workflow/prompt保全，所有整体状态不抬；P1-06仍InProgress。P7文件事务及首次启用模型说明只读线索暂不实施。Skia许可/源码403、Actions拒绝不查不绕，图片复用Off/旧间歇根因未知与Windows/WPF/模型未验保持，无新增工具/外围探针/包/许可/权限/凭据/费用/main/强推/部署/环境诊断，未知数据锁日志进程保留。

@@ -32,6 +32,7 @@ if(args.Length==11&&args[0]=="--selection-fixture")
     var meta=new SelectionCaptureMetadata(fault=="error-text"?"EmptyOrUnsupported":"Success",1,3,fault=="soft"?251:5,fault=="runtime"?[]:[12,4],[0,0,fault=="bounds"?-1:100,20],[0,0,500,200],fault=="source"?start+1:start);
     if(fault=="broker-failure")meta=new("BrokerFailure",0,0,5,Diagnostic:new(SelectionBrokerStage.MetadataSerialize,SelectionBrokerException.Argument,unchecked((int)0x80070057)));
     if(fault.StartsWith("copy-",StringComparison.Ordinal))meta=new(fault=="copy-status"?"Unknown":"EmptyOrUnsupported",0,3,5,ProcessStartUtcTicks:start,Copy:new(fault=="copy-focus"?0:234,fault=="copy-runtime"?[]:[12,4],fault=="copy-control"?[0,0,-1,20]:[0,0,500,200],fault=="copy-association"?[1000,1000,100,20]:[0,0,100,20],true));
+    if(fault.StartsWith("soft-text:",StringComparison.Ordinal)||fault.StartsWith("copy-soft:",StringComparison.Ordinal))meta=meta with{ElapsedMs=double.Parse(fault[(fault.IndexOf(':')+1)..],System.Globalization.CultureInfo.InvariantCulture)};
     var request=fault=="identity"?Guid.NewGuid():id;
     if(timing)meta=meta with{PhaseTimings=[0,200,200,210,210,240,240,245,245,251,251,252,252,253,253,254,254,255],ProgressDiagnostic=fault=="soft"?[4,1,1,2,1,245,251]:[0,0,1,1,1,2,3]};
     await IpcFrameCodec.WriteAsync(stream,new(fault=="role"?IpcMessageType.ImageResult:IpcMessageType.Ping,request,System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(meta)));

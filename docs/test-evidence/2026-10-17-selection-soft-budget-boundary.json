@@ -1,0 +1,518 @@
+{
+  "SourceParent": "4f47990d4db8b773ba67df3ac6bc4606e38f0824",
+  "Branch": "dev/selection-soft-budget-boundary",
+  "InitialState": "Local/remote4f47990 matched; clean; one worktree; root sole observed writer and high_water_review read-only. main51d0774 unchanged. No other observed updates.",
+  "Scope": "Only parent ElapsedMs exact250 acceptance guard. Beforethis slice sourcecandidateunverified; r01 actualcounterexamples prove boundary flaw.",
+  "ProductionDiff": "SelectionBrokerClient.cs two comparisons >250 -> >=250 only. No Broker/harddeadline/identity/source/password/integrity/cancel/buffer/cleanup/restart change.",
+  "Contract": "SPEC5.3 soft250/hard600; Broker >=250 SoftTimeout and <250-only Copy. ExpiredSuccess->SoftTimeout; expired EmptyOrUnsupported+Copy keeps old>250 ProtocolFailure classification. Other non-success/noCopy behavior unchanged.",
+  "Fixture": "Existing CaptureControlFixture only two test-only elapsed metadata faultmodes; no new probe or protocol. Six cases249.999/250/250.001 x text/copy, actualowned.NETchild/stdoutIPC/productionclient/productionSelectionCaptureCoordinator. Desktop current-source and clipboard OS ports explicitly substituted.",
+  "Observed": {
+    "r01-parent-red": {
+      "Counters": {
+        "total": "6",
+        "executed": "6",
+        "passed": "4",
+        "failed": "2",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Cases": [
+        {
+          "Test": "KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: True, elapsed: 249.999, expected: EmptyOrUnsupported)",
+          "Outcome": "Passed",
+          "Observation": "ReportedMs=249.999; Copy=True; WireStatus=EmptyOrUnsupported; Accepted=True; CopyTransactions=1; CopyInputs=1; ChildStarts=1; CleanupSettled=True"
+        },
+        {
+          "Test": "KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: True, elapsed: 250.001, expected: ProtocolFailure)",
+          "Outcome": "Passed",
+          "Observation": "ReportedMs=250.001; Copy=True; WireStatus=ProtocolFailure; Accepted=False; CopyTransactions=0; CopyInputs=0; ChildStarts=1; CleanupSettled=True"
+        },
+        {
+          "Test": "KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: False, elapsed: 250.001, expected: SoftTimeout)",
+          "Outcome": "Passed",
+          "Observation": "ReportedMs=250.001; Copy=False; WireStatus=SoftTimeout; Accepted=False; CopyTransactions=0; CopyInputs=0; ChildStarts=1; CleanupSettled=True"
+        },
+        {
+          "Test": "KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: True, elapsed: 250, expected: ProtocolFailure)",
+          "Outcome": "Failed",
+          "Observation": "ReportedMs=250; Copy=True; WireStatus=EmptyOrUnsupported; Accepted=True; CopyTransactions=1; CopyInputs=1; ChildStarts=1; CleanupSettled=True"
+        },
+        {
+          "Test": "KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: False, elapsed: 250, expected: SoftTimeout)",
+          "Outcome": "Failed",
+          "Observation": "ReportedMs=250; Copy=False; WireStatus=Success; Accepted=True; CopyTransactions=0; CopyInputs=0; ChildStarts=1; CleanupSettled=True"
+        },
+        {
+          "Test": "KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: False, elapsed: 249.999, expected: Success)",
+          "Outcome": "Passed",
+          "Observation": "ReportedMs=249.999; Copy=False; WireStatus=Success; Accepted=True; CopyTransactions=0; CopyInputs=0; ChildStarts=1; CleanupSettled=True"
+        }
+      ]
+    },
+    "r02-green": {
+      "Counters": {
+        "total": "6",
+        "executed": "6",
+        "passed": "6",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Cases": [
+        {
+          "Test": "KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: True, elapsed: 250, expected: ProtocolFailure)",
+          "Outcome": "Passed",
+          "Observation": "ReportedMs=250; Copy=True; WireStatus=ProtocolFailure; Accepted=False; CopyTransactions=0; CopyInputs=0; ChildStarts=1; CleanupSettled=True"
+        },
+        {
+          "Test": "KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: False, elapsed: 250, expected: SoftTimeout)",
+          "Outcome": "Passed",
+          "Observation": "ReportedMs=250; Copy=False; WireStatus=SoftTimeout; Accepted=False; CopyTransactions=0; CopyInputs=0; ChildStarts=1; CleanupSettled=True"
+        },
+        {
+          "Test": "KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: False, elapsed: 250.001, expected: SoftTimeout)",
+          "Outcome": "Passed",
+          "Observation": "ReportedMs=250.001; Copy=False; WireStatus=SoftTimeout; Accepted=False; CopyTransactions=0; CopyInputs=0; ChildStarts=1; CleanupSettled=True"
+        },
+        {
+          "Test": "KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: True, elapsed: 249.999, expected: EmptyOrUnsupported)",
+          "Outcome": "Passed",
+          "Observation": "ReportedMs=249.999; Copy=True; WireStatus=EmptyOrUnsupported; Accepted=True; CopyTransactions=1; CopyInputs=1; ChildStarts=1; CleanupSettled=True"
+        },
+        {
+          "Test": "KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: False, elapsed: 249.999, expected: Success)",
+          "Outcome": "Passed",
+          "Observation": "ReportedMs=249.999; Copy=False; WireStatus=Success; Accepted=True; CopyTransactions=0; CopyInputs=0; ChildStarts=1; CleanupSettled=True"
+        },
+        {
+          "Test": "KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: True, elapsed: 250.001, expected: ProtocolFailure)",
+          "Outcome": "Passed",
+          "Observation": "ReportedMs=250.001; Copy=True; WireStatus=ProtocolFailure; Accepted=False; CopyTransactions=0; CopyInputs=0; ChildStarts=1; CleanupSettled=True"
+        }
+      ]
+    }
+  },
+  "Validation": {
+    "Counters": {
+      "ParentRed": {
+        "total": "6",
+        "executed": "6",
+        "passed": "4",
+        "failed": "2",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Green": {
+        "total": "6",
+        "executed": "6",
+        "passed": "6",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Core": {
+        "total": "1593",
+        "executed": "1593",
+        "passed": "1593",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Provider": {
+        "total": "2157",
+        "executed": "2157",
+        "passed": "2157",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    "Continuity": {
+      "CoreParent": 1587,
+      "CoreFinal": 1593,
+      "CoreMissing": [],
+      "CoreAdded": [
+        "KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: True, elapsed: 249.999, expected: EmptyOrUnsupported)",
+        "KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: False, elapsed: 249.999, expected: Success)",
+        "KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: False, elapsed: 250.001, expected: SoftTimeout)",
+        "KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: True, elapsed: 250.001, expected: ProtocolFailure)",
+        "KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: False, elapsed: 250, expected: SoftTimeout)",
+        "KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: True, elapsed: 250, expected: ProtocolFailure)"
+      ],
+      "ProviderParent": 2157,
+      "ProviderFinal": 2157,
+      "ProviderMultisetEqual": true
+    },
+    "RedGreen": {
+      "SameSixNames": true,
+      "SameTestAndFixtureBytes": true,
+      "OnlyChangedExecutedDlls": [
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll"
+      ],
+      "SameExecutedDlls": [
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.OleTransfer.dll",
+        "tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.Contracts.dll",
+        "tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.Core.dll",
+        "tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll",
+        "tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.Imaging.dll"
+      ],
+      "ParentProductionExact": true
+    },
+    "PreservationBeforeAttributes": {
+      "ParentPaths": 3306,
+      "Modified": [
+        "docs/progress.md",
+        "docs/traceability.json",
+        "src/KuaiYi.NativeHost/SelectionBrokerClient.cs",
+        "tools/KuaiYi.CaptureControlFixture/Program.cs"
+      ],
+      "Unchanged": 3302,
+      "AllOldTestsEvidenceProjectsLocksWorkflowsPromptsUnchanged": true,
+      "AllTraceabilityStatusesUnchanged": true
+    }
+  },
+  "ExecutionRecords": [
+    {
+      "Run": "r04-core-full",
+      "Command": [
+        "dotnet",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--logger",
+        "trx;LogFileName=r04-core-full.trx",
+        "--results-directory",
+        "artifacts/selection-soft-budget-boundary"
+      ],
+      "StartUtc": "2026-10-17T08:33:59.286021+00:00",
+      "ExitCode": 0,
+      "Source": {
+        "src/KuaiYi.NativeHost/SelectionBrokerClient.cs": "2b2330ecaedf9ed27fd5a745a662f632b73a6d3b9d201d40a38a6b90d8d4bf59",
+        "tools/KuaiYi.CaptureControlFixture/Program.cs": "ca4d94d8898b2d8392d43d13ac683d06fde7afa29042731a51f467e2f2661263",
+        "tests/KuaiYi.Core.Tests/SelectionSoftBudgetBoundaryTests.cs": "2ca06d6c5382cfdcc46064b0c396db1ceb3a36eab5e858be38635c83657fbc54"
+      },
+      "Dlls": {
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll": "e9460b5c203cfb6803104be2277ac4a239e4e566cf6a75cb5f0d1e72bec5218b",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll": "316624d499946b177a1e5c14c64487f91b4b0d102c43f72342ddf116810a1cfb",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "d2c5e569622c244568ad89ee793274548ba9c445cffa4c087c18266054df242b",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "4db472860d9915d834675b004c82d954d52dfc7e0081d9fdbbbc91c5b042a3f4",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "933b29daabaeff2ee3d335392db74d883d7857db039a033667bac9c27115f12f",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "2ce97510ea31a64f4e2e91a1e20811e98a2cc32448be72aa3f1c4520825f465d",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.OleTransfer.dll": "a351123936c7f26ff53c4add7251c8877753c5d023157415d3cd8ef9d03e894f"
+      }
+    },
+    {
+      "Run": "r05-provider-full",
+      "Command": [
+        "dotnet",
+        "test",
+        "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--logger",
+        "trx;LogFileName=r05-provider-full.trx",
+        "--results-directory",
+        "artifacts/selection-soft-budget-boundary"
+      ],
+      "StartUtc": "2026-10-17T08:34:35.073044+00:00",
+      "ExitCode": 0,
+      "Source": {
+        "src/KuaiYi.NativeHost/SelectionBrokerClient.cs": "2b2330ecaedf9ed27fd5a745a662f632b73a6d3b9d201d40a38a6b90d8d4bf59",
+        "tools/KuaiYi.CaptureControlFixture/Program.cs": "ca4d94d8898b2d8392d43d13ac683d06fde7afa29042731a51f467e2f2661263",
+        "tests/KuaiYi.Core.Tests/SelectionSoftBudgetBoundaryTests.cs": "2ca06d6c5382cfdcc46064b0c396db1ceb3a36eab5e858be38635c83657fbc54"
+      },
+      "Dlls": {
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.ImageWorker.dll": "9520e5077c3489b6d2ffee97fb0c8880a297662b1331d3987ac3295b1c6f6ae7",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll": "316624d499946b177a1e5c14c64487f91b4b0d102c43f72342ddf116810a1cfb",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "d2c5e569622c244568ad89ee793274548ba9c445cffa4c087c18266054df242b",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": "7ad868866ac2d47549ed1bc164043a5ea41d7f35bf6c3a373eeca72ac9a828eb",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "933b29daabaeff2ee3d335392db74d883d7857db039a033667bac9c27115f12f",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.MockProvider.dll": "5a034baae0c093a8e6bdad5d9392af89c4509fb9d373534a44014cb485ea4367",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": "1c6a84ce529bb8003c0f2b935b4396e487739ac08d1842df10a7b811fb422ad9"
+      }
+    },
+    {
+      "Run": "r06-app-build",
+      "Command": [
+        "dotnet",
+        "build",
+        "src/KuaiYi.App/KuaiYi.App.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-p:EnableWindowsTargeting=true"
+      ],
+      "StartUtc": "2026-10-17T08:34:51.442206+00:00",
+      "ExitCode": 0,
+      "Source": {
+        "src/KuaiYi.NativeHost/SelectionBrokerClient.cs": "2b2330ecaedf9ed27fd5a745a662f632b73a6d3b9d201d40a38a6b90d8d4bf59",
+        "tools/KuaiYi.CaptureControlFixture/Program.cs": "ca4d94d8898b2d8392d43d13ac683d06fde7afa29042731a51f467e2f2661263",
+        "tests/KuaiYi.Core.Tests/SelectionSoftBudgetBoundaryTests.cs": "2ca06d6c5382cfdcc46064b0c396db1ceb3a36eab5e858be38635c83657fbc54"
+      },
+      "Dlls": {
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Windows.dll": "ee681e355c0834cc75815b9a8d13645ee96c59fbef6be07e1a0e0e73ef08e13a",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.NativeHost.dll": "e9460b5c203cfb6803104be2277ac4a239e4e566cf6a75cb5f0d1e72bec5218b",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Contracts.dll": "316624d499946b177a1e5c14c64487f91b4b0d102c43f72342ddf116810a1cfb",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Core.dll": "d2c5e569622c244568ad89ee793274548ba9c445cffa4c087c18266054df242b",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Imaging.dll": "933b29daabaeff2ee3d335392db74d883d7857db039a033667bac9c27115f12f",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Providers.dll": "1c6a84ce529bb8003c0f2b935b4396e487739ac08d1842df10a7b811fb422ad9",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.OleTransfer.dll": "a351123936c7f26ff53c4add7251c8877753c5d023157415d3cd8ef9d03e894f",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.App.dll": "6f3d9fd9de7f0cd183fe09f433c2818f423d09601eb288ebd87e4094b4aaac32"
+      }
+    },
+    {
+      "Run": "r07-worker-build",
+      "Command": [
+        "dotnet",
+        "build",
+        "src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-p:EnableWindowsTargeting=true"
+      ],
+      "StartUtc": "2026-10-17T08:34:53.527204+00:00",
+      "ExitCode": 0,
+      "Source": {
+        "src/KuaiYi.NativeHost/SelectionBrokerClient.cs": "2b2330ecaedf9ed27fd5a745a662f632b73a6d3b9d201d40a38a6b90d8d4bf59",
+        "tools/KuaiYi.CaptureControlFixture/Program.cs": "ca4d94d8898b2d8392d43d13ac683d06fde7afa29042731a51f467e2f2661263",
+        "tests/KuaiYi.Core.Tests/SelectionSoftBudgetBoundaryTests.cs": "2ca06d6c5382cfdcc46064b0c396db1ceb3a36eab5e858be38635c83657fbc54"
+      },
+      "Dlls": {
+        "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll": "9520e5077c3489b6d2ffee97fb0c8880a297662b1331d3987ac3295b1c6f6ae7",
+        "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Contracts.dll": "316624d499946b177a1e5c14c64487f91b4b0d102c43f72342ddf116810a1cfb",
+        "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Core.dll": "d2c5e569622c244568ad89ee793274548ba9c445cffa4c087c18266054df242b",
+        "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Imaging.dll": "933b29daabaeff2ee3d335392db74d883d7857db039a033667bac9c27115f12f"
+      }
+    }
+  ],
+  "OriginalFiles": {
+    "docs/test-evidence/2026-10-17-selection-soft-budget-originals__final-execution-records.json": {
+      "Original": "artifacts/selection-soft-budget-boundary/final-execution-records.json",
+      "Bytes": 6950,
+      "Sha256": "4bdd43b83895d005a6ff1bc24e4e8691490a1611a57129afe86f2a5c342cfcf7"
+    },
+    "docs/test-evidence/2026-10-17-selection-soft-budget-originals__parent-manifest.json": {
+      "Original": "artifacts/selection-soft-budget-boundary/parent-manifest.json",
+      "Bytes": 491667,
+      "Sha256": "7f538a505346df463ee08bf7fcccf5e785af2342e2488b18432fb28170be5a45"
+    },
+    "docs/test-evidence/2026-10-17-selection-soft-budget-originals__preflight.json": {
+      "Original": "artifacts/selection-soft-budget-boundary/preflight.json",
+      "Bytes": 699,
+      "Sha256": "eff0b49e0da180c958c9120040f7d4a29ad525d1931879cb9d840d1642de18bd"
+    },
+    "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r01-binding.json": {
+      "Original": "artifacts/selection-soft-budget-boundary/r01-binding.json",
+      "Bytes": 2588,
+      "Sha256": "a43830f9e8024b92c98e56eb0ba01c7cddb623b68e99f99dd90ce4cab738d392"
+    },
+    "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r01-parent-red.log": {
+      "Original": "artifacts/selection-soft-budget-boundary/r01-parent-red.log",
+      "Bytes": 5216,
+      "Sha256": "09eded3ef2d9629880be67f8a7686a18f250a25027b2b71afe44f6214bc0a87f"
+    },
+    "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r01-parent-red.trx": {
+      "Original": "artifacts/selection-soft-budget-boundary/r01-parent-red.trx",
+      "Bytes": 17641,
+      "Sha256": "8a39fb63edffe288a2f700a4e10dea10e169f16fa65b6849a8871cc28f1c8cc9"
+    },
+    "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r01-src__KuaiYi.CaptureBroker__Program.cs.txt": {
+      "Original": "artifacts/selection-soft-budget-boundary/r01-src__KuaiYi.CaptureBroker__Program.cs.txt",
+      "Bytes": 14628,
+      "Sha256": "4e38741f4217824c03abf4e0af000b626dd032272b257516eadc2dac05e3a2e0"
+    },
+    "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r01-src__KuaiYi.NativeHost__SelectionBrokerClient.cs.txt": {
+      "Original": "artifacts/selection-soft-budget-boundary/r01-src__KuaiYi.NativeHost__SelectionBrokerClient.cs.txt",
+      "Bytes": 15871,
+      "Sha256": "1945a2b3a2f1ddacff684f8af57ddec217b34cfce5a30db0321593a41e935911"
+    },
+    "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r01-tests__KuaiYi.Core.Tests__SelectionSoftBudgetBoundaryTests.cs.txt": {
+      "Original": "artifacts/selection-soft-budget-boundary/r01-tests__KuaiYi.Core.Tests__SelectionSoftBudgetBoundaryTests.cs.txt",
+      "Bytes": 5760,
+      "Sha256": "2ca06d6c5382cfdcc46064b0c396db1ceb3a36eab5e858be38635c83657fbc54"
+    },
+    "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r01-tools__KuaiYi.CaptureControlFixture__Program.cs.txt": {
+      "Original": "artifacts/selection-soft-budget-boundary/r01-tools__KuaiYi.CaptureControlFixture__Program.cs.txt",
+      "Bytes": 6834,
+      "Sha256": "ca4d94d8898b2d8392d43d13ac683d06fde7afa29042731a51f467e2f2661263"
+    },
+    "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r02-binding.json": {
+      "Original": "artifacts/selection-soft-budget-boundary/r02-binding.json",
+      "Bytes": 2422,
+      "Sha256": "ffd74c2002b50c37329045cf1e792d82f39f22fbdbf1e5801e340a30027ef570"
+    },
+    "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r02-green.log": {
+      "Original": "artifacts/selection-soft-budget-boundary/r02-green.log",
+      "Bytes": 2072,
+      "Sha256": "31cb8e4866a5ba6d7df05133f0373e520c16f7a8fb98f3c691b4d14d49ae778c"
+    },
+    "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r02-green.trx": {
+      "Original": "artifacts/selection-soft-budget-boundary/r02-green.trx",
+      "Bytes": 11933,
+      "Sha256": "fa25fd310c76e7c0104d04dfb02d9249515ab0abca7b8c61d7cf83a211137712"
+    },
+    "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r02-src__KuaiYi.NativeHost__SelectionBrokerClient.cs.txt": {
+      "Original": "artifacts/selection-soft-budget-boundary/r02-src__KuaiYi.NativeHost__SelectionBrokerClient.cs.txt",
+      "Bytes": 15873,
+      "Sha256": "2b2330ecaedf9ed27fd5a745a662f632b73a6d3b9d201d40a38a6b90d8d4bf59"
+    },
+    "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r02-tests__KuaiYi.Core.Tests__SelectionSoftBudgetBoundaryTests.cs.txt": {
+      "Original": "artifacts/selection-soft-budget-boundary/r02-tests__KuaiYi.Core.Tests__SelectionSoftBudgetBoundaryTests.cs.txt",
+      "Bytes": 5760,
+      "Sha256": "2ca06d6c5382cfdcc46064b0c396db1ceb3a36eab5e858be38635c83657fbc54"
+    },
+    "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r02-tools__KuaiYi.CaptureControlFixture__Program.cs.txt": {
+      "Original": "artifacts/selection-soft-budget-boundary/r02-tools__KuaiYi.CaptureControlFixture__Program.cs.txt",
+      "Bytes": 6834,
+      "Sha256": "ca4d94d8898b2d8392d43d13ac683d06fde7afa29042731a51f467e2f2661263"
+    },
+    "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r03-observations.json": {
+      "Original": "artifacts/selection-soft-budget-boundary/r03-observations.json",
+      "Bytes": 5757,
+      "Sha256": "24848aa01278e15d63ca641bed56b517e2951f494e9e9d65240ff2d21bf4be02"
+    },
+    "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r04-core-full.log": {
+      "Original": "artifacts/selection-soft-budget-boundary/r04-core-full.log",
+      "Bytes": 2074,
+      "Sha256": "48b57df711def5cb38f86cda055f272214f1de23d830519c69d570893d58f951"
+    },
+    "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r04-core-full.trx": {
+      "Original": "artifacts/selection-soft-budget-boundary/r04-core-full.trx",
+      "Bytes": 2213586,
+      "Sha256": "e2b85b2318d8e7ae5011b45df86bdaa828d79ecc403c893c78936d1c19892764"
+    },
+    "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r05-provider-full.log": {
+      "Original": "artifacts/selection-soft-budget-boundary/r05-provider-full.log",
+      "Bytes": 1143,
+      "Sha256": "6b84d4f6ee211611d011c43e29c44d8efead16c6f6d96d01bd5e75ac81e8b6a5"
+    },
+    "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r05-provider-full.trx": {
+      "Original": "artifacts/selection-soft-budget-boundary/r05-provider-full.trx",
+      "Bytes": 3181158,
+      "Sha256": "b9b3fe1465e86737d11364522f9e983a4d8f4f5dd0e3d13ec5c5ab6c235b6d88"
+    },
+    "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r06-app-build.log": {
+      "Original": "artifacts/selection-soft-budget-boundary/r06-app-build.log",
+      "Bytes": 888,
+      "Sha256": "a7a4e23e21709ee4d4602f3449e2ecfa4d357dd175973e6fca76f5edacf83698"
+    },
+    "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r07-worker-build.log": {
+      "Original": "artifacts/selection-soft-budget-boundary/r07-worker-build.log",
+      "Bytes": 477,
+      "Sha256": "fc61fc1eb5957784097a065861e085640746e96e8508f0a047581ed0462f611b"
+    },
+    "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r08-validation.json": {
+      "Original": "artifacts/selection-soft-budget-boundary/r08-validation.json",
+      "Bytes": 4426,
+      "Sha256": "96b4695546dc14799428947fc888bdf1141b96ad27fdd3dab3085aa134ce5f88"
+    }
+  },
+  "IndependentReview": {
+    "Agent": "high_water_review",
+    "Mode": "Read-only; no SDK/network/writes",
+    "Code": "Pass/no substantive must-fix issue; checked exactcontract, two-lineproductionchange, actualchild+IPC/client/coordinator+TryCommitCapture, copy issue path and six redgreen observations. Test/fixture bytes and DLLs identical redgreen exceptNativeHost.",
+    "FinalEvidenceAudit": "Pass/no substantive remaining issue.24 raw6022257bytes ignored-original/working/index BytesSHA equal;24exact-text unset and no whitespace override,attrs appendonly.32stage exact/allindex==working,unstaged/untracked empty,cached+working check0. Independently verified4f3306 gitblobs/parentmanifest;only5intendedmodified,3301unchanged digestb2caa3ae6cce5e70f6c03912ceac806fa463097612c5439894ed181e24eb197c;SPEC/AGENTS/oldtests/evidence/projects/locks/workflows/prompts retained. TraceP3-02/04note/evidence only,allstatuses/topmetadata same,progressappendonly. Same6names4P2F->6P,12observations start1/cleanupTrue;test/fixture source+DLLsame,onlyNativeHostDLLchanges. Core1593P=parent1587+6,Provider2157sameCounter;AppWorker0W/E. Finalsource/DLL bindings equal current,greenNativeHost=fullCore=App output. Reportboundaries checked;only this summary changed afteraudit."
+  },
+  "Preservation": "Parent3306 paths; four intended existing changes before exact-raw attributes append,3302unchanged. Old source/tests/evidence/diagnostic/image/usage/versions/projects/locks/workflows/prompts/SPEC/AGENTS byte-preserved. OnlyP3-02/P3-04 evidence/note appended; ALL implementation and validation statuses unchanged.",
+  "Boundaries": [
+    "Protocol ElapsedMs metadata validation only, not WindowsUIA realtiming or realCtrl+C/clipboard",
+    "No claimactual250/600ms platform acceptance",
+    "P1-06 InProgress, WPF/Windows file semantics still unvalidated",
+    "Oldimageintermittent rootunproven, productionimage reuseOff",
+    "Installtransaction/modeldisclosure readonly next-candidates notimplemented inthis slice"
+  ],
+  "Safety": {
+    "Actions": "Previouslydenied; no query/dispatch/alternate route; runcountUnknown",
+    "Skia": "4.153.1fourlicenses pending/source403hold; noinstall/load/run/acceptance/retry/bypass",
+    "ModelsPermissions": "Existinglocal synthetic fixtures only; no realmodel/cost/credentials/securitypermissions/main/forcepush/deploy",
+    "Environment": "ExistingSDK --no-restore; DOTNET_GENERATE_ASPNET_CERTIFICATE=false before/afteractivate. No dependency/envdiagnosis/certificate operations.",
+    "Data": "Unknownlocks/data/logs/processes preserved; fixtures own child/temp only"
+  },
+  "NotRun": [
+    "RealWindows/WPF/UIA/COM/password/integritylevel/clipboard behavior",
+    "ActualWindows250/600ms performance",
+    "Realmodel/quality/wholeSPEC acceptance"
+  ],
+  "ValidationDocument": "docs/validation/selection-soft-budget-boundary.md",
+  "FinalPreservation": {
+    "ParentPaths": 3306,
+    "ExpectedModifiedExisting": 5,
+    "Unchanged": 3301,
+    "UnchangedManifestSha256": "b2caa3ae6cce5e70f6c03912ceac806fa463097612c5439894ed181e24eb197c",
+    "OriginalFiles": 24,
+    "OriginalBytes": 6022257,
+    "ThreeWayBytesEqual": true,
+    "FinalSourceDllsEqualValidated": true,
+    "NoSourceTestChangesAfterFinalTests": true,
+    "Note": "Earlier raw r08 records3302 unchanged before .gitattributes append; final state excludes5 intended changes."
+  }
+}

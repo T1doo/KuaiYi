@@ -1,0 +1,118 @@
+[
+  {
+    "Run": "r04-core-full",
+    "Command": [
+      "dotnet",
+      "test",
+      "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "--logger",
+      "trx;LogFileName=r04-core-full.trx",
+      "--results-directory",
+      "artifacts/selection-soft-budget-boundary"
+    ],
+    "StartUtc": "2026-10-17T08:33:59.286021+00:00",
+    "ExitCode": 0,
+    "Source": {
+      "src/KuaiYi.NativeHost/SelectionBrokerClient.cs": "2b2330ecaedf9ed27fd5a745a662f632b73a6d3b9d201d40a38a6b90d8d4bf59",
+      "tools/KuaiYi.CaptureControlFixture/Program.cs": "ca4d94d8898b2d8392d43d13ac683d06fde7afa29042731a51f467e2f2661263",
+      "tests/KuaiYi.Core.Tests/SelectionSoftBudgetBoundaryTests.cs": "2ca06d6c5382cfdcc46064b0c396db1ceb3a36eab5e858be38635c83657fbc54"
+    },
+    "Dlls": {
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll": "e9460b5c203cfb6803104be2277ac4a239e4e566cf6a75cb5f0d1e72bec5218b",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll": "316624d499946b177a1e5c14c64487f91b4b0d102c43f72342ddf116810a1cfb",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "d2c5e569622c244568ad89ee793274548ba9c445cffa4c087c18266054df242b",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "4db472860d9915d834675b004c82d954d52dfc7e0081d9fdbbbc91c5b042a3f4",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "933b29daabaeff2ee3d335392db74d883d7857db039a033667bac9c27115f12f",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "2ce97510ea31a64f4e2e91a1e20811e98a2cc32448be72aa3f1c4520825f465d",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.OleTransfer.dll": "a351123936c7f26ff53c4add7251c8877753c5d023157415d3cd8ef9d03e894f"
+    }
+  },
+  {
+    "Run": "r05-provider-full",
+    "Command": [
+      "dotnet",
+      "test",
+      "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "--logger",
+      "trx;LogFileName=r05-provider-full.trx",
+      "--results-directory",
+      "artifacts/selection-soft-budget-boundary"
+    ],
+    "StartUtc": "2026-10-17T08:34:35.073044+00:00",
+    "ExitCode": 0,
+    "Source": {
+      "src/KuaiYi.NativeHost/SelectionBrokerClient.cs": "2b2330ecaedf9ed27fd5a745a662f632b73a6d3b9d201d40a38a6b90d8d4bf59",
+      "tools/KuaiYi.CaptureControlFixture/Program.cs": "ca4d94d8898b2d8392d43d13ac683d06fde7afa29042731a51f467e2f2661263",
+      "tests/KuaiYi.Core.Tests/SelectionSoftBudgetBoundaryTests.cs": "2ca06d6c5382cfdcc46064b0c396db1ceb3a36eab5e858be38635c83657fbc54"
+    },
+    "Dlls": {
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.ImageWorker.dll": "9520e5077c3489b6d2ffee97fb0c8880a297662b1331d3987ac3295b1c6f6ae7",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll": "316624d499946b177a1e5c14c64487f91b4b0d102c43f72342ddf116810a1cfb",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "d2c5e569622c244568ad89ee793274548ba9c445cffa4c087c18266054df242b",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": "7ad868866ac2d47549ed1bc164043a5ea41d7f35bf6c3a373eeca72ac9a828eb",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "933b29daabaeff2ee3d335392db74d883d7857db039a033667bac9c27115f12f",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.MockProvider.dll": "5a034baae0c093a8e6bdad5d9392af89c4509fb9d373534a44014cb485ea4367",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": "1c6a84ce529bb8003c0f2b935b4396e487739ac08d1842df10a7b811fb422ad9"
+    }
+  },
+  {
+    "Run": "r06-app-build",
+    "Command": [
+      "dotnet",
+      "build",
+      "src/KuaiYi.App/KuaiYi.App.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:EnableWindowsTargeting=true"
+    ],
+    "StartUtc": "2026-10-17T08:34:51.442206+00:00",
+    "ExitCode": 0,
+    "Source": {
+      "src/KuaiYi.NativeHost/SelectionBrokerClient.cs": "2b2330ecaedf9ed27fd5a745a662f632b73a6d3b9d201d40a38a6b90d8d4bf59",
+      "tools/KuaiYi.CaptureControlFixture/Program.cs": "ca4d94d8898b2d8392d43d13ac683d06fde7afa29042731a51f467e2f2661263",
+      "tests/KuaiYi.Core.Tests/SelectionSoftBudgetBoundaryTests.cs": "2ca06d6c5382cfdcc46064b0c396db1ceb3a36eab5e858be38635c83657fbc54"
+    },
+    "Dlls": {
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Windows.dll": "ee681e355c0834cc75815b9a8d13645ee96c59fbef6be07e1a0e0e73ef08e13a",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.NativeHost.dll": "e9460b5c203cfb6803104be2277ac4a239e4e566cf6a75cb5f0d1e72bec5218b",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Contracts.dll": "316624d499946b177a1e5c14c64487f91b4b0d102c43f72342ddf116810a1cfb",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Core.dll": "d2c5e569622c244568ad89ee793274548ba9c445cffa4c087c18266054df242b",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Imaging.dll": "933b29daabaeff2ee3d335392db74d883d7857db039a033667bac9c27115f12f",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Providers.dll": "1c6a84ce529bb8003c0f2b935b4396e487739ac08d1842df10a7b811fb422ad9",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.OleTransfer.dll": "a351123936c7f26ff53c4add7251c8877753c5d023157415d3cd8ef9d03e894f",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.App.dll": "6f3d9fd9de7f0cd183fe09f433c2818f423d09601eb288ebd87e4094b4aaac32"
+    }
+  },
+  {
+    "Run": "r07-worker-build",
+    "Command": [
+      "dotnet",
+      "build",
+      "src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:EnableWindowsTargeting=true"
+    ],
+    "StartUtc": "2026-10-17T08:34:53.527204+00:00",
+    "ExitCode": 0,
+    "Source": {
+      "src/KuaiYi.NativeHost/SelectionBrokerClient.cs": "2b2330ecaedf9ed27fd5a745a662f632b73a6d3b9d201d40a38a6b90d8d4bf59",
+      "tools/KuaiYi.CaptureControlFixture/Program.cs": "ca4d94d8898b2d8392d43d13ac683d06fde7afa29042731a51f467e2f2661263",
+      "tests/KuaiYi.Core.Tests/SelectionSoftBudgetBoundaryTests.cs": "2ca06d6c5382cfdcc46064b0c396db1ceb3a36eab5e858be38635c83657fbc54"
+    },
+    "Dlls": {
+      "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll": "9520e5077c3489b6d2ffee97fb0c8880a297662b1331d3987ac3295b1c6f6ae7",
+      "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Contracts.dll": "316624d499946b177a1e5c14c64487f91b4b0d102c43f72342ddf116810a1cfb",
+      "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Core.dll": "d2c5e569622c244568ad89ee793274548ba9c445cffa4c087c18266054df242b",
+      "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Imaging.dll": "933b29daabaeff2ee3d335392db74d883d7857db039a033667bac9c27115f12f"
+    }
+  }
+]

@@ -1,0 +1,124 @@
+{
+  "Counters": {
+    "ParentRed": {
+      "total": "6",
+      "executed": "6",
+      "passed": "4",
+      "failed": "2",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "Green": {
+      "total": "6",
+      "executed": "6",
+      "passed": "6",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "Core": {
+      "total": "1593",
+      "executed": "1593",
+      "passed": "1593",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "Provider": {
+      "total": "2157",
+      "executed": "2157",
+      "passed": "2157",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    }
+  },
+  "Continuity": {
+    "CoreParent": 1587,
+    "CoreFinal": 1593,
+    "CoreMissing": [],
+    "CoreAdded": [
+      "KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: True, elapsed: 249.999, expected: EmptyOrUnsupported)",
+      "KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: False, elapsed: 249.999, expected: Success)",
+      "KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: False, elapsed: 250.001, expected: SoftTimeout)",
+      "KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: True, elapsed: 250.001, expected: ProtocolFailure)",
+      "KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: False, elapsed: 250, expected: SoftTimeout)",
+      "KuaiYi.Core.Tests.SelectionSoftBudgetBoundaryTests.BoundaryMetadataCannotDeliverExpiredTextOrAuthorizeCompatibilityCopy(copy: True, elapsed: 250, expected: ProtocolFailure)"
+    ],
+    "ProviderParent": 2157,
+    "ProviderFinal": 2157,
+    "ProviderMultisetEqual": true
+  },
+  "RedGreen": {
+    "SameSixNames": true,
+    "SameTestAndFixtureBytes": true,
+    "OnlyChangedExecutedDlls": [
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll"
+    ],
+    "SameExecutedDlls": [
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.OleTransfer.dll",
+      "tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.Contracts.dll",
+      "tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.Core.dll",
+      "tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll",
+      "tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.Imaging.dll"
+    ],
+    "ParentProductionExact": true
+  },
+  "PreservationBeforeAttributes": {
+    "ParentPaths": 3306,
+    "Modified": [
+      "docs/progress.md",
+      "docs/traceability.json",
+      "src/KuaiYi.NativeHost/SelectionBrokerClient.cs",
+      "tools/KuaiYi.CaptureControlFixture/Program.cs"
+    ],
+    "Unchanged": 3302,
+    "AllOldTestsEvidenceProjectsLocksWorkflowsPromptsUnchanged": true,
+    "AllTraceabilityStatusesUnchanged": true
+  }
+}
