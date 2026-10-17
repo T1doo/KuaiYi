@@ -26,8 +26,11 @@ internal sealed partial class ShellWindow
                 using var encryptedLease=await coordinator.OpenRequestSecretAsync(lifecycle.Gate,identity,snapshot.Binding,new(snapshot.Transport.ResolveEndpoint()),cancellation).ConfigureAwait(false);
                 return new KuaiYi.Providers.SecretLease(encryptedLease.Bytes.Span);
             },developmentBoundary:developmentBoundary,ocrSourceCurrent:source=>ocrOnly?.IsApprovedSourceCurrent(source)==true);
+        // Growth harness and explicit development mode never install production image sending.
+        if(developmentBoundary==null)imageTranslation=new(lifecycle.Gate,()=>lifecycle.Settings,ScreenshotSourceCurrent,translationProvider,new DispatcherSynchronizationContext(Dispatcher),overlayResults,ScreenshotTranslationChanged,
+            async(identity,snapshot,cancellation)=>{using var lease=await coordinator.OpenRequestSecretAsync(lifecycle.Gate,identity,snapshot.Binding,new(snapshot.Transport.ResolveEndpoint()),cancellation).ConfigureAwait(false);return new KuaiYi.Providers.SecretLease(lease.Bytes.Span);});
         ocrOnly=new(lifecycle.Gate,()=>lifecycle.Settings,
-            (version,source)=>!exiting&&imageSelected&&retainedImage is {} image&&image.VersionId==version&&image.Image.SourceId==source&&!image.Image.IsDisposed,
+            (version,source)=>!exiting&&retainedImage is {} image&&image.VersionId==version&&image.Image.SourceId==source&&!image.Image.IsDisposed,
             new DispatcherSynchronizationContext(Dispatcher),()=>new KuaiYi.Imaging.ImageWorkerClient(System.IO.Path.Combine(AppContext.BaseDirectory,"KuaiYi.ImageWorker.exe")));
     }
     private void QueueTranslation(SelectionSourceSnapshot source)
@@ -61,7 +64,7 @@ internal sealed partial class ShellWindow
     private void RegenerateResult(bool currentSettings=false)
     {
         if(lifecycle.Gate.Snapshot.Activation!=Activation.On){button.ToolTip="启用后可重新生成";return;}
-        if(SelectedSource.Image!=null){button.ToolTip="本地图片尚未接入翻译；没有发送。";return;}
+        if(SelectedSource.Image!=null||SelectedSource.Generation!=null){button.ToolTip="当前图片复用与重新生成尚未启用，请重新截图。";return;}
         var offer=translation?.PrepareRegeneration(currentSettings);
         if(offer==null){button.ToolTip="无法重新生成 · "+(translation?.LastRejection??"无保留原文");return;}
         SubmitTranslation(offer);
@@ -83,9 +86,14 @@ internal sealed partial class ShellWindow
     }
     private async Task StopTranslation()
     {
-        if(ocrOnly!=null){await ocrOnly.DisposeAsync();ocrOnly=null;}
-        var owned=translation;translation=null;if(apiTests!=null){await apiTests.DisposeAsync();apiTests=null;}
-        try{if(owned!=null)await owned.DisposeAsync();}
-        finally{owned?.Clear();translationProvider?.Dispose();translationProvider=null;}
+        List<Exception> errors=[];
+        async Task Settle(Func<Task> step){try{await step();}catch(Exception error){errors.Add(error);}}
+        var image=imageTranslation;imageTranslation=null;var ocr=ocrOnly;ocrOnly=null;var text=translation;translation=null;var tests=apiTests;apiTests=null;
+        if(image!=null)await Settle(()=>image.DisposeAsync().AsTask());
+        if(ocr!=null)await Settle(()=>ocr.DisposeAsync().AsTask());
+        if(tests!=null)await Settle(()=>tests.DisposeAsync().AsTask());
+        if(text!=null)await Settle(()=>text.DisposeAsync().AsTask());
+        ScreenshotPreviewCleanup.Attempt(errors,()=>text?.Clear());ScreenshotPreviewCleanup.Attempt(errors,()=>translationProvider?.Dispose());translationProvider=null;
+        if(errors.Count>0)throw new AggregateException("Translation cleanup incomplete.",errors);
     }
 }

@@ -1,0 +1,89 @@
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.11]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.51]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.55]   Starting:    KuaiYi.Provider.Tests
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.UnavailableVisionConfigurationCannotPrepareOrDecrypt(action: "unknown") [150 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotShellTests.ActualShellDecisionCanBeRejectedOrInvalidatedWithoutSending(action: "clear") [151 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.UnavailableVisionConfigurationCannotPrepareOrDecrypt(action: "recovery") [9 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotShellTests.ActualShellDecisionCanBeRejectedOrInvalidatedWithoutSending(action: "off") [13 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotShellTests.ActualShellDecisionCanBeRejectedOrInvalidatedWithoutSending(action: "decline") [6 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.UnavailableVisionConfigurationCannotPrepareOrDecrypt(action: "no-vision") [16 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.UnavailableVisionConfigurationCannotPrepareOrDecrypt(action: "read-only") [4 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.UnavailableVisionConfigurationCannotPrepareOrDecrypt(action: "unsupported") [6 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.UnavailableVisionConfigurationCannotPrepareOrDecrypt(action: "missing-key") [4 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.PendingConfirmationRequiresExactSourceSettingsEpochAndExplicitDecision(action: "hidden") [5 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.PendingConfirmationRequiresExactSourceSettingsEpochAndExplicitDecision(action: "decline") [10 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.PendingConfirmationRequiresExactSourceSettingsEpochAndExplicitDecision(action: "mode") [4 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.PendingConfirmationRequiresExactSourceSettingsEpochAndExplicitDecision(action: "settings") [4 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.PendingConfirmationRequiresExactSourceSettingsEpochAndExplicitDecision(action: "off") [3 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.PendingConfirmationRequiresExactSourceSettingsEpochAndExplicitDecision(action: "superseded") [4 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.PendingConfirmationRequiresExactSourceSettingsEpochAndExplicitDecision(action: "source") [13 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.PendingConfirmationRequiresExactSourceSettingsEpochAndExplicitDecision(action: "lock") [12 ms]
+[xUnit.net 00:00:01.00]     KuaiYi.Provider.Tests.ProductionScreenshotShellTests.ActualShellStopKeepsPartialImageResultAndOriginalAndRejectsLateBody [FAIL]
+[xUnit.net 00:00:01.00]       Assert.True() Failure
+[xUnit.net 00:00:01.00]       Expected: True
+[xUnit.net 00:00:01.00]       Actual:   False
+[xUnit.net 00:00:01.00]       Stack Trace:
+[xUnit.net 00:00:01.00]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ProductionScreenshotShellTests.cs(46,0): at KuaiYi.Provider.Tests.ProductionScreenshotShellTests.ActualShellStopKeepsPartialImageResultAndOriginalAndRejectsLateBody()
+[xUnit.net 00:00:01.00]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ProductionScreenshotShellTests.cs(47,0): at KuaiYi.Provider.Tests.ProductionScreenshotShellTests.ActualShellStopKeepsPartialImageResultAndOriginalAndRejectsLateBody()
+[xUnit.net 00:00:01.00]         --- End of stack trace from previous location ---
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.ReentrantStopAtEachStageOrLeasePreventsTheNextSend(action: "generating") [133 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.ReentrantStopAtEachStageOrLeasePreventsTheNextSend(action: "prepared") [6 ms]
+  Failed KuaiYi.Provider.Tests.ProductionScreenshotShellTests.ActualShellStopKeepsPartialImageResultAndOriginalAndRejectsLateBody [218 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.ProductionScreenshotShellTests.ActualShellStopKeepsPartialImageResultAndOriginalAndRejectsLateBody() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ProductionScreenshotShellTests.cs:line 46
+   at KuaiYi.Provider.Tests.ProductionScreenshotShellTests.ActualShellStopKeepsPartialImageResultAndOriginalAndRejectsLateBody() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ProductionScreenshotShellTests.cs:line 47
+--- End of stack trace from previous location ---
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.ReentrantStopAtEachStageOrLeasePreventsTheNextSend(action: "lease2") [21 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.ReentrantStopAtEachStageOrLeasePreventsTheNextSend(action: "classifying") [4 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.ReentrantStopAtEachStageOrLeasePreventsTheNextSend(action: "lease1") [4 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotShellTests.ActualShellCommandShowsTwoCallDecisionAndRendersImageAlongsideGeneratedMarkdownUsageAndUncertainty [53 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotShellTests.ActualShellClearJoinsItsImageTaskAndReleasesCropAndMetadata [14 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.DisplaySaveAndNonCapturingSuspensionDoNotReplaceTheFrozenRequest(action: "display") [110 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.DisplaySaveAndNonCapturingSuspensionDoNotReplaceTheFrozenRequest(action: "open-settings") [18 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.DisplaySaveAndNonCapturingSuspensionDoNotReplaceTheFrozenRequest(action: "moving") [19 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.ClearFencesAReplacementAdmissionInsideTheOriginalCancellationCallback [11 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.RevocationBetweenStagesBlocksSecondSendAndSecretRead(action: "style") [15 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.RevocationBetweenStagesBlocksSecondSendAndSecretRead(action: "off") [11 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.RevocationBetweenStagesBlocksSecondSendAndSecretRead(action: "vision-selection") [12 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.RevocationBetweenStagesBlocksSecondSendAndSecretRead(action: "profile") [11 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.RevocationBetweenStagesBlocksSecondSendAndSecretRead(action: "source") [10 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.RevocationBetweenStagesBlocksSecondSendAndSecretRead(action: "lock") [11 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.RevocationBetweenStagesBlocksSecondSendAndSecretRead(action: "clear") [16 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.InvalidIncompleteOrUnreadableClassificationCannotTriggerGeneration(value: "valid", finish: "length") [12 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.InvalidIncompleteOrUnreadableClassificationCannotTriggerGeneration(value: "{\"kind\":", finish: "stop") [12 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.InvalidIncompleteOrUnreadableClassificationCannotTriggerGeneration(value: "{}", finish: "stop") [10 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.InvalidIncompleteOrUnreadableClassificationCannotTriggerGeneration(value: "unreadable", finish: "stop") [11 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.CurrentImageModeIsFrozenWithoutChangingGlobalStyleOrEnablingReuse(mode: Automatic, kind: "text_only", preset: Professional) [24 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.CurrentImageModeIsFrozenWithoutChangingGlobalStyleOrEnablingReuse(mode: Automatic, kind: "uncertain", preset: Explain) [21 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.CurrentImageModeIsFrozenWithoutChangingGlobalStyleOrEnablingReuse(mode: Automatic, kind: "diagram_or_mixed", preset: Explain) [17 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.CurrentImageModeIsFrozenWithoutChangingGlobalStyleOrEnablingReuse(mode: TranslateText, kind: "diagram_or_mixed", preset: Professional) [20 ms]
+[xUnit.net 00:00:01.54]   Finished:    KuaiYi.Provider.Tests
+Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.CurrentImageModeIsFrozenWithoutChangingGlobalStyleOrEnablingReuse(mode: ExplainImage, kind: "text_only", preset: Explain) [19 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.NormalProductionVisionProfileUsesTheSameCropInBothStagesWithSeparateLeasesAndUsage(protocol: AnthropicMessages, stream: False, auth: False) [30 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.NormalProductionVisionProfileUsesTheSameCropInBothStagesWithSeparateLeasesAndUsage(protocol: AnthropicMessages, stream: True, auth: True) [21 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.NormalProductionVisionProfileUsesTheSameCropInBothStagesWithSeparateLeasesAndUsage(protocol: OpenAIChat, stream: True, auth: True) [19 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.NormalProductionVisionProfileUsesTheSameCropInBothStagesWithSeparateLeasesAndUsage(protocol: OpenAIChat, stream: False, auth: False) [19 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.QueuedPreparedNotificationAfterClearCannotRestoreMetadataOrSend [12 ms]
+  Passed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.OversizeNonconstantScreenshotFailsBeforeSecretOrHttpWithoutDisposingBorrowedCrop [8 ms]
+
+Test Run Failed.
+Total tests: 51
+     Passed: 50
+     Failed: 1
+ Total time: 2.1080 Seconds
+Results File: /workspace/KuaiYi/artifacts/production-screenshot-translation/r08-focused.trx

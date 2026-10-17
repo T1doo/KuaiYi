@@ -6,7 +6,8 @@ internal sealed partial class ShellWindow
         if(exiting)return false; // Exit already owns cancellation and release; never reopen its UI.
         List<Exception> errors=[];
         ScreenshotPreviewCleanup.Attempt(errors,lifecycle.Gate.StopGeneration); // Fence even if a cancellation callback throws.
-        resultRevision++;Task translationCleanup=Task.CompletedTask;
+        resultRevision++;Task translationCleanup=Task.CompletedTask,imageCleanup=Task.CompletedTask;
+        ScreenshotPreviewCleanup.Attempt(errors,()=>imageCleanup=imageTranslation?.ClearAsync()??Task.CompletedTask);
         ScreenshotPreviewCleanup.Attempt(errors,()=>translationCleanup=translation?.ClearAsync()??Task.CompletedTask);
         ScreenshotPreviewCleanup.Attempt(errors,ClearSelectionSource);ScreenshotPreviewCleanup.Attempt(errors,()=>RevokeTextDrop(clearSource:true));
         externalDropHover=restoreDropBody=restoreDropPeek=false;ScreenshotPreviewCleanup.Attempt(errors,()=>dropHint.Visibility=System.Windows.Visibility.Collapsed);
@@ -20,7 +21,7 @@ internal sealed partial class ShellWindow
         Task screenshotCleanup=Task.CompletedTask,dropCleanup=Task.CompletedTask;
         ScreenshotPreviewCleanup.Attempt(errors,()=>screenshotCleanup=StopHotkeyScreenshot());ScreenshotPreviewCleanup.Attempt(errors,()=>dropCleanup=SettleClearedTextDrop());
         Task ocrCleanup=Task.CompletedTask;ScreenshotPreviewCleanup.Attempt(errors,()=>CollectOcrCleanup(ref ocrCleanup));
-        var cleanup=Task.WhenAll(translationCleanup,screenshotCleanup,dropCleanup,ocrCleanup);
+        var cleanup=Task.WhenAll(translationCleanup,imageCleanup,screenshotCleanup,dropCleanup,ocrCleanup);
         try{await cleanup;}catch(Exception error){errors.Add(cleanup.Exception??error);}
         bool current=!exiting&&revision==resultRevision&&CanReadOriginalSource()&&!lifecycle.Gate.HasRunningGeneration&&
             !lifecycle.Gate.Snapshot.Suspension.HasFlag(KuaiYi.Core.Suspension.Capture);

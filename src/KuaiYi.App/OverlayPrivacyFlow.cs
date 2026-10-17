@@ -3,7 +3,7 @@ internal sealed partial class ShellWindow
 {
     private void ClearPrivatePresentation(List<Exception> errors,Action? closeSettings=null,bool hide=true)
     {
-        ScreenshotPreviewCleanup.Attempt(errors,()=>translation?.Clear());ScreenshotPreviewCleanup.Attempt(errors,ClearSelectionSource);
+        ScreenshotPreviewCleanup.Attempt(errors,()=>imageTranslation?.Clear());ScreenshotPreviewCleanup.Attempt(errors,()=>translation?.Clear());ScreenshotPreviewCleanup.Attempt(errors,ClearSelectionSource);
         if(closeSettings!=null)ScreenshotPreviewCleanup.Attempt(errors,closeSettings);
         ScreenshotPreviewCleanup.Attempt(errors,()=>HidePresentation(clear:true));ScreenshotPreviewCleanup.Attempt(errors,ReleaseRetainedImage);
         if(hide)ScreenshotPreviewCleanup.Attempt(errors,Hide);

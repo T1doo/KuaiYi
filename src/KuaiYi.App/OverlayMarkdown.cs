@@ -28,7 +28,7 @@ internal sealed partial class ShellWindow
             bodyMarkdown.SetSource(selection.VersionId,source);
             measurementMarkdown.SetSource(selection.VersionId,source,bodyMarkdown.SourceExpanded);
         }
-        markdown.Update(selection.VersionId,selection.Image!=null?"":overlayResults.Text,selection.Image!=null||selected?.Complete==true||selected?.Stopped==true);
+        markdown.Update(selection.VersionId,LocalImagePreview?"":overlayResults.Text,LocalImagePreview||selected?.Complete==true||selected?.Stopped==true);
         double size=lifecycle.Settings?.Data.Overlay.FontSizeDip??15;
         measurementMarkdown.Apply(markdown.Blocks,size,markdownViewport,selection.VersionId);
         bodyMarkdown.SetViewport(markdownViewport);

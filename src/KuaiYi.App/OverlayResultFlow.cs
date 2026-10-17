@@ -6,7 +6,7 @@ internal sealed partial class ShellWindow
     internal Task<bool> ReceivePresentationAsync(RequestIdentity identity,OverlayResultEvent update,CancellationToken cancellation=default)
         =>presentationReceiver.ReceiveAsync(identity,update,value=>ApplyResult(identity,value),cancellation);
     private LayoutPreferences Preferences()=>new(lifecycle.Settings?.Data.Overlay.PreferredWidthDip??420,640);
-    private void ApplyResult(RequestIdentity identity,OverlayResultEvent value,bool alreadyApplied=false)
+    private void ApplyResult(RequestIdentity identity,OverlayResultEvent value,bool alreadyApplied=false,bool imageGeneration=false)
     {
         if(exiting)return;
         switch(value.Kind)
@@ -14,12 +14,12 @@ internal sealed partial class ShellWindow
             case OverlayResultEventKind.Usage:RefreshResultLabel();return;
             case OverlayResultEventKind.Begin:
                 pendingFailureReveal=null;
-                if(!alreadyApplied&&!overlayResults.Begin(identity))return;BeginTextSource();ClearOriginalSource();resultRevision++;ResetBodyReaderFollow();dirty=true;peek=false;pendingReveal=false;awaitingText=true;progressRing.Visibility=Visibility.Visible;if(!gesture.Active)overlayFrames?.Collapse();StartFrames();waiting.Stop();waiting.Start();Dispatcher.BeginInvoke(()=>{if(!exiting)Refresh();});break;
+                if(!alreadyApplied&&!overlayResults.Begin(identity))return;if(!imageGeneration)BeginTextSource();ClearOriginalSource();resultRevision++;ResetBodyReaderFollow();dirty=true;peek=false;pendingReveal=false;awaitingText=true;progressRing.Visibility=Visibility.Visible;if(!gesture.Active)overlayFrames?.Collapse();StartFrames();waiting.Stop();waiting.Start();Dispatcher.BeginInvoke(()=>{if(!exiting)Refresh();});break;
             case OverlayResultEventKind.Delta:
                 if(!alreadyApplied&&!overlayResults.Append(identity,value.Text))return;dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();
                 if(overlayResults.TryAutoReveal(identity)&&(peek||overlayFrames?.IsExpanded!=true))pendingReveal=true;break;
             case OverlayResultEventKind.Complete:
-                if(!alreadyApplied&&!overlayResults.Complete(identity))return;ReleaseRetainedImage();dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();break;
+                if(!alreadyApplied&&!overlayResults.Complete(identity))return;if(!imageGeneration)ReleaseRetainedImage();dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();break;
             case OverlayResultEventKind.Stopped:if(!alreadyApplied)overlayResults.MarkStopped();OfferFailureReveal(identity);dirty=true;awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();break;
             default:throw new ArgumentOutOfRangeException(nameof(value));
         }
@@ -52,20 +52,21 @@ internal sealed partial class ShellWindow
         if(exiting||!lifecycle.Gate.HasRunningGeneration)return;
         // Cancellation rejects every late receiver event, so the local command must commit
         // the terminal presentation through the existing coalesced flush, not await Stopped.
-        lifecycle.Gate.StopGeneration();overlayResults.MarkStopped();pendingReveal=false;
-        if(overlayResults.HasText)ReleaseRetainedImage();else RestoreImageAfterTextFailure(overlayResults.Identity);
+        bool imageGeneration=SelectedSource.Generation!=null;if(imageGeneration)imageTranslation?.Stop();lifecycle.Gate.StopGeneration();overlayResults.MarkStopped();pendingReveal=false;
+        if(!imageGeneration){if(overlayResults.HasText)ReleaseRetainedImage();else RestoreImageAfterTextFailure(overlayResults.Identity);}
         awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();
         RefreshResultLabel();dirty=true;if(!flush.IsEnabled)flush.Start();
         button.ToolTip="已停止生成 · 结果保留在本次会话";
     }
     private void FlushResultTick(object? sender,EventArgs e){flush.Stop();FlushResult();}
-    private void ReopenResult(){if(!IsVisible)ShowOverlay();if(SelectedSource.Image!=null?lifecycle.Gate.TryReopen(true):overlayResults.Reopen()){peek=false;OpenBody();}}
+    private void ReopenResult(){if(!IsVisible)ShowOverlay();if(LocalImagePreview?lifecycle.Gate.TryReopen(true):overlayResults.Reopen()){peek=false;OpenBody();}}
     private void HidePresentation(bool clear)
     {
         List<Exception> errors=[];ScreenshotPreviewCleanup.Attempt(errors,()=>OcrSourceChanged(true));InvalidateBodyScrollRestore();ScreenshotPreviewCleanup.Attempt(errors,ClearOriginalSource);pendingFailureReveal=null;peek=false;
         ScreenshotPreviewCleanup.Attempt(errors,()=>overflowMenu.IsOpen=false);waiting.Stop();flush.Stop();peekIn.Stop();peekOut.Stop();StopFrames();awaitingText=false;progressRing.Visibility=Visibility.Collapsed;overlayResults.MarkStopped();
         if(clear)
         {
+            ScreenshotPreviewCleanup.Attempt(errors,()=>imageTranslation?.Clear());
             ScreenshotPreviewCleanup.Attempt(errors,ClearMarkdown);ScreenshotPreviewCleanup.Attempt(errors,ReleaseRetainedImage);overlayResults.Clear();resultRevision++;
         }
         overlayFrames?.Compact();ScreenshotPreviewCleanup.Attempt(errors,()=>ApplyOverlayFrame());

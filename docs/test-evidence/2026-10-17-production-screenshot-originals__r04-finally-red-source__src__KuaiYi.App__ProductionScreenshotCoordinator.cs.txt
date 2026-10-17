@@ -1,0 +1,269 @@
+using System.Security.Cryptography;
+using System.Text;
+using KuaiYi.Core;
+using KuaiYi.Core.Settings;
+using KuaiYi.Imaging;
+using KuaiYi.Providers;
+using SecretLease=KuaiYi.Providers.SecretLease;
+using SettingsProfile=KuaiYi.Core.Settings.ApiProfile;
+namespace KuaiYi.App;
+
+internal enum ProductionScreenshotEvent { Begin, Prepared, Classifying, Generating, Delta, Usage, Completed, Failed }
+internal sealed record ProductionScreenshotUpdate(RequestIdentity Identity,ProductionScreenshotEvent Kind,ScreenshotGenerationSnapshot Snapshot,string? Text=null,string? Reason=null);
+internal sealed class ProductionScreenshotOffer(ScreenshotGenerationSnapshot snapshot,CaptureTicket ticket,OwnedSourceImage image,long revision)
+{
+    public ScreenshotGenerationSnapshot Snapshot {get;}=snapshot;
+    internal CaptureTicket Ticket {get;}=ticket;
+    internal OwnedSourceImage Image {get;}=image;
+    internal long Revision {get;}=revision;
+    internal bool Launched;
+    public string ConfirmationText=>$"将仅发送当前明确裁剪的截图。\n目标：{new EndpointOrigin(Snapshot.Transport.ResolveEndpoint()).Value}\n模型：{Snapshot.Profile.Model}\n本次模式：{Snapshot.RequestedMode switch{ImageOutputMode.TranslateText=>"仅翻译图中文字",ImageOutputMode.ExplainImage=>"按图文解释",_=>"智能判断"}}。\n通常先分类，再正式生成，可能发生两次服务调用及相应费用；无效分类不会继续发送。\n仅使用当前所选截图，不发送整个屏幕或文件路径。是否确认本次发送？";
+}
+/// <summary>Normal Shell's explicit final-crop path. Borrows the crop; never owns file codecs or caches images/classification for reuse.
+/// Destination callbacks serialize result metadata. sourceCurrent reads synchronous thread-safe metadata only, including under the send gate.</summary>
+internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
+{
+    private sealed record Source(Guid Version,OwnedSourceImage Image);
+    private sealed record Validation(SettingsSnapshot Saved,bool Rejected=false);
+    private sealed class Job(Source source,RequestIdentity identity,ScreenshotGenerationSnapshot snapshot)
+    {public readonly Source Source=source;public readonly RequestIdentity Identity=identity;public ScreenshotGenerationSnapshot Snapshot=snapshot;public bool Terminal;public ScreenshotUsageStage? Stage;public Validation Validation=new(snapshot.Settings);}
+    private readonly RuntimeGate gate;private readonly Func<SettingsSnapshot?> settings;private readonly Func<Guid,Guid,bool> sourceCurrent;
+    private readonly ProviderClient provider;private readonly ProviderEventReceiver receiver;
+    private readonly Func<RequestIdentity,ScreenshotGenerationSnapshot,CancellationToken,Task<SecretLease?>> openSecret;
+    private readonly Action<ProductionScreenshotUpdate> changed;
+    private readonly Dictionary<Guid,ScreenshotGenerationSnapshot> snapshots=[];private readonly HashSet<Task> jobs=[];private readonly object jobsSync=new();
+    private ProductionScreenshotOffer? offered;private Job? active;private long commandRevision;private bool disposed;private Exception? deliveryFailure;
+    private (Guid Version,Guid Source)? consumed;
+    public OverlayResults Results {get;}
+    public Task Running {get;private set;}=Task.CompletedTask;
+    public string? LastRejection {get;private set;}
+    public ScreenshotGenerationSnapshot? SelectedSnapshot=>Results.SelectedVersionId is {} id?SnapshotForVersion(id):null;
+    public ScreenshotGenerationSnapshot? SnapshotForVersion(Guid id)=>snapshots.GetValueOrDefault(id);
+    public ProductionScreenshotCoordinator(RuntimeGate gate,Func<SettingsSnapshot?> settings,Func<Guid,Guid,bool> sourceCurrent,
+        ProviderClient provider,SynchronizationContext destination,OverlayResults results,Action<ProductionScreenshotUpdate> changed,
+        Func<RequestIdentity,ScreenshotGenerationSnapshot,CancellationToken,Task<SecretLease?>> openSecret)
+    {this.gate=gate;this.settings=settings;this.sourceCurrent=sourceCurrent;this.provider=provider;this.changed=changed;this.openSecret=openSecret;receiver=new(gate,destination);Results=results;}
+    public bool CanUseSource(Guid version,Guid sourceId)=>!disposed&&consumed!=(version,sourceId);
+    public ProductionScreenshotOffer? Prepare(Guid version,OwnedSourceImage image,ImageOutputMode mode=ImageOutputMode.Automatic)
+    {
+        offered=null;long revision=++commandRevision;LastRejection=null;
+        ProductionScreenshotOffer? Reject(string reason){LastRejection=reason;return null;}
+        if(disposed||version==Guid.Empty||image.IsDisposed||!Enum.IsDefined(mode)||!sourceCurrent(version,image.SourceId))return Reject("SCREENSHOT_UNAVAILABLE");
+        if(consumed==(version,image.SourceId))return Reject("IMAGE_REUSE_DISABLED");
+        if(settings() is not {} config||config.ReadOnly||config.RequiresRecovery)return Reject("SETTINGS_UNAVAILABLE");
+        if(!gate.TryBeginPassiveCapture(gate.Snapshot.Mode,out var ticket))return Reject("ENABLE_REQUIRED");
+        var profile=config.Data.Profiles.FirstOrDefault(p=>p.Id==config.Data.VisionProfileId);
+        if(profile==null||profile.Capabilities.Vision!=Capability.Supported||!gate.TryGetProfileBinding(profile.Id,out var binding))return Reject("VISION_PROFILE_REQUIRED");
+        if(profile.Authentication!=ApiAuthentication.None&&profile.SecretRef==null)return Reject("KEY_REQUIRED");
+        try
+        {
+            var transport=ApiProfileMapper.Plan(profile).Transport;
+            // A normal production offer never borrows a development fixture's transport authority.
+            if(transport.DevelopmentBoundary!=null||transport.IsDevelopmentFixture)return Reject("PRODUCTION_PROFILE_REQUIRED");
+            var snapshot=new ScreenshotGenerationSnapshot(version,image.SourceId,config,profile,transport,binding,1,mode,false);
+            if(commandRevision!=revision||disposed)return Reject("SCREENSHOT_UNAVAILABLE");
+            return offered=new(snapshot,ticket,image,revision);
+        }
+        catch(Exception error)when(error is ArgumentException or SettingsValidationException){return Reject("PROFILE_INVALID");}
+    }
+    public bool IsOfferCurrent(ProductionScreenshotOffer offer)
+    {
+        bool current=!disposed&&ReferenceEquals(offered,offer)&&!offer.Launched&&commandRevision==offer.Revision&&consumed!=(offer.Snapshot.SourceVersion,offer.Snapshot.SourceId)&&
+            !offer.Image.IsDisposed&&settings() is {} config&&!config.ReadOnly&&!config.RequiresRecovery&&config.Version==offer.Snapshot.Settings.Version&&
+            config.Data.VisionProfileId==offer.Snapshot.Profile.Id&&config.Data.Profiles.FirstOrDefault(p=>p.Id==config.Data.VisionProfileId) is {} live&&ApiProfilePolicy.RequestEquivalent(live,offer.Snapshot.Profile)&&
+            gate.TryGetProfileBinding(live.Id,out var binding)&&binding==offer.Snapshot.Binding&&gate.IsCaptureCurrent(offer.Ticket)&&sourceCurrent(offer.Snapshot.SourceVersion,offer.Snapshot.SourceId);
+        return current&&!disposed&&ReferenceEquals(offered,offer)&&commandRevision==offer.Revision&&!offer.Launched;
+    }
+    public void Reject(ProductionScreenshotOffer offer){if(ReferenceEquals(offered,offer)){offered=null;commandRevision++;}}
+    public bool Submit(ProductionScreenshotOffer offer,bool confirmed)
+    {
+        if(!confirmed||!IsOfferCurrent(offer))return false;
+        // This exact explicit decision grants this actual vision origin, independently of the text origin.
+        if(!gate.TryCommitCapture(offer.Ticket,()=>IsOfferCurrent(offer),()=>gate.ConsentTo(new(offer.Snapshot.Transport.ResolveEndpoint()))))return false;
+        RequestIdentity identity=default;var previous=active;Job? admitted=null;
+        try
+        {
+            if(!gate.TryStartProfileRequest(offer.Snapshot.Binding,Guid.NewGuid(),Guid.NewGuid(),offer.Ticket,out identity,out _))return false;
+            gate.TryApply(identity,()=>
+            {
+                var current=settings();bool valid=!offer.Image.IsDisposed&&current is {ReadOnly:false,RequiresRecovery:false}&&current.Version==offer.Snapshot.Settings.Version&&current.Data.VisionProfileId==offer.Snapshot.Profile.Id&&
+                    gate.IsRequestProfileBindingCurrent(identity,offer.Snapshot.Binding)&&sourceCurrent(offer.Snapshot.SourceVersion,offer.Snapshot.SourceId);
+                if(!valid||disposed||!ReferenceEquals(offered,offer)||commandRevision!=offer.Revision||offer.Launched||!gate.CanApply(identity))return;
+                if(!Results.Begin(identity))return;
+                offer.Launched=true;offered=null;consumed=(offer.Snapshot.SourceVersion,offer.Snapshot.SourceId);
+                var snapshot=offer.Snapshot with{Number=Results.Versions.Single(v=>v.Identity==identity).Number};
+                admitted=new(new(snapshot.SourceVersion,offer.Image),identity,snapshot);active=admitted;snapshots[identity.VersionId]=snapshot;Prune();
+                // Install the tracked task before any notification can reenter and install C.
+                Running=Run(admitted);lock(jobsSync)jobs.Add(Running);_=Observe(Running);
+                Publish(admitted,ProductionScreenshotEvent.Begin);
+            });
+            if(admitted==null){RejectAdmission(identity,previous);return false;}return true;
+        }
+        catch(Exception error)
+        {List<Exception> errors=[error];if(identity!=default)ScreenshotPreviewCleanup.Attempt(errors,()=>RejectAdmission(identity,previous));throw new AggregateException("Screenshot admission failed.",errors);}
+    }
+    private void RejectAdmission(RequestIdentity identity,Job? previous)
+    {
+        try{gate.StopRequest(identity);}
+        finally{if(previous!=null&&ReferenceEquals(active,previous)&&Results.Identity==previous.Identity&&!gate.CanApply(previous.Identity)){active=null;Results.MarkStopped();}}
+    }
+    private bool Eligible(Job job)
+    {
+        var state=gate.Snapshot;
+        if(disposed||!ReferenceEquals(active,job)||job.Source.Image.IsDisposed||state.Activation!=Activation.On||state.Suspension.HasFlag(Suspension.SessionLocked)||state.Presentation==Presentation.Hidden||
+            !gate.IsRequestProfileBindingCurrent(job.Identity,job.Snapshot.Binding)||!gate.HasConsentTo(new(job.Snapshot.Transport.ResolveEndpoint()))||!sourceCurrent(job.Snapshot.SourceVersion,job.Snapshot.SourceId))return false;
+        bool compatible=SettingsCompatible(job);
+        return compatible&&!disposed&&ReferenceEquals(active,job)&&!job.Source.Image.IsDisposed&&gate.CanApply(job.Identity);
+    }
+    private bool SettingsCompatible(Job job)
+    {
+        while(true)
+        {
+            var before=Volatile.Read(ref job.Validation);if(before.Rejected)return false;
+            var current=settings();if(current==null)return false;
+            if(current.ReadOnly||current.RequiresRecovery||current.Data.VisionProfileId!=job.Snapshot.Profile.Id||current.Data.Profiles.FirstOrDefault(p=>p.Id==job.Snapshot.Profile.Id) is not {} live||!ApiProfilePolicy.RequestEquivalent(live,job.Snapshot.Profile))
+            {Interlocked.CompareExchange(ref job.Validation,before with{Rejected=true},before);continue;}
+            if(current.Version==before.Saved.Version)return true;
+            bool valid=!current.ReadOnly&&!current.RequiresRecovery&&current.Data.WriteId!=Guid.Empty&&current.Data.WriteId!=before.Saved.Data.WriteId;byte[]? oldBytes=null,newBytes=null;
+            try
+            {
+                if(valid){oldBytes=SettingsJson.Write(before.Saved.Data);newBytes=SettingsJson.Write(current.Data with{Overlay=before.Saved.Data.Overlay,WriteId=before.Saved.Data.WriteId});valid=oldBytes.AsSpan().SequenceEqual(newBytes);}
+            }
+            catch(SettingsValidationException){valid=false;}
+            finally{if(oldBytes!=null)CryptographicOperations.ZeroMemory(oldBytes);if(newBytes!=null)CryptographicOperations.ZeroMemory(newBytes);}
+            if(settings()?.Version!=current.Version)continue;
+            var next=valid?new Validation(current):before with{Rejected=true};
+            if(ReferenceEquals(Interlocked.CompareExchange(ref job.Validation,next,before),before))return valid;
+        }
+    }
+    private async Task Run(Job job)
+    {
+        await Task.Yield();if(!gate.TryLinkRequestCancellation(job.Identity,default,out var linked))return;
+        using var lifetime=linked!;var budget=provider.FreezeBudget(job.Snapshot.Transport);using var timeout=budget.Link(lifetime.Token);
+        PreparedScreenshot? prepared=null;byte[]? bytes=null;
+        try
+        {
+            if(!Eligible(job))return;
+            prepared=await Task.Run(()=>job.Source.Image.PrepareRequest(job.Snapshot.Transport.ImageByteLimit,timeout.Token),timeout.Token).ConfigureAwait(false);
+            timeout.Check();if(!Eligible(job))return;bytes=prepared.Bytes.ToArray();
+            if(job.Snapshot.Classification==null)
+            {
+                if(!await State(job,prepared,lifetime.Token,budget).ConfigureAwait(false))return;
+                var content=new StringBuilder();bool complete=false;string? failure=null;
+                var request=new TranslationRequest(job.Snapshot.Transport,ImageTranslationPlanner.ClassificationPrompt,"仅分类本次明确选择的截图，不生成正文。",bytes);
+                using var classificationSecret=job.Snapshot.Transport.Authentication==Authentication.None?null:await openSecret(job.Identity,job.Snapshot,timeout.Token).ConfigureAwait(false);
+                if(!Eligible(job))return;
+                await foreach(var envelope in provider.GenerateEnvelopesAsync(request,gate,job.Identity,classificationSecret,timeout.Token,()=>Eligible(job),budget).ConfigureAwait(false))
+                {
+                    if(!await Receive(job,envelope,value=>
+                    {
+                        if(value.Kind==ModelEventKind.Usage)ApplyUsage(job,ScreenshotUsageStage.Classification,value.Usage);
+                        else if(value.Kind==ModelEventKind.TextDelta)
+                        {if(value.Text!.Length>ImageClassification.MaximumCharacters-content.Length)failure="CLASSIFICATION_TOO_LARGE";else content.Append(value.Text);}
+                        else if(value.Kind==ModelEventKind.Completed)complete=true;
+                        else if(value.Kind==ModelEventKind.Failed)failure=value.Reason??"CLASSIFICATION_FAILED";
+                    },lifetime.Token,budget).ConfigureAwait(false))return;
+                    if(complete||failure!=null)break;
+                }
+                if(failure!=null||!complete||!ImageClassification.TryParse(content.ToString(),out var classification))
+                {await Fail(job,failure??(!complete?"CLASSIFICATION_INCOMPLETE":"CLASSIFICATION_INVALID"),lifetime.Token,budget).ConfigureAwait(false);return;}
+                // Commit cache only on the canonical destination after full protocol completion and JSON validation.
+                if(!await Receive(job,new(job.Identity,new(ModelEventKind.Started)),_=>
+                {job.Snapshot=job.Snapshot with{Classification=classification};snapshots[job.Identity.VersionId]=job.Snapshot;},lifetime.Token,budget).ConfigureAwait(false))return;
+            }
+            if(job.Snapshot.Classification!.Readability==ImageReadability.Unreadable)
+            {await Fail(job,"CLEARER_IMAGE_REQUIRED",lifetime.Token,budget).ConfigureAwait(false);return;}
+            var plan=ImageTranslationPlanner.Create(job.Snapshot.Classification,job.Snapshot.Settings.Data.Translation,job.Snapshot.RequestedMode,job.Snapshot.Regeneration);
+            if(!await Receive(job,new(job.Identity,new(ModelEventKind.Started)),_=>
+            {if(job.Snapshot.NormalizationProof==null&&!CommitPrepared(job,prepared))return;job.Snapshot=job.Snapshot with{Plan=plan};BeginUsageStage(job,ScreenshotUsageStage.Generation);Publish(job,ProductionScreenshotEvent.Generating);},lifetime.Token,budget).ConfigureAwait(false))return;
+            var final=new TranslationRequest(job.Snapshot.Transport,plan.System,plan.User,bytes);
+            using var generationSecret=job.Snapshot.Transport.Authentication==Authentication.None?null:await openSecret(job.Identity,job.Snapshot,timeout.Token).ConfigureAwait(false);
+            if(!Eligible(job))return;
+            await foreach(var envelope in provider.GenerateEnvelopesAsync(final,gate,job.Identity,generationSecret,timeout.Token,()=>Eligible(job),budget).ConfigureAwait(false))
+            {
+                if(!await Receive(job,envelope,value=>
+                {
+                    if(value.Kind==ModelEventKind.Usage)ApplyUsage(job,ScreenshotUsageStage.Generation,value.Usage);
+                    else if(value.Kind==ModelEventKind.TextDelta&&Results.Append(job.Identity,value.Text!))Publish(job,ProductionScreenshotEvent.Delta,value.Text);
+                    else if(value.Kind==ModelEventKind.Completed&&Results.Complete(job.Identity)){Finish(job);Publish(job,ProductionScreenshotEvent.Completed);}
+                    else if(value.Kind==ModelEventKind.Failed&&Results.Fail(job.Identity,value.Reason,value.RetryAfter)){Finish(job);Publish(job,ProductionScreenshotEvent.Failed,reason:value.Reason);}
+                },lifetime.Token,budget).ConfigureAwait(false))return;
+                if(job.Terminal)return;
+            }
+            if(!job.Terminal)await Fail(job,"GENERATION_INCOMPLETE",lifetime.Token,budget).ConfigureAwait(false);
+        }
+        catch(OperationCanceledException)when(lifetime.IsCancellationRequested){ /* Canonical cancellation admits no late UI or second phase. */ }
+        catch(ScreenshotNormalizationException){await Fail(job,"SMALLER_SCREENSHOT_REQUIRED",lifetime.Token,budget).ConfigureAwait(false);}
+        catch(Exception error)when(error is not DestinationFailure)
+        {await Fail(job,error is OperationCanceledException?"REQUEST_TIMEOUT":"IMAGE_PIPELINE_FAILED",lifetime.Token,budget).ConfigureAwait(false);}
+        finally
+        {
+            if(bytes!=null)CryptographicOperations.ZeroMemory(bytes);prepared?.Dispose();
+            if(!job.Terminal)
+            {
+                await receiver.ReceiveAsync(new(job.Identity,new(ModelEventKind.Started)),_=>Abandon(job)).ConfigureAwait(false);
+                gate.MarkRequestTerminal(job.Identity);gate.StopRequest(job.Identity);
+            }
+        }
+    }
+    private async Task<bool> Receive(Job job,ModelEventEnvelope envelope,Action<ModelEvent> apply,CancellationToken cancellation,ProviderRequestBudget budget)
+    {
+        bool accepted=false;bool delivered=await receiver.ReceiveAsync(envelope,value=>
+        {
+            if(!Eligible(job)){Abandon(job);return;}
+            // A synthetic state/cache commit is subject to the same absolute budget as HTTP events.
+            if(envelope.Event.Kind==ModelEventKind.Started&&value.Kind==ModelEventKind.Failed)
+            {if(Results.Fail(job.Identity,value.Reason,value.RetryAfter)){Finish(job);Publish(job,ProductionScreenshotEvent.Failed,reason:value.Reason);}return;}
+            accepted=true;apply(value);
+        },cancellation,budget).ConfigureAwait(false);
+        return delivered&&accepted&&!job.Terminal&&Eligible(job);
+    }
+    private Task<bool> State(Job job,PreparedScreenshot prepared,CancellationToken cancellation,ProviderRequestBudget budget)
+        =>Receive(job,new(job.Identity,new(ModelEventKind.Started)),_=>{if(!CommitPrepared(job,prepared))return;BeginUsageStage(job,ScreenshotUsageStage.Classification);Publish(job,ProductionScreenshotEvent.Classifying);},cancellation,budget);
+    private bool CommitPrepared(Job job,PreparedScreenshot prepared)
+    {
+        if(prepared.SourceId!=job.Snapshot.SourceId||job.Snapshot.Classification!=null&&job.Snapshot.Transform!=prepared.Transform)
+        {if(Results.Fail(job.Identity,"IMAGE_TRANSFORM_CHANGED")){Finish(job);Publish(job,ProductionScreenshotEvent.Failed,reason:"IMAGE_TRANSFORM_CHANGED");}return false;}
+        job.Snapshot=job.Snapshot with{Transform=prepared.Transform,NormalizationProof=prepared.Proof};snapshots[job.Identity.VersionId]=job.Snapshot;Publish(job,ProductionScreenshotEvent.Prepared);
+        return !job.Terminal&&Eligible(job); // A Prepared notification may synchronously Clear/Adopt/Stop or admit C.
+    }
+    private void BeginUsageStage(Job job,ScreenshotUsageStage stage)
+    {
+        job.Stage=stage;var receipt=new ScreenshotUsageReceipt(Guid.NewGuid(),stage,job.Identity,job.Snapshot.SourceVersion,job.Snapshot.SourceId,job.Snapshot.Transport.Protocol,new(null,null));
+        job.Snapshot=stage==ScreenshotUsageStage.Classification?job.Snapshot with{ClassificationUsage=receipt,ClassificationUsageReused=false}:job.Snapshot with{GenerationUsage=receipt};
+        snapshots[job.Identity.VersionId]=job.Snapshot;
+    }
+    private void ApplyUsage(Job job,ScreenshotUsageStage stage,TokenUsage? usage)
+    {
+        if(job.Stage!=stage||usage==null)return;
+        var previous=stage==ScreenshotUsageStage.Classification?job.Snapshot.ClassificationUsage:job.Snapshot.GenerationUsage;if(previous==null)return;
+        long? input=usage.InputTokens is >=0?usage.InputTokens:null,output=usage.OutputTokens is >=0?usage.OutputTokens:null;
+        if(input==null&&output==null)return;
+        // Each field is the last valid server report. No summing, estimating, maximum, or completion inference.
+        var next=previous with{Tokens=new(input??previous.Tokens.InputTokens,output??previous.Tokens.OutputTokens),Reported=true};if(next==previous)return;
+        job.Snapshot=stage==ScreenshotUsageStage.Classification?job.Snapshot with{ClassificationUsage=next}:job.Snapshot with{GenerationUsage=next};
+        snapshots[job.Identity.VersionId]=job.Snapshot;Publish(job,ProductionScreenshotEvent.Usage);
+    }
+    private Task<bool> Fail(Job job,string reason,CancellationToken cancellation,ProviderRequestBudget budget)
+        =>Receive(job,new(job.Identity,new(ModelEventKind.Failed,Reason:reason)),value=>
+        {if(Results.Fail(job.Identity,value.Reason,value.RetryAfter)){Finish(job);Publish(job,ProductionScreenshotEvent.Failed,reason:value.Reason);}},cancellation,budget);
+    private void Finish(Job job){job.Terminal=true;gate.MarkRequestTerminal(job.Identity);if(ReferenceEquals(active,job))active=null;Prune();}
+    private sealed class DestinationFailure(Exception inner):Exception("Screenshot destination failed.",inner);
+    private void Publish(Job job,ProductionScreenshotEvent kind,string? text=null,string? reason=null)
+    {try{changed(new ProductionScreenshotUpdate(job.Identity,kind,job.Snapshot,text,reason));}catch(Exception error){deliveryFailure=error;gate.StopRequest(job.Identity);throw new DestinationFailure(error);}}
+    private async Task Observe(Task task)
+    {try{await task.ConfigureAwait(false);}catch(Exception error){deliveryFailure=error;}finally{lock(jobsSync)jobs.Remove(task);}}
+    private void Abandon(Job job)
+    {if(!ReferenceEquals(active,job)||Results.Identity!=job.Identity)return;if(Results.Abandon(job.Identity)){Finish(job);Publish(job,ProductionScreenshotEvent.Failed,reason:"SOURCE_OR_SETTINGS_CHANGED");}}
+    private void Prune(){var retained=Results.RetainedVersionIds;foreach(var id in snapshots.Keys.Where(id=>!retained.Contains(id)).ToArray())snapshots.Remove(id);}
+    public void ObserveSettings(SettingsSnapshot current){if(active is {} job)_=SettingsCompatible(job);}
+    public void Stop()
+    {commandRevision++;offered=null;var job=active;active=null;if(job!=null)try{gate.StopRequest(job.Identity);}finally{if(Results.Identity==job.Identity)Results.MarkStopped();}}
+    public void RevokeSource(Guid version,Guid sourceId)
+    {if(offered?.Snapshot.SourceVersion==version&&offered.Snapshot.SourceId==sourceId)Reject(offered);if(active?.Snapshot.SourceVersion==version&&active.Snapshot.SourceId==sourceId)Stop();}
+    public void Clear(){Stop();snapshots.Clear();consumed=null;}
+    public async Task ClearAsync()
+    {Clear();Task[] pending;lock(jobsSync)pending=jobs.ToArray();await Task.WhenAll(pending).ConfigureAwait(false);}
+    public async ValueTask DisposeAsync()
+    {disposed=true;await ClearAsync().ConfigureAwait(false);if(deliveryFailure!=null)throw new InvalidOperationException("Screenshot destination delivery failed.",deliveryFailure);}
+}

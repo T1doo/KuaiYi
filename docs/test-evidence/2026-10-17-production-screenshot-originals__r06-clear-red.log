@@ -1,0 +1,23 @@
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.85]     KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.ClearFencesAReplacementAdmissionInsideTheOriginalCancellationCallback [FAIL]
+Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
+  Failed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.ClearFencesAReplacementAdmissionInsideTheOriginalCancellationCallback [244 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.ClearFencesAReplacementAdmissionInsideTheOriginalCancellationCallback() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ProductionScreenshotTranslationTests.cs:line 123
+   at KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.ClearFencesAReplacementAdmissionInsideTheOriginalCancellationCallback() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ProductionScreenshotTranslationTests.cs:line 123
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/production-screenshot-translation/r06-clear-red.trx
+
+Failed!  - Failed:     1, Passed:     0, Skipped:     0, Total:     1, Duration: 244 ms - KuaiYi.Provider.Tests.dll (net10.0)

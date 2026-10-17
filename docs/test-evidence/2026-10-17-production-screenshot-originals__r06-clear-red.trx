@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="1afef02d-c9a3-4e0b-bf9a-b908611b868f" name="@4cd0056ca8a8 2026-10-17 10:32:12" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-17T10:32:12.7251278+00:00" queuing="2026-10-17T10:32:12.7251278+00:00" start="2026-10-17T10:32:11.2251423+00:00" finish="2026-10-17T10:32:12.7310756+00:00" />
+  <TestSettings name="default" id="29a79c64-72cd-4186-aa22-6d6c8dd9b3bf">
+    <Deployment runDeploymentRoot="_4cd0056ca8a8_2026-10-17_10_32_12" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="ff227d66-1d02-48a7-b3bc-5f6d27bd0ddf" testId="c480ac4a-ddfd-a195-e7c8-8808dd27a894" testName="KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.ClearFencesAReplacementAdmissionInsideTheOriginalCancellationCallback" computerName="4cd0056ca8a8" duration="00:00:00.2449514" startTime="2026-10-17T10:32:12.3660287+00:00" endTime="2026-10-17T10:32:12.5998316+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ff227d66-1d02-48a7-b3bc-5f6d27bd0ddf">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.ClearFencesAReplacementAdmissionInsideTheOriginalCancellationCallback() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ProductionScreenshotTranslationTests.cs:line 123
+   at KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.ClearFencesAReplacementAdmissionInsideTheOriginalCancellationCallback() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ProductionScreenshotTranslationTests.cs:line 123
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.ClearFencesAReplacementAdmissionInsideTheOriginalCancellationCallback" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="c480ac4a-ddfd-a195-e7c8-8808dd27a894">
+      <Execution id="ff227d66-1d02-48a7-b3bc-5f6d27bd0ddf" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests" name="ClearFencesAReplacementAdmissionInsideTheOriginalCancellationCallback" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="c480ac4a-ddfd-a195-e7c8-8808dd27a894" executionId="ff227d66-1d02-48a7-b3bc-5f6d27bd0ddf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.11]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.55]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.57]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.85]       Assert.False() Failure
+[xUnit.net 00:00:00.85]       Expected: False
+[xUnit.net 00:00:00.85]       Actual:   True
+[xUnit.net 00:00:00.85]       Stack Trace:
+[xUnit.net 00:00:00.86]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ProductionScreenshotTranslationTests.cs(123,0): at KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.ClearFencesAReplacementAdmissionInsideTheOriginalCancellationCallback()
+[xUnit.net 00:00:00.86]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ProductionScreenshotTranslationTests.cs(123,0): at KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.ClearFencesAReplacementAdmissionInsideTheOriginalCancellationCallback()
+[xUnit.net 00:00:00.86]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.88]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T10:32:12.6036214+00:00">
+        <Text>[xUnit.net 00:00:00.85]     KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.ClearFencesAReplacementAdmissionInsideTheOriginalCancellationCallback [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Warning" timestamp="2026-10-17T10:32:12.6700011+00:00">
+        <Text>Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

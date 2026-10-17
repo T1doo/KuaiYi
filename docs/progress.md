@@ -920,3 +920,12 @@ r01新增夹具初始化顺序错4F保全、不当产品红；修夹具r02父生
 最终15例涵盖同次等待/超时所有权/独立退出确认/信号量/并发重复/fault清零而不放行/无child。相关66P，完整Core1703P=父1688全名多重集+15，Provider2212P与父全名多重集完全相同，均0失败/跳过；App/Worker各0W/E。r04误引filter导致shell127、无权威TRX且首分支执行不明，原件保全不计结果；r03中间15P不当最终测试字节。独审无P1/P2；fault夹具任意早期失败cleanup健壮性未全面证明，正常fault路径实测，不当Host成功。见[报告](validation/diagnostic-dispose-settlement.md)及[原件索引](test-evidence/2026-10-17-diagnostic-dispose-settlement.json)。traceability/旧测试/全部旧证据原字节保持，状态不抬。
 
 历史display-save r06真实1687P1F及同DLL r14完整1688P继续保留；本次确定性反例不证明历史当次未完成项。WindowsJob原未清空独立Unknown，旧图片间歇根因Unknown/生产复用Off；真实Windows/WPF键盘/COM/native/模型/250600/整体验收未执行。仅已有SDK/--no-restore、激活前后禁证书生成，无新包/许可/环境/main/强推/部署/费用凭据安全权限/真实模型；Skia许可/403/Actions先前拒绝不查不绕，未知锁数据日志进程保全。
+
+
+## 2026-10-17 · P6 最终截图的正常 Shell 显式图译接线
+
+从已推送78e7db0父正常建dev/production-screenshot-translation，先核默认远端/HEAD/祖先/单worktree；唯一root写入，既有high_water_review只读。按父明确P6裁剪范围，已保留的最终截图可在正常Shell逐次确认端点/模型/两阶段费用说明后，用显式VisionProfileId走普通两协议与SecretStore租约；默认不自动发送。仅现有受限截图PNG，独立正常协调器，离线边界原字节不改。每阶段独立usage/lease、同总预算与逐次来源身份/秘密/授权/取消晚到门；显示原图与正文及当前版本模式。生产图片/分类复用和旧图重新生成保持Off。
+
+实测失效destination清理1F→1P、Clear取消回调重入C1F→1P、两协议阶段预算2F→2P；独审指出图A完成后已批准OCR文字B失败回A释放原图，加强精确B部分正文/原因/自动A/切A-B绑定，同源2F→2P，仅精确sourceversion+sourceid命中保留，旧文字分支保持。最终专项60P/完整Provider2272P=父2212全名多重集+60，完整Core1703P与父全名多重集相同；App/Worker各0W/E，21source绑定一致。独审无剩余P1/P2，封存另审。r01/r03/r10编译失败、r02仅取消精确owned测试且无TRX/当时等待根因未捕获、r08夹具预期修正及r14不足断言均保原件，不混算产品红绿。
+
+见[接线/验证与边界](validation/production-screenshot-translation.md)及[原件索引](test-evidence/2026-10-17-production-screenshot-translation.json)。本地回环和公开合成OCR/像素/秘密、真实store及协调器/链接Shell端口分别注明，不称真实WPF/WindowsOCR/DPAPI/模型。所有旧测试/追踪状态/SPEC/原书/旧证据原字节保留，不称完整P6。通用文件/Drop/新解码/Skia及图片复用未启用，Windows可见键盘/真实模型质量/物理250600/完整验收NotRun；历史图片间歇/Core结算/WindowsJob根因各仍Unknown。仅已有SDK/--no-restore激活前后禁证书，无main/强推/部署/费用/真实凭据安全权限新包许可环境/模型，Skia待批/403/Actions拒绝不查不绕，未知锁数据日志进程保全。

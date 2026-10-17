@@ -1,0 +1,53 @@
+using System.Text.Json;
+using KuaiYi.App;
+using KuaiYi.Core;
+using KuaiYi.Core.Settings;
+using KuaiYi.Imaging;
+using KuaiYi.Providers;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using Xunit;
+namespace KuaiYi.Provider.Tests;
+public sealed class ProductionScreenshotShellTests
+{
+    private sealed class Immediate:SynchronizationContext{public override void Post(SendOrPostCallback action,object? state)=>action(state);}
+    private sealed class Rig:IAsyncDisposable
+    {
+        public readonly PhaseHttpFixture Server=new();public PhaseHttpFixture.Script Script=null!;public readonly ShellWindow Window=new();public readonly ProviderClient Provider=new();
+        public ProductionScreenshotCoordinator Flow=null!;public OwnedSourceImage Image=null!;public byte[] Raw=[];
+        public static async Task<Rig> Create()
+        {
+            var r=new Rig();await r.Server.InitializeAsync();r.Script=r.Server.Add("shell","application/json");var w=r.Window;w.InitializeResultFlow();w.WithGeometry();
+            var config=new SettingsSnapshot(new(){ActiveProfileId="v",VisionProfileId="v",Profiles=[new(){Id="v",BaseUrl=new Uri(r.Server.BaseUri,"shell/").AbsoluteUri,AllowLoopbackHttp=true,Authentication=ApiAuthentication.None,Model="PUBLIC_SHELL_VISION",Streaming=false,Capabilities=new(){Vision=Capability.Supported}}]},"public-shell-settings",SettingsLoadState.Current);
+            r.Flow=w.ConfigureScreenshotForTest(config,r.Provider,new Immediate());var origin=new EndpointOrigin(new Uri("https://different-text.public.invalid"));w.MarkdownGate.ConsentTo(origin);Assert.True(w.MarkdownGate.TryEnable(origin,true));
+            var input=w.ImageInputForTest();using(input.Intent)using(input.Cancellation)
+            {r.Raw=Enumerable.Range(0,256).Select(i=>(byte)(i%4==3?255:i)).ToArray();r.Image=new(new ScreenshotPixels(new(0,0,8,8),r.Raw));Assert.True(input.Commit(r.Image));w.EndRestoreForTest(input.Cancellation);}
+            return r;
+        }
+        public async Task Requests(int n){using var limit=new CancellationTokenSource(TimeSpan.FromSeconds(6));while(Script.Requests<n)await Task.Delay(5,limit.Token);}
+        public Task Reply(string text)=>Script.Write(JsonSerializer.Serialize(new{choices=new[]{new{index=0,message=new{content=text},finish_reason="stop"}},usage=new{prompt_tokens=23,completion_tokens=9}}),true);
+        public void Drain(){for(int i=0;i<8&&Window.FlushPending;i++)Window.TickForTest();Assert.False(Window.FlushPending);}
+        public async ValueTask DisposeAsync(){try{await Flow.DisposeAsync();await Window.ClearContentForTest();}finally{Provider.Dispose();await Server.DisposeAsync();}}
+    }
+    [Fact]public async Task ActualShellCommandShowsTwoCallDecisionAndRendersImageAlongsideGeneratedMarkdownUsageAndUncertainty()
+    {
+        await using var r=await Rig.Create();var w=r.Window;Assert.True(w.LocalPreviewForTest);Assert.True(w.ScreenshotSendEnabledForTest);Assert.Empty(r.Script.Bodies);ProductionScreenshotOffer? seen=null;
+        Assert.True(w.SendScreenshotForTest(ImageOutputMode.Automatic,offer=>{seen=offer;Assert.Contains("两次",offer.ConfirmationText);Assert.Contains("PUBLIC_SHELL_VISION",offer.ConfirmationText);return true;}));
+        await r.Requests(1);await r.Reply(ImageClassificationTests.Json("uncertain"));await r.Requests(2);await r.Reply("**公开图译正文**");await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));r.Drain();
+        Assert.NotNull(seen);Assert.False(w.LocalPreviewForTest);Assert.False(w.ScreenshotSendEnabledForTest);Assert.Equal("**公开图译正文**",w.MarkdownResults.Text);Assert.Contains(w.MarkdownModel.Blocks,b=>b.Text.Contains("公开图译正文"));Assert.Same(r.Image,w.SelectedImageForTest);Assert.False(r.Image.IsDisposed);Assert.True(w.OriginalSourceCommandEnabled);Assert.Contains("截图",w.ResultLabel);Assert.Contains("图像结构判断不确定",w.ResultLabel);Assert.Contains("分类：输入 23 / 输出 9",w.ResultTip);Assert.Contains("生成：输入 23 / 输出 9",w.ResultTip);Assert.Contains("图像结构判断不确定",w.VersionDescriptionForTest(w.MarkdownResults.SelectedVersionId!.Value));Assert.Contains("分类：输入 23",w.VersionDescriptionForTest(w.MarkdownResults.SelectedVersionId!.Value));
+        w.ShowSourceForTest();var source=Assert.IsType<Expander>(Assert.IsType<BlockUIContainer>(w.MarkdownBody.Document.Blocks[^1]).Child);Assert.IsType<System.Windows.Controls.Image>(source.Content);Assert.False(w.SendScreenshotForTest(ImageOutputMode.ExplainImage,_=>true));Assert.Equal(2,r.Script.Requests);
+    }
+    [Theory][InlineData("decline")][InlineData("off")][InlineData("clear")]
+    public async Task ActualShellDecisionCanBeRejectedOrInvalidatedWithoutSending(string action)
+    {await using var r=await Rig.Create();var w=r.Window;Assert.False(w.SendScreenshotForTest(ImageOutputMode.TranslateText,offer=>{if(action=="off")w.MarkdownGate.Disable();if(action=="clear")w.ClearImagePresentationForTest();return action!="decline";}));Assert.Empty(r.Script.Bodies);Assert.False(w.MarkdownGate.HasRunningGeneration);if(action!="clear")Assert.False(r.Image.IsDisposed);}
+    [Fact]public async Task ActualShellStopKeepsPartialImageResultAndOriginalAndRejectsLateBody()
+    {
+        await using var r=await Rig.Create();var w=r.Window;Assert.True(w.SendScreenshotForTest(ImageOutputMode.ExplainImage,_=>true));await r.Requests(1);await r.Reply(ImageClassificationTests.Json());await r.Requests(2);var id=w.MarkdownResults.Identity!.Value;
+        Assert.True(await w.ReceivePresentationAsync(id,new(OverlayResultEventKind.Delta,"public partial")));w.StopForTest();await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.True(await w.ReceivePresentationAsync(id,new(OverlayResultEventKind.Delta,"late")));
+        r.Drain();Assert.Equal("public partial",w.MarkdownResults.Text);Assert.True(Assert.Single(w.MarkdownResults.Versions).Stopped);Assert.False(r.Image.IsDisposed);Assert.Same(r.Image,w.SelectedImageForTest);Assert.False(w.ProgressVisible);Assert.False(w.Waiting);
+    }
+    [Fact]public async Task ActualShellClearJoinsItsImageTaskAndReleasesCropAndMetadata()
+    {
+        await using var r=await Rig.Create();var w=r.Window;Assert.True(w.SendScreenshotForTest(ImageOutputMode.Automatic,_=>true));await r.Requests(1);var task=r.Flow.Running;Assert.True(await w.ClearContentForTest());Assert.True(task.IsCompleted);Assert.Null(r.Flow.SelectedSnapshot);Assert.Null(w.SelectedImageForTest);Assert.True(r.Image.IsDisposed);Assert.All(r.Raw,x=>Assert.Equal(0,x));Assert.Empty(w.MarkdownResults.Versions);Assert.Empty(w.MarkdownBody.Document.Blocks);
+    }
+}

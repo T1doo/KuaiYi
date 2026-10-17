@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="1ca89183-37c5-4af5-9969-5fd39cec5e42" name="@4cd0056ca8a8 2026-10-17 10:45:09" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-17T10:45:09.5355102+00:00" queuing="2026-10-17T10:45:09.5355103+00:00" start="2026-10-17T10:45:08.1281251+00:00" finish="2026-10-17T10:45:09.5408799+00:00" />
+  <TestSettings name="default" id="4b6af4b3-89e4-40b5-bc29-840c76a6b195">
+    <Deployment runDeploymentRoot="_4cd0056ca8a8_2026-10-17_10_45_09" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="c2ef4cc4-0e6b-4c0e-a959-22b18b938722" testId="905a5fe1-7ea8-e9b4-005c-dfdb0fcf57ae" testName="KuaiYi.Provider.Tests.ProductionScreenshotShellTests.ApprovedOcrTextFailureKeepsTheShownImageFallbackAndVersionBindings(partial: True)" computerName="4cd0056ca8a8" duration="00:00:00.3746591" startTime="2026-10-17T10:45:09.0212033+00:00" endTime="2026-10-17T10:45:09.4050927+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c2ef4cc4-0e6b-4c0e-a959-22b18b938722" />
+    <UnitTestResult executionId="0b4ad639-0c80-48bd-9d4b-66af394026fb" testId="76891d7e-2309-2eac-b32d-3b8ef6a84bef" testName="KuaiYi.Provider.Tests.ProductionScreenshotShellTests.ApprovedOcrTextFailureKeepsTheShownImageFallbackAndVersionBindings(partial: False)" computerName="4cd0056ca8a8" duration="00:00:00.0455543" startTime="2026-10-17T10:45:09.4141869+00:00" endTime="2026-10-17T10:45:09.4536432+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0b4ad639-0c80-48bd-9d4b-66af394026fb" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.ProductionScreenshotShellTests.ApprovedOcrTextFailureKeepsTheShownImageFallbackAndVersionBindings(partial: False)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="76891d7e-2309-2eac-b32d-3b8ef6a84bef">
+      <Execution id="0b4ad639-0c80-48bd-9d4b-66af394026fb" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ProductionScreenshotShellTests" name="ApprovedOcrTextFailureKeepsTheShownImageFallbackAndVersionBindings" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ProductionScreenshotShellTests.ApprovedOcrTextFailureKeepsTheShownImageFallbackAndVersionBindings(partial: True)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="905a5fe1-7ea8-e9b4-005c-dfdb0fcf57ae">
+      <Execution id="c2ef4cc4-0e6b-4c0e-a959-22b18b938722" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ProductionScreenshotShellTests" name="ApprovedOcrTextFailureKeepsTheShownImageFallbackAndVersionBindings" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="905a5fe1-7ea8-e9b4-005c-dfdb0fcf57ae" executionId="c2ef4cc4-0e6b-4c0e-a959-22b18b938722" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="76891d7e-2309-2eac-b32d-3b8ef6a84bef" executionId="0b4ad639-0c80-48bd-9d4b-66af394026fb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.13]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.54]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.57]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:01.02]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

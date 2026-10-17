@@ -1,0 +1,48 @@
+using KuaiYi.Core;
+using KuaiYi.Imaging;
+namespace KuaiYi.App;
+internal sealed partial class ShellWindow
+{
+    private ProductionScreenshotCoordinator? imageTranslation=null;
+    private bool LocalImagePreview=>SelectedSource.Image!=null&&SelectedSource.Generation==null;
+    // Called under the provider send gate: only managed metadata, no WPF property, dispatcher or encoding.
+    private bool ScreenshotSourceCurrent(Guid version,Guid sourceId)=>!exiting&&imageSelected&&retainedImage is {} image&&
+        image.VersionId==version&&image.Image.SourceId==sourceId&&!image.Image.IsDisposed;
+    private bool CanTranslateScreenshot=>!exiting&&imageTranslation!=null&&SelectedSource.Image is {} image&&retainedImage is {} retained&&
+        ReferenceEquals(image,retained.Image)&&imageTranslation.CanUseSource(retained.VersionId,image.SourceId)&&lifecycle.Gate.Snapshot.Activation==Activation.On;
+    private void ScreenshotTranslationChanged(ProductionScreenshotUpdate update)
+    {
+        if(exiting)return;
+        switch(update.Kind)
+        {
+            case ProductionScreenshotEvent.Begin:
+                translationStatus=null;connectionStatus.Text="正在判断当前截图 · 尚无正文";
+                ApplyResult(update.Identity,new(OverlayResultEventKind.Begin),alreadyApplied:true,imageGeneration:true);break;
+            case ProductionScreenshotEvent.Prepared:break;
+            case ProductionScreenshotEvent.Classifying:translationStatus="正在判断截图结构 · 分类内容不作为正文";break;
+            case ProductionScreenshotEvent.Generating:translationStatus=update.Snapshot.Plan?.Notice;connectionStatus.Text="正在生成当前截图结果";break;
+            case ProductionScreenshotEvent.Delta:ApplyResult(update.Identity,new(OverlayResultEventKind.Delta,update.Text??throw new System.IO.InvalidDataException("Screenshot delta missing.")),alreadyApplied:true,imageGeneration:true);break;
+            case ProductionScreenshotEvent.Usage:break;
+            case ProductionScreenshotEvent.Completed:ApplyResult(update.Identity,new(OverlayResultEventKind.Complete),alreadyApplied:true,imageGeneration:true);translationStatus="截图翻译完成"+(update.Snapshot.Plan?.Notice is {Length:>0} note?" · "+note:"");break;
+            case ProductionScreenshotEvent.Failed:ApplyResult(update.Identity,new(OverlayResultEventKind.Stopped),alreadyApplied:true,imageGeneration:true);translationStatus=ScreenshotFailureLabel(update.Reason);break;
+            default:throw new ArgumentOutOfRangeException(nameof(update));
+        }
+        RefreshResultLabel();button.ToolTip=translationStatus??connectionStatus.Text;
+    }
+    private void ObserveScreenshotState()
+    {
+        var state=lifecycle.Gate.Snapshot;
+        if(state.Activation!=Activation.On||state.Presentation==Presentation.Hidden||state.Suspension.HasFlag(Suspension.SessionLocked))imageTranslation?.Stop();
+    }
+    private static string ScreenshotFailureLabel(string? reason)=>reason switch
+    {
+        "SMALLER_SCREENSHOT_REQUIRED"=>"截图超出现有处理限额，请重新截取更小范围；没有发送",
+        "CLASSIFICATION_INVALID" or "CLASSIFICATION_INCOMPLETE" or "CLASSIFICATION_TOO_LARGE"=>"图片分类未得到有效完整结果，已停止；未发送正式生成请求",
+        "CLEARER_IMAGE_REQUIRED"=>"图中文字无法辨识，请重新截取更清晰或更小范围",
+        "VISION_PROFILE_REQUIRED"=>"请在设置中明确选择支持视觉的配置",
+        "KEY_REQUIRED"=>"请先保存视觉配置所需的密钥",
+        "ENABLE_REQUIRED"=>"请先启用翻译；没有发送",
+        "IMAGE_REUSE_DISABLED"=>"当前图片复用尚未启用，请重新截图后再生成",
+        _=>"截图请求未完成 · "+FailureLabel(reason??"CLIENT_FAILURE")
+    };
+}

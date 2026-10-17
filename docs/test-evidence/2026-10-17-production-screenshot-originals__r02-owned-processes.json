@@ -1,0 +1,61 @@
+[
+  {
+    "pid": 199394,
+    "ppid": 199393,
+    "args": [
+      "dotnet",
+      "test",
+      "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "--filter",
+      "FullyQualifiedName~ProductionScreenshotTranslationTests",
+      "--logger",
+      "trx;LogFileName=r02-contract.trx",
+      "--results-directory",
+      "artifacts/production-screenshot-translation"
+    ]
+  },
+  {
+    "pid": 199513,
+    "ppid": 199394,
+    "args": [
+      "/workspace/.kuaiyi-setup/dotnet/dotnet",
+      "exec",
+      "/workspace/.kuaiyi-setup/dotnet/sdk/10.0.401/vstest.console.dll",
+      "--framework:.NETCoreApp,Version=v10.0",
+      "--testCaseFilter:FullyQualifiedName~ProductionScreenshotTranslationTests",
+      "--logger:trx;LogFileName=r02-contract.trx",
+      "--resultsDirectory:/workspace/KuaiYi/artifacts/production-screenshot-translation",
+      "/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll",
+      "--logger:Console;Verbosity=minimal",
+      "--nologo",
+      "--artifactsProcessingMode-collect",
+      "--testSessionCorrelationId:199394_d8df654b-098b-4a88-aafc-2fdf0e46583b"
+    ]
+  },
+  {
+    "pid": 199526,
+    "ppid": 199513,
+    "args": [
+      "/workspace/.kuaiyi-setup/dotnet/dotnet",
+      "exec",
+      "--runtimeconfig",
+      "/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.runtimeconfig.json",
+      "--depsfile",
+      "/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.deps.json",
+      "/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/testhost.dll",
+      "--port",
+      "42087",
+      "--endpoint",
+      "127.0.0.1:042087",
+      "--role",
+      "client",
+      "--parentprocessid",
+      "199513",
+      "--telemetryoptedin",
+      "false"
+    ]
+  }
+]

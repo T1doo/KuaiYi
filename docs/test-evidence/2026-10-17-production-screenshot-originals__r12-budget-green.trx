@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ec59be7a-778f-4a84-9deb-caabdf72a631" name="@4cd0056ca8a8 2026-10-17 10:37:54" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-17T10:37:54.7267627+00:00" queuing="2026-10-17T10:37:54.7267628+00:00" start="2026-10-17T10:37:53.4005402+00:00" finish="2026-10-17T10:37:54.7315214+00:00" />
+  <TestSettings name="default" id="f64b9afa-22ed-4f4c-9bb5-f7564ace3b4a">
+    <Deployment runDeploymentRoot="_4cd0056ca8a8_2026-10-17_10_37_54" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="62ae77b8-e18c-4287-bb20-9a9bd884b3cf" testId="1e776fd1-beb9-403e-ca1a-7e9f10fe4d02" testName="KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.ClassificationAndGenerationShareOneBudgetAndDoNotOpenASecondSecretAfterExpiry(protocol: AnthropicMessages)" computerName="4cd0056ca8a8" duration="00:00:00.0312818" startTime="2026-10-17T10:37:54.6056932+00:00" endTime="2026-10-17T10:37:54.6243131+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="62ae77b8-e18c-4287-bb20-9a9bd884b3cf" />
+    <UnitTestResult executionId="5b3c8208-e44e-41b6-80fa-19ac61c208f2" testId="76c13110-98d9-2e81-96b3-f3f63528cd1b" testName="KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.ClassificationAndGenerationShareOneBudgetAndDoNotOpenASecondSecretAfterExpiry(protocol: OpenAIChat)" computerName="4cd0056ca8a8" duration="00:00:00.2889800" startTime="2026-10-17T10:37:54.2910238+00:00" endTime="2026-10-17T10:37:54.5919892+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5b3c8208-e44e-41b6-80fa-19ac61c208f2" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.ClassificationAndGenerationShareOneBudgetAndDoNotOpenASecondSecretAfterExpiry(protocol: OpenAIChat)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="76c13110-98d9-2e81-96b3-f3f63528cd1b">
+      <Execution id="5b3c8208-e44e-41b6-80fa-19ac61c208f2" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests" name="ClassificationAndGenerationShareOneBudgetAndDoNotOpenASecondSecretAfterExpiry" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.ClassificationAndGenerationShareOneBudgetAndDoNotOpenASecondSecretAfterExpiry(protocol: AnthropicMessages)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="1e776fd1-beb9-403e-ca1a-7e9f10fe4d02">
+      <Execution id="62ae77b8-e18c-4287-bb20-9a9bd884b3cf" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests" name="ClassificationAndGenerationShareOneBudgetAndDoNotOpenASecondSecretAfterExpiry" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="1e776fd1-beb9-403e-ca1a-7e9f10fe4d02" executionId="62ae77b8-e18c-4287-bb20-9a9bd884b3cf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="76c13110-98d9-2e81-96b3-f3f63528cd1b" executionId="5b3c8208-e44e-41b6-80fa-19ac61c208f2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.11]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.50]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.53]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.89]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

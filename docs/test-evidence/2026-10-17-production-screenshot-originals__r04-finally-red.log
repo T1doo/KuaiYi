@@ -1,0 +1,34 @@
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.12]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.66]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.69]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:02.92]     KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.QueuedPreparedNotificationAfterClearCannotRestoreMetadataOrSend [FAIL]
+[xUnit.net 00:00:02.92]       System.TimeoutException : The operation has timed out.
+[xUnit.net 00:00:02.92]       Stack Trace:
+[xUnit.net 00:00:02.92]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ProductionScreenshotTranslationTests.cs(114,0): at KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.QueuedPreparedNotificationAfterClearCannotRestoreMetadataOrSend()
+[xUnit.net 00:00:02.92]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ProductionScreenshotTranslationTests.cs(114,0): at KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.QueuedPreparedNotificationAfterClearCannotRestoreMetadataOrSend()
+[xUnit.net 00:00:02.92]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.95]   Finished:    KuaiYi.Provider.Tests
+  Failed KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.QueuedPreparedNotificationAfterClearCannotRestoreMetadataOrSend [2 s]
+  Error Message:
+   System.TimeoutException : The operation has timed out.
+  Stack Trace:
+     at KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.QueuedPreparedNotificationAfterClearCannotRestoreMetadataOrSend() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ProductionScreenshotTranslationTests.cs:line 114
+   at KuaiYi.Provider.Tests.ProductionScreenshotTranslationTests.QueuedPreparedNotificationAfterClearCannotRestoreMetadataOrSend() in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ProductionScreenshotTranslationTests.cs:line 114
+--- End of stack trace from previous location ---
+Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
+
+Test Run Failed.
+Total tests: 1
+     Failed: 1
+ Total time: 3.5579 Seconds
+Results File: /workspace/KuaiYi/artifacts/production-screenshot-translation/r04-finally-red.trx

@@ -1,0 +1,6 @@
+{
+  "result": "50P1F of51",
+  "failure": "New Shell stop test incorrectly expected receiver acceptance after ProductionScreenshotCoordinator.Stop invalidates identity. Contract requires rejection; body preservation assertion remains. This is a test expectation correction, not a product red/green.",
+  "method": "ActualShellStopKeepsPartialImageResultAndOriginalAndRejectsLateBody",
+  "change": "Only late ReceivePresentationAsync assertion True -> False; all source/body/stop assertions retained."
+}

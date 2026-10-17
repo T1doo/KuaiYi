@@ -1,0 +1,61 @@
+{
+  "utc": "2026-10-17T10:47:26.590269+00:00",
+  "results": [
+    {
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit": 0,
+      "stdout": "78e7db0d5caa5ea77625877dbddd2252562cb047\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "branch",
+        "--show-current"
+      ],
+      "exit": 0,
+      "stdout": "dev/production-screenshot-translation\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "worktree",
+        "list",
+        "--porcelain"
+      ],
+      "exit": 0,
+      "stdout": "worktree /workspace/KuaiYi\nHEAD 78e7db0d5caa5ea77625877dbddd2252562cb047\nbranch refs/heads/dev/production-screenshot-translation\n\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "merge-base",
+        "--is-ancestor",
+        "d45ba9d4ab1af3675cb7d0a36cfe0f77618965d0",
+        "HEAD"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "ls-remote",
+        "origin",
+        "refs/heads/main",
+        "refs/heads/dev/diagnostic-dispose-settlement",
+        "refs/heads/dev/production-screenshot-translation"
+      ],
+      "exit": 0,
+      "stdout": "78e7db0d5caa5ea77625877dbddd2252562cb047\trefs/heads/dev/diagnostic-dispose-settlement\n51d077481cf6303602fcf5d2718213da9cf05178\trefs/heads/main\n",
+      "stderr": ""
+    }
+  ]
+}
