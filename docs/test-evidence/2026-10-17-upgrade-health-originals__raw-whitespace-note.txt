@@ -1,0 +1,2 @@
+Initial staged git diff --check reported only immutable raw xUnit stdout trailing spaces in r02-install.trx line481 and r07-cancellation-red.trx line58.
+Original TRX bytes were preserved, not stripped or regenerated. Exact-path .gitattributes -text -whitespace on those two raw originals disables whitespace interpretation of captured console data. No source/test/report whitespace allowance added.

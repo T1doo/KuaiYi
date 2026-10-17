@@ -1,0 +1,247 @@
+using System.Diagnostics;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.Json;
+using KuaiYi.Core.Installation;
+using Xunit;
+using Xunit.Abstractions;
+namespace KuaiYi.Core.Tests;
+
+public sealed class InstallationUpgradeTests(ITestOutputHelper output)
+{
+    private static string Driver=>Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"../../../../../tools/KuaiYi.SettingsStoreFixture/bin",new DirectoryInfo(AppContext.BaseDirectory).Parent!.Name,"net10.0/KuaiYi.SettingsStoreFixture.dll"));
+    private static string Host=>Environment.GetEnvironmentVariable("DOTNET_HOST_PATH")??"dotnet";
+    private sealed class Rig:IDisposable
+    {
+        internal readonly string Root=Path.Combine(Path.GetTempPath(),"kuaiyi-upgrade-tests-"+Guid.NewGuid().ToString("N"));
+        internal string App=>Path.Combine(Root,"application");internal string Data=>Path.Combine(Root,"user-data");
+        internal InstallationStore Store=>new(App,Data,()=>true);
+        internal Rig(){Directory.CreateDirectory(Data);File.WriteAllText(Path.Combine(Data,"config.json"),"PUBLIC_PRESERVED_CONFIG");File.WriteAllBytes(Path.Combine(Data,"encrypted-secret.bin"),[19,82,7,0,244,11,38]);}
+        internal string Package(string version,string mode="healthy")
+        {
+            string package=Path.Combine(Root,"package-"+version);Directory.CreateDirectory(package);
+            foreach(string name in new[]{"KuaiYi.SettingsStoreFixture.dll","KuaiYi.SettingsStoreFixture.runtimeconfig.json","KuaiYi.SettingsStoreFixture.deps.json","KuaiYi.Core.dll"})File.Copy(Path.Combine(Path.GetDirectoryName(Driver)!,name),Path.Combine(package,name));
+            File.WriteAllText(Path.Combine(package,"KuaiYi.App.exe"),"PUBLIC_DOTNET_TEST_PORT_ONLY");File.WriteAllText(Path.Combine(package,"KuaiYi.CaptureBroker.exe"),"PUBLIC_DOTNET_TEST_PORT_ONLY");
+            File.WriteAllBytes(Path.Combine(package,"public-install-behavior.json"),JsonSerializer.SerializeToUtf8Bytes(new{version,mode}));
+            var files=Directory.GetFiles(package).Order().Select(p=>new{path=Path.GetFileName(p),bytes=new FileInfo(p).Length,sha256=Hash(p)}).ToArray();
+            File.WriteAllBytes(Path.Combine(package,"package.json"),JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=1,product="KuaiYi",version,files}));return package;
+        }
+        internal string Pin(string version)=>Hash(Path.Combine(Root,"package-"+version,"package.json"));
+        internal byte[] Pointer=>File.ReadAllBytes(Path.Combine(App,"current.json"));
+        internal static string Hash(string path)=>Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(path)));
+        internal Dictionary<string,string> DataBytes()=>Directory.GetFiles(Data,"*",SearchOption.AllDirectories).ToDictionary(p=>Path.GetRelativePath(Data,p),Hash);
+        internal InstallationUpgradeCoordinator Coordinator(Port port)=>new(App,Data,port,TimeSpan.FromSeconds(2),port);
+        public void Dispose(){if(Directory.Exists(Root))Directory.Delete(Root,true);}
+    }
+    private sealed class Child
+    {
+        internal readonly Process Process;internal readonly string Version,Directory,DriverHash;
+        internal readonly TaskCompletionSource<string> First=new(TaskCreationOptions.RunContinuationsAsynchronously);
+        internal readonly Task Output,Error;internal readonly List<string> Lines=[];
+        internal bool Settled;internal int Exit;
+        internal Child(Process process,string directory,string version,Task? drain=null)
+        {
+            Process=process;Directory=directory;Version=version;DriverHash=Rig.Hash(Path.Combine(directory,"KuaiYi.SettingsStoreFixture.dll"));
+            Output=ReadOutput();Error=ReadError(drain);
+        }
+        private async Task ReadOutput()
+        {
+            try
+            {
+                while(await Process.StandardOutput.ReadLineAsync() is {} line)
+                {if(line.Length>1024||Lines.Count>=16)throw new IOException("Public fixture output overflow.");Lines.Add(line);First.TrySetResult(line);}
+                First.TrySetException(new IOException("Public fixture exited before ready."));
+            }
+            catch(Exception error){First.TrySetException(error);throw;}
+        }
+        private async Task ReadError(Task? drain){string text=await Process.StandardError.ReadToEndAsync();if(drain!=null)await drain;if(text.Length!=0)throw new IOException("Public fixture emitted stderr: "+text);}
+    }
+    private sealed class Port(Rig rig,ITestOutputHelper output):IInstallationApplicationProtocol,IOwnedProcessStarter
+    {
+        internal readonly List<Child> Children=[];
+        internal string? HoldVersion,FailStartVersion,HoldDrainVersion;
+        internal bool IgnoreHealthCancellation;
+        internal readonly TaskCompletionSource Held=new(TaskCreationOptions.RunContinuationsAsynchronously),Release=new(TaskCreationOptions.RunContinuationsAsynchronously);
+        internal readonly TaskCompletionSource Settling=new(TaskCreationOptions.RunContinuationsAsynchronously),DrainRelease=new(TaskCreationOptions.RunContinuationsAsynchronously);
+        public Process Start(ProcessStartInfo info)
+        {
+            string directory=Path.GetDirectoryName(info.FileName)!;Assert.Equal(directory,info.WorkingDirectory);
+            Assert.StartsWith(Path.Combine(rig.App,"versions")+Path.DirectorySeparatorChar,directory,StringComparison.Ordinal);
+            Assert.Contains(Path.GetFileName(info.FileName),new[]{"KuaiYi.App.exe","KuaiYi.CaptureBroker.exe"});
+            using var config=JsonDocument.Parse(File.ReadAllBytes(Path.Combine(directory,"public-install-behavior.json")));string version=config.RootElement.GetProperty("version").GetString()!;
+            if(FailStartVersion==version)info.FileName=Path.Combine(directory,"PUBLIC_MISSING_STARTER");
+            else{info.FileName=Host;info.ArgumentList.Insert(0,Path.Combine(directory,"KuaiYi.SettingsStoreFixture.dll"));}
+            var child=Process.Start(info)??throw new IOException("Public fixture start failed.");Children.Add(new(child,directory,version,HoldDrainVersion==version?DrainRelease.Task:null));return child;
+        }
+        public async Task ConfirmHealthyAsync(Process owned,InstalledVersion version,Guid launch,CancellationToken cancellation)
+        {
+            var child=Children.Single(c=>ReferenceEquals(c.Process,owned));string line=await child.First.Task.WaitAsync(cancellation);string[] fields=line.Split('|');
+            if(fields.Length!=6||fields[0]!="PUBLIC_INSTALL_READY"||fields[1]!=launch.ToString("N")||fields[2]!=version.Version||fields[3]!=child.DriverHash||fields[4]!=version.DirectoryPath||fields[5]!="Healthy")throw new InvalidDataException("Public selected-child health mismatch.");
+            if(HoldVersion==version.Version){Held.TrySetResult();if(IgnoreHealthCancellation)await Release.Task;else await Release.Task.WaitAsync(cancellation);}
+        }
+        public async Task RequestExitAsync(Process owned,CancellationToken cancellation)
+        {await owned.StandardInput.WriteLineAsync("STOP".AsMemory(),cancellation);await owned.StandardInput.FlushAsync(cancellation);}
+        public async Task SettleAsync(Process owned,CancellationToken cancellation)
+        {
+            var child=Children.Single(c=>ReferenceEquals(c.Process,owned));if(child.Version==HoldDrainVersion)Settling.TrySetResult();await Task.WhenAll(child.Output,child.Error).WaitAsync(cancellation);Assert.True(owned.HasExited);
+            if(!child.Settled){child.Settled=true;child.Exit=owned.ExitCode;output.WriteLine($"PUBLIC_UPGRADE_CHILD version={child.Version} directory={child.Directory} driverSha256={child.DriverHash} exit={child.Exit} stdoutLines={child.Lines.Count} stderrBytes=0 IO=Settled");}
+        }
+        internal void AllSettled()=>Assert.All(Children,c=>{Assert.True(c.Settled);Assert.True(c.Output.IsCompletedSuccessfully);Assert.True(c.Error.IsCompletedSuccessfully);});
+    }
+    private async Task AdmissionChild(Rig rig,bool admitted)
+    {
+        var info=new ProcessStartInfo(Host){UseShellExecute=false,RedirectStandardOutput=true,RedirectStandardError=true};foreach(string arg in new[]{Driver,"--installation-admission",rig.Root})info.ArgumentList.Add(arg);
+        using var child=Process.Start(info)!;Task<string> stdout=child.StandardOutput.ReadToEndAsync(),stderr=child.StandardError.ReadToEndAsync();
+        try
+        {
+            await child.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal(admitted?0:4,child.ExitCode);Assert.Equal(admitted?"PUBLIC_ADMITTED":"PUBLIC_BLOCKED",(await stdout).Trim());Assert.Equal("",await stderr);output.WriteLine($"PUBLIC_ADMISSION_CHILD exit={child.ExitCode} driverSha256={Rig.Hash(Driver)} IO=Settled");
+        }
+        finally{if(!child.HasExited){child.Kill();await child.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(3));}await Task.WhenAll(stdout,stderr);}
+    }
+    [Fact]public async Task UpgradeWaitsForActualOwnedAppAndBrokerExitThenStartsTheWholeSelectedGeneration()
+    {
+        using var r=new Rig();var previous=await r.Store.ApplyAsync(r.Package("1.0"),r.Pin("1.0"));r.Package("2.0");var data=r.DataBytes();var port=new Port(r,output);
+        await using(var coordinator=r.Coordinator(port))
+        {
+            Assert.Equal(previous,await coordinator.StartActiveRoleAsync());await coordinator.StartActiveRoleAsync("KuaiYi.CaptureBroker.exe");
+            var upgraded=await coordinator.UpgradeAsync(Path.Combine(r.Root,"package-2.0"),r.Pin("2.0"));Assert.Equal(InstallationUpgradeOutcome.Upgraded,upgraded.Outcome);Assert.Null(upgraded.Failure);Assert.Equal("2.0",r.Store.ReadActive()!.Version);
+            Assert.Equal(3,port.Children.Count);Assert.All(port.Children.Take(2),c=>{Assert.True(c.Settled);Assert.Equal(0,c.Exit);Assert.Contains("PUBLIC_INSTALL_EXIT",c.Lines);});Assert.False(port.Children[2].Process.HasExited);Assert.Equal(upgraded.Active!.DirectoryPath,port.Children[2].Directory);Assert.False(File.Exists(Path.Combine(r.App,"upgrade-pending.json")));
+            Assert.Equal(data.OrderBy(p=>p.Key),r.DataBytes().OrderBy(p=>p.Key));await AdmissionChild(r,true);
+        }
+        port.AllSettled();
+    }
+    [Theory][InlineData("start-exit")][InlineData("unhealthy")][InlineData("wrong-version")][InlineData("wrong-launch")][InlineData("silent")]
+    public async Task IntactButUnhealthyNewVersionRestoresExactOldPointerAndActuallyRestartsOldApplication(string mode)
+    {
+        using var r=new Rig();await r.Store.ApplyAsync(r.Package("1.0"),r.Pin("1.0"));r.Package("2.0",mode);byte[] before=r.Pointer;var data=r.DataBytes();var port=new Port(r,output);
+        await using(var coordinator=r.Coordinator(port))
+        {
+            await coordinator.StartActiveRoleAsync();var result=await coordinator.UpgradeAsync(Path.Combine(r.Root,"package-2.0"),r.Pin("2.0"));Assert.Equal(InstallationUpgradeOutcome.RolledBack,result.Outcome);Assert.NotNull(result.Failure);Assert.Equal(before,r.Pointer);Assert.Equal("1.0",result.Active!.Version);
+            Assert.Equal(new[]{"1.0","2.0","1.0"},port.Children.Select(c=>c.Version));Assert.True(port.Children[1].Settled);Assert.False(port.Children[2].Process.HasExited);
+            Assert.Equal(2,Directory.GetDirectories(Path.Combine(r.App,"versions")).Length);Assert.Equal("PUBLIC_DOTNET_TEST_PORT_ONLY",File.ReadAllText(Path.Combine(port.Children[1].Directory,"KuaiYi.App.exe")));Assert.Equal(data.OrderBy(p=>p.Key),r.DataBytes().OrderBy(p=>p.Key));
+        }
+        port.AllSettled();
+    }
+    [Fact]public async Task ActualOsStartFailureRollsBackWithoutInventingAStartedChild()
+    {
+        using var r=new Rig();await r.Store.ApplyAsync(r.Package("1.0"),r.Pin("1.0"));r.Package("2.0");byte[] before=r.Pointer;var port=new Port(r,output){FailStartVersion="2.0"};
+        await using(var coordinator=r.Coordinator(port)){await coordinator.StartActiveRoleAsync();var result=await coordinator.UpgradeAsync(Path.Combine(r.Root,"package-2.0"),r.Pin("2.0"));Assert.Equal(InstallationUpgradeOutcome.RolledBack,result.Outcome);Assert.Equal(before,r.Pointer);Assert.Equal(new[]{"1.0","1.0"},port.Children.Select(c=>c.Version));}
+        port.AllSettled();
+    }
+    [Fact]public async Task RefusingOwnedApplicationPreventsPublicationAndPersistentBlockSurvivesLeaseRelease()
+    {
+        using var r=new Rig();await r.Store.ApplyAsync(r.Package("1.0","refuse"),r.Pin("1.0"));r.Package("2.0");byte[] before=r.Pointer;var port=new Port(r,output);
+        await using(var coordinator=r.Coordinator(port))
+        {
+            await coordinator.StartActiveRoleAsync();await Assert.ThrowsAsync<InstallationUpgradeUnconfirmedException>(()=>coordinator.UpgradeAsync(Path.Combine(r.Root,"package-2.0"),r.Pin("2.0")));Assert.Equal(before,r.Pointer);Assert.Single(Directory.GetDirectories(Path.Combine(r.App,"versions")));Assert.False(port.Children.Single().Process.HasExited);Assert.Contains("PUBLIC_INSTALL_REFUSED",port.Children.Single().Lines);
+        }
+        port.AllSettled();Assert.True(File.Exists(Path.Combine(r.App,"upgrade-pending.json")));await AdmissionChild(r,false);
+        await Assert.ThrowsAsync<InstallationRecoveryException>(()=>r.Store.ApplyAsync(Path.Combine(r.Root,"package-2.0"),r.Pin("2.0")));await Assert.ThrowsAsync<InstallationRecoveryException>(()=>r.Store.RecoverAsync());Assert.Equal(before,r.Pointer);
+        await using var fresh=r.Coordinator(new Port(r,output));await Assert.ThrowsAsync<InstallationRecoveryException>(()=>fresh.StartActiveRoleAsync());await Assert.ThrowsAsync<InstallationRecoveryException>(()=>fresh.RetryRollbackAsync());
+    }
+    [Fact]public async Task LocallyHeldRetryCanFinishAfterTheSameOwnedApplicationStopsRefusingExit()
+    {
+        using var r=new Rig();await r.Store.ApplyAsync(r.Package("1.0","refuse-once"),r.Pin("1.0"));r.Package("2.0");byte[] before=r.Pointer;var port=new Port(r,output);
+        await using(var coordinator=r.Coordinator(port)){await coordinator.StartActiveRoleAsync();await Assert.ThrowsAsync<InstallationUpgradeUnconfirmedException>(()=>coordinator.UpgradeAsync(Path.Combine(r.Root,"package-2.0"),r.Pin("2.0")));var result=await coordinator.RetryRollbackAsync();Assert.Equal(InstallationUpgradeOutcome.RolledBack,result.Outcome);Assert.Equal(before,r.Pointer);Assert.Equal(new[]{"1.0","1.0"},port.Children.Select(c=>c.Version));Assert.False(File.Exists(Path.Combine(r.App,"upgrade-pending.json")));}
+        port.AllSettled();
+    }
+    [Fact]public async Task RealCompetingProcessAndWritersCannotReenterWhileNewHealthIsPending()
+    {
+        using var r=new Rig();await r.Store.ApplyAsync(r.Package("1.0"),r.Pin("1.0"));r.Package("2.0");r.Package("3.0");var port=new Port(r,output){HoldVersion="2.0"};
+        await using(var coordinator=r.Coordinator(port))
+        {
+            await coordinator.StartActiveRoleAsync();Task<InstallationUpgradeResult> upgrade=coordinator.UpgradeAsync(Path.Combine(r.Root,"package-2.0"),r.Pin("2.0"));
+            try
+            {
+                await port.Held.Task.WaitAsync(TimeSpan.FromSeconds(8));await AdmissionChild(r,false);
+                await Assert.ThrowsAsync<InstallationBusyException>(()=>r.Store.ApplyAsync(Path.Combine(r.Root,"package-3.0"),r.Pin("3.0")));await Assert.ThrowsAsync<InstallationBusyException>(()=>coordinator.StartActiveRoleAsync());
+                await using var other=r.Coordinator(new Port(r,output));await Assert.ThrowsAsync<InstallationBusyException>(()=>other.StartActiveRoleAsync());
+            }
+            finally{port.Release.TrySetResult();}
+            Assert.Equal(InstallationUpgradeOutcome.Upgraded,(await upgrade).Outcome);
+        }
+        port.AllSettled();
+    }
+    [Fact]public async Task LateHealthTaskMustSettleBeforeRollbackOrOldApplicationCanStart()
+    {
+        using var r=new Rig();await r.Store.ApplyAsync(r.Package("1.0"),r.Pin("1.0"));r.Package("2.0");byte[] before=r.Pointer;var port=new Port(r,output){HoldVersion="2.0",IgnoreHealthCancellation=true};
+        await using(var coordinator=r.Coordinator(port))
+        {
+            await coordinator.StartActiveRoleAsync();await Assert.ThrowsAsync<InstallationUpgradeUnconfirmedException>(()=>coordinator.UpgradeAsync(Path.Combine(r.Root,"package-2.0"),r.Pin("2.0")));Assert.Equal("2.0",r.Store.ReadActive()!.Version);Assert.Equal(new[]{"1.0","2.0"},port.Children.Select(c=>c.Version));Assert.True(port.Children[1].Settled);Assert.True(File.Exists(Path.Combine(r.App,"upgrade-pending.json")));await AdmissionChild(r,false);
+            port.Release.TrySetResult();var result=await coordinator.RetryRollbackAsync();Assert.Equal(InstallationUpgradeOutcome.RolledBack,result.Outcome);Assert.Equal(before,r.Pointer);Assert.Equal(new[]{"1.0","2.0","1.0"},port.Children.Select(c=>c.Version));
+        }
+        port.AllSettled();
+    }
+    [Fact]public async Task CancellationDuringOwnedNewHealthRestoresAndRestartsTheVerifiedOldVersion()
+    {
+        using var r=new Rig();await r.Store.ApplyAsync(r.Package("1.0"),r.Pin("1.0"));r.Package("2.0");byte[] before=r.Pointer;var port=new Port(r,output){HoldVersion="2.0"};using var cancel=new CancellationTokenSource();
+        await using(var coordinator=r.Coordinator(port))
+        {
+            await coordinator.StartActiveRoleAsync();Task<InstallationUpgradeResult> upgrade=coordinator.UpgradeAsync(Path.Combine(r.Root,"package-2.0"),r.Pin("2.0"),cancel.Token);await port.Held.Task.WaitAsync(TimeSpan.FromSeconds(8));cancel.Cancel();var result=await upgrade;Assert.Equal(InstallationUpgradeOutcome.RolledBack,result.Outcome);Assert.Equal(before,r.Pointer);Assert.True(port.Children[1].Settled);Assert.False(port.Children[2].Process.HasExited);
+        }
+        port.AllSettled();
+    }
+    [Fact]public async Task NormalLaunchAlsoHoldsAdmissionThroughActualStartupAndHealthSettlement()
+    {
+        using var r=new Rig();await r.Store.ApplyAsync(r.Package("1.0"),r.Pin("1.0"));var port=new Port(r,output){HoldVersion="1.0"};
+        await using(var coordinator=r.Coordinator(port))
+        {
+            var launch=coordinator.StartActiveRoleAsync();try{await port.Held.Task.WaitAsync(TimeSpan.FromSeconds(8));await AdmissionChild(r,false);}finally{port.Release.TrySetResult();}Assert.Equal("1.0",(await launch).Version);
+        }
+        port.AllSettled();
+    }
+    [Fact]public async Task InitialUnhealthyInstallReturnsToUninstalledAndRetainsTheCompleteCandidate()
+    {
+        using var r=new Rig();r.Package("1.0","unhealthy");var port=new Port(r,output);
+        await using(var coordinator=r.Coordinator(port))
+        {
+            var result=await coordinator.UpgradeAsync(Path.Combine(r.Root,"package-1.0"),r.Pin("1.0"));Assert.Equal(InstallationUpgradeOutcome.RolledBack,result.Outcome);Assert.Null(result.Active);Assert.Null(r.Store.ReadActive());Assert.Single(Directory.GetDirectories(Path.Combine(r.App,"versions")));Assert.Single(Directory.GetFiles(r.App,"failed-current-*.json"));Assert.Single(port.Children);Assert.True(port.Children[0].Settled);
+        }
+        port.AllSettled();
+    }
+    [Fact]public async Task OldRestartFailureRemainsBlockedUntilOwnedRetryActuallyStartsItHealthy()
+    {
+        using var r=new Rig();await r.Store.ApplyAsync(r.Package("1.0"),r.Pin("1.0"));r.Package("2.0","unhealthy");byte[] before=r.Pointer;var port=new Port(r,output);
+        await using(var coordinator=r.Coordinator(port))
+        {
+            await coordinator.StartActiveRoleAsync();port.FailStartVersion="1.0";await Assert.ThrowsAsync<InstallationUpgradeUnconfirmedException>(()=>coordinator.UpgradeAsync(Path.Combine(r.Root,"package-2.0"),r.Pin("2.0")));Assert.Equal(before,r.Pointer);Assert.True(File.Exists(Path.Combine(r.App,"upgrade-pending.json")));await AdmissionChild(r,false);
+            port.FailStartVersion=null;var result=await coordinator.RetryRollbackAsync();Assert.Equal(InstallationUpgradeOutcome.RolledBack,result.Outcome);Assert.Equal(before,r.Pointer);Assert.Equal(new[]{"1.0","2.0","1.0"},port.Children.Select(c=>c.Version));Assert.False(port.Children[^1].Process.HasExited);
+        }
+        port.AllSettled();
+    }
+    [Fact]public async Task ChangedPendingRecordIsRetainedAndCannotBeClearedByOwnedRetry()
+    {
+        using var r=new Rig();await r.Store.ApplyAsync(r.Package("1.0"),r.Pin("1.0"));r.Package("2.0");var port=new Port(r,output){HoldVersion="2.0"};string journal=Path.Combine(r.App,"upgrade-pending.json");
+        await using(var coordinator=r.Coordinator(port))
+        {
+            await coordinator.StartActiveRoleAsync();Task<InstallationUpgradeResult> upgrade=coordinator.UpgradeAsync(Path.Combine(r.Root,"package-2.0"),r.Pin("2.0"));
+            try{await port.Held.Task.WaitAsync(TimeSpan.FromSeconds(8));File.WriteAllText(journal,"PUBLIC_UNKNOWN_UPGRADE_DO_NOT_REPLACE");}finally{port.Release.TrySetResult();}
+            await Assert.ThrowsAsync<InstallationUpgradeUnconfirmedException>(()=>upgrade);Assert.Equal("PUBLIC_UNKNOWN_UPGRADE_DO_NOT_REPLACE",File.ReadAllText(journal));await Assert.ThrowsAsync<InstallationRecoveryException>(()=>coordinator.RetryRollbackAsync());Assert.Equal("PUBLIC_UNKNOWN_UPGRADE_DO_NOT_REPLACE",File.ReadAllText(journal));await AdmissionChild(r,false);
+        }
+        port.AllSettled();
+    }
+    [Theory][InlineData(false)][InlineData(true)]public async Task AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(bool upgrade)
+    {
+        using var r=new Rig();await r.Store.ApplyAsync(r.Package("1.0"),r.Pin("1.0"));r.Package("2.0");byte[] before=r.Pointer;var firstPort=new Port(r,output);var otherPort=new Port(r,output);
+        await using(var first=r.Coordinator(firstPort))
+        await using(var other=r.Coordinator(otherPort))
+        {
+            await first.StartActiveRoleAsync();Exception? refusal=await Record.ExceptionAsync(async()=>{if(upgrade)await other.UpgradeAsync(Path.Combine(r.Root,"package-2.0"),r.Pin("2.0"));else await other.StartActiveRoleAsync();});
+            Assert.NotNull(refusal);Assert.Equal(before,r.Pointer);Assert.Empty(otherPort.Children);Assert.False(firstPort.Children.Single().Process.HasExited);
+        }
+        firstPort.AllSettled();otherPort.AllSettled();
+    }
+    [Fact]public async Task AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication()
+    {
+        using var r=new Rig();await r.Store.ApplyAsync(r.Package("1.0"),r.Pin("1.0"));r.Package("2.0");byte[] before=r.Pointer;var port=new Port(r,output){HoldDrainVersion="1.0"};
+        await using(var coordinator=r.Coordinator(port))
+        {
+            await coordinator.StartActiveRoleAsync();var old=port.Children.Single();await old.Process.StandardInput.WriteLineAsync("STOP");await old.Process.StandardInput.FlushAsync();await old.Process.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(6));Assert.False(old.Error.IsCompleted);
+            Task<InstallationUpgradeResult> upgrade=coordinator.UpgradeAsync(Path.Combine(r.Root,"package-2.0"),r.Pin("2.0"));
+            try{Task first=await Task.WhenAny(port.Settling.Task,upgrade).WaitAsync(TimeSpan.FromSeconds(6));Assert.Same(port.Settling.Task,first);Assert.Equal(before,r.Pointer);Assert.Single(port.Children);}
+            finally{port.DrainRelease.TrySetResult();await upgrade;}
+            Assert.Equal("2.0",r.Store.ReadActive()!.Version);
+        }
+        port.AllSettled();
+    }
+}

@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="6373dfdf-9dc8-462c-8f2c-58c8009cbef8" name="@4cd0056ca8a8 2026-10-17 12:32:28" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-17T12:32:28.3867774+00:00" queuing="2026-10-17T12:32:28.3867774+00:00" start="2026-10-17T12:32:27.0715264+00:00" finish="2026-10-17T12:32:28.3948252+00:00" />
+  <TestSettings name="default" id="e2555819-b1b4-4f15-b161-f12f9dcce2cc">
+    <Deployment runDeploymentRoot="_4cd0056ca8a8_2026-10-17_12_32_28" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="e20d32be-0f46-4bbf-bdd8-0d4eb82ee180" testId="22aaa4a0-3e88-ad16-1224-cab5fb44a668" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication" computerName="4cd0056ca8a8" duration="00:00:00.1336063" startTime="2026-10-17T12:32:28.1663405+00:00" endTime="2026-10-17T12:32:28.3009356+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e20d32be-0f46-4bbf-bdd8-0d4eb82ee180">
+      <Output>
+        <StdOut>PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-e9b0f8246ef34912a9c7b3eac3bc4ea2/application/versions/d17ab8ff53b14724a017724a2e5ce5a7 driverSha256=19406D61448C3F5DA0C5E7432E9AC49DC3733D6315A0E718C533C6B7E5CA29FD exit=0 stdoutLines=2 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=2.0 directory=/tmp/kuaiyi-upgrade-tests-e9b0f8246ef34912a9c7b3eac3bc4ea2/application/versions/85d14e83cbd14de895e9ff57c7f20d1d driverSha256=19406D61448C3F5DA0C5E7432E9AC49DC3733D6315A0E718C533C6B7E5CA29FD exit=137 stdoutLines=1 stderrBytes=0 IO=Settled</StdOut>
+        <ErrorInfo>
+          <Message>Assert.Same() Failure: Values are not the same instance
+Expected: Task { Status = WaitingForActivation }
+Actual:   Task&lt;InstallationUpgradeResult,&lt;UpgradeAsync&gt;d__14&gt; { Status = RanToCompletion }</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.InstallationUpgradeTests.AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs:line 241
+   at KuaiYi.Core.Tests.InstallationUpgradeTests.AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs:line 242
+   at KuaiYi.Core.Tests.InstallationUpgradeTests.AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs:line 244
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="fd668034-e22a-4be8-8c21-a177e8eea6a5" testId="9614821d-8087-fb91-287d-2058d2029e9b" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(upgrade: True)" computerName="4cd0056ca8a8" duration="00:00:00.1826536" startTime="2026-10-17T12:32:27.8393199+00:00" endTime="2026-10-17T12:32:28.0392259+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fd668034-e22a-4be8-8c21-a177e8eea6a5">
+      <Output>
+        <StdOut>PUBLIC_UPGRADE_CHILD version=2.0 directory=/tmp/kuaiyi-upgrade-tests-84d2f8f3eaf744ffb560de3b97a21a81/application/versions/753a3c8f2155406cb9a9648162127016 driverSha256=19406D61448C3F5DA0C5E7432E9AC49DC3733D6315A0E718C533C6B7E5CA29FD exit=137 stdoutLines=1 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-84d2f8f3eaf744ffb560de3b97a21a81/application/versions/ca7b0bb3ee2e4ab39643493088ac0a1e driverSha256=19406D61448C3F5DA0C5E7432E9AC49DC3733D6315A0E718C533C6B7E5CA29FD exit=137 stdoutLines=1 stderrBytes=0 IO=Settled</StdOut>
+        <ErrorInfo>
+          <Message>Assert.NotNull() Failure: Value is null</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(Boolean upgrade) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs:line 230
+   at KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(Boolean upgrade) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs:line 230
+   at KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(Boolean upgrade) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs:line 230
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e941cf3e-13e7-45f6-96e5-f0636fd6704a" testId="7b3a5b73-b452-e4e3-7d07-c8a967bf211f" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(upgrade: False)" computerName="4cd0056ca8a8" duration="00:00:00.1197581" startTime="2026-10-17T12:32:28.0532220+00:00" endTime="2026-10-17T12:32:28.1648860+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e941cf3e-13e7-45f6-96e5-f0636fd6704a">
+      <Output>
+        <StdOut>PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-c734960232694c58a819993a84b99d23/application/versions/60332aaaa5c14806a78493000572555d driverSha256=19406D61448C3F5DA0C5E7432E9AC49DC3733D6315A0E718C533C6B7E5CA29FD exit=137 stdoutLines=1 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-c734960232694c58a819993a84b99d23/application/versions/60332aaaa5c14806a78493000572555d driverSha256=19406D61448C3F5DA0C5E7432E9AC49DC3733D6315A0E718C533C6B7E5CA29FD exit=137 stdoutLines=1 stderrBytes=0 IO=Settled</StdOut>
+        <ErrorInfo>
+          <Message>Assert.NotNull() Failure: Value is null</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(Boolean upgrade) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs:line 230
+   at KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(Boolean upgrade) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs:line 230
+   at KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(Boolean upgrade) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs:line 230
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(upgrade: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="7b3a5b73-b452-e4e3-7d07-c8a967bf211f">
+      <Execution id="e941cf3e-13e7-45f6-96e5-f0636fd6704a" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="22aaa4a0-3e88-ad16-1224-cab5fb44a668">
+      <Execution id="e20d32be-0f46-4bbf-bdd8-0d4eb82ee180" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(upgrade: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="9614821d-8087-fb91-287d-2058d2029e9b">
+      <Execution id="fd668034-e22a-4be8-8c21-a177e8eea6a5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="22aaa4a0-3e88-ad16-1224-cab5fb44a668" executionId="e20d32be-0f46-4bbf-bdd8-0d4eb82ee180" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9614821d-8087-fb91-287d-2058d2029e9b" executionId="fd668034-e22a-4be8-8c21-a177e8eea6a5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7b3a5b73-b452-e4e3-7d07-c8a967bf211f" executionId="e941cf3e-13e7-45f6-96e5-f0636fd6704a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="3" executed="3" passed="0" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.10]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.40]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.42]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.65]       Assert.NotNull() Failure: Value is null
+[xUnit.net 00:00:00.65]       Stack Trace:
+[xUnit.net 00:00:00.65]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs(230,0): at KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(Boolean upgrade)
+[xUnit.net 00:00:00.65]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs(230,0): at KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(Boolean upgrade)
+[xUnit.net 00:00:00.65]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs(230,0): at KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(Boolean upgrade)
+[xUnit.net 00:00:00.65]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.65]       Output:
+[xUnit.net 00:00:00.65]         PUBLIC_UPGRADE_CHILD version=2.0 directory=/tmp/kuaiyi-upgrade-tests-84d2f8f3eaf744ffb560de3b97a21a81/application/versions/753a3c8f2155406cb9a9648162127016 driverSha256=19406D61448C3F5DA0C5E7432E9AC49DC3733D6315A0E718C533C6B7E5CA29FD exit=137 stdoutLines=1 stderrBytes=0 IO=Settled
+[xUnit.net 00:00:00.65]         PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-84d2f8f3eaf744ffb560de3b97a21a81/application/versions/ca7b0bb3ee2e4ab39643493088ac0a1e driverSha256=19406D61448C3F5DA0C5E7432E9AC49DC3733D6315A0E718C533C6B7E5CA29FD exit=137 stdoutLines=1 stderrBytes=0 IO=Settled
+[xUnit.net 00:00:00.77]       Assert.NotNull() Failure: Value is null
+[xUnit.net 00:00:00.77]       Stack Trace:
+[xUnit.net 00:00:00.77]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs(230,0): at KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(Boolean upgrade)
+[xUnit.net 00:00:00.77]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs(230,0): at KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(Boolean upgrade)
+[xUnit.net 00:00:00.77]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs(230,0): at KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(Boolean upgrade)
+[xUnit.net 00:00:00.77]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.77]       Output:
+[xUnit.net 00:00:00.77]         PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-c734960232694c58a819993a84b99d23/application/versions/60332aaaa5c14806a78493000572555d driverSha256=19406D61448C3F5DA0C5E7432E9AC49DC3733D6315A0E718C533C6B7E5CA29FD exit=137 stdoutLines=1 stderrBytes=0 IO=Settled
+[xUnit.net 00:00:00.77]         PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-c734960232694c58a819993a84b99d23/application/versions/60332aaaa5c14806a78493000572555d driverSha256=19406D61448C3F5DA0C5E7432E9AC49DC3733D6315A0E718C533C6B7E5CA29FD exit=137 stdoutLines=1 stderrBytes=0 IO=Settled
+[xUnit.net 00:00:00.91]       Assert.Same() Failure: Values are not the same instance
+[xUnit.net 00:00:00.91]       Expected: Task { Status = WaitingForActivation }
+[xUnit.net 00:00:00.91]       Actual:   Task&lt;InstallationUpgradeResult,&lt;UpgradeAsync&gt;d__14&gt; { Status = RanToCompletion }
+[xUnit.net 00:00:00.91]       Stack Trace:
+[xUnit.net 00:00:00.91]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs(241,0): at KuaiYi.Core.Tests.InstallationUpgradeTests.AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication()
+[xUnit.net 00:00:00.91]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs(242,0): at KuaiYi.Core.Tests.InstallationUpgradeTests.AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication()
+[xUnit.net 00:00:00.91]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs(244,0): at KuaiYi.Core.Tests.InstallationUpgradeTests.AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication()
+[xUnit.net 00:00:00.91]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.91]       Output:
+[xUnit.net 00:00:00.91]         PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-e9b0f8246ef34912a9c7b3eac3bc4ea2/application/versions/d17ab8ff53b14724a017724a2e5ce5a7 driverSha256=19406D61448C3F5DA0C5E7432E9AC49DC3733D6315A0E718C533C6B7E5CA29FD exit=0 stdoutLines=2 stderrBytes=0 IO=Settled
+[xUnit.net 00:00:00.91]         PUBLIC_UPGRADE_CHILD version=2.0 directory=/tmp/kuaiyi-upgrade-tests-e9b0f8246ef34912a9c7b3eac3bc4ea2/application/versions/85d14e83cbd14de895e9ff57c7f20d1d driverSha256=19406D61448C3F5DA0C5E7432E9AC49DC3733D6315A0E718C533C6B7E5CA29FD exit=137 stdoutLines=1 stderrBytes=0 IO=Settled
+[xUnit.net 00:00:00.91]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T12:32:28.0422822+00:00">
+        <Text>[xUnit.net 00:00:00.65]     KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(upgrade: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T12:32:28.1654535+00:00">
+        <Text>[xUnit.net 00:00:00.77]     KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(upgrade: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T12:32:28.3057785+00:00">
+        <Text>[xUnit.net 00:00:00.91]     KuaiYi.Core.Tests.InstallationUpgradeTests.AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

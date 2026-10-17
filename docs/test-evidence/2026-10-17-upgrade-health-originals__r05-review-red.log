@@ -1,0 +1,63 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.SelectionReuseDiagnostic -> /workspace/KuaiYi/tools/KuaiYi.SelectionReuseDiagnostic/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.65]     KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(upgrade: True) [FAIL]
+[xUnit.net 00:00:00.77]     KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(upgrade: False) [FAIL]
+[xUnit.net 00:00:00.91]     KuaiYi.Core.Tests.InstallationUpgradeTests.AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication [FAIL]
+  Failed KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(upgrade: True) [182 ms]
+  Error Message:
+   Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(Boolean upgrade) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs:line 230
+   at KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(Boolean upgrade) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs:line 230
+   at KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(Boolean upgrade) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs:line 230
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ PUBLIC_UPGRADE_CHILD version=2.0 directory=/tmp/kuaiyi-upgrade-tests-84d2f8f3eaf744ffb560de3b97a21a81/application/versions/753a3c8f2155406cb9a9648162127016 driverSha256=19406D61448C3F5DA0C5E7432E9AC49DC3733D6315A0E718C533C6B7E5CA29FD exit=137 stdoutLines=1 stderrBytes=0 IO=Settled
+ PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-84d2f8f3eaf744ffb560de3b97a21a81/application/versions/ca7b0bb3ee2e4ab39643493088ac0a1e driverSha256=19406D61448C3F5DA0C5E7432E9AC49DC3733D6315A0E718C533C6B7E5CA29FD exit=137 stdoutLines=1 stderrBytes=0 IO=Settled
+
+
+  Failed KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(upgrade: False) [119 ms]
+  Error Message:
+   Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(Boolean upgrade) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs:line 230
+   at KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(Boolean upgrade) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs:line 230
+   at KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(Boolean upgrade) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs:line 230
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-c734960232694c58a819993a84b99d23/application/versions/60332aaaa5c14806a78493000572555d driverSha256=19406D61448C3F5DA0C5E7432E9AC49DC3733D6315A0E718C533C6B7E5CA29FD exit=137 stdoutLines=1 stderrBytes=0 IO=Settled
+ PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-c734960232694c58a819993a84b99d23/application/versions/60332aaaa5c14806a78493000572555d driverSha256=19406D61448C3F5DA0C5E7432E9AC49DC3733D6315A0E718C533C6B7E5CA29FD exit=137 stdoutLines=1 stderrBytes=0 IO=Settled
+
+
+  Failed KuaiYi.Core.Tests.InstallationUpgradeTests.AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication [133 ms]
+  Error Message:
+   Assert.Same() Failure: Values are not the same instance
+Expected: Task { Status = WaitingForActivation }
+Actual:   Task<InstallationUpgradeResult,<UpgradeAsync>d__14> { Status = RanToCompletion }
+  Stack Trace:
+     at KuaiYi.Core.Tests.InstallationUpgradeTests.AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs:line 241
+   at KuaiYi.Core.Tests.InstallationUpgradeTests.AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs:line 242
+   at KuaiYi.Core.Tests.InstallationUpgradeTests.AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs:line 244
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-e9b0f8246ef34912a9c7b3eac3bc4ea2/application/versions/d17ab8ff53b14724a017724a2e5ce5a7 driverSha256=19406D61448C3F5DA0C5E7432E9AC49DC3733D6315A0E718C533C6B7E5CA29FD exit=0 stdoutLines=2 stderrBytes=0 IO=Settled
+ PUBLIC_UPGRADE_CHILD version=2.0 directory=/tmp/kuaiyi-upgrade-tests-e9b0f8246ef34912a9c7b3eac3bc4ea2/application/versions/85d14e83cbd14de895e9ff57c7f20d1d driverSha256=19406D61448C3F5DA0C5E7432E9AC49DC3733D6315A0E718C533C6B7E5CA29FD exit=137 stdoutLines=1 stderrBytes=0 IO=Settled
+
+
+Results File: /workspace/KuaiYi/artifacts/upgrade-health-rollback/r05-review-red.trx
+
+Failed!  - Failed:     3, Passed:     0, Skipped:     0, Total:     3, Duration: 461 ms - KuaiYi.Core.Tests.dll (net10.0)

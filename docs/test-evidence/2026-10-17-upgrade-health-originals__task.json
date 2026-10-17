@@ -1,0 +1,130 @@
+{
+  "Parent": "e684fc3d3caa504186447faa25b2c7640b539688",
+  "Branch": "dev/upgrade-health-rollback",
+  "Prefix": "2026-10-17-upgrade-health-originals__",
+  "Index": "2026-10-17-upgrade-health-rollback.json",
+  "Scope": "SPEC13.4 / P7-05 controlled owned-role upgrade, health rollback, persistent cooperative admission; not Windows installer delivery",
+  "FinalRuns": [
+    "r09-install",
+    "r10-core-full",
+    "r11-provider-full",
+    "r12-app-build",
+    "r13-worker-build"
+  ],
+  "FullRun": "r10-core-full",
+  "ParentTrx": "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full.trx",
+  "NewTests": 27,
+  "AllowedOldModified": [
+    ".gitattributes",
+    "docs/progress.md",
+    "src/KuaiYi.Core/Installation/InstallationStore.cs",
+    "tests/KuaiYi.Core.Tests/InstallationTransactionTests.cs",
+    "tools/KuaiYi.SettingsStoreFixture/Program.cs"
+  ],
+  "SourceReview": "Read-only high_water_review: r09 frozen 47 sources, no remaining P1/P2; packet separate audit pending",
+  "Targets": {
+    "r09-install": "tests/KuaiYi.Core.Tests/bin/Release/net10.0/",
+    "r10-core-full": "tests/KuaiYi.Core.Tests/bin/Release/net10.0/",
+    "r11-provider-full": "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/",
+    "r12-app-build": "src/KuaiYi.App/bin/Release/",
+    "r13-worker-build": "src/KuaiYi.ImageWorker/bin/Release/"
+  },
+  "AdditionalValidation": {
+    "RedGreen": [
+      {
+        "red": "r02-install",
+        "green": "r03-late-green",
+        "sameNames": {
+          "KuaiYi.Core.Tests.InstallationUpgradeTests.LateHealthTaskMustSettleBeforeRollbackOrOldApplicationCanStart": 1
+        },
+        "sameMethodBytesThroughFinal": {
+          "LateHealthTaskMustSettleBeforeRollbackOrOldApplicationCanStart": "945567e56ee7cfd8801c499fd61bda98614cbe6bf7a2f3013223dd5067048a26"
+        }
+      },
+      {
+        "red": "r05-review-red",
+        "green": "r06-review-green",
+        "sameNames": {
+          "KuaiYi.Core.Tests.InstallationUpgradeTests.AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication": 1,
+          "KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(upgrade: True)": 1,
+          "KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(upgrade: False)": 1
+        },
+        "sameMethodBytesThroughFinal": {
+          "AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication": "aa2e28698d51270715fdecba046ea3f01d075c5018c5d0b791f6cfdb9a2a6db7",
+          "AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication": "a2e8c123c796d2b0f1e42e43c064b483f27a3f9912701c4cc15fa86b77de2209"
+        }
+      },
+      {
+        "red": "r07-cancellation-red",
+        "green": "r08-cancellation-green",
+        "sameNames": {
+          "KuaiYi.Core.Tests.InstallationUpgradeTests.BlockingHealthCancellationCallbackCannotHoldTheUpgradeCallerBeyondItsOwnedBudget": 1
+        },
+        "sameMethodBytesThroughFinal": {
+          "BlockingHealthCancellationCallbackCannotHoldTheUpgradeCallerBeyondItsOwnedBudget": "806b967d014324a7eb8ee4c19c675857b2679eba4216c1d56739acc2761ecb59"
+        }
+      }
+    ],
+    "ProviderSameNames": {
+      "parent": 2325,
+      "final": 2325,
+      "exactSameMultiset": true
+    },
+    "RecordedOwnedChildren": {
+      "r09-install": {
+        "recordedChildRows": 63,
+        "upgradeRows": 49,
+        "admissionRows": 10,
+        "ownerCrashRows": 1,
+        "installationCheckpointRows": 3,
+        "driverSha256": "4064e302ce3b9281ad303ba69847d72df9d988068a6e31a490f9bfe7aa022759",
+        "driverCoreEqualsExecutedTargetCore": true
+      },
+      "r10-core-full": {
+        "recordedChildRows": 63,
+        "upgradeRows": 49,
+        "admissionRows": 10,
+        "ownerCrashRows": 1,
+        "installationCheckpointRows": 3,
+        "driverSha256": "4064e302ce3b9281ad303ba69847d72df9d988068a6e31a490f9bfe7aa022759",
+        "driverCoreEqualsExecutedTargetCore": true
+      }
+    },
+    "CompileAttempt": {
+      "run": "r01-install",
+      "classification": "New test syntax CS0819; no TRX, not product behavioral red"
+    },
+    "IntermediateRuns": [
+      "r02-install",
+      "r03-late-green",
+      "r04-install",
+      "r05-review-red",
+      "r06-review-green",
+      "r07-cancellation-red",
+      "r08-cancellation-green"
+    ]
+  },
+  "Notes": [
+    "Final 5 commands each froze the same 47 selected source files before execution, including fixture Program/project, Core installation and owned-process lifetime sources; no retrofilling.",
+    "All 27 added names appear in complete Core; parent 1743 retained unchanged; Provider complete names unchanged.",
+    "5 actual candidate behavioral failures: 1 late health retry, 3 cross-controller/natural-exit IO, 1 synchronous cancellation; exact test method bytes retained through green/final.",
+    "Synthetic selected-generation driver DLL and dependency closure, actual child exit/stdio IO; placeholder EXE mapping is explicitly test-only.",
+    "Real symlink file/directory and installation/data ancestors preserve identical-digest targets; 2 consecutive Recover is pointer/version/data idempotent.",
+    "No test removed or weakened; all other parent tracked bytes preserved.",
+    "Two failed raw TRX retain original xUnit trailing spaces; exact-path -text -whitespace only. No source/test assertion or whitespace rule weakened."
+  ],
+  "Boundaries": [
+    "Per-phase budgets, not a whole-operation hard deadline.",
+    "No Windows adapter for actual role shutdown, normal product entry admission, visible application health, or healthy process ownership handoff. Dispose terminates only this coordinator own held children, including healthy new app.",
+    "Only roles started and held by this coordinator are verified, not all product processes across users/sessions; no unknown PID enumeration or kill.",
+    "Fresh controller preserves stale/unknown owner and pending; no PID-based recovery or generic cleanup.",
+    "NativeHost absolute generation paths, derived package metadata and registration rollback, identity upgrade, complete payload and Inno installer remain future P7 work.",
+    "Normal ShellWindow browser receiver is not wired; existing receiver is in P0 review surface.",
+    "Package digest does not establish publisher/signature trust; launch nonce is not a credential.",
+    "Atomic replacement/Flush/Exit tests do not prove power-loss or OS registration transaction atomicity; same-account malicious rename not prevented.",
+    "Old/failed versions and completed metadata retained without GC; no cumulative disk bound claim.",
+    "Actual Windows, DPAPI/ACL, capture, physical250600, model quality, fullP6/K acceptance NotRun; no register/install/sign/deploy/security/credential changes.",
+    "Skia4.153.1 four license approvals pending; source403 and previously denied GitHub Actions never retried or bypassed.",
+    "Historical image/idle/Core/WindowsJob root causes remain independently Unknown; production image reuse Off."
+  ]
+}

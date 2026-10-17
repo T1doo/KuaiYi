@@ -23,11 +23,14 @@ public sealed class InstallationStore
         if(InstallationPaths.Contains(this.directory,userData)||InstallationPaths.Contains(userData,this.directory))throw new InvalidDataException("Application files and user data must be separate.");
     }
     public Task<InstalledVersion> ApplyAsync(string packageDirectory,string expectedCatalogSha256,CancellationToken cancellation=default)=>Task.Run(()=>Apply(packageDirectory,expectedCatalogSha256,cancellation),cancellation);
-    private InstalledVersion Apply(string packageDirectory,string expectedCatalogSha256,CancellationToken cancellation)
+    internal Task<InstalledVersion> ApplyForUpgradeAsync(string packageDirectory,string hash,InstallationAdmission admission,Func<InstalledVersion,CancellationToken,Task> health,CancellationToken cancellation)
+        =>Task.Run(()=>Apply(packageDirectory,hash,cancellation,admission,health),cancellation);
+    private InstalledVersion Apply(string packageDirectory,string expectedCatalogSha256,CancellationToken cancellation,InstallationAdmission? admission=null,Func<InstalledVersion,CancellationToken,Task>? health=null)
     {
         string source=InstallationPaths.Root(packageDirectory);if(InstallationPaths.Contains(directory,source)||InstallationPaths.Contains(source,directory)||InstallationPaths.Contains(userData,source)||InstallationPaths.Contains(source,userData))throw new InvalidDataException("Package source must be separate.");
         if(!InstallationPackage.HashValid(expectedCatalogSha256))throw new InvalidDataException("Expected package catalog digest required.");
         RequireStopped();var package=InstallationPackage.Read(source,cancellation);if(!string.Equals(package.CatalogSha256,expectedCatalogSha256,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Package catalog digest mismatch.");StageForTest?.Invoke(InstallationStage.PackageVerified);cancellation.ThrowIfCancellationRequested();RequireStopped();
+        using var ownAdmission=admission==null?EnterAdmission():null;admission?.Require(directory);
         using var lease=Lock();byte[]? before=PointerBytes();Pointer? prior=before==null?null:Parse(before);if(prior!=null)_=Verify(prior.Active,cancellation);
         string id=Guid.NewGuid().ToString("N"),staging=Path.Combine(directory,"staging-"+id),versions=Path.Combine(directory,"versions"),destination=Path.Combine(versions,id);
         if(Directory.Exists(staging)||File.Exists(staging)||Directory.Exists(destination)||File.Exists(destination))throw new InstallationRecoveryException("Unexpected version path retained.");
@@ -36,7 +39,8 @@ public sealed class InstallationStore
         try
         {
             StageForTest?.Invoke(InstallationStage.BeforePointerPublish);_=Verify(reference,cancellation);RequireStopped();cancellation.ThrowIfCancellationRequested();Publish(nextBytes,before);published=true;StageForTest?.Invoke(InstallationStage.PointerPublished);
-            // The atomic publication is the commit point. A later token cancellation alone cannot report an uncommitted update.
+            // Ordinary Apply commits here. The upgrade coordinator retains the admission and writer leases through health.
+            if(health!=null)health(Verify(reference,CancellationToken.None),cancellation).GetAwaiter().GetResult();
             RequirePointer(nextBytes);return Verify(reference,CancellationToken.None);
         }
         catch(Exception operation)
@@ -44,9 +48,7 @@ public sealed class InstallationStore
             if(!published)throw;
             try
             {
-                RequireStopped();if(prior!=null)_=Verify(prior.Active,CancellationToken.None);
-                if(before!=null)Publish(before,nextBytes);
-                else{RequirePointer(nextBytes);File.Move(CurrentPath,Path.Combine(directory,"failed-current-"+Guid.NewGuid().ToString("N")+".json"));}
+                RestoreRecord(before,nextBytes);
                 StageForTest?.Invoke(InstallationStage.RollbackPublished);
             }
             catch(Exception rollback){throw new InstallationRollbackException(operation,rollback);}
@@ -57,13 +59,51 @@ public sealed class InstallationStore
     {if(!Directory.Exists(directory))return null;RequireOwned();byte[]? bytes=PointerBytes();return bytes==null?null:Verify(Parse(bytes).Active,cancellation);}
     public Task<InstalledVersion?> RecoverAsync(CancellationToken cancellation=default)=>Task.Run<InstalledVersion?>(()=>
     {
-        RequireStopped();using var lease=Lock();byte[]? bytes=PointerBytes();if(bytes==null)return null;var pointer=Parse(bytes);
+        RequireStopped();using var admission=EnterAdmission();using var lease=Lock();byte[]? bytes=PointerBytes();if(bytes==null)return null;var pointer=Parse(bytes);
         try{return Verify(pointer.Active,cancellation);}
         catch(Exception error)when(error is IOException or InvalidDataException or JsonException)
         {
             cancellation.ThrowIfCancellationRequested();if(pointer.Previous==null)throw new InstallationRecoveryException("No verified previous version; files retained.");var previous=Verify(pointer.Previous,cancellation);RequireStopped();cancellation.ThrowIfCancellationRequested();Publish(Encode(new(pointer.Previous,null)),bytes);return previous;
         }
     },cancellation);
+    /// <summary>Cooperative launch admission, held from pointer read through actual startup settlement.
+    /// Existing Windows entry points are not yet wired to this gate. Pending or unknown upgrade records fail closed.</summary>
+    public IDisposable EnterRoleAdmission()=>EnterAdmission();
+    internal InstallationAdmission EnterAdmission(InstallationExecutionOwnership? execution=null)
+    {
+        using var setup=Lock();var admission=new InstallationAdmission(directory);
+        try
+        {
+            if(execution!=null)admission.Attach(execution);
+            else if(File.Exists(InstallationExecutionOwnership.RecordPath(directory))||Directory.Exists(InstallationExecutionOwnership.RecordPath(directory)))throw new InstallationRecoveryException("Existing execution owner retained; launch and mutation blocked.");
+            if(File.Exists(PendingPath)||Directory.Exists(PendingPath))throw new InstallationRecoveryException("Pending or unknown upgrade retained; launch and mutation blocked.");return admission;
+        }
+        catch{admission.Dispose();throw;}
+    }
+    internal string PendingPath=>Path.Combine(directory,"upgrade-pending.json");
+    internal InstallationExecutionOwnership ClaimExecution(InstallationAdmission admission)
+    {admission.Require(directory);RequireOwned();var execution=new InstallationExecutionOwnership(directory);admission.Attach(execution);return execution;}
+    internal InstallationAdmission ReenterUpgrade(byte[] expected,InstallationExecutionOwnership execution)
+    {
+        using var setup=Lock();var admission=new InstallationAdmission(directory);
+        try{admission.Attach(execution);RequireUpgradeRecord(expected);return admission;}catch{admission.Dispose();throw;}
+    }
+    internal void FinishUpgrade(InstallationAdmission admission,byte[] expected,Guid operation,string outcome)
+    {
+        admission.Require(directory);RequireOwned();RequireUpgradeRecord(expected);
+        File.Move(PendingPath,Path.Combine(directory,"upgrade-finished-"+operation.ToString("N")+"-"+outcome+".json"));
+    }
+    private void RequireUpgradeRecord(byte[] expected)
+    {if(!InstallationPackage.ReadDocument(PendingPath,16384).AsSpan().SequenceEqual(expected))throw new InstallationRecoveryException("Upgrade record changed; retained without overwrite.");}
+    internal byte[]? SnapshotRecord(InstallationAdmission admission){admission.Require(directory);RequireOwned();return PointerBytes();}
+    internal void RestoreForUpgrade(InstallationAdmission admission,byte[]? before,byte[] expected)
+    {admission.Require(directory);using var lease=Lock();RestoreRecord(before,expected);}
+    private void RestoreRecord(byte[]? before,byte[] expected)
+    {
+        RequireStopped();if(before!=null)_=Verify(Parse(before).Active,CancellationToken.None);
+        if(before!=null)Publish(before,expected);
+        else{RequirePointer(expected);File.Move(CurrentPath,Path.Combine(directory,"failed-current-"+Guid.NewGuid().ToString("N")+".json"));}
+    }
     private InstalledVersion Verify(Reference reference,CancellationToken cancellation)
     {
         string root=Path.Combine(directory,"versions",reference.Id);var package=InstallationPackage.Read(root,cancellation);if(!string.Equals(package.CatalogSha256,reference.CatalogSha256,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Version catalog hash mismatch.");return new(package.Manifest.Version,root,package.CatalogSha256);

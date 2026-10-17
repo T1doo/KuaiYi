@@ -1,0 +1,317 @@
+{
+  "SourceParent": "e684fc3d3caa504186447faa25b2c7640b539688",
+  "Branch": "dev/upgrade-health-rollback",
+  "Scope": "SPEC13.4 / P7-05 controlled owned-role upgrade, health rollback, persistent cooperative admission; not Windows installer delivery",
+  "FrozenSource": {
+    "src/KuaiYi.App/HotkeyScreenshot.cs": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+    "src/KuaiYi.App/OcrOnlyFlow.cs": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+    "src/KuaiYi.App/OverlayClearContent.cs": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+    "src/KuaiYi.App/OverlayFailureNotice.cs": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+    "src/KuaiYi.App/OverlayImageSource.cs": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+    "src/KuaiYi.App/OverlayLinkFlow.cs": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+    "src/KuaiYi.App/OverlayMarkdown.cs": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+    "src/KuaiYi.App/OverlayPresentation.cs": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+    "src/KuaiYi.App/OverlayPrivacyFlow.cs": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+    "src/KuaiYi.App/OverlayResultFlow.cs": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+    "src/KuaiYi.App/OverlayResultLabel.cs": "de1c865a146e7f81ac32ec65861d11066869cdd3a2219eeee908dbde03b277e4",
+    "src/KuaiYi.App/OverlayScreenshotTranslation.cs": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+    "src/KuaiYi.App/ProductionScreenshotCoordinator.cs": "33ca4ac031915b4d2c1669c67dd52f06271390931834f33691dcfc925fcf051f",
+    "src/KuaiYi.App/ScreenshotCaptureCommands.cs": "e272cf24639496ac8697f854ffbedecdd99772dea0ffc0ddd82869e0d8e690ab",
+    "src/KuaiYi.App/ScreenshotRecoveryMenu.cs": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+    "src/KuaiYi.App/ScreenshotSendCommands.cs": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+    "src/KuaiYi.App/ScreenshotTranslationFlow.cs": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+    "src/KuaiYi.App/ShellWindow.cs": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+    "src/KuaiYi.App/TranslationFlow.cs": "a1288ee73c8142a879e3788232ffd6e96150b793e33505ebf771e106f727a321",
+    "src/KuaiYi.Core/Installation/InstallationAdmission.cs": "7adc6dbe5614ccf214d99618a9e4e3f4267c55a0f1a10bba3adde2998f774727",
+    "src/KuaiYi.Core/Installation/InstallationPackage.cs": "a499948d2bf92ee50d571bcf151caf5259897ecf30e38aebc681f8c5e6dd99ba",
+    "src/KuaiYi.Core/Installation/InstallationStore.cs": "5ce0779ac7729e35648d26f6723f3e17953748d2145662ce45f1284b67d34edb",
+    "src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs": "9e910a55c4e4b33519f302a6175eed982a521b29cd9df158923236dd28749489",
+    "src/KuaiYi.Core/KuaiYi.Core.csproj": "ed7c0f20902846adddafbfc178137e3a0dd399bba0a8c656195f76855d2233bb",
+    "src/KuaiYi.Core/OwnedHostTermination.cs": "fe4284d719517c3d72118f429b98de9f520054621ab0175676fcc53d0990d2ac",
+    "src/KuaiYi.Core/OwnedProcessSession.cs": "124d109458ea487a50aa7fb8fa760cc31b80eaebfdce974f101e79db0ef7cf88",
+    "src/KuaiYi.Core/OwnedProcessStarter.cs": "fd68d1382192654f2ecc99d4dd4f0dfd0ea38d9dd5e76308bb8af2d247f21a32",
+    "src/KuaiYi.Core/Settings/SecretFileStore.cs": "3e7089d4f4694af38b9994d065a1276607a4f946ebe115f9ab83c895f7f2fd61",
+    "src/KuaiYi.Core/Settings/SettingsStore.cs": "24d46ef6b51a4245024779039f8a0642757be9d708b3b5d08fc0f01b8f21cf1d",
+    "src/KuaiYi.Providers/ProviderContracts.cs": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+    "src/KuaiYi.Providers/ProviderEventReceiver.cs": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+    "src/KuaiYi.Providers/ProviderRequestBudget.cs": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+    "tests/KuaiYi.Core.Tests/InstallationTransactionTests.cs": "4209bf29686910578c2dfd6a06b71656cda7bfdb9cd83fe79dd45e9fc6924a7b",
+    "tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs": "c851879cc39ca6f487b0e3c45bf1575cb59b529577e18989716e9882707ca09e",
+    "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj": "d7bd48f5a28b4edd4b1fa24fdc0ffc4a887916c1c737d90e30fe6f854c71305e",
+    "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj": "141d01220ff94b2690f1cf5542d46b63a285dd11607988d7f297fb9fca3492d1",
+    "tests/KuaiYi.Provider.Tests/OverlayClearPorts.cs": "8965a95cc3bd9aaab981bcc7a4a188fc26fdaeb72ea8b4e2c9f5a61c8fe44038",
+    "tests/KuaiYi.Provider.Tests/PhaseClock.cs": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+    "tests/KuaiYi.Provider.Tests/PhaseHttpFixture.cs": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotSecretStoreTests.cs": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotShellPorts.cs": "ebb8bf9392895afab0c8041d15a3e098bdd770b550eb422b49d03e4f8352f7df",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotShellTests.cs": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotTranslationTests.cs": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+    "tests/KuaiYi.Provider.Tests/ScreenshotCapturePorts.cs": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+    "tests/KuaiYi.Provider.Tests/ScreenshotRecaptureRecoveryTests.cs": "8ba7be5b0c21d5e3c6ceb820a128f1312138af3b69965b21381aec5738c19158",
+    "tools/KuaiYi.SettingsStoreFixture/KuaiYi.SettingsStoreFixture.csproj": "473266c653dafba8d1f323e2ce7d2c8addb0a8a64234f41a3a7137c4e86eaee4",
+    "tools/KuaiYi.SettingsStoreFixture/Program.cs": "9de10bd808446ae0125672eb01f928318a14c6bc3091061393847411fc70cc75"
+  },
+  "FinalSourceBindings": 235,
+  "SourceCountsByRun": {
+    "r09-install": 47,
+    "r10-core-full": 47,
+    "r11-provider-full": 47,
+    "r12-app-build": 47,
+    "r13-worker-build": 47
+  },
+  "Runs": {
+    "r09-install": {
+      "counters": {
+        "total": "68",
+        "executed": "68",
+        "passed": "68",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trx": "docs/test-evidence/2026-10-17-upgrade-health-originals__r09-install.trx"
+    },
+    "r10-core-full": {
+      "counters": {
+        "total": "1770",
+        "executed": "1770",
+        "passed": "1770",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trx": "docs/test-evidence/2026-10-17-upgrade-health-originals__r10-core-full.trx"
+    },
+    "r11-provider-full": {
+      "counters": {
+        "total": "2325",
+        "executed": "2325",
+        "passed": "2325",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trx": "docs/test-evidence/2026-10-17-upgrade-health-originals__r11-provider-full.trx"
+    },
+    "r12-app-build": {
+      "exit": 0,
+      "log": "docs/test-evidence/2026-10-17-upgrade-health-originals__r12-app-build.log"
+    },
+    "r13-worker-build": {
+      "exit": 0,
+      "log": "docs/test-evidence/2026-10-17-upgrade-health-originals__r13-worker-build.log"
+    }
+  },
+  "RelevantTargetDlls": {
+    "r09-install": {
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "0dd4e64c4b2497ea7516ddd73f8edc54b918ef2e6e3fda399bac44a8287af5f8",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "98c16ce5544bf5ba94782b334a50bac76b9dd960bab4df25ba48230932c799d7",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "f9140bd5a17777b9810de32ad6f794fa5fafa704aeb566e74430cd62a7c519c5",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll": "c138f304ede7e5301b109bcc6afbccb5faff98b026e10ae7c2764665a1c080f2",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "cd5fda2d307bc9df07b92dc0b292b1c164ed70d6a600d64b1733a079139eafd5"
+    },
+    "r10-core-full": {
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "0dd4e64c4b2497ea7516ddd73f8edc54b918ef2e6e3fda399bac44a8287af5f8",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "98c16ce5544bf5ba94782b334a50bac76b9dd960bab4df25ba48230932c799d7",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "f9140bd5a17777b9810de32ad6f794fa5fafa704aeb566e74430cd62a7c519c5",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll": "c138f304ede7e5301b109bcc6afbccb5faff98b026e10ae7c2764665a1c080f2",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "cd5fda2d307bc9df07b92dc0b292b1c164ed70d6a600d64b1733a079139eafd5"
+    },
+    "r11-provider-full": {
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "98c16ce5544bf5ba94782b334a50bac76b9dd960bab4df25ba48230932c799d7",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.ImageWorker.dll": "792e09d0487e7bdd03989a381316ef88b0846db0c159c5a0a70c58f84cb6f5bf",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "f9140bd5a17777b9810de32ad6f794fa5fafa704aeb566e74430cd62a7c519c5",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": "aad2d025d3c923d6c969f93c59da720aae52fe7e644efd63a0fb36640abd1456",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": "e07031400e0d5610c5137382d6607c6f857c28005113c170d264ac2ecdfbcc78"
+    },
+    "r12-app-build": {
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.App.dll": "0d56e537867bfdba5f28722cb0512d58cd999f9e884f1d44915e765b645877eb",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Core.dll": "98c16ce5544bf5ba94782b334a50bac76b9dd960bab4df25ba48230932c799d7",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Imaging.dll": "f9140bd5a17777b9810de32ad6f794fa5fafa704aeb566e74430cd62a7c519c5",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.NativeHost.dll": "c138f304ede7e5301b109bcc6afbccb5faff98b026e10ae7c2764665a1c080f2",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Providers.dll": "e07031400e0d5610c5137382d6607c6f857c28005113c170d264ac2ecdfbcc78"
+    },
+    "r13-worker-build": {
+      "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Core.dll": "98c16ce5544bf5ba94782b334a50bac76b9dd960bab4df25ba48230932c799d7",
+      "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll": "792e09d0487e7bdd03989a381316ef88b0846db0c159c5a0a70c58f84cb6f5bf",
+      "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Imaging.dll": "f9140bd5a17777b9810de32ad6f794fa5fafa704aeb566e74430cd62a7c519c5"
+    }
+  },
+  "DllScopeNote": "Command target closure verified; actual fixture child execution is additionally bound by RecordedOwnedChildren. Other DLL hashes alone are observations, not execution proof.",
+  "NameComparison": {
+    "parent": 1743,
+    "final": 1770,
+    "new": {
+      "KuaiYi.Core.Tests.InstallationUpgradeTests.InitialUnhealthyInstallReturnsToUninstalledAndRetainsTheCompleteCandidate": 1,
+      "KuaiYi.Core.Tests.InstallationUpgradeTests.LateActualStartOwnerMustPublishExitAndSettleIoBeforeOldVersionRestarts": 1,
+      "KuaiYi.Core.Tests.InstallationUpgradeTests.RealCompetingProcessAndWritersCannotReenterWhileNewHealthIsPending": 1,
+      "KuaiYi.Core.Tests.InstallationUpgradeTests.ChangedPendingRecordIsRetainedAndCannotBeClearedByOwnedRetry": 1,
+      "KuaiYi.Core.Tests.InstallationUpgradeTests.CancellationDuringOwnedNewHealthRestoresAndRestartsTheVerifiedOldVersion": 1,
+      "KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(upgrade: True)": 1,
+      "KuaiYi.Core.Tests.InstallationUpgradeTests.LateHealthTaskMustSettleBeforeRollbackOrOldApplicationCanStart": 1,
+      "KuaiYi.Core.Tests.InstallationUpgradeTests.IntactButUnhealthyNewVersionRestoresExactOldPointerAndActuallyRestartsOldApplication(mode: \"start-exit\")": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.TwoConsecutiveRecoverCallsAreIdempotentForPointerVersionsAndEncryptedData": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.RealSymbolicLinksAreRejectedAndIdenticalDigestTargetsRetainEveryByte(location: \"installation-ancestor\")": 1,
+      "KuaiYi.Core.Tests.InstallationUpgradeTests.ActualOsStartFailureRollsBackWithoutInventingAStartedChild": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.RealSymbolicLinksAreRejectedAndIdenticalDigestTargetsRetainEveryByte(location: \"package-file\")": 1,
+      "KuaiYi.Core.Tests.InstallationUpgradeTests.OldRestartFailureRemainsBlockedUntilOwnedRetryActuallyStartsItHealthy": 1,
+      "KuaiYi.Core.Tests.InstallationUpgradeTests.RealControllerCrashBeforeActualStartLeavesPersistentOwnershipEvenAfterOsLeaseRelease": 1,
+      "KuaiYi.Core.Tests.InstallationUpgradeTests.AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication": 1,
+      "KuaiYi.Core.Tests.InstallationUpgradeTests.IntactButUnhealthyNewVersionRestoresExactOldPointerAndActuallyRestartsOldApplication(mode: \"wrong-version\")": 1,
+      "KuaiYi.Core.Tests.InstallationUpgradeTests.LocallyHeldRetryCanFinishAfterTheSameOwnedApplicationStopsRefusingExit": 1,
+      "KuaiYi.Core.Tests.InstallationUpgradeTests.IntactButUnhealthyNewVersionRestoresExactOldPointerAndActuallyRestartsOldApplication(mode: \"unhealthy\")": 1,
+      "KuaiYi.Core.Tests.InstallationUpgradeTests.IntactButUnhealthyNewVersionRestoresExactOldPointerAndActuallyRestartsOldApplication(mode: \"silent\")": 1,
+      "KuaiYi.Core.Tests.InstallationUpgradeTests.BlockingHealthCancellationCallbackCannotHoldTheUpgradeCallerBeyondItsOwnedBudget": 1,
+      "KuaiYi.Core.Tests.InstallationUpgradeTests.RefusingOwnedApplicationPreventsPublicationAndPersistentBlockSurvivesLeaseRelease": 1,
+      "KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(upgrade: False)": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.RealSymbolicLinksAreRejectedAndIdenticalDigestTargetsRetainEveryByte(location: \"data-ancestor\")": 1,
+      "KuaiYi.Core.Tests.InstallationUpgradeTests.NormalLaunchAlsoHoldsAdmissionThroughActualStartupAndHealthSettlement": 1,
+      "KuaiYi.Core.Tests.InstallationUpgradeTests.UpgradeWaitsForActualOwnedAppAndBrokerExitThenStartsTheWholeSelectedGeneration": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.RealSymbolicLinksAreRejectedAndIdenticalDigestTargetsRetainEveryByte(location: \"package-directory\")": 1,
+      "KuaiYi.Core.Tests.InstallationUpgradeTests.IntactButUnhealthyNewVersionRestoresExactOldPointerAndActuallyRestartsOldApplication(mode: \"wrong-launch\")": 1
+    },
+    "exactParentPlusNew": true
+  },
+  "Preservation": {
+    "parentTracked": 5769,
+    "allowedOldModified": [
+      ".gitattributes",
+      "docs/progress.md",
+      "src/KuaiYi.Core/Installation/InstallationStore.cs",
+      "tests/KuaiYi.Core.Tests/InstallationTransactionTests.cs",
+      "tools/KuaiYi.SettingsStoreFixture/Program.cs"
+    ],
+    "allOtherParentSameBytes": 5764,
+    "noDeletes": true
+  },
+  "Review": {
+    "Source": "Read-only high_water_review: r09 frozen 47 sources, no remaining P1/P2; packet separate audit pending",
+    "Packet": "Pending separate final audit"
+  },
+  "Notes": [
+    "Final 5 commands each froze the same 47 selected source files before execution, including fixture Program/project, Core installation and owned-process lifetime sources; no retrofilling.",
+    "All 27 added names appear in complete Core; parent 1743 retained unchanged; Provider complete names unchanged.",
+    "5 actual candidate behavioral failures: 1 late health retry, 3 cross-controller/natural-exit IO, 1 synchronous cancellation; exact test method bytes retained through green/final.",
+    "Synthetic selected-generation driver DLL and dependency closure, actual child exit/stdio IO; placeholder EXE mapping is explicitly test-only.",
+    "Real symlink file/directory and installation/data ancestors preserve identical-digest targets; 2 consecutive Recover is pointer/version/data idempotent.",
+    "No test removed or weakened; all other parent tracked bytes preserved.",
+    "Two failed raw TRX retain original xUnit trailing spaces; exact-path -text -whitespace only. No source/test assertion or whitespace rule weakened."
+  ],
+  "Boundaries": [
+    "Per-phase budgets, not a whole-operation hard deadline.",
+    "No Windows adapter for actual role shutdown, normal product entry admission, visible application health, or healthy process ownership handoff. Dispose terminates only this coordinator own held children, including healthy new app.",
+    "Only roles started and held by this coordinator are verified, not all product processes across users/sessions; no unknown PID enumeration or kill.",
+    "Fresh controller preserves stale/unknown owner and pending; no PID-based recovery or generic cleanup.",
+    "NativeHost absolute generation paths, derived package metadata and registration rollback, identity upgrade, complete payload and Inno installer remain future P7 work.",
+    "Normal ShellWindow browser receiver is not wired; existing receiver is in P0 review surface.",
+    "Package digest does not establish publisher/signature trust; launch nonce is not a credential.",
+    "Atomic replacement/Flush/Exit tests do not prove power-loss or OS registration transaction atomicity; same-account malicious rename not prevented.",
+    "Old/failed versions and completed metadata retained without GC; no cumulative disk bound claim.",
+    "Actual Windows, DPAPI/ACL, capture, physical250600, model quality, fullP6/K acceptance NotRun; no register/install/sign/deploy/security/credential changes.",
+    "Skia4.153.1 four license approvals pending; source403 and previously denied GitHub Actions never retried or bypassed.",
+    "Historical image/idle/Core/WindowsJob root causes remain independently Unknown; production image reuse Off."
+  ],
+  "RedGreen": [
+    {
+      "red": "r02-install",
+      "green": "r03-late-green",
+      "sameNames": {
+        "KuaiYi.Core.Tests.InstallationUpgradeTests.LateHealthTaskMustSettleBeforeRollbackOrOldApplicationCanStart": 1
+      },
+      "sameMethodBytesThroughFinal": {
+        "LateHealthTaskMustSettleBeforeRollbackOrOldApplicationCanStart": "945567e56ee7cfd8801c499fd61bda98614cbe6bf7a2f3013223dd5067048a26"
+      }
+    },
+    {
+      "red": "r05-review-red",
+      "green": "r06-review-green",
+      "sameNames": {
+        "KuaiYi.Core.Tests.InstallationUpgradeTests.AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication": 1,
+        "KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(upgrade: True)": 1,
+        "KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(upgrade: False)": 1
+      },
+      "sameMethodBytesThroughFinal": {
+        "AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication": "aa2e28698d51270715fdecba046ea3f01d075c5018c5d0b791f6cfdb9a2a6db7",
+        "AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication": "a2e8c123c796d2b0f1e42e43c064b483f27a3f9912701c4cc15fa86b77de2209"
+      }
+    },
+    {
+      "red": "r07-cancellation-red",
+      "green": "r08-cancellation-green",
+      "sameNames": {
+        "KuaiYi.Core.Tests.InstallationUpgradeTests.BlockingHealthCancellationCallbackCannotHoldTheUpgradeCallerBeyondItsOwnedBudget": 1
+      },
+      "sameMethodBytesThroughFinal": {
+        "BlockingHealthCancellationCallbackCannotHoldTheUpgradeCallerBeyondItsOwnedBudget": "806b967d014324a7eb8ee4c19c675857b2679eba4216c1d56739acc2761ecb59"
+      }
+    }
+  ],
+  "ProviderSameNames": {
+    "parent": 2325,
+    "final": 2325,
+    "exactSameMultiset": true
+  },
+  "RecordedOwnedChildren": {
+    "r09-install": {
+      "recordedChildRows": 63,
+      "upgradeRows": 49,
+      "admissionRows": 10,
+      "ownerCrashRows": 1,
+      "installationCheckpointRows": 3,
+      "driverSha256": "4064e302ce3b9281ad303ba69847d72df9d988068a6e31a490f9bfe7aa022759",
+      "driverCoreEqualsExecutedTargetCore": true
+    },
+    "r10-core-full": {
+      "recordedChildRows": 63,
+      "upgradeRows": 49,
+      "admissionRows": 10,
+      "ownerCrashRows": 1,
+      "installationCheckpointRows": 3,
+      "driverSha256": "4064e302ce3b9281ad303ba69847d72df9d988068a6e31a490f9bfe7aa022759",
+      "driverCoreEqualsExecutedTargetCore": true
+    }
+  },
+  "CompileAttempt": {
+    "run": "r01-install",
+    "classification": "New test syntax CS0819; no TRX, not product behavioral red"
+  },
+  "IntermediateRuns": [
+    "r02-install",
+    "r03-late-green",
+    "r04-install",
+    "r05-review-red",
+    "r06-review-green",
+    "r07-cancellation-red",
+    "r08-cancellation-green"
+  ]
+}

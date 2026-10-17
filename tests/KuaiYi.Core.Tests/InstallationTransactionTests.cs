@@ -150,4 +150,27 @@ public sealed class InstallationTransactionTests(ITestOutputHelper output)
         finally{if(!child.HasExited){child.Kill();await child.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(3));}}
 
     }
+    [Theory][InlineData("package-file")][InlineData("package-directory")][InlineData("installation-ancestor")][InlineData("data-ancestor")]
+    public async Task RealSymbolicLinksAreRejectedAndIdenticalDigestTargetsRetainEveryByte(string location)
+    {
+        using var r=await Rig.Create();await r.Store().ApplyAsync(r.Package("1.0"),r.Hash("1.0"));string package=r.Package("2.0"),target=Path.Combine(r.Root,"link-target"),link=Path.Combine(r.Root,"link");Directory.CreateDirectory(target);File.WriteAllText(Path.Combine(target,"sentinel.txt"),"PUBLIC_LINK_TARGET_RETAIN");
+        if(location=="package-file")
+        {
+            string original=Path.Combine(package,"KuaiYi.Core.dll"),copy=Path.Combine(target,"KuaiYi.Core.dll");File.Move(original,copy);File.CreateSymbolicLink(original,copy);
+            Assert.Equal(File.ReadAllBytes(copy),File.ReadAllBytes(original));
+        }
+        else if(location=="package-directory")
+        {string original=Path.Combine(package,"assets"),copy=Path.Combine(target,"assets");Directory.Move(original,copy);Directory.CreateSymbolicLink(original,copy);}
+        else Directory.CreateSymbolicLink(link,target);
+        var preserved=Rig.Snapshot(target);var data=Rig.Snapshot(r.Data);byte[] pointer=File.ReadAllBytes(Path.Combine(r.App,"current.json"));
+        if(location.StartsWith("package",StringComparison.Ordinal))await Assert.ThrowsAsync<IOException>(()=>r.Store().ApplyAsync(package,Rig.CatalogHash(package)));
+        else Assert.Throws<IOException>(()=>new InstallationStore(location=="installation-ancestor"?Path.Combine(link,"nested","application"):r.App,location=="data-ancestor"?Path.Combine(link,"nested","user-data"):r.Data,()=>true));
+        Assert.Equal(preserved.OrderBy(x=>x.Key),Rig.Snapshot(target).OrderBy(x=>x.Key));Assert.Equal(pointer,File.ReadAllBytes(Path.Combine(r.App,"current.json")));await r.DataPreserved(data);
+        Assert.True((File.GetAttributes(location=="package-file"?Path.Combine(package,"KuaiYi.Core.dll"):location=="package-directory"?Path.Combine(package,"assets"):link)&FileAttributes.ReparsePoint)!=0);
+    }
+    [Fact]public async Task TwoConsecutiveRecoverCallsAreIdempotentForPointerVersionsAndEncryptedData()
+    {
+        using var r=await Rig.Create();var first=await r.Store().ApplyAsync(r.Package("1.0"),r.Hash("1.0"));var second=await r.Store().ApplyAsync(r.Package("2.0"),r.Hash("2.0"));File.WriteAllText(Path.Combine(second.DirectoryPath,"KuaiYi.Core.dll"),"PUBLIC_CORRUPTION_RETAIN");var data=Rig.Snapshot(r.Data);var versions=Rig.Snapshot(Path.Combine(r.App,"versions"));
+        Assert.Equal(first,await r.Store().RecoverAsync());byte[] pointer=File.ReadAllBytes(Path.Combine(r.App,"current.json"));Assert.Equal(first,await r.Store().RecoverAsync());Assert.Equal(pointer,File.ReadAllBytes(Path.Combine(r.App,"current.json")));Assert.Equal(versions.OrderBy(x=>x.Key),Rig.Snapshot(Path.Combine(r.App,"versions")).OrderBy(x=>x.Key));await r.DataPreserved(data);
+    }
 }

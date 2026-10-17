@@ -1,0 +1,18 @@
+namespace KuaiYi.Core.Installation;
+
+// Product-local cooperative fence. No PID, OS privilege, or ownership is inferred from a pathname.
+internal sealed class InstallationAdmission:IDisposable
+{
+    private readonly string directory;
+    private FileStream? lease;
+    internal InstallationAdmission(string directory)
+    {
+        this.directory=directory;string path=Path.Combine(directory,"upgrade.lock");InstallationPaths.Check(path);
+        try{lease=new(path,FileMode.OpenOrCreate,FileAccess.ReadWrite,FileShare.None);}
+        catch(IOException){throw new InstallationBusyException();}
+        if(lease.Length!=0){Dispose();throw new InstallationRecoveryException("Unknown upgrade lock bytes retained.");}
+    }
+    internal void Require(string expected)
+    {if(lease==null||directory!=expected)throw new InstallationRecoveryException("Upgrade admission is no longer held.");InstallationPaths.Check(directory);}
+    public void Dispose(){lease?.Dispose();lease=null;}
+}

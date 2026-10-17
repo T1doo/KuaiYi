@@ -2,6 +2,36 @@ using System.Security.Cryptography;
 using System.Collections.Immutable;
 using KuaiYi.Core.Settings;
 // Public synthetic portable crash driver; never referenced by production App.
+if(args.Length==2&&args[0]=="--installation-owner-crash"&&Path.GetFileName(args[1]).StartsWith("kuaiyi-upgrade-tests-",StringComparison.Ordinal))
+{
+    var owned=new KuaiYi.Core.Installation.InstallationUpgradeCoordinator(Path.Combine(args[1],"application"),Path.Combine(args[1],"user-data"),new UncalledInstallationProtocol(),TimeSpan.FromSeconds(2),new InstallationBeforeStartCrash());
+    await owned.StartActiveRoleAsync();return 2;
+}
+if(args.Length==2&&args[0]=="--installation-handshake"&&Guid.TryParseExact(args[1],"N",out var launch)&&
+   Path.GetFullPath(AppContext.BaseDirectory).Split(Path.DirectorySeparatorChar).Any(p=>p.StartsWith("kuaiyi-upgrade-tests-",StringComparison.Ordinal)))
+{
+    using var config=System.Text.Json.JsonDocument.Parse(File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory,"public-install-behavior.json")));
+    string mode=config.RootElement.GetProperty("mode").GetString()!,version=config.RootElement.GetProperty("version").GetString()!;
+    if(mode=="start-exit")return 23;
+    string nonce=mode=="wrong-launch"?Guid.Empty.ToString("N"):launch.ToString("N");
+    if(mode!="silent")Console.WriteLine(string.Join('|',"PUBLIC_INSTALL_READY",nonce,mode=="wrong-version"?"wrong":version,
+        Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(typeof(FixtureProtector).Assembly.Location))),Path.GetFullPath(AppContext.BaseDirectory).TrimEnd(Path.DirectorySeparatorChar),mode=="unhealthy"?"Unhealthy":"Healthy"));
+    Console.Out.Flush();int stops=0;
+    while(await Console.In.ReadLineAsync() is {} command)
+    {
+        if(command=="STOP")
+        {
+            if(mode=="refuse"||mode=="refuse-once"&&stops++==0){Console.WriteLine("PUBLIC_INSTALL_REFUSED");Console.Out.Flush();continue;}
+            Console.WriteLine("PUBLIC_INSTALL_EXIT");Console.Out.Flush();return 0;
+        }
+    }
+    return 0;
+}
+if(args.Length==2&&args[0]=="--installation-admission"&&Path.GetFileName(args[1]).StartsWith("kuaiyi-upgrade-tests-",StringComparison.Ordinal))
+{
+    try{using var lease=new KuaiYi.Core.Installation.InstallationStore(Path.Combine(args[1],"application"),Path.Combine(args[1],"user-data"),()=>true).EnterRoleAdmission();Console.WriteLine("PUBLIC_ADMITTED");return 0;}
+    catch(Exception error)when(error is KuaiYi.Core.Installation.InstallationBusyException or KuaiYi.Core.Installation.InstallationRecoveryException){Console.WriteLine("PUBLIC_BLOCKED");return 4;}
+}
 if(args.Length==4&&args[0]=="--installation-checkpoint"&&Path.GetFileName(args[1]).StartsWith("kuaiyi-install-tests-",StringComparison.Ordinal)&&Enum.TryParse<KuaiYi.Core.Installation.InstallationStage>(args[3],out var installStage))
 {
     var installation=new KuaiYi.Core.Installation.InstallationStore(Path.Combine(args[1],"application"),Path.Combine(args[1],"user-data"),()=>true)
@@ -28,4 +58,15 @@ sealed class FixtureProtector:ISecretProtector
     private static readonly byte[] Key=Enumerable.Repeat((byte)19,32).ToArray();
     public byte[] Protect(ReadOnlySpan<byte> input){byte[] result=new byte[input.Length+28];RandomNumberGenerator.Fill(result.AsSpan(0,12));using var cipher=new AesGcm(Key,16);cipher.Encrypt(result.AsSpan(0,12),input,result.AsSpan(28),result.AsSpan(12,16));return result;}
     public byte[] Unprotect(ReadOnlySpan<byte> input){byte[] result=new byte[input.Length-28];using var cipher=new AesGcm(Key,16);cipher.Decrypt(input[..12],input[28..],input.Slice(12,16),result);return result;}
+}
+sealed class InstallationBeforeStartCrash:KuaiYi.Core.IOwnedProcessStarter
+{
+    public System.Diagnostics.Process Start(System.Diagnostics.ProcessStartInfo info)
+    {Console.WriteLine("PUBLIC_OWNER_BEFORE_START_CRASH");Console.Out.Flush();Environment.Exit(79);throw new InvalidOperationException("Unreachable after public fixture crash.");}
+}
+sealed class UncalledInstallationProtocol:KuaiYi.Core.Installation.IInstallationApplicationProtocol
+{
+    public Task ConfirmHealthyAsync(System.Diagnostics.Process process,KuaiYi.Core.Installation.InstalledVersion version,Guid launch,CancellationToken cancellation)=>throw new InvalidOperationException("No child starts in this crash checkpoint.");
+    public Task RequestExitAsync(System.Diagnostics.Process process,CancellationToken cancellation)=>throw new InvalidOperationException("No child starts in this crash checkpoint.");
+    public Task SettleAsync(System.Diagnostics.Process process,CancellationToken cancellation)=>throw new InvalidOperationException("No child starts in this crash checkpoint.");
 }
