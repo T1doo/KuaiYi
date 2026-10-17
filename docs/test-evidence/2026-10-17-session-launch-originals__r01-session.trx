@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="687d4c15-2da8-4021-98b6-13dc949753bb" name="@4cd0056ca8a8 2026-10-17 14:51:58" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-17T14:51:58.4413833+00:00" queuing="2026-10-17T14:51:58.4413834+00:00" start="2026-10-17T14:51:57.2755783+00:00" finish="2026-10-17T14:51:59.5903594+00:00" />
+  <TestSettings name="default" id="7347dafe-c2f3-4267-9527-a11e2ea72f30">
+    <Deployment runDeploymentRoot="_4cd0056ca8a8_2026-10-17_14_51_58" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="9c2ec9b2-5e40-4b68-9dc6-d0ac93cfee7c" testId="e0dfedb9-46bf-1710-629c-cd6c6ba2f9ad" testName="KuaiYi.Core.Tests.InstallationSessionTests.ActualExitDoesNotReleaseAnOriginalIoTaskThatOutlivesItsTimeoutOrLaterDispose" computerName="4cd0056ca8a8" duration="00:00:00.0109408" startTime="2026-10-17T14:51:59.5064912+00:00" endTime="2026-10-17T14:51:59.5150990+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9c2ec9b2-5e40-4b68-9dc6-d0ac93cfee7c">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Pipe hasn't been connected yet.</Message>
+          <StackTrace>   at System.IO.Pipes.PipeStream.CheckWriteOperations()
+   at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+   at KuaiYi.Core.Tests.InstallationSessionTests.Peer..ctor(String name) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 44
+   at KuaiYi.Core.Tests.InstallationSessionTests.ActualExitDoesNotReleaseAnOriginalIoTaskThatOutlivesItsTimeoutOrLaterDispose() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 160
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="33e2254f-e2bf-48eb-902e-7e77fec6568c" testId="58de1fa3-2bdc-1f70-5476-c065922fa87c" testName="KuaiYi.Core.Tests.InstallationSessionTests.LostActualParentObserverCannotBeReplacedByAFreshLauncherOrAPrivateCloseReceipt" computerName="4cd0056ca8a8" duration="00:00:00.0136505" startTime="2026-10-17T14:51:58.4056636+00:00" endTime="2026-10-17T14:51:58.4158745+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="33e2254f-e2bf-48eb-902e-7e77fec6568c">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Pipe hasn't been connected yet.</Message>
+          <StackTrace>   at System.IO.Pipes.PipeStream.CheckWriteOperations()
+   at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+   at KuaiYi.Core.Tests.InstallationSessionTests.Peer..ctor(String name) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 44
+   at KuaiYi.Core.Tests.InstallationSessionTests.LostActualParentObserverCannotBeReplacedByAFreshLauncherOrAPrivateCloseReceipt() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 194
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="04811c4a-4531-4336-a9ff-b37130e78c0a" testId="6c206047-a30b-40bd-3a02-780d5fda0ed1" testName="KuaiYi.Core.Tests.InstallationSessionTests.ActualExitWithoutTheBoundCleanCloseReceiptRetainsTheFence(command: &quot;EXIT23&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0142635" startTime="2026-10-17T14:51:58.1193475+00:00" endTime="2026-10-17T14:51:58.1195335+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="04811c4a-4531-4336-a9ff-b37130e78c0a">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Pipe hasn't been connected yet.</Message>
+          <StackTrace>   at System.IO.Pipes.PipeStream.CheckWriteOperations()
+   at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+   at KuaiYi.Core.Tests.InstallationSessionTests.Peer..ctor(String name) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 44
+   at KuaiYi.Core.Tests.InstallationSessionTests.ActualExitWithoutTheBoundCleanCloseReceiptRetainsTheFence(String command) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 115
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="aab160f7-cc46-40ad-b825-92fdff3e9cdb" testId="26d299ad-801c-53ef-7125-82867a40f01b" testName="KuaiYi.Core.Tests.InstallationSessionTests.ChangedExactRecordsAreRetainedEvenAfterCleanActualExit(record: &quot;upgrade-pending.json&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0091126" startTime="2026-10-17T14:51:58.4373291+00:00" endTime="2026-10-17T14:51:58.4457253+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aab160f7-cc46-40ad-b825-92fdff3e9cdb">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Pipe hasn't been connected yet.</Message>
+          <StackTrace>   at System.IO.Pipes.PipeStream.CheckWriteOperations()
+   at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+   at KuaiYi.Core.Tests.InstallationSessionTests.Peer..ctor(String name) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 44
+   at KuaiYi.Core.Tests.InstallationSessionTests.ChangedExactRecordsAreRetainedEvenAfterCleanActualExit(String record) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 180
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ea98ab59-562a-4992-ad9c-60fed87c0f4b" testId="248ca43d-0eda-c155-681c-1310303d6c77" testName="KuaiYi.Core.Tests.InstallationSessionTests.UnknownAdmissionRecordIsNeverAdoptedOrReplaced(record: &quot;upgrade-pending.json&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0498296" startTime="2026-10-17T14:51:58.2511203+00:00" endTime="2026-10-17T14:51:58.3012349+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ea98ab59-562a-4992-ad9c-60fed87c0f4b" />
+    <UnitTestResult executionId="7c747730-9590-4ad3-bb67-3df4b9fa326a" testId="832960ef-e872-46bd-d8ff-3ca0c440ff2f" testName="KuaiYi.Core.Tests.InstallationSessionTests.ACancelledWaiterCannotReleaseAnActualStartThatReturnsItsProcessLate" computerName="4cd0056ca8a8" duration="00:00:01.0415392" startTime="2026-10-17T14:51:58.4500624+00:00" endTime="2026-10-17T14:51:59.4915921+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7c747730-9590-4ad3-bb67-3df4b9fa326a" />
+    <UnitTestResult executionId="33a6fe5e-9027-4826-a059-242bbad8fb1e" testId="36e6d7c7-4c74-1541-186c-ca6c1d824d0b" testName="KuaiYi.Core.Tests.InstallationSessionTests.BoundCloseReceiptCannotReleaseOwnerWhileTheActualChildIsStillAlive" computerName="4cd0056ca8a8" duration="00:00:00.0110399" startTime="2026-10-17T14:51:58.1216811+00:00" endTime="2026-10-17T14:51:58.1217456+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="33a6fe5e-9027-4826-a059-242bbad8fb1e">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Pipe hasn't been connected yet.</Message>
+          <StackTrace>   at System.IO.Pipes.PipeStream.CheckWriteOperations()
+   at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+   at KuaiYi.Core.Tests.InstallationSessionTests.Peer..ctor(String name) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 44
+   at KuaiYi.Core.Tests.InstallationSessionTests.BoundCloseReceiptCannotReleaseOwnerWhileTheActualChildIsStillAlive() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 123
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="94aad5c9-bb61-412b-81ba-a98ff721de7d" testId="c13a8322-de13-939d-603a-73b94902f4ce" testName="KuaiYi.Core.Tests.InstallationSessionTests.CancellationOfAHealthySessionSettlesOnlyItsOwnChildAndNeverClearsItsOwner" computerName="4cd0056ca8a8" duration="00:00:00.0104426" startTime="2026-10-17T14:51:59.4928611+00:00" endTime="2026-10-17T14:51:59.5055792+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="94aad5c9-bb61-412b-81ba-a98ff721de7d">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Pipe hasn't been connected yet.</Message>
+          <StackTrace>   at System.IO.Pipes.PipeStream.CheckWriteOperations()
+   at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+   at KuaiYi.Core.Tests.InstallationSessionTests.Peer..ctor(String name) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 44
+   at KuaiYi.Core.Tests.InstallationSessionTests.CancellationOfAHealthySessionSettlesOnlyItsOwnChildAndNeverClearsItsOwner() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 132
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b935f9c3-ce57-4fe4-b5c3-f47756803aac" testId="9438a2c6-6ac4-dd4b-12aa-f046eea65f3c" testName="KuaiYi.Core.Tests.InstallationSessionTests.UnknownAdmissionRecordIsNeverAdoptedOrReplaced(record: &quot;upgrade.lock&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0615056" startTime="2026-10-17T14:51:58.1291312+00:00" endTime="2026-10-17T14:51:58.1915139+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b935f9c3-ce57-4fe4-b5c3-f47756803aac" />
+    <UnitTestResult executionId="c75f87b3-ca86-49ce-9b7a-dd47e6f01726" testId="bba4014e-f392-b753-5d49-cda67ee96219" testName="KuaiYi.Core.Tests.InstallationSessionTests.CompletedButFaultedOriginalIoCannotBePrunedIntoSuccessfulOwnerRelease" computerName="4cd0056ca8a8" duration="00:00:00.0092566" startTime="2026-10-17T14:51:59.5160118+00:00" endTime="2026-10-17T14:51:59.5295631+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c75f87b3-ca86-49ce-9b7a-dd47e6f01726">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Pipe hasn't been connected yet.</Message>
+          <StackTrace>   at System.IO.Pipes.PipeStream.CheckWriteOperations()
+   at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+   at KuaiYi.Core.Tests.InstallationSessionTests.Peer..ctor(String name) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 44
+   at KuaiYi.Core.Tests.InstallationSessionTests.CompletedButFaultedOriginalIoCannotBePrunedIntoSuccessfulOwnerRelease() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 173
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="971714bb-e1f1-4f42-932a-e8e8f85b0b43" testId="1653d0f2-63d3-358f-acaa-9d850afdf215" testName="KuaiYi.Core.Tests.InstallationSessionTests.SameProductionAppEntryOwnsTwoActualNormalSessionsAndRejectsDuplicateLaunches" computerName="4cd0056ca8a8" duration="00:00:00.0077965" startTime="2026-10-17T14:51:58.1222391+00:00" endTime="2026-10-17T14:51:58.1286211+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="971714bb-e1f1-4f42-932a-e8e8f85b0b43">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Pipe hasn't been connected yet.</Message>
+          <StackTrace>   at System.IO.Pipes.PipeStream.CheckWriteOperations()
+   at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+   at KuaiYi.Core.Tests.InstallationSessionTests.Peer..ctor(String name) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 44
+   at KuaiYi.Core.Tests.InstallationSessionTests.SameProductionAppEntryOwnsTwoActualNormalSessionsAndRejectsDuplicateLaunches() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 99
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="00a1a6a2-fc12-4412-83c1-ea4b2d890054" testId="a3e3dbf5-4b4e-5dd4-4745-535637dd7c42" testName="KuaiYi.Core.Tests.InstallationSessionTests.ChangedExactRecordsAreRetainedEvenAfterCleanActualExit(record: &quot;execution-owner.json&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0060713" startTime="2026-10-17T14:51:58.4475405+00:00" endTime="2026-10-17T14:51:58.4493308+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="00a1a6a2-fc12-4412-83c1-ea4b2d890054">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Pipe hasn't been connected yet.</Message>
+          <StackTrace>   at System.IO.Pipes.PipeStream.CheckWriteOperations()
+   at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+   at KuaiYi.Core.Tests.InstallationSessionTests.Peer..ctor(String name) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 44
+   at KuaiYi.Core.Tests.InstallationSessionTests.ChangedExactRecordsAreRetainedEvenAfterCleanActualExit(String record) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 180
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="58503aeb-6f3a-48cd-a38e-45292b3e6df2" testId="4343e53a-6d89-37c8-32d9-4b6a97706cd7" testName="KuaiYi.Core.Tests.InstallationSessionTests.ChangedExactRecordsAreRetainedEvenAfterCleanActualExit(record: &quot;current.json&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0156618" startTime="2026-10-17T14:51:58.4164241+00:00" endTime="2026-10-17T14:51:58.4328904+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="58503aeb-6f3a-48cd-a38e-45292b3e6df2">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Pipe hasn't been connected yet.</Message>
+          <StackTrace>   at System.IO.Pipes.PipeStream.CheckWriteOperations()
+   at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+   at KuaiYi.Core.Tests.InstallationSessionTests.Peer..ctor(String name) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 44
+   at KuaiYi.Core.Tests.InstallationSessionTests.ChangedExactRecordsAreRetainedEvenAfterCleanActualExit(String record) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 180
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f0f0c7a4-1124-4a10-851f-fd587a75937a" testId="de696bf1-d0ff-bbf0-d5f5-a6a06c893281" testName="KuaiYi.Core.Tests.InstallationSessionTests.NonSelectedGenerationCannotClaimAnOwnerAndUnmanagedLayoutRemainsSeparate" computerName="4cd0056ca8a8" duration="00:00:00.0163738" startTime="2026-10-17T14:51:58.3738991+00:00" endTime="2026-10-17T14:51:58.3900602+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f0f0c7a4-1124-4a10-851f-fd587a75937a" />
+    <UnitTestResult executionId="b44537f7-37ca-4eeb-ab79-f9e427cd20b7" testId="5b40263d-c099-70f2-3c26-e197dd5504ce" testName="KuaiYi.Core.Tests.InstallationSessionTests.ActualExitWithoutTheBoundCleanCloseReceiptRetainsTheFence(command: &quot;EXIT0&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0372128" startTime="2026-10-17T14:51:58.0425016+00:00" endTime="2026-10-17T14:51:58.0920609+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b44537f7-37ca-4eeb-ab79-f9e427cd20b7">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Pipe hasn't been connected yet.</Message>
+          <StackTrace>   at System.IO.Pipes.PipeStream.CheckWriteOperations()
+   at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+   at KuaiYi.Core.Tests.InstallationSessionTests.Peer..ctor(String name) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 44
+   at KuaiYi.Core.Tests.InstallationSessionTests.ActualExitWithoutTheBoundCleanCloseReceiptRetainsTheFence(String command) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 115
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="86d4d3df-8ad8-4a71-8245-ed2128d3bdf2" testId="d3936226-05d3-cd99-3880-efafe7ed0b38" testName="KuaiYi.Core.Tests.InstallationSessionTests.AnOriginalHealthTaskThatIgnoresCancellationRemainsOwnedUntilItReallySettles" computerName="4cd0056ca8a8" duration="00:00:00.0105514" startTime="2026-10-17T14:51:58.4045504+00:00" endTime="2026-10-17T14:51:58.4047300+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="86d4d3df-8ad8-4a71-8245-ed2128d3bdf2">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Pipe hasn't been connected yet.</Message>
+          <StackTrace>   at System.IO.Pipes.PipeStream.CheckWriteOperations()
+   at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+   at KuaiYi.Core.Tests.InstallationSessionTests.Peer..ctor(String name) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 44
+   at KuaiYi.Core.Tests.InstallationSessionTests.AnOriginalHealthTaskThatIgnoresCancellationRemainsOwnedUntilItReallySettles() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 148
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="24160c5b-83f3-406f-a3d9-90547022a84b" testId="26ea1007-c2b7-8327-252a-1161ae392882" testName="KuaiYi.Core.Tests.InstallationSessionTests.UnknownAdmissionRecordIsNeverAdoptedOrReplaced(record: &quot;handoff-pending.json&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0736316" startTime="2026-10-17T14:51:58.3015646+00:00" endTime="2026-10-17T14:51:58.3736079+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="24160c5b-83f3-406f-a3d9-90547022a84b" />
+    <UnitTestResult executionId="b39c16d5-b353-454b-b700-05944489694e" testId="c84e0e99-ed9e-3562-5dc6-b8620e86137c" testName="KuaiYi.Core.Tests.InstallationSessionTests.UnknownAdmissionRecordIsNeverAdoptedOrReplaced(record: &quot;execution-owner.json&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0571611" startTime="2026-10-17T14:51:58.1926554+00:00" endTime="2026-10-17T14:51:58.2508882+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b39c16d5-b353-454b-b700-05944489694e" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationSessionTests.CompletedButFaultedOriginalIoCannotBePrunedIntoSuccessfulOwnerRelease" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="bba4014e-f392-b753-5d49-cda67ee96219">
+      <Execution id="c75f87b3-ca86-49ce-9b7a-dd47e6f01726" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationSessionTests" name="CompletedButFaultedOriginalIoCannotBePrunedIntoSuccessfulOwnerRelease" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationSessionTests.ChangedExactRecordsAreRetainedEvenAfterCleanActualExit(record: &quot;current.json&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="4343e53a-6d89-37c8-32d9-4b6a97706cd7">
+      <Execution id="58503aeb-6f3a-48cd-a38e-45292b3e6df2" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationSessionTests" name="ChangedExactRecordsAreRetainedEvenAfterCleanActualExit" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationSessionTests.SameProductionAppEntryOwnsTwoActualNormalSessionsAndRejectsDuplicateLaunches" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="1653d0f2-63d3-358f-acaa-9d850afdf215">
+      <Execution id="971714bb-e1f1-4f42-932a-e8e8f85b0b43" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationSessionTests" name="SameProductionAppEntryOwnsTwoActualNormalSessionsAndRejectsDuplicateLaunches" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationSessionTests.ACancelledWaiterCannotReleaseAnActualStartThatReturnsItsProcessLate" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="832960ef-e872-46bd-d8ff-3ca0c440ff2f">
+      <Execution id="7c747730-9590-4ad3-bb67-3df4b9fa326a" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationSessionTests" name="ACancelledWaiterCannotReleaseAnActualStartThatReturnsItsProcessLate" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationSessionTests.UnknownAdmissionRecordIsNeverAdoptedOrReplaced(record: &quot;handoff-pending.json&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="26ea1007-c2b7-8327-252a-1161ae392882">
+      <Execution id="24160c5b-83f3-406f-a3d9-90547022a84b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationSessionTests" name="UnknownAdmissionRecordIsNeverAdoptedOrReplaced" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationSessionTests.CancellationOfAHealthySessionSettlesOnlyItsOwnChildAndNeverClearsItsOwner" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="c13a8322-de13-939d-603a-73b94902f4ce">
+      <Execution id="94aad5c9-bb61-412b-81ba-a98ff721de7d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationSessionTests" name="CancellationOfAHealthySessionSettlesOnlyItsOwnChildAndNeverClearsItsOwner" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationSessionTests.AnOriginalHealthTaskThatIgnoresCancellationRemainsOwnedUntilItReallySettles" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="d3936226-05d3-cd99-3880-efafe7ed0b38">
+      <Execution id="86d4d3df-8ad8-4a71-8245-ed2128d3bdf2" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationSessionTests" name="AnOriginalHealthTaskThatIgnoresCancellationRemainsOwnedUntilItReallySettles" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationSessionTests.UnknownAdmissionRecordIsNeverAdoptedOrReplaced(record: &quot;execution-owner.json&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="c84e0e99-ed9e-3562-5dc6-b8620e86137c">
+      <Execution id="b39c16d5-b353-454b-b700-05944489694e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationSessionTests" name="UnknownAdmissionRecordIsNeverAdoptedOrReplaced" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationSessionTests.UnknownAdmissionRecordIsNeverAdoptedOrReplaced(record: &quot;upgrade.lock&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="9438a2c6-6ac4-dd4b-12aa-f046eea65f3c">
+      <Execution id="b935f9c3-ce57-4fe4-b5c3-f47756803aac" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationSessionTests" name="UnknownAdmissionRecordIsNeverAdoptedOrReplaced" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationSessionTests.NonSelectedGenerationCannotClaimAnOwnerAndUnmanagedLayoutRemainsSeparate" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="de696bf1-d0ff-bbf0-d5f5-a6a06c893281">
+      <Execution id="f0f0c7a4-1124-4a10-851f-fd587a75937a" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationSessionTests" name="NonSelectedGenerationCannotClaimAnOwnerAndUnmanagedLayoutRemainsSeparate" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationSessionTests.UnknownAdmissionRecordIsNeverAdoptedOrReplaced(record: &quot;upgrade-pending.json&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="248ca43d-0eda-c155-681c-1310303d6c77">
+      <Execution id="ea98ab59-562a-4992-ad9c-60fed87c0f4b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationSessionTests" name="UnknownAdmissionRecordIsNeverAdoptedOrReplaced" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationSessionTests.BoundCloseReceiptCannotReleaseOwnerWhileTheActualChildIsStillAlive" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="36e6d7c7-4c74-1541-186c-ca6c1d824d0b">
+      <Execution id="33a6fe5e-9027-4826-a059-242bbad8fb1e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationSessionTests" name="BoundCloseReceiptCannotReleaseOwnerWhileTheActualChildIsStillAlive" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationSessionTests.LostActualParentObserverCannotBeReplacedByAFreshLauncherOrAPrivateCloseReceipt" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="58de1fa3-2bdc-1f70-5476-c065922fa87c">
+      <Execution id="33e2254f-e2bf-48eb-902e-7e77fec6568c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationSessionTests" name="LostActualParentObserverCannotBeReplacedByAFreshLauncherOrAPrivateCloseReceipt" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationSessionTests.ActualExitWithoutTheBoundCleanCloseReceiptRetainsTheFence(command: &quot;EXIT0&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="5b40263d-c099-70f2-3c26-e197dd5504ce">
+      <Execution id="b44537f7-37ca-4eeb-ab79-f9e427cd20b7" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationSessionTests" name="ActualExitWithoutTheBoundCleanCloseReceiptRetainsTheFence" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationSessionTests.ChangedExactRecordsAreRetainedEvenAfterCleanActualExit(record: &quot;upgrade-pending.json&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="26d299ad-801c-53ef-7125-82867a40f01b">
+      <Execution id="aab160f7-cc46-40ad-b825-92fdff3e9cdb" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationSessionTests" name="ChangedExactRecordsAreRetainedEvenAfterCleanActualExit" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationSessionTests.ChangedExactRecordsAreRetainedEvenAfterCleanActualExit(record: &quot;execution-owner.json&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a3e3dbf5-4b4e-5dd4-4745-535637dd7c42">
+      <Execution id="00a1a6a2-fc12-4412-83c1-ea4b2d890054" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationSessionTests" name="ChangedExactRecordsAreRetainedEvenAfterCleanActualExit" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationSessionTests.ActualExitWithoutTheBoundCleanCloseReceiptRetainsTheFence(command: &quot;EXIT23&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="6c206047-a30b-40bd-3a02-780d5fda0ed1">
+      <Execution id="04811c4a-4531-4336-a9ff-b37130e78c0a" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationSessionTests" name="ActualExitWithoutTheBoundCleanCloseReceiptRetainsTheFence" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationSessionTests.ActualExitDoesNotReleaseAnOriginalIoTaskThatOutlivesItsTimeoutOrLaterDispose" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="e0dfedb9-46bf-1710-629c-cd6c6ba2f9ad">
+      <Execution id="9c2ec9b2-5e40-4b68-9dc6-d0ac93cfee7c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationSessionTests" name="ActualExitDoesNotReleaseAnOriginalIoTaskThatOutlivesItsTimeoutOrLaterDispose" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="e0dfedb9-46bf-1710-629c-cd6c6ba2f9ad" executionId="9c2ec9b2-5e40-4b68-9dc6-d0ac93cfee7c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="58de1fa3-2bdc-1f70-5476-c065922fa87c" executionId="33e2254f-e2bf-48eb-902e-7e77fec6568c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6c206047-a30b-40bd-3a02-780d5fda0ed1" executionId="04811c4a-4531-4336-a9ff-b37130e78c0a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="26d299ad-801c-53ef-7125-82867a40f01b" executionId="aab160f7-cc46-40ad-b825-92fdff3e9cdb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="248ca43d-0eda-c155-681c-1310303d6c77" executionId="ea98ab59-562a-4992-ad9c-60fed87c0f4b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="832960ef-e872-46bd-d8ff-3ca0c440ff2f" executionId="7c747730-9590-4ad3-bb67-3df4b9fa326a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="36e6d7c7-4c74-1541-186c-ca6c1d824d0b" executionId="33a6fe5e-9027-4826-a059-242bbad8fb1e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c13a8322-de13-939d-603a-73b94902f4ce" executionId="94aad5c9-bb61-412b-81ba-a98ff721de7d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9438a2c6-6ac4-dd4b-12aa-f046eea65f3c" executionId="b935f9c3-ce57-4fe4-b5c3-f47756803aac" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bba4014e-f392-b753-5d49-cda67ee96219" executionId="c75f87b3-ca86-49ce-9b7a-dd47e6f01726" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1653d0f2-63d3-358f-acaa-9d850afdf215" executionId="971714bb-e1f1-4f42-932a-e8e8f85b0b43" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a3e3dbf5-4b4e-5dd4-4745-535637dd7c42" executionId="00a1a6a2-fc12-4412-83c1-ea4b2d890054" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4343e53a-6d89-37c8-32d9-4b6a97706cd7" executionId="58503aeb-6f3a-48cd-a38e-45292b3e6df2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="de696bf1-d0ff-bbf0-d5f5-a6a06c893281" executionId="f0f0c7a4-1124-4a10-851f-fd587a75937a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5b40263d-c099-70f2-3c26-e197dd5504ce" executionId="b44537f7-37ca-4eeb-ab79-f9e427cd20b7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d3936226-05d3-cd99-3880-efafe7ed0b38" executionId="86d4d3df-8ad8-4a71-8245-ed2128d3bdf2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="26ea1007-c2b7-8327-252a-1161ae392882" executionId="24160c5b-83f3-406f-a3d9-90547022a84b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c84e0e99-ed9e-3562-5dc6-b8620e86137c" executionId="b39c16d5-b353-454b-b700-05944489694e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="18" executed="18" passed="6" failed="12" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.10]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.39]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.42]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.50]       System.InvalidOperationException : Pipe hasn't been connected yet.
+[xUnit.net 00:00:00.50]       Stack Trace:
+[xUnit.net 00:00:00.50]            at System.IO.Pipes.PipeStream.CheckWriteOperations()
+[xUnit.net 00:00:00.50]            at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+[xUnit.net 00:00:00.50]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(44,0): at KuaiYi.Core.Tests.InstallationSessionTests.Peer..ctor(String name)
+[xUnit.net 00:00:00.50]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(115,0): at KuaiYi.Core.Tests.InstallationSessionTests.ActualExitWithoutTheBoundCleanCloseReceiptRetainsTheFence(String command)
+[xUnit.net 00:00:00.50]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.52]       System.InvalidOperationException : Pipe hasn't been connected yet.
+[xUnit.net 00:00:00.52]       Stack Trace:
+[xUnit.net 00:00:00.52]            at System.IO.Pipes.PipeStream.CheckWriteOperations()
+[xUnit.net 00:00:00.52]            at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+[xUnit.net 00:00:00.52]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(44,0): at KuaiYi.Core.Tests.InstallationSessionTests.Peer..ctor(String name)
+[xUnit.net 00:00:00.52]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(115,0): at KuaiYi.Core.Tests.InstallationSessionTests.ActualExitWithoutTheBoundCleanCloseReceiptRetainsTheFence(String command)
+[xUnit.net 00:00:00.52]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.52]       System.InvalidOperationException : Pipe hasn't been connected yet.
+[xUnit.net 00:00:00.52]       Stack Trace:
+[xUnit.net 00:00:00.52]            at System.IO.Pipes.PipeStream.CheckWriteOperations()
+[xUnit.net 00:00:00.52]            at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+[xUnit.net 00:00:00.52]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(44,0): at KuaiYi.Core.Tests.InstallationSessionTests.Peer..ctor(String name)
+[xUnit.net 00:00:00.52]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(123,0): at KuaiYi.Core.Tests.InstallationSessionTests.BoundCloseReceiptCannotReleaseOwnerWhileTheActualChildIsStillAlive()
+[xUnit.net 00:00:00.52]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.53]       System.InvalidOperationException : Pipe hasn't been connected yet.
+[xUnit.net 00:00:00.53]       Stack Trace:
+[xUnit.net 00:00:00.53]            at System.IO.Pipes.PipeStream.CheckWriteOperations()
+[xUnit.net 00:00:00.53]            at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+[xUnit.net 00:00:00.53]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(44,0): at KuaiYi.Core.Tests.InstallationSessionTests.Peer..ctor(String name)
+[xUnit.net 00:00:00.53]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(99,0): at KuaiYi.Core.Tests.InstallationSessionTests.SameProductionAppEntryOwnsTwoActualNormalSessionsAndRejectsDuplicateLaunches()
+[xUnit.net 00:00:00.53]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.81]       System.InvalidOperationException : Pipe hasn't been connected yet.
+[xUnit.net 00:00:00.81]       Stack Trace:
+[xUnit.net 00:00:00.81]            at System.IO.Pipes.PipeStream.CheckWriteOperations()
+[xUnit.net 00:00:00.81]            at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+[xUnit.net 00:00:00.81]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(44,0): at KuaiYi.Core.Tests.InstallationSessionTests.Peer..ctor(String name)
+[xUnit.net 00:00:00.81]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(148,0): at KuaiYi.Core.Tests.InstallationSessionTests.AnOriginalHealthTaskThatIgnoresCancellationRemainsOwnedUntilItReallySettles()
+[xUnit.net 00:00:00.81]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.82]       System.InvalidOperationException : Pipe hasn't been connected yet.
+[xUnit.net 00:00:00.82]       Stack Trace:
+[xUnit.net 00:00:00.82]            at System.IO.Pipes.PipeStream.CheckWriteOperations()
+[xUnit.net 00:00:00.82]            at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+[xUnit.net 00:00:00.82]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(44,0): at KuaiYi.Core.Tests.InstallationSessionTests.Peer..ctor(String name)
+[xUnit.net 00:00:00.82]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(194,0): at KuaiYi.Core.Tests.InstallationSessionTests.LostActualParentObserverCannotBeReplacedByAFreshLauncherOrAPrivateCloseReceipt()
+[xUnit.net 00:00:00.82]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.84]       System.InvalidOperationException : Pipe hasn't been connected yet.
+[xUnit.net 00:00:00.84]       Stack Trace:
+[xUnit.net 00:00:00.84]            at System.IO.Pipes.PipeStream.CheckWriteOperations()
+[xUnit.net 00:00:00.84]            at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+[xUnit.net 00:00:00.84]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(44,0): at KuaiYi.Core.Tests.InstallationSessionTests.Peer..ctor(String name)
+[xUnit.net 00:00:00.84]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(180,0): at KuaiYi.Core.Tests.InstallationSessionTests.ChangedExactRecordsAreRetainedEvenAfterCleanActualExit(String record)
+[xUnit.net 00:00:00.84]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.85]       System.InvalidOperationException : Pipe hasn't been connected yet.
+[xUnit.net 00:00:00.85]       Stack Trace:
+[xUnit.net 00:00:00.85]            at System.IO.Pipes.PipeStream.CheckWriteOperations()
+[xUnit.net 00:00:00.85]            at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+[xUnit.net 00:00:00.85]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(44,0): at KuaiYi.Core.Tests.InstallationSessionTests.Peer..ctor(String name)
+[xUnit.net 00:00:00.85]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(180,0): at KuaiYi.Core.Tests.InstallationSessionTests.ChangedExactRecordsAreRetainedEvenAfterCleanActualExit(String record)
+[xUnit.net 00:00:00.85]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.85]       System.InvalidOperationException : Pipe hasn't been connected yet.
+[xUnit.net 00:00:00.85]       Stack Trace:
+[xUnit.net 00:00:00.85]            at System.IO.Pipes.PipeStream.CheckWriteOperations()
+[xUnit.net 00:00:00.85]            at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+[xUnit.net 00:00:00.85]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(44,0): at KuaiYi.Core.Tests.InstallationSessionTests.Peer..ctor(String name)
+[xUnit.net 00:00:00.85]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(180,0): at KuaiYi.Core.Tests.InstallationSessionTests.ChangedExactRecordsAreRetainedEvenAfterCleanActualExit(String record)
+[xUnit.net 00:00:00.85]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.91]       System.InvalidOperationException : Pipe hasn't been connected yet.
+[xUnit.net 00:00:01.91]       Stack Trace:
+[xUnit.net 00:00:01.91]            at System.IO.Pipes.PipeStream.CheckWriteOperations()
+[xUnit.net 00:00:01.91]            at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+[xUnit.net 00:00:01.91]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(44,0): at KuaiYi.Core.Tests.InstallationSessionTests.Peer..ctor(String name)
+[xUnit.net 00:00:01.91]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(132,0): at KuaiYi.Core.Tests.InstallationSessionTests.CancellationOfAHealthySessionSettlesOnlyItsOwnChildAndNeverClearsItsOwner()
+[xUnit.net 00:00:01.91]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.92]       System.InvalidOperationException : Pipe hasn't been connected yet.
+[xUnit.net 00:00:01.92]       Stack Trace:
+[xUnit.net 00:00:01.92]            at System.IO.Pipes.PipeStream.CheckWriteOperations()
+[xUnit.net 00:00:01.92]            at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+[xUnit.net 00:00:01.92]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(44,0): at KuaiYi.Core.Tests.InstallationSessionTests.Peer..ctor(String name)
+[xUnit.net 00:00:01.92]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(160,0): at KuaiYi.Core.Tests.InstallationSessionTests.ActualExitDoesNotReleaseAnOriginalIoTaskThatOutlivesItsTimeoutOrLaterDispose()
+[xUnit.net 00:00:01.92]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.93]       System.InvalidOperationException : Pipe hasn't been connected yet.
+[xUnit.net 00:00:01.93]       Stack Trace:
+[xUnit.net 00:00:01.93]            at System.IO.Pipes.PipeStream.CheckWriteOperations()
+[xUnit.net 00:00:01.93]            at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+[xUnit.net 00:00:01.93]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(44,0): at KuaiYi.Core.Tests.InstallationSessionTests.Peer..ctor(String name)
+[xUnit.net 00:00:01.93]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(173,0): at KuaiYi.Core.Tests.InstallationSessionTests.CompletedButFaultedOriginalIoCannotBePrunedIntoSuccessfulOwnerRelease()
+[xUnit.net 00:00:01.93]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.94]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T14:51:58.0992722+00:00">
+        <Text>[xUnit.net 00:00:00.50]     KuaiYi.Core.Tests.InstallationSessionTests.ActualExitWithoutTheBoundCleanCloseReceiptRetainsTheFence(command: "EXIT0") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T14:51:58.1201672+00:00">
+        <Text>[xUnit.net 00:00:00.52]     KuaiYi.Core.Tests.InstallationSessionTests.ActualExitWithoutTheBoundCleanCloseReceiptRetainsTheFence(command: "EXIT23") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T14:51:58.1219667+00:00">
+        <Text>[xUnit.net 00:00:00.52]     KuaiYi.Core.Tests.InstallationSessionTests.BoundCloseReceiptCannotReleaseOwnerWhileTheActualChildIsStillAlive [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T14:51:58.1289097+00:00">
+        <Text>[xUnit.net 00:00:00.53]     KuaiYi.Core.Tests.InstallationSessionTests.SameProductionAppEntryOwnsTwoActualNormalSessionsAndRejectsDuplicateLaunches [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T14:51:58.4522647+00:00">
+        <Text>[xUnit.net 00:00:00.81]     KuaiYi.Core.Tests.InstallationSessionTests.AnOriginalHealthTaskThatIgnoresCancellationRemainsOwnedUntilItReallySettles [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T14:51:58.4522855+00:00">
+        <Text>[xUnit.net 00:00:00.82]     KuaiYi.Core.Tests.InstallationSessionTests.LostActualParentObserverCannotBeReplacedByAFreshLauncherOrAPrivateCloseReceipt [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T14:51:58.4523012+00:00">
+        <Text>[xUnit.net 00:00:00.84]     KuaiYi.Core.Tests.InstallationSessionTests.ChangedExactRecordsAreRetainedEvenAfterCleanActualExit(record: "current.json") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T14:51:58.4523256+00:00">
+        <Text>[xUnit.net 00:00:00.85]     KuaiYi.Core.Tests.InstallationSessionTests.ChangedExactRecordsAreRetainedEvenAfterCleanActualExit(record: "upgrade-pending.json") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T14:51:58.4523403+00:00">
+        <Text>[xUnit.net 00:00:00.85]     KuaiYi.Core.Tests.InstallationSessionTests.ChangedExactRecordsAreRetainedEvenAfterCleanActualExit(record: "execution-owner.json") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T14:51:59.5102749+00:00">
+        <Text>[xUnit.net 00:00:01.91]     KuaiYi.Core.Tests.InstallationSessionTests.CancellationOfAHealthySessionSettlesOnlyItsOwnChildAndNeverClearsItsOwner [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T14:51:59.5160986+00:00">
+        <Text>[xUnit.net 00:00:01.92]     KuaiYi.Core.Tests.InstallationSessionTests.ActualExitDoesNotReleaseAnOriginalIoTaskThatOutlivesItsTimeoutOrLaterDispose [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T14:51:59.5302172+00:00">
+        <Text>[xUnit.net 00:00:01.93]     KuaiYi.Core.Tests.InstallationSessionTests.CompletedButFaultedOriginalIoCannotBePrunedIntoSuccessfulOwnerRelease [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

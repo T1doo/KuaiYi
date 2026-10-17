@@ -26,7 +26,7 @@ public sealed class InstallationUpgradeCoordinator:IAsyncDisposable
         internal readonly OwnedProcessSession Lifetime=new(starter);
         private readonly object tasksSync=new();
         private readonly List<Task> protocolTasks=[];
-        internal Task? OriginalIoJoin,OriginalExitRequest,OriginalControlClose;
+        internal Task? OriginalIoJoin,OriginalExitRequest,OriginalControlClose,OriginalNaturalExit;
         internal readonly Guid Launch=Guid.NewGuid();
         internal Task<Process>? Startup;
         internal Process? Process;
@@ -35,6 +35,7 @@ public sealed class InstallationUpgradeCoordinator:IAsyncDisposable
         internal bool Transferred;
         internal InstallationControlledLaunch? LaunchProof;
         internal bool LaunchFinished;
+        internal bool RetainTasks;
         internal Task[] Tasks{get{lock(tasksSync)return protocolTasks.ToArray();}}
         internal bool TasksCompleted{get{lock(tasksSync)return protocolTasks.All(t=>t.IsCompleted);}}
         internal void Track(Task task)
@@ -42,7 +43,7 @@ public sealed class InstallationUpgradeCoordinator:IAsyncDisposable
             lock(tasksSync)
             {
                 foreach(var done in protocolTasks.Where(t=>t.IsCompleted))_ =done.Exception;
-                protocolTasks.RemoveAll(t=>t.IsCompleted);if(!protocolTasks.Contains(task))protocolTasks.Add(task);
+                if(!RetainTasks)protocolTasks.RemoveAll(t=>t.IsCompleted);if(!protocolTasks.Contains(task))protocolTasks.Add(task);
             }
         }
         internal bool Exited=>Lifetime.ObserveExit()&&(Startup is not {IsCompletedSuccessfully:true}||Process!=null&&IoSettled)&&TasksCompleted;
@@ -68,6 +69,7 @@ public sealed class InstallationUpgradeCoordinator:IAsyncDisposable
     private InstallationHandoffTransaction? handoff;
     private Role? receiver;
     private bool disposed;
+    private bool sessionAttempted;
     internal OwnedProcessSession? ReceiverLifetimeForTest=>receiver?.Lifetime;
     internal Func<Process,IOwnedHostLifetime>? LifetimeForTest{get;set;}
     public InstallationUpgradeCoordinator(string directory,string userData,IInstallationApplicationProtocol protocol,TimeSpan budget,IOwnedProcessStarter? starter=null)
@@ -77,6 +79,42 @@ public sealed class InstallationUpgradeCoordinator:IAsyncDisposable
         store=new(directory,userData,()=>admission!=null&&roles.All(r=>r.Exited));
     }
     private static readonly string[] RoleNames=["KuaiYi.App.exe","KuaiYi.CaptureBroker.exe","KuaiYi.ClipboardHost.exe","KuaiYi.CaptureHost.exe","KuaiYi.OleReceiver.exe","KuaiYi.ImageWorker.exe","KuaiYi.NativeHost.exe"];
+    /// <summary>One ordinary user session. This caller keeps the exact child and original IO until actual exit.
+    /// Only a clean, fully settled session can finish its own fence. Failure/cancellation never clears it.</summary>
+    public async Task<int> RunActiveSessionAsync(string executableDirectory,CancellationToken cancellation=default)
+    {
+        if(protocol is not IInstallationSessionProtocol sessionProtocol)throw new InvalidOperationException("Controlled session protocol required.");
+        string expected=InstallationPaths.Root(executableDirectory);
+        await Enter(cancellation).ConfigureAwait(false);Role? role=null;
+        try
+        {
+            if(execution!=null||roles.Count!=0||pending!=null||handoff!=null||admission!=null)throw new InvalidOperationException("A normal session requires a fresh coordinator.");
+            sessionAttempted=true;
+            admission=store.EnterAdmission();var selected=store.ReadActive(cancellation)??throw new InstallationRecoveryException("No installed version.");
+            if(selected.DirectoryPath!=expected)throw new InstallationRecoveryException("Normal entry is not the selected generation.");
+            execution=store.ClaimExecution(admission);role=NewRole("KuaiYi.App.exe",selected);role.RetainTasks=true;
+            await StartAndCheck(role,cancellation).ConfigureAwait(false);
+            // Cancellation abandons only this waiter. The original OS observation remains owned and is joined by cleanup.
+            role.OriginalNaturalExit=role.Process!.WaitForExitAsync(CancellationToken.None);role.Track(role.OriginalNaturalExit);
+            await role.OriginalNaturalExit.WaitAsync(cancellation).ConfigureAwait(false);
+            if(!role.Process.HasExited||role.Process.ExitCode!=0)throw new IOException("Application session did not exit cleanly.");
+            await Call(role,t=>sessionProtocol.SettleSessionAsync(role.Process,t),cancellation,ProtocolOperation.Io).ConfigureAwait(false);role.IoSettled=true;
+            await Task.WhenAll(role.Tasks).WaitAsync(budget,cancellation).ConfigureAwait(false);
+            await role.Lifetime.StartupObservation.WaitAsync(budget,cancellation).ConfigureAwait(false);
+            cancellation.ThrowIfCancellationRequested();
+            if(!role.Exited)throw new IOException("Application original work is unsettled.");
+            admission.Require(execution.DirectoryPath);role.LaunchProof!.RequireRecords();FinishLaunch(role);
+            if(!await role.Lifetime.TryFinalizeAsync().ConfigureAwait(false))throw new IOException("Application handle cleanup is unconfirmed.");
+            role.Finalized=true;execution.Finish();execution.Dispose();execution=null;disposed=true;return 0;
+        }
+        catch(Exception failure)when(sessionAttempted)
+        {
+            // This cleanup may stop only our exact Start-returned child. Even fully settled failure retains the marker.
+            if(role==null||await FinalizeOwned(role).ConfigureAwait(false)){execution?.Dispose();execution=null;disposed=true;}
+            throw new InstallationUpgradeUnconfirmedException(failure);
+        }
+        finally{admission?.Dispose();admission=null;serial.Release();}
+    }
     public async Task<InstalledVersion> StartActiveRoleAsync(string roleName="KuaiYi.App.exe",CancellationToken cancellation=default)
     {
         if(!RoleNames.Contains(roleName,StringComparer.Ordinal))throw new ArgumentException("Unknown product role.",nameof(roleName));
@@ -157,7 +195,7 @@ public sealed class InstallationUpgradeCoordinator:IAsyncDisposable
         finally{admission?.Dispose();admission=null;serial.Release();}
     }
     private async Task Enter(CancellationToken cancellation)
-    {if(!await serial.WaitAsync(0,cancellation).ConfigureAwait(false))throw new InstallationBusyException();if(disposed){serial.Release();throw new ObjectDisposedException(nameof(InstallationUpgradeCoordinator));}if(handoff is {CommitAttempted:true}){serial.Release();throw new InstallationRecoveryException("Runtime ownership was committed or is uncertain; this controller cannot mutate it.");}}
+    {if(!await serial.WaitAsync(0,cancellation).ConfigureAwait(false))throw new InstallationBusyException();if(disposed){serial.Release();throw new ObjectDisposedException(nameof(InstallationUpgradeCoordinator));}if(sessionAttempted||handoff is {CommitAttempted:true}){serial.Release();throw new InstallationRecoveryException("This single session or committed runtime cannot be reused by another operation.");}}
     private async Task<InstallationUpgradeResult> Handoff(InstalledVersion installed,CancellationToken cancellation)
     {
         receiver=roles.Single(r=>!r.Exited&&r.Version==installed);var held=pending!;
@@ -337,7 +375,7 @@ public sealed class InstallationUpgradeCoordinator:IAsyncDisposable
     private static bool Same(byte[]? left,byte[]? right)=>left==null?right==null:right!=null&&left.AsSpan().SequenceEqual(right);
     public async ValueTask DisposeAsync()
     {
-        await serial.WaitAsync().ConfigureAwait(false);
+        if(!await serial.WaitAsync(0).ConfigureAwait(false))throw new InstallationBusyException();
         try
         {
             if(disposed)return;
@@ -348,7 +386,7 @@ public sealed class InstallationUpgradeCoordinator:IAsyncDisposable
                 execution?.Dispose();execution=null;disposed=true;return;
             }
             foreach(var role in roles)if(!await FinalizeOwned(role).ConfigureAwait(false))throw new InstallationUpgradeUnconfirmedException(new InstallationBusyException());
-            try{if(pending==null)execution?.Finish();}
+            try{if(pending==null&&!sessionAttempted)execution?.Finish();}
             finally{execution?.Dispose();execution=null;disposed=true;}
         }
         finally{serial.Release();}

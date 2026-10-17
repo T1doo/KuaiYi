@@ -70,13 +70,18 @@ public sealed class InstallationNormalEntry:IDisposable
     private readonly InstallationAdmission admission;
     private readonly InstallationExecutionOwnership owner;
     private InstallationNormalEntry(InstallationAdmission admission,InstallationExecutionOwnership owner){this.admission=admission;this.owner=owner;}
-    public static InstallationNormalEntry? Open(string executableDirectory,string userData)
+    public static string? FindInstallationRoot(string executableDirectory)
     {
         string selected=InstallationPaths.Root(executableDirectory);var generation=new DirectoryInfo(selected);
         if(!string.Equals(generation.Parent?.Name,"versions",StringComparison.OrdinalIgnoreCase))return null; // Unmanaged/development layout; not installed-store acceptance.
         if(generation.Parent!.Name!="versions")throw new InstallationRecoveryException("Noncanonical installation container retained.");
         if(!Guid.TryParseExact(generation.Name,"N",out _))throw new InstallationRecoveryException("Invalid installation generation layout retained.");
-        string root=generation.Parent.Parent?.FullName??throw new InstallationRecoveryException("Missing installation root.");
+        return generation.Parent.Parent?.FullName??throw new InstallationRecoveryException("Missing installation root.");
+    }
+    public static InstallationNormalEntry? Open(string executableDirectory,string userData)
+    {
+        string? root=FindInstallationRoot(executableDirectory);if(root==null)return null;
+        string selected=InstallationPaths.Root(executableDirectory);
         var store=new InstallationStore(root,userData,()=>false);var admission=store.EnterAdmission();
         try
         {

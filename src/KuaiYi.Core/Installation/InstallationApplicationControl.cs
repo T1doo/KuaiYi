@@ -21,7 +21,11 @@ internal static class InstallationControlWire
 }
 
 /// <summary>Production controller-side protocol for the exact Start-returned child. No discovery, PID or model work.</summary>
-public sealed class InstallationApplicationClient:IInstallationHandoffProtocol,IInstallationControlledStartProtocol
+public interface IInstallationSessionProtocol:IInstallationControlledStartProtocol
+{
+    Task SettleSessionAsync(Process owned,CancellationToken cancellation);
+}
+public sealed class InstallationApplicationClient:IInstallationHandoffProtocol,IInstallationSessionProtocol
 {
     private sealed class ChannelState
     {
@@ -30,6 +34,8 @@ public sealed class InstallationApplicationClient:IInstallationHandoffProtocol,I
         internal readonly Task Output,Error;
         internal InstallationControlledLaunch? Proof;
         internal bool Closed;
+        internal bool ClosingReceived;
+        private Task? sessionJoin;
         private readonly object joinSync=new();private Task? join;
         internal ChannelState(Process child){Output=Task.Run(()=>Read(child));Error=Task.Run(()=>Drain(child));}
         private async Task Read(Process child)
@@ -38,7 +44,8 @@ public sealed class InstallationApplicationClient:IInstallationHandoffProtocol,I
             {
                 while(await InstallationControlWire.Read(child.StandardOutput.BaseStream,Readers.Token).ConfigureAwait(false) is {} line)
                 {
-                    if(Proof is {} proof&&line==$"CLOSING|{proof.Launch:N}|{proof.Fingerprint}"){child.StandardInput.Close();continue;}
+                    if(Proof is {} proof&&line==$"CLOSING|{proof.Launch:N}|{proof.Fingerprint}")
+                    {if(ClosingReceived)throw new InvalidDataException("Duplicate application close receipt.");ClosingReceived=true;child.StandardInput.Close();continue;}
                     await Lines.Writer.WriteAsync(line,Readers.Token).ConfigureAwait(false);
                 }
             }
@@ -55,6 +62,16 @@ public sealed class InstallationApplicationClient:IInstallationHandoffProtocol,I
         internal Task Join()
         {
             lock(joinSync)return join??=Task.Run(async()=>{Task cancellation=Readers.CancelAsync();await Task.WhenAll(cancellation,Output,Error).ConfigureAwait(false);Closed=true;});
+        }
+        internal Task JoinSession()
+        {
+            lock(joinSync)return sessionJoin??=Task.Run(async()=>
+            {
+                // Normal user exit must end both original streams naturally, including any late fault.
+                await Task.WhenAll(Output,Error).ConfigureAwait(false);
+                if(!ClosingReceived||Lines.Reader.TryRead(out _))throw new IOException("Application clean-close receipt is unconfirmed.");
+                Closed=true;
+            });
         }
     }
     private readonly ConditionalWeakTable<Process,ChannelState> channels=new();
@@ -78,6 +95,11 @@ public sealed class InstallationApplicationClient:IInstallationHandoffProtocol,I
     {
         if(!owned.HasExited)throw new IOException("Exited IO settlement requires actual child exit.");
         await Channel(owned).Join().WaitAsync(cancellation).ConfigureAwait(false);
+    }
+    public async Task SettleSessionAsync(Process owned,CancellationToken cancellation)
+    {
+        if(!owned.HasExited)throw new IOException("Session settlement requires actual child exit.");
+        await Channel(owned).JoinSession().WaitAsync(cancellation).ConfigureAwait(false);
     }
     public async Task PrepareHandoffAsync(Process owned,InstallationHandoffOffer offer,CancellationToken cancellation)
     {await Send(owned,"OFFER|"+offer.Encode(),cancellation).ConfigureAwait(false);await Receipt(owned,Reply("PREPARED",offer),cancellation).ConfigureAwait(false);}

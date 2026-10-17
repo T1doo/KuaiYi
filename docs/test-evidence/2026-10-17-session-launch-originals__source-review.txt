@@ -1,0 +1,9 @@
+Independent read-only reviewer: /root/high_water_review
+Source audit conclusion received 2026-10-17 after r06-install-final:
+恢复后源码终审可准入最终回归，未发现剩余P1/P2。两条已指出路径均已关闭：fresh guard在latch前且错误不进session cleanup；父拒入只有ScopeFor＋Show广播，无UI mutex获取。已独核r06相关132P，其中InstallationSessionTests24P；67项执行source与当前全同。混用旧角色方法与r04红例逐字节相同，SHA 0b05bd407789636c1ac2600707c686d735526c7c0773800f9d0d4f2b785f2b4c。当前normal成功确要求保留原WaitExit(None)、自然双流join/精确单CLOSING无额外行、全部原Task成功、StartupObservation、Exit0和原记录才归档；失败/取消Dispose不Finish，活session并发Dispose立即拒绝。3个实际输出负例已在24P中。范围仍为共享入口helper＋选定合成child/协议，非WPF/Windows现场验收；HoldIo及parent丢失的证据边界保留。
+
+Initial review P2 findings:
+1. Run after earlier StartActiveRole could dispose old execution and bypass its cleanup. Corrected fresh-coordinator guard before latch; actual initial candidate r04=1F, same test bytes final green.
+2. Rejected parent constructed SessionSingleInstance and could momentarily steal child UI mutex. Corrected to pure ScopeFor plus existing Show broadcast. Actual scope/--instance portable child test passes; real Windows broadcast timing remains NotRun.
+
+Design audit also required exact clean-close receipt, successful retained original Tasks, original WaitExit task, bounded/rejected concurrent Dispose, and failure latch preventing later Dispose owner completion. All incorporated. No reviewer file or Git mutations. Final packet audit remains separate.

@@ -76,6 +76,7 @@ public sealed class OwnedProcessSession(IOwnedProcessStarter? processStarter=nul
     }
     public Task<HostExitState> StopAsync()=>StopOwnedAsync();
     public Task StartupSettlement {get{lock(ownershipSync)return startTask??Task.CompletedTask;}}
+    internal Task StartupObservation {get{lock(ownershipSync)return startupObserver??Task.CompletedTask;}}
     public async ValueTask<bool> TryFinalizeAsync(bool retry=false)
     {
         if(retry){lock(ownershipSync)if(stopTask is {IsCompleted:true})stopTask=null;}

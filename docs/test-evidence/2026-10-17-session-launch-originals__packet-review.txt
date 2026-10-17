@@ -1,0 +1,16 @@
+Independent read-only reviewer: /root/high_water_review
+Final packet audit: Pass; no remaining P1/P2.
+
+封存终审通过，未发现剩余 P1/P2。
+- 727原件、14,127,212B：artifact／工作树／index 字节及SHA全同。
+- 743暂存路径＝11M＋732A；check0，无未暂存或未跟踪文件。
+- 335源码绑定、23项DLL绑定匹配；相关132P、Core1834P、Provider2332P，App/Worker各0W/E。
+- 父测试全保留；9786旧路径中9775原字节不变，含8869旧证据。
+- 红绿方法两种哈希口径均一致；子进程记录与driver/Core哈希匹配。
+
+可仅追加既定回执和stage-audit附件。当前审计范围为727原件／743路径。Windows/WPF仍NotRun；丢父用例未证明子进程实退，历史根因仍Unknown。
+
+Method hash scope independently confirmed:
+reviewer preimage:940B, includes four leading spaces plus [Fact], ends at method final brace without LF; sha256=0b05bd407789636c1ac2600707c686d735526c7c0773800f9d0d4f2b785f2b4c.
+root preimage:937B, starts at [Fact], ends with method final LF; sha256=f2971d6db48697a2788714d51496469181cb7db9b12e20c6ea38b6aba00196fd.
+root = reviewer[4:] + LF; each respective preimage is identical in red r04 and final green source.

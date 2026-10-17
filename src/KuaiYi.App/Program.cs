@@ -15,6 +15,7 @@ namespace KuaiYi.App;
 internal static class Program
 {
     private static InstallationApplicationControl? runtimeControl; // Root a committed runtime lease through OS process exit.
+    private static InstallationSessionEntry? runtimeSession; // Retain this caller's Process and original tasks through parent exit.
     [STAThread] public static int Main(string[] args)
     {
 #if KUAIYI_WINDOWS_CI_PROBE
@@ -36,6 +37,24 @@ internal static class Program
         }
         if (args.Length != 0 && !review&&!translationReview&&!controlled) { Console.Error.WriteLine("Unsupported command."); return 2; }
         string userData=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"KuaiYi");
+        // Route ordinary installed entry before acquiring the UI mutex: the controlled child owns that mutex.
+        if(args.Length==0)
+        {
+            try
+            {
+                runtimeSession=InstallationSessionEntry.TryCreate(AppContext.BaseDirectory,userData);
+                if(runtimeSession!=null)return runtimeSession.RunAsync().GetAwaiter().GetResult();
+            }
+            catch(Exception error)
+            {
+                Console.Error.WriteLine("Installation session refused: "+error.GetType().Name);
+                // Preserve explicit user re-invocation's existing Show message; it never proves admission or ownership.
+                using var callerIdentity=WindowsIdentity.GetCurrent();using var caller=Process.GetCurrentProcess();
+                string existingScope=SessionSingleInstance.ScopeFor(callerIdentity.User?.Value??throw new InvalidOperationException("Current user SID unavailable."),caller.SessionId);
+                NativeTray.ShowExisting(existingScope);
+                return 3;
+            }
+        }
         InstallationNormalEntry? installationEntry=null;
         try
         {

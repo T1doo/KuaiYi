@@ -27,17 +27,26 @@ internal static class InstallationAppControlFixture
         var failedCloseRelease=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         var retryWhilePending=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         var cleanupEntered=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
-        state="Created";bool failedClose=false;
+        state="Created";bool failedClose=false;var exitRelease=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         var shell=new KuaiYi.App.ShellWindow(Settle,()=>{state="Closing";cleanupEntered.TrySetResult();},error=>
         {
             state="CleanupUnconfirmed";writer.WriteLine("PUBLIC_CLOSE_UNCONFIRMED|"+error.GetType().Name);
             if(mode=="held-failed-close")failedCloseRelease.Task.GetAwaiter().GetResult(); // Hold this exact reported attempt, not the control loop.
-        },()=>{writer.WriteLine("PUBLIC_SHELL_CLOSED");writer.Flush();Environment.Exit(0);});
+        },()=>{writer.WriteLine("PUBLIC_SHELL_CLOSED");writer.Flush();if(mode=="held-after-close")exitRelease.Task.GetAwaiter().GetResult();Environment.Exit(0);});
         Task RequestClose(CancellationToken _){if(state is "CleanupUnconfirmed" or "Closing")retryWhilePending.TrySetResult();shell.Close();return Task.CompletedTask;}
         Task loop=control.RunAsync(ready.Task,RequestClose);_ =loop.ContinueWith(t=>{_ =t.Exception;},CancellationToken.None,TaskContinuationOptions.OnlyOnFaulted,TaskScheduler.Default);
         while(await reader.ReadLineAsync() is {} command)
         {
             if(command=="PING")await writer.WriteLineAsync("PUBLIC_SHELL|"+state+(control.FailureCode==null?"":"|ControlFault="+control.FailureCode));
+            else if(command=="EXIT0")Environment.Exit(0);
+            else if(command=="EXIT23")Environment.Exit(23);
+            else if(command=="EXTRA_OUTPUT")
+            {Console.WriteLine("PUBLIC_UNEXPECTED_CONTROL_ROW");Console.Out.Flush();await writer.WriteLineAsync("PUBLIC_OUTPUT_WRITTEN");}
+            else if(command=="WRONG_CLOSING")
+            {Console.WriteLine($"CLOSING|{Guid.Empty:N}|{control.Proof.Fingerprint}");Console.Out.Flush();await writer.WriteLineAsync("PUBLIC_OUTPUT_WRITTEN");}
+            else if(command=="DUPLICATE_CLOSING")
+            {string closing=$"CLOSING|{control.Proof.Launch:N}|{control.Proof.Fingerprint}\n";Console.Write(closing+closing);Console.Out.Flush();}
+            else if(command=="RELEASE_EXIT")exitRelease.TrySetResult();
             else if(command=="READY")ready.TrySetResult();
             else if(command=="CLOSE")await RequestClose(CancellationToken.None);
             else if(command=="RELEASE_CLOSE")cleanup.TrySetResult();

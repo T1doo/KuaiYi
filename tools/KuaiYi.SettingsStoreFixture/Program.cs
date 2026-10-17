@@ -1,6 +1,8 @@
 using System.Security.Cryptography;
 using System.Collections.Immutable;
 using KuaiYi.Core.Settings;
+if(args.Length==3&&args[0]=="--installed-session-launch"&&Path.GetFileName(args[1]).StartsWith("kuaiyi-upgrade-tests-",StringComparison.Ordinal))
+    return await InstallationSessionLaunchFixture.Run(args[1],args[2]);
 if(args.Length==3&&args[0]=="--handoff-controller"&&Path.GetFileName(args[1]).StartsWith("kuaiyi-upgrade-tests-",StringComparison.Ordinal))
     return await InstallationHandoffFixture.RunController(args[1],args[2]);
 // Public synthetic portable crash driver; never referenced by production App.

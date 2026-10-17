@@ -7,10 +7,14 @@ public sealed class SessionSingleInstance:IDisposable
     private readonly Mutex mutex;private readonly int ownerThread;private bool owned;
     public string Scope{get;}
     public bool IsOwner=>owned;
-    public SessionSingleInstance(string userAuthority,int sessionId)
+    public static string ScopeFor(string userAuthority,int sessionId)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(userAuthority);if(sessionId<0)throw new ArgumentOutOfRangeException(nameof(sessionId));
-        Scope="KuaiYi.Session."+Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(userAuthority+"\n"+sessionId.ToString(System.Globalization.CultureInfo.InvariantCulture))));
+        return "KuaiYi.Session."+Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(userAuthority+"\n"+sessionId.ToString(System.Globalization.CultureInfo.InvariantCulture))));
+    }
+    public SessionSingleInstance(string userAuthority,int sessionId)
+    {
+        Scope=ScopeFor(userAuthority,sessionId);
         mutex=new Mutex(false,(OperatingSystem.IsWindows()?"Local\\":"")+Scope);ownerThread=Environment.CurrentManagedThreadId;
         try{owned=mutex.WaitOne(0);}catch(AbandonedMutexException){owned=true;}catch{mutex.Dispose();throw;}
     }

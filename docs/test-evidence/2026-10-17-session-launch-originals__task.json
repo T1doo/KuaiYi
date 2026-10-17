@@ -1,0 +1,107 @@
+{
+  "Parent": "369796e2fed19d433e66a7174930af5c2bfcb69d",
+  "Branch": "dev/installed-session-launch",
+  "Prefix": "2026-10-17-session-launch-originals__",
+  "Index": "2026-10-17-installed-session-launch.json",
+  "Scope": "One normal installed user session owned inside existing App entry; exact actual child exit and original task settlement before exact owner completion; no committed transfer, scan, service or restart.",
+  "FinalRuns": [
+    "r06-install-final",
+    "r07-core-full",
+    "r08-provider-full",
+    "r09-app-build",
+    "r10-worker-build"
+  ],
+  "FullRun": "r07-core-full",
+  "ParentTrx": "docs/test-evidence/2026-10-17-app-close-retry-originals__r10-core-full.trx",
+  "NewTests": 24,
+  "AllowedOldModified": [
+    ".gitattributes",
+    "docs/progress.md",
+    "src/KuaiYi.App/Program.cs",
+    "src/KuaiYi.Core/Installation/InstallationApplicationControl.cs",
+    "src/KuaiYi.Core/Installation/InstallationControlledLaunch.cs",
+    "src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs",
+    "src/KuaiYi.Core/OwnedProcessSession.cs",
+    "src/KuaiYi.Core/SessionSingleInstance.cs",
+    "tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs",
+    "tools/KuaiYi.SettingsStoreFixture/KuaiYi.SettingsStoreFixture.csproj",
+    "tools/KuaiYi.SettingsStoreFixture/Program.cs"
+  ],
+  "SourceReview": "Independent read-only reviewer: /root/high_water_review\nSource audit conclusion received 2026-10-17 after r06-install-final:\n恢复后源码终审可准入最终回归，未发现剩余P1/P2。两条已指出路径均已关闭：fresh guard在latch前且错误不进session cleanup；父拒入只有ScopeFor＋Show广播，无UI mutex获取。已独核r06相关132P，其中InstallationSessionTests24P；67项执行source与当前全同。混用旧角色方法与r04红例逐字节相同，SHA 0b05bd407789636c1ac2600707c686d735526c7c0773800f9d0d4f2b785f2b4c。当前normal成功确要求保留原WaitExit(None)、自然双流join/精确单CLOSING无额外行、全部原Task成功、StartupObservation、Exit0和原记录才归档；失败/取消Dispose不Finish，活session并发Dispose立即拒绝。3个实际输出负例已在24P中。范围仍为共享入口helper＋选定合成child/协议，非WPF/Windows现场验收；HoldIo及parent丢失的证据边界保留。\n\nInitial review P2 findings:\n1. Run after earlier StartActiveRole could dispose old execution and bypass its cleanup. Corrected fresh-coordinator guard before latch; actual initial candidate r04=1F, same test bytes final green.\n2. Rejected parent constructed SessionSingleInstance and could momentarily steal child UI mutex. Corrected to pure ScopeFor plus existing Show broadcast. Actual scope/--instance portable child test passes; real Windows broadcast timing remains NotRun.\n\nDesign audit also required exact clean-close receipt, successful retained original Tasks, original WaitExit task, bounded/rejected concurrent Dispose, and failure latch preventing later Dispose owner completion. All incorporated. No reviewer file or Git mutations. Final packet audit remains separate.\n",
+  "Targets": {
+    "r06-install-final": "tests/KuaiYi.Core.Tests/bin/Release/net10.0/",
+    "r07-core-full": "tests/KuaiYi.Core.Tests/bin/Release/net10.0/",
+    "r08-provider-full": "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/",
+    "r09-app-build": "src/KuaiYi.App/bin/Release/",
+    "r10-worker-build": "src/KuaiYi.ImageWorker/bin/Release/"
+  },
+  "AdditionalValidation": {
+    "RedGreen": {
+      "red": "r04-mixed-role-red",
+      "green": "r06-install-final",
+      "name": "ASessionCannotStealOrDisposeTheEarlierRoleHeldByTheSameCoordinator",
+      "sameMethodSha256": "f2971d6db48697a2788714d51496469181cb7db9b12e20c6ea38b6aba00196fd",
+      "scope": "Actual initial candidate without fresh coordinator guard versus corrected candidate; not a parent baseline regression."
+    },
+    "ProviderNameComparison": {
+      "parent": 2332,
+      "final": 2332,
+      "exactSameMultiset": true
+    },
+    "RecordedOwnedChildren": {
+      "r06-install-final": {
+        "newCases": 24,
+        "actualParentCleanChildExitRows": 3,
+        "directSessionOriginalIoSuccessRows": 5,
+        "failureCleanupActualExitRows": 10,
+        "lostParentRows": 1,
+        "driverSha256": "8E613CFFF374D44EDC2C0F16B90B067DEF0430809B72A4E3FABB29E317AAF77C",
+        "fixtureCoreSha256": "E4149650A2B05539DB5947DCB70220AD34B72C42F5446D47752CE26E852972D9",
+        "fixtureCoreEqualsTargetCore": true,
+        "sharedAppEntry": "src/KuaiYi.App/InstallationSessionEntry.cs",
+        "lostObserverScope": "Only actual parent exit and private child close receipt observed; child OS exit unobserved, public fixture root retained.",
+        "heldIoScope": "The real client IO joins before adapter original Task is held; this test does not hold the real stream readers."
+      },
+      "r07-core-full": {
+        "newCases": 24,
+        "actualParentCleanChildExitRows": 3,
+        "directSessionOriginalIoSuccessRows": 5,
+        "failureCleanupActualExitRows": 10,
+        "lostParentRows": 1,
+        "driverSha256": "8E613CFFF374D44EDC2C0F16B90B067DEF0430809B72A4E3FABB29E317AAF77C",
+        "fixtureCoreSha256": "E4149650A2B05539DB5947DCB70220AD34B72C42F5446D47752CE26E852972D9",
+        "fixtureCoreEqualsTargetCore": true,
+        "sharedAppEntry": "src/KuaiYi.App/InstallationSessionEntry.cs",
+        "lostObserverScope": "Only actual parent exit and private child close receipt observed; child OS exit unobserved, public fixture root retained.",
+        "heldIoScope": "The real client IO joins before adapter original Task is held; this test does not hold the real stream readers."
+      }
+    },
+    "AttemptClassifications": {
+      "r01-session": "6P12F; harness AutoFlush before pipe connection, not product red/green",
+      "r02-session": "18P intermediate before source-review P2 closures",
+      "r03-install": "127P intermediate before mixed-role and pure-scope closures; edits occurred after compilation while command ran, snapshot is pre-run candidate only",
+      "r04-mixed-role-red": "Actual1F reproduced initial candidate mixed-API ownership bug; expected InvalidOperationException, got UpgradeUnconfirmed; held child explicitly closed and actual exit awaited before final assertion",
+      "r05-install-final": "129P intermediate; name retained, not final after three strict-output cases added",
+      "r06-install-final": "Final132P;24new cases plus108parent-related cases"
+    }
+  },
+  "Notes": [
+    "All24 new tests are additional; all parent test files and assertions retained byte-identically.",
+    "Five final commands each froze the same67 selected sources,335 source bindings. DLL execution is separately supported by actual child rows, not inferred from build hashes alone.",
+    "Existing App entry routes zero-argument installed starts before UI mutex; controlled child does not recurse. Rejected explicit invocation only computes scope and sends existing Show message, returns3 without claiming admission. Windows broadcast/mutex behavior remains NotRun.",
+    "Normal lifespan is unbounded user session; startup/cleanup budgets are phase limits, not a total lifetime limit. Cancellation retains original OS wait and failure fence; no auto retry/restart.",
+    "A mixed-use coordinator is rejected before session latch changes; concurrent Dispose fails busy rather than waiting behind a live user session.",
+    "Strict session IO requires exact CLOSING and both original streams natural completion; old upgrade/handoff settlement remains separate.",
+    "Unknown record, cancellation, abnormal exit or failed original work cannot later release the marker via Dispose. Only the original successful one-session owner can finish itself.",
+    "All preflight/default-network checks used normal Git only; no denied Actions access or alternate route."
+  ],
+  "Boundaries": [
+    "Portable actual synthetic parent/child execute shared production App entry helper, Core client/coordinator and shared Shell close partials; Windows App binary, WPF/real Dispatcher/STA/visible health/keyboard/Job/real OCR remain NotRun.",
+    "Lost-parent test retains its public temporary root; no PID adoption, descendant kill or inference from EOF/private close. No child OS-exit assertion for lost observer.",
+    "No real installation registration, signing, extension IDs or stable launcher path/shortcut changes. Production installer/full payload/Inno/startup/uninstall/K-group/fullP7 remain unverified. Old or malformed generation entry refuses; no automatic version path repair.",
+    "Committed handoff self-exit still retains its existing persistent fence; new normal session never calls ReleaseToReceiver or COMMIT. Explicit diagnostic/review entry lifetimes remain separate.",
+    "Historical image/idle/Core/WindowsJob and parentr10/r17/r20 causes remain independently Unknown; no claim that this fixes image failures.",
+    "Image/classification reuse Off; source/password/integrity/cancel/cleanup and250600 gates retained. Physical timing,DPAPIACL,screenshots,models/fullP6 remain NotRun.",
+    "No main/force/deploy/cost/live models/credentials/security changes/new dependencies/licenses; Skia4.153.1 approvals pending; source403 and deniedActions neither queried nor bypassed; unknown locks/data/logs/processes retained."
+  ]
+}

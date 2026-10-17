@@ -1013,3 +1013,16 @@ r01新增夹具初始化顺序错4F保全、不当产品红；修夹具r02父生
 r09相关108P/r10完整Core1810P=父1809全名多重集+1/r11完整Provider2332P=父2325全名多重集+7，旧Core测试文件前缀/全部原方法逐字节保留。App/Worker各实际0W/E，五轮63源315绑定、目标DLL和真实child执行另封存，独立源码终审无剩余P1/P2，封存另审。见[修复与证据勘误](validation/app-close-pending-retry.md)/[原件索引](test-evidence/2026-10-17-app-close-pending-retry.json)。父8901路径除9处外8892原字节保留，含全部7991旧证据。
 
 环境断连通知后仅一次有界只读检查于14:27:33Z实际完成：r01-r06原命令全有结算记录，无本写入者挂起测试，HEAD仍父f8b，修复未提交未推；确认本地工具可用后继续同写入者，不造重复实例/不删锁进程。Windows可见/WPF/实际Dispatcher/STA/设置窗口/Job/OCR/键盘/DPAPIACL/物理250600/真实模型仍NotRun；普通installed与committed自退持久拒入、无observer/stale接管不变。后续入口/完整payload/发布注册rollback/Inno/自启卸载/K组仍暂停未验，不称完整P7。历史图片/idle/Core/Job及父r17/r20各Unknown，生产图片分类复用Off/所有发送来源取消清理门保持。无main强推部署费用凭据权限/新依赖许可；Skia四包待批，403及拒绝Actions不查不绕，未知锁数据日志进程保全。
+
+
+## 2026-10-17 · 既有 App 内的一次正常安装会话
+
+父369796独核关闭真实关闭重试P2后，正常dev/installed-session-launch只接无参数installed App启动→用户退出→再次启动。Program在UI mutex/WPF前分流到同源InstallationSessionEntry并静态持根；只有精确controlled child创建原Shell。复用ReadActive/Client/协调器，必须全新coordinator，保留本次实际Start返回Process、原WaitExit(None)、原IO与已完成fault Task；精确单CLOSING＋实际Exit0＋原双流自然完成无额外行＋全部原任务成功＋原记录复核后才Finish自己owner。无运行总限，阶段budget不冒充整体硬限；取消/迟到/异常/清理失败锁存拒入，后来Dispose收完也不清marker。活会话并发Dispose立即busy；重复父只纯scope发原Show，不拿UI mutex、不当owner证明。未用COMMIT/释放句柄分支，无service/scan/restart/stale收养。
+
+独审两P2已闭：旧StartActiveRole后混入session曾误Dispose旧execution，r04实际1F→同方法最终绿，现latch前拒绝非新协调器，旧角色仍可实退/IO收尾；拒入父曾短暂拿UI mutex，现纯ScopeFor，实际portable --instance child可获owner，Windows广播时序仍NotRun。新增24例含真实合成parent＋selected child两次正常会话/重复、首次内容清理失败后显式重关、收CLOSING仍活、无CLOSING Exit0/非零、取消/迟到Start/原health与adapterTask未结算/faultIO、错误owner/current/pending、未知锁记录、父观察方丢失、generation与strict输出。丢父仅证父实退及子私有CLOSED，childExit=Unobserved并保留公开fixture目录；HoldIo只扣原adapterTask，不称真实reader仍阻塞。
+
+r01 6P12F为Peer连接前AutoFlush的harness错误，非产品红；r02/r03中间18P/127P未闭独审两项，r05名称final但129P后新增三例，均完整保留不作最终证据。r06最终相关132P/r07完整Core1834P=父1810全名多重集+24/r08完整Provider2332P全名同父；原所有测试文件和断言原字节。r09/r10 AppWorker各实际0W/E；五轮67源335绑定、23目标DLL与实际childSHA另核。独立源码终审无剩余P1/P2，封存另审，见[会话报告](validation/installed-session-launch.md)/[机器索引](test-evidence/2026-10-17-installed-session-launch.json)。
+
+Windows/WPF/真实Dispatcher/STA/可见健康/键盘/Job/OCR/截图/DPAPIACL/物理250600/模型仍NotRun。既有committed自退仍持久拒入，显式review/probe另有原生命周期。真实注册/签名/扩展ID/绝对路径再生成/完整payload/稳定launcher/生产安装器Inno/自启卸载/K组与完整P7未验。历史图片/idle/Core/Job及父r10/r17/r20根因各Unknown；生产图片分类复用Off、来源/密码/完整性/取消/清理及250600门不变。无main强推部署费用真实模型凭据权限/新依赖许可；Skia四包待批，403及拒绝Actions不查不绕；未知锁数据日志进程保全。
+
+本片封存独审Pass（727原件/743路径），依约只追加审查回执和既定stage-audit后最终729原件/14,228,145B；旧9775路径/8869旧证据原字节。源码与测试未再修改。
