@@ -76,6 +76,7 @@ internal sealed partial class ShellWindow
     }
     private void AddSessionStyleMenu(ContextMenu menu)
     {
+        if(LocalImagePreview){AddScreenshotStyleMenu(menu);return;}
         var next=SelectedNextGeneration;var styles=new MenuItem{Header=next==null?"本会话下次生成风格":$"下次：版本 {next.VersionNumber} · {StyleLabel(next.Preset)}",IsEnabled=next!=null};
         foreach(var preset in Enum.GetValues<TranslationPreset>())
         {

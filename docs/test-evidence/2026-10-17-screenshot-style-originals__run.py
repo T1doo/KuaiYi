@@ -1,0 +1,11 @@
+import sys,pathlib,subprocess,json,datetime,hashlib,shlex
+A=pathlib.Path('artifacts/screenshot-session-style');name=sys.argv[1];args=sys.argv[2:];assert args[0] in ['test','build'] and '--no-restore' in args
+paths=subprocess.check_output(['git','ls-files','--modified','--others','--exclude-standard','-z']).decode().strip('\0').split('\0');paths+=list(json.loads(pathlib.Path('docs/test-evidence/2026-10-17-screenshot-recapture-recovery.json').read_text())['FrozenSource'])+['tests/KuaiYi.Provider.Tests/PhaseClock.cs','tests/KuaiYi.Provider.Tests/PhaseHttpFixture.cs','src/KuaiYi.Providers/ProviderContracts.cs','src/KuaiYi.Providers/ProviderRequestBudget.cs','src/KuaiYi.Providers/ProviderEventReceiver.cs'];paths=sorted({p for p in paths if p.startswith(('src/','tests/')) and pathlib.Path(p).suffix in ['.cs','.csproj']})
+source={p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest() for p in paths};(A/(name+'-source.json')).write_text(json.dumps(source,indent=2)+'\n')
+for p in paths:(A/(name+'-source__'+p.replace('/','__')+'.txt')).write_bytes(pathlib.Path(p).read_bytes())
+command='export DOTNET_GENERATE_ASPNET_CERTIFICATE=false\nsource /workspace/.kuaiyi-setup/activate.sh\nexport DOTNET_GENERATE_ASPNET_CERTIFICATE=false\n'+shlex.join(['dotnet',*args])+'\n';(A/(name+'-command.sh')).write_text(command)
+start=datetime.datetime.now(datetime.timezone.utc).isoformat()
+with (A/(name+'.log')).open('wb') as log:result=subprocess.run(['bash',str(A/(name+'-command.sh'))],stdout=log,stderr=subprocess.STDOUT)
+files=[str(p) for root in ['tests/KuaiYi.Provider.Tests','tests/KuaiYi.Core.Tests','src/KuaiYi.App','src/KuaiYi.ImageWorker'] for p in pathlib.Path(root+'/bin/Release').rglob('KuaiYi*.dll') if p.name in ['KuaiYi.Provider.Tests.dll','KuaiYi.Core.Tests.dll','KuaiYi.Core.dll','KuaiYi.NativeHost.dll','KuaiYi.SelectionReuseDiagnostic.dll','KuaiYi.Providers.dll','KuaiYi.Imaging.dll','KuaiYi.ImageWorker.dll','KuaiYi.App.dll']]
+binding={p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest() for p in sorted(files)}
+meta={'startUtc':start,'endUtc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'exit':result.returncode,'command':command,'source':source,'sha256':binding};(A/(name+'-executed.json')).write_text(json.dumps(meta,indent=2)+'\n');print(json.dumps({'run':name,'exit':result.returncode}));sys.exit(result.returncode)

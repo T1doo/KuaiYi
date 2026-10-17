@@ -1,0 +1,68 @@
+{
+  "Parent": "d7b545824e70a6454011629bef296ab83a139380",
+  "Branch": "dev/screenshot-session-style",
+  "Scope": "SPEC9.9/I03 current unsent final-crop style selection. Explicit per-source override, frozen offer/job/version metadata, real saved settings/profile/secret binding unchanged; production reuseOff.",
+  "FinalRuns": [
+    "r04-style-final",
+    "r05-provider-full",
+    "r06-core-full",
+    "r07-app-build",
+    "r08-worker-build"
+  ],
+  "FullRun": "r05-provider-full",
+  "ParentTrx": "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full.trx",
+  "NewTests": 24,
+  "AllowedOldModified": [
+    ".gitattributes",
+    "docs/progress.md",
+    "src/KuaiYi.App/OverlayResultLabel.cs",
+    "src/KuaiYi.App/ProductionScreenshotCoordinator.cs",
+    "src/KuaiYi.App/TranslationFlow.cs",
+    "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+    "tests/KuaiYi.Provider.Tests/OverlayClearPorts.cs",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotShellPorts.cs"
+  ],
+  "Prefix": "2026-10-17-screenshot-style-originals__",
+  "Index": "2026-10-17-screenshot-session-style.json",
+  "Targets": {
+    "r06-core-full": "tests/KuaiYi.Core.Tests/bin/Release/net10.0/",
+    "r07-app-build": "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/",
+    "r08-worker-build": "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/"
+  },
+  "SourceReview": "Independent read-only high_water_review noP1/P2;source-review.txt",
+  "Notes": [
+    "One bounded sourceStyle tuple binds exact unconsumed SourceVersion/SourceId; SetSourcePreset invalidates pending offer, Clear/Revoke/Launch reset.",
+    "Offer freezes requested enum and renders style confirmation. Job and VersionState retain enum independently of real saved snapshot; existing bounded Prune/Clear owns metadata. Planner alone receives TranslationSettings with Preset override; shared Offline snapshot/OfflineCoordinator and global settings stay unchanged.",
+    "Actual production style menu method/handler, Shell source admission/send/labels, coordinator and real loopback two-stage HTTP run. Top-level TranslationFlow style branch/realWPF tools not linked in portable test; App cross-build only, visible Windows acceptanceNotRun.",
+    "Both protocols x4 presets verify real request system/templates/confirmation/preview/generation/version labels. Real saved Settings/Profile references and runtime binding reach two synthetic public credential lease callbacks; original production SecretStore adapter unchanged, new tests do not invoke real secure store/DPAPI.",
+    "Automatic structured-image remainsExplain. Both protocols decline/off/clear/source replace/settings/style change produce0HTTP/0secret reads. New/Clear resets default, stale menus and mismatched version/source do not alter new source; consumed old source cannot change/resend.",
+    "r01 CS0104 alias and r02 CS0029 missing VersionState stage assignment are compile-only failures,noTRX. r03 intermediate24P before added prompt/identity checks; final source is r04 onward. No production red/green claim.",
+    "No source edits during final runs. Executions partly overlap at final Provider/Core and Core/App windows; exact timestamps retained, not called sequential. Relevant target DLL observations current match."
+  ],
+  "AdditionalValidation": {
+    "CoreNameComparison": {
+      "parent": 1703,
+      "final": 1703,
+      "exactNamesUnchanged": true
+    },
+    "Builds": {
+      "r07-app-build": {
+        "warnings": 0,
+        "errors": 0,
+        "exit": 0
+      },
+      "r08-worker-build": {
+        "warnings": 0,
+        "errors": 0,
+        "exit": 0
+      }
+    }
+  },
+  "Boundaries": [
+    "Historical idle/image/Core/WindowsJob causes independentlyUnknown; first片test anchor does not diagnose history.",
+    "Production image/classification reuseOff; no same-image regeneration/retry or new file/Drop codec.",
+    "Windows/WPF keyboard/visible menu/confirmation/focus/real desktop crop/lockscreen/DPAPIACL/physical250600/model quality/fullP6 acceptanceNotRun; I03 model-quality or whole-stagePass not claimed.",
+    "ExistingSDK10.0.401 --no-restore, certificate generation disabled before/after activation. No new package/license/Skia403/Actions prior denial query or bypass.",
+    "No main/force/deploy/cost/real model/credentials/securitypermission/environment changes; unknown processes/locks/data/logs preserved."
+  ]
+}

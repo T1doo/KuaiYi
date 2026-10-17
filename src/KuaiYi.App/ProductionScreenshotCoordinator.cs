@@ -10,41 +10,54 @@ namespace KuaiYi.App;
 
 internal enum ProductionScreenshotEvent { Begin, Prepared, Classifying, Generating, Delta, Usage, Completed, Failed }
 internal sealed record ProductionScreenshotUpdate(RequestIdentity Identity,ProductionScreenshotEvent Kind,ScreenshotGenerationSnapshot Snapshot,string? Text=null,string? Reason=null);
-internal sealed class ProductionScreenshotOffer(ScreenshotGenerationSnapshot snapshot,CaptureTicket ticket,OwnedSourceImage image,long revision)
+internal sealed class ProductionScreenshotOffer(ScreenshotGenerationSnapshot snapshot,CaptureTicket ticket,OwnedSourceImage image,long revision,TranslationPreset preset)
 {
     public ScreenshotGenerationSnapshot Snapshot {get;}=snapshot;
+    public TranslationPreset RequestedPreset {get;}=preset;
+    public string PresetLabel=>RequestedPreset switch{TranslationPreset.Faithful=>"忠实翻译",TranslationPreset.Plain=>"通俗翻译",TranslationPreset.Professional=>"专业翻译",TranslationPreset.Explain=>"解释",_=>throw new InvalidOperationException("Invalid screenshot style.")};
     internal CaptureTicket Ticket {get;}=ticket;
     internal OwnedSourceImage Image {get;}=image;
     internal long Revision {get;}=revision;
     internal bool Launched;
-    public string ConfirmationText=>$"将仅发送当前明确裁剪的截图。\n目标：{new EndpointOrigin(Snapshot.Transport.ResolveEndpoint()).Value}\n模型：{Snapshot.Profile.Model}\n本次模式：{Snapshot.RequestedMode switch{ImageOutputMode.TranslateText=>"仅翻译图中文字",ImageOutputMode.ExplainImage=>"按图文解释",_=>"智能判断"}}。\n通常先分类，再正式生成，可能发生两次服务调用及相应费用；无效分类不会继续发送。\n仅使用当前所选截图，不发送整个屏幕或文件路径。是否确认本次发送？";
+    public string ConfirmationText=>$"将仅发送当前明确裁剪的截图。\n目标：{new EndpointOrigin(Snapshot.Transport.ResolveEndpoint()).Value}\n模型：{Snapshot.Profile.Model}\n本次模式：{Snapshot.RequestedMode switch{ImageOutputMode.TranslateText=>"仅翻译图中文字",ImageOutputMode.ExplainImage=>"按图文解释",_=>"智能判断"}}。\n本次文字风格：{PresetLabel}；按图文解释时使用解释风格。\n通常先分类，再正式生成，可能发生两次服务调用及相应费用；无效分类不会继续发送。\n仅使用当前所选截图，不发送整个屏幕或文件路径。是否确认本次发送？";
 }
 /// <summary>Normal Shell's explicit final-crop path. Borrows the crop; never owns file codecs or caches images/classification for reuse.
 /// Destination callbacks serialize result metadata. sourceCurrent reads synchronous thread-safe metadata only, including under the send gate.</summary>
 internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
 {
     private sealed record Source(Guid Version,OwnedSourceImage Image);
+    private sealed record VersionState(ScreenshotGenerationSnapshot Snapshot,TranslationPreset Preset);
     private sealed record Validation(SettingsSnapshot Saved,bool Rejected=false);
-    private sealed class Job(Source source,RequestIdentity identity,ScreenshotGenerationSnapshot snapshot)
-    {public readonly Source Source=source;public readonly RequestIdentity Identity=identity;public ScreenshotGenerationSnapshot Snapshot=snapshot;public bool Terminal;public ScreenshotUsageStage? Stage;public Validation Validation=new(snapshot.Settings);}
+    private sealed class Job(Source source,RequestIdentity identity,ScreenshotGenerationSnapshot snapshot,TranslationPreset preset)
+    {public readonly Source Source=source;public readonly RequestIdentity Identity=identity;public readonly TranslationPreset Preset=preset;public ScreenshotGenerationSnapshot Snapshot=snapshot;public bool Terminal;public ScreenshotUsageStage? Stage;public Validation Validation=new(snapshot.Settings);}
     private readonly RuntimeGate gate;private readonly Func<SettingsSnapshot?> settings;private readonly Func<Guid,Guid,bool> sourceCurrent;
     private readonly ProviderClient provider;private readonly ProviderEventReceiver receiver;
     private readonly Func<RequestIdentity,ScreenshotGenerationSnapshot,CancellationToken,Task<SecretLease?>> openSecret;
     private readonly Action<ProductionScreenshotUpdate> changed;
-    private readonly Dictionary<Guid,ScreenshotGenerationSnapshot> snapshots=[];private readonly Dictionary<Guid,string> failures=[];private readonly HashSet<Task> jobs=[];private readonly object jobsSync=new();
+    private readonly Dictionary<Guid,VersionState> snapshots=[];private readonly Dictionary<Guid,string> failures=[];private readonly HashSet<Task> jobs=[];private readonly object jobsSync=new();
+    private (Guid Version,Guid Source,TranslationPreset Preset)? sourceStyle;
     private ProductionScreenshotOffer? offered;private Job? active;private long commandRevision;private bool disposed,clearing;private Exception? deliveryFailure;
     private (Guid Version,Guid Source)? consumed;
     public OverlayResults Results {get;}
     public Task Running {get;private set;}=Task.CompletedTask;
     public string? LastRejection {get;private set;}
     public ScreenshotGenerationSnapshot? SelectedSnapshot=>Results.SelectedVersionId is {} id?SnapshotForVersion(id):null;
-    public ScreenshotGenerationSnapshot? SnapshotForVersion(Guid id)=>snapshots.GetValueOrDefault(id);
+    public ScreenshotGenerationSnapshot? SnapshotForVersion(Guid id)=>snapshots.GetValueOrDefault(id)?.Snapshot;
+    public TranslationPreset? PresetForVersion(Guid id)=>snapshots.GetValueOrDefault(id)?.Preset;
     public string? FailureForVersion(Guid id)=>failures.GetValueOrDefault(id);
     public ProductionScreenshotCoordinator(RuntimeGate gate,Func<SettingsSnapshot?> settings,Func<Guid,Guid,bool> sourceCurrent,
         ProviderClient provider,SynchronizationContext destination,OverlayResults results,Action<ProductionScreenshotUpdate> changed,
         Func<RequestIdentity,ScreenshotGenerationSnapshot,CancellationToken,Task<SecretLease?>> openSecret)
     {this.gate=gate;this.settings=settings;this.sourceCurrent=sourceCurrent;this.provider=provider;this.changed=changed;this.openSecret=openSecret;receiver=new(gate,destination);Results=results;}
     public bool CanUseSource(Guid version,Guid sourceId)=>!disposed&&!clearing&&consumed!=(version,sourceId);
+    public TranslationPreset? PresetForSource(Guid version,Guid sourceId)
+        =>version!=Guid.Empty&&sourceId!=Guid.Empty&&CanUseSource(version,sourceId)&&sourceCurrent(version,sourceId)&&settings() is {ReadOnly:false,RequiresRecovery:false} config
+            ?sourceStyle is {} style&&style.Version==version&&style.Source==sourceId?style.Preset:config.Data.Translation.Preset:null;
+    public bool SetSourcePreset(Guid version,Guid sourceId,TranslationPreset? preset)
+    {
+        if(preset is {} value&&!Enum.IsDefined(value)||PresetForSource(version,sourceId)==null)return false;
+        sourceStyle=preset is {} selected?(version,sourceId,selected):null;offered=null;commandRevision++;return true;
+    }
     public ProductionScreenshotOffer? Prepare(Guid version,OwnedSourceImage image,ImageOutputMode mode=ImageOutputMode.Automatic)
     {
         offered=null;long revision=++commandRevision;LastRejection=null;
@@ -63,7 +76,7 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
             if(transport.DevelopmentBoundary!=null||transport.IsDevelopmentFixture)return Reject("PRODUCTION_PROFILE_REQUIRED");
             var snapshot=new ScreenshotGenerationSnapshot(version,image.SourceId,config,profile,transport,binding,1,mode,false);
             if(commandRevision!=revision||disposed)return Reject("SCREENSHOT_UNAVAILABLE");
-            return offered=new(snapshot,ticket,image,revision);
+            return offered=new(snapshot,ticket,image,revision,PresetForSource(version,image.SourceId)??config.Data.Translation.Preset);
         }
         catch(Exception error)when(error is ArgumentException or SettingsValidationException){return Reject("PROFILE_INVALID");}
     }
@@ -93,7 +106,7 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
                 if(!Results.Begin(identity))return;
                 offer.Launched=true;offered=null;consumed=(offer.Snapshot.SourceVersion,offer.Snapshot.SourceId);
                 var snapshot=offer.Snapshot with{Number=Results.Versions.Single(v=>v.Identity==identity).Number};
-                admitted=new(new(snapshot.SourceVersion,offer.Image),identity,snapshot);active=admitted;snapshots[identity.VersionId]=snapshot;Prune();
+                admitted=new(new(snapshot.SourceVersion,offer.Image),identity,snapshot,offer.RequestedPreset);active=admitted;snapshots[identity.VersionId]=new(snapshot,offer.RequestedPreset);sourceStyle=null;Prune();
                 // Install the tracked task before any notification can reenter and install C.
                 Running=Run(admitted);lock(jobsSync)jobs.Add(Running);_=Observe(Running);
                 Publish(admitted,ProductionScreenshotEvent.Begin);
@@ -171,11 +184,11 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
                 {await Fail(job,failure??(!complete?"CLASSIFICATION_INCOMPLETE":"CLASSIFICATION_INVALID"),lifetime.Token,budget).ConfigureAwait(false);return;}
                 // Commit cache only on the canonical destination after full protocol completion and JSON validation.
                 if(!await Receive(job,new(job.Identity,new(ModelEventKind.Started)),_=>
-                {job.Snapshot=job.Snapshot with{Classification=classification};snapshots[job.Identity.VersionId]=job.Snapshot;},lifetime.Token,budget).ConfigureAwait(false))return;
+                {job.Snapshot=job.Snapshot with{Classification=classification};snapshots[job.Identity.VersionId]=new(job.Snapshot,job.Preset);},lifetime.Token,budget).ConfigureAwait(false))return;
             }
             if(job.Snapshot.Classification!.Readability==ImageReadability.Unreadable)
             {await Fail(job,"CLEARER_IMAGE_REQUIRED",lifetime.Token,budget).ConfigureAwait(false);return;}
-            var plan=ImageTranslationPlanner.Create(job.Snapshot.Classification,job.Snapshot.Settings.Data.Translation,job.Snapshot.RequestedMode,job.Snapshot.Regeneration);
+            var plan=ImageTranslationPlanner.Create(job.Snapshot.Classification,job.Snapshot.Settings.Data.Translation with{Preset=job.Preset},job.Snapshot.RequestedMode,job.Snapshot.Regeneration);
             if(!await Receive(job,new(job.Identity,new(ModelEventKind.Started)),_=>
             {if(job.Snapshot.NormalizationProof==null&&!CommitPrepared(job,prepared))return;job.Snapshot=job.Snapshot with{Plan=plan};BeginUsageStage(job,ScreenshotUsageStage.Generation);Publish(job,ProductionScreenshotEvent.Generating);},lifetime.Token,budget).ConfigureAwait(false))return;
             var final=new TranslationRequest(job.Snapshot.Transport,plan.System,plan.User,bytes);
@@ -227,14 +240,14 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
     {
         if(prepared.SourceId!=job.Snapshot.SourceId||job.Snapshot.Classification!=null&&job.Snapshot.Transform!=prepared.Transform)
         {if(Results.Fail(job.Identity,"IMAGE_TRANSFORM_CHANGED")){Finish(job);Publish(job,ProductionScreenshotEvent.Failed,reason:"IMAGE_TRANSFORM_CHANGED");}return false;}
-        job.Snapshot=job.Snapshot with{Transform=prepared.Transform,NormalizationProof=prepared.Proof};snapshots[job.Identity.VersionId]=job.Snapshot;Publish(job,ProductionScreenshotEvent.Prepared);
+        job.Snapshot=job.Snapshot with{Transform=prepared.Transform,NormalizationProof=prepared.Proof};snapshots[job.Identity.VersionId]=new(job.Snapshot,job.Preset);Publish(job,ProductionScreenshotEvent.Prepared);
         return !job.Terminal&&Eligible(job); // A Prepared notification may synchronously Clear/Adopt/Stop or admit C.
     }
     private void BeginUsageStage(Job job,ScreenshotUsageStage stage)
     {
         job.Stage=stage;var receipt=new ScreenshotUsageReceipt(Guid.NewGuid(),stage,job.Identity,job.Snapshot.SourceVersion,job.Snapshot.SourceId,job.Snapshot.Transport.Protocol,new(null,null));
         job.Snapshot=stage==ScreenshotUsageStage.Classification?job.Snapshot with{ClassificationUsage=receipt,ClassificationUsageReused=false}:job.Snapshot with{GenerationUsage=receipt};
-        snapshots[job.Identity.VersionId]=job.Snapshot;
+        snapshots[job.Identity.VersionId]=new(job.Snapshot,job.Preset);
     }
     private void ApplyUsage(Job job,ScreenshotUsageStage stage,TokenUsage? usage)
     {
@@ -245,7 +258,7 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
         // Each field is the last valid server report. No summing, estimating, maximum, or completion inference.
         var next=previous with{Tokens=new(input??previous.Tokens.InputTokens,output??previous.Tokens.OutputTokens),Reported=true};if(next==previous)return;
         job.Snapshot=stage==ScreenshotUsageStage.Classification?job.Snapshot with{ClassificationUsage=next}:job.Snapshot with{GenerationUsage=next};
-        snapshots[job.Identity.VersionId]=job.Snapshot;Publish(job,ProductionScreenshotEvent.Usage);
+        snapshots[job.Identity.VersionId]=new(job.Snapshot,job.Preset);Publish(job,ProductionScreenshotEvent.Usage);
     }
     private Task<bool> Fail(Job job,string reason,CancellationToken cancellation,ProviderRequestBudget budget)
         =>Receive(job,new(job.Identity,new(ModelEventKind.Failed,Reason:reason)),value=>
@@ -263,12 +276,12 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
     public void Stop()
     {commandRevision++;offered=null;var job=active;active=null;if(job!=null)try{gate.StopRequest(job.Identity);}finally{if(Results.Identity==job.Identity)Results.MarkStopped();}}
     public void RevokeSource(Guid version,Guid sourceId)
-    {if(offered?.Snapshot.SourceVersion==version&&offered.Snapshot.SourceId==sourceId)Reject(offered);if(active?.Snapshot.SourceVersion==version&&active.Snapshot.SourceId==sourceId)Stop();}
+    {if(sourceStyle is {} style&&style.Version==version&&style.Source==sourceId)sourceStyle=null;if(offered?.Snapshot.SourceVersion==version&&offered.Snapshot.SourceId==sourceId)Reject(offered);if(active?.Snapshot.SourceVersion==version&&active.Snapshot.SourceId==sourceId)Stop();}
     public void Clear()
     {
         if(clearing)return;clearing=true;
         // Fence Prepare/Submit while cancellation callbacks run; they cannot install C into metadata this Clear owns.
-        try{Stop();}finally{offered=null;snapshots.Clear();failures.Clear();clearing=false;}
+        try{Stop();}finally{offered=null;sourceStyle=null;snapshots.Clear();failures.Clear();clearing=false;}
     }
     public async Task ClearAsync()
     {

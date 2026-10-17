@@ -957,3 +957,10 @@ r01新增夹具初始化顺序错4F保全、不当产品红；修夹具r02父生
 ## 2026-10-17 · idle 测试 PUBLIC 入队同步
 
 父e14789已准入，正常dev/idle-public-anchor仅改PhaseDeadlineTests。精确PUBLIC TextDelta实际入队后异步signal，六旧idle先等再WaitDeadline2/首次advance；保留全部旧断言、2秒idle、真实500ms完成门及cleanup，生产/PhaseClock未改。受控Anthropic先message_start活跃idle2且无PUBLIC，fake1消费PUBLIC截止3，fake2真实500ms仍pending，fake3原门READ_IDLE_TIMEOUT，证明锚点/可达安排，不称历史根因。empty仍仅serverflush无消费收据。最终整类28P/完整Provider2301P=父2300全名多重集+新1，66源绑定；Core1703/AppWorker0W/E仅继承未改闭包，不重跑。独立源码审查无P1/P2，封存另审，见[报告](validation/idle-public-anchor.md)/[原件](test-evidence/2026-10-17-idle-public-anchor.json)。旧报告原件不动、历史Unknown、复用Off、Windows/模型/物理250600/完整P6未验，阶段状态不抬。无main强推部署费用/凭据权限新包许可Skia/403或Actions拒绝重查绕过，未知锁数据日志进程保全。
+
+
+## 2026-10-17 · 未发送截图本次风格
+
+第一片d7b5458已独立推送84原件；从其正常建dev/screenshot-session-style落实SPEC9.9/I03当前未消费截图四风格。单override精确绑定SourceVersion/SourceId，菜单旧源/消费后不可改；offer确认冻结显示，改风格撤销旧offer，Job/原有界版本记录保留枚举；只覆盖Planner该次Translation.Preset，保存Settings/Profile/secret-binding不变。新图/清除/来源释放/接纳消费复位，Automatic结构图仍Explain，同图复用Off。
+
+最终新24P/无filter Provider2325P=父2301全名多重集+24，Core1703P名字与父闭包相同，实际AppWorker各0W/E；五轮34源=170绑定匹配。双协议四风格真实本地HTTP核system/template/确认及本地生成版本label、原保存对象与binding传两次合成lease；六种确认撤销每协议0HTTP，旧菜单/错身份/新源清除复位/旧图禁发。r01/r02编译失败无TRX，r03中间测试原件不混最终/红绿。独立源码审查无P1/P2、封存另审，见[报告](validation/screenshot-session-style.md)/[原件](test-evidence/2026-10-17-screenshot-session-style.json)。生产菜单方法由端口实际执行，顶部TranslationFlow/工具条分支只交叉构建，真实WPF可见键盘/焦点/截图/DPAPIACL/物理250600/模型/I03质量/完整P6未验、状态不抬。旧证据/生产CoreProvidersImaging/Offline/SPEC/trace/锁workflow原字节保持，历史idle/图片/Core/Job各Unknown。无main强推部署费用/新许可Skia/403或Actions拒绝查询绕过/真实凭据权限环境，未知锁数据日志进程保全。
