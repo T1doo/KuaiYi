@@ -1,0 +1,124 @@
+{
+  "Parent": "f8b22ce31c8244a4597d6f9ca803649b87b5a038",
+  "Branch": "dev/app-close-pending-retry",
+  "Prefix": "2026-10-17-app-close-retry-originals__",
+  "Index": "2026-10-17-app-close-pending-retry.json",
+  "Scope": "Fix actual Shell original close-task ownership and one explicit pending retry; retain synchronous send revocation and errors; no next feature work",
+  "FinalRuns": [
+    "r09-install-final",
+    "r10-core-full",
+    "r11-provider-full",
+    "r12-app-build",
+    "r13-worker-build"
+  ],
+  "FullRun": "r10-core-full",
+  "ParentTrx": "docs/test-evidence/2026-10-17-app-control-originals__r22-core-final.trx",
+  "NewTests": 1,
+  "AllowedOldModified": [
+    ".gitattributes",
+    "docs/progress.md",
+    "src/KuaiYi.App/InstallationEntry.cs",
+    "src/KuaiYi.App/ShellWindow.cs",
+    "src/KuaiYi.App/OverlayPrivacyFlow.cs",
+    "tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs",
+    "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+    "tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs",
+    "tools/KuaiYi.SettingsStoreFixture/KuaiYi.SettingsStoreFixture.csproj"
+  ],
+  "SourceReview": "Pass: independent high_water_review approved current shared production Flow/Requests/Privacy sources, original task completion before pending retry, synchronous gate withdrawal and preserved cancellation errors; source-review.txt. Final packet audit separate.",
+  "Targets": {
+    "r09-install-final": "tests/KuaiYi.Core.Tests/bin/Release/net10.0/",
+    "r10-core-full": "tests/KuaiYi.Core.Tests/bin/Release/net10.0/",
+    "r11-provider-full": "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/",
+    "r12-app-build": "src/KuaiYi.App/bin/Release/",
+    "r13-worker-build": "src/KuaiYi.ImageWorker/bin/Release/"
+  },
+  "AdditionalValidation": {
+    "RedGreen": [
+      {
+        "red": "r03-synchronized-production-red",
+        "green": "r09-install-final",
+        "name": "StopReceivedWhileProductionShellCleanupWaitsIsRetriedAfterThatExactCleanupFails",
+        "sameMethodSha256": "b266554f7599885e0370d247f546f55d2e73974f0acc4124e9b6cad47916d5ba",
+        "redParentProductionClosingMethodSha256": "4df856000f552ae213aeb67c3de042810b93b34c8266a48cce4c2bf049c53fa6",
+        "redScope": "Exact parent ClosingShell method linked into actual child; not a Windows App binary execution"
+      },
+      {
+        "red": "r07-immediate-gate-red",
+        "green": "r11-provider-full",
+        "cases": 2,
+        "sameWholeTestFileSha256": "b0401b3bda044368e7ab399d8088ccfa89bbd0f13c0f44c4c0076cbe88919a0a",
+        "scope": "Production ClosingShell and RuntimeGate/TryBeginSend execute with deferred UI port; not HTTP/WPF"
+      }
+    ],
+    "ProviderNameComparison": {
+      "parent": 2325,
+      "final": 2332,
+      "new": {
+        "KuaiYi.Provider.Tests.ShellCloseGateTests.ProductionClosingRevokesSendBeforeDeferredCleanupAndRetainsAnImmediateCancellationFailure(cancelThrows: True)": 1,
+        "KuaiYi.Provider.Tests.ShellCloseRequestsTests.SynchronousReentrantCallbackSeesThePublishedOriginalTaskAndOnlyQueuesOneRetry": 1,
+        "KuaiYi.Provider.Tests.ShellCloseRequestsTests.FaultedOriginalTaskRemainsObservableAndDoesNotRetryWithoutAnExplicitRequest": 1,
+        "KuaiYi.Provider.Tests.ShellCloseGateTests.ProductionClosingRevokesSendBeforeDeferredCleanupAndRetainsAnImmediateCancellationFailure(cancelThrows: False)": 1,
+        "KuaiYi.Provider.Tests.ShellCloseRequestsTests.SuccessfulCloseDiscardsPendingRequestsAndNeverStartsAnotherAttempt": 1,
+        "KuaiYi.Provider.Tests.ShellCloseRequestsTests.ManyPendingRequestsWaitForTheOriginalTaskAndCoalesceToOneRetryWithoutAutomaticRetryOnFailure": 1,
+        "KuaiYi.Provider.Tests.ShellCloseRequestsTests.AdmissionCallbackFailureIsOwnedByThePublishedOriginalWithoutRunningCleanupOrRetryingIt": 1
+      },
+      "exactParentPlusNew": true
+    },
+    "OldCoreTestFilePrefixPreservedSha256": "1f90f8b95fa18b484f3998b55bd8c3e1db962cbf205724fb2699756d3c22bf12",
+    "RecordedOwnedChildren": {
+      "r09-install-final": {
+        "actualExitedControlRows": 11,
+        "rejectedBeforeSurfaceRows": 10,
+        "committedSelfCloseObservationRows": 1,
+        "driverSha256": "7e7983632107712b57886dad3965123fc1438fac1319725a30ab5d084d219f96",
+        "fixtureCoreEqualsTargetCore": true,
+        "sharedProductionCloseSources": [
+          "src/KuaiYi.App/ShellCloseFlow.cs",
+          "src/KuaiYi.App/ShellCloseRequests.cs"
+        ],
+        "scope": "Production close partial and request owner compile into actual selected child; WPF/STA/Dispatcher and content components remain explicit ports. No transferred Process handle is claimed as root-held exit evidence."
+      },
+      "r10-core-full": {
+        "actualExitedControlRows": 11,
+        "rejectedBeforeSurfaceRows": 10,
+        "committedSelfCloseObservationRows": 1,
+        "driverSha256": "7e7983632107712b57886dad3965123fc1438fac1319725a30ab5d084d219f96",
+        "fixtureCoreEqualsTargetCore": true,
+        "sharedProductionCloseSources": [
+          "src/KuaiYi.App/ShellCloseFlow.cs",
+          "src/KuaiYi.App/ShellCloseRequests.cs"
+        ],
+        "scope": "Production close partial and request owner compile into actual selected child; WPF/STA/Dispatcher and content components remain explicit ports. No transferred Process handle is claimed as root-held exit evidence."
+      }
+    },
+    "ParentEvidenceCorrection": "f8b r18-to-r19 lane was fixture-only. Its green result did not establish real Shell retry behavior. Parent records remain immutable; this slice fixes and tests the actual shared production ClosingShell.",
+    "AttemptClassifications": {
+      "r01-production-close-red": "Actual1F exact parent closing method; no explicit initial-cleanup barrier yet",
+      "r02-install-green": "CS0414 fixture assigned-only field; noTRX, not behavioral red/green",
+      "r03-synchronized-production-red": "Actual1F with cleanup-entered and STOP2-received barriers; first failure receipt then CLOSED timeout",
+      "r04-install-green": "108P intermediate before admitted/earlyHide closure",
+      "r05-requests": "5P original owner/pending manager before earlyHide closure",
+      "r06-install-final": "108P intermediate; earlyHide not yet restored",
+      "r07-immediate-gate-red": "Actual2F; real Gate remained On before deferred Dispatcher work",
+      "r08-close-gate-green": "7P; same Gate test bytes2P and5 ownership cases"
+    }
+  },
+  "Notes": [
+    "Five final commands each froze the same63 selected sources before execution,315 bindings; actual child driver/Core hashes bound to TRX observations.",
+    "Parent Core1809 cases retained plus1; parent Provider2325 retained plus7. The original Core test file prefix and every older test method/assertion remain byte-identical; no weakening.",
+    "Actual Shell owns the original Task plus one pending bit. Fixture no longer implements its own retry queue; both compile the same production partial and request owner.",
+    "Synchronous lifecycle.Hide precedes begin release. Initial position/Hide errors remain in the same attempt through all original content cleanup before installation-control settlement.",
+    "A new attempt admitted callback exception faults its published original task; a pending request skips reinitialization while exiting. Task fault remains observable.",
+    "Worker/Imaging/Providers/Core installation production source and one-shot Worker binary protocol remain parent bytes/behavior; no claim that built DLLs equal parent hashes or differ only in metadata.",
+    "The single bounded read-only environment check at2026-10-17T14:27:33Z confirmed local tools responding, allr01-r06 commands settled, parentHEAD/fix uncommitted and unpushed; no duplicate writer or unknown-process cleanup."
+  ],
+  "Boundaries": [
+    "Windows/WPF/real Dispatcher/STA, actual visible close/failure window and settings behavior remain NotRun. Fixture ThreadPool ports do not separately prove UI ordering.",
+    "No observer/daemon/stale adoption or terminal persistent owner release; normal installed and committed self-exit still refuse fresh entry.",
+    "Next install entry/payload/publication/identity/registration rollback/Inno/startup/uninstall/P7 work paused; no scope expansion.",
+    "Historical image/idle/Core/WindowsJob and parentr17/r20 causes remain independently Unknown.",
+    "Image/classification reuse Off; source/password/integrity/cancel/cleanup/250600 gates retained. Physical250600,DPAPIACL,real keyboard/screenshots/models/fullP6/P7 not accepted.",
+    "No main/force/deploy/cost/real credentials/security permission changes/new dependencies/licenses. Skia4.153.1 approvals pending; source403 and refusedActions not queried or bypassed; unknown locks/data/logs/processes preserved."
+  ]
+}

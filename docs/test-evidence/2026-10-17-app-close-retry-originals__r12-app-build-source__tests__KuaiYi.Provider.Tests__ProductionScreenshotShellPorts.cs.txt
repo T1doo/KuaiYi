@@ -1,0 +1,21 @@
+using KuaiYi.Core;
+using KuaiYi.Core.Settings;
+using KuaiYi.Providers;
+namespace KuaiYi.App;
+// Only WPF/native surfaces are ports. The production send command, source selection, result bridge, markdown, labels and cleanup are linked unchanged.
+internal sealed partial class ShellWindow
+{
+    internal ProductionScreenshotCoordinator ConfigureScreenshotForTest(SettingsSnapshot settings,ProviderClient provider,SynchronizationContext destination,Func<RequestIdentity,ScreenshotGenerationSnapshot,CancellationToken,Task<KuaiYi.Providers.SecretLease?>>? secret=null)
+    {
+        lifecycle.Settings=settings;lifecycle.Gate.ObserveSettingsMetadata(settings);
+        return imageTranslation=new(lifecycle.Gate,()=>lifecycle.Settings,ScreenshotSourceCurrent,provider,destination,overlayResults,ScreenshotTranslationChanged,secret??((_,_,_)=>throw new InvalidOperationException("AuthNone fixture must not open a secret.")));
+    }
+    internal bool SendScreenshotForTest(ImageOutputMode mode,Func<ProductionScreenshotOffer,bool> confirmation)=>SubmitScreenshot(mode,confirmation);
+    internal string VersionDescriptionForTest(Guid id)=>VersionMenuLabel(overlayResults.Versions.Single(v=>v.Identity.VersionId==id));
+    internal void SelectScreenshotVersionForTest(Guid id)=>SelectResultVersion(id);
+    internal bool ScreenshotSendEnabledForTest=>CanTranslateScreenshot;
+    internal bool LocalPreviewForTest=>LocalImagePreview;
+    internal System.Windows.Controls.MenuItem ScreenshotStyleMenuForTest(){var menu=new System.Windows.Controls.ContextMenu();AddScreenshotStyleMenu(menu);return (System.Windows.Controls.MenuItem)menu.Items.Single();}
+    internal TranslationPreset? ScreenshotPresetForTest=>SelectedScreenshotPreset;
+    internal void ScreenshotSettingsForTest(SettingsSnapshot config){lifecycle.Settings=config;lifecycle.Gate.ObserveSettingsMetadata(config);imageTranslation?.ObserveSettings(config);RefreshResultLabel();}
+}

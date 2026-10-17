@@ -1,0 +1,245 @@
+using System.Diagnostics;
+using System.IO.Pipes;
+using System.Security.Cryptography;
+using System.Text.Json;
+using KuaiYi.Core.Installation;
+using KuaiYi.Core.Settings;
+using Xunit;
+using Xunit.Abstractions;
+namespace KuaiYi.Core.Tests;
+public sealed class InstallationApplicationControlTests(ITestOutputHelper output)
+{
+    private static string Repo{get{var p=new DirectoryInfo(AppContext.BaseDirectory);while(p!=null&&!File.Exists(Path.Combine(p.FullName,"SPEC.md")))p=p.Parent;return p?.FullName??throw new IOException("Repository missing.");}}
+    private static string Driver=>Path.Combine(Repo,"tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll");
+    private static string Host=>Environment.GetEnvironmentVariable("DOTNET_HOST_PATH")??"dotnet";
+    private static string Hash(string path)=>Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(path)));
+    private sealed class Rig:IDisposable
+    {
+        internal readonly string Root=Path.Combine(Path.GetTempPath(),"kuaiyi-upgrade-tests-"+Guid.NewGuid().ToString("N"));
+        internal readonly string PipeA="ky-app-a-"+Guid.NewGuid().ToString("N"),PipeB="ky-app-b-"+Guid.NewGuid().ToString("N");
+        internal string App=>Path.Combine(Root,"application");internal string Data=>Path.Combine(Root,"user-data");
+        internal InstallationStore Store=>new(App,Data,()=>true);
+        internal async Task<InstalledVersion> Prepare(string first="healthy",string second="healthy")
+        {Directory.CreateDirectory(Data);File.WriteAllText(Path.Combine(Data,"PUBLIC_SENTINEL"),"PUBLIC_OFF");string a=Package("1.0",first,PipeA);Package("2.0",second,PipeB);return await Store.ApplyAsync(a,Pin("1.0"));}
+        private string Package(string version,string mode,string runtimePipe)
+        {
+            string path=Path.Combine(Root,"package-"+version);Directory.CreateDirectory(path);
+            foreach(string name in new[]{"KuaiYi.SettingsStoreFixture.dll","KuaiYi.SettingsStoreFixture.runtimeconfig.json","KuaiYi.SettingsStoreFixture.deps.json","KuaiYi.Core.dll"})File.Copy(Path.Combine(Path.GetDirectoryName(Driver)!,name),Path.Combine(path,name));
+            File.WriteAllText(Path.Combine(path,"KuaiYi.App.exe"),"PUBLIC_DOTNET_PORT_ONLY");File.WriteAllBytes(Path.Combine(path,"public-install-behavior.json"),JsonSerializer.SerializeToUtf8Bytes(new{version,mode,runtimePipe,controlled=true}));
+            var files=Directory.GetFiles(path).Order().Select(p=>new{path=Path.GetFileName(p),bytes=new FileInfo(p).Length,sha256=Hash(p)}).ToArray();
+            File.WriteAllBytes(Path.Combine(path,"package.json"),JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=1,product="KuaiYi",version,files}));return path;
+        }
+        internal string Pin(string version)=>Hash(Path.Combine(Root,"package-"+version,"package.json"));
+        internal string PackageB=>Path.Combine(Root,"package-2.0");
+        public void Dispose(){if(Directory.Exists(Root))Directory.Delete(Root,true);}
+    }
+    private sealed class Peer:IAsyncDisposable
+    {
+        private readonly NamedPipeServerStream pipe;
+        internal readonly Task Connected;
+        private readonly StreamReader reader;private readonly StreamWriter writer;
+        internal Peer(string name){pipe=new(name,PipeDirection.InOut,2,PipeTransmissionMode.Byte,PipeOptions.Asynchronous|PipeOptions.CurrentUserOnly);reader=new(pipe);writer=new(pipe);Connected=pipe.WaitForConnectionAsync();}
+        internal async Task Send(string command){await Connected.WaitAsync(TimeSpan.FromSeconds(6));await writer.WriteLineAsync(command);await writer.FlushAsync();}
+        internal async Task<string?> Row()=>await reader.ReadLineAsync().WaitAsync(TimeSpan.FromSeconds(6));
+        internal async Task<string?> Ping(){await Send("PING");return await Row();}
+        public async ValueTask DisposeAsync()
+        {
+            try{if(Connected.IsCompletedSuccessfully&&pipe.IsConnected){await Send("RELEASE_CLOSE");await Send("RELEASE_CANCEL");await Send("RELEASE_FAILED_CLOSE");await Send("CLOSE");await Row();}}catch(Exception e)when(e is IOException or TimeoutException){}
+            try{writer.Dispose();}catch(IOException){}finally{reader.Dispose();pipe.Dispose();}
+        }
+    }
+    private sealed class Port(ITestOutputHelper output):IInstallationControlledStartProtocol,IInstallationHandoffProtocol,IOwnedProcessStarter
+    {
+        internal readonly InstallationApplicationClient Client=new();internal readonly List<Process> Children=[];
+        internal readonly List<int> Exits=[];
+        public Process Start(ProcessStartInfo info)
+        {
+            string selected=Path.GetDirectoryName(info.FileName)!;info.FileName=Host;info.ArgumentList.Insert(0,Path.Combine(selected,"KuaiYi.SettingsStoreFixture.dll"));
+            var process=Process.Start(info)??throw new IOException("Actual synthetic Start failed.");Children.Add(process);return process;
+        }
+        public Task AdmitLaunchAsync(Process p,InstallationControlledLaunch proof,CancellationToken ct)=>Client.AdmitLaunchAsync(p,proof,ct);
+        public Task ConfirmHealthyAsync(Process p,InstalledVersion version,Guid launch,CancellationToken ct)=>Client.ConfirmHealthyAsync(p,version,launch,ct);
+        public Task RequestExitAsync(Process p,CancellationToken ct)=>Client.RequestExitAsync(p,ct);
+        public async Task SettleAsync(Process p,CancellationToken ct)
+        {
+            await Client.SettleAsync(p,ct);Assert.True(p.HasExited);Exits.Add(p.ExitCode);
+            output.WriteLine($"PUBLIC_APP_CONTROL_CHILD actualExit={p.ExitCode} driverSha256={Hash(Driver)} coreSha256={Hash(Path.Combine(Path.GetDirectoryName(Driver)!,"KuaiYi.Core.dll"))} originalIO=Settled");
+        }
+        public Task PrepareHandoffAsync(Process p,InstallationHandoffOffer offer,CancellationToken ct)=>Client.PrepareHandoffAsync(p,offer,ct);
+        public Task AcceptHandoffAsync(Process p,InstallationHandoffOffer offer,CancellationToken ct)=>Client.AcceptHandoffAsync(p,offer,ct);
+        public Task CompleteControlAsync(Process p,InstallationHandoffOffer offer,CancellationToken ct)=>Client.CompleteControlAsync(p,offer,ct);
+        internal InstallationUpgradeCoordinator Coordinator(Rig r)=>new(r.App,r.Data,this,TimeSpan.FromSeconds(2),this);
+    }
+    [Fact]public async Task ControlledStartupRequiresTheOriginalReadyBarrierAndStopUsesTheExistingCloseTaskWithoutSelfWaiting()
+    {
+        using var r=new Rig();await r.Prepare("held-ready");await using var peer=new Peer(r.PipeA);var port=new Port(output);
+        await using(var coordinator=port.Coordinator(r))
+        {
+            Task<InstalledVersion> start=coordinator.StartActiveRoleAsync();Assert.Equal("PUBLIC_SHELL|Created",await peer.Ping());Assert.False(start.IsCompleted);
+            await peer.Send("READY");Assert.Equal("1.0",(await start).Version);await peer.Send("CLOSE");Assert.Equal("PUBLIC_SHELL_CLOSED",await peer.Row());await port.Children.Single().WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(6));
+        }
+        Assert.Equal(new[]{0},port.Exits);Assert.Single(Directory.GetFiles(r.App,"launch-*-finished.json"));Assert.Equal("PUBLIC_OFF",File.ReadAllText(Path.Combine(r.Data,"PUBLIC_SENTINEL")));
+    }
+    [Fact]public async Task CommittedProductionControlEofKeepsApplicationAliveAndSelfCloseStillRetainsThePersistentFence()
+    {
+        using var r=new Rig();await r.Prepare();await using var peer=new Peer(r.PipeB);var port=new Port(output);
+        await using(var coordinator=port.Coordinator(r))
+        {
+            var result=await coordinator.UpgradeAndHandoffAsync(r.PackageB,r.Pin("2.0"));Assert.Equal(InstallationHandoffStatus.Committed,result.Handoff);
+        }
+        Assert.Equal("PUBLIC_SHELL|Created",await peer.Ping());Assert.Throws<InstallationRecoveryException>(()=>r.Store.EnterRoleAdmission());
+        await peer.Send("CLOSE");Assert.Equal("PUBLIC_SHELL_CLOSED",await peer.Row());Assert.Null(await peer.Row());Assert.Throws<InstallationRecoveryException>(()=>r.Store.EnterRoleAdmission());
+        output.WriteLine($"PUBLIC_APP_CONTROL_HANDOFF driverSha256={Hash(Driver)} committedEOF=Alive selfClose=Observed fenceRetained=True");
+    }
+    [Fact]public async Task NewApplicationReadinessFailureNeverAcknowledgesHealthAndRollsBackTheExactOldPointer()
+    {
+        using var r=new Rig();await r.Prepare(second:"bad-ready");byte[] before=File.ReadAllBytes(Path.Combine(r.App,"current.json"));await using var oldPeer=new Peer(r.PipeA);await using var newPeer=new Peer(r.PipeB);var port=new Port(output);
+        await using(var coordinator=port.Coordinator(r))
+        {
+            var result=await coordinator.UpgradeAsync(r.PackageB,r.Pin("2.0"));Assert.Equal(InstallationUpgradeOutcome.RolledBack,result.Outcome);Assert.NotNull(result.Failure);Assert.Equal(before,File.ReadAllBytes(Path.Combine(r.App,"current.json")));Assert.Equal("PUBLIC_SHELL|Created",await oldPeer.Ping());
+            await oldPeer.Send("CLOSE");Assert.Equal("PUBLIC_SHELL_CLOSED",await oldPeer.Row());await port.Children.Last().WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(6));
+        }
+        Assert.Equal(2,port.Exits.Count);Assert.Equal(0,port.Exits.Last());
+    }
+    [Theory][InlineData("none")][InlineData("launch")][InlineData("role")][InlineData("directory")][InlineData("data")][InlineData("current")][InlineData("owner")][InlineData("missing-admission")][InlineData("missing-owner-lock")]
+    public async Task WrongOrAbsentProofCannotCreateAnyApplicationSurface(string fault)
+    {
+        using var r=new Rig();var selected=await r.Prepare();using var admission=r.Store.EnterAdmission();using var owner=r.Store.ClaimExecution(admission);Guid launch=Guid.NewGuid();
+        var proof=new InstallationControlledLaunch(launch,"KuaiYi.App.exe",r.App,r.Data,selected,Convert.ToBase64String(owner.RecordBytes),Convert.ToBase64String(r.Store.SnapshotRecord(admission)!),null);
+        if(fault=="launch")proof=proof with{Launch=Guid.NewGuid()};if(fault=="role")proof=proof with{Role="Unknown.exe"};if(fault=="directory")proof=proof with{Version=selected with{DirectoryPath=Path.Combine(r.Root,"wrong-generation")}};if(fault=="data")proof=proof with{UserData=Path.Combine(r.Root,"wrong-data")};if(fault=="current")proof=proof with{CurrentRecord=Convert.ToBase64String("PUBLIC_WRONG"u8)};if(fault=="owner")proof=proof with{OwnerRecord=Convert.ToBase64String("PUBLIC_WRONG"u8)};
+        SettingsStore.WriteFlushed(proof.PathFor("prepared"),proof.Bytes());if(fault=="missing-admission")admission.Dispose();if(fault=="missing-owner-lock")owner.Dispose();
+        await RejectedChild(selected,launch,fault=="none"?null:proof.Encode());Assert.False(File.Exists(Path.Combine(r.Root,"PUBLIC_SHELL_CREATED")));
+    }
+    private async Task RejectedChild(InstalledVersion selected,Guid launch,string? encoded)
+    {
+        var info=new ProcessStartInfo(Host){UseShellExecute=false,RedirectStandardInput=true,RedirectStandardOutput=true,RedirectStandardError=true,WorkingDirectory=selected.DirectoryPath};foreach(string arg in new[]{Path.Combine(selected.DirectoryPath,"KuaiYi.SettingsStoreFixture.dll"),"--installation-handshake",launch.ToString("N")})info.ArgumentList.Add(arg);
+        using var child=Process.Start(info)!;Task<string> stdout=child.StandardOutput.ReadToEndAsync(),stderr=child.StandardError.ReadToEndAsync();
+        try
+        {
+            if(encoded!=null){await child.StandardInput.WriteLineAsync("START|"+encoded);await child.StandardInput.FlushAsync();}child.StandardInput.Close();await child.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(6));
+            Assert.Equal(3,child.ExitCode);Assert.Equal("",await stdout);Assert.StartsWith("PUBLIC_START_REFUSED|",await stderr);output.WriteLine($"PUBLIC_APP_START_REJECT actualExit=3 driverSha256={Hash(Driver)} noSurface=True originalIO=Settled");
+        }
+        finally{if(!child.HasExited){child.Kill();await child.WaitForExitAsync();}await Task.WhenAll(stdout,stderr);}
+    }
+    [Fact]public async Task ClaimedLaunchProofCannotBeReplayedIntoASecondApplication()
+    {
+        using var r=new Rig();var selected=await r.Prepare();using var admission=r.Store.EnterAdmission();using var owner=r.Store.ClaimExecution(admission);Guid launch=Guid.NewGuid();
+        var proof=new InstallationControlledLaunch(launch,"KuaiYi.App.exe",r.App,r.Data,selected,Convert.ToBase64String(owner.RecordBytes),Convert.ToBase64String(r.Store.SnapshotRecord(admission)!),null);SettingsStore.WriteFlushed(proof.PathFor("prepared"),proof.Bytes());
+        await using var peer=new Peer(r.PipeA);var port=new Port(output);var info=new ProcessStartInfo(Path.Combine(selected.DirectoryPath,"KuaiYi.App.exe")){UseShellExecute=false,RedirectStandardInput=true,RedirectStandardOutput=true,RedirectStandardError=true,WorkingDirectory=selected.DirectoryPath};info.ArgumentList.Add("--installation-handshake");info.ArgumentList.Add(launch.ToString("N"));using var child=port.Start(info);
+        try
+        {
+            await port.Client.AdmitLaunchAsync(child,proof,CancellationToken.None);await port.Client.ConfirmHealthyAsync(child,selected,launch,CancellationToken.None);
+            await RejectedChild(selected,launch,proof.Encode());Assert.Single(File.ReadAllLines(Path.Combine(r.Root,"PUBLIC_SHELL_CREATED")));Assert.Equal("PUBLIC_SHELL|Created",await peer.Ping());
+            await port.Client.RequestExitAsync(child,CancellationToken.None);await child.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(6));await port.SettleAsync(child,CancellationToken.None);
+        }
+        finally{if(!child.HasExited){child.Kill();await child.WaitForExitAsync();}await port.Client.SettleAsync(child,CancellationToken.None);}
+    }
+    [Fact]public async Task NormalInstalledEntryCannotBypassOwnerFenceOrSelectAnOldGenerationAndNeverSelfClearsItsOwner()
+    {
+        using var r=new Rig();var old=await r.Prepare();var selected=await r.Store.ApplyAsync(r.PackageB,r.Pin("2.0"));
+        Assert.Throws<InstallationRecoveryException>(()=>InstallationNormalEntry.Open(old.DirectoryPath,r.Data));
+        using(var normal=InstallationNormalEntry.Open(selected.DirectoryPath,r.Data))
+        {Assert.NotNull(normal);Assert.Throws<InstallationBusyException>(()=>r.Store.EnterRoleAdmission());}
+        Assert.Throws<InstallationRecoveryException>(()=>InstallationNormalEntry.Open(selected.DirectoryPath,r.Data));Assert.True(File.Exists(Path.Combine(r.App,"execution-owner.json")));
+    }
+    [Fact]public async Task CommittedAckWriteFailureDoesNotRequestUiClosureOrReleaseTheRuntimeFence()
+    {
+        using var r=new Rig();await r.Prepare(second:"lost-commit-output");await using var peer=new Peer(r.PipeB);var port=new Port(output);
+        await using(var coordinator=port.Coordinator(r))
+        {var result=await coordinator.UpgradeAndHandoffAsync(r.PackageB,r.Pin("2.0"));Assert.Equal(InstallationHandoffStatus.CommittedUnconfirmed,result.Handoff);}
+        Assert.Equal("PUBLIC_SHELL|Created|ControlFault=IOException",await peer.Ping());Assert.Throws<InstallationRecoveryException>(()=>r.Store.EnterRoleAdmission());
+        await peer.Send("CLOSE");Assert.Equal("PUBLIC_SHELL_CLOSED",await peer.Row());Assert.Null(await peer.Row());Assert.Throws<InstallationRecoveryException>(()=>r.Store.EnterRoleAdmission());
+    }
+    [Fact]public async Task StopCannotPublishWhileExistingCloseCleanupIsHeldAndTheSameControllerCanRetryAfterActualExit()
+    {
+        using var r=new Rig();await r.Prepare("held-close");byte[] before=File.ReadAllBytes(Path.Combine(r.App,"current.json"));await using var first=new Peer(r.PipeA);var port=new Port(output);
+        await using(var coordinator=port.Coordinator(r))
+        {
+            await coordinator.StartActiveRoleAsync();await Assert.ThrowsAsync<InstallationUpgradeUnconfirmedException>(()=>coordinator.UpgradeAsync(r.PackageB,r.Pin("2.0")));
+            Assert.Equal("PUBLIC_SHELL|Closing",await first.Ping());Assert.False(port.Children.Single().HasExited);Assert.Empty(port.Exits);Assert.Equal(before,File.ReadAllBytes(Path.Combine(r.App,"current.json")));Assert.Single(Directory.GetDirectories(Path.Combine(r.App,"versions")));
+            Assert.True(File.Exists(Path.Combine(r.App,"execution-owner.json")));Assert.True(File.Exists(Path.Combine(r.App,"upgrade-pending.json")));
+            await first.Send("RELEASE_CLOSE");Assert.Equal("PUBLIC_SHELL_CLOSED",await first.Row());await port.Children.Single().WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(6));
+            await using var restarted=new Peer(r.PipeA);var result=await coordinator.RetryRollbackAsync();Assert.Equal(InstallationUpgradeOutcome.RolledBack,result.Outcome);Assert.Equal(before,File.ReadAllBytes(Path.Combine(r.App,"current.json")));
+            await restarted.Send("RELEASE_CLOSE");await restarted.Send("CLOSE");Assert.Equal("PUBLIC_SHELL_CLOSED",await restarted.Row());await port.Children.Last().WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(6));
+        }
+        Assert.Equal(new[]{0,0},port.Exits);Assert.Equal(2,port.Children.Count);
+    }
+    [Fact]public async Task FailedCloseKeepsTheSameApplicationAndOwnerAndASecondCloseCanSettleTheOriginalControl()
+    {
+        using var r=new Rig();await r.Prepare("fail-close-once");await using var peer=new Peer(r.PipeA);var port=new Port(output);
+        await using(var coordinator=port.Coordinator(r))
+        {
+            await coordinator.StartActiveRoleAsync();await peer.Send("CLOSE");Assert.Equal("PUBLIC_CLOSE_UNCONFIRMED|IOException",await peer.Row());Assert.Equal("PUBLIC_SHELL|CleanupUnconfirmed",await peer.Ping());Assert.False(port.Children.Single().HasExited);Assert.True(File.Exists(Path.Combine(r.App,"execution-owner.json")));
+            await peer.Send("CLOSE");Assert.Equal("PUBLIC_SHELL_CLOSED",await peer.Row());await port.Children.Single().WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(6));
+        }
+        Assert.Equal(new[]{0},port.Exits);
+    }
+    [Fact]public async Task CloseRetainsTheOriginalBlockedCancellationWorkAndReaderUntilBothActuallySettle()
+    {
+        using var r=new Rig();await r.Prepare("held-cancel");await using var peer=new Peer(r.PipeA);var port=new Port(output);
+        await using(var coordinator=port.Coordinator(r))
+        {
+            await coordinator.StartActiveRoleAsync();await peer.Send("CLOSE");var timer=Stopwatch.StartNew();
+            while(await peer.Ping()!="PUBLIC_SHELL|CancelHeld"){Assert.True(timer.Elapsed<TimeSpan.FromSeconds(5));await Task.Delay(20);}
+            Assert.False(port.Children.Single().HasExited);Assert.True(File.Exists(Path.Combine(r.App,"execution-owner.json")));Assert.Empty(port.Exits);
+            await peer.Send("RELEASE_CANCEL");Assert.Equal("PUBLIC_SHELL_CLOSED",await peer.Row());await port.Children.Single().WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(6));
+        }
+        Assert.Equal(new[]{0},port.Exits);
+    }
+    [Fact]public async Task KnownCommittedStateCannotRevertToCloseWhenAckFailureAlsoLeavesUnknownLedgerBytes()
+    {
+        using var r=new Rig();await r.Prepare(second:"unknown-after-commit");await using var peer=new Peer(r.PipeB);var port=new Port(output);var coordinator=port.Coordinator(r);
+        var result=await coordinator.UpgradeAndHandoffAsync(r.PackageB,r.Pin("2.0"));Assert.Equal(InstallationHandoffStatus.CommittedUnconfirmed,result.Handoff);
+        await Assert.ThrowsAsync<InstallationUpgradeUnconfirmedException>(()=>coordinator.DisposeAsync().AsTask());Assert.Equal("PUBLIC_SHELL|Created|ControlFault=IOException",await peer.Ping());
+        Assert.Equal("PUBLIC_UNKNOWN_AFTER_COMMIT",File.ReadAllText(Path.Combine(r.App,"handoff-pending.json")));Assert.Throws<InstallationRecoveryException>(()=>r.Store.EnterRoleAdmission());
+        await peer.Send("CLOSE");Assert.Equal("PUBLIC_SHELL_CLOSED",await peer.Row());await port.Children.Single().WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal(0,port.Children.Single().ExitCode);
+        await Assert.ThrowsAsync<InstallationUpgradeUnconfirmedException>(()=>coordinator.DisposeAsync().AsTask());Assert.Equal("PUBLIC_UNKNOWN_AFTER_COMMIT",File.ReadAllText(Path.Combine(r.App,"handoff-pending.json")));
+        // Only the now-confirmed dead, test-owned local handle is disposed; the coordinator never clears the unknown fence.
+        port.Children.Single().Dispose();
+    }
+    [Fact]public async Task FirstStopCleanupFailureKeepsTheOriginalControlLoopAvailableForTheSecondStop()
+    {
+        using var r=new Rig();await r.Prepare("fail-close-once");await using var peer=new Peer(r.PipeA);var port=new Port(output);
+        await using(var coordinator=port.Coordinator(r))
+        {
+            await coordinator.StartActiveRoleAsync();Process child=port.Children.Single();await port.Client.RequestExitAsync(child,CancellationToken.None);
+            Assert.Equal("PUBLIC_CLOSE_UNCONFIRMED|IOException",await peer.Row());Assert.False(child.HasExited);Assert.True(File.Exists(Path.Combine(r.App,"execution-owner.json")));
+            await port.Client.RequestExitAsync(child,CancellationToken.None);Assert.Equal("PUBLIC_SHELL_CLOSED",await peer.Row());await child.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(6));
+        }
+        Assert.Equal(new[]{0},port.Exits);
+    }
+    [Fact]public async Task AlternateCaseVersionsContainerCannotFallBackToAnUnmanagedEntry()
+    {
+        using var r=new Rig();var selected=await r.Prepare();string temporary=Path.Combine(r.App,"PUBLIC_RENAME_CONTAINER");
+        Directory.Move(Path.Combine(r.App,"versions"),temporary);Directory.Move(temporary,Path.Combine(r.App,"VERSIONS"));
+        string actual=Path.Combine(r.App,"VERSIONS",Path.GetFileName(selected.DirectoryPath));
+        Assert.Throws<InstallationRecoveryException>(()=>InstallationNormalEntry.Open(actual,r.Data));Assert.False(File.Exists(Path.Combine(r.App,"execution-owner.json")));
+    }
+    [Fact]public async Task RetryReceivedBeforeTheOriginalFailedCloseTaskCompletesIsRetainedAndSerialized()
+    {
+        using var r=new Rig();await r.Prepare("held-failed-close");await using var peer=new Peer(r.PipeA);var port=new Port(output);
+        await using(var coordinator=port.Coordinator(r))
+        {
+            await coordinator.StartActiveRoleAsync();Process child=port.Children.Single();await port.Client.RequestExitAsync(child,CancellationToken.None);
+            Assert.Equal("PUBLIC_CLOSE_UNCONFIRMED|IOException",await peer.Row());Assert.False(child.HasExited);
+            await port.Client.RequestExitAsync(child,CancellationToken.None);await peer.Send("WAIT_RETRY");Assert.Equal("PUBLIC_RETRY_WHILE_CLOSE_PENDING",await peer.Row());
+            Assert.False(child.HasExited);Assert.True(File.Exists(Path.Combine(r.App,"execution-owner.json")));Assert.Empty(port.Exits);
+            await peer.Send("RELEASE_FAILED_CLOSE");Assert.Equal("PUBLIC_SHELL_CLOSED",await peer.Row());await child.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(6));
+        }
+        Assert.Equal(new[]{0},port.Exits);
+    }
+    [Fact]public async Task StopReceivedWhileProductionShellCleanupWaitsIsRetriedAfterThatExactCleanupFails()
+    {
+        using var r=new Rig();await r.Prepare("held-cleanup-fails-once");await using var peer=new Peer(r.PipeA);var port=new Port(output);
+        await using(var coordinator=port.Coordinator(r))
+        {
+            await coordinator.StartActiveRoleAsync();Process child=port.Children.Single();await port.Client.RequestExitAsync(child,CancellationToken.None);
+            Assert.Equal("PUBLIC_SHELL|Closing",await peer.Ping());Assert.False(child.HasExited);
+            await port.Client.RequestExitAsync(child,CancellationToken.None);await peer.Send("WAIT_RETRY");Assert.Equal("PUBLIC_RETRY_WHILE_CLOSE_PENDING",await peer.Row());
+            Assert.False(child.HasExited);Assert.True(File.Exists(Path.Combine(r.App,"execution-owner.json")));Assert.Empty(port.Exits);
+            await peer.Send("RELEASE_FAILED_CLOSE");Assert.Equal("PUBLIC_CLOSE_UNCONFIRMED|IOException",await peer.Row());Assert.Equal("PUBLIC_SHELL_CLOSED",await peer.Row());
+            await child.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(6));
+        }
+        Assert.Equal(new[]{0},port.Exits);
+    }
+}

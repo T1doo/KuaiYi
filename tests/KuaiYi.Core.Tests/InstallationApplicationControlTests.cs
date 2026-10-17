@@ -228,4 +228,18 @@ public sealed class InstallationApplicationControlTests(ITestOutputHelper output
         }
         Assert.Equal(new[]{0},port.Exits);
     }
+    [Fact]public async Task StopReceivedWhileProductionShellCleanupWaitsIsRetriedAfterThatExactCleanupFails()
+    {
+        using var r=new Rig();await r.Prepare("held-cleanup-fails-once");await using var peer=new Peer(r.PipeA);var port=new Port(output);
+        await using(var coordinator=port.Coordinator(r))
+        {
+            await coordinator.StartActiveRoleAsync();Process child=port.Children.Single();await port.Client.RequestExitAsync(child,CancellationToken.None);
+            await peer.Send("WAIT_CLEANUP");Assert.Equal("PUBLIC_CLEANUP_ENTERED",await peer.Row());Assert.Equal("PUBLIC_SHELL|Closing",await peer.Ping());Assert.False(child.HasExited);
+            await port.Client.RequestExitAsync(child,CancellationToken.None);await peer.Send("WAIT_RETRY");Assert.Equal("PUBLIC_RETRY_WHILE_CLOSE_PENDING",await peer.Row());
+            Assert.False(child.HasExited);Assert.True(File.Exists(Path.Combine(r.App,"execution-owner.json")));Assert.Empty(port.Exits);
+            await peer.Send("RELEASE_FAILED_CLOSE");Assert.Equal("PUBLIC_CLOSE_UNCONFIRMED|IOException",await peer.Row());Assert.Equal("PUBLIC_SHELL_CLOSED",await peer.Row());
+            await child.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(6));
+        }
+        Assert.Equal(new[]{0},port.Exits);
+    }
 }

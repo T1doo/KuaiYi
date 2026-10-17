@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="086f6597-a17e-41bd-a797-7df6d3a0a2ea" name="@4cd0056ca8a8 2026-10-17 14:30:07" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-17T14:30:07.4977840+00:00" queuing="2026-10-17T14:30:07.4977841+00:00" start="2026-10-17T14:30:06.3382949+00:00" finish="2026-10-17T14:30:07.5028181+00:00" />
+  <TestSettings name="default" id="e71f3a54-8997-4989-84c2-9e34e673c28f">
+    <Deployment runDeploymentRoot="_4cd0056ca8a8_2026-10-17_14_30_07" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="0b38ce37-410a-49de-9242-e0d79d748eab" testId="5ee4b2d6-a779-292b-9f1f-e1b1f6de392c" testName="KuaiYi.Provider.Tests.ShellCloseGateTests.ProductionClosingRevokesSendBeforeDeferredCleanupAndRetainsAnImmediateCancellationFailure(cancelThrows: False)" computerName="4cd0056ca8a8" duration="00:00:00.0357893" startTime="2026-10-17T14:30:07.3339458+00:00" endTime="2026-10-17T14:30:07.3881131+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0b38ce37-410a-49de-9242-e0d79d748eab">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Off
+Actual:   On</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ShellCloseGateTests.ProductionClosingRevokesSendBeforeDeferredCleanupAndRetainsAnImmediateCancellationFailure(Boolean cancelThrows) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ShellCloseGateTests.cs:line 17
+   at KuaiYi.Provider.Tests.ShellCloseGateTests.ProductionClosingRevokesSendBeforeDeferredCleanupAndRetainsAnImmediateCancellationFailure(Boolean cancelThrows) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ShellCloseGateTests.cs:line 20
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c3305f14-1e7d-4a01-81b7-748233a1605e" testId="a3c8d455-9869-9058-1b00-545955bd77b8" testName="KuaiYi.Provider.Tests.ShellCloseGateTests.ProductionClosingRevokesSendBeforeDeferredCleanupAndRetainsAnImmediateCancellationFailure(cancelThrows: True)" computerName="4cd0056ca8a8" duration="00:00:00.0019392" startTime="2026-10-17T14:30:07.4033577+00:00" endTime="2026-10-17T14:30:07.4034392+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c3305f14-1e7d-4a01-81b7-748233a1605e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Off
+Actual:   On</Message>
+          <StackTrace>   at KuaiYi.Provider.Tests.ShellCloseGateTests.ProductionClosingRevokesSendBeforeDeferredCleanupAndRetainsAnImmediateCancellationFailure(Boolean cancelThrows) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ShellCloseGateTests.cs:line 17
+   at KuaiYi.Provider.Tests.ShellCloseGateTests.ProductionClosingRevokesSendBeforeDeferredCleanupAndRetainsAnImmediateCancellationFailure(Boolean cancelThrows) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ShellCloseGateTests.cs:line 20
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.ShellCloseGateTests.ProductionClosingRevokesSendBeforeDeferredCleanupAndRetainsAnImmediateCancellationFailure(cancelThrows: False)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="5ee4b2d6-a779-292b-9f1f-e1b1f6de392c">
+      <Execution id="0b38ce37-410a-49de-9242-e0d79d748eab" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ShellCloseGateTests" name="ProductionClosingRevokesSendBeforeDeferredCleanupAndRetainsAnImmediateCancellationFailure" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ShellCloseGateTests.ProductionClosingRevokesSendBeforeDeferredCleanupAndRetainsAnImmediateCancellationFailure(cancelThrows: True)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="a3c8d455-9869-9058-1b00-545955bd77b8">
+      <Execution id="c3305f14-1e7d-4a01-81b7-748233a1605e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ShellCloseGateTests" name="ProductionClosingRevokesSendBeforeDeferredCleanupAndRetainsAnImmediateCancellationFailure" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="5ee4b2d6-a779-292b-9f1f-e1b1f6de392c" executionId="0b38ce37-410a-49de-9242-e0d79d748eab" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a3c8d455-9869-9058-1b00-545955bd77b8" executionId="c3305f14-1e7d-4a01-81b7-748233a1605e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="0" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.15]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.62]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.64]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.72]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.72]       Expected: Off
+[xUnit.net 00:00:00.72]       Actual:   On
+[xUnit.net 00:00:00.72]       Stack Trace:
+[xUnit.net 00:00:00.73]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ShellCloseGateTests.cs(17,0): at KuaiYi.Provider.Tests.ShellCloseGateTests.ProductionClosingRevokesSendBeforeDeferredCleanupAndRetainsAnImmediateCancellationFailure(Boolean cancelThrows)
+[xUnit.net 00:00:00.73]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ShellCloseGateTests.cs(20,0): at KuaiYi.Provider.Tests.ShellCloseGateTests.ProductionClosingRevokesSendBeforeDeferredCleanupAndRetainsAnImmediateCancellationFailure(Boolean cancelThrows)
+[xUnit.net 00:00:00.73]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.74]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.74]       Expected: Off
+[xUnit.net 00:00:00.74]       Actual:   On
+[xUnit.net 00:00:00.74]       Stack Trace:
+[xUnit.net 00:00:00.74]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ShellCloseGateTests.cs(17,0): at KuaiYi.Provider.Tests.ShellCloseGateTests.ProductionClosingRevokesSendBeforeDeferredCleanupAndRetainsAnImmediateCancellationFailure(Boolean cancelThrows)
+[xUnit.net 00:00:00.74]         /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ShellCloseGateTests.cs(20,0): at KuaiYi.Provider.Tests.ShellCloseGateTests.ProductionClosingRevokesSendBeforeDeferredCleanupAndRetainsAnImmediateCancellationFailure(Boolean cancelThrows)
+[xUnit.net 00:00:00.74]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.74]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T14:30:07.3917620+00:00">
+        <Text>[xUnit.net 00:00:00.72]     KuaiYi.Provider.Tests.ShellCloseGateTests.ProductionClosingRevokesSendBeforeDeferredCleanupAndRetainsAnImmediateCancellationFailure(cancelThrows: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T14:30:07.4040855+00:00">
+        <Text>[xUnit.net 00:00:00.74]     KuaiYi.Provider.Tests.ShellCloseGateTests.ProductionClosingRevokesSendBeforeDeferredCleanupAndRetainsAnImmediateCancellationFailure(cancelThrows: True) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

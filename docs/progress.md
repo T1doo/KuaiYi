@@ -1000,3 +1000,16 @@ r01新增夹具初始化顺序错4F保全、不当产品红；修夹具r02父生
 最终安装107P/完整Core1809P=父1787全名多重集+新22/完整Provider2325P同父全名；AppWorker各实际0W/E，五轮57源共285绑定及实际fixture/Core DLL核定。22例中20例真实选定合成child、2文件准入，WPF/内容cleanup明确端口。五个候选同方法真实红绿：stdin结算、COMMITTED写失败、二次STOP、case容器、原失败Close task仍pending时保留重试。最后一例证明fixture IsCompleted丢重试，容量1单worker逐个await原task；非生产新守护。r17二次STOP间歇当次时序Unknown；r20完整1808P1F旧OLE Cleanup TryFinalize false，旧源码与父同、r20结束后/r21前25DLL补观察（raw误写运行中已显式勘误），r21同DLL旧类27P/r22同DLL完整1809P，不把重跑绿当根因修复；失败/中止/编译原件全保。
 
 独立源码终审无剩余P1/P2，封存另审；见[接线报告](validation/app-installation-control.md)/[原件索引](test-evidence/2026-10-17-app-installation-control.json)。父7344路径除明确8处外7336原字节保持、旧测试不删不弱、SPEC/trace/锁/workflow/旧原件不改。无observer/自动重启/stale接管/owner自清；真实Windows健康/键盘/截图/DPAPIACL/物理250600/模型/身份注册rollback/完整payload/Inno/自启/卸载/K组及完整P6/P7未验。父r10、历史图片/idle/Core/Job原因各Unknown，生产图片分类复用Off及来源/密码/完整性/取消/清理/250600门不变。仅已有SDK --no-restore、激活前后禁证书；无main强推部署费用真实模型凭据权限/新依赖许可，Skia4.153.1四包待批，source403及拒绝Actions不查询不绕过；未知锁数据日志进程保全。
+
+
+## 2026-10-17 · 真实 Shell 关闭任务与 pending STOP 修正
+
+父f8b独审发现必须先修实际接线，暂停后续安装功能定位，正常dev/app-close-pending-retry。明确勘误：f8b r18→r19容量1只在fixture，不能用其绿证明真实App cleanup等待中第二STOP会在首次失败后重试；父原报告/1549原件完整保留，此追加不回写历史。
+
+真实ClosingShell移为生产partial，Shell持同原attempt Task+最多1pending显式请求；先发布owner再运行QueuePositionSave/exiting/button与同步lifecycle.Hide，回调重入不并行开cleanup，失败无pending不自动重试，成功丢pending。启动新attempt的admitted直接异常仍在原Task；位置/Hide取消错误收进同次SettleExitContent并跑完原内容清理后汇总，失败窗口/控制通道/所有权保留。Dispatcher Unwrap实际async attempt，STOP只await dispatch避免control自等待；opening/settings原exitRequested、allowClose递归保持。fixture删除独有queue，直接链接同生产Flow+Requests；UI/Dispatcher仍是明确端口，不充WPF实测。
+
+父原ClosingShell方法字节真实链接到自有child，r01实际1F；r03补cleanup-entered/STOP2-received屏障仍实际1F，释放后失败/CLOSED序列读取超时（该行两次Row未独立分轨，不声称已独立证明失败回执先到）；最终同测试方法字节绿。候选仅exiting留下GateOn，直接生产ClosingShell+真实RuntimeGate/TryBeginSend且扣住Dispatcher，r07实际2F→r08同字节2P；同步Off/ct取消/0send callback，取消错误不吞并继续原cleanup后保留窗口。另5例核32请求合一、原Task完成才下一次、无无请求重试、成功丢pending、admitted同步重入/原fault保持。r02 CS0414编译失败无TRX、r04/r05/r06中间结果均原件保留。
+
+r09相关108P/r10完整Core1810P=父1809全名多重集+1/r11完整Provider2332P=父2325全名多重集+7，旧Core测试文件前缀/全部原方法逐字节保留。App/Worker各实际0W/E，五轮63源315绑定、目标DLL和真实child执行另封存，独立源码终审无剩余P1/P2，封存另审。见[修复与证据勘误](validation/app-close-pending-retry.md)/[原件索引](test-evidence/2026-10-17-app-close-pending-retry.json)。父8901路径除9处外8892原字节保留，含全部7991旧证据。
+
+环境断连通知后仅一次有界只读检查于14:27:33Z实际完成：r01-r06原命令全有结算记录，无本写入者挂起测试，HEAD仍父f8b，修复未提交未推；确认本地工具可用后继续同写入者，不造重复实例/不删锁进程。Windows可见/WPF/实际Dispatcher/STA/设置窗口/Job/OCR/键盘/DPAPIACL/物理250600/真实模型仍NotRun；普通installed与committed自退持久拒入、无observer/stale接管不变。后续入口/完整payload/发布注册rollback/Inno/自启卸载/K组仍暂停未验，不称完整P7。历史图片/idle/Core/Job及父r17/r20各Unknown，生产图片分类复用Off/所有发送来源取消清理门保持。无main强推部署费用凭据权限/新依赖许可；Skia四包待批，403及拒绝Actions不查不绕，未知锁数据日志进程保全。

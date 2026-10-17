@@ -1,0 +1,14 @@
+using System.ComponentModel;
+namespace KuaiYi.App;
+internal sealed partial class ShellWindow
+{
+    private async void ClosingShell(object? sender,CancelEventArgs e)
+    {
+        if(allowClose)return;e.Cancel=true;if(exiting)return;
+        if(opening||settings!=null){exitRequested=true;PrepareSettingsExit(()=>settings?.RequestCloseWhenSettled());return;}
+        QueuePositionSave();exiting=true;button.IsEnabled=false;
+        // Completed cleanup tasks may never yield: leave the original Closing stack before closing again.
+        try{await SettleExitContent();allowClose=true;await Dispatcher.InvokeAsync(Close);}
+        catch(Exception error){exiting=false;button.IsEnabled=true;Report("退出清理尚未完成",error);}
+    }
+}

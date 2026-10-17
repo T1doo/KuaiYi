@@ -1,0 +1,12 @@
+Independent read-only source reviewer: /root/high_water_review
+
+当前源码未发现剩余 P1/P2，可进入最终回归。
+
+- r08 实测 7P，63 项源码哈希与当前一致。
+- r07→r08 两个发送门反例使用相同测试字节，由 2F 转为 2P。
+- 原任务完成后才消费一次 pending；同步撤销发送资格，取消异常保留至原清理汇总。
+- 原有 Core 测试字节保留，无断言弱化。
+
+这是源码准入；最终封存仍待全回归与构建证据。Windows/WPF/真实 Dispatcher 验收仍为 NotRun。
+
+Additional reviewer scope clarification: fixture ThreadPool UI ports do not separately prove WPF ordering. Preserve the f8b fixture-only green correction. The independently checked gate test file has the same bytes at red r07 and green r08.

@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="022332e8-bb9d-4022-9785-ffeb3a1a3e00" name="@4cd0056ca8a8 2026-10-17 14:18:37" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-17T14:18:37.3928408+00:00" queuing="2026-10-17T14:18:37.3928409+00:00" start="2026-10-17T14:18:30.0021171+00:00" finish="2026-10-17T14:18:37.4000703+00:00" />
+  <TestSettings name="default" id="ad9fdc63-3075-4e22-a39f-382856d56312">
+    <Deployment runDeploymentRoot="_4cd0056ca8a8_2026-10-17_14_18_37" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="1fef4010-5343-41a3-b462-2ceec1e80f19" testId="b1bcc838-abe6-ca28-2a15-90c22fbbf56e" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.StopReceivedWhileProductionShellCleanupWaitsIsRetriedAfterThatExactCleanupFails" computerName="4cd0056ca8a8" duration="00:00:06.2864642" startTime="2026-10-17T14:18:31.0133805+00:00" endTime="2026-10-17T14:18:37.3123297+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1fef4010-5343-41a3-b462-2ceec1e80f19">
+      <Output>
+        <StdOut>PUBLIC_APP_CONTROL_CHILD actualExit=137 driverSha256=05EE8AF1AFFC085946DDCD6C033D0299D40A81F838BFFDE6738967570E7C2EE8 coreSha256=DEE78E61D1BCD4E0F4044415D5FD7BEC7FA05ADD545396FEEA77DC824AF9AC2B originalIO=Settled</StdOut>
+        <ErrorInfo>
+          <Message>System.TimeoutException : The operation has timed out.</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.InstallationApplicationControlTests.Peer.Row() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 43
+   at KuaiYi.Core.Tests.InstallationApplicationControlTests.StopReceivedWhileProductionShellCleanupWaitsIsRetriedAfterThatExactCleanupFails() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 240
+   at KuaiYi.Core.Tests.InstallationApplicationControlTests.StopReceivedWhileProductionShellCleanupWaitsIsRetriedAfterThatExactCleanupFails() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 242
+   at KuaiYi.Core.Tests.InstallationApplicationControlTests.StopReceivedWhileProductionShellCleanupWaitsIsRetriedAfterThatExactCleanupFails() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 243
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.StopReceivedWhileProductionShellCleanupWaitsIsRetriedAfterThatExactCleanupFails" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b1bcc838-abe6-ca28-2a15-90c22fbbf56e">
+      <Execution id="1fef4010-5343-41a3-b462-2ceec1e80f19" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="StopReceivedWhileProductionShellCleanupWaitsIsRetriedAfterThatExactCleanupFails" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="b1bcc838-abe6-ca28-2a15-90c22fbbf56e" executionId="1fef4010-5343-41a3-b462-2ceec1e80f19" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.14]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.53]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.57]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:06.89]       System.TimeoutException : The operation has timed out.
+[xUnit.net 00:00:06.89]       Stack Trace:
+[xUnit.net 00:00:06.89]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs(43,0): at KuaiYi.Core.Tests.InstallationApplicationControlTests.Peer.Row()
+[xUnit.net 00:00:06.90]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs(240,0): at KuaiYi.Core.Tests.InstallationApplicationControlTests.StopReceivedWhileProductionShellCleanupWaitsIsRetriedAfterThatExactCleanupFails()
+[xUnit.net 00:00:06.90]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs(242,0): at KuaiYi.Core.Tests.InstallationApplicationControlTests.StopReceivedWhileProductionShellCleanupWaitsIsRetriedAfterThatExactCleanupFails()
+[xUnit.net 00:00:06.90]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs(243,0): at KuaiYi.Core.Tests.InstallationApplicationControlTests.StopReceivedWhileProductionShellCleanupWaitsIsRetriedAfterThatExactCleanupFails()
+[xUnit.net 00:00:06.90]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:06.90]       Output:
+[xUnit.net 00:00:06.90]         PUBLIC_APP_CONTROL_CHILD actualExit=137 driverSha256=05EE8AF1AFFC085946DDCD6C033D0299D40A81F838BFFDE6738967570E7C2EE8 coreSha256=DEE78E61D1BCD4E0F4044415D5FD7BEC7FA05ADD545396FEEA77DC824AF9AC2B originalIO=Settled
+[xUnit.net 00:00:06.91]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T14:18:37.3170219+00:00">
+        <Text>[xUnit.net 00:00:06.89]     KuaiYi.Core.Tests.InstallationApplicationControlTests.StopReceivedWhileProductionShellCleanupWaitsIsRetriedAfterThatExactCleanupFails [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

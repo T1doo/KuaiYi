@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ceb6b540-2a47-4613-96cc-81a0cf21ade5" name="@4cd0056ca8a8 2026-10-17 14:30:59" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-17T14:30:59.0723151+00:00" queuing="2026-10-17T14:30:59.0723152+00:00" start="2026-10-17T14:30:57.9826636+00:00" finish="2026-10-17T14:30:59.0805343+00:00" />
+  <TestSettings name="default" id="56146872-2c39-4547-bc42-8820b45ee30a">
+    <Deployment runDeploymentRoot="_4cd0056ca8a8_2026-10-17_14_30_59" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="d3752d58-f1ca-4d49-98cf-47a1f74586af" testId="a3c8d455-9869-9058-1b00-545955bd77b8" testName="KuaiYi.Provider.Tests.ShellCloseGateTests.ProductionClosingRevokesSendBeforeDeferredCleanupAndRetainsAnImmediateCancellationFailure(cancelThrows: True)" computerName="4cd0056ca8a8" duration="00:00:00.0012324" startTime="2026-10-17T14:30:58.9716285+00:00" endTime="2026-10-17T14:30:58.9716779+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d3752d58-f1ca-4d49-98cf-47a1f74586af" />
+    <UnitTestResult executionId="aaf41abb-b100-43bc-aee2-168d59302aa4" testId="5ee4b2d6-a779-292b-9f1f-e1b1f6de392c" testName="KuaiYi.Provider.Tests.ShellCloseGateTests.ProductionClosingRevokesSendBeforeDeferredCleanupAndRetainsAnImmediateCancellationFailure(cancelThrows: False)" computerName="4cd0056ca8a8" duration="00:00:00.0301298" startTime="2026-10-17T14:30:58.9287708+00:00" endTime="2026-10-17T14:30:58.9715275+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aaf41abb-b100-43bc-aee2-168d59302aa4" />
+    <UnitTestResult executionId="89d842be-53bf-4d61-aef0-1aa2025a5c74" testId="6dc2559e-4d9a-0c4e-9afa-82c924ef9665" testName="KuaiYi.Provider.Tests.ShellCloseRequestsTests.FaultedOriginalTaskRemainsObservableAndDoesNotRetryWithoutAnExplicitRequest" computerName="4cd0056ca8a8" duration="00:00:00.0039587" startTime="2026-10-17T14:30:58.9737988+00:00" endTime="2026-10-17T14:30:58.9738515+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="89d842be-53bf-4d61-aef0-1aa2025a5c74" />
+    <UnitTestResult executionId="bc2f5c5a-732b-479b-93d8-85d668715c74" testId="2c6d54ed-549d-fd00-749a-8acdf6d8b37a" testName="KuaiYi.Provider.Tests.ShellCloseRequestsTests.SynchronousReentrantCallbackSeesThePublishedOriginalTaskAndOnlyQueuesOneRetry" computerName="4cd0056ca8a8" duration="00:00:00.0175171" startTime="2026-10-17T14:30:58.9306626+00:00" endTime="2026-10-17T14:30:58.9546131+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bc2f5c5a-732b-479b-93d8-85d668715c74" />
+    <UnitTestResult executionId="d285e169-ed71-4157-aee6-b5011e6f9794" testId="11849525-9486-a16a-068d-d7d22fde1446" testName="KuaiYi.Provider.Tests.ShellCloseRequestsTests.ManyPendingRequestsWaitForTheOriginalTaskAndCoalesceToOneRetryWithoutAutomaticRetryOnFailure" computerName="4cd0056ca8a8" duration="00:00:00.0043042" startTime="2026-10-17T14:30:58.9704957+00:00" endTime="2026-10-17T14:30:58.9706244+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d285e169-ed71-4157-aee6-b5011e6f9794" />
+    <UnitTestResult executionId="030e9f10-9ccc-467a-b6aa-8a2361fe098d" testId="de96debf-840c-7df4-4fbb-013f7bb20b85" testName="KuaiYi.Provider.Tests.ShellCloseRequestsTests.SuccessfulCloseDiscardsPendingRequestsAndNeverStartsAnotherAttempt" computerName="4cd0056ca8a8" duration="00:00:00.0025665" startTime="2026-10-17T14:30:58.9720037+00:00" endTime="2026-10-17T14:30:58.9736257+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="030e9f10-9ccc-467a-b6aa-8a2361fe098d" />
+    <UnitTestResult executionId="112a0355-9967-4458-9186-58fc12430d9c" testId="327ad90d-e063-1a4e-fb0a-ef58b5ef761a" testName="KuaiYi.Provider.Tests.ShellCloseRequestsTests.AdmissionCallbackFailureIsOwnedByThePublishedOriginalWithoutRunningCleanupOrRetryingIt" computerName="4cd0056ca8a8" duration="00:00:00.0044627" startTime="2026-10-17T14:30:58.9714695+00:00" endTime="2026-10-17T14:30:58.9717576+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="112a0355-9967-4458-9186-58fc12430d9c" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.ShellCloseGateTests.ProductionClosingRevokesSendBeforeDeferredCleanupAndRetainsAnImmediateCancellationFailure(cancelThrows: False)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="5ee4b2d6-a779-292b-9f1f-e1b1f6de392c">
+      <Execution id="aaf41abb-b100-43bc-aee2-168d59302aa4" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ShellCloseGateTests" name="ProductionClosingRevokesSendBeforeDeferredCleanupAndRetainsAnImmediateCancellationFailure" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ShellCloseRequestsTests.SynchronousReentrantCallbackSeesThePublishedOriginalTaskAndOnlyQueuesOneRetry" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="2c6d54ed-549d-fd00-749a-8acdf6d8b37a">
+      <Execution id="bc2f5c5a-732b-479b-93d8-85d668715c74" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ShellCloseRequestsTests" name="SynchronousReentrantCallbackSeesThePublishedOriginalTaskAndOnlyQueuesOneRetry" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ShellCloseRequestsTests.FaultedOriginalTaskRemainsObservableAndDoesNotRetryWithoutAnExplicitRequest" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="6dc2559e-4d9a-0c4e-9afa-82c924ef9665">
+      <Execution id="89d842be-53bf-4d61-aef0-1aa2025a5c74" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ShellCloseRequestsTests" name="FaultedOriginalTaskRemainsObservableAndDoesNotRetryWithoutAnExplicitRequest" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ShellCloseRequestsTests.AdmissionCallbackFailureIsOwnedByThePublishedOriginalWithoutRunningCleanupOrRetryingIt" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="327ad90d-e063-1a4e-fb0a-ef58b5ef761a">
+      <Execution id="112a0355-9967-4458-9186-58fc12430d9c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ShellCloseRequestsTests" name="AdmissionCallbackFailureIsOwnedByThePublishedOriginalWithoutRunningCleanupOrRetryingIt" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ShellCloseRequestsTests.ManyPendingRequestsWaitForTheOriginalTaskAndCoalesceToOneRetryWithoutAutomaticRetryOnFailure" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="11849525-9486-a16a-068d-d7d22fde1446">
+      <Execution id="d285e169-ed71-4157-aee6-b5011e6f9794" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ShellCloseRequestsTests" name="ManyPendingRequestsWaitForTheOriginalTaskAndCoalesceToOneRetryWithoutAutomaticRetryOnFailure" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ShellCloseGateTests.ProductionClosingRevokesSendBeforeDeferredCleanupAndRetainsAnImmediateCancellationFailure(cancelThrows: True)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="a3c8d455-9869-9058-1b00-545955bd77b8">
+      <Execution id="d3752d58-f1ca-4d49-98cf-47a1f74586af" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ShellCloseGateTests" name="ProductionClosingRevokesSendBeforeDeferredCleanupAndRetainsAnImmediateCancellationFailure" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.ShellCloseRequestsTests.SuccessfulCloseDiscardsPendingRequestsAndNeverStartsAnotherAttempt" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="de96debf-840c-7df4-4fbb-013f7bb20b85">
+      <Execution id="030e9f10-9ccc-467a-b6aa-8a2361fe098d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.ShellCloseRequestsTests" name="SuccessfulCloseDiscardsPendingRequestsAndNeverStartsAnotherAttempt" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="a3c8d455-9869-9058-1b00-545955bd77b8" executionId="d3752d58-f1ca-4d49-98cf-47a1f74586af" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5ee4b2d6-a779-292b-9f1f-e1b1f6de392c" executionId="aaf41abb-b100-43bc-aee2-168d59302aa4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6dc2559e-4d9a-0c4e-9afa-82c924ef9665" executionId="89d842be-53bf-4d61-aef0-1aa2025a5c74" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2c6d54ed-549d-fd00-749a-8acdf6d8b37a" executionId="bc2f5c5a-732b-479b-93d8-85d668715c74" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="11849525-9486-a16a-068d-d7d22fde1446" executionId="d285e169-ed71-4157-aee6-b5011e6f9794" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="de96debf-840c-7df4-4fbb-013f7bb20b85" executionId="030e9f10-9ccc-467a-b6aa-8a2361fe098d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="327ad90d-e063-1a4e-fb0a-ef58b5ef761a" executionId="112a0355-9967-4458-9186-58fc12430d9c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="7" executed="7" passed="7" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.14]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.59]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.62]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.69]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

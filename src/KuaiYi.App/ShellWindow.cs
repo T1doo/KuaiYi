@@ -173,15 +173,10 @@ internal sealed partial class ShellWindow:OleDropWindow
         try{await lifecycle.SavePositionAsync(position,lifetime.Token);}catch(OperationCanceledException)when(lifetime.IsCancellationRequested){}
         catch(Exception error){Report("位置未保存，原配置保留",error);}
     }
-    private async void ClosingShell(object? sender,CancelEventArgs e)
-    {
-        if(allowClose)return;e.Cancel=true;if(exiting)return;
-        if(opening||settings!=null){exitRequested=true;PrepareSettingsExit(()=>settings?.RequestCloseWhenSettled());return;}
-        QueuePositionSave();exiting=true;button.IsEnabled=false;
-        // Completed cleanup tasks may never yield: leave the original Closing stack before closing again.
-        try{await SettleExitContent();allowClose=true;await Dispatcher.InvokeAsync(Close);}
-        catch(Exception error){exiting=false;button.IsEnabled=true;Report("退出清理尚未完成",error);}
-    }
+    private Task<bool> DispatchCloseAttempt()=>Dispatcher.InvokeAsync(TryCloseAttemptAsync).Task.Unwrap();
+    private Task CommitShellCloseAsync()=>Dispatcher.InvokeAsync(Close).Task;
+    // Dispatch only; ShellCloseRequests owns/joins the original asynchronous close, so the control loop can receive STOP2.
+    private Task RequestInstallationCloseAsync(CancellationToken _)=>Dispatcher.InvokeAsync(Close).Task;
     private void ClosedShell(object? sender,EventArgs e)
     {
         try

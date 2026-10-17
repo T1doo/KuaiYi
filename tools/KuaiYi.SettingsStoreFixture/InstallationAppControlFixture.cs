@@ -1,5 +1,4 @@
 using System.IO.Pipes;
-using System.Threading.Channels;
 using KuaiYi.Core.Installation;
 internal static class InstallationAppControlFixture
 {
@@ -27,12 +26,14 @@ internal static class InstallationAppControlFixture
         if(mode!="held-close")cleanup.TrySetResult();
         var failedCloseRelease=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         var retryWhilePending=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var cleanupEntered=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         state="Created";bool failedClose=false;
-        var closeRequests=Channel.CreateBounded<byte>(new BoundedChannelOptions(1){SingleReader=true});
-        // Keep and await each original attempt; coalesce at most one retry while it is still pending.
-        Task closeWorker=Task.Run(async()=>{while(await closeRequests.Reader.WaitToReadAsync())if(closeRequests.Reader.TryRead(out _)){Task originalClose=Close();await originalClose;}});
-        _=closeWorker.ContinueWith(t=>{_ =t.Exception;},CancellationToken.None,TaskContinuationOptions.OnlyOnFaulted,TaskScheduler.Default);
-        Task RequestClose(CancellationToken _){if(state=="CleanupUnconfirmed")retryWhilePending.TrySetResult();closeRequests.Writer.TryWrite(0);return Task.CompletedTask;}
+        var shell=new KuaiYi.App.ShellWindow(Settle,()=>{state="Closing";cleanupEntered.TrySetResult();},error=>
+        {
+            state="CleanupUnconfirmed";writer.WriteLine("PUBLIC_CLOSE_UNCONFIRMED|"+error.GetType().Name);
+            if(mode=="held-failed-close")failedCloseRelease.Task.GetAwaiter().GetResult(); // Hold this exact reported attempt, not the control loop.
+        },()=>{writer.WriteLine("PUBLIC_SHELL_CLOSED");writer.Flush();Environment.Exit(0);});
+        Task RequestClose(CancellationToken _){if(state is "CleanupUnconfirmed" or "Closing")retryWhilePending.TrySetResult();shell.Close();return Task.CompletedTask;}
         Task loop=control.RunAsync(ready.Task,RequestClose);_ =loop.ContinueWith(t=>{_ =t.Exception;},CancellationToken.None,TaskContinuationOptions.OnlyOnFaulted,TaskScheduler.Default);
         while(await reader.ReadLineAsync() is {} command)
         {
@@ -41,20 +42,17 @@ internal static class InstallationAppControlFixture
             else if(command=="CLOSE")await RequestClose(CancellationToken.None);
             else if(command=="RELEASE_CLOSE")cleanup.TrySetResult();
             else if(command=="RELEASE_CANCEL")cancelRelease.TrySetResult();
+            else if(command=="WAIT_CLEANUP"){await cleanupEntered.Task;await writer.WriteLineAsync("PUBLIC_CLEANUP_ENTERED");}
             else if(command=="WAIT_RETRY"){await retryWhilePending.Task;await writer.WriteLineAsync("PUBLIC_RETRY_WHILE_CLOSE_PENDING");}
             else if(command=="RELEASE_FAILED_CLOSE")failedCloseRelease.TrySetResult();
             else throw new InvalidDataException("Unknown public test command.");
         }
         GC.KeepAlive(control);Environment.Exit(90);return 90;
-        async Task Close()
+        async Task Settle()
         {
-            state="Closing";
-            try
-            {
-                if(mode is "fail-close-once" or "held-failed-close"&&!failedClose){failedClose=true;throw new IOException("PUBLIC_CLEANUP_FAILED_ONCE");}
-                await cleanup.Task;await control!.SettleForExitAsync();await writer.WriteLineAsync("PUBLIC_SHELL_CLOSED");await writer.FlushAsync();Environment.Exit(0);
-            }
-            catch(Exception error){state="CleanupUnconfirmed";await writer.WriteLineAsync("PUBLIC_CLOSE_UNCONFIRMED|"+error.GetType().Name);if(mode=="held-failed-close")await failedCloseRelease.Task;}
+            if(mode=="held-cleanup-fails-once"&&!failedClose)await failedCloseRelease.Task;
+            if(mode is "fail-close-once" or "held-failed-close" or "held-cleanup-fails-once"&&!failedClose){failedClose=true;throw new IOException("PUBLIC_CLEANUP_FAILED_ONCE");}
+            await cleanup.Task;await control!.SettleForExitAsync();
         }
     }
     private sealed class LostCommitOutput(Stream inner,Action? beforeFailure=null):Stream

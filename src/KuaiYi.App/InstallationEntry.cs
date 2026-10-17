@@ -21,6 +21,6 @@ internal sealed partial class ShellWindow
             catch(Exception error){installationReady.TrySetException(error);}
         };
         // The original loop remains held by control; observing its fault does not declare shutdown or remove any fence.
-        _=control.RunAsync(installationReady.Task,_=>Dispatcher.InvokeAsync(Close).Task).ContinueWith(t=>{diagnostics.RecordFailure(t.Exception!.GetBaseException());},CancellationToken.None,TaskContinuationOptions.OnlyOnFaulted,TaskScheduler.Default);
+        _=control.RunAsync(installationReady.Task,RequestInstallationCloseAsync).ContinueWith(t=>{diagnostics.RecordFailure(t.Exception!.GetBaseException());},CancellationToken.None,TaskContinuationOptions.OnlyOnFaulted,TaskScheduler.Default);
     }
 }
