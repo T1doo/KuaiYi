@@ -964,3 +964,10 @@ r01新增夹具初始化顺序错4F保全、不当产品红；修夹具r02父生
 第一片d7b5458已独立推送84原件；从其正常建dev/screenshot-session-style落实SPEC9.9/I03当前未消费截图四风格。单override精确绑定SourceVersion/SourceId，菜单旧源/消费后不可改；offer确认冻结显示，改风格撤销旧offer，Job/原有界版本记录保留枚举；只覆盖Planner该次Translation.Preset，保存Settings/Profile/secret-binding不变。新图/清除/来源释放/接纳消费复位，Automatic结构图仍Explain，同图复用Off。
 
 最终新24P/无filter Provider2325P=父2301全名多重集+24，Core1703P名字与父闭包相同，实际AppWorker各0W/E；五轮34源=170绑定匹配。双协议四风格真实本地HTTP核system/template/确认及本地生成版本label、原保存对象与binding传两次合成lease；六种确认撤销每协议0HTTP，旧菜单/错身份/新源清除复位/旧图禁发。r01/r02编译失败无TRX，r03中间测试原件不混最终/红绿。独立源码审查无P1/P2、封存另审，见[报告](validation/screenshot-session-style.md)/[原件](test-evidence/2026-10-17-screenshot-session-style.json)。生产菜单方法由端口实际执行，顶部TranslationFlow/工具条分支只交叉构建，真实WPF可见键盘/焦点/截图/DPAPIACL/物理250600/模型/I03质量/完整P6未验、状态不抬。旧证据/生产CoreProvidersImaging/Offline/SPEC/trace/锁workflow原字节保持，历史idle/图片/Core/Job各Unknown。无main强推部署费用/新许可Skia/403或Actions拒绝查询绕过/真实凭据权限环境，未知锁数据日志进程保全。
+
+
+## 2026-10-17 · P7 安装升级独立文件事务核心
+
+父1341b已准入，先核现模块/原SPEC再按父补充授权正常建dev/install-transaction-core。原开发身份/managed staging/宿主只读校验不等于安装器；新增Core文件事务，复用WriteFlushed/RejectLink，caller固定catalog SHA与精确有界文件树校验，完整版本目录后原子current记录、ReadActive消费，失败恢复核验旧版/坏active恢复/不确定显式保留。用户数据根隔离，不读迁移秘密；无OS安装/注册/签名/启动改变/卸载永久删除，真实role停止适配器未实现。
+
+候选清单错误类型绕恢复实测7F，case目录额外空别名实测1F，纯数据异常归一及seenDirs后8P；r01新测试误期望异常类型27P1F不算红绿。最终专项40P/完整Core1743P=父1703全名多重集+40，Provider2325P同父名单，AppWorker实际各0W/E。三个自有子进程真实Exit73 checkpoint与并发读者/排他锁、提交前后取消、故障回退、未知文件保留、真实SecretFileStore+合成AES密文及解密保持均核。源码采集漏tools驱动的旧35/37条不倒填；修正后仅3有界补执行，41源及相同driver/Core DLL绑定，六最终执行234源合计，作用域/原件勘误明确。独立源码复审无P1/P2，封存另审；见[报告与P7缺口](validation/install-transaction-core.md)/[原件](test-evidence/2026-10-17-install-transaction-core.json)。trace整体状态不抬，Windows安装/真实boot/签名/注册rollback/登录启动/卸载/断电/ACL-DPAPI及K组仍未验；旧版本累计存储未GC、同账户换名/早失败childIO边界如实保留。截图其余SPEC差异仅记录，不新增测试扩功能；历史Unknown/复用Off/许可403/Actions拒绝/未知锁数据日志进程保护不变，无main强推部署费用凭据权限新协议/环境。

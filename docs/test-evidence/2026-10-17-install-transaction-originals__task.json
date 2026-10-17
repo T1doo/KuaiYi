@@ -1,0 +1,113 @@
+{
+  "Parent": "1341b12248d972f197ed4c57032a9137fb890d57",
+  "Branch": "dev/install-transaction-core",
+  "Scope": "P7-04/05 file transaction core only. No installer delivery, OS registration/signing/deployment/live process stop/uninstall.",
+  "FinalRuns": [
+    "r05-install-final",
+    "r06-core-full",
+    "r07-provider-full",
+    "r08-driver-binding",
+    "r09-app-build",
+    "r10-worker-build"
+  ],
+  "FullRun": "r06-core-full",
+  "ParentTrx": "docs/test-evidence/2026-10-17-screenshot-style-originals__r06-core-full.trx",
+  "NewTests": 40,
+  "AllowedOldModified": [
+    ".gitattributes",
+    "docs/progress.md",
+    "tools/KuaiYi.SettingsStoreFixture/Program.cs"
+  ],
+  "Prefix": "2026-10-17-install-transaction-originals__",
+  "Index": "2026-10-17-install-transaction-core.json",
+  "Targets": {
+    "r05-install-final": "tests/KuaiYi.Core.Tests/bin/Release/net10.0/",
+    "r06-core-full": "tests/KuaiYi.Core.Tests/bin/Release/net10.0/",
+    "r08-driver-binding": "tests/KuaiYi.Core.Tests/bin/Release/net10.0/",
+    "r09-app-build": "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/",
+    "r10-worker-build": "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/"
+  },
+  "SourceReview": "Independent read-only high_water_review noP1/P2 after actual seven-shape/one-directory red-green; source-review.txt",
+  "Notes": [
+    "Existing SettingsStore.WriteFlushed/RejectLink reused, NativeHost role/integrity readers unchanged; no trust receipt issuer/securityIPC change.",
+    "Caller-pinned catalog SHA plus strict bounded exact tree/path/length/hash; complete immutable generation followed by atomic current.json Replace/Move. ReadActive consumes verified pointer, existingApp/OS registrations not wired.",
+    "Post-publication failure restores verified prior record or explicitly reports rollback unconfirmed; corruptactive recovery uses only verified prior; unknownowner/lock/current metadata preserved. No unknown/version-directory deletions.",
+    "Userdata is separate and never read/migrated/decrypted by core; real SecretFileStore tests use explicit synthetic AES, not WindowsDPAPI/ACL.",
+    "Required rolesStopped is caller contract only, no actual Windows stop/lease adapter. Temporary payloads are synthetic text, not launched.",
+    "r01 new expected-exception error27P1F is not productred. r02/r03 candidate7F+1F ->r04eightP, method bytes unchanged through final40.",
+    "Greenownedchildren drain actualstdout/stderr/exit with recordedexit73/driverSHA; arbitraryearlyfailure finallyIOsettlement notcomprehensivelyproven.",
+    "Atomic pointer/owned process interruption is not power-loss/directory-fsync or OSregistration atomicity; hashes are not signature/publishertrust or actualbootability.",
+    "Retainedold/failed trees have no automaticGC/cumulative bound; ancestor link checks do not establish atomic same-user adversarialrename ownership. WriteFlushed only removes newly-created partial file on failure."
+  ],
+  "AdditionalValidation": {
+    "ProviderNameComparison": {
+      "parent": 2325,
+      "final": 2325,
+      "exactNamesUnchanged": true
+    },
+    "Builds": {
+      "r09-app-build": {
+        "warnings": 0,
+        "errors": 0,
+        "exit": 0
+      },
+      "r10-worker-build": {
+        "warnings": 0,
+        "errors": 0,
+        "exit": 0
+      }
+    },
+    "RedGreen": {
+      "redShape": "r02 7F",
+      "redDistinctCaseDirectory": "r03 1F",
+      "green": "r04 8P",
+      "exactEightCaseNameMultiset": true,
+      "testMethodsUnchangedThroughFinal40": true,
+      "methodSha256": {
+        "MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion": "21b0b852d5e20bdedeac0c03dd6ee9e342fb8d768355aece9ec479d520e0eefe",
+        "ASeparateCaseAliasedDirectoryIsNotSilentlyDroppedFromThePackage": "0390e647025e48ffc097abe4407e75a7a6166c105b14d1a1cc9894154823ef37"
+      },
+      "scope": "New candidate defects discovered in read-only review; not historical Windows/image/idle root claims."
+    },
+    "ExecutedChildDriver": {
+      "r05-install-final": {
+        "driverDllSha256": "598276b41f46e05794c3e3b271a5452775ba06053d554da7302a5301d0708598",
+        "programPreExecutionSourceCaptured": false,
+        "checkpointOutput": [
+          "PUBLIC_INSTALL_CHILD stage=VersionPublished exit=73 driverSha256=598276B41F46E05794C3E3B271A5452775BA06053D554DA7302A5301D0708598 stdout=PUBLIC_INSTALL_STAGE=VersionPublished stderrBytes=0",
+          "PUBLIC_INSTALL_CHILD stage=PointerPublished exit=73 driverSha256=598276B41F46E05794C3E3B271A5452775BA06053D554DA7302A5301D0708598 stdout=PUBLIC_INSTALL_STAGE=PointerPublished stderrBytes=0",
+          "PUBLIC_INSTALL_CHILD stage=BeforePointerPublish exit=73 driverSha256=598276B41F46E05794C3E3B271A5452775BA06053D554DA7302A5301D0708598 stdout=PUBLIC_INSTALL_STAGE=BeforePointerPublish stderrBytes=0"
+        ]
+      },
+      "r06-core-full": {
+        "driverDllSha256": "598276b41f46e05794c3e3b271a5452775ba06053d554da7302a5301d0708598",
+        "programPreExecutionSourceCaptured": false,
+        "checkpointOutput": [
+          "PUBLIC_INSTALL_CHILD stage=BeforePointerPublish exit=73 driverSha256=598276B41F46E05794C3E3B271A5452775BA06053D554DA7302A5301D0708598 stdout=PUBLIC_INSTALL_STAGE=BeforePointerPublish stderrBytes=0",
+          "PUBLIC_INSTALL_CHILD stage=VersionPublished exit=73 driverSha256=598276B41F46E05794C3E3B271A5452775BA06053D554DA7302A5301D0708598 stdout=PUBLIC_INSTALL_STAGE=VersionPublished stderrBytes=0",
+          "PUBLIC_INSTALL_CHILD stage=PointerPublished exit=73 driverSha256=598276B41F46E05794C3E3B271A5452775BA06053D554DA7302A5301D0708598 stdout=PUBLIC_INSTALL_STAGE=PointerPublished stderrBytes=0"
+        ],
+        "childCoreSha256": "83b72b3fc72c5453f101f3303a152505b7eddaff8533f46bd62a2013bd0f5d87",
+        "childAndTestCoreMatch": true
+      },
+      "r08-driver-binding": {
+        "driverDllSha256": "598276b41f46e05794c3e3b271a5452775ba06053d554da7302a5301d0708598",
+        "programPreExecutionSourceCaptured": true,
+        "checkpointOutput": [
+          "PUBLIC_INSTALL_CHILD stage=PointerPublished exit=73 driverSha256=598276B41F46E05794C3E3B271A5452775BA06053D554DA7302A5301D0708598 stdout=PUBLIC_INSTALL_STAGE=PointerPublished stderrBytes=0",
+          "PUBLIC_INSTALL_CHILD stage=BeforePointerPublish exit=73 driverSha256=598276B41F46E05794C3E3B271A5452775BA06053D554DA7302A5301D0708598 stdout=PUBLIC_INSTALL_STAGE=BeforePointerPublish stderrBytes=0",
+          "PUBLIC_INSTALL_CHILD stage=VersionPublished exit=73 driverSha256=598276B41F46E05794C3E3B271A5452775BA06053D554DA7302A5301D0708598 stdout=PUBLIC_INSTALL_STAGE=VersionPublished stderrBytes=0"
+        ],
+        "childCoreSha256": "83b72b3fc72c5453f101f3303a152505b7eddaff8533f46bd62a2013bd0f5d87",
+        "childAndTestCoreMatch": true
+      }
+    },
+    "SourceBindingErratum": "r01-r04 had35 src/tests sources; r05-r07 had37 and omitted changedtools Program. Old records unchanged. r08-r10 explicitly freeze41 incl Program and fixture/Core/CoreTests project files; r08 finite3 owned-child executions bind current source and same driver DLL/Core closure as r05/r06. Not all six final executions had41prebound sources."
+  },
+  "Boundaries": [
+    "WholeP7 Windows installer/identity/NativeHost registration/startup/real upgrade-uninstall/K-group remain unimplemented/NotRun; trace whole statuses not promoted.",
+    "Historical idle/image/Core/WindowsJob causes independentlyUnknown; no screenshot expansion/tests in this slice.",
+    "ExistingSDK10.0.401 --no-restore, certificate disabled before/after activation; no new package/license/Skia/403/Actions denial query/bypass.",
+    "No main/force/deploy/cost/realmodel/credentials/signing/securitypermissions/environment changes; unknownprocess/lock/file/data/log preserved."
+  ]
+}

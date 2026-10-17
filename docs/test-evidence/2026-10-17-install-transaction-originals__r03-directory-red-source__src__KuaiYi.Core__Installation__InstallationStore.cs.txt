@@ -1,0 +1,104 @@
+using System.Text;
+using System.Text.Json;
+using KuaiYi.Core.Settings;
+namespace KuaiYi.Core.Installation;
+
+public sealed record InstalledVersion(string Version,string DirectoryPath,string CatalogSha256);
+public sealed class InstallationBusyException():IOException("Product roles are not confirmed stopped, or installation is busy.");
+public sealed class InstallationRecoveryException(string message):IOException(message);
+public sealed class InstallationRollbackException(Exception operation,Exception rollback):IOException("Installation failed and rollback is unconfirmed; all versions retained.",new AggregateException(operation,rollback));
+internal enum InstallationStage { PackageVerified,VersionPublished,BeforePointerPublish,PointerPublished,RollbackPublished }
+/// <summary>File transaction only. The future installer must keep product roles stopped throughout; this library never registers,
+/// signs, starts, stops or deletes applications. ReadActive consumes the atomic version record, not a Windows launch registration.</summary>
+public sealed class InstallationStore
+{
+    private sealed record Reference(string Id,string CatalogSha256);
+    private sealed record Pointer(Reference Active,Reference? Previous);
+    private const string Owner="KuaiYi installation file store v1\n";
+    private readonly string directory,userData;private readonly Func<bool> rolesStopped;
+    internal Action<InstallationStage>? StageForTest {get;init;}
+    public InstallationStore(string directory,string userDataDirectory,Func<bool> rolesStopped)
+    {
+        this.directory=InstallationPaths.Root(directory);userData=InstallationPaths.Root(userDataDirectory);this.rolesStopped=rolesStopped??throw new ArgumentNullException(nameof(rolesStopped));
+        if(InstallationPaths.Contains(this.directory,userData)||InstallationPaths.Contains(userData,this.directory))throw new InvalidDataException("Application files and user data must be separate.");
+    }
+    public Task<InstalledVersion> ApplyAsync(string packageDirectory,string expectedCatalogSha256,CancellationToken cancellation=default)=>Task.Run(()=>Apply(packageDirectory,expectedCatalogSha256,cancellation),cancellation);
+    private InstalledVersion Apply(string packageDirectory,string expectedCatalogSha256,CancellationToken cancellation)
+    {
+        string source=InstallationPaths.Root(packageDirectory);if(InstallationPaths.Contains(directory,source)||InstallationPaths.Contains(source,directory)||InstallationPaths.Contains(userData,source)||InstallationPaths.Contains(source,userData))throw new InvalidDataException("Package source must be separate.");
+        if(!InstallationPackage.HashValid(expectedCatalogSha256))throw new InvalidDataException("Expected package catalog digest required.");
+        RequireStopped();var package=InstallationPackage.Read(source,cancellation);if(!string.Equals(package.CatalogSha256,expectedCatalogSha256,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Package catalog digest mismatch.");StageForTest?.Invoke(InstallationStage.PackageVerified);cancellation.ThrowIfCancellationRequested();RequireStopped();
+        using var lease=Lock();byte[]? before=PointerBytes();Pointer? prior=before==null?null:Parse(before);if(prior!=null)_=Verify(prior.Active,cancellation);
+        string id=Guid.NewGuid().ToString("N"),staging=Path.Combine(directory,"staging-"+id),versions=Path.Combine(directory,"versions"),destination=Path.Combine(versions,id);
+        if(Directory.Exists(staging)||File.Exists(staging)||Directory.Exists(destination)||File.Exists(destination))throw new InstallationRecoveryException("Unexpected version path retained.");
+        Directory.CreateDirectory(staging);package.CopyTo(source,staging,cancellation);Directory.CreateDirectory(versions);InstallationPaths.Check(versions);Directory.Move(staging,destination);StageForTest?.Invoke(InstallationStage.VersionPublished);
+        var reference=new Reference(id,package.CatalogSha256);var next=new Pointer(reference,prior?.Active);byte[] nextBytes=Encode(next);bool published=false;
+        try
+        {
+            StageForTest?.Invoke(InstallationStage.BeforePointerPublish);_=Verify(reference,cancellation);RequireStopped();cancellation.ThrowIfCancellationRequested();Publish(nextBytes,before);published=true;StageForTest?.Invoke(InstallationStage.PointerPublished);
+            // The atomic publication is the commit point. A later token cancellation alone cannot report an uncommitted update.
+            RequirePointer(nextBytes);return Verify(reference,CancellationToken.None);
+        }
+        catch(Exception operation)
+        {
+            if(!published)throw;
+            try
+            {
+                RequireStopped();if(prior!=null)_=Verify(prior.Active,CancellationToken.None);
+                if(before!=null)Publish(before,nextBytes);
+                else{RequirePointer(nextBytes);File.Move(CurrentPath,Path.Combine(directory,"failed-current-"+Guid.NewGuid().ToString("N")+".json"));}
+                StageForTest?.Invoke(InstallationStage.RollbackPublished);
+            }
+            catch(Exception rollback){throw new InstallationRollbackException(operation,rollback);}
+            throw;
+        }
+    }
+    public InstalledVersion? ReadActive(CancellationToken cancellation=default)
+    {if(!Directory.Exists(directory))return null;RequireOwned();byte[]? bytes=PointerBytes();return bytes==null?null:Verify(Parse(bytes).Active,cancellation);}
+    public Task<InstalledVersion?> RecoverAsync(CancellationToken cancellation=default)=>Task.Run<InstalledVersion?>(()=>
+    {
+        RequireStopped();using var lease=Lock();byte[]? bytes=PointerBytes();if(bytes==null)return null;var pointer=Parse(bytes);
+        try{return Verify(pointer.Active,cancellation);}
+        catch(Exception error)when(error is IOException or InvalidDataException or JsonException)
+        {
+            cancellation.ThrowIfCancellationRequested();if(pointer.Previous==null)throw new InstallationRecoveryException("No verified previous version; files retained.");var previous=Verify(pointer.Previous,cancellation);RequireStopped();cancellation.ThrowIfCancellationRequested();Publish(Encode(new(pointer.Previous,null)),bytes);return previous;
+        }
+    },cancellation);
+    private InstalledVersion Verify(Reference reference,CancellationToken cancellation)
+    {
+        string root=Path.Combine(directory,"versions",reference.Id);var package=InstallationPackage.Read(root,cancellation);if(!string.Equals(package.CatalogSha256,reference.CatalogSha256,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Version catalog hash mismatch.");return new(package.Manifest.Version,root,package.CatalogSha256);
+    }
+    private string CurrentPath=>Path.Combine(directory,"current.json");
+    private byte[]? PointerBytes(){InstallationPaths.Check(CurrentPath);if(Directory.Exists(CurrentPath))throw new InstallationRecoveryException("Version record is a directory.");return File.Exists(CurrentPath)?InstallationPackage.ReadDocument(CurrentPath,4096):null;}
+    private void RequirePointer(byte[]? expected)
+    {var actual=PointerBytes();if(expected==null?actual!=null:actual==null||!expected.AsSpan().SequenceEqual(actual))throw new InstallationRecoveryException("Version record changed; retained without overwrite.");}
+    private void Publish(byte[] bytes,byte[]? expected)
+    {
+        RequireOwned();RequirePointer(expected);string temporary=Path.Combine(directory,"current-"+Guid.NewGuid().ToString("N")+".tmp");SettingsStore.WriteFlushed(temporary,bytes);InstallationPaths.Check(directory);RequirePointer(expected);
+        if(expected==null)File.Move(temporary,CurrentPath);else File.Replace(temporary,CurrentPath,null,false);
+    }
+    private FileStream Lock()
+    {
+        InstallationPaths.Check(directory);Directory.CreateDirectory(directory);string marker=Path.Combine(directory,"owner.txt");
+        if(!File.Exists(marker))
+        {
+            if(Directory.EnumerateFileSystemEntries(directory).Any())throw new InstallationRecoveryException("Unknown installation directory retained.");SettingsStore.WriteFlushed(marker,Encoding.UTF8.GetBytes(Owner));
+        }
+        RequireOwned();string path=Path.Combine(directory,"installation.lock");InstallationPaths.Check(path);FileStream lease;
+        try{lease=new(path,FileMode.OpenOrCreate,FileAccess.ReadWrite,FileShare.None);}catch(IOException){throw new InstallationBusyException();}
+        if(lease.Length!=0){lease.Dispose();throw new InstallationRecoveryException("Unknown lock bytes retained.");}return lease;
+    }
+    private void RequireOwned()
+    {InstallationPaths.Check(directory);string marker=Path.Combine(directory,"owner.txt");if(!File.Exists(marker)||!InstallationPackage.ReadDocument(marker,128).AsSpan().SequenceEqual(Encoding.UTF8.GetBytes(Owner)))throw new InstallationRecoveryException("Unknown installation owner retained.");}
+    private void RequireStopped(){if(!rolesStopped())throw new InstallationBusyException();}
+    private static byte[] Encode(Pointer pointer)=>JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=1,active=Write(pointer.Active),previous=pointer.Previous==null?null:Write(pointer.Previous)});
+    private static object Write(Reference reference)=>new{id=reference.Id,catalogSha256=reference.CatalogSha256};
+    private static Pointer Parse(byte[] bytes)
+    {
+        using var document=JsonDocument.Parse(bytes,new(){MaxDepth=4});var root=document.RootElement;InstallationPackage.Fields(root,"schemaVersion","active","previous");if(root.GetProperty("schemaVersion").GetInt32()!=1)throw new InstallationRecoveryException("Unsupported installation record retained.");return new(Read(root.GetProperty("active")),root.GetProperty("previous").ValueKind==JsonValueKind.Null?null:Read(root.GetProperty("previous")));
+    }
+    private static Reference Read(JsonElement item)
+    {
+        InstallationPackage.Fields(item,"id","catalogSha256");string id=item.GetProperty("id").GetString()??"",hash=item.GetProperty("catalogSha256").GetString()??"";if(!Guid.TryParseExact(id,"N",out _)||!InstallationPackage.HashValid(hash))throw new InstallationRecoveryException("Invalid installation reference retained.");return new(id,hash);
+    }
+}

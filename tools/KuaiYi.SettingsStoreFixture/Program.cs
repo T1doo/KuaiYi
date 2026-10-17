@@ -2,6 +2,12 @@ using System.Security.Cryptography;
 using System.Collections.Immutable;
 using KuaiYi.Core.Settings;
 // Public synthetic portable crash driver; never referenced by production App.
+if(args.Length==4&&args[0]=="--installation-checkpoint"&&Path.GetFileName(args[1]).StartsWith("kuaiyi-install-tests-",StringComparison.Ordinal)&&Enum.TryParse<KuaiYi.Core.Installation.InstallationStage>(args[3],out var installStage))
+{
+    var installation=new KuaiYi.Core.Installation.InstallationStore(Path.Combine(args[1],"application"),Path.Combine(args[1],"user-data"),()=>true)
+    {StageForTest=stage=>{if(stage==installStage){Console.WriteLine("PUBLIC_INSTALL_STAGE="+stage);Console.Out.Flush();Environment.Exit(73);}}};
+    await installation.ApplyAsync(args[2],Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(Path.Combine(args[2],"package.json")))));return 0;
+}
 if(args.Length==3&&args[0]=="--instance"&&int.TryParse(args[2],out int session))
 {
     using var instance=new KuaiYi.Core.SessionSingleInstance(args[1],session);Console.WriteLine(instance.IsOwner?"OWNER":"SECONDARY");Console.Out.Flush();

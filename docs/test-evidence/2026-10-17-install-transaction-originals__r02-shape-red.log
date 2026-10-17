@@ -1,0 +1,147 @@
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.SelectionReuseDiagnostic -> /workspace/KuaiYi/tools/KuaiYi.SelectionReuseDiagnostic/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.64]     KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: "path-number") [FAIL]
+[xUnit.net 00:00:00.66]     KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: "bytes-overflow") [FAIL]
+[xUnit.net 00:00:00.66]     KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: "version-number") [FAIL]
+[xUnit.net 00:00:00.66]     KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: "schema-overflow") [FAIL]
+[xUnit.net 00:00:00.67]     KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: "schema-string") [FAIL]
+[xUnit.net 00:00:00.68]     KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: "hash-number") [FAIL]
+[xUnit.net 00:00:00.68]     KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: "bytes-string") [FAIL]
+  Failed KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: "path-number") [157 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'String', but the target element has type 'Number'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.GetString(Int32 index, JsonTokenType expectedType)
+   at KuaiYi.Core.Installation.InstallationPackage.Read(String directory, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationPackage.cs:line 23
+   at KuaiYi.Core.Installation.InstallationStore.Verify(Reference reference, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationStore.cs:line 69
+   at KuaiYi.Core.Installation.InstallationStore.<>c__DisplayClass14_0.<RecoverAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationStore.cs:line 61
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationTransactionTests.cs:line 88
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: "bytes-overflow") [13 ms]
+  Error Message:
+   System.FormatException : One of the identified items was in an invalid format.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowFormatException()
+   at System.Text.Json.JsonElement.GetInt64()
+   at KuaiYi.Core.Installation.InstallationPackage.Read(String directory, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationPackage.cs:line 23
+   at KuaiYi.Core.Installation.InstallationStore.Verify(Reference reference, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationStore.cs:line 69
+   at KuaiYi.Core.Installation.InstallationStore.<>c__DisplayClass14_0.<RecoverAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationStore.cs:line 61
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationTransactionTests.cs:line 88
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: "version-number") [4 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'String', but the target element has type 'Number'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.GetString(Int32 index, JsonTokenType expectedType)
+   at KuaiYi.Core.Installation.InstallationPackage.Read(String directory, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationPackage.cs:line 18
+   at KuaiYi.Core.Installation.InstallationStore.Verify(Reference reference, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationStore.cs:line 69
+   at KuaiYi.Core.Installation.InstallationStore.<>c__DisplayClass14_0.<RecoverAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationStore.cs:line 61
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationTransactionTests.cs:line 88
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: "schema-overflow") [6 ms]
+  Error Message:
+   System.FormatException : One of the identified items was in an invalid format.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowFormatException()
+   at System.Text.Json.JsonElement.GetInt32()
+   at KuaiYi.Core.Installation.InstallationPackage.Read(String directory, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationPackage.cs:line 18
+   at KuaiYi.Core.Installation.InstallationStore.Verify(Reference reference, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationStore.cs:line 69
+   at KuaiYi.Core.Installation.InstallationStore.<>c__DisplayClass14_0.<RecoverAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationStore.cs:line 61
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationTransactionTests.cs:line 88
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: "schema-string") [10 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'String'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int32& value)
+   at System.Text.Json.JsonElement.GetInt32()
+   at KuaiYi.Core.Installation.InstallationPackage.Read(String directory, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationPackage.cs:line 18
+   at KuaiYi.Core.Installation.InstallationStore.Verify(Reference reference, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationStore.cs:line 69
+   at KuaiYi.Core.Installation.InstallationStore.<>c__DisplayClass14_0.<RecoverAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationStore.cs:line 61
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationTransactionTests.cs:line 88
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: "hash-number") [4 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'String', but the target element has type 'Number'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.GetString(Int32 index, JsonTokenType expectedType)
+   at KuaiYi.Core.Installation.InstallationPackage.Read(String directory, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationPackage.cs:line 23
+   at KuaiYi.Core.Installation.InstallationStore.Verify(Reference reference, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationStore.cs:line 69
+   at KuaiYi.Core.Installation.InstallationStore.<>c__DisplayClass14_0.<RecoverAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationStore.cs:line 61
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationTransactionTests.cs:line 88
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: "bytes-string") [4 ms]
+  Error Message:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'String'.
+  Stack Trace:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Int64& value)
+   at System.Text.Json.JsonElement.GetInt64()
+   at KuaiYi.Core.Installation.InstallationPackage.Read(String directory, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationPackage.cs:line 23
+   at KuaiYi.Core.Installation.InstallationStore.Verify(Reference reference, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationStore.cs:line 69
+   at KuaiYi.Core.Installation.InstallationStore.<>c__DisplayClass14_0.<RecoverAsync>b__0() in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationStore.cs:line 61
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(String fault) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationTransactionTests.cs:line 88
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red.trx
+
+Failed!  - Failed:     7, Passed:     0, Skipped:     0, Total:     7, Duration: 221 ms - KuaiYi.Core.Tests.dll (net10.0)

@@ -1,0 +1,2504 @@
+{
+  "SourceParent": "1341b12248d972f197ed4c57032a9137fb890d57",
+  "Branch": "dev/install-transaction-core",
+  "Scope": "P7-04/05 file transaction core only. No installer delivery, OS registration/signing/deployment/live process stop/uninstall.",
+  "FrozenSource": {
+    "src/KuaiYi.App/HotkeyScreenshot.cs": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+    "src/KuaiYi.App/OcrOnlyFlow.cs": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+    "src/KuaiYi.App/OverlayClearContent.cs": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+    "src/KuaiYi.App/OverlayFailureNotice.cs": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+    "src/KuaiYi.App/OverlayImageSource.cs": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+    "src/KuaiYi.App/OverlayLinkFlow.cs": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+    "src/KuaiYi.App/OverlayMarkdown.cs": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+    "src/KuaiYi.App/OverlayPresentation.cs": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+    "src/KuaiYi.App/OverlayPrivacyFlow.cs": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+    "src/KuaiYi.App/OverlayResultFlow.cs": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+    "src/KuaiYi.App/OverlayResultLabel.cs": "de1c865a146e7f81ac32ec65861d11066869cdd3a2219eeee908dbde03b277e4",
+    "src/KuaiYi.App/OverlayScreenshotTranslation.cs": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+    "src/KuaiYi.App/ProductionScreenshotCoordinator.cs": "33ca4ac031915b4d2c1669c67dd52f06271390931834f33691dcfc925fcf051f",
+    "src/KuaiYi.App/ScreenshotCaptureCommands.cs": "e272cf24639496ac8697f854ffbedecdd99772dea0ffc0ddd82869e0d8e690ab",
+    "src/KuaiYi.App/ScreenshotRecoveryMenu.cs": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+    "src/KuaiYi.App/ScreenshotSendCommands.cs": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+    "src/KuaiYi.App/ScreenshotTranslationFlow.cs": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+    "src/KuaiYi.App/ShellWindow.cs": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+    "src/KuaiYi.App/TranslationFlow.cs": "a1288ee73c8142a879e3788232ffd6e96150b793e33505ebf771e106f727a321",
+    "src/KuaiYi.Core/Installation/InstallationPackage.cs": "a499948d2bf92ee50d571bcf151caf5259897ecf30e38aebc681f8c5e6dd99ba",
+    "src/KuaiYi.Core/Installation/InstallationStore.cs": "67c44fb26ff05d2e7360f43d001d59283b61eaa36e66e48e8c7db9a27c5c9ab7",
+    "src/KuaiYi.Core/Settings/SecretFileStore.cs": "3e7089d4f4694af38b9994d065a1276607a4f946ebe115f9ab83c895f7f2fd61",
+    "src/KuaiYi.Core/Settings/SettingsStore.cs": "24d46ef6b51a4245024779039f8a0642757be9d708b3b5d08fc0f01b8f21cf1d",
+    "src/KuaiYi.Providers/ProviderContracts.cs": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+    "src/KuaiYi.Providers/ProviderEventReceiver.cs": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+    "src/KuaiYi.Providers/ProviderRequestBudget.cs": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+    "tests/KuaiYi.Core.Tests/InstallationTransactionTests.cs": "0ced7b53f625e4ad6cb93e5fa8379839ac4024c59109a3f1cb58a65bd5ffc3ba",
+    "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj": "141d01220ff94b2690f1cf5542d46b63a285dd11607988d7f297fb9fca3492d1",
+    "tests/KuaiYi.Provider.Tests/OverlayClearPorts.cs": "8965a95cc3bd9aaab981bcc7a4a188fc26fdaeb72ea8b4e2c9f5a61c8fe44038",
+    "tests/KuaiYi.Provider.Tests/PhaseClock.cs": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+    "tests/KuaiYi.Provider.Tests/PhaseHttpFixture.cs": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotSecretStoreTests.cs": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotShellPorts.cs": "ebb8bf9392895afab0c8041d15a3e098bdd770b550eb422b49d03e4f8352f7df",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotShellTests.cs": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotTranslationTests.cs": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+    "tests/KuaiYi.Provider.Tests/ScreenshotCapturePorts.cs": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+    "tests/KuaiYi.Provider.Tests/ScreenshotRecaptureRecoveryTests.cs": "8ba7be5b0c21d5e3c6ceb820a128f1312138af3b69965b21381aec5738c19158",
+    "src/KuaiYi.Core/KuaiYi.Core.csproj": "ed7c0f20902846adddafbfc178137e3a0dd399bba0a8c656195f76855d2233bb",
+    "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj": "d7bd48f5a28b4edd4b1fa24fdc0ffc4a887916c1c737d90e30fe6f854c71305e",
+    "tools/KuaiYi.SettingsStoreFixture/KuaiYi.SettingsStoreFixture.csproj": "473266c653dafba8d1f323e2ce7d2c8addb0a8a64234f41a3a7137c4e86eaee4",
+    "tools/KuaiYi.SettingsStoreFixture/Program.cs": "88435a8cbba72215093a707f6db3442f09278dd9510800ab250f12900d43e4ea"
+  },
+  "FinalSourceBindings": 234,
+  "SourceCountsByRun": {
+    "r05-install-final": 37,
+    "r06-core-full": 37,
+    "r07-provider-full": 37,
+    "r08-driver-binding": 41,
+    "r09-app-build": 41,
+    "r10-worker-build": 41
+  },
+  "Runs": {
+    "r05-install-final": {
+      "counters": {
+        "total": "40",
+        "executed": "40",
+        "passed": "40",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trx": "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final.trx"
+    },
+    "r06-core-full": {
+      "counters": {
+        "total": "1743",
+        "executed": "1743",
+        "passed": "1743",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trx": "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full.trx"
+    },
+    "r07-provider-full": {
+      "counters": {
+        "total": "2325",
+        "executed": "2325",
+        "passed": "2325",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trx": "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full.trx"
+    },
+    "r08-driver-binding": {
+      "counters": {
+        "total": "3",
+        "executed": "3",
+        "passed": "3",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trx": "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding.trx"
+    },
+    "r09-app-build": {
+      "exit": 0,
+      "log": "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build.log"
+    },
+    "r10-worker-build": {
+      "exit": 0,
+      "log": "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build.log"
+    }
+  },
+  "RelevantTargetDlls": {
+    "r05-install-final": {
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "c144ff260139448e7136734d9204f0e8fecea76bc1e220fc42cfdd73e6e315dd",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "83b72b3fc72c5453f101f3303a152505b7eddaff8533f46bd62a2013bd0f5d87",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "193611b8f83a711e6316dfe34d56ad8750ce2a5883b36a5c77dc8c1f59ae9cca",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll": "b3b395c8c193976483b4eaa0df2b686a99e820f6d0646f1a0a863d5dcd80d0ed",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "0e794b6e3ce23b9a8318f49d86b2c2d17b83e975835e8c615fcf2bd48354b25e"
+    },
+    "r06-core-full": {
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "c144ff260139448e7136734d9204f0e8fecea76bc1e220fc42cfdd73e6e315dd",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "83b72b3fc72c5453f101f3303a152505b7eddaff8533f46bd62a2013bd0f5d87",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "193611b8f83a711e6316dfe34d56ad8750ce2a5883b36a5c77dc8c1f59ae9cca",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll": "b3b395c8c193976483b4eaa0df2b686a99e820f6d0646f1a0a863d5dcd80d0ed",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "0e794b6e3ce23b9a8318f49d86b2c2d17b83e975835e8c615fcf2bd48354b25e"
+    },
+    "r07-provider-full": {
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "83b72b3fc72c5453f101f3303a152505b7eddaff8533f46bd62a2013bd0f5d87",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.ImageWorker.dll": "a64cfa2b78f39a9ec38c9f7bc993fbdb0ab5ce8159b35232bbd0914508caee4c",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "193611b8f83a711e6316dfe34d56ad8750ce2a5883b36a5c77dc8c1f59ae9cca",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": "f915f484b0bb9bfe7395916db9a290640e410b20c25b604db0ff6e8bc24a0b0d",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": "62f21342bf14dc84964ce63a23eb4ecdcd810ddac5955d8befdb998778eb491b"
+    },
+    "r08-driver-binding": {
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "c144ff260139448e7136734d9204f0e8fecea76bc1e220fc42cfdd73e6e315dd",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "83b72b3fc72c5453f101f3303a152505b7eddaff8533f46bd62a2013bd0f5d87",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "193611b8f83a711e6316dfe34d56ad8750ce2a5883b36a5c77dc8c1f59ae9cca",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll": "b3b395c8c193976483b4eaa0df2b686a99e820f6d0646f1a0a863d5dcd80d0ed",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "0e794b6e3ce23b9a8318f49d86b2c2d17b83e975835e8c615fcf2bd48354b25e"
+    },
+    "r09-app-build": {
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.App.dll": "98ffaf2b275fa2de29ce1f73a4a506a7c40bc1d8c23f7416a50468a11381790f",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Core.dll": "83b72b3fc72c5453f101f3303a152505b7eddaff8533f46bd62a2013bd0f5d87",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Imaging.dll": "193611b8f83a711e6316dfe34d56ad8750ce2a5883b36a5c77dc8c1f59ae9cca",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.NativeHost.dll": "b3b395c8c193976483b4eaa0df2b686a99e820f6d0646f1a0a863d5dcd80d0ed",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Providers.dll": "62f21342bf14dc84964ce63a23eb4ecdcd810ddac5955d8befdb998778eb491b"
+    },
+    "r10-worker-build": {
+      "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Core.dll": "83b72b3fc72c5453f101f3303a152505b7eddaff8533f46bd62a2013bd0f5d87",
+      "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll": "a64cfa2b78f39a9ec38c9f7bc993fbdb0ab5ce8159b35232bbd0914508caee4c",
+      "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Imaging.dll": "193611b8f83a711e6316dfe34d56ad8750ce2a5883b36a5c77dc8c1f59ae9cca"
+    }
+  },
+  "DllScopeNote": "Other pre-existing selected DLLs are observations only; only the command target closure executed/built.",
+  "NameComparison": {
+    "parent": 1703,
+    "final": 1743,
+    "new": {
+      "KuaiYi.Core.Tests.InstallationTransactionTests.ActualIoFailureBeforeOrAfterPublicationKeepsTheCompletePreviousVersion(stage: PackageVerified)": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: \"digest\")": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.CorruptActiveVersionRecoversTheVerifiedPreviousTreeAndRetainsUnknownBytes": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: \"schema-overflow\")": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.ActualOwnedProcessExitLeavesExactlyTheOldOrNewCompleteVersion(stage: BeforePointerPublish)": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.UncertainRecoveryRetainsAllFilesAndNeverReportsSuccess(fault: \"pointer\")": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.QuiescenceIsRequiredAndCancellationAfterCommitDoesNotInventRollback(afterCommit: False)": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: \"absolute\")": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.RealPackageTreesSwitchTogetherAndEncryptedUserDataStaysInItsOriginalDirectory": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: \"bytes-string\")": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.InitialPublicationFailureRestoresTheUninstalledStateWithoutDeletingAnyVersion": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.RollbackFailureIsUnconfirmedAndRetainsBothCompleteVersionTrees": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: \"missing\")": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: \"case\")": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: \"duplicate-field\")": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: \"unknown-field\")": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.UnknownRootLockPointerAndUserDataOverlapAreNotOverwritten": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.RevokedQuiescenceBeforeCommitCannotChangeTheCurrentVersion": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.CallerPinnedCatalogDigestCannotBeReplacedAlongWithPayloadHashes": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: \"schema-string\")": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.ReadersObserveOnlyCompleteOldOrNewGenerationsAcrossTheAtomicRecordSwitch": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.ActualIoFailureBeforeOrAfterPublicationKeepsTheCompletePreviousVersion(stage: BeforePointerPublish)": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.ActualOwnedProcessExitLeavesExactlyTheOldOrNewCompleteVersion(stage: VersionPublished)": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: \"traversal\")": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.AnActualExclusiveFileLeaseBlocksTheCompetingWriter": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.ActualIoFailureBeforeOrAfterPublicationKeepsTheCompletePreviousVersion(stage: PointerPublished)": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: \"reserved\")": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.UncertainRecoveryRetainsAllFilesAndNeverReportsSuccess(fault: \"previous\")": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: \"bytes-overflow\")": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.ActualOwnedProcessExitLeavesExactlyTheOldOrNewCompleteVersion(stage: PointerPublished)": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: \"oversize\")": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.UncertainRecoveryRetainsAllFilesAndNeverReportsSuccess(fault: \"lock\")": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.QuiescenceIsRequiredAndCancellationAfterCommitDoesNotInventRollback(afterCommit: True)": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: \"hash-number\")": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.ActualIoFailureBeforeOrAfterPublicationKeepsTheCompletePreviousVersion(stage: VersionPublished)": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: \"path-number\")": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: \"version-number\")": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: \"schema\")": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: \"extra\")": 1,
+      "KuaiYi.Core.Tests.InstallationTransactionTests.ASeparateCaseAliasedDirectoryIsNotSilentlyDroppedFromThePackage": 1
+    },
+    "exactParentPlusNew": true
+  },
+  "Preservation": {
+    "parentTracked": 5331,
+    "allowedOldModified": [
+      ".gitattributes",
+      "docs/progress.md",
+      "tools/KuaiYi.SettingsStoreFixture/Program.cs"
+    ],
+    "allOtherParentSameBytes": 5328,
+    "noDeletes": true
+  },
+  "Review": {
+    "Source": "Independent read-only high_water_review noP1/P2 after actual seven-shape/one-directory red-green; source-review.txt",
+    "Packet": "Passed independent read-only high_water_review noP1/P2;432raw/440paths reviewed,receipt-only433raw/441paths."
+  },
+  "Notes": [
+    "Existing SettingsStore.WriteFlushed/RejectLink reused, NativeHost role/integrity readers unchanged; no trust receipt issuer/securityIPC change.",
+    "Caller-pinned catalog SHA plus strict bounded exact tree/path/length/hash; complete immutable generation followed by atomic current.json Replace/Move. ReadActive consumes verified pointer, existingApp/OS registrations not wired.",
+    "Post-publication failure restores verified prior record or explicitly reports rollback unconfirmed; corruptactive recovery uses only verified prior; unknownowner/lock/current metadata preserved. No unknown/version-directory deletions.",
+    "Userdata is separate and never read/migrated/decrypted by core; real SecretFileStore tests use explicit synthetic AES, not WindowsDPAPI/ACL.",
+    "Required rolesStopped is caller contract only, no actual Windows stop/lease adapter. Temporary payloads are synthetic text, not launched.",
+    "r01 new expected-exception error27P1F is not productred. r02/r03 candidate7F+1F ->r04eightP, method bytes unchanged through final40.",
+    "Greenownedchildren drain actualstdout/stderr/exit with recordedexit73/driverSHA; arbitraryearlyfailure finallyIOsettlement notcomprehensivelyproven.",
+    "Atomic pointer/owned process interruption is not power-loss/directory-fsync or OSregistration atomicity; hashes are not signature/publishertrust or actualbootability.",
+    "Retainedold/failed trees have no automaticGC/cumulative bound; ancestor link checks do not establish atomic same-user adversarialrename ownership. WriteFlushed only removes newly-created partial file on failure."
+  ],
+  "Boundaries": [
+    "WholeP7 Windows installer/identity/NativeHost registration/startup/real upgrade-uninstall/K-group remain unimplemented/NotRun; trace whole statuses not promoted.",
+    "Historical idle/image/Core/WindowsJob causes independentlyUnknown; no screenshot expansion/tests in this slice.",
+    "ExistingSDK10.0.401 --no-restore, certificate disabled before/after activation; no new package/license/Skia/403/Actions denial query/bypass.",
+    "No main/force/deploy/cost/realmodel/credentials/signing/securitypermissions/environment changes; unknownprocess/lock/file/data/log preserved."
+  ],
+  "ProviderNameComparison": {
+    "parent": 2325,
+    "final": 2325,
+    "exactNamesUnchanged": true
+  },
+  "Builds": {
+    "r09-app-build": {
+      "warnings": 0,
+      "errors": 0,
+      "exit": 0
+    },
+    "r10-worker-build": {
+      "warnings": 0,
+      "errors": 0,
+      "exit": 0
+    }
+  },
+  "RedGreen": {
+    "redShape": "r02 7F",
+    "redDistinctCaseDirectory": "r03 1F",
+    "green": "r04 8P",
+    "exactEightCaseNameMultiset": true,
+    "testMethodsUnchangedThroughFinal40": true,
+    "methodSha256": {
+      "MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion": "21b0b852d5e20bdedeac0c03dd6ee9e342fb8d768355aece9ec479d520e0eefe",
+      "ASeparateCaseAliasedDirectoryIsNotSilentlyDroppedFromThePackage": "0390e647025e48ffc097abe4407e75a7a6166c105b14d1a1cc9894154823ef37"
+    },
+    "scope": "New candidate defects discovered in read-only review; not historical Windows/image/idle root claims."
+  },
+  "ExecutedChildDriver": {
+    "r05-install-final": {
+      "driverDllSha256": "598276b41f46e05794c3e3b271a5452775ba06053d554da7302a5301d0708598",
+      "programPreExecutionSourceCaptured": false,
+      "checkpointOutput": [
+        "PUBLIC_INSTALL_CHILD stage=VersionPublished exit=73 driverSha256=598276B41F46E05794C3E3B271A5452775BA06053D554DA7302A5301D0708598 stdout=PUBLIC_INSTALL_STAGE=VersionPublished stderrBytes=0",
+        "PUBLIC_INSTALL_CHILD stage=PointerPublished exit=73 driverSha256=598276B41F46E05794C3E3B271A5452775BA06053D554DA7302A5301D0708598 stdout=PUBLIC_INSTALL_STAGE=PointerPublished stderrBytes=0",
+        "PUBLIC_INSTALL_CHILD stage=BeforePointerPublish exit=73 driverSha256=598276B41F46E05794C3E3B271A5452775BA06053D554DA7302A5301D0708598 stdout=PUBLIC_INSTALL_STAGE=BeforePointerPublish stderrBytes=0"
+      ]
+    },
+    "r06-core-full": {
+      "driverDllSha256": "598276b41f46e05794c3e3b271a5452775ba06053d554da7302a5301d0708598",
+      "programPreExecutionSourceCaptured": false,
+      "checkpointOutput": [
+        "PUBLIC_INSTALL_CHILD stage=BeforePointerPublish exit=73 driverSha256=598276B41F46E05794C3E3B271A5452775BA06053D554DA7302A5301D0708598 stdout=PUBLIC_INSTALL_STAGE=BeforePointerPublish stderrBytes=0",
+        "PUBLIC_INSTALL_CHILD stage=VersionPublished exit=73 driverSha256=598276B41F46E05794C3E3B271A5452775BA06053D554DA7302A5301D0708598 stdout=PUBLIC_INSTALL_STAGE=VersionPublished stderrBytes=0",
+        "PUBLIC_INSTALL_CHILD stage=PointerPublished exit=73 driverSha256=598276B41F46E05794C3E3B271A5452775BA06053D554DA7302A5301D0708598 stdout=PUBLIC_INSTALL_STAGE=PointerPublished stderrBytes=0"
+      ],
+      "childCoreSha256": "83b72b3fc72c5453f101f3303a152505b7eddaff8533f46bd62a2013bd0f5d87",
+      "childAndTestCoreMatch": true
+    },
+    "r08-driver-binding": {
+      "driverDllSha256": "598276b41f46e05794c3e3b271a5452775ba06053d554da7302a5301d0708598",
+      "programPreExecutionSourceCaptured": true,
+      "checkpointOutput": [
+        "PUBLIC_INSTALL_CHILD stage=PointerPublished exit=73 driverSha256=598276B41F46E05794C3E3B271A5452775BA06053D554DA7302A5301D0708598 stdout=PUBLIC_INSTALL_STAGE=PointerPublished stderrBytes=0",
+        "PUBLIC_INSTALL_CHILD stage=BeforePointerPublish exit=73 driverSha256=598276B41F46E05794C3E3B271A5452775BA06053D554DA7302A5301D0708598 stdout=PUBLIC_INSTALL_STAGE=BeforePointerPublish stderrBytes=0",
+        "PUBLIC_INSTALL_CHILD stage=VersionPublished exit=73 driverSha256=598276B41F46E05794C3E3B271A5452775BA06053D554DA7302A5301D0708598 stdout=PUBLIC_INSTALL_STAGE=VersionPublished stderrBytes=0"
+      ],
+      "childCoreSha256": "83b72b3fc72c5453f101f3303a152505b7eddaff8533f46bd62a2013bd0f5d87",
+      "childAndTestCoreMatch": true
+    }
+  },
+  "SourceBindingErratum": "r01-r04 had35 src/tests sources; r05-r07 had37 and omitted changedtools Program. Old records unchanged. r08-r10 explicitly freeze41 incl Program and fixture/Core/CoreTests project files; r08 finite3 owned-child executions bind current source and same driver DLL/Core closure as r05/r06. Not all six final executions had41prebound sources.",
+  "RawEvidenceCount": 433,
+  "RawEvidence": {
+    "docs/test-evidence/2026-10-17-install-transaction-originals__analysis.json": {
+      "sha256": "779713efa2f0a3cf58e509ed8e77cf4086348c95d4c460b78a8a7f16bb9478f9",
+      "bytes": 24743,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/analysis.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__parent-manifest.json": {
+      "sha256": "f85d8acb61d74d8736ddbc97c8e01b09749d76eb44c0d6063d57e930b46bcc80",
+      "bytes": 872062,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/parent-manifest.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__preflight.json": {
+      "sha256": "e63396fac37176b9f2b0a211278942a371c1c634f1e7c0b817107abecb79ec35",
+      "bytes": 449,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/preflight.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__prepare-packet.py": {
+      "sha256": "e49050a8108acbce7ba742d3858b162dcea7baf836732b2da7ff942333471182",
+      "bytes": 8391,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/prepare-packet.py"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-classification.json": {
+      "sha256": "d493e62f5a3d8ba497c967114e5d059b2a2cdfb254703ce322c5838142a7a4cd",
+      "bytes": 277,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-classification.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-command.sh": {
+      "sha256": "098a174483ae3ee67e3c6c906d9866e67b92f35e5ae3c2076ce34ebbafaa5a87",
+      "bytes": 382,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-command.sh"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-executed.json": {
+      "sha256": "14bee4b579d82bab375d036980cb4fd78735ac12568149974fce01c787c49506",
+      "bytes": 7359,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-executed.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source.json": {
+      "sha256": "9ea403fba63228b9c03d84ddeb2cdae13b5c124a0624f65b891fadcbb8b4ebb2",
+      "bytes": 4150,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt": {
+      "sha256": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+      "bytes": 4761,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt": {
+      "sha256": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+      "bytes": 8954,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__src__KuaiYi.App__OverlayClearContent.cs.txt": {
+      "sha256": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+      "bytes": 2888,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__src__KuaiYi.App__OverlayClearContent.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt": {
+      "sha256": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+      "bytes": 5948,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__src__KuaiYi.App__OverlayImageSource.cs.txt": {
+      "sha256": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+      "bytes": 5750,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__src__KuaiYi.App__OverlayImageSource.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt": {
+      "sha256": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+      "bytes": 956,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__src__KuaiYi.App__OverlayMarkdown.cs.txt": {
+      "sha256": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+      "bytes": 2197,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__src__KuaiYi.App__OverlayMarkdown.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__src__KuaiYi.App__OverlayPresentation.cs.txt": {
+      "sha256": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+      "bytes": 21549,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__src__KuaiYi.App__OverlayPresentation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt": {
+      "sha256": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+      "bytes": 2494,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__src__KuaiYi.App__OverlayResultFlow.cs.txt": {
+      "sha256": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+      "bytes": 5930,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__src__KuaiYi.App__OverlayResultFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__src__KuaiYi.App__OverlayResultLabel.cs.txt": {
+      "sha256": "de1c865a146e7f81ac32ec65861d11066869cdd3a2219eeee908dbde03b277e4",
+      "bytes": 6272,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__src__KuaiYi.App__OverlayResultLabel.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt": {
+      "sha256": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+      "bytes": 3792,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt": {
+      "sha256": "33ca4ac031915b4d2c1669c67dd52f06271390931834f33691dcfc925fcf051f",
+      "bytes": 27061,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt": {
+      "sha256": "e272cf24639496ac8697f854ffbedecdd99772dea0ffc0ddd82869e0d8e690ab",
+      "bytes": 3106,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt": {
+      "sha256": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+      "bytes": 1366,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt": {
+      "sha256": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+      "bytes": 751,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt": {
+      "sha256": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+      "bytes": 1446,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__src__KuaiYi.App__ShellWindow.cs.txt": {
+      "sha256": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+      "bytes": 16965,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__src__KuaiYi.App__ShellWindow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__src__KuaiYi.App__TranslationFlow.cs.txt": {
+      "sha256": "a1288ee73c8142a879e3788232ffd6e96150b793e33505ebf771e106f727a321",
+      "bytes": 8228,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__src__KuaiYi.App__TranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__src__KuaiYi.Core__Installation__InstallationPackage.cs.txt": {
+      "sha256": "f724e7bccd0b5d5a05e20cf500e8b25be0f4c3547b7e43d30625393ba18ca826",
+      "bytes": 9553,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__src__KuaiYi.Core__Installation__InstallationPackage.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__src__KuaiYi.Core__Installation__InstallationStore.cs.txt": {
+      "sha256": "5c34aa482683b5dc8edf035678666018d1a54b723c8756de45d4cf214ac3ca89",
+      "bytes": 9863,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__src__KuaiYi.Core__Installation__InstallationStore.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__src__KuaiYi.Providers__ProviderContracts.cs.txt": {
+      "sha256": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+      "bytes": 6572,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__src__KuaiYi.Providers__ProviderContracts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt": {
+      "sha256": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+      "bytes": 1369,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt": {
+      "sha256": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+      "bytes": 1638,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__tests__KuaiYi.Core.Tests__InstallationTransactionTests.cs.txt": {
+      "sha256": "c3ef13cd89d6b6ded66fb3d4c82bc684e179e666090b5e5fd2954fa37a357376",
+      "bytes": 14219,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__tests__KuaiYi.Core.Tests__InstallationTransactionTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt": {
+      "sha256": "141d01220ff94b2690f1cf5542d46b63a285dd11607988d7f297fb9fca3492d1",
+      "bytes": 5405,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt": {
+      "sha256": "8965a95cc3bd9aaab981bcc7a4a188fc26fdaeb72ea8b4e2c9f5a61c8fe44038",
+      "bytes": 5063,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt": {
+      "sha256": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+      "bytes": 1655,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt": {
+      "sha256": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+      "bytes": 4284,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt": {
+      "sha256": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+      "bytes": 6700,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt": {
+      "sha256": "ebb8bf9392895afab0c8041d15a3e098bdd770b550eb422b49d03e4f8352f7df",
+      "bytes": 1936,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt": {
+      "sha256": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+      "bytes": 10958,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt": {
+      "sha256": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+      "bytes": 25218,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt": {
+      "sha256": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+      "bytes": 1261,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt": {
+      "sha256": "8ba7be5b0c21d5e3c6ceb820a128f1312138af3b69965b21381aec5738c19158",
+      "bytes": 18561,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install.log": {
+      "sha256": "eab9245444de0bd103c5265cb8a5d61665cf563b05da38568ca37f095d400a60",
+      "bytes": 3885,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install.log"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r01-install.trx": {
+      "sha256": "836640ad508e5eb2bc0a3afe4721e84211732d3d3ef3a4cabcd5eac895ea84c1",
+      "bytes": 44898,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r01-install.trx"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-command.sh": {
+      "sha256": "bc493e9ae19deff0a7e5c8af7f025a589c4247f2b6e9195d8b3c23bb18786ca1",
+      "bytes": 417,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-command.sh"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-executed.json": {
+      "sha256": "4483b54d8f09646d658ac32b7e6069ab9cb2f067cfb196cb1788211df6a95bdd",
+      "bytes": 7394,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-executed.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source.json": {
+      "sha256": "b2d38283922f26d11b603fce68c8066d29ecdcb37c51003ec261be0334c600f2",
+      "bytes": 4150,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt": {
+      "sha256": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+      "bytes": 4761,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt": {
+      "sha256": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+      "bytes": 8954,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__src__KuaiYi.App__OverlayClearContent.cs.txt": {
+      "sha256": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+      "bytes": 2888,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__src__KuaiYi.App__OverlayClearContent.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt": {
+      "sha256": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+      "bytes": 5948,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__src__KuaiYi.App__OverlayImageSource.cs.txt": {
+      "sha256": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+      "bytes": 5750,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__src__KuaiYi.App__OverlayImageSource.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt": {
+      "sha256": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+      "bytes": 956,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__src__KuaiYi.App__OverlayMarkdown.cs.txt": {
+      "sha256": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+      "bytes": 2197,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__src__KuaiYi.App__OverlayMarkdown.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__src__KuaiYi.App__OverlayPresentation.cs.txt": {
+      "sha256": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+      "bytes": 21549,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__src__KuaiYi.App__OverlayPresentation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt": {
+      "sha256": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+      "bytes": 2494,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__src__KuaiYi.App__OverlayResultFlow.cs.txt": {
+      "sha256": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+      "bytes": 5930,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__src__KuaiYi.App__OverlayResultFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__src__KuaiYi.App__OverlayResultLabel.cs.txt": {
+      "sha256": "de1c865a146e7f81ac32ec65861d11066869cdd3a2219eeee908dbde03b277e4",
+      "bytes": 6272,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__src__KuaiYi.App__OverlayResultLabel.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt": {
+      "sha256": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+      "bytes": 3792,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt": {
+      "sha256": "33ca4ac031915b4d2c1669c67dd52f06271390931834f33691dcfc925fcf051f",
+      "bytes": 27061,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt": {
+      "sha256": "e272cf24639496ac8697f854ffbedecdd99772dea0ffc0ddd82869e0d8e690ab",
+      "bytes": 3106,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt": {
+      "sha256": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+      "bytes": 1366,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt": {
+      "sha256": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+      "bytes": 751,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt": {
+      "sha256": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+      "bytes": 1446,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__src__KuaiYi.App__ShellWindow.cs.txt": {
+      "sha256": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+      "bytes": 16965,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__src__KuaiYi.App__ShellWindow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__src__KuaiYi.App__TranslationFlow.cs.txt": {
+      "sha256": "a1288ee73c8142a879e3788232ffd6e96150b793e33505ebf771e106f727a321",
+      "bytes": 8228,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__src__KuaiYi.App__TranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__src__KuaiYi.Core__Installation__InstallationPackage.cs.txt": {
+      "sha256": "f724e7bccd0b5d5a05e20cf500e8b25be0f4c3547b7e43d30625393ba18ca826",
+      "bytes": 9553,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__src__KuaiYi.Core__Installation__InstallationPackage.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__src__KuaiYi.Core__Installation__InstallationStore.cs.txt": {
+      "sha256": "67c44fb26ff05d2e7360f43d001d59283b61eaa36e66e48e8c7db9a27c5c9ab7",
+      "bytes": 10250,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__src__KuaiYi.Core__Installation__InstallationStore.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__src__KuaiYi.Providers__ProviderContracts.cs.txt": {
+      "sha256": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+      "bytes": 6572,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__src__KuaiYi.Providers__ProviderContracts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt": {
+      "sha256": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+      "bytes": 1369,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt": {
+      "sha256": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+      "bytes": 1638,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__tests__KuaiYi.Core.Tests__InstallationTransactionTests.cs.txt": {
+      "sha256": "b479ea9af7f267d521761d9b71d8b41c7aec534ea6120f21e38761ab0a57af29",
+      "bytes": 16562,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__tests__KuaiYi.Core.Tests__InstallationTransactionTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt": {
+      "sha256": "141d01220ff94b2690f1cf5542d46b63a285dd11607988d7f297fb9fca3492d1",
+      "bytes": 5405,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt": {
+      "sha256": "8965a95cc3bd9aaab981bcc7a4a188fc26fdaeb72ea8b4e2c9f5a61c8fe44038",
+      "bytes": 5063,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt": {
+      "sha256": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+      "bytes": 1655,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt": {
+      "sha256": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+      "bytes": 4284,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt": {
+      "sha256": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+      "bytes": 6700,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt": {
+      "sha256": "ebb8bf9392895afab0c8041d15a3e098bdd770b550eb422b49d03e4f8352f7df",
+      "bytes": 1936,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt": {
+      "sha256": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+      "bytes": 10958,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt": {
+      "sha256": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+      "bytes": 25218,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt": {
+      "sha256": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+      "bytes": 1261,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt": {
+      "sha256": "8ba7be5b0c21d5e3c6ceb820a128f1312138af3b69965b21381aec5738c19158",
+      "bytes": 18561,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red.log": {
+      "sha256": "cfc9013024308ddd35a47b5e1470538e8c76f3bea90b0516f871d1398bfe8675",
+      "bytes": 16569,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red.log"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r02-shape-red.trx": {
+      "sha256": "6edb9cfd1d65d2d60592f14639ceaccbaaf17793d1b4b3a094f8ee67ab379e82",
+      "bytes": 42510,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r02-shape-red.trx"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-command.sh": {
+      "sha256": "108583bfd23ec6e54dd869fd609889f5b4cfcd417b315d2c47991bf683c3f1d1",
+      "bytes": 423,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-command.sh"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-executed.json": {
+      "sha256": "1c23d5d0a15ef5cf319db5e55c8fb7776cd7604d4875412a1dee8bd2cdd85967",
+      "bytes": 7400,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-executed.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source.json": {
+      "sha256": "36b07baa1d0b40c22220b4a3718c51cec7903c8e603a80236145f0ea9c002de1",
+      "bytes": 4150,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt": {
+      "sha256": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+      "bytes": 4761,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt": {
+      "sha256": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+      "bytes": 8954,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__src__KuaiYi.App__OverlayClearContent.cs.txt": {
+      "sha256": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+      "bytes": 2888,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__src__KuaiYi.App__OverlayClearContent.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt": {
+      "sha256": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+      "bytes": 5948,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__src__KuaiYi.App__OverlayImageSource.cs.txt": {
+      "sha256": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+      "bytes": 5750,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__src__KuaiYi.App__OverlayImageSource.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt": {
+      "sha256": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+      "bytes": 956,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__src__KuaiYi.App__OverlayMarkdown.cs.txt": {
+      "sha256": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+      "bytes": 2197,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__src__KuaiYi.App__OverlayMarkdown.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__src__KuaiYi.App__OverlayPresentation.cs.txt": {
+      "sha256": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+      "bytes": 21549,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__src__KuaiYi.App__OverlayPresentation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt": {
+      "sha256": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+      "bytes": 2494,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__src__KuaiYi.App__OverlayResultFlow.cs.txt": {
+      "sha256": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+      "bytes": 5930,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__src__KuaiYi.App__OverlayResultFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__src__KuaiYi.App__OverlayResultLabel.cs.txt": {
+      "sha256": "de1c865a146e7f81ac32ec65861d11066869cdd3a2219eeee908dbde03b277e4",
+      "bytes": 6272,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__src__KuaiYi.App__OverlayResultLabel.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt": {
+      "sha256": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+      "bytes": 3792,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt": {
+      "sha256": "33ca4ac031915b4d2c1669c67dd52f06271390931834f33691dcfc925fcf051f",
+      "bytes": 27061,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt": {
+      "sha256": "e272cf24639496ac8697f854ffbedecdd99772dea0ffc0ddd82869e0d8e690ab",
+      "bytes": 3106,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt": {
+      "sha256": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+      "bytes": 1366,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt": {
+      "sha256": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+      "bytes": 751,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt": {
+      "sha256": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+      "bytes": 1446,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__src__KuaiYi.App__ShellWindow.cs.txt": {
+      "sha256": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+      "bytes": 16965,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__src__KuaiYi.App__ShellWindow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__src__KuaiYi.App__TranslationFlow.cs.txt": {
+      "sha256": "a1288ee73c8142a879e3788232ffd6e96150b793e33505ebf771e106f727a321",
+      "bytes": 8228,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__src__KuaiYi.App__TranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__src__KuaiYi.Core__Installation__InstallationPackage.cs.txt": {
+      "sha256": "f724e7bccd0b5d5a05e20cf500e8b25be0f4c3547b7e43d30625393ba18ca826",
+      "bytes": 9553,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__src__KuaiYi.Core__Installation__InstallationPackage.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__src__KuaiYi.Core__Installation__InstallationStore.cs.txt": {
+      "sha256": "67c44fb26ff05d2e7360f43d001d59283b61eaa36e66e48e8c7db9a27c5c9ab7",
+      "bytes": 10250,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__src__KuaiYi.Core__Installation__InstallationStore.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__src__KuaiYi.Providers__ProviderContracts.cs.txt": {
+      "sha256": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+      "bytes": 6572,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__src__KuaiYi.Providers__ProviderContracts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt": {
+      "sha256": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+      "bytes": 1369,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt": {
+      "sha256": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+      "bytes": 1638,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__tests__KuaiYi.Core.Tests__InstallationTransactionTests.cs.txt": {
+      "sha256": "051053b52963eb49b0791e4c15eec0b531118bb23e06add69a950a0ef44ff3ce",
+      "bytes": 17231,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__tests__KuaiYi.Core.Tests__InstallationTransactionTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt": {
+      "sha256": "141d01220ff94b2690f1cf5542d46b63a285dd11607988d7f297fb9fca3492d1",
+      "bytes": 5405,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt": {
+      "sha256": "8965a95cc3bd9aaab981bcc7a4a188fc26fdaeb72ea8b4e2c9f5a61c8fe44038",
+      "bytes": 5063,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt": {
+      "sha256": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+      "bytes": 1655,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt": {
+      "sha256": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+      "bytes": 4284,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt": {
+      "sha256": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+      "bytes": 6700,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt": {
+      "sha256": "ebb8bf9392895afab0c8041d15a3e098bdd770b550eb422b49d03e4f8352f7df",
+      "bytes": 1936,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt": {
+      "sha256": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+      "bytes": 10958,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt": {
+      "sha256": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+      "bytes": 25218,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt": {
+      "sha256": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+      "bytes": 1261,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt": {
+      "sha256": "8ba7be5b0c21d5e3c6ceb820a128f1312138af3b69965b21381aec5738c19158",
+      "bytes": 18561,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red.log": {
+      "sha256": "0a14a805032db891003eed145df42167e15245936cab273dc387fbfad06828ca",
+      "bytes": 2738,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red.log"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r03-directory-red.trx": {
+      "sha256": "c358922c4fb120b7cab91331cd6b66eda66f3628cea84aca6810778fac102402",
+      "bytes": 4246,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r03-directory-red.trx"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-command.sh": {
+      "sha256": "21010c299e068e119b1be275570b927fc085b617120e7879570114b77b108d21",
+      "bytes": 505,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-command.sh"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-executed.json": {
+      "sha256": "a7e0a603134ccd1a5e79c3b9020ee0eec52c028a3a734f88653b5c089f2caef0",
+      "bytes": 7482,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-executed.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source.json": {
+      "sha256": "c640d95a33c51e022547553360a21855fa8f5bb2ab561384e231376d2b25ef91",
+      "bytes": 4150,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt": {
+      "sha256": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+      "bytes": 4761,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt": {
+      "sha256": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+      "bytes": 8954,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__src__KuaiYi.App__OverlayClearContent.cs.txt": {
+      "sha256": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+      "bytes": 2888,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__src__KuaiYi.App__OverlayClearContent.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt": {
+      "sha256": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+      "bytes": 5948,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__src__KuaiYi.App__OverlayImageSource.cs.txt": {
+      "sha256": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+      "bytes": 5750,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__src__KuaiYi.App__OverlayImageSource.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt": {
+      "sha256": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+      "bytes": 956,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__src__KuaiYi.App__OverlayMarkdown.cs.txt": {
+      "sha256": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+      "bytes": 2197,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__src__KuaiYi.App__OverlayMarkdown.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__src__KuaiYi.App__OverlayPresentation.cs.txt": {
+      "sha256": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+      "bytes": 21549,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__src__KuaiYi.App__OverlayPresentation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt": {
+      "sha256": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+      "bytes": 2494,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__src__KuaiYi.App__OverlayResultFlow.cs.txt": {
+      "sha256": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+      "bytes": 5930,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__src__KuaiYi.App__OverlayResultFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__src__KuaiYi.App__OverlayResultLabel.cs.txt": {
+      "sha256": "de1c865a146e7f81ac32ec65861d11066869cdd3a2219eeee908dbde03b277e4",
+      "bytes": 6272,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__src__KuaiYi.App__OverlayResultLabel.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt": {
+      "sha256": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+      "bytes": 3792,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt": {
+      "sha256": "33ca4ac031915b4d2c1669c67dd52f06271390931834f33691dcfc925fcf051f",
+      "bytes": 27061,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt": {
+      "sha256": "e272cf24639496ac8697f854ffbedecdd99772dea0ffc0ddd82869e0d8e690ab",
+      "bytes": 3106,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt": {
+      "sha256": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+      "bytes": 1366,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt": {
+      "sha256": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+      "bytes": 751,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt": {
+      "sha256": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+      "bytes": 1446,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__src__KuaiYi.App__ShellWindow.cs.txt": {
+      "sha256": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+      "bytes": 16965,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__src__KuaiYi.App__ShellWindow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__src__KuaiYi.App__TranslationFlow.cs.txt": {
+      "sha256": "a1288ee73c8142a879e3788232ffd6e96150b793e33505ebf771e106f727a321",
+      "bytes": 8228,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__src__KuaiYi.App__TranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__src__KuaiYi.Core__Installation__InstallationPackage.cs.txt": {
+      "sha256": "d3812b767f5a2ea41732a0bf33a7c7c132dd7a13788a7faf2eea45301274d41d",
+      "bytes": 10069,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__src__KuaiYi.Core__Installation__InstallationPackage.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__src__KuaiYi.Core__Installation__InstallationStore.cs.txt": {
+      "sha256": "67c44fb26ff05d2e7360f43d001d59283b61eaa36e66e48e8c7db9a27c5c9ab7",
+      "bytes": 10250,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__src__KuaiYi.Core__Installation__InstallationStore.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__src__KuaiYi.Providers__ProviderContracts.cs.txt": {
+      "sha256": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+      "bytes": 6572,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__src__KuaiYi.Providers__ProviderContracts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt": {
+      "sha256": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+      "bytes": 1369,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt": {
+      "sha256": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+      "bytes": 1638,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__tests__KuaiYi.Core.Tests__InstallationTransactionTests.cs.txt": {
+      "sha256": "051053b52963eb49b0791e4c15eec0b531118bb23e06add69a950a0ef44ff3ce",
+      "bytes": 17231,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__tests__KuaiYi.Core.Tests__InstallationTransactionTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt": {
+      "sha256": "141d01220ff94b2690f1cf5542d46b63a285dd11607988d7f297fb9fca3492d1",
+      "bytes": 5405,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt": {
+      "sha256": "8965a95cc3bd9aaab981bcc7a4a188fc26fdaeb72ea8b4e2c9f5a61c8fe44038",
+      "bytes": 5063,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt": {
+      "sha256": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+      "bytes": 1655,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt": {
+      "sha256": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+      "bytes": 4284,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt": {
+      "sha256": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+      "bytes": 6700,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt": {
+      "sha256": "ebb8bf9392895afab0c8041d15a3e098bdd770b550eb422b49d03e4f8352f7df",
+      "bytes": 1936,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt": {
+      "sha256": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+      "bytes": 10958,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt": {
+      "sha256": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+      "bytes": 25218,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt": {
+      "sha256": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+      "bytes": 1261,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt": {
+      "sha256": "8ba7be5b0c21d5e3c6ceb820a128f1312138af3b69965b21381aec5738c19158",
+      "bytes": 18561,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green.log": {
+      "sha256": "80a0d39562e033e4364e82fa45c2eefd2c0cc1b831c6eecf0dfc1858a9d94f42",
+      "bytes": 2075,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green.log"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r04-recovery-green.trx": {
+      "sha256": "cfdd3c4e0e9cbe4249a1edc926c00b792cf36feddb0d0f44a0edaf86cba18c17",
+      "bytes": 13021,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r04-recovery-green.trx"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-command.sh": {
+      "sha256": "d631393cce92ded08e46519e259d56c3cd2375389cb190bd0d17519b0bbc14b1",
+      "bytes": 388,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-command.sh"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-executed.json": {
+      "sha256": "e5c99a3109cf057e3f20bfd2ebbe8246926b15ae38e4b2a0c13b82e20fae7476",
+      "bytes": 7762,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-executed.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source.json": {
+      "sha256": "7d548e8df926248ed97554ea2d6d584cd430890fa064d17aeb6a0e00f9453614",
+      "bytes": 4382,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt": {
+      "sha256": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+      "bytes": 4761,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt": {
+      "sha256": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+      "bytes": 8954,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.App__OverlayClearContent.cs.txt": {
+      "sha256": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+      "bytes": 2888,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.App__OverlayClearContent.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt": {
+      "sha256": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+      "bytes": 5948,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.App__OverlayImageSource.cs.txt": {
+      "sha256": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+      "bytes": 5750,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.App__OverlayImageSource.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt": {
+      "sha256": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+      "bytes": 956,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.App__OverlayMarkdown.cs.txt": {
+      "sha256": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+      "bytes": 2197,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.App__OverlayMarkdown.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.App__OverlayPresentation.cs.txt": {
+      "sha256": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+      "bytes": 21549,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.App__OverlayPresentation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt": {
+      "sha256": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+      "bytes": 2494,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.App__OverlayResultFlow.cs.txt": {
+      "sha256": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+      "bytes": 5930,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.App__OverlayResultFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.App__OverlayResultLabel.cs.txt": {
+      "sha256": "de1c865a146e7f81ac32ec65861d11066869cdd3a2219eeee908dbde03b277e4",
+      "bytes": 6272,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.App__OverlayResultLabel.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt": {
+      "sha256": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+      "bytes": 3792,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt": {
+      "sha256": "33ca4ac031915b4d2c1669c67dd52f06271390931834f33691dcfc925fcf051f",
+      "bytes": 27061,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt": {
+      "sha256": "e272cf24639496ac8697f854ffbedecdd99772dea0ffc0ddd82869e0d8e690ab",
+      "bytes": 3106,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt": {
+      "sha256": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+      "bytes": 1366,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt": {
+      "sha256": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+      "bytes": 751,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt": {
+      "sha256": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+      "bytes": 1446,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.App__ShellWindow.cs.txt": {
+      "sha256": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+      "bytes": 16965,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.App__ShellWindow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.App__TranslationFlow.cs.txt": {
+      "sha256": "a1288ee73c8142a879e3788232ffd6e96150b793e33505ebf771e106f727a321",
+      "bytes": 8228,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.App__TranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.Core__Installation__InstallationPackage.cs.txt": {
+      "sha256": "a499948d2bf92ee50d571bcf151caf5259897ecf30e38aebc681f8c5e6dd99ba",
+      "bytes": 10105,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.Core__Installation__InstallationPackage.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.Core__Installation__InstallationStore.cs.txt": {
+      "sha256": "67c44fb26ff05d2e7360f43d001d59283b61eaa36e66e48e8c7db9a27c5c9ab7",
+      "bytes": 10250,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.Core__Installation__InstallationStore.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.Core__Settings__SecretFileStore.cs.txt": {
+      "sha256": "3e7089d4f4694af38b9994d065a1276607a4f946ebe115f9ab83c895f7f2fd61",
+      "bytes": 3530,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.Core__Settings__SecretFileStore.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.Core__Settings__SettingsStore.cs.txt": {
+      "sha256": "24d46ef6b51a4245024779039f8a0642757be9d708b3b5d08fc0f01b8f21cf1d",
+      "bytes": 6307,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.Core__Settings__SettingsStore.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.Providers__ProviderContracts.cs.txt": {
+      "sha256": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+      "bytes": 6572,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.Providers__ProviderContracts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt": {
+      "sha256": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+      "bytes": 1369,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt": {
+      "sha256": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+      "bytes": 1638,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__tests__KuaiYi.Core.Tests__InstallationTransactionTests.cs.txt": {
+      "sha256": "0ced7b53f625e4ad6cb93e5fa8379839ac4024c59109a3f1cb58a65bd5ffc3ba",
+      "bytes": 19851,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__tests__KuaiYi.Core.Tests__InstallationTransactionTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt": {
+      "sha256": "141d01220ff94b2690f1cf5542d46b63a285dd11607988d7f297fb9fca3492d1",
+      "bytes": 5405,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt": {
+      "sha256": "8965a95cc3bd9aaab981bcc7a4a188fc26fdaeb72ea8b4e2c9f5a61c8fe44038",
+      "bytes": 5063,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt": {
+      "sha256": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+      "bytes": 1655,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt": {
+      "sha256": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+      "bytes": 4284,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt": {
+      "sha256": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+      "bytes": 6700,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt": {
+      "sha256": "ebb8bf9392895afab0c8041d15a3e098bdd770b550eb422b49d03e4f8352f7df",
+      "bytes": 1936,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt": {
+      "sha256": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+      "bytes": 10958,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt": {
+      "sha256": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+      "bytes": 25218,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt": {
+      "sha256": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+      "bytes": 1261,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt": {
+      "sha256": "8ba7be5b0c21d5e3c6ceb820a128f1312138af3b69965b21381aec5738c19158",
+      "bytes": 18561,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final.log": {
+      "sha256": "a8d85170c4a5023cdea888b4b48a1f4535f2803cfc1bd8d3480cfae630907f83",
+      "bytes": 2074,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final.log"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r05-install-final.trx": {
+      "sha256": "089b89aba65ccb1be7172fe606fbabfb0c9b418a5052a00c4d2c6232ae7f3ccd",
+      "bytes": 58843,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r05-install-final.trx"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-command.sh": {
+      "sha256": "49a12172947cba686a5d3f1d2b834e286f920f6b802f385a125564cac4b91d35",
+      "bytes": 325,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-command.sh"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-executed.json": {
+      "sha256": "051bcfac75e88d3f6929ddbed8e09866db6678c55ce00ac21904377954b8289b",
+      "bytes": 7844,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-executed.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source.json": {
+      "sha256": "7d548e8df926248ed97554ea2d6d584cd430890fa064d17aeb6a0e00f9453614",
+      "bytes": 4382,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt": {
+      "sha256": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+      "bytes": 4761,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt": {
+      "sha256": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+      "bytes": 8954,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.App__OverlayClearContent.cs.txt": {
+      "sha256": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+      "bytes": 2888,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.App__OverlayClearContent.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt": {
+      "sha256": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+      "bytes": 5948,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.App__OverlayImageSource.cs.txt": {
+      "sha256": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+      "bytes": 5750,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.App__OverlayImageSource.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt": {
+      "sha256": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+      "bytes": 956,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.App__OverlayMarkdown.cs.txt": {
+      "sha256": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+      "bytes": 2197,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.App__OverlayMarkdown.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.App__OverlayPresentation.cs.txt": {
+      "sha256": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+      "bytes": 21549,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.App__OverlayPresentation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt": {
+      "sha256": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+      "bytes": 2494,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.App__OverlayResultFlow.cs.txt": {
+      "sha256": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+      "bytes": 5930,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.App__OverlayResultFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.App__OverlayResultLabel.cs.txt": {
+      "sha256": "de1c865a146e7f81ac32ec65861d11066869cdd3a2219eeee908dbde03b277e4",
+      "bytes": 6272,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.App__OverlayResultLabel.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt": {
+      "sha256": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+      "bytes": 3792,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt": {
+      "sha256": "33ca4ac031915b4d2c1669c67dd52f06271390931834f33691dcfc925fcf051f",
+      "bytes": 27061,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt": {
+      "sha256": "e272cf24639496ac8697f854ffbedecdd99772dea0ffc0ddd82869e0d8e690ab",
+      "bytes": 3106,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt": {
+      "sha256": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+      "bytes": 1366,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt": {
+      "sha256": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+      "bytes": 751,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt": {
+      "sha256": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+      "bytes": 1446,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.App__ShellWindow.cs.txt": {
+      "sha256": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+      "bytes": 16965,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.App__ShellWindow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.App__TranslationFlow.cs.txt": {
+      "sha256": "a1288ee73c8142a879e3788232ffd6e96150b793e33505ebf771e106f727a321",
+      "bytes": 8228,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.App__TranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.Core__Installation__InstallationPackage.cs.txt": {
+      "sha256": "a499948d2bf92ee50d571bcf151caf5259897ecf30e38aebc681f8c5e6dd99ba",
+      "bytes": 10105,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.Core__Installation__InstallationPackage.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.Core__Installation__InstallationStore.cs.txt": {
+      "sha256": "67c44fb26ff05d2e7360f43d001d59283b61eaa36e66e48e8c7db9a27c5c9ab7",
+      "bytes": 10250,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.Core__Installation__InstallationStore.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.Core__Settings__SecretFileStore.cs.txt": {
+      "sha256": "3e7089d4f4694af38b9994d065a1276607a4f946ebe115f9ab83c895f7f2fd61",
+      "bytes": 3530,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.Core__Settings__SecretFileStore.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.Core__Settings__SettingsStore.cs.txt": {
+      "sha256": "24d46ef6b51a4245024779039f8a0642757be9d708b3b5d08fc0f01b8f21cf1d",
+      "bytes": 6307,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.Core__Settings__SettingsStore.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.Providers__ProviderContracts.cs.txt": {
+      "sha256": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+      "bytes": 6572,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.Providers__ProviderContracts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt": {
+      "sha256": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+      "bytes": 1369,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt": {
+      "sha256": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+      "bytes": 1638,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__tests__KuaiYi.Core.Tests__InstallationTransactionTests.cs.txt": {
+      "sha256": "0ced7b53f625e4ad6cb93e5fa8379839ac4024c59109a3f1cb58a65bd5ffc3ba",
+      "bytes": 19851,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__tests__KuaiYi.Core.Tests__InstallationTransactionTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt": {
+      "sha256": "141d01220ff94b2690f1cf5542d46b63a285dd11607988d7f297fb9fca3492d1",
+      "bytes": 5405,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt": {
+      "sha256": "8965a95cc3bd9aaab981bcc7a4a188fc26fdaeb72ea8b4e2c9f5a61c8fe44038",
+      "bytes": 5063,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt": {
+      "sha256": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+      "bytes": 1655,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt": {
+      "sha256": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+      "bytes": 4284,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt": {
+      "sha256": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+      "bytes": 6700,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt": {
+      "sha256": "ebb8bf9392895afab0c8041d15a3e098bdd770b550eb422b49d03e4f8352f7df",
+      "bytes": 1936,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt": {
+      "sha256": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+      "bytes": 10958,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt": {
+      "sha256": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+      "bytes": 25218,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt": {
+      "sha256": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+      "bytes": 1261,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt": {
+      "sha256": "8ba7be5b0c21d5e3c6ceb820a128f1312138af3b69965b21381aec5738c19158",
+      "bytes": 18561,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full.log": {
+      "sha256": "dd3acd0de5870dc98c4349f2154bc5fb6774889fbca5102a8f33db1a35d26d12",
+      "bytes": 2068,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full.log"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r06-core-full.trx": {
+      "sha256": "703142445dc394df41e2d67b3b842fedd793b1179c2458349022aa5e10b2023d",
+      "bytes": 2427579,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r06-core-full.trx"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-command.sh": {
+      "sha256": "a47ba81af156f757550fe068d0458b249bde590de2842b64109e2588e291507f",
+      "bytes": 337,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-command.sh"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-executed.json": {
+      "sha256": "5330dbe16dab8aebe27ab8a6d0fbb7a04a65bd88f5e116db07956d9417e8a8cc",
+      "bytes": 7856,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-executed.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source.json": {
+      "sha256": "7d548e8df926248ed97554ea2d6d584cd430890fa064d17aeb6a0e00f9453614",
+      "bytes": 4382,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt": {
+      "sha256": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+      "bytes": 4761,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt": {
+      "sha256": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+      "bytes": 8954,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.App__OverlayClearContent.cs.txt": {
+      "sha256": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+      "bytes": 2888,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.App__OverlayClearContent.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt": {
+      "sha256": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+      "bytes": 5948,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.App__OverlayImageSource.cs.txt": {
+      "sha256": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+      "bytes": 5750,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.App__OverlayImageSource.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt": {
+      "sha256": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+      "bytes": 956,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.App__OverlayMarkdown.cs.txt": {
+      "sha256": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+      "bytes": 2197,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.App__OverlayMarkdown.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.App__OverlayPresentation.cs.txt": {
+      "sha256": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+      "bytes": 21549,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.App__OverlayPresentation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt": {
+      "sha256": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+      "bytes": 2494,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.App__OverlayResultFlow.cs.txt": {
+      "sha256": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+      "bytes": 5930,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.App__OverlayResultFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.App__OverlayResultLabel.cs.txt": {
+      "sha256": "de1c865a146e7f81ac32ec65861d11066869cdd3a2219eeee908dbde03b277e4",
+      "bytes": 6272,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.App__OverlayResultLabel.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt": {
+      "sha256": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+      "bytes": 3792,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt": {
+      "sha256": "33ca4ac031915b4d2c1669c67dd52f06271390931834f33691dcfc925fcf051f",
+      "bytes": 27061,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt": {
+      "sha256": "e272cf24639496ac8697f854ffbedecdd99772dea0ffc0ddd82869e0d8e690ab",
+      "bytes": 3106,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt": {
+      "sha256": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+      "bytes": 1366,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt": {
+      "sha256": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+      "bytes": 751,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt": {
+      "sha256": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+      "bytes": 1446,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.App__ShellWindow.cs.txt": {
+      "sha256": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+      "bytes": 16965,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.App__ShellWindow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.App__TranslationFlow.cs.txt": {
+      "sha256": "a1288ee73c8142a879e3788232ffd6e96150b793e33505ebf771e106f727a321",
+      "bytes": 8228,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.App__TranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.Core__Installation__InstallationPackage.cs.txt": {
+      "sha256": "a499948d2bf92ee50d571bcf151caf5259897ecf30e38aebc681f8c5e6dd99ba",
+      "bytes": 10105,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.Core__Installation__InstallationPackage.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.Core__Installation__InstallationStore.cs.txt": {
+      "sha256": "67c44fb26ff05d2e7360f43d001d59283b61eaa36e66e48e8c7db9a27c5c9ab7",
+      "bytes": 10250,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.Core__Installation__InstallationStore.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.Core__Settings__SecretFileStore.cs.txt": {
+      "sha256": "3e7089d4f4694af38b9994d065a1276607a4f946ebe115f9ab83c895f7f2fd61",
+      "bytes": 3530,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.Core__Settings__SecretFileStore.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.Core__Settings__SettingsStore.cs.txt": {
+      "sha256": "24d46ef6b51a4245024779039f8a0642757be9d708b3b5d08fc0f01b8f21cf1d",
+      "bytes": 6307,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.Core__Settings__SettingsStore.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.Providers__ProviderContracts.cs.txt": {
+      "sha256": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+      "bytes": 6572,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.Providers__ProviderContracts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt": {
+      "sha256": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+      "bytes": 1369,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt": {
+      "sha256": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+      "bytes": 1638,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__tests__KuaiYi.Core.Tests__InstallationTransactionTests.cs.txt": {
+      "sha256": "0ced7b53f625e4ad6cb93e5fa8379839ac4024c59109a3f1cb58a65bd5ffc3ba",
+      "bytes": 19851,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__tests__KuaiYi.Core.Tests__InstallationTransactionTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt": {
+      "sha256": "141d01220ff94b2690f1cf5542d46b63a285dd11607988d7f297fb9fca3492d1",
+      "bytes": 5405,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt": {
+      "sha256": "8965a95cc3bd9aaab981bcc7a4a188fc26fdaeb72ea8b4e2c9f5a61c8fe44038",
+      "bytes": 5063,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt": {
+      "sha256": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+      "bytes": 1655,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt": {
+      "sha256": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+      "bytes": 4284,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt": {
+      "sha256": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+      "bytes": 6700,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt": {
+      "sha256": "ebb8bf9392895afab0c8041d15a3e098bdd770b550eb422b49d03e4f8352f7df",
+      "bytes": 1936,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt": {
+      "sha256": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+      "bytes": 10958,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt": {
+      "sha256": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+      "bytes": 25218,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt": {
+      "sha256": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+      "bytes": 1261,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt": {
+      "sha256": "8ba7be5b0c21d5e3c6ceb820a128f1312138af3b69965b21381aec5738c19158",
+      "bytes": 18561,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full.log": {
+      "sha256": "18b04ef0823a09082cfc6b4ac5017e9bed6ce1da64fdfc2bf6f5809a79760ff9",
+      "bytes": 1137,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full.log"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r07-provider-full.trx": {
+      "sha256": "6230ccc0ff76ccfb23955be3e81df233de51bb75686c6425e943b44e5ca50eb6",
+      "bytes": 3429744,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r07-provider-full.trx"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-command.sh": {
+      "sha256": "07a2fff793a97bbd690f681b38074cc7f769b311a46bdb40b119e41a5fd50c6c",
+      "bytes": 422,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-command.sh"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-executed.json": {
+      "sha256": "15fec92ecd6bf2121230a47913501baf092e69d47a9f9442809f06ec9f02802e",
+      "bytes": 8439,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-executed.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source.json": {
+      "sha256": "f550acba251130a8f91da62fe39b59eebc66c64e03a00ad82eeba574c1191e50",
+      "bytes": 4872,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt": {
+      "sha256": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+      "bytes": 4761,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt": {
+      "sha256": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+      "bytes": 8954,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.App__OverlayClearContent.cs.txt": {
+      "sha256": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+      "bytes": 2888,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.App__OverlayClearContent.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt": {
+      "sha256": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+      "bytes": 5948,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.App__OverlayImageSource.cs.txt": {
+      "sha256": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+      "bytes": 5750,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.App__OverlayImageSource.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt": {
+      "sha256": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+      "bytes": 956,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.App__OverlayMarkdown.cs.txt": {
+      "sha256": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+      "bytes": 2197,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.App__OverlayMarkdown.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.App__OverlayPresentation.cs.txt": {
+      "sha256": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+      "bytes": 21549,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.App__OverlayPresentation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt": {
+      "sha256": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+      "bytes": 2494,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.App__OverlayResultFlow.cs.txt": {
+      "sha256": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+      "bytes": 5930,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.App__OverlayResultFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.App__OverlayResultLabel.cs.txt": {
+      "sha256": "de1c865a146e7f81ac32ec65861d11066869cdd3a2219eeee908dbde03b277e4",
+      "bytes": 6272,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.App__OverlayResultLabel.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt": {
+      "sha256": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+      "bytes": 3792,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt": {
+      "sha256": "33ca4ac031915b4d2c1669c67dd52f06271390931834f33691dcfc925fcf051f",
+      "bytes": 27061,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt": {
+      "sha256": "e272cf24639496ac8697f854ffbedecdd99772dea0ffc0ddd82869e0d8e690ab",
+      "bytes": 3106,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt": {
+      "sha256": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+      "bytes": 1366,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt": {
+      "sha256": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+      "bytes": 751,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt": {
+      "sha256": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+      "bytes": 1446,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.App__ShellWindow.cs.txt": {
+      "sha256": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+      "bytes": 16965,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.App__ShellWindow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.App__TranslationFlow.cs.txt": {
+      "sha256": "a1288ee73c8142a879e3788232ffd6e96150b793e33505ebf771e106f727a321",
+      "bytes": 8228,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.App__TranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.Core__Installation__InstallationPackage.cs.txt": {
+      "sha256": "a499948d2bf92ee50d571bcf151caf5259897ecf30e38aebc681f8c5e6dd99ba",
+      "bytes": 10105,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.Core__Installation__InstallationPackage.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.Core__Installation__InstallationStore.cs.txt": {
+      "sha256": "67c44fb26ff05d2e7360f43d001d59283b61eaa36e66e48e8c7db9a27c5c9ab7",
+      "bytes": 10250,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.Core__Installation__InstallationStore.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.Core__KuaiYi.Core.csproj.txt": {
+      "sha256": "ed7c0f20902846adddafbfc178137e3a0dd399bba0a8c656195f76855d2233bb",
+      "bytes": 121,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.Core__KuaiYi.Core.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.Core__Settings__SecretFileStore.cs.txt": {
+      "sha256": "3e7089d4f4694af38b9994d065a1276607a4f946ebe115f9ab83c895f7f2fd61",
+      "bytes": 3530,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.Core__Settings__SecretFileStore.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.Core__Settings__SettingsStore.cs.txt": {
+      "sha256": "24d46ef6b51a4245024779039f8a0642757be9d708b3b5d08fc0f01b8f21cf1d",
+      "bytes": 6307,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.Core__Settings__SettingsStore.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.Providers__ProviderContracts.cs.txt": {
+      "sha256": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+      "bytes": 6572,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.Providers__ProviderContracts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt": {
+      "sha256": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+      "bytes": 1369,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt": {
+      "sha256": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+      "bytes": 1638,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__tests__KuaiYi.Core.Tests__InstallationTransactionTests.cs.txt": {
+      "sha256": "0ced7b53f625e4ad6cb93e5fa8379839ac4024c59109a3f1cb58a65bd5ffc3ba",
+      "bytes": 19851,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__tests__KuaiYi.Core.Tests__InstallationTransactionTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__tests__KuaiYi.Core.Tests__KuaiYi.Core.Tests.csproj.txt": {
+      "sha256": "d7bd48f5a28b4edd4b1fa24fdc0ffc4a887916c1c737d90e30fe6f854c71305e",
+      "bytes": 2686,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__tests__KuaiYi.Core.Tests__KuaiYi.Core.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt": {
+      "sha256": "141d01220ff94b2690f1cf5542d46b63a285dd11607988d7f297fb9fca3492d1",
+      "bytes": 5405,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt": {
+      "sha256": "8965a95cc3bd9aaab981bcc7a4a188fc26fdaeb72ea8b4e2c9f5a61c8fe44038",
+      "bytes": 5063,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt": {
+      "sha256": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+      "bytes": 1655,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt": {
+      "sha256": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+      "bytes": 4284,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt": {
+      "sha256": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+      "bytes": 6700,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt": {
+      "sha256": "ebb8bf9392895afab0c8041d15a3e098bdd770b550eb422b49d03e4f8352f7df",
+      "bytes": 1936,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt": {
+      "sha256": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+      "bytes": 10958,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt": {
+      "sha256": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+      "bytes": 25218,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt": {
+      "sha256": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+      "bytes": 1261,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt": {
+      "sha256": "8ba7be5b0c21d5e3c6ceb820a128f1312138af3b69965b21381aec5738c19158",
+      "bytes": 18561,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__tools__KuaiYi.SettingsStoreFixture__KuaiYi.SettingsStoreFixture.csproj.txt": {
+      "sha256": "473266c653dafba8d1f323e2ce7d2c8addb0a8a64234f41a3a7137c4e86eaee4",
+      "bytes": 239,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__tools__KuaiYi.SettingsStoreFixture__KuaiYi.SettingsStoreFixture.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding-source__tools__KuaiYi.SettingsStoreFixture__Program.cs.txt": {
+      "sha256": "88435a8cbba72215093a707f6db3442f09278dd9510800ab250f12900d43e4ea",
+      "bytes": 3066,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding-source__tools__KuaiYi.SettingsStoreFixture__Program.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding.log": {
+      "sha256": "6f9bc7c980a9cd9fb437852c6e6fbc29807ccaaf93cc76f60239f102069d163e",
+      "bytes": 2075,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding.log"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r08-driver-binding.trx": {
+      "sha256": "5428b85500f3918a0047f0c009eabbe337ca38d09160cfcd521a4e6705944596",
+      "bytes": 6617,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r08-driver-binding.trx"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-command.sh": {
+      "sha256": "16aebd3e50c80009688106d49d3397c5d587df711522f13434d56888febeb8a1",
+      "bytes": 241,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-command.sh"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-executed.json": {
+      "sha256": "58ae50d47a9efeeeb840781722dc96b21a45616789363b5f8082ba5fa42aef38",
+      "bytes": 8258,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-executed.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source.json": {
+      "sha256": "f550acba251130a8f91da62fe39b59eebc66c64e03a00ad82eeba574c1191e50",
+      "bytes": 4872,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt": {
+      "sha256": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+      "bytes": 4761,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt": {
+      "sha256": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+      "bytes": 8954,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.App__OverlayClearContent.cs.txt": {
+      "sha256": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+      "bytes": 2888,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.App__OverlayClearContent.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt": {
+      "sha256": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+      "bytes": 5948,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.App__OverlayImageSource.cs.txt": {
+      "sha256": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+      "bytes": 5750,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.App__OverlayImageSource.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt": {
+      "sha256": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+      "bytes": 956,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.App__OverlayMarkdown.cs.txt": {
+      "sha256": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+      "bytes": 2197,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.App__OverlayMarkdown.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.App__OverlayPresentation.cs.txt": {
+      "sha256": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+      "bytes": 21549,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.App__OverlayPresentation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt": {
+      "sha256": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+      "bytes": 2494,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.App__OverlayResultFlow.cs.txt": {
+      "sha256": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+      "bytes": 5930,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.App__OverlayResultFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.App__OverlayResultLabel.cs.txt": {
+      "sha256": "de1c865a146e7f81ac32ec65861d11066869cdd3a2219eeee908dbde03b277e4",
+      "bytes": 6272,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.App__OverlayResultLabel.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt": {
+      "sha256": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+      "bytes": 3792,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt": {
+      "sha256": "33ca4ac031915b4d2c1669c67dd52f06271390931834f33691dcfc925fcf051f",
+      "bytes": 27061,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt": {
+      "sha256": "e272cf24639496ac8697f854ffbedecdd99772dea0ffc0ddd82869e0d8e690ab",
+      "bytes": 3106,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt": {
+      "sha256": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+      "bytes": 1366,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt": {
+      "sha256": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+      "bytes": 751,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt": {
+      "sha256": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+      "bytes": 1446,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.App__ShellWindow.cs.txt": {
+      "sha256": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+      "bytes": 16965,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.App__ShellWindow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.App__TranslationFlow.cs.txt": {
+      "sha256": "a1288ee73c8142a879e3788232ffd6e96150b793e33505ebf771e106f727a321",
+      "bytes": 8228,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.App__TranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.Core__Installation__InstallationPackage.cs.txt": {
+      "sha256": "a499948d2bf92ee50d571bcf151caf5259897ecf30e38aebc681f8c5e6dd99ba",
+      "bytes": 10105,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.Core__Installation__InstallationPackage.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.Core__Installation__InstallationStore.cs.txt": {
+      "sha256": "67c44fb26ff05d2e7360f43d001d59283b61eaa36e66e48e8c7db9a27c5c9ab7",
+      "bytes": 10250,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.Core__Installation__InstallationStore.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.Core__KuaiYi.Core.csproj.txt": {
+      "sha256": "ed7c0f20902846adddafbfc178137e3a0dd399bba0a8c656195f76855d2233bb",
+      "bytes": 121,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.Core__KuaiYi.Core.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.Core__Settings__SecretFileStore.cs.txt": {
+      "sha256": "3e7089d4f4694af38b9994d065a1276607a4f946ebe115f9ab83c895f7f2fd61",
+      "bytes": 3530,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.Core__Settings__SecretFileStore.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.Core__Settings__SettingsStore.cs.txt": {
+      "sha256": "24d46ef6b51a4245024779039f8a0642757be9d708b3b5d08fc0f01b8f21cf1d",
+      "bytes": 6307,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.Core__Settings__SettingsStore.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.Providers__ProviderContracts.cs.txt": {
+      "sha256": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+      "bytes": 6572,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.Providers__ProviderContracts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt": {
+      "sha256": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+      "bytes": 1369,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt": {
+      "sha256": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+      "bytes": 1638,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__tests__KuaiYi.Core.Tests__InstallationTransactionTests.cs.txt": {
+      "sha256": "0ced7b53f625e4ad6cb93e5fa8379839ac4024c59109a3f1cb58a65bd5ffc3ba",
+      "bytes": 19851,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__tests__KuaiYi.Core.Tests__InstallationTransactionTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__tests__KuaiYi.Core.Tests__KuaiYi.Core.Tests.csproj.txt": {
+      "sha256": "d7bd48f5a28b4edd4b1fa24fdc0ffc4a887916c1c737d90e30fe6f854c71305e",
+      "bytes": 2686,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__tests__KuaiYi.Core.Tests__KuaiYi.Core.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt": {
+      "sha256": "141d01220ff94b2690f1cf5542d46b63a285dd11607988d7f297fb9fca3492d1",
+      "bytes": 5405,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt": {
+      "sha256": "8965a95cc3bd9aaab981bcc7a4a188fc26fdaeb72ea8b4e2c9f5a61c8fe44038",
+      "bytes": 5063,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt": {
+      "sha256": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+      "bytes": 1655,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt": {
+      "sha256": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+      "bytes": 4284,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt": {
+      "sha256": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+      "bytes": 6700,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt": {
+      "sha256": "ebb8bf9392895afab0c8041d15a3e098bdd770b550eb422b49d03e4f8352f7df",
+      "bytes": 1936,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt": {
+      "sha256": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+      "bytes": 10958,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt": {
+      "sha256": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+      "bytes": 25218,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt": {
+      "sha256": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+      "bytes": 1261,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt": {
+      "sha256": "8ba7be5b0c21d5e3c6ceb820a128f1312138af3b69965b21381aec5738c19158",
+      "bytes": 18561,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__tools__KuaiYi.SettingsStoreFixture__KuaiYi.SettingsStoreFixture.csproj.txt": {
+      "sha256": "473266c653dafba8d1f323e2ce7d2c8addb0a8a64234f41a3a7137c4e86eaee4",
+      "bytes": 239,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__tools__KuaiYi.SettingsStoreFixture__KuaiYi.SettingsStoreFixture.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build-source__tools__KuaiYi.SettingsStoreFixture__Program.cs.txt": {
+      "sha256": "88435a8cbba72215093a707f6db3442f09278dd9510800ab250f12900d43e4ea",
+      "bytes": 3066,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build-source__tools__KuaiYi.SettingsStoreFixture__Program.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r09-app-build.log": {
+      "sha256": "9a6a6e1745ac1570c8c5f05e33a7bb87fa81d6ec09d5019069dad8b14bc4a83a",
+      "bytes": 888,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r09-app-build.log"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-command.sh": {
+      "sha256": "7ebd378cfa528da5b48b8c76d2299564a199f3211dbb0908e4d87ea5d570ea40",
+      "bytes": 257,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-command.sh"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-executed.json": {
+      "sha256": "4185d256c4df4e14d30ebb41d03dfa3489e5d97440aee1837522655aa15c4de7",
+      "bytes": 8274,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-executed.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source.json": {
+      "sha256": "f550acba251130a8f91da62fe39b59eebc66c64e03a00ad82eeba574c1191e50",
+      "bytes": 4872,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt": {
+      "sha256": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+      "bytes": 4761,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt": {
+      "sha256": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+      "bytes": 8954,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.App__OverlayClearContent.cs.txt": {
+      "sha256": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+      "bytes": 2888,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.App__OverlayClearContent.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt": {
+      "sha256": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+      "bytes": 5948,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.App__OverlayImageSource.cs.txt": {
+      "sha256": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+      "bytes": 5750,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.App__OverlayImageSource.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt": {
+      "sha256": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+      "bytes": 956,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.App__OverlayMarkdown.cs.txt": {
+      "sha256": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+      "bytes": 2197,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.App__OverlayMarkdown.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.App__OverlayPresentation.cs.txt": {
+      "sha256": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+      "bytes": 21549,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.App__OverlayPresentation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt": {
+      "sha256": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+      "bytes": 2494,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.App__OverlayResultFlow.cs.txt": {
+      "sha256": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+      "bytes": 5930,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.App__OverlayResultFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.App__OverlayResultLabel.cs.txt": {
+      "sha256": "de1c865a146e7f81ac32ec65861d11066869cdd3a2219eeee908dbde03b277e4",
+      "bytes": 6272,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.App__OverlayResultLabel.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt": {
+      "sha256": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+      "bytes": 3792,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt": {
+      "sha256": "33ca4ac031915b4d2c1669c67dd52f06271390931834f33691dcfc925fcf051f",
+      "bytes": 27061,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt": {
+      "sha256": "e272cf24639496ac8697f854ffbedecdd99772dea0ffc0ddd82869e0d8e690ab",
+      "bytes": 3106,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt": {
+      "sha256": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+      "bytes": 1366,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt": {
+      "sha256": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+      "bytes": 751,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt": {
+      "sha256": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+      "bytes": 1446,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.App__ShellWindow.cs.txt": {
+      "sha256": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+      "bytes": 16965,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.App__ShellWindow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.App__TranslationFlow.cs.txt": {
+      "sha256": "a1288ee73c8142a879e3788232ffd6e96150b793e33505ebf771e106f727a321",
+      "bytes": 8228,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.App__TranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.Core__Installation__InstallationPackage.cs.txt": {
+      "sha256": "a499948d2bf92ee50d571bcf151caf5259897ecf30e38aebc681f8c5e6dd99ba",
+      "bytes": 10105,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.Core__Installation__InstallationPackage.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.Core__Installation__InstallationStore.cs.txt": {
+      "sha256": "67c44fb26ff05d2e7360f43d001d59283b61eaa36e66e48e8c7db9a27c5c9ab7",
+      "bytes": 10250,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.Core__Installation__InstallationStore.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.Core__KuaiYi.Core.csproj.txt": {
+      "sha256": "ed7c0f20902846adddafbfc178137e3a0dd399bba0a8c656195f76855d2233bb",
+      "bytes": 121,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.Core__KuaiYi.Core.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.Core__Settings__SecretFileStore.cs.txt": {
+      "sha256": "3e7089d4f4694af38b9994d065a1276607a4f946ebe115f9ab83c895f7f2fd61",
+      "bytes": 3530,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.Core__Settings__SecretFileStore.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.Core__Settings__SettingsStore.cs.txt": {
+      "sha256": "24d46ef6b51a4245024779039f8a0642757be9d708b3b5d08fc0f01b8f21cf1d",
+      "bytes": 6307,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.Core__Settings__SettingsStore.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.Providers__ProviderContracts.cs.txt": {
+      "sha256": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+      "bytes": 6572,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.Providers__ProviderContracts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt": {
+      "sha256": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+      "bytes": 1369,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt": {
+      "sha256": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+      "bytes": 1638,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__tests__KuaiYi.Core.Tests__InstallationTransactionTests.cs.txt": {
+      "sha256": "0ced7b53f625e4ad6cb93e5fa8379839ac4024c59109a3f1cb58a65bd5ffc3ba",
+      "bytes": 19851,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__tests__KuaiYi.Core.Tests__InstallationTransactionTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__tests__KuaiYi.Core.Tests__KuaiYi.Core.Tests.csproj.txt": {
+      "sha256": "d7bd48f5a28b4edd4b1fa24fdc0ffc4a887916c1c737d90e30fe6f854c71305e",
+      "bytes": 2686,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__tests__KuaiYi.Core.Tests__KuaiYi.Core.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt": {
+      "sha256": "141d01220ff94b2690f1cf5542d46b63a285dd11607988d7f297fb9fca3492d1",
+      "bytes": 5405,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt": {
+      "sha256": "8965a95cc3bd9aaab981bcc7a4a188fc26fdaeb72ea8b4e2c9f5a61c8fe44038",
+      "bytes": 5063,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt": {
+      "sha256": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+      "bytes": 1655,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt": {
+      "sha256": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+      "bytes": 4284,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt": {
+      "sha256": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+      "bytes": 6700,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt": {
+      "sha256": "ebb8bf9392895afab0c8041d15a3e098bdd770b550eb422b49d03e4f8352f7df",
+      "bytes": 1936,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt": {
+      "sha256": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+      "bytes": 10958,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt": {
+      "sha256": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+      "bytes": 25218,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt": {
+      "sha256": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+      "bytes": 1261,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt": {
+      "sha256": "8ba7be5b0c21d5e3c6ceb820a128f1312138af3b69965b21381aec5738c19158",
+      "bytes": 18561,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__tools__KuaiYi.SettingsStoreFixture__KuaiYi.SettingsStoreFixture.csproj.txt": {
+      "sha256": "473266c653dafba8d1f323e2ce7d2c8addb0a8a64234f41a3a7137c4e86eaee4",
+      "bytes": 239,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__tools__KuaiYi.SettingsStoreFixture__KuaiYi.SettingsStoreFixture.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build-source__tools__KuaiYi.SettingsStoreFixture__Program.cs.txt": {
+      "sha256": "88435a8cbba72215093a707f6db3442f09278dd9510800ab250f12900d43e4ea",
+      "bytes": 3066,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build-source__tools__KuaiYi.SettingsStoreFixture__Program.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__r10-worker-build.log": {
+      "sha256": "a0f07f8f3428e981cbfb7a3d9233b2c6231659dd1992a9b8a8718c5abb56527c",
+      "bytes": 477,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/r10-worker-build.log"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__run.py": {
+      "sha256": "088d589fcd287aef281c422544093d00ceedce63cc19f3158bb0ded2eb63046d",
+      "bytes": 2861,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/run.py"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__seal.py": {
+      "sha256": "139ed39cb43711c4eeadf90242c9dfb59dddca615d55123c8cf7c6973b73d25a",
+      "bytes": 3280,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/seal.py"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__source-binding-erratum.json": {
+      "sha256": "71147f0cc7c14cf7b66270cfb214a08393453c43d5a7d28639ac130aaf37fbaa",
+      "bytes": 528,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/source-binding-erratum.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__source-review.txt": {
+      "sha256": "54002197f14fe72364f7c258b46b85a71b6eaeb3746a092582604f9ee63a1a1d",
+      "bytes": 653,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/source-review.txt"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__task.json": {
+      "sha256": "5ad5ceeebd7dee0482c259e9522a2e21eced1c8019775b3fdc3af31c18149af1",
+      "bytes": 7745,
+      "artifact": "/workspace/KuaiYi/artifacts/install-transaction-core/task.json"
+    },
+    "docs/test-evidence/2026-10-17-install-transaction-originals__final-review-receipt.txt": {
+      "sha256": "32dd926189aef9dd8ff3e94819e7d8bfc276db5d7de2f2ee3532c495f934932e",
+      "bytes": 897,
+      "artifact": "artifacts/install-transaction-core/final-review-receipt.txt"
+    }
+  },
+  "RawEvidenceCountBeforeFinalReview": 432
+}
