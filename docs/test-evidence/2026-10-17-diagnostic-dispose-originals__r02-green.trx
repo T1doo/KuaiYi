@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="b475a722-df65-47b9-9725-4245ac2ed3ef" name="@4cd0056ca8a8 2026-10-17 10:01:15" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-17T10:01:15.1991633+00:00" queuing="2026-10-17T10:01:15.1991634+00:00" start="2026-10-17T10:01:13.3749070+00:00" finish="2026-10-17T10:01:16.1286317+00:00" />
+  <TestSettings name="default" id="80cea80a-18a4-4342-ad64-ac7a7c195045">
+    <Deployment runDeploymentRoot="_4cd0056ca8a8_2026-10-17_10_01_15" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="d1c7febf-826c-44ee-9572-48fa146d7b91" testId="220bc346-76ed-5605-7708-47d0248637c5" testName="KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: &quot;stdout&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.6051883" startTime="2026-10-17T10:01:15.4650825+00:00" endTime="2026-10-17T10:01:16.0736295+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d1c7febf-826c-44ee-9572-48fa146d7b91" />
+    <UnitTestResult executionId="ba614437-33a9-43e8-868d-1c47d10138a4" testId="064b8838-a58a-b04e-0666-19b0020d9775" testName="KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: &quot;exit-wait&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.5999549" startTime="2026-10-17T10:01:14.8643061+00:00" endTime="2026-10-17T10:01:15.4645886+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ba614437-33a9-43e8-868d-1c47d10138a4" />
+    <UnitTestResult executionId="052d8180-6dad-4571-9651-6027b4678f6b" testId="30b3a647-992e-bc4f-ccdb-178f628e3c4a" testName="KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: &quot;startup&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.6110308" startTime="2026-10-17T10:01:14.2597497+00:00" endTime="2026-10-17T10:01:14.8634181+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="052d8180-6dad-4571-9651-6027b4678f6b" />
+    <UnitTestResult executionId="e8232783-a77a-449b-aa2f-11fbcecc710b" testId="e36242cb-196b-65a2-40fc-0e72c4f84908" testName="KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: &quot;stderr&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0808895" startTime="2026-10-17T10:01:14.1556295+00:00" endTime="2026-10-17T10:01:14.2507573+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e8232783-a77a-449b-aa2f-11fbcecc710b" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: &quot;exit-wait&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="064b8838-a58a-b04e-0666-19b0020d9775">
+      <Execution id="ba614437-33a9-43e8-868d-1c47d10138a4" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests" name="SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: &quot;stderr&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="e36242cb-196b-65a2-40fc-0e72c4f84908">
+      <Execution id="e8232783-a77a-449b-aa2f-11fbcecc710b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests" name="SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: &quot;stdout&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="220bc346-76ed-5605-7708-47d0248637c5">
+      <Execution id="d1c7febf-826c-44ee-9572-48fa146d7b91" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests" name="SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: &quot;startup&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="30b3a647-992e-bc4f-ccdb-178f628e3c4a">
+      <Execution id="052d8180-6dad-4571-9651-6027b4678f6b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests" name="SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="220bc346-76ed-5605-7708-47d0248637c5" executionId="d1c7febf-826c-44ee-9572-48fa146d7b91" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="064b8838-a58a-b04e-0666-19b0020d9775" executionId="ba614437-33a9-43e8-868d-1c47d10138a4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="30b3a647-992e-bc4f-ccdb-178f628e3c4a" executionId="052d8180-6dad-4571-9651-6027b4678f6b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e36242cb-196b-65a2-40fc-0e72c4f84908" executionId="e8232783-a77a-449b-aa2f-11fbcecc710b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="4" executed="4" passed="4" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.10]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.38]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.42]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:02.37]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

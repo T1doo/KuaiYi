@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="2f57de63-b1eb-4f26-88c3-c706ee5ce63f" name="@4cd0056ca8a8 2026-10-17 10:00:00" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-17T10:00:00.1245133+00:00" queuing="2026-10-17T10:00:00.1245133+00:00" start="2026-10-17T09:59:58.2624506+00:00" finish="2026-10-17T10:00:01.0918756+00:00" />
+  <TestSettings name="default" id="b372723a-dc3f-4de6-8302-1b42c29ecca8">
+    <Deployment runDeploymentRoot="_4cd0056ca8a8_2026-10-17_10_00_00" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="d98f993e-0321-446a-94ce-ca56541baa14" testId="220bc346-76ed-5605-7708-47d0248637c5" testName="KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: &quot;stdout&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.6101118" startTime="2026-10-17T10:00:00.4212303+00:00" endTime="2026-10-17T10:00:01.0315596+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d98f993e-0321-446a-94ce-ca56541baa14">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(String phase) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs:line 77
+   at KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(String phase) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs:line 81
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="fd87050b-a31e-4b66-8293-82662d608a12" testId="064b8838-a58a-b04e-0666-19b0020d9775" testName="KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: &quot;exit-wait&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.6071412" startTime="2026-10-17T09:59:59.8133579+00:00" endTime="2026-10-17T10:00:00.4202680+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fd87050b-a31e-4b66-8293-82662d608a12">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(String phase) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs:line 77
+   at KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(String phase) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs:line 81
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f68702f4-fb22-48a2-9f48-d6978e337a9e" testId="30b3a647-992e-bc4f-ccdb-178f628e3c4a" testName="KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: &quot;startup&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.6149419" startTime="2026-10-17T09:59:59.2075701+00:00" endTime="2026-10-17T09:59:59.8116868+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f68702f4-fb22-48a2-9f48-d6978e337a9e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(String phase) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs:line 77
+   at KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(String phase) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs:line 81
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b0f93ddc-eee1-46c0-9b08-be603a7de8c4" testId="e36242cb-196b-65a2-40fc-0e72c4f84908" testName="KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: &quot;stderr&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0837225" startTime="2026-10-17T09:59:59.0865495+00:00" endTime="2026-10-17T09:59:59.1948504+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b0f93ddc-eee1-46c0-9b08-be603a7de8c4">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(String phase) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs:line 77
+   at KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(String phase) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs:line 81
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: &quot;exit-wait&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="064b8838-a58a-b04e-0666-19b0020d9775">
+      <Execution id="fd87050b-a31e-4b66-8293-82662d608a12" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests" name="SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: &quot;stderr&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="e36242cb-196b-65a2-40fc-0e72c4f84908">
+      <Execution id="b0f93ddc-eee1-46c0-9b08-be603a7de8c4" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests" name="SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: &quot;stdout&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="220bc346-76ed-5605-7708-47d0248637c5">
+      <Execution id="d98f993e-0321-446a-94ce-ca56541baa14" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests" name="SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: &quot;startup&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="30b3a647-992e-bc4f-ccdb-178f628e3c4a">
+      <Execution id="f68702f4-fb22-48a2-9f48-d6978e337a9e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests" name="SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="220bc346-76ed-5605-7708-47d0248637c5" executionId="d98f993e-0321-446a-94ce-ca56541baa14" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="064b8838-a58a-b04e-0666-19b0020d9775" executionId="fd87050b-a31e-4b66-8293-82662d608a12" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="30b3a647-992e-bc4f-ccdb-178f628e3c4a" executionId="f68702f4-fb22-48a2-9f48-d6978e337a9e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e36242cb-196b-65a2-40fc-0e72c4f84908" executionId="b0f93ddc-eee1-46c0-9b08-be603a7de8c4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="4" executed="4" passed="0" failed="4" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.10]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.40]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.42]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.56]       Assert.False() Failure
+[xUnit.net 00:00:00.56]       Expected: False
+[xUnit.net 00:00:00.56]       Actual:   True
+[xUnit.net 00:00:00.56]       Stack Trace:
+[xUnit.net 00:00:00.56]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs(77,0): at KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(String phase)
+[xUnit.net 00:00:00.56]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs(81,0): at KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(String phase)
+[xUnit.net 00:00:00.56]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.17]       Assert.False() Failure
+[xUnit.net 00:00:01.17]       Expected: False
+[xUnit.net 00:00:01.17]       Actual:   True
+[xUnit.net 00:00:01.17]       Stack Trace:
+[xUnit.net 00:00:01.17]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs(77,0): at KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(String phase)
+[xUnit.net 00:00:01.17]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs(81,0): at KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(String phase)
+[xUnit.net 00:00:01.17]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.78]       Assert.False() Failure
+[xUnit.net 00:00:01.78]       Expected: False
+[xUnit.net 00:00:01.78]       Actual:   True
+[xUnit.net 00:00:01.78]       Stack Trace:
+[xUnit.net 00:00:01.78]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs(77,0): at KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(String phase)
+[xUnit.net 00:00:01.78]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs(81,0): at KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(String phase)
+[xUnit.net 00:00:01.78]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.39]       Assert.False() Failure
+[xUnit.net 00:00:02.39]       Expected: False
+[xUnit.net 00:00:02.39]       Actual:   True
+[xUnit.net 00:00:02.39]       Stack Trace:
+[xUnit.net 00:00:02.39]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs(77,0): at KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(String phase)
+[xUnit.net 00:00:02.39]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs(81,0): at KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(String phase)
+[xUnit.net 00:00:02.39]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.40]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T09:59:59.1984295+00:00">
+        <Text>[xUnit.net 00:00:00.56]     KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: "stderr") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T09:59:59.8126620+00:00">
+        <Text>[xUnit.net 00:00:01.17]     KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: "startup") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T10:00:00.4214672+00:00">
+        <Text>[xUnit.net 00:00:01.78]     KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: "exit-wait") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T10:00:01.0330713+00:00">
+        <Text>[xUnit.net 00:00:02.39]     KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: "stdout") [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

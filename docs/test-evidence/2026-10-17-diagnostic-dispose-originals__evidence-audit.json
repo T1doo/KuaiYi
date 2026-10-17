@@ -1,0 +1,373 @@
+{
+  "utc": "2026-10-17T10:12:30.192785+00:00",
+  "parent": "04d6831cd874c13a83ac0df4df3bc6842c3547ee",
+  "runs": {
+    "r01-parent-red": {
+      "path": "artifacts/diagnostic-dispose-settlement/r01-parent-red.trx",
+      "sha256": "3c41f2801ff1bb28213cba473ffb95a3d828cb5a978c5a3453b62c0255ef4ddc",
+      "counters": {
+        "total": "4",
+        "executed": "4",
+        "passed": "0",
+        "failed": "4",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-10-17T10:00:00.1245133+00:00",
+        "queuing": "2026-10-17T10:00:00.1245133+00:00",
+        "start": "2026-10-17T09:59:58.2624506+00:00",
+        "finish": "2026-10-17T10:00:01.0918756+00:00"
+      }
+    },
+    "r02-green": {
+      "path": "artifacts/diagnostic-dispose-settlement/r02-green.trx",
+      "sha256": "35b8482ad8cc814b8077ae54dc81a192a082a12343c7be2a251498453858d41f",
+      "counters": {
+        "total": "4",
+        "executed": "4",
+        "passed": "4",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-10-17T10:01:15.1991633+00:00",
+        "queuing": "2026-10-17T10:01:15.1991634+00:00",
+        "start": "2026-10-17T10:01:13.3749070+00:00",
+        "finish": "2026-10-17T10:01:16.1286317+00:00"
+      }
+    },
+    "r03-focused": {
+      "path": "artifacts/diagnostic-dispose-settlement/r03-focused.trx",
+      "sha256": "ba76c23422187b0d5ad89b07cb7a405dec76aeec1d2d2709a9b13a217140f34f",
+      "counters": {
+        "total": "15",
+        "executed": "15",
+        "passed": "15",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-10-17T10:03:50.3399639+00:00",
+        "queuing": "2026-10-17T10:03:50.3399639+00:00",
+        "start": "2026-10-17T10:03:47.0169197+00:00",
+        "finish": "2026-10-17T10:04:04.5771721+00:00"
+      }
+    },
+    "r05-related": {
+      "path": "artifacts/diagnostic-dispose-settlement/r05-related.trx",
+      "sha256": "cced0321761cf74d4f2f7aea8427af785feb2fdf90acf617e7533ac5446f7212",
+      "counters": {
+        "total": "66",
+        "executed": "66",
+        "passed": "66",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-10-17T10:06:16.5510398+00:00",
+        "queuing": "2026-10-17T10:06:16.5510399+00:00",
+        "start": "2026-10-17T10:06:15.5459377+00:00",
+        "finish": "2026-10-17T10:06:32.9691632+00:00"
+      }
+    },
+    "r06-core-full": {
+      "path": "artifacts/diagnostic-dispose-settlement/r06-core-full.trx",
+      "sha256": "3a996bf88361fa2e2563ce5fc6b28498369991613c4d393880256799727f1d44",
+      "counters": {
+        "total": "1703",
+        "executed": "1703",
+        "passed": "1703",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-10-17T10:07:37.6886990+00:00",
+        "queuing": "2026-10-17T10:07:37.6886991+00:00",
+        "start": "2026-10-17T10:07:36.5352330+00:00",
+        "finish": "2026-10-17T10:08:09.3280083+00:00"
+      }
+    },
+    "r07-provider-full": {
+      "path": "artifacts/diagnostic-dispose-settlement/r07-provider-full.trx",
+      "sha256": "020001c99deeb6222bc7e37ef736e9a9aac19f999977c8492fe8c263a7379314",
+      "counters": {
+        "total": "2212",
+        "executed": "2212",
+        "passed": "2212",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-10-17T10:10:08.8357468+00:00",
+        "queuing": "2026-10-17T10:10:08.8357469+00:00",
+        "start": "2026-10-17T10:10:06.9821530+00:00",
+        "finish": "2026-10-17T10:10:19.6903556+00:00"
+      }
+    }
+  },
+  "parentCore": {
+    "path": "docs/test-evidence/2026-10-17-display-save-originals__r14-core-final.trx",
+    "sha256": "6019d2db4b9cc143b648c3aa71f957c12cee0dbc8c520f3b201d09d1e3bbf17b",
+    "counters": {
+      "total": "1688",
+      "executed": "1688",
+      "passed": "1688",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "times": {
+      "creation": "2026-10-17T09:33:06.5228682+00:00",
+      "queuing": "2026-10-17T09:33:06.5228682+00:00",
+      "start": "2026-10-17T09:33:05.2069719+00:00",
+      "finish": "2026-10-17T09:33:35.0387481+00:00"
+    }
+  },
+  "parentProvider": {
+    "path": "docs/test-evidence/2026-10-17-display-save-originals__r28-provider-final.trx",
+    "sha256": "364404003bd0ef71b43c3b4f8b8f0dd1e87d45874b7981db41aa8119cbc529b7",
+    "counters": {
+      "total": "2212",
+      "executed": "2212",
+      "passed": "2212",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "times": {
+      "creation": "2026-10-17T09:44:04.2405235+00:00",
+      "queuing": "2026-10-17T09:44:04.2405236+00:00",
+      "start": "2026-10-17T09:44:02.3703888+00:00",
+      "finish": "2026-10-17T09:44:12.3478058+00:00"
+    }
+  },
+  "newCaseNames": {
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: \"startup\")": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.ActualExitDoesNotReplaceUnconfirmedExitObservationOrStackStopBudgets(timeout: False)": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: \"stdout\")": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.HeldPastBudgetFailsWithOwnerRetainedAndLaterSameHostDisposeCanSettle(phase: \"startup\")": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SettlementSemaphoreWaitUsesTheSameBoundedCleanupBudget": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.ConcurrentAndRepeatedDisposersJoinTheSameIoWithoutEarlyReleaseOrRestart": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.HeldPastBudgetFailsWithOwnerRetainedAndLaterSameHostDisposeCanSettle(phase: \"stdout\")": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.DisposedBeforeStartAndPreCancelledStartupNeverStartOrInventAChildExit(cancelled: False)": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.FaultedLateIoIsPropagatedAfterErasureAndNeverPublishesSuccessfulSettlement": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.ActualExitDoesNotReplaceUnconfirmedExitObservationOrStackStopBudgets(timeout: True)": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: \"stderr\")": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: \"exit-wait\")": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.HeldPastBudgetFailsWithOwnerRetainedAndLaterSameHostDisposeCanSettle(phase: \"exit-wait\")": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.DisposedBeforeStartAndPreCancelledStartupNeverStartOrInventAChildExit(cancelled: True)": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.HeldPastBudgetFailsWithOwnerRetainedAndLaterSameHostDisposeCanSettle(phase: \"stderr\")": 1
+  },
+  "coreExactParentPlus15": true,
+  "providerExactParentMultiset": true,
+  "relatedExact15Plus51Old": true,
+  "originalActiveDisposePassed": true,
+  "redGreenSameFourNamesAndTestSource": true,
+  "redActualParentHostBytes": true,
+  "redMessages": [
+    "Assert.False() Failure\nExpected: False\nActual:   True",
+    "Assert.False() Failure\nExpected: False\nActual:   True",
+    "Assert.False() Failure\nExpected: False\nActual:   True",
+    "Assert.False() Failure\nExpected: False\nActual:   True"
+  ],
+  "redGreenExecutedDllComparison": {
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": {
+      "red": "b9eb61fe374b8ac193e0284e9a3e6faf5134f9cc4db3f7847bc7cabbffd6e3c5",
+      "green": "590cb2bc9c2ecd42ad54e3d665a868c3cf505e6b972d681da8e0e3976d53265f",
+      "equal": false
+    },
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": {
+      "red": "8c3b6ba0b75474bc33423ff33aa13a66886e960f3d5d1188d92790ebe17ab6d6",
+      "green": "74760fc6395b9f11f21699110223d6d49c8b80726bdedbfd391d892898b9f402",
+      "equal": false
+    },
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": {
+      "red": "c39530c0a17652242c44f2a0b8339f67ea599892592587d9093579c094476f00",
+      "green": "c39530c0a17652242c44f2a0b8339f67ea599892592587d9093579c094476f00",
+      "equal": true
+    },
+    "tools/KuaiYi.SelectionReuseDiagnostic/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": {
+      "red": "8c3b6ba0b75474bc33423ff33aa13a66886e960f3d5d1188d92790ebe17ab6d6",
+      "green": "74760fc6395b9f11f21699110223d6d49c8b80726bdedbfd391d892898b9f402",
+      "equal": false
+    }
+  },
+  "finalSource": {
+    "tools/KuaiYi.SelectionReuseDiagnostic/ReuseDiagnosticHost.cs": "ec49382663d06122356e65c33da6a621d18934602c7770ce514fa31502816732",
+    "tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs": "27e6fcc627bdded064c7d38ec3b27605e1dc0149cfb1cf1e40757a42dcda4fa6"
+  },
+  "bindings": {
+    "r01": {
+      "sha256": {
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "b9eb61fe374b8ac193e0284e9a3e6faf5134f9cc4db3f7847bc7cabbffd6e3c5",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "8c3b6ba0b75474bc33423ff33aa13a66886e960f3d5d1188d92790ebe17ab6d6",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "c39530c0a17652242c44f2a0b8339f67ea599892592587d9093579c094476f00",
+        "tools/KuaiYi.SelectionReuseDiagnostic/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "8c3b6ba0b75474bc33423ff33aa13a66886e960f3d5d1188d92790ebe17ab6d6"
+      },
+      "scope": "Four controlled held-settlement cases all fail because parent Dispose completes before explicit gate release. Actual nonstartup child exit confirmed separately; startup case no child yet. Fixture finally releases gates and observes original disposer fault only after the failing assertion."
+    },
+    "r02": {
+      "sha256": {
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "590cb2bc9c2ecd42ad54e3d665a868c3cf505e6b972d681da8e0e3976d53265f",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "74760fc6395b9f11f21699110223d6d49c8b80726bdedbfd391d892898b9f402",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "c39530c0a17652242c44f2a0b8339f67ea599892592587d9093579c094476f00",
+        "tools/KuaiYi.SelectionReuseDiagnostic/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "74760fc6395b9f11f21699110223d6d49c8b80726bdedbfd391d892898b9f402"
+      },
+      "sameTestSourceAsRed": true
+    },
+    "r03": {
+      "sha256": {
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "f570b327a40ccef1474e0f6d763a861eebc917182b5544db53f91047b9027378",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "74760fc6395b9f11f21699110223d6d49c8b80726bdedbfd391d892898b9f402",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "c39530c0a17652242c44f2a0b8339f67ea599892592587d9093579c094476f00",
+        "tools/KuaiYi.SelectionReuseDiagnostic/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "74760fc6395b9f11f21699110223d6d49c8b80726bdedbfd391d892898b9f402"
+      }
+    },
+    "r05-related": {
+      "endUtc": "2026-10-17T10:06:33.053788+00:00",
+      "exit": 0,
+      "sha256": {
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "bb138e386a7d53a857adbfb0bccdce2f8b251ad7fcf4024855c86b7838c7ba88",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "74760fc6395b9f11f21699110223d6d49c8b80726bdedbfd391d892898b9f402",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "c39530c0a17652242c44f2a0b8339f67ea599892592587d9093579c094476f00",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll": "23e67ce907ff6b9e6a5049a9a75ffb5ea642ced67f380481a510ae44828bb67d",
+        "tools/KuaiYi.SelectionReuseDiagnostic/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "74760fc6395b9f11f21699110223d6d49c8b80726bdedbfd391d892898b9f402"
+      }
+    },
+    "r06-core-full": {
+      "endUtc": "2026-10-17T10:08:09.617066+00:00",
+      "exit": 0,
+      "sha256": {
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "bb138e386a7d53a857adbfb0bccdce2f8b251ad7fcf4024855c86b7838c7ba88",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "74760fc6395b9f11f21699110223d6d49c8b80726bdedbfd391d892898b9f402",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "c39530c0a17652242c44f2a0b8339f67ea599892592587d9093579c094476f00",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll": "23e67ce907ff6b9e6a5049a9a75ffb5ea642ced67f380481a510ae44828bb67d",
+        "tools/KuaiYi.SelectionReuseDiagnostic/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "74760fc6395b9f11f21699110223d6d49c8b80726bdedbfd391d892898b9f402"
+      }
+    },
+    "r07-provider-full": {
+      "endUtc": "2026-10-17T10:10:20.049699+00:00",
+      "exit": 0,
+      "sha256": {
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": "f61eb4633196c26957e6e036a28c9a335e4ce1f1d42cae1ddbe7934b22c5c51c",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": "91ed871e3d8191b1c4f2dbb6dc26774f83cb7e0ad480a428a0f7c98631fd3225",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "c39530c0a17652242c44f2a0b8339f67ea599892592587d9093579c094476f00"
+      }
+    },
+    "r08-app-build": {
+      "endUtc": "2026-10-17T10:10:26.544342+00:00",
+      "exit": 0,
+      "sha256": {
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.App.dll": "1e57922067333e1ef52d4fbf9e778561e970d6d94dfdbfdd32d0d807b4a62964",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Core.dll": "c39530c0a17652242c44f2a0b8339f67ea599892592587d9093579c094476f00"
+      }
+    },
+    "r09-worker-build": {
+      "endUtc": "2026-10-17T10:10:39.794938+00:00",
+      "exit": 0,
+      "sha256": {
+        "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll": "627963cc2889b5153d97ab23eba7a71f65f375846c3c3e47bd9c5ef36320fc09",
+        "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Core.dll": "c39530c0a17652242c44f2a0b8339f67ea599892592587d9093579c094476f00"
+      }
+    }
+  },
+  "parentTracked": 3703,
+  "parentChangedAtAudit": [
+    "docs/progress.md",
+    "tools/KuaiYi.SelectionReuseDiagnostic/ReuseDiagnosticHost.cs"
+  ],
+  "traceabilityExactBytesUnchanged": true,
+  "r04": {
+    "exit": 127,
+    "classification": "Shell command quoting error; pipe characters split --filter into three shell commands. Not a product test failure and no authoritative TRX. First dotnet pipeline branch test execution is indeterminate from preserved output; not counted as zero or green.",
+    "toolStderr": "artifacts/diagnostic-dispose-settlement/r04-command.sh: line 4: FullyQualifiedName~SelectionReuseHostTests: command not found",
+    "lastBranchLog": "r04-related.log",
+    "trxExists": false
+  }
+}

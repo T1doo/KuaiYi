@@ -1,0 +1,9 @@
+{
+  "sha256": {
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "b9eb61fe374b8ac193e0284e9a3e6faf5134f9cc4db3f7847bc7cabbffd6e3c5",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "8c3b6ba0b75474bc33423ff33aa13a66886e960f3d5d1188d92790ebe17ab6d6",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "c39530c0a17652242c44f2a0b8339f67ea599892592587d9093579c094476f00",
+    "tools/KuaiYi.SelectionReuseDiagnostic/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "8c3b6ba0b75474bc33423ff33aa13a66886e960f3d5d1188d92790ebe17ab6d6"
+  },
+  "scope": "Four controlled held-settlement cases all fail because parent Dispose completes before explicit gate release. Actual nonstartup child exit confirmed separately; startup case no child yet. Fixture finally releases gates and observes original disposer fault only after the failing assertion."
+}

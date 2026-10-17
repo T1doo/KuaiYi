@@ -911,3 +911,12 @@ r01新增夹具初始化顺序错4F保全、不当产品红；修夹具r02父生
 最终r27专项55P、r28完整Provider2212P=父2157全名多重集+55；r29/r30 App/Worker0W/E。r06完整Core1687P1F旧Dispose_during_active_request结算未确认，源码/log/TRX/DLL保留；r14完整1688P且Core.Tests/Core/NativeHost DLL相同、诊断DLL后读亦同，根因Unknown、不冒称解决。r14早于后续Provider/Provider.Tests修正，其源记录保留前候选；Core14项目闭包不引用它们，整个依赖字节不变，仍适用，无需非依赖变动重复Core；最终Provider/App已重新全量/构建。
 
 见[修复与边界](validation/display-save-stream-continuation.md)及[全部红绿/回归原件](test-evidence/2026-10-17-display-save-stream-continuation.json)。真实store/Shell位置/Kestrel/交付链、同captured参数原语及显式settings-provider模拟分别注明，不称真实线程同点、WPF或Windows OCR。P1-03/A10仅追加证据/说明，全部状态不变。WPF设置可见性/键盘/焦点与前台来源、Windows/模型/完整验收未验，旧图片间歇Unknown/复用Off及250/600ms/来源/密码/身份/完整性/取消/清理门保持。仅已有SDK/--no-restore，激活前后禁ASP.NET证书生成；无新包许可环境、main/强推/部署/费用凭据安全权限或真实模型，Skia许可/403/Actions拒绝不查不绕，未知锁数据日志进程保全。
+
+
+## 2026-10-17 · 诊断工具 Dispose 有界真实结算
+
+从父有限准入04d6831正常建dev/diagnostic-dispose-settlement，先核实际HEAD/默认远端/main祖先、clean/单worktree/唯一root写入；high_water_review只读独审。依父明确诊断候选，用实际owned托管child将真实退出与stderr/stdout/exit-wait/startup结算分别持门，原一次TrySettle的Dispose在gate释放前已fault，同测试源四名实际4F→4P。仅诊断工具Host加入running完成后的2秒清理预算，join原任务/晚到startup drain，再核退出/原finalization；semaphore同截止，超时/故障不伪成功、不丢原任务/owner，可在真实结算后同host重试。生产Core/native/Job与250600门未改，外层Registry原留守重试未改，不能声称全runner有界。
+
+最终15例涵盖同次等待/超时所有权/独立退出确认/信号量/并发重复/fault清零而不放行/无child。相关66P，完整Core1703P=父1688全名多重集+15，Provider2212P与父全名多重集完全相同，均0失败/跳过；App/Worker各0W/E。r04误引filter导致shell127、无权威TRX且首分支执行不明，原件保全不计结果；r03中间15P不当最终测试字节。独审无P1/P2；fault夹具任意早期失败cleanup健壮性未全面证明，正常fault路径实测，不当Host成功。见[报告](validation/diagnostic-dispose-settlement.md)及[原件索引](test-evidence/2026-10-17-diagnostic-dispose-settlement.json)。traceability/旧测试/全部旧证据原字节保持，状态不抬。
+
+历史display-save r06真实1687P1F及同DLL r14完整1688P继续保留；本次确定性反例不证明历史当次未完成项。WindowsJob原未清空独立Unknown，旧图片间歇根因Unknown/生产复用Off；真实Windows/WPF键盘/COM/native/模型/250600/整体验收未执行。仅已有SDK/--no-restore、激活前后禁证书生成，无新包/许可/环境/main/强推/部署/费用凭据安全权限/真实模型；Skia许可/403/Actions先前拒绝不查不绕，未知锁数据日志进程保全。

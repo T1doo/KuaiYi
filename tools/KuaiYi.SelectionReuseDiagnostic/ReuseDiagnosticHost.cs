@@ -14,6 +14,7 @@ public sealed class ReuseDiagnosticHost : IAsyncDisposable
     private readonly OwnedProcessSession owner;private readonly ReuseProtocolPrototype model;
     private readonly CancellationTokenSource lifetime=new();private readonly string executable,assembly,scenario;
     private readonly bool enabled;private readonly Stopwatch clock=Stopwatch.StartNew();
+    private static readonly TimeSpan DisposeSettlementBudget=TimeSpan.FromSeconds(2);
     private Task? running;private readonly List<Task> lateIo=[];private int requests,admitted;
     private ReuseMatch firstMatch,secondMatch;private ReuseOutcome? firstOutcome,secondOutcome;private WorkerInitialization initialization;private WorkerTermination termination;
     private readonly DiagnosticRequest? requestSpec;private readonly Func<ReadOnlyMemory<byte>,bool>? matcher;private readonly bool nativeWorker;private ExclusiveKillJob? job;private Task? stderrDrain;private bool earlyEof;private ReuseFrame? expected;
@@ -168,10 +169,12 @@ public sealed class ReuseDiagnosticHost : IAsyncDisposable
         else termination=WorkerTermination.ParentRequested;
         await owner.StopAsync().ConfigureAwait(false);
     }
-    public async Task<bool> TrySettleAsync()
+    public Task<bool> TrySettleAsync()=>TrySettleAsync(CancellationToken.None);
+    private async Task<bool> TrySettleAsync(CancellationToken cancellation)
     {
-        await settlement.WaitAsync().ConfigureAwait(false);
+        await settlement.WaitAsync(cancellation).ConfigureAwait(false);
         try{
+        cancellation.ThrowIfCancellationRequested();
         lock(sync){if(summary!=null||noChildSettled)return true;if(!enabled||admitted==0||active||lateIo.Any(t=>!t.IsCompleted||t.IsFaulted))return false;}
         // TryFinalize verifies startup and stop settlement plus HasExited before releasing the held process.
         if(starting is not {IsCompletedSuccessfully:true})
@@ -197,7 +200,35 @@ public sealed class ReuseDiagnosticHost : IAsyncDisposable
     {
         lock(sync)disposed=true;Stop(ReuseRoundReason.Disposed);Task? task;lock(sync)task=running;
         if(task!=null)await task.ConfigureAwait(false);
-        if(enabled&&admitted>0&&!await TrySettleAsync().ConfigureAwait(false))throw new IOException("Owned child or IO settlement unconfirmed; ownership retained.");
+        if(enabled&&admitted>0)
+        {
+            // This cleanup budget begins after running settles; it does not extend the request's 250/600ms gates.
+            long origin=Stopwatch.GetTimestamp();using var cleanup=new CancellationTokenSource(DisposeSettlementBudget);
+            void CheckSettlement(){cleanup.Token.ThrowIfCancellationRequested();if(Stopwatch.GetElapsedTime(origin)>=DisposeSettlementBudget)throw new TimeoutException();}
+            try
+            {
+                while(true)
+                {
+                    CheckSettlement();Task[] io;
+                    lock(sync)
+                    {
+                        if(summary!=null||noChildSettled)break;
+                        // A startup which outlived RunCore still belongs to this owner and needs its drain joined.
+                        if(starting is {IsCompletedSuccessfully:true})StartStderrDrain(starting.Result);
+                        io=lateIo.Append(stderrDrain??Task.CompletedTask).ToArray();
+                    }
+                    await Task.WhenAll(io).WaitAsync(cleanup.Token).ConfigureAwait(false);CheckSettlement();
+                    // Wait for startup/stop/actual exit before entering finalization, whose existing stop budget is 2s.
+                    // Thus polling cannot stack that budget. The settlement lock uses this same cleanup deadline.
+                    if(owner.ObserveExit()&&await TrySettleAsync(cleanup.Token).ConfigureAwait(false))break;
+                    await Task.Delay(10,cleanup.Token).ConfigureAwait(false);
+                }
+            }
+            catch(OperationCanceledException error)when(cleanup.IsCancellationRequested)
+            {throw new IOException("Owned child or IO settlement unconfirmed; ownership retained.",error);}
+            catch(TimeoutException error)
+            {throw new IOException("Owned child or IO settlement unconfirmed; ownership retained.",error);}
+        }
         lock(sync){if(!lifetimeDisposed){lifetimeDisposed=true;lifetime.Dispose();}}
     }
 }

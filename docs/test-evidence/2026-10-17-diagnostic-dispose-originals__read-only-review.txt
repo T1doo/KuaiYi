@@ -1,0 +1,10 @@
+Independent read-only reviewer: /root/high_water_review.
+Scope: current ec493826 Host and 27e6fcc test source; no SDK, network or writes by reviewer.
+
+Source/test review returned before final sealing:
+最终源码及15个新增用例未发现P1/P2。并发Dispose、超时保留owner后重试、独立退出确认、信号量预算及fault不发布成功均有对应断言；原测试未弱化。
+Cleanup budget begins AFTER running finishes; original tracked IO tasks remain referenced until actual completion; owner.ObserveExit prevents stacking the existing stop budget; semaphore wait shares cleanup deadline. Existing Registry outer retry/leave behavior is unchanged. This does not identify historical r06's actual condition or prove Windows Job settlement.
+Nonblocking fixture boundary: fault finally assumes the body successfully awaited Disposing; on an earlier assertion failure it may assert erasure before late IO completes or exit on another exception. Normal fault execution passed and legally closes only the owned exited process after fault completion/erasure; this is not an arbitrary-early-failure-safe cleanup claim or a successful Host Dispose.
+
+Final TRX/source/DLL review message (verbatim):
+只读TRX/源码/DLL核验已完成：Core父1688名多重集全部保留，新r06恰+最终15名=1703P/0F/0skip；最终15取r05中DiagnosticDisposeSettlementTests，与Core增集完全相等。Provider父r28与r07完整2212名多重集完全相同，全P。r05相关66P=最终15+原51，原active Dispose在r05/r06均P，原SelectionReuseHostTests.cs与HEAD逐字节相同。r01/r02同4全名、4F→4P，测试sourceSHA均baa3cec...；red失败均gate未release时IsCompleted=True。Core.Tests DLL确有变化(b9eb→590c)，Diagnostic DLL8c3b→7476，Core DLL均c395；不应称同DLL。r03 15P与最终15只有无child方法2参数名的rename差异（DisabledAnd...→DisposedBeforeStartAnd...），最终集合应绑定r05/r06，不能称r03最终测试字节。当前Host ec493826/tests27e6fcc与r06/r07source snapshots一致；r06全部5个/r07全部3个执行DLL现值仍匹配。r04 exit127无权威TRX/首分支不明分类准确。未见P1/P2。

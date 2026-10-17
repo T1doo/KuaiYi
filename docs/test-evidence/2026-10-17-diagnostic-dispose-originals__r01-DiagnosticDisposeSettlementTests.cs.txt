@@ -1,0 +1,83 @@
+using System.Collections.Concurrent;
+using System.Diagnostics;
+using KuaiYi.Core;
+using KuaiYi.SelectionReuseDiagnostic;
+using Xunit;
+
+namespace KuaiYi.Core.Tests;
+
+// Actual owned managed child; gates control only the test's startup/IO/exit-observation ports.
+// They do not attest Windows UIA/COM/Job settlement or identify the historical r06 schedule.
+public sealed class DiagnosticDisposeSettlementTests
+{
+    private sealed class Gate
+    {
+        public readonly TaskCompletionSource Entered=new(TaskCreationOptions.RunContinuationsAsynchronously);
+        public readonly TaskCompletionSource Release=new(TaskCreationOptions.RunContinuationsAsynchronously);
+        public void Hold(){Entered.TrySetResult();Release.Task.GetAwaiter().GetResult();}
+    }
+    private sealed class Lifetime(Process child):IOwnedHostLifetime
+    {
+        public bool Confirm=true;public int Terminations;
+        public readonly TaskCompletionSource ActualExit=new(TaskCreationOptions.RunContinuationsAsynchronously);
+        public bool HasExited{get{bool exit=child.HasExited;if(exit)ActualExit.TrySetResult();return Confirm&&exit;}}
+        public void RequestTermination(){Interlocked.Increment(ref Terminations);if(!child.HasExited)child.Kill();}
+        public async Task WaitForExitAsync(CancellationToken cancellation){await child.WaitForExitAsync(cancellation);ActualExit.TrySetResult();}
+    }
+    private sealed class Starter(Gate gate):IOwnedProcessStarter
+    {public int Calls;public Process Start(ProcessStartInfo info){Interlocked.Increment(ref Calls);gate.Hold();return Process.Start(info)!;}}
+    private sealed class LateRead(Stream inner,Gate gate):Stream
+    {
+        public override async ValueTask<int> ReadAsync(Memory<byte> buffer,CancellationToken cancellation=default)
+        {buffer.Span.Fill(0x51);gate.Entered.TrySetResult();await gate.Release.Task;buffer.Span.Fill(0xa5);return 0;}
+        public override bool CanRead=>true;public override bool CanSeek=>false;public override bool CanWrite=>false;
+        public override long Length=>throw new NotSupportedException();public override long Position{get=>throw new NotSupportedException();set=>throw new NotSupportedException();}
+        public override int Read(byte[] b,int o,int c)=>throw new NotSupportedException();public override void Flush()=>inner.Flush();
+        public override long Seek(long o,SeekOrigin s)=>throw new NotSupportedException();public override void SetLength(long v)=>throw new NotSupportedException();public override void Write(byte[] b,int o,int c)=>throw new NotSupportedException();
+    }
+    private sealed class Rig
+    {
+        public readonly Gate Held=new();public readonly ConcurrentQueue<byte[]> Buffers=new();public readonly ReuseDiagnosticHost Host;public readonly string Phase;
+        public Lifetime? Child;public Task? Running,Disposing;
+        public Rig(string phase)
+        {
+            Phase=phase;var root=new DirectoryInfo(AppContext.BaseDirectory);while(root!=null&&!Directory.Exists(Path.Combine(root.FullName,".git"))&&!File.Exists(Path.Combine(root.FullName,".git")))root=root.Parent;
+            var assembly=Path.Combine(root!.FullName,"tools","KuaiYi.SelectionReuseDiagnostic","bin","Release","net10.0","KuaiYi.SelectionReuseDiagnostic.dll");
+            Host=new(Environment.ProcessPath!,assembly,"normal",true,phase=="startup"?new Starter(Held):null,request:new(new(42,123456,99),1,2,3,4,true),matcher:b=>b.Span.SequenceEqual(new byte[]{1,2,3}));
+            Host.SessionForTest.LifetimeForTest=p=>Child=new(p);Host.ReadBufferAllocatedForTest=Buffers.Enqueue;
+            if(phase=="stderr")Host.StderrBufferForTest=b=>{Buffers.Enqueue(b);b.AsSpan().Fill(0x51);Held.Hold();};
+            if(phase=="stdout")Host.OutputForTest=s=>new LateRead(s,Held);
+            if(phase=="exit-wait")Host.ExitWaitForTest=async(p,_)=>{await p.WaitForExitAsync();Held.Entered.TrySetResult();await Held.Release.Task;};
+        }
+        public async Task PrepareHeld()
+        {
+            Running=Host.RunAsync(1);await Held.Entered.Task.WaitAsync(TimeSpan.FromSeconds(6));await Running.WaitAsync(TimeSpan.FromSeconds(6));
+            if(Phase=="startup")Assert.Null(Child);
+            else{Assert.NotNull(Child);await Child.ActualExit.Task.WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal(HostExitState.ExitConfirmed,Host.SessionForTest.ExitState);}
+            Assert.Null(Host.Summary);Assert.True(Host.HoldsOwnership);Assert.False(Host.CanReplace);
+            if(Phase is "stdout" or "stderr")Assert.Contains(Buffers,b=>b.Any(x=>x!=0));
+        }
+        public async Task Cleanup()
+        {
+            Held.Release.TrySetResult();if(Running!=null)await Running.WaitAsync(TimeSpan.FromSeconds(6));
+            // Observe a parent's expected failing disposer without replacing the assertion failure.
+            if(Disposing!=null)try{await Disposing.WaitAsync(TimeSpan.FromSeconds(6));}catch(IOException){}
+            var watch=Stopwatch.StartNew();while(!await Host.TrySettleAsync()){if(watch.Elapsed>TimeSpan.FromSeconds(6))throw new TimeoutException("Owned fixture cleanup did not settle.");await Task.Delay(5);}
+            await Host.DisposeAsync();
+        }
+    }
+    [Theory][InlineData("stderr")][InlineData("stdout")][InlineData("exit-wait")][InlineData("startup")]
+    public async Task SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(string phase)
+    {
+        var r=new Rig(phase);
+        try
+        {
+            await r.PrepareHeld();r.Disposing=r.Host.DisposeAsync().AsTask();
+            // Running is already complete: a single-shot false probe faults synchronously on the parent.
+            Assert.False(r.Disposing.IsCompleted);Assert.Null(r.Host.Summary);Assert.True(r.Host.HoldsOwnership);Assert.False(r.Host.CanReplace);
+            r.Held.Release.TrySetResult();await r.Disposing.WaitAsync(TimeSpan.FromSeconds(6));Assert.NotNull(r.Child);Assert.True(r.Child.ActualExit.Task.IsCompletedSuccessfully);
+            var summary=Assert.IsType<ReuseRoundSummary>(r.Host.Summary);Assert.True(summary.ExitConfirmed&&summary.BuffersCleared);Assert.False(r.Host.HoldsOwnership);Assert.True(r.Host.CanReplace);Assert.All(r.Buffers,b=>Assert.All(b,x=>Assert.Equal(0,x)));
+        }
+        finally{await r.Cleanup();}
+    }
+}

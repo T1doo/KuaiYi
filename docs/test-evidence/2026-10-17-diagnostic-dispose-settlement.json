@@ -1,0 +1,612 @@
+{
+  "SourceParent": "04d6831cd874c13a83ac0df4df3bc6842c3547ee",
+  "Branch": "dev/diagnostic-dispose-settlement",
+  "Scope": "Existing SelectionReuseDiagnostic Host only; actual owned managed child settlement. No product feature or native Job change.",
+  "FrozenSource": {
+    "tools/KuaiYi.SelectionReuseDiagnostic/ReuseDiagnosticHost.cs": "ec49382663d06122356e65c33da6a621d18934602c7770ce514fa31502816732",
+    "tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs": "27e6fcc627bdded064c7d38ec3b27605e1dc0149cfb1cf1e40757a42dcda4fa6"
+  },
+  "Behavior": "After running completes: separate 2s cleanup deadline; join original tracked IO, late-start stderr drain, observe actual exit before original finalization, same deadline for semaphore. Timeout retains original tasks and owner, throws IOException with inner; subsequent same-host Dispose can settle. Fault propagates, never fake Summary/CanReplace. Existing outer Registry retry/leave behavior unchanged; no whole-runner bound claimed.",
+  "RedGreen": {
+    "ActualParentHostBytes": true,
+    "SameFourNamesAndTestSource": true,
+    "RedCounters": {
+      "total": "4",
+      "executed": "4",
+      "passed": "0",
+      "failed": "4",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "GreenCounters": {
+      "total": "4",
+      "executed": "4",
+      "passed": "4",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "ExecutedDllComparison": {
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": {
+        "red": "b9eb61fe374b8ac193e0284e9a3e6faf5134f9cc4db3f7847bc7cabbffd6e3c5",
+        "green": "590cb2bc9c2ecd42ad54e3d665a868c3cf505e6b972d681da8e0e3976d53265f",
+        "equal": false
+      },
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": {
+        "red": "8c3b6ba0b75474bc33423ff33aa13a66886e960f3d5d1188d92790ebe17ab6d6",
+        "green": "74760fc6395b9f11f21699110223d6d49c8b80726bdedbfd391d892898b9f402",
+        "equal": false
+      },
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": {
+        "red": "c39530c0a17652242c44f2a0b8339f67ea599892592587d9093579c094476f00",
+        "green": "c39530c0a17652242c44f2a0b8339f67ea599892592587d9093579c094476f00",
+        "equal": true
+      },
+      "tools/KuaiYi.SelectionReuseDiagnostic/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": {
+        "red": "8c3b6ba0b75474bc33423ff33aa13a66886e960f3d5d1188d92790ebe17ab6d6",
+        "green": "74760fc6395b9f11f21699110223d6d49c8b80726bdedbfd391d892898b9f402",
+        "equal": false
+      }
+    },
+    "SourceRef": "r01-source-binding.json / r02-source-binding.json",
+    "NotSameTestDll": true
+  },
+  "FinalValidation": {
+    "r05-related": {
+      "path": "artifacts/diagnostic-dispose-settlement/r05-related.trx",
+      "sha256": "cced0321761cf74d4f2f7aea8427af785feb2fdf90acf617e7533ac5446f7212",
+      "counters": {
+        "total": "66",
+        "executed": "66",
+        "passed": "66",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-10-17T10:06:16.5510398+00:00",
+        "queuing": "2026-10-17T10:06:16.5510399+00:00",
+        "start": "2026-10-17T10:06:15.5459377+00:00",
+        "finish": "2026-10-17T10:06:32.9691632+00:00"
+      }
+    },
+    "r06-core-full": {
+      "path": "artifacts/diagnostic-dispose-settlement/r06-core-full.trx",
+      "sha256": "3a996bf88361fa2e2563ce5fc6b28498369991613c4d393880256799727f1d44",
+      "counters": {
+        "total": "1703",
+        "executed": "1703",
+        "passed": "1703",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-10-17T10:07:37.6886990+00:00",
+        "queuing": "2026-10-17T10:07:37.6886991+00:00",
+        "start": "2026-10-17T10:07:36.5352330+00:00",
+        "finish": "2026-10-17T10:08:09.3280083+00:00"
+      }
+    },
+    "r07-provider-full": {
+      "path": "artifacts/diagnostic-dispose-settlement/r07-provider-full.trx",
+      "sha256": "020001c99deeb6222bc7e37ef736e9a9aac19f999977c8492fe8c263a7379314",
+      "counters": {
+        "total": "2212",
+        "executed": "2212",
+        "passed": "2212",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "times": {
+        "creation": "2026-10-17T10:10:08.8357468+00:00",
+        "queuing": "2026-10-17T10:10:08.8357469+00:00",
+        "start": "2026-10-17T10:10:06.9821530+00:00",
+        "finish": "2026-10-17T10:10:19.6903556+00:00"
+      }
+    }
+  },
+  "EarlierRuns": {
+    "r03": "Intermediate 15P; test rename/assertion/finally refinements followed. Final fifteen bind r05/r06.",
+    "r04": {
+      "exit": 127,
+      "classification": "Shell command quoting error; pipe characters split --filter into three shell commands. Not a product test failure and no authoritative TRX. First dotnet pipeline branch test execution is indeterminate from preserved output; not counted as zero or green.",
+      "toolStderr": "artifacts/diagnostic-dispose-settlement/r04-command.sh: line 4: FullyQualifiedName~SelectionReuseHostTests: command not found",
+      "lastBranchLog": "r04-related.log",
+      "trxExists": false
+    }
+  },
+  "NewCaseNames": {
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: \"startup\")": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.ActualExitDoesNotReplaceUnconfirmedExitObservationOrStackStopBudgets(timeout: False)": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: \"stdout\")": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.HeldPastBudgetFailsWithOwnerRetainedAndLaterSameHostDisposeCanSettle(phase: \"startup\")": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SettlementSemaphoreWaitUsesTheSameBoundedCleanupBudget": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.ConcurrentAndRepeatedDisposersJoinTheSameIoWithoutEarlyReleaseOrRestart": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.HeldPastBudgetFailsWithOwnerRetainedAndLaterSameHostDisposeCanSettle(phase: \"stdout\")": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.DisposedBeforeStartAndPreCancelledStartupNeverStartOrInventAChildExit(cancelled: False)": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.FaultedLateIoIsPropagatedAfterErasureAndNeverPublishesSuccessfulSettlement": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.ActualExitDoesNotReplaceUnconfirmedExitObservationOrStackStopBudgets(timeout: True)": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: \"stderr\")": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: \"exit-wait\")": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.HeldPastBudgetFailsWithOwnerRetainedAndLaterSameHostDisposeCanSettle(phase: \"exit-wait\")": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.DisposedBeforeStartAndPreCancelledStartupNeverStartOrInventAChildExit(cancelled: True)": 1,
+    "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.HeldPastBudgetFailsWithOwnerRetainedAndLaterSameHostDisposeCanSettle(phase: \"stderr\")": 1
+  },
+  "CoreExactParent1688PlusFinal15": true,
+  "ProviderExactParent2212Multiset": true,
+  "RelatedExactFinal15Plus51Original": true,
+  "OriginalActiveDisposePassedUnchanged": true,
+  "Builds": {
+    "r08-app-build": {
+      "Warnings": 0,
+      "Errors": 0,
+      "ExecutionBinding": {
+        "endUtc": "2026-10-17T10:10:26.544342+00:00",
+        "exit": 0,
+        "sha256": {
+          "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.App.dll": "1e57922067333e1ef52d4fbf9e778561e970d6d94dfdbfdd32d0d807b4a62964",
+          "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Core.dll": "c39530c0a17652242c44f2a0b8339f67ea599892592587d9093579c094476f00"
+        }
+      }
+    },
+    "r09-worker-build": {
+      "Warnings": 0,
+      "Errors": 0,
+      "ExecutionBinding": {
+        "endUtc": "2026-10-17T10:10:39.794938+00:00",
+        "exit": 0,
+        "sha256": {
+          "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll": "627963cc2889b5153d97ab23eba7a71f65f375846c3c3e47bd9c5ef36320fc09",
+          "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Core.dll": "c39530c0a17652242c44f2a0b8339f67ea599892592587d9093579c094476f00"
+        }
+      }
+    }
+  },
+  "Preservation": {
+    "ParentTrackedPaths": 3703,
+    "AllowedChangedExisting": [
+      ".gitattributes",
+      "docs/progress.md",
+      "tools/KuaiYi.SelectionReuseDiagnostic/ReuseDiagnosticHost.cs"
+    ],
+    "AllOtherParentBytesUnchanged": true,
+    "TraceabilityExactBytesUnchangedAllStatusesUnchanged": true,
+    "OriginalTestsUnchanged": true,
+    "PriorEvidenceUnchanged": true
+  },
+  "Review": {
+    "SourceAndTests": "Independent read-only high_water_review: no P1/P2; see read-only-review.txt.",
+    "FinalPacket": "Passed: independent read-only high_water_review, no P1/P2. Reviewed 72 originals/78 paths; final receipt-only append yields73 originals/79 paths. See final-review-receipt.txt.",
+    "NonblockingFixtureBoundary": "Fault finally is verified on normal fault path but is not claimed robust to every earlier assertion failure. Fixture directly finalizes only the known owned exited session after completed faulty IO and erasure; Host still has no Summary/CanReplace."
+  },
+  "Limits": {
+    "HistoricalDisplaySaveR06": "Actual 1687P1F, then same-DLL r14 full1688P; exact historical unmet settlement condition Unknown. Four deterministic counterexamples do not identify that historical occurrence.",
+    "WindowsJob": "Independent previous not-empty issue Unknown; no shared-root or fix claim.",
+    "WholeRunner": "Existing Registry outer settle/retry/leave behavior unchanged. Cleanup deadline starts after running, not global Dispose bound.",
+    "OldImageIntermittent": "Unknown; production image reuse Off.",
+    "RealWindowsWpfComNativeModelPhysical250600FullSpec": "NotRun; portable managed owned-child evidence and cross-build only.",
+    "SkiaLicense403Actions": "No new license acceptance/install; no 403 workaround; prior Actions refusal respected without query or alternative route.",
+    "Execution": "Existing SDK only; --no-restore; certificate generation false before/after activation; no deployment/main/force/cost/credential/security changes or real model calls."
+  },
+  "RawEvidenceCountBeforeFinalReview": 72,
+  "RawEvidenceCount": 73,
+  "RawEvidence": {
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__evidence-audit-result.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/evidence-audit-result.json",
+      "bytes": 1994,
+      "sha256": "eb772865c640b1bb9e0e46f7aa31547dedd97268c451257f433fadd62145d77b"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__evidence-audit.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/evidence-audit.json",
+      "bytes": 17443,
+      "sha256": "623978be3153ad0a92ed6727ac3c153fbff542765f9eaf3befee08fee6ea6432"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__evidence-audit.py": {
+      "source": "artifacts/diagnostic-dispose-settlement/evidence-audit.py",
+      "bytes": 5388,
+      "sha256": "cbc27ff9a00e3111ee977532c2afc7ef810d43125118b01a800491ad8ab5bb38"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__final-source.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/final-source.json",
+      "bytes": 270,
+      "sha256": "3021b87a4f4a5b557e7e9cec07ae1e79844f3f947e33752ae037ded3ea5a0a5d"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__parent-manifest.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/parent-manifest.json",
+      "bytes": 553563,
+      "sha256": "11fb188b51af4ae7b811927e4be67242a77f28da720dd9d5474125e7cef995ab"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__preflight.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/preflight.json",
+      "bytes": 968,
+      "sha256": "c0a306b3e3ce9a5fe31b5ef0f0cec116e5a8a42d469466c4b3b8f9238e6a56a8"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r01-DiagnosticDisposeSettlementTests.cs.txt": {
+      "source": "artifacts/diagnostic-dispose-settlement/r01-DiagnosticDisposeSettlementTests.cs.txt",
+      "bytes": 6284,
+      "sha256": "baa3cec22e10adedf7c00f6658152870413284fe680287dbf979eadf16eb92e8"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r01-ReuseDiagnosticHost.cs.txt": {
+      "source": "artifacts/diagnostic-dispose-settlement/r01-ReuseDiagnosticHost.cs.txt",
+      "bytes": 16735,
+      "sha256": "90f878634e46b5c312de3f973f69478611f63056a49114e808aeaf3dedd393d6"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r01-command.sh": {
+      "source": "artifacts/diagnostic-dispose-settlement/r01-command.sh",
+      "bytes": 459,
+      "sha256": "9f1b3e61ac7fed4efd4c248456a03e7b35856c37d92a145c3a68fb87dd9d0e5e"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r01-executed-binding.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/r01-executed-binding.json",
+      "bytes": 925,
+      "sha256": "2bf46fc84946ff7db6ca92991a7dbe69006fae1b569a03fa0d07fb197dc9800d"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r01-parent-red.log": {
+      "source": "artifacts/diagnostic-dispose-settlement/r01-parent-red.log",
+      "bytes": 5672,
+      "sha256": "48e4b2082c1c725ccb97860752e90503218351752b8168d2a8c73c11bb760f77"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r01-parent-red.trx": {
+      "source": "artifacts/diagnostic-dispose-settlement/r01-parent-red.trx",
+      "bytes": 14441,
+      "sha256": "3c41f2801ff1bb28213cba473ffb95a3d828cb5a978c5a3453b62c0255ef4ddc"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r01-source-binding.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/r01-source-binding.json",
+      "bytes": 325,
+      "sha256": "3d5b0afbedcc74638816166bffa83ebb89c0e23c416117b1773e1a2c34b967c0"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r02-DiagnosticDisposeSettlementTests.cs.txt": {
+      "source": "artifacts/diagnostic-dispose-settlement/r02-DiagnosticDisposeSettlementTests.cs.txt",
+      "bytes": 6284,
+      "sha256": "baa3cec22e10adedf7c00f6658152870413284fe680287dbf979eadf16eb92e8"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r02-ReuseDiagnosticHost.cs.txt": {
+      "source": "artifacts/diagnostic-dispose-settlement/r02-ReuseDiagnosticHost.cs.txt",
+      "bytes": 18772,
+      "sha256": "ec49382663d06122356e65c33da6a621d18934602c7770ce514fa31502816732"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r02-command.sh": {
+      "source": "artifacts/diagnostic-dispose-settlement/r02-command.sh",
+      "bytes": 449,
+      "sha256": "078be1d267677f1c8c282cc3861b8baef2b16f2e02ebdd76fd029b17fc219c84"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r02-executed-binding.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/r02-executed-binding.json",
+      "bytes": 652,
+      "sha256": "e15e294fc9e9409cfc9c9d4fbaab93db9a2e732191dac0366c9be97168fe764c"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r02-green.log": {
+      "source": "artifacts/diagnostic-dispose-settlement/r02-green.log",
+      "bytes": 2068,
+      "sha256": "b18d57b4a1085f2c0023378c1b7e49bafd2e5fdb93fbc1ae4e8551cbf6973fd2"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r02-green.trx": {
+      "source": "artifacts/diagnostic-dispose-settlement/r02-green.trx",
+      "bytes": 7305,
+      "sha256": "35b8482ad8cc814b8077ae54dc81a192a082a12343c7be2a251498453858d41f"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r02-source-binding.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/r02-source-binding.json",
+      "bytes": 327,
+      "sha256": "c105a765604a6bb7873e975edd4b97fa8ac707f262848d46e60f57c579b7d9b4"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r03-DiagnosticDisposeSettlementTests.cs.txt": {
+      "source": "artifacts/diagnostic-dispose-settlement/r03-DiagnosticDisposeSettlementTests.cs.txt",
+      "bytes": 13162,
+      "sha256": "ec2bfa69ce87aa855a2c5a52ded50bc505de734049ed21f77afa169a8bedbbc9"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r03-ReuseDiagnosticHost.cs.txt": {
+      "source": "artifacts/diagnostic-dispose-settlement/r03-ReuseDiagnosticHost.cs.txt",
+      "bytes": 18772,
+      "sha256": "ec49382663d06122356e65c33da6a621d18934602c7770ce514fa31502816732"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r03-command.sh": {
+      "source": "artifacts/diagnostic-dispose-settlement/r03-command.sh",
+      "bytes": 453,
+      "sha256": "2e80efbd4fe26ee4e746e5ad7bd1f75367c90f6d221833b5b6a3db7857ffb7c7"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r03-executed-binding.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/r03-executed-binding.json",
+      "bytes": 621,
+      "sha256": "9dbd2f904e20c9c4c2a03da1cbab0c4ee30bff6a4ba4cc3d9a5ea0b4b9533735"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r03-focused.log": {
+      "source": "artifacts/diagnostic-dispose-settlement/r03-focused.log",
+      "bytes": 2071,
+      "sha256": "9081ccc7995a6ccc5e919c480cf8bd339d755d65a32ed0c3bfa92cb3c3e967f7"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r03-focused.trx": {
+      "source": "artifacts/diagnostic-dispose-settlement/r03-focused.trx",
+      "bytes": 23099,
+      "sha256": "ba76c23422187b0d5ad89b07cb7a405dec76aeec1d2d2709a9b13a217140f34f"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r03-source-binding.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/r03-source-binding.json",
+      "bytes": 270,
+      "sha256": "f6fc934443692c9393b87f1aed7e095dcc89b1ecf75caf9cf77a25592f79845d"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r04-DiagnosticDisposeSettlementTests.cs.txt": {
+      "source": "artifacts/diagnostic-dispose-settlement/r04-DiagnosticDisposeSettlementTests.cs.txt",
+      "bytes": 13549,
+      "sha256": "27e6fcc627bdded064c7d38ec3b27605e1dc0149cfb1cf1e40757a42dcda4fa6"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r04-ReuseDiagnosticHost.cs.txt": {
+      "source": "artifacts/diagnostic-dispose-settlement/r04-ReuseDiagnosticHost.cs.txt",
+      "bytes": 18772,
+      "sha256": "ec49382663d06122356e65c33da6a621d18934602c7770ce514fa31502816732"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r04-command-failure.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/r04-command-failure.json",
+      "bytes": 500,
+      "sha256": "aa6ab222c9d8a01d40167d33b3049cda6a832fe7f7055ebf894e3b5c856f0450"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r04-command.sh": {
+      "source": "artifacts/diagnostic-dispose-settlement/r04-command.sh",
+      "bytes": 536,
+      "sha256": "454d497e253a9310ba79814e4163c1c38fcf43c793444ada2bc6e6b257a464eb"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r04-related.log": {
+      "source": "artifacts/diagnostic-dispose-settlement/r04-related.log",
+      "bytes": 123,
+      "sha256": "ffe8fc8bcda48a2b54c8d5487824f97fdec2d8058d36002251e1d012c7a8d5b5"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r04-source-binding.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/r04-source-binding.json",
+      "bytes": 270,
+      "sha256": "3021b87a4f4a5b557e7e9cec07ae1e79844f3f947e33752ae037ded3ea5a0a5d"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r05-related-DiagnosticDisposeSettlementTests.cs.txt": {
+      "source": "artifacts/diagnostic-dispose-settlement/r05-related-DiagnosticDisposeSettlementTests.cs.txt",
+      "bytes": 13549,
+      "sha256": "27e6fcc627bdded064c7d38ec3b27605e1dc0149cfb1cf1e40757a42dcda4fa6"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r05-related-ReuseDiagnosticHost.cs.txt": {
+      "source": "artifacts/diagnostic-dispose-settlement/r05-related-ReuseDiagnosticHost.cs.txt",
+      "bytes": 18772,
+      "sha256": "ec49382663d06122356e65c33da6a621d18934602c7770ce514fa31502816732"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r05-related-command.sh": {
+      "source": "artifacts/diagnostic-dispose-settlement/r05-related-command.sh",
+      "bytes": 1597,
+      "sha256": "f0609ed2f958da531d14fdfd059a72cfc37c05742d8863d2ecbdefc448b8ae02"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r05-related-executed-binding.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/r05-related-executed-binding.json",
+      "bytes": 823,
+      "sha256": "6a766cc5d60b2b0425d90fe8abea86b3c82e981495a884aa1426c62f857684d3"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r05-related-source-binding.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/r05-related-source-binding.json",
+      "bytes": 270,
+      "sha256": "3021b87a4f4a5b557e7e9cec07ae1e79844f3f947e33752ae037ded3ea5a0a5d"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r05-related-start.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/r05-related-start.json",
+      "bytes": 53,
+      "sha256": "d4a435d412aa1ffc5e6faf52640244f655d58bde7064b4e48a238e8759c385fa"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r05-related.log": {
+      "source": "artifacts/diagnostic-dispose-settlement/r05-related.log",
+      "bytes": 2071,
+      "sha256": "a0111b05fdcf2894237d780169c4f76fb9acd3d65d43c848750eeced09269ec1"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r05-related.trx": {
+      "source": "artifacts/diagnostic-dispose-settlement/r05-related.trx",
+      "bytes": 93899,
+      "sha256": "cced0321761cf74d4f2f7aea8427af785feb2fdf90acf617e7533ac5446f7212"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r06-core-full-DiagnosticDisposeSettlementTests.cs.txt": {
+      "source": "artifacts/diagnostic-dispose-settlement/r06-core-full-DiagnosticDisposeSettlementTests.cs.txt",
+      "bytes": 13549,
+      "sha256": "27e6fcc627bdded064c7d38ec3b27605e1dc0149cfb1cf1e40757a42dcda4fa6"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r06-core-full-ReuseDiagnosticHost.cs.txt": {
+      "source": "artifacts/diagnostic-dispose-settlement/r06-core-full-ReuseDiagnosticHost.cs.txt",
+      "bytes": 18772,
+      "sha256": "ec49382663d06122356e65c33da6a621d18934602c7770ce514fa31502816732"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r06-core-full-command.sh": {
+      "source": "artifacts/diagnostic-dispose-settlement/r06-core-full-command.sh",
+      "bytes": 1459,
+      "sha256": "738e79d25231be4ea63a3f2fe81560c1a38fbe4d8db8ca1aaab6e55051dc02e8"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r06-core-full-executed-binding.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/r06-core-full-executed-binding.json",
+      "bytes": 823,
+      "sha256": "689fc692b7145cfde464679afe656ec4f0f69434921884c70c1cca8a3ff22df7"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r06-core-full-source-binding.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/r06-core-full-source-binding.json",
+      "bytes": 270,
+      "sha256": "3021b87a4f4a5b557e7e9cec07ae1e79844f3f947e33752ae037ded3ea5a0a5d"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r06-core-full-start.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/r06-core-full-start.json",
+      "bytes": 53,
+      "sha256": "e7c27e38908acc17e3cff06d7ac2de61ca5f16ee001c9d0ddb10bcb23287569c"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r06-core-full.log": {
+      "source": "artifacts/diagnostic-dispose-settlement/r06-core-full.log",
+      "bytes": 2073,
+      "sha256": "adce9a660abf4b07706101ab1fe58499341a8f374ba776f6de871b0e31d4d8ca"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r06-core-full.trx": {
+      "source": "artifacts/diagnostic-dispose-settlement/r06-core-full.trx",
+      "bytes": 2370264,
+      "sha256": "3a996bf88361fa2e2563ce5fc6b28498369991613c4d393880256799727f1d44"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r07-provider-full-DiagnosticDisposeSettlementTests.cs.txt": {
+      "source": "artifacts/diagnostic-dispose-settlement/r07-provider-full-DiagnosticDisposeSettlementTests.cs.txt",
+      "bytes": 13549,
+      "sha256": "27e6fcc627bdded064c7d38ec3b27605e1dc0149cfb1cf1e40757a42dcda4fa6"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r07-provider-full-ReuseDiagnosticHost.cs.txt": {
+      "source": "artifacts/diagnostic-dispose-settlement/r07-provider-full-ReuseDiagnosticHost.cs.txt",
+      "bytes": 18772,
+      "sha256": "ec49382663d06122356e65c33da6a621d18934602c7770ce514fa31502816732"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r07-provider-full-command.sh": {
+      "source": "artifacts/diagnostic-dispose-settlement/r07-provider-full-command.sh",
+      "bytes": 1318,
+      "sha256": "7d5f6ab93257bf539ed14345973bc2fd91382bf0e45a3789edabc9ebeaf2031d"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r07-provider-full-executed-binding.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/r07-provider-full-executed-binding.json",
+      "bytes": 514,
+      "sha256": "0a9e4a2f98a9b908e45dc2e40a50a2abacfeff7126bd1accab3e09bba5f85c8b"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r07-provider-full-source-binding.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/r07-provider-full-source-binding.json",
+      "bytes": 270,
+      "sha256": "3021b87a4f4a5b557e7e9cec07ae1e79844f3f947e33752ae037ded3ea5a0a5d"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r07-provider-full-start.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/r07-provider-full-start.json",
+      "bytes": 53,
+      "sha256": "d5b436947859c8debfcb1ac12a7618691c2ee7141d45379dbca2d36b47c17e41"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r07-provider-full.log": {
+      "source": "artifacts/diagnostic-dispose-settlement/r07-provider-full.log",
+      "bytes": 1142,
+      "sha256": "4e758bccaadf4a0063a3546a3706ddf907d71fa9630d171c3e2a840fcf17436d"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r07-provider-full.trx": {
+      "source": "artifacts/diagnostic-dispose-settlement/r07-provider-full.trx",
+      "bytes": 3261735,
+      "sha256": "020001c99deeb6222bc7e37ef736e9a9aac19f999977c8492fe8c263a7379314"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r08-app-build-DiagnosticDisposeSettlementTests.cs.txt": {
+      "source": "artifacts/diagnostic-dispose-settlement/r08-app-build-DiagnosticDisposeSettlementTests.cs.txt",
+      "bytes": 13549,
+      "sha256": "27e6fcc627bdded064c7d38ec3b27605e1dc0149cfb1cf1e40757a42dcda4fa6"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r08-app-build-ReuseDiagnosticHost.cs.txt": {
+      "source": "artifacts/diagnostic-dispose-settlement/r08-app-build-ReuseDiagnosticHost.cs.txt",
+      "bytes": 18772,
+      "sha256": "ec49382663d06122356e65c33da6a621d18934602c7770ce514fa31502816732"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r08-app-build-command.sh": {
+      "source": "artifacts/diagnostic-dispose-settlement/r08-app-build-command.sh",
+      "bytes": 1128,
+      "sha256": "67e1329028900050f31ee5a40a118d953f61c047ac3d684fbc981bb34385668b"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r08-app-build-executed-binding.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/r08-app-build-executed-binding.json",
+      "bytes": 365,
+      "sha256": "3308783d7dd323e67d1b9e32a44f95731c685112423f2fcc321bac3dac2e1320"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r08-app-build-source-binding.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/r08-app-build-source-binding.json",
+      "bytes": 270,
+      "sha256": "3021b87a4f4a5b557e7e9cec07ae1e79844f3f947e33752ae037ded3ea5a0a5d"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r08-app-build-start.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/r08-app-build-start.json",
+      "bytes": 53,
+      "sha256": "60594b7b558c841ea3a6225a2ffbf7f647a6d4a04b8fb074adb207b710ec252a"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r08-app-build.log": {
+      "source": "artifacts/diagnostic-dispose-settlement/r08-app-build.log",
+      "bytes": 888,
+      "sha256": "3771daea6cde903d923467ebba7e81710e4376c288f6cd42d254c546cd060e49"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r09-worker-build-DiagnosticDisposeSettlementTests.cs.txt": {
+      "source": "artifacts/diagnostic-dispose-settlement/r09-worker-build-DiagnosticDisposeSettlementTests.cs.txt",
+      "bytes": 13549,
+      "sha256": "27e6fcc627bdded064c7d38ec3b27605e1dc0149cfb1cf1e40757a42dcda4fa6"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r09-worker-build-ReuseDiagnosticHost.cs.txt": {
+      "source": "artifacts/diagnostic-dispose-settlement/r09-worker-build-ReuseDiagnosticHost.cs.txt",
+      "bytes": 18772,
+      "sha256": "ec49382663d06122356e65c33da6a621d18934602c7770ce514fa31502816732"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r09-worker-build-command.sh": {
+      "source": "artifacts/diagnostic-dispose-settlement/r09-worker-build-command.sh",
+      "bytes": 1161,
+      "sha256": "94d0df4ed5e70b4068a509a4dd193dc8247c339c4016ba9fff68b0260859d6cd"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r09-worker-build-executed-binding.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/r09-worker-build-executed-binding.json",
+      "bytes": 373,
+      "sha256": "3a0de90fc92c7b587f0694f96cc3cb8baa7b29e991bfcdc4c36ed8b58804f19a"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r09-worker-build-source-binding.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/r09-worker-build-source-binding.json",
+      "bytes": 270,
+      "sha256": "3021b87a4f4a5b557e7e9cec07ae1e79844f3f947e33752ae037ded3ea5a0a5d"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r09-worker-build-start.json": {
+      "source": "artifacts/diagnostic-dispose-settlement/r09-worker-build-start.json",
+      "bytes": 53,
+      "sha256": "c5d34b1ec3d5fe4fcda818a7bd9ed6c221c8eb2aec91bb6400a91024fb6eda16"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__r09-worker-build.log": {
+      "source": "artifacts/diagnostic-dispose-settlement/r09-worker-build.log",
+      "bytes": 477,
+      "sha256": "2436058a130bbc7adcd88a10f345f1b32854f6d50ffdd6bc9e8e8edf3c005f30"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__read-only-review.txt": {
+      "source": "artifacts/diagnostic-dispose-settlement/read-only-review.txt",
+      "bytes": 2173,
+      "sha256": "9e164ec60e5c5bbd18437788f9b85cacfe791e19286da25a7e3378328ab281d6"
+    },
+    "docs/test-evidence/2026-10-17-diagnostic-dispose-originals__final-review-receipt.txt": {
+      "source": "artifacts/diagnostic-dispose-settlement/final-review-receipt.txt",
+      "bytes": 1592,
+      "sha256": "252f626194717d59f28e96e9b7c80367cba86d61f5ca6291fa966e95090b2510"
+    }
+  }
+}
