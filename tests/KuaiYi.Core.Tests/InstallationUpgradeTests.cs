@@ -298,4 +298,30 @@ public sealed class InstallationUpgradeTests(ITestOutputHelper output)
         }
         port.AllSettled();
     }
+    private sealed class HeldExitCompletion(Process owned,TaskCompletionSource reached,Task release):IOwnedHostLifetime
+    {
+        public bool HasExited=>owned.HasExited;
+        public void RequestTermination()=>owned.Kill();
+        public async Task WaitForExitAsync(CancellationToken cancellation)
+        {await owned.WaitForExitAsync(cancellation);reached.TrySetResult();await release;}
+    }
+    [Fact]public async Task RetryJoinsTheOriginalLifetimeStopTaskAfterActualExitBeforeRestoringTheOldGeneration()
+    {
+        using var r=new Rig();await r.Store.ApplyAsync(r.Package("1.0"),r.Pin("1.0"));r.Package("2.0");byte[] before=r.Pointer;var port=new Port(r,output){HoldStartVersion="2.0"};
+        var reached=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var release=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        await using(var coordinator=r.Coordinator(port))
+        {
+            coordinator.LifetimeForTest=p=>port.Children.Single(c=>ReferenceEquals(c.Process,p)).Version=="2.0"?new HeldExitCompletion(p,reached,release.Task):new StartedHostLifetime(p);
+            await coordinator.StartActiveRoleAsync();Task<InstallationUpgradeResult> upgrade=coordinator.UpgradeAsync(Path.Combine(r.Root,"package-2.0"),r.Pin("2.0"));
+            try
+            {
+                await port.StartEntered.Task.WaitAsync(TimeSpan.FromSeconds(8));await Assert.ThrowsAsync<InstallationUpgradeUnconfirmedException>(()=>upgrade);
+                port.StartRelease.TrySetResult();await reached.Task.WaitAsync(TimeSpan.FromSeconds(6));Assert.True(port.Children[1].Process.HasExited);
+                Task<InstallationUpgradeResult> retry=coordinator.RetryRollbackAsync();await Task.WhenAny(retry,Task.Delay(150));Assert.False(retry.IsCompleted);
+                Assert.Equal("2.0",r.Store.ReadActive()!.Version);release.TrySetResult();var result=await retry;Assert.Equal(InstallationUpgradeOutcome.RolledBack,result.Outcome);Assert.Equal(before,r.Pointer);Assert.True(port.Children[1].Settled);
+            }
+            finally{port.StartRelease.TrySetResult();release.TrySetResult();await Record.ExceptionAsync(()=>upgrade);}
+        }
+        port.AllSettled();
+    }
 }

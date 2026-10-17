@@ -1,0 +1,338 @@
+using System.Diagnostics;
+using System.Text.Json;
+using KuaiYi.Core.Settings;
+namespace KuaiYi.Core.Installation;
+
+/// <summary>Platform application handshake only. It must settle its original IO before SettleAsync returns.
+/// There is currently no Windows installer/App adapter. The coordinator independently verifies held-child exit.</summary>
+public interface IInstallationApplicationProtocol
+{
+    Task ConfirmHealthyAsync(Process owned,InstalledVersion version,Guid launch,CancellationToken cancellation);
+    Task RequestExitAsync(Process owned,CancellationToken cancellation);
+    Task SettleAsync(Process owned,CancellationToken cancellation);
+}
+public enum InstallationUpgradeOutcome { Upgraded,RolledBack }
+public sealed record InstallationUpgradeResult(InstallationUpgradeOutcome Outcome,InstalledVersion? Active,Exception? Failure=null,InstallationHandoffStatus Handoff=InstallationHandoffStatus.None);
+public sealed class InstallationUpgradeUnconfirmedException(Exception failure):IOException("Upgrade or application settlement is unconfirmed; pending record and all versions retained, admission blocked.",failure);
+
+/// <summary>Coordinates only roles actually started and held by this object, never discovers or kills other processes.
+/// Normal launch and upgrade share the same file fence. All real Windows entry points and registration adapters remain separate.</summary>
+public sealed class InstallationUpgradeCoordinator:IAsyncDisposable
+{
+    private sealed class Role(string name,InstalledVersion version,IOwnedProcessStarter? starter)
+    {
+        internal readonly string Name=name;
+        internal readonly InstalledVersion Version=version;
+        internal readonly OwnedProcessSession Lifetime=new(starter);
+        private readonly object tasksSync=new();
+        private readonly List<Task> protocolTasks=[];
+        internal Task? OriginalIoJoin,OriginalExitRequest,OriginalControlClose;
+        internal readonly Guid Launch=Guid.NewGuid();
+        internal Task<Process>? Startup;
+        internal Process? Process;
+        internal bool Finalized;
+        internal bool IoSettled;
+        internal bool Transferred;
+        internal Task[] Tasks{get{lock(tasksSync)return protocolTasks.ToArray();}}
+        internal bool TasksCompleted{get{lock(tasksSync)return protocolTasks.All(t=>t.IsCompleted);}}
+        internal void Track(Task task)
+        {
+            lock(tasksSync)
+            {
+                foreach(var done in protocolTasks.Where(t=>t.IsCompleted))_ =done.Exception;
+                protocolTasks.RemoveAll(t=>t.IsCompleted);if(!protocolTasks.Contains(task))protocolTasks.Add(task);
+            }
+        }
+        internal bool Exited=>Lifetime.ObserveExit()&&(Startup is not {IsCompletedSuccessfully:true}||Process!=null&&IoSettled)&&TasksCompleted;
+    }
+    private sealed class Pending(Guid id,InstalledVersion? previous,byte[]? before,byte[] journal)
+    {
+        internal readonly Guid Id=id;
+        internal readonly InstalledVersion? Previous=previous;
+        internal readonly byte[]? Before=before;
+        internal readonly byte[] Journal=journal;
+        internal byte[]? Published;
+    }
+    private enum ProtocolOperation { Health,Exit,Io,ControlClose }
+    private readonly InstallationStore store;
+    private readonly IInstallationApplicationProtocol protocol;
+    private readonly IOwnedProcessStarter? starter;
+    private readonly TimeSpan budget;
+    private readonly SemaphoreSlim serial=new(1,1);
+    private readonly List<Role> roles=[];
+    private InstallationAdmission? admission;
+    private InstallationExecutionOwnership? execution;
+    private Pending? pending;
+    private InstallationHandoffTransaction? handoff;
+    private Role? receiver;
+    private bool disposed;
+    internal OwnedProcessSession? ReceiverLifetimeForTest=>receiver?.Lifetime;
+    public InstallationUpgradeCoordinator(string directory,string userData,IInstallationApplicationProtocol protocol,TimeSpan budget,IOwnedProcessStarter? starter=null)
+    {
+        if(budget<=TimeSpan.Zero||budget>TimeSpan.FromSeconds(10))throw new ArgumentOutOfRangeException(nameof(budget));
+        this.protocol=protocol??throw new ArgumentNullException(nameof(protocol));this.budget=budget;this.starter=starter;UserData=InstallationPaths.Root(userData);
+        store=new(directory,userData,()=>admission!=null&&roles.All(r=>r.Exited));
+    }
+    private static readonly string[] RoleNames=["KuaiYi.App.exe","KuaiYi.CaptureBroker.exe","KuaiYi.ClipboardHost.exe","KuaiYi.CaptureHost.exe","KuaiYi.OleReceiver.exe","KuaiYi.ImageWorker.exe","KuaiYi.NativeHost.exe"];
+    public async Task<InstalledVersion> StartActiveRoleAsync(string roleName="KuaiYi.App.exe",CancellationToken cancellation=default)
+    {
+        if(!RoleNames.Contains(roleName,StringComparer.Ordinal))throw new ArgumentException("Unknown product role.",nameof(roleName));
+        await Enter(cancellation).ConfigureAwait(false);
+        try
+        {
+            using var lease=store.EnterAdmission(execution);execution??=store.ClaimExecution(lease);var selected=store.ReadActive(cancellation)??throw new InstallationRecoveryException("No installed version.");
+            if(roles.Any(r=>r.Name==roleName&&!r.Exited))throw new InstallationBusyException();
+            var role=NewRole(roleName,selected);
+            try{await StartAndCheck(role,cancellation).ConfigureAwait(false);return selected;}
+            catch(Exception failure)
+            {
+                if(!await FinalizeOwned(role).ConfigureAwait(false)){BeginPending(lease,selected,null);throw new InstallationUpgradeUnconfirmedException(failure);}
+                throw;
+            }
+        }
+        finally{serial.Release();}
+    }
+    public Task<InstallationUpgradeResult> UpgradeAsync(string packageDirectory,string catalogSha256,CancellationToken cancellation=default)=>Upgrade(packageDirectory,catalogSha256,false,cancellation);
+    /// <summary>Explicit two-phase transfer to the exact healthy selected child. A committed/uncertain result must never be rolled back.
+    /// Runtime and upgrade records remain as a crash fence; automatic stale-owner recovery is deliberately unsupported.</summary>
+    public Task<InstallationUpgradeResult> UpgradeAndHandoffAsync(string packageDirectory,string catalogSha256,CancellationToken cancellation=default)
+    {
+        if(protocol is not IInstallationHandoffProtocol)throw new InvalidOperationException("An explicit receiver protocol is required.");
+        return Upgrade(packageDirectory,catalogSha256,true,cancellation);
+    }
+    private async Task<InstallationUpgradeResult> Upgrade(string packageDirectory,string catalogSha256,bool transfer,CancellationToken cancellation)
+    {
+        if(!InstallationPackage.HashValid(catalogSha256))throw new InvalidDataException("Expected package catalog digest required.");
+        await Enter(cancellation).ConfigureAwait(false);
+        try
+        {
+            admission=store.EnterAdmission(execution);execution??=store.ClaimExecution(admission);var previous=store.ReadActive(cancellation);BeginPending(admission,previous,catalogSha256);
+            if(!await StopGracefully(cancellation).ConfigureAwait(false))throw new InstallationUpgradeUnconfirmedException(new InstallationBusyException());
+            try
+            {
+                var installed=await store.ApplyForUpgradeAsync(packageDirectory,catalogSha256,admission,async (selected,token)=>
+                {
+                    pending!.Published=store.SnapshotRecord(admission);var role=NewRole("KuaiYi.App.exe",selected);
+                    try{await StartAndCheck(role,token).ConfigureAwait(false);}
+                    catch{await FinalizeOwned(role).ConfigureAwait(false);throw;}
+                },cancellation).ConfigureAwait(false);
+                if(transfer)return await Handoff(installed,cancellation).ConfigureAwait(false);
+                FinishPending("Healthy");roles.RemoveAll(r=>r.Finalized);return new(InstallationUpgradeOutcome.Upgraded,installed);
+            }
+            catch(Exception failure)
+            {
+                if(handoff is {CommitAttempted:true})return new(InstallationUpgradeOutcome.Upgraded,receiver!.Version,failure,handoff.Committed?InstallationHandoffStatus.CommittedUnconfirmed:InstallationHandoffStatus.CommitUncertain);
+                if(handoff!=null)
+                {
+                    if(!await ReclaimHandoff().ConfigureAwait(false))throw new InstallationUpgradeUnconfirmedException(failure);
+                }
+                // FinishPending failure after successful health also enters this path: stop only our new child before CAS rollback.
+                return await Rollback(failure).ConfigureAwait(false);
+            }
+        }
+        finally{admission?.Dispose();admission=null;serial.Release();}
+    }
+    /// <summary>Retry only this instance's held operation and owned children. A new instance never trusts persisted PIDs or clears an unknown block.</summary>
+    public async Task<InstallationUpgradeResult> RetryRollbackAsync(CancellationToken cancellation=default)
+    {
+        await Enter(cancellation).ConfigureAwait(false);
+        try
+        {
+            if(pending==null)throw new InstallationRecoveryException("No locally held upgrade to retry.");
+            if(handoff!=null)
+            {
+                admission=new InstallationAdmission(handoff.Offer.Root);
+                if(!await ReclaimHandoff().ConfigureAwait(false))throw new InstallationUpgradeUnconfirmedException(new InstallationBusyException());
+                admission.Attach(execution!);
+                return await Rollback(new InstallationRecoveryException("Retry exact precommit handoff rollback.")).ConfigureAwait(false);
+            }
+            // This is the only path allowed to reopen our exact pending record.
+            admission=store.ReenterUpgrade(pending.Journal,execution??throw new InstallationRecoveryException("Execution ownership not held."));
+            if(!await StopGracefully(cancellation).ConfigureAwait(false))throw new InstallationUpgradeUnconfirmedException(new InstallationBusyException());
+            return await Rollback(new InstallationRecoveryException("Retry owned upgrade rollback.")).ConfigureAwait(false);
+        }
+        finally{admission?.Dispose();admission=null;serial.Release();}
+    }
+    private async Task Enter(CancellationToken cancellation)
+    {if(!await serial.WaitAsync(0,cancellation).ConfigureAwait(false))throw new InstallationBusyException();if(disposed){serial.Release();throw new ObjectDisposedException(nameof(InstallationUpgradeCoordinator));}if(handoff is {CommitAttempted:true}){serial.Release();throw new InstallationRecoveryException("Runtime ownership was committed or is uncertain; this controller cannot mutate it.");}}
+    private async Task<InstallationUpgradeResult> Handoff(InstalledVersion installed,CancellationToken cancellation)
+    {
+        receiver=roles.Single(r=>!r.Exited&&r.Version==installed);var held=pending!;
+        var offer=new InstallationHandoffOffer(Guid.NewGuid(),Guid.NewGuid(),receiver.Launch,execution!.DirectoryPath,UserData,installed,
+            Convert.ToBase64String(execution.RecordBytes),Convert.ToBase64String(held.Published!),Convert.ToBase64String(held.Journal));
+        var transaction=new InstallationHandoffTransaction(offer);transaction.Prepare();handoff=transaction;
+        var adapter=(IInstallationHandoffProtocol)protocol;
+        await Call(receiver,t=>adapter.PrepareHandoffAsync(receiver.Process!,offer,t),cancellation).ConfigureAwait(false);
+        if(!await ProtocolSettled(receiver).ConfigureAwait(false))throw new IOException("Receiver preparation work did not settle.");
+        cancellation.ThrowIfCancellationRequested();execution.Suspend();
+        await Call(receiver,t=>adapter.AcceptHandoffAsync(receiver.Process!,offer,t),cancellation).ConfigureAwait(false);
+        if(!await ProtocolSettled(receiver).ConfigureAwait(false))throw new IOException("Receiver acceptance work did not settle.");
+        cancellation.ThrowIfCancellationRequested();if(receiver.Process!.HasExited)throw new IOException("Receiver exited before commit.");
+        transaction.Commit(execution);
+        await CompleteTransferredControl().ConfigureAwait(false);
+        return new(InstallationUpgradeOutcome.Upgraded,installed,null,InstallationHandoffStatus.Committed);
+    }
+    private readonly string UserData;
+    private async Task<bool> ReclaimHandoff()
+    {
+        if(handoff==null)return true;if(handoff.CommitAttempted)return false;
+        foreach(var role in roles.Where(r=>!r.Exited))if(!await FinalizeOwned(role).ConfigureAwait(false))return false;
+        try{handoff.Reclaim(execution!);handoff=null;receiver=null;return true;}catch{return false;}
+    }
+    private async Task CompleteTransferredControl()
+    {
+        if(handoff is not {Committed:true}||receiver==null)throw new InstallationRecoveryException("Committed handoff is unconfirmed; no child termination is permitted.");
+        if(receiver.Transferred)return;
+        await Call(receiver,t=>((IInstallationHandoffProtocol)protocol).CompleteControlAsync(receiver.Process!,handoff.Offer,t),CancellationToken.None,ProtocolOperation.ControlClose).ConfigureAwait(false);
+        if(!await ProtocolSettled(receiver).ConfigureAwait(false))throw new IOException("Original handoff control tasks are not settled.");
+        receiver.Lifetime.ReleaseToReceiver(receiver.Process!,handoff);receiver.Transferred=true;
+    }
+    private Role NewRole(string name,InstalledVersion version){var role=new Role(name,version,starter);roles.Add(role);return role;}
+    private async Task StartAndCheck(Role role,CancellationToken cancellation)
+    {
+        string executable=Path.Combine(role.Version.DirectoryPath,role.Name);InstallationPaths.Check(executable);
+        if(!File.Exists(executable))throw new InvalidDataException("Selected version lacks the product role.");
+        var info=new ProcessStartInfo(executable){WorkingDirectory=role.Version.DirectoryPath,UseShellExecute=false,CreateNoWindow=true,RedirectStandardInput=true,RedirectStandardOutput=true,RedirectStandardError=true};
+        info.ArgumentList.Add("--installation-handshake");info.ArgumentList.Add(role.Launch.ToString("N"));
+        role.Startup=role.Lifetime.Start(info,cancellation);role.Process=await role.Startup.WaitAsync(budget,cancellation).ConfigureAwait(false);
+        await Call(role,token=>protocol.ConfirmHealthyAsync(role.Process,role.Version,role.Launch,token),cancellation).ConfigureAwait(false);
+        cancellation.ThrowIfCancellationRequested();if(!role.TasksCompleted)throw new IOException("Application handshake cancellation is not settled.");
+        if(role.Process.HasExited)throw new IOException("Selected application exited before health confirmation.");
+    }
+    private async Task Call(Role role,Func<CancellationToken,Task> action,CancellationToken cancellation,ProtocolOperation operation=ProtocolOperation.Health)
+    {
+        Task? original=operation==ProtocolOperation.Io?role.OriginalIoJoin:operation==ProtocolOperation.Exit?role.OriginalExitRequest:operation==ProtocolOperation.ControlClose?role.OriginalControlClose:null;
+        if(original is {IsCompleted:false}){await original.WaitAsync(budget,cancellation).ConfigureAwait(false);return;}
+        var stop=new CancellationTokenSource();object cancellationSync=new();Task? cancellationWork=null;
+        void RequestCancellation()
+        {
+            lock(cancellationSync)
+            {
+                if(cancellationWork!=null)return;
+                cancellationWork=Task.Run(async()=>await stop.CancelAsync().ConfigureAwait(false));role.Track(cancellationWork);
+            }
+        }
+        using var registration=cancellation.Register(RequestCancellation);
+        // Own even the synchronous portion of an adapter call; a blocked adapter cannot escape its retained task.
+        Task task=Task.Run(()=>action(stop.Token));role.Track(task);
+        if(operation==ProtocolOperation.Io)role.OriginalIoJoin=task;else if(operation==ProtocolOperation.Exit)role.OriginalExitRequest=task;
+        else if(operation==ProtocolOperation.ControlClose)role.OriginalControlClose=task;
+        try{await task.WaitAsync(budget,cancellation).ConfigureAwait(false);}
+        finally
+        {
+            if(!task.IsCompleted||cancellation.IsCancellationRequested)RequestCancellation();
+            registration.Dispose();Task joined;
+            lock(cancellationSync)joined=Task.WhenAll(task,cancellationWork??Task.CompletedTask);
+            Task cleanup=joined.ContinueWith(t=>{_ =t.Exception;stop.Dispose();},CancellationToken.None,TaskContinuationOptions.ExecuteSynchronously,TaskScheduler.Default);role.Track(cleanup);
+        }
+    }
+    private async Task<bool> StopGracefully(CancellationToken cancellation)
+    {
+        foreach(var role in roles.Where(r=>!r.Exited).ToArray())
+        {
+            try
+            {
+                if(role.Process==null)
+                {
+                    if(role.Startup==null)continue;
+                    try{role.Process=await role.Startup.WaitAsync(budget,cancellation).ConfigureAwait(false);}
+                    catch when(role.Startup.IsCompleted&&!role.Startup.IsCompletedSuccessfully)
+                    {if(!await role.Lifetime.TryFinalizeAsync().ConfigureAwait(false))return false;role.Finalized=true;continue;}
+                }
+                if(!role.Process.HasExited)
+                {
+                    await Call(role,t=>protocol.RequestExitAsync(role.Process,t),cancellation,ProtocolOperation.Exit).ConfigureAwait(false);
+                    await role.Process.WaitForExitAsync(cancellation).WaitAsync(budget,cancellation).ConfigureAwait(false);
+                }
+                await JoinIo(role).ConfigureAwait(false);
+                role.IoSettled=true;
+                if(!await ProtocolSettled(role).ConfigureAwait(false)||!role.Exited)return false;
+                if(!await role.Lifetime.TryFinalizeAsync().ConfigureAwait(false))return false;role.Finalized=true;
+            }
+            catch{return false;}
+        }
+        return roles.All(r=>r.Exited);
+    }
+    private async Task<bool> FinalizeOwned(Role role)
+    {
+        // Only the held child returned by our starter; OwnedProcessSession also retains any late startup owner.
+        if(role.Finalized)return role.Exited;
+        if(role.Transferred||handoff is {CommitAttempted:true})return false;
+        try
+        {
+            await role.Lifetime.StopAsync().ConfigureAwait(false);
+            try{await role.Lifetime.StartupSettlement.WaitAsync(budget).ConfigureAwait(false);}catch(Exception)when(role.Startup is {IsCompleted:true}){ /* A failed, settled Start owns no new child. */ }
+            if(role.Process==null&&role.Startup is {IsCompletedSuccessfully:true})role.Process=role.Startup.Result;
+            if(!role.Lifetime.ObserveExit())return false;
+            if(role.Process!=null){await JoinIo(role).ConfigureAwait(false);role.IoSettled=true;}
+            if(!await ProtocolSettled(role).ConfigureAwait(false)||!role.Exited||!await role.Lifetime.TryFinalizeAsync().ConfigureAwait(false))return false;role.Finalized=true;return true;
+        }
+        catch{return false;}
+    }
+    private Task JoinIo(Role role)=>Call(role,t=>protocol.SettleAsync(role.Process!,t),CancellationToken.None,ProtocolOperation.Io);
+    private async Task<bool> ProtocolSettled(Role role)
+    {
+        Task original=Task.WhenAll(role.Tasks);
+        try{await original.WaitAsync(budget).ConfigureAwait(false);}
+        catch
+        {
+            // Failed/cancelled health is an observed failure; an unfinished original task still prevents rollback.
+            if(!original.IsCompleted)_=original.ContinueWith(t=>{_ =t.Exception;},CancellationToken.None,TaskContinuationOptions.ExecuteSynchronously,TaskScheduler.Default);
+        }
+        return role.TasksCompleted;
+    }
+    private void BeginPending(InstallationAdmission lease,InstalledVersion? previous,string? sourceHash)
+    {
+        if(pending!=null)throw new InstallationRecoveryException("Locally pending upgrade retained.");
+        byte[]? before=store.SnapshotRecord(lease);Guid id=Guid.NewGuid();
+        byte[] bytes=JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=1,product="KuaiYi",operation=id.ToString("N"),phase="Pending",previous,sourceCatalogSha256=sourceHash,previousRecord=before==null?null:Convert.ToBase64String(before)});
+        if(bytes.Length>16384)throw new InvalidDataException("Upgrade record too large.");
+        InstallationPaths.Check(store.PendingPath);SettingsStore.WriteFlushed(store.PendingPath,bytes);pending=new(id,previous,before,bytes);
+    }
+    private void FinishPending(string outcome)
+    {
+        var held=pending??throw new InstallationRecoveryException("No held upgrade.");store.FinishUpgrade(admission!,held.Journal,held.Id,outcome);pending=null;
+    }
+    private async Task<InstallationUpgradeResult> Rollback(Exception failure)
+    {
+        try
+        {
+            var held=pending??throw new InstallationRecoveryException("No held rollback record.");
+            foreach(var role in roles.Where(r=>!r.Exited).ToArray())if(!await FinalizeOwned(role).ConfigureAwait(false))throw new InstallationBusyException();
+            byte[]? current=store.SnapshotRecord(admission!);
+            if(!Same(current,held.Before))
+            {
+                if(held.Published==null)throw new InstallationRecoveryException("Publication is not owned by this upgrade.");
+                store.RestoreForUpgrade(admission!,held.Before,held.Published);
+            }
+            var restored=store.ReadActive();if(restored!=held.Previous)throw new InstallationRecoveryException("Previous version did not verify.");
+            if(restored!=null)
+            {
+                var role=NewRole("KuaiYi.App.exe",restored);
+                try{await StartAndCheck(role,CancellationToken.None).ConfigureAwait(false);}
+                catch{await FinalizeOwned(role).ConfigureAwait(false);throw;}
+            }
+            FinishPending("RolledBack");roles.RemoveAll(r=>r.Finalized);return new(InstallationUpgradeOutcome.RolledBack,restored,failure);
+        }
+        catch(Exception rollback){throw new InstallationUpgradeUnconfirmedException(new AggregateException(failure,rollback));}
+    }
+    private static bool Same(byte[]? left,byte[]? right)=>left==null?right==null:right!=null&&left.AsSpan().SequenceEqual(right);
+    public async ValueTask DisposeAsync()
+    {
+        await serial.WaitAsync().ConfigureAwait(false);
+        try
+        {
+            if(disposed)return;
+            if(handoff is {CommitAttempted:true})
+            {
+                try{await CompleteTransferredControl().ConfigureAwait(false);}
+                catch(Exception error){throw new InstallationUpgradeUnconfirmedException(error);}
+                execution?.Dispose();execution=null;disposed=true;return;
+            }
+            foreach(var role in roles)if(!await FinalizeOwned(role).ConfigureAwait(false))throw new InstallationUpgradeUnconfirmedException(new InstallationBusyException());
+            try{if(pending==null)execution?.Finish();}
+            finally{execution?.Dispose();execution=null;disposed=true;}
+        }
+        finally{serial.Release();}
+    }
+}

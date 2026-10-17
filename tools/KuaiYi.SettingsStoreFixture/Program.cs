@@ -1,6 +1,8 @@
 using System.Security.Cryptography;
 using System.Collections.Immutable;
 using KuaiYi.Core.Settings;
+if(args.Length==3&&args[0]=="--handoff-controller"&&Path.GetFileName(args[1]).StartsWith("kuaiyi-upgrade-tests-",StringComparison.Ordinal))
+    return await InstallationHandoffFixture.RunController(args[1],args[2]);
 // Public synthetic portable crash driver; never referenced by production App.
 if(args.Length==2&&args[0]=="--installation-owner-crash"&&Path.GetFileName(args[1]).StartsWith("kuaiyi-upgrade-tests-",StringComparison.Ordinal))
 {
@@ -12,6 +14,8 @@ if(args.Length==2&&args[0]=="--installation-handshake"&&Guid.TryParseExact(args[
 {
     using var config=System.Text.Json.JsonDocument.Parse(File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory,"public-install-behavior.json")));
     string mode=config.RootElement.GetProperty("mode").GetString()!,version=config.RootElement.GetProperty("version").GetString()!;
+    if(config.RootElement.TryGetProperty("runtimePipe",out var runtimePipe)&&runtimePipe.ValueKind==System.Text.Json.JsonValueKind.String)
+        return await InstallationHandoffFixture.RunReceiver(launch,version,mode,runtimePipe.GetString()!);
     if(mode=="start-exit")return 23;
     string nonce=mode=="wrong-launch"?Guid.Empty.ToString("N"):launch.ToString("N");
     if(mode!="silent")Console.WriteLine(string.Join('|',"PUBLIC_INSTALL_READY",nonce,mode=="wrong-version"?"wrong":version,

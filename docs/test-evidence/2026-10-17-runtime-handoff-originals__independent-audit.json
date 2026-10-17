@@ -1,0 +1,42 @@
+{
+  "utc": "2026-10-17T13:26:08.287148+00:00",
+  "reviewer": "/root/high_water_review",
+  "mode": "Independent read-only final source and staged packet audit; no SDK or network",
+  "result": "Pass: no remaining P1/P2",
+  "auditedIndexSha256": "cc96a1651eb17ffa4ad19813f5421e7b76ae58b5c7c7928fae4f290a9cf41b72",
+  "auditedOriginals": {
+    "count": 880,
+    "bytes": 16557806,
+    "artifactWorkingIndexExact": true
+  },
+  "auditedPaths": {
+    "total": 894,
+    "modified": 9,
+    "added": 885,
+    "deleted": 0
+  },
+  "sourceBindings": 250,
+  "relevantTargetDllBindings": 23,
+  "validation": {
+    "relatedPassed": 85,
+    "corePassed": 1787,
+    "coreParent": 1770,
+    "new": 17,
+    "providerPassed": 2325,
+    "providerSameNames": true,
+    "appWarnings": 0,
+    "appErrors": 0,
+    "workerWarnings": 0,
+    "workerErrors": 0
+  },
+  "preservation": {
+    "parentPaths": 6458,
+    "unchanged": 6449,
+    "oldEvidenceFiles": 5559,
+    "oldUpgradeMethodsUnchanged": true
+  },
+  "redGreen": "Stop method bytes identical. MissingLease only diagnostic constructor argument changed. Legacy is entry comparison. r10 exact cause remains Unknown.",
+  "actualProcesses": "r12/r13 each16 actual controller bindings;78 selected-health rows include duplicate evidence, not78 children.",
+  "boundaries": "Windows/product handoff entry, Job, automatic restart and stale recovery unimplemented/unverified; persistent fences remain after receiver self-exit.",
+  "authorizedFinalMutation": "Add this one receipt, update final index and exact-byte attribute only; expected881 originals/895 staged paths."
+}

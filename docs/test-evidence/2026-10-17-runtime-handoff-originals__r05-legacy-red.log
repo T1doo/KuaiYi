@@ -1,0 +1,41 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.SelectionReuseDiagnostic -> /workspace/KuaiYi/tools/KuaiYi.SelectionReuseDiagnostic/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.88]     KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient [FAIL]
+  Failed KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient [433 ms]
+  Error Message:
+   System.IO.IOException : Pipe is broken.
+  Stack Trace:
+     at System.IO.Pipes.PipeStream.CheckWriteOperations()
+   at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+   at System.IO.StreamWriter.Dispose(Boolean disposing)
+   at System.IO.TextWriter.Dispose()
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.DisposeAsync() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 84
+   at KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 111
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=2C68CEA3823FAA5A387BC070BA711D29A0E3DF512AAE5FE9F7CA2BB9FD39D7D5 coreSha256=F78CF671A063E057E8476276BA83438956DE746BFD626FCBC813CE807E95BBBC
+ PUBLIC_SELECTED_HEALTH|1.0|2C68CEA3823FAA5A387BC070BA711D29A0E3DF512AAE5FE9F7CA2BB9FD39D7D5|/tmp/kuaiyi-upgrade-tests-a3c5777d7f0f475b936600b04d4f2c0c/application/versions/7687063c0a1c47248338fd9c18f5d58c
+ PUBLIC_ORIGINAL_IO|Exit|0|Settled
+ PUBLIC_SELECTED_HEALTH|2.0|2C68CEA3823FAA5A387BC070BA711D29A0E3DF512AAE5FE9F7CA2BB9FD39D7D5|/tmp/kuaiyi-upgrade-tests-a3c5777d7f0f475b936600b04d4f2c0c/application/versions/791eabb225fe477b8519c6f72fc9feb1
+ PUBLIC_HANDOFF_RESULT|Upgraded|None|2.0|
+ PUBLIC_ORIGINAL_IO|Exit|137|Settled
+ PUBLIC_CONTROLLER_DISPOSED
+
+
+Results File: /workspace/KuaiYi/artifacts/runtime-ownership-handoff/r05-legacy-red.trx
+
+Failed!  - Failed:     1, Passed:     0, Skipped:     0, Total:     1, Duration: 449 ms - KuaiYi.Core.Tests.dll (net10.0)

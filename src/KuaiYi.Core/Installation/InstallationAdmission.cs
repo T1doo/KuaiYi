@@ -29,6 +29,8 @@ internal sealed class InstallationExecutionOwnership:IDisposable
     private readonly byte[] record;
     private FileStream? lease;
     internal static string RecordPath(string directory)=>Path.Combine(directory,"execution-owner.json");
+    internal string DirectoryPath=>directory;
+    internal byte[] RecordBytes=>record.ToArray();
     internal InstallationExecutionOwnership(string directory)
     {
         this.directory=directory;record=JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=1,product="KuaiYi",owner=id.ToString("N"),phase="Owned"});
@@ -49,5 +51,24 @@ internal sealed class InstallationExecutionOwnership:IDisposable
     }
     internal void Finish()
     {Require(directory);File.Move(RecordPath(directory),Path.Combine(directory,"execution-finished-"+id.ToString("N")+".json"));}
+    internal void Suspend(){Require(directory);lease!.Dispose();lease=null;}
+    internal void Resume()
+    {
+        if(lease!=null){Require(directory);return;}
+        string path=Path.Combine(directory,"execution-owner.lock");InstallationPaths.Check(path);
+        var held=new FileStream(path,FileMode.Open,FileAccess.ReadWrite,FileShare.None);
+        try{if(held.Length!=0)throw new InstallationRecoveryException("Unknown execution lock bytes retained.");lease=held;Require(directory);}
+        catch{held.Dispose();lease=null;throw;}
+    }
+    internal void RequireReceiverLease()
+    {
+        if(lease!=null)throw new InstallationRecoveryException("Controller still owns the execution lease.");
+        string path=Path.Combine(directory,"execution-owner.lock");InstallationPaths.Check(path);
+        FileStream probe;
+        try{probe=new(path,FileMode.Open,FileAccess.ReadWrite,FileShare.None);}
+        catch(IOException error)when(error is not FileNotFoundException and not DirectoryNotFoundException&&File.Exists(path)&&
+            (error.HResult&0xffff) is 11 or 32 or 33){return;} // Only a sharing/lock conflict; an absent path or other IO error proves nothing.
+        probe.Dispose();throw new InstallationRecoveryException("Receiver execution lease was not held.");
+    }
     public void Dispose(){lease?.Dispose();lease=null;}
 }

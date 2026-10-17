@@ -979,3 +979,13 @@ r01新增夹具初始化顺序错4F保全、不当产品红；修夹具r02父生
 候选late health实际1F→同法1P；r02最终可见错误由Dispose结算抛出、Retry首错未独立保留，原任务等待缺口由源码/同方法对照支持；独审跨实例Start/Upgrade越过活A和自然exit漏stderr结算实际3F→同三法3P；阻塞同步Cancel实际1F→同法1P，异步Cancel原task及cleanup随role持有，重试复用原exit/IO。r01新增test var语法构建失败无TRX不算红测。最终相关68P/完整Core1770P=父1743全名多重集+新27，Provider2325P与父名单相同，AppWorker各实际0W/E，五轮47源共235绑定。合成generation内真实driver/依赖启动，目录+SHA+版本+nonce健康、真实自有App/Broker退出/拒退、OS启动失败/初装/旧重启失败、真实独立admission child、Exit79启动前owner持久checkpoint、late实际Start owner及原IO结算均核；另真实同摘要symlink包文件/目录/安装祖先/用户数据祖先保目标原字节、连续Recover两次幂等。旧40断言完整，新27不冒称Windows或历史根因。
 
 独立只读源码复审无P1/P2，封存另审，见[报告及原P7下一对接链](validation/upgrade-health-rollback.md)/[原件](test-evidence/2026-10-17-upgrade-health-rollback.json)。完整payload/派生绝对路径元数据/正常Shell浏览器收件入口、Windows退出控制/实际可见健康及所有权交接/身份NativeHost注册rollback/Inno安装器/登录启动/卸载与K组仍未完成或未验；当前协调器只证明自己Start持有角色，非系统所有角色。分阶段budget不等于整体硬时限，原子替换不等于断电或OS注册原子事务，同账户恶意换名、累计旧版本存储、真实DPAPI/ACL/截图/物理250600/模型边界保留。无main强推部署费用真实安装签名注册/凭据权限/新包许可；Skia四包待批、403和Actions拒绝不查不绕，未知锁数据日志进程保全，图片/idle/Core/Job各历史Unknown及复用Off不变。
+
+## 2026-10-17 · P7 选定版本运行期明确交接
+
+父0137420有界协调核心准入后，正常dev/runtime-ownership-handoff只推进已授权合成进程交接。新增显式UpgradeAndHandoffAsync：精确owner/current/upgrade及receiver/launch/version绑定Prepared→接收者取得同OSlease→唯一Committed。提交前须实际自有child退出与原startup/IO/task结算才reclaim回退；提交后ACK/取消/控制结算失败明确Unconfirmed，不走Kill/旧回退，旧controller三入口拒绝。Transferred独立于Exited/Finalized/disposed；原Settle实退断言保留，交接单独cancel并join原reader/取消工作。receiver Abort也持lease到OS退出，避免Prepared读与提交间放lease。owner/pending/ledger自退后仍留，fresh拒入；自动重启/stale接管/完成记录清理未实现，不凭PID/EOF推断退出。
+
+真实自有controller Exit后仍PING选定generation接收者，private pipe STOP_SELF明确自清理、pipeEOF及静态持根lease的OS释放；不冒称根测试持grandchild Process WaitForExit。合成fixture-only40秒界保证有清理接收者。交接16例含拒绝/取消/假错迟ACK/缺锁/丢ACK/阻塞原控制/竞争窗口/带活角色pre/postcommit崩溃/未知ledger/同实例Retry/postcommit三入口拒绝。缺锁假ACK实测红修为仅存在路径共享冲突；其用例仅追加诊断参数，非全方法同字节。legacy→新显式入口是行为对照，不充作同参数缺陷红绿。r03分析器/r04AutoFlush/r05cleanup遮蔽/r07r08fixture同步Console.In阻塞均原件保留，不包装历史根因。
+
+完整首轮r10为1785P1F旧LateActualStartOwner Retry Busy，具体原因仍Unknown。独立受控OS已退而原Stop task被扣，新例实际1F→同方法1P；StopGracefully实退后有界join原缓存Stop再走旧IO/协议/退出门，不降低断言。最终相关85P=父68+交接16+stopJoin1，完整Core1787P=父1770名单+新17，Provider2325P同父名单；AppWorker实际构建和五轮50源250绑定详见[报告](validation/runtime-ownership-handoff.md)/[原件](test-evidence/2026-10-17-runtime-ownership-handoff.json)。独立源码终审无P1/P2，封存另审，父旧方法/原件保持。
+
+仅可移植合成接线；Windows正常入口/真实关闭可见健康/Job/交接、身份NativeHost注册及rollback/派生绝对路径/完整payload/Inno/自启/卸载/K组未执行或未完成。真实WPF键盘/截图/DPAPIACL/物理250600/模型/完整P6 NotRun，分阶段budget非整体硬限，断电/恶意同账户换名/累计磁盘边界不抬。历史图片/idle/Core/Job各Unknown、生产图片分类复用Off及来源/密码/完整性/取消/清理门不变。无main强推部署费用真实模型凭据权限/新包许可；Skia四包待批，source403和拒绝Actions不重查绕过，未知锁数据日志进程保全。

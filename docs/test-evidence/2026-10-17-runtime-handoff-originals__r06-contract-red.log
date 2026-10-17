@@ -1,0 +1,51 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.SelectionReuseDiagnostic -> /workspace/KuaiYi/tools/KuaiYi.SelectionReuseDiagnostic/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.97]     KuaiYi.Core.Tests.InstallationHandoffTests.MissingLeasePathIsNeverAcceptedAsProofOfReceiverOwnership [FAIL]
+[xUnit.net 00:00:01.34]     KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient [FAIL]
+  Failed KuaiYi.Core.Tests.InstallationHandoffTests.MissingLeasePathIsNeverAcceptedAsProofOfReceiverOwnership [397 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: 5
+Actual:   0
+  Stack Trace:
+     at KuaiYi.Core.Tests.InstallationHandoffTests.Controller.Exit(Int32 code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 62
+   at KuaiYi.Core.Tests.InstallationHandoffTests.MissingLeasePathIsNeverAcceptedAsProofOfReceiverOwnership() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 170
+   at KuaiYi.Core.Tests.InstallationHandoffTests.MissingLeasePathIsNeverAcceptedAsProofOfReceiverOwnership() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 171
+   at KuaiYi.Core.Tests.InstallationHandoffTests.MissingLeasePathIsNeverAcceptedAsProofOfReceiverOwnership() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 171
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient [365 ms]
+  Error Message:
+   Assert.Contains() Failure: Filter not matched in collection
+Collection: ["PUBLIC_SELECTED_HEALTH|1.0|5CF1D19AFE63F9884997ACF"···, "PUBLIC_ORIGINAL_IO|Exit|0|Settled", "PUBLIC_SELECTED_HEALTH|2.0|5CF1D19AFE63F9884997ACF"···, "PUBLIC_HANDOFF_RESULT|Upgraded|None|2.0|", "PUBLIC_ORIGINAL_IO|Exit|137|Settled", ···]
+  Stack Trace:
+     at KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 110
+   at KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 112
+   at KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 112
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F coreSha256=F78CF671A063E057E8476276BA83438956DE746BFD626FCBC813CE807E95BBBC
+ PUBLIC_SELECTED_HEALTH|1.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-a5e79ad8997041799c0561042789a28f/application/versions/d2812f840bca4808a6b826be58971c22
+ PUBLIC_ORIGINAL_IO|Exit|0|Settled
+ PUBLIC_SELECTED_HEALTH|2.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-a5e79ad8997041799c0561042789a28f/application/versions/23d9c8d4d4e946b0bc058dceaf9ddc6c
+ PUBLIC_HANDOFF_RESULT|Upgraded|None|2.0|
+ PUBLIC_ORIGINAL_IO|Exit|137|Settled
+ PUBLIC_CONTROLLER_DISPOSED
+
+
+Results File: /workspace/KuaiYi/artifacts/runtime-ownership-handoff/r06-contract-red.trx
+
+Failed!  - Failed:     2, Passed:     0, Skipped:     0, Total:     2, Duration: 780 ms - KuaiYi.Core.Tests.dll (net10.0)

@@ -1,0 +1,141 @@
+{
+  "Parent": "0137420b56c75500ba03cce36bbb5f57e2f9d7dd",
+  "Branch": "dev/runtime-ownership-handoff",
+  "Prefix": "2026-10-17-runtime-handoff-originals__",
+  "Index": "2026-10-17-runtime-ownership-handoff.json",
+  "Scope": "SPEC13.4 / P7 controlled selected-generation runtime ownership handoff; portable synthetic execution only",
+  "FinalRuns": [
+    "r12-install-green",
+    "r13-core-full",
+    "r14-provider-full",
+    "r15-app-build",
+    "r16-worker-build"
+  ],
+  "FullRun": "r13-core-full",
+  "ParentTrx": "docs/test-evidence/2026-10-17-upgrade-health-originals__r10-core-full.trx",
+  "NewTests": 17,
+  "AllowedOldModified": [
+    ".gitattributes",
+    "docs/progress.md",
+    "src/KuaiYi.Core/Installation/InstallationAdmission.cs",
+    "src/KuaiYi.Core/Installation/InstallationStore.cs",
+    "src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs",
+    "src/KuaiYi.Core/OwnedHostTermination.cs",
+    "src/KuaiYi.Core/OwnedProcessSession.cs",
+    "tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs",
+    "tools/KuaiYi.SettingsStoreFixture/Program.cs"
+  ],
+  "SourceReview": "Read-only high_water_review approved final r12 85P, frozen 50-source and DLL binding, no remaining P1/P2; packet separate audit pending",
+  "Targets": {
+    "r12-install-green": "tests/KuaiYi.Core.Tests/bin/Release/net10.0/",
+    "r13-core-full": "tests/KuaiYi.Core.Tests/bin/Release/net10.0/",
+    "r14-provider-full": "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/",
+    "r15-app-build": "src/KuaiYi.App/bin/Release/",
+    "r16-worker-build": "src/KuaiYi.ImageWorker/bin/Release/"
+  },
+  "AdditionalValidation": {
+    "RedGreen": [
+      {
+        "red": "r06-contract-red",
+        "green": "r12-install-green",
+        "sameName": "MissingLeasePathIsNeverAcceptedAsProofOfReceiverOwnership",
+        "redMethodSha256": "821835b54add01697e71a7fbcc28a47ad040c5a6dc3873d393062ddc09b70c64",
+        "greenFinalMethodSha256": "767f64f56cd58fe20f0937053c0ccd54d5995da9ece2cc5a7e4e4c456271ff38",
+        "methodDifference": "Only diagnostic ITestOutputHelper constructor argument added; assertions and behavior contract unchanged"
+      },
+      {
+        "red": "r11-stop-task-red",
+        "green": "r12-install-green",
+        "sameName": "RetryJoinsTheOriginalLifetimeStopTaskAfterActualExitBeforeRestoringTheOldGeneration",
+        "sameMethodBytesThroughFinal": "8782e55678451aaab90d29e795ee90cbc717ef4df7a20fba9fa7f74e1bea5277"
+      }
+    ],
+    "LegacyEntryComparison": {
+      "red": "r06-contract-red",
+      "green": "r12-install-green",
+      "method": "HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient",
+      "classification": "Explicit new entry comparison: controller mode legacy changed to healthy. Not same-method-bytes product bug red/green."
+    },
+    "ProviderSameNames": {
+      "parent": 2325,
+      "final": 2325,
+      "exactSameMultiset": true
+    },
+    "RecordedOwnedChildren": {
+      "r12-install-green": {
+        "actualControllerBindings": 16,
+        "selectedHealthRowsIncludingDuplicateEvidence": 78,
+        "fixtureSha256": "55a9482bf609bcaae01612cfd299d2124fd1a2fe553bab48d4036aaf6e87e1ae",
+        "fixtureCoreEqualsTargetCore": true,
+        "note": "Controller is root-held actual Process; runtime grandchild is never opened by PID. STOP_SELF+pipeEOF+rooted lease OS release are separate cleanup observations, not a root-held grandchild WaitForExit."
+      },
+      "r13-core-full": {
+        "actualControllerBindings": 16,
+        "selectedHealthRowsIncludingDuplicateEvidence": 78,
+        "fixtureSha256": "55a9482bf609bcaae01612cfd299d2124fd1a2fe553bab48d4036aaf6e87e1ae",
+        "fixtureCoreEqualsTargetCore": true,
+        "note": "Controller is root-held actual Process; runtime grandchild is never opened by PID. STOP_SELF+pipeEOF+rooted lease OS release are separate cleanup observations, not a root-held grandchild WaitForExit."
+      }
+    },
+    "AttemptClassifications": {
+      "r01-build": "Successful core/fixture build before complete fixture",
+      "r02-fixture-build": "Successful fixture build",
+      "r03-legacy-red": "xUnit2031 analyzer compile failure, no TRX; not behavioral red",
+      "r04-legacy-red": "Test pipe AutoFlush before connection failure; not product red",
+      "r05-legacy-red": "Legacy contract assertion masked by broken-pipe cleanup; stdout retained, not clean formal red",
+      "r06-contract-red": "Two visible actual failures: legacy entry comparison and missing-lock false commit",
+      "r07-handoff": "11P2F: original control retry and fixture window blocked",
+      "r08-handoff": "12P2F: fixture Console.In async call synchronously blocked independent pipe; fixed by Task.Run",
+      "r12-install-green": "Final related 85P=parent68+handoff16+stopJoin1",
+      "r09-handoff": "16P feature before later stop-task correction",
+      "r10-core-full": "1785P1F old LateActualStartOwner Retry L151 Busy, OSexit/IO visible; exact cause Unknown",
+      "r11-stop-task-red": "Controlled stop task held after actual exit: Retry incorrectly completed early, 1F"
+    },
+    "OldUpgradeMethodsPreserved": {
+      "count": 20,
+      "names": [
+        "ConfirmHealthyAsync",
+        "RequestExitAsync",
+        "SettleAsync",
+        "UpgradeWaitsForActualOwnedAppAndBrokerExitThenStartsTheWholeSelectedGeneration",
+        "IntactButUnhealthyNewVersionRestoresExactOldPointerAndActuallyRestartsOldApplication",
+        "ActualOsStartFailureRollsBackWithoutInventingAStartedChild",
+        "RefusingOwnedApplicationPreventsPublicationAndPersistentBlockSurvivesLeaseRelease",
+        "LocallyHeldRetryCanFinishAfterTheSameOwnedApplicationStopsRefusingExit",
+        "RealCompetingProcessAndWritersCannotReenterWhileNewHealthIsPending",
+        "LateHealthTaskMustSettleBeforeRollbackOrOldApplicationCanStart",
+        "CancellationDuringOwnedNewHealthRestoresAndRestartsTheVerifiedOldVersion",
+        "NormalLaunchAlsoHoldsAdmissionThroughActualStartupAndHealthSettlement",
+        "InitialUnhealthyInstallReturnsToUninstalledAndRetainsTheCompleteCandidate",
+        "OldRestartFailureRemainsBlockedUntilOwnedRetryActuallyStartsItHealthy",
+        "ChangedPendingRecordIsRetainedAndCannotBeClearedByOwnedRetry",
+        "AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication",
+        "AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication",
+        "BlockingHealthCancellationCallbackCannotHoldTheUpgradeCallerBeyondItsOwnedBudget",
+        "RealControllerCrashBeforeActualStartLeavesPersistentOwnershipEvenAfterOsLeaseRelease",
+        "LateActualStartOwnerMustPublishExitAndSettleIoBeforeOldVersionRestarts"
+      ],
+      "exactSameMethodBytes": true
+    }
+  },
+  "Notes": [
+    "Five final commands froze the same 50 selected source files before execution; no retrofilling.",
+    "All parent 1770 Core names retained plus 16 handoff cases and 1 original lifetime-stop join case; Provider names unchanged.",
+    "One authority: exact-byte Committed ledger binds owner/receiver/launch/version/current/upgrade. CommitAttempted uncertainty never authorizes Kill or rollback.",
+    "Beforecommit: exact own child actual exit, original task and IO settlement precede same-owner lease reclaim/CAS rollback. Aftercommit: live control readers cancelled and original tasks/cancellation work joined; transferred state does not claim exit.",
+    "Synthetic receiver explicitly owns cleanup via private pipe and fixture-only 40s bound; controller actual exit then PING and STOP_SELF exercised.",
+    "Receiver Abort holds execution lease until OS exit, including Prepared-to-Committed race.",
+    "All older tests and parent raw evidence retained unchanged."
+  ],
+  "Boundaries": [
+    "No actual Windows role exit, product entry admission, visible application health, Job, handoff adapter, install/registration/signing/identity/NativeHost registration changes.",
+    "Healthy runtime and upgrade/owner/handoff records remain after self-exit; no automatic restart, stale-owner recovery, receiver adoption or completed-marker cleanup.",
+    "Only controller-started exact Process children are controlled. No PID lookup, kill or process enumeration.",
+    "No Windows installer/full payload/derived metadata/registration rollback/login startup/uninstall/K-group acceptance.",
+    "No publisher trust from hash, no credential authority from launch correlation, no same-account malicious rename protection or power-loss durability claim.",
+    "Per-phase budgets are not a whole-operation hard deadline; historical image/idle/Core/WindowsJob root causes independently Unknown.",
+    "Runtime STOP_SELF is receiver self-cleanup with pipe EOF and OS lease release; no root-held grandchild actual WaitForExit claim.",
+    "Production image/classification reuse Off; source/password/integrity/cancel/cleanup/250600 gates unchanged; actual WPF keyboard/Windows/DPAPIACL/physical250600/live model/fullP6 acceptance NotRun.",
+    "No main/force/deploy/cost/real credentials/permission changes/new package/license acceptance. Skia4.153.1 four licenses pending; source403 and denied GitHub Actions never retried or bypassed."
+  ]
+}

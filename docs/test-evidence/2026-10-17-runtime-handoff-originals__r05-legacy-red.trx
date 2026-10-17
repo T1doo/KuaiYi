@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="6b8ab466-13ac-4227-994d-3f4caf6dc735" name="@4cd0056ca8a8 2026-10-17 13:13:28" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-17T13:13:28.1905092+00:00" queuing="2026-10-17T13:13:28.1905093+00:00" start="2026-10-17T13:13:26.8479650+00:00" finish="2026-10-17T13:13:28.1961390+00:00" />
+  <TestSettings name="default" id="1af1c0a2-b8e9-4f4f-93ee-c7dfb8f851de">
+    <Deployment runDeploymentRoot="_4cd0056ca8a8_2026-10-17_13_13_28" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="244ee560-3407-4ee7-985d-99f1c3bf9358" testId="7b188aea-6ec9-d902-b598-d9e8f6605f48" testName="KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient" computerName="4cd0056ca8a8" duration="00:00:00.4332511" startTime="2026-10-17T13:13:27.6251459+00:00" endTime="2026-10-17T13:13:28.0741972+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="244ee560-3407-4ee7-985d-99f1c3bf9358">
+      <Output>
+        <StdOut>PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=2C68CEA3823FAA5A387BC070BA711D29A0E3DF512AAE5FE9F7CA2BB9FD39D7D5 coreSha256=F78CF671A063E057E8476276BA83438956DE746BFD626FCBC813CE807E95BBBC
+PUBLIC_SELECTED_HEALTH|1.0|2C68CEA3823FAA5A387BC070BA711D29A0E3DF512AAE5FE9F7CA2BB9FD39D7D5|/tmp/kuaiyi-upgrade-tests-a3c5777d7f0f475b936600b04d4f2c0c/application/versions/7687063c0a1c47248338fd9c18f5d58c
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|2C68CEA3823FAA5A387BC070BA711D29A0E3DF512AAE5FE9F7CA2BB9FD39D7D5|/tmp/kuaiyi-upgrade-tests-a3c5777d7f0f475b936600b04d4f2c0c/application/versions/791eabb225fe477b8519c6f72fc9feb1
+PUBLIC_HANDOFF_RESULT|Upgraded|None|2.0|
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_CONTROLLER_DISPOSED</StdOut>
+        <ErrorInfo>
+          <Message>System.IO.IOException : Pipe is broken.</Message>
+          <StackTrace>   at System.IO.Pipes.PipeStream.CheckWriteOperations()
+   at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+   at System.IO.StreamWriter.Dispose(Boolean disposing)
+   at System.IO.TextWriter.Dispose()
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.DisposeAsync() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 84
+   at KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 111
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="7b188aea-6ec9-d902-b598-d9e8f6605f48">
+      <Execution id="244ee560-3407-4ee7-985d-99f1c3bf9358" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="7b188aea-6ec9-d902-b598-d9e8f6605f48" executionId="244ee560-3407-4ee7-985d-99f1c3bf9358" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.09]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.38]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.40]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.88]       System.IO.IOException : Pipe is broken.
+[xUnit.net 00:00:00.88]       Stack Trace:
+[xUnit.net 00:00:00.88]            at System.IO.Pipes.PipeStream.CheckWriteOperations()
+[xUnit.net 00:00:00.88]            at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+[xUnit.net 00:00:00.88]            at System.IO.StreamWriter.Dispose(Boolean disposing)
+[xUnit.net 00:00:00.88]            at System.IO.TextWriter.Dispose()
+[xUnit.net 00:00:00.88]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs(84,0): at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.DisposeAsync()
+[xUnit.net 00:00:00.88]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs(111,0): at KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient()
+[xUnit.net 00:00:00.88]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.88]       Output:
+[xUnit.net 00:00:00.88]         PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=2C68CEA3823FAA5A387BC070BA711D29A0E3DF512AAE5FE9F7CA2BB9FD39D7D5 coreSha256=F78CF671A063E057E8476276BA83438956DE746BFD626FCBC813CE807E95BBBC
+[xUnit.net 00:00:00.88]         PUBLIC_SELECTED_HEALTH|1.0|2C68CEA3823FAA5A387BC070BA711D29A0E3DF512AAE5FE9F7CA2BB9FD39D7D5|/tmp/kuaiyi-upgrade-tests-a3c5777d7f0f475b936600b04d4f2c0c/application/versions/7687063c0a1c47248338fd9c18f5d58c
+[xUnit.net 00:00:00.88]         PUBLIC_ORIGINAL_IO|Exit|0|Settled
+[xUnit.net 00:00:00.88]         PUBLIC_SELECTED_HEALTH|2.0|2C68CEA3823FAA5A387BC070BA711D29A0E3DF512AAE5FE9F7CA2BB9FD39D7D5|/tmp/kuaiyi-upgrade-tests-a3c5777d7f0f475b936600b04d4f2c0c/application/versions/791eabb225fe477b8519c6f72fc9feb1
+[xUnit.net 00:00:00.88]         PUBLIC_HANDOFF_RESULT|Upgraded|None|2.0|
+[xUnit.net 00:00:00.88]         PUBLIC_ORIGINAL_IO|Exit|137|Settled
+[xUnit.net 00:00:00.88]         PUBLIC_CONTROLLER_DISPOSED
+[xUnit.net 00:00:00.89]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T13:13:28.0783444+00:00">
+        <Text>[xUnit.net 00:00:00.88]     KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

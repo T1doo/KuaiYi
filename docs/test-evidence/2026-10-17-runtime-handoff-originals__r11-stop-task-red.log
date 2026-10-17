@@ -1,0 +1,35 @@
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.SelectionReuseDiagnostic -> /workspace/KuaiYi/tools/KuaiYi.SelectionReuseDiagnostic/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:06.72]     KuaiYi.Core.Tests.InstallationUpgradeTests.RetryJoinsTheOriginalLifetimeStopTaskAfterActualExitBeforeRestoringTheOldGeneration [FAIL]
+  Failed KuaiYi.Core.Tests.InstallationUpgradeTests.RetryJoinsTheOriginalLifetimeStopTaskAfterActualExitBeforeRestoringTheOldGeneration [6 s]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Core.Tests.InstallationUpgradeTests.RetryJoinsTheOriginalLifetimeStopTaskAfterActualExitBeforeRestoringTheOldGeneration() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs:line 320
+   at KuaiYi.Core.Tests.InstallationUpgradeTests.RetryJoinsTheOriginalLifetimeStopTaskAfterActualExitBeforeRestoringTheOldGeneration() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs:line 323
+   at KuaiYi.Core.Tests.InstallationUpgradeTests.RetryJoinsTheOriginalLifetimeStopTaskAfterActualExitBeforeRestoringTheOldGeneration() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs:line 324
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-26249183ce40458ba40e753138c9b324/application/versions/bcfac14bae8e4ef4ae2f46017d596f85 driverSha256=4BB9F02B2CCEBF9A136199B5E7B61338D00156079F5DBBD79A9DC33851A8CE6A exit=0 stdoutLines=2 stderrBytes=0 IO=Settled
+ PUBLIC_UPGRADE_CHILD version=2.0 directory=/tmp/kuaiyi-upgrade-tests-26249183ce40458ba40e753138c9b324/application/versions/67dc0a1767de4a0a89df1af6c6c3df08 driverSha256=4BB9F02B2CCEBF9A136199B5E7B61338D00156079F5DBBD79A9DC33851A8CE6A exit=137 stdoutLines=1 stderrBytes=0 IO=Settled
+
+
+Results File: /workspace/KuaiYi/artifacts/runtime-ownership-handoff/r11-stop-task-red.trx
+
+Failed!  - Failed:     1, Passed:     0, Skipped:     0, Total:     1, Duration: 6 s - KuaiYi.Core.Tests.dll (net10.0)

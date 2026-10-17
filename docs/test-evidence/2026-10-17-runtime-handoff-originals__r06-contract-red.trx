@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="44d17c7c-66ed-466e-a0cb-008bac734a5e" name="@4cd0056ca8a8 2026-10-17 13:14:10" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-17T13:14:10.6289323+00:00" queuing="2026-10-17T13:14:10.6289323+00:00" start="2026-10-17T13:14:08.7364596+00:00" finish="2026-10-17T13:14:10.6360516+00:00" />
+  <TestSettings name="default" id="3e9ab5b5-fac2-4fd5-a7ab-42ea6f566a0d">
+    <Deployment runDeploymentRoot="_4cd0056ca8a8_2026-10-17_13_14_10" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="bb187095-6b79-4842-81bb-915d06a1cbee" testId="dfa40dee-e082-b354-b01e-45bd4a3d35c6" testName="KuaiYi.Core.Tests.InstallationHandoffTests.MissingLeasePathIsNeverAcceptedAsProofOfReceiverOwnership" computerName="4cd0056ca8a8" duration="00:00:00.3978587" startTime="2026-10-17T13:14:09.7346905+00:00" endTime="2026-10-17T13:14:10.1471654+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bb187095-6b79-4842-81bb-915d06a1cbee">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: 5
+Actual:   0</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.InstallationHandoffTests.Controller.Exit(Int32 code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 62
+   at KuaiYi.Core.Tests.InstallationHandoffTests.MissingLeasePathIsNeverAcceptedAsProofOfReceiverOwnership() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 170
+   at KuaiYi.Core.Tests.InstallationHandoffTests.MissingLeasePathIsNeverAcceptedAsProofOfReceiverOwnership() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 171
+   at KuaiYi.Core.Tests.InstallationHandoffTests.MissingLeasePathIsNeverAcceptedAsProofOfReceiverOwnership() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 171
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="27b22b37-3008-451d-9c4a-5417e45458c9" testId="7b188aea-6ec9-d902-b598-d9e8f6605f48" testName="KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient" computerName="4cd0056ca8a8" duration="00:00:00.3655931" startTime="2026-10-17T13:14:10.1727822+00:00" endTime="2026-10-17T13:14:10.5149226+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="27b22b37-3008-451d-9c4a-5417e45458c9">
+      <Output>
+        <StdOut>PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F coreSha256=F78CF671A063E057E8476276BA83438956DE746BFD626FCBC813CE807E95BBBC
+PUBLIC_SELECTED_HEALTH|1.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-a5e79ad8997041799c0561042789a28f/application/versions/d2812f840bca4808a6b826be58971c22
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-a5e79ad8997041799c0561042789a28f/application/versions/23d9c8d4d4e946b0bc058dceaf9ddc6c
+PUBLIC_HANDOFF_RESULT|Upgraded|None|2.0|
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_CONTROLLER_DISPOSED</StdOut>
+        <ErrorInfo>
+          <Message>Assert.Contains() Failure: Filter not matched in collection
+Collection: ["PUBLIC_SELECTED_HEALTH|1.0|5CF1D19AFE63F9884997ACF"···, "PUBLIC_ORIGINAL_IO|Exit|0|Settled", "PUBLIC_SELECTED_HEALTH|2.0|5CF1D19AFE63F9884997ACF"···, "PUBLIC_HANDOFF_RESULT|Upgraded|None|2.0|", "PUBLIC_ORIGINAL_IO|Exit|137|Settled", ···]</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 110
+   at KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 112
+   at KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 112
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.MissingLeasePathIsNeverAcceptedAsProofOfReceiverOwnership" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="dfa40dee-e082-b354-b01e-45bd4a3d35c6">
+      <Execution id="bb187095-6b79-4842-81bb-915d06a1cbee" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="MissingLeasePathIsNeverAcceptedAsProofOfReceiverOwnership" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="7b188aea-6ec9-d902-b598-d9e8f6605f48">
+      <Execution id="27b22b37-3008-451d-9c4a-5417e45458c9" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="dfa40dee-e082-b354-b01e-45bd4a3d35c6" executionId="bb187095-6b79-4842-81bb-915d06a1cbee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7b188aea-6ec9-d902-b598-d9e8f6605f48" executionId="27b22b37-3008-451d-9c4a-5417e45458c9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="0" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.11]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.50]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.53]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.97]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.97]       Expected: 5
+[xUnit.net 00:00:00.97]       Actual:   0
+[xUnit.net 00:00:00.98]       Stack Trace:
+[xUnit.net 00:00:00.98]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs(62,0): at KuaiYi.Core.Tests.InstallationHandoffTests.Controller.Exit(Int32 code)
+[xUnit.net 00:00:00.98]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs(170,0): at KuaiYi.Core.Tests.InstallationHandoffTests.MissingLeasePathIsNeverAcceptedAsProofOfReceiverOwnership()
+[xUnit.net 00:00:00.98]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs(171,0): at KuaiYi.Core.Tests.InstallationHandoffTests.MissingLeasePathIsNeverAcceptedAsProofOfReceiverOwnership()
+[xUnit.net 00:00:00.98]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs(171,0): at KuaiYi.Core.Tests.InstallationHandoffTests.MissingLeasePathIsNeverAcceptedAsProofOfReceiverOwnership()
+[xUnit.net 00:00:00.98]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.34]       Assert.Contains() Failure: Filter not matched in collection
+[xUnit.net 00:00:01.34]       Collection: ["PUBLIC_SELECTED_HEALTH|1.0|5CF1D19AFE63F9884997ACF"···, "PUBLIC_ORIGINAL_IO|Exit|0|Settled", "PUBLIC_SELECTED_HEALTH|2.0|5CF1D19AFE63F9884997ACF"···, "PUBLIC_HANDOFF_RESULT|Upgraded|None|2.0|", "PUBLIC_ORIGINAL_IO|Exit|137|Settled", ···]
+[xUnit.net 00:00:01.34]       Stack Trace:
+[xUnit.net 00:00:01.34]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs(110,0): at KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient()
+[xUnit.net 00:00:01.34]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs(112,0): at KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient()
+[xUnit.net 00:00:01.34]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs(112,0): at KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient()
+[xUnit.net 00:00:01.34]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.34]       Output:
+[xUnit.net 00:00:01.34]         PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F coreSha256=F78CF671A063E057E8476276BA83438956DE746BFD626FCBC813CE807E95BBBC
+[xUnit.net 00:00:01.34]         PUBLIC_SELECTED_HEALTH|1.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-a5e79ad8997041799c0561042789a28f/application/versions/d2812f840bca4808a6b826be58971c22
+[xUnit.net 00:00:01.34]         PUBLIC_ORIGINAL_IO|Exit|0|Settled
+[xUnit.net 00:00:01.34]         PUBLIC_SELECTED_HEALTH|2.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-a5e79ad8997041799c0561042789a28f/application/versions/23d9c8d4d4e946b0bc058dceaf9ddc6c
+[xUnit.net 00:00:01.34]         PUBLIC_HANDOFF_RESULT|Upgraded|None|2.0|
+[xUnit.net 00:00:01.34]         PUBLIC_ORIGINAL_IO|Exit|137|Settled
+[xUnit.net 00:00:01.34]         PUBLIC_CONTROLLER_DISPOSED
+[xUnit.net 00:00:01.35]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T13:14:10.1508752+00:00">
+        <Text>[xUnit.net 00:00:00.97]     KuaiYi.Core.Tests.InstallationHandoffTests.MissingLeasePathIsNeverAcceptedAsProofOfReceiverOwnership [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T13:14:10.5175908+00:00">
+        <Text>[xUnit.net 00:00:01.34]     KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

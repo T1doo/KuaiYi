@@ -1,0 +1,57 @@
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.SelectionReuseDiagnostic -> /workspace/KuaiYi/tools/KuaiYi.SelectionReuseDiagnostic/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:14.52]     KuaiYi.Core.Tests.InstallationHandoffTests.ReceiverAbortCannotReleaseItsLeaseBeforeActualExitEvenWhileTheParentCanStillCommit [FAIL]
+  Failed KuaiYi.Core.Tests.InstallationHandoffTests.ReceiverAbortCannotReleaseItsLeaseBeforeActualExitEvenWhileTheParentCanStillCommit [6 s]
+  Error Message:
+   System.IO.IOException : Connection reset by peer
+---- System.Net.Sockets.SocketException : Connection reset by peer
+  Stack Trace:
+     at System.IO.Pipes.PipeStream.ReadAsyncCore(Memory`1 destination, CancellationToken cancellationToken)
+   at System.IO.StreamReader.ReadBufferAsync(CancellationToken cancellationToken)
+   at System.IO.StreamReader.ReadLineAsyncInternal(CancellationToken cancellationToken)
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Row() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 79
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Ping() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 81
+   at KuaiYi.Core.Tests.InstallationHandoffTests.ReceiverAbortCannotReleaseItsLeaseBeforeActualExitEvenWhileTheParentCanStillCommit() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 180
+   at KuaiYi.Core.Tests.InstallationHandoffTests.ReceiverAbortCannotReleaseItsLeaseBeforeActualExitEvenWhileTheParentCanStillCommit() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 181
+   at KuaiYi.Core.Tests.InstallationHandoffTests.ReceiverAbortCannotReleaseItsLeaseBeforeActualExitEvenWhileTheParentCanStillCommit() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 181
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource<System.Int32>.GetResult(Int16 token)
+   at System.IO.Pipes.PipeStream.ReadAsyncCore(Memory`1 destination, CancellationToken cancellationToken)
+[xUnit.net 00:00:23.75]     KuaiYi.Core.Tests.InstallationHandoffTests.CompetingRealControllerIsRefusedDuringTheExecutionLeaseTransferWindow [FAIL]
+  Failed KuaiYi.Core.Tests.InstallationHandoffTests.CompetingRealControllerIsRefusedDuringTheExecutionLeaseTransferWindow [6 s]
+  Error Message:
+   System.IO.IOException : Connection reset by peer
+---- System.Net.Sockets.SocketException : Connection reset by peer
+  Stack Trace:
+     at System.IO.Pipes.PipeStream.ReadAsyncCore(Memory`1 destination, CancellationToken cancellationToken)
+   at System.IO.StreamReader.ReadBufferAsync(CancellationToken cancellationToken)
+   at System.IO.StreamReader.ReadLineAsyncInternal(CancellationToken cancellationToken)
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Row() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 79
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Ping() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 81
+   at KuaiYi.Core.Tests.InstallationHandoffTests.CompetingRealControllerIsRefusedDuringTheExecutionLeaseTransferWindow() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 150
+   at KuaiYi.Core.Tests.InstallationHandoffTests.CompetingRealControllerIsRefusedDuringTheExecutionLeaseTransferWindow() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 150
+   at KuaiYi.Core.Tests.InstallationHandoffTests.CompetingRealControllerIsRefusedDuringTheExecutionLeaseTransferWindow() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 150
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource<System.Int32>.GetResult(Int16 token)
+   at System.IO.Pipes.PipeStream.ReadAsyncCore(Memory`1 destination, CancellationToken cancellationToken)
+Results File: /workspace/KuaiYi/artifacts/runtime-ownership-handoff/r08-handoff.trx
+
+Failed!  - Failed:     2, Passed:    12, Skipped:     0, Total:    14, Duration: 23 s - KuaiYi.Core.Tests.dll (net10.0)

@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="bcb580bc-934f-41b3-b804-761d7aae6bd5" name="@4cd0056ca8a8 2026-10-17 13:13:06" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-17T13:13:06.5369545+00:00" queuing="2026-10-17T13:13:06.5369545+00:00" start="2026-10-17T13:13:05.6044752+00:00" finish="2026-10-17T13:13:06.5457104+00:00" />
+  <TestSettings name="default" id="683e4226-3c37-424b-870b-5ffd16c90477">
+    <Deployment runDeploymentRoot="_4cd0056ca8a8_2026-10-17_13_13_06" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="9b593435-18ec-4afe-a0ff-84e5db52be78" testId="7b188aea-6ec9-d902-b598-d9e8f6605f48" testName="KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient" computerName="4cd0056ca8a8" duration="00:00:00.0408021" startTime="2026-10-17T13:13:06.3710852+00:00" endTime="2026-10-17T13:13:06.4256970+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9b593435-18ec-4afe-a0ff-84e5db52be78">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Pipe hasn't been connected yet.</Message>
+          <StackTrace>   at System.IO.Pipes.PipeStream.CheckWriteOperations()
+   at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver..ctor(Rig rig) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 75
+   at KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 106
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="7b188aea-6ec9-d902-b598-d9e8f6605f48">
+      <Execution id="9b593435-18ec-4afe-a0ff-84e5db52be78" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="7b188aea-6ec9-d902-b598-d9e8f6605f48" executionId="9b593435-18ec-4afe-a0ff-84e5db52be78" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.10]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.37]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.40]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.48]       System.InvalidOperationException : Pipe hasn't been connected yet.
+[xUnit.net 00:00:00.49]       Stack Trace:
+[xUnit.net 00:00:00.49]            at System.IO.Pipes.PipeStream.CheckWriteOperations()
+[xUnit.net 00:00:00.49]            at System.IO.StreamWriter.Flush(Boolean flushStream, Boolean flushEncoder)
+[xUnit.net 00:00:00.49]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs(75,0): at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver..ctor(Rig rig)
+[xUnit.net 00:00:00.49]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs(106,0): at KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient()
+[xUnit.net 00:00:00.49]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.50]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T13:13:06.4305080+00:00">
+        <Text>[xUnit.net 00:00:00.48]     KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

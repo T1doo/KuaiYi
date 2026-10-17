@@ -76,7 +76,7 @@ public sealed class InstallationStore
         {
             if(execution!=null)admission.Attach(execution);
             else if(File.Exists(InstallationExecutionOwnership.RecordPath(directory))||Directory.Exists(InstallationExecutionOwnership.RecordPath(directory)))throw new InstallationRecoveryException("Existing execution owner retained; launch and mutation blocked.");
-            if(File.Exists(PendingPath)||Directory.Exists(PendingPath))throw new InstallationRecoveryException("Pending or unknown upgrade retained; launch and mutation blocked.");return admission;
+            if(File.Exists(PendingPath)||Directory.Exists(PendingPath)||File.Exists(Path.Combine(directory,"handoff-pending.json"))||Directory.Exists(Path.Combine(directory,"handoff-pending.json")))throw new InstallationRecoveryException("Pending or unknown upgrade/handoff retained; launch and mutation blocked.");return admission;
         }
         catch{admission.Dispose();throw;}
     }

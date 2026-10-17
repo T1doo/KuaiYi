@@ -2,7 +2,7 @@ using System.Diagnostics;
 
 namespace KuaiYi.Core;
 
-public enum HostExitState { Running, TerminationRequested, ExitConfirmed, TerminationFailed, ExitUnconfirmed }
+public enum HostExitState { Running, TerminationRequested, ExitConfirmed, TerminationFailed, ExitUnconfirmed, OwnershipTransferred }
 public interface IOwnedHostLifetime
 {
     bool HasExited { get; }

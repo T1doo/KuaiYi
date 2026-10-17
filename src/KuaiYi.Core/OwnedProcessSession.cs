@@ -10,7 +10,7 @@ public sealed class OwnedProcessSession(IOwnedProcessStarter? processStarter=nul
     private Task<Process>? startTask;
     private Task? startupObserver;
     private Task<HostExitState>? stopTask;
-    private bool stopRequested, disposed;
+    private bool stopRequested, disposed,transferred;
     public string? StartupFailureCode { get; private set; }
     internal Action<Process>? OwnershipPublishedForTest { get; set; } // Test-only scheduler barrier; never configured by App.
     internal Task StartupSettlementForTest { get { lock (ownershipSync) return startTask ?? Task.CompletedTask; } }
@@ -23,6 +23,7 @@ public sealed class OwnedProcessSession(IOwnedProcessStarter? processStarter=nul
         {
             lock (ownershipSync)
             {
+                if(transferred)return HostExitState.OwnershipTransferred;
                 if (!disposed && HasPendingLifetimeWork) return stopRequested ? HostExitState.ExitUnconfirmed : HostExitState.Running;
                 return termination?.State ?? (startTask == null ? null : HostExitState.ExitConfirmed);
             }
@@ -30,7 +31,7 @@ public sealed class OwnedProcessSession(IOwnedProcessStarter? processStarter=nul
     }
     public bool ObserveExit()
     {
-        lock (ownershipSync) return disposed || IsSettledAndExited();
+        lock (ownershipSync) return !transferred&&(disposed || IsSettledAndExited());
     }
     private Process StartOwned(ProcessStartInfo info, CancellationToken cancellation)
     {
@@ -55,6 +56,7 @@ public sealed class OwnedProcessSession(IOwnedProcessStarter? processStarter=nul
     {
         lock (ownershipSync)
         {
+            if(transferred)return Task.FromResult(HostExitState.OwnershipTransferred);
             stopRequested = true;
             if (disposed) return Task.FromResult(HostExitState.ExitConfirmed);
             if (termination == null) return Task.FromResult(startTask == null || startTask.IsCompleted ? HostExitState.ExitConfirmed : HostExitState.ExitUnconfirmed);
@@ -67,6 +69,7 @@ public sealed class OwnedProcessSession(IOwnedProcessStarter? processStarter=nul
         lock(ownershipSync)
         {
             ObjectDisposedException.ThrowIf(disposed,this);
+            if(transferred)throw new InvalidOperationException("Process ownership was transferred.");
             if(startTask!=null)throw new InvalidOperationException("Single owned child per session.");
             var pending=startTask=Task.Run(()=>StartOwned(info,token));startupObserver=ObserveStartupAsync(pending);return pending;
         }
@@ -80,12 +83,24 @@ public sealed class OwnedProcessSession(IOwnedProcessStarter? processStarter=nul
         catch(Exception error){lock(ownershipSync)FinalizationFailureCode=error.GetType().Name;return false;}
         lock(ownershipSync)
         {
+            if(transferred)return false;
             if(disposed)return true;if(!IsSettledAndExited())return false;
             try{owned?.Dispose();owned=null;disposed=true;_ =startupObserver;return true;}
             catch(Exception error){FinalizationFailureCode=error.GetType().Name;return false;}
         }
     }
     public string? FinalizationFailureCode {get;private set;}
+    internal void ReleaseToReceiver(Process expected,Installation.InstallationHandoffTransaction proof)
+    {
+        lock(ownershipSync)
+        {
+            if(transferred)return;
+            if(!proof.Committed||!ReferenceEquals(owned,expected)||HasPendingLifetimeWork||stopRequested||disposed)throw new InvalidOperationException("Exact committed child ownership required.");
+            proof.Offer.RequireRecords();proof.Offer.Exact("handoff-pending.json",proof.Offer.Ledger("Committed"));
+            // Caller has joined the original control readers. Releasing this local handle does not assert OS exit.
+            owned!.Dispose();owned=null;termination=null;transferred=true;
+        }
+    }
     public static ProcessStartInfo Info(string executable,string? assembly)
     {
         var info=new ProcessStartInfo(executable){UseShellExecute=false,CreateNoWindow=true,RedirectStandardInput=true,RedirectStandardOutput=true,RedirectStandardError=true};

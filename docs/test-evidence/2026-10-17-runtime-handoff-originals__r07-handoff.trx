@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="c49d073b-b485-4005-a532-d077686e07c9" name="@4cd0056ca8a8 2026-10-17 13:14:37" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-17T13:14:37.6563491+00:00" queuing="2026-10-17T13:14:37.6563492+00:00" start="2026-10-17T13:14:35.7663554+00:00" finish="2026-10-17T13:14:49.7955347+00:00" />
+  <TestSettings name="default" id="67f2270a-9657-4054-9039-8f1a48f89600">
+    <Deployment runDeploymentRoot="_4cd0056ca8a8_2026-10-17_13_14_37" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="2d628223-da1f-4753-8c7d-6046b6ed9f71" testId="dfa40dee-e082-b354-b01e-45bd4a3d35c6" testName="KuaiYi.Core.Tests.InstallationHandoffTests.MissingLeasePathIsNeverAcceptedAsProofOfReceiverOwnership" computerName="4cd0056ca8a8" duration="00:00:00.3447412" startTime="2026-10-17T13:14:41.4881331+00:00" endTime="2026-10-17T13:14:41.8332042+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2d628223-da1f-4753-8c7d-6046b6ed9f71">
+      <Output>
+        <StdOut>PUBLIC_CONTROLLER_ACTUAL_EXIT=5 fixtureSha256=5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F coreSha256=C4B5CF9A33145DF5B16529A7D63EB4031CDDA7B4E0C2FEF4F104DF44D814100E
+PUBLIC_SELECTED_HEALTH|1.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-af7c127fa6cb465291e2af88d7ae6950/application/versions/bfb02329cad54b25ad3675410a887d51
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-af7c127fa6cb465291e2af88d7ae6950/application/versions/692e11d9b6c546a4ba754a07eac50945
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_HANDOFF_UNCONFIRMED</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d48c3fb5-5e86-4b3a-a9ef-f4f85ad57da6" testId="173952fd-504e-dea3-4f8c-b05a6a3b3249" testName="KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: &quot;cancel-prepared&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.3889921" startTime="2026-10-17T13:14:40.3930230+00:00" endTime="2026-10-17T13:14:40.7824512+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d48c3fb5-5e86-4b3a-a9ef-f4f85ad57da6">
+      <Output>
+        <StdOut>PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F coreSha256=C4B5CF9A33145DF5B16529A7D63EB4031CDDA7B4E0C2FEF4F104DF44D814100E
+PUBLIC_SELECTED_HEALTH|1.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-175a7e88b9e84907b6e3bb3dcb30db4a/application/versions/c81a18be9b9f47dba10cf8c6ca792515
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-175a7e88b9e84907b6e3bb3dcb30db4a/application/versions/012a127c695b45cd9663fa63d3651719
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_SELECTED_HEALTH|1.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-175a7e88b9e84907b6e3bb3dcb30db4a/application/versions/c81a18be9b9f47dba10cf8c6ca792515
+PUBLIC_HANDOFF_RESULT|RolledBack|None|1.0|TaskCanceledException
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_CONTROLLER_DISPOSED</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a66ff580-0e72-4aa8-9caa-eb891779bdf1" testId="0479e95b-73f7-c9d3-ed18-f0cece1442fd" testName="KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: &quot;reject&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.4289724" startTime="2026-10-17T13:14:36.6817050+00:00" endTime="2026-10-17T13:14:37.1208176+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a66ff580-0e72-4aa8-9caa-eb891779bdf1">
+      <Output>
+        <StdOut>PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F coreSha256=C4B5CF9A33145DF5B16529A7D63EB4031CDDA7B4E0C2FEF4F104DF44D814100E
+PUBLIC_SELECTED_HEALTH|1.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-5bf7f8dcbb854842b1bf21a1ef2be85c/application/versions/0187a4d7f53c4c8c8f5c8ddce649ccec
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-5bf7f8dcbb854842b1bf21a1ef2be85c/application/versions/e70f84d2766e423090ee0c20099dd9f2
+PUBLIC_ORIGINAL_IO|Exit|24|Settled
+PUBLIC_SELECTED_HEALTH|1.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-5bf7f8dcbb854842b1bf21a1ef2be85c/application/versions/0187a4d7f53c4c8c8f5c8ddce649ccec
+PUBLIC_HANDOFF_RESULT|RolledBack|None|1.0|ChannelClosedException
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_CONTROLLER_DISPOSED</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="18c7b4da-0c1e-4704-85f8-47a00518d454" testId="7470fb02-72f6-e692-ad5f-a82c7578a5f4" testName="KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: &quot;wrong-accept&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.4368145" startTime="2026-10-17T13:14:37.1305673+00:00" endTime="2026-10-17T13:14:37.5587459+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="18c7b4da-0c1e-4704-85f8-47a00518d454">
+      <Output>
+        <StdOut>PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F coreSha256=C4B5CF9A33145DF5B16529A7D63EB4031CDDA7B4E0C2FEF4F104DF44D814100E
+PUBLIC_SELECTED_HEALTH|1.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-79bf96ed55cd4ff89b6bccd5417c98a4/application/versions/9c576141eb6f4732845129c9d23d59ad
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-79bf96ed55cd4ff89b6bccd5417c98a4/application/versions/8ec7e1f1997640b7b13f5acc588c20ae
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_SELECTED_HEALTH|1.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-79bf96ed55cd4ff89b6bccd5417c98a4/application/versions/9c576141eb6f4732845129c9d23d59ad
+PUBLIC_HANDOFF_RESULT|RolledBack|None|1.0|InvalidDataException
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_CONTROLLER_DISPOSED</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a338e6d0-c0dc-4e0d-a93b-a92aabdb6710" testId="b3348cee-d833-027d-6fa5-8a1c99ca64d3" testName="KuaiYi.Core.Tests.InstallationHandoffTests.CompetingRealControllerIsRefusedDuringTheExecutionLeaseTransferWindow" computerName="4cd0056ca8a8" duration="00:00:02.3229261" startTime="2026-10-17T13:14:47.4137350+00:00" endTime="2026-10-17T13:14:49.7362435+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a338e6d0-c0dc-4e0d-a93b-a92aabdb6710">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.IOException : Connection reset by peer
+---- System.Net.Sockets.SocketException : Connection reset by peer</Message>
+          <StackTrace>   at System.IO.Pipes.PipeStream.ReadAsyncCore(Memory`1 destination, CancellationToken cancellationToken)
+   at System.IO.StreamReader.ReadBufferAsync(CancellationToken cancellationToken)
+   at System.IO.StreamReader.ReadLineAsyncInternal(CancellationToken cancellationToken)
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Row() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 77
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Ping() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 79
+   at KuaiYi.Core.Tests.InstallationHandoffTests.CompetingRealControllerIsRefusedDuringTheExecutionLeaseTransferWindow() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 148
+   at KuaiYi.Core.Tests.InstallationHandoffTests.CompetingRealControllerIsRefusedDuringTheExecutionLeaseTransferWindow() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 148
+   at KuaiYi.Core.Tests.InstallationHandoffTests.CompetingRealControllerIsRefusedDuringTheExecutionLeaseTransferWindow() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 148
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource&lt;System.Int32&gt;.GetResult(Int16 token)
+   at System.IO.Pipes.PipeStream.ReadAsyncCore(Memory`1 destination, CancellationToken cancellationToken)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="29007d48-0c63-4b29-8958-007a103a8df6" testId="709def99-b8ed-c6cb-d5ec-c20f0512dd4e" testName="KuaiYi.Core.Tests.InstallationHandoffTests.UnknownHandoffBytesAreRetainedAndNeverAuthorizeReclaimOrFreshAdmission" computerName="4cd0056ca8a8" duration="00:00:00.3621462" startTime="2026-10-17T13:14:41.1257886+00:00" endTime="2026-10-17T13:14:41.4879579+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="29007d48-0c63-4b29-8958-007a103a8df6">
+      <Output>
+        <StdOut>PUBLIC_CONTROLLER_ACTUAL_EXIT=5 fixtureSha256=5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F coreSha256=C4B5CF9A33145DF5B16529A7D63EB4031CDDA7B4E0C2FEF4F104DF44D814100E
+PUBLIC_SELECTED_HEALTH|1.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-2dcac80a59434578bfdacb92d31a0aa8/application/versions/bd813da2b4ae47038ba862372609ce74
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-2dcac80a59434578bfdacb92d31a0aa8/application/versions/46470246b56848278610ae2dbe16f105
+PUBLIC_ORIGINAL_IO|Exit|24|Settled
+PUBLIC_HANDOFF_UNCONFIRMED</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0373ce1d-c882-46e8-9404-57edf350f2f3" testId="9ec38963-7d5d-b5d6-6699-7086a356bc99" testName="KuaiYi.Core.Tests.InstallationHandoffTests.OriginalControlTaskMustReallySettleBeforeDisposeCanReleaseTheControllerHandle" computerName="4cd0056ca8a8" duration="00:00:02.4892055" startTime="2026-10-17T13:14:44.9226808+00:00" endTime="2026-10-17T13:14:47.4135531+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0373ce1d-c882-46e8-9404-57edf350f2f3">
+      <Output>
+        <StdOut>PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F coreSha256=C4B5CF9A33145DF5B16529A7D63EB4031CDDA7B4E0C2FEF4F104DF44D814100E
+PUBLIC_SELECTED_HEALTH|1.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-c2629f791eba4f3785cf1f000f17a7f7/application/versions/34845be386284c169148e19ec7d102f7
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-c2629f791eba4f3785cf1f000f17a7f7/application/versions/2f67397b69ee46c3a030888357c53d38
+PUBLIC_HANDOFF_RESULT|Upgraded|CommittedUnconfirmed|2.0|TimeoutException
+PUBLIC_WAITING_ORIGINAL_CONTROL
+PUBLIC_ORIGINAL_IO|LiveControl|CancelledAndJoined|Settled
+PUBLIC_CONTROLLER_DISPOSED
+PUBLIC_RUNTIME_SELF_CLEANUP=1 pipeEOF=True OSLeaseReleased=True durableFenceRetained=True</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="93650c08-58da-456d-816d-386e29de2ace" testId="eb01a23f-c8a7-a15e-86d9-09321055e51f" testName="KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: &quot;no-lease&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.3956106" startTime="2026-10-17T13:14:39.9984380+00:00" endTime="2026-10-17T13:14:40.3928581+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="93650c08-58da-456d-816d-386e29de2ace">
+      <Output>
+        <StdOut>PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F coreSha256=C4B5CF9A33145DF5B16529A7D63EB4031CDDA7B4E0C2FEF4F104DF44D814100E
+PUBLIC_SELECTED_HEALTH|1.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-8e12c3c942ba42908e16bb9dcad5e4cc/application/versions/eb06c4500c854eed85e2b052d713ef56
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-8e12c3c942ba42908e16bb9dcad5e4cc/application/versions/dc43bb2324cc42678cc36366cf1e0c03
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_SELECTED_HEALTH|1.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-8e12c3c942ba42908e16bb9dcad5e4cc/application/versions/eb06c4500c854eed85e2b052d713ef56
+PUBLIC_HANDOFF_RESULT|RolledBack|None|1.0|InstallationRecoveryException
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_CONTROLLER_DISPOSED</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e4231387-cdda-4eff-b7ee-f7da1ea2c88b" testId="559c8e25-6865-8ad9-9142-c665f6641e15" testName="KuaiYi.Core.Tests.InstallationHandoffTests.ControllerCrashAfterReceiverAcquiresButBeforeCommitMakesReceiverAbortAndRetainsTheFence" computerName="4cd0056ca8a8" duration="00:00:00.3360470" startTime="2026-10-17T13:14:44.5886380+00:00" endTime="2026-10-17T13:14:44.9224671+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e4231387-cdda-4eff-b7ee-f7da1ea2c88b">
+      <Output>
+        <StdOut>PUBLIC_CONTROLLER_ACTUAL_EXIT=81 fixtureSha256=5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F coreSha256=C4B5CF9A33145DF5B16529A7D63EB4031CDDA7B4E0C2FEF4F104DF44D814100E
+PUBLIC_SELECTED_HEALTH|1.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-2d35a9c307204f5d8dcaf938c5240e61/application/versions/e3baf06333044a81a2db6854541d2215
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-2d35a9c307204f5d8dcaf938c5240e61/application/versions/ade7412af9b44796b46096498f34222e</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="58dfaace-45b5-4139-948c-8dfbb4c78033" testId="7b188aea-6ec9-d902-b598-d9e8f6605f48" testName="KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient" computerName="4cd0056ca8a8" duration="00:00:00.3400432" startTime="2026-10-17T13:14:44.2514995+00:00" endTime="2026-10-17T13:14:44.5884719+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="58dfaace-45b5-4139-948c-8dfbb4c78033">
+      <Output>
+        <StdOut>PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F coreSha256=C4B5CF9A33145DF5B16529A7D63EB4031CDDA7B4E0C2FEF4F104DF44D814100E
+PUBLIC_SELECTED_HEALTH|1.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-722bdb68b34844a3b3711c100c2b2530/application/versions/246fddfe038847338ceca3c11f7b4bc5
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-722bdb68b34844a3b3711c100c2b2530/application/versions/c4e89640c4be4f68a65b3bd495333ea9
+PUBLIC_ORIGINAL_IO|LiveControl|CancelledAndJoined|Settled
+PUBLIC_HANDOFF_RESULT|Upgraded|Committed|2.0|
+PUBLIC_TRANSFERRED_LIFETIME|ExitObserved=False|Stop=OwnershipTransferred|Finalize=False
+PUBLIC_CONTROLLER_DISPOSED
+PUBLIC_RUNTIME_SELF_CLEANUP=1 pipeEOF=True OSLeaseReleased=True durableFenceRetained=True</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f620a604-ba5d-49bd-86c5-a775cf40b321" testId="fae51bca-5ecf-141a-685f-aea4dca52ddd" testName="KuaiYi.Core.Tests.InstallationHandoffTests.ControllerCrashAfterDurableCommitBeforeSendingAckStillLeavesAnExplicitLiveCleanupOwner" computerName="4cd0056ca8a8" duration="00:00:00.3415205" startTime="2026-10-17T13:14:40.7838719+00:00" endTime="2026-10-17T13:14:41.1253364+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f620a604-ba5d-49bd-86c5-a775cf40b321">
+      <Output>
+        <StdOut>PUBLIC_CONTROLLER_ACTUAL_EXIT=82 fixtureSha256=5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F coreSha256=C4B5CF9A33145DF5B16529A7D63EB4031CDDA7B4E0C2FEF4F104DF44D814100E
+PUBLIC_SELECTED_HEALTH|1.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-715a4292b835424aa4262d6b2a6fd913/application/versions/fa9f677439de40268fc19ad45f1a48b5
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-715a4292b835424aa4262d6b2a6fd913/application/versions/683ee0b7ce4f48759fdbec9a4e4a0d2b
+PUBLIC_RUNTIME_SELF_CLEANUP=1 pipeEOF=True OSLeaseReleased=True durableFenceRetained=True</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="09a9d724-3d5f-4ca8-b25e-0d19f45e904c" testId="a9e286d8-0ed1-7dd6-f91f-7f3f34f97d12" testName="KuaiYi.Core.Tests.InstallationHandoffTests.LostCommitAckNeverRollsBackOrKillsTheAcceptedRuntime" computerName="4cd0056ca8a8" duration="00:00:02.4079433" startTime="2026-10-17T13:14:41.8333963+00:00" endTime="2026-10-17T13:14:44.2459710+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="09a9d724-3d5f-4ca8-b25e-0d19f45e904c">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: 0
+Actual:   5</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.InstallationHandoffTests.Controller.Exit(Int32 code) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 62
+   at KuaiYi.Core.Tests.InstallationHandoffTests.LostCommitAckNeverRollsBackOrKillsTheAcceptedRuntime() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 127
+   at KuaiYi.Core.Tests.InstallationHandoffTests.LostCommitAckNeverRollsBackOrKillsTheAcceptedRuntime() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 128
+   at KuaiYi.Core.Tests.InstallationHandoffTests.LostCommitAckNeverRollsBackOrKillsTheAcceptedRuntime() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 128
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="dedc0f55-3603-403a-8691-2b938120ed84" testId="2a18d5ab-3c6d-7ad4-3006-e2627d049dd8" testName="KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: &quot;late-accept&quot;)" computerName="4cd0056ca8a8" duration="00:00:02.4361977" startTime="2026-10-17T13:14:37.5612000+00:00" endTime="2026-10-17T13:14:39.9967292+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dedc0f55-3603-403a-8691-2b938120ed84">
+      <Output>
+        <StdOut>PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F coreSha256=C4B5CF9A33145DF5B16529A7D63EB4031CDDA7B4E0C2FEF4F104DF44D814100E
+PUBLIC_SELECTED_HEALTH|1.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-7f5aac5a02fa4267ad85cad6c8ae88a1/application/versions/d00663ef5ba84263a0c813091fa2ed72
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-7f5aac5a02fa4267ad85cad6c8ae88a1/application/versions/b43ec549b0d34234a196570525bc0744
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_SELECTED_HEALTH|1.0|5CF1D19AFE63F9884997ACFFE85D23310E7CCAFA4A1DBB969BCF7218F4DBD45F|/tmp/kuaiyi-upgrade-tests-7f5aac5a02fa4267ad85cad6c8ae88a1/application/versions/d00663ef5ba84263a0c813091fa2ed72
+PUBLIC_HANDOFF_RESULT|RolledBack|None|1.0|TimeoutException
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_CONTROLLER_DISPOSED</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.CompetingRealControllerIsRefusedDuringTheExecutionLeaseTransferWindow" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b3348cee-d833-027d-6fa5-8a1c99ca64d3">
+      <Execution id="a338e6d0-c0dc-4e0d-a93b-a92aabdb6710" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="CompetingRealControllerIsRefusedDuringTheExecutionLeaseTransferWindow" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: &quot;no-lease&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="eb01a23f-c8a7-a15e-86d9-09321055e51f">
+      <Execution id="93650c08-58da-456d-816d-386e29de2ace" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: &quot;cancel-prepared&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="173952fd-504e-dea3-4f8c-b05a6a3b3249">
+      <Execution id="d48c3fb5-5e86-4b3a-a9ef-f4f85ad57da6" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: &quot;reject&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="0479e95b-73f7-c9d3-ed18-f0cece1442fd">
+      <Execution id="a66ff580-0e72-4aa8-9caa-eb891779bdf1" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: &quot;wrong-accept&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="7470fb02-72f6-e692-ad5f-a82c7578a5f4">
+      <Execution id="18c7b4da-0c1e-4704-85f8-47a00518d454" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.UnknownHandoffBytesAreRetainedAndNeverAuthorizeReclaimOrFreshAdmission" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="709def99-b8ed-c6cb-d5ec-c20f0512dd4e">
+      <Execution id="29007d48-0c63-4b29-8958-007a103a8df6" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="UnknownHandoffBytesAreRetainedAndNeverAuthorizeReclaimOrFreshAdmission" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.ControllerCrashAfterDurableCommitBeforeSendingAckStillLeavesAnExplicitLiveCleanupOwner" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="fae51bca-5ecf-141a-685f-aea4dca52ddd">
+      <Execution id="f620a604-ba5d-49bd-86c5-a775cf40b321" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="ControllerCrashAfterDurableCommitBeforeSendingAckStillLeavesAnExplicitLiveCleanupOwner" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: &quot;late-accept&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="2a18d5ab-3c6d-7ad4-3006-e2627d049dd8">
+      <Execution id="dedc0f55-3603-403a-8691-2b938120ed84" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.MissingLeasePathIsNeverAcceptedAsProofOfReceiverOwnership" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="dfa40dee-e082-b354-b01e-45bd4a3d35c6">
+      <Execution id="2d628223-da1f-4753-8c7d-6046b6ed9f71" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="MissingLeasePathIsNeverAcceptedAsProofOfReceiverOwnership" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="7b188aea-6ec9-d902-b598-d9e8f6605f48">
+      <Execution id="58dfaace-45b5-4139-948c-8dfbb4c78033" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.LostCommitAckNeverRollsBackOrKillsTheAcceptedRuntime" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a9e286d8-0ed1-7dd6-f91f-7f3f34f97d12">
+      <Execution id="09a9d724-3d5f-4ca8-b25e-0d19f45e904c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="LostCommitAckNeverRollsBackOrKillsTheAcceptedRuntime" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.OriginalControlTaskMustReallySettleBeforeDisposeCanReleaseTheControllerHandle" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="9ec38963-7d5d-b5d6-6699-7086a356bc99">
+      <Execution id="0373ce1d-c882-46e8-9404-57edf350f2f3" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="OriginalControlTaskMustReallySettleBeforeDisposeCanReleaseTheControllerHandle" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.ControllerCrashAfterReceiverAcquiresButBeforeCommitMakesReceiverAbortAndRetainsTheFence" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="559c8e25-6865-8ad9-9142-c665f6641e15">
+      <Execution id="e4231387-cdda-4eff-b7ee-f7da1ea2c88b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="ControllerCrashAfterReceiverAcquiresButBeforeCommitMakesReceiverAbortAndRetainsTheFence" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="dfa40dee-e082-b354-b01e-45bd4a3d35c6" executionId="2d628223-da1f-4753-8c7d-6046b6ed9f71" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="173952fd-504e-dea3-4f8c-b05a6a3b3249" executionId="d48c3fb5-5e86-4b3a-a9ef-f4f85ad57da6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0479e95b-73f7-c9d3-ed18-f0cece1442fd" executionId="a66ff580-0e72-4aa8-9caa-eb891779bdf1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7470fb02-72f6-e692-ad5f-a82c7578a5f4" executionId="18c7b4da-0c1e-4704-85f8-47a00518d454" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b3348cee-d833-027d-6fa5-8a1c99ca64d3" executionId="a338e6d0-c0dc-4e0d-a93b-a92aabdb6710" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="709def99-b8ed-c6cb-d5ec-c20f0512dd4e" executionId="29007d48-0c63-4b29-8958-007a103a8df6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9ec38963-7d5d-b5d6-6699-7086a356bc99" executionId="0373ce1d-c882-46e8-9404-57edf350f2f3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="eb01a23f-c8a7-a15e-86d9-09321055e51f" executionId="93650c08-58da-456d-816d-386e29de2ace" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="559c8e25-6865-8ad9-9142-c665f6641e15" executionId="e4231387-cdda-4eff-b7ee-f7da1ea2c88b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7b188aea-6ec9-d902-b598-d9e8f6605f48" executionId="58dfaace-45b5-4139-948c-8dfbb4c78033" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fae51bca-5ecf-141a-685f-aea4dca52ddd" executionId="f620a604-ba5d-49bd-86c5-a775cf40b321" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a9e286d8-0ed1-7dd6-f91f-7f3f34f97d12" executionId="09a9d724-3d5f-4ca8-b25e-0d19f45e904c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2a18d5ab-3c6d-7ad4-3006-e2627d049dd8" executionId="dedc0f55-3603-403a-8691-2b938120ed84" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="13" executed="13" passed="11" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.12]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.45]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.48]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:08.07]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:08.07]       Expected: 0
+[xUnit.net 00:00:08.07]       Actual:   5
+[xUnit.net 00:00:08.07]       Stack Trace:
+[xUnit.net 00:00:08.08]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs(62,0): at KuaiYi.Core.Tests.InstallationHandoffTests.Controller.Exit(Int32 code)
+[xUnit.net 00:00:08.08]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs(127,0): at KuaiYi.Core.Tests.InstallationHandoffTests.LostCommitAckNeverRollsBackOrKillsTheAcceptedRuntime()
+[xUnit.net 00:00:08.08]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs(128,0): at KuaiYi.Core.Tests.InstallationHandoffTests.LostCommitAckNeverRollsBackOrKillsTheAcceptedRuntime()
+[xUnit.net 00:00:08.08]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs(128,0): at KuaiYi.Core.Tests.InstallationHandoffTests.LostCommitAckNeverRollsBackOrKillsTheAcceptedRuntime()
+[xUnit.net 00:00:08.08]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:13.56]       System.IO.IOException : Connection reset by peer
+[xUnit.net 00:00:13.56]       ---- System.Net.Sockets.SocketException : Connection reset by peer
+[xUnit.net 00:00:13.56]       Stack Trace:
+[xUnit.net 00:00:13.56]            at System.IO.Pipes.PipeStream.ReadAsyncCore(Memory`1 destination, CancellationToken cancellationToken)
+[xUnit.net 00:00:13.56]            at System.IO.StreamReader.ReadBufferAsync(CancellationToken cancellationToken)
+[xUnit.net 00:00:13.56]            at System.IO.StreamReader.ReadLineAsyncInternal(CancellationToken cancellationToken)
+[xUnit.net 00:00:13.56]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs(77,0): at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Row()
+[xUnit.net 00:00:13.56]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs(79,0): at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Ping()
+[xUnit.net 00:00:13.56]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs(148,0): at KuaiYi.Core.Tests.InstallationHandoffTests.CompetingRealControllerIsRefusedDuringTheExecutionLeaseTransferWindow()
+[xUnit.net 00:00:13.56]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs(148,0): at KuaiYi.Core.Tests.InstallationHandoffTests.CompetingRealControllerIsRefusedDuringTheExecutionLeaseTransferWindow()
+[xUnit.net 00:00:13.56]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs(148,0): at KuaiYi.Core.Tests.InstallationHandoffTests.CompetingRealControllerIsRefusedDuringTheExecutionLeaseTransferWindow()
+[xUnit.net 00:00:13.56]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:13.56]         ----- Inner Stack Trace -----
+[xUnit.net 00:00:13.56]            at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+[xUnit.net 00:00:13.56]            at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource&lt;System.Int32&gt;.GetResult(Int16 token)
+[xUnit.net 00:00:13.56]            at System.IO.Pipes.PipeStream.ReadAsyncCore(Memory`1 destination, CancellationToken cancellationToken)
+[xUnit.net 00:00:13.57]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T13:14:44.2487091+00:00">
+        <Text>[xUnit.net 00:00:08.07]     KuaiYi.Core.Tests.InstallationHandoffTests.LostCommitAckNeverRollsBackOrKillsTheAcceptedRuntime [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T13:14:49.7369192+00:00">
+        <Text>[xUnit.net 00:00:13.56]     KuaiYi.Core.Tests.InstallationHandoffTests.CompetingRealControllerIsRefusedDuringTheExecutionLeaseTransferWindow [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

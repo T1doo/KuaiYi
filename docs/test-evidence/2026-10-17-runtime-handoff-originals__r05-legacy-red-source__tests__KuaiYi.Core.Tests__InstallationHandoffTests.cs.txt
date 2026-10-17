@@ -1,0 +1,166 @@
+using System.Diagnostics;
+using System.IO.Pipes;
+using System.Security.Cryptography;
+using System.Text.Json;
+using System.Threading.Channels;
+using KuaiYi.Core.Installation;
+using Xunit;
+using Xunit.Abstractions;
+namespace KuaiYi.Core.Tests;
+
+public sealed class InstallationHandoffTests(ITestOutputHelper output)
+{
+    private static readonly string Repo=FindRepo();
+    private static string FindRepo(){var p=new DirectoryInfo(AppContext.BaseDirectory);while(p!=null&&!File.Exists(Path.Combine(p.FullName,"SPEC.md")))p=p.Parent;return p?.FullName??throw new IOException("Repository missing.");}
+    private static readonly string Driver=Path.Combine(Repo,"tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll");
+    private static string Host=>Environment.GetEnvironmentVariable("DOTNET_HOST_PATH")??"dotnet";
+    private static string Hash(string path)=>Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(path)));
+    private sealed class Rig:IDisposable
+    {
+        internal readonly string Root=Path.Combine(Path.GetTempPath(),"kuaiyi-upgrade-tests-"+Guid.NewGuid().ToString("N"));
+        internal readonly string Pipe="kuaiyi-handoff-"+Guid.NewGuid().ToString("N");
+        internal string App=>Path.Combine(Root,"application");internal string Data=>Path.Combine(Root,"user-data");
+        internal InstallationStore Store=>new(App,Data,()=>true);
+        internal byte[] Pointer=>File.ReadAllBytes(Path.Combine(App,"current.json"));
+        internal async Task Prepare(string mode)
+        {
+            Directory.CreateDirectory(Data);File.WriteAllText(Path.Combine(Data,"public-settings-sentinel"),"PUBLIC_SYNTHETIC_SETTINGS_OFF");
+            await Store.ApplyAsync(Package("1.0","healthy",null),Pin("1.0"));Package("2.0",mode,Pipe);
+        }
+        private string Package(string version,string mode,string? runtimePipe)
+        {
+            string package=Path.Combine(Root,"package-"+version);Directory.CreateDirectory(package);
+            foreach(string name in new[]{"KuaiYi.SettingsStoreFixture.dll","KuaiYi.SettingsStoreFixture.runtimeconfig.json","KuaiYi.SettingsStoreFixture.deps.json","KuaiYi.Core.dll"})File.Copy(Path.Combine(Path.GetDirectoryName(Driver)!,name),Path.Combine(package,name));
+            File.WriteAllText(Path.Combine(package,"KuaiYi.App.exe"),"PUBLIC_DOTNET_TEST_PORT_ONLY");
+            File.WriteAllBytes(Path.Combine(package,"public-install-behavior.json"),JsonSerializer.SerializeToUtf8Bytes(new{version,mode,runtimePipe}));
+            var files=Directory.GetFiles(package).Order().Select(p=>new{path=Path.GetFileName(p),bytes=new FileInfo(p).Length,sha256=Hash(p)}).ToArray();
+            File.WriteAllBytes(Path.Combine(package,"package.json"),JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=1,product="KuaiYi",version,files}));return package;
+        }
+        internal string Pin(string version)=>Hash(Path.Combine(Root,"package-"+version,"package.json"));
+        public void Dispose(){if(Directory.Exists(Root))Directory.Delete(Root,true);}
+    }
+    private sealed class Controller:IAsyncDisposable
+    {
+        internal readonly Process Process;
+        internal readonly Channel<string> Rows=Channel.CreateUnbounded<string>();
+        internal readonly List<string> Lines=[];
+        internal readonly Task Stdout;internal readonly Task<string> Stderr;
+        internal Controller(Rig rig,string mode)
+        {
+            var info=new ProcessStartInfo(Host){UseShellExecute=false,RedirectStandardInput=true,RedirectStandardOutput=true,RedirectStandardError=true};
+            foreach(string arg in new[]{Driver,"--handoff-controller",rig.Root,mode})info.ArgumentList.Add(arg);
+            Process=System.Diagnostics.Process.Start(info)??throw new IOException("Actual controller Start failed.");Stdout=Read();Stderr=Process.StandardError.ReadToEndAsync();
+        }
+        private async Task Read()
+        {
+            try{while(await Process.StandardOutput.ReadLineAsync() is {} line){if(line.Length>4096||Lines.Count>64)throw new IOException("Controller output overflow.");Lines.Add(line);await Rows.Writer.WriteAsync(line);}}
+            finally{Rows.Writer.TryComplete();}
+        }
+        internal async Task Until(string prefix)
+        {while(!(await Rows.Reader.ReadAsync().AsTask().WaitAsync(TimeSpan.FromSeconds(12))).StartsWith(prefix,StringComparison.Ordinal)){} }
+        internal async Task Exit(int code)
+        {await Process.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(12));await Stdout;Assert.Equal("",await Stderr);Assert.Equal(code,Process.ExitCode);}
+        internal async Task Release(){await Process.StandardInput.WriteLineAsync("RELEASE");await Process.StandardInput.FlushAsync();}
+        public async ValueTask DisposeAsync()
+        {if(!Process.HasExited){Process.Kill();await Process.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(4));}await Task.WhenAll(Stdout,Stderr);Process.Dispose();}
+    }
+    private sealed class Receiver:IAsyncDisposable
+    {
+        internal readonly NamedPipeServerStream Pipe;
+        internal readonly Task Connected;
+        internal readonly StreamReader Reader;internal readonly StreamWriter Writer;
+        internal Receiver(Rig rig)
+        {
+            Pipe=new(rig.Pipe,PipeDirection.InOut,1,PipeTransmissionMode.Byte,PipeOptions.Asynchronous|PipeOptions.CurrentUserOnly);
+            Reader=new(Pipe);Writer=new(Pipe);Connected=Pipe.WaitForConnectionAsync();
+        }
+        internal async Task<string?> Row()=>await Reader.ReadLineAsync().WaitAsync(TimeSpan.FromSeconds(8));
+        internal async Task Send(string line){await Connected.WaitAsync(TimeSpan.FromSeconds(8));await Writer.WriteLineAsync(line);await Writer.FlushAsync();}
+        internal async Task<string?> Ping(){await Send("PING");return await Row();}
+        public async ValueTask DisposeAsync()
+        {
+            try{if(Connected.IsCompletedSuccessfully&&Pipe.IsConnected){await Send("STOP_SELF");await Row();}}
+            catch(Exception error)when(error is IOException or TimeoutException){}
+            Writer.Dispose();Reader.Dispose();Pipe.Dispose();
+        }
+    }
+    private void Evidence(Controller controller)
+    {output.WriteLine($"PUBLIC_CONTROLLER_ACTUAL_EXIT={controller.Process.ExitCode} fixtureSha256={Hash(Driver)} coreSha256={Hash(Path.Combine(Path.GetDirectoryName(Driver)!,"KuaiYi.Core.dll"))}");foreach(string line in controller.Lines)output.WriteLine(line);}
+    private static void Fenced(Rig rig)
+    {
+        Assert.Throws<InstallationRecoveryException>(()=>rig.Store.EnterRoleAdmission());
+        Assert.True(File.Exists(Path.Combine(rig.App,"execution-owner.json")));Assert.True(File.Exists(Path.Combine(rig.App,"upgrade-pending.json")));Assert.True(File.Exists(Path.Combine(rig.App,"handoff-pending.json")));
+        Assert.Equal("PUBLIC_SYNTHETIC_SETTINGS_OFF",File.ReadAllText(Path.Combine(rig.Data,"public-settings-sentinel")));
+    }
+    private static async Task OsLeaseReleased(Rig rig)
+    {
+        string path=Path.Combine(rig.App,"execution-owner.lock");var deadline=Stopwatch.StartNew();
+        while(true){try{using var lease=new FileStream(path,FileMode.Open,FileAccess.ReadWrite,FileShare.None);return;}catch(IOException)when(deadline.Elapsed<TimeSpan.FromSeconds(5)){await Task.Delay(20);}}
+    }
+    private async Task StopReceiver(Rig rig,Receiver receiver)
+    {
+        await receiver.Send("STOP_SELF");Assert.Equal("PUBLIC_RUNTIME_CLEANUP|1",await receiver.Row());Assert.Null(await receiver.Row());
+        await OsLeaseReleased(rig);Fenced(rig);output.WriteLine("PUBLIC_RUNTIME_SELF_CLEANUP=1 pipeEOF=True OSLeaseReleased=True durableFenceRetained=True");
+    }
+    [Fact]public async Task HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient()
+    {
+        using var r=new Rig();await r.Prepare("healthy");await using var receiver=new Receiver(r);await using var controller=new Controller(r,"legacy");
+        await controller.Exit(0);Evidence(controller);
+        Assert.Contains(controller.Lines,l=>l.StartsWith("PUBLIC_HANDOFF_RESULT|Upgraded|Committed|2.0|",StringComparison.Ordinal));
+        Assert.Contains("PUBLIC_TRANSFERRED_LIFETIME|ExitObserved=False|Stop=OwnershipTransferred|Finalize=False",controller.Lines);
+        Assert.StartsWith("PONG|",await receiver.Ping());Fenced(r);await StopReceiver(r,receiver);
+    }
+    [Theory][InlineData("reject")][InlineData("cancel-prepared")][InlineData("no-lease")][InlineData("wrong-accept")][InlineData("late-accept")]
+    public async Task BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(string mode)
+    {
+        using var r=new Rig();await r.Prepare(mode);byte[] before=r.Pointer;await using var receiver=new Receiver(r);await using var controller=new Controller(r,mode);
+        await controller.Exit(0);Evidence(controller);Assert.Contains(controller.Lines,l=>l.StartsWith("PUBLIC_HANDOFF_RESULT|RolledBack|None|1.0|",StringComparison.Ordinal));
+        Assert.Equal(before,r.Pointer);Assert.Equal(2,Directory.GetDirectories(Path.Combine(r.App,"versions")).Length);Assert.Equal(2,controller.Lines.Count(l=>l.StartsWith("PUBLIC_SELECTED_HEALTH|1.0|",StringComparison.Ordinal)));
+        Assert.Equal(3,controller.Lines.Count(l=>l.StartsWith("PUBLIC_ORIGINAL_IO|Exit|",StringComparison.Ordinal)));
+        Assert.False(File.Exists(Path.Combine(r.App,"handoff-pending.json")));Assert.Single(Directory.GetFiles(r.App,"handoff-aborted-*.json"));
+        using var admitted=r.Store.EnterRoleAdmission();Assert.Equal("PUBLIC_SYNTHETIC_SETTINGS_OFF",File.ReadAllText(Path.Combine(r.Data,"public-settings-sentinel")));
+    }
+    [Fact]public async Task LostCommitAckNeverRollsBackOrKillsTheAcceptedRuntime()
+    {
+        using var r=new Rig();await r.Prepare("lost-ack");await using var receiver=new Receiver(r);await using var controller=new Controller(r,"lost-ack");
+        await controller.Exit(0);Evidence(controller);Assert.Contains(controller.Lines,l=>l.StartsWith("PUBLIC_HANDOFF_RESULT|Upgraded|CommittedUnconfirmed|2.0|",StringComparison.Ordinal));
+        Assert.Equal("2.0",r.Store.ReadActive()!.Version);Assert.StartsWith("PONG|",await receiver.Ping());Fenced(r);await StopReceiver(r,receiver);
+    }
+    [Fact]public async Task OriginalControlTaskMustReallySettleBeforeDisposeCanReleaseTheControllerHandle()
+    {
+        using var r=new Rig();await r.Prepare("healthy");await using var receiver=new Receiver(r);await using var controller=new Controller(r,"held-control");
+        await controller.Until("PUBLIC_WAITING_ORIGINAL_CONTROL");Assert.False(controller.Process.HasExited);Assert.StartsWith("PONG|",await receiver.Ping());Fenced(r);
+        await controller.Release();await controller.Exit(0);Evidence(controller);Assert.Single(controller.Lines,l=>l=="PUBLIC_ORIGINAL_IO|LiveControl|CancelledAndJoined|Settled");
+        Assert.StartsWith("PONG|",await receiver.Ping());await StopReceiver(r,receiver);
+    }
+    [Fact]public async Task CompetingRealControllerIsRefusedDuringTheExecutionLeaseTransferWindow()
+    {
+        using var r=new Rig();await r.Prepare("healthy");await using var receiver=new Receiver(r);await using var controller=new Controller(r,"lease-window");
+        await controller.Until("PUBLIC_RECEIVER_LEASE_WINDOW");
+        var info=new ProcessStartInfo(Host){UseShellExecute=false,RedirectStandardOutput=true,RedirectStandardError=true};foreach(string arg in new[]{Driver,"--installation-admission",r.Root})info.ArgumentList.Add(arg);
+        using(var competitor=Process.Start(info)!)
+        {
+            Task<string> stdout=competitor.StandardOutput.ReadToEndAsync(),stderr=competitor.StandardError.ReadToEndAsync();
+            try{await competitor.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(4));Assert.Equal(4,competitor.ExitCode);Assert.Equal("PUBLIC_BLOCKED",(await stdout).Trim());Assert.Equal("",await stderr);}
+            finally{if(!competitor.HasExited){competitor.Kill();await competitor.WaitForExitAsync();}await Task.WhenAll(stdout,stderr);}
+        }
+        Assert.Equal("PRECOMMIT",await receiver.Ping());await controller.Release();await controller.Exit(0);Evidence(controller);Assert.StartsWith("PONG|",await receiver.Ping());await StopReceiver(r,receiver);
+    }
+    [Fact]public async Task ControllerCrashAfterReceiverAcquiresButBeforeCommitMakesReceiverAbortAndRetainsTheFence()
+    {
+        using var r=new Rig();await r.Prepare("healthy");await using var receiver=new Receiver(r);await using var controller=new Controller(r,"crash-precommit");
+        await controller.Exit(81);await receiver.Connected.WaitAsync(TimeSpan.FromSeconds(8));Assert.Equal("PUBLIC_RUNTIME_ABORTED",await receiver.Row());Assert.Null(await receiver.Row());
+        await OsLeaseReleased(r);Evidence(controller);Fenced(r);Assert.Equal("2.0",r.Store.ReadActive()!.Version);
+        Assert.Contains("\"phase\":\"Prepared\"",File.ReadAllText(Path.Combine(r.App,"handoff-pending.json")));
+    }
+    [Fact]public async Task ControllerCrashAfterDurableCommitBeforeSendingAckStillLeavesAnExplicitLiveCleanupOwner()
+    {
+        using var r=new Rig();await r.Prepare("healthy");await using var receiver=new Receiver(r);await using var controller=new Controller(r,"crash-committed");
+        await controller.Exit(82);Evidence(controller);Assert.StartsWith("PONG|",await receiver.Ping());Fenced(r);await StopReceiver(r,receiver);
+    }
+    [Fact]public async Task UnknownHandoffBytesAreRetainedAndNeverAuthorizeReclaimOrFreshAdmission()
+    {
+        using var r=new Rig();await r.Prepare("healthy");await using var receiver=new Receiver(r);await using var controller=new Controller(r,"unknown-ledger");
+        await controller.Exit(5);Evidence(controller);Assert.Contains("PUBLIC_HANDOFF_UNCONFIRMED",controller.Lines);Assert.Equal("PUBLIC_UNKNOWN_HANDOFF_RETAIN",File.ReadAllText(Path.Combine(r.App,"handoff-pending.json")));Fenced(r);
+    }
+}

@@ -1,0 +1,321 @@
+{
+  "SourceParent": "0137420b56c75500ba03cce36bbb5f57e2f9d7dd",
+  "Branch": "dev/runtime-ownership-handoff",
+  "Scope": "SPEC13.4 / P7 controlled selected-generation runtime ownership handoff; portable synthetic execution only",
+  "FrozenSource": {
+    "src/KuaiYi.App/HotkeyScreenshot.cs": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+    "src/KuaiYi.App/OcrOnlyFlow.cs": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+    "src/KuaiYi.App/OverlayClearContent.cs": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+    "src/KuaiYi.App/OverlayFailureNotice.cs": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+    "src/KuaiYi.App/OverlayImageSource.cs": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+    "src/KuaiYi.App/OverlayLinkFlow.cs": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+    "src/KuaiYi.App/OverlayMarkdown.cs": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+    "src/KuaiYi.App/OverlayPresentation.cs": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+    "src/KuaiYi.App/OverlayPrivacyFlow.cs": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+    "src/KuaiYi.App/OverlayResultFlow.cs": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+    "src/KuaiYi.App/OverlayResultLabel.cs": "de1c865a146e7f81ac32ec65861d11066869cdd3a2219eeee908dbde03b277e4",
+    "src/KuaiYi.App/OverlayScreenshotTranslation.cs": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+    "src/KuaiYi.App/ProductionScreenshotCoordinator.cs": "33ca4ac031915b4d2c1669c67dd52f06271390931834f33691dcfc925fcf051f",
+    "src/KuaiYi.App/ScreenshotCaptureCommands.cs": "e272cf24639496ac8697f854ffbedecdd99772dea0ffc0ddd82869e0d8e690ab",
+    "src/KuaiYi.App/ScreenshotRecoveryMenu.cs": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+    "src/KuaiYi.App/ScreenshotSendCommands.cs": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+    "src/KuaiYi.App/ScreenshotTranslationFlow.cs": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+    "src/KuaiYi.App/ShellWindow.cs": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+    "src/KuaiYi.App/TranslationFlow.cs": "a1288ee73c8142a879e3788232ffd6e96150b793e33505ebf771e106f727a321",
+    "src/KuaiYi.Core/Installation/InstallationAdmission.cs": "ea86044f3a36393d25058039b7f9aa5271cd23998ca35a9f0c02caa9a002e154",
+    "src/KuaiYi.Core/Installation/InstallationHandoff.cs": "03778ea5e3eba45a6a7a7a693247377bdfee4b15809115e8087d0d4cbb747633",
+    "src/KuaiYi.Core/Installation/InstallationPackage.cs": "a499948d2bf92ee50d571bcf151caf5259897ecf30e38aebc681f8c5e6dd99ba",
+    "src/KuaiYi.Core/Installation/InstallationStore.cs": "7408e6c48b192ce173f7f1a0462c569623dbc36469b627547150ad01e951c101",
+    "src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs": "fba13b44acd07065beba46c6b8a275530dbace14d94ef414e2a04358b1722b08",
+    "src/KuaiYi.Core/KuaiYi.Core.csproj": "ed7c0f20902846adddafbfc178137e3a0dd399bba0a8c656195f76855d2233bb",
+    "src/KuaiYi.Core/OwnedHostTermination.cs": "e8eaac38f98f32512eca31deda9de4f5e7d73c91e4fdea71808a093274467332",
+    "src/KuaiYi.Core/OwnedProcessSession.cs": "739e99494ba4627671dda32d3022534a54c44d346cd30abd3f8438a5251cf3b0",
+    "src/KuaiYi.Core/OwnedProcessStarter.cs": "fd68d1382192654f2ecc99d4dd4f0dfd0ea38d9dd5e76308bb8af2d247f21a32",
+    "src/KuaiYi.Core/Settings/SecretFileStore.cs": "3e7089d4f4694af38b9994d065a1276607a4f946ebe115f9ab83c895f7f2fd61",
+    "src/KuaiYi.Core/Settings/SettingsStore.cs": "24d46ef6b51a4245024779039f8a0642757be9d708b3b5d08fc0f01b8f21cf1d",
+    "src/KuaiYi.Providers/ProviderContracts.cs": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+    "src/KuaiYi.Providers/ProviderEventReceiver.cs": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+    "src/KuaiYi.Providers/ProviderRequestBudget.cs": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+    "tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs": "d70eefdd61700a323fa838a79c47fa4703b1a55ab7e5ee8b54230e1a9a112b3f",
+    "tests/KuaiYi.Core.Tests/InstallationTransactionTests.cs": "4209bf29686910578c2dfd6a06b71656cda7bfdb9cd83fe79dd45e9fc6924a7b",
+    "tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs": "d886cfd550cf9fcc88f4e78b31584b24d7c30f70a1d48f48a369ad9cbe51a3b4",
+    "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj": "d7bd48f5a28b4edd4b1fa24fdc0ffc4a887916c1c737d90e30fe6f854c71305e",
+    "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj": "141d01220ff94b2690f1cf5542d46b63a285dd11607988d7f297fb9fca3492d1",
+    "tests/KuaiYi.Provider.Tests/OverlayClearPorts.cs": "8965a95cc3bd9aaab981bcc7a4a188fc26fdaeb72ea8b4e2c9f5a61c8fe44038",
+    "tests/KuaiYi.Provider.Tests/PhaseClock.cs": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+    "tests/KuaiYi.Provider.Tests/PhaseHttpFixture.cs": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotSecretStoreTests.cs": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotShellPorts.cs": "ebb8bf9392895afab0c8041d15a3e098bdd770b550eb422b49d03e4f8352f7df",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotShellTests.cs": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotTranslationTests.cs": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+    "tests/KuaiYi.Provider.Tests/ScreenshotCapturePorts.cs": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+    "tests/KuaiYi.Provider.Tests/ScreenshotRecaptureRecoveryTests.cs": "8ba7be5b0c21d5e3c6ceb820a128f1312138af3b69965b21381aec5738c19158",
+    "tools/KuaiYi.SettingsStoreFixture/InstallationHandoffFixture.cs": "5ece0842c402c5395fb1e12b892f3911c7aa4c3f0f570ab5e7ab875715d30230",
+    "tools/KuaiYi.SettingsStoreFixture/KuaiYi.SettingsStoreFixture.csproj": "473266c653dafba8d1f323e2ce7d2c8addb0a8a64234f41a3a7137c4e86eaee4",
+    "tools/KuaiYi.SettingsStoreFixture/Program.cs": "f260867430f6684fccd05603b9e84d52e256cb745d3ebe964722d70a873d9793"
+  },
+  "FinalSourceBindings": 250,
+  "SourceCountsByRun": {
+    "r12-install-green": 50,
+    "r13-core-full": 50,
+    "r14-provider-full": 50,
+    "r15-app-build": 50,
+    "r16-worker-build": 50
+  },
+  "Runs": {
+    "r12-install-green": {
+      "counters": {
+        "total": "85",
+        "executed": "85",
+        "passed": "85",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trx": "docs/test-evidence/2026-10-17-runtime-handoff-originals__r12-install-green.trx"
+    },
+    "r13-core-full": {
+      "counters": {
+        "total": "1787",
+        "executed": "1787",
+        "passed": "1787",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trx": "docs/test-evidence/2026-10-17-runtime-handoff-originals__r13-core-full.trx"
+    },
+    "r14-provider-full": {
+      "counters": {
+        "total": "2325",
+        "executed": "2325",
+        "passed": "2325",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trx": "docs/test-evidence/2026-10-17-runtime-handoff-originals__r14-provider-full.trx"
+    },
+    "r15-app-build": {
+      "exit": 0,
+      "log": "docs/test-evidence/2026-10-17-runtime-handoff-originals__r15-app-build.log"
+    },
+    "r16-worker-build": {
+      "exit": 0,
+      "log": "docs/test-evidence/2026-10-17-runtime-handoff-originals__r16-worker-build.log"
+    }
+  },
+  "RelevantTargetDlls": {
+    "r12-install-green": {
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "98aeee05d567b56d44300d282aea6c5c12ddb6ecde6326e3c667c813afd0dae6",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "fc99b8ea82487c5a2350ac05be9b1de54e037c5557805a7a965effeefada80d3",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "8a3168d0453cc84d1b0570e3a160829debde5edce949573b31163a707e4cad61",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll": "42f4473b4f7d86dfd576e5200a1d0b98e2dfa8d2be8eb6788d70db6bd227b150",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "4751a2eec8a899c186dc4606aae3fa952146cbfda97b31d8de9015ca751fb5c7"
+    },
+    "r13-core-full": {
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "98aeee05d567b56d44300d282aea6c5c12ddb6ecde6326e3c667c813afd0dae6",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "fc99b8ea82487c5a2350ac05be9b1de54e037c5557805a7a965effeefada80d3",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "8a3168d0453cc84d1b0570e3a160829debde5edce949573b31163a707e4cad61",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll": "42f4473b4f7d86dfd576e5200a1d0b98e2dfa8d2be8eb6788d70db6bd227b150",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "4751a2eec8a899c186dc4606aae3fa952146cbfda97b31d8de9015ca751fb5c7"
+    },
+    "r14-provider-full": {
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "fc99b8ea82487c5a2350ac05be9b1de54e037c5557805a7a965effeefada80d3",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.ImageWorker.dll": "de3d87f597ec78b4c6865e1a69f06c770462a59ece3e4afa6037c471931e7155",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "8a3168d0453cc84d1b0570e3a160829debde5edce949573b31163a707e4cad61",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": "c861de21985c77554f89dd8ccbf299ebf687352572077e3595d068beb9c08ba5",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": "c136c4109dbf06c844f179113351d867d50f90ec786f9327839610b70e3895a4"
+    },
+    "r15-app-build": {
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.App.dll": "1860bb0bc4ff968e04c25ec37eba07e453e92e56a45210154b4a6ca1e966362a",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Core.dll": "fc99b8ea82487c5a2350ac05be9b1de54e037c5557805a7a965effeefada80d3",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Imaging.dll": "8a3168d0453cc84d1b0570e3a160829debde5edce949573b31163a707e4cad61",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.NativeHost.dll": "42f4473b4f7d86dfd576e5200a1d0b98e2dfa8d2be8eb6788d70db6bd227b150",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Providers.dll": "c136c4109dbf06c844f179113351d867d50f90ec786f9327839610b70e3895a4"
+    },
+    "r16-worker-build": {
+      "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Core.dll": "fc99b8ea82487c5a2350ac05be9b1de54e037c5557805a7a965effeefada80d3",
+      "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll": "de3d87f597ec78b4c6865e1a69f06c770462a59ece3e4afa6037c471931e7155",
+      "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Imaging.dll": "8a3168d0453cc84d1b0570e3a160829debde5edce949573b31163a707e4cad61"
+    }
+  },
+  "DllScopeNote": "Command target closure verified; actual fixture child execution is additionally bound by RecordedOwnedChildren. Other DLL hashes alone are observations, not execution proof.",
+  "NameComparison": {
+    "parent": 1770,
+    "final": 1787,
+    "new": {
+      "KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: \"wrong-accept\")": 1,
+      "KuaiYi.Core.Tests.InstallationHandoffTests.UnknownHandoffBytesAreRetainedAndNeverAuthorizeReclaimOrFreshAdmission": 1,
+      "KuaiYi.Core.Tests.InstallationUpgradeTests.RetryJoinsTheOriginalLifetimeStopTaskAfterActualExitBeforeRestoringTheOldGeneration": 1,
+      "KuaiYi.Core.Tests.InstallationHandoffTests.CompetingRealControllerIsRefusedDuringTheExecutionLeaseTransferWindow": 1,
+      "KuaiYi.Core.Tests.InstallationHandoffTests.ControllerCrashAfterDurableCommitBeforeSendingAckStillLeavesAnExplicitLiveCleanupOwner": 1,
+      "KuaiYi.Core.Tests.InstallationHandoffTests.OriginalControlTaskMustReallySettleBeforeDisposeCanReleaseTheControllerHandle": 1,
+      "KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: \"no-lease\")": 1,
+      "KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: \"reject\")": 1,
+      "KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: \"cancel-prepared\")": 1,
+      "KuaiYi.Core.Tests.InstallationHandoffTests.MissingLeasePathIsNeverAcceptedAsProofOfReceiverOwnership": 1,
+      "KuaiYi.Core.Tests.InstallationHandoffTests.LostCommitAckNeverRollsBackOrKillsTheAcceptedRuntime": 1,
+      "KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: \"late-accept\")": 1,
+      "KuaiYi.Core.Tests.InstallationHandoffTests.ControllerCrashAfterReceiverAcquiresButBeforeCommitMakesReceiverAbortAndRetainsTheFence": 1,
+      "KuaiYi.Core.Tests.InstallationHandoffTests.PrecommitOriginalTaskRetainsOwnershipUntilReleasedAndSameControllerCanThenRetryExactRollback": 1,
+      "KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient": 1,
+      "KuaiYi.Core.Tests.InstallationHandoffTests.PostcommitCallerCancellationAndEveryOldControllerMutationAreRefusedWithoutKillingTheRuntime": 1,
+      "KuaiYi.Core.Tests.InstallationHandoffTests.ReceiverAbortCannotReleaseItsLeaseBeforeActualExitEvenWhileTheParentCanStillCommit": 1
+    },
+    "exactParentPlusNew": true
+  },
+  "Preservation": {
+    "parentTracked": 6458,
+    "allowedOldModified": [
+      ".gitattributes",
+      "docs/progress.md",
+      "src/KuaiYi.Core/Installation/InstallationAdmission.cs",
+      "src/KuaiYi.Core/Installation/InstallationStore.cs",
+      "src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs",
+      "src/KuaiYi.Core/OwnedHostTermination.cs",
+      "src/KuaiYi.Core/OwnedProcessSession.cs",
+      "tests/KuaiYi.Core.Tests/InstallationUpgradeTests.cs",
+      "tools/KuaiYi.SettingsStoreFixture/Program.cs"
+    ],
+    "allOtherParentSameBytes": 6449,
+    "noDeletes": true
+  },
+  "Review": {
+    "Source": "Read-only high_water_review approved final r12 85P, frozen 50-source and DLL binding, no remaining P1/P2; packet separate audit pending",
+    "Packet": "Pending separate final audit"
+  },
+  "Notes": [
+    "Five final commands froze the same 50 selected source files before execution; no retrofilling.",
+    "All parent 1770 Core names retained plus 16 handoff cases and 1 original lifetime-stop join case; Provider names unchanged.",
+    "One authority: exact-byte Committed ledger binds owner/receiver/launch/version/current/upgrade. CommitAttempted uncertainty never authorizes Kill or rollback.",
+    "Beforecommit: exact own child actual exit, original task and IO settlement precede same-owner lease reclaim/CAS rollback. Aftercommit: live control readers cancelled and original tasks/cancellation work joined; transferred state does not claim exit.",
+    "Synthetic receiver explicitly owns cleanup via private pipe and fixture-only 40s bound; controller actual exit then PING and STOP_SELF exercised.",
+    "Receiver Abort holds execution lease until OS exit, including Prepared-to-Committed race.",
+    "All older tests and parent raw evidence retained unchanged."
+  ],
+  "Boundaries": [
+    "No actual Windows role exit, product entry admission, visible application health, Job, handoff adapter, install/registration/signing/identity/NativeHost registration changes.",
+    "Healthy runtime and upgrade/owner/handoff records remain after self-exit; no automatic restart, stale-owner recovery, receiver adoption or completed-marker cleanup.",
+    "Only controller-started exact Process children are controlled. No PID lookup, kill or process enumeration.",
+    "No Windows installer/full payload/derived metadata/registration rollback/login startup/uninstall/K-group acceptance.",
+    "No publisher trust from hash, no credential authority from launch correlation, no same-account malicious rename protection or power-loss durability claim.",
+    "Per-phase budgets are not a whole-operation hard deadline; historical image/idle/Core/WindowsJob root causes independently Unknown.",
+    "Runtime STOP_SELF is receiver self-cleanup with pipe EOF and OS lease release; no root-held grandchild actual WaitForExit claim.",
+    "Production image/classification reuse Off; source/password/integrity/cancel/cleanup/250600 gates unchanged; actual WPF keyboard/Windows/DPAPIACL/physical250600/live model/fullP6 acceptance NotRun.",
+    "No main/force/deploy/cost/real credentials/permission changes/new package/license acceptance. Skia4.153.1 four licenses pending; source403 and denied GitHub Actions never retried or bypassed."
+  ],
+  "RedGreen": [
+    {
+      "red": "r06-contract-red",
+      "green": "r12-install-green",
+      "sameName": "MissingLeasePathIsNeverAcceptedAsProofOfReceiverOwnership",
+      "redMethodSha256": "821835b54add01697e71a7fbcc28a47ad040c5a6dc3873d393062ddc09b70c64",
+      "greenFinalMethodSha256": "767f64f56cd58fe20f0937053c0ccd54d5995da9ece2cc5a7e4e4c456271ff38",
+      "methodDifference": "Only diagnostic ITestOutputHelper constructor argument added; assertions and behavior contract unchanged"
+    },
+    {
+      "red": "r11-stop-task-red",
+      "green": "r12-install-green",
+      "sameName": "RetryJoinsTheOriginalLifetimeStopTaskAfterActualExitBeforeRestoringTheOldGeneration",
+      "sameMethodBytesThroughFinal": "8782e55678451aaab90d29e795ee90cbc717ef4df7a20fba9fa7f74e1bea5277"
+    }
+  ],
+  "LegacyEntryComparison": {
+    "red": "r06-contract-red",
+    "green": "r12-install-green",
+    "method": "HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient",
+    "classification": "Explicit new entry comparison: controller mode legacy changed to healthy. Not same-method-bytes product bug red/green."
+  },
+  "ProviderSameNames": {
+    "parent": 2325,
+    "final": 2325,
+    "exactSameMultiset": true
+  },
+  "RecordedOwnedChildren": {
+    "r12-install-green": {
+      "actualControllerBindings": 16,
+      "selectedHealthRowsIncludingDuplicateEvidence": 78,
+      "fixtureSha256": "55a9482bf609bcaae01612cfd299d2124fd1a2fe553bab48d4036aaf6e87e1ae",
+      "fixtureCoreEqualsTargetCore": true,
+      "note": "Controller is root-held actual Process; runtime grandchild is never opened by PID. STOP_SELF+pipeEOF+rooted lease OS release are separate cleanup observations, not a root-held grandchild WaitForExit."
+    },
+    "r13-core-full": {
+      "actualControllerBindings": 16,
+      "selectedHealthRowsIncludingDuplicateEvidence": 78,
+      "fixtureSha256": "55a9482bf609bcaae01612cfd299d2124fd1a2fe553bab48d4036aaf6e87e1ae",
+      "fixtureCoreEqualsTargetCore": true,
+      "note": "Controller is root-held actual Process; runtime grandchild is never opened by PID. STOP_SELF+pipeEOF+rooted lease OS release are separate cleanup observations, not a root-held grandchild WaitForExit."
+    }
+  },
+  "AttemptClassifications": {
+    "r01-build": "Successful core/fixture build before complete fixture",
+    "r02-fixture-build": "Successful fixture build",
+    "r03-legacy-red": "xUnit2031 analyzer compile failure, no TRX; not behavioral red",
+    "r04-legacy-red": "Test pipe AutoFlush before connection failure; not product red",
+    "r05-legacy-red": "Legacy contract assertion masked by broken-pipe cleanup; stdout retained, not clean formal red",
+    "r06-contract-red": "Two visible actual failures: legacy entry comparison and missing-lock false commit",
+    "r07-handoff": "11P2F: original control retry and fixture window blocked",
+    "r08-handoff": "12P2F: fixture Console.In async call synchronously blocked independent pipe; fixed by Task.Run",
+    "r12-install-green": "Final related 85P=parent68+handoff16+stopJoin1",
+    "r09-handoff": "16P feature before later stop-task correction",
+    "r10-core-full": "1785P1F old LateActualStartOwner Retry L151 Busy, OSexit/IO visible; exact cause Unknown",
+    "r11-stop-task-red": "Controlled stop task held after actual exit: Retry incorrectly completed early, 1F"
+  },
+  "OldUpgradeMethodsPreserved": {
+    "count": 20,
+    "names": [
+      "ConfirmHealthyAsync",
+      "RequestExitAsync",
+      "SettleAsync",
+      "UpgradeWaitsForActualOwnedAppAndBrokerExitThenStartsTheWholeSelectedGeneration",
+      "IntactButUnhealthyNewVersionRestoresExactOldPointerAndActuallyRestartsOldApplication",
+      "ActualOsStartFailureRollsBackWithoutInventingAStartedChild",
+      "RefusingOwnedApplicationPreventsPublicationAndPersistentBlockSurvivesLeaseRelease",
+      "LocallyHeldRetryCanFinishAfterTheSameOwnedApplicationStopsRefusingExit",
+      "RealCompetingProcessAndWritersCannotReenterWhileNewHealthIsPending",
+      "LateHealthTaskMustSettleBeforeRollbackOrOldApplicationCanStart",
+      "CancellationDuringOwnedNewHealthRestoresAndRestartsTheVerifiedOldVersion",
+      "NormalLaunchAlsoHoldsAdmissionThroughActualStartupAndHealthSettlement",
+      "InitialUnhealthyInstallReturnsToUninstalledAndRetainsTheCompleteCandidate",
+      "OldRestartFailureRemainsBlockedUntilOwnedRetryActuallyStartsItHealthy",
+      "ChangedPendingRecordIsRetainedAndCannotBeClearedByOwnedRetry",
+      "AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication",
+      "AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication",
+      "BlockingHealthCancellationCallbackCannotHoldTheUpgradeCallerBeyondItsOwnedBudget",
+      "RealControllerCrashBeforeActualStartLeavesPersistentOwnershipEvenAfterOsLeaseRelease",
+      "LateActualStartOwnerMustPublishExitAndSettleIoBeforeOldVersionRestarts"
+    ],
+    "exactSameMethodBytes": true
+  }
+}

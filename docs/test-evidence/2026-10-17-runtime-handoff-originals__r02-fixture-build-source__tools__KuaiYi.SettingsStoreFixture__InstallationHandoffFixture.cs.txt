@@ -1,0 +1,166 @@
+using System.Diagnostics;
+using System.IO.Pipes;
+using System.Security.Cryptography;
+using System.Text.Json;
+using System.Threading.Channels;
+using KuaiYi.Core;
+using KuaiYi.Core.Installation;
+
+// Synthetic selected-generation processes only. No product App adapter, PID lookup, registration or live model.
+internal static class InstallationHandoffFixture
+{
+    private static InstallationRuntimeOwnership? runtime; // Root the committed OS lease until Environment.Exit.
+    private static int committed;
+    private static InstallationHandoffOffer? currentOffer;
+    internal static async Task<int> RunReceiver(Guid launch,string version,string mode,string pipe)
+    {
+        _=Task.Run(async()=>{await Task.Delay(TimeSpan.FromSeconds(40));Environment.Exit(91);}); // Fixture-only orphan bound.
+        using var runtimePipe=new NamedPipeClientStream(".",pipe,PipeDirection.InOut,PipeOptions.Asynchronous);
+        await runtimePipe.ConnectAsync(5000);
+        using var reader=new StreamReader(runtimePipe);using var writer=new StreamWriter(runtimePipe){AutoFlush=true};
+        string hash=Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(typeof(InstallationHandoffFixture).Assembly.Location)));
+        Console.WriteLine($"PUBLIC_INSTALL_READY|{launch:N}|{version}|{hash}|{Path.TrimEndingDirectorySeparator(AppContext.BaseDirectory)}|Healthy");Console.Out.Flush();
+        Task controls=Controls();
+        while(await reader.ReadLineAsync() is {} command)
+        {
+            if(command=="PING")await writer.WriteLineAsync(Volatile.Read(ref committed)==1?$"PONG|{currentOffer!.Transfer:N}|{currentOffer.Receiver:N}|{version}":"PRECOMMIT");
+            else if(command=="STOP_SELF")
+            {
+                if(Volatile.Read(ref committed)==0)runtime?.AbortBeforeCommit();
+                await writer.WriteLineAsync("PUBLIC_RUNTIME_CLEANUP|"+Volatile.Read(ref committed));await writer.FlushAsync();
+                // Do not clear marker or Dispose committed runtime. OS exit releases the rooted lifetime lease.
+                Environment.Exit(0);
+            }
+            else throw new InvalidDataException("Unknown synthetic runtime command.");
+        }
+        // The test cleanup receiver disappeared. Self-exit, keeping every durable fence.
+        GC.KeepAlive(runtime);Environment.Exit(90);return 90;
+
+        async Task Controls()
+        {
+            try
+            {
+                while(await Console.In.ReadLineAsync() is {} command)
+                {
+                    if(command.StartsWith("OFFER|",StringComparison.Ordinal))
+                    {
+                        if(mode=="reject")throw new IOException("Synthetic receiver refused preparation.");
+                        currentOffer=InstallationHandoffOffer.Decode(command[6..]);runtime=InstallationRuntimeOwnership.Prepare(currentOffer,launch);
+                        Reply("PREPARED");
+                    }
+                    else if(command=="ACQUIRE")
+                    {
+                        if(mode=="late-accept")await Task.Delay(TimeSpan.FromSeconds(10));
+                        if(mode!="no-lease")runtime!.Acquire();Reply(mode=="wrong-accept"?"WRONG":"ACCEPTED");
+                    }
+                    else if(command=="COMMIT")
+                    {
+                        runtime!.ConfirmCommitted();Volatile.Write(ref committed,1);
+                        if(mode!="lost-ack")Reply("COMMITTED");
+                    }
+                    else if(command=="STOP")Environment.Exit(0);
+                    else throw new InvalidDataException("Unknown synthetic controller command.");
+                }
+                // Controller crash and normal control closure both use durable state, never EOF as an implicit commit.
+                runtime!.ConfirmCommitted();Volatile.Write(ref committed,1);
+            }
+            catch(Exception error)when(error is IOException or InvalidDataException or InvalidOperationException)
+            {
+                try{await writer.WriteLineAsync("PUBLIC_RUNTIME_ABORTED");await writer.FlushAsync();}finally{Environment.Exit(24);}
+            }
+        }
+        void Reply(string phase){Console.WriteLine($"{phase}|{currentOffer!.Transfer:N}|{currentOffer.Receiver:N}|{launch:N}");Console.Out.Flush();}
+    }
+    internal static async Task<int> RunController(string root,string mode)
+    {
+        var port=new Port(root,mode);var coordinator=new InstallationUpgradeCoordinator(Path.Combine(root,"application"),Path.Combine(root,"user-data"),port,TimeSpan.FromSeconds(2),port);
+        try
+        {
+            await coordinator.StartActiveRoleAsync();string package=Path.Combine(root,"package-2.0");
+            string pin=Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(Path.Combine(package,"package.json"))));
+            InstallationUpgradeResult result=mode=="legacy"?await coordinator.UpgradeAsync(package,pin):await coordinator.UpgradeAndHandoffAsync(package,pin,port.Cancel.Token);
+            Console.WriteLine($"PUBLIC_HANDOFF_RESULT|{result.Outcome}|{result.Handoff}|{result.Active?.Version}|{result.Failure?.GetType().Name}");Console.Out.Flush();
+            if(mode=="held-control"){Console.WriteLine("PUBLIC_WAITING_ORIGINAL_CONTROL");Console.Out.Flush();if(await Console.In.ReadLineAsync()!="RELEASE")throw new IOException("Missing explicit test release.");port.Release.TrySetResult();}
+            await coordinator.DisposeAsync();
+            Console.WriteLine("PUBLIC_CONTROLLER_DISPOSED");Console.Out.Flush();return 0;
+        }
+        catch(InstallationUpgradeUnconfirmedException)
+        {
+            Console.WriteLine("PUBLIC_HANDOFF_UNCONFIRMED");Console.Out.Flush();port.Release.TrySetResult();await coordinator.DisposeAsync();return 5;
+        }
+        finally{port.Cancel.Dispose();}
+    }
+    private sealed class Child(Process process)
+    {
+        internal readonly Process Process=process;
+        internal readonly CancellationTokenSource Readers=new();
+        internal readonly Channel<string> Lines=Channel.CreateBounded<string>(16);
+        internal Task Output=Task.CompletedTask,Error=Task.CompletedTask;
+        internal bool ControlClosed;
+        internal void StartReaders(){Output=Read();Error=ReadError();}
+        private async Task Read()
+        {
+            try{while(await Process.StandardOutput.ReadLineAsync(Readers.Token) is {} line){if(line.Length>65536)throw new IOException("Fixture output too large.");await Lines.Writer.WriteAsync(line,Readers.Token);}}
+            catch(OperationCanceledException)when(Readers.IsCancellationRequested){}
+            finally{Lines.Writer.TryComplete();}
+        }
+        private async Task ReadError()
+        {
+            try{if((await Process.StandardError.ReadToEndAsync(Readers.Token)).Length!=0)throw new IOException("Synthetic receiver emitted stderr.");}
+            catch(OperationCanceledException)when(Readers.IsCancellationRequested){}
+        }
+    }
+    private sealed class Port(string root,string mode):IInstallationHandoffProtocol,IOwnedProcessStarter
+    {
+        private readonly Dictionary<Process,Child> children=[];
+        internal readonly CancellationTokenSource Cancel=new();
+        internal readonly TaskCompletionSource Release=new(TaskCreationOptions.RunContinuationsAsynchronously);
+        public Process Start(ProcessStartInfo info)
+        {
+            string selected=Path.GetDirectoryName(info.FileName)!;info.FileName=Environment.GetEnvironmentVariable("DOTNET_HOST_PATH")??"dotnet";
+            info.ArgumentList.Insert(0,Path.Combine(selected,"KuaiYi.SettingsStoreFixture.dll"));
+            var owned=Process.Start(info)??throw new IOException("Actual synthetic Start failed.");var child=new Child(owned);children.Add(owned,child);child.StartReaders();return owned;
+        }
+        public async Task ConfirmHealthyAsync(Process owned,InstalledVersion version,Guid launch,CancellationToken cancellation)
+        {
+            string hash=Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(Path.Combine(version.DirectoryPath,"KuaiYi.SettingsStoreFixture.dll"))));
+            if(await children[owned].Lines.Reader.ReadAsync(cancellation)!=$"PUBLIC_INSTALL_READY|{launch:N}|{version.Version}|{hash}|{version.DirectoryPath}|Healthy")throw new InvalidDataException("Selected child identity/health mismatch.");
+        }
+        public Task RequestExitAsync(Process owned,CancellationToken cancellation)=>Send(owned,"STOP",cancellation);
+        public async Task SettleAsync(Process owned,CancellationToken cancellation)
+        {
+            var child=children[owned];await Task.WhenAll(child.Output,child.Error).WaitAsync(cancellation);
+            if(!owned.HasExited)throw new IOException("Exit IO settlement cannot release a live child.");
+            Console.WriteLine($"PUBLIC_ORIGINAL_IO|Exit|{owned.ExitCode}|Settled");Console.Out.Flush();
+        }
+        public async Task PrepareHandoffAsync(Process owned,InstallationHandoffOffer offer,CancellationToken cancellation)
+        {
+            await Send(owned,"OFFER|"+offer.Encode(),cancellation);await Receipt(owned,offer,"PREPARED",cancellation);
+            if(mode=="cancel-prepared")Cancel.Cancel();
+            if(mode=="unknown-ledger")File.WriteAllText(Path.Combine(root,"application","handoff-pending.json"),"PUBLIC_UNKNOWN_HANDOFF_RETAIN");
+        }
+        public async Task AcceptHandoffAsync(Process owned,InstallationHandoffOffer offer,CancellationToken cancellation)
+        {
+            await Send(owned,"ACQUIRE",cancellation);await Receipt(owned,offer,"ACCEPTED",cancellation);
+            if(mode=="crash-precommit")Environment.Exit(81);
+            if(mode=="lease-window")
+            {Console.WriteLine("PUBLIC_RECEIVER_LEASE_WINDOW");Console.Out.Flush();if(await Console.In.ReadLineAsync(cancellation)!="RELEASE")throw new IOException("Missing lease-window release.");}
+        }
+        public async Task CompleteControlAsync(Process owned,InstallationHandoffOffer offer,CancellationToken cancellation)
+        {
+            var child=children[owned];if(child.ControlClosed)return;
+            if(mode=="crash-committed")Environment.Exit(82);
+            try{await Send(owned,"COMMIT",cancellation);await Receipt(owned,offer,"COMMITTED",cancellation);}
+            finally
+            {
+                owned.StandardInput.Close();await child.Readers.CancelAsync();await Task.WhenAll(child.Output,child.Error);
+                if(mode=="held-control")await Release.Task; // Retain the original adapter task beyond the coordinator's bounded waiter.
+                child.ControlClosed=true;Console.WriteLine("PUBLIC_ORIGINAL_IO|LiveControl|CancelledAndJoined|Settled");Console.Out.Flush();
+            }
+        }
+        private async Task Receipt(Process owned,InstallationHandoffOffer offer,string phase,CancellationToken cancellation)
+        {if(await children[owned].Lines.Reader.ReadAsync(cancellation)!=$"{phase}|{offer.Transfer:N}|{offer.Receiver:N}|{offer.Launch:N}")throw new InvalidDataException("Wrong receiver/transfer/launch receipt.");}
+        private static async Task Send(Process owned,string line,CancellationToken cancellation)
+        {await owned.StandardInput.WriteLineAsync(line.AsMemory(),cancellation);await owned.StandardInput.FlushAsync(cancellation);}
+    }
+}
