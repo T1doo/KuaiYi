@@ -24,7 +24,7 @@ public sealed class ProductionScreenshotTranslationTests
         public SettingsSnapshot Settings=null!;public ProductionScreenshotCoordinator Flow=null!;public OverlayResults Results=null!;
         public OwnedSourceImage Image=null!;public byte[] Raw=[];public Guid Version=Guid.NewGuid();public bool Current=true;public int SecretReads;public Deferred? DeferredDestination;
         public readonly List<Lease> Leases=[];public readonly List<ProductionScreenshotUpdate> Updates=[];
-        public Action<ProductionScreenshotUpdate>? OnUpdate;public Func<int,Task>? BeforeSecret;public Protocol Protocol;public bool Stream;
+        public Action<ProductionScreenshotUpdate>? OnUpdate;public Func<int,Task>? BeforeSecret;public Action<Lease,CancellationToken>? SecretCreated;public Protocol Protocol;public bool Stream;
         public static async Task<Rig> Create(Protocol protocol=Protocol.OpenAIChat,bool stream=false,bool auth=false,SynchronizationContext? destination=null,TimeProvider? clock=null)
         {
             var r=new Rig(clock){Protocol=protocol,Stream=stream,DeferredDestination=destination as Deferred};await r.Server.InitializeAsync();r.Script=r.Server.Add("vision",stream?"text/event-stream":"application/json");
@@ -34,7 +34,7 @@ public sealed class ProductionScreenshotTranslationTests
             {
                 int read=Interlocked.Increment(ref r.SecretReads);Assert.True(r.Gate.IsRequestProfileBindingCurrent(id,snapshot.Binding));Assert.True(r.Gate.CanSend(id,new(snapshot.Transport.ResolveEndpoint())));
                 if(read==2){lock(r.Leases)Assert.Throws<ObjectDisposedException>(()=>r.Leases[0].HeaderValue());}
-                if(r.BeforeSecret!=null)await r.BeforeSecret(read);var lease=new Lease(Encoding.UTF8.GetBytes("PUBLIC_SYNTHETIC_CREDENTIAL"));lock(r.Leases)r.Leases.Add(lease);return lease;
+                if(r.BeforeSecret!=null)await r.BeforeSecret(read);var lease=new Lease(Encoding.UTF8.GetBytes("PUBLIC_SYNTHETIC_CREDENTIAL"));lock(r.Leases)r.Leases.Add(lease);r.SecretCreated?.Invoke(lease,ct);return lease;
             });r.ReplaceImage();return r;
         }
         public void ReplaceImage(int width=8,int height=8)
@@ -131,6 +131,32 @@ public sealed class ProductionScreenshotTranslationTests
         r.OnUpdate=u=>{if(u.Kind==ProductionScreenshotEvent.Generating)clock.Advance(TimeSpan.FromSeconds(20),dispatch:false);};
         Assert.True(r.Flow.Submit(r.Offer(),true));await r.Requests(1);await r.Reply(ImageClassificationTests.Json());await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));
         Assert.Equal(1,r.Script.Requests);Assert.Equal(1,r.SecretReads);Assert.Equal(TranslationFailureReason.RequestTimeout,Assert.Single(r.Results.Versions).Failure);Assert.DoesNotContain(r.Updates,u=>u.Kind==ProductionScreenshotEvent.Completed);
+    }
+    [Theory][InlineData(Protocol.OpenAIChat,1)][InlineData(Protocol.AnthropicMessages,1)][InlineData(Protocol.OpenAIChat,2)][InlineData(Protocol.AnthropicMessages,2)]
+    public async Task ExpiryInsideAwaitedSecretDisposesAndErasesReturnedLeaseWithoutSendingThatStage(Protocol protocol,int phase)
+    {
+        var clock=new PhaseClock();await using var r=await Rig.Create(protocol,auth:true,clock:clock);
+        var entered=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var release=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var ownedBuffers=new List<byte[]>();
+        r.BeforeSecret=async read=>{if(read!=phase)return;entered.TrySetResult();await release.Task;clock.Advance(TimeSpan.FromSeconds(20),dispatch:false);};
+        r.SecretCreated=(lease,cancellation)=>
+        {
+            // Test-only observation of the actual lease-owned array, not the constructor's copied input.
+            var owned=Assert.IsType<byte[]>(typeof(Lease).GetField("bytes",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic)!.GetValue(lease));
+            Assert.Equal("PUBLIC_SYNTHETIC_CREDENTIAL",Encoding.UTF8.GetString(owned));ownedBuffers.Add(owned);
+            Assert.False(cancellation.IsCancellationRequested); // Monotonic expiry; timer callbacks were deliberately not dispatched.
+        };
+        try
+        {
+            Assert.True(r.Flow.Submit(r.Offer(),true));
+            if(phase==2){await r.Requests(1);await r.Reply(ImageClassificationTests.Json());}
+            await entered.Task.WaitAsync(TimeSpan.FromSeconds(6));Assert.False(r.Flow.Running.IsCompleted);Assert.Equal(phase,r.SecretReads);Assert.Equal(phase-1,r.Script.Requests);Assert.Equal(phase-1,ownedBuffers.Count);
+            release.TrySetResult();await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));
+            Assert.Equal(phase-1,r.Script.Requests);Assert.Equal(phase-1,r.Script.Bodies.Count);Assert.Equal(phase,r.SecretReads);Assert.Equal(phase,ownedBuffers.Count);
+            Assert.All(ownedBuffers,bytes=>Assert.All(bytes,value=>Assert.Equal(0,value)));Assert.All(r.Leases,lease=>Assert.Throws<ObjectDisposedException>(()=>lease.HeaderValue()));
+            var failed=Assert.Single(r.Results.Versions);Assert.Equal(TranslationFailureReason.RequestTimeout,failed.Failure);Assert.False(failed.Complete);Assert.True(failed.Stopped);Assert.Empty(failed.Text);
+            var terminal=Assert.Single(r.Updates,u=>u.Kind==ProductionScreenshotEvent.Failed);Assert.Equal(failed.Identity,terminal.Identity);Assert.Equal("REQUEST_TIMEOUT",terminal.Reason);Assert.DoesNotContain(r.Updates,u=>u.Kind==ProductionScreenshotEvent.Completed);Assert.False(r.Gate.HasRunningGeneration);Assert.False(r.Image.IsDisposed);
+        }
+        finally{release.TrySetResult();}
     }
     [Fact]public async Task ClearStillJoinsAnOriginalLeaseWhenCancellationCallbackThrows()
     {

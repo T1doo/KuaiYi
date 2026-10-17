@@ -1,0 +1,3 @@
+Read-only independent reviewer /root/high_water_review, no writes/SDK/network:
+4例测试只读独审无P1/P2：真实等待BeforeSecret的release后才Advance20(dispatch:false)，在实际Lease.bytes非零时核token尚未cancel，随后同array全零+HeaderValue抛Disposed、目标阶段零新增HTTP、唯一RequestTimeout终态，分清‘secret已在期限前开始打开’与‘过期后不发送’。phase2还核第一lease先Dispose，两个协议×两阶段覆盖成立。生产src diff空，ProviderContracts/Budget/PhaseClock/旧PhaseDeadlineTests均父原字节。r01同当前源4P；r02名字Counter精确父2272+新4=2276，新增4P、旧Anthropic empty idle在500ms Job.IsCompleted处1F，不能称全绿或根因已解决。r01/r02执行测试DLL同4dac...；等待你同DLL观察/完整复核原件，审计将保该失败。无需为此新测造红或改生产/旧断言。
+This note precedes r03/r04 final packet review; see separate final receipt.

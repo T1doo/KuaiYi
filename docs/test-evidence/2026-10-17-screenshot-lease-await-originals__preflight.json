@@ -1,0 +1,34 @@
+{
+  "utc": "2026-10-17T10:56:58.778427+00:00",
+  "parent": "c775db07384e37f2a4bb48db8b32aefeae3d752e",
+  "parentTracked": 4288,
+  "raw499Verified": true,
+  "branch": "dev/screenshot-lease-await-timeout",
+  "scope": "Test-only: absolute budget expires during awaited synthetic secret acquisition, before actual lease returned. Both protocols and both classification/generation phases. Do not presume production defect; production reuse Off and all boundaries unchanged.",
+  "results": [
+    {
+      "command": [
+        "git",
+        "worktree",
+        "list",
+        "--porcelain"
+      ],
+      "stdout": "worktree /workspace/KuaiYi\nHEAD c775db07384e37f2a4bb48db8b32aefeae3d752e\nbranch refs/heads/dev/production-screenshot-translation\n\n",
+      "stderr": "",
+      "exit": 0
+    },
+    {
+      "command": [
+        "git",
+        "ls-remote",
+        "origin",
+        "refs/heads/main",
+        "refs/heads/dev/production-screenshot-translation",
+        "refs/heads/dev/screenshot-lease-await-timeout"
+      ],
+      "stdout": "c775db07384e37f2a4bb48db8b32aefeae3d752e\trefs/heads/dev/production-screenshot-translation\n51d077481cf6303602fcf5d2718213da9cf05178\trefs/heads/main\n",
+      "stderr": "",
+      "exit": 0
+    }
+  ]
+}

@@ -929,3 +929,10 @@ r01新增夹具初始化顺序错4F保全、不当产品红；修夹具r02父生
 实测失效destination清理1F→1P、Clear取消回调重入C1F→1P、两协议阶段预算2F→2P；独审指出图A完成后已批准OCR文字B失败回A释放原图，加强精确B部分正文/原因/自动A/切A-B绑定，同源2F→2P，仅精确sourceversion+sourceid命中保留，旧文字分支保持。最终专项60P/完整Provider2272P=父2212全名多重集+60，完整Core1703P与父全名多重集相同；App/Worker各0W/E，21source绑定一致。独审无剩余P1/P2，封存另审。r01/r03/r10编译失败、r02仅取消精确owned测试且无TRX/当时等待根因未捕获、r08夹具预期修正及r14不足断言均保原件，不混算产品红绿。
 
 见[接线/验证与边界](validation/production-screenshot-translation.md)及[原件索引](test-evidence/2026-10-17-production-screenshot-translation.json)。本地回环和公开合成OCR/像素/秘密、真实store及协调器/链接Shell端口分别注明，不称真实WPF/WindowsOCR/DPAPI/模型。所有旧测试/追踪状态/SPEC/原书/旧证据原字节保留，不称完整P6。通用文件/Drop/新解码/Skia及图片复用未启用，Windows可见键盘/真实模型质量/物理250600/完整验收NotRun；历史图片间歇/Core结算/WindowsJob根因各仍Unknown。仅已有SDK/--no-restore激活前后禁证书，无main/强推/部署/费用/真实凭据安全权限新包许可环境/模型，Skia待批/403/Actions拒绝不查不绕，未知锁数据日志进程保全。
+
+
+## 2026-10-17 · 截图秘密 await 内预算到期补测
+
+从父c775db正常建dev/screenshot-lease-await-timeout，仅测试helper观察和两协议×两阶段4例。真实await释放后内部Advance20(dispatch:false)才返回实际lease；同owned数组非零→全0、Disposed、目标阶段0新增HTTP和唯一RequestTimeout终态、原图保留，专项首次4P，生产无需改、不造红绿。r02完整2275P1F是旧Anthropic empty idle500ms Job未完成断言，新4均P；r03同DLL旧族6P，r04同DLL完整2276P，父2272+4名字精确，26源码×4=104绑定一致。首轮根因Unknown，失败原件保留、旧断言不改。生产/其他测试/SPEC/trace/旧证据含499原件全原字节，Core1703/AppWorker0W/E沿用父闭包证据，不冒称本片重跑。
+
+见[报告](validation/screenshot-lease-await-timeout.md)与[四次执行原件](test-evidence/2026-10-17-screenshot-lease-await-timeout.json)。预算片单独推送后立即做已授权恢复菜单重新截图，证据另片；生产复用Off，Windows可见交互/DPAPIACL/物理250600/真实模型/完整P6仍NotRun，历史图片间歇/Core/Job根因仍Unknown。无新包许可环境/Skia/403/Actions拒绝绕过、main/强推/部署/费用/真实凭据权限；未知锁数据日志进程保全。

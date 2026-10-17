@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="3c079a7f-b18b-4ed9-be7b-3e47f90adac0" name="@4cd0056ca8a8 2026-10-17 10:58:07" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-17T10:58:07.5123016+00:00" queuing="2026-10-17T10:58:07.5123017+00:00" start="2026-10-17T10:58:06.0502830+00:00" finish="2026-10-17T10:58:07.5170554+00:00" />
+  <TestSettings name="default" id="f744d793-518c-4e9a-a058-cf0e22b4c9da">
+    <Deployment runDeploymentRoot="_4cd0056ca8a8_2026-10-17_10_58_07" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="27d0594d-69e6-438e-82cf-6868e4933a6e" testId="821c64de-316f-d68f-21f0-671dfc4260cd" testName="KuaiYi.Provider.Tests.PhaseDeadlineTests.IdleDeadlineKeepsPartialTextAndIgnoresNoContentActivity(protocol: AnthropicMessages, activity: &quot;ping&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0315209" startTime="2026-10-17T10:58:07.2571376+00:00" endTime="2026-10-17T10:58:07.2802483+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="27d0594d-69e6-438e-82cf-6868e4933a6e" />
+    <UnitTestResult executionId="66b23dca-de33-483d-ab0f-8fdbe7dec044" testId="937aef30-82a1-ce7c-bddc-e600d4def845" testName="KuaiYi.Provider.Tests.PhaseDeadlineTests.IdleDeadlineKeepsPartialTextAndIgnoresNoContentActivity(protocol: OpenAIChat, activity: &quot;comment&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0317110" startTime="2026-10-17T10:58:07.3119924+00:00" endTime="2026-10-17T10:58:07.3442145+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="66b23dca-de33-483d-ab0f-8fdbe7dec044" />
+    <UnitTestResult executionId="de839a2d-fd0c-4ab1-a5e5-ec18d6b3ca89" testId="6d220fce-bbfb-f694-0fda-e6f24e52e67e" testName="KuaiYi.Provider.Tests.PhaseDeadlineTests.IdleDeadlineKeepsPartialTextAndIgnoresNoContentActivity(protocol: AnthropicMessages, activity: &quot;unknown&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0308988" startTime="2026-10-17T10:58:07.2809959+00:00" endTime="2026-10-17T10:58:07.3117800+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="de839a2d-fd0c-4ab1-a5e5-ec18d6b3ca89" />
+    <UnitTestResult executionId="83b67198-8355-4920-b013-6172f0cbc8d8" testId="f6b1acec-542c-2164-3439-18b9877a3880" testName="KuaiYi.Provider.Tests.PhaseDeadlineTests.IdleDeadlineKeepsPartialTextAndIgnoresNoContentActivity(protocol: OpenAIChat, activity: &quot;fragment&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0312546" startTime="2026-10-17T10:58:07.3765389+00:00" endTime="2026-10-17T10:58:07.4082903+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="83b67198-8355-4920-b013-6172f0cbc8d8" />
+    <UnitTestResult executionId="99f2b8e4-caf4-4a58-be95-61b4da68ae01" testId="a3799821-64ac-69dc-e82b-0ce74c798dc9" testName="KuaiYi.Provider.Tests.PhaseDeadlineTests.IdleDeadlineKeepsPartialTextAndIgnoresNoContentActivity(protocol: OpenAIChat, activity: &quot;empty&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0315324" startTime="2026-10-17T10:58:07.3445477+00:00" endTime="2026-10-17T10:58:07.3762972+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="99f2b8e4-caf4-4a58-be95-61b4da68ae01" />
+    <UnitTestResult executionId="82f833b5-9e07-44a5-943b-1078377466fd" testId="b590887d-ba36-8000-7378-a69a39dd4c2e" testName="KuaiYi.Provider.Tests.PhaseDeadlineTests.IdleDeadlineKeepsPartialTextAndIgnoresNoContentActivity(protocol: AnthropicMessages, activity: &quot;empty&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.1622439" startTime="2026-10-17T10:58:07.0766040+00:00" endTime="2026-10-17T10:58:07.2473176+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="82f833b5-9e07-44a5-943b-1078377466fd" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.PhaseDeadlineTests.IdleDeadlineKeepsPartialTextAndIgnoresNoContentActivity(protocol: OpenAIChat, activity: &quot;comment&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="937aef30-82a1-ce7c-bddc-e600d4def845">
+      <Execution id="66b23dca-de33-483d-ab0f-8fdbe7dec044" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.PhaseDeadlineTests" name="IdleDeadlineKeepsPartialTextAndIgnoresNoContentActivity" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.PhaseDeadlineTests.IdleDeadlineKeepsPartialTextAndIgnoresNoContentActivity(protocol: AnthropicMessages, activity: &quot;empty&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="b590887d-ba36-8000-7378-a69a39dd4c2e">
+      <Execution id="82f833b5-9e07-44a5-943b-1078377466fd" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.PhaseDeadlineTests" name="IdleDeadlineKeepsPartialTextAndIgnoresNoContentActivity" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.PhaseDeadlineTests.IdleDeadlineKeepsPartialTextAndIgnoresNoContentActivity(protocol: OpenAIChat, activity: &quot;empty&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="a3799821-64ac-69dc-e82b-0ce74c798dc9">
+      <Execution id="99f2b8e4-caf4-4a58-be95-61b4da68ae01" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.PhaseDeadlineTests" name="IdleDeadlineKeepsPartialTextAndIgnoresNoContentActivity" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.PhaseDeadlineTests.IdleDeadlineKeepsPartialTextAndIgnoresNoContentActivity(protocol: AnthropicMessages, activity: &quot;unknown&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="6d220fce-bbfb-f694-0fda-e6f24e52e67e">
+      <Execution id="de839a2d-fd0c-4ab1-a5e5-ec18d6b3ca89" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.PhaseDeadlineTests" name="IdleDeadlineKeepsPartialTextAndIgnoresNoContentActivity" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.PhaseDeadlineTests.IdleDeadlineKeepsPartialTextAndIgnoresNoContentActivity(protocol: OpenAIChat, activity: &quot;fragment&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="f6b1acec-542c-2164-3439-18b9877a3880">
+      <Execution id="83b67198-8355-4920-b013-6172f0cbc8d8" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.PhaseDeadlineTests" name="IdleDeadlineKeepsPartialTextAndIgnoresNoContentActivity" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.PhaseDeadlineTests.IdleDeadlineKeepsPartialTextAndIgnoresNoContentActivity(protocol: AnthropicMessages, activity: &quot;ping&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="821c64de-316f-d68f-21f0-671dfc4260cd">
+      <Execution id="27d0594d-69e6-438e-82cf-6868e4933a6e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.PhaseDeadlineTests" name="IdleDeadlineKeepsPartialTextAndIgnoresNoContentActivity" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="821c64de-316f-d68f-21f0-671dfc4260cd" executionId="27d0594d-69e6-438e-82cf-6868e4933a6e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="937aef30-82a1-ce7c-bddc-e600d4def845" executionId="66b23dca-de33-483d-ab0f-8fdbe7dec044" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6d220fce-bbfb-f694-0fda-e6f24e52e67e" executionId="de839a2d-fd0c-4ab1-a5e5-ec18d6b3ca89" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f6b1acec-542c-2164-3439-18b9877a3880" executionId="83b67198-8355-4920-b013-6172f0cbc8d8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a3799821-64ac-69dc-e82b-0ce74c798dc9" executionId="99f2b8e4-caf4-4a58-be95-61b4da68ae01" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b590887d-ba36-8000-7378-a69a39dd4c2e" executionId="82f833b5-9e07-44a5-943b-1078377466fd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="6" executed="6" passed="6" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.11]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.56]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.60]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:01.06]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
