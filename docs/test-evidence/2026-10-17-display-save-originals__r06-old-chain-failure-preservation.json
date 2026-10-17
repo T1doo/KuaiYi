@@ -1,0 +1,28 @@
+{
+  "failure": [
+    {
+      "name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Dispose_during_active_request_retires_and_settles_actual_child",
+      "outcome": "Failed",
+      "message": "System.IO.IOException : Owned child or IO settlement unconfirmed; ownership retained."
+    }
+  ],
+  "sourceSameAsParent": {
+    "tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs": {
+      "parent": "19d6216f271444ad3ad89cddbefa086ed0677c84fa7a27ffeb41fcc437317aac",
+      "current": "19d6216f271444ad3ad89cddbefa086ed0677c84fa7a27ffeb41fcc437317aac"
+    },
+    "tools/KuaiYi.SelectionReuseDiagnostic/ReuseDiagnosticHost.cs": {
+      "parent": "90f878634e46b5c312de3f973f69478611f63056a49114e808aeaf3dedd393d6",
+      "current": "90f878634e46b5c312de3f973f69478611f63056a49114e808aeaf3dedd393d6"
+    },
+    "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj": {
+      "parent": "d7bd48f5a28b4edd4b1fa24fdc0ffc4a887916c1c737d90e30fe6f854c71305e",
+      "current": "d7bd48f5a28b4edd4b1fa24fdc0ffc4a887916c1c737d90e30fe6f854c71305e"
+    },
+    "src/KuaiYi.Core/RuntimeGate.cs": {
+      "parent": "e751fe876a52719b1b41fb64818b6e86aebad4b1deb1757a7cb2db5c0462f30c",
+      "current": "e751fe876a52719b1b41fb64818b6e86aebad4b1deb1757a7cb2db5c0462f30c"
+    }
+  },
+  "scope": "Only Providers production changed; this Core project does not reference Providers. No deletion/process-kill/manual ownership release or old assertion edits. Cause remains Unknown; a later green run is not proof of cause or repair."
+}

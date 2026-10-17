@@ -1,0 +1,41 @@
+{
+  "parent": "528b2ba8175b1014b51301eb653cc84d06dfd9b8",
+  "stagedPaths": 137,
+  "rawBeforeReview": 130,
+  "rawTripleWayExact": true,
+  "allStagedIndexMatchesWorktree": true,
+  "parentTracked": 3500,
+  "changedExisting": [
+    ".gitattributes",
+    "docs/progress.md",
+    "docs/traceability.json",
+    "src/KuaiYi.Providers/TextTranslationCoordinator.cs"
+  ],
+  "allOtherParentBytesPreserved": true,
+  "traceOnlyEvidenceAndNote": [
+    {
+      "id": "P1-03",
+      "fields": [
+        "evidence",
+        "note"
+      ]
+    },
+    {
+      "id": "A10",
+      "fields": [
+        "evidence",
+        "note"
+      ]
+    }
+  ],
+  "frozen": {
+    ".gitattributes": "140edd37e4e4319c45ae906d44d0f605a460ffc79f926782b0a09984939d8d4f",
+    "docs/progress.md": "59c03c5d51a121d2b983660ee4b4ccb3c61c96ae0ddf0ca0faba353c17b96a7d",
+    "docs/traceability.json": "1318ed91567b3652a585d15700ee282d18707336012ea6e9cc2b2f70449e8a52",
+    "src/KuaiYi.Providers/TextTranslationCoordinator.cs": "5bf509ed3fd9433fbfbc9d27494bcf79be093c8092ac4162d502af028c29892e",
+    "tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs": "4127572f1dc612a7ff113d955d90472dd28ce0ed4ab10778ab91933dc6790845",
+    "docs/validation/display-save-stream-continuation.md": "55034eae2ced5b8e996d4e3b5b79da99e013b056b8d516e8ea9064b288aea515",
+    "docs/test-evidence/2026-10-17-display-save-stream-continuation.json": "ba20e1d5d8b0512b2d4ed0a9cb43cba5117f65c6612946ff4aa2caa7238225d5"
+  },
+  "afterReview": "Append exactly one final reviewer receipt to artifact/raw/index/.gitattributes and RawEvidence; update IndependentAudit fields only. No source/test/report/progress/trace changes expected. r22 review packet and later index/push controls remain ignored control artifacts, not additional test originals."
+}

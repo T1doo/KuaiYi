@@ -1,0 +1,11 @@
+{
+  "notRun": [
+    "r08-app-build",
+    "r09-worker-build"
+  ],
+  "reason": "Commands/snapshots prepared before OCR finding, never executed. Retained as prepared-only; actual final builds use r16/r17 with final source bindings.",
+  "finalFrozen": {
+    "src/KuaiYi.Providers/TextTranslationCoordinator.cs": "5bf509ed3fd9433fbfbc9d27494bcf79be093c8092ac4162d502af028c29892e",
+    "tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs": "c67b415367eb0a5881a6f8f2d1523f19a01e0065434189f5d9a534c5eb8a5101"
+  }
+}

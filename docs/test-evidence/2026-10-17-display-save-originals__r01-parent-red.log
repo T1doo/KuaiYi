@@ -1,0 +1,72 @@
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:01.00]     KuaiYi.Provider.Tests.DisplaySaveStreamTests.ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(protocol: AnthropicMessages, edit: "position") [FAIL]
+[xUnit.net 00:00:01.02]     KuaiYi.Provider.Tests.DisplaySaveStreamTests.ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(protocol: OpenAIChat, edit: "position") [FAIL]
+[xUnit.net 00:00:01.03]     KuaiYi.Provider.Tests.DisplaySaveStreamTests.ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(protocol: OpenAIChat, edit: "font") [FAIL]
+[xUnit.net 00:00:01.05]     KuaiYi.Provider.Tests.DisplaySaveStreamTests.ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(protocol: AnthropicMessages, edit: "font") [FAIL]
+[xUnit.net 00:00:01.06]     KuaiYi.Provider.Tests.DisplaySaveStreamTests.ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(protocol: OpenAIChat, edit: "width") [FAIL]
+[xUnit.net 00:00:01.07]     KuaiYi.Provider.Tests.DisplaySaveStreamTests.ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(protocol: AnthropicMessages, edit: "width") [FAIL]
+  Failed KuaiYi.Provider.Tests.DisplaySaveStreamTests.ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(protocol: AnthropicMessages, edit: "position") [329 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.DisplaySaveStreamTests.ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(ApiProtocol protocol, String edit) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs:line 52
+   at KuaiYi.Provider.Tests.DisplaySaveStreamTests.ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(ApiProtocol protocol, String edit) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs:line 52
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.DisplaySaveStreamTests.ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(protocol: OpenAIChat, edit: "position") [18 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.DisplaySaveStreamTests.ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(ApiProtocol protocol, String edit) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs:line 52
+   at KuaiYi.Provider.Tests.DisplaySaveStreamTests.ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(ApiProtocol protocol, String edit) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs:line 52
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.DisplaySaveStreamTests.ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(protocol: OpenAIChat, edit: "font") [14 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.DisplaySaveStreamTests.ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(ApiProtocol protocol, String edit) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs:line 52
+   at KuaiYi.Provider.Tests.DisplaySaveStreamTests.ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(ApiProtocol protocol, String edit) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs:line 52
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.DisplaySaveStreamTests.ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(protocol: AnthropicMessages, edit: "font") [11 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.DisplaySaveStreamTests.ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(ApiProtocol protocol, String edit) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs:line 52
+   at KuaiYi.Provider.Tests.DisplaySaveStreamTests.ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(ApiProtocol protocol, String edit) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs:line 52
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.DisplaySaveStreamTests.ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(protocol: OpenAIChat, edit: "width") [14 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.DisplaySaveStreamTests.ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(ApiProtocol protocol, String edit) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs:line 52
+   at KuaiYi.Provider.Tests.DisplaySaveStreamTests.ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(ApiProtocol protocol, String edit) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs:line 52
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.DisplaySaveStreamTests.ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(protocol: AnthropicMessages, edit: "width") [11 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.DisplaySaveStreamTests.ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(ApiProtocol protocol, String edit) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs:line 52
+   at KuaiYi.Provider.Tests.DisplaySaveStreamTests.ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(ApiProtocol protocol, String edit) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs:line 52
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/display-save-stream-continuation/r01-parent-red.trx
+
+Failed!  - Failed:     6, Passed:     0, Skipped:     0, Total:     6, Duration: 421 ms - KuaiYi.Provider.Tests.dll (net10.0)

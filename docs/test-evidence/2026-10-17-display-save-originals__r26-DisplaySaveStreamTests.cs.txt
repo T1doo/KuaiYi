@@ -1,0 +1,197 @@
+extern alias ImageProduction;
+using System.Collections.Concurrent;
+using System.Text.Json;
+using System.Reflection;
+using KuaiYi.Core;
+using KuaiYi.Core.Settings;
+using KuaiYi.Providers;
+using Xunit;
+using Protocol=KuaiYi.Core.Settings.ApiProtocol;
+using P=ImageProduction::KuaiYi.Imaging;
+namespace KuaiYi.Provider.Tests;
+
+public sealed class DisplaySaveStreamTests(PhaseHttpFixture server):IClassFixture<PhaseHttpFixture>
+{
+    private sealed class NoSecrets:ISecretProtector
+    {public int Reads;public byte[] Protect(ReadOnlySpan<byte> bytes)=>throw new InvalidOperationException("No fixture keys.");public byte[] Unprotect(ReadOnlySpan<byte> bytes){Reads++;throw new InvalidOperationException("No fixture keys.");}}
+    private sealed class DirectoryPolicy:ISecretDirectoryPolicy{public void EnsurePrivate(string path)=>Directory.CreateDirectory(path);}
+    private sealed class SyntheticOcr:P.ILocalOcrWorker
+    {
+        public Task<P.ImageReply> RunAsync(ReadOnlyMemory<byte> image,P.ImageJob job,CancellationToken cancellation=default)=>Task.FromResult(new P.ImageReply(job,P.ImageFailure.None,new(8,8,job.Language,"PUBLIC SYNTHETIC OCR TEXT",[])));
+        public ValueTask<bool> TryFinalizeAsync()=>ValueTask.FromResult(true);public ValueTask DisposeAsync()=>ValueTask.CompletedTask;
+    }
+    private sealed class Destination:SynchronizationContext
+    {
+        private readonly ConcurrentQueue<(SendOrPostCallback,object?)> queue=new();public volatile bool Hold;
+        public int Pending=>queue.Count;
+        public override void Post(SendOrPostCallback action,object? state){if(Hold)queue.Enqueue((action,state));else action(state);}
+        public void Drain(){while(queue.TryDequeue(out var item))item.Item1(item.Item2);}
+    }
+    private sealed class Rig:IAsyncDisposable
+    {
+        public readonly string Root=Path.Combine(Path.GetTempPath(),"KuaiYi.DisplayStreamFixture."+Guid.NewGuid().ToString("N"));
+        public readonly NoSecrets Secrets=new();public readonly ProviderClient Provider=new();public readonly ConcurrentQueue<TextTranslationUpdate> Events=new();
+        public readonly Destination Context=new();public Action<SettingsSnapshot>? BeforeObserve;
+        public P.OcrOnlyCoordinator? Local;private P.OwnedSourceImage? image;
+        public SettingsCoordinator Coordinator=null!;public ShellLifecycle Shell=null!;public TextTranslationCoordinator Flow=null!;public OverlayResults Results=null!;public PhaseHttpFixture.Script Script=null!;public Protocol Protocol;
+        public RuntimeGate Gate=>Shell.Gate;public SettingsSnapshot Settings=>Coordinator.Effective!;public bool Current=true;
+        public static async Task<Rig> Create(PhaseHttpFixture server,Protocol protocol)
+        {
+            var r=new Rig{Protocol=protocol};string run=Guid.NewGuid().ToString("N");var prefix=new Uri(server.BaseUri,run+"/");r.Script=server.Add(run);
+            r.Coordinator=new(new SettingsStore(Path.Combine(r.Root,"config")),new SecretFileStore(Path.Combine(r.Root,"secrets"),r.Secrets,new DirectoryPolicy()));
+            using(var draft=await r.Coordinator.OpenDraftAsync())
+            {draft.Update(s=>s with{ActiveProfileId="public",Profiles=[new(){Id="public",Protocol=protocol,BaseUrl=prefix.AbsoluteUri,AllowLoopbackHttp=true,Authentication=ApiAuthentication.None,Model="PUBLIC_TEXT_MODEL",Streaming=true}]});await r.Coordinator.SaveAsync(draft);}
+            r.Shell=new(r.Coordinator);await r.Shell.InitializeAsync();Assert.True(r.Shell.TryPrepareEnable(out var intent,out var error),error);Assert.True(r.Shell.ConfirmEnable(intent!,true));r.Results=new(r.Gate);
+            r.Flow=new(r.Gate,()=>r.Settings,(_,_)=>r.Current,r.Provider,r.Context,r.Results,r.Events.Enqueue,ocrSourceCurrent:s=>r.Local?.IsApprovedSourceCurrent(s)==true);r.Coordinator.Committed+=r.Observe;return r;
+        }
+        private void Observe(SettingsSnapshot settings,SettingsChange change){BeforeObserve?.Invoke(settings);Flow.ObserveSettings(settings);}
+        public SelectionSourceSnapshot Source(string text="PUBLIC SYNTHETIC SOURCE")=>new(new(17,92823,132000,@"C:\Synthetic\editor.exe"),text,text,[new(1,2,20,22)],[7,8],Settings.Version,text.Length,false);
+        public async Task<SelectionSourceSnapshot> OcrSource()
+        {
+            image=new(new P.ScreenshotPixels(new(0,0,8,8),Enumerable.Repeat((byte)255,256).ToArray()));var version=Guid.NewGuid();
+            Local=new(Gate,()=>Settings,(v,id)=>Current&&v==version&&id==image.SourceId,new Destination(),()=>new SyntheticOcr());Assert.True(Local.Start(version,image,"en-US"));await Local.Running.WaitAsync(TimeSpan.FromSeconds(6));return Assert.IsType<SelectionSourceSnapshot>(Local.Approve(Assert.IsType<P.OcrTextPreview>(Local.Preview)));
+        }
+        public TextTranslationOffer Start(string text="PUBLIC SYNTHETIC SOURCE"){var offer=Flow.Prepare(Source(text));Assert.NotNull(offer);Assert.Equal(TextSubmission.Started,Flow.Submit(offer));return offer;}
+        public async Task Save(Func<AppSettings,AppSettings> edit){using var draft=await Coordinator.OpenDraftAsync();draft.Update(edit);await Coordinator.SaveAsync(draft);}
+        public async Task SaveDisplay(string edit)
+        {
+            if(edit=="position"){await Shell.SavePositionAsync(new(){MonitorId="public-monitor",X=.4,Y=.6});return;}
+            using var draft=await Coordinator.OpenDraftAsync();draft.Update(s=>s with{Overlay=edit=="font"?s.Overlay with{FontSizeDip=17}:s.Overlay with{PreferredWidthDip=520}});await Coordinator.SaveAsync(draft);
+        }
+        public string Delta(string text)=>Protocol==Protocol.OpenAIChat?"data: {\"choices\":[{\"index\":0,\"delta\":{\"content\":"+JsonSerializer.Serialize(text)+"}}]}\n\n":"data: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":"+JsonSerializer.Serialize(text)+"}}\n\n";
+        public string Usage(int input,int output)=>Protocol==Protocol.OpenAIChat?$"data: {{\"choices\":[],\"usage\":{{\"prompt_tokens\":{input},\"completion_tokens\":{output}}}}}\n\n":$"data: {{\"type\":\"message_delta\",\"usage\":{{\"input_tokens\":{input},\"output_tokens\":{output}}}}}\n\n";
+        public string StartFrame=>Protocol==Protocol.OpenAIChat?"data: {\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\"}}]}\n\n":"data: {\"type\":\"message_start\",\"message\":{}}\n\ndata: {\"type\":\"content_block_start\",\"index\":0,\"content_block\":{\"type\":\"text\",\"text\":\"\"}}\n\n";
+        public string EndFrame=>Protocol==Protocol.OpenAIChat?"data: {\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"stop\"}]}\n\ndata: [DONE]\n\n":"data: {\"type\":\"content_block_stop\",\"index\":0}\n\ndata: {\"type\":\"message_delta\",\"delta\":{\"stop_reason\":\"end_turn\"}}\n\ndata: {\"type\":\"message_stop\"}\n\n";
+        public async Task First(){await Script.Received.Task.WaitAsync(TimeSpan.FromSeconds(6));await Script.Write(StartFrame+Delta("PUBLIC FIRST"));await TextUsageRig.Wait(()=>Results.Text=="PUBLIC FIRST");}
+        public async Task FirstWithUsage(int input,int output)
+        {
+            await Script.Received.Task.WaitAsync(TimeSpan.FromSeconds(6));string start=Protocol==Protocol.OpenAIChat?StartFrame:StartFrame.Replace("\"message\":{}",$"\"message\":{{\"usage\":{{\"input_tokens\":{input},\"output_tokens\":{output}}}}}");await Script.Write(start+Delta("PUBLIC FIRST")+(Protocol==Protocol.OpenAIChat?Usage(input,output):""));await TextUsageRig.Wait(()=>Results.Text=="PUBLIC FIRST"&&Results.Versions.Single(v=>v.Identity==Results.Identity).Usage==new TranslationUsage(input,output));
+        }
+        public async ValueTask DisposeAsync(){Gate.Disable();Context.Hold=false;Context.Drain();Coordinator.Committed-=Observe;await Flow.DisposeAsync();if(Local!=null)await Local.DisposeAsync();image?.Dispose();Provider.Dispose();Shell.Dispose();Directory.Delete(Root,true);}
+    }
+    [Theory][InlineData(Protocol.OpenAIChat,"font")][InlineData(Protocol.OpenAIChat,"width")][InlineData(Protocol.OpenAIChat,"position")][InlineData(Protocol.AnthropicMessages,"font")][InlineData(Protocol.AnthropicMessages,"width")][InlineData(Protocol.AnthropicMessages,"position")]
+    public async Task ActualDisplaySaveAfterFirstSseDeltaKeepsOriginalRequestAndCompletes(Protocol protocol,string edit)
+    {
+        await using var r=await Rig.Create(server,protocol);var offer=r.Start();await r.First();var id=r.Results.Identity!.Value;var frozen=offer.Snapshot;string before=r.Settings.Version;await r.SaveDisplay(edit);
+        Assert.NotEqual(before,r.Settings.Version);Assert.True(r.Gate.CanApply(id));Assert.Equal(15,frozen.Settings.Data.Overlay.FontSizeDip);Assert.Equal("PUBLIC_TEXT_MODEL",frozen.Profile.Model);
+        await r.Script.Write(r.Delta(" PUBLIC LAST")+r.EndFrame,true);await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));
+        Assert.True(Assert.Single(r.Results.Versions).Complete);Assert.Equal("PUBLIC FIRST PUBLIC LAST",r.Results.Text);Assert.Equal(id,r.Results.Identity);Assert.Same(frozen,r.Flow.SelectedSnapshot);Assert.Equal(1,r.Script.Requests);Assert.Equal(0,r.Secrets.Reads);
+    }
+    private static object? Live(Rig r)=>typeof(TextTranslationCoordinator).GetField("liveRequest",BindingFlags.Instance|BindingFlags.NonPublic)!.GetValue(r.Flow);
+    private static bool Advance(Rig r,object captured,SettingsSnapshot target)=>(bool)typeof(TextTranslationCoordinator).GetMethod("AdvanceDisplaySettings",BindingFlags.Instance|BindingFlags.NonPublic)!.Invoke(r.Flow,[captured,target])!;
+    [Theory][InlineData(Protocol.OpenAIChat)][InlineData(Protocol.AnthropicMessages)]
+    public async Task TwoValidatorsCapturedAtSameOwnerAcceptAlreadyCommittedDisplayVersion(Protocol protocol)
+    {
+        await using var r=await Rig.Create(server,protocol);r.Start();await r.First();var captured=Live(r)!;await r.SaveDisplay("font");
+        // The HTTP validator can capture this owner before Committed's validator wins its CAS.
+        // Invoke the real production primitive with exactly that losing validator's captured arguments.
+        Assert.True(Advance(r,captured,r.Settings));
+        await r.Script.Write(r.Delta(" PUBLIC LAST")+r.EndFrame,true);await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.True(Assert.Single(r.Results.Versions).Complete);Assert.Null(Live(r));
+    }
+    [Theory][InlineData(false,"font")][InlineData(false,"position")][InlineData(true,"font")][InlineData(true,"position")]
+    public async Task DisplaySaveCannotAdmitOldUnsubmittedOrLengthConfirmationOffer(bool confirmation,string edit)
+    {
+        await using var r=await Rig.Create(server,Protocol.OpenAIChat);var offer=r.Flow.Prepare(r.Source(confirmation?new string('A',12001):"PUBLIC CANDIDATE"));Assert.NotNull(offer);
+        if(confirmation)Assert.Equal(TextSubmission.ConfirmationRequired,r.Flow.Submit(offer));
+        await r.SaveDisplay(edit);Assert.Equal(TextSubmission.Rejected,r.Flow.Submit(offer,confirmation));Assert.Equal(0,r.Script.Requests);Assert.Empty(r.Results.Versions);Assert.Equal(0,r.Secrets.Reads);
+    }
+    [Theory][InlineData(Protocol.OpenAIChat)][InlineData(Protocol.AnthropicMessages)]
+    public async Task SeveralDisplaySavesAndDuplicateKeepOneFrozenRequest(Protocol protocol)
+    {
+        await using var r=await Rig.Create(server,protocol);var offer=r.Start();await r.First();var frozen=offer.Snapshot;var id=r.Results.Identity;
+        foreach(string edit in new[]{"font","width","position"})await r.SaveDisplay(edit);
+        await r.Save(s=>s with{Overlay=frozen.Settings.Data.Overlay});
+        var duplicate=r.Flow.Prepare(r.Source());Assert.NotNull(duplicate);Assert.Equal(TextSubmission.Reopened,r.Flow.Submit(duplicate));Assert.Same(frozen,r.Flow.SelectedSnapshot);
+        await r.Script.Write(r.Delta(" PUBLIC LAST")+r.EndFrame,true);await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.True(Assert.Single(r.Results.Versions).Complete);Assert.Equal(id,r.Results.Identity);Assert.Equal(1,r.Script.Requests);Assert.Equal(0,r.Secrets.Reads);
+    }
+    [Theory][InlineData(Protocol.OpenAIChat)][InlineData(Protocol.AnthropicMessages)]
+    public async Task ActualCommittedPublicationBeforeNotificationCanDeliverQueuedDelta(Protocol protocol)
+    {
+        await using var r=await Rig.Create(server,protocol);r.Start();await r.First();r.Context.Hold=true;await r.Script.Write(r.Delta(" PUBLIC GAP"));await TextUsageRig.Wait(()=>r.Context.Pending>0);
+        bool seen=false;r.BeforeObserve=s=>{Assert.Same(s,r.Settings);r.Context.Hold=false;r.Context.Drain();Assert.Equal("PUBLIC FIRST PUBLIC GAP",r.Results.Text);seen=true;};
+        await r.SaveDisplay("font");r.BeforeObserve=null;Assert.True(seen);
+        await r.Script.Write(r.Delta(" PUBLIC LAST")+r.EndFrame,true);await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.True(Assert.Single(r.Results.Versions).Complete);Assert.Equal("PUBLIC FIRST PUBLIC GAP PUBLIC LAST",r.Results.Text);Assert.Equal(1,r.Script.Requests);
+    }
+    private static AppSettings UnsafeEdit(AppSettings s,string edit)=>edit switch
+    {
+        "model"=>s with{Profiles=[s.Profiles[0] with{Model="PUBLIC_OTHER_MODEL"}]},
+        "endpoint"=>s with{Profiles=[s.Profiles[0] with{BaseUrl=s.Profiles[0].BaseUrl+"other/"}]},
+        "authentication"=>s with{Profiles=[s.Profiles[0] with{Authentication=ApiAuthentication.Bearer}]},
+        "key-reference"=>s with{Profiles=[s.Profiles[0] with{SecretRef="key/"+new string('a',32)}]},
+        "header"=>s with{Profiles=[s.Profiles[0] with{Headers=s.Profiles[0].Headers.Add("X-Public-Fixture","PUBLIC_METADATA")}]},
+        "profile"=>s with{ActiveProfileId="other",Profiles=[s.Profiles[0],s.Profiles[0] with{Id="other"}]},
+        "delete"=>s with{ActiveProfileId=null,Profiles=[]},
+        "style"=>s with{Translation=s.Translation with{Preset=TranslationPreset.Plain}},
+        "context"=>s with{Translation=s.Translation with{Domain="PUBLIC_CONTEXT"}},
+        "template"=>s with{Translation=s.Translation with{CustomTemplates=s.Translation.CustomTemplates.Add(TranslationPreset.Faithful,"PUBLIC_TEMPLATE {{source_text}}")}},
+        "mode"=>s with{TriggerMode=TriggerMode.Drop},
+        "privacy"=>s with{Privacy=s.Privacy with{BlockedApplications=[@"C:\Synthetic\editor.exe"]}},
+        "image"=>s with{Images=s.Images with{SmartRouting=false}},
+        _=>throw new ArgumentOutOfRangeException(nameof(edit))
+    };
+    [Theory][InlineData("model")][InlineData("endpoint")][InlineData("authentication")][InlineData("key-reference")][InlineData("header")][InlineData("profile")][InlineData("delete")][InlineData("style")][InlineData("context")][InlineData("template")][InlineData("mode")][InlineData("privacy")][InlineData("image")]
+    public async Task DisplaySaveNeverAllowsOtherSavedChangesToAttachQueuedTail(string edit)
+    {
+        await using var r=await Rig.Create(server,Protocol.OpenAIChat);r.Start();await r.First();await r.SaveDisplay("font");var id=r.Results.Identity!.Value;
+        r.Context.Hold=true;await r.Script.Write(r.Delta(" PUBLIC REJECTED TAIL")+r.EndFrame,true);await TextUsageRig.Wait(()=>r.Context.Pending>0);
+        await r.Save(s=>UnsafeEdit(s,edit));r.Context.Hold=false;r.Context.Drain();await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));
+        Assert.Equal("PUBLIC FIRST",r.Results.Text);Assert.False(Assert.Single(r.Results.Versions).Complete);Assert.DoesNotContain(r.Events,e=>e.Identity==id&&(e.Presentation.Text==" PUBLIC REJECTED TAIL"||e.Presentation.Kind==OverlayResultEventKind.Complete));Assert.Equal(1,r.Script.Requests);Assert.Equal(0,r.Secrets.Reads);Assert.Null(Live(r));
+    }
+    [Theory][InlineData("context")][InlineData("privacy")]
+    public async Task UnsafeIntermediateCommitCannotBeErasedByRestoringSavedFields(string edit)
+    {
+        await using var r=await Rig.Create(server,Protocol.AnthropicMessages);r.Start();await r.First();var original=r.Settings.Data;await r.SaveDisplay("font");
+        r.Context.Hold=true;await r.Script.Write(r.Delta(" PUBLIC REJECTED TAIL")+r.EndFrame,true);await TextUsageRig.Wait(()=>r.Context.Pending>0);
+        await r.Save(s=>UnsafeEdit(s,edit));await r.Save(s=>original with{WriteId=s.WriteId});r.Context.Hold=false;r.Context.Drain();await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal("PUBLIC FIRST",r.Results.Text);Assert.False(Assert.Single(r.Results.Versions).Complete);Assert.Equal(1,r.Script.Requests);
+    }
+    [Theory][InlineData("stop")][InlineData("off")][InlineData("lock")][InlineData("clear")][InlineData("source")][InlineData("newer")]
+    public async Task AcceptedDisplaySavePreservesCancellationSourceAndLateIdentityGates(string action)
+    {
+        await using var r=await Rig.Create(server,Protocol.OpenAIChat);r.Start();await r.First();await r.SaveDisplay("position");var id=r.Results.Identity!.Value;var old=r.Flow.Running;
+        r.Context.Hold=true;await r.Script.Write(r.Delta(" PUBLIC OLD TAIL")+r.EndFrame,true);await TextUsageRig.Wait(()=>r.Context.Pending>0);
+        switch(action){case "stop":r.Gate.StopGeneration();break;case "off":r.Gate.Disable();break;case "lock":r.Gate.SetSessionLocked(true);break;case "clear":r.Flow.Clear();break;case "source":r.Current=false;break;case "newer":r.Start("PUBLIC NEW SOURCE");break;}
+        r.Context.Hold=false;r.Context.Drain();await old.WaitAsync(TimeSpan.FromSeconds(6));
+        if(action=="newer"){await TextUsageRig.Wait(()=>r.Script.Requests==2);await r.Script.Write(r.StartFrame+r.Delta("PUBLIC NEW COMPLETE")+r.EndFrame,true);await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal("PUBLIC NEW COMPLETE",r.Results.Text);Assert.NotEqual(id,r.Results.Identity);}
+        Assert.DoesNotContain(r.Events,e=>e.Identity==id&&(e.Presentation.Text==" PUBLIC OLD TAIL"||e.Presentation.Kind==OverlayResultEventKind.Complete));Assert.DoesNotContain(r.Results.Versions,v=>v.Identity==id&&v.Complete);Assert.Equal(action=="newer"?2:1,r.Script.Requests);Assert.Equal(0,r.Secrets.Reads);Assert.Null(Live(r));
+    }
+    [Theory][InlineData(Protocol.OpenAIChat)][InlineData(Protocol.AnthropicMessages)]
+    public async Task StyleOverriddenRegenerationKeepsOriginalFrozenSemanticsAcrossSaves(Protocol protocol)
+    {
+        await using var r=await Rig.Create(server,protocol);r.Start();await r.First();await r.Script.Write(r.EndFrame,true);await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.True(r.Flow.SetSessionStyle(TranslationPreset.Plain));
+        var offer=r.Flow.PrepareRegeneration();Assert.NotNull(offer);Assert.Equal(TextSubmission.Started,r.Flow.Submit(offer));await TextUsageRig.Wait(()=>r.Script.Requests==2);await r.First();
+        Assert.Equal(TranslationPreset.Plain,offer.Snapshot.Preset);Assert.Equal(TranslationPreset.Faithful,r.Settings.Data.Translation.Preset);await r.SaveDisplay("font");await r.Save(s=>s with{Translation=s.Translation with{Domain="PUBLIC_NEXT_TASK"}});
+        await r.Script.Write(r.Delta(" PUBLIC REGENERATED")+r.EndFrame,true);await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.True(r.Results.Versions.Single(v=>v.Identity==r.Results.Identity).Complete);Assert.Same(offer.Snapshot,r.Flow.SelectedSnapshot);Assert.Equal("",offer.Snapshot.Settings.Data.Translation.Domain);Assert.Equal("PUBLIC FIRST PUBLIC REGENERATED",r.Results.Text);Assert.Equal(2,r.Script.Requests);
+    }
+    [Theory][InlineData(false)][InlineData(true)]
+    public async Task OldValidatorCannotMoveCacheBackwardsOrReviveClearedOrTerminalOwner(bool clear)
+    {
+        await using var r=await Rig.Create(server,Protocol.OpenAIChat);r.Start();await r.First();var captured=Live(r)!;await r.SaveDisplay("font");var older=r.Settings;await r.SaveDisplay("width");var latest=Live(r);
+        Assert.False(Advance(r,captured,older));Assert.Same(latest,Live(r));
+        if(clear)await r.Flow.ClearAsync();else{await r.Script.Write(r.EndFrame,true);await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));}
+        Assert.Null(Live(r));Assert.False(Advance(r,captured,r.Settings));Assert.Null(Live(r));
+    }
+    [Theory][InlineData(Protocol.OpenAIChat,"font")][InlineData(Protocol.AnthropicMessages,"font")][InlineData(Protocol.OpenAIChat,"position")][InlineData(Protocol.AnthropicMessages,"position")]
+    public async Task ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(Protocol protocol,string edit)
+    {
+        await using var r=await Rig.Create(server,protocol);var source=await r.OcrSource();var offer=r.Flow.PrepareOcr(source,TranslationPreset.Plain);Assert.NotNull(offer);Assert.Equal(TextSubmission.ConfirmationRequired,r.Flow.Submit(offer));Assert.Equal(0,r.Script.Requests);Assert.Equal(TextSubmission.Started,r.Flow.Submit(offer,true));await r.First();
+        var frozen=offer.Snapshot;Assert.Equal(TranslationPreset.Faithful,r.Settings.Data.Translation.Preset);Assert.Equal(TranslationPreset.Plain,frozen.Preset);await r.SaveDisplay(edit);
+        await r.Script.Write(r.Delta(" PUBLIC OCR LAST")+r.EndFrame,true);await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.True(Assert.Single(r.Results.Versions).Complete);Assert.Same(frozen,r.Flow.SelectedSnapshot);Assert.Equal("PUBLIC FIRST PUBLIC OCR LAST",r.Results.Text);Assert.Equal(TranslationPreset.Plain,frozen.Preset);Assert.Equal(1,r.Script.Requests);Assert.Equal(0,r.Secrets.Reads);
+    }
+    [Theory][InlineData(Protocol.OpenAIChat,"pending")][InlineData(Protocol.AnthropicMessages,"pending")][InlineData(Protocol.OpenAIChat,"approval")][InlineData(Protocol.AnthropicMessages,"approval")][InlineData(Protocol.OpenAIChat,"saved-style")][InlineData(Protocol.AnthropicMessages,"saved-style")]
+    public async Task OcrSavedBaselinePreservesConfirmationApprovalAndRealSavedStyleChanges(Protocol protocol,string action)
+    {
+        await using var r=await Rig.Create(server,protocol);var offer=r.Flow.PrepareOcr(await r.OcrSource(),TranslationPreset.Plain);Assert.NotNull(offer);Assert.Equal(TextSubmission.ConfirmationRequired,r.Flow.Submit(offer));
+        if(action=="pending"){await r.SaveDisplay("font");Assert.Equal(TextSubmission.Rejected,r.Flow.Submit(offer,true));Assert.Equal(0,r.Script.Requests);return;}
+        Assert.Equal(TextSubmission.Started,r.Flow.Submit(offer,true));await r.First();await r.SaveDisplay("position");r.Context.Hold=true;await r.Script.Write(r.Delta(" PUBLIC DENIED OCR TAIL")+r.EndFrame,true);await TextUsageRig.Wait(()=>r.Context.Pending>0);
+        if(action=="approval")r.Local!.Clear();else await r.Save(s=>s with{Translation=s.Translation with{Preset=TranslationPreset.Plain}});
+        r.Context.Hold=false;r.Context.Drain();await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.False(Assert.Single(r.Results.Versions).Complete);Assert.Equal("PUBLIC FIRST",r.Results.Text);Assert.Equal(1,r.Script.Requests);Assert.Equal(0,r.Secrets.Reads);Assert.Null(Live(r));
+    }
+    [Theory][InlineData(Protocol.OpenAIChat)][InlineData(Protocol.AnthropicMessages)]
+    public async Task UnsafeNonProfileSavePreservesOriginalAbandonFallbackAndEachVersionsUsage(Protocol protocol)
+    {
+        await using var r=await Rig.Create(server,protocol);var first=r.Start();await r.FirstWithUsage(7,3);var a=r.Results.Identity!.Value;await r.Script.Write(r.EndFrame,true);await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));var retained=Assert.Single(r.Results.Versions);Assert.True(retained.Complete);Assert.Equal(new TranslationUsage(7,3),retained.Usage);
+        r.Start("PUBLIC OTHER SOURCE");await TextUsageRig.Wait(()=>r.Script.Requests==2);await r.FirstWithUsage(11,5);var b=r.Results.Identity!.Value;
+        r.Context.Hold=true;await r.Script.Write(r.Delta(" PUBLIC DENIED TAIL")+r.EndFrame,true);await TextUsageRig.Wait(()=>r.Context.Pending>0);await r.Save(s=>UnsafeEdit(s,"context"));r.Context.Hold=false;r.Context.Drain();await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));
+        Assert.Equal(a,r.Results.Identity);Assert.Equal(a.VersionId,r.Results.SelectedVersionId);Assert.Equal(retained,r.Results.Versions.Single(v=>v.Identity==a));Assert.Same(first.Snapshot,r.Flow.SelectedSnapshot);Assert.Equal("PUBLIC FIRST",r.Results.Text);var abandoned=r.Results.Versions.Single(v=>v.Identity==b);Assert.True(abandoned.Stopped);Assert.False(abandoned.Complete);Assert.Equal(new TranslationUsage(11,5),abandoned.Usage);Assert.Null(abandoned.Failure);Assert.Null(r.Results.LastFailure);Assert.DoesNotContain(r.Events,e=>e.Identity==b&&(e.Presentation.Text==" PUBLIC DENIED TAIL"||e.Presentation.Kind==OverlayResultEventKind.Complete));Assert.Equal(2,r.Script.Requests);Assert.Equal(0,r.Secrets.Reads);
+    }
+}

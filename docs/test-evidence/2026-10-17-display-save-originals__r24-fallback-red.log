@@ -1,0 +1,32 @@
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:01.15]     KuaiYi.Provider.Tests.DisplaySaveStreamTests.UnsafeNonProfileSavePreservesOriginalAbandonFallbackAndEachVersionsUsage(protocol: OpenAIChat) [FAIL]
+[xUnit.net 00:00:01.19]     KuaiYi.Provider.Tests.DisplaySaveStreamTests.UnsafeNonProfileSavePreservesOriginalAbandonFallbackAndEachVersionsUsage(protocol: AnthropicMessages) [FAIL]
+  Failed KuaiYi.Provider.Tests.DisplaySaveStreamTests.UnsafeNonProfileSavePreservesOriginalAbandonFallbackAndEachVersionsUsage(protocol: OpenAIChat) [427 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: RequestIdentity { SessionId = cf6b5922-43f3-4b15-8782-fa37c031fa87, VersionId = 341dc7d1-baad-46a9-b379-c70b9c9bc470, RequestId = 07296ddf-ba17-4e8a-86b6-046cb82dc292, Epoch = 3 }
+Actual:   RequestIdentity { SessionId = 1e37b4d9-f3f4-4203-89df-0783bafff364, VersionId = c789a6a0-ee63-455f-8abf-8d65641b0483, RequestId = 6ab23993-4e9d-4364-b08f-36bb7021cb24, Epoch = 4 }
+  Stack Trace:
+     at KuaiYi.Provider.Tests.DisplaySaveStreamTests.UnsafeNonProfileSavePreservesOriginalAbandonFallbackAndEachVersionsUsage(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs:line 195
+   at KuaiYi.Provider.Tests.DisplaySaveStreamTests.UnsafeNonProfileSavePreservesOriginalAbandonFallbackAndEachVersionsUsage(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs:line 195
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.DisplaySaveStreamTests.UnsafeNonProfileSavePreservesOriginalAbandonFallbackAndEachVersionsUsage(protocol: AnthropicMessages) [43 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: RequestIdentity { SessionId = 9a1cc038-5320-47f8-9601-24ceb4ee2d9c, VersionId = f0e76bc0-4ac5-4f6a-85e0-2b91a635e5a6, RequestId = fb704d00-7077-48ce-be91-3e936c15e5ca, Epoch = 3 }
+Actual:   RequestIdentity { SessionId = 545184e5-ff90-40f7-9cc5-d7401d7400da, VersionId = 3dc7c719-80a3-4898-80f1-248614c4fa0b, RequestId = 02649046-696e-4b22-b505-727a4c667194, Epoch = 4 }
+  Stack Trace:
+     at KuaiYi.Provider.Tests.DisplaySaveStreamTests.UnsafeNonProfileSavePreservesOriginalAbandonFallbackAndEachVersionsUsage(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs:line 195
+   at KuaiYi.Provider.Tests.DisplaySaveStreamTests.UnsafeNonProfileSavePreservesOriginalAbandonFallbackAndEachVersionsUsage(ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs:line 195
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/display-save-stream-continuation/r24-fallback-red.trx
+
+Failed!  - Failed:     2, Passed:     0, Skipped:     0, Total:     2, Duration: 489 ms - KuaiYi.Provider.Tests.dll (net10.0)

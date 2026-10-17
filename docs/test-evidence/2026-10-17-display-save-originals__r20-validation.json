@@ -1,0 +1,271 @@
+{
+  "Parent": "528b2ba8175b1014b51301eb653cc84d06dfd9b8",
+  "FrozenSource": {
+    "src/KuaiYi.Providers/TextTranslationCoordinator.cs": "5bf509ed3fd9433fbfbc9d27494bcf79be093c8092ac4162d502af028c29892e",
+    "tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs": "4127572f1dc612a7ff113d955d90472dd28ce0ed4ab10778ab91933dc6790845"
+  },
+  "RedGreen": {
+    "actualSseAfterDisplaySave": {
+      "sameTestSourceBytes": true,
+      "sameCaseNames": true,
+      "redCounters": {
+        "total": "6",
+        "executed": "6",
+        "passed": "0",
+        "failed": "6",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "greenCounters": {
+        "total": "6",
+        "executed": "6",
+        "passed": "6",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sameExecutedBinaries": {
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": false,
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": false,
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": true
+      }
+    },
+    "sameCapturedOwnerProductionPrimitive": {
+      "sameTestSourceBytes": true,
+      "sameCaseNames": true,
+      "redCounters": {
+        "total": "2",
+        "executed": "2",
+        "passed": "0",
+        "failed": "2",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "greenCounters": {
+        "total": "2",
+        "executed": "2",
+        "passed": "2",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sameExecutedBinaries": {
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": true,
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": false,
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": true
+      }
+    },
+    "actualSseOcrPerRequestStyle": {
+      "sameTestSourceBytes": true,
+      "sameCaseNames": true,
+      "redCounters": {
+        "total": "4",
+        "executed": "4",
+        "passed": "0",
+        "failed": "4",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "greenCounters": {
+        "total": "4",
+        "executed": "4",
+        "passed": "4",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sameExecutedBinaries": {
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": false,
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": false,
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": true
+      }
+    }
+  },
+  "FullRegression": {
+    "Core": {
+      "total": "1688",
+      "executed": "1688",
+      "passed": "1688",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "Provider": {
+      "total": "2208",
+      "executed": "2208",
+      "passed": "2208",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "Focused": {
+      "total": "51",
+      "executed": "51",
+      "passed": "51",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "CoreParentExactNameMultiset": true,
+    "ProviderEqualsParentExactNameMultisetPlusFocused51": true
+  },
+  "OldFailurePreservation": {
+    "r06": {
+      "total": "1688",
+      "executed": "1688",
+      "passed": "1687",
+      "failed": "1",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r13": {
+      "total": "51",
+      "executed": "51",
+      "passed": "49",
+      "failed": "2",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r06ToR14SameActualCoreBinaries": {
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": true,
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": true,
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll": true
+    },
+    "r06PostRunDiagnosticDllEqualsR14": true,
+    "RootCause": "Unknown; later pass does not prove repair. No production/test change to that old chain."
+  },
+  "CoreDependencyBoundary": "r14 was before Provider-only one-line approval action correction. Source record reflects that. Entire Core project dependency closure and production source unchanged; no Providers/Provider.Tests reference. Not every final test-source hash equals r14 snapshot.",
+  "ParentTracked": 3500,
+  "ChangedExisting": [
+    "docs/progress.md",
+    "docs/traceability.json",
+    "src/KuaiYi.Providers/TextTranslationCoordinator.cs"
+  ],
+  "AllOtherParentTrackedExactBytes": true,
+  "Builds": {
+    "App": {
+      "exit": 0,
+      "warnings": 0,
+      "errors": 0
+    },
+    "ImageWorker": {
+      "exit": 0,
+      "warnings": 0,
+      "errors": 0
+    }
+  },
+  "PreparedOnlyNotRun": [
+    "r08-app-build",
+    "r09-worker-build"
+  ]
+}

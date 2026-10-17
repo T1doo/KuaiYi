@@ -1,0 +1,15 @@
+Independent reviewer /root/high_water_review, read-only; no SDK/network/writes. Received during the current task, preserved excerpts, not a Windows/desktop acceptance.
+
+First candidate findings:
+发现确定P2并发误取消窗口：HTTP SendEligible的LiveSettingsCompatible和Committed→ObserveSettings都可能抓同一live L0、验证同一display snapshot S。HTTP先CAS L0→L1(Compatible=S)成功，通知线程随后Advance(L0,S)的CAS失败→返回false→Observe gate.StopRequest，安全display-save仍被取消；反方向则SendEligible误false。ReferenceEquals只修回值比较，不修该冲突。应在CAS失败后重读当前owner，若仍同identity/原snapshot且已缓存S则视为兼容成功；若是不同owner/已完成/unsafe则拒，不能无条件忽略失败。可用精确并发屏障/内部原语测试复现双验证同S一赢一输，并让实际HTTP+notification竞合覆盖。相邻不同版本交错也需保守避免cache回退。
+
+同一新增不可变LiveRequest替换还影响终结清理：MarkFinished原只读一次live后CAS null；若同时Advance将L0替为L1，清空CAS失败会留下已终结request的liveowner（仍单个有界，但后续Observe能错误对terminal identity StopRequest）。建议清理按同identity重读/重试到null或不同owner，完成后迟到Advance也不能复活。若改用专用cache锁，别在持cache锁时再入gate：ProviderClient最终sendAdmission会从gate锁内进入SendEligible，须避免gate/cache反向锁序。此项需真实终结交错验证，未运行SDK。
+
+CAS/cleanup direction review:
+该收紧方向合理：CAS冲突仅对仍同identity、同原Snapshot引用、已缓存同target version承认幂等成功；目标不再是settings()当前版本时拒绝可防缓存倒退。MarkFinished循环只清同identity，遇不同owner立即退出，迟到Advance的expected引用CAS不能复活已清owner。请测试资料区分：并发原语反例验证实际生产私有原语，SSE测试验证整条链；若没有真实HTTP/通知同点屏障，不称后者单独确定性复现CAS竞合。等待冻结源码后复审，无新增写/SDK/网络。
+
+OCR saved-basis review after actual 4F -> 4P:
+SavedSettings修订独审通过，当前无P1/P2。PrepareCore在本次preset投影前保存真实immutable config，Offer仅内部getter持该引用；普通源与Snapshot.Settings同引用，OCR多一个配置引用而非正文副本，offered/submitted/live均有界。Live以SavedSettings比较仍只归一化Overlay/WriteId；Prompt/Source/Preset/VersionNumber公共Snapshot未改。旧5参offer构造靠可选参数保持，regen两条路径默认原snapshot但新增兼容门均绕过，不改旧regen语义。SourceAllowed/审批/长度确认/Secret/binding/auth/HTTP门无改。已核r11→r12同OCR测试源SHAb5aaf83ca38a9c56848f70a7f2c28e29e76f434d066bd6f98b720c2daf61f95c、同四名，4F→4P；真实OcrOnlyCoordinator.Approve但worker明确synthetic，不能称Windows OCR验收。r06旧Owned-child settlement失败须如实保留Unknown，后续全Core重跑通过也不等于根因已修复。可补拒绝门和最终全回归/构建后封存。
+
+Final test-action/dependency review received:
+该修正只读核验通过：r13→当前测试精确仅一行r.Current=false改r.Local!.Clear()，全部断言不动；Clear默认clearApproved=true，实际Invalidate将approved=null，使IsApprovedSourceCurrent拒绝该文本，动作对应负例目标。生产与r13逐字节相同SHA5bf509ed3fd9433fbfbc9d27494bcf79be093c8092ac4162d502af028c29892e。已见r18最终51P，r14 Core1688P0skip；14个Core项目依赖闭包无Providers/Provider.Tests，Directory.Build.props无附加编译/引用，所以仅Provider-test一行改动无需重跑Core。封存时仍需准确说r14源记录内的Provider新test是修正前快照、该文件不属Core编译依赖，不能笼统说所有最终源码SHA都等r14快照；生产及Core依赖不变即可。r06旧结算失败/r13夹具49P2F原件和Unknown限制保留。当前无P1/P2，等终审索引。

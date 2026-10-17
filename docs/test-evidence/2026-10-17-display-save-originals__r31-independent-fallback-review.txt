@@ -1,0 +1,3 @@
+Independent read-only reviewer /root/high_water_review; no SDK/network/writes. Current correction review received:
+
+SettingsRejected最小修复只读复审通过，当前无P1/P2。原profile条件及Stop单独保留；新增非profile普通请求只同identity CAS永久置位，当前缓存单条bool有界；Live在originalVersion/cache前检查owner+拒位，Advance入口/败者幂等也拒已poison，MarkFinished同owner循环清理仍不能清新identity。中性Abandon有gate身份可执行，保原fallback/各版usage/Stopped；regen绕新增限制原语义保持。实际独核r24/r25/r26同testSHA1810c34ba8783843e97a58e120b76a0b72c5d8a8cc4b0dda236f1a1a3207c84a与同两名，候选2F→父control2P→修复2P；r25生产确等父528Gitblob。r26/r27/working生产同SHAa92389...，r27 55P已见。新增两例明确SimulatedCurrent端口精确原/缓存Version反例+真实queuedSSE，不混称实际store可重现相同Version。请保r23 OAI产品/Anthropicusage夹具分类、更新前候选报告“unsafe立即Stop”等旧结论与最终55/Provider2212/构建，130旧原件保持前候选字节；终审需新冻结packet。

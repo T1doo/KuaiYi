@@ -900,3 +900,14 @@ r01新测试xUnit2031编译0执行无TRX；r02候选3F→r03同三测试源码/�
 r01新增夹具初始化顺序错4F保全、不当产品红；修夹具r02父生产原字节实际4F缺Model属性；r03旧Hotkey五参调用CS7036、0执行无TRX保全，旧测试不改；兼容后r04同测试源/四名4P，测试DLL不同不混称同二进制。最终16专项P，Core1688P=父1672结果多重集+16，Provider2157原集合，App/Worker各0W/E。独立源码审查无P1/P2，冻结/陈旧确认/拒绝/隐藏锁屏退出/同origin授权保留/换origin或HTTP/secretref不显示不解密/重启Off及256模型字符串均有便携实测；实际WPF可见/键盘/排版未验。详见[范围与红绿](validation/enable-model-disclosure.md)及[精确原件](test-evidence/2026-10-17-enable-model-disclosure.json)。P1-05/L02只追加证据/说明，所有追踪状态保持，P7未抬；前a876独审94后加回执1共95原件全部原字节保全。
 
 仅已有SDK/--no-restore，激活前后禁ASP.NET证书生成，无新包/许可/环境安装。旧图片间歇根因Unknown、生产复用Off及250/600ms/来源/密码/身份/完整性/取消/清理门保持。Windows/真实模型/完整验收NotRun，Skia/403/Actions拒绝不查不绕，无main/强推/部署/费用/凭据/安全权限，未知锁/数据/日志/进程保全。
+
+
+## 2026-10-17 · SPEC3.6：显示保存不中断已启动文字生成
+
+父有限准入528b2ba后核HEAD/默认远端/main祖先、clean/单worktree及唯一root写入，正常建dev/display-save-stream-continuation。实际首段SSE→字号/宽度/位置保存→尾段，父生产6F→同源六名6P。仅TextTranslationCoordinator生产文件改变：活动请求缓存真实保存基线，只归一化Overlay/WriteId，冻结请求快照不改；旧未提交/确认、来源/授权/profile/秘密/HTTP/identity门保留。独审CAS同S败者误取消2F→2P，终结按identity重试清除；OCR本次风格与保存默认不同4F→4P，保存投影前基线、不扩白名单，重生成旧冻结语义保留。
+
+前候选41P/Provider2198P和51P/Provider2208P均保留；r13夹具49P2F仅把前置来源标记改为真实Local.Clear()，生产/断言不改。初次130原件/137路径终审前自审发现非profile unsafe立即Stop跳过原Abandon回退；独审确认后暂停提交。r23 OAI实际回归、Anthropic非法usage夹具不计双协议红；修正合法事件位置后r24两协议2F、r25父生产原字节同测试2P、r26修后2P。新增有界同owner永久否决位，只拒HTTP/交付并让下一destination保留原中性Abandon回A文本/usage/身份、保留B stopped；原profile Stop不改，恢复字段/原Version/已核Version和CAS败者均不能复活。
+
+最终r27专项55P、r28完整Provider2212P=父2157全名多重集+55；r29/r30 App/Worker0W/E。r06完整Core1687P1F旧Dispose_during_active_request结算未确认，源码/log/TRX/DLL保留；r14完整1688P且Core.Tests/Core/NativeHost DLL相同、诊断DLL后读亦同，根因Unknown、不冒称解决。r14早于后续Provider/Provider.Tests修正，其源记录保留前候选；Core14项目闭包不引用它们，整个依赖字节不变，仍适用，无需非依赖变动重复Core；最终Provider/App已重新全量/构建。
+
+见[修复与边界](validation/display-save-stream-continuation.md)及[全部红绿/回归原件](test-evidence/2026-10-17-display-save-stream-continuation.json)。真实store/Shell位置/Kestrel/交付链、同captured参数原语及显式settings-provider模拟分别注明，不称真实线程同点、WPF或Windows OCR。P1-03/A10仅追加证据/说明，全部状态不变。WPF设置可见性/键盘/焦点与前台来源、Windows/模型/完整验收未验，旧图片间歇Unknown/复用Off及250/600ms/来源/密码/身份/完整性/取消/清理门保持。仅已有SDK/--no-restore，激活前后禁ASP.NET证书生成；无新包许可环境、main/强推/部署/费用凭据安全权限或真实模型，Skia许可/403/Actions拒绝不查不绕，未知锁数据日志进程保全。

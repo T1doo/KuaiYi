@@ -1,0 +1,6 @@
+{
+  "observed": "49P2F, approval two protocol cases",
+  "reason": "Setting Rig.Current=false affects OCR recognition source predicate, not already-approved text identity. Production OcrOnlyCoordinator.IsApprovedSourceCurrent checks approved reference and gate. Test correction invokes actual Local.Clear() to revoke approval; assertions and all production files unchanged.",
+  "notProductRedGreen": true,
+  "fullCoreBinding": "r14 Core built/executed before this single Provider-only test action correction; Core.Tests project has no Providers or Provider.Tests reference. r06/r14 executed Core DLL binding comparison retained; no redundant Core rerun solely for this test-only correction."
+}

@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ec800124-7a8b-4a62-869c-61a54a5b4f18" name="@4cd0056ca8a8 2026-10-17 09:32:02" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-17T09:32:02.8310854+00:00" queuing="2026-10-17T09:32:02.8310855+00:00" start="2026-10-17T09:32:01.3303685+00:00" finish="2026-10-17T09:32:02.8369078+00:00" />
+  <TestSettings name="default" id="cd523b54-56c7-4674-8733-7c372c3324b9">
+    <Deployment runDeploymentRoot="_4cd0056ca8a8_2026-10-17_09_32_02" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="45307a7e-c5cc-4f40-a454-51a5e71d3260" testId="fb125055-b73e-90d5-966c-2187b5fc4a7d" testName="KuaiYi.Provider.Tests.DisplaySaveStreamTests.ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(protocol: AnthropicMessages, edit: &quot;position&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0130341" startTime="2026-10-17T09:32:02.7097853+00:00" endTime="2026-10-17T09:32:02.7233817+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="45307a7e-c5cc-4f40-a454-51a5e71d3260" />
+    <UnitTestResult executionId="5dcec3a8-55ac-4dfa-93a3-9496ce6ab7db" testId="a629c9f2-5d50-c780-4e91-e9e1fb8fb65d" testName="KuaiYi.Provider.Tests.DisplaySaveStreamTests.ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(protocol: OpenAIChat, edit: &quot;font&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0118675" startTime="2026-10-17T09:32:02.6976929+00:00" endTime="2026-10-17T09:32:02.7094548+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5dcec3a8-55ac-4dfa-93a3-9496ce6ab7db" />
+    <UnitTestResult executionId="b0a453a8-0f65-47e2-b36d-73bbc01ff74c" testId="e12a0dc8-c737-4e8a-c952-7915fc508e73" testName="KuaiYi.Provider.Tests.DisplaySaveStreamTests.ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(protocol: OpenAIChat, edit: &quot;position&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0234784" startTime="2026-10-17T09:32:02.6812553+00:00" endTime="2026-10-17T09:32:02.6970914+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b0a453a8-0f65-47e2-b36d-73bbc01ff74c" />
+    <UnitTestResult executionId="6b667e2d-d5ed-4937-a624-b287477bb3a1" testId="c28c05b4-0db0-abfe-bf5c-7acf0a408e36" testName="KuaiYi.Provider.Tests.DisplaySaveStreamTests.ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(protocol: AnthropicMessages, edit: &quot;font&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.3598702" startTime="2026-10-17T09:32:02.3055612+00:00" endTime="2026-10-17T09:32:02.6723068+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6b667e2d-d5ed-4937-a624-b287477bb3a1" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Provider.Tests.DisplaySaveStreamTests.ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(protocol: OpenAIChat, edit: &quot;font&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="a629c9f2-5d50-c780-4e91-e9e1fb8fb65d">
+      <Execution id="5dcec3a8-55ac-4dfa-93a3-9496ce6ab7db" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.DisplaySaveStreamTests" name="ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.DisplaySaveStreamTests.ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(protocol: AnthropicMessages, edit: &quot;position&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="fb125055-b73e-90d5-966c-2187b5fc4a7d">
+      <Execution id="45307a7e-c5cc-4f40-a454-51a5e71d3260" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.DisplaySaveStreamTests" name="ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.DisplaySaveStreamTests.ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(protocol: AnthropicMessages, edit: &quot;font&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="c28c05b4-0db0-abfe-bf5c-7acf0a408e36">
+      <Execution id="6b667e2d-d5ed-4937-a624-b287477bb3a1" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.DisplaySaveStreamTests" name="ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Provider.Tests.DisplaySaveStreamTests.ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(protocol: OpenAIChat, edit: &quot;position&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.provider.tests/bin/release/net10.0/kuaiyi.provider.tests.dll" id="e12a0dc8-c737-4e8a-c952-7915fc508e73">
+      <Execution id="b0a453a8-0f65-47e2-b36d-73bbc01ff74c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Provider.Tests.DisplaySaveStreamTests" name="ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="fb125055-b73e-90d5-966c-2187b5fc4a7d" executionId="45307a7e-c5cc-4f40-a454-51a5e71d3260" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a629c9f2-5d50-c780-4e91-e9e1fb8fb65d" executionId="5dcec3a8-55ac-4dfa-93a3-9496ce6ab7db" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e12a0dc8-c737-4e8a-c952-7915fc508e73" executionId="b0a453a8-0f65-47e2-b36d-73bbc01ff74c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c28c05b4-0db0-abfe-bf5c-7acf0a408e36" executionId="6b667e2d-d5ed-4937-a624-b287477bb3a1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="4" executed="4" passed="4" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.12]   Discovering: KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.51]   Discovered:  KuaiYi.Provider.Tests
+[xUnit.net 00:00:00.53]   Starting:    KuaiYi.Provider.Tests
+[xUnit.net 00:00:01.07]   Finished:    KuaiYi.Provider.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

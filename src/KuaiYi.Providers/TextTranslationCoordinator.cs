@@ -1,4 +1,5 @@
 using System.Text;
+using System.Security.Cryptography;
 using KuaiYi.Core;
 using KuaiYi.Core.Settings;
 using SettingsProfile=KuaiYi.Core.Settings.ApiProfile;
@@ -12,9 +13,10 @@ public sealed record TextTranslationSnapshot(SelectionSourceSnapshot Source,Sett
 public sealed record TextGenerationPreview(int VersionNumber,TranslationPreset Preset,string Model);
 public sealed class TextTranslationOffer
 {
-    internal TextTranslationOffer(TextTranslationSnapshot snapshot,CaptureTicket ticket,bool regenerate,Guid session,int versionNumber)
-    {Snapshot=snapshot with{VersionNumber=versionNumber};Ticket=ticket;Regenerate=regenerate;Session=session;}
+    internal TextTranslationOffer(TextTranslationSnapshot snapshot,CaptureTicket ticket,bool regenerate,Guid session,int versionNumber,SettingsSnapshot? savedSettings=null)
+    {Snapshot=snapshot with{VersionNumber=versionNumber};SavedSettings=savedSettings??snapshot.Settings;Ticket=ticket;Regenerate=regenerate;Session=session;}
     public TextTranslationSnapshot Snapshot{get;}
+    internal SettingsSnapshot SavedSettings{get;}
     internal CaptureTicket Ticket{get;} internal bool Regenerate{get;} internal Guid Session{get;}
     internal RequestIdentity? Identity{get;set;} internal bool Launched{get;set;} internal bool Finished{get;set;}
     public bool RequiresConfirmation=>Snapshot.Source.SourceKind==SelectionSourceKind.OcrOnly||Snapshot.Source.Scalars>Snapshot.Settings.Data.Translation.AutoSoftLimitScalars;
@@ -37,7 +39,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     private readonly HashSet<Task> jobs=[];private readonly object jobsSync=new();
     private Guid? styleSession;private TranslationPreset? sessionStyle;
     private TextTranslationOffer? offered,submitted;private bool disposed;private Exception? deliveryFailure;
-    private sealed record LiveRequest(RequestIdentity Identity,TextTranslationSnapshot Snapshot);
+    private sealed record LiveRequest(RequestIdentity Identity,TextTranslationSnapshot Snapshot,SettingsSnapshot CompatibleSettings,bool SettingsRejected=false);
     private LiveRequest? liveRequest;
     private sealed class DestinationFailure(Exception inner):Exception("Translation destination failed.",inner);
     public OverlayResults Results{get;}
@@ -88,6 +90,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
         if(!DevelopmentSettingsAllowed(config))return Reject("TEST_BOUNDARY_REJECTED");
         if(!ValidText(source,config.Data.Translation.HardLimitScalars))return Reject("SOURCE_INVALID_OR_TOO_LARGE");
         if(!SourceAllowed(source,config,explicitUse))return Reject("SOURCE_CHANGED_OR_EXCLUDED");
+        var savedSettings=config; // A per-request OCR style changes the frozen prompt, not the committed baseline.
         if(preset is {} chosen)config=config with{Data=config.Data with{Translation=config.Data.Translation with{Preset=chosen}}};
         if(!gate.TryBeginPassiveCapture(gate.Snapshot.Mode,out var ticket))return Reject("ENABLE_REQUIRED");
         var profile=config.Data.Profiles.FirstOrDefault(p=>p.Id==config.Data.ActiveProfileId);
@@ -100,7 +103,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
             var snapshot=new TextTranslationSnapshot(source,config,profile,binding,transport,
                 composition.System,composition.TemplateVersion);
             var session=Same(snapshot,submitted?.Snapshot)?submitted!.Session:Guid.NewGuid();
-            return offered=new(snapshot,ticket,false,session,Results.NextVersionNumber(session));
+            return offered=new(snapshot,ticket,false,session,Results.NextVersionNumber(session),savedSettings);
         }
         catch(Exception error)when(error is ArgumentException or SettingsValidationException){return Reject("PROFILE_INVALID");}
     }
@@ -151,7 +154,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     {
         offer.Launched=true;if(styleSession!=identity.SessionId){styleSession=null;sessionStyle=null;}snapshots[identity.VersionId]=offer.Snapshot;
         if(!Results.Begin(identity))return;
-        Volatile.Write(ref liveRequest,new(identity,offer.Snapshot));
+        Volatile.Write(ref liveRequest,new(identity,offer.Snapshot,offer.SavedSettings));
         PruneSnapshots();
         Publish(new(identity,new(OverlayResultEventKind.Begin),offer.Snapshot));
         Running=RunAsync(identity,offer.Snapshot,offer.Regenerate,explicitUse);
@@ -165,7 +168,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
         if(!gate.TryLinkRequestCancellation(identity,CancellationToken.None,out var linked))return;
         using var lifetime=linked!;var budget=provider.FreezeBudget(snapshot.Transport);using var timeout=budget.Link(lifetime.Token);
         SecretLease? secret=null;bool terminal=false;
-        bool SendEligible()=>Eligible(snapshot,explicitUse)&&(regenerate||settings()?.Version==snapshot.Settings.Version)&&gate.IsRequestProfileBindingCurrent(identity,snapshot.Binding);
+        bool SendEligible()=>Eligible(snapshot,explicitUse)&&(regenerate||LiveSettingsCompatible(identity,snapshot))&&gate.IsRequestProfileBindingCurrent(identity,snapshot.Binding);
         try
         {
             if(!SendEligible()||!gate.CanApply(identity)){terminal=await FailAsync(identity,snapshot,"SOURCE_OR_SETTINGS_CHANGED",lifetime.Token,budget,SendEligible).ConfigureAwait(false);return;}
@@ -207,7 +210,14 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     {if(Results.Abandon(identity)){MarkFinished(identity);PruneSnapshots();Publish(new(identity,new(OverlayResultEventKind.Stopped),snapshot));}}
     private void Publish(TextTranslationUpdate update)
     {try{changed(update);}catch(Exception error){deliveryFailure=error;gate.StopRequest(update.Identity);throw new DestinationFailure(error);}}
-    private void MarkFinished(RequestIdentity identity){gate.MarkRequestTerminal(identity);if(submitted?.Identity==identity)submitted.Finished=true;var live=Volatile.Read(ref liveRequest);if(live?.Identity==identity)Interlocked.CompareExchange(ref liveRequest,null,live);}
+    private void MarkFinished(RequestIdentity identity)
+    {
+        gate.MarkRequestTerminal(identity);if(submitted?.Identity==identity)submitted.Finished=true;
+        // A concurrent compatible-save validator can replace this same owner's cache entry.
+        // Clear that owner completely, without clearing any newer request.
+        while(Volatile.Read(ref liveRequest) is {} live&&live.Identity==identity)
+            if(ReferenceEquals(Interlocked.CompareExchange(ref liveRequest,null,live),live))break;
+    }
     private bool Eligible(TextTranslationSnapshot snapshot,bool explicitUse)
     {
         var current=settings();if(disposed||current==null||current.ReadOnly||current.RequiresRecovery||
@@ -235,6 +245,41 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
         DevelopmentSettingsAllowed(current);var live=Volatile.Read(ref liveRequest);if(live==null)return;
         var profile=current.Data.Profiles.FirstOrDefault(p=>p.Id==live.Snapshot.Profile.Id);
         if(current.Data.ActiveProfileId!=live.Snapshot.Profile.Id||profile==null||!ApiProfilePolicy.RequestEquivalent(profile,live.Snapshot.Profile))gate.StopRequest(live.Identity);
+        else if(!live.Snapshot.IsRegeneration&&current.Version!=live.CompatibleSettings.Version&&!AdvanceDisplaySettings(live,current))
+        {
+            // Keep this identity long enough for its next destination event to run the original Abandon/fallback.
+            // The permanent denial also rejects send admission and cannot be undone by restoring saved fields.
+            while(Volatile.Read(ref liveRequest) is {} owner&&owner.Identity==live.Identity&&!owner.SettingsRejected)
+                if(ReferenceEquals(Interlocked.CompareExchange(ref liveRequest,owner with{SettingsRejected=true},owner),owner))break;
+        }
+    }
+    private bool LiveSettingsCompatible(RequestIdentity identity,TextTranslationSnapshot snapshot)
+    {
+        while(true)
+        {
+            var live=Volatile.Read(ref liveRequest);if(live?.Identity!=identity||live.SettingsRejected)return false;
+            var current=settings();if(current==null)return false;if(current.Version==snapshot.Settings.Version)return true;
+            // A committed snapshot can become visible just before its notification. Validate that same narrow transition here.
+            if(current.Version==live.CompatibleSettings.Version||AdvanceDisplaySettings(live,current))return true;
+            if(settings()?.Version==current.Version)return false; // Re-evaluate a commit which overtook this check.
+        }
+    }
+    private bool AdvanceDisplaySettings(LiveRequest live,SettingsSnapshot current)
+    {
+        if(live.SettingsRejected||current.ReadOnly||current.RequiresRecovery||current.Data.WriteId==Guid.Empty||current.Data.WriteId==live.CompatibleSettings.Data.WriteId||settings()?.Version!=current.Version)return false;
+        byte[]? before=null,after=null;
+        try
+        {
+            // Compare every persisted field, normalizing only presentation and the coordinator's transaction marker.
+            // This runs only at a changed snapshot; per-token checks use the already accepted immutable version.
+            before=SettingsJson.Write(live.CompatibleSettings.Data);
+            after=SettingsJson.Write(current.Data with{Overlay=live.CompatibleSettings.Data.Overlay,WriteId=live.CompatibleSettings.Data.WriteId});
+            if(!before.AsSpan().SequenceEqual(after))return false;
+            var observed=Interlocked.CompareExchange(ref liveRequest,live with{CompatibleSettings=current},live);
+            return ReferenceEquals(observed,live)||observed?.Identity==live.Identity&&!observed.SettingsRejected&&ReferenceEquals(observed.Snapshot,live.Snapshot)&&observed.CompatibleSettings.Version==current.Version;
+        }
+        catch(SettingsValidationException){return false;}
+        finally{if(before!=null)CryptographicOperations.ZeroMemory(before);if(after!=null)CryptographicOperations.ZeroMemory(after);}
     }
     public bool CanUseSettings(SettingsSnapshot current)=>DevelopmentSettingsAllowed(current);
     private void PruneSnapshots()

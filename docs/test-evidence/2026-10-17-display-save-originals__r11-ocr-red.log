@@ -1,0 +1,52 @@
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:06.96]     KuaiYi.Provider.Tests.DisplaySaveStreamTests.ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(protocol: AnthropicMessages, edit: "font") [FAIL]
+  Failed KuaiYi.Provider.Tests.DisplaySaveStreamTests.ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(protocol: AnthropicMessages, edit: "font") [6 s]
+  Error Message:
+   System.TimeoutException : The operation has timed out.
+  Stack Trace:
+     at KuaiYi.Provider.Tests.PhaseHttpFixture.Script.Write(Byte[] value, Boolean end) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseHttpFixture.cs:line 26
+   at KuaiYi.Provider.Tests.PhaseHttpFixture.Script.Write(String value, Boolean end) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseHttpFixture.cs:line 25
+   at KuaiYi.Provider.Tests.DisplaySaveStreamTests.ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(ApiProtocol protocol, String edit) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs:line 173
+   at KuaiYi.Provider.Tests.DisplaySaveStreamTests.ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(ApiProtocol protocol, String edit) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs:line 173
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:06.98]     KuaiYi.Provider.Tests.DisplaySaveStreamTests.ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(protocol: OpenAIChat, edit: "position") [FAIL]
+[xUnit.net 00:00:07.00]     KuaiYi.Provider.Tests.DisplaySaveStreamTests.ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(protocol: OpenAIChat, edit: "font") [FAIL]
+[xUnit.net 00:00:07.03]     KuaiYi.Provider.Tests.DisplaySaveStreamTests.ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(protocol: AnthropicMessages, edit: "position") [FAIL]
+  Failed KuaiYi.Provider.Tests.DisplaySaveStreamTests.ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(protocol: OpenAIChat, edit: "position") [27 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.DisplaySaveStreamTests.ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(ApiProtocol protocol, String edit) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs:line 173
+   at KuaiYi.Provider.Tests.DisplaySaveStreamTests.ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(ApiProtocol protocol, String edit) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs:line 173
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.DisplaySaveStreamTests.ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(protocol: OpenAIChat, edit: "font") [15 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.DisplaySaveStreamTests.ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(ApiProtocol protocol, String edit) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs:line 173
+   at KuaiYi.Provider.Tests.DisplaySaveStreamTests.ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(ApiProtocol protocol, String edit) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs:line 173
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Provider.Tests.DisplaySaveStreamTests.ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(protocol: AnthropicMessages, edit: "position") [14 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Provider.Tests.DisplaySaveStreamTests.ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(ApiProtocol protocol, String edit) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs:line 173
+   at KuaiYi.Provider.Tests.DisplaySaveStreamTests.ConfirmedOcrWithPerRequestStyleUsesSavedDisplayBaselineAndFrozenStyle(ApiProtocol protocol, String edit) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/DisplaySaveStreamTests.cs:line 173
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/display-save-stream-continuation/r11-ocr-red.trx
+
+Failed!  - Failed:     4, Passed:     0, Skipped:     0, Total:     4, Duration: 6 s - KuaiYi.Provider.Tests.dll (net10.0)
