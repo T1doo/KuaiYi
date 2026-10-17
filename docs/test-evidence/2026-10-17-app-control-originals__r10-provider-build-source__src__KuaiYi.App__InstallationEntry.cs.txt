@@ -1,0 +1,26 @@
+using System.IO;
+using System.Windows;
+using KuaiYi.Core.Installation;
+namespace KuaiYi.App;
+
+internal sealed partial class ShellWindow
+{
+    private readonly TaskCompletionSource installationReady=new(TaskCreationOptions.RunContinuationsAsynchronously);
+    private bool startupHealthy;
+    internal void AttachInstallationControl(InstallationApplicationControl control)
+    {
+        installationControl=control;
+        Loaded+=async(_,_)=>
+        {
+            try
+            {
+                await startup;
+                if(!startupHealthy||exiting||!IsLoaded||!IsVisible||hwnd==0||!geometryReady||lifecycle.Settings is not {ReadOnly:false,RequiresRecovery:false})throw new IOException("Application startup health is unconfirmed.");
+                installationReady.TrySetResult();
+            }
+            catch(Exception error){installationReady.TrySetException(error);}
+        };
+        // The original loop remains held by control; observing its fault does not declare shutdown or remove any fence.
+        _=control.RunAsync(installationReady.Task,_=>Dispatcher.InvokeAsync(Close).Task).ContinueWith(t=>{diagnostics.RecordFailure(t.Exception!.GetBaseException());},CancellationToken.None,TaskContinuationOptions.OnlyOnFaulted,TaskScheduler.Default);
+    }
+}

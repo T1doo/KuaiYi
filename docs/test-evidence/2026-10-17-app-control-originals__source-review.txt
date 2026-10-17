@@ -1,0 +1,12 @@
+Independent read-only reviewer: /root/high_water_review
+Source review result received before final packet sealing:
+
+源码复审通过，未发现剩余P1/P2。
+
+容量1队列最多保留一个待重试请求；单worker等待同一个原Close任务完成后再处理下一次，没有弱化旧断言。
+
+已核r18实际1F→r19同方法1P，方法SHA为733856e3…cdb73d1；两轮仅fixture源码变化。r19 107P，57份源码快照、当前字节及执行元数据一致。
+
+r17当次具体时序仍Unknown。r20新出现的旧OLE失败需独立保留；完整回归及最终封存准入尚待收口。
+
+This receipt records the source review. It is not final packet approval or Windows verification.

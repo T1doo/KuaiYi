@@ -1,0 +1,1163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="5953f26e-ec0d-4459-aeb5-6260a7910351" name="@4cd0056ca8a8 2026-10-17 13:45:26" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-17T13:45:26.7687585+00:00" queuing="2026-10-17T13:45:26.7687586+00:00" start="2026-10-17T13:45:25.2785641+00:00" finish="2026-10-17T13:45:59.9516880+00:00" />
+  <TestSettings name="default" id="db09a966-81d0-43e7-89ea-ba5015df5e9b">
+    <Deployment runDeploymentRoot="_4cd0056ca8a8_2026-10-17_13_45_26" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="96eb66c3-526b-4b0e-9a9b-e1e5a5e858f8" testId="16e006e2-3e7e-5b50-455a-e9d1c946c021" testName="KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: &quot;path-number&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0113305" startTime="2026-10-17T13:45:27.1064919+00:00" endTime="2026-10-17T13:45:27.1180134+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="96eb66c3-526b-4b0e-9a9b-e1e5a5e858f8" />
+    <UnitTestResult executionId="d6a67f36-c3e5-4ce1-bff3-6fc4f7ca004c" testId="cd4b2b39-a8c9-ea69-bb47-e59b8f6d108e" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.NormalLaunchAlsoHoldsAdmissionThroughActualStartupAndHealthSettlement" computerName="4cd0056ca8a8" duration="00:00:00.1117770" startTime="2026-10-17T13:45:29.1418609+00:00" endTime="2026-10-17T13:45:29.2540906+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d6a67f36-c3e5-4ce1-bff3-6fc4f7ca004c">
+      <Output>
+        <StdOut>PUBLIC_ADMISSION_CHILD exit=4 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 IO=Settled
+PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-c2f5574e9c2841df9a4aaafc4a76a7e4/application/versions/96598e02b50841e4866c0d5c066ae305 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3fb279aa-70ca-4b1d-8291-57432944d929" testId="0a6c06a3-40db-22c4-a6aa-c18ed437e7e9" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.IntactButUnhealthyNewVersionRestoresExactOldPointerAndActuallyRestartsOldApplication(mode: &quot;wrong-version&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.1609915" startTime="2026-10-17T13:45:38.1349953+00:00" endTime="2026-10-17T13:45:38.2962498+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3fb279aa-70ca-4b1d-8291-57432944d929">
+      <Output>
+        <StdOut>PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-b086c0c19ef54a4cb929b82ff1a5ca2b/application/versions/b3ef1c6cee99406c951fb1a21de221e6 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=0 stdoutLines=2 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=2.0 directory=/tmp/kuaiyi-upgrade-tests-b086c0c19ef54a4cb929b82ff1a5ca2b/application/versions/ccc36defdd854f5bb4e9511ccf9496fa driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-b086c0c19ef54a4cb929b82ff1a5ca2b/application/versions/b3ef1c6cee99406c951fb1a21de221e6 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="772d22ea-c540-44c4-93bd-a47c7d4240b4" testId="9d9c72e0-791c-c715-8f2e-97f76a898695" testName="KuaiYi.Core.Tests.InstallationHandoffTests.PostcommitCallerCancellationAndEveryOldControllerMutationAreRefusedWithoutKillingTheRuntime" computerName="4cd0056ca8a8" duration="00:00:00.3782673" startTime="2026-10-17T13:45:33.9221213+00:00" endTime="2026-10-17T13:45:34.3015571+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="772d22ea-c540-44c4-93bd-a47c7d4240b4">
+      <Output>
+        <StdOut>PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-38a8a2e39fbe4c2dae2cbd950c0e25f7/application/versions/70caccb6351f42cb96d0345b80a56a21
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-38a8a2e39fbe4c2dae2cbd950c0e25f7/application/versions/1925c083a48745b48f974e0137d519bb
+PUBLIC_ORIGINAL_IO|LiveControl|CancelledAndJoined|Settled
+PUBLIC_HANDOFF_RESULT|Upgraded|Committed|2.0|
+PUBLIC_COMMITTED_GATES|Start=Refused|Upgrade=Refused|Retry=Refused|CallerCancelled=True
+PUBLIC_TRANSFERRED_LIFETIME|ExitObserved=False|Stop=OwnershipTransferred|Finalize=False
+PUBLIC_CONTROLLER_DISPOSED
+PUBLIC_ACTUAL_CONTROLLER_EXIT=0
+PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-38a8a2e39fbe4c2dae2cbd950c0e25f7/application/versions/70caccb6351f42cb96d0345b80a56a21
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-38a8a2e39fbe4c2dae2cbd950c0e25f7/application/versions/1925c083a48745b48f974e0137d519bb
+PUBLIC_ORIGINAL_IO|LiveControl|CancelledAndJoined|Settled
+PUBLIC_HANDOFF_RESULT|Upgraded|Committed|2.0|
+PUBLIC_COMMITTED_GATES|Start=Refused|Upgrade=Refused|Retry=Refused|CallerCancelled=True
+PUBLIC_TRANSFERRED_LIFETIME|ExitObserved=False|Stop=OwnershipTransferred|Finalize=False
+PUBLIC_CONTROLLER_DISPOSED
+PUBLIC_RUNTIME_SELF_CLEANUP=1 pipeEOF=True OSLeaseReleased=True durableFenceRetained=True</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7fc6ff25-b943-41ad-8ba4-1061b04e8a02" testId="fa63c3f3-558b-5cd8-26ce-398c434e867d" testName="KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: &quot;oversize&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0076415" startTime="2026-10-17T13:45:27.0810608+00:00" endTime="2026-10-17T13:45:27.0888876+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7fc6ff25-b943-41ad-8ba4-1061b04e8a02" />
+    <UnitTestResult executionId="a7c1666f-306b-4fc7-ae64-d8b2c326ead4" testId="12444785-92d5-a0b2-7788-5855a4205f7d" testName="KuaiYi.Core.Tests.InstallationTransactionTests.UncertainRecoveryRetainsAllFilesAndNeverReportsSuccess(fault: &quot;lock&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0108276" startTime="2026-10-17T13:45:27.2057628+00:00" endTime="2026-10-17T13:45:27.2155354+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a7c1666f-306b-4fc7-ae64-d8b2c326ead4" />
+    <UnitTestResult executionId="d8f094e3-5acf-44f7-a9c7-a7d4e2bc2024" testId="3dc866c5-56f2-4731-45c5-b2887dc01fd3" testName="KuaiYi.Core.Tests.InstallationHandoffTests.PrecommitOriginalTaskRetainsOwnershipUntilReleasedAndSameControllerCanThenRetryExactRollback" computerName="4cd0056ca8a8" duration="00:00:04.3703090" startTime="2026-10-17T13:45:34.6685293+00:00" endTime="2026-10-17T13:45:39.0391110+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d8f094e3-5acf-44f7-a9c7-a7d4e2bc2024">
+      <Output>
+        <StdOut>PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-d8b7bdc1e5784fde831f76daf480ea17/application/versions/5972c06029b84432864003e6a6e559db
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-d8b7bdc1e5784fde831f76daf480ea17/application/versions/7d3a41e0b86d4ab9b19131bee10e5efb
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_HANDOFF_UNCONFIRMED
+PUBLIC_PRECOMMIT_TASK_RETAINED
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-d8b7bdc1e5784fde831f76daf480ea17/application/versions/5972c06029b84432864003e6a6e559db
+PUBLIC_RETRY_RESULT|RolledBack|1.0
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_ACTUAL_CONTROLLER_EXIT=0
+PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-d8b7bdc1e5784fde831f76daf480ea17/application/versions/5972c06029b84432864003e6a6e559db
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-d8b7bdc1e5784fde831f76daf480ea17/application/versions/7d3a41e0b86d4ab9b19131bee10e5efb
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_HANDOFF_UNCONFIRMED
+PUBLIC_PRECOMMIT_TASK_RETAINED
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-d8b7bdc1e5784fde831f76daf480ea17/application/versions/5972c06029b84432864003e6a6e559db
+PUBLIC_RETRY_RESULT|RolledBack|1.0
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_ORIGINAL_IO|Exit|137|Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1fe74088-c794-45c1-8155-d980680b5a64" testId="9f55ea81-fc56-6c8e-982d-7b38c96c7480" testName="KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: &quot;missing&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0097010" startTime="2026-10-17T13:45:27.0203843+00:00" endTime="2026-10-17T13:45:27.0336717+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1fe74088-c794-45c1-8155-d980680b5a64" />
+    <UnitTestResult executionId="2b63908f-bada-4a16-91e4-972f0b995be9" testId="44cb2545-01fb-21a6-84fe-3c223d19355b" testName="KuaiYi.Core.Tests.InstallationTransactionTests.UnknownRootLockPointerAndUserDataOverlapAreNotOverwritten" computerName="4cd0056ca8a8" duration="00:00:00.0035493" startTime="2026-10-17T13:45:27.2595719+00:00" endTime="2026-10-17T13:45:27.2632653+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2b63908f-bada-4a16-91e4-972f0b995be9" />
+    <UnitTestResult executionId="3e9fe1a4-768e-437e-ab8e-226c7fa189e7" testId="eb7ebbd0-7f5f-0775-aec1-fd02ba5244ac" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.FailedCloseKeepsTheSameApplicationAndOwnerAndASecondCloseCanSettleTheOriginalControl" computerName="4cd0056ca8a8" duration="00:00:00.1433665" startTime="2026-10-17T13:45:27.5790358+00:00" endTime="2026-10-17T13:45:27.7221422+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3e9fe1a4-768e-437e-ab8e-226c7fa189e7">
+      <Output>
+        <StdOut>PUBLIC_APP_CONTROL_CHILD actualExit=0 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106 originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ec01607c-affe-4029-b86b-318a749f062e" testId="8aa57f9f-ab1e-d847-d4e6-15224eaee9db" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;role&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.1528264" startTime="2026-10-17T13:45:26.4862447+00:00" endTime="2026-10-17T13:45:26.6456756+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ec01607c-affe-4029-b86b-318a749f062e">
+      <Output>
+        <StdOut>PUBLIC_APP_START_REJECT actualExit=3 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 noSurface=True originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d5a9313a-3394-4cfa-b531-0abaebd3d7cb" testId="cbeeb6e4-455f-f348-5f81-b0c72c9cf004" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.ChangedPendingRecordIsRetainedAndCannotBeClearedByOwnedRetry" computerName="4cd0056ca8a8" duration="00:00:00.2030383" startTime="2026-10-17T13:45:53.2878777+00:00" endTime="2026-10-17T13:45:53.4912799+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d5a9313a-3394-4cfa-b531-0abaebd3d7cb">
+      <Output>
+        <StdOut>PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-b211b156ebd44a89b3203a810bbcd938/application/versions/1cc048044ae5403189924cfbbea8de88 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=0 stdoutLines=2 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=2.0 directory=/tmp/kuaiyi-upgrade-tests-b211b156ebd44a89b3203a810bbcd938/application/versions/440ae9ec84d142818c932516ed4903ed driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled
+PUBLIC_ADMISSION_CHILD exit=4 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 IO=Settled
+PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-b211b156ebd44a89b3203a810bbcd938/application/versions/1cc048044ae5403189924cfbbea8de88 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="31f5dcd2-0051-4740-b88b-b6dd41a2c378" testId="944499fe-55d9-3665-32fe-4a7769393b41" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.LateActualStartOwnerMustPublishExitAndSettleIoBeforeOldVersionRestarts" computerName="4cd0056ca8a8" duration="00:00:06.1723404" startTime="2026-10-17T13:45:46.7379462+00:00" endTime="2026-10-17T13:45:52.9126315+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="31f5dcd2-0051-4740-b88b-b6dd41a2c378">
+      <Output>
+        <StdOut>PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-4069d2a7f1fc4e698d79b91add775db6/application/versions/2449943de2ce464fa1305c1ceba51d69 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=0 stdoutLines=2 stderrBytes=0 IO=Settled
+PUBLIC_ADMISSION_CHILD exit=4 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 IO=Settled
+PUBLIC_UPGRADE_CHILD version=2.0 directory=/tmp/kuaiyi-upgrade-tests-4069d2a7f1fc4e698d79b91add775db6/application/versions/ca1b811d4cb8405dba86e197c377ba5f driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-4069d2a7f1fc4e698d79b91add775db6/application/versions/2449943de2ce464fa1305c1ceba51d69 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c4702e82-27cb-493d-a9a8-5db4b16d043f" testId="7b3a5b73-b452-e4e3-7d07-c8a967bf211f" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(upgrade: False)" computerName="4cd0056ca8a8" duration="00:00:00.0574678" startTime="2026-10-17T13:45:28.8848713+00:00" endTime="2026-10-17T13:45:28.9425635+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c4702e82-27cb-493d-a9a8-5db4b16d043f">
+      <Output>
+        <StdOut>PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-6c010734f1974fb79266346b48ba2ec7/application/versions/57d16a8de05f4465970a4dd17b427f37 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6c1678eb-5773-4949-ad14-b92a00c4a735" testId="f70da555-b519-2d46-6d57-6388d7dee55f" testName="KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: &quot;version-number&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0066797" startTime="2026-10-17T13:45:27.1260932+00:00" endTime="2026-10-17T13:45:27.1329390+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6c1678eb-5773-4949-ad14-b92a00c4a735" />
+    <UnitTestResult executionId="7e4a84ec-61ba-42fd-a85b-9542e9d88eb5" testId="fb4022ea-afa4-6058-ecfd-64cc99b61372" testName="KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: &quot;schema&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0105971" startTime="2026-10-17T13:45:27.0338378+00:00" endTime="2026-10-17T13:45:27.0444425+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7e4a84ec-61ba-42fd-a85b-9542e9d88eb5" />
+    <UnitTestResult executionId="e5ab9292-2b1e-4fe0-8733-8a213652a5a9" testId="33766f64-e6ba-3110-29fb-142271054959" testName="KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: &quot;reserved&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0112672" startTime="2026-10-17T13:45:26.9927981+00:00" endTime="2026-10-17T13:45:27.0040345+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e5ab9292-2b1e-4fe0-8733-8a213652a5a9" />
+    <UnitTestResult executionId="e63c5f10-5c45-40d6-8d6a-8e08ebbb055c" testId="e7a0149b-2fdf-a4dc-318b-b1ffb324a135" testName="KuaiYi.Core.Tests.InstallationTransactionTests.ActualIoFailureBeforeOrAfterPublicationKeepsTheCompletePreviousVersion(stage: VersionPublished)" computerName="4cd0056ca8a8" duration="00:00:00.0150224" startTime="2026-10-17T13:45:26.9272966+00:00" endTime="2026-10-17T13:45:26.9490950+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e63c5f10-5c45-40d6-8d6a-8e08ebbb055c" />
+    <UnitTestResult executionId="7a52ff27-b641-45a6-8f01-949aeeb61b29" testId="01cfdd7a-d203-7820-f4fe-81f9e5c9aace" testName="KuaiYi.Core.Tests.InstallationTransactionTests.ActualOwnedProcessExitLeavesExactlyTheOldOrNewCompleteVersion(stage: PointerPublished)" computerName="4cd0056ca8a8" duration="00:00:00.4388735" startTime="2026-10-17T13:45:26.2125784+00:00" endTime="2026-10-17T13:45:26.6421023+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7a52ff27-b641-45a6-8f01-949aeeb61b29">
+      <Output>
+        <StdOut>PUBLIC_INSTALL_CHILD stage=PointerPublished exit=73 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 stdout=PUBLIC_INSTALL_STAGE=PointerPublished stderrBytes=0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a1a0e09b-2b03-42aa-b85c-6806fef6e0ee" testId="39ed5c50-428a-219e-18b1-5246d8770d34" testName="KuaiYi.Core.Tests.InstallationTransactionTests.QuiescenceIsRequiredAndCancellationAfterCommitDoesNotInventRollback(afterCommit: False)" computerName="4cd0056ca8a8" duration="00:00:00.0053340" startTime="2026-10-17T13:45:27.2676464+00:00" endTime="2026-10-17T13:45:27.2732720+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a1a0e09b-2b03-42aa-b85c-6806fef6e0ee" />
+    <UnitTestResult executionId="9060aba9-52ea-4643-b1f6-da4210f95ca2" testId="1b663a74-8071-7ab3-040a-af96acde95c9" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;launch&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.1121068" startTime="2026-10-17T13:45:27.2768527+00:00" endTime="2026-10-17T13:45:27.3892909+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9060aba9-52ea-4643-b1f6-da4210f95ca2">
+      <Output>
+        <StdOut>PUBLIC_APP_START_REJECT actualExit=3 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 noSurface=True originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9103a899-cc81-4d53-8f41-adf9cae88447" testId="c37ef869-0592-8b94-b207-8b38efa6a5e9" testName="KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: &quot;bytes-overflow&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0075932" startTime="2026-10-17T13:45:27.1181493+00:00" endTime="2026-10-17T13:45:27.1259600+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9103a899-cc81-4d53-8f41-adf9cae88447" />
+    <UnitTestResult executionId="67ecb5c2-61ff-4151-a89f-ad9733dd411a" testId="2bbd373d-ddc3-3a2c-ab98-10eb0dd0ae57" testName="KuaiYi.Core.Tests.InstallationTransactionTests.RealSymbolicLinksAreRejectedAndIdenticalDigestTargetsRetainEveryByte(location: &quot;data-ancestor&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0083606" startTime="2026-10-17T13:45:26.9657458+00:00" endTime="2026-10-17T13:45:26.9740458+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="67ecb5c2-61ff-4151-a89f-ad9733dd411a" />
+    <UnitTestResult executionId="6f9ac982-79eb-4f6f-ae56-4cc6d79b730b" testId="e1134887-79d4-51b5-ae2b-c4c228beedce" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;none&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0735100" startTime="2026-10-17T13:45:26.9403011+00:00" endTime="2026-10-17T13:45:27.0127748+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6f9ac982-79eb-4f6f-ae56-4cc6d79b730b">
+      <Output>
+        <StdOut>PUBLIC_APP_START_REJECT actualExit=3 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 noSurface=True originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="29dff46f-9208-4183-9905-2adc83b74f17" testId="26f62655-97dc-adbd-cba9-64e4c8abce81" testName="KuaiYi.Core.Tests.InstallationTransactionTests.CorruptActiveVersionRecoversTheVerifiedPreviousTreeAndRetainsUnknownBytes" computerName="4cd0056ca8a8" duration="00:00:00.0079525" startTime="2026-10-17T13:45:27.0975911+00:00" endTime="2026-10-17T13:45:27.1063123+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="29dff46f-9208-4183-9905-2adc83b74f17" />
+    <UnitTestResult executionId="b1fb43a0-052f-461e-8858-b4a3e00ac792" testId="b3348cee-d833-027d-6fa5-8a1c99ca64d3" testName="KuaiYi.Core.Tests.InstallationHandoffTests.CompetingRealControllerIsRefusedDuringTheExecutionLeaseTransferWindow" computerName="4cd0056ca8a8" duration="00:00:00.3912483" startTime="2026-10-17T13:45:42.2566886+00:00" endTime="2026-10-17T13:45:42.6481479+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b1fb43a0-052f-461e-8858-b4a3e00ac792">
+      <Output>
+        <StdOut>PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-572fa2bb832e4cdfbfd812f29cb20aa5/application/versions/39801bd732324bd0906ed91007276839
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-572fa2bb832e4cdfbfd812f29cb20aa5/application/versions/25ea9f39281549c9a6d8da184aabcb7a
+PUBLIC_RECEIVER_LEASE_WINDOW
+PUBLIC_ORIGINAL_IO|LiveControl|CancelledAndJoined|Settled
+PUBLIC_HANDOFF_RESULT|Upgraded|Committed|2.0|
+PUBLIC_COMMITTED_GATES|Start=Refused|Upgrade=Refused|Retry=Refused|CallerCancelled=False
+PUBLIC_TRANSFERRED_LIFETIME|ExitObserved=False|Stop=OwnershipTransferred|Finalize=False
+PUBLIC_CONTROLLER_DISPOSED
+PUBLIC_ACTUAL_CONTROLLER_EXIT=0
+PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-572fa2bb832e4cdfbfd812f29cb20aa5/application/versions/39801bd732324bd0906ed91007276839
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-572fa2bb832e4cdfbfd812f29cb20aa5/application/versions/25ea9f39281549c9a6d8da184aabcb7a
+PUBLIC_RECEIVER_LEASE_WINDOW
+PUBLIC_ORIGINAL_IO|LiveControl|CancelledAndJoined|Settled
+PUBLIC_HANDOFF_RESULT|Upgraded|Committed|2.0|
+PUBLIC_COMMITTED_GATES|Start=Refused|Upgrade=Refused|Retry=Refused|CallerCancelled=False
+PUBLIC_TRANSFERRED_LIFETIME|ExitObserved=False|Stop=OwnershipTransferred|Finalize=False
+PUBLIC_CONTROLLER_DISPOSED
+PUBLIC_RUNTIME_SELF_CLEANUP=1 pipeEOF=True OSLeaseReleased=True durableFenceRetained=True</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="dca9669a-8e40-475b-bab3-a16afcc52797" testId="173952fd-504e-dea3-4f8c-b05a6a3b3249" testName="KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: &quot;cancel-prepared&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.4285876" startTime="2026-10-17T13:45:30.0818316+00:00" endTime="2026-10-17T13:45:30.5098086+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dca9669a-8e40-475b-bab3-a16afcc52797">
+      <Output>
+        <StdOut>PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-6d16823963b342e8a83d8e5401b6e3cf/application/versions/07ace95099d0477da9664b09c6b43a7d
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-6d16823963b342e8a83d8e5401b6e3cf/application/versions/98f699d838df49e3bec4c71e1ff8edc3
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-6d16823963b342e8a83d8e5401b6e3cf/application/versions/07ace95099d0477da9664b09c6b43a7d
+PUBLIC_HANDOFF_RESULT|RolledBack|None|1.0|TaskCanceledException
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_CONTROLLER_DISPOSED
+PUBLIC_ACTUAL_CONTROLLER_EXIT=0
+PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-6d16823963b342e8a83d8e5401b6e3cf/application/versions/07ace95099d0477da9664b09c6b43a7d
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-6d16823963b342e8a83d8e5401b6e3cf/application/versions/98f699d838df49e3bec4c71e1ff8edc3
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-6d16823963b342e8a83d8e5401b6e3cf/application/versions/07ace95099d0477da9664b09c6b43a7d
+PUBLIC_HANDOFF_RESULT|RolledBack|None|1.0|TaskCanceledException
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_CONTROLLER_DISPOSED</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d2efd988-540c-4991-90a4-d2abc5205443" testId="2a18d5ab-3c6d-7ad4-3006-e2627d049dd8" testName="KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: &quot;late-accept&quot;)" computerName="4cd0056ca8a8" duration="00:00:02.4212258" startTime="2026-10-17T13:45:27.1862340+00:00" endTime="2026-10-17T13:45:29.6079570+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d2efd988-540c-4991-90a4-d2abc5205443">
+      <Output>
+        <StdOut>PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-bc8ecd5551484d9a974f8bec8695f918/application/versions/c6bbf86a1a2147f4bcfd2ee3b41ccdb2
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-bc8ecd5551484d9a974f8bec8695f918/application/versions/9520e2b8e0d84530a603030cbef3d4a5
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-bc8ecd5551484d9a974f8bec8695f918/application/versions/c6bbf86a1a2147f4bcfd2ee3b41ccdb2
+PUBLIC_HANDOFF_RESULT|RolledBack|None|1.0|TimeoutException
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_CONTROLLER_DISPOSED
+PUBLIC_ACTUAL_CONTROLLER_EXIT=0
+PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-bc8ecd5551484d9a974f8bec8695f918/application/versions/c6bbf86a1a2147f4bcfd2ee3b41ccdb2
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-bc8ecd5551484d9a974f8bec8695f918/application/versions/9520e2b8e0d84530a603030cbef3d4a5
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-bc8ecd5551484d9a974f8bec8695f918/application/versions/c6bbf86a1a2147f4bcfd2ee3b41ccdb2
+PUBLIC_HANDOFF_RESULT|RolledBack|None|1.0|TimeoutException
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_CONTROLLER_DISPOSED</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="aff0c1b5-fc99-4ad6-9001-b78a01f515e3" testId="db2af3b5-37c3-c930-b2df-de511bf60eae" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.CommittedProductionControlEofKeepsApplicationAliveAndSelfCloseStillRetainsThePersistentFence" computerName="4cd0056ca8a8" duration="00:00:00.1885459" startTime="2026-10-17T13:45:27.3895417+00:00" endTime="2026-10-17T13:45:27.5786386+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aff0c1b5-fc99-4ad6-9001-b78a01f515e3">
+      <Output>
+        <StdOut>PUBLIC_APP_CONTROL_HANDOFF driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 committedEOF=Alive selfClose=Observed fenceRetained=True</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ae71693e-10f3-40dd-a5d0-c5f70810ce53" testId="fdb62476-3c8f-8d23-9161-b60a15a52f06" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.IntactButUnhealthyNewVersionRestoresExactOldPointerAndActuallyRestartsOldApplication(mode: &quot;silent&quot;)" computerName="4cd0056ca8a8" duration="00:00:02.1168895" startTime="2026-10-17T13:45:35.7008202+00:00" endTime="2026-10-17T13:45:37.8164988+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ae71693e-10f3-40dd-a5d0-c5f70810ce53">
+      <Output>
+        <StdOut>PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-d206c77ce5ad426fad9f8d8ad1aed9cc/application/versions/3895d5d96d0640c9942463781ed93b5a driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=0 stdoutLines=2 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=2.0 directory=/tmp/kuaiyi-upgrade-tests-d206c77ce5ad426fad9f8d8ad1aed9cc/application/versions/1217c3b5fcc34aab8e131477a7123904 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=0 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-d206c77ce5ad426fad9f8d8ad1aed9cc/application/versions/3895d5d96d0640c9942463781ed93b5a driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7d9e4ed2-c90c-4c0e-a7cf-a1638cb70a3f" testId="7470fb02-72f6-e692-ad5f-a82c7578a5f4" testName="KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: &quot;wrong-accept&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.4712397" startTime="2026-10-17T13:45:26.7108266+00:00" endTime="2026-10-17T13:45:27.1859479+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7d9e4ed2-c90c-4c0e-a7cf-a1638cb70a3f">
+      <Output>
+        <StdOut>PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-10b8499c35a0412098c8a9b1940918d2/application/versions/5368c5233e3849dfa096ae947b56ac59
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-10b8499c35a0412098c8a9b1940918d2/application/versions/fc723dae2cef4c82b223ec81a84cb064
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-10b8499c35a0412098c8a9b1940918d2/application/versions/5368c5233e3849dfa096ae947b56ac59
+PUBLIC_HANDOFF_RESULT|RolledBack|None|1.0|InvalidDataException
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_CONTROLLER_DISPOSED
+PUBLIC_ACTUAL_CONTROLLER_EXIT=0
+PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-10b8499c35a0412098c8a9b1940918d2/application/versions/5368c5233e3849dfa096ae947b56ac59
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-10b8499c35a0412098c8a9b1940918d2/application/versions/fc723dae2cef4c82b223ec81a84cb064
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-10b8499c35a0412098c8a9b1940918d2/application/versions/5368c5233e3849dfa096ae947b56ac59
+PUBLIC_HANDOFF_RESULT|RolledBack|None|1.0|InvalidDataException
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_CONTROLLER_DISPOSED</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9178745f-d1c6-486b-a7bc-1d63ca12df27" testId="15525b69-c7c3-5300-79e9-996bf84ae0b7" testName="KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: &quot;absolute&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0092666" startTime="2026-10-17T13:45:27.0113658+00:00" endTime="2026-10-17T13:45:27.0202717+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9178745f-d1c6-486b-a7bc-1d63ca12df27" />
+    <UnitTestResult executionId="d8ec63a8-c9a7-44ce-a5e0-0a2771fbea10" testId="0d5e6b42-05bd-8e66-6b57-39acc39a00ff" testName="KuaiYi.Core.Tests.InstallationTransactionTests.ActualIoFailureBeforeOrAfterPublicationKeepsTheCompletePreviousVersion(stage: PointerPublished)" computerName="4cd0056ca8a8" duration="00:00:00.0078779" startTime="2026-10-17T13:45:26.9501805+00:00" endTime="2026-10-17T13:45:26.9573506+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d8ec63a8-c9a7-44ce-a5e0-0a2771fbea10" />
+    <UnitTestResult executionId="4c7895c9-29f2-413f-8d09-867ccc3ea0f8" testId="dfa40dee-e082-b354-b01e-45bd4a3d35c6" testName="KuaiYi.Core.Tests.InstallationHandoffTests.MissingLeasePathIsNeverAcceptedAsProofOfReceiverOwnership" computerName="4cd0056ca8a8" duration="00:00:00.3509851" startTime="2026-10-17T13:45:31.2141825+00:00" endTime="2026-10-17T13:45:31.5656100+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4c7895c9-29f2-413f-8d09-867ccc3ea0f8">
+      <Output>
+        <StdOut>PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-f585a079b2cf43138132cd7947986a8a/application/versions/d198a6c9938e416081b3290e85e4e737
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-f585a079b2cf43138132cd7947986a8a/application/versions/7a8446ec022943f8b49bf4e99496846e
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_HANDOFF_UNCONFIRMED
+PUBLIC_ACTUAL_CONTROLLER_EXIT=5
+PUBLIC_CONTROLLER_ACTUAL_EXIT=5 fixtureSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-f585a079b2cf43138132cd7947986a8a/application/versions/d198a6c9938e416081b3290e85e4e737
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-f585a079b2cf43138132cd7947986a8a/application/versions/7a8446ec022943f8b49bf4e99496846e
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_HANDOFF_UNCONFIRMED</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="bbcd3b98-5e33-4f1f-b7e6-51f942170ed9" testId="5504f72c-8717-cdd2-ff21-02cb31fc8631" testName="KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: &quot;case&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0048941" startTime="2026-10-17T13:45:27.0537051+00:00" endTime="2026-10-17T13:45:27.0597034+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bbcd3b98-5e33-4f1f-b7e6-51f942170ed9" />
+    <UnitTestResult executionId="0a3cd20b-3a0d-4636-88c5-3748ecbbb4d2" testId="4f6ac55e-3c18-94c6-23d8-f4f3729209c8" testName="KuaiYi.Core.Tests.InstallationTransactionTests.ActualOwnedProcessExitLeavesExactlyTheOldOrNewCompleteVersion(stage: VersionPublished)" computerName="4cd0056ca8a8" duration="00:00:00.0918211" startTime="2026-10-17T13:45:26.8080460+00:00" endTime="2026-10-17T13:45:26.9003283+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0a3cd20b-3a0d-4636-88c5-3748ecbbb4d2">
+      <Output>
+        <StdOut>PUBLIC_INSTALL_CHILD stage=VersionPublished exit=73 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 stdout=PUBLIC_INSTALL_STAGE=VersionPublished stderrBytes=0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ccb0a7c6-5da7-412c-b876-d5b6e1853a1d" testId="18fb9d83-e7e3-a23e-669f-775ad958b81b" testName="KuaiYi.Core.Tests.InstallationTransactionTests.RealSymbolicLinksAreRejectedAndIdenticalDigestTargetsRetainEveryByte(location: &quot;package-file&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0066963" startTime="2026-10-17T13:45:26.9791577+00:00" endTime="2026-10-17T13:45:26.9860779+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ccb0a7c6-5da7-412c-b876-d5b6e1853a1d" />
+    <UnitTestResult executionId="66aa22f1-c548-4377-b758-4058516809d2" testId="0479e95b-73f7-c9d3-ed18-f0cece1442fd" testName="KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: &quot;reject&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.5402458" startTime="2026-10-17T13:45:26.1694341+00:00" endTime="2026-10-17T13:45:26.7105049+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="66aa22f1-c548-4377-b758-4058516809d2">
+      <Output>
+        <StdOut>PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-baff2387d56d411bbf93a766b5d1baf3/application/versions/7ab5e0eca1c64119ac1d804203c259fc
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-baff2387d56d411bbf93a766b5d1baf3/application/versions/43e17722e7c042ef9988822646f82d31
+PUBLIC_ORIGINAL_IO|Exit|24|Settled
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-baff2387d56d411bbf93a766b5d1baf3/application/versions/7ab5e0eca1c64119ac1d804203c259fc
+PUBLIC_HANDOFF_RESULT|RolledBack|None|1.0|ChannelClosedException
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_CONTROLLER_DISPOSED
+PUBLIC_ACTUAL_CONTROLLER_EXIT=0
+PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-baff2387d56d411bbf93a766b5d1baf3/application/versions/7ab5e0eca1c64119ac1d804203c259fc
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-baff2387d56d411bbf93a766b5d1baf3/application/versions/43e17722e7c042ef9988822646f82d31
+PUBLIC_ORIGINAL_IO|Exit|24|Settled
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-baff2387d56d411bbf93a766b5d1baf3/application/versions/7ab5e0eca1c64119ac1d804203c259fc
+PUBLIC_HANDOFF_RESULT|RolledBack|None|1.0|ChannelClosedException
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_CONTROLLER_DISPOSED</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="97be47c5-8726-441f-8e1a-f697e99a272c" testId="60b33734-a298-2e2b-3bfa-c4bae6943c2b" testName="KuaiYi.Core.Tests.InstallationTransactionTests.RevokedQuiescenceBeforeCommitCannotChangeTheCurrentVersion" computerName="4cd0056ca8a8" duration="00:00:00.0108332" startTime="2026-10-17T13:45:27.1674281+00:00" endTime="2026-10-17T13:45:27.1772561+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="97be47c5-8726-441f-8e1a-f697e99a272c" />
+    <UnitTestResult executionId="b431d7e3-3d31-41f0-b3ac-e725f3982245" testId="559c8e25-6865-8ad9-9142-c665f6641e15" testName="KuaiYi.Core.Tests.InstallationHandoffTests.ControllerCrashAfterReceiverAcquiresButBeforeCommitMakesReceiverAbortAndRetainsTheFence" computerName="4cd0056ca8a8" duration="00:00:00.3355457" startTime="2026-10-17T13:45:39.4290792+00:00" endTime="2026-10-17T13:45:39.7655327+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b431d7e3-3d31-41f0-b3ac-e725f3982245">
+      <Output>
+        <StdOut>PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-0d470f485b554bdb8c505dc0ee0d27b6/application/versions/aba9992687ac4effa6e73fcab9b1372a
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-0d470f485b554bdb8c505dc0ee0d27b6/application/versions/4d7f25abbff141b89abdb332386cd9ce
+PUBLIC_ACTUAL_CONTROLLER_EXIT=81
+PUBLIC_CONTROLLER_ACTUAL_EXIT=81 fixtureSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-0d470f485b554bdb8c505dc0ee0d27b6/application/versions/aba9992687ac4effa6e73fcab9b1372a
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-0d470f485b554bdb8c505dc0ee0d27b6/application/versions/4d7f25abbff141b89abdb332386cd9ce</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="478b0438-4ba2-4fc5-a123-bf22e35180d0" testId="bbe9dbdc-f213-3b15-f9bc-7563694226c5" testName="KuaiYi.Core.Tests.IntegrationStatusTests.MissingOwnInstallationDirectoryIsMissingManifestNotPermissionOrIntegrityFailure" computerName="4cd0056ca8a8" duration="00:00:00.0175961" startTime="2026-10-17T13:45:26.1695012+00:00" endTime="2026-10-17T13:45:26.1926987+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="478b0438-4ba2-4fc5-a123-bf22e35180d0" />
+    <UnitTestResult executionId="c3d037c1-3e75-4b0d-8a28-a307c57755f6" testId="708237a6-ef5a-5c37-5f63-83ec2c889a31" testName="KuaiYi.Core.Tests.InstallationTransactionTests.InitialPublicationFailureRestoresTheUninstalledStateWithoutDeletingAnyVersion" computerName="4cd0056ca8a8" duration="00:00:00.0039851" startTime="2026-10-17T13:45:27.2633911+00:00" endTime="2026-10-17T13:45:27.2675211+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c3d037c1-3e75-4b0d-8a28-a307c57755f6" />
+    <UnitTestResult executionId="26114a9e-3cf3-4889-9170-aacd3958635c" testId="9979ecd7-d764-03ce-7cc3-89557d6ec8a7" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.ControlledStartupRequiresTheOriginalReadyBarrierAndStopUsesTheExistingCloseTaskWithoutSelfWaiting" computerName="4cd0056ca8a8" duration="00:00:00.1382507" startTime="2026-10-17T13:45:30.5568308+00:00" endTime="2026-10-17T13:45:30.6922811+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="26114a9e-3cf3-4889-9170-aacd3958635c">
+      <Output>
+        <StdOut>PUBLIC_APP_CONTROL_CHILD actualExit=0 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106 originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="763debb7-2af9-451f-ae10-1ae31efaf081" testId="8de7ba4c-ab53-d038-7efb-7d2a53563369" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;missing-owner-lock&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.1493197" startTime="2026-10-17T13:45:27.1272438+00:00" endTime="2026-10-17T13:45:27.2767535+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="763debb7-2af9-451f-ae10-1ae31efaf081">
+      <Output>
+        <StdOut>PUBLIC_APP_START_REJECT actualExit=3 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 noSurface=True originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e516b342-d6f8-491a-971c-5a124ff53ff0" testId="b2658ccb-5e67-959d-1d3f-3192870c2974" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;directory&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.1150752" startTime="2026-10-17T13:45:27.0133544+00:00" endTime="2026-10-17T13:45:27.1271505+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e516b342-d6f8-491a-971c-5a124ff53ff0">
+      <Output>
+        <StdOut>PUBLIC_APP_START_REJECT actualExit=3 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 noSurface=True originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="28459a3a-30c8-4d7b-b6fa-2a07baa7b0cf" testId="7b188aea-6ec9-d902-b598-d9e8f6605f48" testName="KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient" computerName="4cd0056ca8a8" duration="00:00:00.3649226" startTime="2026-10-17T13:45:34.3017256+00:00" endTime="2026-10-17T13:45:34.6661919+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="28459a3a-30c8-4d7b-b6fa-2a07baa7b0cf">
+      <Output>
+        <StdOut>PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-5fae5f559cbf4a05aab5fb2ac284d908/application/versions/022ce0aefb4648b6a8572e3a401b351a
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-5fae5f559cbf4a05aab5fb2ac284d908/application/versions/feef0c9bfbbb4663ab35cb8fc7b66d45
+PUBLIC_ORIGINAL_IO|LiveControl|CancelledAndJoined|Settled
+PUBLIC_HANDOFF_RESULT|Upgraded|Committed|2.0|
+PUBLIC_COMMITTED_GATES|Start=Refused|Upgrade=Refused|Retry=Refused|CallerCancelled=False
+PUBLIC_TRANSFERRED_LIFETIME|ExitObserved=False|Stop=OwnershipTransferred|Finalize=False
+PUBLIC_CONTROLLER_DISPOSED
+PUBLIC_ACTUAL_CONTROLLER_EXIT=0
+PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-5fae5f559cbf4a05aab5fb2ac284d908/application/versions/022ce0aefb4648b6a8572e3a401b351a
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-5fae5f559cbf4a05aab5fb2ac284d908/application/versions/feef0c9bfbbb4663ab35cb8fc7b66d45
+PUBLIC_ORIGINAL_IO|LiveControl|CancelledAndJoined|Settled
+PUBLIC_HANDOFF_RESULT|Upgraded|Committed|2.0|
+PUBLIC_COMMITTED_GATES|Start=Refused|Upgrade=Refused|Retry=Refused|CallerCancelled=False
+PUBLIC_TRANSFERRED_LIFETIME|ExitObserved=False|Stop=OwnershipTransferred|Finalize=False
+PUBLIC_CONTROLLER_DISPOSED
+PUBLIC_RUNTIME_SELF_CLEANUP=1 pipeEOF=True OSLeaseReleased=True durableFenceRetained=True</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="967c91f1-f26a-4b51-a791-f2a3e5b37e81" testId="eb01a23f-c8a7-a15e-86d9-09321055e51f" testName="KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: &quot;no-lease&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.4722918" startTime="2026-10-17T13:45:29.6081461+00:00" endTime="2026-10-17T13:45:30.0807365+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="967c91f1-f26a-4b51-a791-f2a3e5b37e81">
+      <Output>
+        <StdOut>PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-21c740e7390448f8925de18b6115a742/application/versions/fb21d6d98df74c4ca36cc311c352700e
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-21c740e7390448f8925de18b6115a742/application/versions/2ab9531400c14d9fa66fa99df3ceb891
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-21c740e7390448f8925de18b6115a742/application/versions/fb21d6d98df74c4ca36cc311c352700e
+PUBLIC_HANDOFF_RESULT|RolledBack|None|1.0|InstallationRecoveryException
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_CONTROLLER_DISPOSED
+PUBLIC_ACTUAL_CONTROLLER_EXIT=0
+PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-21c740e7390448f8925de18b6115a742/application/versions/fb21d6d98df74c4ca36cc311c352700e
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-21c740e7390448f8925de18b6115a742/application/versions/2ab9531400c14d9fa66fa99df3ceb891
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-21c740e7390448f8925de18b6115a742/application/versions/fb21d6d98df74c4ca36cc311c352700e
+PUBLIC_HANDOFF_RESULT|RolledBack|None|1.0|InstallationRecoveryException
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_CONTROLLER_DISPOSED</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8cbab81c-9c84-4bca-94bb-af62313202db" testId="b6da3c7c-4a37-2d26-6c03-eb32c2258aef" testName="KuaiYi.Core.Tests.InstallationTransactionTests.CallerPinnedCatalogDigestCannotBeReplacedAlongWithPayloadHashes" computerName="4cd0056ca8a8" duration="00:00:00.0040316" startTime="2026-10-17T13:45:27.2877341+00:00" endTime="2026-10-17T13:45:27.2914802+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8cbab81c-9c84-4bca-94bb-af62313202db" />
+    <UnitTestResult executionId="c6c1b3fb-8072-46e5-9c4d-178fba8b57e8" testId="8165edfd-57af-6471-5483-be00a60bd80f" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.RealCompetingProcessAndWritersCannotReenterWhileNewHealthIsPending" computerName="4cd0056ca8a8" duration="00:00:00.1645173" startTime="2026-10-17T13:45:40.4066260+00:00" endTime="2026-10-17T13:45:40.5714753+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c6c1b3fb-8072-46e5-9c4d-178fba8b57e8">
+      <Output>
+        <StdOut>PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-2f908ad2b5be45a294cbc283ef14f331/application/versions/d4c3051539b347eb933d3c9e5d87a360 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=0 stdoutLines=2 stderrBytes=0 IO=Settled
+PUBLIC_ADMISSION_CHILD exit=4 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 IO=Settled
+PUBLIC_UPGRADE_CHILD version=2.0 directory=/tmp/kuaiyi-upgrade-tests-2f908ad2b5be45a294cbc283ef14f331/application/versions/c2c2ea85a83a4b2395837b9cbd95d0f2 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b0952af3-c12f-49cd-a5ac-e3b34599bc47" testId="f4469e77-9b8d-9b4a-c8fc-06dffcf73de9" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.ActualOsStartFailureRollsBackWithoutInventingAStartedChild" computerName="4cd0056ca8a8" duration="00:00:00.1233640" startTime="2026-10-17T13:45:59.7701683+00:00" endTime="2026-10-17T13:45:59.8935243+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b0952af3-c12f-49cd-a5ac-e3b34599bc47">
+      <Output>
+        <StdOut>PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-8b406ceb82c24bc8bdcd21c0b6fd0544/application/versions/bf954e3f17424be88aad269269d242b7 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=0 stdoutLines=2 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-8b406ceb82c24bc8bdcd21c0b6fd0544/application/versions/bf954e3f17424be88aad269269d242b7 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b1d244aa-0bd9-4a5b-bdef-9ce4c263bce6" testId="00f180c8-578c-bbb4-d3b3-9626fd3d7d17" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.BlockingHealthCancellationCallbackCannotHoldTheUpgradeCallerBeyondItsOwnedBudget" computerName="4cd0056ca8a8" duration="00:00:06.1247725" startTime="2026-10-17T13:45:29.3970838+00:00" endTime="2026-10-17T13:45:35.5222741+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b1d244aa-0bd9-4a5b-bdef-9ce4c263bce6">
+      <Output>
+        <StdOut>PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-4e10fb03e315416f9c5bbce26aa336c5/application/versions/59bde6b95e474f3698978200a5878dd8 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=0 stdoutLines=2 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=2.0 directory=/tmp/kuaiyi-upgrade-tests-4e10fb03e315416f9c5bbce26aa336c5/application/versions/af7a9601d22d45259beaa06f73212862 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-4e10fb03e315416f9c5bbce26aa336c5/application/versions/59bde6b95e474f3698978200a5878dd8 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7f8a91db-6520-4a40-9aa7-b37b40ec30e5" testId="9afd8522-0fc2-b12d-29f8-d1e4731eede8" testName="KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: &quot;unknown-field&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0077602" startTime="2026-10-17T13:45:27.0445938+00:00" endTime="2026-10-17T13:45:27.0535739+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7f8a91db-6520-4a40-9aa7-b37b40ec30e5" />
+    <UnitTestResult executionId="b008bfc7-a563-43d0-9e8c-df78e1ce3456" testId="7881f326-9e10-74c1-abc8-a75d5cc41e3b" testName="KuaiYi.Core.Tests.InstallationTransactionTests.UncertainRecoveryRetainsAllFilesAndNeverReportsSuccess(fault: &quot;previous&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0141821" startTime="2026-10-17T13:45:27.2156721+00:00" endTime="2026-10-17T13:45:27.2313300+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b008bfc7-a563-43d0-9e8c-df78e1ce3456" />
+    <UnitTestResult executionId="10cb9741-2ab7-40c3-8ca9-671f79dad2d5" testId="f7461e25-70e4-d60e-096a-f5c9f00593c6" testName="KuaiYi.Core.Tests.InstallationTransactionTests.RealSymbolicLinksAreRejectedAndIdenticalDigestTargetsRetainEveryByte(location: &quot;installation-ancestor&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0045657" startTime="2026-10-17T13:45:26.9741706+00:00" endTime="2026-10-17T13:45:26.9790535+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="10cb9741-2ab7-40c3-8ca9-671f79dad2d5" />
+    <UnitTestResult executionId="93ea90eb-297d-4f6a-86bf-5cb565879700" testId="8a36cad3-ff70-a76d-4de0-b4c1f74fd0f7" testName="KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: &quot;bytes-string&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0070247" startTime="2026-10-17T13:45:27.1585378+00:00" endTime="2026-10-17T13:45:27.1659220+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="93ea90eb-297d-4f6a-86bf-5cb565879700" />
+    <UnitTestResult executionId="0a74d3ef-eacc-431a-831c-403e06bf728a" testId="499f2316-522b-6e84-e023-46626e609d81" testName="KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: &quot;hash-number&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0118236" startTime="2026-10-17T13:45:27.1467125+00:00" endTime="2026-10-17T13:45:27.1582871+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0a74d3ef-eacc-431a-831c-403e06bf728a" />
+    <UnitTestResult executionId="0eab2ea4-42dc-4548-b3d6-b814f87a46f0" testId="c8dd2440-501b-1c84-52ad-eae3b8363423" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.IntactButUnhealthyNewVersionRestoresExactOldPointerAndActuallyRestartsOldApplication(mode: &quot;unhealthy&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.1597264" startTime="2026-10-17T13:45:37.9748059+00:00" endTime="2026-10-17T13:45:38.1347890+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0eab2ea4-42dc-4548-b3d6-b814f87a46f0">
+      <Output>
+        <StdOut>PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-d80b54d2656440eb890ed7ebd962491e/application/versions/638c82ecc0584281bf3bc52674392d35 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=0 stdoutLines=2 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=2.0 directory=/tmp/kuaiyi-upgrade-tests-d80b54d2656440eb890ed7ebd962491e/application/versions/e401e8d1714042c18863ddffbe3309ce driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-d80b54d2656440eb890ed7ebd962491e/application/versions/638c82ecc0584281bf3bc52674392d35 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="70697fe4-3976-4a71-94a4-37244e496622" testId="11e8aabe-a869-8b60-51ca-9b19ea6d65fd" testName="KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: &quot;schema-string&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0068770" startTime="2026-10-17T13:45:27.1389141+00:00" endTime="2026-10-17T13:45:27.1460598+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="70697fe4-3976-4a71-94a4-37244e496622" />
+    <UnitTestResult executionId="21324904-6602-4781-86c7-fe9ce23e6cbf" testId="a8256bf8-248b-87cd-18dd-46f731bd1321" testName="KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: &quot;duplicate-field&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0045521" startTime="2026-10-17T13:45:27.0042123+00:00" endTime="2026-10-17T13:45:27.0111897+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="21324904-6602-4781-86c7-fe9ce23e6cbf" />
+    <UnitTestResult executionId="1b2b8ba4-13ea-4789-bc01-246f583d79c4" testId="81530fe3-51a5-86db-e851-361dbf87c941" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;owner&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.1531437" startTime="2026-10-17T13:45:26.6458315+00:00" endTime="2026-10-17T13:45:26.8016347+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1b2b8ba4-13ea-4789-bc01-246f583d79c4">
+      <Output>
+        <StdOut>PUBLIC_APP_START_REJECT actualExit=3 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 noSurface=True originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a35ff3d3-6424-4be8-b27a-537662d67c65" testId="556ec1fe-b1ab-17b9-7276-ff7a0667b823" testName="KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: &quot;traversal&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0169582" startTime="2026-10-17T13:45:27.0598477+00:00" endTime="2026-10-17T13:45:27.0770359+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a35ff3d3-6424-4be8-b27a-537662d67c65" />
+    <UnitTestResult executionId="d0ccb969-67f8-495d-9614-865f6ce04a4d" testId="1109b369-6e9f-be59-a494-44c044c34c49" testName="KuaiYi.Core.Tests.InstallationTransactionTests.TwoConsecutiveRecoverCallsAreIdempotentForPointerVersionsAndEncryptedData" computerName="4cd0056ca8a8" duration="00:00:00.0093253" startTime="2026-10-17T13:45:27.3001983+00:00" endTime="2026-10-17T13:45:27.3137287+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d0ccb969-67f8-495d-9614-865f6ce04a4d" />
+    <UnitTestResult executionId="ecdf5db6-16af-4f66-a8fd-6a1733cf673d" testId="f73eb70b-d863-23b6-f402-bbe4e7d33220" testName="KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: &quot;digest&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0071774" startTime="2026-10-17T13:45:27.0896299+00:00" endTime="2026-10-17T13:45:27.0972608+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ecdf5db6-16af-4f66-a8fd-6a1733cf673d" />
+    <UnitTestResult executionId="eec8a4b1-92eb-476d-8d7f-66079229c1c3" testId="7b1c4cf8-c5c0-65a6-cf31-ed0d59af7131" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.RealControllerCrashBeforeActualStartLeavesPersistentOwnershipEvenAfterOsLeaseRelease" computerName="4cd0056ca8a8" duration="00:00:00.1419760" startTime="2026-10-17T13:45:29.2544938+00:00" endTime="2026-10-17T13:45:29.3968587+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eec8a4b1-92eb-476d-8d7f-66079229c1c3">
+      <Output>
+        <StdOut>PUBLIC_OWNER_CRASH exit=79 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 IO=Settled
+PUBLIC_ADMISSION_CHILD exit=4 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 IO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4b3e553c-f01c-4184-812c-8ed51b4cb7ab" testId="2b0ec10d-8f90-d371-adab-c234d8d98a1a" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.NormalInstalledEntryCannotBypassOwnerFenceOrSelectAnOldGenerationAndNeverSelfClearsItsOwner" computerName="4cd0056ca8a8" duration="00:00:00.0166376" startTime="2026-10-17T13:45:32.8588693+00:00" endTime="2026-10-17T13:45:32.8758507+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4b3e553c-f01c-4184-812c-8ed51b4cb7ab" />
+    <UnitTestResult executionId="24b1b4c3-bdad-490c-ae99-440b6a3ff617" testId="3c5c8a1c-b8a1-956e-0fdf-ce94b43f366f" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;current&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.1917548" startTime="2026-10-17T13:45:26.1229898+00:00" endTime="2026-10-17T13:45:26.3247443+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="24b1b4c3-bdad-490c-ae99-440b6a3ff617">
+      <Output>
+        <StdOut>PUBLIC_APP_START_REJECT actualExit=3 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 noSurface=True originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c140e386-bc1b-4338-b1a4-13bfe6cfba07" testId="77f447ad-3ef5-e5e7-1492-696e1e275498" testName="KuaiYi.Core.Tests.InstallationTransactionTests.UncertainRecoveryRetainsAllFilesAndNeverReportsSuccess(fault: &quot;pointer&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0159987" startTime="2026-10-17T13:45:27.1884867+00:00" endTime="2026-10-17T13:45:27.2055908+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c140e386-bc1b-4338-b1a4-13bfe6cfba07" />
+    <UnitTestResult executionId="443937e8-0715-459e-b0e9-f7613de3ad42" testId="df9314b0-fdd2-f062-b50d-448459806f44" testName="KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: &quot;extra&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0036375" startTime="2026-10-17T13:45:27.0771811+00:00" endTime="2026-10-17T13:45:27.0809500+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="443937e8-0715-459e-b0e9-f7613de3ad42" />
+    <UnitTestResult executionId="a4432eae-fcc4-47e5-80d6-c8eb4da979ec" testId="9ec38963-7d5d-b5d6-6699-7086a356bc99" testName="KuaiYi.Core.Tests.InstallationHandoffTests.OriginalControlTaskMustReallySettleBeforeDisposeCanReleaseTheControllerHandle" computerName="4cd0056ca8a8" duration="00:00:02.4910871" startTime="2026-10-17T13:45:39.7657276+00:00" endTime="2026-10-17T13:45:42.2564597+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a4432eae-fcc4-47e5-80d6-c8eb4da979ec">
+      <Output>
+        <StdOut>PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-12cae65346b44431a4f86575da389d54/application/versions/6a3a947985b74014b899df9881b97918
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-12cae65346b44431a4f86575da389d54/application/versions/2e34fad6e6cd4234b05dd575463e76d2
+PUBLIC_HANDOFF_RESULT|Upgraded|CommittedUnconfirmed|2.0|TimeoutException
+PUBLIC_COMMITTED_GATES|Start=Refused|Upgrade=Refused|Retry=Refused|CallerCancelled=False
+PUBLIC_WAITING_ORIGINAL_CONTROL
+PUBLIC_ORIGINAL_IO|LiveControl|CancelledAndJoined|Settled
+PUBLIC_CONTROLLER_DISPOSED
+PUBLIC_ACTUAL_CONTROLLER_EXIT=0
+PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-12cae65346b44431a4f86575da389d54/application/versions/6a3a947985b74014b899df9881b97918
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-12cae65346b44431a4f86575da389d54/application/versions/2e34fad6e6cd4234b05dd575463e76d2
+PUBLIC_HANDOFF_RESULT|Upgraded|CommittedUnconfirmed|2.0|TimeoutException
+PUBLIC_COMMITTED_GATES|Start=Refused|Upgrade=Refused|Retry=Refused|CallerCancelled=False
+PUBLIC_WAITING_ORIGINAL_CONTROL
+PUBLIC_ORIGINAL_IO|LiveControl|CancelledAndJoined|Settled
+PUBLIC_CONTROLLER_DISPOSED
+PUBLIC_RUNTIME_SELF_CLEANUP=1 pipeEOF=True OSLeaseReleased=True durableFenceRetained=True</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b4fd7c74-2609-43ba-897d-17b4e0655858" testId="db90e16e-4af5-62ce-6475-a9d32ed8287c" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.IntactButUnhealthyNewVersionRestoresExactOldPointerAndActuallyRestartsOldApplication(mode: &quot;start-exit&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.1578076" startTime="2026-10-17T13:45:37.8170647+00:00" endTime="2026-10-17T13:45:37.9746685+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b4fd7c74-2609-43ba-897d-17b4e0655858">
+      <Output>
+        <StdOut>PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-b7ced84fec8c495d9bbfecb0901117df/application/versions/c61d7493954c4af18bbde408f7d42f74 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=0 stdoutLines=2 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=2.0 directory=/tmp/kuaiyi-upgrade-tests-b7ced84fec8c495d9bbfecb0901117df/application/versions/8f4b2c0a1a404f34ad3a943193548a41 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=23 stdoutLines=0 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-b7ced84fec8c495d9bbfecb0901117df/application/versions/c61d7493954c4af18bbde408f7d42f74 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="530abfca-4991-4bdb-b91f-6c7b8c5a837f" testId="9f9a6950-b7d2-32f6-1ae9-e3809628f299" testName="KuaiYi.Core.Tests.InstallationTransactionTests.ASeparateCaseAliasedDirectoryIsNotSilentlyDroppedFromThePackage" computerName="4cd0056ca8a8" duration="00:00:00.0050424" startTime="2026-10-17T13:45:27.2577684+00:00" endTime="2026-10-17T13:45:27.2594564+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="530abfca-4991-4bdb-b91f-6c7b8c5a837f" />
+    <UnitTestResult executionId="98878851-89db-468d-9bce-6bd48ddcf514" testId="1e09176e-aecc-c420-6ee8-25c76fa1ad57" testName="KuaiYi.Core.Tests.InstallationTransactionTests.RealSymbolicLinksAreRejectedAndIdenticalDigestTargetsRetainEveryByte(location: &quot;package-directory&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0045256" startTime="2026-10-17T13:45:26.9861897+00:00" endTime="2026-10-17T13:45:26.9926632+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="98878851-89db-468d-9bce-6bd48ddcf514" />
+    <UnitTestResult executionId="6eae5c42-6d41-4327-bb54-4eab2080913d" testId="0c9f2f5b-18dd-3c73-1a49-84f74152081a" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.NewApplicationReadinessFailureNeverAcknowledgesHealthAndRollsBackTheExactOldPointer" computerName="4cd0056ca8a8" duration="00:00:00.2800905" startTime="2026-10-17T13:45:27.9797487+00:00" endTime="2026-10-17T13:45:28.2599316+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6eae5c42-6d41-4327-bb54-4eab2080913d">
+      <Output>
+        <StdOut>PUBLIC_APP_CONTROL_CHILD actualExit=0 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106 originalIO=Settled
+PUBLIC_APP_CONTROL_CHILD actualExit=0 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106 originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="fa4c6446-cf49-4fff-a1ab-fda7f0755904" testId="ba4f10eb-5011-7fe8-3ee1-218da46f1a53" testName="KuaiYi.Core.Tests.InstallationTransactionTests.QuiescenceIsRequiredAndCancellationAfterCommitDoesNotInventRollback(afterCommit: True)" computerName="4cd0056ca8a8" duration="00:00:00.0050731" startTime="2026-10-17T13:45:27.2733767+00:00" endTime="2026-10-17T13:45:27.2787172+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fa4c6446-cf49-4fff-a1ab-fda7f0755904" />
+    <UnitTestResult executionId="cc13fe9e-fe9b-4c9f-b419-fbee5e82efb4" testId="a2053ad2-7cc3-1fe8-3868-9cda622cb001" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.RefusingOwnedApplicationPreventsPublicationAndPersistentBlockSurvivesLeaseRelease" computerName="4cd0056ca8a8" duration="00:00:02.1490568" startTime="2026-10-17T13:45:26.6970531+00:00" endTime="2026-10-17T13:45:28.8199546+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cc13fe9e-fe9b-4c9f-b419-fbee5e82efb4">
+      <Output>
+        <StdOut>PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-4875b8c93d1a4fb0911c0b3df39a50e6/application/versions/0f9f354d35414aefb8222806b6e80d2b driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=2 stderrBytes=0 IO=Settled
+PUBLIC_ADMISSION_CHILD exit=4 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 IO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="83b91260-f79f-41e4-ad6f-b1a350c2be88" testId="18bf7078-07d5-9a5a-289b-94447edbc420" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.CommittedAckWriteFailureDoesNotRequestUiClosureOrReleaseTheRuntimeFence" computerName="4cd0056ca8a8" duration="00:00:02.1657588" startTime="2026-10-17T13:45:30.6924862+00:00" endTime="2026-10-17T13:45:32.8586554+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="83b91260-f79f-41e4-ad6f-b1a350c2be88" />
+    <UnitTestResult executionId="9650ce12-7e66-4adb-a6e2-f7bbee07ad3f" testId="6a909fb6-c540-adf1-7999-9e25bdefd9a0" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.StopCannotPublishWhileExistingCloseCleanupIsHeldAndTheSameControllerCanRetryAfterActualExit" computerName="4cd0056ca8a8" duration="00:00:02.2931650" startTime="2026-10-17T13:45:28.2601606+00:00" endTime="2026-10-17T13:45:30.5566121+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9650ce12-7e66-4adb-a6e2-f7bbee07ad3f">
+      <Output>
+        <StdOut>PUBLIC_APP_CONTROL_CHILD actualExit=0 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106 originalIO=Settled
+PUBLIC_APP_CONTROL_CHILD actualExit=0 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106 originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="245b1ec2-6b84-4015-b09e-f5fe895c7ca0" testId="9614821d-8087-fb91-287d-2058d2029e9b" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(upgrade: True)" computerName="4cd0056ca8a8" duration="00:00:00.0641249" startTime="2026-10-17T13:45:28.8202274+00:00" endTime="2026-10-17T13:45:28.8846586+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="245b1ec2-6b84-4015-b09e-f5fe895c7ca0">
+      <Output>
+        <StdOut>PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-d1bac3ffd0564923b92f5d29008dc0f8/application/versions/5b4d0843d6ad451f84e7fa8ba547b7bf driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="70f0874d-3391-49ec-bca5-6feee2ffd9dc" testId="22aaa4a0-3e88-ad16-1224-cab5fb44a668" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication" computerName="4cd0056ca8a8" duration="00:00:00.1104731" startTime="2026-10-17T13:45:53.1769414+00:00" endTime="2026-10-17T13:45:53.2877346+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="70f0874d-3391-49ec-bca5-6feee2ffd9dc">
+      <Output>
+        <StdOut>PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-a9600ce6247144708fcaf5936eeeb673/application/versions/fc7caee7907f4079a47ca7e3afe2b0d8 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=0 stdoutLines=2 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=2.0 directory=/tmp/kuaiyi-upgrade-tests-a9600ce6247144708fcaf5936eeeb673/application/versions/bf735fc1874e4f7eae902df380bccd44 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a5ec0e41-d0d7-496a-b7ae-807f4af07765" testId="13d1eff6-87bd-3797-593f-c2d42f9a6142" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.LateHealthTaskMustSettleBeforeRollbackOrOldApplicationCanStart" computerName="4cd0056ca8a8" duration="00:00:06.1653454" startTime="2026-10-17T13:45:40.5716464+00:00" endTime="2026-10-17T13:45:46.7373472+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a5ec0e41-d0d7-496a-b7ae-807f4af07765">
+      <Output>
+        <StdOut>PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-0e8944c4acaa4229aec892f8677cf2e4/application/versions/833cc3ce1d374275b7e146178f1845c9 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=0 stdoutLines=2 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=2.0 directory=/tmp/kuaiyi-upgrade-tests-0e8944c4acaa4229aec892f8677cf2e4/application/versions/3e294add9637420492a968c65c4b8911 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled
+PUBLIC_ADMISSION_CHILD exit=4 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 IO=Settled
+PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-0e8944c4acaa4229aec892f8677cf2e4/application/versions/833cc3ce1d374275b7e146178f1845c9 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c98a5ed4-79c1-4a2d-bb42-0c2380399821" testId="709def99-b8ed-c6cb-d5ec-c20f0512dd4e" testName="KuaiYi.Core.Tests.InstallationHandoffTests.UnknownHandoffBytesAreRetainedAndNeverAuthorizeReclaimOrFreshAdmission" computerName="4cd0056ca8a8" duration="00:00:00.3372613" startTime="2026-10-17T13:45:30.8777491+00:00" endTime="2026-10-17T13:45:31.2139483+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c98a5ed4-79c1-4a2d-bb42-0c2380399821">
+      <Output>
+        <StdOut>PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-904c0d40d7be4bab9bb53ef746f137d6/application/versions/2c853f43c8c8472aa68f5db926320415
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-904c0d40d7be4bab9bb53ef746f137d6/application/versions/a1d100ca63c94148bd5b65bf4b0d89b7
+PUBLIC_ORIGINAL_IO|Exit|24|Settled
+PUBLIC_HANDOFF_UNCONFIRMED
+PUBLIC_ACTUAL_CONTROLLER_EXIT=5
+PUBLIC_CONTROLLER_ACTUAL_EXIT=5 fixtureSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-904c0d40d7be4bab9bb53ef746f137d6/application/versions/2c853f43c8c8472aa68f5db926320415
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-904c0d40d7be4bab9bb53ef746f137d6/application/versions/a1d100ca63c94148bd5b65bf4b0d89b7
+PUBLIC_ORIGINAL_IO|Exit|24|Settled
+PUBLIC_HANDOFF_UNCONFIRMED</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0eb62c4a-a7d4-40c2-8698-5e104396947c" testId="73cbc0f5-ac50-5f6d-ef8b-92a1f2284ac9" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;missing-admission&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.1529859" startTime="2026-10-17T13:45:26.3301735+00:00" endTime="2026-10-17T13:45:26.4860255+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0eb62c4a-a7d4-40c2-8698-5e104396947c">
+      <Output>
+        <StdOut>PUBLIC_APP_START_REJECT actualExit=3 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 noSurface=True originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="be7a8c53-4a2b-4110-ab83-a63ed5109b9b" testId="e5b65ba2-85e8-bdd4-8d3f-464f8b198bf1" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.CancellationDuringOwnedNewHealthRestoresAndRestartsTheVerifiedOldVersion" computerName="4cd0056ca8a8" duration="00:00:00.1982015" startTime="2026-10-17T13:45:28.9427900+00:00" endTime="2026-10-17T13:45:29.1413815+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="be7a8c53-4a2b-4110-ab83-a63ed5109b9b">
+      <Output>
+        <StdOut>PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-a18c28a5839c4dc48dcdd0ff8ece50cf/application/versions/533e9f518e3142c7b5d0dab0b528a967 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=0 stdoutLines=2 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=2.0 directory=/tmp/kuaiyi-upgrade-tests-a18c28a5839c4dc48dcdd0ff8ece50cf/application/versions/0840b7d8d0ee467db8d8e1aeb675acba driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-a18c28a5839c4dc48dcdd0ff8ece50cf/application/versions/533e9f518e3142c7b5d0dab0b528a967 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3ac04688-accb-49c4-b6c4-bd2c753a7c1f" testId="539d6954-98f8-0202-56e9-5f84541760e1" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.UpgradeWaitsForActualOwnedAppAndBrokerExitThenStartsTheWholeSelectedGeneration" computerName="4cd0056ca8a8" duration="00:00:00.5418155" startTime="2026-10-17T13:45:26.1218026+00:00" endTime="2026-10-17T13:45:26.6694579+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3ac04688-accb-49c4-b6c4-bd2c753a7c1f">
+      <Output>
+        <StdOut>PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-f11e28660bc146ec93aaafb868cf3d76/application/versions/ea704f35c4d54d6292d6eded8433855d driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=0 stdoutLines=2 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-f11e28660bc146ec93aaafb868cf3d76/application/versions/ea704f35c4d54d6292d6eded8433855d driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=0 stdoutLines=2 stderrBytes=0 IO=Settled
+PUBLIC_ADMISSION_CHILD exit=4 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 IO=Settled
+PUBLIC_UPGRADE_CHILD version=2.0 directory=/tmp/kuaiyi-upgrade-tests-f11e28660bc146ec93aaafb868cf3d76/application/versions/9f1206c7169f4ff4af05dd8ea3b9c7f9 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled
+PUBLIC_ADMISSION_CHILD exit=0 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 IO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6820b601-79c5-4419-ba5b-832d76761cb1" testId="181253b6-e5f1-81b6-d69e-ee28234b5163" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.ClaimedLaunchProofCannotBeReplayedIntoASecondApplication" computerName="4cd0056ca8a8" duration="00:00:00.2565922" startTime="2026-10-17T13:45:27.7223244+00:00" endTime="2026-10-17T13:45:27.9793883+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6820b601-79c5-4419-ba5b-832d76761cb1">
+      <Output>
+        <StdOut>PUBLIC_APP_START_REJECT actualExit=3 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 noSurface=True originalIO=Settled
+PUBLIC_APP_CONTROL_CHILD actualExit=0 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106 originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="673db7f4-0144-4f3c-9d4d-68c60cc5b396" testId="f2391247-9f4b-4fef-58b1-5d6e8b92cbd2" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;data&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.1364112" startTime="2026-10-17T13:45:26.8017958+00:00" endTime="2026-10-17T13:45:26.9401477+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="673db7f4-0144-4f3c-9d4d-68c60cc5b396">
+      <Output>
+        <StdOut>PUBLIC_APP_START_REJECT actualExit=3 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 noSurface=True originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1c2b798a-53d7-4378-85f4-7f2576600449" testId="105cda92-e24d-b87b-08ef-1aff5b2288a6" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.OldRestartFailureRemainsBlockedUntilOwnedRetryActuallyStartsItHealthy" computerName="4cd0056ca8a8" duration="00:00:00.2097345" startTime="2026-10-17T13:45:52.9667969+00:00" endTime="2026-10-17T13:45:53.1768072+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1c2b798a-53d7-4378-85f4-7f2576600449">
+      <Output>
+        <StdOut>PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-e14531614967423f8f5ff1b89cadad35/application/versions/3b563c2c08ca425a951ad8eba6a1fa65 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=0 stdoutLines=2 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=2.0 directory=/tmp/kuaiyi-upgrade-tests-e14531614967423f8f5ff1b89cadad35/application/versions/5b05b276b66d4c75bdcc48ced98e5e56 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled
+PUBLIC_ADMISSION_CHILD exit=4 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 IO=Settled
+PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-e14531614967423f8f5ff1b89cadad35/application/versions/3b563c2c08ca425a951ad8eba6a1fa65 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="688f27f1-04ba-4ea1-a6e6-b3edfa3ad788" testId="d37003f5-af3f-a43e-bf34-09561f030f20" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.RetryJoinsTheOriginalLifetimeStopTaskAfterActualExitBeforeRestoringTheOldGeneration" computerName="4cd0056ca8a8" duration="00:00:06.2779714" startTime="2026-10-17T13:45:53.4914526+00:00" endTime="2026-10-17T13:45:59.7696912+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="688f27f1-04ba-4ea1-a6e6-b3edfa3ad788">
+      <Output>
+        <StdOut>PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-7c3c46f925634496a3e44dae67f99864/application/versions/950fc4b8f3364535931e4a4f37c809ac driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=0 stdoutLines=2 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=2.0 directory=/tmp/kuaiyi-upgrade-tests-7c3c46f925634496a3e44dae67f99864/application/versions/4ce32ee3dfcf452fa11557dbfe4d5789 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-7c3c46f925634496a3e44dae67f99864/application/versions/950fc4b8f3364535931e4a4f37c809ac driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cee4a62c-955f-4be7-9a8f-4b3b16587571" testId="1b1d19b7-b6c7-e372-defd-39bb6945462f" testName="KuaiYi.Core.Tests.InstallationTransactionTests.ActualIoFailureBeforeOrAfterPublicationKeepsTheCompletePreviousVersion(stage: BeforePointerPublish)" computerName="4cd0056ca8a8" duration="00:00:00.0062039" startTime="2026-10-17T13:45:26.9575292+00:00" endTime="2026-10-17T13:45:26.9656070+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cee4a62c-955f-4be7-9a8f-4b3b16587571" />
+    <UnitTestResult executionId="c515acc7-66d5-4b54-9f8e-dc559f104b70" testId="48a8893d-79c8-2f81-40e9-5f70a2e410c2" testName="KuaiYi.Core.Tests.InstallationTransactionTests.AnActualExclusiveFileLeaseBlocksTheCompetingWriter" computerName="4cd0056ca8a8" duration="00:00:00.0087890" startTime="2026-10-17T13:45:27.1774308+00:00" endTime="2026-10-17T13:45:27.1865654+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c515acc7-66d5-4b54-9f8e-dc559f104b70" />
+    <UnitTestResult executionId="6505b08f-dd43-4cf7-ab04-25b53f1cb84e" testId="b319d590-f6e5-6414-1571-a1c1125340d1" testName="KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: &quot;schema-overflow&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0056426" startTime="2026-10-17T13:45:27.1330626+00:00" endTime="2026-10-17T13:45:27.1387977+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6505b08f-dd43-4cf7-ab04-25b53f1cb84e" />
+    <UnitTestResult executionId="b2d8fd66-d73a-4947-8d38-77dfec26eb7c" testId="fae51bca-5ecf-141a-685f-aea4dca52ddd" testName="KuaiYi.Core.Tests.InstallationHandoffTests.ControllerCrashAfterDurableCommitBeforeSendingAckStillLeavesAnExplicitLiveCleanupOwner" computerName="4cd0056ca8a8" duration="00:00:00.3658515" startTime="2026-10-17T13:45:30.5101321+00:00" endTime="2026-10-17T13:45:30.8775515+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b2d8fd66-d73a-4947-8d38-77dfec26eb7c">
+      <Output>
+        <StdOut>PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-6688c101875d4bef8d90980557f55b97/application/versions/deed91b208274f389ffef6cee474e774
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-6688c101875d4bef8d90980557f55b97/application/versions/068f5640006643db963521fc463e15f1
+PUBLIC_ACTUAL_CONTROLLER_EXIT=82
+PUBLIC_CONTROLLER_ACTUAL_EXIT=82 fixtureSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-6688c101875d4bef8d90980557f55b97/application/versions/deed91b208274f389ffef6cee474e774
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-6688c101875d4bef8d90980557f55b97/application/versions/068f5640006643db963521fc463e15f1
+PUBLIC_RUNTIME_SELF_CLEANUP=1 pipeEOF=True OSLeaseReleased=True durableFenceRetained=True</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d458de14-99c1-455a-8d4f-23e932760f5d" testId="e4b733e2-b2f6-b771-be18-26b76be91907" testName="KuaiYi.Core.Tests.InstallationTransactionTests.ActualOwnedProcessExitLeavesExactlyTheOldOrNewCompleteVersion(stage: BeforePointerPublish)" computerName="4cd0056ca8a8" duration="00:00:00.1652731" startTime="2026-10-17T13:45:26.6423345+00:00" endTime="2026-10-17T13:45:26.8079004+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d458de14-99c1-455a-8d4f-23e932760f5d">
+      <Output>
+        <StdOut>PUBLIC_INSTALL_CHILD stage=BeforePointerPublish exit=73 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 stdout=PUBLIC_INSTALL_STAGE=BeforePointerPublish stderrBytes=0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="19fe7ee8-ecaa-4d99-bce7-ba9d34246e63" testId="2816986d-1887-880f-eff9-a6a520a1a4de" testName="KuaiYi.Core.Tests.InstallationTransactionTests.ActualIoFailureBeforeOrAfterPublicationKeepsTheCompletePreviousVersion(stage: PackageVerified)" computerName="4cd0056ca8a8" duration="00:00:00.0254619" startTime="2026-10-17T13:45:26.9005407+00:00" endTime="2026-10-17T13:45:26.9271257+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="19fe7ee8-ecaa-4d99-bce7-ba9d34246e63" />
+    <UnitTestResult executionId="54848fcf-b7e5-4ba8-b65e-0ebec54f95be" testId="c6a96224-bbad-1914-bc00-5f49460ab037" testName="KuaiYi.Core.Tests.InstallationTransactionTests.RealPackageTreesSwitchTogetherAndEncryptedUserDataStaysInItsOriginalDirectory" computerName="4cd0056ca8a8" duration="00:00:00.0081290" startTime="2026-10-17T13:45:27.2916028+00:00" endTime="2026-10-17T13:45:27.3000517+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="54848fcf-b7e5-4ba8-b65e-0ebec54f95be" />
+    <UnitTestResult executionId="4005cf54-5e1c-48bc-897b-df5c8ab243d0" testId="b80ea7ca-38b2-7ec8-f556-7a9d02c4f647" testName="KuaiYi.Core.Tests.InstallationTransactionTests.RollbackFailureIsUnconfirmedAndRetainsBothCompleteVersionTrees" computerName="4cd0056ca8a8" duration="00:00:00.0079169" startTime="2026-10-17T13:45:27.2788305+00:00" endTime="2026-10-17T13:45:27.2870766+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4005cf54-5e1c-48bc-897b-df5c8ab243d0" />
+    <UnitTestResult executionId="8bd6bd74-86f1-4ad2-9025-7f156b12eacb" testId="a9e286d8-0ed1-7dd6-f91f-7f3f34f97d12" testName="KuaiYi.Core.Tests.InstallationHandoffTests.LostCommitAckNeverRollsBackOrKillsTheAcceptedRuntime" computerName="4cd0056ca8a8" duration="00:00:02.3558651" startTime="2026-10-17T13:45:31.5658170+00:00" endTime="2026-10-17T13:45:33.9219314+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8bd6bd74-86f1-4ad2-9025-7f156b12eacb">
+      <Output>
+        <StdOut>PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-d2ec282ae8a14877b7b4b4fe6b96e1b5/application/versions/4cbf10f6a70c4aefa737f74c7df6e6a7
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-d2ec282ae8a14877b7b4b4fe6b96e1b5/application/versions/a1c2fccefa57418eb0b3a21764960eb7
+PUBLIC_HANDOFF_RESULT|Upgraded|CommittedUnconfirmed|2.0|TimeoutException
+PUBLIC_COMMITTED_GATES|Start=Refused|Upgrade=Refused|Retry=Refused|CallerCancelled=False
+PUBLIC_ORIGINAL_IO|LiveControl|CancelledAndJoined|Settled
+PUBLIC_CONTROLLER_DISPOSED
+PUBLIC_ACTUAL_CONTROLLER_EXIT=0
+PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-d2ec282ae8a14877b7b4b4fe6b96e1b5/application/versions/4cbf10f6a70c4aefa737f74c7df6e6a7
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-d2ec282ae8a14877b7b4b4fe6b96e1b5/application/versions/a1c2fccefa57418eb0b3a21764960eb7
+PUBLIC_HANDOFF_RESULT|Upgraded|CommittedUnconfirmed|2.0|TimeoutException
+PUBLIC_COMMITTED_GATES|Start=Refused|Upgrade=Refused|Retry=Refused|CallerCancelled=False
+PUBLIC_ORIGINAL_IO|LiveControl|CancelledAndJoined|Settled
+PUBLIC_CONTROLLER_DISPOSED
+PUBLIC_RUNTIME_SELF_CLEANUP=1 pipeEOF=True OSLeaseReleased=True durableFenceRetained=True</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="805752a7-5c62-4103-b375-d57b0bb2e19d" testId="c8b76342-95ef-2a8c-3b82-ab77264a00e2" testName="KuaiYi.Core.Tests.InstallationTransactionTests.ReadersObserveOnlyCompleteOldOrNewGenerationsAcrossTheAtomicRecordSwitch" computerName="4cd0056ca8a8" duration="00:00:00.0222885" startTime="2026-10-17T13:45:27.2320509+00:00" endTime="2026-10-17T13:45:27.2575926+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="805752a7-5c62-4103-b375-d57b0bb2e19d" />
+    <UnitTestResult executionId="959d5a2c-1230-4565-936a-5716c08244e2" testId="7f006949-a251-304c-966e-5c8dbe289cbf" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.LocallyHeldRetryCanFinishAfterTheSameOwnedApplicationStopsRefusingExit" computerName="4cd0056ca8a8" duration="00:00:02.1095035" startTime="2026-10-17T13:45:38.2964990+00:00" endTime="2026-10-17T13:45:40.4063308+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="959d5a2c-1230-4565-936a-5716c08244e2">
+      <Output>
+        <StdOut>PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-e1273344432145d999313f9f386b52b0/application/versions/556dc47eef044a32848fed4ab7818596 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=0 stdoutLines=3 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-e1273344432145d999313f9f386b52b0/application/versions/556dc47eef044a32848fed4ab7818596 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2cbbfe6a-8f9e-48b2-ac28-e6a8f3e6905e" testId="11885fd1-a896-a6ae-794d-0592cd9a39da" testName="KuaiYi.Core.Tests.InstallationHandoffTests.ReceiverAbortCannotReleaseItsLeaseBeforeActualExitEvenWhileTheParentCanStillCommit" computerName="4cd0056ca8a8" duration="00:00:00.3893827" startTime="2026-10-17T13:45:39.0392838+00:00" endTime="2026-10-17T13:45:39.4289192+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2cbbfe6a-8f9e-48b2-ac28-e6a8f3e6905e">
+      <Output>
+        <StdOut>PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-f9f5dc86fc6c4831883196fc7be6e728/application/versions/0f993d3fa471476685facbb4f617088b
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-f9f5dc86fc6c4831883196fc7be6e728/application/versions/5c12cdeb5ba148828cdd59d2e7c103aa
+PUBLIC_RECEIVER_LEASE_WINDOW
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-f9f5dc86fc6c4831883196fc7be6e728/application/versions/0f993d3fa471476685facbb4f617088b
+PUBLIC_HANDOFF_RESULT|RolledBack|None|1.0|IOException
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_CONTROLLER_DISPOSED
+PUBLIC_ACTUAL_CONTROLLER_EXIT=0
+PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-f9f5dc86fc6c4831883196fc7be6e728/application/versions/0f993d3fa471476685facbb4f617088b
+PUBLIC_ORIGINAL_IO|Exit|0|Settled
+PUBLIC_SELECTED_HEALTH|2.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-f9f5dc86fc6c4831883196fc7be6e728/application/versions/5c12cdeb5ba148828cdd59d2e7c103aa
+PUBLIC_RECEIVER_LEASE_WINDOW
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_SELECTED_HEALTH|1.0|3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7|/tmp/kuaiyi-upgrade-tests-f9f5dc86fc6c4831883196fc7be6e728/application/versions/0f993d3fa471476685facbb4f617088b
+PUBLIC_HANDOFF_RESULT|RolledBack|None|1.0|IOException
+PUBLIC_ORIGINAL_IO|Exit|137|Settled
+PUBLIC_CONTROLLER_DISPOSED</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="642316b9-379d-45de-937b-d33cbe399d8e" testId="62ff1f54-5493-0c33-35ea-9aa1fff9ef06" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.IntactButUnhealthyNewVersionRestoresExactOldPointerAndActuallyRestartsOldApplication(mode: &quot;wrong-launch&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.1764525" startTime="2026-10-17T13:45:35.5224856+00:00" endTime="2026-10-17T13:45:35.7005707+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="642316b9-379d-45de-937b-d33cbe399d8e">
+      <Output>
+        <StdOut>PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-693dcf52b266415b9f345f4b4d8330e7/application/versions/8b36857051294dafb47a0409d2134c38 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=0 stdoutLines=2 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=2.0 directory=/tmp/kuaiyi-upgrade-tests-693dcf52b266415b9f345f4b4d8330e7/application/versions/b67d93d4067848fea4872501b63240b6 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled
+PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-693dcf52b266415b9f345f4b4d8330e7/application/versions/8b36857051294dafb47a0409d2134c38 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1721b899-d827-4335-93b2-2b148210b25f" testId="212ceb31-6ac6-20f2-4318-30345acedf98" testName="KuaiYi.Core.Tests.InstallationUpgradeTests.InitialUnhealthyInstallReturnsToUninstalledAndRetainsTheCompleteCandidate" computerName="4cd0056ca8a8" duration="00:00:00.0559638" startTime="2026-10-17T13:45:52.9130093+00:00" endTime="2026-10-17T13:45:52.9666492+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1721b899-d827-4335-93b2-2b148210b25f">
+      <Output>
+        <StdOut>PUBLIC_UPGRADE_CHILD version=1.0 directory=/tmp/kuaiyi-upgrade-tests-75c4aa97b22c4c87bc78c23c8d504fae/application/versions/a77072c659a14c43bd808f7860ab6562 driverSha256=3CFC115AD277CB674B8716BCF578AD443EF9A4D3843E6208D7D2FB872094A6A7 exit=137 stdoutLines=1 stderrBytes=0 IO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: &quot;hash-number&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="499f2316-522b-6e84-e023-46626e609d81">
+      <Execution id="0a74d3ef-eacc-431a-831c-403e06bf728a" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.IntactButUnhealthyNewVersionRestoresExactOldPointerAndActuallyRestartsOldApplication(mode: &quot;start-exit&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="db90e16e-4af5-62ce-6475-a9d32ed8287c">
+      <Execution id="b4fd7c74-2609-43ba-897d-17b4e0655858" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="IntactButUnhealthyNewVersionRestoresExactOldPointerAndActuallyRestartsOldApplication" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.UnknownHandoffBytesAreRetainedAndNeverAuthorizeReclaimOrFreshAdmission" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="709def99-b8ed-c6cb-d5ec-c20f0512dd4e">
+      <Execution id="c98a5ed4-79c1-4a2d-bb42-0c2380399821" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="UnknownHandoffBytesAreRetainedAndNeverAuthorizeReclaimOrFreshAdmission" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;launch&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="1b663a74-8071-7ab3-040a-af96acde95c9">
+      <Execution id="9060aba9-52ea-4643-b1f6-da4210f95ca2" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="WrongOrAbsentProofCannotCreateAnyApplicationSurface" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.LateHealthTaskMustSettleBeforeRollbackOrOldApplicationCanStart" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="13d1eff6-87bd-3797-593f-c2d42f9a6142">
+      <Execution id="a5ec0e41-d0d7-496a-b7ae-807f4af07765" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="LateHealthTaskMustSettleBeforeRollbackOrOldApplicationCanStart" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.RealSymbolicLinksAreRejectedAndIdenticalDigestTargetsRetainEveryByte(location: &quot;package-directory&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="1e09176e-aecc-c420-6ee8-25c76fa1ad57">
+      <Execution id="98878851-89db-468d-9bce-6bd48ddcf514" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="RealSymbolicLinksAreRejectedAndIdenticalDigestTargetsRetainEveryByte" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.ASeparateCaseAliasedDirectoryIsNotSilentlyDroppedFromThePackage" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="9f9a6950-b7d2-32f6-1ae9-e3809628f299">
+      <Execution id="530abfca-4991-4bdb-b91f-6c7b8c5a837f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="ASeparateCaseAliasedDirectoryIsNotSilentlyDroppedFromThePackage" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;owner&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="81530fe3-51a5-86db-e851-361dbf87c941">
+      <Execution id="1b2b8ba4-13ea-4789-bc01-246f583d79c4" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="WrongOrAbsentProofCannotCreateAnyApplicationSurface" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.OriginalControlTaskMustReallySettleBeforeDisposeCanReleaseTheControllerHandle" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="9ec38963-7d5d-b5d6-6699-7086a356bc99">
+      <Execution id="a4432eae-fcc4-47e5-80d6-c8eb4da979ec" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="OriginalControlTaskMustReallySettleBeforeDisposeCanReleaseTheControllerHandle" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.NormalInstalledEntryCannotBypassOwnerFenceOrSelectAnOldGenerationAndNeverSelfClearsItsOwner" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="2b0ec10d-8f90-d371-adab-c234d8d98a1a">
+      <Execution id="4b3e553c-f01c-4184-812c-8ed51b4cb7ab" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="NormalInstalledEntryCannotBypassOwnerFenceOrSelectAnOldGenerationAndNeverSelfClearsItsOwner" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.StopCannotPublishWhileExistingCloseCleanupIsHeldAndTheSameControllerCanRetryAfterActualExit" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="6a909fb6-c540-adf1-7999-9e25bdefd9a0">
+      <Execution id="9650ce12-7e66-4adb-a6e2-f7bbee07ad3f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="StopCannotPublishWhileExistingCloseCleanupIsHeldAndTheSameControllerCanRetryAfterActualExit" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: &quot;schema-overflow&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b319d590-f6e5-6414-1571-a1c1125340d1">
+      <Execution id="6505b08f-dd43-4cf7-ab04-25b53f1cb84e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.ControlledStartupRequiresTheOriginalReadyBarrierAndStopUsesTheExistingCloseTaskWithoutSelfWaiting" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="9979ecd7-d764-03ce-7cc3-89557d6ec8a7">
+      <Execution id="26114a9e-3cf3-4889-9170-aacd3958635c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="ControlledStartupRequiresTheOriginalReadyBarrierAndStopUsesTheExistingCloseTaskWithoutSelfWaiting" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: &quot;traversal&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="556ec1fe-b1ab-17b9-7276-ff7a0667b823">
+      <Execution id="a35ff3d3-6424-4be8-b27a-537662d67c65" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="InvalidPackagesCannotChangeTheInstalledVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.QuiescenceIsRequiredAndCancellationAfterCommitDoesNotInventRollback(afterCommit: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="ba4f10eb-5011-7fe8-3ee1-218da46f1a53">
+      <Execution id="fa4c6446-cf49-4fff-a1ab-fda7f0755904" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="QuiescenceIsRequiredAndCancellationAfterCommitDoesNotInventRollback" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;role&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="8aa57f9f-ab1e-d847-d4e6-15224eaee9db">
+      <Execution id="ec01607c-affe-4029-b86b-318a749f062e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="WrongOrAbsentProofCannotCreateAnyApplicationSurface" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: &quot;reject&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="0479e95b-73f7-c9d3-ed18-f0cece1442fd">
+      <Execution id="66aa22f1-c548-4377-b758-4058516809d2" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: &quot;path-number&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="16e006e2-3e7e-5b50-455a-e9d1c946c021">
+      <Execution id="96eb66c3-526b-4b0e-9a9b-e1e5a5e858f8" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.RollbackFailureIsUnconfirmedAndRetainsBothCompleteVersionTrees" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b80ea7ca-38b2-7ec8-f556-7a9d02c4f647">
+      <Execution id="4005cf54-5e1c-48bc-897b-df5c8ab243d0" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="RollbackFailureIsUnconfirmedAndRetainsBothCompleteVersionTrees" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: &quot;extra&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="df9314b0-fdd2-f062-b50d-448459806f44">
+      <Execution id="443937e8-0715-459e-b0e9-f7613de3ad42" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="InvalidPackagesCannotChangeTheInstalledVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.ReceiverAbortCannotReleaseItsLeaseBeforeActualExitEvenWhileTheParentCanStillCommit" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="11885fd1-a896-a6ae-794d-0592cd9a39da">
+      <Execution id="2cbbfe6a-8f9e-48b2-ac28-e6a8f3e6905e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="ReceiverAbortCannotReleaseItsLeaseBeforeActualExitEvenWhileTheParentCanStillCommit" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.ControllerCrashAfterReceiverAcquiresButBeforeCommitMakesReceiverAbortAndRetainsTheFence" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="559c8e25-6865-8ad9-9142-c665f6641e15">
+      <Execution id="b431d7e3-3d31-41f0-b3ac-e725f3982245" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="ControllerCrashAfterReceiverAcquiresButBeforeCommitMakesReceiverAbortAndRetainsTheFence" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.ActualIoFailureBeforeOrAfterPublicationKeepsTheCompletePreviousVersion(stage: BeforePointerPublish)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="1b1d19b7-b6c7-e372-defd-39bb6945462f">
+      <Execution id="cee4a62c-955f-4be7-9a8f-4b3b16587571" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="ActualIoFailureBeforeOrAfterPublicationKeepsTheCompletePreviousVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.ChangedPendingRecordIsRetainedAndCannotBeClearedByOwnedRetry" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="cbeeb6e4-455f-f348-5f81-b0c72c9cf004">
+      <Execution id="d5a9313a-3394-4cfa-b531-0abaebd3d7cb" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="ChangedPendingRecordIsRetainedAndCannotBeClearedByOwnedRetry" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: &quot;schema-string&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="11e8aabe-a869-8b60-51ca-9b19ea6d65fd">
+      <Execution id="70697fe4-3976-4a71-94a4-37244e496622" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(upgrade: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="9614821d-8087-fb91-287d-2058d2029e9b">
+      <Execution id="245b1ec2-6b84-4015-b09e-f5fe895c7ca0" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.ActualOwnedProcessExitLeavesExactlyTheOldOrNewCompleteVersion(stage: PointerPublished)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="01cfdd7a-d203-7820-f4fe-81f9e5c9aace">
+      <Execution id="7a52ff27-b641-45a6-8f01-949aeeb61b29" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="ActualOwnedProcessExitLeavesExactlyTheOldOrNewCompleteVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: &quot;unknown-field&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="9afd8522-0fc2-b12d-29f8-d1e4731eede8">
+      <Execution id="7f8a91db-6520-4a40-9aa7-b37b40ec30e5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="InvalidPackagesCannotChangeTheInstalledVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;none&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="e1134887-79d4-51b5-ae2b-c4c228beedce">
+      <Execution id="6f9ac982-79eb-4f6f-ae56-4cc6d79b730b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="WrongOrAbsentProofCannotCreateAnyApplicationSurface" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.RealSymbolicLinksAreRejectedAndIdenticalDigestTargetsRetainEveryByte(location: &quot;package-file&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="18fb9d83-e7e3-a23e-669f-775ad958b81b">
+      <Execution id="ccb0a7c6-5da7-412c-b876-d5b6e1853a1d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="RealSymbolicLinksAreRejectedAndIdenticalDigestTargetsRetainEveryByte" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: &quot;case&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="5504f72c-8717-cdd2-ff21-02cb31fc8631">
+      <Execution id="bbcd3b98-5e33-4f1f-b7e6-51f942170ed9" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="InvalidPackagesCannotChangeTheInstalledVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: &quot;cancel-prepared&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="173952fd-504e-dea3-4f8c-b05a6a3b3249">
+      <Execution id="dca9669a-8e40-475b-bab3-a16afcc52797" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: &quot;bytes-overflow&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="c37ef869-0592-8b94-b207-8b38efa6a5e9">
+      <Execution id="9103a899-cc81-4d53-8f41-adf9cae88447" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.FailedCloseKeepsTheSameApplicationAndOwnerAndASecondCloseCanSettleTheOriginalControl" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="eb7ebbd0-7f5f-0775-aec1-fd02ba5244ac">
+      <Execution id="3e9fe1a4-768e-437e-ab8e-226c7fa189e7" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="FailedCloseKeepsTheSameApplicationAndOwnerAndASecondCloseCanSettleTheOriginalControl" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.UpgradeWaitsForActualOwnedAppAndBrokerExitThenStartsTheWholeSelectedGeneration" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="539d6954-98f8-0202-56e9-5f84541760e1">
+      <Execution id="3ac04688-accb-49c4-b6c4-bd2c753a7c1f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="UpgradeWaitsForActualOwnedAppAndBrokerExitThenStartsTheWholeSelectedGeneration" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.InitialUnhealthyInstallReturnsToUninstalledAndRetainsTheCompleteCandidate" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="212ceb31-6ac6-20f2-4318-30345acedf98">
+      <Execution id="1721b899-d827-4335-93b2-2b148210b25f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="InitialUnhealthyInstallReturnsToUninstalledAndRetainsTheCompleteCandidate" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.NormalLaunchAlsoHoldsAdmissionThroughActualStartupAndHealthSettlement" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="cd4b2b39-a8c9-ea69-bb47-e59b8f6d108e">
+      <Execution id="d6a67f36-c3e5-4ce1-bff3-6fc4f7ca004c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="NormalLaunchAlsoHoldsAdmissionThroughActualStartupAndHealthSettlement" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.BlockingHealthCancellationCallbackCannotHoldTheUpgradeCallerBeyondItsOwnedBudget" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="00f180c8-578c-bbb4-d3b3-9626fd3d7d17">
+      <Execution id="b1d244aa-0bd9-4a5b-bdef-9ce4c263bce6" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="BlockingHealthCancellationCallbackCannotHoldTheUpgradeCallerBeyondItsOwnedBudget" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.PostcommitCallerCancellationAndEveryOldControllerMutationAreRefusedWithoutKillingTheRuntime" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="9d9c72e0-791c-c715-8f2e-97f76a898695">
+      <Execution id="772d22ea-c540-44c4-93bd-a47c7d4240b4" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="PostcommitCallerCancellationAndEveryOldControllerMutationAreRefusedWithoutKillingTheRuntime" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: &quot;reserved&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="33766f64-e6ba-3110-29fb-142271054959">
+      <Execution id="e5ab9292-2b1e-4fe0-8733-8a213652a5a9" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="InvalidPackagesCannotChangeTheInstalledVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.RealControllerCrashBeforeActualStartLeavesPersistentOwnershipEvenAfterOsLeaseRelease" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="7b1c4cf8-c5c0-65a6-cf31-ed0d59af7131">
+      <Execution id="eec8a4b1-92eb-476d-8d7f-66079229c1c3" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="RealControllerCrashBeforeActualStartLeavesPersistentOwnershipEvenAfterOsLeaseRelease" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.ActualOwnedProcessExitLeavesExactlyTheOldOrNewCompleteVersion(stage: BeforePointerPublish)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="e4b733e2-b2f6-b771-be18-26b76be91907">
+      <Execution id="d458de14-99c1-455a-8d4f-23e932760f5d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="ActualOwnedProcessExitLeavesExactlyTheOldOrNewCompleteVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: &quot;version-number&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="f70da555-b519-2d46-6d57-6388d7dee55f">
+      <Execution id="6c1678eb-5773-4949-ad14-b92a00c4a735" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.UnknownRootLockPointerAndUserDataOverlapAreNotOverwritten" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="44cb2545-01fb-21a6-84fe-3c223d19355b">
+      <Execution id="2b63908f-bada-4a16-91e4-972f0b995be9" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="UnknownRootLockPointerAndUserDataOverlapAreNotOverwritten" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.UncertainRecoveryRetainsAllFilesAndNeverReportsSuccess(fault: &quot;previous&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="7881f326-9e10-74c1-abc8-a75d5cc41e3b">
+      <Execution id="b008bfc7-a563-43d0-9e8c-df78e1ce3456" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="UncertainRecoveryRetainsAllFilesAndNeverReportsSuccess" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication(upgrade: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="7b3a5b73-b452-e4e3-7d07-c8a967bf211f">
+      <Execution id="c4702e82-27cb-493d-a9a8-5db4b16d043f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="AnotherCoordinatorCannotStartOrUpgradeOverALiveOwnedApplication" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.ReadersObserveOnlyCompleteOldOrNewGenerationsAcrossTheAtomicRecordSwitch" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="c8b76342-95ef-2a8c-3b82-ab77264a00e2">
+      <Execution id="805752a7-5c62-4103-b375-d57b0bb2e19d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="ReadersObserveOnlyCompleteOldOrNewGenerationsAcrossTheAtomicRecordSwitch" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IntegrationStatusTests.MissingOwnInstallationDirectoryIsMissingManifestNotPermissionOrIntegrityFailure" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="bbe9dbdc-f213-3b15-f9bc-7563694226c5">
+      <Execution id="478b0438-4ba2-4fc5-a123-bf22e35180d0" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IntegrationStatusTests" name="MissingOwnInstallationDirectoryIsMissingManifestNotPermissionOrIntegrityFailure" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.ActualOwnedProcessExitLeavesExactlyTheOldOrNewCompleteVersion(stage: VersionPublished)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="4f6ac55e-3c18-94c6-23d8-f4f3729209c8">
+      <Execution id="0a3cd20b-3a0d-4636-88c5-3748ecbbb4d2" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="ActualOwnedProcessExitLeavesExactlyTheOldOrNewCompleteVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.LateActualStartOwnerMustPublishExitAndSettleIoBeforeOldVersionRestarts" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="944499fe-55d9-3665-32fe-4a7769393b41">
+      <Execution id="31f5dcd2-0051-4740-b88b-b6dd41a2c378" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="LateActualStartOwnerMustPublishExitAndSettleIoBeforeOldVersionRestarts" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.NewApplicationReadinessFailureNeverAcknowledgesHealthAndRollsBackTheExactOldPointer" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="0c9f2f5b-18dd-3c73-1a49-84f74152081a">
+      <Execution id="6eae5c42-6d41-4327-bb54-4eab2080913d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="NewApplicationReadinessFailureNeverAcknowledgesHealthAndRollsBackTheExactOldPointer" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="7b188aea-6ec9-d902-b598-d9e8f6605f48">
+      <Execution id="28459a3a-30c8-4d7b-b6fa-2a07baa7b0cf" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="HealthyReceiverLivesAfterActualControllerExitAndHasAnExplicitSelfCleanupRecipient" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.MissingLeasePathIsNeverAcceptedAsProofOfReceiverOwnership" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="dfa40dee-e082-b354-b01e-45bd4a3d35c6">
+      <Execution id="4c7895c9-29f2-413f-8d09-867ccc3ea0f8" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="MissingLeasePathIsNeverAcceptedAsProofOfReceiverOwnership" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.CancellationDuringOwnedNewHealthRestoresAndRestartsTheVerifiedOldVersion" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="e5b65ba2-85e8-bdd4-8d3f-464f8b198bf1">
+      <Execution id="be7a8c53-4a2b-4110-ab83-a63ed5109b9b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="CancellationDuringOwnedNewHealthRestoresAndRestartsTheVerifiedOldVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.IntactButUnhealthyNewVersionRestoresExactOldPointerAndActuallyRestartsOldApplication(mode: &quot;wrong-launch&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="62ff1f54-5493-0c33-35ea-9aa1fff9ef06">
+      <Execution id="642316b9-379d-45de-937b-d33cbe399d8e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="IntactButUnhealthyNewVersionRestoresExactOldPointerAndActuallyRestartsOldApplication" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.ActualOsStartFailureRollsBackWithoutInventingAStartedChild" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="f4469e77-9b8d-9b4a-c8fc-06dffcf73de9">
+      <Execution id="b0952af3-c12f-49cd-a5ac-e3b34599bc47" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="ActualOsStartFailureRollsBackWithoutInventingAStartedChild" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.RealPackageTreesSwitchTogetherAndEncryptedUserDataStaysInItsOriginalDirectory" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="c6a96224-bbad-1914-bc00-5f49460ab037">
+      <Execution id="54848fcf-b7e5-4ba8-b65e-0ebec54f95be" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="RealPackageTreesSwitchTogetherAndEncryptedUserDataStaysInItsOriginalDirectory" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.ClaimedLaunchProofCannotBeReplayedIntoASecondApplication" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="181253b6-e5f1-81b6-d69e-ee28234b5163">
+      <Execution id="6820b601-79c5-4419-ba5b-832d76761cb1" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="ClaimedLaunchProofCannotBeReplayedIntoASecondApplication" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.IntactButUnhealthyNewVersionRestoresExactOldPointerAndActuallyRestartsOldApplication(mode: &quot;unhealthy&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="c8dd2440-501b-1c84-52ad-eae3b8363423">
+      <Execution id="0eab2ea4-42dc-4548-b3d6-b814f87a46f0" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="IntactButUnhealthyNewVersionRestoresExactOldPointerAndActuallyRestartsOldApplication" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;missing-admission&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="73cbc0f5-ac50-5f6d-ef8b-92a1f2284ac9">
+      <Execution id="0eb62c4a-a7d4-40c2-8698-5e104396947c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="WrongOrAbsentProofCannotCreateAnyApplicationSurface" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.CommittedAckWriteFailureDoesNotRequestUiClosureOrReleaseTheRuntimeFence" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="18bf7078-07d5-9a5a-289b-94447edbc420">
+      <Execution id="83b91260-f79f-41e4-ad6f-b1a350c2be88" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="CommittedAckWriteFailureDoesNotRequestUiClosureOrReleaseTheRuntimeFence" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;directory&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b2658ccb-5e67-959d-1d3f-3192870c2974">
+      <Execution id="e516b342-d6f8-491a-971c-5a124ff53ff0" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="WrongOrAbsentProofCannotCreateAnyApplicationSurface" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.CallerPinnedCatalogDigestCannotBeReplacedAlongWithPayloadHashes" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b6da3c7c-4a37-2d26-6c03-eb32c2258aef">
+      <Execution id="8cbab81c-9c84-4bca-94bb-af62313202db" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="CallerPinnedCatalogDigestCannotBeReplacedAlongWithPayloadHashes" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.UncertainRecoveryRetainsAllFilesAndNeverReportsSuccess(fault: &quot;pointer&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="77f447ad-3ef5-e5e7-1492-696e1e275498">
+      <Execution id="c140e386-bc1b-4338-b1a4-13bfe6cfba07" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="UncertainRecoveryRetainsAllFilesAndNeverReportsSuccess" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.IntactButUnhealthyNewVersionRestoresExactOldPointerAndActuallyRestartsOldApplication(mode: &quot;silent&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="fdb62476-3c8f-8d23-9161-b60a15a52f06">
+      <Execution id="ae71693e-10f3-40dd-a5d0-c5f70810ce53" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="IntactButUnhealthyNewVersionRestoresExactOldPointerAndActuallyRestartsOldApplication" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.TwoConsecutiveRecoverCallsAreIdempotentForPointerVersionsAndEncryptedData" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="1109b369-6e9f-be59-a494-44c044c34c49">
+      <Execution id="d0ccb969-67f8-495d-9614-865f6ce04a4d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="TwoConsecutiveRecoverCallsAreIdempotentForPointerVersionsAndEncryptedData" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;data&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="f2391247-9f4b-4fef-58b1-5d6e8b92cbd2">
+      <Execution id="673db7f4-0144-4f3c-9d4d-68c60cc5b396" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="WrongOrAbsentProofCannotCreateAnyApplicationSurface" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.RealSymbolicLinksAreRejectedAndIdenticalDigestTargetsRetainEveryByte(location: &quot;data-ancestor&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="2bbd373d-ddc3-3a2c-ab98-10eb0dd0ae57">
+      <Execution id="67ecb5c2-61ff-4151-a89f-ad9733dd411a" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="RealSymbolicLinksAreRejectedAndIdenticalDigestTargetsRetainEveryByte" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.UncertainRecoveryRetainsAllFilesAndNeverReportsSuccess(fault: &quot;lock&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="12444785-92d5-a0b2-7788-5855a4205f7d">
+      <Execution id="a7c1666f-306b-4fc7-ae64-d8b2c326ead4" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="UncertainRecoveryRetainsAllFilesAndNeverReportsSuccess" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.RefusingOwnedApplicationPreventsPublicationAndPersistentBlockSurvivesLeaseRelease" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a2053ad2-7cc3-1fe8-3868-9cda622cb001">
+      <Execution id="cc13fe9e-fe9b-4c9f-b419-fbee5e82efb4" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="RefusingOwnedApplicationPreventsPublicationAndPersistentBlockSurvivesLeaseRelease" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.ControllerCrashAfterDurableCommitBeforeSendingAckStillLeavesAnExplicitLiveCleanupOwner" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="fae51bca-5ecf-141a-685f-aea4dca52ddd">
+      <Execution id="b2d8fd66-d73a-4947-8d38-77dfec26eb7c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="ControllerCrashAfterDurableCommitBeforeSendingAckStillLeavesAnExplicitLiveCleanupOwner" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: &quot;schema&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="fb4022ea-afa4-6058-ecfd-64cc99b61372">
+      <Execution id="7e4a84ec-61ba-42fd-a85b-9542e9d88eb5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="InvalidPackagesCannotChangeTheInstalledVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.ActualIoFailureBeforeOrAfterPublicationKeepsTheCompletePreviousVersion(stage: PackageVerified)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="2816986d-1887-880f-eff9-a6a520a1a4de">
+      <Execution id="19fe7ee8-ecaa-4d99-bce7-ba9d34246e63" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="ActualIoFailureBeforeOrAfterPublicationKeepsTheCompletePreviousVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.InitialPublicationFailureRestoresTheUninstalledStateWithoutDeletingAnyVersion" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="708237a6-ef5a-5c37-5f63-83ec2c889a31">
+      <Execution id="c3d037c1-3e75-4b0d-8a28-a307c57755f6" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="InitialPublicationFailureRestoresTheUninstalledStateWithoutDeletingAnyVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;missing-owner-lock&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="8de7ba4c-ab53-d038-7efb-7d2a53563369">
+      <Execution id="763debb7-2af9-451f-ae10-1ae31efaf081" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="WrongOrAbsentProofCannotCreateAnyApplicationSurface" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.ActualIoFailureBeforeOrAfterPublicationKeepsTheCompletePreviousVersion(stage: VersionPublished)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="e7a0149b-2fdf-a4dc-318b-b1ffb324a135">
+      <Execution id="e63c5f10-5c45-40d6-8d6a-8e08ebbb055c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="ActualIoFailureBeforeOrAfterPublicationKeepsTheCompletePreviousVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: &quot;digest&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="f73eb70b-d863-23b6-f402-bbe4e7d33220">
+      <Execution id="ecdf5db6-16af-4f66-a8fd-6a1733cf673d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="InvalidPackagesCannotChangeTheInstalledVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.RetryJoinsTheOriginalLifetimeStopTaskAfterActualExitBeforeRestoringTheOldGeneration" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="d37003f5-af3f-a43e-bf34-09561f030f20">
+      <Execution id="688f27f1-04ba-4ea1-a6e6-b3edfa3ad788" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="RetryJoinsTheOriginalLifetimeStopTaskAfterActualExitBeforeRestoringTheOldGeneration" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: &quot;late-accept&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="2a18d5ab-3c6d-7ad4-3006-e2627d049dd8">
+      <Execution id="d2efd988-540c-4991-90a4-d2abc5205443" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: &quot;missing&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="9f55ea81-fc56-6c8e-982d-7b38c96c7480">
+      <Execution id="1fe74088-c794-45c1-8155-d980680b5a64" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="InvalidPackagesCannotChangeTheInstalledVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.AnActualExclusiveFileLeaseBlocksTheCompetingWriter" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="48a8893d-79c8-2f81-40e9-5f70a2e410c2">
+      <Execution id="c515acc7-66d5-4b54-9f8e-dc559f104b70" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="AnActualExclusiveFileLeaseBlocksTheCompetingWriter" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.CommittedProductionControlEofKeepsApplicationAliveAndSelfCloseStillRetainsThePersistentFence" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="db2af3b5-37c3-c930-b2df-de511bf60eae">
+      <Execution id="aff0c1b5-fc99-4ad6-9001-b78a01f515e3" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="CommittedProductionControlEofKeepsApplicationAliveAndSelfCloseStillRetainsThePersistentFence" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: &quot;oversize&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="fa63c3f3-558b-5cd8-26ce-398c434e867d">
+      <Execution id="7fc6ff25-b943-41ad-8ba4-1061b04e8a02" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="InvalidPackagesCannotChangeTheInstalledVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: &quot;no-lease&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="eb01a23f-c8a7-a15e-86d9-09321055e51f">
+      <Execution id="967c91f1-f26a-4b51-a791-f2a3e5b37e81" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.ActualIoFailureBeforeOrAfterPublicationKeepsTheCompletePreviousVersion(stage: PointerPublished)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="0d5e6b42-05bd-8e66-6b57-39acc39a00ff">
+      <Execution id="d8ec63a8-c9a7-44ce-a5e0-0a2771fbea10" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="ActualIoFailureBeforeOrAfterPublicationKeepsTheCompletePreviousVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.QuiescenceIsRequiredAndCancellationAfterCommitDoesNotInventRollback(afterCommit: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="39ed5c50-428a-219e-18b1-5246d8770d34">
+      <Execution id="a1a0e09b-2b03-42aa-b85c-6806fef6e0ee" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="QuiescenceIsRequiredAndCancellationAfterCommitDoesNotInventRollback" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.OldRestartFailureRemainsBlockedUntilOwnedRetryActuallyStartsItHealthy" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="105cda92-e24d-b87b-08ef-1aff5b2288a6">
+      <Execution id="1c2b798a-53d7-4378-85f4-7f2576600449" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="OldRestartFailureRemainsBlockedUntilOwnedRetryActuallyStartsItHealthy" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.PrecommitOriginalTaskRetainsOwnershipUntilReleasedAndSameControllerCanThenRetryExactRollback" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="3dc866c5-56f2-4731-45c5-b2887dc01fd3">
+      <Execution id="d8f094e3-5acf-44f7-a9c7-a7d4e2bc2024" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="PrecommitOriginalTaskRetainsOwnershipUntilReleasedAndSameControllerCanThenRetryExactRollback" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.LostCommitAckNeverRollsBackOrKillsTheAcceptedRuntime" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a9e286d8-0ed1-7dd6-f91f-7f3f34f97d12">
+      <Execution id="8bd6bd74-86f1-4ad2-9025-7f156b12eacb" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="LostCommitAckNeverRollsBackOrKillsTheAcceptedRuntime" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion(fault: &quot;bytes-string&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="8a36cad3-ff70-a76d-4de0-b4c1f74fd0f7">
+      <Execution id="93ea90eb-297d-4f6a-86bf-5cb565879700" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="MalformedActiveCatalogStillRecoversTheVerifiedPreviousVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: &quot;duplicate-field&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a8256bf8-248b-87cd-18dd-46f731bd1321">
+      <Execution id="21324904-6602-4781-86c7-fe9ce23e6cbf" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="InvalidPackagesCannotChangeTheInstalledVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.RealCompetingProcessAndWritersCannotReenterWhileNewHealthIsPending" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="8165edfd-57af-6471-5483-be00a60bd80f">
+      <Execution id="c6c1b3fb-8072-46e5-9c4d-178fba8b57e8" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="RealCompetingProcessAndWritersCannotReenterWhileNewHealthIsPending" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.IntactButUnhealthyNewVersionRestoresExactOldPointerAndActuallyRestartsOldApplication(mode: &quot;wrong-version&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="0a6c06a3-40db-22c4-a6aa-c18ed437e7e9">
+      <Execution id="3fb279aa-70ca-4b1d-8291-57432944d929" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="IntactButUnhealthyNewVersionRestoresExactOldPointerAndActuallyRestartsOldApplication" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.LocallyHeldRetryCanFinishAfterTheSameOwnedApplicationStopsRefusingExit" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="7f006949-a251-304c-966e-5c8dbe289cbf">
+      <Execution id="959d5a2c-1230-4565-936a-5716c08244e2" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="LocallyHeldRetryCanFinishAfterTheSameOwnedApplicationStopsRefusingExit" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion(mode: &quot;wrong-accept&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="7470fb02-72f6-e692-ad5f-a82c7578a5f4">
+      <Execution id="7d9e4ed2-c90c-4c0e-a7cf-a1638cb70a3f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="BeforeCommitRefusalCancellationOrFalseReceiptActuallySettlesAndRestoresTheExactPreviousVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.RealSymbolicLinksAreRejectedAndIdenticalDigestTargetsRetainEveryByte(location: &quot;installation-ancestor&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="f7461e25-70e4-d60e-096a-f5c9f00593c6">
+      <Execution id="10cb9741-2ab7-40c3-8ca9-671f79dad2d5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="RealSymbolicLinksAreRejectedAndIdenticalDigestTargetsRetainEveryByte" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.CorruptActiveVersionRecoversTheVerifiedPreviousTreeAndRetainsUnknownBytes" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="26f62655-97dc-adbd-cba9-64e4c8abce81">
+      <Execution id="29dff46f-9208-4183-9905-2adc83b74f17" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="CorruptActiveVersionRecoversTheVerifiedPreviousTreeAndRetainsUnknownBytes" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationUpgradeTests.AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="22aaa4a0-3e88-ad16-1224-cab5fb44a668">
+      <Execution id="70f0874d-3391-49ec-bca5-6feee2ffd9dc" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationUpgradeTests" name="AChildThatAlreadyExitedStillMustSettleItsOriginalStderrBeforePublication" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.RevokedQuiescenceBeforeCommitCannotChangeTheCurrentVersion" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="60b33734-a298-2e2b-3bfa-c4bae6943c2b">
+      <Execution id="97be47c5-8726-441f-8e1a-f697e99a272c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="RevokedQuiescenceBeforeCommitCannotChangeTheCurrentVersion" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationHandoffTests.CompetingRealControllerIsRefusedDuringTheExecutionLeaseTransferWindow" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b3348cee-d833-027d-6fa5-8a1c99ca64d3">
+      <Execution id="b1fb43a0-052f-461e-8858-b4a3e00ac792" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationHandoffTests" name="CompetingRealControllerIsRefusedDuringTheExecutionLeaseTransferWindow" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;current&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="3c5c8a1c-b8a1-956e-0fdf-ce94b43f366f">
+      <Execution id="24b1b4c3-bdad-490c-ae99-440b6a3ff617" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="WrongOrAbsentProofCannotCreateAnyApplicationSurface" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationTransactionTests.InvalidPackagesCannotChangeTheInstalledVersion(fault: &quot;absolute&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="15525b69-c7c3-5300-79e9-996bf84ae0b7">
+      <Execution id="9178745f-d1c6-486b-a7bc-1d63ca12df27" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationTransactionTests" name="InvalidPackagesCannotChangeTheInstalledVersion" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="16e006e2-3e7e-5b50-455a-e9d1c946c021" executionId="96eb66c3-526b-4b0e-9a9b-e1e5a5e858f8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cd4b2b39-a8c9-ea69-bb47-e59b8f6d108e" executionId="d6a67f36-c3e5-4ce1-bff3-6fc4f7ca004c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0a6c06a3-40db-22c4-a6aa-c18ed437e7e9" executionId="3fb279aa-70ca-4b1d-8291-57432944d929" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9d9c72e0-791c-c715-8f2e-97f76a898695" executionId="772d22ea-c540-44c4-93bd-a47c7d4240b4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fa63c3f3-558b-5cd8-26ce-398c434e867d" executionId="7fc6ff25-b943-41ad-8ba4-1061b04e8a02" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="12444785-92d5-a0b2-7788-5855a4205f7d" executionId="a7c1666f-306b-4fc7-ae64-d8b2c326ead4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3dc866c5-56f2-4731-45c5-b2887dc01fd3" executionId="d8f094e3-5acf-44f7-a9c7-a7d4e2bc2024" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9f55ea81-fc56-6c8e-982d-7b38c96c7480" executionId="1fe74088-c794-45c1-8155-d980680b5a64" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="44cb2545-01fb-21a6-84fe-3c223d19355b" executionId="2b63908f-bada-4a16-91e4-972f0b995be9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="eb7ebbd0-7f5f-0775-aec1-fd02ba5244ac" executionId="3e9fe1a4-768e-437e-ab8e-226c7fa189e7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8aa57f9f-ab1e-d847-d4e6-15224eaee9db" executionId="ec01607c-affe-4029-b86b-318a749f062e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cbeeb6e4-455f-f348-5f81-b0c72c9cf004" executionId="d5a9313a-3394-4cfa-b531-0abaebd3d7cb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="944499fe-55d9-3665-32fe-4a7769393b41" executionId="31f5dcd2-0051-4740-b88b-b6dd41a2c378" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7b3a5b73-b452-e4e3-7d07-c8a967bf211f" executionId="c4702e82-27cb-493d-a9a8-5db4b16d043f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f70da555-b519-2d46-6d57-6388d7dee55f" executionId="6c1678eb-5773-4949-ad14-b92a00c4a735" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fb4022ea-afa4-6058-ecfd-64cc99b61372" executionId="7e4a84ec-61ba-42fd-a85b-9542e9d88eb5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="33766f64-e6ba-3110-29fb-142271054959" executionId="e5ab9292-2b1e-4fe0-8733-8a213652a5a9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e7a0149b-2fdf-a4dc-318b-b1ffb324a135" executionId="e63c5f10-5c45-40d6-8d6a-8e08ebbb055c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="01cfdd7a-d203-7820-f4fe-81f9e5c9aace" executionId="7a52ff27-b641-45a6-8f01-949aeeb61b29" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="39ed5c50-428a-219e-18b1-5246d8770d34" executionId="a1a0e09b-2b03-42aa-b85c-6806fef6e0ee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1b663a74-8071-7ab3-040a-af96acde95c9" executionId="9060aba9-52ea-4643-b1f6-da4210f95ca2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c37ef869-0592-8b94-b207-8b38efa6a5e9" executionId="9103a899-cc81-4d53-8f41-adf9cae88447" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2bbd373d-ddc3-3a2c-ab98-10eb0dd0ae57" executionId="67ecb5c2-61ff-4151-a89f-ad9733dd411a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e1134887-79d4-51b5-ae2b-c4c228beedce" executionId="6f9ac982-79eb-4f6f-ae56-4cc6d79b730b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="26f62655-97dc-adbd-cba9-64e4c8abce81" executionId="29dff46f-9208-4183-9905-2adc83b74f17" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b3348cee-d833-027d-6fa5-8a1c99ca64d3" executionId="b1fb43a0-052f-461e-8858-b4a3e00ac792" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="173952fd-504e-dea3-4f8c-b05a6a3b3249" executionId="dca9669a-8e40-475b-bab3-a16afcc52797" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2a18d5ab-3c6d-7ad4-3006-e2627d049dd8" executionId="d2efd988-540c-4991-90a4-d2abc5205443" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="db2af3b5-37c3-c930-b2df-de511bf60eae" executionId="aff0c1b5-fc99-4ad6-9001-b78a01f515e3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fdb62476-3c8f-8d23-9161-b60a15a52f06" executionId="ae71693e-10f3-40dd-a5d0-c5f70810ce53" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7470fb02-72f6-e692-ad5f-a82c7578a5f4" executionId="7d9e4ed2-c90c-4c0e-a7cf-a1638cb70a3f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="15525b69-c7c3-5300-79e9-996bf84ae0b7" executionId="9178745f-d1c6-486b-a7bc-1d63ca12df27" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0d5e6b42-05bd-8e66-6b57-39acc39a00ff" executionId="d8ec63a8-c9a7-44ce-a5e0-0a2771fbea10" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dfa40dee-e082-b354-b01e-45bd4a3d35c6" executionId="4c7895c9-29f2-413f-8d09-867ccc3ea0f8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5504f72c-8717-cdd2-ff21-02cb31fc8631" executionId="bbcd3b98-5e33-4f1f-b7e6-51f942170ed9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4f6ac55e-3c18-94c6-23d8-f4f3729209c8" executionId="0a3cd20b-3a0d-4636-88c5-3748ecbbb4d2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="18fb9d83-e7e3-a23e-669f-775ad958b81b" executionId="ccb0a7c6-5da7-412c-b876-d5b6e1853a1d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0479e95b-73f7-c9d3-ed18-f0cece1442fd" executionId="66aa22f1-c548-4377-b758-4058516809d2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="60b33734-a298-2e2b-3bfa-c4bae6943c2b" executionId="97be47c5-8726-441f-8e1a-f697e99a272c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="559c8e25-6865-8ad9-9142-c665f6641e15" executionId="b431d7e3-3d31-41f0-b3ac-e725f3982245" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bbe9dbdc-f213-3b15-f9bc-7563694226c5" executionId="478b0438-4ba2-4fc5-a123-bf22e35180d0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="708237a6-ef5a-5c37-5f63-83ec2c889a31" executionId="c3d037c1-3e75-4b0d-8a28-a307c57755f6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9979ecd7-d764-03ce-7cc3-89557d6ec8a7" executionId="26114a9e-3cf3-4889-9170-aacd3958635c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8de7ba4c-ab53-d038-7efb-7d2a53563369" executionId="763debb7-2af9-451f-ae10-1ae31efaf081" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b2658ccb-5e67-959d-1d3f-3192870c2974" executionId="e516b342-d6f8-491a-971c-5a124ff53ff0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7b188aea-6ec9-d902-b598-d9e8f6605f48" executionId="28459a3a-30c8-4d7b-b6fa-2a07baa7b0cf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="eb01a23f-c8a7-a15e-86d9-09321055e51f" executionId="967c91f1-f26a-4b51-a791-f2a3e5b37e81" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b6da3c7c-4a37-2d26-6c03-eb32c2258aef" executionId="8cbab81c-9c84-4bca-94bb-af62313202db" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8165edfd-57af-6471-5483-be00a60bd80f" executionId="c6c1b3fb-8072-46e5-9c4d-178fba8b57e8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f4469e77-9b8d-9b4a-c8fc-06dffcf73de9" executionId="b0952af3-c12f-49cd-a5ac-e3b34599bc47" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="00f180c8-578c-bbb4-d3b3-9626fd3d7d17" executionId="b1d244aa-0bd9-4a5b-bdef-9ce4c263bce6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9afd8522-0fc2-b12d-29f8-d1e4731eede8" executionId="7f8a91db-6520-4a40-9aa7-b37b40ec30e5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7881f326-9e10-74c1-abc8-a75d5cc41e3b" executionId="b008bfc7-a563-43d0-9e8c-df78e1ce3456" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f7461e25-70e4-d60e-096a-f5c9f00593c6" executionId="10cb9741-2ab7-40c3-8ca9-671f79dad2d5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8a36cad3-ff70-a76d-4de0-b4c1f74fd0f7" executionId="93ea90eb-297d-4f6a-86bf-5cb565879700" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="499f2316-522b-6e84-e023-46626e609d81" executionId="0a74d3ef-eacc-431a-831c-403e06bf728a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c8dd2440-501b-1c84-52ad-eae3b8363423" executionId="0eab2ea4-42dc-4548-b3d6-b814f87a46f0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="11e8aabe-a869-8b60-51ca-9b19ea6d65fd" executionId="70697fe4-3976-4a71-94a4-37244e496622" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a8256bf8-248b-87cd-18dd-46f731bd1321" executionId="21324904-6602-4781-86c7-fe9ce23e6cbf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="81530fe3-51a5-86db-e851-361dbf87c941" executionId="1b2b8ba4-13ea-4789-bc01-246f583d79c4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="556ec1fe-b1ab-17b9-7276-ff7a0667b823" executionId="a35ff3d3-6424-4be8-b27a-537662d67c65" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1109b369-6e9f-be59-a494-44c044c34c49" executionId="d0ccb969-67f8-495d-9614-865f6ce04a4d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f73eb70b-d863-23b6-f402-bbe4e7d33220" executionId="ecdf5db6-16af-4f66-a8fd-6a1733cf673d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7b1c4cf8-c5c0-65a6-cf31-ed0d59af7131" executionId="eec8a4b1-92eb-476d-8d7f-66079229c1c3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2b0ec10d-8f90-d371-adab-c234d8d98a1a" executionId="4b3e553c-f01c-4184-812c-8ed51b4cb7ab" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3c5c8a1c-b8a1-956e-0fdf-ce94b43f366f" executionId="24b1b4c3-bdad-490c-ae99-440b6a3ff617" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="77f447ad-3ef5-e5e7-1492-696e1e275498" executionId="c140e386-bc1b-4338-b1a4-13bfe6cfba07" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="df9314b0-fdd2-f062-b50d-448459806f44" executionId="443937e8-0715-459e-b0e9-f7613de3ad42" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9ec38963-7d5d-b5d6-6699-7086a356bc99" executionId="a4432eae-fcc4-47e5-80d6-c8eb4da979ec" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="db90e16e-4af5-62ce-6475-a9d32ed8287c" executionId="b4fd7c74-2609-43ba-897d-17b4e0655858" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9f9a6950-b7d2-32f6-1ae9-e3809628f299" executionId="530abfca-4991-4bdb-b91f-6c7b8c5a837f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1e09176e-aecc-c420-6ee8-25c76fa1ad57" executionId="98878851-89db-468d-9bce-6bd48ddcf514" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0c9f2f5b-18dd-3c73-1a49-84f74152081a" executionId="6eae5c42-6d41-4327-bb54-4eab2080913d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ba4f10eb-5011-7fe8-3ee1-218da46f1a53" executionId="fa4c6446-cf49-4fff-a1ab-fda7f0755904" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a2053ad2-7cc3-1fe8-3868-9cda622cb001" executionId="cc13fe9e-fe9b-4c9f-b419-fbee5e82efb4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="18bf7078-07d5-9a5a-289b-94447edbc420" executionId="83b91260-f79f-41e4-ad6f-b1a350c2be88" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6a909fb6-c540-adf1-7999-9e25bdefd9a0" executionId="9650ce12-7e66-4adb-a6e2-f7bbee07ad3f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9614821d-8087-fb91-287d-2058d2029e9b" executionId="245b1ec2-6b84-4015-b09e-f5fe895c7ca0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="22aaa4a0-3e88-ad16-1224-cab5fb44a668" executionId="70f0874d-3391-49ec-bca5-6feee2ffd9dc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="13d1eff6-87bd-3797-593f-c2d42f9a6142" executionId="a5ec0e41-d0d7-496a-b7ae-807f4af07765" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="709def99-b8ed-c6cb-d5ec-c20f0512dd4e" executionId="c98a5ed4-79c1-4a2d-bb42-0c2380399821" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="73cbc0f5-ac50-5f6d-ef8b-92a1f2284ac9" executionId="0eb62c4a-a7d4-40c2-8698-5e104396947c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e5b65ba2-85e8-bdd4-8d3f-464f8b198bf1" executionId="be7a8c53-4a2b-4110-ab83-a63ed5109b9b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="539d6954-98f8-0202-56e9-5f84541760e1" executionId="3ac04688-accb-49c4-b6c4-bd2c753a7c1f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="181253b6-e5f1-81b6-d69e-ee28234b5163" executionId="6820b601-79c5-4419-ba5b-832d76761cb1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f2391247-9f4b-4fef-58b1-5d6e8b92cbd2" executionId="673db7f4-0144-4f3c-9d4d-68c60cc5b396" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="105cda92-e24d-b87b-08ef-1aff5b2288a6" executionId="1c2b798a-53d7-4378-85f4-7f2576600449" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d37003f5-af3f-a43e-bf34-09561f030f20" executionId="688f27f1-04ba-4ea1-a6e6-b3edfa3ad788" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1b1d19b7-b6c7-e372-defd-39bb6945462f" executionId="cee4a62c-955f-4be7-9a8f-4b3b16587571" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="48a8893d-79c8-2f81-40e9-5f70a2e410c2" executionId="c515acc7-66d5-4b54-9f8e-dc559f104b70" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b319d590-f6e5-6414-1571-a1c1125340d1" executionId="6505b08f-dd43-4cf7-ab04-25b53f1cb84e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fae51bca-5ecf-141a-685f-aea4dca52ddd" executionId="b2d8fd66-d73a-4947-8d38-77dfec26eb7c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e4b733e2-b2f6-b771-be18-26b76be91907" executionId="d458de14-99c1-455a-8d4f-23e932760f5d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2816986d-1887-880f-eff9-a6a520a1a4de" executionId="19fe7ee8-ecaa-4d99-bce7-ba9d34246e63" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c6a96224-bbad-1914-bc00-5f49460ab037" executionId="54848fcf-b7e5-4ba8-b65e-0ebec54f95be" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b80ea7ca-38b2-7ec8-f556-7a9d02c4f647" executionId="4005cf54-5e1c-48bc-897b-df5c8ab243d0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a9e286d8-0ed1-7dd6-f91f-7f3f34f97d12" executionId="8bd6bd74-86f1-4ad2-9025-7f156b12eacb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c8b76342-95ef-2a8c-3b82-ab77264a00e2" executionId="805752a7-5c62-4103-b375-d57b0bb2e19d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7f006949-a251-304c-966e-5c8dbe289cbf" executionId="959d5a2c-1230-4565-936a-5716c08244e2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="11885fd1-a896-a6ae-794d-0592cd9a39da" executionId="2cbbfe6a-8f9e-48b2-ac28-e6a8f3e6905e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="62ff1f54-5493-0c33-35ea-9aa1fff9ef06" executionId="642316b9-379d-45de-937b-d33cbe399d8e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="212ceb31-6ac6-20f2-4318-30345acedf98" executionId="1721b899-d827-4335-93b2-2b148210b25f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="102" executed="102" passed="102" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.10]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.40]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.45]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:34.26]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

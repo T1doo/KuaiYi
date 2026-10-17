@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="f8c78b13-dc7a-4aa3-9e2d-82762b14840c" name="@4cd0056ca8a8 2026-10-17 13:43:22" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-17T13:43:22.1720536+00:00" queuing="2026-10-17T13:43:22.1720536+00:00" start="2026-10-17T13:43:20.3479044+00:00" finish="2026-10-17T13:43:25.3722894+00:00" />
+  <TestSettings name="default" id="100161b4-a1e5-485c-ade5-2ea68aa0df84">
+    <Deployment runDeploymentRoot="_4cd0056ca8a8_2026-10-17_13_43_22" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="e82ef622-e3fb-402a-a496-30bc58265f9a" testId="18bf7078-07d5-9a5a-289b-94447edbc420" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.CommittedAckWriteFailureDoesNotRequestUiClosureOrReleaseTheRuntimeFence" computerName="4cd0056ca8a8" duration="00:00:02.1764904" startTime="2026-10-17T13:43:23.1242677+00:00" endTime="2026-10-17T13:43:25.3011173+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e82ef622-e3fb-402a-a496-30bc58265f9a" />
+    <UnitTestResult executionId="be5d5d50-17c9-4394-b470-81e0b2087f8b" testId="1b663a74-8071-7ab3-040a-af96acde95c9" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;launch&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.1042085" startTime="2026-10-17T13:43:22.1056255+00:00" endTime="2026-10-17T13:43:22.2095177+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="be5d5d50-17c9-4394-b470-81e0b2087f8b">
+      <Output>
+        <StdOut>PUBLIC_APP_START_REJECT actualExit=3 driverSha256=0BD0C29EBB6C4CE6F441E8321A58551E41D276812FCAB8941AC39665DD4CD6B5 noSurface=True originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="82ef93fa-4d31-4178-b68f-76c9ec215a26" testId="8de7ba4c-ab53-d038-7efb-7d2a53563369" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;missing-owner-lock&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.1132138" startTime="2026-10-17T13:43:21.9912008+00:00" endTime="2026-10-17T13:43:22.1047162+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="82ef93fa-4d31-4178-b68f-76c9ec215a26">
+      <Output>
+        <StdOut>PUBLIC_APP_START_REJECT actualExit=3 driverSha256=0BD0C29EBB6C4CE6F441E8321A58551E41D276812FCAB8941AC39665DD4CD6B5 noSurface=True originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d485c1d8-22ae-4c87-8802-6b3fb27080d7" testId="b2658ccb-5e67-959d-1d3f-3192870c2974" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;directory&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.1023480" startTime="2026-10-17T13:43:21.8908550+00:00" endTime="2026-10-17T13:43:21.9910236+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d485c1d8-22ae-4c87-8802-6b3fb27080d7">
+      <Output>
+        <StdOut>PUBLIC_APP_START_REJECT actualExit=3 driverSha256=0BD0C29EBB6C4CE6F441E8321A58551E41D276812FCAB8941AC39665DD4CD6B5 noSurface=True originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7edca179-a4f5-4ebf-9b2f-1d537fcf25c5" testId="f2391247-9f4b-4fef-58b1-5d6e8b92cbd2" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;data&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.1205963" startTime="2026-10-17T13:43:21.6972657+00:00" endTime="2026-10-17T13:43:21.8157889+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7edca179-a4f5-4ebf-9b2f-1d537fcf25c5">
+      <Output>
+        <StdOut>PUBLIC_APP_START_REJECT actualExit=3 driverSha256=0BD0C29EBB6C4CE6F441E8321A58551E41D276812FCAB8941AC39665DD4CD6B5 noSurface=True originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="bd6f50e4-adad-4633-8758-6d59414cd66b" testId="9979ecd7-d764-03ce-7cc3-89557d6ec8a7" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.ControlledStartupRequiresTheOriginalReadyBarrierAndStopUsesTheExistingCloseTaskWithoutSelfWaiting" computerName="4cd0056ca8a8" duration="00:00:00.1445053" startTime="2026-10-17T13:43:22.9792144+00:00" endTime="2026-10-17T13:43:23.1240394+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bd6f50e4-adad-4633-8758-6d59414cd66b">
+      <Output>
+        <StdOut>PUBLIC_APP_CONTROL_CHILD actualExit=0 driverSha256=0BD0C29EBB6C4CE6F441E8321A58551E41D276812FCAB8941AC39665DD4CD6B5 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106 originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="603e8d85-4942-4971-bcc1-a704841323b5" testId="73cbc0f5-ac50-5f6d-ef8b-92a1f2284ac9" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;missing-admission&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.1182460" startTime="2026-10-17T13:43:21.3622851+00:00" endTime="2026-10-17T13:43:21.4722664+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="603e8d85-4942-4971-bcc1-a704841323b5">
+      <Output>
+        <StdOut>PUBLIC_APP_START_REJECT actualExit=3 driverSha256=0BD0C29EBB6C4CE6F441E8321A58551E41D276812FCAB8941AC39665DD4CD6B5 noSurface=True originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="794d74ca-1d8a-43cb-89e1-22b45d4b3a6c" testId="0c9f2f5b-18dd-3c73-1a49-84f74152081a" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.NewApplicationReadinessFailureNeverAcknowledgesHealthAndRollsBackTheExactOldPointer" computerName="4cd0056ca8a8" duration="00:00:00.2978980" startTime="2026-10-17T13:43:22.6807361+00:00" endTime="2026-10-17T13:43:22.9790247+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="794d74ca-1d8a-43cb-89e1-22b45d4b3a6c">
+      <Output>
+        <StdOut>PUBLIC_APP_CONTROL_CHILD actualExit=0 driverSha256=0BD0C29EBB6C4CE6F441E8321A58551E41D276812FCAB8941AC39665DD4CD6B5 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106 originalIO=Settled
+PUBLIC_APP_CONTROL_CHILD actualExit=0 driverSha256=0BD0C29EBB6C4CE6F441E8321A58551E41D276812FCAB8941AC39665DD4CD6B5 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106 originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1937dd99-c592-4e58-b77a-a1bb40269683" testId="81530fe3-51a5-86db-e851-361dbf87c941" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;owner&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.1188438" startTime="2026-10-17T13:43:21.5776466+00:00" endTime="2026-10-17T13:43:21.6970579+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1937dd99-c592-4e58-b77a-a1bb40269683">
+      <Output>
+        <StdOut>PUBLIC_APP_START_REJECT actualExit=3 driverSha256=0BD0C29EBB6C4CE6F441E8321A58551E41D276812FCAB8941AC39665DD4CD6B5 noSurface=True originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="958dbde0-085f-41f9-9a60-793174cdb873" testId="e1134887-79d4-51b5-ae2b-c4c228beedce" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;none&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.0719458" startTime="2026-10-17T13:43:21.8159727+00:00" endTime="2026-10-17T13:43:21.8906708+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="958dbde0-085f-41f9-9a60-793174cdb873">
+      <Output>
+        <StdOut>PUBLIC_APP_START_REJECT actualExit=3 driverSha256=0BD0C29EBB6C4CE6F441E8321A58551E41D276812FCAB8941AC39665DD4CD6B5 noSurface=True originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="130d4b3d-c0ac-46e7-ae81-fa044dd3fbcd" testId="3c5c8a1c-b8a1-956e-0fdf-ce94b43f366f" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;current&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.1556561" startTime="2026-10-17T13:43:21.1898929+00:00" endTime="2026-10-17T13:43:21.3528670+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="130d4b3d-c0ac-46e7-ae81-fa044dd3fbcd">
+      <Output>
+        <StdOut>PUBLIC_APP_START_REJECT actualExit=3 driverSha256=0BD0C29EBB6C4CE6F441E8321A58551E41D276812FCAB8941AC39665DD4CD6B5 noSurface=True originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0e2969bb-45cb-4249-8394-794011344246" testId="181253b6-e5f1-81b6-d69e-ee28234b5163" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.ClaimedLaunchProofCannotBeReplayedIntoASecondApplication" computerName="4cd0056ca8a8" duration="00:00:00.2674197" startTime="2026-10-17T13:43:22.4129636+00:00" endTime="2026-10-17T13:43:22.6805140+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0e2969bb-45cb-4249-8394-794011344246">
+      <Output>
+        <StdOut>PUBLIC_APP_START_REJECT actualExit=3 driverSha256=0BD0C29EBB6C4CE6F441E8321A58551E41D276812FCAB8941AC39665DD4CD6B5 noSurface=True originalIO=Settled
+PUBLIC_APP_CONTROL_CHILD actualExit=0 driverSha256=0BD0C29EBB6C4CE6F441E8321A58551E41D276812FCAB8941AC39665DD4CD6B5 coreSha256=F0ED6E767FE042DF4B72CF960CBC79F9B4DE23135F1B1912D1052CE5D4CCE106 originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="51306ec9-b2a6-407f-a4e0-275d7ac1553e" testId="db2af3b5-37c3-c930-b2df-de511bf60eae" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.CommittedProductionControlEofKeepsApplicationAliveAndSelfCloseStillRetainsThePersistentFence" computerName="4cd0056ca8a8" duration="00:00:00.2015209" startTime="2026-10-17T13:43:22.2111189+00:00" endTime="2026-10-17T13:43:22.4126348+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="51306ec9-b2a6-407f-a4e0-275d7ac1553e">
+      <Output>
+        <StdOut>PUBLIC_APP_CONTROL_HANDOFF driverSha256=0BD0C29EBB6C4CE6F441E8321A58551E41D276812FCAB8941AC39665DD4CD6B5 committedEOF=Alive selfClose=Observed fenceRetained=True</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0acd42bd-cd82-494d-9a5a-f6ee44bd1506" testId="8aa57f9f-ab1e-d847-d4e6-15224eaee9db" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;role&quot;)" computerName="4cd0056ca8a8" duration="00:00:00.1014658" startTime="2026-10-17T13:43:21.4733738+00:00" endTime="2026-10-17T13:43:21.5775090+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0acd42bd-cd82-494d-9a5a-f6ee44bd1506">
+      <Output>
+        <StdOut>PUBLIC_APP_START_REJECT actualExit=3 driverSha256=0BD0C29EBB6C4CE6F441E8321A58551E41D276812FCAB8941AC39665DD4CD6B5 noSurface=True originalIO=Settled</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="138e8300-7a9f-481d-b4f3-a43bbc566fe5" testId="2b0ec10d-8f90-d371-adab-c234d8d98a1a" testName="KuaiYi.Core.Tests.InstallationApplicationControlTests.NormalInstalledEntryCannotBypassOwnerFenceOrSelectAnOldGenerationAndNeverSelfClearsItsOwner" computerName="4cd0056ca8a8" duration="00:00:00.0153874" startTime="2026-10-17T13:43:25.3019417+00:00" endTime="2026-10-17T13:43:25.3170221+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="138e8300-7a9f-481d-b4f3-a43bbc566fe5" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.CommittedProductionControlEofKeepsApplicationAliveAndSelfCloseStillRetainsThePersistentFence" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="db2af3b5-37c3-c930-b2df-de511bf60eae">
+      <Execution id="51306ec9-b2a6-407f-a4e0-275d7ac1553e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="CommittedProductionControlEofKeepsApplicationAliveAndSelfCloseStillRetainsThePersistentFence" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;none&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="e1134887-79d4-51b5-ae2b-c4c228beedce">
+      <Execution id="958dbde0-085f-41f9-9a60-793174cdb873" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="WrongOrAbsentProofCannotCreateAnyApplicationSurface" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.ClaimedLaunchProofCannotBeReplayedIntoASecondApplication" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="181253b6-e5f1-81b6-d69e-ee28234b5163">
+      <Execution id="0e2969bb-45cb-4249-8394-794011344246" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="ClaimedLaunchProofCannotBeReplayedIntoASecondApplication" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;missing-admission&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="73cbc0f5-ac50-5f6d-ef8b-92a1f2284ac9">
+      <Execution id="603e8d85-4942-4971-bcc1-a704841323b5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="WrongOrAbsentProofCannotCreateAnyApplicationSurface" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;current&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="3c5c8a1c-b8a1-956e-0fdf-ce94b43f366f">
+      <Execution id="130d4b3d-c0ac-46e7-ae81-fa044dd3fbcd" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="WrongOrAbsentProofCannotCreateAnyApplicationSurface" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.NewApplicationReadinessFailureNeverAcknowledgesHealthAndRollsBackTheExactOldPointer" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="0c9f2f5b-18dd-3c73-1a49-84f74152081a">
+      <Execution id="794d74ca-1d8a-43cb-89e1-22b45d4b3a6c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="NewApplicationReadinessFailureNeverAcknowledgesHealthAndRollsBackTheExactOldPointer" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;missing-owner-lock&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="8de7ba4c-ab53-d038-7efb-7d2a53563369">
+      <Execution id="82ef93fa-4d31-4178-b68f-76c9ec215a26" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="WrongOrAbsentProofCannotCreateAnyApplicationSurface" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.CommittedAckWriteFailureDoesNotRequestUiClosureOrReleaseTheRuntimeFence" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="18bf7078-07d5-9a5a-289b-94447edbc420">
+      <Execution id="e82ef622-e3fb-402a-a496-30bc58265f9a" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="CommittedAckWriteFailureDoesNotRequestUiClosureOrReleaseTheRuntimeFence" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.ControlledStartupRequiresTheOriginalReadyBarrierAndStopUsesTheExistingCloseTaskWithoutSelfWaiting" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="9979ecd7-d764-03ce-7cc3-89557d6ec8a7">
+      <Execution id="bd6f50e4-adad-4633-8758-6d59414cd66b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="ControlledStartupRequiresTheOriginalReadyBarrierAndStopUsesTheExistingCloseTaskWithoutSelfWaiting" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;role&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="8aa57f9f-ab1e-d847-d4e6-15224eaee9db">
+      <Execution id="0acd42bd-cd82-494d-9a5a-f6ee44bd1506" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="WrongOrAbsentProofCannotCreateAnyApplicationSurface" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.NormalInstalledEntryCannotBypassOwnerFenceOrSelectAnOldGenerationAndNeverSelfClearsItsOwner" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="2b0ec10d-8f90-d371-adab-c234d8d98a1a">
+      <Execution id="138e8300-7a9f-481d-b4f3-a43bbc566fe5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="NormalInstalledEntryCannotBypassOwnerFenceOrSelectAnOldGenerationAndNeverSelfClearsItsOwner" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;launch&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="1b663a74-8071-7ab3-040a-af96acde95c9">
+      <Execution id="be5d5d50-17c9-4394-b470-81e0b2087f8b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="WrongOrAbsentProofCannotCreateAnyApplicationSurface" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;data&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="f2391247-9f4b-4fef-58b1-5d6e8b92cbd2">
+      <Execution id="7edca179-a4f5-4ebf-9b2f-1d537fcf25c5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="WrongOrAbsentProofCannotCreateAnyApplicationSurface" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;directory&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="b2658ccb-5e67-959d-1d3f-3192870c2974">
+      <Execution id="d485c1d8-22ae-4c87-8802-6b3fb27080d7" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="WrongOrAbsentProofCannotCreateAnyApplicationSurface" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationApplicationControlTests.WrongOrAbsentProofCannotCreateAnyApplicationSurface(fault: &quot;owner&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="81530fe3-51a5-86db-e851-361dbf87c941">
+      <Execution id="1937dd99-c592-4e58-b77a-a1bb40269683" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationApplicationControlTests" name="WrongOrAbsentProofCannotCreateAnyApplicationSurface" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="18bf7078-07d5-9a5a-289b-94447edbc420" executionId="e82ef622-e3fb-402a-a496-30bc58265f9a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1b663a74-8071-7ab3-040a-af96acde95c9" executionId="be5d5d50-17c9-4394-b470-81e0b2087f8b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8de7ba4c-ab53-d038-7efb-7d2a53563369" executionId="82ef93fa-4d31-4178-b68f-76c9ec215a26" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b2658ccb-5e67-959d-1d3f-3192870c2974" executionId="d485c1d8-22ae-4c87-8802-6b3fb27080d7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f2391247-9f4b-4fef-58b1-5d6e8b92cbd2" executionId="7edca179-a4f5-4ebf-9b2f-1d537fcf25c5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9979ecd7-d764-03ce-7cc3-89557d6ec8a7" executionId="bd6f50e4-adad-4633-8758-6d59414cd66b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="73cbc0f5-ac50-5f6d-ef8b-92a1f2284ac9" executionId="603e8d85-4942-4971-bcc1-a704841323b5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0c9f2f5b-18dd-3c73-1a49-84f74152081a" executionId="794d74ca-1d8a-43cb-89e1-22b45d4b3a6c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="81530fe3-51a5-86db-e851-361dbf87c941" executionId="1937dd99-c592-4e58-b77a-a1bb40269683" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e1134887-79d4-51b5-ae2b-c4c228beedce" executionId="958dbde0-085f-41f9-9a60-793174cdb873" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3c5c8a1c-b8a1-956e-0fdf-ce94b43f366f" executionId="130d4b3d-c0ac-46e7-ae81-fa044dd3fbcd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="181253b6-e5f1-81b6-d69e-ee28234b5163" executionId="0e2969bb-45cb-4249-8394-794011344246" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="db2af3b5-37c3-c930-b2df-de511bf60eae" executionId="51306ec9-b2a6-407f-a4e0-275d7ac1553e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8aa57f9f-ab1e-d847-d4e6-15224eaee9db" executionId="0acd42bd-cd82-494d-9a5a-f6ee44bd1506" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2b0ec10d-8f90-d371-adab-c234d8d98a1a" executionId="138e8300-7a9f-481d-b4f3-a43bbc566fe5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="15" executed="15" passed="15" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.11]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.44]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.48]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:04.63]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

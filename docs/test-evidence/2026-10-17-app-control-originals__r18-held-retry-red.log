@@ -1,0 +1,33 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.SelectionReuseDiagnostic -> /workspace/KuaiYi/tools/KuaiYi.SelectionReuseDiagnostic/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:06.74]     KuaiYi.Core.Tests.InstallationApplicationControlTests.RetryReceivedBeforeTheOriginalFailedCloseTaskCompletesIsRetainedAndSerialized [FAIL]
+  Failed KuaiYi.Core.Tests.InstallationApplicationControlTests.RetryReceivedBeforeTheOriginalFailedCloseTaskCompletesIsRetainedAndSerialized [6 s]
+  Error Message:
+   System.TimeoutException : The operation has timed out.
+  Stack Trace:
+     at KuaiYi.Core.Tests.InstallationApplicationControlTests.Peer.Row() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 43
+   at KuaiYi.Core.Tests.InstallationApplicationControlTests.RetryReceivedBeforeTheOriginalFailedCloseTaskCompletesIsRetainedAndSerialized() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 227
+   at KuaiYi.Core.Tests.InstallationApplicationControlTests.RetryReceivedBeforeTheOriginalFailedCloseTaskCompletesIsRetainedAndSerialized() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 228
+   at KuaiYi.Core.Tests.InstallationApplicationControlTests.RetryReceivedBeforeTheOriginalFailedCloseTaskCompletesIsRetainedAndSerialized() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 229
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ PUBLIC_APP_CONTROL_CHILD actualExit=137 driverSha256=F57C1E5DD7624EBCC27D7B15E69FD94178E2D2D163CDB48AFA9CB1CB03A92CDC coreSha256=4D377E7DD293B3243CEE4EB5A03CE052ED4DE31F301A35B955DF4491AEFED58E originalIO=Settled
+
+
+Results File: /workspace/KuaiYi/artifacts/app-installation-control/r18-held-retry-red.trx
+
+Failed!  - Failed:     1, Passed:     0, Skipped:     0, Total:     1, Duration: 6 s - KuaiYi.Core.Tests.dll (net10.0)

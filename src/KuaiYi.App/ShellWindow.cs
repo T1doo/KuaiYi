@@ -75,7 +75,7 @@ internal sealed partial class ShellWindow:OleDropWindow
     }
     private async Task LoadStartup()
     {
-        try{await lifecycle.InitializeAsync(lifetime.Token);if(!exiting){var data=lifecycle.Settings!.Data;if(!positionTouched)Reposition(data.Overlay.RememberPosition?data.Overlay.LastPosition:null);Refresh();}}
+        try{await lifecycle.InitializeAsync(lifetime.Token);if(!exiting){var data=lifecycle.Settings!.Data;if(!positionTouched)Reposition(data.Overlay.RememberPosition?data.Overlay.LastPosition:null);Refresh();startupHealthy=true;}}
         catch(OperationCanceledException)when(lifetime.IsCancellationRequested){ /* Owned exit waits for startup settlement. */ }
         catch(Exception error){Report("配置无法加载，原文件保留；请打开设置恢复",error);}
     }

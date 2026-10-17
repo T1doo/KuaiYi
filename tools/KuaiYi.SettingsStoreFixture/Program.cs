@@ -14,6 +14,8 @@ if(args.Length==2&&args[0]=="--installation-handshake"&&Guid.TryParseExact(args[
 {
     using var config=System.Text.Json.JsonDocument.Parse(File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory,"public-install-behavior.json")));
     string mode=config.RootElement.GetProperty("mode").GetString()!,version=config.RootElement.GetProperty("version").GetString()!;
+    if(config.RootElement.TryGetProperty("controlled",out var controlled)&&controlled.GetBoolean())
+        return await InstallationAppControlFixture.Run(launch,mode,config.RootElement.GetProperty("runtimePipe").GetString()!);
     if(config.RootElement.TryGetProperty("runtimePipe",out var runtimePipe)&&runtimePipe.ValueKind==System.Text.Json.JsonValueKind.String)
         return await InstallationHandoffFixture.RunReceiver(launch,version,mode,runtimePipe.GetString()!);
     if(mode=="start-exit")return 23;

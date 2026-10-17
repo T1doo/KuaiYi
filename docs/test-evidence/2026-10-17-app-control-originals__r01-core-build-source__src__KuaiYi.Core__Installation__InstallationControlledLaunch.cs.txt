@@ -1,0 +1,86 @@
+using System.Diagnostics;
+using System.Text.Json;
+using System.Security.Cryptography;
+using KuaiYi.Core.Settings;
+namespace KuaiYi.Core.Installation;
+
+/// <summary>Opt in to a single-use launch proof before application initialization. A CLI flag is not admission.</summary>
+public interface IInstallationControlledStartProtocol:IInstallationApplicationProtocol
+{
+    Task AdmitLaunchAsync(Process owned,InstallationControlledLaunch proof,CancellationToken cancellation);
+}
+public sealed record InstallationControlledLaunch(Guid Launch,string Role,string Root,string UserData,InstalledVersion Version,
+    string OwnerRecord,string CurrentRecord,string? UpgradeRecord)
+{
+    internal string PathFor(string phase)=>Path.Combine(Root,$"launch-{Launch:N}-{phase}.json");
+    internal byte[] Bytes()=>JsonSerializer.SerializeToUtf8Bytes(this);
+    public string Encode()=>Convert.ToBase64String(Bytes());
+    public string Fingerprint=>Convert.ToHexString(SHA256.HashData(Bytes()));
+    public static InstallationControlledLaunch Decode(string encoded)
+    {
+        if(encoded.Length>65536)throw new InvalidDataException("Launch proof too large.");
+        byte[] bytes=Convert.FromBase64String(encoded);var proof=JsonSerializer.Deserialize<InstallationControlledLaunch>(bytes)??throw new InvalidDataException("Missing launch proof.");
+        if(bytes.Length>49152||!bytes.AsSpan().SequenceEqual(proof.Bytes()))throw new InvalidDataException("Unknown or noncanonical launch proof.");
+        proof.Validate();return proof;
+    }
+    private void Validate()
+    {
+        if(Launch==Guid.Empty||Role!="KuaiYi.App.exe"||Root!=InstallationPaths.Root(Root)||UserData!=InstallationPaths.Root(UserData)||Version==null||
+           Convert.FromBase64String(OwnerRecord).Length>1024||Convert.FromBase64String(CurrentRecord).Length>4096||UpgradeRecord!=null&&Convert.FromBase64String(UpgradeRecord).Length>16384)throw new InvalidDataException("Invalid launch proof.");
+    }
+    internal void RequireRecords()
+    {
+        Validate();Exact(Path.Combine(Root,"execution-owner.json"),Convert.FromBase64String(OwnerRecord),1024);
+        Exact(Path.Combine(Root,"current.json"),Convert.FromBase64String(CurrentRecord),4096);
+        string pending=Path.Combine(Root,"upgrade-pending.json");InstallationPaths.Check(pending);
+        if(UpgradeRecord==null){if(File.Exists(pending)||Directory.Exists(pending))throw new InstallationRecoveryException("Unexpected pending upgrade retained.");}
+        else Exact(pending,Convert.FromBase64String(UpgradeRecord),16384);
+        if(new InstallationStore(Root,UserData,()=>false).ReadActive()!=Version)throw new InstallationRecoveryException("Controlled launch generation changed.");
+    }
+    public void Claim(Guid ownLaunch,string executableDirectory,string expectedUserData)
+    {
+        if(Launch!=ownLaunch||Version.DirectoryPath!=InstallationPaths.Root(executableDirectory)||UserData!=InstallationPaths.Root(expectedUserData))throw new InstallationRecoveryException("Controlled launch identity or data root mismatch.");
+        RequireRecords();RequireHeldLease(Path.Combine(Root,"upgrade.lock"));RequireHeldLease(Path.Combine(Root,"execution-owner.lock"));
+        Exact(PathFor("prepared"),Bytes());InstallationPaths.Check(PathFor("accepted"));
+        if(File.Exists(PathFor("accepted"))||Directory.Exists(PathFor("accepted")))throw new InstallationRecoveryException("Launch proof already claimed.");
+        File.Move(PathFor("prepared"),PathFor("accepted"));
+        RequireRecords();RequireHeldLease(Path.Combine(Root,"upgrade.lock"));RequireHeldLease(Path.Combine(Root,"execution-owner.lock"));
+    }
+    internal static void RequireHeldLease(string path)
+    {
+        InstallationPaths.Check(path);FileStream probe;
+        try{probe=new(path,FileMode.Open,FileAccess.ReadWrite,FileShare.None);}
+        catch(IOException error)when(error is not FileNotFoundException and not DirectoryNotFoundException&&File.Exists(path)&&(error.HResult&0xffff) is 11 or 32 or 33){return;}
+        probe.Dispose();throw new InstallationRecoveryException("Controller admission lease is not held.");
+    }
+    internal static void Exact(string path,byte[] expected,int limit=65536)
+    {if(!InstallationPackage.ReadDocument(path,limit).AsSpan().SequenceEqual(expected))throw new InstallationRecoveryException("Controlled launch record changed; retained.");}
+    internal void FinishExited()
+    {
+        string source=File.Exists(PathFor("accepted"))?PathFor("accepted"):PathFor("prepared");
+        Exact(source,Bytes());InstallationPaths.Check(PathFor("finished"));File.Move(source,PathFor("finished"));
+    }
+}
+
+/// <summary>Normal entry into this store's generation layout. Holds admission for the application lifetime.
+/// Self-return cannot prove process exit: disposal closes leases but deliberately retains the owner marker.</summary>
+public sealed class InstallationNormalEntry:IDisposable
+{
+    private readonly InstallationAdmission admission;
+    private readonly InstallationExecutionOwnership owner;
+    private InstallationNormalEntry(InstallationAdmission admission,InstallationExecutionOwnership owner){this.admission=admission;this.owner=owner;}
+    public static InstallationNormalEntry? Open(string executableDirectory,string userData)
+    {
+        string selected=InstallationPaths.Root(executableDirectory);var generation=new DirectoryInfo(selected);
+        if(generation.Parent?.Name!="versions"||!Guid.TryParseExact(generation.Name,"N",out _))return null; // Unmanaged/development layout; not installed-store acceptance.
+        string root=generation.Parent.Parent?.FullName??throw new InstallationRecoveryException("Missing installation root.");
+        var store=new InstallationStore(root,userData,()=>false);var admission=store.EnterAdmission();
+        try
+        {
+            if(store.ReadActive()?.DirectoryPath!=selected)throw new InstallationRecoveryException("Normal entry is not the selected generation.");
+            var owner=store.ClaimExecution(admission);return new(admission,owner);
+        }
+        catch{admission.Dispose();throw;}
+    }
+    public void Dispose(){owner.Dispose();admission.Dispose();}
+}

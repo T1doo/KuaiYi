@@ -10,9 +10,11 @@ using System.Windows.Threading;
 using KuaiYi.Windows;
 using System.Security.Principal;
 using System.Diagnostics;
+using KuaiYi.Core.Installation;
 namespace KuaiYi.App;
 internal static class Program
 {
+    private static InstallationApplicationControl? runtimeControl; // Root a committed runtime lease through OS process exit.
     [STAThread] public static int Main(string[] args)
     {
 #if KUAIYI_WINDOWS_CI_PROBE
@@ -24,22 +26,37 @@ internal static class Program
             return Probe(args[1], args[2]).GetAwaiter().GetResult(); // Explicit synthetic fixture command, never automatic selection capture.
         bool review=args.SequenceEqual(new[]{"--platform-review"})||(args.Length==2&&args[0]=="--prepare-image");
         bool translationReview=args.Length==2&&args[0]=="--translation-test-provider";
+        bool controlled=args.Length==2&&args[0]=="--installation-handshake"&&Guid.TryParseExact(args[1],"N",out _);
+        InstallationApplicationControl? installationControl=null;
         KuaiYi.Core.Settings.AppSettings? testSettings=null;
         if(translationReview)
         {
             try{testSettings=KuaiYi.Providers.DevelopmentTranslationProfile.Create(new Uri(args[1],UriKind.Absolute));}
             catch(Exception error)when(error is ArgumentException or UriFormatException){Console.Error.WriteLine("Invalid local test fixture prefix.");return 2;}
         }
-        if (args.Length != 0 && !review&&!translationReview) { Console.Error.WriteLine("Unsupported command."); return 2; }
+        if (args.Length != 0 && !review&&!translationReview&&!controlled) { Console.Error.WriteLine("Unsupported command."); return 2; }
+        string userData=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"KuaiYi");
+        InstallationNormalEntry? installationEntry=null;
+        try
+        {
+            if(controlled)runtimeControl=installationControl=InstallationApplicationControl.AdmitAsync(Console.OpenStandardInput(),Console.OpenStandardOutput(),Guid.ParseExact(args[1],"N"),AppContext.BaseDirectory,userData).GetAwaiter().GetResult();
+        }
+        catch(Exception error)when(error is IOException or InvalidDataException or ArgumentException or FormatException or System.Text.Json.JsonException)
+        {Console.Error.WriteLine("Installation startup refused: "+error.GetType().Name);return 3;}
         using var identity=WindowsIdentity.GetCurrent();
         using var process=Process.GetCurrentProcess();
         using var instance=new SessionSingleInstance(identity.User?.Value??throw new InvalidOperationException("Current user SID unavailable."),process.SessionId);
         if(!instance.IsOwner)
         {
+            if(controlled)return 3; // Never redirect a controlled health/exit transaction to an unowned instance.
             NativeTray.ShowExisting(instance.Scope);
             // No unverified payload forwarding. Existing installed-role IPC remains the image ingress.
             return args.Length==2?3:0;
         }
+        try{if(!controlled)installationEntry=InstallationNormalEntry.Open(AppContext.BaseDirectory,userData);}
+        catch(Exception error)when(error is IOException or InvalidDataException or ArgumentException)
+        {Console.Error.WriteLine("Installation startup refused: "+error.GetType().Name);return 3;}
+        using var installationLifetime=installationEntry;
         var app = new Application();
         if(testSettings!=null)
         {
@@ -54,13 +71,16 @@ internal static class Program
             }
             finally{if(Directory.Exists(testRoot))Directory.Delete(testRoot,true);}
         }
-        return app.Run(review?new ImageProbeWindow(args.Length==2?args[1]:null):new ShellWindow(instance.Scope));
+        if(review)return app.Run(new ImageProbeWindow(args.Length==2?args[1]:null));
+        var shell=new ShellWindow(instance.Scope);if(installationControl!=null)shell.AttachInstallationControl(installationControl);
+        int exit=app.Run(shell);GC.KeepAlive(runtimeControl);return exit;
     }
     private static async Task<int> Probe(string path, string language)
     {
         byte[]? image = null;
         try
         {
+            using var installationEntry=InstallationNormalEntry.Open(AppContext.BaseDirectory,Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"KuaiYi"));
             var identity = PackageIdentity.Read("KuaiYi");
             if (identity.Failure != ImageFailure.None) throw new ImageJobException(identity.Failure);
             image = await LocalImageFile.ReadPngAsync(path);

@@ -1,0 +1,97 @@
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.SelectionReuseDiagnostic -> /workspace/KuaiYi/tools/KuaiYi.SelectionReuseDiagnostic/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.79]     KuaiYi.Core.Tests.InstallationApplicationControlTests.CommittedAckWriteFailureDoesNotRequestUiClosureOrReleaseTheRuntimeFence [FAIL]
+  Failed KuaiYi.Core.Tests.InstallationApplicationControlTests.CommittedAckWriteFailureDoesNotRequestUiClosureOrReleaseTheRuntimeFence [244 ms]
+  Error Message:
+   System.IO.IOException : Broken pipe
+---- System.Net.Sockets.SocketException : Broken pipe
+  Stack Trace:
+     at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 source, CancellationToken cancellationToken)
+   at System.IO.StreamWriter.<FlushAsyncInternal>g__Core|79_0(Boolean flushStream, Boolean flushEncoder, CancellationToken cancellationToken)
+   at KuaiYi.Core.Tests.InstallationApplicationControlTests.Peer.Send(String command) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 42
+   at KuaiYi.Core.Tests.InstallationApplicationControlTests.Peer.Ping() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 44
+   at KuaiYi.Core.Tests.InstallationApplicationControlTests.CommittedAckWriteFailureDoesNotRequestUiClosureOrReleaseTheRuntimeFence() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 150
+   at KuaiYi.Core.Tests.InstallationApplicationControlTests.CommittedAckWriteFailureDoesNotRequestUiClosureOrReleaseTheRuntimeFence() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 151
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.CreateException(SocketError error, Boolean forAsyncThrow)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.SendAsync(Socket socket, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.SendAsync(ReadOnlyMemory`1 buffer, SocketFlags socketFlags, CancellationToken cancellationToken)
+   at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 source, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 source, CancellationToken cancellationToken)
+   at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+   at System.IO.StreamWriter.<FlushAsyncInternal>g__Core|79_0(Boolean flushStream, Boolean flushEncoder, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at System.IO.StreamWriter.<FlushAsyncInternal>g__Core|79_0(Boolean flushStream, Boolean flushEncoder, CancellationToken cancellationToken)
+   at System.IO.StreamWriter.FlushAsync()
+   at KuaiYi.Core.Tests.InstallationApplicationControlTests.Peer.Send(String command) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 42
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at KuaiYi.Core.Tests.InstallationApplicationControlTests.Peer.Send(String command)
+   at KuaiYi.Core.Tests.InstallationApplicationControlTests.Peer.Ping() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 44
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at KuaiYi.Core.Tests.InstallationApplicationControlTests.Peer.Ping()
+   at KuaiYi.Core.Tests.InstallationApplicationControlTests.CommittedAckWriteFailureDoesNotRequestUiClosureOrReleaseTheRuntimeFence() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 150
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(IAsyncStateMachineBox box, Boolean allowInlining)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Threading.Tasks.Task`1.TrySetResult(TResult result)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.SetExistingTaskResult(Task`1 task, TResult result)
+   at KuaiYi.Core.Installation.InstallationUpgradeCoordinator.DisposeAsync() in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs:line 355
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(IAsyncStateMachineBox box, Boolean allowInlining)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Threading.Tasks.Task`1.TrySetResult(TResult result)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.SetExistingTaskResult(Task`1 task, TResult result)
+   at KuaiYi.Core.Installation.InstallationUpgradeCoordinator.CompleteTransferredControl() in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs:line 193
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(IAsyncStateMachineBox box, Boolean allowInlining)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Threading.Tasks.Task`1.TrySetResult(TResult result)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.SetExistingTaskResult(Task`1 task, TResult result)
+   at KuaiYi.Core.Installation.InstallationUpgradeCoordinator.Call(Role role, Func`2 action, CancellationToken cancellation, ProtocolOperation operation) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs:line 240
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(IAsyncStateMachineBox box, Boolean allowInlining)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Threading.Tasks.Task`1.TrySetResult(TResult result)
+   at System.Threading.Tasks.Task.CancellationPromise`1.System.Threading.Tasks.ITaskCompletionAction.Invoke(Task completingTask)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Threading.Tasks.Task`1.TrySetResult(TResult result)
+   at System.Threading.Tasks.UnwrapPromise`1.TrySetFromTask(Task task, Boolean lookForOce)
+   at System.Threading.Tasks.UnwrapPromise`1.ProcessInnerTask(Task task)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+   at System.Threading.ThreadPoolWorkQueue.Dispatch()
+   at System.Threading.PortableThreadPool.WorkerThread.WorkerThreadStart()
+   at System.Threading.Thread.StartCallback()
+--- End of stack trace from previous location ---
+   at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 source, CancellationToken cancellationToken)
+Results File: /workspace/KuaiYi/artifacts/app-installation-control/r07-commit-ack-red.trx
+
+Failed!  - Failed:     1, Passed:     0, Skipped:     0, Total:     1, Duration: 258 ms - KuaiYi.Core.Tests.dll (net10.0)

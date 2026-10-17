@@ -33,6 +33,8 @@ public sealed class InstallationUpgradeCoordinator:IAsyncDisposable
         internal bool Finalized;
         internal bool IoSettled;
         internal bool Transferred;
+        internal InstallationControlledLaunch? LaunchProof;
+        internal bool LaunchFinished;
         internal Task[] Tasks{get{lock(tasksSync)return protocolTasks.ToArray();}}
         internal bool TasksCompleted{get{lock(tasksSync)return protocolTasks.All(t=>t.IsCompleted);}}
         internal void Track(Task task)
@@ -84,7 +86,7 @@ public sealed class InstallationUpgradeCoordinator:IAsyncDisposable
             using var lease=store.EnterAdmission(execution);execution??=store.ClaimExecution(lease);var selected=store.ReadActive(cancellation)??throw new InstallationRecoveryException("No installed version.");
             if(roles.Any(r=>r.Name==roleName&&!r.Exited))throw new InstallationBusyException();
             var role=NewRole(roleName,selected);
-            try{await StartAndCheck(role,cancellation).ConfigureAwait(false);return selected;}
+            try{await StartAndCheck(role,cancellation,lease).ConfigureAwait(false);return selected;}
             catch(Exception failure)
             {
                 if(!await FinalizeOwned(role).ConfigureAwait(false)){BeginPending(lease,selected,null);throw new InstallationUpgradeUnconfirmedException(failure);}
@@ -190,13 +192,21 @@ public sealed class InstallationUpgradeCoordinator:IAsyncDisposable
         receiver.Lifetime.ReleaseToReceiver(receiver.Process!,handoff);receiver.Transferred=true;
     }
     private Role NewRole(string name,InstalledVersion version){var role=new Role(name,version,starter);role.Lifetime.LifetimeForTest=LifetimeForTest;roles.Add(role);return role;}
-    private async Task StartAndCheck(Role role,CancellationToken cancellation)
+    private async Task StartAndCheck(Role role,CancellationToken cancellation,InstallationAdmission? launchAdmission=null)
     {
         string executable=Path.Combine(role.Version.DirectoryPath,role.Name);InstallationPaths.Check(executable);
         if(!File.Exists(executable))throw new InvalidDataException("Selected version lacks the product role.");
         var info=new ProcessStartInfo(executable){WorkingDirectory=role.Version.DirectoryPath,UseShellExecute=false,CreateNoWindow=true,RedirectStandardInput=true,RedirectStandardOutput=true,RedirectStandardError=true};
         info.ArgumentList.Add("--installation-handshake");info.ArgumentList.Add(role.Launch.ToString("N"));
+        if(protocol is IInstallationControlledStartProtocol)
+        {
+            var lease=launchAdmission??admission??throw new InstallationRecoveryException("Controlled startup admission is not held.");
+            byte[] current=store.SnapshotRecord(lease)??throw new InstallationRecoveryException("Controlled startup has no selected record.");
+            var proof=new InstallationControlledLaunch(role.Launch,role.Name,execution!.DirectoryPath,UserData,role.Version,Convert.ToBase64String(execution.RecordBytes),Convert.ToBase64String(current),pending==null?null:Convert.ToBase64String(pending.Journal));
+            proof.RequireRecords();InstallationPaths.Check(proof.PathFor("prepared"));SettingsStore.WriteFlushed(proof.PathFor("prepared"),proof.Bytes());role.LaunchProof=proof;
+        }
         role.Startup=role.Lifetime.Start(info,cancellation);role.Process=await role.Startup.WaitAsync(budget,cancellation).ConfigureAwait(false);
+        if(protocol is IInstallationControlledStartProtocol controlled)await Call(role,t=>controlled.AdmitLaunchAsync(role.Process,role.LaunchProof!,t),cancellation).ConfigureAwait(false);
         await Call(role,token=>protocol.ConfirmHealthyAsync(role.Process,role.Version,role.Launch,token),cancellation).ConfigureAwait(false);
         cancellation.ThrowIfCancellationRequested();if(!role.TasksCompleted)throw new IOException("Application handshake cancellation is not settled.");
         if(role.Process.HasExited)throw new IOException("Selected application exited before health confirmation.");
@@ -239,7 +249,7 @@ public sealed class InstallationUpgradeCoordinator:IAsyncDisposable
                     if(role.Startup==null)continue;
                     try{role.Process=await role.Startup.WaitAsync(budget,cancellation).ConfigureAwait(false);}
                     catch when(role.Startup.IsCompleted&&!role.Startup.IsCompletedSuccessfully)
-                    {if(!await role.Lifetime.TryFinalizeAsync().ConfigureAwait(false))return false;role.Finalized=true;continue;}
+                    {FinishLaunch(role);if(!await role.Lifetime.TryFinalizeAsync().ConfigureAwait(false))return false;role.Finalized=true;continue;}
                 }
                 if(!role.Process.HasExited)
                 {
@@ -252,6 +262,7 @@ public sealed class InstallationUpgradeCoordinator:IAsyncDisposable
                 await JoinIo(role).ConfigureAwait(false);
                 role.IoSettled=true;
                 if(!await ProtocolSettled(role).ConfigureAwait(false)||!role.Exited)return false;
+                FinishLaunch(role);
                 if(!await role.Lifetime.TryFinalizeAsync().ConfigureAwait(false))return false;role.Finalized=true;
             }
             catch{return false;}
@@ -270,11 +281,13 @@ public sealed class InstallationUpgradeCoordinator:IAsyncDisposable
             if(role.Process==null&&role.Startup is {IsCompletedSuccessfully:true})role.Process=role.Startup.Result;
             if(!role.Lifetime.ObserveExit())return false;
             if(role.Process!=null){await JoinIo(role).ConfigureAwait(false);role.IoSettled=true;}
-            if(!await ProtocolSettled(role).ConfigureAwait(false)||!role.Exited||!await role.Lifetime.TryFinalizeAsync().ConfigureAwait(false))return false;role.Finalized=true;return true;
+            if(!await ProtocolSettled(role).ConfigureAwait(false)||!role.Exited)return false;FinishLaunch(role);
+            if(!await role.Lifetime.TryFinalizeAsync().ConfigureAwait(false))return false;role.Finalized=true;return true;
         }
         catch{return false;}
     }
     private Task JoinIo(Role role)=>Call(role,t=>protocol.SettleAsync(role.Process!,t),CancellationToken.None,ProtocolOperation.Io);
+    private static void FinishLaunch(Role role){if(role.LaunchProof!=null&&!role.LaunchFinished){role.LaunchProof.FinishExited();role.LaunchFinished=true;}}
     private async Task<bool> ProtocolSettled(Role role)
     {
         Task original=Task.WhenAll(role.Tasks);

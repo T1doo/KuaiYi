@@ -1,0 +1,43 @@
+using System.IO.Pipes;
+using KuaiYi.Core.Installation;
+internal static class InstallationAppControlFixture
+{
+    private static InstallationApplicationControl? control;
+    internal static async Task<int> Run(Guid launch,string mode,string pipeName)
+    {
+        _=Task.Run(async()=>{await Task.Delay(TimeSpan.FromSeconds(40));Environment.Exit(91);});
+        string root=Directory.GetParent(Path.TrimEndingDirectorySeparator(AppContext.BaseDirectory))!.Parent!.Parent!.FullName;
+        // No UI/cleanup channel creation before the same production proof validation succeeds.
+        try
+        {
+            control=await InstallationApplicationControl.AdmitAsync(Console.OpenStandardInput(),Console.OpenStandardOutput(),launch,AppContext.BaseDirectory,Path.Combine(root,"user-data"));
+        }
+        catch(Exception error)when(error is IOException or InvalidDataException or FormatException or System.Text.Json.JsonException)
+        {Console.Error.WriteLine("PUBLIC_START_REFUSED|"+error.GetType().Name);return 3;}
+        File.AppendAllText(Path.Combine(root,"PUBLIC_SHELL_CREATED"),"1\n");
+        using var pipe=new NamedPipeClientStream(".",pipeName,PipeDirection.InOut,PipeOptions.Asynchronous);await pipe.ConnectAsync(5000);
+        using var reader=new StreamReader(pipe);using var writer=new StreamWriter(pipe){AutoFlush=true};
+        var ready=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var cleanup=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        if(mode!="held-ready")ready.TrySetResult();
+        if(mode=="bad-ready")ready=new(TaskCreationOptions.RunContinuationsAsynchronously);if(mode=="bad-ready")ready.TrySetException(new IOException("PUBLIC_BAD_READY"));
+        if(mode!="held-close")cleanup.TrySetResult();
+        Task? close=null;string state="Created";
+        Task RequestClose(CancellationToken _){close??=Task.Run(Close);return Task.CompletedTask;}
+        Task loop=control.RunAsync(ready.Task,RequestClose);_ =loop.ContinueWith(t=>{_ =t.Exception;},CancellationToken.None,TaskContinuationOptions.OnlyOnFaulted,TaskScheduler.Default);
+        while(await reader.ReadLineAsync() is {} command)
+        {
+            if(command=="PING")await writer.WriteLineAsync("PUBLIC_SHELL|"+state);
+            else if(command=="READY")ready.TrySetResult();
+            else if(command=="CLOSE")await RequestClose(CancellationToken.None);
+            else if(command=="RELEASE_CLOSE")cleanup.TrySetResult();
+            else throw new InvalidDataException("Unknown public test command.");
+        }
+        GC.KeepAlive(control);Environment.Exit(90);return 90;
+        async Task Close()
+        {
+            state="Closing";
+            try{await cleanup.Task;await control!.SettleForExitAsync();await writer.WriteLineAsync("PUBLIC_SHELL_CLOSED");await writer.FlushAsync();Environment.Exit(0);}
+            catch(Exception error){state="CleanupUnconfirmed";await writer.WriteLineAsync("PUBLIC_CLOSE_UNCONFIRMED|"+error.GetType().Name);}
+        }
+    }
+}

@@ -1,0 +1,153 @@
+{
+  "Parent": "e36b53954d746f94a253e5d5579bb58977cd889b",
+  "Branch": "dev/app-installation-control",
+  "Prefix": "2026-10-17-app-control-originals__",
+  "Index": "2026-10-17-app-installation-control.json",
+  "Scope": "SPEC13.4/P7 existing App controlled start/readiness/close task integration; no observer or automatic release",
+  "FinalRuns": [
+    "r19-install-final",
+    "r22-core-final",
+    "r23-provider-full",
+    "r24-app-build",
+    "r25-worker-build"
+  ],
+  "FullRun": "r22-core-final",
+  "ParentTrx": "docs/test-evidence/2026-10-17-runtime-handoff-originals__r13-core-full.trx",
+  "NewTests": 22,
+  "AllowedOldModified": [
+    ".gitattributes",
+    "docs/progress.md",
+    "src/KuaiYi.App/OverlayPrivacyFlow.cs",
+    "src/KuaiYi.App/Program.cs",
+    "src/KuaiYi.App/ShellWindow.cs",
+    "src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs",
+    "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+    "tools/KuaiYi.SettingsStoreFixture/Program.cs"
+  ],
+  "SourceReview": "Independent high_water_review approved final capacity1 serialized originalClose fixture and entire App source: no remaining P1/P2; r18 actual1F to r19 same-method1P, all57 precommand source bindings match current. Packet separate audit pending",
+  "Targets": {
+    "r19-install-final": "tests/KuaiYi.Core.Tests/bin/Release/net10.0/",
+    "r22-core-final": "tests/KuaiYi.Core.Tests/bin/Release/net10.0/",
+    "r23-provider-full": "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/",
+    "r24-app-build": "src/KuaiYi.App/bin/Release/",
+    "r25-worker-build": "src/KuaiYi.ImageWorker/bin/Release/"
+  },
+  "AdditionalValidation": {
+    "RedGreen": [
+      {
+        "red": "r05-control",
+        "green": "r19-install-final",
+        "sameName": "ControlledStartupRequiresTheOriginalReadyBarrierAndStopUsesTheExistingCloseTaskWithoutSelfWaiting",
+        "sameMethodBytesThroughFinal": "a8de5b53280bcd2f70f8c8f01eb33852f48d870a5fc51e525b94dcb03bd96043"
+      },
+      {
+        "red": "r07-commit-ack-red",
+        "green": "r19-install-final",
+        "sameName": "CommittedAckWriteFailureDoesNotRequestUiClosureOrReleaseTheRuntimeFence",
+        "sameMethodBytesThroughFinal": "43c7cf683a21fded0fe7757c09be5c28ea75925d78b173723018865c5446524a"
+      },
+      {
+        "red": "r11-stop-retry-red",
+        "green": "r19-install-final",
+        "sameName": "FirstStopCleanupFailureKeepsTheOriginalControlLoopAvailableForTheSecondStop",
+        "sameMethodBytesThroughFinal": "0f76366b48c1a4e3c0a0ec4500a47045424e418f61042311b4713387590611fa"
+      },
+      {
+        "red": "r16-layout-red",
+        "green": "r19-install-final",
+        "sameName": "AlternateCaseVersionsContainerCannotFallBackToAnUnmanagedEntry",
+        "sameMethodBytesThroughFinal": "b8a49b59f9c1b55481aa7b491070b87edf2fcf6c74795f87ac1bf7d14afff1ec"
+      },
+      {
+        "red": "r18-held-retry-red",
+        "green": "r19-install-final",
+        "sameName": "RetryReceivedBeforeTheOriginalFailedCloseTaskCompletesIsRetainedAndSerialized",
+        "sameMethodBytesThroughFinal": "733856e34d971a4d855130f4b21127c0f76143c148d7b1572f0807009cdb73d1"
+      }
+    ],
+    "OldOleFailure": {
+      "failedRun": "r20-core-full",
+      "failedName": "RealChildProductionServerDeliversOnlyAfterCleanupAndClearsActualArray",
+      "location": "Cleanup line73 TryFinalizeAsync(true) returned false",
+      "cause": "Unknown",
+      "sameDllObservation": "r20-ole-observation-before-repeat.json",
+      "sameDllReruns": [
+        "r21-ole-same-dll",
+        "r22-core-final"
+      ],
+      "noSourceOrAssertionChange": true,
+      "familyPassed": 27,
+      "completeCorePassed": 1809,
+      "sameCoreTestCoreFixtureDllHashes": true,
+      "observedDllClosureUnchanged": 25
+    },
+    "ProviderSameNames": {
+      "parent": 2325,
+      "final": 2325,
+      "exactSameMultiset": true
+    },
+    "RecordedOwnedChildren": {
+      "r19-install-final": {
+        "actualExitedControlRows": 10,
+        "rejectedBeforeSurfaceRows": 10,
+        "committedSelfCloseObservationRows": 1,
+        "driverSha256": "345ae3b4c27534cdb3675ddcfc9869afca81b8078b06c577e92742658aa91425",
+        "fixtureCoreEqualsTargetCore": true,
+        "scope": "Rows support only their recorded actions. Production shared Core client/server executes in selected synthetic generation; WPF UI is a port. Transferred handles are never represented as root-held actual WaitForExit."
+      },
+      "r22-core-final": {
+        "actualExitedControlRows": 10,
+        "rejectedBeforeSurfaceRows": 10,
+        "committedSelfCloseObservationRows": 1,
+        "driverSha256": "345ae3b4c27534cdb3675ddcfc9869afca81b8078b06c577e92742658aa91425",
+        "fixtureCoreEqualsTargetCore": true,
+        "scope": "Rows support only their recorded actions. Production shared Core client/server executes in selected synthetic generation; WPF UI is a port. Transferred handles are never represented as root-held actual WaitForExit."
+      }
+    },
+    "AttemptClassifications": {
+      "r01-core-build": "CS0119 naming conflict, noTRX",
+      "r02-app-build": "Successful first App crossbuild",
+      "r03-fixture-build": "CS8602 nullable compile failure, noTRX",
+      "r04-control": "Fingerprint JSON recursion StackOverflow aborted testhost; TRX total0; not complete behavioral red",
+      "r05-control": "12P2F: original stdin cancel did not settle; unrelated new-test defaultDispose exit0 expectation incorrect, corrected with explicitClose/actualWaitExit0",
+      "r06-control": "15P intermediate",
+      "r07-commit-ack-red": "Reintroduced original unconditional-close candidate; real COMMITTED write fault caused unwanted UI close, same method failure",
+      "r08-install-green": "102P intermediate",
+      "r09-install": "104P intermediate",
+      "r10-provider-build": "Successful Provider build",
+      "r11-stop-retry-red": "Actual secondSTOP timeout after first cleanup refusal, same method failure",
+      "r12-install-green": "105P",
+      "r19-install-final": "107P final related cases",
+      "r13-install-final": "105P pre-case-container fix",
+      "r14-core-full": "1807P pre-case-container fix",
+      "r15-provider-full": "2325P pre-case-container fix",
+      "r16-layout-red": "Case-alias versions container incorrectly fell back to unmanaged entry, actual1F",
+      "r17-install-final": "105P1F: intermittent secondSTOP timeout; precise historical scheduling not captured, fixture race separately reproduced by r18",
+      "r18-held-retry-red": "Held original failed close after published failure; confirmed secondSTOP arrival before release; after release close timeout actual1F; exact same method through final",
+      "r20-core-full": "1808P1F: unchanged old OleReceiver cleanup finalization false, exact cause Unknown; all22 new passed",
+      "r21-ole-same-dll": "27P bounded same-DLL old OLE family verification; not root-cause proof",
+      "r22-core-final": "1809P complete no-filter same-DLL Core rerun; cause of r20 remains Unknown",
+      "r23-provider-full": "2325P complete Provider regression; exact parent names"
+    }
+  },
+  "Notes": [
+    "Five final commands each froze the same57 selected sources before execution, including App Program/entry/lifetime/privacy/Shell and both shared Core protocols/fixture; no retrofilling.",
+    "Complete Core1787 parent names retained plus22 new tests; completeProvider2325 names unchanged. All older test files and assertions retain parent bytes.",
+    "20 of22 new cases execute real selected synthetic children;2 exercise normal-entry file/lease gates. Readiness, visible WPF and close/content cleanup surfaces are explicit ports.",
+    "Five real same-method-bytes candidate red/green cases: original stdin settlement, committedACK output fault, secondSTOP after cleanup failure, case-alias installed layout, retained retry while original failed close task is held. No claim that e36 already had this new production server.",
+    "CLOSING closes only exact child stdin and joins original IO; EOF is never OS exit evidence. All process termination only through actual Start-returned Process.",
+    "Committed state is monotonic; unknown ledger and self-exit still preserve owner/pending fences.",
+    "Normal existing-instance wake remains before new-Shell admission; controlled duplicate refuses rather than redirects. Only Windows crossbuild/source checks cover actual Program.Main routing.",
+    "Worker and production Imaging/Providers, dependency/lock/workflow/SPEC files and prior evidence remain parent bytes."
+  ],
+  "Boundaries": [
+    "No observer/daemon or terminal owner release, automatic restart or stale adoption. Normal installed and committed self-exit keep durable owner markers; fresh entry stays blocked.",
+    "Actual WPF Loaded/visible HWND/geometry/settings health, Dispatcher/STA/normal wake/close behavior, native Worker/OCR/Job remain NotRun. Shared Core protocol tests do not prove those Windows gates.",
+    "No identity/NativeHost registration rollback/fullpayload/Inno/login startup/uninstall/Kgroup acceptance.",
+    "Launch/fingerprint/hash are correlation/integrity, not credentials or publisher trust; no same-account malicious rename/forgery or power-loss claim.",
+    "Per-phase budgets are not whole-operation hard deadline; old versions/records retained without cumulative disk bound.",
+    "r10 from parent runtime-handoff and historical image/idle/Core/WindowsJob causes remain independently Unknown.",
+    "Image/classification reuse Off; source/password/integrity/cancel/cleanup/250600 unchanged; real keyboard/screenshots/DPAPIACL/physical250600/live models/fullP6 acceptance NotRun.",
+    "No main/force/deploy/cost/real credentials/security permission changes/new dependencies/licenses. Skia4.153.1 four approvals pending; source403 and refusedGitHubActions never queried or bypassed."
+  ]
+}

@@ -989,3 +989,14 @@ r01新增夹具初始化顺序错4F保全、不当产品红；修夹具r02父生
 完整首轮r10为1785P1F旧LateActualStartOwner Retry Busy，具体原因仍Unknown。独立受控OS已退而原Stop task被扣，新例实际1F→同方法1P；StopGracefully实退后有界join原缓存Stop再走旧IO/协议/退出门，不降低断言。最终相关85P=父68+交接16+stopJoin1，完整Core1787P=父1770名单+新17，Provider2325P同父名单；AppWorker实际构建和五轮50源250绑定详见[报告](validation/runtime-ownership-handoff.md)/[原件](test-evidence/2026-10-17-runtime-ownership-handoff.json)。独立源码终审无P1/P2，封存另审，父旧方法/原件保持。
 
 仅可移植合成接线；Windows正常入口/真实关闭可见健康/Job/交接、身份NativeHost注册及rollback/派生绝对路径/完整payload/Inno/自启/卸载/K组未执行或未完成。真实WPF键盘/截图/DPAPIACL/物理250600/模型/完整P6 NotRun，分阶段budget非整体硬限，断电/恶意同账户换名/累计磁盘边界不抬。历史图片/idle/Core/Job各Unknown、生产图片分类复用Off及来源/密码/完整性/取消/清理门不变。无main强推部署费用真实模型凭据权限/新包许可；Skia四包待批，source403和拒绝Actions不重查绕过，未知锁数据日志进程保全。
+
+
+## 2026-10-17 · App 受控启动健康与既有关闭任务接线
+
+父e36b5395准入后正常dev/app-installation-control，仅接原App受控启动/可验证健康/关闭任务；按父收窄指令未造observer或terminal owner自动释放。固定generation/App角色/userdata/launch及精确owner/current/pending证明、两把已持OSlease与单次atomic claim在任何Shell前核；正常已有实例仍走原唤回，新Shell普通安装入口核选定generation并持门。静态持根committed runtime；退出只放lease不清持久owner，fresh继续拒入。ImageWorker/Imaging/Providers生产源码原字节、Worker原一次性二进制协议及App Process责任保持；本轮Worker/Core/Imaging构建DLL不声称与父hash相同或仅元数据差异。
+
+健康绑定真实Loaded/startupHealthy/Visible/HWND/geometry/Settings，STOP经Dispatcher仅请求原Close；旧内容清理失败保留窗口/所有权/原control循环。成功清理后绑定CLOSING令精确client关闭该child stdin，再join同原reader/取消callback/task；EOF不当实退。commit单调，即COMMITTED输出IOException/未知ledger也不回到自动关窗。实际Windows可见健康、Dispatcher/STA/正常唤回/Job仅交叉构建未验。
+
+最终安装107P/完整Core1809P=父1787全名多重集+新22/完整Provider2325P同父全名；AppWorker各实际0W/E，五轮57源共285绑定及实际fixture/Core DLL核定。22例中20例真实选定合成child、2文件准入，WPF/内容cleanup明确端口。五个候选同方法真实红绿：stdin结算、COMMITTED写失败、二次STOP、case容器、原失败Close task仍pending时保留重试。最后一例证明fixture IsCompleted丢重试，容量1单worker逐个await原task；非生产新守护。r17二次STOP间歇当次时序Unknown；r20完整1808P1F旧OLE Cleanup TryFinalize false，旧源码与父同、r20结束后/r21前25DLL补观察（raw误写运行中已显式勘误），r21同DLL旧类27P/r22同DLL完整1809P，不把重跑绿当根因修复；失败/中止/编译原件全保。
+
+独立源码终审无剩余P1/P2，封存另审；见[接线报告](validation/app-installation-control.md)/[原件索引](test-evidence/2026-10-17-app-installation-control.json)。父7344路径除明确8处外7336原字节保持、旧测试不删不弱、SPEC/trace/锁/workflow/旧原件不改。无observer/自动重启/stale接管/owner自清；真实Windows健康/键盘/截图/DPAPIACL/物理250600/模型/身份注册rollback/完整payload/Inno/自启/卸载/K组及完整P6/P7未验。父r10、历史图片/idle/Core/Job原因各Unknown，生产图片分类复用Off及来源/密码/完整性/取消/清理/250600门不变。仅已有SDK --no-restore、激活前后禁证书；无main强推部署费用真实模型凭据权限/新依赖许可，Skia4.153.1四包待批，source403及拒绝Actions不查询不绕过；未知锁数据日志进程保全。

@@ -31,5 +31,6 @@ internal sealed partial class ShellWindow
         await Settle(()=>startup);await Settle(()=>positionSave);await Settle(StopTextDrop);await Settle(StopSelection);
         await Settle(StopHotkeyScreenshot);await Settle(StopHotkeys);await Settle(StopTranslation);
         if(errors.Count>0)throw new AggregateException("Exit cleanup unconfirmed.",errors);
+        await SettleInstallationControl(); // Keep the original close-control loop available while content cleanup needs retry.
     }
 }
