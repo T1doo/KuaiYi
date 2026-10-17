@@ -952,3 +952,8 @@ r01新增夹具初始化顺序错4F保全、不当产品红；修夹具r02父生
 父2219已独立验收，从其正常建dev/held-context-test-cleanup，仅补已授权测试夹具finally：恢复SynchronizationContext，始终drain并在6秒内await同原capture任务。原guard十段断言保持，两受控实际前置assert失败证明原异常保留、同task成功、Capture释放、native1/0及A/原图/HTTP2不变。r01 xUnit2020编译拒绝无TRX、不算红测；最终专项3P、一次完整Provider2300P=父2298全名多重集+新2，64源码绑定/目标DLL一致。Core1703/AppWorker0W/E仅沿用未变父闭包证据，不冒称重跑。独立源码审查无P1/P2，封存另审；无生产改动。见[夹具报告](validation/held-context-test-cleanup.md)与[证据](test-evidence/2026-10-17-held-context-test-cleanup.json)。父1003原件、其余4797父路径原字节保持。
 
 [旧idle只读调查](validation/idle-timeout-readonly-investigation.md)分开记录：相同DLL2275P1F→族6P→2276P不等于修复；PUBLIC前缺客户端正文同步，可达message_start定时器锚点时序但历史轨迹不足、根因Unknown。disposed正常DueMax；旧analysis文字NativeHost误列追加勘误为ImageWorker，旧raw不改。未加idle诊断重跑/改生产，后续最小PUBLIC入队同步候选待父另定；未发送截图本次风格/P7安装事务仅列独立功能建议、不实施。历史图片/Core/WindowsJob各Unknown，生产复用Off及Windows可见键盘/物理250600/模型/完整P6未验。无main强推/部署费用/凭据权限/新包许可Skia/403或Actions拒绝重查绕过，未知锁数据日志进程保全。
+
+
+## 2026-10-17 · idle 测试 PUBLIC 入队同步
+
+父e14789已准入，正常dev/idle-public-anchor仅改PhaseDeadlineTests。精确PUBLIC TextDelta实际入队后异步signal，六旧idle先等再WaitDeadline2/首次advance；保留全部旧断言、2秒idle、真实500ms完成门及cleanup，生产/PhaseClock未改。受控Anthropic先message_start活跃idle2且无PUBLIC，fake1消费PUBLIC截止3，fake2真实500ms仍pending，fake3原门READ_IDLE_TIMEOUT，证明锚点/可达安排，不称历史根因。empty仍仅serverflush无消费收据。最终整类28P/完整Provider2301P=父2300全名多重集+新1，66源绑定；Core1703/AppWorker0W/E仅继承未改闭包，不重跑。独立源码审查无P1/P2，封存另审，见[报告](validation/idle-public-anchor.md)/[原件](test-evidence/2026-10-17-idle-public-anchor.json)。旧报告原件不动、历史Unknown、复用Off、Windows/模型/物理250600/完整P6未验，阶段状态不抬。无main强推部署费用/凭据权限新包许可Skia/403或Actions拒绝重查绕过，未知锁数据日志进程保全。

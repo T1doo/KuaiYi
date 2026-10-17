@@ -1,0 +1,561 @@
+{
+  "SourceParent": "e14789ff897e7a8aa13ee0fcef042ca0f427fff5",
+  "Branch": "dev/idle-public-anchor",
+  "Scope": "Test-only PUBLIC client-text anchor; existing production deadlines and PhaseClock unchanged. Historical causeUnknown.",
+  "FrozenSource": {
+    "src/KuaiYi.App/HotkeyScreenshot.cs": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+    "src/KuaiYi.App/OcrOnlyFlow.cs": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+    "src/KuaiYi.App/OverlayClearContent.cs": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+    "src/KuaiYi.App/OverlayFailureNotice.cs": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+    "src/KuaiYi.App/OverlayImageSource.cs": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+    "src/KuaiYi.App/OverlayLinkFlow.cs": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+    "src/KuaiYi.App/OverlayMarkdown.cs": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+    "src/KuaiYi.App/OverlayPresentation.cs": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+    "src/KuaiYi.App/OverlayPrivacyFlow.cs": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+    "src/KuaiYi.App/OverlayResultFlow.cs": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+    "src/KuaiYi.App/OverlayResultLabel.cs": "f06dd2d1e776c3123f99b41ccd1b6db5024ea43af29bf115ed18f15811951bb0",
+    "src/KuaiYi.App/OverlayScreenshotTranslation.cs": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+    "src/KuaiYi.App/ProductionScreenshotCoordinator.cs": "25a01b365de672307a360bbae46f7a84d2e738acce31c089f848cf530d69103f",
+    "src/KuaiYi.App/ScreenshotCaptureCommands.cs": "e272cf24639496ac8697f854ffbedecdd99772dea0ffc0ddd82869e0d8e690ab",
+    "src/KuaiYi.App/ScreenshotRecoveryMenu.cs": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+    "src/KuaiYi.App/ScreenshotSendCommands.cs": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+    "src/KuaiYi.App/ScreenshotTranslationFlow.cs": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+    "src/KuaiYi.App/ShellWindow.cs": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+    "src/KuaiYi.App/TranslationFlow.cs": "4f736bd3c3624cf3a77aaaf03bfdbeb20c9dabd7a0a0bec3571c6602d87612e4",
+    "src/KuaiYi.Providers/ProviderContracts.cs": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+    "src/KuaiYi.Providers/ProviderEventReceiver.cs": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+    "src/KuaiYi.Providers/ProviderRequestBudget.cs": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+    "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj": "2ba14389f57657786ed52dac346d5bf994f4b7dbaa4c97e2363892f64ba32097",
+    "tests/KuaiYi.Provider.Tests/OverlayClearPorts.cs": "fe4811f998100619dfbf681843b2cdb23a42eb72995321574d9563d080f40c6b",
+    "tests/KuaiYi.Provider.Tests/PhaseClock.cs": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+    "tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs": "c99fb7f5cf146e5f85e97249867ade0be23905e9a44117b178ff8605df8446fc",
+    "tests/KuaiYi.Provider.Tests/PhaseHttpFixture.cs": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotSecretStoreTests.cs": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotShellPorts.cs": "1f224f0ea5c49e2aafc9ea06378519ff6f43d7dcd78745b1b5821af32e8b1cba",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotShellTests.cs": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotTranslationTests.cs": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+    "tests/KuaiYi.Provider.Tests/ScreenshotCapturePorts.cs": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+    "tests/KuaiYi.Provider.Tests/ScreenshotRecaptureRecoveryTests.cs": "8ba7be5b0c21d5e3c6ceb820a128f1312138af3b69965b21381aec5738c19158"
+  },
+  "FinalSourceBindings": 66,
+  "Runs": {
+    "r01-phase": {
+      "counters": {
+        "total": "28",
+        "executed": "28",
+        "passed": "28",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trx": "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase.trx"
+    },
+    "r02-provider-full": {
+      "counters": {
+        "total": "2301",
+        "executed": "2301",
+        "passed": "2301",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trx": "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full.trx"
+    }
+  },
+  "RelevantTargetDlls": {
+    "r01-phase": {
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "c8ba3893ccab94daf4b3d47923fac5411543656f1840e110cf55c2c6a7218c5a",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.ImageWorker.dll": "989c837dd55b327907016be15b8cf0760d4837584a24c7c39955d413c1fa1c96",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "5d70c31b1c222003a79785042f3ec5e5059c285da1673d596f4ec7c59788492f",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": "e089611b39c1caef57054f6045f444a9907ea81453f905f92c81af8605d676d8",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": "e697784b32446168965875b9ef38e57454eeff093551e6aa527814525c3de0a7"
+    },
+    "r02-provider-full": {
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "c8ba3893ccab94daf4b3d47923fac5411543656f1840e110cf55c2c6a7218c5a",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.ImageWorker.dll": "989c837dd55b327907016be15b8cf0760d4837584a24c7c39955d413c1fa1c96",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "5d70c31b1c222003a79785042f3ec5e5059c285da1673d596f4ec7c59788492f",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": "e089611b39c1caef57054f6045f444a9907ea81453f905f92c81af8605d676d8",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": "e697784b32446168965875b9ef38e57454eeff093551e6aa527814525c3de0a7"
+    }
+  },
+  "DllScopeNote": "Other pre-existing selected DLLs are observations only; only the command target closure executed/built.",
+  "NameComparison": {
+    "parent": 2300,
+    "final": 2301,
+    "new": {
+      "KuaiYi.Provider.Tests.PhaseDeadlineTests.MessageStartIdleTimerCanPrecedeTheActualPublicTextAnchor": 1
+    },
+    "exactParentPlusNew": true
+  },
+  "Preservation": {
+    "parentTracked": 4923,
+    "allowedOldModified": [
+      ".gitattributes",
+      "docs/progress.md",
+      "tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs"
+    ],
+    "allOtherParentSameBytes": 4920,
+    "noDeletes": true
+  },
+  "Review": {
+    "Source": "Independent read-only high_water_review noP1/P2; source-review.txt",
+    "Packet": "Passed independent high_water_review noP1/P2;83raw/88paths reviewed;receipt-only84raw/89paths."
+  },
+  "Notes": [
+    "Exact PUBLIC TextDelta signal completes only after actual event queue enqueue, RunContinuationsAsynchronously. Six old idle cases await signal before existing WaitDeadline2 and clock advance.",
+    "Controlled Anthropic StartEvents first creates activeidle2 with noPUBLIC, fake1 consumesPUBLIC and anchorsdeadline3; fake2 remainspending overreal500ms, fake3 originaltimeoutgate yieldsREAD_IDLE_TIMEOUT.",
+    "Original assertions,2secondidle,500mscompletiongate,Disposal unchanged. No product red/green or historicalcause claim.",
+    "Empty Write still acknowledges serverflush only, not per-event client consumption.",
+    "Core1703/AppWorker0W/E reused unchanged2219 closure, not rerun/rebuilt."
+  ],
+  "Boundaries": [
+    "Historical image/Core/WindowsJob causes independentlyUnknown; image/classificationreuseOff.",
+    "Windows/WPF real keyboard/focus/capture/DPAPIACL/physical250600/model/fullP6 acceptanceNotRun.",
+    "ExistingSDK10.0.401 --no-restore; certificate generation disabled before/after activation.",
+    "No main/force/deploy/cost/live model/credential/security/newpackage/Skia license changes,403/Actions prior denial not queried or bypassed; unknown locks/data/logs/processes preserved."
+  ],
+  "RawEvidenceCount": 84,
+  "RawEvidence": {
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__analysis.json": {
+      "sha256": "e70b24bf419027a7755151b4827cf59cbc03d79edf7469f43bda6ba23df48c40",
+      "bytes": 8940,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/analysis.json"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__parent-manifest.json": {
+      "sha256": "fc596a502c54e31793c5f6c1a15825195479d6c293e07262fa823a370999305e",
+      "bytes": 792598,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/parent-manifest.json"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__preflight.json": {
+      "sha256": "5c77de758a2e41342c5e3ee1f3bbea03ec98d8e1b4215875193a73bc89aad8a3",
+      "bytes": 451,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/preflight.json"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-command.sh": {
+      "sha256": "359550fed214d44984f5c7ed2d0b12817275a466c574a6fc9d173860b5498b18",
+      "bytes": 372,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-command.sh"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-executed.json": {
+      "sha256": "f7adda3ae4612025eda38499bd5adb390e03311c7bcac79ff246dcf22d0dafc7",
+      "bytes": 7091,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-executed.json"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source.json": {
+      "sha256": "f9c16236e0e0883d5a50e430ef51c8e7dd81a6938272a95d5d8ac5a4807f408a",
+      "bytes": 3896,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source.json"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt": {
+      "sha256": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+      "bytes": 4761,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt": {
+      "sha256": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+      "bytes": 8954,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__src__KuaiYi.App__OverlayClearContent.cs.txt": {
+      "sha256": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+      "bytes": 2888,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__src__KuaiYi.App__OverlayClearContent.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt": {
+      "sha256": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+      "bytes": 5948,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__src__KuaiYi.App__OverlayImageSource.cs.txt": {
+      "sha256": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+      "bytes": 5750,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__src__KuaiYi.App__OverlayImageSource.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt": {
+      "sha256": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+      "bytes": 956,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__src__KuaiYi.App__OverlayMarkdown.cs.txt": {
+      "sha256": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+      "bytes": 2197,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__src__KuaiYi.App__OverlayMarkdown.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__src__KuaiYi.App__OverlayPresentation.cs.txt": {
+      "sha256": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+      "bytes": 21549,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__src__KuaiYi.App__OverlayPresentation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt": {
+      "sha256": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+      "bytes": 2494,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__src__KuaiYi.App__OverlayResultFlow.cs.txt": {
+      "sha256": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+      "bytes": 5930,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__src__KuaiYi.App__OverlayResultFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__src__KuaiYi.App__OverlayResultLabel.cs.txt": {
+      "sha256": "f06dd2d1e776c3123f99b41ccd1b6db5024ea43af29bf115ed18f15811951bb0",
+      "bytes": 5770,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__src__KuaiYi.App__OverlayResultLabel.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt": {
+      "sha256": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+      "bytes": 3792,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt": {
+      "sha256": "25a01b365de672307a360bbae46f7a84d2e738acce31c089f848cf530d69103f",
+      "bytes": 25212,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt": {
+      "sha256": "e272cf24639496ac8697f854ffbedecdd99772dea0ffc0ddd82869e0d8e690ab",
+      "bytes": 3106,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt": {
+      "sha256": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+      "bytes": 1366,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt": {
+      "sha256": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+      "bytes": 751,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt": {
+      "sha256": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+      "bytes": 1446,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__src__KuaiYi.App__ShellWindow.cs.txt": {
+      "sha256": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+      "bytes": 16965,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__src__KuaiYi.App__ShellWindow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__src__KuaiYi.App__TranslationFlow.cs.txt": {
+      "sha256": "4f736bd3c3624cf3a77aaaf03bfdbeb20c9dabd7a0a0bec3571c6602d87612e4",
+      "bytes": 8160,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__src__KuaiYi.App__TranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__src__KuaiYi.Providers__ProviderContracts.cs.txt": {
+      "sha256": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+      "bytes": 6572,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__src__KuaiYi.Providers__ProviderContracts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt": {
+      "sha256": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+      "bytes": 1369,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt": {
+      "sha256": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+      "bytes": 1638,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt": {
+      "sha256": "2ba14389f57657786ed52dac346d5bf994f4b7dbaa4c97e2363892f64ba32097",
+      "bytes": 5286,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt": {
+      "sha256": "fe4811f998100619dfbf681843b2cdb23a42eb72995321574d9563d080f40c6b",
+      "bytes": 4961,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt": {
+      "sha256": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+      "bytes": 1655,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__tests__KuaiYi.Provider.Tests__PhaseDeadlineTests.cs.txt": {
+      "sha256": "c99fb7f5cf146e5f85e97249867ade0be23905e9a44117b178ff8605df8446fc",
+      "bytes": 11445,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__tests__KuaiYi.Provider.Tests__PhaseDeadlineTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt": {
+      "sha256": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+      "bytes": 4284,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt": {
+      "sha256": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+      "bytes": 6700,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt": {
+      "sha256": "1f224f0ea5c49e2aafc9ea06378519ff6f43d7dcd78745b1b5821af32e8b1cba",
+      "bytes": 1300,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt": {
+      "sha256": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+      "bytes": 10958,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt": {
+      "sha256": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+      "bytes": 25218,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt": {
+      "sha256": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+      "bytes": 1261,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt": {
+      "sha256": "8ba7be5b0c21d5e3c6ceb820a128f1312138af3b69965b21381aec5738c19158",
+      "bytes": 18561,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase.log": {
+      "sha256": "5d3355d2f45beb8afc70be17449128fbdc8a96cebebb584d3bf0f1818032fe0f",
+      "bytes": 1122,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase.log"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r01-phase.trx": {
+      "sha256": "f728a6e4b5336fafa4cb009adc7e4d1382d01db7be75ef1fd353e650e2ac6b66",
+      "bytes": 41087,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r01-phase.trx"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-command.sh": {
+      "sha256": "3a1fbd75f8c24c8d50385fa19ab70b96c907c13b96a55d00e4a0eaa15f78338a",
+      "bytes": 331,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-command.sh"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-executed.json": {
+      "sha256": "402f6a565abb0fb2e8cb211d1a33b6e2dcfeda84867a64c4496a4855fc99b5ed",
+      "bytes": 7050,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-executed.json"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source.json": {
+      "sha256": "f9c16236e0e0883d5a50e430ef51c8e7dd81a6938272a95d5d8ac5a4807f408a",
+      "bytes": 3896,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source.json"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt": {
+      "sha256": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+      "bytes": 4761,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt": {
+      "sha256": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+      "bytes": 8954,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__src__KuaiYi.App__OverlayClearContent.cs.txt": {
+      "sha256": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+      "bytes": 2888,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__src__KuaiYi.App__OverlayClearContent.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt": {
+      "sha256": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+      "bytes": 5948,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__src__KuaiYi.App__OverlayImageSource.cs.txt": {
+      "sha256": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+      "bytes": 5750,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__src__KuaiYi.App__OverlayImageSource.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt": {
+      "sha256": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+      "bytes": 956,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__src__KuaiYi.App__OverlayMarkdown.cs.txt": {
+      "sha256": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+      "bytes": 2197,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__src__KuaiYi.App__OverlayMarkdown.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__src__KuaiYi.App__OverlayPresentation.cs.txt": {
+      "sha256": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+      "bytes": 21549,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__src__KuaiYi.App__OverlayPresentation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt": {
+      "sha256": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+      "bytes": 2494,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__src__KuaiYi.App__OverlayResultFlow.cs.txt": {
+      "sha256": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+      "bytes": 5930,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__src__KuaiYi.App__OverlayResultFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__src__KuaiYi.App__OverlayResultLabel.cs.txt": {
+      "sha256": "f06dd2d1e776c3123f99b41ccd1b6db5024ea43af29bf115ed18f15811951bb0",
+      "bytes": 5770,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__src__KuaiYi.App__OverlayResultLabel.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt": {
+      "sha256": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+      "bytes": 3792,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt": {
+      "sha256": "25a01b365de672307a360bbae46f7a84d2e738acce31c089f848cf530d69103f",
+      "bytes": 25212,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt": {
+      "sha256": "e272cf24639496ac8697f854ffbedecdd99772dea0ffc0ddd82869e0d8e690ab",
+      "bytes": 3106,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt": {
+      "sha256": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+      "bytes": 1366,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt": {
+      "sha256": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+      "bytes": 751,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt": {
+      "sha256": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+      "bytes": 1446,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__src__KuaiYi.App__ShellWindow.cs.txt": {
+      "sha256": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+      "bytes": 16965,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__src__KuaiYi.App__ShellWindow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__src__KuaiYi.App__TranslationFlow.cs.txt": {
+      "sha256": "4f736bd3c3624cf3a77aaaf03bfdbeb20c9dabd7a0a0bec3571c6602d87612e4",
+      "bytes": 8160,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__src__KuaiYi.App__TranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__src__KuaiYi.Providers__ProviderContracts.cs.txt": {
+      "sha256": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+      "bytes": 6572,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__src__KuaiYi.Providers__ProviderContracts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt": {
+      "sha256": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+      "bytes": 1369,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt": {
+      "sha256": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+      "bytes": 1638,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt": {
+      "sha256": "2ba14389f57657786ed52dac346d5bf994f4b7dbaa4c97e2363892f64ba32097",
+      "bytes": 5286,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt": {
+      "sha256": "fe4811f998100619dfbf681843b2cdb23a42eb72995321574d9563d080f40c6b",
+      "bytes": 4961,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt": {
+      "sha256": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+      "bytes": 1655,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__tests__KuaiYi.Provider.Tests__PhaseDeadlineTests.cs.txt": {
+      "sha256": "c99fb7f5cf146e5f85e97249867ade0be23905e9a44117b178ff8605df8446fc",
+      "bytes": 11445,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__tests__KuaiYi.Provider.Tests__PhaseDeadlineTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt": {
+      "sha256": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+      "bytes": 4284,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt": {
+      "sha256": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+      "bytes": 6700,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt": {
+      "sha256": "1f224f0ea5c49e2aafc9ea06378519ff6f43d7dcd78745b1b5821af32e8b1cba",
+      "bytes": 1300,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt": {
+      "sha256": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+      "bytes": 10958,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt": {
+      "sha256": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+      "bytes": 25218,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt": {
+      "sha256": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+      "bytes": 1261,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt": {
+      "sha256": "8ba7be5b0c21d5e3c6ceb820a128f1312138af3b69965b21381aec5738c19158",
+      "bytes": 18561,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full.log": {
+      "sha256": "0b84b02dae6949fefb588e6154e094496b4c7cc7f02219eb162e662d2d62b502",
+      "bytes": 1131,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full.log"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__r02-provider-full.trx": {
+      "sha256": "dc5557557d3158ed6a947c2f0bc4e8e7d2fb8e027d086f9bf94a40cd22d1e4cf",
+      "bytes": 3394804,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/r02-provider-full.trx"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__run.py": {
+      "sha256": "bc80046a37c006d73eceb1b655d12e69aade5083d23e682452f34fd48cbcc88d",
+      "bytes": 2353,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/run.py"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__seal.py": {
+      "sha256": "375bf3caee75c730bfaba69ecdc2d2aa7883e3da5c36a5cc706da7eed968c180",
+      "bytes": 3159,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/seal.py"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__source-review.txt": {
+      "sha256": "092a28e924d69ba3bce53a98751e2b04bcd81e03bcf31f0f3fb59ea3edadc6dd",
+      "bytes": 530,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/source-review.txt"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__task.json": {
+      "sha256": "6056caf5948da509151dc6d174d2eb0544d611d6312d858db9b2f54ae05398be",
+      "bytes": 1998,
+      "artifact": "/workspace/KuaiYi/artifacts/idle-public-anchor/task.json"
+    },
+    "docs/test-evidence/2026-10-17-idle-public-anchor-originals__final-review-receipt.txt": {
+      "sha256": "d03ee083f5e94a017d609d856c5df5bdcc52839d4fd1da0fe5f3a9cd78286847",
+      "bytes": 530,
+      "artifact": "artifacts/idle-public-anchor/final-review-receipt.txt"
+    }
+  },
+  "RawEvidenceCountBeforeFinalReview": 83
+}

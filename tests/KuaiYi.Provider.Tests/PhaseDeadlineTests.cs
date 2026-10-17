@@ -8,11 +8,11 @@ public sealed class PhaseDeadlineTests(PhaseHttpFixture fixture):IClassFixture<P
 {
     private sealed class Rig:IAsyncDisposable
     {
-        public PhaseClock Clock=new();public RuntimeGate Gate=new();public ProviderClient Provider;public KuaiYi.Providers.ApiProfile Profile;public PhaseHttpFixture.Script Script;public System.Collections.Concurrent.ConcurrentQueue<ModelEvent> Events=new();public Task Job;public TaskCompletionSource Started=new(TaskCreationOptions.RunContinuationsAsynchronously);
+        public PhaseClock Clock=new();public RuntimeGate Gate=new();public ProviderClient Provider;public KuaiYi.Providers.ApiProfile Profile;public PhaseHttpFixture.Script Script;public System.Collections.Concurrent.ConcurrentQueue<ModelEvent> Events=new();public Task Job;public TaskCompletionSource Started=new(TaskCreationOptions.RunContinuationsAsynchronously),PublicText=new(TaskCreationOptions.RunContinuationsAsynchronously);
         public Rig(PhaseHttpFixture fixture,Protocol protocol,string mime,bool headers=true,RequestTimeouts? timeouts=null,int total=120,bool sharedClock=false)
         {
             string run=Guid.NewGuid().ToString("N");Script=fixture.Add(run,mime,headers);Profile=new(protocol,new(fixture.BaseUri,run+"/"),protocol==Protocol.OpenAIChat?"chat/completions":"messages","PUBLIC",Authentication.None,AllowLoopbackHttp:true,TotalTimeoutSeconds:total,Timeouts:timeouts??new(){HeadersSeconds=2,FirstResponseSeconds=3,IdleSeconds=2});Provider=new(clock:sharedClock?Clock:null,phaseClock:Clock);var origin=new EndpointOrigin(Profile.ResolveEndpoint());Gate.ConsentTo(origin);Gate.TryEnable(origin,true);Gate.TryStartRequest(Guid.NewGuid(),Guid.NewGuid(),null,out var id,out var ct);
-            Job=Run();async Task Run(){await foreach(var item in Provider.GenerateAsync(new(Profile,"PUBLIC_SYSTEM","PUBLIC_SOURCE"),Gate,id,null,ct)){Events.Enqueue(item);if(item.Kind==ModelEventKind.Started)Started.TrySetResult();}}
+            Job=Run();async Task Run(){await foreach(var item in Provider.GenerateAsync(new(Profile,"PUBLIC_SYSTEM","PUBLIC_SOURCE"),Gate,id,null,ct)){Events.Enqueue(item);if(item.Kind==ModelEventKind.Started)Started.TrySetResult();if(item.Kind==ModelEventKind.TextDelta&&item.Text=="PUBLIC")PublicText.TrySetResult();}}
         }
         public async Task AssertTimedOut(int seconds,string reason){Clock.Advance(TimeSpan.FromSeconds(seconds));await Task.WhenAny(Job,Task.Delay(500));Assert.True(Job.IsCompleted,"Configured phase must terminate this real socket independently of total.");await Job;Assert.Contains(Events,e=>e.Reason==reason);Assert.DoesNotContain(Events,e=>e.Kind==ModelEventKind.Completed);}
         public async ValueTask DisposeAsync(){Gate.Disable();Provider.Dispose();await Job.WaitAsync(TimeSpan.FromSeconds(6));}
@@ -34,8 +34,16 @@ public sealed class PhaseDeadlineTests(PhaseHttpFixture fixture):IClassFixture<P
     [Theory] [InlineData(Protocol.OpenAIChat,"comment")] [InlineData(Protocol.OpenAIChat,"empty")] [InlineData(Protocol.OpenAIChat,"fragment")] [InlineData(Protocol.AnthropicMessages,"ping")] [InlineData(Protocol.AnthropicMessages,"unknown")] [InlineData(Protocol.AnthropicMessages,"empty")]
     public async Task IdleDeadlineKeepsPartialTextAndIgnoresNoContentActivity(Protocol protocol,string activity)
     {
-        await using var rig=new Rig(fixture,protocol,"text/event-stream");await rig.Started.Task.WaitAsync(TimeSpan.FromSeconds(6));await rig.Script.Write(StartEvents(protocol)+TextEvent(protocol,"PUBLIC"));await rig.Clock.WaitDeadline(2);rig.Clock.Advance(TimeSpan.FromSeconds(1));
+        await using var rig=new Rig(fixture,protocol,"text/event-stream");await rig.Started.Task.WaitAsync(TimeSpan.FromSeconds(6));await rig.Script.Write(StartEvents(protocol)+TextEvent(protocol,"PUBLIC"));await rig.PublicText.Task.WaitAsync(TimeSpan.FromSeconds(6));await rig.Clock.WaitDeadline(2);rig.Clock.Advance(TimeSpan.FromSeconds(1));
         string ignored=activity switch{"comment"=>": keepalive\n\n","ping"=>"data: {\"type\":\"ping\"}\n\n","unknown"=>"data: {\"type\":\"PUBLIC_UNKNOWN\"}\n\n","fragment"=>"data: ",_=>TextEvent(protocol,"")};await rig.Script.Write(ignored);await Task.Delay(20);await rig.AssertTimedOut(1,"READ_IDLE_TIMEOUT");Assert.Contains(rig.Events,e=>e.Kind==ModelEventKind.TextDelta&&e.Text=="PUBLIC");Assert.Equal(1,rig.Script.Requests);
+    }
+    [Fact]public async Task MessageStartIdleTimerCanPrecedeTheActualPublicTextAnchor()
+    {
+        const Protocol protocol=Protocol.AnthropicMessages;await using var rig=new Rig(fixture,protocol,"text/event-stream");await rig.Started.Task.WaitAsync(TimeSpan.FromSeconds(6));
+        await rig.Script.Write(StartEvents(protocol));await rig.Clock.WaitDeadline(2);Assert.False(rig.PublicText.Task.IsCompleted);Assert.DoesNotContain(rig.Events,e=>e.Kind==ModelEventKind.TextDelta&&e.Text=="PUBLIC");
+        rig.Clock.Advance(TimeSpan.FromSeconds(1));await rig.Script.Write(TextEvent(protocol,"PUBLIC"));await rig.PublicText.Task.WaitAsync(TimeSpan.FromSeconds(6));Assert.Contains(rig.Events,e=>e.Kind==ModelEventKind.TextDelta&&e.Text=="PUBLIC");await rig.Clock.WaitDeadline(2);
+        await rig.Script.Write(TextEvent(protocol,""));rig.Clock.Advance(TimeSpan.FromSeconds(1));await Task.WhenAny(rig.Job,Task.Delay(500));Assert.False(rig.Job.IsCompleted);
+        await rig.AssertTimedOut(1,"READ_IDLE_TIMEOUT");Assert.Contains(rig.Events,e=>e.Kind==ModelEventKind.TextDelta&&e.Text=="PUBLIC");Assert.Equal(1,rig.Script.Requests);
     }
     [Theory] [InlineData(Protocol.OpenAIChat)] [InlineData(Protocol.AnthropicMessages)]
     public async Task ActualTextExtendsOnlyIdleDeadline(Protocol protocol)

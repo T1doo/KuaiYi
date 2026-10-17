@@ -1,0 +1,33 @@
+{
+  "Parent": "e14789ff897e7a8aa13ee0fcef042ca0f427fff5",
+  "Branch": "dev/idle-public-anchor",
+  "Scope": "Test-only PUBLIC client-text anchor; existing production deadlines and PhaseClock unchanged. Historical causeUnknown.",
+  "FinalRuns": [
+    "r01-phase",
+    "r02-provider-full"
+  ],
+  "FullRun": "r02-provider-full",
+  "ParentTrx": "docs/test-evidence/2026-10-17-held-context-originals__r03-provider-full.trx",
+  "NewTests": 1,
+  "AllowedOldModified": [
+    ".gitattributes",
+    "docs/progress.md",
+    "tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs"
+  ],
+  "Prefix": "2026-10-17-idle-public-anchor-originals__",
+  "Index": "2026-10-17-idle-public-anchor.json",
+  "SourceReview": "Independent read-only high_water_review noP1/P2; source-review.txt",
+  "Notes": [
+    "Exact PUBLIC TextDelta signal completes only after actual event queue enqueue, RunContinuationsAsynchronously. Six old idle cases await signal before existing WaitDeadline2 and clock advance.",
+    "Controlled Anthropic StartEvents first creates activeidle2 with noPUBLIC, fake1 consumesPUBLIC and anchorsdeadline3; fake2 remainspending overreal500ms, fake3 originaltimeoutgate yieldsREAD_IDLE_TIMEOUT.",
+    "Original assertions,2secondidle,500mscompletiongate,Disposal unchanged. No product red/green or historicalcause claim.",
+    "Empty Write still acknowledges serverflush only, not per-event client consumption.",
+    "Core1703/AppWorker0W/E reused unchanged2219 closure, not rerun/rebuilt."
+  ],
+  "Boundaries": [
+    "Historical image/Core/WindowsJob causes independentlyUnknown; image/classificationreuseOff.",
+    "Windows/WPF real keyboard/focus/capture/DPAPIACL/physical250600/model/fullP6 acceptanceNotRun.",
+    "ExistingSDK10.0.401 --no-restore; certificate generation disabled before/after activation.",
+    "No main/force/deploy/cost/live model/credential/security/newpackage/Skia license changes,403/Actions prior denial not queried or bypassed; unknown locks/data/logs/processes preserved."
+  ]
+}
