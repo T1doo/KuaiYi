@@ -13,7 +13,9 @@ namespace System.Windows
 }
 namespace System.Windows.Controls
 {
-    internal sealed class ContextMenu {public bool IsOpen {get;set;}}
+    internal sealed class ContextMenu {public bool IsOpen {get;set;}public List<object> Items {get;}=[];}
+    internal sealed class MenuItem:FrameworkElement
+    {public object? Header {get;set;}public bool IsEnabled {get;set;}=true;public object? ToolTip {get;set;}public event EventHandler? Click;public void Invoke(){if(IsEnabled)Click?.Invoke(this,EventArgs.Empty);}}
     internal sealed class Panel {public List<UIElement> Children {get;}=[];}
     internal sealed class Image:FrameworkElement {public object? Source {get;set;}public Media.Stretch Stretch {get;set;}public Threading.CodeDispatcherPort Dispatcher {get;}=new();}
 }

@@ -1,0 +1,4 @@
+Independent read-only reviewer /root/high_water_review, no writes/SDK/network:
+当前共享入口/native抽取、21例及App0W/E未见P1/P2；原host终结前不返回成功crop，native cleanup失败会dispose result再抛，Shell唯一持原图，cancel/late通过actualAcceptLocalImage拒绝并擦除，菜单null Intent与hotkey真实input守卫分开正确。
+最终一行guard及受控反例复审无P1/P2。r04/r05确同名同测试SHA7df914...，实际1F(Calls=1)→1P(Calls=0)；真实SelectResultVersion(same version)确只升resultRevision而epoch相同，之后核原任务结算、A真实SSE正文/identity/原图及HTTP2不变，证明的是‘yield后过期显示context不再启动native’，不冒称实机截图。完整ImageAdmissionCurrent+intent双核没有绕过hotkey或新建发送权限。非阻断夹具建议：HeldContext用例目前只有同步上下文恢复finally，queue.Drain在几条前置assert后；若未来版本前置assert失败，Rig.Dispose可能等仍被hold的原任务。可为queue.Drain/原task观察补finally（仅读发现，不是当前产品bug），或保持冻结并明确不声称任意早期断言失败下cleanup保证。当前绿路径任务已实际结算，可继续完整回归/构建。
+Frozen candidate retained; this note precedes separate final packet review.

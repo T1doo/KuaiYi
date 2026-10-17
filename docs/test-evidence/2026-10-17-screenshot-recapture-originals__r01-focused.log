@@ -1,0 +1,23 @@
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.MockProvider -> /workspace/KuaiYi/tools/KuaiYi.MockProvider/bin/Release/net10.0/KuaiYi.MockProvider.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.Providers -> /workspace/KuaiYi/src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.Provider.Tests -> /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:01.07]     KuaiYi.Provider.Tests.ScreenshotRecaptureRecoveryTests.LateCropAfterRevocationCannotReplaceOrSendAndClearExitJoinTheOriginalCapture(change: "hide") [FAIL]
+  Failed KuaiYi.Provider.Tests.ScreenshotRecaptureRecoveryTests.LateCropAfterRevocationCannotReplaceOrSendAndClearExitJoinTheOriginalCapture(change: "hide") [32 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   OwnedSourceImage { Height = 8, IsDisposed = False, SourceId = f6b517ae-1a78-404d-9bd5-5c36c3aa5861, Width = 8 }
+  Stack Trace:
+     at KuaiYi.Provider.Tests.ScreenshotRecaptureRecoveryTests.LateCropAfterRevocationCannotReplaceOrSendAndClearExitJoinTheOriginalCapture(String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ScreenshotRecaptureRecoveryTests.cs:line 92
+   at KuaiYi.Provider.Tests.ScreenshotRecaptureRecoveryTests.LateCropAfterRevocationCannotReplaceOrSendAndClearExitJoinTheOriginalCapture(String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ScreenshotRecaptureRecoveryTests.cs:line 94
+   at KuaiYi.Provider.Tests.ScreenshotRecaptureRecoveryTests.LateCropAfterRevocationCannotReplaceOrSendAndClearExitJoinTheOriginalCapture(String change) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/ScreenshotRecaptureRecoveryTests.cs:line 94
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/screenshot-recapture-recovery/r01-focused.trx
+
+Failed!  - Failed:     1, Passed:    18, Skipped:     0, Total:    19, Duration: 914 ms - KuaiYi.Provider.Tests.dll (net10.0)

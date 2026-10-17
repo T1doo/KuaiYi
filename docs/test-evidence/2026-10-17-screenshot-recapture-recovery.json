@@ -1,0 +1,2081 @@
+{
+  "SourceParent": "1184969120b0ffbad9eb0b2f9c5ad6d80237e87e",
+  "Branch": "dev/screenshot-recapture-recovery",
+  "Scope": "Actual failed/stopped image recovery menu re-acquires a fresh crop using shared existing native capture chain and explicit menu ScreenshotIntent. No retained-image resend/copy-to-new-ID/reuse.",
+  "FrozenSource": {
+    "src/KuaiYi.App/HotkeyScreenshot.cs": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+    "src/KuaiYi.App/OcrOnlyFlow.cs": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+    "src/KuaiYi.App/OverlayClearContent.cs": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+    "src/KuaiYi.App/OverlayFailureNotice.cs": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+    "src/KuaiYi.App/OverlayImageSource.cs": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+    "src/KuaiYi.App/OverlayLinkFlow.cs": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+    "src/KuaiYi.App/OverlayMarkdown.cs": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+    "src/KuaiYi.App/OverlayPresentation.cs": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+    "src/KuaiYi.App/OverlayPrivacyFlow.cs": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+    "src/KuaiYi.App/OverlayResultFlow.cs": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+    "src/KuaiYi.App/OverlayResultLabel.cs": "f06dd2d1e776c3123f99b41ccd1b6db5024ea43af29bf115ed18f15811951bb0",
+    "src/KuaiYi.App/OverlayScreenshotTranslation.cs": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+    "src/KuaiYi.App/ProductionScreenshotCoordinator.cs": "25a01b365de672307a360bbae46f7a84d2e738acce31c089f848cf530d69103f",
+    "src/KuaiYi.App/ScreenshotCaptureCommands.cs": "e272cf24639496ac8697f854ffbedecdd99772dea0ffc0ddd82869e0d8e690ab",
+    "src/KuaiYi.App/ScreenshotRecoveryMenu.cs": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+    "src/KuaiYi.App/ScreenshotSendCommands.cs": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+    "src/KuaiYi.App/ScreenshotTranslationFlow.cs": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+    "src/KuaiYi.App/ShellWindow.cs": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+    "src/KuaiYi.App/TranslationFlow.cs": "4f736bd3c3624cf3a77aaaf03bfdbeb20c9dabd7a0a0bec3571c6602d87612e4",
+    "src/KuaiYi.Providers/ProviderContracts.cs": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+    "src/KuaiYi.Providers/ProviderEventReceiver.cs": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+    "src/KuaiYi.Providers/ProviderRequestBudget.cs": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+    "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj": "2ba14389f57657786ed52dac346d5bf994f4b7dbaa4c97e2363892f64ba32097",
+    "tests/KuaiYi.Provider.Tests/OverlayClearPorts.cs": "fe4811f998100619dfbf681843b2cdb23a42eb72995321574d9563d080f40c6b",
+    "tests/KuaiYi.Provider.Tests/PhaseClock.cs": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+    "tests/KuaiYi.Provider.Tests/PhaseHttpFixture.cs": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotSecretStoreTests.cs": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotShellPorts.cs": "1f224f0ea5c49e2aafc9ea06378519ff6f43d7dcd78745b1b5821af32e8b1cba",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotShellTests.cs": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotTranslationTests.cs": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+    "tests/KuaiYi.Provider.Tests/ScreenshotCapturePorts.cs": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+    "tests/KuaiYi.Provider.Tests/ScreenshotRecaptureRecoveryTests.cs": "7df91411aff316aac62f4945efbfe0b139512a355c0da27c437d3594075ffc0c"
+  },
+  "FinalSourceBindings": 160,
+  "FinalRuns": {
+    "r06-focused-final": {
+      "counters": {
+        "total": "22",
+        "executed": "22",
+        "passed": "22",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trx": "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final.trx"
+    },
+    "r07-provider-full": {
+      "counters": {
+        "total": "2298",
+        "executed": "2298",
+        "passed": "2298",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trx": "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full.trx"
+    },
+    "r08-core-full": {
+      "counters": {
+        "total": "1703",
+        "executed": "1703",
+        "passed": "1703",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trx": "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full.trx"
+    }
+  },
+  "Builds": {
+    "r09-app-build": {
+      "warnings": 0,
+      "errors": 0,
+      "exit": 0
+    },
+    "r10-worker-build": {
+      "warnings": 0,
+      "errors": 0,
+      "exit": 0
+    }
+  },
+  "RelevantTargetDllObservations": {
+    "r06-focused-final": {
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "25053eb6fd247120ae32f4a5ebc0b6a9e66dcd03b6e63dc411a3cd9398509f38",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.ImageWorker.dll": "a9545b3d52bdd42240c756e469fb01fa1a39d307455eb157ed5ddd5090ad4d60",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "e4286d70530d36dc36f684721a0a9012a4267709103d6677d0e7249742d7a6a3",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": "d189deb5ce7ef84c7b6fd1aca148b97ddd497b41b5a92a1fc87856a87581c06d",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": "121b3a66f704b8606c25483b6b70e45d43bea60468f6dcb03d533047f11ecef9"
+    },
+    "r07-provider-full": {
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "25053eb6fd247120ae32f4a5ebc0b6a9e66dcd03b6e63dc411a3cd9398509f38",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.ImageWorker.dll": "a9545b3d52bdd42240c756e469fb01fa1a39d307455eb157ed5ddd5090ad4d60",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "e4286d70530d36dc36f684721a0a9012a4267709103d6677d0e7249742d7a6a3",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": "d189deb5ce7ef84c7b6fd1aca148b97ddd497b41b5a92a1fc87856a87581c06d",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": "121b3a66f704b8606c25483b6b70e45d43bea60468f6dcb03d533047f11ecef9"
+    },
+    "r08-core-full": {
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "d992c7689011095d0ef73d1b09efc2716a5fff4caa4c3b5c119a5b37a48f1248",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "25053eb6fd247120ae32f4a5ebc0b6a9e66dcd03b6e63dc411a3cd9398509f38",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "e4286d70530d36dc36f684721a0a9012a4267709103d6677d0e7249742d7a6a3",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll": "8551515502f216cdae45edd537edcea489bbdcd419d006d4c8b67192f0aa350e",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "fe2cc830d1dc0f19d44588ac64d40feaf1065aa78efe055708961a58049dde77"
+    },
+    "r09-app-build": {
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.App.dll": "ec7588707484dd82ed7779f79023c24468e29f81a075c2255c66c91ba60fa058",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Core.dll": "25053eb6fd247120ae32f4a5ebc0b6a9e66dcd03b6e63dc411a3cd9398509f38",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Imaging.dll": "e4286d70530d36dc36f684721a0a9012a4267709103d6677d0e7249742d7a6a3",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.NativeHost.dll": "8551515502f216cdae45edd537edcea489bbdcd419d006d4c8b67192f0aa350e",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Providers.dll": "121b3a66f704b8606c25483b6b70e45d43bea60468f6dcb03d533047f11ecef9"
+    },
+    "r10-worker-build": {
+      "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Core.dll": "25053eb6fd247120ae32f4a5ebc0b6a9e66dcd03b6e63dc411a3cd9398509f38",
+      "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll": "a9545b3d52bdd42240c756e469fb01fa1a39d307455eb157ed5ddd5090ad4d60",
+      "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Imaging.dll": "e4286d70530d36dc36f684721a0a9012a4267709103d6677d0e7249742d7a6a3"
+    }
+  },
+  "DllScopeNote": "run.py records other already-existing selected DLLs too; only each command target closure was executed or built. DLL observations are not proof every library was loaded or unrelated targets ran.",
+  "RedGreen": {
+    "sameTestFile": "tests/KuaiYi.Provider.Tests/ScreenshotRecaptureRecoveryTests.cs",
+    "sameTestSha256": "7df91411aff316aac62f4945efbfe0b139512a355c0da27c437d3594075ffc0c",
+    "sameNames": true,
+    "onlyProductionDifference": [
+      "src/KuaiYi.App/ScreenshotCaptureCommands.cs"
+    ],
+    "red": "1F captureCalls1",
+    "green": "1P captureCalls0"
+  },
+  "NameComparison": {
+    "provider": {
+      "parent": 2276,
+      "new": 22,
+      "final": 2298,
+      "exactMultisetParentPlusNew": true
+    },
+    "core": {
+      "parent": 1703,
+      "final": 1703,
+      "exactMultisetUnchanged": true
+    }
+  },
+  "EarlierRuns": {
+    "r01": "r01 18P1F/19 new hide test wrongly required old retained image null; actual HideOverlay/HidePresentation(false) preserves it. Late crop was already disposed. r02 only fixes new expectation and strengthens Off/PNG/stale menu/hotkey cases21P; not product red-green. r03 App0W/E is intermediate before final guard.",
+    "r02": "21P intermediate test set before held-context case; not final test bytes.",
+    "r03": "App0W/E before guard finalization, final App is r09.",
+    "r04-r05": "Actual candidate source same final test file/name1F->1P, only pre-native admission guard changed. Not a c775 parent defect claim."
+  },
+  "Behavior": "Recovery option appears for image failure/stopped context; clicked identity must still match. Menu uses null hotkey input for explicit capture, real hotkey path retains exact input guard. Shared original task/cancellation/host ownership; complete image admission and intent rechecked after yield before native. Native final crop remains behind hidden/Exclude/topology/host-settlement guards. Native cleanup failure disposes untransferred crop, Shell accepts only current source. Cancel retains old session, valid new crop replaces it into local unsent preview. Explicit mode+endpoint/model/two-call decision required; reuseOff consumed original remains blocked.",
+  "FixtureBoundaries": "Actual linked Shell recovery menu construction/handler, managed capture task/intent/admission/ownership, result/source/markdown and production coordinator. Only CaptureFinalScreenshot(native WPF/desktop frame/mask) is an explicit synthetic new-pixel port; MenuItem/ContextMenu surfaces are call/data ports. No claim WPF visible click/focus or actual frame capture. Actual Kestrel SSE creates A partial output in both protocols before Stop, B different pixels and transmitted PNG differ, separately confirmed full two-stage HTTP succeeds. Actual receiver rejects explicit late identity; no assertion old cancelled socket emitted100 new tokens. Known CaptureHostClient ownership/finalization retry is a synthetic port, not Windows Job proof. Source replacement test ends its known old intent then uses actual ImageInput/AcceptLocalImage for independent fresh C, with late B rejected. CancelCrop token is explicit cancel port, not physical Esc input.",
+  "Coverage": "22 cases: two protocols stopped->new preview->reject/confirm->2 HTTP; cancel selection; actual401 failure menu opening zero work; off/lock/hide/clear/exit/source-replacement late crop zeroed and clear/exit join held original; stale menu on revocations/source replacement; Off local then enable/confirm; real RuntimeGate hotkey admission/stale guard; unconfirmed known host owner denies and original retry succeeds; held yield context same epoch changed display revision prevents native capture.",
+  "Preservation": {
+    "parentTracked": 4420,
+    "oldModifiedAfterDocs": [
+      ".gitattributes",
+      "docs/progress.md",
+      "src/KuaiYi.App/HotkeyScreenshot.cs",
+      "src/KuaiYi.App/OverlayPresentation.cs",
+      "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+      "tests/KuaiYi.Provider.Tests/OverlayClearPorts.cs"
+    ],
+    "allOtherParentSameBytes": 4414,
+    "priorRaw499And130Unchanged": true,
+    "oldTestAssertionsUnchanged": true,
+    "noDeletes": true,
+    "coreProvidersImagingOfflineSpecRawbookTraceLocksWorkflowsUnchanged": true
+  },
+  "Review": {
+    "SourceAndTests": "NoP1/P2 independent high_water_review; read-only-source-review.txt.",
+    "NonblockingFixtureBoundary": "Current green path actually drains and settles original. Arbitrary earlier failed preconditions are not claimed to have fully proven fixture-finally cleanup robustness; independent nonblocking note.",
+    "FinalPacket": "Passed independent read-only high_water_review, noP1/P2. Reviewed373raw/385paths; receipt-only append374raw/386paths. All reviewed source/test/report/original bytes unchanged; final-review-receipt.txt."
+  },
+  "Boundaries": "Production image/classification reuse Off; same-image regeneration/mode-change/reclassification/retry still disabled. Windows visible confirmation/focus/lockscreen/DPAPIACL/native capture/Job, physical250600, real model quality/fullP6 NotRun. Prior image intermittent/Core settlement/Job and budget batch old idle timeout occurrence independently Unknown. No new license/Skia/403/Actions refusal workaround, main/force/deploy/cost/real credentials/security changes; existing SDK --no-restore cert disabled before/after activation; unknown locks/data/logs/processes preserved.",
+  "RawEvidenceCountBeforeFinalReview": 373,
+  "RawEvidenceCount": 374,
+  "RawEvidence": {
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__analysis.json": {
+      "sha256": "aa84bf51934b49d0be19e5e8be79af27014f9762c039bd33cc5d74a379c26978",
+      "bytes": 11957,
+      "artifact": "artifacts/screenshot-recapture-recovery/analysis.json"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__parent-manifest.json": {
+      "sha256": "20bf9b35be726af1053cc9983ea93d59815d0dd3d72e5daaeab9b718d95a7e16",
+      "bytes": 692855,
+      "artifact": "artifacts/screenshot-recapture-recovery/parent-manifest.json"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__pre-packet-remote.json": {
+      "sha256": "712720debdd37579eb5ebf6d31cdbc2d467076e1ac8c3a577d08e3af68faccee",
+      "bytes": 578,
+      "artifact": "artifacts/screenshot-recapture-recovery/pre-packet-remote.json"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__preflight.json": {
+      "sha256": "c444bdeacccfc9235b009bfd4384aede139343e948b6a91524fd98afd782ab9a",
+      "bytes": 521,
+      "artifact": "artifacts/screenshot-recapture-recovery/preflight.json"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-command.sh": {
+      "sha256": "1ddf5244ea43fd222f6aa1829c5b116dfd1dd95b2becf807b1ba51a078bc257e",
+      "bytes": 399,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-command.sh"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-executed.json": {
+      "sha256": "2f84cf04e3dc7a293e0e8104fbe61fc1c8a3e8e79f4182336077ba68668446a8",
+      "bytes": 6993,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-executed.json"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source.json": {
+      "sha256": "bfaf29e09adc443be71cabbd3e1312937c78e907fbc655dfcf9ca2134f5b6f20",
+      "bytes": 3773,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source.json"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt": {
+      "sha256": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+      "bytes": 4761,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt": {
+      "sha256": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+      "bytes": 8954,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__src__KuaiYi.App__OverlayClearContent.cs.txt": {
+      "sha256": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+      "bytes": 2888,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__src__KuaiYi.App__OverlayClearContent.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt": {
+      "sha256": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+      "bytes": 5948,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__src__KuaiYi.App__OverlayImageSource.cs.txt": {
+      "sha256": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+      "bytes": 5750,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__src__KuaiYi.App__OverlayImageSource.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt": {
+      "sha256": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+      "bytes": 956,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__src__KuaiYi.App__OverlayMarkdown.cs.txt": {
+      "sha256": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+      "bytes": 2197,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__src__KuaiYi.App__OverlayMarkdown.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__src__KuaiYi.App__OverlayPresentation.cs.txt": {
+      "sha256": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+      "bytes": 21549,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__src__KuaiYi.App__OverlayPresentation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt": {
+      "sha256": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+      "bytes": 2494,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__src__KuaiYi.App__OverlayResultFlow.cs.txt": {
+      "sha256": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+      "bytes": 5930,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__src__KuaiYi.App__OverlayResultFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__src__KuaiYi.App__OverlayResultLabel.cs.txt": {
+      "sha256": "f06dd2d1e776c3123f99b41ccd1b6db5024ea43af29bf115ed18f15811951bb0",
+      "bytes": 5770,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__src__KuaiYi.App__OverlayResultLabel.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt": {
+      "sha256": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+      "bytes": 3792,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt": {
+      "sha256": "25a01b365de672307a360bbae46f7a84d2e738acce31c089f848cf530d69103f",
+      "bytes": 25212,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt": {
+      "sha256": "0e77740a9c79ed4a599c97f9707f189818741aa8bbf9b2b6e53fa5f915667912",
+      "bytes": 3102,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt": {
+      "sha256": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+      "bytes": 1366,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt": {
+      "sha256": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+      "bytes": 751,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt": {
+      "sha256": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+      "bytes": 1446,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__src__KuaiYi.App__ShellWindow.cs.txt": {
+      "sha256": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+      "bytes": 16965,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__src__KuaiYi.App__ShellWindow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__src__KuaiYi.App__TranslationFlow.cs.txt": {
+      "sha256": "4f736bd3c3624cf3a77aaaf03bfdbeb20c9dabd7a0a0bec3571c6602d87612e4",
+      "bytes": 8160,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__src__KuaiYi.App__TranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__src__KuaiYi.Providers__ProviderContracts.cs.txt": {
+      "sha256": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+      "bytes": 6572,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__src__KuaiYi.Providers__ProviderContracts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt": {
+      "sha256": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+      "bytes": 1369,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt": {
+      "sha256": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+      "bytes": 1638,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt": {
+      "sha256": "2ba14389f57657786ed52dac346d5bf994f4b7dbaa4c97e2363892f64ba32097",
+      "bytes": 5286,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt": {
+      "sha256": "fe4811f998100619dfbf681843b2cdb23a42eb72995321574d9563d080f40c6b",
+      "bytes": 4961,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt": {
+      "sha256": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+      "bytes": 1655,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt": {
+      "sha256": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+      "bytes": 4284,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt": {
+      "sha256": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+      "bytes": 6700,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt": {
+      "sha256": "1f224f0ea5c49e2aafc9ea06378519ff6f43d7dcd78745b1b5821af32e8b1cba",
+      "bytes": 1300,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt": {
+      "sha256": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+      "bytes": 10958,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt": {
+      "sha256": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+      "bytes": 25218,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt": {
+      "sha256": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+      "bytes": 1261,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt": {
+      "sha256": "c057a08c45dff07477ae0fd49a870f7870c662990fffb00fb2afb9fea24d3b09",
+      "bytes": 12977,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused.log": {
+      "sha256": "e7a7683d227494e336f5162bf3c901f4d547f0fa72748cfb40fa57e6ae3f57cb",
+      "bytes": 2489,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused.log"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r01-focused.trx": {
+      "sha256": "df87ba0ef51462e20faff7397130d28a77ddafd11b2d8012ea226e4dbd27dd45",
+      "bytes": 32490,
+      "artifact": "artifacts/screenshot-recapture-recovery/r01-focused.trx"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-command.sh": {
+      "sha256": "4985c3e6573d83be3c39c8c949abfa7f36c6a62a0e55a0fe88d891b829954bc9",
+      "bytes": 399,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-command.sh"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-executed.json": {
+      "sha256": "246e8e893dbabe93b8fcf364589754b41c8ae49db4e13f9c53b3c80b0e64d188",
+      "bytes": 6993,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-executed.json"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source.json": {
+      "sha256": "f18307d4bbe2d371c1384111b2e421348c77c615f0e854e9de2e6cba5c931925",
+      "bytes": 3773,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source.json"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt": {
+      "sha256": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+      "bytes": 4761,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt": {
+      "sha256": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+      "bytes": 8954,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__src__KuaiYi.App__OverlayClearContent.cs.txt": {
+      "sha256": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+      "bytes": 2888,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__src__KuaiYi.App__OverlayClearContent.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt": {
+      "sha256": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+      "bytes": 5948,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__src__KuaiYi.App__OverlayImageSource.cs.txt": {
+      "sha256": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+      "bytes": 5750,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__src__KuaiYi.App__OverlayImageSource.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt": {
+      "sha256": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+      "bytes": 956,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__src__KuaiYi.App__OverlayMarkdown.cs.txt": {
+      "sha256": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+      "bytes": 2197,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__src__KuaiYi.App__OverlayMarkdown.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__src__KuaiYi.App__OverlayPresentation.cs.txt": {
+      "sha256": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+      "bytes": 21549,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__src__KuaiYi.App__OverlayPresentation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt": {
+      "sha256": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+      "bytes": 2494,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__src__KuaiYi.App__OverlayResultFlow.cs.txt": {
+      "sha256": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+      "bytes": 5930,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__src__KuaiYi.App__OverlayResultFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__src__KuaiYi.App__OverlayResultLabel.cs.txt": {
+      "sha256": "f06dd2d1e776c3123f99b41ccd1b6db5024ea43af29bf115ed18f15811951bb0",
+      "bytes": 5770,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__src__KuaiYi.App__OverlayResultLabel.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt": {
+      "sha256": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+      "bytes": 3792,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt": {
+      "sha256": "25a01b365de672307a360bbae46f7a84d2e738acce31c089f848cf530d69103f",
+      "bytes": 25212,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt": {
+      "sha256": "0e77740a9c79ed4a599c97f9707f189818741aa8bbf9b2b6e53fa5f915667912",
+      "bytes": 3102,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt": {
+      "sha256": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+      "bytes": 1366,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt": {
+      "sha256": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+      "bytes": 751,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt": {
+      "sha256": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+      "bytes": 1446,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__src__KuaiYi.App__ShellWindow.cs.txt": {
+      "sha256": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+      "bytes": 16965,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__src__KuaiYi.App__ShellWindow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__src__KuaiYi.App__TranslationFlow.cs.txt": {
+      "sha256": "4f736bd3c3624cf3a77aaaf03bfdbeb20c9dabd7a0a0bec3571c6602d87612e4",
+      "bytes": 8160,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__src__KuaiYi.App__TranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__src__KuaiYi.Providers__ProviderContracts.cs.txt": {
+      "sha256": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+      "bytes": 6572,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__src__KuaiYi.Providers__ProviderContracts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt": {
+      "sha256": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+      "bytes": 1369,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt": {
+      "sha256": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+      "bytes": 1638,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt": {
+      "sha256": "2ba14389f57657786ed52dac346d5bf994f4b7dbaa4c97e2363892f64ba32097",
+      "bytes": 5286,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt": {
+      "sha256": "fe4811f998100619dfbf681843b2cdb23a42eb72995321574d9563d080f40c6b",
+      "bytes": 4961,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt": {
+      "sha256": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+      "bytes": 1655,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt": {
+      "sha256": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+      "bytes": 4284,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt": {
+      "sha256": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+      "bytes": 6700,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt": {
+      "sha256": "1f224f0ea5c49e2aafc9ea06378519ff6f43d7dcd78745b1b5821af32e8b1cba",
+      "bytes": 1300,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt": {
+      "sha256": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+      "bytes": 10958,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt": {
+      "sha256": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+      "bytes": 25218,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt": {
+      "sha256": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+      "bytes": 1261,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt": {
+      "sha256": "daf2d2611a7db75d47663573ac7e0e259189e790758abe218ca086e920b57390",
+      "bytes": 15305,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused.log": {
+      "sha256": "13c4146944dbfef15570c77b63d3e2ff3e62bf0b0fffb7fd73977dc96a191b02",
+      "bytes": 1138,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused.log"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r02-focused.trx": {
+      "sha256": "954da2244748b0b333eef4de41b77114a8d2f463f836701b7eee59067d03a164",
+      "bytes": 32677,
+      "artifact": "artifacts/screenshot-recapture-recovery/r02-focused.trx"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-command.sh": {
+      "sha256": "16aebd3e50c80009688106d49d3397c5d587df711522f13434d56888febeb8a1",
+      "bytes": 241,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-command.sh"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-executed.json": {
+      "sha256": "c185db3e3b2516524460de109d3f5ed8d0d276bd7bba86fcf268c5bebd2cdfa6",
+      "bytes": 6835,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-executed.json"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source.json": {
+      "sha256": "f18307d4bbe2d371c1384111b2e421348c77c615f0e854e9de2e6cba5c931925",
+      "bytes": 3773,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source.json"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt": {
+      "sha256": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+      "bytes": 4761,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt": {
+      "sha256": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+      "bytes": 8954,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__src__KuaiYi.App__OverlayClearContent.cs.txt": {
+      "sha256": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+      "bytes": 2888,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__src__KuaiYi.App__OverlayClearContent.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt": {
+      "sha256": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+      "bytes": 5948,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__src__KuaiYi.App__OverlayImageSource.cs.txt": {
+      "sha256": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+      "bytes": 5750,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__src__KuaiYi.App__OverlayImageSource.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt": {
+      "sha256": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+      "bytes": 956,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__src__KuaiYi.App__OverlayMarkdown.cs.txt": {
+      "sha256": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+      "bytes": 2197,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__src__KuaiYi.App__OverlayMarkdown.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__src__KuaiYi.App__OverlayPresentation.cs.txt": {
+      "sha256": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+      "bytes": 21549,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__src__KuaiYi.App__OverlayPresentation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt": {
+      "sha256": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+      "bytes": 2494,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__src__KuaiYi.App__OverlayResultFlow.cs.txt": {
+      "sha256": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+      "bytes": 5930,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__src__KuaiYi.App__OverlayResultFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__src__KuaiYi.App__OverlayResultLabel.cs.txt": {
+      "sha256": "f06dd2d1e776c3123f99b41ccd1b6db5024ea43af29bf115ed18f15811951bb0",
+      "bytes": 5770,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__src__KuaiYi.App__OverlayResultLabel.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt": {
+      "sha256": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+      "bytes": 3792,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt": {
+      "sha256": "25a01b365de672307a360bbae46f7a84d2e738acce31c089f848cf530d69103f",
+      "bytes": 25212,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt": {
+      "sha256": "0e77740a9c79ed4a599c97f9707f189818741aa8bbf9b2b6e53fa5f915667912",
+      "bytes": 3102,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt": {
+      "sha256": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+      "bytes": 1366,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt": {
+      "sha256": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+      "bytes": 751,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt": {
+      "sha256": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+      "bytes": 1446,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__src__KuaiYi.App__ShellWindow.cs.txt": {
+      "sha256": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+      "bytes": 16965,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__src__KuaiYi.App__ShellWindow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__src__KuaiYi.App__TranslationFlow.cs.txt": {
+      "sha256": "4f736bd3c3624cf3a77aaaf03bfdbeb20c9dabd7a0a0bec3571c6602d87612e4",
+      "bytes": 8160,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__src__KuaiYi.App__TranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__src__KuaiYi.Providers__ProviderContracts.cs.txt": {
+      "sha256": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+      "bytes": 6572,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__src__KuaiYi.Providers__ProviderContracts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt": {
+      "sha256": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+      "bytes": 1369,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt": {
+      "sha256": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+      "bytes": 1638,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt": {
+      "sha256": "2ba14389f57657786ed52dac346d5bf994f4b7dbaa4c97e2363892f64ba32097",
+      "bytes": 5286,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt": {
+      "sha256": "fe4811f998100619dfbf681843b2cdb23a42eb72995321574d9563d080f40c6b",
+      "bytes": 4961,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt": {
+      "sha256": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+      "bytes": 1655,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt": {
+      "sha256": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+      "bytes": 4284,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt": {
+      "sha256": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+      "bytes": 6700,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt": {
+      "sha256": "1f224f0ea5c49e2aafc9ea06378519ff6f43d7dcd78745b1b5821af32e8b1cba",
+      "bytes": 1300,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt": {
+      "sha256": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+      "bytes": 10958,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt": {
+      "sha256": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+      "bytes": 25218,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt": {
+      "sha256": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+      "bytes": 1261,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt": {
+      "sha256": "daf2d2611a7db75d47663573ac7e0e259189e790758abe218ca086e920b57390",
+      "bytes": 15305,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r03-app-build.log": {
+      "sha256": "2f6f9ad65edb9fa04480ba3f385220a765748c4e4497749849264c46120691fa",
+      "bytes": 888,
+      "artifact": "artifacts/screenshot-recapture-recovery/r03-app-build.log"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-command.sh": {
+      "sha256": "3e5d5a140db08c58c315892ce46a5a597f61b342b5e292df3781d455a39e5277",
+      "bytes": 443,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-command.sh"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-executed.json": {
+      "sha256": "fddd8b668da0c5ff6807ad2c350603d83a3ffdc97fd68e5a77a5e1625347138e",
+      "bytes": 7037,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-executed.json"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source.json": {
+      "sha256": "b98230b630b5506a37b2bb1bd4d1a8950e2ec48eace227291d958c4f690fc915",
+      "bytes": 3773,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source.json"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt": {
+      "sha256": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+      "bytes": 4761,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt": {
+      "sha256": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+      "bytes": 8954,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__src__KuaiYi.App__OverlayClearContent.cs.txt": {
+      "sha256": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+      "bytes": 2888,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__src__KuaiYi.App__OverlayClearContent.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt": {
+      "sha256": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+      "bytes": 5948,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__src__KuaiYi.App__OverlayImageSource.cs.txt": {
+      "sha256": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+      "bytes": 5750,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__src__KuaiYi.App__OverlayImageSource.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt": {
+      "sha256": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+      "bytes": 956,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__src__KuaiYi.App__OverlayMarkdown.cs.txt": {
+      "sha256": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+      "bytes": 2197,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__src__KuaiYi.App__OverlayMarkdown.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__src__KuaiYi.App__OverlayPresentation.cs.txt": {
+      "sha256": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+      "bytes": 21549,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__src__KuaiYi.App__OverlayPresentation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt": {
+      "sha256": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+      "bytes": 2494,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__src__KuaiYi.App__OverlayResultFlow.cs.txt": {
+      "sha256": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+      "bytes": 5930,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__src__KuaiYi.App__OverlayResultFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__src__KuaiYi.App__OverlayResultLabel.cs.txt": {
+      "sha256": "f06dd2d1e776c3123f99b41ccd1b6db5024ea43af29bf115ed18f15811951bb0",
+      "bytes": 5770,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__src__KuaiYi.App__OverlayResultLabel.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt": {
+      "sha256": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+      "bytes": 3792,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt": {
+      "sha256": "25a01b365de672307a360bbae46f7a84d2e738acce31c089f848cf530d69103f",
+      "bytes": 25212,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt": {
+      "sha256": "0e77740a9c79ed4a599c97f9707f189818741aa8bbf9b2b6e53fa5f915667912",
+      "bytes": 3102,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt": {
+      "sha256": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+      "bytes": 1366,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt": {
+      "sha256": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+      "bytes": 751,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt": {
+      "sha256": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+      "bytes": 1446,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__src__KuaiYi.App__ShellWindow.cs.txt": {
+      "sha256": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+      "bytes": 16965,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__src__KuaiYi.App__ShellWindow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__src__KuaiYi.App__TranslationFlow.cs.txt": {
+      "sha256": "4f736bd3c3624cf3a77aaaf03bfdbeb20c9dabd7a0a0bec3571c6602d87612e4",
+      "bytes": 8160,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__src__KuaiYi.App__TranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__src__KuaiYi.Providers__ProviderContracts.cs.txt": {
+      "sha256": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+      "bytes": 6572,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__src__KuaiYi.Providers__ProviderContracts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt": {
+      "sha256": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+      "bytes": 1369,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt": {
+      "sha256": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+      "bytes": 1638,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt": {
+      "sha256": "2ba14389f57657786ed52dac346d5bf994f4b7dbaa4c97e2363892f64ba32097",
+      "bytes": 5286,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt": {
+      "sha256": "fe4811f998100619dfbf681843b2cdb23a42eb72995321574d9563d080f40c6b",
+      "bytes": 4961,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt": {
+      "sha256": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+      "bytes": 1655,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt": {
+      "sha256": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+      "bytes": 4284,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt": {
+      "sha256": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+      "bytes": 6700,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt": {
+      "sha256": "1f224f0ea5c49e2aafc9ea06378519ff6f43d7dcd78745b1b5821af32e8b1cba",
+      "bytes": 1300,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt": {
+      "sha256": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+      "bytes": 10958,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt": {
+      "sha256": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+      "bytes": 25218,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt": {
+      "sha256": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+      "bytes": 1261,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt": {
+      "sha256": "7df91411aff316aac62f4945efbfe0b139512a355c0da27c437d3594075ffc0c",
+      "bytes": 16748,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red.log": {
+      "sha256": "a0f79775c62f8600267bdd9739cecdc7f87d710f360218357a035460644297fe",
+      "bytes": 2060,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red.log"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r04-context-red.trx": {
+      "sha256": "455c5684ea55f0ce75d2e198983ac463d02a471027504c4faa55ee606dda13ee",
+      "bytes": 4841,
+      "artifact": "artifacts/screenshot-recapture-recovery/r04-context-red.trx"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-command.sh": {
+      "sha256": "482bc7613b32fa591b720bcafcd4cace61b2dd2518844c52c85da02c946d4b58",
+      "bytes": 445,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-command.sh"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-executed.json": {
+      "sha256": "bce86c890baf9610e321156fd4e1126b28c91a7f0e1d0a2a016d333f62cf66c7",
+      "bytes": 7039,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-executed.json"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source.json": {
+      "sha256": "8302a4b3701448a7052e8a9c0ce0eb22a3870d0a3a9cab022c9fe6da831d83ce",
+      "bytes": 3773,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source.json"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt": {
+      "sha256": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+      "bytes": 4761,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt": {
+      "sha256": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+      "bytes": 8954,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__src__KuaiYi.App__OverlayClearContent.cs.txt": {
+      "sha256": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+      "bytes": 2888,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__src__KuaiYi.App__OverlayClearContent.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt": {
+      "sha256": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+      "bytes": 5948,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__src__KuaiYi.App__OverlayImageSource.cs.txt": {
+      "sha256": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+      "bytes": 5750,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__src__KuaiYi.App__OverlayImageSource.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt": {
+      "sha256": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+      "bytes": 956,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__src__KuaiYi.App__OverlayMarkdown.cs.txt": {
+      "sha256": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+      "bytes": 2197,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__src__KuaiYi.App__OverlayMarkdown.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__src__KuaiYi.App__OverlayPresentation.cs.txt": {
+      "sha256": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+      "bytes": 21549,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__src__KuaiYi.App__OverlayPresentation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt": {
+      "sha256": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+      "bytes": 2494,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__src__KuaiYi.App__OverlayResultFlow.cs.txt": {
+      "sha256": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+      "bytes": 5930,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__src__KuaiYi.App__OverlayResultFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__src__KuaiYi.App__OverlayResultLabel.cs.txt": {
+      "sha256": "f06dd2d1e776c3123f99b41ccd1b6db5024ea43af29bf115ed18f15811951bb0",
+      "bytes": 5770,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__src__KuaiYi.App__OverlayResultLabel.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt": {
+      "sha256": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+      "bytes": 3792,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt": {
+      "sha256": "25a01b365de672307a360bbae46f7a84d2e738acce31c089f848cf530d69103f",
+      "bytes": 25212,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt": {
+      "sha256": "e272cf24639496ac8697f854ffbedecdd99772dea0ffc0ddd82869e0d8e690ab",
+      "bytes": 3106,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt": {
+      "sha256": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+      "bytes": 1366,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt": {
+      "sha256": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+      "bytes": 751,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt": {
+      "sha256": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+      "bytes": 1446,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__src__KuaiYi.App__ShellWindow.cs.txt": {
+      "sha256": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+      "bytes": 16965,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__src__KuaiYi.App__ShellWindow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__src__KuaiYi.App__TranslationFlow.cs.txt": {
+      "sha256": "4f736bd3c3624cf3a77aaaf03bfdbeb20c9dabd7a0a0bec3571c6602d87612e4",
+      "bytes": 8160,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__src__KuaiYi.App__TranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__src__KuaiYi.Providers__ProviderContracts.cs.txt": {
+      "sha256": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+      "bytes": 6572,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__src__KuaiYi.Providers__ProviderContracts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt": {
+      "sha256": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+      "bytes": 1369,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt": {
+      "sha256": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+      "bytes": 1638,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt": {
+      "sha256": "2ba14389f57657786ed52dac346d5bf994f4b7dbaa4c97e2363892f64ba32097",
+      "bytes": 5286,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt": {
+      "sha256": "fe4811f998100619dfbf681843b2cdb23a42eb72995321574d9563d080f40c6b",
+      "bytes": 4961,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt": {
+      "sha256": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+      "bytes": 1655,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt": {
+      "sha256": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+      "bytes": 4284,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt": {
+      "sha256": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+      "bytes": 6700,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt": {
+      "sha256": "1f224f0ea5c49e2aafc9ea06378519ff6f43d7dcd78745b1b5821af32e8b1cba",
+      "bytes": 1300,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt": {
+      "sha256": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+      "bytes": 10958,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt": {
+      "sha256": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+      "bytes": 25218,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt": {
+      "sha256": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+      "bytes": 1261,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt": {
+      "sha256": "7df91411aff316aac62f4945efbfe0b139512a355c0da27c437d3594075ffc0c",
+      "bytes": 16748,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green.log": {
+      "sha256": "94246a759895cfc7ba5b7d57ed71737ef7ab95c198e02c322f6c926a3cb1c1d9",
+      "bytes": 1144,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green.log"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r05-context-green.trx": {
+      "sha256": "0acf89ab73025607e5dd0268a23325da11bae24c37fc008d9e7f5a318ed03943",
+      "bytes": 2991,
+      "artifact": "artifacts/screenshot-recapture-recovery/r05-context-green.trx"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-command.sh": {
+      "sha256": "ba2e16476b9da6d6230269fa98159ef5ce35baced1cecc61adf6ababda9128b3",
+      "bytes": 405,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-command.sh"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-executed.json": {
+      "sha256": "276e4747e0e6ecdba19187ce0d7ed7c20349dd0d04768a2b28cae60a399b03fa",
+      "bytes": 6999,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-executed.json"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source.json": {
+      "sha256": "8302a4b3701448a7052e8a9c0ce0eb22a3870d0a3a9cab022c9fe6da831d83ce",
+      "bytes": 3773,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source.json"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt": {
+      "sha256": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+      "bytes": 4761,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt": {
+      "sha256": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+      "bytes": 8954,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__src__KuaiYi.App__OverlayClearContent.cs.txt": {
+      "sha256": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+      "bytes": 2888,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__src__KuaiYi.App__OverlayClearContent.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt": {
+      "sha256": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+      "bytes": 5948,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__src__KuaiYi.App__OverlayImageSource.cs.txt": {
+      "sha256": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+      "bytes": 5750,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__src__KuaiYi.App__OverlayImageSource.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt": {
+      "sha256": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+      "bytes": 956,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__src__KuaiYi.App__OverlayMarkdown.cs.txt": {
+      "sha256": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+      "bytes": 2197,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__src__KuaiYi.App__OverlayMarkdown.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__src__KuaiYi.App__OverlayPresentation.cs.txt": {
+      "sha256": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+      "bytes": 21549,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__src__KuaiYi.App__OverlayPresentation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt": {
+      "sha256": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+      "bytes": 2494,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__src__KuaiYi.App__OverlayResultFlow.cs.txt": {
+      "sha256": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+      "bytes": 5930,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__src__KuaiYi.App__OverlayResultFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__src__KuaiYi.App__OverlayResultLabel.cs.txt": {
+      "sha256": "f06dd2d1e776c3123f99b41ccd1b6db5024ea43af29bf115ed18f15811951bb0",
+      "bytes": 5770,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__src__KuaiYi.App__OverlayResultLabel.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt": {
+      "sha256": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+      "bytes": 3792,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt": {
+      "sha256": "25a01b365de672307a360bbae46f7a84d2e738acce31c089f848cf530d69103f",
+      "bytes": 25212,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt": {
+      "sha256": "e272cf24639496ac8697f854ffbedecdd99772dea0ffc0ddd82869e0d8e690ab",
+      "bytes": 3106,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt": {
+      "sha256": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+      "bytes": 1366,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt": {
+      "sha256": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+      "bytes": 751,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt": {
+      "sha256": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+      "bytes": 1446,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__src__KuaiYi.App__ShellWindow.cs.txt": {
+      "sha256": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+      "bytes": 16965,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__src__KuaiYi.App__ShellWindow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__src__KuaiYi.App__TranslationFlow.cs.txt": {
+      "sha256": "4f736bd3c3624cf3a77aaaf03bfdbeb20c9dabd7a0a0bec3571c6602d87612e4",
+      "bytes": 8160,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__src__KuaiYi.App__TranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__src__KuaiYi.Providers__ProviderContracts.cs.txt": {
+      "sha256": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+      "bytes": 6572,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__src__KuaiYi.Providers__ProviderContracts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt": {
+      "sha256": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+      "bytes": 1369,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt": {
+      "sha256": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+      "bytes": 1638,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt": {
+      "sha256": "2ba14389f57657786ed52dac346d5bf994f4b7dbaa4c97e2363892f64ba32097",
+      "bytes": 5286,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt": {
+      "sha256": "fe4811f998100619dfbf681843b2cdb23a42eb72995321574d9563d080f40c6b",
+      "bytes": 4961,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt": {
+      "sha256": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+      "bytes": 1655,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt": {
+      "sha256": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+      "bytes": 4284,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt": {
+      "sha256": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+      "bytes": 6700,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt": {
+      "sha256": "1f224f0ea5c49e2aafc9ea06378519ff6f43d7dcd78745b1b5821af32e8b1cba",
+      "bytes": 1300,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt": {
+      "sha256": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+      "bytes": 10958,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt": {
+      "sha256": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+      "bytes": 25218,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt": {
+      "sha256": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+      "bytes": 1261,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt": {
+      "sha256": "7df91411aff316aac62f4945efbfe0b139512a355c0da27c437d3594075ffc0c",
+      "bytes": 16748,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final.log": {
+      "sha256": "32fe02b3ebe5d32a5d61e4ef7925c0504fde5120dd179f47fe9a3a8cbe14052d",
+      "bytes": 1141,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final.log"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r06-focused-final.trx": {
+      "sha256": "1af40ae473a17a5edba4502bbd8e7bc885cd5bc086c3ad602376260236dc9f55",
+      "bytes": 34127,
+      "artifact": "artifacts/screenshot-recapture-recovery/r06-focused-final.trx"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-command.sh": {
+      "sha256": "1227d5ed62f66b053e3f90a991af305123e7053acb9f296fdb0308914fe960ac",
+      "bytes": 342,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-command.sh"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-executed.json": {
+      "sha256": "747711dd9430fc33820d52282575d01d22a66086730a5a248844ed73f29e94ab",
+      "bytes": 6936,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-executed.json"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source.json": {
+      "sha256": "8302a4b3701448a7052e8a9c0ce0eb22a3870d0a3a9cab022c9fe6da831d83ce",
+      "bytes": 3773,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source.json"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt": {
+      "sha256": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+      "bytes": 4761,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt": {
+      "sha256": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+      "bytes": 8954,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__src__KuaiYi.App__OverlayClearContent.cs.txt": {
+      "sha256": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+      "bytes": 2888,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__src__KuaiYi.App__OverlayClearContent.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt": {
+      "sha256": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+      "bytes": 5948,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__src__KuaiYi.App__OverlayImageSource.cs.txt": {
+      "sha256": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+      "bytes": 5750,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__src__KuaiYi.App__OverlayImageSource.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt": {
+      "sha256": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+      "bytes": 956,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__src__KuaiYi.App__OverlayMarkdown.cs.txt": {
+      "sha256": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+      "bytes": 2197,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__src__KuaiYi.App__OverlayMarkdown.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__src__KuaiYi.App__OverlayPresentation.cs.txt": {
+      "sha256": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+      "bytes": 21549,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__src__KuaiYi.App__OverlayPresentation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt": {
+      "sha256": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+      "bytes": 2494,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__src__KuaiYi.App__OverlayResultFlow.cs.txt": {
+      "sha256": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+      "bytes": 5930,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__src__KuaiYi.App__OverlayResultFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__src__KuaiYi.App__OverlayResultLabel.cs.txt": {
+      "sha256": "f06dd2d1e776c3123f99b41ccd1b6db5024ea43af29bf115ed18f15811951bb0",
+      "bytes": 5770,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__src__KuaiYi.App__OverlayResultLabel.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt": {
+      "sha256": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+      "bytes": 3792,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt": {
+      "sha256": "25a01b365de672307a360bbae46f7a84d2e738acce31c089f848cf530d69103f",
+      "bytes": 25212,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt": {
+      "sha256": "e272cf24639496ac8697f854ffbedecdd99772dea0ffc0ddd82869e0d8e690ab",
+      "bytes": 3106,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt": {
+      "sha256": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+      "bytes": 1366,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt": {
+      "sha256": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+      "bytes": 751,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt": {
+      "sha256": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+      "bytes": 1446,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__src__KuaiYi.App__ShellWindow.cs.txt": {
+      "sha256": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+      "bytes": 16965,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__src__KuaiYi.App__ShellWindow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__src__KuaiYi.App__TranslationFlow.cs.txt": {
+      "sha256": "4f736bd3c3624cf3a77aaaf03bfdbeb20c9dabd7a0a0bec3571c6602d87612e4",
+      "bytes": 8160,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__src__KuaiYi.App__TranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__src__KuaiYi.Providers__ProviderContracts.cs.txt": {
+      "sha256": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+      "bytes": 6572,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__src__KuaiYi.Providers__ProviderContracts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt": {
+      "sha256": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+      "bytes": 1369,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt": {
+      "sha256": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+      "bytes": 1638,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt": {
+      "sha256": "2ba14389f57657786ed52dac346d5bf994f4b7dbaa4c97e2363892f64ba32097",
+      "bytes": 5286,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt": {
+      "sha256": "fe4811f998100619dfbf681843b2cdb23a42eb72995321574d9563d080f40c6b",
+      "bytes": 4961,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt": {
+      "sha256": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+      "bytes": 1655,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt": {
+      "sha256": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+      "bytes": 4284,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt": {
+      "sha256": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+      "bytes": 6700,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt": {
+      "sha256": "1f224f0ea5c49e2aafc9ea06378519ff6f43d7dcd78745b1b5821af32e8b1cba",
+      "bytes": 1300,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt": {
+      "sha256": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+      "bytes": 10958,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt": {
+      "sha256": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+      "bytes": 25218,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt": {
+      "sha256": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+      "bytes": 1261,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt": {
+      "sha256": "7df91411aff316aac62f4945efbfe0b139512a355c0da27c437d3594075ffc0c",
+      "bytes": 16748,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full.log": {
+      "sha256": "6b25a1071137bd00ca793ff226f81b00142048c4d36e801207c7d602ba20e2cc",
+      "bytes": 1142,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full.log"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r07-provider-full.trx": {
+      "sha256": "08cc7889b36207531e33b02e270818dd391ef08195ee66051ca7a82fb22e2021",
+      "bytes": 3390494,
+      "artifact": "artifacts/screenshot-recapture-recovery/r07-provider-full.trx"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-command.sh": {
+      "sha256": "ccf589dfac751944eca4b1714017f76069dcc44bc81308797f8415d7217c8c50",
+      "bytes": 330,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-command.sh"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-executed.json": {
+      "sha256": "4c1f4547b259ad8eadc35a50a8615b22447a3185d8e4aa40301b892c7ea4a9b9",
+      "bytes": 6924,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-executed.json"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source.json": {
+      "sha256": "8302a4b3701448a7052e8a9c0ce0eb22a3870d0a3a9cab022c9fe6da831d83ce",
+      "bytes": 3773,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source.json"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt": {
+      "sha256": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+      "bytes": 4761,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt": {
+      "sha256": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+      "bytes": 8954,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__src__KuaiYi.App__OverlayClearContent.cs.txt": {
+      "sha256": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+      "bytes": 2888,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__src__KuaiYi.App__OverlayClearContent.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt": {
+      "sha256": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+      "bytes": 5948,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__src__KuaiYi.App__OverlayImageSource.cs.txt": {
+      "sha256": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+      "bytes": 5750,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__src__KuaiYi.App__OverlayImageSource.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt": {
+      "sha256": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+      "bytes": 956,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__src__KuaiYi.App__OverlayMarkdown.cs.txt": {
+      "sha256": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+      "bytes": 2197,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__src__KuaiYi.App__OverlayMarkdown.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__src__KuaiYi.App__OverlayPresentation.cs.txt": {
+      "sha256": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+      "bytes": 21549,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__src__KuaiYi.App__OverlayPresentation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt": {
+      "sha256": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+      "bytes": 2494,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__src__KuaiYi.App__OverlayResultFlow.cs.txt": {
+      "sha256": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+      "bytes": 5930,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__src__KuaiYi.App__OverlayResultFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__src__KuaiYi.App__OverlayResultLabel.cs.txt": {
+      "sha256": "f06dd2d1e776c3123f99b41ccd1b6db5024ea43af29bf115ed18f15811951bb0",
+      "bytes": 5770,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__src__KuaiYi.App__OverlayResultLabel.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt": {
+      "sha256": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+      "bytes": 3792,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt": {
+      "sha256": "25a01b365de672307a360bbae46f7a84d2e738acce31c089f848cf530d69103f",
+      "bytes": 25212,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt": {
+      "sha256": "e272cf24639496ac8697f854ffbedecdd99772dea0ffc0ddd82869e0d8e690ab",
+      "bytes": 3106,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt": {
+      "sha256": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+      "bytes": 1366,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt": {
+      "sha256": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+      "bytes": 751,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt": {
+      "sha256": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+      "bytes": 1446,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__src__KuaiYi.App__ShellWindow.cs.txt": {
+      "sha256": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+      "bytes": 16965,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__src__KuaiYi.App__ShellWindow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__src__KuaiYi.App__TranslationFlow.cs.txt": {
+      "sha256": "4f736bd3c3624cf3a77aaaf03bfdbeb20c9dabd7a0a0bec3571c6602d87612e4",
+      "bytes": 8160,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__src__KuaiYi.App__TranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__src__KuaiYi.Providers__ProviderContracts.cs.txt": {
+      "sha256": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+      "bytes": 6572,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__src__KuaiYi.Providers__ProviderContracts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt": {
+      "sha256": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+      "bytes": 1369,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt": {
+      "sha256": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+      "bytes": 1638,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt": {
+      "sha256": "2ba14389f57657786ed52dac346d5bf994f4b7dbaa4c97e2363892f64ba32097",
+      "bytes": 5286,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt": {
+      "sha256": "fe4811f998100619dfbf681843b2cdb23a42eb72995321574d9563d080f40c6b",
+      "bytes": 4961,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt": {
+      "sha256": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+      "bytes": 1655,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt": {
+      "sha256": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+      "bytes": 4284,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt": {
+      "sha256": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+      "bytes": 6700,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt": {
+      "sha256": "1f224f0ea5c49e2aafc9ea06378519ff6f43d7dcd78745b1b5821af32e8b1cba",
+      "bytes": 1300,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt": {
+      "sha256": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+      "bytes": 10958,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt": {
+      "sha256": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+      "bytes": 25218,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt": {
+      "sha256": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+      "bytes": 1261,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt": {
+      "sha256": "7df91411aff316aac62f4945efbfe0b139512a355c0da27c437d3594075ffc0c",
+      "bytes": 16748,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full.log": {
+      "sha256": "6481e200c60a227b0a802f887e8a9bc0fc95a78269e69794bcb79d414e9a5cfc",
+      "bytes": 2073,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full.log"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r08-core-full.trx": {
+      "sha256": "6d449234a0df3eec599867e24cb7c322ccdccc1703aa6b06d08680f1fdd142f5",
+      "bytes": 2370264,
+      "artifact": "artifacts/screenshot-recapture-recovery/r08-core-full.trx"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-command.sh": {
+      "sha256": "16aebd3e50c80009688106d49d3397c5d587df711522f13434d56888febeb8a1",
+      "bytes": 241,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-command.sh"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-executed.json": {
+      "sha256": "31a3954cc1a877d6ce4f0f9268b407652b13830261a7ee570998a16725cf8584",
+      "bytes": 6835,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-executed.json"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source.json": {
+      "sha256": "8302a4b3701448a7052e8a9c0ce0eb22a3870d0a3a9cab022c9fe6da831d83ce",
+      "bytes": 3773,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source.json"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt": {
+      "sha256": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+      "bytes": 4761,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt": {
+      "sha256": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+      "bytes": 8954,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__src__KuaiYi.App__OverlayClearContent.cs.txt": {
+      "sha256": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+      "bytes": 2888,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__src__KuaiYi.App__OverlayClearContent.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt": {
+      "sha256": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+      "bytes": 5948,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__src__KuaiYi.App__OverlayImageSource.cs.txt": {
+      "sha256": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+      "bytes": 5750,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__src__KuaiYi.App__OverlayImageSource.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt": {
+      "sha256": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+      "bytes": 956,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__src__KuaiYi.App__OverlayMarkdown.cs.txt": {
+      "sha256": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+      "bytes": 2197,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__src__KuaiYi.App__OverlayMarkdown.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__src__KuaiYi.App__OverlayPresentation.cs.txt": {
+      "sha256": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+      "bytes": 21549,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__src__KuaiYi.App__OverlayPresentation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt": {
+      "sha256": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+      "bytes": 2494,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__src__KuaiYi.App__OverlayResultFlow.cs.txt": {
+      "sha256": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+      "bytes": 5930,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__src__KuaiYi.App__OverlayResultFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__src__KuaiYi.App__OverlayResultLabel.cs.txt": {
+      "sha256": "f06dd2d1e776c3123f99b41ccd1b6db5024ea43af29bf115ed18f15811951bb0",
+      "bytes": 5770,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__src__KuaiYi.App__OverlayResultLabel.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt": {
+      "sha256": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+      "bytes": 3792,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt": {
+      "sha256": "25a01b365de672307a360bbae46f7a84d2e738acce31c089f848cf530d69103f",
+      "bytes": 25212,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt": {
+      "sha256": "e272cf24639496ac8697f854ffbedecdd99772dea0ffc0ddd82869e0d8e690ab",
+      "bytes": 3106,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt": {
+      "sha256": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+      "bytes": 1366,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt": {
+      "sha256": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+      "bytes": 751,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt": {
+      "sha256": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+      "bytes": 1446,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__src__KuaiYi.App__ShellWindow.cs.txt": {
+      "sha256": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+      "bytes": 16965,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__src__KuaiYi.App__ShellWindow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__src__KuaiYi.App__TranslationFlow.cs.txt": {
+      "sha256": "4f736bd3c3624cf3a77aaaf03bfdbeb20c9dabd7a0a0bec3571c6602d87612e4",
+      "bytes": 8160,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__src__KuaiYi.App__TranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__src__KuaiYi.Providers__ProviderContracts.cs.txt": {
+      "sha256": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+      "bytes": 6572,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__src__KuaiYi.Providers__ProviderContracts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt": {
+      "sha256": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+      "bytes": 1369,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt": {
+      "sha256": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+      "bytes": 1638,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt": {
+      "sha256": "2ba14389f57657786ed52dac346d5bf994f4b7dbaa4c97e2363892f64ba32097",
+      "bytes": 5286,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt": {
+      "sha256": "fe4811f998100619dfbf681843b2cdb23a42eb72995321574d9563d080f40c6b",
+      "bytes": 4961,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt": {
+      "sha256": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+      "bytes": 1655,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt": {
+      "sha256": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+      "bytes": 4284,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt": {
+      "sha256": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+      "bytes": 6700,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt": {
+      "sha256": "1f224f0ea5c49e2aafc9ea06378519ff6f43d7dcd78745b1b5821af32e8b1cba",
+      "bytes": 1300,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt": {
+      "sha256": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+      "bytes": 10958,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt": {
+      "sha256": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+      "bytes": 25218,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt": {
+      "sha256": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+      "bytes": 1261,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt": {
+      "sha256": "7df91411aff316aac62f4945efbfe0b139512a355c0da27c437d3594075ffc0c",
+      "bytes": 16748,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r09-app-build.log": {
+      "sha256": "f675cfbbaf988b0b6ff9c416de39aa913d3a3959b7672dc6742c5036a53b6327",
+      "bytes": 888,
+      "artifact": "artifacts/screenshot-recapture-recovery/r09-app-build.log"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-command.sh": {
+      "sha256": "7ebd378cfa528da5b48b8c76d2299564a199f3211dbb0908e4d87ea5d570ea40",
+      "bytes": 257,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-command.sh"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-executed.json": {
+      "sha256": "55082ab124cc9b7fae06c1f98aa935c754eabfa0222c5e77b8c9c21332583af2",
+      "bytes": 6851,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-executed.json"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source.json": {
+      "sha256": "8302a4b3701448a7052e8a9c0ce0eb22a3870d0a3a9cab022c9fe6da831d83ce",
+      "bytes": 3773,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source.json"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt": {
+      "sha256": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+      "bytes": 4761,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__src__KuaiYi.App__HotkeyScreenshot.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt": {
+      "sha256": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+      "bytes": 8954,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__src__KuaiYi.App__OcrOnlyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__src__KuaiYi.App__OverlayClearContent.cs.txt": {
+      "sha256": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+      "bytes": 2888,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__src__KuaiYi.App__OverlayClearContent.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt": {
+      "sha256": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+      "bytes": 5948,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__src__KuaiYi.App__OverlayFailureNotice.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__src__KuaiYi.App__OverlayImageSource.cs.txt": {
+      "sha256": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+      "bytes": 5750,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__src__KuaiYi.App__OverlayImageSource.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt": {
+      "sha256": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+      "bytes": 956,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__src__KuaiYi.App__OverlayLinkFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__src__KuaiYi.App__OverlayMarkdown.cs.txt": {
+      "sha256": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+      "bytes": 2197,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__src__KuaiYi.App__OverlayMarkdown.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__src__KuaiYi.App__OverlayPresentation.cs.txt": {
+      "sha256": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+      "bytes": 21549,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__src__KuaiYi.App__OverlayPresentation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt": {
+      "sha256": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+      "bytes": 2494,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__src__KuaiYi.App__OverlayPrivacyFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__src__KuaiYi.App__OverlayResultFlow.cs.txt": {
+      "sha256": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+      "bytes": 5930,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__src__KuaiYi.App__OverlayResultFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__src__KuaiYi.App__OverlayResultLabel.cs.txt": {
+      "sha256": "f06dd2d1e776c3123f99b41ccd1b6db5024ea43af29bf115ed18f15811951bb0",
+      "bytes": 5770,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__src__KuaiYi.App__OverlayResultLabel.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt": {
+      "sha256": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+      "bytes": 3792,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__src__KuaiYi.App__OverlayScreenshotTranslation.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt": {
+      "sha256": "25a01b365de672307a360bbae46f7a84d2e738acce31c089f848cf530d69103f",
+      "bytes": 25212,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__src__KuaiYi.App__ProductionScreenshotCoordinator.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt": {
+      "sha256": "e272cf24639496ac8697f854ffbedecdd99772dea0ffc0ddd82869e0d8e690ab",
+      "bytes": 3106,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__src__KuaiYi.App__ScreenshotCaptureCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt": {
+      "sha256": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+      "bytes": 1366,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__src__KuaiYi.App__ScreenshotRecoveryMenu.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt": {
+      "sha256": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+      "bytes": 751,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__src__KuaiYi.App__ScreenshotSendCommands.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt": {
+      "sha256": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+      "bytes": 1446,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__src__KuaiYi.App__ScreenshotTranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__src__KuaiYi.App__ShellWindow.cs.txt": {
+      "sha256": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+      "bytes": 16965,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__src__KuaiYi.App__ShellWindow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__src__KuaiYi.App__TranslationFlow.cs.txt": {
+      "sha256": "4f736bd3c3624cf3a77aaaf03bfdbeb20c9dabd7a0a0bec3571c6602d87612e4",
+      "bytes": 8160,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__src__KuaiYi.App__TranslationFlow.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__src__KuaiYi.Providers__ProviderContracts.cs.txt": {
+      "sha256": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+      "bytes": 6572,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__src__KuaiYi.Providers__ProviderContracts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt": {
+      "sha256": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+      "bytes": 1369,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__src__KuaiYi.Providers__ProviderEventReceiver.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt": {
+      "sha256": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+      "bytes": 1638,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__src__KuaiYi.Providers__ProviderRequestBudget.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt": {
+      "sha256": "2ba14389f57657786ed52dac346d5bf994f4b7dbaa4c97e2363892f64ba32097",
+      "bytes": 5286,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__tests__KuaiYi.Provider.Tests__KuaiYi.Provider.Tests.csproj.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt": {
+      "sha256": "fe4811f998100619dfbf681843b2cdb23a42eb72995321574d9563d080f40c6b",
+      "bytes": 4961,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__tests__KuaiYi.Provider.Tests__OverlayClearPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt": {
+      "sha256": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+      "bytes": 1655,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__tests__KuaiYi.Provider.Tests__PhaseClock.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt": {
+      "sha256": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+      "bytes": 4284,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__tests__KuaiYi.Provider.Tests__PhaseHttpFixture.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt": {
+      "sha256": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+      "bytes": 6700,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotSecretStoreTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt": {
+      "sha256": "1f224f0ea5c49e2aafc9ea06378519ff6f43d7dcd78745b1b5821af32e8b1cba",
+      "bytes": 1300,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellPorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt": {
+      "sha256": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+      "bytes": 10958,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotShellTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt": {
+      "sha256": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+      "bytes": 25218,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__tests__KuaiYi.Provider.Tests__ProductionScreenshotTranslationTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt": {
+      "sha256": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+      "bytes": 1261,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__tests__KuaiYi.Provider.Tests__ScreenshotCapturePorts.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt": {
+      "sha256": "7df91411aff316aac62f4945efbfe0b139512a355c0da27c437d3594075ffc0c",
+      "bytes": 16748,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build-source__tests__KuaiYi.Provider.Tests__ScreenshotRecaptureRecoveryTests.cs.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__r10-worker-build.log": {
+      "sha256": "90c03f3a16a66f0cafc1192329891cfe4f13815bb3354a1d4a438e7b715dc391",
+      "bytes": 477,
+      "artifact": "artifacts/screenshot-recapture-recovery/r10-worker-build.log"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__read-only-source-review.txt": {
+      "sha256": "2233345275498924d56c98f728d278688910337d2a14c5be221b641827f369fb",
+      "bytes": 1327,
+      "artifact": "artifacts/screenshot-recapture-recovery/read-only-source-review.txt"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__run.py": {
+      "sha256": "69255bf33f0197a00ba3f0e72a4127502c6ca7d06375ac3d2e6c6f6dbe059cc3",
+      "bytes": 2368,
+      "artifact": "artifacts/screenshot-recapture-recovery/run.py"
+    },
+    "docs/test-evidence/2026-10-17-screenshot-recapture-originals__final-review-receipt.txt": {
+      "sha256": "227c269186d7ee7073e4e238971805e77bb593041de04d249740fae1a277d60f",
+      "bytes": 1458,
+      "artifact": "artifacts/screenshot-recapture-recovery/final-review-receipt.txt"
+    }
+  }
+}

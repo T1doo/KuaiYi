@@ -936,3 +936,12 @@ r01新增夹具初始化顺序错4F保全、不当产品红；修夹具r02父生
 从父c775db正常建dev/screenshot-lease-await-timeout，仅测试helper观察和两协议×两阶段4例。真实await释放后内部Advance20(dispatch:false)才返回实际lease；同owned数组非零→全0、Disposed、目标阶段0新增HTTP和唯一RequestTimeout终态、原图保留，专项首次4P，生产无需改、不造红绿。r02完整2275P1F是旧Anthropic empty idle500ms Job未完成断言，新4均P；r03同DLL旧族6P，r04同DLL完整2276P，父2272+4名字精确，26源码×4=104绑定一致。首轮根因Unknown，失败原件保留、旧断言不改。生产/其他测试/SPEC/trace/旧证据含499原件全原字节，Core1703/AppWorker0W/E沿用父闭包证据，不冒称本片重跑。
 
 见[报告](validation/screenshot-lease-await-timeout.md)与[四次执行原件](test-evidence/2026-10-17-screenshot-lease-await-timeout.json)。预算片单独推送后立即做已授权恢复菜单重新截图，证据另片；生产复用Off，Windows可见交互/DPAPIACL/物理250600/真实模型/完整P6仍NotRun，历史图片间歇/Core/Job根因仍Unknown。无新包许可环境/Skia/403/Actions拒绝绕过、main/强推/部署/费用/真实凭据权限；未知锁数据日志进程保全。
+
+
+## 2026-10-17 · 图片失败/停止恢复菜单“重新截图”
+
+父预算片1184969已独立推送130原件，从其正常建dev/screenshot-recapture-recovery。实际Shell更多/状态恢复菜单新增重新截图，冻结恢复identity再核来源context和可见/锁/暂停/原task/cleanup/hostowner；显式菜单Intent不伪造快捷键，真实hotkey守卫保留，共享原任务/取消/清理。native边界仍原隐藏/Exclude/显示器/框选/host结算，成功crop过nativecleanup后才交Shell；新有效裁剪才替换旧来源，取消保旧会话。先本地预览再明确模式/端点/模型/两阶段发送确认，Off不自启/发送，不复制旧图换ID，同图复用Off。
+
+实际双协议SSE A部分正文停止→菜单新不同像素B→确认前0新HTTP→拒绝0→明确确认完整两阶段，PNG确不同；22例涵盖取消、六种撤销/迟到擦除及ClearExit join、旧菜单、Off启用确认、真实gate hotkey、known owner未清不替换/原retry。yield时实际选版本改显示revision而epoch同，旧候选仍native1次实测1F，完整admission+intent一行guard同源1P后native0；A及原任务保留。r01新hide期望错误18P1F→加强r02 21P不算产品红绿；r03构建中间，原件全保。最终r06专项22P/r07完整Provider2298P=父2276+22全名多重集、r08完整Core1703P同父名字、r09/r10 AppWorker0W/E，32source×5=160一致，独审无P1/P2；HeldContext任意早期assert失败finally健壮性未全面证明，正常绿色原任务已结算。
+
+见[报告](validation/screenshot-recapture-recovery.md)与[独立证据索引](test-evidence/2026-10-17-screenshot-recapture-recovery.json)。合成native/菜单表面/Cancel token/known host端口准确披露，不冒称Windows真截图/可见确认焦点/锁屏DPAPIACL/物理250600/真实模型或完整P6。父预算旧idle首失败和历史图片/Core/Job根因各Unknown；旧499+130原件/全部旧断言/SPEC/trace/CoreProvidersImaging/Offline/锁/workflow原字节保持，状态不抬。仅已有SDK --no-restore激活前后禁证书，无main/强推/部署/费用/真实凭据安全权限新包许可/Skia/403/Actions拒绝绕过，未知锁数据日志进程保全。

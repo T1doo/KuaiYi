@@ -1,0 +1,15 @@
+{
+  "utc": "2026-10-17T11:13:15.964892+00:00",
+  "command": [
+    "git",
+    "ls-remote",
+    "origin",
+    "refs/heads/main",
+    "refs/heads/dev/production-screenshot-translation",
+    "refs/heads/dev/screenshot-lease-await-timeout",
+    "refs/heads/dev/screenshot-recapture-recovery"
+  ],
+  "stdout": "c775db07384e37f2a4bb48db8b32aefeae3d752e\trefs/heads/dev/production-screenshot-translation\n1184969120b0ffbad9eb0b2f9c5ad6d80237e87e\trefs/heads/dev/screenshot-lease-await-timeout\n51d077481cf6303602fcf5d2718213da9cf05178\trefs/heads/main\n",
+  "stderr": "",
+  "exit": 0
+}

@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net10.0</TargetFramework><IsTestProject>true</IsTestProject><IsPackable>false</IsPackable></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/KuaiYi.Imaging/KuaiYi.Imaging.csproj" Aliases="ImageProduction" />
+    <ProjectReference Include="../../src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj" Aliases="WorkerProduction" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio"><PrivateAssets>all</PrivateAssets></PackageReference>
+    <ProjectReference Include="../../src/KuaiYi.Providers/KuaiYi.Providers.csproj" />
+    <ProjectReference Include="../../tools/KuaiYi.MockProvider/KuaiYi.MockProvider.csproj" />
+    <Compile Include="../../src/KuaiYi.App/SettingsApiTestCommands.cs" Link="Production/SettingsApiTestCommands.cs" />
+    <Compile Include="../../src/KuaiYi.App/SettingsSecretCommands.cs" Link="Production/SettingsSecretCommands.cs" />
+    <Compile Include="../../src/KuaiYi.App/SettingsDisplayPreferenceCommands.cs" Link="Production/SettingsDisplayPreferenceCommands.cs" />
+    <Compile Include="../../src/KuaiYi.App/OverlayScrollFlow.cs" Link="Production/OverlayScrollFlow.cs" />
+    <Compile Include="../../src/KuaiYi.App/MarkdownFlowView.cs" Link="Production/MarkdownFlowView.cs" />
+    <Compile Include="../../src/KuaiYi.App/MarkdownLinkActions.cs" Link="Production/MarkdownLinkActions.cs" />
+    <Compile Include="../../src/KuaiYi.App/OverlayScreenshotTranslation.cs" Link="Production/OverlayScreenshotTranslation.cs" />
+    <Compile Include="../../src/KuaiYi.App/ScreenshotSendCommands.cs" Link="Production/ScreenshotSendCommands.cs" />
+    <Compile Include="../../src/KuaiYi.App/ScreenshotCaptureCommands.cs" Link="Production/ScreenshotCaptureCommands.cs" />
+    <Compile Include="../../src/KuaiYi.App/ScreenshotRecoveryMenu.cs" Link="Production/ScreenshotRecoveryMenu.cs" />
+    <Compile Include="../../src/KuaiYi.App/ProductionScreenshotCoordinator.cs" Link="Production/ProductionScreenshotCoordinator.cs" />
+    <Compile Include="../../src/KuaiYi.App/OfflineScreenshotCoordinator.cs" Link="Production/OfflineScreenshotCoordinator.cs" />
+    <Compile Include="../../src/KuaiYi.App/MarkdownLinkRegion.cs" Link="Production/MarkdownLinkRegion.cs" />
+    <Compile Include="../../src/KuaiYi.App/OverlayLinkFlow.cs" Link="Production/OverlayLinkFlow.cs" />
+    <Compile Include="../../src/KuaiYi.App/OverlayMarkdown.cs" Link="Production/OverlayMarkdown.cs" />
+    <Compile Include="../../src/KuaiYi.App/MarkdownViewport.cs" Link="Production/MarkdownViewport.cs" />
+    <Compile Include="../../src/KuaiYi.App/MarkdownCodeRegion.cs" Link="Production/MarkdownCodeRegion.cs" />
+    <Compile Include="../../src/KuaiYi.App/MarkdownTableRegion.cs" Link="Production/MarkdownTableRegion.cs" />
+    <Compile Include="../../tools/KuaiYi.GrowthHarness/MarkdownReviewText.cs" Link="Review/MarkdownReviewText.cs" />
+    <Compile Include="../../src/KuaiYi.App/OverlayResultFlow.cs" Link="Production/OverlayResultFlow.cs" />
+    <Compile Include="../../src/KuaiYi.App/OverlayFailureNotice.cs" Link="Production/OverlayFailureNotice.cs" />
+    <Compile Include="../../src/KuaiYi.App/OverlayResultLabel.cs" Link="Production/OverlayResultLabel.cs" />
+    <Compile Include="../../src/KuaiYi.App/MarkdownSourceRegion.cs" Link="Production/MarkdownSourceRegion.cs" />
+    <Compile Include="../../src/KuaiYi.App/OverlaySource.cs" Link="Production/OverlaySource.cs" />
+    <Compile Include="../../src/KuaiYi.App/OverlayClearContent.cs" Link="Production/OverlayClearContent.cs" />
+    <Compile Include="../../src/KuaiYi.App/OverlayImageSource.cs" Link="Production/OverlayImageSource.cs" />
+    <Compile Include="../../src/KuaiYi.App/OverlayPrivacyFlow.cs" Link="Production/OverlayPrivacyFlow.cs" />
+    <Compile Include="../../src/KuaiYi.App/OverlayTranslationEvents.cs" Link="Production/OverlayTranslationEvents.cs" />
+    <Compile Include="../../src/KuaiYi.App/MarkdownImageSourceRegion.cs" Link="Production/MarkdownImageSourceRegion.cs" />
+    <Compile Include="../../src/KuaiYi.Imaging/OwnedSourceImage.cs" Link="Production/OwnedSourceImage.cs" />
+    <Compile Include="../../src/KuaiYi.Imaging/ScreenshotNormalization.cs" Link="Production/ScreenshotNormalization.cs" />
+    <Compile Include="../../src/KuaiYi.App/TextDropLifetime.cs" Link="Production/TextDropLifetime.cs" />
+    <Compile Include="../../src/KuaiYi.App/HotkeyScreenshotLifetime.cs" Link="Production/HotkeyScreenshotLifetime.cs" />
+    <Compile Include="../../src/KuaiYi.App/ScreenshotPreviewCleanup.cs" Link="Production/ScreenshotPreviewCleanup.cs" />
+    <Compile Include="../../src/KuaiYi.Imaging/ScreenshotPixels.cs" Link="Production/ScreenshotPixels.cs" />
+    <Compile Include="../../src/KuaiYi.Imaging/ScreenshotIntent.cs" Link="Production/ScreenshotIntent.cs" />
+    <Compile Include="../../src/KuaiYi.Imaging/ImagePolicy.cs" Link="Production/ImagePolicy.cs" />
+    <Compile Include="../KuaiYi.Core.Tests/OverlayPresentationTests.cs" Link="CoreRegression/OverlayPresentationTests.cs" />
+    <Compile Include="../KuaiYi.Core.Tests/SessionVersionTests.cs" Link="CoreRegression/SessionVersionTests.cs" />
+  </ItemGroup>
+</Project>

@@ -92,7 +92,7 @@ internal sealed partial class ShellWindow
     {
         peekOut.Stop();overflowMenu.Items.Clear();
         for(int i=0;i<tools.Count;i++){int index=i;var item=new MenuItem{Header=Equals(tools[i].Content,"重新生成")?RegenerationMenuLabel():tools[i].Content,IsEnabled=tools[i].IsEnabled};item.Click+=(_,_)=>toolActions[index]();overflowMenu.Items.Add(item);}
-        AddSessionStyleMenu(overflowMenu);AddScreenshotModes(overflowMenu);
+        AddSessionStyleMenu(overflowMenu);AddScreenshotModes(overflowMenu);AddScreenshotRecovery(overflowMenu);
         var versionsItem=new MenuItem{Header="本次会话版本"};
         if(LocalImagePreview){var local=new MenuItem{Header="本地图片 · 未翻译",IsCheckable=true,IsChecked=true};local.Click+=(_,_)=>ReopenResult();versionsItem.Items.Add(local);}
         foreach(var version in LocalImagePreview?Array.Empty<CachedOverlayVersion>():overlayResults.Versions)
