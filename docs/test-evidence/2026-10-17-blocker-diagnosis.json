@@ -1,0 +1,439 @@
+{
+  "SourceParent": "81f4e3f357374f018e8d3cb56a56a2189c629451",
+  "ParentTree": "daba14a4a1103c9ff1d87112920650cc02414ca3",
+  "Branch": "dev/blocker-diagnosis",
+  "MainBaseline": "51d077481cf6303602fcf5d2718213da9cf05178",
+  "Scope": "One focused blocker diagnosis: read saved license/403 and Windows-native failure evidence, validate existing local environment without downloads/restore, no new peripheral feature or production fix conjecture.",
+  "Preflight": {
+    "Parent": "81f4e3f357374f018e8d3cb56a56a2189c629451",
+    "Head": "81f4e3f357374f018e8d3cb56a56a2189c629451",
+    "Branch": "dev/blocker-diagnosis",
+    "Worktrees": "worktree /workspace/KuaiYi\nHEAD 81f4e3f357374f018e8d3cb56a56a2189c629451\nbranch refs/heads/dev/blocker-diagnosis\n\n",
+    "InitialClean": true,
+    "Remote": "81f4e3f357374f018e8d3cb56a56a2189c629451\trefs/heads/dev/ole-query-written-investigation\n51d077481cf6303602fcf5d2718213da9cf05178\trefs/heads/main\n",
+    "RootSoleWriter": true,
+    "OS": "Linux-6.18.55-x86_64-with-glibc2.41",
+    "DefaultPathTools": {
+      "dotnet": null,
+      "pwsh": null,
+      "cmake": null,
+      "cl": null,
+      "clang-cl": null,
+      "x86_64-w64-mingw32-gcc": null,
+      "wine": null,
+      "MakeAppx.exe": null,
+      "SignTool.exe": null,
+      "ISCC.exe": null
+    },
+    "DocumentedPowerShellPathExists": false,
+    "DisplayPresent": false,
+    "WaylandPresent": false,
+    "SkiaCacheDirectories": 0,
+    "SkiaIgnoredAuditArchivesPresent": false
+  },
+  "Findings": {
+    "SdkCommandEntry": "Default PATH lacks dotnet; existing documented activation makes SDK10.0.401 available, no-restore managedApp build0W/E. No permanent PATH/security change.",
+    "PowerShell": "Documented old7.6.6 path/defaultPATH/known tools archive absent currently; historical install is not current availability. No download/install attempted. Environment docs corrected only.",
+    "License": "Four original4.153.1 nuspec require explicit acceptance per user policy. No restore/install/load/run performed; this is authorization gate, not observed NuGet license error nor cause of HTTP403.",
+    "Source403": "Stored structured receipt says proxy tunnel403; no complete HTTP/proxy rule trace is present. No new request/retry/alternate route attempted; cannot infer missing credentials or exact policy rule.",
+    "WindowsPlatform": "Debian13x64/no interactive display/noWindowsDesktop runtime; native SDK/MSVC not available onPATH. Actual workerUnsupportedPlatform and3existing tests validate rejection, not Windows success.",
+    "WindowsNativeFailure": "Existing realWindows NativeConfigure rootExit0 but30sWaitJobEmpty remainedNonEmpty, Active2/Total33 at two snapshots; rescue laterempty. Existing noNodeReuse and failedEmbedded candidate do not establish member identity or root fix. Target was tools/KuaiYi.ReuseLifecycleNative configure-only fixture; NativeBuild/fourcases not executed, not a demonstrated product-native compiler failure.",
+    "DecoderImplementation": "Full isolatedPNG/JPEG codec remains unimplemented/noSkia reference. Clearing license/access/platform gates does not itself supply code/tests."
+  },
+  "ActualCurrentRuns": [
+    {
+      "Run": "r03-sdk-info",
+      "Command": "dotnet --info",
+      "ExitCode": 0,
+      "DownloadOrRestoreRequested": false
+    },
+    {
+      "Run": "r04-worker-diagnose",
+      "Command": "dotnet src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll --diagnose",
+      "ExitCode": 0,
+      "DownloadOrRestoreRequested": false
+    },
+    {
+      "Run": "r05-platform-tests",
+      "Command": "dotnet test tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj -c Release --no-build --no-restore --filter \"FullyQualifiedName~MainAndWorkerDoNotInventIdentityOnLinux|FullyQualifiedName~RealWorkerOwnPlatformDiagnostic|FullyQualifiedName~RealPrivateWorkerLoopReportsUnsupportedPlatformOnLinux\" --logger \"trx;LogFileName=r05-platform-tests.trx\" --results-directory /workspace/KuaiYi/artifacts/blocker-diagnosis-2026-10-17",
+      "ExitCode": 0,
+      "DownloadOrRestoreRequested": false
+    },
+    {
+      "Run": "r06-managed-app-build",
+      "Command": "dotnet build src/KuaiYi.App/KuaiYi.App.csproj -c Release --no-restore -p:EnableWindowsTargeting=true",
+      "ExitCode": 0,
+      "DownloadOrRestoreRequested": false
+    }
+  ],
+  "PlatformTestCounters": {
+    "total": "3",
+    "executed": "3",
+    "passed": "3",
+    "failed": "0",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "WorkerDiagnostic": {
+    "identity": {
+      "windows": false,
+      "present": false,
+      "fullName": null,
+      "applicationUserModelId": null,
+      "failure": 1
+    },
+    "languages": [],
+    "maxImageDimension": 0,
+    "failure": 1
+  },
+  "LocalFacts": {
+    "PackagesReparsedFromOriginalNuspec": [
+      {
+        "Id": "skiasharp",
+        "Version": "4.153.1",
+        "RequireLicenseAcceptance": true,
+        "LicenseExpression": "MIT",
+        "DeclaredRepositoryCommit": "4783f51448f9b070dda4f87b83e941c9599e466e",
+        "OriginalNuspec": "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__skiasharp.nuspec",
+        "Sha256": "7af1ce9f83468d7dd1e53a9224f6f17a59ce956579f515193601b71137747402"
+      },
+      {
+        "Id": "skiasharp.nativeassets.win32",
+        "Version": "4.153.1",
+        "RequireLicenseAcceptance": true,
+        "LicenseExpression": "MIT",
+        "DeclaredRepositoryCommit": "4783f51448f9b070dda4f87b83e941c9599e466e",
+        "OriginalNuspec": "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__skiasharp.nativeassets.win32.nuspec",
+        "Sha256": "3d846fab89a7f5a9594ada3fde77059640ab252933c35056a64c80b8d9b209b8"
+      },
+      {
+        "Id": "skiasharp.nativeassets.macos",
+        "Version": "4.153.1",
+        "RequireLicenseAcceptance": true,
+        "LicenseExpression": "MIT",
+        "DeclaredRepositoryCommit": "4783f51448f9b070dda4f87b83e941c9599e466e",
+        "OriginalNuspec": "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__skiasharp.nativeassets.macos.nuspec",
+        "Sha256": "47832937188837705eba785cf510125eacae31378273ae7d8634066ea18efcb4"
+      },
+      {
+        "Id": "skiasharp.nativeassets.linux.nodependencies",
+        "Version": "4.153.1",
+        "RequireLicenseAcceptance": true,
+        "LicenseExpression": "MIT",
+        "DeclaredRepositoryCommit": "4783f51448f9b070dda4f87b83e941c9599e466e",
+        "OriginalNuspec": "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__skiasharp.nativeassets.linux.nodependencies.nuspec",
+        "Sha256": "46ffb6fef78a097d91663162f4fb276321f568eede3c2029186d5425bfefcb70"
+      }
+    ],
+    "OriginalLicenseFiles": {
+      "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__skiasharp.nuspec": {
+        "Sha256": "7af1ce9f83468d7dd1e53a9224f6f17a59ce956579f515193601b71137747402",
+        "Bytes": 6085
+      },
+      "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__skiasharp.nativeassets.win32.nuspec": {
+        "Sha256": "3d846fab89a7f5a9594ada3fde77059640ab252933c35056a64c80b8d9b209b8",
+        "Bytes": 1686
+      },
+      "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__skiasharp.nativeassets.macos.nuspec": {
+        "Sha256": "47832937188837705eba785cf510125eacae31378273ae7d8634066ea18efcb4",
+        "Bytes": 1670
+      },
+      "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__skiasharp.nativeassets.linux.nodependencies.nuspec": {
+        "Sha256": "46ffb6fef78a097d91663162f4fb276321f568eede3c2029186d5425bfefcb70",
+        "Bytes": 1613
+      },
+      "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__LICENSE.txt": {
+        "Sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938",
+        "Bytes": 1129
+      },
+      "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__THIRD-PARTY-NOTICES.txt": {
+        "Sha256": "21504c46c4c58aa64c1055bd2dcbc5f9a136b4b8c412ed3cc6740e22c5b127f5",
+        "Bytes": 139775
+      }
+    },
+    "CurrentAssetsNoSkia": {
+      "src/KuaiYi.App/obj/project.assets.json": {
+        "Sha256": "353fa00854adb6ce6b9d05f58232d307e5d20ac9983e9a744ad278d3a0996327",
+        "SkiaLibraries": [],
+        "PackageFolders": [
+          "/workspace/.kuaiyi-setup/cli-home/.nuget/packages/"
+        ]
+      },
+      "tests/KuaiYi.Core.Tests/obj/project.assets.json": {
+        "Sha256": "e34c59247da408931a589192350622458ab3b1b91411bbbffd85746b2e1176ae",
+        "SkiaLibraries": [],
+        "PackageFolders": [
+          "/workspace/.kuaiyi-setup/cli-home/.nuget/packages/"
+        ]
+      }
+    },
+    "CurrentSkiaCacheDirectories": 0,
+    "Stored403": [
+      {
+        "Url": "https://api.github.com/repos/mono/SkiaSharp/git/trees/4783f51448f9b070dda4f87b83e941c9599e466e",
+        "Result": "Proxy tunnel403 Forbidden;stopped,no retry/bypass"
+      },
+      {
+        "Url": "https://api.github.com/repos/mono/SkiaSharp/releases/tags/v4.153.1",
+        "Result": "Proxy tunnel403 Forbidden;stopped,no retry/bypass"
+      }
+    ],
+    "403EvidenceLimitation": "Stored structured receipt says proxy tunnel403; no complete HTTP/proxy rule trace is present. No new request/retry/alternate route attempted; cannot infer missing credentials or exact policy rule.",
+    "NativeWindowsReceipts": [
+      {
+        "Evidence": "docs/test-evidence/2026-10-15-configure-accounting-windows-result.json",
+        "ExecutionCommit": "a0e8519e63d90e44560316478dc65358a18a8868",
+        "RootExit": null,
+        "Accounting": {
+          "Kind": "ExistingJobAccounting",
+          "Scope": "PreRescueWaitQueriesOnly",
+          "FirstWait": {
+            "State": "Known",
+            "ActiveProcesses": 2,
+            "TotalProcesses": 33
+          },
+          "LastPreRescue": {
+            "State": "Known",
+            "ActiveProcesses": 2,
+            "TotalProcesses": 33
+          }
+        },
+        "NativeConfigure": {
+          "Kind": "NativeConfigure",
+          "Status": "Timeout",
+          "Exit": "0",
+          "Stage": "WaitJobEmpty",
+          "FailureKind": "Timeout",
+          "ErrorCode": "None",
+          "ProcessCreated": true,
+          "Resumed": true,
+          "RootExitConfirmed": true,
+          "JobEmpty": true,
+          "PreRescueJobState": "NonEmpty",
+          "BudgetExpired": true,
+          "RescueUsed": true,
+          "CleanupConfirmed": true
+        },
+        "RootCause": "Unknown",
+        "MemberIdentities": "Unknown"
+      },
+      {
+        "Evidence": "docs/test-evidence/2026-10-15-configure-embedded-windows-result.json",
+        "ExecutionCommit": "5acccc75352499e0b0193cebb765584b208c6fa9",
+        "RootExit": 0,
+        "Accounting": {
+          "Kind": "ExistingJobAccounting",
+          "Scope": "PreRescueWaitQueriesOnly",
+          "FirstWait": {
+            "State": "Known",
+            "ActiveProcesses": 2,
+            "TotalProcesses": 33
+          },
+          "LastPreRescue": {
+            "State": "Known",
+            "ActiveProcesses": 2,
+            "TotalProcesses": 33
+          }
+        },
+        "NativeConfigure": {
+          "Kind": "NativeConfigure",
+          "Status": "Timeout",
+          "Exit": "0",
+          "Stage": "WaitJobEmpty",
+          "FailureKind": "Timeout",
+          "ErrorCode": "None",
+          "ProcessCreated": true,
+          "Resumed": true,
+          "RootExitConfirmed": true,
+          "JobEmpty": true,
+          "PreRescueJobState": "NonEmpty",
+          "BudgetExpired": true,
+          "RescueUsed": true,
+          "CleanupConfirmed": true
+        },
+        "RootCause": "Unknown",
+        "MemberIdentities": "Unknown"
+      }
+    ],
+    "ActualDllsAfterBoundedChecks": {
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll": "26e2e8e53062fefcae2e10e6667becce65fdd118b156d71c6505bee765cecd15",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll": "fd92e99c777da76b9271e79583d868525131d13365b9e0b0136575b7dd0eb377",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "065864f69cfda507a719c60c62a90d521d8388d30efcb8627e1c4e893b7dacac",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "ab84b2ffba1e8253610e6430e90dbb09618474b53d858d75157ff6435705f4bf",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "45bb5c042f28e4b4d18ea0a587a5a84116f03e1c343320856102b407e2e72969",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "6845d0709a7b790dd6310e8cf1b800caa8220a36f988dec3afc975ff479ee881",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.OleTransfer.dll": "8db62d1feaa999e6fa9a45efecb1e0ea88135fb9710dadd6256b5e0ebb944db8",
+      "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll": "933d5d0321e19b532866853e784b63a616d01bc11b776985df417ee41a0d7428",
+      "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Contracts.dll": "fd92e99c777da76b9271e79583d868525131d13365b9e0b0136575b7dd0eb377",
+      "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Core.dll": "065864f69cfda507a719c60c62a90d521d8388d30efcb8627e1c4e893b7dacac",
+      "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Imaging.dll": "45bb5c042f28e4b4d18ea0a587a5a84116f03e1c343320856102b407e2e72969",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Windows.dll": "0ed80849b6cbb0e4d2aabeda15e6edbfb4a961693075f26b3fddf55dee1bf89b",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.NativeHost.dll": "71928d17b1cb5857fdac5deb8237de9baf4d9175c6f9ed610cc33cff9de7b313",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Contracts.dll": "48f20bc88718649f7759f03867eb55e83d1b4999132e27eee16487282dcad9b2",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Core.dll": "d0edc2c7a15cd3ec3d04691b9b5d18106dba8a8f8535042be3fc8eb909e7297b",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Imaging.dll": "194d16dfa172a6c8e1f3d4cccf2355609832307c5b30151b3b1999c467a021cc",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Providers.dll": "ef3b0f9d8162b7d084b71a4420d71623b4c9f05aef784e12bd80b8071b4eb66a",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.OleTransfer.dll": "c899c12005f808ff60761bb3b3a9a7faaf2c8decfa7d6dcf4bc0529b25a573e2",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.App.dll": "47285e4d57f05e60e4b68309abf84af1965c8df0506c529c7a9213093669e297"
+    },
+    "SourceReview": {
+      "LifecycleChildEnvironmentHasMsbuildNoReuse": true,
+      "EmbeddedAlreadyTriedAndFailed": true,
+      "NoProofOfSpecificLingeringImageOrCompilerFlags": true,
+      "CurrentDecoderImplemented": false,
+      "DecoderFacts": "Current private ImageWorker invokes existing PNG inspect/NativeOcr; full isolated PNG/JPEG codec not present or referenced. This is remaining implementation, not automatically fixed by package approval."
+    }
+  },
+  "MinimalUserStepsByBlocker": {
+    "SDK": "None for current direct.NET validation; use existing activation in each shell.",
+    "PowerShell": "Environment provider restores previously approved PowerShell availability if ps1 entry is needed; no new download attempted in this task.",
+    "License": "Decide explicitly whether fixed four4.153.1 packages and attached original native third-party notices are authorized; approval clears only that gate.",
+    "403": "Access-policy owner must resolve/classify original refusal through authorized process. Current constraints permit no retry, mirror, alternate content route, credentials or security expansion; remainsBlocked.",
+    "WindowsPlatform": "Provide/select an existing authorizedWindowsx64 environment with existing SDK/MSVC/PowerShell; desktop acceptance needs interactive session. LinuxCMake/.NETrefs cannot replace it.",
+    "WindowsNativeFailure": "In an authorizedWindows environment, obtain same-operation pre-rescue Job member/actual compiler-linker facts using existing bounded code/evidence; no refusedActions or new probe run in this task.",
+    "Implementation": "Only after allowed dependency/source audit, implement and verify the original SPEC decoder slice; no stub offered as completion."
+  },
+  "ProductionChanges": false,
+  "NoProvenPatchWithinCurrentPermissions": "No source/config fault proved that can resolve proxy refusal or oldWindowsJob timeout here. No speculative production/config/timer change; only current environment documentation corrected.",
+  "Preservation": {
+    "Parent": "81f4e3f357374f018e8d3cb56a56a2189c629451",
+    "ParentTree": "daba14a4a1103c9ff1d87112920650cc02414ca3",
+    "TrackedParentFiles": 3210,
+    "IntentionalParentChanges": [
+      ".gitattributes",
+      "docs/environment.md",
+      "docs/progress.md"
+    ],
+    "OtherParentFilesExactBytes": 3207,
+    "UnchangedPathSha256MapDigest": "452ffc485aa030ad3a9d4b522e26c780afcd54fe32c467eea25fdae6b6cc546d",
+    "PreservedCounts": {
+      "Production": 242,
+      "Tests": 229,
+      "Projects": 30,
+      "Locks": 43,
+      "Workflows": 8,
+      "Prompts": 8,
+      "Evidence": 2365,
+      "RawOriginals": 768
+    },
+    "ProductionDependencyConfigWorkflowTraceBytesUnchanged": true
+  },
+  "OriginalCount": 11,
+  "OriginalFiles": {
+    "docs/test-evidence/2026-10-17-blocker-diagnosis-originals__r00-preflight.json": {
+      "Original": "artifacts/blocker-diagnosis-2026-10-17/r00-preflight.json",
+      "Sha256": "96dffc015fd6553899c2f80414516bee1fc10a43306d9deb9d8c11bb8cc3a808",
+      "Bytes": 970
+    },
+    "docs/test-evidence/2026-10-17-blocker-diagnosis-originals__r01-existing-evidence-integrity.json": {
+      "Original": "artifacts/blocker-diagnosis-2026-10-17/r01-existing-evidence-integrity.json",
+      "Sha256": "ae366c4db8c03648f1ad0ad03f612df9e146d382212d97f3d230f9c2fa95934f",
+      "Bytes": 1047
+    },
+    "docs/test-evidence/2026-10-17-blocker-diagnosis-originals__r02-no-build-dlls.json": {
+      "Original": "artifacts/blocker-diagnosis-2026-10-17/r02-no-build-dlls.json",
+      "Sha256": "6655b9d129e6b510bdd3c4728a1a5af22c923b8bb08af068772b4c5519fd1014",
+      "Bytes": 1556
+    },
+    "docs/test-evidence/2026-10-17-blocker-diagnosis-originals__r03-sdk-info.log": {
+      "Original": "artifacts/blocker-diagnosis-2026-10-17/r03-sdk-info.log",
+      "Sha256": "490f0be3e39d73c397fdb1dbc3247a7b26e4c1f9d8e5435eb2290e79ee1eab2a",
+      "Bytes": 1417
+    },
+    "docs/test-evidence/2026-10-17-blocker-diagnosis-originals__r04-worker-diagnose.log": {
+      "Original": "artifacts/blocker-diagnosis-2026-10-17/r04-worker-diagnose.log",
+      "Sha256": "80989b8479649d0674cb2581f46243afe07d95c4a4a1d450e109e34353f19f9f",
+      "Bytes": 154
+    },
+    "docs/test-evidence/2026-10-17-blocker-diagnosis-originals__r05-platform-tests.log": {
+      "Original": "artifacts/blocker-diagnosis-2026-10-17/r05-platform-tests.log",
+      "Sha256": "0ed8bf446d737b05fdc3cdf407a73f15a32523571064580613843f21caee0531",
+      "Bytes": 397
+    },
+    "docs/test-evidence/2026-10-17-blocker-diagnosis-originals__r05-platform-tests.trx": {
+      "Original": "artifacts/blocker-diagnosis-2026-10-17/r05-platform-tests.trx",
+      "Sha256": "6002ad821bf84d8dd9e17e6a9c9d0487eb5340c019d9177faeb6371063f4a101",
+      "Bytes": 5365
+    },
+    "docs/test-evidence/2026-10-17-blocker-diagnosis-originals__r06-managed-app-build.log": {
+      "Original": "artifacts/blocker-diagnosis-2026-10-17/r06-managed-app-build.log",
+      "Sha256": "98530d78df21540b50451085c4ac6017af811a56fa2c62e41ba36d513b4856a1",
+      "Bytes": 888
+    },
+    "docs/test-evidence/2026-10-17-blocker-diagnosis-originals__r07-execution-records.json": {
+      "Original": "artifacts/blocker-diagnosis-2026-10-17/r07-execution-records.json",
+      "Sha256": "c1d0cad11d34e14ceff6845230c44bb2f2bd2617c135807c73c18c8a1480a57f",
+      "Bytes": 1106
+    },
+    "docs/test-evidence/2026-10-17-blocker-diagnosis-originals__r08-local-facts.json": {
+      "Original": "artifacts/blocker-diagnosis-2026-10-17/r08-local-facts.json",
+      "Sha256": "eb15d6718dd62806d56bcbdd96c57dd43bc1d3c07579b570c20537ccf191906c",
+      "Bytes": 9855
+    },
+    "docs/test-evidence/2026-10-17-blocker-diagnosis-originals__r09-parent-integrity.json": {
+      "Original": "artifacts/blocker-diagnosis-2026-10-17/r09-parent-integrity.json",
+      "Sha256": "0e06f0df45ea0f349f9bb81233ecf54b42a6c1ad8410e42d5ca762f650248c79",
+      "Bytes": 653
+    }
+  },
+  "SourceOriginalEvidence": {
+    "docs/test-evidence/2026-10-16-image-isolated-decode-dependency-audit.json": {
+      "Bytes": 140130,
+      "Sha256": "f2710ddc25b5fc032656e615d90b84a3a8dfb26799b200a73d10f94a6963161b",
+      "ExactParentBytes": true
+    },
+    "docs/test-evidence/2026-10-15-configure-accounting-windows-result.json": {
+      "Bytes": 8825,
+      "Sha256": "8624eaf4270a63e930be04660523bc08e32829c3d8646113f81d05592213734f",
+      "ExactParentBytes": true
+    },
+    "docs/test-evidence/2026-10-15-configure-embedded-windows-result.json": {
+      "Bytes": 12966,
+      "Sha256": "edd6798de54c9b77a8dc859b87a774f7757f0517e14ed21c4a3016de8f3b616e",
+      "ExactParentBytes": true
+    },
+    "docs/test-evidence/2026-10-11-imageworker-native-blocked.log": {
+      "Bytes": 2477,
+      "Sha256": "648a8e105393a01ae45c01001ade275583b844035d0c0df6d7cf2ba61f10355e",
+      "ExactParentBytes": true
+    },
+    "docs/test-evidence/2026-10-11-screenshot-native-linux.log": {
+      "Bytes": 45,
+      "Sha256": "1c2278534558759358491a3dd3bfaf39151999c07359b60d4c3795a95d42c287",
+      "ExactParentBytes": true
+    }
+  },
+  "ValidationDocument": "docs/validation/blocker-diagnosis-2026-10-17.md",
+  "Safety": {
+    "NewDownloadsRestoreSkiaExecution": 0,
+    "SkiaLicenseAccepted": false,
+    "403RetriedOrMirrored": false,
+    "ActionsQueriedOrDispatched": false,
+    "CredentialsOrNetworkSecurityPermissionsChanged": false,
+    "RealModelsNewCostsDeploymentMainForcePush": false,
+    "P6WindowsAcceptanceRaised": false,
+    "OldImageRootCause": "Unknown",
+    "ProductionImageReuse": "Off",
+    "SourcePasswordIntegrityCancelCleanup250600": "Unchanged",
+    "UnknownLocksDataLogsProcesses": "Preserved",
+    "DotnetCertificateGeneration": "Explicitfalse before/afteractivation; no trust/store changes"
+  },
+  "Review": "Root sole-writer source/evidence/integrity check; no independent-agent claim for this focused diagnosis.",
+  "WhitespaceCheck": {
+    "NonRawExitCode": 0,
+    "FullExitCode": 0,
+    "FullOutput": "",
+    "RawPreservedNoWhitespaceOverride": true
+  },
+  "PublicationScope": "Documentation/evidence only, dev/blocker-diagnosis does not match any of8 existing workflow branch/path filters (local source check only; no Actions query)."
+}

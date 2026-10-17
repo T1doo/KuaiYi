@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="9b82512c-6164-448b-b02e-0b0a66042585" name="@4cd0056ca8a8 2026-10-17 03:50:56" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-17T03:50:56.6881041+00:00" queuing="2026-10-17T03:50:56.6881042+00:00" start="2026-10-17T03:50:55.2725257+00:00" finish="2026-10-17T03:50:56.7025661+00:00" />
+  <TestSettings name="default" id="5f3f2713-11ba-4e55-af37-54d019934720">
+    <Deployment runDeploymentRoot="_4cd0056ca8a8_2026-10-17_03_50_56" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="84c74846-7403-4218-b39d-dd8fc92deeac" testId="f1a73e3b-148e-032d-267d-b6470238b77c" testName="KuaiYi.Core.Tests.ImageWorkerTests.RealPrivateWorkerLoopReportsUnsupportedPlatformOnLinux" computerName="4cd0056ca8a8" duration="00:00:00.1648368" startTime="2026-10-17T03:50:56.4010061+00:00" endTime="2026-10-17T03:50:56.5665647+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="84c74846-7403-4218-b39d-dd8fc92deeac" />
+    <UnitTestResult executionId="1110cdb8-458d-4e72-ba55-704f26016496" testId="73db0558-7564-1ddd-9447-a569103709f1" testName="KuaiYi.Core.Tests.ImageWorkerTests.RealWorkerOwnPlatformDiagnostic" computerName="4cd0056ca8a8" duration="00:00:00.1256136" startTime="2026-10-17T03:50:56.2682930+00:00" endTime="2026-10-17T03:50:56.3999325+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1110cdb8-458d-4e72-ba55-704f26016496" />
+    <UnitTestResult executionId="021a8324-2cef-4f3b-9d91-97aad95c81d1" testId="9a11e11e-0ffe-b314-bd31-cc69ff4b19d3" testName="KuaiYi.Core.Tests.ImageJsonTests.MainAndWorkerDoNotInventIdentityOnLinux" computerName="4cd0056ca8a8" duration="00:00:00.0078169" startTime="2026-10-17T03:50:56.2666383+00:00" endTime="2026-10-17T03:50:56.2821692+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="021a8324-2cef-4f3b-9d91-97aad95c81d1" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.ImageWorkerTests.RealPrivateWorkerLoopReportsUnsupportedPlatformOnLinux" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="f1a73e3b-148e-032d-267d-b6470238b77c">
+      <Execution id="84c74846-7403-4218-b39d-dd8fc92deeac" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ImageWorkerTests" name="RealPrivateWorkerLoopReportsUnsupportedPlatformOnLinux" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ImageJsonTests.MainAndWorkerDoNotInventIdentityOnLinux" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="9a11e11e-0ffe-b314-bd31-cc69ff4b19d3">
+      <Execution id="021a8324-2cef-4f3b-9d91-97aad95c81d1" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ImageJsonTests" name="MainAndWorkerDoNotInventIdentityOnLinux" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.ImageWorkerTests.RealWorkerOwnPlatformDiagnostic" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="73db0558-7564-1ddd-9447-a569103709f1">
+      <Execution id="1110cdb8-458d-4e72-ba55-704f26016496" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.ImageWorkerTests" name="RealWorkerOwnPlatformDiagnostic" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="f1a73e3b-148e-032d-267d-b6470238b77c" executionId="84c74846-7403-4218-b39d-dd8fc92deeac" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="73db0558-7564-1ddd-9447-a569103709f1" executionId="1110cdb8-458d-4e72-ba55-704f26016496" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9a11e11e-0ffe-b314-bd31-cc69ff4b19d3" executionId="021a8324-2cef-4f3b-9d91-97aad95c81d1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="3" executed="3" passed="3" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.15]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.52]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.54]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.88]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

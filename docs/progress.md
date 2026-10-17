@@ -855,3 +855,12 @@ r01新测试xUnit2031编译0执行无TRX；r02候选3F→r03同三测试源码/�
 新增显式fixture-only首字节屏障（stdout不拦，既有epoch+2 disabled明确release），真实owned child/原server/client旧清理顺序实际1P1F、失败集合与r08相同；收据顺序2P，负对照仍验证已交付/进程退出/drain正常EOF且缺Written时helper必须失败。仅原测试清理前有界等待父端实际解析收据，4秒上限/5ms谓词轮询，不是单纯sleep、不延长生产门或推断Written，原全部断言保留；生产src原字节，无协议/取消/终止变化。r02/r03同名称同原断言但测试正文不同，生产及fixture DLL相同，仅Core.Tests改变；初始旧构件与9bf元数据重编译SHA不同，不能混称同二进制或重造历史原件。
 
 最终专项52P、完整Core1556P=父1554全名多重集+2、Provider2157P原集合保持，均0失败/跳过；App/Worker各0W/E，修后固定20次重复结果见[调查报告](validation/ole-query-written-investigation.md)与[精确证据](test-evidence/2026-10-16-ole-query-written-investigation.json)。独审确认同步缺陷及实验边界；历史r08那次具体调度/可选异常仍Unknown，未以绿测关闭根因。E06/P5真实Windows/WPF/COM未验，旧图片间歇根因未知、复用Off及全部P6状态不变。Actions拒绝不查不绕，Skia许可/403隔离门和250/600ms/来源/密码/完整性/取消/清理保持；无main/强推/部署/新费用凭据安全权限许可或模型，未知锁数据日志进程保全。
+
+
+## 2026-10-17 · 一次聚焦阻塞诊断
+
+从已独审81f4e3f核实际HEAD/远端、clean/单worktree/唯一root写入后建dev/blocker-diagnosis。只读重核Skia四份nuspec/许可原件及旧403、Windows Accounting/Embedded和Linux失败原件：许可授权门与Proxy tunnel403独立；已有Git/NuGet取得事实不等于源码API可用，批准许可不能解403或提供Windows。当前无Skia引用/缓存，完整PNG/JPEG隔离解码仍未实现，不写未验证占位或新外围工具。
+
+现有SDK激活后10.0.401可用；不restore/不下载、不重编译地运行3个既有平台/worker例3P，实际worker诊断UnsupportedPlatform；App --no-restore交叉构建一次0W/E。默认PATH及旧记载路径无pwsh、cmake/cl/Windows工具与WindowsDesktop runtime未见，补当前环境说明，不重复下载安装。Windows原失败仍是根Exit0后WaitJobEmpty Active2/Total33超时，成员身份/实际flags不足；NodeReuse禁用已在原代码，Embedded候选亦失败，不能猜测性再改或把Linux缺口当同因。
+
+本次没有已证且能在当前权限内闭合原Windows/源码访问卡点的生产补丁，故源码/配置/锁/工作流/所有原件保全；交付每项证据、可行路径及最小用户步骤，见[诊断](validation/blocker-diagnosis-2026-10-17.md)与[固定证据](test-evidence/2026-10-17-blocker-diagnosis.json)。Skia许可未接受、403未重试/换镜像、Actions拒绝不查不调，未增费用凭据安全权限、未真实模型/main/强推/部署。旧图片未知、生产复用Off、全部P6/Windows未验及250/600ms/来源/密码/完整性/取消/清理门不变。

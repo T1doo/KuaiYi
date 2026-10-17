@@ -1,0 +1,26 @@
+[
+  {
+    "Run": "r03-sdk-info",
+    "Command": "dotnet --info",
+    "ExitCode": 0,
+    "DownloadOrRestoreRequested": false
+  },
+  {
+    "Run": "r04-worker-diagnose",
+    "Command": "dotnet src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll --diagnose",
+    "ExitCode": 0,
+    "DownloadOrRestoreRequested": false
+  },
+  {
+    "Run": "r05-platform-tests",
+    "Command": "dotnet test tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj -c Release --no-build --no-restore --filter \"FullyQualifiedName~MainAndWorkerDoNotInventIdentityOnLinux|FullyQualifiedName~RealWorkerOwnPlatformDiagnostic|FullyQualifiedName~RealPrivateWorkerLoopReportsUnsupportedPlatformOnLinux\" --logger \"trx;LogFileName=r05-platform-tests.trx\" --results-directory /workspace/KuaiYi/artifacts/blocker-diagnosis-2026-10-17",
+    "ExitCode": 0,
+    "DownloadOrRestoreRequested": false
+  },
+  {
+    "Run": "r06-managed-app-build",
+    "Command": "dotnet build src/KuaiYi.App/KuaiYi.App.csproj -c Release --no-restore -p:EnableWindowsTargeting=true",
+    "ExitCode": 0,
+    "DownloadOrRestoreRequested": false
+  }
+]

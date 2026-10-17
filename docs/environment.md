@@ -28,3 +28,12 @@ pwsh -NoLogo -NoProfile -File scripts/test.ps1 -Suite Offline
 PowerShell 首次调用因尝试使用只读 `/home/agent/.cache` 失败；设置标准 XDG 目录后启动成功。没有修改 HOME，没有更改系统证书、网络策略或其他项目。
 
 `bootstrap.ps1` 默认只检测，报告写到被 git 忽略的 `artifacts/environment/environment.json`。`-RequireWindows` 检查完整 Windows 条件，不满足时非零退出。
+
+
+## 2026-10-17 原指定环境复核
+
+实际HEAD/远端为81f4e3f357374f018e8d3cb56a56a2189c629451，clean、单worktree；原成果保全。Debian13.6 x64、无交互显示；默认PATH未含dotnet，但现有activate.sh可启用精确SDK10.0.401/runtime10.0.12。零下载的App --no-restore交叉构建0W/E，3个既有平台/worker测试通过且实际worker诊断为UnsupportedPlatform；不代表Windows运行。
+
+上文2026-10-11的PowerShell安装记录是历史：本次默认PATH、记载的7.6.6解包路径及已知工具目录均未见pwsh/可复用deb，未重新下载。cmake/cl/Windows原生SDK工具也未在PATH找到；runtime列表无WindowsDesktop。当前Skia未在项目/已还原assets或缓存中，旧大包artifacts未见，已提交的许可/元数据/摘要仍完整。不能把旧安装或缓存事实当作当前可运行条件。
+
+[本次分项阻塞诊断](validation/blocker-diagnosis-2026-10-17.md)将许可授权、代理403、Linux平台与旧Windows JobEmpty超时分开；不接受新协议、不重试拒绝或安装工具，不改原失败结论。
