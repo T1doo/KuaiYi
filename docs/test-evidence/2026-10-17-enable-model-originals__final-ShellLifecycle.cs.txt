@@ -1,0 +1,67 @@
+using KuaiYi.Core.Settings;
+namespace KuaiYi.Core;
+public sealed record EnableIntent(string SettingsVersion,long Epoch,RequestProfileBinding Binding,EndpointOrigin Origin,TriggerMode Mode,string Model)
+{
+    // Keep the existing five-field construction contract; production preparation always supplies the model.
+    public EnableIntent(string SettingsVersion,long Epoch,RequestProfileBinding Binding,EndpointOrigin Origin,TriggerMode Mode):this(SettingsVersion,Epoch,Binding,Origin,Mode,""){}
+    public string ConfirmationText=>$"启用后，您主动提供的内容将发送到 {Origin.Value}。\n当前模型：{Model}\n当前触发模式：{(Mode==TriggerMode.Selection?"选中文字":"拖放文字")}。\n{(Mode==TriggerMode.Selection?"选中后将发送所选内容。":"投放后将发送投放的文字。")}\n是否允许本次会话使用此服务？";
+}
+/// <summary>Production shell orchestration. Startup and position saves never decrypt secrets, consent or start a model.</summary>
+public sealed class ShellLifecycle:IDisposable
+{
+    private readonly SettingsCoordinator coordinator;private readonly SettingsRuntimeLink link;
+    private int initialized,disposed;
+    public RuntimeGate Gate{get;}=new(requireProfileBinding:true);
+    public SettingsSnapshot? Settings=>coordinator.Effective;
+    public ShellLifecycle(SettingsCoordinator coordinator){this.coordinator=coordinator;link=new(coordinator,Gate);coordinator.Committed+=ReadyAfterRecovery;}
+    private void ReadyAfterRecovery(SettingsSnapshot snapshot,SettingsChange change){if(Volatile.Read(ref disposed)==0&&!snapshot.ReadOnly&&!snapshot.RequiresRecovery)Volatile.Write(ref initialized,2);}
+    public async Task InitializeAsync(CancellationToken cancellation=default)
+    {
+        if(Interlocked.CompareExchange(ref initialized,1,0)!=0)throw new InvalidOperationException("Startup already attempted.");
+        Gate.Disable();using var draft=await coordinator.OpenDraftAsync(cancellation).ConfigureAwait(false);
+        if(Volatile.Read(ref disposed)!=0)return;
+        link.Initialize(draft.Basis);Gate.SetMode(draft.Data.TriggerMode);Volatile.Write(ref initialized,2);
+    }
+    public bool TryPrepareEnable(out EnableIntent? intent,out string missing)
+    {
+        intent=null;missing="设置尚未加载";
+        if(Volatile.Read(ref disposed)!=0||Volatile.Read(ref initialized)!=2)return false;
+        if(Settings is not {} s||s.ReadOnly||s.RequiresRecovery){missing="请先恢复或升级配置";return false;}
+        var profile=s.Data.Profiles.FirstOrDefault(p=>p.Id==s.Data.ActiveProfileId);
+        if(profile==null){missing="请选择文字 API 配置";return false;}
+        if(string.IsNullOrWhiteSpace(profile.Model)){missing="请填写模型";return false;}
+        if(profile.Authentication!=ApiAuthentication.None&&profile.SecretRef==null){missing="请保存 API Key";return false;}
+        if(!Uri.TryCreate(profile.BaseUrl,UriKind.Absolute,out var uri)){missing="请填写有效服务地址";return false;}
+        EndpointOrigin origin;try{origin=new(uri);}catch(ArgumentException){missing="请填写有效服务地址";return false;}
+        try{_=ApiProfilePolicy.Resolve(profile);ApiProfilePolicy.ValidateParameters(profile);}catch(SettingsValidationException error){missing="请检查API配置："+error.Field;return false;}
+        if(!Gate.TryGetProfileBinding(profile.Id,out var binding)){missing="配置绑定尚未生效";return false;}
+        intent=new(s.Version,Gate.Snapshot.Epoch,binding,origin,s.Data.TriggerMode,profile.Model);missing="";return true;
+    }
+    public bool ConfirmEnable(EnableIntent intent,bool confirmed)
+    {
+        ArgumentNullException.ThrowIfNull(intent);if(!confirmed)return false;
+        return Gate.TryEnableShell(intent,()=>Volatile.Read(ref disposed)==0&&Settings?.Version==intent.SettingsVersion);
+    }
+    public void Hide()=>Gate.Disable(hide:true);
+    public void Show(){if(!Gate.Snapshot.Suspension.HasFlag(Suspension.SessionLocked))Gate.Disable();}
+    public void SetSessionLocked(bool locked)=>Gate.SetSessionLocked(locked);
+    public async Task SavePositionAsync(OverlayPosition position,CancellationToken cancellation=default)
+    {
+        if(Volatile.Read(ref disposed)!=0)return;
+        using var draft=await coordinator.OpenDraftAsync(cancellation).ConfigureAwait(false);
+        if(draft.Basis.ReadOnly||draft.Basis.RequiresRecovery||!draft.Data.Overlay.RememberPosition)return;
+        draft.Update(s=>s with{Overlay=s.Overlay with{LastPosition=position}});await coordinator.SaveAsync(draft,cancellation:cancellation).ConfigureAwait(false);
+    }
+    public void Dispose(){if(Interlocked.Exchange(ref disposed,1)==0){Gate.Disable(hide:true);link.Dispose();coordinator.Committed-=ReadyAfterRecovery;}}
+}
+public sealed partial class RuntimeGate
+{
+    internal bool TryEnableShell(EnableIntent intent,Func<bool> stillCurrent)
+    {
+        lock(sync)
+        {
+            if(!stillCurrent()||epoch!=intent.Epoch||suspension!=Suspension.None||!profileBindings.TryGetValue(intent.Binding.ProfileId,out var current)||current!=intent.Binding)return false;
+            consented.Add(intent.Origin);activation=Activation.On;localOnly=false;presentation=Presentation.Compact;AdvanceHotkeyInputLocked();return true;
+        }
+    }
+}

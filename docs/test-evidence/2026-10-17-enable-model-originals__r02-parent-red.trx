@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="2d185c3f-716e-4502-a07b-8609944b7b33" name="@4cd0056ca8a8 2026-10-17 09:04:48" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-17T09:04:48.3945278+00:00" queuing="2026-10-17T09:04:48.3945278+00:00" start="2026-10-17T09:04:47.2546226+00:00" finish="2026-10-17T09:04:48.4012421+00:00" />
+  <TestSettings name="default" id="0081d851-659c-4b59-abe8-5b7308b7b320">
+    <Deployment runDeploymentRoot="_4cd0056ca8a8_2026-10-17_09_04_48" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="e4c6e573-8480-443e-b448-a3d24fa7b75e" testId="a5d61f25-4ee2-71ba-722f-a8979675ba93" testName="KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(mode: Drop, protocol: AnthropicMessages)" computerName="4cd0056ca8a8" duration="00:00:00.0058347" startTime="2026-10-17T09:04:48.2853541+00:00" endTime="2026-10-17T09:04:48.2856054+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e4c6e573-8480-443e-b448-a3d24fa7b75e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.NotNull() Failure: Value is null</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.EnableModelDisclosureTests.Field(EnableIntent intent, String name) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/EnableModelDisclosureTests.cs:line 32
+   at KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(TriggerMode mode, ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/EnableModelDisclosureTests.cs:line 37
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b97ccc2b-7083-4e05-bb40-c50e53bb304e" testId="9188008e-638c-ecd2-1d6a-bf754e992b35" testName="KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(mode: Drop, protocol: OpenAIChat)" computerName="4cd0056ca8a8" duration="00:00:00.0040402" startTime="2026-10-17T09:04:48.2870984+00:00" endTime="2026-10-17T09:04:48.2871841+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b97ccc2b-7083-4e05-bb40-c50e53bb304e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.NotNull() Failure: Value is null</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.EnableModelDisclosureTests.Field(EnableIntent intent, String name) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/EnableModelDisclosureTests.cs:line 32
+   at KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(TriggerMode mode, ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/EnableModelDisclosureTests.cs:line 37
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="eecc767b-75b5-4ac3-8b37-b84e0c3d1de5" testId="39071bb0-8606-e5ad-8622-2434a3179af6" testName="KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(mode: Selection, protocol: AnthropicMessages)" computerName="4cd0056ca8a8" duration="00:00:00.1763251" startTime="2026-10-17T09:04:48.0641708+00:00" endTime="2026-10-17T09:04:48.2646232+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eecc767b-75b5-4ac3-8b37-b84e0c3d1de5">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.NotNull() Failure: Value is null</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.EnableModelDisclosureTests.Field(EnableIntent intent, String name) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/EnableModelDisclosureTests.cs:line 32
+   at KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(TriggerMode mode, ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/EnableModelDisclosureTests.cs:line 37
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="612c54a4-d4ea-474e-8fda-4f071bb16c15" testId="ab4952fd-8126-fb58-aae3-97b21b52ec55" testName="KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(mode: Selection, protocol: OpenAIChat)" computerName="4cd0056ca8a8" duration="00:00:00.0031782" startTime="2026-10-17T09:04:48.2875895+00:00" endTime="2026-10-17T09:04:48.2876422+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="612c54a4-d4ea-474e-8fda-4f071bb16c15">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.NotNull() Failure: Value is null</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.EnableModelDisclosureTests.Field(EnableIntent intent, String name) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/EnableModelDisclosureTests.cs:line 32
+   at KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(TriggerMode mode, ApiProtocol protocol) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/EnableModelDisclosureTests.cs:line 37
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(mode: Drop, protocol: OpenAIChat)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="9188008e-638c-ecd2-1d6a-bf754e992b35">
+      <Execution id="b97ccc2b-7083-4e05-bb40-c50e53bb304e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.EnableModelDisclosureTests" name="ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(mode: Selection, protocol: OpenAIChat)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="ab4952fd-8126-fb58-aae3-97b21b52ec55">
+      <Execution id="612c54a4-d4ea-474e-8fda-4f071bb16c15" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.EnableModelDisclosureTests" name="ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(mode: Selection, protocol: AnthropicMessages)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="39071bb0-8606-e5ad-8622-2434a3179af6">
+      <Execution id="eecc767b-75b5-4ac3-8b37-b84e0c3d1de5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.EnableModelDisclosureTests" name="ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(mode: Drop, protocol: AnthropicMessages)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a5d61f25-4ee2-71ba-722f-a8979675ba93">
+      <Execution id="e4c6e573-8480-443e-b448-a3d24fa7b75e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.EnableModelDisclosureTests" name="ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="a5d61f25-4ee2-71ba-722f-a8979675ba93" executionId="e4c6e573-8480-443e-b448-a3d24fa7b75e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9188008e-638c-ecd2-1d6a-bf754e992b35" executionId="b97ccc2b-7083-4e05-bb40-c50e53bb304e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="39071bb0-8606-e5ad-8622-2434a3179af6" executionId="eecc767b-75b5-4ac3-8b37-b84e0c3d1de5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ab4952fd-8126-fb58-aae3-97b21b52ec55" executionId="612c54a4-d4ea-474e-8fda-4f071bb16c15" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="4" executed="4" passed="0" failed="4" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.10]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.38]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.41]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.65]       Assert.NotNull() Failure: Value is null
+[xUnit.net 00:00:00.65]       Stack Trace:
+[xUnit.net 00:00:00.65]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/EnableModelDisclosureTests.cs(32,0): at KuaiYi.Core.Tests.EnableModelDisclosureTests.Field(EnableIntent intent, String name)
+[xUnit.net 00:00:00.65]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/EnableModelDisclosureTests.cs(37,0): at KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(TriggerMode mode, ApiProtocol protocol)
+[xUnit.net 00:00:00.65]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.66]       Assert.NotNull() Failure: Value is null
+[xUnit.net 00:00:00.66]       Stack Trace:
+[xUnit.net 00:00:00.66]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/EnableModelDisclosureTests.cs(32,0): at KuaiYi.Core.Tests.EnableModelDisclosureTests.Field(EnableIntent intent, String name)
+[xUnit.net 00:00:00.66]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/EnableModelDisclosureTests.cs(37,0): at KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(TriggerMode mode, ApiProtocol protocol)
+[xUnit.net 00:00:00.66]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.66]       Assert.NotNull() Failure: Value is null
+[xUnit.net 00:00:00.66]       Stack Trace:
+[xUnit.net 00:00:00.66]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/EnableModelDisclosureTests.cs(32,0): at KuaiYi.Core.Tests.EnableModelDisclosureTests.Field(EnableIntent intent, String name)
+[xUnit.net 00:00:00.66]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/EnableModelDisclosureTests.cs(37,0): at KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(TriggerMode mode, ApiProtocol protocol)
+[xUnit.net 00:00:00.66]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.66]       Assert.NotNull() Failure: Value is null
+[xUnit.net 00:00:00.66]       Stack Trace:
+[xUnit.net 00:00:00.66]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/EnableModelDisclosureTests.cs(32,0): at KuaiYi.Core.Tests.EnableModelDisclosureTests.Field(EnableIntent intent, String name)
+[xUnit.net 00:00:00.66]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/EnableModelDisclosureTests.cs(37,0): at KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(TriggerMode mode, ApiProtocol protocol)
+[xUnit.net 00:00:00.66]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.67]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T09:04:48.2691096+00:00">
+        <Text>[xUnit.net 00:00:00.64]     KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(mode: Selection, protocol: AnthropicMessages) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T09:04:48.2862658+00:00">
+        <Text>[xUnit.net 00:00:00.66]     KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(mode: Drop, protocol: AnthropicMessages) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T09:04:48.2874270+00:00">
+        <Text>[xUnit.net 00:00:00.66]     KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(mode: Drop, protocol: OpenAIChat) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T09:04:48.2878148+00:00">
+        <Text>[xUnit.net 00:00:00.66]     KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(mode: Selection, protocol: OpenAIChat) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

@@ -1,0 +1,15 @@
+{
+  "utc": "2026-10-17T09:03:19.613617+00:00",
+  "head": "a87673a2562d40f1ae54ca3870ee83642b4e168a",
+  "branch": "dev/enable-model-disclosure",
+  "remote": "a87673a2562d40f1ae54ca3870ee83642b4e168a\trefs/heads/dev/integration-status-page\n51d077481cf6303602fcf5d2718213da9cf05178\trefs/heads/main\n",
+  "worktrees": "worktree /workspace/KuaiYi\nHEAD a87673a2562d40f1ae54ca3870ee83642b4e168a\nbranch refs/heads/dev/enable-model-disclosure\n\n",
+  "writer": "root only; high_water_review existing read-only",
+  "P7SourceFacts": {
+    "scripts/package-identity.ps1": "Development-only identity package; Release explicitly blocked",
+    "scripts/register-dev-identity.ps1": "Explicit Register only, existing identity refuses replacement; no upgrade transaction",
+    "scripts/stage-text-alpha.ps1": "GUID bundle + ZIP; manifest Installer=false; no installer consumer",
+    "search": "No .iss/.wxs or installation/upgrade transaction entry found; no script executed"
+  },
+  "scope": "SPEC14.1 actual first enable model disclosure; no P7 transaction helper added; no source auth/gates changes planned"
+}

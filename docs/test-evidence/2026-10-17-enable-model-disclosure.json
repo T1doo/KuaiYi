@@ -1,0 +1,685 @@
+{
+  "SourceParent": "a87673a2562d40f1ae54ca3870ee83642b4e168a",
+  "Branch": "dev/enable-model-disclosure",
+  "Scope": "SPEC14.1 actual initial Shell enable explanation freezes/displays current model, origin, mode,content-send message. Two production files only; no generic state/diagnostic/installer helper.",
+  "P7Inventory": "Read-only actual package/register/Alpha stage chain inspected; Development-only packaging, explicit registration refuses existing package, Alpha Installer=false and no .iss/.wxs/installation-upgrade consumer. No scripts executed or registration/signing. Existing earlier model disclosure finding proceeded per parent authorization.",
+  "ProductionBehavior": "Model and ConfirmationText immutable on EnableIntent from same saved profile. Actual existing MessageBox takes intent.ConfirmationText; five-parameter constructor and original named parameters kept; production always explicit sixthModel. HasConsentTo/ConfirmEnable/TryEnableShell/HTTP/capture/secret checks unchanged.",
+  "RedGreenBoundary": "r02->r04 same test file SHA and exact4names, actual saved SettingsStore/ShellLifecycle metadata contract4F->4P. Reflection lets new contract assertion execute against oldCore; not a WPF dialog run. TestDLL hashes differ; no identical-binary claim. r01 fixture andr03compile failures retained and excluded from product red/green.",
+  "FrozenSource": {
+    "src/KuaiYi.Core/ShellLifecycle.cs": "1ab90f0b8cde35931b8d0e0f7628ac248217142d131071826518e02021d81f93",
+    "src/KuaiYi.App/ShellWindow.cs": "e101a68e6ac2a2a41393e2a06e6b992be2fc4cb3009131c8ff3109855af32db9",
+    "tests/KuaiYi.Core.Tests/EnableModelDisclosureTests.cs": "d1faa232ed1064af050821b7313d1334944c2cdc15e9b3e3db6cae42518d7ff6"
+  },
+  "Observed": {
+    "r01-parent-red": {
+      "total": "4",
+      "executed": "4",
+      "passed": "0",
+      "failed": "4",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r02-parent-red": {
+      "total": "4",
+      "executed": "4",
+      "passed": "0",
+      "failed": "4",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r04-green": {
+      "total": "4",
+      "executed": "4",
+      "passed": "4",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r05-focused": {
+      "total": "16",
+      "executed": "16",
+      "passed": "16",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r06-core-full": {
+      "total": "1688",
+      "executed": "1688",
+      "passed": "1688",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r07-provider-full": {
+      "total": "2157",
+      "executed": "2157",
+      "passed": "2157",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r01Classification": "Fixture failure, not product red",
+    "r03-green": {
+      "classification": "CS7036 compilation failure",
+      "executed": 0,
+      "TRX": false
+    },
+    "r08-app-build": {
+      "warnings": 0,
+      "errors": 0
+    },
+    "r09-worker-build": {
+      "warnings": 0,
+      "errors": 0
+    }
+  },
+  "Validation": {
+    "RedGreenSameTestSourceAndCaseNames": true,
+    "r02ParentRuntimeFailures": 4,
+    "r04RuntimePassed": 4,
+    "TestDllSame": false,
+    "r01": "Fixture error4F, not product red",
+    "r03": "CS7036 compiler failure0executed/noTRX,not green",
+    "FrozenSource3Match": true,
+    "ConfirmEnableAndLaterMethodsByteUnchanged": true,
+    "ParentResultsByMultiset": {
+      "Core": {
+        "parent": 1672,
+        "final": 1688,
+        "missing": 0,
+        "added": 16,
+        "counters": {
+          "total": "1688",
+          "executed": "1688",
+          "passed": "1688",
+          "failed": "0",
+          "error": "0",
+          "timeout": "0",
+          "aborted": "0",
+          "inconclusive": "0",
+          "passedButRunAborted": "0",
+          "notRunnable": "0",
+          "notExecuted": "0",
+          "disconnected": "0",
+          "warning": "0",
+          "completed": "0",
+          "inProgress": "0",
+          "pending": "0"
+        },
+        "parentRaw": "docs/test-evidence/2026-10-17-integration-status-originals__r11-core-full.trx",
+        "newRaw": "artifacts/enable-model-disclosure/r06-core-full.trx"
+      },
+      "Provider": {
+        "parent": 2157,
+        "final": 2157,
+        "missing": 0,
+        "added": 0,
+        "counters": {
+          "total": "2157",
+          "executed": "2157",
+          "passed": "2157",
+          "failed": "0",
+          "error": "0",
+          "timeout": "0",
+          "aborted": "0",
+          "inconclusive": "0",
+          "passedButRunAborted": "0",
+          "notRunnable": "0",
+          "notExecuted": "0",
+          "disconnected": "0",
+          "warning": "0",
+          "completed": "0",
+          "inProgress": "0",
+          "pending": "0"
+        },
+        "parentRaw": "docs/test-evidence/2026-10-17-integration-status-originals__r12-provider-full.trx",
+        "newRaw": "artifacts/enable-model-disclosure/r07-provider-full.trx"
+      }
+    },
+    "ParentTracked": 3438,
+    "ExpectedChangedParent": {
+      "docs/progress.md": "dcc7df81efc435808801bdd8dbf623ba86ac5ca1f5e1b123d588b6f0b3406108",
+      "docs/traceability.json": "29322e7f079c0585f489a51d5e0e8f1b84592dc053dc16383f1c7d01c5903103",
+      "src/KuaiYi.App/ShellWindow.cs": "e101a68e6ac2a2a41393e2a06e6b992be2fc4cb3009131c8ff3109855af32db9",
+      "src/KuaiYi.Core/ShellLifecycle.cs": "1ab90f0b8cde35931b8d0e0f7628ac248217142d131071826518e02021d81f93"
+    },
+    "OtherParentPathsBytePreserved": true,
+    "PriorEvidencePreserved": 2574,
+    "ExistingTestFilesPreserved": 232,
+    "AllTraceImplementationValidationStatusesUnchanged": true,
+    "TraceEvidenceNoteOnly": [
+      "P1-05",
+      "L02"
+    ],
+    "FourFinalExecutionsAndBinariesMatch": true,
+    "Scope": "SPEC14.1 model disclosure; P7 source consumer inventory only, no installer transaction helper",
+    "WindowsWpfModelVisibilityKeyboardLayout": "NotRun"
+  },
+  "FinalExecutions": {
+    "r06-core-full": {
+      "startUtc": "2026-10-17T09:07:59.641108+00:00",
+      "endUtc": "2026-10-17T09:08:33.383163+00:00",
+      "exitCode": 0,
+      "source": {
+        "src/KuaiYi.Core/ShellLifecycle.cs": "1ab90f0b8cde35931b8d0e0f7628ac248217142d131071826518e02021d81f93",
+        "src/KuaiYi.App/ShellWindow.cs": "e101a68e6ac2a2a41393e2a06e6b992be2fc4cb3009131c8ff3109855af32db9",
+        "tests/KuaiYi.Core.Tests/EnableModelDisclosureTests.cs": "d1faa232ed1064af050821b7313d1334944c2cdc15e9b3e3db6cae42518d7ff6"
+      },
+      "binaries": {
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll": "c409d16abe1182fbe8d1dfa3c00fe660f579fcf549000756572776ab620f75f9",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll": "8e0449490d088f0d7298795f2bf88b9482bc36f8f834113203b5a8f0966f340b",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "f2192b8565ed8fb55933c8acdd455a449731f274068076d444412f27bb874334",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "277980887e31ac4a91062ac177ecd71bd2cc6fdf233a79e37c41465e8b385654",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "f090250d303b0f8b30a1da056e5a545f5cfc03bd150b4c6d5fcf4603fbb32a36",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "f5d06ce7a131476735e29e9a4d6c4eb2999ff51770463db560db3dd8638e7342",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.OleTransfer.dll": "b974ec8fdb7ba9ccfbc22fc0d6445f6961a7194b0c5083a2922907507ed93743"
+      }
+    },
+    "r07-provider-full": {
+      "startUtc": "2026-10-17T09:08:33.386675+00:00",
+      "endUtc": "2026-10-17T09:08:50.043973+00:00",
+      "exitCode": 0,
+      "source": {
+        "src/KuaiYi.Core/ShellLifecycle.cs": "1ab90f0b8cde35931b8d0e0f7628ac248217142d131071826518e02021d81f93",
+        "src/KuaiYi.App/ShellWindow.cs": "e101a68e6ac2a2a41393e2a06e6b992be2fc4cb3009131c8ff3109855af32db9",
+        "tests/KuaiYi.Core.Tests/EnableModelDisclosureTests.cs": "d1faa232ed1064af050821b7313d1334944c2cdc15e9b3e3db6cae42518d7ff6"
+      },
+      "binaries": {
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.ImageWorker.dll": "2001203d4d4615c41ec345036e4aecd12e28e0596d5d62d5e5b72a36d79abb2d",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll": "8e0449490d088f0d7298795f2bf88b9482bc36f8f834113203b5a8f0966f340b",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "f2192b8565ed8fb55933c8acdd455a449731f274068076d444412f27bb874334",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": "11cadac30f19a2eb777982165bde44a6ecd137f0dbe2c9ab342234582b98b8cf",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "f090250d303b0f8b30a1da056e5a545f5cfc03bd150b4c6d5fcf4603fbb32a36",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.MockProvider.dll": "c57cff425e873ff5332c6bf183cdaad2849c2150fc40e2e136710abb4f9b1f6d",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": "550b3fb74c32bfe972a3f00ac3062aaa9221e9e7178fae8afb2faa637a7d1ae6"
+      }
+    },
+    "r08-app-build": {
+      "startUtc": "2026-10-17T09:08:50.047092+00:00",
+      "endUtc": "2026-10-17T09:08:51.961596+00:00",
+      "exitCode": 0,
+      "source": {
+        "src/KuaiYi.Core/ShellLifecycle.cs": "1ab90f0b8cde35931b8d0e0f7628ac248217142d131071826518e02021d81f93",
+        "src/KuaiYi.App/ShellWindow.cs": "e101a68e6ac2a2a41393e2a06e6b992be2fc4cb3009131c8ff3109855af32db9",
+        "tests/KuaiYi.Core.Tests/EnableModelDisclosureTests.cs": "d1faa232ed1064af050821b7313d1334944c2cdc15e9b3e3db6cae42518d7ff6"
+      },
+      "binaries": {
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Windows.dll": "88dfa416eb0280605081eb1e0ac40b7b64e61096219fb34b7857b41e49d3bf43",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.NativeHost.dll": "c409d16abe1182fbe8d1dfa3c00fe660f579fcf549000756572776ab620f75f9",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Contracts.dll": "8e0449490d088f0d7298795f2bf88b9482bc36f8f834113203b5a8f0966f340b",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Core.dll": "f2192b8565ed8fb55933c8acdd455a449731f274068076d444412f27bb874334",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Imaging.dll": "f090250d303b0f8b30a1da056e5a545f5cfc03bd150b4c6d5fcf4603fbb32a36",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Providers.dll": "550b3fb74c32bfe972a3f00ac3062aaa9221e9e7178fae8afb2faa637a7d1ae6",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.OleTransfer.dll": "b974ec8fdb7ba9ccfbc22fc0d6445f6961a7194b0c5083a2922907507ed93743",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.App.dll": "a6a3c835cef9ddb3e2e0e876dba9cba2d37e2dd680c930b442adf447c2ec84da"
+      }
+    },
+    "r09-worker-build": {
+      "startUtc": "2026-10-17T09:08:51.963344+00:00",
+      "endUtc": "2026-10-17T09:08:52.960282+00:00",
+      "exitCode": 0,
+      "source": {
+        "src/KuaiYi.Core/ShellLifecycle.cs": "1ab90f0b8cde35931b8d0e0f7628ac248217142d131071826518e02021d81f93",
+        "src/KuaiYi.App/ShellWindow.cs": "e101a68e6ac2a2a41393e2a06e6b992be2fc4cb3009131c8ff3109855af32db9",
+        "tests/KuaiYi.Core.Tests/EnableModelDisclosureTests.cs": "d1faa232ed1064af050821b7313d1334944c2cdc15e9b3e3db6cae42518d7ff6"
+      },
+      "binaries": {
+        "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll": "2001203d4d4615c41ec345036e4aecd12e28e0596d5d62d5e5b72a36d79abb2d",
+        "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Contracts.dll": "8e0449490d088f0d7298795f2bf88b9482bc36f8f834113203b5a8f0966f340b",
+        "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Core.dll": "f2192b8565ed8fb55933c8acdd455a449731f274068076d444412f27bb874334",
+        "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Imaging.dll": "f090250d303b0f8b30a1da056e5a545f5cfc03bd150b4c6d5fcf4603fbb32a36"
+      }
+    }
+  },
+  "IndependentSourceReview": "high_water_review source and final sealed58raw/66staged review passed,no P1/P2. Final receipt added as original59; no source/test/log/TRX change after review.",
+  "NotRun": [
+    "Real WPF confirmation visibility/keyboard/modal interaction",
+    "Real256-character model layout/truncation",
+    "Windows/native/installed E2E/real model/physical250600/fullSPEC"
+  ],
+  "Preserved": "All existing implementation/validation status values unchanged; evidence/note added only P1-05/L02. Previous a87695originals=94reviewed then receipt1, all retained byte-exact. Old image intermittent rootUnknown and production reuseOff;250/600/source/password/identity/integrity/cancel/cleanup gates unchanged. Skia license/403/Actions denial not retried/bypassed. Existing SDK activation only, all dotnet --no-restore and ASP.NET certificate generation false before/after activation. No main/force/deploy/cost/credential/security-permission/license/realmodel changes; unknown locks/data/logs/processes preserved.",
+  "OriginalCount": 59,
+  "OriginalBytes": 6277141,
+  "Originals": [
+    {
+      "artifact": "artifacts/enable-model-disclosure/final-EnableModelDisclosureTests.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__final-EnableModelDisclosureTests.cs.txt",
+      "bytes": 8834,
+      "sha256": "d1faa232ed1064af050821b7313d1334944c2cdc15e9b3e3db6cae42518d7ff6"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/final-ShellLifecycle.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__final-ShellLifecycle.cs.txt",
+      "bytes": 5297,
+      "sha256": "1ab90f0b8cde35931b8d0e0f7628ac248217142d131071826518e02021d81f93"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/final-ShellWindow.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__final-ShellWindow.cs.txt",
+      "bytes": 16715,
+      "sha256": "e101a68e6ac2a2a41393e2a06e6b992be2fc4cb3009131c8ff3109855af32db9"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/final-source-binding.json",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__final-source-binding.json",
+      "bytes": 340,
+      "sha256": "028a8226ba6d821f382c0a67a0f03440e38ca291d7e1337acb24d13477696bde"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/parent-manifest.json",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__parent-manifest.json",
+      "bytes": 512505,
+      "sha256": "4cdd969599eddf8bec47ddf2107465c3b93f0e57270bcd97c6d9877594099bb4"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/preflight.json",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__preflight.json",
+      "bytes": 1098,
+      "sha256": "d691c04934bf9955fa6dba17e6b7c1a50d269a9f956a4ce4aacca729aea3ec58"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r01-EnableModelDisclosureTests.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r01-EnableModelDisclosureTests.cs.txt",
+      "bytes": 3439,
+      "sha256": "44463061aed9bedce41e7567af2e94a50bb8e0f7d50677ec3697ece5c893aaef"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r01-ShellLifecycle.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r01-ShellLifecycle.cs.txt",
+      "bytes": 4607,
+      "sha256": "6d444dace762e025ed2f7692ac33650f732f60655f8a3a71d9d7f3ccad6260e7"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r01-ShellWindow.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r01-ShellWindow.cs.txt",
+      "bytes": 16906,
+      "sha256": "33cab732ec27e5075723c4c8cab4e81e7c0f205fbd4c0cefd245c38740115378"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r01-command.sh",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r01-command.sh",
+      "bytes": 440,
+      "sha256": "89c0b67f2687b58682b05e79f8c32ea9c591d2efe31cf09f4efdec30d0b5d22f"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r01-executed-binding.json",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r01-executed-binding.json",
+      "bytes": 458,
+      "sha256": "5c7b6fc3ef2dcf681e475f281de965afb2e4e6012dacf05d61f24712a5252fb7"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r01-parent-red.log",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r01-parent-red.log",
+      "bytes": 6388,
+      "sha256": "75f205bb5d74b52397f3d6e8d0373f4ed71f964ec2706b901729a3ec30a9a7fe"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r01-parent-red.trx",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r01-parent-red.trx",
+      "bytes": 15581,
+      "sha256": "13696436731b9e6ecc1327184646df386b86e58e0448da8b36cba63c7a34d736"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r01-source-binding.json",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r01-source-binding.json",
+      "bytes": 411,
+      "sha256": "a226123b6da174509a130299c8b707a6a3c4da75827f7c7ecc1db65a57f449b0"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r02-EnableModelDisclosureTests.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r02-EnableModelDisclosureTests.cs.txt",
+      "bytes": 3455,
+      "sha256": "959dee237e1a28d2247f825a0d900dec5a17267dee8f904cef11f84d8f349225"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r02-ShellLifecycle.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r02-ShellLifecycle.cs.txt",
+      "bytes": 4607,
+      "sha256": "6d444dace762e025ed2f7692ac33650f732f60655f8a3a71d9d7f3ccad6260e7"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r02-ShellWindow.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r02-ShellWindow.cs.txt",
+      "bytes": 16906,
+      "sha256": "33cab732ec27e5075723c4c8cab4e81e7c0f205fbd4c0cefd245c38740115378"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r02-command.sh",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r02-command.sh",
+      "bytes": 440,
+      "sha256": "eb5c7e1544aea8bd0dd78f5727b8ece222913bdb543933984db16d9ee2d15e65"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r02-executed-binding.json",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r02-executed-binding.json",
+      "bytes": 461,
+      "sha256": "4393bc84bcae511e50bc23144a0443439a6974423190d05ed36ec17d9e5ada5b"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r02-parent-red.log",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r02-parent-red.log",
+      "bytes": 5648,
+      "sha256": "797cb2ac6a0a944ef465391df256fd9f76daea588d9a1276ad823d8485c58cc7"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r02-parent-red.trx",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r02-parent-red.trx",
+      "bytes": 14001,
+      "sha256": "f5d669885cedc94d3ba7d8192da53307822052ef8b8eb35ce13c0f2d013cb36a"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r02-source-binding.json",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r02-source-binding.json",
+      "bytes": 411,
+      "sha256": "cecfcf7b39a1fc1bc173d043031d4c2fb1e0483bd87a61f8e01dc2b87ff66fdb"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r03-EnableModelDisclosureTests.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r03-EnableModelDisclosureTests.cs.txt",
+      "bytes": 3455,
+      "sha256": "959dee237e1a28d2247f825a0d900dec5a17267dee8f904cef11f84d8f349225"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r03-ShellLifecycle.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r03-ShellLifecycle.cs.txt",
+      "bytes": 5007,
+      "sha256": "aa14b77e51fd0a9f500c25a0483971fb64b8f8cf7c0b8a7962184657e87e185b"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r03-ShellWindow.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r03-ShellWindow.cs.txt",
+      "bytes": 16715,
+      "sha256": "e101a68e6ac2a2a41393e2a06e6b992be2fc4cb3009131c8ff3109855af32db9"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r03-build-failure.json",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r03-build-failure.json",
+      "bytes": 321,
+      "sha256": "4863f7307fc290dfe0b4c9787486dfa86a0d32ba171a1eb99ada992033178ea5"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r03-command.sh",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r03-command.sh",
+      "bytes": 430,
+      "sha256": "c77f70a56eb80e1ff6c258c42306027a6f0d5a050be15932052cea6587ab064d"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r03-green.log",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r03-green.log",
+      "bytes": 1916,
+      "sha256": "adb711e37aa3028d019e4e466f61aebabeaccfebe9bda4c5f9bfd62e159dd72b"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r03-source-binding.json",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r03-source-binding.json",
+      "bytes": 400,
+      "sha256": "608c08fc9672aba45fee052ca51bc33a87256af87b52d9d62b4e4e9d922fd3aa"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r04-EnableModelDisclosureTests.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r04-EnableModelDisclosureTests.cs.txt",
+      "bytes": 3455,
+      "sha256": "959dee237e1a28d2247f825a0d900dec5a17267dee8f904cef11f84d8f349225"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r04-ShellLifecycle.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r04-ShellLifecycle.cs.txt",
+      "bytes": 5297,
+      "sha256": "a18c9c9f76b0a0743f38bc3ca372bfdafb64a73b42b64888df2188800e51e332"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r04-ShellWindow.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r04-ShellWindow.cs.txt",
+      "bytes": 16715,
+      "sha256": "e101a68e6ac2a2a41393e2a06e6b992be2fc4cb3009131c8ff3109855af32db9"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r04-command.sh",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r04-command.sh",
+      "bytes": 430,
+      "sha256": "77b241a3d9d402d31e3c1a571736226c796bf560dcae480c5d602c76bc3e71c8"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r04-executed-binding.json",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r04-executed-binding.json",
+      "bytes": 392,
+      "sha256": "cefbfc28476d90c17a8a2b7fc8189f608417c3d2c5510fa9e8181df6b76cf054"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r04-green.log",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r04-green.log",
+      "bytes": 2065,
+      "sha256": "715788f5310af99fc146c5ad0dc85f0a2f8dc699d54d14f0bc6e1e56101ebc22"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r04-green.trx",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r04-green.trx",
+      "bytes": 7377,
+      "sha256": "536830316e2d26e6c88e091c15d16c812e0dbeb27c4dd61970a237532920a45d"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r04-source-binding.json",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r04-source-binding.json",
+      "bytes": 400,
+      "sha256": "48ce6cb2433532716534df9a50c56708f04ba4071763f9f0022a73ef47dc82d9"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r05-command.sh",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r05-command.sh",
+      "bytes": 434,
+      "sha256": "df8a4424b8a684829e2d0db71e417a96debd249ba810fdf24e7c56c91c60ae5a"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r05-executed-binding.json",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r05-executed-binding.json",
+      "bytes": 275,
+      "sha256": "b802866e41a4bbf0a778efa66ad50c289080cef9419108fcc5b01ee5b6352098"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r05-focused.log",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r05-focused.log",
+      "bytes": 2067,
+      "sha256": "b0b6ddf503d03b68cc64e31d616deb223df3d1e1cf422435b98775bab5695083"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r05-focused.trx",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r05-focused.trx",
+      "bytes": 24264,
+      "sha256": "ec3c2458176ac386584af6464677f9505d4d9410ad31b005d215d849e7674336"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r06-core-full-command.sh",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r06-core-full-command.sh",
+      "bytes": 335,
+      "sha256": "fa08cef058114f83a936f7044d598cf6e113102106351f5930c9616b6ec2fdf8"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r06-core-full-execution.json",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r06-core-full-execution.json",
+      "bytes": 1491,
+      "sha256": "0f3c7aae40e59963c2b4125bc128685a3e1d3980e1dbb8956bf24d40745f21da"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r06-core-full.log",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r06-core-full.log",
+      "bytes": 385,
+      "sha256": "52d2bb085305e5ba26883d3a5f36d572a86e1c6314faa5b82bc38f7579b2f8b9"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r06-core-full.trx",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r06-core-full.trx",
+      "bytes": 2348627,
+      "sha256": "61426d67d87fcf66209fd65ef8ee198cf893703701f2587b0273bf70f3d978d1"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r07-provider-full-command.sh",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r07-provider-full-command.sh",
+      "bytes": 336,
+      "sha256": "1491dda8b45298b4d59d391675ace378d3513b57a56c50f93678fb80c4c6e571"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r07-provider-full-execution.json",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r07-provider-full-execution.json",
+      "bytes": 1510,
+      "sha256": "be1b2e3457c9d1d2b5f92fd2156f8eab98ef92ee76bc3e913cb6f32f76b4299c"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r07-provider-full.log",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r07-provider-full.log",
+      "bytes": 1136,
+      "sha256": "c74410ec7f226d5d902fc29add51e3f1d8268267f70c83b676d07639b141b932"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r07-provider-full.trx",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r07-provider-full.trx",
+      "bytes": 3181158,
+      "sha256": "bdd004d40b42c93a12f382bda7eb56b80ba9429a060eef550f72689227e9a5e0"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r08-app-build-command.sh",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r08-app-build-command.sh",
+      "bytes": 241,
+      "sha256": "16aebd3e50c80009688106d49d3397c5d587df711522f13434d56888febeb8a1"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r08-app-build-execution.json",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r08-app-build-execution.json",
+      "bytes": 1663,
+      "sha256": "003aa6439f09dbfbd836460757d2764417a835d0ecb1fc23ff44ab0c4ad3eb0a"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r08-app-build.log",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r08-app-build.log",
+      "bytes": 888,
+      "sha256": "c920a1ecef8c03f11d2d0bb3f8fe70859f608c35d11feca084e04a9fd494240c"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r09-worker-build-command.sh",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r09-worker-build-command.sh",
+      "bytes": 257,
+      "sha256": "7ebd378cfa528da5b48b8c76d2299564a199f3211dbb0908e4d87ea5d570ea40"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r09-worker-build-execution.json",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r09-worker-build-execution.json",
+      "bytes": 1082,
+      "sha256": "d617d6babc7f3cc2507dc632e2d9b416d502dab8984ce80f7bc6acb545b18a52"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r09-worker-build.log",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r09-worker-build.log",
+      "bytes": 477,
+      "sha256": "274cdc2d3131417c93df2281b673dc31058a9e5aafa1997e4bbbd86ad7551cc5"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r10-independent-source-review.txt",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r10-independent-source-review.txt",
+      "bytes": 1001,
+      "sha256": "04383a75d420c47adc6727ce94dc82d2774a8d39163281a78f62e393ecee1e35"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r10-validation.json",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r10-validation.json",
+      "bytes": 2716,
+      "sha256": "73324ffc176fe42cd3876f3c506bd0f5db4cd24329df1fc3a40f9139734e19e0"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/run-regression.py",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__run-regression.py",
+      "bytes": 1994,
+      "sha256": "4f25e4ab7057b729cb5e8be4f26ac6e253e124bce101684ea6e810129eb11b22"
+    },
+    {
+      "artifact": "artifacts/enable-model-disclosure/r11-independent-final-audit.txt",
+      "path": "docs/test-evidence/2026-10-17-enable-model-originals__r11-independent-final-audit.txt",
+      "bytes": 1481,
+      "sha256": "a551885d1c7b87db8fc1a916f67462b20d4e78b1fe2a0e315a795511ce7d0be7"
+    }
+  ],
+  "FinalEvidenceAudit": {
+    "Independent": "Pass,noP1/P2",
+    "ReviewedOriginals": 58,
+    "ReviewedBytes": 6275660,
+    "ReviewedStagePaths": 66,
+    "ReceiptAddedAfterReview": "docs/test-evidence/2026-10-17-enable-model-originals__r11-independent-final-audit.txt",
+    "FinalOriginals": 59,
+    "FinalBytes": 6277141,
+    "FinalStagePaths": 67,
+    "FinalRootArtifactWorktreeIndexShaBytesMatch": true,
+    "FrozenSource3Match": true,
+    "ExpectedParentModifications": [
+      ".gitattributes",
+      "docs/progress.md",
+      "docs/traceability.json",
+      "src/KuaiYi.Core/ShellLifecycle.cs",
+      "src/KuaiYi.App/ShellWindow.cs"
+    ],
+    "UnchangedParentPaths": 3433,
+    "UnchangedDigest": "6c108c7d6e9fe64eb58080c542ff1c33e665ffb4d680bec8ecccbc007891cf63",
+    "OriginalsSnapshotTimingClarified": true,
+    "GitDiffChecks": 0,
+    "AllTraceStatusValuesUnchanged": true
+  },
+  "ValidationSnapshotPhase": "r10-validation original is the snapshot before raw evidence attributes append; its ExpectedChangedParent lists4paths. Final staged preservation includes attributes as fifth expected parent modification and is audited separately."
+}

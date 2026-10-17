@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="dce434a3-0547-4762-8e4e-f9571a0fa394" name="@4cd0056ca8a8 2026-10-17 09:06:14" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-17T09:06:14.5220200+00:00" queuing="2026-10-17T09:06:14.5220200+00:00" start="2026-10-17T09:06:13.4939331+00:00" finish="2026-10-17T09:06:14.5283116+00:00" />
+  <TestSettings name="default" id="77f29aef-1a76-471a-821d-cfa08f33b343">
+    <Deployment runDeploymentRoot="_4cd0056ca8a8_2026-10-17_09_06_14" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="87937800-b5ef-4133-8ddc-7d5fb24a1f53" testId="a5d61f25-4ee2-71ba-722f-a8979675ba93" testName="KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(mode: Drop, protocol: AnthropicMessages)" computerName="4cd0056ca8a8" duration="00:00:00.0037358" startTime="2026-10-17T09:06:14.4267180+00:00" endTime="2026-10-17T09:06:14.4267857+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="87937800-b5ef-4133-8ddc-7d5fb24a1f53" />
+    <UnitTestResult executionId="a3bf5bcc-8db2-4d1f-8d2f-189f881955ad" testId="ab4952fd-8126-fb58-aae3-97b21b52ec55" testName="KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(mode: Selection, protocol: OpenAIChat)" computerName="4cd0056ca8a8" duration="00:00:00.0023151" startTime="2026-10-17T09:06:14.4274724+00:00" endTime="2026-10-17T09:06:14.4286311+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a3bf5bcc-8db2-4d1f-8d2f-189f881955ad" />
+    <UnitTestResult executionId="6b0ae67d-1a0c-4d7d-ab4f-f14a154be642" testId="9188008e-638c-ecd2-1d6a-bf754e992b35" testName="KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(mode: Drop, protocol: OpenAIChat)" computerName="4cd0056ca8a8" duration="00:00:00.0027811" startTime="2026-10-17T09:06:14.4273428+00:00" endTime="2026-10-17T09:06:14.4273780+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6b0ae67d-1a0c-4d7d-ab4f-f14a154be642" />
+    <UnitTestResult executionId="4c8cc9ef-eabf-4223-9fe3-e305a3841e77" testId="39071bb0-8606-e5ad-8622-2434a3179af6" testName="KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(mode: Selection, protocol: AnthropicMessages)" computerName="4cd0056ca8a8" duration="00:00:00.1919365" startTime="2026-10-17T09:06:14.2164658+00:00" endTime="2026-10-17T09:06:14.4180070+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4c8cc9ef-eabf-4223-9fe3-e305a3841e77" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(mode: Drop, protocol: OpenAIChat)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="9188008e-638c-ecd2-1d6a-bf754e992b35">
+      <Execution id="6b0ae67d-1a0c-4d7d-ab4f-f14a154be642" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.EnableModelDisclosureTests" name="ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(mode: Selection, protocol: OpenAIChat)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="ab4952fd-8126-fb58-aae3-97b21b52ec55">
+      <Execution id="a3bf5bcc-8db2-4d1f-8d2f-189f881955ad" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.EnableModelDisclosureTests" name="ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(mode: Selection, protocol: AnthropicMessages)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="39071bb0-8606-e5ad-8622-2434a3179af6">
+      <Execution id="4c8cc9ef-eabf-4223-9fe3-e305a3841e77" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.EnableModelDisclosureTests" name="ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.EnableModelDisclosureTests.ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation(mode: Drop, protocol: AnthropicMessages)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a5d61f25-4ee2-71ba-722f-a8979675ba93">
+      <Execution id="87937800-b5ef-4133-8ddc-7d5fb24a1f53" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.EnableModelDisclosureTests" name="ActualSavedProfileProducesFrozenModelAndCompleteEnableExplanation" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="a5d61f25-4ee2-71ba-722f-a8979675ba93" executionId="87937800-b5ef-4133-8ddc-7d5fb24a1f53" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ab4952fd-8126-fb58-aae3-97b21b52ec55" executionId="a3bf5bcc-8db2-4d1f-8d2f-189f881955ad" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9188008e-638c-ecd2-1d6a-bf754e992b35" executionId="6b0ae67d-1a0c-4d7d-ab4f-f14a154be642" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="39071bb0-8606-e5ad-8622-2434a3179af6" executionId="4c8cc9ef-eabf-4223-9fe3-e305a3841e77" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="4" executed="4" passed="4" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.09]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.37]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.40]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.64]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

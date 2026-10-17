@@ -1,0 +1,82 @@
+{
+  "RedGreenSameTestSourceAndCaseNames": true,
+  "r02ParentRuntimeFailures": 4,
+  "r04RuntimePassed": 4,
+  "TestDllSame": false,
+  "r01": "Fixture error4F, not product red",
+  "r03": "CS7036 compiler failure0executed/noTRX,not green",
+  "FrozenSource3Match": true,
+  "ConfirmEnableAndLaterMethodsByteUnchanged": true,
+  "ParentResultsByMultiset": {
+    "Core": {
+      "parent": 1672,
+      "final": 1688,
+      "missing": 0,
+      "added": 16,
+      "counters": {
+        "total": "1688",
+        "executed": "1688",
+        "passed": "1688",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "parentRaw": "docs/test-evidence/2026-10-17-integration-status-originals__r11-core-full.trx",
+      "newRaw": "artifacts/enable-model-disclosure/r06-core-full.trx"
+    },
+    "Provider": {
+      "parent": 2157,
+      "final": 2157,
+      "missing": 0,
+      "added": 0,
+      "counters": {
+        "total": "2157",
+        "executed": "2157",
+        "passed": "2157",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "parentRaw": "docs/test-evidence/2026-10-17-integration-status-originals__r12-provider-full.trx",
+      "newRaw": "artifacts/enable-model-disclosure/r07-provider-full.trx"
+    }
+  },
+  "ParentTracked": 3438,
+  "ExpectedChangedParent": {
+    "docs/progress.md": "dcc7df81efc435808801bdd8dbf623ba86ac5ca1f5e1b123d588b6f0b3406108",
+    "docs/traceability.json": "29322e7f079c0585f489a51d5e0e8f1b84592dc053dc16383f1c7d01c5903103",
+    "src/KuaiYi.App/ShellWindow.cs": "e101a68e6ac2a2a41393e2a06e6b992be2fc4cb3009131c8ff3109855af32db9",
+    "src/KuaiYi.Core/ShellLifecycle.cs": "1ab90f0b8cde35931b8d0e0f7628ac248217142d131071826518e02021d81f93"
+  },
+  "OtherParentPathsBytePreserved": true,
+  "PriorEvidencePreserved": 2574,
+  "ExistingTestFilesPreserved": 232,
+  "AllTraceImplementationValidationStatusesUnchanged": true,
+  "TraceEvidenceNoteOnly": [
+    "P1-05",
+    "L02"
+  ],
+  "FourFinalExecutionsAndBinariesMatch": true,
+  "Scope": "SPEC14.1 model disclosure; P7 source consumer inventory only, no installer transaction helper",
+  "WindowsWpfModelVisibilityKeyboardLayout": "NotRun"
+}

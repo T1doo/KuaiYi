@@ -87,7 +87,7 @@ internal sealed partial class ShellWindow:OleDropWindow
         if(lifecycle.Gate.Snapshot.Activation==Activation.On){lifecycle.Gate.Disable();StopPresentation();Refresh();return;}
         if(lifecycle.Settings is {} current&&translation?.CanUseSettings(current)==false){button.ToolTip="测试模式只允许启动时授权的无密钥本地服务，请恢复测试配置。";return;}
         if(!lifecycle.TryPrepareEnable(out var intent,out var missing)){button.ToolTip=missing;_=OpenSettings();return;}
-        bool consent=lifecycle.Gate.HasConsentTo(intent!.Origin)||MessageBox.Show(this,$"启用后，您主动提供的内容将发送到 {intent.Origin.Value}。\n当前触发模式：{(intent.Mode==TriggerMode.Selection?"选中文字":"拖放文字")}。\n是否允许本次会话使用此服务？","快译 · 数据发送说明",MessageBoxButton.OKCancel,MessageBoxImage.Information)==MessageBoxResult.OK;
+        bool consent=lifecycle.Gate.HasConsentTo(intent!.Origin)||MessageBox.Show(this,intent.ConfirmationText,"快译 · 数据发送说明",MessageBoxButton.OKCancel,MessageBoxImage.Information)==MessageBoxResult.OK;
         lifecycle.ConfirmEnable(intent!,consent);Refresh();
     }
     private void Refresh()

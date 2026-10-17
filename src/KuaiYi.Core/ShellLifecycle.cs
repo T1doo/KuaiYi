@@ -1,6 +1,11 @@
 using KuaiYi.Core.Settings;
 namespace KuaiYi.Core;
-public sealed record EnableIntent(string SettingsVersion,long Epoch,RequestProfileBinding Binding,EndpointOrigin Origin,TriggerMode Mode);
+public sealed record EnableIntent(string SettingsVersion,long Epoch,RequestProfileBinding Binding,EndpointOrigin Origin,TriggerMode Mode,string Model)
+{
+    // Keep the existing five-field construction contract; production preparation always supplies the model.
+    public EnableIntent(string SettingsVersion,long Epoch,RequestProfileBinding Binding,EndpointOrigin Origin,TriggerMode Mode):this(SettingsVersion,Epoch,Binding,Origin,Mode,""){}
+    public string ConfirmationText=>$"启用后，您主动提供的内容将发送到 {Origin.Value}。\n当前模型：{Model}\n当前触发模式：{(Mode==TriggerMode.Selection?"选中文字":"拖放文字")}。\n{(Mode==TriggerMode.Selection?"选中后将发送所选内容。":"投放后将发送投放的文字。")}\n是否允许本次会话使用此服务？";
+}
 /// <summary>Production shell orchestration. Startup and position saves never decrypt secrets, consent or start a model.</summary>
 public sealed class ShellLifecycle:IDisposable
 {
@@ -30,7 +35,7 @@ public sealed class ShellLifecycle:IDisposable
         EndpointOrigin origin;try{origin=new(uri);}catch(ArgumentException){missing="请填写有效服务地址";return false;}
         try{_=ApiProfilePolicy.Resolve(profile);ApiProfilePolicy.ValidateParameters(profile);}catch(SettingsValidationException error){missing="请检查API配置："+error.Field;return false;}
         if(!Gate.TryGetProfileBinding(profile.Id,out var binding)){missing="配置绑定尚未生效";return false;}
-        intent=new(s.Version,Gate.Snapshot.Epoch,binding,origin,s.Data.TriggerMode);missing="";return true;
+        intent=new(s.Version,Gate.Snapshot.Epoch,binding,origin,s.Data.TriggerMode,profile.Model);missing="";return true;
     }
     public bool ConfirmEnable(EnableIntent intent,bool confirmed)
     {

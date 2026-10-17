@@ -891,3 +891,12 @@ r01新测试xUnit2031编译0执行无TRX；r02候选3F→r03同三测试源码/�
 实际首版57P、补充61P、前候选68P；封存自检发现托管GetValue先分配再限长，改固定64KiB/3字符原始只读缓冲，11个原始值解码例补入，最终79P；新功能无父API，不冒称父红绿。完整Core1672P=父1593全部结果多重集+新79，Provider2157P原集合保持，App/Worker最终各0W/E。独立代码审查无P1/P2，建议两点收紧并补测/复审；仅源码与交叉构建不当作WPF/Windows registry/ACL证据。详见[实现和范围](validation/integration-status-page.md)及[精确原件](test-evidence/2026-10-17-integration-status-page.json)。P7-06仅改InProgress、validation仍NotRun，禁止侧载/截图/扩展安装和浏览器有效策略、可靠扩展缺失检测、Explorer/OCR与安装后的完整链路仍未验，其他状态保持。
 
 已有SDK激活前后显式禁ASP.NET证书生成，全部--no-restore、无新包/许可安装。旧图片间歇根因未知、生产复用Off，250/600ms/来源/密码/身份/完整性/取消/清理门保持；Skia4.153.1许可与403、Actions先前拒绝不查不绕。无main/强推/部署/费用/凭据/安全权限或真实模型，未知锁/数据/日志/进程保全。
+
+
+## 2026-10-17 · SPEC14.1：首次启用的模型说明
+
+父有限准入a876后核实际本地/远端、clean/单worktree/唯一root写入，正常建dev/enable-model-disclosure。先按父建议核P7脚本：仅开发身份pack/显式register及Installer=false的Alpha暂存，无安装升级事务消费入口；未执行安装、注册、签名或加孤立工具。按已有授权修此前定位的首次启用缺当前模型：同保存profile冻结Model，实际主按钮/托盘/快捷键共用确认框使用该意图的完整origin/模型/模式/内容发送说明；旧五参构造兼容，生产显式六参，ConfirmEnable/TryEnableShell原门及origin授权范围不改。
+
+r01新增夹具初始化顺序错4F保全、不当产品红；修夹具r02父生产原字节实际4F缺Model属性；r03旧Hotkey五参调用CS7036、0执行无TRX保全，旧测试不改；兼容后r04同测试源/四名4P，测试DLL不同不混称同二进制。最终16专项P，Core1688P=父1672结果多重集+16，Provider2157原集合，App/Worker各0W/E。独立源码审查无P1/P2，冻结/陈旧确认/拒绝/隐藏锁屏退出/同origin授权保留/换origin或HTTP/secretref不显示不解密/重启Off及256模型字符串均有便携实测；实际WPF可见/键盘/排版未验。详见[范围与红绿](validation/enable-model-disclosure.md)及[精确原件](test-evidence/2026-10-17-enable-model-disclosure.json)。P1-05/L02只追加证据/说明，所有追踪状态保持，P7未抬；前a876独审94后加回执1共95原件全部原字节保全。
+
+仅已有SDK/--no-restore，激活前后禁ASP.NET证书生成，无新包/许可/环境安装。旧图片间歇根因Unknown、生产复用Off及250/600ms/来源/密码/身份/完整性/取消/清理门保持。Windows/真实模型/完整验收NotRun，Skia/403/Actions拒绝不查不绕，无main/强推/部署/费用/凭据/安全权限，未知锁/数据/日志/进程保全。
