@@ -1,0 +1,3 @@
+Received from /root/high_water_review (read-only; no SDK/network/write), final source review:
+
+已核最终8项source binding逐字节一致；新增收紧正确，暂无P1/P2。MatchNamedList只支持唯一连续1..N无leading0，实际ReadList调用它，badname/duplicate/type经InvalidData→PolicyUnknown；测试6种坏名+无序合法/重复/错型，跨来源例外/补全各1已覆盖。SettingsIntegration await后snapshot-null把Published改Cancelled，关闭仍先挡UI；CancellationFailed仅真正新操作时reset，Source+callback+bridge真实settlement保owner不变。SecurityException与UnauthorizedAccess统一Unavailable/PermissionDenied。独立TRX核r04 68P；r05 1661P且父1593结果Counter完整保留、恰等于68专项新增。测试限制需如实：修正提示分支/readonly/WPF及真实Windows registry与实际文件权限拒读，当前仍源码/交叉构建而非实际桌面运行；不要把安全补强称已父红→绿(本功能新实现)。可完成Provider/构建并封存后终审。

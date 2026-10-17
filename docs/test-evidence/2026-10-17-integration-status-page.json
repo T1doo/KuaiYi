@@ -1,0 +1,977 @@
+{
+  "SourceParent": "b35a8d7cd3b6f07f80453395416ff0ca2cd27cc2",
+  "Branch": "dev/integration-status-page",
+  "Scope": "P7-06 normal Settings Images page, typed read-only local status and bounded refresh/cancel ownership. No installer/registration/permission changes. P7-06 InProgress; Windows/whole acceptance NotRun.",
+  "NewFunctionalityRedGreen": "New feature; no parent API and no fabricated red. Actual57P->61P->68P pre-bounded-registry candidate; after seal-time allocation finding, final79P/1672Core/2157Provider/AppWorker0W/E. All previous candidate originals retained.",
+  "Observed": {
+    "r01-focused": {
+      "total": "57",
+      "executed": "57",
+      "passed": "57",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r02-focused": {
+      "total": "61",
+      "executed": "61",
+      "passed": "61",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r04-focused": {
+      "total": "68",
+      "executed": "68",
+      "passed": "68",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r05-core-full": {
+      "total": "1661",
+      "executed": "1661",
+      "passed": "1661",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r06-provider-full": {
+      "total": "2157",
+      "executed": "2157",
+      "passed": "2157",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r03-app-build": {
+      "warnings": 0,
+      "errors": 0,
+      "build": "Pass",
+      "WindowsRuntime": "NotRun"
+    },
+    "r07-app-build": {
+      "warnings": 0,
+      "errors": 0,
+      "build": "Pass",
+      "WindowsRuntime": "NotRun"
+    },
+    "r08-worker-build": {
+      "warnings": 0,
+      "errors": 0,
+      "build": "Pass",
+      "WindowsRuntime": "NotRun"
+    },
+    "r10-focused": {
+      "total": "79",
+      "executed": "79",
+      "passed": "79",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r11-core-full": {
+      "total": "1672",
+      "executed": "1672",
+      "passed": "1672",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r12-provider-full": {
+      "total": "2157",
+      "executed": "2157",
+      "passed": "2157",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "r13-app-build": {
+      "warnings": 0,
+      "errors": 0,
+      "build": "Pass",
+      "WindowsRuntime": "NotRun"
+    },
+    "r14-worker-build": {
+      "warnings": 0,
+      "errors": 0,
+      "build": "Pass",
+      "WindowsRuntime": "NotRun"
+    }
+  },
+  "SourceBindings": {
+    "first": "r01-source-binding.json",
+    "second": "r02-source-binding.json",
+    "final": "final2-source-binding.json",
+    "priorCandidateFinal": "final-source-binding.json"
+  },
+  "FrozenSource": {
+    "src/KuaiYi.Core/Integration/IntegrationStatus.cs": "6ce3d4ed77e9f8f028f8f34728a5b503012a2129538e5e65373c92a007fc55d6",
+    "src/KuaiYi.Core/Integration/IntegrationStatusSession.cs": "29ec339ce06e9e2566930b37fb4f8abc33370a5911f60c2e4c90cd14610235a7",
+    "src/KuaiYi.NativeHost/IntegrationRegistry.cs": "75fe577ec36018e0302b3f182aa35c99310908d35d82995fb59fa7b0ad2d78f6",
+    "src/KuaiYi.NativeHost/IntegrationInstalledFiles.cs": "8f74cb683ad52f5368c6d98374ffeaee2e14132cb7b9d4a52f76d6be89bce819",
+    "src/KuaiYi.NativeHost/InstalledIntegrationStatusReader.cs": "4c3c4b17f6065309fdb4e89aa9935373810a905fbf150d5d133695edb218afc6",
+    "src/KuaiYi.App/SettingsIntegration.cs": "e1212d7b509ddcfce9a0c6a8bd6b56a77ce652ae6b72bb9ac79c2888f38811b5",
+    "src/KuaiYi.App/SettingsWindow.cs": "5ac9c042403dc58b653520b59840cd9b79a87be24639706aad36aea46791bdee",
+    "tests/KuaiYi.Core.Tests/IntegrationStatusTests.cs": "6d2d1420be66ba34d08b8b0217f6b687df2333f680069caeedea67d5125398f9",
+    "src/KuaiYi.NativeHost/IntegrationRegistryValue.cs": "a25f6f2c2b6ae7021aebd3c423166fcbec15aed79df85f37645153a911bd8693"
+  },
+  "RegressionAndPreservation": {
+    "FrozenSource2Matches": true,
+    "AllFourFinalExecutionsBoundToSource2": true,
+    "FinalBinaryHashesStillMatch": true,
+    "ParentResultsByMultiset": {
+      "Core": {
+        "parentResults": 1593,
+        "finalResults": 1672,
+        "missing": 0,
+        "added": 79,
+        "counters": {
+          "total": "1672",
+          "executed": "1672",
+          "passed": "1672",
+          "failed": "0",
+          "error": "0",
+          "timeout": "0",
+          "aborted": "0",
+          "inconclusive": "0",
+          "passedButRunAborted": "0",
+          "notRunnable": "0",
+          "notExecuted": "0",
+          "disconnected": "0",
+          "warning": "0",
+          "completed": "0",
+          "inProgress": "0",
+          "pending": "0"
+        },
+        "parentPath": "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r04-core-full.trx",
+        "finalPath": "artifacts/integration-status-page/r11-core-full.trx"
+      },
+      "Provider": {
+        "parentResults": 2157,
+        "finalResults": 2157,
+        "missing": 0,
+        "added": 0,
+        "counters": {
+          "total": "2157",
+          "executed": "2157",
+          "passed": "2157",
+          "failed": "0",
+          "error": "0",
+          "timeout": "0",
+          "aborted": "0",
+          "inconclusive": "0",
+          "passedButRunAborted": "0",
+          "notRunnable": "0",
+          "notExecuted": "0",
+          "disconnected": "0",
+          "warning": "0",
+          "completed": "0",
+          "inProgress": "0",
+          "pending": "0"
+        },
+        "parentPath": "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r05-provider-full.trx",
+        "finalPath": "artifacts/integration-status-page/r12-provider-full.trx"
+      }
+    },
+    "ParentTrackedCount": 3333,
+    "ChangedParentPaths": {
+      ".gitattributes": "7dddceab11c6c9dbc99e1901c40d64e65d42a158515e7871c01650b4ea1ae450",
+      "docs/progress.md": "e1ce1b51cc96fecc185fabbb37d3bed6f9066791ab155ebca192a65539a18e38",
+      "docs/traceability.json": "7a72613612a411e9bc24efef9da03725afd1c3f416a7709899fe2dd20152e77a",
+      "src/KuaiYi.App/SettingsWindow.cs": "5ac9c042403dc58b653520b59840cd9b79a87be24639706aad36aea46791bdee"
+    },
+    "DeletedParentPaths": [],
+    "AllOtherParentFilesByteUnchanged": true,
+    "PriorEvidenceCountPreserved": 2478,
+    "ExistingTestFilesPreserved": 231,
+    "TraceChangedOnly": "P7-06 implementation InProgress; validation NotRun; other items unchanged",
+    "Old63OriginalsRetained": true,
+    "NativeWindowsPInvokeWpfPermissions": "NotRun; decoder/source/crossbuild only",
+    "NoParentRedGreenClaim": true,
+    "SnapshotPhase": "After final execution, before appending newly sealed raw evidence attributes; final staged bytes audited separately."
+  },
+  "IndependentReview": "high_water_review final source2 and sealed evidence review passed with no P1/P2. Receipt r16-independent-final-audit.txt. Reviewed94raw/108staged; only new receipt + final summary/attributes added after independent review; no source/test/log/TRX change.",
+  "EvidenceBindingCorrection": "r06 runner incorrectly used net10.0-windows binary-root; retained execution original with empty binaries. Supplemental during-run binding records actual logged net10.0 path, verified unchanged afterward. No test rerun or original rewrite. Final r12 provider uses actual net10.0 root and has full non-empty execution binding.",
+  "Privacy": "Snapshot enums only; no text/path/extensionID/packagefullname/exceptionmessages. Manual refresh only, no default persistence/telemetry/upload, browser profiles not read.",
+  "Bounds": "2 metadata files <=65536 bytes each; fixed23 roles <=256MiB/file and <=1GiB total;64KiB cancellable blocks; four fixed registry sources/browser and three policy names; policy list <=64 entries <=256chars; one unsettled operation including cancellation callbacks/bridge. Raw registry value buffer fixed65536 bytes, numeric name buffer fixed3UTF16chars; native calls not executed on Linux; not a multi-key atomic snapshot.",
+  "NotRun": [
+    "WPF visibility/keyboard/readonly interaction and cancel completion prompt",
+    "Windows registry/ACL/file-permission denied and package identity runtime",
+    "Browser effective policies/cloud/profile/extension presence or absence",
+    "Sideload/screenshot/extension-install policy detection",
+    "Explorer menu and Worker/OCR runtime",
+    "Installed browser-to-normalShell image chain/wholeP7-K and fullSPEC",
+    "Real models; physical250/600ms measurements"
+  ],
+  "PreservedConstraints": "Old image intermittent root cause Unknown, production reuse Off;250/600/source/password/identity/integrity/cancel/cleanup gates unchanged. Skia4.153.1 license pending;403 and Actions denial not retried/bypassed. No main/force/deploy/cost/credential/security-permission changes or real model. Existing SDK only; all dotnet --no-restore and ASP.NET certificate generation false before/after activation. Unknown locks/data/logs/processes preserved.",
+  "OriginalCount": 95,
+  "OriginalBytes": 12240097,
+  "Originals": [
+    {
+      "artifact": "artifacts/integration-status-page/final-InstalledIntegrationStatusReader.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__final-InstalledIntegrationStatusReader.cs.txt",
+      "bytes": 5904,
+      "sha256": "4c3c4b17f6065309fdb4e89aa9935373810a905fbf150d5d133695edb218afc6"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/final-IntegrationInstalledFiles.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__final-IntegrationInstalledFiles.cs.txt",
+      "bytes": 7249,
+      "sha256": "8f74cb683ad52f5368c6d98374ffeaee2e14132cb7b9d4a52f76d6be89bce819"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/final-IntegrationRegistry.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__final-IntegrationRegistry.cs.txt",
+      "bytes": 6112,
+      "sha256": "353bd0930b1fcf61ec7d981fadc30aca1c4bfbd41cc1a0e727487f26622b4ae6"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/final-IntegrationStatus.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__final-IntegrationStatus.cs.txt",
+      "bytes": 4939,
+      "sha256": "6ce3d4ed77e9f8f028f8f34728a5b503012a2129538e5e65373c92a007fc55d6"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/final-IntegrationStatusSession.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__final-IntegrationStatusSession.cs.txt",
+      "bytes": 3080,
+      "sha256": "29ec339ce06e9e2566930b37fb4f8abc33370a5911f60c2e4c90cd14610235a7"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/final-IntegrationStatusTests.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__final-IntegrationStatusTests.cs.txt",
+      "bytes": 22957,
+      "sha256": "6a533878825d614cd6f8b67296d657287f6d8187570f2878ced90f72e28e741d"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/final-SettingsIntegration.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__final-SettingsIntegration.cs.txt",
+      "bytes": 3643,
+      "sha256": "e1212d7b509ddcfce9a0c6a8bd6b56a77ce652ae6b72bb9ac79c2888f38811b5"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/final-SettingsWindow.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__final-SettingsWindow.cs.txt",
+      "bytes": 22044,
+      "sha256": "5ac9c042403dc58b653520b59840cd9b79a87be24639706aad36aea46791bdee"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/final-source-binding.json",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__final-source-binding.json",
+      "bytes": 967,
+      "sha256": "14314166be7a930f39885fdc370984c75c9e98db122db4385240e04b2a9c387e"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/final2-InstalledIntegrationStatusReader.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__final2-InstalledIntegrationStatusReader.cs.txt",
+      "bytes": 5904,
+      "sha256": "4c3c4b17f6065309fdb4e89aa9935373810a905fbf150d5d133695edb218afc6"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/final2-IntegrationInstalledFiles.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__final2-IntegrationInstalledFiles.cs.txt",
+      "bytes": 7249,
+      "sha256": "8f74cb683ad52f5368c6d98374ffeaee2e14132cb7b9d4a52f76d6be89bce819"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/final2-IntegrationRegistry.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__final2-IntegrationRegistry.cs.txt",
+      "bytes": 5847,
+      "sha256": "75fe577ec36018e0302b3f182aa35c99310908d35d82995fb59fa7b0ad2d78f6"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/final2-IntegrationRegistryValue.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__final2-IntegrationRegistryValue.cs.txt",
+      "bytes": 2715,
+      "sha256": "a25f6f2c2b6ae7021aebd3c423166fcbec15aed79df85f37645153a911bd8693"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/final2-IntegrationStatus.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__final2-IntegrationStatus.cs.txt",
+      "bytes": 4939,
+      "sha256": "6ce3d4ed77e9f8f028f8f34728a5b503012a2129538e5e65373c92a007fc55d6"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/final2-IntegrationStatusSession.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__final2-IntegrationStatusSession.cs.txt",
+      "bytes": 3080,
+      "sha256": "29ec339ce06e9e2566930b37fb4f8abc33370a5911f60c2e4c90cd14610235a7"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/final2-IntegrationStatusTests.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__final2-IntegrationStatusTests.cs.txt",
+      "bytes": 24721,
+      "sha256": "6d2d1420be66ba34d08b8b0217f6b687df2333f680069caeedea67d5125398f9"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/final2-SettingsIntegration.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__final2-SettingsIntegration.cs.txt",
+      "bytes": 3643,
+      "sha256": "e1212d7b509ddcfce9a0c6a8bd6b56a77ce652ae6b72bb9ac79c2888f38811b5"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/final2-SettingsWindow.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__final2-SettingsWindow.cs.txt",
+      "bytes": 22044,
+      "sha256": "5ac9c042403dc58b653520b59840cd9b79a87be24639706aad36aea46791bdee"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/final2-source-binding.json",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__final2-source-binding.json",
+      "bytes": 1090,
+      "sha256": "de10de9be3a0398ad853f25baca382470db1709ba602870a8c7d5a5b9b7c9eca"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/parent-manifest.json",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__parent-manifest.json",
+      "bytes": 496064,
+      "sha256": "0752b3187f6687652e2feecbaf40a12c8e562f5921dc6a7aff248819f4e6ee0a"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/preflight.json",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__preflight.json",
+      "bytes": 680,
+      "sha256": "010b3ce09a9c026d52e8f8d9ce13df8d62ccb00cee9e79c1fb942b2f40ce0966"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r01-InstalledIntegrationStatusReader.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r01-InstalledIntegrationStatusReader.cs.txt",
+      "bytes": 5634,
+      "sha256": "147e2dd89542720f37dff9b9fced6ea6dfe1e603375be1030b6b8f3ab01325d0"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r01-IntegrationInstalledFiles.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r01-IntegrationInstalledFiles.cs.txt",
+      "bytes": 7190,
+      "sha256": "b06b324eaa65d2e275f6e852d56cccebecc2c4f77e7f164bc2cfc0196d1b3972"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r01-IntegrationRegistry.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r01-IntegrationRegistry.cs.txt",
+      "bytes": 5486,
+      "sha256": "4a5d3dad30d472bcb12e4d0f96c9d0cad5fb0282e86ac65e409a890f603b498a"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r01-IntegrationStatus.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r01-IntegrationStatus.cs.txt",
+      "bytes": 4939,
+      "sha256": "6ce3d4ed77e9f8f028f8f34728a5b503012a2129538e5e65373c92a007fc55d6"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r01-IntegrationStatusSession.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r01-IntegrationStatusSession.cs.txt",
+      "bytes": 3055,
+      "sha256": "2cc613776b8d208e26f8204c5601f892c2d768cb119fc9ad9dc0a565675ff332"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r01-IntegrationStatusTests.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r01-IntegrationStatusTests.cs.txt",
+      "bytes": 20243,
+      "sha256": "0a11881d61397d57d7de009065ea557e60c790c4deeccf7940baac9dafbe8908"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r01-SettingsIntegration.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r01-SettingsIntegration.cs.txt",
+      "bytes": 3329,
+      "sha256": "8c85a438193d467f436c4fef9d10a0fb86cbe6f031cc7c5dc7ea732ca10cb438"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r01-SettingsWindow.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r01-SettingsWindow.cs.txt",
+      "bytes": 22044,
+      "sha256": "5ac9c042403dc58b653520b59840cd9b79a87be24639706aad36aea46791bdee"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r01-command.sh",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r01-command.sh",
+      "bytes": 430,
+      "sha256": "3307cf54341247d9273161c8461a8c63a0239417e14cc39c127670b597c38181"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r01-executed-binding.json",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r01-executed-binding.json",
+      "bytes": 550,
+      "sha256": "9f6260c05f51bcb821fe542017721ae53de809582d3e15849ceaec5165890421"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r01-focused.log",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r01-focused.log",
+      "bytes": 2067,
+      "sha256": "7b89ad67e689ba3fb7c00bfb2cbadadc72361656ea85684b3453f941a63a6c72"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r01-focused.trx",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r01-focused.trx",
+      "bytes": 83424,
+      "sha256": "31a2edd9592a198e9dfad37629cd25a6099e9bced69b242ce356bd4a4931ba64"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r01-source-binding.json",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r01-source-binding.json",
+      "bytes": 967,
+      "sha256": "a2be5f8182ec63f9d65a3081e405e6bc749ce2a1e4f5206838cec8f7c1c1cf7f"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r02-InstalledIntegrationStatusReader.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r02-InstalledIntegrationStatusReader.cs.txt",
+      "bytes": 5904,
+      "sha256": "4c3c4b17f6065309fdb4e89aa9935373810a905fbf150d5d133695edb218afc6"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r02-IntegrationInstalledFiles.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r02-IntegrationInstalledFiles.cs.txt",
+      "bytes": 7190,
+      "sha256": "b06b324eaa65d2e275f6e852d56cccebecc2c4f77e7f164bc2cfc0196d1b3972"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r02-IntegrationRegistry.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r02-IntegrationRegistry.cs.txt",
+      "bytes": 5486,
+      "sha256": "4a5d3dad30d472bcb12e4d0f96c9d0cad5fb0282e86ac65e409a890f603b498a"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r02-IntegrationStatus.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r02-IntegrationStatus.cs.txt",
+      "bytes": 4939,
+      "sha256": "6ce3d4ed77e9f8f028f8f34728a5b503012a2129538e5e65373c92a007fc55d6"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r02-IntegrationStatusSession.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r02-IntegrationStatusSession.cs.txt",
+      "bytes": 3055,
+      "sha256": "2cc613776b8d208e26f8204c5601f892c2d768cb119fc9ad9dc0a565675ff332"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r02-IntegrationStatusTests.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r02-IntegrationStatusTests.cs.txt",
+      "bytes": 22049,
+      "sha256": "5959d183d3e1cfb05d66587d3a7521b81d9d7d67f8f127baf0274a613d049ed2"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r02-SettingsIntegration.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r02-SettingsIntegration.cs.txt",
+      "bytes": 3491,
+      "sha256": "b1c1356a61bd35b9b33bf1a15a515dd4d977c960264bfd1a14ff73dab1237e48"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r02-SettingsWindow.cs.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r02-SettingsWindow.cs.txt",
+      "bytes": 22044,
+      "sha256": "5ac9c042403dc58b653520b59840cd9b79a87be24639706aad36aea46791bdee"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r02-command.sh",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r02-command.sh",
+      "bytes": 430,
+      "sha256": "9dd11ab788c5ed60254f4dab6d408133ca81f46a8fa94d13f96431d4929582ba"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r02-executed-binding.json",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r02-executed-binding.json",
+      "bytes": 550,
+      "sha256": "926adf454a401b7c899ef076ca8a67a4dc038c7f9a3c73478c6d67c338208b9c"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r02-focused.log",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r02-focused.log",
+      "bytes": 2067,
+      "sha256": "d110144cd7e59114d3df7e9792c350609b4ee4139b1867e08e35695b532e6192"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r02-focused.trx",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r02-focused.trx",
+      "bytes": 89103,
+      "sha256": "93f83b73044232ffb66b8ae01a843834f9a932e93d496e80c6e982a968f2886b"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r02-source-binding.json",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r02-source-binding.json",
+      "bytes": 967,
+      "sha256": "d68724877bcf4861c19cc8c91056e7630872e38b57cda92ffb568a74ab5b000a"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r03-app-build.log",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r03-app-build.log",
+      "bytes": 888,
+      "sha256": "0a3b45f00c5f101521fb877412e255c61839f49d2a5bba69bb35c65af291aa0f"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r03-built-binding.json",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r03-built-binding.json",
+      "bytes": 428,
+      "sha256": "fbde4a73a3bb6ea7758940bb915bb7afb293e7fba19eb7c6ba85046606645007"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r03-command.sh",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r03-command.sh",
+      "bytes": 300,
+      "sha256": "daa20e3c0971bc123d50f7c31e354e4d4422f5fcafb4fa3dab9f1b9f51047fdb"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r03-source-binding.json",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r03-source-binding.json",
+      "bytes": 967,
+      "sha256": "d68724877bcf4861c19cc8c91056e7630872e38b57cda92ffb568a74ab5b000a"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r04-command.sh",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r04-command.sh",
+      "bytes": 430,
+      "sha256": "54af6dfcfd770046e9714d37568d94ad44065200aa55b93a4fb8774ba648f666"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r04-executed-binding.json",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r04-executed-binding.json",
+      "bytes": 550,
+      "sha256": "74779f4d1afec1a2432557e6b8631982ea41e63ac3561f29aebbb972f09e007b"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r04-focused.log",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r04-focused.log",
+      "bytes": 2067,
+      "sha256": "73485c4b87e6a8bf162a2a10d1a9170d7aaa9b468f6ff59167d5ee7c497cf53c"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r04-focused.trx",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r04-focused.trx",
+      "bytes": 98498,
+      "sha256": "d45f358afc1a628859233863c3467e91ec7fcb70aaa55bb5256d7aa4944acb8a"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r05-core-full-command.sh",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r05-core-full-command.sh",
+      "bytes": 335,
+      "sha256": "34bf65b245bbb51605f4f0f591dc5ca578540c74f6cc5857083afaae827ef72b"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r05-core-full-execution.json",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r05-core-full-execution.json",
+      "bytes": 2143,
+      "sha256": "3fc39c324c3c6d31126674e7ffa58e81cbe4b4160caa8407b6ca6d69de9ec551"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r05-core-full.log",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r05-core-full.log",
+      "bytes": 385,
+      "sha256": "9c6bfa82dd8021e3d78548acd4e0cb3d79dc71afdec4bd1e437756c3c7237a7a"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r05-core-full.trx",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r05-core-full.trx",
+      "bytes": 2310556,
+      "sha256": "6b20b4880733ee666d8b430234c5023306449291141ab321063f23be5a04b594"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r06-provider-during-run-binding.json",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r06-provider-during-run-binding.json",
+      "bytes": 1338,
+      "sha256": "b47bd91c124d75b794959a3733488145c8203a8ac9a0e63a231976a3085ed2c9"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r06-provider-full-command.sh",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r06-provider-full-command.sh",
+      "bytes": 336,
+      "sha256": "00f81d3298d72b4bbf832e511c6da9324037b44d136021c5c7fd80b926c657b9"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r06-provider-full-execution.json",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r06-provider-full-execution.json",
+      "bytes": 1149,
+      "sha256": "7097751aa3e3271b1590ab4e943777e5c48540118a5291b2cf76359c7ce82118"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r06-provider-full.log",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r06-provider-full.log",
+      "bytes": 1136,
+      "sha256": "f2a67764411e141a803e1017d9b577a39b72c8ca554cc1f76cf8be70bfab1e07"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r06-provider-full.trx",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r06-provider-full.trx",
+      "bytes": 3181158,
+      "sha256": "800d733533138ed9f7f68e0bd829d5f37377f57e3bd48cca480d4acfe79bb7c8"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r07-app-build-command.sh",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r07-app-build-command.sh",
+      "bytes": 241,
+      "sha256": "16aebd3e50c80009688106d49d3397c5d587df711522f13434d56888febeb8a1"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r07-app-build-execution.json",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r07-app-build-execution.json",
+      "bytes": 2315,
+      "sha256": "1a4afa802617c14a97d7a37e37ebe32deb488781bfa928a04de349aa40aa874b"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r07-app-build.log",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r07-app-build.log",
+      "bytes": 888,
+      "sha256": "32364c0e204e6976c587b73794d5ebee01565d4a6cbb40a1e0532928418b5207"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r08-worker-build-command.sh",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r08-worker-build-command.sh",
+      "bytes": 257,
+      "sha256": "7ebd378cfa528da5b48b8c76d2299564a199f3211dbb0908e4d87ea5d570ea40"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r08-worker-build-execution.json",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r08-worker-build-execution.json",
+      "bytes": 1734,
+      "sha256": "2c2a0f414c0f4653e7f03b88f9d4768ffe7e1fd35783c65f5aac68b8f7650e1e"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r08-worker-build.log",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r08-worker-build.log",
+      "bytes": 477,
+      "sha256": "49ba7b70ab9c742d0c99b27ee8fcb15c0b6451faa64526cf1eb2a017fef08623"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r09-independent-source-review.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r09-independent-source-review.txt",
+      "bytes": 1029,
+      "sha256": "1b0afb95f00cfcf6a60fc378c9b80a77ebeaaa04366c8215f988a5101ad61b45"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r09-validation.json",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r09-validation.json",
+      "bytes": 2614,
+      "sha256": "efe2f74b11da2546a910351ab6edc12551e51c80fc6a5917bb5dba69a1c70dff"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r10-command.sh",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r10-command.sh",
+      "bytes": 430,
+      "sha256": "8a2a459a1a9c9cfecb68aba67875b5db1f21b8372ddc1510adb1b96573fc582c"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r10-executed-binding.json",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r10-executed-binding.json",
+      "bytes": 550,
+      "sha256": "762359541ba2bd38f9635bcedc500beec78a040ed9d15b9a91e4ff52fb1b84e4"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r10-focused.log",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r10-focused.log",
+      "bytes": 2067,
+      "sha256": "42827eb6b5505de884c461f705e7567c9a13d929c82805cbacc0803ce1007a22"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r10-focused.trx",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r10-focused.trx",
+      "bytes": 113828,
+      "sha256": "54445604dccd789ce5e3c63f2833a5dc8655b99d7f06bf98d8ddbc47a27e2869"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r11-core-full-command.sh",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r11-core-full-command.sh",
+      "bytes": 335,
+      "sha256": "54340e8f249a3946e22c9a5b0837a4a0ae9e096b2e88b4eaaa84e62a9963718f"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r11-core-full-execution.json",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r11-core-full-execution.json",
+      "bytes": 2268,
+      "sha256": "7ae5350c70c5a7ef18a069d3f7de3661a4203bdf0b7cfed3860a485ee440f334"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r11-core-full.log",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r11-core-full.log",
+      "bytes": 385,
+      "sha256": "be474a1010547bbf435b323af2ed1873bdd4eb573d467d3de181bda5c7aa513c"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r11-core-full.trx",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r11-core-full.trx",
+      "bytes": 2325886,
+      "sha256": "f96040ffb96f74e094c08787bc7080613b0363298133d4e6b3589fa93f207366"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r12-provider-full-command.sh",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r12-provider-full-command.sh",
+      "bytes": 336,
+      "sha256": "c821dc85b8bc184943f2959aeb275c1e96b5e9cf2343aa4acc1ac2831b2198a3"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r12-provider-full-execution.json",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r12-provider-full-execution.json",
+      "bytes": 2287,
+      "sha256": "01d574c6c60dad527ad3a168ff7b2e32cb3e65894cd2f0b6f86936223b3ea053"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r12-provider-full.log",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r12-provider-full.log",
+      "bytes": 1136,
+      "sha256": "e8e97d41c7db01d43cc4ac95f8af5ab584b238bd0e3d69f13a94bc01db855f00"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r12-provider-full.trx",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r12-provider-full.trx",
+      "bytes": 3181158,
+      "sha256": "b183e46bb6885694af1293ccf2f33ebcefff96783832f63e05cc28d65847f887"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r13-app-build-command.sh",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r13-app-build-command.sh",
+      "bytes": 241,
+      "sha256": "16aebd3e50c80009688106d49d3397c5d587df711522f13434d56888febeb8a1"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r13-app-build-execution.json",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r13-app-build-execution.json",
+      "bytes": 2440,
+      "sha256": "58b61fcc274810bdd54a3071521bcf1003c22e33be2dd29a9dd8c01091bd933d"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r13-app-build.log",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r13-app-build.log",
+      "bytes": 888,
+      "sha256": "7c244834203a4fe892d967a19ffcbd19acd4d30b26c734430b468bfc04faac2b"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r14-worker-build-command.sh",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r14-worker-build-command.sh",
+      "bytes": 257,
+      "sha256": "7ebd378cfa528da5b48b8c76d2299564a199f3211dbb0908e4d87ea5d570ea40"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r14-worker-build-execution.json",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r14-worker-build-execution.json",
+      "bytes": 1859,
+      "sha256": "e6b0c9391422e138fae61841e47962f57bb9995a4435f1b4e798642c3fcc915f"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r14-worker-build.log",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r14-worker-build.log",
+      "bytes": 477,
+      "sha256": "0699f7cd9660a6479cffb096f5225b97d70497f0cadebd135b7d8cdd3211f46b"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r15-independent-source-review.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r15-independent-source-review.txt",
+      "bytes": 1005,
+      "sha256": "d832cc5bd9de53ea87219ed55cc756e619768711c2a8550f5808768fb216a6d4"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r15-validation.json",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r15-validation.json",
+      "bytes": 2641,
+      "sha256": "e3e1ba48467649d0bcee85c307c10d9e72e3624e1fe8266db13a994c22fc716a"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/run-final-regression.py",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__run-final-regression.py",
+      "bytes": 2129,
+      "sha256": "41c78a83af64be0a588110c19cb8c6a96682d8d7f34e487529ca3d712a305169"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/run-regression.py",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__run-regression.py",
+      "bytes": 2136,
+      "sha256": "946c15f75f1fb6dfbaf69514bd9166f651fa5456bbd7c7de6b9713ff53957c0a"
+    },
+    {
+      "artifact": "artifacts/integration-status-page/r16-independent-final-audit.txt",
+      "path": "docs/test-evidence/2026-10-17-integration-status-originals__r16-independent-final-audit.txt",
+      "bytes": 1635,
+      "sha256": "624347669fc0ef6f46fcc698802539c533f6d2ad297258c93f4037b8b3fc79f2"
+    }
+  ],
+  "FinalEvidenceAudit": {
+    "IndependentResult": "Pass; no P1/P2",
+    "IndependentReviewedOriginals": 94,
+    "IndependentReviewedBytes": 12238462,
+    "IndependentReviewedStagedPaths": 108,
+    "Receipt": "docs/test-evidence/2026-10-17-integration-status-originals__r16-independent-final-audit.txt",
+    "UnchangedParentDigest": "cbbe9dff0b8cad86ad5128c42475bb6dce7de036bdae91c505cff6f895acccdb",
+    "FinalRootSealOriginals": 95,
+    "FinalRootSealBytes": 12240097,
+    "FinalRootSealStagedPaths": 109,
+    "FinalRootArtifactWorktreeIndexBytesShaMatch": true,
+    "FinalFrozenSource9StillMatch": true,
+    "GitDiffChecks": 0,
+    "NoUntestedSourceChanges": true
+  },
+  "FinalExecutions": {
+    "r11-core-full": {
+      "startUtc": "2026-10-17T08:55:33.360440+00:00",
+      "endUtc": "2026-10-17T08:56:06.292845+00:00",
+      "exitCode": 0,
+      "source": {
+        "src/KuaiYi.Core/Integration/IntegrationStatus.cs": "6ce3d4ed77e9f8f028f8f34728a5b503012a2129538e5e65373c92a007fc55d6",
+        "src/KuaiYi.Core/Integration/IntegrationStatusSession.cs": "29ec339ce06e9e2566930b37fb4f8abc33370a5911f60c2e4c90cd14610235a7",
+        "src/KuaiYi.NativeHost/IntegrationRegistry.cs": "75fe577ec36018e0302b3f182aa35c99310908d35d82995fb59fa7b0ad2d78f6",
+        "src/KuaiYi.NativeHost/IntegrationInstalledFiles.cs": "8f74cb683ad52f5368c6d98374ffeaee2e14132cb7b9d4a52f76d6be89bce819",
+        "src/KuaiYi.NativeHost/InstalledIntegrationStatusReader.cs": "4c3c4b17f6065309fdb4e89aa9935373810a905fbf150d5d133695edb218afc6",
+        "src/KuaiYi.App/SettingsIntegration.cs": "e1212d7b509ddcfce9a0c6a8bd6b56a77ce652ae6b72bb9ac79c2888f38811b5",
+        "src/KuaiYi.App/SettingsWindow.cs": "5ac9c042403dc58b653520b59840cd9b79a87be24639706aad36aea46791bdee",
+        "tests/KuaiYi.Core.Tests/IntegrationStatusTests.cs": "6d2d1420be66ba34d08b8b0217f6b687df2333f680069caeedea67d5125398f9",
+        "src/KuaiYi.NativeHost/IntegrationRegistryValue.cs": "a25f6f2c2b6ae7021aebd3c423166fcbec15aed79df85f37645153a911bd8693"
+      },
+      "executedOrBuiltBinaries": {
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll": "645599f831ec92f502ffa74265e6c5f95a495934a3cad2a7965bc198fed6be41",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll": "b33b8ae9b4d5a4f936406ea0f5a49868e2ede37e54c7caf0920efc991b4b2a98",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "7602e251a95c0991f8b1f830dfc4b189418ac25294cba9ec0af0af526753a7fd",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "0c22074312ca2b7a13187916bd86e5beb95dada6c96c428a2badbe60d7ab865b",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "cfe676ee56a4f0a9d81021abb8e16588e4b1733c84c59b479cb9ae4dae69c4e6",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "78d9603ac825875d94ff73ad313344ee9041002f1832399a2f0ee71c72737a29",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.OleTransfer.dll": "26bee19a5904f25f166a287a2f6d9b033cce5701b5dec16553be6840acc97ac3"
+      }
+    },
+    "r12-provider-full": {
+      "startUtc": "2026-10-17T08:56:06.295822+00:00",
+      "endUtc": "2026-10-17T08:56:20.329376+00:00",
+      "exitCode": 0,
+      "source": {
+        "src/KuaiYi.Core/Integration/IntegrationStatus.cs": "6ce3d4ed77e9f8f028f8f34728a5b503012a2129538e5e65373c92a007fc55d6",
+        "src/KuaiYi.Core/Integration/IntegrationStatusSession.cs": "29ec339ce06e9e2566930b37fb4f8abc33370a5911f60c2e4c90cd14610235a7",
+        "src/KuaiYi.NativeHost/IntegrationRegistry.cs": "75fe577ec36018e0302b3f182aa35c99310908d35d82995fb59fa7b0ad2d78f6",
+        "src/KuaiYi.NativeHost/IntegrationInstalledFiles.cs": "8f74cb683ad52f5368c6d98374ffeaee2e14132cb7b9d4a52f76d6be89bce819",
+        "src/KuaiYi.NativeHost/InstalledIntegrationStatusReader.cs": "4c3c4b17f6065309fdb4e89aa9935373810a905fbf150d5d133695edb218afc6",
+        "src/KuaiYi.App/SettingsIntegration.cs": "e1212d7b509ddcfce9a0c6a8bd6b56a77ce652ae6b72bb9ac79c2888f38811b5",
+        "src/KuaiYi.App/SettingsWindow.cs": "5ac9c042403dc58b653520b59840cd9b79a87be24639706aad36aea46791bdee",
+        "tests/KuaiYi.Core.Tests/IntegrationStatusTests.cs": "6d2d1420be66ba34d08b8b0217f6b687df2333f680069caeedea67d5125398f9",
+        "src/KuaiYi.NativeHost/IntegrationRegistryValue.cs": "a25f6f2c2b6ae7021aebd3c423166fcbec15aed79df85f37645153a911bd8693"
+      },
+      "executedOrBuiltBinaries": {
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.ImageWorker.dll": "196e4d96e4918c5ac0cd637ed9e9be0e2f29ec7f7d5f6280dccb976021b94a3a",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll": "b33b8ae9b4d5a4f936406ea0f5a49868e2ede37e54c7caf0920efc991b4b2a98",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "7602e251a95c0991f8b1f830dfc4b189418ac25294cba9ec0af0af526753a7fd",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": "4fceb3523b2eff4e73ffab969c7071aa603d6eacdbd8f3ce2abeedfcc37f3b57",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "cfe676ee56a4f0a9d81021abb8e16588e4b1733c84c59b479cb9ae4dae69c4e6",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.MockProvider.dll": "d0b67ec2eb8f3e9ef4b165bd773b36b54dac544d8d13c916edff67d7de9f788b",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": "54768758ad3361bdcbae3613b6b7772cf331709569bace10e0346741f15ffe9a"
+      }
+    },
+    "r13-app-build": {
+      "startUtc": "2026-10-17T08:56:20.332611+00:00",
+      "endUtc": "2026-10-17T08:56:22.028057+00:00",
+      "exitCode": 0,
+      "source": {
+        "src/KuaiYi.Core/Integration/IntegrationStatus.cs": "6ce3d4ed77e9f8f028f8f34728a5b503012a2129538e5e65373c92a007fc55d6",
+        "src/KuaiYi.Core/Integration/IntegrationStatusSession.cs": "29ec339ce06e9e2566930b37fb4f8abc33370a5911f60c2e4c90cd14610235a7",
+        "src/KuaiYi.NativeHost/IntegrationRegistry.cs": "75fe577ec36018e0302b3f182aa35c99310908d35d82995fb59fa7b0ad2d78f6",
+        "src/KuaiYi.NativeHost/IntegrationInstalledFiles.cs": "8f74cb683ad52f5368c6d98374ffeaee2e14132cb7b9d4a52f76d6be89bce819",
+        "src/KuaiYi.NativeHost/InstalledIntegrationStatusReader.cs": "4c3c4b17f6065309fdb4e89aa9935373810a905fbf150d5d133695edb218afc6",
+        "src/KuaiYi.App/SettingsIntegration.cs": "e1212d7b509ddcfce9a0c6a8bd6b56a77ce652ae6b72bb9ac79c2888f38811b5",
+        "src/KuaiYi.App/SettingsWindow.cs": "5ac9c042403dc58b653520b59840cd9b79a87be24639706aad36aea46791bdee",
+        "tests/KuaiYi.Core.Tests/IntegrationStatusTests.cs": "6d2d1420be66ba34d08b8b0217f6b687df2333f680069caeedea67d5125398f9",
+        "src/KuaiYi.NativeHost/IntegrationRegistryValue.cs": "a25f6f2c2b6ae7021aebd3c423166fcbec15aed79df85f37645153a911bd8693"
+      },
+      "executedOrBuiltBinaries": {
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Windows.dll": "d8fc46b7d037bf969a3e7d376bc6ecf0594ba5f5485cbb0cf746b8e95a611ea2",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.NativeHost.dll": "645599f831ec92f502ffa74265e6c5f95a495934a3cad2a7965bc198fed6be41",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Contracts.dll": "b33b8ae9b4d5a4f936406ea0f5a49868e2ede37e54c7caf0920efc991b4b2a98",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Core.dll": "7602e251a95c0991f8b1f830dfc4b189418ac25294cba9ec0af0af526753a7fd",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Imaging.dll": "cfe676ee56a4f0a9d81021abb8e16588e4b1733c84c59b479cb9ae4dae69c4e6",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Providers.dll": "54768758ad3361bdcbae3613b6b7772cf331709569bace10e0346741f15ffe9a",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.OleTransfer.dll": "26bee19a5904f25f166a287a2f6d9b033cce5701b5dec16553be6840acc97ac3",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.App.dll": "19d7292b1042587aa692783d0413e5192e5c8475116a464c7d7c9686e3325d19"
+      }
+    },
+    "r14-worker-build": {
+      "startUtc": "2026-10-17T08:56:22.029772+00:00",
+      "endUtc": "2026-10-17T08:56:23.040691+00:00",
+      "exitCode": 0,
+      "source": {
+        "src/KuaiYi.Core/Integration/IntegrationStatus.cs": "6ce3d4ed77e9f8f028f8f34728a5b503012a2129538e5e65373c92a007fc55d6",
+        "src/KuaiYi.Core/Integration/IntegrationStatusSession.cs": "29ec339ce06e9e2566930b37fb4f8abc33370a5911f60c2e4c90cd14610235a7",
+        "src/KuaiYi.NativeHost/IntegrationRegistry.cs": "75fe577ec36018e0302b3f182aa35c99310908d35d82995fb59fa7b0ad2d78f6",
+        "src/KuaiYi.NativeHost/IntegrationInstalledFiles.cs": "8f74cb683ad52f5368c6d98374ffeaee2e14132cb7b9d4a52f76d6be89bce819",
+        "src/KuaiYi.NativeHost/InstalledIntegrationStatusReader.cs": "4c3c4b17f6065309fdb4e89aa9935373810a905fbf150d5d133695edb218afc6",
+        "src/KuaiYi.App/SettingsIntegration.cs": "e1212d7b509ddcfce9a0c6a8bd6b56a77ce652ae6b72bb9ac79c2888f38811b5",
+        "src/KuaiYi.App/SettingsWindow.cs": "5ac9c042403dc58b653520b59840cd9b79a87be24639706aad36aea46791bdee",
+        "tests/KuaiYi.Core.Tests/IntegrationStatusTests.cs": "6d2d1420be66ba34d08b8b0217f6b687df2333f680069caeedea67d5125398f9",
+        "src/KuaiYi.NativeHost/IntegrationRegistryValue.cs": "a25f6f2c2b6ae7021aebd3c423166fcbec15aed79df85f37645153a911bd8693"
+      },
+      "executedOrBuiltBinaries": {
+        "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll": "196e4d96e4918c5ac0cd637ed9e9be0e2f29ec7f7d5f6280dccb976021b94a3a",
+        "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Contracts.dll": "b33b8ae9b4d5a4f936406ea0f5a49868e2ede37e54c7caf0920efc991b4b2a98",
+        "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Core.dll": "7602e251a95c0991f8b1f830dfc4b189418ac25294cba9ec0af0af526753a7fd",
+        "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Imaging.dll": "cfe676ee56a4f0a9d81021abb8e16588e4b1733c84c59b479cb9ae4dae69c4e6"
+      }
+    }
+  }
+}

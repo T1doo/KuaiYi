@@ -1297,9 +1297,13 @@
         "完成集成状态页和权限/策略受限说明",
         "无扩展、无宿主、禁止侧载等错误路径"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/validation/integration-status-page.md",
+        "docs/test-evidence/2026-10-17-integration-status-page.json"
+      ],
+      "note": "Settings Images now has manual read-only typed integration status/refresh/cancel. Current-process identity and separate Chrome/Edge current-user host registration, fixed installation manifest/receipt/23-file hashes and supported local policy subset observed. Missing/invalid/denied-read/explicit local policy/unsupported platform remain distinct; extensions/Explorer/OCR remain NotChecked absent reliable evidence. No registry or permission writes, component execution, profile reads or installed/ready claim from files alone.79portable focused/1672Core/2157Provider passed,AppWorker0W/E; WPF/Windows registry/ACL/effective policies/extension absence and installed end-to-end/wholeP7-K remainNotRun."
     },
     {
       "id": "P8-01",

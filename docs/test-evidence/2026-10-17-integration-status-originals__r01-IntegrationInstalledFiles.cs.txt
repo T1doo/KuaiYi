@@ -1,0 +1,79 @@
+using System.Security.Cryptography;
+using System.Text.Json;
+using KuaiYi.Core.Integration;
+namespace KuaiYi.NativeHost;
+
+/// <summary>Read-only observation, never an installation or authorization receipt issuer.</summary>
+public static class IntegrationInstalledFiles
+{
+    public const int MetadataLimit=65536;
+    public const long RoleFileLimit=256L*1024*1024,TotalRoleLimit=1024L*1024*1024;
+    public static async Task<(IntegrationState State,IntegrationReason Reason)> ReadAsync(string directory,CancellationToken cancellation)
+    {
+        IntegrationReason phase=IntegrationReason.InvalidManifest;
+        try
+        {
+            byte[] bytes;
+            try{bytes=await Metadata(Path.Combine(directory,"com.kuaiyi.native_host.json"),cancellation).ConfigureAwait(false);}
+            catch(Exception e)when(e is FileNotFoundException or DirectoryNotFoundException){return(IntegrationState.NotInstalled,IntegrationReason.ManifestMissing);}
+            using var manifest=JsonDocument.Parse(bytes,new JsonDocumentOptions{MaxDepth=8});var m=manifest.RootElement;
+            Fields(m,"name","description","path","type","allowed_origins");
+            if(m.GetProperty("name").GetString()!=InstalledHostPolicy.HostName||m.GetProperty("type").GetString()!="stdio"||m.GetProperty("description").ValueKind!=JsonValueKind.String||
+                m.GetProperty("path").GetString() is not{} host||!SamePath(host,Path.Combine(directory,"KuaiYi.NativeHost.exe")))throw new InvalidDataException();
+            var origins=m.GetProperty("allowed_origins");
+            if(origins.ValueKind!=JsonValueKind.Array||origins.GetArrayLength() is <1 or >2)throw new InvalidDataException();
+            var seen=new HashSet<string>(StringComparer.Ordinal);
+            foreach(var value in origins.EnumerateArray())if(value.ValueKind!=JsonValueKind.String||value.GetString() is not{} origin||!InstalledHostPolicy.IsOrigin(origin)||!seen.Add(origin))throw new InvalidDataException();
+            phase=IntegrationReason.InvalidReceipt;
+            try{bytes=await Metadata(Path.Combine(directory,"native-host-trust.json"),cancellation).ConfigureAwait(false);}
+            catch(Exception e)when(e is FileNotFoundException or DirectoryNotFoundException){return(IntegrationState.NotInstalled,IntegrationReason.ReceiptMissing);}
+            using var receipt=JsonDocument.Parse(bytes,new JsonDocumentOptions{MaxDepth=8});var r=receipt.RootElement;
+            Fields(r,"schemaVersion","files");if(!r.GetProperty("schemaVersion").TryGetInt32(out int schema)||schema!=1)throw new InvalidDataException();
+            var hashes=new Dictionary<string,string>(StringComparer.Ordinal);var files=r.GetProperty("files");
+            if(files.ValueKind!=JsonValueKind.Object)throw new InvalidDataException();
+            foreach(var file in files.EnumerateObject())if(!InstalledRoleFiles.Required.Contains(file.Name,StringComparer.Ordinal)||file.Value.ValueKind!=JsonValueKind.String||file.Value.GetString() is not {Length:64} hash||!hash.All(char.IsAsciiHexDigit)||!hashes.TryAdd(file.Name,hash))throw new InvalidDataException();
+            if(hashes.Count!=InstalledRoleFiles.Required.Count)throw new InvalidDataException();
+            phase=IntegrationReason.FileIntegrity;long total=0;
+            foreach(var file in hashes)
+            {
+                cancellation.ThrowIfCancellationRequested();string path=Path.Combine(directory,file.Key);ValidateLocal(path);
+                await using var input=new FileStream(path,FileMode.Open,FileAccess.Read,FileShare.Read,65536,FileOptions.Asynchronous|FileOptions.SequentialScan);
+                long size=input.Length;if(size<0||size>RoleFileLimit||size>TotalRoleLimit-total)throw new InvalidDataException();total+=size;
+                using var digest=IncrementalHash.CreateHash(HashAlgorithmName.SHA256);byte[] buffer=new byte[65536];long read=0;int count;
+                while((count=await input.ReadAsync(buffer,cancellation).ConfigureAwait(false))!=0)
+                {read+=count;if(read>size)throw new InvalidDataException();digest.AppendData(buffer,0,count);}
+                if(read!=size||!string.Equals(Convert.ToHexString(digest.GetHashAndReset()),file.Value,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException();
+                ValidateLocal(path);
+            }
+            cancellation.ThrowIfCancellationRequested();return(IntegrationState.Configured,IntegrationReason.LocalConfigurationOnly);
+        }
+        catch(OperationCanceledException)when(cancellation.IsCancellationRequested){throw;}
+        catch(UnauthorizedAccessException){return(IntegrationState.Unavailable,IntegrationReason.PermissionDenied);}
+        catch(Exception e)when(e is JsonException or InvalidOperationException or KeyNotFoundException or ArgumentException or NotSupportedException or InvalidDataException){return(IntegrationState.Incompatible,phase);}
+        catch(Exception e)when(e is FileNotFoundException or DirectoryNotFoundException){return(IntegrationState.Incompatible,IntegrationReason.FileIntegrity);}
+        catch(IOException){return(IntegrationState.Unavailable,IntegrationReason.ReadFailed);}
+    }
+    public static bool SamePath(string candidate,string expected)
+    {
+        try{return Path.IsPathFullyQualified(candidate)&&!candidate.StartsWith("\\\\",StringComparison.Ordinal)&&!candidate.StartsWith("//",StringComparison.Ordinal)&&string.Equals(Path.GetFullPath(candidate),Path.GetFullPath(expected),OperatingSystem.IsWindows()?StringComparison.OrdinalIgnoreCase:StringComparison.Ordinal);}
+        catch(Exception e)when(e is ArgumentException or NotSupportedException or IOException){return false;}
+    }
+    private static void Fields(JsonElement element,params string[] fields)
+    {
+        if(element.ValueKind!=JsonValueKind.Object)throw new InvalidDataException();var seen=new HashSet<string>(StringComparer.Ordinal);
+        foreach(var property in element.EnumerateObject())if(!fields.Contains(property.Name,StringComparer.Ordinal)||!seen.Add(property.Name))throw new InvalidDataException();
+        if(seen.Count!=fields.Length)throw new InvalidDataException();
+    }
+    private static async Task<byte[]> Metadata(string path,CancellationToken cancellation)
+    {
+        cancellation.ThrowIfCancellationRequested();ValidateLocal(path);
+        await using var input=new FileStream(path,FileMode.Open,FileAccess.Read,FileShare.Read,4096,FileOptions.Asynchronous);
+        if(input.Length is <=0 or >MetadataLimit)throw new InvalidDataException();byte[] bytes=new byte[(int)input.Length];
+        await input.ReadExactlyAsync(bytes,cancellation).ConfigureAwait(false);if(input.ReadByte()!=-1)throw new InvalidDataException();ValidateLocal(path);return bytes;
+    }
+    private static void ValidateLocal(string path)
+    {
+        if(!Path.IsPathFullyQualified(path)||path.StartsWith("\\\\",StringComparison.Ordinal)||path.StartsWith("//",StringComparison.Ordinal))throw new InvalidDataException();
+        for(string? current=Path.GetFullPath(path);current!=null;current=Path.GetDirectoryName(current))if((File.GetAttributes(current)&FileAttributes.ReparsePoint)!=0)throw new InvalidDataException();
+    }
+}

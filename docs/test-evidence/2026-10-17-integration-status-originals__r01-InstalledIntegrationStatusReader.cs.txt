@@ -1,0 +1,55 @@
+using System.Collections.Immutable;
+using KuaiYi.Core.Integration;
+using KuaiYi.Imaging;
+namespace KuaiYi.NativeHost;
+
+public sealed class InstalledIntegrationStatusReader(string directory,IIntegrationRegistry registry,Func<IdentityDiagnostic> identity,bool windows)
+{
+    public static InstalledIntegrationStatusReader Current()=>new(AppContext.BaseDirectory,new WindowsIntegrationRegistry(),()=>PackageIdentity.Read("KuaiYi"),OperatingSystem.IsWindows());
+    public async Task<IntegrationSnapshot> ReadAsync(CancellationToken cancellation)
+    {
+        cancellation.ThrowIfCancellationRequested();if(!windows)return IntegrationSnapshot.Unsupported;
+        var rows=ImmutableArray.CreateBuilder<IntegrationRow>(7);rows.Add(Identity(identity()));
+        (IntegrationState State,IntegrationReason Reason)? installed=null;
+        foreach(var browser in Enum.GetValues<IntegrationBrowser>())
+        {
+            cancellation.ThrowIfCancellationRequested();var component=browser==IntegrationBrowser.Chrome?IntegrationComponent.ChromeHost:IntegrationComponent.EdgeHost;
+            var local=ObserveRegistration(registry.Read(browser,cancellation),directory);
+            if(local.State==IntegrationState.Configured)
+            {installed??=await IntegrationInstalledFiles.ReadAsync(directory,cancellation).ConfigureAwait(false);local=installed.Value;}
+            rows.Add(new(component,local.State,local.Reason));
+        }
+        foreach(var component in new[]{IntegrationComponent.ChromeExtension,IntegrationComponent.EdgeExtension})rows.Add(new(component,IntegrationState.NotChecked,IntegrationReason.ExtensionNotInspected));
+        foreach(var component in new[]{IntegrationComponent.ExplorerMenu,IntegrationComponent.ImageWorkerOcr})rows.Add(new(component,IntegrationState.NotChecked,IntegrationReason.WindowsAcceptanceNotRun));
+        cancellation.ThrowIfCancellationRequested();return new(rows.MoveToImmutable());
+    }
+    public static IntegrationRow Identity(IdentityDiagnostic value)=>new(IntegrationComponent.DesktopIdentity,
+        value.Failure switch{ImageFailure.UnsupportedPlatform=>IntegrationState.UnsupportedPlatform,ImageFailure.IdentityMissing=>IntegrationState.NotInstalled,ImageFailure.IdentityMismatch=>IntegrationState.Incompatible,ImageFailure.None when value.Windows&&value.Present=>IntegrationState.Configured,_=>IntegrationState.Unavailable},
+        value.Failure switch{ImageFailure.UnsupportedPlatform=>IntegrationReason.Platform,ImageFailure.IdentityMissing=>IntegrationReason.IdentityMissing,ImageFailure.IdentityMismatch=>IntegrationReason.IdentityMismatch,ImageFailure.None when value.Windows&&value.Present=>IntegrationReason.LocalConfigurationOnly,_=>IntegrationReason.ReadFailed});
+
+    public static (IntegrationState State,IntegrationReason Reason) ObserveRegistration(ImmutableArray<IntegrationRegistryLocation> rows,string directory)
+    {
+        if(rows.IsDefault||rows.Length!=4||rows.Select(r=>r.Source).Distinct().Count()!=4||rows.Any(r=>!Enum.IsDefined(r.Source)))return(IntegrationState.Unavailable,IntegrationReason.EvidenceConflict);
+        if(rows.Any(r=>r.Registration.State==IntegrationValueState.PermissionDenied||r.Policy.State==IntegrationValueState.PermissionDenied))return(IntegrationState.Unavailable,IntegrationReason.PermissionDenied);
+        if(rows.Any(r=>r.Registration.State==IntegrationValueState.Failed||r.Policy.State==IntegrationValueState.Failed))return(IntegrationState.Unavailable,IntegrationReason.ReadFailed);
+        if(rows.Any(r=>r.Registration.State==IntegrationValueState.Invalid))return(IntegrationState.Incompatible,IntegrationReason.RegistrationMismatch);
+        if(rows.Any(r=>r.Policy.State==IntegrationValueState.Invalid))return(IntegrationState.NotChecked,IntegrationReason.PolicyUnknown);
+        string expected=Path.Combine(directory,"com.kuaiyi.native_host.json");
+        var registrations=rows.Where(r=>r.Registration.State==IntegrationValueState.Present).ToArray();
+        if(registrations.Any(r=>r.Registration.Path==null||!IntegrationInstalledFiles.SamePath(r.Registration.Path,expected)))
+            return(registrations.Length>1?IntegrationState.Unavailable:IntegrationState.Incompatible,registrations.Length>1?IntegrationReason.EvidenceConflict:IntegrationReason.RegistrationMismatch);
+        if(!registrations.Any(r=>r.Source is IntegrationRegistrySource.User32 or IntegrationRegistrySource.User64))return(IntegrationState.NotInstalled,IntegrationReason.RegistrationMissing);
+        var policies=rows.Select(r=>r.Policy).Where(p=>p.State==IntegrationValueState.Present).ToArray();
+        var users=policies.Where(p=>p.UserHostsAllowed.HasValue).Select(p=>p.UserHostsAllowed!.Value).Distinct().ToArray();
+        var blocks=policies.Where(p=>p.HostBlocked.HasValue).Select(p=>p.HostBlocked!.Value).Distinct().ToArray();
+        var allows=policies.Where(p=>p.HostAllowed.HasValue).Select(p=>p.HostAllowed!.Value).Distinct().ToArray();
+        if(users.Length>1||blocks.Length>1||allows.Length>1)return(IntegrationState.NotChecked,IntegrationReason.EvidenceConflict);
+        if(blocks is [true]&&allows is not [true])return(IntegrationState.PolicyDenied,IntegrationReason.LocalPolicyBlocked);
+        if(users is [false])
+        {
+            if(registrations.Any(r=>r.Source is IntegrationRegistrySource.Machine32 or IntegrationRegistrySource.Machine64))return(IntegrationState.NotChecked,IntegrationReason.PolicyUnknown);
+            return(IntegrationState.PolicyDenied,IntegrationReason.UserHostsDisabled);
+        }
+        return(IntegrationState.Configured,IntegrationReason.LocalConfigurationOnly);
+    }
+}

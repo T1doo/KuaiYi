@@ -1,0 +1,77 @@
+{
+  "ParentResultsPreservedByCounter": {
+    "Core": {
+      "parentResults": 1593,
+      "finalResults": 1661,
+      "missingResults": [],
+      "addedResults": 68,
+      "counters": {
+        "total": "1661",
+        "executed": "1661",
+        "passed": "1661",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "parentPath": "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r04-core-full.trx",
+      "finalPath": "artifacts/integration-status-page/r05-core-full.trx"
+    },
+    "Provider": {
+      "parentResults": 2157,
+      "finalResults": 2157,
+      "missingResults": [],
+      "addedResults": 0,
+      "counters": {
+        "total": "2157",
+        "executed": "2157",
+        "passed": "2157",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "parentPath": "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r05-provider-full.trx",
+      "finalPath": "artifacts/integration-status-page/r06-provider-full.trx"
+    }
+  },
+  "ParentTrackedCount": 3333,
+  "ChangedParentPaths": {
+    "docs/progress.md": "b050018cfd1662e7b78363d6e56226832052ebea2449971684a726933e3e99ed",
+    "docs/traceability.json": "a35cca821cde5e35b3dcdef1b3e40012d24c2acfdb97af2584be42feee54d90a",
+    "src/KuaiYi.App/SettingsWindow.cs": "5ac9c042403dc58b653520b59840cd9b79a87be24639706aad36aea46791bdee"
+  },
+  "MissingParentPaths": [],
+  "AllOtherParentPathsUnchanged": true,
+  "Scope": "Only P7-06 status/evidence/note changed; all other trace items byte-equivalent after JSON parsing",
+  "FrozenSourceMatches": true,
+  "ProviderBinaryBindingSupplement": "During-run actual net10.0 path hashes confirmed unchanged after run; original runner incorrectly used net10.0-windows and execution.json intentionally retains empty binding",
+  "ProviderSupplementMatchesCurrent": true,
+  "PreservedGroups": {
+    "existing_tests": 231,
+    "prior_evidence": 2478,
+    "projects": 30,
+    "locks": 43,
+    "workflows": 8,
+    "prompts": 8
+  },
+  "main": "51d077481cf6303602fcf5d2718213da9cf05178"
+}

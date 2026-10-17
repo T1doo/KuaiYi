@@ -1,0 +1,75 @@
+{
+  "FrozenSource2Matches": true,
+  "AllFourFinalExecutionsBoundToSource2": true,
+  "FinalBinaryHashesStillMatch": true,
+  "ParentResultsByMultiset": {
+    "Core": {
+      "parentResults": 1593,
+      "finalResults": 1672,
+      "missing": 0,
+      "added": 79,
+      "counters": {
+        "total": "1672",
+        "executed": "1672",
+        "passed": "1672",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "parentPath": "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r04-core-full.trx",
+      "finalPath": "artifacts/integration-status-page/r11-core-full.trx"
+    },
+    "Provider": {
+      "parentResults": 2157,
+      "finalResults": 2157,
+      "missing": 0,
+      "added": 0,
+      "counters": {
+        "total": "2157",
+        "executed": "2157",
+        "passed": "2157",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "parentPath": "docs/test-evidence/2026-10-17-selection-soft-budget-originals__r05-provider-full.trx",
+      "finalPath": "artifacts/integration-status-page/r12-provider-full.trx"
+    }
+  },
+  "ParentTrackedCount": 3333,
+  "ChangedParentPaths": {
+    ".gitattributes": "7dddceab11c6c9dbc99e1901c40d64e65d42a158515e7871c01650b4ea1ae450",
+    "docs/progress.md": "e1ce1b51cc96fecc185fabbb37d3bed6f9066791ab155ebca192a65539a18e38",
+    "docs/traceability.json": "7a72613612a411e9bc24efef9da03725afd1c3f416a7709899fe2dd20152e77a",
+    "src/KuaiYi.App/SettingsWindow.cs": "5ac9c042403dc58b653520b59840cd9b79a87be24639706aad36aea46791bdee"
+  },
+  "DeletedParentPaths": [],
+  "AllOtherParentFilesByteUnchanged": true,
+  "PriorEvidenceCountPreserved": 2478,
+  "ExistingTestFilesPreserved": 231,
+  "TraceChangedOnly": "P7-06 implementation InProgress; validation NotRun; other items unchanged",
+  "Old63OriginalsRetained": true,
+  "NativeWindowsPInvokeWpfPermissions": "NotRun; decoder/source/crossbuild only",
+  "NoParentRedGreenClaim": true,
+  "SnapshotPhase": "After final execution, before appending newly sealed raw evidence attributes; final staged bytes audited separately."
+}

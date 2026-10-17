@@ -882,3 +882,12 @@ r01新测试xUnit2031编译0执行无TRX；r02候选3F→r03同三测试源码/�
 生产只Client两处>250→>=250，文本SoftTimeout/copy沿用ProtocolFailure，600ms及来源/密码/完整性/身份/取消/清理均不变。r02同六测试与fixture字节6P；红绿测试/fixture/Core等DLL完全相同，仅NativeHost DLL变。独立只读代码审查通过；最终Core1593P（父1587全结果+6）、Provider2157P原集合、App/Worker各0W/E。实际stdout帧/owned进程、coordinator与替代copy issue计数明确，不称真实UIA/Windows剪贴板/Ctrl+C或250/600ms实机验收。
 
 见[边界报告](validation/selection-soft-budget-boundary.md)、[红绿与回归原件](test-evidence/2026-10-17-selection-soft-budget-boundary.json)。旧测试/证据/诊断/图片/usage/版本/项目/锁/workflow/prompt保全，所有整体状态不抬；P1-06仍InProgress。P7文件事务及首次启用模型说明只读线索暂不实施。Skia许可/源码403、Actions拒绝不查不绕，图片复用Off/旧间歇根因未知与Windows/WPF/模型未验保持，无新增工具/外围探针/包/许可/权限/凭据/费用/main/强推/部署/环境诊断，未知数据锁日志进程保留。
+
+
+## 2026-10-17 · P7-06：设置中的真实本地集成状态
+
+父独审接受 b35a8d7 后核实际 HEAD/默认远端/main、clean、单 worktree 和唯一 root 写入，正常建 dev/integration-status-page。设置“图片与集成”新增手动只读状态/刷新/取消，未知配置只读时仍可检测；编辑/保存不放开。七行明确区分未检测、未安装、不兼容、明确本地策略拒绝、平台不支持与无法核实。当前进程身份实读，Chrome/Edge 注册独立；不读个人资料、不因清单/程序集存在宣称扩展、Explorer/OCR 或图像链路已安装/可用。只核固定安装根的两个≤64KiB JSON 与 23 个角色摘要，单文件256MiB/合计1GiB/分块取消；不加载或执行文件。不同策略来源不拼接优先级或例外，不支持的类型/列表名称保持未知，权限异常不冒充策略禁止。单读任务一直保留到读/CancelAsync callback/bridge结算，取消和关闭拒绝迟到；真实UI提示仍需Windows实测。
+
+实际首版57P、补充61P、前候选68P；封存自检发现托管GetValue先分配再限长，改固定64KiB/3字符原始只读缓冲，11个原始值解码例补入，最终79P；新功能无父API，不冒称父红绿。完整Core1672P=父1593全部结果多重集+新79，Provider2157P原集合保持，App/Worker最终各0W/E。独立代码审查无P1/P2，建议两点收紧并补测/复审；仅源码与交叉构建不当作WPF/Windows registry/ACL证据。详见[实现和范围](validation/integration-status-page.md)及[精确原件](test-evidence/2026-10-17-integration-status-page.json)。P7-06仅改InProgress、validation仍NotRun，禁止侧载/截图/扩展安装和浏览器有效策略、可靠扩展缺失检测、Explorer/OCR与安装后的完整链路仍未验，其他状态保持。
+
+已有SDK激活前后显式禁ASP.NET证书生成，全部--no-restore、无新包/许可安装。旧图片间歇根因未知、生产复用Off，250/600ms/来源/密码/身份/完整性/取消/清理门保持；Skia4.153.1许可与403、Actions先前拒绝不查不绕。无main/强推/部署/费用/凭据/安全权限或真实模型，未知锁/数据/日志/进程保全。

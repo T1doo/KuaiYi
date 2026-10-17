@@ -1,0 +1,184 @@
+using System.Collections.Immutable;
+using System.Security.Cryptography;
+using System.Text.Json;
+using KuaiYi.Core.Integration;
+using KuaiYi.Imaging;
+using KuaiYi.NativeHost;
+using Xunit;
+namespace KuaiYi.Core.Tests;
+
+public sealed class IntegrationStatusTests
+{
+    private static ImmutableArray<IntegrationRegistryLocation> Registry(string directory,bool registered=true)=>Enum.GetValues<IntegrationRegistrySource>().Select(s=>new IntegrationRegistryLocation(s,new(registered&&s==IntegrationRegistrySource.User32?IntegrationValueState.Present:IntegrationValueState.Missing,registered&&s==IntegrationRegistrySource.User32?Path.Combine(directory,"com.kuaiyi.native_host.json"):null),new(IntegrationValueState.Missing))).ToImmutableArray();
+    private sealed class RegistryPort(Func<IntegrationBrowser,ImmutableArray<IntegrationRegistryLocation>> read):IIntegrationRegistry
+    {public int Reads;public ImmutableArray<IntegrationRegistryLocation> Read(IntegrationBrowser browser,CancellationToken ct){ct.ThrowIfCancellationRequested();Reads++;return read(browser);}}
+    private sealed class Installation:IDisposable
+    {
+        public readonly string DirectoryPath=Path.Combine(Path.GetTempPath(),"KuaiYi.IntegrationFixture."+Guid.NewGuid().ToString("N"));
+        public string Manifest=>Path.Combine(DirectoryPath,"com.kuaiyi.native_host.json");public string Receipt=>Path.Combine(DirectoryPath,"native-host-trust.json");
+        public readonly Dictionary<string,string> Hashes=new();
+        public Installation()
+        {
+            Directory.CreateDirectory(DirectoryPath);
+            foreach(string name in InstalledRoleFiles.Required){byte[] value=System.Text.Encoding.UTF8.GetBytes("public synthetic role "+name);File.WriteAllBytes(Path.Combine(DirectoryPath,name),value);Hashes.Add(name,Convert.ToHexString(SHA256.HashData(value)));}
+            File.WriteAllText(Manifest,JsonSerializer.Serialize(new{name=InstalledHostPolicy.HostName,description="public fixture",path=Path.Combine(DirectoryPath,"KuaiYi.NativeHost.exe"),type="stdio",allowed_origins=new[]{"chrome-extension://"+new string('a',32)+"/"}}));
+            SaveReceipt();
+        }
+        public void SaveReceipt(int schema=1)=>File.WriteAllText(Receipt,JsonSerializer.Serialize(new{schemaVersion=schema,files=Hashes}));
+        public void Dispose()=>Directory.Delete(DirectoryPath,true);
+    }
+    private static IdentityDiagnostic Identity()=>new(true,true,"not displayed","not displayed",ImageFailure.None);
+    [Fact]public async Task ActualOwnFilesAndSeparateBrowserEvidenceCannotProveExtensionOrRuntime()
+    {
+        using var installation=new Installation();var registry=new RegistryPort(b=>Registry(installation.DirectoryPath,b==IntegrationBrowser.Chrome));
+        var report=await new InstalledIntegrationStatusReader(installation.DirectoryPath,registry,Identity,true).ReadAsync(default);
+        Assert.Equal(7,report.Rows.Length);Assert.Equal(2,registry.Reads);
+        Assert.Equal(IntegrationState.Configured,report.Rows.Single(r=>r.Component==IntegrationComponent.ChromeHost).State);
+        Assert.Equal(IntegrationState.NotInstalled,report.Rows.Single(r=>r.Component==IntegrationComponent.EdgeHost).State);
+        Assert.All(report.Rows.Where(r=>r.Component is IntegrationComponent.ChromeExtension or IntegrationComponent.EdgeExtension or IntegrationComponent.ExplorerMenu or IntegrationComponent.ImageWorkerOcr),r=>Assert.Equal(IntegrationState.NotChecked,r.State));
+        string serialized=JsonSerializer.Serialize(report);Assert.DoesNotContain(installation.DirectoryPath,serialized);Assert.DoesNotContain("not displayed",serialized);Assert.DoesNotContain(new string('a',32),serialized);
+    }
+    [Fact]public async Task NonWindowsDoesNotReadRegistryFilesOrIdentity()
+    {
+        var registry=new RegistryPort(_=>throw new InvalidOperationException());
+        var report=await new InstalledIntegrationStatusReader("never accessed",registry,()=>throw new InvalidOperationException(),false).ReadAsync(default);
+        Assert.Equal(0,registry.Reads);Assert.All(report.Rows,r=>Assert.Equal(IntegrationState.UnsupportedPlatform,r.State));
+        if(!OperatingSystem.IsWindows())Assert.Equal(report,await InstalledIntegrationStatusReader.Current().ReadAsync(default));
+    }
+    [Theory][InlineData(ImageFailure.None,true,true,IntegrationState.Configured)][InlineData(ImageFailure.None,true,false,IntegrationState.Unavailable)][InlineData(ImageFailure.IdentityMissing,true,false,IntegrationState.NotInstalled)][InlineData(ImageFailure.IdentityMismatch,true,true,IntegrationState.Incompatible)][InlineData(ImageFailure.UnsupportedPlatform,false,false,IntegrationState.UnsupportedPlatform)][InlineData(ImageFailure.NativeFailure,true,false,IntegrationState.Unavailable)]
+    public void IdentityUsesActualResultNotNames(ImageFailure failure,bool windows,bool present,IntegrationState expected)=>Assert.Equal(expected,InstalledIntegrationStatusReader.Identity(new(windows,present,"KuaiYi.Development_fake","KuaiYi.Development_fake!KuaiYi",failure)).State);
+    [Theory][InlineData("missing",IntegrationState.NotInstalled,IntegrationReason.RegistrationMissing)][InlineData("different",IntegrationState.Incompatible,IntegrationReason.RegistrationMismatch)][InlineData("conflict",IntegrationState.Unavailable,IntegrationReason.EvidenceConflict)][InlineData("permission",IntegrationState.Unavailable,IntegrationReason.PermissionDenied)][InlineData("io",IntegrationState.Unavailable,IntegrationReason.ReadFailed)][InlineData("invalid",IntegrationState.Incompatible,IntegrationReason.RegistrationMismatch)][InlineData("duplicate-source",IntegrationState.Unavailable,IntegrationReason.EvidenceConflict)][InlineData("machine-only",IntegrationState.NotInstalled,IntegrationReason.RegistrationMissing)][InlineData("policy-invalid",IntegrationState.NotChecked,IntegrationReason.PolicyUnknown)][InlineData("policy-permission",IntegrationState.Unavailable,IntegrationReason.PermissionDenied)]
+    public void ReadFailuresMissingAndConflictsRemainDistinct(string fault,IntegrationState state,IntegrationReason reason)
+    {
+        string directory=Path.GetFullPath("public-installation");var rows=Registry(directory,fault!="missing"&&fault!="machine-only");
+        rows=fault switch
+        {
+            "different"=>rows.SetItem(0,rows[0] with{Registration=new(IntegrationValueState.Present,"\\\\unvisited-server\\share\\manifest.json")}),
+            "conflict"=>rows.SetItem(1,rows[1] with{Registration=new(IntegrationValueState.Present,Path.Combine(directory,"other.json"))}),
+            "permission"=>rows.SetItem(1,rows[1] with{Registration=new(IntegrationValueState.PermissionDenied)}),
+            "io"=>rows.SetItem(3,rows[3] with{Registration=new(IntegrationValueState.Failed)}),
+            "invalid"=>rows.SetItem(0,rows[0] with{Registration=new(IntegrationValueState.Invalid)}),
+            "duplicate-source"=>rows.SetItem(1,rows[0]),
+            "machine-only"=>rows.SetItem(2,rows[2] with{Registration=new(IntegrationValueState.Present,Path.Combine(directory,"com.kuaiyi.native_host.json"))}),
+            "policy-invalid"=>rows.SetItem(2,rows[2] with{Policy=new(IntegrationValueState.Invalid)}),
+            "policy-permission"=>rows.SetItem(3,rows[3] with{Policy=new(IntegrationValueState.PermissionDenied)}),_=>rows
+        };
+        Assert.Equal((state,reason),InstalledIntegrationStatusReader.ObserveRegistration(rows,directory));
+    }
+    [Theory][InlineData("block",IntegrationState.PolicyDenied,IntegrationReason.LocalPolicyBlocked)][InlineData("block-exemption",IntegrationState.Configured,IntegrationReason.LocalConfigurationOnly)][InlineData("user-disabled",IntegrationState.PolicyDenied,IntegrationReason.UserHostsDisabled)][InlineData("user-disabled-machine",IntegrationState.NotChecked,IntegrationReason.PolicyUnknown)][InlineData("conflict",IntegrationState.NotChecked,IntegrationReason.EvidenceConflict)][InlineData("cross-source-exemption",IntegrationState.NotChecked,IntegrationReason.EvidenceConflict)][InlineData("cross-source-complement",IntegrationState.NotChecked,IntegrationReason.EvidenceConflict)][InlineData("permission",IntegrationState.Unavailable,IntegrationReason.PermissionDenied)]
+    public void PolicyDeniedRequiresExplicitUnambiguousPolicy(string fault,IntegrationState state,IntegrationReason reason)
+    {
+        string directory=Path.GetFullPath("public-installation");var rows=Registry(directory);
+        rows=rows.SetItem(0,rows[0] with{Policy=fault switch{"block"=>new(IntegrationValueState.Present,HostBlocked:true),"block-exemption"=>new(IntegrationValueState.Present,HostBlocked:true,HostAllowed:true),"permission"=>new(IntegrationValueState.PermissionDenied),_=>new(IntegrationValueState.Present,UserHostsAllowed:false)}});
+        if(fault=="conflict")rows=rows.SetItem(2,rows[2] with{Policy=new(IntegrationValueState.Present,UserHostsAllowed:true)});
+        if(fault is "cross-source-exemption" or "cross-source-complement")
+        {rows=rows.SetItem(0,rows[0] with{Policy=new(IntegrationValueState.Present,HostBlocked:true)});rows=rows.SetItem(2,rows[2] with{Policy=fault=="cross-source-exemption"?new(IntegrationValueState.Present,HostAllowed:true):new(IntegrationValueState.Present,UserHostsAllowed:true)});}
+        if(fault=="user-disabled-machine")rows=rows.SetItem(2,rows[2] with{Registration=rows[0].Registration});
+        Assert.Equal((state,reason),InstalledIntegrationStatusReader.ObserveRegistration(rows,directory));
+    }
+    [Theory][InlineData("*",true,true)][InlineData(InstalledHostPolicy.HostName,false,true)][InlineData("com.other.host",true,false)]
+    public void OnlySupportedPolicyHostPatternsAreMatched(string value,bool wildcard,bool expected)=>Assert.Equal(expected,WindowsIntegrationRegistry.MatchList([value],wildcard));
+    [Theory][InlineData("allow-wildcard")][InlineData("wrong-type")][InlineData("too-many")][InlineData("too-long")][InlineData("invalid-pattern")]
+    public void MalformedOrUnboundedPolicyNeverBecomesPermission(string fault)
+    {
+        object?[] values=fault switch{"allow-wildcard"=>["*"],"wrong-type"=>[1],"too-many"=>Enumerable.Repeat<object?>("com.other.host",65).ToArray(),"too-long"=>[new string('a',257)],_=>["com.*"]};
+        Assert.Throws<InvalidDataException>(()=>WindowsIntegrationRegistry.MatchList(values,fault!="allow-wildcard"));
+    }
+    [Theory][InlineData("")][InlineData("0")][InlineData("01")][InlineData("2")][InlineData("host")][InlineData("+1")]
+    public void UnsupportedPolicyValueNamesRemainUnknown(string name)=>Assert.Throws<InvalidDataException>(()=>WindowsIntegrationRegistry.MatchNamedList([new(name,InstalledHostPolicy.HostName)],false));
+    [Fact]public void NamedPolicyListRequiresUniqueContiguousNumbersAndCorrectTypes()
+    {
+        Assert.True(WindowsIntegrationRegistry.MatchNamedList([new("2",InstalledHostPolicy.HostName),new("1","com.other.host")],false));
+        Assert.False(WindowsIntegrationRegistry.MatchNamedList([],true));
+        Assert.Throws<InvalidDataException>(()=>WindowsIntegrationRegistry.MatchNamedList([new("1",InstalledHostPolicy.HostName),new("1","com.other.host")],false));
+        Assert.Throws<InvalidDataException>(()=>WindowsIntegrationRegistry.MatchNamedList([new("1",1)],false));
+    }
+    [Theory][InlineData("manifest-missing",IntegrationState.NotInstalled,IntegrationReason.ManifestMissing)][InlineData("receipt-missing",IntegrationState.NotInstalled,IntegrationReason.ReceiptMissing)][InlineData("manifest-unknown",IntegrationState.Incompatible,IntegrationReason.InvalidManifest)][InlineData("manifest-duplicate",IntegrationState.Incompatible,IntegrationReason.InvalidManifest)][InlineData("manifest-origin",IntegrationState.Incompatible,IntegrationReason.InvalidManifest)][InlineData("manifest-type",IntegrationState.Incompatible,IntegrationReason.InvalidManifest)][InlineData("manifest-path",IntegrationState.Incompatible,IntegrationReason.InvalidManifest)][InlineData("manifest-large",IntegrationState.Incompatible,IntegrationReason.InvalidManifest)][InlineData("receipt-schema",IntegrationState.Incompatible,IntegrationReason.InvalidReceipt)][InlineData("receipt-type",IntegrationState.Incompatible,IntegrationReason.InvalidReceipt)][InlineData("receipt-duplicate",IntegrationState.Incompatible,IntegrationReason.InvalidReceipt)][InlineData("receipt-unknown",IntegrationState.Incompatible,IntegrationReason.InvalidReceipt)][InlineData("receipt-missing-role",IntegrationState.Incompatible,IntegrationReason.InvalidReceipt)][InlineData("receipt-bad-hash",IntegrationState.Incompatible,IntegrationReason.InvalidReceipt)][InlineData("role-missing",IntegrationState.Incompatible,IntegrationReason.FileIntegrity)][InlineData("role-changed",IntegrationState.Incompatible,IntegrationReason.FileIntegrity)][InlineData("role-large",IntegrationState.Incompatible,IntegrationReason.FileIntegrity)]
+    public async Task FixedOwnFilesAreStrictBoundedAndDoNotRunCode(string fault,IntegrationState state,IntegrationReason reason)
+    {
+        using var installation=new Installation();string manifest=File.ReadAllText(installation.Manifest),receipt=File.ReadAllText(installation.Receipt);
+        switch(fault)
+        {
+            case "manifest-missing":File.Delete(installation.Manifest);break;
+            case "receipt-missing":File.Delete(installation.Receipt);break;
+            case "manifest-unknown":File.WriteAllText(installation.Manifest,manifest[..^1]+",\"unknown\":1}");break;
+            case "manifest-duplicate":File.WriteAllText(installation.Manifest,manifest[..^1]+",\"na\\u006de\":\"com.kuaiyi.native_host\"}");break;
+            case "manifest-origin":File.WriteAllText(installation.Manifest,manifest.Replace(new string('a',32),"*"));break;
+            case "manifest-type":File.WriteAllText(installation.Manifest,manifest.Replace("\"stdio\"","1"));break;
+            case "manifest-path":File.WriteAllText(installation.Manifest,manifest.Replace("KuaiYi.NativeHost.exe","Other.exe"));break;
+            case "manifest-large":File.WriteAllText(installation.Manifest,new string(' ',65537));break;
+            case "receipt-schema":installation.SaveReceipt(2);break;
+            case "receipt-type":File.WriteAllText(installation.Receipt,receipt.Replace("\"schemaVersion\":1","\"schemaVersion\":\"1\""));break;
+            case "receipt-duplicate":File.WriteAllText(installation.Receipt,receipt[..^1]+",\"schemaVersion\":1}");break;
+            case "receipt-unknown":installation.Hashes.Add("../Other.exe",new string('0',64));installation.SaveReceipt();break;
+            case "receipt-missing-role":installation.Hashes.Remove("KuaiYi.App.dll");installation.SaveReceipt();break;
+            case "receipt-bad-hash":installation.Hashes["KuaiYi.App.dll"]="invalid";installation.SaveReceipt();break;
+            case "role-missing":File.Delete(Path.Combine(installation.DirectoryPath,"KuaiYi.App.dll"));break;
+            case "role-changed":File.WriteAllText(Path.Combine(installation.DirectoryPath,"KuaiYi.App.dll"),"synthetic modification");break;
+            case "role-large":using(var file=File.OpenWrite(Path.Combine(installation.DirectoryPath,"KuaiYi.App.dll")))file.SetLength(IntegrationInstalledFiles.RoleFileLimit+1);break;
+        }
+        Assert.Equal((state,reason),await IntegrationInstalledFiles.ReadAsync(installation.DirectoryPath,default));
+    }
+    [Fact]public async Task OwnSymbolicLinkIsRejectedWithoutDeletingItsTarget()
+    {
+        if(OperatingSystem.IsWindows())return;using var installation=new Installation();string target=Path.Combine(installation.DirectoryPath,"own-synthetic-target");File.WriteAllText(target,"preserve synthetic target");string role=Path.Combine(installation.DirectoryPath,"KuaiYi.App.dll");File.Delete(role);File.CreateSymbolicLink(role,target);
+        Assert.Equal((IntegrationState.Incompatible,IntegrationReason.FileIntegrity),await IntegrationInstalledFiles.ReadAsync(installation.DirectoryPath,default));Assert.Equal("preserve synthetic target",File.ReadAllText(target));
+    }
+    [Fact]public async Task CancelledOwnFileReadCannotBeReportedConfigured()
+    {
+        using var installation=new Installation();using var cancellation=new CancellationTokenSource();cancellation.Cancel();
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(()=>IntegrationInstalledFiles.ReadAsync(installation.DirectoryPath,cancellation.Token));
+    }
+    [Fact]public async Task MissingOwnInstallationDirectoryIsMissingManifestNotPermissionOrIntegrityFailure()
+    {
+        string directory=Path.Combine(Path.GetTempPath(),"KuaiYi.MissingIntegrationFixture."+Guid.NewGuid().ToString("N"));
+        Assert.Equal((IntegrationState.NotInstalled,IntegrationReason.ManifestMissing),await IntegrationInstalledFiles.ReadAsync(directory,default));
+    }
+    [Fact]public async Task MismatchingRegistryTargetIsNeverOpened()
+    {
+        using var installation=new Installation();var registry=new RegistryPort(_=>Registry(installation.DirectoryPath).SetItem(0,new(IntegrationRegistrySource.User32,new(IntegrationValueState.Present,"\\\\unvisited-server\\share\\manifest.json"),new(IntegrationValueState.Missing))));
+        File.WriteAllText(installation.Manifest,"invalid own manifest would change result if read");
+        var report=await new InstalledIntegrationStatusReader(installation.DirectoryPath,registry,Identity,true).ReadAsync(default);
+        Assert.All(report.Rows.Where(r=>r.Component is IntegrationComponent.ChromeHost or IntegrationComponent.EdgeHost),r=>{Assert.Equal(IntegrationState.Incompatible,r.State);Assert.Equal(IntegrationReason.RegistrationMismatch,r.Reason);});
+    }
+    [Theory][InlineData(false)][InlineData(true)]
+    public async Task InvalidateOrCloseRejectsLateResultAndRetainsSingleReadUntilActualSettlement(bool close)
+    {
+        using var session=new IntegrationStatusSession();var entered=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var release=new TaskCompletionSource<IntegrationSnapshot>(TaskCreationOptions.RunContinuationsAsynchronously);int reads=0;
+        var run=session.RefreshAsync(_=>{Interlocked.Increment(ref reads);entered.SetResult();return release.Task;});await entered.Task.WaitAsync(TimeSpan.FromSeconds(3));
+        if(close)session.Dispose();else session.Invalidate();
+        Assert.True(session.Busy);Assert.Null(session.Snapshot);Assert.Equal(close?IntegrationRefreshStatus.Cancelled:IntegrationRefreshStatus.Busy,await session.RefreshAsync(_=>{Interlocked.Increment(ref reads);return Task.FromResult(IntegrationSnapshot.Unsupported);}));
+        Assert.False(run.IsCompleted);Assert.Equal(1,reads);release.SetResult(IntegrationSnapshot.Unsupported);Assert.Equal(IntegrationRefreshStatus.Cancelled,await run.WaitAsync(TimeSpan.FromSeconds(3)));Assert.False(session.Busy);Assert.Null(session.Snapshot);
+        if(!close){Assert.Equal(IntegrationRefreshStatus.Published,await session.RefreshAsync(_=>Task.FromResult(IntegrationSnapshot.Initial)));Assert.Same(IntegrationSnapshot.Initial,session.Snapshot);}
+    }
+    [Fact]public async Task CallerCancellationCannotPublishEvenBeforeBackgroundCancellationCallbackRuns()
+    {
+        using var session=new IntegrationStatusSession();using var caller=new CancellationTokenSource();var entered=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var release=new TaskCompletionSource<IntegrationSnapshot>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var run=session.RefreshAsync(_=>{entered.SetResult();return release.Task;},caller.Token);await entered.Task.WaitAsync(TimeSpan.FromSeconds(3));caller.Cancel();release.SetResult(IntegrationSnapshot.Unsupported);
+        Assert.Equal(IntegrationRefreshStatus.Cancelled,await run.WaitAsync(TimeSpan.FromSeconds(3)));Assert.Null(session.Snapshot);
+    }
+    [Fact]public async Task BlockingCancellationCallbackKeepsOwnershipAndDoesNotBlockInvalidation()
+    {
+        using var session=new IntegrationStatusSession();var entered=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var callbackEntered=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var callbackRelease=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var readRelease=new TaskCompletionSource<IntegrationSnapshot>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var run=session.RefreshAsync(async ct=>{using var registration=ct.Register(()=>{callbackEntered.SetResult();callbackRelease.Task.Wait(TimeSpan.FromSeconds(4));});entered.SetResult();return await readRelease.Task;});
+        try
+        {
+            await entered.Task.WaitAsync(TimeSpan.FromSeconds(3));session.Invalidate();await callbackEntered.Task.WaitAsync(TimeSpan.FromSeconds(3));readRelease.SetResult(IntegrationSnapshot.Unsupported);
+            Assert.True(session.Busy);Assert.False(run.IsCompleted);Assert.Equal(IntegrationRefreshStatus.Busy,await session.RefreshAsync(_=>Task.FromResult(IntegrationSnapshot.Initial)));
+        }
+        finally{callbackRelease.TrySetResult();readRelease.TrySetResult(IntegrationSnapshot.Unsupported);}
+        Assert.Equal(IntegrationRefreshStatus.Cancelled,await run.WaitAsync(TimeSpan.FromSeconds(3)));Assert.Null(session.Snapshot);
+    }
+    [Fact]public async Task CallbackFailureIsRecordedAndReaderFailureDoesNotPublish()
+    {
+        using var session=new IntegrationStatusSession();var entered=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var release=new TaskCompletionSource<IntegrationSnapshot>(TaskCreationOptions.RunContinuationsAsynchronously);CancellationTokenRegistration registration=default;
+        var run=session.RefreshAsync(ct=>{registration=ct.Register(()=>throw new InvalidOperationException("never displayed"));entered.SetResult();return release.Task;});await entered.Task.WaitAsync(TimeSpan.FromSeconds(3));session.Invalidate();release.SetResult(IntegrationSnapshot.Unsupported);Assert.Equal(IntegrationRefreshStatus.Cancelled,await run.WaitAsync(TimeSpan.FromSeconds(3)));registration.Dispose();Assert.True(session.CancellationFailed);
+        Assert.Equal(IntegrationRefreshStatus.Failed,await session.RefreshAsync(_=>throw new IOException("never displayed")));Assert.Null(session.Snapshot);Assert.False(session.Busy);
+    }
+    [Fact]public void EveryStateAndComponentHasExplicitHumanPresentation()
+    {
+        Assert.All(Enum.GetValues<IntegrationState>(),s=>Assert.False(string.IsNullOrWhiteSpace(IntegrationPresentation.State(s))));
+        Assert.Equal(7,Enum.GetValues<IntegrationComponent>().Select(IntegrationPresentation.Component).Distinct().Count());
+        Assert.Contains("未检测",IntegrationPresentation.State(IntegrationState.NotChecked));Assert.Contains("未安装",IntegrationPresentation.State(IntegrationState.NotInstalled));Assert.Contains("策略",IntegrationPresentation.State(IntegrationState.PolicyDenied));
+    }
+}

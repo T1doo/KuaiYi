@@ -1,0 +1,48 @@
+using System.Windows;
+using System.Windows.Controls;
+using KuaiYi.Core.Integration;
+using KuaiYi.NativeHost;
+namespace KuaiYi.App;
+
+internal sealed partial class SettingsWindow
+{
+    private readonly IntegrationStatusSession integrationSession=new();
+    private readonly StackPanel integrationRows=new();
+    private readonly Button integrationRefresh=new(){Content="刷新本地集成状态",Margin=new Thickness(0,8,8,8)};
+    private readonly Button integrationCancel=new(){Content="取消检测",Margin=new Thickness(0,8,8,8),IsEnabled=false};
+    private readonly TextBlock integrationNote=new(){TextWrapping=TextWrapping.Wrap};
+    private bool integrationClosed;
+    private void SetupIntegration(Panel page)
+    {
+        Note(page,"集成状态 · 手动只读检测，不更改注册、策略或权限，不启动浏览器、宿主或模型。扩展与桌面应用独立安装。不会读取浏览器个人资料。浏览器有效策略和图像翻译仍需真实 Windows 验证。");
+        var actions=new StackPanel{Orientation=Orientation.Horizontal};actions.Children.Add(integrationRefresh);actions.Children.Add(integrationCancel);page.Children.Add(actions);page.Children.Add(integrationNote);page.Children.Add(integrationRows);
+        ShowIntegration(IntegrationSnapshot.Initial);
+        integrationRefresh.Click+=async(_,_)=>
+        {
+            if(integrationClosed||integrationSession.Busy)return;
+            integrationRefresh.IsEnabled=false;integrationCancel.IsEnabled=true;ShowIntegration(IntegrationSnapshot.Initial);integrationNote.Text="正在读取本地状态…";
+            try
+            {
+                var result=await integrationSession.RefreshAsync(InstalledIntegrationStatusReader.Current().ReadAsync);
+                if(integrationClosed)return;
+                var snapshot=integrationSession.Snapshot;
+                if(result==IntegrationRefreshStatus.Published&&snapshot==null)result=IntegrationRefreshStatus.Cancelled;
+                if(result==IntegrationRefreshStatus.Published&&snapshot!=null)ShowIntegration(snapshot);
+                integrationNote.Text=result switch{IntegrationRefreshStatus.Published=>"本次只读检测已完成；本地配置已核不代表端到端可用。",IntegrationRefreshStatus.Cancelled=>"检测已取消；实际读取已结束，未发布迟到结果。",_=>"检测未完成，安装状态未知。请稍后手动刷新。"};
+                if(integrationSession.CancellationFailed)integrationNote.Text+=" 取消回调发生异常；本次读取已结束，状态仍需重新检测。";
+            }
+            finally{if(!integrationClosed){integrationRefresh.IsEnabled=!integrationSession.Busy;integrationCancel.IsEnabled=integrationSession.Busy;}}
+        };
+        integrationCancel.Click+=(_,_)=>{integrationSession.Invalidate();ShowIntegration(IntegrationSnapshot.Initial);integrationCancel.IsEnabled=false;integrationNote.Text="已撤销本次结果，正在等待实际读取结束…";};
+        Closed+=(_,_)=>{integrationClosed=true;integrationSession.Dispose();};
+    }
+    private void ShowIntegration(IntegrationSnapshot snapshot)
+    {
+        integrationRows.Children.Clear();
+        foreach(var row in snapshot.Rows)
+        {
+            var text=new TextBlock{Text=IntegrationPresentation.Component(row.Component)+"："+IntegrationPresentation.State(row.State)+Environment.NewLine+IntegrationPresentation.Advice(row.Reason),TextWrapping=TextWrapping.Wrap,Margin=new Thickness(0,10,0,6)};
+            System.Windows.Automation.AutomationProperties.SetName(text,text.Text);integrationRows.Children.Add(text);
+        }
+    }
+}

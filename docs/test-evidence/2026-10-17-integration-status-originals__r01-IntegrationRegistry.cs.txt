@@ -1,0 +1,78 @@
+using System.Collections.Immutable;
+using System.Runtime.Versioning;
+using System.Security;
+using System.Text.RegularExpressions;
+using Microsoft.Win32;
+namespace KuaiYi.NativeHost;
+
+public enum IntegrationBrowser { Chrome, Edge }
+public enum IntegrationRegistrySource { User32, User64, Machine32, Machine64 }
+public enum IntegrationValueState { Missing, Present, Invalid, PermissionDenied, Failed }
+public sealed record IntegrationRegistration(IntegrationValueState State,string? Path=null);
+public sealed record IntegrationPolicy(IntegrationValueState State,bool? UserHostsAllowed=null,bool? HostBlocked=null,bool? HostAllowed=null);
+public sealed record IntegrationRegistryLocation(IntegrationRegistrySource Source,IntegrationRegistration Registration,IntegrationPolicy Policy);
+public interface IIntegrationRegistry {ImmutableArray<IntegrationRegistryLocation> Read(IntegrationBrowser browser,CancellationToken cancellation);}
+
+/// <summary>Only four fixed host keys and three fixed policy keys per browser. Never reads profiles or writes registry.</summary>
+public sealed class WindowsIntegrationRegistry:IIntegrationRegistry
+{
+    public ImmutableArray<IntegrationRegistryLocation> Read(IntegrationBrowser browser,CancellationToken cancellation)
+    {
+        if(!OperatingSystem.IsWindows())throw new PlatformNotSupportedException();
+        return ReadWindows(browser,cancellation);
+    }
+    [SupportedOSPlatform("windows")]
+    private static ImmutableArray<IntegrationRegistryLocation> ReadWindows(IntegrationBrowser browser,CancellationToken cancellation)
+    {
+        var rows=ImmutableArray.CreateBuilder<IntegrationRegistryLocation>(4);
+        foreach(var source in Enum.GetValues<IntegrationRegistrySource>())
+        {
+            cancellation.ThrowIfCancellationRequested();
+            bool user=source is IntegrationRegistrySource.User32 or IntegrationRegistrySource.User64;
+            var view=source is IntegrationRegistrySource.User32 or IntegrationRegistrySource.Machine32?RegistryView.Registry32:RegistryView.Registry64;
+            string product=browser==IntegrationBrowser.Chrome?"Google\\Chrome":"Microsoft\\Edge";
+            IntegrationRegistration registration;IntegrationPolicy policy;
+            try
+            {
+                using var hive=RegistryKey.OpenBaseKey(user?RegistryHive.CurrentUser:RegistryHive.LocalMachine,view);
+                using var key=hive.OpenSubKey($"Software\\{product}\\NativeMessagingHosts\\{InstalledHostPolicy.HostName}",false);
+                object? value=key?.GetValue(null,null,RegistryValueOptions.DoNotExpandEnvironmentNames);
+                registration=value==null?new(IntegrationValueState.Missing):key!.GetValueKind(null)==RegistryValueKind.String&&value is string {Length:>0 and <=32768} path?new(IntegrationValueState.Present,path):new(IntegrationValueState.Invalid);
+            }
+            catch(Exception e)when(e is UnauthorizedAccessException or SecurityException){registration=new(IntegrationValueState.PermissionDenied);}
+            catch(IOException){registration=new(IntegrationValueState.Failed);}
+            cancellation.ThrowIfCancellationRequested();
+            try
+            {
+                using var hive=RegistryKey.OpenBaseKey(user?RegistryHive.CurrentUser:RegistryHive.LocalMachine,view);
+                using var key=hive.OpenSubKey($"Software\\Policies\\{product}",false);
+                object? setting=key?.GetValue("NativeMessagingUserLevelHosts",null,RegistryValueOptions.DoNotExpandEnvironmentNames);
+                bool? userHosts=setting==null?null:key!.GetValueKind("NativeMessagingUserLevelHosts")==RegistryValueKind.DWord&&setting is int number&&number is 0 or 1?number==1:throw new InvalidDataException();
+                bool? blocked=ReadList(key,"NativeMessagingBlocklist",true),allowed=ReadList(key,"NativeMessagingAllowlist",false);
+                policy=new(userHosts==null&&blocked==null&&allowed==null?IntegrationValueState.Missing:IntegrationValueState.Present,userHosts,blocked,allowed);
+            }
+            catch(Exception e)when(e is UnauthorizedAccessException or SecurityException){policy=new(IntegrationValueState.PermissionDenied);}
+            catch(InvalidDataException){policy=new(IntegrationValueState.Invalid);}
+            catch(IOException){policy=new(IntegrationValueState.Failed);}
+            rows.Add(new(source,registration,policy));
+        }
+        return rows.MoveToImmutable();
+    }
+    [SupportedOSPlatform("windows")]
+    private static bool? ReadList(RegistryKey? root,string name,bool wildcard)
+    {
+        using var key=root?.OpenSubKey(name,false);if(key==null)return null;
+        if(key.ValueCount>64||key.SubKeyCount!=0)throw new InvalidDataException();
+        return MatchList(key.GetValueNames().Select(n=>key.GetValueKind(n)==RegistryValueKind.String?key.GetValue(n,null,RegistryValueOptions.DoNotExpandEnvironmentNames):new object()).ToArray(),wildcard);
+    }
+    public static bool MatchList(IReadOnlyList<object?> values,bool wildcard)
+    {
+        if(values.Count>64)throw new InvalidDataException();bool match=false;
+        foreach(var value in values)
+        {
+            if(value is not string {Length:>0 and <=256} text||!(wildcard&&text=="*")&&!Regex.IsMatch(text,@"\A[a-z0-9_]+(?:\.[a-z0-9_]+)*\z",RegexOptions.CultureInvariant))throw new InvalidDataException();
+            if(text==InstalledHostPolicy.HostName||wildcard&&text=="*")match=true;
+        }
+        return match;
+    }
+}

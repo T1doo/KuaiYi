@@ -43,7 +43,7 @@ internal sealed partial class SettingsWindow:Window
         recovery.ItemsSource=new[]{new ComboBoxItem{Content="选择恢复方式"},new ComboBoxItem{Content="恢复上版备份",IsEnabled=draft.Basis.State==SettingsLoadState.RecoverableBackup},new ComboBoxItem{Content="使用安全默认值"}};recovery.SelectedIndex=0;recovery.Visibility=draft.Basis.RequiresRecovery?Visibility.Visible:Visibility.Collapsed;
         recovery.SelectionChanged+=(_,_)=>RecoverySelectionChanged();
         status.Text=draft.Basis.State switch{SettingsLoadState.ReadOnlyUnknown=>"检测到不支持的配置版本。只读打开，文件与密钥均保留。",SettingsLoadState.RecoverableBackup=>"配置损坏或缺失。可恢复上版备份，或使用安全默认值；未保存前不会覆盖原文件。",SettingsLoadState.RecoverableDefaults=>"配置无法读取为有效设置。请明确选择安全默认值；原文件保留。",SettingsLoadState.Migrated=>"旧布局草稿已转换为当前格式。保存后才写入；旧版保留为备份。",_=>"修改仅在草稿中。保存不自动启用翻译，也不发送请求。"};
-        if(draft.Basis.ReadOnly){body.IsEnabled=false;save.IsEnabled=false;}
+        if(draft.Basis.ReadOnly){foreach(var page in pages)if(page!=pages[5])page.IsEnabled=false;smart.IsEnabled=preview.IsEnabled=false;save.IsEnabled=false;}
         textProfile.SelectionChanged+=(_,_)=>{if(!loading&&!draft.Basis.ReadOnly)draft.Update(s=>s with{ActiveProfileId=string.IsNullOrEmpty(textProfile.SelectedValue as string)?null:(string)textProfile.SelectedValue});};
         visionProfile.SelectionChanged+=(_,_)=>{if(!loading&&!draft.Basis.ReadOnly)draft.Update(s=>s with{VisionProfileId=string.IsNullOrEmpty(visionProfile.SelectedValue as string)?null:(string)visionProfile.SelectedValue});};
         profiles.SelectionChanged+=(_,_)=>{if(loading)return;if(!TryCaptureProfile()){loading=true;profiles.SelectedValue=selectedId;loading=false;return;}selectedId=profiles.SelectedValue as string;LoadProfile();};
@@ -70,7 +70,7 @@ internal sealed partial class SettingsWindow:Window
     }
 
     private StackPanel Overlay(){var p=Page();Field(p,"触发模式",mode);Field(p,"选区稳定等待（80—800 ms）",delay);Field(p,"自动发送软上限（1000—50000 字符）",softLimit);Field(p,"字号（12—22 DIP）",font);Field(p,"首选宽度（240—960 DIP）",width);Field(p,"主题",theme);Field(p,"减少动画",motion);SetupDisplayPreferences(p);p.Children.Add(remember);var reset=new Button{Content="重置已保存浮窗位置（保存后生效）"};reset.Click+=(_,_)=>draft.Update(s=>s with{Overlay=s.Overlay with{LastPosition=null}});p.Children.Add(reset);Note(p,"自动划词与完整翻译浮窗尚未交付。设置模式不授予采集或上传权限。");return p;}
-    private StackPanel Images(){var p=Page();p.Children.Add(smart);p.Children.Add(preview);Note(p,"这些是后续图片翻译的偏好。资源管理器与浏览器真实安装状态不由本页修改或伪报成功。");return p;}
+    private StackPanel Images(){var p=Page();p.Children.Add(smart);p.Children.Add(preview);Note(p,"这些是后续图片翻译的偏好；保存不授予采集、启动或发送权限。");SetupIntegration(p);return p;}
     private StackPanel Privacy(){var p=Page();Field(p,"排除应用（每行一个应用标识）",blocked);blocked.AcceptsReturn=true;blocked.MinHeight=100;Note(p,"磁盘历史、遥测和默认复制兼容固定关闭。应用授权与端点发送同意不会通过保存草稿自动授予。密钥删除在保存提交后生效。");var permission=new Button{Content="复制兼容：逐应用授权 / 撤销（即时生效）",Margin=new Thickness(0,8,0,8)};permission.Click+=(_,_)=>{var window=new ClipboardPermissionsWindow(coordinator,clipboardApplication){Owner=this};window.ShowDialog();status.Text="应用授权单独即时生效。若有修改，请关闭并重新打开设置后保存其他草稿，避免覆盖新配置。";};p.Children.Add(permission);var clear=new Button{Content="清除当前内容（立即生效）",IsEnabled=clearCurrentContent!=null,Margin=new Thickness(0,8,0,8)};clear.Click+=async(_,_)=>{clear.IsEnabled=false;try{status.Text=await clearCurrentContent!()?"当前内容已清除；设置与密钥保留。":"内容清理尚未全部确认，请查看浮窗状态。";}finally{clear.IsEnabled=true;}};p.Children.Add(clear);return p;}
     private void LoadGeneral()
     {

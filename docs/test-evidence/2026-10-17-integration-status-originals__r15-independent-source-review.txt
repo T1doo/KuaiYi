@@ -1,0 +1,3 @@
+Received from /root/high_water_review (read-only; no SDK/network/write), bounded registry revision review:
+
+新增有界原语只读初审未见P1/P2：RegQueryValueExW(SafeRegistryHandle,string?,reserved NULL,out DWORD type,byte[]fixed64KiB,ref DWORD cb)及RegEnumValueW(DWORD index,StringBuilder3,ref DWORD cch,其余optional NULL)的参数宽度/指针形态正确，不用GetLastError而直接用LSTATUS正确；234立即InvalidData无重分配，2先Missing，5权限，其余I/O。Decode先65536/实际buffer界，再DWORD恰4、REG_SZ偶数+终止双0+strictUTF16+禁内嵌NUL；非REG_SZ/REG_DWORD拒。Names每轮长度重置3，最多64，前后count不一致I/O；长名234、无项259均保守未知，numericMatch随后防重复/漏号。请文档仍注明这不是跨值/多key原子快照，也未实际Windows调用PInvoke；同计数替换可发生但不涉及写入/授权、有效策略仍浏览器端未验。11 decoder覆盖是便携解析证据，不称真实registry边界验收。
