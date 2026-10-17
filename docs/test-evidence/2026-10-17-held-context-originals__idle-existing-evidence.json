@@ -1,0 +1,254 @@
+{
+  "Scope": "Read-only existing source/log/TRX analysis; no new idle diagnostic executions, no production/old idle test/clock edits. New full Provider run belongs to separate test-cleanup regression.",
+  "HistoricalCause": "Unknown",
+  "ExistingRuns": {
+    "r02-provider-full": {
+      "counters": {
+        "total": "2276",
+        "executed": "2276",
+        "passed": "2275",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "case": {
+        "executionId": "2c655e1d-4c8f-4547-8acf-cb13bac8937a",
+        "testId": "b590887d-ba36-8000-7378-a69a39dd4c2e",
+        "testName": "KuaiYi.Provider.Tests.PhaseDeadlineTests.IdleDeadlineKeepsPartialTextAndIgnoresNoContentActivity(protocol: AnthropicMessages, activity: \"empty\")",
+        "computerName": "4cd0056ca8a8",
+        "duration": "00:00:00.5294585",
+        "startTime": "2026-10-17T10:57:45.4613034+00:00",
+        "endTime": "2026-10-17T10:57:45.9948785+00:00",
+        "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+        "outcome": "Failed",
+        "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+        "relativeResultsDirectory": "2c655e1d-4c8f-4547-8acf-cb13bac8937a"
+      },
+      "failure": {
+        "Message": "Configured phase must terminate this real socket independently of total.",
+        "StackTrace": "   at KuaiYi.Provider.Tests.PhaseDeadlineTests.Rig.AssertTimedOut(Int32 seconds, String reason) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs:line 17\n   at KuaiYi.Provider.Tests.PhaseDeadlineTests.IdleDeadlineKeepsPartialTextAndIgnoresNoContentActivity(ApiProtocol protocol, String activity) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs:line 38\n   at KuaiYi.Provider.Tests.PhaseDeadlineTests.IdleDeadlineKeepsPartialTextAndIgnoresNoContentActivity(ApiProtocol protocol, String activity) in /workspace/KuaiYi/tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs:line 38\n--- End of stack trace from previous location ---"
+      },
+      "startEndWallMs": 533.575,
+      "overlappingOtherCases": 84,
+      "overlappingNewBudgetCases": 0,
+      "execution": {
+        "startUtc": "2026-10-17T10:57:37.762615+00:00",
+        "endUtc": "2026-10-17T10:57:53.290039+00:00",
+        "exit": 1
+      }
+    },
+    "r03-old-idle-observation": {
+      "counters": {
+        "total": "6",
+        "executed": "6",
+        "passed": "6",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "case": {
+        "executionId": "82f833b5-9e07-44a5-943b-1078377466fd",
+        "testId": "b590887d-ba36-8000-7378-a69a39dd4c2e",
+        "testName": "KuaiYi.Provider.Tests.PhaseDeadlineTests.IdleDeadlineKeepsPartialTextAndIgnoresNoContentActivity(protocol: AnthropicMessages, activity: \"empty\")",
+        "computerName": "4cd0056ca8a8",
+        "duration": "00:00:00.1622439",
+        "startTime": "2026-10-17T10:58:07.0766040+00:00",
+        "endTime": "2026-10-17T10:58:07.2473176+00:00",
+        "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+        "outcome": "Passed",
+        "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+        "relativeResultsDirectory": "82f833b5-9e07-44a5-943b-1078377466fd"
+      },
+      "failure": null,
+      "startEndWallMs": 170.713,
+      "overlappingOtherCases": 0,
+      "overlappingNewBudgetCases": 0,
+      "execution": {
+        "startUtc": "2026-10-17T10:58:05.440698+00:00",
+        "endUtc": "2026-10-17T10:58:07.561972+00:00",
+        "exit": 0
+      }
+    },
+    "r04-provider-full-observation": {
+      "counters": {
+        "total": "2276",
+        "executed": "2276",
+        "passed": "2276",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "case": {
+        "executionId": "6031bdfa-bd6b-43ad-ae06-ae566b26ee22",
+        "testId": "b590887d-ba36-8000-7378-a69a39dd4c2e",
+        "testName": "KuaiYi.Provider.Tests.PhaseDeadlineTests.IdleDeadlineKeepsPartialTextAndIgnoresNoContentActivity(protocol: AnthropicMessages, activity: \"empty\")",
+        "computerName": "4cd0056ca8a8",
+        "duration": "00:00:00.0357654",
+        "startTime": "2026-10-17T10:58:32.7513679+00:00",
+        "endTime": "2026-10-17T10:58:32.7936508+00:00",
+        "testType": "13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b",
+        "outcome": "Passed",
+        "testListId": "8c84fa94-04c1-424b-9868-57a2d4851a1d",
+        "relativeResultsDirectory": "6031bdfa-bd6b-43ad-ae06-ae566b26ee22"
+      },
+      "failure": null,
+      "startEndWallMs": 42.283,
+      "overlappingOtherCases": 5,
+      "overlappingNewBudgetCases": 0,
+      "execution": {
+        "startUtc": "2026-10-17T10:58:28.377454+00:00",
+        "endUtc": "2026-10-17T10:58:41.973601+00:00",
+        "exit": 0
+      }
+    }
+  },
+  "TargetDllsSameFourOldRuns": {
+    "r01-focused": {
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "15cfa9e30f16619b8b57f507026f1806bd02a29651cc85906f4f1f4a32ddadba",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.ImageWorker.dll": "fb81aabbf1d128aaf3f5634960b8287b24cde9d4b10d2097c184d687e5f49552",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "0e158a9e6bbb0397512fef56c978cc36bdb584cefe6bc896db2b79b7013d1336",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": "4dac1e7b234f51e968df20c202598434ff4d3ca31c9cbf85825acdfc86cbe3f2",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": "7e1542573c34d22029c796dc141200579487e8a90efabf45d574191977e22289"
+    },
+    "r02-provider-full": {
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "15cfa9e30f16619b8b57f507026f1806bd02a29651cc85906f4f1f4a32ddadba",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.ImageWorker.dll": "fb81aabbf1d128aaf3f5634960b8287b24cde9d4b10d2097c184d687e5f49552",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "0e158a9e6bbb0397512fef56c978cc36bdb584cefe6bc896db2b79b7013d1336",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": "4dac1e7b234f51e968df20c202598434ff4d3ca31c9cbf85825acdfc86cbe3f2",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": "7e1542573c34d22029c796dc141200579487e8a90efabf45d574191977e22289"
+    },
+    "r03-old-idle-observation": {
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "15cfa9e30f16619b8b57f507026f1806bd02a29651cc85906f4f1f4a32ddadba",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.ImageWorker.dll": "fb81aabbf1d128aaf3f5634960b8287b24cde9d4b10d2097c184d687e5f49552",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "0e158a9e6bbb0397512fef56c978cc36bdb584cefe6bc896db2b79b7013d1336",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": "4dac1e7b234f51e968df20c202598434ff4d3ca31c9cbf85825acdfc86cbe3f2",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": "7e1542573c34d22029c796dc141200579487e8a90efabf45d574191977e22289"
+    },
+    "r04-provider-full-observation": {
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "15cfa9e30f16619b8b57f507026f1806bd02a29651cc85906f4f1f4a32ddadba",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.ImageWorker.dll": "fb81aabbf1d128aaf3f5634960b8287b24cde9d4b10d2097c184d687e5f49552",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "0e158a9e6bbb0397512fef56c978cc36bdb584cefe6bc896db2b79b7013d1336",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": "4dac1e7b234f51e968df20c202598434ff4d3ca31c9cbf85825acdfc86cbe3f2",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": "7e1542573c34d22029c796dc141200579487e8a90efabf45d574191977e22289"
+    }
+  },
+  "SevenSourcesIdenticalToC775": {
+    "tests/KuaiYi.Provider.Tests/PhaseDeadlineTests.cs": "1924d5ead7d77a9b5d28398194ec3781be44ebe8e0ea9600c6c49aa4036fc4b6",
+    "tests/KuaiYi.Provider.Tests/PhaseClock.cs": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+    "tests/KuaiYi.Provider.Tests/PhaseHttpFixture.cs": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+    "src/KuaiYi.Providers/ProviderClient.cs": "0fea22604852a8e6b0c399d162e37b7158eff3785d560570420ff5d6186b7e4e",
+    "src/KuaiYi.Providers/ProviderPhaseDeadline.cs": "566312601894a3d565ed9c727e9e8b72448f20a8e11a2f57cccf466c7b70c4a6",
+    "src/KuaiYi.Providers/ProtocolAdapters.cs": "281f9e1f59aef02d1c338bbb350ee56575e1131d8aa98f24939d7570a552b5ab",
+    "src/KuaiYi.Providers/SseReader.cs": "d355d6b2e147a2a00303f356d0eeb64e247e671a981ad2c58548f45a623e75e4"
+  },
+  "Confirmed": [
+    "Historical failure is Job.IsCompleted after a real500ms wait; later reason/PUBLIC/request-count assertions were not reached.",
+    "Write ack is server flush only; Started is accepted headers only.",
+    "Anthropic message_start is effective; empty text is not effective.",
+    "WaitDeadline(2) does not identify which protocol event anchored the active timer. Normal timer Dispose sets Due=long.MaxValue.",
+    "Same DLL passing observations do not diagnose or repair historical failure."
+  ],
+  "ReachableButUnprovenSchedule": [
+    "fake0: client processes message_start, creates active idle2; PUBLIC not consumed yet.",
+    "Test WaitDeadline2 returns for that active message_start timer; test advances fake clock to1.",
+    "Client consumes PUBLIC atfake1 and resets actual idle expiry to3. Empty delta does not reset it.",
+    "Test advances only tofake2 then expects termination; correct production request is not expired, matching Job incomplete shape. No historical per-event trace proves this schedule occurred."
+  ],
+  "MissingEvidence": [
+    "timer identity/due snapshots",
+    "last-effective timestamp",
+    "client event processing order",
+    "runtime stacks",
+    "GC/threadpool/CPU timing"
+  ],
+  "OverlapInterpretation": "Concurrent case windows are correlation only; cannot assign scheduling cause. No order-change claim. No contemporaneous new budget case is shown to overlap target.",
+  "Erratum": {
+    "originalPath": "docs/test-evidence/2026-10-17-screenshot-lease-await-originals__analysis.json",
+    "originalSha256": "80b74fa645bb24d54b752075fe8268977033e4e5bdcffddcbff34f12a35e2aaf",
+    "field": "sameDllObservation",
+    "incorrectProseMember": "NativeHost",
+    "actualMapMember": "ImageWorker",
+    "correctFive": [
+      "Core",
+      "ImageWorker",
+      "Imaging",
+      "Provider.Tests",
+      "Providers"
+    ],
+    "originalBytesPreserved": true,
+    "shaEqualityUnaffected": true
+  },
+  "ProposedFutureMinimalTestFixNotApplied": "Per-Rig completion signal after actual PUBLIC TextDelta enqueue; await that before first fake advance. Keep phase2s/real500ms/production unchanged; add controlled message_start then delayed PUBLIC test. Requires separate parent scope, not implemented here.",
+  "RawReferences": {
+    "docs/test-evidence/2026-10-17-screenshot-lease-await-originals__r02-provider-full.trx": {
+      "sha256": "0fe8ffb1850f1e1e7b66f7e6060346361a127dbf4c3887affbeb2b14448ad317",
+      "bytes": 3360079
+    },
+    "docs/test-evidence/2026-10-17-screenshot-lease-await-originals__r02-provider-full.log": {
+      "sha256": "fad43e9f58d7a4c65ee649d181d3cdd09c1c75667ec29384c9ae1d59202c62cc",
+      "bytes": 2263
+    },
+    "docs/test-evidence/2026-10-17-screenshot-lease-await-originals__r02-provider-full-executed.json": {
+      "sha256": "edbc2cb02dced08958ae57d30ac073d3c478c83f86706eb48f580a39df0c7924",
+      "bytes": 6200
+    },
+    "docs/test-evidence/2026-10-17-screenshot-lease-await-originals__r03-old-idle-observation.trx": {
+      "sha256": "a43ea45c0a384d9a9ad075de3b9c7c5617e3511a55cfde465965bec2cded066f",
+      "bytes": 10349
+    },
+    "docs/test-evidence/2026-10-17-screenshot-lease-await-originals__r03-old-idle-observation.log": {
+      "sha256": "13c1da0bf6ece86c9ccb470d6b8cbd70dc8b347134466447ccf431f2c24603e4",
+      "bytes": 417
+    },
+    "docs/test-evidence/2026-10-17-screenshot-lease-await-originals__r03-old-idle-observation-executed.json": {
+      "sha256": "865bb1530033ee058eaf4f9e0627ab2806e452d7f1300f01ae5be3d0dac0289b",
+      "bytes": 6304
+    },
+    "docs/test-evidence/2026-10-17-screenshot-lease-await-originals__r04-provider-full-observation.trx": {
+      "sha256": "30cf53808e508e587df6ba422c04e3834f472af1c204f1e898e843613dacb700",
+      "bytes": 3357911
+    },
+    "docs/test-evidence/2026-10-17-screenshot-lease-await-originals__r04-provider-full-observation.log": {
+      "sha256": "5ff6c27ca9296ddec101a1caeeffd7fae1eaecb8bea53cf46310b809e06a86a1",
+      "bytes": 420
+    },
+    "docs/test-evidence/2026-10-17-screenshot-lease-await-originals__r04-provider-full-observation-executed.json": {
+      "sha256": "3e802d4c298b9638bc1192df5608c67799ced37dde33c2d61f63a88e52a72391",
+      "bytes": 6223
+    },
+    "docs/test-evidence/2026-10-17-screenshot-lease-await-originals__analysis.json": {
+      "sha256": "80b74fa645bb24d54b752075fe8268977033e4e5bdcffddcbff34f12a35e2aaf",
+      "bytes": 6095
+    }
+  }
+}

@@ -13,6 +13,22 @@ public sealed class ScreenshotRecaptureRecoveryTests
     private sealed class Immediate:SynchronizationContext{public override void Post(SendOrPostCallback action,object? state)=>action(state);}
     private sealed class HeldContext:SynchronizationContext
     {private readonly Queue<Action> queue=[];public override void Post(SendOrPostCallback callback,object? state)=>queue.Enqueue(()=>callback(state));public void Drain(){while(queue.TryDequeue(out var action))action();}}
+    private static async Task WithHeldCapture(ShellWindow window,MenuItem menu,Func<Task,Action,Task> body)
+    {
+        var queue=new HeldContext();Task original=window.CaptureTaskForTest;
+        try
+        {
+            var previous=SynchronizationContext.Current;
+            try{SynchronizationContext.SetSynchronizationContext(queue);menu.Invoke();}
+            finally{SynchronizationContext.SetSynchronizationContext(previous);original=window.CaptureTaskForTest;}
+            await body(original,queue.Drain);
+        }
+        finally
+        {
+            try{queue.Drain();}
+            finally{await original.WaitAsync(TimeSpan.FromSeconds(6));}
+        }
+    }
     private sealed class Rig:IAsyncDisposable
     {
         public readonly PhaseHttpFixture Server=new();public PhaseHttpFixture.Script Script=null!;public readonly ShellWindow Window=new();public readonly ProviderClient Provider=new();public ProductionScreenshotCoordinator Flow=null!;
@@ -111,11 +127,26 @@ public sealed class ScreenshotRecaptureRecoveryTests
     }
     [Fact]public async Task AChangedDisplayContextBeforeTheYieldContinuationNeverStartsNativeCapture()
     {
-        await using var r=await Rig.Create();var w=r.Window;var id=await r.Stopped();var menu=r.Menu();var queue=new HeldContext();w.CapturePort=(_,_)=>Task.FromResult<OwnedSourceImage?>(null);
-        var previous=SynchronizationContext.Current;try{SynchronizationContext.SetSynchronizationContext(queue);menu.Invoke();}finally{SynchronizationContext.SetSynchronizationContext(previous);}
-        var original=w.CaptureTaskForTest;Assert.False(original.IsCompleted);Assert.Equal(0,w.CaptureCalls);long epoch=w.MarkdownGate.Snapshot.Epoch,revision=w.ResultRevision;
-        w.SelectScreenshotVersionForTest(id.VersionId);Assert.True(w.ResultRevision>revision);Assert.Equal(epoch,w.MarkdownGate.Snapshot.Epoch);
-        queue.Drain();await original.WaitAsync(TimeSpan.FromSeconds(6));r.Drain();Assert.Equal(0,w.CaptureCalls);Assert.Equal(id,w.MarkdownResults.Identity);Assert.Equal("A actual partial body",w.MarkdownResults.Text);Assert.Same(r.Original,w.SelectedImageForTest);Assert.False(r.Original.IsDisposed);Assert.Equal(2,r.Script.Requests);
+        await using var r=await Rig.Create();var w=r.Window;var id=await r.Stopped();var menu=r.Menu();w.CapturePort=(_,_)=>Task.FromResult<OwnedSourceImage?>(null);
+        await WithHeldCapture(w,menu,async(original,drain)=>
+        {
+            Assert.False(original.IsCompleted);Assert.Equal(0,w.CaptureCalls);long epoch=w.MarkdownGate.Snapshot.Epoch,revision=w.ResultRevision;
+            w.SelectScreenshotVersionForTest(id.VersionId);Assert.True(w.ResultRevision>revision);Assert.Equal(epoch,w.MarkdownGate.Snapshot.Epoch);
+            drain();await original.WaitAsync(TimeSpan.FromSeconds(6));r.Drain();Assert.Equal(0,w.CaptureCalls);Assert.Equal(id,w.MarkdownResults.Identity);Assert.Equal("A actual partial body",w.MarkdownResults.Text);Assert.Same(r.Original,w.SelectedImageForTest);Assert.False(r.Original.IsDisposed);Assert.Equal(2,r.Script.Requests);
+        });
+    }
+    [Theory][InlineData(false)][InlineData(true)]
+    public async Task HeldCaptureFinallyDrainsAndSettlesWhenAPreconditionAssertionThrows(bool selectVersion)
+    {
+        await using var r=await Rig.Create();var w=r.Window;var id=await r.Stopped();Task? original=null;w.CapturePort=(_,_)=>Task.FromResult<OwnedSourceImage?>(null);
+        var failure=await Record.ExceptionAsync(()=>WithHeldCapture(w,r.Menu(),(task,drain)=>
+        {
+            original=task;Assert.False(task.IsCompleted);Assert.Equal(0,w.CaptureCalls);
+            if(selectVersion)w.SelectScreenshotVersionForTest(id.VersionId);
+            Assert.True(task.IsCompleted,"PUBLIC_CONTROLLED_PRECONDITION_FAILURE");return Task.CompletedTask;
+        }));
+        Assert.NotNull(failure);Assert.Contains("PUBLIC_CONTROLLED_PRECONDITION_FAILURE",failure.Message);Assert.NotNull(original);Assert.Same(original,w.CaptureTaskForTest);Assert.True(original.IsCompletedSuccessfully);
+        Assert.Equal(selectVersion?0:1,w.CaptureCalls);Assert.Equal(Suspension.None,w.MarkdownGate.Snapshot.Suspension);r.Drain();Assert.Equal(id,w.MarkdownResults.Identity);Assert.Equal("A actual partial body",w.MarkdownResults.Text);Assert.Same(r.Original,w.SelectedImageForTest);Assert.False(r.Original.IsDisposed);Assert.Equal(2,r.Script.Requests);
     }
     [Fact]public async Task AStaleMenuCannotCaptureAfterADifferentValidSourceWasAdmitted()
     {

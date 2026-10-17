@@ -945,3 +945,10 @@ r01新增夹具初始化顺序错4F保全、不当产品红；修夹具r02父生
 实际双协议SSE A部分正文停止→菜单新不同像素B→确认前0新HTTP→拒绝0→明确确认完整两阶段，PNG确不同；22例涵盖取消、六种撤销/迟到擦除及ClearExit join、旧菜单、Off启用确认、真实gate hotkey、known owner未清不替换/原retry。yield时实际选版本改显示revision而epoch同，旧候选仍native1次实测1F，完整admission+intent一行guard同源1P后native0；A及原任务保留。r01新hide期望错误18P1F→加强r02 21P不算产品红绿；r03构建中间，原件全保。最终r06专项22P/r07完整Provider2298P=父2276+22全名多重集、r08完整Core1703P同父名字、r09/r10 AppWorker0W/E，32source×5=160一致，独审无P1/P2；HeldContext任意早期assert失败finally健壮性未全面证明，正常绿色原任务已结算。
 
 见[报告](validation/screenshot-recapture-recovery.md)与[独立证据索引](test-evidence/2026-10-17-screenshot-recapture-recovery.json)。合成native/菜单表面/Cancel token/known host端口准确披露，不冒称Windows真截图/可见确认焦点/锁屏DPAPIACL/物理250600/真实模型或完整P6。父预算旧idle首失败和历史图片/Core/Job根因各Unknown；旧499+130原件/全部旧断言/SPEC/trace/CoreProvidersImaging/Offline/锁/workflow原字节保持，状态不抬。仅已有SDK --no-restore激活前后禁证书，无main/强推/部署/费用/真实凭据安全权限新包许可/Skia/403/Actions拒绝绕过，未知锁数据日志进程保全。
+
+
+## 2026-10-17 · HeldContext 测试清理与旧 idle 只读调查
+
+父2219已独立验收，从其正常建dev/held-context-test-cleanup，仅补已授权测试夹具finally：恢复SynchronizationContext，始终drain并在6秒内await同原capture任务。原guard十段断言保持，两受控实际前置assert失败证明原异常保留、同task成功、Capture释放、native1/0及A/原图/HTTP2不变。r01 xUnit2020编译拒绝无TRX、不算红测；最终专项3P、一次完整Provider2300P=父2298全名多重集+新2，64源码绑定/目标DLL一致。Core1703/AppWorker0W/E仅沿用未变父闭包证据，不冒称重跑。独立源码审查无P1/P2，封存另审；无生产改动。见[夹具报告](validation/held-context-test-cleanup.md)与[证据](test-evidence/2026-10-17-held-context-test-cleanup.json)。父1003原件、其余4797父路径原字节保持。
+
+[旧idle只读调查](validation/idle-timeout-readonly-investigation.md)分开记录：相同DLL2275P1F→族6P→2276P不等于修复；PUBLIC前缺客户端正文同步，可达message_start定时器锚点时序但历史轨迹不足、根因Unknown。disposed正常DueMax；旧analysis文字NativeHost误列追加勘误为ImageWorker，旧raw不改。未加idle诊断重跑/改生产，后续最小PUBLIC入队同步候选待父另定；未发送截图本次风格/P7安装事务仅列独立功能建议、不实施。历史图片/Core/WindowsJob各Unknown，生产复用Off及Windows可见键盘/物理250600/模型/完整P6未验。无main强推/部署费用/凭据权限/新包许可Skia/403或Actions拒绝重查绕过，未知锁数据日志进程保全。

@@ -1,0 +1,145 @@
+{
+  "SourceParent": "2219c3b10d69c31af6d8726744b32b042b9125b5",
+  "Branch": "dev/held-context-test-cleanup",
+  "Scope": "Test-only held SynchronizationContext cleanup; original production and idle fixtures unchanged.",
+  "FrozenSource": {
+    "src/KuaiYi.App/HotkeyScreenshot.cs": "1d24bf1813a93b3aaa275c04dd41c9fc88761c1e5c87e7b558c593b63cbc8ad5",
+    "src/KuaiYi.App/OcrOnlyFlow.cs": "8722c263240e982c5dd25fa4dc5a6d4674985da416f700b9ef4f328b9456ff31",
+    "src/KuaiYi.App/OverlayClearContent.cs": "3b53e3d21784fb1b5824d0e86d80fb90b88782324e339b2f2b9e11adbaac6e29",
+    "src/KuaiYi.App/OverlayFailureNotice.cs": "1cd7900ef0115b56198ebcde9818f2bcedf3af84c0b61fb3623f5aaea79197cc",
+    "src/KuaiYi.App/OverlayImageSource.cs": "cccd006ae965ac10f5fcb9fcb5a1684a71c1e8684797a5ab0e33767be9da68ec",
+    "src/KuaiYi.App/OverlayLinkFlow.cs": "4d27f261a4278e5a51f19cdc430c5d4227b5e64d7b70630789d09bc034f2bd67",
+    "src/KuaiYi.App/OverlayMarkdown.cs": "11f086abf4dea12eff0faf515b478302e1f2ca1a7448de30bdfdbca1aea44629",
+    "src/KuaiYi.App/OverlayPresentation.cs": "fbffb5a042d5994a24098554446049debc840bb88b2f6a1f14cea0808a8e9431",
+    "src/KuaiYi.App/OverlayPrivacyFlow.cs": "b023a53397f7af2d33f4e81fe546d41b36b39f2f4d8ee8ef41bd0bed624897a0",
+    "src/KuaiYi.App/OverlayResultFlow.cs": "699935eba559b45d0da57145b132b949665208850d6a154e8c1f5a3691d2285c",
+    "src/KuaiYi.App/OverlayResultLabel.cs": "f06dd2d1e776c3123f99b41ccd1b6db5024ea43af29bf115ed18f15811951bb0",
+    "src/KuaiYi.App/OverlayScreenshotTranslation.cs": "17c70d0ebeb80df9bda9c14218c4a30d8f236b3733db081fbfd003e0c56ce5d9",
+    "src/KuaiYi.App/ProductionScreenshotCoordinator.cs": "25a01b365de672307a360bbae46f7a84d2e738acce31c089f848cf530d69103f",
+    "src/KuaiYi.App/ScreenshotCaptureCommands.cs": "e272cf24639496ac8697f854ffbedecdd99772dea0ffc0ddd82869e0d8e690ab",
+    "src/KuaiYi.App/ScreenshotRecoveryMenu.cs": "d8311717035d228771ee6d3fba2925fd1dde51046ce0edff3a39de3392b74e20",
+    "src/KuaiYi.App/ScreenshotSendCommands.cs": "839d268b3b3d4850743f2d318154d8b59281698f55a34b6769f9537b3de2fc08",
+    "src/KuaiYi.App/ScreenshotTranslationFlow.cs": "f7dfe0b01b306d5fcf6925a0ed599dfd71ede6ba37c5e08462ceaec0027a57d1",
+    "src/KuaiYi.App/ShellWindow.cs": "eec7016c3df973324ef5ffdf33501bf0d37650a7e7f65451d6a10f47cac4d92c",
+    "src/KuaiYi.App/TranslationFlow.cs": "4f736bd3c3624cf3a77aaaf03bfdbeb20c9dabd7a0a0bec3571c6602d87612e4",
+    "src/KuaiYi.Providers/ProviderContracts.cs": "f4b8da6fc645e77afa1857467fcdfc773056847fdfb1e6efb809c899cab7e53b",
+    "src/KuaiYi.Providers/ProviderEventReceiver.cs": "1b9b1a20963fa66d93f2db1f6f307d10f12ca1626d6426e5da6891762457c7d6",
+    "src/KuaiYi.Providers/ProviderRequestBudget.cs": "ab46ccee29906c73595dcf87677f6a10aa186bf4b93d6661ce51a6907754ebbb",
+    "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj": "2ba14389f57657786ed52dac346d5bf994f4b7dbaa4c97e2363892f64ba32097",
+    "tests/KuaiYi.Provider.Tests/OverlayClearPorts.cs": "fe4811f998100619dfbf681843b2cdb23a42eb72995321574d9563d080f40c6b",
+    "tests/KuaiYi.Provider.Tests/PhaseClock.cs": "3729d9f355fd17398b7fb7f143e9a29fba38e9ab07e078c85d20dd93fd5b8e76",
+    "tests/KuaiYi.Provider.Tests/PhaseHttpFixture.cs": "9487a44473f07c7900211660a49b851f992cb4c17a556d812c7a8cbc6279d6a2",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotSecretStoreTests.cs": "c9b40960a558d90a1a49e5ee7e94487a07d4ca5071bd914405cb57ee7d92d406",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotShellPorts.cs": "1f224f0ea5c49e2aafc9ea06378519ff6f43d7dcd78745b1b5821af32e8b1cba",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotShellTests.cs": "8b33e61a0b74fe9092c017431cf2b52156beb4f5ae62985fc4fdf8bce5024d96",
+    "tests/KuaiYi.Provider.Tests/ProductionScreenshotTranslationTests.cs": "b030dd0cbd41ad8af2cac8891fea6866de7ba17bc85d9108f224285d3359d01a",
+    "tests/KuaiYi.Provider.Tests/ScreenshotCapturePorts.cs": "023252b7e52c492c550e81c8c0d7e11b7fa411fd5178b2b7c14a021fffc5647a",
+    "tests/KuaiYi.Provider.Tests/ScreenshotRecaptureRecoveryTests.cs": "8ba7be5b0c21d5e3c6ceb820a128f1312138af3b69965b21381aec5738c19158"
+  },
+  "FinalSourceBindings": 64,
+  "Runs": {
+    "r02-held-context": {
+      "counters": {
+        "total": "3",
+        "executed": "3",
+        "passed": "3",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trx": "docs/test-evidence/2026-10-17-held-context-originals__r02-held-context.trx"
+    },
+    "r03-provider-full": {
+      "counters": {
+        "total": "2300",
+        "executed": "2300",
+        "passed": "2300",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trx": "docs/test-evidence/2026-10-17-held-context-originals__r03-provider-full.trx"
+    }
+  },
+  "RelevantProviderTargetDlls": {
+    "r02-held-context": {
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "67a4cc8f24d00cc94d1b21ab8fc97e30f6ba5efcf3a2329ea8423f5767d62c04",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.ImageWorker.dll": "14a929a37f896a968d826fefa4d434120a94ff2c74fcffa8bb1f587356e99036",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "82fabb7f97736f9edfaf97ba491b634f35a0a9e26f23a19341de6980a100ae71",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": "6fb296a63365a08c88c3fce75cd51d955b28f01a880ef368fcd8e5f614c41354",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": "7c2ccf4921c5925554270fe212879b8c41cbe2a001996a0caffbe593b0a636a2"
+    },
+    "r03-provider-full": {
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "67a4cc8f24d00cc94d1b21ab8fc97e30f6ba5efcf3a2329ea8423f5767d62c04",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.ImageWorker.dll": "14a929a37f896a968d826fefa4d434120a94ff2c74fcffa8bb1f587356e99036",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "82fabb7f97736f9edfaf97ba491b634f35a0a9e26f23a19341de6980a100ae71",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": "6fb296a63365a08c88c3fce75cd51d955b28f01a880ef368fcd8e5f614c41354",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": "7c2ccf4921c5925554270fe212879b8c41cbe2a001996a0caffbe593b0a636a2"
+    }
+  },
+  "DllScopeNote": "run.py observes other pre-existing selected DLL files; only command target closure ran. Do not treat unrelated observations as executed tests/builds.",
+  "NameComparison": {
+    "parent": 2298,
+    "new": 2,
+    "final": 2300,
+    "exactMultisetParentPlusNew": true,
+    "newNames": {
+      "KuaiYi.Provider.Tests.ScreenshotRecaptureRecoveryTests.HeldCaptureFinallyDrainsAndSettlesWhenAPreconditionAssertionThrows(selectVersion: True)": 1,
+      "KuaiYi.Provider.Tests.ScreenshotRecaptureRecoveryTests.HeldCaptureFinallyDrainsAndSettlesWhenAPreconditionAssertionThrows(selectVersion: False)": 1
+    }
+  },
+  "CompileAttempt": {
+    "exit": 1,
+    "classification": "New controlled-failure assertion used constant Assert.True(false), rejected by existing xUnit2020 analyzer. No test execution/TRX, not product red. Replaced by actual held task IsCompleted precondition, already proven false immediately before; no analyzer suppression or old assertion weakening."
+  },
+  "NoProductionRedGreen": "No production source changed. New tests intentionally catch actual precondition assertion failures and verify original failure preserved plus cleanup completion; compile rejection is not red-test evidence.",
+  "ParentClosureEvidence": {
+    "Core1703": "Reused unchanged2219 parent r08; not rerun here.",
+    "AppWorker0WarningsErrors": "Reused unchanged2219 parent r09/r10; not rebuilt here.",
+    "index": "docs/test-evidence/2026-10-17-screenshot-recapture-recovery.json"
+  },
+  "Preservation": {
+    "parentTracked": 4800,
+    "oldModifiedAfterDocs": [
+      ".gitattributes",
+      "docs/progress.md",
+      "tests/KuaiYi.Provider.Tests/ScreenshotRecaptureRecoveryTests.cs"
+    ],
+    "allOtherParentSameBytes": 4797,
+    "priorRawUnchanged": 1003,
+    "productionProjectsLocksSpecTraceOldIdleUnchanged": true,
+    "noDeletes": true
+  },
+  "Review": {
+    "Source": "Independent read-only high_water_review noP1/P2, read-only-source-review.txt",
+    "Packet": "Pending separate final packet audit"
+  },
+  "Boundaries": [
+    "Only existing SDK10.0.401 --no-restore, certificate generation disabled before/after activation.",
+    "No fresh idle diagnosis reruns; historical image/Core/WindowsJob causes independentlyUnknown.",
+    "Image/classification reuseOff; no model/API/cost/deploy/main/force/new-package/license/credential/security changes.",
+    "Skia license pending,403 and Actions prior denial not retried or bypassed.",
+    "Windows/WPF visible keyboard/focus/real capture/DPAPIACL/physical250600/model/fullP6 acceptanceNotRun.",
+    "Unknown processes/locks/data/logs preserved."
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "utc": "2026-10-17T11:22:08.014766+00:00",
+  "parent": "2219c3b10d69c31af6d8726744b32b042b9125b5",
+  "parentTracked": 4800,
+  "branch": "dev/held-context-test-cleanup",
+  "scope": "Only test HeldContext cleanup finally and controlled assertion-failure verification. Production and old idle test/clock unchanged. Idle root investigation reads existing source/logs only; no new idle observations or production fix claim.",
+  "remoteCommand": [
+    "git",
+    "ls-remote",
+    "origin",
+    "refs/heads/main",
+    "refs/heads/dev/screenshot-recapture-recovery",
+    "refs/heads/dev/held-context-test-cleanup"
+  ],
+  "remoteStdout": "2219c3b10d69c31af6d8726744b32b042b9125b5\trefs/heads/dev/screenshot-recapture-recovery\n51d077481cf6303602fcf5d2718213da9cf05178\trefs/heads/main\n"
+}
