@@ -1,0 +1,96 @@
+using System.Collections.Immutable;
+using System.Globalization;
+using System.Text;
+using System.Text.Json;
+using KuaiYi.Core.Diagnostics;
+using Xunit;
+namespace KuaiYi.Core.Tests;
+
+public sealed class LocalDiagnosticTests
+{
+    private static DiagnosticEnvironment EnvironmentData()=>new(DiagnosticOs.Linux,new(6,8,1),[new(-1920,0,1920,1080,144,144)],[new(DiagnosticComponent.Core,new(1,2,3))],Enum.GetValues<DiagnosticCapability>().Select(c=>new DiagnosticCapabilityResult(c,DiagnosticCapabilityState.NotRun)).ToImmutableArray());
+    private sealed class Clock:TimeProvider
+    {public DateTimeOffset Now=new(2026,10,17,12,0,0,TimeSpan.Zero);public override DateTimeOffset GetUtcNow()=>Now;}
+    private sealed class DirectoryOwner:IDisposable
+    {
+        public string Path{get;}=System.IO.Path.Combine(System.IO.Path.GetTempPath(),"KuaiYi-diagnostic-test-"+Guid.NewGuid().ToString("N"));
+        public DirectoryOwner()=>Directory.CreateDirectory(Path);
+        public void Dispose()=>Directory.Delete(Path,true);
+    }
+    private sealed class HostileException(string payload):Exception(payload)
+    {public override string Message=>throw new InvalidOperationException("Message must not be read.");public override string ToString()=>throw new InvalidOperationException("Exception must not be formatted.");}
+    [Fact]public void BoundedSessionRetainsNewestMetadataAndClearsOnDispose()
+    {
+        var clock=new Clock();using var log=new DiagnosticLog(new(1,2,3),clock);
+        for(int n=0;n<1000;n++){clock.Now=clock.Now.AddMilliseconds(1);Assert.True(log.Record(DiagnosticEvent.CaptureFinished,byteCount:n));}
+        var snapshot=log.Snapshot();Assert.Equal(256,snapshot.Length);Assert.Equal(744,snapshot[0].ByteCount);Assert.Equal(999,snapshot[^1].ByteCount);Assert.Equal(clock.Now,snapshot[^1].Utc);
+        log.Dispose();Assert.Empty(log.Snapshot());Assert.False(log.Record(DiagnosticEvent.Started));
+    }
+    [Fact]public void ConcurrentEventsCannotExceedSessionBound()
+    {using var log=new DiagnosticLog(new(1,0));Parallel.For(0,5000,n=>Assert.True(log.Record(DiagnosticEvent.ApplicationFailure,DiagnosticError.Io,byteCount:n)));Assert.Equal(256,log.Snapshot().Length);log.Clear();Assert.Empty(log.Snapshot());}
+    [Theory][InlineData(-1,0,0)][InlineData(86400001,0,0)][InlineData(0,-1,0)][InlineData(0,1073741825,0)][InlineData(0,0,-1)][InlineData(0,0,11)]
+    public void UnboundedOrInvalidNumericMetadataIsRejected(long elapsed,long bytes,int retries)
+    {using var log=new DiagnosticLog(new(1,0));Assert.False(log.Record(DiagnosticEvent.Started,elapsedMilliseconds:elapsed,byteCount:bytes,retryCount:retries));Assert.Empty(log.Snapshot());}
+    [Fact]public void UnknownEnumsAreRejectedAndUnmeasuredValuesStayUnknown()
+    {using var log=new DiagnosticLog(new(1,0));Assert.False(log.Record((DiagnosticEvent)999));Assert.False(log.Record(DiagnosticEvent.Started,(DiagnosticError)999));Assert.True(log.Record(DiagnosticEvent.Started,requestId:Guid.Empty));var report=log.CreateReport(EnvironmentData());Assert.Contains("ElapsedMs=Unknown Bytes=Unknown Error=None Retries=Unknown",report.Text);Assert.Contains("Request=None",report.Text);}
+    [Fact]public async Task RealExportOfFailureReportCannotContainSyntheticSecretBodyPathOrQuery()
+    {
+        using var directory=new DirectoryOwner();using var log=new DiagnosticLog(new(1,2,3));
+        string[] sentinels=["PUBLIC_FAKE_KEY_sk-never-real","PUBLIC_SOURCE_BODY","PUBLIC_TRANSLATION_BODY","PUBLIC_OCR_BODY",@"C:\Users\PUBLIC\private.png","https://public.invalid/api?token=PUBLIC_QUERY"];
+        string payload=string.Join("\n",sentinels);
+        foreach(var error in new Exception[]{new IOException(payload),new JsonException(payload),new UnauthorizedAccessException(payload),new ArgumentException(payload),new AggregateException(new Exception(payload)),new HostileException(payload)})Assert.True(log.RecordFailure(error));
+        var id=Guid.NewGuid();Assert.True(log.Record(DiagnosticEvent.TranslationFinished,DiagnosticError.Provider,id,123,456,1));
+        using var session=new DiagnosticReportSession();var report=session.Prepare(log,EnvironmentData());
+        Assert.Contains("AppVersion=1.2.3",report.Text);Assert.Contains("OS=Linux Build=6.8.1",report.Text);Assert.Contains("Monitor[0]=-1920,0,1920,1080 DPI=144,144",report.Text);Assert.Contains("Component=Core Version=1.2.3",report.Text);Assert.Contains("Capability=RealModel Result=NotRun",report.Text);Assert.Contains(id.ToString("D"),report.Text);
+        string path=System.IO.Path.Combine(directory.Path,"report.txt");Assert.Equal(DiagnosticExportStatus.Published,await session.ExportAsync(report,(r,ct)=>DiagnosticReportFiles.PrepareNewAsync(path,r,ct)));
+        byte[] exported=await File.ReadAllBytesAsync(path);Assert.Equal(Encoding.UTF8.GetBytes(report.Text),exported);
+        foreach(string sentinel in sentinels)Assert.DoesNotContain(sentinel,Encoding.UTF8.GetString(exported));
+        Assert.Single(Directory.GetFiles(directory.Path));Assert.Equal(7,log.Snapshot().Length);
+    }
+    [Theory][InlineData("fr-FR")][InlineData("ar-SA")]
+    public void ReportNumbersAndVersionAreCultureIndependent(string culture)
+    {
+        var previous=CultureInfo.CurrentCulture;try{CultureInfo.CurrentCulture=new(culture);using var log=new DiagnosticLog(new(1,2));log.Record(DiagnosticEvent.Started,elapsedMilliseconds:1234,byteCount:5678,retryCount:1);string text=log.CreateReport(EnvironmentData()).Text;Assert.Contains("ElapsedMs=1234 Bytes=5678",text);Assert.Contains("DPI=144,144",text);}finally{CultureInfo.CurrentCulture=previous;}
+    }
+    [Fact]public void LargestAllowedSnapshotRemainsBelowExportBound()
+    {
+        using var log=new DiagnosticLog(new(int.MaxValue,int.MaxValue,int.MaxValue,int.MaxValue));for(int n=0;n<256;n++)Assert.True(log.Record(DiagnosticEvent.ApplicationFailure,DiagnosticError.Authentication,Guid.NewGuid(),86_400_000,1_073_741_824,10));
+        var environment=EnvironmentData() with{Monitors=Enumerable.Repeat(new DiagnosticMonitor(-2_000_000,2_000_000,32768,32768,960,960),16).ToImmutableArray()};Assert.InRange(Encoding.UTF8.GetByteCount(log.CreateReport(environment).Text),1,DiagnosticReport.MaximumBytes);
+    }
+    [Theory][InlineData("os")][InlineData("monitor-count")][InlineData("dpi")][InlineData("component")][InlineData("capability")]
+    public void EnvironmentMetadataUsesBoundedWhitelists(string invalid)
+    {
+        using var log=new DiagnosticLog(new(1,0));var data=EnvironmentData();data=invalid switch{"os"=>data with{Os=(DiagnosticOs)999},"monitor-count"=>data with{Monitors=Enumerable.Repeat(data.Monitors[0],17).ToImmutableArray()},"dpi"=>data with{Monitors=[data.Monitors[0] with{DpiX=double.NaN}]},"component"=>data with{Components=[new((DiagnosticComponent)999,new(1,0))]},_=>data with{Capabilities=[new(DiagnosticCapability.RealModel,(DiagnosticCapabilityState)999)]}};Assert.Throws<ArgumentException>(()=>log.CreateReport(data));
+    }
+    [Theory][InlineData("existing")][InlineData("symlink")]
+    public async Task ExportNeverOverwritesExistingOrLinkedTarget(string kind)
+    {
+        using var directory=new DirectoryOwner();using var log=new DiagnosticLog(new(1,0));using var session=new DiagnosticReportSession();var report=session.Prepare(log,EnvironmentData());string path=System.IO.Path.Combine(directory.Path,"report.txt"),other=System.IO.Path.Combine(directory.Path,"other.txt");
+        await File.WriteAllTextAsync(kind=="existing"?path:other,"PUBLIC_UNRELATED_FILE");if(kind=="symlink")File.CreateSymbolicLink(path,other);
+        Assert.Equal(DiagnosticExportStatus.Failed,await session.ExportAsync(report,(r,ct)=>DiagnosticReportFiles.PrepareNewAsync(path,r,ct)));Assert.Equal("PUBLIC_UNRELATED_FILE",await File.ReadAllTextAsync(path));Assert.Empty(Directory.GetFiles(directory.Path,".kuaiyi-diagnostic-*.tmp"));
+    }
+    [Theory][InlineData("relative.txt")][InlineData("//public.invalid/share/report.txt")][InlineData(@"\\public.invalid\share\report.txt")]
+    public async Task ExportRejectsRelativeOrNetworkDestinationBeforeIo(string path)
+    {using var log=new DiagnosticLog(new(1,0));using var session=new DiagnosticReportSession();var report=session.Prepare(log,EnvironmentData());Assert.Equal(DiagnosticExportStatus.Failed,await session.ExportAsync(report,(r,ct)=>DiagnosticReportFiles.PrepareNewAsync(path,r,ct)));}
+    [Theory][InlineData("cancel")][InlineData("invalidate")][InlineData("dispose")]
+    public async Task LatePreparedFileAfterCancellationOrCloseIsCleanedWithoutPublication(string reason)
+    {
+        using var directory=new DirectoryOwner();using var log=new DiagnosticLog(new(1,0));using var session=new DiagnosticReportSession();using var cancellation=new CancellationTokenSource();var report=session.Prepare(log,EnvironmentData());string path=System.IO.Path.Combine(directory.Path,"report.txt");
+        var ready=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var release=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var exporting=session.ExportAsync(report,async(r,ct)=>{var file=await DiagnosticReportFiles.PrepareNewAsync(path,r,ct);ready.SetResult();await release.Task;return file;},cancellation.Token);
+        await ready.Task.WaitAsync(TimeSpan.FromSeconds(5));Assert.True(session.Busy);Assert.Equal(DiagnosticExportStatus.Busy,await session.ExportAsync(report,(_,_)=>throw new InvalidOperationException("Must not prepare a second writer.")));
+        if(reason=="cancel")cancellation.Cancel();else if(reason=="dispose")session.Dispose();else session.Invalidate();release.SetResult();Assert.Equal(DiagnosticExportStatus.Cancelled,await exporting);Assert.False(session.Busy);Assert.Empty(Directory.GetFiles(directory.Path));
+    }
+    [Fact]public async Task OldPreviewAndPrecancelCannotCreateFilesAndSuccessfulPreviewIsFrozen()
+    {
+        using var directory=new DirectoryOwner();using var log=new DiagnosticLog(new(1,0));using var session=new DiagnosticReportSession();var old=session.Prepare(log,EnvironmentData());log.Record(DiagnosticEvent.ApplicationFailure,DiagnosticError.Timeout);var current=session.Prepare(log,EnvironmentData());Assert.NotEqual(old.Text,current.Text);
+        Assert.Equal(DiagnosticExportStatus.Cancelled,await session.ExportAsync(old,(_,_)=>throw new InvalidOperationException("Old preview cannot export.")));
+        using var cancel=new CancellationTokenSource();cancel.Cancel();Assert.Equal(DiagnosticExportStatus.Cancelled,await session.ExportAsync(current,(_,_)=>throw new InvalidOperationException("Precancel cannot export."),cancel.Token));
+        log.Clear();string path=System.IO.Path.Combine(directory.Path,"report.txt");Assert.Equal(DiagnosticExportStatus.Published,await session.ExportAsync(current,(r,ct)=>DiagnosticReportFiles.PrepareNewAsync(path,r,ct)));Assert.Equal(current.Text,await File.ReadAllTextAsync(path));Assert.Contains("Error=Timeout",current.Text);
+    }
+    [Fact]public async Task ReplacedTemporaryPathIsPreservedWhenOwnershipCannotBeConfirmed()
+    {
+        using var directory=new DirectoryOwner();using var log=new DiagnosticLog(new(1,0));var report=log.CreateReport(EnvironmentData());string target=System.IO.Path.Combine(directory.Path,"report.txt");var file=await DiagnosticReportFiles.PrepareNewAsync(target,report);string temporary=Assert.Single(Directory.GetFiles(directory.Path));File.Delete(temporary);await File.WriteAllTextAsync(temporary,"PUBLIC_REPLACEMENT");
+        Assert.Throws<IOException>(()=>file.Publish());Assert.Throws<IOException>(()=>file.Dispose());Assert.Equal("PUBLIC_REPLACEMENT",await File.ReadAllTextAsync(temporary));Assert.False(File.Exists(target));
+    }
+}

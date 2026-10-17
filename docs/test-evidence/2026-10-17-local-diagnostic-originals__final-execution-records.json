@@ -1,0 +1,146 @@
+[
+  {
+    "Run": "r11-core-final",
+    "Command": [
+      "dotnet",
+      "test",
+      "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "--logger",
+      "trx;LogFileName=r11-core-final.trx",
+      "--results-directory",
+      "artifacts/local-diagnostic-report"
+    ],
+    "StartUtc": "2026-10-17T08:22:52.408698+00:00",
+    "ExitCode": 0,
+    "Source": {
+      "src/KuaiYi.Core/Diagnostics/DiagnosticLog.cs": "0f15e6c21d77944a2c69bf5483fa53b88905b4fc60675e5e68c4bacc7f8a5f6d",
+      "src/KuaiYi.Core/Diagnostics/DiagnosticReportSession.cs": "af9f6d575d656bc99351a09cabb0f1bf8d2a17d0b13c0c02bc2e7f3c6d139cf3",
+      "src/KuaiYi.Core/Diagnostics/DiagnosticReportFiles.cs": "35899ef36422cb546d77572d04d8c8e5ced65f9a88ae4ad474d51b747453ba67",
+      "src/KuaiYi.App/LocalDiagnostics.cs": "311079ee350d227ae01e1d7995cccdffc5e2651e0f708f91cb83bda3c61e4cfb",
+      "src/KuaiYi.App/SettingsDiagnostics.cs": "722c3e4410c5fc3ddb2ae625cb3beaf379066686ddce9ae8ccd0d7194c6c5fa4",
+      "src/KuaiYi.App/ShellWindow.cs": "33cab732ec27e5075723c4c8cab4e81e7c0f205fbd4c0cefd245c38740115378",
+      "src/KuaiYi.App/SelectionFlow.cs": "69ad79b8ac6dff51217d0e909a10096219e898829affc83eb3845f3c1b378298",
+      "src/KuaiYi.App/TranslationFlow.cs": "08373e4a4fc74a2fbcd07b4cb68d02c7f79889a13aab9394269558d77dda8f93",
+      "src/KuaiYi.App/SettingsWindow.cs": "091093cd54278c07f9b8e1e63f8120803cc5d8fa91a2ed5c3752600dff5321c8",
+      "tests/KuaiYi.Core.Tests/LocalDiagnosticTests.cs": "bd7eeff4e388de41e3b2f645c2a23fbf24f99235125360985513e1f029f7c73e"
+    },
+    "Dlls": {
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll": "042d90f245b986c702d66ef36deb725282da13020a07d39acabdbcc7e50680a7",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll": "7da1bf3f428f778ac5d6dd2824285a56746bc0724ffc9e3dfbc7bb4b44b06525",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "40235dee8dfdbb9d2d6dde06059469b1447509a8275b34d20188d3a9355a40e3",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "05d0cffc907f3e3b41dcb9588124166fc4f53acb19fc7a1dd75c39e21fe268ff",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "03f52f9d7969f79f112d213d3b7e6e91f71f3103e275379ed5dfc81eb6260ad3",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "db5d35f0dca1baa4a952ba778a39b521f51cebd45d1bd84be5b518296859a958",
+      "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.OleTransfer.dll": "3cd81430404b7bfb8682497c71cc201855ffd6cd0dc39a05c39e289853995670"
+    }
+  },
+  {
+    "Run": "r12-provider-final",
+    "Command": [
+      "dotnet",
+      "test",
+      "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "--logger",
+      "trx;LogFileName=r12-provider-final.trx",
+      "--results-directory",
+      "artifacts/local-diagnostic-report"
+    ],
+    "StartUtc": "2026-10-17T08:23:25.189442+00:00",
+    "ExitCode": 0,
+    "Source": {
+      "src/KuaiYi.Core/Diagnostics/DiagnosticLog.cs": "0f15e6c21d77944a2c69bf5483fa53b88905b4fc60675e5e68c4bacc7f8a5f6d",
+      "src/KuaiYi.Core/Diagnostics/DiagnosticReportSession.cs": "af9f6d575d656bc99351a09cabb0f1bf8d2a17d0b13c0c02bc2e7f3c6d139cf3",
+      "src/KuaiYi.Core/Diagnostics/DiagnosticReportFiles.cs": "35899ef36422cb546d77572d04d8c8e5ced65f9a88ae4ad474d51b747453ba67",
+      "src/KuaiYi.App/LocalDiagnostics.cs": "311079ee350d227ae01e1d7995cccdffc5e2651e0f708f91cb83bda3c61e4cfb",
+      "src/KuaiYi.App/SettingsDiagnostics.cs": "722c3e4410c5fc3ddb2ae625cb3beaf379066686ddce9ae8ccd0d7194c6c5fa4",
+      "src/KuaiYi.App/ShellWindow.cs": "33cab732ec27e5075723c4c8cab4e81e7c0f205fbd4c0cefd245c38740115378",
+      "src/KuaiYi.App/SelectionFlow.cs": "69ad79b8ac6dff51217d0e909a10096219e898829affc83eb3845f3c1b378298",
+      "src/KuaiYi.App/TranslationFlow.cs": "08373e4a4fc74a2fbcd07b4cb68d02c7f79889a13aab9394269558d77dda8f93",
+      "src/KuaiYi.App/SettingsWindow.cs": "091093cd54278c07f9b8e1e63f8120803cc5d8fa91a2ed5c3752600dff5321c8",
+      "tests/KuaiYi.Core.Tests/LocalDiagnosticTests.cs": "bd7eeff4e388de41e3b2f645c2a23fbf24f99235125360985513e1f029f7c73e"
+    },
+    "Dlls": {
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.ImageWorker.dll": "772ae30cb906ba1f63ec85299728252dfc310ffd523dad4a159fe78997c0374c",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll": "7da1bf3f428f778ac5d6dd2824285a56746bc0724ffc9e3dfbc7bb4b44b06525",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "40235dee8dfdbb9d2d6dde06059469b1447509a8275b34d20188d3a9355a40e3",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": "484585e303bfa99632887b53492bfd87e4ba46dc23d8066a378a5ba372a55b3c",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "03f52f9d7969f79f112d213d3b7e6e91f71f3103e275379ed5dfc81eb6260ad3",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.MockProvider.dll": "b42d8d22c0659c3f1c4fdc7d88f8d06d17786bbeff55da3a3be0bc6fc0d55664",
+      "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": "e060fd983c4a333eca570f52154ed54322319baa611009058c5dc900e7e00f35"
+    }
+  },
+  {
+    "Run": "r13-app-final",
+    "Command": [
+      "dotnet",
+      "build",
+      "src/KuaiYi.App/KuaiYi.App.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:EnableWindowsTargeting=true"
+    ],
+    "StartUtc": "2026-10-17T08:23:42.670461+00:00",
+    "ExitCode": 0,
+    "Source": {
+      "src/KuaiYi.Core/Diagnostics/DiagnosticLog.cs": "0f15e6c21d77944a2c69bf5483fa53b88905b4fc60675e5e68c4bacc7f8a5f6d",
+      "src/KuaiYi.Core/Diagnostics/DiagnosticReportSession.cs": "af9f6d575d656bc99351a09cabb0f1bf8d2a17d0b13c0c02bc2e7f3c6d139cf3",
+      "src/KuaiYi.Core/Diagnostics/DiagnosticReportFiles.cs": "35899ef36422cb546d77572d04d8c8e5ced65f9a88ae4ad474d51b747453ba67",
+      "src/KuaiYi.App/LocalDiagnostics.cs": "311079ee350d227ae01e1d7995cccdffc5e2651e0f708f91cb83bda3c61e4cfb",
+      "src/KuaiYi.App/SettingsDiagnostics.cs": "722c3e4410c5fc3ddb2ae625cb3beaf379066686ddce9ae8ccd0d7194c6c5fa4",
+      "src/KuaiYi.App/ShellWindow.cs": "33cab732ec27e5075723c4c8cab4e81e7c0f205fbd4c0cefd245c38740115378",
+      "src/KuaiYi.App/SelectionFlow.cs": "69ad79b8ac6dff51217d0e909a10096219e898829affc83eb3845f3c1b378298",
+      "src/KuaiYi.App/TranslationFlow.cs": "08373e4a4fc74a2fbcd07b4cb68d02c7f79889a13aab9394269558d77dda8f93",
+      "src/KuaiYi.App/SettingsWindow.cs": "091093cd54278c07f9b8e1e63f8120803cc5d8fa91a2ed5c3752600dff5321c8",
+      "tests/KuaiYi.Core.Tests/LocalDiagnosticTests.cs": "bd7eeff4e388de41e3b2f645c2a23fbf24f99235125360985513e1f029f7c73e"
+    },
+    "Dlls": {
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Windows.dll": "0dff14683747bf392a2820c388e3b371f13e3843d0a9462a18c0c9b717491efe",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.NativeHost.dll": "042d90f245b986c702d66ef36deb725282da13020a07d39acabdbcc7e50680a7",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Contracts.dll": "7da1bf3f428f778ac5d6dd2824285a56746bc0724ffc9e3dfbc7bb4b44b06525",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Core.dll": "40235dee8dfdbb9d2d6dde06059469b1447509a8275b34d20188d3a9355a40e3",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Imaging.dll": "03f52f9d7969f79f112d213d3b7e6e91f71f3103e275379ed5dfc81eb6260ad3",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Providers.dll": "e060fd983c4a333eca570f52154ed54322319baa611009058c5dc900e7e00f35",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.OleTransfer.dll": "3cd81430404b7bfb8682497c71cc201855ffd6cd0dc39a05c39e289853995670",
+      "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.App.dll": "6cb9c2788c7e883201d0a5e4e37f4bca922ae7ba368fc577f39707e818717da0"
+    }
+  },
+  {
+    "Run": "r14-worker-final",
+    "Command": [
+      "dotnet",
+      "build",
+      "src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-p:EnableWindowsTargeting=true"
+    ],
+    "StartUtc": "2026-10-17T08:23:45.000787+00:00",
+    "ExitCode": 0,
+    "Source": {
+      "src/KuaiYi.Core/Diagnostics/DiagnosticLog.cs": "0f15e6c21d77944a2c69bf5483fa53b88905b4fc60675e5e68c4bacc7f8a5f6d",
+      "src/KuaiYi.Core/Diagnostics/DiagnosticReportSession.cs": "af9f6d575d656bc99351a09cabb0f1bf8d2a17d0b13c0c02bc2e7f3c6d139cf3",
+      "src/KuaiYi.Core/Diagnostics/DiagnosticReportFiles.cs": "35899ef36422cb546d77572d04d8c8e5ced65f9a88ae4ad474d51b747453ba67",
+      "src/KuaiYi.App/LocalDiagnostics.cs": "311079ee350d227ae01e1d7995cccdffc5e2651e0f708f91cb83bda3c61e4cfb",
+      "src/KuaiYi.App/SettingsDiagnostics.cs": "722c3e4410c5fc3ddb2ae625cb3beaf379066686ddce9ae8ccd0d7194c6c5fa4",
+      "src/KuaiYi.App/ShellWindow.cs": "33cab732ec27e5075723c4c8cab4e81e7c0f205fbd4c0cefd245c38740115378",
+      "src/KuaiYi.App/SelectionFlow.cs": "69ad79b8ac6dff51217d0e909a10096219e898829affc83eb3845f3c1b378298",
+      "src/KuaiYi.App/TranslationFlow.cs": "08373e4a4fc74a2fbcd07b4cb68d02c7f79889a13aab9394269558d77dda8f93",
+      "src/KuaiYi.App/SettingsWindow.cs": "091093cd54278c07f9b8e1e63f8120803cc5d8fa91a2ed5c3752600dff5321c8",
+      "tests/KuaiYi.Core.Tests/LocalDiagnosticTests.cs": "bd7eeff4e388de41e3b2f645c2a23fbf24f99235125360985513e1f029f7c73e"
+    },
+    "Dlls": {
+      "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll": "772ae30cb906ba1f63ec85299728252dfc310ffd523dad4a159fe78997c0374c",
+      "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Contracts.dll": "7da1bf3f428f778ac5d6dd2824285a56746bc0724ffc9e3dfbc7bb4b44b06525",
+      "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Core.dll": "40235dee8dfdbb9d2d6dde06059469b1447509a8275b34d20188d3a9355a40e3",
+      "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Imaging.dll": "03f52f9d7969f79f112d213d3b7e6e91f71f3103e275379ed5dfc81eb6260ad3"
+    }
+  }
+]

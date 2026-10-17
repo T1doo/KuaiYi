@@ -1,0 +1,837 @@
+{
+  "SourceParent": "9765f0bc7f2ef6ee099cb8d06d2fb80f405a933e",
+  "Branch": "dev/local-diagnostic-report",
+  "InitialRemoteRelation": "HEAD matched origin/dev/blocker-diagnosis and prior9765; no external updates observed. main51d0774 unchanged; 8b902 retained ancestor. One worktree; root sole observed writer, reviewer read-only.",
+  "Scope": "SPEC14.4/P1-06 new bounded session diagnostic metadata + actual Settings preview/new-local-file export. No historical high-water/Markdown/Provider reimplementation, no environment diagnosis.",
+  "Implementation": {
+    "Retention": "Session memory only, latest256; no default disk logs/history/telemetry; exit and explicit clear release metadata.",
+    "Whitelist": "Enums/numbers/UTC/temporaryGUID/Version only; exception metadata classifier never accesses Message/ToString/StackTrace/InnerException. No source/translation/OCR/image/clipboard/title/path/URL/endpoint/model/key/server body.",
+    "Report": "OS numeric build, monitor work areas andDPI, component assemblyVersions, unexecuted capabilitiesNotRun; unknown timing/bytes/retryUnknown.",
+    "ProductionWiring": "Shell Started/Report; capture status/byte counts; already accepted text UI begin/end elapsed. Settings footer preview also available for read-only config; actual report window/export path.",
+    "FileLifecycle": "Frozen report only; new local file, no overwrite, rejectlinks/network; opened path ownership checks; only ownedtemp cleanup. Pathcheck/Move/Delete not atomic against malicious same-account renames.",
+    "Cancellation": "Preview invalidation/publication under one gate; unique async callback cancellation, actual callback/prepare/file/bridge settlement retains pending owner; direct Caller token check; clear/exit finally.",
+    "NotImplementedClaims": "No defaultpersistent logs, no auto probes, retry count remainsUnknown, capability testsNotRun, WPF UI not executed. P1-06 InProgress/validationNotRun."
+  },
+  "ActualValidation": {
+    "Counters": {
+      "r06-focused-green.trx": {
+        "total": "30",
+        "executed": "30",
+        "passed": "30",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "r11-core-final.trx": {
+        "total": "1587",
+        "executed": "1587",
+        "passed": "1587",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "r07-core-final.trx": {
+        "total": "1586",
+        "executed": "1586",
+        "passed": "1586",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "r01-focused.trx": {
+        "total": "28",
+        "executed": "28",
+        "passed": "28",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "r12-provider-final.trx": {
+        "total": "2157",
+        "executed": "2157",
+        "passed": "2157",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "r05-cancellation-red.trx": {
+        "total": "2",
+        "executed": "2",
+        "passed": "0",
+        "failed": "2",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "r04-core-full.trx": {
+        "total": "1584",
+        "executed": "1584",
+        "passed": "1584",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "r10-focused-final.trx": {
+        "total": "31",
+        "executed": "31",
+        "passed": "31",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "r09-caller-gate-red.trx": {
+        "total": "1",
+        "executed": "1",
+        "passed": "0",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "r08-caller-red.trx": {
+        "total": "1",
+        "executed": "1",
+        "passed": "1",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    "Continuity": {
+      "CoreParent": 1556,
+      "CoreFinal": 1587,
+      "CoreMissingRows": [],
+      "CoreAddedRows": [
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.EnvironmentMetadataUsesBoundedWhitelists(invalid: \"component\")",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.UnknownEnumsAreRejectedAndUnmeasuredValuesStayUnknown",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.ReportNumbersAndVersionAreCultureIndependent(culture: \"ar-SA\")",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.ExportNeverOverwritesExistingOrLinkedTarget(kind: \"symlink\")",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.ExportRejectsRelativeOrNetworkDestinationBeforeIo(path: \"relative.txt\")",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.LatePreparedFileAfterCancellationOrCloseIsCleanedWithoutPublication(reason: \"dispose\")",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.EnvironmentMetadataUsesBoundedWhitelists(invalid: \"monitor-count\")",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.CancellationCallbackCannotPreventPreviewRevocationOrBlockTheCaller(throwing: False)",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.ReportNumbersAndVersionAreCultureIndependent(culture: \"fr-FR\")",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.ExportNeverOverwritesExistingOrLinkedTarget(kind: \"existing\")",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.EnvironmentMetadataUsesBoundedWhitelists(invalid: \"capability\")",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.CancellationCallbackCannotPreventPreviewRevocationOrBlockTheCaller(throwing: True)",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.OldPreviewAndPrecancelCannotCreateFilesAndSuccessfulPreviewIsFrozen",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.EnvironmentMetadataUsesBoundedWhitelists(invalid: \"os\")",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.UnboundedOrInvalidNumericMetadataIsRejected(elapsed: -1, bytes: 0, retries: 0)",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.ExportRejectsRelativeOrNetworkDestinationBeforeIo(path: \"\\\\\\\\public.invalid\\\\share\\\\report.txt\")",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.UnboundedOrInvalidNumericMetadataIsRejected(elapsed: 0, bytes: -1, retries: 0)",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.LatePreparedFileAfterCancellationOrCloseIsCleanedWithoutPublication(reason: \"cancel\")",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.EnvironmentMetadataUsesBoundedWhitelists(invalid: \"dpi\")",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.ConcurrentEventsCannotExceedSessionBound",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.RealExportOfFailureReportCannotContainSyntheticSecretBodyPathOrQuery",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.UnboundedOrInvalidNumericMetadataIsRejected(elapsed: 0, bytes: 1073741825, retries: 0)",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.UnboundedOrInvalidNumericMetadataIsRejected(elapsed: 0, bytes: 0, retries: -1)",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.ReplacedTemporaryPathIsPreservedWhenOwnershipCannotBeConfirmed",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.UnboundedOrInvalidNumericMetadataIsRejected(elapsed: 86400001, bytes: 0, retries: 0)",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.BoundedSessionRetainsNewestMetadataAndClearsOnDispose",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.ExportRejectsRelativeOrNetworkDestinationBeforeIo(path: \"//public.invalid/share/report.txt\")",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.UnboundedOrInvalidNumericMetadataIsRejected(elapsed: 0, bytes: 0, retries: 11)",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.LatePreparedFileAfterCancellationOrCloseIsCleanedWithoutPublication(reason: \"invalidate\")",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.CallerCancellationKeepsExportOwnedUntilItsCallbackActuallySettles",
+        "KuaiYi.Core.Tests.LocalDiagnosticTests.LargestAllowedSnapshotRemainsBelowExportBound"
+      ],
+      "ProviderParent": 2157,
+      "ProviderFinal": 2157,
+      "ProviderMissingRows": [],
+      "ProviderAddedRows": []
+    },
+    "RedGreen": {
+      "R09R10ExactTestBytes": true,
+      "TestSha256": "bd7eeff4e388de41e3b2f645c2a23fbf24f99235125360985513e1f029f7c73e",
+      "R05TwoMethodBodiesUnchanged": true,
+      "R08WasPassedUnprovenHypothesis": true
+    },
+    "FinalSource": {
+      "src/KuaiYi.Core/Diagnostics/DiagnosticLog.cs": "0f15e6c21d77944a2c69bf5483fa53b88905b4fc60675e5e68c4bacc7f8a5f6d",
+      "src/KuaiYi.Core/Diagnostics/DiagnosticReportSession.cs": "af9f6d575d656bc99351a09cabb0f1bf8d2a17d0b13c0c02bc2e7f3c6d139cf3",
+      "src/KuaiYi.Core/Diagnostics/DiagnosticReportFiles.cs": "35899ef36422cb546d77572d04d8c8e5ced65f9a88ae4ad474d51b747453ba67",
+      "src/KuaiYi.App/LocalDiagnostics.cs": "311079ee350d227ae01e1d7995cccdffc5e2651e0f708f91cb83bda3c61e4cfb",
+      "src/KuaiYi.App/SettingsDiagnostics.cs": "722c3e4410c5fc3ddb2ae625cb3beaf379066686ddce9ae8ccd0d7194c6c5fa4",
+      "src/KuaiYi.App/ShellWindow.cs": "33cab732ec27e5075723c4c8cab4e81e7c0f205fbd4c0cefd245c38740115378",
+      "src/KuaiYi.App/SelectionFlow.cs": "69ad79b8ac6dff51217d0e909a10096219e898829affc83eb3845f3c1b378298",
+      "src/KuaiYi.App/TranslationFlow.cs": "08373e4a4fc74a2fbcd07b4cb68d02c7f79889a13aab9394269558d77dda8f93",
+      "src/KuaiYi.App/SettingsWindow.cs": "091093cd54278c07f9b8e1e63f8120803cc5d8fa91a2ed5c3752600dff5321c8",
+      "tests/KuaiYi.Core.Tests/LocalDiagnosticTests.cs": "bd7eeff4e388de41e3b2f645c2a23fbf24f99235125360985513e1f029f7c73e"
+    },
+    "Preservation": {
+      "ParentPaths": 3223,
+      "ModifiedExistingBeforeRawAttributes": [
+        "docs/progress.md",
+        "docs/traceability.json",
+        "src/KuaiYi.App/SelectionFlow.cs",
+        "src/KuaiYi.App/SettingsWindow.cs",
+        "src/KuaiYi.App/ShellWindow.cs",
+        "src/KuaiYi.App/TranslationFlow.cs"
+      ],
+      "Unchanged": 3217,
+      "TraceabilityOnlyChanged": "P1-06 implementation InProgress; all validation statuses unchanged",
+      "OriginalEvidenceTestsProjectsLocksWorkflowsPromptsPreserved": true
+    },
+    "IndependentReview": "high_water_review read-only code review passed; final evidence audit pending"
+  },
+  "ExecutionRecords": [
+    {
+      "Run": "r11-core-final",
+      "Command": [
+        "dotnet",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--logger",
+        "trx;LogFileName=r11-core-final.trx",
+        "--results-directory",
+        "artifacts/local-diagnostic-report"
+      ],
+      "StartUtc": "2026-10-17T08:22:52.408698+00:00",
+      "ExitCode": 0,
+      "Source": {
+        "src/KuaiYi.Core/Diagnostics/DiagnosticLog.cs": "0f15e6c21d77944a2c69bf5483fa53b88905b4fc60675e5e68c4bacc7f8a5f6d",
+        "src/KuaiYi.Core/Diagnostics/DiagnosticReportSession.cs": "af9f6d575d656bc99351a09cabb0f1bf8d2a17d0b13c0c02bc2e7f3c6d139cf3",
+        "src/KuaiYi.Core/Diagnostics/DiagnosticReportFiles.cs": "35899ef36422cb546d77572d04d8c8e5ced65f9a88ae4ad474d51b747453ba67",
+        "src/KuaiYi.App/LocalDiagnostics.cs": "311079ee350d227ae01e1d7995cccdffc5e2651e0f708f91cb83bda3c61e4cfb",
+        "src/KuaiYi.App/SettingsDiagnostics.cs": "722c3e4410c5fc3ddb2ae625cb3beaf379066686ddce9ae8ccd0d7194c6c5fa4",
+        "src/KuaiYi.App/ShellWindow.cs": "33cab732ec27e5075723c4c8cab4e81e7c0f205fbd4c0cefd245c38740115378",
+        "src/KuaiYi.App/SelectionFlow.cs": "69ad79b8ac6dff51217d0e909a10096219e898829affc83eb3845f3c1b378298",
+        "src/KuaiYi.App/TranslationFlow.cs": "08373e4a4fc74a2fbcd07b4cb68d02c7f79889a13aab9394269558d77dda8f93",
+        "src/KuaiYi.App/SettingsWindow.cs": "091093cd54278c07f9b8e1e63f8120803cc5d8fa91a2ed5c3752600dff5321c8",
+        "tests/KuaiYi.Core.Tests/LocalDiagnosticTests.cs": "bd7eeff4e388de41e3b2f645c2a23fbf24f99235125360985513e1f029f7c73e"
+      },
+      "Dlls": {
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll": "042d90f245b986c702d66ef36deb725282da13020a07d39acabdbcc7e50680a7",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll": "7da1bf3f428f778ac5d6dd2824285a56746bc0724ffc9e3dfbc7bb4b44b06525",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "40235dee8dfdbb9d2d6dde06059469b1447509a8275b34d20188d3a9355a40e3",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "05d0cffc907f3e3b41dcb9588124166fc4f53acb19fc7a1dd75c39e21fe268ff",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "03f52f9d7969f79f112d213d3b7e6e91f71f3103e275379ed5dfc81eb6260ad3",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "db5d35f0dca1baa4a952ba778a39b521f51cebd45d1bd84be5b518296859a958",
+        "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.OleTransfer.dll": "3cd81430404b7bfb8682497c71cc201855ffd6cd0dc39a05c39e289853995670"
+      }
+    },
+    {
+      "Run": "r12-provider-final",
+      "Command": [
+        "dotnet",
+        "test",
+        "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--logger",
+        "trx;LogFileName=r12-provider-final.trx",
+        "--results-directory",
+        "artifacts/local-diagnostic-report"
+      ],
+      "StartUtc": "2026-10-17T08:23:25.189442+00:00",
+      "ExitCode": 0,
+      "Source": {
+        "src/KuaiYi.Core/Diagnostics/DiagnosticLog.cs": "0f15e6c21d77944a2c69bf5483fa53b88905b4fc60675e5e68c4bacc7f8a5f6d",
+        "src/KuaiYi.Core/Diagnostics/DiagnosticReportSession.cs": "af9f6d575d656bc99351a09cabb0f1bf8d2a17d0b13c0c02bc2e7f3c6d139cf3",
+        "src/KuaiYi.Core/Diagnostics/DiagnosticReportFiles.cs": "35899ef36422cb546d77572d04d8c8e5ced65f9a88ae4ad474d51b747453ba67",
+        "src/KuaiYi.App/LocalDiagnostics.cs": "311079ee350d227ae01e1d7995cccdffc5e2651e0f708f91cb83bda3c61e4cfb",
+        "src/KuaiYi.App/SettingsDiagnostics.cs": "722c3e4410c5fc3ddb2ae625cb3beaf379066686ddce9ae8ccd0d7194c6c5fa4",
+        "src/KuaiYi.App/ShellWindow.cs": "33cab732ec27e5075723c4c8cab4e81e7c0f205fbd4c0cefd245c38740115378",
+        "src/KuaiYi.App/SelectionFlow.cs": "69ad79b8ac6dff51217d0e909a10096219e898829affc83eb3845f3c1b378298",
+        "src/KuaiYi.App/TranslationFlow.cs": "08373e4a4fc74a2fbcd07b4cb68d02c7f79889a13aab9394269558d77dda8f93",
+        "src/KuaiYi.App/SettingsWindow.cs": "091093cd54278c07f9b8e1e63f8120803cc5d8fa91a2ed5c3752600dff5321c8",
+        "tests/KuaiYi.Core.Tests/LocalDiagnosticTests.cs": "bd7eeff4e388de41e3b2f645c2a23fbf24f99235125360985513e1f029f7c73e"
+      },
+      "Dlls": {
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.ImageWorker.dll": "772ae30cb906ba1f63ec85299728252dfc310ffd523dad4a159fe78997c0374c",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll": "7da1bf3f428f778ac5d6dd2824285a56746bc0724ffc9e3dfbc7bb4b44b06525",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "40235dee8dfdbb9d2d6dde06059469b1447509a8275b34d20188d3a9355a40e3",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Provider.Tests.dll": "484585e303bfa99632887b53492bfd87e4ba46dc23d8066a378a5ba372a55b3c",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "03f52f9d7969f79f112d213d3b7e6e91f71f3103e275379ed5dfc81eb6260ad3",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.MockProvider.dll": "b42d8d22c0659c3f1c4fdc7d88f8d06d17786bbeff55da3a3be0bc6fc0d55664",
+        "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/KuaiYi.Providers.dll": "e060fd983c4a333eca570f52154ed54322319baa611009058c5dc900e7e00f35"
+      }
+    },
+    {
+      "Run": "r13-app-final",
+      "Command": [
+        "dotnet",
+        "build",
+        "src/KuaiYi.App/KuaiYi.App.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-p:EnableWindowsTargeting=true"
+      ],
+      "StartUtc": "2026-10-17T08:23:42.670461+00:00",
+      "ExitCode": 0,
+      "Source": {
+        "src/KuaiYi.Core/Diagnostics/DiagnosticLog.cs": "0f15e6c21d77944a2c69bf5483fa53b88905b4fc60675e5e68c4bacc7f8a5f6d",
+        "src/KuaiYi.Core/Diagnostics/DiagnosticReportSession.cs": "af9f6d575d656bc99351a09cabb0f1bf8d2a17d0b13c0c02bc2e7f3c6d139cf3",
+        "src/KuaiYi.Core/Diagnostics/DiagnosticReportFiles.cs": "35899ef36422cb546d77572d04d8c8e5ced65f9a88ae4ad474d51b747453ba67",
+        "src/KuaiYi.App/LocalDiagnostics.cs": "311079ee350d227ae01e1d7995cccdffc5e2651e0f708f91cb83bda3c61e4cfb",
+        "src/KuaiYi.App/SettingsDiagnostics.cs": "722c3e4410c5fc3ddb2ae625cb3beaf379066686ddce9ae8ccd0d7194c6c5fa4",
+        "src/KuaiYi.App/ShellWindow.cs": "33cab732ec27e5075723c4c8cab4e81e7c0f205fbd4c0cefd245c38740115378",
+        "src/KuaiYi.App/SelectionFlow.cs": "69ad79b8ac6dff51217d0e909a10096219e898829affc83eb3845f3c1b378298",
+        "src/KuaiYi.App/TranslationFlow.cs": "08373e4a4fc74a2fbcd07b4cb68d02c7f79889a13aab9394269558d77dda8f93",
+        "src/KuaiYi.App/SettingsWindow.cs": "091093cd54278c07f9b8e1e63f8120803cc5d8fa91a2ed5c3752600dff5321c8",
+        "tests/KuaiYi.Core.Tests/LocalDiagnosticTests.cs": "bd7eeff4e388de41e3b2f645c2a23fbf24f99235125360985513e1f029f7c73e"
+      },
+      "Dlls": {
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Windows.dll": "0dff14683747bf392a2820c388e3b371f13e3843d0a9462a18c0c9b717491efe",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.NativeHost.dll": "042d90f245b986c702d66ef36deb725282da13020a07d39acabdbcc7e50680a7",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Contracts.dll": "7da1bf3f428f778ac5d6dd2824285a56746bc0724ffc9e3dfbc7bb4b44b06525",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Core.dll": "40235dee8dfdbb9d2d6dde06059469b1447509a8275b34d20188d3a9355a40e3",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Imaging.dll": "03f52f9d7969f79f112d213d3b7e6e91f71f3103e275379ed5dfc81eb6260ad3",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.Providers.dll": "e060fd983c4a333eca570f52154ed54322319baa611009058c5dc900e7e00f35",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.OleTransfer.dll": "3cd81430404b7bfb8682497c71cc201855ffd6cd0dc39a05c39e289853995670",
+        "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.App.dll": "6cb9c2788c7e883201d0a5e4e37f4bca922ae7ba368fc577f39707e818717da0"
+      }
+    },
+    {
+      "Run": "r14-worker-final",
+      "Command": [
+        "dotnet",
+        "build",
+        "src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-p:EnableWindowsTargeting=true"
+      ],
+      "StartUtc": "2026-10-17T08:23:45.000787+00:00",
+      "ExitCode": 0,
+      "Source": {
+        "src/KuaiYi.Core/Diagnostics/DiagnosticLog.cs": "0f15e6c21d77944a2c69bf5483fa53b88905b4fc60675e5e68c4bacc7f8a5f6d",
+        "src/KuaiYi.Core/Diagnostics/DiagnosticReportSession.cs": "af9f6d575d656bc99351a09cabb0f1bf8d2a17d0b13c0c02bc2e7f3c6d139cf3",
+        "src/KuaiYi.Core/Diagnostics/DiagnosticReportFiles.cs": "35899ef36422cb546d77572d04d8c8e5ced65f9a88ae4ad474d51b747453ba67",
+        "src/KuaiYi.App/LocalDiagnostics.cs": "311079ee350d227ae01e1d7995cccdffc5e2651e0f708f91cb83bda3c61e4cfb",
+        "src/KuaiYi.App/SettingsDiagnostics.cs": "722c3e4410c5fc3ddb2ae625cb3beaf379066686ddce9ae8ccd0d7194c6c5fa4",
+        "src/KuaiYi.App/ShellWindow.cs": "33cab732ec27e5075723c4c8cab4e81e7c0f205fbd4c0cefd245c38740115378",
+        "src/KuaiYi.App/SelectionFlow.cs": "69ad79b8ac6dff51217d0e909a10096219e898829affc83eb3845f3c1b378298",
+        "src/KuaiYi.App/TranslationFlow.cs": "08373e4a4fc74a2fbcd07b4cb68d02c7f79889a13aab9394269558d77dda8f93",
+        "src/KuaiYi.App/SettingsWindow.cs": "091093cd54278c07f9b8e1e63f8120803cc5d8fa91a2ed5c3752600dff5321c8",
+        "tests/KuaiYi.Core.Tests/LocalDiagnosticTests.cs": "bd7eeff4e388de41e3b2f645c2a23fbf24f99235125360985513e1f029f7c73e"
+      },
+      "Dlls": {
+        "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll": "772ae30cb906ba1f63ec85299728252dfc310ffd523dad4a159fe78997c0374c",
+        "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Contracts.dll": "7da1bf3f428f778ac5d6dd2824285a56746bc0724ffc9e3dfbc7bb4b44b06525",
+        "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Core.dll": "40235dee8dfdbb9d2d6dde06059469b1447509a8275b34d20188d3a9355a40e3",
+        "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.Imaging.dll": "03f52f9d7969f79f112d213d3b7e6e91f71f3103e275379ed5dfc81eb6260ad3"
+      }
+    }
+  ],
+  "OriginalFiles": {
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__final-DiagnosticLog.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/final-DiagnosticLog.cs.txt",
+      "Bytes": 6240,
+      "Sha256": "0f15e6c21d77944a2c69bf5483fa53b88905b4fc60675e5e68c4bacc7f8a5f6d"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__final-DiagnosticReportFiles.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/final-DiagnosticReportFiles.cs.txt",
+      "Bytes": 4539,
+      "Sha256": "35899ef36422cb546d77572d04d8c8e5ced65f9a88ae4ad474d51b747453ba67"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__final-DiagnosticReportSession.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/final-DiagnosticReportSession.cs.txt",
+      "Bytes": 3992,
+      "Sha256": "af9f6d575d656bc99351a09cabb0f1bf8d2a17d0b13c0c02bc2e7f3c6d139cf3"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__final-LocalDiagnosticTests.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/final-LocalDiagnosticTests.cs.txt",
+      "Bytes": 15603,
+      "Sha256": "bd7eeff4e388de41e3b2f645c2a23fbf24f99235125360985513e1f029f7c73e"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__final-LocalDiagnostics.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/final-LocalDiagnostics.cs.txt",
+      "Bytes": 2398,
+      "Sha256": "311079ee350d227ae01e1d7995cccdffc5e2651e0f708f91cb83bda3c61e4cfb"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__final-SelectionFlow.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/final-SelectionFlow.cs.txt",
+      "Bytes": 9499,
+      "Sha256": "69ad79b8ac6dff51217d0e909a10096219e898829affc83eb3845f3c1b378298"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__final-SettingsDiagnostics.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/final-SettingsDiagnostics.cs.txt",
+      "Bytes": 4542,
+      "Sha256": "722c3e4410c5fc3ddb2ae625cb3beaf379066686ddce9ae8ccd0d7194c6c5fa4"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__final-SettingsWindow.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/final-SettingsWindow.cs.txt",
+      "Bytes": 21973,
+      "Sha256": "091093cd54278c07f9b8e1e63f8120803cc5d8fa91a2ed5c3752600dff5321c8"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__final-ShellWindow.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/final-ShellWindow.cs.txt",
+      "Bytes": 16906,
+      "Sha256": "33cab732ec27e5075723c4c8cab4e81e7c0f205fbd4c0cefd245c38740115378"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__final-TranslationFlow.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/final-TranslationFlow.cs.txt",
+      "Bytes": 6984,
+      "Sha256": "08373e4a4fc74a2fbcd07b4cb68d02c7f79889a13aab9394269558d77dda8f93"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__final-execution-records.json": {
+      "Original": "artifacts/local-diagnostic-report/final-execution-records.json",
+      "Bytes": 10096,
+      "Sha256": "f6ec9b27771d866217745fa9a0eade5dd29824f051e7aded4d1be624e4fc0e29"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__final-source.json": {
+      "Original": "artifacts/local-diagnostic-report/final-source.json",
+      "Bytes": 1136,
+      "Sha256": "1e3a8342d7aa3a4c6df310dfa7d86df7271e1b1a094969bf06fbb1ccb7efdc19"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__parent-manifest.json": {
+      "Original": "artifacts/local-diagnostic-report/parent-manifest.json",
+      "Bytes": 479010,
+      "Sha256": "ab094e9329d6400472d94c90ba3bd68878fd2c1f83873a68bdf62e8e6caa0e85"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__preflight.json": {
+      "Original": "artifacts/local-diagnostic-report/preflight.json",
+      "Bytes": 663,
+      "Sha256": "255aa334100e34d210e5e7771725f376f296a0b9c27a4599d94b3236a2a8979b"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r01-DiagnosticLog.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r01-DiagnosticLog.cs.txt",
+      "Bytes": 6240,
+      "Sha256": "0f15e6c21d77944a2c69bf5483fa53b88905b4fc60675e5e68c4bacc7f8a5f6d"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r01-DiagnosticReportFiles.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r01-DiagnosticReportFiles.cs.txt",
+      "Bytes": 4539,
+      "Sha256": "35899ef36422cb546d77572d04d8c8e5ced65f9a88ae4ad474d51b747453ba67"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r01-DiagnosticReportSession.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r01-DiagnosticReportSession.cs.txt",
+      "Bytes": 2790,
+      "Sha256": "e93f90e03f26d74988503be2bb54891fabe4d15c8ef166a6dfc3c73de5ffd1e9"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r01-LocalDiagnosticTests.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r01-LocalDiagnosticTests.cs.txt",
+      "Bytes": 11704,
+      "Sha256": "bcfe51598741c4b8f8ca515bc81781e1728f275d4e99ce39b22f1902ad5dbdf0"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r01-focused.log": {
+      "Original": "artifacts/local-diagnostic-report/r01-focused.log",
+      "Bytes": 2067,
+      "Sha256": "9dcb4f512cf949f9b873657f4be3dd248eac016d9dbe39c26e20661fef742982"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r01-focused.trx": {
+      "Original": "artifacts/local-diagnostic-report/r01-focused.trx",
+      "Bytes": 39828,
+      "Sha256": "60710fe522bc52c06f473dd11a2ae9dd56d0c306d34d301f21ee0419aa2c59a7"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r01-source-binding.json": {
+      "Original": "artifacts/local-diagnostic-report/r01-source-binding.json",
+      "Bytes": 496,
+      "Sha256": "1d6077dd772a9c876c73f50a7a4c3f71d23e9bf72bece53f8d84b892fe935b30"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r02-SettingsDiagnostics.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r02-SettingsDiagnostics.cs.txt",
+      "Bytes": 4510,
+      "Sha256": "f5ac2894f6b1739941c03ef42887e71114a98d91acb4eda5ea1734566c8fac73"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r02-app-build.log": {
+      "Original": "artifacts/local-diagnostic-report/r02-app-build.log",
+      "Bytes": 1166,
+      "Sha256": "bf7cd8b696831694bbc9f814f2e1b42a58c82d4bc26a68e180b0c14455c67b60"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r03-app-build.log": {
+      "Original": "artifacts/local-diagnostic-report/r03-app-build.log",
+      "Bytes": 888,
+      "Sha256": "4dd29a88b6c214d7d57e7d37ddd0dcf5a6c634c1914ebd810e6e145059a5a731"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r03-binding.json": {
+      "Original": "artifacts/local-diagnostic-report/r03-binding.json",
+      "Bytes": 2129,
+      "Sha256": "4dacf502b9b3460bea63389b754063352f8b12dbbb3b3ddab05db9465672ecb6"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r04-binding.json": {
+      "Original": "artifacts/local-diagnostic-report/r04-binding.json",
+      "Bytes": 981,
+      "Sha256": "6b42c28ca53741b4c202339fd93b2d234e33f9528d8e08a78c989e57008d216b"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r04-command.json": {
+      "Original": "artifacts/local-diagnostic-report/r04-command.json",
+      "Bytes": 213,
+      "Sha256": "02bd95e19b8a111468686275232bc9f782bf7e8f49de72ab3002e1c847ace0c6"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r04-core-full.log": {
+      "Original": "artifacts/local-diagnostic-report/r04-core-full.log",
+      "Bytes": 2067,
+      "Sha256": "2cb69f0feaded5e0d2750b81081e35ef224bd5ab8381574ca1b17d2c1da35a31"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r04-core-full.trx": {
+      "Original": "artifacts/local-diagnostic-report/r04-core-full.trx",
+      "Bytes": 2199011,
+      "Sha256": "93126b13bb28af0b67951c41b7b49116bd8af45c96c69b1af88de73956a0941c"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r05-DiagnosticReportSession.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r05-DiagnosticReportSession.cs.txt",
+      "Bytes": 2790,
+      "Sha256": "e93f90e03f26d74988503be2bb54891fabe4d15c8ef166a6dfc3c73de5ffd1e9"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r05-LocalDiagnosticTests.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r05-LocalDiagnosticTests.cs.txt",
+      "Bytes": 13624,
+      "Sha256": "72fcee76efe4ed566589ea836295585b8a4097cf66d636ec3bd70af2f383ae91"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r05-binding.json": {
+      "Original": "artifacts/local-diagnostic-report/r05-binding.json",
+      "Bytes": 1382,
+      "Sha256": "7402c081eb67724ccc4c8cae7d6cbb42f6df57438d3f401a9f8afc9d28c58c6d"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r05-cancellation-red.log": {
+      "Original": "artifacts/local-diagnostic-report/r05-cancellation-red.log",
+      "Bytes": 4530,
+      "Sha256": "b6424173ae28d64f7c7f7fdd858c86f925117159a152267325b4aee650f5e8d6"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r05-cancellation-red.trx": {
+      "Original": "artifacts/local-diagnostic-report/r05-cancellation-red.trx",
+      "Bytes": 9504,
+      "Sha256": "dcd19cbe7a481ab20259456147f9c139648b6b78866122881e36cdb910b0bb04"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r06-DiagnosticReportSession.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r06-DiagnosticReportSession.cs.txt",
+      "Bytes": 3741,
+      "Sha256": "23927b9e0b678742a855564655766df6e0c4f1556c3f71e5de6b53e6bac7b963"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r06-LocalDiagnosticTests.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r06-LocalDiagnosticTests.cs.txt",
+      "Bytes": 13624,
+      "Sha256": "72fcee76efe4ed566589ea836295585b8a4097cf66d636ec3bd70af2f383ae91"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r06-binding.json": {
+      "Original": "artifacts/local-diagnostic-report/r06-binding.json",
+      "Bytes": 1366,
+      "Sha256": "c1e05f9e75a92d10edac61654479d0c11fd65f9f4ddc67e3fe4dfec98cb19bf7"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r06-focused-green.log": {
+      "Original": "artifacts/local-diagnostic-report/r06-focused-green.log",
+      "Bytes": 2073,
+      "Sha256": "439ec322f18dc8f5f612d8811852b6a09129e9db7ba51a4bc91f6dfe44cfbac2"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r06-focused-green.trx": {
+      "Original": "artifacts/local-diagnostic-report/r06-focused-green.trx",
+      "Bytes": 42630,
+      "Sha256": "357853636ee0cd1303a2fa9d8c52b63ca44836af820fb03d0e3222af8e288b5d"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r07-DiagnosticLog.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r07-DiagnosticLog.cs.txt",
+      "Bytes": 6240,
+      "Sha256": "0f15e6c21d77944a2c69bf5483fa53b88905b4fc60675e5e68c4bacc7f8a5f6d"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r07-DiagnosticReportFiles.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r07-DiagnosticReportFiles.cs.txt",
+      "Bytes": 4539,
+      "Sha256": "35899ef36422cb546d77572d04d8c8e5ced65f9a88ae4ad474d51b747453ba67"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r07-DiagnosticReportSession.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r07-DiagnosticReportSession.cs.txt",
+      "Bytes": 3741,
+      "Sha256": "23927b9e0b678742a855564655766df6e0c4f1556c3f71e5de6b53e6bac7b963"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r07-LocalDiagnosticTests.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r07-LocalDiagnosticTests.cs.txt",
+      "Bytes": 13624,
+      "Sha256": "72fcee76efe4ed566589ea836295585b8a4097cf66d636ec3bd70af2f383ae91"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r07-LocalDiagnostics.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r07-LocalDiagnostics.cs.txt",
+      "Bytes": 2398,
+      "Sha256": "311079ee350d227ae01e1d7995cccdffc5e2651e0f708f91cb83bda3c61e4cfb"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r07-SelectionFlow.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r07-SelectionFlow.cs.txt",
+      "Bytes": 9499,
+      "Sha256": "69ad79b8ac6dff51217d0e909a10096219e898829affc83eb3845f3c1b378298"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r07-SettingsDiagnostics.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r07-SettingsDiagnostics.cs.txt",
+      "Bytes": 4542,
+      "Sha256": "722c3e4410c5fc3ddb2ae625cb3beaf379066686ddce9ae8ccd0d7194c6c5fa4"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r07-SettingsWindow.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r07-SettingsWindow.cs.txt",
+      "Bytes": 21973,
+      "Sha256": "091093cd54278c07f9b8e1e63f8120803cc5d8fa91a2ed5c3752600dff5321c8"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r07-ShellWindow.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r07-ShellWindow.cs.txt",
+      "Bytes": 16906,
+      "Sha256": "33cab732ec27e5075723c4c8cab4e81e7c0f205fbd4c0cefd245c38740115378"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r07-TranslationFlow.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r07-TranslationFlow.cs.txt",
+      "Bytes": 6984,
+      "Sha256": "08373e4a4fc74a2fbcd07b4cb68d02c7f79889a13aab9394269558d77dda8f93"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r07-binding.json": {
+      "Original": "artifacts/local-diagnostic-report/r07-binding.json",
+      "Bytes": 2471,
+      "Sha256": "84f6deb5d01450328bb19d7d8084abeddf2793e6bd2ddfc8f58bb231fa71a7ea"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r07-core-final.log": {
+      "Original": "artifacts/local-diagnostic-report/r07-core-final.log",
+      "Bytes": 2068,
+      "Sha256": "0fceffbf69c935115cc6c3f56e27d0a16d1202d2f6ca6984bbabfca6d760d397"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r07-core-final.trx": {
+      "Original": "artifacts/local-diagnostic-report/r07-core-final.trx",
+      "Bytes": 2201813,
+      "Sha256": "172ce8d515ab74c68959a3bfbcfcd75adfce4765eb8211d5f414853e90e7084c"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r07-final-source.json": {
+      "Original": "artifacts/local-diagnostic-report/r07-final-source.json",
+      "Bytes": 1136,
+      "Sha256": "f32ad9d818f1546012277f277352e237a074f3cd893686028512a0e06c675f6e"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r08-DiagnosticReportSession.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r08-DiagnosticReportSession.cs.txt",
+      "Bytes": 3741,
+      "Sha256": "23927b9e0b678742a855564655766df6e0c4f1556c3f71e5de6b53e6bac7b963"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r08-LocalDiagnosticTests.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r08-LocalDiagnosticTests.cs.txt",
+      "Bytes": 15303,
+      "Sha256": "48dc9dccb8eb1b061b8b54dfd3265661d843e30d282ce973491fcec6b831c1ef"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r08-binding.json": {
+      "Original": "artifacts/local-diagnostic-report/r08-binding.json",
+      "Bytes": 1372,
+      "Sha256": "30d7c13876e50a275e0f42c525baf09ef011068831fe568b2b6f45769516ca31"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r08-caller-red.log": {
+      "Original": "artifacts/local-diagnostic-report/r08-caller-red.log",
+      "Bytes": 2067,
+      "Sha256": "b16552cdb164552857a24e0a7138b14d2cb7174ea0abc4119f70a5bddf0d9236"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r08-caller-red.trx": {
+      "Original": "artifacts/local-diagnostic-report/r08-caller-red.trx",
+      "Bytes": 2890,
+      "Sha256": "0257f147f9f9f40a232e3c4b3f0bfc28e5e18da6fd64437987cec57c4fa11f35"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r09-DiagnosticReportSession.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r09-DiagnosticReportSession.cs.txt",
+      "Bytes": 3741,
+      "Sha256": "23927b9e0b678742a855564655766df6e0c4f1556c3f71e5de6b53e6bac7b963"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r09-LocalDiagnosticTests.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r09-LocalDiagnosticTests.cs.txt",
+      "Bytes": 15603,
+      "Sha256": "bd7eeff4e388de41e3b2f645c2a23fbf24f99235125360985513e1f029f7c73e"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r09-binding.json": {
+      "Original": "artifacts/local-diagnostic-report/r09-binding.json",
+      "Bytes": 1377,
+      "Sha256": "20f1841a7c587fc672e74147aed3af8149f84ef04fce1223667d2f23ab89d949"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r09-caller-gate-red.log": {
+      "Original": "artifacts/local-diagnostic-report/r09-caller-gate-red.log",
+      "Bytes": 2669,
+      "Sha256": "e83e6de8aef8d81eca0835f0f48671f55f405f7497689a2643e19be9ff627871"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r09-caller-gate-red.trx": {
+      "Original": "artifacts/local-diagnostic-report/r09-caller-gate-red.trx",
+      "Bytes": 4088,
+      "Sha256": "44408dbe43399a9d4240b3ebc037db4fcee39b998d39c0f79a2285d4fae6c417"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r10-DiagnosticReportSession.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r10-DiagnosticReportSession.cs.txt",
+      "Bytes": 3992,
+      "Sha256": "af9f6d575d656bc99351a09cabb0f1bf8d2a17d0b13c0c02bc2e7f3c6d139cf3"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r10-LocalDiagnosticTests.cs.txt": {
+      "Original": "artifacts/local-diagnostic-report/r10-LocalDiagnosticTests.cs.txt",
+      "Bytes": 15603,
+      "Sha256": "bd7eeff4e388de41e3b2f645c2a23fbf24f99235125360985513e1f029f7c73e"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r10-binding.json": {
+      "Original": "artifacts/local-diagnostic-report/r10-binding.json",
+      "Bytes": 1366,
+      "Sha256": "071d233d3a6b50ea88a5390572e8d21d63dac1445d197e8e8c9209be7f2d8748"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r10-focused-final.log": {
+      "Original": "artifacts/local-diagnostic-report/r10-focused-final.log",
+      "Bytes": 2070,
+      "Sha256": "4f89ddb56a2fec7b1fc52c1919082201ec338599670f7bec3570e14f0b77b9cc"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r10-focused-final.trx": {
+      "Original": "artifacts/local-diagnostic-report/r10-focused-final.trx",
+      "Bytes": 43995,
+      "Sha256": "e8ee94e816bc6ff4d06c71ed6c8a2551ffc5b3a66eda4669276a4152ac70736e"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r11-core-final.log": {
+      "Original": "artifacts/local-diagnostic-report/r11-core-final.log",
+      "Bytes": 2068,
+      "Sha256": "3373e754c05435bbcc557e4c35465f6eb2aa6b95ec120e8031409da8cf139916"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r11-core-final.trx": {
+      "Original": "artifacts/local-diagnostic-report/r11-core-final.trx",
+      "Bytes": 2203178,
+      "Sha256": "58833623e8431b1c3403ae7e4578534bfa80e9b9206097c52420bf0172831a23"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r12-provider-final.log": {
+      "Original": "artifacts/local-diagnostic-report/r12-provider-final.log",
+      "Bytes": 1137,
+      "Sha256": "6e3fb9f7835d360ab6a5563886af601a592eacdf9684e0c978662f81eeb53a1d"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r12-provider-final.trx": {
+      "Original": "artifacts/local-diagnostic-report/r12-provider-final.trx",
+      "Bytes": 3181158,
+      "Sha256": "e518972f18041564cf4819aac4b301d73d747db765896868a8cc8c52de657e09"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r13-app-final.log": {
+      "Original": "artifacts/local-diagnostic-report/r13-app-final.log",
+      "Bytes": 888,
+      "Sha256": "a27a4eff39d33b267fbf871d29373640cd8d3f4980cf7bf77d50d1aad5c46142"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r14-worker-final.log": {
+      "Original": "artifacts/local-diagnostic-report/r14-worker-final.log",
+      "Bytes": 477,
+      "Sha256": "ac1f5b0f53726d7ae593dec33865f601001aed0d164ef1be98facf2f16a81556"
+    },
+    "docs/test-evidence/2026-10-17-local-diagnostic-originals__r15-validation.json": {
+      "Original": "artifacts/local-diagnostic-report/r15-validation.json",
+      "Bytes": 10232,
+      "Sha256": "3efad5d64c89bb6e8497816c5271a530e45f8e3682dd1d2eac307876d9eff05d"
+    }
+  },
+  "DevelopmentFailures": {
+    "r02": "InitialApp C#var multipledeclarator syntaxerror; exactfile/log retained; r03fixed0W/E. Not productred.",
+    "r05": "2F introduced diagnostic revision: callbackthrow and blocking; same method bodies retained, green inr06/r10/final.",
+    "r08": "1P; proposed premature completion did not reproduce. Never counted as red.",
+    "r09": "1F actual gate-blocking assertion; r10 exactsame whole testfile31P. r09/r10 production snapshots and executed DLLs separately bound.",
+    "r04r07": "Earlier wholeCore1584P/1586P pre-cancellation-hardening; finalr11 only is final1587P."
+  },
+  "IndependentReview": {
+    "Agent": "high_water_review",
+    "Mode": "Read-only; no filewrites/SDK/network",
+    "Code": "Pass/no remaining must-fix P1/P2; checked whitelist/privacy/file ownership and all publication/cancel/finishing states",
+    "FinalEvidenceAudit": "Pass/no remainingP1/P2.75 raw ignored/working/index BytesSHA equal;75 -text/no whitespace overrides;10 final source hashes and all four final ExecutionRecords source/DLL hashes match. r09/r10 exact test bytes, r05 methods retained, r08=1P preserved. Core1556+31=1587P, Provider2157 multiset identical; AppWorker0W/E.3223parent-7intended=3216 exact unchanged; digest0ff038842675abbec6bbf885cbc7bbf3d538e2a8cda0d4d3be3c46bc7af62c66.90 staged paths, unstaged/untracked empty, cached check0. OnlyP1-06 implementation/evidence/note changed;all validation/P6 same. Report source references and remaining limits checked. Only this summary updated after final audit."
+  },
+  "Preservation": "3223 parent tracked paths; six expected modified before raw .gitattributes append, 3217 unchanged. Old tests/evidence/projects/locks/workflows/prompts/SPEC/AGENTS byte-preserved. OnlyP1-06implementation->InProgress; all validation/other176 item statuses unchanged.",
+  "Safety": {
+    "Skia": "Pending4.153.1 licenses/source403 hold; no install/load/run/acceptance/retry/bypass.",
+    "Actions": "Previouslydenied; no query/dispatch/alternate route, run countUnknown.",
+    "NetworkModels": "Existing local synthetic fixtures only; no realmodel/cost/credentials/securitypermissions/deploy/main/forcepush.",
+    "Dotnet": "ExistingSDK activation, --no-restore tests/builds; DOTNET_GENERATE_ASPNET_CERTIFICATE=false before/after activate, no certificate access/change.",
+    "Data": "Unknown locks/data/logs/processes preserved; own test temp only."
+  },
+  "RemainingScope": "Concrete source dependencies in docs/validation/local-diagnostic-report.md; P6decode/normalresize/productionvision, P7installertransaction, Windows/DPAPI/COM/DPI/fullquality/soak still incomplete. Oldimageintermittent root unproven, reuseOff. Unverified250ms comparison candidate deferred withoutchanges.",
+  "NotRun": [
+    "RealWPFpreview/export keyboard/visibility/accessibility",
+    "WindowsUIA/OLE/password/integrity/native/OCR/DPAPI/installedidentity",
+    "Realmodelquality/vision/fees",
+    "Actual250/600ms and wholeSPEC/P1-P8 acceptance"
+  ],
+  "ValidationDocument": "docs/validation/local-diagnostic-report.md",
+  "FinalPreservation": {
+    "ParentPaths": 3223,
+    "ExpectedModifiedExisting": 7,
+    "Unchanged": 3216,
+    "UnchangedManifestSha256": "0ff038842675abbec6bbf885cbc7bbf3d538e2a8cda0d4d3be3c46bc7af62c66",
+    "RawOriginals": 75,
+    "ThreeWayBytesEqual": true,
+    "FinalSourceAndDllsEqualValidated": true,
+    "NoSourceTestEditsAfterFinalValidation": true,
+    "Note": "Earlier r15 raw records3217 unchanged before .gitattributes append and review pending at capture; top-level final audit is the final state."
+  }
+}

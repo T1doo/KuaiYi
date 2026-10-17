@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="9f8048b1-9f26-4cf6-9d75-29de71076d1b" name="@4cd0056ca8a8 2026-10-17 08:18:15" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-17T08:18:15.0470064+00:00" queuing="2026-10-17T08:18:15.0470065+00:00" start="2026-10-17T08:18:13.1187857+00:00" finish="2026-10-17T08:18:15.0568524+00:00" />
+  <TestSettings name="default" id="b6063a4d-2b17-4289-b5eb-ae82b3e51cfa">
+    <Deployment runDeploymentRoot="_4cd0056ca8a8_2026-10-17_08_18_15" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="06587acc-4de0-4400-9087-35de8d005229" testId="ac5585a7-bf9c-21f5-eef5-f24759759de6" testName="KuaiYi.Core.Tests.LocalDiagnosticTests.CancellationCallbackCannotPreventPreviewRevocationOrBlockTheCaller(throwing: False)" computerName="4cd0056ca8a8" duration="00:00:01.0280602" startTime="2026-10-17T08:18:13.9063044+00:00" endTime="2026-10-17T08:18:14.9487190+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="06587acc-4de0-4400-9087-35de8d005229">
+      <Output>
+        <ErrorInfo>
+          <Message>Preview invalidation must not wait for cancellation callbacks.</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.LocalDiagnosticTests.CancellationCallbackCannotPreventPreviewRevocationOrBlockTheCaller(Boolean throwing) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/LocalDiagnosticTests.cs:line 114
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="befd2950-c687-41b2-b377-e1bda82e4457" testId="0139e9c6-4855-cecc-3011-0e154276382a" testName="KuaiYi.Core.Tests.LocalDiagnosticTests.CancellationCallbackCannotPreventPreviewRevocationOrBlockTheCaller(throwing: True)" computerName="4cd0056ca8a8" duration="00:00:00.0049520" startTime="2026-10-17T08:18:14.9628314+00:00" endTime="2026-10-17T08:18:14.9629106+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="befd2950-c687-41b2-b377-e1bda82e4457">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   System.AggregateException: One or more errors occurred. (PUBLIC_FAKE_KEY_AND_BODY)
+ ---&gt; System.IO.IOException: PUBLIC_FAKE_KEY_AND_BODY
+   at KuaiYi.Core.Tests.LocalDiagnosticTests.&lt;&gt;c__DisplayClass17_0.&lt;CancellationCallbackCannotPreventPreviewRevocationOrBlockTheCaller&gt;b__2() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/LocalDiagnosticTests.cs:line 106
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.CancellationTokenSource.ExecuteCallbackHandlers(Boolean throwOnFirstException)
+   --- End of inner exception stack trace ---
+   at System.Threading.CancellationTokenSource.ExecuteCallbackHandlers(Boolean throwOnFirstException)
+   at KuaiYi.Core.Diagnostics.DiagnosticReportSession.Invalidate() in /workspace/KuaiYi/src/KuaiYi.Core/Diagnostics/DiagnosticReportSession.cs:line 13
+   at Xunit.Record.Exception(Action testCode) in /_/src/xunit.core/Record.cs:line 25</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.LocalDiagnosticTests.CancellationCallbackCannotPreventPreviewRevocationOrBlockTheCaller(Boolean throwing) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/LocalDiagnosticTests.cs:line 114
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.LocalDiagnosticTests.CancellationCallbackCannotPreventPreviewRevocationOrBlockTheCaller(throwing: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="0139e9c6-4855-cecc-3011-0e154276382a">
+      <Execution id="befd2950-c687-41b2-b377-e1bda82e4457" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.LocalDiagnosticTests" name="CancellationCallbackCannotPreventPreviewRevocationOrBlockTheCaller" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.LocalDiagnosticTests.CancellationCallbackCannotPreventPreviewRevocationOrBlockTheCaller(throwing: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="ac5585a7-bf9c-21f5-eef5-f24759759de6">
+      <Execution id="06587acc-4de0-4400-9087-35de8d005229" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.LocalDiagnosticTests" name="CancellationCallbackCannotPreventPreviewRevocationOrBlockTheCaller" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="ac5585a7-bf9c-21f5-eef5-f24759759de6" executionId="06587acc-4de0-4400-9087-35de8d005229" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0139e9c6-4855-cecc-3011-0e154276382a" executionId="befd2950-c687-41b2-b377-e1bda82e4457" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="0" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.11]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.40]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.43]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:01.50]       Preview invalidation must not wait for cancellation callbacks.
+[xUnit.net 00:00:01.50]       Stack Trace:
+[xUnit.net 00:00:01.50]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/LocalDiagnosticTests.cs(114,0): at KuaiYi.Core.Tests.LocalDiagnosticTests.CancellationCallbackCannotPreventPreviewRevocationOrBlockTheCaller(Boolean throwing)
+[xUnit.net 00:00:01.50]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.51]       Assert.Null() Failure: Value is not null
+[xUnit.net 00:00:01.51]       Expected: null
+[xUnit.net 00:00:01.51]       Actual:   System.AggregateException: One or more errors occurred. (PUBLIC_FAKE_KEY_AND_BODY)
+[xUnit.net 00:00:01.51]        ---&gt; System.IO.IOException: PUBLIC_FAKE_KEY_AND_BODY
+[xUnit.net 00:00:01.51]          at KuaiYi.Core.Tests.LocalDiagnosticTests.&lt;&gt;c__DisplayClass17_0.&lt;CancellationCallbackCannotPreventPreviewRevocationOrBlockTheCaller&gt;b__2() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/LocalDiagnosticTests.cs:line 106
+[xUnit.net 00:00:01.51]          at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+[xUnit.net 00:00:01.51]       --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.51]          at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+[xUnit.net 00:00:01.51]          at System.Threading.CancellationTokenSource.ExecuteCallbackHandlers(Boolean throwOnFirstException)
+[xUnit.net 00:00:01.51]          --- End of inner exception stack trace ---
+[xUnit.net 00:00:01.51]          at System.Threading.CancellationTokenSource.ExecuteCallbackHandlers(Boolean throwOnFirstException)
+[xUnit.net 00:00:01.51]          at KuaiYi.Core.Diagnostics.DiagnosticReportSession.Invalidate() in /workspace/KuaiYi/src/KuaiYi.Core/Diagnostics/DiagnosticReportSession.cs:line 13
+[xUnit.net 00:00:01.51]          at Xunit.Record.Exception(Action testCode) in /_/src/xunit.core/Record.cs:line 25
+[xUnit.net 00:00:01.51]       Stack Trace:
+[xUnit.net 00:00:01.51]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/LocalDiagnosticTests.cs(114,0): at KuaiYi.Core.Tests.LocalDiagnosticTests.CancellationCallbackCannotPreventPreviewRevocationOrBlockTheCaller(Boolean throwing)
+[xUnit.net 00:00:01.51]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.52]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T08:18:14.9531563+00:00">
+        <Text>[xUnit.net 00:00:01.50]     KuaiYi.Core.Tests.LocalDiagnosticTests.CancellationCallbackCannotPreventPreviewRevocationOrBlockTheCaller(throwing: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="4cd0056ca8a8" outcome="Error" timestamp="2026-10-17T08:18:14.9633019+00:00">
+        <Text>[xUnit.net 00:00:01.51]     KuaiYi.Core.Tests.LocalDiagnosticTests.CancellationCallbackCannotPreventPreviewRevocationOrBlockTheCaller(throwing: True) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

@@ -25,6 +25,7 @@ internal sealed partial class ShellWindow:OleDropWindow
     public ShellWindow(string instanceScope,SettingsCoordinator? suppliedCoordinator=null,bool enableSelectionPlatform=true,KuaiYi.Providers.DevelopmentTranslationBoundary? developmentBoundary=null)
     {
         this.enableSelectionPlatform=enableSelectionPlatform;
+        diagnostics.Record(KuaiYi.Core.Diagnostics.DiagnosticEvent.Started);
         string root=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"KuaiYi");
         coordinator=suppliedCoordinator??new(new SettingsStore(Path.Combine(root,"config")),new SecretFileStore(Path.Combine(root,"secrets"),new CurrentUserDpapiProtector(),new CurrentUserSecretDirectory()));
         lifecycle=new(coordinator);showMessage=NativeTray.ShowMessage(instanceScope);
@@ -107,7 +108,7 @@ internal sealed partial class ShellWindow:OleDropWindow
             await startup;await hotkeySetup;await positionSave;if(exiting)return;lifecycle.Gate.SetSuspension(Suspension.Settings,true);RefreshSelection();
             var draft=await coordinator.OpenDraftAsync(lifetime.Token);
             if(exiting){draft.Dispose();return;}
-            try{settings=new(coordinator,draft,selectionCapture?.LastFailureWindow?.Executable,globalHotkeys,()=>globalHotkeys?.Status??[],apiTests,ClearCurrentContent){Owner=this};}catch{draft.Dispose();throw;}
+            try{settings=new(coordinator,draft,selectionCapture?.LastFailureWindow?.Executable,globalHotkeys,()=>globalHotkeys?.Status??[],apiTests,ClearCurrentContent,diagnostics,ReadDiagnosticEnvironment){Owner=this};}catch{draft.Dispose();throw;}
             settings.Closed+=(_,_)=>{settings=null;lifecycle.Gate.SetSuspension(Suspension.Settings,false);Refresh();QueuePositionSave();if(exitRequested)Dispatcher.BeginInvoke(Close);};settings.Show();
         }
         catch(OperationCanceledException)when(lifetime.IsCancellationRequested){ /* Exit awaits this owned opening path. */ }
@@ -183,8 +184,12 @@ internal sealed partial class ShellWindow:OleDropWindow
     }
     private void ClosedShell(object? sender,EventArgs e)
     {
-        Microsoft.Win32.SystemEvents.SessionSwitch-=SessionSwitch;coordinator.Committed-=SettingsCommitted;DisposePresentation();lifecycle.Dispose();lifetime.Cancel();lifetime.Dispose();
-        try{tray?.Dispose();}catch(Exception error){Console.Error.WriteLine("KuaiYi tray cleanup: "+error.GetType().Name);}
+        try
+        {
+            Microsoft.Win32.SystemEvents.SessionSwitch-=SessionSwitch;coordinator.Committed-=SettingsCommitted;DisposePresentation();lifecycle.Dispose();lifetime.Cancel();lifetime.Dispose();
+            try{tray?.Dispose();}catch(Exception error){diagnostics.RecordFailure(error);Console.Error.WriteLine("KuaiYi tray cleanup: "+KuaiYi.Core.Diagnostics.DiagnosticLog.Classify(error));}
+        }
+        finally{diagnostics.Dispose();}
     }
-    private void Report(string text,Exception error){button.ToolTip=text+" · "+error.GetType().Name;Console.Error.WriteLine("KuaiYi shell: "+error.GetType().Name);}
+    private void Report(string text,Exception error){diagnostics.RecordFailure(error);var category=KuaiYi.Core.Diagnostics.DiagnosticLog.Classify(error);button.ToolTip=text+" · "+category;Console.Error.WriteLine("KuaiYi shell: "+category);}
 }

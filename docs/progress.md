@@ -864,3 +864,12 @@ r01新测试xUnit2031编译0执行无TRX；r02候选3F→r03同三测试源码/�
 现有SDK激活后10.0.401可用；不restore/不下载、不重编译地运行3个既有平台/worker例3P，实际worker诊断UnsupportedPlatform；App --no-restore交叉构建一次0W/E。默认PATH及旧记载路径无pwsh、cmake/cl/Windows工具与WindowsDesktop runtime未见，补当前环境说明，不重复下载安装。Windows原失败仍是根Exit0后WaitJobEmpty Active2/Total33超时，成员身份/实际flags不足；NodeReuse禁用已在原代码，Embedded候选亦失败，不能猜测性再改或把Linux缺口当同因。
 
 本次没有已证且能在当前权限内闭合原Windows/源码访问卡点的生产补丁，故源码/配置/锁/工作流/所有原件保全；交付每项证据、可行路径及最小用户步骤，见[诊断](validation/blocker-diagnosis-2026-10-17.md)与[固定证据](test-evidence/2026-10-17-blocker-diagnosis.json)。Skia许可未接受、403未重试/换镜像、Actions拒绝不查不调，未增费用凭据安全权限、未真实模型/main/强推/部署。旧图片未知、生产复用Off、全部P6/Windows未验及250/600ms/来源/密码/完整性/取消/清理门不变。
+
+
+## 2026-10-17 · SPEC14.4/P1-06会话诊断与本地报告
+
+实际HEAD/远端dev/blocker-diagnosis均9765f0bc7f2ef6ee099cb8d06d2fb80f405a933e，与先前同HEAD；单worktree/唯一观测root写入，从其正常建dev/local-diagnostic-report。8b902祖先修复保留、不重复交付；250ms父子边界候选只查源码未实证/修改，按父补充优先诊断。源码核实Shell.Report仅异常类型、隐私页缺报告入口，已有Provider/Markdown等功能未重复。
+
+新增最多256条会话内白名单元数据、异常固定分类、设置底部真实预览窗口与显式新本地文件导出。默认不落盘/不上传/不遥测，退出/用户清除释放；不接受正文/秘密/路径/查询串等自由文本，未知重试/指标Unknown，未运行能力NotRun。报告含OS数字版本/工作区DPI/组件版本；预览快照与publication门、取消和文件归属保全。首次App语法失败保留修正；自身取消2F→绿，caller初提前完成假设1P未证实，准确gate反例1F→绿，全部原件保留，未把新功能缺类型当父红。最终专项31P，完整Core1587P（父1556全部结果行+31）、Provider2157P原集合，App/Worker各0W/E；代码只读独审通过，真实WPF仍未验。
+
+具体原范围剩余源码/依赖见[报告](validation/local-diagnostic-report.md)、[原始证据](test-evidence/2026-10-17-local-diagnostic-report.json)：P6普通图片解码/缩放和生产视觉链、P7完整安装升级卸载、Windows真实取词/COM/DPI/DPAPI与完整质量/浸泡仍未完，非仅重述标签。P1-06仅改InProgress/验证NotRun，其他整体状态保持；图片复用Off和旧间歇根因未知。无环境重复诊断/新依赖/Skia许可或403绕行/Actions访问调度/真实模型/main/强推/部署/费用/凭据安全权限变更，未知数据锁日志进程保全。

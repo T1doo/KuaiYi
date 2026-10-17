@@ -1,0 +1,45 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.SelectionReuseDiagnostic -> /workspace/KuaiYi/tools/KuaiYi.SelectionReuseDiagnostic/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:01.50]     KuaiYi.Core.Tests.LocalDiagnosticTests.CancellationCallbackCannotPreventPreviewRevocationOrBlockTheCaller(throwing: False) [FAIL]
+[xUnit.net 00:00:01.51]     KuaiYi.Core.Tests.LocalDiagnosticTests.CancellationCallbackCannotPreventPreviewRevocationOrBlockTheCaller(throwing: True) [FAIL]
+  Failed KuaiYi.Core.Tests.LocalDiagnosticTests.CancellationCallbackCannotPreventPreviewRevocationOrBlockTheCaller(throwing: False) [1 s]
+  Error Message:
+   Preview invalidation must not wait for cancellation callbacks.
+  Stack Trace:
+     at KuaiYi.Core.Tests.LocalDiagnosticTests.CancellationCallbackCannotPreventPreviewRevocationOrBlockTheCaller(Boolean throwing) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/LocalDiagnosticTests.cs:line 114
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.LocalDiagnosticTests.CancellationCallbackCannotPreventPreviewRevocationOrBlockTheCaller(throwing: True) [4 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   System.AggregateException: One or more errors occurred. (PUBLIC_FAKE_KEY_AND_BODY)
+ ---> System.IO.IOException: PUBLIC_FAKE_KEY_AND_BODY
+   at KuaiYi.Core.Tests.LocalDiagnosticTests.<>c__DisplayClass17_0.<CancellationCallbackCannotPreventPreviewRevocationOrBlockTheCaller>b__2() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/LocalDiagnosticTests.cs:line 106
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.CancellationTokenSource.ExecuteCallbackHandlers(Boolean throwOnFirstException)
+   --- End of inner exception stack trace ---
+   at System.Threading.CancellationTokenSource.ExecuteCallbackHandlers(Boolean throwOnFirstException)
+   at KuaiYi.Core.Diagnostics.DiagnosticReportSession.Invalidate() in /workspace/KuaiYi/src/KuaiYi.Core/Diagnostics/DiagnosticReportSession.cs:line 13
+   at Xunit.Record.Exception(Action testCode) in /_/src/xunit.core/Record.cs:line 25
+  Stack Trace:
+     at KuaiYi.Core.Tests.LocalDiagnosticTests.CancellationCallbackCannotPreventPreviewRevocationOrBlockTheCaller(Boolean throwing) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/LocalDiagnosticTests.cs:line 114
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/local-diagnostic-report/r05-cancellation-red.trx
+
+Failed!  - Failed:     2, Passed:     0, Skipped:     0, Total:     2, Duration: 1 s - KuaiYi.Core.Tests.dll (net10.0)

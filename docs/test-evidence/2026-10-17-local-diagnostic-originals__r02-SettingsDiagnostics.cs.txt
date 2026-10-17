@@ -1,0 +1,68 @@
+using System.Windows;
+using System.Windows.Controls;
+using KuaiYi.Core.Diagnostics;
+using Microsoft.Win32;
+namespace KuaiYi.App;
+internal sealed partial class SettingsWindow
+{
+    private readonly DiagnosticLog? diagnostics;private readonly Func<DiagnosticEnvironment>? diagnosticEnvironment;
+    private Window? diagnosticWindow;
+    private void SetupDiagnosticEntry(Panel footer)
+    {
+        var open=new Button{Content="预览脱敏诊断",Margin=new Thickness(8),HorizontalAlignment=HorizontalAlignment.Left,IsEnabled=diagnostics!=null&&diagnosticEnvironment!=null};
+        footer.Children.Add(open);
+        open.Click+=(_,_)=>
+        {
+            if(diagnosticWindow!=null){diagnosticWindow.Activate();return;}
+            try
+            {
+                var session=new DiagnosticReportSession();
+                try
+                {
+                    session.Prepare(diagnostics!,diagnosticEnvironment!());
+                    diagnosticWindow=new LocalDiagnosticReportWindow(session,diagnostics!){Owner=this};
+                    diagnosticWindow.Closed+=(_,_)=>diagnosticWindow=null;diagnosticWindow.Show();
+                }
+                catch{session.Dispose();throw;}
+            }
+            catch(Exception error){diagnostics?.RecordFailure(error);status.Text="诊断预览不可用；未导出文件，也未发送诊断。";}
+        };
+    }
+}
+internal sealed class LocalDiagnosticReportWindow:Window
+{
+    private readonly DiagnosticReportSession session;private bool closed;
+    public LocalDiagnosticReportWindow(DiagnosticReportSession session,DiagnosticLog log)
+    {
+        this.session=session;Title="快译 · 本地诊断预览";Width=720;Height=520;WindowStartupLocation=WindowStartupLocation.CenterOwner;
+        var root=new DockPanel{Margin=new Thickness(12)};Content=root;
+        var actions=new StackPanel();DockPanel.SetDock(actions,Dock.Bottom);root.Children.Add(actions);
+        var note=new TextBlock{Text="最多保留 256 条会话元数据，退出后清除。不会自动保存或上传。能力未测试时显示 NotRun。导出仅保存当前预览。",TextWrapping=TextWrapping.Wrap,Margin=new Thickness(0,8,0,8)};actions.Children.Add(note);
+        var row=new StackPanel{Orientation=Orientation.Horizontal};actions.Children.Add(row);
+        var export=new Button{Content="将所示报告导出到新文件",Margin=new Thickness(4)},clear=new Button{Content="清除会话诊断",Margin=new Thickness(4)};
+        row.Children.Add(export);row.Children.Add(clear);
+        var text=new TextBox{Text=session.Preview!.Text,IsReadOnly=true,AcceptsReturn=true,TextWrapping=TextWrapping.NoWrap,VerticalScrollBarVisibility=ScrollBarVisibility.Auto,HorizontalScrollBarVisibility=ScrollBarVisibility.Auto};root.Children.Add(text);
+        System.Windows.Automation.AutomationProperties.SetName(text,"脱敏诊断报告预览");
+        clear.Click+=(_,_)=>{session.Invalidate();log.Clear();text.Clear();export.IsEnabled=false;note.Text="会话诊断已清除。关闭后可重新预览；已导出的文件由您自行保管。";};
+        export.Click+=async(_,_)=>
+        {
+            if(session.Busy||session.Preview is not {} report)return;
+            var picker=new SaveFileDialog{Title="将所示诊断导出到新文件",Filter="文本报告 (*.txt)|*.txt",DefaultExt=".txt",AddExtension=true,FileName="KuaiYi-diagnostics.txt",OverwritePrompt=false,CheckPathExists=true};
+            if(picker.ShowDialog(this)!=true||closed)return;
+            export.IsEnabled=clear.IsEnabled=false;
+            try
+            {
+                var result=await session.ExportAsync(report,(value,ct)=>DiagnosticReportFiles.PrepareNewAsync(picker.FileName,value,ct));
+                if(!closed)note.Text=result switch
+                {
+                    DiagnosticExportStatus.Published=>"所示报告已保存到新文件；没有上传。",
+                    DiagnosticExportStatus.PublishedCleanupUnconfirmed=>"所示报告已保存；文件资源关闭尚未确认。",
+                    DiagnosticExportStatus.Cancelled=>"导出已取消；没有发布报告。",
+                    _=>"报告未导出；请选择不存在且可写的本地文件。无法确认归属的文件会保留。"
+                };
+            }
+            finally{if(!closed){export.IsEnabled=session.Preview!=null;clear.IsEnabled=true;}}
+        };
+        Closing+=(_,_)=>{session.Invalidate();text.Clear();};Closed+=(_,_)=>{closed=true;session.Dispose();};
+    }
+}

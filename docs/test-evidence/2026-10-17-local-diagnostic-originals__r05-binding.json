@@ -1,0 +1,26 @@
+{
+  "ExitCode": 1,
+  "Command": [
+    "dotnet",
+    "test",
+    "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+    "-c",
+    "Release",
+    "--no-restore",
+    "--filter",
+    "FullyQualifiedName~CancellationCallbackCannotPrevent",
+    "--logger",
+    "trx;LogFileName=r05-cancellation-red.trx",
+    "--results-directory",
+    "artifacts/local-diagnostic-report"
+  ],
+  "Dlls": {
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.NativeHost.dll": "000dd7feb2e5098249849eacd0f0040f693922687dfbf8ce94a6a39caeaf45f2",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll": "7da1bf3f428f778ac5d6dd2824285a56746bc0724ffc9e3dfbc7bb4b44b06525",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "197767bbf18239dbe46ac2870935e78aacb3262f28f7e762c1a21ef8166bd82d",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll": "78ecb4fbdd81f1369198edc6377c4201a4bc7fd6c79ec1e3fee758548b5245cc",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Imaging.dll": "283baeb94c8084a803dc780b17880f40976b46dbd4cca5d84258fb74289b79a8",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "728e85a5093a1eac2d0357dd180c5df8a564a2a820827c938fa7eebfa7f31cb6",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.OleTransfer.dll": "182060ecbd9b9256c893ac55240d2fe10288511214c055adc58f30aaa5677d8a"
+  }
+}

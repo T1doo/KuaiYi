@@ -659,9 +659,13 @@
         "建立脱敏日志、错误类型、假 Provider 注入点",
         "测试环境可注入；正式环境不能误用 Mock"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/validation/local-diagnostic-report.md",
+        "docs/test-evidence/2026-10-17-local-diagnostic-report.json"
+      ],
+      "note": "SPEC14.4 bounded session metadata log and user preview/new-local-file export implemented; no automatic persistence/upload or telemetry. Fixed enum/numeric/version/GUID allowlist, max256 entries, no exception messages/content/paths/endpoints/models. Shell/capture/text events wired; unknown retry/metrics remain Unknown, unexecuted capability checks NotRun. Existing credential-free loopback test Provider boundary retained. Portable file/privacy/lifecycle tests and crossbuild do not prove WPF/Windows or full P1-06 acceptance."
     },
     {
       "id": "P2-01",

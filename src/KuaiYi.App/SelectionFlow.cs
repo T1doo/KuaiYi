@@ -75,11 +75,13 @@ internal sealed partial class ShellWindow
     }
     private void AcceptSelection(SelectionSourceSnapshot source,bool duplicate)
     {
+        diagnostics.Record(KuaiYi.Core.Diagnostics.DiagnosticEvent.CaptureFinished,byteCount:System.Text.Encoding.UTF8.GetByteCount(source.RawText));
         button.ToolTip=$"已读取实际{(source.SourceKind==SelectionSourceKind.OleDrop?"投放":"选区")} · {source.SourceKind} · {source.Scalars} 字符{(source.Recovery is ClipboardRecovery.Unconfirmed or ClipboardRecovery.Changed?" · 剪贴板恢复未确认":"")}";
         QueueTranslation(source);
     }
     private void SelectionFailed(SelectionCaptureStatus status)
     {
+        diagnostics.Record(KuaiYi.Core.Diagnostics.DiagnosticEvent.CaptureFinished,status is SelectionCaptureStatus.SoftTimeout or SelectionCaptureStatus.HardTimeout or SelectionCaptureStatus.ClipboardTimeout?KuaiYi.Core.Diagnostics.DiagnosticError.Timeout:KuaiYi.Core.Diagnostics.DiagnosticError.InvalidData);
         if(selectionCapture?.LastFailureExplicit!=true&&selectionCapture?.LastFailureWindow is {} source){long now=Environment.TickCount64;var key=(source.Executable,status);if(selectionFailureNotices.TryGetValue(key,out long last)&&now-last<30000)return;if(selectionFailureNotices.Count>=128)selectionFailureNotices.Clear();selectionFailureNotices[key]=now;}
         button.ToolTip=status==SelectionCaptureStatus.Paused?"此应用的自动取词暂缓30秒，请稍后重试。":"无法读取可信选区，可使用截图或从设置中按应用授权复制兼容。 · "+status;
     }

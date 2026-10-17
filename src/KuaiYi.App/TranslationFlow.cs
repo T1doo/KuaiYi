@@ -20,7 +20,7 @@ internal sealed partial class ShellWindow
             {using var lease=await coordinator.OpenRequestSecretAsync(lifecycle.Gate,identity,intent.Binding,new(intent.Plan.Transport.ResolveEndpoint()),cancellation).ConfigureAwait(false);return new KuaiYi.Providers.SecretLease(lease.Bytes.Span);},developmentBoundary);
         translation=new(lifecycle.Gate,()=>lifecycle.Settings,
             (source,explicitUse)=>explicitUse?SelectionDesktop.IsRetainedSourceCurrent(source.Window):SelectionDesktop.IsCurrent(source.Window),
-            translationProvider,new DispatcherSynchronizationContext(Dispatcher),overlayResults,TranslationChanged,
+            translationProvider,new DispatcherSynchronizationContext(Dispatcher),overlayResults,ObserveDiagnosticTranslation,
             async(identity,snapshot,cancellation)=>
             {
                 using var encryptedLease=await coordinator.OpenRequestSecretAsync(lifecycle.Gate,identity,snapshot.Binding,new(snapshot.Transport.ResolveEndpoint()),cancellation).ConfigureAwait(false);

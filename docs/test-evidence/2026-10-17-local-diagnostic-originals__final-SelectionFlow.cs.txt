@@ -1,0 +1,105 @@
+using System.IO;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Interop;
+using System.Windows.Threading;
+using KuaiYi.Core;
+using KuaiYi.NativeHost;
+using KuaiYi.Windows;
+namespace KuaiYi.App;
+internal sealed partial class ShellWindow
+{
+    private SelectionBrokerClient? selectionBroker;private ClipboardCaptureClient? clipboardCapture;private SelectionCaptureCoordinator? selectionCapture;private SelectionMouseHook? selectionHook;private SelectionInputBridge? selectionInput;
+    private Task selectionReconcile=Task.CompletedTask,selectionEvents=Task.CompletedTask;
+    private (long Epoch,string? Version)? selectionState;
+    private readonly Dictionary<(string Application,SelectionCaptureStatus Status),long> selectionFailureNotices=[];private long lastCopyRecoveryNotice;
+    private sealed class SelectionPlatform(SelectionBrokerClient broker,ClipboardCaptureClient clipboard):ISelectionCapturePlatform,ISelectionCopyPlatform
+    {public bool IsCurrent(SelectionWindow window)=>SelectionDesktop.IsCurrent(window);public bool IsCopyCurrent(SelectionWindow source,SelectionCopyEvidence evidence)=>CopyInputGuard.IsCurrent(source,evidence);public Task<SelectionCaptureResult> CaptureAsync(SelectionGesture gesture,CancellationToken cancellation)=>broker.CaptureAsync(gesture,cancellation);public Task<SelectionCaptureResult> CaptureCopiedAsync(SelectionGesture gesture,SelectionCopyEvidence evidence,Func<uint,ClipboardCopyStart?> issueCopy,Func<bool> current,CancellationToken cancellation)=>clipboard.CaptureAsync(gesture,evidence,issueCopy,current,cancellation);public ClipboardCopyStart? TryIssueCopy(SelectionGesture gesture,SelectionCopyEvidence evidence,uint sequence)=>CopyInputGuard.Send(gesture,evidence,sequence);}
+    private void SetupSelection()
+    {
+        if(!enableSelectionPlatform)return;
+        selectionBroker=new(Path.Combine(AppContext.BaseDirectory,"KuaiYi.CaptureBroker.exe"));
+        clipboardCapture=new(Path.Combine(AppContext.BaseDirectory,"KuaiYi.ClipboardHost.exe"));
+        var tracker=new SelectionGestureTracker(Math.Max(1,SelectionDesktop.GetSystemMetrics(68)),Math.Max(1,SelectionDesktop.GetSystemMetrics(69)),checked((int)SelectionDesktop.GetDoubleClickTime()),Math.Max(1,SelectionDesktop.GetSystemMetrics(36)),Math.Max(1,SelectionDesktop.GetSystemMetrics(37)));
+        selectionCapture=new(lifecycle.Gate,()=>lifecycle.Settings,new SelectionPlatform(selectionBroker,clipboardCapture),tracker,(uint)Environment.ProcessId,new DispatcherSynchronizationContext(Dispatcher),AcceptSelection,SelectionFailed,clipboardRecoveryWarning:CopyRecoveryWarning);
+        selectionInput=new(lifecycle.Gate,()=>lifecycle.Settings,()=>selectionHook?.Identity.HookId,input=>SelectionDesktop.Resolve(input.Foreground,input.Point),SelectionDesktop.IsCurrent,selectionCapture,new DispatcherSynchronizationContext(Dispatcher));
+    }
+    private void RefreshSelection()
+    {
+        RefreshTextDrop();if(selectionCapture==null)return;var state=(lifecycle.Gate.Snapshot.Epoch,lifecycle.Settings?.Version);
+        if(selectionState!=state){selectionState=state;selectionCapture.CancelPending();selectionReconcile=ReconcileSelection(selectionReconcile);}
+
+    }
+    private async Task ReconcileSelection(Task previous)
+    {
+        try
+        {
+            await previous;var state=lifecycle.Gate.Snapshot;
+            bool wanted=!exiting&&state.Activation==Activation.On&&state.Mode==TriggerMode.Selection&&state.Suspension==Suspension.None;
+            var identity=wanted?selectionCapture!.FreezeInputIdentity(Guid.NewGuid()):null;wanted=wanted&&identity!=null;
+            if(wanted&&selectionHook?.IsFaulted==true)throw new IOException("Previous selection hook cleanup is not confirmed.");
+            bool replace=selectionHook!=null&&(!wanted||selectionHook.Identity.Ticket!=identity!.Ticket||selectionHook.Identity.SettingsVersion!=identity.SettingsVersion);
+            if(replace){var old=selectionHook!;old.Stop();await old.DisposeAsync();await selectionEvents;selectionHook=null;}
+            if(wanted&&selectionHook==null){var created=selectionHook=new(identity!);await created.Ready;selectionEvents=ConsumeSelection(created);}
+        }
+        catch(Exception error){if(selectionHook?.IsReleased==true)selectionHook=null;SelectionInfrastructureFailed("自动选区监听不可用；请停用后重试",error);}
+    }
+    private async Task ConsumeSelection(SelectionMouseHook hook)
+    {
+        long revision=hook.LossRevision;
+        try
+        {
+            await foreach(var item in hook.Events.ReadAllAsync().ConfigureAwait(false))
+            {
+                if(item.LossRevision!=hook.LossRevision||item.LossRevision!=revision){selectionCapture?.CancelPending();revision=hook.LossRevision;if(item.LossRevision!=revision)continue;}
+                var delivery=await selectionInput!.ReceiveAsync(item).ConfigureAwait(false);
+                if(delivery.Admitted)await Dispatcher.InvokeAsync(()=>_=ObserveSelection(delivery.Capture));
+            }
+        }
+        catch(Exception error){await Dispatcher.InvokeAsync(()=>{if(selectionHook==hook)SelectionInfrastructureFailed("选区监听已停止",error);});}
+    }
+    private void SelectionInfrastructureFailed(string message,Exception error)
+    {
+        lifecycle.Gate.Disable();selectionCapture?.CancelPending();try{selectionHook?.Stop();}catch(Exception stopError){Report("监听停止未确认",stopError);}button.Background=OverlayTokens.Off;UpdateButtonGlyph(false);System.Windows.Automation.AutomationProperties.SetName(button,"快译：未启用翻译");
+        try{tray?.Update(false);}catch(Exception trayError){Report("托盘状态更新失败",trayError);}Report(message,error);
+    }
+    private async Task ObserveSelection(Task operation)
+    {try{await operation;}catch(Exception error){if(!exiting)Report("读取选区失败",error);}}
+    private Task ReadCurrentSelection(HotkeyInputIdentity? input=null)
+    {
+        if(input is {} expected&&!lifecycle.Gate.IsHotkeyInputCurrent(expected))return Task.CompletedTask;
+        if(selectionCapture==null||!lifecycle.Gate.TryBeginPassiveCapture(lifecycle.Gate.Snapshot.Mode,out _))return Task.CompletedTask;
+        if(!NativeDesktop.GetCursorPos(out var point))return Task.CompletedTask;
+        var source=SelectionDesktop.Resolve(NativeDesktop.GetForegroundWindow().ToInt64());
+        return source==null?Task.CompletedTask:selectionCapture.ExplicitAsync(source,new(point.X,point.Y),input);
+    }
+    private void AcceptSelection(SelectionSourceSnapshot source,bool duplicate)
+    {
+        diagnostics.Record(KuaiYi.Core.Diagnostics.DiagnosticEvent.CaptureFinished,byteCount:System.Text.Encoding.UTF8.GetByteCount(source.RawText));
+        button.ToolTip=$"已读取实际{(source.SourceKind==SelectionSourceKind.OleDrop?"投放":"选区")} · {source.SourceKind} · {source.Scalars} 字符{(source.Recovery is ClipboardRecovery.Unconfirmed or ClipboardRecovery.Changed?" · 剪贴板恢复未确认":"")}";
+        QueueTranslation(source);
+    }
+    private void SelectionFailed(SelectionCaptureStatus status)
+    {
+        diagnostics.Record(KuaiYi.Core.Diagnostics.DiagnosticEvent.CaptureFinished,status is SelectionCaptureStatus.SoftTimeout or SelectionCaptureStatus.HardTimeout or SelectionCaptureStatus.ClipboardTimeout?KuaiYi.Core.Diagnostics.DiagnosticError.Timeout:KuaiYi.Core.Diagnostics.DiagnosticError.InvalidData);
+        if(selectionCapture?.LastFailureExplicit!=true&&selectionCapture?.LastFailureWindow is {} source){long now=Environment.TickCount64;var key=(source.Executable,status);if(selectionFailureNotices.TryGetValue(key,out long last)&&now-last<30000)return;if(selectionFailureNotices.Count>=128)selectionFailureNotices.Clear();selectionFailureNotices[key]=now;}
+        button.ToolTip=status==SelectionCaptureStatus.Paused?"此应用的自动取词暂缓30秒，请稍后重试。":"无法读取可信选区，可使用截图或从设置中按应用授权复制兼容。 · "+status;
+    }
+    private void CopyRecoveryWarning(ClipboardRecovery recovery){if(exiting||lifecycle.Gate.Snapshot.Suspension.HasFlag(Suspension.SessionLocked))return;long now=Environment.TickCount64;if(now-lastCopyRecoveryNotice<30000&&lastCopyRecoveryNotice!=0)return;lastCopyRecoveryNotice=now;button.ToolTip="复制兼容的剪贴板恢复未确认；未尝试覆盖后续复制，系统历史无法保证删除。";}
+    private void ClearSelectionSource(){selectionCapture?.CancelPending(clearSource:true);ClearOriginalSource();}
+    private async Task StopSelection()
+    {
+        List<Exception> errors=[];ScreenshotPreviewCleanup.Attempt(errors,ClearSelectionSource);
+        async Task Settle(Func<Task> step){try{await step();}catch(Exception error){errors.Add(error);}}
+        await Settle(()=>selectionReconcile);
+        if(selectionHook is {} hook)
+        {
+            ScreenshotPreviewCleanup.Attempt(errors,hook.Stop);
+            await Settle(async()=>{await hook.DisposeAsync();await selectionEvents;if(ReferenceEquals(selectionHook,hook))selectionHook=null;});
+        }
+        if(selectionCapture!=null)await Settle(async()=>await selectionCapture.DisposeAsync());
+        if(selectionBroker!=null)await Settle(async()=>await selectionBroker.DisposeAsync());
+        if(clipboardCapture!=null)await Settle(async()=>await clipboardCapture.DisposeAsync());
+        if(errors.Count>0)throw new AggregateException("Selection cleanup unconfirmed.",errors);
+    }
+}
