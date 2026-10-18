@@ -1,0 +1,81 @@
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.SelectionReuseDiagnostic -> /workspace/KuaiYi/tools/KuaiYi.SelectionReuseDiagnostic/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.58]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ProductionOverlapIsRefusedBeforePublishTraversalOrOutput(mode: "below") [FAIL]
+[xUnit.net 00:00:00.60]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ProductionOverlapIsRefusedBeforePublishTraversalOrOutput(mode: "same") [FAIL]
+[xUnit.net 00:00:00.60]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ProductionOverlapIsRefusedBeforePublishTraversalOrOutput(mode: "above") [FAIL]
+  Failed KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ProductionOverlapIsRefusedBeforePublishTraversalOrOutput(mode: "below") [37 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Session test overlaps production data."
+Actual:   "Publish input already contains session me"···
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ProductionOverlapIsRefusedBeforePublishTraversalOrOutput(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 106
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ProductionOverlapIsRefusedBeforePublishTraversalOrOutput(mode: "same") [3 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Session test overlaps production data."
+Actual:   "Publish input already contains session me"···
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ProductionOverlapIsRefusedBeforePublishTraversalOrOutput(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 106
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ProductionOverlapIsRefusedBeforePublishTraversalOrOutput(mode: "above") [6 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Session test overlaps production data."
+Actual:   "Publish input already contains session me"···
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ProductionOverlapIsRefusedBeforePublishTraversalOrOutput(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 106
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.69]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.SourceAndOutputCannotContainEachOtherBeforePublishTraversal(sourceAbove: False) [FAIL]
+[xUnit.net 00:00:00.70]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.SourceAndOutputCannotContainEachOtherBeforePublishTraversal(sourceAbove: True) [FAIL]
+  Failed KuaiYi.Core.Tests.IsolatedSessionLayoutTests.SourceAndOutputCannotContainEachOtherBeforePublishTraversal(sourceAbove: False) [6 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(System.IO.InvalidDataException)
+Actual:   typeof(System.IO.FileNotFoundException)
+---- System.IO.FileNotFoundException : Could not find file '/tmp/kuaiyi-isolated-root-tests-6d3f35640cd64974884cccda0a97d480/publish-output/nested/KuaiYi.App.exe'.
+  Stack Trace:
+     at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.SourceAndOutputCannotContainEachOtherBeforePublishTraversal(Boolean sourceAbove) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 114
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at Interop.ThrowExceptionForIoErrno(ErrorInfo errorInfo, String path, Boolean isDirError)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String path, OpenFlags flags, Int32 mode, Boolean failForSymlink, Boolean& wasSymlink, Func`4 createOpenException)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, UnixFileMode openPermissions, Int64& fileLength, UnixFileMode& filePermissions, Boolean failForSymlink, Boolean& wasSymlink, Func`4 createOpenException)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.File.OpenRead(String path)
+   at IsolatedSessionPackage.RequireClosure(String publish) in /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/IsolatedSessionPackage.cs:line 36
+   at IsolatedSessionPackage.PrepareAsync(String publish, String outputParent, String productionData) in /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/IsolatedSessionPackage.cs:line 15
+  Failed KuaiYi.Core.Tests.IsolatedSessionLayoutTests.SourceAndOutputCannotContainEachOtherBeforePublishTraversal(sourceAbove: True) [2 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Session test overlaps production data."
+Actual:   "Publish input already contains session me"···
+           ↑ (pos 0)
+  Stack Trace:
+     at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.SourceAndOutputCannotContainEachOtherBeforePublishTraversal(Boolean sourceAbove) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 114
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/isolated-session-data/r03-package-overlap-red.trx
+
+Failed!  - Failed:     5, Passed:    30, Skipped:     0, Total:    35, Duration: 294 ms - KuaiYi.Core.Tests.dll (net10.0)

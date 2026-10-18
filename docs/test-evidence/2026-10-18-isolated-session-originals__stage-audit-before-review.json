@@ -1,0 +1,73 @@
+{
+  "sourceCount": 73,
+  "worktreeSourceMatch": true,
+  "rawBytesAndHashes": true,
+  "archives": {
+    "r01-isolation-tests": {
+      "Entries": 71,
+      "AllMatch": true
+    },
+    "r02-isolation-tests": {
+      "Entries": 71,
+      "AllMatch": true
+    },
+    "r03-package-overlap-red": {
+      "Entries": 71,
+      "AllMatch": true
+    },
+    "r04-package-overlap-green": {
+      "Entries": 71,
+      "AllMatch": true
+    },
+    "r05-isolated-app": {
+      "Entries": 73,
+      "AllMatch": true
+    },
+    "r06-isolated-app": {
+      "Entries": 73,
+      "AllMatch": true
+    },
+    "r07-isolation-final": {
+      "Entries": 73,
+      "AllMatch": true
+    },
+    "r08-core-full": {
+      "Entries": 73,
+      "AllMatch": true
+    },
+    "r10-provider-full": {
+      "Entries": 73,
+      "AllMatch": true
+    },
+    "r11-production-app": {
+      "Entries": 73,
+      "AllMatch": true
+    },
+    "r12-worker-build": {
+      "Entries": 73,
+      "AllMatch": true
+    }
+  },
+  "stagedBeforeThisAudit": {
+    "A": 89,
+    "M": 8,
+    "D": 0
+  },
+  "modifiedExisting": [
+    ".gitattributes",
+    "docs/progress.md",
+    "src/KuaiYi.App/KuaiYi.App.csproj",
+    "src/KuaiYi.App/Program.cs",
+    "src/KuaiYi.App/ShellWindow.cs",
+    "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+    "tools/KuaiYi.SettingsStoreFixture/KuaiYi.SettingsStoreFixture.csproj",
+    "tools/KuaiYi.SettingsStoreFixture/Program.cs"
+  ],
+  "parentTrackedFiles": 11177,
+  "noOtherExistingPathsModified": true,
+  "noOldTestCsModified": true,
+  "allOldEvidenceUnchangedByGit": true,
+  "attributesParentExactPrefix": true,
+  "utc": "2026-10-18T08:40:20.258144+00:00",
+  "oldEvidenceSha256Recertified": false
+}

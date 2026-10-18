@@ -1043,3 +1043,11 @@ r01 nullable/definiteassignment编译与r02 xUnit1031分析器失败无TRX，显
 Windows/WPF/实际Dispatcher/STA/可见健康/键盘/Console stdin取消/Job/OCR/截图/DPAPIACL/物理250600/模型仍NotRun，生产安装器/注册签名扩展ID/稳定入口/完整payload/Inno/自启卸载/K组/完整P7未推进或未验。历史图片/idle/Core/Job及旧r10/r17/r20根因各Unknown，不能据新协议实证宣称旧间歇失败解决。生产图片分类复用Off和250600/来源/密码/完整性/取消/清理门保持。无main强推部署费用真实模型/新增凭据权限/新SDK条款；Skia四包许可与403未解决、不绕过降隔离，拒绝Actions不查不换路，未知锁数据日志进程保全。
 
 本片最终封存独审Pass：审计653原件/660路径，依约只追加回执及既定stage-audit后共655份/13,668,794B；代码/测试未改，父10515路径及9599旧证据全保。
+
+## 2026-10-18 · 独立目录 App 启动验收构建与自包含准备
+
+父7f9df38有限准入后只读核P7真实链；本机回报四项前置Blocked/NotRun，固定KnownFolder不能靠LOCALAPPDATA进程改写隔离、仅NET7无NET10Desktop/SDK/已核闭包、桌面工具缺失且CIM拒绝已停。本轮按续授在原Linux环境唯一写入，正常dev/isolated-session-data，未访问本机。新增编译期显式验收App，默认生产不编译selector/不接通用root参数；只允许0参普通入口/原精确握手，从catalog descriptor/专用runId容器推导固定siblings user-data，父/child/Shell统一root，祖先link/Windows别名/生产双向包含/错布局拒绝，无回落或修复。原identity/owner/lease/mutex/取消清理门保持，test拒入不唤回生产窗口。
+
+现有fixture仅增加真实发布输入→catalog→Store.ApplyAsync准备，独审P2输入生产重叠/输出包含漏门实测同测试源5F30P→35P，前置拒绝修复；脚本任意output取消、共享真实KnownFolder门先批固定新workspace、未知内容保全。包源/审计源均固定本地且Audit=true，失败Blocked，不下载/关审计/force-evaluate/改锁/降级。最终45新例全部包含于Core1888P=父1843多重集+45，Provider2332P父全名单；验收App/默认生产App/Worker实际交叉构建均0W/E。r01新测试调用编译错、r02新断言异常族14F、r05WPF缺IO编译44E全保，不冒称产品红。生产App和框架依赖验收App实际准备均拒绝且无输出，旧output参数也实际拒绝。
+
+离线准备实际Exit2/Bundle=null：缺NETCore和WindowsDesktop Runtime.win-x64/10.0.12两个既有cache pack，无恢复/发布/ZIP、无SDK/系统安装；关键运行文件验证仅结构检查，不能声称完整闭包。源码及83份原件封存独审Pass；按许可只附回执后84份，源码/测试/已审83份未改。详见[实现/精确待验与边界](validation/isolated-session-data.md)、[运行和红绿原件](test-evidence/2026-10-18-isolated-session-data.json)。Windows/WPF/Console/键盘/安装器/完整P7仍NotRun，需已核自包含包及获准桌面工具后实际两次无参启动正常退出。旧各间歇根因Unknown、图片复用Off及250600/来源/密码/完整性/取消/清理门不变；无Skia许可403/Actions/CIM绕行、main强推部署费用模型凭据权限变更，未知锁数据日志进程保留。

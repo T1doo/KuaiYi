@@ -1,0 +1,9 @@
+Source: /root/high_water_review final message, copied verbatim from this conversation by root. Reviewer was read-only; no SDK/network execution.
+
+当前源码复审未发现剩余 P1/P2，可继续最终验证。
+
+- 任意输出路径已移除；准备目录和日志写入前，先经共享 KnownFolder、链接及生产重叠检查。
+- test 拒入不再唤回生产窗口；原 mutex/scope 保持。
+- 独立 NuGet 配置仅保留本地源，审计继续启用；失败即 Blocked，未见警告抑制或下载降级。
+
+仍须限定：关键文件检查不等于完整运行闭包；缺 packs 时没有可运行 bundle，Windows 验收未执行。构建失败原件应保留，最终回归和封存待另核。本审查未执行 SDK、网络或写入。

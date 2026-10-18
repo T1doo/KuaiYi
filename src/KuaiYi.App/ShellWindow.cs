@@ -26,12 +26,14 @@ internal sealed partial class ShellWindow:OleDropWindow
     {
         this.enableSelectionPlatform=enableSelectionPlatform;
         diagnostics.Record(KuaiYi.Core.Diagnostics.DiagnosticEvent.Started);
-        string root=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"KuaiYi");
-        coordinator=suppliedCoordinator??new(new SettingsStore(Path.Combine(root,"config")),new SecretFileStore(Path.Combine(root,"secrets"),new CurrentUserDpapiProtector(),new CurrentUserSecretDirectory()));
+        coordinator=suppliedCoordinator??DefaultSettings();
         lifecycle=new(coordinator);showMessage=NativeTray.ShowMessage(instanceScope);
         Title="快译";Width=Height=48;WindowStyle=WindowStyle.None;ResizeMode=ResizeMode.NoResize;ShowInTaskbar=false;ShowActivated=false;Topmost=true;
         SetupPresentation();SetupTranslation(developmentBoundary);AutomationProperties.SetName(button,"快译：未启用翻译");button.ToolTip="未启用翻译 · 右键打开设置";
         var menu=new ContextMenu();Add("启用 / 停用翻译",Toggle);Add("回看当前结果",ReopenResult);Add("收起",CollapseResult);Add("停止生成",StopResult);Add("复制结果",CopyResult);Add("清除当前内容",()=>_=ClearCurrentContent());Add("设置",()=>_=OpenSettings());Add("更多操作及版本",()=>OpenOverflowMenu(button));Add("隐藏浮窗（同时停用）",HideOverlay);Add("聚焦浮窗",FocusOverlay);Add("退出",Close);
+#if KUAIYI_ISOLATED_SESSION_TEST
+        Title="快译 · 独立目录启动验收";menu.Items.Insert(0,new MenuItem{Header="独立目录启动验收 · 非生产安装包",IsEnabled=false});
+#endif
         Add("读取当前选区",()=>_=ObserveSelection(ReadCurrentSelection()));Add("仅提取图片文字并翻译",()=>_=TranslateImageText());Add("重新生成",()=>RegenerateResult());Add("按当前设置重新翻译",()=>RegenerateResult(true));Add("查看原文",ShowSelectionSource);AddScreenshotModes(menu);menu.Opened+=(_,_)=>{foreach(var item in menu.Items.OfType<MenuItem>().Where(i=>Equals(i.Header,"本次截图翻译")))item.IsEnabled=CanTranslateScreenshot;};button.ContextMenu=menu;menu.Closed+=(_,_)=>PresentationMenuClosed();
         menu.Opened+=(_,_)=>{foreach(var item in menu.Items.OfType<MenuItem>()){if(Equals(item.Tag,"仅提取图片文字并翻译"))item.IsEnabled=!ocrFlowBusy&&ocrOnly is {CleanupPending:false}&&lifecycle.Gate.Snapshot.Activation==Activation.On&&SelectedSource.Image!=null;else if(Equals(item.Tag,"重新生成")||Equals(item.Tag,"按当前设置重新翻译")){item.Header=RegenerationMenuLabel(Equals(item.Tag,"按当前设置重新翻译"));item.IsEnabled=lifecycle.Gate.Snapshot.Activation==Activation.On&&SelectedSource.Text!=null;}else if(Equals(item.Tag,"查看原文"))item.IsEnabled=CanReadOriginalSource()&&SelectedSource.HasSource;}};
         void Add(string text,Action action){var item=new MenuItem{Header=text,Tag=text};item.Click+=(_,_)=>action();menu.Items.Add(item);}
@@ -72,6 +74,11 @@ internal sealed partial class ShellWindow:OleDropWindow
         Deactivated+=(_,_)=>{if(hwnd!=0)NativeDesktop.SetOverlayStyle(hwnd,false);};
         coordinator.Committed+=SettingsCommitted;Microsoft.Win32.SystemEvents.SessionSwitch+=SessionSwitch;
         Closing+=ClosingShell;Closed+=ClosedShell;
+    }
+    private static SettingsCoordinator DefaultSettings()
+    {
+        string root=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"KuaiYi");
+        return new(new SettingsStore(Path.Combine(root,"config")),new SecretFileStore(Path.Combine(root,"secrets"),new CurrentUserDpapiProtector(),new CurrentUserSecretDirectory()));
     }
     private async Task LoadStartup()
     {

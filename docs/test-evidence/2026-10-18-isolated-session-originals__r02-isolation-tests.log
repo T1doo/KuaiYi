@@ -1,0 +1,246 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.SelectionReuseDiagnostic -> /workspace/KuaiYi/tools/KuaiYi.SelectionReuseDiagnostic/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.69]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: "malformed") [FAIL]
+[xUnit.net 00:00:00.71]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: "whitespace") [FAIL]
+[xUnit.net 00:00:00.71]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: "oversize") [FAIL]
+[xUnit.net 00:00:00.71]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: "other-run") [FAIL]
+[xUnit.net 00:00:00.71]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: "duplicate") [FAIL]
+[xUnit.net 00:00:00.72]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: "path-field") [FAIL]
+  Failed KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: "malformed") [10 ms]
+  Error Message:
+   Assert.ThrowsAny() Failure: Exception type was not compatible
+Expected: typeof(System.IO.IOException)
+Actual:   typeof(System.IO.InvalidDataException)
+---- System.IO.InvalidDataException : Session test descriptor invalid.
+  Stack Trace:
+     at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 60
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at KuaiYi.App.IsolatedSessionLayout.RunId(Byte[] bytes) in /workspace/KuaiYi/src/KuaiYi.App/IsolatedSessionLayout.cs:line 52
+   at KuaiYi.App.IsolatedSessionLayout.Select(String executableDirectory, String productionData) in /workspace/KuaiYi/src/KuaiYi.App/IsolatedSessionLayout.cs:line 17
+   at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.<>c__DisplayClass4_0.<InvalidWorkspaceMetadataNeverFallsBackOrRepairsData>b__1() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 60
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: "whitespace") [7 ms]
+  Error Message:
+   Assert.ThrowsAny() Failure: Exception type was not compatible
+Expected: typeof(System.IO.IOException)
+Actual:   typeof(System.IO.InvalidDataException)
+---- System.IO.InvalidDataException : Session test descriptor invalid.
+  Stack Trace:
+     at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 60
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at KuaiYi.App.IsolatedSessionLayout.RunId(Byte[] bytes) in /workspace/KuaiYi/src/KuaiYi.App/IsolatedSessionLayout.cs:line 52
+   at KuaiYi.App.IsolatedSessionLayout.Select(String executableDirectory, String productionData) in /workspace/KuaiYi/src/KuaiYi.App/IsolatedSessionLayout.cs:line 17
+   at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.<>c__DisplayClass4_0.<InvalidWorkspaceMetadataNeverFallsBackOrRepairsData>b__1() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 60
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: "oversize") [2 ms]
+  Error Message:
+   Assert.ThrowsAny() Failure: Exception type was not compatible
+Expected: typeof(System.IO.IOException)
+Actual:   typeof(System.IO.InvalidDataException)
+---- System.IO.InvalidDataException : Session test descriptor size invalid.
+  Stack Trace:
+     at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 60
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at KuaiYi.App.IsolatedSessionLayout.Read(String path) in /workspace/KuaiYi/src/KuaiYi.App/IsolatedSessionLayout.cs:line 45
+   at KuaiYi.App.IsolatedSessionLayout.Select(String executableDirectory, String productionData) in /workspace/KuaiYi/src/KuaiYi.App/IsolatedSessionLayout.cs:line 17
+   at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.<>c__DisplayClass4_0.<InvalidWorkspaceMetadataNeverFallsBackOrRepairsData>b__1() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 60
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: "other-run") [2 ms]
+  Error Message:
+   Assert.ThrowsAny() Failure: Exception type was not compatible
+Expected: typeof(System.IO.IOException)
+Actual:   typeof(System.IO.InvalidDataException)
+---- System.IO.InvalidDataException : Session test descriptor mismatch.
+  Stack Trace:
+     at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 60
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at KuaiYi.App.IsolatedSessionLayout.Select(String executableDirectory, String productionData) in /workspace/KuaiYi/src/KuaiYi.App/IsolatedSessionLayout.cs:line 18
+   at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.<>c__DisplayClass4_0.<InvalidWorkspaceMetadataNeverFallsBackOrRepairsData>b__1() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 60
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: "duplicate") [2 ms]
+  Error Message:
+   Assert.ThrowsAny() Failure: Exception type was not compatible
+Expected: typeof(System.IO.IOException)
+Actual:   typeof(System.IO.InvalidDataException)
+---- System.IO.InvalidDataException : Session test descriptor invalid.
+  Stack Trace:
+     at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 60
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at KuaiYi.App.IsolatedSessionLayout.RunId(Byte[] bytes) in /workspace/KuaiYi/src/KuaiYi.App/IsolatedSessionLayout.cs:line 52
+   at KuaiYi.App.IsolatedSessionLayout.Select(String executableDirectory, String productionData) in /workspace/KuaiYi/src/KuaiYi.App/IsolatedSessionLayout.cs:line 17
+   at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.<>c__DisplayClass4_0.<InvalidWorkspaceMetadataNeverFallsBackOrRepairsData>b__1() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 60
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: "path-field") [2 ms]
+  Error Message:
+   Assert.ThrowsAny() Failure: Exception type was not compatible
+Expected: typeof(System.IO.IOException)
+Actual:   typeof(System.IO.InvalidDataException)
+---- System.IO.InvalidDataException : Session test descriptor invalid.
+  Stack Trace:
+     at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 60
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at KuaiYi.App.IsolatedSessionLayout.RunId(Byte[] bytes) in /workspace/KuaiYi/src/KuaiYi.App/IsolatedSessionLayout.cs:line 52
+   at KuaiYi.App.IsolatedSessionLayout.Select(String executableDirectory, String productionData) in /workspace/KuaiYi/src/KuaiYi.App/IsolatedSessionLayout.cs:line 17
+   at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.<>c__DisplayClass4_0.<InvalidWorkspaceMetadataNeverFallsBackOrRepairsData>b__1() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 60
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.73]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestWorkspaceCannotOverlapProductionInEitherDirection(mode: "below") [FAIL]
+[xUnit.net 00:00:00.73]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestWorkspaceCannotOverlapProductionInEitherDirection(mode: "above") [FAIL]
+[xUnit.net 00:00:00.73]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestWorkspaceCannotOverlapProductionInEitherDirection(mode: "same") [FAIL]
+[xUnit.net 00:00:00.73]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestWorkspaceCannotOverlapProductionInEitherDirection(mode: "case") [FAIL]
+[xUnit.net 00:00:00.74]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything(mode: "flat") [FAIL]
+[xUnit.net 00:00:00.74]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything(mode: "root-name") [FAIL]
+[xUnit.net 00:00:00.74]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything(mode: "descriptor") [FAIL]
+[xUnit.net 00:00:00.75]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything(mode: "data-missing") [FAIL]
+  Failed KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestWorkspaceCannotOverlapProductionInEitherDirection(mode: "below") [3 ms]
+  Error Message:
+   Assert.ThrowsAny() Failure: Exception type was not compatible
+Expected: typeof(System.IO.IOException)
+Actual:   typeof(System.IO.InvalidDataException)
+---- System.IO.InvalidDataException : Session test overlaps production data.
+  Stack Trace:
+     at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestWorkspaceCannotOverlapProductionInEitherDirection(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 76
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at KuaiYi.App.IsolatedSessionLayout.RequireSeparate(String workspace, String productionData) in /workspace/KuaiYi/src/KuaiYi.App/IsolatedSessionLayout.cs:line 26
+   at KuaiYi.App.IsolatedSessionLayout.Select(String executableDirectory, String productionData) in /workspace/KuaiYi/src/KuaiYi.App/IsolatedSessionLayout.cs:line 16
+   at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.<>c__DisplayClass6_0.<TestWorkspaceCannotOverlapProductionInEitherDirection>b__0() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 76
+  Failed KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestWorkspaceCannotOverlapProductionInEitherDirection(mode: "above") [2 ms]
+  Error Message:
+   Assert.ThrowsAny() Failure: Exception type was not compatible
+Expected: typeof(System.IO.IOException)
+Actual:   typeof(System.IO.InvalidDataException)
+---- System.IO.InvalidDataException : Session test overlaps production data.
+  Stack Trace:
+     at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestWorkspaceCannotOverlapProductionInEitherDirection(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 76
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at KuaiYi.App.IsolatedSessionLayout.RequireSeparate(String workspace, String productionData) in /workspace/KuaiYi/src/KuaiYi.App/IsolatedSessionLayout.cs:line 26
+   at KuaiYi.App.IsolatedSessionLayout.Select(String executableDirectory, String productionData) in /workspace/KuaiYi/src/KuaiYi.App/IsolatedSessionLayout.cs:line 16
+   at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.<>c__DisplayClass6_0.<TestWorkspaceCannotOverlapProductionInEitherDirection>b__0() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 76
+  Failed KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestWorkspaceCannotOverlapProductionInEitherDirection(mode: "same") [2 ms]
+  Error Message:
+   Assert.ThrowsAny() Failure: Exception type was not compatible
+Expected: typeof(System.IO.IOException)
+Actual:   typeof(System.IO.InvalidDataException)
+---- System.IO.InvalidDataException : Session test overlaps production data.
+  Stack Trace:
+     at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestWorkspaceCannotOverlapProductionInEitherDirection(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 76
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at KuaiYi.App.IsolatedSessionLayout.RequireSeparate(String workspace, String productionData) in /workspace/KuaiYi/src/KuaiYi.App/IsolatedSessionLayout.cs:line 26
+   at KuaiYi.App.IsolatedSessionLayout.Select(String executableDirectory, String productionData) in /workspace/KuaiYi/src/KuaiYi.App/IsolatedSessionLayout.cs:line 16
+   at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.<>c__DisplayClass6_0.<TestWorkspaceCannotOverlapProductionInEitherDirection>b__0() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 76
+  Failed KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestWorkspaceCannotOverlapProductionInEitherDirection(mode: "case") [2 ms]
+  Error Message:
+   Assert.ThrowsAny() Failure: Exception type was not compatible
+Expected: typeof(System.IO.IOException)
+Actual:   typeof(System.IO.InvalidDataException)
+---- System.IO.InvalidDataException : Session test overlaps production data.
+  Stack Trace:
+     at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestWorkspaceCannotOverlapProductionInEitherDirection(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 76
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at KuaiYi.App.IsolatedSessionLayout.RequireSeparate(String workspace, String productionData) in /workspace/KuaiYi/src/KuaiYi.App/IsolatedSessionLayout.cs:line 26
+   at KuaiYi.App.IsolatedSessionLayout.Select(String executableDirectory, String productionData) in /workspace/KuaiYi/src/KuaiYi.App/IsolatedSessionLayout.cs:line 16
+   at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.<>c__DisplayClass6_0.<TestWorkspaceCannotOverlapProductionInEitherDirection>b__0() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 76
+  Failed KuaiYi.Core.Tests.IsolatedSessionLayoutTests.MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything(mode: "flat") [3 ms]
+  Error Message:
+   Assert.ThrowsAny() Failure: Exception type was not compatible
+Expected: typeof(System.IO.IOException)
+Actual:   typeof(System.IO.InvalidDataException)
+---- System.IO.InvalidDataException : Session test requires a selected installation layout.
+  Stack Trace:
+     at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 70
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at KuaiYi.App.IsolatedSessionLayout.Select(String executableDirectory, String productionData) in /workspace/KuaiYi/src/KuaiYi.App/IsolatedSessionLayout.cs:line 14
+   at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.<>c__DisplayClass5_0.<MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything>b__0() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 70
+  Failed KuaiYi.Core.Tests.IsolatedSessionLayoutTests.MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything(mode: "root-name") [2 ms]
+  Error Message:
+   Assert.ThrowsAny() Failure: Exception type was not compatible
+Expected: typeof(System.IO.IOException)
+Actual:   typeof(System.IO.InvalidDataException)
+---- System.IO.InvalidDataException : Session test descriptor mismatch.
+  Stack Trace:
+     at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 70
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at KuaiYi.App.IsolatedSessionLayout.Select(String executableDirectory, String productionData) in /workspace/KuaiYi/src/KuaiYi.App/IsolatedSessionLayout.cs:line 18
+   at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.<>c__DisplayClass5_0.<MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything>b__0() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 70
+  Failed KuaiYi.Core.Tests.IsolatedSessionLayoutTests.MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything(mode: "descriptor") [2 ms]
+  Error Message:
+   Assert.ThrowsAny() Failure: Exception type was not compatible
+Expected: typeof(System.IO.IOException)
+Actual:   typeof(System.IO.InvalidDataException)
+---- System.IO.InvalidDataException : Session test descriptor mismatch.
+  Stack Trace:
+     at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 70
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at KuaiYi.App.IsolatedSessionLayout.Select(String executableDirectory, String productionData) in /workspace/KuaiYi/src/KuaiYi.App/IsolatedSessionLayout.cs:line 18
+   at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.<>c__DisplayClass5_0.<MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything>b__0() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 70
+  Failed KuaiYi.Core.Tests.IsolatedSessionLayoutTests.MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything(mode: "data-missing") [2 ms]
+  Error Message:
+   Assert.ThrowsAny() Failure: Exception type was not compatible
+Expected: typeof(System.IO.IOException)
+Actual:   typeof(System.IO.InvalidDataException)
+---- System.IO.InvalidDataException : Session test data directory is missing; retained without repair.
+  Stack Trace:
+     at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 70
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at KuaiYi.App.IsolatedSessionLayout.Select(String executableDirectory, String productionData) in /workspace/KuaiYi/src/KuaiYi.App/IsolatedSessionLayout.cs:line 20
+   at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.<>c__DisplayClass5_0.<MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything>b__0() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 70
+Results File: /workspace/KuaiYi/artifacts/isolated-session-data/r02-isolation-tests.trx
+
+Failed!  - Failed:    14, Passed:    16, Skipped:     0, Total:    30, Duration: 267 ms - KuaiYi.Core.Tests.dll (net10.0)

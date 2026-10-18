@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="5f319e26-3eaf-4d0b-8348-820dc78cf1c7" name="@165745a8e6c3 2026-10-18 08:23:42" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-18T08:23:42.1697251+00:00" queuing="2026-10-18T08:23:42.1697252+00:00" start="2026-10-18T08:23:41.1091062+00:00" finish="2026-10-18T08:23:42.3936551+00:00" />
+  <TestSettings name="default" id="8cad4f06-748c-4669-a846-eeb968e36d10">
+    <Deployment runDeploymentRoot="_165745a8e6c3_2026-10-18_08_23_42" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="9f695383-d86e-481f-9a9c-df8ee69dea47" testId="2f768796-acc0-ee54-908f-ca6304d4a356" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything(mode: &quot;root-name&quot;)" computerName="165745a8e6c3" duration="00:00:00.0017185" startTime="2026-10-18T08:23:42.1769234+00:00" endTime="2026-10-18T08:23:42.1778153+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9f695383-d86e-481f-9a9c-df8ee69dea47" />
+    <UnitTestResult executionId="e66356d6-b524-4020-98bb-2dbf682d9fdd" testId="6c972dd8-baa1-5f20-00e1-8c9233fb289c" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: &quot;missing&quot;)" computerName="165745a8e6c3" duration="00:00:00.0021655" startTime="2026-10-18T08:23:42.1541070+00:00" endTime="2026-10-18T08:23:42.1586975+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e66356d6-b524-4020-98bb-2dbf682d9fdd" />
+    <UnitTestResult executionId="0cfe8d59-0b45-4039-b75b-62830c21e10a" testId="22497715-71ed-d060-7cd8-c224ac0b37d2" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: &quot;path-field&quot;)" computerName="165745a8e6c3" duration="00:00:00.0072229" startTime="2026-10-18T08:23:42.1463826+00:00" endTime="2026-10-18T08:23:42.1539463+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0cfe8d59-0b45-4039-b75b-62830c21e10a" />
+    <UnitTestResult executionId="d7e797f2-8993-4aff-a0c4-dd2f2ff93339" testId="4d84fe86-23ec-a54d-4de3-db02277456bf" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestBuildRefusesEveryAlternateEntryBeforeOldCommandDispatch(arg: &quot;--user-data&quot;)" computerName="165745a8e6c3" duration="00:00:00.0008375" startTime="2026-10-18T08:23:42.1340955+00:00" endTime="2026-10-18T08:23:42.1341867+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d7e797f2-8993-4aff-a0c4-dd2f2ff93339" />
+    <UnitTestResult executionId="b2ff464c-eed1-42f4-92a5-0a456f203497" testId="df78956f-353d-ec16-0367-bb672e3cdfef" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: &quot;whitespace&quot;)" computerName="165745a8e6c3" duration="00:00:00.0067100" startTime="2026-10-18T08:23:42.1354200+00:00" endTime="2026-10-18T08:23:42.1361378+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b2ff464c-eed1-42f4-92a5-0a456f203497" />
+    <UnitTestResult executionId="294d466b-4b63-4034-95f5-79dec0e9a023" testId="006cd9fc-e9cb-f209-cfdf-91b2673dff69" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.LinksAtEverySelectionBoundaryAreRejectedAndTheirTargetsPreserved(mode: &quot;secrets&quot;)" computerName="165745a8e6c3" duration="00:00:00.0023145" startTime="2026-10-18T08:23:42.1062353+00:00" endTime="2026-10-18T08:23:42.1088748+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="294d466b-4b63-4034-95f5-79dec0e9a023" />
+    <UnitTestResult executionId="e3a6f1d3-a271-4695-ad0a-3005d591077e" testId="39aa0994-fc33-c988-f292-b8b3dadcd0ca" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: &quot;other-run&quot;)" computerName="165745a8e6c3" duration="00:00:00.0055090" startTime="2026-10-18T08:23:42.1391619+00:00" endTime="2026-10-18T08:23:42.1439952+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e3a6f1d3-a271-4695-ad0a-3005d591077e" />
+    <UnitTestResult executionId="5800fe1e-94f6-46b3-b3e2-e8a2c79e77a1" testId="fcd331c9-db6e-9610-7d05-b7bf135a9b6b" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.BadPublishInputCannotCreateAWorkspaceOrBecomeAPseudoBundle" computerName="165745a8e6c3" duration="00:00:00.0047885" startTime="2026-10-18T08:23:42.3096748+00:00" endTime="2026-10-18T08:23:42.3179909+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5800fe1e-94f6-46b3-b3e2-e8a2c79e77a1" />
+    <UnitTestResult executionId="04e3e7ec-db27-4026-b5be-120f90a164a1" testId="94590983-d030-a2b8-8a5d-542e9a16a42f" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: &quot;duplicate&quot;)" computerName="165745a8e6c3" duration="00:00:00.0017248" startTime="2026-10-18T08:23:42.1441334+00:00" endTime="2026-10-18T08:23:42.1462288+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="04e3e7ec-db27-4026-b5be-120f90a164a1" />
+    <UnitTestResult executionId="d59d6a8d-74e3-4e4e-8922-ee42df9fbe73" testId="564b44fd-de83-b639-e89a-dfef4221b634" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.LinksAtEverySelectionBoundaryAreRejectedAndTheirTargetsPreserved(mode: &quot;ancestor&quot;)" computerName="165745a8e6c3" duration="00:00:00.0022685" startTime="2026-10-18T08:23:42.1089570+00:00" endTime="2026-10-18T08:23:42.1118106+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d59d6a8d-74e3-4e4e-8922-ee42df9fbe73" />
+    <UnitTestResult executionId="e75f1e53-8e03-4a37-9d46-d8b2f4dd4627" testId="175fe6d5-7364-08f7-51c3-7702ed8afe80" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.LinksAtEverySelectionBoundaryAreRejectedAndTheirTargetsPreserved(mode: &quot;config&quot;)" computerName="165745a8e6c3" duration="00:00:00.0062149" startTime="2026-10-18T08:23:42.0984768+00:00" endTime="2026-10-18T08:23:42.1001164+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e75f1e53-8e03-4a37-9d46-d8b2f4dd4627" />
+    <UnitTestResult executionId="e7f7f1ce-339d-4171-b0d6-590e90f95a88" testId="67352eeb-8890-6344-bdce-6a0f504adc0b" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.SourceAndOutputCannotContainEachOtherBeforePublishTraversal(sourceAbove: False)" computerName="165745a8e6c3" duration="00:00:00.0063644" startTime="2026-10-18T08:23:42.1846203+00:00" endTime="2026-10-18T08:23:42.1910539+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e7f7f1ce-339d-4171-b0d6-590e90f95a88">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(System.IO.InvalidDataException)
+Actual:   typeof(System.IO.FileNotFoundException)
+---- System.IO.FileNotFoundException : Could not find file '/tmp/kuaiyi-isolated-root-tests-6d3f35640cd64974884cccda0a97d480/publish-output/nested/KuaiYi.App.exe'.</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.SourceAndOutputCannotContainEachOtherBeforePublishTraversal(Boolean sourceAbove) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 114
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at Interop.ThrowExceptionForIoErrno(ErrorInfo errorInfo, String path, Boolean isDirError)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String path, OpenFlags flags, Int32 mode, Boolean failForSymlink, Boolean&amp; wasSymlink, Func`4 createOpenException)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, UnixFileMode openPermissions, Int64&amp; fileLength, UnixFileMode&amp; filePermissions, Boolean failForSymlink, Boolean&amp; wasSymlink, Func`4 createOpenException)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+   at System.IO.File.OpenRead(String path)
+   at IsolatedSessionPackage.RequireClosure(String publish) in /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/IsolatedSessionPackage.cs:line 36
+   at IsolatedSessionPackage.PrepareAsync(String publish, String outputParent, String productionData) in /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/IsolatedSessionPackage.cs:line 15</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c6ba14c6-6135-4073-9806-b01bc9b3ff9d" testId="1dd59e51-e28f-751b-c86f-72d91054c243" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestWorkspaceCannotOverlapProductionInEitherDirection(mode: &quot;below&quot;)" computerName="165745a8e6c3" duration="00:00:00.0050790" startTime="2026-10-18T08:23:42.1588781+00:00" endTime="2026-10-18T08:23:42.1626965+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c6ba14c6-6135-4073-9806-b01bc9b3ff9d" />
+    <UnitTestResult executionId="130b4d1a-464e-4332-89ad-8d2940a6cd3d" testId="5d3def9e-4b89-ead6-0dc3-ba8a4c5b6af0" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ActualStoreLayoutSelectsTheSameDedicatedDataAcrossSessionsAndSettingsWrites" computerName="165745a8e6c3" duration="00:00:00.1135605" startTime="2026-10-18T08:23:42.1953361+00:00" endTime="2026-10-18T08:23:42.3093688+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="130b4d1a-464e-4332-89ad-8d2940a6cd3d" />
+    <UnitTestResult executionId="d8f53fd5-3483-4ca0-89a4-57a20ce7b7ec" testId="5eb1928b-e46d-aad6-6d7f-23826b4f9725" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestBuildRefusesEveryAlternateEntryBeforeOldCommandDispatch(arg: &quot;--translation-test-provider&quot;)" computerName="165745a8e6c3" duration="00:00:00.0000008" startTime="2026-10-18T08:23:42.1347800+00:00" endTime="2026-10-18T08:23:42.1348288+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d8f53fd5-3483-4ca0-89a4-57a20ce7b7ec" />
+    <UnitTestResult executionId="aa3bee99-87e8-4fbb-ba42-fbde39ea6ff4" testId="db3fb423-f553-b391-ac77-737ffafc4ea7" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestWorkspaceCannotOverlapProductionInEitherDirection(mode: &quot;case&quot;)" computerName="165745a8e6c3" duration="00:00:00.0018799" startTime="2026-10-18T08:23:42.1706412+00:00" endTime="2026-10-18T08:23:42.1739637+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aa3bee99-87e8-4fbb-ba42-fbde39ea6ff4" />
+    <UnitTestResult executionId="04c58725-9e53-4899-a62e-9c6f59a86a99" testId="75e10a91-7677-111a-f276-43c66d1fc8a9" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestWorkspaceCannotOverlapProductionInEitherDirection(mode: &quot;same&quot;)" computerName="165745a8e6c3" duration="00:00:00.0019017" startTime="2026-10-18T08:23:42.1688840+00:00" endTime="2026-10-18T08:23:42.1704998+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="04c58725-9e53-4899-a62e-9c6f59a86a99" />
+    <UnitTestResult executionId="ed76e7b8-3d84-4207-aa77-2c3bb88cbb5b" testId="a26f49f4-a16c-87ad-5510-fd5442f7e9ea" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything(mode: &quot;flat&quot;)" computerName="165745a8e6c3" duration="00:00:00.0032459" startTime="2026-10-18T08:23:42.1741253+00:00" endTime="2026-10-18T08:23:42.1760170+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ed76e7b8-3d84-4207-aa77-2c3bb88cbb5b" />
+    <UnitTestResult executionId="fcf2ae9d-a18c-4da4-a94e-9075c75b66ad" testId="d9a785cb-74c2-1a94-0236-1cfb9e49cf99" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestBuildRefusesEveryAlternateEntryBeforeOldCommandDispatch(arg: &quot;--ocr-probe&quot;)" computerName="165745a8e6c3" duration="00:00:00.0000039" startTime="2026-10-18T08:23:42.1346440+00:00" endTime="2026-10-18T08:23:42.1346931+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fcf2ae9d-a18c-4da4-a94e-9075c75b66ad" />
+    <UnitTestResult executionId="152f6ea9-6d68-4dc0-bfb5-4fa80ee2474f" testId="7fcc7df2-1cb7-d0cc-7b13-171b991a8d50" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.LinksAtEverySelectionBoundaryAreRejectedAndTheirTargetsPreserved(mode: &quot;data&quot;)" computerName="165745a8e6c3" duration="00:00:00.0031954" startTime="2026-10-18T08:23:42.1008371+00:00" endTime="2026-10-18T08:23:42.1033645+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="152f6ea9-6d68-4dc0-bfb5-4fa80ee2474f" />
+    <UnitTestResult executionId="2fed4383-cac1-4e0e-b14f-15c7658e4803" testId="29f7fbd2-e1d9-fa82-74ce-c04538140a2c" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything(mode: &quot;descriptor&quot;)" computerName="165745a8e6c3" duration="00:00:00.0021090" startTime="2026-10-18T08:23:42.1779719+00:00" endTime="2026-10-18T08:23:42.1804390+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2fed4383-cac1-4e0e-b14f-15c7658e4803" />
+    <UnitTestResult executionId="e6749fde-3ca9-42e6-9f34-b6bd0188e9f8" testId="8081f137-e1f3-a2c3-23b1-bcd7ec3096b7" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ProductionOverlapIsRefusedBeforePublishTraversalOrOutput(mode: &quot;same&quot;)" computerName="165745a8e6c3" duration="00:00:00.0039537" startTime="2026-10-18T08:23:42.0952625+00:00" endTime="2026-10-18T08:23:42.0953336+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e6749fde-3ca9-42e6-9f34-b6bd0188e9f8">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Session test overlaps production data."
+Actual:   "Publish input already contains session me"···
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ProductionOverlapIsRefusedBeforePublishTraversalOrOutput(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 106
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c1de1164-ec61-47ec-8080-5ac4343c488e" testId="7b53248f-b2f2-0bf2-a852-e827b5d33bef" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything(mode: &quot;data-missing&quot;)" computerName="165745a8e6c3" duration="00:00:00.0023393" startTime="2026-10-18T08:23:42.1806073+00:00" endTime="2026-10-18T08:23:42.1843922+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c1de1164-ec61-47ec-8080-5ac4343c488e" />
+    <UnitTestResult executionId="a617edfb-e919-4009-8f5a-201bf8edd82c" testId="3ff81eb8-df6c-4b5a-414a-1878d54aca3d" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestBuildRefusesEveryAlternateEntryBeforeOldCommandDispatch(arg: &quot;--prepare-image&quot;)" computerName="165745a8e6c3" duration="00:00:00.0000007" startTime="2026-10-18T08:23:42.1349294+00:00" endTime="2026-10-18T08:23:42.1349769+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a617edfb-e919-4009-8f5a-201bf8edd82c" />
+    <UnitTestResult executionId="7190d20b-3578-4f27-b0de-097ca39a93fc" testId="ed3a13c5-cdd9-e488-b3e5-1e86d62758d6" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestBuildRefusesEveryAlternateEntryBeforeOldCommandDispatch(arg: &quot;--platform-review&quot;)" computerName="165745a8e6c3" duration="00:00:00.0000005" startTime="2026-10-18T08:23:42.1350589+00:00" endTime="2026-10-18T08:23:42.1351054+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7190d20b-3578-4f27-b0de-097ca39a93fc" />
+    <UnitTestResult executionId="20c7330c-477c-4a1a-9514-22542f7ef4f2" testId="fd95eab7-9015-01d0-c161-5787acecc60f" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ProductionOverlapIsRefusedBeforePublishTraversalOrOutput(mode: &quot;below&quot;)" computerName="165745a8e6c3" duration="00:00:00.0370906" startTime="2026-10-18T08:23:42.0236122+00:00" endTime="2026-10-18T08:23:42.0774277+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="20c7330c-477c-4a1a-9514-22542f7ef4f2">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Session test overlaps production data."
+Actual:   "Publish input already contains session me"···
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ProductionOverlapIsRefusedBeforePublishTraversalOrOutput(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 106
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="5f5f04c3-d253-4ecb-a82c-adfeda021be2" testId="3354daf7-8828-623b-faab-96c88e192aa7" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.LinksAtEverySelectionBoundaryAreRejectedAndTheirTargetsPreserved(mode: &quot;marker&quot;)" computerName="165745a8e6c3" duration="00:00:00.0024654" startTime="2026-10-18T08:23:42.1119590+00:00" endTime="2026-10-18T08:23:42.1143719+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5f5f04c3-d253-4ecb-a82c-adfeda021be2" />
+    <UnitTestResult executionId="16cae415-9ebe-4424-9f07-9c8e6f7551de" testId="7fdea277-f8c1-a17b-0d83-a947f894e4e9" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: &quot;oversize&quot;)" computerName="165745a8e6c3" duration="00:00:00.0018404" startTime="2026-10-18T08:23:42.1362615+00:00" endTime="2026-10-18T08:23:42.1382458+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="16cae415-9ebe-4424-9f07-9c8e6f7551de" />
+    <UnitTestResult executionId="48402c1e-c135-4632-a48e-c982c923af5b" testId="e9cbf9d7-e3c6-786d-7c17-2a64a9b65546" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: &quot;malformed&quot;)" computerName="165745a8e6c3" duration="00:00:00.0129673" startTime="2026-10-18T08:23:42.1352502+00:00" endTime="2026-10-18T08:23:42.1353104+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="48402c1e-c135-4632-a48e-c982c923af5b" />
+    <UnitTestResult executionId="13b96dc8-fb35-4f9b-9c36-710a2a12133b" testId="61dd2f8f-5e46-6891-0381-1fed106005a0" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestWorkspaceCannotOverlapProductionInEitherDirection(mode: &quot;above&quot;)" computerName="165745a8e6c3" duration="00:00:00.0041126" startTime="2026-10-18T08:23:42.1627930+00:00" endTime="2026-10-18T08:23:42.1687438+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="13b96dc8-fb35-4f9b-9c36-710a2a12133b" />
+    <UnitTestResult executionId="50f10d1e-8e72-4668-9f48-21e70f759af4" testId="fb7e653c-0223-62d0-20cb-22f8d8014069" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.OnlyNormalOrAnExactNonemptyControlledLaunchIsAccepted" computerName="165745a8e6c3" duration="00:00:00.0002559" startTime="2026-10-18T08:23:42.1948120+00:00" endTime="2026-10-18T08:23:42.1951649+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="50f10d1e-8e72-4668-9f48-21e70f759af4" />
+    <UnitTestResult executionId="0983c119-ac1b-4f43-9c2b-918557022c1c" testId="185502f8-7b4a-a6db-ae93-f58836be49ee" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.LinksAtEverySelectionBoundaryAreRejectedAndTheirTargetsPreserved(mode: &quot;descriptor&quot;)" computerName="165745a8e6c3" duration="00:00:00.0024813" startTime="2026-10-18T08:23:42.1034518+00:00" endTime="2026-10-18T08:23:42.1061532+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0983c119-ac1b-4f43-9c2b-918557022c1c" />
+    <UnitTestResult executionId="106a53bc-503f-4b13-8fde-5ee67c6d4dba" testId="5c84f985-e331-5d15-e62d-0729e9acb5c6" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ProductionOverlapIsRefusedBeforePublishTraversalOrOutput(mode: &quot;above&quot;)" computerName="165745a8e6c3" duration="00:00:00.0064009" startTime="2026-10-18T08:23:42.0975593+00:00" endTime="2026-10-18T08:23:42.0975976+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="106a53bc-503f-4b13-8fde-5ee67c6d4dba">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Session test overlaps production data."
+Actual:   "Publish input already contains session me"···
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ProductionOverlapIsRefusedBeforePublishTraversalOrOutput(String mode) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 106
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f587c042-3f92-4c98-aa01-6b15e600cbed" testId="4293ea93-0f5c-111e-ddfc-e7642bd188d5" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestBuildRefusesEveryAlternateEntryBeforeOldCommandDispatch(arg: &quot;--diagnose&quot;)" computerName="165745a8e6c3" duration="00:00:00.0002111" startTime="2026-10-18T08:23:42.1344461+00:00" endTime="2026-10-18T08:23:42.1344969+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f587c042-3f92-4c98-aa01-6b15e600cbed" />
+    <UnitTestResult executionId="7b7e0545-218c-4558-adbb-8e2cb92de825" testId="68f14843-ae04-7475-e9ef-a6996227e110" testName="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.SourceAndOutputCannotContainEachOtherBeforePublishTraversal(sourceAbove: True)" computerName="165745a8e6c3" duration="00:00:00.0028174" startTime="2026-10-18T08:23:42.1920725+00:00" endTime="2026-10-18T08:23:42.1943675+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7b7e0545-218c-4558-adbb-8e2cb92de825">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "Session test overlaps production data."
+Actual:   "Publish input already contains session me"···
+           ↑ (pos 0)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.SourceAndOutputCannotContainEachOtherBeforePublishTraversal(Boolean sourceAbove) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 114
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.SourceAndOutputCannotContainEachOtherBeforePublishTraversal(sourceAbove: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="67352eeb-8890-6344-bdce-6a0f504adc0b">
+      <Execution id="e7f7f1ce-339d-4171-b0d6-590e90f95a88" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="SourceAndOutputCannotContainEachOtherBeforePublishTraversal" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything(mode: &quot;descriptor&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="29f7fbd2-e1d9-fa82-74ce-c04538140a2c">
+      <Execution id="2fed4383-cac1-4e0e-b14f-15c7658e4803" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestBuildRefusesEveryAlternateEntryBeforeOldCommandDispatch(arg: &quot;--user-data&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="4d84fe86-23ec-a54d-4de3-db02277456bf">
+      <Execution id="d7e797f2-8993-4aff-a0c4-dd2f2ff93339" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="TestBuildRefusesEveryAlternateEntryBeforeOldCommandDispatch" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: &quot;malformed&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="e9cbf9d7-e3c6-786d-7c17-2a64a9b65546">
+      <Execution id="48402c1e-c135-4632-a48e-c982c923af5b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="InvalidWorkspaceMetadataNeverFallsBackOrRepairsData" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestWorkspaceCannotOverlapProductionInEitherDirection(mode: &quot;case&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="db3fb423-f553-b391-ac77-737ffafc4ea7">
+      <Execution id="aa3bee99-87e8-4fbb-ba42-fbde39ea6ff4" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="TestWorkspaceCannotOverlapProductionInEitherDirection" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ProductionOverlapIsRefusedBeforePublishTraversalOrOutput(mode: &quot;above&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="5c84f985-e331-5d15-e62d-0729e9acb5c6">
+      <Execution id="106a53bc-503f-4b13-8fde-5ee67c6d4dba" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="ProductionOverlapIsRefusedBeforePublishTraversalOrOutput" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ProductionOverlapIsRefusedBeforePublishTraversalOrOutput(mode: &quot;below&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="fd95eab7-9015-01d0-c161-5787acecc60f">
+      <Execution id="20c7330c-477c-4a1a-9514-22542f7ef4f2" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="ProductionOverlapIsRefusedBeforePublishTraversalOrOutput" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: &quot;other-run&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="39aa0994-fc33-c988-f292-b8b3dadcd0ca">
+      <Execution id="e3a6f1d3-a271-4695-ad0a-3005d591077e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="InvalidWorkspaceMetadataNeverFallsBackOrRepairsData" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything(mode: &quot;root-name&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="2f768796-acc0-ee54-908f-ca6304d4a356">
+      <Execution id="9f695383-d86e-481f-9a9c-df8ee69dea47" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestBuildRefusesEveryAlternateEntryBeforeOldCommandDispatch(arg: &quot;--prepare-image&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="3ff81eb8-df6c-4b5a-414a-1878d54aca3d">
+      <Execution id="a617edfb-e919-4009-8f5a-201bf8edd82c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="TestBuildRefusesEveryAlternateEntryBeforeOldCommandDispatch" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestBuildRefusesEveryAlternateEntryBeforeOldCommandDispatch(arg: &quot;--diagnose&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="4293ea93-0f5c-111e-ddfc-e7642bd188d5">
+      <Execution id="f587c042-3f92-4c98-aa01-6b15e600cbed" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="TestBuildRefusesEveryAlternateEntryBeforeOldCommandDispatch" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.BadPublishInputCannotCreateAWorkspaceOrBecomeAPseudoBundle" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="fcd331c9-db6e-9610-7d05-b7bf135a9b6b">
+      <Execution id="5800fe1e-94f6-46b3-b3e2-e8a2c79e77a1" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="BadPublishInputCannotCreateAWorkspaceOrBecomeAPseudoBundle" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: &quot;duplicate&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="94590983-d030-a2b8-8a5d-542e9a16a42f">
+      <Execution id="04e3e7ec-db27-4026-b5be-120f90a164a1" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="InvalidWorkspaceMetadataNeverFallsBackOrRepairsData" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: &quot;path-field&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="22497715-71ed-d060-7cd8-c224ac0b37d2">
+      <Execution id="0cfe8d59-0b45-4039-b75b-62830c21e10a" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="InvalidWorkspaceMetadataNeverFallsBackOrRepairsData" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: &quot;whitespace&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="df78956f-353d-ec16-0367-bb672e3cdfef">
+      <Execution id="b2ff464c-eed1-42f4-92a5-0a456f203497" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="InvalidWorkspaceMetadataNeverFallsBackOrRepairsData" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.SourceAndOutputCannotContainEachOtherBeforePublishTraversal(sourceAbove: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="68f14843-ae04-7475-e9ef-a6996227e110">
+      <Execution id="7b7e0545-218c-4558-adbb-8e2cb92de825" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="SourceAndOutputCannotContainEachOtherBeforePublishTraversal" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestBuildRefusesEveryAlternateEntryBeforeOldCommandDispatch(arg: &quot;--translation-test-provider&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="5eb1928b-e46d-aad6-6d7f-23826b4f9725">
+      <Execution id="d8f53fd5-3483-4ca0-89a4-57a20ce7b7ec" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="TestBuildRefusesEveryAlternateEntryBeforeOldCommandDispatch" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestWorkspaceCannotOverlapProductionInEitherDirection(mode: &quot;below&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="1dd59e51-e28f-751b-c86f-72d91054c243">
+      <Execution id="c6ba14c6-6135-4073-9806-b01bc9b3ff9d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="TestWorkspaceCannotOverlapProductionInEitherDirection" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything(mode: &quot;data-missing&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="7b53248f-b2f2-0bf2-a852-e827b5d33bef">
+      <Execution id="c1de1164-ec61-47ec-8080-5ac4343c488e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestWorkspaceCannotOverlapProductionInEitherDirection(mode: &quot;same&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="75e10a91-7677-111a-f276-43c66d1fc8a9">
+      <Execution id="04c58725-9e53-4899-a62e-9c6f59a86a99" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="TestWorkspaceCannotOverlapProductionInEitherDirection" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ProductionOverlapIsRefusedBeforePublishTraversalOrOutput(mode: &quot;same&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="8081f137-e1f3-a2c3-23b1-bcd7ec3096b7">
+      <Execution id="e6749fde-3ca9-42e6-9f34-b6bd0188e9f8" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="ProductionOverlapIsRefusedBeforePublishTraversalOrOutput" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestWorkspaceCannotOverlapProductionInEitherDirection(mode: &quot;above&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="61dd2f8f-5e46-6891-0381-1fed106005a0">
+      <Execution id="13b96dc8-fb35-4f9b-9c36-710a2a12133b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="TestWorkspaceCannotOverlapProductionInEitherDirection" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestBuildRefusesEveryAlternateEntryBeforeOldCommandDispatch(arg: &quot;--platform-review&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="ed3a13c5-cdd9-e488-b3e5-1e86d62758d6">
+      <Execution id="7190d20b-3578-4f27-b0de-097ca39a93fc" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="TestBuildRefusesEveryAlternateEntryBeforeOldCommandDispatch" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.LinksAtEverySelectionBoundaryAreRejectedAndTheirTargetsPreserved(mode: &quot;secrets&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="006cd9fc-e9cb-f209-cfdf-91b2673dff69">
+      <Execution id="294d466b-4b63-4034-95f5-79dec0e9a023" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="LinksAtEverySelectionBoundaryAreRejectedAndTheirTargetsPreserved" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.LinksAtEverySelectionBoundaryAreRejectedAndTheirTargetsPreserved(mode: &quot;data&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="7fcc7df2-1cb7-d0cc-7b13-171b991a8d50">
+      <Execution id="152f6ea9-6d68-4dc0-bfb5-4fa80ee2474f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="LinksAtEverySelectionBoundaryAreRejectedAndTheirTargetsPreserved" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything(mode: &quot;flat&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a26f49f4-a16c-87ad-5510-fd5442f7e9ea">
+      <Execution id="ed76e7b8-3d84-4207-aa77-2c3bb88cbb5b" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="MissingOrMismatchedLayoutIsRetainedWithoutCreatingAnything" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.LinksAtEverySelectionBoundaryAreRejectedAndTheirTargetsPreserved(mode: &quot;ancestor&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="564b44fd-de83-b639-e89a-dfef4221b634">
+      <Execution id="d59d6a8d-74e3-4e4e-8922-ee42df9fbe73" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="LinksAtEverySelectionBoundaryAreRejectedAndTheirTargetsPreserved" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: &quot;oversize&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="7fdea277-f8c1-a17b-0d83-a947f894e4e9">
+      <Execution id="16cae415-9ebe-4424-9f07-9c8e6f7551de" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="InvalidWorkspaceMetadataNeverFallsBackOrRepairsData" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.LinksAtEverySelectionBoundaryAreRejectedAndTheirTargetsPreserved(mode: &quot;descriptor&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="185502f8-7b4a-a6db-ae93-f58836be49ee">
+      <Execution id="0983c119-ac1b-4f43-9c2b-918557022c1c" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="LinksAtEverySelectionBoundaryAreRejectedAndTheirTargetsPreserved" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.LinksAtEverySelectionBoundaryAreRejectedAndTheirTargetsPreserved(mode: &quot;config&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="175fe6d5-7364-08f7-51c3-7702ed8afe80">
+      <Execution id="e75f1e53-8e03-4a37-9d46-d8b2f4dd4627" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="LinksAtEverySelectionBoundaryAreRejectedAndTheirTargetsPreserved" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.LinksAtEverySelectionBoundaryAreRejectedAndTheirTargetsPreserved(mode: &quot;marker&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="3354daf7-8828-623b-faab-96c88e192aa7">
+      <Execution id="5f5f04c3-d253-4ecb-a82c-adfeda021be2" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="LinksAtEverySelectionBoundaryAreRejectedAndTheirTargetsPreserved" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.TestBuildRefusesEveryAlternateEntryBeforeOldCommandDispatch(arg: &quot;--ocr-probe&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="d9a785cb-74c2-1a94-0236-1cfb9e49cf99">
+      <Execution id="fcf2ae9d-a18c-4da4-a94e-9075c75b66ad" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="TestBuildRefusesEveryAlternateEntryBeforeOldCommandDispatch" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.OnlyNormalOrAnExactNonemptyControlledLaunchIsAccepted" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="fb7e653c-0223-62d0-20cb-22f8d8014069">
+      <Execution id="50f10d1e-8e72-4668-9f48-21e70f759af4" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="OnlyNormalOrAnExactNonemptyControlledLaunchIsAccepted" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ActualStoreLayoutSelectsTheSameDedicatedDataAcrossSessionsAndSettingsWrites" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="5d3def9e-4b89-ead6-0dc3-ba8a4c5b6af0">
+      <Execution id="130b4d1a-464e-4332-89ad-8d2940a6cd3d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="ActualStoreLayoutSelectsTheSameDedicatedDataAcrossSessionsAndSettingsWrites" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.IsolatedSessionLayoutTests.InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(mode: &quot;missing&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="6c972dd8-baa1-5f20-00e1-8c9233fb289c">
+      <Execution id="e66356d6-b524-4020-98bb-2dbf682d9fdd" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.IsolatedSessionLayoutTests" name="InvalidWorkspaceMetadataNeverFallsBackOrRepairsData" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="2f768796-acc0-ee54-908f-ca6304d4a356" executionId="9f695383-d86e-481f-9a9c-df8ee69dea47" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6c972dd8-baa1-5f20-00e1-8c9233fb289c" executionId="e66356d6-b524-4020-98bb-2dbf682d9fdd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="22497715-71ed-d060-7cd8-c224ac0b37d2" executionId="0cfe8d59-0b45-4039-b75b-62830c21e10a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4d84fe86-23ec-a54d-4de3-db02277456bf" executionId="d7e797f2-8993-4aff-a0c4-dd2f2ff93339" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="df78956f-353d-ec16-0367-bb672e3cdfef" executionId="b2ff464c-eed1-42f4-92a5-0a456f203497" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="006cd9fc-e9cb-f209-cfdf-91b2673dff69" executionId="294d466b-4b63-4034-95f5-79dec0e9a023" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="39aa0994-fc33-c988-f292-b8b3dadcd0ca" executionId="e3a6f1d3-a271-4695-ad0a-3005d591077e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fcd331c9-db6e-9610-7d05-b7bf135a9b6b" executionId="5800fe1e-94f6-46b3-b3e2-e8a2c79e77a1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="94590983-d030-a2b8-8a5d-542e9a16a42f" executionId="04e3e7ec-db27-4026-b5be-120f90a164a1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="564b44fd-de83-b639-e89a-dfef4221b634" executionId="d59d6a8d-74e3-4e4e-8922-ee42df9fbe73" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="175fe6d5-7364-08f7-51c3-7702ed8afe80" executionId="e75f1e53-8e03-4a37-9d46-d8b2f4dd4627" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="67352eeb-8890-6344-bdce-6a0f504adc0b" executionId="e7f7f1ce-339d-4171-b0d6-590e90f95a88" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1dd59e51-e28f-751b-c86f-72d91054c243" executionId="c6ba14c6-6135-4073-9806-b01bc9b3ff9d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5d3def9e-4b89-ead6-0dc3-ba8a4c5b6af0" executionId="130b4d1a-464e-4332-89ad-8d2940a6cd3d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5eb1928b-e46d-aad6-6d7f-23826b4f9725" executionId="d8f53fd5-3483-4ca0-89a4-57a20ce7b7ec" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="db3fb423-f553-b391-ac77-737ffafc4ea7" executionId="aa3bee99-87e8-4fbb-ba42-fbde39ea6ff4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="75e10a91-7677-111a-f276-43c66d1fc8a9" executionId="04c58725-9e53-4899-a62e-9c6f59a86a99" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a26f49f4-a16c-87ad-5510-fd5442f7e9ea" executionId="ed76e7b8-3d84-4207-aa77-2c3bb88cbb5b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d9a785cb-74c2-1a94-0236-1cfb9e49cf99" executionId="fcf2ae9d-a18c-4da4-a94e-9075c75b66ad" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7fcc7df2-1cb7-d0cc-7b13-171b991a8d50" executionId="152f6ea9-6d68-4dc0-bfb5-4fa80ee2474f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="29f7fbd2-e1d9-fa82-74ce-c04538140a2c" executionId="2fed4383-cac1-4e0e-b14f-15c7658e4803" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8081f137-e1f3-a2c3-23b1-bcd7ec3096b7" executionId="e6749fde-3ca9-42e6-9f34-b6bd0188e9f8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7b53248f-b2f2-0bf2-a852-e827b5d33bef" executionId="c1de1164-ec61-47ec-8080-5ac4343c488e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3ff81eb8-df6c-4b5a-414a-1878d54aca3d" executionId="a617edfb-e919-4009-8f5a-201bf8edd82c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ed3a13c5-cdd9-e488-b3e5-1e86d62758d6" executionId="7190d20b-3578-4f27-b0de-097ca39a93fc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fd95eab7-9015-01d0-c161-5787acecc60f" executionId="20c7330c-477c-4a1a-9514-22542f7ef4f2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3354daf7-8828-623b-faab-96c88e192aa7" executionId="5f5f04c3-d253-4ecb-a82c-adfeda021be2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7fdea277-f8c1-a17b-0d83-a947f894e4e9" executionId="16cae415-9ebe-4424-9f07-9c8e6f7551de" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e9cbf9d7-e3c6-786d-7c17-2a64a9b65546" executionId="48402c1e-c135-4632-a48e-c982c923af5b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="61dd2f8f-5e46-6891-0381-1fed106005a0" executionId="13b96dc8-fb35-4f9b-9c36-710a2a12133b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fb7e653c-0223-62d0-20cb-22f8d8014069" executionId="50f10d1e-8e72-4668-9f48-21e70f759af4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="185502f8-7b4a-a6db-ae93-f58836be49ee" executionId="0983c119-ac1b-4f43-9c2b-918557022c1c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5c84f985-e331-5d15-e62d-0729e9acb5c6" executionId="106a53bc-503f-4b13-8fde-5ee67c6d4dba" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4293ea93-0f5c-111e-ddfc-e7642bd188d5" executionId="f587c042-3f92-4c98-aa01-6b15e600cbed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="68f14843-ae04-7475-e9ef-a6996227e110" executionId="7b7e0545-218c-4558-adbb-8e2cb92de825" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="35" executed="35" passed="30" failed="5" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.12)
+[xUnit.net 00:00:00.14]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.47]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.50]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.59]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:00.59]                  ↓ (pos 0)
+[xUnit.net 00:00:00.59]       Expected: "Session test overlaps production data."
+[xUnit.net 00:00:00.59]       Actual:   "Publish input already contains session me"···
+[xUnit.net 00:00:00.59]                  ↑ (pos 0)
+[xUnit.net 00:00:00.59]       Stack Trace:
+[xUnit.net 00:00:00.59]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs(106,0): at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ProductionOverlapIsRefusedBeforePublishTraversalOrOutput(String mode)
+[xUnit.net 00:00:00.59]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.60]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:00.60]                  ↓ (pos 0)
+[xUnit.net 00:00:00.60]       Expected: "Session test overlaps production data."
+[xUnit.net 00:00:00.60]       Actual:   "Publish input already contains session me"···
+[xUnit.net 00:00:00.60]                  ↑ (pos 0)
+[xUnit.net 00:00:00.60]       Stack Trace:
+[xUnit.net 00:00:00.60]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs(106,0): at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ProductionOverlapIsRefusedBeforePublishTraversalOrOutput(String mode)
+[xUnit.net 00:00:00.60]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.60]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:00.60]                  ↓ (pos 0)
+[xUnit.net 00:00:00.60]       Expected: "Session test overlaps production data."
+[xUnit.net 00:00:00.60]       Actual:   "Publish input already contains session me"···
+[xUnit.net 00:00:00.60]                  ↑ (pos 0)
+[xUnit.net 00:00:00.60]       Stack Trace:
+[xUnit.net 00:00:00.60]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs(106,0): at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ProductionOverlapIsRefusedBeforePublishTraversalOrOutput(String mode)
+[xUnit.net 00:00:00.60]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.69]       Assert.Throws() Failure: Exception type was not an exact match
+[xUnit.net 00:00:00.69]       Expected: typeof(System.IO.InvalidDataException)
+[xUnit.net 00:00:00.69]       Actual:   typeof(System.IO.FileNotFoundException)
+[xUnit.net 00:00:00.69]       ---- System.IO.FileNotFoundException : Could not find file '/tmp/kuaiyi-isolated-root-tests-6d3f35640cd64974884cccda0a97d480/publish-output/nested/KuaiYi.App.exe'.
+[xUnit.net 00:00:00.69]       Stack Trace:
+[xUnit.net 00:00:00.69]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs(114,0): at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.SourceAndOutputCannotContainEachOtherBeforePublishTraversal(Boolean sourceAbove)
+[xUnit.net 00:00:00.69]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.69]         ----- Inner Stack Trace -----
+[xUnit.net 00:00:00.69]            at Interop.ThrowExceptionForIoErrno(ErrorInfo errorInfo, String path, Boolean isDirError)
+[xUnit.net 00:00:00.69]            at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String path, OpenFlags flags, Int32 mode, Boolean failForSymlink, Boolean&amp; wasSymlink, Func`4 createOpenException)
+[xUnit.net 00:00:00.69]            at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, UnixFileMode openPermissions, Int64&amp; fileLength, UnixFileMode&amp; filePermissions, Boolean failForSymlink, Boolean&amp; wasSymlink, Func`4 createOpenException)
+[xUnit.net 00:00:00.69]            at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable`1 unixCreateMode)
+[xUnit.net 00:00:00.69]            at System.IO.File.OpenRead(String path)
+[xUnit.net 00:00:00.69]         /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/IsolatedSessionPackage.cs(36,0): at IsolatedSessionPackage.RequireClosure(String publish)
+[xUnit.net 00:00:00.69]         /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/IsolatedSessionPackage.cs(15,0): at IsolatedSessionPackage.PrepareAsync(String publish, String outputParent, String productionData)
+[xUnit.net 00:00:00.70]       Assert.Equal() Failure: Strings differ
+[xUnit.net 00:00:00.70]                  ↓ (pos 0)
+[xUnit.net 00:00:00.70]       Expected: "Session test overlaps production data."
+[xUnit.net 00:00:00.70]       Actual:   "Publish input already contains session me"···
+[xUnit.net 00:00:00.70]                  ↑ (pos 0)
+[xUnit.net 00:00:00.70]       Stack Trace:
+[xUnit.net 00:00:00.70]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs(114,0): at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.SourceAndOutputCannotContainEachOtherBeforePublishTraversal(Boolean sourceAbove)
+[xUnit.net 00:00:00.70]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.82]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="165745a8e6c3" outcome="Error" timestamp="2026-10-18T08:23:42.0832795+00:00">
+        <Text>[xUnit.net 00:00:00.58]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ProductionOverlapIsRefusedBeforePublishTraversalOrOutput(mode: "below") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="165745a8e6c3" outcome="Error" timestamp="2026-10-18T08:23:42.0956014+00:00">
+        <Text>[xUnit.net 00:00:00.60]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ProductionOverlapIsRefusedBeforePublishTraversalOrOutput(mode: "same") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="165745a8e6c3" outcome="Error" timestamp="2026-10-18T08:23:42.0986497+00:00">
+        <Text>[xUnit.net 00:00:00.60]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.ProductionOverlapIsRefusedBeforePublishTraversalOrOutput(mode: "above") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="165745a8e6c3" outcome="Error" timestamp="2026-10-18T08:23:42.1920433+00:00">
+        <Text>[xUnit.net 00:00:00.69]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.SourceAndOutputCannotContainEachOtherBeforePublishTraversal(sourceAbove: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="165745a8e6c3" outcome="Error" timestamp="2026-10-18T08:23:42.1946278+00:00">
+        <Text>[xUnit.net 00:00:00.70]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.SourceAndOutputCannotContainEachOtherBeforePublishTraversal(sourceAbove: True) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

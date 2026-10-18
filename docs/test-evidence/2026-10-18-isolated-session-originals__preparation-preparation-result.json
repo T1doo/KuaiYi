@@ -1,0 +1,70 @@
+{
+  "Kind": "KuaiYiIsolatedSessionTest",
+  "WindowsExecution": "NotRun",
+  "ModelCalls": "None",
+  "ProductionInstaller": false,
+  "Bundle": null,
+  "Commands": [
+    {
+      "Argv": [
+        "dotnet",
+        "--version"
+      ],
+      "Exit": 0,
+      "Log": "bootstrap-01.log",
+      "Sha256": "93c11b5221b72e0032ab2d9f93d28c2c9b7a0bb2557effffcdfef45ab739a0da"
+    },
+    {
+      "Argv": [
+        "dotnet",
+        "build",
+        "tools/KuaiYi.SettingsStoreFixture/KuaiYi.SettingsStoreFixture.csproj",
+        "--no-restore",
+        "-c",
+        "Release"
+      ],
+      "Exit": 0,
+      "Log": "bootstrap-02.log",
+      "Sha256": "58d34d08f46fbb97534d244ab5a18d579e597311f57ddb6b449b4f3568a9ddee"
+    },
+    {
+      "Argv": [
+        "dotnet",
+        "tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll",
+        "--prepare-isolated-session-build-workspace",
+        "/workspace/KuaiYi/artifacts/session-test-preparation"
+      ],
+      "Exit": 0,
+      "Log": "bootstrap-03.log",
+      "Sha256": "fa7c610c6889620534fc2b64578992e501756298936da5b2d18d684209621284"
+    },
+    {
+      "Argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "Exit": 0,
+      "Log": "command-04.log",
+      "Sha256": "400e47633cf9425983bd13d6561e1737522a304d8d5dd9043223fd4702cda3d0"
+    },
+    {
+      "Argv": [
+        "git",
+        "status",
+        "--porcelain=v1"
+      ],
+      "Exit": 0,
+      "Log": "command-05.log",
+      "Sha256": "1d25659b18abe81722db6bb16ebd1d53a5887fbdcc679309ebefa3b848f19ec2"
+    }
+  ],
+  "SourceCommit": "7f9df38fa381759c0b437d655b4f9b03f337fb0b",
+  "SourceDirty": true,
+  "MissingCachedPacks": [
+    "microsoft.netcore.app.runtime.win-x64/10.0.12",
+    "microsoft.windowsdesktop.app.runtime.win-x64/10.0.12"
+  ],
+  "Status": "Blocked",
+  "Reason": "Pinned runtime/apphost packs missing from existing cache; no download attempted"
+}

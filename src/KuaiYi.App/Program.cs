@@ -18,6 +18,9 @@ internal static class Program
     private static InstallationSessionEntry? runtimeSession; // Retain this caller's Process and original tasks through parent exit.
     [STAThread] public static int Main(string[] args)
     {
+#if KUAIYI_ISOLATED_SESSION_TEST
+        if(!IsolatedSessionLayout.AllowsEntry(args)){Console.Error.WriteLine("Session test supports only normal installation entry.");return 2;}
+#endif
 #if KUAIYI_WINDOWS_CI_PROBE
         if(args.Length==2&&args[0]=="--ci-ole-marshal-contract")return HostedOleMarshalProbe.Run(args[1]);
         if(args.Length==4&&args[0]=="--ci-ole-responsiveness")return HostedOleProbe.Run(args[1],args[2],args[3]);
@@ -37,6 +40,10 @@ internal static class Program
         }
         if (args.Length != 0 && !review&&!translationReview&&!controlled) { Console.Error.WriteLine("Unsupported command."); return 2; }
         string userData=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"KuaiYi");
+#if KUAIYI_ISOLATED_SESSION_TEST
+        try{userData=IsolatedSessionLayout.Select(AppContext.BaseDirectory,userData);}
+        catch(Exception error){Console.Error.WriteLine("Session test layout refused: "+error.GetType().Name);return 3;}
+#endif
         // Route ordinary installed entry before acquiring the UI mutex: the controlled child owns that mutex.
         if(args.Length==0)
         {
@@ -48,10 +55,12 @@ internal static class Program
             catch(Exception error)
             {
                 Console.Error.WriteLine("Installation session refused: "+error.GetType().Name);
+#if !KUAIYI_ISOLATED_SESSION_TEST
                 // Preserve explicit user re-invocation's existing Show message; it never proves admission or ownership.
                 using var callerIdentity=WindowsIdentity.GetCurrent();using var caller=Process.GetCurrentProcess();
                 string existingScope=SessionSingleInstance.ScopeFor(callerIdentity.User?.Value??throw new InvalidOperationException("Current user SID unavailable."),caller.SessionId);
                 NativeTray.ShowExisting(existingScope);
+#endif
                 return 3;
             }
         }
@@ -91,7 +100,8 @@ internal static class Program
             finally{if(Directory.Exists(testRoot))Directory.Delete(testRoot,true);}
         }
         if(review)return app.Run(new ImageProbeWindow(args.Length==2?args[1]:null));
-        var shell=new ShellWindow(instance.Scope);if(installationControl!=null)shell.AttachInstallationControl(installationControl);
+        var sessionSettings=new KuaiYi.Core.Settings.SettingsCoordinator(new(Path.Combine(userData,"config")),new(Path.Combine(userData,"secrets"),new CurrentUserDpapiProtector(),new CurrentUserSecretDirectory()));
+        var shell=new ShellWindow(instance.Scope,sessionSettings);if(installationControl!=null)shell.AttachInstallationControl(installationControl);
         int exit=app.Run(shell);GC.KeepAlive(runtimeControl);return exit;
     }
     private static async Task<int> Probe(string path, string language)

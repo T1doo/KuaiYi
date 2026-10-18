@@ -1,6 +1,21 @@
 using System.Security.Cryptography;
 using System.Collections.Immutable;
 using KuaiYi.Core.Settings;
+if(args.Length==2&&args[0]=="--prepare-isolated-session-build-workspace")
+{
+    try{Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(new{Workspace=IsolatedSessionPackage.CreateBuildWorkspace(args[1],Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"KuaiYi"))}));return 0;}
+    catch(Exception error){Console.Error.WriteLine("Build workspace refused: "+error.GetType().Name);return 2;}
+}
+if(args.Length==3&&args[0]=="--prepare-isolated-session-package")
+{
+    try
+    {
+        var prepared=await IsolatedSessionPackage.PrepareAsync(args[1],args[2],Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"KuaiYi"));
+        Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(new{prepared.Workspace,prepared.Version.DirectoryPath,prepared.Version.CatalogSha256,WindowsExecution="NotRun",ModelCalls="None",ProductionInstaller=false}));return 0;
+    }
+    catch(InvalidDataException error){Console.Error.WriteLine("Session preparation blocked: "+error.Message);return 2;}
+    catch(Exception error){Console.Error.WriteLine("Session preparation failed: "+error.GetType().Name);return 2;}
+}
 if(args.Length==3&&args[0]=="--installed-session-launch"&&Path.GetFileName(args[1]).StartsWith("kuaiyi-upgrade-tests-",StringComparison.Ordinal))
     return await InstallationSessionLaunchFixture.Run(args[1],args[2]);
 if(args.Length==3&&args[0]=="--handoff-controller"&&Path.GetFileName(args[1]).StartsWith("kuaiyi-upgrade-tests-",StringComparison.Ordinal))

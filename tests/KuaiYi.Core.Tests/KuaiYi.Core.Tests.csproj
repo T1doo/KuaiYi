@@ -5,6 +5,8 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="../../src/KuaiYi.App/IsolatedSessionLayout.cs" Link="Production/IsolatedSessionLayout.cs" />
+    <Compile Include="../../tools/KuaiYi.SettingsStoreFixture/IsolatedSessionPackage.cs" Link="Packaging/IsolatedSessionPackage.cs" />
     <ProjectReference Include="../../tools/KuaiYi.SelectionReuseDiagnostic/KuaiYi.SelectionReuseDiagnostic.csproj" />
     <Compile Include="../../src/KuaiYi.CaptureBroker/SelectionCaptureOutput.cs" Link="WindowsCi/SelectionCaptureOutput.cs" />
     <Compile Include="../../tools/KuaiYi.CompatibilityProbe/PublicSelectionFixtures.cs" Link="WindowsCi/PublicSelectionFixtures.cs" />
