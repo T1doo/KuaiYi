@@ -1026,3 +1026,20 @@ r01 6P12F为Peer连接前AutoFlush的harness错误，非产品红；r02/r03中�
 Windows/WPF/真实Dispatcher/STA/可见健康/键盘/Job/OCR/截图/DPAPIACL/物理250600/模型仍NotRun。既有committed自退仍持久拒入，显式review/probe另有原生命周期。真实注册/签名/扩展ID/绝对路径再生成/完整payload/稳定launcher/生产安装器Inno/自启卸载/K组与完整P7未验。历史图片/idle/Core/Job及父r10/r17/r20根因各Unknown；生产图片分类复用Off、来源/密码/完整性/取消/清理及250600门不变。无main强推部署费用真实模型凭据权限/新依赖许可；Skia四包待批，403及拒绝Actions不查不绕；未知锁数据日志进程保全。
 
 本片封存独审Pass（727原件/743路径），依约只追加审查回执和既定stage-audit后最终729原件/14,228,145B；旧9775路径/8869旧证据原字节。源码与测试未再修改。
+
+
+## 2026-10-18 · 恢复独审与正常会话最终结算收据
+
+用户明确恢复后只用原保存环境，HEAD/远端e835/直接父369796及clean单worktree核实，既有reviewer仅只读、本任务唯一写入者；729旧原件14,228,145B/67源及原测试哈希重核保全，不恢复旧实例。正常dev/session-close-receipt，先独审e835差异与原测试，未先扩安装功能。
+
+本次补充覆盖重新打开两个P2：CancelAsync先使原loop完成可跳CLOSING，真实Exit0误永久拒入；原loop协议故障与Close dispatch重叠仍发CLOSING，真实Exit0却错误归档owner。r03实际8例3F5P，两个主反例方法从红到最终绿逐字节相同；第三TERMINAL_MISSING仅最终合同加严，Theory清理期望后变字节，不冒充同方法红绿。旧e835“无剩余P1/P2”结论以本追加修正，旧报告原件不回写。
+
+生产只改既有control wire结算：取消前快照notify、缓存整次原settlement Task，CLOSING只请求关闭精确child stdin；原CancelAsync和原loop全join且非committed/无FailureCode后才发唯一精确EXIT_READY。非预期EOF先记录ControlEof再派发原Close，不能借调度伪造健康终态。父strict正常session需有序唯一双收据、实际Exit0、原自然IO/原Task成功及精确记录，旧Generic/committed门保留。无服务/守护/扫描/自动重启/PID收养/新产品角色，原App入口同源接线继续。
+
+新增9例，父1834个Core case完整保留，全名+9；原会话24例代码精确前缀不动，仅追加新方法。包括两次实际child取消竞争、真实stdin协议故障、EOF先完/关闭重叠、终态缺错重提前、最后owner归档File.Move冲突。可取消命令read为明确端口，START实际stdin，无遗弃underlying read，不充Windows Console取消实测；故障反例原stdin/stdout，仅调度屏障。EARLY/DUPLICATE原IO FaultObserved后实际0/DisposeUnconfirmed/owner与fresh门保持，公开失败根保留，未删失败锁。既有丢父仍不证child OS退出，HoldIo仍仅adapterTask。
+
+r01 nullable/definiteassignment编译与r02 xUnit1031分析器失败无TRX，显式修正/await不关分析器；r03实际3F5P；r04相关139P2F是新readerfault用例错误期待成功Dispose，改为更准确拒入故障断言，未改生产finalizer或吞错。原件全保。最终r05相关141P/r06完整Core1843P=父1834+9/r07完整Provider2332P同父名单，App/Worker r08/r09各0W/E；五轮67源335绑定/23目标DLL与实际driver/Core收据核定。独立源码终审无剩余P1/P2，封存另审；见[恢复审查修复报告](validation/session-close-receipt.md)/[机器索引](test-evidence/2026-10-18-session-close-receipt.json)。
+
+Windows/WPF/实际Dispatcher/STA/可见健康/键盘/Console stdin取消/Job/OCR/截图/DPAPIACL/物理250600/模型仍NotRun，生产安装器/注册签名扩展ID/稳定入口/完整payload/Inno/自启卸载/K组/完整P7未推进或未验。历史图片/idle/Core/Job及旧r10/r17/r20根因各Unknown，不能据新协议实证宣称旧间歇失败解决。生产图片分类复用Off和250600/来源/密码/完整性/取消/清理门保持。无main强推部署费用真实模型/新增凭据权限/新SDK条款；Skia四包许可与403未解决、不绕过降隔离，拒绝Actions不查不换路，未知锁数据日志进程保全。
+
+本片最终封存独审Pass：审计653原件/660路径，依约只追加回执及既定stage-audit后共655份/13,668,794B；代码/测试未改，父10515路径及9599旧证据全保。

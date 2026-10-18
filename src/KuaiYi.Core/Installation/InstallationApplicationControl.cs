@@ -35,6 +35,7 @@ public sealed class InstallationApplicationClient:IInstallationHandoffProtocol,I
         internal InstallationControlledLaunch? Proof;
         internal bool Closed;
         internal bool ClosingReceived;
+        internal bool ExitReadyReceived;
         private Task? sessionJoin;
         private readonly object joinSync=new();private Task? join;
         internal ChannelState(Process child){Output=Task.Run(()=>Read(child));Error=Task.Run(()=>Drain(child));}
@@ -46,6 +47,8 @@ public sealed class InstallationApplicationClient:IInstallationHandoffProtocol,I
                 {
                     if(Proof is {} proof&&line==$"CLOSING|{proof.Launch:N}|{proof.Fingerprint}")
                     {if(ClosingReceived)throw new InvalidDataException("Duplicate application close receipt.");ClosingReceived=true;child.StandardInput.Close();continue;}
+                    if(Proof is {} settled&&line==$"EXIT_READY|{settled.Launch:N}|{settled.Fingerprint}")
+                    {if(!ClosingReceived||ExitReadyReceived)throw new InvalidDataException("Unordered or duplicate application settlement receipt.");ExitReadyReceived=true;continue;}
                     await Lines.Writer.WriteAsync(line,Readers.Token).ConfigureAwait(false);
                 }
             }
@@ -69,7 +72,7 @@ public sealed class InstallationApplicationClient:IInstallationHandoffProtocol,I
             {
                 // Normal user exit must end both original streams naturally, including any late fault.
                 await Task.WhenAll(Output,Error).ConfigureAwait(false);
-                if(!ClosingReceived||Lines.Reader.TryRead(out _))throw new IOException("Application clean-close receipt is unconfirmed.");
+                if(!ClosingReceived||!ExitReadyReceived||Lines.Reader.TryRead(out _))throw new IOException("Application clean-close receipt is unconfirmed.");
                 Closed=true;
             });
         }
@@ -122,6 +125,7 @@ public sealed class InstallationApplicationControl
     private readonly CancellationTokenSource stop=new();
     private Task? loop;
     private Task? cancellationWork;
+    internal Func<Task>? ExitCancellationStartedForTest{get;set;} // Scheduler barrier only; never configured by App.
     private InstallationRuntimeOwnership? runtime;
     private InstallationHandoffOffer? offer;
     private bool committed;
@@ -163,7 +167,11 @@ public sealed class InstallationApplicationControl
                     else if(command=="COMMIT"){runtime!.ConfirmCommitted();committed=true;await Reply("COMMITTED").ConfigureAwait(false);}
                     else throw new InvalidDataException("Unknown installation command.");
                 }
-                if(runtime==null)await requestClose(stop.Token).ConfigureAwait(false);
+                if(runtime==null)
+                {
+                    if(!stop.IsCancellationRequested)FailureCode??="ControlEof"; // A lost controller may request close but never attest a clean session.
+                    await requestClose(stop.Token).ConfigureAwait(false);
+                }
                 else{runtime.ConfirmCommitted();committed=true;} // EOF cannot create a commit; a durable exact Committed decision is required.
             }
             catch(OperationCanceledException)when(stop.IsCancellationRequested){}
@@ -188,25 +196,33 @@ public sealed class InstallationApplicationControl
         try{await InstallationControlWire.Send(output,line,cancellation).ConfigureAwait(false);}
         finally{outputSerial.Release();}
     }
-    public async Task SettleForExitAsync()
+    public Task SettleForExitAsync()
     {
-        // Retain the original cancellation work even when the calling UI/task stops waiting.
-        lock(stateSync)cancellationWork??=Task.Run(async()=>
+        // Cache the entire original settlement, including the loop join and at most one final receipt.
+        lock(stateSync)return cancellationWork??=Task.Run(async()=>
         {
+            bool notify=loop is {IsCompleted:false}; // This decision must precede our cancellation completing the original loop.
             Task cancellation=stop.CancelAsync(); // Start cancellation before waiting behind an original protocol write.
             try
             {
-                if(loop is {IsCompleted:false})
-                    try{await Send($"CLOSING|{Proof.Launch:N}|{Proof.Fingerprint}",CancellationToken.None).ConfigureAwait(false);}
-                    catch(Exception error)when(error is IOException or ObjectDisposedException){FailureCode??=error.GetType().Name;}
+                try
+                {
+                    if(ExitCancellationStartedForTest is {} barrier)await barrier().ConfigureAwait(false);
+                    if(notify)
+                        try{await Send($"CLOSING|{Proof.Launch:N}|{Proof.Fingerprint}",CancellationToken.None).ConfigureAwait(false);}
+                        catch(Exception error)when(error is IOException or ObjectDisposedException){FailureCode??=error.GetType().Name;}
+                }
+                finally{await cancellation.ConfigureAwait(false);}
             }
-            finally{await cancellation.ConfigureAwait(false);}
+            finally
+            {
+                if(loop!=null)try{await loop.ConfigureAwait(false);}catch(Exception error)when(loop.IsCompleted){FailureCode??=error.GetType().Name;_ =loop.Exception;}
+                GC.KeepAlive(runtime);
+            }
+            // CLOSING only closes stdin. A faulted/unsolicited-EOF loop must never produce a success attestation.
+            if(notify&&!committed&&FailureCode==null)
+                try{await Send($"EXIT_READY|{Proof.Launch:N}|{Proof.Fingerprint}",CancellationToken.None).ConfigureAwait(false);}
+                catch(Exception error)when(error is IOException or ObjectDisposedException){FailureCode??=error.GetType().Name;}
         });
-        try{await cancellationWork.ConfigureAwait(false);}
-        finally
-        {
-            if(loop!=null)try{await loop.ConfigureAwait(false);}catch(Exception error)when(loop.IsCompleted){FailureCode??=error.GetType().Name;_ =loop.Exception;}
-            GC.KeepAlive(runtime);
-        }
     }
 }

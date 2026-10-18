@@ -1,0 +1,17 @@
+Independent read-only reviewer: /root/high_water_review
+Resumed commit-level audit,2026-10-18. No reviewer file/Git mutation or new full-regression run.
+
+Initial e835 findings:
+P2 confirmed by source: InstallationApplicationControl.cs first CancelAsync then check loop.IsCompleted; that same cancellation may finish loop and suppress CLOSING, causing a healthy actualExit0 session to retain owner. Original24 cases lacked a cancellable-read schedule. Separate fault-loop/close overlap candidate identified and later actually reproduced by root r03. Other owner finalization checks remain conservative; suggested final archive collision test added.
+Independent e835 Git object checks:729 raw /14,228,145B and67 source SHA match. Parent9775 paths/181 old test files byte-preserved; Core1810→1834 only+24; Provider2332 same multiset. Prior no-P1/P2 statement is superseded for these newly covered paths; old originals remain immutable.
+
+Final source review conclusion after r05-install-final:
+当前候选源码终审可准入最终回归，未发现剩余P1/P2。已独核r05相关141/141P、exit0，67源当前SHA全同，e835原24例文件前缀逐字节保留。整次SettleTask缓存覆盖原CancelAsync＋loop join＋唯一terminal；notify在取消前决定，CLOSING不再代表成功，只有未committed且FailureCode为空才EXIT_READY；EOF先置ControlEof，strict client有序唯一双收据＋原自然IO/actualExit门成立。
+
+Red/green exact method preimage includes four leading spaces through final method brace, excludes following LF:
+CancellationThatCompletesTheOriginalLoopBeforeTheReceiptDecisionAllowsTwoCleanActualSessions:1028B,44d1e04015fdb87c39fa09479d90499cf94388eae604b85b12446268ecb019a7.
+AProtocolFaultInTheOriginalLoopCannotReleaseOwnerAfterBoundClosingAndActualExitZero:1026B,911089dac2895d7d9b1f38ccae459651469698e3b0c690c5af5a1195abadce1d.
+Each method identical in r03 red and final source.
+
+r04=139P2F are new EARLY/DUPLICATE test teardown incorrectly expecting successful Dispose after original reader correctly faults; root fixed assertions to actualExit0, InvalidData originalIO fault, DisposeUnconfirmed, exact owner/fresh admission refusal. No production fault was swallowed for the test. This Theory's final source differs from r03 and is not same-method red/green. All original e835 methods unchanged.
+Console cancellable command-read and precise schedule are explicit fixture ports, not Windows stdin/WPF proof. Original admission remains actual stdin, no abandoned underlying read. Fault-close test uses real malformed stdin command and original stdout, only callback/write ordering held. Reader-fault public roots retained, no unknown process or lock cleanup. Final archive collision now actually tested. Packet audit separate; Windows still NotRun.

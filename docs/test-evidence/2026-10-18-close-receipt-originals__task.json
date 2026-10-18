@@ -1,0 +1,126 @@
+{
+  "Parent": "e8350adce77ac42f8f05da0ea67215a57257751e",
+  "Branch": "dev/session-close-receipt",
+  "Prefix": "2026-10-18-close-receipt-originals__",
+  "Index": "2026-10-18-session-close-receipt.json",
+  "Scope": "Reaudit e835 against369796; fix cancellation receipt suppression and false normal ownership release after child control failure; retain original Process/IO/Task and all refusal gates.",
+  "FinalRuns": [
+    "r05-install-final",
+    "r06-core-full",
+    "r07-provider-full",
+    "r08-app-build",
+    "r09-worker-build"
+  ],
+  "FullRun": "r06-core-full",
+  "ParentTrx": "docs/test-evidence/2026-10-17-session-launch-originals__r07-core-full.trx",
+  "NewTests": 9,
+  "AllowedOldModified": [
+    ".gitattributes",
+    "docs/progress.md",
+    "src/KuaiYi.Core/Installation/InstallationApplicationControl.cs",
+    "tests/KuaiYi.Core.Tests/InstallationSessionTests.cs",
+    "tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs"
+  ],
+  "SourceReview": "Independent read-only reviewer: /root/high_water_review\nResumed commit-level audit,2026-10-18. No reviewer file/Git mutation or new full-regression run.\n\nInitial e835 findings:\nP2 confirmed by source: InstallationApplicationControl.cs first CancelAsync then check loop.IsCompleted; that same cancellation may finish loop and suppress CLOSING, causing a healthy actualExit0 session to retain owner. Original24 cases lacked a cancellable-read schedule. Separate fault-loop/close overlap candidate identified and later actually reproduced by root r03. Other owner finalization checks remain conservative; suggested final archive collision test added.\nIndependent e835 Git object checks:729 raw /14,228,145B and67 source SHA match. Parent9775 paths/181 old test files byte-preserved; Core1810→1834 only+24; Provider2332 same multiset. Prior no-P1/P2 statement is superseded for these newly covered paths; old originals remain immutable.\n\nFinal source review conclusion after r05-install-final:\n当前候选源码终审可准入最终回归，未发现剩余P1/P2。已独核r05相关141/141P、exit0，67源当前SHA全同，e835原24例文件前缀逐字节保留。整次SettleTask缓存覆盖原CancelAsync＋loop join＋唯一terminal；notify在取消前决定，CLOSING不再代表成功，只有未committed且FailureCode为空才EXIT_READY；EOF先置ControlEof，strict client有序唯一双收据＋原自然IO/actualExit门成立。\n\nRed/green exact method preimage includes four leading spaces through final method brace, excludes following LF:\nCancellationThatCompletesTheOriginalLoopBeforeTheReceiptDecisionAllowsTwoCleanActualSessions:1028B,44d1e04015fdb87c39fa09479d90499cf94388eae604b85b12446268ecb019a7.\nAProtocolFaultInTheOriginalLoopCannotReleaseOwnerAfterBoundClosingAndActualExitZero:1026B,911089dac2895d7d9b1f38ccae459651469698e3b0c690c5af5a1195abadce1d.\nEach method identical in r03 red and final source.\n\nr04=139P2F are new EARLY/DUPLICATE test teardown incorrectly expecting successful Dispose after original reader correctly faults; root fixed assertions to actualExit0, InvalidData originalIO fault, DisposeUnconfirmed, exact owner/fresh admission refusal. No production fault was swallowed for the test. This Theory's final source differs from r03 and is not same-method red/green. All original e835 methods unchanged.\nConsole cancellable command-read and precise schedule are explicit fixture ports, not Windows stdin/WPF proof. Original admission remains actual stdin, no abandoned underlying read. Fault-close test uses real malformed stdin command and original stdout, only callback/write ordering held. Reader-fault public roots retained, no unknown process or lock cleanup. Final archive collision now actually tested. Packet audit separate; Windows still NotRun.\n",
+  "Targets": {
+    "r05-install-final": "tests/KuaiYi.Core.Tests/bin/Release/net10.0/",
+    "r06-core-full": "tests/KuaiYi.Core.Tests/bin/Release/net10.0/",
+    "r07-provider-full": "tests/KuaiYi.Provider.Tests/bin/Release/net10.0/",
+    "r08-app-build": "src/KuaiYi.App/bin/Release/",
+    "r09-worker-build": "src/KuaiYi.ImageWorker/bin/Release/"
+  },
+  "AdditionalValidation": {
+    "RedGreen": [
+      {
+        "name": "CancellationThatCompletesTheOriginalLoopBeforeTheReceiptDecisionAllowsTwoCleanActualSessions",
+        "bytes": 1028,
+        "sha256": "44d1e04015fdb87c39fa09479d90499cf94388eae604b85b12446268ecb019a7",
+        "preimage": "Four leading spaces through final method brace, no trailing LF",
+        "red": "r03-close-red",
+        "green": "r05-install-final"
+      },
+      {
+        "name": "AProtocolFaultInTheOriginalLoopCannotReleaseOwnerAfterBoundClosingAndActualExitZero",
+        "bytes": 1026,
+        "sha256": "911089dac2895d7d9b1f38ccae459651469698e3b0c690c5af5a1195abadce1d",
+        "preimage": "Four leading spaces through final method brace, no trailing LF",
+        "red": "r03-close-red",
+        "green": "r05-install-final"
+      }
+    ],
+    "ProviderNameComparison": {
+      "parent": 2332,
+      "final": 2332,
+      "exactSameMultiset": true
+    },
+    "RecordedOwnedChildren": {
+      "r05-install-final": {
+        "sessionCases": 33,
+        "parentCleanActualChildExitRows": 3,
+        "directCleanActualChildExitRows": 8,
+        "failureCleanupActualExitRows": 15,
+        "originalIoFaultActualExitZeroRows": 2,
+        "lostParentRows": 1,
+        "driverSha256": "17932B9EBDEB8FB7DA5D5513EA53CAA0212A9292A96A79C56E7E64BFE4921ECB",
+        "fixtureCoreSha256": "67B38D5102E24A573611B03DAEF306155B2BA2DF958E2EC2F1A1001BADF0A410",
+        "fixtureCoreEqualsTargetCore": true,
+        "scope": "Shared original App entry/close sources and selected actual synthetic children. Cancellable command-read and order barriers are explicit ports. Lost-parent child OS exit remains unobserved; heldIo is adapter Task, not reader block."
+      },
+      "r06-core-full": {
+        "sessionCases": 33,
+        "parentCleanActualChildExitRows": 3,
+        "directCleanActualChildExitRows": 8,
+        "failureCleanupActualExitRows": 15,
+        "originalIoFaultActualExitZeroRows": 2,
+        "lostParentRows": 1,
+        "driverSha256": "17932B9EBDEB8FB7DA5D5513EA53CAA0212A9292A96A79C56E7E64BFE4921ECB",
+        "fixtureCoreSha256": "67B38D5102E24A573611B03DAEF306155B2BA2DF958E2EC2F1A1001BADF0A410",
+        "fixtureCoreEqualsTargetCore": true,
+        "scope": "Shared original App entry/close sources and selected actual synthetic children. Cancellable command-read and order barriers are explicit ports. Lost-parent child OS exit remains unobserved; heldIo is adapter Task, not reader block."
+      }
+    },
+    "ExistingTestPrefix": {
+      "parent": "e8350adce77ac42f8f05da0ea67215a57257751e",
+      "path": "tests/KuaiYi.Core.Tests/InstallationSessionTests.cs",
+      "parentFileSha256": "4bc6311419b1f0536964e89a5f459ce4a9684cd35c7be9dd0ddc3e3050b37865",
+      "parentAllExceptFinalClassBraceBytes": 23010,
+      "preservedPrefixSha256": "33034fdf1d656fb57c5cafc7252f473affcf20d449bc08ffba049752e0498b0e",
+      "exactPrefixPreserved": true,
+      "onlyNewMethodsAppended": true
+    },
+    "ResumedCommitAudit": {
+      "commit": "e8350adce77ac42f8f05da0ea67215a57257751e",
+      "parent": "369796e2fed19d433e66a7174930af5c2bfcb69d",
+      "raw": 729,
+      "bytes": 14228145,
+      "sources": 67,
+      "commitWorktreeShaVerified": true,
+      "oldAcceptanceCorrection": "Two newly covered P2 paths reopen the previous no-P1/P2 statement; old report/index/originals retained byte-identically."
+    },
+    "AttemptClassifications": {
+      "r01-close-red": "Compile CS8602/CS0165 fixture closure; noTRX, not behavioral red",
+      "r02-close-red": "xUnit1031 blocking Result analyzer; noTRX, fixed by await, not behavioral red",
+      "r03-close-red": "8cases:3F5P. Two primary regressions actualExit0: missedCLOSING retained fence, original loop fault incorrectly released fence. Third TERMINAL_MISSING is forward contract hardening; final Theory source changed, not same-method red/green. Scheduler hook only on parent server before send decision; all other parent logic retained.",
+      "r04-install-green": "139P2F; EARLY/DUPLICATE correctly fault original reader but new test incorrectly expected successful Dispose. Original retained, no fault swallowed.",
+      "r05-install-final": "141P; original132 plus9, including final owner archive collision and EOF/close overlap."
+    }
+  },
+  "Notes": [
+    "Resume verified original selected saved workspace, single worktree/current writer, HEAD/remotee835 clean and parent369796. NormalGit only; prior Actions refusal not queried.",
+    "Only production change is existing control wire settlement: before-cancel notify snapshot; cached entire original settlement; CLOSING ends stdin but is not success; EXIT_READY only after original cancellation/loop work succeeds and noncommitted/noFailure.",
+    "Unsolicited EOF marksControlEof before dispatching original close, preserving refusal even when loop completion overlaps cleanup. Existing committed/unknown handoff semantics retained.",
+    "Normal parent client additionally requires exact ordered uniqueEXIT_READY afterCLOSING, actualExit0, original natural IO and original task success; no PID/EOF/lease inference, no daemon/service/scanner/restart/new model role.",
+    "Original24 session cases remain exact source prefix; only9 cases appended. Other parent tests and all prior evidence remain unchanged.",
+    "Two primary exact-method actual red/green cases remain byte-identical. Cancellable command-read port does not abandon any underlying stdin operation; original admission is actualstdin. Fault-loop counterexample uses actual malformed stdin and original stdout with explicit legal schedule barriers.",
+    "EARLY/DUPLICATE retain public fixture roots after actualExit0 and originalIO fault observation plus DisposeUnconfirmed. Test closes only its own actual Start-returned exited Process; failed markers/locks retained. Existing lost-parent roots also retained; no child OS-exit claim there.",
+    "Five final runs each bind67 selected sources,335 bindings;23 target DLLs and actual child driver/Core hashes checked separately. No build hash alone is treated as runtime execution."
+  ],
+  "Boundaries": [
+    "Windows/WPF/real Dispatcher/STA/visiblehealth/keyboard/Console stdin cancellation/Job/OCR/DPAPIACL/screenshots/physical250600/models remainNotRun; portable selected child and shared sources do not satisfy full Windows/P7 acceptance.",
+    "Parent observation loss, unknown records and failed cleanup retain admission refusal. Existing committed self-exit still retains its persistent fence.",
+    "No registration/signing/extensionID/stable launcher/fullpayload/installer/Inno/startup/uninstall/Kgroup expansion; production installer remains unverified.",
+    "Historical image/idle/Core/Job and oldr10/r17/r20 causes remain independentlyUnknown; these new reproducible protocol bugs do not prove their root causes.",
+    "Production image/classification reuseOff and250600/source/password/integrity/cancel/cleanup gates retained.",
+    "No main/force/deploy/cost/live models/new credentials/security permission changes/new dependencies/licenses. Skia4.153.1 terms andsource403 unresolved, not bypassed; deniedActions not accessed; unknown locks/data/logs/processes preserved."
+  ]
+}

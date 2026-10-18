@@ -1,0 +1,69 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.SelectionReuseDiagnostic -> /workspace/KuaiYi/tools/KuaiYi.SelectionReuseDiagnostic/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.90]     KuaiYi.Core.Tests.InstallationSessionTests.CancellationThatCompletesTheOriginalLoopBeforeTheReceiptDecisionAllowsTwoCleanActualSessions [FAIL]
+[xUnit.net 00:00:01.05]     KuaiYi.Core.Tests.InstallationSessionTests.AClosingRequestWithoutOneCorrectFinalSettlementReceiptCannotReleaseOwner(command: "TERMINAL_MISSING") [FAIL]
+  Failed KuaiYi.Core.Tests.InstallationSessionTests.CancellationThatCompletesTheOriginalLoopBeforeTheReceiptDecisionAllowsTwoCleanActualSessions [152 ms]
+  Error Message:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   KuaiYi.Core.Installation.InstallationUpgradeUnconfirmedException: Upgrade or application settlement is unconfirmed; pending record and all versions retained, admission blocked.
+ ---> System.IO.IOException: Application clean-close receipt is unconfirmed.
+   at KuaiYi.Core.Installation.InstallationApplicationClient.ChannelState.<JoinSession>b__14_0() in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationApplicationControl.cs:line 72
+   at KuaiYi.Core.Installation.InstallationApplicationClient.SettleSessionAsync(Process owned, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationApplicationControl.cs:line 102
+   at KuaiYi.Core.Tests.InstallationSessionTests.Port.SettleSessionAsync(Process p, CancellationToken ct) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 90
+   at KuaiYi.Core.Installation.InstallationUpgradeCoordinator.ProtocolSettled(Role role) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs:line 332
+   --- End of inner exception stack trace ---
+   at KuaiYi.Core.Installation.InstallationUpgradeCoordinator.RunActiveSessionAsync(String executableDirectory, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs:line 114
+   at Xunit.Record.ExceptionAsync(Func`1 testCode) in /_/src/xunit.core/Record.cs:line 76
+  Stack Trace:
+     at KuaiYi.Core.Tests.InstallationSessionTests.CancellationThatCompletesTheOriginalLoopBeforeTheReceiptDecisionAllowsTwoCleanActualSessions() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 259
+   at KuaiYi.Core.Tests.InstallationSessionTests.CancellationThatCompletesTheOriginalLoopBeforeTheReceiptDecisionAllowsTwoCleanActualSessions() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 259
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ PUBLIC_SESSION_FAILURE_CLEANUP actualExit=0 originalIO=Settled driverSha256=35344D5F450046DAA7F823E4436FAB1DDC2CD742BD37204BC16CF321B97B840A coreSha256=3ED11A3B8937160905C838B1222065AE2F6E9E1735032E5ABCC5E85874D3211D
+
+
+  Failed KuaiYi.Core.Tests.InstallationSessionTests.AClosingRequestWithoutOneCorrectFinalSettlementReceiptCannotReleaseOwner(command: "TERMINAL_MISSING") [147 ms]
+  Error Message:
+   Assert.IsType() Failure: Value is null
+Expected: typeof(KuaiYi.Core.Installation.InstallationUpgradeUnconfirmedException)
+Actual:   null
+  Stack Trace:
+     at KuaiYi.Core.Tests.InstallationSessionTests.AClosingRequestWithoutOneCorrectFinalSettlementReceiptCannotReleaseOwner(String command) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 284
+   at KuaiYi.Core.Tests.InstallationSessionTests.AClosingRequestWithoutOneCorrectFinalSettlementReceiptCannotReleaseOwner(String command) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 284
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ PUBLIC_DIRECT_SESSION actualExit=0 originalIO=Settled driverSha256=35344D5F450046DAA7F823E4436FAB1DDC2CD742BD37204BC16CF321B97B840A coreSha256=3ED11A3B8937160905C838B1222065AE2F6E9E1735032E5ABCC5E85874D3211D
+
+
+[xUnit.net 00:00:01.88]     KuaiYi.Core.Tests.InstallationSessionTests.AProtocolFaultInTheOriginalLoopCannotReleaseOwnerAfterBoundClosingAndActualExitZero [FAIL]
+  Failed KuaiYi.Core.Tests.InstallationSessionTests.AProtocolFaultInTheOriginalLoopCannotReleaseOwnerAfterBoundClosingAndActualExitZero [183 ms]
+  Error Message:
+   Assert.IsType() Failure: Value is null
+Expected: typeof(KuaiYi.Core.Installation.InstallationUpgradeUnconfirmedException)
+Actual:   null
+  Stack Trace:
+     at KuaiYi.Core.Tests.InstallationSessionTests.AProtocolFaultInTheOriginalLoopCannotReleaseOwnerAfterBoundClosingAndActualExitZero() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 269
+   at KuaiYi.Core.Tests.InstallationSessionTests.AProtocolFaultInTheOriginalLoopCannotReleaseOwnerAfterBoundClosingAndActualExitZero() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 269
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ PUBLIC_DIRECT_SESSION actualExit=0 originalIO=Settled driverSha256=35344D5F450046DAA7F823E4436FAB1DDC2CD742BD37204BC16CF321B97B840A coreSha256=3ED11A3B8937160905C838B1222065AE2F6E9E1735032E5ABCC5E85874D3211D
+
+
+Results File: /workspace/KuaiYi/artifacts/session-resume-review/r03-close-red.trx
+
+Failed!  - Failed:     3, Passed:     5, Skipped:     0, Total:     8, Duration: 1 s - KuaiYi.Core.Tests.dll (net10.0)

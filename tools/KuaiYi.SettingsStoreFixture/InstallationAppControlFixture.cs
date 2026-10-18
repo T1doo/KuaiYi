@@ -8,11 +8,14 @@ internal static class InstallationAppControlFixture
         _=Task.Run(async()=>{await Task.Delay(TimeSpan.FromSeconds(40));Environment.Exit(91);});
         string root=Directory.GetParent(Path.TrimEndingDirectorySeparator(AppContext.BaseDirectory))!.Parent!.Parent!.FullName;
         string state="NotAdmitted";var cancelRelease=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var closingWritten=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);Task? originalLoop=null;
         // No UI/cleanup channel creation before the same production proof validation succeeds.
         try
         {
             Stream output=Console.OpenStandardOutput();if(mode is "lost-commit-output" or "unknown-after-commit")output=new LostCommitOutput(output,mode=="unknown-after-commit"?()=>File.WriteAllText(Path.Combine(root,"application","handoff-pending.json"),"PUBLIC_UNKNOWN_AFTER_COMMIT"):null);
+            if(mode is "fault-close-pending" or "eof-close-pending")output=new ClosingBarrierOutput(output,closingWritten,()=>originalLoop!);
             Stream input=Console.OpenStandardInput();if(mode=="held-cancel")input=new HeldCancelInput(input,()=>state="CancelHeld",cancelRelease.Task);
+            if(mode=="cancel-loop-first")input=new CancellableControlInput(input);
             control=await InstallationApplicationControl.AdmitAsync(input,output,launch,AppContext.BaseDirectory,Path.Combine(root,"user-data"));
         }
         catch(Exception error)when(error is IOException or InvalidDataException or FormatException or System.Text.Json.JsonException)
@@ -33,13 +36,19 @@ internal static class InstallationAppControlFixture
             state="CleanupUnconfirmed";writer.WriteLine("PUBLIC_CLOSE_UNCONFIRMED|"+error.GetType().Name);
             if(mode=="held-failed-close")failedCloseRelease.Task.GetAwaiter().GetResult(); // Hold this exact reported attempt, not the control loop.
         },()=>{writer.WriteLine("PUBLIC_SHELL_CLOSED");writer.Flush();if(mode=="held-after-close")exitRelease.Task.GetAwaiter().GetResult();Environment.Exit(0);});
-        Task RequestClose(CancellationToken _){if(state is "CleanupUnconfirmed" or "Closing")retryWhilePending.TrySetResult();shell.Close();return Task.CompletedTask;}
-        Task loop=control.RunAsync(ready.Task,RequestClose);_ =loop.ContinueWith(t=>{_ =t.Exception;},CancellationToken.None,TaskContinuationOptions.OnlyOnFaulted,TaskScheduler.Default);
+        async Task RequestClose(CancellationToken _){if(state is "CleanupUnconfirmed" or "Closing")retryWhilePending.TrySetResult();shell.Close();if(mode is "fault-close-pending" or "eof-close-pending"&&control!.FailureCode!=null)await closingWritten.Task;}
+        Task loop=originalLoop=control.RunAsync(ready.Task,RequestClose);_ =loop.ContinueWith(t=>{_ =t.Exception;},CancellationToken.None,TaskContinuationOptions.OnlyOnFaulted,TaskScheduler.Default);
+        if(mode=="cancel-loop-first")control.ExitCancellationStartedForTest=()=>loop;
         while(await reader.ReadLineAsync() is {} command)
         {
             if(command=="PING")await writer.WriteLineAsync("PUBLIC_SHELL|"+state+(control.FailureCode==null?"":"|ControlFault="+control.FailureCode));
             else if(command=="EXIT0")Environment.Exit(0);
             else if(command=="EXIT23")Environment.Exit(23);
+            else if(command.StartsWith("TERMINAL_",StringComparison.Ordinal))
+            {
+                string closing=$"CLOSING|{control.Proof.Launch:N}|{control.Proof.Fingerprint}\n",terminal=$"EXIT_READY|{control.Proof.Launch:N}|{control.Proof.Fingerprint}\n";
+                Console.Write(command switch{"TERMINAL_MISSING"=>closing,"TERMINAL_WRONG"=>closing+$"EXIT_READY|{Guid.Empty:N}|{control.Proof.Fingerprint}\n","TERMINAL_DUPLICATE"=>closing+terminal+terminal,"TERMINAL_EARLY"=>terminal+closing,_=>throw new InvalidDataException("Unknown terminal fixture.")});Console.Out.Flush();Environment.Exit(0);
+            }
             else if(command=="EXTRA_OUTPUT")
             {Console.WriteLine("PUBLIC_UNEXPECTED_CONTROL_ROW");Console.Out.Flush();await writer.WriteLineAsync("PUBLIC_OUTPUT_WRITTEN");}
             else if(command=="WRONG_CLOSING")
@@ -61,7 +70,30 @@ internal static class InstallationAppControlFixture
         {
             if(mode=="held-cleanup-fails-once"&&!failedClose)await failedCloseRelease.Task;
             if(mode is "fail-close-once" or "held-failed-close" or "held-cleanup-fails-once"&&!failedClose){failedClose=true;throw new IOException("PUBLIC_CLEANUP_FAILED_ONCE");}
-            await cleanup.Task;await control!.SettleForExitAsync();
+            await cleanup.Task;if(mode=="ended-loop-first")await originalLoop!;
+            if(mode=="cancel-loop-first")await Task.WhenAll(Enumerable.Range(0,8).Select(_=>control!.SettleForExitAsync()));
+            await control!.SettleForExitAsync();
+        }
+    }
+    private sealed class CancellableControlInput(Stream inner):Stream
+    {
+        public override bool CanRead=>true;public override bool CanSeek=>false;public override bool CanWrite=>false;public override long Length=>throw new NotSupportedException();public override long Position{get=>throw new NotSupportedException();set=>throw new NotSupportedException();}
+        public override void Flush()=>throw new NotSupportedException();public override void Write(byte[] b,int o,int c)=>throw new NotSupportedException();public override int Read(byte[] b,int o,int c)=>throw new NotSupportedException();public override long Seek(long o,SeekOrigin s)=>throw new NotSupportedException();public override void SetLength(long v)=>throw new NotSupportedException();
+        public override async ValueTask<int> ReadAsync(Memory<byte> buffer,CancellationToken cancellationToken=default)
+        {
+            if(!cancellationToken.CanBeCanceled)return await inner.ReadAsync(buffer,cancellationToken); // Actual admission on original stdin.
+            await Task.Delay(Timeout.InfiniteTimeSpan,cancellationToken);return 0; // Explicit cancellable command-read port, no abandoned underlying read.
+        }
+    }
+    private sealed class ClosingBarrierOutput(Stream inner,TaskCompletionSource closing,Func<Task> original):Stream
+    {
+        public override bool CanRead=>false;public override bool CanSeek=>false;public override bool CanWrite=>true;public override long Length=>throw new NotSupportedException();public override long Position{get=>throw new NotSupportedException();set=>throw new NotSupportedException();}
+        public override void Flush()=>inner.Flush();public override Task FlushAsync(CancellationToken ct)=>inner.FlushAsync(ct);
+        public override void Write(byte[] b,int o,int c)=>throw new NotSupportedException();public override int Read(byte[] b,int o,int c)=>throw new NotSupportedException();public override long Seek(long o,SeekOrigin s)=>throw new NotSupportedException();public override void SetLength(long v)=>throw new NotSupportedException();
+        public override async ValueTask WriteAsync(ReadOnlyMemory<byte> buffer,CancellationToken cancellationToken=default)
+        {
+            await inner.WriteAsync(buffer,cancellationToken);
+            if(buffer.Span.StartsWith("CLOSING|"u8)){closing.TrySetResult();try{await original();}catch(Exception error)when(error is InvalidDataException){ /* Observe the exact protocol fault before exit settlement continues. */ }}
         }
     }
     private sealed class LostCommitOutput(Stream inner,Action? beforeFailure=null):Stream

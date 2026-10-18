@@ -247,4 +247,64 @@ public sealed class InstallationSessionTests(ITestOutputHelper output)
         Assert.StartsWith("PUBLIC_SESSION_REFUSED|",await parent.Row());await parent.Finish(3);
         Assert.Equal(owner,File.ReadAllBytes(r.Owner));r.Fence();Assert.Empty(Directory.GetFiles(r.App,"execution-finished-*.json"));
     }
+    [Fact]public async Task CancellationThatCompletesTheOriginalLoopBeforeTheReceiptDecisionAllowsTwoCleanActualSessions()
+    {
+        using var r=new Rig();var selected=await r.Prepare("cancel-loop-first");
+        for(int i=0;i<2;i++)
+        {
+            await using var peer=new Peer(r.Pipe);var port=new Port(output);var coordinator=port.Coordinator(r);
+            Task<int> run=coordinator.RunActiveSessionAsync(selected.DirectoryPath);await port.Healthy.Task.WaitAsync(Limit);r.Fence();await peer.Close();
+            Exception? failure=await Record.ExceptionAsync(()=>run.WaitAsync(Limit));await coordinator.DisposeAsync();
+            if(failure!=null)Assert.Equal(new[]{0},port.CleanupExits); // Red still proves the exact child actually exited0 and original IO joined.
+            Assert.Null(failure);Assert.Equal(0,await run);Assert.False(File.Exists(r.Owner));using var admitted=r.Store.EnterRoleAdmission();
+        }
+        Assert.Equal(2,Directory.GetFiles(r.App,"execution-finished-*.json").Length);
+    }
+    [Fact]public async Task AProtocolFaultInTheOriginalLoopCannotReleaseOwnerAfterBoundClosingAndActualExitZero()
+    {
+        using var r=new Rig();var selected=await r.Prepare("fault-close-pending");await using var peer=new Peer(r.Pipe);var port=new Port(output);var coordinator=port.Coordinator(r);
+        Task<int> run=coordinator.RunActiveSessionAsync(selected.DirectoryPath);await port.Healthy.Task.WaitAsync(Limit);byte[] owner=File.ReadAllBytes(r.Owner);
+        await port.Children.Single().StandardInput.WriteLineAsync("PUBLIC_INVALID_COMMAND");await port.Children.Single().StandardInput.FlushAsync();Assert.Equal("PUBLIC_SHELL_CLOSED",await peer.Row());
+        Exception? failure=await Record.ExceptionAsync(()=>run.WaitAsync(Limit));await coordinator.DisposeAsync();
+        Assert.IsType<InstallationUpgradeUnconfirmedException>(failure);Assert.Equal(new[]{0},port.CleanupExits);Assert.Equal(owner,File.ReadAllBytes(r.Owner));r.Fence();Assert.Empty(Directory.GetFiles(r.App,"execution-finished-*.json"));
+    }
+    [Fact]public async Task ALoopAlreadyCompletedByActualEofBeforeCloseNeverManufacturesACleanSession()
+    {
+        using var r=new Rig();var selected=await r.Prepare("ended-loop-first");await using var peer=new Peer(r.Pipe);var port=new Port(output);var coordinator=port.Coordinator(r);
+        Task<int> run=coordinator.RunActiveSessionAsync(selected.DirectoryPath);await port.Healthy.Task.WaitAsync(Limit);byte[] owner=File.ReadAllBytes(r.Owner);port.Children.Single().StandardInput.Close();
+        Assert.Equal("PUBLIC_SHELL_CLOSED",await peer.Row());await Assert.ThrowsAsync<InstallationUpgradeUnconfirmedException>(()=>run.WaitAsync(Limit));await coordinator.DisposeAsync();
+        Assert.Equal(new[]{0},port.CleanupExits);Assert.Equal(owner,File.ReadAllBytes(r.Owner));r.Fence();
+    }
+    [Theory][InlineData("TERMINAL_MISSING")][InlineData("TERMINAL_WRONG")][InlineData("TERMINAL_DUPLICATE")][InlineData("TERMINAL_EARLY")]
+    public async Task AClosingRequestWithoutOneCorrectFinalSettlementReceiptCannotReleaseOwner(string command)
+    {
+        using var r=new Rig();var selected=await r.Prepare("held-close");await using var peer=new Peer(r.Pipe);var port=new Port(output);var coordinator=port.Coordinator(r);
+        Task<int> run=coordinator.RunActiveSessionAsync(selected.DirectoryPath);await port.Healthy.Task.WaitAsync(Limit);byte[] owner=File.ReadAllBytes(r.Owner);await peer.Send(command);
+        Exception? failure=await Record.ExceptionAsync(()=>run.WaitAsync(Limit));Assert.IsType<InstallationUpgradeUnconfirmedException>(failure);
+        if(command is "TERMINAL_EARLY" or "TERMINAL_DUPLICATE")
+        {
+            // JoinSession has observed both original streams before propagating this reader fault. A failed cleanup still refuses Dispose.
+            Assert.IsType<InvalidDataException>(failure!.GetBaseException());await Assert.ThrowsAsync<InstallationUpgradeUnconfirmedException>(async()=>await coordinator.DisposeAsync());
+            Assert.True(port.Children.Single().HasExited);Assert.Equal(0,port.Children.Single().ExitCode);port.Children.Single().Dispose();r.Keep=true;
+            output.WriteLine($"PUBLIC_SESSION_IO_FAULT actualExit=0 originalIO=FaultObserved cleanup=Unconfirmed driverSha256={Hash(Driver)} coreSha256={Hash(Path.Combine(Path.GetDirectoryName(Driver)!,"KuaiYi.Core.dll"))} retainedPublicFixture={r.Root}");
+        }
+        else{await coordinator.DisposeAsync();Assert.Equal(new[]{0},port.CleanupExits);}
+        Assert.Equal(owner,File.ReadAllBytes(r.Owner));r.Fence();
+    }
+    [Fact]public async Task AFinalOwnerArchiveCollisionRetainsExactOwnerAndFilesAfterActualExitAndIoSettlement()
+    {
+        using var r=new Rig();var selected=await r.Prepare();await using var peer=new Peer(r.Pipe);var port=new Port(output);var coordinator=port.Coordinator(r);
+        Task<int> run=coordinator.RunActiveSessionAsync(selected.DirectoryPath);await port.Healthy.Task.WaitAsync(Limit);byte[] owner=File.ReadAllBytes(r.Owner),pointer=File.ReadAllBytes(Path.Combine(r.App,"current.json"));
+        using var record=JsonDocument.Parse(owner);string id=record.RootElement.GetProperty("owner").GetString()!;string collision=Path.Combine(r.App,"execution-finished-"+id+".json");File.WriteAllText(collision,"PUBLIC_ARCHIVE_COLLISION_RETAIN");
+        await peer.Close();await Assert.ThrowsAsync<InstallationUpgradeUnconfirmedException>(()=>run.WaitAsync(Limit));await coordinator.DisposeAsync();
+        Assert.Equal(1,port.SessionIoCalls);Assert.Equal("PUBLIC_ARCHIVE_COLLISION_RETAIN",File.ReadAllText(collision));Assert.Equal(owner,File.ReadAllBytes(r.Owner));Assert.Equal(pointer,File.ReadAllBytes(Path.Combine(r.App,"current.json")));r.Fence();
+        await using var fresh=Launch(r,selected);Assert.StartsWith("PUBLIC_SESSION_REFUSED|",await fresh.Row());await fresh.Finish(3);Assert.Single(Directory.GetFiles(r.App,"launch-*-finished.json"));
+    }
+    [Fact]public async Task UnsolicitedActualEofOverlappingCloseDispatchCannotAttestAHealthySession()
+    {
+        using var r=new Rig();var selected=await r.Prepare("eof-close-pending");await using var peer=new Peer(r.Pipe);var port=new Port(output);var coordinator=port.Coordinator(r);
+        Task<int> run=coordinator.RunActiveSessionAsync(selected.DirectoryPath);await port.Healthy.Task.WaitAsync(Limit);byte[] owner=File.ReadAllBytes(r.Owner);port.Children.Single().StandardInput.Close();
+        Assert.Equal("PUBLIC_SHELL_CLOSED",await peer.Row());await Assert.ThrowsAsync<InstallationUpgradeUnconfirmedException>(()=>run.WaitAsync(Limit));await coordinator.DisposeAsync();
+        Assert.Equal(new[]{0},port.CleanupExits);Assert.Equal(owner,File.ReadAllBytes(r.Owner));r.Fence();
+    }
 }
