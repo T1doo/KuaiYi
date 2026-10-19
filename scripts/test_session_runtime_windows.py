@@ -25,7 +25,7 @@ policy = ci.load_policy(ROOT)
 
 
 @contextmanager
-def execution_fixture(timeout=False, chocolatey=False, framework=True):
+def execution_fixture(timeout=False, chocolatey=False, framework=True, installed=False, failure=None):
     """Public synthetic bytes only; no external request or executable is started."""
     with tempfile.TemporaryDirectory() as folder:
         root = Path(folder)
@@ -65,7 +65,55 @@ def execution_fixture(timeout=False, chocolatey=False, framework=True):
             response.geturl = lambda: uri
             return response
 
+        selected_sdk = []
+
+        def install_sdk(_repo, contract, work, deadline, report):
+            if not installed:
+                raise RuntimeError("PUBLIC_SDK_INSTALL_BLOCKED")
+            sdk = work / "sdk-10.0.402"
+            version = sdk / "sdk/10.0.402"
+            version.mkdir(parents=True)
+            (version / "dotnet.runtimeconfig.json").write_text(json.dumps({"runtimeOptions": {"framework": {"version": "10.0.13"}}}))
+            (version / "dotnet.deps.json").write_text(json.dumps({"libraries": {"System.Security.Cryptography.Xml/10.0.13": {}}}))
+            (sdk / "shared/Microsoft.NETCore.App/10.0.13").mkdir(parents=True)
+            (sdk / "dotnet.exe").write_bytes(b"MZ_PUBLIC_SDK_FIXTURE")
+            selected_sdk.append(sdk)
+            return sdk
+
         def process(argv, **kwargs):
+            if selected_sdk and argv[0] == str(selected_sdk[0] / "dotnet.exe"):
+                child = kwargs["env"]
+                for key in ("DOTNET_ROOT", "DOTNET_ROOT_X64"):
+                    if child.get(key) != str(selected_sdk[0]):
+                        raise AssertionError("SDK child must use only the approved job root")
+                output = "PUBLIC_COMMAND_OK\n"
+                exit_code = 0
+                if argv[1] == "--version":
+                    output = "10.0.401\n" if failure == "sdk-version" else "10.0.402\n"
+                elif argv[1] == "--info":
+                    output = ".NET SDK 10.0.402\nHost 10.0.13\n"
+                elif argv[1] == "list":
+                    project = {"path": str(repo / argv[2])}
+                    document = {"version": 1, "projects": [project]}
+                    if "--vulnerable" in argv:
+                        document["sources"] = [policy.NUGET_SOURCE]
+                        if failure == "audit":
+                            project["frameworks"] = [{"framework": "net10.0", "topLevelPackages": [{
+                                "id": policy.RUNTIME_IDS[0], "resolvedVersion": "10.0.13", "vulnerabilities": [{"severity": "Low"}]}]}]
+                    else:
+                        project["frameworks"] = [{"framework": "net10.0", "topLevelPackages": [
+                            {"id": identity, "resolvedVersion": "10.0.13"} for identity in policy.RUNTIME_IDS]}]
+                    output = json.dumps(document)
+                elif argv[1] == "test":
+                    results = Path(argv[argv.index("--results-directory") + 1])
+                    results.mkdir()
+                    failed = failure == "test"
+                    (results / "PUBLIC.trx").write_text(f'<TestRun><ResultSummary><Counters total="2" executed="2" passed="{1 if failed else 2}" failed="{1 if failed else 0}" notExecuted="0"/></ResultSummary></TestRun>')
+                    exit_code = 1 if failed else 0
+                elif argv[1] == "build" and failure == "build":
+                    exit_code = 1
+                kwargs["stdout"].write(output.encode())
+                return subprocess.CompletedProcess(argv, exit_code)
             if argv[0] != str(nuget):
                 raise AssertionError("Shim or unexpected executable must never run: " + str(argv))
             if argv[1] == "help":
@@ -84,7 +132,9 @@ def execution_fixture(timeout=False, chocolatey=False, framework=True):
 
         with patch.object(ci, "source_gate", return_value="a" * 40), patch.object(ci.shutil, "which", return_value=str(lookup)), \
                 patch.object(ci.urllib.request, "urlopen", side_effect=request) as download, \
-                patch.object(ci.subprocess, "run", side_effect=process) as run:
+                patch.object(ci.subprocess, "run", side_effect=process) as run, \
+                patch.object(ci, "install_sdk", side_effect=install_sdk, create=True), \
+                patch.object(ci, "emit_ci_line", create=True):
             # Windows os.environ stores uppercase keys; execute receives a plain dict.
             env = {"GITHUB_SHA": "a" * 40, "PROGRAMFILES": str(root / "missing-sdk")}
             if chocolatey:
@@ -93,6 +143,55 @@ def execution_fixture(timeout=False, chocolatey=False, framework=True):
 
 
 class WindowsCiTests(unittest.TestCase):
+    def test_approved_job_sdk_allows_full_original_pipeline_without_system_sdk(self):
+        with execution_fixture(installed=True) as (repo, env, run, download):
+            report, code = ci.execute(repo, env)
+            self.assertEqual(0, code)
+            self.assertEqual("ManagedValidationPass", report["Status"])
+            self.assertEqual("Pass", report["ManagedTests"])
+            self.assertEqual("Pass", report["BuildStatus"])
+            self.assertEqual("Pass", report["SdkStatus"])
+            self.assertEqual("EmittedToJobLog", report["EvidenceStatus"])
+            self.assertTrue({"Core-trx", "Provider-trx"}.issubset({item["Name"] for item in report["EvidenceFiles"]}))
+            self.assertEqual({"Core", "Provider"}, set(report["TestCounters"]))
+            commands = [call.args[0] for call in run.call_args_list]
+            self.assertEqual(2, sum(command[1] == "test" for command in commands))
+            self.assertEqual(3, sum(command[1] == "build" for command in commands))
+            self.assertFalse(any(command[1] == "publish" for command in commands))
+            self.assertFalse((repo.parent / "missing-sdk").exists())
+            self.assertEqual(2, download.call_count)
+
+    def test_sdk_audit_test_and_build_failures_stop_the_remaining_pipeline(self):
+        for failure in ("sdk-version", "audit", "test", "build"):
+            with self.subTest(failure=failure), execution_fixture(installed=True, failure=failure) as (repo, env, run, _download):
+                report, code = ci.execute(repo, env)
+                self.assertEqual(2, code)
+                self.assertEqual("Hold", report["Package"])
+                commands = [call.args[0] for call in run.call_args_list]
+                self.assertFalse(any(command[1] == "publish" for command in commands))
+                if failure == "sdk-version":
+                    self.assertEqual("Blocked", report["SdkStatus"])
+                    self.assertFalse(any(command[1] == "restore" for command in commands))
+                elif failure == "audit":
+                    self.assertEqual("NotRun", report["ManagedTests"])
+                    self.assertFalse(any(command[1] == "test" for command in commands))
+                elif failure == "test":
+                    self.assertEqual("Blocked", report["ManagedTests"])
+                    self.assertEqual(1, sum(command[1] == "test" for command in commands))
+                    self.assertFalse(any(command[1] == "build" for command in commands))
+                else:
+                    self.assertEqual("Pass", report["ManagedTests"])
+                    self.assertEqual("Blocked", report["BuildStatus"])
+                    self.assertEqual(1, sum(command[1] == "build" for command in commands))
+
+    def test_evidence_failure_cannot_turn_a_complete_mock_pipeline_green(self):
+        with execution_fixture(installed=True) as (repo, env, _run, _download), patch.object(ci, "emit_evidence", side_effect=TypeError("PUBLIC_EMISSION_FAILURE")):
+            report, code = ci.execute(repo, env)
+            self.assertEqual(2, code)
+            self.assertEqual("ManagedValidationEvidenceIncomplete", report["Status"])
+            self.assertEqual("Incomplete", report["EvidenceStatus"])
+            self.assertEqual("Pass", report["ManagedTests"])
+            self.assertEqual("Pass", report["BuildStatus"])
     def test_known_chocolatey_shim_resolves_payload_before_framework_gate(self):
         with execution_fixture(chocolatey=True) as (repo, env, run, download):
             report, code = ci.execute(repo, env)

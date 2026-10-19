@@ -1,6 +1,7 @@
-"""One public hosted Windows attempt. No SDK/tool installation, publishing or CI API calls."""
+"""One public Windows attempt with the approved job-local SDK. No publishing or CI API calls."""
 import base64
 from collections import Counter
+import gzip
 import hashlib
 import importlib.util
 import json
@@ -21,10 +22,11 @@ import zipfile
 
 REPOSITORY = "T1doo/KuaiYi"
 BRANCH = "refs/heads/dev/session-runtime-signature-windows"
-PARENT = "1567018de0fa3cd505b926d1633ddd3f38780888"
+PARENT = "6df5f910e7429fde02c8e02c9ce53c953f668094"
 NU_VERSION = "7.9.0.83"
 FILES = frozenset((".github/workflows/windows-session-runtime.yml", "scripts/verify-session-runtime-windows.py",
-                   "scripts/test_session_runtime_windows.py", "docs/progress.md"))
+                   "scripts/test_session_runtime_windows.py", "scripts/install-session-sdk-windows.py",
+                   "scripts/test_session_windows_install.py", "docs/progress.md"))
 AUDIT = ["-p:NuGetAudit=true", "-p:NuGetAuditMode=all", "-p:NuGetAuditLevel=low", "-p:TreatWarningsAsErrors=true"]
 
 
@@ -73,7 +75,7 @@ def source_gate(run, event_sha):
     parents = run(["git", "rev-list", "--parents", "-n", "1", "HEAD"], "source-parent", 15).split()
     changed = run(["git", "diff", "--name-only", PARENT, "HEAD", "--"], "source-scope", 15).splitlines()
     if head != event_sha or parents != [head, PARENT] or Counter(changed) != Counter(FILES):
-        raise RuntimeError("Reviewed source parent or exact four-file scope mismatch")
+        raise RuntimeError("Reviewed source parent or exact six-file scope mismatch")
     if run(["git", "status", "--porcelain", "--untracked-files=no"], "source-clean", 15).strip():
         raise RuntimeError("Tracked checkout differs from source")
     return head
@@ -173,6 +175,65 @@ def trx_counters(path):
     return values
 
 
+def install_sdk(repo, contract, work, deadline, report):
+    spec = importlib.util.spec_from_file_location("approved_windows_sdk", repo / "scripts/install-session-sdk-windows.py")
+    installer = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(installer)
+    return installer.install(contract, work, deadline, report)
+
+
+def emit_ci_line(value):
+    print(value, flush=True)
+
+
+def emit_evidence(work, report):
+    """Emit only registered command logs and the two test result directories, with bounds."""
+    report.update(EvidenceStatus="InProgress", EvidenceFiles=[], EvidenceErrors=[])
+    raw_total = compressed_total = 0
+    try:
+        paths = [(command["Name"], work / command["Log"]) for command in report["Commands"]]
+        for suite in ("Core", "Provider"):
+            if not any(command["Name"] == suite + "-full" for command in report["Commands"]):
+                continue
+            directory = work / (suite + "-results")
+            if any(linked(path) for path in (directory, *directory.parents)):
+                raise RuntimeError("Test evidence directory is linked")
+            traces = list(directory.glob("*.trx"))
+            if len(traces) != 1:
+                report["EvidenceErrors"].append(suite + " expected exactly one actual TRX")
+            else:
+                paths.append((suite + "-trx", traces[0]))
+        for name, path in paths:
+            if (any(linked(item) for item in (path, *path.parents)) or not path.is_file() or
+                    not path.resolve().is_relative_to(work.resolve()) or path.stat().st_size > 16 * 1024 * 1024):
+                raise RuntimeError("Registered evidence unavailable, linked or oversized: " + name)
+            data = path.read_bytes()
+            raw_hash = hashlib.sha256(data).hexdigest()
+            command = next((item for item in report["Commands"] if item["Name"] == name), None)
+            if command is not None and (command.get("LogSha256", raw_hash) != raw_hash or command.get("LogBytes", len(data)) != len(data)):
+                report["EvidenceErrors"].append(name + " changed after command receipt; emitted snapshot only")
+            if raw_total + len(data) > 32 * 1024 * 1024:
+                raise RuntimeError("Job evidence raw total exceeds bound")
+            packed = gzip.compress(data, mtime=0)
+            if compressed_total + len(packed) > 4 * 1024 * 1024:
+                raise RuntimeError("Job evidence compressed total exceeds bound")
+            raw_total += len(data)
+            compressed_total += len(packed)
+            encoded = base64.b64encode(packed).decode("ascii")
+            chunks = [encoded[index:index + 8192] for index in range(0, len(encoded), 8192)]
+            item = {"Name": name, "Bytes": len(data), "Sha256": raw_hash,
+                    "GzipBytes": len(packed), "GzipSha256": hashlib.sha256(packed).hexdigest(), "Chunks": len(chunks)}
+            emit_ci_line("KUAIYI_CI_FILE " + json.dumps(item))
+            for index, chunk in enumerate(chunks, 1):
+                emit_ci_line("KUAIYI_CI_CHUNK " + json.dumps({"Name": name, "Index": index, "Total": len(chunks), "Data": chunk}))
+            report["EvidenceFiles"].append(item)
+    except (OSError, ValueError, KeyError, RuntimeError) as error:
+        report["EvidenceErrors"].append(str(error))
+    report.update(EvidenceStatus="Incomplete" if report["EvidenceErrors"] else "EmittedToJobLog",
+                  EvidenceRawBytes=raw_total, EvidenceGzipBytes=compressed_total,
+                  EvidenceRetrieval="NotConfirmed_RemoteReaderMustVerifyAllChunksAndHashes")
+
+
 def execute(repo, env):
     policy = load_policy(repo)
     policy.require_signature_environment(env)
@@ -182,16 +243,19 @@ def execute(repo, env):
             raise RuntimeError("CI output has linked ancestor; retained")
     work.mkdir(parents=True)
     report = {"Status": "Blocked", "Package": "Hold", "SourceCommit": None,
-              "SignatureStatus": "NotRun", "ManagedTests": "NotRun", "BuildStatus": "NotRun", "Publish": "NotRun",
+              "SignatureStatus": "NotRun", "SdkStatus": "NotRun", "ManagedTests": "NotRun", "BuildStatus": "NotRun", "Publish": "NotRun",
               "WindowsAppAcceptance": "NotRun", "Commands": [], "RuntimePackages": [], "ModelCalls": "None"}
+    if env.get("GITHUB_RUN_ID", "").isdigit():
+        report["CiRunUrl"] = f"https://github.com/{REPOSITORY}/actions/runs/{env['GITHUB_RUN_ID']}"
     deadline = time.monotonic() + 13 * 60
+    code = 2
 
     def run(argv, name, timeout=120):
         remaining = int(deadline - time.monotonic())
         if remaining <= 0:
             raise RuntimeError("Attempt budget exhausted")
         log = work / (name + ".log")
-        command = {"Name": name, "Argv": argv, "Exit": None}
+        command = {"Name": name, "Argv": argv, "Exit": None, "Log": log.name}
         report["Commands"].append(command)
         try:
             with log.open("xb") as stream:
@@ -259,18 +323,23 @@ def execute(repo, env):
                                                "ArchiveSha512": item["ArchiveSha512"], "NuGetContentHash": item["NuGetContentHash"],
                                                "License": "MIT", "Signature": "Pass", "VerificationOutput": output})
         report["SignatureStatus"] = "Pass_WindowsNuGetFrameworkOnline"
-        # Read metadata before any dotnet process. No execution or installation of401/12.
-        sdk_root = Path(env["PROGRAMFILES"]) / "dotnet"
+        report["SdkStatus"] = "InProgress"
         try:
+            sdk_root = install_sdk(repo, contract, work, deadline, report)
+            # Original static security policy still runs before any dotnet process.
             policy.require_safe_sdk(contract, sdk_root / "dotnet.exe")
-        except (OSError, ValueError, KeyError, RuntimeError) as error:
-            report.update(Status="SignaturesPassedTestsBlocked", Reason="Safe preinstalled SDK402/host13/privateXML13 unavailable: " + type(error).__name__)
-            return report, 2
+        except (OSError, ValueError, KeyError, RuntimeError, zipfile.BadZipFile):
+            report["Status"] = "SignaturesPassedTestsBlocked"
+            raise
         env = dict(env, DOTNET_ROOT=str(sdk_root), DOTNET_HOST_PATH=str(sdk_root / "dotnet.exe"),
-                   PATH=str(sdk_root) + os.pathsep + env.get("PATH", ""), EnableWindowsTargeting="true")
+                   DOTNET_ROOT_X64=str(sdk_root), PATH=str(sdk_root) + os.pathsep + env.get("PATH", ""),
+                   DOTNET_CLI_HOME=str(work / "cli-home"), NUGET_PACKAGES=str(work / "nuget-packages"),
+                   NUGET_HTTP_CACHE_PATH=str(work / "nuget-http-cache"), EnableWindowsTargeting="true")
         dotnet = str(sdk_root / "dotnet.exe")
         if run([dotnet, "--version"], "safe-sdk-version", 30).strip() != contract["sdk"]:
             raise RuntimeError("Selected SDK differs from pinned safe SDK")
+        report["SdkInfoOutput"] = run([dotnet, "--info"], "safe-sdk-info", 30)
+        report["SdkStatus"] = "Pass"
         config = ["--configfile", str(repo / "NuGet.Config"), *AUDIT]
         audit_project = "packaging/session-runtime-audit/session-runtime-audit.csproj"
         run([dotnet, "restore", audit_project, "--locked-mode", *config], "runtime-restore")
@@ -300,21 +369,33 @@ def execute(repo, env):
                 run([dotnet, "build", project, "--no-restore", "-c", "Release", "-m:1", "-nr:false", "-p:UseSharedCompilation=false",
                      "-p:KuaiYiIsolatedSessionTest=true", *props], "App-isolated-build")
         report.update(Status="ManagedValidationPass", BuildStatus="Pass")
-        return report, 0
+        code = 0
     except urllib.error.HTTPError as error:
-        report.update(Reason="OfficialPackageHttpError", HttpStatus=error.code,
+        report.update(Reason="OfficialSourceHttpError", HttpStatus=error.code,
                       Access="Denied_NoRetry" if error.code in (401, 403) else "TechnicalFailure_NoRetry")
     except urllib.error.URLError as error:
-        report.update(Reason="OfficialPackageTransportError", ErrorType=type(error.reason).__name__,
+        report.update(Reason="OfficialSourceTransportError", ErrorType=type(error.reason).__name__,
                       Access="Denied_NoRetry" if "403 Forbidden" in str(error.reason) or "401 Unauthorized" in str(error.reason) else "TechnicalFailure_NoRetry")
     except (OSError, ValueError, KeyError, TypeError, RuntimeError, StopIteration, subprocess.SubprocessError, xml.ParseError, zipfile.BadZipFile) as error:
         report.update(Reason=str(error))
     finally:
-        for key in ("SignatureStatus", "ManagedTests", "BuildStatus"):
+        for key in ("SignatureStatus", "SdkStatus", "ManagedTests", "BuildStatus"):
             if report[key] == "InProgress":
                 report[key] = "Blocked"
-        (work / "validation-result.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
-    return report, 2
+        try:
+            emit_evidence(work, report)
+        except Exception as error:
+            report.update(EvidenceStatus="Incomplete", EvidenceErrors=["Evidence emission failed: " + type(error).__name__])
+        if report["Status"] == "ManagedValidationPass" and report["EvidenceStatus"] != "EmittedToJobLog":
+            report["Status"], code = "ManagedValidationEvidenceIncomplete", 2
+        try:
+            (work / "validation-result.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+        except OSError as error:
+            report["EvidenceStatus"] = "Incomplete"
+            report.setdefault("EvidenceErrors", []).append("Result file write failed: " + type(error).__name__)
+            if code == 0:
+                report["Status"], code = "ManagedValidationEvidenceIncomplete", 2
+    return report, code
 
 
 def main():

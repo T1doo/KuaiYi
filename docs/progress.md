@@ -1114,3 +1114,16 @@ Windows/WPF/实际Dispatcher/STA/可见健康/键盘/Console stdin取消/Job/OCR
 ## 2026-10-19 · Windows 在线验签通过与 SDK 实际许可核查
 
 父级正常登录桥接新run39221162999/source1662f65：两runtime13实际WindowsFramework正常在线verify Exit0/SignaturePass；前置验签器已打通。预装SDK402缺失导致后续测试/build/publish/WinAppNotRun，包Hold，不把旧NoSDK窗口当永久禁令。按最新授权查微软非admin CI ZIP安装路线，实际官方WinSDK402 ZIP300755826B/SHA512精确匹配既有官方metadata，只读许可与SDK402/host13/privateXML13/sharedCoreDesktop13元数据，程序未解压安装执行。根许可9519B是使用即接受的Microsoft.NET Library条款，与已有明确批准LinuxMIT1116B、两runtimeMIT均不同；notices仅CRLF全文相同，不能消除根条款差异。缺的最小批准仅该固定Windows归档条款及一次临时标准Windowsrunner job目录构建测试，不需系统安全权限／费用，不含Skia或发布。具体可实施方案与确切原文／hash已封存，当前未改代码／workflow、未启动新CI。一次本机blobmetadata403已停，用已提交原件，不重试或换源；WindowsZIP是独立目标200，全hash通过，无Actions请求。详见[许可及临时CI范围](validation/session-windows-sdk-assessment.md)和[证据索引](test-evidence/2026-10-19-session-windows-sdk-assessment.json)。
+
+
+## 2026-10-19 · 已批准 Windows SDK402 临时目录安装与一次完整托管 CI
+
+用户2026-10-19 16:31北京明确“接受”6df固定Windows归档条款（Sentinel_e978556d48a48191aa940cf146bdb928），此前具体许可Pending解除；仅限一次临时标准Windowsrunner job目录安装402并审计／测试／构建，不含系统／安全／main／发布／费用／Skia／真实模型。
+
+新增stdlib安装器，固定原官方ZIP300755826B／完整SHA512及已接受LICENSE/notices双SHA256，在HTTP handler层拒redirect且无重试／换源。全部Windows路径、大小写重名、尾点空格／ADS／设备名、file-parent冲突、symlink/reparse、加密／条目数／展开体积在写程序前检查，只写fresh job SDK目录，已存在或部分失败全部保留。真实官方归档5577条目807617264B实际只读预检通过；许可和SDK402／host13／privateXML13／CoreDesktop13 metadata全符，没有本地解压或执行WindowsSDK。
+
+原双runtime正常在线签名先行，安装后原require_safe_sdk仍先于dotnet，明确child DOTNET_ROOT/HOST_PATH/_X64、job内CLI和NuGet缓存；不改父环境／系统PATH／注册表／信任／权限、不跳first-use，不用401。实际SDK --version/--info后继续原locked audit-all-low/warnings-errors、完整Core/Provider及默认／隔离App、Worker构建，任何SDK／审计／测试／build失败不继续后续阶段；无publish／App启动。
+
+离线旧实现39例1失败保全，安装编排接入后当前51方法全通过；合成SDK与子进程端口不冒充Windows执行。覆盖SDK hash/license/host拒绝、已存在／linked／过期预算、403单次调用、HTTP层redirect拒绝、WindowsZIP危险路径／类型／膨胀限界及全编排各阶段失败停止。仅显式登记command logs及两份实际TRX做有界gzip/base64分片写标准job日志，保存raw/gzip hash、size、片号／总数；32MiB raw／4MiB gzip／每件16MiB限界，缺件／变动／导出失败标Incomplete且不掩盖原失败；完整原件需父级正常登录取齐分片并核hash，无artifact/cache上传费用。
+
+本轮六文件源码精确父6df5f91、attempt1、Public标准windows-2022、job15／step14分钟，源码独审后仅一次正常push请求新CI；不重跑旧job，不请求Forbidden CLI/API或blobmetadata。新真实结果在父级合法桥接前Unknown，Package Hold保持。生产C#／锁／8旧workflow／全部历史原件不动，图片间歇根因仍Unknown，复用Off和250/600ms／来源／密码／完整性／取消／清理门及真实WPF／模型／完整P6P7未验收边界保持。
