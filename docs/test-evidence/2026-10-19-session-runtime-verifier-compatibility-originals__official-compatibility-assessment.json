@@ -1,0 +1,28 @@
+{
+  "OfficialSources": [
+    {
+      "Url": "https://raw.githubusercontent.com/actions/runner-images/main/images/windows/toolsets/toolset-2022.json",
+      "Finding": "NuGet.CommandLine listed in choco.common_packages"
+    },
+    {
+      "Url": "https://docs.chocolatey.org/en-us/features/shim/",
+      "Finding": "Chocolatey puts native shim wrappers in ChocolateyInstall/bin; actual installed executables stay in package folder"
+    },
+    {
+      "Url": "https://raw.githubusercontent.com/NuGet/NuGet.Client/dev/src/NuGet.Clients/NuGet.CommandLine/NuGet.CommandLine.csproj",
+      "Finding": "NuGet command line is Framework Exe using NETFXTargetFramework; no new tool downloaded"
+    },
+    {
+      "Url": "https://raw.githubusercontent.com/NuGet/NuGet.Client/dev/build/common.project.props",
+      "Finding": "NETFXTargetFramework=net472; current official source, not exact installed binary identity"
+    },
+    {
+      "Url": "https://docs.python.org/3/library/os.html#os.environ",
+      "Finding": "Windows os.environ keys uppercase; dict copy has plain case-sensitive lookups"
+    }
+  ],
+  "FixScope": "Exact installed Chocolatey shim layout only; execute checked payload instead of shim; all original Framework/actual version/signature/online gates remain. Unknown layout or missing marker stays Blocked.",
+  "PriorRunRootCause": "NotEstablished_BecauseSelectedPathWasNotLogged",
+  "NewCiResult": "Unknown",
+  "NewLicenseSdkTrustAuthChanges": false
+}

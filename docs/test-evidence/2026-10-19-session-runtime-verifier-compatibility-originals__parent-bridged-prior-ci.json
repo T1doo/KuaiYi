@@ -1,0 +1,22 @@
+{
+  "EvidenceKind": "ParentBridge_VisibleGitHubJobLogExcerpt_NotLocalRawDownload",
+  "SourceUrl": "https://github.com/T1doo/KuaiYi/actions/runs/39216695459/job/117942108656",
+  "RunId": 39216695459,
+  "JobId": 117942108656,
+  "SourceCommit": "c4ec07e80c2eec46476528c5afab6f06a78a8bfc",
+  "Step": "Verify runtime signatures and use safe preinstalled SDK only",
+  "DurationSecondsReported": 33,
+  "Result": {
+    "Status": "Blocked",
+    "Package": "Hold",
+    "SignatureStatus": "NotRun",
+    "ManagedTests": "NotRun",
+    "BuildStatus": "NotRun",
+    "Publish": "NotRun",
+    "WindowsAppAcceptance": "NotRun",
+    "RuntimePackages": [],
+    "ModelCalls": "None",
+    "Reason": "Preinstalled verifier does not declare the expected Framework target"
+  },
+  "Limits": "Shows verifier precondition failed before help/package download/verification/tests; selected executable path not recorded, so Chocolatey shim is not proven as that run cause. No local Actions API/browser/log request repeated."
+}

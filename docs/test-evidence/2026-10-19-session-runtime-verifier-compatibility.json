@@ -1,0 +1,226 @@
+{
+  "Utc": "2026-10-19T08:13:44.615520+00:00",
+  "SourceCommit": "1662f6526147a98e5b6d42e148d18294b5397e55",
+  "Parent": "1567018de0fa3cd505b926d1633ddd3f38780888",
+  "Branch": "dev/session-runtime-signature-windows",
+  "Scope": "Minimal preinstalled Chocolatey NuGet payload resolution and Windows plain-environment-dict key compatibility; same original Framework/security policy; one newly authorized bounded free CI push",
+  "PriorCi": {
+    "SourceCommit": "c4ec07e80c2eec46476528c5afab6f06a78a8bfc",
+    "Run": 39216695459,
+    "Job": 117942108656,
+    "Source": "Parent normal logged-in visible-job excerpt; not a local raw Actions download",
+    "Status": "Blocked",
+    "Reason": "Preinstalled verifier does not declare the expected Framework target",
+    "SignatureTestsBuildsPublishWindowsAcceptance": "NotRun",
+    "RuntimePackages": [],
+    "ModelCalls": "None",
+    "SelectedPathWasLogged": false,
+    "ShimAsActualPriorRunCause": "NotEstablished"
+  },
+  "Fix": "Only exact existing CHOCOLATEYINSTALL/bin/nuget.exe selects same-root lib/NuGet.CommandLine/tools/nuget.exe; check original links/reparse ancestry before resolve and outside checkout; never execute shim/search fallback/download tool. Actual selected payload still requires unchanged Framework marker and exact actual7.9.0.83 help version. All signature/online/warning/hash/license/audit/SDK gates retained. Read CHOCOLATEYINSTALL and PROGRAMFILES uppercase because Windows os.environ copied to plain dict has uppercase keys.",
+  "ActualOfflineRuns": {
+    "r01": "36methods/1failure: old implementation refuses supported synthetic shim layout",
+    "r02": "38methods/4failures with actual Windows-shaped uppercase env keys; includes one failing subtest",
+    "r03": "38methods allPass; identical tests versusr02, only two environment-key strings changed in helper"
+  },
+  "OfflineLimits": "Synthetic public byte fixtures only, process/download mocked. No actual Windows, NuGet, package verification, SDK or model execution during this repair preparation.",
+  "IndependentSourceAndBindingReview": "Pass_NoRemainingP1P2; three logs/ZIPs27declared source hashes and final11source/index bytes checked;7security gates unchanged",
+  "Delivery": "Source normal push Exit0; exact remote1662f65 confirmed; same63heads, only target branch advanced, other62includingmain unchanged; no force/main/deploy/release",
+  "NewCiRequest": {
+    "SourcePushCountForThisFix": 1,
+    "RerunOfOldJob": false,
+    "Runner": "Public standard windows-2022",
+    "MaxJobMinutes": 15,
+    "MaxStepMinutes": 14,
+    "Attempt": "1only",
+    "PublicGuard": true,
+    "ActualRunId": "Unknown",
+    "ActualSignature": "Unknown",
+    "ActualManagedTestsBuilds": "Unknown",
+    "Package": "Hold",
+    "NextEvidenceRoute": "Parent authorized normal-login visible-job bridge only; no local Actions retry"
+  },
+  "ParentReadFields": [
+    "SourceCommit and actual newrun/job URL",
+    "Reason/Status/VerifierStage",
+    "VerifierLookup and VerifierTarget (Path,Kind,Bytes,Sha256,Mz,FrameworkMarkers)",
+    "VerifierVersion and VerifierRuntime",
+    "SignatureStatus and both RuntimePackages full VerificationOutput/content hashes/source/license",
+    "Commands exit/output prefixes/log hashes; TestCounters/ManagedTests/BuildStatus if safe SDK present"
+  ],
+  "Protected": "Product source/locks/runtime pins/original8workflows/prior evidence unchanged. No SDK/exe installation, unknown exe download, license/trust/auth/network-security change, offline revocation, signature disable, real App/model/deploy/publish. Safe SDK missing still blocks tests. Historical image cause Unknown and reuseOff/250600/source/password/integrity/cancel/cleanup remain; Skia4.153.1 four licenses pending; real Windows acceptance/fullP6P7 NotRun.",
+  "ActionsReadRequests": [],
+  "RawFiles": [
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/green-source.zip",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__green-source.zip",
+      "Bytes": 125134,
+      "Sha256": "b5446cb3191b40adcebedfdc084cfecf11c3e497bed48e3cb84eb550d868b22e"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/independent-source-review.json",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__independent-source-review.json",
+      "Bytes": 747,
+      "Sha256": "cee9d1be80c5a7803581fcca2dfcb1c6779c7c22bf757428dfaae89533db5693"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/official-compatibility-assessment.json",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__official-compatibility-assessment.json",
+      "Bytes": 1460,
+      "Sha256": "e6c142cb1ca73a3d1ab9d47605b9a37bce79ece9d6d9bacbada81b8fb1bb766a"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/parent-bridged-prior-ci.json",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__parent-bridged-prior-ci.json",
+      "Bytes": 995,
+      "Sha256": "3d4ecbd310284852133c0aa29b5afb7e1d34f5c616135166783ef05fc826034a"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/public-free-scope-recheck.json",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__public-free-scope-recheck.json",
+      "Bytes": 380,
+      "Sha256": "fcd56adb3283f47f9c12318e1a8d9b20524246f433ecbb9067c28184e851055e"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/r01-red.json",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__r01-red.json",
+      "Bytes": 1508,
+      "Sha256": "aca21d162dffe2aa582347073774fc70eecb8ddd2eca2a3916d0b8acd335c04c"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/r01-red.log",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__r01-red.log",
+      "Bytes": 6778,
+      "Sha256": "1120e885886efc58f530ffab39b7a3a9473bbc1c9b4f93cafed95a8742177b0a"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/r02-red-windows-env.json",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__r02-red-windows-env.json",
+      "Bytes": 1520,
+      "Sha256": "a35b848691985204a19fa0f1b7775b9d65dbea5d4d11c3592e918b2d0f3c061b"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/r02-red-windows-env.log",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__r02-red-windows-env.log",
+      "Bytes": 9560,
+      "Sha256": "8be87ec9959809df659ba17b5dd3bba8576d068942b5859032bd917a27a6fb7b"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/r03-green.json",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__r03-green.json",
+      "Bytes": 1803,
+      "Sha256": "300842fe98d7ffca6686b425307d4141e8af25e689178aac2fdbc31976ce3987"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/r03-green.log",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__r03-green.log",
+      "Bytes": 6430,
+      "Sha256": "6176910b5c3c14cf4bd2e93e63bb769e6bdfaac40d243e25b50e71adde1d7872"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/red-source.zip",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__red-source.zip",
+      "Bytes": 121898,
+      "Sha256": "986cd7341bb923dd7989552e9451452b920cbde99ff4db5a4db4b937f9829c6b"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/red-windows-env-source.zip",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__red-windows-env-source.zip",
+      "Bytes": 123078,
+      "Sha256": "5866f2510bda0e4b7991faacaaaba00e7d35f214a5d4afde4b91f42a02d6533f"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/remote-after-source-push.stderr",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__remote-after-source-push.stderr",
+      "Bytes": 0,
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/remote-after-source-push.stdout",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__remote-after-source-push.stdout",
+      "Bytes": 5073,
+      "Sha256": "a897ba4a47ac6d3b71fb2e630a801409a5dab4158729c37c23685c25d4b936da"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/remote-before-source-push.json",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__remote-before-source-push.json",
+      "Bytes": 263,
+      "Sha256": "90c08257e91d787317b4b12ad36f2ce2b9abda65da2a5f44e428b9358e63fa99"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/remote-before-source-push.stderr",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__remote-before-source-push.stderr",
+      "Bytes": 0,
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/remote-before-source-push.stdout",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__remote-before-source-push.stdout",
+      "Bytes": 5073,
+      "Sha256": "c915f0cbe1d42d0a6f7a4df19d73cd74761f72255de7ffeb5149eaf231791da2"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/scope-before-source-review.json",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__scope-before-source-review.json",
+      "Bytes": 1349,
+      "Sha256": "d4aac408467d58a74f05a78dc7e39113f18d9bef2c23eef05f22b943e214ea5e"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/source-commit-scope.log",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__source-commit-scope.log",
+      "Bytes": 153,
+      "Sha256": "eb734daf0dd747a24b232cbf509ab96c3c039bc6180d7cfc982703a9335e759e"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/source-commit.log",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__source-commit.log",
+      "Bytes": 0,
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/source-delivery-verified.json",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__source-delivery-verified.json",
+      "Bytes": 705,
+      "Sha256": "ee231131da4c4d905ba76540bbbb83bbb130a1f59ce5382233e741029562a4aa"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/source-push.json",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__source-push.json",
+      "Bytes": 591,
+      "Sha256": "6b03b9030a09f19aa5ae8aefbe9e3583c39b3a38b7945c5afdcd2098a66e74cd"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/source-push.stderr",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__source-push.stderr",
+      "Bytes": 106,
+      "Sha256": "6124f4092fb55f6229cfae0ee095e9f37cbbd831fdff211b8fe9abbc3d71db55"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/source-push.stdout",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__source-push.stdout",
+      "Bytes": 0,
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Original": "artifacts/session-runtime-verifier-compatibility/static-gates-and-index-binding.json",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__static-gates-and-index-binding.json",
+      "Bytes": 1098,
+      "Sha256": "40a991b294b1a8b442a7e18a2caff2b837efb746ad78a7504559a23507711478"
+    }
+  ],
+  "RawCount": 26,
+  "RawBytes": 415702,
+  "RawWhitespacePreservation": {
+    "Path": "docs/test-evidence/2026-10-19-session-runtime-verifier-compatibility-originals__r02-red-windows-env.log",
+    "Reason": "Actual unittest subtest failed after progress prefix leaves one trailing space; retain raw bytes, scope whitespace exemption to this single exact original. No source exemption."
+  },
+  "IndependentPacketReview": {
+    "Reviewer": "/root/high_water_review",
+    "Mode": "ReadOnly",
+    "Result": "Pass_NoP1P2",
+    "Verified": "26raw originals415702B match artifact/worktree/index;3ZIPs27declared source hashes; final11sources match1662f6526147a98e5b6d42e148d18294b5397e55;pushExit0/63refs onlytargetchanges;29docs/attrs paths/exactattributes/diffcheck0",
+    "NewCiActual": "Unknown",
+    "PriorRunShimCause": "NotEstablished",
+    "Package": "Hold"
+  }
+}

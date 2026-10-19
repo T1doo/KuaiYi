@@ -1,0 +1,37 @@
+{
+  "StartUtc": "2026-10-19T08:07:37.091887+00:00",
+  "EndUtc": "2026-10-19T08:07:37.356696+00:00",
+  "Argv": [
+    "python3",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "scripts",
+    "-p",
+    "test_*session*.py",
+    "-v"
+  ],
+  "Exit": 0,
+  "TestMethods": 38,
+  "FixtureOnly": true,
+  "RealWindowsExecution": "NotRun",
+  "RealNugetDownloadOrExecution": "NotRun",
+  "Sources": {
+    "scripts/verify-session-runtime-windows.py": "73f06f91836b981bf79327aea665647a91635158b36d5e230b3efd0881b3a977",
+    "scripts/test_session_runtime_windows.py": "c073924f928aacd29d88e850c1fe5d9e0bcb6cf43cf44102f9461e95bc520141",
+    ".github/workflows/windows-session-runtime.yml": "df6fb95c1ad805a93cc44d70443664497015614da9caf7611cfe33a8c3a8b5a1",
+    "docs/progress.md": "491c7cf079d103a5fac7f7e6a6ca531d52d67d18e468b758acef082e0e179eab",
+    "scripts/prepare-session-test.py": "c1b279f94ec26beb9782dbf160fdd6c050780819b9a80fbb1f199ab1756523b1",
+    "packaging/session-test.json": "19c885c9cecc45c8ee7f2964222485a77858bab8b2b3f448c324ed448c89968b",
+    "packaging/session-runtime-audit/runtime-pack-integrity.json": "4a4846835e29e50f1e0c6ecdfe7c4c789adc4de75d7d9fbb2d122773f8ec6465",
+    "packaging/session-runtime-audit/packages.lock.json": "5f591739b83308b9fa7d09ccd08b789245bd072d48a26b6294bf7f14ffb43141",
+    "global.json": "81ae2087dbfb46027fd94748351fb4b1ab24145fbb52544a2822bf128e2e48f1",
+    "Directory.Build.props": "536d20ddd475b27b5f69f4a3b36c928a314f465d74d666d77c6ac120a7121d15",
+    "NuGet.Config": "52c7f96825b0a216601d0e9a2744ddc7bc2cee304261e3daf8c06bf34b8134ec"
+  },
+  "Snapshot": "green-source.zip",
+  "SnapshotSha256": "b5446cb3191b40adcebedfdc084cfecf11c3e497bed48e3cb84eb550d868b22e",
+  "LogSha256": "6176910b5c3c14cf4bd2e93e63bb769e6bdfaac40d243e25b50e71adde1d7872"
+}

@@ -1,0 +1,22 @@
+{
+  "ReviewedBase": "1567018de0fa3cd505b926d1633ddd3f38780888",
+  "SecurityGateFunctionsAstUnchanged": {
+    "verifier_identity": "55958eee1d5db90290b0506e3f3f0bc79697501f303c7373cf73f700843bcf3f",
+    "require_verifier_version": "ac889f255a07100f32163ffa0567560c3a6c073651d3866cbbfe7c2b2e9a4fcf",
+    "package_identity": "f3b0bc1232e50e742f4f581598255e6d6bdb9696a7825d477659516afdd2bb77",
+    "signature_gate": "45f02447d74cb71096f0949d3e60fac692805de1c54b458e0124be5eb1f73f89",
+    "trx_counters": "bf666784b378d9de084063394534e8dd15c9a5a8f1a4b3287b8693b7e72a5702",
+    "hosted_context": "18cfbe8981146a2ea6e196637ad168e1933690157bd5f6500732d2c3d36a5cab",
+    "source_gate": "39d3bdd577a4ed60edba7cd9f379b103dfaf807879ee41fc89752837f700bb94"
+  },
+  "Exact4SourcePaths": [
+    ".github/workflows/windows-session-runtime.yml",
+    "scripts/verify-session-runtime-windows.py",
+    "scripts/test_session_runtime_windows.py",
+    "docs/progress.md"
+  ],
+  "StagedBytesMatchActualGreenRun": true,
+  "DiffCheckExit": 0,
+  "ProductionAndLockAndPriorEvidenceChanges": false,
+  "ActionsReadRequests": []
+}
