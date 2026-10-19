@@ -1140,3 +1140,12 @@ Windows/WPF/实际Dispatcher/STA/可见健康/键盘/Console stdin取消/Job/OCR
 r03新诊断JSON字典顺序断言118P1F及漏untracked快照如实保留，结构比较修正；r04完整1918P不替代两处最终探针归属修正后的r05完整1917P1F0skip。531最终源绑定，父1904全名保留+14新增全P；旧Healthy等待8.015秒在current.json改写前超时，cleanup137／IOSettled有据，根因Unknown。r06同DLL定向3P仅诊断，不作完整绿或修复；r07隔离App实际交叉构建0W/E。独立源码／结果审查Pass，整体回归Fail与包Hold保持。长base64本地转录未过hash，未当CI原件；可信父级摘录与分组另有明确来源。九workflow／安装runner／锁及全部保护不改，普通push不命中专用YAML，不再投递第二次SDKCI。详见[诊断报告](validation/session-windows-core-diagnosis.md)与[成功／失败原件索引](test-evidence/2026-10-19-session-windows-core-diagnosis.json)。
 
 封存独立审查Pass：36份原件11,641,931B／五ZIP／最终531输入／46精确路径与31保护输入已核，完整回归仍1917P1F，包Hold；无第二次WindowsSDK CI请求。
+
+
+## 2026-10-19 · Healthy等待观测与诊断异常保全
+
+仅既有会话夹具同时观察原run与Healthy，保留client admission／health receipt任务、真实owned child退出和原IO状态；诊断采样／写入出错单独保留，不覆盖原异常。生产1秒协议预算、记录／归档断言和所有门不变，无新探针框架。受控held-ready同方法字节实际1F→1P；日志写入反例同方法字节1F→最终两新例2P。r01执行0例和r05CS0649无TRX均保留且不算红。r06会话类35P为中间字段形式；唯一完整r04诊断1919P在最终guard前，未复现旧自然Healthy失败且未再全量跑绿，不冒充最终完整。旧1917P1F保留、自然根因Unknown。
+
+父级八片完整Windows日志已过每片ASCII及gzip／raw双hash，65376B原文直接核45失败调用／25方法，非最终计数；ReuseCrash／OLE／其他Windows底因仍Unknown，包Hold。四alias/../用例也命中..guard，不单独证明alias分支。09:44:54UTC同一实例命令可执行，修复与原件保全；无未知进程操作。369保护输入保持，无被拒Actions查询或第二次WindowsSDK CI投递。531最终输入及全部失败／无效尝试见[证据](test-evidence/2026-10-19-session-startup-handshake.json)与[报告](validation/session-startup-handshake.md)。
+
+独立源码及封存审查Pass，无剩余P1/P2；53路径／47原件12,356,734B已核，审查回执另封存，不把诊断绿当自然根因修复或Windows验收。

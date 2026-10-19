@@ -66,6 +66,12 @@ public sealed class InstallationSessionTests(ITestOutputHelper output)
         foreach(string arg in new[]{Driver,"--installed-session-launch",r.Root,selected.DirectoryPath})info.ArgumentList.Add(arg);
         Process p=Process.Start(info)!;return new(p,p.StandardError.ReadToEndAsync());
     }
+    private sealed class FailingStartupOutput(ITestOutputHelper inner):ITestOutputHelper
+    {
+        public void WriteLine(string message)
+        {if(message.StartsWith("PUBLIC_SESSION_STARTUP ",StringComparison.Ordinal))throw new InvalidOperationException("PUBLIC_DIAGNOSTIC_OUTPUT_FAILED");inner.WriteLine(message);}
+        public void WriteLine(string format,params object[] args)=>WriteLine(string.Format(format,args));
+    }
     private sealed class Port(ITestOutputHelper output):IInstallationSessionProtocol,IOwnedProcessStarter
     {
         private readonly InstallationApplicationClient client=new();
@@ -74,17 +80,58 @@ public sealed class InstallationSessionTests(ITestOutputHelper output)
         internal bool HoldStart,HoldIo,FailIo,HoldHealth;
         internal int SessionIoCalls;
         internal readonly List<int> CleanupExits=[];
+        private string startupPhase="NotStarted";
+        private Task? clientAdmission,clientHealthReceipt;
+        private int diagnosticPid,diagnosticExit,diagnosticExitKnown;
+        internal Exception? DiagnosticFailure{get;private set;}
+        internal async Task WaitForHealthyAsync(Task originalRun)
+        {
+            try
+            {
+                await Task.WhenAny(Healthy.Task,originalRun).WaitAsync(Limit);
+                if(originalRun.IsCompleted)
+                {
+                    await originalRun;
+                    if(!Healthy.Task.IsCompleted)throw new InvalidOperationException("Session ended before a healthy receipt.");
+                }
+                await Healthy.Task;
+            }
+            catch
+            {
+                try
+                {
+                    output.WriteLine("PUBLIC_SESSION_STARTUP "+JsonSerializer.Serialize(new{
+                    Run=originalRun.Status.ToString(),Healthy=Healthy.Task.Status.ToString(),Phase=Volatile.Read(ref startupPhase),
+                    ClientAdmission=Volatile.Read(ref clientAdmission)?.Status.ToString(),ClientHealthReceipt=Volatile.Read(ref clientHealthReceipt)?.Status.ToString(),
+                    ActualPid=Volatile.Read(ref diagnosticPid),ActualExit=Volatile.Read(ref diagnosticExitKnown)==0?(int?)null:Volatile.Read(ref diagnosticExit),
+                    OriginalIoSettled=Volatile.Read(ref diagnosticExitKnown)!=0,
+                    RunFailure=originalRun.Exception?.GetBaseException().GetType().Name,RunHResult=originalRun.Exception?.GetBaseException().HResult,
+                    RunInnerFailure=originalRun.Exception?.InnerException?.InnerException?.GetType().Name,RunInnerHResult=originalRun.Exception?.InnerException?.InnerException?.HResult,
+                    Host,driverSha256=Hash(Driver),coreSha256=Hash(Path.Combine(Path.GetDirectoryName(Driver)!,"KuaiYi.Core.dll"))}));
+                }
+                catch(Exception diagnosticFailure){DiagnosticFailure=diagnosticFailure;}
+                throw;
+            }
+        }
         public Process Start(ProcessStartInfo info)
         {
             string selected=Path.GetDirectoryName(info.FileName)!;info.FileName=Host;info.ArgumentList.Insert(0,Path.Combine(selected,"KuaiYi.SettingsStoreFixture.dll"));
-            Process p=Process.Start(info)!;Children.Add(p);if(HoldStart){StartHeld.TrySetResult();StartRelease.Task.GetAwaiter().GetResult();}return p;
+            Volatile.Write(ref startupPhase,"Start");Process p=Process.Start(info)!;Volatile.Write(ref diagnosticPid,p.Id);Volatile.Write(ref startupPhase,"Started");
+            Children.Add(p);if(HoldStart){StartHeld.TrySetResult();StartRelease.Task.GetAwaiter().GetResult();}return p;
         }
-        public Task AdmitLaunchAsync(Process p,InstallationControlledLaunch proof,CancellationToken ct)=>client.AdmitLaunchAsync(p,proof,ct);
+        public async Task AdmitLaunchAsync(Process p,InstallationControlledLaunch proof,CancellationToken ct)
+        {
+            Volatile.Write(ref startupPhase,"Admission");var original=client.AdmitLaunchAsync(p,proof,ct);Volatile.Write(ref clientAdmission,original);
+            await original;Volatile.Write(ref startupPhase,"Admitted");
+        }
         public async Task ConfirmHealthyAsync(Process p,InstalledVersion v,Guid launch,CancellationToken ct)
-        {await client.ConfirmHealthyAsync(p,v,launch,ct);Healthy.TrySetResult();if(HoldHealth)await HealthRelease.Task;}
+        {
+            Volatile.Write(ref startupPhase,"Health");var original=client.ConfirmHealthyAsync(p,v,launch,ct);Volatile.Write(ref clientHealthReceipt,original);
+            await original;Volatile.Write(ref startupPhase,"Healthy");Healthy.TrySetResult();if(HoldHealth)await HealthRelease.Task;
+        }
         public Task RequestExitAsync(Process p,CancellationToken ct)=>client.RequestExitAsync(p,ct);
         public async Task SettleAsync(Process p,CancellationToken ct)
-        {await client.SettleAsync(p,ct);Assert.True(p.HasExited);CleanupExits.Add(p.ExitCode);output.WriteLine($"PUBLIC_SESSION_FAILURE_CLEANUP actualExit={p.ExitCode} originalIO=Settled driverSha256={Hash(Driver)} coreSha256={Hash(Path.Combine(Path.GetDirectoryName(Driver)!,"KuaiYi.Core.dll"))}");}
+        {await client.SettleAsync(p,ct);Assert.True(p.HasExited);Volatile.Write(ref diagnosticExit,p.ExitCode);Volatile.Write(ref diagnosticExitKnown,1);CleanupExits.Add(p.ExitCode);output.WriteLine($"PUBLIC_SESSION_FAILURE_CLEANUP actualExit={p.ExitCode} originalIO=Settled driverSha256={Hash(Driver)} coreSha256={Hash(Path.Combine(Path.GetDirectoryName(Driver)!,"KuaiYi.Core.dll"))}");}
         public async Task SettleSessionAsync(Process p,CancellationToken ct)
         {
             Interlocked.Increment(ref SessionIoCalls);await client.SettleSessionAsync(p,ct);IoEntered.TrySetResult();if(HoldIo)await IoRelease.Task;
@@ -185,11 +232,40 @@ public sealed class InstallationSessionTests(ITestOutputHelper output)
         Task<int> run=coordinator.RunActiveSessionAsync(selected.DirectoryPath);await port.Healthy.Task.WaitAsync(Limit);await peer.Close();
         await Assert.ThrowsAsync<InstallationUpgradeUnconfirmedException>(()=>run.WaitAsync(Limit));await coordinator.DisposeAsync();r.Fence();Assert.Empty(Directory.GetFiles(r.App,"execution-finished-*.json"));
     }
+    [Fact]
+    public async Task EarlyOriginalSessionFailureCannotBeHiddenByAnUncompletedHealthySignal()
+    {
+        using var r=new Rig();var selected=await r.Prepare("held-ready");await using var peer=new Peer(r.Pipe);var port=new Port(output);var coordinator=port.Coordinator(r);
+        Task<int> run=coordinator.RunActiveSessionAsync(selected.DirectoryPath);
+        try
+        {
+            var observed=await Record.ExceptionAsync(()=>port.WaitForHealthyAsync(run));
+            var original=await Record.ExceptionAsync(()=>run.WaitAsync(Limit));
+            var failure=Assert.IsType<InstallationUpgradeUnconfirmedException>(observed);Assert.Same(original,failure);
+            Assert.IsType<TimeoutException>(failure.InnerException);Assert.False(port.Healthy.Task.IsCompleted);Assert.Single(port.CleanupExits);
+        }
+        finally{await Record.ExceptionAsync(()=>run.WaitAsync(Limit));await coordinator.DisposeAsync();}
+    }
+    [Fact]
+    public async Task DiagnosticOutputFailureCannotReplaceTheOriginalSessionFailure()
+    {
+        using var r=new Rig();var selected=await r.Prepare("held-ready");await using var peer=new Peer(r.Pipe);var port=new Port(new FailingStartupOutput(output));var coordinator=port.Coordinator(r);
+        Task<int> run=coordinator.RunActiveSessionAsync(selected.DirectoryPath);
+        try
+        {
+            var observed=await Record.ExceptionAsync(()=>port.WaitForHealthyAsync(run));
+            var original=await Record.ExceptionAsync(()=>run.WaitAsync(Limit));
+            Assert.Same(original,observed);Assert.IsType<TimeoutException>(Assert.IsType<InstallationUpgradeUnconfirmedException>(observed).InnerException);
+            Assert.Equal("PUBLIC_DIAGNOSTIC_OUTPUT_FAILED",Assert.IsType<InvalidOperationException>(port.DiagnosticFailure).Message);
+            Assert.False(port.Healthy.Task.IsCompleted);Assert.Single(port.CleanupExits);
+        }
+        finally{await Record.ExceptionAsync(()=>run.WaitAsync(Limit));await coordinator.DisposeAsync();}
+    }
     [Theory][InlineData("execution-owner.json")][InlineData("current.json")][InlineData("upgrade-pending.json")]
     public async Task ChangedExactRecordsAreRetainedEvenAfterCleanActualExit(string record)
     {
         using var r=new Rig();var selected=await r.Prepare();await using var peer=new Peer(r.Pipe);var port=new Port(output);var coordinator=port.Coordinator(r);
-        Task<int> run=coordinator.RunActiveSessionAsync(selected.DirectoryPath);await port.Healthy.Task.WaitAsync(Limit);string path=Path.Combine(r.App,record);File.WriteAllText(path,"PUBLIC_UNKNOWN_CHANGED");
+        Task<int> run=coordinator.RunActiveSessionAsync(selected.DirectoryPath);await port.WaitForHealthyAsync(run);string path=Path.Combine(r.App,record);File.WriteAllText(path,"PUBLIC_UNKNOWN_CHANGED");
         await peer.Close();await Assert.ThrowsAsync<InstallationUpgradeUnconfirmedException>(()=>run.WaitAsync(Limit));await coordinator.DisposeAsync();
         Assert.Equal("PUBLIC_UNKNOWN_CHANGED",File.ReadAllText(path));Assert.True(File.Exists(r.Owner));r.Fence();Assert.Empty(Directory.GetFiles(r.App,"execution-finished-*.json"));
     }

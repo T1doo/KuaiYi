@@ -1,0 +1,191 @@
+{
+  "Source": "artifacts/session-windows-core-diagnosis/parent-core-full-verified.log",
+  "SourceSha256": "cdccd22476d8a7cff884b794e4e57cce29703af51c39362351e9f02d7b9d615f",
+  "SourceBytes": 65376,
+  "XunitFailureMarkers": 45,
+  "FailureCalls": [
+    {
+      "XunitTime": "00:00:05.22",
+      "Name": "KuaiYi.Core.Tests.OleStartupDiagnosticsTests.RealOwnedStartupFailureProjectsStageExitCodeAndSettlement"
+    },
+    {
+      "XunitTime": "00:00:08.82",
+      "Name": "KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests.HeldChildDiagnosticMustReachItsOwnReceiptBeforeOriginalCleanupAssertions"
+    },
+    {
+      "XunitTime": "00:00:11.71",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(scenario: \"reset-failed\", expected: ResetFailed)"
+    },
+    {
+      "XunitTime": "00:00:11.73",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(scenario: \"mismatch\", expected: Protocol)"
+    },
+    {
+      "XunitTime": "00:00:11.78",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(scenario: \"pending\", expected: ResetFailed)"
+    },
+    {
+      "XunitTime": "00:00:11.81",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(scenario: \"extra\", expected: Protocol)"
+    },
+    {
+      "XunitTime": "00:00:11.83",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(scenario: \"truncated\", expected: Protocol)"
+    },
+    {
+      "XunitTime": "00:00:11.86",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(scenario: \"disconnect\", expected: Protocol)"
+    },
+    {
+      "XunitTime": "00:00:11.88",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Trailing_extra_after_final_request_is_rejected"
+    },
+    {
+      "XunitTime": "00:00:11.91",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Normal_round_uses_real_process_and_publishes_only_after_exit(count: 1)"
+    },
+    {
+      "XunitTime": "00:00:11.94",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Normal_round_uses_real_process_and_publishes_only_after_exit(count: 2)"
+    },
+    {
+      "XunitTime": "00:00:11.99",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Exit_wait_timeout_retains_original_observation_before_summary(earlyEof: True)"
+    },
+    {
+      "XunitTime": "00:00:14.01",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Exit_wait_timeout_retains_original_observation_before_summary(earlyEof: False)"
+    },
+    {
+      "XunitTime": "00:00:14.09",
+      "Name": "KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: \"timeout\")"
+    },
+    {
+      "XunitTime": "00:00:14.68",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Legitimate_no_text_status_is_preserved_with_match_not_run(scenario: \"sensitive\", outcome: Sensitive)"
+    },
+    {
+      "XunitTime": "00:00:14.71",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Legitimate_no_text_status_is_preserved_with_match_not_run(scenario: \"soft\", outcome: SoftTimeout)"
+    },
+    {
+      "XunitTime": "00:00:14.74",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Legitimate_no_text_status_is_preserved_with_match_not_run(scenario: \"protected\", outcome: UnsupportedOrProtected)"
+    },
+    {
+      "XunitTime": "00:00:14.76",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Legitimate_no_text_status_is_preserved_with_match_not_run(scenario: \"empty\", outcome: Empty)"
+    },
+    {
+      "XunitTime": "00:00:14.80",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Initialization_failure_does_not_claim_ready_or_second_request"
+    },
+    {
+      "XunitTime": "00:00:14.83",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Real_600ms_watchdog_kills_ignoring_child_before_publishing(scenario: \"late\")"
+    },
+    {
+      "XunitTime": "00:00:14.86",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Real_600ms_watchdog_kills_ignoring_child_before_publishing(scenario: \"hang\")"
+    },
+    {
+      "XunitTime": "00:00:16.03",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Soft_expiry_before_initialization_is_not_reported_mta_ready"
+    },
+    {
+      "XunitTime": "00:00:16.09",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Idle_return_past_absolute_lease_does_not_start_second_request"
+    },
+    {
+      "XunitTime": "00:00:16.12",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Source_stale_is_terminal_and_retains_actual_denial_status"
+    },
+    {
+      "XunitTime": "00:00:16.15",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Fragmented_stream_is_assembled_and_all_read_buffers_erased"
+    },
+    {
+      "XunitTime": "00:00:16.18",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Concurrent_round_does_not_create_replacement_child"
+    },
+    {
+      "XunitTime": "00:00:16.23",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Idle_lease_expires_without_preparing_next_request"
+    },
+    {
+      "XunitTime": "00:00:16.26",
+      "Name": "KuaiYi.Core.Tests.SelectionReuseHostTests.Watchdog_shutdown_is_parent_requested_not_natural_crash"
+    },
+    {
+      "XunitTime": "00:00:17.09",
+      "Name": "KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: \"off\")"
+    },
+    {
+      "XunitTime": "00:00:20.09",
+      "Name": "KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: \"replaced\")"
+    },
+    {
+      "XunitTime": "00:00:23.10",
+      "Name": "KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: \"disconnect\")"
+    },
+    {
+      "XunitTime": "00:00:26.11",
+      "Name": "KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: \"clock-only\")"
+    },
+    {
+      "XunitTime": "00:00:29.12",
+      "Name": "KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: \"early-input\")"
+    },
+    {
+      "XunitTime": "00:00:31.83",
+      "Name": "KuaiYi.Core.Tests.InstallationApplicationControlTests.ClaimedLaunchProofCannotBeReplayedIntoASecondApplication"
+    },
+    {
+      "XunitTime": "00:00:32.13",
+      "Name": "KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: \"suspended\")"
+    },
+    {
+      "XunitTime": "00:00:35.15",
+      "Name": "KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: \"locked\")"
+    },
+    {
+      "XunitTime": "00:00:38.16",
+      "Name": "KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: \"reject\")"
+    },
+    {
+      "XunitTime": "00:00:51.11",
+      "Name": "KuaiYi.Core.Tests.InstallationHandoffTests.ControllerCrashAfterDurableCommitBeforeSendingAckStillLeavesAnExplicitLiveCleanupOwner"
+    },
+    {
+      "XunitTime": "00:00:51.47",
+      "Name": "KuaiYi.Core.Tests.IsolatedSessionLayoutTests.WindowsAliasAndStreamSpellingsAreRefusedBeforeFilesystemAccess(component: \"PUBLIC.\")"
+    },
+    {
+      "XunitTime": "00:00:51.71",
+      "Name": "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.HeldPastBudgetFailsWithOwnerRetainedAndLaterSameHostDisposeCanSettle(phase: \"exit-wait\")"
+    },
+    {
+      "XunitTime": "00:01:04.26",
+      "Name": "KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: \"exit-wait\")"
+    },
+    {
+      "XunitTime": "00:01:35.64",
+      "Name": "KuaiYi.Core.Tests.InstallationHandoffTests.LostCommitAckNeverRollsBackOrKillsTheAcceptedRuntime"
+    },
+    {
+      "XunitTime": "00:02:05.17",
+      "Name": "KuaiYi.Core.Tests.InstallationSessionTests.UnexpectedOrRepeatedActualControlOutputCannotBecomeACleanSession(command: \"DUPLICATE_CLOSING\")"
+    },
+    {
+      "XunitTime": "00:02:13.61",
+      "Name": "KuaiYi.Core.Tests.InstallationSessionTests.UnexpectedOrRepeatedActualControlOutputCannotBecomeACleanSession(command: \"WRONG_CLOSING\")"
+    },
+    {
+      "XunitTime": "00:02:16.22",
+      "Name": "KuaiYi.Core.Tests.InstallationHandoffTests.PostcommitCallerCancellationAndEveryOldControllerMutationAreRefusedWithoutKillingTheRuntime"
+    }
+  ],
+  "FinalCounters": "Missing_NoTRX",
+  "CrashUnderlyingLauncherOrStderr": "NotRecorded",
+  "Interpretation": "Test execution failures before command180s timeout; no restore/build-only or runtime-cause inference"
+}

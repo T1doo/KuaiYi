@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="3dab2570-d782-4e99-9e22-10c3e4ef07f0" name="@0affe84243c4 2026-10-19 09:37:01" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-19T09:37:01.0792171+00:00" queuing="2026-10-19T09:37:01.0792171+00:00" start="2026-10-19T09:36:58.6773090+00:00" finish="2026-10-19T09:37:01.0853072+00:00" />
+  <TestSettings name="default" id="b6817e09-73b0-4f70-9ffa-255ba02ddc91">
+    <Deployment runDeploymentRoot="_0affe84243c4_2026-10-19_09_37_01" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="36e97f1a-a939-4033-9439-d53ed2d80ee5" testId="f5024a27-c175-b2f7-1104-09afa33c88e6" testName="KuaiYi.Core.Tests.InstallationSessionTests.EarlyOriginalSessionFailureCannotBeHiddenByAnUncompletedHealthySignal" computerName="0affe84243c4" duration="00:00:01.2453627" startTime="2026-10-19T09:36:59.7291596+00:00" endTime="2026-10-19T09:37:00.9901716+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="36e97f1a-a939-4033-9439-d53ed2d80ee5">
+      <Output>
+        <StdOut>PUBLIC_SESSION_FAILURE_CLEANUP actualExit=137 originalIO=Settled driverSha256=0951E46CB177DB648275A69644D12461A1B3232F9DE27B7D1AA2DC13CCC04969 coreSha256=162D70D40C60F6E247CC16188D5643DFA77225AD2684C48D61D82B98507C1470
+PUBLIC_SESSION_STARTUP {"Run":"Faulted","Healthy":"WaitingForActivation","Phase":"Health","ClientAdmission":"RanToCompletion","ClientHealthReceipt":"Canceled","ActualPid":61547,"ActualExit":137,"OriginalIoSettled":true,"RunFailure":"InstallationUpgradeUnconfirmedException","RunHResult":-2146232800,"RunInnerFailure":"TimeoutException","RunInnerHResult":-2146233083,"Host":"/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet","driverSha256":"0951E46CB177DB648275A69644D12461A1B3232F9DE27B7D1AA2DC13CCC04969","coreSha256":"162D70D40C60F6E247CC16188D5643DFA77225AD2684C48D61D82B98507C1470"}</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationSessionTests.EarlyOriginalSessionFailureCannotBeHiddenByAnUncompletedHealthySignal" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="f5024a27-c175-b2f7-1104-09afa33c88e6">
+      <Execution id="36e97f1a-a939-4033-9439-d53ed2d80ee5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationSessionTests" name="EarlyOriginalSessionFailureCannotBeHiddenByAnUncompletedHealthySignal" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="f5024a27-c175-b2f7-1104-09afa33c88e6" executionId="36e97f1a-a939-4033-9439-d53ed2d80ee5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.13)
+[xUnit.net 00:00:00.15]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.54]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.57]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:01.88]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

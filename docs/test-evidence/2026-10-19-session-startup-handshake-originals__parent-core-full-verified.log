@@ -1,0 +1,669 @@
+  KuaiYi.Core -> D:\a\KuaiYi\KuaiYi\src\KuaiYi.Core\bin\Release\net10.0\KuaiYi.Core.dll
+  KuaiYi.SelectionReuseDiagnostic -> D:\a\KuaiYi\KuaiYi\tools\KuaiYi.SelectionReuseDiagnostic\bin\Release\net10.0\KuaiYi.SelectionReuseDiagnostic.dll
+  KuaiYi.Contracts -> D:\a\KuaiYi\KuaiYi\src\KuaiYi.Contracts\bin\Release\net10.0\KuaiYi.Contracts.dll
+  KuaiYi.OleTransfer -> D:\a\KuaiYi\KuaiYi\src\KuaiYi.OleTransfer\bin\Release\net10.0\KuaiYi.OleTransfer.dll
+  KuaiYi.Imaging -> D:\a\KuaiYi\KuaiYi\src\KuaiYi.Imaging\bin\Release\net10.0\KuaiYi.Imaging.dll
+  KuaiYi.NativeHost -> D:\a\KuaiYi\KuaiYi\src\KuaiYi.NativeHost\bin\Release\net10.0\win-x64\KuaiYi.NativeHost.dll
+  KuaiYi.SettingsStoreFixture -> D:\a\KuaiYi\KuaiYi\tools\KuaiYi.SettingsStoreFixture\bin\Release\net10.0\KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.OleReceiverFixture -> D:\a\KuaiYi\KuaiYi\tools\KuaiYi.OleReceiverFixture\bin\Release\net10.0\KuaiYi.OleReceiverFixture.dll
+  KuaiYi.NativeMessagingProbe -> D:\a\KuaiYi\KuaiYi\tools\KuaiYi.NativeMessagingProbe\bin\Release\net10.0\KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> D:\a\KuaiYi\KuaiYi\tools\KuaiYi.OleControlFixture\bin\Release\net10.0\KuaiYi.OleControlFixture.dll
+  KuaiYi.CaptureControlFixture -> D:\a\KuaiYi\KuaiYi\tools\KuaiYi.CaptureControlFixture\bin\Release\net10.0\KuaiYi.CaptureControlFixture.dll
+  KuaiYi.ImageWorker -> D:\a\KuaiYi\KuaiYi\src\KuaiYi.ImageWorker\bin\Release\net10.0\win-x64\KuaiYi.ImageWorker.dll
+  KuaiYi.BrowserHostFixture -> D:\a\KuaiYi\KuaiYi\tools\KuaiYi.BrowserHostFixture\bin\Release\net10.0\KuaiYi.BrowserHostFixture.dll
+  KuaiYi.Core.Tests -> D:\a\KuaiYi\KuaiYi\tests\KuaiYi.Core.Tests\bin\Release\net10.0\KuaiYi.Core.Tests.dll
+Test run for D:\a\KuaiYi\KuaiYi\tests\KuaiYi.Core.Tests\bin\Release\net10.0\KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:05.22]     KuaiYi.Core.Tests.OleStartupDiagnosticsTests.RealOwnedStartupFailureProjectsStageExitCodeAndSettlement [FAIL]
+  Failed KuaiYi.Core.Tests.OleStartupDiagnosticsTests.RealOwnedStartupFailureProjectsStageExitCodeAndSettlement [124 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Core.Tests.OleStartupDiagnosticsTests.Cleanup(OleReceiverClient client, Task run) in /_/tests/KuaiYi.Core.Tests/OleStartupDiagnosticsTests.cs:line 130
+   at KuaiYi.Core.Tests.OleStartupDiagnosticsTests.RealOwnedStartupFailureProjectsStageExitCodeAndSettlement() in /_/tests/KuaiYi.Core.Tests/OleStartupDiagnosticsTests.cs:line 118
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:08.82]     KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests.HeldChildDiagnosticMustReachItsOwnReceiptBeforeOriginalCleanupAssertions [FAIL]
+  Failed KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests.HeldChildDiagnosticMustReachItsOwnReceiptBeforeOriginalCleanupAssertions [244 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests.Fixture.Cleanup(Task run) in /_/tests/KuaiYi.Core.Tests/OleQueryWrittenInvestigationTests.cs:line 46
+   at KuaiYi.Core.Tests.OleQueryWrittenInvestigationTests.HeldChildDiagnosticMustReachItsOwnReceiptBeforeOriginalCleanupAssertions() in /_/tests/KuaiYi.Core.Tests/OleQueryWrittenInvestigationTests.cs:line 26
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ delivered-before-cleanup ticks=2562335544 pid=7560 exit=Running diagnostic=WaitingForActivation failure=None target=QueryRead,QueryStaleEpoch,QueryAccepted,DropRead,DropAccepted
+ actual-receipt-before-cleanup ticks=2562505877 pid=7560 exit=Running diagnostic=WaitingForActivation failure=None target=QueryWritten,DropWritten,QueryRead,QueryStaleEpoch,QueryAccepted,DropRead,DropAccepted
+
+
+[xUnit.net 00:00:11.71]     KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(scenario: "reset-failed", expected: ResetFailed) [FAIL]
+[xUnit.net 00:00:11.73]     KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(scenario: "mismatch", expected: Protocol) [FAIL]
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(scenario: "reset-failed", expected: ResetFailed) [44 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: ResetFailed
+Actual:   Crash
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(String scenario, ReuseRoundReason expected) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 24
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(String scenario, ReuseRoundReason expected) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 24
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(scenario: "mismatch", expected: Protocol) [25 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Protocol
+Actual:   Crash
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(String scenario, ReuseRoundReason expected) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 24
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(String scenario, ReuseRoundReason expected) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 24
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:11.78]     KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(scenario: "pending", expected: ResetFailed) [FAIL]
+[xUnit.net 00:00:11.81]     KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(scenario: "extra", expected: Protocol) [FAIL]
+[xUnit.net 00:00:11.83]     KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(scenario: "truncated", expected: Protocol) [FAIL]
+[xUnit.net 00:00:11.86]     KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(scenario: "disconnect", expected: Protocol) [FAIL]
+[xUnit.net 00:00:11.88]     KuaiYi.Core.Tests.SelectionReuseHostTests.Trailing_extra_after_final_request_is_rejected [FAIL]
+[xUnit.net 00:00:11.91]     KuaiYi.Core.Tests.SelectionReuseHostTests.Normal_round_uses_real_process_and_publishes_only_after_exit(count: 1) [FAIL]
+[xUnit.net 00:00:11.94]     KuaiYi.Core.Tests.SelectionReuseHostTests.Normal_round_uses_real_process_and_publishes_only_after_exit(count: 2) [FAIL]
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(scenario: "pending", expected: ResetFailed) [24 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: ResetFailed
+Actual:   Crash
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(String scenario, ReuseRoundReason expected) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 24
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(String scenario, ReuseRoundReason expected) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 24
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(scenario: "extra", expected: Protocol) [23 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Protocol
+Actual:   Crash
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(String scenario, ReuseRoundReason expected) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 24
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(String scenario, ReuseRoundReason expected) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 24
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(scenario: "truncated", expected: Protocol) [23 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Protocol
+Actual:   Crash
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(String scenario, ReuseRoundReason expected) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 24
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(String scenario, ReuseRoundReason expected) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 24
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(scenario: "disconnect", expected: Protocol) [23 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Protocol
+Actual:   Crash
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(String scenario, ReuseRoundReason expected) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 24
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(String scenario, ReuseRoundReason expected) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 24
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Trailing_extra_after_final_request_is_rejected [26 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Protocol
+Actual:   Crash
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Trailing_extra_after_final_request_is_rejected() in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 54
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Trailing_extra_after_final_request_is_rejected() in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 54
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Normal_round_uses_real_process_and_publishes_only_after_exit(count: 1) [26 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Completed
+Actual:   Crash
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Normal_round_uses_real_process_and_publishes_only_after_exit(Int32 count) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 20
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Normal_round_uses_real_process_and_publishes_only_after_exit(Int32 count) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 20
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Normal_round_uses_real_process_and_publishes_only_after_exit(count: 2) [23 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Completed
+Actual:   Crash
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Normal_round_uses_real_process_and_publishes_only_after_exit(Int32 count) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 20
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Normal_round_uses_real_process_and_publishes_only_after_exit(Int32 count) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 20
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:11.99]     KuaiYi.Core.Tests.SelectionReuseHostTests.Exit_wait_timeout_retains_original_observation_before_summary(earlyEof: True) [FAIL]
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Exit_wait_timeout_retains_original_observation_before_summary(earlyEof: True) [46 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Protocol
+Actual:   Crash
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Exit_wait_timeout_retains_original_observation_before_summary(Boolean earlyEof) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 92
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Exit_wait_timeout_retains_original_observation_before_summary(Boolean earlyEof) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 93
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:14.01]     KuaiYi.Core.Tests.SelectionReuseHostTests.Exit_wait_timeout_retains_original_observation_before_summary(earlyEof: False) [FAIL]
+[xUnit.net 00:00:14.09]     KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: "timeout") [FAIL]
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Exit_wait_timeout_retains_original_observation_before_summary(earlyEof: False) [2 s]
+  Error Message:
+   System.TimeoutException : The operation has timed out.
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Exit_wait_timeout_retains_original_observation_before_summary(Boolean earlyEof) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 92
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Exit_wait_timeout_retains_original_observation_before_summary(Boolean earlyEof) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 93
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: "timeout") [3 s]
+  Error Message:
+   System.TimeoutException : The operation has timed out.
+  Stack Trace:
+     at KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(String action) in /_/tests/KuaiYi.Core.Tests/DesktopReceiverTests.cs:line 132
+   at KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(String action) in /_/tests/KuaiYi.Core.Tests/DesktopReceiverTests.cs:line 138
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:14.68]     KuaiYi.Core.Tests.SelectionReuseHostTests.Legitimate_no_text_status_is_preserved_with_match_not_run(scenario: "sensitive", outcome: Sensitive) [FAIL]
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Legitimate_no_text_status_is_preserved_with_match_not_run(scenario: "sensitive", outcome: Sensitive) [26 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Completed
+Actual:   Crash
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Legitimate_no_text_status_is_preserved_with_match_not_run(String scenario, ReuseOutcome outcome) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 69
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Legitimate_no_text_status_is_preserved_with_match_not_run(String scenario, ReuseOutcome outcome) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 69
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:14.71]     KuaiYi.Core.Tests.SelectionReuseHostTests.Legitimate_no_text_status_is_preserved_with_match_not_run(scenario: "soft", outcome: SoftTimeout) [FAIL]
+[xUnit.net 00:00:14.74]     KuaiYi.Core.Tests.SelectionReuseHostTests.Legitimate_no_text_status_is_preserved_with_match_not_run(scenario: "protected", outcome: UnsupportedOrProtected) [FAIL]
+[xUnit.net 00:00:14.76]     KuaiYi.Core.Tests.SelectionReuseHostTests.Legitimate_no_text_status_is_preserved_with_match_not_run(scenario: "empty", outcome: Empty) [FAIL]
+[xUnit.net 00:00:14.80]     KuaiYi.Core.Tests.SelectionReuseHostTests.Initialization_failure_does_not_claim_ready_or_second_request [FAIL]
+[xUnit.net 00:00:14.83]     KuaiYi.Core.Tests.SelectionReuseHostTests.Real_600ms_watchdog_kills_ignoring_child_before_publishing(scenario: "late") [FAIL]
+[xUnit.net 00:00:14.86]     KuaiYi.Core.Tests.SelectionReuseHostTests.Real_600ms_watchdog_kills_ignoring_child_before_publishing(scenario: "hang") [FAIL]
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Legitimate_no_text_status_is_preserved_with_match_not_run(scenario: "soft", outcome: SoftTimeout) [26 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Completed
+Actual:   Crash
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Legitimate_no_text_status_is_preserved_with_match_not_run(String scenario, ReuseOutcome outcome) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 69
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Legitimate_no_text_status_is_preserved_with_match_not_run(String scenario, ReuseOutcome outcome) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 69
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Legitimate_no_text_status_is_preserved_with_match_not_run(scenario: "protected", outcome: UnsupportedOrProtected) [26 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Completed
+Actual:   Crash
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Legitimate_no_text_status_is_preserved_with_match_not_run(String scenario, ReuseOutcome outcome) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 69
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Legitimate_no_text_status_is_preserved_with_match_not_run(String scenario, ReuseOutcome outcome) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 69
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Legitimate_no_text_status_is_preserved_with_match_not_run(scenario: "empty", outcome: Empty) [24 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Completed
+Actual:   Crash
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Legitimate_no_text_status_is_preserved_with_match_not_run(String scenario, ReuseOutcome outcome) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 69
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Legitimate_no_text_status_is_preserved_with_match_not_run(String scenario, ReuseOutcome outcome) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 69
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Initialization_failure_does_not_claim_ready_or_second_request [32 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   NotRun
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Initialization_failure_does_not_claim_ready_or_second_request() in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 71
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Initialization_failure_does_not_claim_ready_or_second_request() in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 71
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Real_600ms_watchdog_kills_ignoring_child_before_publishing(scenario: "late") [27 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Real_600ms_watchdog_kills_ignoring_child_before_publishing(String scenario) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 26
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Real_600ms_watchdog_kills_ignoring_child_before_publishing(String scenario) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 26
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Real_600ms_watchdog_kills_ignoring_child_before_publishing(scenario: "hang") [26 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Real_600ms_watchdog_kills_ignoring_child_before_publishing(String scenario) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 26
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Real_600ms_watchdog_kills_ignoring_child_before_publishing(String scenario) in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 26
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:16.03]     KuaiYi.Core.Tests.SelectionReuseHostTests.Soft_expiry_before_initialization_is_not_reported_mta_ready [FAIL]
+[xUnit.net 00:00:16.09]     KuaiYi.Core.Tests.SelectionReuseHostTests.Idle_return_past_absolute_lease_does_not_start_second_request [FAIL]
+[xUnit.net 00:00:16.12]     KuaiYi.Core.Tests.SelectionReuseHostTests.Source_stale_is_terminal_and_retains_actual_denial_status [FAIL]
+[xUnit.net 00:00:16.15]     KuaiYi.Core.Tests.SelectionReuseHostTests.Fragmented_stream_is_assembled_and_all_read_buffers_erased [FAIL]
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Soft_expiry_before_initialization_is_not_reported_mta_ready [32 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: SoftTimeout
+Actual:   null
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Soft_expiry_before_initialization_is_not_reported_mta_ready() in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 85
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Soft_expiry_before_initialization_is_not_reported_mta_ready() in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 85
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Idle_return_past_absolute_lease_does_not_start_second_request [26 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: IdleLease
+Actual:   Crash
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Idle_return_past_absolute_lease_does_not_start_second_request() in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 60
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Idle_return_past_absolute_lease_does_not_start_second_request() in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 60
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Source_stale_is_terminal_and_retains_actual_denial_status [26 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: SourceStale
+Actual:   Crash
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Source_stale_is_terminal_and_retains_actual_denial_status() in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 87
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Source_stale_is_terminal_and_retains_actual_denial_status() in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 87
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Fragmented_stream_is_assembled_and_all_read_buffers_erased [27 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Completed
+Actual:   Crash
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Fragmented_stream_is_assembled_and_all_read_buffers_erased() in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 22
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Fragmented_stream_is_assembled_and_all_read_buffers_erased() in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 22
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:16.18]     KuaiYi.Core.Tests.SelectionReuseHostTests.Concurrent_round_does_not_create_replacement_child [FAIL]
+[xUnit.net 00:00:16.23]     KuaiYi.Core.Tests.SelectionReuseHostTests.Idle_lease_expires_without_preparing_next_request [FAIL]
+[xUnit.net 00:00:16.26]     KuaiYi.Core.Tests.SelectionReuseHostTests.Watchdog_shutdown_is_parent_requested_not_natural_crash [FAIL]
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Concurrent_round_does_not_create_replacement_child [26 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Concurrent
+Actual:   Crash
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Concurrent_round_does_not_create_replacement_child() in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 34
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Concurrent_round_does_not_create_replacement_child() in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 34
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Idle_lease_expires_without_preparing_next_request [25 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: IdleLease
+Actual:   Crash
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Idle_lease_expires_without_preparing_next_request() in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 32
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Idle_lease_expires_without_preparing_next_request() in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 32
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.SelectionReuseHostTests.Watchdog_shutdown_is_parent_requested_not_natural_crash [26 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: HardTimeout
+Actual:   Crash
+  Stack Trace:
+     at KuaiYi.Core.Tests.SelectionReuseHostTests.Watchdog_shutdown_is_parent_requested_not_natural_crash() in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 75
+   at KuaiYi.Core.Tests.SelectionReuseHostTests.Watchdog_shutdown_is_parent_requested_not_natural_crash() in /_/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs:line 75
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:17.09]     KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: "off") [FAIL]
+  Failed KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: "off") [2 s]
+  Error Message:
+   System.TimeoutException : The operation has timed out.
+  Stack Trace:
+     at KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(String action) in /_/tests/KuaiYi.Core.Tests/DesktopReceiverTests.cs:line 132
+   at KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(String action) in /_/tests/KuaiYi.Core.Tests/DesktopReceiverTests.cs:line 138
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:20.09]     KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: "replaced") [FAIL]
+  Failed KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: "replaced") [3 s]
+  Error Message:
+   System.TimeoutException : The operation has timed out.
+  Stack Trace:
+     at KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(String action) in /_/tests/KuaiYi.Core.Tests/DesktopReceiverTests.cs:line 132
+   at KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(String action) in /_/tests/KuaiYi.Core.Tests/DesktopReceiverTests.cs:line 138
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:23.10]     KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: "disconnect") [FAIL]
+  Failed KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: "disconnect") [3 s]
+  Error Message:
+   System.TimeoutException : The operation has timed out.
+  Stack Trace:
+     at KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(String action) in /_/tests/KuaiYi.Core.Tests/DesktopReceiverTests.cs:line 132
+   at KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(String action) in /_/tests/KuaiYi.Core.Tests/DesktopReceiverTests.cs:line 138
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:26.11]     KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: "clock-only") [FAIL]
+  Failed KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: "clock-only") [3 s]
+  Error Message:
+   System.TimeoutException : The operation has timed out.
+  Stack Trace:
+     at KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(String action) in /_/tests/KuaiYi.Core.Tests/DesktopReceiverTests.cs:line 132
+   at KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(String action) in /_/tests/KuaiYi.Core.Tests/DesktopReceiverTests.cs:line 138
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:29.12]     KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: "early-input") [FAIL]
+  Failed KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: "early-input") [3 s]
+  Error Message:
+   System.TimeoutException : The operation has timed out.
+  Stack Trace:
+     at KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(String action) in /_/tests/KuaiYi.Core.Tests/DesktopReceiverTests.cs:line 132
+   at KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(String action) in /_/tests/KuaiYi.Core.Tests/DesktopReceiverTests.cs:line 138
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:31.83]     KuaiYi.Core.Tests.InstallationApplicationControlTests.ClaimedLaunchProofCannotBeReplayedIntoASecondApplication [FAIL]
+  Failed KuaiYi.Core.Tests.InstallationApplicationControlTests.ClaimedLaunchProofCannotBeReplayedIntoASecondApplication [6 s]
+  Error Message:
+   System.TimeoutException : The operation has timed out.
+  Stack Trace:
+     at KuaiYi.Core.Tests.InstallationApplicationControlTests.ClaimedLaunchProofCannotBeReplayedIntoASecondApplication() in /_/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 133
+   at KuaiYi.Core.Tests.InstallationApplicationControlTests.ClaimedLaunchProofCannotBeReplayedIntoASecondApplication() in /_/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 135
+   at KuaiYi.Core.Tests.InstallationApplicationControlTests.ClaimedLaunchProofCannotBeReplayedIntoASecondApplication() in /_/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 135
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ PUBLIC_APP_START_REJECT actualExit=3 driverSha256=ECC2484B9B4155539685B74AE27776452A51FEFFB22E1F1007270CCEB14FE0EE noSurface=True originalIO=Settled
+
+
+[xUnit.net 00:00:32.13]     KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: "suspended") [FAIL]
+  Failed KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: "suspended") [3 s]
+  Error Message:
+   System.TimeoutException : The operation has timed out.
+  Stack Trace:
+     at KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(String action) in /_/tests/KuaiYi.Core.Tests/DesktopReceiverTests.cs:line 132
+   at KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(String action) in /_/tests/KuaiYi.Core.Tests/DesktopReceiverTests.cs:line 138
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:35.15]     KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: "locked") [FAIL]
+  Failed KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: "locked") [3 s]
+  Error Message:
+   System.TimeoutException : The operation has timed out.
+  Stack Trace:
+     at KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(String action) in /_/tests/KuaiYi.Core.Tests/DesktopReceiverTests.cs:line 132
+   at KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(String action) in /_/tests/KuaiYi.Core.Tests/DesktopReceiverTests.cs:line 138
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:38.16]     KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: "reject") [FAIL]
+  Failed KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(action: "reject") [3 s]
+  Error Message:
+   System.TimeoutException : The operation has timed out.
+  Stack Trace:
+     at KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(String action) in /_/tests/KuaiYi.Core.Tests/DesktopReceiverTests.cs:line 132
+   at KuaiYi.Core.Tests.DesktopReceiverTests.PendingDesktopDecisionCannotOutliveRejectionOrChangedState(String action) in /_/tests/KuaiYi.Core.Tests/DesktopReceiverTests.cs:line 138
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:51.11]     KuaiYi.Core.Tests.InstallationHandoffTests.ControllerCrashAfterDurableCommitBeforeSendingAckStillLeavesAnExplicitLiveCleanupOwner [FAIL]
+  Failed KuaiYi.Core.Tests.InstallationHandoffTests.ControllerCrashAfterDurableCommitBeforeSendingAckStillLeavesAnExplicitLiveCleanupOwner [40 s]
+  Error Message:
+   System.IO.IOException : Pipe is broken.
+  Stack Trace:
+     at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+   at System.IO.StreamWriter.<FlushAsyncInternal>g__Core|79_0(Boolean flushStream, Boolean flushEncoder, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at System.IO.StreamWriter.FlushAsync()
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Send(String line) in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 80
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Send(String line)
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Ping() in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 81
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Ping()
+   at KuaiYi.Core.Tests.InstallationHandoffTests.ControllerCrashAfterDurableCommitBeforeSendingAckStillLeavesAnExplicitLiveCleanupOwner() in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 162
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(IAsyncStateMachineBox box, Boolean allowInlining)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Controller.Exit(Int32 code) in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 64
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(IAsyncStateMachineBox box, Boolean allowInlining)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Controller.Read() in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 60
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(IAsyncStateMachineBox box, Boolean allowInlining)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.IO.StreamReader.ReadLineAsyncInternal(CancellationToken cancellationToken)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(IAsyncStateMachineBox box, Boolean allowInlining)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.SetExistingTaskResult(Task`1 task, TResult result)
+   at System.IO.StreamReader.ReadBufferAsync(CancellationToken cancellationToken)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(IAsyncStateMachineBox box, Boolean allowInlining)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.SetExistingTaskResult(Task`1 task, TResult result)
+   at System.IO.Strategies.BufferedFileStreamStrategy.ReadFromNonSeekableAsync(Memory`1 destination, CancellationToken cancellationToken)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Threading.AsyncOverSyncWithIoCancellation.InvokeAsync[TState,TResult](Func`2 func, TState state, CancellationToken cancellationToken)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.ThreadPoolWorkQueue.Dispatch()
+   at System.Threading.PortableThreadPool.WorkerThread.WorkerThreadStart()
+   at System.Threading.Thread.StartCallback()
+--- End of stack trace from previous location ---
+   at System.IO.StreamWriter.<FlushAsyncInternal>g__Core|79_0(Boolean flushStream, Boolean flushEncoder, CancellationToken cancellationToken)
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Send(String line) in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 80
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Ping() in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 81
+   at KuaiYi.Core.Tests.InstallationHandoffTests.ControllerCrashAfterDurableCommitBeforeSendingAckStillLeavesAnExplicitLiveCleanupOwner() in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 162
+   at KuaiYi.Core.Tests.InstallationHandoffTests.ControllerCrashAfterDurableCommitBeforeSendingAckStillLeavesAnExplicitLiveCleanupOwner() in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 162
+   at KuaiYi.Core.Tests.InstallationHandoffTests.ControllerCrashAfterDurableCommitBeforeSendingAckStillLeavesAnExplicitLiveCleanupOwner() in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 162
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ PUBLIC_SELECTED_HEALTH|1.0|ECC2484B9B4155539685B74AE27776452A51FEFFB22E1F1007270CCEB14FE0EE|C:\Users\runneradmin\AppData\Local\Temp\kuaiyi-upgrade-tests-8c526078b1bd4941a435f9a22e209576\application\versions\630ce01f73704241a4375e7bbb182718
+ PUBLIC_ORIGINAL_IO|Exit|0|Settled
+ PUBLIC_SELECTED_HEALTH|2.0|ECC2484B9B4155539685B74AE27776452A51FEFFB22E1F1007270CCEB14FE0EE|C:\Users\runneradmin\AppData\Local\Temp\kuaiyi-upgrade-tests-8c526078b1bd4941a435f9a22e209576\application\versions\1d890d796f0c48dfb6341ead5f08c353
+ PUBLIC_ACTUAL_CONTROLLER_EXIT=82
+ PUBLIC_CONTROLLER_ACTUAL_EXIT=82 fixtureSha256=ECC2484B9B4155539685B74AE27776452A51FEFFB22E1F1007270CCEB14FE0EE coreSha256=BA32499C819D6FF3814763C954E60A4A2D6349A1158CF8667B4C25E1DBC7DC56
+ PUBLIC_SELECTED_HEALTH|1.0|ECC2484B9B4155539685B74AE27776452A51FEFFB22E1F1007270CCEB14FE0EE|C:\Users\runneradmin\AppData\Local\Temp\kuaiyi-upgrade-tests-8c526078b1bd4941a435f9a22e209576\application\versions\630ce01f73704241a4375e7bbb182718
+ PUBLIC_ORIGINAL_IO|Exit|0|Settled
+ PUBLIC_SELECTED_HEALTH|2.0|ECC2484B9B4155539685B74AE27776452A51FEFFB22E1F1007270CCEB14FE0EE|C:\Users\runneradmin\AppData\Local\Temp\kuaiyi-upgrade-tests-8c526078b1bd4941a435f9a22e209576\application\versions\1d890d796f0c48dfb6341ead5f08c353
+
+
+[xUnit.net 00:00:51.47]     KuaiYi.Core.Tests.IsolatedSessionLayoutTests.WindowsAliasAndStreamSpellingsAreRefusedBeforeFilesystemAccess(component: "PUBLIC.") [FAIL]
+  Failed KuaiYi.Core.Tests.IsolatedSessionLayoutTests.WindowsAliasAndStreamSpellingsAreRefusedBeforeFilesystemAccess(component: "PUBLIC.") [1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(System.IO.InvalidDataException)
+  Stack Trace:
+     at KuaiYi.Core.Tests.IsolatedSessionLayoutTests.WindowsAliasAndStreamSpellingsAreRefusedBeforeFilesystemAccess(String component) in /_/tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs:line 51
+   at InvokeStub_IsolatedSessionLayoutTests.WindowsAliasAndStreamSpellingsAreRefusedBeforeFilesystemAccess(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:51.71]     KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.HeldPastBudgetFailsWithOwnerRetainedAndLaterSameHostDisposeCanSettle(phase: "exit-wait") [FAIL]
+  Failed KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.HeldPastBudgetFailsWithOwnerRetainedAndLaterSameHostDisposeCanSettle(phase: "exit-wait") [6 s]
+  Error Message:
+   System.TimeoutException : The operation has timed out.
+  Stack Trace:
+     at KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.Rig.PrepareHeld() in /_/tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs:line 55
+   at KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.HeldPastBudgetFailsWithOwnerRetainedAndLaterSameHostDisposeCanSettle(String phase) in /_/tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs:line 90
+   at KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.HeldPastBudgetFailsWithOwnerRetainedAndLaterSameHostDisposeCanSettle(String phase) in /_/tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs:line 97
+--- End of stack trace from previous location ---
+[xUnit.net 00:01:04.26]     KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: "exit-wait") [FAIL]
+  Failed KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(phase: "exit-wait") [5 s]
+  Error Message:
+   System.TimeoutException : The operation has timed out.
+  Stack Trace:
+     at KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.Rig.PrepareHeld() in /_/tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs:line 55
+   at KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(String phase) in /_/tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs:line 76
+   at KuaiYi.Core.Tests.DiagnosticDisposeSettlementTests.SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner(String phase) in /_/tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs:line 82
+--- End of stack trace from previous location ---
+[xUnit.net 00:01:35.64]     KuaiYi.Core.Tests.InstallationHandoffTests.LostCommitAckNeverRollsBackOrKillsTheAcceptedRuntime [FAIL]
+  Failed KuaiYi.Core.Tests.InstallationHandoffTests.LostCommitAckNeverRollsBackOrKillsTheAcceptedRuntime [40 s]
+  Error Message:
+   System.IO.IOException : Pipe is broken.
+  Stack Trace:
+     at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+   at System.IO.StreamWriter.<FlushAsyncInternal>g__Core|79_0(Boolean flushStream, Boolean flushEncoder, CancellationToken cancellationToken)
+   at System.IO.StreamWriter.FlushAsync()
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Send(String line) in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 80
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Send(String line)
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Ping() in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 81
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Ping()
+   at KuaiYi.Core.Tests.InstallationHandoffTests.LostCommitAckNeverRollsBackOrKillsTheAcceptedRuntime() in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 130
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(IAsyncStateMachineBox box, Boolean allowInlining)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Controller.Exit(Int32 code) in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 64
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(IAsyncStateMachineBox box, Boolean allowInlining)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Controller.Read() in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 60
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(IAsyncStateMachineBox box, Boolean allowInlining)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.IO.StreamReader.ReadLineAsyncInternal(CancellationToken cancellationToken)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(IAsyncStateMachineBox box, Boolean allowInlining)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.SetExistingTaskResult(Task`1 task, TResult result)
+   at System.IO.StreamReader.ReadBufferAsync(CancellationToken cancellationToken)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(IAsyncStateMachineBox box, Boolean allowInlining)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.SetExistingTaskResult(Task`1 task, TResult result)
+   at System.IO.Strategies.BufferedFileStreamStrategy.ReadFromNonSeekableAsync(Memory`1 destination, CancellationToken cancellationToken)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Threading.AsyncOverSyncWithIoCancellation.InvokeAsync[TState,TResult](Func`2 func, TState state, CancellationToken cancellationToken)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.ThreadPoolWorkQueue.Dispatch()
+   at System.Threading.PortableThreadPool.WorkerThread.WorkerThreadStart()
+   at System.Threading.Thread.StartCallback()
+--- End of stack trace from previous location ---
+   at System.IO.StreamWriter.<FlushAsyncInternal>g__Core|79_0(Boolean flushStream, Boolean flushEncoder, CancellationToken cancellationToken)
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Send(String line) in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 80
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Ping() in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 81
+   at KuaiYi.Core.Tests.InstallationHandoffTests.LostCommitAckNeverRollsBackOrKillsTheAcceptedRuntime() in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 130
+   at KuaiYi.Core.Tests.InstallationHandoffTests.LostCommitAckNeverRollsBackOrKillsTheAcceptedRuntime() in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 130
+   at KuaiYi.Core.Tests.InstallationHandoffTests.LostCommitAckNeverRollsBackOrKillsTheAcceptedRuntime() in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 130
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ PUBLIC_SELECTED_HEALTH|1.0|ECC2484B9B4155539685B74AE27776452A51FEFFB22E1F1007270CCEB14FE0EE|C:\Users\runneradmin\AppData\Local\Temp\kuaiyi-upgrade-tests-eebbea5e05f5496d8ef91014a5842fa9\application\versions\1118cd3aa2e34bf7824093b15347ef04
+ PUBLIC_ORIGINAL_IO|Exit|0|Settled
+ PUBLIC_SELECTED_HEALTH|2.0|ECC2484B9B4155539685B74AE27776452A51FEFFB22E1F1007270CCEB14FE0EE|C:\Users\runneradmin\AppData\Local\Temp\kuaiyi-upgrade-tests-eebbea5e05f5496d8ef91014a5842fa9\application\versions\08bbd7769df44d7daa2e8865566ed301
+ PUBLIC_HANDOFF_RESULT|Upgraded|CommittedUnconfirmed|2.0|TimeoutException
+ PUBLIC_COMMITTED_GATES|Start=Refused|Upgrade=Refused|Retry=Refused|CallerCancelled=False
+ PUBLIC_ORIGINAL_IO|LiveControl|CancelledAndJoined|Settled
+ PUBLIC_CONTROLLER_DISPOSED
+ PUBLIC_ACTUAL_CONTROLLER_EXIT=0
+ PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=ECC2484B9B4155539685B74AE27776452A51FEFFB22E1F1007270CCEB14FE0EE coreSha256=BA32499C819D6FF3814763C954E60A4A2D6349A1158CF8667B4C25E1DBC7DC56
+ PUBLIC_SELECTED_HEALTH|1.0|ECC2484B9B4155539685B74AE27776452A51FEFFB22E1F1007270CCEB14FE0EE|C:\Users\runneradmin\AppData\Local\Temp\kuaiyi-upgrade-tests-eebbea5e05f5496d8ef91014a5842fa9\application\versions\1118cd3aa2e34bf7824093b15347ef04
+ PUBLIC_ORIGINAL_IO|Exit|0|Settled
+ PUBLIC_SELECTED_HEALTH|2.0|ECC2484B9B4155539685B74AE27776452A51FEFFB22E1F1007270CCEB14FE0EE|C:\Users\runneradmin\AppData\Local\Temp\kuaiyi-upgrade-tests-eebbea5e05f5496d8ef91014a5842fa9\application\versions\08bbd7769df44d7daa2e8865566ed301
+ PUBLIC_HANDOFF_RESULT|Upgraded|CommittedUnconfirmed|2.0|TimeoutException
+ PUBLIC_COMMITTED_GATES|Start=Refused|Upgrade=Refused|Retry=Refused|CallerCancelled=False
+ PUBLIC_ORIGINAL_IO|LiveControl|CancelledAndJoined|Settled
+ PUBLIC_CONTROLLER_DISPOSED
+
+
+[xUnit.net 00:02:05.17]     KuaiYi.Core.Tests.InstallationSessionTests.UnexpectedOrRepeatedActualControlOutputCannotBecomeACleanSession(command: "DUPLICATE_CLOSING") [FAIL]
+  Failed KuaiYi.Core.Tests.InstallationSessionTests.UnexpectedOrRepeatedActualControlOutputCannotBecomeACleanSession(command: "DUPLICATE_CLOSING") [40 s]
+  Error Message:
+   System.TimeoutException : The operation has timed out.
+  Stack Trace:
+     at KuaiYi.Core.Tests.InstallationSessionTests.Parent.Row() in /_/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 57
+   at KuaiYi.Core.Tests.InstallationSessionTests.UnexpectedOrRepeatedActualControlOutputCannotBecomeACleanSession(String command) in /_/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 247
+   at KuaiYi.Core.Tests.InstallationSessionTests.UnexpectedOrRepeatedActualControlOutputCannotBecomeACleanSession(String command) in /_/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 248
+   at KuaiYi.Core.Tests.InstallationSessionTests.UnexpectedOrRepeatedActualControlOutputCannotBecomeACleanSession(String command) in /_/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 248
+--- End of stack trace from previous location ---
+[xUnit.net 00:02:13.61]     KuaiYi.Core.Tests.InstallationSessionTests.UnexpectedOrRepeatedActualControlOutputCannotBecomeACleanSession(command: "WRONG_CLOSING") [FAIL]
+  Failed KuaiYi.Core.Tests.InstallationSessionTests.UnexpectedOrRepeatedActualControlOutputCannotBecomeACleanSession(command: "WRONG_CLOSING") [8 s]
+  Error Message:
+   System.TimeoutException : The operation has timed out.
+  Stack Trace:
+     at KuaiYi.Core.Tests.InstallationSessionTests.Peer.Row() in /_/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 46
+   at KuaiYi.Core.Tests.InstallationSessionTests.Peer.Close() in /_/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 47
+   at KuaiYi.Core.Tests.InstallationSessionTests.UnexpectedOrRepeatedActualControlOutputCannotBecomeACleanSession(String command) in /_/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 246
+   at KuaiYi.Core.Tests.InstallationSessionTests.UnexpectedOrRepeatedActualControlOutputCannotBecomeACleanSession(String command) in /_/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 248
+   at KuaiYi.Core.Tests.InstallationSessionTests.UnexpectedOrRepeatedActualControlOutputCannotBecomeACleanSession(String command) in /_/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 248
+--- End of stack trace from previous location ---
+[xUnit.net 00:02:16.22]     KuaiYi.Core.Tests.InstallationHandoffTests.PostcommitCallerCancellationAndEveryOldControllerMutationAreRefusedWithoutKillingTheRuntime [FAIL]
+  Failed KuaiYi.Core.Tests.InstallationHandoffTests.PostcommitCallerCancellationAndEveryOldControllerMutationAreRefusedWithoutKillingTheRuntime [40 s]
+  Error Message:
+   System.IO.IOException : Pipe is broken.
+  Stack Trace:
+     at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+   at System.IO.StreamWriter.<FlushAsyncInternal>g__Core|79_0(Boolean flushStream, Boolean flushEncoder, CancellationToken cancellationToken)
+   at System.IO.StreamWriter.FlushAsync()
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Send(String line) in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 80
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Send(String line)
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Ping() in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 81
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Ping()
+   at KuaiYi.Core.Tests.InstallationHandoffTests.PostcommitCallerCancellationAndEveryOldControllerMutationAreRefusedWithoutKillingTheRuntime() in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 194
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(IAsyncStateMachineBox box, Boolean allowInlining)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Controller.Exit(Int32 code) in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 64
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(IAsyncStateMachineBox box, Boolean allowInlining)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder.SetResult()
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Controller.Read() in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 60
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(IAsyncStateMachineBox box, Boolean allowInlining)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.IO.StreamReader.ReadLineAsyncInternal(CancellationToken cancellationToken)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(IAsyncStateMachineBox box, Boolean allowInlining)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.SetExistingTaskResult(Task`1 task, TResult result)
+   at System.IO.StreamReader.ReadBufferAsync(CancellationToken cancellationToken)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()
+   at System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(IAsyncStateMachineBox box, Boolean allowInlining)
+   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.SetExistingTaskResult(Task`1 task, TResult result)
+   at System.IO.Strategies.BufferedFileStreamStrategy.ReadFromNonSeekableAsync(Memory`1 destination, CancellationToken cancellationToken)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Threading.AsyncOverSyncWithIoCancellation.InvokeAsync[TState,TResult](Func`2 func, TState state, CancellationToken cancellationToken)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.ThreadPoolWorkQueue.Dispatch()
+   at System.Threading.PortableThreadPool.WorkerThread.WorkerThreadStart()
+   at System.Threading.Thread.StartCallback()
+--- End of stack trace from previous location ---
+   at System.IO.StreamWriter.<FlushAsyncInternal>g__Core|79_0(Boolean flushStream, Boolean flushEncoder, CancellationToken cancellationToken)
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Send(String line) in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 80
+   at KuaiYi.Core.Tests.InstallationHandoffTests.Receiver.Ping() in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 81
+   at KuaiYi.Core.Tests.InstallationHandoffTests.PostcommitCallerCancellationAndEveryOldControllerMutationAreRefusedWithoutKillingTheRuntime() in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 194
+   at KuaiYi.Core.Tests.InstallationHandoffTests.PostcommitCallerCancellationAndEveryOldControllerMutationAreRefusedWithoutKillingTheRuntime() in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 194
+   at KuaiYi.Core.Tests.InstallationHandoffTests.PostcommitCallerCancellationAndEveryOldControllerMutationAreRefusedWithoutKillingTheRuntime() in /_/tests/KuaiYi.Core.Tests/InstallationHandoffTests.cs:line 194
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ PUBLIC_SELECTED_HEALTH|1.0|ECC2484B9B4155539685B74AE27776452A51FEFFB22E1F1007270CCEB14FE0EE|C:\Users\runneradmin\AppData\Local\Temp\kuaiyi-upgrade-tests-c78823a3d9874ebbae225aeada97ce4b\application\versions\e2223044ca894cdebfa5c443e682ef2c
+ PUBLIC_ORIGINAL_IO|Exit|0|Settled
+ PUBLIC_SELECTED_HEALTH|2.0|ECC2484B9B4155539685B74AE27776452A51FEFFB22E1F1007270CCEB14FE0EE|C:\Users\runneradmin\AppData\Local\Temp\kuaiyi-upgrade-tests-c78823a3d9874ebbae225aeada97ce4b\application\versions\437e8e8030b24688b2150f3b65b57c22
+ PUBLIC_ORIGINAL_IO|LiveControl|CancelledAndJoined|Settled
+ PUBLIC_HANDOFF_RESULT|Upgraded|Committed|2.0|
+ PUBLIC_COMMITTED_GATES|Start=Refused|Upgrade=Refused|Retry=Refused|CallerCancelled=True
+ PUBLIC_TRANSFERRED_LIFETIME|ExitObserved=False|Stop=OwnershipTransferred|Finalize=False
+ PUBLIC_CONTROLLER_DISPOSED
+ PUBLIC_ACTUAL_CONTROLLER_EXIT=0
+ PUBLIC_CONTROLLER_ACTUAL_EXIT=0 fixtureSha256=ECC2484B9B4155539685B74AE27776452A51FEFFB22E1F1007270CCEB14FE0EE coreSha256=BA32499C819D6FF3814763C954E60A4A2D6349A1158CF8667B4C25E1DBC7DC56
+ PUBLIC_SELECTED_HEALTH|1.0|ECC2484B9B4155539685B74AE27776452A51FEFFB22E1F1007270CCEB14FE0EE|C:\Users\runneradmin\AppData\Local\Temp\kuaiyi-upgrade-tests-c78823a3d9874ebbae225aeada97ce4b\application\versions\e2223044ca894cdebfa5c443e682ef2c
+ PUBLIC_ORIGINAL_IO|Exit|0|Settled
+ PUBLIC_SELECTED_HEALTH|2.0|ECC2484B9B4155539685B74AE27776452A51FEFFB22E1F1007270CCEB14FE0EE|C:\Users\runneradmin\AppData\Local\Temp\kuaiyi-upgrade-tests-c78823a3d9874ebbae225aeada97ce4b\application\versions\437e8e8030b24688b2150f3b65b57c22
+ PUBLIC_ORIGINAL_IO|LiveControl|CancelledAndJoined|Settled
+ PUBLIC_HANDOFF_RESULT|Upgraded|Committed|2.0|
+ PUBLIC_COMMITTED_GATES|Start=Refused|Upgrade=Refused|Retry=Refused|CallerCancelled=True
+ PUBLIC_TRANSFERRED_LIFETIME|ExitObserved=False|Stop=OwnershipTransferred|Finalize=False
+ PUBLIC_CONTROLLER_DISPOSED
+
+

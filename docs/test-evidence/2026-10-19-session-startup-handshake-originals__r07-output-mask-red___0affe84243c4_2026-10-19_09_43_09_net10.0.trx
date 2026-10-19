@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="21852b3c-3d57-43fa-92ec-7f133f70c034" name="@0affe84243c4 2026-10-19 09:43:09" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-19T09:43:09.0520355+00:00" queuing="2026-10-19T09:43:09.0520355+00:00" start="2026-10-19T09:43:06.6566392+00:00" finish="2026-10-19T09:43:09.0572158+00:00" />
+  <TestSettings name="default" id="f31f769d-13b0-4c06-a652-0d0de684b796">
+    <Deployment runDeploymentRoot="_0affe84243c4_2026-10-19_09_43_09" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="46b483a2-51c6-4cde-9ee7-e30bd09f33fa" testId="aad2e570-77f9-d5ec-8b53-3685ae29e450" testName="KuaiYi.Core.Tests.InstallationSessionTests.DiagnosticOutputFailureCannotReplaceTheOriginalSessionFailure" computerName="0affe84243c4" duration="00:00:01.2368221" startTime="2026-10-19T09:43:07.7072329+00:00" endTime="2026-10-19T09:43:08.9584905+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="46b483a2-51c6-4cde-9ee7-e30bd09f33fa">
+      <Output>
+        <StdOut>PUBLIC_SESSION_FAILURE_CLEANUP actualExit=137 originalIO=Settled driverSha256=0951E46CB177DB648275A69644D12461A1B3232F9DE27B7D1AA2DC13CCC04969 coreSha256=162D70D40C60F6E247CC16188D5643DFA77225AD2684C48D61D82B98507C1470</StdOut>
+        <ErrorInfo>
+          <Message>Assert.Same() Failure: Values are not the same instance
+Expected: KuaiYi.Core.Installation.InstallationUpgradeUnconfirmedException: Upgrade or application settlement is unconfirmed; pending record and all versions retained, admission blocked.
+ ---&gt; System.TimeoutException: The operation has timed out.
+   at KuaiYi.Core.Installation.InstallationUpgradeCoordinator.Call(Role role, Func`2 action, CancellationToken cancellation, ProtocolOperation operation) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs:line 270
+   at KuaiYi.Core.Installation.InstallationUpgradeCoordinator.StartAndCheck(Role role, CancellationToken cancellation, InstallationAdmission launchAdmission) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs:line 248
+   at KuaiYi.Core.Installation.InstallationUpgradeCoordinator.RunActiveSessionAsync(String executableDirectory, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs:line 96
+   --- End of inner exception stack trace ---
+   at KuaiYi.Core.Installation.InstallationUpgradeCoordinator.RunActiveSessionAsync(String executableDirectory, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs:line 114
+   at Xunit.Record.ExceptionAsync(Func`1 testCode) in /_/src/xunit.core/Record.cs:line 76
+Actual:   System.InvalidOperationException: PUBLIC_DIAGNOSTIC_OUTPUT_FAILED
+   at KuaiYi.Core.Tests.InstallationSessionTests.FailingStartupOutput.WriteLine(String message) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 72
+   at KuaiYi.Core.Tests.InstallationSessionTests.Port.WaitForHealthyAsync(Task originalRun) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 101
+   at Xunit.Record.ExceptionAsync(Func`1 testCode) in /_/src/xunit.core/Record.cs:line 76</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.InstallationSessionTests.DiagnosticOutputFailureCannotReplaceTheOriginalSessionFailure() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 254
+   at KuaiYi.Core.Tests.InstallationSessionTests.DiagnosticOutputFailureCannotReplaceTheOriginalSessionFailure() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 258
+   at KuaiYi.Core.Tests.InstallationSessionTests.DiagnosticOutputFailureCannotReplaceTheOriginalSessionFailure() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 258
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.InstallationSessionTests.DiagnosticOutputFailureCannotReplaceTheOriginalSessionFailure" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="aad2e570-77f9-d5ec-8b53-3685ae29e450">
+      <Execution id="46b483a2-51c6-4cde-9ee7-e30bd09f33fa" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.InstallationSessionTests" name="DiagnosticOutputFailureCannotReplaceTheOriginalSessionFailure" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="aad2e570-77f9-d5ec-8b53-3685ae29e450" executionId="46b483a2-51c6-4cde-9ee7-e30bd09f33fa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.13)
+[xUnit.net 00:00:00.15]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.59]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.62]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:01.90]       Assert.Same() Failure: Values are not the same instance
+[xUnit.net 00:00:01.90]       Expected: KuaiYi.Core.Installation.InstallationUpgradeUnconfirmedException: Upgrade or application settlement is unconfirmed; pending record and all versions retained, admission blocked.
+[xUnit.net 00:00:01.90]        ---&gt; System.TimeoutException: The operation has timed out.
+[xUnit.net 00:00:01.90]          at KuaiYi.Core.Installation.InstallationUpgradeCoordinator.Call(Role role, Func`2 action, CancellationToken cancellation, ProtocolOperation operation) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs:line 270
+[xUnit.net 00:00:01.90]          at KuaiYi.Core.Installation.InstallationUpgradeCoordinator.StartAndCheck(Role role, CancellationToken cancellation, InstallationAdmission launchAdmission) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs:line 248
+[xUnit.net 00:00:01.90]          at KuaiYi.Core.Installation.InstallationUpgradeCoordinator.RunActiveSessionAsync(String executableDirectory, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs:line 96
+[xUnit.net 00:00:01.90]          --- End of inner exception stack trace ---
+[xUnit.net 00:00:01.90]          at KuaiYi.Core.Installation.InstallationUpgradeCoordinator.RunActiveSessionAsync(String executableDirectory, CancellationToken cancellation) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs:line 114
+[xUnit.net 00:00:01.90]          at Xunit.Record.ExceptionAsync(Func`1 testCode) in /_/src/xunit.core/Record.cs:line 76
+[xUnit.net 00:00:01.90]       Actual:   System.InvalidOperationException: PUBLIC_DIAGNOSTIC_OUTPUT_FAILED
+[xUnit.net 00:00:01.90]          at KuaiYi.Core.Tests.InstallationSessionTests.FailingStartupOutput.WriteLine(String message) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 72
+[xUnit.net 00:00:01.90]          at KuaiYi.Core.Tests.InstallationSessionTests.Port.WaitForHealthyAsync(Task originalRun) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs:line 101
+[xUnit.net 00:00:01.90]          at Xunit.Record.ExceptionAsync(Func`1 testCode) in /_/src/xunit.core/Record.cs:line 76
+[xUnit.net 00:00:01.90]       Stack Trace:
+[xUnit.net 00:00:01.91]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(254,0): at KuaiYi.Core.Tests.InstallationSessionTests.DiagnosticOutputFailureCannotReplaceTheOriginalSessionFailure()
+[xUnit.net 00:00:01.91]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(258,0): at KuaiYi.Core.Tests.InstallationSessionTests.DiagnosticOutputFailureCannotReplaceTheOriginalSessionFailure()
+[xUnit.net 00:00:01.91]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs(258,0): at KuaiYi.Core.Tests.InstallationSessionTests.DiagnosticOutputFailureCannotReplaceTheOriginalSessionFailure()
+[xUnit.net 00:00:01.91]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.91]       Output:
+[xUnit.net 00:00:01.91]         PUBLIC_SESSION_FAILURE_CLEANUP actualExit=137 originalIO=Settled driverSha256=0951E46CB177DB648275A69644D12461A1B3232F9DE27B7D1AA2DC13CCC04969 coreSha256=162D70D40C60F6E247CC16188D5643DFA77225AD2684C48D61D82B98507C1470
+[xUnit.net 00:00:01.92]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="0affe84243c4" outcome="Error" timestamp="2026-10-19T09:43:08.9629523+00:00">
+        <Text>[xUnit.net 00:00:01.90]     KuaiYi.Core.Tests.InstallationSessionTests.DiagnosticOutputFailureCannotReplaceTheOriginalSessionFailure [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

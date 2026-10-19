@@ -1,5 +1,7 @@
 # Windows Core：测试阶段失败、最小修复与保留项
 
+> 后续状态：完整Windows Core日志已通过八片／整包哈希精确回收；Healthy原任务观测与诊断异常隔离已另行验证。下文转录未回收及1917P1F均为本轮封存时状态，原件不回写。详见[后续报告](session-startup-handshake.md)。四个alias/../反例同时命中..原组件guard，不能单独隔离别名分支覆盖。
+
 父级正常登录桥接的[真实CI39226078160/job117972581384](https://github.com/T1doo/KuaiYi/actions/runs/39226078160/job/117972581384#step:3:43)针对源码32116577a34d9f914f93dc715261e99da7d33868，终态Fail（run4m1s／job3m56s）。双runtime正常在线验签、job-local SDK402／host13、固定ZIP全SHA512、恰两项runtime13库存／audit与Core locked restore均通过。约xUnit5.22s已有断言失败，Core命令随后180s超时，无实际CoreTRX／最终计数、cleanupNotConfirmed、EvidenceStatusIncomplete。可确定已进入测试阶段，不能当作纯restore或编译慢，更不能只加时。后续专门App／Worker构建门、publish、真实WindowsApp／模型均NotRun，Package Hold。
 
 父级完整提取为45次失败调用、25个方法名，绝非完整测试最终失败数：Reuse25、DesktopReceiver9、OLE2、InstallationApplicationControl1、InstallationHandoff3、IsolatedSessionLayout1、DiagnosticDispose2、InstallationSession2。完整日志未记录具体child启动路径、stderr或底层Crash异常。父级核验14件gzip/raw大小与hash；本地长base64转录未过完整性校验，没有将其纳入已回收CI原件。预期Core raw65376B／SHA256 cdccd22476d8a7cff884b794e4e57cce29703af51c39362351e9f02d7b9d615f。需后续精确小分片／文件桥接，不能重试本机Actions或换路。
