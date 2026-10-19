@@ -1,0 +1,35 @@
+{
+  "EvidenceKind": "ParentBridge_NormalLoggedInVisibleCiJobSummary_NotLocallyDownloadedRawLog",
+  "SourceUrl": "https://github.com/T1doo/KuaiYi/actions/runs/39221162999/job/117956532058#step:3:15",
+  "Run": 39221162999,
+  "Job": 117956532058,
+  "SourceCommit": "1662f6526147a98e5b6d42e148d18294b5397e55",
+  "DurationSecondsReported": 33,
+  "SignatureStatus": "Pass_WindowsNuGetFrameworkOnline",
+  "Packages": [
+    {
+      "Id": "Microsoft.NETCore.App.Runtime.win-x64",
+      "Version": "10.0.13",
+      "VerifyExit": 0,
+      "Signature": "Pass",
+      "ReportedOutput": "Successfully verified package"
+    },
+    {
+      "Id": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+      "Version": "10.0.13",
+      "VerifyExit": 0,
+      "Signature": "Pass",
+      "ReportedOutput": "Successfully verified package"
+    }
+  ],
+  "Status": "SignaturesPassedTestsBlocked",
+  "Reason": "Safe preinstalled SDK402/host13/privateXML13 unavailable: FileNotFoundError",
+  "Package": "Hold",
+  "ManagedTests": "NotRun",
+  "BuildStatus": "NotRun",
+  "Publish": "NotRun",
+  "WindowsAppAcceptance": "NotRun",
+  "ModelCalls": "None",
+  "LocalActionsRequests": [],
+  "Limits": "Parent supplied real results; no fabrication of unreceived full signature/TRX output. No claim full Windows acceptance or managed regression."
+}

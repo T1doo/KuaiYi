@@ -1,0 +1,59 @@
+{
+  "StartUtc": "2026-10-19T08:20:25.547820+00:00",
+  "Action": "GET exact distinct official Windows SDK ZIP asset to inspect authoritative archive license files only",
+  "Target": "https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.402/dotnet-sdk-10.0.402-win-x64.zip",
+  "MetadataRequestRetried": false,
+  "Extracted": false,
+  "Executed": false,
+  "LicenseAccepted": false,
+  "HttpStatus": 200,
+  "Bytes": 300755826,
+  "Sha512": "ae4fd528cb7e9f6af6aaf7de36715a69f761f183744f1bb3025d19f5a92447090ec561410e46266c1d10a63781ed6f3de771760bc76c876d87daabc367b898cd",
+  "ArchiveHash": "Pass",
+  "LicenseFiles": [
+    {
+      "Entry": "LICENSE.txt",
+      "Bytes": 9519,
+      "Sha256": "7f6839a61ce892b79c6549e2dc5a81fdbd240a0b260f8881216b45b7fda8b45d",
+      "Path": "artifacts/session-windows-sdk-assessment/windows-LICENSE.txt"
+    },
+    {
+      "Entry": "ThirdPartyNotices.txt",
+      "Bytes": 78887,
+      "Sha256": "deb4427a295e1ed474b0d81c5a0d972c1b550b9a715cda939cdfa9236b1b418f",
+      "Path": "artifacts/session-windows-sdk-assessment/windows-ThirdPartyNotices.txt"
+    }
+  ],
+  "OtherLicenseLikeEntries": [
+    {
+      "Path": "sdk/10.0.402/Sdks/Microsoft.Build.Tasks.Git/LICENSE.txt",
+      "Bytes": 1137
+    },
+    {
+      "Path": "sdk/10.0.402/Sdks/Microsoft.NET.Sdk.WindowsDesktop/LICENSE.TXT",
+      "Bytes": 1137
+    },
+    {
+      "Path": "sdk/10.0.402/Sdks/Microsoft.SourceLink.AzureRepos.Git/LICENSE.txt",
+      "Bytes": 1137
+    },
+    {
+      "Path": "sdk/10.0.402/Sdks/Microsoft.SourceLink.Bitbucket.Git/LICENSE.txt",
+      "Bytes": 1137
+    },
+    {
+      "Path": "sdk/10.0.402/Sdks/Microsoft.SourceLink.Common/LICENSE.txt",
+      "Bytes": 1137
+    },
+    {
+      "Path": "sdk/10.0.402/Sdks/Microsoft.SourceLink.GitHub/LICENSE.txt",
+      "Bytes": 1137
+    },
+    {
+      "Path": "sdk/10.0.402/Sdks/Microsoft.SourceLink.GitLab/LICENSE.txt",
+      "Bytes": 1137
+    }
+  ],
+  "Outcome": "LicenseBytesReadOnly",
+  "EndUtc": "2026-10-19T08:20:30.721654+00:00"
+}

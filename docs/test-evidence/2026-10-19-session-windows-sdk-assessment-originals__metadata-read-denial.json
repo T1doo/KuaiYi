@@ -1,0 +1,9 @@
+{
+  "Action": "GET official release metadata for fresh SDK asset reading",
+  "Target": "https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/10.0/releases.json",
+  "Outcome": "Denied",
+  "Reason": "URLError: Tunnel connection failed: 403 Forbidden",
+  "Exit": 1,
+  "Repeated": false,
+  "Next": "Use already committed official metadata bytes locally; no alternate source/transport for refused metadata"
+}

@@ -1,0 +1,42 @@
+{
+  "Status": "PendingSpecificWindowsLicenseApproval_NotExecutableCiConfiguration",
+  "AssetUrl": "https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.402/dotnet-sdk-10.0.402-win-x64.zip",
+  "SdkVersion": "10.0.402",
+  "RuntimeVersion": "10.0.13",
+  "ArchiveSha512": "ae4fd528cb7e9f6af6aaf7de36715a69f761f183744f1bb3025d19f5a92447090ec561410e46266c1d10a63781ed6f3de771760bc76c876d87daabc367b898cd",
+  "ArchiveBytes": 300755826,
+  "License": {
+    "Name": "MICROSOFT SOFTWARE LICENSE TERMS / MICROSOFT .NET LIBRARY",
+    "ArchiveEntry": "LICENSE.txt",
+    "Bytes": 9519,
+    "Sha256": "7f6839a61ce892b79c6549e2dc5a81fdbd240a0b260f8881216b45b7fda8b45d",
+    "ReferenceUrl": "https://dotnet.microsoft.com/en-us/dotnet_library_license.htm",
+    "Authority": "Exact LICENSE.txt in pinned Windows archive; reference webpage is not byte-identical",
+    "AcceptedInCurrentEvidence": false
+  },
+  "Notice": {
+    "ArchiveEntry": "ThirdPartyNotices.txt",
+    "Bytes": 78887,
+    "Sha256": "deb4427a295e1ed474b0d81c5a0d972c1b550b9a715cda939cdfa9236b1b418f",
+    "SameAsApprovedLinuxTextAfterCrlfNormalization": true
+  },
+  "MinimalApproval": "Accept only this pinned Windows SDK archive Microsoft.NET Library license for installation and use in one ephemeral public standard Windows CI job workspace to build/test this repository; no publishing, system changes or new fees. No Skia approval included.",
+  "AfterApprovalSteps": [
+    "One normal reviewed source push on current development branch; exact source/parent/file gate, public windows-2022 attempt1 job15min/step14min; no workflow rerun/auto retry/cache/artifact upload/larger runner.",
+    "Download exact official ZIP above once into unique job workspace directory; size/time bounds, no redirect or fallback feed; full SHA512 exact before any extraction/execution. A denial stops that request.",
+    "Check exact approved LICENSE/notices hashes, validate bounded archive paths/no traversal/links/duplicate Windows names, unpack only into fresh job-owned SDK directory. Current observed5577entries807617264uncompressed bytes. No MSI/admin/system PATH/registry/trust changes.",
+    "Read original require_safe_sdk metadata before dotnet: SDK402/host13/private System.Security.Cryptography.Xml13/sharedCore13. Explicit child dotnet path and child-only DOTNET_ROOT/HOST_PATH/PATH/CLI state/cache under job directory; certificate generation false, telemetry optout; no first-use bypass or401fallback.",
+    "Check actual --version/--info, retain normal online NuGetFramework signature checks for both approved runtime13 packages with original hash/MIT/no warnings diagnostics rules. Locked restore/audit true/all/low/warnings-as-errors unchanged.",
+    "Run original full Core/Provider suites and default/isolated App plus ImageWorker builds. Keep raw command output/TRX/counters/source hashes in bounded job evidence; no publish/package/App or real model execution. Parent reads actual job normally; no local forbidden API retries.",
+    "Keep Package Hold until every required real gate and evidence passes; failures/unknowns remain explicit. No unconditional success or automatic extra CI."
+  ],
+  "CurrentActions": {
+    "WindowsPayloadUnpacked": false,
+    "WindowsSdkExecuted": false,
+    "LicenseAccepted": false,
+    "NewWorkflowChanged": false,
+    "NewCiRequested": false,
+    "ForbiddenMetadataRetried": false,
+    "NewActionsReadRequests": []
+  }
+}

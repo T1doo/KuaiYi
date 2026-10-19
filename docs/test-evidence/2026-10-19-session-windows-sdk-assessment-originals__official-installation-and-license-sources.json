@@ -1,0 +1,16 @@
+{
+  "Authority": "SDK README makes archive LICENSE.txt and ThirdPartyNotices.txt authoritative; projectMIT alone insufficient for Windows binary distribution",
+  "Urls": [
+    "https://github.com/dotnet/sdk/blob/main/README.md#license",
+    "https://dotnet.microsoft.com/en-us/dotnet_library_license.htm",
+    "https://learn.microsoft.com/en-us/dotnet/core/install/windows#install-manually",
+    "https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-install-script"
+  ],
+  "Findings": [
+    "Windows manual ZIP installation is a supported non-admin CI route; no need for system registry/persistent PATH changes",
+    "Canonical .NETLibrarywebpage is informational reference; it is not byte-identical to downloaded archiveLICENSE",
+    "No general permanent NoSDKrestriction inferred; latest conditionalCIinstallation authorization applies only if no new agreement acceptance is needed",
+    "This exact Windows binary rootlicense is different from explicitly approved LinuxMIT and runtimeMIT; concrete approval needed before installation/use"
+  ],
+  "LocalActionsReadRequests": []
+}
