@@ -25,7 +25,7 @@ policy = ci.load_policy(ROOT)
 
 
 @contextmanager
-def execution_fixture(timeout=False):
+def execution_fixture(timeout=False, chocolatey=False, framework=True):
     """Public synthetic bytes only; no external request or executable is started."""
     with tempfile.TemporaryDirectory() as folder:
         root = Path(folder)
@@ -48,8 +48,16 @@ def execution_fixture(timeout=False):
             locked[identity] = {"contentHash": content_hash}
         (audit / "runtime-pack-integrity.json").write_text(json.dumps({"Packages": reviewed}))
         (audit / "packages.lock.json").write_text(json.dumps({"dependencies": {"net10.0": locked}}))
-        nuget = root / "nuget.exe"
-        nuget.write_bytes(b"MZ_PUBLIC_FIXTURE_.NETFramework,Version=v4.7.2")
+        if chocolatey:
+            install = root / "chocolatey"
+            lookup = install / "bin/nuget.exe"
+            nuget = install / "lib/NuGet.CommandLine/tools/nuget.exe"
+            lookup.parent.mkdir(parents=True)
+            nuget.parent.mkdir(parents=True)
+            lookup.write_bytes(b"MZ_PUBLIC_NATIVE_SHIM_WITHOUT_FRAMEWORK_METADATA")
+        else:
+            lookup = nuget = root / "nuget.exe"
+        nuget.write_bytes(b"MZ_PUBLIC_FIXTURE_" + (b".NETFramework,Version=v4.7.2" if framework else b".NETCoreApp,Version=v10.0"))
 
         def request(uri, **kwargs):
             self_bytes = packages[uri.split("/")[-3]]
@@ -58,6 +66,8 @@ def execution_fixture(timeout=False):
             return response
 
         def process(argv, **kwargs):
+            if argv[0] != str(nuget):
+                raise AssertionError("Shim or unexpected executable must never run: " + str(argv))
             if argv[1] == "help":
                 kwargs["stdout"].write(b"NuGet Version: 7.9.0.83\n")
                 if timeout:
@@ -72,13 +82,91 @@ def execution_fixture(timeout=False):
                 kwargs["stdout"].write(output.encode())
             return subprocess.CompletedProcess(argv, 0)
 
-        with patch.object(ci, "source_gate", return_value="a" * 40), patch.object(ci.shutil, "which", return_value=str(nuget)), \
+        with patch.object(ci, "source_gate", return_value="a" * 40), patch.object(ci.shutil, "which", return_value=str(lookup)), \
                 patch.object(ci.urllib.request, "urlopen", side_effect=request) as download, \
                 patch.object(ci.subprocess, "run", side_effect=process) as run:
-            yield repo, {"GITHUB_SHA": "a" * 40, "ProgramFiles": str(root / "missing-sdk")}, run, download
+            # Windows os.environ stores uppercase keys; execute receives a plain dict.
+            env = {"GITHUB_SHA": "a" * 40, "PROGRAMFILES": str(root / "missing-sdk")}
+            if chocolatey:
+                env["CHOCOLATEYINSTALL"] = str(install)
+            yield repo, env, run, download
 
 
 class WindowsCiTests(unittest.TestCase):
+    def test_known_chocolatey_shim_resolves_payload_before_framework_gate(self):
+        with execution_fixture(chocolatey=True) as (repo, env, run, download):
+            report, code = ci.execute(repo, env)
+            self.assertEqual(2, code)
+            self.assertEqual("SignaturesPassedTestsBlocked", report["Status"])
+            self.assertEqual("Pass_WindowsNuGetFrameworkOnline", report["SignatureStatus"])
+            self.assertEqual(2, len(report["RuntimePackages"]))
+            self.assertEqual(3, run.call_count)
+            self.assertEqual(2, download.call_count)
+            self.assertEqual("ChocolateyShim", report["VerifierLookup"]["Kind"])
+            self.assertEqual([], report["VerifierLookup"]["FrameworkMarkers"])
+            self.assertEqual("ChocolateyPackagePayload", report["VerifierTarget"]["Kind"])
+            self.assertEqual([".NETFramework,Version=v4.7.2"], report["VerifierTarget"]["FrameworkMarkers"])
+
+    def test_chocolatey_payload_still_requires_framework_before_any_process(self):
+        with execution_fixture(chocolatey=True, framework=False) as (repo, env, run, download):
+            report, code = ci.execute(repo, env)
+            self.assertEqual(2, code)
+            self.assertEqual("NotRun", report["SignatureStatus"])
+            self.assertIn("expected Framework target", report["Reason"])
+            self.assertEqual("TargetStaticIdentity", report["VerifierStage"])
+            self.assertEqual([".NETCoreApp,Version=v10.0"], report["VerifierTarget"]["FrameworkMarkers"])
+            run.assert_not_called()
+            download.assert_not_called()
+
+    def test_missing_or_linked_known_payload_never_executes_or_downloads(self):
+        for problem in ("missing", "target-link", "lookup-link", "root-reparse"):
+            with self.subTest(problem=problem), execution_fixture(chocolatey=True) as (repo, env, run, download):
+                install = Path(env["CHOCOLATEYINSTALL"])
+                target = install / "lib/NuGet.CommandLine/tools/nuget.exe"
+                lookup = install / "bin/nuget.exe"
+                if problem in ("missing", "target-link"):
+                    target.unlink()
+                if problem == "target-link":
+                    replacement = repo.parent / "PUBLIC-nuget-payload.exe"
+                    replacement.write_bytes(b"MZ_PUBLIC_FIXTURE_.NETFramework,Version=v4.7.2")
+                    target.symlink_to(replacement)
+                if problem == "lookup-link":
+                    replacement = repo.parent / "PUBLIC-nuget-shim.exe"
+                    replacement.write_bytes(lookup.read_bytes())
+                    lookup.unlink()
+                    lookup.symlink_to(replacement)
+                original = ci.linked
+                with patch.object(ci, "linked", side_effect=lambda path: (problem == "root-reparse" and path == install) or original(path)):
+                    report, code = ci.execute(repo, env)
+                self.assertEqual(2, code)
+                self.assertEqual("NotRun", report["SignatureStatus"])
+                self.assertEqual("LookupPathGuard" if problem in ("lookup-link", "root-reparse") else
+                                 "TargetStaticIdentity" if problem == "missing" else "TargetPathGuard", report["VerifierStage"])
+                run.assert_not_called()
+                download.assert_not_called()
+
+    def test_checkout_verifier_path_is_rejected_without_execution(self):
+        with execution_fixture() as (repo, env, run, download):
+            path = repo / "nuget.exe"
+            path.write_bytes(b"MZ_PUBLIC_FIXTURE_.NETFramework,Version=v4.7.2")
+            with patch.object(ci.shutil, "which", return_value=str(path)):
+                report, code = ci.execute(repo, env)
+            self.assertEqual(2, code)
+            self.assertIn("outside the checkout", report["Reason"])
+            self.assertEqual("LookupPathGuard", report["VerifierStage"])
+            run.assert_not_called()
+            download.assert_not_called()
+
+    def test_unknown_shim_does_not_search_chocolatey_or_execute(self):
+        with execution_fixture(framework=False) as (repo, env, run, download):
+            env["CHOCOLATEYINSTALL"] = str(repo.parent / "unrelated-chocolatey")
+            report, code = ci.execute(repo, env)
+            self.assertEqual(2, code)
+            self.assertEqual("NotRun", report["SignatureStatus"])
+            self.assertIn("expected Framework target", report["Reason"])
+            run.assert_not_called()
+            download.assert_not_called()
+
     def test_reparse_guard_works_without_python312_junction_api(self):
         path = Mock()
         path.is_symlink.return_value = False

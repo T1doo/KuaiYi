@@ -21,7 +21,7 @@ import zipfile
 
 REPOSITORY = "T1doo/KuaiYi"
 BRANCH = "refs/heads/dev/session-runtime-signature-windows"
-PARENT = "fffb37f8a4fea6f9c9d8fe533ead4134097324fa"
+PARENT = "1567018de0fa3cd505b926d1633ddd3f38780888"
 NU_VERSION = "7.9.0.83"
 FILES = frozenset((".github/workflows/windows-session-runtime.yml", "scripts/verify-session-runtime-windows.py",
                    "scripts/test_session_runtime_windows.py", "docs/progress.md"))
@@ -89,6 +89,49 @@ def verifier_identity(path):
             (b".NETFramework,Version=v4.7.2", b".NETFramework,Version=v4.8")):
         raise RuntimeError("Preinstalled verifier does not declare the expected Framework target")
     return hashlib.sha256(data).hexdigest()
+
+
+def verifier_observation(path):
+    if not path.is_file() or path.stat().st_size > 64 * 1024 * 1024:
+        raise RuntimeError("Preinstalled NuGet.exe unavailable or exceeds bound")
+    data = path.read_bytes()
+    return {"Bytes": len(data), "Sha256": hashlib.sha256(data).hexdigest(), "Mz": data.startswith(b"MZ"),
+            "FrameworkMarkers": sorted({value.decode("ascii") for value in re.findall(
+                rb"\.NET(?:Framework|CoreApp|Standard),Version=v[0-9]+(?:\.[0-9]+){1,2}", data)})}
+
+
+def preinstalled_path(path, repo):
+    # Check the original path before resolve can hide a symlink or reparse point.
+    if not path.is_absolute() or any(linked(item) for item in (path, *path.parents)):
+        raise RuntimeError("Preinstalled verifier path must be absolute and unlinked; retained")
+    result = path.resolve()
+    if result.is_relative_to(repo.resolve()):
+        raise RuntimeError("Verifier must be preinstalled outside the checkout")
+    return result
+
+
+def resolve_verifier(lookup, env, repo, report):
+    selected = Path(lookup)
+    report.update(VerifierStage="LookupPathGuard", VerifierLookup={"Path": str(selected), "Kind": "PathCandidate"})
+    selected = preinstalled_path(selected, repo)
+    report["VerifierStage"] = "LookupStaticObservation"
+    report["VerifierLookup"].update(verifier_observation(selected))
+    target, kind = selected, "DirectFrameworkCandidate"
+    install = Path(env["CHOCOLATEYINSTALL"]) if env.get("CHOCOLATEYINSTALL") else None
+    if install is not None and install.is_absolute() and selected == install / "bin/nuget.exe":
+        report["VerifierStage"] = "ChocolateyRootGuard"
+        install = preinstalled_path(install, repo)
+        # This is the one documented preinstalled package layout, not a search.
+        target = install / "lib/NuGet.CommandLine/tools/nuget.exe"
+        kind = "ChocolateyPackagePayload"
+        report["VerifierLookup"]["Kind"] = "ChocolateyShim"
+    report.update(VerifierStage="TargetPathGuard", VerifierTarget={"Path": str(target), "Kind": kind})
+    target = preinstalled_path(target, repo)
+    report["VerifierStage"] = "TargetStaticIdentity"
+    report["VerifierTarget"].update(verifier_observation(target))
+    digest = verifier_identity(target)
+    report["VerifierStage"] = "FrameworkIdentityPassed"
+    return str(target), digest
 
 
 def require_verifier_version(output):
@@ -199,12 +242,11 @@ def execute(repo, env):
         nuget = shutil.which("nuget.exe")
         if nuget is None:
             raise RuntimeError("Preinstalled NuGet.exe missing; no installation attempted")
-        if Path(nuget).resolve().is_relative_to(repo.resolve()):
-            raise RuntimeError("Verifier must be preinstalled outside the checkout")
-        report["VerifierSha256"] = verifier_identity(nuget)
+        nuget, report["VerifierSha256"] = resolve_verifier(nuget, env, repo, report)
+        report["VerifierStage"] = "HelpVersion"
         version_output = run([nuget, "help", "-ForceEnglishOutput", "-NonInteractive"], "verifier-version", 30)
         require_verifier_version(version_output)
-        report.update(VerifierVersion=NU_VERSION, VerifierRuntime="PreinstalledFrameworkExecutable")
+        report.update(VerifierStage="Ready", VerifierVersion=NU_VERSION, VerifierRuntime="PreinstalledFrameworkExecutable")
         report["SignatureStatus"] = "InProgress"
         for identity in policy.RUNTIME_IDS:
             item = reviewed[identity]
@@ -218,7 +260,7 @@ def execute(repo, env):
                                                "License": "MIT", "Signature": "Pass", "VerificationOutput": output})
         report["SignatureStatus"] = "Pass_WindowsNuGetFrameworkOnline"
         # Read metadata before any dotnet process. No execution or installation of401/12.
-        sdk_root = Path(env["ProgramFiles"]) / "dotnet"
+        sdk_root = Path(env["PROGRAMFILES"]) / "dotnet"
         try:
             policy.require_safe_sdk(contract, sdk_root / "dotnet.exe")
         except (OSError, ValueError, KeyError, RuntimeError) as error:

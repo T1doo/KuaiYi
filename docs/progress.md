@@ -1097,3 +1097,14 @@ Windows/WPF/实际Dispatcher/STA/可见健康/键盘/Console stdin取消/Job/OCR
 官方依据：[公开仓库标准runner免费](https://docs.github.com/en/billing/concepts/product-billing/github-actions)、[标准Windows规格](https://docs.github.com/en/actions/reference/runners/github-hosted-runners)、[当前仓库Public](https://github.com/T1doo/KuaiYi)、[Windows2022工具清单](https://github.com/actions/runner-images/blob/main/images/windows/Windows2022-Readme.md)、[NuGet.exe verify-All](https://learn.microsoft.com/en-us/nuget/reference/cli-reference/cli-ref-verify)、[Windows CLI使用Framework4.7.2+](https://learn.microsoft.com/en-us/nuget/install-nuget-client-tools)。本片只是CI验证准备，不把离线合同称为Windows验签通过；历史图片间歇等根因仍Unknown，生产复用Off及全部250/600ms/来源/密码/完整性/取消/清理门保持。
 
 源码 c4ec07e80c2eec46476528c5afab6f06a78a8bfc 已普通推送新开发分支一次，Exit0、远端精确SHA一致；远端62→63 heads仅新增该分支，main51d0774与其余62 refs不变。该投递不等于CI运行成功，未查询Actions、未重试任何已拒路径，实际Windows签名/测试均Unknown，Package Hold保持。[离线合同、独审、源码快照及投递原件索引](test-evidence/2026-10-19-session-runtime-windows-ci.json)。后续证据提交仅docs/.gitattributes，不触碰自身YAML路径，不再次请求该CI。
+
+
+## 2026-10-19 · 预装 NuGet Chocolatey 布局兼容与 Windows 环境键修复
+
+父级正常登录桥接run39216695459/job117942108656的可见日志：源码c4ec07e，33秒在verifier Framework前置检测Blocked，Reason="Preinstalled verifier does not declare the expected Framework target"；签名、managed/build/publish/真实Windows验收均NotRun，RuntimePackages空、模型无、包Hold。此为验签器前置失败，未证明坏包或产品回归失败。原日志缺实际lookup路径，不能据此认定该run根因就是shim；本地未重试Forbidden接口。
+
+官方toolset将NuGet.CommandLine列为Chocolatey包，官方shim文档说明bin是native启动器。现仅将准确的既有CHOCOLATEYINSTALL/bin/nuget.exe映射到同root/lib/NuGet.CommandLine/tools/nuget.exe，lookup/root/target全部在resolve前查链接/reparse祖先，拒绝checkout内或未知映射，不搜索或执行shim。实际payload仍过原Framework标记和实际NuGet7.9.0.83版本门；缺标记继续Blocked，不用MZ/banner替代。成功失败记录lookup/target类别、path、bytes/SHA/Framework标记及拒绝阶段。另据Python官方Windows环境键大写语义，修正dict(os.environ)后CHOCOLATEYINSTALL/PROGRAMFILES查找，未修改环境或系统安装。
+
+实际离线r01为旧实现36例1失败；r02切Windows大写环境fixture后38例4失败；最终38方法全通过，保留两次红日志和各自源码快照。新增用例只在合成fixture中运行mock端口，证明不运行shim、只调已检payload，并覆盖Core目标/未知布局/缺payload/链接/reparse/checkout路径拒绝；没有本机NuGet下载/执行或Windows实测。源码独审后仅一次新有界免费CI，15分钟job/14分钟step、attempt1、公有标准windows-2022、精确父1567018及四文件范围。正常在线验签/警告拒绝、归档与内容双hash、MIT范围、安全SDK402/host13/privateXML13、locked/audit与完整managed/build门保持；无安装/离线撤销/信任或权限变更/部署/真实模型。实际新CI由父级合法页面桥接，在原件返回前Unknown/Hold，不自动重试。
+
+依据：[官方Windows toolset](https://raw.githubusercontent.com/actions/runner-images/main/images/windows/toolsets/toolset-2022.json)、[Chocolatey shim](https://docs.chocolatey.org/en-us/features/shim/)、[NuGet Framework项目](https://raw.githubusercontent.com/NuGet/NuGet.Client/dev/src/NuGet.Clients/NuGet.CommandLine/NuGet.CommandLine.csproj)、[Framework目标定义](https://raw.githubusercontent.com/NuGet/NuGet.Client/dev/build/common.project.props)、[Windows环境键](https://docs.python.org/3/library/os.html#os.environ)。生产源/锁/8旧workflow与历史原件不动，图片间歇根因仍Unknown，生产复用Off和250/600ms/来源/密码/完整性/取消/清理门保持；Skia四包仍待批，WPF/模型/完整P6P7未验收。

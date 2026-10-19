@@ -24,7 +24,7 @@ jobs:
           fetch-depth: 2
           persist-credentials: false
           set-safe-directory: false
-      - name: Verify runtime signatures and use safe preinstalled SDK only
+      - name: Resolve preinstalled verifier payload, verify signatures and use safe SDK only
         timeout-minutes: 14
         shell: powershell
         run: |
