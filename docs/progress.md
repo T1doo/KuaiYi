@@ -1082,3 +1082,16 @@ Windows/WPF/实际Dispatcher/STA/可见健康/键盘/Console stdin取消/Job/OCR
 ## 2026-10-19 · 父审 RID/锁上下文疑点核验（无生产代码改动）
 
 实际原样提取已提交 prepare AST：r26带Alpha＋全局win-x64的locked restore成功8项目；r27仅删全局RID反而六库NU1004；r28原样恢复再次成功，8assets字节复原。prepare选text-alpha-locks（含库级RID），父审引用r13/r15用普通锁，不能混同。该具体P2未复现，restore/publish同RID和12props，所有生产源/锁不改。此为核验成果，不冒充产品修复；[原件索引](test-evidence/2026-10-19-session-rid-verification.json)。不重试在线签名、不publish，当前首个已知阻塞仍签名；后续打包/Windows尚未运行，不能预报仅剩此门。
+
+
+## 2026-10-19 · 一次免费 Windows 运行时验签 CI 准备
+
+按父级最新一次有界CI授权评估：当前仓库根页仍Public，GitHub官方说明标准windows-2022在公开仓库免费；不使用larger runner、cache或artifact上传。现8workflow均旧分支/自身路径及旧源码门，lifecycle仍SDK401/关闭审计，不能借用。本次仅新增独立dev/session-runtime-signature-windows的自身YAML触发：精确单父fffb37f、四文件范围、attempt1、contents read、固定checkout、单job15分钟/step14分钟，无自动重试/安装/权限凭据信任更改/部署/publish。
+
+官方镜像20261012.333.1清单预装NuGet7.9.0.83与.NETFramework4.8.1，SDK仅401/runtime12。先由Windows PowerShell5.1及既有Python检查预装nuget.exe的Framework标记、实际版本及哈希，再下载原已批准两份MIT/runtime13，严格归档hash、license/identity、NuGet内容hash和原作者/仓库签名，正常在线-All验签，任何NuGet诊断/警告/撤销未知/降offline都拒绝；不执行旧SDK401。只有预装SDK402、host13及私有XML13元数据通过才执行dotnet，保留locked/audit-all-low/warnings-errors并继续完整Core/Provider和App/Worker构建。缺安全SDK明确SignaturesPassedTestsBlocked，无降级或SDK安装。全程不运行App或真实模型，不生成包。
+
+旧gh API仅证明actions/runs读取Forbidden，未证明CI调度被拒；最新授权下的正常新分支push与重试被拒读取是不同动作。不会查询该API或换连接器/浏览器读取Actions结果。push若成功只证明投递，实际run/签名/测试结果在没有合法原件前仍Unknown，签名Hold不解除；不能据此宣称Windows App/完整P6P7验收。新配置先做离线合同与独审，通过后仅普通推送一次。生产源码/所有锁及8既有workflow不改。
+
+离线合同33方法实际通过，含两个合成官方形状包先完成验签门再因缺SDK明确阻断测试、超时保留输出且不确认清理、Python3.9兼容reparse门。此为纯离线fixture，不包含真实NuGet下载、签名命令或Windows执行；源码独审未发现剩余阻断P1/P2，最终原件哈希另行封存。
+
+官方依据：[公开仓库标准runner免费](https://docs.github.com/en/billing/concepts/product-billing/github-actions)、[标准Windows规格](https://docs.github.com/en/actions/reference/runners/github-hosted-runners)、[当前仓库Public](https://github.com/T1doo/KuaiYi)、[Windows2022工具清单](https://github.com/actions/runner-images/blob/main/images/windows/Windows2022-Readme.md)、[NuGet.exe verify-All](https://learn.microsoft.com/en-us/nuget/reference/cli-reference/cli-ref-verify)、[Windows CLI使用Framework4.7.2+](https://learn.microsoft.com/en-us/nuget/install-nuget-client-tools)。本片只是CI验证准备，不把离线合同称为Windows验签通过；历史图片间歇等根因仍Unknown，生产复用Off及全部250/600ms/来源/密码/完整性/取消/清理门保持。
