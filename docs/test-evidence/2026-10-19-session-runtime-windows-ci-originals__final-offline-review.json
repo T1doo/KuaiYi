@@ -1,0 +1,17 @@
+{
+  "Reviewer": "/root/high_water_review",
+  "Mode": "ReadOnly",
+  "Result": "Pass",
+  "Evidence": "Final R02 actual33ok/Exit0, log/ZIP/11 source hashes matched current candidate; no remaining P1/P2. Initial index was old; exact4 paths restaged and hashes matched R02 before commit.",
+  "WindowsExecution": "NotRun",
+  "RealSignature": "NotRun",
+  "Package": "Hold",
+  "TimeUtc": "2026-10-19T07:32:35.254060+00:00",
+  "StagedPaths": [
+    ".github/workflows/windows-session-runtime.yml",
+    "docs/progress.md",
+    "scripts/test_session_runtime_windows.py",
+    "scripts/verify-session-runtime-windows.py"
+  ],
+  "RemoteBeforeHeadCount": 62
+}

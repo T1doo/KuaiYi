@@ -1,0 +1,49 @@
+{
+  "Purpose": "Preparation of one bounded public standard Windows CI attempt; not a Windows verification result",
+  "ObservedRepositoryVisibility": "Public",
+  "RunnerImageManifest": "20261012.333.1",
+  "PreinstalledVerifier": "NuGet 7.9.0.83 on .NET Framework 4.8.1",
+  "ManifestDotnetMaximum": "SDK10.0.401/Core+Desktop10.0.12; actual allocated runner may differ",
+  "NoNewLicensePackages": "Only previously approved two MIT runtime10.0.13 archives; no SDK/tool installation; Skia4.153.1 four packages untouched",
+  "BillingCondition": "Only public repository standard windows-2022; job15min/step14min; no larger runner, artifact upload or cache",
+  "Sources": [
+    {
+      "Url": "https://github.com/T1doo/KuaiYi",
+      "Supports": "Root page Public; no Actions link followed"
+    },
+    {
+      "Url": "https://docs.github.com/en/billing/concepts/product-billing/github-actions",
+      "Supports": "Standard hosted runners free for public repositories; larger runners excluded"
+    },
+    {
+      "Url": "https://docs.github.com/en/actions/reference/runners/github-hosted-runners",
+      "Supports": "Public standard windows-2022 supported; x64 standard runner"
+    },
+    {
+      "Url": "https://github.com/actions/runner-images/blob/main/images/windows/Windows2022-Readme.md",
+      "Supports": "Current manifest Python3.12.10/NuGet7.9.0.83/Framework4.8.1/SDK401/runtime12"
+    },
+    {
+      "Url": "https://learn.microsoft.com/en-us/nuget/reference/cli-reference/cli-ref-verify",
+      "Supports": "Windows NuGet.exe verify -All; normal signatures and content hash verification"
+    },
+    {
+      "Url": "https://learn.microsoft.com/en-us/nuget/install-nuget-client-tools#nugetexe-cli",
+      "Supports": "Windows NuGet.exe uses Framework4.7.2+, does not require execution of unsafe Core SDK401"
+    },
+    {
+      "Url": "https://github.com/NuGet/NuGet.Client/blob/dev/src/NuGet.Clients/NuGet.CommandLine/NuGet.CommandLine.csproj",
+      "Supports": "Official current source Exe Framework target; actual installed binary additionally requires target marker and exact version"
+    }
+  ],
+  "ExcludedPaths": [
+    "No retry of rejected Actions runs API, runtime tree API, CIM, Skia source403",
+    "No alternative browser/connector Actions results read",
+    "No offline revocation, disabled signatures, trust root, security/network/credential changes",
+    "No deployment/publish/App execution/model"
+  ],
+  "ActualWindowsRun": "Unknown",
+  "ActualWindowsSignature": "Unknown",
+  "ActualWindowsManagedTests": "Unknown",
+  "Package": "Hold"
+}

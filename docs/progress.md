@@ -1095,3 +1095,5 @@ Windows/WPF/实际Dispatcher/STA/可见健康/键盘/Console stdin取消/Job/OCR
 离线合同33方法实际通过，含两个合成官方形状包先完成验签门再因缺SDK明确阻断测试、超时保留输出且不确认清理、Python3.9兼容reparse门。此为纯离线fixture，不包含真实NuGet下载、签名命令或Windows执行；源码独审未发现剩余阻断P1/P2，最终原件哈希另行封存。
 
 官方依据：[公开仓库标准runner免费](https://docs.github.com/en/billing/concepts/product-billing/github-actions)、[标准Windows规格](https://docs.github.com/en/actions/reference/runners/github-hosted-runners)、[当前仓库Public](https://github.com/T1doo/KuaiYi)、[Windows2022工具清单](https://github.com/actions/runner-images/blob/main/images/windows/Windows2022-Readme.md)、[NuGet.exe verify-All](https://learn.microsoft.com/en-us/nuget/reference/cli-reference/cli-ref-verify)、[Windows CLI使用Framework4.7.2+](https://learn.microsoft.com/en-us/nuget/install-nuget-client-tools)。本片只是CI验证准备，不把离线合同称为Windows验签通过；历史图片间歇等根因仍Unknown，生产复用Off及全部250/600ms/来源/密码/完整性/取消/清理门保持。
+
+源码 c4ec07e80c2eec46476528c5afab6f06a78a8bfc 已普通推送新开发分支一次，Exit0、远端精确SHA一致；远端62→63 heads仅新增该分支，main51d0774与其余62 refs不变。该投递不等于CI运行成功，未查询Actions、未重试任何已拒路径，实际Windows签名/测试均Unknown，Package Hold保持。[离线合同、独审、源码快照及投递原件索引](test-evidence/2026-10-19-session-runtime-windows-ci.json)。后续证据提交仅docs/.gitattributes，不触碰自身YAML路径，不再次请求该CI。

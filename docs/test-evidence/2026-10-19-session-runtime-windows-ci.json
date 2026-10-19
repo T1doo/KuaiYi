@@ -1,0 +1,178 @@
+{
+  "Utc": "2026-10-19T07:33:50.550404+00:00",
+  "SourceCommit": "c4ec07e80c2eec46476528c5afab6f06a78a8bfc",
+  "SourceParent": "fffb37f8a4fea6f9c9d8fe533ead4134097324fa",
+  "Branch": "dev/session-runtime-signature-windows",
+  "Scope": "One bounded free public standard Windows CI validation request; no deployment/publish/install",
+  "PreparationStatus": "Pass_33OfflineContracts_IndependentSourceAndHashReview",
+  "DeliveryStatus": "NormalSourcePushExit0_RemoteExactShaConfirmed",
+  "ActualCiRun": "Unknown",
+  "ActualWindowsSignatures": "Unknown",
+  "ActualWindowsManagedTestsAndBuilds": "Unknown",
+  "Package": "Hold_RequiresActualWarningFreeOnlineVerification",
+  "ActionsReadRequests": [],
+  "NoDenialRetried": "Prior Actions runs GET Forbidden is a read denial, not proof scheduling denied. No retry, alternate result access, runtime tree API, CIM or Skia403 access performed.",
+  "PlannedWindowsPath": {
+    "Runner": "Public standard windows-2022",
+    "JobMinutes": 15,
+    "StepMinutes": 14,
+    "RunAttempt": "1 only",
+    "Verifier": "Preinstalled NuGet7.9.0.83 on Framework target, normal verify-All online",
+    "Packages": "Only approved two MIT/runtime10.0.13 exact archive hashes and NuGet content hashes",
+    "Sdk": "Preinstalled402/host13/privateXML13 metadata first; absent means signatures may pass but managed tests blocked; no install or401 fallback",
+    "IfSdkSafe": "Locked audited restore; full Core/Provider tests; default/isolated App and Worker build; no App execution",
+    "Publish": "NotRun",
+    "Models": "None"
+  },
+  "OfflineTestEvidence": {
+    "R01": "30P intermediate source snapshot, preserved",
+    "R02": "33P final source snapshot; all fixtures synthetic, process and network mocked",
+    "ActualNugetOrDotnetCommands": "NotRun during offline preparation",
+    "SafeSdkMissingCase": "Two synthetic signatures pass before missing SDK blocks tests",
+    "TimeoutCase": "Prefix/hash retained, cleanup explicitly NotConfirmed"
+  },
+  "Protected": "All product source, lock files, runtime pins, original8workflows and existing evidence unchanged by source commit; main51d0774 unchanged; other62refs unchanged after source push",
+  "RemainingUnknowns": [
+    "Actual hosted CI scheduling/run/signature/test results without legally received raw evidence",
+    "Current manifest listsSDK401/runtime12; actual allocated runner and presence of safeSDK402 unknown",
+    "Downstream publish/package blockers untested; real Windows App acceptance/fullP6P7 NotRun",
+    "Historical image/idle/Core/Job/r10/r17/r20 causes Unknown; production image reuse Off;250600ms/source/password/integrity/cancel/cleanup gates retained",
+    "Skia4.153.1 four licenses pending; no installation/execution"
+  ],
+  "RawFiles": [
+    {
+      "Original": "artifacts/session-runtime-windows-preparation/final-offline-review.json",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-windows-ci-originals__final-offline-review.json",
+      "Bytes": 644,
+      "Sha256": "31d1041238c22d313eb71a2b1358ce170971e33025391e98a9b228b28c8c3530"
+    },
+    {
+      "Original": "artifacts/session-runtime-windows-preparation/independent-review-receipt.json",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-windows-ci-originals__independent-review-receipt.json",
+      "Bytes": 702,
+      "Sha256": "a1ddb9d566b2e904793c8ff1235ce2addc4345a9d19f4ece00b7c73ee6b04adc"
+    },
+    {
+      "Original": "artifacts/session-runtime-windows-preparation/official-path-assessment.json",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-windows-ci-originals__official-path-assessment.json",
+      "Bytes": 2554,
+      "Sha256": "f76cc0d4a467afdec987cab7f272e39574500b34b13401c8fa43c6b063186bbe"
+    },
+    {
+      "Original": "artifacts/session-runtime-windows-preparation/preserved-existing-inputs.json",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-windows-ci-originals__preserved-existing-inputs.json",
+      "Bytes": 1190,
+      "Sha256": "ecf409a882431b4c82f1b09284d733100b0acc58f4fa34c5a4783876b2b76f25"
+    },
+    {
+      "Original": "artifacts/session-runtime-windows-preparation/r01-offline-contracts.json",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-windows-ci-originals__r01-offline-contracts.json",
+      "Bytes": 1811,
+      "Sha256": "d0311e04776b20b6b9b9ac3eecb5379adfeae766963f23dca5552fe073fb5f39"
+    },
+    {
+      "Original": "artifacts/session-runtime-windows-preparation/r01-offline-contracts.log",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-windows-ci-originals__r01-offline-contracts.log",
+      "Bytes": 5012,
+      "Sha256": "749ff058465c7b621b7d5c9112f74a7a92e85aba060957e323ad1d26cb55333c"
+    },
+    {
+      "Original": "artifacts/session-runtime-windows-preparation/r02-offline-contracts.json",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-windows-ci-originals__r02-offline-contracts.json",
+      "Bytes": 1848,
+      "Sha256": "b826bfe7de5dac4f7a4cd855075e057df444f7b0a757523445cc252122fea692"
+    },
+    {
+      "Original": "artifacts/session-runtime-windows-preparation/r02-offline-contracts.log",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-windows-ci-originals__r02-offline-contracts.log",
+      "Bytes": 5539,
+      "Sha256": "0b0a563d7f642d1e101f7337016586ba25bff22b891a73fccb6a1b7be5e99702"
+    },
+    {
+      "Original": "artifacts/session-runtime-windows-preparation/remote-after-source-push.stderr",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-windows-ci-originals__remote-after-source-push.stderr",
+      "Bytes": 0,
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Original": "artifacts/session-runtime-windows-preparation/remote-after-source-push.stdout",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-windows-ci-originals__remote-after-source-push.stdout",
+      "Bytes": 5073,
+      "Sha256": "c79ea9779355b8d543889c515fb98615120cd45c5ecffb52e8c2ef51a4945d45"
+    },
+    {
+      "Original": "artifacts/session-runtime-windows-preparation/remote-before-source-push.stderr",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-windows-ci-originals__remote-before-source-push.stderr",
+      "Bytes": 0,
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Original": "artifacts/session-runtime-windows-preparation/remote-before-source-push.stdout",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-windows-ci-originals__remote-before-source-push.stdout",
+      "Bytes": 4983,
+      "Sha256": "51da9044b3c7cf8b835edcf3202ee10863b743d6fc0116cb58dd277fcff48c72"
+    },
+    {
+      "Original": "artifacts/session-runtime-windows-preparation/source-before-review.zip",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-windows-ci-originals__source-before-review.zip",
+      "Bytes": 120320,
+      "Sha256": "c15cb4869154787008b916ad4b38033740cd164220267e1e2f19f26ac7a6ca04"
+    },
+    {
+      "Original": "artifacts/session-runtime-windows-preparation/source-commit-scope.log",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-windows-ci-originals__source-commit-scope.log",
+      "Bytes": 153,
+      "Sha256": "8e2d93930d5d0a82a795a07c97db83a32f639a4e4dff6d4b1191b18d33a8e391"
+    },
+    {
+      "Original": "artifacts/session-runtime-windows-preparation/source-commit.log",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-windows-ci-originals__source-commit.log",
+      "Bytes": 0,
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Original": "artifacts/session-runtime-windows-preparation/source-delivery-verified.json",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-windows-ci-originals__source-delivery-verified.json",
+      "Bytes": 688,
+      "Sha256": "0eea094438fbf1ca6c5bc142fe10bfb610abe3df0409066c4c4cd332a58168e9"
+    },
+    {
+      "Original": "artifacts/session-runtime-windows-preparation/source-final-review.zip",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-windows-ci-originals__source-final-review.zip",
+      "Bytes": 122184,
+      "Sha256": "0eae1af4d34eb77c4b472c03a50b86cfcaf88e44ca4cc04f1b391ff2eea5ee44"
+    },
+    {
+      "Original": "artifacts/session-runtime-windows-preparation/source-push.json",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-windows-ci-originals__source-push.json",
+      "Bytes": 447,
+      "Sha256": "907bf93a23f2f8e8efe618938cc534fca563a289c597b761881de2addcec97d1"
+    },
+    {
+      "Original": "artifacts/session-runtime-windows-preparation/source-push.stderr",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-windows-ci-originals__source-push.stderr",
+      "Bytes": 329,
+      "Sha256": "1208b2d7c8e6471f9764900f377c48737423d0f46676141a33e74de2c426c965"
+    },
+    {
+      "Original": "artifacts/session-runtime-windows-preparation/source-push.stdout",
+      "Path": "docs/test-evidence/2026-10-19-session-runtime-windows-ci-originals__source-push.stdout",
+      "Bytes": 0,
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "RawCount": 20,
+  "RawBytes": 273477,
+  "RawWhitespacePreservation": {
+    "Path": "docs/test-evidence/2026-10-19-session-runtime-windows-ci-originals__source-push.stderr",
+    "Reason": "Actual git remote output contains trailing spaces; retain bytes and scope -whitespace to this exact original only. Source checks remain unchanged."
+  },
+  "IndependentPacketReview": {
+    "Reviewer": "/root/high_water_review",
+    "Mode": "ReadOnly",
+    "Result": "Pass_NoRemainingP1P2",
+    "Verified": "20originals273477B, R01/R02/11source ZIP and staged hashes; source push Exit0 and refs62to63 only added branch;23docs/attrs only; exact raw attributes; diffcheck0",
+    "WindowsCiActualResult": "Unknown",
+    "Package": "Hold"
+  }
+}
