@@ -50,6 +50,13 @@ public sealed class IsolatedSessionLayoutTests
         string path=Path.Combine(Path.GetTempPath(),component,IsolatedSessionLayout.Prefix+Guid.NewGuid().ToString("N"));
         Assert.Throws<InvalidDataException>(()=>IsolatedSessionLayout.LocalRoot(path));Assert.False(Directory.Exists(path));
     }
+    [Theory][InlineData("PUBLIC.")][InlineData("PUBLIC ")][InlineData("PUBLIC~1")][InlineData("PUBLIC:stream")]
+    public void RawWindowsAliasesCannotDisappearDuringPathNormalization(string component)
+    {
+        string path=Path.Combine(Path.GetTempPath(),component,"..",IsolatedSessionLayout.Prefix+Guid.NewGuid().ToString("N"));
+        Assert.Throws<InvalidDataException>(()=>IsolatedSessionLayout.LocalRoot(path));
+        Assert.False(Directory.Exists(path));
+    }
     [Theory][InlineData("missing")][InlineData("oversize")][InlineData("other-run")][InlineData("path-field")][InlineData("duplicate")][InlineData("malformed")][InlineData("whitespace")]
     public async Task InvalidWorkspaceMetadataNeverFallsBackOrRepairsData(string mode)
     {

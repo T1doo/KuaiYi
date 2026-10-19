@@ -29,6 +29,9 @@ internal static class IsolatedSessionLayout
     internal static string LocalRoot(string path)
     {
         if(!Path.IsPathFullyQualified(path)||path.StartsWith("\\\\",StringComparison.Ordinal)||path.StartsWith("//",StringComparison.Ordinal))throw new InvalidDataException("Dedicated local absolute session test path required.");
+        // Reject the supplied spelling before normalization can erase Windows aliases or dot segments.
+        foreach(string part in path[Path.GetPathRoot(path)!.Length..].Split(Path.DirectorySeparatorChar,Path.AltDirectorySeparatorChar))
+            if(part.EndsWith('.')||part.EndsWith(' ')||part.Contains('~')||part.Contains(':'))throw new InvalidDataException("Ambiguous session test path refused.");
         string full=Path.TrimEndingDirectorySeparator(Path.GetFullPath(path));
         if(full==Path.GetPathRoot(full)||OperatingSystem.IsWindows()&&new DriveInfo(Path.GetPathRoot(full)!).DriveType==DriveType.Network)throw new InvalidDataException("Dedicated local session test directory required.");
         foreach(string part in Path.GetRelativePath(Path.GetPathRoot(full)!,full).Split(Path.DirectorySeparatorChar,Path.AltDirectorySeparatorChar))

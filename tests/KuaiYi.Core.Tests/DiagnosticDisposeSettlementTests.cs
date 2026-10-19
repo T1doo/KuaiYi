@@ -44,7 +44,7 @@ public sealed class DiagnosticDisposeSettlementTests
         {
             Phase=phase;var root=new DirectoryInfo(AppContext.BaseDirectory);while(root!=null&&!Directory.Exists(Path.Combine(root.FullName,".git"))&&!File.Exists(Path.Combine(root.FullName,".git")))root=root.Parent;
             var assembly=Path.Combine(root!.FullName,"tools","KuaiYi.SelectionReuseDiagnostic","bin","Release","net10.0","KuaiYi.SelectionReuseDiagnostic.dll");
-            Host=new(Environment.ProcessPath!,assembly,"normal",true,phase=="startup"?new Starter(Held):null,request:new(new(42,123456,99),1,2,3,4,true),matcher:b=>b.Span.SequenceEqual(new byte[]{1,2,3}));
+            Host=new(ManagedFixtureHost.Executable,assembly,"normal",true,phase=="startup"?new Starter(Held):null,request:new(new(42,123456,99),1,2,3,4,true),matcher:b=>b.Span.SequenceEqual(new byte[]{1,2,3}));
             Host.SessionForTest.LifetimeForTest=p=>Child=new(p);Host.ReadBufferAllocatedForTest=Buffers.Enqueue;
             if(phase=="stderr")Host.StderrBufferForTest=b=>{Buffers.Enqueue(b);b.AsSpan().Fill(0x51);Held.Hold();};
             if(phase=="stdout")Host.OutputForTest=s=>new LateRead(s,Held);

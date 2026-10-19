@@ -1,0 +1,564 @@
+{
+  "Utc": "2026-10-19T09:22:29.975465+00:00",
+  "BaseCommit": "8f142b5018ce7884a7d979949d7e81d8cc7f5be8",
+  "Branch": "dev/session-runtime-signature-windows",
+  "Status": "MinimalRepairSourceReviewPass_FullRegressionFail_WindowsHold",
+  "Scope": "Raw alias guard before normalization, test-only managed host selection and real owned SDK/apphost diagnostics; preserve all original failure evidence; no second Windows CI",
+  "SourceInputs": {
+    "src/KuaiYi.App/IsolatedSessionLayout.cs": "d3950b4800560422d5626d9e683bd60ed81425eb2820c28e28c8c11961d0f10f",
+    "tests/KuaiYi.Core.Tests/IsolatedSessionLayoutTests.cs": "012a3c5927b637f6ec3a832ed58b203e5d3c3dd6f73f7dfc4edaf7d377e459eb",
+    "tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs": "4820a02e8ecff1ce780f730d5f48c79d0dbd495fa387cc98905e814c80d66c65",
+    "tests/KuaiYi.Core.Tests/DiagnosticDisposeSettlementTests.cs": "dc8283c8ed7bdd12a0f8039f9b03ed53274b56be9b2c02470516d02965b2d6ad",
+    "tests/KuaiYi.Core.Tests/ManagedFixtureHostTests.cs": "a577114cd398279532aee12e0ae8892bb1dd3ba8788ff20d16de46886b708c2f"
+  },
+  "ActualWindowsCi": {
+    "EvidenceKind": "TrustedParentNormalLoginVisibleCiBridge",
+    "SourceThread": "01a14dbf-e27d-721e-888a-587c8c296022",
+    "Run": 39226078160,
+    "Job": 117972581384,
+    "SourceCommit": "32116577a34d9f914f93dc715261e99da7d33868",
+    "RunUrl": "https://github.com/T1doo/KuaiYi/actions/runs/39226078160",
+    "JobLogUrl": "https://github.com/T1doo/KuaiYi/actions/runs/39226078160/job/117972581384#step:3:43",
+    "FinalJsonUrl": "https://github.com/T1doo/KuaiYi/actions/runs/39226078160/job/117972581384#step:3:42",
+    "RunConclusion": "Fail",
+    "RunDuration": "4m1s",
+    "JobDuration": "3m56s",
+    "RuntimeSignatures": "Pass_BothOnline",
+    "Sdk": "Pass_actual10.0.402_host10.0.13",
+    "SdkArchiveSha512": "Match",
+    "RuntimeAudit": "Exit0_NoVulnerable_ExactlyTwoNet10.0Runtime10.0.13",
+    "CoreRestore": "Locked_Exit0",
+    "CoreCommand": "dotnet test,180s timeout after actual xUnit failures; not compilation-only",
+    "CoreOutputBytes": 65376,
+    "FailMarkers": 45,
+    "FailMarkerQualification": "Output occurrences, not final unique failure count",
+    "ActualCoreTrx": "Missing",
+    "TestCounters": {},
+    "EvidenceStatus": "Incomplete",
+    "Cleanup": "NotConfirmed",
+    "FourteenGzipEvidenceFiles": "Parent verified every gzip/raw size and SHA256; bytes not yet delivered to this workspace",
+    "AppBuildPublishWindowsAppAcceptance": "NotRun",
+    "Package": "Hold",
+    "ModelCalls": "None",
+    "InitialVisibleFailures": [
+      "xUnit00:00:05.22 OleStartupDiagnosticsTests.RealOwnedStartupFailureProjectsStageExitCodeAndSettlement, Assert.True False atCleanup line130/test118",
+      "OleQueryWrittenInvestigationTests cleanup line46/test26",
+      "SelectionReuseHostTests expectedResetFailed/Protocol actualCrash line24",
+      "PUBLIC. alias unexpectedly accepted",
+      "broken-pipe/timeout ownership failures"
+    ],
+    "NoSecondWindowsSdkCiAuthorized": true,
+    "NoActionsRequestsByThisAgent": true,
+    "FullFailureList": "Pending parent extraction"
+  },
+  "ActualWindowsFailureGroups": {
+    "EvidenceKind": "TrustedParentVerifiedLogExtraction_SummaryNotRawLog",
+    "Run": 39226078160,
+    "SourceCommit": "32116577a34d9f914f93dc715261e99da7d33868",
+    "RawCoreLogExpectedBytes": 65376,
+    "RawCoreLogExpectedSha256": "cdccd22476d8a7cff884b794e4e57cce29703af51c39362351e9f02d7b9d615f",
+    "FailCalls": 45,
+    "MethodNames": 25,
+    "Qualification": "Output failure call/method occurrences, not completed suite counters",
+    "Groups": {
+      "SelectionReuseHostTests": {
+        "Calls": 25,
+        "Details": "23-46ms ActualCrash expected Completed/Protocol/ResetFailed/IdleLease etc; no underlying launcher path/exit/stderr"
+      },
+      "DesktopReceiverTests": {
+        "Calls": 9,
+        "Method": "PendingDesktopDecisionCannotOutliveRejectionOrChangedState",
+        "Details": "all action TimeoutException line132"
+      },
+      "Ole": {
+        "Calls": 2,
+        "Details": "startup cleanup130/test118 and querywritten cleanup46/test26; finally failure may mask earlier assertion"
+      },
+      "InstallationApplicationControlTests": {
+        "Calls": 1,
+        "Method": "ClaimedLaunchProofCannotBeReplayedIntoASecondApplication",
+        "Details": "Timeout133"
+      },
+      "InstallationHandoffTests": {
+        "Calls": 3,
+        "Details": "brokenpipe Receiver.Send80/Ping81; ControllerCrashAfterDurableCommitBeforeSendingAckStillLeavesAnExplicitLiveCleanupOwner162; LostCommitAckNeverRollsBackOrKillsTheAcceptedRuntime130; PostcommitCallerCancellationAndEveryOldControllerMutationAreRefusedWithoutKillingTheRuntime194"
+      },
+      "IsolatedSessionLayoutTests": {
+        "Calls": 1,
+        "Method": "WindowsAliasAndStreamSpellingsAreRefusedBeforeFilesystemAccess",
+        "Component": "PUBLIC.",
+        "Details": "no InvalidDataException51"
+      },
+      "DiagnosticDisposeSettlementTests": {
+        "Calls": 2,
+        "Details": "exit-wait Rig.PrepareHeld55 Timeout in HeldPastBudgetFailsWithOwnerRetainedAndLaterSameHostDisposeCanSettle and SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner"
+      },
+      "InstallationSessionTests": {
+        "Calls": 2,
+        "Details": "DUPLICATE_CLOSING Parent.Row57, WRONG_CLOSING Peer.Row46 Timeout"
+      }
+    },
+    "RawLogRecoveryInThisWorkspace": "Pending_InitialLocalTranscriptionInvalidBase64_NotUsedAsEvidence",
+    "NoCrashCauseClaim": "No childstderr/missing-runtime/apphost/hexexitcode/underlying exception in parent extraction"
+  },
+  "Diagnosis": {
+    "Phase": "Runtime audit/Core locked restore Exit0; xUnit failures demonstrate test execution before180s command timeout, not a pure restore/build timeout",
+    "Alias": "Original raw components were checked only after canonicalization. Actual Linux same-test-byte4F then class49P; keep raw and canonical/link/overlap checks. Windows exact PUBLIC. case not rerun.",
+    "ManagedHost": "Two tests assumed Environment.ProcessPath was dotnet. New helper requires explicit absolute DOTNET_HOST_PATH or current process actually named dotnet. Real Linux selectedSDK Exit0/default JSON vs real arbitrary apphost Exit2/empty streams demonstrates DLL-dispatch difference; actual Windows launcher path/stderr not recorded, so does not establish cause of25Crash calls.",
+    "Ole": "CleanupFalse is conjunction of multiple original settlement gates and can mask earlier try failure; no gate relaxed.",
+    "OtherWindowsGroups": "Desktop pipe/Installation handoff, application/session protocol and ownership failures not yet causally established; no blanket fix or timeout increase."
+  },
+  "ActualLinuxValidation": {
+    "r01-alias-red": {
+      "Trx": "artifacts/session-windows-core-diagnosis/r01-alias-red/_0affe84243c4_2026-10-19_09_07_05_net10.0.trx",
+      "Bytes": 14344,
+      "Sha256": "87430b3373333715927f8b2c2b63eabadbdc7e901b665d943598ba4a6b0d5eb2",
+      "Counters": {
+        "total": "4",
+        "executed": "4",
+        "passed": "0",
+        "failed": "4",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "FailedNames": [
+        "KuaiYi.Core.Tests.IsolatedSessionLayoutTests.RawWindowsAliasesCannotDisappearDuringPathNormalization(component: \"PUBLIC.\")",
+        "KuaiYi.Core.Tests.IsolatedSessionLayoutTests.RawWindowsAliasesCannotDisappearDuringPathNormalization(component: \"PUBLIC~1\")",
+        "KuaiYi.Core.Tests.IsolatedSessionLayoutTests.RawWindowsAliasesCannotDisappearDuringPathNormalization(component: \"PUBLIC:stream\")",
+        "KuaiYi.Core.Tests.IsolatedSessionLayoutTests.RawWindowsAliasesCannotDisappearDuringPathNormalization(component: \"PUBLIC \")"
+      ]
+    },
+    "r02-alias-green": {
+      "Trx": "artifacts/session-windows-core-diagnosis/r02-alias-green/_0affe84243c4_2026-10-19_09_07_24_net10.0.trx",
+      "Bytes": 70817,
+      "Sha256": "7189ddf1684009f904ab4a4eb18de42bf63fe15e6e4264bbd7f5fc981394b43f",
+      "Counters": {
+        "total": "49",
+        "executed": "49",
+        "passed": "49",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "FailedNames": []
+    },
+    "r03-targeted": {
+      "Trx": "artifacts/session-windows-core-diagnosis/r03-targeted/_0affe84243c4_2026-10-19_09_11_26_net10.0.trx",
+      "Bytes": 178016,
+      "Sha256": "4bc2ced9c23295cc5b2a4d0fa612b3b6b68a2057036c033e9110309038c307c8",
+      "Counters": {
+        "total": "119",
+        "executed": "119",
+        "passed": "118",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "FailedNames": [
+        "KuaiYi.Core.Tests.ManagedFixtureHostTests.RealSdkAndRealApphostHaveDifferentDllDispatchAndEmitOwnedProcessReceipts"
+      ]
+    },
+    "r04-core-full": {
+      "Trx": "artifacts/session-windows-core-diagnosis/r04-core-full/_0affe84243c4_2026-10-19_09_14_08_net10.0.trx",
+      "Bytes": 2738923,
+      "Sha256": "b9a50b43187ec237b98851b2efbe1ea58e5a140b628a9807335d2518c7cf640d",
+      "Counters": {
+        "total": "1918",
+        "executed": "1918",
+        "passed": "1918",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "FailedNames": [],
+      "Parent1904AllNamesRetained": true,
+      "AddedCases": 14
+    },
+    "r05-core-final": {
+      "Trx": "artifacts/session-windows-core-diagnosis/r05-core-final/_0affe84243c4_2026-10-19_09_15_52_net10.0.trx",
+      "Bytes": 2740609,
+      "Sha256": "e3d84f6f4a51ef6bdbd2f7feb0766946cd996e476a3599ee6ec209c332518f40",
+      "Counters": {
+        "total": "1918",
+        "executed": "1918",
+        "passed": "1917",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "FailedNames": [
+        "KuaiYi.Core.Tests.InstallationSessionTests.ChangedExactRecordsAreRetainedEvenAfterCleanActualExit(record: \"current.json\")"
+      ],
+      "Parent1904AllNamesRetained": true,
+      "AddedCases": 14
+    },
+    "r06-same-dll-health-diagnostic": {
+      "Trx": "artifacts/session-windows-core-diagnosis/r06-same-dll-health-diagnostic/_0affe84243c4_2026-10-19_09_18_01_net10.0.trx",
+      "Bytes": 7296,
+      "Sha256": "156234d689edc92910a709b5e7b5e5eeef4d115c414ac7bdd8db034ee8572a63",
+      "Counters": {
+        "total": "3",
+        "executed": "3",
+        "passed": "3",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "FailedNames": []
+    }
+  },
+  "ValidationQualifications": {
+    "R01R02AliasTestFileByteIdentical": true,
+    "R03": "118P1F; new diagnostic compared JSON dictionary order. Preserve this harness failure, fixed by structural exact-value comparison. Source ZIP omits new untracked helper, so not complete input binding.",
+    "R04": "1918P before final two partial-setup retention corrections; cannot replace finalr05",
+    "R05": "Final531inputs exact;1904old case names retained+14new allPass. Complete1917P1F0skip, not pass. Failure Healthy wait atline192 before current.json rewrite; actual rootUnknown.",
+    "R06": "Same r05 DLL no-build diagnostic3P, not a new full pass or root-cause fix. Three DLL hashes belong tor06 timing, not r05 presampling.",
+    "R07": "Actual isolatedApp Linux crossbuild Exit0/0W/0E, no restore/publish/WindowsApp/model. Output28file hashes sampled afterbuild."
+  },
+  "IndependentSourceAndResultReview": "Pass_NoRemainingP1P2, /root/high_water_review; source review does not assert full regression or Windows product acceptance",
+  "RawWindowsCoreLogRecovery": {
+    "Status": "Incomplete",
+    "ExpectedBytes": 65376,
+    "ExpectedSha256": "cdccd22476d8a7cff884b794e4e57cce29703af51c39362351e9f02d7b9d615f",
+    "ParentVerified": "14gzip/raw records verified in authorized normal-login browser",
+    "Local": "Long base64 local transcription failed integrity; not used as raw evidence or represented as recovered log. Initial transcription and attempted correction retained in ignored artifacts.",
+    "Needed": "Exact small independently hashed chunks or file bridge; no Actions retry/alternate route."
+  },
+  "NextMinimum": {
+    "NoMoreCiNow": true,
+    "LinuxHealthFailure": "On recurrence observe original RunActiveSessionAsync terminal task alongside Healthy, retain owned child/IO receipt; do not infer current.json rewrite failure or increase budget",
+    "Windows": "After separate parent confirmation, first record actual current testhost/selected executable/SDK host and bounded owned stderr/exit/task receipts, then exact affected/full suites; no automatic rerun",
+    "Package": "Hold"
+  },
+  "Protected": {
+    "InputsUnchanged": {
+      ".github/workflows/windows-configure-accounting.yml": "a040d806703163abac32cb3111123039e367c93b756d138f0b5c4ddaa2fb3824",
+      ".github/workflows/windows-configure-bridge.yml": "ea16217b863b25c9d4f5b2e16d34efb2cf55e984cb84a13706c5f6df17230ba2",
+      ".github/workflows/windows-configure-embedded.yml": "fef5400b6f6693498f622c8597b90970e6f00f32f7169fc2b90bb75189d2b450",
+      ".github/workflows/windows-configure-files.yml": "5881548630c16575f2a7e5cdcbeb91f4955247f5d2404995371194785044781d",
+      ".github/workflows/windows-configure-only.yml": "f7771f23b94fa0383660252a3ea6534762d86d4e6c48453632eb8ff81764e39f",
+      ".github/workflows/windows-contracts.yml": "0e7789bf268a83f439fb6e3df44ce94d5918c4f2bba52e11e1f024780b20455b",
+      ".github/workflows/windows-job-member-fixture.yml": "f4a1d464a99525e47b69897bebff4d7550d747b373075dde123c4dd0eb86b24d",
+      ".github/workflows/windows-lifecycle-validation.yml": "47eb6293dbd63f775bc1855fd5d030e3482ff269b10778a2692edf52175f53a5",
+      ".github/workflows/windows-session-runtime.yml": "559c86dc577f4335462f2eb06a4b9b90164761bd30447436d12d669b976d9096",
+      "Directory.Build.props": "536d20ddd475b27b5f69f4a3b36c928a314f465d74d666d77c6ac120a7121d15",
+      "Directory.Packages.props": "af316a454bb6ed7b94283acd47ba7d61f34b1a97e6a3e124a453d23397cf02f3",
+      "NuGet.Config": "52c7f96825b0a216601d0e9a2744ddc7bc2cee304261e3daf8c06bf34b8134ec",
+      "global.json": "81ae2087dbfb46027fd94748351fb4b1ab24145fbb52544a2822bf128e2e48f1",
+      "packaging/session-runtime-audit/packages.lock.json": "5f591739b83308b9fa7d09ccd08b789245bd072d48a26b6294bf7f14ffb43141",
+      "packaging/text-alpha-locks/KuaiYi.App.packages.lock.json": "f669bdee7a7c6d23ad59fd0993df4b2ceb62f3c711dcaea8b5d16d0ccdb4feed",
+      "packaging/text-alpha-locks/KuaiYi.CaptureBroker.packages.lock.json": "a0d9e1037d08cba43eaaad80b2476e6106195757041a2a6001d05bb13dce8cd2",
+      "packaging/text-alpha-locks/KuaiYi.ClipboardHost.packages.lock.json": "a0d9e1037d08cba43eaaad80b2476e6106195757041a2a6001d05bb13dce8cd2",
+      "packaging/text-alpha-locks/KuaiYi.CompatibilityProbe.packages.lock.json": "a0d9e1037d08cba43eaaad80b2476e6106195757041a2a6001d05bb13dce8cd2",
+      "packaging/text-alpha-locks/KuaiYi.Contracts.packages.lock.json": "8d84b21d9bedd16f93b526ec5aa5d9b49b034646d5463195d58ba4617420bc1f",
+      "packaging/text-alpha-locks/KuaiYi.Core.packages.lock.json": "8d84b21d9bedd16f93b526ec5aa5d9b49b034646d5463195d58ba4617420bc1f",
+      "packaging/text-alpha-locks/KuaiYi.GrowthHarness.packages.lock.json": "06b40edd125cc1c302c8c5ef7a358cf4380e6cc31fdadd1ede7b205f21184e04",
+      "packaging/text-alpha-locks/KuaiYi.Imaging.packages.lock.json": "ab06c9597225dbe1914027a4726890467b461d6e891645c442d1d764b8431d4d",
+      "packaging/text-alpha-locks/KuaiYi.MockProvider.packages.lock.json": "a1d091f0a56c469e0ee557881ce5fb4f83ce3a007b35207f5733cdd7a81de15e",
+      "packaging/text-alpha-locks/KuaiYi.NativeHost.packages.lock.json": "3adbbf52da4dcf4b68f0257d2325bfd0a8e29d1a135716549c7ee86eecbea3fa",
+      "packaging/text-alpha-locks/KuaiYi.OleTransfer.packages.lock.json": "ab06c9597225dbe1914027a4726890467b461d6e891645c442d1d764b8431d4d",
+      "packaging/text-alpha-locks/KuaiYi.Providers.packages.lock.json": "ae858d5dda8e1552b1117221e2601d30f6439fbb794ef9dd6d8d5f82a1061e81",
+      "packaging/text-alpha-locks/KuaiYi.Windows.packages.lock.json": "5a41b89a78360efec84fd71e504c96618af15df61d64c51e0ea68de5936b2ccb",
+      "scripts/install-session-sdk-windows.py": "9fc99b980302cc1677cc2bd988bc438e46d72fe4a264221e68740189dafc33f2",
+      "scripts/prepare-session-test.py": "c1b279f94ec26beb9782dbf160fdd6c050780819b9a80fbb1f199ab1756523b1",
+      "scripts/session-sdk.py": "6209f4f228c2407da16d00494df34c08b40ac3861e97e5f4731372840251e85c",
+      "scripts/verify-session-runtime-windows.py": "5681177c93aede19777f090095583b268ceec07def5632863348aec4af8e1c26"
+    },
+    "AllNineWorkflowsAndRunnerInstallerPolicies": "Unchanged",
+    "CiTrigger": "OwnYAML path unchanged; normal source/docs push cannot match dedicatedCI path; no second job requested",
+    "NoProductAllowlistOrSecurityOrBudgetChanges": true,
+    "NoMainForceDeployPublishFeesSkiaOrRealModels": true,
+    "HistoricalCauses": "Unknown, including current Windows failures and Linux Healthy timeout; image intermittent not reported fixed",
+    "ProductionImageReuse": "Off",
+    "Gates": "250/600ms/source/password/integrity/cancel/cleanup retained",
+    "RealWpfKeyboardWindowsAppModelAcceptance": "NotRun"
+  },
+  "RawOriginals": [
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/actual-managed-dispatch-receipts.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__actual-managed-dispatch-receipts.json",
+      "Bytes": 3865,
+      "Sha256": "7384c2bab25b5cceae4f842ceeab338942cc66fae1bcd53645fa0adbdb91950c"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/final-validation-and-preservation.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__final-validation-and-preservation.json",
+      "Bytes": 10980,
+      "Sha256": "2f14cbfa90db2f87cdf4f07e10fd9096ae79a5faafdf748e4077a114ccf4c3d4"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/independent-source-and-result-review.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__independent-source-and-result-review.json",
+      "Bytes": 1157,
+      "Sha256": "861a743f82f6b31ebe1a5d820be2f58863b086d43c3e8c89de12e5cfa102afbe"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/isolated-app-output-postbuild-sampling.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__isolated-app-output-postbuild-sampling.json",
+      "Bytes": 3449,
+      "Sha256": "a5337c37b1dc294e133b08a3dcaff94b09054bfdeaee0f4404ce7c8c9f8a22d0"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/parent-bridge-initial.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__parent-bridge-initial.json",
+      "Bytes": 1921,
+      "Sha256": "b3ec4f5c9a736c6ae8a5c19ea83134c9973177767b123ac0bd882d6bfb5c9490"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/parent-failure-groups.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__parent-failure-groups.json",
+      "Bytes": 2361,
+      "Sha256": "8c4a7762a815fffa2028e7f5a81c07ae53ec181da1d9c69f5a39c2baa93db2c4"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r01-alias-red/_0affe84243c4_2026-10-19_09_07_05_net10.0.trx",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r01-alias-red___0affe84243c4_2026-10-19_09_07_05_net10.0.trx",
+      "Bytes": 14344,
+      "Sha256": "87430b3373333715927f8b2c2b63eabadbdc7e901b665d943598ba4a6b0d5eb2"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r01-alias-red-sources.zip",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r01-alias-red-sources.zip",
+      "Bytes": 1100500,
+      "Sha256": "fa91d09e1ea54d71207b31f6844ddde6bf52056f6f31222d093e44fab3722642"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r01-alias-red.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r01-alias-red.json",
+      "Bytes": 65629,
+      "Sha256": "359a74baec20adf6ccd8e1af09f2f43e93bd68dc4ef6464521f382d2985cc179"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r01-alias-red.log",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r01-alias-red.log",
+      "Bytes": 5724,
+      "Sha256": "50c1a22babd0c7afb71201949432e8ae4ccaba7064d6134aad6e924415d6b52f"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r02-alias-green/_0affe84243c4_2026-10-19_09_07_24_net10.0.trx",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r02-alias-green___0affe84243c4_2026-10-19_09_07_24_net10.0.trx",
+      "Bytes": 70817,
+      "Sha256": "7189ddf1684009f904ab4a4eb18de42bf63fe15e6e4264bbd7f5fc981394b43f"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r02-alias-green-sources.zip",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r02-alias-green-sources.zip",
+      "Bytes": 1100583,
+      "Sha256": "cc6cb48ddaa556753ab893d5b775f3f230e6f3c4911c477e868bdd3d0fbaf0b6"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r02-alias-green.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r02-alias-green.json",
+      "Bytes": 65604,
+      "Sha256": "9175dd222b51422fe706bf692f34563d799da29f2572a87046df8fa04ac163a8"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r02-alias-green.log",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r02-alias-green.log",
+      "Bytes": 2120,
+      "Sha256": "c4a144c0096c3eed1da408304501f4bf69f8630a44ae2558bbbc7fffd086838d"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r03-targeted/_0affe84243c4_2026-10-19_09_11_26_net10.0.trx",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r03-targeted___0affe84243c4_2026-10-19_09_11_26_net10.0.trx",
+      "Bytes": 178016,
+      "Sha256": "4bc2ced9c23295cc5b2a4d0fa612b3b6b68a2057036c033e9110309038c307c8"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r03-targeted-sources.zip",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r03-targeted-sources.zip",
+      "Bytes": 1100574,
+      "Sha256": "0dbe571ca82ffcc37584841285ee1eb62a6a0afa6957f8486c168fa66c657d7b"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r03-targeted.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r03-targeted.json",
+      "Bytes": 65736,
+      "Sha256": "310cf60ad0de7d1f6cdb39a7a7fb48ce5065b815edf343324abd0f3911d5f25b"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r03-targeted.log",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r03-targeted.log",
+      "Bytes": 6504,
+      "Sha256": "a2467ff59c635f14af8871129406857dec1f45bb55c9f9947cbf21029dfba9f6"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r04-core-full/_0affe84243c4_2026-10-19_09_14_08_net10.0.trx",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r04-core-full___0affe84243c4_2026-10-19_09_14_08_net10.0.trx",
+      "Bytes": 2738923,
+      "Sha256": "b9a50b43187ec237b98851b2efbe1ea58e5a140b628a9807335d2518c7cf640d"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r04-core-full-sources.zip",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r04-core-full-sources.zip",
+      "Bytes": 1103381,
+      "Sha256": "ad12aebf56745801098730ad2c8e30f6a39e39f6ae8b15e6b9496714070a837d"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r04-core-full.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r04-core-full.json",
+      "Bytes": 65657,
+      "Sha256": "b0a70920ddd02d6a6540d7c8aec6e2bc4fc9213c04ef5235d051b57f595c8f13"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r04-core-full.log",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r04-core-full.log",
+      "Bytes": 2116,
+      "Sha256": "67069ab073c86d6d14892b8946d30f0840c97030e37b664d606cbe674a953dc6"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r05-core-final/_0affe84243c4_2026-10-19_09_15_52_net10.0.trx",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r05-core-final___0affe84243c4_2026-10-19_09_15_52_net10.0.trx",
+      "Bytes": 2740609,
+      "Sha256": "e3d84f6f4a51ef6bdbd2f7feb0766946cd996e476a3599ee6ec209c332518f40"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r05-core-final-sources.zip",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r05-core-final-sources.zip",
+      "Bytes": 1103372,
+      "Sha256": "e51d9148213073abc26635898671264d33c0b1d6f9f30b65a6b71e15fbe63cfa"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r05-core-final.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r05-core-final.json",
+      "Bytes": 65659,
+      "Sha256": "4e915e39e3101ba6d38151ef99399f1e0ad443db8e7395551bedcc78488d9e63"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r05-core-final.log",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r05-core-final.log",
+      "Bytes": 3204,
+      "Sha256": "b17c5bcb4e62244d7953a7008fa25f47c2e10e87af911763ff602f3874ef4521"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r06-same-dll-health-diagnostic/_0affe84243c4_2026-10-19_09_18_01_net10.0.trx",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r06-same-dll-health-diagnostic___0affe84243c4_2026-10-19_09_18_01_net10.0.trx",
+      "Bytes": 7296,
+      "Sha256": "156234d689edc92910a709b5e7b5e5eeef4d115c414ac7bdd8db034ee8572a63"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r06-same-dll-health-diagnostic.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r06-same-dll-health-diagnostic.json",
+      "Bytes": 1323,
+      "Sha256": "ab90b3e7ddce046e0832b0146f4757e780249f39cfa24dcdc769c4278e7f5283"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r06-same-dll-health-diagnostic.log",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r06-same-dll-health-diagnostic.log",
+      "Bytes": 453,
+      "Sha256": "9dfec1e82d004551dfbdb5c62f4222c48e6e81a05fb2b820715027912beb7e30"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r07-isolated-app-build.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r07-isolated-app-build.json",
+      "Bytes": 1008,
+      "Sha256": "593df011508e0a77c827c4d50aa95e03cec2d3c9eb9d0f31790b27a010d9ef74"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/r07-isolated-app-build.log",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__r07-isolated-app-build.log",
+      "Bytes": 1020,
+      "Sha256": "5357a54bbf07a9ba9780ac7cace4da649f31390bd89c5fbc8fbb58c14d36ff68"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/remote-before-repair-push.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__remote-before-repair-push.json",
+      "Bytes": 231,
+      "Sha256": "df4e9eb5db0e77d5736b27e7d7f9dcb54e872ff7144dc75e57cfe6ec0d78c5fd"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/remote-before-repair-push.stderr",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__remote-before-repair-push.stderr",
+      "Bytes": 0,
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/remote-before-repair-push.stdout",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__remote-before-repair-push.stdout",
+      "Bytes": 5073,
+      "Sha256": "0a6d548b5ff87dbc686636f670f972c0ecccefe0e885ca3cea44f6164705f772"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/run-check.py",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__run-check.py",
+      "Bytes": 2433,
+      "Sha256": "01a3e41f6e58c1549bd2ac659e89247bfab644c89a33a6097027ecce973650e5"
+    },
+    {
+      "Original": "artifacts/session-windows-core-diagnosis/transcription-integrity-attempt.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-core-diagnosis-originals__transcription-integrity-attempt.json",
+      "Bytes": 289,
+      "Sha256": "ff507f64dea39df01c4e2b535725ef97aac73fd9872ce98593310ffc07fcd2fd"
+    }
+  ],
+  "RawCount": 36,
+  "RawBytes": 11641931,
+  "IndependentPacketReview": {
+    "Utc": "2026-10-19T09:25:23.210417+00:00",
+    "Reviewer": "/root/high_water_review",
+    "Mode": "ReadOnly",
+    "Verdict": "PacketPass_NoRemainingP1P2",
+    "Verified": "36raw11641931B artifact/worktree/index bytes/size/SHA match;5ZIP bindings;final531inputs matchindex;exact46paths/no unstageddiff/diffcheck0;31protected inputs and9workflows unchanged;1904old names retained+14new allPass;final1917P1F not pass;r06threePassdiagnostic only;r07isolatedApp0W/E/28postbuild outputs;unrecoveredWindows raw and Unknown causes/Hold accurately stated",
+    "SdkNetworkCiExecutionByReviewer": "NotRun"
+  }
+}

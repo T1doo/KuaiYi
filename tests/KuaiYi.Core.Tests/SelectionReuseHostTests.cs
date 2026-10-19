@@ -10,7 +10,7 @@ public class SelectionReuseHostTests
 {
     private static string ChildAssembly()
     {var root=new DirectoryInfo(AppContext.BaseDirectory);while(root!=null&&!Directory.Exists(Path.Combine(root.FullName,".git"))&&!File.Exists(Path.Combine(root.FullName,".git")))root=root.Parent;return Path.Combine(root!.FullName,"tools","KuaiYi.SelectionReuseDiagnostic","bin","Release","net10.0","KuaiYi.SelectionReuseDiagnostic.dll");}
-    private static ReuseDiagnosticHost Host(string scenario="normal",IOwnedProcessStarter? starter=null)=>new(Environment.ProcessPath!,ChildAssembly(),scenario,true,starter,request:Spec(),matcher:bytes=>bytes.Span.SequenceEqual(new byte[]{1,2,3}));
+    private static ReuseDiagnosticHost Host(string scenario="normal",IOwnedProcessStarter? starter=null)=>new(ManagedFixtureHost.Executable,ChildAssembly(),scenario,true,starter,request:Spec(),matcher:bytes=>bytes.Span.SequenceEqual(new byte[]{1,2,3}));
     private static DiagnosticRequest Spec()=>new(new(42,123456,99),1,2,3,4,true);
     private static async Task Settle(ReuseDiagnosticHost host)
     {var watch=Stopwatch.StartNew();while(!await host.TrySettleAsync()){if(watch.Elapsed>TimeSpan.FromSeconds(3))throw new TimeoutException();await Task.Delay(10);}}

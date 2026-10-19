@@ -1,5 +1,7 @@
 # 已批准的 Windows SDK402 临时 CI
 
+后续真实结果：本次run39226078160已Fail，SDK／在线签名／审计已通过，Core进入测试后失败并超时。下文保留投递时Unknown状态，最新诊断、有限修复及完整回归失败见[后续记录](session-windows-core-diagnosis.md)。
+
 用户于2026-10-19 16:31北京明确“接受”固定Windows归档LICENSE（Sentinel_e978556d48a48191aa940cf146bdb928），此前这一份具体条款的Pending已解除。源码 `32116577a34d9f914f93dc715261e99da7d33868` 经独立审查Pass后，已一次普通推送 `dev/session-runtime-signature-windows`，精确父为 `6df5f910e7429fde02c8e02c9ce53c953f668094`。远端63heads仅该分支前进，其余62含main `51d077481cf6303602fcf5d2718213da9cf05178` 不变。
 
 安装器固定官方WindowsSDK10.0.402 ZIP300755826B、完整SHA512及已接受LICENSE/notices SHA256，HTTP层拒redirect，无重试／换源；全归档Windows名称／路径／类型／重名／symlink-reparse／加密／条目数／展开大小检查及许可／13metadata核对，均先于创建fresh SDK目录。现有官方ZIP已实际只读通过5577条目与807617264B展开量预检，没有本机解包或执行WindowsSDK。原双runtime正常在线验签先行，安装后原安全SDK静态门先于任何dotnet；仅子进程SDK／缓存／CLI环境，继续原locked restore／audit-all-low／warnings-errors、完整Core／Provider及默认App／隔离App／ImageWorker构建，失败即停。

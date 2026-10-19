@@ -1129,3 +1129,14 @@ Windows/WPF/实际Dispatcher/STA/可见健康/键盘/Console stdin取消/Job/OCR
 本轮六文件源码精确父6df5f91、attempt1、Public标准windows-2022、job15／step14分钟，源码独审后仅一次正常push请求新CI；不重跑旧job，不请求Forbidden CLI/API或blobmetadata。新真实结果在父级合法桥接前Unknown，Package Hold保持。生产C#／锁／8旧workflow／全部历史原件不动，图片间歇根因仍Unknown，复用Off和250/600ms／来源／密码／完整性／取消／清理门及真实WPF／模型／完整P6P7未验收边界保持。
 
 独立源码审查Pass后，32116577a34d9f914f93dc715261e99da7d33868已单次普通推送，同63heads仅该分支从6df5f91前进，main与其余62refs不变。红绿为旧39例1F→最终51P；最终主反例追加3断言，不称同方法字节红绿。源码ZIP／19输入hash／归档预检／独审消息／批准与投递原件见[索引](test-evidence/2026-10-19-session-windows-sdk-ci.json)和[交付记录](validation/session-windows-sdk-ci.md)。新实际CI链接、SDK／全测试／三构建仍Unknown，待父级正常登录桥接完整JSON及分片raw/gzip双hash核验；Package Hold，无本机Actions查询或自动重试。此证据提交仅docs/.gitattributes，不再改变专用YAML，不再次投递本专用CI。
+
+
+## 2026-10-19 · Windows Core真实失败后的最小诊断与修复
+
+父级正常登录核实source32116577的run39226078160/job117972581384 Fail：两在线签名／job SDK402-host13／runtime库存audit／Corelockedrestore Pass，进入xUnit后45失败调用／25方法（非最终计数）再180秒超时，无CoreTRX，EvidenceIncomplete／cleanupNotConfirmed，包Hold；后续专门AppWorker构建门／publish／真实App模型NotRun。没有本机Actions读取、第二次CI或加时。
+
+五源最小变化：原路径组件先于GetFullPath检查，四同字节别名反例实际4F→布局49P；两旧测试不再把Environment.ProcessPath当dotnet，测试专用选择器只用明确绝对SDKhost或当前确为dotnet。新增真实Linux SDK／已有apphost派发公开fixture对照Exit0／2，保留bounded输出hash／exit／原任务收据，未结算实际owner原task不释放；不能据此认定WindowsCrash根因。生产环境白名单、预算、清理门不改。
+
+r03新诊断JSON字典顺序断言118P1F及漏untracked快照如实保留，结构比较修正；r04完整1918P不替代两处最终探针归属修正后的r05完整1917P1F0skip。531最终源绑定，父1904全名保留+14新增全P；旧Healthy等待8.015秒在current.json改写前超时，cleanup137／IOSettled有据，根因Unknown。r06同DLL定向3P仅诊断，不作完整绿或修复；r07隔离App实际交叉构建0W/E。独立源码／结果审查Pass，整体回归Fail与包Hold保持。长base64本地转录未过hash，未当CI原件；可信父级摘录与分组另有明确来源。九workflow／安装runner／锁及全部保护不改，普通push不命中专用YAML，不再投递第二次SDKCI。详见[诊断报告](validation/session-windows-core-diagnosis.md)与[成功／失败原件索引](test-evidence/2026-10-19-session-windows-core-diagnosis.json)。
+
+封存独立审查Pass：36份原件11,641,931B／五ZIP／最终531输入／46精确路径与31保护输入已核，完整回归仍1917P1F，包Hold；无第二次WindowsSDK CI请求。

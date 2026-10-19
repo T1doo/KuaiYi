@@ -1,0 +1,31 @@
+{
+  "StartUtc": "2026-10-19T09:18:44.174171+00:00",
+  "EndUtc": "2026-10-19T09:19:00.080346+00:00",
+  "Argv": [
+    "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+    "build",
+    "src/KuaiYi.App/KuaiYi.App.csproj",
+    "--no-restore",
+    "-c",
+    "Release",
+    "-m:1",
+    "-nr:false",
+    "-p:UseSharedCompilation=false",
+    "-p:EnableWindowsTargeting=true",
+    "-p:RuntimeFrameworkVersion=10.0.13",
+    "-p:KuaiYiIsolatedSessionTest=true",
+    "-o",
+    "/workspace/KuaiYi/artifacts/session-windows-core-diagnosis/isolated-app-build"
+  ],
+  "Exit": 0,
+  "Source": {
+    "src/KuaiYi.App/IsolatedSessionLayout.cs": "d3950b4800560422d5626d9e683bd60ed81425eb2820c28e28c8c11961d0f10f"
+  },
+  "SourceUnchangedDuringRun": true,
+  "SafeSdk": "10.0.402",
+  "SafeHost": "10.0.13",
+  "Platform": "Linux_CrossBuildOnly",
+  "WindowsAppExecution": "NotRun",
+  "NoRestoreOrPublishRequested": true,
+  "LogSha256": "5357a54bbf07a9ba9780ac7cace4da649f31390bd89c5fbc8fbb58c14d36ff68"
+}

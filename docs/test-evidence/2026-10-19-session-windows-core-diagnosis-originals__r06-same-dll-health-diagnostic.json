@@ -1,0 +1,29 @@
+{
+  "StartUtc": "2026-10-19T09:17:58.810994+00:00",
+  "EndUtc": "2026-10-19T09:18:01.144132+00:00",
+  "Argv": [
+    "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+    "test",
+    "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+    "--no-build",
+    "--no-restore",
+    "-c",
+    "Release",
+    "--logger",
+    "trx",
+    "--results-directory",
+    "/workspace/KuaiYi/artifacts/session-windows-core-diagnosis/r06-same-dll-health-diagnostic",
+    "--filter",
+    "FullyQualifiedName~ChangedExactRecordsAreRetainedEvenAfterCleanActualExit"
+  ],
+  "Exit": 0,
+  "SameBinaryBeforeAfter": {
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll": "0641dffada811e9ef8cc37db65c92be73c5e4b5ea3d816e7dce38844c02576e4",
+    "src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll": "6ef551d783bc694294c47d87f506e34322eb1a20b5910ef584c65abd1bf92426",
+    "tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll": "1f245e43bacce9f9867c81a5587c221767b030d6e379c256c0fa350c98bdbb47"
+  },
+  "SourceAndBinaryEditsDuringRun": false,
+  "Purpose": "Failure diagnosis only; green cannot replace final complete r05 failure or establish its cause",
+  "WindowsExecution": "NotRun",
+  "LogSha256": "9dfec1e82d004551dfbdb5c62f4222c48e6e81a05fb2b820715027912beb7e30"
+}

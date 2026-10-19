@@ -1,0 +1,50 @@
+{
+  "EvidenceKind": "TrustedParentVerifiedLogExtraction_SummaryNotRawLog",
+  "Run": 39226078160,
+  "SourceCommit": "32116577a34d9f914f93dc715261e99da7d33868",
+  "RawCoreLogExpectedBytes": 65376,
+  "RawCoreLogExpectedSha256": "cdccd22476d8a7cff884b794e4e57cce29703af51c39362351e9f02d7b9d615f",
+  "FailCalls": 45,
+  "MethodNames": 25,
+  "Qualification": "Output failure call/method occurrences, not completed suite counters",
+  "Groups": {
+    "SelectionReuseHostTests": {
+      "Calls": 25,
+      "Details": "23-46ms ActualCrash expected Completed/Protocol/ResetFailed/IdleLease etc; no underlying launcher path/exit/stderr"
+    },
+    "DesktopReceiverTests": {
+      "Calls": 9,
+      "Method": "PendingDesktopDecisionCannotOutliveRejectionOrChangedState",
+      "Details": "all action TimeoutException line132"
+    },
+    "Ole": {
+      "Calls": 2,
+      "Details": "startup cleanup130/test118 and querywritten cleanup46/test26; finally failure may mask earlier assertion"
+    },
+    "InstallationApplicationControlTests": {
+      "Calls": 1,
+      "Method": "ClaimedLaunchProofCannotBeReplayedIntoASecondApplication",
+      "Details": "Timeout133"
+    },
+    "InstallationHandoffTests": {
+      "Calls": 3,
+      "Details": "brokenpipe Receiver.Send80/Ping81; ControllerCrashAfterDurableCommitBeforeSendingAckStillLeavesAnExplicitLiveCleanupOwner162; LostCommitAckNeverRollsBackOrKillsTheAcceptedRuntime130; PostcommitCallerCancellationAndEveryOldControllerMutationAreRefusedWithoutKillingTheRuntime194"
+    },
+    "IsolatedSessionLayoutTests": {
+      "Calls": 1,
+      "Method": "WindowsAliasAndStreamSpellingsAreRefusedBeforeFilesystemAccess",
+      "Component": "PUBLIC.",
+      "Details": "no InvalidDataException51"
+    },
+    "DiagnosticDisposeSettlementTests": {
+      "Calls": 2,
+      "Details": "exit-wait Rig.PrepareHeld55 Timeout in HeldPastBudgetFailsWithOwnerRetainedAndLaterSameHostDisposeCanSettle and SameDisposeWaitsForHeldSettlementAndOnlyThenReleasesRealOwner"
+    },
+    "InstallationSessionTests": {
+      "Calls": 2,
+      "Details": "DUPLICATE_CLOSING Parent.Row57, WRONG_CLOSING Peer.Row46 Timeout"
+    }
+  },
+  "RawLogRecoveryInThisWorkspace": "Pending_InitialLocalTranscriptionInvalidBase64_NotUsedAsEvidence",
+  "NoCrashCauseClaim": "No childstderr/missing-runtime/apphost/hexexitcode/underlying exception in parent extraction"
+}

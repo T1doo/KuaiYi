@@ -1,0 +1,35 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.SelectionReuseDiagnostic -> /workspace/KuaiYi/tools/KuaiYi.SelectionReuseDiagnostic/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.96]     KuaiYi.Core.Tests.ManagedFixtureHostTests.RealSdkAndRealApphostHaveDifferentDllDispatchAndEmitOwnedProcessReceipts [FAIL]
+  Failed KuaiYi.Core.Tests.ManagedFixtureHostTests.RealSdkAndRealApphostHaveDifferentDllDispatchAndEmitOwnedProcessReceipts [279 ms]
+  Error Message:
+   Assert.Equal() Failure: Strings differ
+                                   ↓ (pos 1105)
+Expected: ···"  "hotkeys": {\n    "captureRegion": "Ctrl"···
+Actual:   ···"  "hotkeys": {\n    "toggleResult": "Ctrl\\"···
+                                   ↑ (pos 1105)
+  Stack Trace:
+     at KuaiYi.Core.Tests.ManagedFixtureHostTests.RealSdkAndRealApphostHaveDifferentDllDispatchAndEmitOwnedProcessReceipts() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/ManagedFixtureHostTests.cs:line 54
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ PUBLIC_MANAGED_CHILD {"Executable":"/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet","ExecutableSha256":"8B3D902364F618E31E029D4EBA077D52C141DD641E375F4555715604806E44B6","CurrentProcess":"/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet","DeclaredHost":"/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet","Exit":0,"ExitConfirmed":true,"Stdout":{"Bytes":1459,"Sha256":"8630337EDD82F25DE60D21F3A02722407C0FAAB8A4DA385AB5EC55F532FE7CAC","Prefix":"{\n  \u0022schemaVersion\u0022: 1,\n  \u0022writeId\u0022: \u002200000000-0000-0000-0000-000000000000\u0022,\n  \u0022activeProfileId\u0022: null,\n  \u0022visionProfileId\u0022: null,\n  \u0022triggerMode\u0022: \u0022Selection\u0022,\n  \u0022profiles\u0022: [],\n  \u0022translation\u0022: {\n    \u0022preset\u0022: \u0022Faithful\u0022,\n    \u0022targetLanguage\u0022: \u0022zh-CN\u0022,\n    \u0022domain\u0022: \u0022\u0022,\n    \u0022readerBackground\u0022: \u0022\u0022,\n    \u0022customTemplates\u0022: {},\n    \u0022selectionDebounceMs\u0022: 180,\n    \u0022autoSoftLimitScalars\u0022: 12000,\n    \u0022hardLimitScalars\u0022: 50000\n  },\n  \u0022overlay\u0022: {\n    \u0022fontSizeDip\u0022: 15,\n    \u0022preferredWidthDip\u0022: 420,\n    \u0022reduceMotion\u0022: \u0022FollowSystem\u0022,\n    \u0022theme\u0022: \u0022FollowSystem\u0022,\n    \u0022rememberPosition\u0022: true,\n    \u0022lastPosition\u0022: null,\n    \u0022showSource\u0022: false,\n    \u0022memoryVersions\u0022: 3\n  },\n  \u0022images\u0022: {\n    \u0022smartRouting\u0022: true,\n    \u0022previewScreenshotBeforeSend\u0022: false,\n    \u0022mixedContentExplain\u0022: true,\n    \u0022defaultLongEdgePixels\u0022: 2560,\n    \u0022maxPreparedBytes\u0022: 4194304\n  },\n  \u0022privacy\u0022: {\n    \u0022persistHistory\u0022: false,\n    \u0022clipboardFallbackDefault\u0022: false,\n    \u0022telemetryEnabled\u0022: false,\n    \u0022blockedApplications\u0022: [],\n    \u0022clipboardAllowedApplications\u0022: [],\n    \u0022consentedEndpointOrigins\u0022: []\n  },\n  \u0022hotkeys\u0022: {\n    \u0022toggleResult\u0022: \u0022Ctrl\\u002BAlt\\u002BSpace\u0022,\n    \u0022captureRegion\u0022: \u0022Ctrl\\u002BAlt\\u002BS\u0022,\n    \u0022focusResult\u0022: null,\n    \u0022translateSelection\u0022: \u0022Ctrl\\u002BAlt\\u002BD\u0022,\n    \u0022regenerate\u0022: \u0022Ctrl\\u002BAlt\\u002BR\u0022,\n    \u0022stopGeneration\u0022: null,\n    \u0022hideOverlay\u0022: null,\n    \u0022openSettings\u0022: null,\n    \u0022toggle\u0022: \u0022Ctrl\\u002BAlt\\u002BT\u0022\n  },\n  \u0022launchAtSignIn\u0022: false\n}\n","Truncated":false},"Stderr":{"Bytes":0,"Sha256":"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855","Prefix":"","Truncated":false}}
+ PUBLIC_MANAGED_CHILD {"Executable":"/workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture","ExecutableSha256":"E03475992E3BD12F45A33712D1FDB1CA5BEE747C92C3980C1ED88A1712C7019D","CurrentProcess":"/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet","DeclaredHost":"/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet","Exit":2,"ExitConfirmed":true,"Stdout":{"Bytes":0,"Sha256":"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855","Prefix":"","Truncated":false},"Stderr":{"Bytes":0,"Sha256":"E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855","Prefix":"","Truncated":false}}
+
+
+Results File: /workspace/KuaiYi/artifacts/session-windows-core-diagnosis/r03-targeted/_0affe84243c4_2026-10-19_09_11_26_net10.0.trx
+
+Failed!  - Failed:     1, Passed:   118, Skipped:     0, Total:   119, Duration: 16 s - KuaiYi.Core.Tests.dll (net10.0)

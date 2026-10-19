@@ -1,0 +1,56 @@
+{
+  "Source": "Exact PUBLIC_MANAGED_CHILD lines parsed from actual r05 TRX, not separate execution",
+  "Receipts": [
+    {
+      "Executable": "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+      "ExecutableSha256": "8B3D902364F618E31E029D4EBA077D52C141DD641E375F4555715604806E44B6",
+      "CurrentProcess": "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+      "DeclaredHost": "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+      "Exit": 0,
+      "ExitConfirmed": true,
+      "Cleanup": "OriginalExitAndIoSettled",
+      "OriginalExitWait": "RanToCompletion",
+      "StdoutStatus": "RanToCompletion",
+      "StderrStatus": "RanToCompletion",
+      "Stdout": {
+        "Bytes": 1459,
+        "Sha256": "C58747B00DBA8F0CFDEE893453D832D836E44399C7A44EF7EA1BB032BCA2371B",
+        "Prefix": "{\n  \"schemaVersion\": 1,\n  \"writeId\": \"00000000-0000-0000-0000-000000000000\",\n  \"activeProfileId\": null,\n  \"visionProfileId\": null,\n  \"triggerMode\": \"Selection\",\n  \"profiles\": [],\n  \"translation\": {\n    \"preset\": \"Faithful\",\n    \"targetLanguage\": \"zh-CN\",\n    \"domain\": \"\",\n    \"readerBackground\": \"\",\n    \"customTemplates\": {},\n    \"selectionDebounceMs\": 180,\n    \"autoSoftLimitScalars\": 12000,\n    \"hardLimitScalars\": 50000\n  },\n  \"overlay\": {\n    \"fontSizeDip\": 15,\n    \"preferredWidthDip\": 420,\n    \"reduceMotion\": \"FollowSystem\",\n    \"theme\": \"FollowSystem\",\n    \"rememberPosition\": true,\n    \"lastPosition\": null,\n    \"showSource\": false,\n    \"memoryVersions\": 3\n  },\n  \"images\": {\n    \"smartRouting\": true,\n    \"previewScreenshotBeforeSend\": false,\n    \"mixedContentExplain\": true,\n    \"defaultLongEdgePixels\": 2560,\n    \"maxPreparedBytes\": 4194304\n  },\n  \"privacy\": {\n    \"persistHistory\": false,\n    \"clipboardFallbackDefault\": false,\n    \"telemetryEnabled\": false,\n    \"blockedApplications\": [],\n    \"clipboardAllowedApplications\": [],\n    \"consentedEndpointOrigins\": []\n  },\n  \"hotkeys\": {\n    \"captureRegion\": \"Ctrl\\u002BAlt\\u002BS\",\n    \"hideOverlay\": null,\n    \"toggle\": \"Ctrl\\u002BAlt\\u002BT\",\n    \"stopGeneration\": null,\n    \"regenerate\": \"Ctrl\\u002BAlt\\u002BR\",\n    \"openSettings\": null,\n    \"focusResult\": null,\n    \"translateSelection\": \"Ctrl\\u002BAlt\\u002BD\",\n    \"toggleResult\": \"Ctrl\\u002BAlt\\u002BSpace\"\n  },\n  \"launchAtSignIn\": false\n}\n",
+        "Truncated": false
+      },
+      "Stderr": {
+        "Bytes": 0,
+        "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "Prefix": "",
+        "Truncated": false
+      },
+      "Failures": []
+    },
+    {
+      "Executable": "/workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture",
+      "ExecutableSha256": "E03475992E3BD12F45A33712D1FDB1CA5BEE747C92C3980C1ED88A1712C7019D",
+      "CurrentProcess": "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+      "DeclaredHost": "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+      "Exit": 2,
+      "ExitConfirmed": true,
+      "Cleanup": "OriginalExitAndIoSettled",
+      "OriginalExitWait": "RanToCompletion",
+      "StdoutStatus": "RanToCompletion",
+      "StderrStatus": "RanToCompletion",
+      "Stdout": {
+        "Bytes": 0,
+        "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "Prefix": "",
+        "Truncated": false
+      },
+      "Stderr": {
+        "Bytes": 0,
+        "Sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "Prefix": "",
+        "Truncated": false
+      },
+      "Failures": []
+    }
+  ],
+  "WindowsRunCause": "NotEstablished"
+}
