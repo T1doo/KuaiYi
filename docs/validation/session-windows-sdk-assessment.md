@@ -1,5 +1,7 @@
 # Windows SDK402：实际许可与临时 CI 安装范围
 
+2026-10-19后续状态：用户16:31北京已明确接受本页对应的确切Windows归档条款，原Pending解除；一次临时标准Windowsrunner CI已按授权实现并正常推送。下文保留批准前核查状态；最新结果与待回收项见[本轮CI交付记录](session-windows-sdk-ci.md)。
+
 父级从正常登录页面取得 [run39221162999/job117956532058](https://github.com/T1doo/KuaiYi/actions/runs/39221162999/job/117956532058#step:3:15)：源码 `1662f6526147a98e5b6d42e148d18294b5397e55` 的两份 runtime10.0.13 包均正常在线 verify Exit0、Signature Pass，`SignatureStatus=Pass_WindowsNuGetFrameworkOnline`。预装 SDK402 缺失使后续 managed/build/publish/真实 Windows App 验收 NotRun，Package Hold。该真实结果由父级桥接，不能与本地离线 fixture 混同；未伪造尚未收到的完整日志或 TRX。
 
 “不安装 SDK”是上一单次预装验证窗口的范围，不是永久技术禁令。微软 [Windows 手动安装说明](https://learn.microsoft.com/en-us/dotnet/core/install/windows#install-manually) 支持 CI 使用 ZIP 解到自有目录并只设置当前会话环境；不要求 MSI、管理员、系统 PATH 或注册表改变。最新授权允许沿用已接受许可时采用此路线。

@@ -1,0 +1,20 @@
+{
+  "Utc": "2026-10-19T08:55:38.973730+00:00",
+  "SourceCommit": "32116577a34d9f914f93dc715261e99da7d33868",
+  "Branch": "dev/session-runtime-signature-windows",
+  "Delivery": "One normal source push succeeded; no rerun authorized automatically",
+  "ReadRoute": "Parent normal logged-in cloud browser only; no local Actions CLI/API/alternate route",
+  "Required": [
+    "actual run/job URL and exact SourceCommit",
+    "KUAIYI_SESSION_RUNTIME_WINDOWS complete final JSON",
+    "all KUAIYI_CI_FILE records and KUAIYI_CI_CHUNK indexed bodies for every declared command log and Core/Provider TRX",
+    "verify exact chunk1..N count, base64/gzip size/SHA256, decompressed raw size/SHA256 before treating originals recovered",
+    "SDK installation archive SHA512/size/licenses/static metadata and actual SDK version/info",
+    "RuntimeAuditCoverage, complete Core/Provider counters, App/App-isolated/ImageWorker build exits",
+    "Reason/failed stage/Exit/timeout/cleanup evidence if any failure; do not rerun",
+    "package remains Hold; no publish/UI/model acceptance inferred"
+  ],
+  "CurrentActualRunUrl": "Unknown",
+  "CurrentActualSdkTestsBuilds": "Unknown",
+  "SignaturesOnEarlierDifferentSource": "Pass on source1662f652 via parent run39221162999; not evidence of new run"
+}

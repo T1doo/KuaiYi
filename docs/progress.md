@@ -1127,3 +1127,5 @@ Windows/WPF/实际Dispatcher/STA/可见健康/键盘/Console stdin取消/Job/OCR
 离线旧实现39例1失败保全，安装编排接入后当前51方法全通过；合成SDK与子进程端口不冒充Windows执行。覆盖SDK hash/license/host拒绝、已存在／linked／过期预算、403单次调用、HTTP层redirect拒绝、WindowsZIP危险路径／类型／膨胀限界及全编排各阶段失败停止。仅显式登记command logs及两份实际TRX做有界gzip/base64分片写标准job日志，保存raw/gzip hash、size、片号／总数；32MiB raw／4MiB gzip／每件16MiB限界，缺件／变动／导出失败标Incomplete且不掩盖原失败；完整原件需父级正常登录取齐分片并核hash，无artifact/cache上传费用。
 
 本轮六文件源码精确父6df5f91、attempt1、Public标准windows-2022、job15／step14分钟，源码独审后仅一次正常push请求新CI；不重跑旧job，不请求Forbidden CLI/API或blobmetadata。新真实结果在父级合法桥接前Unknown，Package Hold保持。生产C#／锁／8旧workflow／全部历史原件不动，图片间歇根因仍Unknown，复用Off和250/600ms／来源／密码／完整性／取消／清理门及真实WPF／模型／完整P6P7未验收边界保持。
+
+独立源码审查Pass后，32116577a34d9f914f93dc715261e99da7d33868已单次普通推送，同63heads仅该分支从6df5f91前进，main与其余62refs不变。红绿为旧39例1F→最终51P；最终主反例追加3断言，不称同方法字节红绿。源码ZIP／19输入hash／归档预检／独审消息／批准与投递原件见[索引](test-evidence/2026-10-19-session-windows-sdk-ci.json)和[交付记录](validation/session-windows-sdk-ci.md)。新实际CI链接、SDK／全测试／三构建仍Unknown，待父级正常登录桥接完整JSON及分片raw/gzip双hash核验；Package Hold，无本机Actions查询或自动重试。此证据提交仅docs/.gitattributes，不再改变专用YAML，不再次投递本专用CI。

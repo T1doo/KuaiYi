@@ -1,0 +1,257 @@
+{
+  "Utc": "2026-10-19T08:55:38.978985+00:00",
+  "SourceCommit": "32116577a34d9f914f93dc715261e99da7d33868",
+  "Parent": "6df5f910e7429fde02c8e02c9ce53c953f668094",
+  "Branch": "dev/session-runtime-signature-windows",
+  "Scope": "Exact user-approved Windows SDK402 ZIP/license in one ephemeral public standard runner job directory; original online runtime signatures/audit and complete managed tests/builds. No product features.",
+  "LicenseApproval": {
+    "UserReply": "接受",
+    "UserTime": "2026-10-19 16:31 Beijing",
+    "TrustedTranscriptSource": "Sentinel_e978556d48a48191aa940cf146bdb928",
+    "ExactLicenseUrl": "https://github.com/T1doo/KuaiYi/blob/6df5f910e7429fde02c8e02c9ce53c953f668094/docs/test-evidence/2026-10-19-session-windows-sdk-assessment-originals__windows-LICENSE.txt",
+    "PreviousSpecificPendingResolved": true
+  },
+  "Sdk": {
+    "Version": "10.0.402",
+    "HostAndPrivateXml": "10.0.13",
+    "Url": "https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.402/dotnet-sdk-10.0.402-win-x64.zip",
+    "Bytes": 300755826,
+    "Sha512": "ae4fd528cb7e9f6af6aaf7de36715a69f761f183744f1bb3025d19f5a92447090ec561410e46266c1d10a63781ed6f3de771760bc76c876d87daabc367b898cd",
+    "ActualLocalPreflight": "Full pinned existing archive read only:5577entries/807617264expandedbytes/all Windows paths and types/license hashes/13metadata Pass; no payload extracted or Windows program run locally"
+  },
+  "ActualOfflineRedGreen": {
+    "r01": "Old implementation39methods/1failure, exit1; 8source inputs bound to red ZIP",
+    "r02": "Final51methods allPass, exit0; 19source inputs bound to green ZIP and source commit",
+    "Qualification": "Primary counterexample retains old assertions and adds3assertions in final version; not same-method-byte redgreen. Synthetic ports/SDK only; not actual Windows signatures/install/tests/builds."
+  },
+  "IndependentSourceReview": "Pass_NoRemainingP1P2, /root/high_water_review; exact message and derived receipt retained; source/index/ZIP hashes and actual archive read-only preflight checked",
+  "SourceDelivery": {
+    "NormalPushExit": 0,
+    "ApprovedSourcePushCount": 1,
+    "RemoteHeadsBefore": 63,
+    "RemoteHeadsAfter": 63,
+    "OnlyChangedRef": "refs/heads/dev/session-runtime-signature-windows",
+    "Before": "6df5f910e7429fde02c8e02c9ce53c953f668094",
+    "After": "32116577a34d9f914f93dc715261e99da7d33868",
+    "Other62IncludingMainUnchanged": true,
+    "Main": "51d077481cf6303602fcf5d2718213da9cf05178"
+  },
+  "NewActualWindowsCi": {
+    "Request": "Single source push delivered; observed execution not established locally",
+    "ActualRunId": "Unknown",
+    "ActualRunUrl": "Unknown",
+    "SdkInstallation": "Unknown",
+    "Signature": "Unknown",
+    "RuntimeAudit": "Unknown",
+    "CoreFull": "Unknown",
+    "ProviderFull": "Unknown",
+    "AppDefaultBuild": "Unknown",
+    "AppIsolatedBuild": "Unknown",
+    "ImageWorkerBuild": "Unknown",
+    "EvidenceRetrieval": "NotConfirmed; parent must recover complete declared chunks and validate both gzip/raw hashes",
+    "Package": "Hold",
+    "Reader": "Parent authorized normal-login visible-job bridge; no local Actions requests or alternate route",
+    "Runner": "Public standard windows-2022, attempt1,15min job/14min step/13min inner deadline",
+    "Rerun": "NotRequested"
+  },
+  "Protected": {
+    "OriginalEightGateFunctions": "Unchanged",
+    "OriginalEightOtherWorkflows": "Unchanged",
+    "ProductCSharpLocksAndPriorEvidence": "Unchanged in source",
+    "Signatures": "Normal online revocation; reject every NU code; no trust/permission changes",
+    "Installer": "No redirects/retries/fallback; all archive/license/path/type/size checks before fresh directory; preserve existing/partial files",
+    "SdkEnvironment": "Child process only; job-local SDK/cache/CLI dirs; no system PATH/registry/security changes",
+    "NotAuthorizedOrNotRun": [
+      "main mutation",
+      "force push",
+      "deploy/publish/release",
+      "new fees",
+      "Skia four new-license packages",
+      "real models",
+      "real WPF/keyboard/UI/Windows full acceptance"
+    ],
+    "HistoricalCauses": "Image intermittent/idle/Core/Job/r10/r17/r20 remain Unknown; source production image reuse Off and250/600ms/source/password/integrity/cancel/cleanup gates unchanged"
+  },
+  "RawOriginals": [
+    {
+      "Original": "artifacts/session-windows-sdk-ci/actual-official-archive-preflight.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__actual-official-archive-preflight.json",
+      "Bytes": 962,
+      "Sha256": "b53b1e175bf4fdb312f6e5af0a0444c25f3055206c399eb3ba25eca3f8704f19"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/green-source.zip",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__green-source.zip",
+      "Bytes": 162797,
+      "Sha256": "ec9db4b1a120ab5b184c102a30be6e340a59bdcc99f75f629b003f94baa4e787"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/independent-source-review-message.txt",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__independent-source-review-message.txt",
+      "Bytes": 942,
+      "Sha256": "042490f96ee5eb598cf75fbe4248a688699f1712cd36d99b7ba8f20a52b35c6c"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/independent-source-review.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__independent-source-review.json",
+      "Bytes": 985,
+      "Sha256": "c0d6eb3fc5babe967ff2b3a103c40a15a5bc86174c7e2e8ee4d81e9ecc567ff2"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/parent-ci-log-bridge-request.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__parent-ci-log-bridge-request.json",
+      "Bytes": 1279,
+      "Sha256": "7b08a67bd0d6df488fa06a1bdeddf6b0f68ca35bb702250a831da7c8cd0e879e"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/protected-gates-and-inputs.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__protected-gates-and-inputs.json",
+      "Bytes": 2205,
+      "Sha256": "fa0c616bb20cb2c2898e998d39b5f71d5969b57ef86e3ae76854bda2e17ef3b2"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/public-repository-observation.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__public-repository-observation.json",
+      "Bytes": 362,
+      "Sha256": "9cdc3fef47fdd8f275fa503b2b831c79d7a11bd18b942deb311a704fb35c55ef"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/r01-red.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__r01-red.json",
+      "Bytes": 1477,
+      "Sha256": "4e6d5ca8853c258c677a1aa1a8a636c88d981ef64835e6708087b1dd9123506b"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/r01-red.log",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__r01-red.log",
+      "Bytes": 7221,
+      "Sha256": "acadc24eb9d9f060bfc7621c5ec36d1d3fbc180ff95a03b6b433a667e45a62d4"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/r02-green.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__r02-green.json",
+      "Bytes": 2882,
+      "Sha256": "0ede761a0ecfb8d12d30f61df1df06baed566d74783b16259f73fd7470d250b4"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/r02-green.log",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__r02-green.log",
+      "Bytes": 8932,
+      "Sha256": "de3b28d36cc48c6dc31f5000125372a897df27e50ad7fbbcb3755442b14d180f"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/red-source.zip",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__red-source.zip",
+      "Bytes": 125832,
+      "Sha256": "669f553235aadfa4967d5c66784fc6206f9dc71ed1a89ef4461592b4c35064b6"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/remote-after-source-push.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__remote-after-source-push.json",
+      "Bytes": 187,
+      "Sha256": "ab03bf0589af4fab326440621308f2220039914f7ce8decef921b63c11d20f71"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/remote-after-source-push.stderr",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__remote-after-source-push.stderr",
+      "Bytes": 0,
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/remote-after-source-push.stdout",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__remote-after-source-push.stdout",
+      "Bytes": 5073,
+      "Sha256": "bc8a0544e4bb6f6dba92113c3eabf33fa1271367a2d228dd8a76971f6c625594"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/remote-before-source-push.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__remote-before-source-push.json",
+      "Bytes": 233,
+      "Sha256": "b68470ac579faebc889b3462e4788b6ef2d9f064528e516b13dc333307fd9c78"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/remote-before-source-push.stderr",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__remote-before-source-push.stderr",
+      "Bytes": 0,
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/remote-before-source-push.stdout",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__remote-before-source-push.stdout",
+      "Bytes": 5073,
+      "Sha256": "542d5aab2d088bc29b31a581f6433a2642d00b75e56986034528c07f47def8cc"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/source-commit-verified.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__source-commit-verified.json",
+      "Bytes": 554,
+      "Sha256": "b41b87efde2d0078d9aacb46f217b963b5dd4b1075fd6792b8bf466f012b73e2"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/source-commit.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__source-commit.json",
+      "Bytes": 226,
+      "Sha256": "3816897fe48894cc87c186631c58298eee0555b33486b11fe48aceff06a9254c"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/source-commit.stderr",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__source-commit.stderr",
+      "Bytes": 0,
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/source-commit.stdout",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__source-commit.stdout",
+      "Bytes": 274,
+      "Sha256": "6fe75711a0ba47e23cf05137243fb3bdaaa3cf01996b7bee757ef011d8bb62bd"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/source-delivery-verified.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__source-delivery-verified.json",
+      "Bytes": 679,
+      "Sha256": "672313cdf41e11f48ebb6b75c6c4c8e7471f1464afb44210ed1aeeed74707d03"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/source-index-binding-before-review.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__source-index-binding-before-review.json",
+      "Bytes": 2755,
+      "Sha256": "8c8312bdc98a8e459aaf6711a4f521c807eff021d191a95edad9f9965555f460"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/source-push.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__source-push.json",
+      "Bytes": 507,
+      "Sha256": "5d2e241514a04d67dab350e029b33a491506efdc0e8a5a22f9f114e1c2150142"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/source-push.stderr",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__source-push.stderr",
+      "Bytes": 106,
+      "Sha256": "edcfd863bd24cc0eec6c24008a1c5af0ff5619f8f5fb502a8c001df0f573fe51"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/source-push.stdout",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__source-push.stdout",
+      "Bytes": 0,
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Original": "artifacts/session-windows-sdk-ci/user-license-and-one-ci-approval.json",
+      "Path": "docs/test-evidence/2026-10-19-session-windows-sdk-ci-originals__user-license-and-one-ci-approval.json",
+      "Bytes": 643,
+      "Sha256": "07760f0d0f72f77dc3cef488c32e27f9a101caa4bb6f321e237ddeb402629d58"
+    }
+  ],
+  "RawCount": 28,
+  "RawBytes": 332186,
+  "IndependentPacketReview": {
+    "Utc": "2026-10-19T08:57:02.225056+00:00",
+    "Reviewer": "/root/high_water_review",
+    "Mode": "ReadOnly",
+    "Verdict": "PacketPass_NoP1P2",
+    "Verified": "28raw332186B artifact/worktree/index bytes, sizes and SHA match;2ZIP27input bindings;final19inputs match32116577a34d9f914f93dc715261e99da7d33868;pushExit0/63refs onlytargetchanges/other62includingmain unchanged;exact33docs-attributes paths/no source-YAML mutation/no unstageddiff/diffcheck0;accepted license/non-identical-byte redgreen/single source push accurately stated",
+    "NewWindowsRunAndOriginalRecovery": "Unknown",
+    "Package": "Hold",
+    "SdkNetworkCiExecutionByReviewer": "NotRun"
+  }
+}
