@@ -1,0 +1,33 @@
+{
+  "Utc": "2026-10-19T07:01:00.003745+00:00",
+  "Status": "SuspectedP2NotReproduced_ExactCallPass_RemoveRidFails",
+  "Runs": [
+    {
+      "Run": "r26-exact-preparation-restore",
+      "Exit": 0,
+      "RecordSha256": "9fd829c214262dd04fde80dbd469378cc3cb601b959c982776a8c7b0f822d346",
+      "LogSha256": "105a6cc5e476af46a2aab17070fec882dc1ce7f8180bdb5f5053d846a540ff9a",
+      "SourceUnchanged": true
+    },
+    {
+      "Run": "r27-alpha-without-global-rid",
+      "Exit": 1,
+      "RecordSha256": "9041a618aafd27092192bf8368eaba3f1b2c7867de7f8f2323e20454b9239f20",
+      "LogSha256": "f9137556508f16b7446f544451cbb37c0582a575c93c340b03a349c1db4d3d04",
+      "SourceUnchanged": true
+    },
+    {
+      "Run": "r28-exact-preparation-restore",
+      "Exit": 0,
+      "RecordSha256": "433e39bca670ca8eaaf890b9a4af67371cd6ca28a21176c9265276670bce41f0",
+      "LogSha256": "76c3898f9676758ff13f8ef76e451cea2ffb2c6ff234d0563faf612a22a2095d",
+      "SourceUnchanged": true
+    }
+  ],
+  "AllEightAssetsRestoredToExactSuccessfulState": true,
+  "TrackedChanges": "",
+  "SourceCommit": "27620ec2b887b42445cb418b1dc208ebcdde6432",
+  "SignatureCommandRetried": false,
+  "PublishExecuted": false,
+  "NextStep": "Keep current matching restore/publish RID and Alpha lock context; downstream signature and publish/package remain separately pending"
+}

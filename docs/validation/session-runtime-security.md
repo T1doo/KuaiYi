@@ -25,7 +25,7 @@ r11 runtime locked restore、恰两项10.0.13的普通库存与实际漏洞查�
 
 13份最终修改源码有 SHA-256 与每轮源码 ZIP 绑定；原已有测试及8个 workflow 字节不变。封存独审另发现原始 NU1403 日志一处尾空格，原字节保留；.gitattributes 只给本片每个精确原件路径加 -text，且只给该日志加 -whitespace，完整 cached diff --check 随后通过。r16/r18 原执行元数据只采 bin 输出，因此额外封存带时间的两个实际 `-o` 目录56文件哈希，明确为构建后采样，不倒填原元数据。源码独审无剩余P1/P2，原56份安全调查证据原字节保全。新证据见 [2026-10-19 原件索引](../test-evidence/2026-10-19-session-sdk-initialization.json)。
 
-剩余最小包条件是：获准环境中正常在线 NuGet 签名验证能够取得有效撤销状态、无警告；当前日志只证明服务器/CRL不可达，确切网络原因未实证，不冒称访问审批拒绝。旧 Actions Forbidden、CIM 拒绝、runtime GitHub API 目录树 tunnel403 分别保留，未重试或换路。仓库现有有界 Windows CI 的分支/路径门与当前分支不适用，8个 workflow 不变；未查询服务端运行状态，记 Unknown。
+当前首先需满足的签名门条件是：获准环境中正常在线 NuGet 签名验证能够取得有效撤销状态、无警告。后续 publish/打包尚未实跑，不能保证没有其他阻塞；当前日志只证明服务器/CRL不可达，确切网络原因未实证，不冒称访问审批拒绝。旧 Actions Forbidden、CIM 拒绝、runtime GitHub API 目录树 tunnel403 分别保留，未重试或换路。仓库现有有界 Windows CI 的分支/路径门与当前分支不适用，8个 workflow 不变；未查询服务端运行状态，记 Unknown。
 
 Windows/WPF/实际 Dispatcher/STA/键盘/Console/Job/OCR/DPAPIACL/截图/物理250600/模型及完整P6P7仍 NotRun。历史图片/idle/Core/Job/r10/r17/r20根因各 Unknown，生产图片/分类复用 Off，来源/密码/完整性/取消/清理门不变。Skia四包许可待批与原403不绕过；无 main、强推、部署、费用、新凭据或安全权限变更，未知锁/数据/日志/进程保全。
 
@@ -105,3 +105,10 @@ Windows/WPF/实际 Dispatcher/STA/键盘/Console/Job/OCR/DPAPIACL/截图/物理2
 Windows/WPF/实际 Dispatcher、STA、可见键盘与 Console 取消、Job、OCR、DPAPI/ACL、截图、物理 250/600ms、真实模型与完整 P6/P7 仍 NotRun。旧图片/idle/Core/Job/r10/r17/r20 间歇根因各保持 Unknown；生产图片/分类复用 Off、来源/密码/完整性/取消/清理门不变。Skia 四包新许可未接受、403 未绕过；拒绝的 Actions/CIM 未重查或换路。未部署/Release、未改 main/强推、未动凭据/安全权限、未知锁/数据/日志/进程保全。
 
 机器索引：[`2026-10-18-session-runtime-security.json`](../test-evidence/2026-10-18-session-runtime-security.json)。本轮源码仍为未提交工作，待 SDK 用户级初始化目录条件解决、完成真实验证后再封存提交和正常推送；SDK402本身已经明确批准。
+
+
+## 2026-10-19：父审所提全局 RID 冲突核验
+
+父审怀疑 prepare 的全局 `-r win-x64` 会重现普通恢复 r13 的六库 NU1004。按已提交脚本 AST 原样取全部12项 props 实跑：r26 Exit0，8项目成功；仅删 `-r win-x64`、其余参数不变的 r27 反而使六库 NU1004；r28恢复原样再次 Exit0，八份真实 assets 与 r26成功快照逐字节相同。根本差异是 prepare 的 `KuaiYiTextAlpha=true` 经 Directory.Build.props 选用全部包含 win-x64 的 text-alpha-locks，而 r13/r15 用普通锁。故这一具体P2未复现，不删除匹配当前锁的参数；生产源码及所有锁不改。restore/publish 的 RID 与12项 props 静态一致，publish未执行。
+
+本次只核此调用疑点；不重试在线签名、不跳签名门、不提前publish。签名仍为首个已知阻塞，后续打包与Windows验收仍NotRun，不能据本次restore成功保证整条包链路通过。见[精确调用、负对照与恢复原件](../test-evidence/2026-10-19-session-rid-verification.json)。

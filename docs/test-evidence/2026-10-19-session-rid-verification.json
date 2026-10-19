@@ -1,0 +1,162 @@
+{
+  "Utc": "2026-10-19T07:02:07.665203+00:00",
+  "SourceCommit": "27620ec2b887b42445cb418b1dc208ebcdde6432",
+  "Branch": "dev/session-runtime-security",
+  "Scope": "Verify parent-suspected App restore RID mismatch without changing production source or locks",
+  "Status": "SuspectedP2NotReproduced",
+  "ActualRuns": {
+    "r26": "Exact committed prepare AST invocation, Exit0;8projects restored",
+    "r27": "Only remove global -r win-x64 from same Alpha invocation, Exit1;6libraries NU1004",
+    "r28": "Exact invocation again, Exit0;8assets match successful r26 byte-for-byte"
+  },
+  "Explanation": "r13/r15 used ordinary src locks; prepare sets KuaiYiTextAlpha=true and Directory.Build.props selects text-alpha-locks including library win-x64 entries. These are distinct lock contexts.",
+  "RestorePublishConsistency": "Same global win-x64 RID and same12props in committed AST; publish not executed",
+  "ProductionSourceChanges": false,
+  "LockFileChanges": false,
+  "LockedMode": true,
+  "Audit": "true/all/low/warnings-as-errors retained",
+  "SignatureCommandRetried": false,
+  "PublishExecuted": false,
+  "Package": "Hold_OnlineRevocationUnknown",
+  "Downstream": "Publish/package/Windows remain NotRun; this test does not guarantee no further downstream blockers",
+  "SourcesUnchanged": {
+    "scripts/prepare-session-test.py": "c1b279f94ec26beb9782dbf160fdd6c050780819b9a80fbb1f199ab1756523b1",
+    "Directory.Build.props": "536d20ddd475b27b5f69f4a3b36c928a314f465d74d666d77c6ac120a7121d15",
+    "packaging/text-alpha-locks/KuaiYi.App.packages.lock.json": "f669bdee7a7c6d23ad59fd0993df4b2ceb62f3c711dcaea8b5d16d0ccdb4feed",
+    "packaging/text-alpha-locks/KuaiYi.Contracts.packages.lock.json": "8d84b21d9bedd16f93b526ec5aa5d9b49b034646d5463195d58ba4617420bc1f",
+    "packaging/text-alpha-locks/KuaiYi.Core.packages.lock.json": "8d84b21d9bedd16f93b526ec5aa5d9b49b034646d5463195d58ba4617420bc1f",
+    "packaging/text-alpha-locks/KuaiYi.Imaging.packages.lock.json": "ab06c9597225dbe1914027a4726890467b461d6e891645c442d1d764b8431d4d",
+    "packaging/text-alpha-locks/KuaiYi.NativeHost.packages.lock.json": "3adbbf52da4dcf4b68f0257d2325bfd0a8e29d1a135716549c7ee86eecbea3fa",
+    "packaging/text-alpha-locks/KuaiYi.OleTransfer.packages.lock.json": "ab06c9597225dbe1914027a4726890467b461d6e891645c442d1d764b8431d4d",
+    "packaging/text-alpha-locks/KuaiYi.Providers.packages.lock.json": "ae858d5dda8e1552b1117221e2601d30f6439fbb794ef9dd6d8d5f82a1061e81",
+    "packaging/text-alpha-locks/KuaiYi.Windows.packages.lock.json": "5a41b89a78360efec84fd71e504c96618af15df61d64c51e0ea68de5936b2ccb"
+  },
+  "SharedSourceSnapshot": {
+    "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__sources-62ac7817300950d12e5fde93e39c9fcf7574b992b564187827b99471b3fcbd6e.zip",
+    "Purpose": "Already committed full source/lock snapshot used by r26-r28; no duplicate zip"
+  },
+  "RawFiles": [
+    {
+      "Original": "artifacts/session-rid-verification/actual-lock-and-publish-context.json",
+      "Path": "docs/test-evidence/2026-10-19-session-rid-verification-originals__actual-lock-and-publish-context.json",
+      "Bytes": 7568,
+      "Sha256": "209ce457fbbb5d618a086dfa505a67459b4e74099ceca520d7cfb2f0c2ade563"
+    },
+    {
+      "Original": "artifacts/session-rid-verification/assets-App.json",
+      "Path": "docs/test-evidence/2026-10-19-session-rid-verification-originals__assets-App.json",
+      "Bytes": 30353,
+      "Sha256": "180b45f4158263b63218712bc7a5ee088c5371e841d3dae63eb52e27a0510e2d"
+    },
+    {
+      "Original": "artifacts/session-rid-verification/assets-Contracts.json",
+      "Path": "docs/test-evidence/2026-10-19-session-rid-verification-originals__assets-Contracts.json",
+      "Bytes": 21881,
+      "Sha256": "60db9ba11e6d17e63b2f889813d8c00b8e987df26b1b079190b0e2c21f45275b"
+    },
+    {
+      "Original": "artifacts/session-rid-verification/assets-Core.json",
+      "Path": "docs/test-evidence/2026-10-19-session-rid-verification-originals__assets-Core.json",
+      "Bytes": 21846,
+      "Sha256": "f884e376ed095d55b1e1ffe1cc9ce46317d8587a58055a00a4ca734f4e971ca3"
+    },
+    {
+      "Original": "artifacts/session-rid-verification/assets-Imaging.json",
+      "Path": "docs/test-evidence/2026-10-19-session-rid-verification-originals__assets-Imaging.json",
+      "Bytes": 23805,
+      "Sha256": "aec265875407d0e97874f979947bd51286804955c6372815ff1f26200667eae9"
+    },
+    {
+      "Original": "artifacts/session-rid-verification/assets-NativeHost.json",
+      "Path": "docs/test-evidence/2026-10-19-session-rid-verification-originals__assets-NativeHost.json",
+      "Bytes": 24586,
+      "Sha256": "1584ea6f0f9944c3d02cdd30f35b7eb688e10a33c83f2c6f52f164596e9e70c3"
+    },
+    {
+      "Original": "artifacts/session-rid-verification/assets-OleTransfer.json",
+      "Path": "docs/test-evidence/2026-10-19-session-rid-verification-originals__assets-OleTransfer.json",
+      "Bytes": 23833,
+      "Sha256": "c365273348ceb69e65b2cfba046af878026b7a441a6c63b1e8f38426fef6bd6f"
+    },
+    {
+      "Original": "artifacts/session-rid-verification/assets-Providers.json",
+      "Path": "docs/test-evidence/2026-10-19-session-rid-verification-originals__assets-Providers.json",
+      "Bytes": 22822,
+      "Sha256": "6e24456de954a6533e9edfc54385ce78a92deea263127fea3ffc34e845f76319"
+    },
+    {
+      "Original": "artifacts/session-rid-verification/assets-Windows.json",
+      "Path": "docs/test-evidence/2026-10-19-session-rid-verification-originals__assets-Windows.json",
+      "Bytes": 27079,
+      "Sha256": "3bf16607eb839ffa06fc4e19875e8fb442b0bea8ca455eec5e6c35b08f35fc31"
+    },
+    {
+      "Original": "artifacts/session-rid-verification/exact-command-context.json",
+      "Path": "docs/test-evidence/2026-10-19-session-rid-verification-originals__exact-command-context.json",
+      "Bytes": 1846,
+      "Sha256": "da1e5afde1d2b58ef12ede1e67957867069e6346793002197b7fd6d7cd3e2e48"
+    },
+    {
+      "Original": "artifacts/session-rid-verification/r00-harness-error.json",
+      "Path": "docs/test-evidence/2026-10-19-session-rid-verification-originals__r00-harness-error.json",
+      "Bytes": 182,
+      "Sha256": "b7dcac7b28701b5abc6f955de504a11e9df212741b26543b7b69ab116cea1906"
+    },
+    {
+      "Original": "artifacts/session-rid-verification/verification-result.json",
+      "Path": "docs/test-evidence/2026-10-19-session-rid-verification-originals__verification-result.json",
+      "Bytes": 1337,
+      "Sha256": "f35445660eab95843d1866adb31e4d17d2b529baf91093fea468e340807aba7a"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r26-exact-preparation-restore-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-rid-verification-originals__r26-exact-preparation-restore-executed.json",
+      "Bytes": 79278,
+      "Sha256": "9fd829c214262dd04fde80dbd469378cc3cb601b959c982776a8c7b0f822d346"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r26-exact-preparation-restore.log",
+      "Path": "docs/test-evidence/2026-10-19-session-rid-verification-originals__r26-exact-preparation-restore.log",
+      "Bytes": 702,
+      "Sha256": "105a6cc5e476af46a2aab17070fec882dc1ce7f8180bdb5f5053d846a540ff9a"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r27-alpha-without-global-rid-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-rid-verification-originals__r27-alpha-without-global-rid-executed.json",
+      "Bytes": 79252,
+      "Sha256": "9041a618aafd27092192bf8368eaba3f1b2c7867de7f8f2323e20454b9239f20"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r27-alpha-without-global-rid.log",
+      "Path": "docs/test-evidence/2026-10-19-session-rid-verification-originals__r27-alpha-without-global-rid.log",
+      "Bytes": 3729,
+      "Sha256": "f9137556508f16b7446f544451cbb37c0582a575c93c340b03a349c1db4d3d04"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r28-exact-preparation-restore-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-rid-verification-originals__r28-exact-preparation-restore-executed.json",
+      "Bytes": 79278,
+      "Sha256": "433e39bca670ca8eaaf890b9a4af67371cd6ca28a21176c9265276670bce41f0"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r28-exact-preparation-restore.log",
+      "Path": "docs/test-evidence/2026-10-19-session-rid-verification-originals__r28-exact-preparation-restore.log",
+      "Bytes": 705,
+      "Sha256": "76c3898f9676758ff13f8ef76e451cea2ffb2c6ff234d0563faf612a22a2095d"
+    },
+    {
+      "Original": "artifacts/session-rid-verification/independent-review.json",
+      "Path": "docs/test-evidence/2026-10-19-session-rid-verification-originals__independent-review.json",
+      "Bytes": 828,
+      "Sha256": "671bc3677497e09c8dc1fc116a92752e07d16d2aead3211722273cea7a09a02d"
+    }
+  ],
+  "RawFileCount": 19,
+  "RawTotalBytes": 450910,
+  "IndependentReview": {
+    "Result": "Pass_NoRemainingP1P2Found",
+    "Receipt": "docs/test-evidence/2026-10-19-session-rid-verification-originals__independent-review.json",
+    "ReviewedBeforeReceipt": 18,
+    "FinalClosure": "Receipt and corresponding index only"
+  }
+}

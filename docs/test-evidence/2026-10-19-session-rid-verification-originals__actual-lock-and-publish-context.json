@@ -1,0 +1,209 @@
+{
+  "Utc": "2026-10-19T06:59:28.370900+00:00",
+  "Status": "ExactPreparationRestorePass_NotTheR13Context",
+  "RestoreRecord": "artifacts/session-sdk-initialization/r26-exact-preparation-restore-executed.json",
+  "EightProjectAssets": [
+    {
+      "Project": "App",
+      "AssetsOriginal": "src/KuaiYi.App/obj/project.assets.json",
+      "AssetsSnapshot": "assets-App.json",
+      "AssetsSha256": "180b45f4158263b63218712bc7a5ee088c5371e841d3dae63eb52e27a0510e2d",
+      "RestoreLockProperties": {
+        "restorePackagesWithLockFile": "true",
+        "nuGetLockFilePath": "/workspace/KuaiYi/packaging/text-alpha-locks/KuaiYi.App.packages.lock.json",
+        "restoreLockedMode": true
+      },
+      "LockSha256": "f669bdee7a7c6d23ad59fd0993df4b2ceb62f3c711dcaea8b5d16d0ccdb4feed",
+      "Targets": [
+        "net10.0-windows",
+        "net10.0-windows/win-x64"
+      ],
+      "Audit": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "all"
+      }
+    },
+    {
+      "Project": "Contracts",
+      "AssetsOriginal": "src/KuaiYi.Contracts/obj/project.assets.json",
+      "AssetsSnapshot": "assets-Contracts.json",
+      "AssetsSha256": "60db9ba11e6d17e63b2f889813d8c00b8e987df26b1b079190b0e2c21f45275b",
+      "RestoreLockProperties": {
+        "restorePackagesWithLockFile": "true",
+        "nuGetLockFilePath": "/workspace/KuaiYi/packaging/text-alpha-locks/KuaiYi.Contracts.packages.lock.json",
+        "restoreLockedMode": true
+      },
+      "LockSha256": "8d84b21d9bedd16f93b526ec5aa5d9b49b034646d5463195d58ba4617420bc1f",
+      "Targets": [
+        "net10.0",
+        "net10.0/win-x64"
+      ],
+      "Audit": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "all"
+      }
+    },
+    {
+      "Project": "Core",
+      "AssetsOriginal": "src/KuaiYi.Core/obj/project.assets.json",
+      "AssetsSnapshot": "assets-Core.json",
+      "AssetsSha256": "f884e376ed095d55b1e1ffe1cc9ce46317d8587a58055a00a4ca734f4e971ca3",
+      "RestoreLockProperties": {
+        "restorePackagesWithLockFile": "true",
+        "nuGetLockFilePath": "/workspace/KuaiYi/packaging/text-alpha-locks/KuaiYi.Core.packages.lock.json",
+        "restoreLockedMode": true
+      },
+      "LockSha256": "8d84b21d9bedd16f93b526ec5aa5d9b49b034646d5463195d58ba4617420bc1f",
+      "Targets": [
+        "net10.0",
+        "net10.0/win-x64"
+      ],
+      "Audit": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "all"
+      }
+    },
+    {
+      "Project": "Imaging",
+      "AssetsOriginal": "src/KuaiYi.Imaging/obj/project.assets.json",
+      "AssetsSnapshot": "assets-Imaging.json",
+      "AssetsSha256": "aec265875407d0e97874f979947bd51286804955c6372815ff1f26200667eae9",
+      "RestoreLockProperties": {
+        "restorePackagesWithLockFile": "true",
+        "nuGetLockFilePath": "/workspace/KuaiYi/packaging/text-alpha-locks/KuaiYi.Imaging.packages.lock.json",
+        "restoreLockedMode": true
+      },
+      "LockSha256": "ab06c9597225dbe1914027a4726890467b461d6e891645c442d1d764b8431d4d",
+      "Targets": [
+        "net10.0",
+        "net10.0/win-x64"
+      ],
+      "Audit": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "all"
+      }
+    },
+    {
+      "Project": "NativeHost",
+      "AssetsOriginal": "src/KuaiYi.NativeHost/obj/project.assets.json",
+      "AssetsSnapshot": "assets-NativeHost.json",
+      "AssetsSha256": "1584ea6f0f9944c3d02cdd30f35b7eb688e10a33c83f2c6f52f164596e9e70c3",
+      "RestoreLockProperties": {
+        "restorePackagesWithLockFile": "true",
+        "nuGetLockFilePath": "/workspace/KuaiYi/packaging/text-alpha-locks/KuaiYi.NativeHost.packages.lock.json",
+        "restoreLockedMode": true
+      },
+      "LockSha256": "3adbbf52da4dcf4b68f0257d2325bfd0a8e29d1a135716549c7ee86eecbea3fa",
+      "Targets": [
+        "net10.0",
+        "net10.0/win-x64"
+      ],
+      "Audit": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "all"
+      }
+    },
+    {
+      "Project": "OleTransfer",
+      "AssetsOriginal": "src/KuaiYi.OleTransfer/obj/project.assets.json",
+      "AssetsSnapshot": "assets-OleTransfer.json",
+      "AssetsSha256": "c365273348ceb69e65b2cfba046af878026b7a441a6c63b1e8f38426fef6bd6f",
+      "RestoreLockProperties": {
+        "restorePackagesWithLockFile": "true",
+        "nuGetLockFilePath": "/workspace/KuaiYi/packaging/text-alpha-locks/KuaiYi.OleTransfer.packages.lock.json",
+        "restoreLockedMode": true
+      },
+      "LockSha256": "ab06c9597225dbe1914027a4726890467b461d6e891645c442d1d764b8431d4d",
+      "Targets": [
+        "net10.0",
+        "net10.0/win-x64"
+      ],
+      "Audit": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "all"
+      }
+    },
+    {
+      "Project": "Providers",
+      "AssetsOriginal": "src/KuaiYi.Providers/obj/project.assets.json",
+      "AssetsSnapshot": "assets-Providers.json",
+      "AssetsSha256": "6e24456de954a6533e9edfc54385ce78a92deea263127fea3ffc34e845f76319",
+      "RestoreLockProperties": {
+        "restorePackagesWithLockFile": "true",
+        "nuGetLockFilePath": "/workspace/KuaiYi/packaging/text-alpha-locks/KuaiYi.Providers.packages.lock.json",
+        "restoreLockedMode": true
+      },
+      "LockSha256": "ae858d5dda8e1552b1117221e2601d30f6439fbb794ef9dd6d8d5f82a1061e81",
+      "Targets": [
+        "net10.0",
+        "net10.0/win-x64"
+      ],
+      "Audit": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "all"
+      }
+    },
+    {
+      "Project": "Windows",
+      "AssetsOriginal": "src/KuaiYi.Windows/obj/project.assets.json",
+      "AssetsSnapshot": "assets-Windows.json",
+      "AssetsSha256": "3bf16607eb839ffa06fc4e19875e8fb442b0bea8ca455eec5e6c35b08f35fc31",
+      "RestoreLockProperties": {
+        "restorePackagesWithLockFile": "true",
+        "nuGetLockFilePath": "/workspace/KuaiYi/packaging/text-alpha-locks/KuaiYi.Windows.packages.lock.json",
+        "restoreLockedMode": true
+      },
+      "LockSha256": "5a41b89a78360efec84fd71e504c96618af15df61d64c51e0ea68de5936b2ccb",
+      "Targets": [
+        "net10.0-windows",
+        "net10.0-windows/win-x64"
+      ],
+      "Audit": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "all"
+      }
+    }
+  ],
+  "PublishAstLine": 321,
+  "PublishAstSnippet": "command([\"dotnet\", \"publish\", contract[\"project\"], \"--no-restore\", \"-c\", \"Release\", \"-r\",\n                 contract[\"rid\"], \"--self-contained\", \"true\", \"-o\", str(publish), *props])",
+  "PublishArgvForStaticComparisonOnly": [
+    "dotnet",
+    "publish",
+    "src/KuaiYi.App/KuaiYi.App.csproj",
+    "--no-restore",
+    "-c",
+    "Release",
+    "-r",
+    "win-x64",
+    "--self-contained",
+    "true",
+    "-o",
+    "/workspace/KuaiYi/artifacts/NOT_EXECUTED_PUBLISH_PATH",
+    "-p:KuaiYiTextAlpha=true",
+    "-p:KuaiYiIsolatedSessionTest=true",
+    "-p:SelfContained=true",
+    "-p:PublishSingleFile=false",
+    "-p:PublishTrimmed=false",
+    "-p:PublishReadyToRun=false",
+    "-p:EnableWindowsTargeting=true",
+    "-p:RuntimeFrameworkVersion=10.0.13",
+    "-p:NuGetAudit=true",
+    "-p:NuGetAuditMode=all",
+    "-p:NuGetAuditLevel=low",
+    "-p:TreatWarningsAsErrors=true"
+  ],
+  "SameGlobalRidRestorePublish": true,
+  "SamePropsRestorePublish": true,
+  "PublishExecuted": false,
+  "SignatureRetried": false,
+  "TrackedChanges": "",
+  "Caution": "Only this suspected RID conflict excluded; downstream publish/package remain unexecuted and are not guaranteed to pass"
+}

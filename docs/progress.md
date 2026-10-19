@@ -1077,3 +1077,8 @@ Windows/WPF/实际Dispatcher/STA/可见健康/键盘/Console stdin取消/Job/OCR
 详见[当前结果及历史调查](validation/session-runtime-security.md)/[实际原件索引](test-evidence/2026-10-19-session-sdk-initialization.json)。初始化不再Blocked；包仍Hold，最小缺少正常在线签名撤销状态无警告。旧Actions/CIM/API树403不重试不换路，现有CI门不适用、服务端状态Unknown。Windows真实验收及完整P6P7仍NotRun，历史间歇根因Unknown；生产图片复用Off及250600/来源/密码/完整性/取消/清理门保持，Skia四包待批，未知锁数据日志进程保全，无main/强推/部署/费用/模型/凭据权限变更。
 
 封存独审指出原NU1403日志一处尾空格；保留所有原件，.gitattributes仅逐精确原件路径-text、该单日志-whitespace。完整暂存diff检查实际通过，不泛化豁免源码或改变日志。
+
+
+## 2026-10-19 · 父审 RID/锁上下文疑点核验（无生产代码改动）
+
+实际原样提取已提交 prepare AST：r26带Alpha＋全局win-x64的locked restore成功8项目；r27仅删全局RID反而六库NU1004；r28原样恢复再次成功，8assets字节复原。prepare选text-alpha-locks（含库级RID），父审引用r13/r15用普通锁，不能混同。该具体P2未复现，restore/publish同RID和12props，所有生产源/锁不改。此为核验成果，不冒充产品修复；[原件索引](test-evidence/2026-10-19-session-rid-verification.json)。不重试在线签名、不publish，当前首个已知阻塞仍签名；后续打包/Windows尚未运行，不能预报仅剩此门。
