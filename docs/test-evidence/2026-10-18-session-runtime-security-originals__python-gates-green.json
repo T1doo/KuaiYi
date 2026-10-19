@@ -1,0 +1,29 @@
+{
+  "Utc": "2026-10-18T09:20:09.891459+00:00",
+  "Argv": [
+    "python3",
+    "-B",
+    "-m",
+    "unittest",
+    "-v",
+    "scripts/test_prepare_session_test.py"
+  ],
+  "Exit": 0,
+  "Methods": 15,
+  "Log": "python-gates-green.log",
+  "LogSha256": "e5ea1e5c9c950fd84a36f2de8606f6f5e05b955b3410891426b4f9b855073c23",
+  "Sources": {
+    "global.json": "81ae2087dbfb46027fd94748351fb4b1ab24145fbb52544a2822bf128e2e48f1",
+    "packaging/session-test.json": "19c885c9cecc45c8ee7f2964222485a77858bab8b2b3f448c324ed448c89968b",
+    "packaging/text-alpha.json": "1e48127cdfc19368b20a260d9cb7daa3ead47fdd91cf555563347bd5b37df7fc",
+    "packaging/session-runtime-audit/session-runtime-audit.csproj": "0f8027beedce7a65cdad1c6b44ea69b32efb2c09263ad0d40b5c4ade8d7e377b",
+    "packaging/session-runtime-audit/packages.lock.json": "d7d514ed1a8639dcb97f4578e8d9aaad74576e79878f7d58ad230f4bbb588367",
+    "scripts/prepare-session-test.py": "667766501ea742178ad097f9aaefe63013222f42ec5c0e6fd67d83636cd03648",
+    "scripts/test_prepare_session_test.py": "3be642c7816872bdf80f026353d45576a64c8a8672bbcf010ac5bfdebd256adf",
+    "tools/KuaiYi.SettingsStoreFixture/IsolatedSessionPackage.cs": "b5e19e9349ad1431f111d96327dcc37019460cf2355714af89d7d4c44294da05",
+    "tools/KuaiYi.SettingsStoreFixture/Program.cs": "4eb1349d149c878b7e47f5e6cd81422d935da1932f0566380096ff469a591578",
+    "tests/KuaiYi.Core.Tests/IsolatedSessionDependencyTests.cs": "f3f3cb3223d3bf3c79b3887b30224f316d33e4492d4faa2171f9e23d2473115e"
+  },
+  "DotNetExecution": "None",
+  "DotNetTests": "NotRun: new safe SDK approval pending"
+}

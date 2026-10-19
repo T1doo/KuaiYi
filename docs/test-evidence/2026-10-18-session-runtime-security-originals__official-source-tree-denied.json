@@ -1,0 +1,13 @@
+{
+  "UtcRecorded": "2026-10-18T09:36:21.247945+00:00",
+  "RecordOrigin": "Previously returned exec tool exception transcript; not a repeated network request",
+  "Action": "GET official source directory tree via Pythonurllib",
+  "Target": "https://api.github.com/repos/dotnet/runtime/git/trees/v10.0.13?recursive=1",
+  "ExactMessage": "OSError: Tunnel connection failed: 403 Forbidden; urllib.error.URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+  "Outcome": "DeniedByProxy",
+  "PolicyReason": "No more detailed reason exposed",
+  "Stopped": true,
+  "Retried": false,
+  "AlternateToolOrPathToSameDirectoryTree": false,
+  "IndependentWork": "Existing official documentation/cached sources and local metadata only"
+}

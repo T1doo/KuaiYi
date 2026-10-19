@@ -1,0 +1,18 @@
+{
+  "Argv": [
+    "python3",
+    "-B",
+    "-m",
+    "unittest",
+    "-v",
+    "scripts/test_session_sdk.py",
+    "scripts/test_prepare_session_test.py"
+  ],
+  "Exit": 1,
+  "ExpectedHarnessIssue": "mkdir requested0755 filtered to0700 by inheritedumask; fixture must set explicitmode on own temporary directory",
+  "Sources": {
+    "scripts/session-sdk.py": "6209f4f228c2407da16d00494df34c08b40ac3861e97e5f4731372840251e85c",
+    "scripts/test_session_sdk.py": "6b05620a4d9fff39f35eb8dca83806bfcb1253af114939ce0ad1e40c302c590f",
+    "scripts/prepare-session-test.py": "03859d49c0a3c0dd27da775d47a4970fadbb3b99123fb366923b7f55a7861ea5"
+  }
+}

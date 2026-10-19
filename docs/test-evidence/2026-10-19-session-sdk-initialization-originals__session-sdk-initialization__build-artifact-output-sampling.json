@@ -1,0 +1,356 @@
+{
+  "SampleUtc": "2026-10-19T06:47:23.802734+00:00",
+  "Binding": "Post-build observation, separate from immutable executed metadata; binaries not executed",
+  "Outputs": {
+    "app-production-final": {
+      "BuildRecord": "r16-app-production-executed.json",
+      "BuildRecordSha256": "49b29ce4f5310b672554950f16554a3f609fb8cffa47f55298f9b33f3a870add",
+      "Files": [
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.App.deps.json",
+          "Bytes": 3319,
+          "Sha256": "93a61c940bb849b9e5c8e8407c844a87f1f7e95e8cf0c4920f742748cd2075b4",
+          "MtimeNs": 1792392183880352675
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.App.dll",
+          "Bytes": 408576,
+          "Sha256": "08c15ddf67c5d709d242bc057ca019dde0434417bce4e3dd7aec9036db5c4609",
+          "MtimeNs": 1792392183856352856
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.App.exe",
+          "Bytes": 162816,
+          "Sha256": "16dd2675d087bf711fcc2c33826d93394e8589edbfc3a547a2b9400a556c1074",
+          "MtimeNs": 1792392183873370879
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.App.pdb",
+          "Bytes": 113152,
+          "Sha256": "11e8b6e9aaa8cd588d69ccda11593dbca3ffa072e41e6e85904160a59a5aef6a",
+          "MtimeNs": 1792392183812353188
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.App.runtimeconfig.json",
+          "Bytes": 502,
+          "Sha256": "f6f9f6219d721db8a3a72552f5ef1708b9713446de16fbab105f43952cc26bb7",
+          "MtimeNs": 1792392183884352644
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.Contracts.deps.json",
+          "Bytes": 420,
+          "Sha256": "1bb7dfc3cdd014f46e25b732721d53267ef9ef560292cb0a8146e03eee1b4bf5",
+          "MtimeNs": 1792392174576428617
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.Contracts.dll",
+          "Bytes": 62464,
+          "Sha256": "e10ffb289bc8bc0bf9a39a8e058df429c91e3e812960e06ca22b58c315bb5b6e",
+          "MtimeNs": 1792392174560428750
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.Contracts.pdb",
+          "Bytes": 21604,
+          "Sha256": "b948b97bcfe5e3e4ecdd6036d17b957510de34e57f9596d6d9891ca6edebfd13",
+          "MtimeNs": 1792392174540428916
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.Core.deps.json",
+          "Bytes": 405,
+          "Sha256": "815d6330fbc84261d6f428a0ce568e845e185e9bcaf2e914c8a0c4561eaec7f5",
+          "MtimeNs": 1792392171196456858
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.Core.dll",
+          "Bytes": 520192,
+          "Sha256": "464563908fbb5aaa882bbb5af60c886b0ddf5a2ea25d726486553a935d59c774",
+          "MtimeNs": 1792392171168457091
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.Core.pdb",
+          "Bytes": 122536,
+          "Sha256": "3049b93370f6658993036184f99b26b3d969ddcf9d92c0bcc1b6e074d4f81575",
+          "MtimeNs": 1792392171076457861
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.Imaging.deps.json",
+          "Bytes": 1132,
+          "Sha256": "cdd251260d643ce4444fd3aa7e1aafa3a773238c46085ba81ac070a1aac920eb",
+          "MtimeNs": 1792392176300414319
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.Imaging.dll",
+          "Bytes": 143872,
+          "Sha256": "726cfca9e7f152fabff3585ea86cf940641dd3aeef8f45d09688303a6c13041f",
+          "MtimeNs": 1792392176284414452
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.Imaging.pdb",
+          "Bytes": 41608,
+          "Sha256": "d093afbc07f2293a6b393a481fc8d40839184c62fb6bfa3455fc84559d738ff4",
+          "MtimeNs": 1792392176248414751
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.NativeHost.deps.json",
+          "Bytes": 1573,
+          "Sha256": "8799182c4c04fab062b26b086e839de60ec7ec65a21681bf4158a0c332e38581",
+          "MtimeNs": 1792392178032399955
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.NativeHost.dll",
+          "Bytes": 142848,
+          "Sha256": "c6d58ccc17a89c51a9b996940e96c24fa43d416b0e51fe8bab0452ca37b10421",
+          "MtimeNs": 1792392177992400287
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.NativeHost.exe",
+          "Bytes": 162304,
+          "Sha256": "1315a895be72438e9fbb58e6e246cd9842b2b9270b5ca9026e82c135d65ff3a0",
+          "MtimeNs": 1792392178012400122
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.NativeHost.pdb",
+          "Bytes": 39188,
+          "Sha256": "3d754431cb65c2d152bc89e79932cf595e63a719c338830c831a0d7a00cd1dce",
+          "MtimeNs": 1792392177964400520
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.NativeHost.runtimeconfig.json",
+          "Bytes": 331,
+          "Sha256": "ea4123605d6846cabc53cffdc74dd36eac09f65f08f1e38809a382620d5bc946",
+          "MtimeNs": 1792392178064399690
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.OleTransfer.deps.json",
+          "Bytes": 1144,
+          "Sha256": "19d2778ecebc66e6ba3c24c759c10a2e0b9b4207b2d2aa94e9ba960cca7f590b",
+          "MtimeNs": 1792392179668386388
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.OleTransfer.dll",
+          "Bytes": 73728,
+          "Sha256": "a5fa08aeab94c84332e0ace557acd7f0472c7c46a2d3ef5c8a45f492fcb6060d",
+          "MtimeNs": 1792392179656386487
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.OleTransfer.pdb",
+          "Bytes": 25308,
+          "Sha256": "0d982bd98f398d7a7cac45b33f7bcad4135f45b5b4ee220d4043397530b5daa3",
+          "MtimeNs": 1792392179636386653
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.Providers.deps.json",
+          "Bytes": 787,
+          "Sha256": "0f0b291b1621b2cdd3718cc302ec1b1cd78916b6046a1bfdc1bd8267b4c68a2d",
+          "MtimeNs": 1792392173056441304
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.Providers.dll",
+          "Bytes": 182272,
+          "Sha256": "4c56cc66376685950fc54c9cf99188ed3674103bb4d398c4bedebdade78782df",
+          "MtimeNs": 1792392173024441571
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.Providers.pdb",
+          "Bytes": 43000,
+          "Sha256": "e3ecb61f7713a3457057e5522b39024065b859134879aca60042ecebd3071bd1",
+          "MtimeNs": 1792392172992441838
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.Windows.deps.json",
+          "Bytes": 2013,
+          "Sha256": "337371a16c065c151b3cffc95313ba1165a49acca2bce2bd3b426e1604cc3c53",
+          "MtimeNs": 1792392181360372356
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.Windows.dll",
+          "Bytes": 86016,
+          "Sha256": "21b22452e6d0fba6376537b5a099ba8cb9a909984f02375c4c24f39d7cc8bab1",
+          "MtimeNs": 1792392181348372455
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-production-final/KuaiYi.Windows.pdb",
+          "Bytes": 34120,
+          "Sha256": "740f7bba5e0811e1c7de044eed5a07008cf9403246cdc1cc2a37717c8e194a3c",
+          "MtimeNs": 1792392181328372621
+        }
+      ],
+      "ActualAppDllContainsIsolatedTypeName": false
+    },
+    "app-isolated-final": {
+      "BuildRecord": "r18-app-isolated-executed.json",
+      "BuildRecordSha256": "c796c88a2eb31dae69457fc46b1f47ee07d4ac4bd5fb928df611a044b1487457",
+      "Files": [
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.App.deps.json",
+          "Bytes": 3319,
+          "Sha256": "93a61c940bb849b9e5c8e8407c844a87f1f7e95e8cf0c4920f742748cd2075b4",
+          "MtimeNs": 1792392211556125552
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.App.dll",
+          "Bytes": 414208,
+          "Sha256": "41b3c6201c718609e36fb94c9103f111a2a4b3a615fa82c282dbb59c661df002",
+          "MtimeNs": 1792392211528125783
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.App.exe",
+          "Bytes": 162816,
+          "Sha256": "16dd2675d087bf711fcc2c33826d93394e8589edbfc3a547a2b9400a556c1074",
+          "MtimeNs": 1792392211540125684
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.App.pdb",
+          "Bytes": 114116,
+          "Sha256": "2754a54401df1695a962942f761c37be4713212a29456e0d44bf91b5ffe0035f",
+          "MtimeNs": 1792392211488126121
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.App.runtimeconfig.json",
+          "Bytes": 502,
+          "Sha256": "f6f9f6219d721db8a3a72552f5ef1708b9713446de16fbab105f43952cc26bb7",
+          "MtimeNs": 1792392211556125552
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.Contracts.deps.json",
+          "Bytes": 420,
+          "Sha256": "1bb7dfc3cdd014f46e25b732721d53267ef9ef560292cb0a8146e03eee1b4bf5",
+          "MtimeNs": 1792392202128204160
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.Contracts.dll",
+          "Bytes": 62464,
+          "Sha256": "e10ffb289bc8bc0bf9a39a8e058df429c91e3e812960e06ca22b58c315bb5b6e",
+          "MtimeNs": 1792392174560428750
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.Contracts.pdb",
+          "Bytes": 21604,
+          "Sha256": "b948b97bcfe5e3e4ecdd6036d17b957510de34e57f9596d6d9891ca6edebfd13",
+          "MtimeNs": 1792392174540428916
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.Core.deps.json",
+          "Bytes": 405,
+          "Sha256": "815d6330fbc84261d6f428a0ce568e845e185e9bcaf2e914c8a0c4561eaec7f5",
+          "MtimeNs": 1792392200088220925
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.Core.dll",
+          "Bytes": 520192,
+          "Sha256": "464563908fbb5aaa882bbb5af60c886b0ddf5a2ea25d726486553a935d59c774",
+          "MtimeNs": 1792392171168457091
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.Core.pdb",
+          "Bytes": 122536,
+          "Sha256": "3049b93370f6658993036184f99b26b3d969ddcf9d92c0bcc1b6e074d4f81575",
+          "MtimeNs": 1792392171076457861
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.Imaging.deps.json",
+          "Bytes": 1132,
+          "Sha256": "cdd251260d643ce4444fd3aa7e1aafa3a773238c46085ba81ac070a1aac920eb",
+          "MtimeNs": 1792392204024188582
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.Imaging.dll",
+          "Bytes": 143872,
+          "Sha256": "726cfca9e7f152fabff3585ea86cf940641dd3aeef8f45d09688303a6c13041f",
+          "MtimeNs": 1792392204000188778
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.Imaging.pdb",
+          "Bytes": 41608,
+          "Sha256": "d093afbc07f2293a6b393a481fc8d40839184c62fb6bfa3455fc84559d738ff4",
+          "MtimeNs": 1792392203968189041
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.NativeHost.deps.json",
+          "Bytes": 1573,
+          "Sha256": "8799182c4c04fab062b26b086e839de60ec7ec65a21681bf4158a0c332e38581",
+          "MtimeNs": 1792392205960172673
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.NativeHost.dll",
+          "Bytes": 142848,
+          "Sha256": "c6d58ccc17a89c51a9b996940e96c24fa43d416b0e51fe8bab0452ca37b10421",
+          "MtimeNs": 1792392205924172968
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.NativeHost.exe",
+          "Bytes": 162304,
+          "Sha256": "1315a895be72438e9fbb58e6e246cd9842b2b9270b5ca9026e82c135d65ff3a0",
+          "MtimeNs": 1792392205948172771
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.NativeHost.pdb",
+          "Bytes": 39188,
+          "Sha256": "3d754431cb65c2d152bc89e79932cf595e63a719c338830c831a0d7a00cd1dce",
+          "MtimeNs": 1792392205896173198
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.NativeHost.runtimeconfig.json",
+          "Bytes": 331,
+          "Sha256": "ea4123605d6846cabc53cffdc74dd36eac09f65f08f1e38809a382620d5bc946",
+          "MtimeNs": 1792392205996172377
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.OleTransfer.deps.json",
+          "Bytes": 1144,
+          "Sha256": "19d2778ecebc66e6ba3c24c759c10a2e0b9b4207b2d2aa94e9ba960cca7f590b",
+          "MtimeNs": 1792392207532159488
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.OleTransfer.dll",
+          "Bytes": 73728,
+          "Sha256": "a5fa08aeab94c84332e0ace557acd7f0472c7c46a2d3ef5c8a45f492fcb6060d",
+          "MtimeNs": 1792392207512159658
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.OleTransfer.pdb",
+          "Bytes": 25308,
+          "Sha256": "0d982bd98f398d7a7cac45b33f7bcad4135f45b5b4ee220d4043397530b5daa3",
+          "MtimeNs": 1792392207492159826
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.Providers.deps.json",
+          "Bytes": 787,
+          "Sha256": "0f0b291b1621b2cdd3718cc302ec1b1cd78916b6046a1bfdc1bd8267b4c68a2d",
+          "MtimeNs": 1792392202048204819
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.Providers.dll",
+          "Bytes": 182272,
+          "Sha256": "4c56cc66376685950fc54c9cf99188ed3674103bb4d398c4bedebdade78782df",
+          "MtimeNs": 1792392202008205147
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.Providers.pdb",
+          "Bytes": 43000,
+          "Sha256": "e3ecb61f7713a3457057e5522b39024065b859134879aca60042ecebd3071bd1",
+          "MtimeNs": 1792392201980205377
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.Windows.deps.json",
+          "Bytes": 2013,
+          "Sha256": "337371a16c065c151b3cffc95313ba1165a49acca2bce2bd3b426e1604cc3c53",
+          "MtimeNs": 1792392209236145116
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.Windows.dll",
+          "Bytes": 86016,
+          "Sha256": "21b22452e6d0fba6376537b5a099ba8cb9a909984f02375c4c24f39d7cc8bab1",
+          "MtimeNs": 1792392209220145250
+        },
+        {
+          "Path": "artifacts/session-sdk-initialization/app-isolated-final/KuaiYi.Windows.pdb",
+          "Bytes": 34120,
+          "Sha256": "740f7bba5e0811e1c7de044eed5a07008cf9403246cdc1cc2a37717c8e194a3c",
+          "MtimeNs": 1792392209196145452
+        }
+      ],
+      "ActualAppDllContainsIsolatedTypeName": true
+    }
+  }
+}

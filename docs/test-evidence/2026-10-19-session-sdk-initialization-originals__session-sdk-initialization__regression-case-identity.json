@@ -1,0 +1,36 @@
+{
+  "Core": {
+    "Parent": "docs/test-evidence/2026-10-18-isolated-session-originals__r08-core-full.trx",
+    "Current": "artifacts/session-sdk-initialization/r05-core-full/_0affe84243c4_2026-10-19_06_36_20_net10.0.trx",
+    "ParentCases": 1888,
+    "CurrentCases": 1904,
+    "Missing": [],
+    "Added": [
+      "KuaiYi.Core.Tests.IsolatedSessionDependencyTests.EmptyWrongOrMissingDependencyClosureIsRefused(mode: \"empty-file\")",
+      "KuaiYi.Core.Tests.IsolatedSessionDependencyTests.UnsafeDeclarationsAreRefusedEvenWithAMatchingBasename(name: \"/PUBLIC.dll\")",
+      "KuaiYi.Core.Tests.IsolatedSessionDependencyTests.EmptyWrongOrMissingDependencyClosureIsRefused(mode: \"wrong-target\")",
+      "KuaiYi.Core.Tests.IsolatedSessionDependencyTests.UnsafeDeclarationsAreRefusedEvenWithAMatchingBasename(name: \"lib//PUBLIC.dll\")",
+      "KuaiYi.Core.Tests.IsolatedSessionDependencyTests.EmptyWrongOrMissingDependencyClosureIsRefused(mode: \"missing\")",
+      "KuaiYi.Core.Tests.IsolatedSessionDependencyTests.EmptyWrongOrMissingDependencyClosureIsRefused(mode: \"empty\")",
+      "KuaiYi.Core.Tests.IsolatedSessionDependencyTests.ForeignRuntimeTargetsDoNotReplaceRequiredWinX64Files",
+      "KuaiYi.Core.Tests.IsolatedSessionDependencyTests.UnsafeResourceLocalesAreRefused(locale: \"PUBLIC:stream\")",
+      "KuaiYi.Core.Tests.IsolatedSessionDependencyTests.UnsafeDeclarationsAreRefusedEvenWithAMatchingBasename(name: \"../PUBLIC.dll\")",
+      "KuaiYi.Core.Tests.IsolatedSessionDependencyTests.UnsafeResourceLocalesAreRefused(locale: \"\")",
+      "KuaiYi.Core.Tests.IsolatedSessionDependencyTests.RuntimeNativeAndResourceDeclarationsRequireTheirActualFiles",
+      "KuaiYi.Core.Tests.IsolatedSessionDependencyTests.UnsafeDeclarationsAreRefusedEvenWithAMatchingBasename(name: \"PUBLIC.dll:stream\")",
+      "KuaiYi.Core.Tests.IsolatedSessionDependencyTests.SymlinkDependencyRefusedWithoutChangingItsTarget",
+      "KuaiYi.Core.Tests.IsolatedSessionDependencyTests.UnsafeResourceLocalesAreRefused(locale: \"PUBLIC/OTHER\")",
+      "KuaiYi.Core.Tests.IsolatedSessionDependencyTests.UnsafeDeclarationsAreRefusedEvenWithAMatchingBasename(name: \"lib/../PUBLIC.dll\")",
+      "KuaiYi.Core.Tests.IsolatedSessionDependencyTests.UnsafeResourceLocalesAreRefused(locale: \"../PUBLIC\")"
+    ]
+  },
+  "Provider": {
+    "Parent": "docs/test-evidence/2026-10-18-isolated-session-originals__r10-provider-full.trx",
+    "Current": "artifacts/session-sdk-initialization/r07-provider-full/_0affe84243c4_2026-10-19_06_38_50_net10.0.trx",
+    "ParentCases": 2332,
+    "CurrentCases": 2332,
+    "Missing": [],
+    "Added": []
+  },
+  "TrackedTestFilesUnchanged": true
+}

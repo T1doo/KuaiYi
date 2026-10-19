@@ -1,0 +1,24 @@
+{
+  "MutexConfiguration": {
+    "Source": "https://github.com/dotnet/docs/issues/56396",
+    "AffectedRuntime": "10.0.13",
+    "LinuxUserScopedRoot": "XDG_RUNTIME_DIR; HOME/.dotnet only when unset",
+    "SecurityScope": "Default user scope retained"
+  },
+  "MaintainerConfirmation": "https://github.com/dotnet/runtime/issues/135726",
+  "ContentVsArchiveHash": "https://github.com/NuGet/NuGet.Client/blob/b260088dc6b3d3a1c3e76ad0422ce4ceb03bbcdd/src/NuGet.Core/NuGet.Packaging/Signing/Archive/SignedPackageArchiveUtility.cs",
+  "SignatureWarnings": [
+    "https://learn.microsoft.com/en-us/nuget/reference/errors-and-warnings/nu3018",
+    "https://learn.microsoft.com/en-us/nuget/reference/errors-and-warnings/nu3028"
+  ],
+  "RejectedAlternativesNotExecuted": [
+    "HOME override",
+    "unsafe global mutex scope",
+    "fake first-use sentinel or skipped migration",
+    "direct MSBuild entry replacing normal first-use",
+    "offline certificate revocation",
+    "signature verification disabled",
+    "system mount/permission/trust changes",
+    "Actions/API route-around"
+  ]
+}

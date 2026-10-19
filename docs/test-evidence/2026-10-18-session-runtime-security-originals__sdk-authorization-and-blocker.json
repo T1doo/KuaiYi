@@ -1,0 +1,55 @@
+{
+  "Utc": "2026-10-18T09:29:38.661925+00:00",
+  "SdkAuthorization": {
+    "Status": "Approved",
+    "UserUtc": "2026-10-18T09:22:58Z",
+    "Scope": "OfficialSDK402 cloud workspace isolated download/hash/extraction/build only",
+    "TrustedParentDelegation": true
+  },
+  "Completed": [
+    "Downloaded officialSDK402 with fullSHA512 match",
+    "Inspected archiveMIT and informationalthirdpartynotices; preserved bytes",
+    "Extracted fresh cloudworkspaceonlySDK402",
+    "Safe --info/--version executed with host13 and privateXML13",
+    "Source independentreview Pass; Python15P; 409 archivepayloadmapping"
+  ],
+  "NewBlocker": {
+    "Action": "SDK402 first-use namedMutex initialization before MSBuild/test/restore",
+    "ExactFailedTarget": "/home/agent/.dotnet",
+    "ActualSyscall": "mkdir(/home/agent/.dotnet,0700)=-1EROFS",
+    "RelatedProbe": "/home/agent/.local/share/NuGet/Migrations/1 missing",
+    "Status": "FilesystemWriteDenied_ReadOnly_NoApprovalForAdditionalWrite",
+    "ExtraPermission": "NotRequestedOrGrantedByTool",
+    "NoFurtherWriteRetry": true,
+    "NoHomeOverrideOrSentinelFabrication": true,
+    "Needs": "Parent decision on authorized supported SDK initialization environment or narrowly scoped extra user-directory writes; do not loosen system security"
+  },
+  "Trace": {
+    "Path": "r03-firstuse-filetrace.log",
+    "Sha256": "e12d72b32d6aecdce1368f9ba5e7f5d1292aad28a58c9dc5448264c212062965",
+    "RelevantLines": [
+      {
+        "Line": 4078,
+        "Text": "62811 lstat(\"/home/agent/.local/share/NuGet/Migrations/1\", 0x7fff1c45de20) = -1 ENOENT (No such file or directory)"
+      },
+      {
+        "Line": 4079,
+        "Text": "62811 mkdir(\"/home/agent/.dotnet\", 0700) = -1 EROFS (Read-only file system)"
+      }
+    ]
+  },
+  "Attempts": [
+    {
+      "Run": "r02-isolation-targeted",
+      "Exit": 1,
+      "TRX": "None_CompileAndTestsNotEntered"
+    },
+    {
+      "Run": "r03-isolation-targeted",
+      "Exit": 1,
+      "TRX": "None_CompileAndTestsNotEntered"
+    }
+  ],
+  "Package": "Hold_NoZIP",
+  "CommitPush": "NotRun_Uncommitted"
+}

@@ -1,0 +1,107 @@
+{
+  "Kind": "KuaiYiIsolatedSessionTest",
+  "WindowsExecution": "NotRun",
+  "ModelCalls": "None",
+  "ProductionInstaller": false,
+  "Bundle": null,
+  "Commands": [
+    {
+      "Argv": [
+        "dotnet",
+        "--version"
+      ],
+      "Exit": 0,
+      "Log": "bootstrap-01.log",
+      "Sha256": "44ea2595bc5a7acabc030531952071226aa70862fd008ed7327d752b39c8513c"
+    },
+    {
+      "Argv": [
+        "dotnet",
+        "build",
+        "tools/KuaiYi.SettingsStoreFixture/KuaiYi.SettingsStoreFixture.csproj",
+        "--no-restore",
+        "-c",
+        "Release"
+      ],
+      "Exit": 0,
+      "Log": "bootstrap-02.log",
+      "Sha256": "5f666c52804d7397860fb6d39278bb437d789fd8a64c63a6233455cfcaf5a496"
+    },
+    {
+      "Argv": [
+        "dotnet",
+        "tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll",
+        "--prepare-isolated-session-build-workspace",
+        "/workspace/KuaiYi/artifacts/session-test-preparation"
+      ],
+      "Exit": 0,
+      "Log": "bootstrap-03.log",
+      "Sha256": "a703f6cac4cb0a15036891e91a3825674db922c9a005ce81768ae700827cb31e"
+    },
+    {
+      "Argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "Exit": 0,
+      "Log": "command-04.log",
+      "Sha256": "227b380f25943fc0012899d0b907bb98c7cdd1f2534098c6659efed4d2550214"
+    },
+    {
+      "Argv": [
+        "git",
+        "status",
+        "--porcelain=v1"
+      ],
+      "Exit": 0,
+      "Log": "command-05.log",
+      "Sha256": "f94a2a1a0fb018278f39c44585324e094a2e4c5f5ca0bdc681da81fc2fe032fd"
+    },
+    {
+      "Argv": [
+        "dotnet",
+        "restore",
+        "packaging/session-runtime-audit/session-runtime-audit.csproj",
+        "--locked-mode",
+        "--configfile",
+        "/workspace/KuaiYi/artifacts/session-test-preparation/KuaiYi-SessionBuild-58600888e4e34089a1a72ffb60d7004c/NuGet.audited.config",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true"
+      ],
+      "Exit": 1,
+      "Log": "command-06.log",
+      "Sha256": "ae0bc1c9a57ff39a787b792933f2daf5bf2504d1f3b7dd6d6748c053e971c095"
+    }
+  ],
+  "RuntimeLicenses": [
+    {
+      "Id": "Microsoft.NETCore.App.Runtime.win-x64",
+      "Version": "10.0.13",
+      "License": "MIT",
+      "ExplicitAcceptanceDeclared": false,
+      "Source": "https://api.nuget.org/v3-flatcontainer/microsoft.netcore.app.runtime.win-x64/10.0.13/microsoft.netcore.app.runtime.win-x64.nuspec",
+      "Sha256": "6e9ce44d56da78d44acac89c1ac7e3dc142e3ad85bb5a8686dff6de4e61281f4"
+    },
+    {
+      "Id": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+      "Version": "10.0.13",
+      "License": "MIT",
+      "ExplicitAcceptanceDeclared": false,
+      "Source": "https://api.nuget.org/v3-flatcontainer/microsoft.windowsdesktop.app.runtime.win-x64/10.0.13/microsoft.windowsdesktop.app.runtime.win-x64.nuspec",
+      "Sha256": "8ba129a1fb7e98729d1a845cb4bab1740fd7d670c5b935cd3ca23244412bce9b"
+    }
+  ],
+  "SourceCommit": "b21a1e3bd06bda43a005b95bf5f62aecd8278e50",
+  "SourceDirty": true,
+  "MissingCachedPacksBeforeRestore": [
+    "microsoft.netcore.app.runtime.win-x64/10.0.13",
+    "microsoft.windowsdesktop.app.runtime.win-x64/10.0.13",
+    "microsoft.netcore.app.host.win-x64/10.0.13",
+    "microsoft.windowsdesktop.app.ref/10.0.13"
+  ],
+  "Status": "Blocked",
+  "Reason": "Command 6 failed; original log retained"
+}

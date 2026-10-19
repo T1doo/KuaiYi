@@ -1,0 +1,42 @@
+{
+  "Utc": "2026-10-18T09:36:21.248026+00:00",
+  "Type": "SourceBackedInvestigation_NotRuntimeValidation",
+  "Sources": [
+    {
+      "Uri": "https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-environment-variables#dotnet_cli_home",
+      "Supports": "CLI supporting files and first-run sentinel/lock files; not a promise to relocate every CLR synchronization object"
+    },
+    {
+      "Uri": "https://raw.githubusercontent.com/dotnet/sdk/main/src/Cli/Microsoft.DotNet.Configurer/DotnetFirstTimeUseConfigurer.cs",
+      "Supports": "Configure callsMigrationRunner.Run before first-use sentinel creation, NoLogo only affects messages",
+      "VersionBoundary": "Current official source, not a verified source permalink for exact402binary"
+    },
+    {
+      "Uri": "https://raw.githubusercontent.com/NuGet/NuGet.Client/dev/src/NuGet.Core/NuGet.Common/Migrations/MigrationRunner.cs",
+      "Supports": "Unix GetMigrationsDirectory readsXDG_DATA_HOME, elseUserProfile/.local/share; Run creates namedMutex beforeCreateDirectory/migration",
+      "VersionBoundary": "Current official source; actualSDKNuGetCommon metadata7.9.0-rc.611+a8dd0577... fromdotnet/dotnet, not proven same exactsource revision"
+    },
+    {
+      "Uri": "https://raw.githubusercontent.com/NuGet/NuGet.Client/dev/src/NuGet.Core/NuGet.Common/PathUtil/NuGetEnvironment.cs",
+      "Supports": "NuGet generic home usesDOTNET_CLI_HOME; temp usesNUGET_SCRATCH, separate fromMigrationRunner path branch"
+    }
+  ],
+  "Conclusions": {
+    "DirectFailure": "KernelEROFS atCLR namedMutex user-directory creation on read-only root mount, before compile/restore/test",
+    "OuterToolApprovalRejection": "None received for originaltest commands; not equivalent to unrestricted authorization",
+    "PolicyBoundary": "Read-onlyroot matchesselected filesystem profile; preserve policy boundary",
+    "CliSentinelsWorkspace": "Already demonstrated bytrace underDOTNET_CLI_HOME/.dotnet",
+    "MigrationDataWorkspace": "Official currentNuGet source supports XDG_DATA_HOME, but not tried undercurrent investigation authorization",
+    "CompleteMutexWorkspaceRelocation": "NotEstablished; XDG_DATA_HOME migration semantics does not prove the failingCLR mutex root can be relocated",
+    "MinimumSafeAction": "KeepSDKdependent actions paused; report findings to parent. Platform-approved supported runtime synchronization configuration would be required before a bounded retry; noHOME/systempermission/migration/audit changes proposed for execution"
+  },
+  "ForbiddenAlternativesNotTried": [
+    "HOME override",
+    "Create/chmod/remount home",
+    "Skipmigration",
+    "Fake first-use or migration sentinel",
+    "Disable audit",
+    "Substitute paths to test refused write"
+  ],
+  "NoNewSdkCommandsThisInvestigation": true
+}

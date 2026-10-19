@@ -1,0 +1,18 @@
+{
+  "Status": "Pass",
+  "ActualLogs": [
+    {
+      "Log": "r09-core-runtime-signature.log",
+      "LogSha256": "4723c44a9b43da6189719f9ff2a24fca9d7a7127ac0545810bd30b4b1c09eddd",
+      "Outcome": "Refused",
+      "Reason": "Runtime signature verification reported warnings/errors; preparation refused"
+    },
+    {
+      "Log": "r10-desktop-runtime-signature.log",
+      "LogSha256": "01b9d123f89cb2a8e5c22621e1b516014593aba672a5fd0aeaf703785252ce9a",
+      "Outcome": "Refused",
+      "Reason": "Runtime signature verification reported warnings/errors; preparation refused"
+    }
+  ],
+  "PreparationSourceSha256": "c1b279f94ec26beb9782dbf160fdd6c050780819b9a80fbb1f199ab1756523b1"
+}

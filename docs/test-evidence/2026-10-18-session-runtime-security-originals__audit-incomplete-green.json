@@ -1,0 +1,44 @@
+{
+  "Utc": "2026-10-18T09:20:09.915408+00:00",
+  "SourceSha256": "667766501ea742178ad097f9aaefe63013222f42ec5c0e6fd67d83636cd03648",
+  "SameInputsFrom": "audit-incomplete-red.json",
+  "Cases": [
+    {
+      "Input": {
+        "version": 1,
+        "sources": [
+          "https://api.nuget.org/v3/index.json"
+        ],
+        "projects": [
+          {}
+        ]
+      },
+      "Expected": "Refused",
+      "Actual": "Refused",
+      "Pass": true
+    },
+    {
+      "Input": {
+        "version": 1,
+        "sources": [
+          "https://api.nuget.org/v3/index.json"
+        ],
+        "projects": [
+          {
+            "path": "unrelated.csproj",
+            "frameworks": []
+          }
+        ],
+        "problems": [
+          {
+            "level": "error",
+            "text": "PUBLIC_AUDIT_FAILURE"
+          }
+        ]
+      },
+      "Expected": "Refused",
+      "Actual": "Refused",
+      "Pass": true
+    }
+  ]
+}

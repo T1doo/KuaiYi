@@ -1,0 +1,47 @@
+{
+  "Reason": "NU1403: signed-package content hash differs from full archive hash",
+  "OriginalLockSha256": "d7d514ed1a8639dcb97f4578e8d9aaad74576e79878f7d58ad230f4bbb588367",
+  "OriginalLock": {
+    "version": 2,
+    "dependencies": {
+      "net10.0": {
+        "Microsoft.NETCore.App.Runtime.win-x64": {
+          "type": "Direct",
+          "requested": "[10.0.13, 10.0.13]",
+          "resolved": "10.0.13",
+          "contentHash": "55suoRAIf6dVjOdPhHxIElDa2GBoqVZI70bG4zq+f2pHQbGV6yDvztsXdit4pxc3Ea79X0Kfo78Kncjt9NauIQ=="
+        },
+        "Microsoft.WindowsDesktop.App.Runtime.win-x64": {
+          "type": "Direct",
+          "requested": "[10.0.13, 10.0.13]",
+          "resolved": "10.0.13",
+          "contentHash": "g8vz2rWeSNYimFNYUqXUy7yVkKJOQycy9ksNt59122iv+y7Y5KrR/PwoSCQgXO3KBJbf4uEdK0LuCr8OaVwQcw=="
+        }
+      }
+    }
+  },
+  "ActualPackages": {
+    "Microsoft.NETCore.App.Runtime.win-x64": {
+      "Version": "10.0.13",
+      "ArchiveSha512": "55suoRAIf6dVjOdPhHxIElDa2GBoqVZI70bG4zq+f2pHQbGV6yDvztsXdit4pxc3Ea79X0Kfo78Kncjt9NauIQ==",
+      "NuGetContentHash": "AtNgFBRln5IDZonHHqMN5M/AigeXGWWOf3TB2nDE415hqiYiTPNyaFObfZBC6jXx8JlGZCIpQ6CEM0G+zf6NHQ==",
+      "Source": "https://api.nuget.org/v3/index.json"
+    },
+    "Microsoft.WindowsDesktop.App.Runtime.win-x64": {
+      "Version": "10.0.13",
+      "ArchiveSha512": "g8vz2rWeSNYimFNYUqXUy7yVkKJOQycy9ksNt59122iv+y7Y5KrR/PwoSCQgXO3KBJbf4uEdK0LuCr8OaVwQcw==",
+      "NuGetContentHash": "xouaR618eD6SeEht2zW16YFBGtRGF6+qTs8nNSLqmBzrBl5di/tf9A1WwDYjGxqQln27Gds0I+WZ8DR2IUePCg==",
+      "Source": "https://api.nuget.org/v3/index.json"
+    }
+  },
+  "OldSignaturePolicyAccepted": true,
+  "ObservedWarnings": [
+    "NU3018",
+    "NU3028"
+  ],
+  "VerifyExitCodes": [
+    0,
+    0
+  ],
+  "SignatureStatus": "RevocationUnknown"
+}

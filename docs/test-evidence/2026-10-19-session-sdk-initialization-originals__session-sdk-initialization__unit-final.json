@@ -1,0 +1,20 @@
+{
+  "Argv": [
+    "python3",
+    "-B",
+    "-m",
+    "unittest",
+    "-v",
+    "scripts/test_session_sdk.py",
+    "scripts/test_prepare_session_test.py"
+  ],
+  "Exit": 0,
+  "Methods": 18,
+  "LogSha256": "247a52a329d7affa5796befa9590aba765344380dc6ce8f00d08e46ed43bf99a",
+  "Sources": {
+    "scripts/session-sdk.py": "6209f4f228c2407da16d00494df34c08b40ac3861e97e5f4731372840251e85c",
+    "scripts/test_session_sdk.py": "b6dafbe893b02989238a45826382775bb2f8fa341fece163050bb894b16e8fd4",
+    "scripts/prepare-session-test.py": "03859d49c0a3c0dd27da775d47a4970fadbb3b99123fb366923b7f55a7861ea5"
+  },
+  "SdkExecutedByTheseUnitTests": false
+}

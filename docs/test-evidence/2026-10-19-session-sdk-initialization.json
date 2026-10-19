@@ -1,0 +1,673 @@
+{
+  "SchemaVersion": 1,
+  "Utc": "2026-10-19T06:53:21.694306+00:00",
+  "Task": "Supported secure SDK workspace initialization and runtime package gates",
+  "BaseCommit": "b21a1e3bd06bda43a005b95bf5f62aecd8278e50",
+  "Branch": "dev/session-runtime-security",
+  "Status": "CodeRegressionPass_PackageHold",
+  "Initialization": {
+    "Status": "Pass",
+    "Method": "Official XDG_RUNTIME_DIR + XDG_DATA_HOME + DOTNET_CLI_HOME with private user-owned mode0700 directories",
+    "HomeUnchanged": true,
+    "HomeReadonly": true,
+    "RealSdkMigrationAndSentinelCreated": true,
+    "UnsafeGlobalScope": false,
+    "FirstUseBypass": false
+  },
+  "ActualValidation": {
+    "Targeted": {
+      "Passed": 61,
+      "Failed": 0
+    },
+    "CoreFull": {
+      "Passed": 1904,
+      "Failed": 0,
+      "Skipped": 0,
+      "Parent1888Preserved": true,
+      "NewDependencyCases": 16
+    },
+    "ProviderFull": {
+      "Passed": 2332,
+      "Failed": 0,
+      "Skipped": 0,
+      "ParentCaseMultisetEqual": true
+    },
+    "PythonMethods": 22,
+    "RuntimeLockedRestore": "Pass",
+    "RuntimeInventory": "ExactlyTwo10.0.13",
+    "RuntimeVulnerabilityQuery": "Pass_NoKnownVulnerabilitiesReported",
+    "AppLockedRestore": "Pass",
+    "AppVulnerabilityQuery": "Pass_ZeroPackagesBoundToActualProjectAssets",
+    "ProductionAppBuild": "Pass_0Warnings_0Errors",
+    "IsolatedAppBuild": "Pass_0Warnings_0Errors",
+    "ImageWorkerBuild": "Pass_0Warnings_0Errors",
+    "SignatureVerification": "Blocked_RevocationUnknown_WarningsDespiteExit0",
+    "DotNetPublish": "NotRun_SignatureGate",
+    "Bundle": null,
+    "WindowsExecution": "NotRun",
+    "RealModelCalls": "None"
+  },
+  "ActualFailuresRetained": {
+    "OldInitialization": "r02/r03 Exit1 before compilation; EROFS at HOME/.dotnet",
+    "r06": "Wrong Provider path MSB1009; harness typo, corrected r07",
+    "r08": "NU1403: full archive hash incorrectly used as NuGet contentHash; corrected independently verified dual hashes",
+    "r13r14": "Global -r propagated RID into libraries whose ordinary locks have no RID; corrected ordinary restore r15 without global RID",
+    "r19": "list missing the EnableWindowsTargeting restore context; fixed shared environment, real r23/r24 green",
+    "InitialPythonFixture": "umask077 filtered fixture mkdir0755; explicitly mode0755 only owned temporary fixture, product helper unchanged"
+  },
+  "RemainingBlocker": {
+    "Action": "dotnet nuget verify <two official runtime10.0.13 archives> --all",
+    "Target": "Certificate chain and timestamp online revocation status",
+    "Outcome": "Exit0 with NU3018/NU3028 warnings; preparation refuses",
+    "Reason": "Revocation server could not be reached; certificate CRL unavailable. Exact network cause not proven.",
+    "MinimumMissingCondition": "Approved environment where normal online NuGet signature verification establishes known valid revocation status without warnings",
+    "NoSecurityBypass": true,
+    "PackageState": "Hold; no publish or ZIP",
+    "AccessDenial": "No tool approval denial reported for verify; exact network restrictions unknown"
+  },
+  "SeparateDeniedActionsUntouched": [
+    "Prior GitHub Actions access Forbidden; no API/query or alternate route",
+    "Prior CIM denied; no retry",
+    "GET https://api.github.com/repos/dotnet/runtime/git/trees/v10.0.13?recursive=1 via urllib: Tunnel connection failed 403 Forbidden; no retry or alternate path"
+  ],
+  "ExistingWorkflows": "AllEightUnchanged; repository read-only branch/path gates checked; server run state Unknown; no Actions request",
+  "PreviousPacket": {
+    "Path": "docs/test-evidence/2026-10-18-session-runtime-security.json",
+    "RawFileCount": 56,
+    "RawTotalBytes": 4537388,
+    "AllBytesPreserved": true
+  },
+  "Sources": {
+    "global.json": "81ae2087dbfb46027fd94748351fb4b1ab24145fbb52544a2822bf128e2e48f1",
+    "packaging/session-test.json": "19c885c9cecc45c8ee7f2964222485a77858bab8b2b3f448c324ed448c89968b",
+    "packaging/text-alpha.json": "1e48127cdfc19368b20a260d9cb7daa3ead47fdd91cf555563347bd5b37df7fc",
+    "packaging/session-runtime-audit/session-runtime-audit.csproj": "0f8027beedce7a65cdad1c6b44ea69b32efb2c09263ad0d40b5c4ade8d7e377b",
+    "packaging/session-runtime-audit/packages.lock.json": "5f591739b83308b9fa7d09ccd08b789245bd072d48a26b6294bf7f14ffb43141",
+    "packaging/session-runtime-audit/runtime-pack-integrity.json": "4a4846835e29e50f1e0c6ecdfe7c4c789adc4de75d7d9fbb2d122773f8ec6465",
+    "scripts/prepare-session-test.py": "c1b279f94ec26beb9782dbf160fdd6c050780819b9a80fbb1f199ab1756523b1",
+    "scripts/test_prepare_session_test.py": "43d5de2c2420fd96ff9b3f43c45bc5ffb83285fc78c007f2beff55c08a1e0fb8",
+    "scripts/session-sdk.py": "6209f4f228c2407da16d00494df34c08b40ac3861e97e5f4731372840251e85c",
+    "scripts/test_session_sdk.py": "b6dafbe893b02989238a45826382775bb2f8fa341fece163050bb894b16e8fd4",
+    "tools/KuaiYi.SettingsStoreFixture/IsolatedSessionPackage.cs": "b5e19e9349ad1431f111d96327dcc37019460cf2355714af89d7d4c44294da05",
+    "tools/KuaiYi.SettingsStoreFixture/Program.cs": "4eb1349d149c878b7e47f5e6cd81422d935da1932f0566380096ff469a591578",
+    "tests/KuaiYi.Core.Tests/IsolatedSessionDependencyTests.cs": "f3f3cb3223d3bf3c79b3887b30224f316d33e4492d4faa2171f9e23d2473115e"
+  },
+  "RawFiles": [
+    {
+      "Original": "artifacts/session-sdk-initialization/actual-initialization-green.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__actual-initialization-green.json",
+      "Bytes": 711,
+      "Sha256": "53669c929648c75ad3aac14e1a335f73178863a6d870b18369840fb3beb97694"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/actual-signature-gate-green.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__actual-signature-gate-green.json",
+      "Bytes": 685,
+      "Sha256": "6371ac70f428600b35f1b614f1ddc54cd7a7e07f6caad491f752ce3d69a9369b"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/app-assets-audit.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__app-assets-audit.json",
+      "Bytes": 31484,
+      "Sha256": "521239761576eaefca0b7c1d72576cbb12a979971643418377540a2d691d5d7b"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/existing-test-workflow-preservation.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__existing-test-workflow-preservation.json",
+      "Bytes": 32744,
+      "Sha256": "2b20b9ede38e8820d80cd83be193a6d37c31d466bb52f0aaddee46bc86986ca3"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/official-supported-paths.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__official-supported-paths.json",
+      "Bytes": 1081,
+      "Sha256": "0de61a25a202e04591c8ba9c7744b67255d27220898e132f4a04ad638d19a1ea"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r04-isolation-targeted/_0affe84243c4_2026-10-19_06_34_54_net10.0.trx",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r04-isolation-targeted___0affe84243c4_2026-10-19_06_34_54_net10.0.trx",
+      "Bytes": 87337,
+      "Sha256": "d27808173b93651dc8ce39f8101471c093b0c3a26dddc1f9862898aecb8dab64"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r04-isolation-targeted-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r04-isolation-targeted-executed.json",
+      "Bytes": 78646,
+      "Sha256": "e93c8d07d1db073a751babedf0b3b593e2389009376fa0394aa51ad566b709f2"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r04-isolation-targeted.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r04-isolation-targeted.log",
+      "Bytes": 2123,
+      "Sha256": "2773916aa182cf437568a3c847c370026e6a70092219294ec38af97c74fe472a"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r05-core-full/_0affe84243c4_2026-10-19_06_36_20_net10.0.trx",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r05-core-full___0affe84243c4_2026-10-19_06_36_20_net10.0.trx",
+      "Bytes": 2715548,
+      "Sha256": "1639b7a95b53eaea13156e07cb7c885d44f97c5269580bac007978e7f6f0ad7f"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r05-core-full-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r05-core-full-executed.json",
+      "Bytes": 78636,
+      "Sha256": "b7948e82d04844b5d988b4cb0324ef98ead703e32efdb7d946900957f06936cb"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r05-core-full.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r05-core-full.log",
+      "Bytes": 2112,
+      "Sha256": "3cf385d8af896ec1be940fa13f920a0a3b23e696ee9a37df3767ce2371eacdec"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r06-provider-full-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r06-provider-full-executed.json",
+      "Bytes": 78650,
+      "Sha256": "dea9b5757dbb10b0038370ad83c8b2a9afeb6ef3fe003e1a05944c653a099fe1"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r06-provider-full.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r06-provider-full.log",
+      "Bytes": 117,
+      "Sha256": "0edfb084a338ba98ab94e37f757627128e17ec18f45c43fdce7ed6a12a39cb27"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r07-provider-full/_0affe84243c4_2026-10-19_06_38_50_net10.0.trx",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r07-provider-full___0affe84243c4_2026-10-19_06_38_50_net10.0.trx",
+      "Bytes": 3439973,
+      "Sha256": "9ed20dd0400318d7ab6760c334b298e43a39ebe16f55d75168d7d01c19322236"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r07-provider-full-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r07-provider-full-executed.json",
+      "Bytes": 78652,
+      "Sha256": "8774584eff6c0f0f9f6756f7962e0450cbc0e21c759ebe391468b2eed52409b2"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r07-provider-full.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r07-provider-full.log",
+      "Bytes": 1181,
+      "Sha256": "0913b6f6c6d20c1fae4e04578302de5c42f1e6cde0f82354cdac05d851aa0c8f"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r08-session-preparation-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r08-session-preparation-executed.json",
+      "Bytes": 78335,
+      "Sha256": "f7bf71097465409f74f0163937fb0951320efb2232404e8ef4f1540af2df2f45"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r08-session-preparation.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r08-session-preparation.log",
+      "Bytes": 181,
+      "Sha256": "ecfb5a27c4136c860a14921945d3432dc59fd90a79d28a440ab52235f96bfd5a"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r09-core-runtime-signature-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r09-core-runtime-signature-executed.json",
+      "Bytes": 78553,
+      "Sha256": "02e193b842057e28e33ae0233f0dab8b65717c5cfb643ebcb81b142a859866ba"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r09-core-runtime-signature.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r09-core-runtime-signature.log",
+      "Bytes": 2285,
+      "Sha256": "4723c44a9b43da6189719f9ff2a24fca9d7a7127ac0545810bd30b4b1c09eddd"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r10-desktop-runtime-signature-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r10-desktop-runtime-signature-executed.json",
+      "Bytes": 78570,
+      "Sha256": "50caa5c929b8d8287fbd99ac5d81eddeb20790b63660787c750b8789c74bf8d3"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r10-desktop-runtime-signature.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r10-desktop-runtime-signature.log",
+      "Bytes": 2292,
+      "Sha256": "01b9d123f89cb2a8e5c22621e1b516014593aba672a5fd0aeaf703785252ce9a"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r11-audited-preparation-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r11-audited-preparation-executed.json",
+      "Bytes": 78470,
+      "Sha256": "08dc7bf970a602db9352c39da44ae100f1f24d8c6e3cf6e3f1f8c2f5f7cf469b"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r11-audited-preparation.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r11-audited-preparation.log",
+      "Bytes": 181,
+      "Sha256": "e1be02907835a679d95f9ba5c3c87df2671fbb4d2d59d4e4a0f1488b1a2e45fa"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r12-python-final-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r12-python-final-executed.json",
+      "Bytes": 78536,
+      "Sha256": "6e110efed46d9c26383f27f427b01b727e577dcafd9b056cfa3bdfdbf92fb411"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r12-python-final.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r12-python-final.log",
+      "Bytes": 3363,
+      "Sha256": "3058e2d21d37620cf00c1cd86ea4d789fe1a063737f50a6b877acdd0afe7f7e7"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r13-app-audited-restore-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r13-app-audited-restore-executed.json",
+      "Bytes": 78929,
+      "Sha256": "f5f3689afcda9fca83de0df28b70924e2e79ed921bd2fa51ef0ae6bc02a9a926"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r13-app-audited-restore.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r13-app-audited-restore.log",
+      "Bytes": 3735,
+      "Sha256": "2d1fd796587f4681cfd1cb9e9995d8da0d4d29faf0a832b353acd80e43020c53"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r14-app-production-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r14-app-production-executed.json",
+      "Bytes": 78798,
+      "Sha256": "fd72cddc83151d66ad9cad39dc3aa66065604f9b2caaf146e19f84a6ebea05b2"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r14-app-production.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r14-app-production.log",
+      "Bytes": 5386,
+      "Sha256": "5762fd2c0c546b9b797a173a0eb3ec681c3d5d935eff83b4bdfb0f9fc24a5994"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r15-app-audited-restore-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r15-app-audited-restore-executed.json",
+      "Bytes": 78904,
+      "Sha256": "dab2cf5a661006d9d9572135d0c01381946b2a9f771861c143d96dcf81f1ea46"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r15-app-audited-restore.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r15-app-audited-restore.log",
+      "Bytes": 703,
+      "Sha256": "ebfa894f03ee5fc766099d7cd0d6919affa2f8abb3e0de43c0f903c50ace2157"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r16-app-production-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r16-app-production-executed.json",
+      "Bytes": 78804,
+      "Sha256": "49b29ce4f5310b672554950f16554a3f609fb8cffa47f55298f9b33f3a870add"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r16-app-production.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r16-app-production.log",
+      "Bytes": 1004,
+      "Sha256": "323828b099c4877b72ee4ba8ede1b85393b17c3747cd1ab0a47d602c83004be3"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r17-python-final-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r17-python-final-executed.json",
+      "Bytes": 78536,
+      "Sha256": "d0d9a4ce01ca026e15c7a7624d846467976f7195866510fbf28368d972b776b7"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r17-python-final.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r17-python-final.log",
+      "Bytes": 3531,
+      "Sha256": "8c9b02e30a53a49274f2f8b57d9ef0704cff068d3f75d55d99efa81bcff2dd1c"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r18-app-isolated-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r18-app-isolated-executed.json",
+      "Bytes": 78841,
+      "Sha256": "c796c88a2eb31dae69457fc46b1f47ee07d4ac4bd5fb928df611a044b1487457"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r18-app-isolated.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r18-app-isolated.log",
+      "Bytes": 988,
+      "Sha256": "03c5f40f288e2785d6fe24cb0543afed615f1005469abea91cafabe146e07c65"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r19-app-inventory-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r19-app-inventory-executed.json",
+      "Bytes": 78627,
+      "Sha256": "5a7b17f3965ac6d167d67652940bab2facafb805dd03cc53b3ab11206e4af421"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r19-app-inventory.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r19-app-inventory.log",
+      "Bytes": 341,
+      "Sha256": "d03781b8c037bada0ba153fa7b73cb227e1d1076cc5051b498a9c371e606de83"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r20-worker-build-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r20-worker-build-executed.json",
+      "Bytes": 78743,
+      "Sha256": "deae6c7f7f3ccce99811b96dcdfae1de864e08774c438df01777952158e84764"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r20-worker-build.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r20-worker-build.log",
+      "Bytes": 477,
+      "Sha256": "21bf55ff2a5f39b0411414792dda9fed7a9a5871d84df068f92b504e6cdd854d"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r21-app-inventory-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r21-app-inventory-executed.json",
+      "Bytes": 78627,
+      "Sha256": "1cc48a561ce612703186ccfef22fe9f0d5f294d27b787b147544465103b50d02"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r21-app-inventory.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r21-app-inventory.log",
+      "Bytes": 251,
+      "Sha256": "d05cb908cbb01d7e57c8d8e1b2e094eb791b35f20db6ea590491a9561720c7d4"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r22-app-vulnerabilities-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r22-app-vulnerabilities-executed.json",
+      "Bytes": 78712,
+      "Sha256": "cf5f566163e1d2c99b19d6a3e3da2bb84848087a0f9c739516ae2d148bcb680f"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r22-app-vulnerabilities.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r22-app-vulnerabilities.log",
+      "Bytes": 234,
+      "Sha256": "53cd134e231a9c7622e2a5ad681888621caf97d3d12dcbacb0919a9f6824a6c5"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r23-app-inventory-final-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r23-app-inventory-final-executed.json",
+      "Bytes": 78760,
+      "Sha256": "c1b5610caca146b6b99379e171ca4ca3e0fcedaae85665ee7bfbc3fead9aa733"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r23-app-inventory-final.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r23-app-inventory-final.log",
+      "Bytes": 251,
+      "Sha256": "d05cb908cbb01d7e57c8d8e1b2e094eb791b35f20db6ea590491a9561720c7d4"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r24-app-vulnerabilities-final-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r24-app-vulnerabilities-final-executed.json",
+      "Bytes": 78845,
+      "Sha256": "a9739a8ee03ee324508db36e2e2d6d1f63869a55caeb572d1509735d38e5b63e"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r24-app-vulnerabilities-final.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r24-app-vulnerabilities-final.log",
+      "Bytes": 234,
+      "Sha256": "53cd134e231a9c7622e2a5ad681888621caf97d3d12dcbacb0919a9f6824a6c5"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r25-python-final-executed.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r25-python-final-executed.json",
+      "Bytes": 78661,
+      "Sha256": "8c21faa71b2ee5c2e4c9482685beef360c3da52e275a80f766e409a945d87546"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/r25-python-final.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__r25-python-final.log",
+      "Bytes": 3531,
+      "Sha256": "9f26a40ecd73cd1b320d6ec08412704ff6b3331b915cbce1b477f83ecb3a912b"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/reentry.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__reentry.json",
+      "Bytes": 751,
+      "Sha256": "faa01b71b4cec499486fefb59c49855b861290335737492685f2c0db589c0982"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/regression-case-identity.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__regression-case-identity.json",
+      "Bytes": 2655,
+      "Sha256": "1c052ab6cf77d0537f63385fb8d453e0cdcb945137bba5d7d66016935571820e"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/remote-before.txt",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__remote-before.txt",
+      "Bytes": 4902,
+      "Sha256": "4ae7f6e52535b61f1e6290403eea514aaf8826c5db3c585ee506c9be6cc096b8"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/run.py",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__run.py",
+      "Bytes": 3486,
+      "Sha256": "56b09426a743624a53d458c81b664cdfd90fedbf62c110b0b93bee49cc963728"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/runtime-lock-and-signature-red.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__runtime-lock-and-signature-red.json",
+      "Bytes": 1797,
+      "Sha256": "eb3c9945ce0e83846288d2bef31f649986ca0f010dbc2ab4e31ef601f1ab8ea4"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/sdk-preflight.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__sdk-preflight.json",
+      "Bytes": 1828,
+      "Sha256": "edbfbfe22d08e51a0210226b4960d062e8ef79482d3e4d1afa84a8993484264b"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/sources-591df6bc7363bf12ae1dff57c723199f66069c78ae8237912393b8d145653fd6.zip",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__sources-591df6bc7363bf12ae1dff57c723199f66069c78ae8237912393b8d145653fd6.zip",
+      "Bytes": 1118462,
+      "Sha256": "0a744bea0d93bccdf14d53706d41706838bffa43dad77bdb585e6e95555ca017"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/sources-62ac7817300950d12e5fde93e39c9fcf7574b992b564187827b99471b3fcbd6e.zip",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__sources-62ac7817300950d12e5fde93e39c9fcf7574b992b564187827b99471b3fcbd6e.zip",
+      "Bytes": 1120203,
+      "Sha256": "37f5d53a9eb5855cb81b23a60d9fbc6bd73945ca0c15de9b4880d537cbc6167a"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/sources-7006fd7d8679289eb18c7a002e9a97190d86e067b095f6a77fa66eedfec5f801.zip",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__sources-7006fd7d8679289eb18c7a002e9a97190d86e067b095f6a77fa66eedfec5f801.zip",
+      "Bytes": 1120195,
+      "Sha256": "fce0e65de6fe6057942eb70ed0280ad6f20a7e5939db85786c8da03f8a2e84d7"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/sources-c44ad2ef4dc493c7423ce15e2a44ac317ee2acec25057564458e5c8cb47089d6.zip",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__sources-c44ad2ef4dc493c7423ce15e2a44ac317ee2acec25057564458e5c8cb47089d6.zip",
+      "Bytes": 1119922,
+      "Sha256": "98fa1a628ca30e2e6c03c02c4f80ccc9c4ef86c410e061d159897940dd8b6dae"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/unit-final.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__unit-final.json",
+      "Bytes": 639,
+      "Sha256": "aaabfabf16a130858ddebe6cdfeefde7397f9debb8c6245ad542218bc5d30f0f"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/unit-final.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__unit-final.log",
+      "Bytes": 3043,
+      "Sha256": "247a52a329d7affa5796befa9590aba765344380dc6ce8f00d08e46ed43bf99a"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/unit-first.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__unit-first.json",
+      "Bytes": 640,
+      "Sha256": "1a322f86c2e9ff157f9acf1eeb3b3f7c283d0c558225e7fbbb7f8a68f8942715"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/unit-first.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__unit-first.log",
+      "Bytes": 3697,
+      "Sha256": "ae0ce2b49549fb0338b6a4fa8fba05836e73f63b01da0e92610ebd0c2ce3b090"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/verification-environment.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__verification-environment.json",
+      "Bytes": 203,
+      "Sha256": "62aa5f57a5d99ce39d0900f3fd9a5563d431bde1e1ebade7c677cdc16d399e0c"
+    },
+    {
+      "Original": "artifacts/session-test-preparation/KuaiYi-SessionBuild-006c51439b3f4e8ea58911bdb1e49c71/NuGet.audited.config",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-test-preparation__KuaiYi-SessionBuild-006c51439b3f4e8ea58911bdb1e49c71__NuGet.audited.config",
+      "Bytes": 408,
+      "Sha256": "0f6f5b3e64ca8df70b0fdee65a85a14a0e060ccaa252f224d946cb5a3b7702c9"
+    },
+    {
+      "Original": "artifacts/session-test-preparation/KuaiYi-SessionBuild-006c51439b3f4e8ea58911bdb1e49c71/bootstrap-01.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-test-preparation__KuaiYi-SessionBuild-006c51439b3f4e8ea58911bdb1e49c71__bootstrap-01.log",
+      "Bytes": 9,
+      "Sha256": "44ea2595bc5a7acabc030531952071226aa70862fd008ed7327d752b39c8513c"
+    },
+    {
+      "Original": "artifacts/session-test-preparation/KuaiYi-SessionBuild-006c51439b3f4e8ea58911bdb1e49c71/bootstrap-02.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-test-preparation__KuaiYi-SessionBuild-006c51439b3f4e8ea58911bdb1e49c71__bootstrap-02.log",
+      "Bytes": 300,
+      "Sha256": "5f666c52804d7397860fb6d39278bb437d789fd8a64c63a6233455cfcaf5a496"
+    },
+    {
+      "Original": "artifacts/session-test-preparation/KuaiYi-SessionBuild-006c51439b3f4e8ea58911bdb1e49c71/bootstrap-03.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-test-preparation__KuaiYi-SessionBuild-006c51439b3f4e8ea58911bdb1e49c71__bootstrap-03.log",
+      "Bytes": 122,
+      "Sha256": "42f15956e33fd36ecd24c84faf764f681d5723d763c96d632c4898eee513e6fb"
+    },
+    {
+      "Original": "artifacts/session-test-preparation/KuaiYi-SessionBuild-006c51439b3f4e8ea58911bdb1e49c71/command-04.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-test-preparation__KuaiYi-SessionBuild-006c51439b3f4e8ea58911bdb1e49c71__command-04.log",
+      "Bytes": 41,
+      "Sha256": "227b380f25943fc0012899d0b907bb98c7cdd1f2534098c6659efed4d2550214"
+    },
+    {
+      "Original": "artifacts/session-test-preparation/KuaiYi-SessionBuild-006c51439b3f4e8ea58911bdb1e49c71/command-05.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-test-preparation__KuaiYi-SessionBuild-006c51439b3f4e8ea58911bdb1e49c71__command-05.log",
+      "Bytes": 6128,
+      "Sha256": "f94a2a1a0fb018278f39c44585324e094a2e4c5f5ca0bdc681da81fc2fe032fd"
+    },
+    {
+      "Original": "artifacts/session-test-preparation/KuaiYi-SessionBuild-006c51439b3f4e8ea58911bdb1e49c71/command-06.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-test-preparation__KuaiYi-SessionBuild-006c51439b3f4e8ea58911bdb1e49c71__command-06.log",
+      "Bytes": 140,
+      "Sha256": "c0da5dd9f6b56cab816916742bc95eed8d8e6bef34ce958111c91c49499657cf"
+    },
+    {
+      "Original": "artifacts/session-test-preparation/KuaiYi-SessionBuild-006c51439b3f4e8ea58911bdb1e49c71/command-07.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-test-preparation__KuaiYi-SessionBuild-006c51439b3f4e8ea58911bdb1e49c71__command-07.log",
+      "Bytes": 682,
+      "Sha256": "f6cd5dcf405278c662dc747fe26e4182be8f943bbd3626ed033f3e85e7897885"
+    },
+    {
+      "Original": "artifacts/session-test-preparation/KuaiYi-SessionBuild-006c51439b3f4e8ea58911bdb1e49c71/command-08.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-test-preparation__KuaiYi-SessionBuild-006c51439b3f4e8ea58911bdb1e49c71__command-08.log",
+      "Bytes": 262,
+      "Sha256": "314cd95e9d64067a676732f59c37b21ddcd137af6369b8bdfab7922331c6a7f7"
+    },
+    {
+      "Original": "artifacts/session-test-preparation/KuaiYi-SessionBuild-006c51439b3f4e8ea58911bdb1e49c71/command-09.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-test-preparation__KuaiYi-SessionBuild-006c51439b3f4e8ea58911bdb1e49c71__command-09.log",
+      "Bytes": 2285,
+      "Sha256": "4723c44a9b43da6189719f9ff2a24fca9d7a7127ac0545810bd30b4b1c09eddd"
+    },
+    {
+      "Original": "artifacts/session-test-preparation/KuaiYi-SessionBuild-006c51439b3f4e8ea58911bdb1e49c71/preparation-result.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-test-preparation__KuaiYi-SessionBuild-006c51439b3f4e8ea58911bdb1e49c71__preparation-result.json",
+      "Bytes": 5877,
+      "Sha256": "eb40a31deca170617e86f0fe0b2ee7ba0ff2d7e8dd24f21b33dbc6f9ab793057"
+    },
+    {
+      "Original": "artifacts/session-test-preparation/KuaiYi-SessionBuild-58600888e4e34089a1a72ffb60d7004c/NuGet.audited.config",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-test-preparation__KuaiYi-SessionBuild-58600888e4e34089a1a72ffb60d7004c__NuGet.audited.config",
+      "Bytes": 408,
+      "Sha256": "0f6f5b3e64ca8df70b0fdee65a85a14a0e060ccaa252f224d946cb5a3b7702c9"
+    },
+    {
+      "Original": "artifacts/session-test-preparation/KuaiYi-SessionBuild-58600888e4e34089a1a72ffb60d7004c/bootstrap-01.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-test-preparation__KuaiYi-SessionBuild-58600888e4e34089a1a72ffb60d7004c__bootstrap-01.log",
+      "Bytes": 9,
+      "Sha256": "44ea2595bc5a7acabc030531952071226aa70862fd008ed7327d752b39c8513c"
+    },
+    {
+      "Original": "artifacts/session-test-preparation/KuaiYi-SessionBuild-58600888e4e34089a1a72ffb60d7004c/bootstrap-02.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-test-preparation__KuaiYi-SessionBuild-58600888e4e34089a1a72ffb60d7004c__bootstrap-02.log",
+      "Bytes": 300,
+      "Sha256": "5f666c52804d7397860fb6d39278bb437d789fd8a64c63a6233455cfcaf5a496"
+    },
+    {
+      "Original": "artifacts/session-test-preparation/KuaiYi-SessionBuild-58600888e4e34089a1a72ffb60d7004c/bootstrap-03.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-test-preparation__KuaiYi-SessionBuild-58600888e4e34089a1a72ffb60d7004c__bootstrap-03.log",
+      "Bytes": 122,
+      "Sha256": "a703f6cac4cb0a15036891e91a3825674db922c9a005ce81768ae700827cb31e"
+    },
+    {
+      "Original": "artifacts/session-test-preparation/KuaiYi-SessionBuild-58600888e4e34089a1a72ffb60d7004c/command-04.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-test-preparation__KuaiYi-SessionBuild-58600888e4e34089a1a72ffb60d7004c__command-04.log",
+      "Bytes": 41,
+      "Sha256": "227b380f25943fc0012899d0b907bb98c7cdd1f2534098c6659efed4d2550214"
+    },
+    {
+      "Original": "artifacts/session-test-preparation/KuaiYi-SessionBuild-58600888e4e34089a1a72ffb60d7004c/command-05.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-test-preparation__KuaiYi-SessionBuild-58600888e4e34089a1a72ffb60d7004c__command-05.log",
+      "Bytes": 6128,
+      "Sha256": "f94a2a1a0fb018278f39c44585324e094a2e4c5f5ca0bdc681da81fc2fe032fd"
+    },
+    {
+      "Original": "artifacts/session-test-preparation/KuaiYi-SessionBuild-58600888e4e34089a1a72ffb60d7004c/command-06.log",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-test-preparation__KuaiYi-SessionBuild-58600888e4e34089a1a72ffb60d7004c__command-06.log",
+      "Bytes": 720,
+      "Sha256": "ae0bc1c9a57ff39a787b792933f2daf5bf2504d1f3b7dd6d6748c053e971c095"
+    },
+    {
+      "Original": "artifacts/session-test-preparation/KuaiYi-SessionBuild-58600888e4e34089a1a72ffb60d7004c/preparation-result.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-test-preparation__KuaiYi-SessionBuild-58600888e4e34089a1a72ffb60d7004c__preparation-result.json",
+      "Bytes": 3422,
+      "Sha256": "74fd1e8d81c39ba81c5e2a312fd0b6f8a1ea500e2841d17e1e026429198f92b5"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/build-artifact-output-sampling.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__build-artifact-output-sampling.json",
+      "Bytes": 16157,
+      "Sha256": "8c51074217b3461ec54424fc23a8cc4f1aaec10ccf399ff508f434b60bc13476"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/independent-final-source-review.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__independent-final-source-review.json",
+      "Bytes": 1096,
+      "Sha256": "cbeeb16c4d0d16d7c5eddfb9e1e1de447f8e12264fc37b1c1196bb1e7a31745d"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/precommit-packet-audit.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__precommit-packet-audit.json",
+      "Bytes": 276,
+      "Sha256": "2aa921da33eee2e59cf96d8d812b471c8f4e42bc30b108f75488464f32eb1637"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/git-precommit-verification.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__git-precommit-verification.json",
+      "Bytes": 494,
+      "Sha256": "581712818a13dcde80dbe5c567af9aed2d9bd8d7ba4f80e0f87a3c8eaf2fad67"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/final-stage-packet-audit.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__final-stage-packet-audit.json",
+      "Bytes": 877,
+      "Sha256": "9f9a49cd67c3c8224dd9e00b4f7b9f55531d9c235965ca3d04056b921adf7a98"
+    },
+    {
+      "Original": "artifacts/session-sdk-initialization/independent-packet-review.json",
+      "Path": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__independent-packet-review.json",
+      "Bytes": 820,
+      "Sha256": "0539a441253be37e70946add4be180fd716709ed73932bbca65138f59e0f5a30"
+    }
+  ],
+  "RawFileCount": 92,
+  "RawTotalBytes": 12624446,
+  "IndependentReview": {
+    "Source": "Pass_NoRemainingP1P2Found",
+    "Packet": "Pass",
+    "Receipt": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-sdk-initialization__independent-packet-review.json",
+    "ReviewedRawFilesBeforeReceipt": 91,
+    "FinalClosure": "Only receipt and corresponding index metadata appended"
+  },
+  "Restrictions": [
+    "No main/force-push/deploy/cost/credentials/security permission changes",
+    "No Skia new-license packages installed/run; source403 untouched",
+    "Windows/WPF/Dispatcher/STA/keyboard/Console/Job/OCR/DPAPI/ACL/screenshots/timing/models/full P6P7 NotRun",
+    "Historical intermittent image/idle/Core/Job/r10/r17/r20 causes Unknown",
+    "Image/classification reuse Off;250/600ms/source/password/integrity/cancel/cleanup gates retained",
+    "Unknown locks/data/logs/processes retained"
+  ],
+  "EvidenceAttributes": {
+    "Path": ".gitattributes",
+    "PreviousBytesPreserved": true,
+    "PreciseRawPaths": 148,
+    "WhitespaceException": "docs/test-evidence/2026-10-19-session-sdk-initialization-originals__session-test-preparation__KuaiYi-SessionBuild-58600888e4e34089a1a72ffb60d7004c__command-06.log",
+    "Sha256": "dae760ff9f1a5f2ad36ab92f21671caf74364b24e878154b1d0c51cd533ad5aa"
+  }
+}

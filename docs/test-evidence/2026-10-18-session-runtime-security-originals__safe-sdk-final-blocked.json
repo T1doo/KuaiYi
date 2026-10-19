@@ -1,0 +1,20 @@
+{
+  "Utc": "2026-10-18T09:21:33.339131+00:00",
+  "Argv": [
+    "python3",
+    "-B",
+    "scripts/prepare-session-test.py"
+  ],
+  "Exit": 2,
+  "Log": "safe-sdk-final-blocked.log",
+  "LogSha256": "d30277b2db007ad123b72ca6ffdf665cdef05922fcccab0304593e9e88b9b973",
+  "SourceSha256": "667766501ea742178ad097f9aaefe63013222f42ec5c0e6fd67d83636cd03648",
+  "Outcome": "BlockedBeforeDotNetExecution",
+  "SdkDownload": "NotAttempted_PermissionPending",
+  "DecodedOutput": {
+    "Status": "Blocked",
+    "Reason": "[Errno 2] No such file or directory: '/workspace/.kuaiyi-setup/dotnet/sdk/10.0.402/dotnet.runtimeconfig.json'",
+    "Bundle": null,
+    "BootstrapExitCodes": []
+  }
+}

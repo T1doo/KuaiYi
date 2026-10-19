@@ -1,0 +1,45 @@
+{
+  "Utc": "2026-10-18T09:10:45.556567+00:00",
+  "SourceSha256": "874d86bbf6bb86680f161e7b389a2e63ab9d4822c9e07c71382049c758c96fff",
+  "FunctionSource": "def require_no_advisories(document):\n    if document.get(\"version\") != 1 or not document.get(\"projects\") or set(document.get(\"sources\", [])) != {NUGET_SOURCE}:\n        raise RuntimeError(\"Vulnerability audit result is missing its projects or actual sources\")\n    for project in document[\"projects\"]:\n        for framework in project.get(\"frameworks\", []):\n            for group in (\"topLevelPackages\", \"transitivePackages\"):\n                for package in framework.get(group, []):\n                    if package.get(\"vulnerabilities\"):\n                        raise RuntimeError(\"NuGet reported a package vulnerability; preparation refused\")",
+  "Cases": [
+    {
+      "Input": {
+        "version": 1,
+        "sources": [
+          "https://api.nuget.org/v3/index.json"
+        ],
+        "projects": [
+          {}
+        ]
+      },
+      "Expected": "Refused",
+      "Actual": "Accepted",
+      "Pass": false
+    },
+    {
+      "Input": {
+        "version": 1,
+        "sources": [
+          "https://api.nuget.org/v3/index.json"
+        ],
+        "projects": [
+          {
+            "path": "unrelated.csproj",
+            "frameworks": []
+          }
+        ],
+        "problems": [
+          {
+            "level": "error",
+            "text": "PUBLIC_AUDIT_FAILURE"
+          }
+        ]
+      },
+      "Expected": "Refused",
+      "Actual": "Accepted",
+      "Pass": false
+    }
+  ],
+  "Failed": 2
+}

@@ -1,0 +1,70 @@
+ M docs/progress.md
+ M global.json
+ M packaging/session-test.json
+ M packaging/text-alpha.json
+ M scripts/prepare-session-test.py
+ M tools/KuaiYi.SettingsStoreFixture/IsolatedSessionPackage.cs
+ M tools/KuaiYi.SettingsStoreFixture/Program.cs
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__actual-archives-mapping.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__ancestry.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__audit-incomplete-green.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__audit-incomplete-red.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__candidate-vulnerability-check.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__existing-toolchain-metadata.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__independent-environment-review.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__independent-read-only-path-review.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__independent-review.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__microsoft.netcore.app.runtime.win-x64.10.0.13.nupkg.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__microsoft.windowsdesktop.app.runtime.win-x64.10.0.13.nupkg.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__nuget-vulnerability-base.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__nuget-vulnerability-index.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__nuget-vulnerability-update.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__official-catalog-microsoft.netcore.app.runtime.win-x64.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__official-catalog-microsoft.windowsdesktop.app.runtime.win-x64.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__official-patch-selection.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__official-path-semantics.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__official-releases-10.0.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__official-source-tree-denied.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__python-gates-green.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__python-gates-green.log
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__r01-safe-sdk-executed.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__r01-safe-sdk.log
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__r02-isolation-targeted-executed.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__r02-isolation-targeted.log
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__r03-firstuse-filetrace.log
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__r03-isolation-targeted-executed.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__r03-isolation-targeted.log
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__read-only-path-investigation-public.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__remote-before.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__remote-current.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__remote-heads-before.txt
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__remote-heads-current.txt
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__run.py
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__runtime-advisory-inventory.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__runtime-windowsbase-red.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__safe-sdk-blocked.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__safe-sdk-blocked.log
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__safe-sdk-final-blocked.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__safe-sdk-final-blocked.log
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-archive-LICENSE.txt
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-archive-ThirdPartyNotices.txt
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-authorization-and-blocker.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-candidate-head.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-download-plan.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-download-verified.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-firstuse-filetrace-output.log
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-firstuse-filetrace.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-firstuse-filetrace.log
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-isolated-extraction.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-license-sources.json
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-project-license.txt
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-project-readme.md
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__source-snapshot.zip
+?? docs/test-evidence/2026-10-18-session-runtime-security-originals__sources-52e351f251599bfea8b530630ebaac8b79f43b5eb3f6dc54b2a247f093f39e16.zip
+?? docs/test-evidence/2026-10-18-session-runtime-security.json
+?? docs/validation/session-runtime-security.md
+?? packaging/session-runtime-audit/
+?? scripts/session-sdk.py
+?? scripts/test_prepare_session_test.py
+?? scripts/test_session_sdk.py
+?? tests/KuaiYi.Core.Tests/IsolatedSessionDependencyTests.cs

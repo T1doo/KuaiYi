@@ -1,0 +1,122 @@
+{
+  "Utc": "2026-10-18T09:36:21.243949+00:00",
+  "Scope": "ReadOnlyObservationOnly_NoSdkExecution_NoRetry_NoEnvironmentMutation",
+  "CurrentShellNonSensitiveWhitelist": {
+    "HOME": "/home/agent",
+    "DOTNET_CLI_HOME": null,
+    "DOTNET_ROOT": null,
+    "DOTNET_HOST_PATH": null,
+    "XDG_DATA_HOME": null,
+    "XDG_CACHE_HOME": null,
+    "XDG_RUNTIME_DIR": null,
+    "TMPDIR": null,
+    "NUGET_SCRATCH": null,
+    "NUGET_PACKAGES": null,
+    "NUGET_MIGRATION_MODE": null,
+    "DOTNET_GENERATE_ASPNET_CERTIFICATE": null
+  },
+  "OriginalChildFromRunnerPlusR01Info": {
+    "HOME": "/home/agent (unchanged inherited)",
+    "DOTNET_CLI_HOME": "/workspace/.kuaiyi-setup/cli-home",
+    "DOTNET_ROOT": "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402",
+    "DOTNET_HOST_PATH": "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+    "PATH": "NewSDKdirectory prefix only; remainder inherited, not dumped",
+    "NUGET_PACKAGES": "/workspace/.kuaiyi-setup/cli-home/.nuget/packages",
+    "DOTNET_GENERATE_ASPNET_CERTIFICATE": "false",
+    "DOTNET_CLI_TELEMETRY_OPTOUT": "1",
+    "DOTNET_SKIP_FIRST_TIME_EXPERIENCE": "1 (legacy, not used as bypass; official docs says unsupported since3.0)",
+    "DOTNET_NOLOGO": "1",
+    "XDG_DATA_HOME": null,
+    "XDG_CACHE_HOME": null,
+    "XDG_RUNTIME_DIR": null,
+    "TMPDIR": null,
+    "NUGET_SCRATCH": null,
+    "NUGET_MIGRATION_MODE": null
+  },
+  "Paths": [
+    {
+      "Path": "/home/agent",
+      "Exists": true,
+      "ReadOnlyMount": true,
+      "Uid": 1000,
+      "Mode": "0o700"
+    },
+    {
+      "Path": "/home/agent/.dotnet",
+      "Exists": false,
+      "ReadOnlyMount": true,
+      "Uid": null,
+      "Mode": null
+    },
+    {
+      "Path": "/home/agent/.local/share/NuGet/Migrations",
+      "Exists": false,
+      "ReadOnlyMount": true,
+      "Uid": null,
+      "Mode": null
+    },
+    {
+      "Path": "/workspace",
+      "Exists": true,
+      "ReadOnlyMount": false,
+      "Uid": 1000,
+      "Mode": "0o755"
+    },
+    {
+      "Path": "/tmp",
+      "Exists": true,
+      "ReadOnlyMount": false,
+      "Uid": 65534,
+      "Mode": "0o1777"
+    }
+  ],
+  "OriginalFailureStack": "System.IO.IOException: The system cannot open the device or file specified. : 'NuGet-Migrations'.\n   at System.Threading.Mutex.CreateMutexCore(Boolean initiallyOwned, String name, NamedWaitHandleOptionsInternal options, Boolean& createdNew)\n   at System.Threading.Mutex..ctor(Boolean initiallyOwned, String name)\n   at NuGet.Common.Migrations.MigrationRunner.Run(String migrationsDirectory, IEnvironmentVariableReader environmentVariableReader)\n   at Microsoft.DotNet.Configurer.DotnetFirstTimeUseConfigurer.Configure()\n   at Microsoft.DotNet.Cli.Program.ConfigureDotNetForFirstTimeUse(IFirstTimeUseNoticeSentinel firstTimeUseNoticeSentinel, IAspNetCertificateSentinel aspNetCertificateSentinel, IFileSentinel toolPathSentinel, Boolean isDotnetBeingInvokedFromNativeInstaller, DotnetFirstRunConfiguration dotnetFirstRunConfiguration, IEnvironmentProvider environmentProvider, Dictionary`2 performanceMeasurements, Boolean skipFirstTimeUseCheck)\n   at Microsoft.DotNet.Cli.Program.ProcessArgs(String[] args, TimeSpan startupTime)\n   at Microsoft.DotNet.Cli.Program.Main(String[] args)\n",
+  "OriginalTraceRelevantLines": [
+    {
+      "Line": 4078,
+      "Text": "62811 lstat(\"/home/agent/.local/share/NuGet/Migrations/1\", 0x7fff1c45de20) = -1 ENOENT (No such file or directory)"
+    },
+    {
+      "Line": 4079,
+      "Text": "62811 mkdir(\"/home/agent/.dotnet\", 0700) = -1 EROFS (Read-only file system)"
+    }
+  ],
+  "Bindings": {
+    "artifacts/session-runtime-security/run.py": "059283613837e6c97cbece620a527aab574c460e423ca95958cd5658347135bd",
+    "artifacts/session-runtime-security/r03-firstuse-filetrace.log": "e12d72b32d6aecdce1368f9ba5e7f5d1292aad28a58c9dc5448264c212062965",
+    "artifacts/session-runtime-security/r01-safe-sdk.log": "61759c66e07a5e3aa64be5c62a6da446467383aa8d115f2e196add88faa53a80",
+    "artifacts/session-runtime-security/r02-isolation-targeted.log": "f7da23a7b8b1301be6f0414c702b875b640ae7991f682672b4b3fac298d5252a",
+    "artifacts/session-runtime-security/r03-isolation-targeted.log": "f7da23a7b8b1301be6f0414c702b875b640ae7991f682672b4b3fac298d5252a"
+  },
+  "NewProductCodeChangesThisInvestigation": false,
+  "FrozenSourcesStillMatch": true,
+  "MountCommandsPublicWhitelist": [
+    {
+      "Argv": [
+        "findmnt",
+        "-T",
+        "/home/agent",
+        "-n",
+        "-o",
+        "TARGET,FSTYPE,VFS-OPTIONS"
+      ],
+      "Exit": 0,
+      "Stdout": "/ overlay ro,nosuid,nodev,relatime\n",
+      "Stderr": ""
+    },
+    {
+      "Argv": [
+        "findmnt",
+        "-T",
+        "/workspace",
+        "-n",
+        "-o",
+        "TARGET,FSTYPE,VFS-OPTIONS"
+      ],
+      "Exit": 0,
+      "Stdout": "/workspace overlay rw,nosuid,nodev,relatime\n",
+      "Stderr": ""
+    }
+  ],
+  "PublicationNote": "Environment and mount outputs limited to non-sensitive path/flag whitelist; no credentials, whole environment or host backing mount paths dumped."
+}

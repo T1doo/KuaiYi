@@ -1,0 +1,22 @@
+
+Verifying Microsoft.NETCore.App.Runtime.win-x64.10.0.13
+Content hash: AtNgFBRln5IDZonHHqMN5M/AigeXGWWOf3TB2nDE415hqiYiTPNyaFObfZBC6jXx8JlGZCIpQ6CEM0G+zf6NHQ==
+
+Signature type: Author
+  Subject Name: CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US
+  SHA256 hash: 9A1B131BEE0605433056A4EA3815478A8E177961A968C6C0027C1093D1FEB630
+  Valid from: 09/08/2026 00:00:00 to 12/03/2027 23:59:59
+
+Signature type: Repository
+  Subject Name: CN=NuGet.org Repository by Microsoft, O=NuGet.org Repository by Microsoft, L=Redmond, S=Washington, C=US
+  SHA256 hash: 1F4B311D9ACC115C8DC8018B5A49E00FCE6DA8E2855F9F014CA6F34570BC482D
+  Valid from: 02/23/2024 00:00:00 to 05/18/2027 23:59:59
+
+warn : NU3018: The author primary signature found a chain building issue: The revocation function was unable to check revocation because the revocation server could not be reached. For more information, visit https://aka.ms/certificateRevocationMode.
+warn : NU3018: The author primary signature found a chain building issue: RevocationStatusUnknown: unable to get certificate CRL
+warn : NU3028: The author primary signature's timestamp found a chain building issue: The revocation function was unable to check revocation because the revocation server could not be reached. For more information, visit https://aka.ms/certificateRevocationMode.
+warn : NU3028: The author primary signature's timestamp found a chain building issue: RevocationStatusUnknown: unable to get certificate CRL
+warn : NU3018: The repository countersignature found a chain building issue: The revocation function was unable to check revocation because the revocation server could not be reached. For more information, visit https://aka.ms/certificateRevocationMode.
+warn : NU3018: The repository countersignature found a chain building issue: RevocationStatusUnknown: unable to get certificate CRL
+warn : NU3028: The repository countersignature's timestamp found a chain building issue: The revocation function was unable to check revocation because the revocation server could not be reached. For more information, visit https://aka.ms/certificateRevocationMode.
+warn : NU3028: The repository countersignature's timestamp found a chain building issue: RevocationStatusUnknown: unable to get certificate CRL

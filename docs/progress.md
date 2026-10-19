@@ -1051,3 +1051,29 @@ Windows/WPF/实际Dispatcher/STA/可见健康/键盘/Console stdin取消/Job/OCR
 现有fixture仅增加真实发布输入→catalog→Store.ApplyAsync准备，独审P2输入生产重叠/输出包含漏门实测同测试源5F30P→35P，前置拒绝修复；脚本任意output取消、共享真实KnownFolder门先批固定新workspace、未知内容保全。包源/审计源均固定本地且Audit=true，失败Blocked，不下载/关审计/force-evaluate/改锁/降级。最终45新例全部包含于Core1888P=父1843多重集+45，Provider2332P父全名单；验收App/默认生产App/Worker实际交叉构建均0W/E。r01新测试调用编译错、r02新断言异常族14F、r05WPF缺IO编译44E全保，不冒称产品红。生产App和框架依赖验收App实际准备均拒绝且无输出，旧output参数也实际拒绝。
 
 离线准备实际Exit2/Bundle=null：缺NETCore和WindowsDesktop Runtime.win-x64/10.0.12两个既有cache pack，无恢复/发布/ZIP、无SDK/系统安装；关键运行文件验证仅结构检查，不能声称完整闭包。源码及83份原件封存独审Pass；按许可只附回执后84份，源码/测试/已审83份未改。详见[实现/精确待验与边界](validation/isolated-session-data.md)、[运行和红绿原件](test-evidence/2026-10-18-isolated-session-data.json)。Windows/WPF/Console/键盘/安装器/完整P7仍NotRun，需已核自包含包及获准桌面工具后实际两次无参启动正常退出。旧各间歇根因Unknown、图片复用Off及250600/来源/密码/完整性/取消/清理门不变；无Skia许可403/Actions/CIM绕行、main强推部署费用模型凭据权限变更，未知锁数据日志进程保留。
+
+## 2026-10-18 · 隔离包运行时安全补丁准备（Blocked）
+
+父 b21 的隔离代码有限准入不等于包准入。后续官方公告确认 runtime10.0.12受影响、10.0.13修复；“缺缓存”不能作为唯一门，原空目录auditSources也不构成真实审计。正常dev/session-runtime-security准备精确SDK10.0.402/runtime10.0.13及官方有效审计源，保持审计all/low和warnings-as-errors；新增只恢复/审计的两runtime精确库存与官方hash锁，尚未实际locked restore。两份官方13包已按已有普通依赖授权下载，SHA512等catalog/lock、ZIP CRC和MIT声明核实，签名仍待安全SDK，未执行包。
+
+独审先指出审计无项目/错误项目空库存误准与发布DLL未绑定包字节：真实无效审计2F→同输入拒绝；精确项目＋普通库存＋错误状态门已收紧，App零包须同项目assets纯Project证明，runtime仍恰两13。实际runtime档案离线映射又揭WindowsBase Core stub/WPF双声明冲突，合法合成输入拒绝红保留，现明确Desktop胜者、其他冲突拒绝；409唯一路径字节全符、逆序同图、篡改CoreLib拒绝。最终Python15方法通过；这不是.NET发布或Windows加载。新增C#16例、真实NuGet/签名、完整回归与App/Worker构建均NotRun。
+
+现有SDK10.0.401宿主/私有XML仍为受影响12，准备器实际在任何dotnet进程前拒绝、Exit2/BootstrapExitCodes空/Bundle null；未下载/执行已知漏洞12。新SDK需先报告，云独立目录SDK10.0.402授权已请求但仍Pending，未下载SDK；当前源码未提交推送，包保持Hold。详见[安全修复准备报告](validation/session-runtime-security.md)/[原件索引](test-evidence/2026-10-18-session-runtime-security.json)。Windows/WPF/Console/键盘/完整P6P7等未验，历史各间歇Unknown、图片复用Off与250600/来源/密码/完整性/取消/清理门保持；Skia许可403、Actions/CIM拒绝不绕，未知锁数据日志进程保全，无main/强推/部署/费用/模型/凭据权限变更。
+
+
+2026-10-18 09:22:58 UTC 用户明确批准 SDK402 云独立目录请求后，继续同唯一写入者：官方下载240,279,509B、完整SHA512等公布值，归档MIT与官方源码相同、77,436B第三方notices保留，无新显式接受步骤；新目录解压5,631项/640,467,796B，原SDK目录不替换。新SDK实际--info/--version均0，宿主和私有XML13核实；未运行旧12。r02/r03定向命令均在编译前NuGet首次使用初始化Exit1，无TRX，不作产品红/测试已跑。自有child文件追踪明确mkdir(/home/agent/.dotnet,0700)=EROFS，另用户NuGet Migrations/1不存在；共享tmp与未知锁保全。用户要求额外权限先停，未改HOME/伪造sentinel/跳迁移或改安全/审计，当前需父级决定合法用户级初始化环境或最小额外目录权限。SDK批准已完成，不再误报为当前门；真实NuGet/签名/C#回归/AppWorker/publish及ZIP仍Blocked/NotRun，无新提交推送。证据补充在同[报告](validation/session-runtime-security.md)/[索引](test-evidence/2026-10-18-session-runtime-security.json)，批准前34份原件原字节保留。
+
+父级要求后续仅只读核路径来源，不重跑失败命令、不请求放宽home或试替代路径。本轮statvfs/findmnt确认home所在根overlay ro、workspace rw；原内核EROFS与外层工具审批拒绝区分，但readonly挂载仍是平台写入边界。原CLI_HOME已workspace，官方当前NuGet源码XDG_DATA_HOME可定位迁移记录，Run先建命名Mutex，未证明可移走已失败CLR同步目录；dev源码未与SDK精确源码绑定，字符串不充证明。一次GitHubAPI目录树GET的代理隧道403已停止，不重试/换路，与本地EROFS分记。产品源码哈希全不变、无新增SDK执行/测试/权限申请；只追加调查和原件，不能计新代码成果。当前等平台明确受支持初始化条件，包仍Hold。
+
+
+## 2026-10-19 · SDK 正常初始化修复与安全门实跑
+
+按继续解决初始化的明确授权，新增固定工作区 Linux 启动器：依据官方10.0.13新安全语义，以用户自有0700 XDG_RUNTIME_DIR承接默认用户级mutex，XDG_DATA_HOME/CLI_HOME承接真实迁移与CLI状态；HOME不变、既有权限不改、不跳first-use。原r02/r03 EROFS保留；r04实际完成迁移及61P，HOME只读且HOME/.dotnet仍不存在。原SDK不替换、不执行旧12。
+
+实际恢复发现原拟锁混淆NuGet内容哈希与完整签名归档哈希，现独立完整性清单继续固定官方完整SHA512、lock使用实际签名内容哈希，独审内存重算一致；r11 locked restore＋双runtime13库存＋真实漏洞查询通过。verify虽Exit0却有NU3018/NU3028撤销未知，新增实际警告拒绝及在线环境前置门，offline/禁验证拒绝，Bundle=null，未publish/ZIP。没有把Exit0或离线Python当签名准入。
+
+最终Core1904P=父1888+16、Provider2332P父全名单；Python22方法通过；默认/隔离App及Worker均实际0W/E。App正常locked restore与实际库存/漏洞查询通过，零包由同项目七项纯Project assets绑定。r06路径拼写、r08 NU1403、r13/14全局RID锁不符、r19缺WindowsTargeting上下文与初始Python fixture错误均保留；修同上下文后实际绿，不降安全检查。原已有测试/8workflow与前56份原件全保；构建后另采两个-o目录56文件哈希，不倒填原运行元数据。源码独审Pass，无剩余P1/P2。
+
+详见[当前结果及历史调查](validation/session-runtime-security.md)/[实际原件索引](test-evidence/2026-10-19-session-sdk-initialization.json)。初始化不再Blocked；包仍Hold，最小缺少正常在线签名撤销状态无警告。旧Actions/CIM/API树403不重试不换路，现有CI门不适用、服务端状态Unknown。Windows真实验收及完整P6P7仍NotRun，历史间歇根因Unknown；生产图片复用Off及250600/来源/密码/完整性/取消/清理门保持，Skia四包待批，未知锁数据日志进程保全，无main/强推/部署/费用/模型/凭据权限变更。
+
+封存独审指出原NU1403日志一处尾空格；保留所有原件，.gitattributes仅逐精确原件路径-text、该单日志-whitespace。完整暂存diff检查实际通过，不泛化豁免源码或改变日志。

@@ -1,0 +1,439 @@
+{
+  "SchemaVersion": 1,
+  "Utc": "2026-10-18T09:20:56.247997+00:00",
+  "Task": "Session runtime security preparation",
+  "Status": "Blocked",
+  "Package": "Hold",
+  "Branch": "dev/session-runtime-security",
+  "Head": "b21a1e3bd06bda43a005b95bf5f62aecd8278e50",
+  "CommitAndPush": "NotRun_CurrentChangesUncommitted",
+  "CodeReview": "Pass_NoRemainingP1P2Found",
+  "Target": {
+    "Sdk": "10.0.402",
+    "Runtime": "10.0.13",
+    "Rid": "win-x64",
+    "LocalSelfContainedOnly": true
+  },
+  "ActualValidation": {
+    "InvalidAuditInputsBefore": {
+      "Failed": 2,
+      "Actual": "Accepted"
+    },
+    "SameInvalidInputsAfter": {
+      "Passed": 2,
+      "Actual": "Refused"
+    },
+    "PythonMethodsPassed": 15,
+    "Real13ArchivesOfflineMappingUniqueFiles": 409,
+    "ReverseOrderSameGraph": true,
+    "TamperedCoreLib": "Refused",
+    "NuGetSignatureVerification": "NotRun",
+    "NuGetRestoreListAudit": "NotRun",
+    "CSharpTests": "NotRun_16NewCases",
+    "CoreProviderRegression": "NotRun",
+    "AppWorkerBuild": "NotRun",
+    "DotNetPublish": "NotRun",
+    "Bundle": null,
+    "WindowsExecution": "NotRun",
+    "ModelCalls": "None",
+    "SdkInfoAndVersion": "Pass_OnlyNew402",
+    "TargetedDotNetCommandAttempts": "r02/r03 Exit1_BeforeCompilerOrTests_NoTRX"
+  },
+  "Blocker": {
+    "Action": "SDK402 first-use NuGet-Migrations named Mutex initialization before compilation",
+    "Target": "/home/agent/.dotnet",
+    "Reason": "Owned child file trace mkdir0700 returned EROFS_ReadOnlyFilesystem",
+    "State": "DeniedByFilesystem_NoAdditionalWritePermissionGranted",
+    "NotAutoReviewRejection": true,
+    "LastWriteAttempt": "r03-isolation-targeted underownedchildstrace",
+    "MigrationRecordProbe": "/home/agent/.local/share/NuGet/Migrations/1 ENOENT; no write outcome established",
+    "Needs": "Parent/platform determination of supported initialization condition; latestscope is read-only only, do notrequesthomepermission or experimentwithreplacementpaths.",
+    "NoBypass": "No HOME override, migration skip, firstuse sentinel fabrication, shared lock deletion, permission/security/audit change",
+    "DependentSteps": [
+      "Actual locked restore/vulnerability audit",
+      "NuGet signature verification",
+      "C# targeted/full affected regression",
+      "App/Worker builds",
+      "Local self-contained publish and bundle",
+      "Final evidence commit/normal development push"
+    ],
+    "MinimumProvenCondition": "Platform must permit current user to normally create/use /home/agent/.dotnet; r03 mkdir0700 EROFS"
+  },
+  "ArchivesRetainedUnexecuted": [
+    {
+      "Id": "Microsoft.NETCore.App.Runtime.win-x64",
+      "Version": "10.0.13",
+      "Uri": "https://api.nuget.org/v3-flatcontainer/microsoft.netcore.app.runtime.win-x64/10.0.13/microsoft.netcore.app.runtime.win-x64.10.0.13.nupkg",
+      "Bytes": 39979592,
+      "Sha512": "55suoRAIf6dVjOdPhHxIElDa2GBoqVZI70bG4zq+f2pHQbGV6yDvztsXdit4pxc3Ea79X0Kfo78Kncjt9NauIQ==",
+      "CatalogLockMatch": true,
+      "License": "MIT",
+      "ExplicitAcceptanceDeclared": false,
+      "ZipCrcValid": true,
+      "NoticeFiles": {
+        "LICENSE.TXT": {
+          "Bytes": 1139,
+          "Sha256": "d7a68596ab69b06f51ca278a6545148e4269a9381c26d597c13df5d88e08cf5b"
+        }
+      },
+      "Execution": "None",
+      "SignatureVerification": "PendingSafeSDK"
+    },
+    {
+      "Id": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+      "Version": "10.0.13",
+      "Uri": "https://api.nuget.org/v3-flatcontainer/microsoft.windowsdesktop.app.runtime.win-x64/10.0.13/microsoft.windowsdesktop.app.runtime.win-x64.10.0.13.nupkg",
+      "Bytes": 39195063,
+      "Sha512": "g8vz2rWeSNYimFNYUqXUy7yVkKJOQycy9ksNt59122iv+y7Y5KrR/PwoSCQgXO3KBJbf4uEdK0LuCr8OaVwQcw==",
+      "CatalogLockMatch": true,
+      "License": "MIT",
+      "ExplicitAcceptanceDeclared": false,
+      "ZipCrcValid": true,
+      "NoticeFiles": {
+        "LICENSE": {
+          "Bytes": 1137,
+          "Sha256": "a89886665765362eb77e0f8e26602c924520041d1711b2eedc136434fe4d01ab"
+        }
+      },
+      "Execution": "None",
+      "SignatureVerification": "PendingSafeSDK"
+    }
+  ],
+  "Sources": {
+    "global.json": "81ae2087dbfb46027fd94748351fb4b1ab24145fbb52544a2822bf128e2e48f1",
+    "packaging/session-test.json": "19c885c9cecc45c8ee7f2964222485a77858bab8b2b3f448c324ed448c89968b",
+    "packaging/text-alpha.json": "1e48127cdfc19368b20a260d9cb7daa3ead47fdd91cf555563347bd5b37df7fc",
+    "packaging/session-runtime-audit/session-runtime-audit.csproj": "0f8027beedce7a65cdad1c6b44ea69b32efb2c09263ad0d40b5c4ade8d7e377b",
+    "packaging/session-runtime-audit/packages.lock.json": "d7d514ed1a8639dcb97f4578e8d9aaad74576e79878f7d58ad230f4bbb588367",
+    "scripts/prepare-session-test.py": "667766501ea742178ad097f9aaefe63013222f42ec5c0e6fd67d83636cd03648",
+    "scripts/test_prepare_session_test.py": "3be642c7816872bdf80f026353d45576a64c8a8672bbcf010ac5bfdebd256adf",
+    "tools/KuaiYi.SettingsStoreFixture/IsolatedSessionPackage.cs": "b5e19e9349ad1431f111d96327dcc37019460cf2355714af89d7d4c44294da05",
+    "tools/KuaiYi.SettingsStoreFixture/Program.cs": "4eb1349d149c878b7e47f5e6cd81422d935da1932f0566380096ff469a591578",
+    "tests/KuaiYi.Core.Tests/IsolatedSessionDependencyTests.cs": "f3f3cb3223d3bf3c79b3887b30224f316d33e4492d4faa2171f9e23d2473115e"
+  },
+  "RawFiles": [
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__actual-archives-mapping.json",
+      "Bytes": 128347,
+      "Sha256": "e93544fecad7e5ede6b96169da6f3e609d98c2b2fe7b6dc0689cfff2fe596f33"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__ancestry.json",
+      "Bytes": 235,
+      "Sha256": "557aef1e9cc8d6c6d1227a122af9d08c06acf0a864cce75adb0d8d3f8f98a61a"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__audit-incomplete-green.json",
+      "Bytes": 932,
+      "Sha256": "05f45aa2b6150397e4cb5cef3d44ab53507321c72443b05884562a7127e75382"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__audit-incomplete-red.json",
+      "Bytes": 1596,
+      "Sha256": "a94c127c71b07a3474b745cd6836b992447818dc21b22e4959214e238ca00c02"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__candidate-vulnerability-check.json",
+      "Bytes": 7201,
+      "Sha256": "575cbe571725eaac83d1f7f5f3625dd8feb451eb9b394b0dc8907b6aec499154"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__existing-toolchain-metadata.json",
+      "Bytes": 675,
+      "Sha256": "adf9ef9e763911b998367be40121e0326c7eef18ed1a3699ead8f17e0ea3037c"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__independent-review.json",
+      "Bytes": 843,
+      "Sha256": "733e1b379b7d6c2564eb8da7458173b7eb4644b94d5bcb6ff1cc2e2177927aff"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__nuget-vulnerability-base.json",
+      "Bytes": 750039,
+      "Sha256": "c6826eca2600587a6620f3e69219e4542708c2946a7560d50f532162689af687"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__nuget-vulnerability-index.json",
+      "Bytes": 505,
+      "Sha256": "d62c3e82c356398ac1daba95f1afbc040d41d34cf66d81dc926085d642b99e70"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__nuget-vulnerability-update.json",
+      "Bytes": 2,
+      "Sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__official-catalog-microsoft.netcore.app.runtime.win-x64.json",
+      "Bytes": 87853,
+      "Sha256": "542ecf791b30d140901002cd599173f1bf6714a06cf17214b37fe504cdeff6b9"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__official-catalog-microsoft.windowsdesktop.app.runtime.win-x64.json",
+      "Bytes": 136792,
+      "Sha256": "135b713f4207fc78eef3d0a4983829fc82f20d8879884e9f814d7fc3f4133d7a"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__official-patch-selection.json",
+      "Bytes": 7061,
+      "Sha256": "9988419b92e9973cb757fb3542e7c3b1141d873a6bc71345c9910d74ba862e0b"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__official-releases-10.0.json",
+      "Bytes": 1100901,
+      "Sha256": "8ba714cf0020d35ff4a3cb163376df2f4ccaf8e6e1d7021fcb1bd7dd628299d2"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__python-gates-green.json",
+      "Bytes": 1583,
+      "Sha256": "97f20ae1f97b89b0d22d20a82d134bc89b755d0cf43042f1b1d523099d01d5b6"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__python-gates-green.log",
+      "Bytes": 2547,
+      "Sha256": "e5ea1e5c9c950fd84a36f2de8606f6f5e05b955b3410891426b4f9b855073c23"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__remote-before.json",
+      "Bytes": 427,
+      "Sha256": "f71a2718c48d6462e1e9b43b48b4c2a11fd9be2c3954eeacb477344e5f58a26f"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__remote-current.json",
+      "Bytes": 382,
+      "Sha256": "e2b86b157734d6217168a792ca926e1b0de6539b704e76d1bff0be6f86cfa152"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__remote-heads-before.txt",
+      "Bytes": 4902,
+      "Sha256": "4ae7f6e52535b61f1e6290403eea514aaf8826c5db3c585ee506c9be6cc096b8"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__remote-heads-current.txt",
+      "Bytes": 4902,
+      "Sha256": "4ae7f6e52535b61f1e6290403eea514aaf8826c5db3c585ee506c9be6cc096b8"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__runtime-advisory-inventory.json",
+      "Bytes": 31217,
+      "Sha256": "7bf027a31e1aa6e6c3c065f3b0fdcdfc433abfa0dd4c9d16a828f9405d948444"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__runtime-windowsbase-red.json",
+      "Bytes": 422,
+      "Sha256": "d9668e74013adc471a01a0553666c26892f3b954a5a000f56d0d8ea359c32e4d"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__safe-sdk-blocked.json",
+      "Bytes": 463,
+      "Sha256": "d2c22af440a121bd3727d7b7a19c0bbd3557fcf1a63ff38f4bea2552feecb49f"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__safe-sdk-blocked.log",
+      "Bytes": 187,
+      "Sha256": "d30277b2db007ad123b72ca6ffdf665cdef05922fcccab0304593e9e88b9b973"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__source-snapshot.zip",
+      "Bytes": 19471,
+      "Sha256": "5366fae4bce38ea4f970e7a42f322273c2c23b3ec45a503c77c2c5a03806f783"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__microsoft.netcore.app.runtime.win-x64.10.0.13.nupkg.json",
+      "Bytes": 683,
+      "Sha256": "0d394213098241336889650830eba2f1631cda76a2397cca9ea3055b3a1173bd"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__microsoft.windowsdesktop.app.runtime.win-x64.10.0.13.nupkg.json",
+      "Bytes": 700,
+      "Sha256": "4b1fb09e0f4dbba3099133a470a1c3b455cb1044c00f0292fa6e47d899abc1bb"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__safe-sdk-final-blocked.log",
+      "Bytes": 187,
+      "Sha256": "d30277b2db007ad123b72ca6ffdf665cdef05922fcccab0304593e9e88b9b973"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__safe-sdk-final-blocked.json",
+      "Bytes": 672,
+      "Sha256": "4f604e55982737a8476e8b4ecdc56e623fc877cb70bb05286e81ac920b01c45b"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-candidate-head.json",
+      "Bytes": 1102,
+      "Sha256": "d977a55577ad34fd7fb975ddbce3c8ddc745f61fe7ef6f3445bbe6f2fbc4adff"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-project-license.txt",
+      "Bytes": 1116,
+      "Sha256": "cfc21f5e8bd655ae997eec916138b707b1d290b83272c02a95c9f821b8c87310"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-project-readme.md",
+      "Bytes": 4872,
+      "Sha256": "2a993b64dfb6bbd4f1469b629d4eec43f56c1e110e0f17249a9ce60ea0d87156"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-license-sources.json",
+      "Bytes": 724,
+      "Sha256": "d43073c5c06f68bb8b26bce43853ef5085c304fe88117178b1976dcc84daaaaa"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-download-plan.json",
+      "Bytes": 2027,
+      "Sha256": "abd8adfddaee1c64b46886a70ae980d9342029858388fce04e2b48ad419ae736"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-download-verified.json",
+      "Bytes": 827,
+      "Sha256": "e06a3ef250d252bbe0a2911598a4fd5269a55401b562dd4044555f6499c8a935"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-isolated-extraction.json",
+      "Bytes": 866,
+      "Sha256": "9a275748c38a0bee4969a38bcd86658cea3056d0fb97da15387a34212fc84ebd"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-authorization-and-blocker.json",
+      "Bytes": 2085,
+      "Sha256": "10162c16adc37ac1ddcad7a4609c9b62c64280fc89c437e83b816dff52d02483"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__r01-safe-sdk.log",
+      "Bytes": 1776,
+      "Sha256": "61759c66e07a5e3aa64be5c62a6da446467383aa8d115f2e196add88faa53a80"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__r01-safe-sdk-executed.json",
+      "Bytes": 77542,
+      "Sha256": "9ff728aaf38e519fde77ca93dbae04091df690c03a4c9dd5318c4cb104b7cd00"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__r02-isolation-targeted.log",
+      "Bytes": 1084,
+      "Sha256": "f7da23a7b8b1301be6f0414c702b875b640ae7991f682672b4b3fac298d5252a"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__r02-isolation-targeted-executed.json",
+      "Bytes": 77828,
+      "Sha256": "141f9e301cc8a711cde3f5b48ff49e7c2128e75031115e0bf657098cb4fdafac"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__r03-isolation-targeted.log",
+      "Bytes": 1084,
+      "Sha256": "f7da23a7b8b1301be6f0414c702b875b640ae7991f682672b4b3fac298d5252a"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__r03-isolation-targeted-executed.json",
+      "Bytes": 77828,
+      "Sha256": "bddd05dfe391e314025b572d0448c32f905e8884d2c9f97ead858fd7b7ba725b"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__r03-firstuse-filetrace.log",
+      "Bytes": 690379,
+      "Sha256": "e12d72b32d6aecdce1368f9ba5e7f5d1292aad28a58c9dc5448264c212062965"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-firstuse-filetrace.log",
+      "Bytes": 96117,
+      "Sha256": "02880fb4530f167daf8feaea9d8680e092d109fcd39972d982f547ed75d0f68f"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-firstuse-filetrace-output.log",
+      "Bytes": 9,
+      "Sha256": "44ea2595bc5a7acabc030531952071226aa70862fd008ed7327d752b39c8513c"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-firstuse-filetrace.json",
+      "Bytes": 481,
+      "Sha256": "b5b5e6b8dbf913a07fc3cfd45b32cbdf161ea4f3eec9394a02c5f4cb0a88135a"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__run.py",
+      "Bytes": 3258,
+      "Sha256": "059283613837e6c97cbece620a527aab574c460e423ca95958cd5658347135bd"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__sources-52e351f251599bfea8b530630ebaac8b79f43b5eb3f6dc54b2a247f093f39e16.zip",
+      "Bytes": 1115545,
+      "Sha256": "bae5ebb923c0013b634c11bc6f91cca8d844c2bb7d4477110eaa9295ef4037c6"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-archive-LICENSE.txt",
+      "Bytes": 1116,
+      "Sha256": "cfc21f5e8bd655ae997eec916138b707b1d290b83272c02a95c9f821b8c87310"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-archive-ThirdPartyNotices.txt",
+      "Bytes": 77436,
+      "Sha256": "2dc8f8c5a39401e928b5784ab564eb8b3ceb99ead3df8f260e0cab7e0bbecc7a"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__independent-environment-review.json",
+      "Bytes": 899,
+      "Sha256": "c1e673ddf8726bf50781bf8c6be4371ea4fc6c7ba99041c1cc5a4451c90c3bff"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__read-only-path-investigation-public.json",
+      "Bytes": 5077,
+      "Sha256": "4698e6cb4cdaaa6ee6755649c4f3ae2a400b66f013024085414498a6ca95e788"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__official-path-semantics.json",
+      "Bytes": 2784,
+      "Sha256": "8e15f5b30f21040e4e5eebd343737be26348822570918df0e0078d3a3939e34f"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__official-source-tree-denied.json",
+      "Bytes": 735,
+      "Sha256": "e78331001c01eb4c13c28eca23b2d0390e24cbc09c10f49bc84c8085475fe1d7"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-18-session-runtime-security-originals__independent-read-only-path-review.json",
+      "Bytes": 1064,
+      "Sha256": "0b460c8002f331e52edd3f34e312ae22854bc2aac26fb01debfc5180eb269c8e"
+    }
+  ],
+  "RawFileCount": 56,
+  "RawTotalBytes": 4537388,
+  "HistoricalFailures": "Unknown_NotClaimedFixed",
+  "Restrictions": "No main/force-push/deploy/Release/payment/models/security setting change/new license acceptance; no denied Actions/CIM retry or source403 workaround",
+  "FinalVerification": {
+    "Utc": "2026-10-18T09:30:38.771441+00:00",
+    "RawFilesAndSourceBindings": "Pass",
+    "StillUncommitted": true,
+    "DotNetExecution": "OnlyNew402InfoVersionAndTwoFailedFirstUseAttempts",
+    "NoCSharpCompileOrTestExecution": true
+  },
+  "SdkApprovalInformation": "docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-download-plan.json",
+  "SdkAuthorization": {
+    "Status": "Approved",
+    "UserUtc": "2026-10-18T09:22:58Z",
+    "Scope": "Only workspace isolated SDK402 as parent trusted delegation"
+  },
+  "SdkActual": {
+    "DownloadedBytes": 240279509,
+    "OfficialSha512Match": true,
+    "ExpandedMembers": 5631,
+    "ExpandedFileBytes": 640467796,
+    "Root": "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402",
+    "InfoVersionExit0": true,
+    "HostAndPrivateXml": "10.0.13",
+    "OldSdkExecuted": false,
+    "ArchiveLegalNoticesPreserved": true
+  },
+  "EnvironmentIndependentReview": "Confirmed_See 2026-10-18-session-runtime-security-originals__independent-environment-review.json",
+  "ReadOnlyPathInvestigation": {
+    "Utc": "2026-10-18T09:38:59.331211+00:00",
+    "ProductCodeChanged": false,
+    "SdkCommands": 0,
+    "FailureRetries": 0,
+    "HomePermissionRequests": 0,
+    "RootMount": "ro",
+    "WorkspaceMount": "rw",
+    "OuterToolApprovalRejection": "NotObservedForOriginalSDKCommands; filesystemboundary remainsbinding",
+    "OfficialConfig": "CLI_HOME supportsCLIstate; XDG_DATA_HOME supportscurrentNuGetmigrationdata; completeCLRmutexworkspacerelocationnotestablished",
+    "SourceVersionBoundary": "CurrentofficialdevNuGetsource notexactSDK7.9.0-rc.611 sourcebound",
+    "SourceTreeAPIQuery": "ProxyTunnel403_Stopped_NoRetry_NoAlternateRoute",
+    "CurrentAction": "Onlyreportandpreserve; awaitplatformsupportedsafecondition"
+  }
+}

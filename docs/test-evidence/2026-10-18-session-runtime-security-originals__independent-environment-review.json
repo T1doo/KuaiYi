@@ -1,0 +1,12 @@
+{
+  "UtcCaptured": "2026-10-18T09:32:16.955863+00:00",
+  "Reviewer": "/root/high_water_review",
+  "Mode": "ReadOnly_NoSDK_NoNetwork_NoWrites",
+  "Result": "ConfirmedEnvironmentBlock_PackageHold",
+  "MinimumProvenCondition": "Platform must permit current user to normally create/use /home/agent/.dotnet; r03 mkdir0700 EROFS",
+  "CliHome": "Already workspace; changing CLI_HOME alone does not address observed runtime named-mutex directory need",
+  "MigrationProbe": "Migrations/1 ENOENT only; no write refusal proven; allow actual SDK migration, never fabricate record",
+  "WorkspaceBacking": "Only explicit platform authorization/preconfigured writable directory mapping with HOME unchanged; no proven direct alternative parameter",
+  "SdkChecks": "Official archiveSHA512,5631 members/640467796B and10keycomponents match archive bytes",
+  "Remaining": "CSharp_NuGetAudit_Signature_Publish_NotRun"
+}

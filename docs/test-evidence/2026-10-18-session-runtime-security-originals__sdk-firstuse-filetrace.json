@@ -1,0 +1,17 @@
+{
+  "Utc": "2026-10-18T09:26:40.171843+00:00",
+  "Purpose": "Read-only trace of the owned SDK child file access failure; no permission or shared-file changes",
+  "Argv": [
+    "strace",
+    "-f",
+    "-e",
+    "trace=file",
+    "-o",
+    "artifacts/session-runtime-security/sdk-firstuse-filetrace.log",
+    "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+    "--version"
+  ],
+  "Exit": 0,
+  "SharedTmpPreserved": true,
+  "OldSdkExecution": "None"
+}
