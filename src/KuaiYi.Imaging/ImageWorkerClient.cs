@@ -6,7 +6,7 @@ using KuaiYi.Core;
 namespace KuaiYi.Imaging;
 
 /// <summary>Owned one-shot process. Private inherited stdio is a P0 transport, not the production named-pipe ACL endpoint.</summary>
-public sealed class ImageWorkerClient(string executable, string? managedAssembly = null, IImageProcessStarter? processStarter = null) : ILocalOcrCapabilitiesWorker
+public sealed partial class ImageWorkerClient(string executable, string? managedAssembly = null, IImageProcessStarter? processStarter = null) : ILocalOcrCapabilitiesWorker
 {
     private readonly OwnedProcessSession process=new(processStarter);
     private int started;
@@ -73,7 +73,7 @@ public sealed class ImageWorkerClient(string executable, string? managedAssembly
             finally{CryptographicOperations.ZeroMemory(frame.Payload);}
         },cancellation).ConfigureAwait(false);
     }
-    private async Task<T> UseChannelAsync<T>(Func<Stream,Stream,Guid,CancellationToken,Task<T>> exchange,CancellationToken cancellation)
+    private async Task<T> UseChannelAsync<T>(Func<Stream,Stream,Guid,CancellationToken,Task<T>> exchange,CancellationToken cancellation,bool requireEmptyTail=false)
     {
         var info=OwnedProcessSession.Info(executable,managedAssembly);
         using var deadline=new CancellationTokenSource(TimeSpan.FromSeconds(15));
@@ -94,7 +94,7 @@ public sealed class ImageWorkerClient(string executable, string? managedAssembly
             }
             finally{CryptographicOperations.ZeroMemory(nonce);}
             T result=await exchange(send,receive,id,linked.Token).ConfigureAwait(false);
-            child.StandardInput.Close();await child.WaitForExitAsync(linked.Token).ConfigureAwait(false);
+            child.StandardInput.Close();if(requireEmptyTail)await RequireEmptyTail(receive,linked.Token).ConfigureAwait(false);await child.WaitForExitAsync(linked.Token).ConfigureAwait(false);
             if(child.ExitCode!=0)throw new ImageJobException(ImageFailure.ProtocolFailure);
             if(!ObserveExit())throw new ImageJobException(ImageFailure.ExitUnconfirmed);
             cancellation.ThrowIfCancellationRequested();return result;

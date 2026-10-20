@@ -9250,3 +9250,6 @@ docs/test-evidence/2026-10-20-settings-config-import/*.stderr -text -whitespace
 
 # Exact official metadata after fixed codec package license approval
 docs/test-evidence/2026-10-20-p6-codec-source-review/*.nuspec -text -whitespace
+
+# Preserve the accepted upstream license and complete native notices verbatim.
+licenses/SkiaSharp-4.153.1/* -text

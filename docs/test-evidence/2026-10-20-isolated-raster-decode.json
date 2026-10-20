@@ -1,0 +1,378 @@
+{
+  "date": "2026-10-20",
+  "base_commit": "a1da3de6ecfa2626540b1c63dc50a2880348b978",
+  "branch": "dev/p6-isolated-raster-decode",
+  "spec_item": "P6-02 isolated bounded PNG / baseline JPEG decode component only",
+  "runtime": "approved isolated SDK10.0.402/runtime10.0.13 on current Linux x64; Windows NotRun",
+  "network": {
+    "material_new_evidence": "Trusted later user republished selected non-x-plugin environments and enabled network; current selected environment newer; exact target retry not previously consumed. One bounded original-target attempt each, no redirects or alternate route.",
+    "exact_original_targets": [
+      {
+        "url": "https://api.github.com/repos/mono/SkiaSharp/git/trees/4783f51448f9b070dda4f87b83e941c9599e466e",
+        "http": "200",
+        "exit": 0,
+        "sha256": "63b409e41303915f2564a62f258f028bde5e3b8bd5f8962bf5d9972d49ee9125"
+      },
+      {
+        "url": "https://api.github.com/repos/mono/SkiaSharp/releases/tags/v4.153.1",
+        "http": "200",
+        "exit": 0,
+        "sha256": "08a8d80014433a0949652d5037d5a867a91e4188f75348de036b9cefd07638a2"
+      }
+    ]
+  },
+  "source_commit": "4783f51448f9b070dda4f87b83e941c9599e466e",
+  "skia_gitlink": "45afab4f1f0921f3feb97f58cf89b136fffa85e6",
+  "verified_source_blobs": 23,
+  "packages": "only approved four4.153.1; official packages equal prior inventory; nuget verify all four exit0 no NU warnings/errors; full licenses retained",
+  "results": {
+    "codec-first": {
+      "total": "27",
+      "executed": "27",
+      "passed": "20",
+      "failed": "7",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "codec-after-static-frames": {
+      "total": "27",
+      "executed": "27",
+      "passed": "27",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "codec-baseline-red": {
+      "total": "2",
+      "executed": "2",
+      "passed": "0",
+      "failed": "2",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "codec-expanded": {
+      "total": "37",
+      "executed": "37",
+      "passed": "36",
+      "failed": "1",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "codec-jpeg-scan-fixed": {
+      "total": "48",
+      "executed": "48",
+      "passed": "48",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "codec-final-build": {
+      "total": "49",
+      "executed": "49",
+      "passed": "49",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "codec-final-independent": {
+      "total": "49",
+      "executed": "49",
+      "passed": "49",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "core-regression": {
+      "total": "74",
+      "executed": "74",
+      "passed": "74",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "provider-regression": {
+      "total": "37",
+      "executed": "37",
+      "passed": "37",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    }
+  },
+  "causal_method_source_equality": [
+    {
+      "method": "ActualChildReturnsOnlyCompleteRasterWithExactJobLayoutAndOpaquePixels",
+      "failed_source_archive": "codec-first-sources.zip",
+      "method_source_sha256": "1ff53c857570cd181ab4f3c988d6361030fe1f58b55904dffb8cace779d63adc",
+      "final_method_unchanged": true
+    },
+    {
+      "method": "TruncatedJpegScanWithValidHeaderCannotYieldAPartialRaster",
+      "failed_source_archive": "codec-expanded-red-sources.zip",
+      "method_source_sha256": "c5f3a3549e419f7a30028ea42b9e511c81423caec86f07c2304bf4500d3df355",
+      "final_method_unchanged": true
+    }
+  ],
+  "source_manifest": [
+    {
+      "path": ".gitattributes",
+      "sha256": "1253ffbf6cf586f2f43791fcf46e112c8e58ff5f28458d2502017b8102b674ac"
+    },
+    {
+      "path": "Directory.Packages.props",
+      "sha256": "9667cd1dc0f7d400d3db159f04540b265a03203f315ce77a48d944541b1cfa53"
+    },
+    {
+      "path": "KuaiYi.sln",
+      "sha256": "d99f9c38cf9274ac5450ba9c0022bef8ad74a3ea75e8ec8054fd324e45ac2ded"
+    },
+    {
+      "path": "scripts/build.ps1",
+      "sha256": "70423699c83d4f6317e0881bdfbada2b3da11a4e1aa26336db8b73560221a53d"
+    },
+    {
+      "path": "scripts/test.ps1",
+      "sha256": "bc44b0fe80dd741fcaa99d55fdadac09b6dbb45de47c88ab419a415fa9a8e38f"
+    },
+    {
+      "path": "src/KuaiYi.Contracts/IpcFrame.cs",
+      "sha256": "2eba8a01ffc747b0b9f812f2a8d08e17742c384ec07832a831353728f22d987d"
+    },
+    {
+      "path": "src/KuaiYi.ImageWorker/BaselineJpegScan.cs",
+      "sha256": "d718d453baf169d3f1b9250175522527b9782f0b0782e1586d2a37179a2766e9"
+    },
+    {
+      "path": "src/KuaiYi.ImageWorker/ImageDecodeSession.cs",
+      "sha256": "c678a941a223900d3a024c71e4ae9f3bddf1bc6c9607d0b0936152a144bf37c5"
+    },
+    {
+      "path": "src/KuaiYi.ImageWorker/ImageRasterDecoder.cs",
+      "sha256": "268864f97ba80045d6a1c13f3e548bfbc26124cd63440c41775aee6fe195bd83"
+    },
+    {
+      "path": "src/KuaiYi.ImageWorker/ImageWorkerSession.cs",
+      "sha256": "e9138f8d9ca6ab8b2e03224951b22bccffb833156b22d9c9679064dfce9204ea"
+    },
+    {
+      "path": "src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj",
+      "sha256": "70e6eb294bee392f1466420cf6d274828fc034d6a32332a7c98dfe3d671ffc1f"
+    },
+    {
+      "path": "src/KuaiYi.ImageWorker/Program.cs",
+      "sha256": "73b036fab233bf68e4831dd58a7bda7f8290883c3456685f0697e5e4afec122d"
+    },
+    {
+      "path": "src/KuaiYi.ImageWorker/packages.lock.json",
+      "sha256": "4d8935e8229cbe0a34aa16d4a594d4fcc2f3f52c9b15a079d3e270c2c892f18a"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/AssemblyInfo.cs",
+      "sha256": "df770e84b5fe7654fcef98b11bdd160e77251a7ace1bc14e3bcde80017a5311a"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImageDecode.cs",
+      "sha256": "b88bba26df417b7a1d448420f719b65694ac413ebf0100966e61c210fbbb206f"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImageDecodeClient.cs",
+      "sha256": "adbb0fca0ecfcf70dcb4e595cf2b1328359be07de27861bdbf9811e8f045d321"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImagePolicy.cs",
+      "sha256": "2e42c0c570ea9cf7876a2e50ebb7f2f9fc70220d05d9e2785871cf00a604c42e"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImageWorkerClient.cs",
+      "sha256": "838476f62ef10a8cf17128970a16e03346abc4c3824afce3edfed3795c53d668"
+    },
+    {
+      "path": "tests/KuaiYi.Codec.Tests/KuaiYi.Codec.Tests.csproj",
+      "sha256": "7dff756d503ffa3d376febc0eafd2234c7f6049979c911f42a7bef2b363229a2"
+    },
+    {
+      "path": "tests/KuaiYi.Codec.Tests/RasterDecodeTests.cs",
+      "sha256": "3a5576faecccfe9d92477fd73f796294b33e7108fd2f33a785ea14c79cb7477d"
+    },
+    {
+      "path": "tests/KuaiYi.Codec.Tests/packages.lock.json",
+      "sha256": "390cc43fd0a6c7702951262512d2fe200c32520899fe5404a6e7fee159881cf0"
+    },
+    {
+      "path": "tools/KuaiYi.ImageDecodeFixture/KuaiYi.ImageDecodeFixture.csproj",
+      "sha256": "9930428e1de75453d76e0fee61b5b3689f2a8bcb2afc1d2c78c14fa3cdc4242f"
+    },
+    {
+      "path": "tools/KuaiYi.ImageDecodeFixture/Program.cs",
+      "sha256": "28bd72c43ed506d491a2682e2db20584635ff4d9efc3ef522f8cbaaea30c4a0e"
+    },
+    {
+      "path": "tools/KuaiYi.ImageDecodeFixture/packages.lock.json",
+      "sha256": "de4cb9041e477b51da692c459e14093be64b6dcb09304b612011648ad137f87f"
+    },
+    {
+      "path": "licenses/SkiaSharp-4.153.1/LICENSE.txt",
+      "sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+    },
+    {
+      "path": "licenses/SkiaSharp-4.153.1/THIRD-PARTY-NOTICES.txt",
+      "sha256": "21504c46c4c58aa64c1055bd2dcbc5f9a136b4b8c412ed3cc6740e22c5b127f5"
+    }
+  ],
+  "built_outputs": [
+    {
+      "path": "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll",
+      "sha256": "1cae9960bbddb14e2dc83c8dbcd4258dfab20114f3e03833b8ddec68de5dd4f8"
+    },
+    {
+      "path": "tools/KuaiYi.ImageDecodeFixture/bin/Release/net10.0/KuaiYi.ImageDecodeFixture.dll",
+      "sha256": "8d7736e497d64901e06c9bcd4d5c900361a4b794f120eacec6761bdec77e6d9a"
+    },
+    {
+      "path": "tests/KuaiYi.Codec.Tests/bin/Release/net10.0/KuaiYi.Codec.Tests.dll",
+      "sha256": "cccc66a1e213fe87ac8e718efbe322b3c931ebdea68e222c50c06acf4f70b1ae"
+    }
+  ],
+  "final_command": [
+    "python3",
+    "-B",
+    "scripts/session-sdk.py",
+    "test",
+    "tests/KuaiYi.Codec.Tests/KuaiYi.Codec.Tests.csproj",
+    "--no-build",
+    "--no-restore",
+    "-c",
+    "Release",
+    "--logger",
+    "trx;LogFileName=codec-final-independent.trx",
+    "--results-directory",
+    "artifacts/skia-source-network-retry-2026-10-20"
+  ],
+  "final_command_exit": 0,
+  "compile_failure": {
+    "log": "codec-jpeg-scan.log",
+    "result": "CS8175 and CS8793/CS0019; 0 tests executed; preserved candidate source"
+  },
+  "review": "2026-10-20-isolated-raster-decode-originals__independent-review.txt",
+  "unchanged_boundaries": [
+    "source/password/integrity/cancel/cleanup/isolation",
+    "250/600ms and IPC byte limits",
+    "PackageHold; production image reuse Off",
+    "old denied CI39347646426 step3 logs not accessed or routed around",
+    "no live model/CI trigger/publish/user PC/security change"
+  ],
+  "remaining": [
+    "full JPEG modes and WebP/BMP/GIF first frame",
+    "EXIF direction transform and general resize/white compositing",
+    "P6-06 image open/drop UI",
+    "Windows actual Worker/native/OCR/WPF/wholeP6 acceptance and release conditions"
+  ],
+  "deliverables": [
+    {
+      "file": "2026-10-20-isolated-raster-decode-originals__execution-receipts.zip",
+      "bytes": 115991,
+      "sha256": "56233f550db4b8e4a0c6ac7f45d4973951fda0170f250e42f4d7d96646356d5c"
+    },
+    {
+      "file": "2026-10-20-isolated-raster-decode-originals__independent-review.txt",
+      "bytes": 1544,
+      "sha256": "fc6020eacc976363cc4606d23d4b4a40cdfb0c26916bef7f8977fb87fb7d31d0"
+    },
+    {
+      "file": "2026-10-20-isolated-raster-decode-originals__official-source-inputs.zip",
+      "bytes": 505028,
+      "sha256": "14966434548e58b709034a6c171b063a9027edc17515033c98e2adbee23ab832"
+    }
+  ],
+  "verbatim_license_whitespace": "Original upstream CRLF/spacing preserved; product/docs diff check passes excluding exact license copies. Original-license whitespace diagnostics expected and archived, not normalized."
+}

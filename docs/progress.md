@@ -1231,3 +1231,12 @@ P7源码子项InProgress，完整P7/R13/真实浏览器与Windows仍NotRun；CI3
 当前network enabled/既有proxy:8080/普通Git成功不能证明原api.github.com两个精确目标解除；原回执无可比proxy策略原件，独立复核不足以重试。本轮精确目标请求0、替代源码路线0，不将旧403说成本轮新403或全网失败。仍缺该commit可核源码及子模块、实际native构建配置/组件与资产对应证据，以及合规获取条件。详见[状态与精确最小材料](validation/p6-codec-source-review.md)/[本轮证据](test-evidence/2026-10-20-p6-codec-source-review.json)。
 
 源码/供应链审查未通过前不install/restore/改锁/加载Skia或实现codec；无生产代码变更、dotnet/构建/测试/CI/模型/费用/发布/用户电脑操作。完整多格式/EXIF/一般缩放及打开投放仍未交付，Windows验证仍NotRun；P6-02 Blocked、PackageHold/生产图片复用Off、250600/frame/资源/来源/密码/完整性/取消/清理/隔离门保持，旧CI拒绝日志不查询不绕路。
+
+
+## 2026-10-20 · P6-02隔离PNG/有限baseline JPEG到owned栅格
+
+在a1da3de6ecfa2626540b1c63dc50a2880348b978之后，收到用户重新发布指定环境并启网络的受信新证据，核此前精确目标请求0后，对原GitHub tree/release各一次有界原路请求均200，未改代理/凭据/安全权限或换路。取得固定SkiaSharp4783f51448f9b070dda4f87b83e941c9599e466e源码及Skia固定DEPS，23正文Git blob复核；四个已批准4.153.1包与旧清单相同且nuget verify全部成功，独立正常开发准入通过。此事实接续而不改写上条历史Blocked；不等于原生可复现/完整安全审计/Windows或发布通过。
+
+正常dev/p6-isolated-raster-decode实际实现私有WorkerPNG/有限8bit baselineJPEG到owned紧密straightBGRA：完整摘要/身份、分配前限量、顺序分块/唯一commit、EOF/实际exit0/原IO结算后交付，取消/额外输出/退出失败实际清零。Skia只在Worker/隔离测试，App与Imaging实际依赖和输出无Skia；完整原许可证/第三方声明随Worker输出保持字节。发现截断JPEG被原生修补Success的真实缺陷，保留36P1F并加有界熵流验证，同方法最终通过；旧Worker有效PNG/JPEG两条2F→同方法最终通过。新codec最终49P及原产物no-build重跑同49P不累加，原相关Core74P/Provider37P，Worker/App Release交叉0W/E，5locked restore审计成功。独立只读源码及最终回执审查无剩余P1/P2；初FrameCount误判和扫描器编译0执行失败原件均保全。
+
+详见[组件、支持边界和本批结果](validation/isolated-raster-decode.md)/[原始证据索引](test-evidence/2026-10-20-isolated-raster-decode.json)。P6-02仍InProgress：全格式/完整JPEG/EXIF坐标变换/一般缩放白底/P6-06UI及Windows真实native/Worker/OCR/WPF和整P6仍未验收。PowerShell接入口只静态审查；250600/原资源限额/来源密码完整性取消清理隔离门/PackageHold及生产图片复用Off保持。旧CI被拒日志未请求或绕路；无CI调度/模型/费用/发布/用户电脑操作，main不改。

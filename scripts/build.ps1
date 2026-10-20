@@ -6,7 +6,7 @@ try {
     Assert-SpecIntegrity
     Assert-Sdk
     $projects = if ($Scope -eq 'Offline') {
-        @('tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj', 'tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj')
+        @('tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj', 'tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj', 'tests/KuaiYi.Codec.Tests/KuaiYi.Codec.Tests.csproj')
     } else { @('KuaiYi.sln') }
     foreach ($project in $projects) {
         $restore = @('restore', $project)

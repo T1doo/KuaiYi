@@ -35,7 +35,7 @@ try {
     }
     if (-not $uri) { throw 'Mock Provider readiness timed out.' }
     [Environment]::SetEnvironmentVariable('KUAIYI_TEST_PROVIDER_URL', $uri)
-    foreach ($name in 'KuaiYi.Core.Tests', 'KuaiYi.Provider.Tests') {
+    foreach ($name in 'KuaiYi.Core.Tests', 'KuaiYi.Provider.Tests', 'KuaiYi.Codec.Tests') {
         Invoke-Checked dotnet @('test', "tests/$name/$name.csproj", '--no-build', '--no-restore', '--configuration', $Configuration,
             '--logger', "trx;LogFileName=$name.trx", '--results-directory', $folder)
     }

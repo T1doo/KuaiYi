@@ -6,7 +6,7 @@ namespace KuaiYi.ImageWorker;
 /// never substitutes for native OCR/PNG/JPEG acceptance.</summary>
 internal static class ImageWorkerSession
 {
-    internal static async Task RunAsync(Stream input,Stream output,Func<ReadOnlyMemory<byte>,string,CancellationToken,OcrOutput> recognizeOcr,Action<string>? diagnostic=null,Func<WorkerDiagnostic>? diagnoseOcr=null)
+    internal static async Task RunAsync(Stream input,Stream output,Func<ReadOnlyMemory<byte>,string,CancellationToken,OcrOutput> recognizeOcr,Action<string>? diagnostic=null,Func<WorkerDiagnostic>? diagnoseOcr=null,Func<ReadOnlyMemory<byte>,ImageDecodeJob,CancellationToken,DecodedRaster>? decode=null)
     {
         using var receiver=new ImageJobReceiver();
         var hello=await IpcFrameCodec.ReadAsync(input)??throw new EndOfStreamException();Guid id=hello.RequestId;
@@ -17,13 +17,19 @@ internal static class ImageWorkerSession
         }
         finally{CryptographicOperations.ZeroMemory(hello.Payload);}
         var begin=await IpcFrameCodec.ReadAsync(input)??throw new EndOfStreamException();
-        OcrDiagnosticJob? diagnosticJob=null;
+        OcrDiagnosticJob? diagnosticJob=null;ImageDecodeJob? decodeJob=null;
         try
         {
             if(begin.RequestId!=id)throw new InvalidDataException("Begin/hello identity mismatch.");
             if(begin.Type==IpcMessageType.ImageDiagnose)
             {
                 diagnosticJob=ImageJson.Read<OcrDiagnosticJob>(begin.Payload);OcrCapabilitiesPolicy.ValidateJob(diagnosticJob);
+            }
+            else if(begin.Type==IpcMessageType.ImageDecodeBegin)
+            {
+                decodeJob=ImageJson.Read<ImageDecodeJob>(begin.Payload);ImageDecodePolicy.ValidateJob(decodeJob);
+                byte[] transfer=ImageJson.Serialize(new ImageJob(decodeJob.SessionId,decodeJob.Version,decodeJob.Epoch,"decode",decodeJob.ByteLength));
+                try{receiver.Begin(new(IpcMessageType.ImageBegin,id,transfer));}finally{CryptographicOperations.ZeroMemory(transfer);}
             }
             else receiver.Begin(begin);
         }
@@ -36,6 +42,8 @@ internal static class ImageWorkerSession
             try{if(frame.Type==IpcMessageType.ImageCommit){image=receiver.Commit(frame);break;}receiver.Chunk(frame);}
             finally{CryptographicOperations.ZeroMemory(frame.Payload);}
         }
+        if(decodeJob!=null)
+        {await ImageDecodeSession.RunAsync(input,output,id,image,decodeJob,decode??throw new InvalidDataException("Decoder role unavailable."),diagnostic);return;}
         using var cancellation=new CancellationTokenSource(TimeSpan.FromSeconds(15));
         var recognize=Task.Run(()=>recognizeOcr(image,receiver.Job!.Language,cancellation.Token));
         // Always validate/clear this original read, including when recognition or output fails first.
