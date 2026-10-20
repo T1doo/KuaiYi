@@ -9,8 +9,8 @@ public sealed record SelectionPointerEvent(bool Down,PixelPoint Point,long TimeM
 public sealed record SelectionGesture(SelectionWindow Window,PixelPoint Down,PixelPoint Up,long TimeMs,int ClickCount,bool Explicit=false,HotkeyInputIdentity? HotkeyInput=null);
 public enum SelectionCaptureStatus{Success,EmptyOrUnsupported,Sensitive,Stale,SoftTimeout,HardTimeout,Crash,Cancelled,ProtocolFailure,CleanupPending,Paused,TooLarge,UntrustedGesture,ClipboardUnsupported,ClipboardTimeout,ClipboardUnrelated,ClipboardBusy}
 public enum SelectionSourceKind{Uia,Clipboard,OleDrop,OcrOnly}
-/// <summary>Local screenshot lineage. It never denotes a desktop selection or image understanding.</summary>
-public sealed record OcrTextProvenance(Guid SourceVersion,Guid SourceId,Guid PreviewId);
+/// <summary>Local image lineage. It never denotes a desktop selection or image understanding.</summary>
+public sealed record OcrTextProvenance(Guid SourceVersion,Guid SourceId,Guid PreviewId,bool FromFile=false,bool UsedFirstFrame=false);
 public sealed record SelectionCaptureResult(SelectionCaptureStatus Status,string Text="",ImmutableArray<PixelRect> Ranges=default,ImmutableArray<int> RuntimeId=default,PixelRect? ControlBounds=null,SelectionCopyEvidence? CopyEvidence=null,SelectionSourceKind SourceKind=SelectionSourceKind.Uia,ClipboardRecovery Recovery=ClipboardRecovery.NotNeeded);
 public sealed record SelectionSourceSnapshot(SelectionWindow Window,string RawText,string Text,ImmutableArray<PixelRect> Ranges,ImmutableArray<int> RuntimeId,string SettingsVersion,int Scalars,bool RequiresConfirmation,SelectionSourceKind SourceKind=SelectionSourceKind.Uia,ClipboardRecovery Recovery=ClipboardRecovery.NotNeeded,Guid DropReceiver=default,Guid DropTransaction=default,OcrTextProvenance? Ocr=null);
 public interface ISelectionCapturePlatform

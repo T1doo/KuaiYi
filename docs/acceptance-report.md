@@ -154,3 +154,12 @@ Windows实际文件handle/dialog/WPF/Toggle/native/字体质量、250/600ms/600M
 最终Core相关261P（新61+原200）、完整Provider2393P（新12+原2381）、完整Codec475P，各0F/0skip；Receiver/App最终交叉0W/E，两locked audit restore0。首编译0执行、clear专用port及Dispose后Process查询的测试失败原件保留；独审不可达DropEnd拒绝提示P2已闭合并回归，FileContents的index0查询缺项也已补齐。Windows格式query介质最后收窄后仅交叉构建，不称真实COM通过。详见[支持范围/验证](validation/single-image-drop.md)/[直接证据](test-evidence/2026-10-20-single-image-drop.json)。
 
 真实Windows/OLE/filehandle/WPF/来源密码完整性/字体画质/250600/600MiB、位图/虚拟文件/多图和完整P6仍NotRun或未交付，完整P6-06/Beta不签收。旧BMP根因未证、WebP odd拒绝、PackageHold、生产复用Off和全部安全发送清理门保持。无用户内容/真实模型/新依赖许可权限费用凭据/CI/用户电脑/发布部署/main修改/强推。
+
+
+## 2026-10-20 · 文件图片显式OCR-only
+
+从已独审31ee5704fe1e210556a4c2d70e80b811d3a75634在正常dev/p6-file-image-ocr接续，唯一writer、先设计独审。复用无desktop的file owner与原OCR coordinator/本机语言选择/文字预览/显式批准及发送门；按实际归一化PNG尺寸和min(nativeMax,2560)检查，不二次缩图，旧截图>2560拒绝保持。验证job/维度/语言/词界后才生成≤50000个immutable数值原图映射，可信文件/GIF首帧bool沿预览到结果和版本标签；不发送图片/路径/映射。晚modal改为仅撤销same preview与exact request，原识别Task未返前保留PNG，finalize未确认保留原owner阻止替换。
+
+最终完整Provider2427P（原2393+新34）、完整Codec478P（原475+新3），均0F/0skip；Core相关限定114P（非全Core）、Worker/App交叉0W/E、两次locked audit restore0；实况见[行为与边界](validation/file-image-ocr.md)/[直接证据](test-evidence/2026-10-20-file-image-ocr.json)。实际Linux decode→file owner→原OCR coordinator的成功识别端口明确合成；实际Linux Worker文件OCR拒绝UnsupportedPlatform。保留首次App变量重名和新Provider类型歧义的编译失败日志，旧OCR/Codec测试不改。
+
+Windows OCR/OLE/COM/WPF/真实来源身份/最终文件handle、字体画质、250/600ms/600MiB与完整P6仍NotRun，位图/虚拟文件/多图不扩展。旧BMP根因未知、WebP odd拒绝、PackageHold、生产复用Off和原安全门保持；无真实模型/用户内容/新依赖许可权限费用凭据/main/强推/部署。

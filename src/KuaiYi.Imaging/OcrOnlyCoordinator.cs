@@ -11,8 +11,10 @@ public interface ILocalOcrWorker:IAsyncDisposable
 }
 public interface ILocalOcrCapabilitiesWorker:ILocalOcrWorker
 {Task<OcrDiagnosticReply> DiagnoseAsync(OcrDiagnosticJob job,CancellationToken cancellation=default);}
-public sealed record OcrTextPreview(Guid Id,Guid SourceVersion,Guid SourceId,string Text,string Language,string SettingsVersion,RequestIdentity Identity);
-public sealed record OcrCapabilitiesSnapshot(Guid Id,Guid SourceVersion,Guid SourceId,ImmutableArray<string> Languages,uint MaxImageDimension,string SettingsVersion,RequestIdentity Identity);
+public readonly record struct OcrWordRegion(int LineIndex,int WordIndex,NormalizedImageRectangle Normalized,OriginalImageRectangle Original);
+public sealed record OcrTextPreview(Guid Id,Guid SourceVersion,Guid SourceId,string Text,string Language,string SettingsVersion,RequestIdentity Identity,
+    ImageSourceKind SourceKind=ImageSourceKind.Screenshot,string? SourceNotice=null,ImageTransform? Transform=null,ImmutableArray<OcrWordRegion> WordRegions=default);
+public sealed record OcrCapabilitiesSnapshot(Guid Id,Guid SourceVersion,Guid SourceId,ImmutableArray<string> Languages,uint MaxImageDimension,string SettingsVersion,RequestIdentity Identity,ImageSourceKind SourceKind=ImageSourceKind.Screenshot,string? SourceNotice=null);
 
 /// <summary>Destination-thread commands; bounded local OCR only. No provider or HTTP dependency.
 /// Original worker/IO ownership must settle before any preview can be approved.</summary>
@@ -31,14 +33,14 @@ public sealed class OcrOnlyCoordinator:IAsyncDisposable
     private ILocalOcrWorker? ownedWorker;
     private SelectionSourceSnapshot? approved;
     private sealed record Completion(OcrTextPreview? Preview,string? Failure,OcrCapabilitiesSnapshot? Capabilities=null);
-    private sealed record Operation(long Revision,Guid Version,OwnedSourceImage Source,SettingsSnapshot Settings,RequestProfileBinding Binding,RequestIdentity Identity,CancellationTokenSource Cancellation,bool Discover);
+    private sealed record Operation(long Revision,Guid Version,ImageSourceOwner Source,SettingsSnapshot Settings,RequestProfileBinding Binding,RequestIdentity Identity,CancellationTokenSource Cancellation,bool Discover);
     public OcrOnlyCoordinator(RuntimeGate gate,Func<SettingsSnapshot?> settings,Func<Guid,Guid,bool> sourceCurrent,
         SynchronizationContext destination,Func<ILocalOcrWorker> createWorker)
     {this.gate=gate;this.settings=settings;this.sourceCurrent=sourceCurrent;this.createWorker=createWorker;receiver=new(gate,destination);}
     public Task Running{get;private set;}=Task.CompletedTask;
     private OcrTextPreview? preview;
     private OcrCapabilitiesSnapshot? capabilities;
-    private OwnedSourceImage? capabilityImage;
+    private ImageSourceOwner? capabilityImage;
     public OcrCapabilitiesSnapshot? Capabilities
     {
         get
@@ -51,11 +53,11 @@ public sealed class OcrOnlyCoordinator:IAsyncDisposable
     public OcrTextPreview? Preview{get{var value=Volatile.Read(ref preview);if(value!=null&&!IsPreviewCurrent(value)){Interlocked.CompareExchange(ref preview,null,value);return null;}return value;}private set=>Volatile.Write(ref preview,value);}
     public string? Failure{get;private set;}
     public bool CleanupPending{get{lock(sync)return ownedWorker!=null;}}
-    public bool Discover(Guid version,OwnedSourceImage source)=>StartCore(version,source,null);
-    public bool Start(Guid version,OwnedSourceImage source,string language)=>language!=null&&StartCore(version,source,language);
+    public bool Discover(Guid version,ImageSourceOwner source)=>StartCore(version,source,null);
+    public bool Start(Guid version,ImageSourceOwner source,string language)=>language!=null&&StartCore(version,source,language);
     public bool Start(OcrCapabilitiesSnapshot snapshot,string language)
     {
-        if(snapshot==null||!IsCapabilitiesCurrent(snapshot))return false;OwnedSourceImage? source;
+        if(snapshot==null||!IsCapabilitiesCurrent(snapshot))return false;ImageSourceOwner? source;
         lock(sync)
         {
             if(!ReferenceEquals(capabilities,snapshot)||capabilityImage is not {} image)return false;
@@ -66,8 +68,11 @@ public sealed class OcrOnlyCoordinator:IAsyncDisposable
         }
         return StartCore(snapshot.SourceVersion,source,language,snapshot);
     }
-    private bool StartCore(Guid version,OwnedSourceImage source,string? language,OcrCapabilitiesSnapshot? expected=null)
+    private bool StartCore(Guid version,ImageSourceOwner source,string? language,OcrCapabilitiesSnapshot? expected=null)
     {
+        // Recognition never silently resizes a screenshot or a prepared file to fit OCR.
+        if(language!=null&&(source.Width>ImageTransform.LongEdgeLimit||source.Height>ImageTransform.LongEdgeLimit))
+        {Failure="SMALLER_SCREENSHOT_REQUIRED";return false;}
         if(version==Guid.Empty||source.IsDisposed||!sourceCurrent(version,source.SourceId)||
             language!=null&&(string.IsNullOrWhiteSpace(language)||language.Length>64||language.Any(c=>!char.IsAsciiLetterOrDigit(c)&&c!='-'))||
             settings() is not {} config||config.ReadOnly||config.RequiresRecovery||!gate.TryBeginPassiveCapture(gate.Snapshot.Mode,out var ticket)||
@@ -133,11 +138,12 @@ public sealed class OcrOnlyCoordinator:IAsyncDisposable
                 OcrCapabilitiesPolicy.ValidateDiagnostic(diagnostic);
                 if(diagnostic.Failure!=ImageFailure.None)throw new ImageJobException(diagnostic.Failure);
                 if(diagnostic.Languages.Length==0)throw new ImageJobException(ImageFailure.LanguageUnavailable);
-                completion=new(null,null,new(Guid.NewGuid(),operation.Version,operation.Source.SourceId,diagnostic.Languages.ToImmutableArray(),diagnostic.MaxImageDimension,operation.Settings.Version,operation.Identity));
+                completion=new(null,null,new(Guid.NewGuid(),operation.Version,operation.Source.SourceId,diagnostic.Languages.ToImmutableArray(),diagnostic.MaxImageDimension,operation.Settings.Version,operation.Identity,operation.Source.Kind,operation.Source.Notice));
             }
             else
             {
-                using var png=await Task.Run(()=>operation.Source.CreateRequestPng(4194304,operation.Cancellation.Token)).ConfigureAwait(false);
+                using var png=await Task.Run(()=>operation.Source.PrepareRequest(4194304,operation.Cancellation.Token)).ConfigureAwait(false);
+                ValidatePrepared(operation.Source,png);
                 var job=new ImageJob(operation.Identity.SessionId,operation.Revision,operation.Identity.Epoch,language!,png.Bytes.Length);
                 var reply=await worker.RunAsync(png.Bytes,job,operation.Cancellation.Token).ConfigureAwait(false);
                 if(reply.Job!=job)throw new InvalidDataException("OCR job mismatch.");
@@ -145,7 +151,7 @@ public sealed class OcrOnlyCoordinator:IAsyncDisposable
                 if(reply.Output is not {} output)throw new InvalidDataException("OCR output absent.");
                 ImageWorkerClient.ValidateOutput(output,ImagePolicy.InspectPng(png.Bytes.Span),language!);
                 if(!ValidText(output.Text,operation.Settings.Data.Translation.HardLimitScalars))throw new InvalidDataException("OCR text invalid.");
-                completion=new(new(Guid.NewGuid(),operation.Version,operation.Source.SourceId,output.Text,language!,operation.Settings.Version,operation.Identity),null);
+                completion=new(new(Guid.NewGuid(),operation.Version,operation.Source.SourceId,output.Text,language!,operation.Settings.Version,operation.Identity,png.Kind,png.Notice,png.Transform,MapWords(output,png.Transform)),null);
             }
         }
         catch(OperationCanceledException){completion=new(null,"Cancelled");}
@@ -189,6 +195,12 @@ public sealed class OcrOnlyCoordinator:IAsyncDisposable
         lock(sync){if(!ReferenceEquals(capabilities,snapshot))return;revision++;capabilities=null;capabilityImage=null;}
         gate.StopRequest(snapshot.Identity);
     }
+    /// <summary>Reject only this held preview; a late modal must not stop a newer request.</summary>
+    public void RejectPreview(OcrTextPreview preview)
+    {
+        lock(sync){if(!ReferenceEquals(this.preview,preview))return;revision++;Preview=null;}
+        gate.StopRequest(preview.Identity);
+    }
     public bool IsPreviewCurrent(OcrTextPreview preview)
     {
         bool current=false;gate.TryApply(preview.Identity,()=>
@@ -207,7 +219,7 @@ public sealed class OcrOnlyCoordinator:IAsyncDisposable
             {
                 if(!IsPreviewCurrent(preview))return;
                 approved=source=new(new(0,0,0,""),preview.Text,preview.Text,[],[],preview.SettingsVersion,preview.Text.EnumerateRunes().Count(),true,
-                    SelectionSourceKind.OcrOnly,Ocr:new(preview.SourceVersion,preview.SourceId,preview.Id));Preview=null;
+                    SelectionSourceKind.OcrOnly,Ocr:new(preview.SourceVersion,preview.SourceId,preview.Id,preview.SourceKind==ImageSourceKind.LocalFile,preview.SourceNotice=="使用首帧"));Preview=null;
             }
         });return source;
     }
@@ -235,6 +247,34 @@ public sealed class OcrOnlyCoordinator:IAsyncDisposable
         }
     }
     public async ValueTask DisposeAsync(){lock(sync)disposed=true;await ClearAsync().ConfigureAwait(false);}
+    private static void ValidatePrepared(ImageSourceOwner source,PreparedImageRequest png)
+    {
+        var size=new ImageSize((uint)source.Width,(uint)source.Height);
+        if(png.SourceId!=source.SourceId||png.Kind!=source.Kind||png.Notice!=source.Notice||
+            png.Transform.NormalizedSize!=size||ImagePolicy.InspectPng(png.Bytes.Span)!=size)
+            throw new InvalidDataException("OCR source preparation mismatch.");
+        if(source is OwnedFileImage file)
+        {
+            if(png.Transform!=file.Metadata.Transform||png.Transform.HasDesktopAnchor||png.NormalizationProof!=null)
+                throw new InvalidDataException("OCR file mapping mismatch.");
+        }
+        else if(source is not OwnedSourceImage||!png.Transform.HasDesktopAnchor||png.Transform.Orientation!=ImageOrientation.ScreenshotIdentity||
+            png.Transform.OriginalSize!=size||png.NormalizationProof!=ScreenshotNormalizationProof.NativeSizeWhiteComposite)
+            throw new InvalidDataException("OCR screenshot mapping mismatch.");
+    }
+    // Output is fully validated before allocating this bounded immutable, text-free mapping.
+    private static ImmutableArray<OcrWordRegion> MapWords(OcrOutput output,ImageTransform transform)
+    {
+        int count=output.Lines.Sum(line=>line.Words.Length);
+        var regions=ImmutableArray.CreateBuilder<OcrWordRegion>(count);
+        for(int line=0;line<output.Lines.Length;line++)
+            for(int word=0;word<output.Lines[line].Words.Length;word++)
+            {
+                var value=output.Lines[line].Words[word];var rectangle=new NormalizedImageRectangle(value.X,value.Y,value.Width,value.Height);
+                regions.Add(new(line,word,rectangle,transform.NormalizedToOriginal(rectangle)));
+            }
+        return regions.MoveToImmutable();
+    }
     private static bool ValidText(string text,int limit)
     {
         if(string.IsNullOrWhiteSpace(text)||text.Length>50000)return false;

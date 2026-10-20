@@ -1,0 +1,372 @@
+{
+  "date": "2026-10-20",
+  "base_sha": "31ee5704fe1e210556a4c2d70e80b811d3a75634",
+  "branch": "dev/p6-file-image-ocr",
+  "single_writer": "root; one worktree; existing reviewer read-only; old instances not resumed",
+  "environment": "designated saved Linux x64; SDK10.0.402/runtime10.0.13",
+  "commands": [
+    {
+      "name": "r03-provider-file",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~FileImageOcrTests",
+        "--logger",
+        "trx;LogFileName=r03-provider-file.trx",
+        "--results-directory",
+        "/workspace/KuaiYi/artifacts/file-image-ocr"
+      ],
+      "start": "2026-10-20T15:26:17.986249+00:00",
+      "exit": 0
+    },
+    {
+      "name": "r04-provider-full",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--no-build",
+        "--logger",
+        "trx;LogFileName=r04-provider-full.trx",
+        "--results-directory",
+        "/workspace/KuaiYi/artifacts/file-image-ocr"
+      ],
+      "start": "2026-10-20T15:26:33.153446+00:00",
+      "exit": 0
+    },
+    {
+      "name": "r05-codec-full",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Codec.Tests/KuaiYi.Codec.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--logger",
+        "trx;LogFileName=r05-codec-full.trx",
+        "--results-directory",
+        "/workspace/KuaiYi/artifacts/file-image-ocr"
+      ],
+      "start": "2026-10-20T15:26:51.207850+00:00",
+      "exit": 0
+    },
+    {
+      "name": "r06-core-related",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~Ocr|FullyQualifiedName~ImageSource|FullyQualifiedName~Screenshot|FullyQualifiedName~RuntimeGate|FullyQualifiedName~RequestIdentity|FullyQualifiedName~SourceOwnership|FullyQualifiedName~ImageFileDrop",
+        "--logger",
+        "trx;LogFileName=r06-core-related.trx",
+        "--results-directory",
+        "/workspace/KuaiYi/artifacts/file-image-ocr"
+      ],
+      "start": "2026-10-20T15:27:22.143979+00:00",
+      "exit": 0
+    },
+    {
+      "name": "r07-restore-worker",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "restore",
+        "src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj",
+        "--locked-mode",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:EnableWindowsTargeting=true",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "start": "2026-10-20T15:27:44.674997+00:00",
+      "exit": 0
+    },
+    {
+      "name": "r08-restore-app",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "restore",
+        "src/KuaiYi.App/KuaiYi.App.csproj",
+        "--locked-mode",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:EnableWindowsTargeting=true",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "start": "2026-10-20T15:27:46.107531+00:00",
+      "exit": 0
+    },
+    {
+      "name": "r09-build-worker",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "build",
+        "src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "-p:EnableWindowsTargeting=true"
+      ],
+      "start": "2026-10-20T15:27:47.909811+00:00",
+      "exit": 0
+    },
+    {
+      "name": "r10-build-app",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "build",
+        "src/KuaiYi.App/KuaiYi.App.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "-p:EnableWindowsTargeting=true"
+      ],
+      "start": "2026-10-20T15:27:49.699532+00:00",
+      "exit": 0
+    }
+  ],
+  "results": {
+    "decoded-ocr.trx": {
+      "counts": {
+        "total": "3",
+        "executed": "3",
+        "passed": "3",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "results": 3,
+      "sha256": "5b38c934c6a7fc3d0edb155ea249623e28f82b940b1ca1bc4439d5a7f83e9ded"
+    },
+    "ocr-second.trx": {
+      "counts": {
+        "total": "169",
+        "executed": "169",
+        "passed": "169",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "results": 169,
+      "sha256": "51244d968ee7a7bb059582fb49625593eaa7653a3bc4390c43024f3e481b7447"
+    },
+    "r03-provider-file.trx": {
+      "counts": {
+        "total": "34",
+        "executed": "34",
+        "passed": "34",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "results": 34,
+      "sha256": "469b17df90bbbc4f8dd963ce174945f7301846ab8ea0fa771b3522b9e1eb4082"
+    },
+    "r04-provider-full.trx": {
+      "counts": {
+        "total": "2427",
+        "executed": "2427",
+        "passed": "2427",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "results": 2427,
+      "sha256": "82b93f40dbea69a240cb79c8a0ba292ca7f98b67538baaccb6ebf5dd9b7ffe96"
+    },
+    "r05-codec-full.trx": {
+      "counts": {
+        "total": "478",
+        "executed": "478",
+        "passed": "478",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "results": 478,
+      "sha256": "af943698091100ed9486b4ec50a0143e9747995a44b37ca1ef8e6a90c6000cb2"
+    },
+    "r06-core-related.trx": {
+      "counts": {
+        "total": "114",
+        "executed": "114",
+        "passed": "114",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "results": 114,
+      "sha256": "f4faac5320d90a862384d44742a3836a81f795cdbd81419c58f7bbacd2fd4cc2"
+    }
+  },
+  "final": {
+    "provider_full": 2427,
+    "codec_full": 478,
+    "core_related": 114,
+    "provider_new": 34,
+    "codec_new": 3,
+    "failures": 0,
+    "skipped": 0,
+    "worker_build": "0W/0E",
+    "app_build": "0W/0E",
+    "locked_audited_restore": 2
+  },
+  "scope": {
+    "actual": "Linux native decoder/private worker PNG/JPEGEXIF6/GIF -> actual file owner and OCR coordinator; actual Linux OCR Worker UnsupportedPlatform; actual two-protocol loopback HTTP text",
+    "synthetic": "prepared-file owners in Provider tests; successful OCR and installed capabilities port; no native Windows success",
+    "new_tests_unchanged_old_tests": true
+  },
+  "source_hashes": {
+    "src/KuaiYi.App/OcrOnlyFlow.cs": "dcaa152febcc40892ad14cb39c9ed59c7d68f6905ee86cf12158e0961f9b2a5a",
+    "src/KuaiYi.App/OverlayResultLabel.cs": "19aaf0ea6afab425ce7c899c3968785cae5f60a4bf2175b4873fa7c4c4bc287d",
+    "src/KuaiYi.App/ShellWindow.cs": "721d48dc52299d05c4e3c314487160193d860a9da5239e5a0568b6b03b6f0fdf",
+    "src/KuaiYi.Core/SelectionCapture.cs": "120e8889bd9132c6a9c5a075e1714118e9f86bd78baeffadb1b5adda565dfe8e",
+    "src/KuaiYi.Imaging/OcrOnlyCoordinator.cs": "08296f149edeab4e79c0c26f174cda718dffb14252ca7c35c456fb80d136ba9f",
+    "tests/KuaiYi.Provider.Tests/FileImageOcrTests.cs": "ed53e047ba5ec863100786ebadd3fe56a4042547225e38cfed1e82e4478162da",
+    "tests/KuaiYi.Codec.Tests/DecodedFileOcrTests.cs": "b221c085cd5ee942a046d430d1f2fcaa9650e39734870110e2887179bd9a4ea1",
+    "docs/validation/file-image-ocr.md": "934e7f2eb78647eed4c013652cbec9ea03b40cf9f7cd73e1cfcec5f396cf419a",
+    "docs/progress.md": "05c4f92cbc16d2d0e59c56a33e2313c5617b58d5ae8fb1807c6cceb9f541a66b",
+    "docs/acceptance-report.md": "9d7c3a7c355b2a5d70a8e485d70704c3ffc9b3d1c0452156530979c46ddc3207"
+  },
+  "protected": {
+    "count": 534,
+    "all_equal": true,
+    "catalog": "run/protected-hashes.json"
+  },
+  "products": {
+    "count": 395,
+    "catalog": "run/product-hashes.json"
+  },
+  "independent_review": "design and five-product-file limited ACK; read-only, no tests/build; final evidence review recorded in final report",
+  "failures_preserved": [
+    "build-first.log: App0W/2E notice variable collision, renamed",
+    "provider-first.log: ApiProtocol ambiguity, 0 executed; explicit alias added",
+    "old BMP historical469P/1F then2P then470P: cause remains UNKNOWN; not attributed to this work"
+  ],
+  "not_run": [
+    "Windows OLE/COM/WPF/native OCR and installed identity/languages",
+    "real source/password/integrity/final-filehandle",
+    "quality/font review",
+    "250/600ms",
+    "600MiB",
+    "full P6/Beta"
+  ],
+  "constraints": [
+    "WebP odd payload explicitly rejected",
+    "PackageHold",
+    "production image reuse Off",
+    "no new dependency/license/permission/cost/credential",
+    "no live model/private data/user desktop/deployment/main/force push",
+    "bitmap/virtual file/multi-image not expanded"
+  ],
+  "archive": {
+    "path": "docs/test-evidence/2026-10-20-file-image-ocr-originals.zip",
+    "bytes": 1052561,
+    "sha256": "694947edb453ccb9b631d2ef859543a2532893e5f04c2fd4435298e387e6b844",
+    "entries": 39
+  }
+}
