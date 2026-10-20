@@ -1,0 +1,77 @@
+{
+  "Utc": "2026-10-20T00:35:08.213689+00:00",
+  "Status": "ActualCiFail_FirstCauseUnknown_NoProvenStaticDefect",
+  "HeadBeforeEvidence": "f394e54c81a50f6afbd174787f5c04a6dfb0ab11",
+  "ActualCi": {
+    "ReceivedUtc": "2026-10-20T00:33:24.010229+00:00",
+    "EvidenceKind": "TrustedParentNormalConnectionObservation_NotLocallyQueried",
+    "SourceThread": "01a14dbf-e27d-721e-888a-587c8c296022",
+    "Run": 39347646426,
+    "SourceCommit": "00ecaae6def945cf39f3bdacf5fca7f8dc2d69e9",
+    "StartedUtc": "2026-10-20T00:26:24Z",
+    "CompletedUtc": "2026-10-20T00:30:24Z",
+    "Conclusion": "Fail",
+    "Job": 118384016034,
+    "JobName": "signature-then-managed",
+    "Checkout": "Pass",
+    "Step3": "Fail_Verify runtime signatures, install approved job SDK and run managed validation",
+    "InternalFirstCause": "Unknown",
+    "RunUrl": "https://github.com/T1doo/KuaiYi/actions/runs/39347646426",
+    "JobUrl": "https://github.com/T1doo/KuaiYi/actions/runs/39347646426/job/118384016034",
+    "DetailReadBlock": "Parent logged-in assistant browser credential_observation_restricted; one validation per tool guidance still restricted; parent stopped",
+    "RestrictionsForwarded": "Do not retry CLI denial or route around credential observation restriction; no blind rerun; preserve all originals"
+  },
+  "StaticAssessment": {
+    "ParentAndFourFileScope": "Pass",
+    "WorkflowDelta": "NameOnly",
+    "LocalPrePushSourceGate": "Pass_NotHostedExecutionEvidence",
+    "UnchangedRunnerFunctionAstsExceptErrorMessage": true,
+    "FixedSdkInstallerSecurityLockOldWorkflowInputs": 18,
+    "Finding": "No proven static parent/scope/early-flow defect; no source change or rerun justified"
+  },
+  "EvidenceLimits": "Parent observation is trusted metadata, not new runtime log; first failed command/JSON/counters/cleanup/TRX unavailable. Do not use duration or whole-step title to infer stage. Prior original evidence and old Unknown-at00:29 record preserved.",
+  "Restrictions": "Parent credential_observation_restricted after one allowed validation remains; local Actions Forbidden remains. No retry, alternate route, SDK/test execution or newCI in this followup.",
+  "MissingEvidence": [
+    "Full step3 raw log and first failure annotation if script emitted no JSON",
+    "KUAIYI_SESSION_RUNTIME_WINDOWS final JSON with Reason,SourceCommit,Commands/Exit/Outcome/OutputPrefix/LogSha256,SignatureStatus,SdkStatus,SdkInstallation,RuntimeAuditCoverage,ManagedTests,BuildStatus,TestCounters,EvidenceStatus/Errors and cleanup",
+    "Full first failing command raw/gzip, original error/stack/exit and emitted chunk descriptors with sizes/hashes",
+    "Original Core/Provider TRX and final counters if generated, or explicit missing status"
+  ],
+  "SourceChanges": "None",
+  "Package": "Hold",
+  "OriginalFiles": [
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-ci-static-followup-originals__parent-ci-failure-observation.json",
+      "Bytes": 1067,
+      "Sha256": "d6756dc4bf443c9685ee3653b1b309d561b195c6237acb2493271a7370e4b476",
+      "Type": "ParentTrustedObservation"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-ci-static-followup-originals__static-input-assessment.json",
+      "Bytes": 4565,
+      "Sha256": "d6d20577b7576a4c5539f29641b1633f09b4530a7bc686aec4710e4924214e21",
+      "Type": "LocalGitAstStaticAudit"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-ci-static-followup-originals__independent-static-review.txt",
+      "Bytes": 773,
+      "Sha256": "6ddf7de2a799461d1cb3018d9a4f09728cddb6c9cf7c0efa26b2ded771487c38",
+      "Type": "IndependentReadOnlyStaticReview"
+    }
+  ],
+  "OriginalTotalBytes": 6405,
+  "IndependentStaticReview": {
+    "Status": "Pass_NoProvenStaticDefect",
+    "Reviewer": "/root/high_water_review",
+    "Message": "docs/test-evidence/2026-10-20-owned-exit-ci-static-followup-originals__independent-static-review.txt",
+    "NoNewExecutionOrNetwork": true
+  },
+  "IndependentPacketReview": {
+    "Status": "Pass_NoP1P2OrUnsupportedStageInference",
+    "ReviewedPaths": 8,
+    "ReviewedOriginals": 3,
+    "ReviewedBytes": 6405,
+    "Reviewer": "/root/high_water_review",
+    "NoExecutionNetworkOrWriteByReviewer": true
+  }
+}

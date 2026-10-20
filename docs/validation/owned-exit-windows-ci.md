@@ -1,5 +1,7 @@
 # 已批准WindowsCI的投递与实际读取阻断
 
+> 后续父级已确认run39347646426/job118384016034真实Fail，checkout通过、第3步失败；具体首因仍未知，详情读取另受credential_observation_restricted。本文Unknown是00:29封存时状态，原件不回写。见[只读后续核验](owned-exit-ci-static-followup.md)。
+
 生产修复[98c3f27d07ee392bf98e647861596812c2d63a39](https://github.com/T1doo/KuaiYi/commit/98c3f27d07ee392bf98e647861596812c2d63a39)及其红绿原件已独审保存。另审四文件CI增量后，单次普通push投递[00ecaae6def945cf39f3bdacf5fca7f8dc2d69e9](https://github.com/T1doo/KuaiYi/commit/00ecaae6def945cf39f3bdacf5fca7f8dc2d69e9)，精确PARENT=98c3f27。原工作流仅名称改变以请求新run，runner仅更新parent／精确四文件scope与文案；既有源门测试补拒绝dirty checkout及错误event SHA。离线29P；提交后真实本地Git源门Pass，不冒充Windows。
 
 用户已明确批准同范围必要免费CI，接受原WindowsSDK10.0.402与原隔离方式。原固定ZIP／许可证／双正常在线签名／runtime audit／public标准windows-2022／job15min step14min内总13min attempt1全部保持；SDK安装器／其测试／其他8workflow／锁及生产门不变。没有重跑旧job或连续触发新CI。

@@ -1,0 +1,3 @@
+未发现可证静态缺陷：00ecaae的父提交、声明PARENT及四文件范围精确匹配；18个函数除源门错误文案外保持；18项固定输入一致；workflow仅名称变化。
+可信观察为run39347646426/job118384016034 Fail、checkout通过、第3步失败、内部首因Unknown。不能由4分钟推断阶段。
+缺少第3步原始错误输出，或最终JSON中的Reason、首失败命令、退出/超时/清理、阶段结果及TRX。若出现childCrash，再需真实可执行路径、原stderr/异常/实际exit与原Wait/IO状态。详情读取credential_observation_restricted已停止；不建议换路、盲重跑或无证据改代码。PackageHold。本审查未执行网络、SDK、测试、CI或写入。Reviewer /root/high_water_review。

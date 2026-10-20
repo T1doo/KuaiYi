@@ -1,0 +1,19 @@
+{
+  "ReceivedUtc": "2026-10-20T00:33:24.010229+00:00",
+  "EvidenceKind": "TrustedParentNormalConnectionObservation_NotLocallyQueried",
+  "SourceThread": "01a14dbf-e27d-721e-888a-587c8c296022",
+  "Run": 39347646426,
+  "SourceCommit": "00ecaae6def945cf39f3bdacf5fca7f8dc2d69e9",
+  "StartedUtc": "2026-10-20T00:26:24Z",
+  "CompletedUtc": "2026-10-20T00:30:24Z",
+  "Conclusion": "Fail",
+  "Job": 118384016034,
+  "JobName": "signature-then-managed",
+  "Checkout": "Pass",
+  "Step3": "Fail_Verify runtime signatures, install approved job SDK and run managed validation",
+  "InternalFirstCause": "Unknown",
+  "RunUrl": "https://github.com/T1doo/KuaiYi/actions/runs/39347646426",
+  "JobUrl": "https://github.com/T1doo/KuaiYi/actions/runs/39347646426/job/118384016034",
+  "DetailReadBlock": "Parent logged-in assistant browser credential_observation_restricted; one validation per tool guidance still restricted; parent stopped",
+  "RestrictionsForwarded": "Do not retry CLI denial or route around credential observation restriction; no blind rerun; preserve all originals"
+}

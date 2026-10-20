@@ -1,0 +1,70 @@
+{
+  "Utc": "2026-10-20T00:33:24.124921+00:00",
+  "CurrentHead": "f394e54c81a50f6afbd174787f5c04a6dfb0ab11",
+  "CurrentWorkingTree": "Clean",
+  "EventSource": "00ecaae6def945cf39f3bdacf5fca7f8dc2d69e9",
+  "EventParent": "98c3f27d07ee392bf98e647861596812c2d63a39",
+  "ExactParent": "Pass",
+  "ExactFourChangedFiles": [
+    ".github/workflows/windows-session-runtime.yml",
+    "docs/progress.md",
+    "scripts/test_session_runtime_windows.py",
+    "scripts/verify-session-runtime-windows.py"
+  ],
+  "RunnerDeclaredContext": {
+    "REPOSITORY": "T1doo/KuaiYi",
+    "BRANCH": "refs/heads/dev/session-runtime-signature-windows",
+    "PARENT": "98c3f27d07ee392bf98e647861596812c2d63a39"
+  },
+  "WorkflowDeltaFromProductionParent": "NameOnly_NoInvocationPermissionRunnerTimeoutChange",
+  "ChangedFunctionAsts": [
+    "source_gate"
+  ],
+  "SourceGateFunctionChange": "Error wording only, validated against already preserved exact Git source-gate outputs; parent/scope constants deliberately updated",
+  "UnchangedFixedInputHashes": {
+    "scripts/install-session-sdk-windows.py": "9fc99b980302cc1677cc2bd988bc438e46d72fe4a264221e68740189dafc33f2",
+    "scripts/test_session_windows_install.py": "6cd7e0b2abce1cd8f8cbf0631868e1be032292fd1358d06552a44de71d846e2b",
+    "scripts/prepare-session-test.py": "c1b279f94ec26beb9782dbf160fdd6c050780819b9a80fbb1f199ab1756523b1",
+    "packaging/session-test.json": "19c885c9cecc45c8ee7f2964222485a77858bab8b2b3f448c324ed448c89968b",
+    "packaging/session-runtime-audit/runtime-pack-integrity.json": "4a4846835e29e50f1e0c6ecdfe7c4c789adc4de75d7d9fbb2d122773f8ec6465",
+    "packaging/session-runtime-audit/packages.lock.json": "5f591739b83308b9fa7d09ccd08b789245bd072d48a26b6294bf7f14ffb43141",
+    "NuGet.Config": "52c7f96825b0a216601d0e9a2744ddc7bc2cee304261e3daf8c06bf34b8134ec",
+    "global.json": "81ae2087dbfb46027fd94748351fb4b1ab24145fbb52544a2822bf128e2e48f1",
+    "Directory.Build.props": "536d20ddd475b27b5f69f4a3b36c928a314f465d74d666d77c6ac120a7121d15",
+    "Directory.Packages.props": "af316a454bb6ed7b94283acd47ba7d61f34b1a97e6a3e124a453d23397cf02f3",
+    ".github/workflows/windows-configure-accounting.yml": "a040d806703163abac32cb3111123039e367c93b756d138f0b5c4ddaa2fb3824",
+    ".github/workflows/windows-configure-bridge.yml": "ea16217b863b25c9d4f5b2e16d34efb2cf55e984cb84a13706c5f6df17230ba2",
+    ".github/workflows/windows-configure-embedded.yml": "fef5400b6f6693498f622c8597b90970e6f00f32f7169fc2b90bb75189d2b450",
+    ".github/workflows/windows-configure-files.yml": "5881548630c16575f2a7e5cdcbeb91f4955247f5d2404995371194785044781d",
+    ".github/workflows/windows-configure-only.yml": "f7771f23b94fa0383660252a3ea6534762d86d4e6c48453632eb8ff81764e39f",
+    ".github/workflows/windows-contracts.yml": "0e7789bf268a83f439fb6e3df44ce94d5918c4f2bba52e11e1f024780b20455b",
+    ".github/workflows/windows-job-member-fixture.yml": "f4a1d464a99525e47b69897bebff4d7550d747b373075dde123c4dd0eb86b24d",
+    ".github/workflows/windows-lifecycle-validation.yml": "47eb6293dbd63f775bc1855fd5d030e3482ff269b10778a2692edf52175f53a5"
+  },
+  "EarlierLocalRealGitSourceGate": "Pass_BeforePush_NotEvidenceOfHostedExecution",
+  "StaticConclusion": "No proven parent/scope mismatch or other definite early-flow defect found; do not speculate from whole-step failure or4minute duration",
+  "ActualCurrentCi": {
+    "Conclusion": "Fail",
+    "Checkout": "Pass",
+    "Step3": "Fail",
+    "FirstFailedCommandAndException": "Unknown",
+    "SignatureSdkAuditTestsBuildsCleanupCounters": "Unknown_NotObserved"
+  },
+  "MissingExactEvidence": [
+    "The KUAIYI_SESSION_RUNTIME_WINDOWS final JSON including SourceCommit,Reason,Commands,OutputPrefix,SignatureStatus,SdkStatus,SdkInstallation,ManagedTests,BuildStatus,TestCounters,EvidenceStatus and cleanup",
+    "First failed command full raw/gzip log plus original failure stack/stderr/exit and all emitted chunk/size/hash descriptors",
+    "All original Core/Provider TRX if generated; actual suite final counters or explicit missing status",
+    "Full job step3 raw log and actual step failure annotation if script never emitted final JSON"
+  ],
+  "NoNewNetworkSdkTestsCiOrBypass": true,
+  "NoSourceFixMadeWithoutEvidence": true,
+  "Package": "Hold",
+  "PriorExecutedCiSourceComparison": "32116577a34d9f914f93dc715261e99da7d33868",
+  "DeclaredFilesExact": [
+    ".github/workflows/windows-session-runtime.yml",
+    "docs/progress.md",
+    "scripts/test_session_runtime_windows.py",
+    "scripts/verify-session-runtime-windows.py"
+  ],
+  "OnlySourceGateErrorMessageAstDifference": true
+}

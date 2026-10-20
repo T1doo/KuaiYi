@@ -1168,3 +1168,12 @@ r03新诊断JSON字典顺序断言118P1F及漏untracked快照如实保留，结�
 已审CI源码00ecaae6def945cf39f3bdacf5fca7f8dc2d69e9以98c3f27为精确父提交，真实Git四文件源门Pass后单次普通push请求获批验证；离线29P不代表Windows。新授权后唯一Actions读取仍Get Forbidden／Exit1，无数据，停止且不换路。实际run/job链接、终态、各阶段、原始日志/TRX均Unknown，不能认定成功、失败或未启动；待父级正常登录桥接确切SHA，先查已有运行，不再触发。此后仅docs封存不命中YAML。详见[投递与阻断](validation/owned-exit-windows-ci.md)和[原件](test-evidence/2026-10-20-owned-exit-windows-ci.json)。
 
 投递与读取阻断封存独审Pass：24路径／20原件138,206B／事件四源Git00ec匹配；审查回执另列，不补签实际Windows。仅docs封存push，不再投递CI。
+
+
+## 2026-10-20 · 本次CI终态与静态首因核验
+
+父级正常连接确认run39347646426/job118384016034，源码00ecaae，00:26:24—00:30:24UTC实际Fail；checkout Pass、第3步整个Verify/SDK/managed流程失败，首个内部命令／阶段未知。详细页credential_observation_restricted在一次工具规定验证后仍受限并停止；本机Forbidden也未重试，不换路、不盲重跑。
+
+仅Git/AST只读核父98c3f27与四文件范围匹配、workflow仅name差异、runner除source_gate文案外函数AST不变、18安装／SDK／锁／旧workflow输入一致。无可证静态早期缺陷，无源码／门／SDK／测试／CI新执行。需现run的完整step3 raw、最终JSON及首个失败命令raw/gzip/TRX（若生成）定位；不由步骤名称或4分钟时长推断。原件与旧Unknown状态保留，包Hold，详见[真实终态与静态核验](validation/owned-exit-ci-static-followup.md)和[证据](test-evidence/2026-10-20-owned-exit-ci-static-followup.json)。
+
+只读静态及封存独审Pass：8路径／3原件6,405B，旧证据零回写，无不当阶段推断；只docs正常保存，不命中CI触发路径。
