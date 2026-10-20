@@ -1,0 +1,11 @@
+2026-10-20 /root/settings_import_review — independent read-only review, delivered conclusions preserved by writer.
+Initial design:
+设计可准入；落实两点P2收紧：Worker PNG parser必须在SKCodec.Create前执行并覆盖raw/prepared，raw据实际eXIf拒绝非identity；声明尺寸与旋转前IHDR比较，长度/偏移checked64位，out-of-line不得覆盖header/完整IFD0，无需拒不同未知tag共享合法区。65527为产品子集，拒指针/nextIFD/APNG不是完整Exif。JPEG原语义、ownership/CT/退出门不变。
+Native-input sanitization adjustment:
+可准入。这是明确的native输入脱敏步骤：原job长度/SHA、完整CRC、严格TIFF/尺寸冲突全在移除前；直接分配原长度减已验证chunk长度唯一copy，复制前后段，取消异常清零；native只收此copy且精确TopLeft，source方向交area一次，JPEG按原约定，raw非identity先拒绝。要求八方向II/MM真实child、逐字节保留其他数据、原SHA/job绑定、copy成功/取消/native失败/晚返清零。
+Source review:
+源码独审未发现剩余P1/P2。Worker原job/hash/CRC后严格parse/raw拒绝、nativecopy及构造顺序正确；helper直接短copy按64KiB复制且observer取消/异常清零。sourceOrientation/nativeExpectedOrientation分离，原job绑定保持，JPEG原约定保持。建议native探针增加明确Linux TopLeft断言；writer随后已补且最终通过。
+Final source/results/documents:
+最终只读核对通过，无剩余可确认P1/P2，可封存后正常提交推送。原TRX Codec214P=新85+原129组，Provider限定传输37P，均0F0skip；8最终命令全exit0，Worker/App各0W/E。当前7源hash、源码ZIP、6产物hash与index一致，71保护记录全真（69实际文件逐字节基线核）。文档准确区分固定Linux native忽略eXIf、移除metadata后自行应用方向、严格IFD0子集/Windows未验；128旧案例source/helpers不改、唯一合同更新表述吻合。唯一待办是index的originals ZIP及独审文字尚未生成，封存补齐目标。Reviewer未运行构建、测试、网络或修改文件。
+Writer closure:
+Review text and originals ZIP were then generated; writer verified archive CRC and all members against retained originals. No product/test changes after final reviewed source manifest.

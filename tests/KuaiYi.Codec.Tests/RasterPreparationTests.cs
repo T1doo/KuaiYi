@@ -108,9 +108,10 @@ public sealed class RasterPreparationTests
         for(int y=0;y<height;y++)for(int x=0;x<width;x++){int at=(y*width+x)*4;byte value=(byte)(x==0||x==width-1||y==0||y==height-1?255:0);pixels[at]=pixels[at+1]=pixels[at+2]=value;pixels[at+3]=255;}
         byte[] encoded=Encode(width,height,pixels);await using var client=Client();using var raster=await client.PrepareAsync(encoded,Job(encoded));Assert.Equal(2560,raster.Metadata.Width);Assert.Equal(1440,raster.Metadata.Height);Assert.Equal(14_745_600,raster.Bytes.Length);Assert.Equal(227,raster.Bytes.Span[0]);Assert.Equal(170,raster.Bytes.Span[4]);Assert.Equal(227,raster.Bytes.Span[^4]);Assert.Equal(0,raster.Bytes.Span[(720*2560+1280)*4]);Assert.True(client.ObserveExit());
     }
-    [Fact]public async Task UnsupportedPngExifCannotBeSilentlyDiscardedAsIdentity()
+    [Fact]public async Task PngExifIfdChainsCannotBeSilentlyDiscardedAsIdentity()
     {
-        byte[] png=Encode(3,2,Gray(10,50,90,130,180,230)),jpeg=Exif(Encode(3,2,Gray(10,50,90,130,180,230),SKEncodedImageFormat.Jpeg),6);byte[] tiff=jpeg.AsSpan(12,26).ToArray();byte[] chunk=new byte[tiff.Length+12];BinaryPrimitives.WriteUInt32BigEndian(chunk,(uint)tiff.Length);"eXIf"u8.CopyTo(chunk.AsSpan(4));tiff.CopyTo(chunk,8);uint crc=uint.MaxValue;
+        byte[] png=Encode(3,2,Gray(10,50,90,130,180,230)),jpeg=Exif(Encode(3,2,Gray(10,50,90,130,180,230),SKEncodedImageFormat.Jpeg),6);byte[] tiff=jpeg.AsSpan(12,26).ToArray();tiff[22]=8; // A nextIFD cycle remains explicitly unsupported.
+        byte[] chunk=new byte[tiff.Length+12];BinaryPrimitives.WriteUInt32BigEndian(chunk,(uint)tiff.Length);"eXIf"u8.CopyTo(chunk.AsSpan(4));tiff.CopyTo(chunk,8);uint crc=uint.MaxValue;
         foreach(byte b in chunk.AsSpan(4,tiff.Length+4)){crc^=b;for(int i=0;i<8;i++)crc=(crc>>1)^((crc&1)!=0?0xedb88320u:0u);}BinaryPrimitives.WriteUInt32BigEndian(chunk.AsSpan(tiff.Length+8),~crc);
         byte[] encoded=[..png[..33],..chunk,..png[33..]];var starter=new Starter();await using var client=Client(starter);var error=await Assert.ThrowsAsync<ImageJobException>(()=>client.PrepareAsync(encoded,Job(encoded)));Assert.Equal(ImageFailure.UnsupportedImage,error.Code);Assert.Equal(0,starter.Starts);
     }

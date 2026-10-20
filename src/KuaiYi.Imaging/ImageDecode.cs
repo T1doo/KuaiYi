@@ -67,9 +67,7 @@ public static class ImageDecodePolicy
             cancellation.ThrowIfCancellationRequested();uint count=BinaryPrimitives.ReadUInt32BigEndian(bytes[offset..]);
             if(count>(uint)(bytes.Length-offset-12))break;int length=(int)count;var type=bytes.Slice(offset+4,4);
             if(first?(!type.SequenceEqual("IHDR"u8)||length!=13):type.SequenceEqual("IHDR"u8))break;first=false;
-            uint crc=uint.MaxValue;var chunk=bytes.Slice(offset+4,length+4);
-            for(int i=0;i<chunk.Length;i++){if((i&65535)==0)cancellation.ThrowIfCancellationRequested();crc=CrcTable[(crc^chunk[i])&255]^(crc>>8);}
-            if(~crc!=BinaryPrimitives.ReadUInt32BigEndian(bytes[(offset+8+length)..]))break;
+            ValidatePngChunkCrc(bytes.Slice(offset+4,length+4),BinaryPrimitives.ReadUInt32BigEndian(bytes[(offset+8+length)..]),cancellation);
             if(type.SequenceEqual("acTL"u8))throw new ImageJobException(ImageFailure.UnsupportedImage);
             if(type.SequenceEqual("IDAT"u8))idat=true;
             offset+=length+12;
@@ -77,6 +75,12 @@ public static class ImageDecodePolicy
             {if(length==0&&offset==bytes.Length&&idat)return;break;}
         }
         throw new ImageJobException(ImageFailure.InvalidImage);
+    }
+    internal static void ValidatePngChunkCrc(ReadOnlySpan<byte> chunk,uint expected,CancellationToken cancellation)
+    {
+        uint crc=uint.MaxValue;
+        for(int i=0;i<chunk.Length;i++){if((i&65535)==0)cancellation.ThrowIfCancellationRequested();crc=CrcTable[(crc^chunk[i])&255]^(crc>>8);}
+        if(~crc!=expected)throw new ImageJobException(ImageFailure.InvalidImage);
     }
     public static void ValidateReply(ImageDecodeReply reply)
     {

@@ -28,7 +28,7 @@ public sealed partial class ImageWorkerClient
                 ImageDecodePolicy.ValidateJob(job);token.ThrowIfCancellationRequested();var header=ImageDecodePolicy.Inspect(encoded.Span);
                 if(encoded.Length!=job.ByteLength||ImageDecodePolicy.Hash(encoded.Span)!=job.Sha256)throw new InvalidDataException("Decode input mismatch.");
                 ImagePreparedInfo? expectedPrepared=null;
-                if(job.PrepareLongEdge!=null)expectedPrepared=new((int)header.Size.Width,(int)header.Size.Height,EncodedImageOrientation.Read(encoded.Span,header.Format));
+                if(job.PrepareLongEdge!=null)expectedPrepared=new((int)header.Size.Width,(int)header.Size.Height,EncodedImageOrientation.Read(encoded.Span,header.Format,token));
                 var raster=await UseChannelAsync(async(send,receive,id,channelToken)=>
                 {
                     await Write(send,new(IpcMessageType.ImageDecodeBegin,id,ImageJson.Serialize(job)),channelToken);

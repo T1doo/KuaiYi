@@ -1267,3 +1267,12 @@ P7源码子项InProgress，完整P7/R13/真实浏览器与Windows仍NotRun；CI3
 原实现同一非恒定截图方法实际1F，最终通过；完整瓦片RGB、纵横非整数末边和6个单级差异用独立预期/decimal面积量化核，允许合法舍入归零。copy/目的/row/编码真实数组成功/取消/异常/严格超限清零，锁外copy可独立于原sourceDispose。最终Provider相关372P、原Codec129P且旧129源字节不改；Worker/App交叉Release0W/E、4locked audit restore0。首CS1503为测试编译0执行；351P3F是2条新测试取错保留旧选择和1条遗漏旧拒绝预期，修正测试后同3条3P，不冒称三个生产缺陷，原件保全。最终源码和回执独立只读审查无剩余P1/P2，测试writer执行。
 
 两协议实际本地fixture证明一般截图同PNG两阶段和物理map；Unreadable只分类一次/一次secret，拒正式生成/第二secret且保留旧complete结果。此为已有可读性门对新路由的集成验证，**不是本地字号检测或真实画质验收**；本地OCR字号/冻结样本质量、PNG eXIf/全格式/打开投放UI及Windows真实截图/native/Worker/OCR/WPF仍缺，下一独立核心项为PNG eXIf。详见[接入范围和实际验证](validation/screenshot-area-routing.md)/[证据索引](test-evidence/2026-10-20-screenshot-area-routing.json)。69项基线保护/原SPEC/锁/许可及App/Imaging无Skia核对通过；250600/资源/全部安全门、PackageHold/生产复用Off保持，无真实截图/私人文件/模型/CI/费用/新凭据安全权限/发布/用户电脑操作，main未改、旧被拒日志未请求或绕路。
+
+
+## 2026-10-20 · P6-02 PNG eXIf 受界IFD0方向支持
+
+从clean/独审/远端一致0dfb16f37f65be61a1cd08502ddf62b640f7f0b4核单worktree/唯一writer/main，正常dev/p6-png-exif接原SPEC7.3/P6-02。最小设计独审后实现单eXIf/首IDAT前/裸TIFF、II/MM/IFD0唯一Orientation1–8、缺省identity；PNG结构/长度/CRC及256chunk/256项/65527byte产品子集界、64bit值偏移与完整目录保护、声明尺寸匹配原IHDR，指针/非零nextIFD循环/冲突/动画直接拒绝，不遍历嵌套链。Worker原job/hash/全部CRC和raw非identity拒绝前移到native前；JPEG原语义不变。
+
+原功能同方法旧基线父拒绝1F；严格parser后真实child仍1F，独立native探针1P精确定位固定Linux Skia忽略有效eXIf（origin1/原3×2像素），没有假称native支持。调整设计独审后，唯一native copy直接移除已验证eXIf，其他字节不变；native精确要求TopLeft，sourceOrientation只进入既有area内核一次，原job仍绑定未删改源长度/SHA。实际copy在成功/native失败/取消/observer异常/受控原task晚返后清零，真实child额外输出/错源/exit7/完整栅格后取消均不交付。首新76P后最终Codec214P=新85+原129组，原128案例源/helpers不改，仅一旧全eXIf拒绝合同改nextIFD自环仍拒绝/Starts0；Provider传输限定37P、Worker/App交叉0W/E、4locked audit restore0。所有失败/探针/中间及最终原件保全不累计，独立最终源码/回执审查无剩余P1/P2。
+
+详见[支持/拒绝合同和实际验证](validation/png-exif.md)/[原件索引](test-evidence/2026-10-20-png-exif.json)。本IFD0子集范围Pass，不是完整Exif/PNG或全格式/真实画质通过。完整JPEG/BMP/WebP/GIF、打开投放UI、本地字号/冻结质量与Windows截图/native/Worker/OCR/WPF仍缺；下一独立候选为受界BMP接入另行最小设计独审。71项基线保护核对、锁/许可字节及App/Imaging无Skia通过；250600/资源及来源密码权限完整性取消清理隔离门、PackageHold/生产复用Off保持，无真实图片/截图/私人文件/模型/新依赖许可安全权限/CI/费用/发布/用户电脑操作，main未改，旧被拒日志未请求或绕路。
