@@ -1,0 +1,8 @@
+2026-10-20 /root/settings_import_review — independent read-only reviewer, writer-preserved delivered messages.
+Design review (delivered):
+接受沿原Worker准备/完整EOF+Exit0+IO门后，在父线程池单次lossless PNG编码，cap64KiB..4MiB/精确PNG总长绑定，无缩图或质量重试；RunOnce active贯穿同原编码Task和全部raster/output清理，总15s为协作预算且忽略CT任务必须真实settle，不能用timeout弃任务；所有自有row/每次容量/最终buffer需清零，不扩UI/协议/依赖/权限。
+Source review (delivered):
+最终5文件源码只读复核通过，无剩余可确认P1/P2，diff--check0。此前发现的derived MemoryStream span→ArrayPool未清副本P2已用当前10.0.13公开IL+known-slice探针确认，修复避开base span且11专项通过，清零结论不扩到ZLib/native内部。当前实现Task.Run默认encoder、精确source/cap owner绑定、先清raster再最终CT转移PNG、callback/超限/late清理均符合。
+Final evidence review (delivered):
+最终源码/回执/validation表述可封存，无剩余P1/P2。已核5源hash及7产物hash匹配；TRX129P=26+49+54、Core限定74P、Provider限定154P，均0F0skip；5restore和2build全部exit0且build0W/E，未额外no-build重复。文档准确区分runtime404与IL实证、不窥池/仅已知slice、去掉可控fallback非ZLib内部全清零、15s协作非硬限、首3F夹具误设、未接UI/生产截图constant-only/WindowsNotRun。唯一待完成的文档项：当前validation指向 ../test-evidence/2026-10-20-bounded-png-request.json 尚不存在，封存index落地后需确保该链接有效（不是源码阻塞）。diff--check0；本人仅只读，未运行测试/构建/网络/写入。
+Writer follow-up: referenced evidence JSON now exists and is included in the same normal development commit. No code changes after reviewed manifest.

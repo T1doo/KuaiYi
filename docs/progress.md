@@ -1249,3 +1249,12 @@ P7源码子项InProgress，完整P7/R13/真实浏览器与Windows仍NotRun；CI3
 最终codec103P=新54+原49，原49源字节不改；新54原产物复跑同54P不累加，原相关Core74/Provider154各限定filter，Worker/App交叉Release0W/E，5locked audit restore0且所有依赖版本/锁/许可不改。真实3840×2160非恒定白边PNG→2560×1440/14,745,600byte多块及代表角/边/中心像素过，不当600MiB或600ms测量。110afa旧child9F是新选项不支持的对照，不当旧像素缺陷；同方法与Order表保持。首xUnit编译0执行及中间绿回执/源码保全。最终独立只读源码/回执审查无剩余P1/P2，测试writer执行。
 
 详见[行为、支持边界与实际验证](validation/image-orientation-resize.md)/[原件索引](test-evidence/2026-10-20-image-orientation-resize.json)。全JPEG/其他格式、PNG EXIF、4MiB编码/可读性、生产截图一般缩小及打开投放接入、Windows真实native/Worker/OCR/WPF与完整P6仍未完成；旧截图路由保其原常量缩小限制。生产复用Off/PackageHold、250600和全部安全/资源门保持；无用户文件/真实模型/CI调度/费用/凭据安全权限/发布/用户电脑操作，main未改，旧被拒CI日志未请求或绕路。
+
+
+## 2026-10-20 · P6-02受界4MiB请求PNG编码前置组件
+
+从clean/远端一致且独审9edc5bb2fd2e84a02449ca8144319fb14d137fc0核单worktree/唯一writer/main，正常dev/p6-bounded-png-request接原SPEC7.3/P6-02。最小设计独审后新增PreparePngAsync：原隔离Worker完整EOF/exit0/IO结算后单次lossless RGB PNG，默认4MiB、可更严64KiB..4MiB，精确总字节/摘要/源元数据/Transform绑定，无缩图或质量重试，超限要求局部。实际白底、方向/面积缩小及encoded无桌面锚点保持；取消和总15s协作预算后仍等待原编码Task结算，active/owner不提前放，晚PNG及全部自有实际buffer清零，不当硬超时或框架内部清零。
+
+独审发现共享编码器派生MemoryStream base span写入经ArrayPool副本，当前批准runtime公开IL及自有known-slice探针确认后改直接受界自有buffer写入；P2闭合。官方固定runtime源码URL一次404/ref不存在，未获得源码、未重试或换路；探针首解析器错误及一次修正回执保全。首编译0执行、首23P3F（两输入chunk超限/一异常后分配数假设）保留，产品256chunk限及全部清零断言保持；受影响11P后最终codec129P=新26+旧103。原Core限定74P/Provider限定154P，Worker/App交叉Release0W/E，五locked audit restore0；锁/旧测试/SPEC/许可字节不改，App/Imaging无Skia。最终源码及回执独立只读审查收口，测试writer执行。
+
+详见[组件与实际验证边界](validation/bounded-png-request.md)/[原件索引](test-evidence/2026-10-20-bounded-png-request.json)。下一核心缺项为生产截图一般缩小和4MiB结果的显式桌面锚点/坐标适配接入及可读性拒绝；当前截图仍原常量图缩小限制。PNG eXIf/全格式/打开投放UI、Windows实机及全P6仍未完成。250600/来源密码完整性取消清理隔离资源门、PackageHold/生产复用Off保持，无模型/新依赖/费用/权限/CI/发布/用户电脑操作；main未改，旧被拒CI日志未请求或绕路。

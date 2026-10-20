@@ -117,37 +117,52 @@ public static class ScreenshotPngEncoder
     public static ScreenshotPng Encode(ScreenshotPixels crop,CancellationToken cancellation=default,int maximumBytes=ImagePolicy.ByteLimit)
     {
         if(maximumBytes is <1 or >ImagePolicy.ByteLimit)throw new ArgumentOutOfRangeException(nameof(maximumBytes));
-        var size=crop.Bounds;ImagePolicy.ValidateDimensions((uint)size.Width,(uint)size.Height);
-        using var compressed=new BoundedMemory(maximumBytes);using var result=new BoundedMemory(maximumBytes);byte[] row=new byte[checked(size.Width*3+1)];
+        var size=crop.Bounds;ImagePolicy.ValidateDimensions((uint)size.Width,(uint)size.Height);cancellation.ThrowIfCancellationRequested();
+        return EncodeBgra(crop.Bytes,size.Width,size.Height,cancellation,maximumBytes);
+    }
+    internal static ScreenshotPng EncodeBgra(ReadOnlyMemory<byte> bgra,int width,int height,CancellationToken cancellation,int maximumBytes,Action<byte[]>? allocated=null)
+    {
+        if(maximumBytes is <1 or >ImagePolicy.ByteLimit)throw new ArgumentOutOfRangeException(nameof(maximumBytes));
+        ImagePolicy.ValidateDimensions((uint)width,(uint)height);if(bgra.Length!=checked(width*height*4))throw new InvalidDataException("PNG raster length mismatch.");
+        using var compressed=new BoundedMemory(maximumBytes,allocated);using var result=new BoundedMemory(maximumBytes,allocated);byte[] row=new byte[checked(width*3+1)];byte[]? encoded=null;
         try
         {
+            allocated?.Invoke(row);cancellation.ThrowIfCancellationRequested();
             using(var zip=new ZLibStream(compressed,CompressionLevel.Fastest,true))
-                for(int y=0;y<size.Height;y++)
+                for(int y=0;y<height;y++)
                 {
-                    cancellation.ThrowIfCancellationRequested();var pixels=crop.Bytes.Span.Slice(y*size.Width*4,size.Width*4);row[0]=0;
-                    for(int x=0;x<size.Width;x++){row[1+x*3]=pixels[x*4+2];row[2+x*3]=pixels[x*4+1];row[3+x*3]=pixels[x*4];}zip.Write(row);
+                    cancellation.ThrowIfCancellationRequested();var pixels=bgra.Span.Slice(y*width*4,width*4);row[0]=0;
+                    for(int x=0;x<width;x++){row[1+x*3]=pixels[x*4+2];row[2+x*3]=pixels[x*4+1];row[3+x*3]=pixels[x*4];}zip.Write(row);
                 }
-            result.Write(new byte[]{137,80,78,71,13,10,26,10});Span<byte> header=stackalloc byte[13];header.Clear();BinaryPrimitives.WriteUInt32BigEndian(header,(uint)size.Width);BinaryPrimitives.WriteUInt32BigEndian(header[4..],(uint)size.Height);header[8]=8;header[9]=2;
-            Chunk(result,"IHDR"u8,header);Chunk(result,"IDAT"u8,compressed.GetBuffer().AsSpan(0,(int)compressed.Length));Chunk(result,"IEND"u8,[]);
-            cancellation.ThrowIfCancellationRequested();return new(result.ToArray());
+            cancellation.ThrowIfCancellationRequested();result.Write(new byte[]{137,80,78,71,13,10,26,10});Span<byte> header=stackalloc byte[13];header.Clear();BinaryPrimitives.WriteUInt32BigEndian(header,(uint)width);BinaryPrimitives.WriteUInt32BigEndian(header[4..],(uint)height);header[8]=8;header[9]=2;
+            Chunk(result,"IHDR"u8,header,cancellation);Chunk(result,"IDAT"u8,compressed.GetBuffer().AsSpan(0,(int)compressed.Length),cancellation);Chunk(result,"IEND"u8,[],cancellation);
+            cancellation.ThrowIfCancellationRequested();encoded=result.ToArray();allocated?.Invoke(encoded);cancellation.ThrowIfCancellationRequested();
+            var png=new ScreenshotPng(encoded);encoded=null;
+            try{cancellation.ThrowIfCancellationRequested();return png;}catch{png.Dispose();throw;}
         }
-        finally{CryptographicOperations.ZeroMemory(row);}
+        finally{CryptographicOperations.ZeroMemory(row);if(encoded!=null)CryptographicOperations.ZeroMemory(encoded);}
     }
-    private static void Chunk(Stream output,ReadOnlySpan<byte> type,ReadOnlySpan<byte> data)
+    private static void Chunk(Stream output,ReadOnlySpan<byte> type,ReadOnlySpan<byte> data,CancellationToken cancellation)
     {
         Span<byte> number=stackalloc byte[4];BinaryPrimitives.WriteUInt32BigEndian(number,(uint)data.Length);output.Write(number);output.Write(type);output.Write(data);
-        uint crc=uint.MaxValue;foreach(byte b in type)Acc(b);foreach(byte b in data)Acc(b);BinaryPrimitives.WriteUInt32BigEndian(number,~crc);output.Write(number);
+        uint crc=uint.MaxValue;foreach(byte b in type)Acc(b);for(int i=0;i<data.Length;i++){if((i&65535)==0)cancellation.ThrowIfCancellationRequested();Acc(data[i]);}BinaryPrimitives.WriteUInt32BigEndian(number,~crc);output.Write(number);
         void Acc(byte b){crc^=b;for(int i=0;i<8;i++)crc=(crc>>1)^((crc&1)!=0?0xedb88320u:0u);}
     }
-    private sealed class BoundedMemory(int limit):MemoryStream
+    private sealed class BoundedMemory(int limit,Action<byte[]>? allocated):MemoryStream
     {
         private void Check(int count)
         {
             long required=Position+count;if(required>limit)throw new ScreenshotException(ScreenshotFailure.RegionTooLarge);
-            if(required>Capacity){byte[] old=GetBuffer();Capacity=(int)Math.Min(limit,Math.Max(required,Math.Max(256L,(long)Capacity*2)));CryptographicOperations.ZeroMemory(old);}
+            if(required>Capacity){byte[] old=GetBuffer();Capacity=(int)Math.Min(limit,Math.Max(required,Math.Max(256L,(long)Capacity*2)));CryptographicOperations.ZeroMemory(old);allocated?.Invoke(GetBuffer());}
         }
         public override void Write(byte[] buffer,int offset,int count){Check(count);base.Write(buffer,offset,count);}
-        public override void Write(ReadOnlySpan<byte> buffer){Check(buffer.Length);base.Write(buffer);}
+        public override void Write(ReadOnlySpan<byte> buffer)
+        {
+            // base.Write(span) on a derived MemoryStream falls back through Stream/ArrayPool.
+            // Grow/zero length first, then copy directly into the already observed owned buffer.
+            Check(buffer.Length);int start=checked((int)Position),end=checked(start+buffer.Length);
+            if(end>Length)SetLength(end);buffer.CopyTo(GetBuffer().AsSpan(start,buffer.Length));Position=end;
+        }
         public override void WriteByte(byte value){Check(1);base.WriteByte(value);}
         protected override void Dispose(bool disposing){if(disposing)CryptographicOperations.ZeroMemory(GetBuffer());base.Dispose(disposing);}
     }
