@@ -1149,3 +1149,11 @@ r03新诊断JSON字典顺序断言118P1F及漏untracked快照如实保留，结�
 父级八片完整Windows日志已过每片ASCII及gzip／raw双hash，65376B原文直接核45失败调用／25方法，非最终计数；ReuseCrash／OLE／其他Windows底因仍Unknown，包Hold。四alias/../用例也命中..guard，不单独证明alias分支。09:44:54UTC同一实例命令可执行，修复与原件保全；无未知进程操作。369保护输入保持，无被拒Actions查询或第二次WindowsSDK CI投递。531最终输入及全部失败／无效尝试见[证据](test-evidence/2026-10-19-session-startup-handshake.json)与[报告](validation/session-startup-handshake.md)。
 
 独立源码及封存审查Pass，无剩余P1/P2；53路径／47原件12,356,734B已核，审查回执另封存，不把诊断绿当自然根因修复或Windows验收。
+
+## 2026-10-20 · 原退出等待任务的生产生命周期缺口
+
+独立定位共享OwnedHostTermination的实际P2：外层预算超时后原Wait未保留，HasExited可授权提前Dispose实际Process。现缓存唯一原Wait(None)，保留调用者预算和未结算owner；先发布重入门，late fault/cancel先观察再结合实际退出，重试不重复Kill/Wait。六旧合同保持，永不结算原任务不冒充有界或成功。
+
+同测试字节真实4F→10P，实际child退出137且originalWait pending时finalized从True转False。八类定向r03为205P1F，唯一旧Capture无限Delay(None)夹具无法结算；只把该端口接回同一真实child退出，原拒入／cleanup断言不改，最终两类34P／531输入绑定。未重复1919全套；不将新P2归因为旧Windows45calls／25methods，Windows／图片间歇底因Unknown、包Hold。父级转达用户批准同范围必要免费WindowsCI，待源修复独审保存后以精确父提交四文件CI增量运行，原SDK／隔离／预算及保护门不变。详见[报告](validation/owned-exit-observation.md)与[失败／成功原件](test-evidence/2026-10-20-owned-exit-observation.json)。
+
+源码与封存独审Pass：28路径／21原件5,128,429B／四轮2124来源绑定／374保护输入均核，审查回执另列第22原件；新CI配置仍另审。

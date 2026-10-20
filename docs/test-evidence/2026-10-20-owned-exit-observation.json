@@ -1,0 +1,373 @@
+{
+  "Utc": "2026-10-20T00:22:34.686811+00:00",
+  "BaseCommit": "146268259f8df648e703e199b00174cf638ac4ad",
+  "Branch": "dev/session-runtime-signature-windows",
+  "Status": "ProvenSharedLifetimeP2Fixed_TargetedValidationPass_WindowsPending",
+  "SourceInputs": {
+    "src/KuaiYi.Core/OwnedHostTermination.cs": "7bdd9c53ead7e7c3e64c0fa0b517689ef5058ebfafb575dddd6f024ff08f2f73",
+    "tests/KuaiYi.Core.Tests/HostTerminationTests.cs": "897ec8fbdc741e5c9ee25f4f330802ccf37206bf2db7f8294a16dabc30d6a174",
+    "tests/KuaiYi.Core.Tests/CaptureHostTests.cs": "461a4d1ba4c2ae9d5b2a57b8652c56a0c778d5504d50ec3925c354af9cd910a1"
+  },
+  "ProvenDefect": "Original exit wait discarded after bounded caller timeout; HasExited alone allowed actual Process.Dispose while that original task was pending. Red actual child exit137 and originalWaitWaiting finalizedTrue.",
+  "Repair": "Keep one original WaitForExitAsync(None), bound only caller wait; gate publication before external lifetime callbacks; serialize observation; no duplicate kill/wait; observe latefault/cancel before actualexit release. Entire synchronousKill/HasExited and never-settling original task are not claimed bounded.",
+  "ActualLinuxValidation": {
+    "r01-original-wait-red": {
+      "StartUtc": "2026-10-20T00:17:53.902925+00:00",
+      "EndUtc": "2026-10-20T00:18:24.802936+00:00",
+      "Argv": [
+        "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false",
+        "--logger",
+        "trx",
+        "--results-directory",
+        "/workspace/KuaiYi/artifacts/owned-exit-observation/r01-original-wait-red",
+        "--filter",
+        "FullyQualifiedName~HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait|FullyQualifiedName~HostTerminationTests.RealExitedChildHandleRemainsOwnedUntilItsOriginalExitWaitSettles"
+      ],
+      "Exit": 1,
+      "SafeSdk": "10.0.402",
+      "SafeHost": "10.0.13",
+      "Platform": "Linux",
+      "SourceCommitBase": "146268259f8df648e703e199b00174cf638ac4ad",
+      "Snapshot": "r01-original-wait-red-sources.zip",
+      "SnapshotSha256": "4b893cca92f66e66760f6529a99c44d3c59ab38145988f55f73d064e1720d995",
+      "LogSha256": "1867c9dfa7cdc11806ca5d7280c8638268867aea454075025e523896d7948c23",
+      "WindowsExecution": "NotRun",
+      "NoNetworkRestoreRequested": true,
+      "SourceCount": 531,
+      "Counters": {
+        "total": "4",
+        "executed": "4",
+        "passed": "0",
+        "failed": "4",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Failed": [
+        "KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(completion: \"cancelled\")",
+        "KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(completion: \"success\")",
+        "KuaiYi.Core.Tests.HostTerminationTests.RealExitedChildHandleRemainsOwnedUntilItsOriginalExitWaitSettles",
+        "KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(completion: \"fault\")"
+      ],
+      "ProcessReceipts": [
+        "PUBLIC_EXIT_WAIT actualPid=1231 actualExit=137 originalWait=WaitingForActivation finalized=True waitCalls=1"
+      ]
+    },
+    "r02-original-wait-green": {
+      "StartUtc": "2026-10-20T00:19:24.138806+00:00",
+      "EndUtc": "2026-10-20T00:19:51.714296+00:00",
+      "Argv": [
+        "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false",
+        "--logger",
+        "trx",
+        "--results-directory",
+        "/workspace/KuaiYi/artifacts/owned-exit-observation/r02-original-wait-green",
+        "--filter",
+        "FullyQualifiedName~HostTerminationTests"
+      ],
+      "Exit": 0,
+      "SafeSdk": "10.0.402",
+      "SafeHost": "10.0.13",
+      "Platform": "Linux",
+      "SourceCommitBase": "146268259f8df648e703e199b00174cf638ac4ad",
+      "Snapshot": "r02-original-wait-green-sources.zip",
+      "SnapshotSha256": "2e3dc93f4505182cf1d666e3ef4cec2ddae2a4eedb0a8672235b878ad64b46ca",
+      "LogSha256": "83d9d540923387abc427d873a05708f1aba155d49adbec25bb7e583d3e393d1f",
+      "WindowsExecution": "NotRun",
+      "NoNetworkRestoreRequested": true,
+      "SourceCount": 531,
+      "Counters": {
+        "total": "10",
+        "executed": "10",
+        "passed": "10",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Failed": [],
+      "ProcessReceipts": [
+        "PUBLIC_EXIT_WAIT actualPid=1597 actualExit=137 originalWait=WaitingForActivation finalized=False waitCalls=1"
+      ]
+    },
+    "r03-affected-regression": {
+      "StartUtc": "2026-10-20T00:20:13.878709+00:00",
+      "EndUtc": "2026-10-20T00:20:48.060706+00:00",
+      "Argv": [
+        "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false",
+        "--logger",
+        "trx",
+        "--results-directory",
+        "/workspace/KuaiYi/artifacts/owned-exit-observation/r03-affected-regression",
+        "--filter",
+        "FullyQualifiedName~HostTerminationTests|FullyQualifiedName~CaptureHostTests|FullyQualifiedName~OleReceiverTests|FullyQualifiedName~OleStartupDiagnosticsTests|FullyQualifiedName~SelectionBrokerProcessTests|FullyQualifiedName~InstallationSessionTests|FullyQualifiedName~SelectionReuseHostTests|FullyQualifiedName~DiagnosticDisposeSettlementTests"
+      ],
+      "Exit": 1,
+      "SafeSdk": "10.0.402",
+      "SafeHost": "10.0.13",
+      "Platform": "Linux",
+      "SourceCommitBase": "146268259f8df648e703e199b00174cf638ac4ad",
+      "Snapshot": "r03-affected-regression-sources.zip",
+      "SnapshotSha256": "8f92be06624aff7aa5e59301d109d5776f8826b17febe535ee61118e0cc95e98",
+      "LogSha256": "bb5973af7107a16ba1c8a768bc9943daf64f710ba9e49be64528ef04ad5a6c6f",
+      "WindowsExecution": "NotRun",
+      "NoNetworkRestoreRequested": true,
+      "SourceCount": 531,
+      "Counters": {
+        "total": "206",
+        "executed": "206",
+        "passed": "205",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Failed": [
+        "KuaiYi.Core.Tests.CaptureHostTests.KillFailureOrUnconfirmedWaitRetainsOwnerAndBlocksFinalizeWithoutBlockingUi(waitFailure: True)"
+      ],
+      "ProcessReceipts": [
+        "PUBLIC_EXIT_WAIT actualPid=2461 actualExit=137 originalWait=WaitingForActivation finalized=False waitCalls=1"
+      ]
+    },
+    "r04-fixture-settlement-green": {
+      "StartUtc": "2026-10-20T00:21:30.393808+00:00",
+      "EndUtc": "2026-10-20T00:21:55.664393+00:00",
+      "Argv": [
+        "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false",
+        "--logger",
+        "trx",
+        "--results-directory",
+        "/workspace/KuaiYi/artifacts/owned-exit-observation/r04-fixture-settlement-green",
+        "--filter",
+        "FullyQualifiedName~HostTerminationTests|FullyQualifiedName~CaptureHostTests"
+      ],
+      "Exit": 0,
+      "SafeSdk": "10.0.402",
+      "SafeHost": "10.0.13",
+      "Platform": "Linux",
+      "SourceCommitBase": "146268259f8df648e703e199b00174cf638ac4ad",
+      "Snapshot": "r04-fixture-settlement-green-sources.zip",
+      "SnapshotSha256": "30acf74b899d08cfc250ccaffbeb681168a904a4674242fe275a8757d24adf38",
+      "LogSha256": "19146cfb29c120a78df9e87f912a09f8b94cd525a5cce85be0a155ec37b231b0",
+      "WindowsExecution": "NotRun",
+      "NoNetworkRestoreRequested": true,
+      "SourceCount": 531,
+      "Counters": {
+        "total": "34",
+        "executed": "34",
+        "passed": "34",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Failed": [],
+      "ProcessReceipts": [
+        "PUBLIC_EXIT_WAIT actualPid=5288 actualExit=137 originalWait=WaitingForActivation finalized=False waitCalls=1"
+      ]
+    }
+  },
+  "WholeRedGreenTestFileIdentical": "2d047d8fd0b61369d22fde765b9858ef8f94248a9b824aaec742cbe74e834728",
+  "R03FixtureFailure": "Infinite Delay(None) synthetic wait never settles after actual child cleanup; new production gate correctly refuses release. Changed only test port to exact child.WaitForExitAsync; all original in-test refusal and cleanup assertions retained.",
+  "CurrentWindowsEvidence": {
+    "Log": "docs/test-evidence/2026-10-19-session-startup-handshake-originals__parent-core-full-verified.log",
+    "Sha256": "cdccd22476d8a7cff884b794e4e57cce29703af51c39362351e9f02d7b9d615f",
+    "Calls": 45,
+    "Methods": 25,
+    "Qualification": "Not final suite counters. No underlying child stderr/path/error to attribute 25 ReuseCrash. New lifecycle defect is independently proven, not attribution of historical Windows failure.",
+    "Cause": "Unknown",
+    "OriginalCi": "Fail_EvidenceIncomplete_CleanupNotConfirmed"
+  },
+  "ProtectedInputCount": 374,
+  "CiNext": "Already explicitly authorized same-scope WindowsCI. First normal source-only push does not change any workflow. A separate independently reviewed four-file exact-parent CI delta will trigger one run, not rerun old job.",
+  "Boundaries": "PackageHold; production reuseOff;250/600ms/source/password/integrity/cancel/cleanup preserved; no newSDK/license/credentials/security permissions/userPC/models; realApp/WPF/keyboard/fullP6P7 unaccepted; image intermittent root Unknown.",
+  "OriginalFiles": [
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-observation-originals__r01-original-wait-red.json",
+      "Bytes": 65880,
+      "Sha256": "e01ec47563b93f7769014dbaa08c33688404befeee8d7447a768ca3612105058"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-observation-originals__r01-original-wait-red.log",
+      "Bytes": 5392,
+      "Sha256": "1867c9dfa7cdc11806ca5d7280c8638268867aea454075025e523896d7948c23"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-observation-originals__r01-original-wait-red-sources.zip",
+      "Bytes": 1105201,
+      "Sha256": "4b893cca92f66e66760f6529a99c44d3c59ab38145988f55f73d064e1720d995"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-observation-originals__r01-original-wait-red___97f4e6b9eb09_2026-10-20_00_18_24_net10.0.trx",
+      "Bytes": 13823,
+      "Sha256": "d8114e7ec72f444e0a9800b8143e2ccfb200f61267a1ba08f0ec4d1213ccb1ea"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-observation-originals__r02-original-wait-green.json",
+      "Bytes": 65732,
+      "Sha256": "079456f19136ab3770b37dd7f34e34ee2aaf01f211a8be52e7458823c7bc03f8"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-observation-originals__r02-original-wait-green.log",
+      "Bytes": 2117,
+      "Sha256": "83d9d540923387abc427d873a05708f1aba155d49adbec25bb7e583d3e393d1f"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-observation-originals__r02-original-wait-green-sources.zip",
+      "Bytes": 1105577,
+      "Sha256": "2e3dc93f4505182cf1d666e3ef4cec2ddae2a4eedb0a8672235b878ad64b46ca"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-observation-originals__r02-original-wait-green___97f4e6b9eb09_2026-10-20_00_19_50_net10.0.trx",
+      "Bytes": 15090,
+      "Sha256": "7871dd77e01d4b44224f6626576708e186326c9a0c469600c7d1dbec5d5a5183"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-observation-originals__r03-affected-regression.json",
+      "Bytes": 66036,
+      "Sha256": "e7ad78a8217aa429becd7ae5105f51535b3eedbcff1f6830a592bbe082129777"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-observation-originals__r03-affected-regression.log",
+      "Bytes": 2942,
+      "Sha256": "bb5973af7107a16ba1c8a768bc9943daf64f710ba9e49be64528ef04ad5a6c6f"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-observation-originals__r03-affected-regression-sources.zip",
+      "Bytes": 1105723,
+      "Sha256": "8f92be06624aff7aa5e59301d109d5776f8826b17febe535ee61118e0cc95e98"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-observation-originals__r03-affected-regression___97f4e6b9eb09_2026-10-20_00_20_24_net10.0.trx",
+      "Bytes": 300945,
+      "Sha256": "e7d217ac3afe5cf660692c10d66af5b96c1b3e6dc9db49dc6c48c4d4ec8896c8"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-observation-originals__r04-fixture-settlement-green.json",
+      "Bytes": 65778,
+      "Sha256": "e672914afb7444e72ca986cbc320150b1ff471e3fa49ef9a8a9cbbf80efaf68a"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-observation-originals__r04-fixture-settlement-green.log",
+      "Bytes": 2123,
+      "Sha256": "19146cfb29c120a78df9e87f912a09f8b94cd525a5cce85be0a155ec37b231b0"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-observation-originals__r04-fixture-settlement-green-sources.zip",
+      "Bytes": 1105766,
+      "Sha256": "30acf74b899d08cfc250ccaffbeb681168a904a4674242fe275a8757d24adf38"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-observation-originals__r04-fixture-settlement-green___97f4e6b9eb09_2026-10-20_00_21_39_net10.0.trx",
+      "Bytes": 48372,
+      "Sha256": "909bce5345b75bbb549c298cd524c7928dba8a7261926212908e47c283d7ab37"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-observation-originals__run-check.py",
+      "Bytes": 2479,
+      "Sha256": "7d355fac5f725fa5f35eb5014867378212acea26d1938d312d39829519be2646"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-observation-originals__source-binding-and-preservation.json",
+      "Bytes": 44319,
+      "Sha256": "44dc95d544adb32b03b96014e07f5e62ca76eae853f08aa3ba68aef4a1448a3f"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-observation-originals__remote-before-source-push.stdout",
+      "Bytes": 5073,
+      "Sha256": "36bffe4c116af61e9f8e3f4bc764dbb97a042e0bfe49adc3546a24fe30365bd3"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-observation-originals__remote-before-source-push.stderr",
+      "Bytes": 0,
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-observation-originals__remote-before-source-push.json",
+      "Bytes": 61,
+      "Sha256": "17b71f690122554d73f389cd42bfd5336f8d9081a4b85fec7c0e2989c0f601f6"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-observation-originals__independent-review-message.txt",
+      "Bytes": 600,
+      "Sha256": "2a89dba4ce654ffdc113e68fcc23e5e77efc47dcda37a49dd7ce5402421cb975"
+    }
+  ],
+  "OriginalTotalBytes": 5129029,
+  "IndependentReview": {
+    "Status": "Pass_NoRemainingP1P2",
+    "ReviewedPaths": 28,
+    "ReviewedOriginals": 21,
+    "ReviewedBytes": 5128429,
+    "Message": "docs/test-evidence/2026-10-20-owned-exit-observation-originals__independent-review-message.txt",
+    "NoSdkNetworkOrWrite": true
+  }
+}

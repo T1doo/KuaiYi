@@ -1,0 +1,63 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.SelectionReuseDiagnostic -> /workspace/KuaiYi/tools/KuaiYi.SelectionReuseDiagnostic/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:02.52]     KuaiYi.Core.Tests.HostTerminationTests.RealExitedChildHandleRemainsOwnedUntilItsOriginalExitWaitSettles [FAIL]
+[xUnit.net 00:00:02.56]     KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(completion: "cancelled") [FAIL]
+[xUnit.net 00:00:02.59]     KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(completion: "fault") [FAIL]
+[xUnit.net 00:00:02.62]     KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(completion: "success") [FAIL]
+  Failed KuaiYi.Core.Tests.HostTerminationTests.RealExitedChildHandleRemainsOwnedUntilItsOriginalExitWaitSettles [2 s]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Core.Tests.HostTerminationTests.RealExitedChildHandleRemainsOwnedUntilItsOriginalExitWaitSettles() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HostTerminationTests.cs:line 71
+   at KuaiYi.Core.Tests.HostTerminationTests.RealExitedChildHandleRemainsOwnedUntilItsOriginalExitWaitSettles() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HostTerminationTests.cs:line 75
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ PUBLIC_EXIT_WAIT actualPid=1231 actualExit=137 originalWait=WaitingForActivation finalized=True waitCalls=1
+
+
+  Failed KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(completion: "cancelled") [36 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(String completion) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HostTerminationTests.cs:line 49
+   at KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(String completion) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HostTerminationTests.cs:line 57
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(completion: "fault") [31 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(String completion) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HostTerminationTests.cs:line 49
+   at KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(String completion) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HostTerminationTests.cs:line 57
+--- End of stack trace from previous location ---
+  Failed KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(completion: "success") [29 ms]
+  Error Message:
+   Assert.False() Failure
+Expected: False
+Actual:   True
+  Stack Trace:
+     at KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(String completion) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HostTerminationTests.cs:line 49
+   at KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(String completion) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HostTerminationTests.cs:line 57
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/owned-exit-observation/r01-original-wait-red/_97f4e6b9eb09_2026-10-20_00_18_24_net10.0.trx
+
+Failed!  - Failed:     4, Passed:     0, Skipped:     0, Total:     4, Duration: 2 s - KuaiYi.Core.Tests.dll (net10.0)

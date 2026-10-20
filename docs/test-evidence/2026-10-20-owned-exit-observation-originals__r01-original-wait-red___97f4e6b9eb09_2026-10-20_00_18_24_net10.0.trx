@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="6e2c9447-fff7-43a7-86f1-ae271703b2cd" name="@97f4e6b9eb09 2026-10-20 00:18:24" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-20T00:18:24.7239633+00:00" queuing="2026-10-20T00:18:24.7239634+00:00" start="2026-10-20T00:18:21.6780043+00:00" finish="2026-10-20T00:18:24.7294223+00:00" />
+  <TestSettings name="default" id="ef7e6b02-e6f0-4125-b85f-bfbe679bab5a">
+    <Deployment runDeploymentRoot="_97f4e6b9eb09_2026-10-20_00_18_24" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="9991a923-a79b-4ef8-94a4-e5e3a2fa6911" testId="ccf6e3b9-c6d0-dbd6-d263-0faef4f75cf6" testName="KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(completion: &quot;cancelled&quot;)" computerName="97f4e6b9eb09" duration="00:00:00.0361384" startTime="2026-10-20T00:18:24.5655216+00:00" endTime="2026-10-20T00:18:24.5900982+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9991a923-a79b-4ef8-94a4-e5e3a2fa6911">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(String completion) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HostTerminationTests.cs:line 49
+   at KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(String completion) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HostTerminationTests.cs:line 57
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="85062d6f-95f9-4279-8ef4-f66e04cc790d" testId="796f9698-d116-e805-4b02-a1b3c7c2bbc1" testName="KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(completion: &quot;success&quot;)" computerName="97f4e6b9eb09" duration="00:00:00.0299258" startTime="2026-10-20T00:18:24.6227496+00:00" endTime="2026-10-20T00:18:24.6549697+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="85062d6f-95f9-4279-8ef4-f66e04cc790d">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(String completion) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HostTerminationTests.cs:line 49
+   at KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(String completion) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HostTerminationTests.cs:line 57
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f87305be-8c16-41b8-b611-108483d6429d" testId="a71feb8c-e13e-82ba-f975-b77626d64226" testName="KuaiYi.Core.Tests.HostTerminationTests.RealExitedChildHandleRemainsOwnedUntilItsOriginalExitWaitSettles" computerName="97f4e6b9eb09" duration="00:00:02.0154460" startTime="2026-10-20T00:18:22.5170915+00:00" endTime="2026-10-20T00:18:24.5507185+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f87305be-8c16-41b8-b611-108483d6429d">
+      <Output>
+        <StdOut>PUBLIC_EXIT_WAIT actualPid=1231 actualExit=137 originalWait=WaitingForActivation finalized=True waitCalls=1</StdOut>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.HostTerminationTests.RealExitedChildHandleRemainsOwnedUntilItsOriginalExitWaitSettles() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HostTerminationTests.cs:line 71
+   at KuaiYi.Core.Tests.HostTerminationTests.RealExitedChildHandleRemainsOwnedUntilItsOriginalExitWaitSettles() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HostTerminationTests.cs:line 75
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f75beacb-750e-44c0-adf9-6807cf45e52f" testId="72801473-35a6-b57c-6526-b69519f35891" testName="KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(completion: &quot;fault&quot;)" computerName="97f4e6b9eb09" duration="00:00:00.0313652" startTime="2026-10-20T00:18:24.5921970+00:00" endTime="2026-10-20T00:18:24.6221411+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f75beacb-750e-44c0-adf9-6807cf45e52f">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure
+Expected: False
+Actual:   True</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(String completion) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HostTerminationTests.cs:line 49
+   at KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(String completion) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HostTerminationTests.cs:line 57
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(completion: &quot;cancelled&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="ccf6e3b9-c6d0-dbd6-d263-0faef4f75cf6">
+      <Execution id="9991a923-a79b-4ef8-94a4-e5e3a2fa6911" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.HostTerminationTests" name="ActualExitCannotReleaseAnUnsettledOriginalWait" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.HostTerminationTests.RealExitedChildHandleRemainsOwnedUntilItsOriginalExitWaitSettles" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a71feb8c-e13e-82ba-f975-b77626d64226">
+      <Execution id="f87305be-8c16-41b8-b611-108483d6429d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.HostTerminationTests" name="RealExitedChildHandleRemainsOwnedUntilItsOriginalExitWaitSettles" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(completion: &quot;success&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="796f9698-d116-e805-4b02-a1b3c7c2bbc1">
+      <Execution id="85062d6f-95f9-4279-8ef4-f66e04cc790d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.HostTerminationTests" name="ActualExitCannotReleaseAnUnsettledOriginalWait" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(completion: &quot;fault&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="72801473-35a6-b57c-6526-b69519f35891">
+      <Execution id="f75beacb-750e-44c0-adf9-6807cf45e52f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.HostTerminationTests" name="ActualExitCannotReleaseAnUnsettledOriginalWait" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="ccf6e3b9-c6d0-dbd6-d263-0faef4f75cf6" executionId="9991a923-a79b-4ef8-94a4-e5e3a2fa6911" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="796f9698-d116-e805-4b02-a1b3c7c2bbc1" executionId="85062d6f-95f9-4279-8ef4-f66e04cc790d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a71feb8c-e13e-82ba-f975-b77626d64226" executionId="f87305be-8c16-41b8-b611-108483d6429d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="72801473-35a6-b57c-6526-b69519f35891" executionId="f75beacb-750e-44c0-adf9-6807cf45e52f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="4" executed="4" passed="0" failed="4" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.13)
+[xUnit.net 00:00:00.11]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.44]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.46]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:02.52]       Assert.False() Failure
+[xUnit.net 00:00:02.52]       Expected: False
+[xUnit.net 00:00:02.52]       Actual:   True
+[xUnit.net 00:00:02.52]       Stack Trace:
+[xUnit.net 00:00:02.52]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HostTerminationTests.cs(71,0): at KuaiYi.Core.Tests.HostTerminationTests.RealExitedChildHandleRemainsOwnedUntilItsOriginalExitWaitSettles()
+[xUnit.net 00:00:02.52]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HostTerminationTests.cs(75,0): at KuaiYi.Core.Tests.HostTerminationTests.RealExitedChildHandleRemainsOwnedUntilItsOriginalExitWaitSettles()
+[xUnit.net 00:00:02.52]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.52]       Output:
+[xUnit.net 00:00:02.52]         PUBLIC_EXIT_WAIT actualPid=1231 actualExit=137 originalWait=WaitingForActivation finalized=True waitCalls=1
+[xUnit.net 00:00:02.56]       Assert.False() Failure
+[xUnit.net 00:00:02.56]       Expected: False
+[xUnit.net 00:00:02.56]       Actual:   True
+[xUnit.net 00:00:02.56]       Stack Trace:
+[xUnit.net 00:00:02.56]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HostTerminationTests.cs(49,0): at KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(String completion)
+[xUnit.net 00:00:02.56]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HostTerminationTests.cs(57,0): at KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(String completion)
+[xUnit.net 00:00:02.56]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.59]       Assert.False() Failure
+[xUnit.net 00:00:02.59]       Expected: False
+[xUnit.net 00:00:02.59]       Actual:   True
+[xUnit.net 00:00:02.59]       Stack Trace:
+[xUnit.net 00:00:02.59]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HostTerminationTests.cs(49,0): at KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(String completion)
+[xUnit.net 00:00:02.59]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HostTerminationTests.cs(57,0): at KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(String completion)
+[xUnit.net 00:00:02.59]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.62]       Assert.False() Failure
+[xUnit.net 00:00:02.62]       Expected: False
+[xUnit.net 00:00:02.62]       Actual:   True
+[xUnit.net 00:00:02.62]       Stack Trace:
+[xUnit.net 00:00:02.62]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HostTerminationTests.cs(49,0): at KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(String completion)
+[xUnit.net 00:00:02.62]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/HostTerminationTests.cs(57,0): at KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(String completion)
+[xUnit.net 00:00:02.62]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.63]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="97f4e6b9eb09" outcome="Error" timestamp="2026-10-20T00:18:24.5544564+00:00">
+        <Text>[xUnit.net 00:00:02.52]     KuaiYi.Core.Tests.HostTerminationTests.RealExitedChildHandleRemainsOwnedUntilItsOriginalExitWaitSettles [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="97f4e6b9eb09" outcome="Error" timestamp="2026-10-20T00:18:24.5911413+00:00">
+        <Text>[xUnit.net 00:00:02.56]     KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(completion: "cancelled") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="97f4e6b9eb09" outcome="Error" timestamp="2026-10-20T00:18:24.6228932+00:00">
+        <Text>[xUnit.net 00:00:02.59]     KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(completion: "fault") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="97f4e6b9eb09" outcome="Error" timestamp="2026-10-20T00:18:24.6567313+00:00">
+        <Text>[xUnit.net 00:00:02.62]     KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(completion: "success") [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

@@ -34,7 +34,8 @@ public sealed class CaptureHostTests
     {
         public bool HasExited=>child.HasExited;
         public void RequestTermination(){if(!waitFailure)throw new IOException("synthetic kill failure on held real child");}
-        public Task WaitForExitAsync(CancellationToken cancellation)=>Task.Delay(Timeout.Infinite,cancellation);
+        // The failed kill keeps the real child alive; its original wait settles only after exact-child cleanup.
+        public Task WaitForExitAsync(CancellationToken cancellation)=>child.WaitForExitAsync(cancellation);
     }
     private sealed class UncancellableRead(Stream inner):Stream
     {
