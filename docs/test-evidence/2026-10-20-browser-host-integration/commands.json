@@ -1,0 +1,48 @@
+[
+  {
+    "name": "sdk-info",
+    "utc": "2026-10-20T02:08:04.488333+00:00",
+    "argv": [
+      "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+      "--info"
+    ],
+    "exit": 0,
+    "sha256": "f6ab25b1bb1683c8faa4779b5c90b792b8352362916f01be34dd09e4ade49a27",
+    "bytes": 1745
+  },
+  {
+    "name": "host-restore",
+    "utc": "2026-10-20T02:08:04.686905+00:00",
+    "argv": [
+      "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+      "restore",
+      "tools/KuaiYi.BrowserHostFixture/KuaiYi.BrowserHostFixture.csproj",
+      "--locked-mode",
+      "-p:NuGetAudit=true",
+      "-p:NuGetAuditMode=all",
+      "-p:NuGetAuditLevel=low",
+      "-p:TreatWarningsAsErrors=true",
+      "-nodeReuse:false"
+    ],
+    "exit": 0,
+    "sha256": "420321a979bb7995c897155da5808d506951ebbf00b4a7801e8fbaf993fed721",
+    "bytes": 482
+  },
+  {
+    "name": "host-build",
+    "utc": "2026-10-20T02:08:14.194857+00:00",
+    "argv": [
+      "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+      "build",
+      "tools/KuaiYi.BrowserHostFixture/KuaiYi.BrowserHostFixture.csproj",
+      "--no-restore",
+      "-c",
+      "Release",
+      "-nodeReuse:false",
+      "-p:UseSharedCompilation=false"
+    ],
+    "exit": 0,
+    "sha256": "3ee440e9d67b8d6b45f30b1990ab0316b7af4fa11f362b17deeb816873fc3a4d",
+    "bytes": 605
+  }
+]

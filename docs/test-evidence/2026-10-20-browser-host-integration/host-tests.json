@@ -1,0 +1,18 @@
+{
+  "utc": "2026-10-20T02:08:44.777522+00:00",
+  "argv": [
+    "node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-reporter=tap",
+    "--test-name-pattern=^(actual extension sender to independent host loop commits ordered maximum chunks|actual extension/host/production receiver waits over five seconds for explicit synthetic desktop decision|actual ServiceWorker/native host/production receiver confirmation boundary:)",
+    "tests/browser/protocol.test.mjs",
+    "tests/browser/confirmation.test.mjs"
+  ],
+  "DOTNET_HOST_PATH": "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+  "exit": 0,
+  "sha256": "7376d5318f96d1d14598616605abf24ca1bedb114e79831fc6a07966b396504b",
+  "bytes": 2844,
+  "timeout_s": 100,
+  "source_head": "64745d23f689d4fc9507507fb580679d6a8de7f4"
+}

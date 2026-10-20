@@ -1,0 +1,76 @@
+TAP version 13
+# Subtest: actual extension/host/production receiver waits over five seconds for explicit synthetic desktop decision
+ok 1 - actual extension/host/production receiver waits over five seconds for explicit synthetic desktop decision
+  ---
+  duration_ms: 6199.923386
+  type: 'test'
+  ...
+# Subtest: actual ServiceWorker/native host/production receiver confirmation boundary: allow-after-six
+ok 2 - actual ServiceWorker/native host/production receiver confirmation boundary: allow-after-six
+  ---
+  duration_ms: 233.633668
+  type: 'test'
+  ...
+# Subtest: actual ServiceWorker/native host/production receiver confirmation boundary: no-answer
+ok 3 - actual ServiceWorker/native host/production receiver confirmation boundary: no-answer
+  ---
+  duration_ms: 161.486679
+  type: 'test'
+  ...
+# Subtest: actual ServiceWorker/native host/production receiver confirmation boundary: reject
+ok 4 - actual ServiceWorker/native host/production receiver confirmation boundary: reject
+  ---
+  duration_ms: 159.138462
+  type: 'test'
+  ...
+# Subtest: actual ServiceWorker/native host/production receiver confirmation boundary: cancel
+ok 5 - actual ServiceWorker/native host/production receiver confirmation boundary: cancel
+  ---
+  duration_ms: 166.286297
+  type: 'test'
+  ...
+# Subtest: actual ServiceWorker/native host/production receiver confirmation boundary: off
+ok 6 - actual ServiceWorker/native host/production receiver confirmation boundary: off
+  ---
+  duration_ms: 161.736272
+  type: 'test'
+  ...
+# Subtest: actual ServiceWorker/native host/production receiver confirmation boundary: disconnect
+ok 7 - actual ServiceWorker/native host/production receiver confirmation boundary: disconnect
+  ---
+  duration_ms: 162.389155
+  type: 'test'
+  ...
+# Subtest: actual ServiceWorker/native host/production receiver confirmation boundary: late-answer
+ok 8 - actual ServiceWorker/native host/production receiver confirmation boundary: late-answer
+  ---
+  duration_ms: 165.20369
+  type: 'test'
+  ...
+# Subtest: actual ServiceWorker/native host/production receiver confirmation boundary: late-answer-no-timer
+ok 9 - actual ServiceWorker/native host/production receiver confirmation boundary: late-answer-no-timer
+  ---
+  duration_ms: 169.733177
+  type: 'test'
+  ...
+# Subtest: actual ServiceWorker/native host/production receiver confirmation boundary: late-ready
+ok 10 - actual ServiceWorker/native host/production receiver confirmation boundary: late-ready
+  ---
+  duration_ms: 187.987062
+  type: 'test'
+  ...
+# Subtest: actual extension sender to independent host loop commits ordered maximum chunks
+ok 11 - actual extension sender to independent host loop commits ordered maximum chunks
+  ---
+  duration_ms: 216.484896
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8108.906527

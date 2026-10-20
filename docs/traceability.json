@@ -1257,9 +1257,11 @@
       "validationStatus": "NotRun",
       "evidence": [
         "docs/validation/browser-image-read-cleanup.md",
-        "docs/test-evidence/2026-10-20-browser-image-read-cleanup.json"
+        "docs/test-evidence/2026-10-20-browser-image-read-cleanup.json",
+        "docs/validation/browser-host-integration.md",
+        "docs/test-evidence/2026-10-20-browser-host-integration.json"
       ],
-      "note": "Browser original PNG read cleanup source subitem only: header rejection cancels body; late/oversize delivered chunks cleared; original read/cancel joined before reader unlock; final cancellation rejects owned result. Baseline same final12 tests1P11F; repaired independent12P and portable browser regression64P. Chrome/NativePort test adapters and actual Node Streams/loopbackHTTP, not actual browser/native host/Windows. 11 existing managed-host cases not completed; full P7/R13 validation remains NotRun."
+      "note": "Browser original PNG read cleanup source subitem only: header rejection cancels body; late/oversize delivered chunks cleared; original read/cancel joined before reader unlock; final cancellation rejects owned result. Baseline same final12 tests1P11F; repaired independent12P and portable browser regression64P. Chrome/NativePort test adapters and actual Node Streams/loopbackHTTP, not actual browser/native host/Windows. 11 existing managed-host cases not completed; full P7/R13 validation remains NotRun. Follow-up: same original11 missing-host names now actually Pass11/Fail0/Skip0/Cancel0 after approved isolated Linux SDK402 identical archive/license and audited locked five-project build0W/E. Actual production host/stdio/local pipes, synthetic Chrome Port/peer/decision and controlled clock except real6s wait; source/tests/locks unchanged. Existing first64P11F preserved, no single75-pass claim. Real browser/Windows/P7 acceptance remains NotRun."
     },
     {
       "id": "P7-03",
@@ -1273,9 +1275,11 @@
       "validationStatus": "NotRun",
       "evidence": [
         "docs/validation/browser-image-read-cleanup.md",
-        "docs/test-evidence/2026-10-20-browser-image-read-cleanup.json"
+        "docs/test-evidence/2026-10-20-browser-image-read-cleanup.json",
+        "docs/validation/browser-host-integration.md",
+        "docs/test-evidence/2026-10-20-browser-host-integration.json"
       ],
-      "note": "Browser original PNG read cleanup source subitem only: header rejection cancels body; late/oversize delivered chunks cleared; original read/cancel joined before reader unlock; final cancellation rejects owned result. Baseline same final12 tests1P11F; repaired independent12P and portable browser regression64P. Chrome/NativePort test adapters and actual Node Streams/loopbackHTTP, not actual browser/native host/Windows. 11 existing managed-host cases not completed; full P7/R13 validation remains NotRun."
+      "note": "Browser original PNG read cleanup source subitem only: header rejection cancels body; late/oversize delivered chunks cleared; original read/cancel joined before reader unlock; final cancellation rejects owned result. Baseline same final12 tests1P11F; repaired independent12P and portable browser regression64P. Chrome/NativePort test adapters and actual Node Streams/loopbackHTTP, not actual browser/native host/Windows. 11 existing managed-host cases not completed; full P7/R13 validation remains NotRun. Follow-up: same original11 missing-host names now actually Pass11/Fail0/Skip0/Cancel0 after approved isolated Linux SDK402 identical archive/license and audited locked five-project build0W/E. Actual production host/stdio/local pipes, synthetic Chrome Port/peer/decision and controlled clock except real6s wait; source/tests/locks unchanged. Existing first64P11F preserved, no single75-pass claim. Real browser/Windows/P7 acceptance remains NotRun."
     },
     {
       "id": "P7-04",

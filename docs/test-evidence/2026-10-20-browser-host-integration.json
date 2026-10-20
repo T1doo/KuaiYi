@@ -1,0 +1,133 @@
+{
+  "utc": "2026-10-20T02:11:23.630418+00:00",
+  "source_commit": "64745d23f689d4fc9507507fb580679d6a8de7f4",
+  "branch": "dev/browser-host-integration",
+  "remote": "https://github.com/T1doo/KuaiYi.git",
+  "only_docs_changed": true,
+  "sdk_authority_original": "docs/test-evidence/2026-10-18-session-runtime-security-originals__sdk-authorization-and-blocker.json",
+  "sdk_initialization_authority": "docs/progress.md 2026-10-19 SDK normal initialization approval; scripts/session-sdk.py unchanged",
+  "license_same_as_approved": true,
+  "no_new_explicit_agreement": true,
+  "sdk_host_private_xml": [
+    "10.0.402",
+    "10.0.13",
+    "10.0.13"
+  ],
+  "build": {
+    "projects": 5,
+    "locked_restore": true,
+    "NuGetAudit": true,
+    "auditMode": "all",
+    "auditLevel": "low",
+    "TreatWarningsAsErrors": true,
+    "exit": 0,
+    "warnings": 0,
+    "errors": 0
+  },
+  "tests": {
+    "previous_missing_host_case_names_exact_match": true,
+    "executed": 11,
+    "pass": 11,
+    "fail": 0,
+    "skip": 0,
+    "cancelled": 0,
+    "exit": 0,
+    "duration_ms": 8108.906527,
+    "not_repeated": [
+      "pureNode64",
+      "complete75 suite"
+    ]
+  },
+  "verification": {
+    "source_inputs_equal_base": 137,
+    "output_files_hashed": 16,
+    "dependent_dlls_equal_project_build": 4,
+    "project_assets_copied": 5,
+    "independent_read_only_review": "Pass"
+  },
+  "remaining_not_run": [
+    "real Chrome/Edge NativeMessaging registration/permissions",
+    "Windows identity/WPF/ACL/input250600/UIA/OLE/OCR",
+    "completeP6P7",
+    "model quality/live API",
+    "signing/install/upgrade/uninstall/release"
+  ],
+  "existing_blocker": "CI39347646426 step3 inner first causeUnknown; denied Actions/credential path not retried; PackageHold",
+  "files": [
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-host-integration/KuaiYi.BrowserHostFixture.assets.json",
+      "bytes": 23431,
+      "sha256": "ab3535dd415c2efe63f70028d053fe85a844004732da620b67fcbd52aa86289f"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-host-integration/KuaiYi.Contracts.assets.json",
+      "bytes": 20996,
+      "sha256": "e760dc3db8baa0889f2d8f90209637e9d8bdd1fc3eeff25e94daa0141fa5cadf"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-host-integration/KuaiYi.Core.assets.json",
+      "bytes": 20966,
+      "sha256": "1acbe3f0035314d339afe59268cc4cb8c88e2a5e0a6f5dfd77563a9781b6dee6"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-host-integration/KuaiYi.Imaging.assets.json",
+      "bytes": 22355,
+      "sha256": "bfa88c033009cdd8a6c74991555ff92be5403b3c57f48f8d7886c234301148f1"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-host-integration/KuaiYi.NativeHost.assets.json",
+      "bytes": 23972,
+      "sha256": "baf9490043242a6a011f0ab03db073091504da1c4a624d297d9a6ba08633d017"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-host-integration/bindings.json",
+      "bytes": 31287,
+      "sha256": "acc9354822612b1cd9159a72717cce86ad70457e9c929278b1f31ce517b0d229"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-host-integration/commands.json",
+      "bytes": 1401,
+      "sha256": "322a0cdc4116e1f4540bd6f87e6bffc992e720de7c15018f3729e261a0875c8e"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-host-integration/host-build.log",
+      "bytes": 605,
+      "sha256": "3ee440e9d67b8d6b45f30b1990ab0316b7af4fa11f362b17deeb816873fc3a4d"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-host-integration/host-restore.log",
+      "bytes": 482,
+      "sha256": "420321a979bb7995c897155da5808d506951ebbf00b4a7801e8fbaf993fed721"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-host-integration/host-tests.json",
+      "bytes": 812,
+      "sha256": "ec7f043f2e04bd0fe6f6d01f123933e258f26b6c2fed712a852d72f52974ec6e"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-host-integration/host-tests.tap",
+      "bytes": 2844,
+      "sha256": "7376d5318f96d1d14598616605abf24ca1bedb114e79831fc6a07966b396504b"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-host-integration/review.txt",
+      "bytes": 790,
+      "sha256": "fa5f2487c5da081deb963f317ec15d2c48dfa3fd0d4f62d8bca2013907837e34"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-host-integration/sdk-info.log",
+      "bytes": 1745,
+      "sha256": "f6ab25b1bb1683c8faa4779b5c90b792b8352362916f01be34dd09e4ade49a27"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-host-integration/sdk-installation.json",
+      "bytes": 1023,
+      "sha256": "ba69abc25a8c3f1fd4c06ffdff3e327dc316b33b18dc6dc2d4e7d157a9f3bd51"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-host-integration/sdk-static.json",
+      "bytes": 765,
+      "sha256": "78dec552b64dbd2a81b23300c69588931f448c2ae56c16c33b0d75032919f989"
+    }
+  ]
+}

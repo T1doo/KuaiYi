@@ -1,0 +1,881 @@
+{
+  "utc": "2026-10-20T02:09:48.786907+00:00",
+  "source_head": "64745d23f689d4fc9507507fb580679d6a8de7f4",
+  "source_count": 137,
+  "sources": [
+    {
+      "path": "Directory.Build.props",
+      "sha256": "536d20ddd475b27b5f69f4a3b36c928a314f465d74d666d77c6ac120a7121d15",
+      "bytes": 651
+    },
+    {
+      "path": "Directory.Packages.props",
+      "sha256": "af316a454bb6ed7b94283acd47ba7d61f34b1a97e6a3e124a453d23397cf02f3",
+      "bytes": 365
+    },
+    {
+      "path": "NuGet.Config",
+      "sha256": "52c7f96825b0a216601d0e9a2744ddc7bc2cee304261e3daf8c06bf34b8134ec",
+      "bytes": 335
+    },
+    {
+      "path": "extensions/chromium/acquire.js",
+      "sha256": "f19949a278637690c1f47801f65f88bd639d8a56a52ddcbb710324a4fbd43266",
+      "bytes": 5232
+    },
+    {
+      "path": "extensions/chromium/icon.png",
+      "sha256": "811dca7fe9c08bf3488bce976e3cff1737ad990aff1c33d58397b3b6d68ce95d",
+      "bytes": 115
+    },
+    {
+      "path": "extensions/chromium/manifest.json",
+      "sha256": "a54a48c1996708df74b273fe51dc96b876fb38275af11e4c640f6be4adc8eda3",
+      "bytes": 562
+    },
+    {
+      "path": "extensions/chromium/options.html",
+      "sha256": "900d0be395767472822a440cc0533837e41561bb0783ed446a698f1e9e9e0238",
+      "bytes": 937
+    },
+    {
+      "path": "extensions/chromium/options.js",
+      "sha256": "954750567b135f280cac23a36c3af0857522a1d75ff06816add65cbee0fcdfb0",
+      "bytes": 102
+    },
+    {
+      "path": "extensions/chromium/protocol.js",
+      "sha256": "942d506342d95c03d330c32ca8357dc1640d849d7b47752668174204cd1a064a",
+      "bytes": 6296
+    },
+    {
+      "path": "extensions/chromium/service-worker.js",
+      "sha256": "71ad08ac7a85662ce254c91552b665c1691dc77341157847e5e5d6fafba3608c",
+      "bytes": 2580
+    },
+    {
+      "path": "global.json",
+      "sha256": "81ae2087dbfb46027fd94748351fb4b1ab24145fbb52544a2822bf128e2e48f1",
+      "bytes": 105
+    },
+    {
+      "path": "scripts/prepare-session-test.py",
+      "sha256": "c1b279f94ec26beb9782dbf160fdd6c050780819b9a80fbb1f199ab1756523b1",
+      "bytes": 24664
+    },
+    {
+      "path": "scripts/session-sdk.py",
+      "sha256": "6209f4f228c2407da16d00494df34c08b40ac3861e97e5f4731372840251e85c",
+      "bytes": 3160
+    },
+    {
+      "path": "src/KuaiYi.Contracts/BrowserTiming.cs",
+      "sha256": "8467112acd478fb25019953e978234c8a5ec61c1a8634e553a3736b8a852beab",
+      "bytes": 799
+    },
+    {
+      "path": "src/KuaiYi.Contracts/ImageChunkWire.cs",
+      "sha256": "124ed1158e89589d171ef1e782c05f20fadeec6d83ec6c8ea27cbdfe60c84bcd",
+      "bytes": 3225
+    },
+    {
+      "path": "src/KuaiYi.Contracts/IpcFrame.cs",
+      "sha256": "6a779f81bc7a26434685017ea66793f1a5d1578f9dcee2677da437527beaa4ff",
+      "bytes": 3763
+    },
+    {
+      "path": "src/KuaiYi.Contracts/KuaiYi.Contracts.csproj",
+      "sha256": "41e1c25cf0d11ed76caee60d88e6100c506671b6cb1e65384cddefe718985e8a",
+      "bytes": 164
+    },
+    {
+      "path": "src/KuaiYi.Contracts/NativeMessaging.cs",
+      "sha256": "1832b27edf7dc117ae897ec473b82b0760bd1851c7d2322e0c752519e26a1cf4",
+      "bytes": 6726
+    },
+    {
+      "path": "src/KuaiYi.Contracts/OleProbeMessages.cs",
+      "sha256": "8bab378ce6b5b69c74f11b877c462c9172490f5e9720940f9ee405dd86b90e8f",
+      "bytes": 488
+    },
+    {
+      "path": "src/KuaiYi.Contracts/SelectionBoundaryMarker.cs",
+      "sha256": "fac712b3f21d0d6549bb509c7e6f9888f7f23287ce70dcde76455fdeaf27a2d6",
+      "bytes": 5929
+    },
+    {
+      "path": "src/KuaiYi.Contracts/SelectionCaptureWire.cs",
+      "sha256": "7e642f5df7273a964da6b92b92c44cab2b3ba20584e7bd1e22c3251b463b1a0f",
+      "bytes": 1563
+    },
+    {
+      "path": "src/KuaiYi.Contracts/SelectionPhaseTiming.cs",
+      "sha256": "70f9d10bcdca63efdc177026d4d42337088370ddd04398549eac40a4e840b441",
+      "bytes": 1291
+    },
+    {
+      "path": "src/KuaiYi.Contracts/SelectionProgressDiagnostic.cs",
+      "sha256": "6938f202faa696ef5294543053fd5e54800a8baf0a074fe3a3a004bafc05c692",
+      "bytes": 1804
+    },
+    {
+      "path": "src/KuaiYi.Contracts/packages.lock.json",
+      "sha256": "03eeadc5ef377c17f787ab65f41fb4c8a9c936bb7f7f4171111fdeec8a81cb46",
+      "bytes": 61
+    },
+    {
+      "path": "src/KuaiYi.Core/ApiConnectionTest.cs",
+      "sha256": "cec7185dbc71e9b10d30fd079bd1f175bd276a74278df5d5328e67cadc02da5f",
+      "bytes": 3315
+    },
+    {
+      "path": "src/KuaiYi.Core/AssemblyInfo.cs",
+      "sha256": "7d577dbe1acf98dda62b57c7c59ed137c0adc13fee4b862cfa0742a9a5c87abe",
+      "bytes": 256
+    },
+    {
+      "path": "src/KuaiYi.Core/ClipboardCompatibility.cs",
+      "sha256": "1dec1ee12840677d429276849336e59aab81c6b4e8ced32068d8862c50ac6dad",
+      "bytes": 9468
+    },
+    {
+      "path": "src/KuaiYi.Core/Diagnostics/DiagnosticLog.cs",
+      "sha256": "0f15e6c21d77944a2c69bf5483fa53b88905b4fc60675e5e68c4bacc7f8a5f6d",
+      "bytes": 6240
+    },
+    {
+      "path": "src/KuaiYi.Core/Diagnostics/DiagnosticReportFiles.cs",
+      "sha256": "35899ef36422cb546d77572d04d8c8e5ced65f9a88ae4ad474d51b747453ba67",
+      "bytes": 4539
+    },
+    {
+      "path": "src/KuaiYi.Core/Diagnostics/DiagnosticReportSession.cs",
+      "sha256": "af9f6d575d656bc99351a09cabb0f1bf8d2a17d0b13c0c02bc2e7f3c6d139cf3",
+      "bytes": 3992
+    },
+    {
+      "path": "src/KuaiYi.Core/DropCapture.cs",
+      "sha256": "6f14d0a834537a2768c3d252c3bb776740d35a1f47956563cfecfe1baba26b3e",
+      "bytes": 9957
+    },
+    {
+      "path": "src/KuaiYi.Core/HotkeyInputAdmission.cs",
+      "sha256": "99b14805315ed351af0d921f842d9f465c63b309c147638f3eb6d50e0678822e",
+      "bytes": 1994
+    },
+    {
+      "path": "src/KuaiYi.Core/Hotkeys.cs",
+      "sha256": "74bd1f11cda8beddbe64d702abfb5863a12e9fc39ee7af3d29dbb58b1047c752",
+      "bytes": 14902
+    },
+    {
+      "path": "src/KuaiYi.Core/IdentityEventReceiver.cs",
+      "sha256": "270f1e014b71ea48878aee03ff291ebfc2fd0345f79dcf2a19468abc7a059530",
+      "bytes": 1780
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationAdmission.cs",
+      "sha256": "ea86044f3a36393d25058039b7f9aa5271cd23998ca35a9f0c02caa9a002e154",
+      "bytes": 4595
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationApplicationControl.cs",
+      "sha256": "2cfc6409fdc87c316f577e4803e16f6293c5ba534241e8bbf582f9de42067475",
+      "bytes": 15145
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationControlledLaunch.cs",
+      "sha256": "3c65eb4065ff53daed66e0980ba868ab52cf6a42a542b83328f829a1e3f58422",
+      "bytes": 6764
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationHandoff.cs",
+      "sha256": "03778ea5e3eba45a6a7a7a693247377bdfee4b15809115e8087d0d4cbb747633",
+      "bytes": 8132
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationPackage.cs",
+      "sha256": "a499948d2bf92ee50d571bcf151caf5259897ecf30e38aebc681f8c5e6dd99ba",
+      "bytes": 10105
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationStore.cs",
+      "sha256": "7408e6c48b192ce173f7f1a0462c569623dbc36469b627547150ad01e951c101",
+      "bytes": 13786
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs",
+      "sha256": "3c7a116d73f8b91e4031239d2b50a9ed7e92157c803b80cac4c9f5d486e6d060",
+      "bytes": 28773
+    },
+    {
+      "path": "src/KuaiYi.Core/Integration/IntegrationStatus.cs",
+      "sha256": "6ce3d4ed77e9f8f028f8f34728a5b503012a2129538e5e65373c92a007fc55d6",
+      "bytes": 4939
+    },
+    {
+      "path": "src/KuaiYi.Core/Integration/IntegrationStatusSession.cs",
+      "sha256": "29ec339ce06e9e2566930b37fb4f8abc33370a5911f60c2e4c90cd14610235a7",
+      "bytes": 3080
+    },
+    {
+      "path": "src/KuaiYi.Core/KuaiYi.Core.csproj",
+      "sha256": "ed7c0f20902846adddafbfc178137e3a0dd399bba0a8c656195f76855d2233bb",
+      "bytes": 121
+    },
+    {
+      "path": "src/KuaiYi.Core/MarkdownHttpTarget.cs",
+      "sha256": "f369019f30150aad31eb76e073fb48ca335b2beb1d90fa060744ad91ca1b0bed",
+      "bytes": 2753
+    },
+    {
+      "path": "src/KuaiYi.Core/OleCallWatch.cs",
+      "sha256": "08d99f0ac2a32344d4fba0f735eb1472e2f011a7edc84136daab09287d898bc2",
+      "bytes": 2185
+    },
+    {
+      "path": "src/KuaiYi.Core/OleCleanupScope.cs",
+      "sha256": "4514df5c90348e1e3b5b9c3e88899925e487565544bec3023ae9d3fb2163751e",
+      "bytes": 2534
+    },
+    {
+      "path": "src/KuaiYi.Core/OleDroppedText.cs",
+      "sha256": "199207567a7151d6707a660810deb6fe34ffffae6c9aed0fc7213d2f5c1c1d85",
+      "bytes": 13040
+    },
+    {
+      "path": "src/KuaiYi.Core/OlePresentationConsent.cs",
+      "sha256": "c4772c2271577e5ef20444240891743986628f8b79b687b2d560a4aadf978986",
+      "bytes": 963
+    },
+    {
+      "path": "src/KuaiYi.Core/OleTransferPolicy.cs",
+      "sha256": "d48a5aabb68aa64bac5bb41da92f5482ffcb2584c7761bedea4313f2a5fd8e2f",
+      "bytes": 3663
+    },
+    {
+      "path": "src/KuaiYi.Core/OleWindowOwnership.cs",
+      "sha256": "4ddf9c9d56f3967e00aacb7502a66db067dc9d1ca83ac062a583358c74d93847",
+      "bytes": 2425
+    },
+    {
+      "path": "src/KuaiYi.Core/OverlayFrames.cs",
+      "sha256": "0bebe2947abd4b8686c422131dabb6e429bda1a2fcbf0338d4e30926df58d592",
+      "bytes": 8295
+    },
+    {
+      "path": "src/KuaiYi.Core/OverlayGeometry.cs",
+      "sha256": "0b7da4ca6e4a3d58df98257e8cfe7a82d8d3988c7f00b790af6bd40b04adde40",
+      "bytes": 8251
+    },
+    {
+      "path": "src/KuaiYi.Core/OverlayPointerGesture.cs",
+      "sha256": "56ceea4a43e4981bd8cf6e194a78abcec7b708ed81d7a0007b28b1931177eafa",
+      "bytes": 2699
+    },
+    {
+      "path": "src/KuaiYi.Core/OverlayResults.cs",
+      "sha256": "888e1b253942cf641ab458525db75acba24061e7e4f1284a57f2022583dbb5a3",
+      "bytes": 8824
+    },
+    {
+      "path": "src/KuaiYi.Core/OverlayToolbarLayout.cs",
+      "sha256": "961a0aacafaac2d80cecba29dda547ee094a5a7b84bbe4a9e9c4c521186ea376",
+      "bytes": 1432
+    },
+    {
+      "path": "src/KuaiYi.Core/OwnedHostTermination.cs",
+      "sha256": "7bdd9c53ead7e7c3e64c0fa0b517689ef5058ebfafb575dddd6f024ff08f2f73",
+      "bytes": 4029
+    },
+    {
+      "path": "src/KuaiYi.Core/OwnedProcessSession.cs",
+      "sha256": "2bbbf600046d4a1bd455e89b306f1eec655eb562d111669a55450815d6e184f5",
+      "bytes": 6463
+    },
+    {
+      "path": "src/KuaiYi.Core/OwnedProcessStarter.cs",
+      "sha256": "fd68d1382192654f2ecc99d4dd4f0dfd0ea38d9dd5e76308bb8af2d247f21a32",
+      "bytes": 433
+    },
+    {
+      "path": "src/KuaiYi.Core/RestrictedMarkdown.cs",
+      "sha256": "898dfcc1b6ccec150e0331f4be5f62cb4bf4854d717b3f8d9316a1203e892fa5",
+      "bytes": 9120
+    },
+    {
+      "path": "src/KuaiYi.Core/RestrictedMarkdownInlines.cs",
+      "sha256": "5c2bab224463b6c739d814a7af2cf42bd14a0f7679477bced3463b10e1741569",
+      "bytes": 5361
+    },
+    {
+      "path": "src/KuaiYi.Core/RestrictedMarkdownTables.cs",
+      "sha256": "2b37171bc578e714a4d3df4fd012c44da3ec9f92805d6acfcdfcba8fbdaec003",
+      "bytes": 4081
+    },
+    {
+      "path": "src/KuaiYi.Core/RuntimeGate.Settings.cs",
+      "sha256": "2d217601d9b7980e669174b3317f2a8b588a7d8e4e6285d2cc5fb4517a3c5eb5",
+      "bytes": 3561
+    },
+    {
+      "path": "src/KuaiYi.Core/RuntimeGate.cs",
+      "sha256": "e751fe876a52719b1b41fb64818b6e86aebad4b1deb1757a7cb2db5c0462f30c",
+      "bytes": 16258
+    },
+    {
+      "path": "src/KuaiYi.Core/SelectionCapture.cs",
+      "sha256": "5b40f689358232ed42745c67636340e0d02d425cc27861664bdb665c34566005",
+      "bytes": 17845
+    },
+    {
+      "path": "src/KuaiYi.Core/SelectionInputBridge.cs",
+      "sha256": "85994e400e22129c135c935ea3e4d44c6db252a9d107b83cff5c70de60d2ada4",
+      "bytes": 2232
+    },
+    {
+      "path": "src/KuaiYi.Core/SelectionRangeBounds.cs",
+      "sha256": "ca0349833fd16e1009e357a79bbabd38e6ae61fa30c6cf9c62e0c07154f90def",
+      "bytes": 1340
+    },
+    {
+      "path": "src/KuaiYi.Core/SessionSingleInstance.cs",
+      "sha256": "3e9bd77841f12b6438facb59127f92446a0d0bfb091400b164213204eded214b",
+      "bytes": 1442
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/ApiProfilePolicy.cs",
+      "sha256": "9d09d1d136f06b199c1732e64185d03ad579880fda68f3d3eecbf9c490093bd6",
+      "bytes": 5273
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/AppSettings.cs",
+      "sha256": "1e7af937c055145a37b998bd6bc19e73070947cf5563feaf86fd2af069f8e909",
+      "bytes": 5770
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/DisplayPreferencesDocument.cs",
+      "sha256": "9f886178850bf81728d804fb049e678c8c03f43f7707586485d1a2a56e696fd4",
+      "bytes": 5268
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/DisplayPreferencesFiles.cs",
+      "sha256": "41e9238a972b0c87d0022bac5951b4480b8c2cbe7e5c29ecd941540a3a6c4dd9",
+      "bytes": 6039
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/DisplayPreferencesTransfer.cs",
+      "sha256": "84ef077b0ad4cc7f22130aef5fb16e2a80748a10d2ddca46642518b34b0a5480",
+      "bytes": 6765
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/OverlayPositionMapper.cs",
+      "sha256": "d18bc62a65f47f7850c6f07e5ac2b444641ae3b64926fc1eef5cc01a63c745e3",
+      "bytes": 1792
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/PromptTemplatePolicy.cs",
+      "sha256": "a42961cbf860b0a886414b3e73d09bcd78a84f002b9cbb7d154f99bc5959f8a8",
+      "bytes": 4326
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/RequestTimeouts.cs",
+      "sha256": "9cc299a9ba9cd575e9f1ea001dea986bc862ef9b4977f18d24d4cb008aad3dc3",
+      "bytes": 1017
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/SecretFileStore.cs",
+      "sha256": "3e7089d4f4694af38b9994d065a1276607a4f946ebe115f9ab83c895f7f2fd61",
+      "bytes": 3530
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/SettingsCoordinator.cs",
+      "sha256": "f09abfb4f07d62a8ee8f71ce897f31c2775a4f70bdff7209771276c51a1cacc4",
+      "bytes": 17768
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/SettingsDraft.cs",
+      "sha256": "8066791b809e3e316a0c8e7e67f7e1fd5660c39128759f835b729d7376df26d8",
+      "bytes": 3418
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/SettingsJson.cs",
+      "sha256": "817a7b5563f3d325f1a56daf87fbb6c7c26ecea54cfc8a8bef2e4a34f4a3397e",
+      "bytes": 10333
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/SettingsRecoveryDraft.cs",
+      "sha256": "06b9d0ebc27cd1f02843b9a2cd346267c8ddba6892e18e1d4820878314c22773",
+      "bytes": 2807
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/SettingsRuntimeLink.cs",
+      "sha256": "4f830c86e89929947fb43bba7a981db9b3cb245aaa38b37b9500c1738fa095e0",
+      "bytes": 1058
+    },
+    {
+      "path": "src/KuaiYi.Core/Settings/SettingsStore.cs",
+      "sha256": "24d46ef6b51a4245024779039f8a0642757be9d708b3b5d08fc0f01b8f21cf1d",
+      "bytes": 6307
+    },
+    {
+      "path": "src/KuaiYi.Core/ShellLifecycle.cs",
+      "sha256": "1ab90f0b8cde35931b8d0e0f7628ac248217142d131071826518e02021d81f93",
+      "bytes": 5297
+    },
+    {
+      "path": "src/KuaiYi.Core/TranslationFailures.cs",
+      "sha256": "1ac031d4d7b0227642464148520bf96cfe24429e09ef81822ad0b914ba76e639",
+      "bytes": 2709
+    },
+    {
+      "path": "src/KuaiYi.Core/UnitInterval.cs",
+      "sha256": "48b1e4edf739947293562b40761a87ec38720253ad7c05ef227ed0671db188bf",
+      "bytes": 1407
+    },
+    {
+      "path": "src/KuaiYi.Core/packages.lock.json",
+      "sha256": "03eeadc5ef377c17f787ab65f41fb4c8a9c936bb7f7f4171111fdeec8a81cb46",
+      "bytes": 61
+    },
+    {
+      "path": "src/KuaiYi.Imaging/AssemblyInfo.cs",
+      "sha256": "6fbcfe21252908a8fa8ec3fa563ebc3ca77909d0f997ac19f57ed8d49f676b86",
+      "bytes": 147
+    },
+    {
+      "path": "src/KuaiYi.Imaging/CaptureHostClient.cs",
+      "sha256": "6f378bff7d4e2ebd8cb41a4645d8d5e962ee7b17bd4e75b370be53de4434ee74",
+      "bytes": 7310
+    },
+    {
+      "path": "src/KuaiYi.Imaging/CaptureProtocol.cs",
+      "sha256": "dacf1f48f5211ccc2d4ee2d48ca1571f5f9d0f35f1db0005eb251e3250d4c50c",
+      "bytes": 6237
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImageMessages.cs",
+      "sha256": "e2ee74c0e57d6c0205affbeafe859dc6a68edf30cf6352d2daa86597d5cc51b4",
+      "bytes": 4223
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImagePolicy.cs",
+      "sha256": "6debde21ab10f426fa5324215005ebefceb1100b2795af3ed031569fce8d53b3",
+      "bytes": 2035
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImageProcessStarter.cs",
+      "sha256": "f728129386a6a87ae21d00a5260d164ed985395c2fa4ca42056f7ed37af984f7",
+      "bytes": 583
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImageUiWorkflow.cs",
+      "sha256": "ba668d04a5c0d291694014fb400a74c6d3051bc1d47359b4ec1a3108a5190caa",
+      "bytes": 2978
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImageWorkerClient.cs",
+      "sha256": "b53effdc25bd8df6077dae518561ce1d4521d83883af5c42e595f9ebd09fb381",
+      "bytes": 10691
+    },
+    {
+      "path": "src/KuaiYi.Imaging/KuaiYi.Imaging.csproj",
+      "sha256": "1beb6eb70bf5ae28728e21c816598282c24ddeb93070ce9bee5d42dd72a7fb6f",
+      "bytes": 285
+    },
+    {
+      "path": "src/KuaiYi.Imaging/LocalImageFile.cs",
+      "sha256": "9ea6781a06f7acbcc8692ed0e1dd8bf5ef3c1fde6d701df67a420c9a0a4c3f0d",
+      "bytes": 3485
+    },
+    {
+      "path": "src/KuaiYi.Imaging/NativeOcr.cs",
+      "sha256": "69a92ad50e78b2e6401ad3410236555b2c5ffa46ebf7b2f5c443374fbaf01604",
+      "bytes": 4425
+    },
+    {
+      "path": "src/KuaiYi.Imaging/OcrCapabilitiesPolicy.cs",
+      "sha256": "0a53d3250efa99179f539b2a34d6635ee0e630dc17392c91fa61b7bf29c61d24",
+      "bytes": 3301
+    },
+    {
+      "path": "src/KuaiYi.Imaging/OcrOnlyCoordinator.cs",
+      "sha256": "c42b1b44df4fe6251ae447b092a89fc03419490a860bf164c2e90cae187a9951",
+      "bytes": 16766
+    },
+    {
+      "path": "src/KuaiYi.Imaging/OwnedSourceImage.cs",
+      "sha256": "ca132b8f113d373620fb93ad0feb92f70de5e039ca13dd9dd3ba30c7a3df0055",
+      "bytes": 4511
+    },
+    {
+      "path": "src/KuaiYi.Imaging/PackageIdentity.cs",
+      "sha256": "5efbfe92733a3f904dfb1cd92b07493c9d80304d0698caa30c4ef523be3d7337",
+      "bytes": 3170
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ScreenshotAcquisition.cs",
+      "sha256": "79538c78022b0519386b702771373243f74cbcc6caa58c8921cb8f7b86579ee1",
+      "bytes": 751
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ScreenshotDrag.cs",
+      "sha256": "f468a4ea609a1e845c566c688861e785f87e17c7626cb8d517d26fefe0bfe47c",
+      "bytes": 794
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ScreenshotIntent.cs",
+      "sha256": "f1629f5b7876905398baa9427d0273deec8cf4a70ea562dcd97b1c6da0de1b70",
+      "bytes": 1548
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ScreenshotNormalization.cs",
+      "sha256": "e7b046c9a14be98844755cd3af671ab85310297c2edeca9774fcadefca1ece77",
+      "bytes": 12025
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ScreenshotPixels.cs",
+      "sha256": "b5b88807aa9fef0ab13cd4097eebcf99be8938c63a40e244d669b14eb90684f8",
+      "bytes": 10353
+    },
+    {
+      "path": "src/KuaiYi.Imaging/packages.lock.json",
+      "sha256": "361e2d18f86f4f0f7be933d6fa19c532644723ba2130245ac2b473d1c29e8d81",
+      "bytes": 186
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/AssemblyInfo.cs",
+      "sha256": "527c9dc13c919b712f10ec463af86c6aac636a6dbc4ef283cadc200ad0283e13",
+      "bytes": 151
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/BrowserSession.cs",
+      "sha256": "08ae3404fcf98523f907d7e0f19942037c49f9a152831feeb8653aa19b3b51a3",
+      "bytes": 13490
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/ClipboardCaptureClient.cs",
+      "sha256": "3b2f7bf2f514f0c3d7b0d296b0e4ebec8ef051602f9a9527fbf2c6d527f0a6b4",
+      "bytes": 11013
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/DesktopPipeChannel.cs",
+      "sha256": "fe5aa32749a4c091e77250706f6004b9611093efaa6255cbe145769965786771",
+      "bytes": 5811
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/DesktopReceiverSession.cs",
+      "sha256": "aade5024437524138375f1fe8b784d65cea505f8d30add5cb98f2db34b997e4b",
+      "bytes": 11889
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/InstalledBrowserReceiver.cs",
+      "sha256": "f9b06e012007ab4e28897a13f3f125c6118f7b4c35bfa5f45d284689c76d871b",
+      "bytes": 4152
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/InstalledDesktopChannel.cs",
+      "sha256": "6231eea01183cda308b7f82a93412fa00e71373445e714d0982568920ecb46be",
+      "bytes": 3246
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/InstalledHostPolicy.cs",
+      "sha256": "1cf4a8c3e010e3a8aebccaae34432258cfd10c4865f6d715821eb39026a6525e",
+      "bytes": 5658
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/InstalledIntegrationStatusReader.cs",
+      "sha256": "4c3c4b17f6065309fdb4e89aa9935373810a905fbf150d5d133695edb218afc6",
+      "bytes": 5904
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/InstalledRoleFiles.cs",
+      "sha256": "d3479582c2a8ee814b00966c34ffd88a7267ea18d3c66b743c3fe63a09ffe9b2",
+      "bytes": 1838
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/IntegrationInstalledFiles.cs",
+      "sha256": "8f74cb683ad52f5368c6d98374ffeaee2e14132cb7b9d4a52f76d6be89bce819",
+      "bytes": 7249
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/IntegrationRegistry.cs",
+      "sha256": "75fe577ec36018e0302b3f182aa35c99310908d35d82995fb59fa7b0ad2d78f6",
+      "bytes": 5847
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/IntegrationRegistryValue.cs",
+      "sha256": "a25f6f2c2b6ae7021aebd3c423166fcbec15aed79df85f37645153a911bd8693",
+      "bytes": 2715
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/KuaiYi.NativeHost.csproj",
+      "sha256": "0d3a9337928f412dd9f16a8731c73ef0f2309313307f42cd6d68358c1c5e7fcc",
+      "bytes": 327
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/LocalImageInbox.cs",
+      "sha256": "e1c75fb11103dc5b3f22bd9780b73191f62548b862cb4efa630093ead90f00ba",
+      "bytes": 3303
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/Program.cs",
+      "sha256": "5b8420183d1a2cf529c5e81363d0c6ff300ee7ec12d040d7eb7c86c60096dc02",
+      "bytes": 500
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/SelectionBrokerClient.cs",
+      "sha256": "2b2330ecaedf9ed27fd5a745a662f632b73a6d3b9d201d40a38a6b90d8d4bf59",
+      "bytes": 15873
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/WindowsNativePeer.cs",
+      "sha256": "ec6935a3da9ca1fe1b54f70f91a7c9360a60d09619ec645f2fabae138c3c91f4",
+      "bytes": 4742
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/packages.lock.json",
+      "sha256": "3adbbf52da4dcf4b68f0257d2325bfd0a8e29d1a135716549c7ee86eecbea3fa",
+      "bytes": 391
+    },
+    {
+      "path": "tests/browser/acquisition.test.mjs",
+      "sha256": "7dd50823721d91a9142c77a792be675e9bafd39b14296521a867c801c3322844",
+      "bytes": 9085
+    },
+    {
+      "path": "tests/browser/confirmation-harness.mjs",
+      "sha256": "5459c1560e4fe7849c4733ffb068296f1bb1d1788d9e4846aed56a787d5de16d",
+      "bytes": 3998
+    },
+    {
+      "path": "tests/browser/confirmation.test.mjs",
+      "sha256": "5254b32dc07e5129cb254eed624cea7ec4f9adf734596d01eb44ff3cb37c5772",
+      "bytes": 11586
+    },
+    {
+      "path": "tests/browser/ownership-fixtures.mjs",
+      "sha256": "e4d91b6e6de7fa3c979bb9df8d4cf81494c827c3c51874552f1f8d79d7764e59",
+      "bytes": 2353
+    },
+    {
+      "path": "tests/browser/protocol.test.mjs",
+      "sha256": "921d46211c9f5b996748cdaff1e64f06380daa7985ce98fa83613418089aa3a0",
+      "bytes": 14250
+    },
+    {
+      "path": "tests/fixtures/images/kuaiyi-test.png",
+      "sha256": "21b267376fd764e726d41daa71e32526d6f513cf1343f26f5947008509a15b8d",
+      "bytes": 2034
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/KuaiYi.BrowserHostFixture.csproj",
+      "sha256": "6edae3db2f2add6473cd383b6588f0e2fd6562b865e3e185d462a107a7a96d23",
+      "bytes": 258
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/Program.cs",
+      "sha256": "6f41c002eab0fde0d39805c0015c8a0c564165e5aeb326cd9e6304ac0c14882d",
+      "bytes": 7022
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/ReceiverConfirmationFixture.cs",
+      "sha256": "46472a66e9fc3f482c6098e2bbfcb8506cee8a423a293c0b0c33a5ce08db8baf",
+      "bytes": 7177
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/packages.lock.json",
+      "sha256": "8c5ea36a9e2d525d47fd14a137787bec2034592eb29ee8607ce35fdd629e130a",
+      "bytes": 505
+    }
+  ],
+  "host_output_files": [
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture",
+      "sha256": "2319b075ab1aa72e1973ad3cd1609cf3cba28a3640e896733f82e1c211fea00b",
+      "bytes": 78192
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.deps.json",
+      "sha256": "48ef4e085d194031f86a27d21ac3dc4de5c9d7cb1f7fe61caff25f5ce8b3db76",
+      "bytes": 1935
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll",
+      "sha256": "4f40ea36667f070be9582a8ace390d1b7e8cd729cbaf1d527b5bca3f208de523",
+      "bytes": 47104
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.pdb",
+      "sha256": "8c029c5aae8b119e090025dc982b442d6b23b88337a5cee89252ef37eb37ec43",
+      "bytes": 16432
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.runtimeconfig.json",
+      "sha256": "9950d4583cfc9a106857c0d5b8a75b53e8774852b57b80bc3823a74d44a4d87f",
+      "bytes": 330
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.Contracts.dll",
+      "sha256": "d6cba6fc640a8e0da14d4ec2e9d4c98aa29a7639674558755e52f7f3abe75e1a",
+      "bytes": 62464
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.Contracts.pdb",
+      "sha256": "927d4668d89adc5e8fe41d9dc2cb85a4aa1e160d277288921e0ddf0ce013454d",
+      "bytes": 21608
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.Core.dll",
+      "sha256": "951d5ec7c628046247b4076d638a4026ae4b757d909f16e31b2169b87eb7f68e",
+      "bytes": 520704
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.Core.pdb",
+      "sha256": "8c0af2a9df68c1d847e905437586071baa110f9b8c4dd1f8e31d6ce063989bbb",
+      "bytes": 122748
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.Imaging.dll",
+      "sha256": "1bf53ee005c64c7781d7245071f7fd1fa870d9c44cff537517e5cc3a937da568",
+      "bytes": 143872
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.Imaging.pdb",
+      "sha256": "2d4787addffe38c7e07140b4ec40e410700f67978cf7280476a4ecf03d7fda50",
+      "bytes": 41608
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.NativeHost.deps.json",
+      "sha256": "8799182c4c04fab062b26b086e839de60ec7ec65a21681bf4158a0c332e38581",
+      "bytes": 1573
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.NativeHost.dll",
+      "sha256": "7503c65d6c6601fe3c0ae0de697535dfa6609598f318656bff6a820c2f8aa5d4",
+      "bytes": 142848
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.NativeHost.exe",
+      "sha256": "d1a5139832867572252cdb189713b0d5e8c64bbee4f5da2c5d7df8cd600b1fa1",
+      "bytes": 162304
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.NativeHost.pdb",
+      "sha256": "9d59a85e06206dcb3daa798871fc25bad46825a8d8a74bf011031579395899f8",
+      "bytes": 39188
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.NativeHost.runtimeconfig.json",
+      "sha256": "9950d4583cfc9a106857c0d5b8a75b53e8774852b57b80bc3823a74d44a4d87f",
+      "bytes": 330
+    }
+  ],
+  "five_project_assets": [
+    {
+      "path": "src/KuaiYi.Core/obj/project.assets.json",
+      "sha256": "1acbe3f0035314d339afe59268cc4cb8c88e2a5e0a6f5dfd77563a9781b6dee6",
+      "all_libraries_type": "project",
+      "project_count": 0,
+      "logs": [],
+      "audit_properties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "all"
+      },
+      "downloadDependencies": {
+        "net10.0": []
+      }
+    },
+    {
+      "path": "src/KuaiYi.Contracts/obj/project.assets.json",
+      "sha256": "e760dc3db8baa0889f2d8f90209637e9d8bdd1fc3eeff25e94daa0141fa5cadf",
+      "all_libraries_type": "project",
+      "project_count": 0,
+      "logs": [],
+      "audit_properties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "all"
+      },
+      "downloadDependencies": {
+        "net10.0": []
+      }
+    },
+    {
+      "path": "src/KuaiYi.Imaging/obj/project.assets.json",
+      "sha256": "bfa88c033009cdd8a6c74991555ff92be5403b3c57f48f8d7886c234301148f1",
+      "all_libraries_type": "project",
+      "project_count": 2,
+      "logs": [],
+      "audit_properties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "all"
+      },
+      "downloadDependencies": {
+        "net10.0": []
+      }
+    },
+    {
+      "path": "src/KuaiYi.NativeHost/obj/project.assets.json",
+      "sha256": "baf9490043242a6a011f0ab03db073091504da1c4a624d297d9a6ba08633d017",
+      "all_libraries_type": "project",
+      "project_count": 3,
+      "logs": [],
+      "audit_properties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "all"
+      },
+      "downloadDependencies": {
+        "net10.0": [
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[10.0.13, 10.0.13]"
+          }
+        ]
+      }
+    },
+    {
+      "path": "tools/KuaiYi.BrowserHostFixture/obj/project.assets.json",
+      "sha256": "ab3535dd415c2efe63f70028d053fe85a844004732da620b67fcbd52aa86289f",
+      "all_libraries_type": "project",
+      "project_count": 4,
+      "logs": [],
+      "audit_properties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "all"
+      },
+      "downloadDependencies": {
+        "net10.0": []
+      }
+    }
+  ],
+  "tests": {
+    "names": [
+      "actual extension/host/production receiver waits over five seconds for explicit synthetic desktop decision",
+      "actual ServiceWorker/native host/production receiver confirmation boundary: allow-after-six",
+      "actual ServiceWorker/native host/production receiver confirmation boundary: no-answer",
+      "actual ServiceWorker/native host/production receiver confirmation boundary: reject",
+      "actual ServiceWorker/native host/production receiver confirmation boundary: cancel",
+      "actual ServiceWorker/native host/production receiver confirmation boundary: off",
+      "actual ServiceWorker/native host/production receiver confirmation boundary: disconnect",
+      "actual ServiceWorker/native host/production receiver confirmation boundary: late-answer",
+      "actual ServiceWorker/native host/production receiver confirmation boundary: late-answer-no-timer",
+      "actual ServiceWorker/native host/production receiver confirmation boundary: late-ready",
+      "actual extension sender to independent host loop commits ordered maximum chunks"
+    ],
+    "exactly_matches_previous_ENOENT_11": true,
+    "pass": 11,
+    "fail": 0,
+    "skip": 0,
+    "cancel": 0
+  },
+  "home_unchanged": "/home/agent",
+  "home_dotnet_exists": false,
+  "sdk_state_root": "/workspace/KuaiYi/artifacts/session-sdk-state",
+  "real_browser_windows": "NotRun",
+  "model_calls": false
+}

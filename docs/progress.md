@@ -1188,3 +1188,12 @@ r03新诊断JSON字典顺序断言118P1F及漏untracked快照如实保留，结�
 P7源码子项InProgress，完整P7/R13/真实浏览器与Windows仍NotRun；CI39347646426第3步首因Unknown、PackageHold，拒绝日志路径不重试不绕。未改C#/锁/SDK/workflow/安全权限/代理/凭据/模型/发布或用户电脑。
 
 本轮原始失败日志自带尾空格，最终stage检查明确报告后依仓库原件惯例仅对该新日志目录设-text/-whitespace，原日志与SHA不改；源码空白检查保持，未降产品断言。
+
+
+## 2026-10-20 · 补齐既有11项真实宿主集成用例
+
+从已接受64745d23f689d4fc9507507fb580679d6a8de7f4建dev/browser-host-integration，产品源码/原测试/锁/脚本/workflow原字节保持。核历史Linux402云workspace明确批准及当前续授，官方同归档240279509B全SHA512、MIT/notices逐字节等已批原件，无新协议。只解原项目隔离SDK402，复用既有正常初始化launcher，HOME/既有权限/旧401/安全网络与凭据不动，禁证书生成。--info实际SDK402/host13，静态私有XML13；locked restore审计true/all/low＋warnings-errors，五项目实际Release0W/E。
+
+只跑上轮ENOENT的同名11项，实际Exit0/11P0F0skip0cancel（8.109秒）；137输入等647/16宿主输出SHA/4依赖DLL与实际项目输出相同，5assets纯Project/audit属性和原件核实。生产BrowserSession/DesktopPipeChannel/真实stdio+localpipe，10例经DesktopReceiverSession/Inbox/Gate；ChromePort/peer/decision及9例clock合成，6秒等待实elapsed。此前64P/11F保持，不重复扩大纯Node数字或声称单次完整75全绿。只读独核通过；见[实际范围](validation/browser-host-integration.md)/[证据索引](test-evidence/2026-10-20-browser-host-integration.json)。
+
+原WindowsCI39347646426第3步首因Unknown，拒绝读取不重试/换路；无新CI/模型/费用/发布/用户电脑。真实Chrome/Edge/Windows/P6P7、签名安装及250600实际平台验收仍另列NotRun/PackageHold，来源/密码/完整性/取消清理及生产图片复用Off保持。
