@@ -1285,3 +1285,14 @@ P7源码子项InProgress，完整P7/R13/真实浏览器与Windows仍NotRun；CI3
 原同方法1F→实际child PNG1P，16种宽1–4/行序/SizeImage组合独立逐BGR核非零padding不进像素，灰度一般缩小/侧界/39拒绝/原SHAjob/错source/EOF退出/取消晚返及实际copy清零过；native失败是内部观测口扰动copy前两byte的受控故障注入，未冒充普通validBMP坏图。首BMP71P后最终72+旧214=Codec286P，旧四测试文件原字节不改，Provider传输限定37P，Worker/App交叉0W/E、4locked audit restore0。78项保护全真，PNG/JPEG方向除显式Bmp分支外原字节相同；独立最终源码/回执审查无剩余P1/P2，测试writer执行，中间不累计，原件保全。
 
 详见[本轮合同及原五格式精确支持表](validation/bounded-bmp.md)/[证据索引](test-evidence/2026-10-20-bounded-bmp.json)。当前隔离接口仅静态受界PNG/IFD0 eXIf、有限8bit单scan baseline JPEG、此24位BMP子集；WebP及GIF首帧+标注未接入，各已支持格式也不当全合法变体通过。下一候选限原清单的受界静态WebP另做设计独审，不向TIFF/HEIC/SVG/PSD/PDF无限扩范围。Windows截图/native/Worker/OCR/WPF、打开投放、本地字号/真实质量/整P6仍未完成；250600及全部安全/资源门、PackageHold/生产复用Off保持。固定依赖/锁/许可及App/Imaging无Skia保持，无新许可权限费用凭据/CI调度/真实用户图或模型/用户电脑/发布，main未改、旧被拒日志未请求或绕路。
+
+
+## 2026-10-20 · P6-02原格式清单内的受界静态WebP
+
+从clean/独审/远端一致767af3ee45a077f0a5c9216aec60f10fcc3ca73b核单worktree/唯一writer/main及原c7b3396e/64745d23祖先，正常dev/p6-static-webp接原SPEC7.1。最小设计独审后新增RIFF精确总长/checked64 chunk与zero padding、原20MiB/24MP/16384界、单静态VP8/VP8L及唯一首位最小VP8X。显式nativeWebp/原尺寸/TopLeft/静态帧/fullSuccess，真实raw alpha及原area白底/4MiB PNG保持；全部动画/EXIF/ICC/XMP/ALPH/unknown与flags拒绝，不默默忽略方向色彩。
+
+同步修正长度后46字节VP8L删1仍nativeSuccess且像素变化；独立探针和固定Skia/libwebp普通源码各HTTP200确认demux把RIFF pad交给decoder。独审后保守拒绝所有odd image payload（包括合法odd），只接even payload精确EOF；不以0/FF双解码两点当完整性证明，不加额外raster/资源/依赖。VP8删尾零像素不变与真实损图分开；alpha hint/VP8X flag实测不改变实际alpha，无需改copy。原SHA/job/来源/权限/取消清理/EOF实际exit0及IO结算门不改。
+
+最终Codec362P=新WebP76+旧286，旧五文件原字节不改；实际child完整非恒定画布/非灰度半透明/白底/面积缩小、43结构拒绝及合法odd拒绝/原SHA/nativecopy清零/错source/额外输出/exit7/栅格后取消通过。16383×1确定性彩色长图65532byte逐像素相同，不证明16384解码；此前encoder拒生成16384及16383规则样本仅odd的夹具失败、一次提前整组361P1F均保全，非生产缺陷。首编译0执行、基线功能1F+probe1P、首51P9F和75P1F及因果源码不抹去，中间不累计。Provider传输限定37P，Worker/App交叉0W/E，四locked audit restore0；80项保护与原许可/依赖/锁/AppImaging无Skia核对通过。独立只读源码/回执审查，测试writer实跑。
+
+详见[产品子集与实际边界](validation/static-webp.md)/[原件索引](test-evidence/2026-10-20-static-webp.json)。原五格式中WebP仅even静态子集，odd/metadata/ALPH/动画仍缺；GIF首帧与“使用首帧”标注仍未实现，下一独立候选另行设计独审，不全格式承诺或扩新格式。打开投放UI、本地字号/真实质量、Windows截图/native/Worker/OCR/WPF及整P6仍NotRun/未完成；250600未实测通过，PackageHold/生产图片复用Off和全部安全资源门保持。无新依赖许可权限费用凭据/CI调度/私人图或真实模型/用户电脑/发布/main修改/强推；旧被拒CI日志未请求或绕路。

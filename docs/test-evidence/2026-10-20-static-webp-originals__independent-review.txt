@@ -1,0 +1,19 @@
+2026-10-20 independent read-only review; agent /root/settings_import_review.
+No source mutation, build, or test execution by reviewer. All test results are writer-run.
+
+Design review: container subset may proceed; alpha normalization needs a fixed-native probe first. Require full VP8 keyframe header/firstpartition bounds and reject scaling, metadata, animation and unsupported ALPH. Include entropy truncation after container-length correction. Non-gray semitransparent coverage suggested.
+
+Initial source review: no confirmed P1/P2 in exact RIFF/chunk checked64/padding/canvas parser, explicit parent/worker/orientation/native format dispatch, original copy/hash and disposal. NativeSuccess does not independently prove entropy completeness; results were still pending.
+
+Padding defect review (actual probes and fixed sources read): demux includes padded_size in fragment and SkWebpCodec passes fragment to WebPIUpdate. VP8L46->45 decoded with changed pixels using zero/FF pad. Two-point differential equality is not general nonconsumption proof. Recommend smaller even-only imagepayload subset with exactEOF; do not introduce doubledecode as strict gate. No existing managed payload-length entry point was demonstrated.
+
+Even-only source review: odd imagepayload rejected before parser delivery, child start or worker nativecopy. Validodd rejection explicit. Originalcopy exact/no alpha rewrite/no dualdecode/newbudget. Non-gray alpha/white, job/source/clear/EOF/exit/cancel assertions present. 75P1F verified, last F in encoder16384 fixture before productdecode. Current source no confirmedP1/P2; final regression receipts still pending at this review point.
+
+Final receipt/document/source review (reviewer final reply, verbatim):
+最终只读审查通过，无剩余可确认 P1/P2，可封存后正常提交推送。
+- 原 TRX 全部与索引一致：Codec 362P＝新76＋旧286，Provider限定传输 37P；最终无失败或跳过。
+- 8条命令全部 exit0，Worker/App 各0警告0错误。
+- 当前5项源码、源码 ZIP、6项产物哈希匹配；80项保护全真，其中77个实际文件逐字节等于基线。
+- 长图两次均为 seed2、payload49224、16383×1，完整65532字节比较通过；未声称16384解码通过。
+- 文档准确保留 even-only、合法 odd 也拒绝、native padding 缺陷、夹具失败与一般熵流验证局限；五格式及 Windows/入口/质量边界无过度声称。
+待封存 originals ZIP、独审文字及其哈希，并更新索引的 pending review 状态。未编辑文件或重跑测试。

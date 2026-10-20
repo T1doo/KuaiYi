@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 using KuaiYi.Contracts;
 namespace KuaiYi.Imaging;
 
-public enum EncodedRasterFormat{Png,Jpeg,Bmp}
+public enum EncodedRasterFormat{Png,Jpeg,Bmp,Webp}
 public sealed record ImageDecodeJob(Guid SessionId,long Version,long Epoch,int ByteLength,string Sha256,[property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] int? PrepareLongEdge=null);
 public sealed record ImagePreparedInfo(int SourceWidth,int SourceHeight,ImageOrientation SourceOrientation);
 // Tightly packed top-down BGRA8888. Preparation retains only numeric dimensions/direction, never arbitrary EXIF/GPS/paths.
@@ -36,6 +36,7 @@ public static class ImageDecodePolicy
         if(bytes.Length>ImagePolicy.ByteLimit)throw new ImageJobException(ImageFailure.ImageTooLarge);
         if(bytes.Length>=8&&bytes[..8].SequenceEqual(new byte[]{137,80,78,71,13,10,26,10}))return(EncodedRasterFormat.Png,ImagePolicy.InspectPng(bytes));
         if(bytes.Length>=2&&bytes[0]==66&&bytes[1]==77)return(EncodedRasterFormat.Bmp,BmpDecodePolicy.Inspect(bytes));
+        if(bytes.Length>=4&&bytes[..4].SequenceEqual("RIFF"u8))return(EncodedRasterFormat.Webp,WebpDecodePolicy.Inspect(bytes));
         if(bytes.Length<4||bytes[0]!=255||bytes[1]!=216)throw new ImageJobException(ImageFailure.UnsupportedImage);
         if(bytes[^2]!=255||bytes[^1]!=217)throw new ImageJobException(ImageFailure.InvalidImage);
         int offset=2;ImageSize? size=null;

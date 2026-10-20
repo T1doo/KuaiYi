@@ -14,6 +14,7 @@ internal static class ImageRasterDecoder
         if(header.Format==EncodedRasterFormat.Png)ImageDecodePolicy.ValidatePngContainer(encoded.Span,cancellation);
         else if(header.Format==EncodedRasterFormat.Jpeg)BaselineJpegScan.Validate(encoded.Span,header.Size,cancellation);
         else if(header.Format==EncodedRasterFormat.Bmp)_=BmpDecodePolicy.Inspect(encoded.Span);
+        else if(header.Format==EncodedRasterFormat.Webp)_=WebpDecodePolicy.Inspect(encoded.Span,cancellation);
         else throw new ImageJobException(ImageFailure.UnsupportedImage);
         byte[]? copy=null,pixels=null;
         try
@@ -26,10 +27,10 @@ internal static class ImageRasterDecoder
             using var input=new MemoryStream(copy,writable:false);using var codec=SKCodec.Create(input,out var created);
             if(codec==null||created!=SKCodecResult.Success)throw new ImageJobException(ImageFailure.InvalidImage);
             cancellation.ThrowIfCancellationRequested();var info=codec.Info;
-            var expectedFormat=header.Format switch{EncodedRasterFormat.Png=>SKEncodedImageFormat.Png,EncodedRasterFormat.Jpeg=>SKEncodedImageFormat.Jpeg,EncodedRasterFormat.Bmp=>SKEncodedImageFormat.Bmp,_=>throw new ImageJobException(ImageFailure.UnsupportedImage)};
+            var expectedFormat=header.Format switch{EncodedRasterFormat.Png=>SKEncodedImageFormat.Png,EncodedRasterFormat.Jpeg=>SKEncodedImageFormat.Jpeg,EncodedRasterFormat.Bmp=>SKEncodedImageFormat.Bmp,EncodedRasterFormat.Webp=>SKEncodedImageFormat.Webp,_=>throw new ImageJobException(ImageFailure.UnsupportedImage)};
             if((uint)info.Width!=header.Size.Width||(uint)info.Height!=header.Size.Height||codec.EncodedFormat!=expectedFormat)throw new ImageJobException(ImageFailure.InvalidImage);
             // The reviewed C API returns getFrameInfo().size(): static PNG/JPEG report0.
-            // PNG acTL is separately rejected; JPEG has one static raster. Do not treat0 as an animation.
+            // PNG acTL and WebP animation are separately rejected. Do not treat0 as an animation.
             if(codec.FrameCount is <0 or >1)throw new ImageJobException(ImageFailure.UnsupportedImage);
             if(header.Format!=EncodedRasterFormat.Png&&job.PrepareLongEdge!=null)sourceOrientation=EncodedImageOrientation.Read(encoded.Span,header.Format,cancellation);
             var nativeExpectedOrientation=header.Format==EncodedRasterFormat.Png?ImageOrientation.ExifTopLeft:sourceOrientation;
