@@ -4,22 +4,24 @@ namespace KuaiYi.Imaging;
 
 /// <summary>Owns only the final cropped BGRA pixels, without paths or metadata. Caller transfers ownership.
 /// Preview rasters are independent bounded derivatives and must be disposed by their consumer.</summary>
-public sealed class OwnedSourceImage:IDisposable
+public sealed class OwnedSourceImage:ImageSourceOwner
 {
     public const int PreviewSideLimit=1024;
+    public override ImageSourceKind Kind=>ImageSourceKind.Screenshot;
+    public override string? Notice=>null;
     private readonly object sync=new();
     private ScreenshotPixels? pixels;
-    public Guid SourceId {get;}=Guid.NewGuid();
-    public int Width {get;}
-    public int Height {get;}
-    public bool IsDisposed {get{lock(sync)return pixels==null;}}
+    public override Guid SourceId {get;}=Guid.NewGuid();
+    public override int Width {get;}
+    public override int Height {get;}
+    public override bool IsDisposed {get{lock(sync)return pixels==null;}}
     public OwnedSourceImage(ScreenshotPixels owned)
     {
         ArgumentNullException.ThrowIfNull(owned);
         try{ImagePolicy.ValidateDimensions((uint)owned.Bounds.Width,(uint)owned.Bounds.Height);_=owned.Bytes;Width=owned.Bounds.Width;Height=owned.Bounds.Height;pixels=owned;}
         catch{owned.Dispose();throw;}
     }
-    public ScreenshotPixels CreatePreview(int maximumWidth,int maximumHeight,CancellationToken cancellation=default)
+    public override ScreenshotPixels CreatePreview(int maximumWidth,int maximumHeight,CancellationToken cancellation=default)
     {
         if(maximumWidth is <1 or >PreviewSideLimit||maximumHeight is <1 or >PreviewSideLimit)throw new ArgumentOutOfRangeException(nameof(maximumWidth));
         lock(sync)
@@ -40,7 +42,7 @@ public sealed class OwnedSourceImage:IDisposable
             finally{if(output!=null)CryptographicOperations.ZeroMemory(output);}
         }
     }
-    public void Dispose(){lock(sync){pixels?.Dispose();pixels=null;}}
+    public override void Dispose(){lock(sync){pixels?.Dispose();pixels=null;}}
     /// <summary>Legacy native-size export, now white-composited. Oversize still requires a smaller crop.</summary>
     public ScreenshotPng CreateRequestPng(int byteLimit,CancellationToken cancellation=default)
     {
@@ -49,7 +51,7 @@ public sealed class OwnedSourceImage:IDisposable
     }
     /// <summary>Final crop only. Native-size white composition; general area downscale over the entire crop.
     /// Caller owns the prepared PNG/mapping. No preview reuse, file decoding, lossy quality loop or crop omission.</summary>
-    public PreparedScreenshot PrepareRequest(int byteLimit,CancellationToken cancellation=default)=>PrepareRequestCore(byteLimit,true,cancellation);
+    public override PreparedScreenshot PrepareRequest(int byteLimit,CancellationToken cancellation=default)=>PrepareRequestCore(byteLimit,true,cancellation);
     internal PreparedScreenshot PrepareRequestForTest(int byteLimit,CancellationToken cancellation,Action<byte[]> allocated)=>PrepareRequestCore(byteLimit,true,cancellation,allocated);
     private PreparedScreenshot PrepareRequestCore(int byteLimit,bool allowDownscale,CancellationToken cancellation,Action<byte[]>? allocated=null)
     {

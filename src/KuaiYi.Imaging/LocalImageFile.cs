@@ -5,9 +5,10 @@ namespace KuaiYi.Imaging;
 
 public static class LocalImageFile
 {
-    public static Task<byte[]> ReadPngAsync(string path,CancellationToken cancellation=default)=>ReadAsync(path,false,cancellation);
-    public static Task<byte[]> ReadGifAsync(string path,CancellationToken cancellation=default)=>ReadAsync(path,true,cancellation);
-    private static async Task<byte[]> ReadAsync(string path,bool gif,CancellationToken cancellation)
+    public static Task<byte[]> ReadPngAsync(string path,CancellationToken cancellation=default)=>ReadAsync(path,0,cancellation);
+    public static Task<byte[]> ReadGifAsync(string path,CancellationToken cancellation=default)=>ReadAsync(path,1,cancellation);
+    public static Task<byte[]> ReadEncodedAsync(string path,CancellationToken cancellation=default)=>ReadAsync(path,2,cancellation);
+    private static async Task<byte[]> ReadAsync(string path,int kind,CancellationToken cancellation)
     {
         cancellation.ThrowIfCancellationRequested();
         if (!OperatingSystem.IsWindows()) throw new ImageJobException(ImageFailure.UnsupportedPlatform);
@@ -26,7 +27,7 @@ public static class LocalImageFile
         if (size == 0 || size > ImagePolicy.ByteLimit) throw new ImageJobException(ImageFailure.ImageTooLarge);
         using var stream = new FileStream(handle, FileAccess.Read, 4096, isAsync: true);
         byte[] bytes = new byte[(int)size];
-        try { await stream.ReadExactlyAsync(bytes, cancellation); if(gif)_=GifDecodePolicy.Inspect(bytes,cancellation);else ImagePolicy.InspectPng(bytes); return bytes; }
+        try { await stream.ReadExactlyAsync(bytes, cancellation); if(kind==1)_=GifDecodePolicy.Inspect(bytes,cancellation);else if(kind==2)_=ImageDecodePolicy.Inspect(bytes,cancellation);else ImagePolicy.InspectPng(bytes); return bytes; }
         catch { System.Security.Cryptography.CryptographicOperations.ZeroMemory(bytes); throw; }
     }
     [StructLayout(LayoutKind.Sequential)] private struct Information { public uint Attributes; public System.Runtime.InteropServices.ComTypes.FILETIME Creation, Access, Write; public uint Volume, SizeHigh, SizeLow, Links, IndexHigh, IndexLow; }

@@ -3,6 +3,7 @@ internal sealed partial class ShellWindow
 {
     private void ClearPrivatePresentation(List<Exception> errors,Action? closeSettings=null,bool hide=true)
     {
+        ScreenshotPreviewCleanup.Attempt(errors,CancelFileAcquisition);
         ScreenshotPreviewCleanup.Attempt(errors,()=>imageTranslation?.Clear());ScreenshotPreviewCleanup.Attempt(errors,()=>translation?.Clear());ScreenshotPreviewCleanup.Attempt(errors,ClearSelectionSource);
         if(closeSettings!=null)ScreenshotPreviewCleanup.Attempt(errors,closeSettings);
         ScreenshotPreviewCleanup.Attempt(errors,()=>HidePresentation(clear:true));ScreenshotPreviewCleanup.Attempt(errors,ReleaseRetainedImage);
@@ -29,6 +30,7 @@ internal sealed partial class ShellWindow
         ClearPrivatePresentation(errors);ScreenshotPreviewCleanup.Attempt(errors,Refresh);
         async Task Settle(Func<Task> step){try{await step();}catch(Exception error){errors.Add(error);}}
         await Settle(()=>startup);await Settle(()=>positionSave);await Settle(StopTextDrop);await Settle(StopSelection);
+        Task fileCleanup=Task.CompletedTask;ScreenshotPreviewCleanup.Attempt(errors,()=>CollectFileCleanup(ref fileCleanup));await Settle(()=>fileCleanup);
         await Settle(StopHotkeyScreenshot);await Settle(StopHotkeys);await Settle(StopTranslation);
         if(errors.Count>0)throw new AggregateException("Exit cleanup unconfirmed.",errors);
         await SettleInstallationControl(); // Keep the original close-control loop available while content cleanup needs retry.

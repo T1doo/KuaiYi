@@ -139,13 +139,16 @@ public sealed record ImageTransform
 
 /// <summary>Only successful, bounded preparations can construct this owner. Mapping is local metadata,
 /// never serialized into an image request. Dispose zeros the actual returned PNG buffer.</summary>
-public sealed class PreparedScreenshot:IDisposable
+public sealed class PreparedScreenshot:PreparedImageRequest
 {
     private ScreenshotPng? png;
-    public Guid SourceId {get;}
-    public ImageTransform Transform {get;}
+    public override ImageSourceKind Kind=>ImageSourceKind.Screenshot;
+    public override string? Notice=>null;
+    public override ScreenshotNormalizationProof? NormalizationProof=>Proof;
+    public override Guid SourceId {get;}
+    public override ImageTransform Transform {get;}
     public ScreenshotNormalizationProof Proof {get;}
-    public ReadOnlyMemory<byte> Bytes=>(png??throw new ObjectDisposedException(nameof(PreparedScreenshot))).Bytes;
+    public override ReadOnlyMemory<byte> Bytes=>(png??throw new ObjectDisposedException(nameof(PreparedScreenshot))).Bytes;
     internal PreparedScreenshot(Guid sourceId,ScreenshotPng owned,ImageTransform transform,ScreenshotNormalizationProof proof)
     {
         try
@@ -156,7 +159,7 @@ public sealed class PreparedScreenshot:IDisposable
         catch{owned.Dispose();throw;}
     }
     internal ScreenshotPng TakePng()=>Interlocked.Exchange(ref png,null)??throw new ObjectDisposedException(nameof(PreparedScreenshot));
-    public void Dispose()=>Interlocked.Exchange(ref png,null)?.Dispose();
+    public override void Dispose()=>Interlocked.Exchange(ref png,null)?.Dispose();
 }
 
 internal sealed class NormalizedScreenshotPixels(ScreenshotPixels owned,ImageTransform transform,ScreenshotNormalizationProof proof):IDisposable

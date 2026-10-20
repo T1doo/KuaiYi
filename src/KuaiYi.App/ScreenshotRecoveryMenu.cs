@@ -12,7 +12,7 @@ internal sealed partial class ShellWindow
             return selected is {Complete:false,Stopped:true}&&imageTranslation?.SnapshotForVersion(selected.Identity.VersionId)!=null?selected.Identity:null;
         }
     }
-    private bool CanRecaptureScreenshot=>!exiting&&IsVisible&&lifecycle.Gate.Snapshot.Presentation!=Presentation.Hidden&&lifecycle.Gate.Snapshot.Suspension==Suspension.None&&
+    private bool CanRecaptureScreenshot=>!exiting&&!FileImageBusy&&IsVisible&&lifecycle.Gate.Snapshot.Presentation!=Presentation.Hidden&&lifecycle.Gate.Snapshot.Suspension==Suspension.None&&
         screenshotHotkeyTask.IsCompletedSuccessfully&&screenshotHotkeyCleanup.IsCompletedSuccessfully&&screenshotHotkeyOwner==null;
     private void AddScreenshotRecovery(ContextMenu menu)
     {

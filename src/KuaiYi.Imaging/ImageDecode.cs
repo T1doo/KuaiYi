@@ -4,7 +4,6 @@ using System.Text.Json.Serialization;
 using KuaiYi.Contracts;
 namespace KuaiYi.Imaging;
 
-public enum EncodedRasterFormat{Png,Jpeg,Bmp,Webp,Gif}
 public sealed record ImageDecodeJob(Guid SessionId,long Version,long Epoch,int ByteLength,string Sha256,[property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] int? PrepareLongEdge=null);
 public sealed record ImagePreparedInfo(int SourceWidth,int SourceHeight,ImageOrientation SourceOrientation);
 // Tightly packed top-down BGRA8888. Preparation retains only numeric dimensions/direction, never arbitrary EXIF/GPS/paths.

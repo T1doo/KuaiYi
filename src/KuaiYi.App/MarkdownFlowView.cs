@@ -58,7 +58,7 @@ internal sealed class MarkdownFlowView
         if(expanded.HasValue)sourceRegion.SetExpanded(expanded.Value);
         ConstrainSource();
     }
-    public void SetImageSource(Guid? version,OwnedSourceImage? source,bool? expanded=null,bool materialize=true)
+    public void SetImageSource(Guid? version,ImageSourceOwner? source,bool? expanded=null,bool materialize=true)
     {
         if(version==null||source==null||source.IsDisposed){ClearSource();return;}
         if(imageSourceRegion==null||sourceVersion!=version||!imageSourceRegion.Matches(source))

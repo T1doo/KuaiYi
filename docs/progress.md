@@ -1307,3 +1307,12 @@ P7源码子项InProgress，完整P7/R13/真实浏览器与Windows仍NotRun；CI3
 最终Codec453P=新GIF91+原362，原六测试源字节不改；Provider传输37P、Core相关限定165P、Worker/App交叉0W/E，五locked audit restore0。实际16384×1、palette/interlace/透明/offset/最大256帧/普通8bit字典及3–12码宽/4096饱和/重置/跨subblock EOI、43结构拒绝/8首熵拒绝/原SHA/错metadata/EOF退出/取消清零过。原同方法基线1F→1P、83/89/91中间绿回执均保留不累计；保存SDK仅.401首次拒执行，按官方SHA512还原既有固定.402/runtime.13而不改锁。85保护全真，App/Imaging无Skia、原许可证输出匹配；独立设计/源码/回执复审ACK，测试writer执行。
 
 详见[范围、真实结果与未验边界](validation/gif-first-frame.md)/[证据索引](test-evidence/2026-10-20-gif-first-frame.json)。真实Windows/native/Worker/WPF/OCR/画质/250600/600MiB、生产打开投放和整P6仍NotRun/未完成。WebP even-only/奇数明确拒绝、所有安全资源发送门、PackageHold/生产复用Off保持；无模型/私人图/新依赖许可权限费用凭据/CI/发布部署/用户电脑/main修改/强推，旧被拒日志未请求或绕路。
+
+
+## 2026-10-20 · P6-06生产打开图片与独立文件来源
+
+从完整GIF父SHA `0b6d1c835f7f9baed79d7320ac485331fc2bbf88` 在正常 `dev/p6-open-image-source` 接续，唯一writer、最小设计独审后交付正式Shell“打开图片”→原安全本地读取/受界Worker→独立可信文件owner→实际本地预览/可见“使用首帧”→原生产确认与两阶段发送门。文件无截图crop/桌面anchor/proof；Off打开不启用不发送，明确启用调用原Toggle并重查同一owner/version。清除/停止/失效及退出保留原Task/Worker到实际结算，未确认保留owner可重试并阻止新采集。投放及文件OCR后续复用，当前OCR仍只接原截图owner。
+
+最终writer完整Codec470P（新17+原453）、完整Provider2381P（新20+原2361）、Core相关限定165P，各0F/0skip，Worker/App交叉0W/E，五locked audit restore0；依赖/许可/原Codec测试/SPEC原字节不改。旧截图CTS回归1F和新Anthropic夹具位置假设1F已保留修正；旧BMP取消结算未确认1F保留，同构建定向2P与同源码完整470P通过，未证实根因且未改退出门/旧断言。详见[行为与边界](validation/open-image-source.md)/[直接证据](test-evidence/2026-10-20-open-image-source.json)。
+
+Windows实际文件handle/dialog/WPF/Toggle/native/字体质量、250/600ms/600MiB、完整P6-06/P6仍NotRun，不当图像Beta验收；WebP odd拒绝、PackageHold、生产复用Off及全部安全发送清理门保持。无真实模型/私人图/新依赖许可权限费用凭据/CI/用户电脑/发布部署/main修改/强推。

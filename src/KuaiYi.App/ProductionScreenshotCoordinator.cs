@@ -10,22 +10,22 @@ namespace KuaiYi.App;
 
 internal enum ProductionScreenshotEvent { Begin, Prepared, Classifying, Generating, Delta, Usage, Completed, Failed }
 internal sealed record ProductionScreenshotUpdate(RequestIdentity Identity,ProductionScreenshotEvent Kind,ScreenshotGenerationSnapshot Snapshot,string? Text=null,string? Reason=null);
-internal sealed class ProductionScreenshotOffer(ScreenshotGenerationSnapshot snapshot,CaptureTicket ticket,OwnedSourceImage image,long revision,TranslationPreset preset)
+internal sealed class ProductionScreenshotOffer(ScreenshotGenerationSnapshot snapshot,CaptureTicket ticket,ImageSourceOwner image,long revision,TranslationPreset preset)
 {
     public ScreenshotGenerationSnapshot Snapshot {get;}=snapshot;
     public TranslationPreset RequestedPreset {get;}=preset;
     public string PresetLabel=>RequestedPreset switch{TranslationPreset.Faithful=>"忠实翻译",TranslationPreset.Plain=>"通俗翻译",TranslationPreset.Professional=>"专业翻译",TranslationPreset.Explain=>"解释",_=>throw new InvalidOperationException("Invalid screenshot style.")};
     internal CaptureTicket Ticket {get;}=ticket;
-    internal OwnedSourceImage Image {get;}=image;
+    internal ImageSourceOwner Image {get;}=image;
     internal long Revision {get;}=revision;
     internal bool Launched;
-    public string ConfirmationText=>$"将仅发送当前明确裁剪的截图。\n目标：{new EndpointOrigin(Snapshot.Transport.ResolveEndpoint()).Value}\n模型：{Snapshot.Profile.Model}\n本次模式：{Snapshot.RequestedMode switch{ImageOutputMode.TranslateText=>"仅翻译图中文字",ImageOutputMode.ExplainImage=>"按图文解释",_=>"智能判断"}}。\n本次文字风格：{PresetLabel}；按图文解释时使用解释风格。\n通常先分类，再正式生成，可能发生两次服务调用及相应费用；无效分类不会继续发送。\n仅使用当前所选截图，不发送整个屏幕或文件路径。是否确认本次发送？";
+    public string ConfirmationText=>Image.Kind==ImageSourceKind.LocalFile?$"将仅发送当前明确打开的本地图片{(Image.Notice is {} note?" · "+note:"")}。\n目标：{new EndpointOrigin(Snapshot.Transport.ResolveEndpoint()).Value}\n模型：{Snapshot.Profile.Model}\n本次模式：{Snapshot.RequestedMode switch{ImageOutputMode.TranslateText=>"仅翻译图中文字",ImageOutputMode.ExplainImage=>"按图文解释",_=>"智能判断"}} · 文字风格：{PresetLabel}。\n通常先分类，再正式生成，可能发生两次服务调用及相应费用；不发送文件路径或其他文件。是否确认本次发送？":$"将仅发送当前明确裁剪的截图。\n目标：{new EndpointOrigin(Snapshot.Transport.ResolveEndpoint()).Value}\n模型：{Snapshot.Profile.Model}\n本次模式：{Snapshot.RequestedMode switch{ImageOutputMode.TranslateText=>"仅翻译图中文字",ImageOutputMode.ExplainImage=>"按图文解释",_=>"智能判断"}}。\n本次文字风格：{PresetLabel}；按图文解释时使用解释风格。\n通常先分类，再正式生成，可能发生两次服务调用及相应费用；无效分类不会继续发送。\n仅使用当前所选截图，不发送整个屏幕或文件路径。是否确认本次发送？";
 }
 /// <summary>Normal Shell's explicit final-crop path. Borrows the crop; never owns file codecs or caches images/classification for reuse.
 /// Destination callbacks serialize result metadata. sourceCurrent reads synchronous thread-safe metadata only, including under the send gate.</summary>
 internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
 {
-    private sealed record Source(Guid Version,OwnedSourceImage Image);
+    private sealed record Source(Guid Version,ImageSourceOwner Image);
     private sealed record VersionState(ScreenshotGenerationSnapshot Snapshot,TranslationPreset Preset);
     private sealed record Validation(SettingsSnapshot Saved,bool Rejected=false);
     private sealed class Job(Source source,RequestIdentity identity,ScreenshotGenerationSnapshot snapshot,TranslationPreset preset)
@@ -58,7 +58,7 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
         if(preset is {} value&&!Enum.IsDefined(value)||PresetForSource(version,sourceId)==null)return false;
         sourceStyle=preset is {} selected?(version,sourceId,selected):null;offered=null;commandRevision++;return true;
     }
-    public ProductionScreenshotOffer? Prepare(Guid version,OwnedSourceImage image,ImageOutputMode mode=ImageOutputMode.Automatic)
+    public ProductionScreenshotOffer? Prepare(Guid version,ImageSourceOwner image,ImageOutputMode mode=ImageOutputMode.Automatic)
     {
         offered=null;long revision=++commandRevision;LastRejection=null;
         ProductionScreenshotOffer? Reject(string reason){LastRejection=reason;return null;}
@@ -74,7 +74,7 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
             var transport=ApiProfileMapper.Plan(profile).Transport;
             // A normal production offer never borrows a development fixture's transport authority.
             if(transport.DevelopmentBoundary!=null||transport.IsDevelopmentFixture)return Reject("PRODUCTION_PROFILE_REQUIRED");
-            var snapshot=new ScreenshotGenerationSnapshot(version,image.SourceId,config,profile,transport,binding,1,mode,false);
+            var snapshot=new ScreenshotGenerationSnapshot(version,image.SourceId,config,profile,transport,binding,1,mode,false,SourceKind:image.Kind,SourceNotice:image.Notice);
             if(commandRevision!=revision||disposed)return Reject("SCREENSHOT_UNAVAILABLE");
             return offered=new(snapshot,ticket,image,revision,PresetForSource(version,image.SourceId)??config.Data.Translation.Preset);
         }
@@ -154,7 +154,7 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
     {
         await Task.Yield();if(!gate.TryLinkRequestCancellation(job.Identity,default,out var linked))return;
         using var lifetime=linked!;var budget=provider.FreezeBudget(job.Snapshot.Transport);using var timeout=budget.Link(lifetime.Token);
-        PreparedScreenshot? prepared=null;byte[]? bytes=null;
+        PreparedImageRequest? prepared=null;byte[]? bytes=null;
         try
         {
             if(!Eligible(job))return;
@@ -164,7 +164,7 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
             {
                 if(!await State(job,prepared,lifetime.Token,budget).ConfigureAwait(false))return;
                 var content=new StringBuilder();bool complete=false;string? failure=null;
-                var request=new TranslationRequest(job.Snapshot.Transport,ImageTranslationPlanner.ClassificationPrompt,"仅分类本次明确选择的截图，不生成正文。",bytes);
+                var request=new TranslationRequest(job.Snapshot.Transport,ImageTranslationPlanner.ClassificationPrompt,"仅分类本次明确选择的图片，不生成正文。",bytes);
                 timeout.Check();
                 using var classificationSecret=job.Snapshot.Transport.Authentication==Authentication.None?null:await openSecret(job.Identity,job.Snapshot,timeout.Token).ConfigureAwait(false);
                 timeout.Check();if(!Eligible(job))return;
@@ -190,7 +190,7 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
             {await Fail(job,"CLEARER_IMAGE_REQUIRED",lifetime.Token,budget).ConfigureAwait(false);return;}
             var plan=ImageTranslationPlanner.Create(job.Snapshot.Classification,job.Snapshot.Settings.Data.Translation with{Preset=job.Preset},job.Snapshot.RequestedMode,job.Snapshot.Regeneration);
             if(!await Receive(job,new(job.Identity,new(ModelEventKind.Started)),_=>
-            {if(job.Snapshot.NormalizationProof==null&&!CommitPrepared(job,prepared))return;job.Snapshot=job.Snapshot with{Plan=plan};BeginUsageStage(job,ScreenshotUsageStage.Generation);Publish(job,ProductionScreenshotEvent.Generating);},lifetime.Token,budget).ConfigureAwait(false))return;
+            {if(job.Snapshot.Transform==null&&!CommitPrepared(job,prepared))return;job.Snapshot=job.Snapshot with{Plan=plan};BeginUsageStage(job,ScreenshotUsageStage.Generation);Publish(job,ProductionScreenshotEvent.Generating);},lifetime.Token,budget).ConfigureAwait(false))return;
             var final=new TranslationRequest(job.Snapshot.Transport,plan.System,plan.User,bytes);
             timeout.Check();
             using var generationSecret=job.Snapshot.Transport.Authentication==Authentication.None?null:await openSecret(job.Identity,job.Snapshot,timeout.Token).ConfigureAwait(false);
@@ -234,13 +234,13 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
         },cancellation,budget).ConfigureAwait(false);
         return delivered&&accepted&&!job.Terminal&&Eligible(job);
     }
-    private Task<bool> State(Job job,PreparedScreenshot prepared,CancellationToken cancellation,ProviderRequestBudget budget)
+    private Task<bool> State(Job job,PreparedImageRequest prepared,CancellationToken cancellation,ProviderRequestBudget budget)
         =>Receive(job,new(job.Identity,new(ModelEventKind.Started)),_=>{if(!CommitPrepared(job,prepared))return;BeginUsageStage(job,ScreenshotUsageStage.Classification);Publish(job,ProductionScreenshotEvent.Classifying);},cancellation,budget);
-    private bool CommitPrepared(Job job,PreparedScreenshot prepared)
+    private bool CommitPrepared(Job job,PreparedImageRequest prepared)
     {
-        if(prepared.SourceId!=job.Snapshot.SourceId||job.Snapshot.Classification!=null&&job.Snapshot.Transform!=prepared.Transform)
+        if(prepared.SourceId!=job.Snapshot.SourceId||prepared.Kind!=job.Source.Image.Kind||prepared.Kind!=job.Snapshot.SourceKind||prepared.Notice!=job.Snapshot.SourceNotice||prepared.Transform.HasDesktopAnchor!=(prepared.Kind==ImageSourceKind.Screenshot)||prepared.Kind==ImageSourceKind.Screenshot&&prepared.NormalizationProof==null||prepared.Kind==ImageSourceKind.LocalFile&&prepared.NormalizationProof!=null||job.Snapshot.Classification!=null&&job.Snapshot.Transform!=prepared.Transform)
         {if(Results.Fail(job.Identity,"IMAGE_TRANSFORM_CHANGED")){Finish(job);Publish(job,ProductionScreenshotEvent.Failed,reason:"IMAGE_TRANSFORM_CHANGED");}return false;}
-        job.Snapshot=job.Snapshot with{Transform=prepared.Transform,NormalizationProof=prepared.Proof};snapshots[job.Identity.VersionId]=new(job.Snapshot,job.Preset);Publish(job,ProductionScreenshotEvent.Prepared);
+        job.Snapshot=job.Snapshot with{Transform=prepared.Transform,NormalizationProof=prepared.NormalizationProof};snapshots[job.Identity.VersionId]=new(job.Snapshot,job.Preset);Publish(job,ProductionScreenshotEvent.Prepared);
         return !job.Terminal&&Eligible(job); // A Prepared notification may synchronously Clear/Adopt/Stop or admit C.
     }
     private void BeginUsageStage(Job job,ScreenshotUsageStage stage)

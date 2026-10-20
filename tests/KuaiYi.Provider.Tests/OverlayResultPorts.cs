@@ -7,7 +7,7 @@ using System.Windows.Controls;
 namespace System.Windows.Controls
 {
     internal sealed class Button:FrameworkElement
-    {public object? Content {get;set;}public object? ToolTip {get;set;}public bool IsEnabled {get;set;}=true;}
+    {public object? Tag {get;set;}public object? Content {get;set;}public object? ToolTip {get;set;}public bool IsEnabled {get;set;}=true;}
     internal sealed class TextBlock:FrameworkElement
     {public string Text {get;set;}="";public object? ToolTip {get;set;}}
 }

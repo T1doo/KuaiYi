@@ -7,7 +7,7 @@ internal sealed partial class ShellWindow
         ?imageTranslation?.PresetForSource(retained.VersionId,retained.Image.SourceId):null;
     private void AddScreenshotStyleMenu(ContextMenu menu)
     {
-        var selected=SelectedScreenshotPreset;var styles=new MenuItem{Header=selected is {} value?$"本次截图风格：{StyleLabel(value)}":"本次截图风格",IsEnabled=selected!=null};
+        var selected=SelectedScreenshotPreset;var styles=new MenuItem{Header=selected is {} value?$"本次图片风格：{StyleLabel(value)}":"本次图片风格",IsEnabled=selected!=null};
         if(retainedImage is {} retained)
         {
             void Select(TranslationPreset? preset)

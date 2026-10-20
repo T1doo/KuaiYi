@@ -32,7 +32,7 @@ internal sealed partial class ShellWindow
     {
         var snapshot=translation?.SnapshotForVersion(failed.Identity.VersionId);
         string? imageReason=imageTranslation?.FailureForVersion(failed.Identity.VersionId);
-        return $"{(overlayResults.Identity is {} current&&current.SessionId!=failed.Identity.SessionId?"另一来源尝试 · ":"")}版本 {failed.Number} · {(imageTranslation?.SnapshotForVersion(failed.Identity.VersionId)!=null?"截图图译":snapshot==null?"文字尝试":SourceLabel(snapshot))}：{(imageReason==null?FailureLabel(failed.Failure!.Value):ScreenshotFailureLabel(imageReason))}。"+
+        return $"{(overlayResults.Identity is {} current&&current.SessionId!=failed.Identity.SessionId?"另一来源尝试 · ":"")}版本 {failed.Number} · {(imageTranslation?.SnapshotForVersion(failed.Identity.VersionId) is {} imageSnapshot?(imageSnapshot.SourceKind==KuaiYi.Imaging.ImageSourceKind.LocalFile?"文件图片":"截图图译"):snapshot==null?"文字尝试":SourceLabel(snapshot))}：{(imageReason==null?FailureLabel(failed.Failure!.Value):ScreenshotFailureLabel(imageReason))}。"+
             (failed.RetryAfter is {} advice?$"服务端建议不早于 {advice.NotBeforeUtc.ToString("yyyy-MM-dd HH:mm:ss 'UTC'",System.Globalization.CultureInfo.InvariantCulture)} 手动重试；这是收到最终响应时的建议，不是倒计时。":"")+
             (failed.Text.Length>0?"此失败版本保留部分结果，未完成。":"此失败版本没有可显示正文，未完成。")+
             (overlayResults.SelectedVersionId!=failed.Identity.VersionId?"当前显示旧结果，此原因属于上述失败尝试。":"")+

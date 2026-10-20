@@ -15,7 +15,7 @@ internal sealed partial class ShellWindow
     }
     private Task StartScreenshotCapture(HotkeyInputIdentity? input)
     {
-        if(exiting)return Task.CompletedTask;
+        if(exiting||FileImageBusy)return Task.CompletedTask;
         if(!screenshotHotkeyCleanup.IsCompleted)return screenshotHotkeyCleanup;
         if(screenshotHotkeyCleanup.IsFaulted||screenshotHotkeyCleanup.IsCanceled||screenshotHotkeyTask.IsFaulted||screenshotHotkeyTask.IsCanceled){button.ToolTip="旧截图清理尚未确认；暂不开始新截图。";return Task.CompletedTask;}
         if(!screenshotHotkeyTask.IsCompleted){screenshotHotkeyStop?.Cancel();return screenshotHotkeyTask;}

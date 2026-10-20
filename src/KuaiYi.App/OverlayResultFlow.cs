@@ -49,7 +49,8 @@ internal sealed partial class ShellWindow
     private void CollapseResult(){InvalidateBodyScrollRestore();ClearOriginalSource();pendingFailureReveal=null;peek=false;pendingReveal=false;peekIn.Stop();peekOut.Stop();waiting.Stop();overlayResults.Collapse();overlayFrames?.Collapse();StartFrames();}
     private void StopResult()
     {
-        if(exiting||!lifecycle.Gate.HasRunningGeneration)return;
+        if(exiting)return;
+        CancelFileAcquisition();if(!lifecycle.Gate.HasRunningGeneration)return;
         // Cancellation rejects every late receiver event, so the local command must commit
         // the terminal presentation through the existing coalesced flush, not await Stopped.
         bool imageGeneration=SelectedSource.Generation!=null;if(imageGeneration)imageTranslation?.Stop();lifecycle.Gate.StopGeneration();overlayResults.MarkStopped();pendingReveal=false;

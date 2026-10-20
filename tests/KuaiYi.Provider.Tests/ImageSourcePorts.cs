@@ -15,7 +15,7 @@ namespace KuaiYi.App
             return(intent,cancel,image=>AcceptLocalImage(admission,intent,image));
         }
         internal Guid? SelectedSourceVersionForTest=>SelectedSource.VersionId;
-        internal OwnedSourceImage? SelectedImageForTest=>SelectedSource.Image;
+        internal ImageSourceOwner? SelectedImageForTest=>SelectedSource.Image;
         internal void ClearImagePresentationForTest()=>HidePresentation(clear:true);
         internal Action? OcrCleanupForTest=null;
         partial void OcrSourceChanged(bool clearApproved)=>OcrCleanupForTest?.Invoke();

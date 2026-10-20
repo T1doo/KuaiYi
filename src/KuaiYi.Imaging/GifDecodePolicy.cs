@@ -1,7 +1,6 @@
 using System.Buffers.Binary;
 namespace KuaiYi.Imaging;
 
-public sealed record GifFirstFrameInfo(int SourceFrames,int Left,int Top,int Width,int Height);
 public sealed record GifInspection(ImageSize Size,GifFirstFrameInfo FirstFrame,int FirstImageEnd,int FirstDataOffset,int PaletteEntries);
 /// <summary>Strict GIF product subset. Scan all container structure; never expand later frames.</summary>
 public static class GifDecodePolicy

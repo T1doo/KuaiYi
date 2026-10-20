@@ -129,3 +129,12 @@ Alpha退出合同修复：原24脚本收尾/三层委托红例失败，真实rec
 ## 2026-10-20 · GIF首帧组件与P0本地标注增量
 
 基于完整父SHA `0fafe74760958b78302bbc58ae51dcdfd7d9d55e`，正常分支 `dev/p6-gif-first-frame`；受界GIF首帧、父metadata绑定、实际P0“使用首帧”预览接入，详见[验证记录](validation/gif-first-frame.md)及[证据](test-evidence/2026-10-20-gif-first-frame.json)。Linux x64 / SDK10.0.402 / runtime10.0.13 / 固定SkiaSharp4.153.1，writer实际Codec453P、Provider传输37P、Core相关165P，均0F/0skip；Worker/App交叉构建各0W/E。上述为I08/I09及R11/R18部分工程证据，不将其计为完整I组、P6-02/P6-06、Windows桌面或图像质量通过。Windows原生加载/完整生命周期/可见标注交互、生产打开投放、真实画质和250/600ms仍NotRun。
+
+
+## 2026-10-20 · 生产打开图片来源工程增量
+
+从完整GIF父SHA `0b6d1c835f7f9baed79d7320ac485331fc2bbf88` 在正常 `dev/p6-open-image-source` 接续，唯一writer、最小设计独审后交付正式Shell“打开图片”→原安全本地读取/受界Worker→独立可信文件owner→实际本地预览/可见“使用首帧”→原生产确认与两阶段发送门。文件无截图crop/桌面anchor/proof；Off打开不启用不发送，明确启用调用原Toggle并重查同一owner/version。清除/停止/失效及退出保留原Task/Worker到实际结算，未确认保留owner可重试并阻止新采集。投放及文件OCR后续复用，当前OCR仍只接原截图owner。
+
+最终writer完整Codec470P（新17+原453）、完整Provider2381P（新20+原2361）、Core相关限定165P，各0F/0skip，Worker/App交叉0W/E，五locked audit restore0；依赖/许可/原Codec测试/SPEC原字节不改。旧截图CTS回归1F和新Anthropic夹具位置假设1F已保留修正；旧BMP取消结算未确认1F保留，同构建定向2P与同源码完整470P通过，未证实根因且未改退出门/旧断言。详见[行为与边界](validation/open-image-source.md)/[直接证据](test-evidence/2026-10-20-open-image-source.json)。
+
+Windows实际文件handle/dialog/WPF/Toggle/native/字体质量、250/600ms/600MiB、完整P6-06/P6仍NotRun，不当图像Beta验收；WebP odd拒绝、PackageHold、生产复用Off及全部安全发送清理门保持。无真实模型/私人图/新依赖许可权限费用凭据/CI/用户电脑/发布部署/main修改/强推。

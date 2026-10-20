@@ -16,14 +16,14 @@ internal sealed partial class ShellWindow
         switch(update.Kind)
         {
             case ProductionScreenshotEvent.Begin:
-                translationStatus=null;connectionStatus.Text="正在判断当前截图 · 尚无正文";
+                translationStatus=null;connectionStatus.Text="正在判断当前图片 · 尚无正文";
                 ApplyResult(update.Identity,new(OverlayResultEventKind.Begin),alreadyApplied:true,imageGeneration:true);break;
             case ProductionScreenshotEvent.Prepared:break;
-            case ProductionScreenshotEvent.Classifying:translationStatus="正在判断截图结构 · 分类内容不作为正文";break;
-            case ProductionScreenshotEvent.Generating:translationStatus=update.Snapshot.Plan?.Notice;connectionStatus.Text="正在生成当前截图结果";break;
+            case ProductionScreenshotEvent.Classifying:translationStatus="正在判断图片结构 · 分类内容不作为正文";break;
+            case ProductionScreenshotEvent.Generating:translationStatus=update.Snapshot.Plan?.Notice;connectionStatus.Text="正在生成当前图片结果";break;
             case ProductionScreenshotEvent.Delta:ApplyResult(update.Identity,new(OverlayResultEventKind.Delta,update.Text??throw new System.IO.InvalidDataException("Screenshot delta missing.")),alreadyApplied:true,imageGeneration:true);break;
             case ProductionScreenshotEvent.Usage:break;
-            case ProductionScreenshotEvent.Completed:ApplyResult(update.Identity,new(OverlayResultEventKind.Complete),alreadyApplied:true,imageGeneration:true);translationStatus="截图翻译完成"+(update.Snapshot.Plan?.Notice is {Length:>0} note?" · "+note:"");break;
+            case ProductionScreenshotEvent.Completed:ApplyResult(update.Identity,new(OverlayResultEventKind.Complete),alreadyApplied:true,imageGeneration:true);translationStatus="图片翻译完成"+(update.Snapshot.Plan?.Notice is {Length:>0} note?" · "+note:"");break;
             case ProductionScreenshotEvent.Failed:ApplyResult(update.Identity,new(OverlayResultEventKind.Stopped),alreadyApplied:true,imageGeneration:true);translationStatus=ScreenshotFailureLabel(update.Reason);break;
             default:throw new ArgumentOutOfRangeException(nameof(update));
         }

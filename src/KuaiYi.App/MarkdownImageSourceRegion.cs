@@ -9,7 +9,7 @@ namespace KuaiYi.App;
 /// <summary>Borrowed source; this region owns only its lazy, bounded native preview bitmap.</summary>
 internal sealed class MarkdownImageSourceRegion:IDisposable
 {
-    private OwnedSourceImage? source;
+    private ImageSourceOwner? source;
     private Action? observeReader,changed;
     private Func<bool>? canRead;
     private Action<Exception>? failed;
@@ -20,13 +20,14 @@ internal sealed class MarkdownImageSourceRegion:IDisposable
     private long revealRevision;
     public Expander View {get;}=new(){Header="查看原文图片",IsExpanded=false,ClipToBounds=true};
     public Image Image {get;}=new(){Stretch=Stretch.Uniform,ClipToBounds=true};
-    public MarkdownImageSourceRegion(OwnedSourceImage source,Action? observeReader,Action? changed,Func<bool>? canRead,Func<Func<bool>>? captureReaderGuard=null,Action<Exception>? failed=null)
+    public MarkdownImageSourceRegion(ImageSourceOwner source,Action? observeReader,Action? changed,Func<bool>? canRead,Func<Func<bool>>? captureReaderGuard=null,Action<Exception>? failed=null)
     {
+        View.Header=source.Kind==ImageSourceKind.LocalFile?"查看文件图片"+(source.Notice is {} note?" · "+note:""):"查看原文图片";
         this.source=source;this.observeReader=observeReader;this.changed=changed;this.canRead=canRead;this.captureReaderGuard=captureReaderGuard;this.failed=failed;View.Content=Image;
         System.Windows.Automation.AutomationProperties.SetName(View,"查看所示版本原文图片");System.Windows.Automation.AutomationProperties.SetName(Image,"所示版本原文图片的本地缩略预览");
         View.Expanded+=Expanded;View.Collapsed+=Collapsed;
     }
-    public bool Matches(OwnedSourceImage value)=>ReferenceEquals(source,value);
+    public bool Matches(ImageSourceOwner value)=>ReferenceEquals(source,value);
     public void Constrain(double width,double height,double size,Brush foreground)
     {View.Width=View.MaxWidth=width;Image.Width=Image.MaxWidth=width;Image.Height=Image.MaxHeight=Math.Min(180,Math.Max(1,height/2));View.FontSize=size;View.Foreground=foreground;}
     public void SetExpanded(bool expanded,bool materialize=true)

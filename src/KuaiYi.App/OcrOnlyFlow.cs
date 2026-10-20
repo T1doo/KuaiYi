@@ -25,7 +25,7 @@ internal sealed partial class ShellWindow
     }
     private async Task TranslateImageText()
     {
-        if(exiting||ocrFlowBusy||ocrOnly is not {} ocr||translation is not {} textFlow||SelectedSource.Image is not {} image||retainedImage?.VersionId is not {} version)return;
+        if(exiting||ocrFlowBusy||ocrOnly is not {} ocr||translation is not {} textFlow||SelectedSource.Image is not OwnedSourceImage image||retainedImage?.VersionId is not {} version)return;
         if(lifecycle.Gate.Snapshot.Activation!=Activation.On){button.ToolTip="启用后可提取图片文字；没有发送。";return;}
         bool InputCurrent()=>!exiting&&ReferenceEquals(SelectedSource.Image,image)&&retainedImage is {} current&&current.VersionId==version&&ReferenceEquals(current.Image,image)&&!image.IsDisposed&&
             lifecycle.Gate.Snapshot.Activation==Activation.On&&lifecycle.Gate.Snapshot.Suspension==Suspension.None&&lifecycle.Gate.Snapshot.Presentation!=Presentation.Hidden;
