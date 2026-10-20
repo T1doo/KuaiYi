@@ -47,25 +47,27 @@ public sealed class OwnedSourceImage:IDisposable
         try{using var prepared=PrepareRequestCore(byteLimit,false,cancellation);return prepared.TakePng();}
         catch(ScreenshotNormalizationException){throw new InvalidOperationException("SMALLER_SCREENSHOT_REQUIRED");}
     }
-    /// <summary>Final crop only. Native-size white composition; only provably constant visible images may shrink.
+    /// <summary>Final crop only. Native-size white composition; general area downscale over the entire crop.
     /// Caller owns the prepared PNG/mapping. No preview reuse, file decoding, lossy quality loop or crop omission.</summary>
     public PreparedScreenshot PrepareRequest(int byteLimit,CancellationToken cancellation=default)=>PrepareRequestCore(byteLimit,true,cancellation);
-    private PreparedScreenshot PrepareRequestCore(int byteLimit,bool allowConstantDownscale,CancellationToken cancellation)
+    internal PreparedScreenshot PrepareRequestForTest(int byteLimit,CancellationToken cancellation,Action<byte[]> allocated)=>PrepareRequestCore(byteLimit,true,cancellation,allocated);
+    private PreparedScreenshot PrepareRequestCore(int byteLimit,bool allowDownscale,CancellationToken cancellation,Action<byte[]>? allocated=null)
     {
         if(byteLimit is <65536 or >4194304)throw new ArgumentOutOfRangeException(nameof(byteLimit));ScreenshotPixels copy;
         lock(sync)
         {
             if(pixels==null)throw new ObjectDisposedException(nameof(OwnedSourceImage));cancellation.ThrowIfCancellationRequested();
-            if(!allowConstantDownscale&&(Width>ImageTransform.LongEdgeLimit||Height>ImageTransform.LongEdgeLimit))throw new ScreenshotNormalizationException();
+            if(!allowDownscale&&(Width>ImageTransform.LongEdgeLimit||Height>ImageTransform.LongEdgeLimit))throw new ScreenshotNormalizationException();
             byte[]? raw=new byte[checked(Width*Height*4)];
             try
             {
+                allocated?.Invoke(raw);
                 for(int y=0;y<Height;y++){cancellation.ThrowIfCancellationRequested();pixels.Bytes.Span.Slice(y*Width*4,Width*4).CopyTo(raw.AsSpan(y*Width*4,Width*4));}
                 cancellation.ThrowIfCancellationRequested();copy=new(pixels.Bounds,raw);raw=null;
             }
             finally{if(raw!=null)CryptographicOperations.ZeroMemory(raw);}
         }
         // The original lock is released before scanning/compositing/encoding: Clear can release its owner.
-        using(copy)return ScreenshotNormalizer.Prepare(copy,SourceId,byteLimit,allowConstantDownscale,cancellation);
+        using(copy)return ScreenshotNormalizer.Prepare(copy,SourceId,byteLimit,allowDownscale,cancellation,allocated);
     }
 }

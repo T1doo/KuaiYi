@@ -1258,3 +1258,12 @@ P7源码子项InProgress，完整P7/R13/真实浏览器与Windows仍NotRun；CI3
 独审发现共享编码器派生MemoryStream base span写入经ArrayPool副本，当前批准runtime公开IL及自有known-slice探针确认后改直接受界自有buffer写入；P2闭合。官方固定runtime源码URL一次404/ref不存在，未获得源码、未重试或换路；探针首解析器错误及一次修正回执保全。首编译0执行、首23P3F（两输入chunk超限/一异常后分配数假设）保留，产品256chunk限及全部清零断言保持；受影响11P后最终codec129P=新26+旧103。原Core限定74P/Provider限定154P，Worker/App交叉Release0W/E，五locked audit restore0；锁/旧测试/SPEC/许可字节不改，App/Imaging无Skia。最终源码及回执独立只读审查收口，测试writer执行。
 
 详见[组件与实际验证边界](validation/bounded-png-request.md)/[原件索引](test-evidence/2026-10-20-bounded-png-request.json)。下一核心缺项为生产截图一般缩小和4MiB结果的显式桌面锚点/坐标适配接入及可读性拒绝；当前截图仍原常量图缩小限制。PNG eXIf/全格式/打开投放UI、Windows实机及全P6仍未完成。250600/来源密码完整性取消清理隔离资源门、PackageHold/生产复用Off保持，无模型/新依赖/费用/权限/CI/发布/用户电脑操作；main未改，旧被拒CI日志未请求或绕路。
+
+
+## 2026-10-20 · P6-02生产截图一般面积缩小和物理坐标适配
+
+从clean/独审/远端一致866c86a75beee13044b56fcd7377a822d7d1735e核单worktree/唯一writer/main，正常dev/p6-screenshot-area-routing接原SPEC7.3/P6-02。最小设计独审后抽取原Worker整数area+白底内核共享给可信截图BGRA，生产PrepareRequest一般非恒定图可缩到默认2560；保留native-size/精确constant fastpath和旧原尺寸CreateRequestPng拒超长边。新AreaWhiteCompositeDownscale仅是处理proof，不当可读性证明。原物理crop/负原点/实际舍入轴映射保留，Prepared owner绑定source/anchor/方向/PNG尺寸/proof；单次PNG精确4MiB或更严APIcap，不改尺寸/质量重试。原Worker实际退出及两个Coordinator来源/权限确认/绑定/预算/secret/逐次发送/取消晚返清理/复用Off不改。
+
+原实现同一非恒定截图方法实际1F，最终通过；完整瓦片RGB、纵横非整数末边和6个单级差异用独立预期/decimal面积量化核，允许合法舍入归零。copy/目的/row/编码真实数组成功/取消/异常/严格超限清零，锁外copy可独立于原sourceDispose。最终Provider相关372P、原Codec129P且旧129源字节不改；Worker/App交叉Release0W/E、4locked audit restore0。首CS1503为测试编译0执行；351P3F是2条新测试取错保留旧选择和1条遗漏旧拒绝预期，修正测试后同3条3P，不冒称三个生产缺陷，原件保全。最终源码和回执独立只读审查无剩余P1/P2，测试writer执行。
+
+两协议实际本地fixture证明一般截图同PNG两阶段和物理map；Unreadable只分类一次/一次secret，拒正式生成/第二secret且保留旧complete结果。此为已有可读性门对新路由的集成验证，**不是本地字号检测或真实画质验收**；本地OCR字号/冻结样本质量、PNG eXIf/全格式/打开投放UI及Windows真实截图/native/Worker/OCR/WPF仍缺，下一独立核心项为PNG eXIf。详见[接入范围和实际验证](validation/screenshot-area-routing.md)/[证据索引](test-evidence/2026-10-20-screenshot-area-routing.json)。69项基线保护/原SPEC/锁/许可及App/Imaging无Skia核对通过；250600/资源/全部安全门、PackageHold/生产复用Off保持，无真实截图/私人文件/模型/CI/费用/新凭据安全权限/发布/用户电脑操作，main未改、旧被拒日志未请求或绕路。

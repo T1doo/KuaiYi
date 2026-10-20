@@ -49,7 +49,7 @@ public sealed class ScreenshotNormalizationTests
     public void MappingRejectsInvalidOcrRectanglesWithoutInventingARegion(double x,double y,double width,double height)
     {var map=ImageTransform.Plan(new(-10,-20,90,30));Assert.Throws<ArgumentOutOfRangeException>(()=>map.NormalizedToOriginal(new NormalizedImageRectangle(x,y,width,height)));}
     [Theory][InlineData(4096,16)][InlineData(16,4096)][InlineData(3001,17)]
-    public void OnlyExactVisibleConstantImagesCanShrinkAndOwnedPngCarriesSourceAndTransform(int width,int height)
+    public void ExactVisibleConstantImagesKeepTheirFastPathAndOwnedPngCarriesSourceAndTransform(int width,int height)
     {
         byte[] raw=Solid(width,height,0,0,0,128);var bounds=new PixelRect(-701,-31,width-701,height-31);var source=new OwnedSourceImage(new(bounds,raw));var prepared=source.PrepareRequest(4194304);var held=prepared.Bytes;var map=prepared.Transform;
         Assert.Equal(source.SourceId,prepared.SourceId);Assert.True(map.Downscaled);Assert.Equal(bounds,map.OriginalCrop);Assert.Equal(map.NormalizedSize,ImagePolicy.InspectPng(held.Span));Assert.Equal(ScreenshotNormalizationProof.ConstantCompositeDownscale,prepared.Proof);Assert.InRange(held.Length,1,4194304);var rgb=DecodeRgb(held);int stride=(int)map.NormalizedSize.Width*3+1;
@@ -61,9 +61,18 @@ public sealed class ScreenshotNormalizationTests
         for(int y=0;y<prepared.Transform.NormalizedSize.Height;y++)Assert.All(rgb.AsSpan(y*stride+1,stride-1).ToArray(),b=>Assert.Equal(255,b));Assert.Equal(ScreenshotNormalizationProof.ConstantCompositeDownscale,prepared.Proof);
     }
     [Theory][InlineData(0,0)][InlineData(11999,0)][InlineData(23999,0)][InlineData(12000,1)][InlineData(12000,2)][InlineData(12000,3)]
-    public void AOneUnitVisibleDifferenceAnywhereRequiresACropInsteadOfSamplingOrShrinking(int pixel,int channel)
+    public void OneUnitDifferencesUseIndependentAreaQuantizationInsteadOfBeingMislabelledConstant(int pixel,int channel)
     {
-        byte[] raw=Solid(3000,8,0,0,0,255);raw[pixel*4+channel]=channel==3?(byte)254:(byte)1;var original=raw.ToArray();using var source=new OwnedSourceImage(new(new(0,0,3000,8),raw));var error=Assert.Throws<ScreenshotNormalizationException>(()=>source.PrepareRequest(4194304));Assert.Equal("SMALLER_SCREENSHOT_REQUIRED",error.Message);Assert.Equal(original,raw);Assert.False(source.IsDisposed);
+        byte[] raw=Solid(3000,8,0,0,0,255);raw[pixel*4+channel]=channel==3?(byte)254:(byte)1;var original=raw.ToArray();using var source=new OwnedSourceImage(new(new(0,0,3000,8),raw));using var prepared=source.PrepareRequest(4194304);Assert.Equal(ScreenshotNormalizationProof.AreaWhiteCompositeDownscale,prepared.Proof);var rows=DecodeRgb(prepared.Bytes);int sx=pixel%3000,sy=pixel/3000;
+        // Independent decimal source-coordinate footprint of one changed source pixel, not production integer weights.
+        decimal Overlap(decimal a,decimal b,int at)=>Math.Max(0,Math.Min(b,at+1)-Math.Max(a,at));
+        for(int y=0;y<7;y++)for(int x=0;x<2560;x++)
+        {
+            decimal weight=Overlap((decimal)x*3000/2560,(decimal)(x+1)*3000/2560,sx)*Overlap((decimal)y*8/7,(decimal)(y+1)*8/7,sy)/((decimal)3000/2560*8/7);
+            byte expected=(byte)decimal.Round(weight,0,MidpointRounding.AwayFromZero);
+            for(int rgb=0;rgb<3;rgb++)Assert.Equal(channel==3||rgb==2-channel?expected:(byte)0,rows[y*(2560*3+1)+1+x*3+rgb]);
+        }
+        Assert.Equal(original,raw);Assert.False(source.IsDisposed);
     }
     [Fact]public void ActualNormalizedRasterIsOpaqueAndZeroedIndependentlyFromTheInput()
     {

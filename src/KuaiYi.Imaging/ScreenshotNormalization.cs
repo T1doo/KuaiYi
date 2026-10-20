@@ -10,7 +10,7 @@ public readonly record struct DesktopImagePoint(double X,double Y);
 public readonly record struct DesktopImageRectangle(double X,double Y,double Width,double Height);
 public readonly record struct UnitImageRectangle(double X,double Y,double Width,double Height);
 public enum ImageOrientation { ScreenshotIdentity=0, ExifTopLeft=1, ExifTopRight=2, ExifBottomRight=3, ExifBottomLeft=4, ExifLeftTop=5, ExifRightTop=6, ExifRightBottom=7, ExifLeftBottom=8 }
-public enum ScreenshotNormalizationProof { NativeSizeWhiteComposite, ConstantCompositeDownscale }
+public enum ScreenshotNormalizationProof { NativeSizeWhiteComposite, ConstantCompositeDownscale, AreaWhiteCompositeDownscale }
 public sealed class ScreenshotNormalizationException():Exception("SMALLER_SCREENSHOT_REQUIRED") {}
 
 /// <summary>Separate spaces for continuous pixel edges, not centers or DIP. Original is crop-local;
@@ -147,7 +147,14 @@ public sealed class PreparedScreenshot:IDisposable
     public ScreenshotNormalizationProof Proof {get;}
     public ReadOnlyMemory<byte> Bytes=>(png??throw new ObjectDisposedException(nameof(PreparedScreenshot))).Bytes;
     internal PreparedScreenshot(Guid sourceId,ScreenshotPng owned,ImageTransform transform,ScreenshotNormalizationProof proof)
-    {SourceId=sourceId;png=owned;Transform=transform;Proof=proof;}
+    {
+        try
+        {
+            if(sourceId==Guid.Empty||!transform.HasDesktopAnchor||transform.Orientation!=ImageOrientation.ScreenshotIdentity||ImagePolicy.InspectPng(owned.Bytes.Span)!=transform.NormalizedSize||!Enum.IsDefined(proof)||transform.Downscaled==(proof==ScreenshotNormalizationProof.NativeSizeWhiteComposite))throw new InvalidDataException("Screenshot PNG mapping/proof mismatch.");
+            SourceId=sourceId;png=owned;Transform=transform;Proof=proof;
+        }
+        catch{owned.Dispose();throw;}
+    }
     internal ScreenshotPng TakePng()=>Interlocked.Exchange(ref png,null)??throw new ObjectDisposedException(nameof(PreparedScreenshot));
     public void Dispose()=>Interlocked.Exchange(ref png,null)?.Dispose();
 }
@@ -161,34 +168,43 @@ internal sealed class NormalizedScreenshotPixels(ScreenshotPixels owned,ImageTra
 }
 internal static class ScreenshotNormalizer
 {
-    public static PreparedScreenshot Prepare(ScreenshotPixels copy,Guid sourceId,int byteLimit,bool allowConstantDownscale,CancellationToken cancellation)
+    public static PreparedScreenshot Prepare(ScreenshotPixels copy,Guid sourceId,int byteLimit,bool allowDownscale,CancellationToken cancellation,Action<byte[]>? allocated=null)
     {
-        using var raster=Normalize(copy,allowConstantDownscale,cancellation);ScreenshotPng? png=null;
+        using var raster=Normalize(copy,allowDownscale,cancellation,allocated);ScreenshotPng? png=null;
         try
         {
-            png=ScreenshotPngEncoder.Encode(raster.Pixels,cancellation,byteLimit);cancellation.ThrowIfCancellationRequested();
-            var result=new PreparedScreenshot(sourceId,png,raster.Transform,raster.Proof);png=null;return result;
+            png=ScreenshotPngEncoder.EncodeBgra(raster.Pixels.Bytes,(int)raster.Transform.NormalizedSize.Width,(int)raster.Transform.NormalizedSize.Height,cancellation,byteLimit,allocated);cancellation.ThrowIfCancellationRequested();
+            var result=new PreparedScreenshot(sourceId,png,raster.Transform,raster.Proof);png=null;try{cancellation.ThrowIfCancellationRequested();return result;}catch{result.Dispose();throw;}
         }
         catch(ScreenshotException error)when(error.Code==ScreenshotFailure.RegionTooLarge)
         {cancellation.ThrowIfCancellationRequested();throw new ScreenshotNormalizationException();}
         finally{png?.Dispose();}
     }
-    public static NormalizedScreenshotPixels Normalize(ScreenshotPixels input,bool allowConstantDownscale,CancellationToken cancellation)
+    public static NormalizedScreenshotPixels Normalize(ScreenshotPixels input,bool allowDownscale,CancellationToken cancellation,Action<byte[]>? allocated=null)
     {
         cancellation.ThrowIfCancellationRequested();var transform=ImageTransform.Plan(input.Bounds);
-        if(transform.Downscaled&&!allowConstantDownscale)throw new ScreenshotNormalizationException();
+        if(transform.Downscaled&&!allowDownscale)throw new ScreenshotNormalizationException();
         var source=input.Bytes.Span;byte blue=Composite(source[0],source[3]),green=Composite(source[1],source[3]),red=Composite(source[2],source[3]);
-        // Exact full scan after compositing. No tolerance, sample, OCR guess or loss of visible structure.
+        // A constant proof requires a full exact scan after white composition; any difference takes the general area path.
+        bool constant=true;
         if(transform.Downscaled)
-            for(int y=0;y<input.Bounds.Height;y++)
+            for(int y=0;y<input.Bounds.Height&&constant;y++)
             {
                 cancellation.ThrowIfCancellationRequested();int end=(y+1)*input.Bounds.Width*4;
                 for(int i=y*input.Bounds.Width*4;i<end;i+=4)
-                    if(Composite(source[i],source[i+3])!=blue||Composite(source[i+1],source[i+3])!=green||Composite(source[i+2],source[i+3])!=red)throw new ScreenshotNormalizationException();
+                    if(Composite(source[i],source[i+3])!=blue||Composite(source[i+1],source[i+3])!=green||Composite(source[i+2],source[i+3])!=red){constant=false;break;}
             }
-        int width=(int)transform.NormalizedSize.Width,height=(int)transform.NormalizedSize.Height;byte[]? output=new byte[checked(width*height*4)];
+        int width=(int)transform.NormalizedSize.Width,height=(int)transform.NormalizedSize.Height;
+        if(transform.Downscaled&&!constant)
+        {
+            byte[] owned=AreaWhiteRaster.Prepare(input.Bytes,transform,cancellation,allocated);
+            try{return new(new(new(0,0,width,height),owned),transform,ScreenshotNormalizationProof.AreaWhiteCompositeDownscale);}
+            catch{CryptographicOperations.ZeroMemory(owned);throw;}
+        }
+        byte[]? output=new byte[checked(width*height*4)];
         try
         {
+            allocated?.Invoke(output);
             for(int y=0;y<height;y++)
             {
                 cancellation.ThrowIfCancellationRequested();

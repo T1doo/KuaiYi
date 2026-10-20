@@ -11,7 +11,7 @@ using Protocol=KuaiYi.Providers.ApiProtocol;
 using Lease=KuaiYi.Providers.SecretLease;
 namespace KuaiYi.Provider.Tests;
 
-public sealed class ProductionScreenshotTranslationTests
+public sealed partial class ProductionScreenshotTranslationTests
 {
     private sealed class Immediate:SynchronizationContext{public override void Post(SendOrPostCallback action,object? state)=>action(state);}
     private sealed class Deferred:SynchronizationContext
@@ -113,8 +113,8 @@ public sealed class ProductionScreenshotTranslationTests
     }
     [Fact]public async Task QueuedPreparedNotificationAfterClearCannotRestoreMetadataOrSend()
     {var queue=new Deferred();await using var r=await Rig.Create(destination:queue);Assert.True(r.Flow.Submit(r.Offer(),true));using var timeout=new CancellationTokenSource(TimeSpan.FromSeconds(6));while(queue.Pending==0)await Task.Delay(5,timeout.Token);var running=r.Flow.Running;r.Flow.Clear();await running.WaitAsync(TimeSpan.FromSeconds(2));Assert.Null(r.Flow.SelectedSnapshot);Assert.DoesNotContain(r.Updates,u=>u.Kind!=ProductionScreenshotEvent.Begin);Assert.Equal(0,r.Script.Requests);Assert.False(r.Image.IsDisposed);}
-    [Fact]public async Task OversizeNonconstantScreenshotFailsBeforeSecretOrHttpWithoutDisposingBorrowedCrop()
-    {await using var r=await Rig.Create(auth:true);r.ReplaceImage(3001,8);Assert.True(r.Flow.Submit(r.Offer(),true));await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal(0,r.Script.Requests);Assert.Equal(0,r.SecretReads);Assert.Contains(r.Updates,u=>u.Reason=="SMALLER_SCREENSHOT_REQUIRED");Assert.False(r.Image.IsDisposed);}
+    [Fact]public async Task EncodedFourMiBCapFailsBeforeSecretOrHttpWithoutDisposingBorrowedCrop()
+    {await using var r=await Rig.Create(auth:true);r.ReplaceImage(1280,1280);new Random(412936).NextBytes(r.Raw);for(int i=3;i<r.Raw.Length;i+=4)r.Raw[i]=255;Assert.True(r.Flow.Submit(r.Offer(),true));await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal(0,r.Script.Requests);Assert.Equal(0,r.SecretReads);Assert.Contains(r.Updates,u=>u.Reason=="SMALLER_SCREENSHOT_REQUIRED");Assert.False(r.Image.IsDisposed);}
     [Fact]public async Task ClearFencesAReplacementAdmissionInsideTheOriginalCancellationCallback()
     {
         await using var r=await Rig.Create();Assert.True(r.Flow.Submit(r.Offer(),true));await r.Requests(1);

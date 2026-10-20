@@ -1,0 +1,9 @@
+2026-10-20 /root/settings_import_review — independent read-only review, delivered messages preserved by writer.
+Design:
+设计可准入本切片。可信owned截图BGRA直接共享既有area/white内核，比encode→Worker→decode更小；保持原Screenshot Plan物理crop/负原点与实际舍入轴比例，Worker只保元数据/哈希包装，二者同kernel、各自来源/ownership门不混同。保留现有native-size输出和已证明constant fastpath及ConstantCompositeDownscale含义；仅非constant缩小走共享kernel并记新AreaWhiteCompositeDownscale。CreateRequestPng/allowDownscale=false仍拒所有超长边，PrepareRequest才放一般area。可读性范围必须写缩小结果若分类Unreadable则CLEARER_IMAGE_REQUIRED并不生成，不是本地字号预检或真实可读性保证。
+Source/tests:
+实际源码/测试只读独审未发现可确认P1/P2。共享AreaWhiteRaster的算法、64bit权重、方向逆索引及CT/失败dest清零保持上一版；截图Plan保负物理crop且normalizer仅非constant缩小走Area proof，native/已证constant路径/legacy raw导出未放宽。PreparedScreenshot新增sourceId/anchor/orientation/尺寸/proof一致性门并在失败DisposePNG；OwnedSourceImage观察口为每调用内部参数。旧6项改decimal source-footprint全像素精确量化，可接受；原错误拒一般图的调用场景改高熵源保4MiB/0secret/0HTTP/原图不变断言合理。
+Final receipts/documents:
+最终文档/源码/回执只读核通过，可封存，无剩余可确认P1/P2。11源+6产物hash全部匹配；8条命令含4restore/372Provider/129Codec/2build全部exit0，build各0W/E，本地Markdown链接存在，diff--check0。validation/进度/index明确Unreadable为已有分类门（分类本身已发送1次/1secret，不是字号预检），3F→3P是测试预期修正，只有原866新方法1F→Pass是功能差异对照；量化可归零/旧proof及legacy raw保持/无真实质量或Windows通过均准确。下一PNG eXIf作为待设计独审的独立候选表述合理，不等于该项已完成。index所列review txt和originals ZIP此刻尚未创建（已知你即将封存），生成后需核哈希/CRC再提交；当前结论覆盖已落地源码和回执，不虚称已审不存在的archive。本人未网络/构建/测试/写入。
+Writer closure:
+Review text and archive created after that review. Archive CRC and each member SHA256 verified by writer; all referenced local files exist. No product/test source changes after final reviewed manifest.
