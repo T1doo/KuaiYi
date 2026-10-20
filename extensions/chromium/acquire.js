@@ -1,6 +1,6 @@
 import { IMAGE, pngSize } from "./protocol.js";
 export function imageContext(info, tab) {
-  if (info.menuItemId !== "kuaiyi-image" || info.mediaType !== "image" || !Number.isInteger(tab?.id) || !tab.active || (info.frameId ?? 0) !== 0) throw new Error("当前 frame 无法安全定位图片，请使用快译区域截图");
+  if (info.menuItemId !== "kuaiyi-image" || info.mediaType !== "image" || !Number.isInteger(tab?.id) || tab.id < 0 || !Number.isInteger(tab.windowId) || tab.windowId < 0 || !tab.active || (info.frameId ?? 0) !== 0) throw new Error("当前 frame 无法安全定位图片，请使用快译区域截图");
   const page = new URL(tab.url), clicked = new URL(info.pageUrl), image = new URL(info.srcUrl);
   if (page.protocol !== "https:" || page.href !== clicked.href || page.username || page.password || !["https:", "blob:", "data:"].includes(image.protocol) || image.username || image.password) throw new Error("页面或图片来源受限，请使用快译区域截图");
   return { tabId: tab.id, windowId: tab.windowId, pageUrl: page.href, imageUrl: image.href, origin: page.origin };

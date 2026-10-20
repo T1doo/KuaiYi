@@ -31,7 +31,8 @@ async function actualWorker(h, scenario) {
     runtime: { onInstalled: event(), connectNative: () => h.port, openOptionsPage: async () => {} },
     contextMenus: { onClicked: { addListener(fn) { clicked = fn; } }, create() {} },
     action: { onClicked: { addListener(fn) { cancel = fn; } }, setBadgeText: async () => {}, setTitle: async arg => { title = arg.title; } },
-    tabs: { onRemoved: event(), onActivated: event(), onUpdated: event(), get: async () => tab }
+    windows: { onFocusChanged: event(), onRemoved: event(), getLastFocused: async () => ({ id: tab.windowId, focused: false }) },
+    tabs: { onDetached: event(), onAttached: event(), onRemoved: event(), onActivated: event(), onUpdated: event(), get: async () => tab }
   };
   globalThis.fetch = async (url, opts) => { acquireCount++; assert.equal(url, info.srcUrl); assert.equal(opts.credentials, "omit"); assert.equal(opts.redirect, "error"); return new Response(png, { headers: { "content-type": "image/png" } }); };
   Object.defineProperty(globalThis, "chrome", { value: api, configurable: true });

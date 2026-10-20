@@ -1,0 +1,10 @@
+Read-only independent review: /root/source_window_review, 2026-10-20.
+Design and final production diff reviewed. No remaining P1/P2 found.
+Verified sourceCurrent rechecks abort/current after both asynchronous queries,
+fixed tab/window identity, single-direction invalidation, unchanged original budgets,
+and WINDOW_ID_NONE compatibility with the native desktop confirmation.
+Independently executed source-window.test.mjs: 16P0F0cancel0skip.
+Verified baseline-exact.tap 1P15F and focused.tap16P; git diff --check passed.
+Prior tests only add the newly used Chrome API fixtures; assertions unchanged.
+Real ReadableStream is used; Chrome events/window metadata/native Port are synthetic.
+Real Chrome/Edge/Windows focus order remains NotRun; this is not atomic source authentication.

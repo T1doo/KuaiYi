@@ -1,0 +1,306 @@
+✖ source context rejects unavailable or synthetic tab/window identifiers (2.051567ms)
+✖ source snapshot before image read rejects different-window (77.14788ms)
+✖ source snapshot before image read rejects moved-tab (4.331742ms)
+✖ source snapshot before image read rejects wrong-tab (7.58243ms)
+✖ source snapshot before image read rejects inactive (4.713396ms)
+✖ source snapshot before image read rejects navigated (1.661159ms)
+✖ source snapshot before image read rejects tab-query-failed (1.587882ms)
+✖ source snapshot before image read rejects window-query-failed (5.489678ms)
+✖ source snapshot after reading refuses a different last browser window even without a focus event (3.826483ms)
+✖ source focus cancels a real pending stream and clears owned chunks (5.478663ms)
+✖ source detached cancels a real pending stream and clears owned chunks (2.485181ms)
+✖ source attached cancels a real pending stream and clears owned chunks (2.267639ms)
+✖ source windowRemoved cancels a real pending stream and clears owned chunks (3.899518ms)
+✖ different-window focus during Chunk acknowledgement cancels without Commit (3.551386ms)
+✖ focus change during source query cannot be undone by a stale successful result (2000.787543ms)
+✖ desktop focus loss and same browser window retain explicit confirmation and intact bytes (3.657338ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 0
+ℹ fail 15
+ℹ cancelled 1
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2220.047743
+
+✖ failing tests:
+
+test at tests/browser/source-window.test.mjs:49:1
+✖ source context rejects unavailable or synthetic tab/window identifiers (2.051567ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception: id=-1
+      at TestContext.<anonymous> (file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:51:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at tests/browser/source-window.test.mjs:54:3
+✖ source snapshot before image read rejects different-window (77.14788ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:62:29
+      at async worker (file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:42:95)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/browser/source-window.test.mjs:54:3
+✖ source snapshot before image read rejects moved-tab (4.331742ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:62:29
+      at async worker (file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:42:95)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/browser/source-window.test.mjs:54:3
+✖ source snapshot before image read rejects wrong-tab (7.58243ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:62:29
+      at async worker (file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:42:95)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/browser/source-window.test.mjs:54:3
+✖ source snapshot before image read rejects inactive (4.713396ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:62:29
+      at async worker (file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:42:95)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/browser/source-window.test.mjs:54:3
+✖ source snapshot before image read rejects navigated (1.661159ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:62:29
+      at async worker (file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:42:95)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/browser/source-window.test.mjs:54:3
+✖ source snapshot before image read rejects tab-query-failed (1.587882ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:62:29
+      at async worker (file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:42:95)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/browser/source-window.test.mjs:54:3
+✖ source snapshot before image read rejects window-query-failed (5.489678ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:62:29
+      at async worker (file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:42:95)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/browser/source-window.test.mjs:65:1
+✖ source snapshot after reading refuses a different last browser window even without a focus event (3.826483ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      'OfferImage',
+  +   'BeginImage',
+  +   'Chunk',
+  +   'CommitImage'
+  -   'CancelImage'
+    ]
+  
+      at noTransfer (file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:46:10)
+      at file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:67:48
+      at async worker (file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:42:95)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'OfferImage', 'BeginImage', 'Chunk', 'CommitImage' ],
+    expected: [ 'OfferImage', 'CancelImage' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/browser/source-window.test.mjs:70:3
+✖ source focus cancels a real pending stream and clears owned chunks (5.478663ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:83:14
+      at async worker (file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:42:95)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/browser/source-window.test.mjs:70:3
+✖ source detached cancels a real pending stream and clears owned chunks (2.485181ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:83:14
+      at async worker (file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:42:95)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/browser/source-window.test.mjs:70:3
+✖ source attached cancels a real pending stream and clears owned chunks (2.267639ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:83:14
+      at async worker (file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:42:95)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/browser/source-window.test.mjs:70:3
+✖ source windowRemoved cancels a real pending stream and clears owned chunks (3.899518ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:83:14
+      at async worker (file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:42:95)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/browser/source-window.test.mjs:87:1
+✖ different-window focus during Chunk acknowledgement cancels without Commit (3.551386ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:94:10
+      at async worker (file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:42:95)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/browser/source-window.test.mjs:96:1
+✖ focus change during source query cannot be undone by a stale successful result (2000.787543ms)
+  'test timed out after 2000ms'
+
+test at tests/browser/source-window.test.mjs:104:1
+✖ desktop focus loss and same browser window retain explicit confirmation and intact bytes (3.657338ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 2
+  
+      at file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:120:38
+      at async worker (file:///workspace/KuaiYi/tests/browser/source-window.test.mjs:42:95)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

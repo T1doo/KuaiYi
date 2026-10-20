@@ -1197,3 +1197,11 @@ P7源码子项InProgress，完整P7/R13/真实浏览器与Windows仍NotRun；CI3
 只跑上轮ENOENT的同名11项，实际Exit0/11P0F0skip0cancel（8.109秒）；137输入等647/16宿主输出SHA/4依赖DLL与实际项目输出相同，5assets纯Project/audit属性和原件核实。生产BrowserSession/DesktopPipeChannel/真实stdio+localpipe，10例经DesktopReceiverSession/Inbox/Gate；ChromePort/peer/decision及9例clock合成，6秒等待实elapsed。此前64P/11F保持，不重复扩大纯Node数字或声称单次完整75全绿。只读独核通过；见[实际范围](validation/browser-host-integration.md)/[证据索引](test-evidence/2026-10-20-browser-host-integration.json)。
 
 原WindowsCI39347646426第3步首因Unknown，拒绝读取不重试/换路；无新CI/模型/费用/发布/用户电脑。真实Chrome/Edge/Windows/P6P7、签名安装及250600实际平台验收仍另列NotRun/PackageHold，来源/密码/完整性/取消清理及生产图片复用Off保持。
+
+## 2026-10-20 · 浏览器图片操作的原窗口绑定
+
+新环境实际fetch核到远端c7b3396e80871b64266dace0b44d1904d17b2583，初始文档HEAD及64745d23清理修复均为祖先，工作区干净；唯一新writer在dev/browser-source-window推进原SPEC P7-02/P7-03、R13/R16、K05/K06来源子项。旧active/url检查无法阻止切到另一浏览器窗口后继续读图/提交，移窗也未撤销。最小设计独审后，Ready后读图前及读图后传输前固定原tab/window/page并在每个await后复核取消/current；其他浏览器窗焦点、原tab移窗或原window关闭永久取消，已有PNG即刻清零。NONE允许真实桌面确认取得焦点，不要求浏览器focused；无新权限、预算续期或截图降级放宽。
+
+最终同字节基线1P15F，修后16P且源码独审独立16P、无剩余P1/P2。完整浏览器91P0F0cancel0skip（8.390秒），包含原75与新16、原11项真实stdio/localpipe宿主集成；原断言保留，仅补窗口API端口。新测试使用生产Worker/真实Streams，窗口事件和Port明确合成，不冒充真实浏览器。初轮基线夹具一次2s超时与中间16F保全，最终同字节另存。五项目以同一已批准归档hash/license的隔离SDK402 locked restore＋Release构建0W/E；原401未执行，HOME/权限/SDKlauncher/锁/C#/workflow/manifest权限不改，未重跑整套.NET。
+
+141输入/16宿主输出绑定及日志见[报告](validation/browser-source-window.md)/[证据](test-evidence/2026-10-20-browser-source-window.json)。P7/R13源码InProgress，106整体NotRun/PackageHold；真实Chrome/Edge须安装回执、精确extensionID注册和同用户同session Windows生产receiver及实际焦点/移窗交互。250/600ms、来源/密码/完整性/取消/清理/隔离门保持。旧CI39347646426 step3首因Unknown，被拒日志未读取/绕路，无新CI/模型/费用/发布/用户电脑操作；未启动当前sandbox属主不合要求的Chromium或改变安全设置。

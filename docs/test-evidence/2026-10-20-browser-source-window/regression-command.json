@@ -1,0 +1,15 @@
+{
+  "utc": "2026-10-20T06:15:20.633460+00:00",
+  "command": [
+    "node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-reporter=tap",
+    "tests/browser/protocol.test.mjs",
+    "tests/browser/confirmation.test.mjs",
+    "tests/browser/acquisition.test.mjs",
+    "tests/browser/source-window.test.mjs"
+  ],
+  "DOTNET_HOST_PATH": "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+  "exit": 0
+}

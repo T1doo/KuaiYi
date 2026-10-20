@@ -124,7 +124,8 @@ test("actual service worker navigation cancels the image stream before any trans
     runtime: { onInstalled: event(), connectNative: () => port },
     contextMenus: { onClicked: { addListener(fn) { clicked = fn; } } },
     action: { onClicked: event(), setBadgeText: async () => {}, setTitle: async () => {} },
-    tabs: { onRemoved: event(), onActivated: event(), onUpdated: { addListener(fn) { updated = fn; } }, get: async () => tab }
+    windows: { onFocusChanged: event(), onRemoved: event(), getLastFocused: async () => ({ id: tab.windowId, focused: false }) },
+    tabs: { onDetached: event(), onAttached: event(), onRemoved: event(), onActivated: event(), onUpdated: { addListener(fn) { updated = fn; } }, get: async () => tab }
   };
   let controller;
   const body = new ReadableStream({ start(c) { controller = c; }, pull() { reading.resolve(); }, cancel() { cancelled++; } }, { highWaterMark: 0 });

@@ -1,0 +1,556 @@
+TAP version 13
+# Subtest: original cancels unread body on HTTP refusal
+ok 1 - original cancels unread body on HTTP refusal
+  ---
+  duration_ms: 5.005809
+  type: 'test'
+  ...
+# Subtest: original cancels unread body on wrong MIME
+ok 2 - original cancels unread body on wrong MIME
+  ---
+  duration_ms: 0.484342
+  type: 'test'
+  ...
+# Subtest: original cancels unread body on declared oversize
+ok 3 - original cancels unread body on declared oversize
+  ---
+  duration_ms: 0.326506
+  type: 'test'
+  ...
+# Subtest: original cancels unread body on invalid length
+ok 4 - original cancels unread body on invalid length
+  ---
+  duration_ms: 0.348457
+  type: 'test'
+  ...
+# Subtest: original refuses an already cancelled operation before fetch
+ok 5 - original refuses an already cancelled operation before fetch
+  ---
+  duration_ms: 1.049288
+  type: 'test'
+  ...
+# Subtest: original clears the exact chunk that exceeds the stream byte cap
+ok 6 - original clears the exact chunk that exceeds the stream byte cap
+  ---
+  duration_ms: 174.47187
+  type: 'test'
+  ...
+# Subtest: original rejects and clears a chunk delivered concurrently with cancellation
+ok 7 - original rejects and clears a chunk delivered concurrently with cancellation
+  ---
+  duration_ms: 1.49236
+  type: 'test'
+  ...
+# Subtest: original cancellation settles a pending native stream read and awaits original cancel
+ok 8 - original cancellation settles a pending native stream read and awaits original cancel
+  ---
+  duration_ms: 8.355097
+  type: 'test'
+  ...
+# Subtest: original retains header refusal and cancel failure together
+ok 9 - original retains header refusal and cancel failure together
+  ---
+  duration_ms: 1.49316
+  type: 'test'
+  ...
+# Subtest: original successful native stream releases its lock and returns intact owned bytes
+ok 10 - original successful native stream releases its lock and returns intact owned bytes
+  ---
+  duration_ms: 2.047477
+  type: 'test'
+  ...
+# Subtest: original loopback HTTP fetch returns the actual PNG without credentials or redirect
+ok 11 - original loopback HTTP fetch returns the actual PNG without credentials or redirect
+  ---
+  duration_ms: 28.724088
+  type: 'test'
+  ...
+# Subtest: actual service worker navigation cancels the image stream before any transfer frame
+ok 12 - actual service worker navigation cancels the image stream before any transfer frame
+  ---
+  duration_ms: 3.534226
+  type: 'test'
+  ...
+# Subtest: actual extension/host/production receiver waits over five seconds for explicit synthetic desktop decision
+ok 13 - actual extension/host/production receiver waits over five seconds for explicit synthetic desktop decision
+  ---
+  duration_ms: 6181.893818
+  type: 'test'
+  ...
+# Subtest: actual ServiceWorker/native host/production receiver confirmation boundary: allow-after-six
+ok 14 - actual ServiceWorker/native host/production receiver confirmation boundary: allow-after-six
+  ---
+  duration_ms: 201.887894
+  type: 'test'
+  ...
+# Subtest: actual ServiceWorker/native host/production receiver confirmation boundary: no-answer
+ok 15 - actual ServiceWorker/native host/production receiver confirmation boundary: no-answer
+  ---
+  duration_ms: 152.338655
+  type: 'test'
+  ...
+# Subtest: actual ServiceWorker/native host/production receiver confirmation boundary: reject
+ok 16 - actual ServiceWorker/native host/production receiver confirmation boundary: reject
+  ---
+  duration_ms: 140.547483
+  type: 'test'
+  ...
+# Subtest: actual ServiceWorker/native host/production receiver confirmation boundary: cancel
+ok 17 - actual ServiceWorker/native host/production receiver confirmation boundary: cancel
+  ---
+  duration_ms: 141.305637
+  type: 'test'
+  ...
+# Subtest: actual ServiceWorker/native host/production receiver confirmation boundary: off
+ok 18 - actual ServiceWorker/native host/production receiver confirmation boundary: off
+  ---
+  duration_ms: 138.562812
+  type: 'test'
+  ...
+# Subtest: actual ServiceWorker/native host/production receiver confirmation boundary: disconnect
+ok 19 - actual ServiceWorker/native host/production receiver confirmation boundary: disconnect
+  ---
+  duration_ms: 145.219315
+  type: 'test'
+  ...
+# Subtest: actual ServiceWorker/native host/production receiver confirmation boundary: late-answer
+ok 20 - actual ServiceWorker/native host/production receiver confirmation boundary: late-answer
+  ---
+  duration_ms: 154.86456
+  type: 'test'
+  ...
+# Subtest: actual ServiceWorker/native host/production receiver confirmation boundary: late-answer-no-timer
+ok 21 - actual ServiceWorker/native host/production receiver confirmation boundary: late-answer-no-timer
+  ---
+  duration_ms: 147.603984
+  type: 'test'
+  ...
+# Subtest: actual ServiceWorker/native host/production receiver confirmation boundary: late-ready
+ok 22 - actual ServiceWorker/native host/production receiver confirmation boundary: late-ready
+  ---
+  duration_ms: 164.545632
+  type: 'test'
+  ...
+# Subtest: offer without explicit confirmation state still expires at five seconds
+ok 23 - offer without explicit confirmation state still expires at five seconds
+  ---
+  duration_ms: 1.056999
+  type: 'test'
+  ...
+# Subtest: ordinary Begin acknowledgement keeps its five-second budget after long confirmation
+ok 24 - ordinary Begin acknowledgement keeps its five-second budget after long confirmation
+  ---
+  duration_ms: 0.425828
+  type: 'test'
+  ...
+# Subtest: idle acquisition has a thirty-second transfer budget and disconnect cancels the owning signal
+ok 25 - idle acquisition has a thirty-second transfer budget and disconnect cancels the owning signal
+  ---
+  duration_ms: 0.482022
+  type: 'test'
+  ...
+# Subtest: late Ready rejected by monotonic deadline even when wall clock moves backwards before timer dispatch
+ok 26 - late Ready rejected by monotonic deadline even when wall clock moves backwards before timer dispatch
+  ---
+  duration_ms: 0.364247
+  type: 'test'
+  ...
+# Subtest: total operation deadline cannot be renewed by confirmation or Ready
+ok 27 - total operation deadline cannot be renewed by confirmation or Ready
+  ---
+  duration_ms: 0.282798
+  type: 'test'
+  ...
+# Subtest: confirmation stage cannot obtain a renewed timer with invalid progress: id
+ok 28 - confirmation stage cannot obtain a renewed timer with invalid progress: id
+  ---
+  duration_ms: 0.302002
+  type: 'test'
+  ...
+# Subtest: confirmation stage cannot obtain a renewed timer with invalid progress: budget
+ok 29 - confirmation stage cannot obtain a renewed timer with invalid progress: budget
+  ---
+  duration_ms: 0.177964
+  type: 'test'
+  ...
+# Subtest: confirmation stage cannot obtain a renewed timer with invalid progress: protocol
+ok 30 - confirmation stage cannot obtain a renewed timer with invalid progress: protocol
+  ---
+  duration_ms: 0.1762
+  type: 'test'
+  ...
+# Subtest: confirmation stage cannot obtain a renewed timer with invalid progress: extra
+ok 31 - confirmation stage cannot obtain a renewed timer with invalid progress: extra
+  ---
+  duration_ms: 0.159445
+  type: 'test'
+  ...
+# Subtest: confirmation stage cannot obtain a renewed timer with invalid progress: duplicate
+ok 32 - confirmation stage cannot obtain a renewed timer with invalid progress: duplicate
+  ---
+  duration_ms: 0.215383
+  type: 'test'
+  ...
+# Subtest: manifest has exactly three used permissions and no web entry points
+ok 33 - manifest has exactly three used permissions and no web entry points
+  ---
+  duration_ms: 8.275749
+  type: 'test'
+  ...
+# Subtest: context comes only from top-frame active image click
+ok 34 - context comes only from top-frame active image click
+  ---
+  duration_ms: 0.342342
+  type: 'test'
+  ...
+# Subtest: context rejects cross-frame
+ok 35 - context rejects cross-frame
+  ---
+  duration_ms: 0.261285
+  type: 'test'
+  ...
+# Subtest: context rejects wrong-menu
+ok 36 - context rejects wrong-menu
+  ---
+  duration_ms: 0.0802
+  type: 'test'
+  ...
+# Subtest: context rejects text
+ok 37 - context rejects text
+  ---
+  duration_ms: 0.170713
+  type: 'test'
+  ...
+# Subtest: context rejects javascript
+ok 38 - context rejects javascript
+  ---
+  duration_ms: 0.10945
+  type: 'test'
+  ...
+# Subtest: context rejects file
+ok 39 - context rejects file
+  ---
+  duration_ms: 0.060496
+  type: 'test'
+  ...
+# Subtest: context rejects userinfo
+ok 40 - context rejects userinfo
+  ---
+  duration_ms: 0.089885
+  type: 'test'
+  ...
+# Subtest: context rejects navigated
+ok 41 - context rejects navigated
+  ---
+  duration_ms: 0.076803
+  type: 'test'
+  ...
+# Subtest: context rejects inactive
+ok 42 - context rejects inactive
+  ---
+  duration_ms: 0.12694
+  type: 'test'
+  ...
+# Subtest: context rejects restricted
+ok 43 - context rejects restricted
+  ---
+  duration_ms: 0.122642
+  type: 'test'
+  ...
+# Subtest: UTF-8 bytes include multibyte body and JSON envelope
+ok 44 - UTF-8 bytes include multibyte body and JSON envelope
+  ---
+  duration_ms: 1.218664
+  type: 'test'
+  ...
+# Subtest: 190KiB worst base64 fits complete native frame
+ok 45 - 190KiB worst base64 fits complete native frame
+  ---
+  duration_ms: 8.187337
+  type: 'test'
+  ...
+# Subtest: PNG dimensions rejected before host submission
+ok 46 - PNG dimensions rejected before host submission
+  ---
+  duration_ms: 0.279548
+  type: 'test'
+  ...
+# Subtest: original fetch never attaches credentials/referrer or follows redirects
+ok 47 - original fetch never attaches credentials/referrer or follows redirects
+  ---
+  duration_ms: 28.347706
+  type: 'test'
+  ...
+# Subtest: cross-origin/blob originals cannot call fetch
+ok 48 - cross-origin/blob originals cannot call fetch
+  ---
+  duration_ms: 0.43211
+  type: 'test'
+  ...
+# Subtest: declared and streamed original byte limits independent
+ok 49 - declared and streamed original byte limits independent
+  ---
+  duration_ms: 23.256514
+  type: 'test'
+  ...
+# Subtest: crop remains strictly inside target physical rectangle
+ok 50 - crop remains strictly inside target physical rectangle
+  ---
+  duration_ms: 0.276002
+  type: 'test'
+  ...
+# Subtest: crop rejects DPI
+ok 51 - crop rejects DPI
+  ---
+  duration_ms: 0.164973
+  type: 'test'
+  ...
+# Subtest: crop rejects size mismatch
+ok 52 - crop rejects size mismatch
+  ---
+  duration_ms: 0.181753
+  type: 'test'
+  ...
+# Subtest: crop rejects outside viewport
+ok 53 - crop rejects outside viewport
+  ---
+  duration_ms: 0.049199
+  type: 'test'
+  ...
+# Subtest: crop rejects empty
+ok 54 - crop rejects empty
+  ---
+  duration_ms: 0.038774
+  type: 'test'
+  ...
+# Subtest: crop rejects NaN
+ok 55 - crop rejects NaN
+  ---
+  duration_ms: 2.151797
+  type: 'test'
+  ...
+# Subtest: crop rejects infinite
+ok 56 - crop rejects infinite
+  ---
+  duration_ms: 0.12461
+  type: 'test'
+  ...
+# Subtest: ambiguous element refuses capture before screenshot
+ok 57 - ambiguous element refuses capture before screenshot
+  ---
+  duration_ms: 0.265217
+  type: 'test'
+  ...
+# Subtest: moved target cannot reach screenshot, measurement or decode
+ok 58 - moved target cannot reach screenshot, measurement or decode
+  ---
+  duration_ms: 0.314138
+  type: 'test'
+  ...
+# Subtest: actual acquisition refuses unproven viewport ownership: corner-overlay
+ok 59 - actual acquisition refuses unproven viewport ownership: corner-overlay
+  ---
+  duration_ms: 0.56113
+  type: 'test'
+  ...
+# Subtest: actual acquisition refuses unproven viewport ownership: edge-overlay
+ok 60 - actual acquisition refuses unproven viewport ownership: edge-overlay
+  ---
+  duration_ms: 0.257402
+  type: 'test'
+  ...
+# Subtest: actual acquisition refuses unproven viewport ownership: opposite-corner-overlay
+ok 61 - actual acquisition refuses unproven viewport ownership: opposite-corner-overlay
+  ---
+  duration_ms: 0.166533
+  type: 'test'
+  ...
+# Subtest: actual acquisition refuses unproven viewport ownership: clip-path
+ok 62 - actual acquisition refuses unproven viewport ownership: clip-path
+  ---
+  duration_ms: 0.109862
+  type: 'test'
+  ...
+# Subtest: actual acquisition refuses unproven viewport ownership: border
+ok 63 - actual acquisition refuses unproven viewport ownership: border
+  ---
+  duration_ms: 0.1338
+  type: 'test'
+  ...
+# Subtest: actual acquisition refuses unproven viewport ownership: padding
+ok 64 - actual acquisition refuses unproven viewport ownership: padding
+  ---
+  duration_ms: 0.119715
+  type: 'test'
+  ...
+# Subtest: actual acquisition refuses unproven viewport ownership: object-fit
+ok 65 - actual acquisition refuses unproven viewport ownership: object-fit
+  ---
+  duration_ms: 0.113395
+  type: 'test'
+  ...
+# Subtest: actual acquisition refuses unproven viewport ownership: mask
+ok 66 - actual acquisition refuses unproven viewport ownership: mask
+  ---
+  duration_ms: 0.106268
+  type: 'test'
+  ...
+# Subtest: actual acquisition refuses unproven viewport ownership: apparently-clear
+ok 67 - actual acquisition refuses unproven viewport ownership: apparently-clear
+  ---
+  duration_ms: 0.151586
+  type: 'test'
+  ...
+# Subtest: actual service worker acquisition pipeline: corner-overlay
+ok 68 - actual service worker acquisition pipeline: corner-overlay
+  ---
+  duration_ms: 2.630909
+  type: 'test'
+  ...
+# Subtest: actual service worker acquisition pipeline: clip-path
+ok 69 - actual service worker acquisition pipeline: clip-path
+  ---
+  duration_ms: 1.411439
+  type: 'test'
+  ...
+# Subtest: actual service worker acquisition pipeline: original
+ok 70 - actual service worker acquisition pipeline: original
+  ---
+  duration_ms: 9.415139
+  type: 'test'
+  ...
+# Subtest: disconnect rejects an outstanding frame immediately
+ok 71 - disconnect rejects an outstanding frame immediately
+  ---
+  duration_ms: 0.330319
+  type: 'test'
+  ...
+# Subtest: cancellation sends one explicit cancel and disconnects
+ok 72 - cancellation sends one explicit cancel and disconnects
+  ---
+  duration_ms: 0.190694
+  type: 'test'
+  ...
+# Subtest: wrong operation cannot acknowledge pending frame
+ok 73 - wrong operation cannot acknowledge pending frame
+  ---
+  duration_ms: 0.232192
+  type: 'test'
+  ...
+# Subtest: desktop Off prevents image acquisition
+ok 74 - desktop Off prevents image acquisition
+  ---
+  duration_ms: 0.413206
+  type: 'test'
+  ...
+# Subtest: actual extension sender to independent host loop commits ordered maximum chunks
+ok 75 - actual extension sender to independent host loop commits ordered maximum chunks
+  ---
+  duration_ms: 193.72617
+  type: 'test'
+  ...
+# Subtest: source context rejects unavailable or synthetic tab/window identifiers
+ok 76 - source context rejects unavailable or synthetic tab/window identifiers
+  ---
+  duration_ms: 1.300765
+  type: 'test'
+  ...
+# Subtest: source snapshot before image read rejects different-window
+ok 77 - source snapshot before image read rejects different-window
+  ---
+  duration_ms: 6.862437
+  type: 'test'
+  ...
+# Subtest: source snapshot before image read rejects moved-tab
+ok 78 - source snapshot before image read rejects moved-tab
+  ---
+  duration_ms: 1.756785
+  type: 'test'
+  ...
+# Subtest: source snapshot before image read rejects wrong-tab
+ok 79 - source snapshot before image read rejects wrong-tab
+  ---
+  duration_ms: 1.782999
+  type: 'test'
+  ...
+# Subtest: source snapshot before image read rejects inactive
+ok 80 - source snapshot before image read rejects inactive
+  ---
+  duration_ms: 2.302962
+  type: 'test'
+  ...
+# Subtest: source snapshot before image read rejects navigated
+ok 81 - source snapshot before image read rejects navigated
+  ---
+  duration_ms: 1.506602
+  type: 'test'
+  ...
+# Subtest: source snapshot before image read rejects tab-query-failed
+ok 82 - source snapshot before image read rejects tab-query-failed
+  ---
+  duration_ms: 1.936005
+  type: 'test'
+  ...
+# Subtest: source snapshot before image read rejects window-query-failed
+ok 83 - source snapshot before image read rejects window-query-failed
+  ---
+  duration_ms: 1.216806
+  type: 'test'
+  ...
+# Subtest: source snapshot after reading refuses a different last browser window even without a focus event
+ok 84 - source snapshot after reading refuses a different last browser window even without a focus event
+  ---
+  duration_ms: 22.627636
+  type: 'test'
+  ...
+# Subtest: source focus cancels a real pending stream and clears owned chunks
+ok 85 - source focus cancels a real pending stream and clears owned chunks
+  ---
+  duration_ms: 8.28978
+  type: 'test'
+  ...
+# Subtest: source detached cancels a real pending stream and clears owned chunks
+ok 86 - source detached cancels a real pending stream and clears owned chunks
+  ---
+  duration_ms: 1.789615
+  type: 'test'
+  ...
+# Subtest: source attached cancels a real pending stream and clears owned chunks
+ok 87 - source attached cancels a real pending stream and clears owned chunks
+  ---
+  duration_ms: 1.803584
+  type: 'test'
+  ...
+# Subtest: source windowRemoved cancels a real pending stream and clears owned chunks
+ok 88 - source windowRemoved cancels a real pending stream and clears owned chunks
+  ---
+  duration_ms: 1.787004
+  type: 'test'
+  ...
+# Subtest: different-window focus during Chunk acknowledgement cancels without Commit
+ok 89 - different-window focus during Chunk acknowledgement cancels without Commit
+  ---
+  duration_ms: 3.105485
+  type: 'test'
+  ...
+# Subtest: focus change during source query cannot be undone by a stale successful result
+ok 90 - focus change during source query cannot be undone by a stale successful result
+  ---
+  duration_ms: 1.179425
+  type: 'test'
+  ...
+# Subtest: desktop focus loss and same browser window retain explicit confirmation and intact bytes
+ok 91 - desktop focus loss and same browser window retain explicit confirmation and intact bytes
+  ---
+  duration_ms: 2.682099
+  type: 'test'
+  ...
+1..91
+# tests 91
+# suites 0
+# pass 91
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8389.816914

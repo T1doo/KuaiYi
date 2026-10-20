@@ -1,0 +1,106 @@
+TAP version 13
+# Subtest: source context rejects unavailable or synthetic tab/window identifiers
+ok 1 - source context rejects unavailable or synthetic tab/window identifiers
+  ---
+  duration_ms: 1.767578
+  type: 'test'
+  ...
+# Subtest: source snapshot before image read rejects different-window
+ok 2 - source snapshot before image read rejects different-window
+  ---
+  duration_ms: 7.657507
+  type: 'test'
+  ...
+# Subtest: source snapshot before image read rejects moved-tab
+ok 3 - source snapshot before image read rejects moved-tab
+  ---
+  duration_ms: 1.548692
+  type: 'test'
+  ...
+# Subtest: source snapshot before image read rejects wrong-tab
+ok 4 - source snapshot before image read rejects wrong-tab
+  ---
+  duration_ms: 1.43218
+  type: 'test'
+  ...
+# Subtest: source snapshot before image read rejects inactive
+ok 5 - source snapshot before image read rejects inactive
+  ---
+  duration_ms: 1.456914
+  type: 'test'
+  ...
+# Subtest: source snapshot before image read rejects navigated
+ok 6 - source snapshot before image read rejects navigated
+  ---
+  duration_ms: 1.304312
+  type: 'test'
+  ...
+# Subtest: source snapshot before image read rejects tab-query-failed
+ok 7 - source snapshot before image read rejects tab-query-failed
+  ---
+  duration_ms: 1.19965
+  type: 'test'
+  ...
+# Subtest: source snapshot before image read rejects window-query-failed
+ok 8 - source snapshot before image read rejects window-query-failed
+  ---
+  duration_ms: 1.185693
+  type: 'test'
+  ...
+# Subtest: source snapshot after reading refuses a different last browser window even without a focus event
+ok 9 - source snapshot after reading refuses a different last browser window even without a focus event
+  ---
+  duration_ms: 33.405509
+  type: 'test'
+  ...
+# Subtest: source focus cancels a real pending stream and clears owned chunks
+ok 10 - source focus cancels a real pending stream and clears owned chunks
+  ---
+  duration_ms: 11.581091
+  type: 'test'
+  ...
+# Subtest: source detached cancels a real pending stream and clears owned chunks
+ok 11 - source detached cancels a real pending stream and clears owned chunks
+  ---
+  duration_ms: 1.757893
+  type: 'test'
+  ...
+# Subtest: source attached cancels a real pending stream and clears owned chunks
+ok 12 - source attached cancels a real pending stream and clears owned chunks
+  ---
+  duration_ms: 1.93421
+  type: 'test'
+  ...
+# Subtest: source windowRemoved cancels a real pending stream and clears owned chunks
+ok 13 - source windowRemoved cancels a real pending stream and clears owned chunks
+  ---
+  duration_ms: 1.663964
+  type: 'test'
+  ...
+# Subtest: different-window focus during Chunk acknowledgement cancels without Commit
+ok 14 - different-window focus during Chunk acknowledgement cancels without Commit
+  ---
+  duration_ms: 3.031715
+  type: 'test'
+  ...
+# Subtest: focus change during source query cannot be undone by a stale successful result
+ok 15 - focus change during source query cannot be undone by a stale successful result
+  ---
+  duration_ms: 1.625083
+  type: 'test'
+  ...
+# Subtest: desktop focus loss and same browser window retain explicit confirmation and intact bytes
+ok 16 - desktop focus loss and same browser window retain explicit confirmation and intact bytes
+  ---
+  duration_ms: 2.357325
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 144.195155

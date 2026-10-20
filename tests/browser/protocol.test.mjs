@@ -83,7 +83,8 @@ for (const scene of ["corner-overlay", "clip-path", "original"]) test(`actual se
     runtime: { onInstalled: event(), connectNative: () => port, openOptionsPage: async () => {} },
     contextMenus: { onClicked: { addListener(fn) { handler = fn; } }, create() {} },
     action: { onClicked: event(), setBadgeText: async () => {}, setTitle: async arg => { title = arg.title; } },
-    tabs: { onRemoved: event(), onActivated: event(), onUpdated: event(), get: async () => tab, captureVisibleTab: async () => { captures++; throw new Error("test viewport must never be read"); } },
+    windows: { onFocusChanged: event(), onRemoved: event(), getLastFocused: async () => ({ id: tab.windowId, focused: false }) },
+    tabs: { onDetached: event(), onAttached: event(), onRemoved: event(), onActivated: event(), onUpdated: event(), get: async () => tab, captureVisibleTab: async () => { captures++; throw new Error("test viewport must never be read"); } },
     scripting: { executeScript: async () => { scripts++; throw new Error("test DOM must never be injected"); } }
   };
   port.postMessage = message => {
