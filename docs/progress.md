@@ -1222,3 +1222,12 @@ P7源码子项InProgress，完整P7/R13/真实浏览器与Windows仍NotRun；CI3
 原有脏草稿/未保存密钥/恢复/只读/并发保存拒绝开始；owner/revision/保存版本绑定，迟到或ABA不可应用。取消持有原read和CancelAsync到真实结算，父子关闭join相同task；取消设置放弃导入，显式保存复用原事务与CAS，不覆盖未知或选择的源文件。最小设计和最终源码独审通过，无剩余P1/P2；首次Yield前取消1F→同方法过，完整合并超限及非法输出语言4F→同方法过，真实原件均保全。新导入最终独立47P（含生产export→真实文件→import确认回路）；旧导出23/旧草稿3/原四字段Provider110各自通过，非单轮计数。App8项目交叉Release0W/E；locked restore审计与锁保持，无新依赖。
 
 首次CS0649及回路参数CS1503均为新测试编译0执行，保留日志和可用当时源码；中间65/68/69P及因果失败不抹去。见[产品行为/验证边界](validation/settings-config-import.md)/[证据索引](test-evidence/2026-10-20-settings-config-import.json)。Windows原生对话框/句柄/WPF父子关闭、DPAPI及真实热键注册仍NotRun；交叉构建不替代实机。106整体/生产NativeHost安装及同用户session精确ID/真实浏览器/P6P7/250600仍NotRun/PackageHold。来源/密码/完整性/取消清理隔离及生产图片复用Off保持；旧CI39347646426 step3内部首因Unknown、拒绝日志未请求或换路，无新CI/模型/费用/凭据/安全权限/发布/用户电脑操作，main未改。
+
+
+## 2026-10-20 · P6固定四包许可获批与源码审查门核实
+
+从clean且远端一致ef26c900b8fb5291a8ab1979803c240a34974086核Linux/单worktree/唯一writer/main，正常dev/p6-codec-source-review。用户明确接受SkiaSharp4.153.1及Win32/macOS/Linux.NoDependencies四包原MIT和原生第三方条款，限指定云开发隔离解码与合成测试；许可门已解除，不重复询问。四个此前未拒的官方nuspec本轮各一次有界HTTPS，4×HTTP200/exit0且SHA全等已存原件；仅确认声明commit4783f51448f9b070dda4f87b83e941c9599e466e和net10.0依赖，非源码取得。
+
+当前network enabled/既有proxy:8080/普通Git成功不能证明原api.github.com两个精确目标解除；原回执无可比proxy策略原件，独立复核不足以重试。本轮精确目标请求0、替代源码路线0，不将旧403说成本轮新403或全网失败。仍缺该commit可核源码及子模块、实际native构建配置/组件与资产对应证据，以及合规获取条件。详见[状态与精确最小材料](validation/p6-codec-source-review.md)/[本轮证据](test-evidence/2026-10-20-p6-codec-source-review.json)。
+
+源码/供应链审查未通过前不install/restore/改锁/加载Skia或实现codec；无生产代码变更、dotnet/构建/测试/CI/模型/费用/发布/用户电脑操作。完整多格式/EXIF/一般缩放及打开投放仍未交付，Windows验证仍NotRun；P6-02 Blocked、PackageHold/生产图片复用Off、250600/frame/资源/来源/密码/完整性/取消/清理/隔离门保持，旧CI拒绝日志不查询不绕路。

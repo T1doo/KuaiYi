@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-20",
+  "authority": "Explicit task-owner acceptance conveyed in trusted delegation",
+  "packages": [
+    {
+      "id": "SkiaSharp",
+      "version": "4.153.1"
+    },
+    {
+      "id": "SkiaSharp.NativeAssets.Win32",
+      "version": "4.153.1"
+    },
+    {
+      "id": "SkiaSharp.NativeAssets.macOS",
+      "version": "4.153.1"
+    },
+    {
+      "id": "SkiaSharp.NativeAssets.Linux.NoDependencies",
+      "version": "4.153.1"
+    }
+  ],
+  "accepted_terms": {
+    "MIT_sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938",
+    "native_third_party_notices_sha256": "21504c46c4c58aa64c1055bd2dcbc5f9a136b4b8c412ed3cc6740e22c5b127f5"
+  },
+  "scope": "Only designated cloud development environment,install/lock/isolated image decoding and synthetic tests after source/supply-chain review. No other packages/version,personal computer,fees,publish,security/network/credential changes or bypass of prior refusal.",
+  "license_gate": "Approved",
+  "source_supply_chain_gate": "Not passed"
+}

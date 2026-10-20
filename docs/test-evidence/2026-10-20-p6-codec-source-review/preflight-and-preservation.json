@@ -1,0 +1,91 @@
+{
+  "base": "ef26c900b8fb5291a8ab1979803c240a34974086",
+  "os": "Linux",
+  "single_worktree": true,
+  "single_writer": "root; independent review read-only",
+  "network_enabled": true,
+  "proxy_metadata_only": {
+    "scheme": "http",
+    "host": "proxy",
+    "port": 8080,
+    "has_userinfo": false
+  },
+  "precise_old_refusals": [
+    {
+      "Url": "https://api.github.com/repos/mono/SkiaSharp/git/trees/4783f51448f9b070dda4f87b83e941c9599e466e",
+      "Result": "Proxy tunnel403 Forbidden;stopped,no retry/bypass"
+    },
+    {
+      "Url": "https://api.github.com/repos/mono/SkiaSharp/releases/tags/v4.153.1",
+      "Result": "Proxy tunnel403 Forbidden;stopped,no retry/bypass"
+    }
+  ],
+  "material_target_policy_change_observed": false,
+  "denied_source_requests_this_round": 0,
+  "alternate_source_routes": 0,
+  "old_originals_verified": [
+    {
+      "path": "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__skiasharp.nuspec",
+      "bytes": 6085,
+      "sha256": "7af1ce9f83468d7dd1e53a9224f6f17a59ce956579f515193601b71137747402"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__skiasharp__SkiaSharp.nuspec",
+      "bytes": 6088,
+      "sha256": "7c04ead5281ebf05c676af46a0ac7e674ade0f54c994336e842f3157a89feabe"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__skiasharp.nativeassets.win32__SkiaSharp.NativeAssets.Win32.nuspec",
+      "bytes": 1689,
+      "sha256": "7ca8008c6c410b8b4d5cb2063e64b10da97c529ab70668c2b80776a34e7734d5"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__skiasharp.nativeassets.win32.nuspec",
+      "bytes": 1686,
+      "sha256": "3d846fab89a7f5a9594ada3fde77059640ab252933c35056a64c80b8d9b209b8"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__skiasharp.nativeassets.linux.nodependencies.nuspec",
+      "bytes": 1613,
+      "sha256": "46ffb6fef78a097d91663162f4fb276321f568eede3c2029186d5425bfefcb70"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__skiasharp.nativeassets.macos.nuspec",
+      "bytes": 1670,
+      "sha256": "47832937188837705eba785cf510125eacae31378273ae7d8634066ea18efcb4"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__skiasharp.nativeassets.macos__SkiaSharp.NativeAssets.macOS.nuspec",
+      "bytes": 1673,
+      "sha256": "e5b94ed7aa7339637b89450d18de1c1b3179032ea59e64e108336839f2a25462"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__skiasharp.nativeassets.linux.nodependencies__SkiaSharp.NativeAssets.Linux.NoDependencies.nuspec",
+      "bytes": 1616,
+      "sha256": "577014811a90cfc3f846fcdfaad8a3d40ebb643cfb9c2b5eb233e0c4e939ef8a"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__LICENSE.txt",
+      "bytes": 1129,
+      "sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__THIRD-PARTY-NOTICES.txt",
+      "bytes": 139775,
+      "sha256": "21504c46c4c58aa64c1055bd2dcbc5f9a136b4b8c412ed3cc6740e22c5b127f5"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__package-inventory.json",
+      "bytes": 28466,
+      "sha256": "4e5ccc824b2938a822b660f67693bd88ceedc410963e21567d5d0bd5d808cbba"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-16-image-isolated-decode-audit-originals__nuget-registration.json",
+      "bytes": 342,
+      "sha256": "ebcbf843ef6a4258b48c624b881368e00e3fe561498981453ae0d63e48f3cfa1"
+    }
+  ],
+  "protected_input_count": 583,
+  "protected_input_list_sha256": "e68c59dc406c081ffca0841141334331fccee7970d33e3a035a58b102f75f320",
+  "protected_scope": "all tracked src/tests,locks,workflows,SPEC,package versions,launcher compared byte-for-byte with base; no Skia restore/install/load or code implementation"
+}

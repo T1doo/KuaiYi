@@ -1,0 +1,31 @@
+{
+  "utc": "2026-10-20T08:49:25.161308+00:00",
+  "url": "https://api.nuget.org/v3-flatcontainer/skiasharp/4.153.1/skiasharp.nuspec",
+  "argv": [
+    "curl",
+    "--proto",
+    "=https",
+    "--connect-timeout",
+    "10",
+    "--max-time",
+    "20",
+    "--max-filesize",
+    "131072",
+    "--silent",
+    "--show-error",
+    "--dump-header",
+    "artifacts/skia-source-review-2026-10-20/nuget-metadata.headers",
+    "--output",
+    "artifacts/skia-source-review-2026-10-20/nuget-metadata.nuspec",
+    "--write-out",
+    "%{http_code}",
+    "https://api.nuget.org/v3-flatcontainer/skiasharp/4.153.1/skiasharp.nuspec"
+  ],
+  "exit": 0,
+  "http": "200",
+  "bytes": 6085,
+  "sha256": "7af1ce9f83468d7dd1e53a9224f6f17a59ce956579f515193601b71137747402",
+  "expected_archived_nuspec_sha256": "7af1ce9f83468d7dd1e53a9224f6f17a59ce956579f515193601b71137747402",
+  "role": "Allowed official metadata availability check only, not retrieval of denied source; no redirect/retry/credentials/proxy override.",
+  "matches_archived_nuspec": true
+}

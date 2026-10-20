@@ -1,0 +1,77 @@
+{
+  "utc": "2026-10-20T08:52:18.716588+00:00",
+  "base": "ef26c900b8fb5291a8ab1979803c240a34974086",
+  "branch": "dev/p6-codec-source-review",
+  "spec": "P6-02/P6-06 prerequisite only; decoder not delivered",
+  "license_gate": "Approved for fixed four packages and raw terms; no need to reask",
+  "official_metadata_checks": {
+    "requests": 4,
+    "http200": 4,
+    "exit0": 4,
+    "all_same_bytes_as_archived": true,
+    "not_source_body": true
+  },
+  "declared_source_commit": "4783f51448f9b070dda4f87b83e941c9599e466e",
+  "source_supply_chain_review": "Blocked; no material evidence allowing exact old refused source read. Current response for those targets not observed, not a new403.",
+  "independent_review": "Agrees; no retry or alternate source route allowed on current evidence",
+  "production_code_dependencies_locks_workflows_original_spec": "Unchanged",
+  "skia_package_install_restore_load_execute": false,
+  "dotnet_build_tests_ci_this_round": "NotRun; no unchanged suites rerun",
+  "windows_full_image_exif_scale_open_drop": "NotRun/NotImplemented; not claimed complete",
+  "package_hold": true,
+  "production_reuse": "Off",
+  "frame_resource_250_600_safety_gates": "Unchanged",
+  "main": "51d077481cf6303602fcf5d2718213da9cf05178 unchanged",
+  "files": [
+    {
+      "path": "docs/test-evidence/2026-10-20-p6-codec-source-review/independent-review.txt",
+      "bytes": 784,
+      "sha256": "ba5d3f24a8395551e8ae357fe805460f3126e6e6fa4542446f2e901c3a370eb9"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-p6-codec-source-review/license-approval.json",
+      "bytes": 1026,
+      "sha256": "9117e01802c7ede6bee1e08bf22b642edbdc9f8b970b37d7032a37b539ea9a15"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-p6-codec-source-review/metadata-summary.json",
+      "bytes": 2528,
+      "sha256": "2c8a647eeba6a55c514815f9268ca6ff7ffb4009844c5d55dcd99fcbfc3bdbf6"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-p6-codec-source-review/native-metadata-receipts.json",
+      "bytes": 3072,
+      "sha256": "c2e6ab829f7ea3bae6280915504292b71df8a88f53c14912713b5ffc946771cc"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-p6-codec-source-review/nuget-metadata-receipt.json",
+      "bytes": 1031,
+      "sha256": "e1b0358e54dca2777fa57dcdf38db9d7e92af852a7743cb76eecb3accb18db2d"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-p6-codec-source-review/nuget-metadata.nuspec",
+      "bytes": 6085,
+      "sha256": "7af1ce9f83468d7dd1e53a9224f6f17a59ce956579f515193601b71137747402"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-p6-codec-source-review/preflight-and-preservation.json",
+      "bytes": 4080,
+      "sha256": "b532d149e60b32a9b33e54800eb83b8cf068e530284734bcdd4bab5868ec6197"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-p6-codec-source-review/skiasharp.nativeassets.linux.nodependencies.nuspec",
+      "bytes": 1613,
+      "sha256": "46ffb6fef78a097d91663162f4fb276321f568eede3c2029186d5425bfefcb70"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-p6-codec-source-review/skiasharp.nativeassets.macos.nuspec",
+      "bytes": 1670,
+      "sha256": "47832937188837705eba785cf510125eacae31378273ae7d8634066ea18efcb4"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-p6-codec-source-review/skiasharp.nativeassets.win32.nuspec",
+      "bytes": 1686,
+      "sha256": "3d846fab89a7f5a9594ada3fde77059640ab252933c35056a64c80b8d9b209b8"
+    }
+  ]
+}
