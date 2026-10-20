@@ -1,0 +1,73 @@
+using System.Security.Cryptography;
+namespace KuaiYi.Core.Settings;
+
+public enum SettingsBackupExportStatus{Published,Cancelled,Busy,Failed,PublishedCleanupUnconfirmed}
+public sealed record SettingsBackupExportResult(SettingsBackupExportStatus Status,Exception? Failure=null);
+/// <summary>Only the exact displayed saved snapshot can publish. Pending IO and cancellation retain one owner.</summary>
+public sealed class SettingsBackupSession:IDisposable
+{
+    private sealed class Operation(CancellationToken caller)
+    {public readonly CancellationTokenSource Source=new();public readonly CancellationToken Caller=caller;public Task? Cancellation;public Exception? CancellationFailure;public bool Finishing;}
+    private readonly object sync=new();private SettingsBackupPreview? preview;private bool disposed;private Operation? pending;
+    public SettingsBackupPreview? Preview{get{lock(sync)return preview;}}
+    public bool Busy{get{lock(sync)return pending!=null;}}
+    public SettingsBackupPreview Prepare(SettingsSnapshot saved)
+    {
+        var value=SettingsBackupDocument.Create(saved);
+        lock(sync){ObjectDisposedException.ThrowIf(disposed,this);if(pending!=null)throw new InvalidOperationException("Backup export pending.");return preview=value;}
+    }
+    public void Invalidate(){lock(sync){preview=null;RequestCancellation(pending);}}
+    private void RequestCancellation(Operation? operation)
+    {
+        if(operation is not {Finishing:false,Cancellation:null})return;
+        operation.Cancellation=Task.Run(async()=>
+        {try{await operation.Source.CancelAsync().ConfigureAwait(false);}catch(Exception error){lock(sync)operation.CancellationFailure=error;}});
+    }
+    public async Task<SettingsBackupExportResult> ExportAsync(SettingsBackupPreview value,
+        Func<ReadOnlyMemory<byte>,CancellationToken,Task<IPreparedDisplayPreferencesExport>> prepare,CancellationToken cancellation=default)
+    {
+        Operation owned;
+        lock(sync)
+        {
+            if(disposed||!ReferenceEquals(preview,value)||cancellation.IsCancellationRequested)return new(SettingsBackupExportStatus.Cancelled);
+            if(pending!=null)return new(SettingsBackupExportStatus.Busy);
+            owned=pending=new(cancellation);
+        }
+        var bridge=cancellation.Register(()=>{lock(sync)RequestCancellation(owned);});
+        byte[] bytes=value.CopyDocument();IPreparedDisplayPreferencesExport? file=null;var result=new SettingsBackupExportResult(SettingsBackupExportStatus.Cancelled);
+        try
+        {
+            owned.Source.Token.ThrowIfCancellationRequested();
+            file=await prepare(bytes,owned.Source.Token).ConfigureAwait(false);
+            lock(sync)
+            {
+                if(!disposed&&ReferenceEquals(preview,value)&&!owned.Caller.IsCancellationRequested&&!owned.Source.IsCancellationRequested)
+                {file.Publish();result=new(SettingsBackupExportStatus.Published);preview=null;}
+            }
+        }
+        catch(OperationCanceledException)when(owned.Caller.IsCancellationRequested||owned.Source.IsCancellationRequested){result=new(SettingsBackupExportStatus.Cancelled);}
+        catch(Exception error)
+        {result=new(SettingsBackupExportStatus.Failed,error);}
+        finally
+        {
+            Task settlement;lock(sync){owned.Finishing=true;settlement=owned.Cancellation??Task.CompletedTask;}
+            await settlement.ConfigureAwait(false);
+            try{file?.Dispose();}
+            catch(Exception error)
+            {result=new(result.Status==SettingsBackupExportStatus.Published?SettingsBackupExportStatus.PublishedCleanupUnconfirmed:SettingsBackupExportStatus.Failed,result.Failure==null?error:new AggregateException(result.Failure,error));}
+            await bridge.DisposeAsync().ConfigureAwait(false);CryptographicOperations.ZeroMemory(bytes);
+            lock(sync)
+            {
+                if(owned.CancellationFailure is {} error)result=new(result.Status==SettingsBackupExportStatus.Published?SettingsBackupExportStatus.PublishedCleanupUnconfirmed:SettingsBackupExportStatus.Failed,result.Failure==null?error:new AggregateException(result.Failure,error));
+                if(ReferenceEquals(pending,owned))pending=null;owned.Source.Dispose();
+            }
+        }
+        return result;
+    }
+    public void Dispose(){lock(sync){disposed=true;preview=null;RequestCancellation(pending);}}
+}
+public static class SettingsBackupFiles
+{
+    public static Task<IPreparedDisplayPreferencesExport> PrepareNewAsync(string path,ReadOnlyMemory<byte> document,CancellationToken cancellation=default)
+        =>DisplayPreferencesFiles.PrepareDocumentAsync(path,document,SettingsBackupDocument.Validate,".kuaiyi-settings-backup-",cancellation);
+}

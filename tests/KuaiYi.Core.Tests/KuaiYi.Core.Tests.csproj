@@ -5,6 +5,7 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="../../src/KuaiYi.App/SettingsBackupCommands.cs" Link="Production/SettingsBackupCommands.cs" />
     <Compile Include="../../src/KuaiYi.App/IsolatedSessionLayout.cs" Link="Production/IsolatedSessionLayout.cs" />
     <Compile Include="../../tools/KuaiYi.SettingsStoreFixture/IsolatedSessionPackage.cs" Link="Packaging/IsolatedSessionPackage.cs" />
     <ProjectReference Include="../../tools/KuaiYi.SelectionReuseDiagnostic/KuaiYi.SelectionReuseDiagnostic.csproj" />

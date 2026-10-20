@@ -9235,3 +9235,8 @@ docs/test-evidence/2026-10-20-browser-host-integration/*.tap -text
 # Browser source-window raw execution originals (Node failure formatting preserved)
 docs/test-evidence/2026-10-20-browser-source-window/*.tap -text -whitespace
 docs/test-evidence/2026-10-20-browser-source-window/*.log -text -whitespace
+
+# Ordinary settings export raw execution evidence
+docs/test-evidence/2026-10-20-settings-backup-export/*.log -text -whitespace
+docs/test-evidence/2026-10-20-settings-backup-export/*.trx -text -whitespace
+docs/test-evidence/2026-10-20-settings-backup-export/*.cs.txt -text

@@ -38,10 +38,12 @@ public static class DisplayPreferencesFiles
         await using var file=new FileStream(full,FileMode.Open,FileAccess.Read,FileShare.Read,4096,FileOptions.Asynchronous);
         RequireOpenedPath(file,full);var value=await DisplayPreferencesDocument.ReadAsync(file,cancellation).ConfigureAwait(false);RequireOpenedPath(file,full);cancellation.ThrowIfCancellationRequested();return value;
     }
-    public static async Task<IPreparedDisplayPreferencesExport> PrepareNewAsync(string path,ReadOnlyMemory<byte> document,CancellationToken cancellation=default)
+    public static Task<IPreparedDisplayPreferencesExport> PrepareNewAsync(string path,ReadOnlyMemory<byte> document,CancellationToken cancellation=default)
+        =>PrepareDocumentAsync(path,document,bytes=>{_=DisplayPreferencesDocument.Read(bytes);},".kuaiyi-display-",cancellation);
+    internal static async Task<IPreparedDisplayPreferencesExport> PrepareDocumentAsync(string path,ReadOnlyMemory<byte> document,Action<ReadOnlyMemory<byte>> validate,string prefix,CancellationToken cancellation)
     {
-        cancellation.ThrowIfCancellationRequested();string full=LocalPath(path);_=DisplayPreferencesDocument.Read(document);
-        string temporary=Path.Combine(Path.GetDirectoryName(full)!,".kuaiyi-display-"+Guid.NewGuid().ToString("N")+".tmp");
+        cancellation.ThrowIfCancellationRequested();string full=LocalPath(path);validate(document);
+        string temporary=Path.Combine(Path.GetDirectoryName(full)!,prefix+Guid.NewGuid().ToString("N")+".tmp");
         // Creation proves ownership. Never remove an existing file when creation fails.
         var stream=new FileStream(temporary,FileMode.CreateNew,FileAccess.Write,FileShare.Read|FileShare.Delete,4096,FileOptions.Asynchronous);
         var prepared=new Prepared(stream,temporary,full);

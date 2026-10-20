@@ -1,0 +1,50 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.SelectionReuseDiagnostic -> /workspace/KuaiYi/tools/KuaiYi.SelectionReuseDiagnostic/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:01.20]     KuaiYi.Core.Tests.SettingsBackupTests.InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles(close: True) [FAIL]
+[xUnit.net 00:00:01.22]     KuaiYi.Core.Tests.SettingsBackupTests.SavedInvalidFieldsFailClosedInsteadOfExportingAnIncompleteConfiguration [FAIL]
+  Failed KuaiYi.Core.Tests.SettingsBackupTests.InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles(close: True) [9 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(System.InvalidOperationException)
+Actual:   typeof(System.ObjectDisposedException)
+---- System.ObjectDisposedException : Cannot access a disposed object.
+Object name: 'KuaiYi.Core.Settings.SettingsBackupSession'.
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsBackupTests.InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles(Boolean close) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs:line 78
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs:line 17
+   at KuaiYi.Core.Tests.SettingsBackupTests.<>c__DisplayClass12_0.<InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles>b__1() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs:line 78
+  Failed KuaiYi.Core.Tests.SettingsBackupTests.SavedInvalidFieldsFailClosedInsteadOfExportingAnIncompleteConfiguration [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(KuaiYi.Core.Settings.SettingsValidationException)
+Actual:   typeof(System.InvalidOperationException)
+---- System.InvalidOperationException : This operation cannot be performed on a default instance of ImmutableArray<T>.  Consider initializing the array, or checking the ImmutableArray<T>.IsDefault property.
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsBackupTests.SavedInvalidFieldsFailClosedInsteadOfExportingAnIncompleteConfiguration() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs:line 33
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+----- Inner Stack Trace -----
+   at System.Collections.Immutable.ImmutableArray`1.System.Collections.IEnumerable.GetEnumerator()
+   at KuaiYi.Core.Settings.SettingsJson.Ranges(Object value, String path) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 91
+   at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 59
+   at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs:line 18
+   at KuaiYi.Core.Tests.SettingsBackupTests.<>c__DisplayClass5_0.<SavedInvalidFieldsFailClosedInsteadOfExportingAnIncompleteConfiguration>b__0() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs:line 33
+Results File: /workspace/KuaiYi/artifacts/settings-backup-export/backup-focused.trx
+
+Failed!  - Failed:     2, Passed:    17, Skipped:     0, Total:    19, Duration: 286 ms - KuaiYi.Core.Tests.dll (net10.0)

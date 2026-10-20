@@ -55,7 +55,7 @@ internal sealed partial class SettingsWindow:Window
     private static StackPanel Page()=>new(){Margin=new Thickness(16)};
     private static void Field(Panel panel,string label,UIElement input){panel.Children.Add(new TextBlock{Text=label,Margin=new Thickness(0,10,0,4)});panel.Children.Add(input);}
     private static void Note(Panel panel,string text)=>panel.Children.Add(new TextBlock{Text=text,TextWrapping=TextWrapping.Wrap,Margin=new Thickness(0,8,0,8)});
-    private StackPanel General(){var p=Page();Note(p,"启动始终未启用翻译。保存设置不恢复 On。主浮钮和托盘使用同一启停状态；隐藏会停用。开机启动注册尚待安装集成验证，本页不进行系统注册。");return p;}
+    private StackPanel General(){var p=Page();SetupBackupEntry(p);Note(p,"启动始终未启用翻译。保存设置不恢复 On。主浮钮和托盘使用同一启停状态；隐藏会停用。开机启动注册尚待安装集成验证，本页不进行系统注册。");return p;}
     private StackPanel Api()
     {
         var p=Page();Field(p,"配置",profiles);var row=new StackPanel{Orientation=Orientation.Horizontal};var add=new Button{Content="新增配置",Margin=new Thickness(4)};var remove=new Button{Content="删除此配置（保存后生效）",Margin=new Thickness(4)};row.Children.Add(add);row.Children.Add(remove);p.Children.Add(row);

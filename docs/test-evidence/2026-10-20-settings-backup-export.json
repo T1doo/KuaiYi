@@ -1,0 +1,200 @@
+{
+  "utc": "2026-10-20T07:07:05.690701+00:00",
+  "base": "31e0abba70a7a9db3ee5bc6def4b8ec1ae9a6870",
+  "branch": "dev/settings-backup-export",
+  "spec": [
+    "8.3 ordinary configuration export subitem",
+    "P1-03/P4-01",
+    "L01/L06 subitems only"
+  ],
+  "runs": {
+    "backup-and-draft": {
+      "total": 25,
+      "executed": 25,
+      "passed": 25,
+      "failed": 0,
+      "notExecuted": 0
+    },
+    "backup-final": {
+      "total": 26,
+      "executed": 26,
+      "passed": 26,
+      "failed": 0,
+      "notExecuted": 0
+    },
+    "backup-first": {
+      "total": 19,
+      "executed": 19,
+      "passed": 4,
+      "failed": 15,
+      "notExecuted": 0
+    },
+    "backup-focused": {
+      "total": 19,
+      "executed": 19,
+      "passed": 17,
+      "failed": 2,
+      "notExecuted": 0
+    },
+    "combined-red": {
+      "total": 1,
+      "executed": 1,
+      "passed": 0,
+      "failed": 1,
+      "notExecuted": 0
+    },
+    "display-regression": {
+      "total": 110,
+      "executed": 110,
+      "passed": 110,
+      "failed": 0,
+      "notExecuted": 0
+    }
+  },
+  "new_tests_final_pass": 23,
+  "old_draft_tests_final_pass": 3,
+  "old_display_tests_pass": 110,
+  "old_display_scope": "Executed before final P2 new-session-only fix; original display path/tests unchanged afterward, not final CoreDLL rerun",
+  "final_app_cross_build": {
+    "projects": 8,
+    "warnings": 0,
+    "errors": 0,
+    "exit": 0
+  },
+  "independent_review": "Pass; independent23P",
+  "initial_errors": "Invalid new fixture secretRef, exact exception assumptions, initial NETSDK1100 before enabling cross-targeting; preserved and not old-product red tests",
+  "candidate_causal_fix": "Actual file publication plus Dispose/CancelAsync failure: same final test bytes1F ->1P",
+  "full_dotnet_and_browser_regression": "Not repeated",
+  "real_windows": "NotRun",
+  "full_configuration_import": "Not implemented; remains independent work",
+  "old_ci": "39347646426 step3 inner causeUnknown; denied logs not requested or bypassed",
+  "production_image_reuse": "Off",
+  "publish_model_calls_new_permissions_new_dependencies": "None",
+  "files": [
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/app-build.log",
+      "bytes": 888,
+      "sha256": "195667777415bfd85ff5d1867c294e1c3049399f5794608b50b55469ae1fb994"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/app-cross-restore.log",
+      "bytes": 710,
+      "sha256": "799e8255fa45441bfd67e271d00ff5c80d195dc45d41e38e0600e7e918135c59"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/app-final-build.log",
+      "bytes": 888,
+      "sha256": "d1a57c867570854dc32c1620fd12e6b2633b02898fa767b4dce4007311838d9c"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/app-restore.log",
+      "bytes": 765,
+      "sha256": "424b3319e6df54f6b9a82f5693d97c953a855f2f7cbdb376982721d05a496ff7"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/backup-and-draft-test.cs.txt",
+      "bytes": 17532,
+      "sha256": "55df73940dfc4d708b1cf19be32403c845537c0ce13d64cf1e6e7eca05976b63"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/backup-and-draft.log",
+      "bytes": 2071,
+      "sha256": "4e7fb11a1ea67c80348d823ed8ef10f022211f909668efbc01c0fe54bb34447d"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/backup-and-draft.trx",
+      "bytes": 35946,
+      "sha256": "bf53fb95c4dccbe98254b07f75d35740789b0dbede5eddc8c16b6902372c5bf3"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/backup-final.log",
+      "bytes": 2067,
+      "sha256": "51e52180421ccdb6248070a4f73bd8a969132a48583a3c08c8dca5c6e47530f8"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/backup-final.trx",
+      "bytes": 37365,
+      "sha256": "1dc35eb78b431ca5ae85df9e033b32e34d66c6ab321f5d1f35003900ea69182e"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/backup-first-test.cs.txt",
+      "bytes": 14778,
+      "sha256": "0263eeb1ec8e4cbfddf8272376a8becdf953072a29c158e3c59556335cdae072"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/backup-first.log",
+      "bytes": 20807,
+      "sha256": "e4f4004b8c1eaa3af256ccd555dc7773fb1c6279b2f596fff0713612abbf36d7"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/backup-first.trx",
+      "bytes": 66399,
+      "sha256": "5e94074619b51e86fc294fd651138dde968165945fee7b91217bc4f415982eb3"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/backup-focused-test.cs.txt",
+      "bytes": 15014,
+      "sha256": "a20b58288b1e88a507b452d84232696574ff98574beee649d35dd01e415379c6"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/backup-focused.log",
+      "bytes": 5239,
+      "sha256": "f9bde0ac1883ad2876b9b215e4f746d579692d173d97a755154e3a0ec2bb4da6"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/backup-focused.trx",
+      "bytes": 34552,
+      "sha256": "a0b11e9e14062fce1266a363e297f11d95672f6a306e2b9f9431e6cd0fd120aa"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/bindings.json",
+      "bytes": 18806,
+      "sha256": "a99a11658548d09a9f6f9da2ea2882285a1f5849c10fb86602bfa240bb715451"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/combined-red-session.cs.txt",
+      "bytes": 4752,
+      "sha256": "0c0f725b721ae05df60dbcdddf554413dcf75dd4c641eb1094cd2e20280d29e0"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/combined-red-tests.cs.txt",
+      "bytes": 19307,
+      "sha256": "1542f62b8a5e2572a2f37dfd39216eb7034c6a16a8936d88d79221db170e1daf"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/combined-red.log",
+      "bytes": 2754,
+      "sha256": "536e3a5e75df5e893a39b30545f4860be29196c57dcf88fd60490dd90217fe88"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/combined-red.trx",
+      "bytes": 4322,
+      "sha256": "fa6102cea6a8196d2cefae44157d594d1db1894716b717d65d8aa0e361f53925"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/core-restore.log",
+      "bytes": 1017,
+      "sha256": "ff935cee0ebdc1b411c7d025e79fd01e2fad1db96721ee8938b153d2ad0eb042"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/display-regression.log",
+      "bytes": 1138,
+      "sha256": "352791350d80edcae248e3f5e69ab83aa5d0cbec6d22b4a2429d8cf395950f1a"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/display-regression.trx",
+      "bytes": 161752,
+      "sha256": "340074c347051fbc281ddd12ae64571a69c18cbb9976b6d4fd04c5fc5471128f"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/independent-review.txt",
+      "bytes": 725,
+      "sha256": "9083be674e29b487adc4ad983d0456c8b8cbc444fbbaffecdb1ec8f4fb759dc8"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-backup-export/provider-restore.log",
+      "bytes": 608,
+      "sha256": "2608238b57d9444c21328a9fae8194fe7438f36f8dab3f995e430cba6f261c37"
+    }
+  ]
+}

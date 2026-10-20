@@ -1,0 +1,160 @@
+using System.Collections.Immutable;
+using System.Text;
+using KuaiYi.Core.Settings;
+using Xunit;
+namespace KuaiYi.Core.Tests;
+
+public sealed class SettingsBackupTests
+{
+    private static SettingsSnapshot Saved()=>new(new AppSettings
+    {
+        WriteId=Guid.NewGuid(),ActiveProfileId="openai",VisionProfileId="anthropic",TriggerMode=TriggerMode.Drop,
+        Profiles=[new(){Id="openai",Name="Public gateway",BaseUrl="https://public-fixture.invalid/proxy/v1",Model="PUBLIC-MODEL",SecretRef="key/11111111111111111111111111111111",Headers=ImmutableDictionary<string,string>.Empty.Add("X-Project","PUBLIC_PRIVATE_HEADER_VALUE"),Capabilities=new(){Vision=Capability.Supported}},
+            new(){Id="anthropic",Name="Public messages",Protocol=ApiProtocol.AnthropicMessages,Authentication=ApiAuthentication.CustomHeader,AuthenticationHeader="X-Key",BaseUrl="https://public-fixture.invalid/v1",Model="PUBLIC-VISION",SecretRef="key/22222222222222222222222222222222",Headers=ImmutableDictionary<string,string>.Empty.Add("anthropic-version","2023-06-01")}],
+        Translation=new(){Preset=TranslationPreset.Professional,Domain="Public engineering",ReaderBackground="Public sample reader",CustomTemplates=ImmutableDictionary<TranslationPreset,string>.Empty.Add(TranslationPreset.Faithful,"保留原意。")},
+        Overlay=new(){FontSizeDip=18,PreferredWidthDip=640,Theme=ThemePreference.Dark,LastPosition=new(){MonitorId="PUBLIC_PRIVATE_MONITOR",X=.2,Y=.7}},
+        Privacy=new(){BlockedApplications=["PUBLIC_PRIVATE_APPLICATION"],ClipboardAllowedApplications=["PUBLIC_PRIVATE_COPY_AUTH"],ConsentedEndpointOrigins=["https://public-fixture.invalid"]}
+    },"PUBLIC-SAVED-VERSION",SettingsLoadState.Current);
+    private sealed class Folder:IDisposable
+    {public string Path{get;}=System.IO.Path.Combine(System.IO.Path.GetTempPath(),"kuaiyi-backup-test-"+Guid.NewGuid().ToString("N"));public Folder()=>Directory.CreateDirectory(Path);public void Dispose()=>Directory.Delete(Path,true);}
+    private sealed class Prepared(IPreparedDisplayPreferencesExport inner,Action? publish=null,Action? dispose=null):IPreparedDisplayPreferencesExport
+    {public void Publish(){inner.Publish();publish?.Invoke();}public void Dispose(){inner.Dispose();dispose?.Invoke();}}
+    [Fact]public void SavedSnapshotOmitsCredentialReferencesAllHeadersRulesAndMachinePositionWithoutChangingSource()
+    {
+        var saved=Saved();var before=SettingsJson.Write(saved.Data);var preview=SettingsBackupDocument.Create(saved);var restored=SettingsJson.Read(Encoding.UTF8.GetBytes(preview.Text),out bool migrated);
+        Assert.False(migrated);Assert.DoesNotContain("key/11111111111111111111111111111111",preview.Text);Assert.DoesNotContain("key/22222222222222222222222222222222",preview.Text);Assert.DoesNotContain("PUBLIC_PRIVATE",preview.Text);Assert.DoesNotContain("PUBLIC-SAVED-VERSION",preview.Text);Assert.Equal(Guid.Empty,restored.WriteId);Assert.Null(restored.Overlay.LastPosition);
+        Assert.All(restored.Profiles,p=>{Assert.Null(p.SecretRef);Assert.Empty(p.Headers);});Assert.Empty(restored.Privacy.BlockedApplications);Assert.Empty(restored.Privacy.ClipboardAllowedApplications);Assert.Empty(restored.Privacy.ConsentedEndpointOrigins);
+        Assert.Equal(System.Text.Json.JsonSerializer.Serialize(saved.Data.Translation,SettingsJson.Options),System.Text.Json.JsonSerializer.Serialize(restored.Translation,SettingsJson.Options));Assert.Equal(saved.Data.TriggerMode,restored.TriggerMode);Assert.Equal(saved.Data.Overlay with{LastPosition=null},restored.Overlay);Assert.Equal(saved.Data.ActiveProfileId,restored.ActiveProfileId);Assert.Equal(saved.Data.VisionProfileId,restored.VisionProfileId);Assert.Equal(before,SettingsJson.Write(saved.Data));
+    }
+    [Theory][InlineData(SettingsLoadState.Defaults)][InlineData(SettingsLoadState.ReadOnlyUnknown)][InlineData(SettingsLoadState.RecoverableBackup)][InlineData(SettingsLoadState.RecoverableDefaults)]
+    public void MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup(SettingsLoadState state)
+    {Assert.Throws<InvalidOperationException>(()=>SettingsBackupDocument.Create(Saved() with{State=state}));}
+    [Fact]public void SavedInvalidFieldsFailClosedInsteadOfExportingAnIncompleteConfiguration()
+    {var value=Saved();Assert.Throws<SettingsValidationException>(()=>SettingsBackupDocument.Create(value with{Data=value.Data with{Profiles=value.Data.Profiles.SetItem(0,value.Data.Profiles[0] with{Model=""})}}));}
+    [Fact]public async Task ExactDisplayedBytesArePublishedToARealFileAndItsSourceRemainsUnchanged()
+    {
+        using var folder=new Folder();using var session=new SettingsBackupSession();var saved=Saved();var preview=session.Prepare(saved);string path=Path.Combine(folder.Path,"backup.json");
+        var result=await session.ExportAsync(preview,(bytes,ct)=>SettingsBackupFiles.PrepareNewAsync(path,bytes,ct));
+        Assert.Equal(SettingsBackupExportStatus.Published,result.Status);Assert.Null(result.Failure);Assert.Equal(preview.Text,await File.ReadAllTextAsync(path));Assert.Single(Directory.GetFiles(folder.Path));Assert.Null(session.Preview);Assert.False(session.Busy);Assert.NotNull(saved.Data.Profiles[0].SecretRef);
+    }
+    [Fact]public async Task SavedPreviewIsFrozenAcrossSubsequentSettingsAndDraftEdits()
+    {
+        using var folder=new Folder();using var session=new SettingsBackupSession();var saved=Saved();using var draft=new SettingsDraft(saved);var preview=session.Prepare(saved);
+        draft.Update(s=>s with{Profiles=s.Profiles.Select(p=>p with{Model="NEW_PUBLIC_DRAFT"}).ToImmutableArray()});draft.SetKey("openai","PUBLIC_PENDING_DRAFT_KEY"u8);
+        saved=saved with{Data=saved.Data with{Translation=new(){Domain="NEW_PUBLIC_SAVED_DOMAIN"}}};
+        string path=Path.Combine(folder.Path,"frozen.json");Assert.Equal(SettingsBackupExportStatus.Published,(await session.ExportAsync(preview,(bytes,ct)=>SettingsBackupFiles.PrepareNewAsync(path,bytes,ct))).Status);
+        string text=await File.ReadAllTextAsync(path);Assert.Equal(preview.Text,text);Assert.DoesNotContain("NEW_PUBLIC",text);Assert.DoesNotContain("PUBLIC_PENDING_DRAFT_KEY",text);Assert.True(draft.HasPendingKey("openai"));Assert.Equal("NEW_PUBLIC_DRAFT",draft.Data.Profiles[0].Model);
+    }
+    [Fact]public async Task ExistingTargetIsNeverOverwrittenAndOwnedTemporaryFileIsRemoved()
+    {
+        using var folder=new Folder();using var session=new SettingsBackupSession();var preview=session.Prepare(Saved());string path=Path.Combine(folder.Path,"existing.json");await File.WriteAllTextAsync(path,"PUBLIC_EXISTING_FILE");
+        var result=await session.ExportAsync(preview,(bytes,ct)=>SettingsBackupFiles.PrepareNewAsync(path,bytes,ct));
+        Assert.Equal(SettingsBackupExportStatus.Failed,result.Status);Assert.IsAssignableFrom<IOException>(result.Failure);Assert.Equal("PUBLIC_EXISTING_FILE",await File.ReadAllTextAsync(path));Assert.Single(Directory.GetFiles(folder.Path));Assert.Same(preview,session.Preview);
+    }
+    [Fact]public async Task FileBoundaryRejectsUnsanitizedSettingsAndKeepsTheOriginalFourFieldWhitelist()
+    {
+        using var folder=new Folder();var bytes=SettingsJson.Write(Saved().Data);
+        await Assert.ThrowsAsync<SettingsValidationException>(()=>SettingsBackupFiles.PrepareNewAsync(Path.Combine(folder.Path,"raw.json"),bytes));
+        var preview=SettingsBackupDocument.Create(Saved());await Assert.ThrowsAsync<DisplayPreferencesException>(()=>DisplayPreferencesFiles.PrepareNewAsync(Path.Combine(folder.Path,"wrong-format.json"),Encoding.UTF8.GetBytes(preview.Text)));Assert.Empty(Directory.GetFiles(folder.Path));
+    }
+    [Fact]public async Task LinkedDirectoriesAreRejectedBeforeAFileIsCreated()
+    {
+        using var folder=new Folder();string actual=Path.Combine(folder.Path,"actual"),link=Path.Combine(folder.Path,"link");Directory.CreateDirectory(actual);Directory.CreateSymbolicLink(link,actual);
+        try{var preview=SettingsBackupDocument.Create(Saved());await Assert.ThrowsAnyAsync<IOException>(()=>SettingsBackupFiles.PrepareNewAsync(Path.Combine(link,"backup.json"),Encoding.UTF8.GetBytes(preview.Text)));Assert.Empty(Directory.GetFiles(actual));}
+        finally{Directory.Delete(link);}
+    }
+    [Fact]public async Task AlreadyCancelledOrForeignPreviewNeverStartsFilePreparation()
+    {
+        using var session=new SettingsBackupSession();var preview=session.Prepare(Saved());var foreign=SettingsBackupDocument.Create(Saved());using var cancellation=new CancellationTokenSource();cancellation.Cancel();int calls=0;
+        Task<IPreparedDisplayPreferencesExport> Prepare(ReadOnlyMemory<byte> _,CancellationToken __){calls++;throw new IOException("must not execute");}
+        Assert.Equal(SettingsBackupExportStatus.Cancelled,(await session.ExportAsync(preview,Prepare,cancellation.Token)).Status);Assert.Equal(SettingsBackupExportStatus.Cancelled,(await session.ExportAsync(foreign,Prepare)).Status);Assert.Equal(0,calls);
+    }
+    [Theory][InlineData(false)][InlineData(true)]
+    public async Task InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles(bool close)
+    {
+        using var folder=new Folder();using var session=new SettingsBackupSession();var preview=session.Prepare(Saved());var entered=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var release=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);string path=Path.Combine(folder.Path,"cancelled.json");
+        var export=session.ExportAsync(preview,async(bytes,ct)=>{var file=await SettingsBackupFiles.PrepareNewAsync(path,bytes,ct);entered.SetResult();await release.Task;return file;});
+        await entered.Task.WaitAsync(TimeSpan.FromSeconds(5));
+        try{if(close)session.Dispose();else session.Invalidate();Assert.True(session.Busy);Assert.False(export.IsCompleted);Assert.False(File.Exists(path));Assert.Single(Directory.GetFiles(folder.Path));Assert.ThrowsAny<InvalidOperationException>(()=>session.Prepare(Saved()));}
+        finally{release.SetResult();}
+        Assert.Equal(SettingsBackupExportStatus.Cancelled,(await export.WaitAsync(TimeSpan.FromSeconds(5))).Status);Assert.False(session.Busy);Assert.Empty(Directory.GetFiles(folder.Path));
+    }
+    [Fact]public async Task DuplicateExportCannotReplaceTheOriginalFileOwner()
+    {
+        using var folder=new Folder();using var session=new SettingsBackupSession();var preview=session.Prepare(Saved());var entered=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var release=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);int calls=0;string path=Path.Combine(folder.Path,"one.json");
+        async Task<IPreparedDisplayPreferencesExport> Prepare(ReadOnlyMemory<byte> bytes,CancellationToken ct){calls++;var file=await SettingsBackupFiles.PrepareNewAsync(path,bytes,ct);entered.SetResult();await release.Task;return file;}
+        var export=session.ExportAsync(preview,Prepare);await entered.Task.WaitAsync(TimeSpan.FromSeconds(5));
+        try{Assert.Equal(SettingsBackupExportStatus.Busy,(await session.ExportAsync(preview,Prepare)).Status);Assert.Equal(1,calls);}
+        finally{release.SetResult();}
+        Assert.Equal(SettingsBackupExportStatus.Published,(await export).Status);Assert.Single(Directory.GetFiles(folder.Path));
+    }
+    [Fact]public async Task InvalidationWaitsForOriginalCancellationCallbacksWithoutBlockingItsCaller()
+    {
+        using var folder=new Folder();using var session=new SettingsBackupSession();var preview=session.Prepare(Saved());var prepared=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var returnFile=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var entered=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var release=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);CancellationTokenRegistration callback=default;
+        var export=session.ExportAsync(preview,async(bytes,ct)=>{var file=await SettingsBackupFiles.PrepareNewAsync(Path.Combine(folder.Path,"cancelled.json"),bytes,ct);callback=ct.Register(()=>{entered.TrySetResult();release.Task.GetAwaiter().GetResult();});prepared.SetResult();await returnFile.Task;return file;});
+        await prepared.Task.WaitAsync(TimeSpan.FromSeconds(5));session.Invalidate();
+        try{await entered.Task.WaitAsync(TimeSpan.FromSeconds(5));returnFile.SetResult();await Task.Yield();Assert.True(session.Busy);Assert.False(export.IsCompleted);}
+        finally{release.TrySetResult();returnFile.TrySetResult();}
+        Assert.Equal(SettingsBackupExportStatus.Cancelled,(await export.WaitAsync(TimeSpan.FromSeconds(5))).Status);await callback.DisposeAsync();Assert.False(session.Busy);Assert.Empty(Directory.GetFiles(folder.Path));
+    }
+    [Fact]public async Task CancellationCallbackFailureIsRetainedAndCannotPublishAWithdrawnPreview()
+    {
+        using var folder=new Folder();using var session=new SettingsBackupSession();var preview=session.Prepare(Saved());var failure=new IOException("PUBLIC callback failure");CancellationTokenRegistration callback=default;
+        var result=await session.ExportAsync(preview,async(bytes,ct)=>{var file=await SettingsBackupFiles.PrepareNewAsync(Path.Combine(folder.Path,"cancelled.json"),bytes,ct);callback=ct.Register(()=>throw failure);session.Invalidate();return file;});
+        await callback.DisposeAsync();Assert.Equal(SettingsBackupExportStatus.Failed,result.Status);var aggregate=Assert.IsType<AggregateException>(result.Failure);Assert.Contains(failure,aggregate.InnerExceptions);Assert.Empty(Directory.GetFiles(folder.Path));Assert.False(session.Busy);
+    }
+    [Fact]public async Task PublicationRemainsSuccessfulWhenCancellationArrivesAfterTheRealMove()
+    {
+        using var folder=new Folder();using var session=new SettingsBackupSession();var preview=session.Prepare(Saved());string path=Path.Combine(folder.Path,"published.json");
+        var result=await session.ExportAsync(preview,async(bytes,ct)=>new Prepared(await SettingsBackupFiles.PrepareNewAsync(path,bytes,ct),session.Invalidate));
+        Assert.Equal(SettingsBackupExportStatus.Published,result.Status);Assert.Equal(preview.Text,await File.ReadAllTextAsync(path));Assert.False(session.Busy);
+    }
+    [Fact]public async Task PublishedFileWithCleanupFailureReportsItsActualPublicationAndOriginalError()
+    {
+        using var folder=new Folder();using var session=new SettingsBackupSession();var preview=session.Prepare(Saved());string path=Path.Combine(folder.Path,"published.json");var failure=new IOException("PUBLIC close failure");
+        var result=await session.ExportAsync(preview,async(bytes,ct)=>new Prepared(await SettingsBackupFiles.PrepareNewAsync(path,bytes,ct),dispose:()=>throw failure));
+        Assert.Equal(SettingsBackupExportStatus.PublishedCleanupUnconfirmed,result.Status);Assert.Same(failure,result.Failure);Assert.Equal(preview.Text,await File.ReadAllTextAsync(path));Assert.False(session.Busy);
+    }
+    [Fact]public async Task LinkedUiCommandExportsTheDisplayedSnapshotAndReportsActualPublication()
+    {
+        using var folder=new Folder();using var session=new SettingsBackupSession();var preview=session.Prepare(Saved());var view=new KuaiYi.App.SettingsBackupWindow(session);string path=Path.Combine(folder.Path,"command.json");
+        await view.ExportForTest(path);Assert.Equal(preview.Text,await File.ReadAllTextAsync(path));Assert.Contains("已导出",view.StatusForTest);Assert.False(view.ExportEnabledForTest);Assert.False(view.ExportPending);view.DisposeForTest();
+    }
+    [Fact]public async Task LinkedUiCloseWaitsForTheSameOriginalFileTaskAndCannotPublishAfterRevocation()
+    {
+        using var folder=new Folder();using var session=new SettingsBackupSession();session.Prepare(Saved());var view=new KuaiYi.App.SettingsBackupWindow(session);var entered=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var release=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);int calls=0;
+        view.FilePortForTest(async(path,bytes,ct)=>{calls++;var file=await SettingsBackupFiles.PrepareNewAsync(path,bytes,ct);entered.SetResult();await release.Task;return file;});
+        var export=view.ExportForTest(Path.Combine(folder.Path,"command.json"));await entered.Task.WaitAsync(TimeSpan.FromSeconds(5));var close=view.SettleForCloseAsync();
+        try{Assert.Same(export,close);Assert.False(close.IsCompleted);Assert.True(view.ExportPending);Assert.Equal("",view.PreviewForTest);await view.ExportForTest(Path.Combine(folder.Path,"duplicate.json"));Assert.Equal(1,calls);}
+        finally{release.SetResult();}
+        await close.WaitAsync(TimeSpan.FromSeconds(5));Assert.Empty(Directory.GetFiles(folder.Path));Assert.False(view.ExportPending);Assert.Contains("已取消",view.StatusForTest);view.DisposeForTest();
+    }
+    private sealed class UiQueue:SynchronizationContext
+    {
+        private readonly Queue<(SendOrPostCallback Callback,object? State)> pending=[];
+        public override void Post(SendOrPostCallback callback,object? state)=>pending.Enqueue((callback,state));
+        public void Drain(){while(pending.TryDequeue(out var work))work.Callback(work.State);}
+    }
+    [Fact]public async Task LinkedUiCancellationBeforeFirstYieldNeverCreatesAFile()
+    {
+        using var folder=new Folder();using var session=new SettingsBackupSession();session.Prepare(Saved());var view=new KuaiYi.App.SettingsBackupWindow(session);int calls=0;
+        view.FilePortForTest((_,_,_)=>{calls++;throw new IOException("must not enter");});
+        Task export;var before=SynchronizationContext.Current;var queue=new UiQueue();
+        try{SynchronizationContext.SetSynchronizationContext(queue);export=view.ExportForTest(Path.Combine(folder.Path,"command.json"));view.CancelForTest();}
+        finally{SynchronizationContext.SetSynchronizationContext(before);}
+        queue.Drain();await export;Assert.Equal(0,calls);Assert.Empty(Directory.GetFiles(folder.Path));view.DisposeForTest();
+    }
+
+    [Fact]public async Task PublishedFileSurvivesCombinedDisposeAndOriginalCancellationFailuresInReportedOutcome()
+    {
+        using var folder=new Folder();using var session=new SettingsBackupSession();var preview=session.Prepare(Saved());string path=Path.Combine(folder.Path,"published.json");var cancelFailure=new IOException("PUBLIC cancellation failure");var disposeFailure=new IOException("PUBLIC disposal failure");CancellationTokenRegistration callback=default;
+        var result=await session.ExportAsync(preview,async(bytes,ct)=>
+        {
+            var file=await SettingsBackupFiles.PrepareNewAsync(path,bytes,ct);callback=ct.Register(()=>throw cancelFailure);
+            return new Prepared(file,session.Invalidate,()=>throw disposeFailure);
+        });
+        await callback.DisposeAsync();Assert.Equal(preview.Text,await File.ReadAllTextAsync(path));Assert.Equal(SettingsBackupExportStatus.PublishedCleanupUnconfirmed,result.Status);
+        var failures=Assert.IsType<AggregateException>(result.Failure).Flatten().InnerExceptions;Assert.Contains(cancelFailure,failures);Assert.Contains(disposeFailure,failures);Assert.False(session.Busy);
+    }
+
+}

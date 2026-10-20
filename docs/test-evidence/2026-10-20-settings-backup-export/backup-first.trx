@@ -1,0 +1,497 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="15cfe04f-a3f4-42af-a1bf-181e4c661330" name="@a13b420cac2b 2026-10-20 06:57:47" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-20T06:57:47.0440008+00:00" queuing="2026-10-20T06:57:47.0440008+00:00" start="2026-10-20T06:57:46.0591955+00:00" finish="2026-10-20T06:57:47.0835820+00:00" />
+  <TestSettings name="default" id="94a1986d-1796-4820-bb14-a97f46fd4e09">
+    <Deployment runDeploymentRoot="_a13b420cac2b_2026-10-20_06_57_47" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="712d5a6b-87e1-4050-aff1-a0410225025e" testId="50443cbc-aaaa-e99c-af47-64b1e8f97143" testName="KuaiYi.Core.Tests.SettingsBackupTests.LinkedDirectoriesAreRejectedBeforeAFileIsCreated" computerName="a13b420cac2b" duration="00:00:00.0029254" startTime="2026-10-20T06:57:47.0095162+00:00" endTime="2026-10-20T06:57:47.0095628+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="712d5a6b-87e1-4050-aff1-a0410225025e">
+      <Output>
+        <ErrorInfo>
+          <Message>KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef</Message>
+          <StackTrace>   at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 96
+   at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 67
+   at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs:line 18
+   at KuaiYi.Core.Tests.SettingsBackupTests.LinkedDirectoriesAreRejectedBeforeAFileIsCreated() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs:line 63
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="bcd1c240-19bc-4d92-aa8a-8d53bc7815eb" testId="888ab42a-69f9-0711-eb4c-81047cafa3d7" testName="KuaiYi.Core.Tests.SettingsBackupTests.CancellationCallbackFailureIsRetainedAndCannotPublishAWithdrawnPreview" computerName="a13b420cac2b" duration="00:00:00.0009716" startTime="2026-10-20T06:57:47.0091304+00:00" endTime="2026-10-20T06:57:47.0091789+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bcd1c240-19bc-4d92-aa8a-8d53bc7815eb">
+      <Output>
+        <ErrorInfo>
+          <Message>KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef</Message>
+          <StackTrace>   at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 96
+   at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 67
+   at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs:line 18
+   at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs:line 16
+   at KuaiYi.Core.Tests.SettingsBackupTests.CancellationCallbackFailureIsRetainedAndCannotPublishAWithdrawnPreview() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs:line 102
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9efc7e2f-0091-4bd9-b605-b1de02ba2f94" testId="56e21525-fc23-0051-2f6d-7013e0bbe7f8" testName="KuaiYi.Core.Tests.SettingsBackupTests.MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup(state: RecoverableDefaults)" computerName="a13b420cac2b" duration="00:00:00.0007188" startTime="2026-10-20T06:57:46.9944350+00:00" endTime="2026-10-20T06:57:46.9949652+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9efc7e2f-0091-4bd9-b605-b1de02ba2f94" />
+    <UnitTestResult executionId="87d6144d-fd2f-48da-bcfa-5bdab5a14d0e" testId="ff89a15f-0602-7c12-139e-03614a1b987a" testName="KuaiYi.Core.Tests.SettingsBackupTests.SavedInvalidFieldsFailClosedInsteadOfExportingAnIncompleteConfiguration" computerName="a13b420cac2b" duration="00:00:00.0026576" startTime="2026-10-20T06:57:46.9933692+00:00" endTime="2026-10-20T06:57:46.9934179+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="87d6144d-fd2f-48da-bcfa-5bdab5a14d0e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(KuaiYi.Core.Settings.SettingsValidationException)
+Actual:   typeof(System.InvalidOperationException)
+---- System.InvalidOperationException : This operation cannot be performed on a default instance of ImmutableArray&lt;T&gt;.  Consider initializing the array, or checking the ImmutableArray&lt;T&gt;.IsDefault property.</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SettingsBackupTests.SavedInvalidFieldsFailClosedInsteadOfExportingAnIncompleteConfiguration() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs:line 33
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+----- Inner Stack Trace -----
+   at System.Collections.Immutable.ImmutableArray`1.System.Collections.IEnumerable.GetEnumerator()
+   at KuaiYi.Core.Settings.SettingsJson.Ranges(Object value, String path) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 91
+   at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 59
+   at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs:line 18
+   at KuaiYi.Core.Tests.SettingsBackupTests.&lt;&gt;c__DisplayClass5_0.&lt;SavedInvalidFieldsFailClosedInsteadOfExportingAnIncompleteConfiguration&gt;b__0() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs:line 33</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="31b93a30-b3b4-493a-a63c-8d82d50c89d5" testId="a2c64663-e29b-b2dc-b764-36251e1f63ec" testName="KuaiYi.Core.Tests.SettingsBackupTests.SavedPreviewIsFrozenAcrossSubsequentSettingsAndDraftEdits" computerName="a13b420cac2b" duration="00:00:00.0204348" startTime="2026-10-20T06:57:46.9410532+00:00" endTime="2026-10-20T06:57:46.9727940+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="31b93a30-b3b4-493a-a63c-8d82d50c89d5">
+      <Output>
+        <ErrorInfo>
+          <Message>KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef</Message>
+          <StackTrace>   at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 96
+   at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 67
+   at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs:line 18
+   at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs:line 16
+   at KuaiYi.Core.Tests.SettingsBackupTests.SavedPreviewIsFrozenAcrossSubsequentSettingsAndDraftEdits() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs:line 42
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="dc4405a1-6299-4af8-8bb9-d49c1c251124" testId="127ca7ac-5cf2-5124-bbd8-c6b79351e128" testName="KuaiYi.Core.Tests.SettingsBackupTests.PublicationRemainsSuccessfulWhenCancellationArrivesAfterTheRealMove" computerName="a13b420cac2b" duration="00:00:00.0028305" startTime="2026-10-20T06:57:46.9893750+00:00" endTime="2026-10-20T06:57:46.9896268+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dc4405a1-6299-4af8-8bb9-d49c1c251124">
+      <Output>
+        <ErrorInfo>
+          <Message>KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef</Message>
+          <StackTrace>   at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 96
+   at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 67
+   at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs:line 18
+   at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs:line 16
+   at KuaiYi.Core.Tests.SettingsBackupTests.PublicationRemainsSuccessfulWhenCancellationArrivesAfterTheRealMove() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs:line 108
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9146fb2c-14ed-4579-9df7-43006fa1d794" testId="3cb326b3-09b6-d84d-e534-0603726ea57f" testName="KuaiYi.Core.Tests.SettingsBackupTests.SavedSnapshotOmitsCredentialReferencesAllHeadersRulesAndMachinePositionWithoutChangingSource" computerName="a13b420cac2b" duration="00:00:00.0006646" startTime="2026-10-20T06:57:47.0115755+00:00" endTime="2026-10-20T06:57:47.0116375+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9146fb2c-14ed-4579-9df7-43006fa1d794">
+      <Output>
+        <ErrorInfo>
+          <Message>KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef</Message>
+          <StackTrace>   at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 96
+   at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 67
+   at KuaiYi.Core.Settings.SettingsJson.Write(AppSettings settings) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 48
+   at KuaiYi.Core.Tests.SettingsBackupTests.SavedSnapshotOmitsCredentialReferencesAllHeadersRulesAndMachinePositionWithoutChangingSource() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs:line 24
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b28d2204-a1ef-4409-9f97-59ff4555c1ee" testId="86038ac2-f56f-c7c6-e01b-f4288467c84f" testName="KuaiYi.Core.Tests.SettingsBackupTests.AlreadyCancelledOrForeignPreviewNeverStartsFilePreparation" computerName="a13b420cac2b" duration="00:00:00.0014263" startTime="2026-10-20T06:57:46.9907553+00:00" endTime="2026-10-20T06:57:46.9908176+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b28d2204-a1ef-4409-9f97-59ff4555c1ee">
+      <Output>
+        <ErrorInfo>
+          <Message>KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef</Message>
+          <StackTrace>   at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 96
+   at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 67
+   at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs:line 18
+   at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs:line 16
+   at KuaiYi.Core.Tests.SettingsBackupTests.AlreadyCancelledOrForeignPreviewNeverStartsFilePreparation() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs:line 68
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6177aa61-5991-41c5-9f9e-ab676792ed4e" testId="15a835db-592a-de65-88e8-8242c0141889" testName="KuaiYi.Core.Tests.SettingsBackupTests.MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup(state: RecoverableBackup)" computerName="a13b420cac2b" duration="00:00:00.0000205" startTime="2026-10-20T06:57:47.0073944+00:00" endTime="2026-10-20T06:57:47.0074413+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6177aa61-5991-41c5-9f9e-ab676792ed4e" />
+    <UnitTestResult executionId="68ab1f11-a2ec-4379-a2a1-4f9c7a4fa387" testId="536765c1-bfc3-ae4c-7132-1b562de4e820" testName="KuaiYi.Core.Tests.SettingsBackupTests.DuplicateExportCannotReplaceTheOriginalFileOwner" computerName="a13b420cac2b" duration="00:00:00.0010820" startTime="2026-10-20T06:57:46.9923719+00:00" endTime="2026-10-20T06:57:46.9924234+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="68ab1f11-a2ec-4379-a2a1-4f9c7a4fa387">
+      <Output>
+        <ErrorInfo>
+          <Message>KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef</Message>
+          <StackTrace>   at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 96
+   at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 67
+   at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs:line 18
+   at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs:line 16
+   at KuaiYi.Core.Tests.SettingsBackupTests.DuplicateExportCannotReplaceTheOriginalFileOwner() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs:line 84
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4cb464b1-a400-4ba9-b3c5-67f265dbc71a" testId="47fa7a90-5205-a6fc-0d37-e3dd44d278c2" testName="KuaiYi.Core.Tests.SettingsBackupTests.ExistingTargetIsNeverOverwrittenAndOwnedTemporaryFileIsRemoved" computerName="a13b420cac2b" duration="00:00:00.0008909" startTime="2026-10-20T06:57:47.0076768+00:00" endTime="2026-10-20T06:57:47.0077212+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4cb464b1-a400-4ba9-b3c5-67f265dbc71a">
+      <Output>
+        <ErrorInfo>
+          <Message>KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef</Message>
+          <StackTrace>   at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 96
+   at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 67
+   at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs:line 18
+   at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs:line 16
+   at KuaiYi.Core.Tests.SettingsBackupTests.ExistingTargetIsNeverOverwrittenAndOwnedTemporaryFileIsRemoved() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs:line 50
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1aca3da8-5780-4bd2-b37d-7570e5ece768" testId="2f16ab7f-e9e4-40d2-d352-023901a8817a" testName="KuaiYi.Core.Tests.SettingsBackupTests.MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup(state: Defaults)" computerName="a13b420cac2b" duration="00:00:00.0000076" startTime="2026-10-20T06:57:47.0075293+00:00" endTime="2026-10-20T06:57:47.0075715+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1aca3da8-5780-4bd2-b37d-7570e5ece768" />
+    <UnitTestResult executionId="db39ce7b-bab9-42ca-96e8-7d1ef0c5c3be" testId="6a5ecb44-5b49-eb85-3611-87dc5f1ea41f" testName="KuaiYi.Core.Tests.SettingsBackupTests.FileBoundaryRejectsUnsanitizedSettingsAndKeepsTheOriginalFourFieldWhitelist" computerName="a13b420cac2b" duration="00:00:00.0009399" startTime="2026-10-20T06:57:46.9928330+00:00" endTime="2026-10-20T06:57:46.9929195+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="db39ce7b-bab9-42ca-96e8-7d1ef0c5c3be">
+      <Output>
+        <ErrorInfo>
+          <Message>KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef</Message>
+          <StackTrace>   at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 96
+   at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 67
+   at KuaiYi.Core.Settings.SettingsJson.Write(AppSettings settings) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 48
+   at KuaiYi.Core.Tests.SettingsBackupTests.FileBoundaryRejectsUnsanitizedSettingsAndKeepsTheOriginalFourFieldWhitelist() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs:line 56
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b01d6b93-4730-4ca0-83dc-47016a9e0dea" testId="95d10851-d752-0c18-6afc-1497eea55735" testName="KuaiYi.Core.Tests.SettingsBackupTests.ExactDisplayedBytesArePublishedToARealFileAndItsSourceRemainsUnchanged" computerName="a13b420cac2b" duration="00:00:00.0012185" startTime="2026-10-20T06:57:47.0086652+00:00" endTime="2026-10-20T06:57:47.0087171+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b01d6b93-4730-4ca0-83dc-47016a9e0dea">
+      <Output>
+        <ErrorInfo>
+          <Message>KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef</Message>
+          <StackTrace>   at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 96
+   at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 67
+   at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs:line 18
+   at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs:line 16
+   at KuaiYi.Core.Tests.SettingsBackupTests.ExactDisplayedBytesArePublishedToARealFileAndItsSourceRemainsUnchanged() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs:line 36
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="15b78216-c160-4b71-bbda-d06e043bb2da" testId="a5a7e23c-dbf3-be73-47cb-600d5f0f6d91" testName="KuaiYi.Core.Tests.SettingsBackupTests.PublishedFileWithCleanupFailureReportsItsActualPublicationAndOriginalError" computerName="a13b420cac2b" duration="00:00:00.0009080" startTime="2026-10-20T06:57:47.0082465+00:00" endTime="2026-10-20T06:57:47.0082945+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="15b78216-c160-4b71-bbda-d06e043bb2da">
+      <Output>
+        <ErrorInfo>
+          <Message>KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef</Message>
+          <StackTrace>   at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 96
+   at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 67
+   at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs:line 18
+   at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs:line 16
+   at KuaiYi.Core.Tests.SettingsBackupTests.PublishedFileWithCleanupFailureReportsItsActualPublicationAndOriginalError() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs:line 114
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="478cfc7d-9937-4a69-ae11-dd0c884430fb" testId="12760d27-0ce4-d599-5a02-1c2d969ebe8e" testName="KuaiYi.Core.Tests.SettingsBackupTests.InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles(close: True)" computerName="a13b420cac2b" duration="00:00:00.0014475" startTime="2026-10-20T06:57:46.9913694+00:00" endTime="2026-10-20T06:57:46.9914216+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="478cfc7d-9937-4a69-ae11-dd0c884430fb">
+      <Output>
+        <ErrorInfo>
+          <Message>KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef</Message>
+          <StackTrace>   at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 96
+   at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 67
+   at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs:line 18
+   at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs:line 16
+   at KuaiYi.Core.Tests.SettingsBackupTests.InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles(Boolean close) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs:line 75
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="21e91c4a-43e6-413a-9fc3-4a15b6a00227" testId="2b7873e6-cecf-c432-b02a-7b4e3cde1df7" testName="KuaiYi.Core.Tests.SettingsBackupTests.InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles(close: False)" computerName="a13b420cac2b" duration="00:00:00.0004701" startTime="2026-10-20T06:57:46.9917640+00:00" endTime="2026-10-20T06:57:46.9918137+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="21e91c4a-43e6-413a-9fc3-4a15b6a00227">
+      <Output>
+        <ErrorInfo>
+          <Message>KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef</Message>
+          <StackTrace>   at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 96
+   at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 67
+   at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs:line 18
+   at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs:line 16
+   at KuaiYi.Core.Tests.SettingsBackupTests.InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles(Boolean close) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs:line 75
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8338ff10-aa52-4d23-9dde-eeb4a0c025b9" testId="f0bb5db3-5eb7-49d1-cde5-1bcf72d92ff5" testName="KuaiYi.Core.Tests.SettingsBackupTests.InvalidationWaitsForOriginalCancellationCallbacksWithoutBlockingItsCaller" computerName="a13b420cac2b" duration="00:00:00.0012242" startTime="2026-10-20T06:57:47.0099263+00:00" endTime="2026-10-20T06:57:47.0099770+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8338ff10-aa52-4d23-9dde-eeb4a0c025b9">
+      <Output>
+        <ErrorInfo>
+          <Message>KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef</Message>
+          <StackTrace>   at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 96
+   at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 67
+   at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs:line 18
+   at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs:line 16
+   at KuaiYi.Core.Tests.SettingsBackupTests.InvalidationWaitsForOriginalCancellationCallbacksWithoutBlockingItsCaller() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs:line 93
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="952356a0-edb7-4293-913f-780cea69fdb7" testId="1d406f89-de4a-6cc6-23bb-f00bb9a51232" testName="KuaiYi.Core.Tests.SettingsBackupTests.MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup(state: ReadOnlyUnknown)" computerName="a13b420cac2b" duration="00:00:00.0003620" startTime="2026-10-20T06:57:47.0070809+00:00" endTime="2026-10-20T06:57:47.0071626+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="952356a0-edb7-4293-913f-780cea69fdb7" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup(state: ReadOnlyUnknown)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="1d406f89-de4a-6cc6-23bb-f00bb9a51232">
+      <Execution id="952356a0-edb7-4293-913f-780cea69fdb7" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.AlreadyCancelledOrForeignPreviewNeverStartsFilePreparation" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="86038ac2-f56f-c7c6-e01b-f4288467c84f">
+      <Execution id="b28d2204-a1ef-4409-9f97-59ff4555c1ee" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="AlreadyCancelledOrForeignPreviewNeverStartsFilePreparation" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.LinkedDirectoriesAreRejectedBeforeAFileIsCreated" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="50443cbc-aaaa-e99c-af47-64b1e8f97143">
+      <Execution id="712d5a6b-87e1-4050-aff1-a0410225025e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="LinkedDirectoriesAreRejectedBeforeAFileIsCreated" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.SavedSnapshotOmitsCredentialReferencesAllHeadersRulesAndMachinePositionWithoutChangingSource" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="3cb326b3-09b6-d84d-e534-0603726ea57f">
+      <Execution id="9146fb2c-14ed-4579-9df7-43006fa1d794" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="SavedSnapshotOmitsCredentialReferencesAllHeadersRulesAndMachinePositionWithoutChangingSource" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.ExistingTargetIsNeverOverwrittenAndOwnedTemporaryFileIsRemoved" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="47fa7a90-5205-a6fc-0d37-e3dd44d278c2">
+      <Execution id="4cb464b1-a400-4ba9-b3c5-67f265dbc71a" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="ExistingTargetIsNeverOverwrittenAndOwnedTemporaryFileIsRemoved" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup(state: RecoverableDefaults)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="56e21525-fc23-0051-2f6d-7013e0bbe7f8">
+      <Execution id="9efc7e2f-0091-4bd9-b605-b1de02ba2f94" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.InvalidationWaitsForOriginalCancellationCallbacksWithoutBlockingItsCaller" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="f0bb5db3-5eb7-49d1-cde5-1bcf72d92ff5">
+      <Execution id="8338ff10-aa52-4d23-9dde-eeb4a0c025b9" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="InvalidationWaitsForOriginalCancellationCallbacksWithoutBlockingItsCaller" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup(state: Defaults)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="2f16ab7f-e9e4-40d2-d352-023901a8817a">
+      <Execution id="1aca3da8-5780-4bd2-b37d-7570e5ece768" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.ExactDisplayedBytesArePublishedToARealFileAndItsSourceRemainsUnchanged" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="95d10851-d752-0c18-6afc-1497eea55735">
+      <Execution id="b01d6b93-4730-4ca0-83dc-47016a9e0dea" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="ExactDisplayedBytesArePublishedToARealFileAndItsSourceRemainsUnchanged" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.PublicationRemainsSuccessfulWhenCancellationArrivesAfterTheRealMove" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="127ca7ac-5cf2-5124-bbd8-c6b79351e128">
+      <Execution id="dc4405a1-6299-4af8-8bb9-d49c1c251124" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="PublicationRemainsSuccessfulWhenCancellationArrivesAfterTheRealMove" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.SavedInvalidFieldsFailClosedInsteadOfExportingAnIncompleteConfiguration" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="ff89a15f-0602-7c12-139e-03614a1b987a">
+      <Execution id="87d6144d-fd2f-48da-bcfa-5bdab5a14d0e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="SavedInvalidFieldsFailClosedInsteadOfExportingAnIncompleteConfiguration" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles(close: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="12760d27-0ce4-d599-5a02-1c2d969ebe8e">
+      <Execution id="478cfc7d-9937-4a69-ae11-dd0c884430fb" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup(state: RecoverableBackup)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="15a835db-592a-de65-88e8-8242c0141889">
+      <Execution id="6177aa61-5991-41c5-9f9e-ab676792ed4e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles(close: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="2b7873e6-cecf-c432-b02a-7b4e3cde1df7">
+      <Execution id="21e91c4a-43e6-413a-9fc3-4a15b6a00227" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.PublishedFileWithCleanupFailureReportsItsActualPublicationAndOriginalError" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a5a7e23c-dbf3-be73-47cb-600d5f0f6d91">
+      <Execution id="15b78216-c160-4b71-bbda-d06e043bb2da" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="PublishedFileWithCleanupFailureReportsItsActualPublicationAndOriginalError" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.CancellationCallbackFailureIsRetainedAndCannotPublishAWithdrawnPreview" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="888ab42a-69f9-0711-eb4c-81047cafa3d7">
+      <Execution id="bcd1c240-19bc-4d92-aa8a-8d53bc7815eb" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="CancellationCallbackFailureIsRetainedAndCannotPublishAWithdrawnPreview" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.DuplicateExportCannotReplaceTheOriginalFileOwner" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="536765c1-bfc3-ae4c-7132-1b562de4e820">
+      <Execution id="68ab1f11-a2ec-4379-a2a1-4f9c7a4fa387" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="DuplicateExportCannotReplaceTheOriginalFileOwner" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.FileBoundaryRejectsUnsanitizedSettingsAndKeepsTheOriginalFourFieldWhitelist" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="6a5ecb44-5b49-eb85-3611-87dc5f1ea41f">
+      <Execution id="db39ce7b-bab9-42ca-96e8-7d1ef0c5c3be" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="FileBoundaryRejectsUnsanitizedSettingsAndKeepsTheOriginalFourFieldWhitelist" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.SavedPreviewIsFrozenAcrossSubsequentSettingsAndDraftEdits" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a2c64663-e29b-b2dc-b764-36251e1f63ec">
+      <Execution id="31b93a30-b3b4-493a-a63c-8d82d50c89d5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="SavedPreviewIsFrozenAcrossSubsequentSettingsAndDraftEdits" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="50443cbc-aaaa-e99c-af47-64b1e8f97143" executionId="712d5a6b-87e1-4050-aff1-a0410225025e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="888ab42a-69f9-0711-eb4c-81047cafa3d7" executionId="bcd1c240-19bc-4d92-aa8a-8d53bc7815eb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="56e21525-fc23-0051-2f6d-7013e0bbe7f8" executionId="9efc7e2f-0091-4bd9-b605-b1de02ba2f94" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ff89a15f-0602-7c12-139e-03614a1b987a" executionId="87d6144d-fd2f-48da-bcfa-5bdab5a14d0e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a2c64663-e29b-b2dc-b764-36251e1f63ec" executionId="31b93a30-b3b4-493a-a63c-8d82d50c89d5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="127ca7ac-5cf2-5124-bbd8-c6b79351e128" executionId="dc4405a1-6299-4af8-8bb9-d49c1c251124" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3cb326b3-09b6-d84d-e534-0603726ea57f" executionId="9146fb2c-14ed-4579-9df7-43006fa1d794" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="86038ac2-f56f-c7c6-e01b-f4288467c84f" executionId="b28d2204-a1ef-4409-9f97-59ff4555c1ee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="15a835db-592a-de65-88e8-8242c0141889" executionId="6177aa61-5991-41c5-9f9e-ab676792ed4e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="536765c1-bfc3-ae4c-7132-1b562de4e820" executionId="68ab1f11-a2ec-4379-a2a1-4f9c7a4fa387" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="47fa7a90-5205-a6fc-0d37-e3dd44d278c2" executionId="4cb464b1-a400-4ba9-b3c5-67f265dbc71a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2f16ab7f-e9e4-40d2-d352-023901a8817a" executionId="1aca3da8-5780-4bd2-b37d-7570e5ece768" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6a5ecb44-5b49-eb85-3611-87dc5f1ea41f" executionId="db39ce7b-bab9-42ca-96e8-7d1ef0c5c3be" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="95d10851-d752-0c18-6afc-1497eea55735" executionId="b01d6b93-4730-4ca0-83dc-47016a9e0dea" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a5a7e23c-dbf3-be73-47cb-600d5f0f6d91" executionId="15b78216-c160-4b71-bbda-d06e043bb2da" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="12760d27-0ce4-d599-5a02-1c2d969ebe8e" executionId="478cfc7d-9937-4a69-ae11-dd0c884430fb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2b7873e6-cecf-c432-b02a-7b4e3cde1df7" executionId="21e91c4a-43e6-413a-9fc3-4a15b6a00227" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f0bb5db3-5eb7-49d1-cde5-1bcf72d92ff5" executionId="8338ff10-aa52-4d23-9dde-eeb4a0c025b9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1d406f89-de4a-6cc6-23bb-f00bb9a51232" executionId="952356a0-edb7-4293-913f-780cea69fdb7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="19" executed="19" passed="4" failed="15" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.13)
+[xUnit.net 00:00:00.11]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.52]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.55]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.61]       KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef
+[xUnit.net 00:00:00.61]       Stack Trace:
+[xUnit.net 00:00:00.61]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(96,0): at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field)
+[xUnit.net 00:00:00.61]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(67,0): at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s)
+[xUnit.net 00:00:00.61]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs(18,0): at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved)
+[xUnit.net 00:00:00.61]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs(16,0): at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved)
+[xUnit.net 00:00:00.61]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs(42,0): at KuaiYi.Core.Tests.SettingsBackupTests.SavedPreviewIsFrozenAcrossSubsequentSettingsAndDraftEdits()
+[xUnit.net 00:00:00.61]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.62]       KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef
+[xUnit.net 00:00:00.62]       Stack Trace:
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(96,0): at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field)
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(67,0): at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s)
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs(18,0): at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved)
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs(16,0): at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved)
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs(108,0): at KuaiYi.Core.Tests.SettingsBackupTests.PublicationRemainsSuccessfulWhenCancellationArrivesAfterTheRealMove()
+[xUnit.net 00:00:00.62]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.62]       KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef
+[xUnit.net 00:00:00.62]       Stack Trace:
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(96,0): at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field)
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(67,0): at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s)
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs(18,0): at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved)
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs(16,0): at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved)
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs(68,0): at KuaiYi.Core.Tests.SettingsBackupTests.AlreadyCancelledOrForeignPreviewNeverStartsFilePreparation()
+[xUnit.net 00:00:00.62]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.62]       KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef
+[xUnit.net 00:00:00.62]       Stack Trace:
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(96,0): at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field)
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(67,0): at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s)
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs(18,0): at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved)
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs(16,0): at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved)
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs(75,0): at KuaiYi.Core.Tests.SettingsBackupTests.InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles(Boolean close)
+[xUnit.net 00:00:00.62]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.62]       KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef
+[xUnit.net 00:00:00.62]       Stack Trace:
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(96,0): at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field)
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(67,0): at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s)
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs(18,0): at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved)
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs(16,0): at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved)
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs(75,0): at KuaiYi.Core.Tests.SettingsBackupTests.InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles(Boolean close)
+[xUnit.net 00:00:00.62]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.62]       KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef
+[xUnit.net 00:00:00.62]       Stack Trace:
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(96,0): at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field)
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(67,0): at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s)
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs(18,0): at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved)
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs(16,0): at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved)
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs(84,0): at KuaiYi.Core.Tests.SettingsBackupTests.DuplicateExportCannotReplaceTheOriginalFileOwner()
+[xUnit.net 00:00:00.62]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.62]       KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef
+[xUnit.net 00:00:00.62]       Stack Trace:
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(96,0): at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field)
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(67,0): at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s)
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(48,0): at KuaiYi.Core.Settings.SettingsJson.Write(AppSettings settings)
+[xUnit.net 00:00:00.62]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs(56,0): at KuaiYi.Core.Tests.SettingsBackupTests.FileBoundaryRejectsUnsanitizedSettingsAndKeepsTheOriginalFourFieldWhitelist()
+[xUnit.net 00:00:00.62]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.63]       Assert.Throws() Failure: Exception type was not an exact match
+[xUnit.net 00:00:00.63]       Expected: typeof(KuaiYi.Core.Settings.SettingsValidationException)
+[xUnit.net 00:00:00.63]       Actual:   typeof(System.InvalidOperationException)
+[xUnit.net 00:00:00.63]       ---- System.InvalidOperationException : This operation cannot be performed on a default instance of ImmutableArray&lt;T&gt;.  Consider initializing the array, or checking the ImmutableArray&lt;T&gt;.IsDefault property.
+[xUnit.net 00:00:00.63]       Stack Trace:
+[xUnit.net 00:00:00.63]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs(33,0): at KuaiYi.Core.Tests.SettingsBackupTests.SavedInvalidFieldsFailClosedInsteadOfExportingAnIncompleteConfiguration()
+[xUnit.net 00:00:00.63]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:00.63]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[xUnit.net 00:00:00.63]         ----- Inner Stack Trace -----
+[xUnit.net 00:00:00.63]            at System.Collections.Immutable.ImmutableArray`1.System.Collections.IEnumerable.GetEnumerator()
+[xUnit.net 00:00:00.63]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(91,0): at KuaiYi.Core.Settings.SettingsJson.Ranges(Object value, String path)
+[xUnit.net 00:00:00.63]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(59,0): at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s)
+[xUnit.net 00:00:00.63]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs(18,0): at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved)
+[xUnit.net 00:00:00.63]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs(33,0): at KuaiYi.Core.Tests.SettingsBackupTests.&lt;&gt;c__DisplayClass5_0.&lt;SavedInvalidFieldsFailClosedInsteadOfExportingAnIncompleteConfiguration&gt;b__0()
+[xUnit.net 00:00:00.64]       KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef
+[xUnit.net 00:00:00.64]       Stack Trace:
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(96,0): at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(67,0): at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs(18,0): at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs(16,0): at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs(50,0): at KuaiYi.Core.Tests.SettingsBackupTests.ExistingTargetIsNeverOverwrittenAndOwnedTemporaryFileIsRemoved()
+[xUnit.net 00:00:00.64]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.64]       KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef
+[xUnit.net 00:00:00.64]       Stack Trace:
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(96,0): at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(67,0): at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs(18,0): at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs(16,0): at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs(114,0): at KuaiYi.Core.Tests.SettingsBackupTests.PublishedFileWithCleanupFailureReportsItsActualPublicationAndOriginalError()
+[xUnit.net 00:00:00.64]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.64]       KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef
+[xUnit.net 00:00:00.64]       Stack Trace:
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(96,0): at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(67,0): at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs(18,0): at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs(16,0): at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs(36,0): at KuaiYi.Core.Tests.SettingsBackupTests.ExactDisplayedBytesArePublishedToARealFileAndItsSourceRemainsUnchanged()
+[xUnit.net 00:00:00.64]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.64]       KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef
+[xUnit.net 00:00:00.64]       Stack Trace:
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(96,0): at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(67,0): at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs(18,0): at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs(16,0): at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs(102,0): at KuaiYi.Core.Tests.SettingsBackupTests.CancellationCallbackFailureIsRetainedAndCannotPublishAWithdrawnPreview()
+[xUnit.net 00:00:00.64]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.64]       KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef
+[xUnit.net 00:00:00.64]       Stack Trace:
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(96,0): at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(67,0): at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs(18,0): at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs(63,0): at KuaiYi.Core.Tests.SettingsBackupTests.LinkedDirectoriesAreRejectedBeforeAFileIsCreated()
+[xUnit.net 00:00:00.64]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.64]       KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef
+[xUnit.net 00:00:00.64]       Stack Trace:
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(96,0): at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(67,0): at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs(18,0): at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs(16,0): at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs(93,0): at KuaiYi.Core.Tests.SettingsBackupTests.InvalidationWaitsForOriginalCancellationCallbacksWithoutBlockingItsCaller()
+[xUnit.net 00:00:00.64]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.64]       KuaiYi.Core.Settings.SettingsValidationException : Invalid setting: profile.secretRef
+[xUnit.net 00:00:00.64]       Stack Trace:
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(96,0): at KuaiYi.Core.Settings.SettingsJson.Check(Boolean valid, String field)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(67,0): at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(48,0): at KuaiYi.Core.Settings.SettingsJson.Write(AppSettings settings)
+[xUnit.net 00:00:00.64]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs(24,0): at KuaiYi.Core.Tests.SettingsBackupTests.SavedSnapshotOmitsCredentialReferencesAllHeadersRulesAndMachinePositionWithoutChangingSource()
+[xUnit.net 00:00:00.64]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:00.64]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[xUnit.net 00:00:00.65]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="a13b420cac2b" outcome="Error" timestamp="2026-10-20T06:57:46.9764533+00:00">
+        <Text>[xUnit.net 00:00:00.61]     KuaiYi.Core.Tests.SettingsBackupTests.SavedPreviewIsFrozenAcrossSubsequentSettingsAndDraftEdits [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="a13b420cac2b" outcome="Error" timestamp="2026-10-20T06:57:46.9904232+00:00">
+        <Text>[xUnit.net 00:00:00.62]     KuaiYi.Core.Tests.SettingsBackupTests.PublicationRemainsSuccessfulWhenCancellationArrivesAfterTheRealMove [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="a13b420cac2b" outcome="Error" timestamp="2026-10-20T06:57:46.9911177+00:00">
+        <Text>[xUnit.net 00:00:00.62]     KuaiYi.Core.Tests.SettingsBackupTests.AlreadyCancelledOrForeignPreviewNeverStartsFilePreparation [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="a13b420cac2b" outcome="Error" timestamp="2026-10-20T06:57:46.9916648+00:00">
+        <Text>[xUnit.net 00:00:00.62]     KuaiYi.Core.Tests.SettingsBackupTests.InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles(close: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="a13b420cac2b" outcome="Error" timestamp="2026-10-20T06:57:46.9922727+00:00">
+        <Text>[xUnit.net 00:00:00.62]     KuaiYi.Core.Tests.SettingsBackupTests.InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles(close: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="a13b420cac2b" outcome="Error" timestamp="2026-10-20T06:57:46.9927267+00:00">
+        <Text>[xUnit.net 00:00:00.62]     KuaiYi.Core.Tests.SettingsBackupTests.DuplicateExportCannotReplaceTheOriginalFileOwner [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="a13b420cac2b" outcome="Error" timestamp="2026-10-20T06:57:46.9932942+00:00">
+        <Text>[xUnit.net 00:00:00.62]     KuaiYi.Core.Tests.SettingsBackupTests.FileBoundaryRejectsUnsanitizedSettingsAndKeepsTheOriginalFourFieldWhitelist [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="a13b420cac2b" outcome="Error" timestamp="2026-10-20T06:57:46.9937157+00:00">
+        <Text>[xUnit.net 00:00:00.63]     KuaiYi.Core.Tests.SettingsBackupTests.SavedInvalidFieldsFailClosedInsteadOfExportingAnIncompleteConfiguration [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="a13b420cac2b" outcome="Error" timestamp="2026-10-20T06:57:47.0501031+00:00">
+        <Text>[xUnit.net 00:00:00.64]     KuaiYi.Core.Tests.SettingsBackupTests.ExistingTargetIsNeverOverwrittenAndOwnedTemporaryFileIsRemoved [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="a13b420cac2b" outcome="Error" timestamp="2026-10-20T06:57:47.0501425+00:00">
+        <Text>[xUnit.net 00:00:00.64]     KuaiYi.Core.Tests.SettingsBackupTests.PublishedFileWithCleanupFailureReportsItsActualPublicationAndOriginalError [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="a13b420cac2b" outcome="Error" timestamp="2026-10-20T06:57:47.0502026+00:00">
+        <Text>[xUnit.net 00:00:00.64]     KuaiYi.Core.Tests.SettingsBackupTests.ExactDisplayedBytesArePublishedToARealFileAndItsSourceRemainsUnchanged [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="a13b420cac2b" outcome="Error" timestamp="2026-10-20T06:57:47.0502379+00:00">
+        <Text>[xUnit.net 00:00:00.64]     KuaiYi.Core.Tests.SettingsBackupTests.CancellationCallbackFailureIsRetainedAndCannotPublishAWithdrawnPreview [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="a13b420cac2b" outcome="Error" timestamp="2026-10-20T06:57:47.0502664+00:00">
+        <Text>[xUnit.net 00:00:00.64]     KuaiYi.Core.Tests.SettingsBackupTests.LinkedDirectoriesAreRejectedBeforeAFileIsCreated [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="a13b420cac2b" outcome="Error" timestamp="2026-10-20T06:57:47.0502906+00:00">
+        <Text>[xUnit.net 00:00:00.64]     KuaiYi.Core.Tests.SettingsBackupTests.InvalidationWaitsForOriginalCancellationCallbacksWithoutBlockingItsCaller [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="a13b420cac2b" outcome="Error" timestamp="2026-10-20T06:57:47.0507669+00:00">
+        <Text>[xUnit.net 00:00:00.64]     KuaiYi.Core.Tests.SettingsBackupTests.SavedSnapshotOmitsCredentialReferencesAllHeadersRulesAndMachinePositionWithoutChangingSource [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

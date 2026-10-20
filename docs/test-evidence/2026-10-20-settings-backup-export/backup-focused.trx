@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="83844e4f-3d57-478e-ac8a-e3255ef6f4e9" name="@a13b420cac2b 2026-10-20 06:58:09" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-20T06:58:09.8193499+00:00" queuing="2026-10-20T06:58:09.8193500+00:00" start="2026-10-20T06:58:08.1275509+00:00" finish="2026-10-20T06:58:09.8961095+00:00" />
+  <TestSettings name="default" id="070b5da9-cede-41e0-b7a5-45edbb9a56ae">
+    <Deployment runDeploymentRoot="_a13b420cac2b_2026-10-20_06_58_09" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="f4774a8d-c9c9-45a9-a143-3d469dd0ffc6" testId="2f16ab7f-e9e4-40d2-d352-023901a8817a" testName="KuaiYi.Core.Tests.SettingsBackupTests.MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup(state: Defaults)" computerName="a13b420cac2b" duration="00:00:00.0000061" startTime="2026-10-20T06:58:09.7891949+00:00" endTime="2026-10-20T06:58:09.7892374+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f4774a8d-c9c9-45a9-a143-3d469dd0ffc6" />
+    <UnitTestResult executionId="32e6d8e1-2507-46c6-8eac-a51b9adb0b07" testId="15a835db-592a-de65-88e8-8242c0141889" testName="KuaiYi.Core.Tests.SettingsBackupTests.MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup(state: RecoverableBackup)" computerName="a13b420cac2b" duration="00:00:00.0000138" startTime="2026-10-20T06:58:09.7890569+00:00" endTime="2026-10-20T06:58:09.7891054+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="32e6d8e1-2507-46c6-8eac-a51b9adb0b07" />
+    <UnitTestResult executionId="3be70df3-673a-404a-b525-ef763deed5d4" testId="95d10851-d752-0c18-6afc-1497eea55735" testName="KuaiYi.Core.Tests.SettingsBackupTests.ExactDisplayedBytesArePublishedToARealFileAndItsSourceRemainsUnchanged" computerName="a13b420cac2b" duration="00:00:00.0096528" startTime="2026-10-20T06:58:09.7917872+00:00" endTime="2026-10-20T06:58:09.8049482+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3be70df3-673a-404a-b525-ef763deed5d4" />
+    <UnitTestResult executionId="ce79f8d8-b87c-4efd-9ded-b2e85003b4e0" testId="1d406f89-de4a-6cc6-23bb-f00bb9a51232" testName="KuaiYi.Core.Tests.SettingsBackupTests.MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup(state: ReadOnlyUnknown)" computerName="a13b420cac2b" duration="00:00:00.0002751" startTime="2026-10-20T06:58:09.7886936+00:00" endTime="2026-10-20T06:58:09.7887626+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ce79f8d8-b87c-4efd-9ded-b2e85003b4e0" />
+    <UnitTestResult executionId="8381e8ae-ceca-4c73-b652-57ca895b2329" testId="12760d27-0ce4-d599-5a02-1c2d969ebe8e" testName="KuaiYi.Core.Tests.SettingsBackupTests.InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles(close: True)" computerName="a13b420cac2b" duration="00:00:00.0097230" startTime="2026-10-20T06:58:09.7370179+00:00" endTime="2026-10-20T06:58:09.7543541+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8381e8ae-ceca-4c73-b652-57ca895b2329">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(System.InvalidOperationException)
+Actual:   typeof(System.ObjectDisposedException)
+---- System.ObjectDisposedException : Cannot access a disposed object.
+Object name: 'KuaiYi.Core.Settings.SettingsBackupSession'.</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SettingsBackupTests.InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles(Boolean close) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs:line 78
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs:line 17
+   at KuaiYi.Core.Tests.SettingsBackupTests.&lt;&gt;c__DisplayClass12_0.&lt;InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles&gt;b__1() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs:line 78</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="5bb4e6d2-a474-46b8-8e4b-76df8f95be26" testId="3cb326b3-09b6-d84d-e534-0603726ea57f" testName="KuaiYi.Core.Tests.SettingsBackupTests.SavedSnapshotOmitsCredentialReferencesAllHeadersRulesAndMachinePositionWithoutChangingSource" computerName="a13b420cac2b" duration="00:00:00.0110459" startTime="2026-10-20T06:58:09.8254664+00:00" endTime="2026-10-20T06:58:09.8347066+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5bb4e6d2-a474-46b8-8e4b-76df8f95be26" />
+    <UnitTestResult executionId="16ffb327-4036-44f8-87af-260de89f96c7" testId="f0bb5db3-5eb7-49d1-cde5-1bcf72d92ff5" testName="KuaiYi.Core.Tests.SettingsBackupTests.InvalidationWaitsForOriginalCancellationCallbacksWithoutBlockingItsCaller" computerName="a13b420cac2b" duration="00:00:00.0102896" startTime="2026-10-20T06:58:09.8135845+00:00" endTime="2026-10-20T06:58:09.8243570+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="16ffb327-4036-44f8-87af-260de89f96c7" />
+    <UnitTestResult executionId="b0786721-5a75-47c9-b71c-a5fbe7be2900" testId="86038ac2-f56f-c7c6-e01b-f4288467c84f" testName="KuaiYi.Core.Tests.SettingsBackupTests.AlreadyCancelledOrForeignPreviewNeverStartsFilePreparation" computerName="a13b420cac2b" duration="00:00:00.0037572" startTime="2026-10-20T06:58:09.7335397+00:00" endTime="2026-10-20T06:58:09.7368930+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b0786721-5a75-47c9-b71c-a5fbe7be2900" />
+    <UnitTestResult executionId="be7979b1-7ff5-4ad6-97da-15f1095d833d" testId="6a5ecb44-5b49-eb85-3611-87dc5f1ea41f" testName="KuaiYi.Core.Tests.SettingsBackupTests.FileBoundaryRejectsUnsanitizedSettingsAndKeepsTheOriginalFourFieldWhitelist" computerName="a13b420cac2b" duration="00:00:00.0056746" startTime="2026-10-20T06:58:09.7661093+00:00" endTime="2026-10-20T06:58:09.7717250+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="be7979b1-7ff5-4ad6-97da-15f1095d833d" />
+    <UnitTestResult executionId="0f59eb9d-d78f-4cbb-a347-dcfd5cf128de" testId="ff89a15f-0602-7c12-139e-03614a1b987a" testName="KuaiYi.Core.Tests.SettingsBackupTests.SavedInvalidFieldsFailClosedInsteadOfExportingAnIncompleteConfiguration" computerName="a13b420cac2b" duration="00:00:00.0006007" startTime="2026-10-20T06:58:09.7718737+00:00" endTime="2026-10-20T06:58:09.7740141+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0f59eb9d-d78f-4cbb-a347-dcfd5cf128de">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(KuaiYi.Core.Settings.SettingsValidationException)
+Actual:   typeof(System.InvalidOperationException)
+---- System.InvalidOperationException : This operation cannot be performed on a default instance of ImmutableArray&lt;T&gt;.  Consider initializing the array, or checking the ImmutableArray&lt;T&gt;.IsDefault property.</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SettingsBackupTests.SavedInvalidFieldsFailClosedInsteadOfExportingAnIncompleteConfiguration() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs:line 33
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+----- Inner Stack Trace -----
+   at System.Collections.Immutable.ImmutableArray`1.System.Collections.IEnumerable.GetEnumerator()
+   at KuaiYi.Core.Settings.SettingsJson.Ranges(Object value, String path) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 91
+   at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs:line 59
+   at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved) in /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs:line 18
+   at KuaiYi.Core.Tests.SettingsBackupTests.&lt;&gt;c__DisplayClass5_0.&lt;SavedInvalidFieldsFailClosedInsteadOfExportingAnIncompleteConfiguration&gt;b__0() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs:line 33</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f239ba58-2d35-4abd-a8c4-9085f8ab8db5" testId="536765c1-bfc3-ae4c-7132-1b562de4e820" testName="KuaiYi.Core.Tests.SettingsBackupTests.DuplicateExportCannotReplaceTheOriginalFileOwner" computerName="a13b420cac2b" duration="00:00:00.0069275" startTime="2026-10-20T06:58:09.7605203+00:00" endTime="2026-10-20T06:58:09.7659871+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f239ba58-2d35-4abd-a8c4-9085f8ab8db5" />
+    <UnitTestResult executionId="69ae5cd7-e77b-4751-8b1d-fcff10cb1028" testId="a2c64663-e29b-b2dc-b764-36251e1f63ec" testName="KuaiYi.Core.Tests.SettingsBackupTests.SavedPreviewIsFrozenAcrossSubsequentSettingsAndDraftEdits" computerName="a13b420cac2b" duration="00:00:00.1627355" startTime="2026-10-20T06:58:09.5482263+00:00" endTime="2026-10-20T06:58:09.7226495+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="69ae5cd7-e77b-4751-8b1d-fcff10cb1028" />
+    <UnitTestResult executionId="20d84d03-20b2-45b0-ae51-e249ef83f225" testId="47fa7a90-5205-a6fc-0d37-e3dd44d278c2" testName="KuaiYi.Core.Tests.SettingsBackupTests.ExistingTargetIsNeverOverwrittenAndOwnedTemporaryFileIsRemoved" computerName="a13b420cac2b" duration="00:00:00.0055296" startTime="2026-10-20T06:58:09.7893445+00:00" endTime="2026-10-20T06:58:09.7894389+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="20d84d03-20b2-45b0-ae51-e249ef83f225" />
+    <UnitTestResult executionId="eb4fab06-4970-488d-b35e-c373c20b0bb7" testId="56e21525-fc23-0051-2f6d-7013e0bbe7f8" testName="KuaiYi.Core.Tests.SettingsBackupTests.MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup(state: RecoverableDefaults)" computerName="a13b420cac2b" duration="00:00:00.0025861" startTime="2026-10-20T06:58:09.7750411+00:00" endTime="2026-10-20T06:58:09.7766727+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eb4fab06-4970-488d-b35e-c373c20b0bb7" />
+    <UnitTestResult executionId="5edb58c9-695a-4127-90b0-496a526d8322" testId="50443cbc-aaaa-e99c-af47-64b1e8f97143" testName="KuaiYi.Core.Tests.SettingsBackupTests.LinkedDirectoriesAreRejectedBeforeAFileIsCreated" computerName="a13b420cac2b" duration="00:00:00.0020500" startTime="2026-10-20T06:58:09.8109198+00:00" endTime="2026-10-20T06:58:09.8134593+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5edb58c9-695a-4127-90b0-496a526d8322" />
+    <UnitTestResult executionId="bc91382e-4b43-4716-825a-05b9418133c6" testId="127ca7ac-5cf2-5124-bbd8-c6b79351e128" testName="KuaiYi.Core.Tests.SettingsBackupTests.PublicationRemainsSuccessfulWhenCancellationArrivesAfterTheRealMove" computerName="a13b420cac2b" duration="00:00:00.0116788" startTime="2026-10-20T06:58:09.7314172+00:00" endTime="2026-10-20T06:58:09.7327743+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bc91382e-4b43-4716-825a-05b9418133c6" />
+    <UnitTestResult executionId="6b07d226-6f11-48ab-a489-0f75984a3db5" testId="888ab42a-69f9-0711-eb4c-81047cafa3d7" testName="KuaiYi.Core.Tests.SettingsBackupTests.CancellationCallbackFailureIsRetainedAndCannotPublishAWithdrawnPreview" computerName="a13b420cac2b" duration="00:00:00.0085205" startTime="2026-10-20T06:58:09.8050948+00:00" endTime="2026-10-20T06:58:09.8107733+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6b07d226-6f11-48ab-a489-0f75984a3db5" />
+    <UnitTestResult executionId="308c054b-0453-41d6-b035-63b44de98505" testId="a5a7e23c-dbf3-be73-47cb-600d5f0f6d91" testName="KuaiYi.Core.Tests.SettingsBackupTests.PublishedFileWithCleanupFailureReportsItsActualPublicationAndOriginalError" computerName="a13b420cac2b" duration="00:00:00.0082306" startTime="2026-10-20T06:58:09.7895543+00:00" endTime="2026-10-20T06:58:09.7916291+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="308c054b-0453-41d6-b035-63b44de98505" />
+    <UnitTestResult executionId="9e061d4a-3163-44b7-a2d7-27747ba09f41" testId="2b7873e6-cecf-c432-b02a-7b4e3cde1df7" testName="KuaiYi.Core.Tests.SettingsBackupTests.InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles(close: False)" computerName="a13b420cac2b" duration="00:00:00.0041050" startTime="2026-10-20T06:58:09.7604006+00:00" endTime="2026-10-20T06:58:09.7604370+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9e061d4a-3163-44b7-a2d7-27747ba09f41" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup(state: ReadOnlyUnknown)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="1d406f89-de4a-6cc6-23bb-f00bb9a51232">
+      <Execution id="ce79f8d8-b87c-4efd-9ded-b2e85003b4e0" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.AlreadyCancelledOrForeignPreviewNeverStartsFilePreparation" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="86038ac2-f56f-c7c6-e01b-f4288467c84f">
+      <Execution id="b0786721-5a75-47c9-b71c-a5fbe7be2900" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="AlreadyCancelledOrForeignPreviewNeverStartsFilePreparation" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.LinkedDirectoriesAreRejectedBeforeAFileIsCreated" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="50443cbc-aaaa-e99c-af47-64b1e8f97143">
+      <Execution id="5edb58c9-695a-4127-90b0-496a526d8322" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="LinkedDirectoriesAreRejectedBeforeAFileIsCreated" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.SavedSnapshotOmitsCredentialReferencesAllHeadersRulesAndMachinePositionWithoutChangingSource" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="3cb326b3-09b6-d84d-e534-0603726ea57f">
+      <Execution id="5bb4e6d2-a474-46b8-8e4b-76df8f95be26" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="SavedSnapshotOmitsCredentialReferencesAllHeadersRulesAndMachinePositionWithoutChangingSource" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.ExistingTargetIsNeverOverwrittenAndOwnedTemporaryFileIsRemoved" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="47fa7a90-5205-a6fc-0d37-e3dd44d278c2">
+      <Execution id="20d84d03-20b2-45b0-ae51-e249ef83f225" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="ExistingTargetIsNeverOverwrittenAndOwnedTemporaryFileIsRemoved" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup(state: RecoverableDefaults)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="56e21525-fc23-0051-2f6d-7013e0bbe7f8">
+      <Execution id="eb4fab06-4970-488d-b35e-c373c20b0bb7" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.InvalidationWaitsForOriginalCancellationCallbacksWithoutBlockingItsCaller" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="f0bb5db3-5eb7-49d1-cde5-1bcf72d92ff5">
+      <Execution id="16ffb327-4036-44f8-87af-260de89f96c7" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="InvalidationWaitsForOriginalCancellationCallbacksWithoutBlockingItsCaller" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup(state: Defaults)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="2f16ab7f-e9e4-40d2-d352-023901a8817a">
+      <Execution id="f4774a8d-c9c9-45a9-a143-3d469dd0ffc6" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.ExactDisplayedBytesArePublishedToARealFileAndItsSourceRemainsUnchanged" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="95d10851-d752-0c18-6afc-1497eea55735">
+      <Execution id="3be70df3-673a-404a-b525-ef763deed5d4" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="ExactDisplayedBytesArePublishedToARealFileAndItsSourceRemainsUnchanged" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.PublicationRemainsSuccessfulWhenCancellationArrivesAfterTheRealMove" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="127ca7ac-5cf2-5124-bbd8-c6b79351e128">
+      <Execution id="bc91382e-4b43-4716-825a-05b9418133c6" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="PublicationRemainsSuccessfulWhenCancellationArrivesAfterTheRealMove" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.SavedInvalidFieldsFailClosedInsteadOfExportingAnIncompleteConfiguration" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="ff89a15f-0602-7c12-139e-03614a1b987a">
+      <Execution id="0f59eb9d-d78f-4cbb-a347-dcfd5cf128de" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="SavedInvalidFieldsFailClosedInsteadOfExportingAnIncompleteConfiguration" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles(close: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="12760d27-0ce4-d599-5a02-1c2d969ebe8e">
+      <Execution id="8381e8ae-ceca-4c73-b652-57ca895b2329" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup(state: RecoverableBackup)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="15a835db-592a-de65-88e8-8242c0141889">
+      <Execution id="32e6d8e1-2507-46c6-8eac-a51b9adb0b07" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="MissingUnknownOrUnrecoveredSettingsCannotMasqueradeAsASavedBackup" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles(close: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="2b7873e6-cecf-c432-b02a-7b4e3cde1df7">
+      <Execution id="9e061d4a-3163-44b7-a2d7-27747ba09f41" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.PublishedFileWithCleanupFailureReportsItsActualPublicationAndOriginalError" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a5a7e23c-dbf3-be73-47cb-600d5f0f6d91">
+      <Execution id="308c054b-0453-41d6-b035-63b44de98505" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="PublishedFileWithCleanupFailureReportsItsActualPublicationAndOriginalError" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.CancellationCallbackFailureIsRetainedAndCannotPublishAWithdrawnPreview" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="888ab42a-69f9-0711-eb4c-81047cafa3d7">
+      <Execution id="6b07d226-6f11-48ab-a489-0f75984a3db5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="CancellationCallbackFailureIsRetainedAndCannotPublishAWithdrawnPreview" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.DuplicateExportCannotReplaceTheOriginalFileOwner" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="536765c1-bfc3-ae4c-7132-1b562de4e820">
+      <Execution id="f239ba58-2d35-4abd-a8c4-9085f8ab8db5" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="DuplicateExportCannotReplaceTheOriginalFileOwner" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.FileBoundaryRejectsUnsanitizedSettingsAndKeepsTheOriginalFourFieldWhitelist" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="6a5ecb44-5b49-eb85-3611-87dc5f1ea41f">
+      <Execution id="be7979b1-7ff5-4ad6-97da-15f1095d833d" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="FileBoundaryRejectsUnsanitizedSettingsAndKeepsTheOriginalFourFieldWhitelist" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsBackupTests.SavedPreviewIsFrozenAcrossSubsequentSettingsAndDraftEdits" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="a2c64663-e29b-b2dc-b764-36251e1f63ec">
+      <Execution id="69ae5cd7-e77b-4751-8b1d-fcff10cb1028" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsBackupTests" name="SavedPreviewIsFrozenAcrossSubsequentSettingsAndDraftEdits" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="2f16ab7f-e9e4-40d2-d352-023901a8817a" executionId="f4774a8d-c9c9-45a9-a143-3d469dd0ffc6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="15a835db-592a-de65-88e8-8242c0141889" executionId="32e6d8e1-2507-46c6-8eac-a51b9adb0b07" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="95d10851-d752-0c18-6afc-1497eea55735" executionId="3be70df3-673a-404a-b525-ef763deed5d4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1d406f89-de4a-6cc6-23bb-f00bb9a51232" executionId="ce79f8d8-b87c-4efd-9ded-b2e85003b4e0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="12760d27-0ce4-d599-5a02-1c2d969ebe8e" executionId="8381e8ae-ceca-4c73-b652-57ca895b2329" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3cb326b3-09b6-d84d-e534-0603726ea57f" executionId="5bb4e6d2-a474-46b8-8e4b-76df8f95be26" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f0bb5db3-5eb7-49d1-cde5-1bcf72d92ff5" executionId="16ffb327-4036-44f8-87af-260de89f96c7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="86038ac2-f56f-c7c6-e01b-f4288467c84f" executionId="b0786721-5a75-47c9-b71c-a5fbe7be2900" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6a5ecb44-5b49-eb85-3611-87dc5f1ea41f" executionId="be7979b1-7ff5-4ad6-97da-15f1095d833d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ff89a15f-0602-7c12-139e-03614a1b987a" executionId="0f59eb9d-d78f-4cbb-a347-dcfd5cf128de" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="536765c1-bfc3-ae4c-7132-1b562de4e820" executionId="f239ba58-2d35-4abd-a8c4-9085f8ab8db5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a2c64663-e29b-b2dc-b764-36251e1f63ec" executionId="69ae5cd7-e77b-4751-8b1d-fcff10cb1028" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="47fa7a90-5205-a6fc-0d37-e3dd44d278c2" executionId="20d84d03-20b2-45b0-ae51-e249ef83f225" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="56e21525-fc23-0051-2f6d-7013e0bbe7f8" executionId="eb4fab06-4970-488d-b35e-c373c20b0bb7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="50443cbc-aaaa-e99c-af47-64b1e8f97143" executionId="5edb58c9-695a-4127-90b0-496a526d8322" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="127ca7ac-5cf2-5124-bbd8-c6b79351e128" executionId="bc91382e-4b43-4716-825a-05b9418133c6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="888ab42a-69f9-0711-eb4c-81047cafa3d7" executionId="6b07d226-6f11-48ab-a489-0f75984a3db5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a5a7e23c-dbf3-be73-47cb-600d5f0f6d91" executionId="308c054b-0453-41d6-b035-63b44de98505" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2b7873e6-cecf-c432-b02a-7b4e3cde1df7" executionId="9e061d4a-3163-44b7-a2d7-27747ba09f41" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="19" executed="19" passed="17" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.13)
+[xUnit.net 00:00:00.19]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.93]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.97]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:01.20]       Assert.Throws() Failure: Exception type was not an exact match
+[xUnit.net 00:00:01.20]       Expected: typeof(System.InvalidOperationException)
+[xUnit.net 00:00:01.20]       Actual:   typeof(System.ObjectDisposedException)
+[xUnit.net 00:00:01.20]       ---- System.ObjectDisposedException : Cannot access a disposed object.
+[xUnit.net 00:00:01.20]       Object name: 'KuaiYi.Core.Settings.SettingsBackupSession'.
+[xUnit.net 00:00:01.20]       Stack Trace:
+[xUnit.net 00:00:01.20]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs(78,0): at KuaiYi.Core.Tests.SettingsBackupTests.InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles(Boolean close)
+[xUnit.net 00:00:01.20]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.20]         ----- Inner Stack Trace -----
+[xUnit.net 00:00:01.20]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupSession.cs(17,0): at KuaiYi.Core.Settings.SettingsBackupSession.Prepare(SettingsSnapshot saved)
+[xUnit.net 00:00:01.20]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs(78,0): at KuaiYi.Core.Tests.SettingsBackupTests.&lt;&gt;c__DisplayClass12_0.&lt;InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles&gt;b__1()
+[xUnit.net 00:00:01.22]       Assert.Throws() Failure: Exception type was not an exact match
+[xUnit.net 00:00:01.22]       Expected: typeof(KuaiYi.Core.Settings.SettingsValidationException)
+[xUnit.net 00:00:01.22]       Actual:   typeof(System.InvalidOperationException)
+[xUnit.net 00:00:01.22]       ---- System.InvalidOperationException : This operation cannot be performed on a default instance of ImmutableArray&lt;T&gt;.  Consider initializing the array, or checking the ImmutableArray&lt;T&gt;.IsDefault property.
+[xUnit.net 00:00:01.22]       Stack Trace:
+[xUnit.net 00:00:01.22]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs(33,0): at KuaiYi.Core.Tests.SettingsBackupTests.SavedInvalidFieldsFailClosedInsteadOfExportingAnIncompleteConfiguration()
+[xUnit.net 00:00:01.22]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:01.22]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[xUnit.net 00:00:01.22]         ----- Inner Stack Trace -----
+[xUnit.net 00:00:01.22]            at System.Collections.Immutable.ImmutableArray`1.System.Collections.IEnumerable.GetEnumerator()
+[xUnit.net 00:00:01.22]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(91,0): at KuaiYi.Core.Settings.SettingsJson.Ranges(Object value, String path)
+[xUnit.net 00:00:01.22]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsJson.cs(59,0): at KuaiYi.Core.Settings.SettingsJson.Validate(AppSettings s)
+[xUnit.net 00:00:01.22]         /workspace/KuaiYi/src/KuaiYi.Core/Settings/SettingsBackupDocument.cs(18,0): at KuaiYi.Core.Settings.SettingsBackupDocument.Create(SettingsSnapshot saved)
+[xUnit.net 00:00:01.22]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsBackupTests.cs(33,0): at KuaiYi.Core.Tests.SettingsBackupTests.&lt;&gt;c__DisplayClass5_0.&lt;SavedInvalidFieldsFailClosedInsteadOfExportingAnIncompleteConfiguration&gt;b__0()
+[xUnit.net 00:00:01.28]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="a13b420cac2b" outcome="Error" timestamp="2026-10-20T06:58:09.7573646+00:00">
+        <Text>[xUnit.net 00:00:01.20]     KuaiYi.Core.Tests.SettingsBackupTests.InvalidationOrCloseKeepsOriginalIgnoredCancellationIoOwnedUntilItSettles(close: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="a13b420cac2b" outcome="Error" timestamp="2026-10-20T06:58:09.7745930+00:00">
+        <Text>[xUnit.net 00:00:01.22]     KuaiYi.Core.Tests.SettingsBackupTests.SavedInvalidFieldsFailClosedInsteadOfExportingAnIncompleteConfiguration [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

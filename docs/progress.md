@@ -1205,3 +1205,11 @@ P7源码子项InProgress，完整P7/R13/真实浏览器与Windows仍NotRun；CI3
 最终同字节基线1P15F，修后16P且源码独审独立16P、无剩余P1/P2。完整浏览器91P0F0cancel0skip（8.390秒），包含原75与新16、原11项真实stdio/localpipe宿主集成；原断言保留，仅补窗口API端口。新测试使用生产Worker/真实Streams，窗口事件和Port明确合成，不冒充真实浏览器。初轮基线夹具一次2s超时与中间16F保全，最终同字节另存。五项目以同一已批准归档hash/license的隔离SDK402 locked restore＋Release构建0W/E；原401未执行，HOME/权限/SDKlauncher/锁/C#/workflow/manifest权限不改，未重跑整套.NET。
 
 141输入/16宿主输出绑定及日志见[报告](validation/browser-source-window.md)/[证据](test-evidence/2026-10-20-browser-source-window.json)。P7/R13源码InProgress，106整体NotRun/PackageHold；真实Chrome/Edge须安装回执、精确extensionID注册和同用户同session Windows生产receiver及实际焦点/移窗交互。250/600ms、来源/密码/完整性/取消/清理/隔离门保持。旧CI39347646426 step3首因Unknown，被拒日志未读取/绕路，无新CI/模型/费用/发布/用户电脑操作；未启动当前sandbox属主不合要求的Chromium或改变安全设置。
+
+## 2026-10-20 · 已保存普通配置的冻结预览与安全导出
+
+从已推送且独审的31e0abba70a7a9db3ee5bc6def4b8ec1ae9a6870核clean/唯一writer/单worktree/远端与main，正常dev/settings-backup-export推进原SPEC8.3及P1-03/P4-01导出子项。设置常规新增完整普通配置JSON预览及用户选择新文件导出；只读有效已保存snapshot，不读草稿PasswordBox/SecretStore，不改源配置、不启用/发送。全部SecretRef/自定义头、应用规则授权/端点同意、位置与事务ID剔除，遗漏说明明示HTTP风险偏好和必要头重填；完整配置导入仍未做。
+
+新session持原IO/CancelAsync到实际结算；父子Window关闭等待相同导出task。复用已打开文件路径/重解析检查及不覆盖发布，原四字段公开白名单/4096限额不放宽。新23P＋旧草稿3=最终26P，原四字段Provider110P（最终新类P2前，旧通路/断言随后不改）；最终App8工程Release交叉0W/E。独审发现“已发布＋Dispose错＋取消回调错”误报未导出P2，同方法最终字节真实1F→1P，published事实独立保留并保两原错；独立23P后无剩余P1/P2。
+
+初两轮新夹具19项4P15F/17P2F、Linux首次App restore缺EnableWindowsTargeting的NETSDK1100、中间25P与组合红例原件保全；不当旧产品红或实机证据。最终测试文件与组合红测同字节，locked restore审计和原锁不改，无新依赖。详见[产品行为/范围](validation/settings-backup-export.md)/[运行证据](test-evidence/2026-10-20-settings-backup-export.json)。完整导入可继续独立实施，真实WPF/Windows文件对话框及关闭/句柄验收NotRun；106整体NotRun/PackageHold及生产图片复用Off保持。250/600ms、来源/密码/完整性/取消/清理/隔离门不动；旧CI首因Unknown及被拒日志边界保持，无新CI/模型/费用/凭据/安全权限/发布/用户电脑操作。
