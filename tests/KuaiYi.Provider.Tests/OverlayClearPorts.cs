@@ -56,7 +56,8 @@ namespace KuaiYi.App
         internal Task DropCleanup=Task.CompletedTask;
         internal int SelectionClears,DropRevocations,FrameStops,ClearErrors;
         private void ClearSelectionSource(){SelectionClears++;ClearOriginalSource();}
-        private void RevokeTextDrop(bool clearSource=false){if(!clearSource)throw new InvalidOperationException("clear source expected");DropRevocations++;}
+        private bool allowNonClearingDropRevocationForTest;
+        private void RevokeTextDrop(bool clearSource=false){if(!clearSource&&!allowNonClearingDropRevocationForTest)throw new InvalidOperationException("clear source expected");DropRevocations++;}
         private void StopFrames()=>FrameStops++;
         private void Report(string text,Exception error){ClearErrors++;button.ToolTip=text+" · "+error.GetType().Name;}
         internal Task<bool> ClearContentForTest()=>ClearCurrentContent();

@@ -145,3 +145,12 @@ Windows实际文件handle/dialog/WPF/Toggle/native/字体质量、250/600ms/600M
 从9a38249接续正常dev/p6-image-settlement。确定性EOF原Task与cleanup双TCS场景证明首取消异常会被旧finally/Dispose诊断覆盖，保留r02红1F；现原Code保持、Primary/Cleanup分别保存，safe快照仅固定状态与类型/观察序号，展示64/ring32不截断真实任务跟踪。原IO/cleanup未结算仍阻止交付；实际清理成功可同owner显式重试，cleanupfault继续保留owner而不冒充成功。独审实际cleanup异常未观察P2和unused/Running误记exit诊断精度问题均已闭合，不降低真实退出或发送门。
 
 最终Codec475P（原470+新5）、Provider限定57P、Core限定97P，均0F/0skip；Worker/App交叉0W/E。原BMP历史469P1F→2P→470P保留且根因未证，不以新诊断反推已修复或断言均过。新测试初编译0执行保留，原470Codec源/锁/依赖/许可/产品书不改，无sleep凑绿。详见[范围与边界](validation/image-settlement.md)/[原件索引](test-evidence/2026-10-20-image-settlement.json)。Windows实机/画质/250600/600MiB与完整P6仍NotRun；PackageHold、生产复用Off及原安全门保持。
+
+
+## 2026-10-20 · P6-06单个本地图片文件投放
+
+先独审并推送取消诊断闭环d1b9d459f967847df47f83406d7f5324fc4dfb5e，再于正常dev/p6-single-image-drop先设计独审、唯一writer实现。正式Shell本次运行默认关闭的“接收单张图片文件投放”，On+Drop下只接CF_HDROP单wide本地文件；原隔离OLE清理/身份/1500ms门后有限path转移，安装既有StartOpenImage自有Task→原安全文件/Worker/独立file owner→可见预览/首帧→原发送确认，无新decoder/provider支路，不自动启用或发送。receiver撤销不取消已转移fileTask，optout仅取消exact droppedTask。
+
+最终Core相关261P（新61+原200）、完整Provider2393P（新12+原2381）、完整Codec475P，各0F/0skip；Receiver/App最终交叉0W/E，两locked audit restore0。首编译0执行、clear专用port及Dispose后Process查询的测试失败原件保留；独审不可达DropEnd拒绝提示P2已闭合并回归，FileContents的index0查询缺项也已补齐。Windows格式query介质最后收窄后仅交叉构建，不称真实COM通过。详见[支持范围/验证](validation/single-image-drop.md)/[直接证据](test-evidence/2026-10-20-single-image-drop.json)。
+
+真实Windows/OLE/filehandle/WPF/来源密码完整性/字体画质/250600/600MiB、位图/虚拟文件/多图和完整P6仍NotRun或未交付，完整P6-06/Beta不签收。旧BMP根因未证、WebP odd拒绝、PackageHold、生产复用Off和全部安全发送清理门保持。无用户内容/真实模型/新依赖许可权限费用凭据/CI/用户电脑/发布部署/main修改/强推。

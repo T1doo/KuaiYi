@@ -115,6 +115,27 @@ public sealed class OleDataReference : IDisposable
         {var format=OleNative.Registered(name);if(Offers(format))return OleTextFormat.None;}
         foreach(var kind in new[]{OleTextFormat.Unicode,OleTextFormat.Html,OleTextFormat.Rtf}){var format=OleNative.TextFormat(kind);if(Method<QueryData>(5)(Pointer,ref format)==0)return kind;}return OleTextFormat.None;
     }
+    public OleTextFormat OfferedContent(bool allowImageFiles)
+    {
+        bool Offers(short value,TYMED medium=TYMED.TYMED_HGLOBAL,int index=-1){var f=new FORMATETC{cfFormat=value,dwAspect=DVASPECT.DVASPECT_CONTENT,lindex=index,tymed=medium};return Method<QueryData>(5)(Pointer,ref f)==0;}
+        foreach(string name in new[]{"FileGroupDescriptorW","FileGroupDescriptor"})if(Offers(OleNative.Registered(name)))return OleTextFormat.None;
+        short contents=OleNative.Registered("FileContents");foreach(int index in new[]{0,-1})foreach(var medium in new[]{TYMED.TYMED_HGLOBAL,TYMED.TYMED_ISTREAM,TYMED.TYMED_ISTORAGE})if(Offers(contents,medium,index))return OleTextFormat.None;
+        if(Offers(15))return allowImageFiles?OleTextFormat.ImageFile:OleTextFormat.None;
+        var bitmap=new FORMATETC{cfFormat=2,dwAspect=DVASPECT.DVASPECT_CONTENT,lindex=-1,tymed=TYMED.TYMED_GDI};
+        if(Method<QueryData>(5)(Pointer,ref bitmap)==0||Offers(8)||Offers(17))return OleTextFormat.None;
+        foreach(string name in new[]{"PNG","image/png"})foreach(var medium in new[]{TYMED.TYMED_HGLOBAL,TYMED.TYMED_ISTREAM,TYMED.TYMED_ISTORAGE})if(Offers(OleNative.Registered(name),medium))return OleTextFormat.None;
+        return OfferedText();
+    }
+    public string ReadImageFile()
+    {
+        var format=new FORMATETC{cfFormat=15,dwAspect=DVASPECT.DVASPECT_CONTENT,lindex=-1,tymed=TYMED.TYMED_HGLOBAL};Marshal.ThrowExceptionForHR(ReadMedium(ref format,out var medium));var scope=new OleCleanupScope();scope.Own(()=>OleNative.ReleaseStgMedium(ref medium));
+        return scope.Run(()=>
+        {
+            if(medium.Tymed!=(uint)TYMED.TYMED_HGLOBAL||medium.Union==0)throw new InvalidDataException("Image file Drop requires HGLOBAL.");nuint size=OleNative.GlobalSize(medium.Union);if(size<24||size>OleImageFileDrop.GlobalByteLimit)throw new InvalidDataException("Image file Drop allocation limit.");nint memory=OleNative.GlobalLock(medium.Union);if(memory==0)throw new Win32Exception(Marshal.GetLastWin32Error());
+            scope.Own(()=>{Marshal.SetLastPInvokeError(0);bool locked=OleNative.GlobalUnlock(medium.Union);int error=Marshal.GetLastPInvokeError();if(!locked&&error!=0)throw new Win32Exception(error);});byte[]? copy=null;
+            try{copy=new byte[(int)size];Marshal.Copy(memory,copy,0,copy.Length);return OleImageFileDrop.DecodeGlobal(copy);}finally{if(copy!=null)CryptographicOperations.ZeroMemory(copy);}
+        });
+    }
     public string ReadText(OleTextFormat kind)
     {
         var format=OleNative.TextFormat(kind);Marshal.ThrowExceptionForHR(ReadMedium(ref format,out var medium));var scope=new OleCleanupScope();scope.Own(()=>OleNative.ReleaseStgMedium(ref medium));

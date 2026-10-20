@@ -27,6 +27,7 @@ internal sealed class ReceiverHost:IOleReceiverBackend,IOleReceiverControlBacken
     public bool Enabled=>gate.Snapshot.Enabled&&activation.Current(gate.Snapshot.Epoch);
     public long Epoch=>gate.Snapshot.Epoch;
     public bool Production=>hello.ProductionTextDrop;
+    public bool AllowImageFiles=>Production&&hello.AllowImageFiles;
     public void ApplyControl(OleReceiverControl control)
     {
         if(Production&&control.Enabled&&(control.Target?.Valid!=true||control.BlockedApplications is not {Length:<=128}||control.BlockedApplications.Any(value=>value is null||value.Length is <1 or >260)))throw new InvalidDataException("Invalid production Drop control.");
@@ -108,7 +109,8 @@ internal sealed class ReceiverHost:IOleReceiverBackend,IOleReceiverControlBacken
             byte[] bytes=Encoding.UTF8.GetBytes(text);
             try
             {
-                OleReceiverWire.DecodeText(bytes);
+                OleTextFormat selected;lock(groupsSync)selected=groups.TryGetValue(transaction,out var group)?group.Format:OleTextFormat.None;
+                if(selected==OleTextFormat.ImageFile){if(!AllowImageFiles)throw new InvalidDataException("Image file Drop disabled.");OleImageFileDrop.DecodeTransport(bytes);}else OleReceiverWire.DecodeText(bytes);
                 // Encoding/validation also consumes the same receiver-local budget; no late plaintext enqueue.
                 if(CanCommit(transaction,epoch)){send(new(IpcMessageType.BinaryChunk,transaction,bytes));bytes=[];}
                 else text=null;

@@ -3,7 +3,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 namespace KuaiYi.Core;
-public enum OleTextFormat{None,Unicode,Html,Rtf}
+public enum OleTextFormat{None,Unicode,Html,Rtf,ImageFile}
 /// <summary>Finite inert text extraction. No HTML document, renderer, OLE object, image decoder or URL loader is instantiated.</summary>
 public static class OleDroppedText
 {

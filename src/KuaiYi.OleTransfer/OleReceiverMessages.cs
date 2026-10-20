@@ -3,7 +3,7 @@ using System.Text;
 using System.Text.Json;
 using KuaiYi.Core;
 namespace KuaiYi.OleTransfer;
-public sealed record OleReceiverHello(Guid Instance,long Epoch,int AppProcessId,long Hwnd,byte[] Nonce,string ActivationName,bool ProductionTextDrop=false);
+public sealed record OleReceiverHello(Guid Instance,long Epoch,int AppProcessId,long Hwnd,byte[] Nonce,string ActivationName,bool ProductionTextDrop=false,bool AllowImageFiles=false);
 public sealed record OleReceiverControl(Guid Instance,long Epoch,bool Enabled,DropTargetGeometry? Target=null,string[]? BlockedApplications=null);
 public sealed record OleReceiverEvent(Guid Instance,long Epoch,Guid Transaction,string Phase,bool CleanupCompleted=false,uint Effect=0,int CodeUnits=0,int ThreadId=0,string? Apartment=null,uint NativeThreadId=0,SelectionWindow? Source=null,PixelPoint? Point=null,OleTextFormat TextFormat=OleTextFormat.None);
 public static class OleReceiverWire
@@ -15,7 +15,7 @@ public static class OleReceiverWire
     public static T Read<T>(ReadOnlySpan<byte> bytes)=>JsonSerializer.Deserialize<T>(bytes)??throw new InvalidDataException("Missing OLE envelope.");
     public static void Validate(OleReceiverHello hello)
     {
-        if(hello.Instance==Guid.Empty||hello.Epoch<0||hello.AppProcessId<=0||hello.Hwnd<=0||hello.Nonce is not {Length:32}||hello.ActivationName!=ActivationName(hello.Instance))throw new InvalidDataException("Invalid OLE hello.");
+        if(hello.AllowImageFiles&&!hello.ProductionTextDrop||hello.Instance==Guid.Empty||hello.Epoch<0||hello.AppProcessId<=0||hello.Hwnd<=0||hello.Nonce is not {Length:32}||hello.ActivationName!=ActivationName(hello.Instance))throw new InvalidDataException("Invalid OLE hello.");
     }
     // Only owned-channel STANDARD OBJREF for the built-in IID; forbid custom/handler activation.
     public static void ValidateExport(ReadOnlySpan<byte> bytes)

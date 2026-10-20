@@ -70,7 +70,7 @@ internal sealed partial class ShellWindow
 #if KUAIYI_WINDOWS_CI_PROBE
             CiReceiverCreated(client,registrar,instance,()=>peer.Run,()=>peer.Control);
 #endif
-            var hello=new OleReceiverHello(instance,lease.WireEpoch,Environment.ProcessId,hwnd.ToInt64(),RandomNumberGenerator.GetBytes(32),OleReceiverWire.ActivationName(instance),ProductionTextDrop:true);
+            var hello=new OleReceiverHello(instance,lease.WireEpoch,Environment.ProcessId,hwnd.ToInt64(),RandomNumberGenerator.GetBytes(32),OleReceiverWire.ActivationName(instance),ProductionTextDrop:true,AllowImageFiles:imageFileDropEnabled);
             peer.Run=RunTextDrop(peer,hello);
         }
         catch(Exception error){activation?.Dispose();RevokeTextDrop();lifecycle.Gate.Disable();SetDropHover(false);dropUnavailable="正式文本拖放尚不可用 · "+error.GetType().Name;Report("正式文本拖放尚不可用",error);}
@@ -91,12 +91,10 @@ internal sealed partial class ShellWindow
                 Dispatcher.BeginInvoke(()=>
                 {
                     if(!ReferenceEquals(dropPeer,peer)||Volatile.Read(ref peer.Stopping)!=0||dropCapture?.Lease!=peer.Lease||!lifecycle.Gate.IsCaptureCurrent(peer.Lease.Ticket))return;
-                    if(item.Phase=="Hover")SetDropHover(true);
-                    else if(item.Phase is "Leave" or "DropBegin" or "DropEnd")SetDropHover(false);
-                    else if(item.Phase=="QueryEnd"&&item.Effect==0)button.ToolTip="此投放不是可复制的受支持文本；图片/文件/仅链接尚不走文字路径。";
+                    ApplyDropFeedback(item.Phase,item.Effect,item.TextFormat);
                     RefreshTextDrop();
                 });
-            },(epoch,transaction,bytes,token)=>dropCapture!.ReceiveAsync(peer.Lease,transaction,bytes,action=>peer.Client.TryApplyDrop(epoch,transaction,action),token,()=>peer.Client.IsDropCurrent(epoch,transaction)),peer.Cancellation.Token);
+            },(epoch,transaction,bytes,token)=>dropCapture!.ReceiveAsync(peer.Lease,transaction,bytes,action=>peer.Client.TryApplyDrop(epoch,transaction,action),token,()=>peer.Client.IsDropCurrent(epoch,transaction)),peer.Cancellation.Token,deliverImageFile:(epoch,transaction,bytes,token)=>dropCapture!.ReceiveImageFileAsync(peer.Lease,transaction,bytes,action=>peer.Client.TryApplyDrop(epoch,transaction,action),path=>{_=StartDroppedImageFile(path,CreateFileImageOperation);},token,()=>peer.Client.IsDropCurrent(epoch,transaction)));
 #if KUAIYI_WINDOWS_CI_PROBE
             CiTrackOriginal(peer.Client,originalRun,true);
 #endif

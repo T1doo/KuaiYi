@@ -33,7 +33,7 @@ namespace KuaiYi.OleReceiver;
             {
                 var reference = OleDataReference.FromBorrowed(data,owner.Observations);
                 scope.Own(() => owner.ReleaseOwned(query, generation, "QueryRelease", reference.Dispose));
-                if(owner.CanCommit(query,generation)){format=owner.Production?reference.OfferedText():reference.OffersUnicode()?OleTextFormat.Unicode:OleTextFormat.None;advertised=format!=OleTextFormat.None;}
+                if(owner.CanCommit(query,generation)){format=owner.Production?reference.OfferedContent(owner.AllowImageFiles):reference.OffersUnicode()?OleTextFormat.Unicode:OleTextFormat.None;advertised=format!=OleTextFormat.None;}
             }
             catch (Exception error) { advertised = false; status = error.GetType().Name; }
             if (!Clean(scope, query, generation)) { effect = 0; advertised = false; active = true; return 0; }
@@ -84,7 +84,7 @@ namespace KuaiYi.OleReceiver;
                     effect = (uint)OleEffect.Copy; return 0; // The origin scope remains owned until FinishWorker.
                 }
                 if(!owner.CanCommit(operation,generation))throw new OperationCanceledException();
-                owner.Observe(OleTargetObservation.ExtractionBegin);text = owner.Production?reference.ReadText(format):reference.ReadUnicode();owner.Observe(OleTargetObservation.ExtractionReturned);
+                owner.Observe(OleTargetObservation.ExtractionBegin);text = owner.Production?(format==OleTextFormat.ImageFile?reference.ReadImageFile():reference.ReadText(format)):reference.ReadUnicode();owner.Observe(OleTargetObservation.ExtractionReturned);
             }
             catch (Exception error) { text = null; status = error.GetType().Name; priorCleanupFailed = error is OleCleanupException; }
             if (!Clean(scope, operation, generation, priorCleanupFailed)) return 0;
@@ -129,7 +129,7 @@ namespace KuaiYi.OleReceiver;
                             var reference = new OleDataReference(pointer,owner.Observations); scope.Own(reference.Dispose);
                             var capability = reference.QueryAsync() ?? throw new COMException("Async capability disappeared."); scope.Own(capability.Dispose);
                             int extractionHr = OleNative.Failure;
-                            try { if(!owner.CanCommit(operation,generation))throw new OperationCanceledException();owner.WorkerMetadata(operation, generation, "WorkerReadBegin"); owner.Observe(OleTargetObservation.ExtractionBegin);text = owner.Production?reference.ReadText(format):reference.ReadUnicode();owner.Observe(OleTargetObservation.ExtractionReturned); extractionHr = 0; }
+                            try { if(!owner.CanCommit(operation,generation))throw new OperationCanceledException();owner.WorkerMetadata(operation, generation, "WorkerReadBegin"); owner.Observe(OleTargetObservation.ExtractionBegin);text = owner.Production?(format==OleTextFormat.ImageFile?reference.ReadImageFile():reference.ReadText(format)):reference.ReadUnicode();owner.Observe(OleTargetObservation.ExtractionReturned); extractionHr = 0; }
                             catch (Exception error) { text = null; status = error.GetType().Name; nativeCleanupFailed = error is OleCleanupException; }
                             finally
                             {

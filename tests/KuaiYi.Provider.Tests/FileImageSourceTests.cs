@@ -18,13 +18,13 @@ public sealed class FileImageSourceTests
         pixels=Enumerable.Range(0,256).Select(i=>(byte)(i%4==3?255:i)).ToArray();using var source=new ScreenshotPixels(new(0,0,8,8),pixels.ToArray());var png=ScreenshotPngEncoder.Encode(source);
         return new(new(EncodedRasterFormat.Gif,50,new string('a',64),ImageTransform.PlanEncoded(new(8,8),ImageOrientation.ExifTopLeft),2560,new(2,0,0,8,8)),pixels,png);
     }
-    private sealed class Operation: IFileImageOperation
+    private sealed class Operation(string expectedPath="PUBLIC_SYNTHETIC_FILE"): IFileImageOperation
     {
         internal readonly TaskCompletionSource<OwnedFileImage> Reply=new(TaskCreationOptions.RunContinuationsAsynchronously);
         internal readonly TaskCompletionSource Entered=new(TaskCreationOptions.RunContinuationsAsynchronously);
         internal bool Finalized=true,ThrowOnFinalize;internal int Loads,Finalizations;internal CancellationToken Token;
         public async Task<OwnedFileImage> LoadAsync(string path,Guid session,long version,long epoch,CancellationToken cancellation)
-        {Loads++;Token=cancellation;Assert.Equal("PUBLIC_SYNTHETIC_FILE",path);Assert.NotEqual(Guid.Empty,session);Assert.True(version>0&&epoch>0);Entered.TrySetResult();return await Reply.Task;}
+        {Loads++;Token=cancellation;Assert.Equal(expectedPath,path);Assert.NotEqual(Guid.Empty,session);Assert.True(version>0&&epoch>0);Entered.TrySetResult();return await Reply.Task;}
         public ValueTask<bool> TryFinalizeAsync(){Finalizations++;if(ThrowOnFinalize)throw new IOException("Synthetic settlement failure.");return ValueTask.FromResult(Finalized);}
     }
     private static ShellWindow Window(){var w=new ShellWindow();w.InitializeResultFlow();w.WithGeometry();return w;}
@@ -80,4 +80,35 @@ public sealed class FileImageSourceTests
     [Theory][InlineData("decline")][InlineData("off")][InlineData("clear")][InlineData("settings")]
     public async Task FileCannotBypassOriginalFinalConfirmationOrSourceSettingsGates(string action)
     {await using var r=await Rig.Create(Protocol.OpenAIChat);Assert.False(r.Window.SendScreenshotForTest(ImageOutputMode.Automatic,_=>{if(action=="off")r.Window.MarkdownGate.Disable();if(action=="clear")r.Window.ClearImagePresentationForTest();if(action=="settings")r.Window.MarkdownGate.SetSuspension(Suspension.Settings,true);return action!="decline";}));Assert.Empty(r.Script.Bodies);Assert.False(r.Window.MarkdownGate.HasRunningGeneration);}
+    [Theory][InlineData("disabled")][InlineData("off")][InlineData("selection")][InlineData("suspended")]
+    public async Task ActualManagedFileDropCommandRejectsWithoutOptinOrOnDropAdmission(string reason)
+    {
+        var w=Window();Assert.False(w.ImageFileDropEnabledForTest);w.MarkdownGate.SetMode(TriggerMode.Drop);var origin=new EndpointOrigin(new Uri("https://public.invalid"));w.MarkdownGate.ConsentTo(origin);if(reason!="off")Assert.True(w.MarkdownGate.TryEnable(origin,true));if(reason!="disabled")w.EnableImageFileDropForTest(true);if(reason=="selection")w.MarkdownGate.SetMode(TriggerMode.Selection);if(reason=="suspended")w.MarkdownGate.SetSuspension(Suspension.Settings,true);var op=new Operation("C:\\public\\a.gif");await w.DropImageFileForTest("C:\\public\\a.gif",op);Assert.Equal(0,op.Loads);Assert.Null(w.SelectedImageForTest);
+    }
+    [Theory][InlineData("optout")][InlineData("off")][InlineData("receiver-revoked")]
+    public async Task TransferredDropInstallsTheExistingOwnedFileTaskAndOnlyExplicitInvalidationCancelsIt(string change)
+    {
+        var w=Window();w.MarkdownGate.SetMode(TriggerMode.Drop);var origin=new EndpointOrigin(new Uri("https://public.invalid"));w.MarkdownGate.ConsentTo(origin);Assert.True(w.MarkdownGate.TryEnable(origin,true));w.EnableImageFileDropForTest(true);var op=new Operation("C:\\public\\a.gif");var task=w.DropImageFileForTest("C:\\public\\a.gif",op);await op.Entered.Task.WaitAsync(TimeSpan.FromSeconds(5));Assert.False(task.IsCompleted);Assert.True(w.FileBusyForTest);
+        if(change=="optout")w.EnableImageFileDropForTest(false);if(change=="off"){w.MarkdownGate.Disable();w.ObserveFileForTest();}if(change=="receiver-revoked")w.RevokeDropForFileTest();
+        Assert.Equal(change!="receiver-revoked",op.Token.IsCancellationRequested);var image=Owner(out var actual);op.Reply.SetResult(image);await task;if(change=="receiver-revoked"){Assert.Same(image,w.SelectedImageForTest);Assert.Contains("使用首帧",w.ResultLabel);}else{Assert.True(image.IsDisposed);Assert.All(actual,b=>Assert.Equal(0,b));Assert.Null(w.SelectedImageForTest);}await w.ClearContentForTest();
+    }
+    [Theory][InlineData(Protocol.OpenAIChat)][InlineData(Protocol.AnthropicMessages)]
+    public async Task DropPathAdmissionUsesTheExistingFileOwnerAndProductionHttpConfirmation(Protocol protocol)
+    {
+        await using var r=await Rig.Create(protocol);r.Window.MarkdownGate.SetMode(TriggerMode.Drop);r.Window.EnableImageFileDropForTest(true);var config=new SettingsSnapshot(new(),"public-drop-config",SettingsLoadState.Current);var source=new SelectionWindow(123,456,789,"public.exe");var target=new DropTargetGeometry(new(0,0,48,48),new(0,0,48,48),24);var op=new Operation("C:\\public\\a.gif");Task? fileTask=null;
+        await using var capture=new DropCaptureCoordinator(r.Window.MarkdownGate,()=>config,s=>s==source,()=>true,999,new Immediate(),(_,_)=>throw new InvalidOperationException("File must not be text."),_=>throw new InvalidOperationException("Valid synthetic file path."));var lease=capture.Open(Guid.NewGuid(),r.Window.MarkdownGate.Snapshot.Epoch,target)!;var txn=Guid.NewGuid();Assert.True(capture.Enter(lease,txn,source,new(24,24),OleEffect.Copy));Assert.True(capture.Begin(lease,txn,source,new(24,24),OleEffect.Copy));
+        await capture.ReceiveImageFileAsync(lease,txn,System.Text.Encoding.UTF8.GetBytes("C:\\public\\a.gif"),a=>{a();return true;},path=>fileTask=r.Window.DropImageFileForTest(path,op));Assert.NotNull(fileTask);await op.Entered.Task.WaitAsync(TimeSpan.FromSeconds(5));Assert.False(fileTask.IsCompleted);Assert.Empty(r.Script.Bodies);var file=Owner(out _);op.Reply.SetResult(file);await fileTask;Assert.Same(file,r.Window.SelectedImageForTest);Assert.True(r.Image.IsDisposed);Assert.Contains("使用首帧",r.Window.ResultLabel);
+        Assert.True(r.Window.SendScreenshotForTest(ImageOutputMode.Automatic,o=>{Assert.Contains("本地图片",o.ConfirmationText);Assert.Contains("使用首帧",o.ConfirmationText);return true;}));await r.Requests(1);await r.Reply(ImageClassificationTests.Json());await r.Requests(2);await r.Reply("PUBLIC DROPPED FILE RESULT");await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal(ImageSourceKind.LocalFile,r.Flow.SelectedSnapshot!.SourceKind);Assert.False(r.Flow.SelectedSnapshot.Transform!.HasDesktopAnchor);Assert.All(r.Script.Bodies,b=>{Assert.DoesNotContain("C:",b);Assert.DoesNotContain("a.gif",b);});Assert.False(r.Window.SendScreenshotForTest(ImageOutputMode.Automatic,_=>true));Assert.Equal(2,r.Script.Requests);
+    }
+
+    [Theory][InlineData("QueryEnd")][InlineData("DropEnd")]
+    public async Task RejectedImageDropShowsItsReasonAfterCollapsingHoverAndPreservesTheOldFile(string phase)
+    {
+        var w=Window();var op=new Operation();var task=w.OpenFileForTest(op);await op.Entered.Task;var owner=Owner(out _);op.Reply.SetResult(owner);await task;w.DropFeedbackForTest("Hover",1,OleTextFormat.ImageFile);w.DropFeedbackForTest(phase,0,OleTextFormat.ImageFile);Assert.Contains("单个本地",w.ButtonTip!.ToString());Assert.Same(owner,w.SelectedImageForTest);Assert.False(owner.IsDisposed);Assert.Equal(Activation.Off,w.MarkdownGate.Snapshot.Activation);await w.ClearContentForTest();
+    }
+    [Fact]public async Task OptingOutOfImageDropCannotCancelAnIndependentOpenFileTask()
+    {
+        var w=Window();w.EnableImageFileDropForTest(true);var op=new Operation();var task=w.OpenFileForTest(op);await op.Entered.Task;w.EnableImageFileDropForTest(false);Assert.False(op.Token.IsCancellationRequested);var owner=Owner(out _);op.Reply.SetResult(owner);await task;Assert.Same(owner,w.SelectedImageForTest);await w.ClearContentForTest();
+    }
+
 }

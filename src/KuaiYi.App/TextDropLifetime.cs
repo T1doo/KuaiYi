@@ -21,7 +21,7 @@ internal sealed partial class ShellWindow
         if(dropReconcile.IsCompleted&&(dropPeer==null&&wanted||dropPeer is {Stopping:1}))dropReconcile=ReconcileTextDrop();
         if(wanted&&dropPeer is {Stopping:0} peer&&peer.Client.IsReady&&dropBounds is {} target&&peer.SentTarget!=target)
         {peer.SentTarget=target;peer.Control=PublishDropControl(peer,peer.Control,target);}
-        if(!wanted&&state.Mode==TriggerMode.Drop&&state.Activation==Activation.Off&&!exiting)button.ToolTip=dropUnavailable??"请先启用翻译，再投放文字。";
+        if(!wanted&&state.Mode==TriggerMode.Drop&&state.Activation==Activation.Off&&!exiting)button.ToolTip=dropUnavailable??"请先启用翻译，再投放。";
     }
     private async Task StopTextDrop()
     {

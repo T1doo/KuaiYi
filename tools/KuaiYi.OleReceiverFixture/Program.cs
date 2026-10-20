@@ -70,7 +70,7 @@ sealed class Backend:IOleReceiverBackend,IOleReceiverControlBackend
     }
     private async Task Formal(long epoch)
     {
-        Guid id=Guid.NewGuid();var source=new SelectionWindow(123,456,789,"public.exe");var point=new PixelPoint(24,24);var format=OleTextFormat.Unicode;
+        Guid id=Guid.NewGuid();var source=new SelectionWindow(123,456,789,"public.exe");var point=new PixelPoint(24,24);var format=mode.StartsWith("image-",StringComparison.Ordinal)?OleTextFormat.ImageFile:OleTextFormat.Unicode;
         void Event(string phase,bool cleaned=false,uint effect=0,int length=0)
         {
             var origin=mode=="formal-source-swap"&&phase=="DropEnd"?source with{ProcessStartUtcTicks=790}:source;
@@ -79,13 +79,13 @@ sealed class Backend:IOleReceiverBackend,IOleReceiverControlBackend
         }
         if(mode=="formal-stale-query")send(new(IpcMessageType.OleEvent,id,OleReceiverWire.Serialize(new OleReceiverEvent(hello.Instance,epoch-1,id,"QueryEnd",true,1))));
         Event("QueryBegin");Event("Hover");Event("QueryEnd",true,1);
-        if(mode=="formal-hover-only")return;
+        if(mode is "formal-hover-only" or "image-hover-only")return;
         Event("DropBegin",effect:1);
         if(mode=="formal-duplicate-begin")Event("DropBegin",effect:1);
         if(mode=="formal-stall"){FixtureStatus.Write("blocked:formal");await Task.Delay(Timeout.Infinite);return;}
         if(mode=="formal-late")await Task.Delay(350);
-        string text=mode=="formal-url"?"https://public.invalid/path":"public formal 文本 😀";
-        if(mode!="formal-missing-cleanup")Event("CleanupComplete",true);
+        string text=mode.StartsWith("image-",StringComparison.Ordinal)?mode=="image-multi"?"C:\\public\\a.png\0C:\\public\\b.png":mode=="image-url"?"https://public.invalid/a.png":"C:\\public\\image.GIF":mode=="formal-url"?"https://public.invalid/path":"public formal 文本 😀";
+        if(mode is not ("formal-missing-cleanup" or "image-missing-cleanup"))Event("CleanupComplete",true);
         byte[] body=mode=="formal-bad-utf8"?[0xff]:Encoding.UTF8.GetBytes(text);send(new(IpcMessageType.BinaryChunk,id,body));
         if(mode=="formal-duplicate-payload")send(new(IpcMessageType.BinaryChunk,id,Encoding.UTF8.GetBytes("duplicate")));
         Event("DropEnd",true,mode=="formal-move"?2u:1u,text.Length);

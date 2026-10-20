@@ -35,7 +35,7 @@ namespace KuaiYi.App
         private readonly BodyPort body=new();
         private readonly LifecyclePort lifecycle=new();
         private readonly DispatcherPort Dispatcher=new();
-        private sealed class BadgePort { public System.Windows.Visibility Visibility=System.Windows.Visibility.Visible; }
+        private sealed class BadgePort { public string Text=""; public System.Windows.Visibility Visibility=System.Windows.Visibility.Visible; }
         private readonly BadgePort newContent=new();
         private long resultRevision=1;
         private bool exiting,follow=true;

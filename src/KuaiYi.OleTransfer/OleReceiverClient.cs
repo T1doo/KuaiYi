@@ -118,13 +118,13 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
         catch(Exception error)when(error is IOException or OperationCanceledException or ObjectDisposedException){Cancel();return false;}
         finally{CryptographicOperations.ZeroMemory(payload);}
     }
-    public async Task RunAsync(OleReceiverHello hello,Action<OleReceiverEvent> feedback,Func<long,Guid,ReadOnlyMemory<byte>,CancellationToken,Task> deliver,CancellationToken cancellation=default)
+    public async Task RunAsync(OleReceiverHello hello,Action<OleReceiverEvent> feedback,Func<long,Guid,ReadOnlyMemory<byte>,CancellationToken,Task> deliver,CancellationToken cancellation=default,Func<long,Guid,ReadOnlyMemory<byte>,CancellationToken,Task>? deliverImageFile=null)
     {
         OleReceiverWire.Validate(hello);if(hello.ActivationName!=activation.Name)throw new InvalidDataException("Wrong owned activation mapping.");if(Interlocked.CompareExchange(ref started,1,0)!=0)throw new InvalidOperationException("One receiver per client.");
-        try{await RunOwnedAsync(hello,feedback,deliver,cancellation).ConfigureAwait(false);}
+        try{await RunOwnedAsync(hello,feedback,deliver,cancellation,deliverImageFile).ConfigureAwait(false);}
         finally{Volatile.Write(ref started,2);} // Entire original admission/read/registration/cleanup path has returned.
     }
-    private async Task RunOwnedAsync(OleReceiverHello hello,Action<OleReceiverEvent> feedback,Func<long,Guid,ReadOnlyMemory<byte>,CancellationToken,Task> deliver,CancellationToken cancellation)
+    private async Task RunOwnedAsync(OleReceiverHello hello,Action<OleReceiverEvent> feedback,Func<long,Guid,ReadOnlyMemory<byte>,CancellationToken,Task> deliver,CancellationToken cancellation,Func<long,Guid,ReadOnlyMemory<byte>,CancellationToken,Task>? deliverImageFile)
     {
         cancellation.ThrowIfCancellationRequested();
         lock(activationSync){instance=hello.Instance;eligibility.Set(hello.Epoch,false);activation.Set(hello.Epoch,false);}
@@ -186,7 +186,7 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
                     }
                     if(hello.ProductionTextDrop&&item.Phase is "QueryBegin" or "Hover" or "QueryEnd" or "DropBegin" or "CleanupComplete" or "DropEnd")
                     {
-                        if(item.Source is not {} origin||origin.Handle==0||origin.ProcessId==0||origin.ProcessStartUtcTicks<=0||origin.Executable is not {Length:>0 and <=260}||item.Point==null||!Enum.IsDefined(item.TextFormat)||item.TextFormat==OleTextFormat.None&&item.Phase!="QueryBegin"&&!(item.Phase=="QueryEnd"&&item.Effect==0))throw new OleReceiverException(OleReceiverFailure.Protocol);
+                        if(item.Source is not {} origin||origin.Handle==0||origin.ProcessId==0||origin.ProcessStartUtcTicks<=0||origin.Executable is not {Length:>0 and <=260}||item.Point==null||!Enum.IsDefined(item.TextFormat)||item.TextFormat==OleTextFormat.ImageFile&&!hello.AllowImageFiles||item.TextFormat==OleTextFormat.None&&item.Phase!="QueryBegin"&&!(item.Phase=="QueryEnd"&&item.Effect==0))throw new OleReceiverException(OleReceiverFailure.Protocol);
                     }
                     if(hello.ProductionTextDrop)
                     {
@@ -208,10 +208,10 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
                         if(decision!=OleWatchDecision.Completed||!item.CleanupCompleted)throw new OleReceiverException(OleReceiverFailure.Protocol);
                         if(pending!=null)
                         {
-                            if(transaction!=item.Transaction||payloadEpoch!=item.Epoch||item.Effect!=1||!eligibility.Current(item.Epoch)||OleReceiverWire.DecodeText(pending).Length!=item.CodeUnits)throw new OleReceiverException(OleReceiverFailure.Protocol);
+                            if(transaction!=item.Transaction||payloadEpoch!=item.Epoch||item.Effect!=1||!eligibility.Current(item.Epoch)||(selectedFormat==OleTextFormat.ImageFile?OleImageFileDrop.DecodeTransport(pending):OleReceiverWire.DecodeText(pending)).Length!=item.CodeUnits)throw new OleReceiverException(OleReceiverFailure.Protocol);
                             lifetime.Token.ThrowIfCancellationRequested();
                             if(hello.ProductionTextDrop&&!TryApplyDrop(item.Epoch,item.Transaction,static()=>{}))throw new OleReceiverException(OleReceiverFailure.Timeout);
-                            Task originalDelivery=deliver(item.Epoch,item.Transaction,pending,lifetime.Token);
+                            Task originalDelivery=selectedFormat==OleTextFormat.ImageFile?(deliverImageFile??throw new OleReceiverException(OleReceiverFailure.Protocol))(item.Epoch,item.Transaction,pending,lifetime.Token):deliver(item.Epoch,item.Transaction,pending,lifetime.Token);
                             Task settlement=ObserveDelivery(originalDelivery,pending);Volatile.Write(ref deliverySettlement,settlement);pending=null; // Original callback owns the read lease until actual settlement, even when our waiter cancels.
                             await settlement.WaitAsync(lifetime.Token).ConfigureAwait(false); // Finish clearing this lease before accepting another payload.
                             await originalDelivery.ConfigureAwait(false); // Preserve the original error for the active caller.

@@ -15,7 +15,7 @@ public sealed record DropTargetGeometry(PixelRect Anchor,PixelRect Bounds,int Ra
 }
 public sealed record DropCaptureLease(Guid Receiver,long WireEpoch,CaptureTicket Ticket,string SettingsVersion);
 /// <summary>Actual Drop source admission. No UIA/clipboard dependency; data is this transaction's owned OLE snapshot.</summary>
-public sealed class DropCaptureCoordinator: IAsyncDisposable
+public sealed partial class DropCaptureCoordinator: IAsyncDisposable
 {
     private readonly object sync=new();private readonly RuntimeGate gate;private readonly Func<SettingsSnapshot?> settings;private readonly Func<SelectionWindow,bool> sourceCurrent;private readonly Func<bool> visible;private readonly uint ownProcess;private readonly SynchronizationContext destination;private readonly Action<SelectionSourceSnapshot,bool> accepted;private readonly Action<DropCaptureStatus> failed;private readonly TimeProvider clock;
     private readonly HashSet<Guid> seen=[];private readonly HashSet<Task> operations=[];private readonly HashSet<PendingSource> queued=[];
@@ -38,7 +38,7 @@ public sealed class DropCaptureCoordinator: IAsyncDisposable
     {lock(sync){if(!target.Valid||geometry is {} old&&old.Anchor!=target.Anchor){InvalidateLocked(false);return;}geometry=target;}}
     public void Invalidate(bool clearSource=false){lock(sync)InvalidateLocked(clearSource);}
     private void InvalidateLocked(bool clearSource)
-    {generation++;lease=null;config=null;hover=drop=null;seen.Clear();pending?.Cancel();foreach(var item in queued)item.Clear();if(clearSource)previous=null;}
+    {generation++;lease=null;config=null;hover=drop=null;seen.Clear();pending?.Cancel();foreach(var item in queued)item.Clear();ClearQueuedFiles();if(clearSource)previous=null;}
     private bool Current(DropCaptureLease expected)=>!disposed&&lease==expected&&config?.Version==expected.SettingsVersion&&settings()?.Version==expected.SettingsVersion&&visible()&&gate.IsCaptureCurrent(expected.Ticket);
     private bool SourceCurrent(SelectionWindow source)=>config is {} current&&!SelectionTextPolicy.Excluded(source,current.Data,ownProcess)&&sourceCurrent(source);
     public bool Enter(DropCaptureLease expected,Guid transaction,SelectionWindow source,PixelPoint point,OleEffect effect)
