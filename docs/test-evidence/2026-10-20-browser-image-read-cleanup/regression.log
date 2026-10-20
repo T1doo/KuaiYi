@@ -1,0 +1,228 @@
+✔ original cancels unread body on HTTP refusal (5.67729ms)
+✔ original cancels unread body on wrong MIME (0.500736ms)
+✔ original cancels unread body on declared oversize (0.441824ms)
+✔ original cancels unread body on invalid length (0.42915ms)
+✔ original refuses an already cancelled operation before fetch (0.4768ms)
+✔ original clears the exact chunk that exceeds the stream byte cap (182.249402ms)
+✔ original rejects and clears a chunk delivered concurrently with cancellation (1.120045ms)
+✔ original cancellation settles a pending native stream read and awaits original cancel (7.356452ms)
+✔ original retains header refusal and cancel failure together (0.846789ms)
+✔ original successful native stream releases its lock and returns intact owned bytes (1.363696ms)
+✔ original loopback HTTP fetch returns the actual PNG without credentials or redirect (26.43629ms)
+✔ actual service worker navigation cancels the image stream before any transfer frame (3.863325ms)
+✖ actual extension/host/production receiver waits over five seconds for explicit synthetic desktop decision (9.774517ms)
+✖ actual ServiceWorker/native host/production receiver confirmation boundary: allow-after-six (8.069027ms)
+✖ actual ServiceWorker/native host/production receiver confirmation boundary: no-answer (2.209623ms)
+✖ actual ServiceWorker/native host/production receiver confirmation boundary: reject (2.079617ms)
+✖ actual ServiceWorker/native host/production receiver confirmation boundary: cancel (2.079627ms)
+✖ actual ServiceWorker/native host/production receiver confirmation boundary: off (2.427614ms)
+✖ actual ServiceWorker/native host/production receiver confirmation boundary: disconnect (2.02852ms)
+✖ actual ServiceWorker/native host/production receiver confirmation boundary: late-answer (1.689179ms)
+✖ actual ServiceWorker/native host/production receiver confirmation boundary: late-answer-no-timer (2.141845ms)
+✖ actual ServiceWorker/native host/production receiver confirmation boundary: late-ready (2.189394ms)
+✔ offer without explicit confirmation state still expires at five seconds (5.47009ms)
+✔ ordinary Begin acknowledgement keeps its five-second budget after long confirmation (0.711073ms)
+✔ idle acquisition has a thirty-second transfer budget and disconnect cancels the owning signal (0.578263ms)
+✔ late Ready rejected by monotonic deadline even when wall clock moves backwards before timer dispatch (0.532045ms)
+✔ total operation deadline cannot be renewed by confirmation or Ready (0.454298ms)
+✔ confirmation stage cannot obtain a renewed timer with invalid progress: id (0.502429ms)
+✔ confirmation stage cannot obtain a renewed timer with invalid progress: budget (0.274839ms)
+✔ confirmation stage cannot obtain a renewed timer with invalid progress: protocol (0.359027ms)
+✔ confirmation stage cannot obtain a renewed timer with invalid progress: extra (0.366231ms)
+✔ confirmation stage cannot obtain a renewed timer with invalid progress: duplicate (0.353788ms)
+✔ manifest has exactly three used permissions and no web entry points (10.139828ms)
+✔ context comes only from top-frame active image click (0.297172ms)
+✔ context rejects cross-frame (0.285198ms)
+✔ context rejects wrong-menu (0.438599ms)
+✔ context rejects text (0.14284ms)
+✔ context rejects javascript (0.115779ms)
+✔ context rejects file (0.174329ms)
+✔ context rejects userinfo (0.1695ms)
+✔ context rejects navigated (0.132851ms)
+✔ context rejects inactive (0.17512ms)
+✔ context rejects restricted (0.267054ms)
+✔ UTF-8 bytes include multibyte body and JSON envelope (1.275659ms)
+✔ 190KiB worst base64 fits complete native frame (8.630046ms)
+✔ PNG dimensions rejected before host submission (0.305717ms)
+✔ original fetch never attaches credentials/referrer or follows redirects (30.565667ms)
+✔ cross-origin/blob originals cannot call fetch (0.382342ms)
+✔ declared and streamed original byte limits independent (15.748789ms)
+✔ crop remains strictly inside target physical rectangle (0.324002ms)
+✔ crop rejects DPI (0.128303ms)
+✔ crop rejects size mismatch (0.233521ms)
+✔ crop rejects outside viewport (0.083808ms)
+✔ crop rejects empty (0.077376ms)
+✔ crop rejects NaN (1.923081ms)
+✔ crop rejects infinite (0.078969ms)
+✔ ambiguous element refuses capture before screenshot (0.272965ms)
+✔ moved target cannot reach screenshot, measurement or decode (0.392922ms)
+✔ actual acquisition refuses unproven viewport ownership: corner-overlay (0.564837ms)
+✔ actual acquisition refuses unproven viewport ownership: edge-overlay (0.271713ms)
+✔ actual acquisition refuses unproven viewport ownership: opposite-corner-overlay (0.294757ms)
+✔ actual acquisition refuses unproven viewport ownership: clip-path (0.186773ms)
+✔ actual acquisition refuses unproven viewport ownership: border (0.163328ms)
+✔ actual acquisition refuses unproven viewport ownership: padding (0.241796ms)
+✔ actual acquisition refuses unproven viewport ownership: object-fit (0.234433ms)
+✔ actual acquisition refuses unproven viewport ownership: mask (0.176313ms)
+✔ actual acquisition refuses unproven viewport ownership: apparently-clear (0.176192ms)
+✔ actual service worker acquisition pipeline: corner-overlay (3.131564ms)
+✔ actual service worker acquisition pipeline: clip-path (1.367673ms)
+✔ actual service worker acquisition pipeline: original (13.33474ms)
+✔ disconnect rejects an outstanding frame immediately (0.339972ms)
+✔ cancellation sends one explicit cancel and disconnects (0.278415ms)
+✔ wrong operation cannot acknowledge pending frame (0.232488ms)
+✔ desktop Off prevents image acquisition (0.236977ms)
+✖ actual extension sender to independent host loop commits ordered maximum chunks (6.278426ms)
+ℹ tests 75
+ℹ suites 0
+ℹ pass 64
+ℹ fail 11
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 837.503939
+
+✖ failing tests:
+
+test at tests/browser/confirmation.test.mjs:8:1
+✖ actual extension/host/production receiver waits over five seconds for explicit synthetic desktop decision (9.774517ms)
+  Error: spawn dotnet ENOENT
+      at ChildProcess._handle.onexit (node:internal/child_process:287:19)
+      at onErrorNT (node:internal/child_process:525:16)
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'spawn dotnet',
+    path: 'dotnet',
+    spawnargs: [ '/workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll', 'receiver-confirmation' ]
+  }
+
+test at tests/browser/confirmation.test.mjs:43:3
+✖ actual ServiceWorker/native host/production receiver confirmation boundary: allow-after-six (8.069027ms)
+  Error: spawn dotnet ENOENT
+      at ChildProcess._handle.onexit (node:internal/child_process:287:19)
+      at onErrorNT (node:internal/child_process:525:16)
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'spawn dotnet',
+    path: 'dotnet',
+    spawnargs: [ '/workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll', 'receiver-confirmation' ]
+  }
+
+test at tests/browser/confirmation.test.mjs:43:3
+✖ actual ServiceWorker/native host/production receiver confirmation boundary: no-answer (2.209623ms)
+  Error: spawn dotnet ENOENT
+      at ChildProcess._handle.onexit (node:internal/child_process:287:19)
+      at onErrorNT (node:internal/child_process:525:16)
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'spawn dotnet',
+    path: 'dotnet',
+    spawnargs: [ '/workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll', 'receiver-confirmation' ]
+  }
+
+test at tests/browser/confirmation.test.mjs:43:3
+✖ actual ServiceWorker/native host/production receiver confirmation boundary: reject (2.079617ms)
+  Error: spawn dotnet ENOENT
+      at ChildProcess._handle.onexit (node:internal/child_process:287:19)
+      at onErrorNT (node:internal/child_process:525:16)
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'spawn dotnet',
+    path: 'dotnet',
+    spawnargs: [ '/workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll', 'receiver-confirmation' ]
+  }
+
+test at tests/browser/confirmation.test.mjs:43:3
+✖ actual ServiceWorker/native host/production receiver confirmation boundary: cancel (2.079627ms)
+  Error: spawn dotnet ENOENT
+      at ChildProcess._handle.onexit (node:internal/child_process:287:19)
+      at onErrorNT (node:internal/child_process:525:16)
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'spawn dotnet',
+    path: 'dotnet',
+    spawnargs: [ '/workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll', 'receiver-confirmation' ]
+  }
+
+test at tests/browser/confirmation.test.mjs:43:3
+✖ actual ServiceWorker/native host/production receiver confirmation boundary: off (2.427614ms)
+  Error: spawn dotnet ENOENT
+      at ChildProcess._handle.onexit (node:internal/child_process:287:19)
+      at onErrorNT (node:internal/child_process:525:16)
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'spawn dotnet',
+    path: 'dotnet',
+    spawnargs: [ '/workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll', 'receiver-confirmation' ]
+  }
+
+test at tests/browser/confirmation.test.mjs:43:3
+✖ actual ServiceWorker/native host/production receiver confirmation boundary: disconnect (2.02852ms)
+  Error: spawn dotnet ENOENT
+      at ChildProcess._handle.onexit (node:internal/child_process:287:19)
+      at onErrorNT (node:internal/child_process:525:16)
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'spawn dotnet',
+    path: 'dotnet',
+    spawnargs: [ '/workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll', 'receiver-confirmation' ]
+  }
+
+test at tests/browser/confirmation.test.mjs:43:3
+✖ actual ServiceWorker/native host/production receiver confirmation boundary: late-answer (1.689179ms)
+  Error: spawn dotnet ENOENT
+      at ChildProcess._handle.onexit (node:internal/child_process:287:19)
+      at onErrorNT (node:internal/child_process:525:16)
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'spawn dotnet',
+    path: 'dotnet',
+    spawnargs: [ '/workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll', 'receiver-confirmation' ]
+  }
+
+test at tests/browser/confirmation.test.mjs:43:3
+✖ actual ServiceWorker/native host/production receiver confirmation boundary: late-answer-no-timer (2.141845ms)
+  Error: spawn dotnet ENOENT
+      at ChildProcess._handle.onexit (node:internal/child_process:287:19)
+      at onErrorNT (node:internal/child_process:525:16)
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'spawn dotnet',
+    path: 'dotnet',
+    spawnargs: [ '/workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll', 'receiver-confirmation' ]
+  }
+
+test at tests/browser/confirmation.test.mjs:43:3
+✖ actual ServiceWorker/native host/production receiver confirmation boundary: late-ready (2.189394ms)
+  Error: spawn dotnet ENOENT
+      at ChildProcess._handle.onexit (node:internal/child_process:287:19)
+      at onErrorNT (node:internal/child_process:525:16)
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'spawn dotnet',
+    path: 'dotnet',
+    spawnargs: [ '/workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll', 'receiver-confirmation' ]
+  }
+
+test at tests/browser/protocol.test.mjs:124:1
+✖ actual extension sender to independent host loop commits ordered maximum chunks (6.278426ms)
+  Error: spawn dotnet ENOENT
+      at ChildProcess._handle.onexit (node:internal/child_process:287:19)
+      at onErrorNT (node:internal/child_process:525:16)
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'spawn dotnet',
+    path: 'dotnet',
+    spawnargs: [ '/workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll', 'on' ]
+  }

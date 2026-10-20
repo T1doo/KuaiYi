@@ -1,0 +1,19 @@
+✔ original cancels unread body on HTTP refusal (5.663397ms)
+✔ original cancels unread body on wrong MIME (0.510157ms)
+✔ original cancels unread body on declared oversize (0.434193ms)
+✔ original cancels unread body on invalid length (0.404677ms)
+✔ original refuses an already cancelled operation before fetch (0.442438ms)
+✔ original clears the exact chunk that exceeds the stream byte cap (199.112564ms)
+✔ original rejects and clears a chunk delivered concurrently with cancellation (1.124269ms)
+✔ original cancellation settles a pending native stream read and awaits original cancel (7.246375ms)
+✔ original retains header refusal and cancel failure together (0.812008ms)
+✔ original successful native stream releases its lock and returns intact owned bytes (1.4199ms)
+✔ original loopback HTTP fetch returns the actual PNG without credentials or redirect (26.917567ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 597.936551

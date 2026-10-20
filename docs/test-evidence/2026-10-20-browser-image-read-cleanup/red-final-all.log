@@ -1,0 +1,212 @@
+✖ original cancels unread body on HTTP refusal (4.329543ms)
+✖ original cancels unread body on wrong MIME (0.675831ms)
+✖ original cancels unread body on declared oversize (0.596823ms)
+✖ original cancels unread body on invalid length (0.454735ms)
+✖ original refuses an already cancelled operation before fetch (1.433055ms)
+✖ original clears the exact chunk that exceeds the stream byte cap (11.219672ms)
+✖ original rejects and clears a chunk delivered concurrently with cancellation (1.11149ms)
+✖ original cancellation settles a pending native stream read and awaits original cancel (301.927984ms)
+✖ original retains header refusal and cancel failure together (1.421373ms)
+✖ original successful native stream releases its lock and returns intact owned bytes (1.964184ms)
+✔ original loopback HTTP fetch returns the actual PNG without credentials or redirect (31.814707ms)
+✖ actual service worker navigation cancels the image stream before any transfer frame (304.682262ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 1
+ℹ fail 11
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 755.957512
+
+✖ failing tests:
+
+test at artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:32:4
+✖ original cancels unread body on HTTP refusal (4.329543ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:36:12
+      at async withFetch (file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:20:9)
+      at async TestContext.<anonymous> (file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:34:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:32:4
+✖ original cancels unread body on wrong MIME (0.675831ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:36:12
+      at async withFetch (file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:20:9)
+      at async TestContext.<anonymous> (file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:34:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:32:4
+✖ original cancels unread body on declared oversize (0.596823ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:36:12
+      at async withFetch (file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:20:9)
+      at async TestContext.<anonymous> (file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:34:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:32:4
+✖ original cancels unread body on invalid length (0.454735ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:36:12
+      at async withFetch (file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:20:9)
+      at async TestContext.<anonymous> (file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:34:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:40:1
+✖ original refuses an already cancelled operation before fetch (1.433055ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:44:12
+      at async withFetch (file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:20:9)
+      at async TestContext.<anonymous> (file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:42:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:47:1
+✖ original clears the exact chunk that exceeds the stream byte cap (11.219672ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert(bytes.every(n => n === 0))
+  
+      at file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:52:5
+      at async withFetch (file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:20:9)
+      at async TestContext.<anonymous> (file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:50:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:56:1
+✖ original rejects and clears a chunk delivered concurrently with cancellation (1.11149ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at async file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:60:5
+      at async withFetch (file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:20:9)
+      at async TestContext.<anonymous> (file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:59:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:65:1
+✖ original cancellation settles a pending native stream read and awaits original cancel (301.927984ms)
+  Error: stream operation did not settle
+      at Timeout.<anonymous> (file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:14:106)
+      at listOnTimeout (node:internal/timers:635:17)
+      at process.processTimers (node:internal/timers:571:7)
+
+test at artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:81:1
+✖ original retains header refusal and cancel failure together (1.421373ms)
+  AssertionError [ERR_ASSERTION]: The validation function is expected to return "true". Received false
+  
+  Caught error:
+  
+  Error: 原图不可取得或不是 PNG
+      at async file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:85:5
+      at async withFetch (file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:20:9)
+      at async TestContext.<anonymous> (file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:84:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: Error: 原图不可取得或不是 PNG
+        at original (file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/extensions/chromium/acquire.js:12:105)
+        at async waitForActual (node:assert:646:5)
+        at async strict.rejects (node:assert:769:25)
+        at async file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:85:5
+        at async withFetch (file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:20:9)
+        at async TestContext.<anonymous> (file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:84:3)
+        at async Test.run (node:internal/test_runner/test:1389:7)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:960:7),
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:89:1
+✖ original successful native stream releases its lock and returns intact owned bytes (1.964184ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:95:12
+      at async withFetch (file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:20:9)
+      at async TestContext.<anonymous> (file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:92:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:113:1
+✖ actual service worker navigation cancels the image stream before any transfer frame (304.682262ms)
+  Error: stream operation did not settle
+      at Timeout.<anonymous> (file:///workspace/KuaiYi/artifacts/browser-acquisition/baseline/tests/browser/acquisition.test.mjs:14:106)
+      at listOnTimeout (node:internal/timers:635:17)
+      at process.processTimers (node:internal/timers:571:7)

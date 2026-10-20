@@ -1,0 +1,40 @@
+✔ original cancels unread body on HTTP refusal (6.008153ms)
+✔ original cancels unread body on wrong MIME (0.588577ms)
+✔ original cancels unread body on declared oversize (0.438853ms)
+✔ original cancels unread body on invalid length (0.436588ms)
+✔ original refuses an already cancelled operation before fetch (0.438032ms)
+✔ original clears the exact chunk that exceeds the stream byte cap (205.608509ms)
+✖ original rejects and clears a chunk delivered concurrently with cancellation (6.321708ms)
+✔ original cancellation settles a pending native stream read and awaits original cancel (7.520543ms)
+✔ original retains header refusal and cancel failure together (0.790069ms)
+✔ original successful native stream releases its lock and returns intact owned bytes (1.586381ms)
+✔ original loopback HTTP fetch returns the actual PNG without credentials or redirect (27.326012ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 10
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 611.781966
+
+✖ failing tests:
+
+test at tests/browser/acquisition.test.mjs:51:1
+✖ original rejects and clears a chunk delivered concurrently with cancellation (6.321708ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert(bytes.every(n => n === 0))
+  
+      at file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:56:5
+      at async withFetch (file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:15:9)
+      at async TestContext.<anonymous> (file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:54:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

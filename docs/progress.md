@@ -1177,3 +1177,14 @@ r03新诊断JSON字典顺序断言118P1F及漏untracked快照如实保留，结�
 仅Git/AST只读核父98c3f27与四文件范围匹配、workflow仅name差异、runner除source_gate文案外函数AST不变、18安装／SDK／锁／旧workflow输入一致。无可证静态早期缺陷，无源码／门／SDK／测试／CI新执行。需现run的完整step3 raw、最终JSON及首个失败命令raw/gzip/TRX（若生成）定位；不由步骤名称或4分钟时长推断。原件与旧Unknown状态保留，包Hold，详见[真实终态与静态核验](validation/owned-exit-ci-static-followup.md)和[证据](test-evidence/2026-10-20-owned-exit-ci-static-followup.json)。
 
 只读静态及封存独审Pass：8路径／3原件6,405B，旧证据零回写，无不当阶段推断；只docs正常保存，不命中CI触发路径。
+
+
+## 2026-10-20 · 浏览器原图读取的取消与缓冲清理
+
+从远端ade0b4a基线新建dev/browser-image-read-cleanup；main未动。原计划P7-02/P7-03真实缺口已核：HTTP/MIME/声明大小拒绝未取消body，超限末块未清零，取消/返回边界与reader锁释放不足。只改原original读取：统一reader所有权范围、取消前置/逐read/最终复核、late/oversize块先接管、原cancel单任务结算后释放锁、失败结果清零与双异常保全。保留同源HTTPS/PNG/20MiB/不带凭据/拒redirect、桌面Ready先行、原65/30/5秒门与未经证明截图拒绝。
+
+最终同测试字节基线12项1P11F，修后独审12P，纯Node既有+新增64P；真实native Streams/loopbackHTTP/生产ServiceWorker+受控Chrome端口有据，不充真实浏览器/宿主/Windows。初次筛选误匹配祖先致64P11F（缺dotnet ENOENT）、基线导航timeout后本任务Node终止、中间夹具预取断言失败均保留；最终测试有界清理自身流并join。11项原.NET宿主测试本轮未完成；无旧401执行。脚本登记新测试，PowerShell未运行；75项首次尝试64P11F，未取得完整75项通过。源码与范围独审无P1/P2；见[修复及实际范围](validation/browser-image-read-cleanup.md)/[证据索引](test-evidence/2026-10-20-browser-image-read-cleanup.json)。
+
+P7源码子项InProgress，完整P7/R13/真实浏览器与Windows仍NotRun；CI39347646426第3步首因Unknown、PackageHold，拒绝日志路径不重试不绕。未改C#/锁/SDK/workflow/安全权限/代理/凭据/模型/发布或用户电脑。
+
+本轮原始失败日志自带尾空格，最终stage检查明确报告后依仓库原件惯例仅对该新日志目录设-text/-whitespace，原日志与SHA不改；源码空白检查保持，未降产品断言。

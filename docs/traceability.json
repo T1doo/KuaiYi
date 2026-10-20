@@ -1253,9 +1253,13 @@
         "完成 Chrome/Edge MV3 扩展、权限与图片取得降级",
         "同一代码基础的扩展分发包"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/validation/browser-image-read-cleanup.md",
+        "docs/test-evidence/2026-10-20-browser-image-read-cleanup.json"
+      ],
+      "note": "Browser original PNG read cleanup source subitem only: header rejection cancels body; late/oversize delivered chunks cleared; original read/cancel joined before reader unlock; final cancellation rejects owned result. Baseline same final12 tests1P11F; repaired independent12P and portable browser regression64P. Chrome/NativePort test adapters and actual Node Streams/loopbackHTTP, not actual browser/native host/Windows. 11 existing managed-host cases not completed; full P7/R13 validation remains NotRun."
     },
     {
       "id": "P7-03",
@@ -1265,9 +1269,13 @@
         "完成 NativeHost、来源校验、分片传图、版本协商",
         "浏览器→桌面端到端测试"
       ],
-      "implementationStatus": "NotStarted",
+      "implementationStatus": "InProgress",
       "validationStatus": "NotRun",
-      "evidence": []
+      "evidence": [
+        "docs/validation/browser-image-read-cleanup.md",
+        "docs/test-evidence/2026-10-20-browser-image-read-cleanup.json"
+      ],
+      "note": "Browser original PNG read cleanup source subitem only: header rejection cancels body; late/oversize delivered chunks cleared; original read/cancel joined before reader unlock; final cancellation rejects owned result. Baseline same final12 tests1P11F; repaired independent12P and portable browser regression64P. Chrome/NativePort test adapters and actual Node Streams/loopbackHTTP, not actual browser/native host/Windows. 11 existing managed-host cases not completed; full P7/R13 validation remains NotRun."
     },
     {
       "id": "P7-04",

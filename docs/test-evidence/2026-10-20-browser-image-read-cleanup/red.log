@@ -1,0 +1,204 @@
+✖ original cancels unread body on HTTP refusal (5.11552ms)
+✖ original cancels unread body on wrong MIME (0.639941ms)
+✖ original cancels unread body on declared oversize (0.474951ms)
+✖ original cancels unread body on invalid length (0.422974ms)
+✖ original refuses an already cancelled operation before fetch (1.604391ms)
+✖ original clears the exact chunk that exceeds the stream byte cap (12.330872ms)
+✖ original rejects and clears a chunk delivered concurrently with cancellation (1.158334ms)
+✖ original cancellation settles a pending native stream read and awaits original cancel (302.523855ms)
+✖ original retains header refusal and cancel failure together (1.372035ms)
+✖ original successful native stream releases its lock and returns intact owned bytes (1.591077ms)
+✔ original loopback HTTP fetch returns the actual PNG without credentials or redirect (32.360081ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 1
+ℹ fail 10
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 471.572717
+
+✖ failing tests:
+
+test at tests/browser/acquisition.test.mjs:27:4
+✖ original cancels unread body on HTTP refusal (5.11552ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:31:12
+      at async withFetch (file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:15:9)
+      at async TestContext.<anonymous> (file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:29:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/browser/acquisition.test.mjs:27:4
+✖ original cancels unread body on wrong MIME (0.639941ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:31:12
+      at async withFetch (file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:15:9)
+      at async TestContext.<anonymous> (file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:29:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/browser/acquisition.test.mjs:27:4
+✖ original cancels unread body on declared oversize (0.474951ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:31:12
+      at async withFetch (file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:15:9)
+      at async TestContext.<anonymous> (file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:29:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/browser/acquisition.test.mjs:27:4
+✖ original cancels unread body on invalid length (0.422974ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:31:12
+      at async withFetch (file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:15:9)
+      at async TestContext.<anonymous> (file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:29:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/browser/acquisition.test.mjs:35:1
+✖ original refuses an already cancelled operation before fetch (1.604391ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:39:12
+      at async withFetch (file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:15:9)
+      at async TestContext.<anonymous> (file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:37:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/browser/acquisition.test.mjs:42:1
+✖ original clears the exact chunk that exceeds the stream byte cap (12.330872ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert(bytes.every(n => n === 0))
+  
+      at file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:47:5
+      at async withFetch (file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:15:9)
+      at async TestContext.<anonymous> (file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:45:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/browser/acquisition.test.mjs:51:1
+✖ original rejects and clears a chunk delivered concurrently with cancellation (1.158334ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at async file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:55:5
+      at async withFetch (file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:15:9)
+      at async TestContext.<anonymous> (file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:54:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tests/browser/acquisition.test.mjs:60:1
+✖ original cancellation settles a pending native stream read and awaits original cancel (302.523855ms)
+  Error: cancel never reached the stream
+      at Timeout._onTimeout (file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:69:101)
+      at listOnTimeout (node:internal/timers:635:17)
+      at process.processTimers (node:internal/timers:571:7)
+
+test at tests/browser/acquisition.test.mjs:76:1
+✖ original retains header refusal and cancel failure together (1.372035ms)
+  AssertionError [ERR_ASSERTION]: The validation function is expected to return "true". Received false
+  
+  Caught error:
+  
+  Error: 原图不可取得或不是 PNG
+      at async file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:80:5
+      at async withFetch (file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:15:9)
+      at async TestContext.<anonymous> (file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:79:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: Error: 原图不可取得或不是 PNG
+        at original (file:///workspace/KuaiYi/extensions/chromium/acquire.js:12:105)
+        at async waitForActual (node:assert:646:5)
+        at async strict.rejects (node:assert:769:25)
+        at async file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:80:5
+        at async withFetch (file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:15:9)
+        at async TestContext.<anonymous> (file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:79:3)
+        at async Test.run (node:internal/test_runner/test:1389:7)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:960:7),
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tests/browser/acquisition.test.mjs:84:1
+✖ original successful native stream releases its lock and returns intact owned bytes (1.591077ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:90:12
+      at async withFetch (file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:15:9)
+      at async TestContext.<anonymous> (file:///workspace/KuaiYi/tests/browser/acquisition.test.mjs:87:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

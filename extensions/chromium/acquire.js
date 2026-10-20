@@ -6,21 +6,49 @@ export function imageContext(info, tab) {
   return { tabId: tab.id, windowId: tab.windowId, pageUrl: page.href, imageUrl: image.href, origin: page.origin };
 }
 export async function original(context, signal) {
+  const check = () => { if (signal.aborted) throw new ImageAcquisitionError("Cancelled", "已取消"); };
+  check();
   const url = new URL(context.imageUrl);
   if (url.protocol !== "https:" || url.origin !== context.origin) throw new Error("原图不在当前临时授权范围");
   const response = await fetch(url.href, { credentials: "omit", redirect: "error", referrerPolicy: "no-referrer", cache: "no-store", signal });
-  if (!response.ok || response.headers.get("content-type")?.split(";")[0].trim() !== "image/png") throw new Error("原图不可取得或不是 PNG");
-  const declared = response.headers.get("content-length");
-  if (declared && (!/^\d+$/.test(declared) || Number(declared) > IMAGE)) throw new Error("原图过大");
   const reader = response.body?.getReader(); if (!reader) throw new Error("原图没有可读字节");
-  const parts = []; let count = 0, result = null;
+  const parts = [], errors = []; let count = 0, result = null, cancellation = null;
+  // Keep the original cancellation outcome until cleanup joins it; never abandon a reader promise.
+  const cancel = () => cancellation ??= Promise.resolve().then(() => reader.cancel()).then(() => null, error => ({ error }));
+  const clear = () => { parts.forEach(part => part.fill(0)); result?.fill(0); };
+  const onAbort = () => { clear(); void cancel(); };
+  signal.addEventListener("abort", onAbort, { once: true });
   try {
-    while (true) { const { done, value } = await reader.read(); if (done) break; count += value.length; if (count > IMAGE) throw new Error("原图过大"); parts.push(value); }
+    check();
+    if (!response.ok || response.headers.get("content-type")?.split(";")[0].trim() !== "image/png") throw new Error("原图不可取得或不是 PNG");
+    const declared = response.headers.get("content-length");
+    if (declared && (!/^\d+$/.test(declared) || Number(declared) > IMAGE)) throw new Error("原图过大");
+    while (true) {
+      check();
+      const { done, value } = await reader.read();
+      if (value) parts.push(value); // Own even a late or oversized chunk before any rejection.
+      check();
+      if (done) break;
+      count += value.length; if (count > IMAGE) throw new Error("原图过大");
+    }
     const bytes = result = new Uint8Array(count); let offset = 0;
     for (const part of parts) { bytes.set(part, offset); offset += part.length; part.fill(0); }
-    pngSize(bytes); return bytes;
-  } catch (error) { result?.fill(0); throw error; }
-  finally { try { await reader.cancel(); } finally { parts.forEach(part => part.fill(0)); } }
+    pngSize(bytes);
+  } catch (error) { errors.push(error); }
+  finally {
+    parts.forEach(part => part.fill(0));
+    if (errors.length) result?.fill(0);
+    const cleanup = await cancel();
+    if (cleanup) errors.push(cleanup.error);
+    signal.removeEventListener("abort", onAbort);
+    try { reader.releaseLock(); } catch (error) { errors.push(error); }
+  }
+  if (signal.aborted && !errors.some(error => error?.code === "Cancelled")) errors.push(new ImageAcquisitionError("Cancelled", "已取消"));
+  if (errors.length) {
+    result?.fill(0);
+    throw errors.length === 1 ? errors[0] : new AggregateError(errors, "图片读取及清理失败");
+  }
+  return result;
 }
 // Numeric bounds utility only; a rectangle is not evidence of image pixel ownership.
 export function cropPixels(rect, width, height) {

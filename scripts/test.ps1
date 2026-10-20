@@ -41,7 +41,7 @@ try {
     }
     if(-not(Get-Command node -ErrorAction SilentlyContinue)){throw 'Node is required for the actual extension protocol tests; see docs/environment.md.'}
     Invoke-Checked node @('--test','--test-concurrency=1','--test-reporter=spec','--test-reporter-destination=stdout',
-        '--test-reporter=junit',"--test-reporter-destination=$(Join-Path $folder 'browser-tests.xml')",'tests/browser/protocol.test.mjs','tests/browser/confirmation.test.mjs')
+        '--test-reporter=junit',"--test-reporter-destination=$(Join-Path $folder 'browser-tests.xml')",'tests/browser/protocol.test.mjs','tests/browser/confirmation.test.mjs','tests/browser/acquisition.test.mjs')
 } finally {
     [Environment]::SetEnvironmentVariable('KUAIYI_TEST_PROVIDER_URL', $oldProvider)
     if ($process -and -not $process.HasExited) { $process.Kill($true); $process.WaitForExit() }

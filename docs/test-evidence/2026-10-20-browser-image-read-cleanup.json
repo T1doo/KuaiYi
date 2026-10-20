@@ -1,0 +1,129 @@
+{
+  "utc": "2026-10-20T02:03:26.765106+00:00",
+  "baseline": "ade0b4a8e0c3db15f096a54205246a330706799b",
+  "branch": "dev/browser-image-read-cleanup",
+  "remote": "https://github.com/T1doo/KuaiYi.git",
+  "sources": {
+    "extensions/chromium/acquire.js": "f19949a278637690c1f47801f65f88bd639d8a56a52ddcbb710324a4fbd43266",
+    "tests/browser/acquisition.test.mjs": "7dd50823721d91a9142c77a792be675e9bafd39b14296521a867c801c3322844",
+    "scripts/test.ps1": "842edcba40acc83a7479f78a1c82da259a041a49d32b527706c2f642d07d6d3c"
+  },
+  "tests": {
+    "baseline_final_same_tests": {
+      "tests": 12,
+      "pass": 1,
+      "fail": 11,
+      "cancelled": 0,
+      "log": "red-final-all.log"
+    },
+    "independent_final": {
+      "tests": 12,
+      "pass": 12,
+      "fail": 0,
+      "log": "independent-review-settled.log"
+    },
+    "portable_regression_final": {
+      "tests": 64,
+      "pass": 64,
+      "fail": 0,
+      "log": "regression-final.log"
+    },
+    "managed_host_cases": {
+      "count": 11,
+      "status": "NotRun_Final; first unfiltered attempt failed ENOENT",
+      "log": "regression.log"
+    }
+  },
+  "first_attempts_preserved": {
+    "initial_late_chunk_fixture": "pre-read eager pull assertion corrected with highWaterMark=0",
+    "negative_name_pattern": "matched filename ancestor and did not filter; baseline navigation pending task terminated only owned node PIDs1278/1284",
+    "final_fixture": "bounded own source close and original running join"
+  },
+  "not_run": [
+    "real Chrome/Edge",
+    "Windows",
+    "PowerShell test.ps1",
+    "complete75 passing result (first attempt64P11F; 11 managed-host cases could not execute)",
+    ".NET builds/tests",
+    "models/liveAPI",
+    "newCI"
+  ],
+  "remaining_blocker": "Existing Windows CI39347646426 step3 internal first cause Unknown; denied Actions/credential browser paths not retried; Package Hold",
+  "files": [
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-image-read-cleanup/filter-check.log",
+      "bytes": 1007,
+      "sha256": "af93b06632b1c39e6ff878b2dbc17c37d6590178d6e5eb841c4c8a41b56d8448"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-image-read-cleanup/green-2.log",
+      "bytes": 1006,
+      "sha256": "be46c6c4d39951e0d452d27603135fb601e98723ed5be4d60b0d9bb9a2818b6c"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-image-read-cleanup/green-final.log",
+      "bytes": 1109,
+      "sha256": "d94d72a920938486d4a2733c4fb5f8fea4178fffebea1e0ebe38d2d1d5481ab0"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-image-read-cleanup/green.log",
+      "bytes": 1849,
+      "sha256": "6ad247fd716319e6ed141dd44492feef8101d8080218cbcf100f6f40f55528cf"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-image-read-cleanup/independent-review-final.log",
+      "bytes": 1108,
+      "sha256": "944679e14f8088012bc5b2d9601e51d20904d0323c932dd08cb67474ee3f776d"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-image-read-cleanup/independent-review-settled.log",
+      "bytes": 1109,
+      "sha256": "1c2221fc8dd348b205866ce89aa7fc567d786d309da87bc22b7b8694a203bd5d"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-image-read-cleanup/independent-review.log",
+      "bytes": 1006,
+      "sha256": "bfc42fd7a69e31cae0c02de21f7050e3d185354b4a43c3f9aa1bb77db98bb33b"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-image-read-cleanup/red-exact.log",
+      "bytes": 10782,
+      "sha256": "c5fea0acab2b96d7962582fe9d406fef9f77d2b3525ddf17f79441658515085f"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-image-read-cleanup/red-final-all.log",
+      "bytes": 11375,
+      "sha256": "08b00b17ec3d15f8640dc14aef12acb24f95bf3d4be549ca92d693bc51244005"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-image-read-cleanup/red-final.log",
+      "bytes": 11659,
+      "sha256": "d8c4b07131b2293e782af1a0bf0ca3c2c8bbb4c5df8cd3ecfdbcd9b743682bfc"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-image-read-cleanup/red.log",
+      "bytes": 9150,
+      "sha256": "bfa8356390e98ae829c7c1af522101ba28d69261ccd6b8c34373c3f8b958ec8a"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-image-read-cleanup/regression-final.log",
+      "bytes": 4746,
+      "sha256": "5033d809d6815cecd899c2a2c1f4d0784806d100214ddcce6a1488f4c1232886"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-image-read-cleanup/regression-portable.log",
+      "bytes": 4744,
+      "sha256": "546575098ba9ee9f163c3d9faa26041171a99b40ca226c7cebce7d283f48afd7"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-image-read-cleanup/regression.log",
+      "bytes": 12880,
+      "sha256": "d942fea813bf94ad2d8ca93e360a83eefb115aafa653afb0ccfded526f6f97d0"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-browser-image-read-cleanup/review.txt",
+      "bytes": 639,
+      "sha256": "be25487b0a544ee3f67e9002ab9f5a09212b80430d362edbf9501de46df2b64a"
+    }
+  ]
+}
