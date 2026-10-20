@@ -25,8 +25,9 @@ public sealed partial class ImageWorkerClient
             var token=linked?.Token??cancellation;DecodedRaster? held=null;TResult? output=null;
             try
             {
-                ImageDecodePolicy.ValidateJob(job);token.ThrowIfCancellationRequested();var header=ImageDecodePolicy.Inspect(encoded.Span);
+                ImageDecodePolicy.ValidateJob(job);token.ThrowIfCancellationRequested();var header=ImageDecodePolicy.Inspect(encoded.Span,token);
                 if(encoded.Length!=job.ByteLength||ImageDecodePolicy.Hash(encoded.Span)!=job.Sha256)throw new InvalidDataException("Decode input mismatch.");
+                GifFirstFrameInfo? expectedGif=header.Format==EncodedRasterFormat.Gif?GifDecodePolicy.Inspect(encoded.Span,token).FirstFrame:null;
                 ImagePreparedInfo? expectedPrepared=null;
                 if(job.PrepareLongEdge!=null)expectedPrepared=new((int)header.Size.Width,(int)header.Size.Height,EncodedImageOrientation.Read(encoded.Span,header.Format,token));
                 var raster=await UseChannelAsync(async(send,receive,id,channelToken)=>
@@ -44,7 +45,7 @@ public sealed partial class ImageWorkerClient
                     if(reply.Job!=job)throw new InvalidDataException("Decode reply job mismatch.");ImageDecodePolicy.ValidateReply(reply);
                     if(reply.Failure==ImageFailure.None)
                     {
-                        if(reply.Format!=header.Format||reply.PreparedInfo!=expectedPrepared)throw new InvalidDataException("Decode source mismatch.");
+                        if(reply.Format!=header.Format||reply.PreparedInfo!=expectedPrepared||reply.GifInfo!=expectedGif)throw new InvalidDataException("Decode source mismatch.");
                         var expectedSize=expectedPrepared==null?header.Size:ImageTransform.PlanEncoded(header.Size,expectedPrepared.SourceOrientation,job.PrepareLongEdge!.Value).NormalizedSize;
                         if((uint)reply.Width!=expectedSize.Width||(uint)reply.Height!=expectedSize.Height)throw new InvalidDataException("Decode header mismatch.");
                     }

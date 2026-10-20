@@ -4,15 +4,16 @@ using System.Text.Json.Serialization;
 using KuaiYi.Contracts;
 namespace KuaiYi.Imaging;
 
-public enum EncodedRasterFormat{Png,Jpeg,Bmp,Webp}
+public enum EncodedRasterFormat{Png,Jpeg,Bmp,Webp,Gif}
 public sealed record ImageDecodeJob(Guid SessionId,long Version,long Epoch,int ByteLength,string Sha256,[property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] int? PrepareLongEdge=null);
 public sealed record ImagePreparedInfo(int SourceWidth,int SourceHeight,ImageOrientation SourceOrientation);
 // Tightly packed top-down BGRA8888. Preparation retains only numeric dimensions/direction, never arbitrary EXIF/GPS/paths.
-public sealed record ImageDecodeReply(ImageDecodeJob Job,ImageFailure Failure,EncodedRasterFormat? Format=null,int Width=0,int Height=0,int Stride=0,int ByteLength=0,string? Sha256=null,string? PixelFormat=null,int Frames=0,int Orientation=0,[property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] ImagePreparedInfo? PreparedInfo=null);
+public sealed record ImageDecodeReply(ImageDecodeJob Job,ImageFailure Failure,EncodedRasterFormat? Format=null,int Width=0,int Height=0,int Stride=0,int ByteLength=0,string? Sha256=null,string? PixelFormat=null,int Frames=0,int Orientation=0,[property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] ImagePreparedInfo? PreparedInfo=null,[property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] GifFirstFrameInfo? GifInfo=null);
 public sealed class DecodedRaster:IDisposable
 {
     private byte[]? bytes;
     public ImageDecodeReply Metadata{get;}
+    public string? Notice=>Metadata.Format==EncodedRasterFormat.Gif?"使用首帧":null;
     public ImageTransform? Transform=>Metadata.PreparedInfo is {} p?ImageTransform.PlanEncoded(new((uint)p.SourceWidth,(uint)p.SourceHeight),p.SourceOrientation,Metadata.Job.PrepareLongEdge!.Value):null;
     public ReadOnlyMemory<byte> Bytes=>bytes??throw new ObjectDisposedException(nameof(DecodedRaster));
     public DecodedRaster(ImageDecodeReply metadata,byte[] owned)
@@ -31,11 +32,12 @@ public static class ImageDecodePolicy
         if(job.PrepareLongEdge is <1 or >ImageTransform.LongEdgeLimit||job.SessionId==Guid.Empty||job.Version<=0||job.Epoch<=0||job.ByteLength is <=0 or >ImagePolicy.ByteLimit||!Digest(job.Sha256))throw new InvalidDataException("Invalid decode job.");
     }
     private static bool Digest(string? value)=>value is {Length:64}&&value.All(c=>char.IsAsciiDigit(c)||c is >= 'a' and <= 'f');
-    public static (EncodedRasterFormat Format,ImageSize Size) Inspect(ReadOnlySpan<byte> bytes)
+    public static (EncodedRasterFormat Format,ImageSize Size) Inspect(ReadOnlySpan<byte> bytes,CancellationToken cancellation=default)
     {
         if(bytes.Length>ImagePolicy.ByteLimit)throw new ImageJobException(ImageFailure.ImageTooLarge);
         if(bytes.Length>=8&&bytes[..8].SequenceEqual(new byte[]{137,80,78,71,13,10,26,10}))return(EncodedRasterFormat.Png,ImagePolicy.InspectPng(bytes));
         if(bytes.Length>=2&&bytes[0]==66&&bytes[1]==77)return(EncodedRasterFormat.Bmp,BmpDecodePolicy.Inspect(bytes));
+        if(bytes.Length>=3&&bytes[..3].SequenceEqual("GIF"u8))return(EncodedRasterFormat.Gif,GifDecodePolicy.Inspect(bytes,cancellation).Size);
         if(bytes.Length>=4&&bytes[..4].SequenceEqual("RIFF"u8))return(EncodedRasterFormat.Webp,WebpDecodePolicy.Inspect(bytes));
         if(bytes.Length<4||bytes[0]!=255||bytes[1]!=216)throw new ImageJobException(ImageFailure.UnsupportedImage);
         if(bytes[^2]!=255||bytes[^1]!=217)throw new ImageJobException(ImageFailure.InvalidImage);
@@ -89,8 +91,15 @@ public static class ImageDecodePolicy
         ValidateJob(reply.Job);
         if(!Enum.IsDefined(reply.Failure))throw new InvalidDataException("Invalid decode failure.");
         if(reply.Failure!=ImageFailure.None)
-        {if(reply.Format!=null||reply.Width!=0||reply.Height!=0||reply.Stride!=0||reply.ByteLength!=0||reply.Sha256!=null||reply.PixelFormat!=null||reply.Frames!=0||reply.Orientation!=0||reply.PreparedInfo!=null)throw new InvalidDataException("Failure contains raster metadata.");return;}
+        {if(reply.Format!=null||reply.Width!=0||reply.Height!=0||reply.Stride!=0||reply.ByteLength!=0||reply.Sha256!=null||reply.PixelFormat!=null||reply.Frames!=0||reply.Orientation!=0||reply.PreparedInfo!=null||reply.GifInfo!=null)throw new InvalidDataException("Failure contains raster metadata.");return;}
         if(reply.Format==null||!Enum.IsDefined(reply.Format.Value)||reply.ByteLength!=RasterBytes(reply.Width,reply.Height)||reply.Stride!=checked(reply.Width*4)||!Digest(reply.Sha256)||reply.Frames!=1||reply.Orientation!=1)throw new InvalidDataException("Invalid raster layout.");
+        if(reply.Format==EncodedRasterFormat.Gif)
+        {
+            var g=reply.GifInfo??throw new InvalidDataException("Missing GIF selection metadata.");
+            int sourceWidth=reply.PreparedInfo?.SourceWidth??reply.Width,sourceHeight=reply.PreparedInfo?.SourceHeight??reply.Height;
+            if(g.SourceFrames is <1 or >GifDecodePolicy.FrameLimit||g.Left<0||g.Top<0||g.Width<=0||g.Height<=0||(long)g.Left+g.Width>sourceWidth||(long)g.Top+g.Height>sourceHeight||reply.PreparedInfo is {SourceOrientation:not ImageOrientation.ExifTopLeft})throw new InvalidDataException("Invalid GIF selection metadata.");
+        }
+        else if(reply.GifInfo!=null)throw new InvalidDataException("Unexpected GIF selection metadata.");
         if(reply.Job.PrepareLongEdge is {} limit)
         {
             var p=reply.PreparedInfo??throw new InvalidDataException("Missing preparation metadata.");

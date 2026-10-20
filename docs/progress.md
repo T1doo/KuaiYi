@@ -1296,3 +1296,14 @@ P7源码子项InProgress，完整P7/R13/真实浏览器与Windows仍NotRun；CI3
 最终Codec362P=新WebP76+旧286，旧五文件原字节不改；实际child完整非恒定画布/非灰度半透明/白底/面积缩小、43结构拒绝及合法odd拒绝/原SHA/nativecopy清零/错source/额外输出/exit7/栅格后取消通过。16383×1确定性彩色长图65532byte逐像素相同，不证明16384解码；此前encoder拒生成16384及16383规则样本仅odd的夹具失败、一次提前整组361P1F均保全，非生产缺陷。首编译0执行、基线功能1F+probe1P、首51P9F和75P1F及因果源码不抹去，中间不累计。Provider传输限定37P，Worker/App交叉0W/E，四locked audit restore0；80项保护与原许可/依赖/锁/AppImaging无Skia核对通过。独立只读源码/回执审查，测试writer实跑。
 
 详见[产品子集与实际边界](validation/static-webp.md)/[原件索引](test-evidence/2026-10-20-static-webp.json)。原五格式中WebP仅even静态子集，odd/metadata/ALPH/动画仍缺；GIF首帧与“使用首帧”标注仍未实现，下一独立候选另行设计独审，不全格式承诺或扩新格式。打开投放UI、本地字号/真实质量、Windows截图/native/Worker/OCR/WPF及整P6仍NotRun/未完成；250600未实测通过，PackageHold/生产图片复用Off和全部安全资源门保持。无新依赖许可权限费用凭据/CI调度/私人图或真实模型/用户电脑/发布/main修改/强推；旧被拒CI日志未请求或绕路。
+
+
+## 2026-10-20 · P6-02受界GIF首帧及实际P0可见标注
+
+指定保存环境初始仅work/51d0774快照；核文件/进程/单worktree/完整HEAD/远端及祖先后fetch精确0fafe74760958b78302bbc58ae51dcdfd7d9d55e接续，唯一root writer，不恢复旧实例、不删未知锁。完整原SPEC/相关验证读后先设计独审，再在正常dev/p6-gif-first-frame实现完整GIF87/89容器、palette/GCE/每帧rect/子块/精确EOF及256帧/4096block/131072subblock界；原20MiB/24MP/16384不变。Worker仅首帧固定4096词条LZW长度/码宽/Clear/KwKwK/EOI完整性，后续仅结构检查不解码；native仅首帧精确前缀+trailer，显式frame0/prior-1、逻辑画布/偏移/透明背景及原白底area/4MiB PNG。SourceFrames仅结构计数；EOI零padding为更严子集，非全GIF承诺。
+
+父从原源独立绑定numericGifInfo、原job/SHA，分配前核对；Frames仍1，verified owners固定Notice“使用首帧”。实际P0 --platform-review窗口新增本地GIF预览按钮/标题/TextBlock/可访问名，单帧也标注；原身份/取消/实际退出门保持，不伪造截图坐标。独审两UI P2（取消回调绑定原owner、清理未确认阻止所有新采集并保持状态）闭合，bitmap失败owner可重试。生产Shell打开/投放及模型链未接，不把此P0动作冒充P6-06或Windows实测。
+
+最终Codec453P=新GIF91+原362，原六测试源字节不改；Provider传输37P、Core相关限定165P、Worker/App交叉0W/E，五locked audit restore0。实际16384×1、palette/interlace/透明/offset/最大256帧/普通8bit字典及3–12码宽/4096饱和/重置/跨subblock EOI、43结构拒绝/8首熵拒绝/原SHA/错metadata/EOF退出/取消清零过。原同方法基线1F→1P、83/89/91中间绿回执均保留不累计；保存SDK仅.401首次拒执行，按官方SHA512还原既有固定.402/runtime.13而不改锁。85保护全真，App/Imaging无Skia、原许可证输出匹配；独立设计/源码/回执复审ACK，测试writer执行。
+
+详见[范围、真实结果与未验边界](validation/gif-first-frame.md)/[证据索引](test-evidence/2026-10-20-gif-first-frame.json)。真实Windows/native/Worker/WPF/OCR/画质/250600/600MiB、生产打开投放和整P6仍NotRun/未完成。WebP even-only/奇数明确拒绝、所有安全资源发送门、PackageHold/生产复用Off保持；无模型/私人图/新依赖许可权限费用凭据/CI/发布部署/用户电脑/main修改/强推，旧被拒日志未请求或绕路。

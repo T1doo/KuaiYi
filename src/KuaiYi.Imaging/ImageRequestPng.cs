@@ -5,6 +5,7 @@ public sealed class PreparedImagePng:IDisposable
 {
     private ScreenshotPng? png;
     public ImageDecodeReply SourceMetadata {get;}
+    public string? Notice=>SourceMetadata.Format==EncodedRasterFormat.Gif?"使用首帧":null;
     public ImageTransform Transform {get;}
     public int MaximumBytes {get;}
     public int ByteLength {get;}

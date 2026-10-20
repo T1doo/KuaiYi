@@ -2,6 +2,7 @@
   <PropertyGroup><TargetFramework>net10.0</TargetFramework><IsTestProject>true</IsTestProject><IsPackable>false</IsPackable></PropertyGroup>
   <ItemGroup>
     <Compile Include="../../src/KuaiYi.ImageWorker/ImageRasterDecoder.cs" Link="Production/ImageRasterDecoder.cs" />
+    <Compile Include="../../src/KuaiYi.ImageWorker/GifFirstFrameLzw.cs" Link="Production/GifFirstFrameLzw.cs" />
     <Compile Include="../../src/KuaiYi.ImageWorker/BaselineJpegScan.cs" Link="Production/BaselineJpegScan.cs" />
     <Compile Include="../../src/KuaiYi.ImageWorker/ImageRasterPreparer.cs" Link="Production/ImageRasterPreparer.cs" />
     <Compile Include="../../src/KuaiYi.ImageWorker/ImageDecodeSession.cs" Link="Production/ImageDecodeSession.cs" />

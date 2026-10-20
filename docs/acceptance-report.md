@@ -125,3 +125,7 @@ P4-04实际消费者队列补正：893ebc未签收，新增124生产HTTP/两个�
 P0—P4工程交付补齐：自包含文字Alpha/13独立RID锁/六实际宿主/1199文件与有界启动入口完成云端发布核验，普通CI1836 .NET/63 Node、27managed Release0warning/error，27原锁/原测试保留。9包完整性/拒绝实验不算平台微测通过；真实Windows程序没有启动，106整体验收NotRun、P0/E06Blocked、P1—P4InProgress、安装器/产品原生DLL仍缺。无用户桌面/真实key模型/安装注册或新SDK协议，见[p4-text-alpha-review.md](p4-text-alpha-review.md)。
 
 Alpha退出合同修复：原24脚本收尾/三层委托红例失败，真实receipt形态最终24/24通过，实际包预检成功、Linux桌面拒绝未变；Windows/真实GUI/模型没有运行。1836/63为044已验生产回归，本轮未重复且不称本次新增功能测试。大包及32旧包保全，仅小脚本补正；总体NotRun/P0Blocked保留，见[p4-alpha-exit-review.md](p4-alpha-exit-review.md)。
+
+## 2026-10-20 · GIF首帧组件与P0本地标注增量
+
+基于完整父SHA `0fafe74760958b78302bbc58ae51dcdfd7d9d55e`，正常分支 `dev/p6-gif-first-frame`；受界GIF首帧、父metadata绑定、实际P0“使用首帧”预览接入，详见[验证记录](validation/gif-first-frame.md)及[证据](test-evidence/2026-10-20-gif-first-frame.json)。Linux x64 / SDK10.0.402 / runtime10.0.13 / 固定SkiaSharp4.153.1，writer实际Codec453P、Provider传输37P、Core相关165P，均0F/0skip；Worker/App交叉构建各0W/E。上述为I08/I09及R11/R18部分工程证据，不将其计为完整I组、P6-02/P6-06、Windows桌面或图像质量通过。Windows原生加载/完整生命周期/可见标注交互、生产打开投放、真实画质和250/600ms仍NotRun。

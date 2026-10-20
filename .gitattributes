@@ -9253,3 +9253,8 @@ docs/test-evidence/2026-10-20-p6-codec-source-review/*.nuspec -text -whitespace
 
 # Preserve the accepted upstream license and complete native notices verbatim.
 licenses/SkiaSharp-4.153.1/* -text
+
+# Preserve synthetic GIF pixel oracle and exact GIF execution receipts.
+tests/fixtures/images/gif-codewidth.gif -text
+tests/fixtures/images/gif-codewidth.indices -text
+docs/test-evidence/2026-10-20-gif-first-frame-originals.zip -text

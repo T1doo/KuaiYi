@@ -9,7 +9,7 @@ internal static class EntryPoint
     {
         string? fault=Environment.GetEnvironmentVariable("KUAIYI_CODEC_FIXTURE_FAULT");
         if(fault==null)return await KuaiYi.ImageWorker.Program.Main(args);
-        if(!args.SequenceEqual(new[]{"--private-stdio"})||fault is not("extra-byte" or "second-commit" or "exit7" or "hold-exit" or "prepared-source" or "prepared-alpha"))return 2;
+        if(!args.SequenceEqual(new[]{"--private-stdio"})||fault is not("extra-byte" or "second-commit" or "exit7" or "hold-exit" or "prepared-source" or "prepared-alpha" or "gif-source"))return 2;
         await using var input=Console.OpenStandardInput();await using var output=Console.OpenStandardOutput();
         try
         {
@@ -22,10 +22,11 @@ internal static class EntryPoint
         catch(Exception error){Console.Error.WriteLine(error.GetType().Name);return 3;}
         DecodedRaster Decode(ReadOnlyMemory<byte> encoded,ImageDecodeJob job,CancellationToken token)
         {
-            if(fault is not("prepared-source" or "prepared-alpha"))return ImageRasterDecoder.Decode(encoded,job,token);
+            if(fault is not("prepared-source" or "prepared-alpha" or "gif-source"))return ImageRasterDecoder.Decode(encoded,job,token);
             using var real=ImageRasterDecoder.Decode(encoded,job,token);byte[] pixels=real.Bytes.ToArray();
             var metadata=real.Metadata;
-            if(fault=="prepared-source")metadata=metadata with{PreparedInfo=metadata.PreparedInfo! with{SourceOrientation=ImageOrientation.ExifTopRight}};
+            if(fault=="gif-source")metadata=metadata with{GifInfo=metadata.GifInfo! with{SourceFrames=metadata.GifInfo!.SourceFrames+1}};
+            else if(fault=="prepared-source")metadata=metadata with{PreparedInfo=metadata.PreparedInfo! with{SourceOrientation=ImageOrientation.ExifTopRight}};
             else{pixels[3]=0;metadata=metadata with{Sha256=ImageDecodePolicy.Hash(pixels)};}
             return new(metadata,pixels);
         }

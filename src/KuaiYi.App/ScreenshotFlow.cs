@@ -34,7 +34,7 @@ internal sealed partial class ImageProbeWindow
             bool exited=await held.TryFinalizeAsync(true); // Retry only the same held child; never PID lookup or kill descendants.
             if(exited&&ReferenceEquals(ownedCaptureHost,held))ownedCaptureHost=null;
             retryCaptureExit.IsEnabled=ownedCaptureHost!=null;
-            screenshot.IsEnabled=choose.IsEnabled=running==null&&ownedWorker==null&&ownedCaptureHost==null;
+            screenshot.IsEnabled=choose.IsEnabled=running==null&&ownedWorker==null&&ownedCaptureHost==null&&gifPreview==null;
             status.Text=exited?"已确认旧 CaptureHost 退出；可重新截图。":"CaptureHost 启动或退出仍未确认；暂不允许重新截图。";
         };
         SourceInitialized+=(_,_)=>{hotkey=new((HwndSource)PresentationSource.FromVisual(this),()=>_ = StartScreenshot(),CancelScreenshot);ScreenshotDesktop.ExcludeWindow(new WindowInteropHelper(this).Handle);};
@@ -58,7 +58,7 @@ internal sealed partial class ImageProbeWindow
     private async Task StartScreenshot()
     {
         if(captureTask is {IsCompleted:false}){CancelScreenshot();return;} // Repeating the hotkey is a cancel path while the review window is hidden.
-        if(oleWindow!=null||ownedCaptureHost!=null||running!=null||ownedWorker!=null||gate.Snapshot.Suspension!=Suspension.None||OwnedWindows.Cast<Window>().Any(window=>window.IsVisible))return;
+        if(gifPreview!=null||oleWindow!=null||ownedCaptureHost!=null||running!=null||ownedWorker!=null||gate.Snapshot.Suspension!=Suspension.None||OwnedWindows.Cast<Window>().Any(window=>window.IsVisible))return;
         captureTask=Capture();await captureTask;
     }
     private async Task Capture()
@@ -130,7 +130,7 @@ internal sealed partial class ImageProbeWindow
             if(visible&&!gate.Snapshot.Suspension.HasFlag(Suspension.SessionLocked))Show();
             // Restore before any ownership retry. Native driver work and startup remain in the held child session.
             if(captureOwner!=null&&await captureOwner.TryFinalizeAsync())if(ReferenceEquals(ownedCaptureHost,captureOwner))ownedCaptureHost=null;
-            screenshot.IsEnabled=running==null&&ownedWorker==null&&ownedCaptureHost==null;choose.IsEnabled=screenshot.IsEnabled;
+            screenshot.IsEnabled=running==null&&ownedWorker==null&&ownedCaptureHost==null&&gifPreview==null;choose.IsEnabled=screenshot.IsEnabled;
             retryCaptureExit.IsEnabled=ownedCaptureHost!=null;
             if(stillCurrent)status.Text=previousStatus; // Cancel only; committed/stale operations cannot rewrite a newer result.
         }
