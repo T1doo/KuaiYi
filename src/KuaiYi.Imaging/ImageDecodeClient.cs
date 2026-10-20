@@ -7,7 +7,17 @@ public sealed partial class ImageWorkerClient
 {
     internal Action<byte[]>? DecodeAllocationForTest{get;init;}
     internal Action? DecodeReceivedForTest{get;init;}
-    public async Task<DecodedRaster> DecodeAsync(ReadOnlyMemory<byte> encoded,ImageDecodeJob job,CancellationToken cancellation=default)
+    public Task<DecodedRaster> DecodeAsync(ReadOnlyMemory<byte> encoded,ImageDecodeJob job,CancellationToken cancellation=default)
+    {
+        if(job.PrepareLongEdge!=null)throw new InvalidDataException("Raw decode requires a raw job.");
+        return DecodeCoreAsync(encoded,job,cancellation);
+    }
+    public Task<DecodedRaster> PrepareAsync(ReadOnlyMemory<byte> encoded,ImageDecodeJob job,int maximumLongEdge=ImageTransform.LongEdgeLimit,CancellationToken cancellation=default)
+    {
+        if(job.PrepareLongEdge!=null)throw new InvalidDataException("Preparation requires a raw source job.");
+        return DecodeCoreAsync(encoded,job with{PrepareLongEdge=maximumLongEdge},cancellation);
+    }
+    private async Task<DecodedRaster> DecodeCoreAsync(ReadOnlyMemory<byte> encoded,ImageDecodeJob job,CancellationToken cancellation)
     {
         DecodedRaster? held=null;
         try
@@ -16,6 +26,8 @@ public sealed partial class ImageWorkerClient
             {
                 ImageDecodePolicy.ValidateJob(job);cancellation.ThrowIfCancellationRequested();var header=ImageDecodePolicy.Inspect(encoded.Span);
                 if(encoded.Length!=job.ByteLength||ImageDecodePolicy.Hash(encoded.Span)!=job.Sha256)throw new InvalidDataException("Decode input mismatch.");
+                ImagePreparedInfo? expectedPrepared=null;
+                if(job.PrepareLongEdge!=null)expectedPrepared=new((int)header.Size.Width,(int)header.Size.Height,EncodedImageOrientation.Read(encoded.Span,header.Format));
                 return await UseChannelAsync(async(send,receive,id,token)=>
                 {
                     await Write(send,new(IpcMessageType.ImageDecodeBegin,id,ImageJson.Serialize(job)),token);
@@ -29,7 +41,12 @@ public sealed partial class ImageWorkerClient
                     try{if(frame.Type!=IpcMessageType.ImageDecodeResult||frame.RequestId!=id)throw new InvalidDataException("Decode reply identity mismatch.");reply=ImageJson.Read<ImageDecodeReply>(frame.Payload);}
                     finally{CryptographicOperations.ZeroMemory(frame.Payload);}
                     if(reply.Job!=job)throw new InvalidDataException("Decode reply job mismatch.");ImageDecodePolicy.ValidateReply(reply);
-                    if(reply.Failure==ImageFailure.None&&(reply.Format!=header.Format||(uint)reply.Width!=header.Size.Width||(uint)reply.Height!=header.Size.Height))throw new InvalidDataException("Decode header mismatch.");
+                    if(reply.Failure==ImageFailure.None)
+                    {
+                        if(reply.Format!=header.Format||reply.PreparedInfo!=expectedPrepared)throw new InvalidDataException("Decode source mismatch.");
+                        var expectedSize=expectedPrepared==null?header.Size:ImageTransform.PlanEncoded(header.Size,expectedPrepared.SourceOrientation,job.PrepareLongEdge!.Value).NormalizedSize;
+                        if((uint)reply.Width!=expectedSize.Width||(uint)reply.Height!=expectedSize.Height)throw new InvalidDataException("Decode header mismatch.");
+                    }
                     using var receiver=new ImageRasterReceiver(id,job,reply,DecodeAllocationForTest);
                     while(true)
                     {

@@ -5,6 +5,7 @@
     <Compile Include="../../src/KuaiYi.ImageWorker/Program.cs" Link="Production/Program.cs" />
     <Compile Include="../../src/KuaiYi.ImageWorker/ImageWorkerSession.cs" Link="Production/ImageWorkerSession.cs" />
     <Compile Include="../../src/KuaiYi.ImageWorker/ImageDecodeSession.cs" Link="Production/ImageDecodeSession.cs" />
+    <Compile Include="../../src/KuaiYi.ImageWorker/ImageRasterPreparer.cs" Link="Production/ImageRasterPreparer.cs" />
     <Compile Include="../../src/KuaiYi.ImageWorker/ImageRasterDecoder.cs" Link="Production/ImageRasterDecoder.cs" />
     <Compile Include="../../src/KuaiYi.ImageWorker/BaselineJpegScan.cs" Link="Production/BaselineJpegScan.cs" />
     <PackageReference Include="SkiaSharp" PrivateAssets="all" />

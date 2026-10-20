@@ -9,25 +9,31 @@ public readonly record struct NormalizedImageRectangle(double X,double Y,double 
 public readonly record struct DesktopImagePoint(double X,double Y);
 public readonly record struct DesktopImageRectangle(double X,double Y,double Width,double Height);
 public readonly record struct UnitImageRectangle(double X,double Y,double Width,double Height);
-public enum ImageOrientation { ScreenshotIdentity }
+public enum ImageOrientation { ScreenshotIdentity=0, ExifTopLeft=1, ExifTopRight=2, ExifBottomRight=3, ExifBottomLeft=4, ExifLeftTop=5, ExifRightTop=6, ExifRightBottom=7, ExifLeftBottom=8 }
 public enum ScreenshotNormalizationProof { NativeSizeWhiteComposite, ConstantCompositeDownscale }
 public sealed class ScreenshotNormalizationException():Exception("SMALLER_SCREENSHOT_REQUIRED") {}
 
 /// <summary>Separate spaces for continuous pixel edges, not centers or DIP. Original is crop-local;
 /// Normalized is prepared-raster/OCR pixels [0,W]x[0,H]; Unit is a classifier rectangle [0,1]x[0,1].
-/// Desktop adds the physical OriginalCrop origin. No EXIF decoding or OCR execution.</summary>
+/// Desktop adds the physical OriginalCrop origin only for anchored screenshots. Encoded rasters
+/// have no desktop anchor; their continuous edge mapping includes the recorded EXIF orientation.</summary>
 public sealed record ImageTransform
 {
     public const int LongEdgeLimit=2560;
-    public PixelRect OriginalCrop {get;}
+    private readonly PixelRect crop;
+    public bool HasDesktopAnchor {get;}
+    public PixelRect OriginalCrop=>HasDesktopAnchor?crop:throw new InvalidOperationException("Encoded image has no desktop anchor.");
+    // A record's generated ToString would evaluate OriginalCrop, which deliberately rejects encoded images.
+    public override string ToString()=>$"ImageTransform {{ OriginalSize = {OriginalSize}, NormalizedSize = {NormalizedSize}, Orientation = {Orientation}, HasDesktopAnchor = {HasDesktopAnchor} }}";
     public ImageSize OriginalSize {get;}
     public ImageSize NormalizedSize {get;}
-    public ImageOrientation Orientation=>ImageOrientation.ScreenshotIdentity;
-    public double ScaleX=>(double)NormalizedSize.Width/OriginalSize.Width;
-    public double ScaleY=>(double)NormalizedSize.Height/OriginalSize.Height;
-    public bool Downscaled=>NormalizedSize!=OriginalSize;
-    private ImageTransform(PixelRect crop,ImageSize original,ImageSize normalized)
-    {OriginalCrop=crop;OriginalSize=original;NormalizedSize=normalized;}
+    public ImageOrientation Orientation {get;}
+    public ImageSize OrientedSize=>Orientation>=ImageOrientation.ExifLeftTop?new(OriginalSize.Height,OriginalSize.Width):OriginalSize;
+    public double ScaleX=>(double)NormalizedSize.Width/OrientedSize.Width;
+    public double ScaleY=>(double)NormalizedSize.Height/OrientedSize.Height;
+    public bool Downscaled=>NormalizedSize!=OrientedSize;
+    private ImageTransform(PixelRect crop,ImageSize original,ImageSize normalized,ImageOrientation orientation=ImageOrientation.ScreenshotIdentity,bool anchored=true)
+    {this.crop=crop;OriginalSize=original;NormalizedSize=normalized;Orientation=orientation;HasDesktopAnchor=anchored;}
     // Aspect fit rounds the shorter raster edge to nearest integer, never below one pixel.
     // ScaleX/Y record the actual rounded raster mapping instead of claiming identical axis ratios.
     public static ImageTransform Plan(PixelRect crop)
@@ -38,21 +44,42 @@ public sealed record ImageTransform
         if(longest>LongEdgeLimit){width=Math.Max(1,(int)(((long)width*LongEdgeLimit+longest/2)/longest));height=Math.Max(1,(int)(((long)height*LongEdgeLimit+longest/2)/longest));}
         return new(crop,new((uint)crop.Width,(uint)crop.Height),new((uint)width,(uint)height));
     }
+    public static ImageTransform PlanEncoded(ImageSize original,ImageOrientation orientation,int maximumLongEdge=LongEdgeLimit)
+    {
+        ImagePolicy.ValidateDimensions(original.Width,original.Height);
+        if(orientation is <ImageOrientation.ExifTopLeft or >ImageOrientation.ExifLeftBottom||maximumLongEdge is <1 or >LongEdgeLimit)throw new ArgumentOutOfRangeException(nameof(orientation));
+        uint width=orientation>=ImageOrientation.ExifLeftTop?original.Height:original.Width,height=orientation>=ImageOrientation.ExifLeftTop?original.Width:original.Height,longest=Math.Max(width,height);
+        if(longest>maximumLongEdge){width=Math.Max(1,(uint)(((long)width*maximumLongEdge+longest/2)/longest));height=Math.Max(1,(uint)(((long)height*maximumLongEdge+longest/2)/longest));}
+        return new(default,original,new(width,height),orientation,false);
+    }
     public NormalizedImagePoint OriginalToNormalized(OriginalImagePoint point)
-    {Check(point.X,point.Y,OriginalSize);return new(Map(point.X,OriginalSize.Width,NormalizedSize.Width),Map(point.Y,OriginalSize.Height,NormalizedSize.Height));}
+    {
+        Check(point.X,point.Y,OriginalSize);var p=Orient(point.X,point.Y,false);
+        return new(Map(p.X,OrientedSize.Width,NormalizedSize.Width),Map(p.Y,OrientedSize.Height,NormalizedSize.Height));
+    }
     public OriginalImagePoint NormalizedToOriginal(NormalizedImagePoint point)
-    {Check(point.X,point.Y,NormalizedSize);return new(Map(point.X,NormalizedSize.Width,OriginalSize.Width),Map(point.Y,NormalizedSize.Height,OriginalSize.Height));}
+    {
+        Check(point.X,point.Y,NormalizedSize);var p=Orient(Map(point.X,NormalizedSize.Width,OrientedSize.Width),Map(point.Y,NormalizedSize.Height,OrientedSize.Height),true);return new(p.X,p.Y);
+    }
     public DesktopImagePoint NormalizedToDesktop(NormalizedImagePoint point)
-    {var local=NormalizedToOriginal(point);return new(local.X+OriginalCrop.Left,local.Y+OriginalCrop.Top);}
+    {RequireDesktop();var local=NormalizedToOriginal(point);return new(local.X+OriginalCrop.Left,local.Y+OriginalCrop.Top);}
     public NormalizedImagePoint DesktopToNormalized(DesktopImagePoint point)
     {CheckDesktop(point.X,point.Y);return OriginalToNormalized(new OriginalImagePoint(point.X-OriginalCrop.Left,point.Y-OriginalCrop.Top));}
     public NormalizedImageRectangle OriginalToNormalized(OriginalImageRectangle region)
-    {Check(region.X,region.Y,region.Width,region.Height,OriginalSize);var r=Map(region.X,region.Y,region.Width,region.Height,OriginalSize,NormalizedSize);return new(r.X,r.Y,r.Width,r.Height);}
+    {
+        Check(region.X,region.Y,region.Width,region.Height,OriginalSize);
+        if(Orientation is ImageOrientation.ScreenshotIdentity or ImageOrientation.ExifTopLeft){var r=Map(region.X,region.Y,region.Width,region.Height,OriginalSize,NormalizedSize);return new(r.X,r.Y,r.Width,r.Height);}
+        var bounds=Bounds(region.X,region.Y,region.Width,region.Height,OriginalSize,(x,y)=>{var p=OriginalToNormalized(new OriginalImagePoint(x,y));return(p.X,p.Y);});return new(bounds.X,bounds.Y,bounds.Width,bounds.Height);
+    }
     public OriginalImageRectangle NormalizedToOriginal(NormalizedImageRectangle region)
-    {Check(region.X,region.Y,region.Width,region.Height,NormalizedSize);var r=Map(region.X,region.Y,region.Width,region.Height,NormalizedSize,OriginalSize);return new(r.X,r.Y,r.Width,r.Height);}
+    {
+        Check(region.X,region.Y,region.Width,region.Height,NormalizedSize);
+        if(Orientation is ImageOrientation.ScreenshotIdentity or ImageOrientation.ExifTopLeft){var r=Map(region.X,region.Y,region.Width,region.Height,NormalizedSize,OriginalSize);return new(r.X,r.Y,r.Width,r.Height);}
+        var bounds=Bounds(region.X,region.Y,region.Width,region.Height,NormalizedSize,(x,y)=>{var p=NormalizedToOriginal(new NormalizedImagePoint(x,y));return(p.X,p.Y);});return new(bounds.X,bounds.Y,bounds.Width,bounds.Height);
+    }
     public DesktopImageRectangle NormalizedToDesktop(NormalizedImageRectangle region)
     {
-        var local=NormalizedToOriginal(region);
+        RequireDesktop();var local=NormalizedToOriginal(region);
         double left=local.X+OriginalCrop.Left,top=local.Y+OriginalCrop.Top;
         double right=End(local.X,local.Width,OriginalSize.Width)+OriginalCrop.Left,bottom=End(local.Y,local.Height,OriginalSize.Height)+OriginalCrop.Top;
         return new(left,top,right-left,bottom-top);
@@ -73,6 +100,21 @@ public sealed record ImageTransform
         var r=Map(region.X,region.Y,region.Width,region.Height,new(1,1),NormalizedSize);return new(r.X,r.Y,r.Width,r.Height);
     }
     public OriginalImageRectangle RelativeToOriginal(UnitImageRectangle region)=>NormalizedToOriginal(RelativeToNormalized(region));
+    private void RequireDesktop(){if(!HasDesktopAnchor)throw new InvalidOperationException("Encoded image has no desktop anchor.");}
+    private (double X,double Y) Orient(double x,double y,bool inverse)
+    {
+        double w=OriginalSize.Width,h=OriginalSize.Height;
+        if(inverse)return Orientation switch
+        {ImageOrientation.ExifTopRight=>(w-x,y),ImageOrientation.ExifBottomRight=>(w-x,h-y),ImageOrientation.ExifBottomLeft=>(x,h-y),ImageOrientation.ExifLeftTop=>(y,x),ImageOrientation.ExifRightTop=>(y,h-x),ImageOrientation.ExifRightBottom=>(w-y,h-x),ImageOrientation.ExifLeftBottom=>(w-y,x),_=>(x,y)};
+        return Orientation switch
+        {ImageOrientation.ExifTopRight=>(w-x,y),ImageOrientation.ExifBottomRight=>(w-x,h-y),ImageOrientation.ExifBottomLeft=>(x,h-y),ImageOrientation.ExifLeftTop=>(y,x),ImageOrientation.ExifRightTop=>(h-y,x),ImageOrientation.ExifRightBottom=>(h-y,w-x),ImageOrientation.ExifLeftBottom=>(y,w-x),_=>(x,y)};
+    }
+    private static (double X,double Y,double Width,double Height) Bounds(double x,double y,double width,double height,ImageSize size,Func<double,double,(double X,double Y)> map)
+    {
+        double right=End(x,width,size.Width),bottom=End(y,height,size.Height);var a=map(x,y);var b=map(right,y);var c=map(x,bottom);var d=map(right,bottom);
+        double left=Math.Min(Math.Min(a.X,b.X),Math.Min(c.X,d.X)),top=Math.Min(Math.Min(a.Y,b.Y),Math.Min(c.Y,d.Y));
+        return(left,top,Math.Max(Math.Max(a.X,b.X),Math.Max(c.X,d.X))-left,Math.Max(Math.Max(a.Y,b.Y),Math.Max(c.Y,d.Y))-top);
+    }
     private static double Map(double edge,uint from,uint to)=>from==to?edge:edge==from?to:edge/from*to;
     // For validated extents the maximal accepted width is exactly the rounded subtraction.
     // Preserve its known endpoint: adding that width back may round to either side of the edge.
@@ -92,7 +134,7 @@ public sealed record ImageTransform
         if(!double.IsFinite(width)||!double.IsFinite(height)||width<0||height<0||width>size.Width-x||height>size.Height-y)throw new ArgumentOutOfRangeException(nameof(width));
     }
     private void CheckDesktop(double x,double y)
-    {if(!double.IsFinite(x)||!double.IsFinite(y)||x<OriginalCrop.Left||y<OriginalCrop.Top||x>OriginalCrop.Right||y>OriginalCrop.Bottom)throw new ArgumentOutOfRangeException(nameof(x));}
+    {RequireDesktop();if(!double.IsFinite(x)||!double.IsFinite(y)||x<OriginalCrop.Left||y<OriginalCrop.Top||x>OriginalCrop.Right||y>OriginalCrop.Bottom)throw new ArgumentOutOfRangeException(nameof(x));}
 }
 
 /// <summary>Only successful, bounded preparations can construct this owner. Mapping is local metadata,

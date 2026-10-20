@@ -1,16 +1,19 @@
 using System.Buffers.Binary;
 using System.Security.Cryptography;
+using System.Text.Json.Serialization;
 using KuaiYi.Contracts;
 namespace KuaiYi.Imaging;
 
 public enum EncodedRasterFormat{Png,Jpeg}
-public sealed record ImageDecodeJob(Guid SessionId,long Version,long Epoch,int ByteLength,string Sha256);
-// Only tightly packed, top-down, straight BGRA8888; no paths, EXIF, GPS or arbitrary codec metadata.
-public sealed record ImageDecodeReply(ImageDecodeJob Job,ImageFailure Failure,EncodedRasterFormat? Format=null,int Width=0,int Height=0,int Stride=0,int ByteLength=0,string? Sha256=null,string? PixelFormat=null,int Frames=0,int Orientation=0);
+public sealed record ImageDecodeJob(Guid SessionId,long Version,long Epoch,int ByteLength,string Sha256,[property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] int? PrepareLongEdge=null);
+public sealed record ImagePreparedInfo(int SourceWidth,int SourceHeight,ImageOrientation SourceOrientation);
+// Tightly packed top-down BGRA8888. Preparation retains only numeric dimensions/direction, never arbitrary EXIF/GPS/paths.
+public sealed record ImageDecodeReply(ImageDecodeJob Job,ImageFailure Failure,EncodedRasterFormat? Format=null,int Width=0,int Height=0,int Stride=0,int ByteLength=0,string? Sha256=null,string? PixelFormat=null,int Frames=0,int Orientation=0,[property:JsonIgnore(Condition=JsonIgnoreCondition.WhenWritingNull)] ImagePreparedInfo? PreparedInfo=null);
 public sealed class DecodedRaster:IDisposable
 {
     private byte[]? bytes;
     public ImageDecodeReply Metadata{get;}
+    public ImageTransform? Transform=>Metadata.PreparedInfo is {} p?ImageTransform.PlanEncoded(new((uint)p.SourceWidth,(uint)p.SourceHeight),p.SourceOrientation,Metadata.Job.PrepareLongEdge!.Value):null;
     public ReadOnlyMemory<byte> Bytes=>bytes??throw new ObjectDisposedException(nameof(DecodedRaster));
     public DecodedRaster(ImageDecodeReply metadata,byte[] owned)
     {
@@ -25,7 +28,7 @@ public static class ImageDecodePolicy
     public static string Hash(ReadOnlySpan<byte> bytes)=>Convert.ToHexStringLower(SHA256.HashData(bytes));
     public static void ValidateJob(ImageDecodeJob job)
     {
-        if(job.SessionId==Guid.Empty||job.Version<=0||job.Epoch<=0||job.ByteLength is <=0 or >ImagePolicy.ByteLimit||!Digest(job.Sha256))throw new InvalidDataException("Invalid decode job.");
+        if(job.PrepareLongEdge is <1 or >ImageTransform.LongEdgeLimit||job.SessionId==Guid.Empty||job.Version<=0||job.Epoch<=0||job.ByteLength is <=0 or >ImagePolicy.ByteLimit||!Digest(job.Sha256))throw new InvalidDataException("Invalid decode job.");
     }
     private static bool Digest(string? value)=>value is {Length:64}&&value.All(c=>char.IsAsciiDigit(c)||c is >= 'a' and <= 'f');
     public static (EncodedRasterFormat Format,ImageSize Size) Inspect(ReadOnlySpan<byte> bytes)
@@ -80,8 +83,16 @@ public static class ImageDecodePolicy
         ValidateJob(reply.Job);
         if(!Enum.IsDefined(reply.Failure))throw new InvalidDataException("Invalid decode failure.");
         if(reply.Failure!=ImageFailure.None)
-        {if(reply.Format!=null||reply.Width!=0||reply.Height!=0||reply.Stride!=0||reply.ByteLength!=0||reply.Sha256!=null||reply.PixelFormat!=null||reply.Frames!=0||reply.Orientation!=0)throw new InvalidDataException("Failure contains raster metadata.");return;}
-        if(reply.Format==null||!Enum.IsDefined(reply.Format.Value)||reply.ByteLength!=RasterBytes(reply.Width,reply.Height)||reply.Stride!=checked(reply.Width*4)||!Digest(reply.Sha256)||reply.PixelFormat!="BGRA8888-straight"||reply.Frames!=1||reply.Orientation!=1)throw new InvalidDataException("Invalid raster layout.");
+        {if(reply.Format!=null||reply.Width!=0||reply.Height!=0||reply.Stride!=0||reply.ByteLength!=0||reply.Sha256!=null||reply.PixelFormat!=null||reply.Frames!=0||reply.Orientation!=0||reply.PreparedInfo!=null)throw new InvalidDataException("Failure contains raster metadata.");return;}
+        if(reply.Format==null||!Enum.IsDefined(reply.Format.Value)||reply.ByteLength!=RasterBytes(reply.Width,reply.Height)||reply.Stride!=checked(reply.Width*4)||!Digest(reply.Sha256)||reply.Frames!=1||reply.Orientation!=1)throw new InvalidDataException("Invalid raster layout.");
+        if(reply.Job.PrepareLongEdge is {} limit)
+        {
+            var p=reply.PreparedInfo??throw new InvalidDataException("Missing preparation metadata.");
+            if(p.SourceWidth<=0||p.SourceHeight<=0)throw new InvalidDataException("Invalid source dimensions.");
+            var plan=ImageTransform.PlanEncoded(new((uint)p.SourceWidth,(uint)p.SourceHeight),p.SourceOrientation,limit);
+            if(reply.PixelFormat!="BGRA8888-opaque-white"||(uint)reply.Width!=plan.NormalizedSize.Width||(uint)reply.Height!=plan.NormalizedSize.Height)throw new InvalidDataException("Invalid prepared layout.");
+        }
+        else if(reply.PreparedInfo!=null||reply.PixelFormat!="BGRA8888-straight")throw new InvalidDataException("Invalid raw raster metadata.");
     }
 }
 /// <summary>Own the exact bounded output until ordered commit and digest validation. Never return a partial raster.</summary>
@@ -110,6 +121,8 @@ public sealed class ImageRasterReceiver:IDisposable
             if(disposed||committed||frame.Type!=IpcMessageType.ImageDecodeCommit||frame.RequestId!=id||frame.Payload.Length!=0)throw new InvalidDataException("Invalid raster commit.");committed=true;
             if(metadata.Failure!=ImageFailure.None)return null;
             if(data==null||filled!=data.Length||ImageDecodePolicy.Hash(data)!=metadata.Sha256)throw new InvalidDataException("Incomplete raster.");
+            if(metadata.PreparedInfo!=null)
+                for(int i=3;i<data.Length;i+=4)if(data[i]!=255)throw new InvalidDataException("Prepared raster is not opaque.");
             var owned=data;data=null;return new(metadata,owned);
         }
         catch{Dispose();throw;}

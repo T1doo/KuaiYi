@@ -1,0 +1,473 @@
+{
+  "date": "2026-10-20",
+  "base_commit": "110afa78aefaf0b49443887e2cb0b6c673084984",
+  "branch": "dev/p6-image-orientation-resize",
+  "spec_item": "SPEC7.3/P6-02 bounded JPEG EXIF1-8 + general area downscale + white composite worker component",
+  "environment": "Current designated Linux x64; approved isolated SDK10.0.402/runtime10.0.13. Windows NotRun. One root writer/single worktree, initial clean/remote=head/main unchanged.",
+  "design_review": "2026-10-20-image-orientation-resize-originals__independent-review.txt",
+  "fixed_dependencies": "Same approved four4.153.1 packages, no dependency/lock/license changes; audit locked restore all5 exit0",
+  "source_inputs": "Two pinned official GitHub API reads each once200 with verified body Git blob SHA1; no raw HTTP headers/binaries/packages in archives",
+  "runtime_scope": [
+    "PNG identity only, all PNG eXIf explicitly unsupported",
+    "JPEG baseline8bit/single interleaved/limited sampling; IFD0 orientation1-8 only",
+    "256 JPEG segments / PNG chunks / IFD entries; bounded strict rejection",
+    "PrepareLongEdge1..2560, no upscale; full area coverage, 64bit white-alpha accumulation then one rounding",
+    "ImageTransform continuous pixel edges; encoded no desktop anchor; original screenshot route retains constant-only shrink limit",
+    "parent exact source/job/options/plan and actual alpha validation before delivery; all original ownership/task/EOF/exit/IO and resource gates"
+  ],
+  "results": {
+    "prepare-first-executed": {
+      "total": "49",
+      "executed": "49",
+      "passed": "49",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "prepare-baseline110-red": {
+      "total": "9",
+      "executed": "9",
+      "passed": "0",
+      "failed": "9",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "prepare-expanded": {
+      "total": "53",
+      "executed": "53",
+      "passed": "53",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "codec-final-build": {
+      "total": "103",
+      "executed": "103",
+      "passed": "103",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0",
+      "classes": {
+        "new_preparation": 54,
+        "existing_decode": 49
+      }
+    },
+    "prepare-final-independent": {
+      "total": "54",
+      "executed": "54",
+      "passed": "54",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "core-regression": {
+      "total": "74",
+      "executed": "74",
+      "passed": "74",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "provider-regression": {
+      "total": "154",
+      "executed": "154",
+      "passed": "154",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    }
+  },
+  "compile_failure": {
+    "file": "prepare-first.log",
+    "diagnostics": "xUnit2014/CS0619: test Assert.Throws used for Task-returning API; corrected to await ThrowsAsync",
+    "executed": 0,
+    "candidate_source": "first-candidate-sources.zip"
+  },
+  "baseline_comparison": {
+    "result": "9F old110 actual Linux production-source child does not understand preparation option; raw baseline decodes first; supports feature-gap comparison only, not incorrect pixel claims",
+    "manifest": "baseline110-manifest.json",
+    "unchanged_methods_and_hardcoded_order": [
+      {
+        "method": "public async Task ActualJpegChildAppliesEveryExifDirectionToAsymmetricPixelsAndRetainsExactMapping",
+        "sha256": "ebaf047dcdb0a85a0839f133c55317358c3e895dd337148ae7aed236e85fe038",
+        "unchanged": true
+      },
+      {
+        "method": "public async Task ActualPngNonIntegerAreaAveragePreservesBothEdgesAndVariedContent",
+        "sha256": "e1873e2c80382d9740da7df118153d9c389d5388235faa45acd941c541486a91",
+        "unchanged": true
+      },
+      {
+        "helper": "hardcoded Order table",
+        "sha256": "d8d63004769118fda6d42ac157379b793231b17995f1f41eac6ced22f11e7f70",
+        "unchanged": true
+      }
+    ]
+  },
+  "source_manifest": [
+    {
+      "path": "src/KuaiYi.ImageWorker/ImageRasterDecoder.cs",
+      "sha256": "50947980be51d7f96dad3e5562e67419e4fc5631da03963d539fc89a479a641e"
+    },
+    {
+      "path": "src/KuaiYi.ImageWorker/ImageRasterPreparer.cs",
+      "sha256": "4fb8bbd19c1a45ccbad8833fb96b00518db1e290140feb6604439834d7078efa"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/EncodedImageOrientation.cs",
+      "sha256": "e8405290193532114e18a3c5ff9e222b0b33f58c5aa2f70da0029ed0ccdaa450"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImageDecode.cs",
+      "sha256": "e7219b312fbbfcf898654c28c1a05156eda85888e22bdd9244017ca05cab1bbe"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ImageDecodeClient.cs",
+      "sha256": "c6abfa7e06805cdd61d323fb5c15c57f7dbd40744ae8891b5d895ca747ab4f20"
+    },
+    {
+      "path": "src/KuaiYi.Imaging/ScreenshotNormalization.cs",
+      "sha256": "69765e0230a29bec290d700056f0ec4f42a501ae2aa8b0195ab3d342f77c5876"
+    },
+    {
+      "path": "tests/KuaiYi.Codec.Tests/KuaiYi.Codec.Tests.csproj",
+      "sha256": "743e9393a3bd48a11c854e3b2ea5a99143e40e91f6b49e439dc44bf3666cfcea"
+    },
+    {
+      "path": "tests/KuaiYi.Codec.Tests/RasterPreparationTests.cs",
+      "sha256": "64ab1dfa4a096a0c539f6c800be4ce344bfbd64e2636df105fa8e4f3ed5c35c2"
+    },
+    {
+      "path": "tools/KuaiYi.ImageDecodeFixture/KuaiYi.ImageDecodeFixture.csproj",
+      "sha256": "2f05ba25fe6f65ac62ede7f0aed26b5668b056f47c8eb516f3035f7423d93f23"
+    },
+    {
+      "path": "tools/KuaiYi.ImageDecodeFixture/Program.cs",
+      "sha256": "a812e01c8f00e2af7a1df43be9945a1cecf2046bc598d2b63e9ce1bc8371614f"
+    }
+  ],
+  "old49_source_unchanged": true,
+  "built_outputs": [
+    {
+      "path": "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll",
+      "sha256": "a0444a9297581e9ffb483d74d3c15549b6e2437ae70b311bb6434c8f7f537904"
+    },
+    {
+      "path": "tools/KuaiYi.ImageDecodeFixture/bin/Release/net10.0/KuaiYi.ImageDecodeFixture.dll",
+      "sha256": "9eb3326368868a7acadf33cbafd422e67ec040e8de59a7aad0e60a182bd3d7a2"
+    },
+    {
+      "path": "tests/KuaiYi.Codec.Tests/bin/Release/net10.0/KuaiYi.Codec.Tests.dll",
+      "sha256": "e0bb827b611cc54d317de285e291417dbb6822f6b49d556e833269debc7b886b"
+    },
+    {
+      "path": "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.App.dll",
+      "sha256": "703be57bbd54e92791c69cc6f35196fff7beb25d18c54911a9347ac1ffe75418"
+    }
+  ],
+  "actual_commands": [
+    {
+      "name": "codec-final-build",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Codec.Tests/KuaiYi.Codec.Tests.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--logger",
+        "trx;LogFileName=codec-final-build.trx",
+        "--results-directory",
+        "artifacts/image-orientation-resize-2026-10-20"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "core-regression",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~ImageWorkerTests|FullyQualifiedName~ImageStartupTests|FullyQualifiedName~ImageFinalizationTests|FullyQualifiedName~IpcTests",
+        "--logger",
+        "trx;LogFileName=core-regression.trx",
+        "--results-directory",
+        "artifacts/image-orientation-resize-2026-10-20"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "provider-regression",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~ImageWorkerTransferTests|FullyQualifiedName~ScreenshotNormalizationTests|FullyQualifiedName~ImageCoordinateBoundaryTests",
+        "--logger",
+        "trx;LogFileName=provider-regression.trx",
+        "--results-directory",
+        "artifacts/image-orientation-resize-2026-10-20"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "worker-build",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "build",
+        "src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "app-build",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "build",
+        "src/KuaiYi.App/KuaiYi.App.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "-p:EnableWindowsTargeting=true"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "prepare-final-independent",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Codec.Tests/KuaiYi.Codec.Tests.csproj",
+        "--no-build",
+        "--no-restore",
+        "-c",
+        "Release",
+        "--filter",
+        "FullyQualifiedName~RasterPreparationTests",
+        "--logger",
+        "trx;LogFileName=prepare-final-independent.trx",
+        "--results-directory",
+        "artifacts/image-orientation-resize-2026-10-20"
+      ],
+      "exit": 0
+    }
+  ],
+  "locked_restores": [
+    {
+      "name": "worker",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "restore",
+        "src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj",
+        "--locked-mode",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "codec",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "restore",
+        "tests/KuaiYi.Codec.Tests/KuaiYi.Codec.Tests.csproj",
+        "--locked-mode",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "core",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "restore",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "--locked-mode",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "provider",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "restore",
+        "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+        "--locked-mode",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "app",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "restore",
+        "src/KuaiYi.App/KuaiYi.App.csproj",
+        "--locked-mode",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true",
+        "-p:EnableWindowsTargeting=true"
+      ],
+      "exit": 0
+    }
+  ],
+  "intermediate_receipts": "first49/expanded53 and pre-safe-ToString success batch preserved, not added to final counts; expected TRX overwrite warnings after prior originals archived",
+  "independent_review_execution_boundary": "writer ran tests; reviewer read source/methods/receipts only; final document/archive review separately recorded",
+  "remaining": [
+    "PNG eXIf and full image formats/JPEG modes",
+    "4MiB encode/strict API constraints/readability",
+    "production screenshot general-downscale integration and open/drop UI",
+    "Windows native/Worker/OCR/WPF/fullP6; native peak memory/timing/reproducibility/release not validated"
+  ],
+  "unchanged_gates": [
+    "20MiB/24MP/16384/64KiBJSON/1MiBbinary/15s/original process termination",
+    "250/600ms and source/password/integrity/cancel/cleanup/isolation",
+    "PackageHold, production image reuse Off",
+    "old denied CI39347646426 step3 log not accessed/routed",
+    "no user images/model/CI dispatch/new fee/credential/security permissions/main/force/deploy/publish/user PC"
+  ],
+  "deliverables": [
+    {
+      "file": "2026-10-20-image-orientation-resize-originals__execution-receipts.zip",
+      "bytes": 312095,
+      "sha256": "c60168660bdc6047d1dce19b8a1e6e6aeb8ded3e30561845dda3d3d63c69abeb"
+    },
+    {
+      "file": "2026-10-20-image-orientation-resize-originals__independent-review.txt",
+      "bytes": 1901,
+      "sha256": "780adbead240db4d983d1135f502bf7b5212babdaa23ae311145b697edb2aba3"
+    },
+    {
+      "file": "2026-10-20-image-orientation-resize-originals__primary-source.zip",
+      "bytes": 15807,
+      "sha256": "e6c1a17fab3158a2b84c6dc5182997ebeabd900a68658e8a9868c6a2133afa77"
+    }
+  ]
+}

@@ -20,11 +20,14 @@ internal static class ImageRasterDecoder
             if((uint)info.Width!=header.Size.Width||(uint)info.Height!=header.Size.Height||codec.EncodedFormat!=(header.Format==EncodedRasterFormat.Png?SKEncodedImageFormat.Png:SKEncodedImageFormat.Jpeg))throw new ImageJobException(ImageFailure.InvalidImage);
             // The reviewed C API returns getFrameInfo().size(): static PNG/JPEG report0.
             // PNG acTL is separately rejected; JPEG has one static raster. Do not treat0 as an animation.
-            if(codec.EncodedOrigin!=SKEncodedOrigin.TopLeft||codec.FrameCount is <0 or >1)throw new ImageJobException(ImageFailure.UnsupportedImage);
+            if(codec.FrameCount is <0 or >1)throw new ImageJobException(ImageFailure.UnsupportedImage);
+            var origin=job.PrepareLongEdge!=null?EncodedImageOrientation.Read(encoded.Span,header.Format):ImageOrientation.ExifTopLeft;
+            if((int)codec.EncodedOrigin!=(int)origin)throw new ImageJobException(ImageFailure.UnsupportedImage);
             int total=ImageDecodePolicy.RasterBytes(info.Width,info.Height);pixels=new byte[total];
             var target=new SKImageInfo(info.Width,info.Height,SKColorType.Bgra8888,SKAlphaType.Unpremul);
             cancellation.ThrowIfCancellationRequested();var result=codec.GetPixels(target,pixels);cancellation.ThrowIfCancellationRequested();
             if(result!=SKCodecResult.Success)throw new ImageJobException(ImageFailure.InvalidImage);
+            if(job.PrepareLongEdge!=null)return ImageRasterPreparer.Prepare(pixels,job,header.Format,new(info.Width,info.Height,origin),cancellation);
             var metadata=new ImageDecodeReply(job,ImageFailure.None,header.Format,info.Width,info.Height,checked(info.Width*4),total,ImageDecodePolicy.Hash(pixels),"BGRA8888-straight",1,1);
             var raster=new DecodedRaster(metadata,pixels);pixels=null;return raster;
         }

@@ -1240,3 +1240,12 @@ P7源码子项InProgress，完整P7/R13/真实浏览器与Windows仍NotRun；CI3
 正常dev/p6-isolated-raster-decode实际实现私有WorkerPNG/有限8bit baselineJPEG到owned紧密straightBGRA：完整摘要/身份、分配前限量、顺序分块/唯一commit、EOF/实际exit0/原IO结算后交付，取消/额外输出/退出失败实际清零。Skia只在Worker/隔离测试，App与Imaging实际依赖和输出无Skia；完整原许可证/第三方声明随Worker输出保持字节。发现截断JPEG被原生修补Success的真实缺陷，保留36P1F并加有界熵流验证，同方法最终通过；旧Worker有效PNG/JPEG两条2F→同方法最终通过。新codec最终49P及原产物no-build重跑同49P不累加，原相关Core74P/Provider37P，Worker/App Release交叉0W/E，5locked restore审计成功。独立只读源码及最终回执审查无剩余P1/P2；初FrameCount误判和扫描器编译0执行失败原件均保全。
 
 详见[组件、支持边界和本批结果](validation/isolated-raster-decode.md)/[原始证据索引](test-evidence/2026-10-20-isolated-raster-decode.json)。P6-02仍InProgress：全格式/完整JPEG/EXIF坐标变换/一般缩放白底/P6-06UI及Windows真实native/Worker/OCR/WPF和整P6仍未验收。PowerShell接入口只静态审查；250600/原资源限额/来源密码完整性取消清理隔离门/PackageHold及生产图片复用Off保持。旧CI被拒日志未请求或绕路；无CI调度/模型/费用/发布/用户电脑操作，main不改。
+
+
+## 2026-10-20 · P6-02受界EXIF方向、一般面积缩小及白底合成
+
+从clean/远端一致且独审110afa78aefaf0b49443887e2cb0b6c673084984核单worktree/唯一writer/main，正常dev/p6-image-orientation-resize接原SPEC7.3/P6-02。最小设计独审后新增Worker PrepareAsync：原JPEG baseline范围内IFD0 EXIF1–8实际方向、默认2560且可更严的完整area缩小/白底合成，64bit累计末端一次舍入；原raw接口/JSON兼容保持。ImageTransform显式原/oriented/normalized映射，encoded拒桌面锚点；record安全打印不读拒绝属性。父独立EXIF+精确job/maxedge/sourceInfo/plan在分配前校验，实际alpha/块序/摘要/唯一commit、EOF/exit0/原IO结算后交付，取消晚返/失败实际清零。PNG eXIf主动Unsupported，头segment/chunk/IFD项各有256界，不称全格式。
+
+最终codec103P=新54+原49，原49源字节不改；新54原产物复跑同54P不累加，原相关Core74/Provider154各限定filter，Worker/App交叉Release0W/E，5locked audit restore0且所有依赖版本/锁/许可不改。真实3840×2160非恒定白边PNG→2560×1440/14,745,600byte多块及代表角/边/中心像素过，不当600MiB或600ms测量。110afa旧child9F是新选项不支持的对照，不当旧像素缺陷；同方法与Order表保持。首xUnit编译0执行及中间绿回执/源码保全。最终独立只读源码/回执审查无剩余P1/P2，测试writer执行。
+
+详见[行为、支持边界与实际验证](validation/image-orientation-resize.md)/[原件索引](test-evidence/2026-10-20-image-orientation-resize.json)。全JPEG/其他格式、PNG EXIF、4MiB编码/可读性、生产截图一般缩小及打开投放接入、Windows真实native/Worker/OCR/WPF与完整P6仍未完成；旧截图路由保其原常量缩小限制。生产复用Off/PackageHold、250600和全部安全/资源门保持；无用户文件/真实模型/CI调度/费用/凭据安全权限/发布/用户电脑操作，main未改，旧被拒CI日志未请求或绕路。
