@@ -22,11 +22,10 @@ import zipfile
 
 REPOSITORY = "T1doo/KuaiYi"
 BRANCH = "refs/heads/dev/session-runtime-signature-windows"
-PARENT = "6df5f910e7429fde02c8e02c9ce53c953f668094"
+PARENT = "98c3f27d07ee392bf98e647861596812c2d63a39"
 NU_VERSION = "7.9.0.83"
 FILES = frozenset((".github/workflows/windows-session-runtime.yml", "scripts/verify-session-runtime-windows.py",
-                   "scripts/test_session_runtime_windows.py", "scripts/install-session-sdk-windows.py",
-                   "scripts/test_session_windows_install.py", "docs/progress.md"))
+                   "scripts/test_session_runtime_windows.py", "docs/progress.md"))
 AUDIT = ["-p:NuGetAudit=true", "-p:NuGetAuditMode=all", "-p:NuGetAuditLevel=low", "-p:TreatWarningsAsErrors=true"]
 
 
@@ -75,7 +74,7 @@ def source_gate(run, event_sha):
     parents = run(["git", "rev-list", "--parents", "-n", "1", "HEAD"], "source-parent", 15).split()
     changed = run(["git", "diff", "--name-only", PARENT, "HEAD", "--"], "source-scope", 15).splitlines()
     if head != event_sha or parents != [head, PARENT] or Counter(changed) != Counter(FILES):
-        raise RuntimeError("Reviewed source parent or exact six-file scope mismatch")
+        raise RuntimeError("Reviewed source parent or exact validation scope mismatch")
     if run(["git", "status", "--porcelain", "--untracked-files=no"], "source-clean", 15).strip():
         raise RuntimeError("Tracked checkout differs from source")
     return head

@@ -347,14 +347,16 @@ class WindowsCiTests(unittest.TestCase):
 
     def test_exact_parent_and_scope_reject_extra_or_missing_source(self):
         head = "a" * 40
-        def runner(parents=None, files=None):
-            answers = [head, " ".join(parents or [head, ci.PARENT]), "\n".join(ci.FILES if files is None else files), ""]
+        def runner(parents=None, files=None, dirty=""):
+            answers = [head, " ".join(parents or [head, ci.PARENT]), "\n".join(ci.FILES if files is None else files), dirty]
             return lambda *_: answers.pop(0)
         self.assertEqual(head, ci.source_gate(runner(), head))
         for run in (runner(parents=[head, "b" * 40]), runner(files=ci.FILES | {"src/PUBLIC_CHANGE.cs"}),
-                    runner(files=sorted(ci.FILES)[:-1])):
+                    runner(files=sorted(ci.FILES)[:-1]), runner(dirty=" M src/PUBLIC_CHANGE.cs")):
             with self.assertRaises(RuntimeError):
                 ci.source_gate(run, head)
+        with self.assertRaises(RuntimeError):
+            ci.source_gate(runner(), "b" * 40)
 
     def test_verifier_must_declare_framework_and_reviewed_version(self):
         with tempfile.TemporaryDirectory() as folder:

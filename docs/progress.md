@@ -1157,3 +1157,10 @@ r03新诊断JSON字典顺序断言118P1F及漏untracked快照如实保留，结�
 同测试字节真实4F→10P，实际child退出137且originalWait pending时finalized从True转False。八类定向r03为205P1F，唯一旧Capture无限Delay(None)夹具无法结算；只把该端口接回同一真实child退出，原拒入／cleanup断言不改，最终两类34P／531输入绑定。未重复1919全套；不将新P2归因为旧Windows45calls／25methods，Windows／图片间歇底因Unknown、包Hold。父级转达用户批准同范围必要免费WindowsCI，待源修复独审保存后以精确父提交四文件CI增量运行，原SDK／隔离／预算及保护门不变。详见[报告](validation/owned-exit-observation.md)与[失败／成功原件](test-evidence/2026-10-20-owned-exit-observation.json)。
 
 源码与封存独审Pass：28路径／21原件5,128,429B／四轮2124来源绑定／374保护输入均核，审查回执另列第22原件；新CI配置仍另审。
+
+
+## 2026-10-20 · 已批准WindowsCI的精确源码接续
+
+生产修复98c3f27d07ee392bf98e647861596812c2d63a39已独审并普通推送，未改YAML。父级可信委派转达用户明确批准同范围必要免费WindowsCI：原已接受SDK10.0.402条款、固定archive／双在线签名／audit／public标准windows-2022／job15min step14min内总13min attempt1／无model publish userPC或新权限许可。
+
+本CI增量严格四文件：workflow仅改名称以请求新run，runner精确PARENT=98c3f27及四文件scope，源门测试补拒绝错误event SHA和dirty checkout，本文进度。SDK安装器／其测试／锁／packaging／生产源码／旧8workflow全部保持。离线两Windows脚本测试模块29P（真实Windows未执行），完整Linux套件未重跑。新结果待独审后单次正常push及实际CI日志核验，不补签旧45calls／25methods失败，不将本地34P当Windows验收；包Hold。失败先完整读日志，必要同范围免费修复CI已获授权，无盲目重跑。
