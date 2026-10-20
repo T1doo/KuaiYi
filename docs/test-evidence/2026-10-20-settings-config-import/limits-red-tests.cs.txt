@@ -1,0 +1,153 @@
+using System.Collections.Immutable;
+using System.Text;
+using System.Text.Json.Nodes;
+using KuaiYi.Core;
+using KuaiYi.Core.Settings;
+using Xunit;
+namespace KuaiYi.Core.Tests;
+
+public sealed class SettingsImportTests
+{
+    private static AppSettings Incoming()=>new(){ActiveProfileId="p",VisionProfileId="p",Profiles=[new(){Id="p",Name="PUBLIC imported",BaseUrl="https://public-fixture.invalid/v1",Model="PUBLIC_MODEL",Capabilities=new(){Vision=Capability.Supported}}],Translation=new(){Preset=TranslationPreset.Plain,Domain="PUBLIC engineering"},Overlay=new(){FontSizeDip=19,Theme=ThemePreference.Dark}};
+    private static byte[] Bytes(AppSettings? value=null)=>SettingsJson.Write(value??Incoming());
+    private static SettingsDraft Draft(AppSettings? value=null,SettingsLoadState state=SettingsLoadState.Current)=>new(new(value??new(),"PUBLIC-basis",state));
+    private static async Task<SettingsImportPlan> Load(SettingsImportSession session,SettingsDraft draft,AppSettings? source=null)
+    {var result=await session.ReadAsync(draft.CaptureImportBasis(),_=>Task.FromResult(SettingsImportDocument.Read(Bytes(source))));Assert.Equal(SettingsImportStatus.Preview,result.Status);return result.Preview!;}
+    private sealed class Folder:IDisposable
+    {public string Path{get;}=System.IO.Path.Combine(System.IO.Path.GetTempPath(),"kuaiyi-import-test-"+Guid.NewGuid().ToString("N"));public Folder()=>Directory.CreateDirectory(Path);public void Dispose()=>Directory.Delete(Path,true);}
+    [Fact]public async Task CompleteBackupMergesWithFreshIdsWithoutBorrowingOrDisplayingLocalSecretsAndAuthorities()
+    {
+        var local=new AppSettings{ActiveProfileId="p",VisionProfileId="p",Profiles=[new(){Id="p",Name="PUBLIC local",BaseUrl="https://local-fixture.invalid/v1",Model="LOCAL_MODEL",SecretRef="key/11111111111111111111111111111111",Headers=ImmutableDictionary<string,string>.Empty.Add("X-Project","PUBLIC_PRIVATE_HEADER")}],Privacy=new(){BlockedApplications=["PUBLIC_PRIVATE_APP"],ClipboardAllowedApplications=["PUBLIC_PRIVATE_COPY"],ConsentedEndpointOrigins=["https://local-fixture.invalid"]},Overlay=new(){LastPosition=new(){MonitorId="PUBLIC_PRIVATE_MONITOR"}}};
+        using var draft=Draft(local);using var session=new SettingsImportSession();var plan=await Load(session,draft);Assert.Same(local,draft.Data);Assert.DoesNotContain("PUBLIC_PRIVATE",plan.Text);Assert.DoesNotContain(local.Profiles[0].SecretRef!,plan.Text);Assert.Equal(1,plan.AddedProfiles);
+        Assert.False(session.Apply(plan,false,"PUBLIC-basis"));Assert.Same(local,draft.Data);Assert.True(session.Apply(plan,true,"PUBLIC-basis"));Assert.False(session.Apply(plan,true,"PUBLIC-basis"));
+        Assert.Same(local.Profiles[0],draft.Data.Profiles[0]);var added=draft.Data.Profiles[1];Assert.NotEqual("p",added.Id);Assert.Null(added.SecretRef);Assert.Empty(added.Headers);Assert.Equal(Capability.Unknown,added.Capabilities.Vision);Assert.Equal("p",draft.Data.ActiveProfileId);Assert.Same(local.Privacy,draft.Data.Privacy);Assert.Same(local.Overlay.LastPosition,draft.Data.Overlay.LastPosition);Assert.Equal(TranslationPreset.Plain,draft.Data.Translation.Preset);SettingsJson.Validate(draft.Data);
+    }
+    [Fact]public async Task EmptyLocalConfigurationRestoresMappedDefaultsAndOrdinaryPreferences()
+    {using var draft=Draft();using var session=new SettingsImportSession();var plan=await Load(session,draft);Assert.True(session.Apply(plan,true,"PUBLIC-basis"));Assert.Equal(draft.Data.Profiles[0].Id,draft.Data.ActiveProfileId);Assert.Equal(draft.Data.Profiles[0].Id,draft.Data.VisionProfileId);Assert.Equal(19,draft.Data.Overlay.FontSizeDip);Assert.Equal("PUBLIC engineering",draft.Data.Translation.Domain);SettingsJson.Validate(draft.Data);}
+    [Theory][InlineData("secret")][InlineData("header")][InlineData("origin")][InlineData("copy")][InlineData("blocked")][InlineData("position")][InlineData("writeId")]
+    public void SensitiveOrMachineSpecificFieldsRejectTheEntireDocument(string field)
+    {
+        var value=Incoming();value=field switch
+        {"secret"=>value with{Profiles=[value.Profiles[0] with{SecretRef="key/11111111111111111111111111111111"}]},"header"=>value with{Profiles=[value.Profiles[0] with{Headers=ImmutableDictionary<string,string>.Empty.Add("X-Public","PUBLIC_SECRET_VALUE")}]},"origin"=>value with{Privacy=new(){ConsentedEndpointOrigins=["https://public-fixture.invalid"]}},"copy"=>value with{Privacy=new(){ClipboardAllowedApplications=["PUBLIC-app"]}},"blocked"=>value with{Privacy=new(){BlockedApplications=["PUBLIC-app"]}},"position"=>value with{Overlay=value.Overlay with{LastPosition=new(){MonitorId="PUBLIC-machine"}}},_=>value with{WriteId=Guid.NewGuid()}};
+        Assert.Throws<SettingsValidationException>(()=>SettingsImportDocument.Read(Bytes(value)));
+    }
+    [Theory][InlineData("missing")][InlineData("unknown")][InlineData("future")][InlineData("old")][InlineData("duplicate")][InlineData("escaped-duplicate")][InlineData("deep")][InlineData("invalid-enum")]
+    public void IncompleteAmbiguousAndUnsupportedSchemasCannotBecomeAPreview(string field)
+    {
+        var node=JsonNode.Parse(Bytes())!.AsObject();string json;
+        if(field=="missing")node.Remove("images");if(field=="unknown")node["PUBLIC_UNKNOWN"]=true;if(field=="future")node["schemaVersion"]=999;if(field=="old")node["schemaVersion"]=0;if(field=="invalid-enum")node["triggerMode"]="INVALID";
+        json=node.ToJsonString();if(field is "duplicate" or "escaped-duplicate")json=json[..^1]+(field=="duplicate"?",\"schemaVersion\":1}":",\"schema\\u0056ersion\":1}");if(field=="deep")json="{\"schemaVersion\":1,\"PUBLIC\":"+new string('[',20)+"0"+new string(']',20)+"}";
+        Assert.ThrowsAny<Exception>(()=>SettingsImportDocument.Read(Encoding.UTF8.GetBytes(json)));
+    }
+    [Fact]public void InvalidUtf8AndOversizedDocumentsFailBeforeImport()
+    {var bytes=Bytes();bytes[0]=0xff;Assert.Throws<DecoderFallbackException>(()=>SettingsImportDocument.Read(bytes));Assert.Throws<SettingsValidationException>(()=>SettingsImportDocument.Read(new byte[SettingsJson.MaximumBytes+1]));}
+    private sealed class BoundedSource:Stream
+    {
+        public int ReadBytes;private Memory<byte> held;
+        public override ValueTask<int> ReadAsync(Memory<byte> buffer,CancellationToken cancellation=default){held=buffer;buffer.Span.Fill(65);ReadBytes+=buffer.Length;return ValueTask.FromResult(buffer.Length);}
+        public bool BufferCleared()=>held.Span.IndexOfAnyExcept((byte)0)<0;
+        public override bool CanRead=>true;public override bool CanSeek=>false;public override bool CanWrite=>false;public override long Length=>throw new NotSupportedException();public override long Position{get=>throw new NotSupportedException();set=>throw new NotSupportedException();}public override int Read(byte[] b,int o,int c)=>throw new NotSupportedException();public override void Flush()=>throw new NotSupportedException();public override long Seek(long o,SeekOrigin s)=>throw new NotSupportedException();public override void SetLength(long v)=>throw new NotSupportedException();public override void Write(byte[] b,int o,int c)=>throw new NotSupportedException();
+    }
+    [Fact]public async Task UnknownLengthStreamReadsOnlyTheBoundPlusOneAndClearsItsActualBuffer()
+    {using var stream=new BoundedSource();await Assert.ThrowsAsync<SettingsValidationException>(()=>SettingsImportDocument.ReadAsync(stream));Assert.Equal(SettingsJson.MaximumBytes+1,stream.ReadBytes);Assert.True(stream.BufferCleared());}
+    [Theory][InlineData("edit")][InlineData("key")][InlineData("clear")][InlineData("closed")][InlineData("saving")][InlineData("aba")]
+    public async Task ChangedDraftOrSaveAdmissionCannotApplyAnOldImport(string change)
+    {
+        var local=Incoming();using var draft=Draft(local);using var session=new SettingsImportSession();var plan=await Load(session,draft);
+        if(change=="edit")draft.Update(s=>s with{Translation=new(){Domain="UNSAVED"}});if(change=="aba"){draft.Update(s=>s with{Overlay=new(){FontSizeDip=18}});draft.Update(_=>local);}if(change=="key")draft.SetKey("p","PUBLIC_PENDING_KEY"u8);if(change=="clear")draft.ClearKey("p");if(change=="closed")draft.Dispose();if(change=="saving")draft.BeginSave();
+        var before=draft.Data;try{Assert.False(session.Apply(plan,true,"PUBLIC-basis"));Assert.Same(before,draft.Data);if(change=="key")Assert.True(draft.PendingKeyForTest("p")!.AsSpan().SequenceEqual("PUBLIC_PENDING_KEY"u8));}finally{if(change=="saving")draft.EndSave(false);}
+    }
+    [Theory][InlineData(SettingsLoadState.ReadOnlyUnknown)][InlineData(SettingsLoadState.RecoverableBackup)][InlineData(SettingsLoadState.RecoverableDefaults)]
+    public void ReadOnlyOrRecoveryDraftCannotStartImport(SettingsLoadState state)
+    {using var draft=Draft(state:state);Assert.ThrowsAny<Exception>(()=>draft.CaptureImportBasis());}
+    [Fact]public void AlreadyDirtyDraftAndPendingKeyCannotBeOverwrittenByStartingImport()
+    {using var draft=Draft(Incoming());draft.Update(s=>s with{Overlay=s.Overlay with{FontSizeDip=20}});Assert.Throws<SettingsValidationException>(()=>draft.CaptureImportBasis());Assert.Equal(20,draft.Data.Overlay.FontSizeDip);draft.SetKey("p","PUBLIC_PENDING_KEY"u8);Assert.Throws<SettingsValidationException>(()=>draft.CaptureImportBasis());Assert.True(draft.PendingKeyForTest("p")!.AsSpan().SequenceEqual("PUBLIC_PENDING_KEY"u8));}
+    [Fact]public async Task StaleSavedVersionAndCallerCancellationCannotApplyAPreview()
+    {using var draft=Draft();using var session=new SettingsImportSession();var plan=await Load(session,draft);Assert.False(session.Apply(plan,true,"NEW-version"));Assert.Empty(draft.Data.Profiles);using var cancel=new CancellationTokenSource();var result=await session.ReadAsync(draft.CaptureImportBasis(),_=>Task.FromResult(SettingsImportDocument.Read(Bytes())),cancel.Token);cancel.Cancel();Assert.False(session.Apply(result.Preview!,true,"PUBLIC-basis"));Assert.Null(session.Preview);}
+    [Theory][InlineData(false)][InlineData(true)]
+    public async Task IgnoredCancellationKeepsOriginalReadOwnedAndRejectsItsLateResult(bool close)
+    {
+        using var draft=Draft();using var session=new SettingsImportSession();var original=draft.Data;var release=new TaskCompletionSource<SettingsImportData>(TaskCreationOptions.RunContinuationsAsynchronously);var read=session.ReadAsync(draft.CaptureImportBasis(),_=>release.Task);
+        if(close)session.Dispose();else session.Invalidate();Assert.True(session.Busy);Assert.False(read.IsCompleted);
+        release.SetResult(SettingsImportDocument.Read(Bytes()));var result=await read.WaitAsync(TimeSpan.FromSeconds(5));Assert.Equal(SettingsImportStatus.Cancelled,result.Status);Assert.Null(session.Preview);Assert.False(session.Busy);Assert.Same(original,draft.Data);
+    }
+    [Fact]public async Task ReadFailureAndOriginalCancellationFailureAreBothRetainedWithoutDraftChanges()
+    {
+        using var draft=Draft();using var session=new SettingsImportSession();var cancellationFailure=new IOException("PUBLIC cancel failure");var readFailure=new IOException("PUBLIC read failure");CancellationTokenRegistration callback=default;
+        var result=await session.ReadAsync(draft.CaptureImportBasis(),ct=>{callback=ct.Register(()=>throw cancellationFailure);session.Invalidate();throw readFailure;});await callback.DisposeAsync();
+        Assert.Equal(SettingsImportStatus.Failed,result.Status);var errors=Assert.IsType<AggregateException>(result.Failure).Flatten().InnerExceptions;Assert.Contains(readFailure,errors);Assert.Contains(cancellationFailure,errors);Assert.Null(session.Preview);Assert.Empty(draft.Data.Profiles);
+    }
+    [Fact]public async Task HttpFlagsAreWithdrawnForAllImportedProfilesAndOriginalSaveValidationStillBlocksHttp()
+    {
+        var source=Incoming();source=source with{Profiles=[source.Profiles[0] with{AllowLoopbackHttp=true,AllowInsecureHttp=true},source.Profiles[0] with{Id="http",BaseUrl="http://127.0.0.1:12345/v1",AllowLoopbackHttp=true}]};
+        using var draft=Draft();using var session=new SettingsImportSession();var plan=await Load(session,draft,source);Assert.True(plan.RequiresHttpConfirmation);Assert.True(session.Apply(plan,true,"PUBLIC-basis"));Assert.All(draft.Data.Profiles,p=>{Assert.False(p.AllowLoopbackHttp);Assert.False(p.AllowInsecureHttp);});var error=Assert.Throws<SettingsValidationException>(()=>SettingsJson.Validate(draft.Data));Assert.Equal("profile.httpConsent",error.Field);
+    }
+    [Fact]public async Task TooManyCombinedProfilesRejectsWithoutChangingEitherSide()
+    {var local=Incoming();local=local with{Profiles=Enumerable.Range(0,16).Select(i=>local.Profiles[0] with{Id="p"+i}).ToImmutableArray(),ActiveProfileId="p0",VisionProfileId="p0"};using var draft=Draft(local);using var session=new SettingsImportSession();var result=await session.ReadAsync(draft.CaptureImportBasis(),_=>Task.FromResult(SettingsImportDocument.Read(Bytes())));Assert.Equal(SettingsImportStatus.Failed,result.Status);Assert.Same(local,draft.Data);Assert.Null(session.Preview);}
+    [Fact]public async Task RealFileReadDoesNotModifySourceAndRejectsLinkedParents()
+    {
+        using var folder=new Folder();string path=Path.Combine(folder.Path,"backup.json");byte[] source=Bytes();await File.WriteAllBytesAsync(path,source);var data=await SettingsImportFiles.ReadAsync(path);Assert.NotNull(data);Assert.Equal(source,await File.ReadAllBytesAsync(path));string link=Path.Combine(folder.Path,"linked");Directory.CreateSymbolicLink(link,folder.Path);
+        try{await Assert.ThrowsAnyAsync<IOException>(()=>SettingsImportFiles.ReadAsync(Path.Combine(link,"backup.json")));}finally{Directory.Delete(link);}Assert.Single(Directory.GetFiles(folder.Path));
+    }
+    private sealed class NoSecrets:ISecretProtector
+    {public byte[] Protect(ReadOnlySpan<byte> value)=>throw new InvalidOperationException("unexpected secret write");public byte[] Unprotect(ReadOnlySpan<byte> value)=>throw new InvalidOperationException("unexpected secret read");}
+    private sealed class PrivateDirectory:ISecretDirectoryPolicy{public void EnsurePrivate(string path)=>Directory.CreateDirectory(path);}
+    private sealed class Keys:ISettingsHotkeyParticipant
+    {
+        public int Commits,Rollbacks;
+        public Task<ISettingsHotkeyTransaction> PrepareAsync(IReadOnlyDictionary<string,string?> values,CancellationToken cancellation)=>Task.FromResult<ISettingsHotkeyTransaction>(new Change(this));
+        private sealed class Change(Keys owner):ISettingsHotkeyTransaction{public Task CommitAsync(SettingsSnapshot saved){owner.Commits++;return Task.CompletedTask;}public Task RollbackAsync(){owner.Rollbacks++;return Task.CompletedTask;}}
+    }
+    [Theory][InlineData(SettingsWriteStage.BeforePublish,false)][InlineData(SettingsWriteStage.AfterPublish,true)]
+    public async Task ImportedDraftUsesOriginalAtomicFileAndHotkeyTransactionSemantics(SettingsWriteStage fault,bool published)
+    {
+        using var folder=new Folder();var store=new SettingsStore(Path.Combine(folder.Path,"config"));var secrets=new SecretFileStore(Path.Combine(folder.Path,"secrets"),new NoSecrets(),new PrivateDirectory());var seed=new SettingsCoordinator(store,secrets);using(var initial=await seed.OpenDraftAsync())await seed.SaveAsync(initial);
+        byte[] original=await File.ReadAllBytesAsync(store.PrimaryPath);var failing=new SettingsStore(store.DirectoryPath){WriteStageForTest=stage=>{if(stage==fault)throw new IOException("PUBLIC disk boundary");}};var coordinator=new SettingsCoordinator(failing,secrets);using var draft=await coordinator.OpenDraftAsync();using var session=new SettingsImportSession();var incoming=Incoming() with{Hotkeys=AppSettings.DefaultHotkeys.SetItem("toggle","Ctrl+Q")};var result=await session.ReadAsync(draft.CaptureImportBasis(),_=>Task.FromResult(SettingsImportDocument.Read(Bytes(incoming))));Assert.True(session.Apply(result.Preview!,true,draft.Basis.Version));Assert.Equal(original,await File.ReadAllBytesAsync(store.PrimaryPath));var keys=new Keys();
+        if(published){var saved=await coordinator.SaveWithHotkeysAsync(draft,keys);Assert.True(draft.IsClosed);Assert.Equal("Ctrl+Q",saved.Data.Hotkeys["toggle"]);Assert.Equal(1,keys.Commits);Assert.Equal(0,keys.Rollbacks);Assert.Single(saved.Data.Profiles);}
+        else{await Assert.ThrowsAsync<IOException>(()=>coordinator.SaveWithHotkeysAsync(draft,keys));Assert.False(draft.IsClosed);Assert.Equal(original,await File.ReadAllBytesAsync(store.PrimaryPath));Assert.Equal(0,keys.Commits);Assert.Equal(1,keys.Rollbacks);Assert.Empty((await store.LoadAsync()).Data.Profiles);}
+        Assert.Empty(Directory.GetFiles(store.DirectoryPath,"secret-txn-*.json"));
+    }
+    [Fact]public async Task CancellingImportedDraftAndSavedVersionConflictCannotOverwriteTheOriginalConfiguration()
+    {
+        using var folder=new Folder();var store=new SettingsStore(Path.Combine(folder.Path,"config"));var secrets=new SecretFileStore(Path.Combine(folder.Path,"secrets"),new NoSecrets(),new PrivateDirectory());var coordinator=new SettingsCoordinator(store,secrets);using(var initial=await coordinator.OpenDraftAsync())await coordinator.SaveAsync(initial);byte[] original=await File.ReadAllBytesAsync(store.PrimaryPath);
+        using(var draft=await coordinator.OpenDraftAsync()){using var session=new SettingsImportSession();var result=await session.ReadAsync(draft.CaptureImportBasis(),_=>Task.FromResult(SettingsImportDocument.Read(Bytes())));Assert.True(session.Apply(result.Preview!,true,draft.Basis.Version));}Assert.Equal(original,await File.ReadAllBytesAsync(store.PrimaryPath));
+        using var stale=await coordinator.OpenDraftAsync();using var import=new SettingsImportSession();var preview=await import.ReadAsync(stale.CaptureImportBasis(),_=>Task.FromResult(SettingsImportDocument.Read(Bytes())));Assert.True(import.Apply(preview.Preview!,true,stale.Basis.Version));using(var newer=await coordinator.OpenDraftAsync()){newer.Update(s=>s with{Overlay=s.Overlay with{FontSizeDip=21}});await coordinator.SaveAsync(newer);}byte[] updated=await File.ReadAllBytesAsync(store.PrimaryPath);await Assert.ThrowsAsync<SettingsConflictException>(()=>coordinator.SaveAsync(stale));Assert.Equal(updated,await File.ReadAllBytesAsync(store.PrimaryPath));
+    }
+    [Fact]public async Task LinkedImportCommandsRenderOnlyValidatedDataAndApplyTheExactPreviewToTheOriginalDraft()
+    {
+        using var draft=Draft();using var session=new SettingsImportSession();var view=new KuaiYi.App.SettingsImportWindow(session,draft.CaptureImportBasis(),()=>"PUBLIC-basis");view.ReaderForTest((_,_)=>Task.FromResult(SettingsImportDocument.Read(Bytes())));
+        await view.ReadForTest();Assert.True(view.ApplyEnabledForTest);Assert.Contains("PUBLIC_MODEL",view.PreviewForTest);Assert.Empty(draft.Data.Profiles);Assert.True(view.ApplyForTest());Assert.True(view.Applied);Assert.Single(draft.Data.Profiles);Assert.False(view.ApplyForTest());view.CloseForTest();
+    }
+    [Fact]public async Task LinkedImportCloseJoinsItsOriginalIgnoredCancellationReadAndCannotApplyLateData()
+    {
+        using var draft=Draft();using var session=new SettingsImportSession();var view=new KuaiYi.App.SettingsImportWindow(session,draft.CaptureImportBasis(),()=>"PUBLIC-basis");var entered=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var release=new TaskCompletionSource<SettingsImportData>(TaskCreationOptions.RunContinuationsAsynchronously);view.ReaderForTest((_,_)=>{entered.SetResult();return release.Task;});
+        var read=view.ReadForTest();await entered.Task.WaitAsync(TimeSpan.FromSeconds(5));var close=view.SettleForCloseAsync();Assert.Same(read,close);Assert.True(view.ReadPending);Assert.False(close.IsCompleted);release.SetResult(SettingsImportDocument.Read(Bytes()));await close;Assert.False(view.ApplyForTest());Assert.Empty(draft.Data.Profiles);Assert.Equal("",view.PreviewForTest);view.CloseForTest();
+    }
+    private sealed class UiQueue:SynchronizationContext
+    {
+        private readonly Queue<(SendOrPostCallback Callback,object? State)> work=[];
+        public override void Post(SendOrPostCallback callback,object? state)=>work.Enqueue((callback,state));
+        public void Drain(){while(work.TryDequeue(out var next))next.Callback(next.State);}
+    }
+    [Fact]public async Task ClosingBeforeTheFirstUiDispatchCannotStartAnImportRead()
+    {
+        using var draft=Draft();using var session=new SettingsImportSession();var view=new KuaiYi.App.SettingsImportWindow(session,draft.CaptureImportBasis(),()=>"PUBLIC-basis");int calls=0;view.ReaderForTest((_,_)=>{calls++;throw new IOException("PUBLIC reader must not start");});var queue=new UiQueue();var previous=SynchronizationContext.Current;Task read;
+        try{SynchronizationContext.SetSynchronizationContext(queue);read=view.ReadForTest();Assert.Same(read,view.SettleForCloseAsync());}
+        finally{SynchronizationContext.SetSynchronizationContext(previous);}
+        queue.Drain();await read;Assert.Equal(0,calls);Assert.Empty(draft.Data.Profiles);Assert.False(view.ApplyForTest());view.CloseForTest();
+    }
+
+    [Fact]public async Task IndividuallyValidDocumentsCannotMergePastTheFullConfigurationByteLimit()
+    {
+        var headers=Enumerable.Range(0,8).ToImmutableDictionary(i=>"X-Public-"+i,_=>new string('H',1900));var profile=Incoming().Profiles[0] with{Headers=headers};
+        var local=new AppSettings{Profiles=Enumerable.Range(0,15).Select(i=>profile with{Id="local"+i}).ToImmutableArray()};
+        var source=Incoming() with{Translation=new(){CustomTemplates=Enum.GetValues<TranslationPreset>().ToImmutableDictionary(mode=>mode,_=>new string('T',8192))}};
+        Assert.True(Bytes(local).Length<=SettingsJson.MaximumBytes);Assert.True(Bytes(source).Length<=SettingsJson.MaximumBytes);
+        using var draft=Draft(local);using var session=new SettingsImportSession();var result=await session.ReadAsync(draft.CaptureImportBasis(),_=>Task.FromResult(SettingsImportDocument.Read(Bytes(source))));
+        Assert.Equal(SettingsImportStatus.Failed,result.Status);Assert.Equal("import.fileSize",Assert.IsType<SettingsValidationException>(result.Failure).Field);Assert.Null(session.Preview);Assert.Same(local,draft.Data);
+    }
+    [Theory][InlineData("en-US")][InlineData("zh-cn")][InlineData("")]
+    public void ImportCannotChangeV1FixedSimplifiedChineseOutput(string language)
+    {var source=Incoming();source=source with{Translation=source.Translation with{TargetLanguage=language}};var error=Assert.Throws<SettingsValidationException>(()=>SettingsImportDocument.Read(Bytes(source)));Assert.Equal("import.targetLanguage",error.Field);}
+
+}

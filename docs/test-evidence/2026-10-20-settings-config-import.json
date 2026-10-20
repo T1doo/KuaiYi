@@ -1,0 +1,433 @@
+{
+  "utc": "2026-10-20T07:31:57.337713+00:00",
+  "base": "f854eb616e8dad0fdaba4c0e281bc9af8ea869c2",
+  "branch": "dev/settings-config-import",
+  "remote": "https://github.com/T1doo/KuaiYi.git",
+  "spec": [
+    "8.3",
+    "13.1",
+    "P1-03/P4-01 import subitem"
+  ],
+  "runs": {
+    "close-red": {
+      "total": 1,
+      "executed": 1,
+      "passed": 0,
+      "failed": 1,
+      "notExecuted": 0
+    },
+    "display-regression": {
+      "total": 110,
+      "executed": 110,
+      "passed": 110,
+      "failed": 0,
+      "notExecuted": 0
+    },
+    "draft-regression": {
+      "total": 3,
+      "executed": 3,
+      "passed": 3,
+      "failed": 0,
+      "notExecuted": 0
+    },
+    "export-import-roundtrip": {
+      "total": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "notExecuted": 0
+    },
+    "import-after-close": {
+      "total": 68,
+      "executed": 68,
+      "passed": 68,
+      "failed": 0,
+      "notExecuted": 0
+    },
+    "import-final": {
+      "total": 69,
+      "executed": 69,
+      "passed": 69,
+      "failed": 0,
+      "notExecuted": 0
+    },
+    "import-focused": {
+      "total": 65,
+      "executed": 65,
+      "passed": 65,
+      "failed": 0,
+      "notExecuted": 0
+    },
+    "independent-import47": {
+      "total": 47,
+      "executed": 47,
+      "passed": 47,
+      "failed": 0,
+      "notExecuted": 0
+    },
+    "limits-red": {
+      "total": 4,
+      "executed": 4,
+      "passed": 0,
+      "failed": 4,
+      "notExecuted": 0
+    }
+  },
+  "new_import_tests_independent": 47,
+  "old_backup_tests": 23,
+  "old_draft_tests": 3,
+  "old_display_provider_tests": 110,
+  "counts_scope": "69P=46new+23backup; draft3P separate; compatibility1P appended; independent final47P overlaps new tests. Not a single73-test run.",
+  "causal_red_green": {
+    "first_ui_dispatch": "1F -> same method passes after-close68P and independent final47P",
+    "merged_size_and_language": "4F -> same methods pass in69P and independent final47P"
+  },
+  "compilation_failures": {
+    "import-first": "CS0649;0 executed;no TRX; exact initial tests source not captured",
+    "roundtrip-first": "CS1503;0 executed;no TRX; exact tests source preserved"
+  },
+  "independent_review": "Pass; no remainingP1/P2 in this slice;47P",
+  "app_cross_build": {
+    "projects": 8,
+    "exit": 0,
+    "warnings": 0,
+    "errors": 0
+  },
+  "new_dependencies": false,
+  "locked_restores": "Core/Provider/App audit true/all/low and warnings as errors; all exit0; locks equal base",
+  "original_config_save_authorization_gates": "Coordinator/SettingsStore/SecretStore and hotkey save transaction unchanged",
+  "real_windows_wpf_dialogs_handles_hotkeys_dpapi": "NotRun",
+  "whole_spec_acceptance": "NotRun/PackageHold",
+  "production_image_reuse": "Off",
+  "old_ci": "39347646426 step3 internal causeUnknown; denied logs not accessed/retried/bypassed",
+  "new_ci_model_calls_fees_credentials_permissions_publish_personal_windows": "None",
+  "files": [
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/app-build.log",
+      "bytes": 888,
+      "sha256": "810df0584b88a03bb1f98ef65b37d3ee3f56697de86ce1ebfff907452565f504"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/app-restore.log",
+      "bytes": 595,
+      "sha256": "4a0083f7f0ae8e4e8fd3ab99531bbf6b99655b2f9e60ca5083cc43cbe0c329cf"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/bindings.json",
+      "bytes": 17217,
+      "sha256": "e0415229193ef1865464c331a5422fb471c74f0338fcceb60f0f1f3ec90ded6c"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/close-red-commands.cs.txt",
+      "bytes": 2493,
+      "sha256": "c51b07eaed1076943d2f05cd9e8adb348fb4fc3c9c10e2c9608ade402415fae9"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/close-red-tests.cs.txt",
+      "bytes": 21110,
+      "sha256": "79a6ad0122d5d0cffc4c306fbdd618a608684aa0374874aeb1c5d3cf2f17ea88"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/close-red.log",
+      "bytes": 2629,
+      "sha256": "def7f67b21fc8ae1a979b26d1d456a47168362e071e6f3794b54fc2c096bcdb8"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/close-red.trx",
+      "bytes": 4080,
+      "sha256": "71907a6eacfcbde0a4c89bd9a249b5af8d95155113cd6a4a1a84f00dcdc8f480"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/core-restore.log",
+      "bytes": 265,
+      "sha256": "eb1fc222afa7b52b21cbccdb70aa0ea5796737b0fd2b028271814647fc73ed0e"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/display-regression.log",
+      "bytes": 1138,
+      "sha256": "32a5c9cf3732761b2d7efc2a14246dceb6ba662e555df371845ba46f16192e57"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/display-regression.trx",
+      "bytes": 161752,
+      "sha256": "757b0797e772135ae47abd807cd328e2ab19f6156f1237ff4ae3f63d4c0a4ca4"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/draft-regression.log",
+      "bytes": 388,
+      "sha256": "1b2f05d7d5901fd1115b5851c23140af8d15d6d5ff6a75ba9e36c3afb65bc463"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/draft-regression.trx",
+      "bytes": 5627,
+      "sha256": "82656314358930b469247f7552d3490737380aa4f9e5acb226064692dd4dad8b"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/export-import-roundtrip.log",
+      "bytes": 2078,
+      "sha256": "45318c0ac26d795b180a38ca5078fda28a6b777e4ebdfc2bf480a25e99491520"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/export-import-roundtrip.trx",
+      "bytes": 2896,
+      "sha256": "2db730b63d51ab9a56631c7c0d4ec32108f274e86f976c75dea50533403e9c57"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/import-after-close.log",
+      "bytes": 2073,
+      "sha256": "a0cc352b89309500509406f193abab5b9aeaa049e29c090f3e636d8d03b66b4e"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/import-after-close.trx",
+      "bytes": 95390,
+      "sha256": "f924cad8db168933e824d774270bfa88bea983d63fa7ce0f79227bfad4e913c0"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/import-final.log",
+      "bytes": 2067,
+      "sha256": "2300a44e937133c6e25cc40db8ba4c3bbb0e2f7363ed4ed4dabd0bc7383cf0d0"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/import-final.trx",
+      "bytes": 96762,
+      "sha256": "e3cdb06a005fdc527b542669169ce22b15f46f57c6ea7b1460a8b6ff164a682e"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/import-first.log",
+      "bytes": 1848,
+      "sha256": "f03a8fcf6cbde05c32ec2067898a3ffa87fc865e0aa9893f520858de0c6230d8"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/import-focused.log",
+      "bytes": 2069,
+      "sha256": "3a58c798aa61f088df4d7fdd0b00d9c4a81f9ccb690cfa5aaf3926c540c40c20"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/import-focused.trx",
+      "bytes": 91241,
+      "sha256": "10981ea510c8974a92d31f877d13b4a8f69aaba5cca300ced6483f78cec9ddc7"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/independent-import47.log",
+      "bytes": 393,
+      "sha256": "c61a57935a2d6ce1901ef892006cc81e5eada3476a1f54f617bf7196dcc4ed61"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/independent-import47.trx",
+      "bytes": 66398,
+      "sha256": "4a90d4e7516a222ca1e83819639c8cbbb6c6d91404634ca980aa66fe472b4abf"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/independent-review.txt",
+      "bytes": 635,
+      "sha256": "90a802483ab3f8faeff40a34ac8653c9efffdfe9fbd1437dcc65d27ea218d4fb"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/limits-red-document.cs.txt",
+      "bytes": 4710,
+      "sha256": "3195267de2aaaffebf66bb840dfcc9c7896f5b9c7abe8043f9ac13c4455097a5"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/limits-red-tests.cs.txt",
+      "bytes": 22654,
+      "sha256": "0207e22140ece8ca4802150b6da04c48d846b8e241e6cb84ac5ba10856004dfc"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/limits-red.log",
+      "bytes": 5222,
+      "sha256": "ed8473aa9fecbe72501df720a79c8878151fd0d723293fa9da481c0bae307b58"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/limits-red.trx",
+      "bytes": 13467,
+      "sha256": "9a16d750abd82444af662518198841a7342e40e82e0e79ed74c6890f0bfa0a77"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/pre-canonical-draft.cs.txt",
+      "bytes": 4867,
+      "sha256": "7f1a6e2cf96ee6cccac11a9a11891be7b517862306122f57fb02d85a5a146b17"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/provider-restore.log",
+      "bytes": 80,
+      "sha256": "40d104602671164ab3958225da3e1c8cabd55f0251d6df6bc911d9d5a24f44ce"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/remote-before.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/remote-before.stdout",
+      "bytes": 136,
+      "sha256": "5cc33fa1928be5c71254423054a557aa3a9d066fadc2ab09ae49e77804781cf8"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/roundtrip-first-tests.cs.txt",
+      "bytes": 24093,
+      "sha256": "27c4688498b302fc17b0004c1884fcd68b425304b065c31d4a3241d35aac6216"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/roundtrip-first.log",
+      "bytes": 1842,
+      "sha256": "77d8c92cb786168abe5ae85675222b63ecfa6d2f1c022f188fde6479e008f94d"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/worktree-before.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/test-evidence/2026-10-20-settings-config-import/worktree-before.stdout",
+      "bytes": 119,
+      "sha256": "b2ab2a26b2b43cc15c7b145e7519c6ee2820af437e410acd1152bbdd7df7f366"
+    }
+  ],
+  "commands_argv": {
+    "core-restore": {
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "restore",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "--locked-mode",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true"
+      ],
+      "exit": 0
+    },
+    "provider-restore": {
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "restore",
+        "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+        "--locked-mode",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true"
+      ],
+      "exit": 0
+    },
+    "app-restore": {
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "restore",
+        "src/KuaiYi.App/KuaiYi.App.csproj",
+        "--locked-mode",
+        "-p:EnableWindowsTargeting=true",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true"
+      ],
+      "exit": 0
+    },
+    "import-final": {
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~SettingsImportTests|FullyQualifiedName~SettingsBackupTests|FullyQualifiedName~SettingsDraftTests",
+        "--logger",
+        "trx;LogFileName=import-final.trx",
+        "--results-directory",
+        "artifacts/settings-config-import"
+      ],
+      "exit": 0
+    },
+    "draft-regression": {
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "--no-build",
+        "--no-restore",
+        "-c",
+        "Release",
+        "--filter",
+        "FullyQualifiedName~DisplayPreferencesDraftTests",
+        "--logger",
+        "trx;LogFileName=draft-regression.trx",
+        "--results-directory",
+        "artifacts/settings-config-import"
+      ],
+      "exit": 0
+    },
+    "display-regression": {
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~DisplayPreferences",
+        "--logger",
+        "trx;LogFileName=display-regression.trx",
+        "--results-directory",
+        "artifacts/settings-config-import"
+      ],
+      "exit": 0
+    },
+    "export-import-roundtrip": {
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~ProductionBackupExportsThroughARealFileAndImportsIntoAConfirmedDraft",
+        "--logger",
+        "trx;LogFileName=export-import-roundtrip.trx",
+        "--results-directory",
+        "artifacts/settings-config-import"
+      ],
+      "exit": 0
+    },
+    "app-build": {
+      "argv": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "build",
+        "src/KuaiYi.App/KuaiYi.App.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-p:EnableWindowsTargeting=true",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exit": 0
+    }
+  }
+}

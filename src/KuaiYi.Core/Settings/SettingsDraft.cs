@@ -10,6 +10,29 @@ public sealed class SettingsDraft(SettingsSnapshot basis):IDisposable
     public bool IsClosed{get{lock(sync)return closed;}}
     public bool HasPendingKey(string profileId){lock(sync)return keys.ContainsKey(profileId)||cleared.Contains(profileId);}
     public void Update(Func<AppSettings,AppSettings> edit){lock(sync){Available();data=edit(data);revision++;}}
+    public SettingsImportBasis CaptureImportBasis()
+    {
+        lock(sync)
+        {
+            Available();if(Basis.RequiresRecovery||keys.Count!=0||cleared.Count!=0)throw new SettingsValidationException("import.unsavedDraft");
+            byte[]? current=null,original=null;
+            try
+            {
+                current=SettingsJson.Write(data);original=SettingsJson.Write(Basis.Data);
+                if(!System.Text.Json.Nodes.JsonNode.DeepEquals(System.Text.Json.Nodes.JsonNode.Parse(current),System.Text.Json.Nodes.JsonNode.Parse(original)))throw new SettingsValidationException("import.unsavedDraft");
+                return new(this,revision,data);
+            }
+            finally{if(current!=null)CryptographicOperations.ZeroMemory(current);if(original!=null)CryptographicOperations.ZeroMemory(original);}
+        }
+    }
+    internal bool TryApplyImport(SettingsImportBasis expected,SettingsImportPlan plan)
+    {
+        lock(sync)
+        {
+            if(closed||saving||Basis.ReadOnly||Basis.RequiresRecovery||!ReferenceEquals(expected.Owner,this)||expected.Revision!=revision||keys.Count!=0||cleared.Count!=0)return false;
+            data=plan.Value;revision++;return true;
+        }
+    }
     public DisplayPreferencesDraftSnapshot CaptureDisplayPreferences()
     {lock(sync){Available();return new(this,revision,new(data.Overlay.FontSizeDip,data.Overlay.PreferredWidthDip,data.Overlay.Theme,data.Overlay.ReduceMotion));}}
     public bool TryApplyDisplayPreferences(DisplayPreferencesDraftSnapshot expected,DisplayPreferences value)
@@ -41,4 +64,11 @@ public sealed class DisplayPreferencesDraftSnapshot
     internal SettingsDraft Owner{get;}internal long Revision{get;}
     public DisplayPreferences Value{get;}
     internal DisplayPreferencesDraftSnapshot(SettingsDraft owner,long revision,DisplayPreferences value){Owner=owner;Revision=revision;Value=value;}
+}
+
+public sealed class SettingsImportBasis
+{
+    internal SettingsDraft Owner{get;}internal long Revision{get;}internal AppSettings Value{get;}
+    public string SavedVersion=>Owner.Basis.Version;
+    internal SettingsImportBasis(SettingsDraft owner,long revision,AppSettings value){Owner=owner;Revision=revision;Value=value;}
 }

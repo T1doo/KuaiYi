@@ -10,7 +10,7 @@ internal sealed partial class SettingsWindow
     private void SetupBackupEntry(Panel panel)
     {
         var backup=new Button{Content="预览并导出已保存普通配置…",Margin=new Thickness(0,8,0,8)};panel.Children.Add(backup);
-        Note(panel,"普通配置备份不包含密钥、自定义请求头、应用规则/授权、端点同意记录或浮窗位置。草稿更改需先保存。本切片提供导出；完整配置导入尚未提供。");
+        Note(panel,"普通配置备份不包含密钥、自定义请求头、应用规则/授权、端点同意记录或浮窗位置。草稿更改需先保存。导入另经完整校验和预览，不继承备份中的凭据或授权。");
         Closing+=async(_,e)=>
         {
             if(backupWindow is not {} window||!window.ExportPending)return;

@@ -9240,3 +9240,10 @@ docs/test-evidence/2026-10-20-browser-source-window/*.log -text -whitespace
 docs/test-evidence/2026-10-20-settings-backup-export/*.log -text -whitespace
 docs/test-evidence/2026-10-20-settings-backup-export/*.trx -text -whitespace
 docs/test-evidence/2026-10-20-settings-backup-export/*.cs.txt -text
+
+# Complete settings import exact execution evidence and causal source snapshots
+docs/test-evidence/2026-10-20-settings-config-import/*.log -text -whitespace
+docs/test-evidence/2026-10-20-settings-config-import/*.trx -text -whitespace
+docs/test-evidence/2026-10-20-settings-config-import/*.cs.txt -text
+docs/test-evidence/2026-10-20-settings-config-import/*.stdout -text -whitespace
+docs/test-evidence/2026-10-20-settings-config-import/*.stderr -text -whitespace

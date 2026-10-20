@@ -1213,3 +1213,12 @@ P7源码子项InProgress，完整P7/R13/真实浏览器与Windows仍NotRun；CI3
 新session持原IO/CancelAsync到实际结算；父子Window关闭等待相同导出task。复用已打开文件路径/重解析检查及不覆盖发布，原四字段公开白名单/4096限额不放宽。新23P＋旧草稿3=最终26P，原四字段Provider110P（最终新类P2前，旧通路/断言随后不改）；最终App8工程Release交叉0W/E。独审发现“已发布＋Dispose错＋取消回调错”误报未导出P2，同方法最终字节真实1F→1P，published事实独立保留并保两原错；独立23P后无剩余P1/P2。
 
 初两轮新夹具19项4P15F/17P2F、Linux首次App restore缺EnableWindowsTargeting的NETSDK1100、中间25P与组合红例原件保全；不当旧产品红或实机证据。最终测试文件与组合红测同字节，locked restore审计和原锁不改，无新依赖。详见[产品行为/范围](validation/settings-backup-export.md)/[运行证据](test-evidence/2026-10-20-settings-backup-export.json)。完整导入可继续独立实施，真实WPF/Windows文件对话框及关闭/句柄验收NotRun；106整体NotRun/PackageHold及生产图片复用Off保持。250/600ms、来源/密码/完整性/取消/清理/隔离门不动；旧CI首因Unknown及被拒日志边界保持，无新CI/模型/费用/凭据/安全权限/发布/用户电脑操作。
+
+
+## 2026-10-20 · 完整普通配置的校验、合并预览与草稿导入
+
+从已推送且独审的f854eb616e8dad0fdaba4c0e281bc9af8ea869c2核单worktree/唯一writer/clean/远端原分支和main，建dev/settings-config-import，继续原SPEC8.3/13.1及P1-03/P4-01导入子项。设置常规新增完整schema1普通备份导入：严格UTF8/256KiB/16层/重复未知及缺模块整拒，精确zh-CN；密钥引用/全部请求头/授权和本机元数据非空整拒。保留本机profiles/凭据/规则/位置/既有默认，新档freshID、能力Unknown、HTTP双开关清除待手动确认；普通偏好模板与热键组合仅预览确认进入草稿，不启用/发送/注册。
+
+原有脏草稿/未保存密钥/恢复/只读/并发保存拒绝开始；owner/revision/保存版本绑定，迟到或ABA不可应用。取消持有原read和CancelAsync到真实结算，父子关闭join相同task；取消设置放弃导入，显式保存复用原事务与CAS，不覆盖未知或选择的源文件。最小设计和最终源码独审通过，无剩余P1/P2；首次Yield前取消1F→同方法过，完整合并超限及非法输出语言4F→同方法过，真实原件均保全。新导入最终独立47P（含生产export→真实文件→import确认回路）；旧导出23/旧草稿3/原四字段Provider110各自通过，非单轮计数。App8项目交叉Release0W/E；locked restore审计与锁保持，无新依赖。
+
+首次CS0649及回路参数CS1503均为新测试编译0执行，保留日志和可用当时源码；中间65/68/69P及因果失败不抹去。见[产品行为/验证边界](validation/settings-config-import.md)/[证据索引](test-evidence/2026-10-20-settings-config-import.json)。Windows原生对话框/句柄/WPF父子关闭、DPAPI及真实热键注册仍NotRun；交叉构建不替代实机。106整体/生产NativeHost安装及同用户session精确ID/真实浏览器/P6P7/250600仍NotRun/PackageHold。来源/密码/完整性/取消清理隔离及生产图片复用Off保持；旧CI39347646426 step3内部首因Unknown、拒绝日志未请求或换路，无新CI/模型/费用/凭据/安全权限/发布/用户电脑操作，main未改。

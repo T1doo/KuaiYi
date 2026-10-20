@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="3aacb634-a216-4977-95ae-62ac69b42f0c" name="@a13b420cac2b 2026-10-20 07:25:59" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-20T07:25:59.7200024+00:00" queuing="2026-10-20T07:25:59.7200024+00:00" start="2026-10-20T07:25:58.5098104+00:00" finish="2026-10-20T07:25:59.7254453+00:00" />
+  <TestSettings name="default" id="36cd333c-1ac7-46d9-9a7a-fe1482124692">
+    <Deployment runDeploymentRoot="_a13b420cac2b_2026-10-20_07_25_59" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="cd3a8c51-c0c4-4fad-a14d-60df7950f711" testId="c376da5e-eed4-c00b-4e54-b1d5089f532f" testName="KuaiYi.Core.Tests.SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(language: &quot;&quot;)" computerName="a13b420cac2b" duration="00:00:00.0008558" startTime="2026-10-20T07:25:59.6045301+00:00" endTime="2026-10-20T07:25:59.6045697+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cd3a8c51-c0c4-4fad-a14d-60df7950f711">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown
+Expected: typeof(KuaiYi.Core.Settings.SettingsValidationException)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(String language) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsImportTests.cs:line 151
+   at InvokeStub_SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="47974875-8ccb-49e0-b4d6-093f8d5a5716" testId="8abbab45-c7af-eca5-1a19-efe8bf6d5577" testName="KuaiYi.Core.Tests.SettingsImportTests.IndividuallyValidDocumentsCannotMergePastTheFullConfigurationByteLimit" computerName="a13b420cac2b" duration="00:00:00.0401632" startTime="2026-10-20T07:25:59.6055441+00:00" endTime="2026-10-20T07:25:59.6339860+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="47974875-8ccb-49e0-b4d6-093f8d5a5716">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Preview</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SettingsImportTests.IndividuallyValidDocumentsCannotMergePastTheFullConfigurationByteLimit() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsImportTests.cs:line 147
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="331471b6-c772-4c4c-a06f-064c8b71a09e" testId="063b0ade-d566-a017-7450-81bc42539a6a" testName="KuaiYi.Core.Tests.SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(language: &quot;zh-cn&quot;)" computerName="a13b420cac2b" duration="00:00:00.0013591" startTime="2026-10-20T07:25:59.6034847+00:00" endTime="2026-10-20T07:25:59.6036146+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="331471b6-c772-4c4c-a06f-064c8b71a09e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown
+Expected: typeof(KuaiYi.Core.Settings.SettingsValidationException)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(String language) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsImportTests.cs:line 151
+   at InvokeStub_SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="603104bc-2812-43b6-9289-04364cb18214" testId="98cbb280-3629-68b5-cde4-c10169faca3f" testName="KuaiYi.Core.Tests.SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(language: &quot;en-US&quot;)" computerName="a13b420cac2b" duration="00:00:00.1208290" startTime="2026-10-20T07:25:59.4577448+00:00" endTime="2026-10-20T07:25:59.5900448+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="603104bc-2812-43b6-9289-04364cb18214">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown
+Expected: typeof(KuaiYi.Core.Settings.SettingsValidationException)</Message>
+          <StackTrace>   at KuaiYi.Core.Tests.SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(String language) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsImportTests.cs:line 151
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(language: &quot;en-US&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="98cbb280-3629-68b5-cde4-c10169faca3f">
+      <Execution id="603104bc-2812-43b6-9289-04364cb18214" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsImportTests" name="ImportCannotChangeV1FixedSimplifiedChineseOutput" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsImportTests.IndividuallyValidDocumentsCannotMergePastTheFullConfigurationByteLimit" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="8abbab45-c7af-eca5-1a19-efe8bf6d5577">
+      <Execution id="47974875-8ccb-49e0-b4d6-093f8d5a5716" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsImportTests" name="IndividuallyValidDocumentsCannotMergePastTheFullConfigurationByteLimit" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(language: &quot;zh-cn&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="063b0ade-d566-a017-7450-81bc42539a6a">
+      <Execution id="331471b6-c772-4c4c-a06f-064c8b71a09e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsImportTests" name="ImportCannotChangeV1FixedSimplifiedChineseOutput" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(language: &quot;&quot;)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="c376da5e-eed4-c00b-4e54-b1d5089f532f">
+      <Execution id="cd3a8c51-c0c4-4fad-a14d-60df7950f711" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.SettingsImportTests" name="ImportCannotChangeV1FixedSimplifiedChineseOutput" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="c376da5e-eed4-c00b-4e54-b1d5089f532f" executionId="cd3a8c51-c0c4-4fad-a14d-60df7950f711" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8abbab45-c7af-eca5-1a19-efe8bf6d5577" executionId="47974875-8ccb-49e0-b4d6-093f8d5a5716" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="063b0ade-d566-a017-7450-81bc42539a6a" executionId="331471b6-c772-4c4c-a06f-064c8b71a09e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="98cbb280-3629-68b5-cde4-c10169faca3f" executionId="603104bc-2812-43b6-9289-04364cb18214" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="4" executed="4" passed="0" failed="4" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.13)
+[xUnit.net 00:00:00.11]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.57]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.60]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.75]       Assert.Throws() Failure: No exception was thrown
+[xUnit.net 00:00:00.75]       Expected: typeof(KuaiYi.Core.Settings.SettingsValidationException)
+[xUnit.net 00:00:00.75]       Stack Trace:
+[xUnit.net 00:00:00.75]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsImportTests.cs(151,0): at KuaiYi.Core.Tests.SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(String language)
+[xUnit.net 00:00:00.76]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:00.76]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+[xUnit.net 00:00:00.76]       Assert.Throws() Failure: No exception was thrown
+[xUnit.net 00:00:00.76]       Expected: typeof(KuaiYi.Core.Settings.SettingsValidationException)
+[xUnit.net 00:00:00.76]       Stack Trace:
+[xUnit.net 00:00:00.76]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsImportTests.cs(151,0): at KuaiYi.Core.Tests.SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(String language)
+[xUnit.net 00:00:00.76]            at InvokeStub_SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(Object, Span`1)
+[xUnit.net 00:00:00.76]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.77]       Assert.Throws() Failure: No exception was thrown
+[xUnit.net 00:00:00.77]       Expected: typeof(KuaiYi.Core.Settings.SettingsValidationException)
+[xUnit.net 00:00:00.77]       Stack Trace:
+[xUnit.net 00:00:00.77]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsImportTests.cs(151,0): at KuaiYi.Core.Tests.SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(String language)
+[xUnit.net 00:00:00.77]            at InvokeStub_SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(Object, Span`1)
+[xUnit.net 00:00:00.77]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.79]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:00.79]       Expected: Failed
+[xUnit.net 00:00:00.79]       Actual:   Preview
+[xUnit.net 00:00:00.79]       Stack Trace:
+[xUnit.net 00:00:00.79]         /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsImportTests.cs(147,0): at KuaiYi.Core.Tests.SettingsImportTests.IndividuallyValidDocumentsCannotMergePastTheFullConfigurationByteLimit()
+[xUnit.net 00:00:00.79]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.80]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="a13b420cac2b" outcome="Error" timestamp="2026-10-20T07:25:59.5931160+00:00">
+        <Text>[xUnit.net 00:00:00.75]     KuaiYi.Core.Tests.SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(language: "en-US") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="a13b420cac2b" outcome="Error" timestamp="2026-10-20T07:25:59.6039678+00:00">
+        <Text>[xUnit.net 00:00:00.76]     KuaiYi.Core.Tests.SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(language: "zh-cn") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="a13b420cac2b" outcome="Error" timestamp="2026-10-20T07:25:59.6047818+00:00">
+        <Text>[xUnit.net 00:00:00.77]     KuaiYi.Core.Tests.SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(language: "") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="a13b420cac2b" outcome="Error" timestamp="2026-10-20T07:25:59.6376573+00:00">
+        <Text>[xUnit.net 00:00:00.79]     KuaiYi.Core.Tests.SettingsImportTests.IndividuallyValidDocumentsCannotMergePastTheFullConfigurationByteLimit [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

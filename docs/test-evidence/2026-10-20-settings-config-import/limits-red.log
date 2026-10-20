@@ -1,0 +1,55 @@
+  KuaiYi.Core -> /workspace/KuaiYi/src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll
+  KuaiYi.Contracts -> /workspace/KuaiYi/src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll
+  KuaiYi.Imaging -> /workspace/KuaiYi/src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll
+  KuaiYi.SelectionReuseDiagnostic -> /workspace/KuaiYi/tools/KuaiYi.SelectionReuseDiagnostic/bin/Release/net10.0/KuaiYi.SelectionReuseDiagnostic.dll
+  KuaiYi.NativeHost -> /workspace/KuaiYi/src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll
+  KuaiYi.OleTransfer -> /workspace/KuaiYi/src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll
+  KuaiYi.NativeMessagingProbe -> /workspace/KuaiYi/tools/KuaiYi.NativeMessagingProbe/bin/Release/net10.0/KuaiYi.NativeMessagingProbe.dll
+  KuaiYi.OleControlFixture -> /workspace/KuaiYi/tools/KuaiYi.OleControlFixture/bin/Release/net10.0/KuaiYi.OleControlFixture.dll
+  KuaiYi.BrowserHostFixture -> /workspace/KuaiYi/tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll
+  KuaiYi.OleReceiverFixture -> /workspace/KuaiYi/tools/KuaiYi.OleReceiverFixture/bin/Release/net10.0/KuaiYi.OleReceiverFixture.dll
+  KuaiYi.CaptureControlFixture -> /workspace/KuaiYi/tools/KuaiYi.CaptureControlFixture/bin/Release/net10.0/KuaiYi.CaptureControlFixture.dll
+  KuaiYi.SettingsStoreFixture -> /workspace/KuaiYi/tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll
+  KuaiYi.ImageWorker -> /workspace/KuaiYi/src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll
+  KuaiYi.Core.Tests -> /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll
+Test run for /workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.75]     KuaiYi.Core.Tests.SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(language: "en-US") [FAIL]
+[xUnit.net 00:00:00.76]     KuaiYi.Core.Tests.SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(language: "zh-cn") [FAIL]
+[xUnit.net 00:00:00.77]     KuaiYi.Core.Tests.SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(language: "") [FAIL]
+[xUnit.net 00:00:00.79]     KuaiYi.Core.Tests.SettingsImportTests.IndividuallyValidDocumentsCannotMergePastTheFullConfigurationByteLimit [FAIL]
+  Failed KuaiYi.Core.Tests.SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(language: "en-US") [120 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(KuaiYi.Core.Settings.SettingsValidationException)
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(String language) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsImportTests.cs:line 151
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed KuaiYi.Core.Tests.SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(language: "zh-cn") [1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(KuaiYi.Core.Settings.SettingsValidationException)
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(String language) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsImportTests.cs:line 151
+   at InvokeStub_SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(language: "") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(KuaiYi.Core.Settings.SettingsValidationException)
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(String language) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsImportTests.cs:line 151
+   at InvokeStub_SettingsImportTests.ImportCannotChangeV1FixedSimplifiedChineseOutput(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed KuaiYi.Core.Tests.SettingsImportTests.IndividuallyValidDocumentsCannotMergePastTheFullConfigurationByteLimit [40 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Failed
+Actual:   Preview
+  Stack Trace:
+     at KuaiYi.Core.Tests.SettingsImportTests.IndividuallyValidDocumentsCannotMergePastTheFullConfigurationByteLimit() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SettingsImportTests.cs:line 147
+--- End of stack trace from previous location ---
+Results File: /workspace/KuaiYi/artifacts/settings-config-import/limits-red.trx
+
+Failed!  - Failed:     4, Passed:     0, Skipped:     0, Total:     4, Duration: 176 ms - KuaiYi.Core.Tests.dll (net10.0)

@@ -30,13 +30,15 @@ public static class DisplayPreferencesFiles
         else throw new IOException("Display file ownership unavailable.");
         if(!string.Equals(actual,expected,OperatingSystem.IsWindows()?StringComparison.OrdinalIgnoreCase:StringComparison.Ordinal))throw new IOException("Display file ownership changed.");
     }
-    public static async Task<DisplayPreferences> ReadAsync(string path,CancellationToken cancellation=default)
+    public static Task<DisplayPreferences> ReadAsync(string path,CancellationToken cancellation=default)
+        =>ReadDocumentAsync(path,DisplayPreferencesDocument.MaximumBytes,DisplayPreferencesDocument.ReadAsync,cancellation);
+    internal static async Task<T> ReadDocumentAsync<T>(string path,int maximumBytes,Func<Stream,CancellationToken,Task<T>> read,CancellationToken cancellation)
     {
         cancellation.ThrowIfCancellationRequested();string full=LocalPath(path);
         var attributes=File.GetAttributes(full);if((attributes&(FileAttributes.ReparsePoint|FileAttributes.Directory|FileAttributes.Device))!=0)throw new DisplayPreferencesException(DisplayPreferencesIssue.File);
-        if(new FileInfo(full).Length is <2 or >DisplayPreferencesDocument.MaximumBytes)throw new DisplayPreferencesException(DisplayPreferencesIssue.FileSize);
+        if(new FileInfo(full).Length<2||new FileInfo(full).Length>maximumBytes)throw new DisplayPreferencesException(DisplayPreferencesIssue.FileSize);
         await using var file=new FileStream(full,FileMode.Open,FileAccess.Read,FileShare.Read,4096,FileOptions.Asynchronous);
-        RequireOpenedPath(file,full);var value=await DisplayPreferencesDocument.ReadAsync(file,cancellation).ConfigureAwait(false);RequireOpenedPath(file,full);cancellation.ThrowIfCancellationRequested();return value;
+        RequireOpenedPath(file,full);var value=await read(file,cancellation).ConfigureAwait(false);RequireOpenedPath(file,full);cancellation.ThrowIfCancellationRequested();return value;
     }
     public static Task<IPreparedDisplayPreferencesExport> PrepareNewAsync(string path,ReadOnlyMemory<byte> document,CancellationToken cancellation=default)
         =>PrepareDocumentAsync(path,document,bytes=>{_=DisplayPreferencesDocument.Read(bytes);},".kuaiyi-display-",cancellation);

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="147f4532-8bb2-4b16-95ff-e2bb82cd85b0" name="@a13b420cac2b 2026-10-20 07:26:59" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-20T07:26:59.7047827+00:00" queuing="2026-10-20T07:26:59.7047828+00:00" start="2026-10-20T07:26:58.6762637+00:00" finish="2026-10-20T07:26:59.7105611+00:00" />
+  <TestSettings name="default" id="294d51f9-f6d9-420f-843b-d0355f9fcf7d">
+    <Deployment runDeploymentRoot="_a13b420cac2b_2026-10-20_07_26_59" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="733ff8b2-9f6c-4659-9283-59d085114a0f" testId="f0cfe8f4-7231-aef3-9098-c81519d2758c" testName="KuaiYi.Core.Tests.DisplayPreferencesDraftTests.UnknownSchemaIsReadOnlyForDisplayCaptureAndApply" computerName="a13b420cac2b" duration="00:00:00.0088983" startTime="2026-10-20T07:26:59.5912673+00:00" endTime="2026-10-20T07:26:59.6068249+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="733ff8b2-9f6c-4659-9283-59d085114a0f" />
+    <UnitTestResult executionId="a5674758-7ac4-46fe-9dd9-963840da5936" testId="394832e0-a8bb-fff3-ea62-2793666bee9e" testName="KuaiYi.Core.Tests.DisplayPreferencesDraftTests.SaveAdmissionInvalidatesOldPreviewEvenWhenSaveFails(committed: True)" computerName="a13b420cac2b" duration="00:00:00.0033227" startTime="2026-10-20T07:26:59.6177406+00:00" endTime="2026-10-20T07:26:59.6177991+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a5674758-7ac4-46fe-9dd9-963840da5936" />
+    <UnitTestResult executionId="8cd43a82-97e9-40b8-a615-1132e2273a5e" testId="383db8d5-272f-3d4f-4fab-b42222789a86" testName="KuaiYi.Core.Tests.DisplayPreferencesDraftTests.SaveAdmissionInvalidatesOldPreviewEvenWhenSaveFails(committed: False)" computerName="a13b420cac2b" duration="00:00:00.0037399" startTime="2026-10-20T07:26:59.6182862+00:00" endTime="2026-10-20T07:26:59.6183231+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8cd43a82-97e9-40b8-a615-1132e2273a5e" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="KuaiYi.Core.Tests.DisplayPreferencesDraftTests.UnknownSchemaIsReadOnlyForDisplayCaptureAndApply" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="f0cfe8f4-7231-aef3-9098-c81519d2758c">
+      <Execution id="733ff8b2-9f6c-4659-9283-59d085114a0f" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.DisplayPreferencesDraftTests" name="UnknownSchemaIsReadOnlyForDisplayCaptureAndApply" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.DisplayPreferencesDraftTests.SaveAdmissionInvalidatesOldPreviewEvenWhenSaveFails(committed: True)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="394832e0-a8bb-fff3-ea62-2793666bee9e">
+      <Execution id="a5674758-7ac4-46fe-9dd9-963840da5936" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.DisplayPreferencesDraftTests" name="SaveAdmissionInvalidatesOldPreviewEvenWhenSaveFails" />
+    </UnitTest>
+    <UnitTest name="KuaiYi.Core.Tests.DisplayPreferencesDraftTests.SaveAdmissionInvalidatesOldPreviewEvenWhenSaveFails(committed: False)" storage="/workspace/kuaiyi/tests/kuaiyi.core.tests/bin/release/net10.0/kuaiyi.core.tests.dll" id="383db8d5-272f-3d4f-4fab-b42222789a86">
+      <Execution id="8cd43a82-97e9-40b8-a615-1132e2273a5e" />
+      <TestMethod codeBase="/workspace/KuaiYi/tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="KuaiYi.Core.Tests.DisplayPreferencesDraftTests" name="SaveAdmissionInvalidatesOldPreviewEvenWhenSaveFails" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="f0cfe8f4-7231-aef3-9098-c81519d2758c" executionId="733ff8b2-9f6c-4659-9283-59d085114a0f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="394832e0-a8bb-fff3-ea62-2793666bee9e" executionId="a5674758-7ac4-46fe-9dd9-963840da5936" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="383db8d5-272f-3d4f-4fab-b42222789a86" executionId="8cd43a82-97e9-40b8-a615-1132e2273a5e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="3" executed="3" passed="3" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.5+1b188a7b0a (64-bit .NET 10.0.13)
+[xUnit.net 00:00:00.11]   Discovering: KuaiYi.Core.Tests
+[xUnit.net 00:00:00.57]   Discovered:  KuaiYi.Core.Tests
+[xUnit.net 00:00:00.60]   Starting:    KuaiYi.Core.Tests
+[xUnit.net 00:00:00.65]   Finished:    KuaiYi.Core.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>
