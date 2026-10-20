@@ -1316,3 +1316,10 @@ P7源码子项InProgress，完整P7/R13/真实浏览器与Windows仍NotRun；CI3
 最终writer完整Codec470P（新17+原453）、完整Provider2381P（新20+原2361）、Core相关限定165P，各0F/0skip，Worker/App交叉0W/E，五locked audit restore0；依赖/许可/原Codec测试/SPEC原字节不改。旧截图CTS回归1F和新Anthropic夹具位置假设1F已保留修正；旧BMP取消结算未确认1F保留，同构建定向2P与同源码完整470P通过，未证实根因且未改退出门/旧断言。详见[行为与边界](validation/open-image-source.md)/[直接证据](test-evidence/2026-10-20-open-image-source.json)。
 
 Windows实际文件handle/dialog/WPF/Toggle/native/字体质量、250/600ms/600MiB、完整P6-06/P6仍NotRun，不当图像Beta验收；WebP odd拒绝、PackageHold、生产复用Off及全部安全发送清理门保持。无真实模型/私人图/新依赖许可权限费用凭据/CI/用户电脑/发布部署/main修改/强推。
+
+
+## 2026-10-20 · 图片取消清理受界诊断
+
+从9a38249接续正常dev/p6-image-settlement。确定性EOF原Task与cleanup双TCS场景证明首取消异常会被旧finally/Dispose诊断覆盖，保留r02红1F；现原Code保持、Primary/Cleanup分别保存，safe快照仅固定状态与类型/观察序号，展示64/ring32不截断真实任务跟踪。原IO/cleanup未结算仍阻止交付；实际清理成功可同owner显式重试，cleanupfault继续保留owner而不冒充成功。独审实际cleanup异常未观察P2和unused/Running误记exit诊断精度问题均已闭合，不降低真实退出或发送门。
+
+最终Codec475P（原470+新5）、Provider限定57P、Core限定97P，均0F/0skip；Worker/App交叉0W/E。原BMP历史469P1F→2P→470P保留且根因未证，不以新诊断反推已修复或断言均过。新测试初编译0执行保留，原470Codec源/锁/依赖/许可/产品书不改，无sleep凑绿。详见[范围与边界](validation/image-settlement.md)/[原件索引](test-evidence/2026-10-20-image-settlement.json)。Windows实机/画质/250600/600MiB与完整P6仍NotRun；PackageHold、生产复用Off及原安全门保持。

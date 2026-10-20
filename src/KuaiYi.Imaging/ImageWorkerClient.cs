@@ -11,16 +11,13 @@ public sealed partial class ImageWorkerClient(string executable, string? managed
     private readonly OwnedProcessSession process=new(processStarter);
     private int started;
     private readonly object ioSync=new();
-    private readonly List<Task> ioSettlements=[];
     public string? IoFailureCode {get;private set;}
-    private bool IoSettled {get{lock(ioSync)return ioSettlements.All(task=>task.IsCompleted);}}
-    private void Track(Task task){lock(ioSync)ioSettlements.Add(task);}
     public string? StartupFailureCode=>process.StartupFailureCode;
     public string? FinalizationFailureCode=>process.FinalizationFailureCode;
     internal Action<Process>? OwnershipPublishedForTest {init{process.OwnershipPublishedForTest=value;}}
     internal Task StartupSettlementForTest=>process.StartupSettlement;
     public HostExitState? ExitState=>process.ExitState;
-    public bool ObserveExit()=>process.ObserveExit();
+    public bool ObserveExit()=>ObserveProcessExit();
     internal Func<Stream,Stream>? ReadStreamForTest {get;init;}
     internal Func<Stream,Stream>? WriteStreamForTest {get;init;}
     public Task<ImageReply> RunAsync(ReadOnlyMemory<byte> image,ImageJob job,CancellationToken cancellation=default)
@@ -46,7 +43,9 @@ public sealed partial class ImageWorkerClient(string executable, string? managed
     private async Task<T> RunOnceAsync<T>(Func<Task<T>> run)
     {
         if(Interlocked.CompareExchange(ref started,1,0)!=0)throw new InvalidOperationException("Image client is single use.");
-        try{return await run().ConfigureAwait(false);}finally{Volatile.Write(ref started,2);}
+        try{return await run().ConfigureAwait(false);}
+        catch(Exception error){ObservePrimary(error);throw;}
+        finally{Volatile.Write(ref started,2);Note(ImageSettlementStage.OperationReturned);}
     }
     private async Task<ImageReply> RunOwnedAsync(ReadOnlyMemory<byte> image,ImageJob job,CancellationToken cancellation)
     {
@@ -99,12 +98,22 @@ public sealed partial class ImageWorkerClient(string executable, string? managed
             if(!ObserveExit())throw new ImageJobException(ImageFailure.ExitUnconfirmed);
             cancellation.ThrowIfCancellationRequested();return result;
         }
-        catch(OperationCanceledException)when(deadline.IsCancellationRequested&&!cancellation.IsCancellationRequested){throw new ImageJobException(ImageFailure.Timeout);}
+        catch(Exception error)
+        {
+            ObservePrimary(error);
+            if(error is OperationCanceledException&&deadline.IsCancellationRequested&&!cancellation.IsCancellationRequested)throw new ImageJobException(ImageFailure.Timeout,error);
+            throw;
+        }
         finally
         {
-            await process.StopAsync().ConfigureAwait(false);
-            if(!ObserveExit())throw new ImageJobException(ImageFailure.ExitUnconfirmed);
-            if(!IoSettled)throw new ImageJobException(ImageFailure.SettlementUnconfirmed);
+            try
+            {
+                await process.StopAsync().ConfigureAwait(false);Note(ImageSettlementStage.StopReturned);
+            }
+            catch(Exception cleanup)
+            {ObserveCleanup(cleanup);throw SettlementFailure(ImageFailure.ExitUnconfirmed);}
+            if(!ObserveExit())throw SettlementFailure(ImageFailure.ExitUnconfirmed);
+            if(!IoSettled)throw SettlementFailure(ImageFailure.SettlementUnconfirmed);
         }
     }
     private async Task<IpcFrame> Read(Stream stream,CancellationToken cancellation)
@@ -115,23 +124,25 @@ public sealed partial class ImageWorkerClient(string executable, string? managed
             var frame=await reading.WaitAsync(cancellation).ConfigureAwait(false);cancellation.ThrowIfCancellationRequested();
             delivered=true;return frame??throw new EndOfStreamException();
         }
-        finally{if(!delivered)Track(ClearLateRead(reading));}
+        finally{if(!delivered)Track(ImageIoKind.Read,reading,ClearLateRead(reading));}
     }
     private async Task ClearLateRead(Task<IpcFrame?> reading)
     {
-        try{var frame=await reading.ConfigureAwait(false);if(frame!=null)CryptographicOperations.ZeroMemory(frame.Payload);}
-        catch(Exception error){IoFailureCode=error.GetType().Name;} // Observe every original fault; no late result can be delivered.
+        IpcFrame? frame=null;
+        try{frame=await reading.ConfigureAwait(false);}
+        catch(Exception error){IoFailureCode=error.GetType().Name;}
+        finally{await ClearOwnedIo(ImageIoKind.Read,frame?.Payload).ConfigureAwait(false);} // Observe every original fault; no late result can be delivered.
     }
     private async Task Write(Stream stream,IpcFrame frame,CancellationToken cancellation,bool flush=false)
     {
-        Task writing=WriteOriginal();Task settlement=ClearAfterWrite();Track(settlement);
+        Task writing=WriteOriginal();Task settlement=ClearAfterWrite();Track(ImageIoKind.Write,writing,settlement);
         try{await writing.WaitAsync(cancellation).ConfigureAwait(false);cancellation.ThrowIfCancellationRequested();}
         finally{if(writing.IsCompleted)await settlement.ConfigureAwait(false);}
         async Task WriteOriginal(){await IpcFrameCodec.WriteAsync(stream,frame,cancellation).ConfigureAwait(false);if(flush)await stream.FlushAsync(cancellation).ConfigureAwait(false);}
         async Task ClearAfterWrite()
         {
             try{await writing.ConfigureAwait(false);}catch(Exception error){IoFailureCode=error.GetType().Name;}
-            finally{CryptographicOperations.ZeroMemory(frame.Payload);}
+            finally{await ClearOwnedIo(ImageIoKind.Write,frame.Payload).ConfigureAwait(false);}
         }
     }
     public static void ValidateOutput(OcrOutput result, ImageSize expected, string language)
@@ -151,12 +162,20 @@ public sealed partial class ImageWorkerClient(string executable, string? managed
     }
     public async ValueTask<bool> TryFinalizeAsync()
     {
-        await process.StopAsync().ConfigureAwait(false);
-        if(Volatile.Read(ref started)==1||!IoSettled||!process.ObserveExit())return false;
-        return await process.TryFinalizeAsync().ConfigureAwait(false);
+        try
+        {
+            await process.StopAsync().ConfigureAwait(false);Note(ImageSettlementStage.StopReturned);
+            bool exited=ObserveExit();
+            if(Volatile.Read(ref started)==1||!IoSettled||!exited){Note(ImageSettlementStage.FinalizePending);return false;}
+            bool complete=await process.TryFinalizeAsync().ConfigureAwait(false);Note(complete?ImageSettlementStage.Finalized:ImageSettlementStage.FinalizePending);return complete;
+        }
+        catch(Exception error){ObserveCleanup(error);throw;}
     }
     public async ValueTask DisposeAsync()
     {
-        if (!await TryFinalizeAsync().ConfigureAwait(false)) throw new ImageJobException(process.ObserveExit()?ImageFailure.SettlementUnconfirmed:ImageFailure.ExitUnconfirmed);
+        bool complete;
+        try{complete=await TryFinalizeAsync().ConfigureAwait(false);}
+        catch(Exception error){ObserveCleanup(error);throw SettlementFailure(ObserveExit()?ImageFailure.SettlementUnconfirmed:ImageFailure.ExitUnconfirmed);}
+        if(!complete)throw SettlementFailure(ObserveExit()?ImageFailure.SettlementUnconfirmed:ImageFailure.ExitUnconfirmed);
     }
 }

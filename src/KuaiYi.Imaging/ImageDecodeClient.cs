@@ -65,8 +65,8 @@ public sealed partial class ImageWorkerClient
                 token.ThrowIfCancellationRequested();var delivery=output;output=null;
                 if(ReferenceEquals(delivery,held))held=null;return delivery;
             }
-            catch(OperationCanceledException)when(deadline?.IsCancellationRequested==true&&!cancellation.IsCancellationRequested)
-            {throw new ImageJobException(ImageFailure.Timeout);}
+            catch(OperationCanceledException error)when(deadline?.IsCancellationRequested==true&&!cancellation.IsCancellationRequested)
+            {ObservePrimary(error);throw new ImageJobException(ImageFailure.Timeout,error);}
             finally
             {
                 if(ReferenceEquals(output,held))held=null;
@@ -75,9 +75,9 @@ public sealed partial class ImageWorkerClient
         });
     private async Task RequireEmptyTail(Stream receive,CancellationToken cancellation)
     {
-        byte[] tail=new byte[1];Task<int> reading=receive.ReadAsync(tail,cancellation).AsTask();Task settlement=Clear();Track(settlement);
+        byte[] tail=new byte[1];Task<int> reading=receive.ReadAsync(tail,cancellation).AsTask();Task settlement=Clear();Track(ImageIoKind.TailRead,reading,settlement);
         int count=await reading.WaitAsync(cancellation).ConfigureAwait(false);await settlement.ConfigureAwait(false);cancellation.ThrowIfCancellationRequested();
         if(count!=0)throw new InvalidDataException("Extra bytes after raster commit.");
-        async Task Clear(){try{await reading.ConfigureAwait(false);}catch(Exception error){IoFailureCode=error.GetType().Name;}finally{CryptographicOperations.ZeroMemory(tail);}}
+        async Task Clear(){try{await reading.ConfigureAwait(false);}catch(Exception error){IoFailureCode=error.GetType().Name;}finally{await ClearOwnedIo(ImageIoKind.TailRead,tail).ConfigureAwait(false);}}
     }
 }
