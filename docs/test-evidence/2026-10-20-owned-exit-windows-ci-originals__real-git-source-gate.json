@@ -1,0 +1,55 @@
+{
+  "Utc": "2026-10-20T00:26:21.906800+00:00",
+  "Head": "00ecaae6def945cf39f3bdacf5fca7f8dc2d69e9",
+  "Parent": "98c3f27d07ee392bf98e647861596812c2d63a39",
+  "Gate": "Pass_RealGitOnly_NotWindowsExecution",
+  "Commands": [
+    {
+      "Argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "Label": "source-head",
+      "Exit": 0,
+      "Output": "00ecaae6def945cf39f3bdacf5fca7f8dc2d69e9\n"
+    },
+    {
+      "Argv": [
+        "git",
+        "rev-list",
+        "--parents",
+        "-n",
+        "1",
+        "HEAD"
+      ],
+      "Label": "source-parent",
+      "Exit": 0,
+      "Output": "00ecaae6def945cf39f3bdacf5fca7f8dc2d69e9 98c3f27d07ee392bf98e647861596812c2d63a39\n"
+    },
+    {
+      "Argv": [
+        "git",
+        "diff",
+        "--name-only",
+        "98c3f27d07ee392bf98e647861596812c2d63a39",
+        "HEAD",
+        "--"
+      ],
+      "Label": "source-scope",
+      "Exit": 0,
+      "Output": ".github/workflows/windows-session-runtime.yml\ndocs/progress.md\nscripts/test_session_runtime_windows.py\nscripts/verify-session-runtime-windows.py\n"
+    },
+    {
+      "Argv": [
+        "git",
+        "status",
+        "--porcelain",
+        "--untracked-files=no"
+      ],
+      "Label": "source-clean",
+      "Exit": 0,
+      "Output": ""
+    }
+  ]
+}

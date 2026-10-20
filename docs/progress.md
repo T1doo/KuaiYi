@@ -1164,3 +1164,7 @@ r03新诊断JSON字典顺序断言118P1F及漏untracked快照如实保留，结�
 生产修复98c3f27d07ee392bf98e647861596812c2d63a39已独审并普通推送，未改YAML。父级可信委派转达用户明确批准同范围必要免费WindowsCI：原已接受SDK10.0.402条款、固定archive／双在线签名／audit／public标准windows-2022／job15min step14min内总13min attempt1／无model publish userPC或新权限许可。
 
 本CI增量严格四文件：workflow仅改名称以请求新run，runner精确PARENT=98c3f27及四文件scope，源门测试补拒绝错误event SHA和dirty checkout，本文进度。SDK安装器／其测试／锁／packaging／生产源码／旧8workflow全部保持。离线两Windows脚本测试模块29P（真实Windows未执行），完整Linux套件未重跑。新结果待独审后单次正常push及实际CI日志核验，不补签旧45calls／25methods失败，不将本地34P当Windows验收；包Hold。失败先完整读日志，必要同范围免费修复CI已获授权，无盲目重跑。
+
+已审CI源码00ecaae6def945cf39f3bdacf5fca7f8dc2d69e9以98c3f27为精确父提交，真实Git四文件源门Pass后单次普通push请求获批验证；离线29P不代表Windows。新授权后唯一Actions读取仍Get Forbidden／Exit1，无数据，停止且不换路。实际run/job链接、终态、各阶段、原始日志/TRX均Unknown，不能认定成功、失败或未启动；待父级正常登录桥接确切SHA，先查已有运行，不再触发。此后仅docs封存不命中YAML。详见[投递与阻断](validation/owned-exit-windows-ci.md)和[原件](test-evidence/2026-10-20-owned-exit-windows-ci.json)。
+
+投递与读取阻断封存独审Pass：24路径／20原件138,206B／事件四源Git00ec匹配；审查回执另列，不补签实际Windows。仅docs封存push，不再投递CI。

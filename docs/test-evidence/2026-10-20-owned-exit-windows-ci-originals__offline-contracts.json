@@ -1,0 +1,23 @@
+{
+  "StartUtc": "2026-10-20T00:24:59.963734+00:00",
+  "EndUtc": "2026-10-20T00:25:00.259791+00:00",
+  "Argv": [
+    "python3",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "scripts",
+    "-p",
+    "test_session*windows*.py"
+  ],
+  "Exit": 0,
+  "Sources": {
+    ".github/workflows/windows-session-runtime.yml": "d746747b4a70a1dbeeb9c05144428c3c77573b06f608ee284aeafbece554bb52",
+    "scripts/verify-session-runtime-windows.py": "872f2ce8e7831b518b149bd0018e8a450475ec1e2412f9c8d5ebfbb2bf26cb90",
+    "scripts/test_session_runtime_windows.py": "c6f30c20c7c5569a238b9455501935391c7b129eb805fe5e2413a33b706d7325"
+  },
+  "WindowsExecution": "NotRun",
+  "SdkInstallationOrNetwork": "NotRun_UnitMocksOnly"
+}

@@ -1,0 +1,162 @@
+{
+  "Utc": "2026-10-20T00:28:09.244679+00:00",
+  "Status": "ReviewedCiSourcePushed_ActualRunReadBlocked_NotConfirmed",
+  "ProductionFix": "98c3f27d07ee392bf98e647861596812c2d63a39",
+  "CiSource": "00ecaae6def945cf39f3bdacf5fca7f8dc2d69e9",
+  "Parent": "98c3f27d07ee392bf98e647861596812c2d63a39",
+  "Branch": "dev/session-runtime-signature-windows",
+  "ExactCiDelta": [
+    ".github/workflows/windows-session-runtime.yml",
+    "scripts/verify-session-runtime-windows.py",
+    "scripts/test_session_runtime_windows.py",
+    "docs/progress.md"
+  ],
+  "IndependentCiSourceReview": "Pass_NoRemainingP1P2",
+  "OfflineTests": {
+    "Count": 29,
+    "Status": "Pass",
+    "Qualification": "UnitMocksOnly_NotWindowsExecutionOrRuntimeValidation"
+  },
+  "RealLocalGitSourceGate": "Pass_ExactFourFiles_ExactParent_EventHead_Clean",
+  "Push": "Exit0_Normal_NoForce",
+  "ActualCi": {
+    "RunId": null,
+    "Url": null,
+    "TriggerStatus": "Requested_NotConfirmed",
+    "ExecutionStatus": "Unknown",
+    "Conclusion": "Unknown",
+    "SignatureSdkRuntimeAuditCoreTestsBuildsCleanup": "Unknown_NotRead",
+    "NewFullLogsOrTrx": "Unavailable_ReadBlocked",
+    "Package": "Hold"
+  },
+  "ReadBlock": {
+    "Action": "gh api Actions workflow runs for exact new source SHA",
+    "Target": "https://api.github.com/repos/T1doo/KuaiYi/actions/runs?head_sha=00ecaae6def945cf39f3bdacf5fca7f8dc2d69e9&per_page=5",
+    "Result": "Exit1_GetForbidden",
+    "Outcome": "ReadDenied_NoDataReturned",
+    "Authorization": "One retry after new relevant user same-scope freeCI approval, previous read known not executed",
+    "AfterDenial": "NoRetry_NoAlternateConnectorApiBrowserRoute",
+    "RequiredNextObservation": "Parent normal-login bridge for this exact SHA: actual run/job URL and conclusion, final JSON with stages/counters/cleanup, complete raw/gzip logs and all original failures/TRX if present. Do not retrigger."
+  },
+  "Approval": {
+    "SourceThread": "01a14dbf-e27d-721e-888a-587c8c296022",
+    "UserEvidence": "Sentinel_5c59c687f4348191a5698c044f52c1a7",
+    "Scope": "Same accepted WindowsSDK10.0.402 and isolation; public standard windows2022,job15min/step14min/inner13min attempt1; same-scope necessary free repairCI authorized; no new credential/security/license/cost permissions"
+  },
+  "Preserved": "Original installer/hash/license/signatures/audit/locks/budgets/isolation/other8workflows untouched; no userPC/model/publish; productionReuseOff and250/600ms/source/password/integrity/cancel/cleanup unchanged; priorWindows45calls25methods and image causes Unknown; realApp/WPF/keyboard/fullP6P7 unaccepted",
+  "OriginalFiles": [
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-windows-ci-originals__actual-run-query.json",
+      "Bytes": 410,
+      "Sha256": "5802a32a58eac83b52ccf8dd4d6930425f8abcb605a5d33d53fcdbc1797757cd"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-windows-ci-originals__actual-run-query.stderr",
+      "Bytes": 133,
+      "Sha256": "9c3563689274c0aafd4522f6294a56917d74958446a6ec35220db235f128733c"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-windows-ci-originals__actual-run-query.stdout",
+      "Bytes": 0,
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-windows-ci-originals__ci-commit.stderr",
+      "Bytes": 0,
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-windows-ci-originals__ci-commit.stdout",
+      "Bytes": 169,
+      "Sha256": "ffb25b8689ac8da72d757450d8c18910fc157bfe658303aef09d68e65445590e"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-windows-ci-originals__ci-delivery.json",
+      "Bytes": 269,
+      "Sha256": "97445e614c7ac99dc5caf746c1759149eac70343cbb0c56411792ab0c74f847b"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-windows-ci-originals__ci-push.stderr",
+      "Bytes": 106,
+      "Sha256": "a57cdcf89a9180578ba5b9be1720c1757f736c641a4f17321064b3095348f24d"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-windows-ci-originals__ci-push.stdout",
+      "Bytes": 0,
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-windows-ci-originals__ci-source-binding.json",
+      "Bytes": 860,
+      "Sha256": "02979bdea63528a5ef145100485b35f01ca02750a0b3d9f0d96f4b08435529ed"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-windows-ci-originals__delivery-and-protected-ci-scope.json",
+      "Bytes": 771,
+      "Sha256": "df575eaa651e407b0af08b9440a16689aea36c5394aa722351813f8664e875d7"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-windows-ci-originals__independent-ci-source-review.txt",
+      "Bytes": 377,
+      "Sha256": "61ea53faa403faf7e2f2fa9b824a765416e65c5f465e6b81273a71424072f9e5"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-windows-ci-originals__offline-contracts.json",
+      "Bytes": 722,
+      "Sha256": "6024711b0927db9cd401efc3047a51c1d9d25d0dfab732a1bc7d56d3c8e7ec0f"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-windows-ci-originals__offline-contracts.stderr",
+      "Bytes": 128,
+      "Sha256": "310331047ba181a0d673e4672ca8d7ce8981b0318742dff88d3f2a227b44f7db"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-windows-ci-originals__offline-contracts.stdout",
+      "Bytes": 167,
+      "Sha256": "e9f956a7cccae88df89bf417e35b9b66c37c08b80d8a48387deba79332395ead"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-windows-ci-originals__real-git-source-gate.json",
+      "Bytes": 1293,
+      "Sha256": "9dfa1977fd5633c656d6c25dfa1fde99fa4c1b29971d693e5450e699c032fc58"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-windows-ci-originals__remote-after-ci-push.stderr",
+      "Bytes": 0,
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-windows-ci-originals__remote-after-ci-push.stdout",
+      "Bytes": 5073,
+      "Sha256": "2398fe2294b579d2a1f79f11270f0c2d3fe0b8f07ae6fa2789d18e2c7b9b3d3d"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-windows-ci-originals__remote-before-ci-push.stderr",
+      "Bytes": 0,
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-windows-ci-originals__remote-before-ci-push.stdout",
+      "Bytes": 5073,
+      "Sha256": "c113b798568636ae9220a8a7f8ef39cd36cff9f3d58167b8bf919e8042722329"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-windows-ci-originals__reviewed-ci-delta.zip",
+      "Bytes": 122655,
+      "Sha256": "2d72eeb6e5b9329c98afd616f805ac367630c25346f2d137b137b0c69b6da31c"
+    },
+    {
+      "Path": "docs/test-evidence/2026-10-20-owned-exit-windows-ci-originals__independent-evidence-review.txt",
+      "Bytes": 544,
+      "Sha256": "6e5a27b158c7fa440673eac46c6097c02549750df33a29309c40329bfc6d73cf"
+    }
+  ],
+  "OriginalTotalBytes": 138750,
+  "IndependentEvidenceReview": {
+    "Status": "Pass_NoRemainingP1P2",
+    "ReviewedPathsBeforeReceipt": 24,
+    "ReviewedOriginalsBeforeReceipt": 20,
+    "ReviewedBytesBeforeReceipt": 138206,
+    "Message": "docs/test-evidence/2026-10-20-owned-exit-windows-ci-originals__independent-evidence-review.txt"
+  }
+}
