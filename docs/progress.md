@@ -1276,3 +1276,12 @@ P7源码子项InProgress，完整P7/R13/真实浏览器与Windows仍NotRun；CI3
 原功能同方法旧基线父拒绝1F；严格parser后真实child仍1F，独立native探针1P精确定位固定Linux Skia忽略有效eXIf（origin1/原3×2像素），没有假称native支持。调整设计独审后，唯一native copy直接移除已验证eXIf，其他字节不变；native精确要求TopLeft，sourceOrientation只进入既有area内核一次，原job仍绑定未删改源长度/SHA。实际copy在成功/native失败/取消/observer异常/受控原task晚返后清零，真实child额外输出/错源/exit7/完整栅格后取消均不交付。首新76P后最终Codec214P=新85+原129组，原128案例源/helpers不改，仅一旧全eXIf拒绝合同改nextIFD自环仍拒绝/Starts0；Provider传输限定37P、Worker/App交叉0W/E、4locked audit restore0。所有失败/探针/中间及最终原件保全不累计，独立最终源码/回执审查无剩余P1/P2。
 
 详见[支持/拒绝合同和实际验证](validation/png-exif.md)/[原件索引](test-evidence/2026-10-20-png-exif.json)。本IFD0子集范围Pass，不是完整Exif/PNG或全格式/真实画质通过。完整JPEG/BMP/WebP/GIF、打开投放UI、本地字号/冻结质量与Windows截图/native/Worker/OCR/WPF仍缺；下一独立候选为受界BMP接入另行最小设计独审。71项基线保护核对、锁/许可字节及App/Imaging无Skia通过；250600/资源及来源密码权限完整性取消清理隔离门、PackageHold/生产复用Off保持，无真实图片/截图/私人文件/模型/新依赖许可安全权限/CI/费用/发布/用户电脑操作，main未改，旧被拒日志未请求或绕路。
+
+
+## 2026-10-20 · P6-02原格式清单内的受界24位BMP
+
+从clean/独审/远端一致2835f12887283b42cbecd677e5270d766286235c核单worktree/唯一writer/main，原SPEC7.1确有BMP，正常dev/p6-bounded-bmp不扩新格式范围。最小设计独审后新增BM14+INFO40/24bpp BI_RGB/planes1/无palette/offset54子集，顶向下/底向上由native统一成TopLeft，不再EXIF翻转；父和Worker在native copy前核签名/尺寸/checked64 stride与精确总长，SizeImage0或exact，其他header/depth/compression/palette/gap显式Unsupported，畸形/溢出/截尾拒绝。native分派明确Bmp，必须原尺寸/格式/TopLeft/静态帧/fullSuccess；实际alpha255由Worker raw/prepared前及父rawBMP commit双核，不靠metadata伪造。
+
+原同方法1F→实际child PNG1P，16种宽1–4/行序/SizeImage组合独立逐BGR核非零padding不进像素，灰度一般缩小/侧界/39拒绝/原SHAjob/错source/EOF退出/取消晚返及实际copy清零过；native失败是内部观测口扰动copy前两byte的受控故障注入，未冒充普通validBMP坏图。首BMP71P后最终72+旧214=Codec286P，旧四测试文件原字节不改，Provider传输限定37P，Worker/App交叉0W/E、4locked audit restore0。78项保护全真，PNG/JPEG方向除显式Bmp分支外原字节相同；独立最终源码/回执审查无剩余P1/P2，测试writer执行，中间不累计，原件保全。
+
+详见[本轮合同及原五格式精确支持表](validation/bounded-bmp.md)/[证据索引](test-evidence/2026-10-20-bounded-bmp.json)。当前隔离接口仅静态受界PNG/IFD0 eXIf、有限8bit单scan baseline JPEG、此24位BMP子集；WebP及GIF首帧+标注未接入，各已支持格式也不当全合法变体通过。下一候选限原清单的受界静态WebP另做设计独审，不向TIFF/HEIC/SVG/PSD/PDF无限扩范围。Windows截图/native/Worker/OCR/WPF、打开投放、本地字号/真实质量/整P6仍未完成；250600及全部安全/资源门、PackageHold/生产复用Off保持。固定依赖/锁/许可及App/Imaging无Skia保持，无新许可权限费用凭据/CI调度/真实用户图或模型/用户电脑/发布，main未改、旧被拒日志未请求或绕路。

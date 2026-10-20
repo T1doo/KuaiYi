@@ -1,0 +1,9 @@
+2026-10-20 /root/settings_import_review — independent read-only delivered review, preserved by writer.
+Design:
+设计可准入，未见需扩大范围的P1/P2。BMP确在原SPEC7.1。24bpp BI_RGB/正负高度/DWORDstride/SizeImage0合同合理。必须显式Bmp格式分派排除非PNG默认JPEG；stride/absheight/payload/total checked64并在copy前完整核长；storageheight只行序不EXIF二翻。承诺实际alpha255则Worker raw/prepared前及parent rawcommit均核实际字节。offset54/无gap palette/INFO40仅产品子集，其他合法变体应称不支持。
+Source/tests:
+源码独审通过，未发现剩余P1/P2。父和Worker nativecopy前解析签名/头/尺寸/stride/精确长，checked64；旧枚举值保持，native归一化行序不EXIF二翻。实际alpha双核并clear，copyobserver后CT检查正确，成功/取消/observer异常/真实native失败/晚返保清理。BGR独立预期、两行序、padding、恶意头和source/job绑定有效；rawalpha攻击现为一致1x1元数据，能单独验证alpha门。
+Final receipts/documents:
+最终只读审查通过，无剩余可确认P1/P2，可封存后正常提交推送。TRX Codec286P=新72+原214，Provider限定传输37P，0F0skip。8命令exit0，Worker/App各0W/E。5当前源、sourceZIP、6产物hash与index一致；78保护全真（76实际文件逐字节等于baseline）。五格式表与SPEC7.1及当前实现一致，PNG/JPEG/BMP均明确子集；WebP/GIF首帧+标注未接。JPEG采样边界准确，未夸大BMP/Windows/UI入口/真实质量/整P6。独审文字和originalsZIP仍待生成，封存补齐目标/核CRC。Reviewer未改文件或运行build/test/network。
+Writer closure:
+Text and archive generated afterward. Writer verifies all archive members byte-for-byte and ZIP CRC; no product/test source changes after reviewed final manifest.

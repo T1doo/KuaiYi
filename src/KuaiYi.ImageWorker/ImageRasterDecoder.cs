@@ -12,7 +12,9 @@ internal static class ImageRasterDecoder
         if(encoded.Length!=job.ByteLength||ImageDecodePolicy.Hash(encoded.Span)!=job.Sha256)throw new ImageJobException(ImageFailure.InvalidImage);
         var header=ImageDecodePolicy.Inspect(encoded.Span);
         if(header.Format==EncodedRasterFormat.Png)ImageDecodePolicy.ValidatePngContainer(encoded.Span,cancellation);
-        else BaselineJpegScan.Validate(encoded.Span,header.Size,cancellation);
+        else if(header.Format==EncodedRasterFormat.Jpeg)BaselineJpegScan.Validate(encoded.Span,header.Size,cancellation);
+        else if(header.Format==EncodedRasterFormat.Bmp)_=BmpDecodePolicy.Inspect(encoded.Span);
+        else throw new ImageJobException(ImageFailure.UnsupportedImage);
         byte[]? copy=null,pixels=null;
         try
         {
@@ -20,10 +22,12 @@ internal static class ImageRasterDecoder
             // Both raw/prepared PNG metadata and raw rejection occur before any native construction.
             copy=header.Format==EncodedRasterFormat.Png?EncodedImageOrientation.CopyPngForNative(encoded.Span,job.PrepareLongEdge!=null,out sourceOrientation,cancellation,nativeInputAllocated):encoded.ToArray();
             if(header.Format!=EncodedRasterFormat.Png)nativeInputAllocated?.Invoke(copy);
+            cancellation.ThrowIfCancellationRequested();
             using var input=new MemoryStream(copy,writable:false);using var codec=SKCodec.Create(input,out var created);
             if(codec==null||created!=SKCodecResult.Success)throw new ImageJobException(ImageFailure.InvalidImage);
             cancellation.ThrowIfCancellationRequested();var info=codec.Info;
-            if((uint)info.Width!=header.Size.Width||(uint)info.Height!=header.Size.Height||codec.EncodedFormat!=(header.Format==EncodedRasterFormat.Png?SKEncodedImageFormat.Png:SKEncodedImageFormat.Jpeg))throw new ImageJobException(ImageFailure.InvalidImage);
+            var expectedFormat=header.Format switch{EncodedRasterFormat.Png=>SKEncodedImageFormat.Png,EncodedRasterFormat.Jpeg=>SKEncodedImageFormat.Jpeg,EncodedRasterFormat.Bmp=>SKEncodedImageFormat.Bmp,_=>throw new ImageJobException(ImageFailure.UnsupportedImage)};
+            if((uint)info.Width!=header.Size.Width||(uint)info.Height!=header.Size.Height||codec.EncodedFormat!=expectedFormat)throw new ImageJobException(ImageFailure.InvalidImage);
             // The reviewed C API returns getFrameInfo().size(): static PNG/JPEG report0.
             // PNG acTL is separately rejected; JPEG has one static raster. Do not treat0 as an animation.
             if(codec.FrameCount is <0 or >1)throw new ImageJobException(ImageFailure.UnsupportedImage);
@@ -34,6 +38,8 @@ internal static class ImageRasterDecoder
             var target=new SKImageInfo(info.Width,info.Height,SKColorType.Bgra8888,SKAlphaType.Unpremul);
             cancellation.ThrowIfCancellationRequested();var result=codec.GetPixels(target,pixels);cancellation.ThrowIfCancellationRequested();
             if(result!=SKCodecResult.Success)throw new ImageJobException(ImageFailure.InvalidImage);
+            if(header.Format==EncodedRasterFormat.Bmp)
+                for(int i=3;i<pixels.Length;i+=4){if((i&65535)==3)cancellation.ThrowIfCancellationRequested();if(pixels[i]!=255)throw new ImageJobException(ImageFailure.InvalidImage);}
             if(job.PrepareLongEdge!=null)return ImageRasterPreparer.Prepare(pixels,job,header.Format,new(info.Width,info.Height,sourceOrientation),cancellation);
             var metadata=new ImageDecodeReply(job,ImageFailure.None,header.Format,info.Width,info.Height,checked(info.Width*4),total,ImageDecodePolicy.Hash(pixels),"BGRA8888-straight",1,1);
             var raster=new DecodedRaster(metadata,pixels);pixels=null;return raster;

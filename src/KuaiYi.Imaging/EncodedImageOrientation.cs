@@ -11,6 +11,7 @@ public static class EncodedImageOrientation
     {
         cancellation.ThrowIfCancellationRequested();
         if(format==EncodedRasterFormat.Png)return ReadPng(bytes,cancellation,out _,out _);
+        if(format==EncodedRasterFormat.Bmp){_=BmpDecodePolicy.Inspect(bytes);return ImageOrientation.ExifTopLeft;}
         int offset=2,segments=0;bool exif=false;var orientation=ImageOrientation.ExifTopLeft;
         while(offset<bytes.Length-2)
         {
