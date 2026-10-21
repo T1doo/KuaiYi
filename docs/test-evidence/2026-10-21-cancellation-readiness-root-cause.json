@@ -1,0 +1,308 @@
+{
+  "baseHead": "2a4bed2a5d9c1a386368f32ce4e4ca286c95ab4d",
+  "branch": "dev/p7-fixed-signoff",
+  "scope": "Two test/fixture files only; all production src unchanged; full Core not yet executed at this checkpoint",
+  "historicalFailure": "Original e2 full Core 2090P1F remains Fail; historical unique root cause unknown",
+  "runs": {
+    "r01-controlled-red": {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~OriginalHeldCancellationExpectationUnderControlledSchedules",
+        "--logger",
+        "trx;LogFileName=r01-controlled-red.trx",
+        "--results-directory",
+        "/workspace/KuaiYi/artifacts/cancellation-readiness-root-cause"
+      ],
+      "exitCode": 1,
+      "seconds": 47.059,
+      "inputsUnchangedDuringRun": true,
+      "logSha256": "2f5b977681aeac32fb11139a76c401aa74ac7390fea279afb04442cc8d03e3f4",
+      "counts": {
+        "total": "2",
+        "executed": "2",
+        "passed": "0",
+        "failed": "2",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trxSha256": "307a0c58240a5308e960c990b7c1ab0bf49b203723c258dabd3fa562cb438c48",
+      "failures": 2
+    },
+    "r02-targeted-green": {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~CloseRetainsTheOriginalBlockedCancellationWorkAndReaderUntilBothActuallySettle|FullyQualifiedName~ControlledSchedulesProveReadyDoesNotPromiseAHeldCancellationCallback",
+        "--logger",
+        "trx;LogFileName=r02-targeted-green.trx",
+        "--results-directory",
+        "/workspace/KuaiYi/artifacts/cancellation-readiness-root-cause"
+      ],
+      "exitCode": 0,
+      "seconds": 14.882,
+      "inputsUnchangedDuringRun": true,
+      "logSha256": "bcd3e59b9bce9060ee360be8bada05175ca6bc198ec81f05b76c40bb60cc8001",
+      "counts": {
+        "total": "3",
+        "executed": "3",
+        "passed": "3",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trxSha256": "ca616faa6ba204b6672a60696456b7cd97dde3deb33ef9188a1d18d139a37048",
+      "failures": 0
+    },
+    "r03-installation-regression": {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~Installation",
+        "--logger",
+        "trx;LogFileName=r03-installation-regression.trx",
+        "--results-directory",
+        "/workspace/KuaiYi/artifacts/cancellation-readiness-root-cause"
+      ],
+      "exitCode": 0,
+      "seconds": 39.496,
+      "inputsUnchangedDuringRun": true,
+      "logSha256": "24a6e7ed01d83477eaf2853dc78900bff0550f0c03cc38e848fff5f5322e3665",
+      "counts": {
+        "total": "163",
+        "executed": "163",
+        "passed": "163",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trxSha256": "324ba55003f9e597e4e1dd82a814d3fcedb78ea53e7c1a5f683de28f2a5ca6e1",
+      "failures": 0
+    }
+  },
+  "protection": {
+    "baseHead": "2a4bed2a5d9c1a386368f32ce4e4ca286c95ab4d",
+    "baselineInputs": 812,
+    "unchanged": 810,
+    "changed": [
+      "tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs",
+      "tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs"
+    ],
+    "allProductSrcUnchanged": true,
+    "originalAssertBlockBytes": 474,
+    "originalAssertBlockSha256": "0c0a872d5feda319d690ff2bb4525d414fa1c3c0dc4109cf81b2d527de5d905c",
+    "originalAssertBlockExactPreserved": true,
+    "oldInstallationCases": 161,
+    "finalInstallationCases": 163,
+    "missingOld": [],
+    "added": [
+      "KuaiYi.Core.Tests.InstallationApplicationControlTests.ControlledSchedulesProveReadyDoesNotPromiseAHeldCancellationCallback(mode: \"held-cancel-ready-return\")",
+      "KuaiYi.Core.Tests.InstallationApplicationControlTests.ControlledSchedulesProveReadyDoesNotPromiseAHeldCancellationCallback(mode: \"held-cancel-before-callback\")"
+    ],
+    "budgets": "Original5s poll/6s peer+exit/20ms poll/40s fixture guard unchanged;250/600ms production untouched"
+  },
+  "independentReview": "Read-only final source/r02/r03 ACK; local per-Read callback fence, unchanged 474byte assertions/budgets, original IO/child settlement, two explicit counterexamples verified. Reviewer no test/build/write. Supports one fixed-commit full Core, no predicted outcome.",
+  "notRun": [
+    "full Core after this fix at checkpoint",
+    "Provider/Codec/App rerun (production unchanged)",
+    "warm auth feature",
+    "real Windows menu/WPF/identity/OLE/OCR/quality/250600/600MiB/full P6P7/106/Beta"
+  ],
+  "archive": {
+    "path": "docs/test-evidence/2026-10-21-cancellation-readiness-root-cause-originals.zip",
+    "bytes": 297722,
+    "sha256": "5f454807a5f65e3e6459781bfb07946f006959ef97872dd57b007a1690577428",
+    "entries": 33
+  },
+  "archiveMembers": {
+    "run/baseline-inputs.json": {
+      "bytes": 95816,
+      "sha256": "0a149df0b5845ab77b990628b799ebda0e26179a498effd5801a94ead8914059"
+    },
+    "run/final-protection.json": {
+      "bytes": 1032,
+      "sha256": "e68f9954f6e0b72172e5f9e5a3d480b92aadcdecdd91599d952b87f9c2384656"
+    },
+    "run/historical-core-failure-001.xml": {
+      "bytes": 5170,
+      "sha256": "a24fc7aeedebd13dfd86387609b0bfed8bf3361c7f6d6938397ec0e6e32222c5"
+    },
+    "run/original-InstallationAppControlFixture.cs": {
+      "bytes": 12929,
+      "sha256": "4e183f7f783e09df8c1f76e58c46f836ec4c83dba1fb66bdc53d6e27d02a2339"
+    },
+    "run/original-InstallationApplicationControlTests.cs": {
+      "bytes": 24292,
+      "sha256": "0b85bf8b90e62805f72e7f3b9f5c1b63b9d93f0758ebfcd62ae422f065745fb7"
+    },
+    "run/r01-controlled-red-dlls.json": {
+      "bytes": 54877,
+      "sha256": "22e6cc1925776d6e5254193137597cf3184ce5e9fe577e58901545c25783b515"
+    },
+    "run/r01-controlled-red-failure-001.xml": {
+      "bytes": 6236,
+      "sha256": "78a815c6e670280b28699ebb014a2171bf932969b43796c3952d5b61eabaf70e"
+    },
+    "run/r01-controlled-red-failure-002.xml": {
+      "bytes": 6239,
+      "sha256": "34fc3f1b8fddfba801bf5ab6ca589cc39329e87d75c9aa3c0afcf6b5aa8129e6"
+    },
+    "run/r01-controlled-red-inputs.json": {
+      "bytes": 95816,
+      "sha256": "f446d738cf914a12a598363847c5e88970a0c9b48ed42807059e753f2b288c9c"
+    },
+    "run/r01-controlled-red-source/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs": {
+      "bytes": 26159,
+      "sha256": "cd57a1a1fa030466a890d0003fccf22e1fdbdeeed461bdf7f84a3531b640a1e2"
+    },
+    "run/r01-controlled-red-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs": {
+      "bytes": 17629,
+      "sha256": "abe4da6bba4bc189207543ed1bee94105a47f28286c26c7fdf6c038cf9586e94"
+    },
+    "run/r01-controlled-red.json": {
+      "bytes": 1136,
+      "sha256": "f1993e38727d8b888e864d01e1895c266b8a8ed9708495cead753b58e32af9c7"
+    },
+    "run/r01-controlled-red.log": {
+      "bytes": 13748,
+      "sha256": "2f5b977681aeac32fb11139a76c401aa74ac7390fea279afb04442cc8d03e3f4"
+    },
+    "run/r01-controlled-red.trx": {
+      "bytes": 30240,
+      "sha256": "307a0c58240a5308e960c990b7c1ab0bf49b203723c258dabd3fa562cb438c48"
+    },
+    "run/r02-targeted-green-dlls.json": {
+      "bytes": 54877,
+      "sha256": "80b400c5c1f4d50d2640163ff9a7ed57dd6f94d07e71d9d4fc536cf48349dbe6"
+    },
+    "run/r02-targeted-green-inputs.json": {
+      "bytes": 95816,
+      "sha256": "f558cca80d1f700adf97bbf2630d677ab6d8f47d36beca4c1952dc003da99e9d"
+    },
+    "run/r02-targeted-green-source/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs": {
+      "bytes": 28290,
+      "sha256": "1f00fce1b9b4199cd97b3de2cd45e1aec3eaa1fea0c972617615b2b2a733efaa"
+    },
+    "run/r02-targeted-green-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs": {
+      "bytes": 18143,
+      "sha256": "250f5c613741cea4eb50d6c6cf1a4b45ce22703ef334d6f447bcaa0eb6cf6eae"
+    },
+    "run/r02-targeted-green.json": {
+      "bytes": 1243,
+      "sha256": "e72403284d7f69c9b23301516ead51e7eae61b665a89593d76d36b3ecafbf3ce"
+    },
+    "run/r02-targeted-green.log": {
+      "bytes": 2084,
+      "sha256": "bcd3e59b9bce9060ee360be8bada05175ca6bc198ec81f05b76c40bb60cc8001"
+    },
+    "run/r02-targeted-green.trx": {
+      "bytes": 8129,
+      "sha256": "ca616faa6ba204b6672a60696456b7cd97dde3deb33ef9188a1d18d139a37048"
+    },
+    "run/r03-installation-regression-dlls.json": {
+      "bytes": 54877,
+      "sha256": "80b400c5c1f4d50d2640163ff9a7ed57dd6f94d07e71d9d4fc536cf48349dbe6"
+    },
+    "run/r03-installation-regression-inputs.json": {
+      "bytes": 95816,
+      "sha256": "f558cca80d1f700adf97bbf2630d677ab6d8f47d36beca4c1952dc003da99e9d"
+    },
+    "run/r03-installation-regression-source/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs": {
+      "bytes": 28290,
+      "sha256": "1f00fce1b9b4199cd97b3de2cd45e1aec3eaa1fea0c972617615b2b2a733efaa"
+    },
+    "run/r03-installation-regression-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs": {
+      "bytes": 18143,
+      "sha256": "250f5c613741cea4eb50d6c6cf1a4b45ce22703ef334d6f447bcaa0eb6cf6eae"
+    },
+    "run/r03-installation-regression.json": {
+      "bytes": 1104,
+      "sha256": "5e8013fe397d01ff2b3bdc3fd18d8a1720d3f7e7352805f95c894e939237ea28"
+    },
+    "run/r03-installation-regression.log": {
+      "bytes": 2091,
+      "sha256": "24a6e7ed01d83477eaf2853dc78900bff0550f0c03cc38e848fff5f5322e3665"
+    },
+    "run/r03-installation-regression.trx": {
+      "bytes": 299838,
+      "sha256": "324ba55003f9e597e4e1dd82a814d3fcedb78ea53e7c1a5f683de28f2a5ca6e1"
+    },
+    "run/red-protection.json": {
+      "bytes": 590,
+      "sha256": "25a34207f7ea8d9ca5b60e17689e49a4b17349f6282b295cf17ce63056ca406b"
+    },
+    "run/run-check.py": {
+      "bytes": 2118,
+      "sha256": "0c266f7565d58c1af53339765f2328ba2ab657528e4eb8a9420871b7c79b217f"
+    },
+    "final-source/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs": {
+      "bytes": 28290,
+      "sha256": "1f00fce1b9b4199cd97b3de2cd45e1aec3eaa1fea0c972617615b2b2a733efaa"
+    },
+    "final-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs": {
+      "bytes": 18143,
+      "sha256": "250f5c613741cea4eb50d6c6cf1a4b45ce22703ef334d6f447bcaa0eb6cf6eae"
+    },
+    "final-source/src/KuaiYi.Core/Installation/InstallationApplicationControl.cs": {
+      "bytes": 18445,
+      "sha256": "bb07bfce296abb23236dd3bc43c47f5b9a9abc73aeea067d6082a4ac912e3883"
+    }
+  }
+}

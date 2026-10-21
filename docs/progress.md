@@ -1402,3 +1402,12 @@ P7-01仍InProgress：本轮没有Windows实机身份/现代菜单/完整CLI-WPF-
 先封失败，下一最小诊断是fixture-only的原可取消Read注册后readArmed屏障，排除Admit None token，并记录READY返回/原回调/原Task状态；不改生产门。随后warm-instance最小下一步是先独审原常驻controller的受界一次性请求lease：双方真实OS连接进程句柄/创建身份与同用户会话/原完整性策略、选中安装generation及live owner/launch/租约；新连接challenge+request+有效期+UI epoch一次消费，保留原cold IMAGE one-shot，不直接放宽第二次IMAGE或浏览器角色白名单。指纹和Show只关联/通知，不授予权限；原Off、预览/OCR/逐次发送确认与清理门保持。此项仅建议，未实现新入口/权限。
 
 [完整原件/命令/日志/TRX/逐字失败XML/812源码与DLL摘要](test-evidence/2026-10-21-p7-fixed-signoff.json)。本次后续提交只证据/报告，P7-01仍InProgress，已有实例认证转交、真实Windows现代菜单→WPF→文件Worker、安装/来源身份、OLE/OCR/画质/250600/600MiB及完整P6P7等未验不变。无新功能/依赖许可/凭据/权限/费用、用户电脑/真实模型、CI/main/强推/部署。
+
+
+## 2026-10-21 · Installation取消持有夹具红门定位与修复
+
+接固定2a4bed2a5d9c1a386368f32ce4e4ca286c95ab4d，原e2全Core2090P1F/Broken pipe原件保留。两个确定性夹具屏障证明旧期望可错：实际READY写出但Send未返/Read未入；Read已注册但后注册同token回调持有期间旧Read先Dispose，原held回调未进入。两者实际child均exit0/原IO结算，r01旧期望0P2F于Ping；不能追认历史唯一根因。
+
+仅测试和夹具修复：原Fact先等同一次可取消inner Read创建后的Armed；normal port取消时保留原registration至本Read局部callbackStarted，再Dispose join回调返回。原474字节断言块、5s/6s/20ms/40s预算不改，body/cleanup双异常保全，生产src/250600/清理退出门不改。r02原Fact+两个明确旧期望反例3P；r03共享Installation163P（旧161全保留+2），均0F0skip，不累计。812输入中810不变；各轮执行中源不变，原日志/TRX/红源/DLL摘要保全。独立只读源码/原件ACK，尚未本修复后完整Core；将固定修复提交只跑一次，失败先分析。见[机制与边界](validation/cancellation-readiness-root-cause.md)/[直接原件](test-evidence/2026-10-21-cancellation-readiness-root-cause.json)。
+
+P7-01/已有实例认证转交/真实Windows菜单-WPF/OLE/OCR/身份/画质/250600/600MiB/完整P6P7仍未验。PackageHold、生产复用Off、WebP odd拒绝及原安全门保持；无新功能/生产改动/依赖许可权限费用凭据/模型用户电脑/CI/main强推部署。

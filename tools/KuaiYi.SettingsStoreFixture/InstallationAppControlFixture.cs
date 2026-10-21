@@ -1,4 +1,5 @@
 using System.IO.Pipes;
+using System.Text.Json;
 using KuaiYi.Core.Installation;
 internal static class InstallationAppControlFixture
 {
@@ -9,12 +10,14 @@ internal static class InstallationAppControlFixture
         string root=Directory.GetParent(Path.TrimEndingDirectorySeparator(AppContext.BaseDirectory))!.Parent!.Parent!.FullName;
         string state="NotAdmitted";var cancelRelease=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         var closingWritten=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);Task? originalLoop=null;
+        Task? originalSettlement=null;var cancellationTrace=new CancellationTrace();CancellationTokenRegistration lateCancellation=default;
         // No UI/cleanup channel creation before the same production proof validation succeeds.
         try
         {
             Stream output=Console.OpenStandardOutput();if(mode is "lost-commit-output" or "unknown-after-commit")output=new LostCommitOutput(output,mode=="unknown-after-commit"?()=>File.WriteAllText(Path.Combine(root,"application","handoff-pending.json"),"PUBLIC_UNKNOWN_AFTER_COMMIT"):null);
             if(mode is "fault-close-pending" or "eof-close-pending")output=new ClosingBarrierOutput(output,closingWritten,()=>originalLoop!);
-            Stream input=Console.OpenStandardInput();if(mode=="held-cancel")input=new HeldCancelInput(input,()=>state="CancelHeld",cancelRelease.Task);
+            if(mode.StartsWith("held-cancel",StringComparison.Ordinal))output=new HeldReadyReturnOutput(output,cancellationTrace,mode=="held-cancel-ready-return");
+            Stream input=Console.OpenStandardInput();if(mode.StartsWith("held-cancel",StringComparison.Ordinal))input=new HeldCancelInput(input,()=>state="CancelHeld",cancelRelease.Task,cancellationTrace,mode=="held-cancel");
             if(mode=="cancel-loop-first")input=new CancellableControlInput(input);
             control=await InstallationApplicationControl.AdmitAsync(input,output,launch,AppContext.BaseDirectory,Path.Combine(root,"user-data"));
         }
@@ -35,7 +38,12 @@ internal static class InstallationAppControlFixture
         {
             state="CleanupUnconfirmed";writer.WriteLine("PUBLIC_CLOSE_UNCONFIRMED|"+error.GetType().Name);
             if(mode=="held-failed-close")failedCloseRelease.Task.GetAwaiter().GetResult(); // Hold this exact reported attempt, not the control loop.
-        },()=>{writer.WriteLine("PUBLIC_SHELL_CLOSED");writer.Flush();if(mode=="held-after-close")exitRelease.Task.GetAwaiter().GetResult();Environment.Exit(0);});
+        },()=>
+        {
+            if(mode.StartsWith("held-cancel",StringComparison.Ordinal))File.WriteAllText(Path.Combine(root,"PUBLIC_CANCELLATION_TRACE.json"),cancellationTrace.Snapshot(originalLoop,originalSettlement));
+            GC.KeepAlive(lateCancellation);
+            writer.WriteLine("PUBLIC_SHELL_CLOSED");writer.Flush();if(mode=="held-after-close")exitRelease.Task.GetAwaiter().GetResult();Environment.Exit(0);
+        });
         async Task RequestClose(CancellationToken _){if(state is "CleanupUnconfirmed" or "Closing")retryWhilePending.TrySetResult();shell.Close();if(mode is "fault-close-pending" or "eof-close-pending"&&control!.FailureCode!=null)await closingWritten.Task;}
         InstallationImageOffer? image=null;var imageReceived=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var imageRevoked=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         Task loop=originalLoop=control.RunAsync(ready.Task,RequestClose,(offer,token)=>
@@ -63,7 +71,17 @@ internal static class InstallationAppControlFixture
             {string closing=$"CLOSING|{control.Proof.Launch:N}|{control.Proof.Fingerprint}\n";Console.Write(closing+closing);Console.Out.Flush();}
             else if(command=="RELEASE_EXIT")exitRelease.TrySetResult();
             else if(command=="READY")ready.TrySetResult();
-            else if(command=="CLOSE")await RequestClose(CancellationToken.None);
+            else if(command=="CLOSE")
+            {
+                if(mode=="held-cancel-before-callback")
+                {
+                    await cancellationTrace.Armed.Task;
+                    lateCancellation=cancellationTrace.Token.Register(()=>
+                    {Interlocked.Increment(ref cancellationTrace.LateEntered);cancellationTrace.Disposed.Task.GetAwaiter().GetResult();Interlocked.Increment(ref cancellationTrace.LateReturned);});
+                }
+                await RequestClose(CancellationToken.None);
+            }
+            else if(command=="WAIT_READ_ARMED"){await cancellationTrace.Armed.Task;await writer.WriteLineAsync("PUBLIC_READ_ARMED");}
             else if(command=="RELEASE_CLOSE")cleanup.TrySetResult();
             else if(command=="RELEASE_CANCEL")cancelRelease.TrySetResult();
             else if(command=="WAIT_CLEANUP"){await cleanupEntered.Task;await writer.WriteLineAsync("PUBLIC_CLEANUP_ENTERED");}
@@ -78,7 +96,36 @@ internal static class InstallationAppControlFixture
             if(mode is "fail-close-once" or "held-failed-close" or "held-cleanup-fails-once"&&!failedClose){failedClose=true;throw new IOException("PUBLIC_CLEANUP_FAILED_ONCE");}
             await cleanup.Task;if(mode=="ended-loop-first")await originalLoop!;
             if(mode=="cancel-loop-first")await Task.WhenAll(Enumerable.Range(0,8).Select(_=>control!.SettleForExitAsync()));
-            await control!.SettleForExitAsync();
+            originalSettlement=control!.SettleForExitAsync();await originalSettlement;
+        }
+    }
+    private sealed class CancellationTrace
+    {
+        internal readonly TaskCompletionSource Armed=new(TaskCreationOptions.RunContinuationsAsynchronously),Disposed=new(TaskCreationOptions.RunContinuationsAsynchronously);
+        internal CancellationToken Token;
+        internal int ReadyWritten,ReadyReturned,ReadyCancelled,ReadEntered,RegistrationArmed,CallbackEntered,CallbackReturned,InnerReturned,ReadCancelled,RegistrationRetained,DisposeStarted,DisposeReturned,LateEntered,LateReturned;
+        internal string Snapshot(Task? loop,Task? settlement)=>JsonSerializer.Serialize(new
+        {
+            ReadyWritten,ReadyReturned,ReadyCancelled,ReadEntered,RegistrationArmed,CallbackEntered,CallbackReturned,InnerReturned,ReadCancelled,RegistrationRetained,DisposeStarted,DisposeReturned,LateEntered,LateReturned,
+            OriginalLoop=loop?.Status.ToString(),OriginalSettlement=settlement?.Status.ToString()
+        });
+    }
+    // The real READY bytes/flush are visible, but the same original Send cannot finish before its stop token cancels.
+    private sealed class HeldReadyReturnOutput(Stream inner,CancellationTrace trace,bool hold):Stream
+    {
+        public override bool CanRead=>false;public override bool CanSeek=>false;public override bool CanWrite=>true;public override long Length=>throw new NotSupportedException();public override long Position{get=>throw new NotSupportedException();set=>throw new NotSupportedException();}
+        public override void Flush()=>inner.Flush();public override Task FlushAsync(CancellationToken ct)=>inner.FlushAsync(ct);
+        public override void Write(byte[] b,int o,int c)=>throw new NotSupportedException();public override int Read(byte[] b,int o,int c)=>throw new NotSupportedException();public override long Seek(long o,SeekOrigin s)=>throw new NotSupportedException();public override void SetLength(long v)=>throw new NotSupportedException();
+        public override async ValueTask WriteAsync(ReadOnlyMemory<byte> buffer,CancellationToken cancellationToken=default)
+        {
+            await inner.WriteAsync(buffer,cancellationToken);
+            if(buffer.Span.StartsWith("READY|"u8))
+            {
+                await inner.FlushAsync(cancellationToken);Interlocked.Increment(ref trace.ReadyWritten);
+                try{if(hold)await Task.Delay(Timeout.InfiniteTimeSpan,cancellationToken);}
+                catch(OperationCanceledException)when(cancellationToken.IsCancellationRequested){Interlocked.Increment(ref trace.ReadyCancelled);throw;}
+                Interlocked.Increment(ref trace.ReadyReturned);
+            }
         }
     }
     private sealed class CancellableControlInput(Stream inner):Stream
@@ -110,14 +157,30 @@ internal static class InstallationAppControlFixture
         public override ValueTask WriteAsync(ReadOnlyMemory<byte> buffer,CancellationToken cancellationToken=default)
         {if(buffer.Span.StartsWith("COMMITTED|"u8)){beforeFailure?.Invoke();throw new IOException("PUBLIC_COMMIT_OUTPUT_FAULT");}return inner.WriteAsync(buffer,cancellationToken);}
     }
-    private sealed class HeldCancelInput(Stream inner,Action entered,Task release):Stream
+    private sealed class HeldCancelInput(Stream inner,Action entered,Task release,CancellationTrace trace,bool retain):Stream
     {
         public override bool CanRead=>true;public override bool CanSeek=>false;public override bool CanWrite=>false;public override long Length=>throw new NotSupportedException();public override long Position{get=>throw new NotSupportedException();set=>throw new NotSupportedException();}
         public override void Flush()=>throw new NotSupportedException();public override void Write(byte[] b,int o,int c)=>throw new NotSupportedException();public override int Read(byte[] b,int o,int c)=>throw new NotSupportedException();public override long Seek(long o,SeekOrigin s)=>throw new NotSupportedException();public override void SetLength(long v)=>throw new NotSupportedException();
         public override async ValueTask<int> ReadAsync(Memory<byte> buffer,CancellationToken cancellationToken=default)
         {
-            using var registration=cancellationToken.Register(()=>{entered();release.GetAwaiter().GetResult();});
-            int read=await inner.ReadAsync(buffer,cancellationToken);if(read==0&&cancellationToken.CanBeCanceled)await Task.Delay(Timeout.InfiniteTimeSpan,cancellationToken);return read;
+            if(!cancellationToken.CanBeCanceled)return await inner.ReadAsync(buffer,cancellationToken);
+            Interlocked.Increment(ref trace.ReadEntered);trace.Token=cancellationToken;
+            var callbackStarted=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously); // This registration only; never a prior Read's signal.
+            var registration=cancellationToken.Register(()=>
+            {Interlocked.Increment(ref trace.CallbackEntered);callbackStarted.TrySetResult();entered();try{release.GetAwaiter().GetResult();}finally{Interlocked.Increment(ref trace.CallbackReturned);}});
+            Interlocked.Increment(ref trace.RegistrationArmed);
+            try
+            {
+                var originalRead=inner.ReadAsync(buffer,cancellationToken);trace.Armed.TrySetResult();
+                int read=await originalRead;Interlocked.Increment(ref trace.InnerReturned);
+                if(read==0)await Task.Delay(Timeout.InfiniteTimeSpan,cancellationToken);return read;
+            }
+            catch(OperationCanceledException)when(cancellationToken.IsCancellationRequested){Interlocked.Increment(ref trace.ReadCancelled);throw;}
+            finally
+            {
+                if(retain&&cancellationToken.IsCancellationRequested){Interlocked.Increment(ref trace.RegistrationRetained);await callbackStarted.Task;}
+                Interlocked.Increment(ref trace.DisposeStarted);registration.Dispose();Interlocked.Increment(ref trace.DisposeReturned);trace.Disposed.TrySetResult();
+            }
         }
     }
 }

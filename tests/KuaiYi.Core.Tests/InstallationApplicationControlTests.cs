@@ -176,14 +176,59 @@ public sealed class InstallationApplicationControlTests(ITestOutputHelper output
     }
     [Fact]public async Task CloseRetainsTheOriginalBlockedCancellationWorkAndReaderUntilBothActuallySettle()
     {
-        using var r=new Rig();await r.Prepare("held-cancel");await using var peer=new Peer(r.PipeA);var port=new Port(output);
-        await using(var coordinator=port.Coordinator(r))
+        var result=new CancellationRun();await RunCancellationSchedule("held-cancel",true,result);
+        using var trace=JsonDocument.Parse(result.Trace!);var state=trace.RootElement;
+        Assert.Equal(1,state.GetProperty("ReadEntered").GetInt32());Assert.Equal(1,state.GetProperty("RegistrationArmed").GetInt32());
+        Assert.Equal(1,state.GetProperty("CallbackEntered").GetInt32());Assert.Equal(1,state.GetProperty("CallbackReturned").GetInt32());
+        Assert.Equal(1,state.GetProperty("RegistrationRetained").GetInt32());Assert.Equal(1,state.GetProperty("DisposeReturned").GetInt32());
+        Assert.Equal("RanToCompletion",state.GetProperty("OriginalLoop").GetString());Assert.Equal("RanToCompletion",state.GetProperty("OriginalSettlement").GetString());
+    }
+    [Theory][InlineData("held-cancel-ready-return")][InlineData("held-cancel-before-callback")]
+    public async Task ControlledSchedulesProveReadyDoesNotPromiseAHeldCancellationCallback(string mode)
+    {
+        var result=new CancellationRun();var error=await Record.ExceptionAsync(()=>RunCancellationSchedule(mode,false,result));
+        var io=Assert.IsType<IOException>(error);Assert.Contains("Peer.Ping",io.StackTrace!);Assert.Equal(new[]{0},result.Exits);
+        using var trace=JsonDocument.Parse(result.Trace!);var state=trace.RootElement;bool skippedRead=mode=="held-cancel-ready-return";
+        Assert.Equal(1,state.GetProperty("ReadyWritten").GetInt32());Assert.Equal(skippedRead?0:1,state.GetProperty("ReadyReturned").GetInt32());Assert.Equal(skippedRead?1:0,state.GetProperty("ReadyCancelled").GetInt32());
+        Assert.Equal(skippedRead?0:1,state.GetProperty("ReadEntered").GetInt32());Assert.Equal(skippedRead?0:1,state.GetProperty("RegistrationArmed").GetInt32());
+        Assert.Equal(0,state.GetProperty("CallbackEntered").GetInt32());Assert.Equal(0,state.GetProperty("CallbackReturned").GetInt32());
+        Assert.Equal(skippedRead?0:1,state.GetProperty("DisposeReturned").GetInt32());Assert.Equal(skippedRead?0:1,state.GetProperty("LateEntered").GetInt32());Assert.Equal(skippedRead?0:1,state.GetProperty("LateReturned").GetInt32());
+        Assert.Equal("RanToCompletion",state.GetProperty("OriginalLoop").GetString());Assert.Equal("RanToCompletion",state.GetProperty("OriginalSettlement").GetString());
+        output.WriteLine("PUBLIC_OLD_EXPECTATION_IO "+io.GetType().Name+" primary=Peer.Ping actualExit=0 originalIO=Settled");
+    }
+    private sealed class CancellationRun
+    {internal string? Trace;internal readonly List<int> Exits=[];}
+    private async Task RunCancellationSchedule(string mode,bool requireReadArmed,CancellationRun result)
+    {
+        using var r=new Rig();await r.Prepare(mode);var peer=new Peer(r.PipeA);var port=new Port(output);var coordinator=port.Coordinator(r);
+        Exception? body=null;List<Exception> cleanup=[];
+        try
         {
-            await coordinator.StartActiveRoleAsync();await peer.Send("CLOSE");var timer=Stopwatch.StartNew();
+            await coordinator.StartActiveRoleAsync();
+            if(requireReadArmed){await peer.Send("WAIT_READ_ARMED");Assert.Equal("PUBLIC_READ_ARMED",await peer.Row());}
+            await peer.Send("CLOSE");var timer=Stopwatch.StartNew();
             while(await peer.Ping()!="PUBLIC_SHELL|CancelHeld"){Assert.True(timer.Elapsed<TimeSpan.FromSeconds(5));await Task.Delay(20);}
             Assert.False(port.Children.Single().HasExited);Assert.True(File.Exists(Path.Combine(r.App,"execution-owner.json")));Assert.Empty(port.Exits);
             await peer.Send("RELEASE_CANCEL");Assert.Equal("PUBLIC_SHELL_CLOSED",await peer.Row());await port.Children.Single().WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(6));
         }
+        catch(Exception error){body=error;}
+        finally
+        {
+            // Release only this fixture's callback before joining the exact coordinator; preserve body and cleanup failures separately.
+            try{if(port.Children.SingleOrDefault() is {} child&&!child.HasExited)await peer.Send("RELEASE_CANCEL");}catch(Exception error){cleanup.Add(error);}
+            try{await coordinator.DisposeAsync();}catch(Exception error){cleanup.Add(error);}
+            try{await peer.DisposeAsync();}catch(Exception error){cleanup.Add(error);}
+            result.Exits.AddRange(port.Exits);
+            try
+            {
+                if(port.Exits.Count!=0)
+                {result.Trace=File.ReadAllText(Path.Combine(r.Root,"PUBLIC_CANCELLATION_TRACE.json"));output.WriteLine("PUBLIC_CANCELLATION_TRACE "+result.Trace);}
+            }
+            catch(Exception error){cleanup.Add(error);}
+        }
+        if(body!=null&&cleanup.Count!=0)throw new AggregateException(new[]{body}.Concat(cleanup));
+        if(body!=null)System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(body).Throw();
+        if(cleanup.Count!=0)throw new AggregateException(cleanup);
         Assert.Equal(new[]{0},port.Exits);
     }
     [Fact]public async Task KnownCommittedStateCannotRevertToCloseWhenAckFailureAlsoLeavesUnknownLedgerBytes()
