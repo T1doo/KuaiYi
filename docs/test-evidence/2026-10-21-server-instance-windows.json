@@ -1,0 +1,617 @@
+{
+  "ProductSource": "92e3548845bd07ee7717b53df9588c412d128f9d",
+  "RuntimeSource": "ef51719275c5dd6ddef335fe2aa31a88466bff5e",
+  "Run": 39572086629,
+  "Job": 119128509028,
+  "JobConclusion": "success",
+  "Status": "Pass_LimitedTwoDeniedAttempts",
+  "ActualExit": 0,
+  "Cases": [
+    {
+      "Phase": "without-client",
+      "FirstOriginalHandleHeldBefore": true,
+      "FirstConnectedBefore": false,
+      "ChildPid": 7416,
+      "Launch": "OrdinaryProcessStart_CurrentToken_NoCredentialOrTokenChange",
+      "OriginalChildTokenObserved": {
+        "UserDigest": "df43b6c0f406fb07889c93845d118cba1a010fb302bbea4b54b551252ffb2f85",
+        "LogonDigest": "ed224da4a85bf7454be80010cb59cebb3ab7f587eeaf0ac9b6ecb983d6294333",
+        "OwnerDigest": "1fe81ab068491cee2d2d0033790911731a638597d67146a2442c4d288ec1d4e4",
+        "AuthenticationDigest": "1deb9d045e99ff987b5a86faa92edc78550663ec5038807aef26a0e793942e1f",
+        "Session": 2,
+        "ProductionIntegrity": -1,
+        "Elevated": true,
+        "AppContainer": false,
+        "UiAccess": false
+      },
+      "ChildSelfToken": {
+        "UserDigest": "df43b6c0f406fb07889c93845d118cba1a010fb302bbea4b54b551252ffb2f85",
+        "LogonDigest": "ed224da4a85bf7454be80010cb59cebb3ab7f587eeaf0ac9b6ecb983d6294333",
+        "OwnerDigest": "1fe81ab068491cee2d2d0033790911731a638597d67146a2442c4d288ec1d4e4",
+        "AuthenticationDigest": "1deb9d045e99ff987b5a86faa92edc78550663ec5038807aef26a0e793942e1f",
+        "Session": 2,
+        "ProductionIntegrity": -1,
+        "Elevated": true,
+        "AppContainer": false,
+        "UiAccess": false
+      },
+      "OriginalTokenIdentityMatched": true,
+      "FirstConnectedAtGo": false,
+      "OriginalChildExitCode": 0,
+      "ChildReply": {
+        "Kind": "ServerInstanceReply",
+        "Pid": 7416,
+        "Token": {
+          "UserDigest": "df43b6c0f406fb07889c93845d118cba1a010fb302bbea4b54b551252ffb2f85",
+          "LogonDigest": "ed224da4a85bf7454be80010cb59cebb3ab7f587eeaf0ac9b6ecb983d6294333",
+          "OwnerDigest": "1fe81ab068491cee2d2d0033790911731a638597d67146a2442c4d288ec1d4e4",
+          "AuthenticationDigest": "1deb9d045e99ff987b5a86faa92edc78550663ec5038807aef26a0e793942e1f",
+          "Session": 2,
+          "ProductionIntegrity": -1,
+          "Elevated": true,
+          "AppContainer": false,
+          "UiAccess": false
+        },
+        "HandleInvalid": true,
+        "Win32": 5,
+        "OpenMode": 1073741827,
+        "PipeMode": 8,
+        "MaximumInstances": 2,
+        "EndpointRequested": "Server_CreateNamedPipe",
+        "Measurement": {
+          "OriginalClientHeldThroughNativeAttempt": null
+        },
+        "OriginalHeldClientClosed": null,
+        "OriginalServerHandleClosed": true,
+        "OriginalGoReadStatus": "RanToCompletion",
+        "CleanupConfirmed": true,
+        "Errors": []
+      },
+      "DeniedWin32Five": true,
+      "OriginalStdinClosed": true,
+      "OriginalStdoutDisposed": true,
+      "OriginalStderrDisposed": true,
+      "OriginalProcessDisposed": true,
+      "OriginalExitJoined": true,
+      "OriginalExitStatus": "RanToCompletion",
+      "OriginalReadyStatus": "RanToCompletion",
+      "OriginalStdoutStatus": "RanToCompletion",
+      "OriginalStderrStatus": "RanToCompletion",
+      "OriginalWriteStatus": "RanToCompletion",
+      "OriginalFlushStatus": "RanToCompletion",
+      "FirstOriginalHandleHeldAfter": true,
+      "CleanupConfirmed": true,
+      "BodyErrors": [],
+      "CleanupErrors": []
+    },
+    {
+      "Phase": "with-held-bit4-client",
+      "FirstOriginalHandleHeldBefore": true,
+      "FirstConnectedBefore": false,
+      "ChildPid": 7764,
+      "Launch": "OrdinaryProcessStart_CurrentToken_NoCredentialOrTokenChange",
+      "OriginalChildTokenObserved": {
+        "UserDigest": "df43b6c0f406fb07889c93845d118cba1a010fb302bbea4b54b551252ffb2f85",
+        "LogonDigest": "ed224da4a85bf7454be80010cb59cebb3ab7f587eeaf0ac9b6ecb983d6294333",
+        "OwnerDigest": "1fe81ab068491cee2d2d0033790911731a638597d67146a2442c4d288ec1d4e4",
+        "AuthenticationDigest": "1deb9d045e99ff987b5a86faa92edc78550663ec5038807aef26a0e793942e1f",
+        "Session": 2,
+        "ProductionIntegrity": -1,
+        "Elevated": true,
+        "AppContainer": false,
+        "UiAccess": false
+      },
+      "ChildSelfToken": {
+        "UserDigest": "df43b6c0f406fb07889c93845d118cba1a010fb302bbea4b54b551252ffb2f85",
+        "LogonDigest": "ed224da4a85bf7454be80010cb59cebb3ab7f587eeaf0ac9b6ecb983d6294333",
+        "OwnerDigest": "1fe81ab068491cee2d2d0033790911731a638597d67146a2442c4d288ec1d4e4",
+        "AuthenticationDigest": "1deb9d045e99ff987b5a86faa92edc78550663ec5038807aef26a0e793942e1f",
+        "Session": 2,
+        "ProductionIntegrity": -1,
+        "Elevated": true,
+        "AppContainer": false,
+        "UiAccess": false
+      },
+      "OriginalTokenIdentityMatched": true,
+      "ActualHeldClientPid": 7764,
+      "FirstConnectedAtGo": true,
+      "OriginalChildExitCode": 0,
+      "ChildReply": {
+        "Kind": "ServerInstanceReply",
+        "Pid": 7764,
+        "Token": {
+          "UserDigest": "df43b6c0f406fb07889c93845d118cba1a010fb302bbea4b54b551252ffb2f85",
+          "LogonDigest": "ed224da4a85bf7454be80010cb59cebb3ab7f587eeaf0ac9b6ecb983d6294333",
+          "OwnerDigest": "1fe81ab068491cee2d2d0033790911731a638597d67146a2442c4d288ec1d4e4",
+          "AuthenticationDigest": "1deb9d045e99ff987b5a86faa92edc78550663ec5038807aef26a0e793942e1f",
+          "Session": 2,
+          "ProductionIntegrity": -1,
+          "Elevated": true,
+          "AppContainer": false,
+          "UiAccess": false
+        },
+        "HandleInvalid": true,
+        "Win32": 5,
+        "OpenMode": 1073741827,
+        "PipeMode": 8,
+        "MaximumInstances": 2,
+        "EndpointRequested": "Server_CreateNamedPipe",
+        "Measurement": {
+          "HeldClientRequestedAccess": 1180063,
+          "HeldClientInvalid": false,
+          "HeldClientWin32OnFailure": null,
+          "HeldClientEndpoint": "Client",
+          "HeldClientFlags": 8,
+          "HeldClientGrantedAccess": "NotRemeasured",
+          "OriginalClientHeldThroughNativeAttempt": true
+        },
+        "OriginalHeldClientClosed": true,
+        "OriginalServerHandleClosed": true,
+        "OriginalGoReadStatus": "RanToCompletion",
+        "CleanupConfirmed": true,
+        "Errors": []
+      },
+      "DeniedWin32Five": true,
+      "OriginalStdinClosed": true,
+      "OriginalStdoutDisposed": true,
+      "OriginalStderrDisposed": true,
+      "OriginalProcessDisposed": true,
+      "OriginalExitJoined": true,
+      "OriginalExitStatus": "RanToCompletion",
+      "OriginalReadyStatus": "RanToCompletion",
+      "OriginalStdoutStatus": "RanToCompletion",
+      "OriginalStderrStatus": "RanToCompletion",
+      "OriginalWriteStatus": "RanToCompletion",
+      "OriginalFlushStatus": "RanToCompletion",
+      "FirstOriginalHandleHeldAfter": true,
+      "CleanupConfirmed": true,
+      "BodyErrors": [],
+      "CleanupErrors": []
+    }
+  ],
+  "NativeWin32": [
+    5,
+    5
+  ],
+  "InvalidServerHandles": [
+    true,
+    true
+  ],
+  "SecondOpenModeHex": "0x40000003",
+  "FirstOpenModeHex": "0x40080003",
+  "PipeMode": 8,
+  "MaxInstances": 2,
+  "OriginalDaclMaskHex": "0x0012019b",
+  "FirstOriginalHandleHeldAcrossBoth": true,
+  "OriginalChildIdentityMatched": true,
+  "ActualHeldClientPid": 7764,
+  "HeldClientCallerSameProcess": true,
+  "NewClientGrantedAccess": "NotRemeasured",
+  "AllOriginalIoExitHandleCleanupConfirmed": true,
+  "Errors": [],
+  "SourceInputs": {
+    "Canonical": 4,
+    "CrlfCheckout": 366,
+    "Mismatch": 0
+  },
+  "RawEvidenceFiles": 20,
+  "RawEvidenceBytes": 81135,
+  "RawServerGrantedAccess": "NotApplicable_BothInvalidHandles",
+  "AnySuccessfulServerHandleWouldRemainRed": true,
+  "PreviousClientBit4SecurityRed": "Retained_NotBackfilledOrDeclaredHarmless",
+  "Scope": "Only current inherited-token child and fixture conditions; not cross-identity DACL security",
+  "ImagesUiWorker": "NotRun",
+  "PositiveMediumWarm": "Blocked_NoExistingMediumEntry",
+  "Explorer": "NotRun",
+  "Package": "Hold",
+  "ProductionReuse": "Off",
+  "ModelCalls": 0,
+  "Library": {
+    "library_file_id": "libfile_6b161863e82481919114e39599f68fd9",
+    "file_id": "file_000000007a6482308bb45b16853eca05",
+    "current_version_number": 0,
+    "file_name": "KuaiYi-P7-server-instance-ef51719-originals.zip",
+    "path": "/KuaiYi-P7-server-instance-ef51719-originals.zip",
+    "file_size_bytes": 350443,
+    "status": "succeeded",
+    "local_path": "/workspace/KuaiYi/artifacts/server-instance-windows/KuaiYi-P7-server-instance-ef51719-originals.zip"
+  },
+  "Bundle": {
+    "Bytes": 350443,
+    "Sha256": "632c0290faead78db853e0869f95e03de142df7ba4b508740d9a4e583abadff6",
+    "Members": 44
+  },
+  "Originals": {
+    "RawBytes": 118937,
+    "RawSha256": "f2a4656ca43a254597143499f15604dc8d0d4a8146c1c87008de53a3c0c628a8",
+    "OriginalZipBytes": 255614,
+    "OriginalZipSha256": "ae1f641934fc5f09a10b747f93688ef775b036d91769b66ed05bf55d44b8be6b",
+    "OriginalZipMembers": 36,
+    "InputCounts": {
+      "Canonical": 4,
+      "CrlfCheckout": 366,
+      "Mismatch": 0
+    }
+  },
+  "Commands": [
+    {
+      "Name": "source-head",
+      "Argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "Exit": 0,
+      "Log": "source-head.log",
+      "LogBytes": 41,
+      "LogSha256": "42144cba7b78dedfdc75946b30464cb30573d044c893fd2ccc178f1135ea2dcb"
+    },
+    {
+      "Name": "source-parent",
+      "Argv": [
+        "git",
+        "rev-list",
+        "--parents",
+        "-n",
+        "1",
+        "HEAD"
+      ],
+      "Exit": 0,
+      "Log": "source-parent.log",
+      "LogBytes": 82,
+      "LogSha256": "85c7ce434c3edb71b4c76e95b1656abd9cd4ecbdffa45182d662d37374ca5b0c"
+    },
+    {
+      "Name": "source-scope",
+      "Argv": [
+        "git",
+        "diff",
+        "--name-only",
+        "c49c308f52551f84fa9683523aca2f415189ab50",
+        "HEAD"
+      ],
+      "Exit": 0,
+      "Log": "source-scope.log",
+      "LogBytes": 293,
+      "LogSha256": "caa7930327949737ec1bcba3512ceca9a766cf363373e31e55326d61617c168a"
+    },
+    {
+      "Name": "source-clean",
+      "Argv": [
+        "git",
+        "status",
+        "--porcelain=v1"
+      ],
+      "Exit": 0,
+      "Log": "source-clean.log",
+      "LogBytes": 0,
+      "LogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Name": "fixed-product-source",
+      "Argv": [
+        "git",
+        "diff",
+        "--name-only",
+        "92e3548845bd07ee7717b53df9588c412d128f9d",
+        "HEAD",
+        "--",
+        "src",
+        "tests",
+        "packaging",
+        "global.json",
+        "Directory.Build.props",
+        "Directory.Packages.props",
+        "NuGet.Config"
+      ],
+      "Exit": 0,
+      "Log": "fixed-product-source.log",
+      "LogBytes": 0,
+      "LogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Name": "verifier-version",
+      "Argv": [
+        "C:\\ProgramData\\chocolatey\\lib\\nuget.commandline\\tools\\nuget.exe",
+        "help",
+        "-ForceEnglishOutput",
+        "-NonInteractive"
+      ],
+      "Exit": 0,
+      "Log": "verifier-version.log",
+      "LogBytes": 3416,
+      "LogSha256": "1efcf05bcaebfc252d07aa84aef6bf939aaeb30534c69bdfeb03cfe0523d73a7"
+    },
+    {
+      "Name": "verify-Microsoft.NETCore.App.Runtime.win-x64",
+      "Argv": [
+        "C:\\ProgramData\\chocolatey\\lib\\nuget.commandline\\tools\\nuget.exe",
+        "verify",
+        "-All",
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\server-instance-windows\\a6beeecff3a2b875314f5b0b308f8e83\\microsoft.netcore.app.runtime.win-x64.nupkg",
+        "-ForceEnglishOutput",
+        "-NonInteractive",
+        "-Verbosity",
+        "normal"
+      ],
+      "Exit": 0,
+      "Log": "verify-Microsoft.NETCore.App.Runtime.win-x64.log",
+      "LogBytes": 3216,
+      "LogSha256": "e53cc54074d45bb89580a4a8b17fb3ddf0ca2394ead663233f7b239012e898c5"
+    },
+    {
+      "Name": "verify-Microsoft.WindowsDesktop.App.Runtime.win-x64",
+      "Argv": [
+        "C:\\ProgramData\\chocolatey\\lib\\nuget.commandline\\tools\\nuget.exe",
+        "verify",
+        "-All",
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\server-instance-windows\\a6beeecff3a2b875314f5b0b308f8e83\\microsoft.windowsdesktop.app.runtime.win-x64.nupkg",
+        "-ForceEnglishOutput",
+        "-NonInteractive",
+        "-Verbosity",
+        "normal"
+      ],
+      "Exit": 0,
+      "Log": "verify-Microsoft.WindowsDesktop.App.Runtime.win-x64.log",
+      "LogBytes": 3237,
+      "LogSha256": "bca0cdd6bed004370c9e50a7c24b46373760867ac6f6045658044552fce0a35c"
+    },
+    {
+      "Name": "sdk-version",
+      "Argv": [
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\server-instance-windows\\a6beeecff3a2b875314f5b0b308f8e83\\sdk-10.0.402\\dotnet.exe",
+        "--version"
+      ],
+      "Exit": 0,
+      "Log": "sdk-version.log",
+      "LogBytes": 10,
+      "LogSha256": "6d5ab2a4ef35ceec908f01287257f530b0c0d68f0e84326df2ebcea641f9134b"
+    },
+    {
+      "Name": "runtime-restore",
+      "Argv": [
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\server-instance-windows\\a6beeecff3a2b875314f5b0b308f8e83\\sdk-10.0.402\\dotnet.exe",
+        "restore",
+        "packaging/session-runtime-audit/session-runtime-audit.csproj",
+        "--locked-mode",
+        "--configfile",
+        "D:\\a\\KuaiYi\\KuaiYi\\NuGet.Config",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true",
+        "-p:EnableWindowsTargeting=true",
+        "-p:RuntimeFrameworkVersion=10.0.13"
+      ],
+      "Exit": 0,
+      "Log": "runtime-restore.log",
+      "LogBytes": 145,
+      "LogSha256": "a1b5d71ded42918f0e2a28057b3e6e6a386c893ca12eddc6af8907466ba82395"
+    },
+    {
+      "Name": "runtime-inventory",
+      "Argv": [
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\server-instance-windows\\a6beeecff3a2b875314f5b0b308f8e83\\sdk-10.0.402\\dotnet.exe",
+        "list",
+        "packaging/session-runtime-audit/session-runtime-audit.csproj",
+        "package",
+        "--include-transitive",
+        "--format",
+        "json",
+        "--no-restore"
+      ],
+      "Exit": 0,
+      "Log": "runtime-inventory.log",
+      "LogBytes": 709,
+      "LogSha256": "f86aea899bd6817bcf34f90ff5399f650e8754dc68c661157672f6184da6efc9"
+    },
+    {
+      "Name": "runtime-audit",
+      "Argv": [
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\server-instance-windows\\a6beeecff3a2b875314f5b0b308f8e83\\sdk-10.0.402\\dotnet.exe",
+        "list",
+        "packaging/session-runtime-audit/session-runtime-audit.csproj",
+        "package",
+        "--vulnerable",
+        "--include-transitive",
+        "--format",
+        "json",
+        "--no-restore",
+        "--source",
+        "https://api.nuget.org/v3/index.json"
+      ],
+      "Exit": 0,
+      "Log": "runtime-audit.log",
+      "LogBytes": 275,
+      "LogSha256": "daa202d20fe37419e684fe0041fc4dcb8157871817be38a6d9c28e7d53b831e9"
+    },
+    {
+      "Name": "harness-restore",
+      "Argv": [
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\server-instance-windows\\a6beeecff3a2b875314f5b0b308f8e83\\sdk-10.0.402\\dotnet.exe",
+        "restore",
+        "tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj",
+        "--locked-mode",
+        "--configfile",
+        "D:\\a\\KuaiYi\\KuaiYi\\NuGet.Config",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true",
+        "-p:EnableWindowsTargeting=true",
+        "-p:RuntimeFrameworkVersion=10.0.13"
+      ],
+      "Exit": 0,
+      "Log": "harness-restore.log",
+      "LogBytes": 813,
+      "LogSha256": "0d6aad0d0dedf09af578bb774bc831c8f115403351ed10ef8b3f121ccb2abea4"
+    },
+    {
+      "Name": "harness-inventory",
+      "Argv": [
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\server-instance-windows\\a6beeecff3a2b875314f5b0b308f8e83\\sdk-10.0.402\\dotnet.exe",
+        "list",
+        "tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj",
+        "package",
+        "--include-transitive",
+        "--format",
+        "json",
+        "--no-restore"
+      ],
+      "Exit": 0,
+      "Log": "harness-inventory.log",
+      "LogBytes": 288,
+      "LogSha256": "8366e475b85ecc7003f6703c8294846f90ef2c51efd8a9ccae2b63c48df55470"
+    },
+    {
+      "Name": "harness-audit",
+      "Argv": [
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\server-instance-windows\\a6beeecff3a2b875314f5b0b308f8e83\\sdk-10.0.402\\dotnet.exe",
+        "list",
+        "tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj",
+        "package",
+        "--vulnerable",
+        "--include-transitive",
+        "--format",
+        "json",
+        "--no-restore",
+        "--source",
+        "https://api.nuget.org/v3/index.json"
+      ],
+      "Exit": 0,
+      "Log": "harness-audit.log",
+      "LogBytes": 269,
+      "LogSha256": "fbd50dd4b46098ac4dc5494ce003120166ee784a2ffe390e02f46badbaf713dc"
+    },
+    {
+      "Name": "harness-build",
+      "Argv": [
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\server-instance-windows\\a6beeecff3a2b875314f5b0b308f8e83\\sdk-10.0.402\\dotnet.exe",
+        "build",
+        "tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false",
+        "-p:EnableWindowsTargeting=true",
+        "-p:RuntimeFrameworkVersion=10.0.13"
+      ],
+      "Exit": 0,
+      "Log": "harness-build.log",
+      "LogBytes": 1044,
+      "LogSha256": "a2694519d6a6f8a60ea0239931e13f4bb0e6deed148a890b6d8abc94624d4240"
+    },
+    {
+      "Name": "input-paths",
+      "Argv": [
+        "git",
+        "ls-files",
+        "src",
+        "packaging",
+        "tools/KuaiYi.GrowthHarness",
+        "scripts/install-session-sdk-windows.py",
+        "scripts/prepare-session-test.py",
+        "scripts/verify-session-runtime-windows.py",
+        "global.json",
+        "Directory.Build.props",
+        "Directory.Packages.props",
+        "NuGet.Config"
+      ],
+      "Exit": 0,
+      "Log": "input-paths.log",
+      "LogBytes": 15605,
+      "LogSha256": "aec1a961446adbbd58a24ab62cb61cbbb3ca8f3ff6577980cf2ebd0b6f8b3607"
+    },
+    {
+      "Name": "actual-server-instance",
+      "Argv": [
+        "D:\\a\\KuaiYi\\KuaiYi\\tools\\KuaiYi.GrowthHarness\\bin\\Release\\net10.0-windows\\win-x64\\KuaiYi.GrowthHarness.exe",
+        "--ci-server-instance-parent",
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\server-instance-windows\\a6beeecff3a2b875314f5b0b308f8e83\\probe-result.json"
+      ],
+      "Exit": 0,
+      "Log": "actual-server-instance.log",
+      "LogBytes": 0,
+      "LogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "State": {
+    "ParentToken": {
+      "UserDigest": "df43b6c0f406fb07889c93845d118cba1a010fb302bbea4b54b551252ffb2f85",
+      "LogonDigest": "ed224da4a85bf7454be80010cb59cebb3ab7f587eeaf0ac9b6ecb983d6294333",
+      "OwnerDigest": "1fe81ab068491cee2d2d0033790911731a638597d67146a2442c4d288ec1d4e4",
+      "AuthenticationDigest": "1deb9d045e99ff987b5a86faa92edc78550663ec5038807aef26a0e793942e1f",
+      "Session": 2,
+      "ProductionIntegrity": -1,
+      "Elevated": true,
+      "AppContainer": false,
+      "UiAccess": false
+    },
+    "IdentityPurpose": "ReadOnlyCorrelation_NotProductionAuthorization",
+    "FirstCreateWin32OnFailure": null,
+    "FirstOpenMode": 1074266115,
+    "SecondOpenMode": 1073741827,
+    "PipeMode": 8,
+    "MaximumInstances": 2,
+    "DaclMask": 1180059,
+    "PipeOwnerMatchesOriginalTokenOwner": true,
+    "ExactProtectedSingleLogonDacl": true,
+    "HeldClientRequestedAccess": 1180063,
+    "HeldClientOwner": "SecondOriginalChild_AlsoCallsCreateNamedPipe",
+    "HeldClientGrantedAccess": "NotRemeasured_Prior9d90a1fEvidenceRetained",
+    "FirstOriginalHandleHeldAcrossBoth": true,
+    "OriginalConnectionStatus": "RanToCompletion",
+    "OriginalConnectionJoined": true,
+    "OriginalServerDispose": "RanToCompletion",
+    "OriginalFirstServerClosed": true,
+    "CleanupConfirmed": true,
+    "BodyErrors": [],
+    "CleanupErrors": []
+  },
+  "AuditCoverage": [
+    {
+      "Project": "D:\\a\\KuaiYi\\KuaiYi\\packaging\\session-runtime-audit\\session-runtime-audit.csproj",
+      "PackageCount": 2,
+      "Frameworks": [
+        "net10.0"
+      ]
+    },
+    {
+      "Project": "D:\\a\\KuaiYi\\KuaiYi\\tools\\KuaiYi.GrowthHarness\\KuaiYi.GrowthHarness.csproj",
+      "PackageCount": 0,
+      "Frameworks": [
+        "net10.0-windows"
+      ]
+    }
+  ],
+  "IndependentReview": "Limited_ACK_20_raw_files_370_source_inputs",
+  "SourceHashesPreAndPostMatch": true,
+  "LocalValidation": {
+    "Command": [
+      "python3",
+      "-B",
+      "scripts/session-sdk.py",
+      "build",
+      "tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj",
+      "--no-restore",
+      "-c",
+      "Release",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false",
+      "-p:EnableWindowsTargeting=true"
+    ],
+    "BuildResult": "0 warnings / 0 errors",
+    "AdmissionTestMethods": 3,
+    "AdmissionScope": "Existing CI context/source-scope/deployment-collision helper; not product cases",
+    "InitialFailure": "CS0136 in compile-03.log preserved; fixed inner clientNative name; no historical result backfill"
+  },
+  "PreviousClientBit4Evidence": {
+    "Source": "9d90a1f75f587ed20f2214a4b9efaf3f4bdff514",
+    "Run": 39567803017,
+    "LibraryId": "libfile_98055d2e0c7881919817c99b05a88e31",
+    "Status": "Fail_security_red_retained"
+  }
+}
