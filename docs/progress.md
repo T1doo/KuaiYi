@@ -1,6 +1,6 @@
 # 开发进度
 
-2026-10-21 管道权限接续准备：仅新harness查询原bit4客户端句柄NtQueryObject GrantedAccess及实际endpoint；另一个原策略fixture独立执行exact-mask与双方真实Elevated peer拒绝，逐项保留正文/清理异常。bit4实授保留安全红门、查询失败未确认；不以first-instance失败证明DACL拒绝。未改产品ACL/安全设置，不造借token，不重复3条已过图片链。独审后一次原获准免费WindowsCI。见 [准备范围](validation/warm-pipe-access-windows.md)。
+2026-10-21 管道权限实测独审ACK：源9d90a1f的单次Windows run39567803017确认原客户端请求/实授0x12019f、bit4=true，安全红门保持，整轮failure/Blocked/Fail/exit3；未解释无风险或断定生产DACL漏洞。独立exact-mask段实授0x12019b不含bit4，双方真实PID/session匹配及四项Elevated/组合负例通过，两段全部原清理确认。仅测客户端实授，额外服务器实例/跨身份DACL拒绝未验；无UI/Worker/图片链重复。原件Library `libfile_98055d2e0c7881919817c99b05a88e31`，产品/锁不改。见 [实际观测与安全红门](validation/warm-pipe-access-windows.md)。
 
 2026-10-21 Windows 实际分段独审 ACK：源10d5的 run39565330615 中，三例真实安全文件→Worker→默认同进程Shell WPF预览、GIF可见首帧与原内存/位图清零、原关闭join均Pass；首次实现了此限定真实链证据。整轮仍failure/exit3：客户端bit4实验得到有效句柄触发保留断言，未查GrantedAccess，不能据此推导服务器权限或跨身份访问。High Current拒绝、原DACL结构与second bind Win32 5通过；后续双方peer分支NotRun。两轮红件完整保存到Library `libfile_c32e11ee722c8191b4303512b346a51e`，不循环刷绿。固定92e产品与锁不改，warm/Explorer/安装/250600ms/画质仍未验。见 [实际分段和原件](validation/warm-components-windows.md)。
 
