@@ -1,4 +1,4 @@
-"""One public Windows component attempt, with the already approved SDK/signature/audit gates."""
+"""One public Windows pipe-access measurement attempt, with the already approved SDK/signature/audit gates."""
 import base64
 import hashlib
 import importlib.util
@@ -15,11 +15,11 @@ import urllib.request
 import zipfile
 
 FIXED = "92e3548845bd07ee7717b53df9588c412d128f9d"
-PARENT = "8adf512bb30ba855ced011ea156327dd99237a6c"
+PARENT = "a7f6aa57ca11c707203dfd5d8062bd88d3acd508"
 BRANCH = "refs/heads/dev/p7-fixed-signoff"
 FILES = frozenset((".github/workflows/windows-warm-components.yml", "scripts/verify-warm-components-windows.py",
-                  "tools/KuaiYi.GrowthHarness/WarmWindowsProbe.cs", "tools/KuaiYi.GrowthHarness/WarmWindowsPipeProbe.cs",
-                  "docs/progress.md", "docs/validation/warm-components-windows.md"))
+                  "tools/KuaiYi.GrowthHarness/Program.cs", "tools/KuaiYi.GrowthHarness/WarmWindowsPipeAccessProbe.cs",
+                  "docs/progress.md", "docs/validation/warm-pipe-access-windows.md"))
 
 
 def load(path, name):
@@ -92,11 +92,11 @@ def execute(repo, env):
     installer = load(repo / "scripts/install-session-sdk-windows.py", "approved_windows_installer")
     policy = helper.load_policy(repo)
     policy.require_signature_environment(env)
-    work = repo / "artifacts/warm-components-windows" / os.urandom(16).hex()
+    work = repo / "artifacts/warm-pipe-access-windows" / os.urandom(16).hex()
     if any(helper.linked(p) for p in (work, *work.parents)):
         raise RuntimeError("Linked job directory rejected")
     work.mkdir(parents=True, exist_ok=False)
-    report = {"Kind": "WarmWindowsComponents", "Status": "Blocked", "Stage": "Source", "FixedProductSource": FIXED,
+    report = {"Kind": "WarmPipeGrantedAccessReview", "Status": "Blocked", "Stage": "Source", "FixedProductSource": FIXED,
               "Commands": [], "RuntimePackages": [], "EvidenceFiles": [], "Package": "Hold", "ProductionReuse": "Off",
               "ModelCalls": 0, "PositiveWarm": "Blocked_NoMediumEntry", "Explorer": "NotRun", "NewAttempt": 1}
     deadline = time.monotonic() + 13 * 60
@@ -166,7 +166,7 @@ def execute(repo, env):
         props = ["-p:EnableWindowsTargeting=true", "-p:RuntimeFrameworkVersion=" + contract["runtime"]]
         report["Stage"] = "LockedRestoreAuditBuild"
         projects = [("runtime", "packaging/session-runtime-audit/session-runtime-audit.csproj"),
-                    ("harness", "tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj"), ("worker", "src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj")]
+                    ("harness", "tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj")]
         report["AuditCoverage"] = []
         for name, project in projects:
             run([dotnet, "restore", project, "--locked-mode", *config, *props], name + "-restore")
@@ -177,21 +177,21 @@ def execute(repo, env):
             if name != "runtime":
                 run([dotnet, "build", project, "--no-restore", "-c", "Release", "-m:1", "-nr:false", "-p:UseSharedCompilation=false", *props], name + "-build")
         target = repo / "tools/KuaiYi.GrowthHarness/bin/Release/net10.0-windows/win-x64"
-        report["Stage"] = "ExactDeployment"
-        report["Deployment"] = deploy(repo / "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64", repo / "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64", target, helper)
+        report["Images"] = "NotRun_PreviousThreeCasesNotRepeated"
+        report["AppUi"] = report["Worker"] = "NotRun"
         # Physical checkout hashes describe CRLF on Windows; source_gate binds canonical product inputs to FIXED.
-        paths = run(["git", "ls-files", "src", "packaging", "tools/KuaiYi.GrowthHarness", "tests/fixtures/images", "scripts/install-session-sdk-windows.py", "scripts/prepare-session-test.py", "scripts/verify-session-runtime-windows.py", "global.json", "Directory.Build.props", "Directory.Packages.props", "NuGet.Config"], "input-paths", 15).splitlines()
+        paths = run(["git", "ls-files", "src", "packaging", "tools/KuaiYi.GrowthHarness", "scripts/install-session-sdk-windows.py", "scripts/prepare-session-test.py", "scripts/verify-session-runtime-windows.py", "global.json", "Directory.Build.props", "Directory.Packages.props", "NuGet.Config"], "input-paths", 15).splitlines()
         inputs = {p: helper.file_hash(repo / p) for p in paths}
         (work / "checkout-inputs.json").write_text(json.dumps(inputs, indent=2) + "\n")
         report["BinaryInputs"] = {str(p.relative_to(target)): helper.file_hash(p) for p in target.rglob("*") if p.is_file()}
-        report["Stage"] = "RealWindowsHarness"
-        run([str(target / "KuaiYi.GrowthHarness.exe"), "--ci-local-image-shell", str(work / "probe-result.json"), str(repo / "tests/fixtures/images")], "actual-components", 120)
+        report["Stage"] = "RealWindowsPipeAccessHarness"
+        run([str(target / "KuaiYi.GrowthHarness.exe"), "--ci-pipe-access", str(work / "probe-result.json")], "actual-pipe-access", 45)
         actual = json.loads((work / "probe-result.json").read_text())
-        if actual.get("Status") != "Pass_ComponentsOnly" or len(actual.get("Cases", [])) != 3 or actual.get("Errors") or not actual.get("OriginalCloseJoined"):
-            raise RuntimeError("Original component assertions did not pass")
+        if actual.get("Kind") != "RealOwnPipeGrantedAccessReview" or actual.get("Status") != "Pass_MeasurementsOnly" or len(actual.get("Fixtures", [])) != 2 or actual.get("Errors"):
+            raise RuntimeError("Original pipe access measurements did not pass")
         if {p: helper.file_hash(repo / p) for p in paths} != inputs:
             raise RuntimeError("Source changed during actual execution")
-        report.update(Status="Pass_ComponentsOnly", Stage="Completed", Actual=actual)
+        report.update(Status="Pass_MeasurementsOnly", Stage="Completed", Actual=actual)
         code = 0
     except urllib.error.HTTPError as error:
         report.update(Reason="OfficialSourceHttpFailure_NoRetry", HttpStatus=error.code)
@@ -199,7 +199,7 @@ def execute(repo, env):
         report.update(Reason=type(error).__name__, Error=str(error) if isinstance(error, RuntimeError) else None)
     finally:
         registry = list(report["Commands"])
-        for name in ("probe-result.json", "probe-result.json.phases.log", "checkout-inputs.json", "synthetic-two-frame.gif"):
+        for name in ("probe-result.json", "checkout-inputs.json"):
             path = work / name
             if path.is_file():
                 registry.append({"Name": name, "Log": name, "LogBytes": path.stat().st_size, "LogSha256": helper.file_hash(path)})

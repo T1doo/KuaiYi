@@ -1,4 +1,4 @@
-name: One diagnosed pipe and independent default Shell Windows attempt
+name: One original client GrantedAccess and independent peer Windows review
 on:
   push:
     branches: [dev/p7-fixed-signoff]
@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
 jobs:
-  default-shell-components:
+  pipe-access-review:
     if: ${{ github.repository == 'T1doo/KuaiYi' && github.event_name == 'push' && github.ref == 'refs/heads/dev/p7-fixed-signoff' && github.event.repository.private == false && github.run_attempt == '1' }}
     runs-on: windows-2022
     timeout-minutes: 15
@@ -20,10 +20,10 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
           ref: ${{ github.sha }}
-          fetch-depth: 6
+          fetch-depth: 8
           persist-credentials: false
           set-safe-directory: false
-      - name: Original approved SDK signature audit and bounded real Windows components
+      - name: Original approved SDK gates and bounded pipe access measurements
         timeout-minutes: 14
         shell: pwsh
         run: |
