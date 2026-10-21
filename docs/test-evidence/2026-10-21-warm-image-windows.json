@@ -1,0 +1,340 @@
+{
+  "kind": "WarmImageWindowsPrerequisitesEvidence",
+  "deliverySource": "e36c92f8c978cd6871e3bbc30a99623d60ef9b64",
+  "fixedProductSource": "92e3548845bd07ee7717b53df9588c412d128f9d",
+  "sourceReview": "Limited_ACK",
+  "resultReview": "Limited_ACK",
+  "run": 39559953411,
+  "job": 119088533514,
+  "runUrl": "https://github.com/T1doo/KuaiYi/actions/runs/39559953411",
+  "conclusion": "success",
+  "scope": "Read-only prerequisites only; all product acceptance NotRun",
+  "sdk": "NotExecuted",
+  "securityChanges": 0,
+  "modelCalls": 0,
+  "newCiAttempts": 1,
+  "blocker": "Current own token High/elevated; linked query 1312 returned no token. No eligible existing execution entry obtained; not proof all medium routes impossible.",
+  "nextCondition": "An already eligible same-user/logon/AuthId/session medium non-elevated primary execution entry, existing desktop access and launch handle rights; or explicit authorization for precisely scoped creation/change.",
+  "independentNextPreparation": "Local-file safe open -> actual ImageWorker -> actual WPF preview/GIF notice and owner cleanup; actual High-peer/first-instance/DACL negative components. Not yet implemented/run; cannot substitute warm authentication.",
+  "actualPrerequisites": {
+    "Kind": "WarmImageWindowsPrerequisites",
+    "Status": "InventoryComplete_ProductNotRun",
+    "Stage": "Completed",
+    "FixedProductSource": "92e3548845bd07ee7717b53df9588c412d128f9d",
+    "DeliverySource": "e36c92f8c978cd6871e3bbc30a99623d60ef9b64",
+    "Reason": "PrerequisitesOnly_NoAuthorizationOrAcceptance",
+    "Token": {
+      "Current": {
+        "Integrity": 12288,
+        "ElevationType": 1,
+        "Session": 2,
+        "TokenType": 1,
+        "Elevated": true,
+        "AppContainer": false,
+        "UiAccess": false,
+        "LogonSidPresent": true,
+        "AuthenticationIdPresent": true,
+        "CandidateShapeEligible": false
+      },
+      "Linked": null,
+      "LinkedStatus": "Unavailable",
+      "LinkedWin32Error": 1312,
+      "SameUser": false,
+      "SameLogon": false,
+      "SameAuthentication": false,
+      "SameSession": false,
+      "LinkedCandidateForSameSession": false,
+      "SeImpersonatePresent": true,
+      "SeImpersonateEnabled": true
+    },
+    "Desktop": {
+      "UserInteractive": true,
+      "ImageVersion": "20261012.333.1",
+      "OsBuild": 20348,
+      "DwmEnabled": true,
+      "WindowStation": "WinSta0",
+      "MonitorCount": 1,
+      "InputDesktop": "Default",
+      "HasShell": true
+    },
+    "SourceInputs": [
+      {
+        "Path": "src/KuaiYi.App/Program.cs",
+        "CheckoutSha256": "3a442be466a4d07a219d0d159a6e0b1c8c16e5021593f04c3838f8bd7a1c2364"
+      },
+      {
+        "Path": "src/KuaiYi.App/IsolatedSessionLayout.cs",
+        "CheckoutSha256": "d7b3abd48a8c4d2c99f70eaeb49d635bcc4271aca0f53a30f355daf2e1c1160c"
+      },
+      {
+        "Path": "src/KuaiYi.App/WindowsInstallationImagePeer.cs",
+        "CheckoutSha256": "9738cfa6c4731160e8bddc7ff0dff1d40b3eb448ed7b2f892661817e69573b78"
+      },
+      {
+        "Path": "src/KuaiYi.App/WindowsInstallationImagePipe.cs",
+        "CheckoutSha256": "160fbbfec0671f60c1b67f19d6231eeba0e914757c2c7d0f12501d7ba40b718e"
+      },
+      {
+        "Path": "src/KuaiYi.Core/Installation/InstallationPeerPolicy.cs",
+        "CheckoutSha256": "b8dd688d2d3071b8ee8142f9373698874abd89cd3352e2ba9c573abf9cc763bc"
+      },
+      {
+        "Path": "tools/ci/WindowsFacts.cs",
+        "CheckoutSha256": "9cd98b8092dcf025f1a300cfd13cde23e3ccaead2c3b02ab4c8c8b805639f299"
+      },
+      {
+        "Path": "tools/ci/WarmImageWindowsFacts.cs",
+        "CheckoutSha256": "7dd7f24ac802fb5daa021253119aafed8a464835dccf6d70e5b8086e6d80ac6a"
+      },
+      {
+        "Path": "scripts/probe-warm-image-windows.ps1",
+        "CheckoutSha256": "33bc67a324b17c39305a902ccc38d6063526bc1e2836bda4b2dec85a6904026e"
+      }
+    ],
+    "ProductionAuthentication": "NotRun",
+    "SecondCliToSameWpf": "NotRun",
+    "WorkerExitBeforePreview": "NotRun",
+    "AclRefusal": "NotRun",
+    "CancellationAndOwner": "NotRun",
+    "ExplorerDesktopAcceptance": "NotRun",
+    "Package": "Hold",
+    "ProductionReuse": "Off",
+    "ModelCalls": 0,
+    "SecurityChanges": 0,
+    "SdkExecution": "NotRun",
+    "ProductLaunch": "NotRun"
+  },
+  "sourceBinding": {
+    "delivery": "e36c92f8c978cd6871e3bbc30a99623d60ef9b64",
+    "fixedProduct": "92e3548845bd07ee7717b53df9588c412d128f9d",
+    "entries": [
+      {
+        "path": "src/KuaiYi.App/Program.cs",
+        "gitCanonicalSha256": "a39c4b6067c1aae8562f25db622e3eeeaa928e0f5af53ab90da3555d4472f550",
+        "checkoutSha256": "3a442be466a4d07a219d0d159a6e0b1c8c16e5021593f04c3838f8bd7a1c2364",
+        "exact": false,
+        "gitWithCrlfSha256": "3a442be466a4d07a219d0d159a6e0b1c8c16e5021593f04c3838f8bd7a1c2364",
+        "exactAfterCheckoutCrlf": true
+      },
+      {
+        "path": "src/KuaiYi.App/IsolatedSessionLayout.cs",
+        "gitCanonicalSha256": "d3950b4800560422d5626d9e683bd60ed81425eb2820c28e28c8c11961d0f10f",
+        "checkoutSha256": "d7b3abd48a8c4d2c99f70eaeb49d635bcc4271aca0f53a30f355daf2e1c1160c",
+        "exact": false,
+        "gitWithCrlfSha256": "d7b3abd48a8c4d2c99f70eaeb49d635bcc4271aca0f53a30f355daf2e1c1160c",
+        "exactAfterCheckoutCrlf": true
+      },
+      {
+        "path": "src/KuaiYi.App/WindowsInstallationImagePeer.cs",
+        "gitCanonicalSha256": "1fe583171a2451934f667c2c6b88659be595bc27c9ed44c1dd6254139198161c",
+        "checkoutSha256": "9738cfa6c4731160e8bddc7ff0dff1d40b3eb448ed7b2f892661817e69573b78",
+        "exact": false,
+        "gitWithCrlfSha256": "9738cfa6c4731160e8bddc7ff0dff1d40b3eb448ed7b2f892661817e69573b78",
+        "exactAfterCheckoutCrlf": true
+      },
+      {
+        "path": "src/KuaiYi.App/WindowsInstallationImagePipe.cs",
+        "gitCanonicalSha256": "4708b73b0aa992f885c0bd18e0f23c68eed3ff05211d46eeb5501391c445b2d4",
+        "checkoutSha256": "160fbbfec0671f60c1b67f19d6231eeba0e914757c2c7d0f12501d7ba40b718e",
+        "exact": false,
+        "gitWithCrlfSha256": "160fbbfec0671f60c1b67f19d6231eeba0e914757c2c7d0f12501d7ba40b718e",
+        "exactAfterCheckoutCrlf": true
+      },
+      {
+        "path": "src/KuaiYi.Core/Installation/InstallationPeerPolicy.cs",
+        "gitCanonicalSha256": "3af3c92b5c6567505affd0e7d898270c5306dfe711cbbeb52152dcbd79a402ad",
+        "checkoutSha256": "b8dd688d2d3071b8ee8142f9373698874abd89cd3352e2ba9c573abf9cc763bc",
+        "exact": false,
+        "gitWithCrlfSha256": "b8dd688d2d3071b8ee8142f9373698874abd89cd3352e2ba9c573abf9cc763bc",
+        "exactAfterCheckoutCrlf": true
+      },
+      {
+        "path": "tools/ci/WindowsFacts.cs",
+        "gitCanonicalSha256": "46b68b5f1b566de4e727fef859af6a21605cb4c0af43ea9927f190c73f07e14e",
+        "checkoutSha256": "9cd98b8092dcf025f1a300cfd13cde23e3ccaead2c3b02ab4c8c8b805639f299",
+        "exact": false,
+        "gitWithCrlfSha256": "9cd98b8092dcf025f1a300cfd13cde23e3ccaead2c3b02ab4c8c8b805639f299",
+        "exactAfterCheckoutCrlf": true
+      },
+      {
+        "path": "tools/ci/WarmImageWindowsFacts.cs",
+        "gitCanonicalSha256": "9d5aa0be9b5675491663fb1f457a3a9a1b525c9737d885d630ab1dfe7be4d49f",
+        "checkoutSha256": "7dd7f24ac802fb5daa021253119aafed8a464835dccf6d70e5b8086e6d80ac6a",
+        "exact": false,
+        "gitWithCrlfSha256": "7dd7f24ac802fb5daa021253119aafed8a464835dccf6d70e5b8086e6d80ac6a",
+        "exactAfterCheckoutCrlf": true
+      },
+      {
+        "path": "scripts/probe-warm-image-windows.ps1",
+        "gitCanonicalSha256": "a467e3896a88ed2d690834c6bd9a4eae06055e3373d221be8999ed252300bbab",
+        "checkoutSha256": "33bc67a324b17c39305a902ccc38d6063526bc1e2836bda4b2dec85a6904026e",
+        "exact": false,
+        "gitWithCrlfSha256": "33bc67a324b17c39305a902ccc38d6063526bc1e2836bda4b2dec85a6904026e",
+        "exactAfterCheckoutCrlf": true
+      }
+    ],
+    "allExact": false,
+    "rawLogBytes": 48731,
+    "rawLogSha256": "79e2923414321b6a1b132ec913854516d19813c2f2bf23cf99fe743e35c78516",
+    "allMatchGitWithCheckoutCrlf": true,
+    "interpretation": "Eight checkout hashes equal canonical Git bytes with CRLF text checkout; raw canonical bytes are not claimed identical."
+  },
+  "archive": {
+    "path": "docs/test-evidence/2026-10-21-warm-image-windows-originals.zip",
+    "bytes": 180932,
+    "sha256": "6af86c0eaa0d34d873b73b6309558070b080451b127cf8bf3e91e2c1145ffe97",
+    "members": 33,
+    "manifestEntries": 32,
+    "crcAndEveryManifestHash": "Verified"
+  },
+  "library": {
+    "operation": "create_library_file",
+    "status": "succeeded",
+    "library_file_id": "libfile_46457f5852f08191a3edb4b5d6a794d4",
+    "file_id": "file_00000000c464820e81b6431dee724dcb",
+    "file_name": "KuaiYi-P7-Windows-prerequisites-e36c92f-originals.zip",
+    "current_version_number": 0,
+    "file_size_bytes": 180932,
+    "xattrs": [
+      {
+        "name": "user.library-file-version",
+        "value": "0"
+      }
+    ]
+  },
+  "originals": {
+    "raw/preparation.json": {
+      "bytes": 1493,
+      "sha256": "9c8a6e23b190e486f6ce4f43129a3a82107f602fdf7e4d9cc5c47ef02cbd316d"
+    },
+    "raw/compile.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/compile.rsp": {
+      "bytes": 26028,
+      "sha256": "072a9c56ae421a7051f72826d423d4aae32e8e8970fb30c44bbd22aba94a43e1"
+    },
+    "raw/Inventory.dll": {
+      "bytes": 13312,
+      "sha256": "6edb89099b016beb2a4542ebb76f71b7ca198cf097520560c68f9052baeceb6e"
+    },
+    "raw/delivery-push.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/delivery-push.stderr": {
+      "bytes": 89,
+      "sha256": "a1e3915f84dfa717e38de4b41761d64692f082a0c02de241eb06748c6fca7665"
+    },
+    "raw/delivery-push.json": {
+      "bytes": 169,
+      "sha256": "36fa52dc32d7fdb19eab5a7f6df947500eb43d57d38202f02c2f2ca9d4f7455e"
+    },
+    "raw/delivery-run-query.json": {
+      "bytes": 326,
+      "sha256": "2471d0b6942245ca603d78a9d65affc38e1adf94d2e9e7c1681924c240981cdb"
+    },
+    "raw/delivery-run-query.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/run-status-01.json": {
+      "bytes": 996,
+      "sha256": "39d07378c71612e6667850e2b16f8c459b6a7db0ab9f938cbf940e517493fdc5"
+    },
+    "raw/run-status-01.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/run-status-02.json": {
+      "bytes": 1108,
+      "sha256": "9c70b87b0fda9f0798c804e7f545784c27a16cced5e4cba2221f57b25e7ee56b"
+    },
+    "raw/run-status-02.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/run-39559953411-job-119088533514.log": {
+      "bytes": 48731,
+      "sha256": "79e2923414321b6a1b132ec913854516d19813c2f2bf23cf99fe743e35c78516"
+    },
+    "raw/run-log.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actual-prerequisites.json": {
+      "bytes": 2842,
+      "sha256": "32439f233e248fd91e1038abe38c31782c3a3a9af5b6dd7385369420c0a368e3"
+    },
+    "raw/delivery-source-binding.json": {
+      "bytes": 446,
+      "sha256": "28ac8fcd6b9e3e5ece937babe32fe64d5ccc33afbadb9c806ac1a6f59d5722cb"
+    },
+    "raw/raw-result-source-binding.json": {
+      "bytes": 3742,
+      "sha256": "0b58d631aff0e615c1a42571137d043242400ab63aecc445f327e01c62e9053b"
+    },
+    "raw/independent-review.txt": {
+      "bytes": 547,
+      "sha256": "bfe4b7c161676a6e34b03b8431882845379ddd71260a0de584f44d3fec4f90fd"
+    },
+    "raw/independent-result-review.txt": {
+      "bytes": 691,
+      "sha256": "1328819b611dc6daea698e5261163b698c0a313c9ed5cbe50d789fffae9d7d14"
+    },
+    "raw/result-summary.json": {
+      "bytes": 1216,
+      "sha256": "267874168ce7a5d067debc8fea7d9dffc28a29929337886693ae3793c294202e"
+    },
+    "source/git-canonical/.github/workflows/windows-warm-image.yml": {
+      "bytes": 1082,
+      "sha256": "38c933fa5aecd5e6aa79c854bd92cb1b57df384cd3376481e335b26dc8b7d804"
+    },
+    "source/git-canonical/docs/progress.md": {
+      "bytes": 324004,
+      "sha256": "669a60861e643d506d1ec4255808ed403f94f3e57d04bdaf78a34b623d2a9959"
+    },
+    "source/git-canonical/docs/validation/warm-image-windows.md": {
+      "bytes": 3496,
+      "sha256": "82f7ab3f64ebc1b0fd30d7f80cf5f9b9fd7da7cfe4b2327f250caab11dc03e06"
+    },
+    "source/git-canonical/scripts/probe-warm-image-windows.ps1": {
+      "bytes": 4230,
+      "sha256": "a467e3896a88ed2d690834c6bd9a4eae06055e3373d221be8999ed252300bbab"
+    },
+    "source/git-canonical/src/KuaiYi.App/IsolatedSessionLayout.cs": {
+      "bytes": 5271,
+      "sha256": "d3950b4800560422d5626d9e683bd60ed81425eb2820c28e28c8c11961d0f10f"
+    },
+    "source/git-canonical/src/KuaiYi.App/Program.cs": {
+      "bytes": 22790,
+      "sha256": "a39c4b6067c1aae8562f25db622e3eeeaa928e0f5af53ab90da3555d4472f550"
+    },
+    "source/git-canonical/src/KuaiYi.App/WindowsInstallationImagePeer.cs": {
+      "bytes": 7151,
+      "sha256": "1fe583171a2451934f667c2c6b88659be595bc27c9ed44c1dd6254139198161c"
+    },
+    "source/git-canonical/src/KuaiYi.App/WindowsInstallationImagePipe.cs": {
+      "bytes": 7646,
+      "sha256": "4708b73b0aa992f885c0bd18e0f23c68eed3ff05211d46eeb5501391c445b2d4"
+    },
+    "source/git-canonical/src/KuaiYi.Core/Installation/InstallationPeerPolicy.cs": {
+      "bytes": 907,
+      "sha256": "3af3c92b5c6567505affd0e7d898270c5306dfe711cbbeb52152dcbd79a402ad"
+    },
+    "source/git-canonical/tools/ci/WarmImageWindowsFacts.cs": {
+      "bytes": 7209,
+      "sha256": "9d5aa0be9b5675491663fb1f457a3a9a1b525c9737d885d630ab1dfe7be4d49f"
+    },
+    "source/git-canonical/tools/ci/WindowsFacts.cs": {
+      "bytes": 5924,
+      "sha256": "46b68b5f1b566de4e727fef859af6a21605cb4c0af43ea9927f190c73f07e14e"
+    }
+  },
+  "finalArchiveReview": {
+    "status": "Limited_ACK",
+    "reviewer": "/root/gif_review",
+    "verified": "ZIP bytes/SHA256/33 unique members/CRC/MANIFEST32; raw JSON/extracted/index identical; canonical source exact e36 Git; 8 CRLF bindings; all product acceptance NotRun. Only actual Library receipt appended after review; no archive or product changes."
+  }
+}

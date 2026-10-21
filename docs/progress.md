@@ -1,6 +1,6 @@
 # 开发进度
 
-2026-10-21 最新接续：B 固定产品源码仍为 `92e3548845bd07ee7717b53df9588c412d128f9d`，完整证据 `ab3bf269f956a7b19f6d8ead1383ff80495ad95c` 已独审。现准备一次免费标准 Windows runner 的只读 token/linked-token/desktop 前置检查，尚未投递或运行；不改生产代码/依赖/安全权限、不执行 SDK 或 App，不将 prerequisite 当认证或 P7 验收。后续同 WPF/真实 Worker 链的精确条件见 [Windows 前置检查](validation/warm-image-windows.md)。
+2026-10-21 最新接续：B 固定产品源码仍为 `92e3548845bd07ee7717b53df9588c412d128f9d`，完整证据 `ab3bf269f956a7b19f6d8ead1383ff80495ad95c` 已独审。新增五文件只读前置检查独审后一次投递 `e36c92f8c978cd6871e3bbc30a99623d60ef9b64`，免费标准 Windows run39559953411/job119088533514实际 success；原始日志48,731B与唯一JSON已回收独审。已观测桌面前置项，但当前token High12288/elevated，linked查询1312未取得受限token，当前正向warm执行入口未满足；Same* false为未比较而非身份不匹配。未改生产代码/依赖/安全权限，未执行 SDK/App，产品链路全部NotRun，不将 prerequisite 当认证或 P7 验收。源码 CRLF 摘要、证据及下一分段路径见 [Windows 前置检查](validation/warm-image-windows.md)。
 
 日期：2026-10-11。分支：`dev/p0-foundations`；初始完整 HEAD：`51d077481cf6303602fcf5d2718213da9cf05178`。
 

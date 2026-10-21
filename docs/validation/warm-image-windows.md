@@ -12,4 +12,12 @@ GitHub [官方 runner 说明](https://docs.github.com/en/actions/reference/runne
 
 实际管道 DACL／错误 peer 拒绝可以在 Windows 中单独验证；分阶段取消／断线／owner 保留可运行原确定性合同，但不代表真实 WPF 完整链。正向第二 CLI→同 WPF→实际 Worker finalize→Off 预览还须上述真实 token、可用桌面、正常 App/Worker 完整部署与原安装 store 同时成立。Explorer 菜单／来源、用户焦点／多屏／250/600ms／画质仍需单独真实桌面证据，headless CI 不补签。
 
-准备状态：尚未运行 Windows；独审后只投递一次。PackageHold、production reuseOff、P7-01 InProgress，生产代码与锁不改。旧 run39347646426 的本次 gh log 返回 Exit0 但原件0字节，不能称已回收或据此归因；不重跑旧 job。
+实际只投递一次：源码 `e36c92f8c978cd6871e3bbc30a99623d60ef9b64`，[run39559953411](https://github.com/T1doo/KuaiYi/actions/runs/39559953411)／[job119088533514](https://github.com/T1doo/KuaiYi/actions/runs/39559953411/job/119088533514)，2026-10-21 07:08:47—07:09:19 UTC，checkout／前置采集均 success。完整原始 job log 48,731字节、SHA256 `79e2923414321b6a1b132ec913854516d19813c2f2bf23cf99fe743e35c78516`，唯一结果 JSON 与提取件逐字段相同，独立原件复核 ACK。8项 checkout hash 全部精确等 Git 文件的 LF→CRLF 转换；不宣称物理 checkout 字节与 LF blob 相同。
+
+实际当前 primary token：IL12288／High、Elevated=true、ElevationType=Default(1)、session2；SeImpersonate present/enabled 均 true。`TokenLinkedToken` 查询为 Unavailable／Win32 1312，没有取得 linked handle。SameUser/Logon/Authentication/Session 的 false 是未比较的默认值，不能解释为实际身份不匹配。桌面为 WinSta0／Default，UserInteractive、HasShell、DwmEnabled 均 true，1个 monitor，OS build20348、镜像20261012.333.1。前置采集完成不等于任何产品用例 Pass。
+
+正向链的确切阻塞是：**本次当前 token 不合生产 medium/非elevated 门，且没有从其 linked 查询取得合格执行入口**。并非声称所有 medium 路线不可能。现有 SeImpersonate 不能凭空授予该入口；不自动读用其他进程 token、不创建用户或凭据、不调整 token/UAC/ACL、不放宽生产门。继续此方案最小条件是隔离 runner 已有可用的同用户/logon/AuthId/session medium非elevated primary 执行入口，并已具备原桌面访问及启动所需 handle rights；若必须新建受限会话或改变策略，须先明确另行授权的具体动作。无需用户个人电脑或新 SDK 许可。
+
+可在原权限内独立准备下一次有界验证：固定默认 App 的本地文件打开→真实 ImageWorker 解码/退出→实际 WPF 图片/“使用首帧”标注及清零 owner；另可直接验证真实 Windows adapter 的 High 拒绝及原 first-instance/DACL 组件。需分别审定 harness 后再投递，不能把分段结果补签第二 CLI warm 或 Explorer。当前产品/SDK/认证/ACL/Worker/WPF/取消与 owner 验收全部 NotRun；没有追加 CI、重跑 Linux 旧全套或旧 job。
+
+PackageHold、production reuseOff、P7-01 InProgress，生产代码与锁不改。[本轮命令、原始日志与源码索引](../test-evidence/2026-10-21-warm-image-windows.json)。原件 ZIP 180,932字节、SHA256 `6af86c0eaa0d34d873b73b6309558070b080451b127cf8bf3e91e2c1145ffe97`，33唯一成员／MANIFEST32项均核验；Library已成功保存 `libfile_46457f5852f08191a3edb4b5d6a794d4`，version0，不分享私有下载URL。旧 run39347646426 的本次 gh log 返回 Exit0 但原件0字节，不能称已回收或据此归因；历史状态不回填。
