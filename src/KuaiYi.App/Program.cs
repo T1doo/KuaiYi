@@ -53,6 +53,12 @@ internal static class Program
         {
             try
             {
+                if(prepareImage)
+                {
+                    var delivery=WindowsInstallationImagePipe.TrySubmitAsync(AppContext.BaseDirectory,userData,args[1]).GetAwaiter().GetResult();
+                    if(delivery!=InstallationImageDelivery.NoEndpoint)return delivery==InstallationImageDelivery.PreviewReady?0:3;
+                    // Only the exact missing endpoint result can try original cold admission. Busy/unknown outcomes never replay.
+                }
                 runtimeSession=InstallationSessionEntry.TryCreate(AppContext.BaseDirectory,userData);
                 if(runtimeSession!=null)return runtimeSession.RunAsync(imagePath:prepareImage?args[1]:null).GetAwaiter().GetResult();
                 if(prepareImage){Console.Error.WriteLine("Image command requires a controlled installed session.");return 3;}

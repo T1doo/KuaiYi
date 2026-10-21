@@ -40,6 +40,12 @@ public static class IpcFrameCodec
     }
 
     public static async ValueTask<IpcFrame?> ReadAsync(Stream stream, CancellationToken cancellation = default)
+        =>await ReadCoreAsync(stream,null,cancellation).ConfigureAwait(false);
+
+    // Endpoint phase whitelist is checked before allocating or reading any payload. Existing callers stay unchanged.
+    public static async ValueTask<IpcFrame?> ReadRestrictedAsync(Stream stream,IpcMessageType expected,CancellationToken cancellation=default)
+        =>await ReadCoreAsync(stream,expected,cancellation).ConfigureAwait(false);
+    private static async ValueTask<IpcFrame?> ReadCoreAsync(Stream stream,IpcMessageType? expected,CancellationToken cancellation)
     {
         ArgumentNullException.ThrowIfNull(stream);
         byte[] header = new byte[HeaderLength];
@@ -52,6 +58,7 @@ public static class IpcFrameCodec
         uint length = BinaryPrimitives.ReadUInt32LittleEndian(header.AsSpan(8));
         var request = new Guid(header.AsSpan(12, 16));
         Validate(type, request, length); // Validate unsigned length before allocation.
+        if(expected is {} permitted&&type!=permitted)throw new InvalidDataException("IPC phase type refused.");
         byte[] payload = new byte[(int)length];
         try
         {

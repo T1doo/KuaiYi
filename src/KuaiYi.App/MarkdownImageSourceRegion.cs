@@ -27,6 +27,7 @@ internal sealed class MarkdownImageSourceRegion:IDisposable
         System.Windows.Automation.AutomationProperties.SetName(View,"查看所示版本原文图片");System.Windows.Automation.AutomationProperties.SetName(Image,"所示版本原文图片的本地缩略预览");
         View.Expanded+=Expanded;View.Collapsed+=Collapsed;
     }
+    internal bool PreviewReady=>!disposed&&previewFailure==null&&bitmap!=null&&View.IsExpanded&&Image.Source!=null;
     public bool Matches(ImageSourceOwner value)=>ReferenceEquals(source,value);
     public void Constrain(double width,double height,double size,Brush foreground)
     {View.Width=View.MaxWidth=width;Image.Width=Image.MaxWidth=width;Image.Height=Image.MaxHeight=Math.Min(180,Math.Max(1,height/2));View.FontSize=size;View.Foreground=foreground;}

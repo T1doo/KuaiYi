@@ -25,13 +25,13 @@ internal sealed partial class ShellWindow
         }
         ValidateOriginalSourceBinding();if(dirty&&!flush.IsEnabled)flush.Start();
     }
-    private int MeasureBody(LayoutPlan plan)
+    private int MeasureBody(LayoutPlan plan,Func<bool>? current=null)
     {
         if(overlayFrames==null)return 48;
         bool hasLabel=resultLabel.Text.Length>0;
-        return plan.Dpi.CeilingPixels(48+32+(hasLabel?20:0)+FailureNoticeHeight+MeasureMarkdown(plan,hasLabel));
+        return plan.Dpi.CeilingPixels(48+32+(hasLabel?20:0)+FailureNoticeHeight+MeasureMarkdown(plan,hasLabel,current));
     }
-    private void OpenBody(){if(overlayFrames==null)return;overlayFrames.OpenMeasured(Preferences(),MeasureBody);dirty=true;if(!flush.IsEnabled)flush.Start();StartFrames();}
+    private void OpenBody(Func<bool>? current=null){if(overlayFrames==null||current?.Invoke()==false)return;overlayFrames.OpenMeasured(Preferences(),plan=>MeasureBody(plan,current),current);if(current?.Invoke()==false)return;dirty=true;if(!flush.IsEnabled)flush.Start();StartFrames();}
     private void FlushResult()
     {
         if(!dirty||exiting)return;dirty=false;

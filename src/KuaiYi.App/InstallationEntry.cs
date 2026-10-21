@@ -9,7 +9,7 @@ internal sealed partial class ShellWindow
     private bool startupHealthy;
     internal void AttachInstallationControl(InstallationApplicationControl control)
     {
-        installationControl=control;
+        installationControl=control;AttachWarmInstalledImages(control);
         Loaded+=async(_,_)=>
         {
             try

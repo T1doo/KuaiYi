@@ -4,3 +4,5 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("KuaiYi.OleTransfer")]
 
 [assembly: InternalsVisibleTo("KuaiYi.SettingsStoreFixture")]
+[assembly: InternalsVisibleTo("KuaiYi.App")]
+[assembly: InternalsVisibleTo("KuaiYi.Provider.Tests")]

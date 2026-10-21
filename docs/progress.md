@@ -1465,3 +1465,11 @@ P7-01/已有实例认证转交/真实Windows菜单-WPF/OLE/OCR/身份/画质/250
 完成退出原异常保全P2/诊断统一可控截止的源码与255P相关原件独审后，在clean `0dbfa74a5075e750d58efff9def5d0f86b645243` 严格一次完整Core：r14实际2140P/0F/0skip、exit0、91.922s。旧2130案例多重集均保留+10；故障语义7项、默认真实watchdog/迟到IO/退出及错误保全反例均通过，原200字节故障断言保留。823执行输入不变，前后HEAD相同/dirty0，330产物前后摘要/45差异、AssemblyInfo、命令/完整日志/TRX/源码封存。旧r09 2129P1F原Fail与历史阶段/唯一根因未知记录不回填，不累计不同轮次。
 
 [固定完整Core原件](test-evidence/2026-10-21-exit-errors-deadline-full-core.json)、[修复合同与边界](validation/exit-errors-and-controlled-deadline.md)。后续仅证据报告，不改固定代码/测试、不重复整套；未重跑App/Codec/Provider（相关源/API未改）。本片Core签收通过，A仍核心合成；B/真实双向Windows身份/AcceptFileImage、WarmSync→Gate及candidate所有权/真实Worker-WPF/菜单来源身份/OLE/COM/OCR/画质/生产250600/600MiB/完整P6P7/106/Beta未验仍保持。Off/PackageHold/生产复用Off/WebP odd拒绝不变，无新许可费用权限凭据/真实模型用户电脑/CI/main强推部署。
+
+## 2026-10-21 · P7-01 B正常会话单图接线（完整签收待执行）
+
+在74aed500指定环境唯一writer接续：真实双向Windows peer与normal original-role live capability、受界单次外部连接→原stdio→原文件Worker→AcceptFileImage warm纯内存提交→实际版本GUID/可见预览结果已接线，Off不自动OCR/启用/发送；冷one-shot、拒绝/丢收据不重放/fallback和原任务/清理/发送门保留。[实现与准确边界](validation/warm-image-b.md)。真实Windows尚未执行，P7-01仍InProgress。
+
+独审指出并修复exact launch绑定、普通连接错误污染会话、WPF重入与旧位图擦除失败owner丢失。b03原33P8F逐字保留，b05同范围42P0F含原位图断言；b08 Core相关53P0F，b09 Provider相关142P0F；不同轮次不能累计。最终兼容修复：精确QUIESCE无授权消费并禁止迟到AttachWarm，idle actor仅合法handoff封闭，避免对关闭通道补写；b11原137P1F为新夹具在Dispose后查询已释放Process，改原Settle退出实录/Healthy屏障后做最小定向验证。b12精确两条兼容回归2P0F，完整最小B树独立源码限定ACK，无剩余确定P1/P2。最终固定树完整Core/Provider/Codec及App签收尚未执行，不借记旧通过。
+
+默认Off/PackageHold/生产复用Off、WebP odd拒绝保持；无新依赖许可、SDK协议、权限凭据费用、真实模型、用户电脑、CI/main/强推/部署。真实Windows peer/ACL/菜单到同WPF/Worker、来源身份/OLE/COM/OCR/画质/250600/600MiB/完整P6P7未验。端点初始化/bind故障仍保守保留原fence，不冒充已实现可选降级恢复。

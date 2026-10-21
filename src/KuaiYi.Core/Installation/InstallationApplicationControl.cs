@@ -37,6 +37,7 @@ public sealed class InstallationApplicationClient:IInstallationHandoffProtocol,I
         internal bool ClosingReceived;
         internal bool ExitReadyReceived;
         internal bool Healthy,ImageSent;
+        internal volatile bool WarmQuiescedReceived;
         internal readonly SemaphoreSlim WriteSerial=new(1,1);
         internal volatile InstallationWarmImageClient? Warm;
         private Task? sessionJoin;
@@ -52,6 +53,10 @@ public sealed class InstallationApplicationClient:IInstallationHandoffProtocol,I
                     {if(ClosingReceived)throw new InvalidDataException("Duplicate application close receipt.");ClosingReceived=true;child.StandardInput.Close();continue;}
                     if(Proof is {} settled&&line==$"EXIT_READY|{settled.Launch:N}|{settled.Fingerprint}")
                     {if(!ClosingReceived||ExitReadyReceived)throw new InvalidDataException("Unordered or duplicate application settlement receipt.");ExitReadyReceived=true;continue;}
+                    if(Proof is {UpgradeRecord:null} normal&&line==$"WARM_QUIESCE|{normal.Launch:N}|{normal.Fingerprint}")
+                    {
+                        lock(this){if(WarmQuiescedReceived)throw new InvalidDataException("Duplicate warm quiesce.");WarmQuiescedReceived=true;Warm?.Receive(line);}continue;
+                    }
                     if(line.StartsWith("WARM_",StringComparison.Ordinal))
                     {if(Warm==null)throw new InvalidDataException("Warm control is not attached.");Warm.Receive(line);continue;}
                     await Lines.Writer.WriteAsync(line,Readers.Token).ConfigureAwait(false);
@@ -107,7 +112,7 @@ public sealed class InstallationApplicationClient:IInstallationHandoffProtocol,I
         var state=Channel(owned);lock(state)
         {
             var proof=state.Proof??throw new InvalidOperationException("No original controlled child.");
-            if(!state.Healthy||state.Closed||state.ClosingReceived||proof.UpgradeRecord!=null||state.Warm!=null)throw new InvalidOperationException("Warm control unavailable.");
+            if(!state.Healthy||state.Closed||state.ClosingReceived||state.WarmQuiescedReceived||proof.UpgradeRecord!=null||state.Warm!=null)throw new InvalidOperationException("Warm control unavailable.");
             return state.Warm=new(proof,clock,(line,ct)=>Send(owned,line,ct));
         }
     }
@@ -177,9 +182,9 @@ public sealed class InstallationApplicationControl
     private readonly object stateSync=new();
     private readonly SemaphoreSlim outputSerial=new(1,1);
     private InstallationWarmImageControl? warm;
-    internal InstallationWarmImageControl AttachWarm(TimeProvider clock,Func<long> epoch,Func<InstallationWarmImageAdmission,InstallationWarmLease,string,CancellationToken,Task> prepare,Func<InstallationWarmLease,ValueTask<bool>> finalize)
+    internal InstallationWarmImageControl AttachWarm(TimeProvider clock,Func<long> epoch,Func<InstallationWarmImageAdmission,InstallationWarmLease,string,CancellationToken,Task> prepare,Func<InstallationWarmLease,ValueTask<bool>> finalize,Func<InstallationWarmLease,CancellationToken,Task<long?>>? reserveUi=null)
     {
-        lock(stateSync){if(loop!=null||warm!=null)throw new InvalidOperationException("Warm control must attach before original Run.");return warm=new(Proof,clock,epoch,prepare,finalize,Send);}
+        lock(stateSync){if(loop!=null||warm!=null)throw new InvalidOperationException("Warm control must attach before original Run.");return warm=new(Proof,clock,epoch,prepare,finalize,Send){ReserveUi=reserveUi};}
     }
     private InstallationApplicationControl(Stream input,Stream output,InstallationControlledLaunch proof){this.input=input;this.output=output;Proof=proof;}
     public InstallationControlledLaunch Proof{get;}
@@ -238,7 +243,7 @@ public sealed class InstallationApplicationControl
                     {
                         if(offer!=null||imageRequest!=null||warm?.EverReserved==true)throw new InvalidDataException("Duplicate or image-session handoff offer.");var candidate=InstallationHandoffOffer.Decode(command[6..]);
                         if(candidate.Launch!=Proof.Launch||candidate.Root!=Proof.Root||candidate.UserData!=Proof.UserData||candidate.Version!=Proof.Version||candidate.OwnerRecord!=Proof.OwnerRecord||candidate.CurrentRecord!=Proof.CurrentRecord||candidate.UpgradeRecord!=Proof.UpgradeRecord)throw new InvalidDataException("Handoff differs from admitted launch.");
-                        runtime=InstallationRuntimeOwnership.Prepare(candidate,Proof.Launch);offer=candidate;await Reply("PREPARED").ConfigureAwait(false);
+                        warm?.SealUnusedForHandoff();runtime=InstallationRuntimeOwnership.Prepare(candidate,Proof.Launch);offer=candidate;await Reply("PREPARED").ConfigureAwait(false);
                     }
                     else if(command=="ACQUIRE"){runtime!.Acquire();await Reply("ACCEPTED").ConfigureAwait(false);}
                     else if(command=="COMMIT"){runtime!.ConfirmCommitted();committed=true;await Reply("COMMITTED").ConfigureAwait(false);}

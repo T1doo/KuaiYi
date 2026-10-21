@@ -19,7 +19,7 @@ internal sealed partial class ShellWindow
             _=installationImageDispatch.ContinueWith(t=>{_ =t.Exception;},CancellationToken.None,TaskContinuationOptions.OnlyOnFaulted,TaskScheduler.Default);
         }
     }
-    private Task StartInstalledImage(string path,InstalledImageState expected,Func<IFileImageOperation> create,CancellationToken cancellation,Func<bool> current,Func<CancellationToken,Task> verify)
+    private Task StartInstalledImage(string path,InstalledImageState expected,Func<IFileImageOperation> create,CancellationToken cancellation,Func<bool> current,Func<CancellationToken,Task> verify,Func<ImageAdmission,FileImageIntent,OwnedFileImage,bool>? accept=null)
     {
         if(Volatile.Read(ref installedImageClosed)||expected!=CaptureInstalledImageState()||lifecycle.Gate.Snapshot.Suspension!=Suspension.None)return Task.CompletedTask;
         return StartImagePreparation(create,async(owner,session,version,epoch,token)=>
@@ -27,8 +27,9 @@ internal sealed partial class ShellWindow
             var image=await ((IFileImageOperation)owner).LoadAsync(path,session,version,epoch,token);
             try{await verify(token);return image;}
             catch{image.Dispose();throw;} // The outer image assignment has not happened yet: retain/zero this exact raster here.
-        },cancellation,current,expected.Epoch,expected.Activation);
+        },cancellation,current,expected.Epoch,expected.Activation,accept);
     }
+    partial void SealWarmInstalledImages();
     private Task StopInstalledImageDispatch()
-    {lock(installedImageSync){Volatile.Write(ref installedImageClosed,true);return installationImageDispatch;}}
+    {SealWarmInstalledImages();lock(installedImageSync){Volatile.Write(ref installedImageClosed,true);return installationImageDispatch;}}
 }

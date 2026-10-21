@@ -1,10 +1,11 @@
 namespace KuaiYi.Core.Installation;
 
-// Internal stage-A opt-in, reached only by the synthetic installation fixture. The App does not attach it.
+// Private inherited-control actor. Production attaches only after the normal controlled launch was admitted.
 internal sealed class InstallationWarmImageControl
 {
     private readonly InstallationControlledLaunch proof;
     private readonly Func<long> epoch;
+    internal Func<InstallationWarmLease,CancellationToken,Task<long?>>? ReserveUi{get;init;}
     private readonly Func<InstallationWarmImageAdmission,InstallationWarmLease,string,CancellationToken,Task> prepare;
     private readonly Func<InstallationWarmLease,ValueTask<bool>> finalize;
     private readonly Func<string,CancellationToken,Task> send;
@@ -37,7 +38,15 @@ internal sealed class InstallationWarmImageControl
                 busyWrite=Task.Run(async()=>{await begin.Task.ConfigureAwait(false);await send("WARM_REJECTED|"+InstallationWarmImageWire.Encode(identity),CancellationToken.None).ConfigureAwait(false);});begin.TrySetResult();return true;
             }
             var lease=Admission.ReceiveReserve(identity,epoch());current=lease;EverReserved=true;
-            _=Admission.RunOwned(lease,ct=>send("WARM_GRANTED|"+InstallationWarmImageWire.Encode(lease.Grant),ct));
+            _=Admission.RunOwned(lease,async ct=>
+            {
+                if(ReserveUi is {} reserve)
+                {
+                    var frozen=await reserve(lease,ct).ConfigureAwait(false);
+                    if(frozen==null||!Admission.FreezeEpoch(lease,frozen.Value)){await Admission.Revoke(lease).ConfigureAwait(false);return;}
+                }
+                ct.ThrowIfCancellationRequested();await send("WARM_GRANTED|"+InstallationWarmImageWire.Encode(lease.Grant),ct).ConfigureAwait(false);
+            });
             Admission.OwnCancellation(lease,()=>
             {
                 lock(sync)if(ReferenceEquals(current,lease)&&completion.IsCompletedSuccessfully)Complete(lease,Task.CompletedTask);
@@ -75,6 +84,16 @@ internal sealed class InstallationWarmImageControl
             return retired;
         },CancellationToken.None,TaskContinuationOptions.ExecuteSynchronously,TaskScheduler.Default).Unwrap();
         changed.TrySetResult();changed=new(TaskCreationOptions.RunContinuationsAsynchronously);
+    }
+    internal void SealUnusedForHandoff()
+    {
+        lock(sync)
+        {
+            if(EverReserved||current!=null||Admission.Busy||quiesced||!completion.IsCompletedSuccessfully||!completion.Result||!quiesceWrite.IsCompletedSuccessfully||!busyWrite.IsCompletedSuccessfully)
+                throw new InvalidDataException("Used or unsettled warm actor cannot hand off.");
+            Task cancellation=Admission.Quiesce();if(!cancellation.IsCompletedSuccessfully)throw new InvalidOperationException("Unused warm closure unconfirmed.");
+            quiesced=true; // No warm notice goes to the original pipe after runtime handoff has closed it.
+        }
     }
     internal void Quiesce(){lock(sync)QuiesceCore();}
     private void QuiesceCore()

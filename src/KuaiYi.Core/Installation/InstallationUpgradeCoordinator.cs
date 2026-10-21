@@ -17,7 +17,7 @@ public sealed class InstallationUpgradeUnconfirmedException(Exception failure):I
 
 /// <summary>Coordinates only roles actually started and held by this object, never discovers or kills other processes.
 /// Normal launch and upgrade share the same file fence. All real Windows entry points and registration adapters remain separate.</summary>
-public sealed class InstallationUpgradeCoordinator:IAsyncDisposable
+public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
 {
     private sealed class Role(string name,InstalledVersion version,IOwnedProcessStarter? starter)
     {
@@ -87,6 +87,7 @@ public sealed class InstallationUpgradeCoordinator:IAsyncDisposable
         if(imagePath!=null){OleImageFileDrop.ValidatePath(imagePath);if(protocol is not IInstallationImageSessionProtocol)throw new InvalidOperationException("Controlled image session protocol required.");}
         string expected=InstallationPaths.Root(executableDirectory);
         await Enter(cancellation).ConfigureAwait(false);Role? role=null;
+        LiveImageSession? liveImage=null;
         try
         {
             if(execution!=null||roles.Count!=0||pending!=null||handoff!=null||admission!=null)throw new InvalidOperationException("A normal session requires a fresh coordinator.");
@@ -96,9 +97,14 @@ public sealed class InstallationUpgradeCoordinator:IAsyncDisposable
             execution=store.ClaimExecution(admission);role=NewRole("KuaiYi.App.exe",selected);role.RetainTasks=true;
             await StartAndCheck(role,cancellation).ConfigureAwait(false);
             if(imagePath!=null)await Call(role,t=>((IInstallationImageSessionProtocol)protocol).QueueImageAsync(role.Process!,imagePath,t),cancellation).ConfigureAwait(false);
+            if(WarmImageEndpoint is {} endpoint)
+            {
+                liveImage=new(this);role.Track(liveImage.RunEndpointAsync(endpoint,cancellation));
+            }
             // Cancellation abandons only this waiter. The original OS observation remains owned and is joined by cleanup.
             role.OriginalNaturalExit=role.Process!.WaitForExitAsync(CancellationToken.None);role.Track(role.OriginalNaturalExit);
             await role.OriginalNaturalExit.WaitAsync(cancellation).ConfigureAwait(false);
+            liveImage?.Quiesce();
             if(!role.Process.HasExited||role.Process.ExitCode!=0)throw new IOException("Application session did not exit cleanly.");
             await Call(role,t=>sessionProtocol.SettleSessionAsync(role.Process,t),cancellation,ProtocolOperation.Io).ConfigureAwait(false);role.IoSettled=true;
             await Task.WhenAll(role.Tasks).WaitAsync(budget,cancellation).ConfigureAwait(false);
@@ -111,6 +117,7 @@ public sealed class InstallationUpgradeCoordinator:IAsyncDisposable
         }
         catch(Exception failure)when(sessionAttempted)
         {
+            liveImage?.Quiesce();
             // This cleanup may stop only our exact Start-returned child. Even fully settled failure retains the marker.
             if(role==null||await FinalizeOwned(role).ConfigureAwait(false)){execution?.Dispose();execution=null;disposed=true;}
             throw new InstallationUpgradeUnconfirmedException(failure);

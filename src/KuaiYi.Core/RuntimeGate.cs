@@ -178,6 +178,22 @@ public sealed partial class RuntimeGate
         }
     }
 
+    /// <summary>Commit an explicit local source using memory-only callbacks. The caller owns the detached
+    /// cancellation source and must cancel/dispose it after releasing every admission lock.</summary>
+    public bool TryCommitExplicitLocalImage(Guid owner,long captureEpoch,Activation initial,Func<bool> current,Action publish,out CancellationTokenSource? detached)
+    {
+        lock(sync)
+        {
+            detached=null;
+            bool Eligible()=>explicitCaptureOwner==owner&&epoch==captureEpoch&&activation==initial&&suspension==Suspension.Capture;
+            if(!Eligible()||!current()||!Eligible())return false;
+            explicitCaptureOwner=null;suspension&=~Suspension.Capture;epoch++; // Original EndExplicitCapture.
+            active=null;connectionTestOrigin=null;visionTestEndpoint=null;
+            detached=activeCancellation;activeCancellation=null;epoch++; // Original StopGeneration, without callbacks under locks.
+            publish();return true;
+        }
+    }
+
     public void SetSuspension(Suspension reason, bool suspended)
     {
         if (reason == Suspension.None || reason.HasFlag(Suspension.SessionLocked))

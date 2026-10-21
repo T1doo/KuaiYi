@@ -35,8 +35,8 @@ public sealed class OverlayFrames
     public void Open(int measuredHeight,LayoutPreferences preferences)
         =>Open(measuredHeight,BodyPlan(preferences));
     public LayoutPlan BodyPlan(LayoutPreferences preferences)=>OverlayLayoutPlanner.Plan(Anchor,Monitor,preferences,previous:toolbarPlan?lastPlan:Plan??lastPlan);
-    public void OpenMeasured(LayoutPreferences preferences,Func<LayoutPlan,int> measure)
-    {ArgumentNullException.ThrowIfNull(measure);var plan=BodyPlan(preferences);Open(measure(plan),plan);}
+    public void OpenMeasured(LayoutPreferences preferences,Func<LayoutPlan,int> measure,Func<bool>? current=null)
+    {ArgumentNullException.ThrowIfNull(measure);if(current?.Invoke()==false)return;var plan=BodyPlan(preferences);int height=measure(plan);if(current?.Invoke()!=false)Open(height,plan);}
     private void Open(int measuredHeight,LayoutPlan plan)
     {
         double opacity=ContentOpacity;wantsExpanded=true;measured=Math.Max(Anchor.Height,measuredHeight);Plan=plan;lastPlan=Plan;toolbarPlan=false;

@@ -7,7 +7,7 @@ using KuaiYi.Imaging;
 namespace KuaiYi.App;
 
 /// <summary>Only locally constructed native text elements; never XAML, HTML or resource loading; links have an explicit guarded action.</summary>
-internal sealed class MarkdownFlowView
+internal sealed partial class MarkdownFlowView
 {
     private readonly RichTextBox host;
     private readonly List<MarkdownBlock> applied=[];
@@ -37,47 +37,78 @@ internal sealed class MarkdownFlowView
         host.IsReadOnly=true;host.IsUndoEnabled=false;host.IsDocumentEnabled=true;host.HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled;host.VerticalScrollBarVisibility=ScrollBarVisibility.Visible;host.ClipToBounds=true;
         SetViewport(viewport);
     }
-    public void Clear()
-    {
-        try{ClearSource();}
-        finally{foreach(var links in paragraphLinks.Values)foreach(var link in links)link.Dispose();paragraphLinks.Clear();elementParagraphs.Clear();foreach(var region in codeRegions.Values)region.Dispose();foreach(var region in tableRegions.Values)region.Dispose();codeRegions.Clear();tableRegions.Clear();host.Document.Blocks.Clear();applied.Clear();elements.Clear();appliedVersion=null;}
-    }
+    public void Clear(){RetireActive(full:true);ClearStagedImage();}
     public bool SourceExpanded=>sourceRegion?.View.IsExpanded==true||imageSourceRegion?.View.IsExpanded==true;
+    internal void ExpandImageSource(Guid version,ImageSourceOwner source)
+    {var held=sourceVersion==version&&imageSourceRegion?.Matches(source)==true?imageSourceRegion:null;held?.Expand();}
     public void ExpandSource(){sourceRegion?.Expand();imageSourceRegion?.Expand();}
-    public void ClearSource()
-    {sourceRegion?.Dispose();imageSourceRegion?.Dispose();imageSourceRegion=null;if(sourceBlock!=null)host.Document.Blocks.Remove(sourceBlock);sourceRegion=null;sourceBlock=null;sourceVersion=null;}
+    public void ClearSource()=>RetireActive(full:false);
+    internal bool IsImagePreviewReady(Guid version,ImageSourceOwner source)=>sourceVersion==version&&imageSourceRegion?.Matches(source)==true&&imageSourceRegion.PreviewReady;
+    internal Action CaptureImageSourceCleanup(Guid version,ImageSourceOwner source)
+    {
+        var region=sourceVersion==version&&imageSourceRegion?.Matches(source)==true?imageSourceRegion:null;
+        return ()=>
+        {
+            if(region!=null&&ReferenceEquals(imageSourceRegion,region))RetireActive(full:false);
+            else RetryRetired();
+            if(stagedImage?.Matches(source)==true)ClearStagedImage();
+        };
+    }
     public void RetainSourceVersion(Guid? version){if(sourceVersion!=version)ClearSource();}
     public void SetSource(Guid? version,string? source,bool? expanded=null)
     {
         if(version==null||source==null){ClearSource();return;}
         if(sourceRegion==null||sourceVersion!=version||!sourceRegion.Matches(source))
         {
-            ClearSource();sourceVersion=version;sourceRegion=new(source,observeReader,sourceChanged,()=>canReadSource?.Invoke(version.Value)!=false,captureReaderGuard);
+            long before=viewInstallation;ClearSource();if(before!=viewInstallation)return;viewInstallation++;sourceVersion=version;sourceRegion=new(source,observeReader,sourceChanged,()=>canReadSource?.Invoke(version.Value)!=false,captureReaderGuard);
             sourceBlock=new(sourceRegion.View){Margin=new Thickness(0,8,0,0)};host.Document.Blocks.Add(sourceBlock);
         }
         if(expanded.HasValue)sourceRegion.SetExpanded(expanded.Value);
         ConstrainSource();
     }
-    public void SetImageSource(Guid? version,ImageSourceOwner? source,bool? expanded=null,bool materialize=true)
+    public void SetImageSource(Guid? version,ImageSourceOwner? source,bool? expanded=null,bool materialize=true,Func<bool>? current=null)
     {
+        if(current?.Invoke()==false)return;
         if(version==null||source==null||source.IsDisposed){ClearSource();return;}
         if(imageSourceRegion==null||sourceVersion!=version||!imageSourceRegion.Matches(source))
         {
-            ClearSource();sourceVersion=version;imageSourceRegion=new(source,observeReader,sourceChanged,()=>canReadSource?.Invoke(version.Value)!=false,captureReaderGuard,sourceFailed);
+            long before=viewInstallation;ClearSource();if(before!=viewInstallation||current?.Invoke()==false)return;viewInstallation++;sourceVersion=version;imageSourceRegion=new(source,observeReader,sourceChanged,()=>canReadSource?.Invoke(version.Value)!=false,captureReaderGuard,sourceFailed);
             sourceBlock=new(imageSourceRegion.View){Margin=new Thickness(0,8,0,0)};host.Document.Blocks.Add(sourceBlock);
         }
-        if(expanded.HasValue)imageSourceRegion.SetExpanded(expanded.Value,materialize);
+        if(current?.Invoke()==false)return;if(expanded.HasValue)imageSourceRegion?.SetExpanded(expanded.Value,materialize);
+        if(current?.Invoke()==false)return;
         ConstrainSource();
+    }
+    // Warm local preview has no markdown blocks. Swap a separately owned document, then retire only captured old views.
+    // Do not enter the general Apply loop with a cached selection while WPF can reenter and install a newer document.
+    internal void ShowLocalImage(Guid version,ImageSourceOwner source,double size,MarkdownViewport viewport,Func<bool> current)
+    {
+        if(!current())return;
+        if(sourceVersion!=version||imageSourceRegion?.Matches(source)!=true)
+        {
+            RetryRetired();ClearStagedImage();if(!current())return;
+            var region=new MarkdownImageSourceRegion(source,observeReader,sourceChanged,()=>canReadSource?.Invoke(version)!=false,captureReaderGuard,sourceFailed);stagedImage=region;
+            var block=new BlockUIContainer(region.View){Margin=new Thickness(0,8,0,0)};
+            var document=new FlowDocument{PagePadding=new Thickness(0),ColumnGap=0};document.Blocks.Add(block);
+            if(!current()){ClearStagedImage();return;}
+            RetireActive(full:true);
+            if(!current()||!ReferenceEquals(stagedImage,region)){ClearStagedImage();return;}
+            viewInstallation++;sourceRegion=null;imageSourceRegion=region;sourceVersion=version;sourceBlock=block;stagedImage=null;appliedVersion=version;
+            host.Document=document;if(!current())return;
+        }
+        SetViewport(viewport,current);if(!current())return;host.FontSize=size;if(!current())return;host.Document.FontSize=size;if(!current())return;
+        appliedFontSize=size;ConstrainSource();
     }
     private void ConstrainSource()
     {sourceRegion?.Constrain(host.Document.PageWidth,viewport.MaximumHeightDip,host.FontSize,host.Foreground);imageSourceRegion?.Constrain(host.Document.PageWidth,viewport.MaximumHeightDip,host.FontSize,host.Foreground);}
-    public void SetViewport(MarkdownViewport value)
+    public void SetViewport(MarkdownViewport value,Func<bool>? current=null)
     {
-        value.Validate();viewport=value;host.Width=host.MaxWidth=value.WidthDip;host.MaxHeight=value.MaximumHeightDip;
-        double contentWidth=Math.Max(1,value.WidthDip-SystemParameters.VerticalScrollBarWidth);
-        host.Document.PageWidth=host.Document.ColumnWidth=contentWidth;
-        foreach(var region in codeRegions.Values)region.Constrain(contentWidth,value.CodeMaximumHeightDip);
-        foreach(var region in tableRegions.Values)region.Constrain(contentWidth,value.TableMaximumHeightDip);
+        if(current?.Invoke()==false)return;value.Validate();viewport=value;
+        host.Width=value.WidthDip;if(current?.Invoke()==false)return;host.MaxWidth=value.WidthDip;if(current?.Invoke()==false)return;host.MaxHeight=value.MaximumHeightDip;if(current?.Invoke()==false)return;
+        double contentWidth=Math.Max(1,value.WidthDip-SystemParameters.VerticalScrollBarWidth);var document=host.Document;
+        document.PageWidth=contentWidth;if(current?.Invoke()==false)return;document.ColumnWidth=contentWidth;if(current?.Invoke()==false)return;
+        foreach(var region in codeRegions.Values.ToArray()){region.Constrain(contentWidth,value.CodeMaximumHeightDip);if(current?.Invoke()==false)return;}
+        foreach(var region in tableRegions.Values.ToArray()){region.Constrain(contentWidth,value.TableMaximumHeightDip);if(current?.Invoke()==false)return;}
         ConstrainSource();
     }
     public void RefreshCodeAppearance()

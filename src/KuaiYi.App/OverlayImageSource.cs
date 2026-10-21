@@ -1,4 +1,5 @@
 using KuaiYi.Core;
+using KuaiYi.Core.Installation;
 using KuaiYi.Imaging;
 using KuaiYi.Providers;
 namespace KuaiYi.App;
@@ -39,8 +40,10 @@ internal sealed partial class ShellWindow
         !lifecycle.Gate.Snapshot.Suspension.HasFlag(Suspension.SessionLocked)&&lifecycle.Gate.Snapshot.Presentation!=Presentation.Hidden;
     // Consumes the cropped source on both success and rejection. No provider, consent or activation mutation.
     private bool AcceptLocalImage(ImageAdmission admission,ScreenshotIntent intent,ImageSourceOwner image)=>AcceptImage(admission,()=>intent.IsCurrent,intent.Dispose,image);
-    private bool AcceptFileImage(ImageAdmission admission,FileImageIntent intent,OwnedFileImage image)
-    {bool accepted=AcceptImage(admission,()=>intent.IsCurrent,intent.Dispose,image);if(accepted)ShowSelectionSource();return accepted;}
+    private bool AcceptFileImage(ImageAdmission admission,FileImageIntent intent,OwnedFileImage image,InstallationWarmImageAdmission? warm=null,InstallationWarmLease? lease=null)
+    {
+        if(warm!=null){if(lease==null){image.Dispose();throw new InvalidOperationException("Original warm lease required.");}return AcceptWarmFileImage(warm,lease,admission,intent,image);}
+        bool accepted=AcceptImage(admission,()=>intent.IsCurrent,intent.Dispose,image);if(accepted)ShowSelectionSource();return accepted;}
     private bool AcceptImage(ImageAdmission admission,Func<bool> current,Action release,ImageSourceOwner image)
     {
         bool accepted=false;

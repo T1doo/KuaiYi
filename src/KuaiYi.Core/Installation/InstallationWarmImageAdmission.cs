@@ -4,7 +4,9 @@ namespace KuaiYi.Core.Installation;
 internal sealed class InstallationWarmConnection
 {
     internal readonly Guid Id=Guid.NewGuid();
-    internal readonly string Nonce=InstallationWarmIdentity.NewNonce();
+    internal readonly string Nonce;
+    internal InstallationWarmConnection(string? nonce=null)
+    {if(nonce!=null&&!InstallationWarmIdentity.Nonce(nonce))throw new InvalidDataException("Invalid connection nonce.");Nonce=nonce??InstallationWarmIdentity.NewNonce();}
     private int consumed;
     internal void Consume(){if(Interlocked.Exchange(ref consumed,1)!=0)throw new InvalidOperationException("Connection attempt already consumed.");}
 }
@@ -12,7 +14,7 @@ internal enum InstallationWarmPhase { Reserved,Preparing,AppOwned,Revoked }
 internal sealed class InstallationWarmLease
 {
     internal InstallationWarmGrant Grant;
-    internal bool RemoteGrantBound;
+    internal bool RemoteGrantBound,PreviewConfirmed;
     internal readonly CancellationTokenSource Stop=new();
     internal readonly List<Task> Originals=[];
     internal readonly List<ITimer> Timers=[];
@@ -28,10 +30,10 @@ internal sealed class InstallationWarmLease
     internal CancellationToken Token=>Stop.Token;
 }
 
-// Stage A: internal state only. No external pipe, peer claims, App enable, UI, or model access.
+// One private inherited-channel slot. Real peer authentication is the App adapter prerequisite.
 internal sealed class InstallationWarmImageAdmission(InstallationControlledLaunch proof,TimeProvider clock)
 {
-    private readonly object sync=new(); // Future UI commit wrapper takes this before Gate; callbacks here perform no IO.
+    private readonly object sync=new(); // The pure UI source commit takes this before Gate; callbacks here perform no IO.
     private InstallationWarmLease? slot;
     private long ordinal;
     private bool closed;
@@ -91,9 +93,9 @@ internal sealed class InstallationWarmImageAdmission(InstallationControlledLaunc
         }
         _=Revoke(lease);return false;
     }
-    internal bool TryAccept(InstallationWarmLease lease,Func<InstallationWarmAccepted?> accept)
-    {try{return TryAcceptCore(lease,accept);}catch{_=Revoke(lease);throw;}}
-    private bool TryAcceptCore(InstallationWarmLease lease,Func<InstallationWarmAccepted?> accept)
+    internal bool TryAccept(InstallationWarmLease lease,Func<InstallationWarmAccepted?> accept,bool previewPending=false)
+    {try{return TryAcceptCore(lease,accept,previewPending);}catch{_=Revoke(lease);throw;}}
+    private bool TryAcceptCore(InstallationWarmLease lease,Func<InstallationWarmAccepted?> accept,bool previewPending)
     {
         bool expired;
         lock(sync)
@@ -102,13 +104,17 @@ internal sealed class InstallationWarmImageAdmission(InstallationControlledLaunc
             expired=clock.GetElapsedTime(lease.Started)>=TimeSpan.FromSeconds(15);
             if(!expired)
             {
-                // Synchronous, memory-only callback. Stage B must audit the actual Accept callgraph/exception candidate ownership.
+                // Synchronous memory-only source/Gate swap. WPF, cancellation and disposal run after this lock is released.
                 var accepted=accept();if(accepted is not {Source:var source,Version:>0}||source==Guid.Empty)return false;
-                lease.Accepted=accepted;lease.Phase=InstallationWarmPhase.AppOwned;return true;
+                lease.Accepted=accepted;lease.PreviewConfirmed=!previewPending;lease.Phase=InstallationWarmPhase.AppOwned;return true;
             }
         }
         _=Revoke(lease);return false;
     }
+    internal bool FreezeEpoch(InstallationWarmLease lease,long epoch)
+    {lock(sync){Require(lease);if(closed||lease.Phase!=InstallationWarmPhase.Reserved||epoch<0||clock.GetElapsedTime(lease.Started)>=TimeSpan.FromSeconds(10))return false;lease.Grant=lease.Grant with{Epoch=epoch};return true;}}
+    internal bool ConfirmPreview(InstallationWarmLease lease,Func<bool> current)
+    {lock(sync){Require(lease);if(lease.Phase!=InstallationWarmPhase.AppOwned||!current())return false;lease.PreviewConfirmed=true;return true;}}
     internal Task Revoke(InstallationWarmLease lease,InstallationWarmPhase? expected=null)
     {
         bool start=false;
@@ -179,7 +185,7 @@ internal sealed class InstallationWarmImageAdmission(InstallationControlledLaunc
         if(failures.Count!=0)throw new AggregateException("Original warm work or cleanup failed; retained.",failures);
         if(!confirmed)return false;
         InstallationWarmResult result;
-        lock(sync){Require(lease);result=new(lease.Grant.Identity,lease.Accepted==null?InstallationWarmOutcome.Rejected:InstallationWarmOutcome.PreviewReady,lease.Accepted?.Source??Guid.Empty,lease.Accepted?.Version??0);}
+        lock(sync){Require(lease);bool ready=lease.Accepted!=null&&lease.PreviewConfirmed;result=new(lease.Grant.Identity,ready?InstallationWarmOutcome.PreviewReady:InstallationWarmOutcome.Rejected,ready?lease.Accepted!.Source:Guid.Empty,ready?lease.Accepted!.Version:0,ready?lease.Accepted!.SourceVersion:Guid.Empty);}
         // Original write/flush, including backpressure, must actually finish before this slot can retire.
         var writeBegin=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         lease.FinalWrite=Task.Run(async()=>{await writeBegin.Task.ConfigureAwait(false);await write(result).ConfigureAwait(false);});

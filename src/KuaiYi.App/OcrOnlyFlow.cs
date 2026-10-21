@@ -13,7 +13,7 @@ internal sealed partial class ShellWindow
     private bool ocrFlowBusy;
     partial void OcrSourceChanged(bool clearApproved)
     {
-        List<Exception> errors=[];ScreenshotPreviewCleanup.Attempt(errors,()=>ocrOnly?.Clear(clearApproved));ScreenshotPreviewCleanup.Attempt(errors,()=>ocrDialog?.Close());
+        var previous=ocrOnly;var previousDialog=ocrDialog;List<Exception> errors=[];ScreenshotPreviewCleanup.Attempt(errors,()=>previous?.Clear(clearApproved));ScreenshotPreviewCleanup.Attempt(errors,()=>previousDialog?.Close());
         if(errors.Count>0)throw new AggregateException("OCR cleanup unconfirmed.",errors);
     }
     partial void CollectOcrCleanup(ref Task cleanup){cleanup=ocrOnly?.ClearAsync()??Task.CompletedTask;}

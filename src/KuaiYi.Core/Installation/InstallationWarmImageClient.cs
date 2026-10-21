@@ -1,7 +1,7 @@
 using System.Diagnostics;
 namespace KuaiYi.Core.Installation;
 
-// Private inherited-channel actor, not an external authentication API. No App caller in stage A.
+// Private inherited-channel actor. External Windows ingress additionally requires the original live session and real peers.
 internal sealed class InstallationWarmImageClient(InstallationControlledLaunch proof,TimeProvider clock,Func<string,CancellationToken,Task> send)
 {
     internal sealed class Request(InstallationWarmLease lease)
@@ -17,6 +17,8 @@ internal sealed class InstallationWarmImageClient(InstallationControlledLaunch p
     private readonly InstallationWarmImageAdmission admission=new(proof,clock);
     private Request? current;
     private bool closed;
+    internal Action? Quiescing; // Installed live capability only; synchronous lock-free seal, never IO or joins.
+    internal bool IsOpen{get{lock(sync)return !closed;}}
     internal bool Busy=>admission.Busy;
     internal Request? Active{get{lock(sync)return current;}}
     internal async Task<Request> ReserveAsync(InstallationWarmConnection connection)
@@ -65,7 +67,7 @@ internal sealed class InstallationWarmImageClient(InstallationControlledLaunch p
     }
     internal void Quiesce()
     {
-        lock(sync){closed=true;if(current is {} request&&!request.ResultSeen)_=Cancel(request,false);}
+        lock(sync){closed=true;Quiescing?.Invoke();if(current is {} request&&!request.ResultSeen)_=Cancel(request,false);}
     }
     internal void Receive(string line)
     {
@@ -92,13 +94,13 @@ internal sealed class InstallationWarmImageClient(InstallationControlledLaunch p
                 var result=InstallationWarmImageWire.Decode<InstallationWarmResult>(line[12..]);result.Identity.Require(proof);
                 if(request.ResultSeen||result.Identity!=request.Lease.Grant.Identity||!Enum.IsDefined(result.Outcome)||
                     result.Outcome==InstallationWarmOutcome.PreviewReady&&(!request.Submitted||result.Source==Guid.Empty||result.Version<=0)||
-                    result.Outcome==InstallationWarmOutcome.Rejected&&(result.Source!=Guid.Empty||result.Version!=0))throw new InvalidDataException("Invalid warm terminal receipt.");
+                    result.Outcome==InstallationWarmOutcome.Rejected&&(result.Source!=Guid.Empty||result.Version!=0||result.SourceVersion!=Guid.Empty))throw new InvalidDataException("Invalid warm terminal receipt.");
                 request.ResultSeen=true;
                 if(result.Outcome==InstallationWarmOutcome.PreviewReady)
                 {
                     // The original remote receipt still settles. A lost local deadline race cannot authorize success,
                     // nor does it grant authority to roll back the remote App-owned source.
-                    if(!admission.TryAccept(request.Lease,()=>new(result.Source,result.Version)))request.Cancelled=true;
+                    if(!admission.TryAccept(request.Lease,()=>new(result.Source,result.Version,result.SourceVersion)))request.Cancelled=true;
                 }
                 else _=admission.Revoke(request.Lease);
                 request.Finish=admission.RetireAsync(request.Lease,()=>ValueTask.FromResult(true),_=>Task.CompletedTask);
@@ -112,7 +114,7 @@ internal sealed class InstallationWarmImageClient(InstallationControlledLaunch p
     {
         lock(sync)
         {
-            closed=true;if(current is not {} request||request.ResultSeen)return;
+            closed=true;Quiescing?.Invoke();if(current is not {} request||request.ResultSeen)return;
             _=admission.Revoke(request.Lease);
             request.Finish=admission.RetireAsync(request.Lease,()=>ValueTask.FromResult(true),_=>Task.CompletedTask);
             request.Granted.TrySetException(error);request.Result.TrySetException(error);

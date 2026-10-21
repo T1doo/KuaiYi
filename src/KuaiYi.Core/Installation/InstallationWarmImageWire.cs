@@ -15,8 +15,8 @@ internal sealed record InstallationWarmIdentity(Guid Launch,string Proof,Guid Co
 internal sealed record InstallationWarmGrant(InstallationWarmIdentity Identity,string Nonce,long Epoch);
 internal sealed record InstallationWarmSubmit(InstallationWarmGrant Grant,string Path);
 internal enum InstallationWarmOutcome { Rejected,PreviewReady }
-internal sealed record InstallationWarmResult(InstallationWarmIdentity Identity,InstallationWarmOutcome Outcome,Guid Source,long Version);
-internal sealed record InstallationWarmAccepted(Guid Source,long Version);
+internal sealed record InstallationWarmResult(InstallationWarmIdentity Identity,InstallationWarmOutcome Outcome,Guid Source,long Version,Guid SourceVersion=default);
+internal sealed record InstallationWarmAccepted(Guid Source,long Version,Guid SourceVersion=default);
 internal static class InstallationWarmImageWire
 {
     private static readonly JsonSerializerOptions Options=new(){MaxDepth=8,UnmappedMemberHandling=System.Text.Json.Serialization.JsonUnmappedMemberHandling.Disallow};
@@ -46,7 +46,7 @@ internal static class InstallationWarmImageWire
             case InstallationWarmSubmit s:
                 if(s.Grant==null||s.Path==null)throw new InvalidDataException("Missing warm submit fields.");Validate(s.Grant);OleImageFileDrop.ValidatePath(s.Path);break;
             case InstallationWarmResult r:
-                if(r.Identity==null||!Enum.IsDefined(r.Outcome)||r.Outcome==InstallationWarmOutcome.PreviewReady&&(r.Source==Guid.Empty||r.Version<=0)||r.Outcome==InstallationWarmOutcome.Rejected&&(r.Source!=Guid.Empty||r.Version!=0))throw new InvalidDataException("Invalid warm result fields.");Validate(r.Identity);break;
+                if(r.Identity==null||!Enum.IsDefined(r.Outcome)||r.Outcome==InstallationWarmOutcome.PreviewReady&&(r.Source==Guid.Empty||r.Version<=0)||r.Outcome==InstallationWarmOutcome.Rejected&&(r.Source!=Guid.Empty||r.Version!=0||r.SourceVersion!=Guid.Empty))throw new InvalidDataException("Invalid warm result fields.");Validate(r.Identity);break;
             default:throw new InvalidDataException("Unsupported warm record.");
         }
     }
