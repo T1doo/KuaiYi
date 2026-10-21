@@ -1,0 +1,980 @@
+{
+  "baseHead": "96a0b3b9b42d48da49b650126062322a9304e619",
+  "branch": "dev/p7-fixed-signoff",
+  "scope": "A only: internal Core state machine + original inherited stdio; synthetic preparation/owner in tests only; production App attaches no warm actor; no external endpoint/Windows adapter/live capability/UI wiring",
+  "runs": {
+    "r03-warm-state-actors": {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~InstallationWarmImageTests|FullyQualifiedName~InstallationWarmActorTests|FullyQualifiedName~WarmSyntheticPreparation|FullyQualifiedName~CancellationRetainsTheOriginalSynthetic|FullyQualifiedName~OriginalChildWriteOrFlush|FullyQualifiedName~LostReceiptDoesNot|FullyQualifiedName~AFalseOwnerFinalization|FullyQualifiedName~AConsumedWarmRequest|FullyQualifiedName~NormalPublicRunDoesNotOptIn|FullyQualifiedName~ControllerCancellationStartsBeforeBlocked",
+        "--logger",
+        "trx;LogFileName=r03-warm-state-actors.trx",
+        "--results-directory",
+        "artifacts/warm-image-a"
+      ],
+      "exitCode": 1,
+      "seconds": 50.359,
+      "inputsUnchangedDuringRun": true,
+      "logSha256": "fe96287144d12277a410c4a0882d0bbf0252b66ba2c12566be83b68fce587478",
+      "counts": {
+        "total": "33",
+        "executed": "33",
+        "passed": "21",
+        "failed": "12",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trxSha256": "636621b24c7db93a3bb31a41ce77aa47192cd937043f001b1c496108023a5057",
+      "failures": 12
+    },
+    "r04-warm-integration-cleanup": {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~WarmSyntheticPreparation|FullyQualifiedName~CancellationRetainsTheOriginalSynthetic|FullyQualifiedName~OriginalChildWriteOrFlush|FullyQualifiedName~LostReceiptDoesNot|FullyQualifiedName~AFalseOwnerFinalization|FullyQualifiedName~AConsumedWarmRequest|FullyQualifiedName~NormalPublicRunDoesNotOptIn|FullyQualifiedName~ControllerCancellationStartsBeforeBlocked",
+        "--logger",
+        "trx;LogFileName=r04-warm-integration-cleanup.trx",
+        "--results-directory",
+        "artifacts/warm-image-a"
+      ],
+      "exitCode": 1,
+      "seconds": 32.6,
+      "inputsUnchangedDuringRun": true,
+      "logSha256": "9401237f1035e2b80374018ccebce720e2d529c1738b9a461427956a81bbe4a3",
+      "counts": {
+        "total": "12",
+        "executed": "12",
+        "passed": "10",
+        "failed": "2",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trxSha256": "bf35f0dac750484d1608b1ad6b32ee5b31c1ddda4ad5495150c007c1cf143bb0",
+      "failures": 2
+    },
+    "r05-review-counterexample": {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~ANewAttemptWhilePreparing|FullyQualifiedName~ClientReceiptCannotReport",
+        "--logger",
+        "trx;LogFileName=r05-review-counterexample.trx",
+        "--results-directory",
+        "artifacts/warm-image-a"
+      ],
+      "exitCode": 1,
+      "seconds": 33.978,
+      "inputsUnchangedDuringRun": true,
+      "logSha256": "2e080275cf914b827492ce4bc430161813518ce65e2ba2e7c3189883d50e27cb",
+      "counts": {
+        "total": "4",
+        "executed": "4",
+        "passed": "1",
+        "failed": "3",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trxSha256": "106ebba4c3639b7359c414c1bfe2ebf79f823b4cdbcee495822307187ce01dab",
+      "failures": 3
+    },
+    "r06-review-and-parent-write": {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~ANewAttemptWhilePreparing|FullyQualifiedName~ClientReceiptCannotReport|FullyQualifiedName~ControllerCancellationStartsBeforeBlocked",
+        "--logger",
+        "trx;LogFileName=r06-review-and-parent-write.trx",
+        "--results-directory",
+        "artifacts/warm-image-a"
+      ],
+      "exitCode": 0,
+      "seconds": 9.102,
+      "inputsUnchangedDuringRun": true,
+      "logSha256": "f6b8fcc9693d25e71a476331065f8d1e2c681abeee4f52600e9e24b3f35f1823",
+      "counts": {
+        "total": "6",
+        "executed": "6",
+        "passed": "6",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trxSha256": "1b78fec3f70c4d9a0ae648691f2a39a44407454acab5918abaf295cec49d5a3f",
+      "failures": 0
+    },
+    "r07-installation-regression": {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~Installation",
+        "--logger",
+        "trx;LogFileName=r07-installation-regression.trx",
+        "--results-directory",
+        "artifacts/warm-image-a"
+      ],
+      "exitCode": 0,
+      "seconds": 40.525,
+      "inputsUnchangedDuringRun": true,
+      "logSha256": "977a530705397d02b91d26efe54556a9ec7662af14ca55a6565637eb89c6f5e9",
+      "counts": {
+        "total": "200",
+        "executed": "200",
+        "passed": "200",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trxSha256": "c0f94e106ae1fdeb8135dded5dc874a7102f294db936563b1f1482424b940c57",
+      "failures": 0
+    },
+    "r08-app-cross-build": {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "build",
+        "src/KuaiYi.App/KuaiYi.App.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "-p:EnableWindowsTargeting=true"
+      ],
+      "exitCode": 0,
+      "seconds": 16.773,
+      "inputsUnchangedDuringRun": true,
+      "logSha256": "ede6ed10518d68d8eea18e0ea414a7d6ba563dbacb15fbce991643e65074f42d"
+    }
+  },
+  "earlyRuns": {
+    "r00": {
+      "result": "Build succeeded 0W0E",
+      "log": "r00-core-build.log",
+      "limitation": "Original command/DLL catalog not captured; not reconstructed as original"
+    },
+    "r01": {
+      "trx": "warm-state-initial.trx",
+      "counts": {
+        "total": "17",
+        "executed": "17",
+        "passed": "16",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "log": "r01-initial.log",
+      "source": "r01-source",
+      "limitation": "Command/DLL catalog not captured; source and input snapshot preserved"
+    },
+    "r02": {
+      "result": "Compile failed xUnit2013; no tests executed and no TRX",
+      "log": "r02-initial-integration.log",
+      "source": "r02-source",
+      "limitation": "No execution counts/command/DLL catalog invented"
+    }
+  },
+  "protection": {
+    "baseHead": "96a0b3b9b42d48da49b650126062322a9304e619",
+    "baselineInputs": 812,
+    "finalInputs": 821,
+    "unchangedBaselineInputs": 809,
+    "changed": [
+      "src/KuaiYi.Core/Installation/InstallationApplicationControl.cs",
+      "tests/KuaiYi.Core.Tests/InstallationSessionTests.cs",
+      "tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs"
+    ],
+    "added": [
+      "src/KuaiYi.Core/Installation/InstallationWarmImageAdmission.cs",
+      "src/KuaiYi.Core/Installation/InstallationWarmImageClient.cs",
+      "src/KuaiYi.Core/Installation/InstallationWarmImageControl.cs",
+      "src/KuaiYi.Core/Installation/InstallationWarmImageWire.cs",
+      "tests/KuaiYi.Core.Tests/InstallationWarmActorTests.cs",
+      "tests/KuaiYi.Core.Tests/InstallationWarmImageTests.cs",
+      "tests/KuaiYi.Core.Tests/InstallationWarmParentWriteTests.cs",
+      "tests/KuaiYi.Core.Tests/InstallationWarmSessionTests.cs",
+      "tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.Warm.cs"
+    ],
+    "oldInstallationCases": 163,
+    "currentInstallationCases": 200,
+    "missingOld": [],
+    "addedCases": [
+      "KuaiYi.Core.Tests.InstallationWarmImageTests.WarmWireRejectsNoncanonicalAndOversizedPayloads(fault: \"missing\")",
+      "KuaiYi.Core.Tests.InstallationWarmImageTests.WarmWireRejectsNoncanonicalAndOversizedPayloads(fault: \"oversize\")",
+      "KuaiYi.Core.Tests.InstallationSessionTests.AConsumedWarmRequestNeverReopensTheColdImageOrHandoffPath(command: \"IMAGE\")",
+      "KuaiYi.Core.Tests.InstallationWarmActorTests.ClientReceiptCannotReportSuccessPastItsOwnDeadlineWhenTimerDeliveryIsHeld(elapsed: 15000, accepted: False)",
+      "KuaiYi.Core.Tests.InstallationSessionTests.AFalseOwnerFinalizationCanOnlyRetryTheSameOwnerAndNeverRepeatPreparation",
+      "KuaiYi.Core.Tests.InstallationWarmActorTests.QuiesceHasAlreadyRevokedBeforeTheCancellationSourceStartsAndCannotLoseToAccept",
+      "KuaiYi.Core.Tests.InstallationWarmActorTests.ClientReceiptCannotReportSuccessPastItsOwnDeadlineWhenTimerDeliveryIsHeld(elapsed: 15001, accepted: False)",
+      "KuaiYi.Core.Tests.InstallationWarmImageTests.WarmWireRejectsNoncanonicalAndOversizedPayloads(fault: \"unknown\")",
+      "KuaiYi.Core.Tests.InstallationWarmImageTests.AcceptAndCancellationHaveBothDeterministicallyOrderedWinningCases(cancelWins: True)",
+      "KuaiYi.Core.Tests.InstallationWarmImageTests.OriginalReceiptWriteAndFlushBackpressureCannotClearSlotAndQuiesceDoesNotWaitForWriter(flush: False)",
+      "KuaiYi.Core.Tests.InstallationSessionTests.WarmSyntheticPreparationUsesTheSameOriginalChildTwiceWithSeparateOneShotConnections",
+      "KuaiYi.Core.Tests.InstallationWarmImageTests.AcceptAndCancellationHaveBothDeterministicallyOrderedWinningCases(cancelWins: False)",
+      "KuaiYi.Core.Tests.InstallationWarmActorTests.ANewAttemptWhilePreparingIsRejectedWithoutRevokingOrQueueingTheOriginal",
+      "KuaiYi.Core.Tests.InstallationSessionTests.ControllerCancellationStartsBeforeBlockedWriteLockAndTheOriginalExitWriteMustSettle(flush: False)",
+      "KuaiYi.Core.Tests.InstallationSessionTests.OriginalChildWriteOrFlushBackpressureBlocksCleanExitAndKeepsTheInstallationLease(mode: \"warm-result-write\")",
+      "KuaiYi.Core.Tests.InstallationWarmActorTests.ChildDeadlinesSettleWithoutAClientTimerOrCancellationMessage(preparing: False)",
+      "KuaiYi.Core.Tests.InstallationWarmActorTests.ChildDeadlinesSettleWithoutAClientTimerOrCancellationMessage(preparing: True)",
+      "KuaiYi.Core.Tests.InstallationWarmImageTests.OriginalReceiptWriteAndFlushBackpressureCannotClearSlotAndQuiesceDoesNotWaitForWriter(flush: True)",
+      "KuaiYi.Core.Tests.InstallationSessionTests.AConsumedWarmRequestNeverReopensTheColdImageOrHandoffPath(command: \"OFFER\")",
+      "KuaiYi.Core.Tests.InstallationWarmActorTests.QuiescePublishesTheOriginalWriteBeforeCallingASynchronouslyBlockingSender",
+      "KuaiYi.Core.Tests.InstallationWarmImageTests.GrantUsesTheExactMonotonicBoundaryEvenWhenTimerDeliveryIsHeld(elapsed: 9999, expected: True)",
+      "KuaiYi.Core.Tests.InstallationWarmImageTests.WarmWireRejectsNoncanonicalAndOversizedPayloads(fault: \"whitespace\")",
+      "KuaiYi.Core.Tests.InstallationWarmImageTests.OriginalWorkCancellationAndTimerDisposalAllFenceRetirementAndOldTimerCannotTouchNewLease",
+      "KuaiYi.Core.Tests.InstallationWarmImageTests.PrepareHasItsOwnExactBoundaryAndGrantTimerCannotRevokeIt(elapsed: 15000, expected: False)",
+      "KuaiYi.Core.Tests.InstallationSessionTests.CancellationRetainsTheOriginalSyntheticOwnerAndActualChildUntilWorkAndCallbackSettle(mode: \"warm-held-work\")",
+      "KuaiYi.Core.Tests.InstallationSessionTests.NormalPublicRunDoesNotOptInToTheInternalWarmActor",
+      "KuaiYi.Core.Tests.InstallationWarmImageTests.PrepareHasItsOwnExactBoundaryAndGrantTimerCannotRevokeIt(elapsed: 15001, expected: False)",
+      "KuaiYi.Core.Tests.InstallationWarmActorTests.ClientReceiptCannotReportSuccessPastItsOwnDeadlineWhenTimerDeliveryIsHeld(elapsed: 14999, accepted: True)",
+      "KuaiYi.Core.Tests.InstallationSessionTests.LostReceiptDoesNotReplayOrRollBackAppOwnedSourceAndCannotClaimCleanProtocolSettlement",
+      "KuaiYi.Core.Tests.InstallationSessionTests.CancellationRetainsTheOriginalSyntheticOwnerAndActualChildUntilWorkAndCallbackSettle(mode: \"warm-held-callback\")",
+      "KuaiYi.Core.Tests.InstallationWarmImageTests.PrepareHasItsOwnExactBoundaryAndGrantTimerCannotRevokeIt(elapsed: 14999, expected: True)",
+      "KuaiYi.Core.Tests.InstallationSessionTests.OriginalChildWriteOrFlushBackpressureBlocksCleanExitAndKeepsTheInstallationLease(mode: \"warm-result-flush\")",
+      "KuaiYi.Core.Tests.InstallationWarmImageTests.BodyAndCleanupFailuresAreBothPreservedAndNeverEmitASuccessOrReleaseTheSlot",
+      "KuaiYi.Core.Tests.InstallationWarmImageTests.GrantUsesTheExactMonotonicBoundaryEvenWhenTimerDeliveryIsHeld(elapsed: 10000, expected: False)",
+      "KuaiYi.Core.Tests.InstallationWarmImageTests.GrantUsesTheExactMonotonicBoundaryEvenWhenTimerDeliveryIsHeld(elapsed: 10001, expected: False)",
+      "KuaiYi.Core.Tests.InstallationSessionTests.ControllerCancellationStartsBeforeBlockedWriteLockAndTheOriginalExitWriteMustSettle(flush: True)",
+      "KuaiYi.Core.Tests.InstallationWarmImageTests.SingleSlotBurnsAConnectionAndRejectsCrossConnectionReplayWithoutASeenSet"
+    ],
+    "scope": "One production existing file + four new internal Core files; App/Windows/coordinator/Contracts/imaging/Worker/dependencies unchanged",
+    "allOldMethodBodies": "InstallationSessionTests has Port helpers/exit observation only; existing Fact/Theory bodies unchanged"
+  },
+  "review": "Read-only source/r05 red/r06 green/r07 original ACK, no test/build/write; no new certain P1/P2; not Windows/B acceptance",
+  "notRun": [
+    "full Core after A at this checkpoint",
+    "real Windows peer/identity/menu/WPF/OLE/COM/OCR/quality/250600/600MiB/fullP6P7/106/Beta",
+    "real Worker/UI Accept wrapper (A synthetic only)",
+    "external live session capability and Windows adapter"
+  ],
+  "constraints": [
+    "DefaultOff",
+    "no automatic OCR/send/replay/cold fallback",
+    "original task/cancel/write/actual-exit and send gates preserved",
+    "PackageHold and production reuseOff",
+    "odd WebP payload rejection unchanged",
+    "no user desktop, new license/dependency/permission/credential/cost/CI/model/main/forcepush/deploy"
+  ],
+  "archive": {
+    "path": "docs/test-evidence/2026-10-21-warm-image-core-a-originals.zip",
+    "bytes": 837937,
+    "sha256": "49338fcf6958e5c7d3d9f1d5bdf48d750220bbdd539ee39123075fdfe5d31987",
+    "entries": 152
+  },
+  "archiveMembers": {
+    "run/base-source/src/KuaiYi.Core/Installation/InstallationApplicationControl.cs": {
+      "bytes": 18445,
+      "sha256": "bb07bfce296abb23236dd3bc43c47f5b9a9abc73aeea067d6082a4ac912e3883"
+    },
+    "run/base-source/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs": {
+      "bytes": 35223,
+      "sha256": "f81bf45cbfb818691460d6c857ab7458d21b73129d1755c80806c334befab7c8"
+    },
+    "run/base-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs": {
+      "bytes": 18143,
+      "sha256": "250f5c613741cea4eb50d6c6cf1a4b45ce22703ef334d6f447bcaa0eb6cf6eae"
+    },
+    "run/baseline-inputs.json": {
+      "bytes": 95816,
+      "sha256": "f558cca80d1f700adf97bbf2630d677ab6d8f47d36beca4c1952dc003da99e9d"
+    },
+    "run/early-run-limitations.json": {
+      "bytes": 1018,
+      "sha256": "11e185cc82606af7d0b213c35fc9eb064239a4d613ca1d442881e9fdfa9b8569"
+    },
+    "run/final-protection.json": {
+      "bytes": 6492,
+      "sha256": "79d929a230b67f85e31e35a207515620f21adfb5e46dff5a751fcfcd265606ad"
+    },
+    "run/r00-core-build.log": {
+      "bytes": 163,
+      "sha256": "2ada711a16652d6aeb192f7bcdae3a82bcbee169d2b02b6e388a71d9f7928572"
+    },
+    "run/r01-failure-001.xml": {
+      "bytes": 1314,
+      "sha256": "33b6cc32f0b7c64b4eb872e42e64a92bc3844fdb9d9c153ed2d1fbafe65fae0e"
+    },
+    "run/r01-initial.log": {
+      "bytes": 3002,
+      "sha256": "ab275f1156c2a07ba00a6d0493feb02eec282640b173a0e3b3f07145d28f6bb5"
+    },
+    "run/r01-inputs.json": {
+      "bytes": 96477,
+      "sha256": "d5ef9adfa1144bdfb5a6168db5d3b6b56df7b9d36b89966c0d9a5333125d4d2f"
+    },
+    "run/r01-source/src/KuaiYi.Core/Installation/InstallationApplicationControl.cs": {
+      "bytes": 21258,
+      "sha256": "a9b9f93c9f118d1d07e7be8004e6c424a843115d832103b5be04edecee3e91be"
+    },
+    "run/r01-source/src/KuaiYi.Core/Installation/InstallationWarmImageAdmission.cs": {
+      "bytes": 10144,
+      "sha256": "a200ddfd58ad42320848a683e764365371e10349e6f26c85db20d516fff1abe0"
+    },
+    "run/r01-source/src/KuaiYi.Core/Installation/InstallationWarmImageClient.cs": {
+      "bytes": 6692,
+      "sha256": "4f3bcd791419ef95547a8c6280a9a9527ea5511f5f9a3270fb4ce4eb51041e2b"
+    },
+    "run/r01-source/src/KuaiYi.Core/Installation/InstallationWarmImageControl.cs": {
+      "bytes": 4775,
+      "sha256": "9ca1173aa6e724a054a57d154f07d7ab0001a3a4910dbf5faea06ebd6f3894c7"
+    },
+    "run/r01-source/src/KuaiYi.Core/Installation/InstallationWarmImageWire.cs": {
+      "bytes": 2477,
+      "sha256": "6efa3946ff61a350adb27599b0dff148da8ac5043173053b76dbb9c4b47a1cc5"
+    },
+    "run/r01-source/tests/KuaiYi.Core.Tests/InstallationWarmImageTests.cs": {
+      "bytes": 11668,
+      "sha256": "361498901bcc842ccb89bb020e3b9b2b0a4092310581f3310c2bb3ee734ede1c"
+    },
+    "run/r02-initial-integration.log": {
+      "bytes": 1879,
+      "sha256": "27800599ac2c358e12aa74920f940dc28b243f4b9429a0fccc37de9b05e9b6c4"
+    },
+    "run/r02-inputs.json": {
+      "bytes": 96751,
+      "sha256": "d5b8a18a95a3891079bba0bf2713ed9922e4589fecece86d9d35e28599420ece"
+    },
+    "run/r02-source/src/KuaiYi.Core/Installation/InstallationApplicationControl.cs": {
+      "bytes": 21381,
+      "sha256": "9b5492e9265006dfd5c2a28bb59bf6f67752a02027f9290f6e320f797d1234f8"
+    },
+    "run/r02-source/src/KuaiYi.Core/Installation/InstallationWarmImageAdmission.cs": {
+      "bytes": 11955,
+      "sha256": "83263b724cadcb046b494986b2d20757f14abbb4910a07344bc9615b3f04bd0e"
+    },
+    "run/r02-source/src/KuaiYi.Core/Installation/InstallationWarmImageClient.cs": {
+      "bytes": 7523,
+      "sha256": "8014f0d1fc26c8cea0fcdce734749172410893b0c1b70e88568c0d39d0bc81e3"
+    },
+    "run/r02-source/src/KuaiYi.Core/Installation/InstallationWarmImageControl.cs": {
+      "bytes": 6972,
+      "sha256": "529751cbce532ed9ea0d34cceac2d9d761419779bc805d5b5428ea50521deda6"
+    },
+    "run/r02-source/src/KuaiYi.Core/Installation/InstallationWarmImageWire.cs": {
+      "bytes": 3847,
+      "sha256": "40569639b6512166355b077008fe28d60995464ec77c0b2a14f0edb1d1b08d4d"
+    },
+    "run/r02-source/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs": {
+      "bytes": 35461,
+      "sha256": "5f63a2c0c64bd8d55b6a32a264a8e66b2f291437c769748b44cee7c17403e588"
+    },
+    "run/r02-source/tests/KuaiYi.Core.Tests/InstallationWarmImageTests.cs": {
+      "bytes": 11744,
+      "sha256": "d1e8ac5f50ddbe0e0bc26e29c402aa2de40dcb1a16ac338b7d7091b9ec66f92b"
+    },
+    "run/r02-source/tests/KuaiYi.Core.Tests/InstallationWarmSessionTests.cs": {
+      "bytes": 10270,
+      "sha256": "0fbbcbdbaa8e2bb62935927b8a9b9c5b741fa3ae87a475b0654adb25ad7fbf54"
+    },
+    "run/r02-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.Warm.cs": {
+      "bytes": 5487,
+      "sha256": "fdc865adcdf7a15364339794a3e099600a0223e68b0de1b38cb21a4f081733eb"
+    },
+    "run/r02-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs": {
+      "bytes": 18436,
+      "sha256": "09a45e177b55daeff4836883627aec67fa953a180ce02a0ab27ac2410770f149"
+    },
+    "run/r03-warm-state-actors-dlls.json": {
+      "bytes": 54877,
+      "sha256": "9103d3372d3ad76da421f99d2018f49826690d963ea125be7d6f6c276699dc3c"
+    },
+    "run/r03-warm-state-actors-failure-001.xml": {
+      "bytes": 1427,
+      "sha256": "c39877c5bd353f3665cc0cf1b2ae405b527b85f6e1a470646b937e2e3bd678a3"
+    },
+    "run/r03-warm-state-actors-failure-002.xml": {
+      "bytes": 1382,
+      "sha256": "55057ac3a83fa69b8ea05161923bac5712962497717858b51880dbe53fb8b0db"
+    },
+    "run/r03-warm-state-actors-failure-003.xml": {
+      "bytes": 1404,
+      "sha256": "612b3a3e524b1f9ded4cf913f22c1940a7f5a32ce7b5ea221417d27e772af682"
+    },
+    "run/r03-warm-state-actors-failure-004.xml": {
+      "bytes": 1428,
+      "sha256": "02e0836d355aea740879915b2e16d4d989a6cd24ce684818228fb7b8f7f9a7e7"
+    },
+    "run/r03-warm-state-actors-failure-005.xml": {
+      "bytes": 2536,
+      "sha256": "17bbf5a74c8cff361270f7ef6498aa4188878b5764897a058a8ec306eb927141"
+    },
+    "run/r03-warm-state-actors-failure-006.xml": {
+      "bytes": 1393,
+      "sha256": "a7be8924e6886832df3709d875d5f097abea87d22859d88f918b4f2f6538d737"
+    },
+    "run/r03-warm-state-actors-failure-007.xml": {
+      "bytes": 1427,
+      "sha256": "a323405283ed0ea8433230ac53c04bff1122836e02ffb4a80021c452e98cf644"
+    },
+    "run/r03-warm-state-actors-failure-008.xml": {
+      "bytes": 6065,
+      "sha256": "055416148ad95dd7f0581103f149600a681d0961d8e6f9a4b90169d2b840da38"
+    },
+    "run/r03-warm-state-actors-failure-009.xml": {
+      "bytes": 2115,
+      "sha256": "d583918fe0ef7864a3eefb65881569721c3cf8d91f8e54167b8bb26f1503c61d"
+    },
+    "run/r03-warm-state-actors-failure-010.xml": {
+      "bytes": 7032,
+      "sha256": "4419ffb8c03db3eab8067d209a4f4da566411f877b01561ec951e00af3182b4f"
+    },
+    "run/r03-warm-state-actors-failure-011.xml": {
+      "bytes": 12801,
+      "sha256": "30192e59223fa513ee23630dde72d5c3509909bb72e13c5151414c98355e38d9"
+    },
+    "run/r03-warm-state-actors-failure-012.xml": {
+      "bytes": 1432,
+      "sha256": "8fc2061b5c6ed4f1219d28c3c3a172b0cfbc0520edabd7b695bb060c38be68a3"
+    },
+    "run/r03-warm-state-actors-inputs.json": {
+      "bytes": 97011,
+      "sha256": "83660821dafd8dad52a5add1e8871ffed6246ca520f844be66572d3af806df03"
+    },
+    "run/r03-warm-state-actors-source/src/KuaiYi.Core/Installation/InstallationApplicationControl.cs": {
+      "bytes": 21381,
+      "sha256": "9b5492e9265006dfd5c2a28bb59bf6f67752a02027f9290f6e320f797d1234f8"
+    },
+    "run/r03-warm-state-actors-source/src/KuaiYi.Core/Installation/InstallationWarmImageAdmission.cs": {
+      "bytes": 11955,
+      "sha256": "83263b724cadcb046b494986b2d20757f14abbb4910a07344bc9615b3f04bd0e"
+    },
+    "run/r03-warm-state-actors-source/src/KuaiYi.Core/Installation/InstallationWarmImageClient.cs": {
+      "bytes": 7536,
+      "sha256": "ee01035af0e22e17814e8f9eb9f9074f91190668023b948ebe2fc930402d28f2"
+    },
+    "run/r03-warm-state-actors-source/src/KuaiYi.Core/Installation/InstallationWarmImageControl.cs": {
+      "bytes": 7048,
+      "sha256": "d9dd57c952121c3dc3c6fb3e1a3292fb98be66c95b337143fefbd1ea302d1ab0"
+    },
+    "run/r03-warm-state-actors-source/src/KuaiYi.Core/Installation/InstallationWarmImageWire.cs": {
+      "bytes": 3847,
+      "sha256": "40569639b6512166355b077008fe28d60995464ec77c0b2a14f0edb1d1b08d4d"
+    },
+    "run/r03-warm-state-actors-source/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs": {
+      "bytes": 35568,
+      "sha256": "f39093261cf27f0cd574c6018b497935189ac81823a3ad5cf72aaaed04f0a5e1"
+    },
+    "run/r03-warm-state-actors-source/tests/KuaiYi.Core.Tests/InstallationWarmActorTests.cs": {
+      "bytes": 4660,
+      "sha256": "c62496ac68487f286791062a752cdc812cc48234de208247c3ba5cfc3a273e64"
+    },
+    "run/r03-warm-state-actors-source/tests/KuaiYi.Core.Tests/InstallationWarmImageTests.cs": {
+      "bytes": 11744,
+      "sha256": "d1e8ac5f50ddbe0e0bc26e29c402aa2de40dcb1a16ac338b7d7091b9ec66f92b"
+    },
+    "run/r03-warm-state-actors-source/tests/KuaiYi.Core.Tests/InstallationWarmParentWriteTests.cs": {
+      "bytes": 3098,
+      "sha256": "bcec66cc0718dc45ff28dbbe3d3bd8c94d625245828278745c14ef0a21ae484a"
+    },
+    "run/r03-warm-state-actors-source/tests/KuaiYi.Core.Tests/InstallationWarmSessionTests.cs": {
+      "bytes": 10262,
+      "sha256": "9583f3a09b91b45678b1fc8e877769a1e727b444fea5b2b737e1ada0dd0d0baa"
+    },
+    "run/r03-warm-state-actors-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.Warm.cs": {
+      "bytes": 5487,
+      "sha256": "fdc865adcdf7a15364339794a3e099600a0223e68b0de1b38cb21a4f081733eb"
+    },
+    "run/r03-warm-state-actors-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs": {
+      "bytes": 18436,
+      "sha256": "09a45e177b55daeff4836883627aec67fa953a180ce02a0ab27ac2410770f149"
+    },
+    "run/r03-warm-state-actors.json": {
+      "bytes": 1495,
+      "sha256": "47843d098b2d63a136b62d75ac7180a867eff0b76be7f9a273b5ee8862ec4c0b"
+    },
+    "run/r03-warm-state-actors.log": {
+      "bytes": 37646,
+      "sha256": "fe96287144d12277a410c4a0882d0bbf0252b66ba2c12566be83b68fce587478"
+    },
+    "run/r03-warm-state-actors.trx": {
+      "bytes": 126811,
+      "sha256": "636621b24c7db93a3bb31a41ce77aa47192cd937043f001b1c496108023a5057"
+    },
+    "run/r04-warm-integration-cleanup-dlls.json": {
+      "bytes": 54877,
+      "sha256": "09e374b7e6e8d7bacd6df2eb9d6ddb465f8c957fa90ec166b6e6d9edac70e677"
+    },
+    "run/r04-warm-integration-cleanup-failure-001.xml": {
+      "bytes": 6116,
+      "sha256": "82946ee0d12642358b006b306a34cefd96199ff50e2cc95a1916c03831e32268"
+    },
+    "run/r04-warm-integration-cleanup-failure-002.xml": {
+      "bytes": 6159,
+      "sha256": "cd95dcb59bd337e295e87288f8375355eae490d01d3ac0caaa67b75151fa4a00"
+    },
+    "run/r04-warm-integration-cleanup-inputs.json": {
+      "bytes": 97011,
+      "sha256": "2766648b09d96f7fe9326bc842790c2c54739c7ea6453e480da6db28ff22a80d"
+    },
+    "run/r04-warm-integration-cleanup-source/src/KuaiYi.Core/Installation/InstallationApplicationControl.cs": {
+      "bytes": 21381,
+      "sha256": "9b5492e9265006dfd5c2a28bb59bf6f67752a02027f9290f6e320f797d1234f8"
+    },
+    "run/r04-warm-integration-cleanup-source/src/KuaiYi.Core/Installation/InstallationWarmImageAdmission.cs": {
+      "bytes": 11955,
+      "sha256": "83263b724cadcb046b494986b2d20757f14abbb4910a07344bc9615b3f04bd0e"
+    },
+    "run/r04-warm-integration-cleanup-source/src/KuaiYi.Core/Installation/InstallationWarmImageClient.cs": {
+      "bytes": 7536,
+      "sha256": "ee01035af0e22e17814e8f9eb9f9074f91190668023b948ebe2fc930402d28f2"
+    },
+    "run/r04-warm-integration-cleanup-source/src/KuaiYi.Core/Installation/InstallationWarmImageControl.cs": {
+      "bytes": 7048,
+      "sha256": "d9dd57c952121c3dc3c6fb3e1a3292fb98be66c95b337143fefbd1ea302d1ab0"
+    },
+    "run/r04-warm-integration-cleanup-source/src/KuaiYi.Core/Installation/InstallationWarmImageWire.cs": {
+      "bytes": 3847,
+      "sha256": "40569639b6512166355b077008fe28d60995464ec77c0b2a14f0edb1d1b08d4d"
+    },
+    "run/r04-warm-integration-cleanup-source/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs": {
+      "bytes": 35975,
+      "sha256": "5a5d6949969f411a6b60f502d440cb6d69bba1415cc08a93870a3e454ea60da9"
+    },
+    "run/r04-warm-integration-cleanup-source/tests/KuaiYi.Core.Tests/InstallationWarmActorTests.cs": {
+      "bytes": 4660,
+      "sha256": "c62496ac68487f286791062a752cdc812cc48234de208247c3ba5cfc3a273e64"
+    },
+    "run/r04-warm-integration-cleanup-source/tests/KuaiYi.Core.Tests/InstallationWarmImageTests.cs": {
+      "bytes": 11744,
+      "sha256": "d1e8ac5f50ddbe0e0bc26e29c402aa2de40dcb1a16ac338b7d7091b9ec66f92b"
+    },
+    "run/r04-warm-integration-cleanup-source/tests/KuaiYi.Core.Tests/InstallationWarmParentWriteTests.cs": {
+      "bytes": 3174,
+      "sha256": "ea2df84140489877a8d451cde5d28e1c74cac3b6d6d4a0853321a5918d6a862f"
+    },
+    "run/r04-warm-integration-cleanup-source/tests/KuaiYi.Core.Tests/InstallationWarmSessionTests.cs": {
+      "bytes": 11186,
+      "sha256": "ef082adcdaa22b619a4a0f92b0965a00991ddeafc10c0d5683e28b7d0ba30a22"
+    },
+    "run/r04-warm-integration-cleanup-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.Warm.cs": {
+      "bytes": 5487,
+      "sha256": "fdc865adcdf7a15364339794a3e099600a0223e68b0de1b38cb21a4f081733eb"
+    },
+    "run/r04-warm-integration-cleanup-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs": {
+      "bytes": 18436,
+      "sha256": "09a45e177b55daeff4836883627aec67fa953a180ce02a0ab27ac2410770f149"
+    },
+    "run/r04-warm-integration-cleanup.json": {
+      "bytes": 1406,
+      "sha256": "b4d9edcbb02a376ccc08d09332215004a4b3770344cf4bb410b45f05086d9646"
+    },
+    "run/r04-warm-integration-cleanup.log": {
+      "bytes": 13442,
+      "sha256": "9401237f1035e2b80374018ccebce720e2d529c1738b9a461427956a81bbe4a3"
+    },
+    "run/r04-warm-integration-cleanup.trx": {
+      "bytes": 49810,
+      "sha256": "bf35f0dac750484d1608b1ad6b32ee5b31c1ddda4ad5495150c007c1cf143bb0"
+    },
+    "run/r05-fixed-InstallationWarmImageClient.cs": {
+      "bytes": 7832,
+      "sha256": "5db73363938ff23660b0693d1903005673728fc5e9a4a6dec8eef17dd0a98ee9"
+    },
+    "run/r05-fixed-InstallationWarmImageControl.cs": {
+      "bytes": 7093,
+      "sha256": "5c82e2f060d5af581ed5a182862aeab455f13873a3cebeba08dd963a4a90440d"
+    },
+    "run/r05-review-counterexample-dlls.json": {
+      "bytes": 54877,
+      "sha256": "22b30f54e954b369bb7f6145dd0f5f884ea45ee6a8d6224368636056f05ced41"
+    },
+    "run/r05-review-counterexample-failure-001.xml": {
+      "bytes": 1594,
+      "sha256": "9d635f17b8641c2b93d9bbeb94a5d75b8791f30f4e12f090ed3d6bd9755ea01a"
+    },
+    "run/r05-review-counterexample-failure-002.xml": {
+      "bytes": 1140,
+      "sha256": "eab68b7813bfffe113f784dfaade33bba643cfe811edd75ef995a47b6e0a6e31"
+    },
+    "run/r05-review-counterexample-failure-003.xml": {
+      "bytes": 1140,
+      "sha256": "d96dfa07be8ff8c68a75a6b26ee9dcbaa959e4804a59ebd55ef0eef1939c9844"
+    },
+    "run/r05-review-counterexample-inputs.json": {
+      "bytes": 97011,
+      "sha256": "d119e3cb4dda6ef1760affc1201947284ef4017d7f9e614027a8612e069abaff"
+    },
+    "run/r05-review-counterexample-source/src/KuaiYi.Core/Installation/InstallationApplicationControl.cs": {
+      "bytes": 21390,
+      "sha256": "2625874e35ef0143dc33c681b3f64b7ffa12b631488b23259ebdbd3586c4004f"
+    },
+    "run/r05-review-counterexample-source/src/KuaiYi.Core/Installation/InstallationWarmImageAdmission.cs": {
+      "bytes": 11955,
+      "sha256": "83263b724cadcb046b494986b2d20757f14abbb4910a07344bc9615b3f04bd0e"
+    },
+    "run/r05-review-counterexample-source/src/KuaiYi.Core/Installation/InstallationWarmImageClient.cs": {
+      "bytes": 7536,
+      "sha256": "ee01035af0e22e17814e8f9eb9f9074f91190668023b948ebe2fc930402d28f2"
+    },
+    "run/r05-review-counterexample-source/src/KuaiYi.Core/Installation/InstallationWarmImageControl.cs": {
+      "bytes": 7048,
+      "sha256": "d9dd57c952121c3dc3c6fb3e1a3292fb98be66c95b337143fefbd1ea302d1ab0"
+    },
+    "run/r05-review-counterexample-source/src/KuaiYi.Core/Installation/InstallationWarmImageWire.cs": {
+      "bytes": 3847,
+      "sha256": "40569639b6512166355b077008fe28d60995464ec77c0b2a14f0edb1d1b08d4d"
+    },
+    "run/r05-review-counterexample-source/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs": {
+      "bytes": 35975,
+      "sha256": "5a5d6949969f411a6b60f502d440cb6d69bba1415cc08a93870a3e454ea60da9"
+    },
+    "run/r05-review-counterexample-source/tests/KuaiYi.Core.Tests/InstallationWarmActorTests.cs": {
+      "bytes": 9494,
+      "sha256": "fbc786fa50764e361df4011de3409ca66adfa1962b4b10b1eb8820331eaedf25"
+    },
+    "run/r05-review-counterexample-source/tests/KuaiYi.Core.Tests/InstallationWarmImageTests.cs": {
+      "bytes": 11744,
+      "sha256": "d1e8ac5f50ddbe0e0bc26e29c402aa2de40dcb1a16ac338b7d7091b9ec66f92b"
+    },
+    "run/r05-review-counterexample-source/tests/KuaiYi.Core.Tests/InstallationWarmParentWriteTests.cs": {
+      "bytes": 4116,
+      "sha256": "c47b189b3b1b2fbfcc7acf6a65ea8d46909c2d6d211d2645794a44e5164039ff"
+    },
+    "run/r05-review-counterexample-source/tests/KuaiYi.Core.Tests/InstallationWarmSessionTests.cs": {
+      "bytes": 11186,
+      "sha256": "ef082adcdaa22b619a4a0f92b0965a00991ddeafc10c0d5683e28b7d0ba30a22"
+    },
+    "run/r05-review-counterexample-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.Warm.cs": {
+      "bytes": 5487,
+      "sha256": "fdc865adcdf7a15364339794a3e099600a0223e68b0de1b38cb21a4f081733eb"
+    },
+    "run/r05-review-counterexample-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs": {
+      "bytes": 18436,
+      "sha256": "09a45e177b55daeff4836883627aec67fa953a180ce02a0ab27ac2410770f149"
+    },
+    "run/r05-review-counterexample.json": {
+      "bytes": 1115,
+      "sha256": "cd8b2683bf5f956e6198d21ae26814c37632f31af80da0f8b4cde4b89e65d336"
+    },
+    "run/r05-review-counterexample.log": {
+      "bytes": 4805,
+      "sha256": "2e080275cf914b827492ce4bc430161813518ce65e2ba2e7c3189883d50e27cb"
+    },
+    "run/r05-review-counterexample.trx": {
+      "bytes": 12580,
+      "sha256": "106ebba4c3639b7359c414c1bfe2ebf79f823b4cdbcee495822307187ce01dab"
+    },
+    "run/r06-review-and-parent-write-dlls.json": {
+      "bytes": 54877,
+      "sha256": "4e5cf0bab008f5753048cbe50125bf00c5bf2daf6395d3bcfaa27a5d68235f84"
+    },
+    "run/r06-review-and-parent-write-inputs.json": {
+      "bytes": 97011,
+      "sha256": "36ea41e20eecf9d1365911f22c3954d70a96f4c69cc41245c366c9d9415d2f5b"
+    },
+    "run/r06-review-and-parent-write-source/src/KuaiYi.Core/Installation/InstallationApplicationControl.cs": {
+      "bytes": 21390,
+      "sha256": "2625874e35ef0143dc33c681b3f64b7ffa12b631488b23259ebdbd3586c4004f"
+    },
+    "run/r06-review-and-parent-write-source/src/KuaiYi.Core/Installation/InstallationWarmImageAdmission.cs": {
+      "bytes": 11955,
+      "sha256": "83263b724cadcb046b494986b2d20757f14abbb4910a07344bc9615b3f04bd0e"
+    },
+    "run/r06-review-and-parent-write-source/src/KuaiYi.Core/Installation/InstallationWarmImageClient.cs": {
+      "bytes": 7832,
+      "sha256": "5db73363938ff23660b0693d1903005673728fc5e9a4a6dec8eef17dd0a98ee9"
+    },
+    "run/r06-review-and-parent-write-source/src/KuaiYi.Core/Installation/InstallationWarmImageControl.cs": {
+      "bytes": 7093,
+      "sha256": "5c82e2f060d5af581ed5a182862aeab455f13873a3cebeba08dd963a4a90440d"
+    },
+    "run/r06-review-and-parent-write-source/src/KuaiYi.Core/Installation/InstallationWarmImageWire.cs": {
+      "bytes": 3847,
+      "sha256": "40569639b6512166355b077008fe28d60995464ec77c0b2a14f0edb1d1b08d4d"
+    },
+    "run/r06-review-and-parent-write-source/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs": {
+      "bytes": 35975,
+      "sha256": "5a5d6949969f411a6b60f502d440cb6d69bba1415cc08a93870a3e454ea60da9"
+    },
+    "run/r06-review-and-parent-write-source/tests/KuaiYi.Core.Tests/InstallationWarmActorTests.cs": {
+      "bytes": 9494,
+      "sha256": "fbc786fa50764e361df4011de3409ca66adfa1962b4b10b1eb8820331eaedf25"
+    },
+    "run/r06-review-and-parent-write-source/tests/KuaiYi.Core.Tests/InstallationWarmImageTests.cs": {
+      "bytes": 11744,
+      "sha256": "d1e8ac5f50ddbe0e0bc26e29c402aa2de40dcb1a16ac338b7d7091b9ec66f92b"
+    },
+    "run/r06-review-and-parent-write-source/tests/KuaiYi.Core.Tests/InstallationWarmParentWriteTests.cs": {
+      "bytes": 4116,
+      "sha256": "c47b189b3b1b2fbfcc7acf6a65ea8d46909c2d6d211d2645794a44e5164039ff"
+    },
+    "run/r06-review-and-parent-write-source/tests/KuaiYi.Core.Tests/InstallationWarmSessionTests.cs": {
+      "bytes": 11186,
+      "sha256": "ef082adcdaa22b619a4a0f92b0965a00991ddeafc10c0d5683e28b7d0ba30a22"
+    },
+    "run/r06-review-and-parent-write-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.Warm.cs": {
+      "bytes": 5487,
+      "sha256": "fdc865adcdf7a15364339794a3e099600a0223e68b0de1b38cb21a4f081733eb"
+    },
+    "run/r06-review-and-parent-write-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs": {
+      "bytes": 18436,
+      "sha256": "09a45e177b55daeff4836883627aec67fa953a180ce02a0ab27ac2410770f149"
+    },
+    "run/r06-review-and-parent-write.json": {
+      "bytes": 1177,
+      "sha256": "4725e63f05386023bc251cf08b0dcacf5084a88e1a5ffd4c2189347602c12413"
+    },
+    "run/r06-review-and-parent-write.log": {
+      "bytes": 2072,
+      "sha256": "f6b8fcc9693d25e71a476331065f8d1e2c681abeee4f52600e9e24b3f35f1823"
+    },
+    "run/r06-review-and-parent-write.trx": {
+      "bytes": 11323,
+      "sha256": "1b78fec3f70c4d9a0ae648691f2a39a44407454acab5918abaf295cec49d5a3f"
+    },
+    "run/r07-installation-regression-dlls.json": {
+      "bytes": 54877,
+      "sha256": "4e5cf0bab008f5753048cbe50125bf00c5bf2daf6395d3bcfaa27a5d68235f84"
+    },
+    "run/r07-installation-regression-inputs.json": {
+      "bytes": 97011,
+      "sha256": "36ea41e20eecf9d1365911f22c3954d70a96f4c69cc41245c366c9d9415d2f5b"
+    },
+    "run/r07-installation-regression-source/src/KuaiYi.Core/Installation/InstallationApplicationControl.cs": {
+      "bytes": 21390,
+      "sha256": "2625874e35ef0143dc33c681b3f64b7ffa12b631488b23259ebdbd3586c4004f"
+    },
+    "run/r07-installation-regression-source/src/KuaiYi.Core/Installation/InstallationWarmImageAdmission.cs": {
+      "bytes": 11955,
+      "sha256": "83263b724cadcb046b494986b2d20757f14abbb4910a07344bc9615b3f04bd0e"
+    },
+    "run/r07-installation-regression-source/src/KuaiYi.Core/Installation/InstallationWarmImageClient.cs": {
+      "bytes": 7832,
+      "sha256": "5db73363938ff23660b0693d1903005673728fc5e9a4a6dec8eef17dd0a98ee9"
+    },
+    "run/r07-installation-regression-source/src/KuaiYi.Core/Installation/InstallationWarmImageControl.cs": {
+      "bytes": 7093,
+      "sha256": "5c82e2f060d5af581ed5a182862aeab455f13873a3cebeba08dd963a4a90440d"
+    },
+    "run/r07-installation-regression-source/src/KuaiYi.Core/Installation/InstallationWarmImageWire.cs": {
+      "bytes": 3847,
+      "sha256": "40569639b6512166355b077008fe28d60995464ec77c0b2a14f0edb1d1b08d4d"
+    },
+    "run/r07-installation-regression-source/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs": {
+      "bytes": 35975,
+      "sha256": "5a5d6949969f411a6b60f502d440cb6d69bba1415cc08a93870a3e454ea60da9"
+    },
+    "run/r07-installation-regression-source/tests/KuaiYi.Core.Tests/InstallationWarmActorTests.cs": {
+      "bytes": 9494,
+      "sha256": "fbc786fa50764e361df4011de3409ca66adfa1962b4b10b1eb8820331eaedf25"
+    },
+    "run/r07-installation-regression-source/tests/KuaiYi.Core.Tests/InstallationWarmImageTests.cs": {
+      "bytes": 11744,
+      "sha256": "d1e8ac5f50ddbe0e0bc26e29c402aa2de40dcb1a16ac338b7d7091b9ec66f92b"
+    },
+    "run/r07-installation-regression-source/tests/KuaiYi.Core.Tests/InstallationWarmParentWriteTests.cs": {
+      "bytes": 4116,
+      "sha256": "c47b189b3b1b2fbfcc7acf6a65ea8d46909c2d6d211d2645794a44e5164039ff"
+    },
+    "run/r07-installation-regression-source/tests/KuaiYi.Core.Tests/InstallationWarmSessionTests.cs": {
+      "bytes": 11186,
+      "sha256": "ef082adcdaa22b619a4a0f92b0965a00991ddeafc10c0d5683e28b7d0ba30a22"
+    },
+    "run/r07-installation-regression-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.Warm.cs": {
+      "bytes": 5487,
+      "sha256": "fdc865adcdf7a15364339794a3e099600a0223e68b0de1b38cb21a4f081733eb"
+    },
+    "run/r07-installation-regression-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs": {
+      "bytes": 18436,
+      "sha256": "09a45e177b55daeff4836883627aec67fa953a180ce02a0ab27ac2410770f149"
+    },
+    "run/r07-installation-regression.json": {
+      "bytes": 1065,
+      "sha256": "fb3ae5e05ccbdba3346e7af43ad5f6e8edb68d336c3959d713d04e01736ff93f"
+    },
+    "run/r07-installation-regression.log": {
+      "bytes": 2070,
+      "sha256": "977a530705397d02b91d26efe54556a9ec7662af14ca55a6565637eb89c6f5e9"
+    },
+    "run/r07-installation-regression.trx": {
+      "bytes": 358957,
+      "sha256": "c0f94e106ae1fdeb8135dded5dc874a7102f294db936563b1f1482424b940c57"
+    },
+    "run/r08-app-cross-build-dlls.json": {
+      "bytes": 54877,
+      "sha256": "a52d6532f73620451a6d9e886abf5caf0d8f982eef7b1de1bcef00a38172db7a"
+    },
+    "run/r08-app-cross-build-inputs.json": {
+      "bytes": 97011,
+      "sha256": "36ea41e20eecf9d1365911f22c3954d70a96f4c69cc41245c366c9d9415d2f5b"
+    },
+    "run/r08-app-cross-build-source/src/KuaiYi.Core/Installation/InstallationApplicationControl.cs": {
+      "bytes": 21390,
+      "sha256": "2625874e35ef0143dc33c681b3f64b7ffa12b631488b23259ebdbd3586c4004f"
+    },
+    "run/r08-app-cross-build-source/src/KuaiYi.Core/Installation/InstallationWarmImageAdmission.cs": {
+      "bytes": 11955,
+      "sha256": "83263b724cadcb046b494986b2d20757f14abbb4910a07344bc9615b3f04bd0e"
+    },
+    "run/r08-app-cross-build-source/src/KuaiYi.Core/Installation/InstallationWarmImageClient.cs": {
+      "bytes": 7832,
+      "sha256": "5db73363938ff23660b0693d1903005673728fc5e9a4a6dec8eef17dd0a98ee9"
+    },
+    "run/r08-app-cross-build-source/src/KuaiYi.Core/Installation/InstallationWarmImageControl.cs": {
+      "bytes": 7093,
+      "sha256": "5c82e2f060d5af581ed5a182862aeab455f13873a3cebeba08dd963a4a90440d"
+    },
+    "run/r08-app-cross-build-source/src/KuaiYi.Core/Installation/InstallationWarmImageWire.cs": {
+      "bytes": 3847,
+      "sha256": "40569639b6512166355b077008fe28d60995464ec77c0b2a14f0edb1d1b08d4d"
+    },
+    "run/r08-app-cross-build-source/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs": {
+      "bytes": 35975,
+      "sha256": "5a5d6949969f411a6b60f502d440cb6d69bba1415cc08a93870a3e454ea60da9"
+    },
+    "run/r08-app-cross-build-source/tests/KuaiYi.Core.Tests/InstallationWarmActorTests.cs": {
+      "bytes": 9494,
+      "sha256": "fbc786fa50764e361df4011de3409ca66adfa1962b4b10b1eb8820331eaedf25"
+    },
+    "run/r08-app-cross-build-source/tests/KuaiYi.Core.Tests/InstallationWarmImageTests.cs": {
+      "bytes": 11744,
+      "sha256": "d1e8ac5f50ddbe0e0bc26e29c402aa2de40dcb1a16ac338b7d7091b9ec66f92b"
+    },
+    "run/r08-app-cross-build-source/tests/KuaiYi.Core.Tests/InstallationWarmParentWriteTests.cs": {
+      "bytes": 4116,
+      "sha256": "c47b189b3b1b2fbfcc7acf6a65ea8d46909c2d6d211d2645794a44e5164039ff"
+    },
+    "run/r08-app-cross-build-source/tests/KuaiYi.Core.Tests/InstallationWarmSessionTests.cs": {
+      "bytes": 11186,
+      "sha256": "ef082adcdaa22b619a4a0f92b0965a00991ddeafc10c0d5683e28b7d0ba30a22"
+    },
+    "run/r08-app-cross-build-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.Warm.cs": {
+      "bytes": 5487,
+      "sha256": "fdc865adcdf7a15364339794a3e099600a0223e68b0de1b38cb21a4f081733eb"
+    },
+    "run/r08-app-cross-build-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs": {
+      "bytes": 18436,
+      "sha256": "09a45e177b55daeff4836883627aec67fa953a180ce02a0ab27ac2410770f149"
+    },
+    "run/r08-app-cross-build.json": {
+      "bytes": 431,
+      "sha256": "b7308b04d538e0649fb2513aca7fa8632b7cdc69be09dd769915e59bfebb72fe"
+    },
+    "run/r08-app-cross-build.log": {
+      "bytes": 888,
+      "sha256": "ede6ed10518d68d8eea18e0ea414a7d6ba563dbacb15fbce991643e65074f42d"
+    },
+    "run/review-receipt.txt": {
+      "bytes": 333,
+      "sha256": "13218211eab14719760f91c33cbbe70a7bb19971a2d120c6afed1bf213085049"
+    },
+    "run/run-check.py": {
+      "bytes": 2152,
+      "sha256": "00002aea5c1bde76a513f7009f6f7751c572bb80c925caa1cfc9932d497e182c"
+    },
+    "run/tracked-diff.patch": {
+      "bytes": 21216,
+      "sha256": "7cd4d5849dfb36b850c74043e4f3749ea9f802d81c524dffea7957b398766bc1"
+    },
+    "run/warm-state-initial.trx": {
+      "bytes": 27479,
+      "sha256": "4261bd0ea753c889c5ee769c58da618dccab188b9cbf4e64483997efa1e4da94"
+    }
+  }
+}

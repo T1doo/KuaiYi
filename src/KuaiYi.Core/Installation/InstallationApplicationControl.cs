@@ -37,6 +37,8 @@ public sealed class InstallationApplicationClient:IInstallationHandoffProtocol,I
         internal bool ClosingReceived;
         internal bool ExitReadyReceived;
         internal bool Healthy,ImageSent;
+        internal readonly SemaphoreSlim WriteSerial=new(1,1);
+        internal volatile InstallationWarmImageClient? Warm;
         private Task? sessionJoin;
         private readonly object joinSync=new();private Task? join;
         internal ChannelState(Process child){Output=Task.Run(()=>Read(child));Error=Task.Run(()=>Drain(child));}
@@ -50,12 +52,14 @@ public sealed class InstallationApplicationClient:IInstallationHandoffProtocol,I
                     {if(ClosingReceived)throw new InvalidDataException("Duplicate application close receipt.");ClosingReceived=true;child.StandardInput.Close();continue;}
                     if(Proof is {} settled&&line==$"EXIT_READY|{settled.Launch:N}|{settled.Fingerprint}")
                     {if(!ClosingReceived||ExitReadyReceived)throw new InvalidDataException("Unordered or duplicate application settlement receipt.");ExitReadyReceived=true;continue;}
+                    if(line.StartsWith("WARM_",StringComparison.Ordinal))
+                    {if(Warm==null)throw new InvalidDataException("Warm control is not attached.");Warm.Receive(line);continue;}
                     await Lines.Writer.WriteAsync(line,Readers.Token).ConfigureAwait(false);
                 }
             }
             catch(OperationCanceledException)when(Readers.IsCancellationRequested){}
             catch(Exception error){Lines.Writer.TryComplete(error);throw;}
-            finally{Lines.Writer.TryComplete();}
+            finally{Warm?.Disconnected(new EndOfStreamException("Original controlled output ended."));Lines.Writer.TryComplete();}
         }
         private async Task Drain(Process child)
         {
@@ -63,27 +67,50 @@ public sealed class InstallationApplicationClient:IInstallationHandoffProtocol,I
             try{int count;while((count=await child.StandardError.BaseStream.ReadAsync(bytes,Readers.Token).ConfigureAwait(false))!=0){total+=count;if(total>65536)throw new IOException("Application diagnostic stream overflow.");}}
             catch(OperationCanceledException)when(Readers.IsCancellationRequested){}
         }
+        private async Task JoinOriginals(Task cancellation)
+        {
+            List<Exception> errors=[];
+            foreach(var original in new[]{cancellation,Output,Error})try{await original.ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
+            if(Warm!=null)try{await Warm.JoinAsync().ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
+            if(errors.Count==1)System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(errors[0]).Throw();
+            if(errors.Count>1)throw new AggregateException("Original controlled IO unconfirmed.",errors);
+        }
         internal Task Join()
         {
-            lock(joinSync)return join??=Task.Run(async()=>{Task cancellation=Readers.CancelAsync();await Task.WhenAll(cancellation,Output,Error).ConfigureAwait(false);Closed=true;});
+            lock(joinSync)return join??=Task.Run(async()=>{Task cancellation=Readers.CancelAsync();await JoinOriginals(cancellation).ConfigureAwait(false);Closed=true;});
         }
         internal Task JoinSession()
         {
             lock(joinSync)return sessionJoin??=Task.Run(async()=>
             {
                 // Normal user exit must end both original streams naturally, including any late fault.
-                await Task.WhenAll(Output,Error).ConfigureAwait(false);
+                await JoinOriginals(Task.CompletedTask).ConfigureAwait(false);
                 if(!ClosingReceived||!ExitReadyReceived||Lines.Reader.TryRead(out _))throw new IOException("Application clean-close receipt is unconfirmed.");
                 Closed=true;
             });
         }
     }
+    internal Func<Stream,Stream>? WriteStreamForTest{get;set;}
     private readonly ConditionalWeakTable<Process,ChannelState> channels=new();
     private readonly object channelsSync=new();
     private ChannelState Channel(Process owned){lock(channelsSync)return channels.GetValue(owned,p=>new(p));}
     private async Task Receipt(Process owned,string expected,CancellationToken cancellation)
     {if(await Channel(owned).Lines.Reader.ReadAsync(cancellation).ConfigureAwait(false)!=expected)throw new InvalidDataException("Application control receipt mismatch.");}
-    private static Task Send(Process owned,string line,CancellationToken cancellation)=>InstallationControlWire.Send(owned.StandardInput.BaseStream,line,cancellation);
+    private async Task Send(Process owned,string line,CancellationToken cancellation)
+    {
+        var state=Channel(owned);await state.WriteSerial.WaitAsync(cancellation).ConfigureAwait(false);
+        try{await InstallationControlWire.Send(WriteStreamForTest?.Invoke(owned.StandardInput.BaseStream)??owned.StandardInput.BaseStream,line,cancellation).ConfigureAwait(false);}
+        finally{state.WriteSerial.Release();}
+    }
+    internal InstallationWarmImageClient AttachWarm(Process owned,TimeProvider clock)
+    {
+        var state=Channel(owned);lock(state)
+        {
+            var proof=state.Proof??throw new InvalidOperationException("No original controlled child.");
+            if(!state.Healthy||state.Closed||state.ClosingReceived||proof.UpgradeRecord!=null||state.Warm!=null)throw new InvalidOperationException("Warm control unavailable.");
+            return state.Warm=new(proof,clock,(line,ct)=>Send(owned,line,ct));
+        }
+    }
     public async Task AdmitLaunchAsync(Process owned,InstallationControlledLaunch proof,CancellationToken cancellation)
     {
         var state=Channel(owned);if(state.Proof!=null)throw new InvalidOperationException("Child launch already admitted.");state.Proof=proof;
@@ -107,7 +134,8 @@ public sealed class InstallationApplicationClient:IInstallationHandoffProtocol,I
         await Send(owned,"IMAGE|"+offer.Encode(),cancellation).ConfigureAwait(false);
         await Receipt(owned,offer.QueuedReceipt,cancellation).ConfigureAwait(false);
     }
-    public Task RequestExitAsync(Process owned,CancellationToken cancellation)=>Send(owned,"STOP",cancellation);
+    public Task RequestExitAsync(Process owned,CancellationToken cancellation)
+    {Channel(owned).Warm?.Quiesce();return Send(owned,"STOP",cancellation);}
     public async Task SettleAsync(Process owned,CancellationToken cancellation)
     {
         if(!owned.HasExited)throw new IOException("Exited IO settlement requires actual child exit.");
@@ -148,6 +176,11 @@ public sealed class InstallationApplicationControl
     private bool committed;
     private readonly object stateSync=new();
     private readonly SemaphoreSlim outputSerial=new(1,1);
+    private InstallationWarmImageControl? warm;
+    internal InstallationWarmImageControl AttachWarm(TimeProvider clock,Func<long> epoch,Func<InstallationWarmImageAdmission,InstallationWarmLease,string,CancellationToken,Task> prepare,Func<InstallationWarmLease,ValueTask<bool>> finalize)
+    {
+        lock(stateSync){if(loop!=null||warm!=null)throw new InvalidOperationException("Warm control must attach before original Run.");return warm=new(Proof,clock,epoch,prepare,finalize,Send);}
+    }
     private InstallationApplicationControl(Stream input,Stream output,InstallationControlledLaunch proof){this.input=input;this.output=output;Proof=proof;}
     public InstallationControlledLaunch Proof{get;}
     public string? FailureCode{get;private set;}
@@ -187,10 +220,14 @@ public sealed class InstallationApplicationControl
                 await Send($"READY|{Proof.Launch:N}|{Proof.Fingerprint}",stop.Token).ConfigureAwait(false);
                 while(await InstallationControlWire.Read(input,stop.Token).ConfigureAwait(false) is {} command)
                 {
-                    if(command=="STOP"){_ =RevokeImage();await requestClose(stop.Token).ConfigureAwait(false);continue;}
+                    if(command=="STOP"){warm?.Quiesce();_ =RevokeImage();await requestClose(stop.Token).ConfigureAwait(false);continue;}
+                    if(command.StartsWith("WARM_",StringComparison.Ordinal))
+                    {
+                        if(warm==null||runtime!=null||offer!=null||Proof.UpgradeRecord!=null||!warm.Handle(command))throw new InvalidDataException("Warm command unavailable.");continue;
+                    }
                     if(command.StartsWith("IMAGE|",StringComparison.Ordinal))
                     {
-                        if(queueImage==null||offer!=null||runtime!=null||Proof.UpgradeRecord!=null||imageStop.IsCancellationRequested)throw new InvalidDataException("Image ingress unavailable.");
+                        if(queueImage==null||offer!=null||runtime!=null||Proof.UpgradeRecord!=null||imageStop.IsCancellationRequested||warm?.EverReserved==true)throw new InvalidDataException("Image ingress unavailable.");
                         var candidate=InstallationImageOffer.Decode(command[6..]);candidate.Require(Proof);
                         lock(stateSync){if(imageRequest!=null)throw new InvalidDataException("Image request already consumed.");imageRequest=candidate.Request;}
                         Proof.RequireRecords(imageStop.Token);Proof.RequireImageRecords();
@@ -199,7 +236,7 @@ public sealed class InstallationApplicationControl
                     }
                     if(command.StartsWith("OFFER|",StringComparison.Ordinal))
                     {
-                        if(offer!=null||imageRequest!=null)throw new InvalidDataException("Duplicate or image-session handoff offer.");var candidate=InstallationHandoffOffer.Decode(command[6..]);
+                        if(offer!=null||imageRequest!=null||warm?.EverReserved==true)throw new InvalidDataException("Duplicate or image-session handoff offer.");var candidate=InstallationHandoffOffer.Decode(command[6..]);
                         if(candidate.Launch!=Proof.Launch||candidate.Root!=Proof.Root||candidate.UserData!=Proof.UserData||candidate.Version!=Proof.Version||candidate.OwnerRecord!=Proof.OwnerRecord||candidate.CurrentRecord!=Proof.CurrentRecord||candidate.UpgradeRecord!=Proof.UpgradeRecord)throw new InvalidDataException("Handoff differs from admitted launch.");
                         runtime=InstallationRuntimeOwnership.Prepare(candidate,Proof.Launch);offer=candidate;await Reply("PREPARED").ConfigureAwait(false);
                     }
@@ -210,7 +247,7 @@ public sealed class InstallationApplicationControl
                 if(runtime==null)
                 {
                     if(!stop.IsCancellationRequested)FailureCode??="ControlEof"; // A lost controller may request close but never attest a clean session.
-                    _ =RevokeImage();
+                    warm?.Quiesce();_ =RevokeImage();
                     await requestClose(stop.Token).ConfigureAwait(false);
                 }
                 else{runtime.ConfirmCommitted();committed=true;} // EOF cannot create a commit; a durable exact Committed decision is required.
@@ -219,7 +256,7 @@ public sealed class InstallationApplicationControl
             catch(Exception error)
             {
                 FailureCode=error.GetType().Name;
-                _ =RevokeImage();
+                warm?.Quiesce();_ =RevokeImage();
                 if(!committed&&runtime!=null)try{runtime.ConfirmCommitted();committed=true;}catch(Exception check)when(check is IOException or InvalidDataException){}
                 // Even a lost COMMITTED output ACK must not close an already committed application.
                 if(!committed)
@@ -246,10 +283,12 @@ public sealed class InstallationApplicationControl
             bool notify=loop is {IsCompleted:false}; // This decision must precede our cancellation completing the original loop.
             Task cancellation=stop.CancelAsync(); // Start cancellation before waiting behind an original protocol write.
             Task imageRevocation=RevokeImage();
+            Task warmSettlement=warm?.SettleAsync()??Task.CompletedTask;
             try
             {
                 try
                 {
+                    await warmSettlement.ConfigureAwait(false);
                     if(ExitCancellationStartedForTest is {} barrier)await barrier().ConfigureAwait(false);
                     if(notify)
                         try{await Send($"CLOSING|{Proof.Launch:N}|{Proof.Fingerprint}",CancellationToken.None).ConfigureAwait(false);}

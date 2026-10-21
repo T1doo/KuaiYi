@@ -1,20 +1,21 @@
 using System.IO.Pipes;
 using System.Text.Json;
 using KuaiYi.Core.Installation;
-internal static class InstallationAppControlFixture
+internal static partial class InstallationAppControlFixture
 {
     private static InstallationApplicationControl? control;
     internal static async Task<int> Run(Guid launch,string mode,string pipeName)
     {
         _=Task.Run(async()=>{await Task.Delay(TimeSpan.FromSeconds(40));Environment.Exit(91);});
         string root=Directory.GetParent(Path.TrimEndingDirectorySeparator(AppContext.BaseDirectory))!.Parent!.Parent!.FullName;
+        var warmFixture=mode.StartsWith("warm-",StringComparison.Ordinal)?new WarmFixture(root,mode):null;
         string state="NotAdmitted";var cancelRelease=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         var closingWritten=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);Task? originalLoop=null;
         Task? originalSettlement=null;var cancellationTrace=new CancellationTrace();CancellationTokenRegistration lateCancellation=default;
         // No UI/cleanup channel creation before the same production proof validation succeeds.
         try
         {
-            Stream output=Console.OpenStandardOutput();if(mode is "lost-commit-output" or "unknown-after-commit")output=new LostCommitOutput(output,mode=="unknown-after-commit"?()=>File.WriteAllText(Path.Combine(root,"application","handoff-pending.json"),"PUBLIC_UNKNOWN_AFTER_COMMIT"):null);
+            Stream output=Console.OpenStandardOutput();if(warmFixture!=null)output=warmFixture.Wrap(output);if(mode is "lost-commit-output" or "unknown-after-commit")output=new LostCommitOutput(output,mode=="unknown-after-commit"?()=>File.WriteAllText(Path.Combine(root,"application","handoff-pending.json"),"PUBLIC_UNKNOWN_AFTER_COMMIT"):null);
             if(mode is "fault-close-pending" or "eof-close-pending")output=new ClosingBarrierOutput(output,closingWritten,()=>originalLoop!);
             if(mode.StartsWith("held-cancel",StringComparison.Ordinal))output=new HeldReadyReturnOutput(output,cancellationTrace,mode=="held-cancel-ready-return");
             Stream input=Console.OpenStandardInput();if(mode.StartsWith("held-cancel",StringComparison.Ordinal))input=new HeldCancelInput(input,()=>state="CancelHeld",cancelRelease.Task,cancellationTrace,mode=="held-cancel");
@@ -46,6 +47,7 @@ internal static class InstallationAppControlFixture
         });
         async Task RequestClose(CancellationToken _){if(state is "CleanupUnconfirmed" or "Closing")retryWhilePending.TrySetResult();shell.Close();if(mode is "fault-close-pending" or "eof-close-pending"&&control!.FailureCode!=null)await closingWritten.Task;}
         InstallationImageOffer? image=null;var imageReceived=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var imageRevoked=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        warmFixture?.Attach(control!);
         Task loop=originalLoop=control.RunAsync(ready.Task,RequestClose,(offer,token)=>
         {
             image=offer;token.Register(()=>{imageRevoked.TrySetResult();if(mode=="held-image-cancel")cancelRelease.Task.GetAwaiter().GetResult();});File.AppendAllText(Path.Combine(root,"PUBLIC_IMAGE_QUEUED"),"1\n");imageReceived.TrySetResult();
@@ -53,6 +55,7 @@ internal static class InstallationAppControlFixture
         if(mode=="cancel-loop-first")control.ExitCancellationStartedForTest=()=>loop;
         while(await reader.ReadLineAsync() is {} command)
         {
+            if(warmFixture!=null&&await warmFixture.Command(command,writer))continue;
             if(command=="PING")await writer.WriteLineAsync("PUBLIC_SHELL|"+state+(control.FailureCode==null?"":"|ControlFault="+control.FailureCode));
             else if(command=="WAIT_IMAGE"){await imageReceived.Task;await writer.WriteLineAsync($"PUBLIC_IMAGE|{image!.Request:N}|{image.Path}");}
             else if(command=="WAIT_IMAGE_REVOKED"){await imageRevoked.Task;await writer.WriteLineAsync("PUBLIC_IMAGE_REVOKED");}

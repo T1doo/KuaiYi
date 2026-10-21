@@ -1431,3 +1431,12 @@ P7-01/已有实例认证转交/真实Windows菜单-WPF/OLE/OCR/身份/画质/250
 本轮只读核812输入与基线git字节/current完全一致，并查Microsoft官方API；未改src/tests/工具/SPEC/SDK/依赖锁，不重跑产品测试，不把旧2093P转记新功能。真实Windows身份/菜单-WPF/画质/250600及完整P7仍未验，Off/不自动OCR发送/原来源清理门保持，无费用权限凭据/用户电脑/模型/main强推部署。设计静态证据见[索引](test-evidence/2026-10-21-warm-image-design-review.json)。
 
 设计候选经最终只读复审限定ACK：早期WARM_QUIESCE明确各端独立join避免关闭等待环，wrapper外最后有界记录复核/锁内volatile current及间接IO实施审查点明确。仅DesignReviewed候选交父侧独审，不是实施/测试/Windows验收ACK。
+
+
+## 2026-10-21 · P7-01 A片 Core 与原 stdio（内部、未启用）
+
+从已审96a0b3b设计实现内部单slot/零队列/一次请求、高水位与严格受界消息、真实TimeProvider10秒grant及15秒prepare，原取消/任务/timer/注册/finalize/write-flush实际结算后才退休。唯一reader demux与所有writer短串行，取消先撤销不等writer；warm不重用cold IMAGE/OFFER，不自动重放或fallback。仅合成fixture AttachWarm，App无外部入口或Windows/UI接线，默认Off不自动OCR/发送。
+
+两处独审P2的确定性旧逻辑反例r05为1P3F；修复后同组加父write/flush共r06 6P。完整Installation r07实际200P/0F/0skip，旧163案例全部保留+37，821输入/准确源码执行中不变；App r08交叉构建0W/0E。不同轮次不累计，r01 16P1F、r02编译失败未执行、r03 21P12F、r04 10P2F原件/可见失败均保留，被finally掩盖的原异常不追认唯一根因。独立只读final source/红绿/r07原件限定ACK；将固定实现提交再做一次完整Core，尚不预测结果。
+
+[实现合同与边界](validation/warm-image-core-a.md)、[完整命令/TRX/源码/DLL摘要及原件ZIP](test-evidence/2026-10-21-warm-image-core-a.json)。B的真实双向peer/live capability/安装身份/Accept调用链、WarmSync→Gate和异常candidate所有权仍未实施，必须父侧独审A后才进入。P7-01/完整warm、真实Windows/OLE/COM/WPF/OCR/画质/250600/600MiB/完整P6P7/106/Beta未验不变；PackageHold、生产复用Off、WebP odd拒绝保持，无新许可权限费用凭据/用户电脑/真实模型/CI/main强推部署。

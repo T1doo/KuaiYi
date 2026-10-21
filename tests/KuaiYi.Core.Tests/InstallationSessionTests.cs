@@ -78,7 +78,14 @@ public sealed partial class InstallationSessionTests(ITestOutputHelper output)
         internal InstallationControlledLaunch? Proof;
         internal readonly TaskCompletionSource ImageQueued=Signal();
         public async Task QueueImageAsync(Process p,string path,CancellationToken ct){await client.QueueImageAsync(p,path,ct);ImageQueued.TrySetResult();}
+        internal InstallationWarmImageClient Warm(TimeProvider? clock=null)=>client.AttachWarm(Children.Single(),clock??TimeProvider.System);
+        internal void HoldWarmWrites(Func<Stream,Stream> wrap)=>client.WriteStreamForTest=wrap;
         internal readonly List<Process> Children=[];
+        private int warmExitObserved,warmExitCode;
+        internal bool WarmActualExitObserved=>Volatile.Read(ref warmExitObserved)!=0;
+        internal int WarmActualExitCode=>Volatile.Read(ref warmExitCode);
+        private void ObserveWarmExit(Process p){Assert.True(p.HasExited);Volatile.Write(ref warmExitCode,p.ExitCode);Volatile.Write(ref warmExitObserved,1);}
+        internal readonly TaskCompletionSource ExitRequested=Signal();
         internal readonly TaskCompletionSource Healthy=Signal(),StartHeld=Signal(),StartRelease=Signal(),IoEntered=Signal(),IoRelease=Signal(),HealthRelease=Signal();
         internal bool HoldStart,HoldIo,FailIo,HoldHealth;
         internal int SessionIoCalls;
@@ -133,12 +140,12 @@ public sealed partial class InstallationSessionTests(ITestOutputHelper output)
             Volatile.Write(ref startupPhase,"Health");var original=client.ConfirmHealthyAsync(p,v,launch,ct);Volatile.Write(ref clientHealthReceipt,original);
             await original;Volatile.Write(ref startupPhase,"Healthy");Healthy.TrySetResult();if(HoldHealth)await HealthRelease.Task;
         }
-        public Task RequestExitAsync(Process p,CancellationToken ct)=>client.RequestExitAsync(p,ct);
+        public Task RequestExitAsync(Process p,CancellationToken ct){ExitRequested.TrySetResult();return client.RequestExitAsync(p,ct);}
         public async Task SettleAsync(Process p,CancellationToken ct)
-        {await client.SettleAsync(p,ct);Assert.True(p.HasExited);Volatile.Write(ref diagnosticExit,p.ExitCode);Volatile.Write(ref diagnosticExitKnown,1);CleanupExits.Add(p.ExitCode);output.WriteLine($"PUBLIC_SESSION_FAILURE_CLEANUP actualExit={p.ExitCode} originalIO=Settled driverSha256={Hash(Driver)} coreSha256={Hash(Path.Combine(Path.GetDirectoryName(Driver)!,"KuaiYi.Core.dll"))}");}
+        {ObserveWarmExit(p);await client.SettleAsync(p,ct);Assert.True(p.HasExited);Volatile.Write(ref diagnosticExit,p.ExitCode);Volatile.Write(ref diagnosticExitKnown,1);CleanupExits.Add(p.ExitCode);output.WriteLine($"PUBLIC_SESSION_FAILURE_CLEANUP actualExit={p.ExitCode} originalIO=Settled driverSha256={Hash(Driver)} coreSha256={Hash(Path.Combine(Path.GetDirectoryName(Driver)!,"KuaiYi.Core.dll"))}");}
         public async Task SettleSessionAsync(Process p,CancellationToken ct)
         {
-            Interlocked.Increment(ref SessionIoCalls);await client.SettleSessionAsync(p,ct);IoEntered.TrySetResult();if(HoldIo)await IoRelease.Task;
+            ObserveWarmExit(p);Interlocked.Increment(ref SessionIoCalls);await client.SettleSessionAsync(p,ct);IoEntered.TrySetResult();if(HoldIo)await IoRelease.Task;
             if(FailIo)throw new IOException("PUBLIC_IO_CLEANUP_FAILED");
             output.WriteLine($"PUBLIC_DIRECT_SESSION actualExit={p.ExitCode} originalIO=Settled driverSha256={Hash(Driver)} coreSha256={Hash(Path.Combine(Path.GetDirectoryName(Driver)!,"KuaiYi.Core.dll"))}");
         }
