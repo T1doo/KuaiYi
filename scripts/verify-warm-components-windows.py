@@ -1,4 +1,4 @@
-"""One public Windows pipe-access measurement attempt, with the already approved SDK/signature/audit gates."""
+"""One public Windows operational server-instance attempt, with the already approved SDK/signature/audit gates."""
 import base64
 import hashlib
 import importlib.util
@@ -15,11 +15,12 @@ import urllib.request
 import zipfile
 
 FIXED = "92e3548845bd07ee7717b53df9588c412d128f9d"
-PARENT = "a7f6aa57ca11c707203dfd5d8062bd88d3acd508"
+PARENT = "c49c308f52551f84fa9683523aca2f415189ab50"
 BRANCH = "refs/heads/dev/p7-fixed-signoff"
 FILES = frozenset((".github/workflows/windows-warm-components.yml", "scripts/verify-warm-components-windows.py",
                   "tools/KuaiYi.GrowthHarness/Program.cs", "tools/KuaiYi.GrowthHarness/WarmWindowsPipeAccessProbe.cs",
-                  "docs/progress.md", "docs/validation/warm-pipe-access-windows.md"))
+                  "tools/KuaiYi.GrowthHarness/ServerInstanceProbe.cs", "docs/progress.md",
+                  "docs/validation/server-instance-windows.md"))
 
 
 def load(path, name):
@@ -92,11 +93,11 @@ def execute(repo, env):
     installer = load(repo / "scripts/install-session-sdk-windows.py", "approved_windows_installer")
     policy = helper.load_policy(repo)
     policy.require_signature_environment(env)
-    work = repo / "artifacts/warm-pipe-access-windows" / os.urandom(16).hex()
+    work = repo / "artifacts/server-instance-windows" / os.urandom(16).hex()
     if any(helper.linked(p) for p in (work, *work.parents)):
         raise RuntimeError("Linked job directory rejected")
     work.mkdir(parents=True, exist_ok=False)
-    report = {"Kind": "WarmPipeGrantedAccessReview", "Status": "Blocked", "Stage": "Source", "FixedProductSource": FIXED,
+    report = {"Kind": "OperationalServerInstanceReview", "Status": "Blocked", "Stage": "Source", "FixedProductSource": FIXED,
               "Commands": [], "RuntimePackages": [], "EvidenceFiles": [], "Package": "Hold", "ProductionReuse": "Off",
               "ModelCalls": 0, "PositiveWarm": "Blocked_NoMediumEntry", "Explorer": "NotRun", "NewAttempt": 1}
     deadline = time.monotonic() + 13 * 60
@@ -184,14 +185,14 @@ def execute(repo, env):
         inputs = {p: helper.file_hash(repo / p) for p in paths}
         (work / "checkout-inputs.json").write_text(json.dumps(inputs, indent=2) + "\n")
         report["BinaryInputs"] = {str(p.relative_to(target)): helper.file_hash(p) for p in target.rglob("*") if p.is_file()}
-        report["Stage"] = "RealWindowsPipeAccessHarness"
-        run([str(target / "KuaiYi.GrowthHarness.exe"), "--ci-pipe-access", str(work / "probe-result.json")], "actual-pipe-access", 45)
+        report["Stage"] = "RealWindowsServerInstanceHarness"
+        run([str(target / "KuaiYi.GrowthHarness.exe"), "--ci-server-instance-parent", str(work / "probe-result.json")], "actual-server-instance", 90)
         actual = json.loads((work / "probe-result.json").read_text())
-        if actual.get("Kind") != "RealOwnPipeGrantedAccessReview" or actual.get("Status") != "Pass_MeasurementsOnly" or len(actual.get("Fixtures", [])) != 2 or actual.get("Errors"):
-            raise RuntimeError("Original pipe access measurements did not pass")
+        if actual.get("Kind") != "OperationalExtraServerInstanceReview" or actual.get("Status") != "Pass_LimitedTwoDeniedAttempts" or len(actual.get("Cases", [])) != 2 or actual.get("Errors"):
+            raise RuntimeError("Original server-instance attempts did not pass")
         if {p: helper.file_hash(repo / p) for p in paths} != inputs:
             raise RuntimeError("Source changed during actual execution")
-        report.update(Status="Pass_MeasurementsOnly", Stage="Completed", Actual=actual)
+        report.update(Status="Pass_LimitedTwoDeniedAttempts", Stage="Completed", Actual=actual)
         code = 0
     except urllib.error.HTTPError as error:
         report.update(Reason="OfficialSourceHttpFailure_NoRetry", HttpStatus=error.code)

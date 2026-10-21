@@ -1,0 +1,15 @@
+# 额外服务器实例操作性复核
+
+准备中，尚未Windows执行。唯一父c49c308f52551f84fa9683523aca2f415189ab50，精确七文件harness/CI/进度与本报告；固定92e产品／锁不改。
+
+同一随机短寿命fixture首server使用原protected单logon DACL0x12019b，原open0x40080003、mode8、buffers65536/65536、timeout0，仅maxInstances=2。第一server及原SafeHandle在两阶段及全部child退出/IO结束前一直持有。独立同一harness.exe子进程由Process.Start普通继承当前原token，不设置凭据/环境token或runas；第二CreateNamedPipe仅去FIRST flag，即0x40000003，其余一致/max2。无client阶段第一server未连接；持有client阶段由同一个第二server调用子进程自己请求原rights|4，并持有跨原生CreateNamedPipe调用及结果测量，随后原handle单独Dispose；父从原server核实际clientPID等于该child，不重复NtQueryObject客户端测量。
+
+子进程Ready→父只读核原Process.SafeHandle的生产ReadToken及TOKEN_QUERY owner→单字节GO→原生尝试。user/logon/owner/auth以本fixture盐摘要作只读关联，session及Elevated原值参与一致性比较；child自己也前后读取核同token。摘要不是生产授权。原server GetSecurityInfo只读核owner匹配TokenOwner及精确protected单logon DACL；没有修改现有对象ACL或系统安全设置。
+
+两个原生结果必须都是无效句柄/Win32 5，且身份/原IO/child/句柄全部结算才支持本次有限“没有取得额外server能力”。任何成功serverhandle无条件红，查询该原handle的endpoint/GrantedAccess；其他错误（包括max满/参数不一致）无判别力。成功不能代签跨身份安全，不能回填旧客户端bit4红门或称无风险。
+
+stdout Ready/尾部、stderr、GO write/flush、原WaitForExitTask分别持有和join；失败关闭原stdin底层管道不等文本写锁，仅可终止保留原Process对象的自有子进程。每个正文/清理错保留；原exit/IO未确认保留原owner且不进下一阶段。子原client/rawhandle、父connection/firstserver/rawhandle分别清理，不凭closed吞dispose异常。输出为有界JSON，进程/握手有界，外部90秒未确认即失败；无UI/Worker/OCR/模型调用。
+
+只一次public windows-2022 push/attempt1，固定checkout depth10，contents:read，15/14/13分钟预算；原批准SDK402/验签/locked审计与harness必要构建复用，不新增许可/依赖/权限/费用/凭据，不操作用户电脑。正向medium warm仍Blocked，Explorer/安装/跨身份/250600ms/画质未验。原件及独审结果在执行后补齐。
+
+源码独审收口：原exit任务Faulted也属于未确认。先记录并尝试结算全部原IO；若原exit仍未成功join，保存Fail_CleanupUnconfirmed原件，保留原Process及调用者first/client，不启动下一phase、不用新wait替代，外围90秒只能失败。子GO原读清理观察超时后继续原gate fence；stdout/stderr原读terminal后各自Dispose。没有扩大任何通过预算。

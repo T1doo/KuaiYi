@@ -15,13 +15,13 @@ internal static class WarmWindowsPipeAccessProbe
 {
     private const BindingFlags Static=BindingFlags.Static|BindingFlags.NonPublic;
     private static readonly List<object> errors=[],fixtures=[];
-    private static object? Call(Type type,string name,params object?[] args)
+    internal static object? Call(Type type,string name,params object?[] args)
     {
         try{return type.GetMethod(name,Static)!.Invoke(null,args);}
         catch(TargetInvocationException error)when(error.InnerException!=null){System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(error.InnerException).Throw();throw;}
     }
-    private static void Need(bool value,string code){if(!value){var error=new InvalidOperationException(code);error.Data["ProbeCode"]=code;throw error;}}
-    private static object Error(Exception error)=>new{Type=error.GetType().Name,error.HResult,Code=error.Data["ProbeCode"],Win32=error is Win32Exception native?(int?)native.NativeErrorCode:null,Stack=error.StackTrace,Inner=error is AggregateException many?many.InnerExceptions.Select(Error).ToArray():error.InnerException is {} inner?[Error(inner)]:Array.Empty<object>()};
+    internal static void Need(bool value,string code){if(!value){var error=new InvalidOperationException(code);error.Data["ProbeCode"]=code;throw error;}}
+    internal static object Error(Exception error)=>new{Type=error.GetType().Name,error.HResult,Code=error.Data["ProbeCode"],Win32=error is Win32Exception native?(int?)native.NativeErrorCode:null,Stack=error.StackTrace,Inner=error is AggregateException many?many.InnerExceptions.Select(Error).ToArray():error.InnerException is {} inner?[Error(inner)]:Array.Empty<object>()};
     internal static int Run(string result)
     {
         if(!OperatingSystem.IsWindows()||IntPtr.Size!=8||Environment.GetEnvironmentVariable("GITHUB_ACTIONS")!="true"||Environment.GetEnvironmentVariable("GITHUB_REPOSITORY")!="T1doo/KuaiYi"||Environment.GetEnvironmentVariable("GITHUB_RUN_ATTEMPT")!="1")return 2;
@@ -135,7 +135,7 @@ internal static class WarmWindowsPipeAccessProbe
     }
     private static void Capture(List<Exception> errors,Action action){try{action();}catch(Exception error){errors.Add(error);}}
     private static void CaptureAndRecord(string code){try{Need(false,code);}catch(Exception error){errors.Add(Error(error));}}
-    private static uint? Measure(SafePipeHandle handle,Dictionary<string,object?> row)
+    internal static uint? Measure(SafePipeHandle handle,Dictionary<string,object?> row)
     {
         try
         {

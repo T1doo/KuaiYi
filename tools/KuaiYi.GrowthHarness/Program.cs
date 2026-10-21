@@ -18,6 +18,8 @@ internal static class Program
     [STAThread]
     public static int Main(string[] args)
     {
+        if(args.Length==2&&args[0]=="--ci-server-instance-parent")return ServerInstanceProbe.Run(args[1]);
+        if(args.Length==4&&args[0]=="--ci-server-instance-child")return ServerInstanceProbe.Child(args[1],args[2],args[3]);
         if(args.Length==2&&args[0]=="--ci-pipe-access")return WarmWindowsPipeAccessProbe.Run(args[1]);
         if(args.Length==3&&args[0]=="--ci-local-image-shell")return WarmWindowsProbe.Run(args[1],args[2]);
         if(args.Length==2&&args[0]=="--ci-actual-overlay")return ActualOverlayProbe.Run(args[1],"2400",boundedCi:true);
