@@ -242,3 +242,14 @@ P7-01/已有实例认证转交/真实Windows菜单-WPF/OLE/OCR/身份/画质/250
 812输入源前后相同、执行后HEAD不变/dirty0。Release DLL前后各330项，正常编译45项变化，完整前后摘要/差异表、绑定固定SHA的AssemblyInfo、命令/日志/TRX和准确源码保全。本次追加仅证据与报告，生产源码/测试/SDK/锁均不再变化；无必要重复Codec/Provider/App。见[签收证据与原件](test-evidence/2026-10-21-cancellation-fixed-signoff.json)及[定位合同](validation/cancellation-readiness-root-cause.md)。
 
 未接续warm转交功能；指纹/Show不构成授权。P7-01、已有实例认证、真实Windows菜单-WPF-fileWorker/来源身份/OLE/COM/OCR/画质/250600/600MiB及完整P6P7/106/Beta未验保持。无新依赖许可权限费用凭据/模型用户电脑/CI/main强推部署；DefaultOff、PackageHold/生产复用Off、WebP odd拒绝与原安全门不变。
+
+
+## 2026-10-21 · P7-01已有实例认证转交最小设计（未实施）
+
+父侧关闭2093P Core红门后，固定71f69225accb8978160f59481414621ea312c466 clean/远端0/0、唯一writer接续，仅形成[可审最小设计](design/p7-warm-image-admission.md)。外部请求仅到原normal controller，真实pipe双向held process/token/logon/session/IL/选中generation校验，权限根来自原Role/Start child/stdio/admission/execution的内部live capability；Show/指纹/锁冲突不能授权。单slot零队列，server request/ordinal/双方nonce/10秒grant/UI stamp一次消费，独立warm CTS与原受控通道，不重用cold IMAGE第二次。
+
+明确唯一stdio reader/所有writer短串行、warm不等会话总serial锁；原任务以有界registry持有到settled，取消/断线与AppOwned在同UI提交wrapper仲裁，ACK丢失Unknown不重放，清理未确认不放slot/owner。prepare保留原Worker15秒，grant与清理不混同。拟先A纯Core/真实合成child屏障，再B Windows双向adapter与原Shell/file链，A不启用synthetic生产身份。列明必要生产修改与错误peer/旧generation/重放/过期/断线/held callback与Worker/STOP等定向测试，均尚未执行。
+
+本轮只读核812输入与基线git字节/current完全一致，并查Microsoft官方API；未改src/tests/工具/SPEC/SDK/依赖锁，不重跑产品测试，不把旧2093P转记新功能。真实Windows身份/菜单-WPF/画质/250600及完整P7仍未验，Off/不自动OCR发送/原来源清理门保持，无费用权限凭据/用户电脑/模型/main强推部署。设计静态证据见[索引](test-evidence/2026-10-21-warm-image-design-review.json)。
+
+设计候选经最终只读复审限定ACK：早期WARM_QUIESCE明确各端独立join避免关闭等待环，wrapper外最后有界记录复核/锁内volatile current及间接IO实施审查点明确。仅DesignReviewed候选交父侧独审，不是实施/测试/Windows验收ACK。

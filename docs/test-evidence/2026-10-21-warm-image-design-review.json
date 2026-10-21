@@ -1,0 +1,53 @@
+{
+  "baseHead": "71f69225accb8978160f59481414621ea312c466",
+  "branch": "dev/p7-fixed-signoff",
+  "scope": "Design candidate only; production implementation and all proposed tests NotRun",
+  "design": "docs/design/p7-warm-image-admission.md",
+  "designSha256": "534b55511b71e261097c77dc9fceec8e1f5ef439cd8d25cc548eed4f6008c781",
+  "staticChecks": {
+    "existingInputCount": 812,
+    "allCurrentBytesEqualBaseGitAndPreviousSignoffInputs": true,
+    "singleWorktree": true,
+    "startDirty": 0,
+    "startAhead": 0,
+    "startBehind": 0,
+    "runtimeTestsThisTask": "NotRun (no production changes)",
+    "gitDiffCheck": "Pass"
+  },
+  "sourcesReadSha256": {
+    "SPEC.md": "ea3aa6529405bcc703986988fd089f476ee8f991d867e2220b3b20c439126166",
+    "AGENTS.md": "8a03faf3ff6dcf168d8d793209701e066a728183f09aae5ca4045b001a06a954",
+    "src/KuaiYi.App/Program.cs": "7271bed55ce6f3094fb19ad6d6f54b1a55645f86c4412a1100d4a1be20b7d3dd",
+    "src/KuaiYi.App/InstallationSessionEntry.cs": "c4f2a12032aea2fc59137271a93a9bfc9bcc2c5a2018caf66c3507f27ca40e78",
+    "src/KuaiYi.App/InstallationEntry.cs": "6ced27c92ab19bdb2dc168df4e556278e9b72a3c6114844ed5b6206b50d8b1d1",
+    "src/KuaiYi.App/InstalledImageCommands.cs": "8510e5b1cd66b8fb3a31b1e62e2ca34d0e5aa07bc027d9322327af05d5a9fbbe",
+    "src/KuaiYi.App/FileImageCommands.cs": "88f7ff8712b6b770630e4c53b1e110a4f93a535f2f898c5ee0082710f0490341",
+    "src/KuaiYi.App/OverlayImageSource.cs": "fb0aba5dba812dd501f5dcee2aadbc4f0d5ae42ed2e9b98d33ec2102b9a0e644",
+    "src/KuaiYi.App/OverlayPrivacyFlow.cs": "28fc2ff7bae17e748df001f66221d377a13f7fb8d92f396906935c925b711795",
+    "src/KuaiYi.Core/SessionSingleInstance.cs": "3e9bd77841f12b6438facb59127f92446a0d0bfb091400b164213204eded214b",
+    "src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs": "1ac3e6f0247deeba89c4584b73a2cc7a20119bd3317eea187db7d6b146fc8484",
+    "src/KuaiYi.Core/Installation/InstallationApplicationControl.cs": "bb07bfce296abb23236dd3bc43c47f5b9a9abc73aeea067d6082a4ac912e3883",
+    "src/KuaiYi.Core/Installation/InstallationControlledLaunch.cs": "ba1c511aed5bce5a82285d7c2968a2e2107d4ea52d3f44ef1e149ad2d798de75",
+    "src/KuaiYi.Core/Installation/InstallationAdmission.cs": "ea86044f3a36393d25058039b7f9aa5271cd23998ca35a9f0c02caa9a002e154",
+    "src/KuaiYi.Core/Installation/InstallationImageOffer.cs": "5571c879ce3d0e590c6de6bdfa095432c94af9edc1afd94b45ec6f96ad5e87de",
+    "src/KuaiYi.Contracts/IpcFrame.cs": "2eba8a01ffc747b0b9f812f2a8d08e17742c384ec07832a831353728f22d987d",
+    "src/KuaiYi.NativeHost/WindowsNativePeer.cs": "ec6935a3da9ca1fe1b54f70f91a7c9360a60d09619ec645f2fabae138c3c91f4",
+    "src/KuaiYi.NativeHost/InstalledDesktopChannel.cs": "6231eea01183cda308b7f82a93412fa00e71373445e714d0982568920ecb46be",
+    "src/KuaiYi.NativeHost/InstalledBrowserReceiver.cs": "0df20f20caa3c33c1ed85ca47d485de690689b1cdde37d8662dc8dd229f12e47",
+    "src/KuaiYi.Imaging/FileImageOperation.cs": "fff06277a200873fbeef84d50a44f40611c33fe021aa52fa3ee06c7d23127710",
+    "src/KuaiYi.Imaging/ImageWorkerClient.cs": "f9d36d6090c992960706b0fbc94a294700b2c7f58260d16d2d1933750a8abbe9"
+  },
+  "independentReview": "Limited design-candidate ACK after full read and final section4 reread; live capability/held-peer bootstrap, unique reader+short serial writes/no coordinator Enter, per-end local cancellation/AppOwned/Unknown cut, bounded endpoint composite registry, TimeProvider timers/10s reserve-commit vs15s prepare and retained cleanup all reviewed. Final clarifications: one-way early WARM_QUIESCE with each side joining its own tasks/no cross wait; wrapper current volatile-only with last bounded record check outside lock/no await gap; indirect Accept callgraph IO/render errors require implementation source review. Final candidate SHA534b55511b71e261097c77dc9fceec8e1f5ef439cd8d25cc548eed4f6008c781 matches. No determined P2 blocking design-only handoff; NOT implementation/test/Windows acceptance ACK. Reviewer no write/test/build.",
+  "notImplemented": [
+    "external pipe and bidirectional Windows identity adapter",
+    "live capability and warm slot/phase/stdio actor",
+    "UI warm commit wrapper/result and actual file pipeline forwarding"
+  ],
+  "notVerified": [
+    "real Windows token/IL/logon/pipe peer and ACL behavior",
+    "Windows Explorer to second CLI to same WPF/file Worker",
+    "quality/250600/600MiB/fullP6P7/106/Beta"
+  ],
+  "constraints": "No cold IMAGE reuse, no browser role widening, Off preview only, no OCR/send; no new dependencies/licenses/security permissions/credentials/costs/user desktop/live model/CI/main/forcepush/deploy.",
+  "status": "DesignReviewed candidate / pending parent independent review before implementation"
+}
