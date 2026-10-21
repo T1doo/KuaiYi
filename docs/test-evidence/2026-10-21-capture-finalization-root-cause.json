@@ -1,0 +1,574 @@
+{
+  "date": "2026-10-21",
+  "base_sha": "0a333765061261c4d93befed67f77e2f123eb301",
+  "branch": "dev/core-capture-finalization",
+  "single_writer": "root, one worktree; existing reviewer read-only; unknown locks/processes preserved",
+  "environment": "designated saved Linux; SDK10.0.402/runtime10.0.13; no new dependency/license/permissions",
+  "exact_historical_failure": {
+    "method": "CaptureHostTests.KillFailureOrUnconfirmedWaitRetainsOwnerAndBlocksFinalizeWithoutBlockingUi(waitFailure:true)",
+    "stack": "Cleanup:69 Assert.True(TryFinalizeAsync), original method finally:109",
+    "r13": "2069P1F/2070,4.1033761s",
+    "r24": "2069P1F/2070,4.1669420s",
+    "source": "docs/test-evidence/2026-10-21-browser-image-preview.json and original archive",
+    "original_text_extractions": {
+      "r13-core-full": {
+        "originalTrxSha256": "71502e3945371446507b185ea4e6270531ceea334109ecb89573ecd3f884b030",
+        "extractedUnitTestResultSha256": "89f2e4879e9b34eed63fc75d523e1c471dbe29890250be872d4ce0bf3d633557",
+        "extraction": "exact original text from opening tag through closing tag plus terminal newline"
+      },
+      "r24-core-full-check": {
+        "originalTrxSha256": "09fa119094ec17876fb88f5277393c871dad01129abfbd78d7b3df8144e20a44",
+        "extractedUnitTestResultSha256": "b199670942742332ddf64d961ce65301ed7dd618dd84391e759b2a523fac2bdb",
+        "extraction": "exact original text from opening tag through closing tag plus terminal newline"
+      }
+    },
+    "limits": "prior finally may mask body failure; no original Task state in historical runs; cannot fully trace each historical root cause or assert bodypassed"
+  },
+  "confirmed_mechanism": "Same CaptureHost Cleanup assumes second Process.WaitForExitAsync completion settles the earlier original lifetime observation Task; held actual observation deterministically reproduces false finalization while child has exited and original body passes. Production rejection is correct. Test Cleanup now explicitly joins exact observation then retains final assert. No random/static shared mutable input required. Concurrency can affect scheduling but historical contamination/precise ordering not proven.",
+  "minimal_change": "test fixture only; exact Original Task tracking+join within existing4s, original668byte theory body/final assert retained; one held-observer regression and separate body/cleanup exception retention",
+  "commands": [
+    {
+      "name": "r01-instrumented-target",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~CaptureHostTests.KillFailureOrUnconfirmedWaitRetainsOwnerAndBlocksFinalizeWithoutBlockingUi",
+        "--logger",
+        "trx;LogFileName=r01-instrumented-target.trx",
+        "--results-directory",
+        "artifacts/capture-finalization-root-cause"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "r02-held-original-red",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~SameCaptureCleanupMustJoinItsHeldOriginalObservationAfterTheRealChildHasExited",
+        "--logger",
+        "trx;LogFileName=r02-held-original-red.trx",
+        "--results-directory",
+        "artifacts/capture-finalization-root-cause"
+      ],
+      "exitCode": 1
+    },
+    {
+      "name": "r03-exact-observer-join",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~SameCaptureCleanupMustJoinItsHeldOriginalObservationAfterTheRealChildHasExited|FullyQualifiedName~CaptureHostTests.KillFailureOrUnconfirmedWaitRetainsOwnerAndBlocksFinalizeWithoutBlockingUi",
+        "--logger",
+        "trx;LogFileName=r03-exact-observer-join.trx",
+        "--results-directory",
+        "artifacts/capture-finalization-root-cause"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "r04-final-related",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--no-build",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~HostTerminationTests|FullyQualifiedName~CaptureHostTests",
+        "--logger",
+        "trx;LogFileName=r04-final-related.trx",
+        "--results-directory",
+        "artifacts/capture-finalization-root-cause"
+      ],
+      "exitCode": 0,
+      "seconds": 24.162,
+      "testDllBeforeAndAfterSha256": "635fb25fc6a6123c07260b6d6478300bb65d0cce285bfb04ad9ee7654a067f8b"
+    }
+  ],
+  "results": {
+    "r01-instrumented-target.trx": {
+      "counts": {
+        "total": "2",
+        "executed": "2",
+        "passed": "2",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "actualResultCount": 2,
+      "sha256": "0c4d3420d914125ffec5cbbf7acb91ecd210ddf2776cb938bc85fd3a34a5cfa9",
+      "tests": [
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.KillFailureOrUnconfirmedWaitRetainsOwnerAndBlocksFinalizeWithoutBlockingUi(waitFailure: True)",
+          "outcome": "Passed",
+          "stdout": "SYNTHETIC BODY PASSED waitFailure=True originalWait=WaitingForActivation\nSYNTHETIC CLEANUP PASSED waitFailure=True originalWait=RanToCompletion"
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.KillFailureOrUnconfirmedWaitRetainsOwnerAndBlocksFinalizeWithoutBlockingUi(waitFailure: False)",
+          "outcome": "Passed",
+          "stdout": "SYNTHETIC BODY PASSED waitFailure=False originalWait=\nSYNTHETIC CLEANUP PASSED waitFailure=False originalWait="
+        }
+      ]
+    },
+    "r02-held-original-red.trx": {
+      "counts": {
+        "total": "1",
+        "executed": "1",
+        "passed": "0",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "actualResultCount": 1,
+      "sha256": "e0363d081c8491b71bb98b57d02d5f3e4358264c5cd9fabf0e689059e08f4459",
+      "tests": [
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.SameCaptureCleanupMustJoinItsHeldOriginalObservationAfterTheRealChildHasExited",
+          "outcome": "Failed",
+          "stdout": "SYNTHETIC BODY PASSED waitFailure=True originalWait=WaitingForActivation\nSYNTHETIC CLEANUP OS WAIT COMPLETE originalWait=WaitingForActivation\nSYNTHETIC CLEANUP FAILED waitFailure=True actualExit=True originalWait=WaitingForActivation failureCode= Xunit.Sdk.TrueException: Assert.True() Failure\nExpected: True\nActual:   False\n   at Xunit.Assert.True(Nullable`1 condition, String userMessage) in /_/src/xunit.assert/Asserts/BooleanAsserts.cs:line 141\n   at Xunit.Assert.True(Boolean condition) in /_/src/xunit.assert/Asserts/BooleanAsserts.cs:line 95\n   at KuaiYi.Core.Tests.CaptureHostTests.Cleanup(CaptureHostClient client, Starter starter) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/CaptureHostTests.cs:line 78\n   at KuaiYi.Core.Tests.CaptureHostTests.KillFailureOrUnconfirmedWaitRetainsOwnerAndBlocksFinalizeWithoutBlockingUi(Boolean waitFailure) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/CaptureHostTests.cs:line 123"
+        }
+      ]
+    },
+    "r03-exact-observer-join.trx": {
+      "counts": {
+        "total": "3",
+        "executed": "3",
+        "passed": "3",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "actualResultCount": 3,
+      "sha256": "afadca57b30f4d04b351f8bb737cc8a462ba75aecf19fa3148e650ccc673f3f0",
+      "tests": [
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.KillFailureOrUnconfirmedWaitRetainsOwnerAndBlocksFinalizeWithoutBlockingUi(waitFailure: False)",
+          "outcome": "Passed",
+          "stdout": "SYNTHETIC BODY PASSED waitFailure=False originalWait=\nSYNTHETIC CLEANUP OS WAIT COMPLETE originalWait=\nSYNTHETIC CLEANUP PASSED waitFailure=False originalWait="
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.SameCaptureCleanupMustJoinItsHeldOriginalObservationAfterTheRealChildHasExited",
+          "outcome": "Passed",
+          "stdout": "SYNTHETIC BODY PASSED waitFailure=True originalWait=WaitingForActivation\nSYNTHETIC CLEANUP OS WAIT COMPLETE originalWait=WaitingForActivation\nSYNTHETIC CLEANUP PASSED waitFailure=True originalWait=RanToCompletion"
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.KillFailureOrUnconfirmedWaitRetainsOwnerAndBlocksFinalizeWithoutBlockingUi(waitFailure: True)",
+          "outcome": "Passed",
+          "stdout": "SYNTHETIC BODY PASSED waitFailure=True originalWait=WaitingForActivation\nSYNTHETIC CLEANUP OS WAIT COMPLETE originalWait=RanToCompletion\nSYNTHETIC CLEANUP PASSED waitFailure=True originalWait=RanToCompletion"
+        }
+      ]
+    },
+    "r04-final-related.trx": {
+      "counts": {
+        "total": "35",
+        "executed": "35",
+        "passed": "35",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "actualResultCount": 35,
+      "sha256": "c3dc3bcab136735746a0ac625d0ddbcec6fab738a742c27539e0d48f12a6f8f8",
+      "tests": [
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.RealChildIgnoringCancellationIsKilledAndUiFinallyCanRestore(mode: \"stall-native\", timeout: True)",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.ActualPrivateChannelRejectsWrongIdentityRoleBoundsAndIncompleteFrames(fault: \"chunk\")",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.ActualPrivateChannelRejectsWrongIdentityRoleBoundsAndIncompleteFrames(fault: \"hash\")",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(completion: \"cancelled\")",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.HostTerminationTests.BrokenOwnershipObservationDoesNotAuthorizeKillOrRestart",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.KillFailureOrUnconfirmedWaitRetainsOwnerAndBlocksFinalizeWithoutBlockingUi(waitFailure: False)",
+          "outcome": "Passed",
+          "stdout": "SYNTHETIC BODY PASSED waitFailure=False originalWait=\nSYNTHETIC CLEANUP OS WAIT COMPLETE originalWait=\nSYNTHETIC CLEANUP PASSED waitFailure=False originalWait="
+        },
+        {
+          "name": "KuaiYi.Core.Tests.HostTerminationTests.KillReturningDoesNotPermitRestartWhileExitIsPending",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.ActualPrivateChannelRejectsWrongIdentityRoleBoundsAndIncompleteFrames(fault: \"oversize\")",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(completion: \"success\")",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.RealChildIgnoringCancellationIsKilledAndUiFinallyCanRestore(mode: \"stall-compositor\", timeout: False)",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.ActualPrivateChannelRejectsWrongIdentityRoleBoundsAndIncompleteFrames(fault: \"role\")",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.UnconfirmedCurrentCaptureRevokesOldNetworkIdentityAndCannotSendAfterRelease",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.HostTerminationTests.UnconfirmedExitRetainsOwnershipAndLateObservationCanConfirm",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.HostTerminationTests.ReentrantObservationCannotReleaseTheLifetimeBeforeWaitPublication",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.HiddenVerificationFailureHasNoPixelPayloadAndChildExitIsConfirmed",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.RealPrivateSessionPreservesPhysicalPixelsDpiAndClearsActualArrays",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.CancelDuringStartDoesNotAbandonLateChildOrInventExit(fail: True)",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.HostTerminationTests.WaitCompletingWithoutAuthoritativeExitIsUnconfirmed",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.PublishedAlreadyExitedRealChildCannotFinalizeBeforeStartSettles",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.SameCaptureCleanupMustJoinItsHeldOriginalObservationAfterTheRealChildHasExited",
+          "outcome": "Passed",
+          "stdout": "SYNTHETIC BODY PASSED waitFailure=True originalWait=WaitingForActivation\nSYNTHETIC CLEANUP OS WAIT COMPLETE originalWait=WaitingForActivation\nSYNTHETIC CLEANUP PASSED waitFailure=True originalWait=RanToCompletion"
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.CompletedStartupBeyondMonotonicBudgetIsRejectedEvenWithoutTimerCallback",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.StaleCaptureFailureCannotDisableReplacementIdentity",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.CancelDuringStartDoesNotAbandonLateChildOrInventExit(fail: False)",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.ActualPrivateChannelRejectsWrongIdentityRoleBoundsAndIncompleteFrames(fault: \"operation\")",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.UncancellableRealPipeReadAfterOffClearsLatePayloadAndCannotCommit",
+          "outcome": "Passed",
+          "stdout": "SYNTHETIC CLEANUP OS WAIT COMPLETE originalWait="
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.RealChildIgnoringCancellationIsKilledAndUiFinallyCanRestore(mode: \"stall-compositor\", timeout: True)",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.HostTerminationTests.TerminationFailureNeverMeansRecovered",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.ActualPrivateChannelRejectsWrongIdentityRoleBoundsAndIncompleteFrames(fault: \"commit\")",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.HostTerminationTests.AlreadyExitedDoesNotRequestAnotherKill",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.PreCancelledCaptureCreatesNoProcess",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.HostTerminationTests.ActualExitCannotReleaseAnUnsettledOriginalWait(completion: \"fault\")",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.HostTerminationTests.RealExitedChildHandleRemainsOwnedUntilItsOriginalExitWaitSettles",
+          "outcome": "Passed",
+          "stdout": "PUBLIC_EXIT_WAIT actualPid=49977 actualExit=137 originalWait=WaitingForActivation finalized=False waitCalls=1"
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.ActualPrivateChannelRejectsWrongIdentityRoleBoundsAndIncompleteFrames(fault: \"epoch\")",
+          "outcome": "Passed",
+          "stdout": ""
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.KillFailureOrUnconfirmedWaitRetainsOwnerAndBlocksFinalizeWithoutBlockingUi(waitFailure: True)",
+          "outcome": "Passed",
+          "stdout": "SYNTHETIC BODY PASSED waitFailure=True originalWait=WaitingForActivation\nSYNTHETIC CLEANUP OS WAIT COMPLETE originalWait=WaitingForActivation\nSYNTHETIC CLEANUP PASSED waitFailure=True originalWait=RanToCompletion"
+        },
+        {
+          "name": "KuaiYi.Core.Tests.CaptureHostTests.RealChildIgnoringCancellationIsKilledAndUiFinallyCanRestore(mode: \"stall-native\", timeout: False)",
+          "outcome": "Passed",
+          "stdout": ""
+        }
+      ]
+    }
+  },
+  "final_scope": {
+    "related_core": 35,
+    "failures": 0,
+    "skipped": 0,
+    "new_held_path_case": 1,
+    "production_changes": 0,
+    "full_core_rerun": false,
+    "provider_codec_or_product_build_rerun": false,
+    "historical_full_core_status": "Fail; not overwritten by targeted success"
+  },
+  "protection": {
+    "all_other_tracked_files_equal": true,
+    "count": 11934,
+    "catalog": "run/all-protected-hashes.json",
+    "production_count": 315,
+    "production_catalog": "run/production-protection.json",
+    "original_theory_body_bytes": 668,
+    "old_body_retained": true
+  },
+  "source_hashes": {
+    "tests/KuaiYi.Core.Tests/CaptureHostTests.cs": "f104e2a769074be6ff1305011fda7e1718fa2bb49f2231f5354b332c812aac5a",
+    "docs/progress.md": "a47a2aaeec78293abe62dfcb1f5d3f95fc4e92c4b1d24938ec7ae49edefdd47d",
+    "docs/acceptance-report.md": "17e6cf1339ab094241553d12116c4fda67957e566554162294136d4bd710dad2",
+    "docs/validation/capture-finalization-root-cause.md": "05d8fdd0d62b54897e18e386fe3c7941f18dfda2f1d0ac6ec0c3d86f4d79f8e4"
+  },
+  "independent_review": "Existing read-only gif_review design and final source ACK: no definite P1/P2. Original theory body668 bytes and final Assert.True/Dispose retained, production315 files identical. Exact Original join uses4s; async hook first joins exact RealWait then assertscompleted/pending and releases hold, WaitCalls1. Body/cleanup exception objects retained through Aggregate or EDI. r02 sameCleanup red proves present mechanism; does not retrospectively prove historical body/each root cause. Reviewer did not run tests/build/write. Final evidence separately reviewed before push.",
+  "not_run": [
+    "third full Core suite",
+    "Windows native/WPF/OLE/COM/installed identity/OCR/desktop integration",
+    "real model/quality/250600/600MiB",
+    "fullP6/P7/Beta; oldBMP root cause remainsUNKNOWN"
+  ],
+  "constraints": [
+    "no production/API/dependency/lock/license/timeout/skip/assertion relaxation",
+    "no user data/desktop/live models/CI/newcost/credential/securitynetwork changes",
+    "no main/forcepush/deploy"
+  ],
+  "archive": {
+    "path": "docs/test-evidence/2026-10-21-capture-finalization-root-cause-originals.zip",
+    "bytes": 496977,
+    "sha256": "3fa546aded7e571afea7e3931f44023be5dbb6cf2580aac407aa36fa759c2dae",
+    "entries": 26
+  },
+  "archive_members": {
+    "run/CaptureHostTests.before.cs": {
+      "bytes": 15560,
+      "sha256": "461a4d1ba4c2ae9d5b2a57b8652c56a0c778d5504d50ec3925c354af9cd910a1"
+    },
+    "run/all-protected-hashes.json": {
+      "bytes": 2775181,
+      "sha256": "4138f38034d3ceddfb469fb0cd03057a2be51b13672e9a772ea876e56caa986b"
+    },
+    "run/commands.json": {
+      "bytes": 2691,
+      "sha256": "9b8a3bf174e90135566f7055100acb1a234bd3bbd3e10a808c110aacf943c6d0"
+    },
+    "run/final-source-hashes.json": {
+      "bytes": 433,
+      "sha256": "531be4cb536a2f41dfb7bacc73c326781a09d4020dd67b921dab79efc0329527"
+    },
+    "run/original-failure-extractions.json": {
+      "bytes": 655,
+      "sha256": "1566474b3b2e37f92911cad5892b51c73eaab87915e1432732d25af19d086368"
+    },
+    "run/production-protection.json": {
+      "bytes": 36735,
+      "sha256": "9024b31e359fc7d1813fc7effa830009656882c450b982cc78a4606f1758f66a"
+    },
+    "run/r01-instrumented-source.cs": {
+      "bytes": 16377,
+      "sha256": "8f1958c64545047f0db6aace7e65d43e4cf01368f7b6a4c466ef2e1809f793e5"
+    },
+    "run/r01-instrumented-target.log": {
+      "bytes": 2084,
+      "sha256": "01efa19c36da38ab2840635dd03fccba3ad20fa980ff4c31762a485f7933b3bb"
+    },
+    "run/r01-instrumented-target.trx": {
+      "bytes": 4770,
+      "sha256": "0c4d3420d914125ffec5cbbf7acb91ecd210ddf2776cb938bc85fd3a34a5cfa9"
+    },
+    "run/r02-held-original-red-source.cs": {
+      "bytes": 18426,
+      "sha256": "057ee2ba833b138bf3325220ba84c9ee3d1937d5fd53bb1519b6568ccea75b92"
+    },
+    "run/r02-held-original-red.log": {
+      "bytes": 4443,
+      "sha256": "eb3d30700c640119a5807f9ea7ef731fb71e247c1e3ed874c181d04eaff4699c"
+    },
+    "run/r02-held-original-red.trx": {
+      "bytes": 8049,
+      "sha256": "e0363d081c8491b71bb98b57d02d5f3e4358264c5cd9fabf0e689059e08f4459"
+    },
+    "run/r03-exact-observer-join.log": {
+      "bytes": 2084,
+      "sha256": "095484328d41949c99e008ce502629708f24d0a795a9d6df33487a3ee4384fe5"
+    },
+    "run/r03-exact-observer-join.trx": {
+      "bytes": 6564,
+      "sha256": "afadca57b30f4d04b351f8bb737cc8a462ba75aecf19fa3148e650ccc673f3f0"
+    },
+    "run/r04-command.json": {
+      "bytes": 644,
+      "sha256": "a46d526f0aa7d8f7afffe6cf0b5f8e3a67e7172334aabf82e2896d9125c224ec"
+    },
+    "run/r04-final-related.log": {
+      "bytes": 397,
+      "sha256": "cecaa96c82b047e260ec9deaf90ebdc035a58969dda12410c9b5ff62db9f5577"
+    },
+    "run/r04-final-related.trx": {
+      "bytes": 50704,
+      "sha256": "c3dc3bcab136735746a0ac625d0ddbcec6fab738a742c27539e0d48f12a6f8f8"
+    },
+    "run/r13-core-full-failed-UnitTestResult.xml": {
+      "bytes": 1216,
+      "sha256": "89f2e4879e9b34eed63fc75d523e1c471dbe29890250be872d4ce0bf3d633557"
+    },
+    "run/r24-core-full-check-failed-UnitTestResult.xml": {
+      "bytes": 1216,
+      "sha256": "b199670942742332ddf64d961ce65301ed7dd618dd84391e759b2a523fac2bdb"
+    },
+    "run/review.txt": {
+      "bytes": 570,
+      "sha256": "d9a82006945a4ae120c8a2016aa0300714ea80865c78dfccfe66909f73adbac3"
+    },
+    "run/run-final-related.py": {
+      "bytes": 1022,
+      "sha256": "5c276cd6d23f6010068f72ddc1d069ef02ef973b1205a04915d5071ea952f0fe"
+    },
+    "run/seal.py": {
+      "bytes": 7143,
+      "sha256": "63373563180fe21c3d7bf397f353d82b528ebb23efbda677c23b05aaeb205b64"
+    },
+    "final-source/tests/KuaiYi.Core.Tests/CaptureHostTests.cs": {
+      "bytes": 18854,
+      "sha256": "f104e2a769074be6ff1305011fda7e1718fa2bb49f2231f5354b332c812aac5a"
+    },
+    "final-source/docs/progress.md": {
+      "bytes": 301830,
+      "sha256": "a47a2aaeec78293abe62dfcb1f5d3f95fc4e92c4b1d24938ec7ae49edefdd47d"
+    },
+    "final-source/docs/acceptance-report.md": {
+      "bytes": 36799,
+      "sha256": "17e6cf1339ab094241553d12116c4fda67957e566554162294136d4bd710dad2"
+    },
+    "final-source/docs/validation/capture-finalization-root-cause.md": {
+      "bytes": 4762,
+      "sha256": "05d8fdd0d62b54897e18e386fe3c7941f18dfda2f1d0ac6ec0c3d86f4d79f8e4"
+    }
+  }
+}

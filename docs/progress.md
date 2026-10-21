@@ -1350,3 +1350,10 @@ Windows OCR/OLE/COM/WPF/真实来源身份/最终文件handle、字体画质、2
 最终完整Provider2436P、Codec481P均0F/0skip；完整Core两轮均2069P/1F/0skip，旧CaptureHost waitFailure:true在Cleanup69 finalize断言失败，间隔定向2P，根因UNKNOWN，finally可能覆盖body错误，不称全Core通过或旧问题已修复。新增14个Core用例均通过。App/NativeHost/ImageWorker各0W/E，两正确locked审计restore0；Worker两条错误项目路径MSB1009原件保留，随后正确路径通过。383项旧测试/锁/项目依赖/许可/扩展/工作流/安装数据/SPEC字节不改，Provider项目仅加Compile link，独立源码只读ACK；真实测试由writer执行。详见[范围与验证](validation/browser-image-preview.md)/[证据索引](test-evidence/2026-10-21-browser-image-preview.json)。
 
 当前只接已运行正常Shell；冷启动/Explorer认证转交、跨域/blob/可见裁切/其他浏览器格式仍缺。Windows实际Chrome/Edge/peer/WPF/OLE/COM/OCR/安装身份/来源密码完整性、字号画质、250/600ms/600MiB及完整P6/P7/K组未验，未把阶段整体或Beta签收。旧BMP根因未知、WebP odd明确拒绝、PackageHold、生产复用Off和原来源/取消/实际退出/发送门保持；无真实模型/用户内容/用户电脑/新依赖许可权限费用凭据/CI/main/强推/发布部署。
+
+
+## 2026-10-21 · Core CaptureHost 红门的测试清理错序
+
+接完整浏览器候选0a333765061261c4d93befed67f77e2f123eb301，正常dev/core-capture-finalization，唯一writer/先独审。原r13/r24均2069P1F，最终栈为CaptureHost Cleanup69 finalize断言，finally109可能覆盖body，旧轨迹不补写。最小同路径屏障实证：原theory正文过、真实child退出/另一次OS wait完成，生产持有的原观察Task仍pending，旧Cleanup即finalize断言红。仅测试Cleanup显式join原观察再保留finalAssert，原4s/668字节正文和生产315文件原字节不改；body/cleanup双异常保全，生产退出安全门不放宽。
+
+r01诊断原方法2P（非自然失败复现），r02受控0P1F，r03修后原2+新1=3P，r04最终HostTermination+Capture35P/0F/0skip；红源/原XML/日志/TRX/摘要保全，独立只读源码ACK。未盲跑第三次全Core；本轮仅相关回归，不把旧两次完整Fail改绿或声称历史每次根因/body已完全追溯。无必要重建产品或重跑Provider/Codec。详见[机制与验证](validation/capture-finalization-root-cause.md)/[证据](test-evidence/2026-10-21-capture-finalization-root-cause.json)。无新功能/生产改动/依赖许可权限费用凭据/模型/用户内容/用户电脑/CI/main/强推/部署；原安全门、PackageHold/复用Off及Windows/画质/250600等未验边界保持。

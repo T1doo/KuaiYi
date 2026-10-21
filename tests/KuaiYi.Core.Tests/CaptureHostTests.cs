@@ -3,9 +3,12 @@ using System.Runtime.InteropServices;
 using KuaiYi.Core;
 using KuaiYi.Imaging;
 using Xunit;
+using Xunit.Abstractions;
+using System.Runtime.ExceptionServices;
 namespace KuaiYi.Core.Tests;
-public sealed class CaptureHostTests
+public sealed class CaptureHostTests(ITestOutputHelper output)
 {
+    private Task? holdExitObservationForTest;private FailedKill? recordedLifetimeForTest;private Func<Task>? beforeOriginalJoinForTest;
     private sealed class SilentClock:TimeProvider
     {
         private long timestamp;
@@ -19,6 +22,8 @@ public sealed class CaptureHostTests
     {
         public ManualResetEventSlim? Barrier {get;init;}
         public bool Fail {get;init;}
+        public Func<Task?>? OriginalExitObservation {get;init;}
+        public Func<Task>? BeforeOriginalJoin {get;init;}
         public TaskCompletionSource<int> Entered {get;}=new(TaskCreationOptions.RunContinuationsAsynchronously);
         public TaskCompletionSource<Process> Created {get;}=new(TaskCreationOptions.RunContinuationsAsynchronously);
         public Process Start(ProcessStartInfo info)
@@ -30,12 +35,15 @@ public sealed class CaptureHostTests
         }
         public void Dispose(){Barrier?.Set();Barrier?.Dispose();}
     }
-    private sealed class FailedKill(Process child,bool waitFailure=false):IOwnedHostLifetime
+    private sealed class FailedKill(Process child,bool waitFailure=false,Task? hold=null):IOwnedHostLifetime
     {
         public bool HasExited=>child.HasExited;
         public void RequestTermination(){if(!waitFailure)throw new IOException("synthetic kill failure on held real child");}
         // The failed kill keeps the real child alive; its original wait settles only after exact-child cleanup.
-        public Task WaitForExitAsync(CancellationToken cancellation)=>child.WaitForExitAsync(cancellation);
+        public Task? RealWait {get;private set;}public Task? OriginalWait {get;private set;}public int WaitCalls {get;private set;}
+        public Task WaitForExitAsync(CancellationToken cancellation)
+        {WaitCalls++;RealWait=child.WaitForExitAsync(cancellation);return OriginalWait=hold==null?RealWait:Hold(RealWait,hold);}
+        private static async Task Hold(Task real,Task release){await real.ConfigureAwait(false);await release.ConfigureAwait(false);}
     }
     private sealed class UncancellableRead(Stream inner):Stream
     {
@@ -57,7 +65,7 @@ public sealed class CaptureHostTests
     {
         var child=await starter.Created.Task.WaitAsync(TimeSpan.FromSeconds(4));Assert.Equal("entered:"+mode,await child.StandardError.ReadLineAsync().WaitAsync(TimeSpan.FromSeconds(4)));return child;
     }
-    private static async Task Cleanup(CaptureHostClient client,Starter starter)
+    private async Task Cleanup(CaptureHostClient client,Starter starter)
     {
         starter.Barrier?.Set();
         try{await client.StartupSettlementForTest.WaitAsync(TimeSpan.FromSeconds(4));}catch(IOException){/* Asserted startup failure is still observed. */}
@@ -66,6 +74,10 @@ public sealed class CaptureHostTests
         {
             var held=await starter.Created.Task;if(!held.HasExited){held.Kill();await held.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(4));}
         }
+        output.WriteLine($"SYNTHETIC CLEANUP OS WAIT COMPLETE originalWait={starter.OriginalExitObservation?.Invoke()?.Status}");
+        // A second Process wait is not settlement of the exact observer retained by the owner.
+        if(starter.OriginalExitObservation?.Invoke() is {} original)
+        {if(starter.BeforeOriginalJoin is {} beforeJoin)await beforeJoin();await original.WaitAsync(TimeSpan.FromSeconds(4));}
         Assert.True(await client.TryFinalizeAsync());await client.DisposeAsync();
     }
     [Fact] public async Task RealPrivateSessionPreservesPhysicalPixelsDpiAndClearsActualArrays()
@@ -97,7 +109,8 @@ public sealed class CaptureHostTests
     [Theory][InlineData(false)][InlineData(true)]
     public async Task KillFailureOrUnconfirmedWaitRetainsOwnerAndBlocksFinalizeWithoutBlockingUi(bool waitFailure)
     {
-        using var starter=new Starter("stall-native");var client=new CaptureHostClient(Dotnet,AssemblyPath(),starter){LifetimeForTest=p=>new FailedKill(p,waitFailure)};
+        FailedKill? observed=null;using var starter=new Starter("stall-native"){OriginalExitObservation=()=>observed?.OriginalWait,BeforeOriginalJoin=beforeOriginalJoinForTest};var client=new CaptureHostClient(Dotnet,AssemblyPath(),starter){LifetimeForTest=p=>recordedLifetimeForTest=observed=new FailedKill(p,waitFailure,holdExitObservationForTest)};
+        Exception? bodyFailure=null,cleanupFailure=null;
         using var cancel=new CancellationTokenSource();var run=client.RunAsync(Job(),cancel.Token);
         try
         {
@@ -106,7 +119,24 @@ public sealed class CaptureHostTests
             Assert.False(child.HasExited);Assert.False(client.ObserveExit());Assert.False(await client.TryFinalizeAsync());Assert.False(await client.TryFinalizeAsync(true));
             Assert.Equal(CaptureFailure.ExitUnconfirmed,(await Assert.ThrowsAsync<CaptureException>(()=>client.DisposeAsync().AsTask())).Failure);
             Assert.Equal(waitFailure?HostExitState.ExitUnconfirmed:HostExitState.TerminationFailed,client.ExitState);
-        }finally{await Cleanup(client,starter);}
+            output.WriteLine($"SYNTHETIC BODY PASSED waitFailure={waitFailure} originalWait={observed?.OriginalWait?.Status}");
+        }catch(Exception error){bodyFailure=error;output.WriteLine($"SYNTHETIC BODY FAILED waitFailure={waitFailure} {error}");}
+        finally
+        {
+            try{await Cleanup(client,starter);output.WriteLine($"SYNTHETIC CLEANUP PASSED waitFailure={waitFailure} originalWait={observed?.OriginalWait?.Status}");}
+            catch(Exception error){cleanupFailure=error;output.WriteLine($"SYNTHETIC CLEANUP FAILED waitFailure={waitFailure} originalWait={observed?.OriginalWait?.Status} failureCode={client.FinalizationFailureCode} {error}");}
+        }
+        if(bodyFailure!=null&&cleanupFailure!=null)throw new AggregateException("Capture body and original cleanup failed.",bodyFailure,cleanupFailure);
+        if(bodyFailure!=null)ExceptionDispatchInfo.Capture(bodyFailure).Throw();
+        if(cleanupFailure!=null)ExceptionDispatchInfo.Capture(cleanupFailure).Throw();
+    }
+    [Fact]
+    public async Task SameCaptureCleanupMustJoinItsHeldOriginalObservationAfterTheRealChildHasExited()
+    {
+        var release=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);holdExitObservationForTest=release.Task;int joins=0;
+        beforeOriginalJoinForTest=async()=>{await recordedLifetimeForTest!.RealWait!.WaitAsync(TimeSpan.FromSeconds(4));Assert.True(recordedLifetimeForTest.RealWait.IsCompletedSuccessfully);Assert.False(recordedLifetimeForTest.OriginalWait!.IsCompleted);joins++;release.SetResult();};
+        try{await KillFailureOrUnconfirmedWaitRetainsOwnerAndBlocksFinalizeWithoutBlockingUi(true);Assert.Equal(1,joins);Assert.Equal(1,recordedLifetimeForTest!.WaitCalls);Assert.True(recordedLifetimeForTest.OriginalWait!.IsCompletedSuccessfully);}
+        finally{release.TrySetResult();if(recordedLifetimeForTest?.OriginalWait is {} original)await original.WaitAsync(TimeSpan.FromSeconds(4));}
     }
     [Theory][InlineData(false)][InlineData(true)]
     public async Task CancelDuringStartDoesNotAbandonLateChildOrInventExit(bool fail)
