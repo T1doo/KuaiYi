@@ -40,4 +40,16 @@ A 片完成后仍须先交父侧独审，才能进入 B。B 必须补真实双�
 
 P7-01 与完整 warm 仍 InProgress；真实 Windows 菜单→WPF/安装来源身份/OLE/COM/OCR/画质/250/600ms/600MiB、完整 P6/P7/106/Beta 未验不变。默认Off，不自动OCR/发送，PackageHold、生产复用Off、WebP奇数payload拒绝保持。不操作用户电脑、不调用真实模型，不新增许可/凭据/权限/费用/CI，不改main、不强推、不部署。
 
-直接原件索引：[A片命令、摘要、TRX与ZIP](../test-evidence/2026-10-21-warm-image-core-a.json)。本检查点尚未执行本A修复后的完整Core；将在源码与原件独审后固定提交仅执行一次，失败先定位，不循环凑绿。
+直接原件索引：[A片命令、摘要、TRX与ZIP](../test-evidence/2026-10-21-warm-image-core-a.json)。该实现检查点之后，固定实现提交仅执行了以下一次完整Core，没有循环重跑。
+
+## 固定15d65bc一次完整Core：Fail，未签收
+
+在 clean `15d65bca30ba32386c895a6cc2fd4e218a51196a` 运行完整Release Core，实际 **2129P/1F/0skip**、exit1、114.964s。原2093个案例多重集全部保留，恰增37；Installation200项在此轮均通过。821项输入执行中不变，前后HEAD相同/dirty0；原命令/完整日志/TRX/唯一失败逐字XML/准确源码/AssemblyInfo/前后产物摘要全部保全。TRX SHA256 `c8d8e104bdb047be4353e51f7ede8c21faf81e866062c98a874bd85230967bab`。不同轮次不能累计或将该轮记Pass。
+
+唯一失败为 `SelectionReuseHostTests.Real_faulting_child_is_retired_and_exit_observed(scenario: "crash", expected: Crash)` 第24行，期望Crash、实际HardTimeout，原duration624.2773ms。原件没有阶段追踪，不能由总耗时倒推是Start、write、read、Check或退出观察哪一步先到界。该旧test、诊断Host、child Program、OwnedProcessSession逐字等设计基线及固定测试提交；这不排除间接调度影响，A的历史因果关系仍未知。
+
+源码候选：诊断Host的600ms从Start前起，Read.WaitAsync/Check先到界会记录HardTimeout；其后自然非零退出只把Protocol/Completed升级为Crash，不覆盖已成立的HardTimeout。用 artifacts 内独立探针调用同原Host/DLL和真实合成child，不改任何产品、测试、默认600ms或断言：先await同一实际inner read得到EOF，实际child23于61.613ms、<600ms且Run仍pending；持有该原读取返回至Run自然超时，Summary仍空、owner仍持有、不能replace；释放同原读取后标记buffer全清、ExitConfirmed、NaturalNonZero与HardTimeout并存，owner才释放。探针exit0，编译两条CS1690仅探针字段访问警告如实保留。此前before-inner-read变体及51.765ms原录独立保存，不替换最终EOF屏障。
+
+独立只读复审核原失败、源码和探针实录限定ACK。此机制可确定发生，不能追认本轮历史唯一根因或阶段；旧完整失败继续Fail。本片不扩大修改SelectionReuse诊断Host/旧测试，不进入Windows/B。下一步先审定最小可控截止/夹具方案：区分无deadline竞争的故障语义测试与默认真实600ms watchdog，保留生产250/600ms、原边界断言及原IO/进程结算；不能改大上限、加sleep、吞异常或接受Crash/HardTimeout任一值凑绿。
+
+[完整Core失败与探针原件](../test-evidence/2026-10-21-warm-image-core-a-full-core.json)。本轮后续只追加证据与报告，A片已实现/相关验证通过，完整Core签收及P7交付未完成。

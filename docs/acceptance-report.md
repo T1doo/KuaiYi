@@ -262,3 +262,12 @@ P7-01/已有实例认证转交/真实Windows菜单-WPF/OLE/OCR/身份/画质/250
 两处独审P2的确定性旧逻辑反例r05为1P3F；修复后同组加父write/flush共r06 6P。完整Installation r07实际200P/0F/0skip，旧163案例全部保留+37，821输入/准确源码执行中不变；App r08交叉构建0W/0E。不同轮次不累计，r01 16P1F、r02编译失败未执行、r03 21P12F、r04 10P2F原件/可见失败均保留，被finally掩盖的原异常不追认唯一根因。独立只读final source/红绿/r07原件限定ACK；将固定实现提交再做一次完整Core，尚不预测结果。
 
 [实现合同与边界](validation/warm-image-core-a.md)、[完整命令/TRX/源码/DLL摘要及原件ZIP](test-evidence/2026-10-21-warm-image-core-a.json)。B的真实双向peer/live capability/安装身份/Accept调用链、WarmSync→Gate和异常candidate所有权仍未实施，必须父侧独审A后才进入。P7-01/完整warm、真实Windows/OLE/COM/WPF/OCR/画质/250600/600MiB/完整P6P7/106/Beta未验不变；PackageHold、生产复用Off、WebP odd拒绝保持，无新许可权限费用凭据/用户电脑/真实模型/CI/main强推部署。
+
+
+## 2026-10-21 · 固定15d65bc一次完整Core Fail，原件与机制保全
+
+固定 clean `15d65bca30ba32386c895a6cc2fd4e218a51196a` 仅一次完整Release Core：实际2129P/1F/0skip、exit1、114.964s；原2093全保留+37，Installation200均通过，821输入及HEAD/dirty前后不变。唯一SelectionReuseHostTests crash原case期望Crash、实际HardTimeout、624.2773ms；原TRX无阶段trace，不能据总耗时倒推阶段或唯一根因，也不能因相关源未改排除间接调度影响。
+
+不重跑全套、不改旧测试或600ms。独立artifacts探针同原Host/DLL：同一实际inner read获EOF、child61.613ms真实exit23且Run未结束，持有原读取返回越600ms，Summary空/owner保持；释放后原marker全清、HardTimeout+NaturalNonZero、实际exit确认后释放owner。exit0，探针两条编译警告如实保留。独审限定ACK仅证明机制可发生，不回填历史唯一根因，不把Core Fail转绿。A片实现和相关200P已交，整体签收尚未完成；本轮只追加证据，下一步需先审定可控截止/夹具最小方案，默认真实250/600、原watchdog/退出门不动，暂不B。
+
+[准确失败/完整日志TRX/固定源码产物摘要/探针原件](test-evidence/2026-10-21-warm-image-core-a-full-core.json)、[完整边界说明](validation/warm-image-core-a.md)。P7-01/完整warm/Windows身份菜单WPF/真实Worker接线与画质250600等仍未验，不改main/权限费用凭据/模型用户电脑/依赖协议/CI强推部署。
