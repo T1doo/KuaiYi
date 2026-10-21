@@ -58,6 +58,11 @@ public sealed class LocalImageInbox(RuntimeGate gate,SynchronizationContext dest
         }
         finally{if(!accepted)owned.Dispose();}
     }
+    /// <summary>One exact, destination-thread ownership transfer after the original receiving session settles.</summary>
+    public LocalAcceptedImage? TakeCurrent(RequestIdentity identity)
+    {
+        LocalAcceptedImage? taken=null;gate.TryApply(identity,()=>{lock(sync){if(!disposed&&current?.Identity==identity){taken=current;current=null;}}});return taken;
+    }
     public void Clear(RequestIdentity? identity=null)
     {
         lock(sync){if(identity==null||current?.Identity==identity){current?.Dispose();current=null;}}

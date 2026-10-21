@@ -7,7 +7,7 @@ internal sealed partial class ShellWindow
     private sealed record LocalImageVersion(Guid VersionId,ImageSourceOwner Image);
     private readonly record struct SourceSelection(Guid? VersionId,TextTranslationSnapshot? Text,ImageSourceOwner? Image,ScreenshotGenerationSnapshot? Generation=null)
     {public bool HasSource=>VersionId!=null&&(Text!=null||Image is {IsDisposed:false});}
-    private readonly record struct ImageAdmission(long Input,long Result,long Epoch,CancellationTokenSource Owner,bool File);
+    private readonly record struct ImageAdmission(long Input,long Result,long Epoch,CancellationTokenSource Owner,bool File,CancellationToken External=default,Func<bool>? Current=null);
     private LocalImageVersion? retainedImage;
     private bool imageSelected;
     private long imageInputRevision;
@@ -32,9 +32,9 @@ internal sealed partial class ShellWindow
         }
     }
     private TextGenerationPreview? SelectedNextGeneration=>!imageSelected?translation?.NextGeneration:null;
-    private ImageAdmission CaptureImageAdmission(CancellationTokenSource owner,bool file=false)
-    {imageAdmissionOwner=owner;imageInputRevision++;ClearOriginalSource();return new(imageInputRevision,resultRevision,lifecycle.Gate.Snapshot.Epoch,owner,file);}
-    private bool ImageAdmissionCurrent(ImageAdmission admission,long epoch)=>!exiting&&!admission.Owner.IsCancellationRequested&&
+    private ImageAdmission CaptureImageAdmission(CancellationTokenSource owner,bool file=false,CancellationToken external=default,Func<bool>? current=null)
+    {imageAdmissionOwner=owner;imageInputRevision++;ClearOriginalSource();return new(imageInputRevision,resultRevision,lifecycle.Gate.Snapshot.Epoch,owner,file,external,current);}
+    private bool ImageAdmissionCurrent(ImageAdmission admission,long epoch)=>!exiting&&!admission.External.IsCancellationRequested&&admission.Current?.Invoke()!=false&&!admission.Owner.IsCancellationRequested&&
         ReferenceEquals(imageAdmissionOwner,admission.Owner)&&ReferenceEquals(admission.File?fileImageStop:screenshotHotkeyStop,admission.Owner)&&admission.Input==imageInputRevision&&admission.Result==resultRevision&&lifecycle.Gate.Snapshot.Epoch==epoch&&
         !lifecycle.Gate.Snapshot.Suspension.HasFlag(Suspension.SessionLocked)&&lifecycle.Gate.Snapshot.Presentation!=Presentation.Hidden;
     // Consumes the cropped source on both success and rejection. No provider, consent or activation mutation.

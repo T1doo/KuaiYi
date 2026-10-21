@@ -1,0 +1,938 @@
+{
+  "date": "2026-10-21",
+  "base_sha": "1eeb40444d718d8d92529207220cdc17ca0c076e",
+  "branch": "dev/p7-browser-image-preview",
+  "single_writer": "root, one worktree; reviewer read-only; no old writer resumed; unknown locks retained",
+  "environment": "designated saved Linux x64; SDK10.0.402/runtime10.0.13",
+  "commands": [
+    {
+      "name": "r13-core-full",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--logger",
+        "trx;LogFileName=r13-core-full.trx",
+        "--results-directory",
+        "/workspace/KuaiYi/artifacts/browser-image-preview"
+      ],
+      "exitCode": 1,
+      "seconds": 60.994
+    },
+    {
+      "name": "r14-provider-full",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--logger",
+        "trx;LogFileName=r14-provider-full.trx",
+        "--results-directory",
+        "/workspace/KuaiYi/artifacts/browser-image-preview"
+      ],
+      "exitCode": 0,
+      "seconds": 35.918
+    },
+    {
+      "name": "r15-codec-full",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Codec.Tests/KuaiYi.Codec.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--logger",
+        "trx;LogFileName=r15-codec-full.trx",
+        "--results-directory",
+        "/workspace/KuaiYi/artifacts/browser-image-preview"
+      ],
+      "exitCode": 0,
+      "seconds": 35.887
+    },
+    {
+      "name": "r16-app-build",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "build",
+        "src/KuaiYi.App/KuaiYi.App.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "-p:EnableWindowsTargeting=true"
+      ],
+      "exitCode": 0,
+      "seconds": 7.733
+    },
+    {
+      "name": "r17-worker-build",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "build",
+        "src/KuaiYi.Worker/KuaiYi.Worker.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "-p:EnableWindowsTargeting=true"
+      ],
+      "exitCode": 1,
+      "seconds": 0.458
+    },
+    {
+      "name": "r18-native-host-build",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "build",
+        "src/KuaiYi.NativeHost/KuaiYi.NativeHost.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "-p:EnableWindowsTargeting=true"
+      ],
+      "exitCode": 0,
+      "seconds": 1.975
+    },
+    {
+      "name": "r19-app-locked-audit",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "restore",
+        "src/KuaiYi.App/KuaiYi.App.csproj",
+        "--locked-mode",
+        "-p:EnableWindowsTargeting=true",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-nodeReuse:false"
+      ],
+      "exitCode": 0,
+      "seconds": 1.826
+    },
+    {
+      "name": "r20-worker-locked-audit",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "restore",
+        "src/KuaiYi.Worker/KuaiYi.Worker.csproj",
+        "--locked-mode",
+        "-p:EnableWindowsTargeting=true",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-nodeReuse:false"
+      ],
+      "exitCode": 1,
+      "seconds": 0.225
+    },
+    {
+      "name": "r21-image-worker-build",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "build",
+        "src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "-p:EnableWindowsTargeting=true"
+      ],
+      "exitCode": 0,
+      "seconds": 2.28
+    },
+    {
+      "name": "r22-image-worker-locked-audit",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "restore",
+        "src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj",
+        "--locked-mode",
+        "-p:EnableWindowsTargeting=true",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-nodeReuse:false"
+      ],
+      "exitCode": 0,
+      "seconds": 1.702
+    },
+    {
+      "name": "r23-capture-host-failure-target",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--no-build",
+        "--filter",
+        "FullyQualifiedName~CaptureHostTests.KillFailureOrUnconfirmedWaitRetainsOwnerAndBlocksFinalizeWithoutBlockingUi",
+        "--logger",
+        "trx;LogFileName=r23-capture-host-failure-target.trx",
+        "--results-directory",
+        "/workspace/KuaiYi/artifacts/browser-image-preview"
+      ],
+      "exitCode": 0,
+      "seconds": 6.33
+    },
+    {
+      "name": "r24-core-full-check",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--no-build",
+        "--logger",
+        "trx;LogFileName=r24-core-full-check.trx",
+        "--results-directory",
+        "/workspace/KuaiYi/artifacts/browser-image-preview"
+      ],
+      "exitCode": 1,
+      "seconds": 61.936
+    }
+  ],
+  "results": {
+    "r05-browser-reception.trx": {
+      "counts": {
+        "total": "75",
+        "executed": "75",
+        "passed": "75",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "results": 75,
+      "sha256": "464f8e511c42a8d033a050ba115ab87ef08f8f9ce4ade352ae277a56da8eac44"
+    },
+    "r07-browser-preparation.trx": {
+      "counts": {
+        "total": "41",
+        "executed": "41",
+        "passed": "41",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "results": 41,
+      "sha256": "17d82c620b3aa3a55a1881e91c7eb11fb2f3b1ce49e9fb072e156a209ff583ec"
+    },
+    "r08-browser-codec.trx": {
+      "counts": {
+        "total": "3",
+        "executed": "3",
+        "passed": "3",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "results": 3,
+      "sha256": "ef745ed060f0767bec7c7ae7accfed14492d73562c2f5d9cdda2df52e4ad1760"
+    },
+    "r09-browser-reception-permit.trx": {
+      "counts": {
+        "total": "77",
+        "executed": "77",
+        "passed": "77",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "results": 77,
+      "sha256": "ce4439bb249111ffbfa7c08683b3547a4f38eed5b5c8a057172fe94717397769"
+    },
+    "r10-dispose-red.trx": {
+      "counts": {
+        "total": "1",
+        "executed": "1",
+        "passed": "0",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "results": 1,
+      "sha256": "e1d1299434196b658385e1252d95c670163e29cc2064189d7fd2c08f853a741d"
+    },
+    "r11-reception-finally.trx": {
+      "counts": {
+        "total": "13",
+        "executed": "13",
+        "passed": "13",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "results": 13,
+      "sha256": "4eec00b00619d8d166bda2a9cee01a2e700244af905393b54fdae60b693f0258"
+    },
+    "r12-reception-cleanup.trx": {
+      "counts": {
+        "total": "79",
+        "executed": "79",
+        "passed": "79",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "results": 79,
+      "sha256": "7a42730c100d6209ab1dde9107383a18d3c3ea3bfec1abe44e326303eda91c97"
+    },
+    "r13-core-full.trx": {
+      "counts": {
+        "total": "2070",
+        "executed": "2070",
+        "passed": "2069",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "results": 2070,
+      "sha256": "71502e3945371446507b185ea4e6270531ceea334109ecb89573ecd3f884b030"
+    },
+    "r14-provider-full.trx": {
+      "counts": {
+        "total": "2436",
+        "executed": "2436",
+        "passed": "2436",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "results": 2436,
+      "sha256": "46f56c046d5150d539d491cfef8bee632d0315dd626f083d6c0a85dd4cba4889"
+    },
+    "r15-codec-full.trx": {
+      "counts": {
+        "total": "481",
+        "executed": "481",
+        "passed": "481",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "results": 481,
+      "sha256": "139731f6393e71b064fdd4cdfaf4fca78135a80084477aef26ec7eaafc71531a"
+    },
+    "r23-capture-host-failure-target.trx": {
+      "counts": {
+        "total": "2",
+        "executed": "2",
+        "passed": "2",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "results": 2,
+      "sha256": "6f5e21a78b6d5ce83eb2a789996ba4c8fb5edc94ddba283e67e62e53fa2a2d96"
+    },
+    "r24-core-full-check.trx": {
+      "counts": {
+        "total": "2070",
+        "executed": "2070",
+        "passed": "2069",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "results": 2070,
+      "sha256": "09fa119094ec17876fb88f5277393c871dad01129abfbd78d7b3df8144e20a44"
+    }
+  },
+  "final": {
+    "provider_full": 2436,
+    "codec_full": 481,
+    "provider_new": 9,
+    "codec_new": 3,
+    "core_new": 14,
+    "core_full": [
+      {
+        "run": "r13-core-full.trx",
+        "status": "Fail",
+        "newBrowserTestsPassed": 14,
+        "failingTestNames": [
+          "KuaiYi.Core.Tests.CaptureHostTests.KillFailureOrUnconfirmedWaitRetainsOwnerAndBlocksFinalizeWithoutBlockingUi(waitFailure: True)"
+        ],
+        "rootCause": "UNKNOWN; final Cleanup:69 may mask a body failure; relationship to browser patch not established"
+      },
+      {
+        "run": "r24-core-full-check.trx",
+        "status": "Fail",
+        "newBrowserTestsPassed": 14,
+        "failingTestNames": [
+          "KuaiYi.Core.Tests.CaptureHostTests.KillFailureOrUnconfirmedWaitRetainsOwnerAndBlocksFinalizeWithoutBlockingUi(waitFailure: True)"
+        ],
+        "rootCause": "UNKNOWN; final Cleanup:69 may mask a body failure; relationship to browser patch not established"
+      }
+    ],
+    "app_build": "0W/0E",
+    "native_host_build": "0W/0E",
+    "image_worker_build": "0W/0E",
+    "correct_locked_audited_restores": 2
+  },
+  "scope": {
+    "actual": "portable named pipe + original DesktopPipeChannel/Session/Inbox; actual Linux decoder/private Worker -> Browser encoded owner; actual linked shared Shell commands/coordinator and two-protocol loopback HTTP",
+    "synthetic": "verified peer/desktop confirmation and worker/prepared owner ports in managed tests; no real Windows/browser/WPF successful ingress; segmented tests, not full E2E",
+    "unchanged_old_tests": true
+  },
+  "source_hashes": {
+    "docs/acceptance-report.md": "fd4935a8669575f86b71ee620150924391800c0396f8bd74d6defc8a9c4eeb0e",
+    "docs/progress.md": "0845f6e6934422dca328cc7803584ad5eb8d5a5635baa837f1b6a02bb77d8dd1",
+    "src/KuaiYi.App/DesktopLocalConfirmation.cs": "300011fcf58af8fdc75e8ca1e3397d571651d31e7aa95fbd0b312b32a15e7d62",
+    "src/KuaiYi.App/FileImageCommands.cs": "88f7ff8712b6b770630e4c53b1e110a4f93a535f2f898c5ee0082710f0490341",
+    "src/KuaiYi.App/MarkdownImageSourceRegion.cs": "fa3f3a5df2e0fbed6da44c2b7bd0c8116bc647bcfe2549d6be1390ba2a32f1d1",
+    "src/KuaiYi.App/OcrOnlyFlow.cs": "a0ba995697a1f6bfeb59f3c0ae72b99facecc0db4803baf64b3d4065d9a60729",
+    "src/KuaiYi.App/OverlayFailureNotice.cs": "78fd8f0b8d993d20c88bea8278452acb221c134b827487c2ad29635fe467c94f",
+    "src/KuaiYi.App/OverlayImageSource.cs": "fb0aba5dba812dd501f5dcee2aadbc4f0d5ae42ed2e9b98d33ec2102b9a0e644",
+    "src/KuaiYi.App/OverlayResultLabel.cs": "ea6cfdfff9133ad75bdaeecf00c5923d170760c43953ea6e217dd158b4bc3ffe",
+    "src/KuaiYi.App/ProductionScreenshotCoordinator.cs": "39abc0e8be0e23ff953e61ce893c1599d3de00fab5a4da736fc435a6c4de8a97",
+    "src/KuaiYi.App/ScreenshotTranslationFlow.cs": "d1e2f32edd9aca688025dc64ef68cd5a1bbf0c1e56b66366abad8a46b17c6224",
+    "src/KuaiYi.App/ShellWindow.cs": "50fb3a8628fe73fe00816979229083909be569c6a9d4e219799565b6c1a2541b",
+    "src/KuaiYi.Core/RuntimeGate.cs": "09025e12e6374521d8eba6dbed9a59ae091a3c384b463fab3467ba993c8e7966",
+    "src/KuaiYi.Core/SelectionCapture.cs": "dd08805a9045738b182051636477e04874ede7277f1143156fbc21c177a340fe",
+    "src/KuaiYi.Imaging/FileImageIntent.cs": "56a1625d949b0dc9bb92a836ef946f40592ea03a62a9df70192f4ef07b398434",
+    "src/KuaiYi.Imaging/ImageFileClient.cs": "8e64af28748b626ece7d7aebf7cc37f285d475e7f26fc83844bd919b6ebbd723",
+    "src/KuaiYi.Imaging/ImageSourceOwner.cs": "5115ae811fe5a7401a77aa5846665f0cccfae538f07bb496548d2d0b2c3f4fb8",
+    "src/KuaiYi.Imaging/OcrOnlyCoordinator.cs": "aae73236073cdcff037d41e330141d87ffa64b9af2b9617113fcc8a21288e92f",
+    "src/KuaiYi.Imaging/OwnedFileImage.cs": "fd474aa0674416ff5dcd0f8e350bad91458ffd191d9d68d7357a1233970aeea2",
+    "src/KuaiYi.NativeHost/DesktopReceiverSession.cs": "9ca8300d818c3007aadeb20e5dd461b1009734620d5606861206e187c62778cf",
+    "src/KuaiYi.NativeHost/InstalledBrowserReceiver.cs": "0df20f20caa3c33c1ed85ca47d485de690689b1cdde37d8662dc8dd229f12e47",
+    "src/KuaiYi.NativeHost/LocalImageInbox.cs": "51e824149a1a636f4fc0366d5e7d2d3c35ce24207711f9a863c39543542bac80",
+    "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj": "dc466102132996d18b48cb4d6b8149367c7a5f97f5ea120c7880ec31c0b9c541",
+    "docs/validation/browser-image-preview.md": "c0a1fcb1de59658028cd3f7fa0a86ea96c1334355f42abdd0b18ce86208dadcf",
+    "src/KuaiYi.App/BrowserImageCommands.cs": "314c10b1e9632b68142e9e668c88f6a1fb714dd31e0b48e74cfcbc58940f87be",
+    "src/KuaiYi.App/BrowserImageFlow.cs": "7fc70ce2a27eb702a614085037888c97ea986040f2999c65a964d5a20266d83e",
+    "src/KuaiYi.Imaging/BrowserImageOperation.cs": "7afbb11ce0ae52134165b063c3312d125d77ef8401dabd65d79b17df1bb07609",
+    "src/KuaiYi.NativeHost/BrowserImagePreparationPermit.cs": "18f090233e613d46f2586011a20cda3c3d4888328061bfc691fdee75d2430dc7",
+    "src/KuaiYi.NativeHost/BrowserImageReception.cs": "4c45c7c0013d536d24959dca4ab71416c9721d2635a94b363957c5ea13ba880a",
+    "tests/KuaiYi.Codec.Tests/BrowserImageOperationTests.cs": "b2b143fb014439e8171b23f6a217dd466633ee43462f343dce53a6ea856c70bf",
+    "tests/KuaiYi.Core.Tests/BrowserImageReceptionTests.cs": "eefff273ef182de5418bd02451db6f4c9bbbf261761377ad558a7f787d93d273",
+    "tests/KuaiYi.Provider.Tests/BrowserImagePreparationTests.cs": "bc7e8e9c880b5d3353b977dd4ef3f17a75e90d712376d22f2f809e5d65b706ea"
+  },
+  "protected": {
+    "count": 383,
+    "all_equal": true,
+    "catalog": "run/protected-hashes.json",
+    "provider_project_exception": "Compile link only; no ProjectReference/PackageReference changes"
+  },
+  "products": {
+    "count": 408,
+    "catalog": "run/product-hashes.json"
+  },
+  "independent_review": "design + product source including final CancelAndJoin/permit/raw-token fixes ACK; no new definite P1/P2; review.txt records limited scope; reviewer did not test/build/write; Core failures remain open",
+  "failures_preserved": [
+    "r02 missing System.IO compile failure; import corrected",
+    "r04 CS0649 unused fixture fields; 0 executed",
+    "r10 injected pipe.Dispose failure leaves2034byte Inbox; actual failed assertion is Assert.Null(Inbox); pre-fix source preserved",
+    "r17/r20 MSB1009 nonexistent KuaiYi.Worker project path; product not compiled/audited; corrected r21/r22 succeeded",
+    "r13/r24 Core2069P1F; r23 targeted2P does not fix or explain it; root cause/relationship UNKNOWN; finally stack may mask body failure",
+    "old BMP historical469P1F then2P then470P remains UNKNOWN"
+  ],
+  "not_run": [
+    "Windows installed policy/held peer + Chrome/Edge/WPF complete flow",
+    "cold start/Explorer authenticated production handoff",
+    "cross-origin/auth/blob/visible-region fallback/additional browser formats",
+    "Windows OLE/COM/native OCR/installed identity",
+    "real source/password/integrity/quality/fonts",
+    "250/600ms and600MiB",
+    "full P6/P7/K group/Beta/106 acceptance"
+  ],
+  "constraints": [
+    "WebP odd payload explicitly rejected",
+    "PackageHold/production image reuse Off",
+    "no new dependency/license/permission/cost/credential/security network changes",
+    "synthetic neutral inputs only; no live models/private data/user desktop/CI/deployment/main/forcepush"
+  ],
+  "archive": {
+    "path": "docs/test-evidence/2026-10-21-browser-image-preview-originals.zip",
+    "bytes": 2220077,
+    "sha256": "9f148f8c5ff4e9176cdfdf55a8c09fae6a4a712aa91717f3e7ecdd245d637daa",
+    "entries": 79
+  },
+  "archive_members": {
+    "run/design.md": {
+      "bytes": 5310,
+      "sha256": "5708d3ef8aca1965ebee09447f61be59783911169130143702da06a54fe5cead"
+    },
+    "run/final-checks.json": {
+      "bytes": 3504,
+      "sha256": "908d99d4baf1a5d629d51d0825bca2e25359274996466c0b7acd6551d7203589"
+    },
+    "run/followup-checks.json": {
+      "bytes": 2059,
+      "sha256": "988003b829a047d8b503437a5d0fd3881a7b79c792ed86c82fedacdb7796449f"
+    },
+    "run/product-hashes.json": {
+      "bytes": 67072,
+      "sha256": "95b2627187aadaec8ddb810fa0bb72665e6b314f8229824020bb18efd3c88959"
+    },
+    "run/protected-hashes.json": {
+      "bytes": 66606,
+      "sha256": "c06714cbd6597f5c7e0c0534ea25da1e89570567bbb765148cb8680055f5acd3"
+    },
+    "run/r01-build.log": {
+      "bytes": 888,
+      "sha256": "46330f4c6249008474b606875284bfbf4a8291a901b84310078fc539a50e5474"
+    },
+    "run/r02-build.log": {
+      "bytes": 1312,
+      "sha256": "793386e586cea236589a1d18f5024f28a6f5538ed8a50441787ec5a65d4020de"
+    },
+    "run/r03-build.log": {
+      "bytes": 888,
+      "sha256": "a26121a52c108965b4ad463857336cd2fc995dcd7681547c7f82f950bc8a7895"
+    },
+    "run/r04-browser-reception.log": {
+      "bytes": 2137,
+      "sha256": "19d6bb4376da47a89bb62f4bb4580aa59726eb2e9aea75dc1e845552f08ee4ed"
+    },
+    "run/r05-browser-reception.log": {
+      "bytes": 2075,
+      "sha256": "363d25966fb1dd4b3202cd3125a53acbb2b677da0d4fd8173c04bec17defa047"
+    },
+    "run/r05-browser-reception.trx": {
+      "bytes": 106405,
+      "sha256": "464f8e511c42a8d033a050ba115ab87ef08f8f9ce4ade352ae277a56da8eac44"
+    },
+    "run/r06-build.log": {
+      "bytes": 888,
+      "sha256": "ccacbb23f0d8034a17d49432ab35c2a7219d555b6f28d054579ecdf5c3a969cd"
+    },
+    "run/r07-browser-preparation.log": {
+      "bytes": 1142,
+      "sha256": "964b67e9a0df22394bad8d264de16108a16f70a4769801f2ccbd57ac6fb554ee"
+    },
+    "run/r07-browser-preparation.trx": {
+      "bytes": 61783,
+      "sha256": "17d82c620b3aa3a55a1881e91c7eb11fb2f3b1ce49e9fb072e156a209ff583ec"
+    },
+    "run/r08-browser-codec.log": {
+      "bytes": 918,
+      "sha256": "92920e144425b374df98c4b6c38836c36e2506fc26bb8bf1435843951a215d0e"
+    },
+    "run/r08-browser-codec.trx": {
+      "bytes": 5870,
+      "sha256": "ef745ed060f0767bec7c7ae7accfed14492d73562c2f5d9cdda2df52e4ad1760"
+    },
+    "run/r09-browser-reception-permit.log": {
+      "bytes": 2082,
+      "sha256": "506c01281a880862585ecdefd37ec2bf1ec9e7dbb69670897d0ab812ec53efff"
+    },
+    "run/r09-browser-reception-permit.trx": {
+      "bytes": 109219,
+      "sha256": "ce4439bb249111ffbfa7c08683b3547a4f38eed5b5c8a057172fe94717397769"
+    },
+    "run/r10-dispose-red.log": {
+      "bytes": 3526,
+      "sha256": "7fe3b0d5e6f385f997815c23941fe4fb6401e5fdeedd740d2e696238f8d9fdda"
+    },
+    "run/r10-dispose-red.trx": {
+      "bytes": 5924,
+      "sha256": "e1d1299434196b658385e1252d95c670163e29cc2064189d7fd2c08f853a741d"
+    },
+    "run/r10-pre-finally.cs": {
+      "bytes": 12819,
+      "sha256": "ae4237162f9c4d1e7c9083834e07dd784c46cbccfa4bfa23363013e10e25fd1d"
+    },
+    "run/r11-reception-finally.log": {
+      "bytes": 2075,
+      "sha256": "83ba122b0e7d961fe6abcf4407b4aa32bf98ac524466b1bafaa0013810e5b848"
+    },
+    "run/r11-reception-finally.trx": {
+      "bytes": 20101,
+      "sha256": "4eec00b00619d8d166bda2a9cee01a2e700244af905393b54fdae60b693f0258"
+    },
+    "run/r12-reception-cleanup.log": {
+      "bytes": 2075,
+      "sha256": "469e8587bf2e3857d194f3e8ed87c944f94910fa6a60c24b9614ca6a9e58109b"
+    },
+    "run/r12-reception-cleanup.trx": {
+      "bytes": 112099,
+      "sha256": "7a42730c100d6209ab1dde9107383a18d3c3ea3bfec1abe44e326303eda91c97"
+    },
+    "run/r13-core-full.log": {
+      "bytes": 2889,
+      "sha256": "c3b9bf9a7d36d70caac4278ff30fba388851868cc59aadfebce932cd0a9c5429"
+    },
+    "run/r13-core-full.trx": {
+      "bytes": 2952523,
+      "sha256": "71502e3945371446507b185ea4e6270531ceea334109ecb89573ecd3f884b030"
+    },
+    "run/r14-provider-full.log": {
+      "bytes": 1134,
+      "sha256": "96f6cee17f5e5bce15c6c16e9c0b5fbf52d494487a068df670a2275422b618b2"
+    },
+    "run/r14-provider-full.trx": {
+      "bytes": 3591691,
+      "sha256": "46f56c046d5150d539d491cfef8bee632d0315dd626f083d6c0a85dd4cba4889"
+    },
+    "run/r15-codec-full.log": {
+      "bytes": 913,
+      "sha256": "4ec22933c872666bb7dabca9f06751a57fa2d37979054ff9f54ba3e285b9ad3c"
+    },
+    "run/r15-codec-full.trx": {
+      "bytes": 696019,
+      "sha256": "139731f6393e71b064fdd4cdfaf4fca78135a80084477aef26ec7eaafc71531a"
+    },
+    "run/r16-app-build.log": {
+      "bytes": 888,
+      "sha256": "7dc408246d404709f452a9272a35e15a903cc99f50a3cf2ff90aba1c9326b97c"
+    },
+    "run/r17-worker-build.log": {
+      "bytes": 101,
+      "sha256": "94e8f3e4f5a057b47271784f111e1e3c0f673fa3b37800a1493f5ff3fdda1b08"
+    },
+    "run/r18-native-host-build.log": {
+      "bytes": 474,
+      "sha256": "8b95d6bfdd76f6299d0e79f5104af0e0164e05f947d0e633732b37b3e743a86b"
+    },
+    "run/r19-app-locked-audit.log": {
+      "bytes": 80,
+      "sha256": "40d104602671164ab3958225da3e1c8cabd55f0251d6df6bc911d9d5a24f44ce"
+    },
+    "run/r20-worker-locked-audit.log": {
+      "bytes": 101,
+      "sha256": "94e8f3e4f5a057b47271784f111e1e3c0f673fa3b37800a1493f5ff3fdda1b08"
+    },
+    "run/r21-image-worker-build.log": {
+      "bytes": 477,
+      "sha256": "2e84ab8a115cbdacddc2f9873f4efc870e7e7ee8c80aa8998a1812640b655370"
+    },
+    "run/r22-image-worker-locked-audit.log": {
+      "bytes": 80,
+      "sha256": "40d104602671164ab3958225da3e1c8cabd55f0251d6df6bc911d9d5a24f44ce"
+    },
+    "run/r23-capture-host-failure-target.log": {
+      "bytes": 400,
+      "sha256": "a95b06476521e27fd4a752d8bb8d1dd5d39e521a6567a7dc4e308b39473e12d3"
+    },
+    "run/r23-capture-host-failure-target.trx": {
+      "bytes": 4363,
+      "sha256": "6f5e21a78b6d5ce83eb2a789996ba4c8fb5edc94ddba283e67e62e53fa2a2d96"
+    },
+    "run/r24-core-full-check.log": {
+      "bytes": 1213,
+      "sha256": "345381a5ad9ab7f814f50a4381df4e6aadb84033cf77562d2c063856f3809d6f"
+    },
+    "run/r24-core-full-check.trx": {
+      "bytes": 2952529,
+      "sha256": "09fa119094ec17876fb88f5277393c871dad01129abfbd78d7b3df8144e20a44"
+    },
+    "run/review.txt": {
+      "bytes": 958,
+      "sha256": "923c440bf4ce06aa13852dc3b6ab56b18203b92ca88145d7a008639ff4eb287a"
+    },
+    "run/run-final-checks.py": {
+      "bytes": 1778,
+      "sha256": "aeeade42e2fbe3fa0a82c545b47efcf6d498fb996e1359032e4b1605c8a9565b"
+    },
+    "run/run-followup-checks.py": {
+      "bytes": 1576,
+      "sha256": "9a022189bd9e43adf80d3c95481cea87cf6c083e226fc7cc10bd751451adfd50"
+    },
+    "run/seal-evidence.py": {
+      "bytes": 6216,
+      "sha256": "35777d9d65829fd020a863c6747cad1bbedf1efbcaec6b5dd658d05092e01fcc"
+    },
+    "run/source-hashes.json": {
+      "bytes": 3658,
+      "sha256": "c9cd2f877ac2424e15124a4e85cf6b140a348e70452d2cb9b93f13334b9c867f"
+    },
+    "final-source/docs/acceptance-report.md": {
+      "bytes": 35407,
+      "sha256": "fd4935a8669575f86b71ee620150924391800c0396f8bd74d6defc8a9c4eeb0e"
+    },
+    "final-source/docs/progress.md": {
+      "bytes": 300438,
+      "sha256": "0845f6e6934422dca328cc7803584ad5eb8d5a5635baa837f1b6a02bb77d8dd1"
+    },
+    "final-source/src/KuaiYi.App/DesktopLocalConfirmation.cs": {
+      "bytes": 2645,
+      "sha256": "300011fcf58af8fdc75e8ca1e3397d571651d31e7aa95fbd0b312b32a15e7d62"
+    },
+    "final-source/src/KuaiYi.App/FileImageCommands.cs": {
+      "bytes": 6970,
+      "sha256": "88f7ff8712b6b770630e4c53b1e110a4f93a535f2f898c5ee0082710f0490341"
+    },
+    "final-source/src/KuaiYi.App/MarkdownImageSourceRegion.cs": {
+      "bytes": 5591,
+      "sha256": "fa3f3a5df2e0fbed6da44c2b7bd0c8116bc647bcfe2549d6be1390ba2a32f1d1"
+    },
+    "final-source/src/KuaiYi.App/OcrOnlyFlow.cs": {
+      "bytes": 9661,
+      "sha256": "a0ba995697a1f6bfeb59f3c0ae72b99facecc0db4803baf64b3d4065d9a60729"
+    },
+    "final-source/src/KuaiYi.App/OverlayFailureNotice.cs": {
+      "bytes": 6402,
+      "sha256": "78fd8f0b8d993d20c88bea8278452acb221c134b827487c2ad29635fe467c94f"
+    },
+    "final-source/src/KuaiYi.App/OverlayImageSource.cs": {
+      "bytes": 6691,
+      "sha256": "fb0aba5dba812dd501f5dcee2aadbc4f0d5ae42ed2e9b98d33ec2102b9a0e644"
+    },
+    "final-source/src/KuaiYi.App/OverlayResultLabel.cs": {
+      "bytes": 7896,
+      "sha256": "ea6cfdfff9133ad75bdaeecf00c5923d170760c43953ea6e217dd158b4bc3ffe"
+    },
+    "final-source/src/KuaiYi.App/ProductionScreenshotCoordinator.cs": {
+      "bytes": 28160,
+      "sha256": "39abc0e8be0e23ff953e61ce893c1599d3de00fab5a4da736fc435a6c4de8a97"
+    },
+    "final-source/src/KuaiYi.App/ScreenshotTranslationFlow.cs": {
+      "bytes": 1657,
+      "sha256": "d1e2f32edd9aca688025dc64ef68cd5a1bbf0c1e56b66366abad8a46b17c6224"
+    },
+    "final-source/src/KuaiYi.App/ShellWindow.cs": {
+      "bytes": 17850,
+      "sha256": "50fb3a8628fe73fe00816979229083909be569c6a9d4e219799565b6c1a2541b"
+    },
+    "final-source/src/KuaiYi.Core/RuntimeGate.cs": {
+      "bytes": 16433,
+      "sha256": "09025e12e6374521d8eba6dbed9a59ae091a3c384b463fab3467ba993c8e7966"
+    },
+    "final-source/src/KuaiYi.Core/SelectionCapture.cs": {
+      "bytes": 17909,
+      "sha256": "dd08805a9045738b182051636477e04874ede7277f1143156fbc21c177a340fe"
+    },
+    "final-source/src/KuaiYi.Imaging/FileImageIntent.cs": {
+      "bytes": 1339,
+      "sha256": "56a1625d949b0dc9bb92a836ef946f40592ea03a62a9df70192f4ef07b398434"
+    },
+    "final-source/src/KuaiYi.Imaging/ImageFileClient.cs": {
+      "bytes": 2369,
+      "sha256": "8e64af28748b626ece7d7aebf7cc37f285d475e7f26fc83844bd919b6ebbd723"
+    },
+    "final-source/src/KuaiYi.Imaging/ImageSourceOwner.cs": {
+      "bytes": 1378,
+      "sha256": "5115ae811fe5a7401a77aa5846665f0cccfae538f07bb496548d2d0b2c3f4fb8"
+    },
+    "final-source/src/KuaiYi.Imaging/OcrOnlyCoordinator.cs": {
+      "bytes": 19848,
+      "sha256": "aae73236073cdcff037d41e330141d87ffa64b9af2b9617113fcc8a21288e92f"
+    },
+    "final-source/src/KuaiYi.Imaging/OwnedFileImage.cs": {
+      "bytes": 5890,
+      "sha256": "fd474aa0674416ff5dcd0f8e350bad91458ffd191d9d68d7357a1233970aeea2"
+    },
+    "final-source/src/KuaiYi.NativeHost/DesktopReceiverSession.cs": {
+      "bytes": 13719,
+      "sha256": "9ca8300d818c3007aadeb20e5dd461b1009734620d5606861206e187c62778cf"
+    },
+    "final-source/src/KuaiYi.NativeHost/InstalledBrowserReceiver.cs": {
+      "bytes": 5274,
+      "sha256": "0df20f20caa3c33c1ed85ca47d485de690689b1cdde37d8662dc8dd229f12e47"
+    },
+    "final-source/src/KuaiYi.NativeHost/LocalImageInbox.cs": {
+      "bytes": 3673,
+      "sha256": "51e824149a1a636f4fc0366d5e7d2d3c35ce24207711f9a863c39543542bac80"
+    },
+    "final-source/tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj": {
+      "bytes": 6620,
+      "sha256": "dc466102132996d18b48cb4d6b8149367c7a5f97f5ea120c7880ec31c0b9c541"
+    },
+    "final-source/docs/validation/browser-image-preview.md": {
+      "bytes": 7262,
+      "sha256": "c0a1fcb1de59658028cd3f7fa0a86ea96c1334355f42abdd0b18ce86208dadcf"
+    },
+    "final-source/src/KuaiYi.App/BrowserImageCommands.cs": {
+      "bytes": 883,
+      "sha256": "314c10b1e9632b68142e9e668c88f6a1fb714dd31e0b48e74cfcbc58940f87be"
+    },
+    "final-source/src/KuaiYi.App/BrowserImageFlow.cs": {
+      "bytes": 4835,
+      "sha256": "7fc70ce2a27eb702a614085037888c97ea986040f2999c65a964d5a20266d83e"
+    },
+    "final-source/src/KuaiYi.Imaging/BrowserImageOperation.cs": {
+      "bytes": 1406,
+      "sha256": "7afbb11ce0ae52134165b063c3312d125d77ef8401dabd65d79b17df1bb07609"
+    },
+    "final-source/src/KuaiYi.NativeHost/BrowserImagePreparationPermit.cs": {
+      "bytes": 1680,
+      "sha256": "18f090233e613d46f2586011a20cda3c3d4888328061bfc691fdee75d2430dc7"
+    },
+    "final-source/src/KuaiYi.NativeHost/BrowserImageReception.cs": {
+      "bytes": 6171,
+      "sha256": "4c45c7c0013d536d24959dca4ab71416c9721d2635a94b363957c5ea13ba880a"
+    },
+    "final-source/tests/KuaiYi.Codec.Tests/BrowserImageOperationTests.cs": {
+      "bytes": 3829,
+      "sha256": "b2b143fb014439e8171b23f6a217dd466633ee43462f343dce53a6ea856c70bf"
+    },
+    "final-source/tests/KuaiYi.Core.Tests/BrowserImageReceptionTests.cs": {
+      "bytes": 14896,
+      "sha256": "eefff273ef182de5418bd02451db6f4c9bbbf261761377ad558a7f787d93d273"
+    },
+    "final-source/tests/KuaiYi.Provider.Tests/BrowserImagePreparationTests.cs": {
+      "bytes": 10709,
+      "sha256": "bc7e8e9c880b5d3353b977dd4ef3f17a75e90d712376d22f2f809e5d65b706ea"
+    }
+  }
+}

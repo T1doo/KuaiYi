@@ -1,11 +1,13 @@
 using System.Buffers.Binary;
 using System.Security.Cryptography;
 using System.Text.Json;
+using System.Runtime.ExceptionServices;
 using KuaiYi.Contracts;
 using KuaiYi.Core;
 using KuaiYi.Imaging;
 namespace KuaiYi.NativeHost;
 
+public sealed record BrowserReceiveCompletion(Guid ConnectionId,RequestIdentity? CommittedIdentity);
 internal sealed record VerifiedNativeClient(int ProcessId,int SessionId,string UserSid,string Path,long StartTime);
 /// <summary>Internal IPC receiving role only. OS verification must precede construction in production.
 /// One offer, explicit decision, one grant and one commit per connection. No endpoint consent.</summary>
@@ -14,7 +16,17 @@ internal sealed class DesktopReceiverSession(RuntimeGate gate,ILocalImageConfirm
 {
     private readonly TimeProvider time=timeProvider??TimeProvider.System;
     private readonly Guid session=Guid.NewGuid();
+    private Guid connectionId;private RequestIdentity? committedIdentity;
+    internal async Task<bool> RunAndNotifyAsync(Stream pipe,Func<BrowserReceiveCompletion,Task> notify,CancellationToken cancellation=default)
+    {
+        bool accepted=false;Exception? failure=null;
+        try{accepted=await RunAsync(pipe,cancellation).ConfigureAwait(false);}catch(Exception error){failure=error;}
+        try{await notify(new(connectionId,accepted?committedIdentity:null)).ConfigureAwait(false);}
+        catch(Exception error){if(failure!=null)throw new AggregateException("Receive and delivery failed.",failure,error);throw;}
+        if(failure!=null)ExceptionDispatchInfo.Capture(failure).Throw();return accepted;
+    }
     internal string? FailureCode {get;private set;}
+    internal Exception? PrimaryFailure {get;private set;}
     internal async Task<bool> RunAsync(Stream pipe,CancellationToken cancellation=default)
     {
         using var deadline=new CancellationTokenSource(BrowserTiming.Total,time);
@@ -36,7 +48,7 @@ internal sealed class DesktopReceiverSession(RuntimeGate gate,ILocalImageConfirm
                 try
                 {
                     token.ThrowIfCancellationRequested();
-                    if(connection==Guid.Empty)connection=frame.RequestId;
+                    if(connection==Guid.Empty)connectionId=connection=frame.RequestId;
                     if(frame.RequestId!=connection)throw new InvalidDataException("Connection changed.");
                     if(frame.Type==IpcMessageType.BinaryChunk)
                     {
@@ -71,7 +83,7 @@ internal sealed class DesktopReceiverSession(RuntimeGate gate,ILocalImageConfirm
                         }
                         finally
                         {
-                            if(!observedDecision){lifetime.Cancel();_ = ObserveDecision(decision);}
+                            if(!observedDecision){await CancelAndJoin(ObserveDecision(decision)).ConfigureAwait(false);}
                         }
                         lifetime.Token.ThrowIfCancellationRequested();
                         if(time.GetElapsedTime(connected)>=BrowserTiming.Total||time.GetElapsedTime(confirmationStarted)>=BrowserTiming.Confirmation)throw new BrowserException(BrowserFailure.Timeout);
@@ -104,10 +116,10 @@ internal sealed class DesktopReceiverSession(RuntimeGate gate,ILocalImageConfirm
                             ()=>time.GetElapsedTime(connected)<BrowserTiming.Total&&time.GetElapsedTime(issued)<BrowserTiming.Transfer);
                         if(await Task.WhenAny(publish,pending).ConfigureAwait(false)!=publish||pending.IsCompleted)
                         {
-                            lifetime.Cancel();await publish.ConfigureAwait(false);throw new EndOfStreamException();
+                            await CancelAndJoin(publish).ConfigureAwait(false);throw new EndOfStreamException();
                         }
                         if(!await publish.ConfigureAwait(false))throw new BrowserException(BrowserFailure.Stale);
-                        CheckGrant();await Reply(new{phase="Committed",operationId=grant.OperationId});committed=true;return true;
+                        CheckGrant();await Reply(new{phase="Committed",operationId=grant.OperationId});committed=true;committedIdentity=grant.Identity;return true;
                     }
                     else if(phase=="CancelImage")
                     {
@@ -120,16 +132,29 @@ internal sealed class DesktopReceiverSession(RuntimeGate gate,ILocalImageConfirm
         }
         catch(Exception error)
         {
+            PrimaryFailure=error;
             FailureCode=error switch{BrowserException b=>b.Code.ToString(),OperationCanceledException=>deadline.IsCancellationRequested||phaseDeadline.IsCancellationRequested?"Timeout":"Cancelled",IOException=>"Disconnected",InvalidDataException or JsonException or InvalidOperationException or FormatException or ImageJobException=>"InvalidMessage",_=>"InternalFailure"};
             // No extra read, raw errors or content echo; closing the connection is the rejection signal.
             return false;
         }
         finally
         {
-            lifetime.Cancel();assembler.Dispose();pipe.Dispose(); // Owning receiver closes real async pipe to release any outstanding read.
+            List<Exception> errors=[];
+            void Attempt(Action cleanup){try{cleanup();}catch(Exception error){errors.Add(error);}}
+            Attempt(lifetime.Cancel);Attempt(assembler.Dispose);Attempt(pipe.Dispose);
+            // A disposal exception cannot skip the original async read or leave a failed commit's receipt live.
             if(pending!=null)await ObserveFrame(pending).ConfigureAwait(false);
-            if(grant!=null&&!committed){inbox.Clear(grant.Identity);gate.StopRequest(grant.Identity);}
-            requestLink?.Dispose();
+            Attempt(()=>requestLink?.Dispose());
+            if(grant!=null&&(!committed||errors.Count>0))
+            {Attempt(()=>inbox.Clear(grant.Identity));Attempt(()=>gate.StopRequest(grant.Identity));}
+            if(errors.Count>0)throw new AggregateException("Original receive cleanup failed.",errors);
+        }
+        async Task CancelAndJoin(Task original)
+        {
+            Exception? failure=null;try{lifetime.Cancel();}catch(Exception error){failure=error;}
+            try{await original.ConfigureAwait(false);}
+            catch(Exception error){if(failure!=null)throw new AggregateException("Cancellation and original task failed.",failure,error);throw;}
+            if(failure!=null)ExceptionDispatchInfo.Capture(failure).Throw();
         }
         void CheckGrant(JsonElement? root=null)
         {

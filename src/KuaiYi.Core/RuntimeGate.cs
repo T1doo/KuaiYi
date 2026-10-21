@@ -148,12 +148,12 @@ public sealed partial class RuntimeGate
         else { lock (sync) presentation = Presentation.Compact; }
     }
 
-    public bool TryBeginExplicitCapture(out Guid owner,out long captureEpoch,out Activation initial,HotkeyInputIdentity? input=null)
+    public bool TryBeginExplicitCapture(out Guid owner,out long captureEpoch,out Activation initial,HotkeyInputIdentity? input=null,long? expectedEpoch=null,Activation? expectedActivation=null)
     {
         lock(sync)
         {
             owner=default;captureEpoch=epoch;initial=activation;
-            if(suspension!=Suspension.None||explicitCaptureOwner!=null||input is {} expected&&!IsHotkeyInputCurrent(expected))return false;
+            if(suspension!=Suspension.None||explicitCaptureOwner!=null||expectedEpoch is {} era&&epoch!=era||expectedActivation is {} activationExpected&&activation!=activationExpected||input is {} expected&&!IsHotkeyInputCurrent(expected))return false;
             owner=Guid.NewGuid();explicitCaptureOwner=owner;suspension|=Suspension.Capture;captureEpoch=++epoch;return true;
         }
     }

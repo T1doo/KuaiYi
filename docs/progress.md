@@ -1341,3 +1341,12 @@ Windows实际文件handle/dialog/WPF/Toggle/native/字体质量、250/600ms/600M
 最终完整Provider2427P（原2393+新34）、完整Codec478P（原475+新3），均0F/0skip；Core相关限定114P（非全Core）、Worker/App交叉0W/E、两次locked audit restore0；实况见[行为与边界](validation/file-image-ocr.md)/[直接证据](test-evidence/2026-10-20-file-image-ocr.json)。实际Linux decode→file owner→原OCR coordinator的成功识别端口明确合成；实际Linux Worker文件OCR拒绝UnsupportedPlatform。保留首次App变量重名和新Provider类型歧义的编译失败日志，旧OCR/Codec测试不改。
 
 Windows OCR/OLE/COM/WPF/真实来源身份/最终文件handle、字体画质、250/600ms/600MiB与完整P6仍NotRun，位图/虚拟文件/多图不扩展。旧BMP根因未知、WebP odd拒绝、PackageHold、生产复用Off和原安全门保持；无真实模型/用户内容/新依赖许可权限费用凭据/main/强推/部署。
+
+
+## 2026-10-21 · P7-03正常主浮窗浏览器图片本地预览
+
+从完整1eeb40444d718d8d92529207220cdc17ca0c076e核单writer/worktree/远端0/0及main51d0774后，正常dev/p7-browser-image-preview推进原SPEC13.2/P7-03的实际缺口。先设计独审，再把原已安装策略/peer/来源/分片接收接到正常运行Shell；实验与离线窗口不启动。接收专用门不授予Shell启用/发送，原会话finally/读取实际结束后精确一次交接，借用PNG跨原Worker准备与异步取消回调结束才清零。Kind=Browser无filehandle/截图坐标/proof，本地预览、确认/版本/失败恢复明确浏览器来源；Off接收不自动启用、识别或发送。后台设置撤销间隙用持续permit及原epoch/Activation锁内比较封闭，Cancel/Dispose异常不跳过原任务；独审确定P2均闭合。
+
+最终完整Provider2436P、Codec481P均0F/0skip；完整Core两轮均2069P/1F/0skip，旧CaptureHost waitFailure:true在Cleanup69 finalize断言失败，间隔定向2P，根因UNKNOWN，finally可能覆盖body错误，不称全Core通过或旧问题已修复。新增14个Core用例均通过。App/NativeHost/ImageWorker各0W/E，两正确locked审计restore0；Worker两条错误项目路径MSB1009原件保留，随后正确路径通过。383项旧测试/锁/项目依赖/许可/扩展/工作流/安装数据/SPEC字节不改，Provider项目仅加Compile link，独立源码只读ACK；真实测试由writer执行。详见[范围与验证](validation/browser-image-preview.md)/[证据索引](test-evidence/2026-10-21-browser-image-preview.json)。
+
+当前只接已运行正常Shell；冷启动/Explorer认证转交、跨域/blob/可见裁切/其他浏览器格式仍缺。Windows实际Chrome/Edge/peer/WPF/OLE/COM/OCR/安装身份/来源密码完整性、字号画质、250/600ms/600MiB及完整P6/P7/K组未验，未把阶段整体或Beta签收。旧BMP根因未知、WebP odd明确拒绝、PackageHold、生产复用Off和原来源/取消/实际退出/发送门保持；无真实模型/用户内容/用户电脑/新依赖许可权限费用凭据/CI/main/强推/发布部署。

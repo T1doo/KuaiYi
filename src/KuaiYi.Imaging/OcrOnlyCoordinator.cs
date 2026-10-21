@@ -219,7 +219,7 @@ public sealed class OcrOnlyCoordinator:IAsyncDisposable
             {
                 if(!IsPreviewCurrent(preview))return;
                 approved=source=new(new(0,0,0,""),preview.Text,preview.Text,[],[],preview.SettingsVersion,preview.Text.EnumerateRunes().Count(),true,
-                    SelectionSourceKind.OcrOnly,Ocr:new(preview.SourceVersion,preview.SourceId,preview.Id,preview.SourceKind==ImageSourceKind.LocalFile,preview.SourceNotice=="使用首帧"));Preview=null;
+                    SelectionSourceKind.OcrOnly,Ocr:new(preview.SourceVersion,preview.SourceId,preview.Id,preview.SourceKind==ImageSourceKind.LocalFile,preview.SourceNotice=="使用首帧",preview.SourceKind==ImageSourceKind.Browser));Preview=null;
             }
         });return source;
     }

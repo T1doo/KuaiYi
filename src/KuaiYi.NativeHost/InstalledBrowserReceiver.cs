@@ -9,25 +9,35 @@ namespace KuaiYi.NativeHost;
 
 /// <summary>App's installed receiving role. Construction requires verified installation configuration;
 /// production callers never supply peer claims. Does not register/install/configure anything.</summary>
-public sealed class InstalledBrowserReceiver(InstalledReceiverPolicy policy,RuntimeGate gate,ILocalImageConfirmation confirmation,LocalImageInbox inbox)
+public sealed class InstalledBrowserReceiver(InstalledReceiverPolicy policy,RuntimeGate gate,ILocalImageConfirmation confirmation,LocalImageInbox inbox,Func<BrowserReceiveCompletion,Task>? settled=null)
 {
-    private readonly object sync=new();private CancellationTokenSource? current;
+    private readonly object sync=new();private CancellationTokenSource? current;private Task currentSettlement=Task.CompletedTask;
     public string? FailureCode {get;private set;}
-    public void Revoke(){lock(sync)current?.Cancel();}
+    public void Revoke(){CancellationTokenSource? held;lock(sync)held=current;try{held?.Cancel();}catch(ObjectDisposedException){ /* The captured iteration has already disposed its cancellation owner. */ }}
+    public Task RevokeAsync()
+    {
+        CancellationTokenSource? held;Task original;lock(sync){held=current;original=currentSettlement;}
+        Exception? failure=null;try{held?.Cancel();}catch(ObjectDisposedException)when(original.IsCompleted){}catch(Exception error){failure=error;}
+        return failure==null?original:Settle(original,failure);
+    }
+    private static async Task Settle(Task original,Exception? failure)
+    {await original.ConfigureAwait(false);if(failure!=null)throw new InvalidOperationException("Receive cancellation failed.",failure);}
     public async Task RunAsync(CancellationToken cancellation)
     {
         if(!OperatingSystem.IsWindows()){FailureCode="UnsupportedPlatform";return;}
         while(!cancellation.IsCancellationRequested)
         {
-            using var connection=CancellationTokenSource.CreateLinkedTokenSource(cancellation);
-            lock(sync)current=connection;
+            var connection=CancellationTokenSource.CreateLinkedTokenSource(cancellation);
+            var finished=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+            lock(sync){current=connection;currentSettlement=finished.Task;}
             try
             {
                 await using var pipe=CreatePipe(policy.Role.PipeName);
                 await pipe.WaitForConnectionAsync(connection.Token).ConfigureAwait(false);
                 using var client=new WindowsNativePeer(pipe,policy);
                 var receiving=new DesktopReceiverSession(gate,confirmation,inbox,policy.Origins,client.Identity,client.Verify);
-                await receiving.RunAsync(pipe,connection.Token).ConfigureAwait(false);FailureCode=receiving.FailureCode;
+                if(settled==null)await receiving.RunAsync(pipe,connection.Token).ConfigureAwait(false);
+                else await receiving.RunAndNotifyAsync(pipe,settled,connection.Token).ConfigureAwait(false);FailureCode=receiving.FailureCode;
             }
             catch(OperationCanceledException)when(connection.IsCancellationRequested){FailureCode="Cancelled";}
             catch(Exception e)when(e is IOException or Win32Exception or UnauthorizedAccessException or BrowserException)
@@ -36,7 +46,7 @@ public sealed class InstalledBrowserReceiver(InstalledReceiverPolicy policy,Runt
                 // Bind/security failures stop rather than spin or fall back to an unauthenticated pipe.
                 return;
             }
-            finally{lock(sync){if(ReferenceEquals(current,connection))current=null;}}
+            finally{lock(sync){if(ReferenceEquals(current,connection))current=null;}connection.Dispose();finished.TrySetResult();}
         }
     }
     [SupportedOSPlatform("windows")]

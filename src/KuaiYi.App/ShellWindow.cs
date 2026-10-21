@@ -29,12 +29,12 @@ internal sealed partial class ShellWindow:OleDropWindow
         coordinator=suppliedCoordinator??DefaultSettings();
         lifecycle=new(coordinator);showMessage=NativeTray.ShowMessage(instanceScope);
         Title="快译";Width=Height=48;WindowStyle=WindowStyle.None;ResizeMode=ResizeMode.NoResize;ShowInTaskbar=false;ShowActivated=false;Topmost=true;
-        SetupPresentation();SetupTranslation(developmentBoundary);AutomationProperties.SetName(button,"快译：未启用翻译");button.ToolTip="未启用翻译 · 右键打开设置";
+        SetupPresentation();SetupTranslation(developmentBoundary);SetupBrowserImages(enableSelectionPlatform&&developmentBoundary==null);AutomationProperties.SetName(button,"快译：未启用翻译");button.ToolTip="未启用翻译 · 右键打开设置";
         var menu=new ContextMenu();Add("启用 / 停用翻译",Toggle);Add("回看当前结果",ReopenResult);Add("收起",CollapseResult);Add("停止生成",StopResult);Add("复制结果",CopyResult);Add("清除当前内容",()=>_=ClearCurrentContent());Add("设置",()=>_=OpenSettings());Add("更多操作及版本",()=>OpenOverflowMenu(button));Add("隐藏浮窗（同时停用）",HideOverlay);Add("聚焦浮窗",FocusOverlay);Add("退出",Close);
 #if KUAIYI_ISOLATED_SESSION_TEST
         Title="快译 · 独立目录启动验收";menu.Items.Insert(0,new MenuItem{Header="独立目录启动验收 · 非生产安装包",IsEnabled=false});
 #endif
-        AddImageFileDropMenu(menu);Add("打开图片",()=>_=OpenImageFile());Add("启用并翻译打开的图片",EnableAndTranslateOpenedImage);Add("读取当前选区",()=>_=ObserveSelection(ReadCurrentSelection()));Add("仅提取图片文字并翻译",()=>_=TranslateImageText());Add("重新生成",()=>RegenerateResult());Add("按当前设置重新翻译",()=>RegenerateResult(true));Add("查看原文",ShowSelectionSource);AddScreenshotModes(menu);menu.Opened+=(_,_)=>{foreach(var item in menu.Items.OfType<MenuItem>().Where(i=>Equals(i.Tag,"image-modes"))){item.Header=SelectedSource.Image?.Kind==KuaiYi.Imaging.ImageSourceKind.LocalFile?"本次文件图片翻译":"本次截图翻译";item.IsEnabled=CanTranslateScreenshot;}};button.ContextMenu=menu;menu.Closed+=(_,_)=>PresentationMenuClosed();
+        AddBrowserImageStatus(menu);AddImageFileDropMenu(menu);Add("打开图片",()=>_=OpenImageFile());Add("启用并翻译打开的图片",EnableAndTranslateOpenedImage);Add("读取当前选区",()=>_=ObserveSelection(ReadCurrentSelection()));Add("仅提取图片文字并翻译",()=>_=TranslateImageText());Add("重新生成",()=>RegenerateResult());Add("按当前设置重新翻译",()=>RegenerateResult(true));Add("查看原文",ShowSelectionSource);AddScreenshotModes(menu);menu.Opened+=(_,_)=>{foreach(var item in menu.Items.OfType<MenuItem>().Where(i=>Equals(i.Tag,"image-modes"))){item.Header=SelectedSource.Image?.Kind==KuaiYi.Imaging.ImageSourceKind.Browser?"本次浏览器图片翻译":SelectedSource.Image?.Kind==KuaiYi.Imaging.ImageSourceKind.LocalFile?"本次文件图片翻译":"本次截图翻译";item.IsEnabled=CanTranslateScreenshot;}};button.ContextMenu=menu;menu.Closed+=(_,_)=>PresentationMenuClosed();
         menu.Opened+=(_,_)=>{foreach(var item in menu.Items.OfType<MenuItem>()){if(Equals(item.Tag,"启用并翻译打开的图片"))item.IsEnabled=SelectedSource.Image is KuaiYi.Imaging.OwnedFileImage&&lifecycle.Gate.Snapshot.Activation==Activation.Off&&!FileImageBusy;else if(Equals(item.Tag,"仅提取图片文字并翻译"))item.IsEnabled=!ocrFlowBusy&&ocrOnly is {CleanupPending:false}&&lifecycle.Gate.Snapshot.Activation==Activation.On&&SelectedSource.Image is KuaiYi.Imaging.ImageSourceOwner;else if(Equals(item.Tag,"重新生成")||Equals(item.Tag,"按当前设置重新翻译")){item.Header=RegenerationMenuLabel(Equals(item.Tag,"按当前设置重新翻译"));item.IsEnabled=lifecycle.Gate.Snapshot.Activation==Activation.On&&SelectedSource.Text!=null;}else if(Equals(item.Tag,"查看原文"))item.IsEnabled=CanReadOriginalSource()&&SelectedSource.HasSource;}};
         void Add(string text,Action action){var item=new MenuItem{Header=text,Tag=text};item.Click+=(_,_)=>action();menu.Items.Add(item);}
         SourceInitialized+=(_,_)=>
@@ -86,10 +86,11 @@ internal sealed partial class ShellWindow:OleDropWindow
         catch(OperationCanceledException)when(lifetime.IsCancellationRequested){ /* Owned exit waits for startup settlement. */ }
         catch(Exception error){Report("配置无法加载，原文件保留；请打开设置恢复",error);}
     }
-    private void SettingsCommitted(SettingsSnapshot saved,SettingsChange __){translation?.ObserveSettings(saved);imageTranslation?.ObserveSettings(saved);apiTests?.Cancel();if(globalHotkeys!=null)globalHotkeys.ReconcileAsync(saved).WaitAsync(TimeSpan.FromSeconds(2)).GetAwaiter().GetResult();selectionCapture?.CancelPending();RevokeTextDrop();Dispatcher.BeginInvoke(()=>{if(!exiting)Refresh();});}
+    private void SettingsCommitted(SettingsSnapshot saved,SettingsChange __){CancelBrowserAcquisition();translation?.ObserveSettings(saved);imageTranslation?.ObserveSettings(saved);apiTests?.Cancel();if(globalHotkeys!=null)globalHotkeys.ReconcileAsync(saved).WaitAsync(TimeSpan.FromSeconds(2)).GetAwaiter().GetResult();selectionCapture?.CancelPending();RevokeTextDrop();Dispatcher.BeginInvoke(()=>{if(!exiting)Refresh();});}
     private void Toggle()
     {
         if(exiting)return;
+        CancelBrowserAcquisition();
         if(!IsVisible)ShowOverlay();if(!IsVisible)return;
         if(lifecycle.Gate.Snapshot.Activation==Activation.On){lifecycle.Gate.Disable();StopPresentation();Refresh();return;}
         if(lifecycle.Settings is {} current&&translation?.CanUseSettings(current)==false){button.ToolTip="测试模式只允许启动时授权的无密钥本地服务，请恢复测试配置。";return;}
@@ -109,7 +110,7 @@ internal sealed partial class ShellWindow:OleDropWindow
     }
     private async Task OpenSettings()
     {
-        if(exiting)return;if(settings!=null){settings.Activate();return;}if(opening)return;opening=true;
+        if(exiting)return;CancelBrowserAcquisition();if(settings!=null){settings.Activate();return;}if(opening)return;opening=true;
         try
         {
             await startup;await hotkeySetup;await positionSave;if(exiting)return;lifecycle.Gate.SetSuspension(Suspension.Settings,true);RefreshSelection();
