@@ -1,0 +1,29 @@
+name: One read-only warm image Windows prerequisite check
+on:
+  push:
+    branches: [dev/p7-fixed-signoff]
+    paths: [.github/workflows/windows-warm-image.yml]
+permissions:
+  contents: read
+jobs:
+  prerequisites-only:
+    if: ${{ github.repository == 'T1doo/KuaiYi' && github.event_name == 'push' && github.ref == 'refs/heads/dev/p7-fixed-signoff' && github.event.repository.private == false && github.run_attempt == '1' }}
+    runs-on: windows-2022
+    timeout-minutes: 3
+    env:
+      CI: 'true'
+      POWERSHELL_TELEMETRY_OPTOUT: '1'
+    steps:
+      - name: Checkout exact reviewed event, evidence parent and fixed product source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 3
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Read own token, linked token and desktop facts without launching product
+        timeout-minutes: 1
+        shell: pwsh
+        run: |
+          & ./scripts/probe-warm-image-windows.ps1
+          exit $LASTEXITCODE

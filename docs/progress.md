@@ -1,5 +1,7 @@
 # 开发进度
 
+2026-10-21 最新接续：B 固定产品源码仍为 `92e3548845bd07ee7717b53df9588c412d128f9d`，完整证据 `ab3bf269f956a7b19f6d8ead1383ff80495ad95c` 已独审。现准备一次免费标准 Windows runner 的只读 token/linked-token/desktop 前置检查，尚未投递或运行；不改生产代码/依赖/安全权限、不执行 SDK 或 App，不将 prerequisite 当认证或 P7 验收。后续同 WPF/真实 Worker 链的精确条件见 [Windows 前置检查](validation/warm-image-windows.md)。
+
 日期：2026-10-11。分支：`dev/p0-foundations`；初始完整 HEAD：`51d077481cf6303602fcf5d2718213da9cf05178`。
 
 P0 整体：**InProgress，真实 Windows 退出门槛 Blocked**。后续整阶段均未验收。
