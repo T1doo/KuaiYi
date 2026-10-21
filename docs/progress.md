@@ -1466,10 +1466,10 @@ P7-01/已有实例认证转交/真实Windows菜单-WPF/OLE/OCR/身份/画质/250
 
 [固定完整Core原件](test-evidence/2026-10-21-exit-errors-deadline-full-core.json)、[修复合同与边界](validation/exit-errors-and-controlled-deadline.md)。后续仅证据报告，不改固定代码/测试、不重复整套；未重跑App/Codec/Provider（相关源/API未改）。本片Core签收通过，A仍核心合成；B/真实双向Windows身份/AcceptFileImage、WarmSync→Gate及candidate所有权/真实Worker-WPF/菜单来源身份/OLE/COM/OCR/画质/生产250600/600MiB/完整P6P7/106/Beta未验仍保持。Off/PackageHold/生产复用Off/WebP odd拒绝不变，无新许可费用权限凭据/真实模型用户电脑/CI/main强推部署。
 
-## 2026-10-21 · P7-01 B正常会话单图接线（完整签收待执行）
+## 2026-10-21 · P7-01 B正常会话单图接线与固定树签收
 
 在74aed500指定环境唯一writer接续：真实双向Windows peer与normal original-role live capability、受界单次外部连接→原stdio→原文件Worker→AcceptFileImage warm纯内存提交→实际版本GUID/可见预览结果已接线，Off不自动OCR/启用/发送；冷one-shot、拒绝/丢收据不重放/fallback和原任务/清理/发送门保留。[实现与准确边界](validation/warm-image-b.md)。真实Windows尚未执行，P7-01仍InProgress。
 
-独审指出并修复exact launch绑定、普通连接错误污染会话、WPF重入与旧位图擦除失败owner丢失。b03原33P8F逐字保留，b05同范围42P0F含原位图断言；b08 Core相关53P0F，b09 Provider相关142P0F；不同轮次不能累计。最终兼容修复：精确QUIESCE无授权消费并禁止迟到AttachWarm，idle actor仅合法handoff封闭，避免对关闭通道补写；b11原137P1F为新夹具在Dispose后查询已释放Process，改原Settle退出实录/Healthy屏障后做最小定向验证。b12精确两条兼容回归2P0F，完整最小B树独立源码限定ACK，无剩余确定P1/P2。最终固定树完整Core/Provider/Codec及App签收尚未执行，不借记旧通过。
+独审指出并修复exact launch绑定、普通连接错误污染会话、WPF重入与旧位图擦除失败owner丢失。b03原33P8F逐字保留，b05同范围42P0F含原位图断言；b08 Core相关53P0F，b09 Provider相关142P0F；不同轮次不能累计。最终兼容修复：精确QUIESCE无授权消费并禁止迟到AttachWarm，idle actor仅合法handoff封闭，避免对关闭通道补写；b11原137P1F为新夹具在Dispose后查询已释放Process，改原Settle退出实录/Healthy屏障后做最小定向验证。b12精确两条兼容回归2P0F，完整最小B树独立源码限定ACK，无剩余确定P1/P2。随后在clean固定实现92e3548845bd07ee7717b53df9588c412d128f9d各执行一次完整Core2164P0F0skip、Provider2463P0F0skip、Codec481P0F0skip，最终App交叉构建0W/E。四轮836输入=current=git92e、前后HEAD同/dirty0；旧Core2140+24、Provider2449+14、Codec481全部保留。各330 DLL摘要正常变化45/10/8/13，不累计或泛称全执行；当轮目标AssemblyInfo核92e，额外generated可含未构建旧产物。原件与源码独立只读限定ACK，不借记旧通过。[完整原件索引](test-evidence/2026-10-21-warm-image-b.json)，Library已确认libfile_11ab83f8701c8191bca25470a98977e9（7577354字节/version0）。
 
 默认Off/PackageHold/生产复用Off、WebP odd拒绝保持；无新依赖许可、SDK协议、权限凭据费用、真实模型、用户电脑、CI/main/强推/部署。真实Windows peer/ACL/菜单到同WPF/Worker、来源身份/OLE/COM/OCR/画质/250600/600MiB/完整P6P7未验。端点初始化/bind故障仍保守保留原fence，不冒充已实现可选降级恢复。
