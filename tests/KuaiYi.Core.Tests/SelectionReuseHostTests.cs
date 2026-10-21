@@ -6,11 +6,11 @@ using KuaiYi.SelectionReuseDiagnostic;
 using Xunit;
 namespace KuaiYi.Core.Tests;
 
-public class SelectionReuseHostTests
+public partial class SelectionReuseHostTests
 {
     private static string ChildAssembly()
     {var root=new DirectoryInfo(AppContext.BaseDirectory);while(root!=null&&!Directory.Exists(Path.Combine(root.FullName,".git"))&&!File.Exists(Path.Combine(root.FullName,".git")))root=root.Parent;return Path.Combine(root!.FullName,"tools","KuaiYi.SelectionReuseDiagnostic","bin","Release","net10.0","KuaiYi.SelectionReuseDiagnostic.dll");}
-    private static ReuseDiagnosticHost Host(string scenario="normal",IOwnedProcessStarter? starter=null)=>new(ManagedFixtureHost.Executable,ChildAssembly(),scenario,true,starter,request:Spec(),matcher:bytes=>bytes.Span.SequenceEqual(new byte[]{1,2,3}));
+    private static ReuseDiagnosticHost Host(string scenario="normal",IOwnedProcessStarter? starter=null,TimeProvider? deadlineClock=null)=>new(ManagedFixtureHost.Executable,ChildAssembly(),scenario,true,starter,request:Spec(),matcher:bytes=>bytes.Span.SequenceEqual(new byte[]{1,2,3})){DeadlineClockForTest=deadlineClock};
     private static DiagnosticRequest Spec()=>new(new(42,123456,99),1,2,3,4,true);
     private static async Task Settle(ReuseDiagnosticHost host)
     {var watch=Stopwatch.StartNew();while(!await host.TrySettleAsync()){if(watch.Elapsed>TimeSpan.FromSeconds(3))throw new TimeoutException();await Task.Delay(10);}}
@@ -21,7 +21,11 @@ public class SelectionReuseHostTests
     [Fact] public async Task Fragmented_stream_is_assembled_and_all_read_buffers_erased()
     {await using var host=Host("fragmented");var buffers=new ConcurrentQueue<byte[]>();host.ReadBufferAllocatedForTest=buffers.Enqueue;await host.RunAsync(2);await Settle(host);Assert.Equal(ReuseRoundReason.Completed,host.Summary!.Reason);Assert.Equal(2,host.Summary.Confirmed);Assert.All(buffers,b=>Assert.All(b,x=>Assert.Equal(0,x)));}
     [Theory] [InlineData("truncated",ReuseRoundReason.Protocol)] [InlineData("disconnect",ReuseRoundReason.Protocol)] [InlineData("extra",ReuseRoundReason.Protocol)] [InlineData("reset-failed",ReuseRoundReason.ResetFailed)] [InlineData("pending",ReuseRoundReason.ResetFailed)] [InlineData("mismatch",ReuseRoundReason.Protocol)] [InlineData("crash",ReuseRoundReason.Crash)] public async Task Real_faulting_child_is_retired_and_exit_observed(string scenario,ReuseRoundReason expected)
-    {await using var host=Host(scenario);var buffers=new ConcurrentQueue<byte[]>();host.ReadBufferAllocatedForTest=buffers.Enqueue;await host.RunAsync(2);await Settle(host);Assert.Equal(expected,host.Summary!.Reason);Assert.True(host.Summary.ExitConfirmed&&host.Summary.BuffersCleared);Assert.True(host.CanReplace);Assert.All(buffers,b=>Assert.All(b,x=>Assert.Equal(0,x)));}
+    {
+        await using var host=Host(scenario,deadlineClock:new InstallationWarmImageTests.Clock());var buffers=new ConcurrentQueue<byte[]>();host.ReadBufferAllocatedForTest=buffers.Enqueue;var running=host.RunAsync(2);
+        try{await running.WaitAsync(TimeSpan.FromSeconds(3));await Settle(host);Assert.Equal(expected,host.Summary!.Reason);Assert.True(host.Summary.ExitConfirmed&&host.Summary.BuffersCleared);Assert.True(host.CanReplace);Assert.All(buffers,b=>Assert.All(b,x=>Assert.Equal(0,x)));}
+        finally{if(!running.IsCompleted)host.ParentDisconnected();await running;}
+    }
     [Theory] [InlineData("hang")] [InlineData("late")] public async Task Real_600ms_watchdog_kills_ignoring_child_before_publishing(string scenario)
     {await using var host=Host(scenario);var watch=Stopwatch.StartNew();await host.RunAsync(2);await Settle(host);Assert.True(watch.Elapsed>=TimeSpan.FromMilliseconds(550));Assert.True(watch.Elapsed<TimeSpan.FromSeconds(3));Assert.Equal(ReuseRoundReason.HardTimeout,host.Summary!.Reason);Assert.True(host.Summary.ExitConfirmed);Assert.Equal(0,host.Summary.Confirmed);}
     [Theory] [InlineData(false)] [InlineData(true)] public async Task Cancellation_or_parent_disconnect_stops_delivery_and_observes_exit(bool disconnect)

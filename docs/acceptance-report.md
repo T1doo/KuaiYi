@@ -271,3 +271,12 @@ P7-01/已有实例认证转交/真实Windows菜单-WPF/OLE/OCR/身份/画质/250
 不重跑全套、不改旧测试或600ms。独立artifacts探针同原Host/DLL：同一实际inner read获EOF、child61.613ms真实exit23且Run未结束，持有原读取返回越600ms，Summary空/owner保持；释放后原marker全清、HardTimeout+NaturalNonZero、实际exit确认后释放owner。exit0，探针两条编译警告如实保留。独审限定ACK仅证明机制可发生，不回填历史唯一根因，不把Core Fail转绿。A片实现和相关200P已交，整体签收尚未完成；本轮只追加证据，下一步需先审定可控截止/夹具最小方案，默认真实250/600、原watchdog/退出门不动，暂不B。
 
 [准确失败/完整日志TRX/固定源码产物摘要/探针原件](test-evidence/2026-10-21-warm-image-core-a-full-core.json)、[完整边界说明](validation/warm-image-core-a.md)。P7-01/完整warm/Windows身份菜单WPF/真实Worker接线与画质250600等仍未验，不改main/权限费用凭据/模型用户电脑/依赖协议/CI强推部署。
+
+
+## 2026-10-21 · 退出原异常保全与诊断故障夹具修复
+
+父侧确认warm错被finally CancelAsync覆盖P2：r10双屏障及stop/image双错0P3F。现分别join原warm/cancel/image/loop，递归原leaf按reference去重，单错EDI/多错Aggregate，不EXIT_READY/放slot。保留旧loop-only协议错允许Shell关闭但controllerUnconfirmed/owner fence不放行的原断言，并存清理错则全部原错一起保全。
+
+诊断Host仅内部可控provider统一origin/模型/绝对Check/timer；默认真实600ms/原watchdog与lateIO/start/exit、idle120/清理2s/生产250600不动。7故障语义仍精确原reason，200字节断言未改；599/600未投timer及600投timer屏障、同原IO清零、native拒绝覆盖。r12 15P，r13相关255P/0F/0skip，旧245全保留+10，各轮不累计，823输入执行中不变。待固定实现提交一次完整Core，不预判；旧r09原Fail/历史唯一根因未知不回填。A片仍核心合成，B/真实Accept/WarmSync→Gate/candidate所有权/Windows/P7未验。
+
+[实现合同](validation/exit-errors-and-controlled-deadline.md)、[完整命令TRX/源码产物摘要/原件ZIP](test-evidence/2026-10-21-exit-errors-deadline.json)。无新功能许可费用权限凭据/真实模型用户电脑/CI/main强推部署。

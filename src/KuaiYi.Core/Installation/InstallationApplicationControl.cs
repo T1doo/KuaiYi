@@ -284,22 +284,43 @@ public sealed class InstallationApplicationControl
             Task cancellation=stop.CancelAsync(); // Start cancellation before waiting behind an original protocol write.
             Task imageRevocation=RevokeImage();
             Task warmSettlement=warm?.SettleAsync()??Task.CompletedTask;
-            try
+            List<Exception> failures=[],protocolFailures=[];
+            void Add(List<Exception> target,Exception error)
             {
-                try
-                {
-                    await warmSettlement.ConfigureAwait(false);
-                    if(ExitCancellationStartedForTest is {} barrier)await barrier().ConfigureAwait(false);
-                    if(notify)
-                        try{await Send($"CLOSING|{Proof.Launch:N}|{Proof.Fingerprint}",CancellationToken.None).ConfigureAwait(false);}
-                        catch(Exception error)when(error is IOException or ObjectDisposedException){FailureCode??=error.GetType().Name;}
-                }
-                finally{await Task.WhenAll(cancellation,imageRevocation).ConfigureAwait(false);}
+                if(error is AggregateException {InnerExceptions.Count:>0} aggregate)
+                {foreach(var original in aggregate.InnerExceptions)Add(target,original);return;}
+                if(!target.Any(existing=>ReferenceEquals(existing,error)))target.Add(error);
             }
-            finally
+            async Task Observe(Task original,List<Exception> target)
             {
-                if(loop!=null)try{await loop.ConfigureAwait(false);}catch(Exception error)when(loop.IsCompleted){FailureCode??=error.GetType().Name;_ =loop.Exception;}
-                GC.KeepAlive(runtime);
+                try{await original.ConfigureAwait(false);}
+                catch(Exception error)
+                {
+                    FailureCode??=error.GetType().Name;
+                    // Await may expose just one fault from a composite task. Retain every original fault object.
+                    if(original.Exception is {} all)foreach(var failure in all.InnerExceptions)Add(target,failure);
+                    else Add(target,error);
+                }
+            }
+            await Observe(warmSettlement,failures).ConfigureAwait(false);
+            if(ExitCancellationStartedForTest is {} barrier)
+                try{await Observe(barrier(),failures).ConfigureAwait(false);}catch(Exception error){Add(failures,error);FailureCode??=error.GetType().Name;}
+            // Close stdin even after a settled warm fault, before joining a read/cancellation which may need EOF.
+            if(notify)
+                try{await Send($"CLOSING|{Proof.Launch:N}|{Proof.Fingerprint}",CancellationToken.None).ConfigureAwait(false);}
+                catch(Exception error)when(error is IOException or ObjectDisposedException){Add(protocolFailures,error);FailureCode??=error.GetType().Name;}
+                catch(Exception error){Add(failures,error);FailureCode??=error.GetType().Name;}
+            await Observe(cancellation,failures).ConfigureAwait(false);
+            await Observe(imageRevocation,failures).ConfigureAwait(false);
+            if(loop!=null)await Observe(loop,protocolFailures).ConfigureAwait(false);
+            GC.KeepAlive(runtime);
+            // Preserve the established loop/write-only close policy: FailureCode blocks success, while Shell may close.
+            // If independent cleanup failed, its original error and all concurrent protocol errors must survive together.
+            if(failures.Count!=0)
+            {
+                foreach(var error in protocolFailures)Add(failures,error);
+                if(failures.Count==1)System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(failures[0]).Throw();
+                throw new AggregateException("Original application exit settlement failed.",failures);
             }
             // CLOSING only closes stdin. A faulted/unsolicited-EOF loop must never produce a success attestation.
             if(notify&&!committed&&FailureCode==null)

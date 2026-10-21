@@ -29,8 +29,17 @@ public sealed class ReuseDiagnosticHost : IAsyncDisposable
     internal OwnedProcessSession SessionForTest=>owner;
     internal Action<byte[]>? ReadBufferAllocatedForTest{get;set;}
     internal TaskCompletionSource StartedForTest{get;}=new(TaskCreationOptions.RunContinuationsAsynchronously);
+    internal TimeProvider? DeadlineClockForTest{get;init;} // Synthetic semantic tests only; default real budgets remain unchanged.
+    private long modelOrigin;
+    private long Timestamp()=>DeadlineClockForTest?.GetTimestamp()??Stopwatch.GetTimestamp();
+    private TimeSpan Elapsed(long origin)=>DeadlineClockForTest?.GetElapsedTime(origin)??Stopwatch.GetElapsedTime(origin);
+    private sealed class BudgetLease(CancellationTokenSource linked,CancellationTokenSource? deadline=null):IDisposable
+    {
+        internal CancellationToken Token=>linked.Token;
+        public void Dispose(){linked.Dispose();deadline?.Dispose();}
+    }
     public ReuseDiagnosticHost(string executable,string assembly,string scenario="normal",bool enabled=false,IOwnedProcessStarter? starter=null,DiagnosticRequest? request=null,Func<ReadOnlyMemory<byte>,bool>? matcher=null,bool nativeWorker=false)
-    {this.executable=executable;this.assembly=assembly;this.scenario=scenario;this.enabled=enabled;requestSpec=request;this.matcher=matcher;this.nativeWorker=nativeWorker;if(enabled&&request==null)throw new ArgumentException("Explicit source and gesture required.");owner=new(starter);model=new(()=>clock.ElapsedMilliseconds,ownerToken,enabled);DiagnosticCaseRunner.Register(this);}
+    {this.executable=executable;this.assembly=assembly;this.scenario=scenario;this.enabled=enabled;requestSpec=request;this.matcher=matcher;this.nativeWorker=nativeWorker;if(enabled&&request==null)throw new ArgumentException("Explicit source and gesture required.");owner=new(starter);model=new(()=>DeadlineClockForTest==null?clock.ElapsedMilliseconds:(long)DeadlineClockForTest.GetElapsedTime(modelOrigin).TotalMilliseconds,ownerToken,enabled);DiagnosticCaseRunner.Register(this);}
     public ReuseRoundSummary? Summary{get{lock(sync)return summary;}}
     public bool NoChildStartupSettled{get{lock(sync)return noChildSettled;}}
     public bool CanReplace{get{lock(sync)return noChildSettled||summary!=null&&model.CanReplaceProcess;}}
@@ -38,14 +47,25 @@ public sealed class ReuseDiagnosticHost : IAsyncDisposable
     private void Stop(ReuseRoundReason why)
     {lock(sync){if(summary!=null||lifetimeDisposed)return;if(reason==ReuseRoundReason.Completed)reason=why;if(why==ReuseRoundReason.Protocol)model.ProtocolFault();else if(why==ReuseRoundReason.Crash)model.Crash();else model.Cancel();lifetime.Cancel();}}
     public void ParentDisconnected()=>Stop(ReuseRoundReason.ParentDisconnected);
-    private static void Check(CancellationToken cancellation,long origin)
-    {cancellation.ThrowIfCancellationRequested();if(Stopwatch.GetElapsedTime(origin)>=TimeSpan.FromMilliseconds(600))throw new TimeoutException();}
-    private CancellationTokenSource Budget(CancellationToken cancellation,long origin)
+    private void Check(CancellationToken cancellation,long origin)
+    {cancellation.ThrowIfCancellationRequested();if(Elapsed(origin)>=TimeSpan.FromMilliseconds(600))throw new TimeoutException();}
+    private BudgetLease Budget(CancellationToken cancellation,long origin)
     {
-        var linked=CancellationTokenSource.CreateLinkedTokenSource(cancellation,lifetime.Token);
-        var remaining=TimeSpan.FromMilliseconds(600)-Stopwatch.GetElapsedTime(origin);
-        if(remaining<=TimeSpan.Zero)linked.Cancel();else linked.CancelAfter(remaining);
-        return linked;
+        if(DeadlineClockForTest==null)
+        {
+            var real=CancellationTokenSource.CreateLinkedTokenSource(cancellation,lifetime.Token);
+            var remaining=TimeSpan.FromMilliseconds(600)-Stopwatch.GetElapsedTime(origin);
+            if(remaining<=TimeSpan.Zero)real.Cancel();else real.CancelAfter(remaining);return new(real);
+        }
+        var controlledRemaining=TimeSpan.FromMilliseconds(600)-Elapsed(origin);
+        CancellationTokenSource? deadline=null,linked=null;
+        try
+        {
+            deadline=new(controlledRemaining>TimeSpan.Zero?controlledRemaining:Timeout.InfiniteTimeSpan,DeadlineClockForTest);
+            linked=CancellationTokenSource.CreateLinkedTokenSource(cancellation,lifetime.Token,deadline.Token);
+            if(controlledRemaining<=TimeSpan.Zero)linked.Cancel();return new(linked,deadline);
+        }
+        catch{linked?.Dispose();deadline?.Dispose();throw;}
     }
     private async Task<byte[]?> ReadAsync(Stream stream,CancellationToken cancellation,long origin)
     {
@@ -90,14 +110,15 @@ public sealed class ReuseDiagnosticHost : IAsyncDisposable
         {
             if(count is <1 or >2)throw new ArgumentOutOfRangeException(nameof(count));
             if(!enabled||disposed)return Task.CompletedTask;
+            if(nativeWorker&&DeadlineClockForTest!=null)throw new InvalidOperationException("Synthetic deadline clock cannot start a native worker.");
             if(admitted!=0){Stop(ReuseRoundReason.Concurrent);return Task.CompletedTask;}
             admitted=1;requests=count;active=true;return running=RunCoreAsync(cancellation);
         }
     }
     private async Task RunCoreAsync(CancellationToken cancellation)
     {
-        long origin=Stopwatch.GetTimestamp();using var firstBudget=Budget(cancellation,origin);
-        CancellationTokenSource? secondBudget=null;
+        long origin=modelOrigin=Timestamp();using var firstBudget=Budget(cancellation,origin);
+        BudgetLease? secondBudget=null;
         try
         {
             var request=model.Begin(requestSpec!.Source,Guid.NewGuid())??throw new InvalidDataException();
@@ -119,11 +140,11 @@ public sealed class ReuseDiagnosticHost : IAsyncDisposable
                     try{if(BetweenRequestsForTest!=null)await BetweenRequestsForTest(idle.Token).WaitAsync(idle.Token).ConfigureAwait(false);}
                     catch(OperationCanceledException)when(!cancellation.IsCancellationRequested&&!lifetime.IsCancellationRequested){Stop(ReuseRoundReason.IdleLease);throw;}
                     if(Stopwatch.GetElapsedTime(idleOrigin)>=TimeSpan.FromMilliseconds(120)){Stop(ReuseRoundReason.IdleLease);throw new OperationCanceledException();}
-                    origin=Stopwatch.GetTimestamp();secondBudget=Budget(cancellation,origin);token=secondBudget.Token;
+                    origin=Timestamp();secondBudget=Budget(cancellation,origin);token=secondBudget.Token;
                     request=model.Begin(request.Target,Guid.NewGuid())??throw new InvalidDataException();
                 }
                 Check(token,origin);
-                expected=request;await WriteAsync(child.StandardInput.BaseStream,request with{Payload=requestSpec!.Encode(origin,nativeWorker)},token,origin).ConfigureAwait(false);
+                expected=request;await WriteAsync(child.StandardInput.BaseStream,request with{Payload=requestSpec!.Encode(DeadlineClockForTest==null?origin:Stopwatch.GetTimestamp(),nativeWorker)},token,origin).ConfigureAwait(false);
                 if(sequence==1){await ReceiveAsync(output,token,origin).ConfigureAwait(false);if(model.State==ReuseState.Retiring)break;}
                 await ReceiveAsync(output,token,origin).ConfigureAwait(false);
                 await ReceiveAsync(output,token,origin).ConfigureAwait(false);

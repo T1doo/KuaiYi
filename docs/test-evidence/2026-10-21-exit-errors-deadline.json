@@ -1,0 +1,586 @@
+{
+  "baseHead": "72b61be503317fa0b733da55464aec14ee55044e",
+  "branch": "dev/p7-fixed-signoff",
+  "scope": "Exit original fault preservation + diagnostic synthetic-only controlled deadline; no B/App/Windows endpoint",
+  "runs": {
+    "r10-exit-errors-red": {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~InstallationExitSettlementTests",
+        "--logger",
+        "trx;LogFileName=r10-exit-errors-red.trx",
+        "--results-directory",
+        "artifacts/warm-image-a"
+      ],
+      "exitCode": 1,
+      "seconds": 33.983,
+      "inputsUnchangedDuringRun": true,
+      "logSha256": "1223cee3fecf99095e881c3567036855067900a61513d763cb073ed3345130cb",
+      "counts": {
+        "total": "3",
+        "executed": "3",
+        "passed": "0",
+        "failed": "3",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trxSha256": "e11631920c4726fe65805479399e742229488f738b88f92d0f468355eb917b8f",
+      "failures": 3
+    },
+    "r11-exit-errors-green": {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~InstallationExitSettlementTests|FullyQualifiedName~AProtocolFaultInTheOriginalLoopCannotReleaseOwnerAfterBoundClosingAndActualExitZero",
+        "--logger",
+        "trx;LogFileName=r11-exit-errors-green.trx",
+        "--results-directory",
+        "artifacts/warm-image-a"
+      ],
+      "exitCode": 0,
+      "seconds": 32.25,
+      "inputsUnchangedDuringRun": true,
+      "logSha256": "97cdf3e8287f853c1c95505d1000d47651754b526a0d662e50a17a9870bf5c40",
+      "counts": {
+        "total": "4",
+        "executed": "4",
+        "passed": "4",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trxSha256": "ac7dab396eb9f34c96148a8e87ffcebbb3e8d140673082c3424393c64a28aa81",
+      "failures": 0
+    },
+    "r12-exit-and-deadline-targeted": {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~InstallationExitSettlementTests|FullyQualifiedName~Real_faulting_child_is_retired_and_exit_observed|FullyQualifiedName~SyntheticDeadlineClockControls",
+        "--logger",
+        "trx;LogFileName=r12-exit-and-deadline-targeted.trx",
+        "--results-directory",
+        "artifacts/warm-image-a"
+      ],
+      "exitCode": 0,
+      "seconds": 19.904,
+      "inputsUnchangedDuringRun": true,
+      "logSha256": "9e182c4d46ce6e7078f28b3d105bfecce4f8af9211a7ba158215ab3a5dba043b",
+      "counts": {
+        "total": "15",
+        "executed": "15",
+        "passed": "15",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trxSha256": "047cde8b785a655564e75052ec2b6791f65f21bb96b21a9cb0f1e3e2f450bbef",
+      "failures": 0
+    },
+    "r13-related-regression": {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~Installation|FullyQualifiedName~SelectionReuseHostTests",
+        "--logger",
+        "trx;LogFileName=r13-related-regression.trx",
+        "--results-directory",
+        "artifacts/warm-image-a"
+      ],
+      "exitCode": 0,
+      "seconds": 46.582,
+      "inputsUnchangedDuringRun": true,
+      "logSha256": "1c6fd9e197221037f94c89c4613371cbd09a9ec9f1c9e02c15d042a073b89b0e",
+      "counts": {
+        "total": "255",
+        "executed": "255",
+        "passed": "255",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trxSha256": "41bd5430917a42ac9bcb85116a28f054b213eaba0665247b0ad3f09e9eeff35b",
+      "failures": 0
+    }
+  },
+  "protection": {
+    "baseHead": "72b61be503317fa0b733da55464aec14ee55044e",
+    "baselineInputs": 821,
+    "finalInputs": 823,
+    "unchanged": 818,
+    "changed": [
+      "src/KuaiYi.Core/Installation/InstallationApplicationControl.cs",
+      "tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs",
+      "tools/KuaiYi.SelectionReuseDiagnostic/ReuseDiagnosticHost.cs"
+    ],
+    "added": [
+      "tests/KuaiYi.Core.Tests/InstallationExitSettlementTests.cs",
+      "tests/KuaiYi.Core.Tests/SelectionReuseDeadlineTests.cs"
+    ],
+    "oldRelatedCases": 245,
+    "currentRelatedCases": 255,
+    "missing": [],
+    "addedCases": [
+      "KuaiYi.Core.Tests.InstallationExitSettlementTests.OriginalWarmAndCancellationFailuresBothSurviveEitherBarrierOrder(warmFirst: False)",
+      "KuaiYi.Core.Tests.SelectionReuseHostTests.SyntheticDeadlineClockControlsAbsoluteCheckAndTimerWithoutReleasingOriginalIoEarly(elapsed: 599, fire: False, expected: Crash)",
+      "KuaiYi.Core.Tests.SelectionReuseHostTests.SyntheticDeadlineClockControlsAbsoluteCheckAndTimerWithoutReleasingOriginalIoEarly(elapsed: 600, fire: True, expected: HardTimeout)",
+      "KuaiYi.Core.Tests.InstallationExitSettlementTests.OneOriginalFailureAcrossOneOrTwoCancellationTasksIsRethrownAsTheSameObject(both: True)",
+      "KuaiYi.Core.Tests.SelectionReuseHostTests.SyntheticDeadlineClockControlsAbsoluteCheckAndTimerWithoutReleasingOriginalIoEarly(elapsed: 600, fire: False, expected: HardTimeout)",
+      "KuaiYi.Core.Tests.InstallationExitSettlementTests.OneOriginalFailureAcrossOneOrTwoCancellationTasksIsRethrownAsTheSameObject(both: False)",
+      "KuaiYi.Core.Tests.InstallationExitSettlementTests.OriginalWarmAndCancellationFailuresBothSurviveEitherBarrierOrder(warmFirst: True)",
+      "KuaiYi.Core.Tests.SelectionReuseHostTests.SyntheticDeadlineClockCannotStartANativeWorker",
+      "KuaiYi.Core.Tests.InstallationExitSettlementTests.StopAndImageOriginalCancellationFailuresAreBothPreserved",
+      "KuaiYi.Core.Tests.InstallationExitSettlementTests.CancellationAndBothOriginalLoopFaultsAreCollectedWithoutSuccessReceipt"
+    ],
+    "originalFaultTheoryAssertionBytes": 200,
+    "originalFaultTheoryAssertionSha256": "7019607ab28f931322408565e9c8b2d29e7b2f993c98e2eadcb3d49a4305cc69",
+    "originalFaultTheoryAssertionsExactPreserved": true,
+    "originalRealWatchdogBodyExactPreserved": true,
+    "scope": "Core original exit settlement only; diagnostic-only internal clock and semantic test fixture. No App/UI/Windows adapter or production reuse enable."
+  },
+  "review": "Read-only final source/r10 controlled0P3F/r11 compatibility4P/r12 15P/r13 255P original ACK; old245cases preserved+10,823inputs/16sources exact current,original200byte assertions/defaultwatchdog unchanged. Archive/member verification separately requested. No reviewer execution/build/write; fullCore not predicted.",
+  "oldFailure": "r09 fullCore2129P1F/crashHardTimeout624.2773ms remainsFail; exact historical phase/unique root/A indirect causality unknown",
+  "boundaries": [
+    "Default real600ms CancelAfter +Stopwatch unchanged; production250ms not changed",
+    "Idle120/cleanup2s and original watchdog/lateIO/start/exit tests defaultnull",
+    "Only seven fault semantic cases freeze controlled parent clock and retain exact original200byte assertions",
+    "Parent fake clock covers model/absoluteCheck/timer, not child declared realElapsedMs/frame250600",
+    "Synthetic native+fake rejected beforeStart; wire payload Stopwatch origin real",
+    "Loop/protocol-write-only original FailureCode close policy retained; independent cleanup failure merges every original leaf by reference, EDI single/Aggregate multiple",
+    "No EXIT_READY or warm slot/owner release after cleanup fault",
+    "No full Core on repaired fixed HEAD yet at this checkpoint; once after review"
+  ],
+  "archive": {
+    "path": "docs/test-evidence/2026-10-21-exit-errors-deadline-originals.zip",
+    "bytes": 486268,
+    "sha256": "7d9a249ac13c9238ef0e91cdf2cbeb1894f49776f1340a43bcb194ffe440c17d",
+    "entries": 87
+  },
+  "archiveMembers": {
+    "run/base-source/src/KuaiYi.Core/Installation/InstallationApplicationControl.cs": {
+      "bytes": 21390,
+      "sha256": "2625874e35ef0143dc33c681b3f64b7ffa12b631488b23259ebdbd3586c4004f"
+    },
+    "run/base-source/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs": {
+      "bytes": 17405,
+      "sha256": "4820a02e8ecff1ce780f730d5f48c79d0dbd495fa387cc98905e814c80d66c65"
+    },
+    "run/base-source/tools/KuaiYi.SelectionReuseDiagnostic/ReuseDiagnosticHost.cs": {
+      "bytes": 18772,
+      "sha256": "ec49382663d06122356e65c33da6a621d18934602c7770ce514fa31502816732"
+    },
+    "run/original-r09-failure.xml": {
+      "bytes": 1313,
+      "sha256": "6c47c74397b99dc59341ceb8c190a9d9432c618e2607dfaf8889dfdeb9976a54"
+    },
+    "run/r10-exit-errors-red-dlls.json": {
+      "bytes": 54877,
+      "sha256": "2ec229f6890ae77be4a69d8c585727b9ec8f680f434b695b70c08fc5cae93f9b"
+    },
+    "run/r10-exit-errors-red-failure-001.xml": {
+      "bytes": 1959,
+      "sha256": "8b5e17c1bd8261b894de8b20306034686096f66faf9e3aa7e1ed59e166db29e1"
+    },
+    "run/r10-exit-errors-red-failure-002.xml": {
+      "bytes": 2074,
+      "sha256": "50db95bfa0c0b392229da52144474eb8a9bb2f96a31f0375e6b1d0acd5e03b62"
+    },
+    "run/r10-exit-errors-red-failure-003.xml": {
+      "bytes": 1960,
+      "sha256": "725860807de4d3b62584ddc531440bee799ec356748cabf634b0965814a58db7"
+    },
+    "run/r10-exit-errors-red-inputs.json": {
+      "bytes": 97143,
+      "sha256": "2bef2a1baea4b722fe4e98fbec9f2cf45263fb4330e165b7863db9d1fc685b75"
+    },
+    "run/r10-exit-errors-red-source/src/KuaiYi.Core/Installation/InstallationApplicationControl.cs": {
+      "bytes": 21390,
+      "sha256": "2625874e35ef0143dc33c681b3f64b7ffa12b631488b23259ebdbd3586c4004f"
+    },
+    "run/r10-exit-errors-red-source/src/KuaiYi.Core/Installation/InstallationWarmImageAdmission.cs": {
+      "bytes": 11955,
+      "sha256": "83263b724cadcb046b494986b2d20757f14abbb4910a07344bc9615b3f04bd0e"
+    },
+    "run/r10-exit-errors-red-source/src/KuaiYi.Core/Installation/InstallationWarmImageClient.cs": {
+      "bytes": 7832,
+      "sha256": "5db73363938ff23660b0693d1903005673728fc5e9a4a6dec8eef17dd0a98ee9"
+    },
+    "run/r10-exit-errors-red-source/src/KuaiYi.Core/Installation/InstallationWarmImageControl.cs": {
+      "bytes": 7093,
+      "sha256": "5c82e2f060d5af581ed5a182862aeab455f13873a3cebeba08dd963a4a90440d"
+    },
+    "run/r10-exit-errors-red-source/src/KuaiYi.Core/Installation/InstallationWarmImageWire.cs": {
+      "bytes": 3847,
+      "sha256": "40569639b6512166355b077008fe28d60995464ec77c0b2a14f0edb1d1b08d4d"
+    },
+    "run/r10-exit-errors-red-source/tests/KuaiYi.Core.Tests/InstallationExitSettlementTests.cs": {
+      "bytes": 6443,
+      "sha256": "5bb483c1ed9f1a8b7c0f88ad01c293070926230bb6a39cf4e7942446b6aaa4bc"
+    },
+    "run/r10-exit-errors-red-source/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs": {
+      "bytes": 35975,
+      "sha256": "5a5d6949969f411a6b60f502d440cb6d69bba1415cc08a93870a3e454ea60da9"
+    },
+    "run/r10-exit-errors-red-source/tests/KuaiYi.Core.Tests/InstallationWarmActorTests.cs": {
+      "bytes": 9494,
+      "sha256": "fbc786fa50764e361df4011de3409ca66adfa1962b4b10b1eb8820331eaedf25"
+    },
+    "run/r10-exit-errors-red-source/tests/KuaiYi.Core.Tests/InstallationWarmImageTests.cs": {
+      "bytes": 11744,
+      "sha256": "d1e8ac5f50ddbe0e0bc26e29c402aa2de40dcb1a16ac338b7d7091b9ec66f92b"
+    },
+    "run/r10-exit-errors-red-source/tests/KuaiYi.Core.Tests/InstallationWarmParentWriteTests.cs": {
+      "bytes": 4116,
+      "sha256": "c47b189b3b1b2fbfcc7acf6a65ea8d46909c2d6d211d2645794a44e5164039ff"
+    },
+    "run/r10-exit-errors-red-source/tests/KuaiYi.Core.Tests/InstallationWarmSessionTests.cs": {
+      "bytes": 11186,
+      "sha256": "ef082adcdaa22b619a4a0f92b0965a00991ddeafc10c0d5683e28b7d0ba30a22"
+    },
+    "run/r10-exit-errors-red-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.Warm.cs": {
+      "bytes": 5487,
+      "sha256": "fdc865adcdf7a15364339794a3e099600a0223e68b0de1b38cb21a4f081733eb"
+    },
+    "run/r10-exit-errors-red-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs": {
+      "bytes": 18436,
+      "sha256": "09a45e177b55daeff4836883627aec67fa953a180ce02a0ab27ac2410770f149"
+    },
+    "run/r10-exit-errors-red.json": {
+      "bytes": 1070,
+      "sha256": "6e79e91db895ae4deb7fbbd539c1254fbfe2cd0065dc9bbd0169792d6564ed72"
+    },
+    "run/r10-exit-errors-red.log": {
+      "bytes": 6852,
+      "sha256": "1223cee3fecf99095e881c3567036855067900a61513d763cb073ed3345130cb"
+    },
+    "run/r10-exit-errors-red.trx": {
+      "bytes": 15785,
+      "sha256": "e11631920c4726fe65805479399e742229488f738b88f92d0f468355eb917b8f"
+    },
+    "run/r11-exit-errors-green-dlls.json": {
+      "bytes": 54877,
+      "sha256": "821cd610179c9ed1295a45c907429a3111fbc013e69045666bfd7b758c70cf1b"
+    },
+    "run/r11-exit-errors-green-inputs.json": {
+      "bytes": 97143,
+      "sha256": "4fa0f077d6ee93a0411fbf32432aa8e7355693cfd20ef9ad7976a66e97815f6a"
+    },
+    "run/r11-exit-errors-green-source/src/KuaiYi.Core/Installation/InstallationApplicationControl.cs": {
+      "bytes": 22952,
+      "sha256": "006ff64ee0356e203e1a04f0b58895094a644d471002ad261931bcb59b6b59a7"
+    },
+    "run/r11-exit-errors-green-source/src/KuaiYi.Core/Installation/InstallationWarmImageAdmission.cs": {
+      "bytes": 11955,
+      "sha256": "83263b724cadcb046b494986b2d20757f14abbb4910a07344bc9615b3f04bd0e"
+    },
+    "run/r11-exit-errors-green-source/src/KuaiYi.Core/Installation/InstallationWarmImageClient.cs": {
+      "bytes": 7832,
+      "sha256": "5db73363938ff23660b0693d1903005673728fc5e9a4a6dec8eef17dd0a98ee9"
+    },
+    "run/r11-exit-errors-green-source/src/KuaiYi.Core/Installation/InstallationWarmImageControl.cs": {
+      "bytes": 7093,
+      "sha256": "5c82e2f060d5af581ed5a182862aeab455f13873a3cebeba08dd963a4a90440d"
+    },
+    "run/r11-exit-errors-green-source/src/KuaiYi.Core/Installation/InstallationWarmImageWire.cs": {
+      "bytes": 3847,
+      "sha256": "40569639b6512166355b077008fe28d60995464ec77c0b2a14f0edb1d1b08d4d"
+    },
+    "run/r11-exit-errors-green-source/tests/KuaiYi.Core.Tests/InstallationExitSettlementTests.cs": {
+      "bytes": 6443,
+      "sha256": "5bb483c1ed9f1a8b7c0f88ad01c293070926230bb6a39cf4e7942446b6aaa4bc"
+    },
+    "run/r11-exit-errors-green-source/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs": {
+      "bytes": 35975,
+      "sha256": "5a5d6949969f411a6b60f502d440cb6d69bba1415cc08a93870a3e454ea60da9"
+    },
+    "run/r11-exit-errors-green-source/tests/KuaiYi.Core.Tests/InstallationWarmActorTests.cs": {
+      "bytes": 9494,
+      "sha256": "fbc786fa50764e361df4011de3409ca66adfa1962b4b10b1eb8820331eaedf25"
+    },
+    "run/r11-exit-errors-green-source/tests/KuaiYi.Core.Tests/InstallationWarmImageTests.cs": {
+      "bytes": 11744,
+      "sha256": "d1e8ac5f50ddbe0e0bc26e29c402aa2de40dcb1a16ac338b7d7091b9ec66f92b"
+    },
+    "run/r11-exit-errors-green-source/tests/KuaiYi.Core.Tests/InstallationWarmParentWriteTests.cs": {
+      "bytes": 4116,
+      "sha256": "c47b189b3b1b2fbfcc7acf6a65ea8d46909c2d6d211d2645794a44e5164039ff"
+    },
+    "run/r11-exit-errors-green-source/tests/KuaiYi.Core.Tests/InstallationWarmSessionTests.cs": {
+      "bytes": 11186,
+      "sha256": "ef082adcdaa22b619a4a0f92b0965a00991ddeafc10c0d5683e28b7d0ba30a22"
+    },
+    "run/r11-exit-errors-green-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.Warm.cs": {
+      "bytes": 5487,
+      "sha256": "fdc865adcdf7a15364339794a3e099600a0223e68b0de1b38cb21a4f081733eb"
+    },
+    "run/r11-exit-errors-green-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs": {
+      "bytes": 18436,
+      "sha256": "09a45e177b55daeff4836883627aec67fa953a180ce02a0ab27ac2410770f149"
+    },
+    "run/r11-exit-errors-green.json": {
+      "bytes": 1174,
+      "sha256": "bb5c69e140f46babf25a00fad05e69fa5d4c91f27e1c4ae8c409faf7e4743b26"
+    },
+    "run/r11-exit-errors-green.log": {
+      "bytes": 2066,
+      "sha256": "97cdf3e8287f853c1c95505d1000d47651754b526a0d662e50a17a9870bf5c40"
+    },
+    "run/r11-exit-errors-green.trx": {
+      "bytes": 7480,
+      "sha256": "ac7dab396eb9f34c96148a8e87ffcebbb3e8d140673082c3424393c64a28aa81"
+    },
+    "run/r12-exit-and-deadline-targeted-dlls.json": {
+      "bytes": 54877,
+      "sha256": "327c98c390b00ec66075b70f4c9279b3301e7d9a20e398acd3630a682b3988e1"
+    },
+    "run/r12-exit-and-deadline-targeted-inputs.json": {
+      "bytes": 97271,
+      "sha256": "6bb7a125035043740b6551286ef312f0b0d1d299ce92fc6e177d7e0bbefffb1f"
+    },
+    "run/r12-exit-and-deadline-targeted-source/src/KuaiYi.Core/Installation/InstallationApplicationControl.cs": {
+      "bytes": 23134,
+      "sha256": "ef32c2ade3746d1ac6e1c21814fc969718c31c52c4a13e03afb7d9c5a2cd7dd9"
+    },
+    "run/r12-exit-and-deadline-targeted-source/src/KuaiYi.Core/Installation/InstallationWarmImageAdmission.cs": {
+      "bytes": 11955,
+      "sha256": "83263b724cadcb046b494986b2d20757f14abbb4910a07344bc9615b3f04bd0e"
+    },
+    "run/r12-exit-and-deadline-targeted-source/src/KuaiYi.Core/Installation/InstallationWarmImageClient.cs": {
+      "bytes": 7832,
+      "sha256": "5db73363938ff23660b0693d1903005673728fc5e9a4a6dec8eef17dd0a98ee9"
+    },
+    "run/r12-exit-and-deadline-targeted-source/src/KuaiYi.Core/Installation/InstallationWarmImageControl.cs": {
+      "bytes": 7093,
+      "sha256": "5c82e2f060d5af581ed5a182862aeab455f13873a3cebeba08dd963a4a90440d"
+    },
+    "run/r12-exit-and-deadline-targeted-source/src/KuaiYi.Core/Installation/InstallationWarmImageWire.cs": {
+      "bytes": 3847,
+      "sha256": "40569639b6512166355b077008fe28d60995464ec77c0b2a14f0edb1d1b08d4d"
+    },
+    "run/r12-exit-and-deadline-targeted-source/tests/KuaiYi.Core.Tests/InstallationExitSettlementTests.cs": {
+      "bytes": 7646,
+      "sha256": "35ccada33306f498800c104bf8b0860ef5b567767fcac1efc3da1ff39c7812dd"
+    },
+    "run/r12-exit-and-deadline-targeted-source/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs": {
+      "bytes": 35975,
+      "sha256": "5a5d6949969f411a6b60f502d440cb6d69bba1415cc08a93870a3e454ea60da9"
+    },
+    "run/r12-exit-and-deadline-targeted-source/tests/KuaiYi.Core.Tests/InstallationWarmActorTests.cs": {
+      "bytes": 9494,
+      "sha256": "fbc786fa50764e361df4011de3409ca66adfa1962b4b10b1eb8820331eaedf25"
+    },
+    "run/r12-exit-and-deadline-targeted-source/tests/KuaiYi.Core.Tests/InstallationWarmImageTests.cs": {
+      "bytes": 11744,
+      "sha256": "d1e8ac5f50ddbe0e0bc26e29c402aa2de40dcb1a16ac338b7d7091b9ec66f92b"
+    },
+    "run/r12-exit-and-deadline-targeted-source/tests/KuaiYi.Core.Tests/InstallationWarmParentWriteTests.cs": {
+      "bytes": 4116,
+      "sha256": "c47b189b3b1b2fbfcc7acf6a65ea8d46909c2d6d211d2645794a44e5164039ff"
+    },
+    "run/r12-exit-and-deadline-targeted-source/tests/KuaiYi.Core.Tests/InstallationWarmSessionTests.cs": {
+      "bytes": 11186,
+      "sha256": "ef082adcdaa22b619a4a0f92b0965a00991ddeafc10c0d5683e28b7d0ba30a22"
+    },
+    "run/r12-exit-and-deadline-targeted-source/tests/KuaiYi.Core.Tests/SelectionReuseDeadlineTests.cs": {
+      "bytes": 3622,
+      "sha256": "7a870ae25f804ae2e3f953e3b317a4d59594e90980f99371e58e3e88c79d2a71"
+    },
+    "run/r12-exit-and-deadline-targeted-source/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs": {
+      "bytes": 17700,
+      "sha256": "ca06c24cf1ab3ca790a192e72e9ebd1e4f1a5199abf2fb10666c91c1b06fd180"
+    },
+    "run/r12-exit-and-deadline-targeted-source/tools/KuaiYi.SelectionReuseDiagnostic/ReuseDiagnosticHost.cs": {
+      "bytes": 20274,
+      "sha256": "8ccdd6e7f04615c1a24e1bed5db541b16a0360745b9665216ab939a84d15c936"
+    },
+    "run/r12-exit-and-deadline-targeted-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.Warm.cs": {
+      "bytes": 5487,
+      "sha256": "fdc865adcdf7a15364339794a3e099600a0223e68b0de1b38cb21a4f081733eb"
+    },
+    "run/r12-exit-and-deadline-targeted-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs": {
+      "bytes": 18436,
+      "sha256": "09a45e177b55daeff4836883627aec67fa953a180ce02a0ab27ac2410770f149"
+    },
+    "run/r12-exit-and-deadline-targeted.json": {
+      "bytes": 1202,
+      "sha256": "cd2549bcb8ef08971173676473ce6c8c0ac182309f40229ed4eddcb3f881d3d2"
+    },
+    "run/r12-exit-and-deadline-targeted.log": {
+      "bytes": 2075,
+      "sha256": "9e182c4d46ce6e7078f28b3d105bfecce4f8af9211a7ba158215ab3a5dba043b"
+    },
+    "run/r12-exit-and-deadline-targeted.trx": {
+      "bytes": 23215,
+      "sha256": "047cde8b785a655564e75052ec2b6791f65f21bb96b21a9cb0f1e3e2f450bbef"
+    },
+    "run/r13-protection.json": {
+      "bytes": 2447,
+      "sha256": "10d66d3d2933e9717e0c3ec58847747fb16061d130ed1e1a6e7127fccb44dd39"
+    },
+    "run/r13-related-regression-dlls.json": {
+      "bytes": 54877,
+      "sha256": "3d92ee6f0367eaaa768e72ae103e188a57df49d79700ecda2544daf691bf0ffc"
+    },
+    "run/r13-related-regression-inputs.json": {
+      "bytes": 97271,
+      "sha256": "7b5f201c6da161a022394b6b05e266ab964da1a629f08699caa58b168fedb3b4"
+    },
+    "run/r13-related-regression-source/src/KuaiYi.Core/Installation/InstallationApplicationControl.cs": {
+      "bytes": 23134,
+      "sha256": "ef32c2ade3746d1ac6e1c21814fc969718c31c52c4a13e03afb7d9c5a2cd7dd9"
+    },
+    "run/r13-related-regression-source/src/KuaiYi.Core/Installation/InstallationWarmImageAdmission.cs": {
+      "bytes": 11955,
+      "sha256": "83263b724cadcb046b494986b2d20757f14abbb4910a07344bc9615b3f04bd0e"
+    },
+    "run/r13-related-regression-source/src/KuaiYi.Core/Installation/InstallationWarmImageClient.cs": {
+      "bytes": 7832,
+      "sha256": "5db73363938ff23660b0693d1903005673728fc5e9a4a6dec8eef17dd0a98ee9"
+    },
+    "run/r13-related-regression-source/src/KuaiYi.Core/Installation/InstallationWarmImageControl.cs": {
+      "bytes": 7093,
+      "sha256": "5c82e2f060d5af581ed5a182862aeab455f13873a3cebeba08dd963a4a90440d"
+    },
+    "run/r13-related-regression-source/src/KuaiYi.Core/Installation/InstallationWarmImageWire.cs": {
+      "bytes": 3847,
+      "sha256": "40569639b6512166355b077008fe28d60995464ec77c0b2a14f0edb1d1b08d4d"
+    },
+    "run/r13-related-regression-source/tests/KuaiYi.Core.Tests/InstallationExitSettlementTests.cs": {
+      "bytes": 9104,
+      "sha256": "5e055ddc99ddd3d2e859d574079724e3d189f1a45655a088c9bdde49cd2c5f0f"
+    },
+    "run/r13-related-regression-source/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs": {
+      "bytes": 35975,
+      "sha256": "5a5d6949969f411a6b60f502d440cb6d69bba1415cc08a93870a3e454ea60da9"
+    },
+    "run/r13-related-regression-source/tests/KuaiYi.Core.Tests/InstallationWarmActorTests.cs": {
+      "bytes": 9494,
+      "sha256": "fbc786fa50764e361df4011de3409ca66adfa1962b4b10b1eb8820331eaedf25"
+    },
+    "run/r13-related-regression-source/tests/KuaiYi.Core.Tests/InstallationWarmImageTests.cs": {
+      "bytes": 11744,
+      "sha256": "d1e8ac5f50ddbe0e0bc26e29c402aa2de40dcb1a16ac338b7d7091b9ec66f92b"
+    },
+    "run/r13-related-regression-source/tests/KuaiYi.Core.Tests/InstallationWarmParentWriteTests.cs": {
+      "bytes": 4116,
+      "sha256": "c47b189b3b1b2fbfcc7acf6a65ea8d46909c2d6d211d2645794a44e5164039ff"
+    },
+    "run/r13-related-regression-source/tests/KuaiYi.Core.Tests/InstallationWarmSessionTests.cs": {
+      "bytes": 11186,
+      "sha256": "ef082adcdaa22b619a4a0f92b0965a00991ddeafc10c0d5683e28b7d0ba30a22"
+    },
+    "run/r13-related-regression-source/tests/KuaiYi.Core.Tests/SelectionReuseDeadlineTests.cs": {
+      "bytes": 4057,
+      "sha256": "c5496b052b976c5fc4f33273143db9c178b57bb2c3415c2e22984d91a36dc1b5"
+    },
+    "run/r13-related-regression-source/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs": {
+      "bytes": 17700,
+      "sha256": "ca06c24cf1ab3ca790a192e72e9ebd1e4f1a5199abf2fb10666c91c1b06fd180"
+    },
+    "run/r13-related-regression-source/tools/KuaiYi.SelectionReuseDiagnostic/ReuseDiagnosticHost.cs": {
+      "bytes": 20274,
+      "sha256": "8ccdd6e7f04615c1a24e1bed5db541b16a0360745b9665216ab939a84d15c936"
+    },
+    "run/r13-related-regression-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.Warm.cs": {
+      "bytes": 5487,
+      "sha256": "fdc865adcdf7a15364339794a3e099600a0223e68b0de1b38cb21a4f081733eb"
+    },
+    "run/r13-related-regression-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs": {
+      "bytes": 18436,
+      "sha256": "09a45e177b55daeff4836883627aec67fa953a180ce02a0ab27ac2410770f149"
+    },
+    "run/r13-related-regression.json": {
+      "bytes": 1103,
+      "sha256": "59c4dae8f3fea75740e7572733f120fca2136c2053130b20cec6e537bd00dec4"
+    },
+    "run/r13-related-regression.log": {
+      "bytes": 2065,
+      "sha256": "1c6fd9e197221037f94c89c4613371cbd09a9ec9f1c9e02c15d042a073b89b0e"
+    },
+    "run/r13-related-regression.trx": {
+      "bytes": 436220,
+      "sha256": "41bd5430917a42ac9bcb85116a28f054b213eaba0665247b0ad3f09e9eeff35b"
+    },
+    "run/run-check.py": {
+      "bytes": 2293,
+      "sha256": "ae4ad0e62a67412f519a389a134c46e2b1aee5f1af800b206fbf609ae01a8347"
+    }
+  }
+}
