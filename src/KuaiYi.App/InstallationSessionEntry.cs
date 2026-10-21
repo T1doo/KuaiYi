@@ -14,5 +14,5 @@ internal sealed class InstallationSessionEntry
         string? root=InstallationNormalEntry.FindInstallationRoot(directory);
         return root==null?null:new(root,directory,userData,protocol??new InstallationApplicationClient(),budget??TimeSpan.FromSeconds(10),starter);
     }
-    internal Task<int> RunAsync(CancellationToken cancellation=default)=>coordinator.RunActiveSessionAsync(directory,cancellation);
+    internal Task<int> RunAsync(CancellationToken cancellation=default,string? imagePath=null)=>coordinator.RunActiveSessionAsync(directory,cancellation,imagePath);
 }

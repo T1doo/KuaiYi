@@ -25,7 +25,7 @@ public interface IInstallationSessionProtocol:IInstallationControlledStartProtoc
 {
     Task SettleSessionAsync(Process owned,CancellationToken cancellation);
 }
-public sealed class InstallationApplicationClient:IInstallationHandoffProtocol,IInstallationSessionProtocol
+public sealed class InstallationApplicationClient:IInstallationHandoffProtocol,IInstallationImageSessionProtocol
 {
     private sealed class ChannelState
     {
@@ -36,6 +36,7 @@ public sealed class InstallationApplicationClient:IInstallationHandoffProtocol,I
         internal bool Closed;
         internal bool ClosingReceived;
         internal bool ExitReadyReceived;
+        internal bool Healthy,ImageSent;
         private Task? sessionJoin;
         private readonly object joinSync=new();private Task? join;
         internal ChannelState(Process child){Output=Task.Run(()=>Read(child));Error=Task.Run(()=>Drain(child));}
@@ -88,10 +89,23 @@ public sealed class InstallationApplicationClient:IInstallationHandoffProtocol,I
         var state=Channel(owned);if(state.Proof!=null)throw new InvalidOperationException("Child launch already admitted.");state.Proof=proof;
         await Send(owned,"START|"+proof.Encode(),cancellation).ConfigureAwait(false);await Receipt(owned,$"ADMITTED|{proof.Launch:N}|{proof.Fingerprint}",cancellation).ConfigureAwait(false);
     }
-    public Task ConfirmHealthyAsync(Process owned,InstalledVersion version,Guid launch,CancellationToken cancellation)
+    public async Task ConfirmHealthyAsync(Process owned,InstalledVersion version,Guid launch,CancellationToken cancellation)
     {
         var proof=Channel(owned).Proof??throw new InvalidOperationException("No controlled launch proof.");
-        if(proof.Version!=version||proof.Launch!=launch)throw new InvalidDataException("Health launch mismatch.");return Receipt(owned,$"READY|{launch:N}|{proof.Fingerprint}",cancellation);
+        if(proof.Version!=version||proof.Launch!=launch)throw new InvalidDataException("Health launch mismatch.");await Receipt(owned,$"READY|{launch:N}|{proof.Fingerprint}",cancellation).ConfigureAwait(false);
+        lock(Channel(owned))Channel(owned).Healthy=true;
+    }
+    public async Task QueueImageAsync(Process owned,string path,CancellationToken cancellation)
+    {
+        OleImageFileDrop.ValidatePath(path);var state=Channel(owned);InstallationImageOffer offer;
+        lock(state)
+        {
+            var proof=state.Proof??throw new InvalidOperationException("No controlled image launch.");
+            if(!state.Healthy||state.ImageSent||state.Closed||state.ClosingReceived||proof.UpgradeRecord!=null)throw new InvalidOperationException("Image launch is unavailable or already consumed.");
+            offer=new(proof.Launch,proof.Fingerprint,Guid.NewGuid(),path);state.ImageSent=true;
+        }
+        await Send(owned,"IMAGE|"+offer.Encode(),cancellation).ConfigureAwait(false);
+        await Receipt(owned,offer.QueuedReceipt,cancellation).ConfigureAwait(false);
     }
     public Task RequestExitAsync(Process owned,CancellationToken cancellation)=>Send(owned,"STOP",cancellation);
     public async Task SettleAsync(Process owned,CancellationToken cancellation)
@@ -123,6 +137,9 @@ public sealed class InstallationApplicationControl
 {
     private readonly Stream input,output;
     private readonly CancellationTokenSource stop=new();
+    private readonly CancellationTokenSource imageStop=new();
+    private Task? imageCancellation;
+    private Guid? imageRequest;
     private Task? loop;
     private Task? cancellationWork;
     internal Func<Task>? ExitCancellationStartedForTest{get;set;} // Scheduler barrier only; never configured by App.
@@ -141,7 +158,21 @@ public sealed class InstallationApplicationControl
         var proof=InstallationControlledLaunch.Decode(line[6..]);proof.Claim(launch,directory,userData);
         await InstallationControlWire.Send(output,$"ADMITTED|{launch:N}|{proof.Fingerprint}",cancellation).ConfigureAwait(false);return new(input,output,proof);
     }
-    public Task RunAsync(Task applicationReady,Func<CancellationToken,Task> requestClose)
+    public bool IsImageCurrent(Guid request)
+    {
+        lock(stateSync)if(imageRequest!=request||imageStop.IsCancellationRequested||FailureCode!=null)return false;
+        try{Proof.RequireImageRecords();return !imageStop.IsCancellationRequested&&FailureCode==null;}
+        catch(Exception error)when(error is IOException or InvalidDataException){return false;}
+    }
+    public Task VerifyImageAsync(Guid request,CancellationToken cancellation)=>Task.Run(()=>
+    {
+        cancellation.ThrowIfCancellationRequested();if(!IsImageCurrent(request))throw new InvalidDataException("Image session is no longer current.");
+        Proof.RequireRecords(cancellation);cancellation.ThrowIfCancellationRequested();
+        if(!IsImageCurrent(request))throw new InvalidDataException("Image session changed during verification.");
+    }); // The caller retains and joins this exact task, even when cancellation is requested.
+    private Task RevokeImage()
+    {lock(stateSync)return imageCancellation??=imageStop.CancelAsync();}
+    public Task RunAsync(Task applicationReady,Func<CancellationToken,Task> requestClose,Action<InstallationImageOffer,CancellationToken>? queueImage=null)
     {
         lock(stateSync)
         {
@@ -156,10 +187,19 @@ public sealed class InstallationApplicationControl
                 await Send($"READY|{Proof.Launch:N}|{Proof.Fingerprint}",stop.Token).ConfigureAwait(false);
                 while(await InstallationControlWire.Read(input,stop.Token).ConfigureAwait(false) is {} command)
                 {
-                    if(command=="STOP"){await requestClose(stop.Token).ConfigureAwait(false);continue;}
+                    if(command=="STOP"){_ =RevokeImage();await requestClose(stop.Token).ConfigureAwait(false);continue;}
+                    if(command.StartsWith("IMAGE|",StringComparison.Ordinal))
+                    {
+                        if(queueImage==null||offer!=null||runtime!=null||Proof.UpgradeRecord!=null||imageStop.IsCancellationRequested)throw new InvalidDataException("Image ingress unavailable.");
+                        var candidate=InstallationImageOffer.Decode(command[6..]);candidate.Require(Proof);
+                        lock(stateSync){if(imageRequest!=null)throw new InvalidDataException("Image request already consumed.");imageRequest=candidate.Request;}
+                        Proof.RequireRecords(imageStop.Token);Proof.RequireImageRecords();
+                        queueImage(candidate,imageStop.Token); // Only register the App-owned dispatcher task; never await UI/worker on this reader.
+                        await Send(candidate.QueuedReceipt,stop.Token).ConfigureAwait(false);continue;
+                    }
                     if(command.StartsWith("OFFER|",StringComparison.Ordinal))
                     {
-                        if(offer!=null)throw new InvalidDataException("Duplicate handoff offer.");var candidate=InstallationHandoffOffer.Decode(command[6..]);
+                        if(offer!=null||imageRequest!=null)throw new InvalidDataException("Duplicate or image-session handoff offer.");var candidate=InstallationHandoffOffer.Decode(command[6..]);
                         if(candidate.Launch!=Proof.Launch||candidate.Root!=Proof.Root||candidate.UserData!=Proof.UserData||candidate.Version!=Proof.Version||candidate.OwnerRecord!=Proof.OwnerRecord||candidate.CurrentRecord!=Proof.CurrentRecord||candidate.UpgradeRecord!=Proof.UpgradeRecord)throw new InvalidDataException("Handoff differs from admitted launch.");
                         runtime=InstallationRuntimeOwnership.Prepare(candidate,Proof.Launch);offer=candidate;await Reply("PREPARED").ConfigureAwait(false);
                     }
@@ -170,6 +210,7 @@ public sealed class InstallationApplicationControl
                 if(runtime==null)
                 {
                     if(!stop.IsCancellationRequested)FailureCode??="ControlEof"; // A lost controller may request close but never attest a clean session.
+                    _ =RevokeImage();
                     await requestClose(stop.Token).ConfigureAwait(false);
                 }
                 else{runtime.ConfirmCommitted();committed=true;} // EOF cannot create a commit; a durable exact Committed decision is required.
@@ -178,6 +219,7 @@ public sealed class InstallationApplicationControl
             catch(Exception error)
             {
                 FailureCode=error.GetType().Name;
+                _ =RevokeImage();
                 if(!committed&&runtime!=null)try{runtime.ConfirmCommitted();committed=true;}catch(Exception check)when(check is IOException or InvalidDataException){}
                 // Even a lost COMMITTED output ACK must not close an already committed application.
                 if(!committed)
@@ -203,6 +245,7 @@ public sealed class InstallationApplicationControl
         {
             bool notify=loop is {IsCompleted:false}; // This decision must precede our cancellation completing the original loop.
             Task cancellation=stop.CancelAsync(); // Start cancellation before waiting behind an original protocol write.
+            Task imageRevocation=RevokeImage();
             try
             {
                 try
@@ -212,7 +255,7 @@ public sealed class InstallationApplicationControl
                         try{await Send($"CLOSING|{Proof.Launch:N}|{Proof.Fingerprint}",CancellationToken.None).ConfigureAwait(false);}
                         catch(Exception error)when(error is IOException or ObjectDisposedException){FailureCode??=error.GetType().Name;}
                 }
-                finally{await cancellation.ConfigureAwait(false);}
+                finally{await Task.WhenAll(cancellation,imageRevocation).ConfigureAwait(false);}
             }
             finally
             {

@@ -28,7 +28,11 @@ internal static class Program
         if (args.SequenceEqual(new[] { "--diagnose" })) { Console.WriteLine(JsonSerializer.Serialize(PackageIdentity.Read("KuaiYi"), ImageJson.Options)); return 0; }
         if (args.Length == 3 && args[0] == "--ocr-probe")
             return Probe(args[1], args[2]).GetAwaiter().GetResult(); // Explicit synthetic fixture command, never automatic selection capture.
-        bool review=args.SequenceEqual(new[]{"--platform-review"})||(args.Length==2&&args[0]=="--prepare-image");
+        bool review=args.SequenceEqual(new[]{"--platform-review"});
+        bool prepareImage=args.Length==2&&args[0]=="--prepare-image";
+        if(prepareImage)
+            try{OleImageFileDrop.ValidatePath(args[1]);}
+            catch(InvalidDataException){Console.Error.WriteLine("Single local image command refused.");return 2;}
         bool translationReview=args.Length==2&&args[0]=="--translation-test-provider";
         bool controlled=args.Length==2&&args[0]=="--installation-handshake"&&Guid.TryParseExact(args[1],"N",out _);
         InstallationApplicationControl? installationControl=null;
@@ -38,19 +42,20 @@ internal static class Program
             try{testSettings=KuaiYi.Providers.DevelopmentTranslationProfile.Create(new Uri(args[1],UriKind.Absolute));}
             catch(Exception error)when(error is ArgumentException or UriFormatException){Console.Error.WriteLine("Invalid local test fixture prefix.");return 2;}
         }
-        if (args.Length != 0 && !review&&!translationReview&&!controlled) { Console.Error.WriteLine("Unsupported command."); return 2; }
+        if (args.Length != 0 && !review&&!prepareImage&&!translationReview&&!controlled) { Console.Error.WriteLine("Unsupported command."); return 2; }
         string userData=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"KuaiYi");
 #if KUAIYI_ISOLATED_SESSION_TEST
         try{userData=IsolatedSessionLayout.Select(AppContext.BaseDirectory,userData);}
         catch(Exception error){Console.Error.WriteLine("Session test layout refused: "+error.GetType().Name);return 3;}
 #endif
         // Route ordinary installed entry before acquiring the UI mutex: the controlled child owns that mutex.
-        if(args.Length==0)
+        if(args.Length==0||prepareImage)
         {
             try
             {
                 runtimeSession=InstallationSessionEntry.TryCreate(AppContext.BaseDirectory,userData);
-                if(runtimeSession!=null)return runtimeSession.RunAsync().GetAwaiter().GetResult();
+                if(runtimeSession!=null)return runtimeSession.RunAsync(imagePath:prepareImage?args[1]:null).GetAwaiter().GetResult();
+                if(prepareImage){Console.Error.WriteLine("Image command requires a controlled installed session.");return 3;}
             }
             catch(Exception error)
             {
@@ -99,7 +104,7 @@ internal static class Program
             }
             finally{if(Directory.Exists(testRoot))Directory.Delete(testRoot,true);}
         }
-        if(review)return app.Run(new ImageProbeWindow(args.Length==2?args[1]:null));
+        if(review)return app.Run(new ImageProbeWindow(null));
         var sessionSettings=new KuaiYi.Core.Settings.SettingsCoordinator(new(Path.Combine(userData,"config")),new(Path.Combine(userData,"secrets"),new CurrentUserDpapiProtector(),new CurrentUserSecretDirectory()));
         var shell=new ShellWindow(instance.Scope,sessionSettings);if(installationControl!=null)shell.AttachInstallationControl(installationControl);
         int exit=app.Run(shell);GC.KeepAlive(runtimeControl);return exit;

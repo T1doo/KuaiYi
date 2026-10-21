@@ -7,7 +7,7 @@ using Xunit;
 using Xunit.Abstractions;
 namespace KuaiYi.Core.Tests;
 
-public sealed class InstallationSessionTests(ITestOutputHelper output)
+public sealed partial class InstallationSessionTests(ITestOutputHelper output)
 {
     private static readonly TimeSpan Limit=TimeSpan.FromSeconds(8);
     private static string Repo{get{var p=new DirectoryInfo(AppContext.BaseDirectory);while(p!=null&&!File.Exists(Path.Combine(p.FullName,"SPEC.md")))p=p.Parent;return p!.FullName;}}
@@ -72,9 +72,12 @@ public sealed class InstallationSessionTests(ITestOutputHelper output)
         {if(message.StartsWith("PUBLIC_SESSION_STARTUP ",StringComparison.Ordinal))throw new InvalidOperationException("PUBLIC_DIAGNOSTIC_OUTPUT_FAILED");inner.WriteLine(message);}
         public void WriteLine(string format,params object[] args)=>WriteLine(string.Format(format,args));
     }
-    private sealed class Port(ITestOutputHelper output):IInstallationSessionProtocol,IOwnedProcessStarter
+    private sealed class Port(ITestOutputHelper output):IInstallationImageSessionProtocol,IOwnedProcessStarter
     {
         private readonly InstallationApplicationClient client=new();
+        internal InstallationControlledLaunch? Proof;
+        internal readonly TaskCompletionSource ImageQueued=Signal();
+        public async Task QueueImageAsync(Process p,string path,CancellationToken ct){await client.QueueImageAsync(p,path,ct);ImageQueued.TrySetResult();}
         internal readonly List<Process> Children=[];
         internal readonly TaskCompletionSource Healthy=Signal(),StartHeld=Signal(),StartRelease=Signal(),IoEntered=Signal(),IoRelease=Signal(),HealthRelease=Signal();
         internal bool HoldStart,HoldIo,FailIo,HoldHealth;
@@ -121,6 +124,7 @@ public sealed class InstallationSessionTests(ITestOutputHelper output)
         }
         public async Task AdmitLaunchAsync(Process p,InstallationControlledLaunch proof,CancellationToken ct)
         {
+            Proof=proof;
             Volatile.Write(ref startupPhase,"Admission");var original=client.AdmitLaunchAsync(p,proof,ct);Volatile.Write(ref clientAdmission,original);
             await original;Volatile.Write(ref startupPhase,"Admitted");
         }

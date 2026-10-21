@@ -81,9 +81,10 @@ public sealed class InstallationUpgradeCoordinator:IAsyncDisposable
     private static readonly string[] RoleNames=["KuaiYi.App.exe","KuaiYi.CaptureBroker.exe","KuaiYi.ClipboardHost.exe","KuaiYi.CaptureHost.exe","KuaiYi.OleReceiver.exe","KuaiYi.ImageWorker.exe","KuaiYi.NativeHost.exe"];
     /// <summary>One ordinary user session. This caller keeps the exact child and original IO until actual exit.
     /// Only a clean, fully settled session can finish its own fence. Failure/cancellation never clears it.</summary>
-    public async Task<int> RunActiveSessionAsync(string executableDirectory,CancellationToken cancellation=default)
+    public async Task<int> RunActiveSessionAsync(string executableDirectory,CancellationToken cancellation=default,string? imagePath=null)
     {
         if(protocol is not IInstallationSessionProtocol sessionProtocol)throw new InvalidOperationException("Controlled session protocol required.");
+        if(imagePath!=null){OleImageFileDrop.ValidatePath(imagePath);if(protocol is not IInstallationImageSessionProtocol)throw new InvalidOperationException("Controlled image session protocol required.");}
         string expected=InstallationPaths.Root(executableDirectory);
         await Enter(cancellation).ConfigureAwait(false);Role? role=null;
         try
@@ -94,6 +95,7 @@ public sealed class InstallationUpgradeCoordinator:IAsyncDisposable
             if(selected.DirectoryPath!=expected)throw new InstallationRecoveryException("Normal entry is not the selected generation.");
             execution=store.ClaimExecution(admission);role=NewRole("KuaiYi.App.exe",selected);role.RetainTasks=true;
             await StartAndCheck(role,cancellation).ConfigureAwait(false);
+            if(imagePath!=null)await Call(role,t=>((IInstallationImageSessionProtocol)protocol).QueueImageAsync(role.Process!,imagePath,t),cancellation).ConfigureAwait(false);
             // Cancellation abandons only this waiter. The original OS observation remains owned and is joined by cleanup.
             role.OriginalNaturalExit=role.Process!.WaitForExitAsync(CancellationToken.None);role.Track(role.OriginalNaturalExit);
             await role.OriginalNaturalExit.WaitAsync(cancellation).ConfigureAwait(false);

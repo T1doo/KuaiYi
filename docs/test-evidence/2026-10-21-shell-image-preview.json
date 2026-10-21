@@ -1,0 +1,645 @@
+{
+  "date": "2026-10-21",
+  "base_head": "d6b776b84a8b804e1cb5619c40c2befb9b40ab96",
+  "branch": "dev/p7-shell-image-preview",
+  "status": "P7-01 InProgress; production cold-start routing/owned-session ingress implemented, real Windows acceptance NotRun",
+  "single_writer": "root; one worktree; existing reviewer read-only; no unknown lock/process removal",
+  "environment": "designated saved Linux; approved SDK10.0.402/runtime10.0.13 and original locks; no restore/new dependency/license",
+  "runs": {
+    "r01-installation": {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~Installation",
+        "--logger",
+        "trx;LogFileName=r01-installation.trx",
+        "--results-directory",
+        "/workspace/KuaiYi/artifacts/p7-shell-image-preview"
+      ],
+      "exitCode": 0,
+      "seconds": 68.717,
+      "log": "artifacts/p7-shell-image-preview/r01-installation.log",
+      "logSha256": "d5a269684677a12a32c5c3066999abe5ae5ff5c9e30c521dbcad484c6f8f1c20",
+      "counts": {
+        "total": "154",
+        "executed": "154",
+        "passed": "154",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trxSha256": "c3cdcafb037212758dbc1b7d8c9d3f406dc6d0bf54c937ca347aa4aee23668ee",
+      "failures": []
+    },
+    "r02-provider": {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--logger",
+        "trx;LogFileName=r02-provider.trx",
+        "--results-directory",
+        "/workspace/KuaiYi/artifacts/p7-shell-image-preview"
+      ],
+      "exitCode": 0,
+      "seconds": 33.03,
+      "log": "artifacts/p7-shell-image-preview/r02-provider.log",
+      "logSha256": "3487c09e021c6d13deeb4b7c059bfd2900e7613ae1e8094a1dab9ba99d8425c7",
+      "counts": {
+        "total": "2449",
+        "executed": "2449",
+        "passed": "2449",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trxSha256": "4ba86f4c7da9772f366986311d6d6f60bc2575676a78624fcb5f5c08e4daf338",
+      "failures": []
+    },
+    "r03-app-build": {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "build",
+        "src/KuaiYi.App/KuaiYi.App.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "-p:EnableWindowsTargeting=true"
+      ],
+      "exitCode": 0,
+      "seconds": 8.31,
+      "log": "artifacts/p7-shell-image-preview/r03-app-build.log",
+      "logSha256": "f5991391885613fac1d5634b0ad87fb4ec3be7de6e86145a905aa2c2f6f0878c"
+    },
+    "r04-session-offer": {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~InstallationSessionTests|FullyQualifiedName~InstallationImageOfferTests",
+        "--logger",
+        "trx;LogFileName=r04-session-offer.trx",
+        "--results-directory",
+        "/workspace/KuaiYi/artifacts/p7-shell-image-preview"
+      ],
+      "exitCode": 0,
+      "seconds": 34.817,
+      "log": "artifacts/p7-shell-image-preview/r04-session-offer.log",
+      "logSha256": "4d7a30f02121593d0c2b06e689879dc3bd3ebe3d1455d77f11a60d1b4b696662",
+      "counts": {
+        "total": "51",
+        "executed": "51",
+        "passed": "51",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trxSha256": "232ace2064734cc4ae3d73697deaae622f9ba482973db6913ad83aa40a925ba1",
+      "failures": []
+    },
+    "r05-image-cancel": {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~CleanStopMustJoinTheOriginalImageCancellationCallbackBeforeAttestingExit",
+        "--logger",
+        "trx;LogFileName=r05-image-cancel.trx",
+        "--results-directory",
+        "/workspace/KuaiYi/artifacts/p7-shell-image-preview"
+      ],
+      "exitCode": 0,
+      "seconds": 16.06,
+      "log": "artifacts/p7-shell-image-preview/r05-image-cancel.log",
+      "logSha256": "eaf6e0d53b19aaad0559c119dd09f3eaa68833144b51bf5fb221a3ec399a1472",
+      "counts": {
+        "total": "1",
+        "executed": "1",
+        "passed": "1",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trxSha256": "d11ecb0fd23c2627945082b8af2c5cea0a3e42d0b3347abd10228830b704234f",
+      "failures": []
+    },
+    "r06-app-final": {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "build",
+        "src/KuaiYi.App/KuaiYi.App.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "-p:EnableWindowsTargeting=true"
+      ],
+      "exitCode": 0,
+      "seconds": 2.788,
+      "log": "artifacts/p7-shell-image-preview/r06-app-final.log",
+      "logSha256": "aeab8aa3b085d9fb668fe186177d3df2868f13140ef48e745294b67149ced56b"
+    }
+  },
+  "run_boundaries": "r01 initial implementation; r02 same initial sources with fullProvider; r03 initial App; r04 final product canonical-Base64 patch plus stronger guard test; r05 only fixture/new test, product unchanged; r06 final App. Do not sum overlapping runs or claim one fixed-HEAD full test.",
+  "source_protection": {
+    "baselineHead": "d6b776b84a8b804e1cb5619c40c2befb9b40ab96",
+    "baselineCount": 807,
+    "unchanged": 797,
+    "changed": {
+      "src/KuaiYi.App/InstallationEntry.cs": {
+        "before": "8d1c5819aa7804e0a44c3276d6d47162e006d4a0d771883e396db72cf9dae902",
+        "after": "6ced27c92ab19bdb2dc168df4e556278e9b72a3c6114844ed5b6206b50d8b1d1"
+      },
+      "src/KuaiYi.App/InstallationSessionEntry.cs": {
+        "before": "4d99d1b5b9390ac3c6b28666bc26fd31e70ffb61f8d6e1ac79abddebac25472b",
+        "after": "c4f2a12032aea2fc59137271a93a9bfc9bcc2c5a2018caf66c3507f27ca40e78"
+      },
+      "src/KuaiYi.App/OverlayPrivacyFlow.cs": {
+        "before": "8c891b1a8b83db9219f0cd567e3b8472a0e755880d78be29a27255e7313d6742",
+        "after": "28fc2ff7bae17e748df001f66221d377a13f7fb8d92f396906935c925b711795"
+      },
+      "src/KuaiYi.App/Program.cs": {
+        "before": "0ea6571fcf68ad53cc79231a037db2350039bfa0679d91b01c1a4ca0f24cf13f",
+        "after": "7271bed55ce6f3094fb19ad6d6f54b1a55645f86c4412a1100d4a1be20b7d3dd"
+      },
+      "src/KuaiYi.Core/Installation/InstallationApplicationControl.cs": {
+        "before": "2cfc6409fdc87c316f577e4803e16f6293c5ba534241e8bbf582f9de42067475",
+        "after": "bb07bfce296abb23236dd3bc43c47f5b9a9abc73aeea067d6082a4ac912e3883"
+      },
+      "src/KuaiYi.Core/Installation/InstallationControlledLaunch.cs": {
+        "before": "3c65eb4065ff53daed66e0980ba868ab52cf6a42a542b83328f829a1e3f58422",
+        "after": "ba1c511aed5bce5a82285d7c2968a2e2107d4ea52d3f44ef1e149ad2d798de75"
+      },
+      "src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs": {
+        "before": "3c7a116d73f8b91e4031239d2b50a9ed7e92157c803b80cac4c9f5d486e6d060",
+        "after": "1ac3e6f0247deeba89c4584b73a2cc7a20119bd3317eea187db7d6b146fc8484"
+      },
+      "tests/KuaiYi.Core.Tests/InstallationSessionTests.cs": {
+        "before": "b30dfbb6193f73c8d56d0ee3b5ef898b181c40a23868b8bd06103cb12554f2a8",
+        "after": "f81bf45cbfb818691460d6c857ab7458d21b73129d1755c80806c334befab7c8"
+      },
+      "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj": {
+        "before": "dc466102132996d18b48cb4d6b8149367c7a5f97f5ea120c7880ec31c0b9c541",
+        "after": "389ce1c17a6d0e713095a52dc6be24ecca0fbfb9f809d884aaa2abab1450849b"
+      },
+      "tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs": {
+        "before": "c98bfea7edf37f41cf5d118fa9703ee1084e9e249fda45ba232f76b70ccd7c14",
+        "after": "4e183f7f783e09df8c1f76e58c46f836ec4c83dba1fb66bdc53d6e27d02a2339"
+      }
+    }
+  },
+  "new_source_files": [
+    "src/KuaiYi.App/InstalledImageCommands.cs",
+    "src/KuaiYi.Core/Installation/InstallationImageOffer.cs",
+    "tests/KuaiYi.Core.Tests/InstallationImageOfferTests.cs",
+    "tests/KuaiYi.Core.Tests/InstallationImageSessionTests.cs",
+    "tests/KuaiYi.Provider.Tests/InstalledImagePreparationTests.cs"
+  ],
+  "final_input_count": 812,
+  "source_catalog": "run/final-source-hashes.json",
+  "dll_inventory": {
+    "catalogs": [
+      "run/r01-dlls.json",
+      "run/r03-dlls.json",
+      "run/final-dlls.json"
+    ],
+    "count": 330,
+    "scope": "Release inventory; binaries can differ across normal builds and not all entries were executed. Per-run source snapshots bind initial and corrected trees; final compiled AssemblyInfo uses base git HEAD because these were working-tree tests before commit."
+  },
+  "provider_cases": {
+    "providerOld": 2436,
+    "providerNew": 2449,
+    "missingOld": [],
+    "newCases": [
+      "KuaiYi.Provider.Tests.InstalledImagePreparationTests.HeldPostLoadVerificationRetainsTheExactRasterAndTaskUntilItSettles(change: \"validator-fault\")",
+      "KuaiYi.Provider.Tests.InstalledImagePreparationTests.AQueuedInstalledRequestCannotBorrowNewerStateAtDispatcherDelivery(change: \"hidden\")",
+      "KuaiYi.Provider.Tests.InstalledImagePreparationTests.AQueuedInstalledRequestCannotBorrowNewerStateAtDispatcherDelivery(change: \"revoked\")",
+      "KuaiYi.Provider.Tests.InstalledImagePreparationTests.HeldPostLoadVerificationRetainsTheExactRasterAndTaskUntilItSettles(change: \"cancel\")",
+      "KuaiYi.Provider.Tests.InstalledImagePreparationTests.AQueuedInstalledRequestCannotBorrowNewerStateAtDispatcherDelivery(change: \"cancel\")",
+      "KuaiYi.Provider.Tests.InstalledImagePreparationTests.AQueuedInstalledRequestCannotBorrowNewerStateAtDispatcherDelivery(change: \"lock\")",
+      "KuaiYi.Provider.Tests.InstalledImagePreparationTests.AQueuedInstalledRequestCannotBorrowNewerStateAtDispatcherDelivery(change: \"settings\")",
+      "KuaiYi.Provider.Tests.InstalledImagePreparationTests.UnsettledWorkerStillBlocksReplacementAndExitUntilTheOriginalOwnerCanFinalize",
+      "KuaiYi.Provider.Tests.InstalledImagePreparationTests.HeldPostLoadVerificationRetainsTheExactRasterAndTaskUntilItSettles(change: \"clear\")",
+      "KuaiYi.Provider.Tests.InstalledImagePreparationTests.InstalledImageOnlyCreatesTheOriginalFilePreviewInOffAndKeepsTheFirstFrameLabel",
+      "KuaiYi.Provider.Tests.InstalledImagePreparationTests.AQueuedInstalledRequestCannotBorrowNewerStateAtDispatcherDelivery(change: \"clear\")",
+      "KuaiYi.Provider.Tests.InstalledImagePreparationTests.HeldPostLoadVerificationRetainsTheExactRasterAndTaskUntilItSettles(change: \"record\")",
+      "KuaiYi.Provider.Tests.InstalledImagePreparationTests.ExitClosesRegistrationAndJoinsTheSameQueuedDispatchBeforeAnyFileCanStart"
+    ]
+  },
+  "protocol": "One offer on original controlled stdio after READY; binds launch/proof/request/path fingerprint; consumes once; IMAGE/OFFER mutually exclusive; IMAGE_QUEUED means consumed/queued only, not prepared/consented. No path records/logs, no CLI proof of Explorer identity.",
+  "cleanup": "Owned dispatcher registration/close lock; exact queued task join before original file task settlement; whole-package validation retained off UI with explicit raster owner/disposal; image token immediately revoked on STOP/EOF/fault and original CancelAsync retained/joined.",
+  "r05_limit": "Observed held cancellation callback with same child/run pending and owner fence at cleanupEntered, then actual exit0/originalIO after release. Barrier predates control join; no remove-join mutation, not deterministic proof of missing-join failure. Static independent review confirms exact production join.",
+  "independent_review": "Read-only final design/source/evidence ACK: prior P2s closed; ZIP78 CRC/member bytes+SHA,807baseline/812final and797unchanged+10changed+5new,15final sources/3reports,initial/corrected run source snapshots,4fullTRX154P/2449P/51P/1P,oldProvider2436 multiset+13,App builds0W/E,330DLL inventories/final current and3 base-d6 AssemblyInfo all verified. r01/r05 limits and Windows/P7/warm/isolated-image-CLI NotRun retained; no tests/builds/writes by reviewer.",
+  "report_source_hashes": {
+    "docs/progress.md": "2b0008628c4fff3023dc8dc1d8f0254a2d619eef30874b2e8ea3f6bbf66c5cd5",
+    "docs/acceptance-report.md": "de4a74732aab1d8103da95d15f60ff50451e97201508d6b2caedf6f8cf214458",
+    "docs/validation/shell-image-preview.md": "9c830277cd58492c9f510e51536ade73bbb6df37769c7b0db194d5b2ad0987b5"
+  },
+  "not_run": [
+    "new-tree completeCore/Codec or final repeat fullProvider",
+    "real Windows11 modern menu/installation identity/source/fullCLI-WPF-fileWorker",
+    "warm-instance authenticated forwarding",
+    "real OLE/COM/OCR/quality/250600/600MiB/fullP6P7/106/Beta",
+    "isolated session-test image CLI (existing whitelist unchanged)",
+    "user desktop/data/live model/new licenses/costs/credentials/security permissions/CI/main/forcepush/deploy"
+  ],
+  "archive": {
+    "path": "docs/test-evidence/2026-10-21-shell-image-preview-originals.zip",
+    "bytes": 1100841,
+    "sha256": "598057b9fb1a9bd06e2be3a877e212d8462fd7f22f2606c9c54b7dbc9398a7c7",
+    "entries": 78
+  },
+  "archive_members": {
+    "run/baseline-inputs.json": {
+      "bytes": 95181,
+      "sha256": "987c3152fa50b8661fd203bafb5892c4e4247d129c1746a79dc8671bc36bf8fe"
+    },
+    "run/baseline-protection.json": {
+      "bytes": 2453,
+      "sha256": "7b3af4da0e34cc554d9c4060acf2a6e5a3a34fac3c4651f78c64c624f74bff71"
+    },
+    "run/final-dlls.json": {
+      "bytes": 54877,
+      "sha256": "3e3313e4b4616dd248ae24e92d570a51e8fcb9902873f50d00293f8ee9152664"
+    },
+    "run/final-source-hashes.json": {
+      "bytes": 95816,
+      "sha256": "0a149df0b5845ab77b990628b799ebda0e26179a498effd5801a94ead8914059"
+    },
+    "run/provider-case-preservation.json": {
+      "bytes": 1970,
+      "sha256": "1b6024c6e59d4b4ae07f165efd01c6fdfe59a39338217b461991f5c1e8b91e7f"
+    },
+    "run/r01-dlls.json": {
+      "bytes": 54877,
+      "sha256": "0dbb1a292c16c2b84f2cb011143170955931f100d8229c8e72480eba8de47965"
+    },
+    "run/r01-installation.json": {
+      "bytes": 1113,
+      "sha256": "e5596e22afc9f85f56e5849a419c1e03adb68bfd40ba1b9853d742574cd3a4d2"
+    },
+    "run/r01-installation.log": {
+      "bytes": 2069,
+      "sha256": "d5a269684677a12a32c5c3066999abe5ae5ff5c9e30c521dbcad484c6f8f1c20"
+    },
+    "run/r01-installation.trx": {
+      "bytes": 284833,
+      "sha256": "c3cdcafb037212758dbc1b7d8c9d3f406dc6d0bf54c937ca347aa4aee23668ee"
+    },
+    "run/r01-source/src/KuaiYi.App/InstallationEntry.cs": {
+      "bytes": 2798,
+      "sha256": "6ced27c92ab19bdb2dc168df4e556278e9b72a3c6114844ed5b6206b50d8b1d1"
+    },
+    "run/r01-source/src/KuaiYi.App/InstallationSessionEntry.cs": {
+      "bytes": 1193,
+      "sha256": "c4f2a12032aea2fc59137271a93a9bfc9bcc2c5a2018caf66c3507f27ca40e78"
+    },
+    "run/r01-source/src/KuaiYi.App/InstalledImageCommands.cs": {
+      "bytes": 2186,
+      "sha256": "8510e5b1cd66b8fb3a31b1e62e2ca34d0e5aa07bc027d9322327af05d5a9fbbe"
+    },
+    "run/r01-source/src/KuaiYi.App/OverlayPrivacyFlow.cs": {
+      "bytes": 2945,
+      "sha256": "28fc2ff7bae17e748df001f66221d377a13f7fb8d92f396906935c925b711795"
+    },
+    "run/r01-source/src/KuaiYi.App/Program.cs": {
+      "bytes": 22313,
+      "sha256": "7271bed55ce6f3094fb19ad6d6f54b1a55645f86c4412a1100d4a1be20b7d3dd"
+    },
+    "run/r01-source/src/KuaiYi.Core/Installation/InstallationApplicationControl.cs": {
+      "bytes": 18445,
+      "sha256": "bb07bfce296abb23236dd3bc43c47f5b9a9abc73aeea067d6082a4ac912e3883"
+    },
+    "run/r01-source/src/KuaiYi.Core/Installation/InstallationControlledLaunch.cs": {
+      "bytes": 7799,
+      "sha256": "ba1c511aed5bce5a82285d7c2968a2e2107d4ea52d3f44ef1e149ad2d798de75"
+    },
+    "run/r01-source/src/KuaiYi.Core/Installation/InstallationImageOffer.cs": {
+      "bytes": 2072,
+      "sha256": "734fa5931e2730ab32e609dadb9334bc117ddc6c456d7e58b322fb30fa857abc"
+    },
+    "run/r01-source/src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs": {
+      "bytes": 29179,
+      "sha256": "1ac3e6f0247deeba89c4584b73a2cc7a20119bd3317eea187db7d6b146fc8484"
+    },
+    "run/r01-source/tests/KuaiYi.Core.Tests/InstallationImageSessionTests.cs": {
+      "bytes": 5331,
+      "sha256": "b2552c3b2ac1b9e8065afb99934863de91fea4f20cafb04e3bc546c20b833936"
+    },
+    "run/r01-source/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs": {
+      "bytes": 35223,
+      "sha256": "f81bf45cbfb818691460d6c857ab7458d21b73129d1755c80806c334befab7c8"
+    },
+    "run/r01-source/tests/KuaiYi.Provider.Tests/InstalledImagePreparationTests.cs": {
+      "bytes": 6696,
+      "sha256": "e4eb8b7d0b36ecd0bfba2e3a483ad33d4e41b24580f71360c2289f385b1f4550"
+    },
+    "run/r01-source/tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj": {
+      "bytes": 6737,
+      "sha256": "389ce1c17a6d0e713095a52dc6be24ecca0fbfb9f809d884aaa2abab1450849b"
+    },
+    "run/r01-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs": {
+      "bytes": 12853,
+      "sha256": "383ba0f1662036ba97467790d9d1a803a5dd41548608e9de3be676aea15d67df"
+    },
+    "run/r01-source-hashes.json": {
+      "bytes": 1745,
+      "sha256": "2a936d7cdecaa11df22a8ac89e93d8484b88e9a734205a5fed0389a584b644ec"
+    },
+    "run/r02-provider.json": {
+      "bytes": 1060,
+      "sha256": "25e6968cff93af50c86546ccde46146811923523b4fc06d3748da6e29b95077f"
+    },
+    "run/r02-provider.log": {
+      "bytes": 1130,
+      "sha256": "3487c09e021c6d13deeb4b7c059bfd2900e7613ae1e8094a1dab9ba99d8425c7"
+    },
+    "run/r02-provider.trx": {
+      "bytes": 3610871,
+      "sha256": "4ba86f4c7da9772f366986311d6d6f60bc2575676a78624fcb5f5c08e4daf338"
+    },
+    "run/r03-app-build.json": {
+      "bytes": 456,
+      "sha256": "5d8d3549433eddc0cd2d8b68210f8a730a00ff6ad00f196affbdfa5cbc3616c0"
+    },
+    "run/r03-app-build.log": {
+      "bytes": 888,
+      "sha256": "f5991391885613fac1d5634b0ad87fb4ec3be7de6e86145a905aa2c2f6f0878c"
+    },
+    "run/r03-dlls.json": {
+      "bytes": 54877,
+      "sha256": "fc2eab20d6f3ef9725e9a1829860ee8c82d5d49c52401534c42d3e0d92e3c001"
+    },
+    "run/r04-session-offer.json": {
+      "bytes": 1171,
+      "sha256": "df2c9879b0da01c0430d3a2039727ca3cedad2485b032edd10bfe47376f26ed4"
+    },
+    "run/r04-session-offer.log": {
+      "bytes": 2070,
+      "sha256": "4d7a30f02121593d0c2b06e689879dc3bd3ebe3d1455d77f11a60d1b4b696662"
+    },
+    "run/r04-session-offer.trx": {
+      "bytes": 85806,
+      "sha256": "232ace2064734cc4ae3d73697deaae622f9ba482973db6913ad83aa40a925ba1"
+    },
+    "run/r04-source/src/KuaiYi.App/InstallationEntry.cs": {
+      "bytes": 2798,
+      "sha256": "6ced27c92ab19bdb2dc168df4e556278e9b72a3c6114844ed5b6206b50d8b1d1"
+    },
+    "run/r04-source/src/KuaiYi.App/InstallationSessionEntry.cs": {
+      "bytes": 1193,
+      "sha256": "c4f2a12032aea2fc59137271a93a9bfc9bcc2c5a2018caf66c3507f27ca40e78"
+    },
+    "run/r04-source/src/KuaiYi.App/InstalledImageCommands.cs": {
+      "bytes": 2186,
+      "sha256": "8510e5b1cd66b8fb3a31b1e62e2ca34d0e5aa07bc027d9322327af05d5a9fbbe"
+    },
+    "run/r04-source/src/KuaiYi.App/OverlayPrivacyFlow.cs": {
+      "bytes": 2945,
+      "sha256": "28fc2ff7bae17e748df001f66221d377a13f7fb8d92f396906935c925b711795"
+    },
+    "run/r04-source/src/KuaiYi.App/Program.cs": {
+      "bytes": 22313,
+      "sha256": "7271bed55ce6f3094fb19ad6d6f54b1a55645f86c4412a1100d4a1be20b7d3dd"
+    },
+    "run/r04-source/src/KuaiYi.Core/Installation/InstallationApplicationControl.cs": {
+      "bytes": 18445,
+      "sha256": "bb07bfce296abb23236dd3bc43c47f5b9a9abc73aeea067d6082a4ac912e3883"
+    },
+    "run/r04-source/src/KuaiYi.Core/Installation/InstallationControlledLaunch.cs": {
+      "bytes": 7799,
+      "sha256": "ba1c511aed5bce5a82285d7c2968a2e2107d4ea52d3f44ef1e149ad2d798de75"
+    },
+    "run/r04-source/src/KuaiYi.Core/Installation/InstallationImageOffer.cs": {
+      "bytes": 2192,
+      "sha256": "5571c879ce3d0e590c6de6bdfa095432c94af9edc1afd94b45ec6f96ad5e87de"
+    },
+    "run/r04-source/src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs": {
+      "bytes": 29179,
+      "sha256": "1ac3e6f0247deeba89c4584b73a2cc7a20119bd3317eea187db7d6b146fc8484"
+    },
+    "run/r04-source/tests/KuaiYi.Core.Tests/InstallationImageOfferTests.cs": {
+      "bytes": 1605,
+      "sha256": "5760056351704ea365b76679afdcec6cfa7422530199f15a52813d8515b583ad"
+    },
+    "run/r04-source/tests/KuaiYi.Core.Tests/InstallationImageSessionTests.cs": {
+      "bytes": 5805,
+      "sha256": "9e0df81c58be62c3f31d4ff0b64f112ee0758e0d18bb8e59a6017016a8c6ab69"
+    },
+    "run/r04-source/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs": {
+      "bytes": 35223,
+      "sha256": "f81bf45cbfb818691460d6c857ab7458d21b73129d1755c80806c334befab7c8"
+    },
+    "run/r04-source/tests/KuaiYi.Provider.Tests/InstalledImagePreparationTests.cs": {
+      "bytes": 6696,
+      "sha256": "e4eb8b7d0b36ecd0bfba2e3a483ad33d4e41b24580f71360c2289f385b1f4550"
+    },
+    "run/r04-source/tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj": {
+      "bytes": 6737,
+      "sha256": "389ce1c17a6d0e713095a52dc6be24ecca0fbfb9f809d884aaa2abab1450849b"
+    },
+    "run/r04-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs": {
+      "bytes": 12853,
+      "sha256": "383ba0f1662036ba97467790d9d1a803a5dd41548608e9de3be676aea15d67df"
+    },
+    "run/r04-source-hashes.json": {
+      "bytes": 1873,
+      "sha256": "6436e7ad7e56867937f5514a9a9f552e926bbfc8d7ebdf64bf73618a386172e0"
+    },
+    "run/r04-test-dll.sha256": {
+      "bytes": 65,
+      "sha256": "34645b290cf89557bb9033e1ca1a94971a3dd63eee8eda71f7f4769952c4b3fb"
+    },
+    "run/r05-image-cancel.json": {
+      "bytes": 1166,
+      "sha256": "f909bd9d45c036185b938d701bd351eb287e25b6e1acad6e2ad3fb88aeab8c1b"
+    },
+    "run/r05-image-cancel.log": {
+      "bytes": 2071,
+      "sha256": "eaf6e0d53b19aaad0559c119dd09f3eaa68833144b51bf5fb221a3ec399a1472"
+    },
+    "run/r05-image-cancel.trx": {
+      "bytes": 3207,
+      "sha256": "d11ecb0fd23c2627945082b8af2c5cea0a3e42d0b3347abd10228830b704234f"
+    },
+    "run/r06-app-final.json": {
+      "bytes": 457,
+      "sha256": "6abac4aea34b90a3226782f2185f645c9f21f31505c23ea7a0812f7625154224"
+    },
+    "run/r06-app-final.log": {
+      "bytes": 888,
+      "sha256": "aeab8aa3b085d9fb668fe186177d3df2868f13140ef48e745294b67149ced56b"
+    },
+    "run/report-source-hashes.json": {
+      "bytes": 304,
+      "sha256": "424e88dadccf809696b2731c9f9ccd9a2b63d9c59dbdd726c4af995d356b9fe7"
+    },
+    "run/run-check.py": {
+      "bytes": 1114,
+      "sha256": "cab8a13ea1f35f4de30aa0c45f9dca2cfbacbd717176edc32ebb9b90a6421691"
+    },
+    "final-source/src/KuaiYi.App/InstallationEntry.cs": {
+      "bytes": 2798,
+      "sha256": "6ced27c92ab19bdb2dc168df4e556278e9b72a3c6114844ed5b6206b50d8b1d1"
+    },
+    "final-source/src/KuaiYi.App/InstallationSessionEntry.cs": {
+      "bytes": 1193,
+      "sha256": "c4f2a12032aea2fc59137271a93a9bfc9bcc2c5a2018caf66c3507f27ca40e78"
+    },
+    "final-source/src/KuaiYi.App/OverlayPrivacyFlow.cs": {
+      "bytes": 2945,
+      "sha256": "28fc2ff7bae17e748df001f66221d377a13f7fb8d92f396906935c925b711795"
+    },
+    "final-source/src/KuaiYi.App/Program.cs": {
+      "bytes": 22313,
+      "sha256": "7271bed55ce6f3094fb19ad6d6f54b1a55645f86c4412a1100d4a1be20b7d3dd"
+    },
+    "final-source/src/KuaiYi.Core/Installation/InstallationApplicationControl.cs": {
+      "bytes": 18445,
+      "sha256": "bb07bfce296abb23236dd3bc43c47f5b9a9abc73aeea067d6082a4ac912e3883"
+    },
+    "final-source/src/KuaiYi.Core/Installation/InstallationControlledLaunch.cs": {
+      "bytes": 7799,
+      "sha256": "ba1c511aed5bce5a82285d7c2968a2e2107d4ea52d3f44ef1e149ad2d798de75"
+    },
+    "final-source/src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs": {
+      "bytes": 29179,
+      "sha256": "1ac3e6f0247deeba89c4584b73a2cc7a20119bd3317eea187db7d6b146fc8484"
+    },
+    "final-source/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs": {
+      "bytes": 35223,
+      "sha256": "f81bf45cbfb818691460d6c857ab7458d21b73129d1755c80806c334befab7c8"
+    },
+    "final-source/tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj": {
+      "bytes": 6737,
+      "sha256": "389ce1c17a6d0e713095a52dc6be24ecca0fbfb9f809d884aaa2abab1450849b"
+    },
+    "final-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs": {
+      "bytes": 12929,
+      "sha256": "4e183f7f783e09df8c1f76e58c46f836ec4c83dba1fb66bdc53d6e27d02a2339"
+    },
+    "final-source/src/KuaiYi.App/InstalledImageCommands.cs": {
+      "bytes": 2186,
+      "sha256": "8510e5b1cd66b8fb3a31b1e62e2ca34d0e5aa07bc027d9322327af05d5a9fbbe"
+    },
+    "final-source/src/KuaiYi.Core/Installation/InstallationImageOffer.cs": {
+      "bytes": 2192,
+      "sha256": "5571c879ce3d0e590c6de6bdfa095432c94af9edc1afd94b45ec6f96ad5e87de"
+    },
+    "final-source/tests/KuaiYi.Core.Tests/InstallationImageOfferTests.cs": {
+      "bytes": 1605,
+      "sha256": "5760056351704ea365b76679afdcec6cfa7422530199f15a52813d8515b583ad"
+    },
+    "final-source/tests/KuaiYi.Core.Tests/InstallationImageSessionTests.cs": {
+      "bytes": 6869,
+      "sha256": "331b3ea0cdf2eb311528221be29839350daab7b61b5ec2649d8874849e1859d5"
+    },
+    "final-source/tests/KuaiYi.Provider.Tests/InstalledImagePreparationTests.cs": {
+      "bytes": 6696,
+      "sha256": "e4eb8b7d0b36ecd0bfba2e3a483ad33d4e41b24580f71360c2289f385b1f4550"
+    },
+    "report-source/docs/progress.md": {
+      "bytes": 308242,
+      "sha256": "2b0008628c4fff3023dc8dc1d8f0254a2d619eef30874b2e8ea3f6bbf66c5cd5"
+    },
+    "report-source/docs/acceptance-report.md": {
+      "bytes": 43211,
+      "sha256": "de4a74732aab1d8103da95d15f60ff50451e97201508d6b2caedf6f8cf214458"
+    },
+    "report-source/docs/validation/shell-image-preview.md": {
+      "bytes": 6210,
+      "sha256": "9c830277cd58492c9f510e51536ade73bbb6df37769c7b0db194d5b2ad0987b5"
+    },
+    "run/obj-Core.Tests.AssemblyInfo.cs": {
+      "bytes": 1005,
+      "sha256": "4ae8c126bbb19a7bb71d8c0f627e6b9d517a7d7f3513eafbf297febe393f6a30"
+    },
+    "run/obj-App.AssemblyInfo.cs": {
+      "bytes": 1141,
+      "sha256": "f9de399615356d3388a1c31043f85f290cedbcad362be04b5bb64243c819cfa3"
+    },
+    "run/obj-NativeHost.AssemblyInfo.cs": {
+      "bytes": 1005,
+      "sha256": "69a183515334689bce235bc7220b2420239df031093b49c349e2631acb436e03"
+    }
+  }
+}

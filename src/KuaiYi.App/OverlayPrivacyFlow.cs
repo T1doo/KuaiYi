@@ -29,7 +29,7 @@ internal sealed partial class ShellWindow
         List<Exception> errors=admissionErrors??[];ScreenshotPreviewCleanup.Attempt(errors,lifecycle.Hide);ScreenshotPreviewCleanup.Attempt(errors,CancelPointer);
         ClearPrivatePresentation(errors);ScreenshotPreviewCleanup.Attempt(errors,Refresh);
         async Task Settle(Func<Task> step){try{await step();}catch(Exception error){errors.Add(error);}}
-        await Settle(()=>startup);await Settle(()=>positionSave);await Settle(StopTextDrop);await Settle(StopSelection);
+        await Settle(StopInstalledImageDispatch);await Settle(()=>startup);await Settle(()=>positionSave);await Settle(StopTextDrop);await Settle(StopSelection);
         Task fileCleanup=Task.CompletedTask;ScreenshotPreviewCleanup.Attempt(errors,()=>CollectFileCleanup(ref fileCleanup));await Settle(()=>fileCleanup);
         await Settle(StopHotkeyScreenshot);await Settle(StopHotkeys);await Settle(StopTranslation);
         if(errors.Count>0)throw new AggregateException("Exit cleanup unconfirmed.",errors);

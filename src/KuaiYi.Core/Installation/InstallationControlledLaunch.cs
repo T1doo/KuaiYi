@@ -29,14 +29,25 @@ public sealed record InstallationControlledLaunch(Guid Launch,string Role,string
         if(Launch==Guid.Empty||Role!="KuaiYi.App.exe"||Root!=InstallationPaths.Root(Root)||UserData!=InstallationPaths.Root(UserData)||Version==null||
            Convert.FromBase64String(OwnerRecord).Length>1024||Convert.FromBase64String(CurrentRecord).Length>4096||UpgradeRecord!=null&&Convert.FromBase64String(UpgradeRecord).Length>16384)throw new InvalidDataException("Invalid launch proof.");
     }
-    internal void RequireRecords()
+    internal void RequireRecords(CancellationToken cancellation=default)
     {
         Validate();Exact(Path.Combine(Root,"execution-owner.json"),Convert.FromBase64String(OwnerRecord),1024);
         Exact(Path.Combine(Root,"current.json"),Convert.FromBase64String(CurrentRecord),4096);
         string pending=Path.Combine(Root,"upgrade-pending.json");InstallationPaths.Check(pending);
         if(UpgradeRecord==null){if(File.Exists(pending)||Directory.Exists(pending))throw new InstallationRecoveryException("Unexpected pending upgrade retained.");}
         else Exact(pending,Convert.FromBase64String(UpgradeRecord),16384);
-        if(new InstallationStore(Root,UserData,()=>false).ReadActive()!=Version)throw new InstallationRecoveryException("Controlled launch generation changed.");
+        if(new InstallationStore(Root,UserData,()=>false).ReadActive(cancellation)!=Version)throw new InstallationRecoveryException("Controlled launch generation changed.");
+    }
+    // Bounded live-record checks only. Full payload verification belongs to retained background work.
+    internal void RequireImageRecords()
+    {
+        if(UpgradeRecord!=null)throw new InstallationRecoveryException("Image ingress requires a normal session.");
+        Exact(System.IO.Path.Combine(Root,"execution-owner.json"),Convert.FromBase64String(OwnerRecord),1024);
+        Exact(System.IO.Path.Combine(Root,"current.json"),Convert.FromBase64String(CurrentRecord),4096);
+        foreach(string name in new[]{"upgrade-pending.json","handoff-pending.json"})
+        {string pending=System.IO.Path.Combine(Root,name);InstallationPaths.Check(pending);if(File.Exists(pending)||Directory.Exists(pending))throw new InstallationRecoveryException("Pending transition blocks image ingress.");}
+        Exact(PathFor("accepted"),Bytes());
+        RequireHeldLease(System.IO.Path.Combine(Root,"upgrade.lock"));RequireHeldLease(System.IO.Path.Combine(Root,"execution-owner.lock"));
     }
     public void Claim(Guid ownLaunch,string executableDirectory,string expectedUserData)
     {

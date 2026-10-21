@@ -37,11 +37,17 @@ internal static class InstallationAppControlFixture
             if(mode=="held-failed-close")failedCloseRelease.Task.GetAwaiter().GetResult(); // Hold this exact reported attempt, not the control loop.
         },()=>{writer.WriteLine("PUBLIC_SHELL_CLOSED");writer.Flush();if(mode=="held-after-close")exitRelease.Task.GetAwaiter().GetResult();Environment.Exit(0);});
         async Task RequestClose(CancellationToken _){if(state is "CleanupUnconfirmed" or "Closing")retryWhilePending.TrySetResult();shell.Close();if(mode is "fault-close-pending" or "eof-close-pending"&&control!.FailureCode!=null)await closingWritten.Task;}
-        Task loop=originalLoop=control.RunAsync(ready.Task,RequestClose);_ =loop.ContinueWith(t=>{_ =t.Exception;},CancellationToken.None,TaskContinuationOptions.OnlyOnFaulted,TaskScheduler.Default);
+        InstallationImageOffer? image=null;var imageReceived=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var imageRevoked=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        Task loop=originalLoop=control.RunAsync(ready.Task,RequestClose,(offer,token)=>
+        {
+            image=offer;token.Register(()=>{imageRevoked.TrySetResult();if(mode=="held-image-cancel")cancelRelease.Task.GetAwaiter().GetResult();});File.AppendAllText(Path.Combine(root,"PUBLIC_IMAGE_QUEUED"),"1\n");imageReceived.TrySetResult();
+        });_ =loop.ContinueWith(t=>{_ =t.Exception;},CancellationToken.None,TaskContinuationOptions.OnlyOnFaulted,TaskScheduler.Default);
         if(mode=="cancel-loop-first")control.ExitCancellationStartedForTest=()=>loop;
         while(await reader.ReadLineAsync() is {} command)
         {
             if(command=="PING")await writer.WriteLineAsync("PUBLIC_SHELL|"+state+(control.FailureCode==null?"":"|ControlFault="+control.FailureCode));
+            else if(command=="WAIT_IMAGE"){await imageReceived.Task;await writer.WriteLineAsync($"PUBLIC_IMAGE|{image!.Request:N}|{image.Path}");}
+            else if(command=="WAIT_IMAGE_REVOKED"){await imageRevoked.Task;await writer.WriteLineAsync("PUBLIC_IMAGE_REVOKED");}
             else if(command=="EXIT0")Environment.Exit(0);
             else if(command=="EXIT23")Environment.Exit(23);
             else if(command.StartsWith("TERMINAL_",StringComparison.Ordinal))

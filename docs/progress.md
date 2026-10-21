@@ -1382,3 +1382,12 @@ r01诊断原方法2P（非自然失败复现），r02受控0P1F，r03修后原2+
 下一项具体建议（尚未实施）：SPEC13.1/P7-01的正常主浮窗冷启动单图预览。当前ExplorerCommand发出 `--prepare-image`，Program仍把它送到P0 ImageProbeWindow；应先独审正常安装会话中generation/launch/request绑定、原任务清理与取消/迟到/替换隔离，再复用现有文件Worker/独立file owner、GIF首帧标注和预览确认进入正常Shell。保持默认Off和显式启用/发送确认；已有实例的认证转交需单独设计，现有Show广播不可证明请求权限，不直接绕过安装受控子进程。可先做纯状态/IPC与交叉构建，不借此声称真实菜单已验收。
 
 Windows真实WPF/OLE/OCR、安装来源身份/现代菜单、画质、250/600ms、600MiB及完整P6/P7/106用例/Beta仍NotRun或沿各自旧状态；不以本次Core通过代替。PackageHold、生产图片复用Off、WebP奇数payload拒绝及来源/密码/完整性/原SHA/实际退出/发送门保持。无新权限/费用/凭据/依赖许可、真实模型/用户内容/用户电脑、CI、main修改、强推或部署。
+
+
+## 2026-10-21 · P7-01 正常安装冷启动单图预览接线
+
+从d6b776b84a8b804e1cb5619c40c2befb9b40ab96 clean/远端0/0接续，先设计独审再实施。`--prepare-image`不再进入P0，沿原安装generation/owned child/stdio在READY后交接单个一次性IMAGE；严格Base64 JSON、launch/proof/request绑定及live记录/held leases，IMAGE/OFFER双向互斥。主浮窗排队前冻结身份stamp，关闭原dispatch登记后join，再结算原file任务；完整包验证后台执行，取消或验证失败清零原图，持续token与原admission拒迟到/替换。Off只预览，GIF首帧标注及原启用/OCR/逐次发送确认保持，warm实例仍拒绝未认证转交。
+
+r01 Installation154P，r02完整Provider2449P（原2436全保留+13），r03交叉0W/E；独审补正Base64别名后r04 Session+Offer51P，补充r05原取消回调hold观察1P，r06最终App交叉0W/E，均0F/0skip。r05屏障早于control join，不声称缺join必红；生产精确join已静态核。各轮有重叠，不累计，r01初版源/局限保留。原807输入797项未变；产品源码最终限定ACK，reviewer只读。详见[生产差异与验证边界](validation/shell-image-preview.md)/[原件索引](test-evidence/2026-10-21-shell-image-preview.json)。
+
+P7-01仍InProgress：本轮没有Windows实机身份/现代菜单/完整CLI-WPF-fileWorker验收，没有新树完整Core/Codec重跑，上一5e95完整2074P不转记到本树。Windows/OLE/OCR/画质/250600/600MiB/完整P6P7等原未验保持；历史失败不回填。无新依赖许可/费用/权限/凭据、用户电脑/真实模型、CI/main/强推/部署。
