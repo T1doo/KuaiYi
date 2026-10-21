@@ -53,3 +53,5 @@ P7-01 与完整 warm 仍 InProgress；真实 Windows 菜单→WPF/安装来源�
 独立只读复审核原失败、源码和探针实录限定ACK。此机制可确定发生，不能追认本轮历史唯一根因或阶段；旧完整失败继续Fail。本片不扩大修改SelectionReuse诊断Host/旧测试，不进入Windows/B。下一步先审定最小可控截止/夹具方案：区分无deadline竞争的故障语义测试与默认真实600ms watchdog，保留生产250/600ms、原边界断言及原IO/进程结算；不能改大上限、加sleep、吞异常或接受Crash/HardTimeout任一值凑绿。
 
 [完整Core失败与探针原件](../test-evidence/2026-10-21-warm-image-core-a-full-core.json)。本轮后续只追加证据与报告，A片已实现/相关验证通过，完整Core签收及P7交付未完成。
+
+后续父侧指出退出错误保全P2并批准诊断截止夹具修复，固定0dbfa74一次完整Core2140P已通过；见[后续修复与准确原件](exit-errors-and-controlled-deadline.md)。上述r09及原历史因果未知记录不回填，Windows/P7边界不变。

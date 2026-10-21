@@ -280,3 +280,10 @@ P7-01/已有实例认证转交/真实Windows菜单-WPF/OLE/OCR/身份/画质/250
 诊断Host仅内部可控provider统一origin/模型/绝对Check/timer；默认真实600ms/原watchdog与lateIO/start/exit、idle120/清理2s/生产250600不动。7故障语义仍精确原reason，200字节断言未改；599/600未投timer及600投timer屏障、同原IO清零、native拒绝覆盖。r12 15P，r13相关255P/0F/0skip，旧245全保留+10，各轮不累计，823输入执行中不变。待固定实现提交一次完整Core，不预判；旧r09原Fail/历史唯一根因未知不回填。A片仍核心合成，B/真实Accept/WarmSync→Gate/candidate所有权/Windows/P7未验。
 
 [实现合同](validation/exit-errors-and-controlled-deadline.md)、[完整命令TRX/源码产物摘要/原件ZIP](test-evidence/2026-10-21-exit-errors-deadline.json)。无新功能许可费用权限凭据/真实模型用户电脑/CI/main强推部署。
+
+
+## 2026-10-21 · 固定0dbfa74一次完整Core2140P签收
+
+完成退出原异常保全P2/诊断统一可控截止的源码与255P相关原件独审后，在clean `0dbfa74a5075e750d58efff9def5d0f86b645243` 严格一次完整Core：r14实际2140P/0F/0skip、exit0、91.922s。旧2130案例多重集均保留+10；故障语义7项、默认真实watchdog/迟到IO/退出及错误保全反例均通过，原200字节故障断言保留。823执行输入不变，前后HEAD相同/dirty0，330产物前后摘要/45差异、AssemblyInfo、命令/完整日志/TRX/源码封存。旧r09 2129P1F原Fail与历史阶段/唯一根因未知记录不回填，不累计不同轮次。
+
+[固定完整Core原件](test-evidence/2026-10-21-exit-errors-deadline-full-core.json)、[修复合同与边界](validation/exit-errors-and-controlled-deadline.md)。后续仅证据报告，不改固定代码/测试、不重复整套；未重跑App/Codec/Provider（相关源/API未改）。本片Core签收通过，A仍核心合成；B/真实双向Windows身份/AcceptFileImage、WarmSync→Gate及candidate所有权/真实Worker-WPF/菜单来源身份/OLE/COM/OCR/画质/生产250600/600MiB/完整P6P7/106/Beta未验仍保持。Off/PackageHold/生产复用Off/WebP odd拒绝不变，无新许可费用权限凭据/真实模型用户电脑/CI/main强推部署。

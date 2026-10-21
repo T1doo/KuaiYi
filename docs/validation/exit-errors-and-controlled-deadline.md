@@ -20,4 +20,10 @@ ReuseDiagnosticHost内部init-only TimeProvider接缝。默认null仍原Stopwatc
 
 r12定向 **15P/0F/0skip**；r13完整相关 Installation+SelectionReuseHost **255P/0F/0skip**、exit0、46.582s。旧245案例多重集均保留，新增10个有区分力案例，不累计轮数。823输入中818旧输入不变，仅原Core退出结算、诊断Host与旧语义测试夹具3文件变化，新增两个测试文件。App/Windows/Contracts/Worker/图片格式/依赖/发送门未改。
 
-独立只读源码及已执行原件审查；[完整命令/日志/TRX/红源/输入产物摘要/原始失败XML](../test-evidence/2026-10-21-exit-errors-deadline.json)。实现检查点尚未跑修复后完整Core；独审后固定提交只跑一次，失败先分析，不盲循环。当前不称Windows/P7完成，不操作用户电脑、不真实模型/新许可权限费用凭据/CI/main/强推/部署。
+独立只读源码及已执行原件审查；[完整命令/日志/TRX/红源/输入产物摘要/原始失败XML](../test-evidence/2026-10-21-exit-errors-deadline.json)。该实现检查点之后，按授权固定以下提交仅执行一次完整Core。当前不称Windows/P7完成，不操作用户电脑、不真实模型/新许可权限费用凭据/CI/main/强推/部署。
+
+## 固定0dbfa74一次完整Core通过
+
+在 clean `0dbfa74a5075e750d58efff9def5d0f86b645243` 严格一次完整Release Core，r14实际 **2140P/0F/0skip**、exit0、91.922s，TRX SHA256 `f491fb5c12c0da74d4b31fc77ff55760d3a3b696ba01b0c58d7289c8745d1fa4`。旧2130个案例多重集均保留，新增10个；原故障语义7项及default真实watchdog/lateIO/start/exit、全部退出反例均通过。不累计定向轮数，不覆盖旧r09失败。
+
+执行823输入不变；前后HEAD相同、dirty0。330个Release DLL完整前后摘要，45项因固定提交重新编译而变更，差异表/AssemblyInfo/命令/完整日志/TRX/准确源码已封存。后续仅证据报告提交，不改固定代码/测试，无必要再跑全Core；本修复未重跑App/Codec/Provider，相关源码/API未改。详见[固定完整Core原件](../test-evidence/2026-10-21-exit-errors-deadline-full-core.json)。原错保全P2与受控故障夹具的本轮Core签收通过，不代替Windows身份/真实AcceptFileImage、WarmSync→Gate/candidate所有权/真实Worker UI链与生产250600等未验边界；A片仍核心合成片。

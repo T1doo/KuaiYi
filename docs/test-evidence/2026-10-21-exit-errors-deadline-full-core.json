@@ -1,0 +1,196 @@
+{
+  "testedHead": "0dbfa74a5075e750d58efff9def5d0f86b645243",
+  "branch": "dev/p7-fixed-signoff",
+  "status": "Pass",
+  "run": {
+    "command": [
+      "python3",
+      "-B",
+      "scripts/session-sdk.py",
+      "test",
+      "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-nodeReuse:false",
+      "-p:UseSharedCompilation=false",
+      "--logger",
+      "trx;LogFileName=r14-full-core-fixed-repair.trx",
+      "--results-directory",
+      "artifacts/warm-image-a"
+    ],
+    "exitCode": 0,
+    "seconds": 91.922,
+    "inputsUnchangedDuringRun": true,
+    "logSha256": "be87aad2cf5c19b80542047fbee3ca59d6182af9065f92d43dcf3d15c6cc83bb",
+    "counts": {
+      "total": "2140",
+      "executed": "2140",
+      "passed": "2140",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "trxSha256": "f491fb5c12c0da74d4b31fc77ff55760d3a3b696ba01b0c58d7289c8745d1fa4",
+    "failures": 0
+  },
+  "fixedHeadBeforeAfterClean": true,
+  "casePreservation": {
+    "old": 2130,
+    "current": 2140,
+    "missing": [],
+    "added": [
+      "KuaiYi.Core.Tests.InstallationExitSettlementTests.StopAndImageOriginalCancellationFailuresAreBothPreserved",
+      "KuaiYi.Core.Tests.SelectionReuseHostTests.SyntheticDeadlineClockControlsAbsoluteCheckAndTimerWithoutReleasingOriginalIoEarly(elapsed: 599, fire: False, expected: Crash)",
+      "KuaiYi.Core.Tests.SelectionReuseHostTests.SyntheticDeadlineClockControlsAbsoluteCheckAndTimerWithoutReleasingOriginalIoEarly(elapsed: 600, fire: False, expected: HardTimeout)",
+      "KuaiYi.Core.Tests.InstallationExitSettlementTests.OriginalWarmAndCancellationFailuresBothSurviveEitherBarrierOrder(warmFirst: False)",
+      "KuaiYi.Core.Tests.SelectionReuseHostTests.SyntheticDeadlineClockCannotStartANativeWorker",
+      "KuaiYi.Core.Tests.InstallationExitSettlementTests.OneOriginalFailureAcrossOneOrTwoCancellationTasksIsRethrownAsTheSameObject(both: True)",
+      "KuaiYi.Core.Tests.InstallationExitSettlementTests.OneOriginalFailureAcrossOneOrTwoCancellationTasksIsRethrownAsTheSameObject(both: False)",
+      "KuaiYi.Core.Tests.InstallationExitSettlementTests.CancellationAndBothOriginalLoopFaultsAreCollectedWithoutSuccessReceipt",
+      "KuaiYi.Core.Tests.SelectionReuseHostTests.SyntheticDeadlineClockControlsAbsoluteCheckAndTimerWithoutReleasingOriginalIoEarly(elapsed: 600, fire: True, expected: HardTimeout)",
+      "KuaiYi.Core.Tests.InstallationExitSettlementTests.OriginalWarmAndCancellationFailuresBothSurviveEitherBarrierOrder(warmFirst: True)"
+    ]
+  },
+  "review": "Read-only original fixed-head signoff ACK:2140 allPassed0skip,old2130cases complete+10,823inputs/current/fixed0dbfa equal,16sources+4AssemblyInfo bound0dbfa,29archive CRC/memberSHA exact,330DLLs/45delta exact. No test/build/write by reviewer. Oldr09Fail/root unknown retained; excludesB/Windows/App/Codec/Provider rerun.",
+  "scope": "Exactly one complete Core run after reviewed repair; subsequent commit evidence/report only; no B/App/Windows wiring",
+  "historical": "r09 original2129P1F remainsFail; exact historical stage/unique root/A indirect scheduling causality not backfilled",
+  "notRun": [
+    "App/Codec/Provider rerun for this repair (unchanged API/App/codec/provider sources)",
+    "Windows native peer/token/session/installation identity/menu/WPF/realWorker/OLE/COM/OCR/quality/production250600/600MiB/fullP6P7/106/Beta"
+  ],
+  "archive": {
+    "path": "docs/test-evidence/2026-10-21-exit-errors-deadline-full-core-originals.zip",
+    "bytes": 712637,
+    "sha256": "e5213f59297d102834452686ec88efc358b5b6d596381b17a35903132e9ddf83",
+    "entries": 29
+  },
+  "archiveMembers": {
+    "run/r14-case-preservation.json": {
+      "bytes": 1516,
+      "sha256": "e4e7cf5432e21c99677602b7b18ad60a4655841f13642ff29c59e5d4c3fe0d3e"
+    },
+    "run/r14-dll-delta.json": {
+      "bytes": 11016,
+      "sha256": "215e711eba26454c18cb111bb921b7a86ed43ca51c86a16b43b0048dfa0f2c26"
+    },
+    "run/r14-fixed-head-after.json": {
+      "bytes": 55668,
+      "sha256": "9da89f82e0b033eafab40f1a1e72b4076c3a80c573a008cd235fbd4bd2a5535f"
+    },
+    "run/r14-fixed-head-before.json": {
+      "bytes": 55668,
+      "sha256": "0b09e09875c5be6a9db12e87d0938cd34469c7044da5c3e5590f9414c80b6111"
+    },
+    "run/r14-full-core-fixed-repair-dlls.json": {
+      "bytes": 54877,
+      "sha256": "9888a96e7a6a09782938d8d0b5bfec37a19dc2dd53ec7b5cdeda108705d340a5"
+    },
+    "run/r14-full-core-fixed-repair-inputs.json": {
+      "bytes": 97271,
+      "sha256": "78d0ec9d0114ac7f5f8df79fee28d64adac618badd32e1fcf82438209be0e35c"
+    },
+    "run/r14-full-core-fixed-repair-source/tests/KuaiYi.Core.Tests/InstallationWarmActorTests.cs": {
+      "bytes": 9494,
+      "sha256": "fbc786fa50764e361df4011de3409ca66adfa1962b4b10b1eb8820331eaedf25"
+    },
+    "run/r14-full-core-fixed-repair-source/tests/KuaiYi.Core.Tests/SelectionReuseHostTests.cs": {
+      "bytes": 17700,
+      "sha256": "ca06c24cf1ab3ca790a192e72e9ebd1e4f1a5199abf2fb10666c91c1b06fd180"
+    },
+    "run/r14-full-core-fixed-repair-source/tests/KuaiYi.Core.Tests/InstallationSessionTests.cs": {
+      "bytes": 35975,
+      "sha256": "5a5d6949969f411a6b60f502d440cb6d69bba1415cc08a93870a3e454ea60da9"
+    },
+    "run/r14-full-core-fixed-repair-source/tests/KuaiYi.Core.Tests/InstallationExitSettlementTests.cs": {
+      "bytes": 9104,
+      "sha256": "5e055ddc99ddd3d2e859d574079724e3d189f1a45655a088c9bdde49cd2c5f0f"
+    },
+    "run/r14-full-core-fixed-repair-source/tests/KuaiYi.Core.Tests/InstallationWarmParentWriteTests.cs": {
+      "bytes": 4116,
+      "sha256": "c47b189b3b1b2fbfcc7acf6a65ea8d46909c2d6d211d2645794a44e5164039ff"
+    },
+    "run/r14-full-core-fixed-repair-source/tests/KuaiYi.Core.Tests/InstallationWarmImageTests.cs": {
+      "bytes": 11744,
+      "sha256": "d1e8ac5f50ddbe0e0bc26e29c402aa2de40dcb1a16ac338b7d7091b9ec66f92b"
+    },
+    "run/r14-full-core-fixed-repair-source/tests/KuaiYi.Core.Tests/InstallationWarmSessionTests.cs": {
+      "bytes": 11186,
+      "sha256": "ef082adcdaa22b619a4a0f92b0965a00991ddeafc10c0d5683e28b7d0ba30a22"
+    },
+    "run/r14-full-core-fixed-repair-source/tests/KuaiYi.Core.Tests/SelectionReuseDeadlineTests.cs": {
+      "bytes": 4057,
+      "sha256": "c5496b052b976c5fc4f33273143db9c178b57bb2c3415c2e22984d91a36dc1b5"
+    },
+    "run/r14-full-core-fixed-repair-source/src/KuaiYi.Core/Installation/InstallationWarmImageWire.cs": {
+      "bytes": 3847,
+      "sha256": "40569639b6512166355b077008fe28d60995464ec77c0b2a14f0edb1d1b08d4d"
+    },
+    "run/r14-full-core-fixed-repair-source/src/KuaiYi.Core/Installation/InstallationWarmImageAdmission.cs": {
+      "bytes": 11955,
+      "sha256": "83263b724cadcb046b494986b2d20757f14abbb4910a07344bc9615b3f04bd0e"
+    },
+    "run/r14-full-core-fixed-repair-source/src/KuaiYi.Core/Installation/InstallationWarmImageClient.cs": {
+      "bytes": 7832,
+      "sha256": "5db73363938ff23660b0693d1903005673728fc5e9a4a6dec8eef17dd0a98ee9"
+    },
+    "run/r14-full-core-fixed-repair-source/src/KuaiYi.Core/Installation/InstallationWarmImageControl.cs": {
+      "bytes": 7093,
+      "sha256": "5c82e2f060d5af581ed5a182862aeab455f13873a3cebeba08dd963a4a90440d"
+    },
+    "run/r14-full-core-fixed-repair-source/src/KuaiYi.Core/Installation/InstallationApplicationControl.cs": {
+      "bytes": 23134,
+      "sha256": "ef32c2ade3746d1ac6e1c21814fc969718c31c52c4a13e03afb7d9c5a2cd7dd9"
+    },
+    "run/r14-full-core-fixed-repair-source/tools/KuaiYi.SelectionReuseDiagnostic/ReuseDiagnosticHost.cs": {
+      "bytes": 20274,
+      "sha256": "8ccdd6e7f04615c1a24e1bed5db541b16a0360745b9665216ab939a84d15c936"
+    },
+    "run/r14-full-core-fixed-repair-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs": {
+      "bytes": 18436,
+      "sha256": "09a45e177b55daeff4836883627aec67fa953a180ce02a0ab27ac2410770f149"
+    },
+    "run/r14-full-core-fixed-repair-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.Warm.cs": {
+      "bytes": 5487,
+      "sha256": "fdc865adcdf7a15364339794a3e099600a0223e68b0de1b38cb21a4f081733eb"
+    },
+    "run/r14-full-core-fixed-repair.json": {
+      "bytes": 1012,
+      "sha256": "0cacad050e658b45948ecad24f3a31e71efb73022fc3969782d372cec9534015"
+    },
+    "run/r14-full-core-fixed-repair.log": {
+      "bytes": 2069,
+      "sha256": "be87aad2cf5c19b80542047fbee3ca59d6182af9065f92d43dcf3d15c6cc83bb"
+    },
+    "run/r14-full-core-fixed-repair.trx": {
+      "bytes": 3065048,
+      "sha256": "f491fb5c12c0da74d4b31fc77ff55760d3a3b696ba01b0c58d7289c8745d1fa4"
+    },
+    "run/r14-obj-KuaiYi.Core.AssemblyInfo.cs": {
+      "bytes": 987,
+      "sha256": "f4a581227c324b8482b993582b486fa730bf777cabef887b37b229a27405fa85"
+    },
+    "run/r14-obj-KuaiYi.Core.Tests.AssemblyInfo.cs": {
+      "bytes": 1005,
+      "sha256": "9c40d1222e48b76265d1be247bb938c02cdda537c3386687e2a9126998079390"
+    },
+    "run/r14-obj-KuaiYi.SelectionReuseDiagnostic.AssemblyInfo.cs": {
+      "bytes": 1047,
+      "sha256": "5b888a1adbf287a4e13484d0aebd698af5e1a2a9319af207627b9884e458ea66"
+    },
+    "run/r14-obj-KuaiYi.SettingsStoreFixture.AssemblyInfo.cs": {
+      "bytes": 1035,
+      "sha256": "a184edfcdff0e94e9437942b281b57b1d6c323fbb4850b3404409afc0acc7d42"
+    }
+  }
+}
