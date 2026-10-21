@@ -18,6 +18,7 @@ internal static class Program
     [STAThread]
     public static int Main(string[] args)
     {
+        if(args.Length==3&&args[0]=="--ci-local-image-shell")return WarmWindowsProbe.Run(args[1],args[2]);
         if(args.Length==2&&args[0]=="--ci-actual-overlay")return ActualOverlayProbe.Run(args[1],"2400",boundedCi:true);
         if(args.Length is 2 or 3&&args[0]=="--actual-overlay")return ActualOverlayProbe.Run(args[1],args.Length==3?args[2]:"240");
         if(args.Length is 2 or 3&&args[0]=="--actual-markdown")return ActualOverlayProbe.Run(args[1],args.Length==3?args[2]:"1000",markdownReview:true);

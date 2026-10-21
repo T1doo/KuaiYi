@@ -1,0 +1,33 @@
+name: One fixed default Shell and real Worker Windows component attempt
+on:
+  push:
+    branches: [dev/p7-fixed-signoff]
+    paths: [.github/workflows/windows-warm-components.yml]
+permissions:
+  contents: read
+jobs:
+  default-shell-components:
+    if: ${{ github.repository == 'T1doo/KuaiYi' && github.event_name == 'push' && github.ref == 'refs/heads/dev/p7-fixed-signoff' && github.event.repository.private == false && github.run_attempt == '1' }}
+    runs-on: windows-2022
+    timeout-minutes: 15
+    env:
+      CI: 'true'
+      DOTNET_GENERATE_ASPNET_CERTIFICATE: 'false'
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+      DOTNET_CLI_UI_LANGUAGE: en-US
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 5
+          persist-credentials: false
+          set-safe-directory: false
+      - name: Original approved SDK signature audit and bounded real Windows components
+        timeout-minutes: 14
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $python=(Get-Command python -CommandType Application -ErrorAction Stop | Select-Object -First 1).Source
+          & $python -I -B ./scripts/verify-warm-components-windows.py
+          exit $LASTEXITCODE
