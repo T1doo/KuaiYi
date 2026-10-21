@@ -1,0 +1,182 @@
+{
+  "fixedTestHead": "9877e5e3bcc9750bb0faf60ad040e9af7fca07f0",
+  "branch": "dev/p7-fixed-signoff",
+  "run": {
+    "fixedHead": "9877e5e3bcc9750bb0faf60ad040e9af7fca07f0",
+    "command": [
+      "python3",
+      "-B",
+      "scripts/session-sdk.py",
+      "test",
+      "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-nodeReuse:false",
+      "-p:UseSharedCompilation=false",
+      "--logger",
+      "trx;LogFileName=full-core-fixed-head.trx",
+      "--results-directory",
+      "/workspace/KuaiYi/artifacts/cancellation-fixed-signoff"
+    ],
+    "started": "2026-10-21T04:28:10.322934+00:00",
+    "seconds": 94.89,
+    "exitCode": 0,
+    "counts": {
+      "total": "2093",
+      "executed": "2093",
+      "passed": "2093",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "originalFailureCount": 0,
+    "sourceCount": 812,
+    "sourcesBeforeAfterEqual": true,
+    "headStillFixed": true,
+    "dirtyAfter": "",
+    "trxSha256": "a57d043e84e454ca2030aa84de159c5a786f4e96e11672c7d65f65a1bd4c3e9d",
+    "dllBefore": 330,
+    "dllAfter": 330,
+    "dllChanged": 45
+  },
+  "casePreservation": {
+    "previousCases": 2091,
+    "fixedCases": 2093,
+    "missingOld": [],
+    "newCases": [
+      "KuaiYi.Core.Tests.InstallationApplicationControlTests.ControlledSchedulesProveReadyDoesNotPromiseAHeldCancellationCallback(mode: \"held-cancel-before-callback\")",
+      "KuaiYi.Core.Tests.InstallationApplicationControlTests.ControlledSchedulesProveReadyDoesNotPromiseAHeldCancellationCallback(mode: \"held-cancel-ready-return\")"
+    ]
+  },
+  "inputProvenance": {
+    "count": 812,
+    "beforeAfterEqual": true,
+    "fixedGitBytes": true
+  },
+  "dllScope": "330 before/after,45 normal-build deltas; inventories are not an assertion all DLLs executed",
+  "scope": "Evidence/report-only follow-up to fixed repair; no product/test/SDK/lock changes after run",
+  "historicalLimits": "Prior e2 full Core2090P1F and both controlled red failures preserved; the historical unique cause remains unknown. Two expected counterexamples are not product-red-to-green. No full retry. No warm feature.",
+  "independentReview": "Read-only final source and targeted archive ACK before run. Final full evidence ACK: ZIP23 CRC/every member bytes+SHA,2093 individual Passed outcomes/no skip and exact TRX hash,old2091 multiset+2,812 before=after=current=fixed9877 git bytes,330/330 DLL45 changes and current after,3 exacte9877 AssemblyInfo,3 fixed sources/3 reports/nested targeted ZIP and exactly5 docs/evidence diffs verified. Reviewer no tests/builds/writes. Only this index review field and Library success note subsequently updated.",
+  "notRun": [
+    "Codec/Provider/App rerun (production unchanged)",
+    "warm authenticated forwarding",
+    "real Windows menu/WPF/fileWorker/installation-source identity/OLE/COM/OCR/quality/250600/600MiB/fullP6P7/106/Beta"
+  ],
+  "reportSourceHashes": {
+    "docs/progress.md": "45080366f5a263d9c7741bcd26b06ba0716ce711d2bda2ee6d7dffd57bdc5620",
+    "docs/acceptance-report.md": "35ac7e614ec3f7a26bc86fd7cf0b9b8cdd1be3f2af55e6dec1119dca0ec494e2",
+    "docs/validation/cancellation-readiness-root-cause.md": "33b64ce4884d6aca7af39e0829c7c6f714ec5e4ebb73c9b4d69d6a4c5b0c3465"
+  },
+  "archive": {
+    "path": "docs/test-evidence/2026-10-21-cancellation-fixed-signoff-originals.zip",
+    "bytes": 1135049,
+    "sha256": "ac70d1cf9a5bd3bfd8a724341e6795c6685b587cb71559ab4cfa44d2bb291520",
+    "entries": 23
+  },
+  "archiveMembers": {
+    "run/case-preservation.json": {
+      "bytes": 425,
+      "sha256": "72656a77f0b02908742187849c7987dfc50a5919cfee7568486ab938dcc4ff55"
+    },
+    "run/core-command.json": {
+      "bytes": 512,
+      "sha256": "ca2fa1f3f1a88b9875520b1825bb6dd9863cac10c3de85cf9cc0d744e507d15d"
+    },
+    "run/core-dll-changes.json": {
+      "bytes": 11016,
+      "sha256": "0c48d947d569a30975fe5479359aaeff8a13e01c824caf5cd0c4318535a0146e"
+    },
+    "run/core-dlls-after.json": {
+      "bytes": 54877,
+      "sha256": "0de7db7b4a975b89012b5f5d61d742bdeba65bdd9f10727792babaa99df63676"
+    },
+    "run/core-dlls-before.json": {
+      "bytes": 54877,
+      "sha256": "80b400c5c1f4d50d2640163ff9a7ed57dd6f94d07e71d9d4fc536cf48349dbe6"
+    },
+    "run/core-result.json": {
+      "bytes": 1200,
+      "sha256": "a17c49e21d2344c43f31f154b63bdd3143b707d229aa87f07368cc7b01948583"
+    },
+    "run/core-sources-after.json": {
+      "bytes": 95816,
+      "sha256": "f558cca80d1f700adf97bbf2630d677ab6d8f47d36beca4c1952dc003da99e9d"
+    },
+    "run/core-sources-before.json": {
+      "bytes": 95816,
+      "sha256": "f558cca80d1f700adf97bbf2630d677ab6d8f47d36beca4c1952dc003da99e9d"
+    },
+    "run/core.log": {
+      "bytes": 2077,
+      "sha256": "9fc86e05e3c89de735d041a7379cb5a03b7c360dd7ef3aff27879e67b5212411"
+    },
+    "run/full-core-fixed-head.trx": {
+      "bytes": 2991514,
+      "sha256": "a57d043e84e454ca2030aa84de159c5a786f4e96e11672c7d65f65a1bd4c3e9d"
+    },
+    "run/obj-Core.AssemblyInfo.cs": {
+      "bytes": 987,
+      "sha256": "06b79ea1c1f960a2daaa7484dc47df06715f95a5d73a3f84ba249ff48e84b858"
+    },
+    "run/obj-Core.Tests.AssemblyInfo.cs": {
+      "bytes": 1005,
+      "sha256": "ff0a391c0f55a8324dbc3aa9bcfda8afbbd760d8bdf81d9be1aec37736e43597"
+    },
+    "run/obj-Fixture.AssemblyInfo.cs": {
+      "bytes": 1035,
+      "sha256": "b4d768e969cbc5c41156e67371f102d20361e9d19508e7b971a184cd2815996b"
+    },
+    "run/report-source-hashes.json": {
+      "bytes": 318,
+      "sha256": "693b502a6f35dc7197870297f292e79b9c10a7d01b9467665eeac8719f474c77"
+    },
+    "run/run-once.py": {
+      "bytes": 3283,
+      "sha256": "57c4cdf3414c61bd819ef40b5e5faacb74eda0df3836a1785531f1fc5a516c06"
+    },
+    "fixed-source/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs": {
+      "bytes": 28290,
+      "sha256": "1f00fce1b9b4199cd97b3de2cd45e1aec3eaa1fea0c972617615b2b2a733efaa"
+    },
+    "fixed-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs": {
+      "bytes": 18143,
+      "sha256": "250f5c613741cea4eb50d6c6cf1a4b45ce22703ef334d6f447bcaa0eb6cf6eae"
+    },
+    "fixed-source/src/KuaiYi.Core/Installation/InstallationApplicationControl.cs": {
+      "bytes": 18445,
+      "sha256": "bb07bfce296abb23236dd3bc43c47f5b9a9abc73aeea067d6082a4ac912e3883"
+    },
+    "report-source/docs/progress.md": {
+      "bytes": 313588,
+      "sha256": "45080366f5a263d9c7741bcd26b06ba0716ce711d2bda2ee6d7dffd57bdc5620"
+    },
+    "report-source/docs/acceptance-report.md": {
+      "bytes": 48557,
+      "sha256": "35ac7e614ec3f7a26bc86fd7cf0b9b8cdd1be3f2af55e6dec1119dca0ec494e2"
+    },
+    "report-source/docs/validation/cancellation-readiness-root-cause.md": {
+      "bytes": 6205,
+      "sha256": "33b64ce4884d6aca7af39e0829c7c6f714ec5e4ebb73c9b4d69d6a4c5b0c3465"
+    },
+    "targeted-evidence/2026-10-21-cancellation-readiness-root-cause-originals.zip": {
+      "bytes": 297722,
+      "sha256": "5f454807a5f65e3e6459781bfb07946f006959ef97872dd57b007a1690577428"
+    },
+    "targeted-evidence/2026-10-21-cancellation-readiness-root-cause.json": {
+      "bytes": 11897,
+      "sha256": "6d55302fb0b7814ff2162f00c1edd789f364122b36058cd2798383ebbb94a1af"
+    }
+  },
+  "library": "Private originals create confirmed succeeded;1135049-byte unchanged ZIP saved under original filename, version0; local Library identity metadata persisted with helper exit0. Confirmed Library ID returned separately, not stored in git; no private URL shared."
+}

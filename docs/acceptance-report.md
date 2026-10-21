@@ -233,3 +233,12 @@ P7-01仍InProgress：本轮没有Windows实机身份/现代菜单/完整CLI-WPF-
 仅测试和夹具修复：原Fact先等同一次可取消inner Read创建后的Armed；normal port取消时保留原registration至本Read局部callbackStarted，再Dispose join回调返回。原474字节断言块、5s/6s/20ms/40s预算不改，body/cleanup双异常保全，生产src/250600/清理退出门不改。r02原Fact+两个明确旧期望反例3P；r03共享Installation163P（旧161全保留+2），均0F0skip，不累计。812输入中810不变；各轮执行中源不变，原日志/TRX/红源/DLL摘要保全。独立只读源码/原件ACK，尚未本修复后完整Core；将固定修复提交只跑一次，失败先分析。见[机制与边界](validation/cancellation-readiness-root-cause.md)/[直接原件](test-evidence/2026-10-21-cancellation-readiness-root-cause.json)。
 
 P7-01/已有实例认证转交/真实Windows菜单-WPF/OLE/OCR/身份/画质/250600/600MiB/完整P6P7仍未验。PackageHold、生产复用Off、WebP odd拒绝及原安全门保持；无新功能/生产改动/依赖许可权限费用凭据/模型用户电脑/CI/main强推部署。
+
+
+## 2026-10-21 · 固定9877e5e3一次完整Core签收通过
+
+完成取消夹具最终源码与定向原件独审后，在clean固定 `9877e5e3bcc9750bb0faf60ad040e9af7fca07f0` 严格一次完整Release Core，实际 **2093P/0F/0skip**、exit0，UTC04:28:10启动、总耗时94.890s。旧2091案例全名多重集均保留，新增两个明确旧期望反例；原持有取消Fact也通过。r01旧期望受控0P2F、r02定向3P、r03 Installation163P各自保留，不累计；旧e2完整2090P1F不回填，历史唯一根因仍未知。
+
+812输入源前后相同、执行后HEAD不变/dirty0。Release DLL前后各330项，正常编译45项变化，完整前后摘要/差异表、绑定固定SHA的AssemblyInfo、命令/日志/TRX和准确源码保全。本次追加仅证据与报告，生产源码/测试/SDK/锁均不再变化；无必要重复Codec/Provider/App。见[签收证据与原件](test-evidence/2026-10-21-cancellation-fixed-signoff.json)及[定位合同](validation/cancellation-readiness-root-cause.md)。
+
+未接续warm转交功能；指纹/Show不构成授权。P7-01、已有实例认证、真实Windows菜单-WPF-fileWorker/来源身份/OLE/COM/OCR/画质/250600/600MiB及完整P6P7/106/Beta未验保持。无新依赖许可权限费用凭据/模型用户电脑/CI/main强推部署；DefaultOff、PackageHold/生产复用Off、WebP odd拒绝与原安全门不变。
