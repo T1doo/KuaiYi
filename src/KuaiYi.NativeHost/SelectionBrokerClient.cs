@@ -13,6 +13,7 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
     private SelectionBoundaryMap? boundaryMap;
     internal Func<Guid,SelectionBoundaryMap?>? BoundaryFactoryForTest{get;set;}
     internal Action? BeforeBoundaryDeliveryForTest{get;set;}
+    internal Action<CancellationTokenSource,TimeSpan>? ArmDeadlineForTest{get;init;}
     public SelectionReachedBoundary? LastReachedBoundary{get;private set;}
     public string BoundaryMarkerSetup{get;private set;}="Disabled";
     private readonly object sync=new();private OwnedProcessSession? owner;private Task? cleanup;private bool disposed;
@@ -79,7 +80,8 @@ public sealed class SelectionBrokerClient(string executable,IOwnedProcessStarter
             CheckDelivery(deadline.Token,started);
             if(timingDiagnostic){if(!boundaryDiagnostic)throw new ArgumentException("Timing requires diagnostic mode.");info.ArgumentList.Add("--phase-timing");}
             // Timer wakes blocked operations; the single monotonic origin decides every delivery.
-            var remaining=HardBudget-Clock.GetElapsedTime(started);if(remaining<=TimeSpan.Zero)throw new AbsoluteDeadlineException();deadline.CancelAfter(remaining);
+            var remaining=HardBudget-Clock.GetElapsedTime(started);if(remaining<=TimeSpan.Zero)throw new AbsoluteDeadlineException();
+            if(ArmDeadlineForTest is {} arm)arm(deadline,remaining);else deadline.CancelAfter(remaining);
             var process=await session.Start(info,deadline.Token).WaitAsync(deadline.Token).ConfigureAwait(false);
             CheckDelivery(deadline.Token,started);
             var first=await ReadAsync(process.StandardOutput.BaseStream,deadline.Token,started).ConfigureAwait(false);

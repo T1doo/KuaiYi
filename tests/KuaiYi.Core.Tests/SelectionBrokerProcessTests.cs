@@ -3,9 +3,22 @@ using KuaiYi.Core;
 using KuaiYi.Contracts;
 using KuaiYi.NativeHost;
 using Xunit;
+using Xunit.Abstractions;
+using Xunit.Sdk;
+using System.Runtime.ExceptionServices;
 namespace KuaiYi.Core.Tests;
-public sealed class SelectionBrokerProcessTests
+public sealed class SelectionBrokerProcessTests(ITestOutputHelper output)
 {
+    private FixtureStarter? finalStarterForTest;private SelectionBrokerClient? finalClientForTest;private Action<FinalBoundaryTrace>? observeFinalBoundaryForTest;private bool useRealFinalDeadlineForTest;
+    private sealed record FinalBoundaryTrace(SelectionCaptureStatus Status,bool HookEntered,long FakeMilliseconds,double RealMilliseconds,int Starts,bool StarterEntered,bool StarterReturned,HostExitState? Ownership);
+    // Synchronous one-shot test driver: no background timer or concurrent Fire/Dispose.
+    private sealed class ControlledDeadline:IDisposable
+    {
+        private CancellationTokenSource? source;public int Arms{get;private set;}public int Fires{get;private set;}public TimeSpan Due{get;private set;}
+        public void Arm(CancellationTokenSource deadline,TimeSpan due){if(Interlocked.CompareExchange(ref source,deadline,null)!=null)throw new InvalidOperationException("Already armed.");Arms++;Due=due;}
+        public void Fire(){var held=Interlocked.Exchange(ref source,null)??throw new InvalidOperationException("Not armed.");Fires++;held.Cancel();}
+        public void Dispose()=>Interlocked.Exchange(ref source,null);
+    }
     private sealed class MonotonicClock:TimeProvider
     {public long Milliseconds=10000;public DateTimeOffset Utc=DateTimeOffset.UtcNow;public override long TimestampFrequency=>1000;public override long GetTimestamp()=>Interlocked.Read(ref Milliseconds);public override DateTimeOffset GetUtcNow()=>Utc;}
     private sealed class ExpiredStarter(MonotonicClock clock,int elapsed):FixtureStarter("normal")
@@ -22,8 +35,63 @@ public sealed class SelectionBrokerProcessTests
     [Theory][InlineData(599,SelectionCaptureStatus.Success)][InlineData(600,SelectionCaptureStatus.HardTimeout)][InlineData(601,SelectionCaptureStatus.HardTimeout)]
     public async Task FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(int elapsed,SelectionCaptureStatus expected)
     {
-        var clock=new MonotonicClock();var starter=new FixtureStarter("normal");byte[]? held=null;await using var client=new SelectionBrokerClient("public-fixture",starter,clock){BeforeSelectionDeliveryForTest=payload=>{held=payload;clock.Milliseconds+=elapsed;clock.Utc=clock.Utc.AddDays(-3);}};
-        var result=await client.CaptureAsync(Gesture(),default);Assert.Equal(expected,result.Status);Assert.Equal(expected==SelectionCaptureStatus.Success?"public selected\n  code":"",result.Text);Assert.NotNull(held);Assert.All(held!,b=>Assert.Equal(0,b));if(expected==SelectionCaptureStatus.HardTimeout)Assert.Null(client.LastObservation);await client.DisposeAsync();Assert.Null(client.ExitState);Assert.Equal(1,starter.Starts);
+        using var timer=new ControlledDeadline();using var guard=new CancellationTokenSource(TimeSpan.FromSeconds(5));var watch=Stopwatch.StartNew();var clock=new MonotonicClock();var starter=finalStarterForTest??new FixtureStarter("normal");byte[]? held=null;
+        var client=finalClientForTest=new SelectionBrokerClient("public-fixture",starter,clock){ArmDeadlineForTest=useRealFinalDeadlineForTest?null:timer.Arm,BeforeSelectionDeliveryForTest=payload=>{held=payload;clock.Milliseconds+=elapsed;clock.Utc=clock.Utc.AddDays(-3);output.WriteLine($"SYNTHETIC FINAL HOOK fakeMs={clock.Milliseconds-10000} realMs={watch.Elapsed.TotalMilliseconds}");}};
+        Exception? bodyFailure=null,disposeFailure=null;var original=client.CaptureAsync(Gesture(),guard.Token);
+        try
+        {
+            var result=await original;timer.Dispose();
+            var trace=new FinalBoundaryTrace(result.Status,held!=null,clock.Milliseconds-10000,watch.Elapsed.TotalMilliseconds,starter.Starts,starter is DelayedStarter delayed&&delayed.Entered.Task.IsCompletedSuccessfully,starter.Child!=null,client.ExitState);
+            output.WriteLine($"SYNTHETIC CAPTURE RETURNED {trace}");observeFinalBoundaryForTest?.Invoke(trace);
+            Assert.Equal(expected,result.Status);Assert.Equal(expected==SelectionCaptureStatus.Success?"public selected\n  code":"",result.Text);Assert.NotNull(held);Assert.All(held!,b=>Assert.Equal(0,b));if(expected==SelectionCaptureStatus.HardTimeout)Assert.Null(client.LastObservation);await client.DisposeAsync();Assert.Null(client.ExitState);Assert.Equal(1,starter.Starts);Assert.Equal(1,timer.Arms);Assert.Equal(TimeSpan.FromMilliseconds(600),timer.Due);Assert.Equal(0,timer.Fires);
+        }
+        catch(Exception error){bodyFailure=error;output.WriteLine($"SYNTHETIC BODY FAILED {error}");}
+        finally{timer.Dispose();try{await SettleOriginalCapture(client,guard,original,starter as DelayedStarter,bodyFailure);}catch(Exception error){disposeFailure=error;output.WriteLine($"SYNTHETIC DISPOSE FAILED {error}");}}
+        if(bodyFailure!=null&&disposeFailure!=null)throw new AggregateException("Selection body and original disposal failed.",bodyFailure,disposeFailure);
+        if(bodyFailure!=null)ExceptionDispatchInfo.Capture(bodyFailure).Throw();if(disposeFailure!=null)ExceptionDispatchInfo.Capture(disposeFailure).Throw();
+    }
+    private static async Task SettleOriginalCapture(SelectionBrokerClient client,CancellationTokenSource guard,Task<SelectionCaptureResult> original,DelayedStarter? delayed,Exception? observed)
+    {
+        List<Exception> errors=[];try{guard.Cancel();}catch(Exception error){errors.Add(error);}finally{delayed?.Release.TrySetResult();}
+        try{await original;}catch(Exception error){if(!ReferenceEquals(error,observed))errors.Add(error);}
+        try{await client.DisposeAsync();}catch(Exception error){errors.Add(error);}
+        if(errors.Count>0)throw new AggregateException("Original selection capture cleanup failed.",errors);
+    }
+    [Fact]public async Task HeldStartupProvesRealTimerCanRejectTheOriginal599ExpectationBeforeItsHook()
+    {
+        useRealFinalDeadlineForTest=true;Process? witness=null;var starter=new DelayedStarter{BeforeReturnForTest=child=>witness=Process.GetProcessById(child.Id)};finalStarterForTest=starter;FinalBoundaryTrace? observed=null;
+        observeFinalBoundaryForTest=trace=>{observed=trace;starter.Release.TrySetResult();};
+        try
+        {
+            try
+            {
+                var failure=await Record.ExceptionAsync(()=>FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(599,SelectionCaptureStatus.Success));
+                Assert.IsType<EqualException>(failure);Assert.Contains("Expected: Success",failure!.Message);Assert.Contains("Actual:   HardTimeout",failure.Message);
+                Assert.NotNull(observed);Assert.Equal(SelectionCaptureStatus.HardTimeout,observed.Status);Assert.False(observed.HookEntered);Assert.Equal(0,observed.FakeMilliseconds);Assert.True(observed.StarterEntered);Assert.False(observed.StarterReturned);Assert.Equal(0,observed.Starts);Assert.Equal(HostExitState.ExitUnconfirmed,observed.Ownership);
+            }
+            finally{starter.Release.TrySetResult();if(finalClientForTest!=null)await finalClientForTest.DisposeAsync();}
+            Assert.Equal(1,starter.Starts);Assert.Null(finalClientForTest!.ExitState);Assert.NotNull(witness);Assert.True(witness.HasExited);
+        }
+        finally{witness?.Dispose();}
+    }
+    [Theory][InlineData(true)][InlineData(false)]
+    public async Task ControlledTimerStillRejectsStartupOrFinalDeliveryBeforeTheFakeAbsoluteBoundary(bool startup)
+    {
+        var clock=new MonotonicClock();using var timer=new ControlledDeadline();using var guard=new CancellationTokenSource(TimeSpan.FromSeconds(5));var delayed=startup?new DelayedStarter():null;FixtureStarter starter=delayed??new FixtureStarter("normal");byte[]? held=null;
+        var client=new SelectionBrokerClient("public-fixture",starter,clock){ArmDeadlineForTest=timer.Arm,BeforeSelectionDeliveryForTest=bytes=>{held=bytes;clock.Milliseconds+=599;timer.Fire();}};
+        var original=client.CaptureAsync(Gesture(),guard.Token);Exception? bodyFailure=null,cleanupFailure=null;
+        try
+        {
+            if(delayed!=null){await delayed.Entered.Task.WaitAsync(TimeSpan.FromSeconds(5));Assert.False(original.IsCompleted);Assert.Equal(0,starter.Starts);timer.Fire();}
+            var result=await original.WaitAsync(TimeSpan.FromSeconds(5));timer.Dispose();
+            Assert.Equal(SelectionCaptureStatus.HardTimeout,result.Status);Assert.Equal("",result.Text);Assert.Null(client.LastObservation);Assert.True(clock.Milliseconds-10000<600);Assert.Equal(1,timer.Arms);Assert.Equal(TimeSpan.FromMilliseconds(600),timer.Due);Assert.Equal(1,timer.Fires);
+            if(startup){Assert.Null(held);Assert.Equal(HostExitState.ExitUnconfirmed,client.ExitState);}else{Assert.NotNull(held);Assert.All(held,b=>Assert.Equal(0,b));}
+        }
+        catch(Exception error){bodyFailure=error;}
+        finally{timer.Dispose();try{await SettleOriginalCapture(client,guard,original,delayed,bodyFailure);}catch(Exception error){cleanupFailure=error;}}
+        if(bodyFailure!=null&&cleanupFailure!=null)throw new AggregateException("Controlled timer body and cleanup failed.",bodyFailure,cleanupFailure);
+        if(bodyFailure!=null)ExceptionDispatchInfo.Capture(bodyFailure).Throw();if(cleanupFailure!=null)ExceptionDispatchInfo.Capture(cleanupFailure).Throw();
+        Assert.Null(client.ExitState);Assert.Equal(1,starter.Starts);
     }
     [Fact]public async Task CancellationAtFinalValidationCannotDeliverDecodedSelection()
     {
@@ -165,10 +233,10 @@ public sealed class SelectionBrokerProcessTests
         using var guard=new CancellationTokenSource(TimeSpan.FromSeconds(5));while(starter.Child==null)await Task.Delay(5,guard.Token);cancellation.Cancel();Assert.Equal(SelectionCaptureStatus.Cancelled,(await pending).Status);await client.DisposeAsync();Assert.Null(client.ExitState);
     }
     private sealed class Clock:TimeProvider{public DateTimeOffset Now=DateTimeOffset.UtcNow;public override DateTimeOffset GetUtcNow()=>Now;}
-    private sealed class DelayedStarter():FixtureStarter("hang")
+    private sealed class DelayedStarter(string fault="hang"):FixtureStarter(fault)
     {
-        public readonly TaskCompletionSource Entered=new(TaskCreationOptions.RunContinuationsAsynchronously),Release=new(TaskCreationOptions.RunContinuationsAsynchronously);public int Entries;
-        public override Process Start(ProcessStartInfo info){Interlocked.Increment(ref Entries);Entered.TrySetResult();Release.Task.GetAwaiter().GetResult();return base.Start(info);}
+        public readonly TaskCompletionSource Entered=new(TaskCreationOptions.RunContinuationsAsynchronously),Release=new(TaskCreationOptions.RunContinuationsAsynchronously);public int Entries;public Action<Process>? BeforeReturnForTest{get;init;}
+        public override Process Start(ProcessStartInfo info){Interlocked.Increment(ref Entries);Entered.TrySetResult();Release.Task.GetAwaiter().GetResult();var child=base.Start(info);BeforeReturnForTest?.Invoke(child);return child;}
     }
     [Fact]public async Task HardDeadlineDuringStartupRetainsOwnershipAndForbidsSecondWriterUntilLateChildSettles()
     {

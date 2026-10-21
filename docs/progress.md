@@ -1364,3 +1364,10 @@ r01诊断原方法2P（非自然失败复现），r02受控0P1F，r03修后原2+
 按父指令固定已审修复HEAD00f80840b8dede4019208dc0f4d8f2f60b7ce90a执行一次完整Core：2070P/1F/0skip，807输入源前后相同、执行后HEAD未变/dirty0。CaptureHost原两分支+新屏障均P；唯一新红为SelectionBroker最终单调边界599期望Success实际HardTimeout（line26，0.7353269s）。原TRX/失败逐字XML/DLL前后摘要与45处变化清单已保全。只控制timestamp/UTC的假时钟未控制真实CancelAfter600ms，是独立只读复核候选，原日志不足以证明hook到达/超时阶段/唯一根因，不认定产品缺陷。
 
 完整Core状态Fail，未再次全套重跑或推进下一功能，未改任何产品/测试源码。先保全双轨及候选分析，后续定向诊断/测试seam需最小设计独审；生产600ms、原断言/取消/清理/来源门不放宽。见[补验分析](validation/capture-finalization-root-cause.md)/[完整证据](test-evidence/2026-10-21-core-post-fix-signoff.json)。Windows/P6/P7/画质/250600等未验保持，无main/强推/部署/用户电脑/真实模型/费用权限凭据或依赖许可变化。
+
+
+## 2026-10-21 · SelectionBroker 599ms测试双计时机制定位及最小注入
+
+从269dd3720c1f0288012509c1abc9f8fa7ea582a0核clean/远端0/0/单writer，正常dev/core-selection-deadline，先独审。原完整Core2070P1F的599失败原件保留，不倒推735ms历史阶段。复用同theory+原Start屏障确定性证明：Start已进入未返，fake0/hook未到，真实timer先HardTimeout；r02反例1P捕获原错误期望且实际child退出，非599自然通过。r01诊断末尾查询已Dispose Process导致0P1F，准确源/日志保全，独立witness修正不冒充产品红绿。
+
+唯一产品差异为internal init测试deadline arm；null默认仍原CancelAfter，public构造/250/600/remaining/来源/取消/实际退出门保持。原599/600/601断言不改，手动deadline核arm1/due600/无回调；新增fake<600 startup/final fire核同CTS取消/空交付/实际清零及原owner结算。独立5s测试防挂guard触发只能令断言失败，原Capture任务与body/cleanup错误均保全。最终相关128P=原125全名多重集+新3、App交叉0W/E，820保护全真，独立源码ACK；未重跑全Core，不称完整P6/P7通过。详见[定位与合同](validation/selection-deadline-root-cause.md)/[原件证据](test-evidence/2026-10-21-selection-deadline-root-cause.json)。Windows/真实250600/画质等未验及原安全边界保持，无新权限费用依赖许可/用户电脑模型/main强推部署。

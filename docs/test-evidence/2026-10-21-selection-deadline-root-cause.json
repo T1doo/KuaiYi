@@ -1,0 +1,463 @@
+{
+  "date": "2026-10-21",
+  "base_sha": "269dd3720c1f0288012509c1abc9f8fa7ea582a0",
+  "branch": "dev/core-selection-deadline",
+  "single_writer": "root; one worktree; existing reviewer read-only; no old writer resumed/unknown locks or processes removed",
+  "environment": "designated saved Linux; SDK10.0.402/runtime10.0.13; original approved locks",
+  "historical_failure": {
+    "testedFixedHead": "00f80840b8dede4019208dc0f4d8f2f60b7ce90a",
+    "fullCore": "2070P1F/2071/0skip",
+    "trxSha256": "834a792816769497faf0ba1daa92e86b7365690003d2e2f196c4f07a73168b40",
+    "failure": "599 expectedSuccess actualHardTimeout, first Equal at line26, duration0.7353269s",
+    "limits": "No hook/starter phase observations in that old run; do not infer a unique historical stage/root cause from total time"
+  },
+  "confirmed_current_mechanism": "Fake MonotonicClock controls timestamp/UTC but real linked CTS.CancelAfter remains active. Same original599 expectation plus held originalStart deterministically returnsHardTimeout at fake0/hookFalse/EnteredTrue/ReturnedFalse before child creation; current controlled phase is startup. This is an unisolated test-clock assumption, not a proven default-production deadline defect.",
+  "proof": {
+    "r02": "1P expected-counterexample test captures original EqualException; HardTimeout/hookFalse/fake0/real629.7335ms/Starts0/EnteredTrue/ReturnedFalse/ExitUnconfirmed; independent same-child witness verifies actual exit after original owner settles",
+    "r01": "0P1F final error is diagnostic querying disposed Process; old599 EqualException was separately logged/captured. Accurate source/log/TRX preserved; not product red/green",
+    "production_unchanged_during_r01_r02": "run/proof-product-source.json"
+  },
+  "minimal_change": "init-only internal ArmDeadlineForTest replaces only arm expression; null default remains exact originalCancelAfter(remaining). Public ctor/remaining/<=0/HardBudget600/CheckDelivery>=600/meta250 and source/cancel/cleanup unchanged. Existing599/600/601 assertions remain; unit timer is controlled explicitly rather than relying on clock-only injection. Real timer tests stay default.",
+  "test_contract": {
+    "boundary_three": "manual arm exactlyonce/due600/no callback; fake599Success/600601HardTimeout; original text/hook/payloadzero/owner assertions kept",
+    "new_three": "default real-timer startup counterexample explicitly null; manualfire startup/final at fake0/599 uses same originalCTS.Cancel; HardTimeout/empty/noObservation/payloadzero/final owner settlement",
+    "test_guard": "5s external test cancellation only for broken synthetic fixture, cannot make original boundary result pass; cancel guard, always release same originalStart, join same Capture Task, then ownerDispose; body/cleanup errors retained",
+    "manual_controller": "synchronous sequential one-shot, no background fire, disarmed at Capture return/cleanup entrance; no late Cancel of disposed CTS"
+  },
+  "commands": [
+    {
+      "name": "r01-held-start-real-timer",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~SelectionBrokerProcessTests.HeldStartupProvesRealTimerCanRejectTheOriginal599ExpectationBeforeItsHook",
+        "--logger",
+        "trx;LogFileName=r01-held-start-real-timer.trx",
+        "--results-directory",
+        "artifacts/selection-deadline-root-cause"
+      ],
+      "exitCode": 1
+    },
+    {
+      "name": "r02-real-timer-proof",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~SelectionBrokerProcessTests.HeldStartupProvesRealTimerCanRejectTheOriginal599ExpectationBeforeItsHook",
+        "--logger",
+        "trx;LogFileName=r02-real-timer-proof.trx",
+        "--results-directory",
+        "artifacts/selection-deadline-root-cause"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "r03-controlled-deadline",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback|FullyQualifiedName~HeldStartupProvesRealTimerCanRejectTheOriginal599ExpectationBeforeItsHook|FullyQualifiedName~ControlledTimerStillRejectsStartupOrFinalDeliveryBeforeTheFakeAbsoluteBoundary",
+        "--logger",
+        "trx;LogFileName=r03-controlled-deadline.trx",
+        "--results-directory",
+        "artifacts/selection-deadline-root-cause"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "r04-final-related",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "--filter",
+        "FullyQualifiedName~SelectionBroker|FullyQualifiedName~SelectionBoundaryMarker|FullyQualifiedName~SelectionPhaseTiming|FullyQualifiedName~SelectionProgress|FullyQualifiedName~SelectionSoftBudgetBoundary|FullyQualifiedName~HostTermination|FullyQualifiedName~CaptureHost",
+        "--logger",
+        "trx;LogFileName=r04-final-related.trx",
+        "--results-directory",
+        "artifacts/selection-deadline-root-cause"
+      ],
+      "exitCode": 0,
+      "seconds": 38.978
+    },
+    {
+      "name": "r05-app-cross-build",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "build",
+        "src/KuaiYi.App/KuaiYi.App.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "-nodeReuse:false",
+        "-p:UseSharedCompilation=false",
+        "-p:EnableWindowsTargeting=true"
+      ],
+      "exitCode": 0,
+      "seconds": 13.838
+    }
+  ],
+  "results": {
+    "original-full-core-fixed-head.trx": {
+      "counts": {
+        "total": "2071",
+        "executed": "2071",
+        "passed": "2070",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "results": 2071,
+      "sha256": "834a792816769497faf0ba1daa92e86b7365690003d2e2f196c4f07a73168b40",
+      "failed": [
+        {
+          "name": "KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(elapsed: 599, expected: Success)",
+          "message": "Assert.Equal() Failure: Values differ\nExpected: Success\nActual:   HardTimeout",
+          "stack": "   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(Int32 elapsed, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 26\n   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(Int32 elapsed, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 26\n--- End of stack trace from previous location ---"
+        }
+      ]
+    },
+    "r01-held-start-real-timer.trx": {
+      "counts": {
+        "total": "1",
+        "executed": "1",
+        "passed": "0",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "results": 1,
+      "sha256": "82a838467baff61b49769e7084ea255391f294cc293764ae75c5bfe834744290",
+      "failed": [
+        {
+          "name": "KuaiYi.Core.Tests.SelectionBrokerProcessTests.HeldStartupProvesRealTimerCanRejectTheOriginal599ExpectationBeforeItsHook",
+          "message": "System.InvalidOperationException : No process is associated with this object.",
+          "stack": "   at System.Diagnostics.Process.EnsureState(State state)\n   at System.Diagnostics.Process.get_HasExited()\n   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.HeldStartupProvesRealTimerCanRejectTheOriginal599ExpectationBeforeItsHook() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 56\n--- End of stack trace from previous location ---"
+        }
+      ]
+    },
+    "r02-real-timer-proof.trx": {
+      "counts": {
+        "total": "1",
+        "executed": "1",
+        "passed": "1",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "results": 1,
+      "sha256": "71e9d6ed9ae21085b0330fcda767834a1db6ca674ba7a78252d9cc74102b54f8",
+      "failed": []
+    },
+    "r03-controlled-deadline.trx": {
+      "counts": {
+        "total": "6",
+        "executed": "6",
+        "passed": "6",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "results": 6,
+      "sha256": "d036e3a49a44f5d070337129fe9da543d4a88f209d32830c29419d69ea26fadf",
+      "failed": []
+    },
+    "r04-final-related.trx": {
+      "counts": {
+        "total": "128",
+        "executed": "128",
+        "passed": "128",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "results": 128,
+      "sha256": "0b0e9db43080f051ff5b54f6cff96ddc1081867b55788435a6caa6f414475b18",
+      "failed": []
+    }
+  },
+  "final": {
+    "relatedCore": 128,
+    "oldRelatedPreserved": 125,
+    "newOnly": 3,
+    "failed": 0,
+    "skipped": 0,
+    "appCrossBuild": "0W/0E",
+    "fullCoreRerun": false,
+    "providerCodecRerun": false
+  },
+  "test_name_preservation": {
+    "filterScope": "FullyQualifiedName before display arguments; two InstalledRoleFiles cases whose parameter text contains CaptureHost are outside filter",
+    "oldSelectedFromFullCore": 125,
+    "finalRelated": 128,
+    "missingOld": [],
+    "newOnly": [
+      "KuaiYi.Core.Tests.SelectionBrokerProcessTests.ControlledTimerStillRejectsStartupOrFinalDeliveryBeforeTheFakeAbsoluteBoundary(startup: False)",
+      "KuaiYi.Core.Tests.SelectionBrokerProcessTests.ControlledTimerStillRejectsStartupOrFinalDeliveryBeforeTheFakeAbsoluteBoundary(startup: True)",
+      "KuaiYi.Core.Tests.SelectionBrokerProcessTests.HeldStartupProvesRealTimerCanRejectTheOriginal599ExpectationBeforeItsHook"
+    ]
+  },
+  "protection": {
+    "count": 820,
+    "allEqual": true,
+    "catalog": "run/protection.json",
+    "productKernelExactWhenOnlyTestSeamRemoved": true,
+    "originalBoundaryAssertionBlockRetained": true
+  },
+  "source_hashes": {
+    "src/KuaiYi.NativeHost/SelectionBrokerClient.cs": "999548459a99771319adcccc9bda0b3ba0a7cddd4b2f8ceafc33b4f2db11fa5d",
+    "tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs": "545cde4813bcd6f28e88b0027967fcd9aef52cf5eb107b4d6ffc55759314252d",
+    "docs/validation/selection-deadline-root-cause.md": "a4b8d6c12d31697676f2d0bbba8f2cb242aeb2b863da28176f06a1d37b8a2098",
+    "docs/progress.md": "99d850ba1ecc1e5ee0c9df696ce62f201f82f0d662d72ecc0406f81afdd8f943",
+    "docs/acceptance-report.md": "dbfa7f959d2ba5b6bc6f1e4616135d2c7993c1740f9b87f54ee78961ec37b774"
+  },
+  "dll_inventory": {
+    "count": 330,
+    "catalog": "run/final-dll-inventory.json",
+    "scope": "FinalRelease inventory; not all DLLs executed; test closure/fixtures and App crossbuild are only actual validations"
+  },
+  "independent_review": "Design/exact diff/current proof/final source limited read-onlyACK, no definite P1/P2; final evidence separately checked; reviewer did not test/build/write",
+  "not_run": [
+    "new fullCore/2074 acceptance",
+    "Provider/Codec suites",
+    "Windows native selection/WPF/OLE/OCR/installed identity",
+    "real250600/quality/600MiB",
+    "fullP6/P7/Beta/106 acceptance; historical unobserved phases remain unavailable"
+  ],
+  "constraints": [
+    "no production timeout/250600/source/password/integrity/cancel/exit relaxation",
+    "no sleep, allowHardTimeout for599, skip, removed assertion, warmup/rerun loop",
+    "no dependency/license/credential/cost/securitypermissions/CI/main/forcepush/deploy/userdesktop/privateinputs/live models",
+    "PackageHold/production image reuse Off/WebP odd rejected"
+  ],
+  "archive": {
+    "path": "docs/test-evidence/2026-10-21-selection-deadline-root-cause-originals.zip",
+    "bytes": 838996,
+    "sha256": "552a3848021e39be077665a0fd89b8123563e7e3f51b3c83f3705b0bdf139f78",
+    "entries": 34
+  },
+  "archive_members": {
+    "run/SelectionBrokerClient.before.cs": {
+      "bytes": 15873,
+      "sha256": "2b2330ecaedf9ed27fd5a745a662f632b73a6d3b9d201d40a38a6b90d8d4bf59"
+    },
+    "run/SelectionBrokerProcessTests.before.cs": {
+      "bytes": 20844,
+      "sha256": "c6d6c8cc0eb3f15fd3240559cb98d442e25b447a880113285649b5e507cde1d6"
+    },
+    "run/commands.json": {
+      "bytes": 3235,
+      "sha256": "90948dd8a76e43fdb82b4fec3702baad0fafcceda55f646f61e6c0570a91e9a6"
+    },
+    "run/final-check-source-hashes.json": {
+      "bytes": 251,
+      "sha256": "a493d925cf7d6b912e0ef63f207368f00ecf9a3b1e5775ba5b70d504f5f88093"
+    },
+    "run/final-commands.json": {
+      "bytes": 1178,
+      "sha256": "320575b0ae0ad203db89921981571b669a119443a93f001bd366e7e07ca7bbe2"
+    },
+    "run/final-dll-inventory.json": {
+      "bytes": 54877,
+      "sha256": "7f1871c6caf7713c0efbc23e1acf877a5099c958e05139a79d4c9ed335df5e30"
+    },
+    "run/final-source-hashes.json": {
+      "bytes": 562,
+      "sha256": "6fd9699aee0c0f9de0ba1a27c3e51c918fa868e764fdff03e841de5aa816563a"
+    },
+    "run/original-failure-UnitTestResult.xml": {
+      "bytes": 1378,
+      "sha256": "edbde79110be4c7002e49b0477ea0bab544b5b7236200bfec54619e820e390ef"
+    },
+    "run/original-full-core-fixed-head.log": {
+      "bytes": 3079,
+      "sha256": "1a71f6bb3261b77dcb9a4ef72aee3970aa58c716d459f9cf3979c598e5e392bc"
+    },
+    "run/original-full-core-fixed-head.trx": {
+      "bytes": 2955169,
+      "sha256": "834a792816769497faf0ba1daa92e86b7365690003d2e2f196c4f07a73168b40"
+    },
+    "run/original-full-core-result.json": {
+      "bytes": 1139,
+      "sha256": "ad53b60748cc1224e8e307f3c940497e2bb81670b8f0691b0463a2bc7e8d4fd4"
+    },
+    "run/proof-product-source.json": {
+      "bytes": 230,
+      "sha256": "e394cea4ebe468eacc380b0b8a6170ec5acb2dd52c8e05de80b4c23a3b7d30ab"
+    },
+    "run/protection.json": {
+      "bytes": 147096,
+      "sha256": "b15c37a17f822a705beedf32833fae362e2815e8490b4265b1680c3d72edbbbb"
+    },
+    "run/r01-diagnostic-source.cs": {
+      "bytes": 23846,
+      "sha256": "c566b3af9310a8045367d0ae3ebb89094bcd51eb729df005f89f525f93cf9d43"
+    },
+    "run/r01-held-start-real-timer.log": {
+      "bytes": 3755,
+      "sha256": "50f552b054e034d69bd845f0b2a0be607ce94155891d71b042667bdbc56f221c"
+    },
+    "run/r01-held-start-real-timer.trx": {
+      "bytes": 6501,
+      "sha256": "82a838467baff61b49769e7084ea255391f294cc293764ae75c5bfe834744290"
+    },
+    "run/r02-proof-source.cs": {
+      "bytes": 24150,
+      "sha256": "3c11b589067d79825dea55973a24e97a791826a368680e15d651b79e7531e99e"
+    },
+    "run/r02-real-timer-proof.log": {
+      "bytes": 2082,
+      "sha256": "44a6415f6652d16793c7c572193c23a7599ca55d6df9f248497095c171d5687a"
+    },
+    "run/r02-real-timer-proof.trx": {
+      "bytes": 3865,
+      "sha256": "71e9d6ed9ae21085b0330fcda767834a1db6ca674ba7a78252d9cc74102b54f8"
+    },
+    "run/r03-controlled-deadline.log": {
+      "bytes": 2082,
+      "sha256": "1834653febdb17faa87bbc1b1732620ef338f46d7eae4332dec15a0a97897b54"
+    },
+    "run/r03-controlled-deadline.trx": {
+      "bytes": 12162,
+      "sha256": "d036e3a49a44f5d070337129fe9da543d4a88f209d32830c29419d69ea26fadf"
+    },
+    "run/r03-controlled-source.cs": {
+      "bytes": 26766,
+      "sha256": "10db4cd7e5031287b299d83217abfafb9ee504a00a9e31d5096e0e5f3574c94b"
+    },
+    "run/r04-final-related.log": {
+      "bytes": 2077,
+      "sha256": "80c1292fcb50b5145a590462a42aa3cf6720aa6a8aeb79e70df065d8b007d3aa"
+    },
+    "run/r04-final-related.trx": {
+      "bytes": 186168,
+      "sha256": "0b0e9db43080f051ff5b54f6cff96ddc1081867b55788435a6caa6f414475b18"
+    },
+    "run/r05-app-cross-build.log": {
+      "bytes": 888,
+      "sha256": "85d67e73cd90a8fea75a1b302ec034297faaec7b819564457d501ba81f13adc1"
+    },
+    "run/review.txt": {
+      "bytes": 815,
+      "sha256": "63545afc813dc8e5239237fbfe97e0c733351b8de4c82ebb9849753d1647be25"
+    },
+    "run/run-final-related.py": {
+      "bytes": 1602,
+      "sha256": "2051f93a32e42ab07488cc43cd93982d878d62e296482cb4f41f1ab112d06ee1"
+    },
+    "run/seal.py": {
+      "bytes": 9281,
+      "sha256": "038014d42be34700761fc927ce40d2b539f6382e9b4a163596b0a3bf7cdfbea7"
+    },
+    "run/test-name-preservation.json": {
+      "bytes": 676,
+      "sha256": "da69eccfe08f79cd4fc32f5328f0b517bf03a9c18bf3a7fb0449ac80ec41aed3"
+    },
+    "final-source/src/KuaiYi.NativeHost/SelectionBrokerClient.cs": {
+      "bytes": 16032,
+      "sha256": "999548459a99771319adcccc9bda0b3ba0a7cddd4b2f8ceafc33b4f2db11fa5d"
+    },
+    "final-source/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs": {
+      "bytes": 28111,
+      "sha256": "545cde4813bcd6f28e88b0027967fcd9aef52cf5eb107b4d6ffc55759314252d"
+    },
+    "final-source/docs/validation/selection-deadline-root-cause.md": {
+      "bytes": 4923,
+      "sha256": "a4b8d6c12d31697676f2d0bbba8f2cb242aeb2b863da28176f06a1d37b8a2098"
+    },
+    "final-source/docs/progress.md": {
+      "bytes": 304432,
+      "sha256": "99d850ba1ecc1e5ee0c9df696ce62f201f82f0d662d72ecc0406f81afdd8f943"
+    },
+    "final-source/docs/acceptance-report.md": {
+      "bytes": 39401,
+      "sha256": "dbfa7f959d2ba5b6bc6f1e4616135d2c7993c1740f9b87f54ee78961ec37b774"
+    }
+  }
+}
