@@ -1,0 +1,325 @@
+{
+  "date": "2026-10-21",
+  "tested_fixed_head": "e2cbe6f597fb628e98ee939e6ecd67a271fddbcc",
+  "report_branch": "dev/p7-fixed-signoff",
+  "single_writer": "root; one worktree; reviewer read-only; unknown locks/processes untouched",
+  "environment": "designated saved Linux; approved SDK10.0.402/runtime10.0.13; original locks, no restore/dependency/license changes",
+  "status": "Core Fail, Codec Pass; exactly one full run of each suite at same fixede2 head; no repeated full/targeted diagnostic run",
+  "core": {
+    "fixedHead": "e2cbe6f597fb628e98ee939e6ecd67a271fddbcc",
+    "command": [
+      "python3",
+      "-B",
+      "scripts/session-sdk.py",
+      "test",
+      "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-nodeReuse:false",
+      "-p:UseSharedCompilation=false",
+      "--logger",
+      "trx;LogFileName=full-core-fixed-head.trx",
+      "--results-directory",
+      "/workspace/KuaiYi/artifacts/p7-fixed-signoff"
+    ],
+    "started": "2026-10-21T04:04:09.056443+00:00",
+    "seconds": 94.491,
+    "exitCode": 1,
+    "counts": {
+      "total": "2091",
+      "executed": "2091",
+      "passed": "2090",
+      "failed": "1",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "originalFailureCount": 1,
+    "sourceCount": 812,
+    "sourcesBeforeAfterEqual": true,
+    "headStillFixed": true,
+    "dirtyAfter": "",
+    "trxSha256": "6bd8815b2ac71fad21d92cda5d5ebb0be899e1325c6fea6c43ca52286587d8f0",
+    "dllBefore": 330,
+    "dllAfter": 330,
+    "dllChanged": 45
+  },
+  "codec": {
+    "fixedHead": "e2cbe6f597fb628e98ee939e6ecd67a271fddbcc",
+    "command": [
+      "python3",
+      "-B",
+      "scripts/session-sdk.py",
+      "test",
+      "tests/KuaiYi.Codec.Tests/KuaiYi.Codec.Tests.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-nodeReuse:false",
+      "-p:UseSharedCompilation=false",
+      "--logger",
+      "trx;LogFileName=full-codec-fixed-head.trx",
+      "--results-directory",
+      "/workspace/KuaiYi/artifacts/p7-fixed-signoff"
+    ],
+    "started": "2026-10-21T04:06:23.613539+00:00",
+    "seconds": 34.272,
+    "exitCode": 0,
+    "counts": {
+      "total": "481",
+      "executed": "481",
+      "passed": "481",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "originalFailureCount": 0,
+    "sourceCount": 812,
+    "sourcesBeforeAfterEqual": true,
+    "headStillFixed": true,
+    "dirtyAfter": "",
+    "trxSha256": "9190fbdbd3738b6e42efa992f3c9b52b7704760f10d379369b53dffc7b4482d9",
+    "dllBefore": 330,
+    "dllAfter": 330,
+    "dllChanged": 8
+  },
+  "failure": {
+    "name": "KuaiYi.Core.Tests.InstallationApplicationControlTests.CloseRetainsTheOriginalBlockedCancellationWorkAndReaderUntilBothActuallySettle",
+    "duration": "00:00:00.2255300",
+    "message": "System.IO.IOException : Broken pipe\n---- System.Net.Sockets.SocketException : Broken pipe",
+    "stack": "   at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 source, CancellationToken cancellationToken)\n   at System.IO.StreamWriter.<FlushAsyncInternal>g__Core|79_0(Boolean flushStream, Boolean flushEncoder, CancellationToken cancellationToken)\n   at KuaiYi.Core.Tests.InstallationApplicationControlTests.Peer.Send(String command) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 42\n   at KuaiYi.Core.Tests.InstallationApplicationControlTests.Peer.Ping() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 44\n   at KuaiYi.Core.Tests.InstallationApplicationControlTests.CloseRetainsTheOriginalBlockedCancellationWorkAndReaderUntilBothActuallySettle() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 183\n   at KuaiYi.Core.Tests.InstallationApplicationControlTests.CloseRetainsTheOriginalBlockedCancellationWorkAndReaderUntilBothActuallySettle() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 186\n   at KuaiYi.Core.Tests.InstallationApplicationControlTests.CloseRetainsTheOriginalBlockedCancellationWorkAndReaderUntilBothActuallySettle() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 187\n--- End of stack trace from previous location ---\n----- Inner Stack Trace -----\n   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.CreateException(SocketError error, Boolean forAsyncThrow)\n   at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 source, CancellationToken cancellationToken)\n   at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)\n   at System.IO.StreamWriter.<FlushAsyncInternal>g__Core|79_0(Boolean flushStream, Boolean flushEncoder, CancellationToken cancellationToken)\n   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)\n   at System.IO.StreamWriter.FlushAsync()\n   at KuaiYi.Core.Tests.InstallationApplicationControlTests.Peer.Send(String command) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 42\n   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)\n   at KuaiYi.Core.Tests.InstallationApplicationControlTests.Peer.Send(String command)\n   at KuaiYi.Core.Tests.InstallationApplicationControlTests.Peer.Ping() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 44\n   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)\n   at KuaiYi.Core.Tests.InstallationApplicationControlTests.Peer.Ping()\n   at KuaiYi.Core.Tests.InstallationApplicationControlTests.CloseRetainsTheOriginalBlockedCancellationWorkAndReaderUntilBothActuallySettle() in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs:line 183\n   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)\n   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)\n   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)\n   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext()\n   at System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(IAsyncStateMachineBox box, Boolean allowInlining)\n   at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)\n   at System.Threading.Tasks.Task.DelayPromise.CompleteTimedOut()\n   at System.Threading.TimerQueue.FireNextTimers()\n   at System.Threading.ThreadPoolWorkQueue.Dispatch()\n   at System.Threading.PortableThreadPool.WorkerThread.WorkerThreadStart()\n   at System.Threading.Thread.StartCallback()\n--- End of stack trace from previous location ---\n   at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 source, CancellationToken cancellationToken)",
+    "stdout": "PUBLIC_APP_CONTROL_CHILD actualExit=0 driverSha256=8E2CA817C5977AECEA581F83042079DDC42559EF17CBF0C54E67FE7ACCE89722 coreSha256=134FB5350AB17E9745CE564334FA28E050BD00C540EBAC1335CAD83E16D90522 originalIO=Settled",
+    "original": "run/core-failure-001.xml",
+    "sha256": "a24fc7aeedebd13dfd86387609b0bfed8bf3361c7f6d6938397ec0e6e32222c5",
+    "exact_trx_substring": true
+  },
+  "analysis": "Original full Core failure: old InstallationApplicationControlTests.CloseRetainsTheOriginalBlockedCancellationWorkAndReaderUntilBothActuallySettle, Broken pipe during Peer.Send42/Ping44/body183,225.530ms. The cleanup stdout records the exact test-owned child exit0 and original IO settled, not the original Read/READY/callback phase. The test file is unchanged from d6/e2; no image request in this case. Candidate only: outward READY precedes the Send/Flush await continuation; a close-induced OCE there can skip the first command Read and therefore the held callback. Merely cancelling before registration is not sufficient: if HeldCancelInput.ReadAsync is entered, Register on an already-cancelled token invokes the callback synchronously. Need prove Read did not enter/registration did not complete. Production still caches and joins exact stop.CancelAsync and original loop; independent image cancellation has no registrations here. This original failure does not prove the image patch lost a join or establish the unique historical cause. Minimal next diagnostic, not implemented: fixture-only command-read readArmed signal after cancellation registration (exclude Admit's None token); record readyWrite/return, callback enter/return, exact loop/settlement task state; test waits WAIT_READ_ARMED before CLOSE without changing assertions/budgets. For a controlled counterexample, hold original READY send return after real bytes/flush, close/cancel, then prove Read/callback absent and actual clean exit; do not backfill the historical trace. No targeted/full rerun or source change this step.\n",
+  "next_warm_step": "After this red gate is diagnosed, the smallest warm-instance step is an independently reviewed, bounded single-request admission lease at the original live installation controller. It must retain its actual Start-returned child and original control stream; no PID adoption/termination and no unverified Show-payload forwarding. Authenticate both connected OS process peers using actual retained handles/creation identity, same user/session and existing integrity policy, selected-generation canonical role path/catalog checks performed off UI, plus exact live owner/launch/accepted records and held leases. A fingerprint or Show broadcast only correlates/notifies; neither grants authority. Bind a fresh per-connection challenge, generation+controller launch+request identity, expiry and UI epoch; consume once, reject busy/replay/disconnect/stale/lock/upgrade and join original read/cancel/file owner tasks. Keep cold IMAGE's session one-shot guard; do not merely permit a second IMAGE or widen browser NativeHost origins/roles to accept App CLI. Only after authentication dispatch the same file preview and explicit Off/OCR/send confirmation. This is a design proposal only: no new endpoint/permission, auth implementation, credentials, feature or Windows acceptance created.\n",
+  "case_preservation": {
+    "previousCore": 2074,
+    "fixedCore": 2091,
+    "missingOldCore": [],
+    "newCoreCases": [
+      "KuaiYi.Core.Tests.InstallationImageOfferTests.CanonicalOfferRoundTripsUnicodeAndBindsTheExactPathAndRequest",
+      "KuaiYi.Core.Tests.InstallationImageOfferTests.Base64WhitespaceAliasesAreRejectedEvenWhenDecodedJsonIsIdentical(alias: \"middle\")",
+      "KuaiYi.Core.Tests.InstallationSessionTests.ConsumedImageCannotBeReplayedReplacedOrConvertedToHandoff(fault: \"duplicate\")",
+      "KuaiYi.Core.Tests.InstallationSessionTests.ConsumedImageCannotBeReplayedReplacedOrConvertedToHandoff(fault: \"new-request\")",
+      "KuaiYi.Core.Tests.InstallationSessionTests.ConsumedImageCannotBeReplayedReplacedOrConvertedToHandoff(fault: \"handoff\")",
+      "KuaiYi.Core.Tests.InstallationImageOfferTests.OversizedAndNoncanonicalJsonCannotBecomeAnOffer",
+      "KuaiYi.Core.Tests.InstallationSessionTests.ColdImageUsesTheHealthyOwnedChildOnceAndTheOriginalCleanSessionExit",
+      "KuaiYi.Core.Tests.InstallationSessionTests.InvalidBoundImageNeverQueuesAndRetainsTheOriginalFailureFence(fault: \"proof\")",
+      "KuaiYi.Core.Tests.InstallationImageOfferTests.Base64WhitespaceAliasesAreRejectedEvenWhenDecodedJsonIsIdentical(alias: \"after\")",
+      "KuaiYi.Core.Tests.InstallationSessionTests.InvalidBoundImageNeverQueuesAndRetainsTheOriginalFailureFence(fault: \"oversize\")",
+      "KuaiYi.Core.Tests.InstallationSessionTests.ControlEofRevokesTheQueuedImageWhileTheOriginalCloseCleanupIsStillHeld",
+      "KuaiYi.Core.Tests.InstallationSessionTests.InvalidBoundImageNeverQueuesAndRetainsTheOriginalFailureFence(fault: \"record\")",
+      "KuaiYi.Core.Tests.InstallationSessionTests.InvalidBoundImageNeverQueuesAndRetainsTheOriginalFailureFence(fault: \"unknown\")",
+      "KuaiYi.Core.Tests.InstallationSessionTests.InvalidBoundImageNeverQueuesAndRetainsTheOriginalFailureFence(fault: \"launch\")",
+      "KuaiYi.Core.Tests.InstallationSessionTests.CleanStopMustJoinTheOriginalImageCancellationCallbackBeforeAttestingExit",
+      "KuaiYi.Core.Tests.InstallationImageOfferTests.Base64WhitespaceAliasesAreRejectedEvenWhenDecodedJsonIsIdentical(alias: \"newline\")",
+      "KuaiYi.Core.Tests.InstallationImageOfferTests.Base64WhitespaceAliasesAreRejectedEvenWhenDecodedJsonIsIdentical(alias: \"before\")"
+    ],
+    "previousCodec": 481,
+    "fixedCodec": 481,
+    "codecMultisetUnchanged": true
+  },
+  "input_provenance": {
+    "count": 812,
+    "all_four_catalogs_equal": true,
+    "current_equal_at_seal": true
+  },
+  "scope": "Only evidence/report changes after runs; product/test/SDK/locks unchanged. No new feature or diagnosis code.",
+  "dll_scope": "330 Release DLLs before/after each suite;45 Core and8 Codec changes are separate normal-build deltas, not summed. Catalogs/deltas and generated exacte2 AssemblyInfo retained. Not all inventory entries executed.",
+  "independent_review": "Read-only final source/originals/evidence ACK: ZIP38 CRC and all member sizes+SHA,4x812 input catalogs/current/fixede2 git bytes,Core2090P1F/2091 andCodec481P0F,exact failure substring+all fields,oldCore2074+17/Codec481 multiset,330 inventories and separate45/8 deltas/current,4 exacte2 AssemblyInfo,7fixed sources/3reports,unchanged prior archive and exactly5 docs/evidence diffs all verified. Core Fail/candidate uncertainty/warm proposal/Windows limits retained. Local private Library success receipt/size/metadata helper exit0 inspected; reviewer did not download Library copy or test/build/write.",
+  "library": "Private originals create confirmed succeeded;1053883-byte ZIP saved with original filename and local Library identity persisted. Confirmed Library ID returned separately; no private download URL or Library identifiers added to git.",
+  "not_run": [
+    "second Core/Codec full run or targeted diagnosis/fix",
+    "warm-instance authentication implementation/new endpoint/permissions",
+    "real Windows menus-to-WPF/fileWorker/installation-source identity/OLE/OCR/quality/250600/600MiB/fullP6P7/106/Beta",
+    "live model/user desktop/new credentials/costs/licenses/security network permissions/CI/main/forcepush/deploy"
+  ],
+  "report_source_hashes": {
+    "docs/progress.md": "b2c104e65e5b3c4ac0ca6ce1aeaaff2898a2fde4f1241d74d929d114723e59ba",
+    "docs/acceptance-report.md": "8b262b00e64ae69c78a748a416e550b48240d4bff390dc1b4d90450f667fc20b",
+    "docs/validation/shell-image-preview.md": "cf5b0460e708a11cbb3d6366b0daab1c22b99bca3a486bf2e8865fb7aded0c8d"
+  },
+  "archive": {
+    "path": "docs/test-evidence/2026-10-21-p7-fixed-signoff-originals.zip",
+    "bytes": 1053883,
+    "sha256": "c51f3de186a170c947e55a76ee8324d2ed421c7b76d0890a5d0a3e35155f1f5b",
+    "entries": 38
+  },
+  "archive_members": {
+    "run/case-preservation.json": {
+      "bytes": 2348,
+      "sha256": "39dea990bf3ce183347633116c5f1aeffae53806058415581d9eeff418ef52cc"
+    },
+    "run/codec-command.json": {
+      "bytes": 505,
+      "sha256": "38e3cd493cf0bb77038f30785cb17515235b8b2d4fdfd149a5e3ac767d71e92d"
+    },
+    "run/codec-dll-changes.json": {
+      "bytes": 1948,
+      "sha256": "6121df3b927899e15ac3e6c65a4a169057906d87723fcdda59e03b91bec394b3"
+    },
+    "run/codec-dlls-after.json": {
+      "bytes": 54877,
+      "sha256": "c3a0a92a7238154a3a95e68d226c799447c79df5077afcebf40df005aa73748b"
+    },
+    "run/codec-dlls-before.json": {
+      "bytes": 54877,
+      "sha256": "802022d9a3a1588b7777e1f421fade8580500351ca473ffbaab66ea14cb8b14c"
+    },
+    "run/codec-result.json": {
+      "bytes": 1190,
+      "sha256": "5ec8ce0dcf0b539256c265970d90ea743ef4516fa077c52044efa3e2c9088ed3"
+    },
+    "run/codec-sources-after.json": {
+      "bytes": 95816,
+      "sha256": "0a149df0b5845ab77b990628b799ebda0e26179a498effd5801a94ead8914059"
+    },
+    "run/codec-sources-before.json": {
+      "bytes": 95816,
+      "sha256": "0a149df0b5845ab77b990628b799ebda0e26179a498effd5801a94ead8914059"
+    },
+    "run/codec.log": {
+      "bytes": 915,
+      "sha256": "ab6a60f6c5c6fcb9e67bc46ee7b69c679cc5c2707c74f48166bcdd50190d9fb7"
+    },
+    "run/core-command.json": {
+      "bytes": 502,
+      "sha256": "c10b7118239f491ee17c4aa65f4ab79af0253ee3c35c20d510b638849c760794"
+    },
+    "run/core-dll-changes.json": {
+      "bytes": 11016,
+      "sha256": "4ce16a6e467aa2f71b7dc82b4e929b6b5191b15af791c07be0eabe056ae973e7"
+    },
+    "run/core-dlls-after.json": {
+      "bytes": 54877,
+      "sha256": "802022d9a3a1588b7777e1f421fade8580500351ca473ffbaab66ea14cb8b14c"
+    },
+    "run/core-dlls-before.json": {
+      "bytes": 54877,
+      "sha256": "3e3313e4b4616dd248ae24e92d570a51e8fcb9902873f50d00293f8ee9152664"
+    },
+    "run/core-failure-001.xml": {
+      "bytes": 5170,
+      "sha256": "a24fc7aeedebd13dfd86387609b0bfed8bf3361c7f6d6938397ec0e6e32222c5"
+    },
+    "run/core-result.json": {
+      "bytes": 1191,
+      "sha256": "4688c595f1254c51cba336ed463ab4fd9590bf76a10912108691de2180a42d61"
+    },
+    "run/core-sources-after.json": {
+      "bytes": 95816,
+      "sha256": "0a149df0b5845ab77b990628b799ebda0e26179a498effd5801a94ead8914059"
+    },
+    "run/core-sources-before.json": {
+      "bytes": 95816,
+      "sha256": "0a149df0b5845ab77b990628b799ebda0e26179a498effd5801a94ead8914059"
+    },
+    "run/core.log": {
+      "bytes": 6834,
+      "sha256": "313231cf337fa464aee6b087d7d2130ddf60051cf5776ee39d1ba7708b227bd7"
+    },
+    "run/failure-analysis.txt": {
+      "bytes": 1598,
+      "sha256": "1a6743e4cf638f43d564bdb750d5daa011cf049c9c80804a9b42d66265e738f9"
+    },
+    "run/full-codec-fixed-head.trx": {
+      "bytes": 696019,
+      "sha256": "9190fbdbd3738b6e42efa992f3c9b52b7704760f10d379369b53dffc7b4482d9"
+    },
+    "run/full-core-fixed-head.trx": {
+      "bytes": 2996925,
+      "sha256": "6bd8815b2ac71fad21d92cda5d5ebb0be899e1325c6fea6c43ca52286587d8f0"
+    },
+    "run/obj-Codec.Tests.AssemblyInfo.cs": {
+      "bytes": 1008,
+      "sha256": "bf700ae1afebe5ed57fcd17a2444363127cd10e6890f23ec4903beb79bb21e84"
+    },
+    "run/obj-Core.AssemblyInfo.cs": {
+      "bytes": 987,
+      "sha256": "6afc56ebd8b891e60b27d4ce84d695496950373b57f34f727d7ac4fe72e49b0d"
+    },
+    "run/obj-Core.Tests.AssemblyInfo.cs": {
+      "bytes": 1005,
+      "sha256": "cecd71dca57478b97b8a2c55bcfb9e8f1f10f7056e2e3e6b96b0682828f93218"
+    },
+    "run/obj-Fixture.AssemblyInfo.cs": {
+      "bytes": 1035,
+      "sha256": "eec2235d900d6a5e79b9facdcf6e231e617195db30f537b1ccc2bbc571e0fbad"
+    },
+    "run/report-source-hashes.json": {
+      "bytes": 304,
+      "sha256": "769d6fd96944f65a64b1a0d32df3a6d4628a3a985f572ac4ebd7175a0c2941a0"
+    },
+    "run/run-once.py": {
+      "bytes": 3283,
+      "sha256": "86721bcc55c65baf2d62c5fc2e6ba9e071d4ccde55b9099e1d14e6a9dc02430e"
+    },
+    "run/warm-next-proposal.txt": {
+      "bytes": 1278,
+      "sha256": "c147660ee9395cfd56ba445a1313c9a8d733a687c5c5a7f8376fd911ef08bfcf"
+    },
+    "fixed-source/tests/KuaiYi.Core.Tests/InstallationApplicationControlTests.cs": {
+      "bytes": 24292,
+      "sha256": "0b85bf8b90e62805f72e7f3b9f5c1b63b9d93f0758ebfcd62ae422f065745fb7"
+    },
+    "fixed-source/tools/KuaiYi.SettingsStoreFixture/InstallationAppControlFixture.cs": {
+      "bytes": 12929,
+      "sha256": "4e183f7f783e09df8c1f76e58c46f836ec4c83dba1fb66bdc53d6e27d02a2339"
+    },
+    "fixed-source/tools/KuaiYi.SettingsStoreFixture/InstallationShellPort.cs": {
+      "bytes": 1871,
+      "sha256": "3d29a1b6a0bd832f141502c681cdab12894bbb5ba0aad4618f3fd2407c6a7329"
+    },
+    "fixed-source/src/KuaiYi.Core/Installation/InstallationApplicationControl.cs": {
+      "bytes": 18445,
+      "sha256": "bb07bfce296abb23236dd3bc43c47f5b9a9abc73aeea067d6082a4ac912e3883"
+    },
+    "fixed-source/src/KuaiYi.Core/Installation/InstallationControlledLaunch.cs": {
+      "bytes": 7799,
+      "sha256": "ba1c511aed5bce5a82285d7c2968a2e2107d4ea52d3f44ef1e149ad2d798de75"
+    },
+    "fixed-source/src/KuaiYi.App/InstalledImageCommands.cs": {
+      "bytes": 2186,
+      "sha256": "8510e5b1cd66b8fb3a31b1e62e2ca34d0e5aa07bc027d9322327af05d5a9fbbe"
+    },
+    "fixed-source/src/KuaiYi.App/InstallationEntry.cs": {
+      "bytes": 2798,
+      "sha256": "6ced27c92ab19bdb2dc168df4e556278e9b72a3c6114844ed5b6206b50d8b1d1"
+    },
+    "report-source/docs/progress.md": {
+      "bytes": 310659,
+      "sha256": "b2c104e65e5b3c4ac0ca6ce1aeaaff2898a2fde4f1241d74d929d114723e59ba"
+    },
+    "report-source/docs/acceptance-report.md": {
+      "bytes": 45628,
+      "sha256": "8b262b00e64ae69c78a748a416e550b48240d4bff390dc1b4d90450f667fc20b"
+    },
+    "report-source/docs/validation/shell-image-preview.md": {
+      "bytes": 7805,
+      "sha256": "cf5b0460e708a11cbb3d6366b0daab1c22b99bca3a486bf2e8865fb7aded0c8d"
+    }
+  }
+}

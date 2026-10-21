@@ -31,3 +31,12 @@ r02后产品仅增加Base64规范编码拒绝，Provider链接的命令/预览/�
 原807输入中797项逐字相同，仅10个既有文件变化，新增5个源/测试文件。SPEC、AGENTS、全部依赖锁/版本/许可、格式解码/Worker/发送/OCR/来源与密码校验、原SHA/清零/真实退出、250/600ms合同不改。WebP奇数payload拒绝、PackageHold及生产图片复用Off保持。历史失败原件不变，不回填未知历史阶段/唯一根因。
 
 真实Windows11现代菜单、实际安装身份/来源、完整CLI到WPF到文件句柄/Worker预览、OLE/COM/OCR、真人画质、250/600ms与600MiB、完整P6/P7/106例/Beta均未在本轮验收；warm-instance认证交接仍缺。未改隔离session-test编译变体入口白名单（其仍只支持既有normal/handshake），未冒充它已验证图片CLI。无新SDK/协议许可、依赖、凭据、安全网络权限、费用、用户电脑/内容、真实模型、CI运行、main修改、强推、部署或发布。
+
+
+## 后续固定e2cbe6f5一次完整签收（2026-10-21）
+
+父侧源码ACK后固定 `e2cbe6f597fb628e98ee939e6ecd67a271fddbcc` 执行一次完整Core：**2090P/1F/0skip**；独立的一次完整Codec **481P/0F/0skip**。812输入前后无改、固定HEAD/dirty0。旧Core2074案例全部保留+17新例，Codec481全名多重集与旧轮一致；不累计重复数，也不把前面的定向绿当本次完整Core绿。之前段落“未重跑”只指前轮功能交付当时。
+
+唯一失败是旧CloseRetainsTheOriginalBlockedCancellationWorkAndReaderUntilBothActuallySettle正文183在Ping写Broken pipe；原件记录225.530ms和清理actualexit0/原IO结算，没有原Read/READY阶段快照。READY不是Read已arm的屏障；若Send await被Close取消而OCE，可跳过Read，是待证候选。若Read已经进入，已取消token的Register也会同步执行持有回调，不能只把“注册较晚”当根因。未改生产/测试、未重跑Core，原stop取消Task和loop精确join仍由静态核验支持，不认定新图片代码丢join。
+
+先保全失败，最小后续诊断为fixture-only readArmed与READY返回/原回调/原Task屏障；warm最小下一步是独审原常驻controller的一次性认证请求lease，双方实际OS进程身份/live安装记录/租约、challenge+request+epoch+有效期绑定、原Task清理；指纹/Show不授予权限，不直接放宽cold IMAGE one-shot或浏览器角色权限。均未实施。[完整证据索引](../test-evidence/2026-10-21-p7-fixed-signoff.json)。P7-01、warm-instance与真实Windows端到端未验保持。

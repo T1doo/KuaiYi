@@ -213,3 +213,14 @@ Windows真实WPF/OLE/OCR、安装来源身份/现代菜单、画质、250/600ms�
 r01 Installation154P，r02完整Provider2449P（原2436全保留+13），r03交叉0W/E；独审补正Base64别名后r04 Session+Offer51P，补充r05原取消回调hold观察1P，r06最终App交叉0W/E，均0F/0skip。r05屏障早于control join，不声称缺join必红；生产精确join已静态核。各轮有重叠，不累计，r01初版源/局限保留。原807输入797项未变；产品源码最终限定ACK，reviewer只读。详见[生产差异与验证边界](validation/shell-image-preview.md)/[原件索引](test-evidence/2026-10-21-shell-image-preview.json)。
 
 P7-01仍InProgress：本轮没有Windows实机身份/现代菜单/完整CLI-WPF-fileWorker验收，没有新树完整Core/Codec重跑，上一5e95完整2074P不转记到本树。Windows/OLE/OCR/画质/250600/600MiB/完整P6P7等原未验保持；历史失败不回填。无新依赖许可/费用/权限/凭据、用户电脑/真实模型、CI/main/强推/部署。
+
+
+## 2026-10-21 · 固定e2cbe6f5完整Core/Codec签收：Core失败，Codec通过
+
+固定父侧已审HEAD `e2cbe6f597fb628e98ee939e6ecd67a271fddbcc`、clean/远端0/0/单writer，严格各一次完整Release Core和Codec。实际 **Core2090P/1F/0skip（Fail）**，**Codec481P/0F/0skip（Pass）**，不同轮不相加。812输入源在两套前后及分析后全部相同，执行后仍固定HEAD/dirty0。正常编译的Release DLL清单各330项：Core前后45项、Codec前后8项变化分别保留，不声称二进制相同或全部执行。
+
+唯一失败为既有InstallationApplicationControlTests.CloseRetainsTheOriginalBlockedCancellationWorkAndReaderUntilBothActuallySettle：225.530ms，Peer.Send42/Ping44→正文183写入Broken pipe；清理stdout记录实际child exit0/原IO已结算，原TRX没有Read/READY/callback阶段快照。旧测试文件未改。本轮无图片请求，不能据此认定图片补丁丢失join。候选为READY已外发但原Send await尚未完成，Close取消可令其OCE并跳过command Read；仅“取消早于注册”不够，因为已进入Read时Register会同步执行已取消token的回调。候选未证，不追认当次或历史唯一根因。未循环重跑/放宽断言或预算/改源码。
+
+先封失败，下一最小诊断是fixture-only的原可取消Read注册后readArmed屏障，排除Admit None token，并记录READY返回/原回调/原Task状态；不改生产门。随后warm-instance最小下一步是先独审原常驻controller的受界一次性请求lease：双方真实OS连接进程句柄/创建身份与同用户会话/原完整性策略、选中安装generation及live owner/launch/租约；新连接challenge+request+有效期+UI epoch一次消费，保留原cold IMAGE one-shot，不直接放宽第二次IMAGE或浏览器角色白名单。指纹和Show只关联/通知，不授予权限；原Off、预览/OCR/逐次发送确认与清理门保持。此项仅建议，未实现新入口/权限。
+
+[完整原件/命令/日志/TRX/逐字失败XML/812源码与DLL摘要](test-evidence/2026-10-21-p7-fixed-signoff.json)。本次后续提交只证据/报告，P7-01仍InProgress，已有实例认证转交、真实Windows现代菜单→WPF→文件Worker、安装/来源身份、OLE/OCR/画质/250600/600MiB及完整P6P7等未验不变。无新功能/依赖许可/凭据/权限/费用、用户电脑/真实模型、CI/main/强推/部署。
