@@ -1,0 +1,242 @@
+{
+  "date": "2026-10-21",
+  "tested_fixed_head": "5e95cd0b3a4b3ef7dbb5bcce889dbe5c28f0b877",
+  "report_branch": "dev/core-selection-fixed-signoff",
+  "single_writer": "root; one worktree; existing reviewer read-only; no unknown lock/process removal",
+  "environment": "designated saved Linux; approved SDK10.0.402/runtime10.0.13 and original dependency locks",
+  "status": "Pass; exactly one requested full Core run at fixed5e95; no repeated full run",
+  "result": {
+    "fixedHead": "5e95cd0b3a4b3ef7dbb5bcce889dbe5c28f0b877",
+    "command": [
+      "python3",
+      "-B",
+      "scripts/session-sdk.py",
+      "test",
+      "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-nodeReuse:false",
+      "-p:UseSharedCompilation=false",
+      "--logger",
+      "trx;LogFileName=full-core-fixed-head.trx",
+      "--results-directory",
+      "/workspace/KuaiYi/artifacts/core-selection-fixed-signoff"
+    ],
+    "started": "2026-10-21T03:29:36.137117+00:00",
+    "seconds": 103.602,
+    "exitCode": 0,
+    "counts": {
+      "total": "2074",
+      "executed": "2074",
+      "passed": "2074",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "failedOriginalResults": 0,
+    "sourceCount": 807,
+    "sourcesBeforeAfterEqual": true,
+    "headStillFixed": true,
+    "dirtyAfter": "",
+    "trxSha256": "b278056834b1f7768b96933ab43ac2bde5a673f6f149c01118de15adfd3aa0c6"
+  },
+  "input_provenance": {
+    "count": 807,
+    "before_after_equal": true,
+    "still_equal_at_seal": true
+  },
+  "test_names": {
+    "previousFull": 2071,
+    "thisFull": 2074,
+    "missingOld": [],
+    "newOnly": [
+      "KuaiYi.Core.Tests.SelectionBrokerProcessTests.ControlledTimerStillRejectsStartupOrFinalDeliveryBeforeTheFakeAbsoluteBoundary(startup: True)",
+      "KuaiYi.Core.Tests.SelectionBrokerProcessTests.HeldStartupProvesRealTimerCanRejectTheOriginal599ExpectationBeforeItsHook",
+      "KuaiYi.Core.Tests.SelectionBrokerProcessTests.ControlledTimerStillRejectsStartupOrFinalDeliveryBeforeTheFakeAbsoluteBoundary(startup: False)"
+    ]
+  },
+  "focused_results": [
+    {
+      "name": "KuaiYi.Core.Tests.SelectionBrokerProcessTests.ControlledTimerStillRejectsStartupOrFinalDeliveryBeforeTheFakeAbsoluteBoundary(startup: True)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.KillFailureOrUnconfirmedWaitRetainsOwnerAndBlocksFinalizeWithoutBlockingUi(waitFailure: False)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.SameCaptureCleanupMustJoinItsHeldOriginalObservationAfterTheRealChildHasExited",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.KillFailureOrUnconfirmedWaitRetainsOwnerAndBlocksFinalizeWithoutBlockingUi(waitFailure: True)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(elapsed: 600, expected: HardTimeout)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(elapsed: 601, expected: HardTimeout)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SelectionBrokerProcessTests.HeldStartupProvesRealTimerCanRejectTheOriginal599ExpectationBeforeItsHook",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SelectionBrokerProcessTests.ControlledTimerStillRejectsStartupOrFinalDeliveryBeforeTheFakeAbsoluteBoundary(startup: False)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(elapsed: 599, expected: Success)",
+      "outcome": "Passed"
+    }
+  ],
+  "dll_inventory": {
+    "before": 330,
+    "after": 330,
+    "changed": 45,
+    "test_dll_after_sha256": "dbd0c0de2c7403e1227d7a666f55abba22985cfcd2b3a0fcb20cc0db460f070b",
+    "scope": "Normal compilation, not --no-build. Before/after DLLs not equal; not all inventory entries executed. Both catalogs, delta and generated test/NativeHost AssemblyInfo retained."
+  },
+  "remote_after_run": {
+    "testedFixedHead": "5e95cd0b3a4b3ef7dbb5bcce889dbe5c28f0b877",
+    "remote": "5e95cd0b3a4b3ef7dbb5bcce889dbe5c28f0b877",
+    "main": "51d077481cf6303602fcf5d2718213da9cf05178",
+    "dirty": "",
+    "aheadBehind": [
+      "0",
+      "0"
+    ]
+  },
+  "historical_failures": "Original r13/r24 and fixed00f808 failed TRX remain unchanged in earlier archives; this run does not prove all unrecorded historical phases or unique causes.",
+  "scope": "Evidence/report-only commit; no product/test/lock/dependency changes and no new feature implementation",
+  "next_recommendation": {
+    "spec": "13.1 / P7-01",
+    "gap": "ExplorerCommand --prepare-image still routes to P0 ImageProbeWindow instead of normal Shell",
+    "first_slice": "Review authenticated cold-start installation generation/launch/request binding and owned cleanup; reuse existing file Worker, file owner, GIF first-frame label and explicit preview/Off confirmation in normal Shell",
+    "warm_instance": "Separate authenticated forwarding design; existing Show broadcast is not authority, no bypass of controlled installation child",
+    "implemented": false
+  },
+  "not_run": [
+    "Provider/Codec or another fullCore run this step",
+    "new product feature",
+    "real Windows WPF/OLE/OCR/installed identity/modern menu",
+    "quality/250600/600MiB/fullP6P7/106/Beta acceptance",
+    "live model/user desktop/new permissions/costs/licenses/CI/deploy/main/forcepush"
+  ],
+  "independent_review": "Read-only final evidence ACK: full TRX2074P/0F/0skip; old2071 multiset+3 and focus9P; ZIP CRC/all22 member bytes+SHA;807 before=after=current;330 DLL catalogs/45delta/after=current; generated AssemblyInfo5e95; report/fixed-source hashes and unchanged historical archives; exactly5 docs/evidence files. No reviewer tests/builds/writes. Next cold-start recommendation statically confirmed, not implemented/accepted.",
+  "report_source_hashes": {
+    "docs/progress.md": "2a581b378706422361a7eacfc97c3430cff18ed5d30bc1a2c056acf8c9cc88eb",
+    "docs/acceptance-report.md": "cf0d3a6d7996a464e04ba7ca3c7bb93da93f16623f32c93b221763ac40979ec5",
+    "docs/validation/selection-deadline-root-cause.md": "109bebb38c5e5d3c1ed5260055a3b4d9cf697b7c65bba7ab6ce631ea0b4d7c09"
+  },
+  "archive": {
+    "path": "docs/test-evidence/2026-10-21-core-selection-fixed-signoff-originals.zip",
+    "bytes": 826114,
+    "sha256": "c8f6384120ff1fba12e0379408f945bd648c7b0dd800d48de572b348e431ad9f",
+    "entries": 22
+  },
+  "archive_members": {
+    "run/KuaiYi.Core.Tests.AssemblyInfo.cs": {
+      "bytes": 1005,
+      "sha256": "b6d5836d4170d07ca27f322b7dc81b4e531f800566dc0b70bf4444f4e9a2e472"
+    },
+    "run/KuaiYi.NativeHost.AssemblyInfo.cs": {
+      "bytes": 1005,
+      "sha256": "1fc4748a6c6adc3c10ea8ecf369f14bfbabe39431cd76c97bda2de695030f393"
+    },
+    "run/command.json": {
+      "bytes": 514,
+      "sha256": "2133463e39b44e682326968ea555d4f34520593ba0271002c5922c36a52e5c05"
+    },
+    "run/dll-changes.json": {
+      "bytes": 11016,
+      "sha256": "7d1e7bc8879032bd5001e452b17c9235256810746de9817e67dc0b917de0dae8"
+    },
+    "run/dlls-after.json": {
+      "bytes": 54877,
+      "sha256": "82250231c5ca940cd76f365fa181c70547976a8f86398718d79cf34e20ca8be3"
+    },
+    "run/dlls-before.json": {
+      "bytes": 54877,
+      "sha256": "7f1871c6caf7713c0efbc23e1acf877a5099c958e05139a79d4c9ed335df5e30"
+    },
+    "run/focus-results.json": {
+      "bytes": 1649,
+      "sha256": "1dff045e8329e1acc676ff9192c69095a698e877c31641513c24e079d2dce746"
+    },
+    "run/full-core-fixed-head.log": {
+      "bytes": 2082,
+      "sha256": "3a313def79b6c3b44889435e60734c9d6c45f04181d20119380b25a0226002af"
+    },
+    "run/full-core-fixed-head.trx": {
+      "bytes": 2959469,
+      "sha256": "b278056834b1f7768b96933ab43ac2bde5a673f6f149c01118de15adfd3aa0c6"
+    },
+    "run/remote-after-run.json": {
+      "bytes": 234,
+      "sha256": "db38f02e63b4f6c128438fa20901ab08f2137671eb56f5689b7887526a623a06"
+    },
+    "run/report-source-hashes.json": {
+      "bytes": 314,
+      "sha256": "0628cb4bc9e7657d2f4afba907050e469cfa0a9e8b858d99b6b86442b66fd0f9"
+    },
+    "run/result.json": {
+      "bytes": 1146,
+      "sha256": "4bc2a7944722ef842be11b56958f703d3c77f94f02b5883236011bbe08473f61"
+    },
+    "run/run-once.py": {
+      "bytes": 2965,
+      "sha256": "c0021f47c80d761ab33047218e26a893ce377aa0810c0281afe27aa36aafe9f9"
+    },
+    "run/sources-after.json": {
+      "bytes": 95181,
+      "sha256": "987c3152fa50b8661fd203bafb5892c4e4247d129c1746a79dc8671bc36bf8fe"
+    },
+    "run/sources-before.json": {
+      "bytes": 95181,
+      "sha256": "987c3152fa50b8661fd203bafb5892c4e4247d129c1746a79dc8671bc36bf8fe"
+    },
+    "run/test-name-preservation.json": {
+      "bytes": 508,
+      "sha256": "16120b34d32664ae24fa008505a313fad77b3eadf507ca7c4b878cff4f9e7232"
+    },
+    "report-source/docs/progress.md": {
+      "bytes": 306606,
+      "sha256": "2a581b378706422361a7eacfc97c3430cff18ed5d30bc1a2c056acf8c9cc88eb"
+    },
+    "report-source/docs/acceptance-report.md": {
+      "bytes": 41575,
+      "sha256": "cf0d3a6d7996a464e04ba7ca3c7bb93da93f16623f32c93b221763ac40979ec5"
+    },
+    "report-source/docs/validation/selection-deadline-root-cause.md": {
+      "bytes": 5915,
+      "sha256": "109bebb38c5e5d3c1ed5260055a3b4d9cf697b7c65bba7ab6ce631ea0b4d7c09"
+    },
+    "fixed-source/src/KuaiYi.NativeHost/SelectionBrokerClient.cs": {
+      "bytes": 16032,
+      "sha256": "999548459a99771319adcccc9bda0b3ba0a7cddd4b2f8ceafc33b4f2db11fa5d"
+    },
+    "fixed-source/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs": {
+      "bytes": 28111,
+      "sha256": "545cde4813bcd6f28e88b0027967fcd9aef52cf5eb107b4d6ffc55759314252d"
+    },
+    "fixed-source/tests/KuaiYi.Core.Tests/CaptureHostTests.cs": {
+      "bytes": 18854,
+      "sha256": "f104e2a769074be6ff1305011fda7e1718fa2bb49f2231f5354b332c812aac5a"
+    }
+  }
+}

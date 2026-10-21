@@ -29,3 +29,10 @@ r01最终为 **0P/1F**，错误是诊断末尾查询已Dispose的Process，另�
 - r05 App Release Windows目标交叉构建 **0W/0E**。820项其他源码/测试/锁/项目/许可/扩展/安装数据/SPEC原字节保护全真；旧599/600/601断言块保留，产品seam还原比对通过。仅writer运行测试，reviewer只读。
 
 [命令/日志/TRX/准确源/保护与产物摘要索引](../test-evidence/2026-10-21-selection-deadline-root-cause.json)。未重跑完整Core、Provider、Codec，不把128P当完整Core或P6/P7签收。历史CaptureHost与599失败仍按各自原件保留，不能追认它们的所有未记录轨迹。Windows真实取词/250/600ms、WPF/OLE/OCR/安装身份、画质与600MiB仍未验；PackageHold、生产图片复用Off和WebP odd拒绝保持。无新依赖/许可/费用/凭据/安全权限、CI、用户电脑或内容、真实模型、main/强推/部署。
+
+
+## 后续固定HEAD完整签收（2026-10-21）
+
+父侧ACK后固定 `5e95cd0b3a4b3ef7dbb5bcce889dbe5c28f0b877`、clean工作区，仅一次Release完整Core实际 **2074P/0F/0skip**。原2071全名多重集无遗漏；CaptureHost3例及SelectionBroker边界/默认timer/手动fire6例均P。807输入源前后相同，正常编译的330项DLL中45项变化已逐项记录，生成AssemblyInfo绑定5e95cd0b。完整命令、TRX、日志、源码与DLL摘要见[签收索引](../test-evidence/2026-10-21-core-selection-fixed-signoff.json)；旧段落的“未重跑”仅指前轮定向修复当时，不覆盖这次新签收。
+
+本次仅证据提交，未改产品/测试，也未重跑其他套件。旧CaptureHost及599失败原件保持，历史未记录阶段不回填。Windows/P6/P7/画质/250600等未验边界不变。下一候选为SPEC13.1/P7-01正常安装会话的冷启动单图预览，先审generation/launch/request绑定与原任务生命周期；尚未实现或验收。

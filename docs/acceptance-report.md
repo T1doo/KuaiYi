@@ -193,3 +193,14 @@ r01诊断原方法2P（非自然失败复现），r02受控0P1F，r03修后原2+
 从269dd3720c1f0288012509c1abc9f8fa7ea582a0核clean/远端0/0/单writer，正常dev/core-selection-deadline，先独审。原完整Core2070P1F的599失败原件保留，不倒推735ms历史阶段。复用同theory+原Start屏障确定性证明：Start已进入未返，fake0/hook未到，真实timer先HardTimeout；r02反例1P捕获原错误期望且实际child退出，非599自然通过。r01诊断末尾查询已Dispose Process导致0P1F，准确源/日志保全，独立witness修正不冒充产品红绿。
 
 唯一产品差异为internal init测试deadline arm；null默认仍原CancelAfter，public构造/250/600/remaining/来源/取消/实际退出门保持。原599/600/601断言不改，手动deadline核arm1/due600/无回调；新增fake<600 startup/final fire核同CTS取消/空交付/实际清零及原owner结算。独立5s测试防挂guard触发只能令断言失败，原Capture任务与body/cleanup错误均保全。最终相关128P=原125全名多重集+新3、App交叉0W/E，820保护全真，独立源码ACK；未重跑全Core，不称完整P6/P7通过。详见[定位与合同](validation/selection-deadline-root-cause.md)/[原件证据](test-evidence/2026-10-21-selection-deadline-root-cause.json)。Windows/真实250600/画质等未验及原安全边界保持，无新权限费用依赖许可/用户电脑模型/main强推部署。
+
+
+## 2026-10-21 · 固定5e95cd0b一次完整Core签收通过
+
+按父侧独审ACK后的指令，仅在clean固定 `5e95cd0b3a4b3ef7dbb5bcce889dbe5c28f0b877` 执行一次Release完整Core（no-restore，正常编译），实际 **2074P/0F/0skip**，exit0；启动UTC03:29:36，命令总耗时103.602s，测试报告约1m5s。原2071案例全名多重集全部保留，加3个SelectionBroker案例；CaptureHost原两分支和原观察屏障、599/600/601、默认真实timer反例和手动fire两阶段共9个关注案例全部P。原失败归档保留，不追认历史唯一根因。
+
+807项输入源前后逐字相同，HEAD保持5e95cd0b、执行后dirty0。Release DLL前后各330项，正常编译改变45项，分别保留摘要及变化表，未宣称二进制相同或全部DLL均被执行；生成AssemblyInfo绑定测试HEAD。[完整命令、日志、TRX、源码/DLL摘要与原件ZIP索引](test-evidence/2026-10-21-core-selection-fixed-signoff.json)。此次后续提交仅证据/报告，无产品、测试、依赖或锁文件变化；未重复Provider/Codec/交叉构建。
+
+下一项具体建议（尚未实施）：SPEC13.1/P7-01的正常主浮窗冷启动单图预览。当前ExplorerCommand发出 `--prepare-image`，Program仍把它送到P0 ImageProbeWindow；应先独审正常安装会话中generation/launch/request绑定、原任务清理与取消/迟到/替换隔离，再复用现有文件Worker/独立file owner、GIF首帧标注和预览确认进入正常Shell。保持默认Off和显式启用/发送确认；已有实例的认证转交需单独设计，现有Show广播不可证明请求权限，不直接绕过安装受控子进程。可先做纯状态/IPC与交叉构建，不借此声称真实菜单已验收。
+
+Windows真实WPF/OLE/OCR、安装来源身份/现代菜单、画质、250/600ms、600MiB及完整P6/P7/106用例/Beta仍NotRun或沿各自旧状态；不以本次Core通过代替。PackageHold、生产图片复用Off、WebP奇数payload拒绝及来源/密码/完整性/原SHA/实际退出/发送门保持。无新权限/费用/凭据/依赖许可、真实模型/用户内容/用户电脑、CI、main修改、强推或部署。
