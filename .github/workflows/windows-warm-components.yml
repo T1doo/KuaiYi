@@ -1,4 +1,4 @@
-name: One fixed default Shell and real Worker Windows component attempt
+name: One diagnosed pipe and independent default Shell Windows attempt
 on:
   push:
     branches: [dev/p7-fixed-signoff]
@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
           ref: ${{ github.sha }}
-          fetch-depth: 5
+          fetch-depth: 6
           persist-credentials: false
           set-safe-directory: false
       - name: Original approved SDK signature audit and bounded real Windows components

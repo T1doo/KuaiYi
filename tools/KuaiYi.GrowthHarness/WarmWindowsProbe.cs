@@ -60,7 +60,14 @@ internal static class WarmWindowsProbe
             data=Path.Combine(known,"KuaiYi");CheckPath(data);
             if(!CreateDirectory(data,0))throw new Win32Exception(Marshal.GetLastWin32Error()); // Existing, including empty, is a hard stop.
             marker=RandomNumberGenerator.GetBytes(32);using(var owned=new FileStream(Path.Combine(data,"ci-owner.bin"),FileMode.CreateNew,FileAccess.Write,FileShare.Read)){owned.Write(marker);owned.Flush(true);}
-            Phase("ExclusiveRealKnownFolderClaimed");pipe=WarmWindowsPipeProbe.Run().GetAwaiter().GetResult();Phase("RealPipeComponentsPassed");
+            Phase("ExclusiveRealKnownFolderClaimed");
+            try{pipe=WarmWindowsPipeProbe.Run().GetAwaiter().GetResult();Phase("RealPipeComponentsPassed");}
+            catch(Exception error)
+            {
+                errors.Add(Error(error));pipe=WarmWindowsPipeProbe.Observation;Phase("RealPipeComponentFailed");
+                Need(WarmWindowsPipeProbe.CleanupConfirmed,"OriginalPipeCleanupUnconfirmed");
+                Phase("OriginalPipeCleanupConfirmed_ContinueIndependentShell");
+            }
             _=Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.ContextIdle,()=>driver=Drive(fixtureDirectory));
             Phase("InvokeFixedDefaultProgram");int code=KuaiYi.App.Program.Main([]);Phase("DefaultProgramReturned");
             Need(driver is {IsCompleted:true},"OriginalDriverNotCompleted");driver!.GetAwaiter().GetResult();

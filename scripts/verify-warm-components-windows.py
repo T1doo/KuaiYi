@@ -15,10 +15,9 @@ import urllib.request
 import zipfile
 
 FIXED = "92e3548845bd07ee7717b53df9588c412d128f9d"
-PARENT = "6c61f3d45716a7fb1e41603b35d3e0486fc9aae4"
+PARENT = "8adf512bb30ba855ced011ea156327dd99237a6c"
 BRANCH = "refs/heads/dev/p7-fixed-signoff"
 FILES = frozenset((".github/workflows/windows-warm-components.yml", "scripts/verify-warm-components-windows.py",
-                  "scripts/test_warm_components_windows.py", "tools/KuaiYi.GrowthHarness/Program.cs",
                   "tools/KuaiYi.GrowthHarness/WarmWindowsProbe.cs", "tools/KuaiYi.GrowthHarness/WarmWindowsPipeProbe.cs",
                   "docs/progress.md", "docs/validation/warm-components-windows.md"))
 
