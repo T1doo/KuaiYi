@@ -1,6 +1,6 @@
 # 开发进度
 
-2026-10-21 Windows 分段：首次固定树8adf的真实 CI 完成 SDK/审计/构建，但管道客户端bit4断言失败，未启动Shell，原件完整保留。接续仅补原生返回值与原等待/句柄清理证据；保留失败断言与总Fail，清理确认后继续独立默认Shell本地文件→真实Worker→WPF/GIF/清零段。无生产/依赖变更，正向warm/Explorer仍Blocked。见 [分段范围与原件](validation/warm-components-windows.md)。
+2026-10-21 Windows 实际分段独审 ACK：源10d5的 run39565330615 中，三例真实安全文件→Worker→默认同进程Shell WPF预览、GIF可见首帧与原内存/位图清零、原关闭join均Pass；首次实现了此限定真实链证据。整轮仍failure/exit3：客户端bit4实验得到有效句柄触发保留断言，未查GrantedAccess，不能据此推导服务器权限或跨身份访问。High Current拒绝、原DACL结构与second bind Win32 5通过；后续双方peer分支NotRun。两轮红件完整保存到Library `libfile_c32e11ee722c8191b4303512b346a51e`，不循环刷绿。固定92e产品与锁不改，warm/Explorer/安装/250600ms/画质仍未验。见 [实际分段和原件](validation/warm-components-windows.md)。
 
 2026-10-21 最新接续：B 固定产品源码仍为 `92e3548845bd07ee7717b53df9588c412d128f9d`，完整证据 `ab3bf269f956a7b19f6d8ead1383ff80495ad95c` 已独审。新增五文件只读前置检查独审后一次投递 `e36c92f8c978cd6871e3bbc30a99623d60ef9b64`，免费标准 Windows run39559953411/job119088533514实际 success；原始日志48,731B与唯一JSON已回收独审。已观测桌面前置项，但当前token High12288/elevated，linked查询1312未取得受限token，当前正向warm执行入口未满足；Same* false为未比较而非身份不匹配。未改生产代码/依赖/安全权限，未执行 SDK/App，产品链路全部NotRun，不将 prerequisite 当认证或 P7 验收。源码 CRLF 摘要、证据及下一分段路径见 [Windows 前置检查](validation/warm-image-windows.md)。
 

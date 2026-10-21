@@ -1,23 +1,40 @@
 # 固定默认 Program／真实 Shell 的 Windows 分段验证
 
-首次 Windows 分段实际失败，原件保留；下一固定树仅补诊断及独立 Shell 执行。本次产品 src/tests/packaging/依赖锁与固定 `92e3548845bd07ee7717b53df9588c412d128f9d` 无差异。仅给既有 GrowthHarness 加显式 CI 模式，引用默认生产 App；不编译 isolated/平台实验开关，不走 `--platform-review`，不放宽 `--prepare-image`。
+2026-10-21：**三条独立产品预览链 Pass，整轮仍 Fail**。固定生产源码 `92e3548845bd07ee7717b53df9588c412d128f9d` 未改，投递 harness 源为 `10d5fb747e44a4cf2a612597f2aa31d91176e1dc`。这不是正向 warm、独立 App.exe、安装包或 Explorer 验收。
 
-驱动明确为 **GrowthHarness EXE 内同进程调用默认 `Program.Main([])`**，因此有真实默认 Program、KnownFolder Settings、默认 Off 与原 Shell/Hotkey/Selection/Browser/清理，却不是独立 App.exe、安装布局、外部 CLI、warm 或 Explorer 验收。真实 KnownFolder 的 KuaiYi 目录须 Win32 CreateDirectory 独占新建成功；已有目录、reparse、未知文件均拒绝。仅此临时 runner 的新目录，保留 marker 与 fixture 数据到 job 销毁，不改 LOCALAPPDATA，不清未知目录。
+## 实际结果
 
-管道组件直接调用固定生产 ReadToken/Current/CreateServer：真实自身 High/elevated 必须被原策略拒绝；唯一随机 fixture 名使用原 first-instance handle，第二 bind 须精确 Win32 5；原客户端附加 bit4 的实验仍保留“无效句柄且 Win32 5”断言，新增保存实际 mask/句柄有效性/失败时错误码，不把该实验预期当已证明的 Windows 语义；仅读原 DACL protected/single exact logon ACE/0x12019b。允许的 fixture 连接与双向 PID/session 明确 same-process；实际构造器仍 High 拒绝，不授予正向认证。不输出 SID/SDDL/token，不造、降权或借用其他 token，不改 UAC 或桌面权限。
+| 输入／组件 | 本轮实际结果 |
+|---|---|
+| PNG 640×160 | Pass：原安全文件打开→真实 Worker→默认 Shell WPF 预览 |
+| 双帧偏移透明 GIF 4×3 | Pass：首帧完整逻辑画布、偏移、透明白底、可见“使用首帧”，未显示第二帧 |
+| 字典增长／交错 GIF 256×128 | Pass：全像素独立 palette oracle、可见“使用首帧” |
+| 三例清理 | Pass：原 Worker finalize、首次可见 Rendering 时已退出且原 IO 结算；原 pixels、PNG 和显示 WriteableBitmap 逐字节归零，来源／owner 清空，Off／无生成 |
+| 原 Shell 退出 | Pass：原 Clear、Shell.Close、closeRequests.Current、startup／positionSave 已 join，窗口关闭，默认 Program 返回 |
+| 真实 High／原 DACL／first-instance | Pass：Current 原 High 门拒绝；原实际句柄 protected／唯一 logon ACE／精确0x12019b；第二次原 CreateServer 返回 Win32 5 |
+| 客户端附加 bit4 实验 | **Fail**：请求0x12019f得到有效客户端句柄，触发保留断言；未查询 GrantedAccess，不证明服务器创建权限或跨身份访问获授 |
+| 后续 exact-mask／双向 PID/session／双方 peer 构造器分支 | NotRun：仍位于失败断言之后，不能用 Current High 拒绝代签 |
 
-UI 驱动只绕过选择文件对话框，将三个中性输入交给原 StartOpenImage：公开 PNG、运行时生成的双帧/偏移/透明 GIF、仓库字典增长/交错 GIF。factory 仅记录后返回原 CreateFileImageOperation 的真实对象。原 LocalImageFile→真实 ImageWorker/Skia→原 finalize→原 AcceptFileImage→WPF 预览全部保留。在首次实际可见 Image 的 Rendering 边界记录原 Worker SettlementSnapshot，再结合固定源码的 finalize-before-accept 合同；不把单一后验 ExitState 当独立时序证明。两帧渲染、首帧可见标签、完整逻辑画布/透明白底和独立 palette oracle 逐项检查，仍不代签真人画质。
+本次 [run39565330615/job119106116430](https://github.com/T1doo/KuaiYi/actions/runs/39565330615/job/119106116430) 实际 job **failure**、wrapper **Blocked**、probe **Fail**、actual-components **exit3**，没有超时或循环重跑。其余21条记录命令均exit0；双 runtime 正常在线验签、批准 SDK402 精确 ZIP/许可/hash、安全解包、locked restore／审计、harness 与 Worker 构建、18文件精确部署都已实际执行。三例是本轮 harness 场景，不是 xUnit 数量，也不与其他轮相加。未重刷旧 Core／Provider／Codec。
 
-持有同一原 OwnedFileImage 的 pixels/png、显示的 WriteableBitmap 与原文件 Task。原 ClearCurrentContent 后核原内存及位图逐字节归零、来源/owner 清空、原 Worker 退出和全部 IO 结算、Off/无生成。错误保留正文与清理两轨。harness 只把 Application 的测试消息泵设为 OnExplicitShutdown，待**原 Shell.Close、closeRequests.Current、startup/positionSave**全部成功结算才 Shutdown；失败不强清 owner，不 Environment.Exit 假报成功。外围 120秒超时仅说明该原自有树清理未确认，不能签收。
+## 执行与所有权边界
 
-CI 仅一次 public 标准 windows-2022、原固定 checkout、contents:read、attempt1，15分钟 job／14分钟 step／13分钟内部总预算；接续绑定唯一父 `8adf512bb30ba855ced011ea156327dd99237a6c`、精确六文件范围及固定生产源码。复用原 SDK402 精确 ZIP/许可/hash/安全解包、双 runtime 正常在线验签和 all/low/warnings-errors 审计、locked restore；不改旧 runner 的来源门。显式合并默认 App exe/runtimeconfig 与真实 Worker build closure，所有既有碰撞必须字节相等，不能盲覆盖。只构建必要目标和运行此 harness，不重刷 Linux 全套、不执行 Linux-only Codec 用例、不新增许可/费用/凭据/安全权限或模型请求。
+既有 GrowthHarness 的显式 CI 模式在**同一进程调用默认 `Program.Main([])`**，引用固定默认生产 App；无 isolated／平台实验编译开关，不走 `--platform-review`，不放宽 `--prepare-image`。默认 Shell、KnownFolder Settings、Off、原 Shell 服务与清理真实运行。测试只绕过文件选择对话框：factory 仅记录并返回原 CreateFileImageOperation，原 LocalImageFile→ImageWorker／Skia→finalize→AcceptFileImage→WPF 全部保留。首次可见 Rendering 的原 SettlementSnapshot 与固定源码发布前 finalize 合同共同支撑时序；不把单次后验 ExitState 当独立证明。
 
-正向 warm 仍缺既有 medium 入口而 Blocked；独立 App.exe、安装包、Explorer 来源、OLE/OCR、250/600ms、600MiB、真人画质和完整 P7 均不由此片签收。
+真实 KnownFolder 的 KuaiYi 目录以原生 CreateDirectory 独占新建；已存在、reparse、未知目录均拒绝。没有覆盖 LOCALAPPDATA，也没有删除未知数据；marker 与中性 fixture 留给临时 runner 销毁。测试消息泵仅设 OnExplicitShutdown 等待原关闭任务；失败不强清 owner，不用 Environment.Exit 假报成功。
 
-源码独审限定 ACK；错误 image 使用的仍是 High peer，只证明组合输入被拒，不能独立签 image-path 门的区分力。新 runner 的离线来源/公共首轮/碰撞保护 3个方法通过；harness 必要交叉构建 0 warnings/0 errors，首次 Windows 未进入 Shell。准备中的首次缺 assets 和 JsonSerializerOptions 编译歧义失败日志保留，不回填为成功。
+管道组件仅用本进程真实 token／原生产方法和随机 fixture 名；没有造 token、降 IL、借其他 token、改 UAC／ACL／桌面权限或凭据。原 bit4 红断言保留，原等待 Task 已 join、原 DisposeAsync Task 成功且原 SafeHandle 关闭后，才继续独立 Shell，失败仍留 Errors／总 Fail。正文与 dispose 独立错误按单错 EDI／多错 Aggregate 保全。Windows 已确认该门全部满足。
 
-## 首次原件与最小接续
+[官方管道权限说明](https://learn.microsoft.com/en-us/windows/win32/ipc/named-pipe-security-and-access-rights)明确服务器 CreateNamedPipe 需额外 FILE_CREATE_PIPE_INSTANCE 检查；当前客户端有效句柄不足以证明服务器实例权限。此次不新增 Authz 或修改生产安全策略，不为全绿删除实验断言。其含义保留待定；不据此宣布 DACL 回归，也不宣称这项拒绝已验收。
 
-源 `8adf512bb30ba855ced011ea156327dd99237a6c` 的 [run39563827752/job119101200547](https://github.com/T1doo/KuaiYi/actions/runs/39563827752/job/119101200547) 在线验签、SDK402、锁还原/审计、harness/Worker 构建及18文件部署通过。actual-components 返回3；唯一异常是 WarmWindowsPipeProbe:58 的复合断言，缺实际句柄/错误值，不能认定生产 DACL 回归。25件原始证据75,863B经chunk/gzip/解压摘要逐件校验，原件ZIP260,050B SHA256 `27d1a24d7eb327e9cd55d85360e21d9528328c61630b221aeec3c58e7f2f1a5e`，源码一并保全。此轮 Cases=[]，正常 Shell/Worker/WPF NotRun。
+## 原始证据与来源
 
-[官方管道权限说明](https://learn.microsoft.com/en-us/windows/win32/ipc/named-pipe-security-and-access-rights)明确服务器 CreateNamedPipe 的额外 FILE_CREATE_PIPE_INSTANCE 检查，尚不能据此推导本客户端调用必返回5。原实验断言暂保留红门，精确诊断后再判断。没有新增 Authz、token、权限或生产改动。组件失败仍记入 Errors，使总结果 Fail；只有原连接等待已join、原服务器 DisposeAsync 原任务成功且 SafeHandle 已关闭才继续独立 Shell；不以跳过失败取得全绿。默认消息泵与原清理门不变。原 server dispose 单独 join并保全异常，单错EDI/多错Aggregate；未创建与实际关闭分别记录，关闭标志本身不能代替dispose成功。
+前轮源 `8adf512bb30ba855ced011ea156327dd99237a6c` 的 [run39563827752/job119101200547](https://github.com/T1doo/KuaiYi/actions/runs/39563827752/job/119101200547) 同一复合断言失败，未记录句柄／错误值，Cases=[]，Shell/Worker/WPF NotRun。其25件75,863原字节与源码已保全：ZIP260,050B SHA256 `27d1a24d7eb327e9cd55d85360e21d9528328c61630b221aeec3c58e7f2f1a5e`。不把新观测回填历史唯一根因。
+
+本轮26件101,494原字节已逐件独立重组核对 chunk／base64／gzip／解压 SHA，raw job126,385B SHA256 `0afa04bff527dbc9b589b5c50427cbf79a82eed3e4649098b69fe95bdb2e248d`。372个实际 Windows checkout 输入全部匹配源：7个原字节、365个正常CRLF换行、0差异。原件ZIP273,627B SHA256 `2a10070e95ea0e446167f456fb06a4c6c5d42d78ae990b31092cc4ef03e91db4`。只读独审限定 ACK 三条实际链；整体失败保留。
+
+完整原件包含两轮失败ZIP、raw日志、26件原件、命令／源码／产物摘要、本地必要构建／3项CI来源与碰撞检查及初始失败；97成员，730,564B，SHA256 `97acd17779aa17c8f83e3695a7db57c439d523fcf4888fb23948acd9f7600d7b`。已确认 Library ID **`libfile_c32e11ee722c8191b4303512b346a51e`**，version0；无私有下载 URL。详见 [机器可读索引](../test-evidence/2026-10-21-warm-components-windows.json)。
+
+## 未验收项
+
+正向 warm 因未有既有 medium 入口仍 Blocked；没有尝试造／降／借 token。独立 App.exe、安装包／Explorer 来源身份、外部第二 CLI 到同一 WPF、跨身份实际 DACL 拒绝、OLE／OCR、分阶段外部断线与 held-owner、250/600ms、600MiB、真人画质和完整 P7 均未由此片签收。PackageHold、生产复用Off、默认Off，无自动 OCR／发送或真实模型调用。

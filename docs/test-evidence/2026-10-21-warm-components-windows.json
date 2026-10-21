@@ -1,0 +1,572 @@
+{
+  "ProductSource": "92e3548845bd07ee7717b53df9588c412d128f9d",
+  "HarnessSource": "10d5fb747e44a4cf2a612597f2aa31d91176e1dc",
+  "Run": 39565330615,
+  "Job": 119106116430,
+  "JobConclusion": "failure",
+  "WrapperStatus": "Blocked",
+  "ProbeStatus": "Fail",
+  "ActualExit": 3,
+  "ProductChainCases": 3,
+  "ProductChainScope": "Same-process default Program.Main / normal Shell; file dialog bypass only; actual original Worker/WPF/clear/close",
+  "ProductChainResult": "Pass_ComponentsOnly",
+  "HighCurrentRejection": "Pass",
+  "ActualDaclStructure": "Pass",
+  "OriginalSecondBindWin32": 5,
+  "ClientBit4Trial": "Fail_HandleValid_GrantedAccessNotQueried",
+  "LaterExactMaskAndBidirectionalPeerBranches": "NotRun",
+  "Inputs": {
+    "Count": 372,
+    "Canonical": 7,
+    "CrlfCheckout": 365,
+    "Mismatch": 0
+  },
+  "ParentReview": "Limited_ACK",
+  "Package": "Hold",
+  "ProductionReuse": "Off",
+  "PositiveWarm": "Blocked_NoExistingMediumEntry",
+  "Explorer": "NotRun",
+  "IndependentAppExe": "NotRun",
+  "Ocr": "NotRun",
+  "DesktopQualityAnd250_600ms": "NotRun",
+  "ModelCalls": 0,
+  "NewSecurityPermission": false,
+  "RunsAreSeparate_NotSummed": true,
+  "Library": {
+    "library_file_id": "libfile_c32e11ee722c8191b4303512b346a51e",
+    "file_id": "file_000000003d8482308b60d1b70a4da5ca",
+    "current_version_number": 0,
+    "file_name": "KuaiYi-P7-default-Shell-components-10d5fb7-originals.zip",
+    "path": "/KuaiYi-P7-default-Shell-components-10d5fb7-originals.zip",
+    "file_size_bytes": 730564,
+    "status": "succeeded",
+    "local_path": "/workspace/KuaiYi/artifacts/warm-image-windows/KuaiYi-P7-default-Shell-components-10d5fb7-originals.zip"
+  },
+  "OriginalsBundle": {
+    "Bytes": 730564,
+    "Sha256": "97acd17779aa17c8f83e3695a7db57c439d523fcf4888fb23948acd9f7600d7b",
+    "Members": 97
+  },
+  "Runs": [
+    {
+      "Source": "8adf512bb30ba855ced011ea156327dd99237a6c",
+      "Run": 39563827752,
+      "Job": 119101200547,
+      "Conclusion": "failure",
+      "ActualExit": 3,
+      "Cases": 0,
+      "EvidenceFiles": 25,
+      "EvidenceRawBytes": 75863,
+      "Outcome": "Pipe trial failed before Shell; actual handle/error not recorded; no historical cause backfill"
+    },
+    {
+      "Source": "10d5fb747e44a4cf2a612597f2aa31d91176e1dc",
+      "Run": 39565330615,
+      "Job": 119106116430,
+      "Conclusion": "failure",
+      "ActualExit": 3,
+      "Cases": 3,
+      "EvidenceFiles": 26,
+      "EvidenceRawBytes": 101494,
+      "RawLogBytes": 126385,
+      "RawLogSha256": "0afa04bff527dbc9b589b5c50427cbf79a82eed3e4649098b69fe95bdb2e248d",
+      "Outcome": "Three independent Shell cases Pass, original pipe trial Fail retained"
+    }
+  ],
+  "WindowsCommands": [
+    {
+      "Name": "source-head",
+      "Argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "Exit": 0,
+      "Log": "source-head.log",
+      "LogBytes": 41,
+      "LogSha256": "a9451d58d80af062af175c6c555de8cb70661d73ef9cf3c4520336f6e18e133f"
+    },
+    {
+      "Name": "source-parent",
+      "Argv": [
+        "git",
+        "rev-list",
+        "--parents",
+        "-n",
+        "1",
+        "HEAD"
+      ],
+      "Exit": 0,
+      "Log": "source-parent.log",
+      "LogBytes": 82,
+      "LogSha256": "f1fed64922c27495f03cd34e2cd8fc9742f572e07066b51ae0c0a6ffa74b8c6f"
+    },
+    {
+      "Name": "source-scope",
+      "Argv": [
+        "git",
+        "diff",
+        "--name-only",
+        "8adf512bb30ba855ced011ea156327dd99237a6c",
+        "HEAD"
+      ],
+      "Exit": 0,
+      "Log": "source-scope.log",
+      "LogBytes": 246,
+      "LogSha256": "58eba750cdc7f78ff03ce1b421ddda16eacd70c339fef15855332489c472298b"
+    },
+    {
+      "Name": "source-clean",
+      "Argv": [
+        "git",
+        "status",
+        "--porcelain=v1"
+      ],
+      "Exit": 0,
+      "Log": "source-clean.log",
+      "LogBytes": 0,
+      "LogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Name": "fixed-product-source",
+      "Argv": [
+        "git",
+        "diff",
+        "--name-only",
+        "92e3548845bd07ee7717b53df9588c412d128f9d",
+        "HEAD",
+        "--",
+        "src",
+        "tests",
+        "packaging",
+        "global.json",
+        "Directory.Build.props",
+        "Directory.Packages.props",
+        "NuGet.Config"
+      ],
+      "Exit": 0,
+      "Log": "fixed-product-source.log",
+      "LogBytes": 0,
+      "LogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "Name": "verifier-version",
+      "Argv": [
+        "C:\\ProgramData\\chocolatey\\lib\\nuget.commandline\\tools\\nuget.exe",
+        "help",
+        "-ForceEnglishOutput",
+        "-NonInteractive"
+      ],
+      "Exit": 0,
+      "Log": "verifier-version.log",
+      "LogBytes": 3416,
+      "LogSha256": "1efcf05bcaebfc252d07aa84aef6bf939aaeb30534c69bdfeb03cfe0523d73a7"
+    },
+    {
+      "Name": "verify-Microsoft.NETCore.App.Runtime.win-x64",
+      "Argv": [
+        "C:\\ProgramData\\chocolatey\\lib\\nuget.commandline\\tools\\nuget.exe",
+        "verify",
+        "-All",
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\warm-components-windows\\d9227890165139d941934e138d14c0f4\\microsoft.netcore.app.runtime.win-x64.nupkg",
+        "-ForceEnglishOutput",
+        "-NonInteractive",
+        "-Verbosity",
+        "normal"
+      ],
+      "Exit": 0,
+      "Log": "verify-Microsoft.NETCore.App.Runtime.win-x64.log",
+      "LogBytes": 3216,
+      "LogSha256": "554a1ee38071729b38c7e225769c69d55bcbe242e3668d904721d9a576a153ba"
+    },
+    {
+      "Name": "verify-Microsoft.WindowsDesktop.App.Runtime.win-x64",
+      "Argv": [
+        "C:\\ProgramData\\chocolatey\\lib\\nuget.commandline\\tools\\nuget.exe",
+        "verify",
+        "-All",
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\warm-components-windows\\d9227890165139d941934e138d14c0f4\\microsoft.windowsdesktop.app.runtime.win-x64.nupkg",
+        "-ForceEnglishOutput",
+        "-NonInteractive",
+        "-Verbosity",
+        "normal"
+      ],
+      "Exit": 0,
+      "Log": "verify-Microsoft.WindowsDesktop.App.Runtime.win-x64.log",
+      "LogBytes": 3237,
+      "LogSha256": "8c8025c91f157d55f7442f07464eefded2c8d3b448393b57c4f3999183b9c4f2"
+    },
+    {
+      "Name": "sdk-version",
+      "Argv": [
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\warm-components-windows\\d9227890165139d941934e138d14c0f4\\sdk-10.0.402\\dotnet.exe",
+        "--version"
+      ],
+      "Exit": 0,
+      "Log": "sdk-version.log",
+      "LogBytes": 10,
+      "LogSha256": "6d5ab2a4ef35ceec908f01287257f530b0c0d68f0e84326df2ebcea641f9134b"
+    },
+    {
+      "Name": "runtime-restore",
+      "Argv": [
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\warm-components-windows\\d9227890165139d941934e138d14c0f4\\sdk-10.0.402\\dotnet.exe",
+        "restore",
+        "packaging/session-runtime-audit/session-runtime-audit.csproj",
+        "--locked-mode",
+        "--configfile",
+        "D:\\a\\KuaiYi\\KuaiYi\\NuGet.Config",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true",
+        "-p:EnableWindowsTargeting=true",
+        "-p:RuntimeFrameworkVersion=10.0.13"
+      ],
+      "Exit": 0,
+      "Log": "runtime-restore.log",
+      "LogBytes": 145,
+      "LogSha256": "7166aecb829cc2d5b2241f8c501f820b53615d3d05d2cbad3d2ed9a26b6fc35f"
+    },
+    {
+      "Name": "runtime-inventory",
+      "Argv": [
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\warm-components-windows\\d9227890165139d941934e138d14c0f4\\sdk-10.0.402\\dotnet.exe",
+        "list",
+        "packaging/session-runtime-audit/session-runtime-audit.csproj",
+        "package",
+        "--include-transitive",
+        "--format",
+        "json",
+        "--no-restore"
+      ],
+      "Exit": 0,
+      "Log": "runtime-inventory.log",
+      "LogBytes": 709,
+      "LogSha256": "f86aea899bd6817bcf34f90ff5399f650e8754dc68c661157672f6184da6efc9"
+    },
+    {
+      "Name": "runtime-audit",
+      "Argv": [
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\warm-components-windows\\d9227890165139d941934e138d14c0f4\\sdk-10.0.402\\dotnet.exe",
+        "list",
+        "packaging/session-runtime-audit/session-runtime-audit.csproj",
+        "package",
+        "--vulnerable",
+        "--include-transitive",
+        "--format",
+        "json",
+        "--no-restore",
+        "--source",
+        "https://api.nuget.org/v3/index.json"
+      ],
+      "Exit": 0,
+      "Log": "runtime-audit.log",
+      "LogBytes": 275,
+      "LogSha256": "daa202d20fe37419e684fe0041fc4dcb8157871817be38a6d9c28e7d53b831e9"
+    },
+    {
+      "Name": "harness-restore",
+      "Argv": [
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\warm-components-windows\\d9227890165139d941934e138d14c0f4\\sdk-10.0.402\\dotnet.exe",
+        "restore",
+        "tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj",
+        "--locked-mode",
+        "--configfile",
+        "D:\\a\\KuaiYi\\KuaiYi\\NuGet.Config",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true",
+        "-p:EnableWindowsTargeting=true",
+        "-p:RuntimeFrameworkVersion=10.0.13"
+      ],
+      "Exit": 0,
+      "Log": "harness-restore.log",
+      "LogBytes": 817,
+      "LogSha256": "e31d8fc1991384f9979fe613265e23f00bde02659c6ee212f78294c4d607823f"
+    },
+    {
+      "Name": "harness-inventory",
+      "Argv": [
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\warm-components-windows\\d9227890165139d941934e138d14c0f4\\sdk-10.0.402\\dotnet.exe",
+        "list",
+        "tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj",
+        "package",
+        "--include-transitive",
+        "--format",
+        "json",
+        "--no-restore"
+      ],
+      "Exit": 0,
+      "Log": "harness-inventory.log",
+      "LogBytes": 288,
+      "LogSha256": "8366e475b85ecc7003f6703c8294846f90ef2c51efd8a9ccae2b63c48df55470"
+    },
+    {
+      "Name": "harness-audit",
+      "Argv": [
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\warm-components-windows\\d9227890165139d941934e138d14c0f4\\sdk-10.0.402\\dotnet.exe",
+        "list",
+        "tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj",
+        "package",
+        "--vulnerable",
+        "--include-transitive",
+        "--format",
+        "json",
+        "--no-restore",
+        "--source",
+        "https://api.nuget.org/v3/index.json"
+      ],
+      "Exit": 0,
+      "Log": "harness-audit.log",
+      "LogBytes": 269,
+      "LogSha256": "fbd50dd4b46098ac4dc5494ce003120166ee784a2ffe390e02f46badbaf713dc"
+    },
+    {
+      "Name": "harness-build",
+      "Argv": [
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\warm-components-windows\\d9227890165139d941934e138d14c0f4\\sdk-10.0.402\\dotnet.exe",
+        "build",
+        "tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false",
+        "-p:EnableWindowsTargeting=true",
+        "-p:RuntimeFrameworkVersion=10.0.13"
+      ],
+      "Exit": 0,
+      "Log": "harness-build.log",
+      "LogBytes": 1044,
+      "LogSha256": "787764e31d3ff7196774c14f3fc419792370af94b9bf5a95ab03f086987594c7"
+    },
+    {
+      "Name": "worker-restore",
+      "Argv": [
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\warm-components-windows\\d9227890165139d941934e138d14c0f4\\sdk-10.0.402\\dotnet.exe",
+        "restore",
+        "src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj",
+        "--locked-mode",
+        "--configfile",
+        "D:\\a\\KuaiYi\\KuaiYi\\NuGet.Config",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true",
+        "-p:EnableWindowsTargeting=true",
+        "-p:RuntimeFrameworkVersion=10.0.13"
+      ],
+      "Exit": 0,
+      "Log": "worker-restore.log",
+      "LogBytes": 180,
+      "LogSha256": "1ffc1bee5cb6cc3f2772963acb32e302db23c76479e7e5b06600c5ae9b51ec53"
+    },
+    {
+      "Name": "worker-inventory",
+      "Argv": [
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\warm-components-windows\\d9227890165139d941934e138d14c0f4\\sdk-10.0.402\\dotnet.exe",
+        "list",
+        "src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj",
+        "package",
+        "--include-transitive",
+        "--format",
+        "json",
+        "--no-restore"
+      ],
+      "Exit": 0,
+      "Log": "worker-inventory.log",
+      "LogBytes": 823,
+      "LogSha256": "757936e7624db6612365b2f375d6a7a1b617b223ae118f35e8a1722d43b4495e"
+    },
+    {
+      "Name": "worker-audit",
+      "Argv": [
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\warm-components-windows\\d9227890165139d941934e138d14c0f4\\sdk-10.0.402\\dotnet.exe",
+        "list",
+        "src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj",
+        "package",
+        "--vulnerable",
+        "--include-transitive",
+        "--format",
+        "json",
+        "--no-restore",
+        "--source",
+        "https://api.nuget.org/v3/index.json"
+      ],
+      "Exit": 0,
+      "Log": "worker-audit.log",
+      "LogBytes": 263,
+      "LogSha256": "f2e090d619b8cbf4a0c0743608a69b37393411a1f021e5e555c4e1d587568828"
+    },
+    {
+      "Name": "worker-build",
+      "Argv": [
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\warm-components-windows\\d9227890165139d941934e138d14c0f4\\sdk-10.0.402\\dotnet.exe",
+        "build",
+        "src/KuaiYi.ImageWorker/KuaiYi.ImageWorker.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false",
+        "-p:EnableWindowsTargeting=true",
+        "-p:RuntimeFrameworkVersion=10.0.13"
+      ],
+      "Exit": 0,
+      "Log": "worker-build.log",
+      "LogBytes": 491,
+      "LogSha256": "f99505b6f90c8701be96be6cc130162bf9ff01e01b1a38fd228c5154e64b4889"
+    },
+    {
+      "Name": "input-paths",
+      "Argv": [
+        "git",
+        "ls-files",
+        "src",
+        "packaging",
+        "tools/KuaiYi.GrowthHarness",
+        "tests/fixtures/images",
+        "scripts/install-session-sdk-windows.py",
+        "scripts/prepare-session-test.py",
+        "scripts/verify-session-runtime-windows.py",
+        "global.json",
+        "Directory.Build.props",
+        "Directory.Packages.props",
+        "NuGet.Config"
+      ],
+      "Exit": 0,
+      "Log": "input-paths.log",
+      "LogBytes": 15652,
+      "LogSha256": "5adcf4bab4c453901d3d246424f0a0eebc68a2de9a8e15d67d9575e44a22033f"
+    },
+    {
+      "Name": "actual-components",
+      "Argv": [
+        "D:\\a\\KuaiYi\\KuaiYi\\tools\\KuaiYi.GrowthHarness\\bin\\Release\\net10.0-windows\\win-x64\\KuaiYi.GrowthHarness.exe",
+        "--ci-local-image-shell",
+        "D:\\a\\KuaiYi\\KuaiYi\\artifacts\\warm-components-windows\\d9227890165139d941934e138d14c0f4\\probe-result.json",
+        "D:\\a\\KuaiYi\\KuaiYi\\tests\\fixtures\\images"
+      ],
+      "Exit": 3,
+      "Log": "actual-components.log",
+      "LogBytes": 0,
+      "LogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "Pipe": {
+    "ActualElevated": true,
+    "ProductionHighRejected": true,
+    "ExactProtectedSingleLogonDacl": true,
+    "ClientMask": 1180059,
+    "SecondBindWin32": 5,
+    "OriginalWaitStarted": true,
+    "ClientTrialRequestedMask": 1180063,
+    "ClientTrialHandleInvalid": false,
+    "ClientTrialWin32OnFailure": null,
+    "ClientTrialAssertion": "RequiresInvalidHandleAndWin32_5",
+    "OriginalWaitStatus": "RanToCompletion",
+    "OriginalWaitJoined": true,
+    "ServerCreated": true,
+    "OriginalServerDisposeStatus": "RanToCompletion",
+    "OriginalServerHandleClosed": true,
+    "CleanupConfirmed": true
+  },
+  "Cases": [
+    {
+      "Name": "png",
+      "OriginalFileTask": "RanToCompletion",
+      "OriginalSourceVersion": "c12102b3-f4df-43e1-bb81-8de37d57e0bf",
+      "SourceHash": "21b267376fd764e726d41daa71e32526d6f513cf1343f26f5947008509a15b8d",
+      "Width": 640,
+      "Height": 160,
+      "Gif": null,
+      "VisibleFirstFrameNotice": false,
+      "ActualVisibleFrames": 7,
+      "OriginalWorkerFinalized": true,
+      "OriginalManagedPixelsZero": true,
+      "OriginalPngZero": true,
+      "DisplayedWriteableBitmapZero": true,
+      "OriginalClearJoined": true,
+      "Activation": "Off"
+    },
+    {
+      "Name": "two-frame-offset-transparent-gif",
+      "OriginalFileTask": "RanToCompletion",
+      "OriginalSourceVersion": "ae5261ad-6ff2-4d2b-b118-47c8ea2c19b2",
+      "SourceHash": "29a9e5800a1d3611c6591f435721e326cbcf91d639daa9d87cebeeeed0fb33a9",
+      "Width": 4,
+      "Height": 3,
+      "Gif": {
+        "SourceFrames": 2,
+        "Left": 1,
+        "Top": 1,
+        "Width": 2,
+        "Height": 1
+      },
+      "VisibleFirstFrameNotice": true,
+      "ActualVisibleFrames": 3,
+      "OriginalWorkerFinalized": true,
+      "OriginalManagedPixelsZero": true,
+      "OriginalPngZero": true,
+      "DisplayedWriteableBitmapZero": true,
+      "OriginalClearJoined": true,
+      "Activation": "Off"
+    },
+    {
+      "Name": "dictionary-interlaced-gif",
+      "OriginalFileTask": "RanToCompletion",
+      "OriginalSourceVersion": "4578db42-e735-4761-a382-bd2ba1518ae1",
+      "SourceHash": "3a328b251a019fab975dda90b27dc70fce45e28909131b410db0cd605295b7b2",
+      "Width": 256,
+      "Height": 128,
+      "Gif": {
+        "SourceFrames": 1,
+        "Left": 0,
+        "Top": 0,
+        "Width": 256,
+        "Height": 128
+      },
+      "VisibleFirstFrameNotice": true,
+      "ActualVisibleFrames": 3,
+      "OriginalWorkerFinalized": true,
+      "OriginalManagedPixelsZero": true,
+      "OriginalPngZero": true,
+      "DisplayedWriteableBitmapZero": true,
+      "OriginalClearJoined": true,
+      "Activation": "Off"
+    }
+  ],
+  "FinalShell": {
+    "ShellClosed": true,
+    "OriginalCloseJoined": true,
+    "Phase": "DefaultProgramReturned"
+  },
+  "LocalValidation": {
+    "Command": [
+      "python3",
+      "-B",
+      "scripts/session-sdk.py",
+      "build",
+      "tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj",
+      "--no-restore",
+      "-c",
+      "Release",
+      "-m:1",
+      "-nr:false",
+      "-p:UseSharedCompilation=false",
+      "-p:EnableWindowsTargeting=true"
+    ],
+    "Result": "0 warnings / 0 errors",
+    "OfflineTestMethods": 3,
+    "NoOldSuiteBorrowed": true,
+    "InitialFailuresPreserved": [
+      "NETSDK1004 missing assets before authorized locked restore",
+      "CS0121 Json options before explicit type",
+      "Local source gate rejected owned pycache; removed only that file, clean gate then passed"
+    ]
+  }
+}
