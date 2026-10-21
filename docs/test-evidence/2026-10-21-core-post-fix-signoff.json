@@ -1,0 +1,222 @@
+{
+  "date": "2026-10-21",
+  "tested_fixed_head": "00f80840b8dede4019208dc0f4d8f2f60b7ce90a",
+  "report_branch": "dev/core-post-fix-signoff",
+  "single_writer": "root; one worktree; existing reviewer read-only; no old writer resumed/unknown locks or processes removed",
+  "environment": "designated saved Linux; SDK10.0.402/runtime10.0.13; approved original dependency locks",
+  "result": {
+    "fixedHead": "00f80840b8dede4019208dc0f4d8f2f60b7ce90a",
+    "command": [
+      "python3",
+      "-B",
+      "scripts/session-sdk.py",
+      "test",
+      "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+      "-c",
+      "Release",
+      "--no-restore",
+      "-nodeReuse:false",
+      "-p:UseSharedCompilation=false",
+      "--logger",
+      "trx;LogFileName=full-core-fixed-head.trx",
+      "--results-directory",
+      "/workspace/KuaiYi/artifacts/core-post-fix-signoff"
+    ],
+    "started": "2026-10-21T03:02:15.127730+00:00",
+    "seconds": 110.834,
+    "exitCode": 1,
+    "counts": {
+      "total": "2071",
+      "executed": "2071",
+      "passed": "2070",
+      "failed": "1",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "failedOriginalResults": 1,
+    "sourceCount": 807,
+    "sourcesBeforeAfterEqual": true,
+    "headStillFixed": true,
+    "dirtyAfter": "",
+    "trxSha256": "834a792816769497faf0ba1daa92e86b7365690003d2e2f196c4f07a73168b40"
+  },
+  "status": "Fail; exactly one requested full Core post-fix run; no second full run after failure",
+  "capture_cases_in_this_full_run": [
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.SameCaptureCleanupMustJoinItsHeldOriginalObservationAfterTheRealChildHasExited",
+      "outcome": "Passed",
+      "duration": "00:00:04.4187801"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.KillFailureOrUnconfirmedWaitRetainsOwnerAndBlocksFinalizeWithoutBlockingUi(waitFailure: False)",
+      "outcome": "Passed",
+      "duration": "00:00:00.2197444"
+    },
+    {
+      "name": "KuaiYi.Core.Tests.CaptureHostTests.KillFailureOrUnconfirmedWaitRetainsOwnerAndBlocksFinalizeWithoutBlockingUi(waitFailure: True)",
+      "outcome": "Passed",
+      "duration": "00:00:04.1294622"
+    }
+  ],
+  "failure": {
+    "name": "KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(elapsed: 599, expected: Success)",
+    "outcome": "Failed",
+    "duration": "00:00:00.7353269",
+    "message": "Assert.Equal() Failure: Values differ\nExpected: Success\nActual:   HardTimeout",
+    "stack": "   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(Int32 elapsed, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 26\n   at KuaiYi.Core.Tests.SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(Int32 elapsed, SelectionCaptureStatus expected) in /workspace/KuaiYi/tests/KuaiYi.Core.Tests/SelectionBrokerProcessTests.cs:line 26\n--- End of stack trace from previous location ---",
+    "original_text_path": "run/failure-001-UnitTestResult.xml",
+    "original_text_sha256": "edbde79110be4c7002e49b0477ea0bab544b5b7236200bfec54619e820e390ef",
+    "exact_original_substring_verified": true
+  },
+  "input_provenance": {
+    "count": 807,
+    "before_after_equal": true,
+    "still_equal_after_analysis": true,
+    "catalogs": [
+      "run/sources-before.json",
+      "run/sources-after.json"
+    ]
+  },
+  "dll_inventory": {
+    "before": 330,
+    "after": 330,
+    "changed": 45,
+    "catalogs": [
+      "run/dlls-before.json",
+      "run/dlls-after.json",
+      "run/dll-changes.json"
+    ],
+    "test_dll_after_sha256": "aba79f0dae5671942b0b43f67c2edf1c228e8c5dc6e789272cc6c835eaac5b38",
+    "scope": "Inventory of Release DLLs across src/tests/tools; not all were executed. Test command includes normal compilation. Before/after DLLs are not claimed equal; generated AssemblyInfo binds current compilation to fixed00f80840 and is preserved."
+  },
+  "analysis": {
+    "candidate": "Test fake clock controls timestamp/UTC but linked CTS.CancelAfter(remaining) uses real timer; fake599 cannot prevent a real600ms startup/IO deadline from winning. Test name WithoutTimerCallback does not actually disable the real timer.",
+    "certainty": "Candidate only; original run lacks hookEntered/starter/real elapsed stage snapshots, held/zero assertions were not reached.735ms test duration includes cleanup/assertion and is not a phase measure. Not a confirmed product defect/unique historical root cause.",
+    "next_minimal_diagnosis": "Only same method: hookEntered/fakeElapsed/realStopwatch/starter enter-return/held ownership and body+dispose separate exceptions; if real timer wins is confirmed, independently review deterministic test-only timer seam or isolated existing final-validation point while retaining real production600ms and timeout/cancel/cleanup contracts.",
+    "prohibited_changes": [
+      "increase600ms budget",
+      "allowHardTimeout for599",
+      "skip/delete assertions",
+      "warmup or rerun loops",
+      "turn off production deadline"
+    ]
+  },
+  "historical_dual_track": [
+    {
+      "index": "docs/test-evidence/2026-10-21-browser-image-preview.json",
+      "result": "r13+r24 each2069P1F, CaptureHost Cleanup69; original observations/body cannot be fully reconstructed"
+    },
+    {
+      "index": "docs/test-evidence/2026-10-21-capture-finalization-root-cause.json",
+      "result": "sameCleanup held-observer0P1F then3P, related35P; current test-helper mechanism fixed, production unchanged; does not retrospectively prove every historical root cause"
+    }
+  ],
+  "independent_review": "Read-only original TRX/failure/candidate/source analysis ACK; no product/test writes, no product tests/builds by reviewer; final evidence separately checked before push",
+  "report_source_hashes": {
+    "docs/progress.md": "989049084d2295f758edb1b92663fe1cad74c3ba8e47c1a08cd74395587b3508",
+    "docs/acceptance-report.md": "545439408a87b70c3e3600cf0318ebc667c3d72590b67d08cd23e522ecd131c3",
+    "docs/validation/capture-finalization-root-cause.md": "233af0ff511b0543409fd42b815bf524135865f9758894722ea903f227ac8be9"
+  },
+  "scope": "This step changes evidence/report files only. No product/test/SDK/lock/dependency/license/permission change. No new feature after full run failed.",
+  "not_run": [
+    "second post-fix fullCore run",
+    "targeted SelectionBroker diagnostic or fix",
+    "next product feature",
+    "Windows/P6/P7/full106/Beta/quality/250600/600MiB",
+    "live model/user desktop/new costs/credentials/security permissions/CI/deploy/main/forcepush"
+  ],
+  "archive": {
+    "path": "docs/test-evidence/2026-10-21-core-post-fix-signoff-originals.zip",
+    "bytes": 811087,
+    "sha256": "c62cbe3003243492ff38a5c7557f0bfc889a0034cec63170a10ac772022e4731",
+    "entries": 19
+  },
+  "archive_members": {
+    "run/command.json": {
+      "bytes": 507,
+      "sha256": "fd9e32a9ac01b0c2232157f0a83c02351b071e164dca5b6472cac60c5f102a69"
+    },
+    "run/dll-changes.json": {
+      "bytes": 11016,
+      "sha256": "624178c695687508eebbcca106005cd7be0c59106ef36f36ecec6ea821c4a74e"
+    },
+    "run/dlls-after.json": {
+      "bytes": 54877,
+      "sha256": "cf5df2ced0419b3a51fe21d257e507c94ee7eb81b689556a324cb6507db58974"
+    },
+    "run/dlls-before.json": {
+      "bytes": 54877,
+      "sha256": "4440210d8f9841bbf209f796cba3ae175c119b3febad2cf3ed5a073a6dfe2d73"
+    },
+    "run/failure-001-UnitTestResult.xml": {
+      "bytes": 1378,
+      "sha256": "edbde79110be4c7002e49b0477ea0bab544b5b7236200bfec54619e820e390ef"
+    },
+    "run/full-core-fixed-head.log": {
+      "bytes": 3079,
+      "sha256": "1a71f6bb3261b77dcb9a4ef72aee3970aa58c716d459f9cf3979c598e5e392bc"
+    },
+    "run/full-core-fixed-head.trx": {
+      "bytes": 2955169,
+      "sha256": "834a792816769497faf0ba1daa92e86b7365690003d2e2f196c4f07a73168b40"
+    },
+    "run/obj-KuaiYi.Core.AssemblyInfo.cs": {
+      "bytes": 987,
+      "sha256": "3295b0492414c965c7365885cbb1f0f74a8e152e2910f71c903c4a24a4e19f7b"
+    },
+    "run/obj-KuaiYi.Core.Tests.AssemblyInfo.cs": {
+      "bytes": 1005,
+      "sha256": "65090c986af7374f339325d6e6bb29c0cbd45ca5972f2ca2d76e0f84308d8c27"
+    },
+    "run/report-source-hashes.json": {
+      "bytes": 316,
+      "sha256": "0fd9d37e398d847fe594180ec54d4d522081ecec1fd2b18cbcad392619e68d2e"
+    },
+    "run/result.json": {
+      "bytes": 1139,
+      "sha256": "ad53b60748cc1224e8e307f3c940497e2bb81670b8f0691b0463a2bc7e8d4fd4"
+    },
+    "run/review-analysis.txt": {
+      "bytes": 961,
+      "sha256": "c3f55cac0fca0ece4b449b64aa80908263368a094ef0be82a91b2aaaee865342"
+    },
+    "run/run-once.py": {
+      "bytes": 2958,
+      "sha256": "86a9633a67284ea37b42a19253437cda6c807736367ff52a9e5e891590517803"
+    },
+    "run/seal.py": {
+      "bytes": 6696,
+      "sha256": "ce11e3e954333aaa1c4add5a2f660b6686d5191153753e5a6ae0ae5872a3edde"
+    },
+    "run/sources-after.json": {
+      "bytes": 95181,
+      "sha256": "c0e3df19793c32b1d36523d6c2429af77dba05eb24c894fa0236374eb7be748c"
+    },
+    "run/sources-before.json": {
+      "bytes": 95181,
+      "sha256": "c0e3df19793c32b1d36523d6c2429af77dba05eb24c894fa0236374eb7be748c"
+    },
+    "report-source/docs/progress.md": {
+      "bytes": 302992,
+      "sha256": "989049084d2295f758edb1b92663fe1cad74c3ba8e47c1a08cd74395587b3508"
+    },
+    "report-source/docs/acceptance-report.md": {
+      "bytes": 37961,
+      "sha256": "545439408a87b70c3e3600cf0318ebc667c3d72590b67d08cd23e522ecd131c3"
+    },
+    "report-source/docs/validation/capture-finalization-root-cause.md": {
+      "bytes": 6639,
+      "sha256": "233af0ff511b0543409fd42b815bf524135865f9758894722ea903f227ac8be9"
+    }
+  }
+}

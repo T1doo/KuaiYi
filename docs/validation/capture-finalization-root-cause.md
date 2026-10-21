@@ -27,3 +27,12 @@ r02在同一 FailedKill 端口把**真实 child 退出后的原观察返回 Task
 未盲跑第三次完整 Core，未重跑未受影响的Provider/Codec或App/Worker构建。历史两轮完整Core仍各自Fail；本轮35P不能当完整2071用例已绿。完整P6/P7、Windows桌面/真实OCR/OLE/COM/安装身份、画质、250/600ms/600MiB及旧BMP历史根因不由本测试修复签收。
 
 沿原SPEC退出/取消/原任务结算合同，无生产功能/依赖/锁/许可/权限变化。仅已有合成child与本地fixture，无用户桌面/私人内容/真实模型/CI/新费用凭据/安全网络变化/main/强推/发布部署。
+
+
+## 固定修复 HEAD 的一次完整 Core 补验（2026-10-21）
+
+按父侧明确指令在固定 `00f80840b8dede4019208dc0f4d8f2f60b7ce90a`、clean/远端0/0执行一次完整Core（含正常编译，非循环重跑）。实际 **2070P/1F/0skip/2071**，退出1；807项源码输入前后摘要一致、HEAD未变、执行结束dirty0。CaptureHost原两分支与新增同路径屏障均通过。此结果仍是完整Core **Fail**，不把前轮或本轮历史红改写成绿。完整命令、330 DLL前后摘要/45处变化清单、完整TRX与逐字失败结果见[本次签收证据](../test-evidence/2026-10-21-core-post-fix-signoff.json)。本次编译的AssemblyInformationalVersion绑定00f80840；不声称编译前后DLL相同。
+
+唯一新失败为 `SelectionBrokerProcessTests.FinalValidationUsesAbsoluteMonotonicDeadlineWithoutTimerCallback(elapsed:599,expected:Success)`，实际HardTimeout，首个Equal在line26，UnitTestResult duration0.7353269s。尚未执行后续held/清零断言，也没有hook/starter阶段日志，不能推断hook已到达、某一阶段耗时或唯一根因。原测试假时钟仅控制GetTimestamp/GetUtcNow，客户端line82的linked CTS `CancelAfter(remaining)`仍是真实计时器；599假的最终边界不会阻止真实600ms启动/IO超时，这是已独立只读复核的候选，尚不是已证实产品缺陷。
+
+按失败分支停止全套重跑及下一产品功能推进，仅分析保全；没有修改任何产品或测试源码。后续最小诊断应限同方法记录hookEntered、假时钟/真实Stopwatch、starter进入/返回/持有状态，并保全body+dispose异常；若证实timer抢先，再独审测试专用受控timer或原最终校验点的确定性验证。不能增600ms预算、容许HardTimeout、skip、暖机或循环凑绿。Windows/P6/P7/真实画质及旧历史观测不足边界保持。

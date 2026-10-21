@@ -1357,3 +1357,10 @@ Windows OCR/OLE/COM/WPF/真实来源身份/最终文件handle、字体画质、2
 接完整浏览器候选0a333765061261c4d93befed67f77e2f123eb301，正常dev/core-capture-finalization，唯一writer/先独审。原r13/r24均2069P1F，最终栈为CaptureHost Cleanup69 finalize断言，finally109可能覆盖body，旧轨迹不补写。最小同路径屏障实证：原theory正文过、真实child退出/另一次OS wait完成，生产持有的原观察Task仍pending，旧Cleanup即finalize断言红。仅测试Cleanup显式join原观察再保留finalAssert，原4s/668字节正文和生产315文件原字节不改；body/cleanup双异常保全，生产退出安全门不放宽。
 
 r01诊断原方法2P（非自然失败复现），r02受控0P1F，r03修后原2+新1=3P，r04最终HostTermination+Capture35P/0F/0skip；红源/原XML/日志/TRX/摘要保全，独立只读源码ACK。未盲跑第三次全Core；本轮仅相关回归，不把旧两次完整Fail改绿或声称历史每次根因/body已完全追溯。无必要重建产品或重跑Provider/Codec。详见[机制与验证](validation/capture-finalization-root-cause.md)/[证据](test-evidence/2026-10-21-capture-finalization-root-cause.json)。无新功能/生产改动/依赖许可权限费用凭据/模型/用户内容/用户电脑/CI/main/强推/部署；原安全门、PackageHold/复用Off及Windows/画质/250600等未验边界保持。
+
+
+## 2026-10-21 · 固定00f80840一次完整Core签收未通过
+
+按父指令固定已审修复HEAD00f80840b8dede4019208dc0f4d8f2f60b7ce90a执行一次完整Core：2070P/1F/0skip，807输入源前后相同、执行后HEAD未变/dirty0。CaptureHost原两分支+新屏障均P；唯一新红为SelectionBroker最终单调边界599期望Success实际HardTimeout（line26，0.7353269s）。原TRX/失败逐字XML/DLL前后摘要与45处变化清单已保全。只控制timestamp/UTC的假时钟未控制真实CancelAfter600ms，是独立只读复核候选，原日志不足以证明hook到达/超时阶段/唯一根因，不认定产品缺陷。
+
+完整Core状态Fail，未再次全套重跑或推进下一功能，未改任何产品/测试源码。先保全双轨及候选分析，后续定向诊断/测试seam需最小设计独审；生产600ms、原断言/取消/清理/来源门不放宽。见[补验分析](validation/capture-finalization-root-cause.md)/[完整证据](test-evidence/2026-10-21-core-post-fix-signoff.json)。Windows/P6/P7/画质/250600等未验保持，无main/强推/部署/用户电脑/真实模型/费用权限凭据或依赖许可变化。
