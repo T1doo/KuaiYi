@@ -1667,3 +1667,7 @@ Before/AbortBeforePrepared固定产品a909c20981dd88fb31ecb42bf943071dbfec32f1�
 固定树与原件独审限定ACK。原件Library libfile_348b60f9b7e08191833b0e3df952c14c（v0，1,877,796B，206members/205manifest，SHA256 ed0943a022ef9d92840a68f0ce603a2fdd61c63c43e198bc4c2bfc2ee2d512f1）；本地Library身份已核。ZIP CRC、205摘要及8份Git源码已独立核验，无DLL本体。证据提交仅三报告，产品a909c20981dd88fb31ecb42bf943071dbfec32f1不变；完整统一事务与Windows仍未签。
 
 共享scope原IO的G只准备候选：唯一原Task/IO账本贯穿源校验、复制、Flush/Close及派生v3双复验；private凭据绑定原scope/原取消，不发布current/B active/registry。source原句柄错1F→1P、交付/交付后取消2F→2P同完整测试文件保留；r07 G24P及r08新4P分列，待固定签收。metadata partial/Move未知/foreign保留pending，payload partial仅结算后可记Inactive Abort；Closing新读取也由原finalizer结算。B/Prepared/三方提交和Windows/native/runtime仍未完成。见[实现与实际边界](validation/generation-preparation.md)。
+
+G只准备固定产品eaec97468fe2d47c89fde042f528ba002a6f3e65：7普通managed构建0W/E；一次128P/0F/0skip（G28+原100，五类），907Git输入、17目标版本及4实际Core副本一致。source句柄和取消双例红绿保留，旧tests与既有安全/依赖合同未变。本片只产生scope绑定Inactive候选；B/Prepared/统一提交及真实Windows/native/runtime/P7仍未签。
+
+G固定树与ZIP原件独审限定ACK。Library libfile_21975d63d5188191ae33535dc086bc94 v0，1,626,307B/197成员/196manifest，SHA256139cc38060cdaefc9882e44d326059618e3ba1f167c31afaa3bd26331c53a52c；CRC/11份Git源码/raw128/两红绿/17版本均独立核验，无DLL本体。证据提交只三报告，产品eaec974不变，B/Prepared仍待下一片。

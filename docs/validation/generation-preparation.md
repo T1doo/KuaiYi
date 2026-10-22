@@ -31,3 +31,13 @@ artifacts/2026-10-22-generation-preparation 保留每轮完整 command/log/TRX�
 B 的共享准备、Prepared 与三方前向/逆序补偿仍未实施；本片没有 Committed、恢复/历史授权、fixed locator、CLI 注册/安装/自启动入口。旧独立入口沿默认原实现，不改变既有消费合同。
 
 固定树签收与原件归档将在独审通过后记录于本报告，不借记旧586/310或完整Core/Codec。
+
+## 固定树签收
+
+产品 `eaec97468fe2d47c89fde042f528ba002a6f3e65` clean 树执行 r09 七次普通 managed 构建，均 0W/E；r10 同固定树一次 **128P/0F/0skip**：G28、原 Scope25、Before23、Payload36、Extension16，五类128唯一显示名称。未运行完整Core/Codec，也未重刷旧586/310。各候选与签收轮次分列，不相加。
+
+r09/r10 四份907输入快照 before=after，逐项匹配产品 Git。17目标 AssemblyInfo 均含完整产品 SHA，14产品 DLL 从普通构建到测试保持相同摘要；CoreTests/两fixture 本轮正常编译，4实际Core副本与主Core相同。原件仅提供产物摘要和版本源码，没有DLL本体，不冒称独立二进制重hash。
+
+363原src中360字节不变，仅Scope/Package/Payload修改，新增IO与private candidate；旧tests全部字节不变，新28例。锁、项目、workflow、packaging、扩展、scripts、sln均未改。两组红绿完整testfile逐字节相同，r07/r08所有candidate用例保留在固定128范围。内部独立源码审查已限定ACK；固定原件复核和Library归档另记录，不代签Windows或B/Prepared。
+
+固定树原件独审限定ACK；ZIP CRC、196项manifest、11份固定Git源码、raw128、两红绿及17版本原件均独立核验。Library `libfile_21975d63d5188191ae33535dc086bc94`（v0，1,626,307B，197成员/196manifest），SHA256 `139cc38060cdaefc9882e44d326059618e3ba1f167c31afaa3bd26331c53a52c`；本地Library身份已核。证据提交仅三报告，产品eaec974不变；没有二进制本体或平台验收扩张。
