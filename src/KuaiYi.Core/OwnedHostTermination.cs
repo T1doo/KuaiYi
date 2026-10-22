@@ -25,6 +25,7 @@ public sealed class OwnedHostTermination(IOwnedHostLifetime owned)
     public HostExitState State { get; private set; } = HostExitState.Running;
     public string? FailureCode { get; private set; }
     public bool CanRestart => State == HostExitState.ExitConfirmed;
+    internal Task? OriginalExitObservation {get{lock(sync)return exitWait;}}
     public Task<HostExitState> StopAsync(TimeSpan budget)
     {
         if (budget <= TimeSpan.Zero || budget > TimeSpan.FromSeconds(10)) throw new ArgumentOutOfRangeException(nameof(budget));

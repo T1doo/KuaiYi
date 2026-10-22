@@ -15,6 +15,7 @@ public sealed partial class InstallationStore
     private sealed record Reference(string Id,string CatalogSha256);
     private sealed record Pointer(Reference Active,Reference? Previous);
     private const string Owner="KuaiYi installation file store v1\n";
+    internal static byte[] InitialOwnerBytes=>Encoding.UTF8.GetBytes(Owner);
     private readonly string directory,userData;private readonly Func<bool> rolesStopped;
     internal Action<InstallationStage>? StageForTest {get;init;}
     public InstallationStore(string directory,string userDataDirectory,Func<bool> rolesStopped)
@@ -82,11 +83,11 @@ public sealed partial class InstallationStore
         var owner=InstallationAdmission.CreateOwner(directory);
         try{AcquireAdmission(owner,execution,mutation,existing);return owner;}catch(Exception error){owner.Fail(error);throw;}
     }
-    internal void AcquireAdmission(InstallationAdmission owner,InstallationExecutionOwnership? execution=null,bool mutation=true,bool existing=true,bool requireStopped=false,bool keepSetup=false,InstallationPreparationIO? executionIO=null)
+    internal void AcquireAdmission(InstallationAdmission owner,InstallationExecutionOwnership? execution=null,bool mutation=true,bool existing=true,bool requireStopped=false,bool keepSetup=false,InstallationPreparationIO? executionIO=null,InstallationRootInitialization? initialization=null)
     {
         owner.RequireRoot(directory);
         if(requireStopped)RequireStopped();
-        _=existing?OpenExistingSetup(directory,owner.OwnSetup):Lock(owner.OwnSetup);
+        _=existing?OpenExistingSetup(directory,owner.OwnSetup,initialization):Lock(owner.OwnSetup);
         if(existing)InstallationHostActivity.Initialize(directory,false);owner.Acquire(mutation,existing);
         if(execution!=null)owner.Attach(execution,executionIO);
         else if(File.Exists(InstallationExecutionOwnership.RecordPath(directory))||Directory.Exists(InstallationExecutionOwnership.RecordPath(directory)))throw new InstallationRecoveryException("Existing execution owner retained; launch and mutation blocked.");
@@ -135,7 +136,7 @@ public sealed partial class InstallationStore
     }
     private FileStream Lock(Action<FileStream>? own=null)
     {
-        InstallationPaths.Check(directory);Directory.CreateDirectory(directory);bool createdOwner=false;string marker=Path.Combine(directory,"owner.txt");
+        InstallationPaths.Check(directory);Directory.CreateDirectory(directory);InstallationRootInitialization.RejectPending(directory);bool createdOwner=false;string marker=Path.Combine(directory,"owner.txt");
         if(!File.Exists(marker))
         {
             if(Directory.EnumerateFileSystemEntries(directory).Any())throw new InstallationRecoveryException("Unknown installation directory retained.");SettingsStore.WriteFlushed(marker,Encoding.UTF8.GetBytes(Owner));createdOwner=true;

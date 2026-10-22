@@ -14,10 +14,11 @@ internal sealed class InstallationOperationFaults
     internal InstallationPublicationFaults? Publication {get;init;}
     internal InstallationCompensationFaults? Compensation {get;init;}
     internal Action<InstallationOperationPhase>? Phase {get;init;}
+    internal InstallationPreparationFaults? Initialization {get;init;}
 }
 
 // One in-memory installer operation. Existing-only foundation; no Windows installer/registry entry or persisted resume.
-internal sealed class InstallationOperation
+internal sealed partial class InstallationOperation
 {
     private static readonly HashSet<InstallationOperation> Retained=[];
     private readonly object sync=new();
@@ -26,6 +27,7 @@ internal sealed class InstallationOperation
     private readonly Func<InstallationOperationSession,Task<InstallationUpgradeCoordinator>> factory;
     private readonly Func<InstallationControlledLaunch,CancellationToken,Task> publishReady;
     private readonly CancellationToken cancellation;
+    private readonly bool initializeMissingRoot;
     private readonly InstallationOperationFaults? faults;
     private readonly TaskCompletionSource begin=new(TaskCreationOptions.RunContinuationsAsynchronously);
     private readonly TaskCompletionSource<InstallationOperationOutcome> result=new(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -56,13 +58,13 @@ internal sealed class InstallationOperation
     internal bool CleanupConfirmed=>OriginalWork.IsCompleted&&!OriginalWorkPending&&ResourcesConfirmed();
     internal InstallationOperation(string root,string data,string generationSource,string generationSha,string bootstrapSource,string bootstrapSha,
         IInstallationDeploymentPublicationRegistry registry,Func<InstallationOperationSession,Task<InstallationUpgradeCoordinator>> factory,
-        Func<InstallationControlledLaunch,CancellationToken,Task> publishReady,CancellationToken cancellation=default,InstallationOperationFaults? faults=null)
+        Func<InstallationControlledLaunch,CancellationToken,Task> publishReady,CancellationToken cancellation=default,InstallationOperationFaults? faults=null,bool initializeMissingRoot=false)
     {
         this.root=InstallationPaths.Root(root);this.data=InstallationPaths.Root(data);this.generationSource=InstallationPaths.Root(generationSource);this.bootstrapSource=InstallationPaths.Root(bootstrapSource);
         if(!InstallationPackage.HashValid(generationSha)||!InstallationPackage.HashValid(bootstrapSha))throw new InvalidDataException("Both original source pins are required.");
         _=new InstallationStore(this.root,this.data,()=>false);this.generationSha=generationSha;this.bootstrapSha=bootstrapSha;
         this.registry=registry??throw new ArgumentNullException(nameof(registry));this.factory=factory??throw new ArgumentNullException(nameof(factory));
-        this.publishReady=publishReady??throw new ArgumentNullException(nameof(publishReady));this.cancellation=cancellation;this.faults=faults;
+        this.initializeMissingRoot=initializeMissingRoot;this.publishReady=publishReady??throw new ArgumentNullException(nameof(publishReady));this.cancellation=cancellation;this.faults=faults;
         OriginalWork=Task.Run(RunAsync);
     }
     internal Task<InstallationOperationOutcome> Start()
@@ -102,7 +104,7 @@ internal sealed class InstallationOperation
     {
         try
         {
-            SetPhase(InstallationOperationPhase.Preparing);Scope=new(root,data,generationSha,bootstrapSha,cancellation,faults:faults?.Deployment);
+            SetPhase(InstallationOperationPhase.Preparing);Scope=new(root,data,generationSha,bootstrapSha,cancellation,faults:faults?.Deployment,initializeMissingRoot:initializeMissingRoot,initializationFaults:faults?.Initialization);
             await Scope.AcquireAsync().ConfigureAwait(false);
             var capture=Scope.CaptureBeforeAsync(registry);captureStarted=true;before=await capture.ConfigureAwait(false);
             var generation=await Scope.PrepareGenerationAsync(generationSource,faults?.Generation).ConfigureAwait(false);

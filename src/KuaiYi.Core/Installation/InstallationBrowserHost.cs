@@ -49,9 +49,9 @@ internal sealed class InstallationHostActivity:IDisposable
 public sealed partial class InstallationStore
 {
     // Host entry never initializes a store, lock, owner or session. Acquire setup only for bounded ingress work.
-    internal static FileStream OpenExistingSetup(string root,Action<FileStream>? own=null)
+    internal static FileStream OpenExistingSetup(string root,Action<FileStream>? own=null,InstallationRootInitialization? initialization=null)
     {
-        InstallationPaths.Check(root);string marker=Path.Combine(root,"owner.txt");
+        InstallationPaths.Check(root);InstallationRootInitialization.RejectPending(root,initialization);string marker=Path.Combine(root,"owner.txt");
         if(!InstallationPackage.ReadDocument(marker,128).AsSpan().SequenceEqual(Encoding.UTF8.GetBytes(Owner)))throw new InstallationRecoveryException("Unknown installation owner retained.");
         string path=Path.Combine(root,"installation.lock");InstallationPaths.Check(path);FileStream lease;
         try{lease=new(path,FileMode.Open,FileAccess.ReadWrite,FileShare.None);}catch(IOException error)when(error is not FileNotFoundException and not DirectoryNotFoundException&&(error.HResult&0xffff) is 11 or 32 or 33){throw new InstallationBusyException();}

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "scope": "SPEC13.4 bounded independent installer command, original first-root initialization, one Operation and original process exit fence",
+  "base": "eaf6ed1fcfdd78a21958694927b2799992bdeee5",
+  "status": "InProgress",
+  "candidate": {"newPassed":16,"failed":0,"skipped":0,"inputs":956,"installerBuildWarnings":0,"installerBuildErrors":0},
+  "effectiveCounterexample": "r08 inline report barrier: original protocol IO held but old Entry.OriginalWork completed; same test method Passed in r11",
+  "fixedTree": "NotRun",
+  "originals": "artifacts/2026-10-22-installer-entry",
+  "productionTrust": "Unavailable",
+  "boundaries": ["No actual Windows execution or registry mutation","No warm capability in installer-owned session","No complete native/self-contained runtime or reviewed release source pins","Not full Core/266/204 regression or P7 signoff"]
+}

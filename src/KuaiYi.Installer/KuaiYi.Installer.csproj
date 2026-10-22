@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net10.0</TargetFramework><OutputType>Exe</OutputType><RuntimeIdentifier>win-x64</RuntimeIdentifier><SelfContained>false</SelfContained></PropertyGroup>
+  <ItemGroup><ProjectReference Include="../KuaiYi.NativeHost/KuaiYi.NativeHost.csproj" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="../../packaging/installer-source-pins.json" LogicalName="KuaiYi.InstallerSourcePins" /></ItemGroup>
+</Project>

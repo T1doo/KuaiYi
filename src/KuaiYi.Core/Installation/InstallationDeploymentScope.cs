@@ -37,6 +37,7 @@ internal sealed partial class InstallationDeploymentScope
     private readonly object sync=new();
     private readonly InstallationStore store;
     private readonly InstallationAdmission admission;
+    private readonly InstallationRootInitialization? initialization;
     private readonly InstallationDeploymentFaults? faults;
     private readonly List<IInstallationDeploymentFinalRead> reads=[];
     private readonly List<(string Path,FileStream Original)> files=[];
@@ -70,14 +71,15 @@ internal sealed partial class InstallationDeploymentScope
     internal string Bundle {get;}=Guid.NewGuid().ToString("N");
     internal Task<InstallationDeploymentOutcome> Finalization=>finalization;
     internal bool BeforeUnconfirmed=>beforeAttempted&&!beforeComplete;
-    internal bool CleanupConfirmed {get{lock(sync)return finalization.IsCompleted&&(settlement==null||settlement.IsCompleted)&&admission.CleanupConfirmed&&files.Count==0&&reads.All(x=>x.CleanupConfirmed)&&(snapshot==null||snapshot.IsCompleted)&&(snapshotOwner==null||snapshotOwner.CleanupConfirmed)&&(generationPreparation==null||generationPreparation.IsCompleted)&&(bootstrapPreparation==null||bootstrapPreparation.IsCompleted)&&(prepared==null||prepared.IsCompleted)&&(publicationTask==null||publicationTask.IsCompleted)&&(generationIO==null||generationIO.CleanupConfirmed);}}
+    internal bool CleanupConfirmed {get{lock(sync)return finalization.IsCompleted&&(settlement==null||settlement.IsCompleted)&&admission.CleanupConfirmed&&(initialization==null||initialization.CleanupConfirmed)&&files.Count==0&&reads.All(x=>x.CleanupConfirmed)&&(snapshot==null||snapshot.IsCompleted)&&(snapshotOwner==null||snapshotOwner.CleanupConfirmed)&&(generationPreparation==null||generationPreparation.IsCompleted)&&(bootstrapPreparation==null||bootstrapPreparation.IsCompleted)&&(prepared==null||prepared.IsCompleted)&&(publicationTask==null||publicationTask.IsCompleted)&&(generationIO==null||generationIO.CleanupConfirmed);}}
     internal InstallationDeploymentScope(string root,string data,string generationSourceSha,string bootstrapSourceSha,
-        CancellationToken cancellation=default,InstallationAdmissionFaults? admissionFaults=null,InstallationDeploymentFaults? faults=null)
+        CancellationToken cancellation=default,InstallationAdmissionFaults? admissionFaults=null,InstallationDeploymentFaults? faults=null,bool initializeMissingRoot=false,InstallationPreparationFaults? initializationFaults=null)
     {
         if(!InstallationPackage.HashValid(generationSourceSha)||!InstallationPackage.HashValid(bootstrapSourceSha))throw new InvalidDataException("Both source pins are required.");
         root=InstallationPaths.Root(root);data=InstallationPaths.Root(data);this.root=root;userData=data;this.generationSourceSha=generationSourceSha;this.bootstrapSourceSha=bootstrapSourceSha;store=new(root,data,()=>true);
         admission=InstallationAdmission.CreateOwner(root,admissionFaults);this.faults=faults;this.cancellation=cancellation;
         Operation=Guid.NewGuid().ToString("N");pending=store.PendingPath;
+        if(initializeMissingRoot)initialization=new(root,Operation,cancellation,initializationFaults);
         temporary=Path.Combine(root,"deployment-terminal-"+Operation+".tmp");backup=Path.Combine(root,"deployment-ticket-"+Operation+".json");
         archive=Path.Combine(root,"deployment-failed-"+Operation+".json");beforePath=Path.Combine(root,"deployment-before-"+Operation+".json");
         ticket=JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=2,kind="KuaiYiUnifiedDeploymentTicket",operation=Operation,root,data,generationSourceSha,bootstrapSourceSha,generation=Generation,bundle=Bundle});
@@ -97,11 +99,12 @@ internal sealed partial class InstallationDeploymentScope
     private void Acquire()
     {
         cancellation.ThrowIfCancellationRequested();
-        // Existing-only foundation. Initialization and all participant publication remain separate later work.
-        store.AcquireAdmission(admission,requireStopped:true,keepSetup:true);cancellation.ThrowIfCancellationRequested();
+        // Optional first-root owner is part of this exact acquisition/finalization, never a second transaction.
+        initialization?.Prepare();
+        store.AcquireAdmission(admission,requireStopped:true,keepSetup:true,initialization:initialization);cancellation.ThrowIfCancellationRequested();
         foreach(string path in new[]{temporary,backup,archive,beforePath})
         {InstallationPaths.Check(path);if(File.Exists(path)||Directory.Exists(path))throw new InstallationRecoveryException("Deployment operation already exists.");}
-        Write(pending,ticket,true);ticketComplete=true;admission.ReleaseSetup();
+        Write(pending,ticket,true);ticketComplete=true;initialization?.HandoffAfterTicket(root);admission.ReleaseSetup();
     }
     private void RequestFinish(bool abort=true){lock(sync){if(abort)publicationAbort=true;finishing=true;finish.TrySetResult();}}
     internal Task<InstallationDeploymentOutcome> AbortBeforeSnapshotAsync()
@@ -344,7 +347,8 @@ internal sealed partial class InstallationDeploymentScope
         try{if(faults?.BeforeClosing!=null)await faults.BeforeClosing().ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
         if(cancellation.IsCancellationRequested)errors.Add(new OperationCanceledException(cancellation));
         lock(sync)closing=true;
-        bool canArchive=ticketComplete&&!BeforeUnconfirmed&&generationIO?.StorageUnconfirmed!=true;
+        bool canArchive=ticketComplete&&!BeforeUnconfirmed&&generationIO?.StorageUnconfirmed!=true&&initialization?.Unconfirmed!=true;
+        if(initialization!=null)try{initialization.CloseOriginals();if(!initialization.CleanupConfirmed)canArchive=false;}catch(Exception error){errors.Add(error);canArchive=false;}
         try{if(faults?.AfterClosing!=null)await faults.AfterClosing().ConfigureAwait(false);}catch(Exception error){errors.Add(error);canArchive=false;}
         if(generationIO!=null)try{generationIO.CloseOriginals();if(!generationIO.CleanupConfirmed)canArchive=false;}catch(Exception error){errors.Add(error);canArchive=false;}
         try{admission.Dispose();}catch(Exception error){errors.Add(error);canArchive=false;}
@@ -390,8 +394,8 @@ internal sealed partial class InstallationDeploymentScope
             }
             catch(Exception error){errors.Add(error);}
         }
-        bool clean=admission.CleanupConfirmed&&reads.All(x=>x.CleanupConfirmed)&&(snapshotOwner==null||snapshotOwner.CleanupConfirmed)&&(generationIO==null||generationIO.CleanupConfirmed);lock(sync)clean&=files.Count==0;
-        if(!ticketCreated&&clean){lock(Retained)Retained.Remove(this);return new(InstallationDeploymentStatus.Refused,errors.ToArray());}
+        bool clean=admission.CleanupConfirmed&&(initialization==null||initialization.CleanupConfirmed)&&reads.All(x=>x.CleanupConfirmed)&&(snapshotOwner==null||snapshotOwner.CleanupConfirmed)&&(generationIO==null||generationIO.CleanupConfirmed);lock(sync)clean&=files.Count==0;
+        if(!ticketCreated&&clean&&initialization?.Unconfirmed!=true){lock(Retained)Retained.Remove(this);return new(InstallationDeploymentStatus.Refused,errors.ToArray());}
         return new(InstallationDeploymentStatus.Unconfirmed,errors.ToArray());
     }
     // Explicit same-owner settlement only. Never reopens a stream, deletes a ticket or replays finalization.
@@ -402,7 +406,7 @@ internal sealed partial class InstallationDeploymentScope
             if(!finalization.IsCompleted)throw new InvalidOperationException("Original finalization is still pending.");
             if(settlement!=null&&!settlement.IsCompleted)return settlement;
             // After a successful final Move there is no fallible cleanup left, including on this API.
-            if(admission.CleanupConfirmed&&files.Count==0&&reads.All(x=>x.CleanupConfirmed)&&(snapshotOwner==null||snapshotOwner.CleanupConfirmed)&&(generationIO==null||generationIO.CleanupConfirmed))return Task.FromResult<IReadOnlyList<Exception>>([]);
+            if(admission.CleanupConfirmed&&(initialization==null||initialization.CleanupConfirmed)&&files.Count==0&&reads.All(x=>x.CleanupConfirmed)&&(snapshotOwner==null||snapshotOwner.CleanupConfirmed)&&(generationIO==null||generationIO.CleanupConfirmed))return Task.FromResult<IReadOnlyList<Exception>>([]);
             var begin=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
             settlement=Task.Run(async()=>{await begin.Task.ConfigureAwait(false);return await SettleCoreAsync().ConfigureAwait(false);});
             begin.SetResult();return settlement;
@@ -412,6 +416,7 @@ internal sealed partial class InstallationDeploymentScope
     {
         var errors=new List<Exception>();
         if(generationIO!=null)try{generationIO.CloseOriginals();}catch(Exception error){errors.Add(error);}
+        if(initialization!=null)try{initialization.CloseOriginals();}catch(Exception error){errors.Add(error);}
         try{admission.Dispose();}catch(Exception error){errors.Add(error);}
         foreach(var owner in reads)try{await owner.CloseOriginalsAsync().ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
         if(snapshotOwner!=null)try{await snapshotOwner.CloseOriginalsAsync().ConfigureAwait(false);}catch(Exception error){errors.Add(error);}

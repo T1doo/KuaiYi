@@ -9,3 +9,5 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("KuaiYi.NativeHost")]
 
 [assembly: InternalsVisibleTo("KuaiYi.Launcher")]
+
+[assembly: InternalsVisibleTo("KuaiYi.Installer")]

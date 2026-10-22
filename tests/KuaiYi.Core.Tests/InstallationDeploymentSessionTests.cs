@@ -65,11 +65,12 @@ public sealed partial class InstallationDeploymentSessionTests(ITestOutputHelper
         internal readonly TaskCompletionSource Healthy=Signal(),HealthRelease=Signal(),IoEntered=Signal(),IoRelease=Signal();
         internal bool HoldHealth,HoldIo=false;
         internal Exception? HealthError,IoError;
+        internal Action? BeforeInstallerStart=null;
         internal int Starts;internal readonly List<int> Exits=[];
         internal Process? Child;
         internal InstallationControlledLaunch? Proof;
         public Process Start(ProcessStartInfo info)
-        {Starts++;string selected=Path.GetDirectoryName(info.FileName)!;info.FileName=Environment.GetEnvironmentVariable("DOTNET_HOST_PATH")??"dotnet";info.ArgumentList.Insert(0,Path.Combine(selected,"KuaiYi.SettingsStoreFixture.dll"));return Child=Process.Start(info)!;}
+        {Starts++;BeforeInstallerStart?.Invoke();string selected=Path.GetDirectoryName(info.FileName)!;info.FileName=Environment.GetEnvironmentVariable("DOTNET_HOST_PATH")??"dotnet";info.ArgumentList.Insert(0,Path.Combine(selected,"KuaiYi.SettingsStoreFixture.dll"));return Child=Process.Start(info)!;}
         public async Task AdmitLaunchAsync(Process owned,InstallationControlledLaunch proof,CancellationToken cancellation)
         {Proof=proof;await client.AdmitLaunchAsync(owned,proof,cancellation);}
         public async Task ConfirmHealthyAsync(Process owned,InstalledVersion version,Guid launch,CancellationToken cancellation)
@@ -100,9 +101,9 @@ public sealed partial class InstallationDeploymentSessionTests(ITestOutputHelper
         internal InstallationDeploymentSession? Session;
         internal InstallationDeploymentCompensation? Compensation;
         internal Peer? Peer;
-        internal async Task<(MaterializedPayloadSource Source,BootstrapSource Bootstrap)> Sources(bool upgrade)
+        internal async Task<(MaterializedPayloadSource Source,BootstrapSource Bootstrap)> Sources(bool upgrade,bool initialize=true)
         {
-            using(var initial=Store.EnterRoleAdmission()){}Directory.CreateDirectory(Data);File.WriteAllText(Path.Combine(Data,"PUBLIC_OFF"),"PUBLIC_PRESERVED");
+            if(initialize){using var initial=Store.EnterRoleAdmission();}Directory.CreateDirectory(Data);File.WriteAllText(Path.Combine(Data,"PUBLIC_OFF"),"PUBLIC_PRESERVED");
             var source=new MaterializedPayloadSource(Path.Combine(Root,"source"));
             foreach(string name in new[]{"KuaiYi.SettingsStoreFixture.dll","KuaiYi.SettingsStoreFixture.deps.json","KuaiYi.SettingsStoreFixture.runtimeconfig.json"})File.Copy(Path.Combine(Path.GetDirectoryName(Driver)!,name),Path.Combine(source.Root,name));
             File.WriteAllBytes(Path.Combine(source.Root,"public-install-behavior.json"),JsonSerializer.SerializeToUtf8Bytes(new{version="1.0",mode="healthy",runtimePipe=OperationPreviousPipe??Pipe,controlled=true}));source.Catalog();

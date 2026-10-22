@@ -1722,3 +1722,5 @@ Write compare修复固定树和ZIP独审限定ACK。Library libfile_7c3e6187e268
 单一安装操作固定产品6d04d197683f8841c906c5d33fed0e1800fe51ed：七普通managed0W/E，一次19P/0F/0skip＝新15+原4完整链代表，新15同候选/原4取前266指定三方法多重集相符，不混历史轮。924Git输入/17版本/14产品DLL建测库存/4Core匹配；原22方法suffix、Comp43/Restored32全文件字节保留，不等于全量重跑。仅单原owner编排，不新增恢复算法或真实安装入口；阶段READY与原生命周期/unknown分开，不签完整安装成功。
 
 固定树与ZIP原件独审限定ACK。Library libfile_a500dcbf7ac881919ccd26aa18571e5c v0，1,193,473B/129成员/128manifest，SHA2560c95a452d71f64b92ce9d05fa700b10b43e2b5bcb36199e19c7701cabca2e213；CRC/10Git原件/raw19/924四输入及17版本库存均核，无DLL本体。证据仅三报告，产品6d04不变。旧266只重跑4代表，其他未跑，Prepared204/fullCore/真Windows/native/runtime/完整P7仍未签。
+
+独立安装入口候选：固定内嵌source pins（现Unavailable）与两阶段独立Installer产物，首次根在同原Scope原IO ledger中排他创建/完整Ticket交接，未知保partial/pending，不领养空目录。单Operation七阶段结果与原生命周期分离，补只读原Start/协议/stop/exit观察退出fence，Ctrl+C原CancelAsync封producer/join期间仍抑制默认退出；不新增恢复/重试/Dispose外部owner。候选新16P，r08同方法有效fence1F→r11 1P；编译和前置失败完整保留不混数字。r12 Installer0W/E，源码独审限定ACK，待固定必要回归。生产缺完整包/可信pins拒绝，Installer健康会话不启warm；不签真实注册/Windows/原生完整runtime或P7。见[实际差异及原件](validation/installer-entry.md)。

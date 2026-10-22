@@ -173,6 +173,14 @@ internal sealed class InstallationPreparationIO(string source,string staging,str
         }
         catch{if(attempted)storageUnconfirmed=true;throw;}
     }
+    // Initial root locks are deliberately empty. They use the same original ledger, not a local using.
+    internal void CreateEmptyFile(string path)
+    {
+        try{_=Execute(operation=>{cancellation.ThrowIfCancellationRequested();var output=Open(operation,"empty-output",path,FileMode.CreateNew,FileAccess.Write);faults?.BeforeFlush?.Invoke(path,output);output.Flush(true);return true;});}
+        catch{storageUnconfirmed=true;throw;}
+    }
+    internal void RequireEmptyFile(string path)
+    {_=Execute(operation=>{var input=Open(operation,"empty-input",path,FileMode.Open,FileAccess.Read);if(input.Length!=0)throw new InstallationRecoveryException("Initial lock is not empty.");return true;});}
     internal void RequireExactMetadata(string path,byte[] expected,int maximum)
     {
         try{if(!ReadDocument(path,maximum).AsSpan().SequenceEqual(expected))throw new InstallationRecoveryException("Preparation metadata changed; retained.");}

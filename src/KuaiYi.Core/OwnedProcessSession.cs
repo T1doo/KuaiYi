@@ -10,6 +10,7 @@ public sealed class OwnedProcessSession(IOwnedProcessStarter? processStarter=nul
     private Task<Process>? startTask;
     private Task? startupObserver;
     private Task<HostExitState>? stopTask;
+    private Task<IReadOnlyList<Exception>>? originalExitFence;
     private bool stopRequested, disposed,transferred;
     public string? StartupFailureCode { get; private set; }
     internal Action<Process>? OwnershipPublishedForTest { get; set; } // Test-only scheduler barrier; never configured by App.
@@ -77,6 +78,36 @@ public sealed class OwnedProcessSession(IOwnedProcessStarter? processStarter=nul
     public Task<HostExitState> StopAsync()=>StopOwnedAsync();
     public Task StartupSettlement {get{lock(ownershipSync)return startTask??Task.CompletedTask;}}
     internal Task StartupObservation {get{lock(ownershipSync)return startupObserver??Task.CompletedTask;}}
+    // Read-only process-exit fence for a completed installer session producer. Never retries Stop/Finalize or releases ownership.
+    internal Task<IReadOnlyList<Exception>> JoinOriginalExitAsync()
+    {
+        lock(ownershipSync)return originalExitFence??=Task.Run(async()=>
+        {
+            var errors=new List<Exception>();
+            async Task Join(Task? original){if(original!=null)try{await original.ConfigureAwait(false);}catch(Exception error){errors.Add(error);}}
+            Task? start,observer;lock(ownershipSync){start=startTask;observer=startupObserver;}
+            await Join(start).ConfigureAwait(false);await Join(observer).ConfigureAwait(false);
+            Task? stop,exit;Process? child;bool closed;
+            lock(ownershipSync){stop=stopTask;exit=termination?.OriginalExitObservation;child=owned;closed=disposed;}
+            await Join(stop).ConfigureAwait(false);await Join(exit).ConfigureAwait(false);
+            if(!closed&&child!=null)
+            {
+                try
+                {
+                    // This exact prepublished fence owns even a new passive OS observation after a failed Stop.
+                    if(!child.HasExited)await child.WaitForExitAsync(CancellationToken.None).ConfigureAwait(false);
+                    if(!child.HasExited)throw new IOException("Original owned child exit remains unconfirmed.");
+                }
+                catch(Exception error)
+                {
+                    errors.Add(error);
+                    // Cannot prove actual exit. Keep this original caller alive, with no timer, retry or new termination.
+                    await new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously).Task.ConfigureAwait(false);
+                }
+            }
+            return (IReadOnlyList<Exception>)errors;
+        });
+    }
     public async ValueTask<bool> TryFinalizeAsync(bool retry=false)
     {
         if(retry){lock(ownershipSync)if(stopTask is {IsCompleted:true})stopTask=null;}
