@@ -34,7 +34,17 @@ artifacts/2026-10-22-publication记录每轮命令/日志/TRX/完整失败XML、
 
 最终风险类54例包含初装/已归属升级、每个provisional阶段故障及取消、五反向失败/foreign依赖停止、三文件与两槽write-after-effect、B归属/Move失败、原registry write/read/close未知、metadata partial/close、两种Closing取消胜序、双端清理错误、归档前失败/收据丢失/历史新读关闭未知、sticky foreign、旧G/B损坏，以及七个真实child crash阶段。仅合成fixture/文件registry，非真实Windows。
 
-内部只读设计及必要修复源码独审限定ACK。固定树签收与Library原件随后单列，不将r10与r13相加或称新树完整通过。
+内部只读设计及必要修复源码独审限定ACK。r10与r13不相加；签收以以下固定树单轮原件为准。
+
+## 固定树相关签收
+
+产品完整SHA `2ccc70074c1d586cd50acd853cc35f526918c711`。r14在该clean HEAD按原SDK/锁执行七普通managed构建，0警告/0错误、零测试。r15在同一clean HEAD一次相关Core测试258P/0F/0skip，258唯一显示名＝Publication54＋Prepared28＋B30＋G28＋Scope25＋Before23＋BootstrapDeployment35＋HostRegistrationTransaction35，即新54＋原204，不是完整Core，也不借记旧轮。
+
+r15包含七次真实合成child自退出73，父侧等待同originalExit及原stdout/stderr全部结算；Crash前ticket持续阻断，Archive后只识别exact已提交历史，不收养或重放。生产仍只隔离测试根/fake registry，未调用真实Windows registry。
+
+两轮915输入前后稳定且逐项匹配产品Git；17份AssemblyInfo包含产品完整SHA，14产品DLL正常构建与实际测试摘要一致，Launcher/Core.Tests/SettingsStoreFixture/BrowserHostFixture四实际Core副本相同。337旧测试文件逐字节保留；367旧src只改3增2，其余不变；Tools只改Program测试入口、增加明确crash fixture。锁/项目/工作流/打包/扩展/脚本未改。scope-audit.json保留类多重集、红绿同完整文件摘要、产物与Git核对；原件无DLL本体，不冒称包内独立二进制重hash。
+
+固定源码与原件独立只读复审限定ACK，无确定新增P1/P2；审核未重跑产品。原件已保存Library `libfile_f64fba2fd0e881919089b06caae265af` v0，2,353,493B、287成员/286manifest，SHA256 `8177f07a91d61180f0ea6f93f3988d907431d989fa8fb8d79a08dbcc62164ffe`；本地Library身份/版本匹配成功回执。封包机械独审限定ACK：287唯一成员/CRC、286项大小与SHA、13项product-source（5源码＋1测试＋2工具＋3报告＋AGENTS/SPEC）与固定Git、raw258、七child记录、两同file红绿、915输入及17版本记录均核；r01/r03/r06旧失败保留。无DLL本体，不冒称包内独立重hash二进制。本次证据提交仅三报告，产品与测试不变。
 
 ## 边界
 

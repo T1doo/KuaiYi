@@ -1685,3 +1685,7 @@ Prepared固定产品9c2256774d70c970b4e1cd24aec7db0f2a2f12af：七普通managed�
 Prepared固定树与ZIP原件独审限定ACK。Library libfile_44b5928d8e1c8191901877454a513f17 v0，1,551,923B/191成员/190manifest，SHA256 a32f7e9251fed889c8fb7862aef81d5b98ae36d355d9ff9436dfc231400618d2；CRC/13项Git原件/raw204/同file红绿/911inputs/17版本记录均核，无DLL本体。本次证据仅三报告，产品9c2256774d70c970b4e1cd24aec7db0f2a2f12af不变；无前向/补偿/真实注册或Windows验收借记。
 
 统一事务前向/逆序补偿候选：同原scope绑定Prepared/Task/原IO，B canonical归属准备失败保pending；Gcurrent→Bactive→Chrome→Edge→Hreceipt全provisional，Closing前取消逆向恢复且foreign/关闭unknown立即停止，Closing后仅结算原操作，最后committed archive Move才成功。原foreign观测被新读覆盖1F→1P、旧G/B恢复目标损坏2F→2P均同完整testfile；r10旧候选52P，随后crash原wait/错误保全及旧恢复目标已修，待固定新54+原相关204签收，不相加旧轮。仅隔离根/fake registry/受控真实child自退出，不接真实注册安装或P7。见[范围与原件](validation/deployment-publication.md)。
+
+统一前向/补偿固定产品2ccc70074c1d586cd50acd853cc35f526918c711：七普通managed构建0W/E，一次相关258P/0F/0skip＝Publication54+原204（8类、258唯一名），包含七实际合成child退出和同原IO结算。915Git输入/17版本/14产品DLL摘要/4Core副本一致，337旧测试不变；两组同file真实红绿保留。最后committed archive Move才内核Committed，foreign/损坏旧恢复目标/原清理unknown保pending；非完整Core/Windows/真实注册安装/P7，无native/runtime可运行包签收。
+
+统一前向/补偿固定树及ZIP独审限定ACK。原件Library libfile_f64fba2fd0e881919089b06caae265af v0，2,353,493B/287成员/286manifest，SHA2568177f07a91d61180f0ea6f93f3988d907431d989fa8fb8d79a08dbcc62164ffe；CRC/13项Git原件/raw258/7child/两红绿/915inputs/17版本记录均核，旧失败保留，无DLL本体。证据仅三报告，产品2ccc70074c1d586cd50acd853cc35f526918c711不变，不代签真实Windows或完整安装/P7。

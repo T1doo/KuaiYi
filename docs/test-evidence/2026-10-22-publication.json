@@ -1,6 +1,6 @@
 {
   "base": "7072b06bfa80051a2db06d90c3126e32bcd9bee4",
-  "status": "CandidateReviewLimited",
+  "status": "FixedPassLimited",
   "scope": "Original scope provisional forward/reverse/Closing/terminal, synthetic file roots and fake registry only",
   "artifactRoot": "artifacts/2026-10-22-publication",
   "runs": {
@@ -20,7 +20,7 @@
   },
   "rounds_added": false,
   "risk_class_cases": 54,
-  "review": "Limited design/source ACK; fixed signoff pending",
+  "review": "Limited design/source/frozen/fixed/ZIP ACK; CRC/286 manifest/13 product-source Git/raw258/7child/2redgreen/915inputs/17versions verified; no reviewer product rerun",
   "terminal_capacity_claim": "All-variant defensive preflight; prior alleged reachable P2 withdrawn, no manufactured red",
   "remaining": [
     "No real registry/Windows/identity/fixed locator/installer/autostart/P7 acceptance",
@@ -28,5 +28,56 @@
     "No real desktop/OCR/quality/250600 acceptance",
     "Synthetic process exit not power-loss durability; no external atomic registry CAS"
   ],
-  "no_new_permissions_credentials_licenses_fees_or_real_model_calls": true
+  "no_new_permissions_credentials_licenses_fees_or_real_model_calls": true,
+  "product_sha": "2ccc70074c1d586cd50acd853cc35f526918c711",
+  "fixed": {
+    "r14": {
+      "normal_builds": 7,
+      "warnings": 0,
+      "errors": 0,
+      "tests": 0
+    },
+    "r15": {
+      "passed": 258,
+      "failed": 0,
+      "skipped": 0,
+      "new": 54,
+      "existing": 204,
+      "unique_names": 258,
+      "classes": {
+        "KuaiYi.Core.Tests.InstallationPreparedPlanTests": 28,
+        "KuaiYi.Core.Tests.InstallationPublicationTests": 54,
+        "KuaiYi.Core.Tests.InstallationGenerationPreparationTests": 28,
+        "KuaiYi.Core.Tests.HostRegistrationTransactionTests": 35,
+        "KuaiYi.Core.Tests.InstallationBootstrapPreparationTests": 30,
+        "KuaiYi.Core.Tests.InstallationDeploymentBeforeTests": 23,
+        "KuaiYi.Core.Tests.InstallationBootstrapDeploymentTests": 35,
+        "KuaiYi.Core.Tests.InstallationDeploymentScopeTests": 25
+      },
+      "actual_synthetic_child_exits": 7,
+      "full_Core": false
+    },
+    "stable_product_Git_inputs": 915,
+    "full_SHA_targets": 17,
+    "product_DLL_build_test_matches": 14,
+    "actual_Core_copies_equal": 4,
+    "old_test_files_byte_unchanged": 337,
+    "old_src_files": 367,
+    "modified_old_src": 3,
+    "new_src": 2,
+    "tools": "Program explicit test entry and new synthetic crash fixture only",
+    "binary_bodies_in_archive": false
+  },
+  "library": {
+    "id": "libfile_f64fba2fd0e881919089b06caae265af",
+    "version": 0,
+    "file": "deployment-publication-originals.zip",
+    "bytes": 2353493,
+    "members": 287,
+    "manifest_entries": 286,
+    "sha256": "8177f07a91d61180f0ea6f93f3988d907431d989fa8fb8d79a08dbcc62164ffe",
+    "local_identity_verified": true,
+    "independent_archive_review": "LimitedACK",
+    "product_source_records": 13
+  }
 }
