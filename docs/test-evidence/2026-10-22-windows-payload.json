@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "scope": "Actual Windows payload prerequisites, mandatory OCR native trust closure, unsealed local input inventory",
+  "base": "3b243b2e14ba658b41eee15a7b1d37d44f8e50a1",
+  "status": "InProgress",
+  "effectiveCounterexample": "Same complete new OCR test file r02 4Failed -> r03 4Passed; r03 also original18 receipt cases",
+  "candidate": {"corePassed": 22, "newCore": 4, "originalReceipt": 18, "pythonInputMethods": 5, "originalRuntimePythonMethods": 19},
+  "runtimeArchives": {"version": "10.0.13", "count": 2, "archiveSha512AndCrc": "Pass", "nuspecLicense": "MIT_PreviouslyAuthorized", "currentSignature": "NotRun", "executed": false},
+  "productionTrust": "Unavailable",
+  "inventoryQualification": "Blocked_Unsealed_NoSourcePins_ManagedBinaryRevisionUnverified",
+  "originals": "artifacts/2026-10-22-windows-payload",
+  "boundaries": ["No complete Windows native/self-contained payload", "No actual Windows execution, registry or installation", "No new licenses, tools, permissions, credentials or CI", "Not full Core/586/266/204 regression or P7 signoff"]
+}

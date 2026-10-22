@@ -1728,3 +1728,5 @@ Write compare修复固定树和ZIP独审限定ACK。Library libfile_7c3e6187e268
 独立安装入口固定产品d55be5563a6cde314975b58356b0fd7cb95c9524：八普通managed0W/E，一次58P/0F/0skip＝新16+原Operation15+Scope25+Host门代表2；956四输入/Git、18版本、15产品DLL建测库存/5Core相符。r08同方法fence1F→r14 1P，旧22方法及其余既有test文件保留。生产pins仍Unavailable，Installer不启warm；原任务/actual-exit和Ctrl+C原取消任务完全join才允许返回，未知不提升不新恢复。未重跑旧266/204/fullCore全量，不借记未执行项，Windows/native完整runtime/真实安装注册/完整P7仍未签。
 
 固定树及ZIP原件独审限定ACK；Library libfile_9f283f3eb7b88191b050095bf97037bc v0，2,453,373B/389成员388manifest，SHA256ec60502473b264c437b8fe51e81664c86f5ce3b5fd4f8c7024832a052b02fbc3。CRC/25Git原件/raw58/同method红绿/956四输入/18版本及库存核过，无DLL本体不称归档二进制重验；后续证据只改三报告，产品d55be55不变，所有历史失败保留。
+
+Windows payload封装接续：发现Imaging实际使用OcrNative却未纳入源资格门，最小补入原NativeFiles并增强独立48项合同；重算新source SHA的缺失/截断/x86反例同完整file4F→4P，另原receipt18P＝候选22P。仅已授权runtime10.0.13两归档原字节恢复，SHA512/CRC/MIT核对不是在线签名或Windows执行。新增受界本地输入清单，真实资源/归档来源与普通build目录分列，后者版本归属明确Unverified；Blocked且G/B摘要null、pins仍Unavailable。缺四真实native、七角色self-contained及有效签名/真实extension origin/B闭包，不用fixture代签；待冻结必要验证，不借旧完整套数。见[实际封装边界与原件](validation/windows-payload-assembly.md)。

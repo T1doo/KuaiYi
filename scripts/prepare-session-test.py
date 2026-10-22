@@ -148,8 +148,8 @@ def require_no_advisories(document, expected_project, inventory, runtime=None, a
     return {"Project": str(Path(expected_project).resolve()), "PackageCount": len(actual), "Frameworks": sorted(frameworks)}
 
 
-def bind_runtime_payload(publish, packages):
-    """Bind every selected WPF/runtime payload to the verified nupkg, before ZIP creation."""
+def runtime_payload_records(packages):
+    """Read the exact WPF/runtime member map; caller must verify archive identity/signature separately."""
     outputs = {}
     for identity, version, package in packages:
         with zipfile.ZipFile(package) as archive:
@@ -188,7 +188,12 @@ def bind_runtime_payload(publish, packages):
                 outputs[relative.lower()] = record
     if not outputs:
         raise RuntimeError("Runtime payload inventory is empty")
-    records = sorted(outputs.values(), key=lambda entry: entry["Path"])
+    return sorted(outputs.values(), key=lambda entry: entry["Path"])
+
+
+def bind_runtime_payload(publish, packages):
+    """Bind every selected WPF/runtime payload to the verified nupkg, before ZIP creation."""
+    records = runtime_payload_records(packages)
     for record in records:
         target = publish / record["Path"]
         if any(p.is_symlink() for p in (target, *target.parents)) or not target.is_file() or hashlib.sha256(target.read_bytes()).hexdigest() != record["Sha256"]:
