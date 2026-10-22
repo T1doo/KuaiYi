@@ -2,7 +2,7 @@ using System.Security.Cryptography;
 using System.Text.Json;
 namespace KuaiYi.Core.Installation;
 
-// Scope-owned inactive G preparation; no current/bootstrap/registry publication or Committed result.
+// Scope-owned inactive G/B preparation; no current/bootstrap/registry publication or Committed result.
 internal enum InstallationDeploymentStatus { Refused,AbortedBeforeSnapshot,AbortedBeforePrepared,Unconfirmed }
 internal sealed record InstallationDeploymentOutcome(InstallationDeploymentStatus Status,IReadOnlyList<Exception> Errors);
 internal interface IInstallationDeploymentFinalRead
@@ -46,11 +46,15 @@ internal sealed class InstallationDeploymentScope
     private readonly Task<InstallationDeploymentOutcome> finalization;
     private Task<IReadOnlyList<Exception>>? settlement;
     private readonly byte[] ticket;
-    private readonly string root,userData,generationSourceSha,pending,temporary,backup,archive,beforePath;
+    private readonly string root,userData,generationSourceSha,bootstrapSourceSha,pending,temporary,backup,archive,beforePath;
     private Task<InstallationGenerationCandidate>? generationPreparation;
     private InstallationPreparationIO? generationIO;
     private GenerationPreparationContext? generationContext;
     private InactiveGenerationRetention? generationRetention;
+    private Task<InstallationBootstrapCandidate>? bootstrapPreparation;
+    private InstallationPreparationIO? bootstrapIO;
+    private BootstrapPreparationContext? bootstrapContext;
+    private InactiveBootstrapRetention? bootstrapRetention;
     private Task<InstallationDeploymentBefore>? snapshot;
     private IInstallationDeploymentSnapshotRead? snapshotOwner;
     private byte[]? before;
@@ -62,12 +66,12 @@ internal sealed class InstallationDeploymentScope
     internal string Bundle {get;}=Guid.NewGuid().ToString("N");
     internal Task<InstallationDeploymentOutcome> Finalization=>finalization;
     internal bool BeforeUnconfirmed=>beforeAttempted&&!beforeComplete;
-    internal bool CleanupConfirmed {get{lock(sync)return finalization.IsCompleted&&(settlement==null||settlement.IsCompleted)&&admission.CleanupConfirmed&&files.Count==0&&reads.All(x=>x.CleanupConfirmed)&&(snapshot==null||snapshot.IsCompleted)&&(snapshotOwner==null||snapshotOwner.CleanupConfirmed)&&(generationPreparation==null||generationPreparation.IsCompleted)&&(generationIO==null||generationIO.CleanupConfirmed);}}
+    internal bool CleanupConfirmed {get{lock(sync)return finalization.IsCompleted&&(settlement==null||settlement.IsCompleted)&&admission.CleanupConfirmed&&files.Count==0&&reads.All(x=>x.CleanupConfirmed)&&(snapshot==null||snapshot.IsCompleted)&&(snapshotOwner==null||snapshotOwner.CleanupConfirmed)&&(generationPreparation==null||generationPreparation.IsCompleted)&&(bootstrapPreparation==null||bootstrapPreparation.IsCompleted)&&(generationIO==null||generationIO.CleanupConfirmed);}}
     internal InstallationDeploymentScope(string root,string data,string generationSourceSha,string bootstrapSourceSha,
         CancellationToken cancellation=default,InstallationAdmissionFaults? admissionFaults=null,InstallationDeploymentFaults? faults=null)
     {
         if(!InstallationPackage.HashValid(generationSourceSha)||!InstallationPackage.HashValid(bootstrapSourceSha))throw new InvalidDataException("Both source pins are required.");
-        root=InstallationPaths.Root(root);data=InstallationPaths.Root(data);this.root=root;userData=data;this.generationSourceSha=generationSourceSha;store=new(root,data,()=>true);
+        root=InstallationPaths.Root(root);data=InstallationPaths.Root(data);this.root=root;userData=data;this.generationSourceSha=generationSourceSha;this.bootstrapSourceSha=bootstrapSourceSha;store=new(root,data,()=>true);
         admission=InstallationAdmission.CreateOwner(root,admissionFaults);this.faults=faults;this.cancellation=cancellation;
         Operation=Guid.NewGuid().ToString("N");pending=store.PendingPath;
         temporary=Path.Combine(root,"deployment-terminal-"+Operation+".tmp");backup=Path.Combine(root,"deployment-ticket-"+Operation+".json");
@@ -154,7 +158,39 @@ internal sealed class InstallationDeploymentScope
     }
     internal void RequireRetentionCapacity(InactiveGenerationRetention value)
     {if(TerminalBytes(value).Length>16384)throw new InvalidDataException("Generation retention exceeds terminal bound.");}
-    private byte[] TerminalBytes(InactiveGenerationRetention? retention)=>JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=2,kind="KuaiYiUnifiedDeploymentTerminal",operation=Operation,variant=beforeComplete?"AbortBeforePrepared":"AbortBeforeSnapshot",ticketSha256=Convert.ToHexString(SHA256.HashData(ticket)),beforeSha256=beforeComplete?Convert.ToHexString(SHA256.HashData(before!)):null,preparedSha256=(string?)null,inactiveGeneration=retention});
+    internal Task<InstallationBootstrapCandidate> PrepareBootstrapAsync(string source,InstallationGenerationCandidate generation,InstallationPreparationFaults? preparationFaults=null)
+    {
+        ArgumentNullException.ThrowIfNull(generation);source=InstallationPaths.Root(source);
+        if(InstallationPaths.Contains(root,source)||InstallationPaths.Contains(source,root)||InstallationPaths.Contains(userData,source)||InstallationPaths.Contains(source,userData))throw new InvalidDataException("Bootstrap source must be separate from installation and user data.");
+        lock(sync)
+        {
+            if(!generation.IsLiveFor(this)||generationIO==null||bootstrapPreparation!=null)throw new InvalidOperationException("Bootstrap preparation requires the original live G and is one-shot.");
+            string staging=Path.Combine(root,"bootstrap-staging-"+Bundle),destination=Path.Combine(root,"bootstrap-candidates",Bundle),intent=Path.Combine(root,"deployment-bootstrap-"+Operation+".json");
+            bootstrapContext=new(root,source,bootstrapSourceSha,Bundle,Operation,staging,destination,intent,Convert.ToHexString(SHA256.HashData(ticket)),Convert.ToHexString(SHA256.HashData(before!)),generation,cancellation);
+            bootstrapIO=generationIO.CreateBootstrapChannel(source,staging,destination,intent,preparationFaults);
+            var begin=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var owned=bootstrapIO;
+            bootstrapPreparation=Task.Run(async()=>{await begin.Task.ConfigureAwait(false);return InstallationBootstrapCandidate.Prepare(this,owned);});
+            begin.SetResult();return ObserveBootstrapAsync(bootstrapPreparation);
+        }
+    }
+    private async Task<InstallationBootstrapCandidate> ObserveBootstrapAsync(Task<InstallationBootstrapCandidate> original)
+    {
+        try{var candidate=await original.ConfigureAwait(false);lock(sync){if(finishing||closing||cancellation.IsCancellationRequested||!candidate.Generation.IsLiveFor(this))throw new OperationCanceledException("Bootstrap delivery was retired.",cancellation);return candidate;}}
+        catch{RequestFinish();var result=await finalization.ConfigureAwait(false);InstallationErrors.Throw(result.Errors);throw;}
+    }
+    internal BootstrapPreparationContext RequireBootstrapPreparation(InstallationPreparationIO owner)
+    {
+        lock(sync){if(!ReferenceEquals(owner,bootstrapIO)||bootstrapContext==null||!bootstrapContext.Generation.IsLiveFor(this))throw new OperationCanceledException("Original bootstrap phase is no longer open.",cancellation);}
+        cancellation.ThrowIfCancellationRequested();admission.RequireMutation(root);RequireExact(pending,ticket);RequireExact(beforePath,before!,131072);RequireBeforeFiles(JsonSerializer.Deserialize<InstallationDeploymentBefore>(before!)!);return bootstrapContext;
+    }
+    internal bool IsLiveBootstrap(InstallationBootstrapCandidate candidate)
+    {lock(sync)return !finishing&&!closing&&!cancellation.IsCancellationRequested&&candidate.Generation.IsLiveFor(this)&&bootstrapPreparation is{IsCompletedSuccessfully:true}&&ReferenceEquals(bootstrapPreparation.Result,candidate);}
+    internal void RecordBootstrapIntent(InstallationPreparationIO owner,InactiveBootstrapRetention value)
+    {if(!ReferenceEquals(owner,bootstrapIO))throw new InvalidOperationException("Wrong original bootstrap owner.");bootstrapRetention=value;}
+    internal void RequireBootstrapRetentionCapacity(InactiveBootstrapRetention value)
+    {if(TerminalBytes(generationRetention,value).Length>16384)throw new InvalidDataException("Combined G/B retention exceeds terminal bound.");}
+    private byte[] TerminalBytes(InactiveGenerationRetention? retention)=>TerminalBytes(retention,bootstrapRetention);
+    private byte[] TerminalBytes(InactiveGenerationRetention? retention,InactiveBootstrapRetention? bootstrap)=>JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=2,kind="KuaiYiUnifiedDeploymentTerminal",operation=Operation,variant=beforeComplete?"AbortBeforePrepared":"AbortBeforeSnapshot",ticketSha256=Convert.ToHexString(SHA256.HashData(ticket)),beforeSha256=beforeComplete?Convert.ToHexString(SHA256.HashData(before!)):null,preparedSha256=(string?)null,inactiveGeneration=retention,inactiveBootstrap=bootstrap});
     private static string? Encode(byte[]? bytes)=>bytes==null?null:Convert.ToBase64String(bytes);
     private async Task<InstallationDeploymentBefore> CaptureCoreAsync()
     {
@@ -262,6 +298,7 @@ internal sealed class InstallationDeploymentScope
         try{await acquisition.ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
         if(snapshot!=null)try{await snapshot.ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
         if(generationPreparation!=null)try{await generationPreparation.ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
+        if(bootstrapPreparation!=null)try{await bootstrapPreparation.ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
         try{if(faults?.BeforeClosing!=null)await faults.BeforeClosing().ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
         if(cancellation.IsCancellationRequested)errors.Add(new OperationCanceledException(cancellation));
         lock(sync)closing=true;

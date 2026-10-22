@@ -1671,3 +1671,5 @@ Before/AbortBeforePrepared固定产品a909c20981dd88fb31ecb42bf943071dbfec32f1�
 G只准备固定产品eaec97468fe2d47c89fde042f528ba002a6f3e65：7普通managed构建0W/E；一次128P/0F/0skip（G28+原100，五类），907Git输入、17目标版本及4实际Core副本一致。source句柄和取消双例红绿保留，旧tests与既有安全/依赖合同未变。本片只产生scope绑定Inactive候选；B/Prepared/统一提交及真实Windows/native/runtime/P7仍未签。
 
 G固定树与ZIP原件独审限定ACK。Library libfile_21975d63d5188191ae33535dc086bc94 v0，1,626,307B/197成员/196manifest，SHA256139cc38060cdaefc9882e44d326059618e3ba1f167c31afaa3bd26331c53a52c；CRC/11份Git源码/raw128/两红绿/17版本均独立核验，无DLL本体。证据提交只三报告，产品eaec974不变，B/Prepared仍待下一片。
+
+同scope B只准备候选：原G有效后登记唯一原B Task，G/B共享同Ledger且Close/Closing按原channel结算；源/staging/final重验实际Core/revision与完整五文件合同，独立intent/随机Bundle/inactive retention，不改canonical owner/bundles/active/current/registry。原B正文保全1F→1P；r05混合Core产物12P18F保留，同源码测试仅同步managed后r07 30P，r08精确资格原因4P分列。待独审固定签收，B/Prepared/Windows不冒签。见[实现与原件](validation/bootstrap-preparation.md)。
