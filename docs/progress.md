@@ -1730,3 +1730,8 @@ Write compare修复固定树和ZIP独审限定ACK。Library libfile_7c3e6187e268
 固定树及ZIP原件独审限定ACK；Library libfile_9f283f3eb7b88191b050095bf97037bc v0，2,453,373B/389成员388manifest，SHA256ec60502473b264c437b8fe51e81664c86f5ce3b5fd4f8c7024832a052b02fbc3。CRC/25Git原件/raw58/同method红绿/956四输入/18版本及库存核过，无DLL本体不称归档二进制重验；后续证据只改三报告，产品d55be55不变，所有历史失败保留。
 
 Windows payload封装接续：发现Imaging实际使用OcrNative却未纳入源资格门，最小补入原NativeFiles并增强独立48项合同；重算新source SHA的缺失/截断/x86反例同完整file4F→4P，另原receipt18P＝候选22P。仅已授权runtime10.0.13两归档原字节恢复，SHA512/CRC/MIT核对不是在线签名或Windows执行。新增受界本地输入清单，真实资源/归档来源与普通build目录分列，后者版本归属明确Unverified；Blocked且G/B摘要null、pins仍Unavailable。缺四真实native、七角色self-contained及有效签名/真实extension origin/B闭包，不用fixture代签；待冻结必要验证，不借旧完整套数。见[实际封装边界与原件](validation/windows-payload-assembly.md)。
+
+
+Windows payload固定产品2182f8df5ba5d6e5a0e36f137e6b082101c6f7a8：八普通managed0W/E，一次109P/0F/0skip＝新OCR4+原receipt18+payload36+Host35+Installer16；959前后/Git输入一致，18obj版本声明/15产品DLL文件摘要/5Core副本相符，不称独立DLL metadata认证。Python新5/原19分别通过。实际466项只读输入清单含runtime409+notice2/Skia4/Git12/观察G34+B5，缺15，exit2 Blocked、G/B摘要null且pins不变；同完整file4F→4P保留，不混候选22P。Windows/native/selfcontained/真实注册安装/签名/真实extension origin/P7仍未签，缺合法已有Windows工具链与真实产物，不新增许可/权限/CI。
+
+固定树及原件ZIP独审限定ACK：CRC/123manifest/17份Git源码/同file4F→4P/raw109/959四输入/8构建/新5与原19Python均核。Library libfile_3fa869febf848191aa932f2076b02f66 v0，965,715B/124成员，SHA256 df597040bd5c6ca78b2775e53db158a5684b655f464eb9b4f686327acc66bca8；本地Library身份已确认。ZIP不含DLL/nupkg本体，不称独立二进制重验或签名。证据只更新三报告，产品2182f8df5ba5d6e5a0e36f137e6b082101c6f7a8不变。

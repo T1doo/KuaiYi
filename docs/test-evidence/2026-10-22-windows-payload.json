@@ -2,12 +2,91 @@
   "schemaVersion": 1,
   "scope": "Actual Windows payload prerequisites, mandatory OCR native trust closure, unsealed local input inventory",
   "base": "3b243b2e14ba658b41eee15a7b1d37d44f8e50a1",
-  "status": "InProgress",
+  "status": "Pass_Limited_PayloadPackagingBlocked",
   "effectiveCounterexample": "Same complete new OCR test file r02 4Failed -> r03 4Passed; r03 also original18 receipt cases",
-  "candidate": {"corePassed": 22, "newCore": 4, "originalReceipt": 18, "pythonInputMethods": 5, "originalRuntimePythonMethods": 19},
-  "runtimeArchives": {"version": "10.0.13", "count": 2, "archiveSha512AndCrc": "Pass", "nuspecLicense": "MIT_PreviouslyAuthorized", "currentSignature": "NotRun", "executed": false},
+  "candidate": {
+    "corePassed": 22,
+    "newCore": 4,
+    "originalReceipt": 18,
+    "pythonInputMethods": 5,
+    "originalRuntimePythonMethods": 19
+  },
+  "runtimeArchives": {
+    "version": "10.0.13",
+    "count": 2,
+    "archiveSha512AndCrc": "Pass",
+    "nuspecLicense": "MIT_PreviouslyAuthorized",
+    "currentSignature": "NotRun",
+    "executed": false
+  },
   "productionTrust": "Unavailable",
   "inventoryQualification": "Blocked_Unsealed_NoSourcePins_ManagedBinaryRevisionUnverified",
   "originals": "artifacts/2026-10-22-windows-payload",
-  "boundaries": ["No complete Windows native/self-contained payload", "No actual Windows execution, registry or installation", "No new licenses, tools, permissions, credentials or CI", "Not full Core/586/266/204 regression or P7 signoff"]
+  "boundaries": [
+    "No complete Windows native/self-contained payload",
+    "No actual Windows execution, registry or installation",
+    "No new licenses, tools, permissions, credentials or CI",
+    "Not full Core/586/266/204 regression or P7 signoff"
+  ],
+  "productSha": "2182f8df5ba5d6e5a0e36f137e6b082101c6f7a8",
+  "fixedTree": {
+    "corePassed": 109,
+    "failed": 0,
+    "skipped": 0,
+    "classes": {
+      "newOcr": 4,
+      "originalReceipt": 18,
+      "originalPayload": 36,
+      "originalHostRegistration": 35,
+      "originalInstaller": 16
+    },
+    "normalManagedBuilds": 8,
+    "warnings": 0,
+    "errors": 0,
+    "inputs": 959,
+    "beforeAfterAndGitEqual": true,
+    "objVersionDeclarations": 18,
+    "productDllHashInventories": 15,
+    "actualCoreCopies": 5,
+    "binaryMetadataIndependentlyInspected": false,
+    "pythonInputMethods": 5,
+    "originalRuntimePythonMethods": 19,
+    "historicalRoundsNotSummed": true
+  },
+  "actualInventory": {
+    "status": "Blocked",
+    "exit": 2,
+    "files": 466,
+    "runtimeMembers": 409,
+    "runtimeNotices": 2,
+    "skiaMembers": 4,
+    "gitResources": 12,
+    "observedGenerationBuildFiles": 34,
+    "observedBootstrapBuildFiles": 5,
+    "missing": 15,
+    "sealed": false,
+    "generationSourceSha256": null,
+    "bootstrapSourceSha256": null,
+    "managedBinarySourceRevision": "Unverified",
+    "installerPinsWritten": false
+  },
+  "independentReview": {
+    "status": "ACK_Limited",
+    "manifest": 123,
+    "productGitFiles": 17,
+    "reviewerDidNotRunTests": true,
+    "binaryBodiesInArchive": false
+  },
+  "archive": {
+    "file": "windows-payload-originals.zip",
+    "bytes": 965715,
+    "sha256": "df597040bd5c6ca78b2775e53db158a5684b655f464eb9b4f686327acc66bca8",
+    "members": 124,
+    "manifest_entries": 123,
+    "native_runtime_and_other_binary_bodies_included": false,
+    "libraryFileId": "libfile_3fa869febf848191aa932f2076b02f66",
+    "version": 0,
+    "identityHelperExit": 0,
+    "localLibraryIdentityConfirmed": true
+  }
 }

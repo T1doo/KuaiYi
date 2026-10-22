@@ -25,3 +25,11 @@ Imaging的NativeOcr真实DllImport使用KuaiYi.OcrNative.dll，原InstallationPa
 原件路径artifacts/2026-10-22-windows-payload。候选Python新5方法、原runtime19方法分别通过；原runtime套件最终Windows context报告Blocked，非Windows执行Pass。完整命令、日志、TRX、源码与产物摘要在原件保留。冻结后的必要managed构建、相关Core和实际归档输入观察另补结果；不重复完整Core/旧586/266/204，不借记未执行项。
 
 真实隔离Windows首次安装、升级失败恢复、新旧READY/实际退出、Explorer/OLE/WPF/普通medium身份、画质及250/600ms未验。PackageHold、主Off及原来源/密码/完整性/取消/清理/发送门保持。部署内核Committed不代表真实安装成功。
+
+## 固定树结果
+
+产品2182f8df5ba5d6e5a0e36f137e6b082101c6f7a8，r08八普通managed构建0W/E；r09一次109P/0F/0skip＝新OCR4+原receipt18+原payload36+原Host事务35+原Installer16，非完整Core。959输入前后及Git一致，18份obj版本声明、15产品DLL实际文件hash及5实际Core副本建测一致；没有独立读取DLL metadata或在ZIP存二进制本体，不借obj声明签发来源。r10 Python新5方法和原19方法分别通过，末尾真实Windowscontext仍Blocked。
+
+r11读取本轮已恢复精确归档，实际466项：runtime409成员+2notice、Skia4、Git12、观察G build34/B build5；缺15项，预期exit2/Blocked、sealed=false、G/B摘要null，pins未写。它是逐输入文件来源/hash观察，不是完整publish目录。普通build项均修订未验证，四native缺件没有凭空填行。原件保留完整命令/日志/TRX/红绿源码/输入与产物摘要；辅助audit首次仅快照路径拼错，原失败日志保留，修正未重跑产品测试。
+
+固定树及原件ZIP独审限定ACK：CRC/123manifest/17份Git源码/同file4F→4P/raw109/959四输入/8构建/新5与原19Python均核。Library libfile_3fa869febf848191aa932f2076b02f66 v0，965,715B/124成员，SHA256 df597040bd5c6ca78b2775e53db158a5684b655f464eb9b4f686327acc66bca8；本地Library身份已确认。ZIP不含DLL/nupkg本体，不称独立二进制重验或签名。证据只更新三报告，产品2182f8df5ba5d6e5a0e36f137e6b082101c6f7a8不变。
