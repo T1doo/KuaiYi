@@ -81,6 +81,8 @@ internal sealed class HostRegistrationTransaction(string root,string userData,IH
             // Never initialize an absent installation merely to register a browser host.
             _=store.ReadActive(cancellation)??throw new InstallationRecoveryException("No selected installation.");
             admission=store.EnterAdmission(mutation:true);var selected=store.ReadActive(cancellation)??throw new InstallationRecoveryException("No selected installation.");
+            var payload=InstallationPayload.RequireMaterialized(selected.DirectoryPath,cancellation);
+            if(payload.CatalogSha256!=selected.CatalogSha256)throw new InstallationRecoveryException("Selected installed payload digest changed.");
             var status=IntegrationInstalledFiles.ReadAsync(selected.DirectoryPath,cancellation).GetAwaiter().GetResult();
             if(status!=(IntegrationState.Configured,IntegrationReason.LocalConfigurationOnly))throw new InstallationRecoveryException("Installed host metadata or payload is unconfirmed.");
             string manifest=Path.Combine(selected.DirectoryPath,"com.kuaiyi.native_host.json");

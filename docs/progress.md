@@ -1607,6 +1607,11 @@ UI源码b03541c468180e84de33731dafba7b7fd78c50e4已核872测试输入逐Git一�
 
 第一次固定55959b3相关545例为514P31F，未签收；逐原件定位27新store手造夹具缺门、3旧注入早于新publication及1退役setup争用。r10确定红：setup与原cleanup IO屏障下取消后新Host仍ENTERED。修复为原launch closing先撤销、原role lease下完整prepared刷盘关闭后不覆盖Move发布/精确退役，写/关闭多错保留，首次已有closing不领养；通用owner/变更门不放宽，foreign owner及失败持久fence保留。r11定向62P，3旧注入仅改同步时点、原断言保持；原件与设计限定独审后再冻结必要签收，不循环刷绿。
 
-修复冻结722270d46cd5ea6bcb7d0375ab652854b85506ae后，r12同范围一次549P0F0skip（19真类、本片21+原528，r09原545名称全保留），r13正常App0W/E。880输入两轮前后逐Git一致，四目标完整SHA及摘要匹配，340/348原src不变；原3旧测试只补准确同步/新fixture门，正文断言保留。无完整套件或Windows代签，所有失败原件留存。只接续独审/原件保存和三报告正常分支推送。
+修复冻结722270d46cd5ea6bcb7d0375ab652854b85506ae后，r12同范围一次549P0F0skip（19真类、本片21+原528，r09原545结果/544唯一显示名称全保留（两长origin显示截断重名）），r13正常App0W/E。880输入两轮前后逐Git一致，四目标完整SHA及摘要匹配，340/348原src不变；原3旧测试只补准确同步/新fixture门，正文断言保留。无完整套件或Windows代签，所有失败原件留存。只接续独审/原件保存和三报告正常分支推送。
 
 最终原件独审限定ACK，549条、880输入、四目标及ZIP逐项一致；Library确认libfile_919bb999dad48191be09ed3585c278ef版本0，2261208B/308成员/307manifest，SHA256390f56f1e648ff5144eee6eb66dcdb3a91570e597938ae443e2412e293a6b3c2。原ZIP/产品不改，只三报告追加回执正常推送；真实Windows/安装/完整P7边界保留。
+
+
+## 2026-10-22 完整角色源包的路径派生物化
+
+SPEC13.3/13.4继续真实Apply缺口：v2固定source原SHA与完整角色/声明依赖，从随机generation实际生成manifest/trust/provenance和独立v3安装摘要；真实NativeHost共享配置校验及内部注册事务要求物化资格，generic v1不获资格。旧35注册fixture改由source真实Apply建立，不手造installed目录。r05身份4反例确定红→r06相关65P、r07边界16P，轮次不累计；编译失败和所有原件保留。设计/源码/原件独审限定ACK，冻结后做一次相关签收，见[实际物化与边界](validation/payload-materialization.md)。本环境实际managed产物加明确structural runtime/native/第三方fixture，不是可运行Windows包；三项原生DLL/完整自包含runtime输入、真实身份/注册/安装/Windows与250600仍未验。不扩权限许可/工具/费用，不触用户电脑或403 runner。

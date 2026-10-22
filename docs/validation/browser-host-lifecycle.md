@@ -38,7 +38,7 @@ Host只打开既有setup和空活动门，在短setup段内取得共享门并绑
 
 ## 修复固定树签收
 
-产品/测试722270d46cd5ea6bcb7d0375ab652854b85506ae：r12一次同范围相关549P/0F/0skip，19个实际类，本片21新增+528既有；r09原545个测试名称全部保留通过。不是完整Core/Provider/Codec，也不把各轮相加。r13正常App交叉构建0W/0E、零运行测试。两轮880输入前后稳定并逐Git blob一致，Core/NativeHost/CoreTests/App四目标摘要与各轮产物库存匹配，AssemblyInfo含完整产品SHA。
+产品/测试722270d46cd5ea6bcb7d0375ab652854b85506ae：r12一次同范围相关549P/0F/0skip，19个实际类，本片21新增+528既有；r09原545条结果（545个testId、544个唯一显示名称）全部保留通过；两长origin截断为相同显示名称。r12为549条/549个testId、548唯一显示名称，原TRX/ZIP不改。不是完整Core/Provider/Codec，也不把各轮相加。r13正常App交叉构建0W/0E、零运行测试。两轮880输入前后稳定并逐Git blob一致，Core/NativeHost/CoreTests/App四目标摘要与各轮产物库存匹配，AssemblyInfo含完整产品SHA。
 
 348个原src中340个逐字节未改；8个既有src改动、2个新src。3个旧测试文件仅增加新生命周期fixture同步/原cleanup屏障或fresh-store活动门，原正文断言与用例保留；两新测试文件提供21例。工具只改既有BrowserHostFixture并加其本片合成模式。锁文件、依赖、工作流、packaging、extensions及scripts未改。原件/完整TRX、失败原文、输入/产物摘要与独立只读签收一并保全；最终只归档三报告再正常开发分支推送。
 

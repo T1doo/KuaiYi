@@ -46,7 +46,10 @@
     "new": 21,
     "existing": 528,
     "actual_classes": 19,
-    "old_r09_names_retained": 545
+    "old_r09_results_retained": 545,
+    "old_r09_unique_display_names": 544,
+    "unique_display_names": 548,
+    "unique_test_ids": 549
   },
   "app_build": {
     "warnings": 0,
@@ -76,7 +79,6 @@
     "new_tests": 21,
     "existing_tests": 528,
     "actual_classes": 19,
-    "old_r09_names_retained": 545,
     "assemblies": {
       "Core": {
         "dll": "src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll",
@@ -127,7 +129,9 @@
       "tests/KuaiYi.Core.Tests/InstallationSessionTests.cs"
     ],
     "no_changes_to_locks_workflows_packaging_extensions_scripts": true,
-    "full_suites_and_windows": "NotRun"
+    "full_suites_and_windows": "NotRun",
+    "old_r09_results_retained": 545,
+    "old_r09_unique_display_names": 544
   },
   "review": "Limited ACK for final fixed source, r12/r13 raw evidence, input/build audit and ZIP manifest; Windows/full P7 not signed off",
   "library": {
@@ -143,5 +147,6 @@
     "members": 308,
     "manifest_entries": 307,
     "crc_and_manifest": "Pass"
-  }
+  },
+  "display_name_correction": "2026-10-22: old raw field names_retained meant result rows/testIds, not unique display names; original TRX/ZIP unchanged. r09 545 rows/544 names; r12 549 rows/548 names."
 }

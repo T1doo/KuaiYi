@@ -28,7 +28,7 @@ public sealed class HostRegistrationTransactionTests
     {
         internal readonly string Root=Path.Combine(Path.GetTempPath(),"KuaiYi.HostRegistration."+Guid.NewGuid().ToString("N"));
         internal string App=>Path.Combine(Root,"application");internal string Data=>Path.Combine(Root,"user-data");
-        internal string Generation=>Path.Combine(App,"versions",new string('a',32));
+        internal string Generation{get;}
         internal string Manifest=>Path.Combine(Generation,"com.kuaiyi.native_host.json");
         internal string Receipt=>Path.Combine(App,"host-registration.json");internal string Pending=>Path.Combine(App,"host-registration-pending.json");
         internal readonly Registry Registry=new();
@@ -36,18 +36,9 @@ public sealed class HostRegistrationTransactionTests
         internal InstallationStore Store()=>new(App,Data,()=>false);
         internal Fixture()
         {
-            Directory.CreateDirectory(Generation);Directory.CreateDirectory(Data);File.WriteAllText(Path.Combine(Data,"synthetic-data.bin"),"PUBLIC_ENCRYPTED_DATA_PLACEHOLDER");
-            // Construct a complete, synthetic installed tree with a known final path. This does
-            // not claim InstallationStore.Apply already generates path-derived host metadata.
-            var hashes=new Dictionary<string,string>();foreach(string name in InstalledRoleFiles.Required)
-            {byte[] bytes=Encoding.UTF8.GetBytes("PUBLIC_SYNTHETIC_ROLE "+name);File.WriteAllBytes(Path.Combine(Generation,name),bytes);hashes[name]=Hash(bytes);}
-            File.WriteAllText(Manifest,JsonSerializer.Serialize(new{name=InstalledHostPolicy.HostName,description="PUBLIC_SYNTHETIC_HOST",path=Path.Combine(Generation,"KuaiYi.NativeHost.exe"),type="stdio",allowed_origins=new[]{"chrome-extension://"+new string('a',32)+"/"}}));
-            File.WriteAllText(Path.Combine(Generation,"native-host-trust.json"),JsonSerializer.Serialize(new{schemaVersion=1,files=hashes}));
-            var files=Directory.GetFiles(Generation).Order(StringComparer.Ordinal).Select(path=>new{path=Path.GetFileName(path),bytes=new FileInfo(path).Length,sha256=Hash(File.ReadAllBytes(path))}).ToArray();
-            byte[] catalog=JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=1,product="KuaiYi",version="1.0",files});File.WriteAllBytes(Path.Combine(Generation,"package.json"),catalog);
-            File.WriteAllText(Path.Combine(App,"owner.txt"),"KuaiYi installation file store v1\n");
-            File.WriteAllBytes(InstallationHostActivity.PathFor(App),[]); // This fixture constructs a fresh participating store, not legacy migration.
-            File.WriteAllText(Path.Combine(App,"current.json"),JsonSerializer.Serialize(new{schemaVersion=1,active=new{id=new string('a',32),catalogSha256=Hash(catalog)},previous=(object?)null}));
+            Directory.CreateDirectory(Data);File.WriteAllText(Path.Combine(Data,"synthetic-data.bin"),"PUBLIC_ENCRYPTED_DATA_PLACEHOLDER");
+            var source=new MaterializedPayloadSource(Path.Combine(Root,"source"));
+            Generation=new InstallationStore(App,Data,()=>true).ApplyAsync(source.Root,source.Digest).GetAwaiter().GetResult().DirectoryPath;
             Assert.Equal(Generation,Store().ReadActive()!.DirectoryPath);
         }
         internal void AdmissionAvailable(){using var held=Store().EnterRoleAdmission();}

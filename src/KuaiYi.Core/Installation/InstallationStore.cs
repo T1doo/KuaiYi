@@ -7,7 +7,7 @@ public sealed record InstalledVersion(string Version,string DirectoryPath,string
 public sealed class InstallationBusyException():IOException("Product roles are not confirmed stopped, or installation is busy.");
 public sealed class InstallationRecoveryException(string message):IOException(message);
 public sealed class InstallationRollbackException(Exception operation,Exception rollback):IOException("Installation failed and rollback is unconfirmed; all versions retained.",new AggregateException(operation,rollback));
-internal enum InstallationStage { PackageVerified,VersionPublished,BeforePointerPublish,PointerPublished,RollbackPublished }
+internal enum InstallationStage { PackageVerified,PayloadMaterialized,InstalledCatalogVerified,VersionPublished,BeforePointerPublish,PointerPublished,RollbackPublished }
 /// <summary>File transaction only. The future installer must keep product roles stopped throughout; this library never registers,
 /// signs, starts, stops or deletes applications. ReadActive consumes the atomic version record, not a Windows launch registration.</summary>
 public sealed partial class InstallationStore
@@ -29,13 +29,21 @@ public sealed partial class InstallationStore
     {
         string source=InstallationPaths.Root(packageDirectory);if(InstallationPaths.Contains(directory,source)||InstallationPaths.Contains(source,directory)||InstallationPaths.Contains(userData,source)||InstallationPaths.Contains(source,userData))throw new InvalidDataException("Package source must be separate.");
         if(!InstallationPackage.HashValid(expectedCatalogSha256))throw new InvalidDataException("Expected package catalog digest required.");
-        RequireStopped();var package=InstallationPackage.Read(source,cancellation);if(!string.Equals(package.CatalogSha256,expectedCatalogSha256,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Package catalog digest mismatch.");StageForTest?.Invoke(InstallationStage.PackageVerified);cancellation.ThrowIfCancellationRequested();RequireStopped();
+        RequireStopped();var package=InstallationPackage.ReadSource(source,expectedCatalogSha256,cancellation);if(!string.Equals(package.CatalogSha256,expectedCatalogSha256,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Package catalog digest mismatch.");StageForTest?.Invoke(InstallationStage.PackageVerified);cancellation.ThrowIfCancellationRequested();RequireStopped();
         using var ownAdmission=admission==null?EnterAdmission(mutation:true):null;admission?.RequireMutation(directory);
         using var lease=Lock();byte[]? before=PointerBytes();Pointer? prior=before==null?null:Parse(before);if(prior!=null)_=Verify(prior.Active,cancellation);
         string id=Guid.NewGuid().ToString("N"),staging=Path.Combine(directory,"staging-"+id),versions=Path.Combine(directory,"versions"),destination=Path.Combine(versions,id);
         if(Directory.Exists(staging)||File.Exists(staging)||Directory.Exists(destination)||File.Exists(destination))throw new InstallationRecoveryException("Unexpected version path retained.");
-        Directory.CreateDirectory(staging);package.CopyTo(source,staging,cancellation);Directory.CreateDirectory(versions);InstallationPaths.Check(versions);Directory.Move(staging,destination);StageForTest?.Invoke(InstallationStage.VersionPublished);
-        var reference=new Reference(id,package.CatalogSha256);var next=new Pointer(reference,prior?.Active);byte[] nextBytes=Encode(next);bool published=false;
+        Directory.CreateDirectory(staging);InstallationPackage installed;
+        if(package.Schema==2)
+        {
+            package.CopyTo(source,staging,cancellation,InstallationPayload.SourceCatalogName);
+            InstallationPayload.Materialize(package,staging,destination,cancellation);StageForTest?.Invoke(InstallationStage.PayloadMaterialized);
+            installed=InstallationPackage.ReadInstalled(staging,cancellation,destination);StageForTest?.Invoke(InstallationStage.InstalledCatalogVerified);
+        }
+        else{package.CopyTo(source,staging,cancellation);installed=package;}
+        Directory.CreateDirectory(versions);InstallationPaths.Check(versions);Directory.Move(staging,destination);StageForTest?.Invoke(InstallationStage.VersionPublished);
+        var reference=new Reference(id,installed.CatalogSha256);var next=new Pointer(reference,prior?.Active);byte[] nextBytes=Encode(next);bool published=false;
         try
         {
             StageForTest?.Invoke(InstallationStage.BeforePointerPublish);_=Verify(reference,cancellation);RequireStopped();cancellation.ThrowIfCancellationRequested();Publish(nextBytes,before);published=true;StageForTest?.Invoke(InstallationStage.PointerPublished);
@@ -107,7 +115,7 @@ public sealed partial class InstallationStore
     }
     private InstalledVersion Verify(Reference reference,CancellationToken cancellation)
     {
-        string root=Path.Combine(directory,"versions",reference.Id);var package=InstallationPackage.Read(root,cancellation);if(!string.Equals(package.CatalogSha256,reference.CatalogSha256,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Version catalog hash mismatch.");return new(package.Manifest.Version,root,package.CatalogSha256);
+        string root=Path.Combine(directory,"versions",reference.Id);var package=InstallationPackage.ReadInstalled(root,cancellation,expectedDigest:reference.CatalogSha256);if(!string.Equals(package.CatalogSha256,reference.CatalogSha256,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Version catalog hash mismatch.");return new(package.Manifest.Version,root,package.CatalogSha256);
     }
     private string CurrentPath=>Path.Combine(directory,"current.json");
     private byte[]? PointerBytes(){InstallationPaths.Check(CurrentPath);if(Directory.Exists(CurrentPath))throw new InstallationRecoveryException("Version record is a directory.");return File.Exists(CurrentPath)?InstallationPackage.ReadDocument(CurrentPath,4096):null;}

@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-22",
+  "base": "5bb2c5f926d2ea0a06eac3894d91679b35a36998",
+  "status": "InProgress_fixed_acceptance_pending",
+  "scope": "SPEC13.3/13.4 source-v2 to random installed-v3 materialization and existing production consumer validation",
+  "artifactRoot": "artifacts/2026-10-22-payload-materialization",
+  "candidateRuns": {
+    "r01": "NativeHost0W0E;0tests",
+    "r02": "6 normal managed project builds;3 existing locked restores;no lock drift",
+    "r03": "CS0535;0tests",
+    "r04": "xUnit2030 analyzer failure;0tests;raw Unknown_NoTRX retained",
+    "r05": "26P4F identity No exception counterexamples",
+    "r06": "65P0F0skip,30new+35existing registration",
+    "r07": "16P0F0skip targeted boundaries"
+  },
+  "review": "Design/source/red-green limited ACK before fixed regression",
+  "boundaries": [
+    "Synthetic missing native/runtime/third-party dependencies; not runnable Windows source bundle",
+    "Pure shared configuration validation uses synthetic expected process path; not real Program OS identity",
+    "Synthetic registry and health callback; no real registry or Windows child health",
+    "No stable launcher/unified installer entry",
+    "Full Core/Provider/Codec and real Windows/medium/browser/WPF/250ms/600ms NotRun"
+  ]
+}

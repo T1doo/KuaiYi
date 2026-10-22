@@ -6,23 +6,43 @@ namespace KuaiYi.Core.Installation;
 public sealed record InstallationFile(string Path,long Bytes,string Sha256);
 public sealed record InstallationManifest(string Version,IReadOnlyList<InstallationFile> Files);
 // Integrity of caller-supplied package bytes is not a signature or permission to register/install them.
-internal sealed record InstallationPackage(InstallationManifest Manifest,byte[] Catalog,string CatalogSha256)
+internal sealed record InstallationPackage(InstallationManifest Manifest,byte[] Catalog,string CatalogSha256,int Schema=1,InstallationPayloadDefinition? Payload=null,string? SourceCatalogSha256=null)
 {
     internal const string CatalogName="package.json";
     private const int CatalogLimit=1024*1024,FileLimit=4096;
     private const long MaximumFileBytes=256L*1024*1024,MaximumTotalBytes=1024L*1024*1024;
-    internal static InstallationPackage Read(string directory,CancellationToken cancellation)
+    internal static InstallationPackage ReadSource(string directory,string expected,CancellationToken cancellation)
     {
-        InstallationPaths.Check(directory);byte[] bytes=ReadDocument(Path.Combine(directory,CatalogName),CatalogLimit);var manifest=ReadManifest(bytes);
-        var package=new InstallationPackage(manifest,bytes,Convert.ToHexString(SHA256.HashData(bytes)));package.Verify(directory,cancellation);return package;
+        byte[] bytes=ReadDocument(Path.Combine(directory,CatalogName),CatalogLimit);
+        if(!string.Equals(Convert.ToHexString(SHA256.HashData(bytes)),expected,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Package catalog digest mismatch.");
+        var package=Parse(bytes);if(package.Schema==3)throw new InvalidDataException("An installed catalog is not an install source.");
+        package.Verify(directory,cancellation);if(package.Payload!=null)InstallationPayload.ValidateSource(package,directory,cancellation);return package;
     }
-    private static InstallationManifest ReadManifest(byte[] bytes)
+    internal static InstallationPackage ReadInstalled(string directory,CancellationToken cancellation,string? finalDirectory=null,string? expectedDigest=null)
+    {
+        byte[] bytes=ReadDocument(Path.Combine(directory,CatalogName),CatalogLimit);
+        if(expectedDigest!=null&&!string.Equals(Convert.ToHexString(SHA256.HashData(bytes)),expectedDigest,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Version catalog hash mismatch.");
+        var package=Parse(bytes);
+        if(package.Schema==2)throw new InvalidDataException("A source catalog is not a materialized installation.");
+        package.Verify(directory,cancellation);if(package.Schema==3)InstallationPayload.ValidateInstalled(package,directory,finalDirectory??directory,cancellation);return package;
+    }
+    internal static InstallationPackage Parse(byte[] bytes)
+    {
+        var manifest=ReadManifest(bytes,out int schema,out var payload,out var source);
+        return new(manifest,bytes,Convert.ToHexString(SHA256.HashData(bytes)),schema,payload,source);
+    }
+    private static InstallationManifest ReadManifest(byte[] bytes,out int schema,out InstallationPayloadDefinition? payload,out string? source)
     {
         try
         {
             using var doc=JsonDocument.Parse(bytes,new(){MaxDepth=8});var root=doc.RootElement;
-            Fields(root,"schemaVersion","product","version","files");
-            if(root.GetProperty("schemaVersion").GetInt32()!=1||root.GetProperty("product").GetString()!="KuaiYi"||root.GetProperty("version").GetString() is not {Length:>0 and <=80} version||version.Any(c=>!char.IsAsciiLetterOrDigit(c)&&c is not ('.' or '-' or '_')))throw new InvalidDataException("Invalid installation package identity.");
+            if(!root.TryGetProperty("schemaVersion",out var schemaValue))throw new InvalidDataException("Missing catalog schema.");
+            schema=schemaValue.GetInt32();payload=null;source=null;
+            if(schema==1)Fields(root,"schemaVersion","product","version","files");
+            else if(schema==2){Fields(root,"schemaVersion","product","version","files","payload");payload=InstallationPayloadDefinition.Read(root.GetProperty("payload"));}
+            else if(schema==3){Fields(root,"schemaVersion","product","version","files","sourceCatalogSha256");source=root.GetProperty("sourceCatalogSha256").GetString();if(source==null||!HashValid(source))throw new InvalidDataException("Invalid source catalog digest.");}
+            else throw new InvalidDataException("Unsupported installation catalog schema.");
+            if(root.GetProperty("product").GetString()!="KuaiYi"||root.GetProperty("version").GetString() is not {Length:>0 and <=80} version||version.Any(c=>!char.IsAsciiLetterOrDigit(c)&&c is not ('.' or '-' or '_')))throw new InvalidDataException("Invalid installation package identity.");
             var entries=root.GetProperty("files");if(entries.ValueKind!=JsonValueKind.Array||entries.GetArrayLength() is <1 or >FileLimit)throw new InvalidDataException("Invalid installation package size.");
             var files=new List<InstallationFile>();var paths=new HashSet<string>(StringComparer.OrdinalIgnoreCase);long total=0;
             foreach(var item in entries.EnumerateArray())
@@ -35,9 +55,9 @@ internal sealed record InstallationPackage(InstallationManifest Manifest,byte[] 
         catch(Exception error)when(error is InvalidOperationException or FormatException or OverflowException)
         {throw new InvalidDataException("Invalid installation catalog field type or number.",error);}
     }
-    internal void Verify(string directory,CancellationToken cancellation)
+    internal void Verify(string directory,CancellationToken cancellation,string catalogName=CatalogName)
     {
-        InstallationPaths.Check(directory);var expected=Manifest.Files.ToDictionary(f=>f.Path,StringComparer.OrdinalIgnoreCase);expected.Add(CatalogName,new(CatalogName,Catalog.Length,CatalogSha256));
+        InstallationPaths.Check(directory);var expected=Manifest.Files.ToDictionary(f=>f.Path,StringComparer.OrdinalIgnoreCase);expected.Add(catalogName,new(catalogName,Catalog.Length,CatalogSha256));
         var directories=new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         foreach(string path in expected.Keys){string? parent=Path.GetDirectoryName(path);while(!string.IsNullOrEmpty(parent)){directories.Add(parent.Replace('\\','/'));parent=Path.GetDirectoryName(parent);}}
         var seenDirectories=new HashSet<string>(StringComparer.OrdinalIgnoreCase);var pending=new Stack<string>();pending.Push(directory);var seen=new HashSet<string>(StringComparer.OrdinalIgnoreCase);int visited=0;
@@ -50,9 +70,9 @@ internal sealed record InstallationPackage(InstallationManifest Manifest,byte[] 
         }
         if(seen.Count!=expected.Count)throw new InvalidDataException("Installation package is incomplete.");
     }
-    internal void CopyTo(string source,string target,CancellationToken cancellation)
+    internal void CopyTo(string source,string target,CancellationToken cancellation,string catalogName=CatalogName)
     {
-        SettingsStore.WriteFlushed(Path.Combine(target,CatalogName),Catalog);
+        SettingsStore.WriteFlushed(Path.Combine(target,catalogName),Catalog);
         foreach(var entry in Manifest.Files)
         {
             cancellation.ThrowIfCancellationRequested();string from=Path.Combine(source,entry.Path),to=Path.Combine(target,entry.Path);InstallationPaths.Check(from);Directory.CreateDirectory(Path.GetDirectoryName(to)!);InstallationPaths.Check(Path.GetDirectoryName(to)!);
@@ -61,7 +81,7 @@ internal sealed record InstallationPackage(InstallationManifest Manifest,byte[] 
             while((count=input.Read(buffer))!=0){cancellation.ThrowIfCancellationRequested();total+=count;if(total>entry.Bytes)throw new InvalidDataException("Package file changed.");digest.AppendData(buffer,0,count);output.Write(buffer,0,count);}
             if(total!=entry.Bytes||!string.Equals(Convert.ToHexString(digest.GetHashAndReset()),entry.Sha256,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Package file digest changed.");output.Flush(true);InstallationPaths.Check(from);
         }
-        Verify(target,cancellation);
+        Verify(target,cancellation,catalogName);
     }
     private static void VerifyStream(FileStream input,InstallationFile file,CancellationToken cancellation)
     {

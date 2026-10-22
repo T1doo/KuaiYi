@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using Microsoft.Win32;
+using KuaiYi.Core.Installation;
 namespace KuaiYi.NativeHost;
 
 public sealed record InstalledHostPolicy(string Origin,string AppPath,string AppSha256,string PipeName,IReadOnlyDictionary<string,string> Files)
@@ -13,7 +14,7 @@ public sealed record InstalledHostPolicy(string Origin,string AppPath,string App
         foreach(var item in Files)if(!string.Equals(Digest(Path.Combine(Path.GetDirectoryName(AppPath)!,item.Key)),item.Value,StringComparison.OrdinalIgnoreCase))throw new BrowserException(BrowserFailure.DesktopUntrusted);
     }
     public const string HostName="com.kuaiyi.native_host";
-    public static bool IsOrigin(string? origin)=>origin!=null&&Regex.IsMatch(origin,@"\Achrome-extension://[a-p]{32}/\z",RegexOptions.CultureInvariant);
+    public static bool IsOrigin(string? origin)=>InstallationPayload.IsOrigin(origin);
     public static InstalledHostPolicy Load(string[] args)
     {
         if(args.Length is <1 or >2||!IsOrigin(args[0])||(args.Length==2&&!Regex.IsMatch(args[1],@"\A--parent-window=[0-9]{1,20}\z")))throw new BrowserException(BrowserFailure.OriginRejected);
@@ -40,24 +41,34 @@ public sealed record InstalledHostPolicy(string Origin,string AppPath,string App
     {
         string manifestPath=Path.Combine(AppContext.BaseDirectory,"com.kuaiyi.native_host.json");
         if(!File.Exists(manifestPath)||!Registered(manifestPath))throw new BrowserException(BrowserFailure.HostNotConfigured);
-        using var manifest=JsonDocument.Parse(ReadBounded(manifestPath));var m=manifest.RootElement;
-        BrowserEnvelope.Fields(m,"name","description","path","type","allowed_origins");
-        if(m.GetProperty("name").GetString()!=HostName||m.GetProperty("type").GetString()!="stdio"||m.GetProperty("path").GetString() is not{} exe||
-            !Path.IsPathFullyQualified(exe)||!string.Equals(Path.GetFullPath(exe),Path.Combine(AppContext.BaseDirectory,"KuaiYi.NativeHost.exe"),StringComparison.OrdinalIgnoreCase)||
-            !string.Equals(Environment.ProcessPath,Path.Combine(AppContext.BaseDirectory,appRole?"KuaiYi.App.exe":"KuaiYi.NativeHost.exe"),StringComparison.OrdinalIgnoreCase))throw new BrowserException(BrowserFailure.HostNotConfigured);
-        var origins=m.GetProperty("allowed_origins").EnumerateArray().Select(x=>x.GetString()).ToArray();
-        if(origins.Length is <1 or >2||origins.Any(x=>!IsOrigin(x))||origins.Distinct(StringComparer.Ordinal).Count()!=origins.Length||(!appRole&&!origins.Contains(origin,StringComparer.Ordinal)))throw new BrowserException(BrowserFailure.OriginRejected);
-        // Installed role/integrity receipt is a P7 installation output, not extension-supplied configuration.
-        string receiptPath=Path.Combine(AppContext.BaseDirectory,"native-host-trust.json");
-        if(!File.Exists(receiptPath))throw new BrowserException(BrowserFailure.HostNotConfigured);
-        using var receipt=JsonDocument.Parse(ReadBounded(receiptPath));var r=receipt.RootElement;BrowserEnvelope.Fields(r,"schemaVersion","files");
-        if(r.GetProperty("schemaVersion").GetInt32()!=1)throw new BrowserException(BrowserFailure.HostNotConfigured);
-        var files=InstalledRoleFiles.Verify(AppContext.BaseDirectory,r.GetProperty("files"));
-        string app=Path.Combine(AppContext.BaseDirectory,"KuaiYi.App.exe");string hash=files["KuaiYi.App.exe"];
+        var validated=ReadConfiguration(AppContext.BaseDirectory,origin,appRole,Environment.ProcessPath);
+        string app=validated.AppPath,hash=validated.AppSha256;var files=validated.Files;
         using var user=System.Security.Principal.WindowsIdentity.GetCurrent();
         using var process=Process.GetCurrentProcess();
         string sid=user.User?.Value??throw new BrowserException(BrowserFailure.DesktopUntrusted);
-        return (new(origin??"",app,hash,$"KuaiYi.{sid}.{process.SessionId}.NativeHost.v1",files),Array.AsReadOnly(origins.Select(x=>x!).ToArray()));
+        return (new(origin??"",app,hash,$"KuaiYi.{sid}.{process.SessionId}.NativeHost.v1",files),validated.Origins);
+    }
+    internal sealed record Configuration(string AppPath,string AppSha256,IReadOnlyDictionary<string,string> Files,IReadOnlyList<string> Origins);
+    // Exactly the production file/configuration validator; success does not supply registry, OS identity or connected-peer admission.
+    internal static Configuration ReadConfiguration(string directory,string? origin,bool appRole,string? processPath)
+    {
+        _=InstallationPayload.RequireMaterialized(directory);
+        string manifestPath=Path.Combine(directory,"com.kuaiyi.native_host.json");
+        using var manifest=JsonDocument.Parse(ReadBounded(manifestPath));var m=manifest.RootElement;
+        BrowserEnvelope.Fields(m,"name","description","path","type","allowed_origins");
+        if(m.GetProperty("name").GetString()!=HostName||m.GetProperty("type").GetString()!="stdio"||m.GetProperty("path").GetString() is not{} exe||
+            !Path.IsPathFullyQualified(exe)||!string.Equals(Path.GetFullPath(exe),Path.Combine(directory,"KuaiYi.NativeHost.exe"),StringComparison.OrdinalIgnoreCase)||
+            !string.Equals(processPath,Path.Combine(directory,appRole?"KuaiYi.App.exe":"KuaiYi.NativeHost.exe"),StringComparison.OrdinalIgnoreCase))throw new BrowserException(BrowserFailure.HostNotConfigured);
+        var origins=m.GetProperty("allowed_origins").EnumerateArray().Select(x=>x.GetString()).ToArray();
+        if(origins.Length is <1 or >2||origins.Any(x=>!IsOrigin(x))||origins.Distinct(StringComparer.Ordinal).Count()!=origins.Length||(!appRole&&!origins.Contains(origin,StringComparer.Ordinal)))throw new BrowserException(BrowserFailure.OriginRejected);
+        // Installed role/integrity receipt is a P7 installation output, not extension-supplied configuration.
+        string receiptPath=Path.Combine(directory,"native-host-trust.json");
+        if(!File.Exists(receiptPath))throw new BrowserException(BrowserFailure.HostNotConfigured);
+        using var receipt=JsonDocument.Parse(ReadBounded(receiptPath));var r=receipt.RootElement;BrowserEnvelope.Fields(r,"schemaVersion","files");
+        if(r.GetProperty("schemaVersion").GetInt32()!=1)throw new BrowserException(BrowserFailure.HostNotConfigured);
+        var files=InstalledRoleFiles.Verify(directory,r.GetProperty("files"));
+        string app=Path.Combine(directory,"KuaiYi.App.exe");string hash=files["KuaiYi.App.exe"];
+        return new(app,hash,files,Array.AsReadOnly(origins.Select(x=>x!).ToArray()));
     }
     [SupportedOSPlatform("windows")]
     private static bool Registered(string path)
