@@ -8,22 +8,24 @@ using KuaiYi.Imaging;
 namespace KuaiYi.NativeHost;
 
 /// <summary>Local current-user/session pipe, pinned installed App role; never launches App or downloads URLs.</summary>
-public sealed class InstalledDesktopChannel(InstalledHostPolicy policy) : IDesktopConfirmationChannel
+public sealed class InstalledDesktopChannel(InstalledHostPolicy policy,Action? requireCurrent=null) : IDesktopConfirmationChannel
 {
     private NamedPipeClientStream? pipe;
     private DesktopPipeChannel? channel;
     public ValueTask<BrowserGrant> OfferAsync(Guid operation,CancellationToken cancellation)=>OfferWithConfirmationAsync(operation,_=>ValueTask.CompletedTask,cancellation);
     public async ValueTask<BrowserGrant> OfferWithConfirmationAsync(Guid operation,Func<CancellationToken,ValueTask> waiting,CancellationToken cancellation)
     {
+        requireCurrent?.Invoke();
         if(!OperatingSystem.IsWindows())throw new BrowserException(BrowserFailure.UnsupportedPlatform);
         pipe=new(".",policy.PipeName,PipeDirection.InOut,PipeOptions.Asynchronous|PipeOptions.CurrentUserOnly);
         try{await pipe.ConnectAsync(1500,cancellation).ConfigureAwait(false);}catch(TimeoutException){throw new BrowserException(BrowserFailure.DesktopUnavailable);}catch(IOException){throw new BrowserException(BrowserFailure.DesktopUnavailable);}
-        VerifyServer(pipe,policy);
-        channel=new(pipe,policy.Origin);
-        return await channel.OfferWithConfirmationAsync(operation,waiting,cancellation);
+        VerifyServer(pipe,policy);requireCurrent?.Invoke();
+        channel=new(pipe,policy.Origin,requireCurrent:requireCurrent);
+        var grant=await channel.OfferWithConfirmationAsync(operation,waiting,cancellation);
+        requireCurrent?.Invoke();return grant;
     }
     public ValueTask SubmitAsync(BrowserGrant grant,ReceivedImage image,ImageSize size,CancellationToken cancellation)
-        =>(channel??throw new BrowserException(BrowserFailure.DesktopUnavailable)).SubmitAsync(grant,image,size,cancellation);
+        {requireCurrent?.Invoke();return (channel??throw new BrowserException(BrowserFailure.DesktopUnavailable)).SubmitAsync(grant,image,size,cancellation);}
     public ValueTask CancelAsync(BrowserGrant grant,CancellationToken cancellation)
         =>channel!=null&&pipe?.IsConnected==true?channel.CancelAsync(grant,cancellation):ValueTask.CompletedTask;
     [SupportedOSPlatform("windows")]

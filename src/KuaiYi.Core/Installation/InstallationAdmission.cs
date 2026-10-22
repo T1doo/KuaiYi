@@ -8,17 +8,26 @@ internal sealed class InstallationAdmission:IDisposable
     private readonly string directory;
     private FileStream? lease;
     private InstallationExecutionOwnership? execution;
-    internal InstallationAdmission(string directory)
+    private InstallationHostActivity? mutation;
+    internal InstallationAdmission(string directory,bool mutation=false)
     {
-        this.directory=directory;string path=Path.Combine(directory,"upgrade.lock");InstallationPaths.Check(path);
-        try{lease=new(path,FileMode.OpenOrCreate,FileAccess.ReadWrite,FileShare.None);}
-        catch(IOException){throw new InstallationBusyException();}
-        if(lease.Length!=0){Dispose();throw new InstallationRecoveryException("Unknown upgrade lock bytes retained.");}
+        this.directory=directory;
+        try
+        {
+            this.mutation=mutation?InstallationHostActivity.Open(directory,true):null;
+            string path=Path.Combine(directory,"upgrade.lock");InstallationPaths.Check(path);
+            try{lease=new(path,FileMode.OpenOrCreate,FileAccess.ReadWrite,FileShare.None);}
+            catch(IOException){throw new InstallationBusyException();}
+            if(lease.Length!=0)throw new InstallationRecoveryException("Unknown upgrade lock bytes retained.");
+        }
+        catch{Dispose();throw;}
     }
+
     internal void Require(string expected)
     {if(lease==null||directory!=expected)throw new InstallationRecoveryException("Upgrade admission is no longer held.");InstallationPaths.Check(directory);execution?.Require(directory);}
+    internal void RequireMutation(string expected){Require(expected);(mutation??throw new InstallationRecoveryException("Mutation requires the exclusive host fence.")).Require(expected);}
     internal void Attach(InstallationExecutionOwnership owner){owner.Require(directory);execution=owner;}
-    public void Dispose(){lease?.Dispose();lease=null;}
+    public void Dispose(){lease?.Dispose();lease=null;mutation?.Dispose();mutation=null;}
 }
 // Before the first actual Start, hold an OS-released lease AND a persistent, exact-byte owned record.
 // A fresh controller cannot clear a crashed controller's record or infer ownership from a PID.

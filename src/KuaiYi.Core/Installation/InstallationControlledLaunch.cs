@@ -44,7 +44,7 @@ public sealed record InstallationControlledLaunch(Guid Launch,string Role,string
         if(UpgradeRecord!=null)throw new InstallationRecoveryException("Image ingress requires a normal session.");
         Exact(System.IO.Path.Combine(Root,"execution-owner.json"),Convert.FromBase64String(OwnerRecord),1024);
         Exact(System.IO.Path.Combine(Root,"current.json"),Convert.FromBase64String(CurrentRecord),4096);
-        foreach(string name in new[]{"upgrade-pending.json","handoff-pending.json"})
+        foreach(string name in new[]{"upgrade-pending.json","handoff-pending.json","host-registration-pending.json"})
         {string pending=System.IO.Path.Combine(Root,name);InstallationPaths.Check(pending);if(File.Exists(pending)||Directory.Exists(pending))throw new InstallationRecoveryException("Pending transition blocks image ingress.");}
         Exact(PathFor("accepted"),Bytes());
         RequireHeldLease(System.IO.Path.Combine(Root,"upgrade.lock"));RequireHeldLease(System.IO.Path.Combine(Root,"execution-owner.lock"));

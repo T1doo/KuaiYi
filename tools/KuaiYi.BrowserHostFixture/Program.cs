@@ -7,6 +7,7 @@ using KuaiYi.Core;
 using KuaiYi.NativeHost;
 using KuaiYi.Imaging;
 // Test executable only, never deployed/registered. Exact production stdio + IPC codecs, controlled desktop authority.
+if(args.Length==2&&args[0]=="host-lifetime")return await BrowserHostLifetimeFixture.Run(args[1]);
 if(args.SequenceEqual(new[]{"receiver-confirmation"}))return await ReceiverConfirmationFixture.Run();
 if(args.Length!=1)return 2;
 using var input=Console.OpenStandardInput();using var output=Console.OpenStandardOutput();

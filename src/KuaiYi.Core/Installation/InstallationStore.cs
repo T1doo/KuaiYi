@@ -10,7 +10,7 @@ public sealed class InstallationRollbackException(Exception operation,Exception 
 internal enum InstallationStage { PackageVerified,VersionPublished,BeforePointerPublish,PointerPublished,RollbackPublished }
 /// <summary>File transaction only. The future installer must keep product roles stopped throughout; this library never registers,
 /// signs, starts, stops or deletes applications. ReadActive consumes the atomic version record, not a Windows launch registration.</summary>
-public sealed class InstallationStore
+public sealed partial class InstallationStore
 {
     private sealed record Reference(string Id,string CatalogSha256);
     private sealed record Pointer(Reference Active,Reference? Previous);
@@ -30,7 +30,7 @@ public sealed class InstallationStore
         string source=InstallationPaths.Root(packageDirectory);if(InstallationPaths.Contains(directory,source)||InstallationPaths.Contains(source,directory)||InstallationPaths.Contains(userData,source)||InstallationPaths.Contains(source,userData))throw new InvalidDataException("Package source must be separate.");
         if(!InstallationPackage.HashValid(expectedCatalogSha256))throw new InvalidDataException("Expected package catalog digest required.");
         RequireStopped();var package=InstallationPackage.Read(source,cancellation);if(!string.Equals(package.CatalogSha256,expectedCatalogSha256,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Package catalog digest mismatch.");StageForTest?.Invoke(InstallationStage.PackageVerified);cancellation.ThrowIfCancellationRequested();RequireStopped();
-        using var ownAdmission=admission==null?EnterAdmission():null;admission?.Require(directory);
+        using var ownAdmission=admission==null?EnterAdmission(mutation:true):null;admission?.RequireMutation(directory);
         using var lease=Lock();byte[]? before=PointerBytes();Pointer? prior=before==null?null:Parse(before);if(prior!=null)_=Verify(prior.Active,cancellation);
         string id=Guid.NewGuid().ToString("N"),staging=Path.Combine(directory,"staging-"+id),versions=Path.Combine(directory,"versions"),destination=Path.Combine(versions,id);
         if(Directory.Exists(staging)||File.Exists(staging)||Directory.Exists(destination)||File.Exists(destination))throw new InstallationRecoveryException("Unexpected version path retained.");
@@ -59,7 +59,7 @@ public sealed class InstallationStore
     {if(!Directory.Exists(directory))return null;RequireOwned();byte[]? bytes=PointerBytes();return bytes==null?null:Verify(Parse(bytes).Active,cancellation);}
     public Task<InstalledVersion?> RecoverAsync(CancellationToken cancellation=default)=>Task.Run<InstalledVersion?>(()=>
     {
-        RequireStopped();using var admission=EnterAdmission();using var lease=Lock();byte[]? bytes=PointerBytes();if(bytes==null)return null;var pointer=Parse(bytes);
+        RequireStopped();using var admission=EnterAdmission(mutation:true);using var lease=Lock();byte[]? bytes=PointerBytes();if(bytes==null)return null;var pointer=Parse(bytes);
         try{return Verify(pointer.Active,cancellation);}
         catch(Exception error)when(error is IOException or InvalidDataException or JsonException)
         {
@@ -69,14 +69,14 @@ public sealed class InstallationStore
     /// <summary>Cooperative launch admission, held from pointer read through actual startup settlement.
     /// Existing Windows entry points are not yet wired to this gate. Pending or unknown upgrade records fail closed.</summary>
     public IDisposable EnterRoleAdmission()=>EnterAdmission();
-    internal InstallationAdmission EnterAdmission(InstallationExecutionOwnership? execution=null)
+    internal InstallationAdmission EnterAdmission(InstallationExecutionOwnership? execution=null,bool mutation=false)
     {
-        using var setup=Lock();var admission=new InstallationAdmission(directory);
+        using var setup=Lock();var admission=new InstallationAdmission(directory,mutation);
         try
         {
             if(execution!=null)admission.Attach(execution);
             else if(File.Exists(InstallationExecutionOwnership.RecordPath(directory))||Directory.Exists(InstallationExecutionOwnership.RecordPath(directory)))throw new InstallationRecoveryException("Existing execution owner retained; launch and mutation blocked.");
-            if(File.Exists(PendingPath)||Directory.Exists(PendingPath)||File.Exists(Path.Combine(directory,"handoff-pending.json"))||Directory.Exists(Path.Combine(directory,"handoff-pending.json"))||
+            if(File.Exists(InstallationBrowserHostSession.PathFor(directory))||Directory.Exists(InstallationBrowserHostSession.PathFor(directory))||File.Exists(PendingPath)||Directory.Exists(PendingPath)||File.Exists(Path.Combine(directory,"handoff-pending.json"))||Directory.Exists(Path.Combine(directory,"handoff-pending.json"))||
                 File.Exists(Path.Combine(directory,"host-registration-pending.json"))||Directory.Exists(Path.Combine(directory,"host-registration-pending.json")))throw new InstallationRecoveryException("Pending or unknown upgrade/handoff/registration retained; launch and mutation blocked.");return admission;
         }
         catch{admission.Dispose();throw;}
@@ -86,19 +86,19 @@ public sealed class InstallationStore
     {admission.Require(directory);RequireOwned();var execution=new InstallationExecutionOwnership(directory);admission.Attach(execution);return execution;}
     internal InstallationAdmission ReenterUpgrade(byte[] expected,InstallationExecutionOwnership execution)
     {
-        using var setup=Lock();var admission=new InstallationAdmission(directory);
+        using var setup=Lock();var admission=new InstallationAdmission(directory,true);
         try{admission.Attach(execution);RequireUpgradeRecord(expected);return admission;}catch{admission.Dispose();throw;}
     }
     internal void FinishUpgrade(InstallationAdmission admission,byte[] expected,Guid operation,string outcome)
     {
-        admission.Require(directory);RequireOwned();RequireUpgradeRecord(expected);
+        admission.RequireMutation(directory);RequireOwned();RequireUpgradeRecord(expected);
         File.Move(PendingPath,Path.Combine(directory,"upgrade-finished-"+operation.ToString("N")+"-"+outcome+".json"));
     }
     private void RequireUpgradeRecord(byte[] expected)
     {if(!InstallationPackage.ReadDocument(PendingPath,16384).AsSpan().SequenceEqual(expected))throw new InstallationRecoveryException("Upgrade record changed; retained without overwrite.");}
     internal byte[]? SnapshotRecord(InstallationAdmission admission){admission.Require(directory);RequireOwned();return PointerBytes();}
     internal void RestoreForUpgrade(InstallationAdmission admission,byte[]? before,byte[] expected)
-    {admission.Require(directory);using var lease=Lock();RestoreRecord(before,expected);}
+    {admission.RequireMutation(directory);using var lease=Lock();RestoreRecord(before,expected);}
     private void RestoreRecord(byte[]? before,byte[] expected)
     {
         RequireStopped();if(before!=null)_=Verify(Parse(before).Active,CancellationToken.None);
@@ -120,14 +120,15 @@ public sealed class InstallationStore
     }
     private FileStream Lock()
     {
-        InstallationPaths.Check(directory);Directory.CreateDirectory(directory);string marker=Path.Combine(directory,"owner.txt");
+        InstallationPaths.Check(directory);Directory.CreateDirectory(directory);bool createdOwner=false;string marker=Path.Combine(directory,"owner.txt");
         if(!File.Exists(marker))
         {
-            if(Directory.EnumerateFileSystemEntries(directory).Any())throw new InstallationRecoveryException("Unknown installation directory retained.");SettingsStore.WriteFlushed(marker,Encoding.UTF8.GetBytes(Owner));
+            if(Directory.EnumerateFileSystemEntries(directory).Any())throw new InstallationRecoveryException("Unknown installation directory retained.");SettingsStore.WriteFlushed(marker,Encoding.UTF8.GetBytes(Owner));createdOwner=true;
         }
         RequireOwned();string path=Path.Combine(directory,"installation.lock");InstallationPaths.Check(path);FileStream lease;
         try{lease=new(path,FileMode.OpenOrCreate,FileAccess.ReadWrite,FileShare.None);}catch(IOException){throw new InstallationBusyException();}
-        if(lease.Length!=0){lease.Dispose();throw new InstallationRecoveryException("Unknown lock bytes retained.");}return lease;
+        if(lease.Length!=0){lease.Dispose();throw new InstallationRecoveryException("Unknown lock bytes retained.");}
+        try{InstallationHostActivity.Initialize(directory,createdOwner);return lease;}catch{lease.Dispose();throw;}
     }
     private void RequireOwned()
     {InstallationPaths.Check(directory);string marker=Path.Combine(directory,"owner.txt");if(!File.Exists(marker)||!InstallationPackage.ReadDocument(marker,128).AsSpan().SequenceEqual(Encoding.UTF8.GetBytes(Owner)))throw new InstallationRecoveryException("Unknown installation owner retained.");}

@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-22",
+  "base": "747d315e05c2c13e88d605efe133a6a5a2b942bc",
+  "status": "InProgress",
+  "scope": "SPEC13.4/P7-04/05 cooperative browser-started NativeHost admission and quiescence, not real installation/registration",
+  "artifactRoot": "artifacts/2026-10-22-browser-host-entry",
+  "candidateRuns": {"r01": "compile failure; zero tests", "r02": "compile failure; zero tests", "r03": "8P2F; body masked by fixture cleanup", "r04": "0P2F exact EOF expectation diagnostic", "r05": "0P2F sustained Submit guard counterexample", "r06": "15P1F disposed Process fixture query", "r07": "17P0F0skip", "r08": "17P0F0skip; fixture original-task settlement"},
+  "boundaries": ["No real registry/installer entry", "Old store missing activity fence refused, not migrated", "No PID adoption or unknown child termination", "No full Core/Provider/Codec", "Windows/browser/WPF/medium/quality/250ms/600ms NotRun"]
+}

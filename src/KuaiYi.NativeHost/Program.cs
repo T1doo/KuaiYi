@@ -4,7 +4,9 @@ using var input=Console.OpenStandardInput();using var output=Console.OpenStandar
 try
 {
     var policy=InstalledHostPolicy.Load(args);
-    return await new BrowserSession(new InstalledDesktopChannel(policy)).RunAsync(input,output);
+    var lifetime=BrowserHostLifetime.Enter(AppContext.BaseDirectory);
+    lifetime.RequireCurrent();
+    return await new BrowserSession(new InstalledDesktopChannel(policy,lifetime.RequireCurrent)).RunAsync(input,output);
 }
 catch(Exception error)
 {

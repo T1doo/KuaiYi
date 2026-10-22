@@ -70,6 +70,9 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
     private Role? receiver;
     private bool disposed;
     private bool sessionAttempted;
+    private InstallationBrowserHostSession? retainedBrowserSession;
+    private static readonly HashSet<InstallationUpgradeCoordinator> RetainedBrowserOwners=[];
+    internal Action? BrowserHostPublishedForTest{get;init;}
     internal OwnedProcessSession? ReceiverLifetimeForTest=>receiver?.Lifetime;
     internal Func<Process,IOwnedHostLifetime>? LifetimeForTest{get;set;}
     public InstallationUpgradeCoordinator(string directory,string userData,IInstallationApplicationProtocol protocol,TimeSpan budget,IOwnedProcessStarter? starter=null)
@@ -88,6 +91,7 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
         string expected=InstallationPaths.Root(executableDirectory);
         await Enter(cancellation).ConfigureAwait(false);Role? role=null;
         LiveImageSession? liveImage=null;
+        InstallationBrowserHostSession? browserHosts=null;bool retainAdmission=false;
         try
         {
             if(execution!=null||roles.Count!=0||pending!=null||handoff!=null||admission!=null)throw new InvalidOperationException("A normal session requires a fresh coordinator.");
@@ -96,6 +100,7 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
             if(selected.DirectoryPath!=expected)throw new InstallationRecoveryException("Normal entry is not the selected generation.");
             execution=store.ClaimExecution(admission);role=NewRole("KuaiYi.App.exe",selected);role.RetainTasks=true;
             await StartAndCheck(role,cancellation).ConfigureAwait(false);
+            browserHosts=InstallationBrowserHostSession.Publish(role.LaunchProof!,admission,role.Process!);BrowserHostPublishedForTest?.Invoke();
             if(imagePath!=null)await Call(role,t=>((IInstallationImageSessionProtocol)protocol).QueueImageAsync(role.Process!,imagePath,t),cancellation).ConfigureAwait(false);
             if(WarmImageEndpoint is {} endpoint)
             {
@@ -104,7 +109,7 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
             // Cancellation abandons only this waiter. The original OS observation remains owned and is joined by cleanup.
             role.OriginalNaturalExit=role.Process!.WaitForExitAsync(CancellationToken.None);role.Track(role.OriginalNaturalExit);
             await role.OriginalNaturalExit.WaitAsync(cancellation).ConfigureAwait(false);
-            liveImage?.Quiesce();
+            liveImage?.Quiesce();browserHosts?.Retire();
             if(!role.Process.HasExited||role.Process.ExitCode!=0)throw new IOException("Application session did not exit cleanly.");
             await Call(role,t=>sessionProtocol.SettleSessionAsync(role.Process,t),cancellation,ProtocolOperation.Io).ConfigureAwait(false);role.IoSettled=true;
             await Task.WhenAll(role.Tasks).WaitAsync(budget,cancellation).ConfigureAwait(false);
@@ -118,11 +123,19 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
         catch(Exception failure)when(sessionAttempted)
         {
             liveImage?.Quiesce();
+            try{browserHosts?.Retire();}
+            catch(Exception retirement)
+            {
+                retainAdmission=true;retainedBrowserSession=browserHosts;
+                lock(RetainedBrowserOwners)RetainedBrowserOwners.Add(this);
+                if(role!=null)await FinalizeOwned(role).ConfigureAwait(false);
+                throw new InstallationUpgradeUnconfirmedException(new AggregateException(failure,retirement));
+            }
             // This cleanup may stop only our exact Start-returned child. Even fully settled failure retains the marker.
             if(role==null||await FinalizeOwned(role).ConfigureAwait(false)){execution?.Dispose();execution=null;disposed=true;}
             throw new InstallationUpgradeUnconfirmedException(failure);
         }
-        finally{admission?.Dispose();admission=null;serial.Release();}
+        finally{if(!retainAdmission){admission?.Dispose();admission=null;}serial.Release();}
     }
     public async Task<InstalledVersion> StartActiveRoleAsync(string roleName="KuaiYi.App.exe",CancellationToken cancellation=default)
     {
@@ -156,7 +169,7 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
         await Enter(cancellation).ConfigureAwait(false);
         try
         {
-            admission=store.EnterAdmission(execution);execution??=store.ClaimExecution(admission);var previous=store.ReadActive(cancellation);BeginPending(admission,previous,catalogSha256);
+            admission=store.EnterAdmission(execution,true);execution??=store.ClaimExecution(admission);var previous=store.ReadActive(cancellation);BeginPending(admission,previous,catalogSha256);
             if(!await StopGracefully(cancellation).ConfigureAwait(false))throw new InstallationUpgradeUnconfirmedException(new InstallationBusyException());
             try
             {
@@ -191,7 +204,7 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
             if(pending==null)throw new InstallationRecoveryException("No locally held upgrade to retry.");
             if(handoff!=null)
             {
-                admission=new InstallationAdmission(handoff.Offer.Root);
+                admission=store.ReenterHostMutation();
                 if(!await ReclaimHandoff().ConfigureAwait(false))throw new InstallationUpgradeUnconfirmedException(new InstallationBusyException());
                 admission.Attach(execution!);
                 return await Rollback(new InstallationRecoveryException("Retry exact precommit handoff rollback.")).ConfigureAwait(false);
@@ -388,6 +401,11 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
         try
         {
             if(disposed)return;
+            if(retainedBrowserSession!=null)
+            {
+                retainedBrowserSession.Retire();retainedBrowserSession=null;
+                // Keep the original admission until all owned child/IO work below actually settles.
+            }
             if(handoff is {CommitAttempted:true})
             {
                 try{await CompleteTransferredControl().ConfigureAwait(false);}
@@ -396,7 +414,7 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
             }
             foreach(var role in roles)if(!await FinalizeOwned(role).ConfigureAwait(false))throw new InstallationUpgradeUnconfirmedException(new InstallationBusyException());
             try{if(pending==null&&!sessionAttempted)execution?.Finish();}
-            finally{execution?.Dispose();execution=null;disposed=true;}
+            finally{execution?.Dispose();execution=null;admission?.Dispose();admission=null;disposed=true;lock(RetainedBrowserOwners)RetainedBrowserOwners.Remove(this);}
         }
         finally{serial.Release();}
     }
