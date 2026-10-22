@@ -27,7 +27,17 @@ artifacts/2026-10-22-registry-write-conflict保留完整命令/log/TRX/失败XML
 - r07：恢复与r03已审补丁完全相同的三文件，正常Launcher构建0W/E同步Core。
 - r08：与r06完整测试文件完全相同4P/0F/0skip，916输入稳定。只此pair作为最终同文件红绿，不将轮次相加。
 
-内部设计、生产最小修复与最终测试收尾独立只读限定ACK。固定树262相关签收及Library原件随后单列，不能把4P代替旧258回归；也不称完整Core或Windows验收。
+内部设计、生产最小修复与最终测试收尾独立只读限定ACK。4P不代替旧258回归，固定树实际签收如下。
+
+## 固定产品签收
+
+产品完整SHA `cd2bab6c726f75f9a095b62879c647492cc3d50f`。r09在该clean HEAD执行七普通managed构建，全部0警告/0错误、零测试；r10在同一clean HEAD一次262P/0F/0skip、262唯一显示名，9类＝新增RegistryConflict4＋原Publication54/Prepared28/B30/G28/Scope25/Before23/BootstrapDeployment35/HostRegistrationTransaction35。
+
+旧258与历史原始TRX按类/方法/显示名多重集完全保留。两条RegistrySideEffectThenExceptionIsProvisionalAndCannotSkipRollback普通非foreign写后异常仍Passed，证明没有把所有Write错误一律锁存；旧七实际synthetic child退出/原exit与IO结算用例保留。不是完整Core，不将不同轮次相加。prior-fixed-258.trx只是原始集合对照，绝非新增运行。
+
+两轮916输入前后稳定且逐项匹配产品Git；17份AssemblyInfo含产品完整SHA，14产品DLL正常构建与实际测试摘要一致，Launcher/Core.Tests/SettingsStoreFixture/BrowserHostFixture四实际Core副本相同。338份旧测试字节未变，仅新增独立4case类；369份旧src仅改2，其余不变；工具仅既有crash fixture显式false声明，其他工具不变。锁/项目/工作流/打包/扩展/脚本均未改。scope-audit.json及原始命令/log/TRX/完整失败XML/源码/输入产物摘要保全，无DLL本体，不冒称包内独立二进制重hash。
+
+固定原件独立只读限定ACK，未重跑产品。完整原件已保存Library `libfile_7c3e6187e2688191835094263b92b889` v0，1,515,469B、162成员/161manifest，SHA256 `e5ccaafc927aceb3a046d51b91620a61e39a181948c0766c8a0ac525ff5926bf`；本地Library身份及版本匹配成功回执。ZIP机械独审限定ACK：162唯一成员/CRC、161项大小与SHA、9项product-source与固定Git、raw262/旧258多重集/两普通IO/七child、同完整file4F→4P、916输入及17版本记录均核；r02/r05旧失败保留。无DLL本体，不称包内独立重hash。本次证据仅三报告，产品与测试不变。
 
 ## 保留边界
 

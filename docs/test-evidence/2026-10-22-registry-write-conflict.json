@@ -1,6 +1,6 @@
 {
   "base": "a2a7f342cc837f21cb57acae574265f0bb03915b",
-  "status": "CandidateLimitedPass",
+  "status": "FixedPassLimited",
   "scope": "Latch explicit backend registry compare conflict on original owner; no new entry or real registry",
   "artifactRoot": "artifacts/2026-10-22-registry-write-conflict",
   "runs": {
@@ -16,11 +16,65 @@
   "rounds_added": false,
   "new_risk_cases": 4,
   "old_258_test_sources_unchanged": true,
-  "review": "Limited design/product/test cleanup ACK; final redgreen review and fixed signoff pending",
+  "review": "Limited design/product/test/frozen/fixed/ZIP ACK; CRC/161 manifest/9 product-source Git/raw262/old258/2ordinaryIO/7child/redgreen/916inputs/17versions verified; no reviewer product rerun",
   "remaining": [
     "No true Windows registry/identity/P7 acceptance",
     "Native/runtime incomplete, no runnable Windows package signed",
     "No READY health or real desktop/OCR/quality/250600 acceptance"
   ],
-  "no_new_permissions_credentials_licenses_fees_or_model_calls": true
+  "no_new_permissions_credentials_licenses_fees_or_model_calls": true,
+  "product_sha": "cd2bab6c726f75f9a095b62879c647492cc3d50f",
+  "fixed": {
+    "r09": {
+      "normal_builds": 7,
+      "warnings": 0,
+      "errors": 0,
+      "tests": 0
+    },
+    "r10": {
+      "passed": 262,
+      "failed": 0,
+      "skipped": 0,
+      "new": 4,
+      "existing": 258,
+      "unique_names": 262,
+      "classes": {
+        "KuaiYi.Core.Tests.InstallationDeploymentBeforeTests": 23,
+        "KuaiYi.Core.Tests.HostRegistrationTransactionTests": 35,
+        "KuaiYi.Core.Tests.InstallationBootstrapPreparationTests": 30,
+        "KuaiYi.Core.Tests.InstallationDeploymentScopeTests": 25,
+        "KuaiYi.Core.Tests.InstallationPublicationTests": 54,
+        "KuaiYi.Core.Tests.InstallationPreparedPlanTests": 28,
+        "KuaiYi.Core.Tests.InstallationGenerationPreparationTests": 28,
+        "KuaiYi.Core.Tests.InstallationBootstrapDeploymentTests": 35,
+        "KuaiYi.Core.Tests.InstallationRegistryConflictTests": 4
+      },
+      "prior_258_multiset_preserved": true,
+      "ordinary_nonforeign_write_after_effect_passed": 2,
+      "existing_synthetic_child_exits": 7,
+      "full_Core": false
+    },
+    "stable_product_Git_inputs": 916,
+    "full_SHA_targets": 17,
+    "product_DLL_build_test_matches": 14,
+    "actual_Core_copies_equal": 4,
+    "old_test_files_byte_unchanged": 338,
+    "old_src_files": 369,
+    "modified_old_src": 2,
+    "new_src": 0,
+    "tools": "Existing synthetic crash fixture explicit false declaration only",
+    "binary_bodies_in_archive": false
+  },
+  "library": {
+    "id": "libfile_7c3e6187e2688191835094263b92b889",
+    "version": 0,
+    "file": "registry-write-conflict-originals.zip",
+    "bytes": 1515469,
+    "members": 162,
+    "manifest_entries": 161,
+    "sha256": "e5ccaafc927aceb3a046d51b91620a61e39a181948c0766c8a0ac525ff5926bf",
+    "local_identity_verified": true,
+    "independent_archive_review": "LimitedACK",
+    "product_source_records": 9
+  }
 }
