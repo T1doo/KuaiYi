@@ -2,11 +2,68 @@
   "schemaVersion": 1,
   "scope": "SPEC13.4 bounded independent installer command, original first-root initialization, one Operation and original process exit fence",
   "base": "eaf6ed1fcfdd78a21958694927b2799992bdeee5",
-  "status": "InProgress",
-  "candidate": {"newPassed":16,"failed":0,"skipped":0,"inputs":956,"installerBuildWarnings":0,"installerBuildErrors":0},
+  "status": "Pass_Limited",
+  "candidate": {
+    "newPassed": 16,
+    "failed": 0,
+    "skipped": 0,
+    "inputs": 956,
+    "installerBuildWarnings": 0,
+    "installerBuildErrors": 0
+  },
   "effectiveCounterexample": "r08 inline report barrier: original protocol IO held but old Entry.OriginalWork completed; same test method Passed in r11",
-  "fixedTree": "NotRun",
+  "fixedTree": {
+    "passed": 58,
+    "failed": 0,
+    "skipped": 0,
+    "new": 16,
+    "oldOperation": 15,
+    "oldScope": 25,
+    "hostRepresentatives": 2,
+    "normalManagedBuilds": 8,
+    "warnings": 0,
+    "errors": 0,
+    "inputs": 956,
+    "assemblyVersions": 18,
+    "productDllInventories": 15,
+    "actualCoreCopies": 5,
+    "coreSha256": "ea7c9eb54c65f6173a880bc8ef1f1a132da0181badeb1928e8dad9ace36caf08",
+    "allFourInputsMatchGit": true,
+    "historicalRoundsNotSummed": true
+  },
   "originals": "artifacts/2026-10-22-installer-entry",
   "productionTrust": "Unavailable",
-  "boundaries": ["No actual Windows execution or registry mutation","No warm capability in installer-owned session","No complete native/self-contained runtime or reviewed release source pins","Not full Core/266/204 regression or P7 signoff"]
+  "boundaries": [
+    "No actual Windows execution or registry mutation",
+    "No warm capability in installer-owned session",
+    "No complete native/self-contained runtime or reviewed release source pins",
+    "Not full Core/266/204 regression or P7 signoff"
+  ],
+  "productSha": "d55be5563a6cde314975b58356b0fd7cb95c9524",
+  "independentReview": {
+    "status": "ACK_Limited",
+    "manifest": 388,
+    "productGitFiles": 25,
+    "reviewerDidNotRunTests": true,
+    "binaryBodiesInArchive": false
+  },
+  "archive": {
+    "file": "installer-entry-originals.zip",
+    "bytes": 2453373,
+    "sha256": "ec60502473b264c437b8fe51e81664c86f5ce3b5fd4f8c7024832a052b02fbc3",
+    "members": 389,
+    "manifest_entries": 388,
+    "libraryFileId": "libfile_9f283f3eb7b88191b050095bf97037bc",
+    "version": 0,
+    "localLibraryIdentityConfirmed": true
+  },
+  "historicalFailuresPreserved": [
+    "r01 CS0819 compile 0tests",
+    "r02 IoEntered timeout, not effective fence red",
+    "r04 precondition/first-root failure",
+    "r05 strict bootstrap dependency rejection, gate unchanged",
+    "r07 incorrect exit0 expectation actual137, not effective fence red",
+    "r08 effective original lifetime fence red",
+    "r09 generic Task compile 0tests"
+  ]
 }
