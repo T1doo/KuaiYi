@@ -35,3 +35,11 @@ Host只打开既有setup和空活动门，在短setup段内取得共享门并绑
 ## 未验与未接入口
 
 真实Windows句柄共享、浏览器直接发现和启动、同WPF/真实medium身份、注册表读写/关闭、Explorer安装升级卸载、断电耐久及对抗均NotRun。完整payload/路径派生metadata、稳定启动器、身份安装/撤销、自启动/安装器仍有缺项；本片不代签完整P7，也不声称旧版未知Host已退出。真实WPF像素/DPI/焦点/高对比、OCR/图像质量和250/600ms仍未验。本轮未重探403 runner、添加权限/凭据/依赖/许可/费用、调用模型或操作用户电脑。
+
+## 修复固定树签收
+
+产品/测试722270d46cd5ea6bcb7d0375ab652854b85506ae：r12一次同范围相关549P/0F/0skip，19个实际类，本片21新增+528既有；r09原545个测试名称全部保留通过。不是完整Core/Provider/Codec，也不把各轮相加。r13正常App交叉构建0W/0E、零运行测试。两轮880输入前后稳定并逐Git blob一致，Core/NativeHost/CoreTests/App四目标摘要与各轮产物库存匹配，AssemblyInfo含完整产品SHA。
+
+348个原src中340个逐字节未改；8个既有src改动、2个新src。3个旧测试文件仅增加新生命周期fixture同步/原cleanup屏障或fresh-store活动门，原正文断言与用例保留；两新测试文件提供21例。工具只改既有BrowserHostFixture并加其本片合成模式。锁文件、依赖、工作流、packaging、extensions及scripts未改。原件/完整TRX、失败原文、输入/产物摘要与独立只读签收一并保全；最终只归档三报告再正常开发分支推送。
+
+最终原件独立只读限定ACK：r12/r13、全部880输入、四目标摘要/完整版本及ZIP逐项核验一致，无新增确定P1/P2。原件Library `libfile_919bb999dad48191be09ed3585c278ef`，版本0；2,261,208B、308唯一成员/307项manifest，SHA256 `390f56f1e648ff5144eee6eb66dcdb3a91570e597938ae443e2412e293a6b3c2`，CRC/manifest通过，保存后本地身份与摘要确认。ZIP内报告是保存前固定快照；仅这三报告追加Library和独审回执，原ZIP及产品源码不改。

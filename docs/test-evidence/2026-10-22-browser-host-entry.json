@@ -1,7 +1,7 @@
 {
   "date": "2026-10-22",
   "base": "747d315e05c2c13e88d605efe133a6a5a2b942bc",
-  "status": "InProgress",
+  "status": "Pass_bounded_offline_slice_Windows_NotRun",
   "scope": "SPEC13.4/P7-04/05 cooperative browser-started NativeHost admission and quiescence, not real installation/registration",
   "artifactRoot": "artifacts/2026-10-22-browser-host-entry",
   "candidateRuns": {
@@ -23,5 +23,125 @@
     "No PID adoption or unknown child termination",
     "No full Core/Provider/Codec",
     "Windows/browser/WPF/medium/quality/250ms/600ms NotRun"
-  ]
+  ],
+  "product_sha": "722270d46cd5ea6bcb7d0375ab652854b85506ae",
+  "fixed_runs": {
+    "r12-fixed-related": {
+      "input_count": 880,
+      "before_after_equal": true,
+      "matches_product_git": true,
+      "head": "722270d46cd5ea6bcb7d0375ab652854b85506ae"
+    },
+    "r13-app": {
+      "input_count": 880,
+      "before_after_equal": true,
+      "matches_product_git": true,
+      "head": "722270d46cd5ea6bcb7d0375ab652854b85506ae"
+    }
+  },
+  "related": {
+    "passed": 549,
+    "failed": 0,
+    "skipped": 0,
+    "new": 21,
+    "existing": 528,
+    "actual_classes": 19,
+    "old_r09_names_retained": 545
+  },
+  "app_build": {
+    "warnings": 0,
+    "errors": 0,
+    "tests_executed": 0
+  },
+  "scope_audit": {
+    "product_sha": "722270d46cd5ea6bcb7d0375ab652854b85506ae",
+    "base": "747d315e05c2c13e88d605efe133a6a5a2b942bc",
+    "fixed_runs": {
+      "r12-fixed-related": {
+        "input_count": 880,
+        "before_after_equal": true,
+        "matches_product_git": true,
+        "head": "722270d46cd5ea6bcb7d0375ab652854b85506ae"
+      },
+      "r13-app": {
+        "input_count": 880,
+        "before_after_equal": true,
+        "matches_product_git": true,
+        "head": "722270d46cd5ea6bcb7d0375ab652854b85506ae"
+      }
+    },
+    "related_passed": 549,
+    "related_failed": 0,
+    "skipped": 0,
+    "new_tests": 21,
+    "existing_tests": 528,
+    "actual_classes": 19,
+    "old_r09_names_retained": 545,
+    "assemblies": {
+      "Core": {
+        "dll": "src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll",
+        "sha256": "420f7803d35171b5092e9158dd6ec3076193bc31a617de210beb42f2025db1b4",
+        "assembly_info_sha256": "e2dec4d53838620f541bf1110e3c47ab562640216310d8d3145b1e435d1e4dd3",
+        "contains_full_product_sha": true
+      },
+      "NativeHost": {
+        "dll": "src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll",
+        "sha256": "729158554a68bb28bd534fa38808497544e9185a064f977210486863530d870e",
+        "assembly_info_sha256": "ac9431d53c93e6f8595d66951b178583fc92bc3730d47ddfb38d7dfaf0fc4b3b",
+        "contains_full_product_sha": true
+      },
+      "CoreTests": {
+        "dll": "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll",
+        "sha256": "bbc02c8fe0b8406e3669bdfd0fb3880fd6def8a579c2bedd70492add24d719ca",
+        "assembly_info_sha256": "a15c5203b7f546c988b7a818899bbd56015902af73c71581468497b1a96fdbb2",
+        "contains_full_product_sha": true
+      },
+      "App": {
+        "dll": "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.App.dll",
+        "sha256": "852a794dd90bcd76891643d81c585c1ba8263cf5c9c40c89da40e9f93109a061",
+        "assembly_info_sha256": "403d3ebe24a2ab14a7fd8682064662fe0ccbbab608dc61d0c4d19c1da62d480c",
+        "contains_full_product_sha": true
+      }
+    },
+    "source_scope": {
+      "old_src_count": 348,
+      "unchanged": 340,
+      "changed_existing": [
+        "src/KuaiYi.Core/Installation/InstallationAdmission.cs",
+        "src/KuaiYi.Core/Installation/InstallationControlledLaunch.cs",
+        "src/KuaiYi.Core/Installation/InstallationStore.cs",
+        "src/KuaiYi.Core/Installation/InstallationUpgradeCoordinator.cs",
+        "src/KuaiYi.NativeHost/DesktopPipeChannel.cs",
+        "src/KuaiYi.NativeHost/HostRegistrationTransaction.cs",
+        "src/KuaiYi.NativeHost/InstalledDesktopChannel.cs",
+        "src/KuaiYi.NativeHost/Program.cs"
+      ],
+      "new": [
+        "src/KuaiYi.Core/Installation/InstallationBrowserHost.cs",
+        "src/KuaiYi.NativeHost/BrowserHostLifetime.cs"
+      ]
+    },
+    "changed_existing_test_files": [
+      "tests/KuaiYi.Core.Tests/HostRegistrationTransactionTests.cs",
+      "tests/KuaiYi.Core.Tests/InstallationImageSessionTests.cs",
+      "tests/KuaiYi.Core.Tests/InstallationSessionTests.cs"
+    ],
+    "no_changes_to_locks_workflows_packaging_extensions_scripts": true,
+    "full_suites_and_windows": "NotRun"
+  },
+  "review": "Limited ACK for final fixed source, r12/r13 raw evidence, input/build audit and ZIP manifest; Windows/full P7 not signed off",
+  "library": {
+    "library_file_id": "libfile_919bb999dad48191be09ed3585c278ef",
+    "version": 0,
+    "file_id": "file_000000003aac81f6b4183c540b5b650a",
+    "status": "succeeded",
+    "local_identity_persisted": true,
+    "local_digest_unchanged": true,
+    "file": "browser-host-lifecycle-originals.zip",
+    "bytes": 2261208,
+    "sha256": "390f56f1e648ff5144eee6eb66dcdb3a91570e597938ae443e2412e293a6b3c2",
+    "members": 308,
+    "manifest_entries": 307,
+    "crc_and_manifest": "Pass"
+  }
 }
