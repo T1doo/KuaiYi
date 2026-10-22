@@ -13,7 +13,7 @@ public sealed record DropTargetGeometry(PixelRect Anchor,PixelRect Bounds,int Ra
         return (x-cx)*(x-cx)+(y-cy)*(y-cy)<=Radius*(double)Radius;
     }
 }
-public sealed record DropCaptureLease(Guid Receiver,long WireEpoch,CaptureTicket Ticket,string SettingsVersion);
+public sealed record DropCaptureLease(Guid Receiver,long WireEpoch,CaptureTicket Ticket,string SettingsVersion,LocalBitmapDropTicket? BitmapPreview=null);
 /// <summary>Actual Drop source admission. No UIA/clipboard dependency; data is this transaction's owned OLE snapshot.</summary>
 public sealed partial class DropCaptureCoordinator: IAsyncDisposable
 {
@@ -38,8 +38,8 @@ public sealed partial class DropCaptureCoordinator: IAsyncDisposable
     {lock(sync){if(!target.Valid||geometry is {} old&&old.Anchor!=target.Anchor){InvalidateLocked(false);return;}geometry=target;}}
     public void Invalidate(bool clearSource=false){lock(sync)InvalidateLocked(clearSource);}
     private void InvalidateLocked(bool clearSource)
-    {generation++;lease=null;config=null;hover=drop=null;seen.Clear();pending?.Cancel();foreach(var item in queued)item.Clear();ClearQueuedFiles();if(clearSource)previous=null;}
-    private bool Current(DropCaptureLease expected)=>!disposed&&lease==expected&&config?.Version==expected.SettingsVersion&&settings()?.Version==expected.SettingsVersion&&visible()&&gate.IsCaptureCurrent(expected.Ticket);
+    {generation++;lease=null;config=null;hover=drop=null;seen.Clear();pending?.Cancel();foreach(var item in queued)item.Clear();ClearQueuedFiles();ClearQueuedBitmaps();if(clearSource)previous=null;}
+    private bool Current(DropCaptureLease expected)=>!disposed&&lease==expected&&config?.Version==expected.SettingsVersion&&settings()?.Version==expected.SettingsVersion&&visible()&&(expected.BitmapPreview is {} local?gate.IsLocalBitmapDropCurrent(local):gate.IsCaptureCurrent(expected.Ticket));
     private bool SourceCurrent(SelectionWindow source)=>config is {} current&&!SelectionTextPolicy.Excluded(source,current.Data,ownProcess)&&sourceCurrent(source);
     public bool Enter(DropCaptureLease expected,Guid transaction,SelectionWindow source,PixelPoint point,OleEffect effect)
     {
@@ -63,7 +63,7 @@ public sealed partial class DropCaptureCoordinator: IAsyncDisposable
     {
         lock(sync)
         {
-            if(cancellation.IsCancellationRequested||!Current(expected)||drop is not {} work||work.Transaction!=transaction||work.Generation!=generation||!SourceCurrent(work.Source))return Task.CompletedTask;
+            if(expected.BitmapPreview!=null||cancellation.IsCancellationRequested||!Current(expected)||drop is not {} work||work.Transaction!=transaction||work.Generation!=generation||!SourceCurrent(work.Source))return Task.CompletedTask;
             drop=null;pending?.Cancel();var token=pending=CancellationTokenSource.CreateLinkedTokenSource(cancellation);var task=Deliver(expected,work,config!,utf8,receiverAdmission,token,receiverCurrent??(static()=>true));operations.Add(task);_ =Observe(task,token);return task;
         }
     }

@@ -1,6 +1,6 @@
 namespace KuaiYi.Imaging;
 
-public enum ImageSourceKind{Screenshot,LocalFile,Browser}
+public enum ImageSourceKind{Screenshot,LocalFile,Browser,Bitmap}
 public enum EncodedRasterFormat{Png,Jpeg,Bmp,Webp,Gif}
 public sealed record GifFirstFrameInfo(int SourceFrames,int Left,int Top,int Width,int Height);
 // The closed hierarchy prevents external adapters from minting arbitrary trusted image owners.

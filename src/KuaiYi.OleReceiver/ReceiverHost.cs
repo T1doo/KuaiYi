@@ -27,6 +27,8 @@ internal sealed class ReceiverHost:IOleReceiverBackend,IOleReceiverControlBacken
     public bool Enabled=>gate.Snapshot.Enabled&&activation.Current(gate.Snapshot.Epoch);
     public long Epoch=>gate.Snapshot.Epoch;
     public bool Production=>hello.ProductionTextDrop;
+    public bool AllowImageBitmaps=>Production&&hello.AllowImageBitmaps;
+    public bool BitmapPreviewOnly=>hello.BitmapPreviewOnly;
     public bool AllowImageFiles=>Production&&hello.AllowImageFiles;
     public void ApplyControl(OleReceiverControl control)
     {
@@ -118,6 +120,22 @@ internal sealed class ReceiverHost:IOleReceiverBackend,IOleReceiverControlBacken
             finally{CryptographicOperations.ZeroMemory(bytes);}
         }
         Metadata(transaction,epoch,"DropEnd",true,text==null?OleEffect.None:OleEffect.Copy,text?.Length??0);lock(groupsSync)groups.Remove(transaction);
+    }
+    // Unconditional ownership transfer, including failed current/deadline checks.
+    public void ResultBitmap(Guid transaction,long epoch,byte[]? bitmap)
+    {
+        bool sent=false;
+        try
+        {
+            Metadata(transaction,epoch,"CleanupComplete",true);
+            if(bitmap!=null&&AllowImageBitmaps&&CanCommit(transaction,epoch))
+            {
+                OleBitmapDrop.ValidateBmp(bitmap);
+                if(CanCommit(transaction,epoch)){send(new(IpcMessageType.BinaryChunk,transaction,bitmap));bitmap=null;sent=true;}
+            }
+            Metadata(transaction,epoch,"DropEnd",true,sent?OleEffect.Copy:OleEffect.None,0);lock(groupsSync)groups.Remove(transaction);
+        }
+        finally{if(bitmap!=null)CryptographicOperations.ZeroMemory(bitmap);}
     }
     public void ReleaseOwned(Guid transaction,long epoch,string stage,Action release){WorkerMetadata(transaction,epoch,stage+"CleanupBegin");release();}
     public async Task ShutdownAsync()

@@ -11,7 +11,7 @@ public sealed partial class DropCaptureCoordinator
     {
         lock(sync)
         {
-            if(cancellation.IsCancellationRequested||!Current(expected)||drop is not {} work||work.Transaction!=transaction||work.Generation!=generation||!SourceCurrent(work.Source))return Task.CompletedTask;
+            if(expected.BitmapPreview!=null||cancellation.IsCancellationRequested||!Current(expected)||drop is not {} work||work.Transaction!=transaction||work.Generation!=generation||!SourceCurrent(work.Source))return Task.CompletedTask;
             drop=null;pending?.Cancel();var token=pending=CancellationTokenSource.CreateLinkedTokenSource(cancellation);var task=DeliverImageFile(expected,work,bytes,receiverAdmission,acceptedFile,token,receiverCurrent??(static()=>true));operations.Add(task);_=Observe(task,token);return task;
         }
     }

@@ -1500,3 +1500,8 @@ P7-01/已有实例认证转交/真实Windows菜单-WPF/OLE/OCR/身份/画质/250
 从1de5fea42d9d16a165d9373417b24bdd54f3c060继续，补SPEC13.2 imageContext接受data但original必拒的真实缺口。仅五MIME明确canonical base64，编码/预计大小预限、两遍64KiB可取消解码、唯一输出异常清零、原MIME/Ready/来源/分片/双端Commit/Off发送门。原C#/manifest/协议/权限不改，blob/跨域/可见裁切不扩。独立设计、源码、原件限定ACK。
 
 最终Node154P/0F/0取消/0跳过（842输入0漂移），含真实合成ServiceWorker/stdio/生产Receiver/Inbox九正例七负例及字节边界；首轮151P1F因新comment夹具仍为87a，最小87/89真实对照保全，仅修夹具不改生产门。原5F、target47P/边界3P不累计，未重复Core/Provider/Codec/CI或模型。详见[实现/原件/未验边界](validation/browser-data-originals.md)及[证据索引](test-evidence/2026-10-22-data-original.json)。Windows/Chrome/Edge/medium/250600/画质仍未验，P7整体不标Pass。
+
+
+## 2026-10-22：单张 CF_DIB 位图投放最小切片
+
+补 SPEC6.1 的真实位图缺口，独立默认关闭选项；仅40字节头/24bit BI_RGB/HGLOBAL及转换BMP各≤1MiB。隔离STA有界复制/行padding清零、typed IPC、同peer实际退出后Worker、共享图片槽和明确Bitmap预览来源，Off不自动OCR/启用/发送。独立设计及源码限定ACK。错误保全P2以r06旧helper0P1F准确复现，修复同时保留transport/cleanup原对象；r05编译失败不计红。r07 Core41P/Provider8P/Codec5P，850输入无漂移，轮次不累计。固定树完整签收随后归档，不预借旧通过。详见[位图切片实现与边界](validation/bitmap-drop.md)。真实Windows/OLE/WPF/来源/medium/250600/画质仍未验，P6/P7不标完整通过；安全与费用边界保持。

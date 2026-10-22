@@ -97,3 +97,6 @@ P4-04阶段预算高级配置、有效活动SSE/JSON读取已接生产路径，�
 已补自包含文字 Alpha 发布与受控本地启动入口，见[使用说明](docs/text-alpha.md)及[P0—P4交付缺口复核](docs/p4-text-alpha-review.md)。包内含固定.NET10.0.12运行时，无需在目标机安装.NET；仍无安装器/产品原生DLL，Windows闭环和整体验收未运行。
 
 文字Alpha启动退出合同已补正：使用新仓库/独立小补正脚本指向原大包，旧大包保持原字节。子失败/原文比较Fail非零，NotRun为2，预检与限定会话分开，见[退出合同补正](docs/p4-alpha-exit-review.md)。Windows实际功能仍未验。
+
+
+受界单张 CF_DIB 位图 Drop 已接最小切片：默认关闭、每次运行单独开启，Off 只本地预览；仅40字节头、24bit BI_RGB、转换BMP≤1MiB。真实Windows拖放未验，详见[接线、原件与边界](docs/validation/bitmap-drop.md)。

@@ -15,7 +15,7 @@ internal sealed partial class ShellWindow
     }
     private void AddScreenshotModes(ContextMenu menu)
     {
-        var item=new MenuItem{Tag="image-modes",Header=SelectedSource.Image?.Kind==KuaiYi.Imaging.ImageSourceKind.Browser?"本次浏览器图片翻译":SelectedSource.Image?.Kind==KuaiYi.Imaging.ImageSourceKind.LocalFile?"本次文件图片翻译":"本次截图翻译",IsEnabled=CanTranslateScreenshot};
+        var item=new MenuItem{Tag="image-modes",Header=SelectedSource.Image?.Kind==KuaiYi.Imaging.ImageSourceKind.Browser?"本次浏览器图片翻译":SelectedSource.Image?.Kind==KuaiYi.Imaging.ImageSourceKind.Bitmap?"投放位图":SelectedSource.Image?.Kind==KuaiYi.Imaging.ImageSourceKind.LocalFile?"本次文件图片翻译":"本次截图翻译",IsEnabled=CanTranslateScreenshot};
         foreach(var mode in Enum.GetValues<ImageOutputMode>())
         {
             var current=mode;var child=new MenuItem{Header=mode switch{ImageOutputMode.Automatic=>"智能判断后翻译",ImageOutputMode.TranslateText=>"仅翻译图中文字",_=>"按图文解释"}};

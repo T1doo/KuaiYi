@@ -7,6 +7,8 @@ public sealed partial class ImageWorkerClient
         =>PrepareEncodedAsync(encoded,job,ImageSourceKind.LocalFile,cancellation);
     public Task<OwnedFileImage> PrepareBrowserAsync(ReadOnlyMemory<byte> encoded,ImageDecodeJob job,CancellationToken cancellation=default)
         =>PrepareEncodedAsync(encoded,job,ImageSourceKind.Browser,cancellation);
+    public Task<OwnedFileImage> PrepareBitmapAsync(ReadOnlyMemory<byte> encoded,ImageDecodeJob job,CancellationToken cancellation=default)
+    {KuaiYi.Core.OleBitmapDrop.ValidateBmp(encoded.Span);return PrepareEncodedAsync(encoded,job,ImageSourceKind.Bitmap,cancellation);}
     private Task<OwnedFileImage> PrepareEncodedAsync(ReadOnlyMemory<byte> encoded,ImageDecodeJob job,ImageSourceKind kind,CancellationToken cancellation)
     {
         if(job.PrepareLongEdge!=null)throw new InvalidDataException("File preparation requires a raw source job.");

@@ -70,6 +70,7 @@ public sealed class OcrOnlyCoordinator:IAsyncDisposable
     }
     private bool StartCore(Guid version,ImageSourceOwner source,string? language,OcrCapabilitiesSnapshot? expected=null)
     {
+        if(source.Kind==ImageSourceKind.Bitmap){Failure="BitmapOcrUnsupported";return false;}
         // Recognition never silently resizes a screenshot or a prepared file to fit OCR.
         if(language!=null&&(source.Width>ImageTransform.LongEdgeLimit||source.Height>ImageTransform.LongEdgeLimit))
         {Failure="SMALLER_SCREENSHOT_REQUIRED";return false;}

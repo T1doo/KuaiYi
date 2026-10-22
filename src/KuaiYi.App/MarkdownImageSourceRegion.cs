@@ -22,7 +22,7 @@ internal sealed class MarkdownImageSourceRegion:IDisposable
     public Image Image {get;}=new(){Stretch=Stretch.Uniform,ClipToBounds=true};
     public MarkdownImageSourceRegion(ImageSourceOwner source,Action? observeReader,Action? changed,Func<bool>? canRead,Func<Func<bool>>? captureReaderGuard=null,Action<Exception>? failed=null)
     {
-        View.Header=source.Kind==ImageSourceKind.Browser?"查看浏览器图片 · 本地接收":source.Kind==ImageSourceKind.LocalFile?"查看文件图片"+(source.Notice is {} note?" · "+note:""):"查看原文图片";
+        View.Header=source.Kind==ImageSourceKind.Browser?"查看浏览器图片 · 本地接收":source.Kind==ImageSourceKind.Bitmap?"查看投放位图":source.Kind==ImageSourceKind.LocalFile?"查看文件图片"+(source.Notice is {} note?" · "+note:""):"查看原文图片";
         this.source=source;this.observeReader=observeReader;this.changed=changed;this.canRead=canRead;this.captureReaderGuard=captureReaderGuard;this.failed=failed;View.Content=Image;
         System.Windows.Automation.AutomationProperties.SetName(View,"查看所示版本原文图片");System.Windows.Automation.AutomationProperties.SetName(Image,"所示版本原文图片的本地缩略预览");
         View.Expanded+=Expanded;View.Collapsed+=Collapsed;

@@ -10,7 +10,7 @@ namespace KuaiYi.App;
 internal sealed partial class ShellWindow
 {
     private sealed class TextDropPeer(OleReceiverClient client,DropCaptureLease lease,CancellationTokenSource cancellation,string[] blocked)
-    {public OleReceiverClient Client{get;}=client;public DropCaptureLease Lease{get;}=lease;public CancellationTokenSource Cancellation{get;}=cancellation;public string[] Blocked{get;}=blocked;public Task Run=Task.CompletedTask,Control=Task.CompletedTask;public DropTargetGeometry? SentTarget;public int Stopping;}
+    {public OleReceiverClient Client{get;}=client;public DropCaptureLease Lease{get;}=lease;public CancellationTokenSource Cancellation{get;}=cancellation;public string[] Blocked{get;}=blocked;public Task Run=Task.CompletedTask,Control=Task.CompletedTask;public DropTargetGeometry? SentTarget;public int Stopping;public Exception? Failure;public List<Exception> SettlementFailures{get;}=[];public TimeoutException? WaitTimeout;public TaskCompletionSource Settled{get;}=new(TaskCreationOptions.RunContinuationsAsynchronously);}
     private string? dropUnavailable;private DropCaptureCoordinator? dropCapture;private TextDropPeer? dropPeer;private Task dropReconcile=Task.CompletedTask;private bool dropVisible,externalDropHover,restoreDropBody,restoreDropPeek;private DropTargetGeometry? dropBounds;
     private readonly DispatcherTimer dropPoll=new(){Interval=TimeSpan.FromMilliseconds(100)};
     private readonly TextBlock dropHint=new(){Text="松开\n翻译",FontSize=11,TextAlignment=TextAlignment.Center,IsHitTestVisible=false,Visibility=Visibility.Collapsed};
@@ -38,7 +38,7 @@ internal sealed partial class ShellWindow
     }
     private async Task PublishDropControl(TextDropPeer peer,Task previous,DropTargetGeometry target)
     {
-        try{await previous;if(ReferenceEquals(dropPeer,peer)&&Volatile.Read(ref peer.Stopping)==0&&dropCapture?.Lease==peer.Lease&&lifecycle.Gate.IsCaptureCurrent(peer.Lease.Ticket)&&lifecycle.Settings?.Version==peer.Lease.SettingsVersion)
+        try{await previous;if(ReferenceEquals(dropPeer,peer)&&Volatile.Read(ref peer.Stopping)==0&&dropCapture?.Lease==peer.Lease&&dropCapture?.IsLeaseCurrent(peer.Lease)==true&&lifecycle.Settings?.Version==peer.Lease.SettingsVersion)
         {
             var originalControl=peer.Client.SetEnabledAsync(peer.Lease.WireEpoch,true,target,peer.Blocked);
 #if KUAIYI_WINDOWS_CI_PROBE
@@ -53,24 +53,22 @@ internal sealed partial class ShellWindow
         if(dropPeer is {} old)
         {
             if(Volatile.Read(ref old.Stopping)==0)return;
-            try{await old.Run.WaitAsync(TimeSpan.FromSeconds(3));}catch(TimeoutException){button.ToolTip="拖放退出尚未结算，暂不建立第二接收器。";return;}
-            await old.Control;
-            if(!await old.Client.TryFinalizeAsync(true)){button.ToolTip="拖放进程、注册或交付清理尚未确认。";return;}
-            if(ReferenceEquals(dropPeer,old)){dropPeer=null;old.Cancellation.Dispose();}
+            if(!await SettleTextDropPeer(old))return;
+
         }
         var state=lifecycle.Gate.Snapshot;
-        if(dropStopping||exiting||!dropVisible||state.Activation!=Activation.On||state.Mode!=TriggerMode.Drop||state.Suspension!=Suspension.None||dropBounds is not {} target||lifecycle.Settings is not {} config)return;
+        if(dropStopping||exiting||!dropVisible||state.Activation!=Activation.On&&!imageBitmapDropEnabled||state.Mode!=TriggerMode.Drop||state.Suspension!=Suspension.None||dropBounds is not {} target||lifecycle.Settings is not {} config)return;
         OleSharedActivation? activation=null;
         try
         {
             if(!File.Exists(Path.Combine(AppContext.BaseDirectory,"KuaiYi.OleNativeBridge.dll")))throw new FileNotFoundException("Native OLE component has not been built/installed.");
-            Guid instance=Guid.NewGuid();var lease=dropCapture!.Open(instance,state.Epoch,target);if(lease==null)return;
+            Guid instance=Guid.NewGuid();var lease=state.Activation==Activation.Off?dropCapture!.OpenBitmapPreview(instance,state.Epoch,target):dropCapture!.Open(instance,state.Epoch,target);if(lease==null)return;
             activation=new(instance);var registrar=CreateDropRegistrar();var client=new OleReceiverClient(Path.Combine(AppContext.BaseDirectory,"KuaiYi.OleReceiver.exe"),registrar,activation);var cancellation=CancellationTokenSource.CreateLinkedTokenSource(lifetime.Token);
             var peer=new TextDropPeer(client,lease,cancellation,config.Data.Privacy.BlockedApplications.ToArray());dropPeer=peer;activation=null;
 #if KUAIYI_WINDOWS_CI_PROBE
             CiReceiverCreated(client,registrar,instance,()=>peer.Run,()=>peer.Control);
 #endif
-            var hello=new OleReceiverHello(instance,lease.WireEpoch,Environment.ProcessId,hwnd.ToInt64(),RandomNumberGenerator.GetBytes(32),OleReceiverWire.ActivationName(instance),ProductionTextDrop:true,AllowImageFiles:imageFileDropEnabled);
+            var hello=new OleReceiverHello(instance,lease.WireEpoch,Environment.ProcessId,hwnd.ToInt64(),RandomNumberGenerator.GetBytes(32),OleReceiverWire.ActivationName(instance),ProductionTextDrop:true,AllowImageFiles:imageFileDropEnabled&&state.Activation==Activation.On,AllowImageBitmaps:imageBitmapDropEnabled,BitmapPreviewOnly:state.Activation==Activation.Off);
             peer.Run=RunTextDrop(peer,hello);
         }
         catch(Exception error){activation?.Dispose();RevokeTextDrop();lifecycle.Gate.Disable();SetDropHover(false);dropUnavailable="正式文本拖放尚不可用 · "+error.GetType().Name;Report("正式文本拖放尚不可用",error);}
@@ -90,11 +88,11 @@ internal sealed partial class ShellWindow
                 else if(item.Phase=="Leave")dropCapture.Leave(peer.Lease,item.Transaction);
                 Dispatcher.BeginInvoke(()=>
                 {
-                    if(!ReferenceEquals(dropPeer,peer)||Volatile.Read(ref peer.Stopping)!=0||dropCapture?.Lease!=peer.Lease||!lifecycle.Gate.IsCaptureCurrent(peer.Lease.Ticket))return;
+                    if(!ReferenceEquals(dropPeer,peer)||Volatile.Read(ref peer.Stopping)!=0||dropCapture?.Lease!=peer.Lease||dropCapture?.IsLeaseCurrent(peer.Lease)!=true)return;
                     ApplyDropFeedback(item.Phase,item.Effect,item.TextFormat);
                     RefreshTextDrop();
                 });
-            },(epoch,transaction,bytes,token)=>dropCapture!.ReceiveAsync(peer.Lease,transaction,bytes,action=>peer.Client.TryApplyDrop(epoch,transaction,action),token,()=>peer.Client.IsDropCurrent(epoch,transaction)),peer.Cancellation.Token,deliverImageFile:(epoch,transaction,bytes,token)=>dropCapture!.ReceiveImageFileAsync(peer.Lease,transaction,bytes,action=>peer.Client.TryApplyDrop(epoch,transaction,action),path=>{_=StartDroppedImageFile(path,CreateFileImageOperation);},token,()=>peer.Client.IsDropCurrent(epoch,transaction)));
+            },(epoch,transaction,bytes,token)=>dropCapture!.ReceiveAsync(peer.Lease,transaction,bytes,action=>peer.Client.TryApplyDrop(epoch,transaction,action),token,()=>peer.Client.IsDropCurrent(epoch,transaction)),peer.Cancellation.Token,deliverImageFile:(epoch,transaction,bytes,token)=>dropCapture!.ReceiveImageFileAsync(peer.Lease,transaction,bytes,action=>peer.Client.TryApplyDrop(epoch,transaction,action),path=>{_=StartDroppedImageFile(path,CreateFileImageOperation);},token,()=>peer.Client.IsDropCurrent(epoch,transaction)),deliverImageBitmap:(epoch,transaction,bytes,token)=>dropCapture!.ReceiveBitmapAsync(peer.Lease,transaction,bytes,action=>peer.Client.TryApplyDrop(epoch,transaction,action),bitmap=>StartDroppedBitmap(peer,bitmap),token,()=>peer.Client.IsDropCurrent(epoch,transaction)));
 #if KUAIYI_WINDOWS_CI_PROBE
             CiTrackOriginal(peer.Client,originalRun,true);
 #endif
@@ -103,9 +101,10 @@ internal sealed partial class ShellWindow
         catch(OperationCanceledException)when(peer.Cancellation.IsCancellationRequested){ }
         catch(Exception error)
         {
+            peer.Failure=error;
             await Dispatcher.InvokeAsync(()=>
             {
-                if(ReferenceEquals(dropPeer,peer)&&Volatile.Read(ref peer.Stopping)==0&&lifecycle.Gate.IsCaptureCurrent(peer.Lease.Ticket)&&lifecycle.Settings?.Version==peer.Lease.SettingsVersion){lifecycle.Gate.Disable();RevokeTextDrop();SetDropHover(false);Refresh();Report("拖放接收失败，旧来源保留",error);}
+                if(ReferenceEquals(dropPeer,peer)&&Volatile.Read(ref peer.Stopping)==0&&dropCapture?.IsLeaseCurrent(peer.Lease)==true&&lifecycle.Settings?.Version==peer.Lease.SettingsVersion){lifecycle.Gate.Disable();RevokeTextDrop();SetDropHover(false);Refresh();Report("拖放接收失败，旧来源保留",error);}
             });
         }
         finally{CryptographicOperations.ZeroMemory(hello.Nonce);Interlocked.Exchange(ref peer.Stopping,1);peer.Client.Cancel();}

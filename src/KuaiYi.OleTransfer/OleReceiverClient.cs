@@ -118,13 +118,13 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
         catch(Exception error)when(error is IOException or OperationCanceledException or ObjectDisposedException){Cancel();return false;}
         finally{CryptographicOperations.ZeroMemory(payload);}
     }
-    public async Task RunAsync(OleReceiverHello hello,Action<OleReceiverEvent> feedback,Func<long,Guid,ReadOnlyMemory<byte>,CancellationToken,Task> deliver,CancellationToken cancellation=default,Func<long,Guid,ReadOnlyMemory<byte>,CancellationToken,Task>? deliverImageFile=null)
+    public async Task RunAsync(OleReceiverHello hello,Action<OleReceiverEvent> feedback,Func<long,Guid,ReadOnlyMemory<byte>,CancellationToken,Task> deliver,CancellationToken cancellation=default,Func<long,Guid,ReadOnlyMemory<byte>,CancellationToken,Task>? deliverImageFile=null,Func<long,Guid,ReadOnlyMemory<byte>,CancellationToken,Task>? deliverImageBitmap=null)
     {
         OleReceiverWire.Validate(hello);if(hello.ActivationName!=activation.Name)throw new InvalidDataException("Wrong owned activation mapping.");if(Interlocked.CompareExchange(ref started,1,0)!=0)throw new InvalidOperationException("One receiver per client.");
-        try{await RunOwnedAsync(hello,feedback,deliver,cancellation,deliverImageFile).ConfigureAwait(false);}
+        try{await RunOwnedAsync(hello,feedback,deliver,cancellation,deliverImageFile,deliverImageBitmap).ConfigureAwait(false);}
         finally{Volatile.Write(ref started,2);} // Entire original admission/read/registration/cleanup path has returned.
     }
-    private async Task RunOwnedAsync(OleReceiverHello hello,Action<OleReceiverEvent> feedback,Func<long,Guid,ReadOnlyMemory<byte>,CancellationToken,Task> deliver,CancellationToken cancellation,Func<long,Guid,ReadOnlyMemory<byte>,CancellationToken,Task>? deliverImageFile)
+    private async Task RunOwnedAsync(OleReceiverHello hello,Action<OleReceiverEvent> feedback,Func<long,Guid,ReadOnlyMemory<byte>,CancellationToken,Task> deliver,CancellationToken cancellation,Func<long,Guid,ReadOnlyMemory<byte>,CancellationToken,Task>? deliverImageFile,Func<long,Guid,ReadOnlyMemory<byte>,CancellationToken,Task>? deliverImageBitmap)
     {
         cancellation.ThrowIfCancellationRequested();
         lock(activationSync){instance=hello.Instance;eligibility.Set(hello.Epoch,false);activation.Set(hello.Epoch,false);}
@@ -171,12 +171,12 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
                     if(frame.Type==IpcMessageType.BinaryChunk)
                     {
                         bool valid;lock(watchSync)valid=watch.CanReadPayload(frame.RequestId,eligibility.Snapshot.Epoch);
-                        if(!valid||pending!=null||frame.Payload.Length is <1 or >OleReceiverWire.TextLimit)throw new OleReceiverException(OleReceiverFailure.Protocol);
+                        if(!valid||pending!=null||(frame.Payload.Length<1||frame.Payload.Length>(selectedFormat==OleTextFormat.ImageBitmap?OleBitmapDrop.TransportLimit:OleReceiverWire.TextLimit)))throw new OleReceiverException(OleReceiverFailure.Protocol);
                         pending=frame.Payload;transaction=frame.RequestId;payloadEpoch=eligibility.Snapshot.Epoch;retained=true;continue;
                     }
                     if(frame.Type!=IpcMessageType.OleEvent)throw new OleReceiverException(OleReceiverFailure.Protocol);
                     var item=OleReceiverWire.Read<OleReceiverEvent>(frame.Payload);
-                    if(item.Instance!=instance||item.Transaction!=frame.RequestId||item.Effect is not (0 or 1)||item.CodeUnits is <0 or >OleUnicodeText.MaximumReadUnits)throw new OleReceiverException(OleReceiverFailure.Protocol);
+                    if(item.Instance!=instance||item.Transaction!=frame.RequestId||item.Effect is not (0 or 1)||item.CodeUnits is <0 or >OleUnicodeText.MaximumReadUnits||item.TextFormat==OleTextFormat.ImageBitmap&&item.CodeUnits!=0)throw new OleReceiverException(OleReceiverFailure.Protocol);
                     bool queryObservation=item.Phase=="QueryEnd",dropObservation=item.Phase=="DropBegin";
                     if(queryObservation||dropObservation)targetObservations.Observe(queryObservation?OleTargetObservation.QueryRead:OleTargetObservation.DropRead);
                     if(item.Epoch!=eligibility.Snapshot.Epoch)
@@ -186,7 +186,7 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
                     }
                     if(hello.ProductionTextDrop&&item.Phase is "QueryBegin" or "Hover" or "QueryEnd" or "DropBegin" or "CleanupComplete" or "DropEnd")
                     {
-                        if(item.Source is not {} origin||origin.Handle==0||origin.ProcessId==0||origin.ProcessStartUtcTicks<=0||origin.Executable is not {Length:>0 and <=260}||item.Point==null||!Enum.IsDefined(item.TextFormat)||item.TextFormat==OleTextFormat.ImageFile&&!hello.AllowImageFiles||item.TextFormat==OleTextFormat.None&&item.Phase!="QueryBegin"&&!(item.Phase=="QueryEnd"&&item.Effect==0))throw new OleReceiverException(OleReceiverFailure.Protocol);
+                        if(item.Source is not {} origin||origin.Handle==0||origin.ProcessId==0||origin.ProcessStartUtcTicks<=0||origin.Executable is not {Length:>0 and <=260}||item.Point==null||!Enum.IsDefined(item.TextFormat)||item.TextFormat==OleTextFormat.ImageFile&&!hello.AllowImageFiles||item.TextFormat==OleTextFormat.ImageBitmap&&!hello.AllowImageBitmaps||hello.BitmapPreviewOnly&&item.TextFormat is not (OleTextFormat.None or OleTextFormat.ImageBitmap)||item.TextFormat==OleTextFormat.None&&item.Phase!="QueryBegin"&&!(item.Phase=="QueryEnd"&&item.Effect==0))throw new OleReceiverException(OleReceiverFailure.Protocol);
                     }
                     if(hello.ProductionTextDrop)
                     {
@@ -208,10 +208,12 @@ public sealed class OleReceiverClient(string executable,IOleTargetRegistrar regi
                         if(decision!=OleWatchDecision.Completed||!item.CleanupCompleted)throw new OleReceiverException(OleReceiverFailure.Protocol);
                         if(pending!=null)
                         {
-                            if(transaction!=item.Transaction||payloadEpoch!=item.Epoch||item.Effect!=1||!eligibility.Current(item.Epoch)||(selectedFormat==OleTextFormat.ImageFile?OleImageFileDrop.DecodeTransport(pending):OleReceiverWire.DecodeText(pending)).Length!=item.CodeUnits)throw new OleReceiverException(OleReceiverFailure.Protocol);
+                            if(transaction!=item.Transaction||payloadEpoch!=item.Epoch||item.Effect!=1||!eligibility.Current(item.Epoch))throw new OleReceiverException(OleReceiverFailure.Protocol);
+                            if(selectedFormat==OleTextFormat.ImageBitmap){OleBitmapDrop.ValidateBmp(pending);if(item.CodeUnits!=0)throw new OleReceiverException(OleReceiverFailure.Protocol);}
+                            else if((selectedFormat==OleTextFormat.ImageFile?OleImageFileDrop.DecodeTransport(pending):OleReceiverWire.DecodeText(pending)).Length!=item.CodeUnits)throw new OleReceiverException(OleReceiverFailure.Protocol);
                             lifetime.Token.ThrowIfCancellationRequested();
                             if(hello.ProductionTextDrop&&!TryApplyDrop(item.Epoch,item.Transaction,static()=>{}))throw new OleReceiverException(OleReceiverFailure.Timeout);
-                            Task originalDelivery=selectedFormat==OleTextFormat.ImageFile?(deliverImageFile??throw new OleReceiverException(OleReceiverFailure.Protocol))(item.Epoch,item.Transaction,pending,lifetime.Token):deliver(item.Epoch,item.Transaction,pending,lifetime.Token);
+                            Task originalDelivery=selectedFormat==OleTextFormat.ImageBitmap?(deliverImageBitmap??throw new OleReceiverException(OleReceiverFailure.Protocol))(item.Epoch,item.Transaction,pending,lifetime.Token):selectedFormat==OleTextFormat.ImageFile?(deliverImageFile??throw new OleReceiverException(OleReceiverFailure.Protocol))(item.Epoch,item.Transaction,pending,lifetime.Token):deliver(item.Epoch,item.Transaction,pending,lifetime.Token);
                             Task settlement=ObserveDelivery(originalDelivery,pending);Volatile.Write(ref deliverySettlement,settlement);pending=null; // Original callback owns the read lease until actual settlement, even when our waiter cancels.
                             await settlement.WaitAsync(lifetime.Token).ConfigureAwait(false); // Finish clearing this lease before accepting another payload.
                             await originalDelivery.ConfigureAwait(false); // Preserve the original error for the active caller.

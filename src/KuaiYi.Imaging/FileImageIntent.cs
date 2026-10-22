@@ -19,3 +19,9 @@ public interface IFileImageOperation:IImagePreparationOperation
 
 public interface IBrowserImageOperation:IImagePreparationOperation
 {Task<OwnedFileImage> LoadAsync(ReadOnlyMemory<byte> png,Guid session,long version,long epoch,CancellationToken cancellation);}
+
+public interface IBitmapImageOperation:IImagePreparationOperation
+{
+    Task<OwnedFileImage> LoadAsync(Guid session,long version,long epoch,CancellationToken cancellation);
+    Task ObservePeerCleanupAsync();
+}

@@ -1,4 +1,5 @@
 using System.IO;
+using System.Security.Cryptography;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
 using KuaiYi.Core;
@@ -33,7 +34,7 @@ namespace KuaiYi.OleReceiver;
             {
                 var reference = OleDataReference.FromBorrowed(data,owner.Observations);
                 scope.Own(() => owner.ReleaseOwned(query, generation, "QueryRelease", reference.Dispose));
-                if(owner.CanCommit(query,generation)){format=owner.Production?reference.OfferedContent(owner.AllowImageFiles):reference.OffersUnicode()?OleTextFormat.Unicode:OleTextFormat.None;advertised=format!=OleTextFormat.None;}
+                if(owner.CanCommit(query,generation)){format=owner.Production?reference.OfferedContent(owner.AllowImageFiles,owner.AllowImageBitmaps,owner.BitmapPreviewOnly):reference.OffersUnicode()?OleTextFormat.Unicode:OleTextFormat.None;advertised=format!=OleTextFormat.None;}
             }
             catch (Exception error) { advertised = false; status = error.GetType().Name; }
             if (!Clean(scope, query, generation)) { effect = 0; advertised = false; active = true; return 0; }
@@ -50,7 +51,7 @@ namespace KuaiYi.OleReceiver;
             Guid operation = id; long generation = owner.Epoch; hoverEpoch = generation; nint foreground = NativeDesktop.GetForegroundWindow(); active = true; effect = 0;
             owner.Emit(operation, "DropBegin", "Extraction, EndOperation and all cleanup deadline",owner.Production?OleEffect.Copy:OleEffect.None,source:source,point:new(point.X,point.Y),format:format);
             var scope = new OleCleanupScope(); var transfer = new AsyncTransfer(scope);
-            string? text = null; string status = "Synchronous copy and all cleanup completed"; bool priorCleanupFailed = false;
+            byte[]? bitmap=null; string? text = null; string status = "Synchronous copy and all cleanup completed"; bool priorCleanupFailed = false;
             try
             {
                 var reference = OleDataReference.FromBorrowed(data,owner.Observations);
@@ -84,14 +85,16 @@ namespace KuaiYi.OleReceiver;
                     effect = (uint)OleEffect.Copy; return 0; // The origin scope remains owned until FinishWorker.
                 }
                 if(!owner.CanCommit(operation,generation))throw new OperationCanceledException();
-                owner.Observe(OleTargetObservation.ExtractionBegin);text = owner.Production?(format==OleTextFormat.ImageFile?reference.ReadImageFile():reference.ReadText(format)):reference.ReadUnicode();owner.Observe(OleTargetObservation.ExtractionReturned);
+                owner.Observe(OleTargetObservation.ExtractionBegin);if(owner.Production&&format==OleTextFormat.ImageBitmap)bitmap=reference.ReadBitmap(()=>owner.CanCommit(operation,generation));else text = owner.Production?(format==OleTextFormat.ImageFile?reference.ReadImageFile():reference.ReadText(format)):reference.ReadUnicode();owner.Observe(OleTargetObservation.ExtractionReturned);
             }
-            catch (Exception error) { text = null; status = error.GetType().Name; priorCleanupFailed = error is OleCleanupException; }
-            if (!Clean(scope, operation, generation, priorCleanupFailed)) return 0;
+            catch (Exception error) { ClearBitmap(ref bitmap);text = null; status = error.GetType().Name; priorCleanupFailed = error is OleCleanupException; }
+            if (!Clean(scope, operation, generation, priorCleanupFailed)){ClearBitmap(ref bitmap);return 0;}
             if(!owner.CanCommit(operation,generation))text=null;
+            if(format==OleTextFormat.ImageBitmap){effect=bitmap!=null&&owner.CanCommit(operation,generation)?(uint)OleEffect.Copy:0;active=false;owner.ResultBitmap(operation,generation,bitmap);return 0;}
             effect = text is null ? 0 : (uint)OleEffect.Copy;
             active = false; owner.Result(operation, generation, text, status, foreground); return 0;
         }
+        private static void ClearBitmap(ref byte[]? bitmap){if(bitmap!=null)CryptographicOperations.ZeroMemory(bitmap);bitmap=null;}
         private sealed class AsyncTransfer(OleCleanupScope origin)
         {
             public OleCleanupScope Origin { get; } = origin;
@@ -111,7 +114,7 @@ namespace KuaiYi.OleReceiver;
         {
             var worker = new Thread(() =>
             {
-                string? text = null; string status = "Async copy and all cleanup completed";
+                byte[]? bitmap=null; string? text = null; string status = "Async copy and all cleanup completed";
                 bool nativeCleanupFailed = false; var apartmentScope = new OleCleanupScope();
                 try
                 {
@@ -129,32 +132,33 @@ namespace KuaiYi.OleReceiver;
                             var reference = new OleDataReference(pointer,owner.Observations); scope.Own(reference.Dispose);
                             var capability = reference.QueryAsync() ?? throw new COMException("Async capability disappeared."); scope.Own(capability.Dispose);
                             int extractionHr = OleNative.Failure;
-                            try { if(!owner.CanCommit(operation,generation))throw new OperationCanceledException();owner.WorkerMetadata(operation, generation, "WorkerReadBegin"); owner.Observe(OleTargetObservation.ExtractionBegin);text = owner.Production?(format==OleTextFormat.ImageFile?reference.ReadImageFile():reference.ReadText(format)):reference.ReadUnicode();owner.Observe(OleTargetObservation.ExtractionReturned); extractionHr = 0; }
-                            catch (Exception error) { text = null; status = error.GetType().Name; nativeCleanupFailed = error is OleCleanupException; }
+                            try { if(!owner.CanCommit(operation,generation))throw new OperationCanceledException();owner.WorkerMetadata(operation, generation, "WorkerReadBegin"); owner.Observe(OleTargetObservation.ExtractionBegin);if(owner.Production&&format==OleTextFormat.ImageBitmap)bitmap=reference.ReadBitmap(()=>owner.CanCommit(operation,generation));else text = owner.Production?(format==OleTextFormat.ImageFile?reference.ReadImageFile():reference.ReadText(format)):reference.ReadUnicode();owner.Observe(OleTargetObservation.ExtractionReturned); extractionHr = 0; }
+                            catch (Exception error) { ClearBitmap(ref bitmap);text = null; status = error.GetType().Name; nativeCleanupFailed = error is OleCleanupException; }
                             finally
                             {
                                 owner.WorkerMetadata(operation, generation, "WorkerEndAttempt"); transfer.EndAttempted = true;
-                                int end = capability.EndOperation(extractionHr, text is null ? OleEffect.None : OleEffect.Copy);
+                                int end = capability.EndOperation(extractionHr, text is null&&bitmap is null ? OleEffect.None : OleEffect.Copy);
                                 transfer.EndSucceeded = end >= 0;
-                                if (!transfer.EndSucceeded) { text = null; status = "EndOperation failed"; nativeCleanupFailed = true; }
+                                if (!transfer.EndSucceeded) { ClearBitmap(ref bitmap);text = null; status = "EndOperation failed"; nativeCleanupFailed = true; }
                             }
                         }
-                        catch (Exception error) { text = null; status = error.GetType().Name; nativeCleanupFailed |= error is OleCleanupException; }
-                        finally { if (!Clean(scope, operation, generation)) { text = null; nativeCleanupFailed = true; } dispatcher.BeginInvokeShutdown(DispatcherPriority.Send); }
+                        catch (Exception error) { ClearBitmap(ref bitmap);text = null; status = error.GetType().Name; nativeCleanupFailed |= error is OleCleanupException; }
+                        finally { if (!Clean(scope, operation, generation)) { ClearBitmap(ref bitmap);text = null; nativeCleanupFailed = true; } dispatcher.BeginInvokeShutdown(DispatcherPriority.Send); }
                     });
                     Dispatcher.Run();
                 }
-                catch (Exception error) { text = null; status = error.GetType().Name; nativeCleanupFailed |= error is OleCleanupException; }
-                finally { if (!Clean(apartmentScope, operation, generation)) { text = null; nativeCleanupFailed = true; } }
+                catch (Exception error) { ClearBitmap(ref bitmap);text = null; status = error.GetType().Name; nativeCleanupFailed |= error is OleCleanupException; }
+                finally { if (!Clean(apartmentScope, operation, generation)) { ClearBitmap(ref bitmap);text = null; nativeCleanupFailed = true; } }
                 // Queuing establishes visibility of worker state; all origin COM calls remain on the origin STA.
-                owner.Dispatcher.BeginInvoke(() => FinishWorker(transfer, operation, generation, foreground, text, status, nativeCleanupFailed));
+                try{owner.Dispatcher.BeginInvoke(() => FinishWorker(transfer, operation, generation, foreground, text, bitmap, status, nativeCleanupFailed));}
+                catch{ClearBitmap(ref bitmap);throw;}
             }) { IsBackground = true, Name = "KuaiYi marshaled OLE STA" };
             try { worker.SetApartmentState(ApartmentState.STA); worker.Start(); }
-            catch (Exception error) { FinishWorker(transfer, operation, generation, foreground, null, error.GetType().Name, false); }
+            catch (Exception error) { FinishWorker(transfer, operation, generation, foreground, null, null, error.GetType().Name, false); }
         }
-        private void FinishWorker(AsyncTransfer transfer, Guid operation, long generation, nint foreground, string? text, string status, bool workerCleanupFailed)
+        private void FinishWorker(AsyncTransfer transfer, Guid operation, long generation, nint foreground, string? text,byte[]? bitmap, string status, bool workerCleanupFailed)
         {
-            if (!Clean(transfer.Origin, operation, generation, workerCleanupFailed)) return;
-            active = false; owner.Result(operation, generation, text, status, foreground);
+            if (!Clean(transfer.Origin, operation, generation, workerCleanupFailed)){ClearBitmap(ref bitmap);return;}
+            active = false;if(format==OleTextFormat.ImageBitmap)owner.ResultBitmap(operation,generation,bitmap);else owner.Result(operation, generation, text, status, foreground);
         }
     }

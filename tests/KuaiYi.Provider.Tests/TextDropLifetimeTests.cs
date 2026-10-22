@@ -14,6 +14,13 @@ public sealed class TextDropLifetimeTests
         w.RefreshDropForTest();Assert.Equal(0,w.DropReconciliations);
         if(!confirmed){await Assert.ThrowsAsync<IOException>(()=>w.StopDropForTest());Assert.Equal(2,w.DropFinalizations);Assert.True(w.HasDropPeer);Assert.True(w.DropStopping);}
     }
+    [Fact]public async Task OriginalTransportAndCleanupErrorsSurviveUnconfirmedAttemptAndSuccessfulRetry()
+    {
+        var w=new ShellWindow();var transport=new IOException("original transport");var cleanup=new IOException("original cleanup");int attempt=0;
+        w.DropPeerForTest(finalize:()=>++attempt==1?Task.FromException<bool>(cleanup):Task.FromResult(true));w.DropTransportFailureForTest(transport);var settlement=w.PeerSettlementForTest;
+        await Assert.ThrowsAsync<IOException>(()=>w.StopDropForTest());Assert.True(w.HasDropPeer);Assert.False(settlement.IsCompleted);
+        await w.StopDropForTest();Assert.False(w.HasDropPeer);var error=await Assert.ThrowsAsync<AggregateException>(()=>settlement);Assert.Contains(transport,error.Flatten().InnerExceptions);Assert.Contains(cleanup,error.Flatten().InnerExceptions);Assert.Equal(2,error.Flatten().InnerExceptions.Count);
+    }
     [Fact]public async Task ShutdownAndClearOnlyWaitForAlreadyRunningReconcile()
     {
         var w=new ShellWindow();var reconcile=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var release=new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);var entered=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);

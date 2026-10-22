@@ -70,7 +70,7 @@ sealed class Backend:IOleReceiverBackend,IOleReceiverControlBackend
     }
     private async Task Formal(long epoch)
     {
-        Guid id=Guid.NewGuid();var source=new SelectionWindow(123,456,789,"public.exe");var point=new PixelPoint(24,24);var format=mode.StartsWith("image-",StringComparison.Ordinal)?OleTextFormat.ImageFile:OleTextFormat.Unicode;
+        Guid id=Guid.NewGuid();var source=new SelectionWindow(123,456,789,"public.exe");var point=new PixelPoint(24,24);var format=mode.StartsWith("bitmap-",StringComparison.Ordinal)?OleTextFormat.ImageBitmap:mode.StartsWith("image-",StringComparison.Ordinal)?OleTextFormat.ImageFile:OleTextFormat.Unicode;
         void Event(string phase,bool cleaned=false,uint effect=0,int length=0)
         {
             var origin=mode=="formal-source-swap"&&phase=="DropEnd"?source with{ProcessStartUtcTicks=790}:source;
@@ -85,7 +85,13 @@ sealed class Backend:IOleReceiverBackend,IOleReceiverControlBackend
         if(mode=="formal-stall"){FixtureStatus.Write("blocked:formal");await Task.Delay(Timeout.Infinite);return;}
         if(mode=="formal-late")await Task.Delay(350);
         string text=mode.StartsWith("image-",StringComparison.Ordinal)?mode=="image-multi"?"C:\\public\\a.png\0C:\\public\\b.png":mode=="image-url"?"https://public.invalid/a.png":"C:\\public\\image.GIF":mode=="formal-url"?"https://public.invalid/path":"public formal 文本 😀";
-        if(mode is not ("formal-missing-cleanup" or "image-missing-cleanup"))Event("CleanupComplete",true);
+        if(mode is not ("formal-missing-cleanup" or "image-missing-cleanup" or "bitmap-missing-cleanup"))Event("CleanupComplete",true);
+        if(mode.StartsWith("bitmap-",StringComparison.Ordinal))
+        {
+            byte[] bitmap=new byte[78];bitmap[0]=(byte)'B';bitmap[1]=(byte)'M';BinaryPrimitives.WriteUInt32LittleEndian(bitmap.AsSpan(2),78);BinaryPrimitives.WriteUInt32LittleEndian(bitmap.AsSpan(10),54);BinaryPrimitives.WriteUInt32LittleEndian(bitmap.AsSpan(14),40);BinaryPrimitives.WriteInt32LittleEndian(bitmap.AsSpan(18),3);BinaryPrimitives.WriteInt32LittleEndian(bitmap.AsSpan(22),2);bitmap[26]=1;bitmap[28]=24;bitmap[54]=255;
+            if(mode=="bitmap-truncated")bitmap=bitmap[..^1];if(mode=="bitmap-large")bitmap=new byte[OleBitmapDrop.TransportLimit+1];
+            send(new(IpcMessageType.BinaryChunk,id,bitmap));Event("DropEnd",true,1,mode=="bitmap-codeunits"?1:0);return;
+        }
         byte[] body=mode=="formal-bad-utf8"?[0xff]:Encoding.UTF8.GetBytes(text);send(new(IpcMessageType.BinaryChunk,id,body));
         if(mode=="formal-duplicate-payload")send(new(IpcMessageType.BinaryChunk,id,Encoding.UTF8.GetBytes("duplicate")));
         Event("DropEnd",true,mode=="formal-move"?2u:1u,text.Length);
