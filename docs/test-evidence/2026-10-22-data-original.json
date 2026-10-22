@@ -1,0 +1,87 @@
+{
+  "BaseSha": "1de5fea42d9d16a165d9373417b24bdd54f3c060",
+  "CSharpProductBaseline": "b554541f6cbcc8dad7f37c81a88c7fe56aeb1b6d",
+  "Branch": "dev/p7-fixed-signoff",
+  "Status": "Pass_LimitedEmbeddedDataOriginal",
+  "FinalNode": {
+    "Total": 154,
+    "Passed": 154,
+    "Failed": 0,
+    "Cancelled": 0,
+    "Skipped": 0,
+    "Command": {
+      "command": [
+        "node",
+        "--test",
+        "tests/browser/acquisition.test.mjs",
+        "tests/browser/confirmation.test.mjs",
+        "tests/browser/data-original.test.mjs",
+        "tests/browser/data-service-worker.test.mjs",
+        "tests/browser/protocol.test.mjs",
+        "tests/browser/source-window.test.mjs"
+      ],
+      "exit": 0,
+      "startedUtc": "2026-10-22T04:20:28.433859+00:00",
+      "finishedUtc": "2026-10-22T04:20:36.659877+00:00"
+    },
+    "LogSha256": "c671f75f8c88fc330fb3d8ecbe0541bf6bbb7cd99b34fb3c0e3616014d4de215"
+  },
+  "PreservedRuns": {
+    "InitialSameFiveFormats": {
+      "Passed": 0,
+      "Failed": 5,
+      "Reason": "Original same-origin HTTPS-only guard"
+    },
+    "TargetR1": {
+      "Passed": 47,
+      "Failed": 0
+    },
+    "FullR1": {
+      "Passed": 151,
+      "Failed": 1,
+      "Reason": "New comment fixture retained GIF87a header; existing production policy refuses87a extensions"
+    },
+    "BoundaryTarget": {
+      "Passed": 3,
+      "Failed": 0
+    }
+  },
+  "InputCount": 842,
+  "InputManifestSha256": "f4214d4fb027259a8d6863371c9755b31fca1f10de1e5d61d9c103e6480ed192",
+  "InputDrift": [],
+  "ProtectedCount": 760,
+  "ReceiverDllCount": 5,
+  "Review": {
+    "Reviewer": "/root/gif_review",
+    "Status": "Limited ACK",
+    "Message": "无filter Node r2 154P/0F/0取消/0跳过，exit0，三种跨64KiB padding用例均在其中；首轮151P/1F及准确源码、87a/89a复现原件保留。冻结输入842项、保护输入760项、接收端DLL摘要5项全部匹配。C#相对b554无差异；生产代码变化仅acquire.js，README/options同步说明。未重跑Core/Provider/Codec或触发CI；真实浏览器、Windows及原授权边界不因此签收。"
+  },
+  "NoNewDependencyPermissionOrCi": true,
+  "NoLiveModelCalls": true,
+  "NoRunnerApiRetry": true,
+  "NotRun": [
+    "Actual Chrome/Edge",
+    "Windows installed browser-to-WPF/Worker end-to-end",
+    "Medium positive warm/Explorer",
+    "Actual250/600ms",
+    "Visual quality"
+  ],
+  "NoNewCoreProviderCodecRuns": true,
+  "ProtocolAndManifestUnchanged": true,
+  "Archive": {
+    "Path": "/workspace/KuaiYi/artifacts/2026-10-22-data-original/KuaiYi-data-originals-evidence.zip",
+    "Bytes": 125746,
+    "Sha256": "d5399135bb835ab0220c22ad8f09abca402e238f75d680548b1ed4f5ae9b76b7",
+    "Members": 31
+  },
+  "Library": {
+    "status": "succeeded",
+    "library_file_id": "libfile_82e9257b53dc8191a4e903a63d6c312d",
+    "file_id": "file_00000000047c81f6bc2d5732e53d4121",
+    "current_version_number": 0,
+    "file_name": "KuaiYi-data-originals-evidence.zip",
+    "path": "/KuaiYi-data-originals-evidence.zip",
+    "file_size_bytes": 125746,
+    "local_path": "/workspace/KuaiYi/artifacts/2026-10-22-data-original/KuaiYi-data-originals-evidence.zip"
+  }
+}

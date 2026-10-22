@@ -1493,3 +1493,10 @@ P7-01/已有实例认证转交/真实Windows菜单-WPF/OLE/OCR/身份/画质/250
 ## 2026-10-22：冻结浏览器原图产品的完整Core/Provider离线签收
 
 产品固定b554541f6cbcc8dad7f37c81a88c7fe56aeb1b6d，本轮未改产品或测试。顺序一次完整Core2182P/0F/0skip、一次完整Provider2464P/0F/0skip，均无filter/exit0；839输入前后同字节，21/22个DLL摘要保全，完整TRX与逐项结果一致。独立只读审查限定ACK。前141/10定向与旧Node/Codec轮不相加，未重复Codec、访问已拒API、新CI或模型。详见[固定产品签收](validation/browser-original-formats-full-signoff.md)与[证据索引](test-evidence/2026-10-22-browser-full-signoff.json)。证据only正常dev提交；真实Windows/Chrome/Edge/medium/250600ms/画质未验及P6/P7边界保持。
+
+
+## 2026-10-22：P7受限data原始字节路径
+
+从1de5fea42d9d16a165d9373417b24bdd54f3c060继续，补SPEC13.2 imageContext接受data但original必拒的真实缺口。仅五MIME明确canonical base64，编码/预计大小预限、两遍64KiB可取消解码、唯一输出异常清零、原MIME/Ready/来源/分片/双端Commit/Off发送门。原C#/manifest/协议/权限不改，blob/跨域/可见裁切不扩。独立设计、源码、原件限定ACK。
+
+最终Node154P/0F/0取消/0跳过（842输入0漂移），含真实合成ServiceWorker/stdio/生产Receiver/Inbox九正例七负例及字节边界；首轮151P1F因新comment夹具仍为87a，最小87/89真实对照保全，仅修夹具不改生产门。原5F、target47P/边界3P不累计，未重复Core/Provider/Codec/CI或模型。详见[实现/原件/未验边界](validation/browser-data-originals.md)及[证据索引](test-evidence/2026-10-22-data-original.json)。Windows/Chrome/Edge/medium/250600/画质仍未验，P7整体不标Pass。

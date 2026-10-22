@@ -32,7 +32,7 @@ pwsh -NoProfile -File ./scripts/test.ps1 -Suite Offline
 
 主平台是 Windows 11 x64；Linux 用于可独立验证的逻辑与协议。正式签名、开发证书信任、真实模型调用和商店发布均有独立授权条件。
 
-浏览器截图 fallback 已因像素归属不能完整证明而关闭；原图限同源无凭据 PNG、JPEG、BMP、受支持的静态 WebP 和 GIF（首帧），经原 Worker 准备本地预览，见[浏览器原图格式](docs/validation/browser-original-formats.md)。来源参数/安装配置匹配不等于浏览器调用者认证。App已实现逐次桌面确认后的单次本地接收代码；当前缺实际安装配置，默认不开放接收。见 [截图与来源复核](docs/browser-ownership-review.md)。
+浏览器截图 fallback 已因像素归属不能完整证明而关闭；原图限同源无凭据 HTTPS，或当前右键图片的受限 base64 data: 内嵌字节；格式为 PNG、JPEG、BMP、受支持的静态 WebP 和 GIF（首帧），经原 Worker 准备本地预览，见[浏览器原图格式](docs/validation/browser-original-formats.md)与[内嵌原图验证](docs/validation/browser-data-originals.md)。来源参数/安装配置匹配不等于浏览器调用者认证。App已实现逐次桌面确认后的单次本地接收代码；当前缺实际安装配置，默认不开放接收。见 [截图与来源复核](docs/browser-ownership-review.md)。
 
 NativeHost 截止与读取完成的资源竞态已修复，见 [读取所有权复核](docs/browser-read-ownership-review.md)。
 

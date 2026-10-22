@@ -1,13 +1,74 @@
 import { IMAGE, RASTER_MIMES, encodedMime } from "./protocol.js";
+const BASE64_LIMIT = 4 * Math.ceil(IMAGE / 3), DATA_URL_LIMIT = BASE64_LIMIT + 23, DATA_BLOCK = 64 * 1024;
+const invalidData = () => new ImageAcquisitionError("InvalidDataImage", "内嵌图片的类型、编码或大小无效");
+const checkCancelled = signal => { if (signal.aborted) throw new ImageAcquisitionError("Cancelled", "已取消"); };
+function sextet(c) {
+  if (c >= 65 && c <= 90) return c - 65;
+  if (c >= 97 && c <= 122) return c - 71;
+  if (c >= 48 && c <= 57) return c + 4;
+  return c === 43 ? 62 : c === 47 ? 63 : -1;
+}
+async function embeddedOriginal(raw, signal) {
+  checkCancelled(signal);
+  if (typeof raw !== "string" || raw.length > DATA_URL_LIMIT) throw invalidData();
+  const mime = RASTER_MIMES.find(type => raw.startsWith(`data:${type};base64,`));
+  if (!mime) throw invalidData();
+  const start = `data:${mime};base64,`.length, length = raw.length - start, end = raw.length;
+  if (!length || length > BASE64_LIMIT || length % 4 !== 0) throw invalidData();
+  const padding = raw.charCodeAt(end - 1) === 61 ? (raw.charCodeAt(end - 2) === 61 ? 2 : 1) : 0;
+  const size = length / 4 * 3 - padding, dataEnd = end - padding;
+  if (size <= 0 || size > IMAGE) throw invalidData();
+  let result = null, transferred = false;
+  const clear = () => result?.fill(0);
+  const checkpoint = async () => {
+    checkCancelled(signal);
+    await new Promise(resolve => setTimeout(resolve, 0)); // Let real navigation/stop events revoke the original task.
+    checkCancelled(signal);
+  };
+  signal.addEventListener("abort", clear, { once: true });
+  try {
+    // Validate the complete canonical alphabet/padding before allocating any decoded bytes.
+    for (let at = start; at < end; at += DATA_BLOCK) {
+      const stop = Math.min(end, at + DATA_BLOCK);
+      for (let i = at; i < stop; i++) if (i < dataEnd ? sextet(raw.charCodeAt(i)) < 0 : raw.charCodeAt(i) !== 61) throw invalidData();
+      await checkpoint();
+    }
+    if (padding && (sextet(raw.charCodeAt(dataEnd - 1)) & (padding === 2 ? 15 : 3)) !== 0) throw invalidData();
+    checkCancelled(signal);result = new Uint8Array(size);checkCancelled(signal);let output = 0;
+    // No atob string, browser decode or temporary pixel buffer; the original task owns this single array.
+    for (let at = start; at < end; at += DATA_BLOCK) {
+      const stop = Math.min(end, at + DATA_BLOCK);
+      for (let i = at; i < stop; i += 4) {
+        const a = sextet(raw.charCodeAt(i)), b = sextet(raw.charCodeAt(i + 1)), c = sextet(raw.charCodeAt(i + 2)), d = sextet(raw.charCodeAt(i + 3));
+        result[output++] = a << 2 | b >> 4;
+        if (output < size) result[output++] = (b & 15) << 4 | c >> 2;
+        if (output < size) result[output++] = (c & 3) << 6 | d;
+      }
+      await checkpoint();
+    }
+    if (output !== size || result.length > IMAGE || encodedMime(result) !== mime) throw invalidData();
+    checkCancelled(signal);transferred = true;return result;
+  } catch (error) {
+    if (error?.code === "Cancelled") throw error;
+    throw invalidData(); // Never let a data URL or decoder detail enter status/log text.
+  } finally {
+    signal.removeEventListener("abort", clear);
+    if (!transferred) clear();
+  }
+}
 export function imageContext(info, tab) {
   if (info.menuItemId !== "kuaiyi-image" || info.mediaType !== "image" || !Number.isInteger(tab?.id) || tab.id < 0 || !Number.isInteger(tab.windowId) || tab.windowId < 0 || !tab.active || (info.frameId ?? 0) !== 0) throw new Error("当前 frame 无法安全定位图片，请使用快译区域截图");
-  const page = new URL(tab.url), clicked = new URL(info.pageUrl), image = new URL(info.srcUrl);
-  if (page.protocol !== "https:" || page.href !== clicked.href || page.username || page.password || !["https:", "blob:", "data:"].includes(image.protocol) || image.username || image.password) throw new Error("页面或图片来源受限，请使用快译区域截图");
-  return { tabId: tab.id, windowId: tab.windowId, pageUrl: page.href, imageUrl: image.href, origin: page.origin };
+  if (typeof info.srcUrl !== "string" || info.srcUrl.length > DATA_URL_LIMIT) throw invalidData();
+  const embedded = info.srcUrl.startsWith("data:"), page = new URL(tab.url), clicked = new URL(info.pageUrl), image = embedded ? null : new URL(info.srcUrl);
+  if (page.protocol !== "https:" || page.href !== clicked.href || page.username || page.password || image && (!["https:", "blob:"].includes(image.protocol) || image.username || image.password)) throw new Error("页面或图片来源受限，请使用快译区域截图");
+  // Keep embedded bytes literal: URL parsing must not strip whitespace, fragments or normalize payload syntax.
+  return { tabId: tab.id, windowId: tab.windowId, pageUrl: page.href, imageUrl: embedded ? info.srcUrl : image.href, origin: page.origin };
 }
 export async function original(context, signal) {
   const check = () => { if (signal.aborted) throw new ImageAcquisitionError("Cancelled", "已取消"); };
   check();
+  if (typeof context.imageUrl !== "string" || context.imageUrl.length > DATA_URL_LIMIT) throw invalidData();
+  if (context.imageUrl.startsWith("data:")) return await embeddedOriginal(context.imageUrl, signal);
   const url = new URL(context.imageUrl);
   if (url.protocol !== "https:" || url.origin !== context.origin) throw new Error("原图不在当前临时授权范围");
   const response = await fetch(url.href, { credentials: "omit", redirect: "error", referrerPolicy: "no-referrer", cache: "no-store", signal });
