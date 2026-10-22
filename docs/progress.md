@@ -1710,3 +1710,5 @@ Write compare修复固定树和ZIP独审限定ACK。Library libfile_7c3e6187e268
 固定树及ZIP原件独审限定ACK；Library libfile_9d3712aa554c81918a0b12161c49658a v0，2,423,467B/285成员/284manifest，SHA256869e2a07c46c6f73d4465b70fd62c46a74f80d059393bcc99dc6af1cba04849d。CRC/12Git原件/raw234/两组红绿/920输入与17版本摘要实核，无DLL本体。证据仅三报告，产品49cf不变；不签旧204/fullCore/真Windows或完整安装P7。
 
 补偿完成→旧generation受控会话候选：原Compensated一次内存权威/新controller+execution+launch，首次恢复为空不造session；原ledger核terminal/旧G/B/H和registry，最后异步registry关闭后重验闭包。新execution与prepared/Host IO先owner后Acquire，partial/Move/close未知保原Task及租约，不复活失败launch或Prepared。三反例r06同file3F→r08 3P，r10新32P分列；旧前置失败保留，不混数字。源码/fixture独审限定ACK，待冻结266相关签收，旧204/fullCore/真Windows/native/runtime/完整P7未签。见[合同和原件](validation/compensated-session-health.md)。
+
+05c712bd固定首构建r11因probe空哨兵的泛型nullable标注CS8603失败，未执行任何固定测试，其余构建未跑；原件保留，不记通过。仅修显式null sentinel返回标注后重冻结，32候选不借记最终签收。

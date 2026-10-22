@@ -41,7 +41,7 @@ internal sealed class InstallationPreparationIO(string source,string staging,str
         internal T Own<T>(string kind,string path,Func<T> acquire)where T:class,IDisposable
         {
             var record=new Resource(owner,kind,path);Resources.Add(record);lock(owner.sync)owner.resources.Add(record);
-            var value=acquire();record.Original=value;if(value!=null)owner.faults?.Acquired?.Invoke(kind,path,value);return value;
+            var value=acquire();record.Original=value;if(value!=null)owner.faults?.Acquired?.Invoke(kind,path,value);return value!;
         }
     }
     // Explicit fields allow the nested operation to share the exact original owner, never a recreated stream.

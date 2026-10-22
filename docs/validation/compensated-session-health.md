@@ -9,3 +9,5 @@ CleanExit必须新受控READY与正常退出全部结算；已启动后确定失
 实际候选原件 `artifacts/2026-10-22-restored-session`：r01仅编译零用例；r02七普通同步构建；r03两F为原会话前置ActivationBlocked（新增可选参数空值分支已修），未达目标断言；r05旧夹具按WhenAny任务身份判断，不当最终红绿。最终同完整RestoredSessionTests文件r06三F（READY错误成功）→r08三P：B/H第3次原registry read中替换、launch-prepared写/关闭故障被旧writer绕过。后续fixture pending门、探针catch范围和四新增边界加强，r10新矩阵32P/0F/0skip，不把不同轮次相加；最终固定266范围待签。
 
 计划固定新32＋前片234（原191+补偿43）；原234测试多重集需保留。旧Prepared等204明确未跑，不借fullCore数字。真实Windows/medium/Explorer/浏览器/WPF、完整注册安装、native3DLL/完整self-contained runtime、旧版实际桌面可用、画质/OCR250600及完整P7均未签；G结构fixture不签可运行包，合成child是真实Start/stdio/退出，不当Windows桌面。
+
+冻结05c712bd的首个managed构建r11失败于新probe空哨兵保护触发CS8603（0测试），其余六个未执行；原件保留，不计构建/测试通过。只修正内部no-resource probe的显式nullable返回标注后重新冻结，默认读取/写入路径及实际null probe语义不变。
