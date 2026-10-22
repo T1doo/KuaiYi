@@ -1,10 +1,10 @@
 {
   "base": "fe736d0622d199dd84d3bdfb0fb21a5cc8ee7854",
   "scope": "P2 explicit fail-closed extension manifest source qualification; not SHA bypass",
-  "status": "InProgress",
+  "status": "Pass_bounded_offline_fix_Windows_NotRun",
   "artifactRoot": "artifacts/2026-10-22-extension-payload-contract",
   "prior586": "Preserved; not rerun or retroactively changed",
-  "review": "Design/source/red limited ACK; green16 actual complete; fixed acceptance pending",
+  "review": "Final limited ACK: fixed897cbb61c1e3d35ffc1e861c53ef00cdb4c85cfd 105P/0F/0skip;old selected89 retained;six builds0W/E;884inputs=Git;14targets matched;red4P12F->green16P unchanged tests/one production file;prior586TRX/ZIP preserved. Read-only,no independent product execution;Windows/runnable bundle not accepted.",
   "boundaries": [
     "Actual normal managed inputs plus structural native/runtime/third-party fixtures",
     "Windows/browser/medium/installation/identity/250600 NotRun",
@@ -14,5 +14,164 @@
     "r01": "6 normal builds;884stable;no lock drift",
     "r02": "16results:4P12F;all12 No exception",
     "r03": "16P0F0skip;same test source;only production input InstallationPayload.cs changed"
-  }
+  },
+  "product_sha": "897cbb61c1e3d35ffc1e861c53ef00cdb4c85cfd",
+  "scope_audit": {
+    "product_sha": "897cbb61c1e3d35ffc1e861c53ef00cdb4c85cfd",
+    "base": "fe736d0622d199dd84d3bdfb0fb21a5cc8ee7854",
+    "fixed_runs": {
+      "r04-fixed-managed-inputs": {
+        "input_count": 884,
+        "before_after_equal": true,
+        "matches_product_git": true,
+        "head": "897cbb61c1e3d35ffc1e861c53ef00cdb4c85cfd"
+      },
+      "r05-fixed-related": {
+        "input_count": 884,
+        "before_after_equal": true,
+        "matches_product_git": true,
+        "head": "897cbb61c1e3d35ffc1e861c53ef00cdb4c85cfd"
+      }
+    },
+    "related_passed": 105,
+    "failed": 0,
+    "skipped": 0,
+    "new": 16,
+    "existing_selected": 89,
+    "actual_classes": 4,
+    "red_green": "16cases4P12F ->16P0F,all12 No exception;test source unchanged",
+    "assemblies": {
+      "App": {
+        "dll": "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.App.dll",
+        "sha256": "3d374748f7b3144588a43c0dcce7405cc57cb4606cac31f709a060528c8e1b20",
+        "assembly_info_sha256": "09a95a7bece9c7343e68c273d14905688d49d636f5a4173b9d5f6e972b8fe214",
+        "contains_full_product_sha": true
+      },
+      "NativeHost": {
+        "dll": "src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll",
+        "sha256": "6a7806665a36af83fd3a6c520af5ad158c9a9ef8020452a80d2c541dbb20b69b",
+        "assembly_info_sha256": "8deac17056a1a258dcdd7d4e69eecc6f7156d156133eba7bacd502a2b863e19e",
+        "contains_full_product_sha": true
+      },
+      "CaptureBroker": {
+        "dll": "src/KuaiYi.CaptureBroker/bin/Release/net10.0-windows/win-x64/KuaiYi.CaptureBroker.dll",
+        "sha256": "ec2d232765f8bf450a86d3345993e3da1cdc77777a91d7136315ce2df86a68c6",
+        "assembly_info_sha256": "57ab57d45ed2ecac05df475683d275352e41571baa617ec6d9c26b756f3689f0",
+        "contains_full_product_sha": true
+      },
+      "ClipboardHost": {
+        "dll": "src/KuaiYi.ClipboardHost/bin/Release/net10.0-windows/win-x64/KuaiYi.ClipboardHost.dll",
+        "sha256": "6326e81c63f4565489e29b8ec6095670a526480bcb9c5c6a447b8a89ebd91e1c",
+        "assembly_info_sha256": "5b99c59c0163884e8a13ccdff25ab28e8907222fcc5f403ae8b0703669d32598",
+        "contains_full_product_sha": true
+      },
+      "CaptureHost": {
+        "dll": "src/KuaiYi.CaptureHost/bin/Release/net10.0-windows/win-x64/KuaiYi.CaptureHost.dll",
+        "sha256": "d0d3bc56c511b12d6f40889fbfa9466587aa391579c2c7eba03f3d216d44c4d3",
+        "assembly_info_sha256": "0f707ce1bb277c087f596d719974d88136e838178d901082b1cc116c5e88d7dc",
+        "contains_full_product_sha": true
+      },
+      "OleReceiver": {
+        "dll": "src/KuaiYi.OleReceiver/bin/Release/net10.0-windows/win-x64/KuaiYi.OleReceiver.dll",
+        "sha256": "907482cbe3cb241466151f6575acf229da8d0916972be2e34763528c85f7e9d9",
+        "assembly_info_sha256": "e076e871d6f48ce55a3312515b3f30714bd27e3dcd014d1e9a71a37faf9bba1e",
+        "contains_full_product_sha": true
+      },
+      "ImageWorker": {
+        "dll": "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll",
+        "sha256": "2b3419f76ae8affb6ce15d51b0198db2afc957ec12ff775c795d09f557857024",
+        "assembly_info_sha256": "7e5ec6370986e2fbdbdf1355cb01890fe682768535e2d3b64bcd95122ce88f76",
+        "contains_full_product_sha": true
+      },
+      "Core": {
+        "dll": "src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll",
+        "sha256": "fc43fcb8e17a1024b904abb344944bed8402534a2bdb3528bcf77a3ff7a80804",
+        "assembly_info_sha256": "7404e70dd75c85bb76242a4ee1dfcfb3d47c9f57af6b96ff4f44b051a6df75ea",
+        "contains_full_product_sha": true
+      },
+      "Contracts": {
+        "dll": "src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll",
+        "sha256": "1fdba8c15b1171e7421d0d0fcf127b3e17478fa1e810094a23b6c7714986ed7d",
+        "assembly_info_sha256": "6e2698a1d7b8a0584ff440e18219d6437c76622d7f0a555afcaa74bf1aa63bdb",
+        "contains_full_product_sha": true
+      },
+      "Imaging": {
+        "dll": "src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll",
+        "sha256": "ea14fa72694d0d3b834336487a1417ec2128e6099be1e057e3ac64a71fbf777c",
+        "assembly_info_sha256": "048b76257d663901fa32c057d4619dd247a1078b365f4f754dcc2e2b514a13d5",
+        "contains_full_product_sha": true
+      },
+      "Windows": {
+        "dll": "src/KuaiYi.Windows/bin/Release/net10.0-windows/KuaiYi.Windows.dll",
+        "sha256": "a712e15fe75106c80309a647037e7dfdb017dab255bdadd03e91c271f5aa3621",
+        "assembly_info_sha256": "0e02e64e34a6711aa46597ca5617cafba447c8df49e69013fdda74ce96d59bd7",
+        "contains_full_product_sha": true
+      },
+      "Providers": {
+        "dll": "src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll",
+        "sha256": "5f77e7748aba61c8a4114eb56f8f794d613bca7a42a96dbbb650543307c3f30b",
+        "assembly_info_sha256": "b0c8dfc1ccea13fa422ca5d9572038daee559926234d091468ab3c511389077d",
+        "contains_full_product_sha": true
+      },
+      "OleTransfer": {
+        "dll": "src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll",
+        "sha256": "d9b5f02424965c59fecdc5ef3807e2b77265fb21c746c5e90ddb8fbcb202b046",
+        "assembly_info_sha256": "8937c03aff60897a28e0dea12b6f2cffcf5ec43d74daa00a8ef882659d9ea626",
+        "contains_full_product_sha": true
+      },
+      "CoreTests": {
+        "dll": "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll",
+        "sha256": "a31d00fb7e6a7a161c7dfcb011c3c078d6f0353390571b9c5dfea3df77c88d81",
+        "assembly_info_sha256": "7cabd5a1829733cc394213a96a9b5fa4782d9324a6fe6479e88457ac41c4d9b5",
+        "contains_full_product_sha": true
+      }
+    },
+    "source_scope": {
+      "old_src_count": 351,
+      "unchanged": 350,
+      "modified": [
+        "src/KuaiYi.Core/Installation/InstallationPayload.cs"
+      ],
+      "new_test_files": [
+        "tests/KuaiYi.Core.Tests/InstallationExtensionPayloadTests.cs"
+      ],
+      "old_test_files_changed": false
+    },
+    "locks_workflows_packaging_extensions_scripts_unchanged": true,
+    "full586_and_suites": "NotRun; prior preserved",
+    "Windows_and_real_runnable_package": "NotRun; structural native/runtime/third-party fixtures only"
+  },
+  "fixed_related": {
+    "passed": 105,
+    "failed": 0,
+    "skipped": 0,
+    "new": 16,
+    "existing_selected": 89,
+    "actual_classes": 4
+  },
+  "normal_builds": {
+    "run": "r04-fixed-managed-inputs",
+    "commands": 6,
+    "roles_covered": 7,
+    "warnings": 0,
+    "errors": 0,
+    "tests_executed": 0
+  },
+  "library": {
+    "library_file_id": "libfile_40f2a863803c819188e9a79663dd4439",
+    "version": 0,
+    "file_id": "file_00000000022881f6bac8a146ffca5f74",
+    "status": "succeeded",
+    "local_identity_persisted": true,
+    "local_digest_unchanged": true,
+    "file": "extension-payload-contract-originals.zip",
+    "bytes": 990356,
+    "sha256": "3586b35d09f4dc3b8a8aef69917d2db62cba661aca6c0f2f0ab9e7a8dbfc2682",
+    "members": 100,
+    "manifest_entries": 99,
+    "crc_and_manifest": "Pass",
+    "binary_bodies": "Excluded; hashes/informational versions retained",
+    "scope": "Extension source qualification fix with real Apply synthetic inputs and normal managed cross builds; not runnable Windows bundle"
+  },
+  "archive_review": "Limited ACK:100unique members,CRC/99manifest/report snapshots verified;no dangerous paths/private URLs/binary bodies"
 }

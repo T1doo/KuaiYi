@@ -1629,3 +1629,9 @@ SPEC13.3/13.4继续真实Apply缺口：v2固定source原SHA与完整角色/声�
 父级独审确认optional_permissions/content_scripts在重新固定合法source SHA后仍可通过，原资格门不完整而非摘要突破。原586/ZIP不改；唯一写入者核Git后，按独审封闭字段/本地路径/CSP方案补真实Apply重新固定SHA反例，见[修复证据](validation/extension-payload-contract.md)。本片仅定向红绿和必要构建，不重刷无关全套，不改扩展或系统权限，Windows/完整包仍未验。
 
 r02同源重新固定SHA反例16结果4P12F（12项未抛异常）→r03同测试16P0F0skip，884输入稳定且红绿仅InstallationPayload.cs改变。源码独审限定ACK；冻结后只四相关类必要签收，不回填或累加旧586。
+
+固定897cbb61c1e3d35ffc1e861c53ef00cdb4c85cfd定向四类105P0F0skip（新16+旧选中89），r04六普通构建0W/E，884输入逐Git一致、14目标完整SHA和摘要吻合。唯一生产差异InstallationPayload.cs，其余350原src及旧测试/锁/扩展不改；原586 TRX/ZIP前后SHA保持，未重跑全套，Windows/可运行包仍未验。仅接续原件独审及正常开发分支推送。
+
+P2修复固定原件独审限定ACK，105结果/89既有/884输入/14目标与红绿/旧586保全自洽；仅归档与三报告推送，不借记完整套件或Windows验收。
+
+修复原件ZIP/99manifest独审限定ACK；Library确认libfile_40f2a863803c819188e9a79663dd4439版本0，990356B/100成员，SHA256 3586b35d09f4dc3b8a8aef69917d2db62cba661aca6c0f2f0ab9e7a8dbfc2682。保存后身份/摘要核验成功，仅三报告补回执正常推送；897cbb6产品/测试不改，原586保全及Windows边界保持。
