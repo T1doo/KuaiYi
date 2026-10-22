@@ -1653,3 +1653,5 @@ bootstrap内部基元固定签收aab208ab716f5c1b36c0392d464ff35d8fc1dd05：7正
 bootstrap部署基元独审及原件归档限定ACK；Library libfile_20fae98a783481918afd40bc2229d393（v0，1,475,759B/223members/222manifest；SHA256 664be5b73467cfd7994fbe0956cfbabd1ffcb219befbfa9b0212fb61c230ad4a）。本次证据提交仅三报告，产品aab208a不变；后续统一协调需共享原admission并明确generation/Bootstrap/Host三方commit与补偿，不能简单套用会重复取锁的现接口。真实Windows/完整安装仍未签。
 
 统一generation/bootstrap/Host事务进入DesignReview：已提交一份原scope、已知upgrade-pending阻断、分阶段有界计划/Terminal、唯一最终归档点与逆序补偿方案及待实施验证矩阵。内部独审限定ACK，修补早期Abort无Prepared合法形态及最后Move不明历史分支；仅设计待根侧独审，产品aab208a及源码/依赖不变，没有新测试/构建通过数。fixed locator、真实Windows与完整安装/P7仍未完成。
+
+统一部署scope/journal第一片：先持有setup/Host/upgrade owner再获取，原正文与关闭双错保全；scope持有setup至Ticket完整关闭，预发布finalizer拥有Closing后新文件/registry只读资源，仅AbortBeforeSnapshot且最后Move后无清理。独审settlement并发P2由r04同测试1F→r05 1P闭合，r06新25+原文件事务45=70P/0F/0skip/902稳定输入为dirty候选，待固定树签收。G/B/H统一发布、Committed/恢复/fixed locator/真实Windows与完整安装仍未交付，不借旧数字。见[范围和原件](validation/deployment-scope-journal.md)。

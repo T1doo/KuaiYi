@@ -1,0 +1,23 @@
+{
+  "base": "0c9c565492bbb7fbbc0297e122425902921e6dad",
+  "status": "InProgressFixedSignoff",
+  "scope": "Existing-only shared admission ownership, durable Ticket and AbortBeforeSnapshot foundation; no three participants or Committed",
+  "artifactRoot": "artifacts/2026-10-22-deployment-scope",
+  "candidate_runs": {
+    "r01": "legacy double-fault1F",
+    "r02": "same test file1P; diagnostic only, source creation may overlap",
+    "r03": "19P0F0skip dirty candidate",
+    "r04": "pending settlement task identity1F",
+    "r05": "same test file1P",
+    "r06": "70P0F0skip:25new45existing;902stable inputs, dirty candidate"
+  },
+  "review": "Independent read-only limited ACK after settlement P2 fix; not Windows acceptance",
+  "remaining": [
+    "G/B/H preparation/publication/compensation not integrated",
+    "Before/Prepared/Committed/history/recovery not implemented",
+    "No fixed locator/real registration/installer",
+    "Windows/medium/browser/WPF/OCR/quality/250600 NotRun",
+    "Native DLL and complete self-contained runtime missing"
+  ],
+  "no_new_permissions_licenses_credentials_fees_or_model_calls": true
+}

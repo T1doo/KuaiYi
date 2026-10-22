@@ -79,25 +79,30 @@ public sealed partial class InstallationStore
     public IDisposable EnterRoleAdmission()=>EnterAdmission();
     internal InstallationAdmission EnterAdmission(InstallationExecutionOwnership? execution=null,bool mutation=false,bool existing=false)
     {
-        using var setup=existing?OpenExistingSetup(directory):Lock();
-        if(existing)InstallationHostActivity.Initialize(directory,false);var admission=new InstallationAdmission(directory,mutation,existing);
-        try
-        {
-            if(execution!=null)admission.Attach(execution);
-            else if(File.Exists(InstallationExecutionOwnership.RecordPath(directory))||Directory.Exists(InstallationExecutionOwnership.RecordPath(directory)))throw new InstallationRecoveryException("Existing execution owner retained; launch and mutation blocked.");
-            if(File.Exists(InstallationBrowserHostSession.PathFor(directory))||Directory.Exists(InstallationBrowserHostSession.PathFor(directory))||File.Exists(PendingPath)||Directory.Exists(PendingPath)||File.Exists(Path.Combine(directory,"handoff-pending.json"))||Directory.Exists(Path.Combine(directory,"handoff-pending.json"))||
-                File.Exists(Path.Combine(directory,"host-registration-pending.json"))||Directory.Exists(Path.Combine(directory,"host-registration-pending.json"))||
-                File.Exists(InstallationBootstrapDeployment.PendingPath(directory))||Directory.Exists(InstallationBootstrapDeployment.PendingPath(directory)))throw new InstallationRecoveryException("Pending or unknown upgrade/handoff/registration retained; launch and mutation blocked.");return admission;
-        }
-        catch{admission.Dispose();throw;}
+        var owner=InstallationAdmission.CreateOwner(directory);
+        try{AcquireAdmission(owner,execution,mutation,existing);return owner;}catch(Exception error){owner.Fail(error);throw;}
+    }
+    internal void AcquireAdmission(InstallationAdmission owner,InstallationExecutionOwnership? execution=null,bool mutation=true,bool existing=true,bool requireStopped=false,bool keepSetup=false)
+    {
+        owner.RequireRoot(directory);
+        if(requireStopped)RequireStopped();
+        _=existing?OpenExistingSetup(directory,owner.OwnSetup):Lock(owner.OwnSetup);
+        if(existing)InstallationHostActivity.Initialize(directory,false);owner.Acquire(mutation,existing);
+        if(execution!=null)owner.Attach(execution);
+        else if(File.Exists(InstallationExecutionOwnership.RecordPath(directory))||Directory.Exists(InstallationExecutionOwnership.RecordPath(directory)))throw new InstallationRecoveryException("Existing execution owner retained; launch and mutation blocked.");
+        if(File.Exists(InstallationBrowserHostSession.PathFor(directory))||Directory.Exists(InstallationBrowserHostSession.PathFor(directory))||File.Exists(PendingPath)||Directory.Exists(PendingPath)||File.Exists(Path.Combine(directory,"handoff-pending.json"))||Directory.Exists(Path.Combine(directory,"handoff-pending.json"))||
+            File.Exists(Path.Combine(directory,"host-registration-pending.json"))||Directory.Exists(Path.Combine(directory,"host-registration-pending.json"))||
+            File.Exists(InstallationBootstrapDeployment.PendingPath(directory))||Directory.Exists(InstallationBootstrapDeployment.PendingPath(directory)))throw new InstallationRecoveryException("Pending or unknown upgrade/handoff/registration retained; launch and mutation blocked.");
+        if(!keepSetup)owner.ReleaseSetup();
     }
     internal string PendingPath=>Path.Combine(directory,"upgrade-pending.json");
     internal InstallationExecutionOwnership ClaimExecution(InstallationAdmission admission)
     {admission.Require(directory);RequireOwned();var execution=new InstallationExecutionOwnership(directory);admission.Attach(execution);return execution;}
     internal InstallationAdmission ReenterUpgrade(byte[] expected,InstallationExecutionOwnership execution)
     {
-        using var setup=Lock();var admission=new InstallationAdmission(directory,true);
-        try{admission.Attach(execution);RequireUpgradeRecord(expected);return admission;}catch{admission.Dispose();throw;}
+        var admission=InstallationAdmission.CreateOwner(directory);
+        try{_=Lock(admission.OwnSetup);admission.Acquire(true,false);admission.Attach(execution);RequireUpgradeRecord(expected);admission.ReleaseSetup();return admission;}
+        catch(Exception error){admission.Fail(error);throw;}
     }
     internal void FinishUpgrade(InstallationAdmission admission,byte[] expected,Guid operation,string outcome)
     {
@@ -128,7 +133,7 @@ public sealed partial class InstallationStore
         RequireOwned();RequirePointer(expected);string temporary=Path.Combine(directory,"current-"+Guid.NewGuid().ToString("N")+".tmp");SettingsStore.WriteFlushed(temporary,bytes);InstallationPaths.Check(directory);RequirePointer(expected);
         if(expected==null)File.Move(temporary,CurrentPath);else File.Replace(temporary,CurrentPath,null,false);
     }
-    private FileStream Lock()
+    private FileStream Lock(Action<FileStream>? own=null)
     {
         InstallationPaths.Check(directory);Directory.CreateDirectory(directory);bool createdOwner=false;string marker=Path.Combine(directory,"owner.txt");
         if(!File.Exists(marker))
@@ -137,8 +142,9 @@ public sealed partial class InstallationStore
         }
         RequireOwned();string path=Path.Combine(directory,"installation.lock");InstallationPaths.Check(path);FileStream lease;
         try{lease=new(path,FileMode.OpenOrCreate,FileAccess.ReadWrite,FileShare.None);}catch(IOException){throw new InstallationBusyException();}
-        if(lease.Length!=0){lease.Dispose();throw new InstallationRecoveryException("Unknown lock bytes retained.");}
-        try{InstallationHostActivity.Initialize(directory,createdOwner);return lease;}catch{lease.Dispose();throw;}
+        if(own!=null){own(lease);if(lease.Length!=0)throw new InstallationRecoveryException("Unknown lock bytes retained.");InstallationHostActivity.Initialize(directory,createdOwner);return lease;}
+        try{if(lease.Length!=0)throw new InstallationRecoveryException("Unknown lock bytes retained.");InstallationHostActivity.Initialize(directory,createdOwner);return lease;}
+        catch(Exception primary){InstallationAdmission.CloseUnpublished(lease,primary);throw;}
     }
     private void RequireOwned()
     {InstallationPaths.Check(directory);string marker=Path.Combine(directory,"owner.txt");if(!File.Exists(marker)||!InstallationPackage.ReadDocument(marker,128).AsSpan().SequenceEqual(Encoding.UTF8.GetBytes(Owner)))throw new InstallationRecoveryException("Unknown installation owner retained.");}

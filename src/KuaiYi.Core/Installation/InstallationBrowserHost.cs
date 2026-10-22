@@ -10,7 +10,9 @@ internal sealed class InstallationHostActivity:IDisposable
 {
     private readonly string root;
     private FileStream? lease;
-    private InstallationHostActivity(string root,FileStream lease){this.root=root;this.lease=lease;}
+    private static readonly HashSet<InstallationHostActivity> Retained=[];
+    private InstallationHostActivity(string root){this.root=root;}
+    internal static InstallationHostActivity CreateOwner(string root)=>new(root);
     internal static string PathFor(string root)=>Path.Combine(root,"host-activity.lock");
     internal static void Initialize(string root,bool newStore)
     {
@@ -19,30 +21,49 @@ internal sealed class InstallationHostActivity:IDisposable
         if(File.Exists(path))return;
         // An older store may have hosts that never participated. No automatic migration can prove their exit.
         if(!newStore)throw new InstallationRecoveryException("Existing installation lacks host lifecycle admission; explicit quiescence outside this protocol is required.");
-        using(new FileStream(path,FileMode.CreateNew,FileAccess.Write,FileShare.None)){}
+        var owner=CreateOwner(root);
+        try{owner.lease=new FileStream(path,FileMode.CreateNew,FileAccess.Write,FileShare.None);owner.Dispose();}
+        catch(Exception primary){var errors=new List<Exception>{primary};try{owner.Dispose();}catch(Exception close){errors.Add(close);}InstallationErrors.Throw(errors);throw;}
     }
     internal static InstallationHostActivity Open(string root,bool exclusive)
     {
-        string path=PathFor(root);InstallationPaths.Check(path);FileStream lease;
+        var owner=CreateOwner(root);
+        try{owner.Acquire(exclusive);return owner;}
+        catch(Exception primary){var errors=new List<Exception>{primary};try{owner.Dispose();}catch(Exception close){errors.Add(close);}InstallationErrors.Throw(errors);throw;}
+    }
+    internal void Acquire(bool exclusive)
+    {
+        if(lease!=null)throw new InvalidOperationException("Host activity already owned.");
+        string path=PathFor(root);InstallationPaths.Check(path);
         try{lease=new(path,FileMode.Open,exclusive?FileAccess.ReadWrite:FileAccess.Read,exclusive?FileShare.None:FileShare.Read);}
         catch(IOException error)when(error is not FileNotFoundException and not DirectoryNotFoundException&&(error.HResult&0xffff) is 11 or 32 or 33){throw new InstallationBusyException();}
-        try{if(lease.Length!=0)throw new InstallationRecoveryException("Unknown host activity bytes retained.");return new(root,lease);}catch{lease.Dispose();throw;}
+        if(lease.Length!=0)throw new InstallationRecoveryException("Unknown host activity bytes retained.");
     }
     internal void Require(string expected){if(root!=expected||lease==null||lease.Length!=0)throw new InstallationRecoveryException("Host activity lease is unconfirmed.");}
-    public void Dispose(){lease?.Dispose();lease=null;}
+    public void Dispose()
+    {
+        try{lease?.Dispose();lease=null;}
+        finally{lock(Retained){if(lease==null)Retained.Remove(this);else Retained.Add(this);}}
+    }
 }
 public sealed partial class InstallationStore
 {
     // Host entry never initializes a store, lock, owner or session. Acquire setup only for bounded ingress work.
-    internal static FileStream OpenExistingSetup(string root)
+    internal static FileStream OpenExistingSetup(string root,Action<FileStream>? own=null)
     {
         InstallationPaths.Check(root);string marker=Path.Combine(root,"owner.txt");
         if(!InstallationPackage.ReadDocument(marker,128).AsSpan().SequenceEqual(Encoding.UTF8.GetBytes(Owner)))throw new InstallationRecoveryException("Unknown installation owner retained.");
         string path=Path.Combine(root,"installation.lock");InstallationPaths.Check(path);FileStream lease;
         try{lease=new(path,FileMode.Open,FileAccess.ReadWrite,FileShare.None);}catch(IOException error)when(error is not FileNotFoundException and not DirectoryNotFoundException&&(error.HResult&0xffff) is 11 or 32 or 33){throw new InstallationBusyException();}
-        if(lease.Length!=0){lease.Dispose();throw new InstallationRecoveryException("Unknown setup lock bytes retained.");}return lease;
+        if(own!=null){own(lease);if(lease.Length!=0)throw new InstallationRecoveryException("Unknown setup lock bytes retained.");return lease;}
+        try{if(lease.Length!=0)throw new InstallationRecoveryException("Unknown setup lock bytes retained.");return lease;}
+        catch(Exception primary){InstallationAdmission.CloseUnpublished(lease,primary);throw;}
     }
-    internal InstallationAdmission ReenterHostMutation(){using var setup=Lock();return new(directory,true);}
+    internal InstallationAdmission ReenterHostMutation()
+    {
+        var owner=InstallationAdmission.CreateOwner(directory);
+        try{_=Lock(owner.OwnSetup);owner.Acquire(true,false);owner.ReleaseSetup();return owner;}catch(Exception error){owner.Fail(error);throw;}
+    }
 }
 // Only the controller holding the exact Start-returned child may publish/retire this normal-session record.
 // Fixed record is evidence of that session, not an external request capability or an authorization token.

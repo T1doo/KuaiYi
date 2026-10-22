@@ -1,34 +1,89 @@
 using System.Text.Json;
+using System.Runtime.ExceptionServices;
 using KuaiYi.Core.Settings;
 namespace KuaiYi.Core.Installation;
 
-// Product-local cooperative fence. No PID, OS privilege, or ownership is inferred from a pathname.
+internal sealed class InstallationAdmissionFaults
+{
+    internal Action<InstallationAdmission>? OwnerCreated {get;init;}
+    internal Action? Acquired {get;init;}
+    internal Action? BeforeClose {get;set;}
+    internal Action<string>? AcquiredLease {get;init;}
+    internal Action<string>? ClosingLease {get;set;}
+}
+internal static class InstallationErrors
+{
+    internal static void Throw(IReadOnlyList<Exception> errors)
+    {
+        if(errors.Count==1)ExceptionDispatchInfo.Capture(errors[0]).Throw();
+        if(errors.Count>1)throw new AggregateException(errors);
+    }
+}
+// The owner exists before setup/host/upgrade acquisition. Failed closes retain these exact resources.
 internal sealed class InstallationAdmission:IDisposable
 {
+    private static readonly HashSet<InstallationAdmission> Retained=[];
+    private static readonly HashSet<FileStream> UnclosedSetup=[];
+    internal static void CloseUnpublished(FileStream original,Exception primary)
+    {
+        var errors=new List<Exception>{primary};
+        try{original.Dispose();}catch(Exception close){lock(UnclosedSetup)UnclosedSetup.Add(original);errors.Add(close);}
+        InstallationErrors.Throw(errors);
+    }
     private readonly string directory;
-    private FileStream? lease;
+    private readonly InstallationAdmissionFaults? faults;
+    private FileStream? setup,lease;
     private InstallationExecutionOwnership? execution;
     private InstallationHostActivity? mutation;
-    internal InstallationAdmission(string directory,bool mutation=false,bool existing=false)
+    private bool started,acquired;
+    private InstallationAdmission(string directory,InstallationAdmissionFaults? faults)
+    {this.directory=directory;this.faults=faults;faults?.OwnerCreated?.Invoke(this);}
+    internal static InstallationAdmission CreateOwner(string directory,InstallationAdmissionFaults? faults=null)=>new(directory,faults);
+    internal InstallationAdmission(string directory,bool mutation=false,bool existing=false,InstallationAdmissionFaults? faults=null):this(directory,faults)
     {
-        this.directory=directory;
-        try
-        {
-            this.mutation=mutation?InstallationHostActivity.Open(directory,true):null;
-            string path=Path.Combine(directory,"upgrade.lock");InstallationPaths.Check(path);
-            try{lease=new(path,existing?FileMode.Open:FileMode.OpenOrCreate,FileAccess.ReadWrite,FileShare.None);}
-            catch(IOException){throw new InstallationBusyException();}
-            if(lease.Length!=0)throw new InstallationRecoveryException("Unknown upgrade lock bytes retained.");
-        }
-        catch{Dispose();throw;}
+        try{Acquire(mutation,existing);}catch(Exception error){Fail(error);throw;}
     }
-
+    internal bool CleanupConfirmed=>setup==null&&lease==null&&mutation==null;
+    internal void RequireRoot(string expected)
+    {if(directory!=expected)throw new InstallationRecoveryException("Admission belongs to another installation.");}
+    internal void OwnSetup(FileStream value)
+    {
+        if(setup!=null)throw new InvalidOperationException("Setup already owned.");
+        setup=value;faults?.AcquiredLease?.Invoke("setup");
+    }
+    internal void Acquire(bool exclusive,bool existing)
+    {
+        if(started)throw new InvalidOperationException("Admission acquisition is one-shot.");started=true;
+        if(exclusive){mutation=InstallationHostActivity.CreateOwner(directory);mutation.Acquire(true);faults?.AcquiredLease?.Invoke("host");}
+        string path=Path.Combine(directory,"upgrade.lock");InstallationPaths.Check(path);
+        try{lease=new(path,existing?FileMode.Open:FileMode.OpenOrCreate,FileAccess.ReadWrite,FileShare.None);}
+        catch(IOException){throw new InstallationBusyException();}
+        faults?.AcquiredLease?.Invoke("upgrade");
+        if(lease.Length!=0)throw new InstallationRecoveryException("Unknown upgrade lock bytes retained.");
+        faults?.Acquired?.Invoke();acquired=true;
+    }
+    internal void ReleaseSetup()
+    {if(setup!=null){faults?.ClosingLease?.Invoke("setup");setup.Dispose();setup=null;}}
+    internal void Fail(Exception primary)
+    {
+        var errors=new List<Exception>{primary};try{Dispose();}catch(Exception close){errors.Add(close);}
+        InstallationErrors.Throw(errors);
+    }
     internal void RequireCleanupLease(string expected)
-    {if(lease==null||directory!=expected)throw new InstallationRecoveryException("Upgrade admission is no longer held.");InstallationPaths.Check(directory);}
+    {if(!acquired||lease==null||directory!=expected)throw new InstallationRecoveryException("Upgrade admission is no longer held.");InstallationPaths.Check(directory);}
     internal void Require(string expected){RequireCleanupLease(expected);execution?.Require(directory);}
     internal void RequireMutation(string expected){Require(expected);(mutation??throw new InstallationRecoveryException("Mutation requires the exclusive host fence.")).Require(expected);}
     internal void Attach(InstallationExecutionOwnership owner){owner.Require(directory);execution=owner;}
-    public void Dispose(){lease?.Dispose();lease=null;mutation?.Dispose();mutation=null;}
+    public void Dispose()
+    {
+        var errors=new List<Exception>();
+        if(lease!=null)try{faults?.BeforeClose?.Invoke();faults?.ClosingLease?.Invoke("upgrade");lease.Dispose();lease=null;acquired=false;}catch(Exception error){errors.Add(error);}
+        if(mutation!=null)try{faults?.ClosingLease?.Invoke("host");mutation.Dispose();mutation=null;}catch(Exception error){errors.Add(error);}
+        // Setup stays held if any earlier close is unknown; no admission can pass the setup fence.
+        if(lease==null&&mutation==null)try{ReleaseSetup();}catch(Exception error){errors.Add(error);}
+        lock(Retained){if(CleanupConfirmed)Retained.Remove(this);else Retained.Add(this);}
+        InstallationErrors.Throw(errors);
+    }
 }
 // Before the first actual Start, hold an OS-released lease AND a persistent, exact-byte owned record.
 // A fresh controller cannot clear a crashed controller's record or infer ownership from a PID.
