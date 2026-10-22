@@ -28,10 +28,20 @@ artifacts/2026-10-22-deployment-before保存command/log/TRX、完整失败XML、
 - r07 Before20+原scope25＝45P/0F/0skip；r08针对Closing原registry读取/关闭双错及原托管Flush阶段错误2P。Flush例不冒称磁盘故障。
 - r09入场后同operation foreign Before导致误早Abort反例1F；r10完整测试文件相同1P。修为beforeAttempted先于Open，保留foreign原件及pending。
 
-独立只读审查对源码、三个红绿和候选原件限定ACK；均未代替运行。产品冻结后一次固定48项（原25+新23）及App/NativeHost/Launcher普通managed构建待签收，不借记旧111/586或完整Core/Provider/Codec。
+独立只读审查对源码、三个红绿和候选原件限定ACK；均未代替运行。产品冻结后的实际签收如下，不借记旧111/586或完整Core/Provider/Codec。
 
 ## 未验与依据
 
 真实Windows/medium/浏览器/WPF/Explorer/OLE/OCR效果/画质/250/600ms仍NotRun。三native DLL及完整自包含runtime仍缺，框架依赖开发形态不代签可运行Windows包或P7。未新增依赖/许可/凭据/安全权限/费用/真实模型调用，未操作用户电脑。Off、发送门、来源/密码/完整性/取消/隔离及250/600预算不变。
 
 Microsoft说明File.Exists遇查询错误也返回false：[File.Exists](https://learn.microsoft.com/en-us/dotnet/api/system.io.file.exists?view=net-10.0)；严格查询异常见[File.GetAttributes](https://learn.microsoft.com/en-us/dotnet/api/system.io.file.getattributes?view=net-10.0)。本片通过原调用结果与父目录确认收紧，不声称文件系统跨外部进程原子CAS或断电持久性。
+
+## 固定树签收
+
+产品`a909c20981dd88fb31ecb42bf943071dbfec32f1`从clean树执行r11 App/NativeHost/Launcher三次普通managed构建，均0W/E；r12同固定树一次48P/0F/0skip＝新Before23＋原scope25，两类48唯一显示名称。没有重复旧111/586或完整Core/Provider/Codec，轮次不相加。
+
+r11/r12四份输入快照各904项，before=after且逐项匹配产品Git。12目标AssemblyInfo含完整产品SHA，9产品目标DLL从普通构建至测试签收保持一致；测试及两fixture本轮正常编译，Launcher/CoreTests/两fixture实际Core副本与主Core一致。原件保留版本源码/摘要，未包含DLL本体，不冒称独立二进制重hash。
+
+362原src中361未变、仅Scope修改，新增NativeHost只读snapshot adapter；旧tests全字节不变，新增23例Before文件。锁、项目、workflow、packaging、扩展、scripts、sln未改。完整命令、TRX、失败原文、对应源码与scope-audit.json一起保全。
+
+固定树与原件独审限定ACK。原件Library libfile_348b60f9b7e08191833b0e3df952c14c（v0，1,877,796B，206members/205manifest，SHA256 ed0943a022ef9d92840a68f0ce603a2fdd61c63c43e198bc4c2bfc2ee2d512f1）；本地Library身份已核。ZIP CRC、205摘要及8份Git源码已独立核验，无DLL本体。证据提交仅三报告，产品a909c20981dd88fb31ecb42bf943071dbfec32f1不变；完整统一事务与Windows仍未签。
