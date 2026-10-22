@@ -1716,3 +1716,5 @@ Write compare修复固定树和ZIP独审限定ACK。Library libfile_7c3e6187e268
 补偿后旧generation健康固定产品52b1130a76507f8dcc77b0fce8c6d8013643b81b：七普通managed0W/E；一次相关266P/0F/0skip＝新32＋前234，旧234与候选32多重集完整保留，旧204未跑不借记。922Git输入/17版本/14产品DLL建测摘要/4Core副本相符；原22方法suffix与补偿43完整testfile保留。首次安装空恢复无session，新launch原READY和最终退出分别签；取消/foreign/关闭或Move未知保原owner，旧Compensated历史不代表旧版可用。真Windows/native完整runtime/正常安装入口/完整P7仍未签。
 
 固定52与ZIP原件独审限定ACK。Library libfile_f789dd28f0f481919a76dfe852bba0d3 v0，2,267,361B/256成员/255manifest，SHA2567bdc2445f412356c1f405edd2dce84fc86c35238d974319a75ae7cf3ef9d50e1；CRC/15Git原件/raw266/旧234+新32/红绿/922四快照及17版本库存实核，无DLL本体。证据仅三报告，产品52不变；旧204/fullCore/真Windows/native/runtime/P7未签。
+
+单一安装操作编排候选：一个原owner串Scope准备/三资源提交/新版canonical READY、原失败授权补偿及旧版新READY；阶段结果与后续原生命周期分开，firstempty零旧factory，取消/外部owner不制造补偿资格，未知保原owner无新恢复入口。工厂原Task预登记，迟到取消fresh-only封闭，无generic Dispose其他工作。r05新15P，r01仅测试重载编译F零用例保留不算产品红；仅定向19（新15+旧4代表）待冻结，不重刷/借旧266及204。见[合同/原件边界](validation/installation-operation.md)。

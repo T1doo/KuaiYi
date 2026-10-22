@@ -58,6 +58,7 @@ internal sealed partial class InstallationDeploymentSession
     internal Task<InstallationDeploymentReady> Ready=>ready.Task;
     internal Task<InstallationDeploymentSessionOutcome> Completion{get;}
     // Settled work excludes the deliberately live recovery execution lease.
+    internal bool OriginalWorkPending=>!Completion.IsCompleted||controller.DeploymentOriginalWorkPending(this);
     internal bool SessionWorkSettled=>Completion.IsCompleted&&io.CleanupConfirmed&&registry.CleanupConfirmed&&controller.DeploymentCleanupConfirmed(this);
     internal bool OriginalFailedSessionRetired
     {get{lock(sync)return accepted==null&&Completion is{IsCompletedSuccessfully:true}&&Completion.Result.Status==InstallationDeploymentSessionStatus.RollbackRequired&&controller.DeploymentRetirementConfirmed(this);}}
@@ -150,6 +151,8 @@ public sealed partial class InstallationUpgradeCoordinator
     }
     internal bool DeploymentOwnsExecution(InstallationDeploymentSession original)=>ReferenceEquals(deploymentSession,original)&&execution!=null;
     internal bool DeploymentClaimedExecution(InstallationDeploymentSession original)=>ReferenceEquals(deploymentSession,original)&&roles.Count!=0;
+    internal bool DeploymentOriginalWorkPending(InstallationDeploymentSession original)
+        =>ReferenceEquals(deploymentSession,original)&&(roles.Any(r=>r.Startup is{IsCompleted:false}||!r.TasksCompleted||!r.Lifetime.StartupObservation.IsCompleted||!r.Lifetime.StartupSettlement.IsCompleted)||stablePublicationOriginal is{IsCompleted:false});
     internal bool DeploymentCleanupConfirmed(InstallationDeploymentSession original)
         =>!ReferenceEquals(deploymentSession,original)||(admission==null||admission.CleanupConfirmed)&&retainedBrowserSession==null&&roles.All(r=>r.Finalized&&r.Exited);
     internal bool DeploymentRetirementConfirmed(InstallationDeploymentSession original)

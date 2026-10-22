@@ -100,18 +100,23 @@ public sealed partial class InstallationDeploymentSessionTests(ITestOutputHelper
         internal InstallationDeploymentSession? Session;
         internal InstallationDeploymentCompensation? Compensation;
         internal Peer? Peer;
-        internal async Task Commit(InstallationDeploymentFaults? faults=null,bool upgrade=false)
+        internal async Task<(MaterializedPayloadSource Source,BootstrapSource Bootstrap)> Sources(bool upgrade)
         {
             using(var initial=Store.EnterRoleAdmission()){}Directory.CreateDirectory(Data);File.WriteAllText(Path.Combine(Data,"PUBLIC_OFF"),"PUBLIC_PRESERVED");
             var source=new MaterializedPayloadSource(Path.Combine(Root,"source"));
             foreach(string name in new[]{"KuaiYi.SettingsStoreFixture.dll","KuaiYi.SettingsStoreFixture.deps.json","KuaiYi.SettingsStoreFixture.runtimeconfig.json"})File.Copy(Path.Combine(Path.GetDirectoryName(Driver)!,name),Path.Combine(source.Root,name));
-            File.WriteAllBytes(Path.Combine(source.Root,"public-install-behavior.json"),JsonSerializer.SerializeToUtf8Bytes(new{version="1.0",mode="healthy",runtimePipe=Pipe,controlled=true}));source.Catalog();
+            File.WriteAllBytes(Path.Combine(source.Root,"public-install-behavior.json"),JsonSerializer.SerializeToUtf8Bytes(new{version="1.0",mode="healthy",runtimePipe=OperationPreviousPipe??Pipe,controlled=true}));source.Catalog();
             var b=new BootstrapSource(Path.Combine(Root,"bootstrap"));
             if(upgrade)
             {
                 await Store.ApplyAsync(source.Root,source.Digest);if(!SkipPreviousBootstrap)await new InstallationBootstrapDeployment(App,Data).DeployAsync(b.Root,b.Digest);if(!SkipPreviousHost)await new HostRegistrationTransaction(App,Data,Registry).RunAsync(true);
                 source.Version="2.0";File.WriteAllBytes(Path.Combine(source.Root,"public-install-behavior.json"),JsonSerializer.SerializeToUtf8Bytes(new{version="2.0",mode="healthy",runtimePipe=Pipe,controlled=true}));source.Catalog();
             }
+            return(source,b);
+        }
+        internal async Task Commit(InstallationDeploymentFaults? faults=null,bool upgrade=false)
+        {
+            var(source,b)=await Sources(upgrade);
             Scope=new(App,Data,source.Digest,b.Digest,faults:faults);
             await Scope.AcquireAsync();await Scope.CaptureBeforeAsync(new InstallationDeploymentRegistrySnapshot(Registry));
             var g=await Scope.PrepareGenerationAsync(source.Root);var bootstrap=await Scope.PrepareBootstrapAsync(b.Root,g);Prepared=await Scope.SealPreparedAsync(g,bootstrap);
@@ -136,6 +141,7 @@ public sealed partial class InstallationDeploymentSessionTests(ITestOutputHelper
                 try{await originalSettlement.WaitAsync(Limit);}catch(Exception error){errors.Add(error);}
                 if(!originalSettlement.IsCompleted){lock(Retained)Retained.Add(this);InstallationErrors.Throw(errors);throw new IOException("Original fixture settlement remains pending.");}
             }
+            if(Operation?.OriginalWorkPending==true){lock(Retained)Retained.Add(this);InstallationErrors.Throw(errors);throw new IOException("Original installation operation remains pending; Stop/root retained.");}
             if(Restored?.OriginalWorkPending==true){lock(Retained)Retained.Add(this);InstallationErrors.Throw(errors);throw new IOException("Original restored fixture work remains pending; Stop/root retained.");}
             bool retained=RestoredRetention||File.Exists(Owner)||File.Exists(Store.PendingPath)||Compensation is not null&&Compensation.Completion.Result.Status==InstallationCompensationStatus.Unconfirmed;
             if(Controller!=null)
@@ -147,6 +153,7 @@ public sealed partial class InstallationDeploymentSessionTests(ITestOutputHelper
             }
             if(Peer!=null)try{await Peer.DisposeAsync();}catch(Exception error){errors.Add(error);}
             if(Peer is{CleanupConfirmed:false}){lock(Retained)Retained.Add(this);output.WriteLine("PUBLIC_RETAINED_ORIGINAL_ROOT "+Root);InstallationErrors.Throw(errors);throw new IOException("Original fixture peer remains unconfirmed.");}
+            if(OperationPreviousPeer is{CleanupConfirmed:false}){lock(Retained)Retained.Add(this);InstallationErrors.Throw(errors);throw new IOException("Original previous operation peer is unconfirmed; Stop/root retained.");}
             try{Assert.Equal("PUBLIC_PRESERVED",File.ReadAllText(Path.Combine(Data,"PUBLIC_OFF")));}catch(Exception error){errors.Add(error);}
             if(!retained&&errors.Count==0)Directory.Delete(Root,true);else output.WriteLine("PUBLIC_RETAINED_ORIGINAL_ROOT "+Root);
             try{Stop.Dispose();}catch(Exception error){errors.Add(error);}InstallationErrors.Throw(errors);
