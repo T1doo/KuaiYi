@@ -34,6 +34,7 @@ internal sealed class InstallationAdmission:IDisposable
     private readonly InstallationAdmissionFaults? faults;
     private FileStream? setup,lease;
     private InstallationExecutionOwnership? execution;
+    private InstallationPreparationIO? executionIO;
     private InstallationHostActivity? mutation;
     private bool started,acquired;
     private InstallationAdmission(string directory,InstallationAdmissionFaults? faults)
@@ -71,9 +72,10 @@ internal sealed class InstallationAdmission:IDisposable
     }
     internal void RequireCleanupLease(string expected)
     {if(!acquired||lease==null||directory!=expected)throw new InstallationRecoveryException("Upgrade admission is no longer held.");InstallationPaths.Check(directory);}
-    internal void Require(string expected){RequireCleanupLease(expected);execution?.Require(directory);}
+    internal void Require(string expected){RequireCleanupLease(expected);if(executionIO!=null)execution?.RequireCompensation(directory,executionIO);else execution?.Require(directory);}
     internal void RequireMutation(string expected){Require(expected);(mutation??throw new InstallationRecoveryException("Mutation requires the exclusive host fence.")).Require(expected);}
-    internal void Attach(InstallationExecutionOwnership owner){owner.Require(directory);execution=owner;}
+    internal void RequireRetirementCleanup(string expected){RequireCleanupLease(expected);(mutation??throw new InstallationRecoveryException("Retirement requires the original exclusive host fence.")).Require(expected);}
+    internal void Attach(InstallationExecutionOwnership owner,InstallationPreparationIO? reader=null){if(reader==null)owner.Require(directory);else owner.RequireCompensation(directory,reader);execution=owner;executionIO=reader;}
     public void Dispose()
     {
         var errors=new List<Exception>();
@@ -93,6 +95,7 @@ internal sealed class InstallationExecutionOwnership:IDisposable
     private readonly Guid id=Guid.NewGuid();
     private readonly byte[] record;
     private FileStream? lease;
+    private Retirement? retirement;
     internal static string RecordPath(string directory)=>Path.Combine(directory,"execution-owner.json");
     internal string DirectoryPath=>directory;
     internal byte[] RecordBytes=>record.ToArray();
@@ -112,7 +115,31 @@ internal sealed class InstallationExecutionOwnership:IDisposable
     }
     internal void Require(string expected)
     {
-        if(lease==null||directory!=expected||!InstallationPackage.ReadDocument(RecordPath(directory),1024).AsSpan().SequenceEqual(record))throw new InstallationRecoveryException("Execution ownership is unconfirmed; files retained.");
+        if(retirement!=null||lease==null||directory!=expected||!InstallationPackage.ReadDocument(RecordPath(directory),1024).AsSpan().SequenceEqual(record))throw new InstallationRecoveryException("Execution ownership is unconfirmed; files retained.");
+    }
+    internal void RequireCompensation(string expected,InstallationPreparationIO io)
+    {if(retirement!=null||lease==null||directory!=expected)throw new InstallationRecoveryException("Original live execution lease is unavailable.");io.RequireExactMetadata(RecordPath(directory),record,1024);}
+    internal Retirement PrepareRetirement(InstallationDeploymentCompensation owner,InstallationPreparationIO io)
+    {owner.RequireOriginalExecution(this);RequireCompensation(directory,io);if(retirement!=null)throw new InstallationRecoveryException("Retirement is one-shot.");return retirement=new(this,owner);}
+    // This exact owner exists before Move. Once created, ordinary live mutation can never be regained.
+    internal sealed class Retirement
+    {
+        private readonly InstallationExecutionOwnership original;
+        private readonly InstallationDeploymentCompensation owner;
+        private bool attempted,moved,moveConfirmed;
+        internal Retirement(InstallationExecutionOwnership original,InstallationDeploymentCompensation owner){this.original=original;this.owner=owner;}
+        internal bool CleanupConfirmed=>moveConfirmed&&original.lease==null;
+        internal bool MoveConfirmed=>moveConfirmed;
+        internal void Move(InstallationPreparationIO io,Action<string,string>? move)
+        {
+            if(attempted)throw new InstallationRecoveryException("Execution retirement cannot be replayed.");attempted=true;
+            owner.RequireRetirement(this,original);io.RequireExactMetadata(RecordPath(original.directory),original.record,1024);io.RequireAbsent(owner.RetiredPath);
+            if(move!=null)move(RecordPath(original.directory),owner.RetiredPath);else File.Move(RecordPath(original.directory),owner.RetiredPath);moved=true;Verify(io,true);moveConfirmed=true;
+        }
+        internal void Verify(InstallationPreparationIO io,bool held)
+        {owner.RequireRetirement(this,original);if(!moved||held&&original.lease==null||!held&&original.lease!=null)throw new InstallationRecoveryException("Original execution retirement is unconfirmed.");io.RequireAbsent(RecordPath(original.directory));io.RequireExactMetadata(owner.RetiredPath,original.record,1024);}
+        internal void CloseLease(Action? beforeClose)
+        {owner.RequireRetirement(this,original);if(!moveConfirmed)throw new InstallationRecoveryException("Cannot release an unconfirmed execution retirement.");beforeClose?.Invoke();original.Dispose();}
     }
     internal void Finish()
     {Require(directory);File.Move(RecordPath(directory),Path.Combine(directory,"execution-finished-"+id.ToString("N")+".json"));}

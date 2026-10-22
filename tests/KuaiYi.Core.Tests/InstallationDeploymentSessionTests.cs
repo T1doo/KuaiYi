@@ -8,7 +8,7 @@ using Xunit;
 using Xunit.Abstractions;
 namespace KuaiYi.Core.Tests;
 
-public sealed class InstallationDeploymentSessionTests(ITestOutputHelper output)
+public sealed partial class InstallationDeploymentSessionTests(ITestOutputHelper output)
 {
     private static readonly TimeSpan Limit=TimeSpan.FromSeconds(12);
     private static TaskCompletionSource Signal()=>new(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -17,11 +17,15 @@ public sealed class InstallationDeploymentSessionTests(ITestOutputHelper output)
     {
         internal HostRegistrationSlot Chrome=new(false,null),Edge=new(false,null);
         internal Exception? ReadError=null,CloseError=null;
+        internal Action<IntegrationBrowser>? Reading=null;
+        internal Action<IntegrationBrowser,bool>? Writing=null;
+        internal Action? Closing=null;
+        internal int Reads,Writes;
         public bool CleanupConfirmed=>CloseError==null;
-        public HostRegistrationSlot Read(IntegrationBrowser browser){if(ReadError!=null)throw ReadError;return browser==IntegrationBrowser.Chrome?Chrome:Edge;}
+        public HostRegistrationSlot Read(IntegrationBrowser browser){Reads++;Reading?.Invoke(browser);if(ReadError!=null)throw ReadError;return browser==IntegrationBrowser.Chrome?Chrome:Edge;}
         public void Write(IntegrationBrowser browser,HostRegistrationSlot expected,string? value)
-        {Assert.Equal(expected,browser==IntegrationBrowser.Chrome?Chrome:Edge);if(browser==IntegrationBrowser.Chrome)Chrome=new(true,value);else Edge=new(true,value);}
-        public void FinalizeCleanup(){if(CloseError!=null)throw CloseError;}
+        {Writes++;Writing?.Invoke(browser,false);if(expected!=(browser==IntegrationBrowser.Chrome?Chrome:Edge))throw new HostRegistrationConflictException();if(browser==IntegrationBrowser.Chrome)Chrome=new(true,value);else Edge=new(true,value);Writing?.Invoke(browser,true);}
+        public void FinalizeCleanup(){Closing?.Invoke();if(CloseError!=null)throw CloseError;}
     }
     private sealed class Peer:IAsyncDisposable
     {
@@ -94,14 +98,21 @@ public sealed class InstallationDeploymentSessionTests(ITestOutputHelper output)
         internal InstallationDeploymentScope Scope=null!;internal InstallationDeploymentPrepared Prepared=null!;
         internal InstallationUpgradeCoordinator? Controller;
         internal InstallationDeploymentSession? Session;
+        internal InstallationDeploymentCompensation? Compensation;
         internal Peer? Peer;
-        internal async Task Commit(InstallationDeploymentFaults? faults=null)
+        internal async Task Commit(InstallationDeploymentFaults? faults=null,bool upgrade=false)
         {
             using(var initial=Store.EnterRoleAdmission()){}Directory.CreateDirectory(Data);File.WriteAllText(Path.Combine(Data,"PUBLIC_OFF"),"PUBLIC_PRESERVED");
             var source=new MaterializedPayloadSource(Path.Combine(Root,"source"));
             foreach(string name in new[]{"KuaiYi.SettingsStoreFixture.dll","KuaiYi.SettingsStoreFixture.deps.json","KuaiYi.SettingsStoreFixture.runtimeconfig.json"})File.Copy(Path.Combine(Path.GetDirectoryName(Driver)!,name),Path.Combine(source.Root,name));
             File.WriteAllBytes(Path.Combine(source.Root,"public-install-behavior.json"),JsonSerializer.SerializeToUtf8Bytes(new{version="1.0",mode="healthy",runtimePipe=Pipe,controlled=true}));source.Catalog();
-            var b=new BootstrapSource(Path.Combine(Root,"bootstrap"));Scope=new(App,Data,source.Digest,b.Digest,faults:faults);
+            var b=new BootstrapSource(Path.Combine(Root,"bootstrap"));
+            if(upgrade)
+            {
+                await Store.ApplyAsync(source.Root,source.Digest);await new InstallationBootstrapDeployment(App,Data).DeployAsync(b.Root,b.Digest);await new HostRegistrationTransaction(App,Data,Registry).RunAsync(true);
+                source.Version="2.0";File.WriteAllBytes(Path.Combine(source.Root,"public-install-behavior.json"),JsonSerializer.SerializeToUtf8Bytes(new{version="2.0",mode="healthy",runtimePipe=Pipe,controlled=true}));source.Catalog();
+            }
+            Scope=new(App,Data,source.Digest,b.Digest,faults:faults);
             await Scope.AcquireAsync();await Scope.CaptureBeforeAsync(new InstallationDeploymentRegistrySnapshot(Registry));
             var g=await Scope.PrepareGenerationAsync(source.Root);var bootstrap=await Scope.PrepareBootstrapAsync(b.Root,g);Prepared=await Scope.SealPreparedAsync(g,bootstrap);
             var result=await Scope.CommitPreparedAsync(Prepared);if(faults==null)Assert.Equal(InstallationDeploymentStatus.Committed,result.Status);
@@ -118,7 +129,14 @@ public sealed class InstallationDeploymentSessionTests(ITestOutputHelper output)
             var errors=new List<Exception>();Port.HealthRelease.TrySetResult();Port.IoRelease.TrySetResult();try{Stop.Cancel();}catch(Exception error){errors.Add(error);}
             if(Session!=null)try{await Session.Completion.WaitAsync(Limit);}catch(Exception error){errors.Add(error);}
             if(Session is{Completion.IsCompleted:false}){lock(Retained)Retained.Add(this);InstallationErrors.Throw(errors);throw new IOException("Original fixture session remains pending.");}
-            bool retained=File.Exists(Owner);
+            if(Compensation!=null)try{await Compensation.Completion.WaitAsync(Limit);}catch(Exception error){errors.Add(error);}
+            if(Compensation is{Completion.IsCompleted:false}){lock(Retained)Retained.Add(this);InstallationErrors.Throw(errors);throw new IOException("Original fixture compensation remains pending.");}
+            if(Compensation?.OriginalSettlement is{} originalSettlement)
+            {
+                try{await originalSettlement.WaitAsync(Limit);}catch(Exception error){errors.Add(error);}
+                if(!originalSettlement.IsCompleted){lock(Retained)Retained.Add(this);InstallationErrors.Throw(errors);throw new IOException("Original fixture settlement remains pending.");}
+            }
+            bool retained=File.Exists(Owner)||File.Exists(Store.PendingPath)||Compensation is not null&&Compensation.Completion.Result.Status==InstallationCompensationStatus.Unconfirmed;
             if(Controller!=null)
             {
                 bool owns=Session!=null&&Controller.DeploymentOwnsExecution(Session);

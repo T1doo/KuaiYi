@@ -34,7 +34,7 @@ internal sealed partial class InstallationDeploymentScope
 
 // Non-serializable, one-shot authority rooted in the original successful scope and exact coordinator.
 // RollbackRequired is a retained obligation, not a completed rollback or a successful installation.
-internal sealed class InstallationDeploymentSession
+internal sealed partial class InstallationDeploymentSession
 {
     private static readonly HashSet<InstallationDeploymentSession> Retained=[];
     private readonly object sync=new();

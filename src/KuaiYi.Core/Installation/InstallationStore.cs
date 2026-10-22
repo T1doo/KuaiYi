@@ -82,13 +82,13 @@ public sealed partial class InstallationStore
         var owner=InstallationAdmission.CreateOwner(directory);
         try{AcquireAdmission(owner,execution,mutation,existing);return owner;}catch(Exception error){owner.Fail(error);throw;}
     }
-    internal void AcquireAdmission(InstallationAdmission owner,InstallationExecutionOwnership? execution=null,bool mutation=true,bool existing=true,bool requireStopped=false,bool keepSetup=false)
+    internal void AcquireAdmission(InstallationAdmission owner,InstallationExecutionOwnership? execution=null,bool mutation=true,bool existing=true,bool requireStopped=false,bool keepSetup=false,InstallationPreparationIO? executionIO=null)
     {
         owner.RequireRoot(directory);
         if(requireStopped)RequireStopped();
         _=existing?OpenExistingSetup(directory,owner.OwnSetup):Lock(owner.OwnSetup);
         if(existing)InstallationHostActivity.Initialize(directory,false);owner.Acquire(mutation,existing);
-        if(execution!=null)owner.Attach(execution);
+        if(execution!=null)owner.Attach(execution,executionIO);
         else if(File.Exists(InstallationExecutionOwnership.RecordPath(directory))||Directory.Exists(InstallationExecutionOwnership.RecordPath(directory)))throw new InstallationRecoveryException("Existing execution owner retained; launch and mutation blocked.");
         if(File.Exists(InstallationBrowserHostSession.PathFor(directory))||Directory.Exists(InstallationBrowserHostSession.PathFor(directory))||File.Exists(PendingPath)||Directory.Exists(PendingPath)||File.Exists(Path.Combine(directory,"handoff-pending.json"))||Directory.Exists(Path.Combine(directory,"handoff-pending.json"))||
             File.Exists(Path.Combine(directory,"host-registration-pending.json"))||Directory.Exists(Path.Combine(directory,"host-registration-pending.json"))||
