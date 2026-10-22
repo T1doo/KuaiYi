@@ -1508,3 +1508,6 @@ P7-01/已有实例认证转交/真实Windows菜单-WPF/OLE/OCR/身份/画质/250
 
 
 位图固定产品a4305e完整Core r08保全2222P1F（Cleanup:73），停止全套。确定性同Cleanup held-read反例r09/r10各0P1F，后者body/cleanup双栈保全；仅测试helper补原LateReadObserver的既有4秒join，生产src不改。r11相关75P0F0skip，独审后固定新测试树一次完整签收；不追认历史唯一根因。r07与a4305e为849输入同、README后续说明单差，前后850无漂移仍成立。
+
+
+最终固定测试树72f61076f1701f6e35314c2be7b3dcfbe5cf7493 的r12完整Core2224P/Provider2469P/Codec493P，各0F0skip/exit0；App/OleReceiver/Worker三交叉构建各0W/E。六轮850输入=current=Git、HEAD前后相同/dirty0，目标AssemblyInfo同SHA；独立原件限定ACK，旧红门不回填、轮次不相加。功能源码仍a4305e，后续仅测试helper及报告。原件Library确认libfile_dc94a6dcf4a88191aa03af1cc3083a4d/v0（2914516B/168成员，SHA256 2a777e6bb523d4aee296a628976e6c9ac811480ec761fd6a635785a958b1430d）。Windows/OLE/WPF/真实来源/medium/250600/画质仍未验。

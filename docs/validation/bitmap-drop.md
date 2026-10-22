@@ -29,7 +29,18 @@ r07的850输入运行前后相同；与后续固定产品提交 a4305e8700d76794
 
 源码发现共享测试Cleanup未join原LateReadObserver，而生产finalize明确要求原readSettlements全完成。r09受控不可取消Read通过同Cleanup产生0P1F；r10改善反例保全body与cleanup双异常，仍0P1F，完整双栈均在TRX。反例使用fresh client、其余未启动/已结算门，唯一hold原I/O；不是actual child或r08唯一历史原因的证明。
 
-修复仅测试Cleanup在原finalize断言前补等同一个原LateReadObserver，仍用既有4秒边界，不改生产文件、取消/实际退出门或断言。r11原失败方法+新屏障+OleRead/Bitmap相关75P/0F/0skip；新测试finally精确release/join原Read/observer/Cleanup，单错EDI、多错Aggregate保全。产品源码仍与a4305e完全一致。修复后一次完整Core及尚未执行的Provider/Codec/最终交叉构建随后固定新测试树归档，不预借验证。
+修复仅测试Cleanup在原finalize断言前补等同一个原LateReadObserver，仍用既有4秒边界，不改生产文件、取消/实际退出门或断言。r11原失败方法+新屏障+OleRead/Bitmap相关75P/0F/0skip；新测试finally精确release/join原Read/observer/Cleanup，单错EDI、多错Aggregate保全。产品源码仍与a4305e完全一致。修复后固定测试树 `72f61076f1701f6e35314c2be7b3dcfbe5cf7493` 执行r12一次完整签收：
+
+| 实际命令目标 | 结果 |
+|---|---|
+| 完整Core，无filter | 2224P / 0F / 0skip，exit0 |
+| 完整Provider，无filter | 2469P / 0F / 0skip，exit0 |
+| 完整Codec，无filter | 493P / 0F / 0skip，exit0 |
+| App / OleReceiver / Worker Release交叉构建 | 各0W / 0E，exit0 |
+
+六轮850输入均前后无漂移、逐项等固定Git字节；HEAD前后相同、dirty0。旧r08 Core2223全部保留仅新增屏障1例；Provider旧2464/Codec旧488全保留各新增5例。三套TRX逐结果全Passed；目标六个AssemblyInfo核同72f6107，完整DLL摘要保全（339项全目录清单并非339项全部执行）。实际命令均沿session-sdk.py、--no-restore、Release/-m:1/-nr:false/UseSharedCompilation=false/EnableWindowsTargeting=true；不将分轮数字相加。独立只读源码、红绿、完整原件及三构建限定ACK。
+
+完整原始TRX、失败XML、命令/日志、before/after输入与DLL摘要、Git逐项比对、产品和测试补丁、固定源副本均保存在 `artifacts/2026-10-22-bitmap-drop/kuaiyi-cf-dib-originals.zip`；Library已确认 **libfile_dc94a6dcf4a88191aa03af1cc3083a4d / version0**，2914516字节、168成员，ZIP SHA256 `2a777e6bb523d4aee296a628976e6c9ac811480ec761fd6a635785a958b1430d`。上传后本地Library ID/version xattrs与同一ZIP摘要均核实；不分享私有下载URL。证据索引见 [2026-10-22-bitmap-drop.json](../test-evidence/2026-10-22-bitmap-drop.json)。最终开发分支/远端/dirty回执随证据提交核对；main不改。
 
 ## 未验边界
 

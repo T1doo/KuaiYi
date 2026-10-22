@@ -1,6 +1,6 @@
 {
   "baseline": "36d323d89ab380af7b72d67fd13168ad35dac82d",
-  "kind": "SyntheticBitmapDropTargeted",
+  "kind": "ExecutedFixedTreeOfflineBitmapSignoff",
   "artifacts": "artifacts/2026-10-22-bitmap-drop",
   "targeted_round": "r07-final-target",
   "core": {
@@ -22,7 +22,50 @@
   "input_drift": 0,
   "red": "r06-settlement-red:0P/1F",
   "not_a_red_test": "r05 CS0649 no TRX",
-  "full_signoff": "Pending after reviewed test-only cleanup join",
+  "full_signoff": {
+    "round": "r12-fixed-full",
+    "core": {
+      "passed": 2224,
+      "failed": 0,
+      "skipped": 0,
+      "exit": 0
+    },
+    "provider": {
+      "passed": 2469,
+      "failed": 0,
+      "skipped": 0,
+      "exit": 0
+    },
+    "codec": {
+      "passed": 493,
+      "failed": 0,
+      "skipped": 0,
+      "exit": 0
+    },
+    "builds": {
+      "App": {
+        "warnings": 0,
+        "errors": 0,
+        "exit": 0
+      },
+      "OleReceiver": {
+        "warnings": 0,
+        "errors": 0,
+        "exit": 0
+      },
+      "Worker": {
+        "warnings": 0,
+        "errors": 0,
+        "exit": 0
+      }
+    },
+    "protected_inputs_each": 850,
+    "input_drift_each": 0,
+    "git_mismatch": 0,
+    "head_before_after_equal": true,
+    "dirty_before_after": 0,
+    "all_directory_dll_inventory_is_not_all_executed": true
+  },
   "Windows": "NotRun",
   "model_calls": "None",
   "product_sha": "a4305e8700d7679410bd68cb2c0de5dd6201c0fd",
@@ -50,5 +93,15 @@
     "r11": "75P/0F/0skip",
     "production_src_changed": false,
     "historical_unique_cause": "Unknown"
-  }
+  },
+  "fixed_test_sha": "72f61076f1701f6e35314c2be7b3dcfbe5cf7493",
+  "library": {
+    "id": "libfile_dc94a6dcf4a88191aa03af1cc3083a4d",
+    "version": 0,
+    "bytes": 2914516,
+    "members": 168,
+    "sha256": "2a777e6bb523d4aee296a628976e6c9ac811480ec761fd6a635785a958b1430d",
+    "local_xattrs_verified": true
+  },
+  "independent_review": "Limited ACK: design, source, exact red/green, fixed full suites and cross-build originals"
 }
