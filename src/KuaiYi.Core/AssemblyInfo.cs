@@ -6,3 +6,4 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("KuaiYi.SettingsStoreFixture")]
 [assembly: InternalsVisibleTo("KuaiYi.App")]
 [assembly: InternalsVisibleTo("KuaiYi.Provider.Tests")]
+[assembly: InternalsVisibleTo("KuaiYi.NativeHost")]

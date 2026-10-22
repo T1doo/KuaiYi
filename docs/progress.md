@@ -1594,3 +1594,7 @@ UI源码b03541c468180e84de33731dafba7b7fd78c50e4已核872测试输入逐Git一�
 ## 2026-10-22 更正设置全局发送提示
 
 父级独审P2：全局“按次确认”误称普通选区均需额外确认。仅更正SettingsChrome同TextBlock为“默认 Off（未启用）／启用后可自动发送选区／保存设置本身不发送内容”，业务与来源/隐私/清理门完全不改。其余345个src文件逐Git与84116e一致；定向文字/单字面量差异核验Pass，正常App候选交叉构建0W/0E。独立只读限定ACK，无新增/执行测试用例或全套重刷。原UI归档旧文案是历史快照、以本片纠正为准；真实WPF像素/DPI/焦点/高对比仍未验。见[文案更正及原日志](validation/desktop-polish.md)。
+
+## 2026-10-22 安装链宿主注册与精确撤销内核
+
+继续SPEC13.3/13.4，复用原版本完整性/role admission与集成metadata校验，新增固定两HKCU物理槽的内部注册/归属撤销事务和Windows适配器源码，不接外部入口、不执行注册。未知不领养、原receipt/selected/pending逐写复核、提交点前补偿/后失败保留、原句柄原Task关闭未确认保持pending与admission，原准入门新增registration pending拒绝。独审四项P2已确定红r03 4F/r05 2F并修；r06新事务35P/875输入无漂移，r01/r04编译失败零测试保留，不累计。当前浏览器直启NativeHost未纳管，全静止未证；自启仍false、真实安装/卸载/Windows未验，不把此纯协议片当可运行安装器。见[接线、原件与边界](validation/host-registration-transaction.md)。
