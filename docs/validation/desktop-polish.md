@@ -23,3 +23,7 @@
 原件含自包含离线 `desktop-design.html`，配色与工具path从生产源码生成，明确标注“合成示例 / 非Windows WPF截图 / 不保存不联网”；只是设计对照，不是产品入口或WPF运行证明。尝试现有Chromium离线sandboxed渲染：失败SIGABRT，SUID sandbox helper配置不完整（报需root-owned/mode4755），错误原件保留。未改权限、身份或关闭sandbox，未生成或声称有截图；不是审批拒绝。
 
 真实Windows像素、深色系统ComboBox/Popup、键盘焦点、动态高对比、200%文字/多屏DPI及布局均NotRun，须在已有合法普通权限Windows交互环境验证。Windows/OLE/身份/medium warm/Explorer/Chrome/Edge/实际OCR质量及250/600ms仍未验；没有使用用户个人电脑、403 runner重探、新CI/权限/SDK许可/费用/真实模型调用。阶段P6/P7/P8不因本片全绿变为完整通过。
+
+最终UI产品/测试源码提交 `b03541c468180e84de33731dafba7b7fd78c50e4`，872输入逐Git一致。执行时dirty候选HEAD/产物版本仍 `b473317311646ec7b1d36c88e8659ad18641033b`；没有仅为版本号重复无变化测试。相关259条属13真类，TRX以testId关联TestMethod.className计数；DisplayPreferencesTests76条。第一次summary误按参数化testName的小数点拆分出伪类名，独审发现后已修正，原错误summary保留；总259=新2+旧257及产品结果不受影响。
+
+原件Library确认 `libfile_7811cbea5c5881919759c41e1c92b8ed/v1`；649806B/94成员，ZIP SHA256 `af3ce2ba145fb6137e3bb30c602af45fc66c30f9bf5c28039967add25b295b38`。v0保留为证据分类更正前版本；v1保存后返回xattr、LibraryID与摘要复核成功。该归档含可离线打开的设计对照HTML及截图失败原文，不含WPF或Chromium截图。后续仅三报告提交；先前自有隔离stash逐8路径核等于已提交产品后移除，无待恢复代码。
