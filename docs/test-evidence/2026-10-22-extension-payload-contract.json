@@ -1,0 +1,18 @@
+{
+  "base": "fe736d0622d199dd84d3bdfb0fb21a5cc8ee7854",
+  "scope": "P2 explicit fail-closed extension manifest source qualification; not SHA bypass",
+  "status": "InProgress",
+  "artifactRoot": "artifacts/2026-10-22-extension-payload-contract",
+  "prior586": "Preserved; not rerun or retroactively changed",
+  "review": "Design/source/red limited ACK; green16 actual complete; fixed acceptance pending",
+  "boundaries": [
+    "Actual normal managed inputs plus structural native/runtime/third-party fixtures",
+    "Windows/browser/medium/installation/identity/250600 NotRun",
+    "No extension-body/permission/SDK/dependency/system changes"
+  ],
+  "candidateRuns": {
+    "r01": "6 normal builds;884stable;no lock drift",
+    "r02": "16results:4P12F;all12 No exception",
+    "r03": "16P0F0skip;same test source;only production input InstallationPayload.cs changed"
+  }
+}

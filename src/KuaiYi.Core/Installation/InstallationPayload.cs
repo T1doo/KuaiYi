@@ -173,8 +173,24 @@ internal static class InstallationPayload
     private static void RequireExtension(string directory)
     {
         using var doc=JsonDocument.Parse(InstallationPackage.ReadDocument(Path.Combine(directory,"browser-extension/manifest.json"),65536),new(){MaxDepth=16});var root=doc.RootElement;
-        if(root.GetProperty("manifest_version").GetInt32()!=3||root.TryGetProperty("host_permissions",out _)||root.TryGetProperty("optional_host_permissions",out _))throw new InvalidDataException("Unexpected extension permission contract.");
+        // A new caller-pinned source digest grants byte integrity, not additional extension capabilities.
+        if(root.TryGetProperty("host_permissions",out _)||root.TryGetProperty("optional_host_permissions",out _)||root.TryGetProperty("optional_permissions",out _)||root.TryGetProperty("content_scripts",out _))throw new InvalidDataException("Unexpected extension permission contract.");
+        InstallationPackage.Fields(root,"manifest_version","name","version","description","permissions","background","action","options_page","icons","content_security_policy");
+        if(root.GetProperty("manifest_version").GetInt32()!=3||root.GetProperty("version").GetString()!="0.0.1")throw new InvalidDataException("Unsupported extension manifest version.");
+        Display(root,"name",128);Display(root,"description",1024);
         var permissions=root.GetProperty("permissions").EnumerateArray().Select(v=>v.GetString()).ToArray();
         if(permissions.Length!=3||!new HashSet<string?>(permissions,StringComparer.Ordinal).SetEquals(new[]{"contextMenus","nativeMessaging","activeTab"}))throw new InvalidDataException("Unexpected extension permissions.");
+        var background=root.GetProperty("background");InstallationPackage.Fields(background,"service_worker","type");
+        if(background.GetProperty("service_worker").GetString()!="service-worker.js"||background.GetProperty("type").GetString()!="module"||root.GetProperty("options_page").GetString()!="options.html")throw new InvalidDataException("Unexpected extension entry point.");
+        var action=root.GetProperty("action");InstallationPackage.Fields(action,"default_title");Display(action,"default_title",128);
+        var icons=root.GetProperty("icons");InstallationPackage.Fields(icons,"16","48","128");
+        if(icons.EnumerateObject().Any(icon=>icon.Value.GetString()!="icon.png"))throw new InvalidDataException("Unexpected extension icon path.");
+        var csp=root.GetProperty("content_security_policy");InstallationPackage.Fields(csp,"extension_pages");
+        if(csp.GetProperty("extension_pages").GetString()!="script-src 'self'; object-src 'none'")throw new InvalidDataException("Unexpected extension content security policy.");
+        static void Display(JsonElement owner,string name,int maximum)
+        {
+            string? value=owner.GetProperty(name).GetString();
+            if(value==null||value.Length<1||value.Length>maximum||value.Any(char.IsControl))throw new InvalidDataException("Invalid extension display text.");
+        }
     }
 }

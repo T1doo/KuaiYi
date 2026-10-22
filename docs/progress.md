@@ -1623,3 +1623,9 @@ SPEC13.3/13.4继续真实Apply缺口：v2固定source原SHA与完整角色/声�
 最终原件独审限定ACK，586结果/旧549重数/883输入/14目标及两份真实Apply样本自洽；未重跑产品，不代签Windows可运行包。仅接续归档和三报告正常分支推送。
 
 原件ZIP/244manifest独审限定ACK；Library确认libfile_a42832a798ec8191a459bc114df913aa版本0，2,374,653B/245成员，SHA256 ac92e4ec753f82860acb950fa3ba66a4cd3a4ba1fccc092ef914858e050619e6。保存后身份/摘要核验成功，随后只三报告补回执正常推送；4b502f0产品/测试不改，真实Windows与完整可运行安装包未代签。
+
+## 2026-10-22 修复安装源扩展清单资格P2
+
+父级独审确认optional_permissions/content_scripts在重新固定合法source SHA后仍可通过，原资格门不完整而非摘要突破。原586/ZIP不改；唯一写入者核Git后，按独审封闭字段/本地路径/CSP方案补真实Apply重新固定SHA反例，见[修复证据](validation/extension-payload-contract.md)。本片仅定向红绿和必要构建，不重刷无关全套，不改扩展或系统权限，Windows/完整包仍未验。
+
+r02同源重新固定SHA反例16结果4P12F（12项未抛异常）→r03同测试16P0F0skip，884输入稳定且红绿仅InstallationPayload.cs改变。源码独审限定ACK；冻结后只四相关类必要签收，不回填或累加旧586。
