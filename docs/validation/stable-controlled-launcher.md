@@ -6,7 +6,7 @@
 
 Launcher仅接受无参数正常启动，Windows入口root=自身AppContext.BaseDirectory，data=当前用户KnownFolder/KuaiYi，不从环境变量或START消息取得任意安装/数据目录。现有七generation角色与其物化资格保持；Launcher不是新的UI或warm服务角色，其独立稳定文件的部署、摘要和更新属于后续统一安装入口，当前项目仍是普通managed交叉构建、不是自包含发布。
 
-选择使用existing-only admission，不初始化缺失owner/store/原锁。短门内只捕获或复核current原字节，完整v3/源闭包验证在门外；释放选择门后只Start所选generation的App.exe，固定working directory/参数列表、不经shell、不传图片。App新--installation-controller模式只路由私有继承stdio，验证canonical nonce/root/数据/所选路径；实际coordinator仍在其原admission下复核exact selection、当前v3及原owner/pending门后才ClaimExecution/Start原UI。选择到Start之间发生换代必拒绝，不自动重选、重放、Show授权或cold fallback。
+选择使用existing-only admission，不初始化缺失owner/store/原锁。短门内只捕获或复核current原字节，完整v3/源闭包验证在setup短门外；释放选择门后只Start所选generation的App.exe，固定working directory/参数列表、不经shell、不传图片。App新--installation-controller模式只路由私有继承stdio，验证canonical nonce/root/数据/所选路径；实际coordinator仍在其原admission下复核exact selection、当前v3及原owner/pending门后才ClaimExecution/Start原UI。选择到Start之间发生换代必拒绝，不自动重选、重放、Show授权或cold fallback。
 
 同代App继续作为原控制器和真实warm peer，复用原InstallationSessionEntry及Windows图片适配器。原UI ADMITTED/READY成功、Host session实际发布后，才由原Call跟踪的短BOUND_READY写通知外层；外层reader不进入内层Role.Tasks。新Launcher不接管Host、UI子进程或warm认证，不按PID发现、收养或终止任何进程。nonce/指纹是私有生命周期关联，不是图片授权。
 
@@ -28,8 +28,22 @@ Launcher仅接受无参数正常启动，Windows入口root=自身AppContext.Base
 - r07新两类19结果16P3F，三项原始堆栈完全相同：新Peer构造在管道未连接时设置AutoFlush触发Flush，尚未进入产品路径。修为连接后懒建writer/reader、显式flush；Dispose三个原资源分别结算。新取消断言同时对齐原会话合同，不要求生产从未承诺的PUBLIC_SHELL_CLOSED，不改变生产取消或旧断言。
 - r08同19例19P0F；r09增加原session错与原CancelAsync callback错双屏障保全，并断言无EXIT_READY，20P0F/0skip。两轮892输入稳定；不是Windows实测，各轮不累加。
 
+## 固定树签收
+
+产品源码冻结为`21269b1336cd2b0188b771ccab331f0392716125`，r10/r11均从clean工作区执行。r10七个正常managed构建命令全0W/0E，覆盖原七角色与新Launcher（NativeHost由App引用正常构建），既有锁文件均未改变。r11一次相关签收310P/0F/0skip、13类、310个唯一显示名称；包含290既有用例（旧586所选274+旧105扩展16）与本片20新例，不把不同轮次相加，也不宣称完整Core/Provider/Codec复跑。
+
+两次固定执行各892输入before=after并逐项匹配产品Git；16目标（七角色、六公共程序集、CoreTests、Launcher和真实两跳fixture）记录DLL/AssemblyInfo摘要，均含完整产品revision，正常构建产物与实际测试产物相符。既有351个src中346字节保持，仅App入口/SessionEntry及Core Admission/Store/Coordinator五文件修改，另增六源码/项目/锁文件；旧测试、旧锁、工作流、packaging、扩展和scripts均未改。
+
+核对脚本首次失败为样本索引用绝对路径比较相对key，误把旧样本当fresh；audit-r01源码与失败保留，修正索引后完成核对，未重跑产品。旧586/105 ZIP、TRX、旧样本摘要前后逐字节一致。本轮真实Apply产生的一份公开派生metadata样本已按其productSourceRevision归属移入本片artifact，未复制实际图片/秘密/二进制主体。完整命令/日志/TRX/全部失败XML、红绿候选、16产物摘要、产品patch及source保全供独审。
+
 ## 合成验证的边界
 
 新主路径测试用真实Apply得到随机generation和v3，实际启动两跳dotnet合成进程并复用生产SessionEntry、coordinator、stdio编码/受控UI接纳和退出代码；只在明确测试starter中把Windows App.exe传输替换为已知fixture driver，生产默认仍SystemOwnedProcessStarter。fixture只用公开中性数据与PUBLIC_OFF sentinel，未运行WPF或真实Windows身份。Source中缺少的native/runtime/第三方仍是structural fixture，不能作为可运行Windows包。
 
 原3项native DLL及完整自包含Windows runtime、稳定bootstrap实际部署与升级、身份/注册/安装、真实Windows/browser/medium/warm/WPF像素/OCR质量/250/600ms未验。原586/105原件不改，不重跑无关全套。未新增安全权限、凭据、费用、模型调用、SDK协议或用户电脑操作，不重探403 runner，不改main或发布部署。
+
+## 独审与原件保全
+
+独立只读复核限定ACK：固定Git、892输入、16目标、310条原TRX及旧290签名多重集已核，未代替本轮重跑。归档CRC、294唯一成员/293项manifest、16项产品快照以及AGENTS/SPEC均核通过；包含所有失败与修正，未包含私有helper、上传回执、秘密、私有URL或二进制本体。
+
+原件ZIP `stable-controlled-launcher-originals.zip`已保存Library，确认ID `libfile_82335144dbf88191b6931893a0b690a3`，version0，1,945,681字节；SHA256 `f5a435a7946a6a48869a9371a653c82b0e3773af158d0d0e4bc41ee19e8c42a5`。ZIP内三报告为保存前快照，此后仅追加独审/Library收据，产品源码与固定验证输入不变。

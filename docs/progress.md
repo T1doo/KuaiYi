@@ -1641,3 +1641,7 @@ P2修复固定原件独审限定ACK，105结果/89既有/884输入/14目标与�
 沿原同代App controller/READY/Host/warm链新增独立Launcher和继承stdio生命周期桥；短门捕获current、门外验证、原admission复核，取消只关原stdin不kill controller，未确认不重放或清owner。独审三项生命周期P2由r05四屏障0P4F→r06同测试4P闭合候选，全部失败/编译零用例保留；r03七普通构建0W/E，无新包/许可。新主路径定向验证与独审接续，见[接线和原件](validation/stable-controlled-launcher.md)。稳定文件真实部署/更新及完整Windows包仍下一安装入口范围，不代签真实Windows/medium/WPF/250600，不重刷586/105。
 
 稳定启动候选r07新Peer未连接AutoFlush导致3F原件保留；修正夹具并保留原取消合同，r08 19P，r09含双原异常保全20P0F。独审三项生命周期修复限定ACK；待冻结源码后一次相关签收与正常managed构建。
+
+稳定启动源码21269b1336cd2b0188b771ccab331f0392716125固定签收：7正常managed构建命令0W/E；一次相关310P/0F/0skip（290既有+20新，13类），892输入与16目标版本核对通过。旧586/105和样本保留；audit绝对/相对样本索引错误原件保留并修正，未重测产品。稳定部署/统一安装/真实Windows与自包含缺件仍未签，P7整体InProgress。
+
+稳定入口本片独审限定ACK与原件ZIP核对完成；Library libfile_82335144dbf88191b6931893a0b690a3（v0，1,945,681B/294members/293manifest，SHA256 f5a435a7946a6a48869a9371a653c82b0e3773af158d0d0e4bc41ee19e8c42a5）。本次证据提交仅三报告，产品21269b1不变，实际Windows/完整可运行安装包仍未签。
