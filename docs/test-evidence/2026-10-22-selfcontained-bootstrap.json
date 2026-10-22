@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "scope": "Self-contained bootstrap exact contract and existing qualification chain; actual publish blocked",
   "base": "c8e65160b04ca0847425f2ee0fb5c04dcdbd1a44",
-  "status": "InProgress",
+  "status": "Pass_Limited_ActualPublishBlocked",
   "actualPublish": {
     "project": "KuaiYi.Launcher",
     "selfContained": true,
@@ -22,5 +22,56 @@
     "failure": "MixedOrUnknownProductBuildRevision_BeforeReceiptAssertion",
     "effectiveProductRed": false,
     "sourceReview": "ACK_Limited"
+  },
+  "productSha": "583a8c31162599883f59423b3d9e44dd23f91e1c",
+  "fixedTree": {
+    "passed": 153,
+    "failed": 0,
+    "skipped": 0,
+    "newComponents": 21,
+    "oldBootstrapPreparation": 30,
+    "oldBootstrapDeployment": 35,
+    "oldPrepared": 28,
+    "oldStableLauncher": 19,
+    "oldLauncherSettlement": 4,
+    "oldInstaller": 16,
+    "normalManagedBuilds": 8,
+    "warnings": 0,
+    "errors": 0,
+    "inputs": 961,
+    "beforeAfterAndGitEqual": true,
+    "oldTestFilesUnchanged": 345,
+    "objVersionDeclarations": 18,
+    "productDllHashInventories": 15,
+    "actualCoreCopies": 5,
+    "binaryMetadataIndependentlyInspected": false
+  },
+  "selfContainedContract": {
+    "files": 194,
+    "catalogAdditional": 1,
+    "fixedRuntimeMembers": 187,
+    "noticeMembers": 2,
+    "runtimeBytes": 80374232,
+    "mode": "SelfContainedWindowsX64_10_0_13",
+    "fullReadPositive": "NotRun"
+  },
+  "independentReview": {
+    "status": "ACK_Limited",
+    "manifest": 89,
+    "productGitFiles": 16,
+    "reviewerDidNotRunTests": true,
+    "binaryBodiesInArchive": false
+  },
+  "archive": {
+    "file": "selfcontained-bootstrap-originals.zip",
+    "bytes": 721728,
+    "sha256": "a846c0874a917f615bfe5996ca0bc26080fbbaba0272fae743d4a9c284514624",
+    "members": 90,
+    "manifest_entries": 89,
+    "native_runtime_and_other_binary_bodies_included": false,
+    "libraryFileId": "libfile_60b3f1cb75408191ab26a59f3f5a67b7",
+    "version": 0,
+    "identityHelperExit": 0,
+    "localLibraryIdentityConfirmed": true
   }
 }

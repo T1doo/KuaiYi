@@ -1739,3 +1739,7 @@ Windows payload固定产品2182f8df5ba5d6e5a0e36f137e6b082101c6f7a8：八普通m
 自包含B接续：首次真实Launcher no-restore/self-contained win-x64/10.0.13 publish实际NETSDK1112，缺已验证可消费runtime pack，原档恢复不等于cache安装。未重复七次同失败，未切offline/注入缓存/放宽验签。独审设计ACK后接原资格链：SC精确194文件+catalog/128MiB，开发5/64MiB保持；实际mode贯穿candidate/Prepared/receipt/Entry，固定RuntimeList字节/配置/deps封闭合同。仅组件元数据和原开发链可测，完整SC Read/publish/运行与Windows仍NotRun；pins不变。见[具体缺失与合同](design/selfcontained-bootstrap-contract.md)。
 
 候选SC元数据20P，r03唯一集成失败在Apply前置混合revision、未到Mode断言，不算产品红；原件保留。源码独审限定ACK，现冻结后统一八managed并执行一次相关回归，不借旧测试成绩或扩大真实Windows口径。
+
+固定产品583a8c31162599883f59423b3d9e44dd23f91e1c：八普通managed构建0W/E，一次相关153P/0F/0skip＝新组件21+B准备30+B部署35+Prepared28+StableLauncher19+Settlement4+Installer16，非完整Core。961四输入/Git一致，345旧testfile字节全部保留；18obj声明/15产品DLL文件摘要/5Core副本一致，不称独立DLLmetadata读取。新21与r03完整testfile和集合一致，r03混代前置失败不算产品红，不累加轮数。SC完整Read正例/真实publish仍NotRun，r01实际NETSDK1112及无输出目录保留，未重复七次/注入缓存或绕验签。
+
+固定树及原件ZIP独审限定ACK：CRC/89manifest/16份Git原件/raw153/961四输入/8构建/候选同21及345旧testfile均核。Library libfile_60b3f1cb75408191ab26a59f3f5a67b7 v0，721,728B/90成员，SHA256 a846c0874a917f615bfe5996ca0bc26080fbbaba0272fae743d4a9c284514624；本地Library身份已确认，无DLL/nupkg本体不称独立二进制重验。证据仅三报告，产品583a8c31162599883f59423b3d9e44dd23f91e1c不变；本轮native工具条件追加本地记录未入ZIP，真实SC Read/publish/验签/Windows/P7仍未签。
