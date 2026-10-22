@@ -34,11 +34,8 @@ internal sealed partial class SettingsWindow:Window
     {
         this.coordinator=coordinator;this.apiTests=apiTests;this.clipboardApplication=clipboardApplication;this.clearCurrentContent=clearCurrentContent;this.diagnostics=diagnostics;this.diagnosticEnvironment=diagnosticEnvironment;hotkeyParticipant=hotkeys;this.hotkeyStatus=hotkeyStatus;recoveryDraft=new(initialDraft);SetupPlacement();Title="快译设置";ShowInTaskbar=false;WindowStartupLocation=WindowStartupLocation.CenterOwner;
         var work=SystemParameters.WorkArea;Width=Math.Min(860,work.Width);Height=Math.Min(660,work.Height);MinWidth=Math.Min(700,work.Width);MinHeight=Math.Min(520,work.Height);MaxWidth=work.Width;MaxHeight=work.Height;
-        var root=new DockPanel();var footer=new StackPanel();DockPanel.SetDock(footer,Dock.Bottom);root.Children.Add(footer);
-        footer.Children.Add(status);SetupDiagnosticEntry(footer);var actions=new StackPanel{Orientation=Orientation.Horizontal,HorizontalAlignment=HorizontalAlignment.Right};actions.Children.Add(recovery);actions.Children.Add(save);actions.Children.Add(cancel);footer.Children.Add(actions);
-        var nav=new ListBox{Width=150,Margin=new Thickness(8),ItemsSource=new[]{"常规","API 与模型","翻译风格","交互与浮窗","快捷键","图片与集成","隐私与诊断"}};DockPanel.SetDock(nav,Dock.Left);root.Children.Add(nav);root.Children.Add(new ScrollViewer{Content=body,VerticalScrollBarVisibility=ScrollBarVisibility.Auto});Content=root;
-        var pages=new[]{General(),Api(),Translation(),Overlay(),Hotkeys(),Images(),Privacy()};foreach(var page in pages){page.Visibility=Visibility.Collapsed;body.Children.Add(page);}
-        nav.SelectionChanged+=(_,_)=>{foreach(var p in pages)p.Visibility=Visibility.Collapsed;if(nav.SelectedIndex>=0)pages[nav.SelectedIndex].Visibility=Visibility.Visible;Mask();};nav.SelectedIndex=0;
+        var pages=new[]{General(),Api(),Translation(),Overlay(),Hotkeys(),Images(),Privacy()};BuildSettingsChrome(pages,out var nav);
+        nav.SelectionChanged+=(_,_)=>{foreach(var p in pages)p.Visibility=Visibility.Collapsed;if(nav.SelectedIndex>=0)pages[nav.SelectedIndex].Visibility=Visibility.Visible;ShowSettingsPage(nav.SelectedIndex);Mask();};nav.SelectedIndex=0;
         LoadGeneral();RefreshProfiles();
         recovery.ItemsSource=new[]{new ComboBoxItem{Content="选择恢复方式"},new ComboBoxItem{Content="恢复上版备份",IsEnabled=draft.Basis.State==SettingsLoadState.RecoverableBackup},new ComboBoxItem{Content="使用安全默认值"}};recovery.SelectedIndex=0;recovery.Visibility=draft.Basis.RequiresRecovery?Visibility.Visible:Visibility.Collapsed;
         recovery.SelectionChanged+=(_,_)=>RecoverySelectionChanged();
@@ -51,10 +48,10 @@ internal sealed partial class SettingsWindow:Window
         Closing+=(_,e)=>{if(saving){e.Cancel=true;status.Text="保存任务尚未完成，请等待实际结果。";}else Mask();};
         Closed+=(_,_)=>{revealTimer.Stop();password.Clear();reveal.Clear();recoveryDraft.Dispose();};
     }
-    private static ComboBox Choice<T>()where T:struct,Enum=>new(){ItemsSource=Enum.GetValues<T>(),MinWidth=160};
-    private static StackPanel Page()=>new(){Margin=new Thickness(16)};
-    private static void Field(Panel panel,string label,UIElement input){panel.Children.Add(new TextBlock{Text=label,Margin=new Thickness(0,10,0,4)});panel.Children.Add(input);}
-    private static void Note(Panel panel,string text)=>panel.Children.Add(new TextBlock{Text=text,TextWrapping=TextWrapping.Wrap,Margin=new Thickness(0,8,0,8)});
+    private static ComboBox Choice<T>()where T:struct,Enum=>new(){ItemsSource=Enum.GetValues<T>(),MinWidth=160,ItemTemplate=DesktopTheme.ChoiceTemplate()};
+    private static StackPanel Page()=>new(){Margin=new Thickness(22)};
+    private static void Field(Panel panel,string label,UIElement input){panel.Children.Add(new TextBlock{Text=label,FontSize=12,FontWeight=FontWeights.SemiBold,Margin=new Thickness(0,14,0,6)});panel.Children.Add(input);}
+    private static void Note(Panel panel,string text){var note=new TextBlock{Text=text,FontSize=12,LineHeight=20,TextWrapping=TextWrapping.Wrap,Margin=new Thickness(0,10,0,10)};DesktopTheme.Bind(note,TextBlock.ForegroundProperty,DesktopTheme.Muted);panel.Children.Add(note);}
     private StackPanel General(){var p=Page();SetupBackupEntry(p);SetupImportEntry(p);Note(p,"启动始终未启用翻译。保存设置不恢复 On。主浮钮和托盘使用同一启停状态；隐藏会停用。开机启动注册尚待安装集成验证，本页不进行系统注册。");return p;}
     private StackPanel Api()
     {
@@ -69,8 +66,8 @@ internal sealed partial class SettingsWindow:Window
         SetupApiAdvanced(p);Note(p,"保存不会发送请求。连接测试仅在明确确认后发送固定公开样本；请先保存配置和密钥。视觉测试本批仅限明确授权的本机 fixture，不调用真实模型；普通图像能力门不变。能力默认未知，可手动修正；不自动遍历模型测试。密钥不读取到表单。");url.TextChanged+=(_,_)=>ApiIdentityEdited();model.TextChanged+=(_,_)=>ApiIdentityEdited();protocol.SelectionChanged+=(_,_)=>ApiIdentityEdited();addressMode.SelectionChanged+=(_,_)=>ApiIdentityEdited();return p;
     }
 
-    private StackPanel Overlay(){var p=Page();Field(p,"触发模式",mode);Field(p,"选区稳定等待（80—800 ms）",delay);Field(p,"自动发送软上限（1000—50000 字符）",softLimit);Field(p,"字号（12—22 DIP）",font);Field(p,"首选宽度（240—960 DIP）",width);Field(p,"主题",theme);Field(p,"减少动画",motion);SetupDisplayPreferences(p);p.Children.Add(remember);var reset=new Button{Content="重置已保存浮窗位置（保存后生效）"};reset.Click+=(_,_)=>draft.Update(s=>s with{Overlay=s.Overlay with{LastPosition=null}});p.Children.Add(reset);Note(p,"自动划词与完整翻译浮窗尚未交付。设置模式不授予采集或上传权限。");return p;}
-    private StackPanel Images(){var p=Page();p.Children.Add(smart);p.Children.Add(preview);Note(p,"这些是后续图片翻译的偏好；保存不授予采集、启动或发送权限。");SetupIntegration(p);return p;}
+    private StackPanel Overlay(){var p=Page();Field(p,"触发模式",mode);Field(p,"选区稳定等待（80—800 ms）",delay);Field(p,"自动发送软上限（1000—50000 字符）",softLimit);Field(p,"字号（12—22 DIP）",font);Field(p,"首选宽度（240—960 DIP）",width);Field(p,"主题",theme);Field(p,"减少动画",motion);SetupDisplayPreferences(p);p.Children.Add(remember);var reset=new Button{Content="重置已保存浮窗位置（保存后生效）"};reset.Click+=(_,_)=>draft.Update(s=>s with{Overlay=s.Overlay with{LastPosition=null}});p.Children.Add(reset);Note(p,"控制浮窗的阅读与触发偏好。保存不启用翻译，也不授予采集或上传权限。");return p;}
+    private StackPanel Images(){var p=Page();p.Children.Add(smart);p.Children.Add(preview);Note(p,"智能模式先尝试本地 OCR，并在可用时预览文字；使用视觉继续仍需明确批准。保存偏好不授予采集、启动或发送权限。");SetupIntegration(p);return p;}
     private StackPanel Privacy(){var p=Page();Field(p,"排除应用（每行一个应用标识）",blocked);blocked.AcceptsReturn=true;blocked.MinHeight=100;Note(p,"磁盘历史、遥测和默认复制兼容固定关闭。应用授权与端点发送同意不会通过保存草稿自动授予。密钥删除在保存提交后生效。");var permission=new Button{Content="复制兼容：逐应用授权 / 撤销（即时生效）",Margin=new Thickness(0,8,0,8)};permission.Click+=(_,_)=>{var window=new ClipboardPermissionsWindow(coordinator,clipboardApplication){Owner=this};window.ShowDialog();status.Text="应用授权单独即时生效。若有修改，请关闭并重新打开设置后保存其他草稿，避免覆盖新配置。";};p.Children.Add(permission);var clear=new Button{Content="清除当前内容（立即生效）",IsEnabled=clearCurrentContent!=null,Margin=new Thickness(0,8,0,8)};clear.Click+=async(_,_)=>{clear.IsEnabled=false;try{status.Text=await clearCurrentContent!()?"当前内容已清除；设置与密钥保留。":"内容清理尚未全部确认，请查看浮窗状态。";}finally{clear.IsEnabled=true;}};p.Children.Add(clear);return p;}
     private void LoadGeneral()
     {

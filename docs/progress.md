@@ -1584,3 +1584,7 @@ ZIP CRC/全部176项manifest及三报告独审最终限定ACK，未发现事实�
 父级独审发现确定P2：canonical29.999秒已提交分类，caller30.001秒才恢复，phase.Check误将其改为超时。暂停并暂存UI改动，最小修复只把phase最终检查放到canonical commit内；提交后保留原总预算，仍拒绝迟到提交和来源失效。r02同测试源码四例0P4F→r03相关24P，r04成功commit后Off/总预算到期4P；r01漏using编译失败零用例保留，不累计。设计/差异只读限定ACK，冻结后做必要相关签收，见[完整边界与原件](validation/classification-commit-boundary.md)。没有放宽时间或发送门，Windows未验保持。
 
 固定94ffa5e的相关整类165P0F0skip（原153完整保留+新12），App0W/E；868输入=Git、三目标完整SHA一致，独审限定ACK。原件Library `libfile_b0c365efc690819195b2c183284e1ff5/v0`，719619B/92成员，SHA256 72e582976c505b88d3401d3e607d3ae2bb72b7919d28dd5a5c23f1aecbaad15e。零完整套件/Windows代签，随后仅3报告归档并恢复隔离UI工作。
+
+## 2026-10-22 桌面界面精修接入
+
+独立视觉任务failed且零写入，本环境唯一写入者完成分类P2独立提交后接手真实C#界面：设置导航/标题/表单卡片/保存区、浅深主题与枚举标签、浮窗矢量图标。原控件/事件/Content/Tag/几何与全部安全门保留；动态高对比glyph独审P2已纯外观修复，未调用业务Refresh。r03最终候选App0W/E、r04相关259P（新增Palette2+既有257），872输入无漂移，不计WPF运行。独审限定ACK，详见[接线、证据及真实边界](validation/desktop-polish.md)。离线HTML设计对照的Chromium截图被现有sandbox helper配置阻断；未关sandbox/改权限，真实像素/焦点/高对比/DPI/Windows均未验。不重复后端完整套件，不增加安装/权限/费用。

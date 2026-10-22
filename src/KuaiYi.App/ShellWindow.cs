@@ -104,7 +104,7 @@ internal sealed partial class ShellWindow:OleDropWindow
         RefreshSelection();RefreshTextDrop();
         RefreshPresentationTheme();
         RefreshResultLabel();
-        bool on=lifecycle.Gate.Snapshot.Activation==Activation.On;button.Background=on?OverlayTokens.On:OverlayTokens.Off;UpdateButtonGlyph(on);
+        bool on=lifecycle.Gate.Snapshot.Activation==Activation.On;
         AutomationProperties.SetName(button,on?"快译：已启用翻译":"快译：未启用翻译");button.ToolTip=on?translationStatus??"已启用翻译 · 单击停用":dropUnavailable??"未启用翻译 · 单击启用，右键设置";
         try{tray?.Update(on);}catch(Exception error){Report("托盘状态更新失败",error);}
     }
