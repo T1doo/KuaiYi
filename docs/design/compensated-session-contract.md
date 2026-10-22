@@ -1,0 +1,16 @@
+# 补偿完成后的旧 generation 受控会话
+
+依据SPEC13.4“失败时恢复上一个可启动版本”，接续产品49cf/证据8a3b。仅隔离根/fake registry/真实Start持有的合成session。Compensated只证明补偿历史，不代表旧版可用；不更改原补偿lastMove或READY合同。
+
+1. 原补偿Completion确定Compensated、全部原cleanup确认且原controller/execution精确退役后，内存私有一次权威才可BeginRestoredSession。unknown/Move-after-effect抛错、旧archive字节、失败session/旧Prepared均无资格。不得重用原controller、失败launch或原execution。首次安装Before.current为空时一次返回null（NoPreviousGeneration），不创建session/task/READY/新execution或子进程。
+2. 原补偿在最终Move前仅在内存保留terminal的精确字节，成功后从其原内存计划/Before/history/remnants构造有界、不可变的核验集合；不在lastMove之后追加任何部署IO。新session另有原Task/IO ledger，绑定原补偿、新controller、旧generation、原current及B/Host恢复目标与原失败launch。新controller必须roots一致、尚未使用；同一私有权威不重试、不并发签发。
+3. 新session复用原RunSession/StartAndCheck/Host活动发布/调用者publishReady/最终AcceptReady链，新增可选的restored-session owner接线而不改原deployment-session条件。正常admission不绕pending，不认领旧execution；新原owner先于可能失败的Acquire存在。读取exact compensation archive/ticket/plan/retired-record、原历史与已归属remnants，复核current/B owner/active/H receipt、完整旧G/Core/revision及原registry owner的exact两槽；原读取与close都由新session原Task结算。foreign或close未知锁存，不能新读洗白。
+4. 只有同controller持有的全新launch、正确旧generation/roots、无upgrade record、原子进程仍活着、取消未赢、原Host已发布且publishReady原Task成功结算，才能接受READY；READY绑定补偿operation/原deployment operation/新launch/新proof。最终接受前重验恢复资格/原image records，取消与READY以同一锁仲裁。旧失败launch/重复/退出后/取消后READY拒绝。Compensated历史保持不变，Ready任务与Completion清理结果分开。
+5. 健康后正常退出为CleanExit；未取得execution且确定清理为ActivationBlocked；实际启动后失败且原角色/任务已结算为Failed（仍持原新execution），任一资格/关闭/清理未知为Unconfirmed。失败不自动重放/补偿/回退，绝不提升旧补偿历史或复用旧Prepared。Dispose不得弃原新execution/角色/未知IO；仍保留原session/controller。新原completion拥有later reads/registry/file关闭并收集所有原错误，不用finally覆盖正文错误。
+6. 必要最小反例：Compensated但健康未确认零READY；实际旧G受控READY/干净退出；首次无旧版零Start；未知补偿及重复/旧controller拒绝；current/B/H/registry/原archive被换零Start；健康回调迟到、取消/换generation/子进程实际退出零READY；held原IO/关闭失败保留owner和双错误。旧43补偿与原191集合在固定树一次相关签收，不借未跑204/fullCore或真实Windows。
+
+源范围：新增InstallationRestoredSession、原compensation一次权威和终态字节内存捕获；原coordinator少量可选owner前后钩子及失败保留/Dispose守门。原session与旧test方法不改义；无App/安装器入口、真实注册、native/runtime、用户电脑、模型或新增权限/费用/许可。
+
+独审实施硬门：restored分支不得原样调用构造即Acquire的ClaimExecution。先CreateOwner并发布到原controller字段，再Acquire；execution lease本身原字段持有，marker写/Flush/Close由新session同ledger登记，Acquire错误与原lease close错误分别保全；关闭未知不丢owner、不置null、不另开句柄代替。旧路径默认行为不放宽。恢复目标取comp终态实际B owner/retained bundle、H/current/active及物理空registry槽，非直接使用Before的缺键；旧G存在但B/H原本缺失时验证缺失，不补注册、不认领缺失依赖。旧generation在新session原Task内通过PlanCurrent+ledger解析/完整验证后构造Selection，构造器不读磁盘，原scope不复活。
+
+实施独审补正：原registry Read Task及Close完成后，重复完整metadata/旧G/B闭包，再无registry await。restored的Execution marker、launch prepared/accepted/finished、Host prepared/session/closing/finished与lease probes均由精确channel共享新ledger；直接Move异常锁存unknown，partial不删除。未知/原Task pending时fixture同样保留原Rig/Stop/root，不再Dispose；已terminal但关闭未知不冒充未完成原Task已settled。旧默认入口的optional io=null行为保留。

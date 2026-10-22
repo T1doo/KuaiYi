@@ -89,6 +89,11 @@ internal sealed class InstallationAdmission:IDisposable
 }
 // Before the first actual Start, hold an OS-released lease AND a persistent, exact-byte owned record.
 // A fresh controller cannot clear a crashed controller's record or infer ownership from a PID.
+internal sealed class InstallationExecutionFaults
+{
+    internal Action? Acquired {get;init;}
+    internal Action? BeforeClose {get;set;}
+}
 internal sealed class InstallationExecutionOwnership:IDisposable
 {
     private readonly string directory;
@@ -96,26 +101,39 @@ internal sealed class InstallationExecutionOwnership:IDisposable
     private readonly byte[] record;
     private FileStream? lease;
     private Retirement? retirement;
+    private readonly InstallationPreparationIO? ownedIO;
+    private readonly InstallationExecutionFaults? faults;
+    private bool acquireAttempted;
+    internal bool Acquired {get;private set;}
+    internal bool LeaseCloseUnconfirmed {get;private set;}
     internal static string RecordPath(string directory)=>Path.Combine(directory,"execution-owner.json");
     internal string DirectoryPath=>directory;
     internal byte[] RecordBytes=>record.ToArray();
-    internal InstallationExecutionOwnership(string directory)
+    private string FinishedPath=>Path.Combine(directory,"execution-finished-"+id.ToString("N")+".json");
+    private InstallationExecutionOwnership(string directory,InstallationPreparationIO? io,InstallationExecutionFaults? faults)
+    {this.directory=directory;ownedIO=io?.CreateSessionChannel(directory,[RecordPath(directory),FinishedPath]);this.faults=faults;record=JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=1,product="KuaiYi",owner=id.ToString("N"),phase="Owned"});}
+    internal static InstallationExecutionOwnership CreateOwner(string directory,InstallationPreparationIO io,InstallationExecutionFaults? faults=null)=>new(directory,io,faults);
+    internal InstallationExecutionOwnership(string directory):this(directory,null,null)
+    {try{Acquire();}catch{Dispose();throw;}}
+    // Restored sessions publish this object before entering here. Failed acquisition never drops its original lease.
+    internal void Acquire()
     {
-        this.directory=directory;record=JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=1,product="KuaiYi",owner=id.ToString("N"),phase="Owned"});
+        if(acquireAttempted)throw new InstallationRecoveryException("Execution acquisition is one-shot.");acquireAttempted=true;
         string path=Path.Combine(directory,"execution-owner.lock");InstallationPaths.Check(path);
         try{lease=new(path,FileMode.OpenOrCreate,FileAccess.ReadWrite,FileShare.None);}catch(IOException){throw new InstallationBusyException();}
-        try
-        {
-            if(lease.Length!=0)throw new InstallationRecoveryException("Unknown execution lock bytes retained.");
-            string marker=RecordPath(directory);InstallationPaths.Check(marker);
-            if(File.Exists(marker)||Directory.Exists(marker))throw new InstallationRecoveryException("Existing execution owner retained; no process ownership inferred.");
-            SettingsStore.WriteFlushed(marker,record);
-        }
-        catch{Dispose();throw;}
+        faults?.Acquired?.Invoke();
+        if(lease.Length!=0)throw new InstallationRecoveryException("Unknown execution lock bytes retained.");
+        string marker=RecordPath(directory);InstallationPaths.Check(marker);
+        if(File.Exists(marker)||Directory.Exists(marker))throw new InstallationRecoveryException("Existing execution owner retained; no process ownership inferred.");
+        if(ownedIO==null)SettingsStore.WriteFlushed(marker,record);
+        else{ownedIO.WritePublicationMetadata(marker,record,1024);ownedIO.RequireExactMetadata(marker,record,1024);}
+        Acquired=true;
     }
     internal void Require(string expected)
     {
-        if(retirement!=null||lease==null||directory!=expected||!InstallationPackage.ReadDocument(RecordPath(directory),1024).AsSpan().SequenceEqual(record))throw new InstallationRecoveryException("Execution ownership is unconfirmed; files retained.");
+        if(retirement!=null||!Acquired||lease==null||directory!=expected)throw new InstallationRecoveryException("Execution ownership is unconfirmed; files retained.");
+        if(ownedIO!=null)ownedIO.RequireExactMetadata(RecordPath(directory),record,1024);
+        else if(!InstallationPackage.ReadDocument(RecordPath(directory),1024).AsSpan().SequenceEqual(record))throw new InstallationRecoveryException("Execution ownership is unconfirmed; files retained.");
     }
     internal void RequireCompensation(string expected,InstallationPreparationIO io)
     {if(retirement!=null||lease==null||directory!=expected)throw new InstallationRecoveryException("Original live execution lease is unavailable.");io.RequireExactMetadata(RecordPath(directory),record,1024);}
@@ -142,7 +160,7 @@ internal sealed class InstallationExecutionOwnership:IDisposable
         {owner.RequireRetirement(this,original);if(!moveConfirmed)throw new InstallationRecoveryException("Cannot release an unconfirmed execution retirement.");beforeClose?.Invoke();original.Dispose();}
     }
     internal void Finish()
-    {Require(directory);File.Move(RecordPath(directory),Path.Combine(directory,"execution-finished-"+id.ToString("N")+".json"));}
+    {Require(directory);if(ownedIO!=null)ownedIO.MovePublicationRecord(RecordPath(directory),FinishedPath);else File.Move(RecordPath(directory),FinishedPath);}
     internal void Suspend(){Require(directory);lease!.Dispose();lease=null;}
     internal void Resume()
     {
@@ -162,5 +180,5 @@ internal sealed class InstallationExecutionOwnership:IDisposable
             (error.HResult&0xffff) is 11 or 32 or 33){return;} // Only a sharing/lock conflict; an absent path or other IO error proves nothing.
         probe.Dispose();throw new InstallationRecoveryException("Receiver execution lease was not held.");
     }
-    public void Dispose(){lease?.Dispose();lease=null;}
+    public void Dispose(){if(lease!=null)try{faults?.BeforeClose?.Invoke();lease.Dispose();lease=null;}catch{LeaseCloseUnconfirmed=true;throw;}}
 }

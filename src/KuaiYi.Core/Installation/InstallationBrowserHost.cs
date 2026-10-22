@@ -71,47 +71,49 @@ internal sealed class InstallationBrowserHostSession
 {
     private readonly InstallationControlledLaunch proof;
     private readonly InstallationAdmission admission;
+    private readonly InstallationPreparationIO? io;
     private bool retired,closingWritten;
     private readonly byte[] closing;
     private static readonly List<FileStream> UnclosedRecords=[];
-    private InstallationBrowserHostSession(InstallationControlledLaunch proof,InstallationAdmission admission)
-    {this.proof=proof;this.admission=admission;closing=JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=1,product="KuaiYi",launch=proof.Launch.ToString("N"),phase="Closing"});}
+    private InstallationBrowserHostSession(InstallationControlledLaunch proof,InstallationAdmission admission,InstallationPreparationIO? io)
+    {this.proof=proof;this.admission=admission;this.io=io;closing=JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=1,product="KuaiYi",launch=proof.Launch.ToString("N"),phase="Closing"});}
     internal static string PathFor(string root)=>Path.Combine(root,"browser-host-session.json");
     internal static string ClosingPath(InstallationControlledLaunch proof)=>Path.Combine(proof.Root,$"browser-host-closing-{proof.Launch:N}.json");
     internal static void RequireNotClosing(InstallationControlledLaunch proof)
     {string path=ClosingPath(proof);InstallationPaths.Check(path);if(File.Exists(path)||Directory.Exists(path))throw new InstallationRecoveryException("Original browser host session is closing.");}
-    private static void WriteNewRecord(string path,byte[] bytes)
+    private static void WriteNewRecord(string path,byte[] bytes,InstallationPreparationIO? io=null)
     {
+        if(io!=null){io.WritePublicationMetadata(path,bytes,65536);return;}
         InstallationPaths.Check(path);var file=new FileStream(path,FileMode.CreateNew,FileAccess.Write,FileShare.None);List<Exception> errors=[];
         try{file.Write(bytes);file.Flush(true);}catch(Exception error){errors.Add(error);}
         try{file.Dispose();}catch(Exception error){errors.Add(error);lock(UnclosedRecords)UnclosedRecords.Add(file);}
         // Partial records are retained, never mistaken for a completed publication or automatically deleted.
         if(errors.Count==1)ExceptionDispatchInfo.Capture(errors[0]).Throw();if(errors.Count>1)throw new AggregateException(errors);
     }
-    internal static InstallationBrowserHostSession Publish(InstallationControlledLaunch proof,InstallationAdmission admission,Process original)
+    internal static InstallationBrowserHostSession Publish(InstallationControlledLaunch proof,InstallationAdmission admission,Process original,InstallationPreparationIO? io=null)
     {
-        admission.Require(proof.Root);proof.RequireImageRecords();
+        admission.Require(proof.Root);proof.RequireImageRecords(io);
         if(original.HasExited)throw new InstallationRecoveryException("Original session child has exited.");
-        var session=new InstallationBrowserHostSession(proof,admission);
-        admission.Require(proof.Root);proof.RequireImageRecords();RequireNotClosing(proof);
+        var session=new InstallationBrowserHostSession(proof,admission,io);
+        admission.Require(proof.Root);proof.RequireImageRecords(io);RequireNotClosing(proof);
         string path=PathFor(proof.Root);InstallationPaths.Check(path);
         string prepared=Path.Combine(proof.Root,$"browser-host-prepared-{proof.Launch:N}.json");
-        WriteNewRecord(prepared,proof.Bytes());
-        admission.Require(proof.Root);proof.RequireImageRecords();RequireNotClosing(proof);
+        WriteNewRecord(prepared,proof.Bytes(),io);
+        admission.Require(proof.Root);proof.RequireImageRecords(io);RequireNotClosing(proof);
         if(original.HasExited)throw new InstallationRecoveryException("Original session child has exited.");
         // The original role admission already excludes every cooperating writer. Publish only fully closed bytes.
-        File.Move(prepared,path);return session;
+        if(io!=null)io.MovePublicationRecord(prepared,path);else File.Move(prepared,path);return session;
     }
     internal void Retire()
     {
         if(retired)return;
         // Cleanup of this exact session never authorizes work under a replaced execution-owner record.
         admission.RequireCleanupLease(proof.Root);
-        if(!closingWritten){WriteNewRecord(ClosingPath(proof),closing);closingWritten=true;}
-        else InstallationControlledLaunch.Exact(ClosingPath(proof),closing);
-        InstallationControlledLaunch.Exact(PathFor(proof.Root),proof.Bytes());
+        if(!closingWritten){WriteNewRecord(ClosingPath(proof),closing,io);closingWritten=true;}
+        else InstallationControlledLaunch.Exact(ClosingPath(proof),closing,io:io);
+        InstallationControlledLaunch.Exact(PathFor(proof.Root),proof.Bytes(),io:io);
         string destination=Path.Combine(proof.Root,$"browser-host-finished-{proof.Launch:N}.json");InstallationPaths.Check(destination);
-        File.Move(PathFor(proof.Root),destination);retired=true;
+        if(io!=null)io.MovePublicationRecord(PathFor(proof.Root),destination);else File.Move(PathFor(proof.Root),destination);retired=true;
     }
 }
 internal sealed class InstallationBrowserHostEntry

@@ -38,7 +38,7 @@ internal sealed partial class InstallationDeploymentSession
 }
 
 // New original task/journal/IO ledger. Never reopens the deployment Scope or borrows old Prepared mutation authority.
-internal sealed class InstallationDeploymentCompensation
+internal sealed partial class InstallationDeploymentCompensation
 {
     private static readonly HashSet<InstallationDeploymentCompensation> Retained=[];
     private readonly InstallationDeploymentSession session;
@@ -60,6 +60,7 @@ internal sealed class InstallationDeploymentCompensation
     private readonly List<Task<IReadOnlyList<Exception>>> settlements=[];
     private Task<IReadOnlyList<Exception>>? settlement;
     private byte[]? ticket;
+    private byte[]? terminalBytes;
     private InstallationExecutionOwnership? execution;
     private InstallationExecutionOwnership.Retirement? retirement;
     private bool gateHeld,closing,unknown,ticketAttempted,ticketComplete,planComplete;
@@ -219,7 +220,7 @@ internal sealed class InstallationDeploymentCompensation
             try
             {
                 byte[] terminal=JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=3,kind="KuaiYiPostCommitCompensationTerminal",operation=Operation,originalOperation=target.Operation,preparedSha256=preparedSha,planSha256=Hash(planBytes),ticketSha256=Hash(ticket!),failedLaunch=launch,retiredExecution=RetiredPath,executionSha256=Hash(execution!.RecordBytes),retainedBootstrapOwner=target.Bootstrap.Owner,retainedBundle=target.Bootstrap.CanonicalDirectory,registry=new{Chrome=Restored(before.Registry.Chrome),Edge=Restored(before.Registry.Edge)}});
-                if(terminal.Length>16384)throw new InvalidDataException("Compensation terminal exceeds bound.");
+                if(terminal.Length>16384)throw new InvalidDataException("Compensation terminal exceeds bound.");terminalBytes=terminal.ToArray();
                 io.RequireAbsent(terminalPath);io.RequireAbsent(ticketBackup);io.RequireAbsent(archive);io.RequireExactMetadata(pending,ticket!,16384);
                 io.WritePublicationMetadata(terminalPath,terminal,16384);io.RequireExactMetadata(terminalPath,terminal,16384);File.Replace(terminalPath,pending,ticketBackup,false);
                 io.RequireExactMetadata(pending,terminal,16384);io.RequireExactMetadata(ticketBackup,ticket!,16384);

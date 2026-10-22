@@ -29,26 +29,27 @@ public sealed record InstallationControlledLaunch(Guid Launch,string Role,string
         if(Launch==Guid.Empty||Role!="KuaiYi.App.exe"||Root!=InstallationPaths.Root(Root)||UserData!=InstallationPaths.Root(UserData)||Version==null||
            Convert.FromBase64String(OwnerRecord).Length>1024||Convert.FromBase64String(CurrentRecord).Length>4096||UpgradeRecord!=null&&Convert.FromBase64String(UpgradeRecord).Length>16384)throw new InvalidDataException("Invalid launch proof.");
     }
-    internal void RequireRecords(CancellationToken cancellation=default)
+    internal void RequireRecords(CancellationToken cancellation=default,InstallationPreparationIO? io=null)
     {
-        Validate();Exact(Path.Combine(Root,"execution-owner.json"),Convert.FromBase64String(OwnerRecord),1024);
-        Exact(Path.Combine(Root,"current.json"),Convert.FromBase64String(CurrentRecord),4096);
+        Validate();Exact(Path.Combine(Root,"execution-owner.json"),Convert.FromBase64String(OwnerRecord),1024,io);
+        Exact(Path.Combine(Root,"current.json"),Convert.FromBase64String(CurrentRecord),4096,io);
         string pending=Path.Combine(Root,"upgrade-pending.json");InstallationPaths.Check(pending);
-        if(UpgradeRecord==null){if(File.Exists(pending)||Directory.Exists(pending))throw new InstallationRecoveryException("Unexpected pending upgrade retained.");}
-        else Exact(pending,Convert.FromBase64String(UpgradeRecord),16384);
-        InstallationBootstrapDeployment.Absent(InstallationBootstrapDeployment.PendingPath(Root));
-        if(new InstallationStore(Root,UserData,()=>false).ReadActive(cancellation)!=Version)throw new InstallationRecoveryException("Controlled launch generation changed.");
+        if(UpgradeRecord==null){if(io!=null)io.RequireAbsent(pending);else if(File.Exists(pending)||Directory.Exists(pending))throw new InstallationRecoveryException("Unexpected pending upgrade retained.");}
+        else Exact(pending,Convert.FromBase64String(UpgradeRecord),16384,io);
+        if(io!=null)io.RequireAbsent(InstallationBootstrapDeployment.PendingPath(Root));else InstallationBootstrapDeployment.Absent(InstallationBootstrapDeployment.PendingPath(Root));
+        var selected=io==null?new InstallationStore(Root,UserData,()=>false).ReadActive(cancellation):InstallationStore.PlanCurrent(Root,Convert.FromBase64String(CurrentRecord),Version,cancellation,io).Before;
+        if(selected!=Version)throw new InstallationRecoveryException("Controlled launch generation changed.");
     }
     // Bounded live-record checks only. Full payload verification belongs to retained background work.
-    internal void RequireImageRecords()
+    internal void RequireImageRecords(InstallationPreparationIO? io=null)
     {
         if(UpgradeRecord!=null)throw new InstallationRecoveryException("Image ingress requires a normal session.");
-        Exact(System.IO.Path.Combine(Root,"execution-owner.json"),Convert.FromBase64String(OwnerRecord),1024);
-        Exact(System.IO.Path.Combine(Root,"current.json"),Convert.FromBase64String(CurrentRecord),4096);
+        Exact(System.IO.Path.Combine(Root,"execution-owner.json"),Convert.FromBase64String(OwnerRecord),1024,io);
+        Exact(System.IO.Path.Combine(Root,"current.json"),Convert.FromBase64String(CurrentRecord),4096,io);
         foreach(string name in new[]{"upgrade-pending.json","handoff-pending.json","host-registration-pending.json","bootstrap-deployment-pending.json"})
-        {string pending=System.IO.Path.Combine(Root,name);InstallationPaths.Check(pending);if(File.Exists(pending)||Directory.Exists(pending))throw new InstallationRecoveryException("Pending transition blocks image ingress.");}
-        Exact(PathFor("accepted"),Bytes());
-        RequireHeldLease(System.IO.Path.Combine(Root,"upgrade.lock"));RequireHeldLease(System.IO.Path.Combine(Root,"execution-owner.lock"));
+        {string pending=System.IO.Path.Combine(Root,name);InstallationPaths.Check(pending);if(io!=null)io.RequireAbsent(pending);else if(File.Exists(pending)||Directory.Exists(pending))throw new InstallationRecoveryException("Pending transition blocks image ingress.");}
+        Exact(PathFor("accepted"),Bytes(),io:io);
+        RequireHeldLease(System.IO.Path.Combine(Root,"upgrade.lock"),io);RequireHeldLease(System.IO.Path.Combine(Root,"execution-owner.lock"),io);
     }
     public void Claim(Guid ownLaunch,string executableDirectory,string expectedUserData)
     {
@@ -59,19 +60,20 @@ public sealed record InstallationControlledLaunch(Guid Launch,string Role,string
         File.Move(PathFor("prepared"),PathFor("accepted"));
         RequireRecords();RequireHeldLease(Path.Combine(Root,"upgrade.lock"));RequireHeldLease(Path.Combine(Root,"execution-owner.lock"));
     }
-    internal static void RequireHeldLease(string path)
+    internal static void RequireHeldLease(string path,InstallationPreparationIO? io=null)
     {
+        if(io!=null){io.RequireHeldLease(path);return;}
         InstallationPaths.Check(path);FileStream probe;
         try{probe=new(path,FileMode.Open,FileAccess.ReadWrite,FileShare.None);}
         catch(IOException error)when(error is not FileNotFoundException and not DirectoryNotFoundException&&File.Exists(path)&&(error.HResult&0xffff) is 11 or 32 or 33){return;}
         probe.Dispose();throw new InstallationRecoveryException("Controller admission lease is not held.");
     }
-    internal static void Exact(string path,byte[] expected,int limit=65536)
-    {if(!InstallationPackage.ReadDocument(path,limit).AsSpan().SequenceEqual(expected))throw new InstallationRecoveryException("Controlled launch record changed; retained.");}
-    internal void FinishExited()
+    internal static void Exact(string path,byte[] expected,int limit=65536,InstallationPreparationIO? io=null)
+    {if(io!=null){io.RequireExactMetadata(path,expected,limit);return;}if(!InstallationPackage.ReadDocument(path,limit).AsSpan().SequenceEqual(expected))throw new InstallationRecoveryException("Controlled launch record changed; retained.");}
+    internal void FinishExited(InstallationPreparationIO? io=null)
     {
         string source=File.Exists(PathFor("accepted"))?PathFor("accepted"):PathFor("prepared");
-        Exact(source,Bytes());InstallationPaths.Check(PathFor("finished"));File.Move(source,PathFor("finished"));
+        Exact(source,Bytes(),io:io);InstallationPaths.Check(PathFor("finished"));if(io!=null)io.MovePublicationRecord(source,PathFor("finished"));else File.Move(source,PathFor("finished"));
     }
 }
 

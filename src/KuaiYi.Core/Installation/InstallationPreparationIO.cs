@@ -41,7 +41,7 @@ internal sealed class InstallationPreparationIO(string source,string staging,str
         internal T Own<T>(string kind,string path,Func<T> acquire)where T:class,IDisposable
         {
             var record=new Resource(owner,kind,path);Resources.Add(record);lock(owner.sync)owner.resources.Add(record);
-            var value=acquire();record.Original=value;owner.faults?.Acquired?.Invoke(kind,path,value);return value;
+            var value=acquire();record.Original=value;if(value!=null)owner.faults?.Acquired?.Invoke(kind,path,value);return value;
         }
     }
     // Explicit fields allow the nested operation to share the exact original owner, never a recreated stream.
@@ -214,6 +214,26 @@ internal sealed class InstallationPreparationIO(string source,string staging,str
     {RequireSettled();return new(root,root,root,plan,cancellation,preparedFaults){ledger=ledger,metadataOnly=true};}
     internal InstallationPreparationIO CreatePublicationChannel(string root,IEnumerable<string> paths,InstallationPreparationFaults? publicationFaults)
     {if(!CleanupConfirmed)throw new InstallationRecoveryException("Original preparation resources remain unsettled.");return new(root,root,root,root,CancellationToken.None,publicationFaults){ledger=ledger,metadataOnly=true,publicationPaths=paths.Select(Path.GetFullPath).ToHashSet(StringComparer.Ordinal)};}
+    internal InstallationPreparationIO CreateSessionChannel(string root,IEnumerable<string> paths)=>CreatePublicationChannel(root,paths,faults);
+    internal void MovePublicationRecord(string from,string to)
+    {
+        if(publicationPaths==null)throw new InvalidOperationException("An original publication channel is required.");Writable(from);Writable(to);
+        try{if(faults?.Move!=null)faults.Move(from,to);else File.Move(from,to);}catch{storageUnconfirmed=true;throw;}
+    }
+    internal void RequireHeldLease(string path)
+    {
+        Readable(path);_=Execute(operation=>
+        {
+            bool conflict=false;
+            _=operation.Own<FileStream>("lease-probe",path,()=>
+            {
+                try{return new FileStream(path,FileMode.Open,FileAccess.ReadWrite,FileShare.None);}
+                catch(IOException error)when(error is not FileNotFoundException and not DirectoryNotFoundException&&File.Exists(path)&&(error.HResult&0xffff) is 11 or 32 or 33){conflict=true;return null!;}
+            });
+            if(conflict)return true;
+            throw new InstallationRecoveryException("Controller admission lease is not held.");
+        });
+    }
     // Mutable publication records have an exact prefix owner, not immutable preparation metadata entries.
     internal void WritePublicationMetadata(string path,byte[] bytes,int maximum)
     {

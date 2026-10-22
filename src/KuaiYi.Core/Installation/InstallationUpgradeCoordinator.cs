@@ -34,6 +34,8 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
         internal bool IoSettled;
         internal bool Transferred;
         internal InstallationControlledLaunch? LaunchProof;
+        internal InstallationPreparationIO? ReadIO;
+        internal byte[]? CurrentRecord;
         internal bool LaunchFinished;
         internal bool RetainTasks;
         internal Task[] Tasks{get{lock(tasksSync)return protocolTasks.ToArray();}}
@@ -72,6 +74,7 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
     private bool disposed;
     private bool sessionAttempted;
     private InstallationDeploymentSession? deploymentSession;
+    private InstallationRestoredSession? restoredSession;
     private InstallationBrowserHostSession? retainedBrowserSession;
     private static readonly HashSet<InstallationUpgradeCoordinator> RetainedBrowserOwners=[];
     internal Action? BrowserHostPublishedForTest{get;init;}
@@ -92,7 +95,7 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
         =>RunSession(executableDirectory,null,null,cancellation,imagePath);
     internal Task<int> RunSelectedSessionAsync(InstallationStableSelection selection,Func<InstallationControlledLaunch,CancellationToken,Task> published,CancellationToken cancellation)
         =>RunSession(selection.Version.DirectoryPath,selection,published,cancellation,null);
-    private async Task<int> RunSession(string executableDirectory,InstallationStableSelection? selection,Func<InstallationControlledLaunch,CancellationToken,Task>? published,CancellationToken cancellation,string? imagePath,InstallationDeploymentSession? deployment=null)
+    private async Task<int> RunSession(string executableDirectory,InstallationStableSelection? selection,Func<InstallationControlledLaunch,CancellationToken,Task>? published,CancellationToken cancellation,string? imagePath,InstallationDeploymentSession? deployment=null,InstallationRestoredSession? restored=null)
     {
         if(protocol is not IInstallationSessionProtocol sessionProtocol)throw new InvalidOperationException("Controlled session protocol required.");
         if(imagePath!=null){OleImageFileDrop.ValidatePath(imagePath);if(protocol is not IInstallationImageSessionProtocol)throw new InvalidOperationException("Controlled image session protocol required.");}
@@ -103,19 +106,23 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
         try
         {
             if(execution!=null||roles.Count!=0||pending!=null||handoff!=null||admission!=null)throw new InvalidOperationException("A normal session requires a fresh coordinator.");
-            deploymentSession=deployment;
+            deploymentSession=deployment;restoredSession=restored;
             sessionAttempted=true;
-            if(deployment==null)admission=store.EnterAdmission(existing:selection!=null);
-            else{admission=InstallationAdmission.CreateOwner(installationRoot,deployment.AdmissionFaults);store.AcquireAdmission(admission,mutation:false,existing:true);}
-            var selected=store.ReadActive(cancellation)??throw new InstallationRecoveryException("No installed version.");
-            selection?.RequireSelected(selected,cancellation);
+            if(deployment==null&&restored==null)admission=store.EnterAdmission(existing:selection!=null);
+            else{admission=InstallationAdmission.CreateOwner(installationRoot,deployment!=null?deployment.AdmissionFaults:restored!.AdmissionFaults);store.AcquireAdmission(admission,mutation:false,existing:true);}
+            var selected=restored?.Selection.Version??store.ReadActive(cancellation)??throw new InstallationRecoveryException("No installed version.");
+            if(restored==null)selection?.RequireSelected(selected,cancellation);
             if(selected.DirectoryPath!=expected)throw new InstallationRecoveryException("Normal entry is not the selected generation.");
-            execution=store.ClaimExecution(admission);role=NewRole("KuaiYi.App.exe",selected);role.RetainTasks=true;
+            if(restored==null)execution=store.ClaimExecution(admission);
+            else{execution=InstallationExecutionOwnership.CreateOwner(installationRoot,restored.ExecutionIO,restored.ExecutionFaults);execution.Acquire();admission.Attach(execution);}
+            role=NewRole("KuaiYi.App.exe",selected);role.RetainTasks=true;
             if(deployment!=null)await deployment.BeforeStartAsync(this,admission,selected,role.Launch,cancellation).ConfigureAwait(false);
+            if(restored!=null){await restored.BeforeStartAsync(this,admission,selected,role.Launch,cancellation).ConfigureAwait(false);role.ReadIO=restored.LaunchIO;role.CurrentRecord=Convert.FromBase64String(restored.Selection.Current);}
             await StartAndCheck(role,cancellation).ConfigureAwait(false);
-            browserHosts=InstallationBrowserHostSession.Publish(role.LaunchProof!,admission,role.Process!);BrowserHostPublishedForTest?.Invoke();
+            browserHosts=InstallationBrowserHostSession.Publish(role.LaunchProof!,admission,role.Process!,role.ReadIO);BrowserHostPublishedForTest?.Invoke();
             if(published!=null)await Call(role,t=>published(role.LaunchProof!,t),cancellation,observeOriginal:task=>Volatile.Write(ref stablePublicationOriginal,task)).ConfigureAwait(false);
             if(deployment!=null)await deployment.AcceptReadyAsync(this,role.LaunchProof!,role.Process!,cancellation).ConfigureAwait(false);
+            if(restored!=null)await restored.AcceptReadyAsync(this,role.LaunchProof!,role.Process!,cancellation).ConfigureAwait(false);
             if(imagePath!=null)await Call(role,t=>((IInstallationImageSessionProtocol)protocol).QueueImageAsync(role.Process!,imagePath,t),cancellation).ConfigureAwait(false);
             if(WarmImageEndpoint is {} endpoint)
             {
@@ -131,20 +138,21 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
             await role.Lifetime.StartupObservation.WaitAsync(budget,cancellation).ConfigureAwait(false);
             cancellation.ThrowIfCancellationRequested();
             if(!role.Exited)throw new IOException("Application original work is unsettled.");
-            admission.Require(execution.DirectoryPath);role.LaunchProof!.RequireRecords();FinishLaunch(role);
+            admission.Require(execution.DirectoryPath);role.LaunchProof!.RequireRecords(io:role.ReadIO);FinishLaunch(role);
             if(!await role.Lifetime.TryFinalizeAsync().ConfigureAwait(false))throw new IOException("Application handle cleanup is unconfirmed.");
             role.Finalized=true;execution.Finish();execution.Dispose();execution=null;disposed=true;return 0;
         }
         catch(Exception failure)when(sessionAttempted)
         {
             liveImage?.Quiesce();
-            if(deployment!=null)
+            if(deployment!=null||restored!=null)
             {
                 var errors=new List<Exception>{failure};
                 try{browserHosts?.Retire();}catch(Exception retirement){errors.Add(retirement);retainedBrowserSession=browserHosts;lock(RetainedBrowserOwners)RetainedBrowserOwners.Add(this);}
                 if(role!=null)await FinalizeOwned(role,errors).ConfigureAwait(false);
                 if(role!=null)CollectOriginalFailures(role,errors);
-                // This branch keeps the original execution object, not merely its bytes, for authorized compensation.
+                if(restored!=null&&execution is{Acquired:false})try{execution.Dispose();}catch(Exception close){errors.Add(close);}
+                // This branch keeps the original execution object; a restored failure grants no recursive compensation.
                 try{admission?.Dispose();}catch(Exception close){errors.Add(close);}
                 if(admission?.CleanupConfirmed==true)admission=null;
                 retainAdmission=true;InstallationErrors.Throw(errors);throw;
@@ -288,9 +296,11 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
         if(protocol is IInstallationControlledStartProtocol)
         {
             var lease=launchAdmission??admission??throw new InstallationRecoveryException("Controlled startup admission is not held.");
-            byte[] current=store.SnapshotRecord(lease)??throw new InstallationRecoveryException("Controlled startup has no selected record.");
+            byte[] current=role.CurrentRecord??store.SnapshotRecord(lease)??throw new InstallationRecoveryException("Controlled startup has no selected record.");
             var proof=new InstallationControlledLaunch(role.Launch,role.Name,execution!.DirectoryPath,UserData,role.Version,Convert.ToBase64String(execution.RecordBytes),Convert.ToBase64String(current),pending==null?null:Convert.ToBase64String(pending.Journal));
-            proof.RequireRecords();InstallationPaths.Check(proof.PathFor("prepared"));SettingsStore.WriteFlushed(proof.PathFor("prepared"),proof.Bytes());role.LaunchProof=proof;
+            proof.RequireRecords(io:role.ReadIO);InstallationPaths.Check(proof.PathFor("prepared"));
+            if(role.ReadIO==null){SettingsStore.WriteFlushed(proof.PathFor("prepared"),proof.Bytes());role.LaunchProof=proof;}
+            else{role.LaunchProof=proof;role.ReadIO.WritePublicationMetadata(proof.PathFor("prepared"),proof.Bytes(),49152);}
         }
         role.Startup=role.Lifetime.Start(info,cancellation);role.Process=await role.Startup.WaitAsync(budget,cancellation).ConfigureAwait(false);
         if(protocol is IInstallationControlledStartProtocol controlled)await Call(role,t=>controlled.AdmitLaunchAsync(role.Process,role.LaunchProof!,t),cancellation).ConfigureAwait(false);
@@ -383,7 +393,7 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
             if(task.Exception is{} many)foreach(var error in many.Flatten().InnerExceptions)if(known.Add(error))errors.Add(error);
     }
     private Task JoinIo(Role role)=>Call(role,t=>protocol.SettleAsync(role.Process!,t),CancellationToken.None,ProtocolOperation.Io);
-    private static void FinishLaunch(Role role){if(role.LaunchProof!=null&&!role.LaunchFinished){role.LaunchProof.FinishExited();role.LaunchFinished=true;}}
+    private static void FinishLaunch(Role role){if(role.LaunchProof!=null&&!role.LaunchFinished){role.LaunchProof.FinishExited(role.ReadIO);role.LaunchFinished=true;}}
     private async Task<bool> ProtocolSettled(Role role)
     {
         Task original=Task.WhenAll(role.Tasks);
@@ -437,7 +447,7 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
         try
         {
             if(disposed)return;
-            if(deploymentSession!=null&&execution!=null)throw new InstallationUpgradeUnconfirmedException(new InstallationRecoveryException("Original deployment session recovery owner is retained; Dispose cannot abandon its execution lease."));
+            if((deploymentSession!=null||restoredSession!=null)&&execution!=null)throw new InstallationUpgradeUnconfirmedException(new InstallationRecoveryException("Original deployment session recovery owner is retained; Dispose cannot abandon its execution lease."));
             if(retainedBrowserSession!=null)
             {
                 retainedBrowserSession.Retire();retainedBrowserSession=null;

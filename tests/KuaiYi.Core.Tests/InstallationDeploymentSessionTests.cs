@@ -84,7 +84,7 @@ public sealed partial class InstallationDeploymentSessionTests(ITestOutputHelper
         public async Task SettleSessionAsync(Process owned,CancellationToken cancellation)
         {await client.SettleSessionAsync(owned,cancellation);Assert.True(owned.HasExited);Exits.Add(owned.ExitCode);output.WriteLine($"PUBLIC_DEPLOYMENT_SESSION cleanExit={owned.ExitCode} originalIO=Settled");}
     }
-    private sealed class Rig(ITestOutputHelper output)
+    private sealed partial class Rig(ITestOutputHelper output)
     {
         private static readonly List<Rig> Retained=[];
         internal readonly string Root=Path.Combine(Path.GetTempPath(),"kuaiyi-upgrade-tests-"+Guid.NewGuid().ToString("N"));
@@ -109,7 +109,7 @@ public sealed partial class InstallationDeploymentSessionTests(ITestOutputHelper
             var b=new BootstrapSource(Path.Combine(Root,"bootstrap"));
             if(upgrade)
             {
-                await Store.ApplyAsync(source.Root,source.Digest);await new InstallationBootstrapDeployment(App,Data).DeployAsync(b.Root,b.Digest);await new HostRegistrationTransaction(App,Data,Registry).RunAsync(true);
+                await Store.ApplyAsync(source.Root,source.Digest);if(!SkipPreviousBootstrap)await new InstallationBootstrapDeployment(App,Data).DeployAsync(b.Root,b.Digest);if(!SkipPreviousHost)await new HostRegistrationTransaction(App,Data,Registry).RunAsync(true);
                 source.Version="2.0";File.WriteAllBytes(Path.Combine(source.Root,"public-install-behavior.json"),JsonSerializer.SerializeToUtf8Bytes(new{version="2.0",mode="healthy",runtimePipe=Pipe,controlled=true}));source.Catalog();
             }
             Scope=new(App,Data,source.Digest,b.Digest,faults:faults);
@@ -136,7 +136,8 @@ public sealed partial class InstallationDeploymentSessionTests(ITestOutputHelper
                 try{await originalSettlement.WaitAsync(Limit);}catch(Exception error){errors.Add(error);}
                 if(!originalSettlement.IsCompleted){lock(Retained)Retained.Add(this);InstallationErrors.Throw(errors);throw new IOException("Original fixture settlement remains pending.");}
             }
-            bool retained=File.Exists(Owner)||File.Exists(Store.PendingPath)||Compensation is not null&&Compensation.Completion.Result.Status==InstallationCompensationStatus.Unconfirmed;
+            if(Restored?.OriginalWorkPending==true){lock(Retained)Retained.Add(this);InstallationErrors.Throw(errors);throw new IOException("Original restored fixture work remains pending; Stop/root retained.");}
+            bool retained=RestoredRetention||File.Exists(Owner)||File.Exists(Store.PendingPath)||Compensation is not null&&Compensation.Completion.Result.Status==InstallationCompensationStatus.Unconfirmed;
             if(Controller!=null)
             {
                 bool owns=Session!=null&&Controller.DeploymentOwnsExecution(Session);

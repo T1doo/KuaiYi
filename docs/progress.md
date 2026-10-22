@@ -1708,3 +1708,5 @@ Write compare修复固定树和ZIP独审限定ACK。Library libfile_7c3e6187e268
 原失败session补偿固定产品49cf34cf0492e14728c49c7bceff07565791d2e2：七普通managed0W/E，一次相关234P/0F/0skip＝新43+前片191，旧191多重集完整保留；旧204未跑不借记。920Git输入/17版本/14产品DLL建测摘要/4Core副本一致，340旧tests仅helper改变且原22方法正文byte一致。原execution始终原owner持有，H/Edge/Chrome/B/G补偿、原退役和全部关闭后lastMove才Compensated；pending/foreign/unknown无重放提升。真实Windows/native完整runtime/正常安装入口及旧会话健康/P7仍未签。
 
 固定树及ZIP原件独审限定ACK；Library libfile_9d3712aa554c81918a0b12161c49658a v0，2,423,467B/285成员/284manifest，SHA256869e2a07c46c6f73d4465b70fd62c46a74f80d059393bcc99dc6af1cba04849d。CRC/12Git原件/raw234/两组红绿/920输入与17版本摘要实核，无DLL本体。证据仅三报告，产品49cf不变；不签旧204/fullCore/真Windows或完整安装P7。
+
+补偿完成→旧generation受控会话候选：原Compensated一次内存权威/新controller+execution+launch，首次恢复为空不造session；原ledger核terminal/旧G/B/H和registry，最后异步registry关闭后重验闭包。新execution与prepared/Host IO先owner后Acquire，partial/Move/close未知保原Task及租约，不复活失败launch或Prepared。三反例r06同file3F→r08 3P，r10新32P分列；旧前置失败保留，不混数字。源码/fixture独审限定ACK，待冻结266相关签收，旧204/fullCore/真Windows/native/runtime/完整P7未签。见[合同和原件](validation/compensated-session-health.md)。
