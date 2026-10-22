@@ -1,0 +1,50 @@
+{
+  "base_head": "6f6fa4cc3ef121831d53235cb3563a062056ef1e",
+  "unchanged_product_sha": "aab208ab716f5c1b36c0392d464ff35d8fc1dd05",
+  "stage": "DesignReviewReady",
+  "implementation": "NotStarted",
+  "design": "docs/design/unified-deployment-transaction.md",
+  "design_sha256": "d57b7f495c530f9561e4b84e59ba397e5d57787124a8d922c2dadb75d3981d8e",
+  "source_review": [
+    "SPEC13.3/13.4/P7-04/P7-05",
+    "InstallationStore.Apply/ApplyForUpgrade/setup lease and RestoreForUpgrade",
+    "InstallationBootstrapDeployment.Execute/Publish/FinalizeOriginalCleanup",
+    "HostRegistrationTransaction ownership/local commit/compensation",
+    "WindowsHostRegistrationStore original key owners and physical slot semantics",
+    "InstallationAdmission and ControlledLaunch pending gates",
+    "SettingsStore.WriteFlushed partial-delete behavior"
+  ],
+  "decisions": [
+    "one original shared mutation admission owner; NativeHost internal orchestration",
+    "known upgrade-pending ticket; bounded Before/Prepared; stage-specific terminal variants",
+    "no participant-local commit; reverse H receipt,Edge,Chrome,B,G",
+    "sealed participant producers; prepublished original finalization task",
+    "close confirmed then terminal replace and atomic archive as only success point",
+    "unknown outcomes retain owners; no PID adoption,replay or recovery bypass"
+  ],
+  "independent_review": {
+    "status": "LimitedACK_DesignOnly",
+    "issues_resolved": [
+      "early Abort missing Before/Prepared terminal variants",
+      "ambiguous last Move history classification"
+    ],
+    "does_not_sign": [
+      "implementation",
+      "tests",
+      "runtime_ready",
+      "Windows",
+      "fullP7"
+    ]
+  },
+  "checks": {
+    "git_diff_check": "Passed",
+    "production_files_modified": false,
+    "tests_or_builds_run": false,
+    "reason": "Design and source review only; old60/310/586 not repeated"
+  },
+  "boundaries": [
+    "FrameworkDependentDevelopment only; native/runtime pieces still absent",
+    "No fixed locator, unified CLI, identity/Inno/selfstart/real install",
+    "No new dependency/license/permission/credential/network configuration/fees/model call/userPC"
+  ]
+}

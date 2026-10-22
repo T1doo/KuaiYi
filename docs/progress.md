@@ -1651,3 +1651,5 @@ P2修复固定原件独审限定ACK，105结果/89既有/884输入/14目标与�
 bootstrap内部基元固定签收aab208ab716f5c1b36c0392d464ff35d8fc1dd05：7正常managed构建0W/E；一次同范围60P/0F/0skip（新40+原20，4类），899输入/17目标版本与4实际Core副本核对一致。旧310/586未重跑，原断言与既有锁/打包/扩展/权限均保持；跨资源统一安装、fixed locator和真实Windows/P7仍未完成。
 
 bootstrap部署基元独审及原件归档限定ACK；Library libfile_20fae98a783481918afd40bc2229d393（v0，1,475,759B/223members/222manifest；SHA256 664be5b73467cfd7994fbe0956cfbabd1ffcb219befbfa9b0212fb61c230ad4a）。本次证据提交仅三报告，产品aab208a不变；后续统一协调需共享原admission并明确generation/Bootstrap/Host三方commit与补偿，不能简单套用会重复取锁的现接口。真实Windows/完整安装仍未签。
+
+统一generation/bootstrap/Host事务进入DesignReview：已提交一份原scope、已知upgrade-pending阻断、分阶段有界计划/Terminal、唯一最终归档点与逆序补偿方案及待实施验证矩阵。内部独审限定ACK，修补早期Abort无Prepared合法形态及最后Move不明历史分支；仅设计待根侧独审，产品aab208a及源码/依赖不变，没有新测试/构建通过数。fixed locator、真实Windows与完整安装/P7仍未完成。
