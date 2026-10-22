@@ -1,0 +1,27 @@
+{
+  "base": "5a69c4c8fe7a1faa98ede79b618ad017b6b764be",
+  "status": "InProgressFixedSignoff",
+  "scope": "Bounded Before observation and AbortBeforePrepared only; no candidates prepared, no prepare/publish/Committed API",
+  "artifactRoot": "artifacts/2026-10-22-deployment-before",
+  "candidate_runs": {
+    "r01": "CS0414 compilation refused,0tests",
+    "r02": "partial Before1F",
+    "r03": "same complete test source1P",
+    "r04": "CS0619/xUnit2014 compilation refused,0tests",
+    "r05": "actual synthetic parent query error1F;registryReads2 instead of0",
+    "r06": "same complete test source1P",
+    "r07": "45P0F0skip:20new25existing",
+    "r08": "2P0F0skip:Closing raw close+managed Flush phase",
+    "r09": "foreign Before create collision1F",
+    "r10": "same complete test source1P"
+  },
+  "review": "Independent read-only limited ACK; no product rerun by reviewer",
+  "remaining": [
+    "No candidates prepared; shared-owned IO preparation factories not yet implemented",
+    "No Prepared/G-B-H forward publication/reverse compensation/Committed",
+    "No recovery/history/fixed locator/real registration or installer",
+    "Windows/medium/browser/WPF/OCR/quality/250600 NotRun",
+    "Native DLLs and complete self-contained runtime absent"
+  ],
+  "no_new_permissions_licenses_credentials_fees_or_model_calls": true
+}

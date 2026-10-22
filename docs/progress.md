@@ -1659,3 +1659,5 @@ bootstrap部署基元独审及原件归档限定ACK；Library libfile_20fae98a78
 统一scope/journal固定产品a808310e0199df92ac10194c5bb25cd99c73ada0签收：3普通managed构建0W/E；一次111P/0F/0skip（新25+原86，4类），902输入匹配产品Git、12目标版本/4实际Core副本一致。独审并发清理P2已定向红绿闭合；旧测试全字节保留。仅existing-only/Ticket/AbortBeforeSnapshot，不是三方发布或Committed；真实Windows/native/runtime/fixed locator/P7继续未签。
 
 原件已保存Library libfile_4f1fc1e8156c8191979ee2485d5b968e（v0，1,435,271B，162members/161manifest；SHA256 a0cda127c991fb2e0f6b1acb1f51e1970bb70d531e8113798abd7ed6c32b9d5d），本地Library身份已核。ZIP包含完整TRX/命令/日志/红例/输入摘要与固定Git源码；无DLL本体。证据提交只更新三报告，产品a808310e0199df92ac10194c5bb25cd99c73ada0不变。
+
+统一事务Before快照/AbortBeforePrepared候选：同scope预发布原snapshot任务与finish封闭仲裁，四有界文件和Chrome/Edge原读取结算后才写实际≤128KiB Before；attempt先于CreateNew，partial/Flush/close/foreign永久Unconfirmed；Closing复核原观察并携BeforeSHA/Preparednull归档。三组真实最小红绿已独审，r07 45P/r08 2P分列不相加，待冻结48范围签收。尚未准备任何候选，无prepare/publish API，不冒称三方事务或Windows/P7。见[实现与原件](validation/deployment-before-snapshot.md)。
