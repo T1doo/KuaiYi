@@ -1704,3 +1704,7 @@ Write compare修复固定树和ZIP独审限定ACK。Library libfile_7c3e6187e268
 固定树与ZIP原件独审限定ACK。Library libfile_9df832f4936481919ad31636349a170a v0，2,155,069B/227成员/226manifest，SHA2568a999dba70b089616c9776e8e146cb6a44d3bccd4d34e4965df65cf04b54b8e4；CRC/9项Git源码/raw191/旧169union/红绿/918inputs/17版本库存均核，无DLL本体；本地Library身份已核。证据仅三报告，产品b036357不变；三方postcommit新Ticket补偿、真实Windows正常入口/注册安装/native完整runtime/P7继续未交付，不将Committed=健康或保留原owner=回滚成功。
 
 原失败session→新补偿Ticket候选：同controller/原execution持续持有，独立Task/IO/journal，复核exact committed targets及旧G/B后H→Edge→Chrome→Bactive→Gcurrent逆序恢复；foreign/取消/partial/关闭未知停依赖保pending。Closing封闭原execution退役、所有fresh读取与terminal IO逐原Task/句柄结算，lastMove才Compensated；不复活旧Prepared/current-only rollback。独审取消三屏障同file r05 3F→r07 3P、cached关闭Task同file r11 1F→r13 1P；r03混代未到断言，r08旧39P不借为最终43。本片待固定新43+前191签收，旧未跑204明示；真实Windows/native/runtime/完整P7仍未签。见[合同和原件](validation/deployment-compensation.md)。
+
+原失败session补偿固定产品49cf34cf0492e14728c49c7bceff07565791d2e2：七普通managed0W/E，一次相关234P/0F/0skip＝新43+前片191，旧191多重集完整保留；旧204未跑不借记。920Git输入/17版本/14产品DLL建测摘要/4Core副本一致，340旧tests仅helper改变且原22方法正文byte一致。原execution始终原owner持有，H/Edge/Chrome/B/G补偿、原退役和全部关闭后lastMove才Compensated；pending/foreign/unknown无重放提升。真实Windows/native完整runtime/正常安装入口及旧会话健康/P7仍未签。
+
+固定树及ZIP原件独审限定ACK；Library libfile_9d3712aa554c81918a0b12161c49658a v0，2,423,467B/285成员/284manifest，SHA256869e2a07c46c6f73d4465b70fd62c46a74f80d059393bcc99dc6af1cba04849d。CRC/12Git原件/raw234/两组红绿/920输入与17版本摘要实核，无DLL本体。证据仅三报告，产品49cf不变；不签旧204/fullCore/真Windows或完整安装P7。

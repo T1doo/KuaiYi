@@ -8,8 +8,14 @@ Closing只在完整恢复且取消未赢时进入；专用retirement owner在原
 
 Unconfirmed仅可对原resources同owner关闭重试，缓存原Task、保全部错误与历史；不能重放/清pending/借新读洗白/提升成功。成功归档后的Settle为内存空结果。测试fixture分别保正文+清理错且join原settlement，未知原Task保Rig/Stop/root。
 
-候选原件在 `artifacts/2026-10-22-deployment-compensation`：r03三F均Mixed revision，未到取消断言，保原但不计目标红；七managed同步后r05三条真实目标F→r07同完整file三P（hold原registry复核取消、BeforeMutation取消、temporary准备后取消）。r08旧fixture矩阵39P；加强fixture保错后r11 cache原Task反例1F→r13同完整file1P，最终新43待固定签收，不把不同轮数相加。r01仅编译零用例（最初目录日期标签修正，原命令日志保留）。
+候选原件在 `artifacts/2026-10-22-deployment-compensation`：r03三F均Mixed revision，未到取消断言，保原但不计目标红；七managed同步后r05三条真实目标F→r07同完整file三P（hold原registry复核取消、BeforeMutation取消、temporary准备后取消）。r08旧fixture矩阵39P；加强fixture保错后r11 cache原Task反例1F→r13同完整file1P，最终新43已在固定树r15签收，不把不同轮数相加。r01仅编译零用例（最初目录日期标签修正，原命令日志保留）。
 
-前片191＝新22＋旧169，不是旧262；本轮计划新43＋前片191，旧Prepared等204范围明确未跑，不借旧通过数。原22方法从首Fact到EOF保持字节一致，修改仅其partial/测试辅助以复用原真实协调链；不删断言或提高时限。
+前片191＝新22＋旧169，不是旧262；本轮一次固定签收234P＝新43＋前片191，旧Prepared等204范围明确未跑，不借旧通过数。原22方法从首Fact到EOF保持字节一致，修改仅其partial/测试辅助以复用原真实协调链；不删断言或提高时限。
 
 真实Windows/medium/Explorer/浏览器/WPF/完整注册安装/P7未验，3 native DLL及完整自包含runtime缺件仍不能以结构fixture签可运行包；OCR/画质250/600ms未代签。不操作用户电脑、不新增权限/凭据/费用/许可或真实模型调用。尚无自动resume、fresh进程恢复、原失败提升或完整安装入口。
+
+固定产品 `49cf34cf0492e14728c49c7bceff07565791d2e2`：r14七普通managed构建0W/E；r15一次相关234P/0F/0skip（七类、234唯一显示名），原191多重集完整保留。920输入建测前后与Git一致；17项AssemblyInfo均含完整产品SHA，14产品DLL建测摘要相同，4处实际Core副本一致。370原src仅Admission/Session/Store改变并新增Compensation；340旧test仅复用helper改变，首Fact至EOF原22方法字节相同，其余旧tests/src与工具/依赖/锁/项目/工作流/扩展/打包/权限合同未改。42条新case带原合成child退出和原IO结算文本，另一条不借记该输出。
+
+原件Library `libfile_9d3712aa554c81918a0b12161c49658a` v0，2,423,467B，285成员/284manifest，SHA256 `869e2a07c46c6f73d4465b70fd62c46a74f80d059393bcc99dc6af1cba04849d`；已确认本地Library身份。ZIP保完整命令/原日志/TRX/红绿源码/输入及产物摘要，含12项Git原件，未含DLL本体，不冒称独立归档DLL重hash。ZIP中的三报告是冻结产品时的候选原件；本次证据提交只更新本报告、进展和JSON，不更改产品/测试/合同。
+
+固定树与原件独审限定ACK：CRC、284项大小/SHA及精确覆盖、安全路径、12项Git原件、raw234/旧191多重集/两组同file红绿/920四快照/17版本和建测库存均独立核对；没有重跑产品。只在本片内核及实际测试范围签收。
