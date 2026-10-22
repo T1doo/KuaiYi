@@ -1,0 +1,50 @@
+{
+  "status": "Pass",
+  "scope": "directed source wording/diff checks only; not WPF runtime",
+  "baseline_sha": "84116e106a12ab29d347bf7af4b0986bf9276f82",
+  "target": "src/KuaiYi.App/SettingsChrome.cs",
+  "only_product_change": "one TextBlock.Text literal",
+  "before": "默认 Off · 按次确认\\n设置不会自动发送内容",
+  "after": "默认 Off（未启用）\\n启用后可自动发送选区\\n保存设置本身不发送内容",
+  "other_product_files_unchanged": 345,
+  "actual_flow": [
+    "SelectionFlow.AcceptSelection -> QueueTranslation",
+    "TextTranslationOffer.RequiresConfirmation: OCR-only or scalars > configured soft limit",
+    "TextTranslationCoordinator.Submit -> Launch/Started for eligible unconfirmed ordinary selection"
+  ],
+  "not_run": [
+    "full suites",
+    "native WPF pixels",
+    "DPI",
+    "focus",
+    "high contrast",
+    "Windows250/600ms"
+  ],
+  "command": [
+    "python3",
+    "-B",
+    "scripts/session-sdk.py",
+    "build",
+    "src/KuaiYi.App/KuaiYi.App.csproj",
+    "--no-restore",
+    "-c",
+    "Release",
+    "-m:1",
+    "-nr:false",
+    "-p:UseSharedCompilation=false",
+    "-p:EnableWindowsTargeting=true"
+  ],
+  "app_build": {
+    "exit": 0,
+    "warnings": 0,
+    "errors": 0,
+    "git_head": "84116e106a12ab29d347bf7af4b0986bf9276f82",
+    "candidate_dirty": true,
+    "log_sha256": "347f3186fb07c19a2ec067437dbdbaec3ebd2a58b526e7dab97d9eabfa7e601e",
+    "dll_sha256": "f728d09f9c5b8579269854e82403f7f6fe395843a23336768d7064dd4b1fbdd7"
+  },
+  "target_sha256": "0ac62fb0baece061ade44f43d09164ba7bdefd47623925ea17fa23ab8a38d777",
+  "original_target_sha256": "34861b90fe9ee20f07e1f377400f88ce8a51ab5d574ea698b3e29ba68f86ae0a",
+  "executed_test_cases": 0,
+  "independent_source_review": "Limited ACK; wording matches ordinary selection automatic send, no production gate changes."
+}

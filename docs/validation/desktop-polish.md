@@ -27,3 +27,9 @@
 最终UI产品/测试源码提交 `b03541c468180e84de33731dafba7b7fd78c50e4`，872输入逐Git一致。执行时dirty候选HEAD/产物版本仍 `b473317311646ec7b1d36c88e8659ad18641033b`；没有仅为版本号重复无变化测试。相关259条属13真类，TRX以testId关联TestMethod.className计数；DisplayPreferencesTests76条。第一次summary误按参数化testName的小数点拆分出伪类名，独审发现后已修正，原错误summary保留；总259=新2+旧257及产品结果不受影响。
 
 原件Library确认 `libfile_7811cbea5c5881919759c41e1c92b8ed/v1`；649806B/94成员，ZIP SHA256 `af3ce2ba145fb6137e3bb30c602af45fc66c30f9bf5c28039967add25b295b38`。v0保留为证据分类更正前版本；v1保存后返回xattr、LibraryID与摘要复核成功。该归档含可离线打开的设计对照HTML及截图失败原文，不含WPF或Chromium截图。后续仅三报告提交；先前自有隔离stash逐8路径核等于已提交产品后移除，无待恢复代码。
+
+## 后续纠正文案 P2
+
+父级独审确认全局“默认 Off · 按次确认”会误导用户以为每次发送均弹确认。实际SelectionFlow.AcceptSelection直接QueueTranslation；TextTranslationOffer.RequiresConfirmation仅OCR文字或超过软上限为true，普通合格选区可进入Started。最小更正仅SettingsChrome同一TextBlock.Text：**默认 Off（未启用）／启用后可自动发送选区／保存设置本身不发送内容**。没有为迎合文字改任何业务门。
+
+[本片定向证据](../test-evidence/2026-10-22-settings-send-wording.json)记录基线84116e、逐字替换检查、其余345个产品源码文件与基线逐Git相同及完整App构建命令/日志摘要；[原始构建日志](../test-evidence/2026-10-22-settings-send-wording-app.log)为exit0/0W/0E。没有新增或执行测试用例、不借记旧259；本片只是文案/差异静态核验与候选交叉构建。独立只读限定ACK。原Library v1归档和HTML中的旧文案保留历史快照，自本片起不得视为当前产品说明；未覆盖旧证据。WPF真实像素、DPI、focus/highcontrast及原Windows边界仍NotRun。

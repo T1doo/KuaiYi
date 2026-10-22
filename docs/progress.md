@@ -1590,3 +1590,7 @@ ZIP CRC/全部176项manifest及三报告独审最终限定ACK，未发现事实�
 独立视觉任务failed且零写入，本环境唯一写入者完成分类P2独立提交后接手真实C#界面：设置导航/标题/表单卡片/保存区、浅深主题与枚举标签、浮窗矢量图标。原控件/事件/Content/Tag/几何与全部安全门保留；动态高对比glyph独审P2已纯外观修复，未调用业务Refresh。r03最终候选App0W/E、r04相关259P（新增Palette2+既有257），872输入无漂移，不计WPF运行。独审限定ACK，详见[接线、证据及真实边界](validation/desktop-polish.md)。离线HTML设计对照的Chromium截图被现有sandbox helper配置阻断；未关sandbox/改权限，真实像素/焦点/高对比/DPI/Windows均未验。不重复后端完整套件，不增加安装/权限/费用。
 
 UI源码b03541c468180e84de33731dafba7b7fd78c50e4已核872测试输入逐Git一致；原candidate b473 dirty执行/产物版本如实分列，不无变化重复测试。独审核259全Passed、原257+新2，13真类；一处参数化testName按小数点误分类摘要已改为TRX testId→className，原错误摘要保留，无产品重测。原件Library libfile_7811cbea5c5881919759c41e1c92b8ed/v1，649806B/94成员，SHA256 af3ce2ba145fb6137e3bb30c602af45fc66c30f9bf5c28039967add25b295b38；返回元数据/摘要复核。截图环境失败/原生Windows未验保持，随后仅三报告推送。
+
+## 2026-10-22 更正设置全局发送提示
+
+父级独审P2：全局“按次确认”误称普通选区均需额外确认。仅更正SettingsChrome同TextBlock为“默认 Off（未启用）／启用后可自动发送选区／保存设置本身不发送内容”，业务与来源/隐私/清理门完全不改。其余345个src文件逐Git与84116e一致；定向文字/单字面量差异核验Pass，正常App候选交叉构建0W/0E。独立只读限定ACK，无新增/执行测试用例或全套重刷。原UI归档旧文案是历史快照、以本片纠正为准；真实WPF像素/DPI/焦点/高对比仍未验。见[文案更正及原日志](validation/desktop-polish.md)。
