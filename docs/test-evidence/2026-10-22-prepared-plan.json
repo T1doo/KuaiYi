@@ -1,0 +1,24 @@
+{
+  "base": "99933aebc942e8e94644386bc40330a7a61ab796",
+  "status": "CandidatePassLimited",
+  "scope": "Bounded original-scope Prepared seal and AbortAfterPrepared only; no forward publication or compensation",
+  "artifactRoot": "artifacts/2026-10-22-prepared-plan",
+  "candidate_runs": {
+    "r01": "7normal managed builds0W/E0tests",
+    "r02": "late target payload modification wrongly qualifies1F,error=null",
+    "r03": "Launcher normal build0W/E,refresh original Core copy",
+    "r04": "same complete testfile1P",
+    "r05": "26P0F0skip candidate",
+    "r06": "Launcher normal build0W/E0tests",
+    "r07": "28P0F0skip final candidate"
+  },
+  "review": "Independent read-only limited source and candidate evidence ACK; fixed signoff pending",
+  "rounds_added_together": false,
+  "remaining": [
+    "No forward publication/reverse compensation/Committed/recovery",
+    "No canonical bootstrap/registry/identity/installer/Windows P7 acceptance",
+    "G native/runtime fixtures do not prove runnable self-contained Windows payload",
+    "Real Windows/medium/browser/WPF/OLE/OCR/quality/250600 NotRun"
+  ],
+  "no_new_permissions_licenses_credentials_fees_or_model_calls": true
+}

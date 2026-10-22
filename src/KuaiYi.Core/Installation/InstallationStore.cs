@@ -150,6 +150,17 @@ public sealed partial class InstallationStore
     {InstallationPaths.Check(directory);string marker=Path.Combine(directory,"owner.txt");if(!File.Exists(marker)||!InstallationPackage.ReadDocument(marker,128).AsSpan().SequenceEqual(Encoding.UTF8.GetBytes(Owner)))throw new InstallationRecoveryException("Unknown installation owner retained.");}
     private void RequireStopped(){if(!rolesStopped())throw new InstallationBusyException();}
     private static byte[] Encode(Pointer pointer)=>JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=1,active=Write(pointer.Active),previous=pointer.Previous==null?null:Write(pointer.Previous)});
+    internal static (byte[] Target,InstalledVersion? Before) PlanCurrent(string root,byte[]? before,InstalledVersion next,CancellationToken cancellation,InstallationPreparationIO io)
+    {
+        string id=Path.GetFileName(next.DirectoryPath);if(!Guid.TryParseExact(id,"N",out _)||next.DirectoryPath!=Path.Combine(root,"versions",id))throw new InstallationRecoveryException("Next generation is outside the original root.");
+        var prior=before==null?null:Parse(before);InstalledVersion? old=null;
+        if(prior!=null)
+        {
+            string directory=Path.Combine(root,"versions",prior.Active.Id);var package=InstallationPackage.ReadInstalled(directory,cancellation,expectedDigest:prior.Active.CatalogSha256,io:io);
+            if(package.Schema!=3)throw new InstallationRecoveryException("Previous current is not a qualified v3 payload.");old=new(package.Manifest.Version,directory,package.CatalogSha256);
+        }
+        byte[] target=Encode(new(new(id,next.CatalogSha256),prior?.Active));if(target.Length>4096)throw new InvalidDataException("Target current exceeds consumer bound.");return(target,old);
+    }
     private static object Write(Reference reference)=>new{id=reference.Id,catalogSha256=reference.CatalogSha256};
     private static Pointer Parse(byte[] bytes)
     {

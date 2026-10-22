@@ -3,6 +3,7 @@ using System.Text.Json;
 using KuaiYi.Core.Installation;
 using KuaiYi.Core.Integration;
 using KuaiYi.Core.Settings;
+using Ownership=KuaiYi.Core.Installation.InstallationHostOwnership;
 namespace KuaiYi.NativeHost;
 
 // Exactly two physical HKCU slots. WOW64 views of these keys are not independent slots.
@@ -24,7 +25,6 @@ internal sealed class HostRegistrationUnconfirmedException(Exception failure):IO
 /// It does not prove that browser-started NativeHosts are stopped, or authorize an installation.</summary>
 internal sealed class HostRegistrationTransaction(string root,string userData,IHostRegistrationStore registry)
 {
-    private sealed record Ownership(int SchemaVersion,string Product,Guid Owner,InstalledVersion Version,string Manifest);
     private sealed record Intent(int SchemaVersion,string Product,Guid Operation,bool Register,string Manifest,Ownership? Before,HostRegistrationSlot Chrome,HostRegistrationSlot Edge);
     private sealed record Attempt(IntegrationBrowser Browser,HostRegistrationSlot Before,string? After);
     private int busy;

@@ -1677,3 +1677,5 @@ G固定树与ZIP原件独审限定ACK。Library libfile_21975d63d5188191ae33535d
 B只准备固定产品f23bdcf387cfacb7d9c187c8c27739f1f7a97eb0：七普通managed构建0W/E，一次141P/0F/0skip＝B30+G28+Scope25+Before23+旧BootstrapDeployment35。909Git输入/17目标版本/4实际Core副本一致，335原测试文件未变；同文件原B错误保全红绿与混合产物失败诊断保留，不借旧数字。仅inactive B，Prepared/三方提交/canonical入口/Windows仍未签。
 
 B固定树与ZIP原件独审限定ACK；Library libfile_d4d833ce83fc8191b658d54379a20274 v0，1,546,947B/179成员/178manifest，SHA25677c02c171d5341a48a9d5006bac48a81e5fc737f2ed08de9ed407296674a249e。CRC/10份Git源码/raw141/红绿/混代Core诊断/17版本均核，无DLL本体；证据只三报告，产品f23bdcf不变，下一片仍需Prepared与canonical发布设计，不当安装成功。
+
+Prepared候选：同scope exact G/B＋原registry owner，原IO核旧current v3/Host与bootstrap真实归属，编码有界current/owner/receipt与B canonical映射，计划完整Flush/Close/exact后inner Task同锁完成资格；取消前后胜序与AbortAfterPrepared/SHA分开，partial/foreign/unknown保pending，零发布。registry挂起期间目标被改误签真实1F→1P同file，r05 26P/r07 28P分列，候选独审ACK，待固定相关签收。无前向/补偿/Windows假验。见[实现和原件](validation/prepared-plan.md)。

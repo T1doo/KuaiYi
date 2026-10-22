@@ -2,7 +2,7 @@ using System.Reflection.PortableExecutable;
 using System.Security.Cryptography;
 namespace KuaiYi.Core.Installation;
 
-internal enum GenerationPreparationStage { SourceVerified,IntentWritten,SourceCopied,MetadataWritten,StagingVerified,DirectoryMoved,FinalVerified,BeforeCredential }
+internal enum GenerationPreparationStage { SourceVerified,IntentWritten,SourceCopied,MetadataWritten,StagingVerified,DirectoryMoved,FinalVerified,BeforeCredential,BeforeQualification,AfterQualification }
 internal sealed class InstallationPreparationFaults
 {
     internal Action<string,string,IDisposable>? Acquired {get;init;}
@@ -27,6 +27,7 @@ internal sealed class InstallationPreparationIO(string source,string staging,str
     private List<Metadata> metadata=>ledger.Metadata;
     private bool storageUnconfirmed{get=>ledger.StorageUnconfirmed;set=>ledger.StorageUnconfirmed=value;}
     private string? additionalReadRoot;
+    private bool metadataOnly;
     internal bool StorageUnconfirmed=>storageUnconfirmed;
     internal bool CleanupConfirmed {get{lock(sync)return resources.Count==0;}}
     private sealed class Operation(InstallationPreparationIO owner)
@@ -66,7 +67,7 @@ internal sealed class InstallationPreparationIO(string source,string staging,str
         InstallationPaths.Check(path);
     }
     private void Writable(string path)
-    {if(!InstallationPaths.Contains(staging,Path.GetFullPath(path))&&path!=intent)throw new InvalidDataException("Write is outside the original inactive candidate.");InstallationPaths.Check(path);}
+    {if(path!=intent&&(metadataOnly||!InstallationPaths.Contains(staging,Path.GetFullPath(path))))throw new InvalidDataException("Write is outside the original inactive candidate.");InstallationPaths.Check(path);}
     private FileStream Open(Operation operation,string kind,string path,FileMode mode,FileAccess access)
     {
         if(access==FileAccess.Read)Readable(path);else Writable(path);
@@ -141,6 +142,7 @@ internal sealed class InstallationPreparationIO(string source,string staging,str
     }
     internal void CopyPayload(string from,string to,InstallationFile entry)
     {
+        if(metadataOnly)throw new InvalidOperationException("Prepared channel cannot copy payload.");
         RequireSettled();
         Writable(to);Directory.CreateDirectory(Path.GetDirectoryName(to)!);InstallationPaths.Check(Path.GetDirectoryName(to)!);
         _=Execute(operation=>
@@ -186,12 +188,14 @@ internal sealed class InstallationPreparationIO(string source,string staging,str
     }
     internal void CreateStaging()
     {
+        if(metadataOnly)throw new InvalidOperationException("Prepared channel cannot create staging.");
         RequireSettled();
         RequireAbsent(staging);
         try{Directory.CreateDirectory(staging);InstallationPaths.Check(staging);}catch{storageUnconfirmed=true;throw;}
     }
     internal void MoveToFinal()
     {
+        if(metadataOnly)throw new InvalidOperationException("Prepared channel cannot move directories.");
         RequireSettled();
         string versions=Path.GetDirectoryName(destination)!;InstallationPaths.Check(versions);Directory.CreateDirectory(versions);InstallationPaths.Check(versions);RequireAbsent(destination);
         try{if(faults?.Move!=null)faults.Move(staging,destination);else Directory.Move(staging,destination);}
@@ -201,6 +205,11 @@ internal sealed class InstallationPreparationIO(string source,string staging,str
     // The original G scope lends a channel, not a new resource ledger or independent cleanup authority.
     internal InstallationPreparationIO CreateBootstrapChannel(string bootstrapSource,string bootstrapStaging,string bootstrapDestination,string bootstrapIntent,InstallationPreparationFaults? bootstrapFaults)
     {RequireSettled();return new(bootstrapSource,bootstrapStaging,bootstrapDestination,bootstrapIntent,cancellation,bootstrapFaults){ledger=ledger,additionalReadRoot=destination};}
+    internal InstallationPreparationIO CreatePreparedChannel(string root,string plan,InstallationPreparationFaults? preparedFaults)
+    {RequireSettled();return new(root,root,root,plan,cancellation,preparedFaults){ledger=ledger,metadataOnly=true};}
+    internal void MarkUnconfirmed()=>storageUnconfirmed=true;
+    internal void RequireDirectory(string path)
+    {Readable(path);var attributes=File.GetAttributes(path);if((attributes&(FileAttributes.Directory|FileAttributes.ReparsePoint|FileAttributes.Device))!=FileAttributes.Directory)throw new InstallationRecoveryException("Owned container is not a regular directory.");}
     internal void Stage(GenerationPreparationStage stage)=>faults?.Stage?.Invoke(stage);
     private void RequireSettled(){if(!CleanupConfirmed)throw new InstallationRecoveryException("Original preparation resources remain unsettled.");cancellation.ThrowIfCancellationRequested();}
 }

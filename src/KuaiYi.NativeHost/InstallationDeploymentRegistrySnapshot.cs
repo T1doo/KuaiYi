@@ -2,14 +2,24 @@ using KuaiYi.Core.Installation;
 namespace KuaiYi.NativeHost;
 
 // Observation only. These slots do not establish ownership or authorize a registration write.
-internal sealed class InstallationDeploymentRegistrySnapshot(IHostRegistrationStore registry):IInstallationDeploymentSnapshotRead
+internal sealed class InstallationDeploymentRegistrySnapshot(IHostRegistrationStore registry):IInstallationDeploymentPreparedRead
 {
     private readonly object sync=new();
     private Task<InstallationDeploymentRegistrationSnapshot>? capture;
     private Task? verification;
+    private Task<InstallationDeploymentRegistrationSnapshot>? preparation;
     private InstallationDeploymentRegistrationSnapshot? observed;
     public bool CleanupConfirmed
-    {get{lock(sync)return registry.CleanupConfirmed&&(capture==null||capture.IsCompleted)&&(verification==null||verification.IsCompleted);}}
+    {get{lock(sync)return registry.CleanupConfirmed&&(capture==null||capture.IsCompleted)&&(verification==null||verification.IsCompleted)&&(preparation==null||preparation.IsCompleted);}}
+    public Task<InstallationDeploymentRegistrationSnapshot> ReadForPreparationAsync()
+    {
+        lock(sync)
+        {
+            if(capture is not{IsCompletedSuccessfully:true}||observed==null||preparation!=null||verification!=null)throw new InvalidOperationException("Original registry preparation read is not available.");
+            var begin=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+            preparation=Task.Run(async()=>{await begin.Task.ConfigureAwait(false);var now=ReadSlots();if(now!=observed)throw new HostRegistrationConflictException();return now;});begin.SetResult();return preparation;
+        }
+    }
     public Task<InstallationDeploymentRegistrationSnapshot> CaptureAsync()
     {
         lock(sync)
@@ -43,7 +53,7 @@ internal sealed class InstallationDeploymentRegistrySnapshot(IHostRegistrationSt
     {
         lock(sync)
         {
-            if(capture is {IsCompleted:false}||verification is {IsCompleted:false})throw new InvalidOperationException("Join the original registry task before closing.");
+            if(capture is {IsCompleted:false}||verification is {IsCompleted:false}||preparation is{IsCompleted:false})throw new InvalidOperationException("Join the original registry task before closing.");
             registry.FinalizeCleanup();
             if(!registry.CleanupConfirmed)throw new IOException("Original registry resources remain unsettled.");
             return Task.CompletedTask;

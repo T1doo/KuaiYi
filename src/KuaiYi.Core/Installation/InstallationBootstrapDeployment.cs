@@ -148,14 +148,15 @@ internal sealed class InstallationBootstrapDeployment(string root,string userDat
         if(RequireReceipt(root,data,owner,active,cancellation).Generation!=selected)throw new InstallationRecoveryException("Bootstrap selection generation differs.");
         InstallationControlledLaunch.Exact(OwnerPath(root),ownerBytes,OwnerLimit);InstallationControlledLaunch.Exact(ActivePath(root),active,ReceiptLimit);Absent(PendingPath(root));
     }
-    internal static Receipt RequireReceipt(string root,string data,StoreOwner owner,byte[] bytes,CancellationToken cancellation)
+    internal static Receipt RequireReceipt(string root,string data,StoreOwner owner,byte[] bytes,CancellationToken cancellation,InstallationPreparationIO? io=null)
     {
         var value=Decode<Receipt>(bytes);RequireOwner(owner,root,data);
         if(value.SchemaVersion!=1||value.Product!="KuaiYi"||value.Mode!=InstallationBootstrapPackage.Mode||value.Owner!=owner.Owner||value.Bundle==Guid.Empty||!InstallationPackage.HashValid(value.CatalogSha256)||value.Generation==null||InstallationNormalEntry.FindInstallationRoot(value.Generation.DirectoryPath)!=root)throw new InstallationRecoveryException("Unknown bootstrap ownership retained.");
-        if(InstallationPayload.RequireMaterialized(value.Generation.DirectoryPath,cancellation).CatalogSha256!=value.Generation.CatalogSha256)throw new InstallationRecoveryException("Bootstrap generation changed.");
-        var (_,revision)=InstallationBootstrapPackage.Read(BundlePath(root,value.Bundle),value.CatalogSha256,value.Generation,cancellation);if(revision!=value.Revision)throw new InstallationRecoveryException("Bootstrap build binding differs.");return value;
+        var generation=io==null?InstallationPayload.RequireMaterialized(value.Generation.DirectoryPath,cancellation):InstallationPackage.ReadInstalled(value.Generation.DirectoryPath,cancellation,expectedDigest:value.Generation.CatalogSha256,io:io);
+        if(generation.Schema!=3||generation.CatalogSha256!=value.Generation.CatalogSha256)throw new InstallationRecoveryException("Bootstrap generation changed.");
+        var (_,revision)=InstallationBootstrapPackage.Read(BundlePath(root,value.Bundle),value.CatalogSha256,value.Generation,cancellation,io);if(revision!=value.Revision)throw new InstallationRecoveryException("Bootstrap build binding differs.");return value;
     }
-    private static void RequireOwner(StoreOwner owner,string root,string data)
+    internal static void RequireOwner(StoreOwner owner,string root,string data)
     {if(owner.SchemaVersion!=1||owner.Product!="KuaiYi"||owner.Owner==Guid.Empty||owner.Root!=root||owner.UserData!=data)throw new InstallationRecoveryException("Unknown bootstrap store owner retained.");}
     internal static T Decode<T>(byte[] bytes)where T:class
     {var value=JsonSerializer.Deserialize<T>(bytes)??throw new InstallationRecoveryException("Missing bootstrap metadata.");if(!bytes.AsSpan().SequenceEqual(JsonSerializer.SerializeToUtf8Bytes(value)))throw new InstallationRecoveryException("Unknown/noncanonical bootstrap metadata retained.");return value;}
