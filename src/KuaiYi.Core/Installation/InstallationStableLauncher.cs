@@ -24,6 +24,7 @@ public sealed class InstallationStableLauncher:IAsyncDisposable
     private bool closingReceived,exitReadyReceived,finalized,publicationClosed,disposeRequested;
     private Task? stopCancellation;
     internal Func<Stream,Stream>? WriteStreamForTest{get;init;}
+    internal BootstrapBinding? Bootstrap{get;init;}
     public InstallationStableLauncher(string root,string userData,TimeSpan? budget=null,IOwnedProcessStarter? starter=null)
     {
         this.root=InstallationPaths.Root(root);this.userData=InstallationPaths.Root(userData);this.budget=budget??TimeSpan.FromSeconds(10);
@@ -44,7 +45,7 @@ public sealed class InstallationStableLauncher:IAsyncDisposable
         using var registration=linked.Token.Register(Revoke);
         try
         {
-            selectionWork=Task.Run(()=>InstallationStableSelection.Select(root,userData,linked.Token));selection=await selectionWork.WaitAsync(budget,linked.Token).ConfigureAwait(false);
+            selectionWork=Task.Run(()=>InstallationStableSelection.Select(root,userData,linked.Token,Bootstrap));selection=await selectionWork.WaitAsync(budget,linked.Token).ConfigureAwait(false);
             linked.Token.ThrowIfCancellationRequested();
             var info=new ProcessStartInfo(Path.Combine(selection.Version.DirectoryPath,"KuaiYi.App.exe")){WorkingDirectory=selection.Version.DirectoryPath,UseShellExecute=false,CreateNoWindow=true,RedirectStandardInput=true,RedirectStandardOutput=true,RedirectStandardError=true};
             info.ArgumentList.Add("--installation-controller");info.ArgumentList.Add(selection.Nonce.ToString("N"));

@@ -36,6 +36,7 @@ public sealed record InstallationControlledLaunch(Guid Launch,string Role,string
         string pending=Path.Combine(Root,"upgrade-pending.json");InstallationPaths.Check(pending);
         if(UpgradeRecord==null){if(File.Exists(pending)||Directory.Exists(pending))throw new InstallationRecoveryException("Unexpected pending upgrade retained.");}
         else Exact(pending,Convert.FromBase64String(UpgradeRecord),16384);
+        InstallationBootstrapDeployment.Absent(InstallationBootstrapDeployment.PendingPath(Root));
         if(new InstallationStore(Root,UserData,()=>false).ReadActive(cancellation)!=Version)throw new InstallationRecoveryException("Controlled launch generation changed.");
     }
     // Bounded live-record checks only. Full payload verification belongs to retained background work.
@@ -44,7 +45,7 @@ public sealed record InstallationControlledLaunch(Guid Launch,string Role,string
         if(UpgradeRecord!=null)throw new InstallationRecoveryException("Image ingress requires a normal session.");
         Exact(System.IO.Path.Combine(Root,"execution-owner.json"),Convert.FromBase64String(OwnerRecord),1024);
         Exact(System.IO.Path.Combine(Root,"current.json"),Convert.FromBase64String(CurrentRecord),4096);
-        foreach(string name in new[]{"upgrade-pending.json","handoff-pending.json","host-registration-pending.json"})
+        foreach(string name in new[]{"upgrade-pending.json","handoff-pending.json","host-registration-pending.json","bootstrap-deployment-pending.json"})
         {string pending=System.IO.Path.Combine(Root,name);InstallationPaths.Check(pending);if(File.Exists(pending)||Directory.Exists(pending))throw new InstallationRecoveryException("Pending transition blocks image ingress.");}
         Exact(PathFor("accepted"),Bytes());
         RequireHeldLease(System.IO.Path.Combine(Root,"upgrade.lock"));RequireHeldLease(System.IO.Path.Combine(Root,"execution-owner.lock"));

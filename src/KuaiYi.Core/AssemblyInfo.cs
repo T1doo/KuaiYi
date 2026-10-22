@@ -7,3 +7,5 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("KuaiYi.App")]
 [assembly: InternalsVisibleTo("KuaiYi.Provider.Tests")]
 [assembly: InternalsVisibleTo("KuaiYi.NativeHost")]
+
+[assembly: InternalsVisibleTo("KuaiYi.Launcher")]

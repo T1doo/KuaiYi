@@ -1645,3 +1645,5 @@ P2修复固定原件独审限定ACK，105结果/89既有/884输入/14目标与�
 稳定启动源码21269b1336cd2b0188b771ccab331f0392716125固定签收：7正常managed构建命令0W/E；一次相关310P/0F/0skip（290既有+20新，13类），892输入与16目标版本核对通过。旧586/105和样本保留；audit绝对/相对样本索引错误原件保留并修正，未重测产品。稳定部署/统一安装/真实Windows与自包含缺件仍未签，P7整体InProgress。
 
 稳定入口本片独审限定ACK与原件ZIP核对完成；Library libfile_82335144dbf88191b6931893a0b690a3（v0，1,945,681B/294members/293manifest，SHA256 f5a435a7946a6a48869a9371a653c82b0e3773af158d0d0e4bc41ee19e8c42a5）。本次证据提交仅三报告，产品21269b1不变，实际Windows/完整可运行安装包仍未签。
+
+稳定bootstrap不可变部署/替换/撤销内部基元候选：精确五运行文件+catalog、持久root/data归属、atomic active、exact回滚与pending失败关闭；实际Program immutable入口与controller内绑定重核已接。候选r07 60P/0F/0skip（新40+原20），Entry原句柄/metadata界限独审问题已修，待固定树签收。FDD明确无runtime，固定locator/跨资源统一安装和真实Windows/P7未完成。

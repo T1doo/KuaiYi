@@ -86,7 +86,8 @@ public sealed partial class InstallationStore
             if(execution!=null)admission.Attach(execution);
             else if(File.Exists(InstallationExecutionOwnership.RecordPath(directory))||Directory.Exists(InstallationExecutionOwnership.RecordPath(directory)))throw new InstallationRecoveryException("Existing execution owner retained; launch and mutation blocked.");
             if(File.Exists(InstallationBrowserHostSession.PathFor(directory))||Directory.Exists(InstallationBrowserHostSession.PathFor(directory))||File.Exists(PendingPath)||Directory.Exists(PendingPath)||File.Exists(Path.Combine(directory,"handoff-pending.json"))||Directory.Exists(Path.Combine(directory,"handoff-pending.json"))||
-                File.Exists(Path.Combine(directory,"host-registration-pending.json"))||Directory.Exists(Path.Combine(directory,"host-registration-pending.json")))throw new InstallationRecoveryException("Pending or unknown upgrade/handoff/registration retained; launch and mutation blocked.");return admission;
+                File.Exists(Path.Combine(directory,"host-registration-pending.json"))||Directory.Exists(Path.Combine(directory,"host-registration-pending.json"))||
+                File.Exists(InstallationBootstrapDeployment.PendingPath(directory))||Directory.Exists(InstallationBootstrapDeployment.PendingPath(directory)))throw new InstallationRecoveryException("Pending or unknown upgrade/handoff/registration retained; launch and mutation blocked.");return admission;
         }
         catch{admission.Dispose();throw;}
     }

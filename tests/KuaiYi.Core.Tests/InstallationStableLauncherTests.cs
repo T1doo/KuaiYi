@@ -6,7 +6,7 @@ using Xunit;
 using Xunit.Abstractions;
 namespace KuaiYi.Core.Tests;
 
-public sealed class InstallationStableLauncherTests(ITestOutputHelper output)
+public sealed partial class InstallationStableLauncherTests(ITestOutputHelper output)
 {
     private static readonly TimeSpan Limit=TimeSpan.FromSeconds(12);
     private static TaskCompletionSource Signal()=>new(TaskCreationOptions.RunContinuationsAsynchronously);
