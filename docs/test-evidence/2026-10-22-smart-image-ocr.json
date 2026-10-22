@@ -43,11 +43,43 @@
     "skipped": 0,
     "exit": 0
   },
-  "fixed_signoff": "Pending targeted Provider and App/Worker only",
-  "independent_review": "Design and three P2 original red/green/source limited ACK; final pending",
+  "fixed_signoff": {
+    "run": "r10-frozen-targeted",
+    "scope": "Related 12 Provider classes only; not full suite",
+    "passed": 458,
+    "failed": 0,
+    "skipped": 0,
+    "exit": 0,
+    "old_selected_retained": 418,
+    "new_tests": 40,
+    "App": "exit0/0W/0E",
+    "Worker": "exit0/0W/0E",
+    "inputs": 864,
+    "drift": false,
+    "git_mismatches": 0,
+    "target_assembly_versions_matching": 4,
+    "dll_inventory_not_executed_count": 339
+  },
+  "independent_review": "Design/source/three P2 same-source red-green/r10 originals and reports/ZIP CRC and all 336 member hashes limited ACK; no new P1/P2",
   "full_Core_Provider_Codec": "NotRun; not borrowed prior results",
   "Windows_quality_performance": "NotRun",
   "model_calls": "None",
   "dependencies_permissions_workflows": "Unchanged",
-  "production_reuse": "Off"
+  "production_reuse": "Off",
+  "product_and_test_sha": "bef61b5f2935a4d44851b461c48e844c13f75250",
+  "library": {
+    "library_file_id": "libfile_0ed7d88d3e08819182e4962783ea2391",
+    "status": "succeeded",
+    "versions": [
+      {
+        "current_version_number": 0
+      }
+    ],
+    "zip_sha256": "5013147b489f670ec8e23fbae64c1df2f6abce985ae44c508cbaf7b499f31000",
+    "bytes": 2225210,
+    "members": 337,
+    "version": 0,
+    "local_xattr_verified": true,
+    "zip_unchanged_after_upload": true
+  }
 }

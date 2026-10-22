@@ -24,7 +24,7 @@ Automatic在生产协调器Prepare/IsOfferCurrent/Submit要求same批准，不�
 - 原视觉回归助手改默认显式TranslateText，保留预处理/设置暂停/两阶段同图原断言；显式Automatic使用实际OCR协调器批准，新增Smart来源例覆盖file/browser/bitmap。测试桥提供async批准，遗留同步UI端口检测持Gate并拒绝阻塞；生产流程从始至终async await。8个风格例按本片正式纯文字行为改为精确原PromptBuilder system/version，另核OCR元数据和Plan无正文。
 - r07/r08仅新夹具将Rig.Image扩为基类后target-typed new漏改导致CS0144编译失败；均0测试/无TRX，不算产品红。r07通用无TRX字段Unknown不用于计数，编译日志证明0执行。补显式OwnedSourceImage构造后r09相关18P0F0skip（含已见7失败对应、原两阶段视觉与三类非桌面Smart来源）。
 
-r01输入861、r02输入863、r03—r09各864；各轮自身输入前后不变；dirty候选轮不冒称固定提交。随后冻结产品/测试，只执行与改动相关Provider选择及App/Worker构建，完整Core/Provider/Codec本片NotRun，不相加轮次，不借记旧结果。固定签收SHA和准确结果随后填写。
+r01输入861、r02输入863、r03—r09各864；各轮自身输入前后不变；dirty候选轮不冒称固定提交。随后冻结产品/测试，只执行与改动相关Provider选择及App/Worker构建，完整Core/Provider/Codec本片NotRun，不相加轮次，不借记旧结果。r10固定产品/测试 `bef61b5f2935a4d44851b461c48e844c13f75250`，相关Provider **458P/0F/0skip/exit0**，原选定418全名多重集均保留、新40；App/Worker各exit0/0W/0E。明确filter仅相关12类，不是完整Provider。864输入执行前/每阶段后/最终完全一致且匹配固定Git，4个目标AssemblyInformationalVersion均含此完整SHA；339 DLL当前摘要一致，是库存而非用例数。完整命令、日志、TRX和失败XML均保全，最终原件/源码/报告获独立限定ACK，未见新增P1/P2；ZIP经独立CRC及逐成员核验，337唯一成员/2,225,210B，SHA256 `5013147b489f670ec8e23fbae64c1df2f6abce985ae44c508cbaf7b499f31000`；Library确认 `libfile_0ed7d88d3e08819182e4962783ea2391/v0`，上传后本地xattr与ZIP摘要不变复核通过。包内报告为上传前快照，最终仅追加此保存回执，不循环改写原件。
 
 ## 验收边界
 

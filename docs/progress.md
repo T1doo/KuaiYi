@@ -1550,3 +1550,9 @@ r08冻结7260f66完整Core2225P0F、Provider2492P1F，851输入Git一致；失�
 ## 2026-10-22：SPEC7.4 智能图片联动本地 OCR
 
 原环境单writer从5f0a0c3继续正常主路径：明确语言→原Worker结算→本地预览批准→独立发送确认；协调器强制Automatic一次批准，text_only+clear正式仅批准文字，同vision端点/风格；其他图文原图、非法分类停止，旧OCR-only独立文字不变。3项独审P2以r03同8例全红→r04全绿闭合；r05 Smart37P。r06相关轮7个stdout失败后自有执行取消，完整计数Unknown/无TRX/exit1，不用runner错误0字段；旧视觉夹具改显式模式保原断言、挂起仅有Gate同步桥候选不追认唯一根因。r07/08新夹具构造编译失败0执行，r09对应与来源18P。轮次不相加，冻结后只跑必要相关选择与App/Worker，不重刷完整套件。详见[实现、原件与边界](validation/smart-image-ocr.md)。生产复用Off/PackageHold/来源清理发送门保持，Windows/真实OCR质量/250600仍未验，不称P6/P7完成。
+
+
+冻结产品/测试bef61b5f2935a4d44851b461c48e844c13f75250的r10相关12类Provider458P0F0skip/exit0，原418全保留+新40；App/Worker各0W/E。864输入前后=Git、4目标版本同SHA，339DLL仅库存。未跑完整Core/Provider/Codec，轮次不累加；随后只证据归档，不扩本片。Windows/原生OCR效果/250600/整体P6P7仍未验。
+
+
+最终原件/三报告及337成员ZIP独立限定ACK；Library确认libfile_0ed7d88d3e08819182e4962783ea2391/v0，2225210B/SHA256 5013147b489f670ec8e23fbae64c1df2f6abce985ae44c508cbaf7b499f31000，上传后xattr/hash核验。后续只这3报告提交，产品/测试仍bef61b5，真实Windows/OCR质量性能与整体阶段未验保持。
