@@ -121,11 +121,63 @@
       "unit_results": 3
     }
   },
-  "fixed_signoff": "Pending frozen tree; no borrowed results",
+  "fixed_signoff": {
+    "runs": [
+      "r06-frozen-related",
+      "r07-frozen-app",
+      "r08-frozen-worker"
+    ],
+    "scope": "Related 12 Provider classes only; not full suite",
+    "passed": 501,
+    "failed": 0,
+    "skipped": 0,
+    "exit": 0,
+    "App": "Release cross-build exit0/0W/0E",
+    "Worker": "Release cross-build exit0/0W/0E",
+    "head": "e00d8e15dbc1daf7a887bf403939728eb38dbc07",
+    "inputs": 865,
+    "input_snapshots_equal_git": true,
+    "matching_target_assembly_versions": 4,
+    "dll_inventory_not_execution_count": 339,
+    "current_dll_hashes_match": true,
+    "old_selected_retained": 458,
+    "new_tests": 43,
+    "removed_old_tests": [],
+    "actual_executed": 501,
+    "all_passed": true,
+    "per_class": {
+      "BrowserImagePreparationTests": 10,
+      "FileImageOcrTests": 58,
+      "FileImageSourceTests": 32,
+      "OcrCapabilitiesDiscoveryTests": 58,
+      "OcrCapabilitiesProtocolTests": 18,
+      "OcrOnlyTests": 80,
+      "OverlayClearContentTests": 41,
+      "ProductionScreenshotSecretStoreTests": 2,
+      "ProductionScreenshotShellTests": 17,
+      "ProductionScreenshotTranslationTests": 137,
+      "ScreenshotRecaptureRecoveryTests": 24,
+      "ScreenshotStyleTests": 24
+    }
+  },
   "full_Core_Provider_Codec": "NotRun",
   "Windows_OCR_WPF_quality_performance": "NotRun",
   "model_calls": "None; existing offline loopback synthetic only",
   "dependencies_permissions_workflows": "Unchanged",
   "production_reuse": "Off",
-  "artifacts": "artifacts/2026-10-22-smart-vision"
+  "artifacts": "artifacts/2026-10-22-smart-vision",
+  "product_and_test_sha": "e00d8e15dbc1daf7a887bf403939728eb38dbc07",
+  "independent_review": "Design, production diff, pending/cleanup/Shell originals, fixed e00d8e15 originals, three reports and ZIP independently reviewed; limited ACK, no new P1/P2",
+  "library": {
+    "library_file_id": "libfile_4e21f75a874c8191a1025bf286ddd1f9",
+    "version": 0,
+    "status": "succeeded",
+    "zip_sha256": "eeea23f06790a8add475c63f1d5f4fc899aee9cfeced3c5f527e992e53480110",
+    "bytes": 1751547,
+    "members": 177,
+    "manifest_members": 176,
+    "local_xattrs_verified": true,
+    "zip_unchanged_after_upload": true,
+    "independent_crc_and_all_manifest_hashes_verified": true
+  }
 }

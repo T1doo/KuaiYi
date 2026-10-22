@@ -1560,3 +1560,11 @@ r08冻结7260f66完整Core2225P0F、Provider2492P1F，851输入Git一致；失�
 ## 2026-10-22 智能图片显式视觉继续
 
 核实 SPEC7.4/7.5 主路径缺口：原 Automatic 在无语言/空 OCR 时分类前结束。按独审最小设计实现当前良性 OCR outcome→独立“使用视觉继续”→原 BYOK 发送确认；共用一次性 SmartImageApproval/原任务结算，视觉 final 即使 text_onlyclear 也保留原图，不伪造 OCR 文字批准。身份/协议/取消/超时/清理失败仍拒绝，不自动 fallback。r01 新视觉39P、r02 App0W/E、r03相关399P、r04真实pending屏障1P，各865输入无漂移；均dirty候选，不相加。冻结后相关范围及 SHA 见 [本片接线与证据](validation/smart-image-vision.md)。未做安装器或扩大权限依赖，Windows实际OCR/WPF/medium/画质性能仍未验。
+
+固定产品/测试 `e00d8e15dbc1daf7a887bf403939728eb38dbc07` 的一次相关12类签收501P0F0skip（原458全部保留+43），正常App/Worker各0W/E；865输入前后=Git、4目标完整SHA一致，339DLL仅库存。r05清理三分支3P；不累计轮次，不代签完整Core/Provider/Codec或真实Windows。随后仅归档三报告和原件。
+
+固定轮原件独审限定ACK：501条全Passed、旧458全保留、源码与产物摘要吻合；无新增确定P1/P2。
+
+原件Library确认 `libfile_4e21f75a874c8191a1025bf286ddd1f9/v0`；177成员/1,751,547B，ZIP SHA256 eeea23f06790a8add475c63f1d5f4fc899aee9cfeced3c5f527e992e53480110，上传后xattr/摘要复核成功。产品/测试仍e00d8e15，仅这三报告补最终回执。
+
+ZIP CRC/全部176项manifest及三报告独审最终限定ACK，未发现事实错误，未扩大验收。

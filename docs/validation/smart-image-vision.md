@@ -22,12 +22,18 @@
 - r02 dirty 候选正常 App Release 交叉构建：0W/0E/exit0，865 输入前后相同。
 - r03 dirty 候选相关实际七类：399P/0F/0skip/exit0，865 输入前后相同，包含新增 Shell 拒绝/Off/清除三例。命令的 BitmapOcrTests、ImageSourceStyleTests 无匹配，不能计作通过；Bitmap OCR 实际属于 FileImageOcrTests partial 类。
 - r04 用 Gate 持锁的确定性屏障替换原弱 pending 检查：同一原任务中先 Drain 实际 candidate 接收，核 original 尚未完成/公开 candidate=null，释放 Gate 并 await 原任务后可见且可批准；1P/0F/0skip/exit0，865 输入前后相同。未加生产 hook、sleep 或放宽超时。
-- r05 补清理 false、Finalize 抛错、Dispose 抛错的原 owner 保留和零候选定向验证；结果在证据 JSON 中单列。
+- r05 补清理 false、Finalize 抛错、Dispose 抛错的原 owner 保留和零候选定向验证：3P/0F/0skip/exit0，865 输入前后相同。
 
-冻结产品/测试后仅做一次相关十二类、正常 App/Worker 交叉构建签收；完整 Core、完整 Provider、Codec 不重跑，不借记旧结果。最终固定 SHA、用例与原件回执由证据记录。
+冻结产品/测试 `e00d8e15dbc1daf7a887bf403939728eb38dbc07` 后，r06 同原十二类筛选实际 501P/0F/0skip/exit0；上轮同组 458 个完整名称多重集全部保留、新增 43。r07 正常 App、r08 Worker Release 交叉构建各 exit0/0W/0E。865 输入在每阶段前后、最终与固定 Git 全部一致，四个目标 AssemblyInfo 均含此完整 SHA；339 个 DLL 当前摘要一致，仅为库存而非执行数。完整 Core、完整 Provider、Codec 不重跑，不借记旧结果。最终原件回执由证据记录。
 
 ## 验收边界
 
 默认 Off、图片复用/再生成 Off、PackageHold、WebP odd 拒绝、来源/密码/完整性/原 SHA、资源上限及 250/600ms 合同保持。未做安装器/自启动、visibleCrop、格式或权限扩展，未重探 runner403；无新依赖/SDK/协议许可、凭据、安全权限、费用、真实模型调用、用户电脑操作、main 修改或发布部署。
 
 Linux 合成正例、实际 offline loopback 双协议与交叉构建不能代签真实 Windows 身份/语言/OCR 效果、WPF 模态按钮/焦点、OLE、Chrome/Edge、medium warm、Explorer、多屏、画质、250/600ms 或 600MiB；P6/P7 整体仍 InProgress。
+
+固定轮完整TRX、各阶段命令/日志、865输入与Git、四份完整SHA版本及339项DLL摘要均获独立只读限定ACK；未重跑产品。随后只核三报告与封包，不回填或扩大Windows/完整套件验收。
+
+原件已保存到 Library `libfile_4e21f75a874c8191a1025bf286ddd1f9/v0`，工具确认 succeeded；ZIP 1,751,547B、177唯一成员/manifest176项，SHA256 `eeea23f06790a8add475c63f1d5f4fc899aee9cfeced3c5f527e992e53480110`。上传后按返回值设置 user.library-file-version=0 并复核 ZIP 摘要不变。包内三报告为上传前快照，此后只追加此保存回执，不循环重包。
+
+封包经独立只读 CRC 和全部176项manifest核对通过，三报告准确限定实际范围，最终限定ACK；保存回执只引用实际工具结果，不改变包内原件。
