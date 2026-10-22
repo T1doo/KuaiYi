@@ -22,6 +22,9 @@ internal sealed class InstallationPreparationIO(string source,string staging,str
     private sealed class Ledger
     {internal readonly object Sync=new();internal readonly List<Resource> Resources=[];internal readonly List<Metadata> Metadata=[];internal bool StorageUnconfirmed;}
     private Ledger ledger=new();
+    // A later health operation owns a new ledger. It cannot reopen the completed deployment's ledger or write.
+    internal static InstallationPreparationIO ReadOnly(string root,InstallationPreparationFaults? faults=null)
+        =>new(root,root,root,root,CancellationToken.None,faults){metadataOnly=true,publicationPaths=[]};
     private object sync=>ledger.Sync;
     private List<Resource> resources=>ledger.Resources;
     private List<Metadata> metadata=>ledger.Metadata;

@@ -58,6 +58,7 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
     }
     private enum ProtocolOperation { Health,Exit,Io,ControlClose }
     private readonly InstallationStore store;
+    private readonly string installationRoot;
     private readonly IInstallationApplicationProtocol protocol;
     private readonly IOwnedProcessStarter? starter;
     private readonly TimeSpan budget;
@@ -70,6 +71,7 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
     private Role? receiver;
     private bool disposed;
     private bool sessionAttempted;
+    private InstallationDeploymentSession? deploymentSession;
     private InstallationBrowserHostSession? retainedBrowserSession;
     private static readonly HashSet<InstallationUpgradeCoordinator> RetainedBrowserOwners=[];
     internal Action? BrowserHostPublishedForTest{get;init;}
@@ -81,7 +83,7 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
     {
         if(budget<=TimeSpan.Zero||budget>TimeSpan.FromSeconds(10))throw new ArgumentOutOfRangeException(nameof(budget));
         this.protocol=protocol??throw new ArgumentNullException(nameof(protocol));this.budget=budget;this.starter=starter;UserData=InstallationPaths.Root(userData);
-        store=new(directory,userData,()=>admission!=null&&roles.All(r=>r.Exited));
+        installationRoot=InstallationPaths.Root(directory);store=new(installationRoot,userData,()=>admission!=null&&roles.All(r=>r.Exited));
     }
     private static readonly string[] RoleNames=["KuaiYi.App.exe","KuaiYi.CaptureBroker.exe","KuaiYi.ClipboardHost.exe","KuaiYi.CaptureHost.exe","KuaiYi.OleReceiver.exe","KuaiYi.ImageWorker.exe","KuaiYi.NativeHost.exe"];
     /// <summary>One ordinary user session. This caller keeps the exact child and original IO until actual exit.
@@ -90,7 +92,7 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
         =>RunSession(executableDirectory,null,null,cancellation,imagePath);
     internal Task<int> RunSelectedSessionAsync(InstallationStableSelection selection,Func<InstallationControlledLaunch,CancellationToken,Task> published,CancellationToken cancellation)
         =>RunSession(selection.Version.DirectoryPath,selection,published,cancellation,null);
-    private async Task<int> RunSession(string executableDirectory,InstallationStableSelection? selection,Func<InstallationControlledLaunch,CancellationToken,Task>? published,CancellationToken cancellation,string? imagePath)
+    private async Task<int> RunSession(string executableDirectory,InstallationStableSelection? selection,Func<InstallationControlledLaunch,CancellationToken,Task>? published,CancellationToken cancellation,string? imagePath,InstallationDeploymentSession? deployment=null)
     {
         if(protocol is not IInstallationSessionProtocol sessionProtocol)throw new InvalidOperationException("Controlled session protocol required.");
         if(imagePath!=null){OleImageFileDrop.ValidatePath(imagePath);if(protocol is not IInstallationImageSessionProtocol)throw new InvalidOperationException("Controlled image session protocol required.");}
@@ -101,14 +103,19 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
         try
         {
             if(execution!=null||roles.Count!=0||pending!=null||handoff!=null||admission!=null)throw new InvalidOperationException("A normal session requires a fresh coordinator.");
+            deploymentSession=deployment;
             sessionAttempted=true;
-            admission=store.EnterAdmission(existing:selection!=null);var selected=store.ReadActive(cancellation)??throw new InstallationRecoveryException("No installed version.");
+            if(deployment==null)admission=store.EnterAdmission(existing:selection!=null);
+            else{admission=InstallationAdmission.CreateOwner(installationRoot,deployment.AdmissionFaults);store.AcquireAdmission(admission,mutation:false,existing:true);}
+            var selected=store.ReadActive(cancellation)??throw new InstallationRecoveryException("No installed version.");
             selection?.RequireSelected(selected,cancellation);
             if(selected.DirectoryPath!=expected)throw new InstallationRecoveryException("Normal entry is not the selected generation.");
             execution=store.ClaimExecution(admission);role=NewRole("KuaiYi.App.exe",selected);role.RetainTasks=true;
+            if(deployment!=null)await deployment.BeforeStartAsync(this,admission,selected,role.Launch,cancellation).ConfigureAwait(false);
             await StartAndCheck(role,cancellation).ConfigureAwait(false);
             browserHosts=InstallationBrowserHostSession.Publish(role.LaunchProof!,admission,role.Process!);BrowserHostPublishedForTest?.Invoke();
             if(published!=null)await Call(role,t=>published(role.LaunchProof!,t),cancellation,observeOriginal:task=>Volatile.Write(ref stablePublicationOriginal,task)).ConfigureAwait(false);
+            if(deployment!=null)await deployment.AcceptReadyAsync(this,role.LaunchProof!,role.Process!,cancellation).ConfigureAwait(false);
             if(imagePath!=null)await Call(role,t=>((IInstallationImageSessionProtocol)protocol).QueueImageAsync(role.Process!,imagePath,t),cancellation).ConfigureAwait(false);
             if(WarmImageEndpoint is {} endpoint)
             {
@@ -131,6 +138,17 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
         catch(Exception failure)when(sessionAttempted)
         {
             liveImage?.Quiesce();
+            if(deployment!=null)
+            {
+                var errors=new List<Exception>{failure};
+                try{browserHosts?.Retire();}catch(Exception retirement){errors.Add(retirement);retainedBrowserSession=browserHosts;lock(RetainedBrowserOwners)RetainedBrowserOwners.Add(this);}
+                if(role!=null)await FinalizeOwned(role,errors).ConfigureAwait(false);
+                if(role!=null)CollectOriginalFailures(role,errors);
+                // This branch keeps the original execution object, not merely its bytes, for authorized compensation.
+                try{admission?.Dispose();}catch(Exception close){errors.Add(close);}
+                if(admission?.CleanupConfirmed==true)admission=null;
+                retainAdmission=true;InstallationErrors.Throw(errors);throw;
+            }
             try{browserHosts?.Retire();}
             catch(Exception retirement)
             {
@@ -338,7 +356,7 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
         }
         return roles.All(r=>r.Exited);
     }
-    private async Task<bool> FinalizeOwned(Role role)
+    private async Task<bool> FinalizeOwned(Role role,List<Exception>? errors=null)
     {
         // Only the held child returned by our starter; OwnedProcessSession also retains any late startup owner.
         if(role.Finalized)return role.Exited;
@@ -353,7 +371,16 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
             if(!await ProtocolSettled(role).ConfigureAwait(false)||!role.Exited)return false;FinishLaunch(role);
             if(!await role.Lifetime.TryFinalizeAsync().ConfigureAwait(false))return false;role.Finalized=true;return true;
         }
-        catch{return false;}
+        catch(Exception error){errors?.Add(error);return false;}
+    }
+    private static void CollectOriginalFailures(Role role,List<Exception> errors)
+    {
+        // Waiter cancellation does not erase a later terminal error from the exact original task.
+        var known=new HashSet<Exception>(ReferenceEqualityComparer.Instance);
+        void Remember(Exception error){if(error is AggregateException many){foreach(var item in many.Flatten().InnerExceptions)Remember(item);}else known.Add(error);}
+        foreach(var error in errors)Remember(error);
+        foreach(var task in role.Tasks.Concat(new Task?[]{role.Startup,role.Lifetime.StartupObservation,role.Lifetime.StartupSettlement}.OfType<Task>()))
+            if(task.Exception is{} many)foreach(var error in many.Flatten().InnerExceptions)if(known.Add(error))errors.Add(error);
     }
     private Task JoinIo(Role role)=>Call(role,t=>protocol.SettleAsync(role.Process!,t),CancellationToken.None,ProtocolOperation.Io);
     private static void FinishLaunch(Role role){if(role.LaunchProof!=null&&!role.LaunchFinished){role.LaunchProof.FinishExited();role.LaunchFinished=true;}}
@@ -410,6 +437,7 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
         try
         {
             if(disposed)return;
+            if(deploymentSession!=null&&execution!=null)throw new InstallationUpgradeUnconfirmedException(new InstallationRecoveryException("Original deployment session recovery owner is retained; Dispose cannot abandon its execution lease."));
             if(retainedBrowserSession!=null)
             {
                 retainedBrowserSession.Retire();retainedBrowserSession=null;
