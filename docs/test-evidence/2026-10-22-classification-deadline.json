@@ -6,7 +6,7 @@
     "src/KuaiYi.Providers/ProviderRequestBudget.cs"
   ],
   "visual_files_modified": [],
-  "independent_review": "Design/production and candidate originals limited ACK",
+  "independent_review": "Design, production diff, exact red-green and fragment barrier, fixed originals, three reports and ZIP independently reviewed; limited ACK, no new P1/P2",
   "candidate_runs": {
     "r01-original-red": {
       "exit": 1,
@@ -113,11 +113,67 @@
       "unit_results": 2
     }
   },
-  "fixed_signoff": "Pending frozen tree",
+  "fixed_signoff": {
+    "runs": [
+      "r05-frozen-related",
+      "r06-frozen-app"
+    ],
+    "passed": 665,
+    "failed": 0,
+    "skipped": 0,
+    "exit": 0,
+    "App": "Release cross-build0W/0E",
+    "head": "07dcfe0dab4a117a0c039c0beefa03f4bf4767c7",
+    "inputs": 867,
+    "input_snapshots_equal_git": true,
+    "matching_target_assembly_versions": 3,
+    "dll_inventory_not_execution_count": 339,
+    "current_dll_hashes_match": true,
+    "old_image_ocr_selected_retained": 501,
+    "new_tests_this_slice": 16,
+    "existing_additional_budget_admission_regressions": 148,
+    "removed_old_tests": [],
+    "actual_executed": 665,
+    "all_passed": true,
+    "actual_classes": 17,
+    "per_class": {
+      "BrowserImagePreparationTests": 10,
+      "FileImageOcrTests": 58,
+      "FileImageSourceTests": 32,
+      "ImagePhaseBudgetTests": 3,
+      "OcrCapabilitiesDiscoveryTests": 58,
+      "OcrCapabilitiesProtocolTests": 18,
+      "OcrOnlyTests": 80,
+      "OverlayClearContentTests": 41,
+      "PhaseConsumerTests": 3,
+      "ProductionScreenshotSecretStoreTests": 2,
+      "ProductionScreenshotShellTests": 17,
+      "ProductionScreenshotTranslationTests": 150,
+      "ProviderEventReceiverTests": 14,
+      "QueuedConsumerDeadlineTests": 124,
+      "RequestBudgetTests": 7,
+      "ScreenshotRecaptureRecoveryTests": 24,
+      "ScreenshotStyleTests": 24
+    }
+  },
   "full_Core_Provider_Codec": "NotRun",
   "Worker_build": "NotRun; unchanged and no Providers dependency",
   "Windows_pixels_OCR_quality_performance": "NotRun",
   "model_calls": "None; offline loopback synthetic only",
   "permissions_dependencies_workflows": "Unchanged",
-  "red_green_test_file_identical": true
+  "red_green_test_file_identical": true,
+  "product_and_test_sha": "07dcfe0dab4a117a0c039c0beefa03f4bf4767c7",
+  "library": {
+    "library_file_id": "libfile_1973521c2fa48191ba6a6bc661a159ca",
+    "version": 0,
+    "status": "succeeded",
+    "zip_sha256": "f786fdf2ec541974b5d298c6edb461640f02e1fbfead7db84437b4fdba625108",
+    "bytes": 1291053,
+    "members": 117,
+    "manifest_members": 116,
+    "current_skill_helper_exit": 0,
+    "local_metadata_verified": true,
+    "zip_unchanged_after_upload": true,
+    "independent_crc_and_all_manifest_verified": true
+  }
 }

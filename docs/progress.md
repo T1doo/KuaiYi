@@ -1572,3 +1572,9 @@ ZIP CRC/全部176项manifest及三报告独审最终限定ACK，未发现事实�
 ## 2026-10-22 功能线：图片分类独立30秒截止
 
 与父级独立视觉线分工，主线仅改ProductionScreenshotCoordinator和ProviderRequestBudget业务，不改主题/窗口/通用展示。核SPEC10.7真实缺口，独审设计后实现同clock子预算、保原profile身份及总预算，覆盖凭据/HTTP/队列/分类提交；超时不发正式生成、不自动fallback，生成不继承已完成分类的30秒。r01同源码反例0P4F(HTTP期望0实际1)→r02 6P；r03 14P2F原件保留，仅修新持续片段消费屏障r04 2P，轮次不相加。独审限定ACK后冻结并做必要相关签收，见[实际路径和原件](validation/classification-deadline.md)。Windows实机/像素/性能未代签，安装器未实施。
+
+冻结07dcfe0dab4a117a0c039c0beefa03f4bf4767c7后，一次相关17类665P0F0skip（原501全保留+本片16+既有额外回归148），正常App0W/E；867输入前后=Git、3相关目标完整SHA一致，339DLL只库存。未跑完整Core/Provider/Codec或未变Worker。只接续原件独审/三报告与正常开发分支推送，不触视觉文件。
+
+固定原件独审限定ACK，501+16+148拆分及输入/产物一致；无新增确定问题，未扩大为完整套件或Windows验收。
+
+原件/三报告及ZIP独审最终限定ACK；Library确认 `libfile_1973521c2fa48191ba6a6bc661a159ca/v0`，117成员/1,291,053B，SHA256 f786fdf2ec541974b5d298c6edb461640f02e1fbfead7db84437b4fdba625108。保存后本地元数据/摘要复核成功；随后仅这3报告提交，产品/测试仍07dcfe0不变。
