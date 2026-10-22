@@ -1615,3 +1615,5 @@ UI源码b03541c468180e84de33731dafba7b7fd78c50e4已核872测试输入逐Git一�
 ## 2026-10-22 完整角色源包的路径派生物化
 
 SPEC13.3/13.4继续真实Apply缺口：v2固定source原SHA与完整角色/声明依赖，从随机generation实际生成manifest/trust/provenance和独立v3安装摘要；真实NativeHost共享配置校验及内部注册事务要求物化资格，generic v1不获资格。旧35注册fixture改由source真实Apply建立，不手造installed目录。r05身份4反例确定红→r06相关65P、r07边界16P，轮次不累计；编译失败和所有原件保留。设计/源码/原件独审限定ACK，冻结后做一次相关签收，见[实际物化与边界](validation/payload-materialization.md)。本环境实际managed产物加明确structural runtime/native/第三方fixture，不是可运行Windows包；三项原生DLL/完整自包含runtime输入、真实身份/注册/安装/Windows与250600仍未验。不扩权限许可/工具/费用，不触用户电脑或403 runner。
+
+第一次冻结1c2225的r09相关585结果584P1F，唯一旧role信任集合计数23→47不符；原件保留，不签收。独审确认仅需测试合同迁移，新增一个独立完整47项集合/逐项拒绝检查，不改生产、不降断言；定向后再固定一次必要相关签收。r08六正常构建0W/E、883输入稳定/锁无漂移。

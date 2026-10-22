@@ -10,7 +10,7 @@
 
 source digest与installed digest明确分开：升级pending仍绑定原source digest，InstalledVersion、current和启动证明绑定包含最终路径的v3摘要。ReadActive先检查expected installed摘要，再验证原source、闭包、精确派生metadata和canonical catalog；重算攻击后的catalog不能掩盖更改。generic v1保留原纯文件事务用途，不能获得Materialized资格；v3不能作为新source再次Apply。
 
-NativeHost真实LoadConfiguredWindows保留原注册表/OS身份/session/进程路径验证，再使用共享ReadConfiguration的物化校验；Program实际调用链不改。内部注册事务在读注册表前要求当前generation为已物化v3，并复核selected摘要。原35注册测试的正常fixture现从source经真实Apply得到随机generation，不再手造installed目录。合成测试只调用共享纯配置校验、提供synthetic expected process path和registry store，**不是实际Program/Windows身份或注册成功**。
+NativeHost真实LoadConfiguredWindows保留原注册表和OS身份/session门，共享ReadConfiguration承接物化与进程路径校验；Program实际调用链不改。内部注册事务在读注册表前要求当前generation为已物化v3，并复核selected摘要。原35注册测试的正常fixture现从source经真实Apply得到随机generation，不再手造installed目录。合成测试只调用共享纯配置校验、提供synthetic expected process path和registry store，**不是实际Program/Windows身份或注册成功**。
 
 ## 实际证据与红绿
 
@@ -32,3 +32,12 @@ NativeHost真实LoadConfiguredWindows保留原注册表/OS身份/session/进程�
 当前缺少KuaiYi.CaptureNative.dll、KuaiYi.OleNativeBridge.dll、KuaiYi.ShellExtension.dll真实Windows构建及完整Windows自包含runtime输入；本环境无现成Windows native工具链，没有安装新工具/接受新许可，也未重试403 runner。固定角色/声明依赖/PE结构并不证明运行时可加载、微软或Skia发布者真实性、签名/OS身份。源SHA是调用者固定原字节的完整性，不是发布签名。
 
 身份模板/资源不等于MSIX生成、签名或注册。稳定受控启动器、统一安装/注册入口、Inno、可选登录启动、真实干净虚拟机安装/升级/卸载仍未完成。PackageHold/生产复用Off、来源/密码/完整性/取消/实际退出/清理/发送门及250/600ms保持；未触用户电脑、权限、凭据、费用或模型。真实Windows/browser/WPF/medium/Explorer、像素/DPI/focus/highcontrast、OCR/画质/250/600ms未验，完整P7未签收。
+
+
+## 第一次固定相关回归与精确合同迁移
+
+固定1c2225ca84f2d2ea78b709f1ab3aba856fe37be1的r08六个正常构建命令全部0W/0E，覆盖七产品角色；883输入稳定/锁无漂移。r09一次相关585结果为584P1F，唯一失败InstalledRoleFilesTests.EntireManagedRoleMustMatchReceipt(valid)第23行：旧固定计数Expected23/Actual47。完整原TRX/失败XML保留，非生产异常或超时，不签收此轮。
+
+独审确认完整角色集合由旧23项扩至47项，需迁移该旧测试合同。仅测试更新23→47，同时新增一个独立合同Fact，显式写出七角色及共同/native/runtime文件预期，不引用生产列表建立期望；核精确47集合、逐项缺receipt/缺文件/改写的准确失败码及每次恢复。生产字节完全不变，原17例保留。该Fact循环检验全部47项，不拆成膨胀用例数，不扩大为运行时可加载验收。
+
+r10-role-contract定向18P0F0skip（原17+新合同Fact1），883输入稳定；没有生产源码差异。保留r09原红，不累计轮次。

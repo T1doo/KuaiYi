@@ -11,7 +11,10 @@
     "r04": "xUnit2030 analyzer failure;0tests;raw Unknown_NoTRX retained",
     "r05": "26P4F identity No exception counterexamples",
     "r06": "65P0F0skip,30new+35existing registration",
-    "r07": "16P0F0skip targeted boundaries"
+    "r07": "16P0F0skip targeted boundaries",
+    "r08": "6 normal builds 0W0E,883stable,no lock drift",
+    "r09": "585results:584P1F;sole old count23 vs47;not accepted",
+    "r10": "18P0F0skip role contract,883stable;production unchanged"
   },
   "review": "Design/source/red-green limited ACK before fixed regression",
   "boundaries": [
@@ -20,5 +23,6 @@
     "Synthetic registry and health callback; no real registry or Windows child health",
     "No stable launcher/unified installer entry",
     "Full Core/Provider/Codec and real Windows/medium/browser/WPF/250ms/600ms NotRun"
-  ]
+  ],
+  "first_fixed_sha": "1c2225ca84f2d2ea78b709f1ab3aba856fe37be1"
 }

@@ -20,9 +20,33 @@ public sealed class InstalledRoleFilesTests
             if(fault=="path")files.Add("../other.dll",new string('0',64));if(fault=="unknown")files.Add("Extra.dll",new string('0',64));
             string json=JsonSerializer.Serialize(files);if(fault=="duplicate")json=json[..^1]+",\"KuaiYi.NativeHost.exe\":\""+files["KuaiYi.NativeHost.exe"]+"\"}";
             using var doc=JsonDocument.Parse(json);
-            if(fault=="valid")Assert.Equal(23,InstalledRoleFiles.Verify(root,doc.RootElement).Count);
+            if(fault=="valid")Assert.Equal(47,InstalledRoleFiles.Verify(root,doc.RootElement).Count);
             else Assert.Equal(fault.StartsWith("changed-")?BrowserFailure.DesktopUntrusted:BrowserFailure.HostNotConfigured,Assert.Throws<BrowserException>(()=>InstalledRoleFiles.Verify(root,doc.RootElement)).Code);
         }
         finally{Directory.Delete(root,true);}
     }
+    [Fact]
+    public void SevenRolesAndRuntimeReceiptPinsEveryRequiredFile()
+    {
+        string[] roles=["KuaiYi.App","KuaiYi.NativeHost","KuaiYi.CaptureBroker","KuaiYi.ClipboardHost","KuaiYi.CaptureHost","KuaiYi.OleReceiver","KuaiYi.ImageWorker"];
+        string[] common=["KuaiYi.Core.dll","KuaiYi.Contracts.dll","KuaiYi.Imaging.dll","KuaiYi.Windows.dll","KuaiYi.Providers.dll","KuaiYi.OleTransfer.dll","KuaiYi.CaptureNative.dll","KuaiYi.OleNativeBridge.dll","KuaiYi.ShellExtension.dll","libSkiaSharp.dll","hostfxr.dll","hostpolicy.dll","coreclr.dll","wpfgfx_cor3.dll","SkiaSharp.dll","System.Private.CoreLib.dll","PresentationFramework.dll","PresentationCore.dll","WindowsBase.dll"];
+        string[] expected=roles.SelectMany(r=>new[]{r+".exe",r+".dll",r+".deps.json",r+".runtimeconfig.json"}).Concat(common).Order(StringComparer.Ordinal).ToArray();
+        Assert.Equal(47,expected.Length);Assert.Equal(expected,InstalledRoleFiles.Required);
+        string root=Path.Combine(Path.GetTempPath(),"KuaiYi.CompleteRoleFixture."+Guid.NewGuid().ToString("N"));Directory.CreateDirectory(root);
+        try
+        {
+            byte[] original="PUBLIC_COMPLETE_ROLE_FIXTURE"u8.ToArray();string hash=Convert.ToHexString(SHA256.HashData(original));
+            var files=expected.ToDictionary(n=>n,_=>hash,StringComparer.Ordinal);foreach(string name in expected)File.WriteAllBytes(Path.Combine(root,name),original);
+            using(var valid=JsonDocument.Parse(JsonSerializer.Serialize(files)))Assert.Equal(expected,InstalledRoleFiles.Verify(root,valid.RootElement).Keys.Order(StringComparer.Ordinal));
+            foreach(string name in expected)
+            {
+                files.Remove(name);using(var missingReceipt=JsonDocument.Parse(JsonSerializer.Serialize(files)))Assert.Equal(BrowserFailure.HostNotConfigured,Assert.Throws<BrowserException>(()=>InstalledRoleFiles.Verify(root,missingReceipt.RootElement)).Code);files.Add(name,hash);
+                using var complete=JsonDocument.Parse(JsonSerializer.Serialize(files));string path=Path.Combine(root,name);File.Delete(path);
+                Assert.Equal(BrowserFailure.DesktopUntrusted,Assert.Throws<BrowserException>(()=>InstalledRoleFiles.Verify(root,complete.RootElement)).Code);
+                File.WriteAllText(path,"PUBLIC_CHANGED_ROLE_FIXTURE");Assert.Equal(BrowserFailure.DesktopUntrusted,Assert.Throws<BrowserException>(()=>InstalledRoleFiles.Verify(root,complete.RootElement)).Code);File.WriteAllBytes(path,original);
+            }
+        }
+        finally{Directory.Delete(root,true);}
+    }
+
 }
