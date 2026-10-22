@@ -1,6 +1,6 @@
 {
   "base": "8a3bfdf7845ab00226f0d8484a163e67a1039993",
-  "status": "CandidateLimited",
+  "status": "FixedTreeLimitedAcknowledged",
   "scope": "Original Compensated authority -> new controller/execution/launch -> old generation controlled READY; first installation absence yields no session",
   "artifactRoot": "artifacts/2026-10-22-restored-session",
   "runs": {
@@ -9,19 +9,74 @@
     "r05": "historical task-identity fixture not final redgreen",
     "r06_to_r08": "same complete testfile3F READY incorrectly succeeded ->3P",
     "r10": "candidate new32P0F0skip, later null probe hook guard only",
-    "r11": "fixed05c712bd build1 failed CS8603 nullable sentinel,0tests/other6notrun; explicit return annotation fixed before new freeze"
+    "r11": "fixed05c712bd build1 failed CS8603 nullable sentinel,0tests/other6notrun; explicit return annotation fixed before new freeze",
+    "r12": "fixed52b1130 seven ordinary managed builds0W/E,922stableinputs",
+    "r13": "fixed52b1130 related266P0F0skip,32new+prior234 multiset"
   },
   "rounds_added": false,
   "fixed_related_expected": 266,
   "new_final_cases": 32,
   "existing234_expected": true,
   "old204_not_run_or_borrowed": true,
-  "review": "Contract/product/fixture limited ACK; matrix32 passed; fixed result pending",
+  "review": "Independent limited ACK: frozen52 product and ZIP CRC/all255 manifest sizes+SHA+coverage/safe paths,15 Git originals,raw266/prior234/new32/two-method three-case redgreen,922inputs/17versions/14productDLL inventory/4Core and7build0W/E verified; no product rerun or archive binary-body rehash",
   "remaining": [
     "No normal-entry installer wiring or true Windows controlled restored session",
     "No native/full-runtime bundle acceptance",
     "No automatic resume or recursive compensation/Unconfirmed promotion",
     "No real desktop quality/250600 or fullP7 acceptance"
   ],
-  "no_new_permissions_credentials_licenses_fees_or_model_calls": true
+  "no_new_permissions_credentials_licenses_fees_or_model_calls": true,
+  "product_sha": "52b1130a76507f8dcc77b0fce8c6d8013643b81b",
+  "fixed_related": {
+    "run": "r13-fixed-related",
+    "passed": 266,
+    "failed": 0,
+    "skipped": 0,
+    "new": 32,
+    "existing": 234,
+    "unique_display_names": 266,
+    "prior234_multiset_preserved": true,
+    "candidate32_multiset_preserved": true
+  },
+  "normal_builds": {
+    "run": "r12-fixed-managed",
+    "count": 7,
+    "warnings": 0,
+    "errors": 0
+  },
+  "input_count": 922,
+  "assembly_versions": 17,
+  "product_dll_build_test_hashes": 14,
+  "actual_Core_copies": 4,
+  "new_cases_with_original_exit_io_text": 32,
+  "red_green": {
+    "same_complete_file_sha256": "28517cdf1cc68686e5b282ed38db688f2aa8ab73d1f7f33f3af1916a879c7ae1",
+    "red": "r06-final-target-red",
+    "green": "r08-target-green",
+    "failed": 3,
+    "passed": 3,
+    "final_complete_file_identical": false,
+    "original_three_methods_identical": true,
+    "later_changes": "fixture pending retention and four additional boundary cases"
+  },
+  "source_scope": {
+    "old_src": 371,
+    "modified_old_src": 6,
+    "new_src": 1,
+    "old_tests": 341,
+    "old_helper_modified": 1,
+    "old22_method_suffix_identical": true,
+    "oldCompensation43_file_identical": true,
+    "other_old_tests_unchanged": true
+  },
+  "library": {
+    "id": "libfile_f789dd28f0f481919a76dfe852bba0d3",
+    "version": 0,
+    "bytes": 2267361,
+    "members": 256,
+    "manifest_entries": 255,
+    "sha256": "7bdc2445f412356c1f405edd2dce84fc86c35238d974319a75ae7cf3ef9d50e1",
+    "local_identity_confirmed": true,
+    "binary_bodies_in_archive": false
+  }
 }
