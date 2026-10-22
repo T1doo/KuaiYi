@@ -12,3 +12,7 @@
 - r04新增保护4P0F0skip：双协议在成功commit后、Post返回前Off或总120秒到期，均1次HTTP/1次凭据读取，零Generating/Completed；总预算到期仍REQUEST_TIMEOUT。868输入前后一致。
 
 生产最小差异及原件获只读独审限定ACK。冻结后相关整类签收和App交叉构建结果随后补充；不借记以前代码树结果。仅合成、离线loopback协议及受控时间，不调用真实模型。未改依赖/权限/main，不重复完整Core/Provider/Codec。Windows实机、界面像素、OCR质量、250/600ms和整体P6/P7未代签。
+
+固定产品/测试 `94ffa5e4dbab681367912f7d7ab7b3e9dd12178a`：r05完整ProductionScreenshotTranslationTests 162 + ImagePhaseBudgetTests 3 = 165P0F0skip，原同范围153条全保留+新增12；r06正常App0W/E。868输入前后=固定Git，App/Providers/ProviderTests三目标版本含完整SHA；产物摘要是库存，不冒充全部执行。独审已核165条及输入。
+
+原件Library确认 `libfile_b0c365efc690819195b2c183284e1ff5/v0`，719619B/92成员，ZIP SHA256 `72e582976c505b88d3401d3e607d3ae2bb72b7919d28dd5a5c23f1aecbaad15e`；保存后所有返回xattr及本地LibraryID/摘要已复核。后续仅三报告提交，不改产品/测试。
