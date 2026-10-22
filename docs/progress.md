@@ -1718,3 +1718,7 @@ Write compare修复固定树和ZIP独审限定ACK。Library libfile_7c3e6187e268
 固定52与ZIP原件独审限定ACK。Library libfile_f789dd28f0f481919a76dfe852bba0d3 v0，2,267,361B/256成员/255manifest，SHA2567bdc2445f412356c1f405edd2dce84fc86c35238d974319a75ae7cf3ef9d50e1；CRC/15Git原件/raw266/旧234+新32/红绿/922四快照及17版本库存实核，无DLL本体。证据仅三报告，产品52不变；旧204/fullCore/真Windows/native/runtime/P7未签。
 
 单一安装操作编排候选：一个原owner串Scope准备/三资源提交/新版canonical READY、原失败授权补偿及旧版新READY；阶段结果与后续原生命周期分开，firstempty零旧factory，取消/外部owner不制造补偿资格，未知保原owner无新恢复入口。工厂原Task预登记，迟到取消fresh-only封闭，无generic Dispose其他工作。r05新15P，r01仅测试重载编译F零用例保留不算产品红；仅定向19（新15+旧4代表）待冻结，不重刷/借旧266及204。见[合同/原件边界](validation/installation-operation.md)。
+
+单一安装操作固定产品6d04d197683f8841c906c5d33fed0e1800fe51ed：七普通managed0W/E，一次19P/0F/0skip＝新15+原4完整链代表，新15同候选/原4取前266指定三方法多重集相符，不混历史轮。924Git输入/17版本/14产品DLL建测库存/4Core匹配；原22方法suffix、Comp43/Restored32全文件字节保留，不等于全量重跑。仅单原owner编排，不新增恢复算法或真实安装入口；阶段READY与原生命周期/unknown分开，不签完整安装成功。
+
+固定树与ZIP原件独审限定ACK。Library libfile_a500dcbf7ac881919ccd26aa18571e5c v0，1,193,473B/129成员/128manifest，SHA2560c95a452d71f64b92ce9d05fa700b10b43e2b5bcb36199e19c7701cabca2e213；CRC/10Git原件/raw19/924四输入及17版本库存均核，无DLL本体。证据仅三报告，产品6d04不变。旧266只重跑4代表，其他未跑，Prepared204/fullCore/真Windows/native/runtime/完整P7仍未签。

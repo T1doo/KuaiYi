@@ -1,27 +1,78 @@
 {
   "base": "1b6a914ae04cec43e01a6d239ed0102d2afde2dd",
-  "status": "CandidateLimited",
+  "status": "FixedTreeLimitedAcknowledged",
   "scope": "Single original installer-operation owner composes existing prepare/commit/newREADY/authorized compensation/oldREADY; internal only",
   "artifactRoot": "artifacts/2026-10-22-installation-operation",
   "runs": {
     "r01": "compile failed CS0619/xUnit2014 synchronous duplicate Start assertion selected Task overload,0tests/not a product red",
     "r02": "seven ordinary managed builds0W/E",
     "r03_r04": "Launcher/Core sync builds0W/E",
-    "r05": "new15P0F0skip/924stableinputs, later outer fixture previous-peer retention only"
+    "r05": "new15P0F0skip/924stableinputs, later outer fixture previous-peer retention only",
+    "r06": "fixed6d04 seven ordinary managed builds0W/E,924stableinputs",
+    "r07": "fixed6d04 related19P0F0skip,15new+4namedpriorrepresentatives"
   },
   "rounds_added": false,
   "fixed_related_expected": 19,
   "new_final_cases": 15,
   "existing_selected_representatives": 4,
-  "old266_not_rerun_or_borrowed": true,
   "old204_not_run_or_borrowed": true,
   "no_product_red_green_claimed": true,
-  "review": "Contract and product main-chain limited ACK; final fixture pending gate review then fixed19",
+  "review": "Independent limited ACK: frozen6d04 product and ZIP CRC/all128 manifest sizes+SHA+coverage/safe paths,10 Git originals,raw19/new15/selectedprior4,924inputs/17versions/14productDLL inventory/4Core and7build0W/E verified; no product rerun or archive binary-body rehash",
   "remaining": [
     "Internal entry only, not an actual installer operation/Windows acceptance",
     "No native/full-runtime bundle acceptance",
     "No fresh resume, recursive compensation or unknown promotion",
     "No true desktop quality/250600/fullP7 acceptance"
   ],
-  "no_new_permissions_credentials_licenses_fees_or_model_calls": true
+  "no_new_permissions_credentials_licenses_fees_or_model_calls": true,
+  "product_sha": "6d04d197683f8841c906c5d33fed0e1800fe51ed",
+  "fixed_related": {
+    "run": "r07-fixed-related",
+    "passed": 19,
+    "failed": 0,
+    "skipped": 0,
+    "new": 15,
+    "existing_selected": 4,
+    "unique_display_names": 19,
+    "candidate15_multiset_preserved": true,
+    "selected_prior4_multiset_preserved": true,
+    "existing_three_methods": [
+      "CommitIsNotReadyAndOnlyOriginalSuccessfulScopeCanActivateOnce",
+      "CompensationRestoresOwnedUpgradeOrInitialAbsenceBeforeRetiringOriginalExecution",
+      "RestoredCompensationIsNotReadyAndOriginalOldGenerationMustPassNewControlledSession"
+    ]
+  },
+  "normal_builds": {
+    "run": "r06-fixed-managed",
+    "count": 7,
+    "warnings": 0,
+    "errors": 0
+  },
+  "input_count": 924,
+  "assembly_versions": 17,
+  "product_dll_build_test_hashes": 14,
+  "actual_Core_copies": 4,
+  "candidate_full_new_testfile_and_product_identical": true,
+  "new_cases_with_actual_original_exit_io_text": 8,
+  "old266_only_four_named_representatives_rerun": true,
+  "source_scope": {
+    "old_src": 372,
+    "modified_old_src": 1,
+    "new_src": 1,
+    "old_tests": 342,
+    "old_helper_modified": 1,
+    "old22_method_suffix_identical": true,
+    "oldComp43_and_Restored32_files_identical": true,
+    "other_old_tests_unchanged": true
+  },
+  "library": {
+    "id": "libfile_a500dcbf7ac881919ccd26aa18571e5c",
+    "version": 0,
+    "bytes": 1193473,
+    "members": 129,
+    "manifest_entries": 128,
+    "sha256": "0c95a452d71f64b92ce9d05fa700b10b43e2b5bcb36199e19c7701cabca2e213",
+    "local_identity_confirmed": true,
+    "binary_bodies_in_archive": false
+  }
 }
