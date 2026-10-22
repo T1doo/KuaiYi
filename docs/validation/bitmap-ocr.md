@@ -1,0 +1,27 @@
+# Bitmap 本地 OCR 接线
+
+从已独审 `6f6f3483e1ffd113e9f3b7d0cfc5610e61d4eac7` 接续，root 唯一 writer；设计、实现及定向原件已获只读独审限定 ACK。对应 SPEC §7.3/§7.5，未扩 CF_DIB 格式、HGLOBAL/BMP 1MiB 上限、OLE/IPC 或 Worker 协议。
+
+## 实际接入
+
+既有“仅提取图片文字并翻译”显式菜单现在接受投放 Bitmap。默认 Off 和位图接收选项不变；位图预览不会调用 OCR。OCR 仍要求 On、有效 profile/current source/version/settings，先发现本机能力，再由用户明确选择已安装语言；使用原尺寸限制，原 Worker 完整结算后才展示预览。确认该预览后才建立 OCR 文字来源，仍须经过原独立发送授权。没有自动 OCR、自动发送、SDK/依赖或权限变化。
+
+Core 的 `OcrTextProvenance.ImageKind` 使用互斥枚举 Screenshot/LocalFile/Browser/Bitmap。FromFile/FromBrowser 仅为兼容派生读取，增加 FromBitmap 派生读取；不再用两个false表示截图。Approve显式四分支映射并冻结sourceVersion/sourceId/previewId，未知值拒绝；Valid约束非空身份、有效枚举，Bitmap/Screenshot不能冒“使用首帧”。Text SourceAllowed实际检查Valid。主结果来源和版本菜单按枚举显示“投放位图 · OCR-only · 图形关系未分析”，不会伪装文件、浏览器或截图。
+
+Capabilities和OCR preview保留既有ImageSourceKind.Bitmap，归一化PNG经原ILocalOcrCapabilitiesWorker接口交给本地Worker。ValidatePrepared仍核sourceId/kind/notice/PNG大小和原OwnedFileImage transform，要求无desktop anchor及normalization proof。词区域使用原NormalizedToOriginal映射；不能调用NormalizedToDesktop作截图证据。没有新增裁剪、重新采集或文件路径。
+
+Approve前原preview引用、source/version/settings、On及原Worker结算门保持。Approve后的文字仍是独立内存来源：可释放图片，然后由用户独立确认发送文字；不新增“图片释放即禁发”的错误依赖。Clear(true)、Off、新OCR替换仍撤销原批准，设置版本检查与原逐次HTTP发送门保持。预览确认前或取消、迟到、清理未确认时均不发送。
+
+## 实际定向验证
+
+- r01 Provider因新增partial测试文件缺ApiProtocol别名出现CS0104；原源码/编译日志保留，未执行用例，不计红绿测试。仅补明确别名，不改产品门。
+- r01 Codec实际4P/0F/0skip：PNG/EXIF6/GIF旧例保留，新增Bitmap由真实Linux私有Worker解码后进入真实OCR协调器，OCR端口是明确合成实现，不能称真实OCR识别。
+- r02 Provider OCR相关196P/0F/0skip、exit0，851输入前后同字节。包括Bitmap所选语言、精确预览确认与来源枚举、无桌面锚点/原图映射、双协议真实loopback text-only且0自动发送、图片释放后独立文字确认、清除/Off/设置/换源/迟到/取消/held cleanup、未取消的排队旧回调、Browser控制及未知枚举拒绝。实际Linux ImageWorker发现/识别均明确UnsupportedPlatform，未假成功。
+
+随后固定产品树执行一次完整Core/Provider/Codec及App交叉构建；本提交不预借尚未执行验证。r02后README说明会改变，运行前后851无漂移不等于851全等后续固定提交；最终完整轮将自行核Git输入。
+
+## 未验边界
+
+合成ILocalOcrCapabilitiesWorker正例不是Windows.Media.Ocr，也不是真实WPF交互。真实Windows/OLE/HGLOBAL/来源身份/medium、OCR效果、WPF语言选择和确认、画质及250/600ms/600MiB仍未验；P6/P7整体保持InProgress。保留旧失败原件与未知历史唯一根因，不回填。
+
+无真实模型/API费用、用户内容/电脑、新SDK协议/依赖许可/权限/凭据、runner403重试、新CI、main/强推/发布部署。PackageHold、生产复用Off、来源/密码/完整性/取消/清理/实际退出和发送门保持。

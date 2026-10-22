@@ -34,12 +34,20 @@ internal sealed partial class ShellWindow
         var image=imageTranslation?.SnapshotForVersion(version.Identity.VersionId);
         var ocr=translation?.SnapshotForVersion(version.Identity.VersionId)?.Source.Ocr;
         string counts=image==null?UsageLabel(version.Usage):ScreenshotUsageLabel(image);
-        return $"{(ocr?.FromBrowser==true?"浏览器图片 · ":"")}{(image?.SourceKind==KuaiYi.Imaging.ImageSourceKind.Browser?"浏览器图片 · ":"")}{(ocr?.FromFile==true?"文件图片 · ":"")}{(ocr?.UsedFirstFrame==true?"使用首帧 · ":"")}{(image?.SourceKind==KuaiYi.Imaging.ImageSourceKind.Bitmap?"投放位图 · ":image?.SourceKind==KuaiYi.Imaging.ImageSourceKind.LocalFile?"文件图片 · ":"")}{(image?.SourceNotice is {} frameNote?frameNote+" · ":"")}{(overlayResults.Identity is {} current&&current.SessionId!=version.Identity.SessionId?"另一来源 · ":"")}版本 {version.Number} · {StyleLabel(image?.Plan?.Preset??imageTranslation?.PresetForVersion(version.Identity.VersionId)??translation?.SnapshotForVersion(version.Identity.VersionId)?.Preset)} · {(version.Failure is {} reason?"未完成 · "+FailureLabel(reason):version.Complete?"完成":version.Stopped?"已停止":"生成中")}\n服务端报告 · {counts}"+(image?.Plan?.Notice is {Length:>0} note?"\n"+note:"")+(version.Failure!=null?"\n"+FailureSummary(version):"");
+        return $"{OcrSourcePrefix(ocr)}{(image?.SourceKind==KuaiYi.Imaging.ImageSourceKind.Browser?"浏览器图片 · ":"")}{(ocr?.UsedFirstFrame==true?"使用首帧 · ":"")}{(image?.SourceKind==KuaiYi.Imaging.ImageSourceKind.Bitmap?"投放位图 · ":image?.SourceKind==KuaiYi.Imaging.ImageSourceKind.LocalFile?"文件图片 · ":"")}{(image?.SourceNotice is {} frameNote?frameNote+" · ":"")}{(overlayResults.Identity is {} current&&current.SessionId!=version.Identity.SessionId?"另一来源 · ":"")}版本 {version.Number} · {StyleLabel(image?.Plan?.Preset??imageTranslation?.PresetForVersion(version.Identity.VersionId)??translation?.SnapshotForVersion(version.Identity.VersionId)?.Preset)} · {(version.Failure is {} reason?"未完成 · "+FailureLabel(reason):version.Complete?"完成":version.Stopped?"已停止":"生成中")}\n服务端报告 · {counts}"+(image?.Plan?.Notice is {Length:>0} note?"\n"+note:"")+(version.Failure!=null?"\n"+FailureSummary(version):"");
     }
     private static string ScreenshotUsageLabel(ScreenshotGenerationSnapshot value)=>$"分类：输入 {UsageCount(value.ClassificationUsage?.Tokens.InputTokens)} / 输出 {UsageCount(value.ClassificationUsage?.Tokens.OutputTokens)} token\n生成：输入 {UsageCount(value.GenerationUsage?.Tokens.InputTokens)} / 输出 {UsageCount(value.GenerationUsage?.Tokens.OutputTokens)} token";
     private static string UsageLabel(TranslationUsage? value)=>$"输入 token：{UsageCount(value?.InputTokens)} · 输出 token：{UsageCount(value?.OutputTokens)}";
     private static string UsageCount(long? value)=>value?.ToString(System.Globalization.CultureInfo.InvariantCulture)??"Unknown（未知）";
     private static string StyleLabel(TextTranslationSnapshot value)=>StyleLabel(value.Preset);
     private static string StyleLabel(TranslationPreset? preset)=>preset switch{TranslationPreset.Faithful=>"忠实翻译",TranslationPreset.Plain=>"通俗翻译",TranslationPreset.Professional=>"专业翻译",TranslationPreset.Explain=>"解释",_=>"公开探针"};
-    private static string SourceLabel(TextTranslationSnapshot value)=>value.Source.SourceKind switch{SelectionSourceKind.Clipboard=>"复制兼容",SelectionSourceKind.OleDrop=>"拖放文字",SelectionSourceKind.OcrOnly=>(value.Source.Ocr?.FromBrowser==true?"浏览器图片 · ":"")+(value.Source.Ocr?.FromFile==true?"文件图片 · ":"")+(value.Source.Ocr?.UsedFirstFrame==true?"使用首帧 · ":"")+"OCR-only · 图形关系未分析",_=>"选区"};
+    private static string OcrSourcePrefix(OcrTextProvenance? source)=>source?.ImageKind switch
+    {
+        null or OcrImageSourceKind.Screenshot=>"",
+        OcrImageSourceKind.LocalFile=>"文件图片 · ",
+        OcrImageSourceKind.Browser=>"浏览器图片 · ",
+        OcrImageSourceKind.Bitmap=>"投放位图 · ",
+        _=>throw new InvalidOperationException("Unknown OCR source label.")
+    };
+    private static string SourceLabel(TextTranslationSnapshot value)=>value.Source.SourceKind switch{SelectionSourceKind.Clipboard=>"复制兼容",SelectionSourceKind.OleDrop=>"拖放文字",SelectionSourceKind.OcrOnly=>OcrSourcePrefix(value.Source.Ocr)+(value.Source.Ocr?.UsedFirstFrame==true?"使用首帧 · ":"")+"OCR-only · 图形关系未分析",_=>"选区"};
 }

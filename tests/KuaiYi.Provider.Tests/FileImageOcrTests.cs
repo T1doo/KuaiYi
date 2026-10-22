@@ -10,7 +10,7 @@ using P=ImageProduction::KuaiYi.Imaging;
 namespace KuaiYi.Provider.Tests;
 
 // Synthetic prepared file owners and OCR port; these tests do not claim native decoding/OCR or WPF.
-public sealed class FileImageOcrTests
+public sealed partial class FileImageOcrTests
 {
     private sealed class Immediate:SynchronizationContext{public override void Post(SendOrPostCallback callback,object? state)=>callback(state);}
     private sealed class Deferred:SynchronizationContext
@@ -70,7 +70,7 @@ public sealed class FileImageOcrTests
     {
         await using var r=await Rig.Create(protocol);r.Image.Dispose();r.Image=File(gif:true);var caps=await r.Discover();Assert.Equal(P.ImageSourceKind.LocalFile,caps.SourceKind);Assert.Equal("使用首帧",caps.SourceNotice);Assert.False(r.Local.Start(caps with{},"en-US"));
         r.Worker=new();Assert.True(r.Local.Start(caps,"zh-Hans"));await r.Local.Running;var preview=Assert.IsType<P.OcrTextPreview>(r.Local.Preview);Assert.Equal("zh-Hans",preview.Language);Assert.Equal(P.ImageSourceKind.LocalFile,preview.SourceKind);Assert.Equal("使用首帧",preview.SourceNotice);Assert.False(preview.Transform!.HasDesktopAnchor);Assert.Single(preview.WordRegions);Assert.Equal(0,r.Script.Requests);
-        Assert.Null(r.Local.Approve(preview with{}));var source=Assert.IsType<SelectionSourceSnapshot>(r.Local.Approve(preview));Assert.True(source.Ocr!.FromFile);Assert.True(source.Ocr.UsedFirstFrame);Assert.Empty(source.Ranges);Assert.Equal(0,source.Window.Handle);
+        Assert.Null(r.Local.Approve(preview with{}));var source=Assert.IsType<SelectionSourceSnapshot>(r.Local.Approve(preview));Assert.True(source.Ocr!.FromFile);Assert.Equal(OcrImageSourceKind.LocalFile,source.Ocr.ImageKind);Assert.True(source.Ocr.UsedFirstFrame);Assert.Empty(source.Ranges);Assert.Equal(0,source.Window.Handle);
         var offer=Assert.IsType<TextTranslationOffer>(r.Text.PrepareOcr(source,TranslationPreset.Explain));Assert.Equal(TextSubmission.ConfirmationRequired,r.Text.Submit(offer));Assert.Equal(0,r.Script.Requests);
         // Accepted text remains a text source after the image owner is cleared, as in screenshot OCR.
         r.Image.Dispose();Assert.Equal(TextSubmission.Started,r.Text.Submit(offer,true));await r.Script.Received.Task.WaitAsync(TimeSpan.FromSeconds(6));

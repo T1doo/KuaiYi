@@ -230,7 +230,7 @@ public sealed class TextTranslationCoordinator: IAsyncDisposable
     private bool SourceAllowed(SelectionSourceSnapshot source,SettingsSnapshot config,bool explicitUse)
     {
         if(source.SourceKind==SelectionSourceKind.OcrOnly)
-            return source.Ocr is {SourceVersion:var version,SourceId:var id,PreviewId:var preview}&&version!=Guid.Empty&&id!=Guid.Empty&&preview!=Guid.Empty&&
+            return source.Ocr is {Valid:true}&&
                 source.Window==new SelectionWindow(0,0,0,"")&&source.Ranges.IsEmpty&&source.RuntimeId.IsEmpty&&source.DropReceiver==Guid.Empty&&source.DropTransaction==Guid.Empty&&
                 source.Recovery==ClipboardRecovery.NotNeeded&&source.RequiresConfirmation&&ocrSourceCurrent(source);
         return Enum.IsDefined(source.SourceKind)&&source.Ocr==null&&!SelectionTextPolicy.Excluded(source.Window,config.Data,(uint)Environment.ProcessId)&&sourceCurrent(source,explicitUse);

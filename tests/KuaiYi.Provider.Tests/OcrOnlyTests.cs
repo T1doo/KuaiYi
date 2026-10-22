@@ -88,7 +88,7 @@ public sealed class OcrOnlyTests
     {
         await using var rig=await Rig.Create(protocol);var preview=await rig.Preview();Assert.Equal(0,rig.Script.Requests);Assert.True(rig.Worker.Disposed);
         Assert.True(rig.Worker.Borrowed.Span.IndexOfAnyExcept((byte)0)<0);Assert.Null(rig.Local.Approve(preview with{}));
-        var source=rig.Local.Approve(preview)!;Assert.NotNull(source.Ocr);Assert.Equal(new SelectionWindow(0,0,0,""),source.Window);
+        var source=rig.Local.Approve(preview)!;Assert.NotNull(source.Ocr);Assert.Equal(OcrImageSourceKind.Screenshot,source.Ocr.ImageKind);Assert.Equal(new SelectionWindow(0,0,0,""),source.Window);
         Assert.Null(rig.Text.PrepareOcr(source with{},preset)); // Value-equivalent record does not confer approval.
         var offer=rig.Text.PrepareOcr(source,preset)!;Assert.Equal(preset,offer.Snapshot.Preset);Assert.Equal(TranslationPreset.Faithful,rig.Settings.Data.Translation.Preset);
         Assert.True(offer.RequiresConfirmation);Assert.Equal(TextSubmission.ConfirmationRequired,rig.Text.Submit(offer));Assert.Equal(0,rig.Script.Requests);

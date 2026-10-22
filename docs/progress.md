@@ -1511,3 +1511,8 @@ P7-01/已有实例认证转交/真实Windows菜单-WPF/OLE/OCR/身份/画质/250
 
 
 最终固定测试树72f61076f1701f6e35314c2be7b3dcfbe5cf7493 的r12完整Core2224P/Provider2469P/Codec493P，各0F0skip/exit0；App/OleReceiver/Worker三交叉构建各0W/E。六轮850输入=current=Git、HEAD前后相同/dirty0，目标AssemblyInfo同SHA；独立原件限定ACK，旧红门不回填、轮次不相加。功能源码仍a4305e，后续仅测试helper及报告。原件Library确认libfile_dc94a6dcf4a88191aa03af1cc3083a4d/v0（2914516B/168成员，SHA256 2a777e6bb523d4aee296a628976e6c9ac811480ec761fd6a635785a958b1430d）。Windows/OLE/WPF/真实来源/medium/250600/画质仍未验。
+
+
+## 2026-10-22：Bitmap 本地 OCR 明确来源闭环
+
+从6f6f348单writer接续，补既有Bitmap显式本地OCR入口；Core互斥来源枚举贯通Approve文字来源、主结果和版本菜单，未知值及假首帧拒绝。复用OwnedFileImage无desktop/proof映射、原On/语言/尺寸/源版本/Worker结算/预览与独立发送门，Off不自动OCR发送；DIB/OLE/IPC/依赖权限不扩。独立设计、源码及原件限定ACK。r01 Provider编译别名错误不计测试，r01 Codec4P、r02 Provider196P（851输入无漂移），轮次不相加；随后固定完整签收。详见[接线与未验边界](validation/bitmap-ocr.md)。Windows OCR/WPF/身份/画质250600仍未验，P6/P7不整体标Pass。

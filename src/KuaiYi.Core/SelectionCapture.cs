@@ -10,7 +10,16 @@ public sealed record SelectionGesture(SelectionWindow Window,PixelPoint Down,Pix
 public enum SelectionCaptureStatus{Success,EmptyOrUnsupported,Sensitive,Stale,SoftTimeout,HardTimeout,Crash,Cancelled,ProtocolFailure,CleanupPending,Paused,TooLarge,UntrustedGesture,ClipboardUnsupported,ClipboardTimeout,ClipboardUnrelated,ClipboardBusy}
 public enum SelectionSourceKind{Uia,Clipboard,OleDrop,OcrOnly}
 /// <summary>Local image lineage. It never denotes a desktop selection or image understanding.</summary>
-public sealed record OcrTextProvenance(Guid SourceVersion,Guid SourceId,Guid PreviewId,bool FromFile=false,bool UsedFirstFrame=false,bool FromBrowser=false);
+public enum OcrImageSourceKind{Screenshot,LocalFile,Browser,Bitmap}
+public sealed record OcrTextProvenance(Guid SourceVersion,Guid SourceId,Guid PreviewId,OcrImageSourceKind ImageKind,bool UsedFirstFrame=false)
+{
+    // Compatibility reads only. The exclusive enum is the lineage authority.
+    public bool FromFile=>ImageKind==OcrImageSourceKind.LocalFile;
+    public bool FromBrowser=>ImageKind==OcrImageSourceKind.Browser;
+    public bool FromBitmap=>ImageKind==OcrImageSourceKind.Bitmap;
+    public bool Valid=>SourceVersion!=Guid.Empty&&SourceId!=Guid.Empty&&PreviewId!=Guid.Empty&&Enum.IsDefined(ImageKind)&&
+        (!UsedFirstFrame||ImageKind is OcrImageSourceKind.LocalFile or OcrImageSourceKind.Browser);
+}
 public sealed record SelectionCaptureResult(SelectionCaptureStatus Status,string Text="",ImmutableArray<PixelRect> Ranges=default,ImmutableArray<int> RuntimeId=default,PixelRect? ControlBounds=null,SelectionCopyEvidence? CopyEvidence=null,SelectionSourceKind SourceKind=SelectionSourceKind.Uia,ClipboardRecovery Recovery=ClipboardRecovery.NotNeeded);
 public sealed record SelectionSourceSnapshot(SelectionWindow Window,string RawText,string Text,ImmutableArray<PixelRect> Ranges,ImmutableArray<int> RuntimeId,string SettingsVersion,int Scalars,bool RequiresConfirmation,SelectionSourceKind SourceKind=SelectionSourceKind.Uia,ClipboardRecovery Recovery=ClipboardRecovery.NotNeeded,Guid DropReceiver=default,Guid DropTransaction=default,OcrTextProvenance? Ocr=null);
 public interface ISelectionCapturePlatform

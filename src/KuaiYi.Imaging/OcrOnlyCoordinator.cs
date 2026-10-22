@@ -70,11 +70,10 @@ public sealed class OcrOnlyCoordinator:IAsyncDisposable
     }
     private bool StartCore(Guid version,ImageSourceOwner source,string? language,OcrCapabilitiesSnapshot? expected=null)
     {
-        if(source.Kind==ImageSourceKind.Bitmap){Failure="BitmapOcrUnsupported";return false;}
         // Recognition never silently resizes a screenshot or a prepared file to fit OCR.
         if(language!=null&&(source.Width>ImageTransform.LongEdgeLimit||source.Height>ImageTransform.LongEdgeLimit))
         {Failure="SMALLER_SCREENSHOT_REQUIRED";return false;}
-        if(version==Guid.Empty||source.IsDisposed||!sourceCurrent(version,source.SourceId)||
+        if(!Enum.IsDefined(source.Kind)||version==Guid.Empty||source.IsDisposed||!sourceCurrent(version,source.SourceId)||
             language!=null&&(string.IsNullOrWhiteSpace(language)||language.Length>64||language.Any(c=>!char.IsAsciiLetterOrDigit(c)&&c!='-'))||
             settings() is not {} config||config.ReadOnly||config.RequiresRecovery||!gate.TryBeginPassiveCapture(gate.Snapshot.Mode,out var ticket)||
             config.Data.Profiles.FirstOrDefault(p=>p.Id==config.Data.ActiveProfileId) is not {} profile||!gate.TryGetProfileBinding(profile.Id,out var binding))return false;
@@ -220,10 +219,18 @@ public sealed class OcrOnlyCoordinator:IAsyncDisposable
             {
                 if(!IsPreviewCurrent(preview))return;
                 approved=source=new(new(0,0,0,""),preview.Text,preview.Text,[],[],preview.SettingsVersion,preview.Text.EnumerateRunes().Count(),true,
-                    SelectionSourceKind.OcrOnly,Ocr:new(preview.SourceVersion,preview.SourceId,preview.Id,preview.SourceKind==ImageSourceKind.LocalFile,preview.SourceNotice=="使用首帧",preview.SourceKind==ImageSourceKind.Browser));Preview=null;
+                    SelectionSourceKind.OcrOnly,Ocr:new(preview.SourceVersion,preview.SourceId,preview.Id,OcrKind(preview.SourceKind),preview.SourceNotice=="使用首帧"));Preview=null;
             }
         });return source;
     }
+    private static OcrImageSourceKind OcrKind(ImageSourceKind kind)=>kind switch
+    {
+        ImageSourceKind.Screenshot=>OcrImageSourceKind.Screenshot,
+        ImageSourceKind.LocalFile=>OcrImageSourceKind.LocalFile,
+        ImageSourceKind.Browser=>OcrImageSourceKind.Browser,
+        ImageSourceKind.Bitmap=>OcrImageSourceKind.Bitmap,
+        _=>throw new InvalidDataException("Unknown OCR image source.")
+    };
     public bool IsApprovedSourceCurrent(SelectionSourceSnapshot source)
     {return !Volatile.Read(ref disposed)&&ReferenceEquals(Volatile.Read(ref approved),source)&&gate.Snapshot.Activation==Activation.On&&gate.Snapshot.Suspension==Suspension.None&&gate.Snapshot.Presentation!=Presentation.Hidden;}
     public void Clear(bool clearApproved=true)=>Invalidate(clearApproved);

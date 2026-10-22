@@ -26,7 +26,6 @@ internal sealed partial class ShellWindow
     private async Task TranslateImageText()
     {
         if(exiting||ocrFlowBusy||ocrOnly is not {} ocr||translation is not {} textFlow||SelectedSource.Image is not ImageSourceOwner image||retainedImage?.VersionId is not {} version)return;
-        if(image.Kind==ImageSourceKind.Bitmap){button.ToolTip="此位图切片仅支持本地预览与逐次确认的图像理解；本地 OCR 尚未接入，没有发送。";return;}
         if(lifecycle.Gate.Snapshot.Activation!=Activation.On){button.ToolTip="启用后可提取图片文字；没有发送。";return;}
         bool InputCurrent()=>!exiting&&ReferenceEquals(SelectedSource.Image,image)&&retainedImage is {} current&&current.VersionId==version&&ReferenceEquals(current.Image,image)&&!image.IsDisposed&&
             lifecycle.Gate.Snapshot.Activation==Activation.On&&lifecycle.Gate.Snapshot.Suspension==Suspension.None&&lifecycle.Gate.Snapshot.Presentation!=Presentation.Hidden;
@@ -61,7 +60,7 @@ internal sealed partial class ShellWindow
             var dialog=new Window{Owner=this,Title="OCR-only · 本地文字预览",Width=620,Height=540,WindowStartupLocation=WindowStartupLocation.CenterOwner};ocrDialog=heldDialog=dialog;
             var grid=new DockPanel{Margin=new Thickness(16)};
             var config=lifecycle.Settings!;var profile=config.Data.Profiles.First(p=>p.Id==config.Data.ActiveProfileId);
-            var header=new TextBlock{Text=(preview.SourceKind==ImageSourceKind.Browser?"浏览器图片 · ":preview.SourceKind==ImageSourceKind.Bitmap?"投放位图":preview.SourceKind==ImageSourceKind.LocalFile?"文件图片 · ":"")+(preview.SourceNotice is {} notice?notice+"\n":"")+OcrOnlyCoordinator.Warning+$"\n仅发送下方提取文字；可能有识别错误，请核对。\n目标：{new EndpointOrigin(new Uri(profile.BaseUrl)).Value} · 模型：{profile.Model}；可能产生服务费用。",TextWrapping=TextWrapping.Wrap,Margin=new Thickness(0,0,0,10)};DockPanel.SetDock(header,Dock.Top);grid.Children.Add(header);
+            var header=new TextBlock{Text=(preview.SourceKind==ImageSourceKind.Browser?"浏览器图片 · ":preview.SourceKind==ImageSourceKind.Bitmap?"投放位图 · ":preview.SourceKind==ImageSourceKind.LocalFile?"文件图片 · ":"")+(preview.SourceNotice is {} notice?notice+"\n":"")+OcrOnlyCoordinator.Warning+$"\n仅发送下方提取文字；可能有识别错误，请核对。\n目标：{new EndpointOrigin(new Uri(profile.BaseUrl)).Value} · 模型：{profile.Model}；可能产生服务费用。",TextWrapping=TextWrapping.Wrap,Margin=new Thickness(0,0,0,10)};DockPanel.SetDock(header,Dock.Top);grid.Children.Add(header);
             var controls=new StackPanel{Orientation=Orientation.Horizontal,Margin=new Thickness(0,10,0,0)};DockPanel.SetDock(controls,Dock.Bottom);
             var style=new ComboBox{MinWidth=120,ItemsSource=Enum.GetValues<TranslationPreset>().Select(p=>new ComboBoxItem{Content=StyleLabel(p),Tag=p}).ToArray(),SelectedIndex=(int)(lifecycle.Settings?.Data.Translation.Preset??TranslationPreset.Faithful)};
             TranslationPreset selected=TranslationPreset.Faithful;

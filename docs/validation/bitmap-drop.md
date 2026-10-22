@@ -47,3 +47,6 @@ r07的850输入运行前后相同；与后续固定产品提交 a4305e8700d76794
 这里的 native medium故障源、Shell调度是明确合成夹具；真实子进程/private pipe/Worker确实运行，但不是 Windows COM 或真实 WPF 端到端。实际 Windows DragEnter/GetData/HGLOBAL/同步与async/OLE cleanup、源密码/完整性身份、WPF菜单/预览、Chrome/Edge/Explorer/medium正向warm、画质、250/600ms及600MiB未验。旧BMP取消及其他历史失败不追认唯一根因；P6/P7仍 InProgress。
 
 固定依赖/许可、WebP奇数payload明确拒绝、PackageHold、生产复用Off、原来源/密码/完整性/取消/清理/实际退出及逐次发送门保持。没有真实模型、用户图片、用户电脑、新SDK协议/权限/凭据/费用/CI或被拒runner API重试、main/强推/部署。
+
+
+后续独立产品切片已接入Bitmap显式本地OCR，见[Bitmap OCR](bitmap-ocr.md)。以上拒绝OCR描述是本报告固定a4305e产品的历史范围，保留其原证据；CF_DIB格式和资源上限未扩。
