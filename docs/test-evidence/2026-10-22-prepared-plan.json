@@ -1,6 +1,6 @@
 {
   "base": "99933aebc942e8e94644386bc40330a7a61ab796",
-  "status": "CandidatePassLimited",
+  "status": "FixedPassLimited",
   "scope": "Bounded original-scope Prepared seal and AbortAfterPrepared only; no forward publication or compensation",
   "artifactRoot": "artifacts/2026-10-22-prepared-plan",
   "candidate_runs": {
@@ -12,7 +12,7 @@
     "r06": "Launcher normal build0W/E0tests",
     "r07": "28P0F0skip final candidate"
   },
-  "review": "Independent read-only limited source and candidate evidence ACK; fixed signoff pending",
+  "review": "Independent read-only limited source/candidate/fixed/ZIP evidence ACK; CRC,190 manifest entries,13 product-source Git records,raw204,red-green,911 inputs,17 versions verified; no tests/builds rerun by reviewer",
   "rounds_added_together": false,
   "remaining": [
     "No forward publication/reverse compensation/Committed/recovery",
@@ -20,5 +20,53 @@
     "G native/runtime fixtures do not prove runnable self-contained Windows payload",
     "Real Windows/medium/browser/WPF/OLE/OCR/quality/250600 NotRun"
   ],
-  "no_new_permissions_licenses_credentials_fees_or_model_calls": true
+  "no_new_permissions_licenses_credentials_fees_or_model_calls": true,
+  "product_sha": "9c2256774d70c970b4e1cd24aec7db0f2a2f12af",
+  "fixed_runs": {
+    "r08-fixed-managed": {
+      "normal_managed_builds": 7,
+      "warnings": 0,
+      "errors": 0,
+      "tests": 0
+    },
+    "r09-fixed-risk": {
+      "passed": 204,
+      "failed": 0,
+      "skipped": 0,
+      "new": 28,
+      "existing": 176,
+      "classes": {
+        "Prepared": 28,
+        "B": 30,
+        "G": 28,
+        "Scope": 25,
+        "Before": 23,
+        "BootstrapDeployment": 35,
+        "HostRegistrationTransaction": 35
+      },
+      "full_Core": false
+    },
+    "stable_product_Git_inputs": 911,
+    "full_SHA_assembly_targets": 17,
+    "product_DLL_build_test_matches": 14,
+    "actual_Core_copies_equal": 4,
+    "old_test_files_byte_unchanged": 336,
+    "old_source_files": 366,
+    "modified_old_source_files": 6,
+    "new_source_files": 1,
+    "locks_projects_workflows_packaging_extensions_scripts_unchanged": true,
+    "binary_bodies_in_archive": false
+  },
+  "library": {
+    "id": "libfile_44b5928d8e1c8191901877454a513f17",
+    "version": 0,
+    "file": "prepared-plan-originals.zip",
+    "bytes": 1551923,
+    "members": 191,
+    "manifest_entries": 190,
+    "sha256": "a32f7e9251fed889c8fb7862aef81d5b98ae36d355d9ff9436dfc231400618d2",
+    "local_identity_verified": true,
+    "archive_independent_review": "LimitedACK",
+    "product_source_records": 13
+  }
 }

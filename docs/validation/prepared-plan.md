@@ -35,7 +35,15 @@ artifacts/2026-10-22-prepared-plan保留每轮完整command/log/TRX/失败XML、
 
 28例包含初始/已有归属升级的只读完整计划与SHA、旧Host无receipt/foreign/stale/empty owner/noncanonical/损坏payload、旧bootstrap owner/receipt/container拒绝、partial/Flush/Close/foreign CreateNew、取消三胜序和交付后取消、原read/flush屏障、registry双错、旧bootstrap原句柄双错、Closing原新读及foreignPlan、channel最小写权限。所有反例均中性合成数据；真实registry读取策略仍未实测。
 
-内部独立只读源码及定向原件限定ACK，无确定新增P1/P2，未代替固定树回归。固定签收与Library原件随后单列。
+内部独立只读源码及定向原件限定ACK，无确定新增P1/P2，未代替固定树回归。
+
+## 固定产品签收
+
+产品完整SHA：`9c2256774d70c970b4e1cd24aec7db0f2a2f12af`。r08在该clean HEAD按原锁/SDK执行七个普通managed构建，全部0警告/0错误、零测试；r09在同一clean HEAD一次相关Core签收204P/0F/0skip，204个唯一显示名：Prepared28、B30、G28、Scope25、Before23、BootstrapDeployment35、HostRegistrationTransaction35。即新增28＋既有176，不称完整Core，不借记旧128/141或把不同轮次相加。
+
+两轮911项输入前后相同且逐项匹配产品Git；17份AssemblyInfo均含完整产品SHA，14个产品DLL的正常构建与实际测试摘要一致，Launcher/Core.Tests/SettingsStoreFixture/BrowserHostFixture四份实际Core副本一致。366份旧src仅改6增1，其余逐字节未变；336份旧测试逐字节未变，仅新增Prepared测试。锁文件/项目/工作流/打包/扩展/脚本均未改。scope-audit.json及原始command/log/TRX/完整失败XML/输入产物摘要/对应Git源码保全；原件不含DLL本体，不能冒称独立重hash二进制。
+
+固定树原件独立只读复审限定ACK，无确定新增P1/P2；审核未另跑测试或构建。原始ZIP已保存Library `libfile_44b5928d8e1c8191901877454a513f17`，v0，1,551,923B，191成员/190manifest，SHA256 `a32f7e9251fed889c8fb7862aef81d5b98ae36d355d9ff9436dfc231400618d2`；本地Library身份/版本匹配成功回执。ZIP机械独审限定ACK：CRC、190项大小/SHA、13项product-source（7源码＋1测试＋3报告＋AGENTS/SPEC）与固定Git、完整204TRX、同完整测试源码红绿、911输入和17版本记录均核；包内无DLL本体，未冒称独立重hash二进制。本次证据提交仅三报告，产品源码与测试不变。
 
 ## 未验边界
 

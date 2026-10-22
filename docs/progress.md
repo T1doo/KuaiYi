@@ -1679,3 +1679,7 @@ B只准备固定产品f23bdcf387cfacb7d9c187c8c27739f1f7a97eb0：七普通manage
 B固定树与ZIP原件独审限定ACK；Library libfile_d4d833ce83fc8191b658d54379a20274 v0，1,546,947B/179成员/178manifest，SHA25677c02c171d5341a48a9d5006bac48a81e5fc737f2ed08de9ed407296674a249e。CRC/10份Git源码/raw141/红绿/混代Core诊断/17版本均核，无DLL本体；证据只三报告，产品f23bdcf不变，下一片仍需Prepared与canonical发布设计，不当安装成功。
 
 Prepared候选：同scope exact G/B＋原registry owner，原IO核旧current v3/Host与bootstrap真实归属，编码有界current/owner/receipt与B canonical映射，计划完整Flush/Close/exact后inner Task同锁完成资格；取消前后胜序与AbortAfterPrepared/SHA分开，partial/foreign/unknown保pending，零发布。registry挂起期间目标被改误签真实1F→1P同file，r05 26P/r07 28P分列，候选独审ACK，待固定相关签收。无前向/补偿/Windows假验。见[实现和原件](validation/prepared-plan.md)。
+
+Prepared固定产品9c2256774d70c970b4e1cd24aec7db0f2a2f12af：七普通managed构建0W/E；一次相关204P/0F/0skip＝Prepared28+B30+G28+Scope25+Before23+BootstrapDeployment35+Host事务35，非完整Core。911Git输入/17目标版本/14产品DLL摘要及4实际Core副本一致，336旧测试不变；原registry挂起改G的同file1F→1P保留。计划有界封存与AbortAfterPrepared已闭合，零current/B active/registry发布；前向/补偿/Committed、固定入口/真实Windows/native/runtime/完整P7仍未签。
+
+Prepared固定树与ZIP原件独审限定ACK。Library libfile_44b5928d8e1c8191901877454a513f17 v0，1,551,923B/191成员/190manifest，SHA256 a32f7e9251fed889c8fb7862aef81d5b98ae36d355d9ff9436dfc231400618d2；CRC/13项Git原件/raw204/同file红绿/911inputs/17版本记录均核，无DLL本体。本次证据仅三报告，产品9c2256774d70c970b4e1cd24aec7db0f2a2f12af不变；无前向/补偿/真实注册或Windows验收借记。
