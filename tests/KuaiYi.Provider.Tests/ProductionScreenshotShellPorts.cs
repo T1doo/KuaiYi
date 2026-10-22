@@ -20,7 +20,7 @@ internal sealed partial class ShellWindow
     }
     internal Task TrackSmartForTest(Func<Task> action)=>StartSmartImageWorkflow(action);
     internal Task SmartOriginalForTest=>smartImageTask;
-    internal Task<bool> SendSmartForTest(KuaiYi.Imaging.OcrImageApproval approval,Func<ProductionScreenshotOffer,bool> confirm)=>SubmitSmartScreenshot(approval,confirm);
+    internal Task<bool> SendSmartForTest(KuaiYi.Imaging.SmartImageApproval approval,Func<ProductionScreenshotOffer,bool> confirm)=>SubmitSmartScreenshot(approval,confirm);
     internal string VersionDescriptionForTest(Guid id)=>VersionMenuLabel(overlayResults.Versions.Single(v=>v.Identity.VersionId==id));
     internal void SelectScreenshotVersionForTest(Guid id)=>SelectResultVersion(id);
     internal bool ScreenshotSendEnabledForTest=>CanTranslateScreenshot;

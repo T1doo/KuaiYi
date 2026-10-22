@@ -18,7 +18,7 @@ internal sealed record ScreenshotGenerationSnapshot(Guid SourceVersion,Guid Sour
     KuaiYi.Providers.ApiProfile Transport,RequestProfileBinding Binding,int Number,ImageOutputMode RequestedMode,bool Regeneration,
     ImageClassification? Classification=null,ImageTranslationPlan? Plan=null,ScreenshotUsageReceipt? ClassificationUsage=null,
     ScreenshotUsageReceipt? GenerationUsage=null,bool ClassificationUsageReused=false,ImageTransform? Transform=null,
-    ScreenshotNormalizationProof? NormalizationProof=null,ImageSourceKind SourceKind=ImageSourceKind.Screenshot,string? SourceNotice=null,SmartImageOcrMetadata? Ocr=null);
+    ScreenshotNormalizationProof? NormalizationProof=null,ImageSourceKind SourceKind=ImageSourceKind.Screenshot,string? SourceNotice=null,SmartImageOcrMetadata? Ocr=null,VisionContinuationReason? VisionContinuation=null);
 internal sealed record ScreenshotGenerationUpdate(RequestIdentity Identity,ScreenshotGenerationEvent Kind,ScreenshotGenerationSnapshot Snapshot,string? Text=null,string? Reason=null);
 
 /// <summary>Independent offline P6 protocol slice. Never installed in the normal Shell screenshot path.

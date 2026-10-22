@@ -4,6 +4,19 @@ using Xunit;
 namespace KuaiYi.Provider.Tests;
 public sealed partial class ProductionScreenshotShellTests
 {
+    [Theory][InlineData("decline")][InlineData("off")][InlineData("clear")]
+    public async Task SmartVisionShellRequiresSeparateCurrentSendConfirmation(string change)
+    {
+        await using var r=await Rig.Create();var w=r.Window;var worker=new SmartOcrFixture.Worker{Languages=[]};
+        await using var local=new OcrOnlyCoordinator(w.MarkdownGate,()=>r.Config,(v,id)=>w.SelectedSourceVersionForTest==v&&w.SelectedImageForTest?.SourceId==id,new Immediate(),()=>worker);
+        Assert.True(local.Discover(w.SelectedSourceVersionForTest!.Value,r.Image));await local.Running;var candidate=Assert.IsType<VisionContinuationCandidate>(local.VisionCandidate);
+        using var approval=Assert.IsType<VisionImageApproval>(local.ApproveVision(candidate));int confirmations=0;
+        Assert.False(await w.SendSmartForTest(approval,offer=>
+        {
+            confirmations++;Assert.Contains("没有批准 OCR 文字",offer.ConfirmationText);Assert.Contains("模型",offer.ConfirmationText);
+            if(change=="off")w.MarkdownGate.Disable();if(change=="clear")w.ClearImagePresentationForTest();return change!="decline";
+        }));Assert.Equal(1,confirmations);Assert.Equal(2,approval.State);Assert.Equal(0,r.Script.Requests);
+    }
     private sealed class SmartQueue:SynchronizationContext
     {
         private readonly Queue<Action> pending=[];

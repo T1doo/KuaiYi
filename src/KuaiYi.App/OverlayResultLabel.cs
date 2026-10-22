@@ -20,7 +20,7 @@ internal sealed partial class ShellWindow
         if(selection.Generation is {} generated)
         {
             resultLabel.Text=$"{(generated.SourceKind==KuaiYi.Imaging.ImageSourceKind.Browser?"浏览器图片":generated.SourceKind==KuaiYi.Imaging.ImageSourceKind.Bitmap?"投放位图":generated.SourceKind==KuaiYi.Imaging.ImageSourceKind.LocalFile?"文件图片":"截图")}{(generated.SourceNotice is {} sourceNotice?" · "+sourceNotice:"")} · 版本 {generated.Number} · {StyleLabel(generated.Plan?.Preset??imageTranslation?.PresetForVersion(selection.VersionId!.Value)??generated.Settings.Data.Translation.Preset)} · {generated.Profile.Model}"+(generated.Plan?.Notice is {Length:>0} note?" · "+note:"")+(selected?.Failure!=null?" · 未完成":selected?.Stopped==true?" · 已停止":"");
-            resultLabel.Text+=generated.Ocr?.UsedForText==true?" · 已批准 OCR 文字":"";
+            resultLabel.Text+=generated.Ocr?.UsedForText==true?" · 已批准 OCR 文字":generated.VisionContinuation!=null?" · 使用视觉继续 · 未使用 OCR 文字":"";
             resultLabel.ToolTip=$"此版本图片快照 · {new EndpointOrigin(generated.Transport.ResolveEndpoint()).Value}\n{ScreenshotUsageLabel(generated)}\n{generated.Plan?.Notice}\n仅显示服务端报告，不相加或估算费用；当前图片复用未启用。";
         }
         RefreshFailureNotice();

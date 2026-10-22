@@ -1556,3 +1556,7 @@ r08冻结7260f66完整Core2225P0F、Provider2492P1F，851输入Git一致；失�
 
 
 最终原件/三报告及337成员ZIP独立限定ACK；Library确认libfile_0ed7d88d3e08819182e4962783ea2391/v0，2225210B/SHA256 5013147b489f670ec8e23fbae64c1df2f6abce985ae44c508cbaf7b499f31000，上传后xattr/hash核验。后续只这3报告提交，产品/测试仍bef61b5，真实Windows/OCR质量性能与整体阶段未验保持。
+
+## 2026-10-22 智能图片显式视觉继续
+
+核实 SPEC7.4/7.5 主路径缺口：原 Automatic 在无语言/空 OCR 时分类前结束。按独审最小设计实现当前良性 OCR outcome→独立“使用视觉继续”→原 BYOK 发送确认；共用一次性 SmartImageApproval/原任务结算，视觉 final 即使 text_onlyclear 也保留原图，不伪造 OCR 文字批准。身份/协议/取消/超时/清理失败仍拒绝，不自动 fallback。r01 新视觉39P、r02 App0W/E、r03相关399P、r04真实pending屏障1P，各865输入无漂移；均dirty候选，不相加。冻结后相关范围及 SHA 见 [本片接线与证据](validation/smart-image-vision.md)。未做安装器或扩大权限依赖，Windows实际OCR/WPF/medium/画质性能仍未验。

@@ -17,7 +17,7 @@ internal sealed partial class ShellWindow
     }
     partial void CollectSmartCleanup(ref Task cleanup){cleanup=smartImageTask;}
     // Local approval is not consent to HTTP. The original per-image confirmation remains separate.
-    private async Task<bool> SubmitSmartScreenshot(OcrImageApproval approval,Func<ProductionScreenshotOffer,bool> confirm)
+    private async Task<bool> SubmitSmartScreenshot(SmartImageApproval approval,Func<ProductionScreenshotOffer,bool> confirm)
     {
         ProductionScreenshotOffer? offer=null;ProductionScreenshotCoordinator? flow=null;bool launched=false;List<Exception> errors=[];
         try

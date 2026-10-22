@@ -10,7 +10,7 @@ namespace KuaiYi.App;
 
 internal enum ProductionScreenshotEvent { Begin, Prepared, Classifying, Generating, Delta, Usage, Completed, Failed }
 internal sealed record ProductionScreenshotUpdate(RequestIdentity Identity,ProductionScreenshotEvent Kind,ScreenshotGenerationSnapshot Snapshot,string? Text=null,string? Reason=null);
-internal sealed class ProductionScreenshotOffer(ScreenshotGenerationSnapshot snapshot,CaptureTicket ticket,ImageSourceOwner image,long revision,TranslationPreset preset,OcrImageApproval? ocr=null)
+internal sealed class ProductionScreenshotOffer(ScreenshotGenerationSnapshot snapshot,CaptureTicket ticket,ImageSourceOwner image,long revision,TranslationPreset preset,SmartImageApproval? ocr=null)
 {
     public ScreenshotGenerationSnapshot Snapshot {get;}=snapshot;
     public TranslationPreset RequestedPreset {get;}=preset;
@@ -19,11 +19,11 @@ internal sealed class ProductionScreenshotOffer(ScreenshotGenerationSnapshot sna
     internal ImageSourceOwner Image {get;}=image;
     internal long Revision {get;}=revision;
     internal bool Launched;
-    internal OcrImageApproval? Ocr {get;}=ocr;
+    internal SmartImageApproval? Ocr {get;}=ocr;
     private Task? originalTask;
     internal Task OriginalTask=>originalTask??Task.CompletedTask;
     internal void Track(Task task){if(Interlocked.CompareExchange(ref originalTask,task,null)!=null)throw new InvalidOperationException("Original image task already installed.");}
-    public string ConfirmationText=>(Ocr==null?"":$"本地 OCR 文字已由您批准（语言 {Ocr.Language}）。分类请求仍发送当前图片；仅判断为清晰纯文字时，正式生成发送这些批准文字，其他分支仍发送当前图片。两阶段均使用下方同一模型与目标。\n")+(Image.Kind!=ImageSourceKind.Screenshot?$"将仅发送{(Image.Kind==ImageSourceKind.Bitmap?"本次明确投放的位图":Image.Kind==ImageSourceKind.Browser?"当前明确接收的浏览器图片":"当前明确打开的本地图片")}{(Image.Notice is {} note?" · "+note:"")}。\n目标：{new EndpointOrigin(Snapshot.Transport.ResolveEndpoint()).Value}\n模型：{Snapshot.Profile.Model}\n本次模式：{Snapshot.RequestedMode switch{ImageOutputMode.TranslateText=>"仅翻译图中文字",ImageOutputMode.ExplainImage=>"按图文解释",_=>"智能判断"}} · 文字风格：{PresetLabel}。\n通常先分类，再正式生成，可能发生两次服务调用及相应费用；不发送文件路径或其他文件。是否确认本次发送？":$"将仅发送当前明确裁剪的截图。\n目标：{new EndpointOrigin(Snapshot.Transport.ResolveEndpoint()).Value}\n模型：{Snapshot.Profile.Model}\n本次模式：{Snapshot.RequestedMode switch{ImageOutputMode.TranslateText=>"仅翻译图中文字",ImageOutputMode.ExplainImage=>"按图文解释",_=>"智能判断"}}。\n本次文字风格：{PresetLabel}；按图文解释时使用解释风格。\n通常先分类，再正式生成，可能发生两次服务调用及相应费用；无效分类不会继续发送。\n仅使用当前所选截图，不发送整个屏幕或文件路径。是否确认本次发送？");
+    public string ConfirmationText=>(Ocr is VisionImageApproval?"您已明确选择使用视觉继续；没有批准 OCR 文字。分类与正式生成均发送当前图片，两阶段均使用下方同一模型与目标。\n":Ocr is not OcrImageApproval text?"":$"本地 OCR 文字已由您批准（语言 {text.Language}）。分类请求仍发送当前图片；仅判断为清晰纯文字时，正式生成发送这些批准文字，其他分支仍发送当前图片。两阶段均使用下方同一模型与目标。\n")+(Image.Kind!=ImageSourceKind.Screenshot?$"将仅发送{(Image.Kind==ImageSourceKind.Bitmap?"本次明确投放的位图":Image.Kind==ImageSourceKind.Browser?"当前明确接收的浏览器图片":"当前明确打开的本地图片")}{(Image.Notice is {} note?" · "+note:"")}。\n目标：{new EndpointOrigin(Snapshot.Transport.ResolveEndpoint()).Value}\n模型：{Snapshot.Profile.Model}\n本次模式：{Snapshot.RequestedMode switch{ImageOutputMode.TranslateText=>"仅翻译图中文字",ImageOutputMode.ExplainImage=>"按图文解释",_=>"智能判断"}} · 文字风格：{PresetLabel}。\n通常先分类，再正式生成，可能发生两次服务调用及相应费用；不发送文件路径或其他文件。是否确认本次发送？":$"将仅发送当前明确裁剪的截图。\n目标：{new EndpointOrigin(Snapshot.Transport.ResolveEndpoint()).Value}\n模型：{Snapshot.Profile.Model}\n本次模式：{Snapshot.RequestedMode switch{ImageOutputMode.TranslateText=>"仅翻译图中文字",ImageOutputMode.ExplainImage=>"按图文解释",_=>"智能判断"}}。\n本次文字风格：{PresetLabel}；按图文解释时使用解释风格。\n通常先分类，再正式生成，可能发生两次服务调用及相应费用；无效分类不会继续发送。\n仅使用当前所选截图，不发送整个屏幕或文件路径。是否确认本次发送？");
 }
 /// <summary>Normal Shell's explicit final-crop path. Borrows the crop; never owns file codecs or caches images/classification for reuse.
 /// Destination callbacks serialize result metadata. sourceCurrent reads synchronous thread-safe metadata only, including under the send gate.</summary>
@@ -32,8 +32,8 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
     private sealed record Source(Guid Version,ImageSourceOwner Image);
     private sealed record VersionState(ScreenshotGenerationSnapshot Snapshot,TranslationPreset Preset);
     private sealed record Validation(SettingsSnapshot Saved,bool Rejected=false);
-    private sealed class Job(Source source,RequestIdentity identity,ScreenshotGenerationSnapshot snapshot,TranslationPreset preset,OcrImageApproval? ocr)
-    {public OcrImageApproval? Ocr=ocr;public readonly Source Source=source;public readonly RequestIdentity Identity=identity;public readonly TranslationPreset Preset=preset;public ScreenshotGenerationSnapshot Snapshot=snapshot;public bool Terminal;public ScreenshotUsageStage? Stage;public Validation Validation=new(snapshot.Settings);}
+    private sealed class Job(Source source,RequestIdentity identity,ScreenshotGenerationSnapshot snapshot,TranslationPreset preset,SmartImageApproval? ocr)
+    {public SmartImageApproval? Ocr=ocr;public readonly Source Source=source;public readonly RequestIdentity Identity=identity;public readonly TranslationPreset Preset=preset;public ScreenshotGenerationSnapshot Snapshot=snapshot;public bool Terminal;public ScreenshotUsageStage? Stage;public Validation Validation=new(snapshot.Settings);}
     private readonly RuntimeGate gate;private readonly Func<SettingsSnapshot?> settings;private readonly Func<Guid,Guid,bool> sourceCurrent;
     private readonly ProviderClient provider;private readonly ProviderEventReceiver receiver;
     private readonly Func<RequestIdentity,ScreenshotGenerationSnapshot,CancellationToken,Task<SecretLease?>> openSecret;
@@ -62,7 +62,7 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
         if(preset is {} value&&!Enum.IsDefined(value)||PresetForSource(version,sourceId)==null)return false;
         sourceStyle=preset is {} selected?(version,sourceId,selected):null;DiscardOffer();commandRevision++;return true;
     }
-    public ProductionScreenshotOffer? Prepare(Guid version,ImageSourceOwner image,ImageOutputMode mode=ImageOutputMode.Automatic,OcrImageApproval? ocr=null)
+    public ProductionScreenshotOffer? Prepare(Guid version,ImageSourceOwner image,ImageOutputMode mode=ImageOutputMode.Automatic,SmartImageApproval? ocr=null)
     {
         DiscardOffer();long revision=++commandRevision;LastRejection=null;
         ProductionScreenshotOffer? Reject(string reason){LastRejection=reason;return null;}
@@ -113,7 +113,7 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
                 if(offer.Ocr!=null&&!offer.Ocr.TryBind(offer.Ticket,identity,offer.Snapshot.Binding))return;
                 if(!Results.Begin(identity))return;
                 offer.Launched=true;offered=null;consumed=(offer.Snapshot.SourceVersion,offer.Snapshot.SourceId);
-                var snapshot=offer.Snapshot with{Number=Results.Versions.Single(v=>v.Identity==identity).Number,Ocr=offer.Ocr is {} approval?new(approval.PreviewId,approval.Language,false):null};
+                var snapshot=offer.Snapshot with{Number=Results.Versions.Single(v=>v.Identity==identity).Number,Ocr=offer.Ocr is OcrImageApproval approval?new(approval.PreviewId,approval.Language,false):null,VisionContinuation=(offer.Ocr as VisionImageApproval)?.Reason};
                 admitted=new(new(snapshot.SourceVersion,offer.Image),identity,snapshot,offer.RequestedPreset,offer.Ocr);active=admitted;snapshots[identity.VersionId]=new(snapshot,offer.RequestedPreset);sourceStyle=null;Prune();
                 // Install the tracked task before any notification can reenter and install C.
                 Running=Run(admitted);offer.Track(Running);lock(jobsSync)jobs.Add(Running);_=Observe(Running);
@@ -206,13 +206,13 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
             if(!await Receive(job,new(job.Identity,new(ModelEventKind.Started)),_=>
             {if(job.Snapshot.Transform==null&&!CommitPrepared(job,prepared))return;job.Snapshot=job.Snapshot with{Plan=plan};BeginUsageStage(job,ScreenshotUsageStage.Generation);Publish(job,ProductionScreenshotEvent.Generating);},lifetime.Token,budget).ConfigureAwait(false))return;
             string user=plan.User,finalSystem=plan.System;byte[]? finalImage=bytes;
-            if(job.Snapshot.RequestedMode==ImageOutputMode.Automatic&&job.Snapshot.Classification.Kind==ImageKind.TextOnly&&job.Snapshot.Classification.Readability==ImageReadability.Clear)
+            if(job.Snapshot.RequestedMode==ImageOutputMode.Automatic&&job.Snapshot.Classification.Kind==ImageKind.TextOnly&&job.Snapshot.Classification.Readability==ImageReadability.Clear&&job.Ocr is OcrImageApproval textApproval)
             {
-                if(job.Ocr?.TryReadText(out var approvedText)!=true||approvedText==null)return;
+                if(!textApproval.TryReadText(out var approvedText)||approvedText==null)return;
                 var textPlan=PromptBuilder.Compose(job.Snapshot.Settings.Data.Translation with{Preset=job.Preset},approvedText);
                 user=textPlan.User;finalSystem=textPlan.System;finalImage=null;
                 if(!await Receive(job,new(job.Identity,new(ModelEventKind.Started)),_=>
-                {job.Snapshot=job.Snapshot with{Ocr=new(job.Ocr.PreviewId,job.Ocr.Language,true),Plan=plan with{System=textPlan.System,User="",Notice="智能判断 · 使用已批准的 OCR 文字；图形关系未分析",TemplateVersion=textPlan.FullTemplateVersion}};snapshots[job.Identity.VersionId]=new(job.Snapshot,job.Preset);},lifetime.Token,budget).ConfigureAwait(false))return;
+                {job.Snapshot=job.Snapshot with{Ocr=new(textApproval.PreviewId,textApproval.Language,true),Plan=plan with{System=textPlan.System,User="",Notice="智能判断 · 使用已批准的 OCR 文字；图形关系未分析",TemplateVersion=textPlan.FullTemplateVersion}};snapshots[job.Identity.VersionId]=new(job.Snapshot,job.Preset);},lifetime.Token,budget).ConfigureAwait(false))return;
             }
             var final=new TranslationRequest(job.Snapshot.Transport,finalSystem,user,finalImage);
             timeout.Check();
