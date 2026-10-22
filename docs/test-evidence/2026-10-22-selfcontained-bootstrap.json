@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "scope": "Self-contained bootstrap exact contract and existing qualification chain; actual publish blocked",
+  "base": "c8e65160b04ca0847425f2ee0fb5c04dcdbd1a44",
+  "status": "InProgress",
+  "actualPublish": {
+    "project": "KuaiYi.Launcher",
+    "selfContained": true,
+    "runtime": "10.0.13",
+    "rid": "win-x64",
+    "exit": 1,
+    "reason": "NETSDK1112_MissingInstalledCoreRuntimePack",
+    "artifactsQualified": false
+  },
+  "productionTrust": "Unavailable",
+  "fullSelfContainedReadPositive": "NotRun",
+  "actualWindows": "NotRun",
+  "originals": "artifacts/2026-10-22-selfcontained-bootstrap",
+  "candidate": {
+    "componentPassed": 20,
+    "preconditionFailed": 1,
+    "failure": "MixedOrUnknownProductBuildRevision_BeforeReceiptAssertion",
+    "effectiveProductRed": false,
+    "sourceReview": "ACK_Limited"
+  }
+}

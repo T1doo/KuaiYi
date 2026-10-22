@@ -71,7 +71,7 @@ internal sealed class InstallationBootstrapDeployment(string root,string userDat
                 (package,revision)=InstallationBootstrapPackage.Read(source,digest!,generation,cancellation);
             }
             cancellation.ThrowIfCancellationRequested();Guid operation=Guid.NewGuid(),bundle=Guid.NewGuid();byte[] ownerBytes=EncodeOwner(owner);
-            byte[]? next=package==null?null:EncodeReceipt(new(1,"KuaiYi",InstallationBootstrapPackage.Mode,owner.Owner,bundle,package.CatalogSha256,revision!,generation));
+            byte[]? next=package==null?null:EncodeReceipt(new(1,"KuaiYi",InstallationBootstrapPackage.ModeOf(package),owner.Owner,bundle,package.CatalogSha256,revision!,generation));
             if(next!=null)RequireTransport(root,userData,generation,current,ownerBytes,next);
             var intent=new Intent(1,"KuaiYi",operation,source!=null,owner,Convert.ToBase64String(current),before==null?null:Convert.ToBase64String(before),bundle,package?.CatalogSha256);byte[] journal=JsonSerializer.SerializeToUtf8Bytes(intent);
             if(journal.Length>JournalLimit)throw new InvalidDataException("Bootstrap journal exceeds bound.");
@@ -151,10 +151,10 @@ internal sealed class InstallationBootstrapDeployment(string root,string userDat
     internal static Receipt RequireReceipt(string root,string data,StoreOwner owner,byte[] bytes,CancellationToken cancellation,InstallationPreparationIO? io=null)
     {
         var value=Decode<Receipt>(bytes);RequireOwner(owner,root,data);
-        if(value.SchemaVersion!=1||value.Product!="KuaiYi"||value.Mode!=InstallationBootstrapPackage.Mode||value.Owner!=owner.Owner||value.Bundle==Guid.Empty||!InstallationPackage.HashValid(value.CatalogSha256)||value.Generation==null||InstallationNormalEntry.FindInstallationRoot(value.Generation.DirectoryPath)!=root)throw new InstallationRecoveryException("Unknown bootstrap ownership retained.");
+        if(value.SchemaVersion!=1||value.Product!="KuaiYi"||value.Mode is not(InstallationBootstrapPackage.Mode or InstallationBootstrapPackage.SelfContainedMode)||value.Owner!=owner.Owner||value.Bundle==Guid.Empty||!InstallationPackage.HashValid(value.CatalogSha256)||value.Generation==null||InstallationNormalEntry.FindInstallationRoot(value.Generation.DirectoryPath)!=root)throw new InstallationRecoveryException("Unknown bootstrap ownership retained.");
         var generation=io==null?InstallationPayload.RequireMaterialized(value.Generation.DirectoryPath,cancellation):InstallationPackage.ReadInstalled(value.Generation.DirectoryPath,cancellation,expectedDigest:value.Generation.CatalogSha256,io:io);
         if(generation.Schema!=3||generation.CatalogSha256!=value.Generation.CatalogSha256)throw new InstallationRecoveryException("Bootstrap generation changed.");
-        var (_,revision)=InstallationBootstrapPackage.Read(BundlePath(root,value.Bundle),value.CatalogSha256,value.Generation,cancellation,io);if(revision!=value.Revision)throw new InstallationRecoveryException("Bootstrap build binding differs.");return value;
+        var (package,revision)=InstallationBootstrapPackage.Read(BundlePath(root,value.Bundle),value.CatalogSha256,value.Generation,cancellation,io);if(revision!=value.Revision||InstallationBootstrapPackage.ModeOf(package)!=value.Mode)throw new InstallationRecoveryException("Bootstrap build binding differs.");return value;
     }
     internal static void RequireOwner(StoreOwner owner,string root,string data)
     {if(owner.SchemaVersion!=1||owner.Product!="KuaiYi"||owner.Owner==Guid.Empty||owner.Root!=root||owner.UserData!=data)throw new InstallationRecoveryException("Unknown bootstrap store owner retained.");}

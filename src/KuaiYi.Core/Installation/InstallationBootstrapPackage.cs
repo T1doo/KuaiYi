@@ -4,21 +4,50 @@ using System.Security.Cryptography;
 using System.Text.Json;
 namespace KuaiYi.Core.Installation;
 
-// Exact framework-dependent development bundle, not the missing Windows self-contained distribution.
+// Two disjoint bounded contracts. A self-contained contract is not a signature or a publish/execution receipt.
 internal static class InstallationBootstrapPackage
 {
-    internal const string Mode="FrameworkDependentDevelopment";
+    internal const string Mode="FrameworkDependentDevelopment",SelfContainedMode="SelfContainedWindowsX64_10_0_13";
+    private static readonly JsonElement RuntimeContract=ReadRuntimeContract();
+    internal static IReadOnlyList<InstallationFile> RuntimeFiles{get;}=Array.AsReadOnly(RuntimeContract.GetProperty("files").EnumerateArray().Select(f=>new InstallationFile(f.GetProperty("path").GetString()!,f.GetProperty("bytes").GetInt64(),f.GetProperty("sha256").GetString()!)).ToArray());
     internal static readonly string[] Files=["KuaiYi.Core.dll","KuaiYi.Launcher.deps.json","KuaiYi.Launcher.dll","KuaiYi.Launcher.exe","KuaiYi.Launcher.runtimeconfig.json"];
+    internal static IReadOnlyList<string> FilesForMode(string mode)=>mode switch
+    {
+        Mode=>Files,
+        SelfContainedMode=>Array.AsReadOnly(Files.Concat(RuntimeFiles.Select(f=>f.Path)).Order(StringComparer.Ordinal).ToArray()),
+        _=>throw new InvalidDataException("Unknown bootstrap mode.")
+    };
+    internal static string ModeOf(InstallationPackage package)
+    {
+        string[] actual=package.Manifest.Files.Select(f=>f.Path).Order(StringComparer.Ordinal).ToArray();
+        if(actual.SequenceEqual(Files,StringComparer.Ordinal))return Mode;
+        if(actual.SequenceEqual(FilesForMode(SelfContainedMode),StringComparer.Ordinal))return SelfContainedMode;
+        throw new InvalidDataException("Exact known bootstrap closure required; no mode fallback.");
+    }
+    private static JsonElement ReadRuntimeContract()
+    {
+        using var stream=typeof(InstallationBootstrapPackage).Assembly.GetManifestResourceStream("KuaiYi.BootstrapRuntime")??throw new InvalidDataException("Missing built-in bootstrap runtime contract.");
+        using var doc=JsonDocument.Parse(stream,new(){MaxDepth=16});return doc.RootElement.Clone();
+    }
+    internal static void RequireRuntimeEntries(InstallationPackage package)
+    {
+        if(ModeOf(package)!=SelfContainedMode)throw new InvalidDataException("Self-contained bootstrap required.");
+        var entries=package.Manifest.Files.ToDictionary(f=>f.Path,StringComparer.Ordinal);
+        foreach(var expected in RuntimeFiles)
+            if(!entries.TryGetValue(expected.Path,out var actual)||actual.Bytes!=expected.Bytes||!string.Equals(actual.Sha256,expected.Sha256,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Bootstrap runtime bytes differ from fixed approved input.");
+    }
     internal static (InstallationPackage Package,string Revision) Read(string directory,string digest,InstalledVersion generation,CancellationToken cancellation,InstallationPreparationIO? io=null)
     {
         var package=InstallationPackage.ReadSource(directory,digest,cancellation,io);
-        if(package.Schema!=1||!package.Manifest.Files.Select(f=>f.Path).Order(StringComparer.Ordinal).SequenceEqual(Files)||package.Manifest.Files.Any(f=>f.Bytes is <=0 or >32*1024*1024)||package.Manifest.Files.Sum(f=>f.Bytes)>64*1024*1024)throw new InvalidDataException("Exact bounded development bootstrap files required.");
+        string mode=ModeOf(package);long totalLimit=mode==Mode?64L*1024*1024:128L*1024*1024;
+        if(package.Schema!=1||package.Manifest.Files.Any(f=>f.Bytes is <=0 or >32*1024*1024)||package.Manifest.Files.Sum(f=>f.Bytes)>totalLimit)throw new InvalidDataException("Exact bounded bootstrap files required.");
+        if(mode==SelfContainedMode)RequireRuntimeEntries(package);
         string core=Path.Combine(directory,"KuaiYi.Core.dll"),launcher=Path.Combine(directory,"KuaiYi.Launcher.dll");string revision=Managed(core,"KuaiYi.Core",io);
         if(Managed(launcher,"KuaiYi.Launcher",io)!=revision||Hash(core,io)!=Hash(Path.Combine(generation.DirectoryPath,"KuaiYi.Core.dll"),io))throw new InvalidDataException("Bootstrap and generation Core/build differ.");
         string apphost=Path.Combine(directory,"KuaiYi.Launcher.exe");InspectPe(apphost,io,pe=>
         {if(pe.HasMetadata||pe.PEHeaders.CoffHeader.Machine!=Machine.Amd64||pe.PEHeaders.PEHeader?.Magic!=PEMagic.PE32Plus)throw new InvalidDataException("Windows x64 launcher apphost required.");});
         if(io!=null?!io.ContainsPayload(apphost,"KuaiYi.Launcher.dll"u8):File.ReadAllBytes(apphost).AsSpan().IndexOf("KuaiYi.Launcher.dll"u8)<0)throw new InvalidDataException("Launcher apphost binding differs.");
-        ExactJson(directory,"KuaiYi.Launcher.runtimeconfig.json",Runtime,io);ExactJson(directory,"KuaiYi.Launcher.deps.json",Dependencies,io);return(package,revision);
+        RequireConfiguration(directory,mode,io);return(package,revision);
     }
     internal static string Hash(string path)=>Hash(path,null);
     internal static string Hash(string path,InstallationPreparationIO? io){if(io!=null)return io.HashFile(path);InstallationPaths.Check(path);using var input=new FileStream(path,FileMode.Open,FileAccess.Read,FileShare.Read);return Convert.ToHexString(SHA256.HashData(input));}
@@ -43,6 +72,13 @@ internal static class InstallationBootstrapPackage
         }
         string revision=informational?.Split('+').Last()??"";if(revision.Length!=40||!revision.All(char.IsAsciiHexDigit))throw new InvalidDataException("Full bootstrap source revision required.");return revision;
     }
+    internal static void RequireConfiguration(string directory,string mode,InstallationPreparationIO? io=null)
+    {
+        if(mode==Mode){ExactJson(directory,"KuaiYi.Launcher.runtimeconfig.json",Runtime,io);ExactJson(directory,"KuaiYi.Launcher.deps.json",Dependencies,io);return;}
+        if(mode!=SelfContainedMode)throw new InvalidDataException("Unknown bootstrap mode.");
+        ExactJson(directory,"KuaiYi.Launcher.runtimeconfig.json",SelfContainedRuntime,io);
+        ExactJson(directory,"KuaiYi.Launcher.deps.json",RuntimeContract.GetProperty("dependencies").GetRawText(),io);
+    }
     private static void ExactJson(string directory,string name,string expected,InstallationPreparationIO? io)
     {
         using var actual=JsonDocument.Parse(InstallationPackage.ReadDocument(Path.Combine(directory,name),65536,io),new(){MaxDepth=16});using var contract=JsonDocument.Parse(expected);
@@ -50,6 +86,9 @@ internal static class InstallationBootstrapPackage
         static void Unique(JsonElement value)
         {if(value.ValueKind==JsonValueKind.Object){HashSet<string> fields=[];foreach(var field in value.EnumerateObject()){if(!fields.Add(field.Name))throw new InvalidDataException("Duplicate bootstrap dependency field.");Unique(field.Value);}}else if(value.ValueKind==JsonValueKind.Array)foreach(var item in value.EnumerateArray())Unique(item);}
     }
+    internal const string SelfContainedRuntime="""
+    {"runtimeOptions":{"tfm":"net10.0","includedFrameworks":[{"name":"Microsoft.NETCore.App","version":"10.0.13"}],"configProperties":{"System.Reflection.Metadata.MetadataUpdater.IsSupported":false,"System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization":false}}}
+    """;
     private const string Runtime="""
     {"runtimeOptions":{"tfm":"net10.0","framework":{"name":"Microsoft.NETCore.App","version":"10.0.0"},"configProperties":{"System.Reflection.Metadata.MetadataUpdater.IsSupported":false,"System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization":false}}}
     """;

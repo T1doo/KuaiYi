@@ -1735,3 +1735,7 @@ Windows payload封装接续：发现Imaging实际使用OcrNative却未纳入源�
 Windows payload固定产品2182f8df5ba5d6e5a0e36f137e6b082101c6f7a8：八普通managed0W/E，一次109P/0F/0skip＝新OCR4+原receipt18+payload36+Host35+Installer16；959前后/Git输入一致，18obj版本声明/15产品DLL文件摘要/5Core副本相符，不称独立DLL metadata认证。Python新5/原19分别通过。实际466项只读输入清单含runtime409+notice2/Skia4/Git12/观察G34+B5，缺15，exit2 Blocked、G/B摘要null且pins不变；同完整file4F→4P保留，不混候选22P。Windows/native/selfcontained/真实注册安装/签名/真实extension origin/P7仍未签，缺合法已有Windows工具链与真实产物，不新增许可/权限/CI。
 
 固定树及原件ZIP独审限定ACK：CRC/123manifest/17份Git源码/同file4F→4P/raw109/959四输入/8构建/新5与原19Python均核。Library libfile_3fa869febf848191aa932f2076b02f66 v0，965,715B/124成员，SHA256 df597040bd5c6ca78b2775e53db158a5684b655f464eb9b4f686327acc66bca8；本地Library身份已确认。ZIP不含DLL/nupkg本体，不称独立二进制重验或签名。证据只更新三报告，产品2182f8df5ba5d6e5a0e36f137e6b082101c6f7a8不变。
+
+自包含B接续：首次真实Launcher no-restore/self-contained win-x64/10.0.13 publish实际NETSDK1112，缺已验证可消费runtime pack，原档恢复不等于cache安装。未重复七次同失败，未切offline/注入缓存/放宽验签。独审设计ACK后接原资格链：SC精确194文件+catalog/128MiB，开发5/64MiB保持；实际mode贯穿candidate/Prepared/receipt/Entry，固定RuntimeList字节/配置/deps封闭合同。仅组件元数据和原开发链可测，完整SC Read/publish/运行与Windows仍NotRun；pins不变。见[具体缺失与合同](design/selfcontained-bootstrap-contract.md)。
+
+候选SC元数据20P，r03唯一集成失败在Apply前置混合revision、未到Mode断言，不算产品红；原件保留。源码独审限定ACK，现冻结后统一八managed并执行一次相关回归，不借旧测试成绩或扩大真实Windows口径。

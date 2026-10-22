@@ -56,7 +56,7 @@ internal sealed class InstallationDeploymentPrepared
                 {var previous=InstallationBootstrapDeployment.RequireReceipt(c.Root,c.Data,owner,activeBefore,stop,io);if(previous.Generation!=old)throw new InstallationRecoveryException("Bootstrap receipt does not bind original current.");}
                 io.RequireAbsent(InstallationBootstrapDeployment.BundlePath(c.Root,Guid.ParseExact(c.Bundle,"N")));
             }
-            byte[] ownerBytes=InstallationBootstrapDeployment.EncodeOwner(owner),receipt=InstallationBootstrapDeployment.EncodeReceipt(new(1,"KuaiYi",InstallationBootstrapPackage.Mode,owner.Owner,Guid.ParseExact(c.Bundle,"N"),b.CatalogSha256,b.Revision,g.Version));
+            byte[] ownerBytes=InstallationBootstrapDeployment.EncodeOwner(owner),receipt=InstallationBootstrapDeployment.EncodeReceipt(new(1,"KuaiYi",b.Mode,owner.Owner,Guid.ParseExact(c.Bundle,"N"),b.CatalogSha256,b.Revision,g.Version));
             InstallationBootstrapDeployment.RequireTransport(c.Root,c.Data,g.Version,current,ownerBytes,receipt);
             var bootstrap=new PreparedBootstrapPlan(b.DirectoryPath,InstallationBootstrapDeployment.BundlePath(c.Root,Guid.ParseExact(c.Bundle,"N")),Convert.ToBase64String(ownerBytes),Convert.ToBase64String(receipt));
             var plan=new InstallationDeploymentPlan(2,"KuaiYiUnifiedDeploymentPrepared",c.Operation,c.TicketSha256,c.BeforeSha256,g.SourceCatalogSha256,g.Version,b.CatalogSha256,b.Revision,Convert.ToBase64String(current),bootstrap,host);

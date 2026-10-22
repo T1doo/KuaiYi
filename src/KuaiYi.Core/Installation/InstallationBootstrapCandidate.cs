@@ -12,8 +12,9 @@ internal sealed class InstallationBootstrapCandidate
     internal string DirectoryPath{get;}
     internal string CatalogSha256{get;}
     internal string Revision{get;}
-    private InstallationBootstrapCandidate(InstallationDeploymentScope owner,BootstrapPreparationContext context,string digest,string revision)
-    {this.owner=owner;Generation=context.Generation;DirectoryPath=context.Destination;CatalogSha256=digest;Revision=revision;}
+    internal string Mode{get;}
+    private InstallationBootstrapCandidate(InstallationDeploymentScope owner,BootstrapPreparationContext context,string digest,string revision,string mode)
+    {this.owner=owner;Generation=context.Generation;DirectoryPath=context.Destination;CatalogSha256=digest;Revision=revision;Mode=mode;}
     internal bool IsLiveFor(InstallationDeploymentScope scope)=>ReferenceEquals(owner,scope)&&scope.IsLiveBootstrap(this);
     internal static InstallationBootstrapCandidate Prepare(InstallationDeploymentScope scope,InstallationPreparationIO io)
     {
@@ -37,6 +38,6 @@ internal sealed class InstallationBootstrapCandidate
         io.Stage(GenerationPreparationStage.StagingVerified);scope.RequireBootstrapPreparation(io);io.MoveToFinal();io.Stage(GenerationPreparationStage.DirectoryMoved);
         CheckGeneration();if(InstallationBootstrapPackage.Read(context.Destination,package.CatalogSha256,context.Generation.Version,cancellation,io).Revision!=revision||!io.CleanupConfirmed)throw new InstallationRecoveryException("Bootstrap qualification or original IO settlement unconfirmed.");
         io.Stage(GenerationPreparationStage.FinalVerified);scope.RequireBootstrapPreparation(io);scope.RecordBootstrapIntent(io,retention);io.Stage(GenerationPreparationStage.BeforeCredential);
-        return new(scope,context,package.CatalogSha256,revision);
+        return new(scope,context,package.CatalogSha256,revision,InstallationBootstrapPackage.ModeOf(package));
     }
 }

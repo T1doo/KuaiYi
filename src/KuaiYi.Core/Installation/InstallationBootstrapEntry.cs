@@ -1,6 +1,6 @@
 namespace KuaiYi.Core.Installation;
 
-// Holds the exact six original opened files; never reopens replacement handles as proof of cleanup.
+// Holds every original file in the selected exact mode; never reopens replacements as cleanup proof.
 internal sealed class InstallationBootstrapEntry:IDisposable
 {
     internal string Root{get;}
@@ -20,7 +20,7 @@ internal sealed class InstallationBootstrapEntry:IDisposable
             var store=new InstallationStore(root,data,()=>false);entry.admission=store.EnterAdmission(existing:true);var selected=store.ReadActive()??throw new InstallationRecoveryException("No selected generation.");
             byte[] owner=InstallationPackage.ReadDocument(InstallationBootstrapDeployment.OwnerPath(root),InstallationBootstrapDeployment.OwnerLimit),active=InstallationPackage.ReadDocument(InstallationBootstrapDeployment.ActivePath(root),InstallationBootstrapDeployment.ReceiptLimit);
             entry.Binding=new(Convert.ToBase64String(owner),Convert.ToBase64String(active));
-            foreach(string file in InstallationBootstrapPackage.Files.Append(InstallationPackage.CatalogName))
+            foreach(string file in InstallationBootstrapPackage.FilesForMode(InstallationBootstrapDeployment.Decode<InstallationBootstrapDeployment.Receipt>(active).Mode).Append(InstallationPackage.CatalogName))
             {string path=Path.Combine(directory,file);InstallationPaths.Check(path);entry.files.Add(new(path,FileMode.Open,FileAccess.Read,FileShare.Read));}
             InstallationBootstrapDeployment.RequireBinding(root,data,selected,entry.Binding,CancellationToken.None);
             if(InstallationBootstrapDeployment.Decode<InstallationBootstrapDeployment.Receipt>(active).Bundle!=id)throw new InstallationRecoveryException("Stale bootstrap entry rejected.");
