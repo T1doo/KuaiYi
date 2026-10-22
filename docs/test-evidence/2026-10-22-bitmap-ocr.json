@@ -1,6 +1,6 @@
 {
   "baseline": "6f6f3483e1ffd113e9f3b7d0cfc5610e61d4eac7",
-  "kind": "SyntheticBitmapOcrTargeted",
+  "kind": "SyntheticBitmapOcrPerSuiteFixedSignoff",
   "artifacts": "artifacts/2026-10-22-bitmap-ocr",
   "r01_provider": "CS0104 compile failure; no executed tests",
   "r01_codec": {
@@ -16,10 +16,10 @@
     "inputs": 851,
     "input_drift": 0
   },
-  "full_signoff": "Core complete on7260; new Provider-only fixture tree pending remaining suites; no unchanged Core rerun",
+  "full_signoff": "Core2225 on7260; Provider2493/Codec494/3builds on231325; product02fa unchanged; no cross-round sum",
   "Windows_native_ocr": "NotRun",
   "model_calls": "None",
-  "independent_review": "Limited ACK: design, source and targeted originals",
+  "independent_review": "Limited ACK: product design/source, targeted originals, fixture fixes, final complete originals and report; no Windows native claim",
   "product": "02fa638874ca88afa1c5b7146237cc810d2c257c",
   "r03_core": {
     "passed": 2223,
@@ -92,5 +92,60 @@
     "failed": 0,
     "skipped": 0,
     "exit": 0
+  },
+  "r12_fixed_tree": "231325dcb73de1b664efe9f12537534571ee7ad2",
+  "r12_provider": {
+    "passed": 2493,
+    "failed": 0,
+    "skipped": 0,
+    "exit": 0,
+    "unit_results": 2493
+  },
+  "r12_codec": {
+    "passed": 494,
+    "failed": 0,
+    "skipped": 0,
+    "exit": 0,
+    "unit_results": 494
+  },
+  "r12_builds": {
+    "App": {
+      "exit": 0,
+      "warnings": 0,
+      "errors": 0
+    },
+    "OleReceiver": {
+      "exit": 0,
+      "warnings": 0,
+      "errors": 0
+    },
+    "ImageWorker": {
+      "exit": 0,
+      "warnings": 0,
+      "errors": 0
+    }
+  },
+  "r12_inputs": {
+    "count": 851,
+    "drift": 0,
+    "git_mismatches": 0
+  },
+  "r12_assembly_info": {
+    "actual_targets": 5,
+    "head": "231325dcb73de1b664efe9f12537534571ee7ad2"
+  },
+  "environment": "Original environment recovered; post-recovery actual results r07-r12 preserved",
+  "core_unchanged_between_signoff_trees": true,
+  "r12_dll_inventory": 339,
+  "dll_inventory_is_not_execution_count": true,
+  "library": {
+    "library_file_id": "libfile_6211a62342788191bc0625fb35215224",
+    "version": 0,
+    "status": "succeeded",
+    "zip_sha256": "5cc8fa4a96970ee34b5b88b8ebebc399290074c571a51009bf983136f91d8b33",
+    "bytes": 3628492,
+    "members": 157,
+    "local_xattr_verified": true,
+    "zip_unchanged_after_upload": true
   }
 }

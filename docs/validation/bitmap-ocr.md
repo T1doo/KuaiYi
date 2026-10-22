@@ -32,6 +32,16 @@ r09只作受控夹具反例：原peer信号完成而观察被hold，取消原Wai
 
 最小修正仅Provider夹具：DecodedEntered屏障紧接Peer.WaitAsync成功之后、Reply之前；Clear前等待此屏障以锁定“晚解码返回”路径，保留原取消/释放/零发布/slot断言和cancel-before-peer原例。外5秒guard不增加产品预算；正文、原任务和Clear清理错误EDI/Aggregate保全，自建图片finally释放。r10相关63P/0F/0skip（四个既有图片准备测试类），未增加案例数。独审补原Clear任务保全：提到外层保存，finally join同original file task后await同clear，不能另起Clear代替；r11该最小修正Bitmap准备4P/0F/0skip。生产src及Core测试相对r08不变；新树只补一次完整Provider和首次完整Codec/三构建，不无变化重复Core。各套件固定HEAD分别记录，不声称同一个HEAD跑过全部完整套件。
 
+## 最终离线签收
+
+产品源码保持 `02fa638874ca88afa1c5b7146237cc810d2c257c`。r08完整Core固定 `7260f663e0269d4e5900872797b6874f7401e0a0`：2225P/0F/0skip/exit0。r12完整Provider、Codec及三构建固定 `231325dcb73de1b664efe9f12537534571ee7ad2`：Provider2493P/0F/0skip、Codec494P/0F/0skip，各exit0；正常App/OleReceiver/ImageWorker Release交叉构建各0W/0E/exit0。不同轮次不累计，不把合成OCR正例冒充Windows识别。
+
+两轮均851输入前后同字节并核对各自固定Git，HEAD前后相同/dirty0。r12五个实际测试/构建目标AssemblyInfo均含231325d完整SHA；Core实际测试产物保留7260f66的AssemblyInfo和DLL摘要。r08与r12输入仅Provider的BitmapPreparationTests.cs不同，Core、生产及其工具/构建输入无变化，所以不重复Core；Provider2493案例多重集完全保留并全部Passed。339个DLL仅为最后产物目录清单，不是执行用例或新构建数量。
+
+最终原件与报告已获独立只读限定ACK。原始完整TRX、失败UnitTestResult、命令/日志/真实退出码、输入/产物摘要、源码副本、产品与测试差异都保留于本轮原件包；证据索引见 `docs/test-evidence/2026-10-22-bitmap-ocr.json`。环境曾短暂exec-server transport disconnected，已在原环境恢复后核实写入未执行，再执行r07及之后的真实命令；没有替代writer、删锁或结束未知进程。
+
+原件Library已确认 `libfile_6211a62342788191bc0625fb35215224` / v0；ZIP 3628492字节、157成员，SHA256 `5cc8fa4a96970ee34b5b88b8ebebc399290074c571a51009bf983136f91d8b33`。成员manifest逐字节/摘要及CRC通过，本地Library xattr确认、上传后ZIP摘要不变；未分享私有下载URL。
+
 ## 未验边界
 
 合成ILocalOcrCapabilitiesWorker正例不是Windows.Media.Ocr，也不是真实WPF交互。真实Windows/OLE/HGLOBAL/来源身份/medium、OCR效果、WPF语言选择和确认、画质及250/600ms/600MiB仍未验；P6/P7整体保持InProgress。保留旧失败原件与未知历史唯一根因，不回填。
