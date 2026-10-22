@@ -1655,3 +1655,7 @@ bootstrap部署基元独审及原件归档限定ACK；Library libfile_20fae98a78
 统一generation/bootstrap/Host事务进入DesignReview：已提交一份原scope、已知upgrade-pending阻断、分阶段有界计划/Terminal、唯一最终归档点与逆序补偿方案及待实施验证矩阵。内部独审限定ACK，修补早期Abort无Prepared合法形态及最后Move不明历史分支；仅设计待根侧独审，产品aab208a及源码/依赖不变，没有新测试/构建通过数。fixed locator、真实Windows与完整安装/P7仍未完成。
 
 统一部署scope/journal第一片：先持有setup/Host/upgrade owner再获取，原正文与关闭双错保全；scope持有setup至Ticket完整关闭，预发布finalizer拥有Closing后新文件/registry只读资源，仅AbortBeforeSnapshot且最后Move后无清理。独审settlement并发P2由r04同测试1F→r05 1P闭合，r06新25+原文件事务45=70P/0F/0skip/902稳定输入为dirty候选，待固定树签收。G/B/H统一发布、Committed/恢复/fixed locator/真实Windows与完整安装仍未交付，不借旧数字。见[范围和原件](validation/deployment-scope-journal.md)。
+
+统一scope/journal固定产品a808310e0199df92ac10194c5bb25cd99c73ada0签收：3普通managed构建0W/E；一次111P/0F/0skip（新25+原86，4类），902输入匹配产品Git、12目标版本/4实际Core副本一致。独审并发清理P2已定向红绿闭合；旧测试全字节保留。仅existing-only/Ticket/AbortBeforeSnapshot，不是三方发布或Committed；真实Windows/native/runtime/fixed locator/P7继续未签。
+
+原件已保存Library libfile_4f1fc1e8156c8191979ee2485d5b968e（v0，1,435,271B，162members/161manifest；SHA256 a0cda127c991fb2e0f6b1acb1f51e1970bb70d531e8113798abd7ed6c32b9d5d），本地Library身份已核。ZIP包含完整TRX/命令/日志/红例/输入摘要与固定Git源码；无DLL本体。证据提交只更新三报告，产品a808310e0199df92ac10194c5bb25cd99c73ada0不变。

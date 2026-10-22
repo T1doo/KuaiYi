@@ -23,8 +23,18 @@ scope先发布原acquisition和finalization Task，再允许启动。完整入�
 - r04受控Close屏障同一测试1F（两个pending Task不同）；r05完整测试文件字节相同1P，保留原异常与屏障，无sleep/删断言/放宽预算。
 - r06新25例+原InstallationTransactionTests45例，共70P/0F/0skip，902输入before=after，dirty候选；覆盖三层获取/关闭双故障、partial、取消writer、Closing两胜序、原文件/registry读取及关闭双错、单pending重试、foreign backup、最后Move失败/收据丢失、完成后零再次清理、缺store与未知pending。
 
-独立只读reviewer对当前源码及r04/r05/r06原件限定ACK；未代替运行、未写产品。产品冻结后再做一次所需普通managed构建与包含原升级/BrowserHost入场的定向签收；当前尚不借记旧310/586/60或完整Core/Provider/Codec。
+独立只读reviewer对当前源码及r04/r05/r06原件限定ACK；未代替运行、未写产品。随后已冻结产品并签收如下；不借记旧310/586/60或完整Core/Provider/Codec。
 
 ## 保留边界
 
 没有三参与者接线或任何Committed路径，不能把Ticket/Abort称为完整安装/卸载。未验证真实Windows/medium/浏览器/WPF/Explorer/OLE/OCR效果/画质/250/600ms；未运行安装、注册、身份包或用户电脑。仍缺三native DLL及完整自包含runtime，框架依赖开发形态不当可运行Windows包。原Off/PackageHold/发送门、来源/密码/完整性/取消/隔离及固定250/600预算不变；未新增包、许可、费用、模型调用、凭据或安全权限。
+
+## 固定产品树签收
+
+产品`a808310e0199df92ac10194c5bb25cd99c73ada0`从clean树顺序执行r07 App/NativeHost/Launcher三次普通managed构建，均0W/E、locked依赖未漂移；r08一次111P/0F/0skip，4类、111唯一显示名称：新scope25、原文件事务45、原升级23、BrowserHost入场18。原45/23/18是本轮实际执行，不是旧轮次借记；未运行其余Session方法或完整Core/Provider/Codec。
+
+r07/r08各902输入before=after并逐项对应固定产品Git；12目标AssemblyInfo包含完整产品SHA，9产品目标DLL从构建至签收一致，测试及两个真实合成fixture本轮编译。Launcher/CoreTests/两fixture的实际Core副本均与主Core一致。归档仅保留DLL摘要与版本源码，没有二进制本体，不称独立重hash二进制复验。
+
+360原src中357字节不变、3修改、2新增，旧tests全部字节不变，新增一个25例文件；锁、项目、workflow、packaging、扩展、scripts与sln未改。scope-audit.json和product-source保留Git依据；全部候选红例与r02诊断限制均原样保留，没有为签收重复全套。
+
+原件已保存Library libfile_4f1fc1e8156c8191979ee2485d5b968e（v0，1,435,271B，162members/161manifest；SHA256 a0cda127c991fb2e0f6b1acb1f51e1970bb70d531e8113798abd7ed6c32b9d5d），本地Library身份已核。ZIP包含完整TRX/命令/日志/红例/输入摘要与固定Git源码；无DLL本体。证据提交只更新三报告，产品a808310e0199df92ac10194c5bb25cd99c73ada0不变。
