@@ -1598,3 +1598,5 @@ UI源码b03541c468180e84de33731dafba7b7fd78c50e4已核872测试输入逐Git一�
 ## 2026-10-22 安装链宿主注册与精确撤销内核
 
 继续SPEC13.3/13.4，复用原版本完整性/role admission与集成metadata校验，新增固定两HKCU物理槽的内部注册/归属撤销事务和Windows适配器源码，不接外部入口、不执行注册。未知不领养、原receipt/selected/pending逐写复核、提交点前补偿/后失败保留、原句柄原Task关闭未确认保持pending与admission，原准入门新增registration pending拒绝。独审四项P2已确定红r03 4F/r05 2F并修；r06新事务35P/875输入无漂移，r01/r04编译失败零测试保留，不累计。当前浏览器直启NativeHost未纳管，全静止未证；自启仍false、真实安装/卸载/Windows未验，不把此纯协议片当可运行安装器。见[接线、原件与边界](validation/host-registration-transaction.md)。
+
+固定b3d6e3057190605b7928a0ff4461cdfad3266fd1后，r07相关360P0F0skip（14类、新35+既有325，非完整Core），r08App0W/E；875输入=Git，四目标完整版本一致，其余344原src/旧测试及锁/工作流等未改。原件/固定源码独审最终限定ACK；Library libfile_ca561ccb56d481918c02db7700b78747/v0，1094683B/146成员，SHA256 1127c21cf40e27ddc38e108ba6134aea35b6a08d5a137e31d0589abc01213ec8，CRC/145manifest通过。随后只三报告推送。下一接线前须闭合浏览器直启NativeHost入场/静止门，不能收养未知进程；内部事务不代签真正安装、注册、自启或Windows验收。

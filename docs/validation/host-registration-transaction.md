@@ -36,3 +36,13 @@
 Windows HKCU软件键视图共享，子键继承父键行为，故不使用四独立槽模型：[WOW64共享键](https://learn.microsoft.com/en-us/windows/win32/winprog64/shared-registry-keys)。写API无expected-old参数：[RegSetValueEx](https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regsetvalueexw)。关闭结果以返回码判断，关闭本身不等于磁盘耐久：[RegCloseKey](https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regclosekey)。宿主发现与扩展是独立安装状态：[Chrome](https://developer.chrome.com/docs/extensions/develop/concepts/native-messaging)、[Edge](https://learn.microsoft.com/en-us/microsoft-edge/extensions/developer-guide/native-messaging)。
 
 真实Windows注册、RegCloseKey/CLR wrapper互操作、浏览器发现、全宿主静止、断电耐久及同账户对抗仍未验。完整payload/派生metadata、身份注册和撤销、稳定启动器、可选登录启动、Inno安装器、设置/密钥删除选择、真实安装升级卸载与K组仍有未完成项。本片没有安装工具、接受新SDK/工具许可、操作用户电脑、请求新权限/凭据、调用真实模型或重探403 runner。真实WPF像素/DPI/focus/highcontrast、质量和250/600ms仍NotRun；完整P7未签收。
+
+## 固定树签收与原件
+
+产品/测试 `b3d6e3057190605b7928a0ff4461cdfad3266fd1`：r07一次相关360P/0F/0skip，14实际类、35新增+325既有。筛选另命中BrowserImageReception旧方法1条，类计数按TRX testId关联TestMethod.className，不能把360称为新用例或完整Core。r08正常App0W/0E。875输入各轮前后及逐Git一致；Core/NativeHost/CoreTests/App四目标版本均含完整产品SHA，其他DLL摘要仅库存。其余344个原src逐字节保持，旧测试/锁/packaging/工作流/扩展/脚本未改。
+
+r03的ownership两反例方法字节与最终一致；cleanup两反例核心断言保留，后只增加新显式Finalize API的finally以结算测试自身持有的资源。r05整个测试文件与最终相同。固定TRX、源/版本/摘要以及原ZIP获独立只读限定ACK；没有重跑产品或独立下载复验Library。
+
+原件Library已确认 `libfile_ca561ccb56d481918c02db7700b78747/v0`，1,094,683B/146成员，ZIP SHA256 `1127c21cf40e27ddc38e108ba6134aea35b6a08d5a137e31d0589abc01213ec8`。当前Library技能helper保存本地身份/版本成功，摘要随后复核；ZIP CRC及145项manifest独审通过。随后只三报告提交，不修改产品/测试。
+
+下一生产接线前置缺口是浏览器直启NativeHost的可结算入场门：它必须与同一安装generation和现有受控会话兼容，注册变更期间阻止新宿主入场，并对已存在且非controller实际Start的进程保持拒绝或等待原生命周期，不能按PID收养/终止。完成该门并独审后才能评估连接此事务；不能把当前role admission当全宿主静止证明。完整安装器/自启等独立未完成项不因此标为Pass。
