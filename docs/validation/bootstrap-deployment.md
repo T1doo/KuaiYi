@@ -28,10 +28,18 @@ journal在任何store/bundle/active写入前持久化；owner4KiB、receipt8KiB�
 - r05实际隔离Host入口新增pending持续门2P；r06正常Launcher/Core构建0W/E。
 - 独审先后指出Entry关闭原owner会丢失、owner消费4K但生产未限、入口检查后迟到启动窗口，均已在生产路径修复并加相应验证；组合wire仍维持原16K。r07候选60P0F0skip/899输入稳定，含40本片新例与原20；纯metadata边界测试不创建长路径或声称Windows布局可用。
 
-当前生产源码已获限定ACK；待冻结后一次相同风险范围签收，不重跑旧586/310或无关套件。
+产品冻结为`aab208ab716f5c1b36c0392d464ff35d8fc1dd05`。r08从clean树执行七次正常managed构建，全0W/E；r09同固定树一次60P/0F/0skip、4实际类、60唯一显示名称，保留旧20完整多重集并新增40。不是完整Core/Provider/Codec，不重跑旧586/310或无关套件，候选与固定轮次不相加。
+
+r08/r09四快照各899输入，before=after并逐项匹配产品Git。17目标记录DLL/AssemblyInfo摘要且含完整产品revision，14产品目标跨构建/签收产物相同；CoreTests与两个实际fixture由本轮测试正常编译单列。Launcher、CoreTests和两fixture的实际Core副本均与主Core字节一致。既有357个src中351未变、六处接线修改，另增三基元源码；旧测试只把一处class改partial，其余原字节及全部旧断言保持。锁、workflow、packaging、扩展、scripts及sln均未改；旧310/586/105归档摘要保全。
 
 ## 尚未交付与未验
 
 尚未接固定路径locator/快捷方式或统一安装入口，没有把generation物化、bootstrap和Host注册伪装成已完成的跨资源事务；后续应由统一事务持有原入场门并协调三方commit/补偿。所有原角色会话及Host注册接口保留，此内部基元无外部注册CLI。
 
 三native DLL与完整自包含runtime仍缺；真实Windows/medium/Explorer/browser/OLE/WPF/安装注册卸载、自启动、OCR质量、画质与250/600ms未验。无新许可、依赖、凭据、安全权限、网络配置、真实模型费用或用户电脑操作；不重探已拒runner，不改main/强推/发布部署。
+
+## 独审与原件
+
+源码、固定60条TRX、899输入、17目标和四Core副本均获独立只读限定ACK，未用独审代替重跑。归档CRC及223唯一成员/222项manifest全部核过，14产品/测试blob加AGENTS/SPEC与固定Git字节一致；准确保留r03分析器编译失败，不包含私有helper、上传回执、私有URL或二进制本体。
+
+原件bootstrap-deployment-originals.zip已保存Library：确认ID `libfile_20fae98a783481918afd40bc2229d393`，v0，1,475,759字节；SHA256 `664be5b73467cfd7994fbe0956cfbabd1ffcb219befbfa9b0212fb61c230ad4a`。ZIP三报告为保存前快照，随后仅追加独审/Library收据，不改产品和固定输入。

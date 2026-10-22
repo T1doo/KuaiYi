@@ -1647,3 +1647,7 @@ P2修复固定原件独审限定ACK，105结果/89既有/884输入/14目标与�
 稳定入口本片独审限定ACK与原件ZIP核对完成；Library libfile_82335144dbf88191b6931893a0b690a3（v0，1,945,681B/294members/293manifest，SHA256 f5a435a7946a6a48869a9371a653c82b0e3773af158d0d0e4bc41ee19e8c42a5）。本次证据提交仅三报告，产品21269b1不变，实际Windows/完整可运行安装包仍未签。
 
 稳定bootstrap不可变部署/替换/撤销内部基元候选：精确五运行文件+catalog、持久root/data归属、atomic active、exact回滚与pending失败关闭；实际Program immutable入口与controller内绑定重核已接。候选r07 60P/0F/0skip（新40+原20），Entry原句柄/metadata界限独审问题已修，待固定树签收。FDD明确无runtime，固定locator/跨资源统一安装和真实Windows/P7未完成。
+
+bootstrap内部基元固定签收aab208ab716f5c1b36c0392d464ff35d8fc1dd05：7正常managed构建0W/E；一次同范围60P/0F/0skip（新40+原20，4类），899输入/17目标版本与4实际Core副本核对一致。旧310/586未重跑，原断言与既有锁/打包/扩展/权限均保持；跨资源统一安装、fixed locator和真实Windows/P7仍未完成。
+
+bootstrap部署基元独审及原件归档限定ACK；Library libfile_20fae98a783481918afd40bc2229d393（v0，1,475,759B/223members/222manifest；SHA256 664be5b73467cfd7994fbe0956cfbabd1ffcb219befbfa9b0212fb61c230ad4a）。本次证据提交仅三报告，产品aab208a不变；后续统一协调需共享原admission并明确generation/Bootstrap/Host三方commit与补偿，不能简单套用会重复取锁的现接口。真实Windows/完整安装仍未签。

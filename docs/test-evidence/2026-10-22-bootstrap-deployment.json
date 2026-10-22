@@ -1,7 +1,7 @@
 {
   "base": "1c1aedcfd311e783267c37a20141d136ae2fa500",
   "scope": "Immutable exact framework-dependent development bootstrap deploy/replace/withdraw and original controller-bound entry",
-  "status": "CandidateVerified_FixedTreePending",
+  "status": "PassLimited",
   "artifactRoot": "artifacts/2026-10-22-bootstrap-deployment",
   "candidateRuns": {
     "r01": "Core build0W/E;0tests",
@@ -18,5 +18,179 @@
     "No complete runnable Windows payload; original native/runtime/thirdparty structural fixtures not accepted as execution",
     "Real Windows/medium/browser/WPF/install/OCR/250600 NotRun",
     "No new dependencies/licenses/credentials/security permissions/fees/model calls"
-  ]
+  ],
+  "product_sha": "aab208ab716f5c1b36c0392d464ff35d8fc1dd05",
+  "fixed_runs": {
+    "r08-fixed-managed": {
+      "input_count": 899,
+      "before_after_equal": true,
+      "matches_product_git": true,
+      "head": "aab208ab716f5c1b36c0392d464ff35d8fc1dd05"
+    },
+    "r09-fixed-risk": {
+      "input_count": 899,
+      "before_after_equal": true,
+      "matches_product_git": true,
+      "head": "aab208ab716f5c1b36c0392d464ff35d8fc1dd05"
+    }
+  },
+  "fixed_risk": {
+    "passed": 60,
+    "failed": 0,
+    "skipped": 0,
+    "classes": 4,
+    "new": 40,
+    "existing": 20,
+    "rounds_added_together": false
+  },
+  "fixed_builds": "r08 seven normal managed commands0W0E; NativeHost transitive",
+  "assemblies": {
+    "App": {
+      "dll": "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.App.dll",
+      "sha256": "7a80d76466ffa2a9e0f06e53a1d2c44794f8402cf9d559f7712cfb6782774929",
+      "assembly_info_sha256": "7f72f067e18f1a977c167a5ed6bafde73806254baf33a1ae9d4c28ad4aacc96c",
+      "contains_full_product_sha": true
+    },
+    "NativeHost": {
+      "dll": "src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll",
+      "sha256": "43505d80cc7bf3781780884d7bff022d206524a50cecd6ba5fb66891d071ebea",
+      "assembly_info_sha256": "c521b665a1588e946a773f33a32a7973311f65ee20ab34fbffa10d5d9809030e",
+      "contains_full_product_sha": true
+    },
+    "CaptureBroker": {
+      "dll": "src/KuaiYi.CaptureBroker/bin/Release/net10.0-windows/win-x64/KuaiYi.CaptureBroker.dll",
+      "sha256": "df0ea3e1788296cee3cb95a64fe6e0056777b9da5c83969aa3e4da05d6a4b1cc",
+      "assembly_info_sha256": "73823c9b4a828a3c5765fb4f04e23aabc5cacd998fc81abfaad2f00edf36a646",
+      "contains_full_product_sha": true
+    },
+    "ClipboardHost": {
+      "dll": "src/KuaiYi.ClipboardHost/bin/Release/net10.0-windows/win-x64/KuaiYi.ClipboardHost.dll",
+      "sha256": "4125025cf3d7436c976b064d574dbc6ee6fd2c20de5e81fff6aff5a4ffebae1b",
+      "assembly_info_sha256": "8a2602cc05fbd791c4693f401de9607f07c9a17022b3f6571997610cc41f3480",
+      "contains_full_product_sha": true
+    },
+    "CaptureHost": {
+      "dll": "src/KuaiYi.CaptureHost/bin/Release/net10.0-windows/win-x64/KuaiYi.CaptureHost.dll",
+      "sha256": "27ec7cc3569d4dd866ee241e653c748c0cad95b62bedc36855c7d3c38e05a779",
+      "assembly_info_sha256": "ea1cbc52f64ce313df9ef23389df84072eae24c2c78bcef70a0b1dcaa611ba97",
+      "contains_full_product_sha": true
+    },
+    "OleReceiver": {
+      "dll": "src/KuaiYi.OleReceiver/bin/Release/net10.0-windows/win-x64/KuaiYi.OleReceiver.dll",
+      "sha256": "55fa913f5888356d4d8e0968b50091353920aa7218a177f344c2e21ac82cf6c4",
+      "assembly_info_sha256": "0e8148746ebf7c1b04a81f88a693927e6a842eb5fd8b9af47ffd919c3da3a4a4",
+      "contains_full_product_sha": true
+    },
+    "ImageWorker": {
+      "dll": "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll",
+      "sha256": "53599e117448c0f1e3ac40413dbed9742dd6e1835d00e1df0bc981a522b9376d",
+      "assembly_info_sha256": "75857b7563f40039fe564e49a153a91dc54eb1e56e4416c5f809ab27f8e365cc",
+      "contains_full_product_sha": true
+    },
+    "Core": {
+      "dll": "src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll",
+      "sha256": "8f533af9db0fd0523850f0413a7f0d56acbdb459cc3da7eac2dc0e94db5d467b",
+      "assembly_info_sha256": "623f7ba44fdcd575d2c7bf68846265003687276ee16a5530538504e80c57c29f",
+      "contains_full_product_sha": true
+    },
+    "Contracts": {
+      "dll": "src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll",
+      "sha256": "247b203ef7cab72d78913bfcb4a391f6f45782df8544c31c839d7f14fcac0926",
+      "assembly_info_sha256": "882c9f578effc6bf16942c927bf20d92bd05948789e4dfca89d68df31b2edcd6",
+      "contains_full_product_sha": true
+    },
+    "Imaging": {
+      "dll": "src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll",
+      "sha256": "a389fd140aada9e54bdceabad105218eec30ba1944d4c19fb5237d87d31c9ebf",
+      "assembly_info_sha256": "baf73a381137b98997c9b8981ccdcd0693e678e98244e0e261b0277f18031ab7",
+      "contains_full_product_sha": true
+    },
+    "Windows": {
+      "dll": "src/KuaiYi.Windows/bin/Release/net10.0-windows/KuaiYi.Windows.dll",
+      "sha256": "ebe0d5b857abcbb4dc6ab1cd43a6dfa06eeff14629753be9eb6fd30598585b95",
+      "assembly_info_sha256": "f9797412a073e06678cc5e93894811a66a142c5b1d08926cc9e8ec240a09e19d",
+      "contains_full_product_sha": true
+    },
+    "Providers": {
+      "dll": "src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll",
+      "sha256": "7682d7eb249bfb425194d0eb9de761b46d7b8d823dea7eb58bda19db07699730",
+      "assembly_info_sha256": "658481d49386c4ce095f52b190df64c7e76d67b8ff2c486d987cb828df2622ce",
+      "contains_full_product_sha": true
+    },
+    "OleTransfer": {
+      "dll": "src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll",
+      "sha256": "a05be0740724e8b3956e458b741d2f335ac0943df01de3066320115ed6884c07",
+      "assembly_info_sha256": "4f2500f90862c159ac04a7f300b6521199d398339d9eef913ac00cda4baedc82",
+      "contains_full_product_sha": true
+    },
+    "CoreTests": {
+      "dll": "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll",
+      "sha256": "cc4f19f0d0b9594b527d11d34d74950d5164653f32a5f2850bb702066d625322",
+      "assembly_info_sha256": "a71dd46d0be782f261c09ca86a6ebb828850b8f3c5d5424e8c353f4169d3413f",
+      "contains_full_product_sha": true
+    },
+    "Launcher": {
+      "dll": "src/KuaiYi.Launcher/bin/Release/net10.0/win-x64/KuaiYi.Launcher.dll",
+      "sha256": "702b9fc64ff78b8a79e6963ce2604e367a0e8ad85f3208b4fb9ef81e29335ce9",
+      "assembly_info_sha256": "bf17a043ebe2f5a6902883d15a8035f6da6875a81061adb69e3d2f1a0e5a4c3c",
+      "contains_full_product_sha": true
+    },
+    "SettingsStoreFixture": {
+      "dll": "tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.SettingsStoreFixture.dll",
+      "sha256": "0043ff72a75145d931d1b739b1e57958ca0ba00d93fe8eed5e3f90d3ac0783ce",
+      "assembly_info_sha256": "cf35186d09fe10730ea89068d7a6f4c5f71e4912069d2eade9ddcc620c295217",
+      "contains_full_product_sha": true
+    },
+    "BrowserHostFixture": {
+      "dll": "tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll",
+      "sha256": "9117db0b5f564571686de87846acda461549c480045b55eedb7c1c4b18e0b1f3",
+      "assembly_info_sha256": "750a7ab8d1d74cb2316c0e0c163ce9448288eaade977a59fd0876b8316a3a113",
+      "contains_full_product_sha": true
+    }
+  },
+  "actual_process_and_bootstrap_Core_copies": {
+    "src/KuaiYi.Launcher/bin/Release/net10.0/win-x64/KuaiYi.Core.dll": "8f533af9db0fd0523850f0413a7f0d56acbdb459cc3da7eac2dc0e94db5d467b",
+    "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll": "8f533af9db0fd0523850f0413a7f0d56acbdb459cc3da7eac2dc0e94db5d467b",
+    "tools/KuaiYi.SettingsStoreFixture/bin/Release/net10.0/KuaiYi.Core.dll": "8f533af9db0fd0523850f0413a7f0d56acbdb459cc3da7eac2dc0e94db5d467b",
+    "tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.Core.dll": "8f533af9db0fd0523850f0413a7f0d56acbdb459cc3da7eac2dc0e94db5d467b"
+  },
+  "source_scope": {
+    "old_src_count": 357,
+    "unchanged": 351,
+    "modified": [
+      "src/KuaiYi.Core/AssemblyInfo.cs",
+      "src/KuaiYi.Core/Installation/InstallationControlledLaunch.cs",
+      "src/KuaiYi.Core/Installation/InstallationStableLauncher.cs",
+      "src/KuaiYi.Core/Installation/InstallationStableSelection.cs",
+      "src/KuaiYi.Core/Installation/InstallationStore.cs",
+      "src/KuaiYi.Launcher/Program.cs"
+    ],
+    "new": [
+      "src/KuaiYi.Core/Installation/InstallationBootstrapDeployment.cs",
+      "src/KuaiYi.Core/Installation/InstallationBootstrapEntry.cs",
+      "src/KuaiYi.Core/Installation/InstallationBootstrapPackage.cs"
+    ],
+    "old_test_assertions_unchanged": true,
+    "only_old_test_edit": "partial class declaration"
+  },
+  "locks_workflows_packaging_extensions_scripts_sln_unchanged": true,
+  "old_archives_unchanged_not_rerun": true,
+  "independent_review": "Limited ACK source, fixed60TRX/899Git inputs/17targets/fourCorecopies; ZIP CRC/222manifest and14 product-test blobs+AGENTS/SPEC. Reviewer did not rerun tests.",
+  "library": {
+    "library_file_id": "libfile_20fae98a783481918afd40bc2229d393",
+    "file_id": "file_00000000bac081f6976b1b42057e3667",
+    "file_name": "bootstrap-deployment-originals.zip",
+    "library_path": "/bootstrap-deployment-originals.zip",
+    "version": 0,
+    "bytes": 1475759,
+    "status": "succeeded"
+  },
+  "archive": {
+    "file": "bootstrap-deployment-originals.zip",
+    "bytes": 1475759,
+    "sha256": "664be5b73467cfd7994fbe0956cfbabd1ffcb219befbfa9b0212fb61c230ad4a",
+    "members": 223,
+    "manifest_entries": 222
+  },
+  "evidence_commit_scope": "Only three reports; frozen aab208ab716f5c1b36c0392d464ff35d8fc1dd05 product unchanged"
 }
