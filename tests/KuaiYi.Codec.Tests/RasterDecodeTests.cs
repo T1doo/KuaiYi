@@ -8,7 +8,7 @@ using SkiaSharp;
 using Xunit;
 namespace KuaiYi.Codec.Tests;
 
-public sealed class RasterDecodeTests
+public sealed partial class RasterDecodeTests
 {
     private static string Repository()
     {for(var p=new DirectoryInfo(AppContext.BaseDirectory);p!=null;p=p.Parent)if(File.Exists(Path.Combine(p.FullName,"SPEC.md")))return p.FullName;throw new IOException("Repository unavailable.");}
@@ -64,10 +64,11 @@ public sealed class RasterDecodeTests
         if(kind=="restart"){int marker=input.AsSpan().IndexOf(new byte[]{255,208});Assert.True(marker>0);input[marker+1]=209;}
         await using var client=Client();var error=await Assert.ThrowsAsync<ImageJobException>(()=>client.DecodeAsync(input,Job(input)));Assert.Equal(ImageFailure.InvalidImage,error.Code);Assert.True(client.ObserveExit());
     }
-    [Fact]public async Task ProgressiveJpegIsExplicitlyUnsupportedByTheBoundedBaselinePath()
+    [Fact]public async Task BaselineEntropyWithProgressiveFrameMarkerIsInvalidBeforeNative()
     {
         byte[] input=BaselineJpeg(1,1,1,1,true);int marker=input.AsSpan().IndexOf(new byte[]{255,192});input[marker+1]=194;
-        await using var client=Client();var error=await Assert.ThrowsAsync<ImageJobException>(()=>client.DecodeAsync(input,Job(input)));Assert.Equal(ImageFailure.UnsupportedImage,error.Code);
+        int native=0;var direct=Assert.Throws<ImageJobException>(()=>KuaiYi.ImageWorker.ImageRasterDecoder.Decode(input,Job(input),default,_=>native++));Assert.Equal(ImageFailure.InvalidImage,direct.Code);Assert.Equal(0,native);
+        await using var client=Client();var error=await Assert.ThrowsAsync<ImageJobException>(()=>client.DecodeAsync(input,Job(input)));Assert.Equal(ImageFailure.InvalidImage,error.Code);
     }
     [Theory][InlineData(SKEncodedImageFormat.Png)][InlineData(SKEncodedImageFormat.Jpeg)]
     public async Task ActualChildReturnsOnlyCompleteRasterWithExactJobLayoutAndOpaquePixels(SKEncodedImageFormat format)

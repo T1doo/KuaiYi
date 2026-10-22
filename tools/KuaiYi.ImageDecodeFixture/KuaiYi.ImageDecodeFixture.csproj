@@ -8,6 +8,7 @@
     <Compile Include="../../src/KuaiYi.ImageWorker/ImageRasterPreparer.cs" Link="Production/ImageRasterPreparer.cs" />
     <Compile Include="../../src/KuaiYi.ImageWorker/ImageRasterDecoder.cs" Link="Production/ImageRasterDecoder.cs" />
     <Compile Include="../../src/KuaiYi.ImageWorker/GifFirstFrameLzw.cs" Link="Production/GifFirstFrameLzw.cs" />
+    <Compile Include="../../src/KuaiYi.ImageWorker/ProgressiveJpegScan.cs" Link="Production/ProgressiveJpegScan.cs" />
     <Compile Include="../../src/KuaiYi.ImageWorker/BaselineJpegScan.cs" Link="Production/BaselineJpegScan.cs" />
     <PackageReference Include="SkiaSharp" PrivateAssets="all" />
     <PackageReference Include="SkiaSharp.NativeAssets.Win32" PrivateAssets="all" />

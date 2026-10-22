@@ -14,7 +14,11 @@ internal static class ImageRasterDecoder
         var header=ImageDecodePolicy.Inspect(encoded.Span,cancellation);
         GifInspection? gif=null;
         if(header.Format==EncodedRasterFormat.Png)ImageDecodePolicy.ValidatePngContainer(encoded.Span,cancellation);
-        else if(header.Format==EncodedRasterFormat.Jpeg)BaselineJpegScan.Validate(encoded.Span,header.Size,cancellation);
+        else if(header.Format==EncodedRasterFormat.Jpeg)
+        {
+            if(ProgressiveJpegScan.AppliesTo(encoded.Span,cancellation))ProgressiveJpegScan.Validate(encoded.Span,header.Size,cancellation);
+            else BaselineJpegScan.Validate(encoded.Span,header.Size,cancellation);
+        }
         else if(header.Format==EncodedRasterFormat.Bmp)_=BmpDecodePolicy.Inspect(encoded.Span);
         else if(header.Format==EncodedRasterFormat.Webp)_=WebpDecodePolicy.Inspect(encoded.Span,cancellation);
         else if(header.Format==EncodedRasterFormat.Gif){gif=GifDecodePolicy.Inspect(encoded.Span,cancellation);GifFirstFrameLzw.Validate(encoded.Span,gif,cancellation);}

@@ -1534,3 +1534,8 @@ r08冻结7260f66完整Core2225P0F、Provider2492P1F，851输入Git一致；失�
 
 
 最终原件/报告独立限定ACK；Library确认libfile_6211a62342788191bc0625fb35215224/v0，ZIP3628492B/157成员/SHA256 5cc8fa4a96970ee34b5b88b8ebebc399290074c571a51009bf983136f91d8b33，逐成员/CRC与上传后xattr/hash确认。只证据报告3文件后续提交，未重跑旧绿或改产品。真实Windows/medium/OLE/WPF/原生OCR效果/画质250600仍未验，不称P6/P7完成。
+
+
+## 2026-10-22：受界 SOF2 渐进 JPEG 实质兼容切片
+
+从ccc5d9c原环境单writer继续SPEC7.1：新独立progressive validator/完整refinement与熵终止，复用原Worker/EXIF/来源/发送门，旧baseline字节及长前缀接受合同保留，不碰WebPodd或生产复用Off。独立设计/源码限定ACK。r02链接编译错无用例，r03旧Worker真非零4F，r04新5P，r05相关37P，r06相关50P，r07长前缀兼容3P，各轮不相加；定向冻结签收随后单记，不重跑完整Core/Provider/Codec。详见[产品子集、实际证据与未验边界](validation/progressive-jpeg.md)。真实Windows/medium/WPF/OCR效果/画质250600仍未验，不称P6/P7完成。

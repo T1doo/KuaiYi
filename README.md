@@ -102,3 +102,5 @@ P4-04阶段预算高级配置、有效活动SSE/JSON读取已接生产路径，�
 受界单张 CF_DIB 位图 Drop 已接最小切片：默认关闭、每次运行单独开启，Off 只本地预览；仅40字节头、24bit BI_RGB、转换BMP≤1MiB。真实Windows拖放未验，详见[接线、原件与边界](docs/validation/bitmap-drop.md)。
 
 Bitmap 的显式本地 OCR 已接明确来源元数据，仍须 On、选语言、预览确认与独立发送授权；真实 Windows OCR 未验，见[Bitmap OCR 接线](docs/validation/bitmap-ocr.md)。
+
+JPEG新增受界8bit Huffman渐进SOF2（完整扫描/refinement预检，非全部合法JPEG），沿原打开/浏览器Worker管线；见[实现、验证与未验边界](docs/validation/progressive-jpeg.md)。
