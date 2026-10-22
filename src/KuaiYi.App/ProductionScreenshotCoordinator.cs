@@ -176,14 +176,16 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
             timeout.Check();if(!Eligible(job))return;bytes=prepared.Bytes.ToArray();
             if(job.Snapshot.Classification==null)
             {
-                if(!await State(job,prepared,lifetime.Token,budget).ConfigureAwait(false))return;
+                var classificationBudget=budget.LimitPhase(30);using var classificationTimeout=classificationBudget.Link(timeout.Token);
+                if(!await State(job,prepared,lifetime.Token,classificationBudget).ConfigureAwait(false))return;
                 var content=new StringBuilder();bool complete=false;string? failure=null;
                 var request=new TranslationRequest(job.Snapshot.Transport,ImageTranslationPlanner.ClassificationPrompt,"仅分类本次明确选择的图片，不生成正文。",bytes);
-                timeout.Check();
-                using var classificationSecret=job.Snapshot.Transport.Authentication==Authentication.None?null:await openSecret(job.Identity,job.Snapshot,timeout.Token).ConfigureAwait(false);
-                timeout.Check();if(!Eligible(job))return;
-                await foreach(var envelope in provider.GenerateEnvelopesAsync(request,gate,job.Identity,classificationSecret,timeout.Token,()=>Eligible(job),budget).ConfigureAwait(false))
+                classificationTimeout.Check();
+                using var classificationSecret=job.Snapshot.Transport.Authentication==Authentication.None?null:await openSecret(job.Identity,job.Snapshot,classificationTimeout.Token).ConfigureAwait(false);
+                classificationTimeout.Check();if(!Eligible(job))return;
+                await foreach(var envelope in provider.GenerateEnvelopesAsync(request,gate,job.Identity,classificationSecret,classificationTimeout.Token,()=>Eligible(job),classificationBudget).ConfigureAwait(false))
                 {
+                    classificationTimeout.Check();
                     if(!await Receive(job,envelope,value=>
                     {
                         if(value.Kind==ModelEventKind.Usage)ApplyUsage(job,ScreenshotUsageStage.Classification,value.Usage);
@@ -191,14 +193,17 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
                         {if(value.Text!.Length>ImageClassification.MaximumCharacters-content.Length)failure="CLASSIFICATION_TOO_LARGE";else content.Append(value.Text);}
                         else if(value.Kind==ModelEventKind.Completed)complete=true;
                         else if(value.Kind==ModelEventKind.Failed)failure=value.Reason??"CLASSIFICATION_FAILED";
-                    },lifetime.Token,budget).ConfigureAwait(false))return;
+                    },lifetime.Token,classificationBudget).ConfigureAwait(false))return;
+                    classificationTimeout.Check();
                     if(complete||failure!=null)break;
                 }
+                classificationTimeout.Check();
                 if(failure!=null||!complete||!ImageClassification.TryParse(content.ToString(),out var classification))
                 {await Fail(job,failure??(!complete?"CLASSIFICATION_INCOMPLETE":"CLASSIFICATION_INVALID"),lifetime.Token,budget).ConfigureAwait(false);return;}
                 // Commit cache only on the canonical destination after full protocol completion and JSON validation.
                 if(!await Receive(job,new(job.Identity,new(ModelEventKind.Started)),_=>
-                {job.Snapshot=job.Snapshot with{Classification=classification};snapshots[job.Identity.VersionId]=new(job.Snapshot,job.Preset);},lifetime.Token,budget).ConfigureAwait(false))return;
+                {job.Snapshot=job.Snapshot with{Classification=classification};snapshots[job.Identity.VersionId]=new(job.Snapshot,job.Preset);},lifetime.Token,classificationBudget).ConfigureAwait(false))return;
+                classificationTimeout.Check();
             }
             if(job.Snapshot.Classification!.Readability==ImageReadability.Unreadable)
             {await Fail(job,"CLEARER_IMAGE_REQUIRED",lifetime.Token,budget).ConfigureAwait(false);return;}

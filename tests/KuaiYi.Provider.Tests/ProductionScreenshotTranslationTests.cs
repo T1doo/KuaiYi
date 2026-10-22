@@ -20,14 +20,14 @@ public sealed partial class ProductionScreenshotTranslationTests
     {
         public readonly PhaseHttpFixture Server=new();public PhaseHttpFixture.Script Script=null!;
         public readonly RuntimeGate Gate=new(requireProfileBinding:true);public readonly ProviderClient Provider;
-        private Rig(TimeProvider? clock=null){Provider=new(clock:clock);}
+        private Rig(TimeProvider? clock=null,TimeProvider? phaseClock=null){Provider=new(clock:clock,phaseClock:phaseClock);}
         public SettingsSnapshot Settings=null!;public ProductionScreenshotCoordinator Flow=null!;public OverlayResults Results=null!;
         public ImageSourceOwner Image=null!;public byte[] Raw=[];public Guid Version=Guid.NewGuid();public bool Current=true;public int SecretReads;public Deferred? DeferredDestination;
         public readonly List<Lease> Leases=[];public readonly List<ProductionScreenshotUpdate> Updates=[];
         public Action<ProductionScreenshotUpdate>? OnUpdate;public Func<int,Task>? BeforeSecret;public Action<Lease,CancellationToken>? SecretCreated;public Protocol Protocol;public bool Stream;
-        public static async Task<Rig> Create(Protocol protocol=Protocol.OpenAIChat,bool stream=false,bool auth=false,SynchronizationContext? destination=null,TimeProvider? clock=null)
+        public static async Task<Rig> Create(Protocol protocol=Protocol.OpenAIChat,bool stream=false,bool auth=false,SynchronizationContext? destination=null,TimeProvider? clock=null,TimeProvider? phaseClock=null)
         {
-            var r=new Rig(clock){Protocol=protocol,Stream=stream,DeferredDestination=destination as Deferred};await r.Server.InitializeAsync();r.Script=r.Server.Add("vision",stream?"text/event-stream":"application/json");
+            var r=new Rig(clock,phaseClock){Protocol=protocol,Stream=stream,DeferredDestination=destination as Deferred};await r.Server.InitializeAsync();r.Script=r.Server.Add("vision",stream?"text/event-stream":"application/json");
             r.Settings=new(new(){ActiveProfileId="text",VisionProfileId="vision",Profiles=[new(){Id="text",BaseUrl="https://text.public.invalid/v1",Model="PUBLIC_TEXT_MODEL",Authentication=ApiAuthentication.None},new(){Id="vision",Protocol=protocol==Protocol.OpenAIChat?KuaiYi.Core.Settings.ApiProtocol.OpenAIChat:KuaiYi.Core.Settings.ApiProtocol.AnthropicMessages,BaseUrl=new Uri(r.Server.BaseUri,"vision/").AbsoluteUri,AllowLoopbackHttp=true,Model="PUBLIC_SCREENSHOT_MODEL",Authentication=auth?(protocol==Protocol.OpenAIChat?ApiAuthentication.Bearer:ApiAuthentication.ApiKey):ApiAuthentication.None,SecretRef=auth?"key/"+new string('a',32):null,Streaming=stream,Capabilities=new(){Vision=Capability.Supported},TimeoutSeconds=20}],Translation=new(){Preset=TranslationPreset.Professional}},"saved-public-config",SettingsLoadState.Current);
             r.Gate.ObserveSettingsMetadata(r.Settings);var textOrigin=new EndpointOrigin(new("https://text.public.invalid"));r.Gate.ConsentTo(textOrigin);Assert.True(r.Gate.TryEnable(textOrigin,true));
             r.Results=new(r.Gate);r.Flow=new(r.Gate,()=>r.Settings,(version,id)=>r.Current&&version==r.Version&&id==r.Image.SourceId&&!r.Image.IsDisposed,r.Provider,destination??new Immediate(),r.Results,u=>{lock(r.Updates)r.Updates.Add(u);r.OnUpdate?.Invoke(u);},async(id,snapshot,ct)=>

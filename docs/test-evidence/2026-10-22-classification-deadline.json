@@ -1,0 +1,123 @@
+{
+  "baseline": "772436003dbe295a55249d3f5c4d47c712031f7f",
+  "scope": "SPEC10.7 image classification independent30s; existing whole-chain budget unchanged",
+  "production_files": [
+    "src/KuaiYi.App/ProductionScreenshotCoordinator.cs",
+    "src/KuaiYi.Providers/ProviderRequestBudget.cs"
+  ],
+  "visual_files_modified": [],
+  "independent_review": "Design/production and candidate originals limited ACK",
+  "candidate_runs": {
+    "r01-original-red": {
+      "exit": 1,
+      "elapsed_seconds": 32.696,
+      "input_count": 866,
+      "input_drift": false,
+      "head": "772436003dbe295a55249d3f5c4d47c712031f7f",
+      "counters": {
+        "total": "4",
+        "executed": "4",
+        "passed": "0",
+        "failed": "4",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "unit_results": 4
+    },
+    "r02-boundary-green": {
+      "exit": 0,
+      "elapsed_seconds": 18.887,
+      "input_count": 866,
+      "input_drift": false,
+      "head": "772436003dbe295a55249d3f5c4d47c712031f7f",
+      "counters": {
+        "total": "6",
+        "executed": "6",
+        "passed": "6",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "unit_results": 6
+    },
+    "r03-phase-boundaries": {
+      "exit": 1,
+      "elapsed_seconds": 27.019,
+      "input_count": 867,
+      "input_drift": false,
+      "head": "772436003dbe295a55249d3f5c4d47c712031f7f",
+      "counters": {
+        "total": "16",
+        "executed": "16",
+        "passed": "14",
+        "failed": "2",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "unit_results": 16
+    },
+    "r04-effective-fragments": {
+      "exit": 0,
+      "elapsed_seconds": 16.189,
+      "input_count": 867,
+      "input_drift": false,
+      "head": "772436003dbe295a55249d3f5c4d47c712031f7f",
+      "counters": {
+        "total": "2",
+        "executed": "2",
+        "passed": "2",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "unit_results": 2
+    }
+  },
+  "fixed_signoff": "Pending frozen tree",
+  "full_Core_Provider_Codec": "NotRun",
+  "Worker_build": "NotRun; unchanged and no Providers dependency",
+  "Windows_pixels_OCR_quality_performance": "NotRun",
+  "model_calls": "None; offline loopback synthetic only",
+  "permissions_dependencies_workflows": "Unchanged",
+  "red_green_test_file_identical": true
+}

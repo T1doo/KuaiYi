@@ -1568,3 +1568,7 @@ r08冻结7260f66完整Core2225P0F、Provider2492P1F，851输入Git一致；失�
 原件Library确认 `libfile_4e21f75a874c8191a1025bf286ddd1f9/v0`；177成员/1,751,547B，ZIP SHA256 eeea23f06790a8add475c63f1d5f4fc899aee9cfeced3c5f527e992e53480110，上传后xattr/摘要复核成功。产品/测试仍e00d8e15，仅这三报告补最终回执。
 
 ZIP CRC/全部176项manifest及三报告独审最终限定ACK，未发现事实错误，未扩大验收。
+
+## 2026-10-22 功能线：图片分类独立30秒截止
+
+与父级独立视觉线分工，主线仅改ProductionScreenshotCoordinator和ProviderRequestBudget业务，不改主题/窗口/通用展示。核SPEC10.7真实缺口，独审设计后实现同clock子预算、保原profile身份及总预算，覆盖凭据/HTTP/队列/分类提交；超时不发正式生成、不自动fallback，生成不继承已完成分类的30秒。r01同源码反例0P4F(HTTP期望0实际1)→r02 6P；r03 14P2F原件保留，仅修新持续片段消费屏障r04 2P，轮次不相加。独审限定ACK后冻结并做必要相关签收，见[实际路径和原件](validation/classification-deadline.md)。Windows实机/像素/性能未代签，安装器未实施。
