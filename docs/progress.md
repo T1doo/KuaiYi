@@ -1617,3 +1617,9 @@ UI源码b03541c468180e84de33731dafba7b7fd78c50e4已核872测试输入逐Git一�
 SPEC13.3/13.4继续真实Apply缺口：v2固定source原SHA与完整角色/声明依赖，从随机generation实际生成manifest/trust/provenance和独立v3安装摘要；真实NativeHost共享配置校验及内部注册事务要求物化资格，generic v1不获资格。旧35注册fixture改由source真实Apply建立，不手造installed目录。r05身份4反例确定红→r06相关65P、r07边界16P，轮次不累计；编译失败和所有原件保留。设计/源码/原件独审限定ACK，冻结后做一次相关签收，见[实际物化与边界](validation/payload-materialization.md)。本环境实际managed产物加明确structural runtime/native/第三方fixture，不是可运行Windows包；三项原生DLL/完整自包含runtime输入、真实身份/注册/安装/Windows与250600仍未验。不扩权限许可/工具/费用，不触用户电脑或403 runner。
 
 第一次冻结1c2225的r09相关585结果584P1F，唯一旧role信任集合计数23→47不符；原件保留，不签收。独审确认仅需测试合同迁移，新增一个独立完整47项集合/逐项拒绝检查，不改生产、不降断言；定向后再固定一次必要相关签收。r08六正常构建0W/E、883输入稳定/锁无漂移。
+
+固定4b502f0a5aa75d4b6e66c1b80f20cc115e4680ad的r12一次相关586P0F0skip（20类、旧549+物化36+合同1），r11六个正常构建0W/E覆盖七角色含App；883输入逐Git一致，14自身managed完整SHA/DLL摘要吻合。旧结果按类/方法/显示名称重数完整保留，4个enum参数ID序数变化的audit错误已保全/更正，无产品重跑。公开样本source104→installed108实际Apply生成，仅metadata与摘要保全，structural第三方/runtime/native仍非可运行包；未代签完整套件/Windows或安装。
+
+最终原件独审限定ACK，586结果/旧549重数/883输入/14目标及两份真实Apply样本自洽；未重跑产品，不代签Windows可运行包。仅接续归档和三报告正常分支推送。
+
+原件ZIP/244manifest独审限定ACK；Library确认libfile_a42832a798ec8191a459bc114df913aa版本0，2,374,653B/245成员，SHA256 ac92e4ec753f82860acb950fa3ba66a4cd3a4ba1fccc092ef914858e050619e6。保存后身份/摘要核验成功，随后只三报告补回执正常推送；4b502f0产品/测试不改，真实Windows与完整可运行安装包未代签。

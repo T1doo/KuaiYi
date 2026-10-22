@@ -41,3 +41,16 @@ NativeHost真实LoadConfiguredWindows保留原注册表和OS身份/session门，
 独审确认完整角色集合由旧23项扩至47项，需迁移该旧测试合同。仅测试更新23→47，同时新增一个独立合同Fact，显式写出七角色及共同/native/runtime文件预期，不引用生产列表建立期望；核精确47集合、逐项缺receipt/缺文件/改写的准确失败码及每次恢复。生产字节完全不变，原17例保留。该Fact循环检验全部47项，不拆成膨胀用例数，不扩大为运行时可加载验收。
 
 r10-role-contract定向18P0F0skip（原17+新合同Fact1），883输入稳定；没有生产源码差异。保留r09原红，不累计轮次。
+
+
+## 最终固定树签收
+
+冻结产品/测试4b502f0a5aa75d4b6e66c1b80f20cc115e4680ad，r11六个普通构建命令全部0W/0E，覆盖七角色和共同库，包括正常App。r12一次同范围相关586P0F0skip，20实际类，旧549+新增物化36+合同Fact1；不是完整Core/Provider/Codec，早轮不累计。两轮883输入前后逐Git blob一致，14个本产品managed目标（七角色+六共库+CoreTests）的完整SHA、AssemblyInfo和DLL摘要吻合，r11/r12产品DLL稳定。未无变化重复App构建。
+
+旧549按className、方法、显示名称的multiset完整保留，包括显示截断重名的两项，最终586结果/585唯一显示名称。初版audit错误假定跨构建testId稳定而失败，保留脚本/错误原件；四个enum参数化旧ID因InstallationStage插入两个成员、序数改变而不同，原InstallationTransactionTests源码未改，对应方法/参数名称和结果重数仍在。更正audit只核证据，不重跑产品、不回填早轮红。
+
+公开metadata样本均由真实Apply输出：源104文件→安装108文件，四个派生条目闭合，源/安装SHA分离，13个实际产品DLL逐摘要匹配对应固定构建；原生/runtime/第三方structural内容仍明确非可运行。本轮旧350个src中345不变、修改5、新增1；旧测试仅注册fixture和精确role合同迁移，锁/工作流/packaging/扩展/脚本未改。最终仅接续原件独审/保存与证据报告提交，生产源码保持固定。
+
+最终源码/原件独立只读限定ACK：586结果、20类、旧549多重集、883输入、14目标及两个真实Apply metadata样本逐项核验。审查未重新执行产品，未代签可运行Windows包；随后只封档/保存原件及三报告提交。
+
+原件Library确认libfile_a42832a798ec8191a459bc114df913aa版本0，2,374,653B/245成员/244manifest，ZIP SHA256 ac92e4ec753f82860acb950fa3ba66a4cd3a4ba1fccc092ef914858e050619e6。CRC/全部manifest/报告快照独审限定ACK；保存后本地身份/版本及摘要复核成功。ZIP保留保存前报告快照，随后仅三报告补Library回执，产品/测试仍4b502f0不变。

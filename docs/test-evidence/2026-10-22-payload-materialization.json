@@ -1,7 +1,7 @@
 {
   "date": "2026-10-22",
   "base": "5bb2c5f926d2ea0a06eac3894d91679b35a36998",
-  "status": "InProgress_fixed_acceptance_pending",
+  "status": "Pass_bounded_offline_slice_Windows_NotRun",
   "scope": "SPEC13.3/13.4 source-v2 to random installed-v3 materialization and existing production consumer validation",
   "artifactRoot": "artifacts/2026-10-22-payload-materialization",
   "candidateRuns": {
@@ -16,7 +16,7 @@
     "r09": "585results:584P1F;sole old count23 vs47;not accepted",
     "r10": "18P0F0skip role contract,883stable;production unchanged"
   },
-  "review": "Design/source/red-green limited ACK before fixed regression",
+  "review": "Final limited ACK: fixed4b502f0 r12 586P/0F/0skip,20 classes; old549 class/method/display multiset retained; four enum ID mappings correct;883inputs=Git;14 assemblies matched;r11 six0W/E;2 actualApply104->108 metadata samples matched. Read-only review; no independent execution; not runnable Windows installation acceptance.",
   "boundaries": [
     "Synthetic missing native/runtime/third-party dependencies; not runnable Windows source bundle",
     "Pure shared configuration validation uses synthetic expected process path; not real Program OS identity",
@@ -24,5 +24,226 @@
     "No stable launcher/unified installer entry",
     "Full Core/Provider/Codec and real Windows/medium/browser/WPF/250ms/600ms NotRun"
   ],
-  "first_fixed_sha": "1c2225ca84f2d2ea78b709f1ab3aba856fe37be1"
+  "first_fixed_sha": "1c2225ca84f2d2ea78b709f1ab3aba856fe37be1",
+  "product_sha": "4b502f0a5aa75d4b6e66c1b80f20cc115e4680ad",
+  "scope_audit": {
+    "product_sha": "4b502f0a5aa75d4b6e66c1b80f20cc115e4680ad",
+    "base": "5bb2c5f926d2ea0a06eac3894d91679b35a36998",
+    "fixed_runs": {
+      "r11-fixed-managed-inputs": {
+        "input_count": 883,
+        "before_after_equal": true,
+        "matches_product_git": true,
+        "head": "4b502f0a5aa75d4b6e66c1b80f20cc115e4680ad"
+      },
+      "r12-fixed-related": {
+        "input_count": 883,
+        "before_after_equal": true,
+        "matches_product_git": true,
+        "head": "4b502f0a5aa75d4b6e66c1b80f20cc115e4680ad"
+      }
+    },
+    "related_passed": 586,
+    "related_failed": 0,
+    "skipped": 0,
+    "new_tests": 37,
+    "new_materialization_tests": 36,
+    "new_role_contract_tests": 1,
+    "existing_tests": 549,
+    "actual_classes": 20,
+    "previous_results_retained_by_class_method_display_multiset": 549,
+    "existing_changed_enum_test_ids": 4,
+    "unique_display_names": 585,
+    "assemblies": {
+      "App": {
+        "dll": "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.App.dll",
+        "sha256": "39db302fb09295a4cca44b10f0f1b47ae509fcccbc84ae52bc2ee37c10d69746",
+        "assembly_info_sha256": "9600955ec31d83e6f4d51905355f92b8b7381a93cbfb10562d9639a19352b1a5",
+        "contains_full_product_sha": true
+      },
+      "NativeHost": {
+        "dll": "src/KuaiYi.NativeHost/bin/Release/net10.0/win-x64/KuaiYi.NativeHost.dll",
+        "sha256": "849491cdf22639f5013a5f8164a7787bcee8522bd772ceae0181fb5c90404075",
+        "assembly_info_sha256": "224ae42af5bb305ab0ebc1fb8e51e5ec3a79825bcd89fe0170a00b85d6216867",
+        "contains_full_product_sha": true
+      },
+      "CaptureBroker": {
+        "dll": "src/KuaiYi.CaptureBroker/bin/Release/net10.0-windows/win-x64/KuaiYi.CaptureBroker.dll",
+        "sha256": "5d70c246e555a03828bd305ed8c5bf278cca214847847045dcdb90a1171c87f0",
+        "assembly_info_sha256": "62b5399873305d94fc1a0f5b4233a9d744741cb389beed7846c882a7166b34e3",
+        "contains_full_product_sha": true
+      },
+      "ClipboardHost": {
+        "dll": "src/KuaiYi.ClipboardHost/bin/Release/net10.0-windows/win-x64/KuaiYi.ClipboardHost.dll",
+        "sha256": "4dc758b8498521c28eb166bc4935be265632171f0459390e174c07c693aa2d16",
+        "assembly_info_sha256": "c77022fee535d8a7d7fc880ce5ce5435f2cfc4b08327f4215ab2280c7b589efb",
+        "contains_full_product_sha": true
+      },
+      "CaptureHost": {
+        "dll": "src/KuaiYi.CaptureHost/bin/Release/net10.0-windows/win-x64/KuaiYi.CaptureHost.dll",
+        "sha256": "8dfd4e6f302344e3f6f81785bc90e1d2b22897ec3a95fbe8989acf058d79aa4b",
+        "assembly_info_sha256": "a839c3ac0adc34cd0ec54256eafbc137544e4f092d0217d52d6b4bb564f36952",
+        "contains_full_product_sha": true
+      },
+      "OleReceiver": {
+        "dll": "src/KuaiYi.OleReceiver/bin/Release/net10.0-windows/win-x64/KuaiYi.OleReceiver.dll",
+        "sha256": "88340093117c44d070dac9d1a210df4bb77299a2e1807641cdd863f9bfd960f9",
+        "assembly_info_sha256": "9318722f5d87817f39f02de10c9432c78e7bdc3b2c7de569b3dcb3330bcdab06",
+        "contains_full_product_sha": true
+      },
+      "ImageWorker": {
+        "dll": "src/KuaiYi.ImageWorker/bin/Release/net10.0/win-x64/KuaiYi.ImageWorker.dll",
+        "sha256": "eae717911e04df392e9583ebaeceaf730b9d9f5a1ac7c5478a94a1c59c35b4c0",
+        "assembly_info_sha256": "6c3bce5bb09bb9907209e3035b1a628c871e8ebe1df3f905e53c67f84c76d2cd",
+        "contains_full_product_sha": true
+      },
+      "Core": {
+        "dll": "src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll",
+        "sha256": "ef712ae5d754dbfa7a9b9efa77051b5f04334ab7f882aa9ecaeae9b976363913",
+        "assembly_info_sha256": "f812fdeb5bf5b9e6389b7241754b90d6acf74722fec395896da1bad57f5994c9",
+        "contains_full_product_sha": true
+      },
+      "Contracts": {
+        "dll": "src/KuaiYi.Contracts/bin/Release/net10.0/KuaiYi.Contracts.dll",
+        "sha256": "8c175daea8ba915c809410139424404b60ea64f1079ed39e94038b035bb2c26d",
+        "assembly_info_sha256": "d5cac34d16c0d8322c5c5e63b21689b81bede94d5cd4d2ab617b7c659476d705",
+        "contains_full_product_sha": true
+      },
+      "Imaging": {
+        "dll": "src/KuaiYi.Imaging/bin/Release/net10.0/KuaiYi.Imaging.dll",
+        "sha256": "e0936873656b017b788132dffadf20574b38cf81d353ec52668811e2cc692eae",
+        "assembly_info_sha256": "0cda9394a75622a705c5d90a8490ccbdc203acc6026e519e73e8443b7a9b2460",
+        "contains_full_product_sha": true
+      },
+      "Windows": {
+        "dll": "src/KuaiYi.Windows/bin/Release/net10.0-windows/KuaiYi.Windows.dll",
+        "sha256": "b5326b717d78bd595bd689900424b627a784d70510c6640f4620966b72fb3673",
+        "assembly_info_sha256": "b04dcd2b0c17117dcb2ce1d1f230e0e709bc77463dc04768a58c278e5093fa8c",
+        "contains_full_product_sha": true
+      },
+      "Providers": {
+        "dll": "src/KuaiYi.Providers/bin/Release/net10.0/KuaiYi.Providers.dll",
+        "sha256": "6b928f09901aca7cda170f23a93cacbb5bf689d1c796d590c806273b982f8b4b",
+        "assembly_info_sha256": "efe9bde82f3e9b398dcb7cbf022a0d8fc879719c5ff8b8429aaee3202fd111e1",
+        "contains_full_product_sha": true
+      },
+      "OleTransfer": {
+        "dll": "src/KuaiYi.OleTransfer/bin/Release/net10.0/KuaiYi.OleTransfer.dll",
+        "sha256": "51d143e590de177ab395ea4ee0e274cffd16545cb591e169596fa9af46b44d83",
+        "assembly_info_sha256": "0f241b6106790633482974ca3b534719fef9ac8a08aad59c6ad5ae61d697705b",
+        "contains_full_product_sha": true
+      },
+      "CoreTests": {
+        "dll": "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll",
+        "sha256": "8dfb3b4cc2bed51a96b2d7acd5163c1c60b206a0ade764f99cf4d49698979900",
+        "assembly_info_sha256": "1284ea77656ad0d93ad29ea893142d9a28431b63cdeec2efe938a8432a57f0e0",
+        "contains_full_product_sha": true
+      }
+    },
+    "public_samples": [
+      {
+        "folder": "public-sample-71e7145bbcf742dbaf09c10cbba1737b",
+        "source_revision": "1c2225ca84f2d2ea78b709f1ab3aba856fe37be1",
+        "source_files": 104,
+        "installed_files": 108,
+        "real_managed_dlls_match_fixed_inventory": {
+          "KuaiYi.App.dll": "37634e2d558f5d8840be5b9be73386e4bbd79cd371af36e32b580f8c27ad5fe3",
+          "KuaiYi.NativeHost.dll": "cfe4f17019c866869fd0688fcb0e8e367960ed216530159df190f5745e8b53a5",
+          "KuaiYi.CaptureBroker.dll": "feb86aea923088370f47a89b6e1d4525d35bc25503cbcef1ea15e8a539659a4c",
+          "KuaiYi.ClipboardHost.dll": "8fe4c9fc58ed2065163e9bcb53615606789cbbc3dddd7bbe2247933cf9419b22",
+          "KuaiYi.CaptureHost.dll": "2a15193b941ab6bd807fd26eb351607b57b614838776e75d3edce90c58c627f4",
+          "KuaiYi.OleReceiver.dll": "406870a5eac4af82eec2b073a4cfb6c7212e7f2a75f4e53c82384c3824663495",
+          "KuaiYi.ImageWorker.dll": "edbdd97b1c2ddff7581ea05d0f291c23c1c469de853e19cff8a776972f3b3d39",
+          "KuaiYi.Core.dll": "a22f9a6dc8ec1f9fc65256e710cb3f00c74beefe808564c254f35de85472f7f1",
+          "KuaiYi.Contracts.dll": "88eeb2ccbb892ce65c195cab7543c1f7047ebffb5e761a82f575c883f43f582f",
+          "KuaiYi.Imaging.dll": "0b4e9f3886628aa8070fded0f73b35475ef9365aee7c707476c3d20fd0dc7880",
+          "KuaiYi.Windows.dll": "84caeb74e94977c4aff12c7000d42dc1aa5e2e8638df81f9cb26d5111d56c8d3",
+          "KuaiYi.Providers.dll": "0c8b1232c1697cd718f279bdfcbd68f8cd0fb429b6d419063d87b42e885390b8",
+          "KuaiYi.OleTransfer.dll": "7e7e964b0813307c823fc8d44f912f0f647ddd3cb26b8a0df9c1d62f74a3fae0"
+        },
+        "metadata_exact": true,
+        "native_runtime_thirdparty": "StructuralFixtureOnly",
+        "windows_execution": "NotRun"
+      },
+      {
+        "folder": "public-sample-28c883e07e9347a286ab0d13b900c4ae",
+        "source_revision": "4b502f0a5aa75d4b6e66c1b80f20cc115e4680ad",
+        "source_files": 104,
+        "installed_files": 108,
+        "real_managed_dlls_match_fixed_inventory": {
+          "KuaiYi.App.dll": "39db302fb09295a4cca44b10f0f1b47ae509fcccbc84ae52bc2ee37c10d69746",
+          "KuaiYi.NativeHost.dll": "849491cdf22639f5013a5f8164a7787bcee8522bd772ceae0181fb5c90404075",
+          "KuaiYi.CaptureBroker.dll": "5d70c246e555a03828bd305ed8c5bf278cca214847847045dcdb90a1171c87f0",
+          "KuaiYi.ClipboardHost.dll": "4dc758b8498521c28eb166bc4935be265632171f0459390e174c07c693aa2d16",
+          "KuaiYi.CaptureHost.dll": "8dfd4e6f302344e3f6f81785bc90e1d2b22897ec3a95fbe8989acf058d79aa4b",
+          "KuaiYi.OleReceiver.dll": "88340093117c44d070dac9d1a210df4bb77299a2e1807641cdd863f9bfd960f9",
+          "KuaiYi.ImageWorker.dll": "eae717911e04df392e9583ebaeceaf730b9d9f5a1ac7c5478a94a1c59c35b4c0",
+          "KuaiYi.Core.dll": "ef712ae5d754dbfa7a9b9efa77051b5f04334ab7f882aa9ecaeae9b976363913",
+          "KuaiYi.Contracts.dll": "8c175daea8ba915c809410139424404b60ea64f1079ed39e94038b035bb2c26d",
+          "KuaiYi.Imaging.dll": "e0936873656b017b788132dffadf20574b38cf81d353ec52668811e2cc692eae",
+          "KuaiYi.Windows.dll": "b5326b717d78bd595bd689900424b627a784d70510c6640f4620966b72fb3673",
+          "KuaiYi.Providers.dll": "6b928f09901aca7cda170f23a93cacbb5bf689d1c796d590c806273b982f8b4b",
+          "KuaiYi.OleTransfer.dll": "51d143e590de177ab395ea4ee0e274cffd16545cb591e169596fa9af46b44d83"
+        },
+        "metadata_exact": true,
+        "native_runtime_thirdparty": "StructuralFixtureOnly",
+        "windows_execution": "NotRun"
+      }
+    ],
+    "source_scope": {
+      "old_src_count": 350,
+      "unchanged": 345,
+      "changed_existing": [
+        "src/KuaiYi.Core/Installation/InstallationPackage.cs",
+        "src/KuaiYi.Core/Installation/InstallationStore.cs",
+        "src/KuaiYi.NativeHost/HostRegistrationTransaction.cs",
+        "src/KuaiYi.NativeHost/InstalledHostPolicy.cs",
+        "src/KuaiYi.NativeHost/InstalledRoleFiles.cs"
+      ],
+      "new": [
+        "src/KuaiYi.Core/Installation/InstallationPayload.cs"
+      ]
+    },
+    "changed_existing_test_files": [
+      "tests/KuaiYi.Core.Tests/HostRegistrationTransactionTests.cs",
+      "tests/KuaiYi.Core.Tests/InstalledRoleFilesTests.cs"
+    ],
+    "no_changes_to_locks_workflows_packaging_extensions_scripts": true,
+    "full_suites_and_windows": "NotRun"
+  },
+  "fixed_related": {
+    "passed": 586,
+    "failed": 0,
+    "skipped": 0,
+    "existing": 549,
+    "new_materialization": 36,
+    "new_role_contract": 1,
+    "actual_classes": 20,
+    "unique_display_names": 585
+  },
+  "normal_builds": {
+    "run": "r11-fixed-managed-inputs",
+    "commands": 6,
+    "warnings": 0,
+    "errors": 0,
+    "roles_covered": 7,
+    "tests_executed": 0
+  },
+  "library": {
+    "library_file_id": "libfile_a42832a798ec8191a459bc114df913aa",
+    "version": 0,
+    "file_id": "file_0000000033e481f6b3fb19975ba5aa1a",
+    "status": "succeeded",
+    "local_identity_persisted": true,
+    "local_digest_unchanged": true,
+    "file": "payload-materialization-originals.zip",
+    "bytes": 2374653,
+    "sha256": "ac92e4ec753f82860acb950fa3ba66a4cd3a4ba1fccc092ef914858e050619e6",
+    "members": 245,
+    "manifest_entries": 244,
+    "crc_and_manifest": "Pass",
+    "binary_bodies": "Excluded; hashes/informational versions retained",
+    "scope": "Synthetic materialization/integrity and normal managed cross builds, not runnable Windows bundle"
+  },
+  "archive_review": "Limited ACK:245unique members,CRC/244manifest/SHA and report snapshots verified;no dangerous paths/private URLs/binary bodies"
 }
