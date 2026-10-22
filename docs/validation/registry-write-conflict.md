@@ -1,0 +1,36 @@
+# Registry Write compare conflict 永久锁存
+
+根侧对前片产品2ccc70074c1d586cd50acd853cc35f526918c711/证据a2a7f342cc837f21cb57acae574265f0bb03915b提出确定P2，暂不ACK产品；286manifest/258P等原件只在其实际范围成立，不回填或删除旧失败。本片仅闭合backend expected compare已经观察foreign却被后来正常读取洗白的路径，不叠入口、不改真实Windows注册或安全设置。
+
+## 确切传播链与最小修复
+
+WindowsHostRegistrationStore原key比较expected不符时抛HostRegistrationConflictException；原正文与close同时失败则由既有Throw保留原Aggregate leaves。旧Snapshot只传播Write异常，Publication前向未锁存此类明确观察。若外部在原close前恢复before且close成功，Revert.ResolveAttempt新读看到before，会继续恢复B active/current，误归档AbortedAfterPrepared。此非要求跨进程CAS：已经观察到的foreign不能由新读抹除。
+
+原IInstallationDeploymentPublicationRegistry新增只读ConflictObserved，无默认false实现。原生产Snapshot在原publication action的catch内仅识别HostRegistrationConflictException或Aggregate.Flatten含此原leaf；同sync锁先置永久flag，再barethrow，原Task terminal可见前已完成锁存，不包装或替换原异常。新Read/Write在原owner同锁下拒入；CloseOriginals及同owner结算仍允许，CleanupConfirmed仍只表示原资源是否结算。flag不会被close、settle、替换Task或值恢复清除；这是只否决的状态，非外部verified布尔授权。
+
+Publication.Journal将该观察锁存到unknown，拒ResolveAttempt再读或更早依赖写；CanFinalize也检查flag，拒terminal/归档。普通IOException、普通非foreign write-after-effect不一律unknown，仍按exact before/after结算与补偿。Windows原backend compare/DACL/访问权限未改；唯一工具变化是已有synthetic文件crash fixture显式声明无NativeHost raw-key compare观察，不进产品入口。
+
+## 确定屏障与原件
+
+新独立InstallationRegistryConflictTests，不改旧258集合的测试源码。四例为Chrome/Edge×原close成功/失败：由合成IHostRegistrationStore在Write内把实际槽变为foreign，与expected真实不等后保留同一个typed conflict；屏障暂停原调用，测试线程恢复before，再释放原close。close失败携同一个原conflict和close异常为Aggregate。不是事后Read返回foreign、不是Assert代替typed比较异常、不是Windows实机。
+
+关闭成功要求Unconfirmed/pending原Ticket保留/current和B active仍为目标/no新读或更早补偿；关闭失败要求同样隔离、原conflict+close异常引用保全。完成同owner原资源结算后仍拒新读，flag不清除。fixture保存同originalRun/finalization/settlement Tasks，正文与每次清理错误分别保留；只在全原任务成功终态及原资源确认后Dispose raw/Release、删私有root，未确认保留原对象/任务/root。Off合成文件保持原字节。
+
+artifacts/2026-10-22-registry-write-conflict保留完整命令/log/TRX/失败XML、对应完整源码、输入与产物摘要：
+
+- r01：基线七普通managed构建0W/E，零测试。
+- r02：初版夹具4F；两close成功误报Abort，两close失败在settle后允许新读。该夹具异常收尾可能漏join/覆错，后由独审指出，不能以正常结束掩盖。
+- r03：生产补丁七普通managed构建0W/E，零测试。
+- r04：为改正后夹具的基线反例恢复本片自有三文件的原基线字节，正常Launcher构建0W/E；修复原字节私有保全，没有Git历史回退或丢其他变更。
+- r05：改进收尾夹具4F，仍有内层finally可覆盖正文，独审后去掉该结构。原件保留，不借记为最终验收。
+- r06：最终完整夹具在原基线4F；两个close成功ExpectedUnconfirmed/ActualAbortedAfterPrepared，两个close失败settle后ReadPublished未抛期望InvalidOperationException。
+- r07：恢复与r03已审补丁完全相同的三文件，正常Launcher构建0W/E同步Core。
+- r08：与r06完整测试文件完全相同4P/0F/0skip，916输入稳定。只此pair作为最终同文件红绿，不将轮次相加。
+
+内部设计、生产最小修复与最终测试收尾独立只读限定ACK。固定树262相关签收及Library原件随后单列，不能把4P代替旧258回归；也不称完整Core或Windows验收。
+
+## 保留边界
+
+仅隔离真实文件根与fake registry；不操作真实Windows用户注册、用户电脑、ACL/UAC/身份/安全网络。无新许可依赖/凭据/费用或真实模型调用。三native DLL及完整Windows自包含runtime仍缺；真实Windows/medium/browser/Explorer/WPF/OLE/OCR效果/画质/250600及完整P7未验。
+
+不把部署内核Committed当READY/健康；不新增部署入口或自动重放/fallback，不扩大250/600ms。来源、密码、完整性、取消、清理、隔离、Off及发送门、odd WebP/visibleCrop拒绝保持，main不改、不强推、不部署。

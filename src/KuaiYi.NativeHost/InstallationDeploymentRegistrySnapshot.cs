@@ -9,6 +9,8 @@ internal sealed class InstallationDeploymentRegistrySnapshot(IHostRegistrationSt
     private Task? verification;
     private Task<InstallationDeploymentRegistrationSnapshot>? preparation;
     private Task? publication;
+    private bool conflictObserved;
+    public bool ConflictObserved {get{lock(sync)return conflictObserved;}}
     private InstallationDeploymentRegistrationSnapshot? observed;
     public bool CleanupConfirmed
     {get{lock(sync)return registry.CleanupConfirmed&&(capture==null||capture.IsCompleted)&&(verification==null||verification.IsCompleted)&&(preparation==null||preparation.IsCompleted)&&(publication==null||publication.IsCompleted);}}
@@ -57,9 +59,21 @@ internal sealed class InstallationDeploymentRegistrySnapshot(IHostRegistrationSt
     {
         lock(sync)
         {
-            if(preparation is not{IsCompletedSuccessfully:true}||verification!=null||publication is{IsCompleted:false}||!registry.CleanupConfirmed)throw new InvalidOperationException("Original registry publication is not ready or remains unsettled.");
+            if(conflictObserved||preparation is not{IsCompletedSuccessfully:true}||verification!=null||publication is{IsCompleted:false}||!registry.CleanupConfirmed)throw new InvalidOperationException("Original registry publication is not ready or remains unsettled.");
             var begin=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
-            var task=Task.Run(async()=>{await begin.Task.ConfigureAwait(false);return action();});publication=task;begin.SetResult();return task;
+            var task=Task.Run(async()=>
+            {
+                await begin.Task.ConfigureAwait(false);
+                try{return action();}
+                catch(Exception error)
+                {
+                    // The original compare observation outlives both external restoration and successful close.
+                    // Windows raw-key access preserves body+close errors as original Aggregate leaves.
+                    if(error is HostRegistrationConflictException||error is AggregateException many&&many.Flatten().InnerExceptions.Any(e=>e is HostRegistrationConflictException))
+                        lock(sync)conflictObserved=true;
+                    throw;
+                }
+            });publication=task;begin.SetResult();return task;
         }
     }
     public Task CloseOriginalsAsync()

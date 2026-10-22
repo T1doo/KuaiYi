@@ -15,6 +15,7 @@ internal static class InstallationDeploymentCrashFixture
     private sealed class SyntheticRegistry(string path):IInstallationDeploymentPublicationRegistry
     {
         private InstallationDeploymentRegistrationSnapshot? original;
+        public bool ConflictObserved=>false; // Synthetic file fixture has no NativeHost raw-key compare owner.
         public bool CleanupConfirmed=>true; // File convenience APIs below synchronously own/close their synthetic fixture handles.
         private InstallationDeploymentRegistrationSnapshot Read()=>File.Exists(path)?JsonSerializer.Deserialize<InstallationDeploymentRegistrationSnapshot>(File.ReadAllBytes(path))!:new(new(false,null),new(false,null));
         public Task<InstallationDeploymentRegistrationSnapshot> CaptureAsync(){original=Read();File.WriteAllBytes(path,JsonSerializer.SerializeToUtf8Bytes(original));return Task.FromResult(original);}

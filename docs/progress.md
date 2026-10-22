@@ -1689,3 +1689,5 @@ Prepared固定树与ZIP原件独审限定ACK。Library libfile_44b5928d8e1c81919
 统一前向/补偿固定产品2ccc70074c1d586cd50acd853cc35f526918c711：七普通managed构建0W/E，一次相关258P/0F/0skip＝Publication54+原204（8类、258唯一名），包含七实际合成child退出和同原IO结算。915Git输入/17版本/14产品DLL摘要/4Core副本一致，337旧测试不变；两组同file真实红绿保留。最后committed archive Move才内核Committed，foreign/损坏旧恢复目标/原清理unknown保pending；非完整Core/Windows/真实注册安装/P7，无native/runtime可运行包签收。
 
 统一前向/补偿固定树及ZIP独审限定ACK。原件Library libfile_f64fba2fd0e881919089b06caae265af v0，2,353,493B/287成员/286manifest，SHA2568177f07a91d61180f0ea6f93f3988d907431d989fa8fb8d79a08dbcc62164ffe；CRC/13项Git原件/raw258/7child/两红绿/915inputs/17版本记录均核，旧失败保留，无DLL本体。证据仅三报告，产品2ccc70074c1d586cd50acd853cc35f526918c711不变，不代签真实Windows或完整安装/P7。
+
+根侧后续独审指出前片Write compare foreign异常未锁存P2，原258P/ZIP证据只保留实际范围，不等于产品根侧ACK。现原Snapshot按明确typed conflict/聚合原leaf永久锁存，Core拒新读/更早补偿/归档，close与flag独立；普通非foreign写后异常仍可exact补偿，不扩入口。独立新4case最终r06基线4F→r08同完整testfile4P；新夹具异常收尾独审问题已修，原run/finalization/settlement逐一join及多错保全，旧258测试源未改，待固定相关262签收。见[修复与原件](validation/registry-write-conflict.md)。

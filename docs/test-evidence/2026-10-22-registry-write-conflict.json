@@ -1,0 +1,26 @@
+{
+  "base": "a2a7f342cc837f21cb57acae574265f0bb03915b",
+  "status": "CandidateLimitedPass",
+  "scope": "Latch explicit backend registry compare conflict on original owner; no new entry or real registry",
+  "artifactRoot": "artifacts/2026-10-22-registry-write-conflict",
+  "runs": {
+    "r01": "7base managed0W/E0tests",
+    "r02": "4F initial fixture with cleanup P2, historical only",
+    "r03": "7fix managed0W/E0tests",
+    "r04": "baseline Launcher0W/E0tests",
+    "r05": "4F intermediate fixture, residual finally overwrite fixed",
+    "r06": "final corrected complete testfile4F on base",
+    "r07": "restored byte-exact fix,Launcher0W/E0tests",
+    "r08": "same complete r06 testfile4P,916stableinputs"
+  },
+  "rounds_added": false,
+  "new_risk_cases": 4,
+  "old_258_test_sources_unchanged": true,
+  "review": "Limited design/product/test cleanup ACK; final redgreen review and fixed signoff pending",
+  "remaining": [
+    "No true Windows registry/identity/P7 acceptance",
+    "Native/runtime incomplete, no runnable Windows package signed",
+    "No READY health or real desktop/OCR/quality/250600 acceptance"
+  ],
+  "no_new_permissions_credentials_licenses_fees_or_model_calls": true
+}

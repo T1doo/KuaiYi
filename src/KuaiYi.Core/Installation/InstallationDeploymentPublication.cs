@@ -3,6 +3,7 @@ namespace KuaiYi.Core.Installation;
 
 internal interface IInstallationDeploymentPublicationRegistry:IInstallationDeploymentPreparedRead
 {
+    bool ConflictObserved {get;}
     Task<InstallationDeploymentRegistrationSnapshot> ReadPublishedAsync();
     Task WriteDefaultAsync(bool chrome,InstallationDeploymentRegistrationSlot expected,string? value);
 }
@@ -40,7 +41,7 @@ internal sealed class InstallationDeploymentPublication
         foreach(var owner in new[]{context.Before.BootstrapOwner,prepared.Plan.Bootstrap.Owner})foreach(bool ready in new[]{false,true})
             yield return new(owner,prepared.Plan.Bootstrap.CanonicalDirectory,ready,new(chrome,edge));
     }
-    internal bool CanFinalize=>!unknown&&io.CleanupConfirmed&&!io.StorageUnconfirmed&&registry.CleanupConfirmed;
+    internal bool CanFinalize=>!unknown&&!registry.ConflictObserved&&io.CleanupConfirmed&&!io.StorageUnconfirmed&&registry.CleanupConfirmed;
     internal bool TargetComplete=>prefix==5&&attempt==0;
     internal InstallationDeploymentPublication(InstallationDeploymentScope scope,PreparedPreparationContext context,InstallationDeploymentPrepared prepared,IInstallationDeploymentPublicationRegistry registry,InstallationPublicationFaults? faults)
     {
@@ -56,6 +57,7 @@ internal sealed class InstallationDeploymentPublication
     private int Index(int step)=>step switch{1=>0,2=>1,5=>2,_=>throw new InvalidOperationException()};
     private void Journal(bool mutation)
     {
+        if(registry.ConflictObserved)unknown=true;
         if(unknown||io.StorageUnconfirmed||!io.CleanupConfirmed||!registry.CleanupConfirmed)throw new InstallationRecoveryException("Original publication resources or storage remain unconfirmed.");
         try{scope.RequirePublication(this,mutation);}catch{unknown=true;throw;}
     }
