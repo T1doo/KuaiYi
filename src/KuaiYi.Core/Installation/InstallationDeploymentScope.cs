@@ -2,7 +2,7 @@ using System.Security.Cryptography;
 using System.Text.Json;
 namespace KuaiYi.Core.Installation;
 
-// Snapshot/abort foundation; cannot prepare or publish a generation, registry value or Committed result.
+// Scope-owned inactive G preparation; no current/bootstrap/registry publication or Committed result.
 internal enum InstallationDeploymentStatus { Refused,AbortedBeforeSnapshot,AbortedBeforePrepared,Unconfirmed }
 internal sealed record InstallationDeploymentOutcome(InstallationDeploymentStatus Status,IReadOnlyList<Exception> Errors);
 internal interface IInstallationDeploymentFinalRead
@@ -46,7 +46,11 @@ internal sealed class InstallationDeploymentScope
     private readonly Task<InstallationDeploymentOutcome> finalization;
     private Task<IReadOnlyList<Exception>>? settlement;
     private readonly byte[] ticket;
-    private readonly string root,pending,temporary,backup,archive,beforePath;
+    private readonly string root,userData,generationSourceSha,pending,temporary,backup,archive,beforePath;
+    private Task<InstallationGenerationCandidate>? generationPreparation;
+    private InstallationPreparationIO? generationIO;
+    private GenerationPreparationContext? generationContext;
+    private InactiveGenerationRetention? generationRetention;
     private Task<InstallationDeploymentBefore>? snapshot;
     private IInstallationDeploymentSnapshotRead? snapshotOwner;
     private byte[]? before;
@@ -58,12 +62,12 @@ internal sealed class InstallationDeploymentScope
     internal string Bundle {get;}=Guid.NewGuid().ToString("N");
     internal Task<InstallationDeploymentOutcome> Finalization=>finalization;
     internal bool BeforeUnconfirmed=>beforeAttempted&&!beforeComplete;
-    internal bool CleanupConfirmed {get{lock(sync)return finalization.IsCompleted&&(settlement==null||settlement.IsCompleted)&&admission.CleanupConfirmed&&files.Count==0&&reads.All(x=>x.CleanupConfirmed)&&(snapshot==null||snapshot.IsCompleted)&&(snapshotOwner==null||snapshotOwner.CleanupConfirmed);}}
+    internal bool CleanupConfirmed {get{lock(sync)return finalization.IsCompleted&&(settlement==null||settlement.IsCompleted)&&admission.CleanupConfirmed&&files.Count==0&&reads.All(x=>x.CleanupConfirmed)&&(snapshot==null||snapshot.IsCompleted)&&(snapshotOwner==null||snapshotOwner.CleanupConfirmed)&&(generationPreparation==null||generationPreparation.IsCompleted)&&(generationIO==null||generationIO.CleanupConfirmed);}}
     internal InstallationDeploymentScope(string root,string data,string generationSourceSha,string bootstrapSourceSha,
         CancellationToken cancellation=default,InstallationAdmissionFaults? admissionFaults=null,InstallationDeploymentFaults? faults=null)
     {
         if(!InstallationPackage.HashValid(generationSourceSha)||!InstallationPackage.HashValid(bootstrapSourceSha))throw new InvalidDataException("Both source pins are required.");
-        root=InstallationPaths.Root(root);data=InstallationPaths.Root(data);this.root=root;store=new(root,data,()=>true);
+        root=InstallationPaths.Root(root);data=InstallationPaths.Root(data);this.root=root;userData=data;this.generationSourceSha=generationSourceSha;store=new(root,data,()=>true);
         admission=InstallationAdmission.CreateOwner(root,admissionFaults);this.faults=faults;this.cancellation=cancellation;
         Operation=Guid.NewGuid().ToString("N");pending=store.PendingPath;
         temporary=Path.Combine(root,"deployment-terminal-"+Operation+".tmp");backup=Path.Combine(root,"deployment-ticket-"+Operation+".json");
@@ -112,6 +116,45 @@ internal sealed class InstallationDeploymentScope
         try{return await original.ConfigureAwait(false);}
         catch{RequestFinish();var result=await finalization.ConfigureAwait(false);InstallationErrors.Throw(result.Errors);throw;}
     }
+    internal Task<InstallationGenerationCandidate> PrepareGenerationAsync(string source,InstallationPreparationFaults? preparationFaults=null)
+    {
+        source=InstallationPaths.Root(source);
+        if(InstallationPaths.Contains(root,source)||InstallationPaths.Contains(source,root)||InstallationPaths.Contains(userData,source)||InstallationPaths.Contains(source,userData))throw new InvalidDataException("Generation source must be separate from installation and user data.");
+        lock(sync)
+        {
+            if(snapshot is not{IsCompletedSuccessfully:true}||!beforeComplete||finishing||closing||generationPreparation!=null)throw new InvalidOperationException("Generation preparation requires the original complete Before phase.");
+            string staging=Path.Combine(root,"staging-"+Generation),destination=Path.Combine(root,"versions",Generation),intent=Path.Combine(root,"deployment-generation-"+Operation+".json");
+            generationContext=new(root,source,generationSourceSha,Generation,Operation,staging,destination,intent,Convert.ToHexString(SHA256.HashData(ticket)),Convert.ToHexString(SHA256.HashData(before!)),cancellation);
+            generationIO=new(source,staging,destination,intent,cancellation,preparationFaults);
+            var begin=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var owned=generationIO;
+            generationPreparation=Task.Run(async()=>{await begin.Task.ConfigureAwait(false);return InstallationGenerationCandidate.Prepare(this,owned);});
+            begin.SetResult();return ObserveGenerationAsync(generationPreparation);
+        }
+    }
+    private async Task<InstallationGenerationCandidate> ObserveGenerationAsync(Task<InstallationGenerationCandidate> original)
+    {
+        try
+        {
+            var candidate=await original.ConfigureAwait(false);
+            lock(sync){if(finishing||closing||cancellation.IsCancellationRequested)throw new OperationCanceledException("Candidate delivery was retired.",cancellation);return candidate;}
+        }
+        catch{RequestFinish();var result=await finalization.ConfigureAwait(false);InstallationErrors.Throw(result.Errors);throw;}
+    }
+    internal GenerationPreparationContext RequireGenerationPreparation(InstallationPreparationIO owner)
+    {
+        lock(sync){if(!ReferenceEquals(owner,generationIO)||generationContext==null||finishing||closing)throw new OperationCanceledException("Original preparation phase is no longer open.");}
+        cancellation.ThrowIfCancellationRequested();admission.RequireMutation(root);RequireExact(pending,ticket);RequireExact(beforePath,before!,131072);RequireBeforeFiles(JsonSerializer.Deserialize<InstallationDeploymentBefore>(before!)!);
+        return generationContext;
+    }
+    internal bool IsLiveCandidate(InstallationGenerationCandidate candidate)
+    {lock(sync)return !finishing&&!closing&&!cancellation.IsCancellationRequested&&generationPreparation is{IsCompletedSuccessfully:true}&&ReferenceEquals(generationPreparation.Result,candidate);}
+    internal void RecordGenerationIntent(InstallationPreparationIO owner,InactiveGenerationRetention value)
+    {
+        if(!ReferenceEquals(owner,generationIO))throw new InvalidOperationException("Wrong original preparation owner.");generationRetention=value;
+    }
+    internal void RequireRetentionCapacity(InactiveGenerationRetention value)
+    {if(TerminalBytes(value).Length>16384)throw new InvalidDataException("Generation retention exceeds terminal bound.");}
+    private byte[] TerminalBytes(InactiveGenerationRetention? retention)=>JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=2,kind="KuaiYiUnifiedDeploymentTerminal",operation=Operation,variant=beforeComplete?"AbortBeforePrepared":"AbortBeforeSnapshot",ticketSha256=Convert.ToHexString(SHA256.HashData(ticket)),beforeSha256=beforeComplete?Convert.ToHexString(SHA256.HashData(before!)):null,preparedSha256=(string?)null,inactiveGeneration=retention});
     private static string? Encode(byte[]? bytes)=>bytes==null?null:Convert.ToBase64String(bytes);
     private async Task<InstallationDeploymentBefore> CaptureCoreAsync()
     {
@@ -218,11 +261,13 @@ internal sealed class InstallationDeploymentScope
         await finish.Task.ConfigureAwait(false);var errors=new List<Exception>();
         try{await acquisition.ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
         if(snapshot!=null)try{await snapshot.ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
+        if(generationPreparation!=null)try{await generationPreparation.ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
         try{if(faults?.BeforeClosing!=null)await faults.BeforeClosing().ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
         if(cancellation.IsCancellationRequested)errors.Add(new OperationCanceledException(cancellation));
         lock(sync)closing=true;
-        bool canArchive=ticketComplete&&!BeforeUnconfirmed;
+        bool canArchive=ticketComplete&&!BeforeUnconfirmed&&generationIO?.StorageUnconfirmed!=true;
         try{if(faults?.AfterClosing!=null)await faults.AfterClosing().ConfigureAwait(false);}catch(Exception error){errors.Add(error);canArchive=false;}
+        if(generationIO!=null)try{generationIO.CloseOriginals();if(!generationIO.CleanupConfirmed)canArchive=false;}catch(Exception error){errors.Add(error);canArchive=false;}
         try{admission.Dispose();}catch(Exception error){errors.Add(error);canArchive=false;}
         if(!admission.CleanupConfirmed)canArchive=false;
         // New post-Closing handles/tasks are owned by this already-published finalization task.
@@ -251,7 +296,9 @@ internal sealed class InstallationDeploymentScope
             {
                 RequireExact(pending,ticket);
                 if(beforeComplete){RequireExact(beforePath,before!,131072);RequireBeforeFiles(JsonSerializer.Deserialize<InstallationDeploymentBefore>(before!)!);}
-                byte[] terminal=JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=2,kind="KuaiYiUnifiedDeploymentTerminal",operation=Operation,variant=beforeComplete?"AbortBeforePrepared":"AbortBeforeSnapshot",ticketSha256=Convert.ToHexString(SHA256.HashData(ticket)),beforeSha256=beforeComplete?Convert.ToHexString(SHA256.HashData(before!)):null,preparedSha256=(string?)null});
+                generationIO?.VerifyRecordedMetadata();
+                if(generationIO is{CleanupConfirmed:false}or{StorageUnconfirmed:true})throw new InstallationRecoveryException("Inactive candidate metadata or original IO is unconfirmed.");
+                byte[] terminal=TerminalBytes(generationRetention);
                 if(terminal.Length>16384)throw new InvalidDataException("Terminal exceeds its bound.");
                 Write(temporary,terminal,false);RequireExact(pending,ticket);RequireExact(temporary,terminal);
                 InstallationPaths.Check(backup);if(File.Exists(backup)||Directory.Exists(backup))throw new InstallationRecoveryException("Foreign ticket backup retained.");
@@ -264,7 +311,7 @@ internal sealed class InstallationDeploymentScope
             }
             catch(Exception error){errors.Add(error);}
         }
-        bool clean=admission.CleanupConfirmed&&reads.All(x=>x.CleanupConfirmed)&&(snapshotOwner==null||snapshotOwner.CleanupConfirmed);lock(sync)clean&=files.Count==0;
+        bool clean=admission.CleanupConfirmed&&reads.All(x=>x.CleanupConfirmed)&&(snapshotOwner==null||snapshotOwner.CleanupConfirmed)&&(generationIO==null||generationIO.CleanupConfirmed);lock(sync)clean&=files.Count==0;
         if(!ticketCreated&&clean){lock(Retained)Retained.Remove(this);return new(InstallationDeploymentStatus.Refused,errors.ToArray());}
         return new(InstallationDeploymentStatus.Unconfirmed,errors.ToArray());
     }
@@ -276,7 +323,7 @@ internal sealed class InstallationDeploymentScope
             if(!finalization.IsCompleted)throw new InvalidOperationException("Original finalization is still pending.");
             if(settlement!=null&&!settlement.IsCompleted)return settlement;
             // After a successful final Move there is no fallible cleanup left, including on this API.
-            if(admission.CleanupConfirmed&&files.Count==0&&reads.All(x=>x.CleanupConfirmed)&&(snapshotOwner==null||snapshotOwner.CleanupConfirmed))return Task.FromResult<IReadOnlyList<Exception>>([]);
+            if(admission.CleanupConfirmed&&files.Count==0&&reads.All(x=>x.CleanupConfirmed)&&(snapshotOwner==null||snapshotOwner.CleanupConfirmed)&&(generationIO==null||generationIO.CleanupConfirmed))return Task.FromResult<IReadOnlyList<Exception>>([]);
             var begin=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
             settlement=Task.Run(async()=>{await begin.Task.ConfigureAwait(false);return await SettleCoreAsync().ConfigureAwait(false);});
             begin.SetResult();return settlement;
@@ -285,6 +332,7 @@ internal sealed class InstallationDeploymentScope
     private async Task<IReadOnlyList<Exception>> SettleCoreAsync()
     {
         var errors=new List<Exception>();
+        if(generationIO!=null)try{generationIO.CloseOriginals();}catch(Exception error){errors.Add(error);}
         try{admission.Dispose();}catch(Exception error){errors.Add(error);}
         foreach(var owner in reads)try{await owner.CloseOriginalsAsync().ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
         if(snapshotOwner!=null)try{await snapshotOwner.CloseOriginalsAsync().ConfigureAwait(false);}catch(Exception error){errors.Add(error);}

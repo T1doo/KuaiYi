@@ -1665,3 +1665,5 @@ bootstrap部署基元独审及原件归档限定ACK；Library libfile_20fae98a78
 Before/AbortBeforePrepared固定产品a909c20981dd88fb31ecb42bf943071dbfec32f1签收：3普通managed构建0W/E；一次48P/0F/0skip（新23+原scope25），904 Git输入/12版本/4实际Core副本核一致，三组同完整testfile真实1F→1P保留，编译零用例分列。旧tests及权限依赖均未变；尚未准备候选，无Prepared/发布/Committed，真实Windows/P7未签。
 
 固定树与原件独审限定ACK。原件Library libfile_348b60f9b7e08191833b0e3df952c14c（v0，1,877,796B，206members/205manifest，SHA256 ed0943a022ef9d92840a68f0ce603a2fdd61c63c43e198bc4c2bfc2ee2d512f1）；本地Library身份已核。ZIP CRC、205摘要及8份Git源码已独立核验，无DLL本体。证据提交仅三报告，产品a909c20981dd88fb31ecb42bf943071dbfec32f1不变；完整统一事务与Windows仍未签。
+
+共享scope原IO的G只准备候选：唯一原Task/IO账本贯穿源校验、复制、Flush/Close及派生v3双复验；private凭据绑定原scope/原取消，不发布current/B active/registry。source原句柄错1F→1P、交付/交付后取消2F→2P同完整测试文件保留；r07 G24P及r08新4P分列，待固定签收。metadata partial/Move未知/foreign保留pending，payload partial仅结算后可记Inactive Abort；Closing新读取也由原finalizer结算。B/Prepared/三方提交和Windows/native/runtime仍未完成。见[实现与实际边界](validation/generation-preparation.md)。

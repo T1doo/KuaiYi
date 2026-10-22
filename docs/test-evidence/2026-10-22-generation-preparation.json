@@ -1,0 +1,24 @@
+{
+  "base": "e73e0539c9922951154bef8e32ec9d80d7e226f8",
+  "status": "CandidatePassLimited",
+  "scope": "Shared original IO factory prepares inactive G only; no B/Prepared/publication/Committed",
+  "artifactRoot": "artifacts/2026-10-22-generation-preparation",
+  "candidate_runs": {
+    "r01": "Core normal build0W/E0tests",
+    "r02": "original source acquire/close1F; original handle still open but archived",
+    "r03": "same complete testfile1P",
+    "r04": "7normal managed builds0W/E,0lockdrift",
+    "r05": "last-check/delivery cancellation2F",
+    "r06": "same complete testfile2P",
+    "r07": "24P0F0skip G candidate",
+    "r08": "4P0F0skip nested resource and reserved-directory cases"
+  },
+  "rounds_added_together": false,
+  "remaining": [
+    "B shared prepare,Prepared,G/B/H publication/compensation/Committed not implemented",
+    "No real installer/registry/identity/fixed locator/CLI/autostart",
+    "Structural native/runtime fixtures are not runnable Windows bundles",
+    "Real Windows/medium/browser/WPF/OLE/OCR/quality/250600 NotRun"
+  ],
+  "no_new_permissions_licenses_credentials_fees_or_model_calls": true
+}

@@ -37,23 +37,23 @@ internal static class InstallationPayload
         "licenses/SkiaSharp-4.153.1/LICENSE.txt","licenses/SkiaSharp-4.153.1/THIRD-PARTY-NOTICES.txt","licenses/dotnet/LICENSE.txt","licenses/dotnet/THIRD-PARTY-NOTICES.txt"});
     private static readonly string[] Reserved=[SourceCatalogName,ProvenanceName,HostManifestName,TrustName];
     internal static bool IsOrigin(string? origin)=>origin is {Length:52}&&Regex.IsMatch(origin,@"\Achrome-extension://[a-p]{32}/\z",RegexOptions.CultureInvariant);
-    internal static void ValidateSource(InstallationPackage package,string directory,CancellationToken cancellation)
+    internal static void ValidateSource(InstallationPackage package,string directory,CancellationToken cancellation,InstallationPreparationIO? io=null)
     {
-        try{ValidateSourceCore(package,directory,cancellation);}
+        try{ValidateSourceCore(package,directory,cancellation,io);}
         catch(Exception error)when(error is BadImageFormatException or KeyNotFoundException or XmlException or InvalidOperationException or FormatException or OverflowException)
         {throw new InvalidDataException("Malformed payload closure metadata or PE.",error);}
     }
-    private static void ValidateSourceCore(InstallationPackage package,string directory,CancellationToken cancellation)
+    private static void ValidateSourceCore(InstallationPackage package,string directory,CancellationToken cancellation,InstallationPreparationIO? io)
     {
         if(package.Schema!=2||package.Payload==null)throw new InvalidDataException("A materializable source catalog is required.");
         var entries=package.Manifest.Files.ToDictionary(x=>x.Path,StringComparer.Ordinal);
         if(package.Manifest.Files.Any(f=>Reserved.Contains(f.Path,StringComparer.OrdinalIgnoreCase)))throw new InvalidDataException("Source may not supply derived metadata.");
         if(package.Manifest.Files.Count+Reserved.Length>4096)throw new InvalidDataException("Derived files exceed installation file limit.");
         foreach(string name in TrustedFiles.Concat(ResourceFiles))if(!entries.TryGetValue(name,out var entry)||entry.Bytes<=0)throw new InvalidDataException("Payload closure is incomplete: "+name);
-        foreach(string name in NativeFiles){cancellation.ThrowIfCancellationRequested();RequireNative(Path.Combine(directory,name));}
-        foreach(string name in ManagedFiles){cancellation.ThrowIfCancellationRequested();RequireManaged(Path.Combine(directory,name),Path.GetFileNameWithoutExtension(name),package.Payload.ProductSourceRevision,name=="KuaiYi.App.dll",entries);}
-        foreach(string role in Roles){cancellation.ThrowIfCancellationRequested();RequireRuntime(directory,role,package.Payload.RuntimeVersion);RequireDependencies(directory,role,entries,cancellation);}
-        RequireIdentity(directory);RequireExtension(directory);
+        foreach(string name in NativeFiles){cancellation.ThrowIfCancellationRequested();RequireNative(Path.Combine(directory,name),io);}
+        foreach(string name in ManagedFiles){cancellation.ThrowIfCancellationRequested();RequireManaged(Path.Combine(directory,name),Path.GetFileNameWithoutExtension(name),package.Payload.ProductSourceRevision,name=="KuaiYi.App.dll",entries,io);}
+        foreach(string role in Roles){cancellation.ThrowIfCancellationRequested();RequireRuntime(directory,role,package.Payload.RuntimeVersion,io);RequireDependencies(directory,role,entries,cancellation,io);}
+        RequireIdentity(directory,io);RequireExtension(directory,io);
     }
     internal static void Materialize(InstallationPackage source,string staging,string destination,CancellationToken cancellation)
     {
@@ -67,15 +67,15 @@ internal static class InstallationPayload
         var package=InstallationPackage.ReadInstalled(directory,cancellation);
         if(package.Schema!=3)throw new InstallationRecoveryException("Materialized development payload required; generic catalogs grant no payload qualification.");return package;
     }
-    internal static void ValidateInstalled(InstallationPackage installed,string directory,string finalDirectory,CancellationToken cancellation)
+    internal static void ValidateInstalled(InstallationPackage installed,string directory,string finalDirectory,CancellationToken cancellation,InstallationPreparationIO? io=null)
     {
-        byte[] bytes=InstallationPackage.ReadDocument(Path.Combine(directory,SourceCatalogName));var source=InstallationPackage.Parse(bytes);
+        byte[] bytes=InstallationPackage.ReadDocument(Path.Combine(directory,SourceCatalogName),io:io);var source=InstallationPackage.Parse(bytes);
         if(source.Schema!=2||source.Payload==null||!string.Equals(source.CatalogSha256,installed.SourceCatalogSha256,StringComparison.OrdinalIgnoreCase)||installed.Manifest.Version!=source.Manifest.Version)throw new InvalidDataException("Materialized source provenance mismatch.");
-        ValidateSource(source,directory,cancellation);var metadata=Derived(source,finalDirectory);
-        foreach(var item in metadata){cancellation.ThrowIfCancellationRequested();InstallationControlledLaunch.Exact(Path.Combine(directory,item.Key),item.Value,item.Key==SourceCatalogName?1024*1024:65536);}
+        ValidateSource(source,directory,cancellation,io);var metadata=Derived(source,finalDirectory);
+        foreach(var item in metadata){cancellation.ThrowIfCancellationRequested();int limit=item.Key==SourceCatalogName?1024*1024:65536;if(io!=null)io.RequireExactMetadata(Path.Combine(directory,item.Key),item.Value,limit);else InstallationControlledLaunch.Exact(Path.Combine(directory,item.Key),item.Value,limit);}
         if(!installed.Catalog.AsSpan().SequenceEqual(InstalledCatalog(source,metadata)))throw new InvalidDataException("Derived catalog is not the exact source and closed metadata set.");
     }
-    private static Dictionary<string,byte[]> Derived(InstallationPackage source,string destination)
+    internal static Dictionary<string,byte[]> Derived(InstallationPackage source,string destination)
     {
         string final=InstallationPaths.Root(destination);var generation=new DirectoryInfo(final);
         if(generation.Parent?.Name!="versions"||!Guid.TryParseExact(generation.Name,"N",out _))throw new InvalidDataException("Noncanonical materialized generation.");
@@ -89,21 +89,25 @@ internal static class InstallationPayload
             [TrustName]=JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=1,files=trust})
         };
     }
-    private static byte[] InstalledCatalog(InstallationPackage source,Dictionary<string,byte[]> metadata)
+    internal static byte[] InstalledCatalog(InstallationPackage source,Dictionary<string,byte[]> metadata)
     {
         var files=source.Manifest.Files.Concat(metadata.Select(k=>new InstallationFile(k.Key,k.Value.Length,Convert.ToHexString(SHA256.HashData(k.Value))))).OrderBy(f=>f.Path,StringComparer.Ordinal).Select(f=>new{path=f.Path,bytes=f.Bytes,sha256=f.Sha256}).ToArray();
         byte[] bytes=JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=3,product="KuaiYi",version=source.Manifest.Version,files,sourceCatalogSha256=source.CatalogSha256});
         // Apply the original entry/total/catalog bounds to the derived result as well as the source.
         if(bytes.Length>1024*1024)throw new InvalidDataException("Derived catalog exceeds metadata limit.");_=InstallationPackage.Parse(bytes);return bytes;
     }
-    private static void RequireNative(string path)
+    private static void RequireNative(string path,InstallationPreparationIO? io)
     {
-        using var input=File.OpenRead(path);using var pe=new PEReader(input);
+        InspectPe(path,io,pe=>
+        {
         if(pe.PEHeaders.CoffHeader.Machine!=Machine.Amd64||pe.PEHeaders.PEHeader?.Magic!=PEMagic.PE32Plus||pe.HasMetadata)throw new InvalidDataException("Windows x64 native PE required.");
+        });
     }
-    private static void RequireManaged(string path,string identity,string revision,bool app,Dictionary<string,InstallationFile> entries)
+    private static void RequireManaged(string path,string identity,string revision,bool app,Dictionary<string,InstallationFile> entries,InstallationPreparationIO? io)
     {
-        using var input=File.OpenRead(path);using var pe=new PEReader(input);var reader=pe.GetMetadataReader();var assembly=reader.GetAssemblyDefinition();
+        InspectPe(path,io,pe=>
+        {
+        var reader=pe.GetMetadataReader();var assembly=reader.GetAssemblyDefinition();
         if(reader.GetString(assembly.Name)!=identity)throw new InvalidDataException("Managed role identity mismatch.");
         foreach(var handle in reader.AssemblyReferences)
         {string name=reader.GetString(reader.GetAssemblyReference(handle).Name)+".dll";if(!entries.TryGetValue(name,out var entry)||entry.Bytes<=0)throw new InvalidDataException("Managed assembly reference missing: "+name);}
@@ -119,18 +123,24 @@ internal static class InstallationPayload
         }
         if(informational==null||!informational.EndsWith("+"+revision,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Mixed or unknown product build revision.");
         if(app&&reader.TypeDefinitions.Any(h=>{var t=reader.GetTypeDefinition(h);return reader.GetString(t.Namespace)=="KuaiYi.App"&&reader.GetString(t.Name) is "IsolatedSessionLayout" or "HostedOleProbe" or "HostedOleMarshalProbe";}))throw new InvalidDataException("Acceptance-only App build cannot be installed as the normal product.");
+        });
     }
-    private static void RequireRuntime(string directory,string role,string version)
+    private static void InspectPe(string path,InstallationPreparationIO? io,Action<PEReader> inspect)
     {
-        using var doc=JsonDocument.Parse(InstallationPackage.ReadDocument(Path.Combine(directory,role+".runtimeconfig.json"),65536),new(){MaxDepth=16});var options=doc.RootElement.GetProperty("runtimeOptions");
+        if(io!=null){io.ReadPe(path,inspect);return;}
+        using var input=File.OpenRead(path);using var pe=new PEReader(input);inspect(pe);
+    }
+    private static void RequireRuntime(string directory,string role,string version,InstallationPreparationIO? io)
+    {
+        using var doc=JsonDocument.Parse(InstallationPackage.ReadDocument(Path.Combine(directory,role+".runtimeconfig.json"),65536,io),new(){MaxDepth=16});var options=doc.RootElement.GetProperty("runtimeOptions");
         if(options.TryGetProperty("framework",out _)||options.TryGetProperty("frameworks",out _)||!options.TryGetProperty("includedFrameworks",out var frameworks)||frameworks.ValueKind!=JsonValueKind.Array)throw new InvalidDataException("Self-contained runtime configuration required.");
         var required=new HashSet<string>(StringComparer.Ordinal){"Microsoft.NETCore.App"};if(role is "KuaiYi.App" or "KuaiYi.CaptureBroker" or "KuaiYi.OleReceiver")required.Add("Microsoft.WindowsDesktop.App");
         foreach(var f in frameworks.EnumerateArray())if(f.GetProperty("version").GetString()!=version||!required.Remove(f.GetProperty("name").GetString()??""))throw new InvalidDataException("Runtime framework contract mismatch.");
         if(required.Count!=0)throw new InvalidDataException("Runtime frameworks incomplete.");
     }
-    private static void RequireDependencies(string directory,string role,Dictionary<string,InstallationFile> entries,CancellationToken cancellation)
+    private static void RequireDependencies(string directory,string role,Dictionary<string,InstallationFile> entries,CancellationToken cancellation,InstallationPreparationIO? io)
     {
-        using var doc=JsonDocument.Parse(InstallationPackage.ReadDocument(Path.Combine(directory,role+".deps.json"),4*1024*1024),new(){MaxDepth=32});var root=doc.RootElement;
+        using var doc=JsonDocument.Parse(InstallationPackage.ReadDocument(Path.Combine(directory,role+".deps.json"),4*1024*1024,io),new(){MaxDepth=32});var root=doc.RootElement;
         string target=root.GetProperty("runtimeTarget").GetProperty("name").GetString()??"";if(!target.EndsWith("/win-x64",StringComparison.Ordinal))throw new InvalidDataException("Windows x64 dependency target required.");
         var libraries=root.GetProperty("targets").GetProperty(target);var names=new HashSet<string>(StringComparer.Ordinal);int visited=0;
         foreach(var library in libraries.EnumerateObject())
@@ -150,15 +160,15 @@ internal static class InstallationPayload
                         string locale=asset.Value.GetProperty("locale").GetString()??"";if(locale.Length is <1 or >32||locale.Any(c=>!char.IsAsciiLetterOrDigit(c)&&c!='-'))throw new InvalidDataException("Invalid resource locale.");name=locale+"/"+name;
                     }
                     if(!entries.TryGetValue(name,out var entry)||entry.Bytes<=0)throw new InvalidDataException("Declared payload dependency missing: "+name);
-                    if((section=="native"||section=="runtimeTargets"&&asset.Value.GetProperty("assetType").GetString()=="native")&&name.EndsWith(".dll",StringComparison.OrdinalIgnoreCase))RequireNative(Path.Combine(directory,name));
+                    if((section=="native"||section=="runtimeTargets"&&asset.Value.GetProperty("assetType").GetString()=="native")&&name.EndsWith(".dll",StringComparison.OrdinalIgnoreCase))RequireNative(Path.Combine(directory,name),io);
                 }
             }
         }
         if(visited==0)throw new InvalidDataException("Empty dependency closure.");
     }
-    private static void RequireIdentity(string directory)
+    private static void RequireIdentity(string directory,InstallationPreparationIO? io)
     {
-        using var stream=new MemoryStream(InstallationPackage.ReadDocument(Path.Combine(directory,"identity/AppxManifest.xml")));
+        using var stream=new MemoryStream(InstallationPackage.ReadDocument(Path.Combine(directory,"identity/AppxManifest.xml"),io:io));
         using var xml=XmlReader.Create(stream,new(){DtdProcessing=DtdProcessing.Prohibit,XmlResolver=null,MaxCharactersInDocument=1024*1024});var root=XDocument.Load(xml).Root??throw new InvalidDataException("Missing identity manifest.");XNamespace ns="http://schemas.microsoft.com/appx/manifest/foundation/windows10";
         var identities=root.Elements(ns+"Identity").ToArray();var containers=root.Elements(ns+"Applications").ToArray();
         if(root.Name!=ns+"Package"||identities.Length!=1||identities[0].Attribute("ProcessorArchitecture")?.Value!="x64"||identities[0].Attribute("Name")?.Value!="KuaiYi.Development"||identities[0].Attribute("Publisher")?.Value!="CN=KuaiYi Development"||containers.Length!=1)throw new InvalidDataException("Development identity contract mismatch.");
@@ -170,9 +180,9 @@ internal static class InstallationPayload
         }
         if(expected.Count!=0)throw new InvalidDataException("App and worker identity declarations required.");
     }
-    private static void RequireExtension(string directory)
+    private static void RequireExtension(string directory,InstallationPreparationIO? io)
     {
-        using var doc=JsonDocument.Parse(InstallationPackage.ReadDocument(Path.Combine(directory,"browser-extension/manifest.json"),65536),new(){MaxDepth=16});var root=doc.RootElement;
+        using var doc=JsonDocument.Parse(InstallationPackage.ReadDocument(Path.Combine(directory,"browser-extension/manifest.json"),65536,io),new(){MaxDepth=16});var root=doc.RootElement;
         // A new caller-pinned source digest grants byte integrity, not additional extension capabilities.
         if(root.TryGetProperty("host_permissions",out _)||root.TryGetProperty("optional_host_permissions",out _)||root.TryGetProperty("optional_permissions",out _)||root.TryGetProperty("content_scripts",out _))throw new InvalidDataException("Unexpected extension permission contract.");
         InstallationPackage.Fields(root,"manifest_version","name","version","description","permissions","background","action","options_page","icons","content_security_policy");

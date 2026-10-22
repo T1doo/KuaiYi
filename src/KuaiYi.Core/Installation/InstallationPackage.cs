@@ -11,20 +11,20 @@ internal sealed record InstallationPackage(InstallationManifest Manifest,byte[] 
     internal const string CatalogName="package.json";
     private const int CatalogLimit=1024*1024,FileLimit=4096;
     private const long MaximumFileBytes=256L*1024*1024,MaximumTotalBytes=1024L*1024*1024;
-    internal static InstallationPackage ReadSource(string directory,string expected,CancellationToken cancellation)
+    internal static InstallationPackage ReadSource(string directory,string expected,CancellationToken cancellation,InstallationPreparationIO? io=null)
     {
-        byte[] bytes=ReadDocument(Path.Combine(directory,CatalogName),CatalogLimit);
+        byte[] bytes=ReadDocument(Path.Combine(directory,CatalogName),CatalogLimit,io);
         if(!string.Equals(Convert.ToHexString(SHA256.HashData(bytes)),expected,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Package catalog digest mismatch.");
         var package=Parse(bytes);if(package.Schema==3)throw new InvalidDataException("An installed catalog is not an install source.");
-        package.Verify(directory,cancellation);if(package.Payload!=null)InstallationPayload.ValidateSource(package,directory,cancellation);return package;
+        package.Verify(directory,cancellation,io:io);if(package.Payload!=null)InstallationPayload.ValidateSource(package,directory,cancellation,io);return package;
     }
-    internal static InstallationPackage ReadInstalled(string directory,CancellationToken cancellation,string? finalDirectory=null,string? expectedDigest=null)
+    internal static InstallationPackage ReadInstalled(string directory,CancellationToken cancellation,string? finalDirectory=null,string? expectedDigest=null,InstallationPreparationIO? io=null)
     {
-        byte[] bytes=ReadDocument(Path.Combine(directory,CatalogName),CatalogLimit);
+        byte[] bytes=ReadDocument(Path.Combine(directory,CatalogName),CatalogLimit,io);
         if(expectedDigest!=null&&!string.Equals(Convert.ToHexString(SHA256.HashData(bytes)),expectedDigest,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Version catalog hash mismatch.");
         var package=Parse(bytes);
         if(package.Schema==2)throw new InvalidDataException("A source catalog is not a materialized installation.");
-        package.Verify(directory,cancellation);if(package.Schema==3)InstallationPayload.ValidateInstalled(package,directory,finalDirectory??directory,cancellation);return package;
+        package.Verify(directory,cancellation,io:io);if(package.Schema==3)InstallationPayload.ValidateInstalled(package,directory,finalDirectory??directory,cancellation,io);return package;
     }
     internal static InstallationPackage Parse(byte[] bytes)
     {
@@ -55,18 +55,18 @@ internal sealed record InstallationPackage(InstallationManifest Manifest,byte[] 
         catch(Exception error)when(error is InvalidOperationException or FormatException or OverflowException)
         {throw new InvalidDataException("Invalid installation catalog field type or number.",error);}
     }
-    internal void Verify(string directory,CancellationToken cancellation,string catalogName=CatalogName)
+    internal void Verify(string directory,CancellationToken cancellation,string catalogName=CatalogName,InstallationPreparationIO? io=null)
     {
         InstallationPaths.Check(directory);var expected=Manifest.Files.ToDictionary(f=>f.Path,StringComparer.OrdinalIgnoreCase);expected.Add(catalogName,new(catalogName,Catalog.Length,CatalogSha256));
         var directories=new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         foreach(string path in expected.Keys){string? parent=Path.GetDirectoryName(path);while(!string.IsNullOrEmpty(parent)){directories.Add(parent.Replace('\\','/'));parent=Path.GetDirectoryName(parent);}}
         var seenDirectories=new HashSet<string>(StringComparer.OrdinalIgnoreCase);var pending=new Stack<string>();pending.Push(directory);var seen=new HashSet<string>(StringComparer.OrdinalIgnoreCase);int visited=0;
-        while(pending.TryPop(out string? current))foreach(string path in Directory.EnumerateFileSystemEntries(current))
+        while(pending.TryPop(out string? current))foreach(string path in io?.Entries(current)??Directory.EnumerateFileSystemEntries(current))
         {
             cancellation.ThrowIfCancellationRequested();if(++visited>FileLimit*17)throw new InvalidDataException("Installation tree too large.");InstallationPaths.Check(path);string relative=Path.GetRelativePath(directory,path).Replace('\\','/');var attributes=File.GetAttributes(path);
             if((attributes&FileAttributes.Directory)!=0){if(!directories.Contains(relative)||!seenDirectories.Add(relative))throw new InvalidDataException("Unlisted or aliased installation directory.");pending.Push(path);continue;}
             if((attributes&FileAttributes.Device)!=0||!expected.TryGetValue(relative,out var entry)||!seen.Add(relative))throw new InvalidDataException("Unlisted installation file.");
-            using var input=new FileStream(path,FileMode.Open,FileAccess.Read,FileShare.Read);VerifyStream(input,entry,cancellation);
+            if(io!=null)io.VerifyFile(path,entry,cancellation);else{using var input=new FileStream(path,FileMode.Open,FileAccess.Read,FileShare.Read);VerifyStream(input,entry,cancellation);}
         }
         if(seen.Count!=expected.Count)throw new InvalidDataException("Installation package is incomplete.");
     }
@@ -89,8 +89,9 @@ internal sealed record InstallationPackage(InstallationManifest Manifest,byte[] 
         while((count=input.Read(buffer))!=0){cancellation.ThrowIfCancellationRequested();read+=count;if(read>file.Bytes)throw new InvalidDataException("Installation file changed.");hash.AppendData(buffer,0,count);}
         if(read!=file.Bytes||!string.Equals(Convert.ToHexString(hash.GetHashAndReset()),file.Sha256,StringComparison.OrdinalIgnoreCase))throw new InvalidDataException("Installation file hash mismatch.");
     }
-    internal static byte[] ReadDocument(string path,int maximum=CatalogLimit)
+    internal static byte[] ReadDocument(string path,int maximum=CatalogLimit,InstallationPreparationIO? io=null)
     {
+        if(io!=null)return io.ReadDocument(path,maximum);
         InstallationPaths.Check(path);using var input=new FileStream(path,FileMode.Open,FileAccess.Read,FileShare.Read|FileShare.Delete);if(input.Length is <1||input.Length>maximum)throw new InvalidDataException("Installation metadata size invalid.");byte[] bytes=new byte[(int)input.Length];input.ReadExactly(bytes);return bytes;
     }
     internal static bool HashValid(string hash)=>hash.Length==64&&hash.All(char.IsAsciiHexDigit);
