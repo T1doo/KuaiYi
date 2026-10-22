@@ -10,7 +10,7 @@ namespace KuaiYi.App;
 
 internal enum ProductionScreenshotEvent { Begin, Prepared, Classifying, Generating, Delta, Usage, Completed, Failed }
 internal sealed record ProductionScreenshotUpdate(RequestIdentity Identity,ProductionScreenshotEvent Kind,ScreenshotGenerationSnapshot Snapshot,string? Text=null,string? Reason=null);
-internal sealed class ProductionScreenshotOffer(ScreenshotGenerationSnapshot snapshot,CaptureTicket ticket,ImageSourceOwner image,long revision,TranslationPreset preset)
+internal sealed class ProductionScreenshotOffer(ScreenshotGenerationSnapshot snapshot,CaptureTicket ticket,ImageSourceOwner image,long revision,TranslationPreset preset,OcrImageApproval? ocr=null)
 {
     public ScreenshotGenerationSnapshot Snapshot {get;}=snapshot;
     public TranslationPreset RequestedPreset {get;}=preset;
@@ -19,7 +19,11 @@ internal sealed class ProductionScreenshotOffer(ScreenshotGenerationSnapshot sna
     internal ImageSourceOwner Image {get;}=image;
     internal long Revision {get;}=revision;
     internal bool Launched;
-    public string ConfirmationText=>Image.Kind!=ImageSourceKind.Screenshot?$"将仅发送{(Image.Kind==ImageSourceKind.Bitmap?"本次明确投放的位图":Image.Kind==ImageSourceKind.Browser?"当前明确接收的浏览器图片":"当前明确打开的本地图片")}{(Image.Notice is {} note?" · "+note:"")}。\n目标：{new EndpointOrigin(Snapshot.Transport.ResolveEndpoint()).Value}\n模型：{Snapshot.Profile.Model}\n本次模式：{Snapshot.RequestedMode switch{ImageOutputMode.TranslateText=>"仅翻译图中文字",ImageOutputMode.ExplainImage=>"按图文解释",_=>"智能判断"}} · 文字风格：{PresetLabel}。\n通常先分类，再正式生成，可能发生两次服务调用及相应费用；不发送文件路径或其他文件。是否确认本次发送？":$"将仅发送当前明确裁剪的截图。\n目标：{new EndpointOrigin(Snapshot.Transport.ResolveEndpoint()).Value}\n模型：{Snapshot.Profile.Model}\n本次模式：{Snapshot.RequestedMode switch{ImageOutputMode.TranslateText=>"仅翻译图中文字",ImageOutputMode.ExplainImage=>"按图文解释",_=>"智能判断"}}。\n本次文字风格：{PresetLabel}；按图文解释时使用解释风格。\n通常先分类，再正式生成，可能发生两次服务调用及相应费用；无效分类不会继续发送。\n仅使用当前所选截图，不发送整个屏幕或文件路径。是否确认本次发送？";
+    internal OcrImageApproval? Ocr {get;}=ocr;
+    private Task? originalTask;
+    internal Task OriginalTask=>originalTask??Task.CompletedTask;
+    internal void Track(Task task){if(Interlocked.CompareExchange(ref originalTask,task,null)!=null)throw new InvalidOperationException("Original image task already installed.");}
+    public string ConfirmationText=>(Ocr==null?"":$"本地 OCR 文字已由您批准（语言 {Ocr.Language}）。分类请求仍发送当前图片；仅判断为清晰纯文字时，正式生成发送这些批准文字，其他分支仍发送当前图片。两阶段均使用下方同一模型与目标。\n")+(Image.Kind!=ImageSourceKind.Screenshot?$"将仅发送{(Image.Kind==ImageSourceKind.Bitmap?"本次明确投放的位图":Image.Kind==ImageSourceKind.Browser?"当前明确接收的浏览器图片":"当前明确打开的本地图片")}{(Image.Notice is {} note?" · "+note:"")}。\n目标：{new EndpointOrigin(Snapshot.Transport.ResolveEndpoint()).Value}\n模型：{Snapshot.Profile.Model}\n本次模式：{Snapshot.RequestedMode switch{ImageOutputMode.TranslateText=>"仅翻译图中文字",ImageOutputMode.ExplainImage=>"按图文解释",_=>"智能判断"}} · 文字风格：{PresetLabel}。\n通常先分类，再正式生成，可能发生两次服务调用及相应费用；不发送文件路径或其他文件。是否确认本次发送？":$"将仅发送当前明确裁剪的截图。\n目标：{new EndpointOrigin(Snapshot.Transport.ResolveEndpoint()).Value}\n模型：{Snapshot.Profile.Model}\n本次模式：{Snapshot.RequestedMode switch{ImageOutputMode.TranslateText=>"仅翻译图中文字",ImageOutputMode.ExplainImage=>"按图文解释",_=>"智能判断"}}。\n本次文字风格：{PresetLabel}；按图文解释时使用解释风格。\n通常先分类，再正式生成，可能发生两次服务调用及相应费用；无效分类不会继续发送。\n仅使用当前所选截图，不发送整个屏幕或文件路径。是否确认本次发送？");
 }
 /// <summary>Normal Shell's explicit final-crop path. Borrows the crop; never owns file codecs or caches images/classification for reuse.
 /// Destination callbacks serialize result metadata. sourceCurrent reads synchronous thread-safe metadata only, including under the send gate.</summary>
@@ -28,8 +32,8 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
     private sealed record Source(Guid Version,ImageSourceOwner Image);
     private sealed record VersionState(ScreenshotGenerationSnapshot Snapshot,TranslationPreset Preset);
     private sealed record Validation(SettingsSnapshot Saved,bool Rejected=false);
-    private sealed class Job(Source source,RequestIdentity identity,ScreenshotGenerationSnapshot snapshot,TranslationPreset preset)
-    {public readonly Source Source=source;public readonly RequestIdentity Identity=identity;public readonly TranslationPreset Preset=preset;public ScreenshotGenerationSnapshot Snapshot=snapshot;public bool Terminal;public ScreenshotUsageStage? Stage;public Validation Validation=new(snapshot.Settings);}
+    private sealed class Job(Source source,RequestIdentity identity,ScreenshotGenerationSnapshot snapshot,TranslationPreset preset,OcrImageApproval? ocr)
+    {public OcrImageApproval? Ocr=ocr;public readonly Source Source=source;public readonly RequestIdentity Identity=identity;public readonly TranslationPreset Preset=preset;public ScreenshotGenerationSnapshot Snapshot=snapshot;public bool Terminal;public ScreenshotUsageStage? Stage;public Validation Validation=new(snapshot.Settings);}
     private readonly RuntimeGate gate;private readonly Func<SettingsSnapshot?> settings;private readonly Func<Guid,Guid,bool> sourceCurrent;
     private readonly ProviderClient provider;private readonly ProviderEventReceiver receiver;
     private readonly Func<RequestIdentity,ScreenshotGenerationSnapshot,CancellationToken,Task<SecretLease?>> openSecret;
@@ -56,14 +60,15 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
     public bool SetSourcePreset(Guid version,Guid sourceId,TranslationPreset? preset)
     {
         if(preset is {} value&&!Enum.IsDefined(value)||PresetForSource(version,sourceId)==null)return false;
-        sourceStyle=preset is {} selected?(version,sourceId,selected):null;offered=null;commandRevision++;return true;
+        sourceStyle=preset is {} selected?(version,sourceId,selected):null;DiscardOffer();commandRevision++;return true;
     }
-    public ProductionScreenshotOffer? Prepare(Guid version,ImageSourceOwner image,ImageOutputMode mode=ImageOutputMode.Automatic)
+    public ProductionScreenshotOffer? Prepare(Guid version,ImageSourceOwner image,ImageOutputMode mode=ImageOutputMode.Automatic,OcrImageApproval? ocr=null)
     {
-        offered=null;long revision=++commandRevision;LastRejection=null;
+        DiscardOffer();long revision=++commandRevision;LastRejection=null;
         ProductionScreenshotOffer? Reject(string reason){LastRejection=reason;return null;}
         if(disposed||clearing||version==Guid.Empty||image.IsDisposed||!Enum.IsDefined(mode)||!sourceCurrent(version,image.SourceId))return Reject("SCREENSHOT_UNAVAILABLE");
         if(consumed==(version,image.SourceId))return Reject("IMAGE_REUSE_DISABLED");
+        if(mode==ImageOutputMode.Automatic?(ocr==null||!ocr.IsPreparedCurrent||ocr.SourceVersion!=version||ocr.SourceId!=image.SourceId||ocr.SourceKind!=image.Kind||ocr.SourceNotice!=image.Notice):ocr!=null)return Reject("LOCAL_OCR_APPROVAL_REQUIRED");
         if(settings() is not {} config||config.ReadOnly||config.RequiresRecovery)return Reject("SETTINGS_UNAVAILABLE");
         if(!gate.TryBeginPassiveCapture(gate.Snapshot.Mode,out var ticket))return Reject("ENABLE_REQUIRED");
         var profile=config.Data.Profiles.FirstOrDefault(p=>p.Id==config.Data.VisionProfileId);
@@ -76,19 +81,21 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
             if(transport.DevelopmentBoundary!=null||transport.IsDevelopmentFixture)return Reject("PRODUCTION_PROFILE_REQUIRED");
             var snapshot=new ScreenshotGenerationSnapshot(version,image.SourceId,config,profile,transport,binding,1,mode,false,SourceKind:image.Kind,SourceNotice:image.Notice);
             if(commandRevision!=revision||disposed)return Reject("SCREENSHOT_UNAVAILABLE");
-            return offered=new(snapshot,ticket,image,revision,PresetForSource(version,image.SourceId)??config.Data.Translation.Preset);
+            return offered=new(snapshot,ticket,image,revision,PresetForSource(version,image.SourceId)??config.Data.Translation.Preset,ocr);
         }
         catch(Exception error)when(error is ArgumentException or SettingsValidationException){return Reject("PROFILE_INVALID");}
     }
     public bool IsOfferCurrent(ProductionScreenshotOffer offer)
     {
         bool current=!disposed&&!clearing&&ReferenceEquals(offered,offer)&&!offer.Launched&&commandRevision==offer.Revision&&consumed!=(offer.Snapshot.SourceVersion,offer.Snapshot.SourceId)&&
+            (offer.Snapshot.RequestedMode==ImageOutputMode.Automatic?offer.Ocr?.IsPreparedCurrent==true:offer.Ocr==null)&&
             !offer.Image.IsDisposed&&settings() is {} config&&!config.ReadOnly&&!config.RequiresRecovery&&config.Version==offer.Snapshot.Settings.Version&&
             config.Data.VisionProfileId==offer.Snapshot.Profile.Id&&config.Data.Profiles.FirstOrDefault(p=>p.Id==config.Data.VisionProfileId) is {} live&&ApiProfilePolicy.RequestEquivalent(live,offer.Snapshot.Profile)&&
             gate.TryGetProfileBinding(live.Id,out var binding)&&binding==offer.Snapshot.Binding&&gate.IsCaptureCurrent(offer.Ticket)&&sourceCurrent(offer.Snapshot.SourceVersion,offer.Snapshot.SourceId);
         return current&&!disposed&&!clearing&&ReferenceEquals(offered,offer)&&commandRevision==offer.Revision&&!offer.Launched;
     }
-    public void Reject(ProductionScreenshotOffer offer){if(ReferenceEquals(offered,offer)){offered=null;commandRevision++;}}
+    private void DiscardOffer(){var previous=offered;offered=null;if(previous is {Launched:false})previous.Ocr?.Dispose();}
+    public void Reject(ProductionScreenshotOffer offer){if(ReferenceEquals(offered,offer)){offered=null;commandRevision++;}if(!offer.Launched)offer.Ocr?.Dispose();}
     public bool Submit(ProductionScreenshotOffer offer,bool confirmed)
     {
         if(!confirmed||!IsOfferCurrent(offer))return false;
@@ -103,15 +110,16 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
                 var current=settings();bool valid=!offer.Image.IsDisposed&&current is {ReadOnly:false,RequiresRecovery:false}&&current.Version==offer.Snapshot.Settings.Version&&current.Data.VisionProfileId==offer.Snapshot.Profile.Id&&
                     gate.IsRequestProfileBindingCurrent(identity,offer.Snapshot.Binding)&&sourceCurrent(offer.Snapshot.SourceVersion,offer.Snapshot.SourceId);
                 if(!valid||disposed||!ReferenceEquals(offered,offer)||commandRevision!=offer.Revision||offer.Launched||!gate.CanApply(identity))return;
+                if(offer.Ocr!=null&&!offer.Ocr.TryBind(offer.Ticket,identity,offer.Snapshot.Binding))return;
                 if(!Results.Begin(identity))return;
                 offer.Launched=true;offered=null;consumed=(offer.Snapshot.SourceVersion,offer.Snapshot.SourceId);
-                var snapshot=offer.Snapshot with{Number=Results.Versions.Single(v=>v.Identity==identity).Number};
-                admitted=new(new(snapshot.SourceVersion,offer.Image),identity,snapshot,offer.RequestedPreset);active=admitted;snapshots[identity.VersionId]=new(snapshot,offer.RequestedPreset);sourceStyle=null;Prune();
+                var snapshot=offer.Snapshot with{Number=Results.Versions.Single(v=>v.Identity==identity).Number,Ocr=offer.Ocr is {} approval?new(approval.PreviewId,approval.Language,false):null};
+                admitted=new(new(snapshot.SourceVersion,offer.Image),identity,snapshot,offer.RequestedPreset,offer.Ocr);active=admitted;snapshots[identity.VersionId]=new(snapshot,offer.RequestedPreset);sourceStyle=null;Prune();
                 // Install the tracked task before any notification can reenter and install C.
-                Running=Run(admitted);lock(jobsSync)jobs.Add(Running);_=Observe(Running);
+                Running=Run(admitted);offer.Track(Running);lock(jobsSync)jobs.Add(Running);_=Observe(Running);
                 Publish(admitted,ProductionScreenshotEvent.Begin);
             });
-            if(admitted==null){RejectAdmission(identity,previous);return false;}return true;
+            if(admitted==null){try{RejectAdmission(identity,previous);}finally{offer.Ocr?.Dispose();}return false;}return true;
         }
         catch(Exception error)
         {List<Exception> errors=[error];if(identity!=default)ScreenshotPreviewCleanup.Attempt(errors,()=>RejectAdmission(identity,previous));throw new AggregateException("Screenshot admission failed.",errors);}
@@ -126,6 +134,7 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
         var state=gate.Snapshot;
         if(disposed||!ReferenceEquals(active,job)||job.Source.Image.IsDisposed||state.Activation!=Activation.On||state.Suspension.HasFlag(Suspension.SessionLocked)||state.Presentation==Presentation.Hidden||
             !gate.IsRequestProfileBindingCurrent(job.Identity,job.Snapshot.Binding)||!gate.HasConsentTo(new(job.Snapshot.Transport.ResolveEndpoint()))||!sourceCurrent(job.Snapshot.SourceVersion,job.Snapshot.SourceId))return false;
+        if(job.Snapshot.RequestedMode==ImageOutputMode.Automatic&&job.Ocr?.IsBoundCurrent!=true)return false;
         bool compatible=SettingsCompatible(job);
         return compatible&&!disposed&&ReferenceEquals(active,job)&&!job.Source.Image.IsDisposed&&gate.CanApply(job.Identity);
     }
@@ -151,6 +160,11 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
         }
     }
     private async Task Run(Job job)
+    {
+        try{await RunCore(job).ConfigureAwait(false);}
+        finally{job.Ocr?.Dispose();job.Ocr=null;}
+    }
+    private async Task RunCore(Job job)
     {
         await Task.Yield();if(!gate.TryLinkRequestCancellation(job.Identity,default,out var linked))return;
         using var lifetime=linked!;var budget=provider.FreezeBudget(job.Snapshot.Transport);using var timeout=budget.Link(lifetime.Token);
@@ -191,7 +205,16 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
             var plan=ImageTranslationPlanner.Create(job.Snapshot.Classification,job.Snapshot.Settings.Data.Translation with{Preset=job.Preset},job.Snapshot.RequestedMode,job.Snapshot.Regeneration);
             if(!await Receive(job,new(job.Identity,new(ModelEventKind.Started)),_=>
             {if(job.Snapshot.Transform==null&&!CommitPrepared(job,prepared))return;job.Snapshot=job.Snapshot with{Plan=plan};BeginUsageStage(job,ScreenshotUsageStage.Generation);Publish(job,ProductionScreenshotEvent.Generating);},lifetime.Token,budget).ConfigureAwait(false))return;
-            var final=new TranslationRequest(job.Snapshot.Transport,plan.System,plan.User,bytes);
+            string user=plan.User,finalSystem=plan.System;byte[]? finalImage=bytes;
+            if(job.Snapshot.RequestedMode==ImageOutputMode.Automatic&&job.Snapshot.Classification.Kind==ImageKind.TextOnly&&job.Snapshot.Classification.Readability==ImageReadability.Clear)
+            {
+                if(job.Ocr?.TryReadText(out var approvedText)!=true||approvedText==null)return;
+                var textPlan=PromptBuilder.Compose(job.Snapshot.Settings.Data.Translation with{Preset=job.Preset},approvedText);
+                user=textPlan.User;finalSystem=textPlan.System;finalImage=null;
+                if(!await Receive(job,new(job.Identity,new(ModelEventKind.Started)),_=>
+                {job.Snapshot=job.Snapshot with{Ocr=new(job.Ocr.PreviewId,job.Ocr.Language,true),Plan=plan with{System=textPlan.System,User="",Notice="智能判断 · 使用已批准的 OCR 文字；图形关系未分析",TemplateVersion=textPlan.FullTemplateVersion}};snapshots[job.Identity.VersionId]=new(job.Snapshot,job.Preset);},lifetime.Token,budget).ConfigureAwait(false))return;
+            }
+            var final=new TranslationRequest(job.Snapshot.Transport,finalSystem,user,finalImage);
             timeout.Check();
             using var generationSecret=job.Snapshot.Transport.Authentication==Authentication.None?null:await openSecret(job.Identity,job.Snapshot,timeout.Token).ConfigureAwait(false);
             timeout.Check();if(!Eligible(job))return;
@@ -274,14 +297,14 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
     private void Prune(){var retained=Results.RetainedVersionIds;foreach(var id in snapshots.Keys.Where(id=>!retained.Contains(id)).ToArray())snapshots.Remove(id);foreach(var id in failures.Keys.Where(id=>!retained.Contains(id)).ToArray())failures.Remove(id);}
     public void ObserveSettings(SettingsSnapshot current){if(active is {} job)_=SettingsCompatible(job);}
     public void Stop()
-    {commandRevision++;offered=null;var job=active;active=null;if(job!=null)try{gate.StopRequest(job.Identity);}finally{if(Results.Identity==job.Identity)Results.MarkStopped();}}
+    {commandRevision++;DiscardOffer();var job=active;active=null;if(job!=null)try{gate.StopRequest(job.Identity);}finally{if(Results.Identity==job.Identity)Results.MarkStopped();}}
     public void RevokeSource(Guid version,Guid sourceId)
     {if(sourceStyle is {} style&&style.Version==version&&style.Source==sourceId)sourceStyle=null;if(offered?.Snapshot.SourceVersion==version&&offered.Snapshot.SourceId==sourceId)Reject(offered);if(active?.Snapshot.SourceVersion==version&&active.Snapshot.SourceId==sourceId)Stop();}
     public void Clear()
     {
         if(clearing)return;clearing=true;
         // Fence Prepare/Submit while cancellation callbacks run; they cannot install C into metadata this Clear owns.
-        try{Stop();}finally{offered=null;sourceStyle=null;snapshots.Clear();failures.Clear();clearing=false;}
+        try{Stop();}finally{DiscardOffer();sourceStyle=null;snapshots.Clear();failures.Clear();clearing=false;}
     }
     public async Task ClearAsync()
     {

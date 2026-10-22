@@ -8,7 +8,9 @@ internal sealed partial class ShellWindow
     {
         try
         {
-            bool sent=SubmitScreenshot(mode??(lifecycle.Settings?.Data.Images.SmartRouting==true?ImageOutputMode.Automatic:ImageOutputMode.TranslateText),offer=>MessageBox.Show(this,offer.ConfirmationText,"快译 · 本次图片发送确认",MessageBoxButton.OKCancel,MessageBoxImage.Information)==MessageBoxResult.OK);
+            var selected=mode??(lifecycle.Settings?.Data.Images.SmartRouting==true?ImageOutputMode.Automatic:ImageOutputMode.TranslateText);
+            if(selected==ImageOutputMode.Automatic){_=StartSmartImageTranslation();return;}
+            bool sent=SubmitScreenshot(selected,offer=>MessageBox.Show(this,offer.ConfirmationText,"快译 · 本次图片发送确认",MessageBoxButton.OKCancel,MessageBoxImage.Information)==MessageBoxResult.OK);
             if(!sent)button.ToolTip=ScreenshotFailureLabel(imageTranslation?.LastRejection??"SOURCE_OR_SETTINGS_CHANGED");
         }
         catch(Exception error){Report("图片翻译未完成",error);}

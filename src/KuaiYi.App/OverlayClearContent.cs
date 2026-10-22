@@ -23,7 +23,8 @@ internal sealed partial class ShellWindow
         ScreenshotPreviewCleanup.Attempt(errors,()=>screenshotCleanup=StopHotkeyScreenshot());ScreenshotPreviewCleanup.Attempt(errors,()=>dropCleanup=SettleClearedTextDrop());
         Task ocrCleanup=Task.CompletedTask;ScreenshotPreviewCleanup.Attempt(errors,()=>CollectOcrCleanup(ref ocrCleanup));
         Task fileCleanup=Task.CompletedTask;ScreenshotPreviewCleanup.Attempt(errors,()=>CollectFileCleanup(ref fileCleanup));
-        var cleanup=Task.WhenAll(translationCleanup,imageCleanup,screenshotCleanup,dropCleanup,ocrCleanup,fileCleanup);
+        Task smartCleanup=Task.CompletedTask;ScreenshotPreviewCleanup.Attempt(errors,()=>CollectSmartCleanup(ref smartCleanup));
+        var cleanup=Task.WhenAll(translationCleanup,imageCleanup,screenshotCleanup,dropCleanup,ocrCleanup,fileCleanup,smartCleanup);
         try{await cleanup;}catch(Exception error){errors.Add(cleanup.Exception??error);}
         bool current=!exiting&&revision==resultRevision&&CanReadOriginalSource()&&!lifecycle.Gate.HasRunningGeneration&&
             !lifecycle.Gate.Snapshot.Suspension.HasFlag(KuaiYi.Core.Suspension.Capture);

@@ -22,7 +22,7 @@ public sealed partial class ProductionScreenshotTranslationTests
         public readonly RuntimeGate Gate=new(requireProfileBinding:true);public readonly ProviderClient Provider;
         private Rig(TimeProvider? clock=null){Provider=new(clock:clock);}
         public SettingsSnapshot Settings=null!;public ProductionScreenshotCoordinator Flow=null!;public OverlayResults Results=null!;
-        public OwnedSourceImage Image=null!;public byte[] Raw=[];public Guid Version=Guid.NewGuid();public bool Current=true;public int SecretReads;public Deferred? DeferredDestination;
+        public ImageSourceOwner Image=null!;public byte[] Raw=[];public Guid Version=Guid.NewGuid();public bool Current=true;public int SecretReads;public Deferred? DeferredDestination;
         public readonly List<Lease> Leases=[];public readonly List<ProductionScreenshotUpdate> Updates=[];
         public Action<ProductionScreenshotUpdate>? OnUpdate;public Func<int,Task>? BeforeSecret;public Action<Lease,CancellationToken>? SecretCreated;public Protocol Protocol;public bool Stream;
         public static async Task<Rig> Create(Protocol protocol=Protocol.OpenAIChat,bool stream=false,bool auth=false,SynchronizationContext? destination=null,TimeProvider? clock=null)
@@ -38,10 +38,10 @@ public sealed partial class ProductionScreenshotTranslationTests
             });r.ReplaceImage();return r;
         }
         public void ReplaceImage(int width=8,int height=8)
-        {Image?.Dispose();Version=Guid.NewGuid();Raw=Enumerable.Range(0,width*height*4).Select(i=>(byte)(i%4==3?255:i%251+1)).ToArray();Image=new(new ScreenshotPixels(new(-17,23,width-17,height+23),Raw));}
+        {Image?.Dispose();Version=Guid.NewGuid();Raw=Enumerable.Range(0,width*height*4).Select(i=>(byte)(i%4==3?255:i%251+1)).ToArray();Image=new OwnedSourceImage(new ScreenshotPixels(new(-17,23,width-17,height+23),Raw));}
         public void Edit(Func<AppSettings,AppSettings> edit,bool observe=true)
         {Settings=Settings with{Data=edit(Settings.Data) with{WriteId=Guid.NewGuid()},Version=Guid.NewGuid().ToString("N")};Gate.ObserveSettingsMetadata(Settings);if(observe)Flow.ObserveSettings(Settings);}
-        public ProductionScreenshotOffer Offer(ImageOutputMode mode=ImageOutputMode.Automatic)=>Assert.IsType<ProductionScreenshotOffer>(Flow.Prepare(Version,Image,mode));
+        public ProductionScreenshotOffer Offer(ImageOutputMode mode=ImageOutputMode.TranslateText)=>Assert.IsType<ProductionScreenshotOffer>(Flow.Prepare(Version,Image,mode,mode==ImageOutputMode.Automatic?SmartOcrFixture.Approve(Gate,()=>Settings,Version,Image,(v,id)=>Current&&v==Version&&id==Image.SourceId&&!Image.IsDisposed):null));
         public async Task Requests(int count)
         {using var limit=new CancellationTokenSource(TimeSpan.FromSeconds(6));while(Volatile.Read(ref Script.Requests)<count)await Task.Delay(5,limit.Token);}
         public async Task Reply(string text,string finish="stop",int input=11,int output=7)
@@ -51,7 +51,7 @@ public sealed partial class ProductionScreenshotTranslationTests
             string quoted=JsonSerializer.Serialize(text);await Script.Write(Protocol==Protocol.OpenAIChat?"data: {\"choices\":[{\"index\":0,\"delta\":{\"content\":"+quoted+"}}]}\n\ndata: {\"choices\":[],\"usage\":{\"prompt_tokens\":"+input+",\"completion_tokens\":"+output+"}}\n\n":"data: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":"+quoted+"}}\n\n");
             await Script.Write(Protocol==Protocol.OpenAIChat?"data: {\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\""+finish+"\"}]}\n\ndata: [DONE]\n\n":"data: {\"type\":\"content_block_stop\",\"index\":0}\n\ndata: {\"type\":\"message_delta\",\"delta\":{\"stop_reason\":\""+(finish=="stop"?"end_turn":finish)+"\"},\"usage\":{\"output_tokens\":"+output+"}}\n\ndata: {\"type\":\"message_stop\"}\n\n",true);
         }
-        public async Task Generate(ImageOutputMode mode=ImageOutputMode.Automatic,string kind="diagram_or_mixed")
+        public async Task Generate(ImageOutputMode mode=ImageOutputMode.TranslateText,string kind="diagram_or_mixed")
         {Assert.True(Flow.Submit(Offer(mode),true));await Requests(1);await Reply(ImageClassificationTests.Json(kind),input:13,output:3);await Requests(2);await Reply("公开截图输出 **正文**",input:29,output:17);await Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));}
         public async ValueTask DisposeAsync()
         {
@@ -87,7 +87,7 @@ public sealed partial class ProductionScreenshotTranslationTests
     public async Task UnavailableVisionConfigurationCannotPrepareOrDecrypt(string action)
     {
         await using var r=await Rig.Create(auth:true);if(action=="read-only")r.Settings=r.Settings with{State=SettingsLoadState.ReadOnlyUnknown};else if(action=="recovery")r.Settings=r.Settings with{State=SettingsLoadState.RecoverableDefaults};else r.Edit(s=>action=="no-vision"?s with{VisionProfileId=null}:s with{Profiles=s.Profiles.SetItem(1,s.Profiles[1] with{SecretRef=action=="missing-key"?null:s.Profiles[1].SecretRef,Capabilities=new(){Vision=action=="unknown"?Capability.Unknown:action=="unsupported"?Capability.Unsupported:Capability.Supported}})});
-        Assert.Null(r.Flow.Prepare(r.Version,r.Image));Assert.Empty(r.Results.Versions);Assert.Equal(0,r.SecretReads);Assert.Equal(0,r.Script.Requests);
+        Assert.Null(r.Flow.Prepare(r.Version,r.Image,ImageOutputMode.TranslateText));Assert.Empty(r.Results.Versions);Assert.Equal(0,r.SecretReads);Assert.Equal(0,r.Script.Requests);
     }
     [Theory][InlineData(ImageOutputMode.Automatic,"diagram_or_mixed",TranslationPreset.Explain)][InlineData(ImageOutputMode.Automatic,"text_only",TranslationPreset.Professional)][InlineData(ImageOutputMode.Automatic,"uncertain",TranslationPreset.Explain)][InlineData(ImageOutputMode.TranslateText,"diagram_or_mixed",TranslationPreset.Professional)][InlineData(ImageOutputMode.ExplainImage,"text_only",TranslationPreset.Explain)]
     public async Task CurrentImageModeIsFrozenWithoutChangingGlobalStyleOrEnablingReuse(ImageOutputMode mode,string kind,TranslationPreset preset)
@@ -104,7 +104,7 @@ public sealed partial class ProductionScreenshotTranslationTests
     }
     [Theory][InlineData("display")][InlineData("open-settings")][InlineData("moving")]
     public async Task DisplaySaveAndNonCapturingSuspensionDoNotReplaceTheFrozenRequest(string action)
-    {await using var r=await Rig.Create();Assert.True(r.Flow.Submit(r.Offer(),true));var snapshot=r.Flow.SelectedSnapshot!;await r.Requests(1);if(action=="display")r.Edit(s=>s with{Overlay=s.Overlay with{FontSizeDip=17}});else r.Gate.SetSuspension(action=="moving"?Suspension.Moving:Suspension.Settings,true);await r.Reply(ImageClassificationTests.Json());await r.Requests(2);await r.Reply("still own frozen screenshot");await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Same(snapshot.Settings,r.Flow.SelectedSnapshot!.Settings);Assert.True(Assert.Single(r.Results.Versions).Complete);}
+    {await using var r=await Rig.Create();Assert.True(r.Flow.Submit(r.Offer(ImageOutputMode.TranslateText),true));var snapshot=r.Flow.SelectedSnapshot!;await r.Requests(1);if(action=="display")r.Edit(s=>s with{Overlay=s.Overlay with{FontSizeDip=17}});else r.Gate.SetSuspension(action=="moving"?Suspension.Moving:Suspension.Settings,true);await r.Reply(ImageClassificationTests.Json());await r.Requests(2);await r.Reply("still own frozen screenshot");await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Same(snapshot.Settings,r.Flow.SelectedSnapshot!.Settings);Assert.True(Assert.Single(r.Results.Versions).Complete);}
     [Theory][InlineData("profile")][InlineData("vision-selection")][InlineData("source")][InlineData("style")][InlineData("off")][InlineData("lock")][InlineData("clear")]
     public async Task RevocationBetweenStagesBlocksSecondSendAndSecretRead(string action)
     {
@@ -114,13 +114,13 @@ public sealed partial class ProductionScreenshotTranslationTests
     [Fact]public async Task QueuedPreparedNotificationAfterClearCannotRestoreMetadataOrSend()
     {var queue=new Deferred();await using var r=await Rig.Create(destination:queue);Assert.True(r.Flow.Submit(r.Offer(),true));using var timeout=new CancellationTokenSource(TimeSpan.FromSeconds(6));while(queue.Pending==0)await Task.Delay(5,timeout.Token);var running=r.Flow.Running;r.Flow.Clear();await running.WaitAsync(TimeSpan.FromSeconds(2));Assert.Null(r.Flow.SelectedSnapshot);Assert.DoesNotContain(r.Updates,u=>u.Kind!=ProductionScreenshotEvent.Begin);Assert.Equal(0,r.Script.Requests);Assert.False(r.Image.IsDisposed);}
     [Fact]public async Task EncodedFourMiBCapFailsBeforeSecretOrHttpWithoutDisposingBorrowedCrop()
-    {await using var r=await Rig.Create(auth:true);r.ReplaceImage(1280,1280);new Random(412936).NextBytes(r.Raw);for(int i=3;i<r.Raw.Length;i+=4)r.Raw[i]=255;Assert.True(r.Flow.Submit(r.Offer(),true));await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal(0,r.Script.Requests);Assert.Equal(0,r.SecretReads);Assert.Contains(r.Updates,u=>u.Reason=="SMALLER_SCREENSHOT_REQUIRED");Assert.False(r.Image.IsDisposed);}
+    {await using var r=await Rig.Create(auth:true);r.ReplaceImage(1280,1280);new Random(412936).NextBytes(r.Raw);for(int i=3;i<r.Raw.Length;i+=4)r.Raw[i]=255;Assert.True(r.Flow.Submit(r.Offer(ImageOutputMode.TranslateText),true));await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));Assert.Equal(0,r.Script.Requests);Assert.Equal(0,r.SecretReads);Assert.Contains(r.Updates,u=>u.Reason=="SMALLER_SCREENSHOT_REQUIRED");Assert.False(r.Image.IsDisposed);}
     [Fact]public async Task ClearFencesAReplacementAdmissionInsideTheOriginalCancellationCallback()
     {
         await using var r=await Rig.Create();Assert.True(r.Flow.Submit(r.Offer(),true));await r.Requests(1);
         Assert.True(r.Gate.TryLinkRequestCancellation(r.Results.Identity!.Value,default,out var original));using var lifetime=original!;
         bool callback=false,accepted=false;using var registration=lifetime.Token.Register(()=>
-        {callback=true;r.ReplaceImage();var offered=r.Flow.Prepare(r.Version,r.Image);if(offered!=null)accepted=r.Flow.Submit(offered,true);});
+        {callback=true;r.ReplaceImage();var offered=r.Flow.Prepare(r.Version,r.Image,ImageOutputMode.TranslateText);if(offered!=null)accepted=r.Flow.Submit(offered,true);});
         r.Flow.Clear();Assert.True(callback);Assert.False(accepted);Assert.Null(r.Flow.SelectedSnapshot);Assert.False(r.Gate.HasRunningGeneration);await r.Flow.Running.WaitAsync(TimeSpan.FromSeconds(6));
     }
 

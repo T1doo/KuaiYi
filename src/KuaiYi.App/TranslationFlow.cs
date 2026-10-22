@@ -92,6 +92,7 @@ internal sealed partial class ShellWindow
         var image=imageTranslation;imageTranslation=null;var ocr=ocrOnly;ocrOnly=null;var text=translation;translation=null;var tests=apiTests;apiTests=null;
         if(image!=null)await Settle(()=>image.DisposeAsync().AsTask());
         if(ocr!=null)await Settle(()=>ocr.DisposeAsync().AsTask());
+        await Settle(()=>smartImageTask);
         if(tests!=null)await Settle(()=>tests.DisposeAsync().AsTask());
         if(text!=null)await Settle(()=>text.DisposeAsync().AsTask());
         ScreenshotPreviewCleanup.Attempt(errors,()=>text?.Clear());ScreenshotPreviewCleanup.Attempt(errors,()=>translationProvider?.Dispose());translationProvider=null;

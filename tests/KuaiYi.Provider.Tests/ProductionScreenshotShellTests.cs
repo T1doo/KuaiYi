@@ -10,7 +10,7 @@ using System.Windows.Documents;
 using Xunit;
 using P=ImageProduction::KuaiYi.Imaging;
 namespace KuaiYi.Provider.Tests;
-public sealed class ProductionScreenshotShellTests
+public sealed partial class ProductionScreenshotShellTests
 {
     private sealed class Immediate:SynchronizationContext{public override void Post(SendOrPostCallback action,object? state)=>action(state);}
     private sealed class Rig:IAsyncDisposable

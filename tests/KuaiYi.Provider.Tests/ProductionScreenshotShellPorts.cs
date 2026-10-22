@@ -10,7 +10,17 @@ internal sealed partial class ShellWindow
         lifecycle.Settings=settings;lifecycle.Gate.ObserveSettingsMetadata(settings);
         return imageTranslation=new(lifecycle.Gate,()=>lifecycle.Settings,ScreenshotSourceCurrent,provider,destination,overlayResults,update=>{ScreenshotTranslationChanged(update);observe?.Invoke(update);},secret??((_,_,_)=>throw new InvalidOperationException("AuthNone fixture must not open a secret.")));
     }
-    internal bool SendScreenshotForTest(ImageOutputMode mode,Func<ProductionScreenshotOffer,bool> confirmation)=>SubmitScreenshot(mode,confirmation);
+    internal bool SendScreenshotForTest(ImageOutputMode mode,Func<ProductionScreenshotOffer,bool> confirmation)
+    {
+        if(mode!=ImageOutputMode.Automatic)return SubmitScreenshot(mode,confirmation);
+        if(!CanTranslateScreenshot||retainedImage is not {} retained||imageTranslation is not {} flow)return false;
+        var approval=KuaiYi.Provider.Tests.SmartOcrFixture.Approve(lifecycle.Gate,()=>lifecycle.Settings,retained.VersionId,retained.Image,ScreenshotSourceCurrent);
+        if(approval==null)return false;var offer=flow.Prepare(retained.VersionId,retained.Image,mode,approval);if(offer==null){approval.Dispose();return false;}
+        bool launched=false;try{return launched=confirmation(offer)&&flow.Submit(offer,true);}finally{if(!launched)flow.Reject(offer);}
+    }
+    internal Task TrackSmartForTest(Func<Task> action)=>StartSmartImageWorkflow(action);
+    internal Task SmartOriginalForTest=>smartImageTask;
+    internal Task<bool> SendSmartForTest(KuaiYi.Imaging.OcrImageApproval approval,Func<ProductionScreenshotOffer,bool> confirm)=>SubmitSmartScreenshot(approval,confirm);
     internal string VersionDescriptionForTest(Guid id)=>VersionMenuLabel(overlayResults.Versions.Single(v=>v.Identity.VersionId==id));
     internal void SelectScreenshotVersionForTest(Guid id)=>SelectResultVersion(id);
     internal bool ScreenshotSendEnabledForTest=>CanTranslateScreenshot;

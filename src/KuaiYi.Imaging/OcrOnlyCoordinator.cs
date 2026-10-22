@@ -18,7 +18,7 @@ public sealed record OcrCapabilitiesSnapshot(Guid Id,Guid SourceVersion,Guid Sou
 
 /// <summary>Destination-thread commands; bounded local OCR only. No provider or HTTP dependency.
 /// Original worker/IO ownership must settle before any preview can be approved.</summary>
-public sealed class OcrOnlyCoordinator:IAsyncDisposable
+public sealed partial class OcrOnlyCoordinator:IAsyncDisposable
 {
     public const string Warning="当前模型不支持图像理解，图形关系未分析";
     private readonly RuntimeGate gate;
@@ -82,7 +82,7 @@ public sealed class OcrOnlyCoordinator:IAsyncDisposable
         lock(sync)
         {
             if(disposed||active!=null||ownedWorker!=null||expected!=null&&(!ReferenceEquals(capabilities,expected)||!ReferenceEquals(capabilityImage,source)))return false;
-            command=++revision;Preview=null;capabilities=null;capabilityImage=null;Failure=null;approved=null;
+            command=++revision;imageApproval?.Dispose();Preview=null;capabilities=null;capabilityImage=null;Failure=null;approved=null;
         }
         RequestIdentity identity=default;
         try
@@ -149,7 +149,7 @@ public sealed class OcrOnlyCoordinator:IAsyncDisposable
                 if(reply.Job!=job)throw new InvalidDataException("OCR job mismatch.");
                 if(reply.Failure!=ImageFailure.None)throw new ImageJobException(reply.Failure);
                 if(reply.Output is not {} output)throw new InvalidDataException("OCR output absent.");
-                ImageWorkerClient.ValidateOutput(output,ImagePolicy.InspectPng(png.Bytes.Span),language!);
+                OcrOutputPolicy.Validate(output,ImagePolicy.InspectPng(png.Bytes.Span),language!);
                 if(!ValidText(output.Text,operation.Settings.Data.Translation.HardLimitScalars))throw new InvalidDataException("OCR text invalid.");
                 completion=new(new(Guid.NewGuid(),operation.Version,operation.Source.SourceId,output.Text,language!,operation.Settings.Version,operation.Identity,png.Kind,png.Notice,png.Transform,MapWords(output,png.Transform)),null);
             }
@@ -239,7 +239,7 @@ public sealed class OcrOnlyCoordinator:IAsyncDisposable
         Operation? operation;OcrTextPreview? previous;OcrCapabilitiesSnapshot? previousCapabilities;(Task,ILocalOcrWorker?) captured;
         lock(sync)
         {
-            revision++;operation=active;previous=preview;previousCapabilities=capabilities;Preview=null;capabilities=null;capabilityImage=null;Failure=null;if(clearApproved)approved=null;captured=(Running,ownedWorker);
+            revision++;imageApproval?.Dispose();operation=active;previous=preview;previousCapabilities=capabilities;Preview=null;capabilities=null;capabilityImage=null;Failure=null;if(clearApproved)approved=null;captured=(Running,ownedWorker);
         }
         if(operation!=null)gate.StopRequest(operation.Identity);else if(previous!=null)gate.StopRequest(previous.Identity);else if(previousCapabilities!=null)gate.StopRequest(previousCapabilities.Identity);
         return captured;

@@ -17,6 +17,7 @@ internal sealed partial class ShellWindow
     partial void CollectFileCleanup(ref Task cleanup);
     partial void OcrSourceChanged(bool clearApproved);
     partial void CollectOcrCleanup(ref Task cleanup);
+    partial void CollectSmartCleanup(ref Task cleanup);
     // All display/source/menu consumers use this selection. A local preview is never a request or a translation.
     private SourceSelection SelectedSource
     {

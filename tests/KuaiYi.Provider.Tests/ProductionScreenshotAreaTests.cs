@@ -8,7 +8,7 @@ namespace KuaiYi.Provider.Tests;
 public sealed partial class ProductionScreenshotTranslationTests
 {
     private static void AdoptAreaPattern(Rig r)
-    {r.Image.Dispose();r.Version=Guid.NewGuid();r.Raw=ScreenshotAreaRoutingTests.Pattern();r.Image=new(new(new(-3841,50,-1,56),r.Raw));}
+    {r.Image.Dispose();r.Version=Guid.NewGuid();r.Raw=ScreenshotAreaRoutingTests.Pattern();r.Image=new OwnedSourceImage(new(new(-3841,50,-1,56),r.Raw));}
     [Theory][InlineData(Protocol.OpenAIChat)][InlineData(Protocol.AnthropicMessages)]
     public async Task GeneralScreenshotRoutesTheSameBoundedPngAndPhysicalMappingIntoBothStages(Protocol protocol)
     {

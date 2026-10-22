@@ -23,9 +23,12 @@ internal sealed partial class ShellWindow
         if(state.Activation!=Activation.On||state.Suspension!=Suspension.None||state.Presentation==Presentation.Hidden||
             ocrOnly?.Preview is {} preview&&!ocrOnly.IsPreviewCurrent(preview))OcrSourceChanged(true);
     }
-    private async Task TranslateImageText()
+    private Task StartSmartImageTranslation()
+    {if(ocrFlowBusy)return Task.CompletedTask;return StartSmartImageWorkflow(()=>TranslateImageText(true));}
+    private async Task TranslateImageText(bool smart=false)
     {
-        if(exiting||ocrFlowBusy||ocrOnly is not {} ocr||translation is not {} textFlow||SelectedSource.Image is not ImageSourceOwner image||retainedImage?.VersionId is not {} version)return;
+        var textFlow=translation;
+        if(exiting||ocrFlowBusy||ocrOnly is not {} ocr||(!smart&&textFlow==null)||SelectedSource.Image is not ImageSourceOwner image||retainedImage?.VersionId is not {} version)return;
         if(lifecycle.Gate.Snapshot.Activation!=Activation.On){button.ToolTip="启用后可提取图片文字；没有发送。";return;}
         bool InputCurrent()=>!exiting&&ReferenceEquals(SelectedSource.Image,image)&&retainedImage is {} current&&current.VersionId==version&&ReferenceEquals(current.Image,image)&&!image.IsDisposed&&
             lifecycle.Gate.Snapshot.Activation==Activation.On&&lifecycle.Gate.Snapshot.Suspension==Suspension.None&&lifecycle.Gate.Snapshot.Presentation!=Presentation.Hidden;
@@ -57,24 +60,29 @@ internal sealed partial class ShellWindow
             if(!FlowCurrent())return;
             if(ocr.Preview is not {} preview||!ocr.IsPreviewCurrent(preview)){button.ToolTip="本地 OCR 未完成 · "+OcrFailureLabel(ocr.Failure)+"；没有发送。";return;}
             heldPreview=preview;
-            var dialog=new Window{Owner=this,Title="OCR-only · 本地文字预览",Width=620,Height=540,WindowStartupLocation=WindowStartupLocation.CenterOwner};ocrDialog=heldDialog=dialog;
+            var dialog=new Window{Owner=this,Title=smart?"智能图片 · 本地 OCR 文字预览":"OCR-only · 本地文字预览",Width=620,Height=540,WindowStartupLocation=WindowStartupLocation.CenterOwner};ocrDialog=heldDialog=dialog;
             var grid=new DockPanel{Margin=new Thickness(16)};
             var config=lifecycle.Settings!;var profile=config.Data.Profiles.First(p=>p.Id==config.Data.ActiveProfileId);
-            var header=new TextBlock{Text=(preview.SourceKind==ImageSourceKind.Browser?"浏览器图片 · ":preview.SourceKind==ImageSourceKind.Bitmap?"投放位图 · ":preview.SourceKind==ImageSourceKind.LocalFile?"文件图片 · ":"")+(preview.SourceNotice is {} notice?notice+"\n":"")+OcrOnlyCoordinator.Warning+$"\n仅发送下方提取文字；可能有识别错误，请核对。\n目标：{new EndpointOrigin(new Uri(profile.BaseUrl)).Value} · 模型：{profile.Model}；可能产生服务费用。",TextWrapping=TextWrapping.Wrap,Margin=new Thickness(0,0,0,10)};DockPanel.SetDock(header,Dock.Top);grid.Children.Add(header);
+            var header=new TextBlock{Text=(preview.SourceKind==ImageSourceKind.Browser?"浏览器图片 · ":preview.SourceKind==ImageSourceKind.Bitmap?"投放位图 · ":preview.SourceKind==ImageSourceKind.LocalFile?"文件图片 · ":"")+(preview.SourceNotice is {} notice?notice+"\n":"")+(smart?"请核对本地识别文字。批准仅用于本次智能判断，尚未发送。\n随后另行确认分类发图；清晰纯文字使用批准文字，其他分支仍用原图。":OcrOnlyCoordinator.Warning+$"\n仅发送下方提取文字；可能有识别错误，请核对。\n目标：{new EndpointOrigin(new Uri(profile.BaseUrl)).Value} · 模型：{profile.Model}；可能产生服务费用。"),TextWrapping=TextWrapping.Wrap,Margin=new Thickness(0,0,0,10)};DockPanel.SetDock(header,Dock.Top);grid.Children.Add(header);
             var controls=new StackPanel{Orientation=Orientation.Horizontal,Margin=new Thickness(0,10,0,0)};DockPanel.SetDock(controls,Dock.Bottom);
             var style=new ComboBox{MinWidth=120,ItemsSource=Enum.GetValues<TranslationPreset>().Select(p=>new ComboBoxItem{Content=StyleLabel(p),Tag=p}).ToArray(),SelectedIndex=(int)(lifecycle.Settings?.Data.Translation.Preset??TranslationPreset.Faithful)};
             TranslationPreset selected=TranslationPreset.Faithful;
-            var send=new Button{Content="确认发送这些文字",Margin=new Thickness(12,0,0,0)};var cancel=new Button{Content="取消",Margin=new Thickness(12,0,0,0)};
+            var send=new Button{Content=smart?"批准本地文字并继续智能判断":"确认发送这些文字",Margin=new Thickness(12,0,0,0)};var cancel=new Button{Content="取消",Margin=new Thickness(12,0,0,0)};
             send.Click+=(_,_)=>{if(style.SelectedItem is ComboBoxItem{Tag:TranslationPreset preset}){selected=preset;dialog.DialogResult=true;}};cancel.Click+=(_,_)=>dialog.DialogResult=false;
-            controls.Children.Add(style);controls.Children.Add(send);controls.Children.Add(cancel);grid.Children.Add(controls);
+            if(!smart)controls.Children.Add(style);controls.Children.Add(send);controls.Children.Add(cancel);grid.Children.Add(controls);
             var text=new TextBox{Text=preview.Text,IsReadOnly=true,TextWrapping=TextWrapping.Wrap,VerticalScrollBarVisibility=ScrollBarVisibility.Auto,AcceptsReturn=true};grid.Children.Add(text);dialog.Content=grid;
             // Recheck while the modal dispatcher pumps Off/lock/settings/source changes.
             var watch=new DispatcherTimer{Interval=TimeSpan.FromMilliseconds(100)};watch.Tick+=(_,_)=>{if(!ocr.IsPreviewCurrent(preview))dialog.Close();};watch.Start();
             bool confirmed;try{confirmed=dialog.ShowDialog()==true;}finally{watch.Stop();text.Clear();}
             if(!FlowCurrent()){ocr.RejectPreview(preview);return;}
             if(!confirmed){ocr.RejectPreview(preview);button.ToolTip="已取消 OCR 文字发送。";return;}
-            var source=ocr.Approve(preview);var offer=source==null?null:textFlow.PrepareOcr(source,selected);
-            if(offer==null||textFlow.Submit(offer,true)!=TextSubmission.Started)button.ToolTip="来源、启用状态或配置已改变；没有发送。";
+            if(smart)
+            {
+                var approval=ocr.ApproveForImage(preview);if(approval==null)return;
+                await SubmitSmartScreenshot(approval,offer=>MessageBox.Show(this,offer.ConfirmationText,"快译 · 本次图片发送确认",MessageBoxButton.OKCancel,MessageBoxImage.Information)==MessageBoxResult.OK);return;
+            }
+            var source=ocr.Approve(preview);var offer=source==null?null:textFlow!.PrepareOcr(source,selected);
+            if(offer==null||textFlow!.Submit(offer,true)!=TextSubmission.Started)button.ToolTip="来源、启用状态或配置已改变；没有发送。";
         }
         catch(Exception error){if(FlowCurrent()){if(heldPreview!=null)ocr.RejectPreview(heldPreview);Report("本地 OCR 未完成；没有发送",error);}}
         finally

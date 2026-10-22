@@ -104,3 +104,5 @@ P4-04阶段预算高级配置、有效活动SSE/JSON读取已接生产路径，�
 Bitmap 的显式本地 OCR 已接明确来源元数据，仍须 On、选语言、预览确认与独立发送授权；真实 Windows OCR 未验，见[Bitmap OCR 接线](docs/validation/bitmap-ocr.md)。
 
 JPEG新增受界8bit Huffman渐进SOF2（完整扫描/refinement预检，非全部合法JPEG），沿原打开/浏览器Worker管线；见[实现、验证与未验边界](docs/validation/progressive-jpeg.md)。
+
+正常智能图片流程的本地OCR、语言选择、文字批准及独立发送确认见[智能图片OCR接线](docs/validation/smart-image-ocr.md)。清晰纯文字正式请求使用批准文字，图文仍使用原图；真实Windows/OCR效果验收另列。

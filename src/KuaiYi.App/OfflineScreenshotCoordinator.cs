@@ -13,11 +13,12 @@ internal enum ScreenshotUsageStage { Classification, Generation }
 // Counts are nullable observations, not a total; Reported means at least one valid count was accepted.
 internal sealed record ScreenshotUsageReceipt(Guid InvocationId,ScreenshotUsageStage Stage,RequestIdentity Identity,
     Guid SourceVersion,Guid SourceId,KuaiYi.Providers.ApiProtocol Protocol,TokenUsage Tokens,bool Reported=false);
+internal sealed record SmartImageOcrMetadata(Guid PreviewId,string Language,bool UsedForText);
 internal sealed record ScreenshotGenerationSnapshot(Guid SourceVersion,Guid SourceId,SettingsSnapshot Settings,SettingsProfile Profile,
     KuaiYi.Providers.ApiProfile Transport,RequestProfileBinding Binding,int Number,ImageOutputMode RequestedMode,bool Regeneration,
     ImageClassification? Classification=null,ImageTranslationPlan? Plan=null,ScreenshotUsageReceipt? ClassificationUsage=null,
     ScreenshotUsageReceipt? GenerationUsage=null,bool ClassificationUsageReused=false,ImageTransform? Transform=null,
-    ScreenshotNormalizationProof? NormalizationProof=null,ImageSourceKind SourceKind=ImageSourceKind.Screenshot,string? SourceNotice=null);
+    ScreenshotNormalizationProof? NormalizationProof=null,ImageSourceKind SourceKind=ImageSourceKind.Screenshot,string? SourceNotice=null,SmartImageOcrMetadata? Ocr=null);
 internal sealed record ScreenshotGenerationUpdate(RequestIdentity Identity,ScreenshotGenerationEvent Kind,ScreenshotGenerationSnapshot Snapshot,string? Text=null,string? Reason=null);
 
 /// <summary>Independent offline P6 protocol slice. Never installed in the normal Shell screenshot path.

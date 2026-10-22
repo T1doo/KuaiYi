@@ -1,0 +1,53 @@
+{
+  "baseline": "5f0a0c309fe1887b4d1fa28812cc167bef5e7791",
+  "scope": "SPEC7.4 Smart image local OCR approval and conditional text final",
+  "artifacts": "artifacts/2026-10-22-smart-image-ocr",
+  "r01": "App build exit0/0W/0E",
+  "r02": {
+    "passed": 24,
+    "failed": 2,
+    "executed": 26,
+    "exit": 1,
+    "meaning": "new queue pump fixture timeouts; originals preserved"
+  },
+  "r03": {
+    "passed": 0,
+    "failed": 8,
+    "exit": 1
+  },
+  "r04": {
+    "passed": 8,
+    "failed": 0,
+    "exit": 0,
+    "same_eight_test_methods_and_source_as_r03": true
+  },
+  "r05": {
+    "passed": 37,
+    "failed": 0,
+    "skipped": 0,
+    "exit": 0
+  },
+  "r06": {
+    "exit": 1,
+    "TRX": "NotProduced",
+    "executed": "Unknown",
+    "stdout_confirmed_failures": 7,
+    "runner_zero_execution_field": "Incorrect generic fallback; separate correction preserved",
+    "hang_root_cause": "Unknown; synchronous test bridge Gate deadlock candidate only"
+  },
+  "r07": "CS0144 test compile failure;0 executed;noTRX",
+  "r08": "CS0144 test compile failure;0 executed;noTRX",
+  "r09": {
+    "passed": 18,
+    "failed": 0,
+    "skipped": 0,
+    "exit": 0
+  },
+  "fixed_signoff": "Pending targeted Provider and App/Worker only",
+  "independent_review": "Design and three P2 original red/green/source limited ACK; final pending",
+  "full_Core_Provider_Codec": "NotRun; not borrowed prior results",
+  "Windows_quality_performance": "NotRun",
+  "model_calls": "None",
+  "dependencies_permissions_workflows": "Unchanged",
+  "production_reuse": "Off"
+}
