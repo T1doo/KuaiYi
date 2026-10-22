@@ -28,6 +28,8 @@ internal sealed class InstallationPreparationIO(string source,string staging,str
     private bool storageUnconfirmed{get=>ledger.StorageUnconfirmed;set=>ledger.StorageUnconfirmed=value;}
     private string? additionalReadRoot;
     private bool metadataOnly;
+    private HashSet<string>? publicationPaths;
+    private string? relocatedReadRoot;
     internal bool StorageUnconfirmed=>storageUnconfirmed;
     internal bool CleanupConfirmed {get{lock(sync)return resources.Count==0;}}
     private sealed class Operation(InstallationPreparationIO owner)
@@ -63,11 +65,11 @@ internal sealed class InstallationPreparationIO(string source,string staging,str
     private void Readable(string path)
     {
         path=Path.GetFullPath(path);
-        if(!InstallationPaths.Contains(source,path)&&!InstallationPaths.Contains(staging,path)&&!InstallationPaths.Contains(destination,path)&&path!=intent&&(additionalReadRoot==null||!InstallationPaths.Contains(additionalReadRoot,path)))throw new InvalidDataException("Read is outside the original preparation paths.");
+        if(!InstallationPaths.Contains(source,path)&&!InstallationPaths.Contains(staging,path)&&!InstallationPaths.Contains(destination,path)&&path!=intent&&(additionalReadRoot==null||!InstallationPaths.Contains(additionalReadRoot,path))&&(relocatedReadRoot==null||!InstallationPaths.Contains(relocatedReadRoot,path)))throw new InvalidDataException("Read is outside the original preparation paths.");
         InstallationPaths.Check(path);
     }
     private void Writable(string path)
-    {if(path!=intent&&(metadataOnly||!InstallationPaths.Contains(staging,Path.GetFullPath(path))))throw new InvalidDataException("Write is outside the original inactive candidate.");InstallationPaths.Check(path);}
+    {if(publicationPaths!=null?!publicationPaths.Contains(Path.GetFullPath(path)):path!=intent&&(metadataOnly||!InstallationPaths.Contains(staging,Path.GetFullPath(path))))throw new InvalidDataException("Write is outside the original inactive candidate.");InstallationPaths.Check(path);}
     private FileStream Open(Operation operation,string kind,string path,FileMode mode,FileAccess access)
     {
         if(access==FileAccess.Read)Readable(path);else Writable(path);
@@ -207,6 +209,22 @@ internal sealed class InstallationPreparationIO(string source,string staging,str
     {RequireSettled();return new(bootstrapSource,bootstrapStaging,bootstrapDestination,bootstrapIntent,cancellation,bootstrapFaults){ledger=ledger,additionalReadRoot=destination};}
     internal InstallationPreparationIO CreatePreparedChannel(string root,string plan,InstallationPreparationFaults? preparedFaults)
     {RequireSettled();return new(root,root,root,plan,cancellation,preparedFaults){ledger=ledger,metadataOnly=true};}
+    internal InstallationPreparationIO CreatePublicationChannel(string root,IEnumerable<string> paths,InstallationPreparationFaults? publicationFaults)
+    {if(!CleanupConfirmed)throw new InstallationRecoveryException("Original preparation resources remain unsettled.");return new(root,root,root,root,CancellationToken.None,publicationFaults){ledger=ledger,metadataOnly=true,publicationPaths=paths.Select(Path.GetFullPath).ToHashSet(StringComparer.Ordinal)};}
+    // Mutable publication records have an exact prefix owner, not immutable preparation metadata entries.
+    internal void WritePublicationMetadata(string path,byte[] bytes,int maximum)
+    {
+        if(publicationPaths==null)throw new InvalidOperationException("Only the original publication channel may write a mutable record.");
+        if(bytes.Length is <1||bytes.Length>maximum)throw new InvalidDataException("Publication metadata exceeds bound.");bool attempted=false;
+        try{_=Execute(operation=>{attempted=true;var output=Open(operation,"publication-output",path,FileMode.CreateNew,FileAccess.Write);if(faults?.WriteMetadata!=null)faults.WriteMetadata(path,output,bytes);else output.Write(bytes);faults?.BeforeFlush?.Invoke(path,output);output.Flush(true);return true;});}
+        catch{if(attempted)storageUnconfirmed=true;throw;}
+    }
+    internal void RelocateRecordedMetadata(InstallationPreparationIO candidate,string from,string to)
+    {
+        if(publicationPaths==null)throw new InvalidOperationException("Only the original publication owner may relocate its bundle metadata.");
+        lock(sync)for(int i=0;i<metadata.Count;i++)if(ReferenceEquals(metadata[i].Owner,candidate)&&InstallationPaths.Contains(from,metadata[i].Path))
+        {var old=metadata[i];old.Owner.relocatedReadRoot=to;metadata[i]=old with{Path=Path.Combine(to,Path.GetRelativePath(from,old.Path))};}
+    }
     internal void MarkUnconfirmed()=>storageUnconfirmed=true;
     internal void RequireDirectory(string path)
     {Readable(path);var attributes=File.GetAttributes(path);if((attributes&(FileAttributes.Directory|FileAttributes.ReparsePoint|FileAttributes.Device))!=FileAttributes.Directory)throw new InstallationRecoveryException("Owned container is not a regular directory.");}

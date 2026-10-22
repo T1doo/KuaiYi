@@ -2,15 +2,16 @@ using KuaiYi.Core.Installation;
 namespace KuaiYi.NativeHost;
 
 // Observation only. These slots do not establish ownership or authorize a registration write.
-internal sealed class InstallationDeploymentRegistrySnapshot(IHostRegistrationStore registry):IInstallationDeploymentPreparedRead
+internal sealed class InstallationDeploymentRegistrySnapshot(IHostRegistrationStore registry):IInstallationDeploymentPublicationRegistry
 {
     private readonly object sync=new();
     private Task<InstallationDeploymentRegistrationSnapshot>? capture;
     private Task? verification;
     private Task<InstallationDeploymentRegistrationSnapshot>? preparation;
+    private Task? publication;
     private InstallationDeploymentRegistrationSnapshot? observed;
     public bool CleanupConfirmed
-    {get{lock(sync)return registry.CleanupConfirmed&&(capture==null||capture.IsCompleted)&&(verification==null||verification.IsCompleted)&&(preparation==null||preparation.IsCompleted);}}
+    {get{lock(sync)return registry.CleanupConfirmed&&(capture==null||capture.IsCompleted)&&(verification==null||verification.IsCompleted)&&(preparation==null||preparation.IsCompleted)&&(publication==null||publication.IsCompleted);}}
     public Task<InstallationDeploymentRegistrationSnapshot> ReadForPreparationAsync()
     {
         lock(sync)
@@ -49,11 +50,23 @@ internal sealed class InstallationDeploymentRegistrySnapshot(IHostRegistrationSt
         if(!registry.CleanupConfirmed)throw new IOException("Original Edge read is unsettled.");
         return new(new(chrome.KeyExists,chrome.Value,chrome.ForeignContent),new(edge.KeyExists,edge.Value,edge.ForeignContent));
     }
+    public Task<InstallationDeploymentRegistrationSnapshot> ReadPublishedAsync()=>StartPublication(ReadSlots);
+    public Task WriteDefaultAsync(bool chrome,InstallationDeploymentRegistrationSlot expected,string? value)=>StartPublication(()=>
+    {registry.Write(chrome?IntegrationBrowser.Chrome:IntegrationBrowser.Edge,new(expected.KeyExists,expected.Value,expected.ForeignContent),value);if(!registry.CleanupConfirmed)throw new IOException("Original publication write is unsettled.");return true;});
+    private Task<T> StartPublication<T>(Func<T> action)
+    {
+        lock(sync)
+        {
+            if(preparation is not{IsCompletedSuccessfully:true}||verification!=null||publication is{IsCompleted:false}||!registry.CleanupConfirmed)throw new InvalidOperationException("Original registry publication is not ready or remains unsettled.");
+            var begin=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+            var task=Task.Run(async()=>{await begin.Task.ConfigureAwait(false);return action();});publication=task;begin.SetResult();return task;
+        }
+    }
     public Task CloseOriginalsAsync()
     {
         lock(sync)
         {
-            if(capture is {IsCompleted:false}||verification is {IsCompleted:false}||preparation is{IsCompleted:false})throw new InvalidOperationException("Join the original registry task before closing.");
+            if(capture is {IsCompleted:false}||verification is {IsCompleted:false}||preparation is{IsCompleted:false}||publication is{IsCompleted:false})throw new InvalidOperationException("Join the original registry task before closing.");
             registry.FinalizeCleanup();
             if(!registry.CleanupConfirmed)throw new IOException("Original registry resources remain unsettled.");
             return Task.CompletedTask;

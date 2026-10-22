@@ -1,6 +1,8 @@
 using System.Security.Cryptography;
 using System.Collections.Immutable;
 using KuaiYi.Core.Settings;
+if(args.Length==5&&args[0]=="--deployment-publication-crash")
+    return await InstallationDeploymentCrashFixture.Run(args[1],args[2],args[3],args[4]);
 if(args.Length==2&&args[0]=="--prepare-isolated-session-build-workspace")
 {
     try{Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(new{Workspace=IsolatedSessionPackage.CreateBuildWorkspace(args[1],Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"KuaiYi"))}));return 0;}

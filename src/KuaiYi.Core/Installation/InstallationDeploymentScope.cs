@@ -2,8 +2,8 @@ using System.Security.Cryptography;
 using System.Text.Json;
 namespace KuaiYi.Core.Installation;
 
-// Scope-owned inactive G/B preparation; no current/bootstrap/registry publication or Committed result.
-internal enum InstallationDeploymentStatus { Refused,AbortedBeforeSnapshot,AbortedBeforePrepared,AbortedAfterPrepared,Unconfirmed }
+// Original scope owns preparation, provisional publication and final settlement.
+internal enum InstallationDeploymentStatus { Refused,AbortedBeforeSnapshot,AbortedBeforePrepared,AbortedAfterPrepared,Committed,CommittedReceiptUncertain,Unconfirmed }
 internal sealed record InstallationDeploymentOutcome(InstallationDeploymentStatus Status,IReadOnlyList<Exception> Errors);
 internal interface IInstallationDeploymentFinalRead
 {
@@ -31,7 +31,7 @@ internal sealed class InstallationDeploymentFaults
     internal Func<Task>? AfterClosing {get;init;}
     internal Action<string,string>? Archive {get;init;}
 }
-internal sealed class InstallationDeploymentScope
+internal sealed partial class InstallationDeploymentScope
 {
     private static readonly HashSet<InstallationDeploymentScope> Retained=[];
     private readonly object sync=new();
@@ -70,7 +70,7 @@ internal sealed class InstallationDeploymentScope
     internal string Bundle {get;}=Guid.NewGuid().ToString("N");
     internal Task<InstallationDeploymentOutcome> Finalization=>finalization;
     internal bool BeforeUnconfirmed=>beforeAttempted&&!beforeComplete;
-    internal bool CleanupConfirmed {get{lock(sync)return finalization.IsCompleted&&(settlement==null||settlement.IsCompleted)&&admission.CleanupConfirmed&&files.Count==0&&reads.All(x=>x.CleanupConfirmed)&&(snapshot==null||snapshot.IsCompleted)&&(snapshotOwner==null||snapshotOwner.CleanupConfirmed)&&(generationPreparation==null||generationPreparation.IsCompleted)&&(bootstrapPreparation==null||bootstrapPreparation.IsCompleted)&&(prepared==null||prepared.IsCompleted)&&(generationIO==null||generationIO.CleanupConfirmed);}}
+    internal bool CleanupConfirmed {get{lock(sync)return finalization.IsCompleted&&(settlement==null||settlement.IsCompleted)&&admission.CleanupConfirmed&&files.Count==0&&reads.All(x=>x.CleanupConfirmed)&&(snapshot==null||snapshot.IsCompleted)&&(snapshotOwner==null||snapshotOwner.CleanupConfirmed)&&(generationPreparation==null||generationPreparation.IsCompleted)&&(bootstrapPreparation==null||bootstrapPreparation.IsCompleted)&&(prepared==null||prepared.IsCompleted)&&(publicationTask==null||publicationTask.IsCompleted)&&(generationIO==null||generationIO.CleanupConfirmed);}}
     internal InstallationDeploymentScope(string root,string data,string generationSourceSha,string bootstrapSourceSha,
         CancellationToken cancellation=default,InstallationAdmissionFaults? admissionFaults=null,InstallationDeploymentFaults? faults=null)
     {
@@ -103,7 +103,7 @@ internal sealed class InstallationDeploymentScope
         {InstallationPaths.Check(path);if(File.Exists(path)||Directory.Exists(path))throw new InstallationRecoveryException("Deployment operation already exists.");}
         Write(pending,ticket,true);ticketComplete=true;admission.ReleaseSetup();
     }
-    private void RequestFinish(){lock(sync){finishing=true;finish.TrySetResult();}}
+    private void RequestFinish(bool abort=true){lock(sync){if(abort)publicationAbort=true;finishing=true;finish.TrySetResult();}}
     internal Task<InstallationDeploymentOutcome> AbortBeforeSnapshotAsync()
     {lock(sync){if(!started||snapshot!=null)throw new InvalidOperationException("Scope is not in the before-snapshot phase.");RequestFinish();return finalization;}}
     internal Task<InstallationDeploymentOutcome> AbortBeforePreparedAsync()
@@ -157,7 +157,7 @@ internal sealed class InstallationDeploymentScope
         return generationContext;
     }
     internal bool IsLiveCandidate(InstallationGenerationCandidate candidate)
-    {lock(sync)return !finishing&&!closing&&!cancellation.IsCancellationRequested&&generationPreparation is{IsCompletedSuccessfully:true}&&ReferenceEquals(generationPreparation.Result,candidate);}
+    {lock(sync)return publication==null&&!finishing&&!closing&&!cancellation.IsCancellationRequested&&generationPreparation is{IsCompletedSuccessfully:true}&&ReferenceEquals(generationPreparation.Result,candidate);}
     internal void RecordGenerationIntent(InstallationPreparationIO owner,InactiveGenerationRetention value)
     {
         if(!ReferenceEquals(owner,generationIO))throw new InvalidOperationException("Wrong original preparation owner.");generationRetention=value;
@@ -190,7 +190,7 @@ internal sealed class InstallationDeploymentScope
         cancellation.ThrowIfCancellationRequested();admission.RequireMutation(root);RequireExact(pending,ticket);RequireExact(beforePath,before!,131072);RequireBeforeFiles(JsonSerializer.Deserialize<InstallationDeploymentBefore>(before!)!);return bootstrapContext;
     }
     internal bool IsLiveBootstrap(InstallationBootstrapCandidate candidate)
-    {lock(sync)return !finishing&&!closing&&!cancellation.IsCancellationRequested&&candidate.Generation.IsLiveFor(this)&&bootstrapPreparation is{IsCompletedSuccessfully:true}&&ReferenceEquals(bootstrapPreparation.Result,candidate);}
+    {lock(sync)return publication==null&&!finishing&&!closing&&!cancellation.IsCancellationRequested&&candidate.Generation.IsLiveFor(this)&&bootstrapPreparation is{IsCompletedSuccessfully:true}&&ReferenceEquals(bootstrapPreparation.Result,candidate);}
     internal void RecordBootstrapIntent(InstallationPreparationIO owner,InactiveBootstrapRetention value)
     {if(!ReferenceEquals(owner,bootstrapIO))throw new InvalidOperationException("Wrong original bootstrap owner.");bootstrapRetention=value;}
     internal void RequireBootstrapRetentionCapacity(InactiveBootstrapRetention value)
@@ -225,10 +225,10 @@ internal sealed class InstallationDeploymentScope
         }
     }
     internal bool IsLivePrepared(InstallationDeploymentPrepared value)
-    {lock(sync)return !finishing&&!closing&&!cancellation.IsCancellationRequested&&ReferenceEquals(qualifiedPrepared,value)&&value.Bootstrap.IsLiveFor(this)&&prepared is{IsCompletedSuccessfully:true}&&ReferenceEquals(prepared.Result,value);}
+    {lock(sync)return publication==null&&!finishing&&!closing&&!cancellation.IsCancellationRequested&&ReferenceEquals(qualifiedPrepared,value)&&value.Bootstrap.IsLiveFor(this)&&prepared is{IsCompletedSuccessfully:true}&&ReferenceEquals(prepared.Result,value);}
     private byte[] TerminalBytes(InactiveGenerationRetention? retention)=>TerminalBytes(retention,bootstrapRetention);
     private byte[] TerminalBytes(InactiveGenerationRetention? retention,InactiveBootstrapRetention? bootstrap)=>TerminalBytes(retention,bootstrap,qualifiedPrepared?.Sha256);
-    private byte[] TerminalBytes(InactiveGenerationRetention? retention,InactiveBootstrapRetention? bootstrap,string? preparedSha)=>JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=2,kind="KuaiYiUnifiedDeploymentTerminal",operation=Operation,variant=preparedSha!=null?"AbortAfterPrepared":beforeComplete?"AbortBeforePrepared":"AbortBeforeSnapshot",ticketSha256=Convert.ToHexString(SHA256.HashData(ticket)),beforeSha256=beforeComplete?Convert.ToHexString(SHA256.HashData(before!)):null,preparedSha256=preparedSha,inactiveGeneration=retention,inactiveBootstrap=bootstrap});
+    private byte[] TerminalBytes(InactiveGenerationRetention? retention,InactiveBootstrapRetention? bootstrap,string? preparedSha,InstallationPublicationRetention? retainedPublication=null,string? variant=null)=>JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=2,kind="KuaiYiUnifiedDeploymentTerminal",operation=Operation,variant=variant??(commitTerminal?"CommitCandidate":preparedSha!=null?"AbortAfterPrepared":beforeComplete?"AbortBeforePrepared":"AbortBeforeSnapshot"),ticketSha256=Convert.ToHexString(SHA256.HashData(ticket)),beforeSha256=beforeComplete?Convert.ToHexString(SHA256.HashData(before!)):null,preparedSha256=preparedSha,inactiveGeneration=retention,inactiveBootstrap=bootstrap,publicationRetention=retainedPublication??publication?.Retention});
     internal void RequirePreparedTerminalCapacity(string sha)
     {if(TerminalBytes(generationRetention,bootstrapRetention,sha).Length>16384)throw new InvalidDataException("Prepared terminal exceeds its actual encoded bound.");}
     private static string? Encode(byte[]? bytes)=>bytes==null?null:Convert.ToBase64String(bytes);
@@ -340,6 +340,7 @@ internal sealed class InstallationDeploymentScope
         if(generationPreparation!=null)try{await generationPreparation.ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
         if(bootstrapPreparation!=null)try{await bootstrapPreparation.ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
         if(prepared!=null)try{await prepared.ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
+        if(publicationTask!=null)return await FinalizePublicationAsync(errors).ConfigureAwait(false);
         try{if(faults?.BeforeClosing!=null)await faults.BeforeClosing().ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
         if(cancellation.IsCancellationRequested)errors.Add(new OperationCanceledException(cancellation));
         lock(sync)closing=true;
