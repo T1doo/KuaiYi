@@ -39,3 +39,13 @@ B五文件来自现有正常框架依赖构建；G仍使用明确的原生/runti
 无新许可、依赖、凭据、权限、费用、真实模型调用或用户电脑操作；不改main、不部署。Off、来源/密码/完整性、取消/清理/隔离/发送门、250/600预算和odd WebP拒绝保持。Prepared/Host准备/三方提交与补偿、canonical bootstrap发布、完整安装/注册/P7仍未实现。
 
 内部独立只读源码和候选原件审查限定ACK，无确定新增P1/P2；固定树验证与Library原件另记，不借候选轮次作为固定签收。
+
+## 固定树签收
+
+产品 `f23bdcf387cfacb7d9c187c8c27739f1f7a97eb0` clean树执行r09七次普通managed构建，全部0W/E；r10同固定树一次 **141P/0F/0skip**，B30＋G28＋Scope25＋Before23＋旧BootstrapDeployment35，五类141唯一显示名称。旧BootstrapDeployment实际35，以TRX为准；未借记此前128/586/310或完整Core/Codec，所有轮次分列。
+
+r09/r10的909输入before=after且逐项匹配产品Git；17目标AssemblyInfo均含完整产品SHA，14产品DLL从构建到测试摘要一致，测试及两fixture本轮普通编译，4实际Core副本一致。没有二进制本体，只保留产物摘要与版本源码，不冒称独立DLL重hash。
+
+365原src仅修改BootstrapPackage/Scope/PreparationIO三文件，新增private B candidate；362其余src及335原tests全部字节不变，新30例单独文件。锁、项目、workflow、packaging、扩展、scripts、sln未改。audit另核r03/r04完整测试文件相同，r05/r07完整测试文件和所有产品输入相同，及同步构建前后Core副本不同→一致；这些失败不回填为产品通过。
+
+固定树及原件独审限定ACK。Library `libfile_d4d833ce83fc8191b658d54379a20274`（v0，1,546,947B，179成员/178manifest），SHA256 `77c02c171d5341a48a9d5006bac48a81e5fc737f2ed08de9ed407296674a249e`；本地Library身份已核。ZIP CRC、178摘要、10份固定Git源码、raw141、红绿、混代Core诊断及17版本文件均独立核验，无DLL本体。证据提交仅三报告，产品f23bdcf不变；Prepared/canonical激活/Windows仍未签。

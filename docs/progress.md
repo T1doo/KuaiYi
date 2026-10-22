@@ -1673,3 +1673,7 @@ G只准备固定产品eaec97468fe2d47c89fde042f528ba002a6f3e65：7普通managed�
 G固定树与ZIP原件独审限定ACK。Library libfile_21975d63d5188191ae33535dc086bc94 v0，1,626,307B/197成员/196manifest，SHA256139cc38060cdaefc9882e44d326059618e3ba1f167c31afaa3bd26331c53a52c；CRC/11份Git源码/raw128/两红绿/17版本均独立核验，无DLL本体。证据提交只三报告，产品eaec974不变，B/Prepared仍待下一片。
 
 同scope B只准备候选：原G有效后登记唯一原B Task，G/B共享同Ledger且Close/Closing按原channel结算；源/staging/final重验实际Core/revision与完整五文件合同，独立intent/随机Bundle/inactive retention，不改canonical owner/bundles/active/current/registry。原B正文保全1F→1P；r05混合Core产物12P18F保留，同源码测试仅同步managed后r07 30P，r08精确资格原因4P分列。待独审固定签收，B/Prepared/Windows不冒签。见[实现与原件](validation/bootstrap-preparation.md)。
+
+B只准备固定产品f23bdcf387cfacb7d9c187c8c27739f1f7a97eb0：七普通managed构建0W/E，一次141P/0F/0skip＝B30+G28+Scope25+Before23+旧BootstrapDeployment35。909Git输入/17目标版本/4实际Core副本一致，335原测试文件未变；同文件原B错误保全红绿与混合产物失败诊断保留，不借旧数字。仅inactive B，Prepared/三方提交/canonical入口/Windows仍未签。
+
+B固定树与ZIP原件独审限定ACK；Library libfile_d4d833ce83fc8191b658d54379a20274 v0，1,546,947B/179成员/178manifest，SHA25677c02c171d5341a48a9d5006bac48a81e5fc737f2ed08de9ed407296674a249e。CRC/10份Git源码/raw141/红绿/混代Core诊断/17版本均核，无DLL本体；证据只三报告，产品f23bdcf不变，下一片仍需Prepared与canonical发布设计，不当安装成功。
