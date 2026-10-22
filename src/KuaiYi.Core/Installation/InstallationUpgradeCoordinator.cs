@@ -74,6 +74,8 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
     private static readonly HashSet<InstallationUpgradeCoordinator> RetainedBrowserOwners=[];
     internal Action? BrowserHostPublishedForTest{get;init;}
     internal OwnedProcessSession? ReceiverLifetimeForTest=>receiver?.Lifetime;
+    private Task? stablePublicationOriginal;
+    internal Task? StablePublicationOriginal=>Volatile.Read(ref stablePublicationOriginal);
     internal Func<Process,IOwnedHostLifetime>? LifetimeForTest{get;set;}
     public InstallationUpgradeCoordinator(string directory,string userData,IInstallationApplicationProtocol protocol,TimeSpan budget,IOwnedProcessStarter? starter=null)
     {
@@ -84,7 +86,11 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
     private static readonly string[] RoleNames=["KuaiYi.App.exe","KuaiYi.CaptureBroker.exe","KuaiYi.ClipboardHost.exe","KuaiYi.CaptureHost.exe","KuaiYi.OleReceiver.exe","KuaiYi.ImageWorker.exe","KuaiYi.NativeHost.exe"];
     /// <summary>One ordinary user session. This caller keeps the exact child and original IO until actual exit.
     /// Only a clean, fully settled session can finish its own fence. Failure/cancellation never clears it.</summary>
-    public async Task<int> RunActiveSessionAsync(string executableDirectory,CancellationToken cancellation=default,string? imagePath=null)
+    public Task<int> RunActiveSessionAsync(string executableDirectory,CancellationToken cancellation=default,string? imagePath=null)
+        =>RunSession(executableDirectory,null,null,cancellation,imagePath);
+    internal Task<int> RunSelectedSessionAsync(InstallationStableSelection selection,Func<InstallationControlledLaunch,CancellationToken,Task> published,CancellationToken cancellation)
+        =>RunSession(selection.Version.DirectoryPath,selection,published,cancellation,null);
+    private async Task<int> RunSession(string executableDirectory,InstallationStableSelection? selection,Func<InstallationControlledLaunch,CancellationToken,Task>? published,CancellationToken cancellation,string? imagePath)
     {
         if(protocol is not IInstallationSessionProtocol sessionProtocol)throw new InvalidOperationException("Controlled session protocol required.");
         if(imagePath!=null){OleImageFileDrop.ValidatePath(imagePath);if(protocol is not IInstallationImageSessionProtocol)throw new InvalidOperationException("Controlled image session protocol required.");}
@@ -96,11 +102,13 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
         {
             if(execution!=null||roles.Count!=0||pending!=null||handoff!=null||admission!=null)throw new InvalidOperationException("A normal session requires a fresh coordinator.");
             sessionAttempted=true;
-            admission=store.EnterAdmission();var selected=store.ReadActive(cancellation)??throw new InstallationRecoveryException("No installed version.");
+            admission=store.EnterAdmission(existing:selection!=null);var selected=store.ReadActive(cancellation)??throw new InstallationRecoveryException("No installed version.");
+            selection?.RequireSelected(selected,cancellation);
             if(selected.DirectoryPath!=expected)throw new InstallationRecoveryException("Normal entry is not the selected generation.");
             execution=store.ClaimExecution(admission);role=NewRole("KuaiYi.App.exe",selected);role.RetainTasks=true;
             await StartAndCheck(role,cancellation).ConfigureAwait(false);
             browserHosts=InstallationBrowserHostSession.Publish(role.LaunchProof!,admission,role.Process!);BrowserHostPublishedForTest?.Invoke();
+            if(published!=null)await Call(role,t=>published(role.LaunchProof!,t),cancellation,observeOriginal:task=>Volatile.Write(ref stablePublicationOriginal,task)).ConfigureAwait(false);
             if(imagePath!=null)await Call(role,t=>((IInstallationImageSessionProtocol)protocol).QueueImageAsync(role.Process!,imagePath,t),cancellation).ConfigureAwait(false);
             if(WarmImageEndpoint is {} endpoint)
             {
@@ -236,6 +244,7 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
         return new(InstallationUpgradeOutcome.Upgraded,installed,null,InstallationHandoffStatus.Committed);
     }
     private readonly string UserData;
+    internal string UserDataForController=>UserData;
     private async Task<bool> ReclaimHandoff()
     {
         if(handoff==null)return true;if(handoff.CommitAttempted)return false;
@@ -271,7 +280,7 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
         cancellation.ThrowIfCancellationRequested();if(!role.TasksCompleted)throw new IOException("Application handshake cancellation is not settled.");
         if(role.Process.HasExited)throw new IOException("Selected application exited before health confirmation.");
     }
-    private async Task Call(Role role,Func<CancellationToken,Task> action,CancellationToken cancellation,ProtocolOperation operation=ProtocolOperation.Health)
+    private async Task Call(Role role,Func<CancellationToken,Task> action,CancellationToken cancellation,ProtocolOperation operation=ProtocolOperation.Health,Action<Task>? observeOriginal=null)
     {
         Task? original=operation==ProtocolOperation.Io?role.OriginalIoJoin:operation==ProtocolOperation.Exit?role.OriginalExitRequest:operation==ProtocolOperation.ControlClose?role.OriginalControlClose:null;
         if(original is {IsCompleted:false}){await original.WaitAsync(budget,cancellation).ConfigureAwait(false);return;}
@@ -286,7 +295,7 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
         }
         using var registration=cancellation.Register(RequestCancellation);
         // Own even the synchronous portion of an adapter call; a blocked adapter cannot escape its retained task.
-        Task task=Task.Run(()=>action(stop.Token));role.Track(task);
+        Task task=Task.Run(()=>action(stop.Token));role.Track(task);observeOriginal?.Invoke(task);
         if(operation==ProtocolOperation.Io)role.OriginalIoJoin=task;else if(operation==ProtocolOperation.Exit)role.OriginalExitRequest=task;
         else if(operation==ProtocolOperation.ControlClose)role.OriginalControlClose=task;
         try{await task.WaitAsync(budget,cancellation).ConfigureAwait(false);}

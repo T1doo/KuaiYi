@@ -1,3 +1,4 @@
+using System.IO;
 using KuaiYi.Core;
 using KuaiYi.Core.Installation;
 namespace KuaiYi.App;
@@ -19,5 +20,8 @@ internal sealed partial class InstallationSessionEntry
         string? root=InstallationNormalEntry.FindInstallationRoot(directory);
         return root==null?null:new(root,directory,userData,protocol??new InstallationApplicationClient(),budget??TimeSpan.FromSeconds(10),starter);
     }
+    internal Task<int> RunControllerAsync(Stream input,Stream output,Guid nonce)
+        =>InstallationControllerBridge.RunAsync(input,output,nonce,directory,coordinator.UserDataForController,
+            (selection,published,cancellation)=>coordinator.RunSelectedSessionAsync(selection,published,cancellation),publicationOwner:()=>coordinator.StablePublicationOriginal);
     internal Task<int> RunAsync(CancellationToken cancellation=default,string? imagePath=null)=>coordinator.RunActiveSessionAsync(directory,cancellation,imagePath);
 }

@@ -77,9 +77,10 @@ public sealed partial class InstallationStore
     /// <summary>Cooperative launch admission, held from pointer read through actual startup settlement.
     /// Existing Windows entry points are not yet wired to this gate. Pending or unknown upgrade records fail closed.</summary>
     public IDisposable EnterRoleAdmission()=>EnterAdmission();
-    internal InstallationAdmission EnterAdmission(InstallationExecutionOwnership? execution=null,bool mutation=false)
+    internal InstallationAdmission EnterAdmission(InstallationExecutionOwnership? execution=null,bool mutation=false,bool existing=false)
     {
-        using var setup=Lock();var admission=new InstallationAdmission(directory,mutation);
+        using var setup=existing?OpenExistingSetup(directory):Lock();
+        if(existing)InstallationHostActivity.Initialize(directory,false);var admission=new InstallationAdmission(directory,mutation,existing);
         try
         {
             if(execution!=null)admission.Attach(execution);

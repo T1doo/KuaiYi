@@ -20,6 +20,21 @@ if(args.Length==3&&args[0]=="--installed-session-launch"&&Path.GetFileName(args[
     return await InstallationSessionLaunchFixture.Run(args[1],args[2]);
 if(args.Length==3&&args[0]=="--handoff-controller"&&Path.GetFileName(args[1]).StartsWith("kuaiyi-upgrade-tests-",StringComparison.Ordinal))
     return await InstallationHandoffFixture.RunController(args[1],args[2]);
+if(args.Length==2&&args[0]=="--installation-controller"&&Guid.TryParseExact(args[1],"N",out var controllerNonce)&&
+   Path.GetFullPath(AppContext.BaseDirectory).Split(Path.DirectorySeparatorChar).Any(p=>p.StartsWith("kuaiyi-upgrade-tests-",StringComparison.Ordinal)))
+    return await InstallationSessionLaunchFixture.RunController(controllerNonce);
+if(args.Length==2&&args[0]=="--stable-controller-fault")
+{
+    string? first=await KuaiYi.Core.Installation.InstallationControlWire.Read(Console.OpenStandardInput(),CancellationToken.None);
+    if(first==null||!first.StartsWith("LAUNCH_CURRENT|",StringComparison.Ordinal))return 3;
+    if(args[1]=="show")Console.WriteLine("PUBLIC_SHOW_EXISTING");
+    if(args[1]=="wrong-ready")
+    {
+        var selected=KuaiYi.Core.Installation.InstallationStableSelection.Decode(first[15..]);
+        Console.WriteLine($"BOUND_READY|{Guid.Empty:N}|{selected.Fingerprint}|{Guid.NewGuid():N}|{new string('0',64)}");
+    }
+    return 0;
+}
 // Public synthetic portable crash driver; never referenced by production App.
 if(args.Length==2&&args[0]=="--installation-owner-crash"&&Path.GetFileName(args[1]).StartsWith("kuaiyi-upgrade-tests-",StringComparison.Ordinal))
 {

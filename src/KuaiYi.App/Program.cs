@@ -34,6 +34,7 @@ internal static class Program
             try{OleImageFileDrop.ValidatePath(args[1]);}
             catch(InvalidDataException){Console.Error.WriteLine("Single local image command refused.");return 2;}
         bool translationReview=args.Length==2&&args[0]=="--translation-test-provider";
+        bool controller=args.Length==2&&args[0]=="--installation-controller"&&Guid.TryParseExact(args[1],"N",out _);
         bool controlled=args.Length==2&&args[0]=="--installation-handshake"&&Guid.TryParseExact(args[1],"N",out _);
         InstallationApplicationControl? installationControl=null;
         KuaiYi.Core.Settings.AppSettings? testSettings=null;
@@ -42,14 +43,14 @@ internal static class Program
             try{testSettings=KuaiYi.Providers.DevelopmentTranslationProfile.Create(new Uri(args[1],UriKind.Absolute));}
             catch(Exception error)when(error is ArgumentException or UriFormatException){Console.Error.WriteLine("Invalid local test fixture prefix.");return 2;}
         }
-        if (args.Length != 0 && !review&&!prepareImage&&!translationReview&&!controlled) { Console.Error.WriteLine("Unsupported command."); return 2; }
+        if (args.Length != 0 && !review&&!prepareImage&&!translationReview&&!controlled&&!controller) { Console.Error.WriteLine("Unsupported command."); return 2; }
         string userData=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"KuaiYi");
 #if KUAIYI_ISOLATED_SESSION_TEST
         try{userData=IsolatedSessionLayout.Select(AppContext.BaseDirectory,userData);}
         catch(Exception error){Console.Error.WriteLine("Session test layout refused: "+error.GetType().Name);return 3;}
 #endif
         // Route ordinary installed entry before acquiring the UI mutex: the controlled child owns that mutex.
-        if(args.Length==0||prepareImage)
+        if(args.Length==0||prepareImage||controller)
         {
             try
             {
@@ -60,7 +61,10 @@ internal static class Program
                     // Only the exact missing endpoint result can try original cold admission. Busy/unknown outcomes never replay.
                 }
                 runtimeSession=InstallationSessionEntry.TryCreate(AppContext.BaseDirectory,userData);
-                if(runtimeSession!=null)return runtimeSession.RunAsync(imagePath:prepareImage?args[1]:null).GetAwaiter().GetResult();
+                if(runtimeSession!=null)return controller
+                    ?runtimeSession.RunControllerAsync(Console.OpenStandardInput(),Console.OpenStandardOutput(),Guid.ParseExact(args[1],"N")).GetAwaiter().GetResult()
+                    :runtimeSession.RunAsync(imagePath:prepareImage?args[1]:null).GetAwaiter().GetResult();
+                if(controller){Console.Error.WriteLine("Controller requires an installed generation.");return 3;}
                 if(prepareImage){Console.Error.WriteLine("Image command requires a controlled installed session.");return 3;}
             }
             catch(Exception error)
@@ -68,6 +72,7 @@ internal static class Program
                 Console.Error.WriteLine("Installation session refused: "+error.GetType().Name);
 #if !KUAIYI_ISOLATED_SESSION_TEST
                 // Preserve explicit user re-invocation's existing Show message; it never proves admission or ownership.
+                if(controller)return 3; // A private controller refusal cannot redirect or attest an existing UI.
                 using var callerIdentity=WindowsIdentity.GetCurrent();using var caller=Process.GetCurrentProcess();
                 string existingScope=SessionSingleInstance.ScopeFor(callerIdentity.User?.Value??throw new InvalidOperationException("Current user SID unavailable."),caller.SessionId);
                 NativeTray.ShowExisting(existingScope);

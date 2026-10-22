@@ -1635,3 +1635,9 @@ r02同源重新固定SHA反例16结果4P12F（12项未抛异常）→r03同测�
 P2修复固定原件独审限定ACK，105结果/89既有/884输入/14目标与红绿/旧586保全自洽；仅归档与三报告推送，不借记完整套件或Windows验收。
 
 修复原件ZIP/99manifest独审限定ACK；Library确认libfile_40f2a863803c819188e9a79663dd4439版本0，990356B/100成员，SHA256 3586b35d09f4dc3b8a8aef69917d2db62cba661aca6c0f2f0ab9e7a8dbfc2682。保存后身份/摘要核验成功，仅三报告补回执正常推送；897cbb6产品/测试不改，原586保全及Windows边界保持。
+
+## 2026-10-22 稳定受控启动入口
+
+沿原同代App controller/READY/Host/warm链新增独立Launcher和继承stdio生命周期桥；短门捕获current、门外验证、原admission复核，取消只关原stdin不kill controller，未确认不重放或清owner。独审三项生命周期P2由r05四屏障0P4F→r06同测试4P闭合候选，全部失败/编译零用例保留；r03七普通构建0W/E，无新包/许可。新主路径定向验证与独审接续，见[接线和原件](validation/stable-controlled-launcher.md)。稳定文件真实部署/更新及完整Windows包仍下一安装入口范围，不代签真实Windows/medium/WPF/250600，不重刷586/105。
+
+稳定启动候选r07新Peer未连接AutoFlush导致3F原件保留；修正夹具并保留原取消合同，r08 19P，r09含双原异常保全20P0F。独审三项生命周期修复限定ACK；待冻结源码后一次相关签收与正常managed构建。

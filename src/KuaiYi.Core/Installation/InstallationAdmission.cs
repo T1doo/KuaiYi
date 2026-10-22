@@ -9,14 +9,14 @@ internal sealed class InstallationAdmission:IDisposable
     private FileStream? lease;
     private InstallationExecutionOwnership? execution;
     private InstallationHostActivity? mutation;
-    internal InstallationAdmission(string directory,bool mutation=false)
+    internal InstallationAdmission(string directory,bool mutation=false,bool existing=false)
     {
         this.directory=directory;
         try
         {
             this.mutation=mutation?InstallationHostActivity.Open(directory,true):null;
             string path=Path.Combine(directory,"upgrade.lock");InstallationPaths.Check(path);
-            try{lease=new(path,FileMode.OpenOrCreate,FileAccess.ReadWrite,FileShare.None);}
+            try{lease=new(path,existing?FileMode.Open:FileMode.OpenOrCreate,FileAccess.ReadWrite,FileShare.None);}
             catch(IOException){throw new InstallationBusyException();}
             if(lease.Length!=0)throw new InstallationRecoveryException("Unknown upgrade lock bytes retained.");
         }

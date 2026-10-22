@@ -1,0 +1,24 @@
+{
+  "base": "065992060f1623cb651a507f2162be8c901f18d3",
+  "scope": "Stable bootstrap selects existing current-v3 and retains actual generation controller; original WPF/warm ownership unchanged",
+  "artifactRoot": "artifacts/2026-10-22-stable-launcher",
+  "status": "CandidateVerified_FixedTreePending",
+  "candidateRuns": {
+    "r01": "CS0103 Core build;0tests",
+    "r02": "3 builds passed;App CS0246;0tests",
+    "r03": "7 normal builds0W0E;892stable;no lock drift",
+    "r04": "CS0619 counterexample test compile;0tests",
+    "r05": "4 deterministic settlement counterexamples0P4F",
+    "r06": "same4 tests4P0F;892stable",
+    "r07": "19 cases:16P3F; all three unconnected new Peer AutoFlush constructor; original preserved",
+    "r08": "19P0F; lazy connected Peer and original cancellation contract;892stable",
+    "r09": "20P0F; adds dual-original session/cancel-callback fault preservation;892stable"
+  },
+  "boundaries": [
+    "No stable bootstrap deployment/integrity/update or unified installation entry yet",
+    "Synthetic actual two-hop dotnet driver; not WPF or OS peer identity",
+    "Structural missing native/runtime/third-party dependencies; not runnable Windows bundle",
+    "Real Windows/medium/browser/OCR/250600 NotRun",
+    "No new NuGet packages/SDK licenses/permissions/credentials/fees/model calls"
+  ]
+}
