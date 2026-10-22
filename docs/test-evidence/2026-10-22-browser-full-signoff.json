@@ -1,0 +1,157 @@
+{
+  "ProductSha": "b554541f6cbcc8dad7f37c81a88c7fe56aeb1b6d",
+  "Branch": "dev/p7-fixed-signoff",
+  "Environment": "Specified preserved KuaiYi Linux cloud environment",
+  "SDK": "10.0.402; approved session-sdk.py; --no-restore against existing pinned lock restore",
+  "Status": "Pass_FullOfflineCoreAndProvider",
+  "Suites": {
+    "core": {
+      "command": {
+        "productSha": "b554541f6cbcc8dad7f37c81a88c7fe56aeb1b6d",
+        "command": [
+          "python3",
+          "-B",
+          "scripts/session-sdk.py",
+          "test",
+          "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+          "--no-restore",
+          "-c",
+          "Release",
+          "-m:1",
+          "-nr:false",
+          "-p:UseSharedCompilation=false",
+          "-p:EnableWindowsTargeting=true",
+          "--logger",
+          "trx;LogFileName=core-full-r1.trx",
+          "--results-directory",
+          "/workspace/KuaiYi/artifacts/2026-10-22-browser-full-signoff"
+        ],
+        "startedUtc": "2026-10-22T04:02:14.549609+00:00",
+        "filter": null,
+        "scope": "full offline suite",
+        "sdkEntry": "approved session-sdk.py; existing locked restore; no dependency changes",
+        "exit": 0,
+        "finishedUtc": "2026-10-22T04:04:11.397657+00:00"
+      },
+      "Counters": {
+        "total": "2182",
+        "executed": "2182",
+        "passed": "2182",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "UnitTestResultCount": 2182,
+      "AllResultsPassed": true,
+      "TrxSha256": "98003a08d534bb0b79263ae86b93701c2589d454636da81a34321a20d9b4a2a9",
+      "LogSha256": "2ec57569a6d02d6884b856699dd1ef8cdd597b6ddc5678f4d5db89c3deb86e65",
+      "DllCount": 21,
+      "DllDrift": []
+    },
+    "provider": {
+      "command": {
+        "productSha": "b554541f6cbcc8dad7f37c81a88c7fe56aeb1b6d",
+        "command": [
+          "python3",
+          "-B",
+          "scripts/session-sdk.py",
+          "test",
+          "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+          "--no-restore",
+          "-c",
+          "Release",
+          "-m:1",
+          "-nr:false",
+          "-p:UseSharedCompilation=false",
+          "-p:EnableWindowsTargeting=true",
+          "--logger",
+          "trx;LogFileName=provider-full-r1.trx",
+          "--results-directory",
+          "/workspace/KuaiYi/artifacts/2026-10-22-browser-full-signoff"
+        ],
+        "startedUtc": "2026-10-22T04:04:11.534188+00:00",
+        "filter": null,
+        "scope": "full offline suite",
+        "sdkEntry": "approved session-sdk.py; existing locked restore; no dependency changes",
+        "exit": 0,
+        "finishedUtc": "2026-10-22T04:05:02.396276+00:00"
+      },
+      "Counters": {
+        "total": "2464",
+        "executed": "2464",
+        "passed": "2464",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "UnitTestResultCount": 2464,
+      "AllResultsPassed": true,
+      "TrxSha256": "29e1abc91c5b3c39ac28587b2f212332408dac673546e9dc7a3100ffacc7b8d0",
+      "LogSha256": "002bee531fe0353737924cfc6cc8954259635d907d58a80daa77906cd4f837a7",
+      "DllCount": 22,
+      "DllDrift": []
+    }
+  },
+  "InputCount": 839,
+  "InputManifestSha256": "d372e49d6898285b6ac9f4a671f1bef74c02afaa1a243b793c4d554cd845a7e0",
+  "InputDrift": [],
+  "ProductOrTestEdits": [],
+  "FullSuiteAttempts": {
+    "Core": 1,
+    "Provider": 1
+  },
+  "CodecRerun": false,
+  "RunnerApiAccessed": false,
+  "NewCi": false,
+  "LiveModelCalls": false,
+  "IndependentReview": {
+    "Reviewer": "/root/gif_review",
+    "Status": "Limited ACK",
+    "Message": "固定 b554541f6cbcc8dad7f37c81a88c7fe56aeb1b6d 的完整离线 Core2182P、Provider2464P，均无filter、0F/0skip、exit0；TRX条目数与全Passed一致。839输入前后、当前及固定Git字节一致；两份DLL摘要21/22项均匹配，HEAD未变且工作区干净。未执行额外测试或CI；真实Windows、浏览器、Medium身份及250/600ms边界不因此签收。"
+  },
+  "Unverified": [
+    "Windows actual desktop",
+    "Chrome/Edge installed browser-to-WPF chain",
+    "Medium positive warm/Explorer handoff",
+    "Actual source/password/integrity behavior",
+    "250/600ms Windows behavior",
+    "Visual quality"
+  ],
+  "PriorTargetedRoundsNotAdded": true,
+  "Archive": {
+    "Path": "/workspace/KuaiYi/artifacts/2026-10-22-browser-full-signoff/KuaiYi-b554541-full-Core-Provider-originals.zip",
+    "Bytes": 1402945,
+    "Sha256": "63ecf2ad03d85d2fc2adc9301e4d30cb90cc9240160e2a6fc12e4c15958de752",
+    "Members": 15
+  },
+  "Library": {
+    "status": "succeeded",
+    "library_file_id": "libfile_d35edcd0f25081918423346a80221fce",
+    "file_id": "file_0000000025f881f6901aaafb23f8c64d",
+    "current_version_number": 0,
+    "file_name": "KuaiYi-b554541-full-Core-Provider-originals.zip",
+    "path": "/KuaiYi-b554541-full-Core-Provider-originals.zip",
+    "file_size_bytes": 1402945,
+    "local_path": "/workspace/KuaiYi/artifacts/2026-10-22-browser-full-signoff/KuaiYi-b554541-full-Core-Provider-originals.zip"
+  }
+}

@@ -1488,3 +1488,8 @@ P7-01/已有实例认证转交/真实Windows菜单-WPF/OLE/OCR/身份/画质/250
 从b82c377fba33f72b307cb4cc18598425cf85bc89继续，单writer/开发分支不动main。普通权限测试路径调查未建立可用入口：已知Windows托管runner为High，runner清单只读403，不重试/改权限；继续原SPEC实际未实现项。浏览器由PNG扩展至既有受界JPEG/BMP/静态WebP/GIF，双端Commit MIME↔sniff/rawcanvas，原Worker/Browser owner/EXIF/首帧notice与取消清理门；不增加权限/依赖/模型调用。独审设计及源码限定ACK，详见[实现、真实验证和边界](validation/browser-original-formats.md)。
 
 本片最终Node104P、Core接收定向141P、完整Codec488P、Provider浏览器准备定向10P，各0F/0skip；正常App Release0W0E，轮次不相加。中间4F反例、Core新测试误判5F与两次Provider编译缺链接原件保留。未借记完整Core/Provider、真实浏览器或WPF验收。WebP奇数仍拒、PackageHold/生产复用Off；Windows medium/warm/Explorer、来源/完整性/250600ms及画质仍未验，P7整体InProgress。原件与最终摘要见[证据索引](test-evidence/2026-10-22-browser-original-formats.json)。
+
+
+## 2026-10-22：冻结浏览器原图产品的完整Core/Provider离线签收
+
+产品固定b554541f6cbcc8dad7f37c81a88c7fe56aeb1b6d，本轮未改产品或测试。顺序一次完整Core2182P/0F/0skip、一次完整Provider2464P/0F/0skip，均无filter/exit0；839输入前后同字节，21/22个DLL摘要保全，完整TRX与逐项结果一致。独立只读审查限定ACK。前141/10定向与旧Node/Codec轮不相加，未重复Codec、访问已拒API、新CI或模型。详见[固定产品签收](validation/browser-original-formats-full-signoff.md)与[证据索引](test-evidence/2026-10-22-browser-full-signoff.json)。证据only正常dev提交；真实Windows/Chrome/Edge/medium/250600ms/画质未验及P6/P7边界保持。
