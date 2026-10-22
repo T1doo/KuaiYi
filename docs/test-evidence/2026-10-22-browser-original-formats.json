@@ -1,0 +1,195 @@
+{
+  "Base": "b82c377fba33f72b307cb4cc18598425cf85bc89",
+  "Branch": "dev/p7-fixed-signoff",
+  "Suites": {
+    "core-target-r3": {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+        "--filter",
+        "FullyQualifiedName~BrowserHostTests|FullyQualifiedName~DesktopReceiverTests|FullyQualifiedName~BrowserImageReceptionTests",
+        "--logger",
+        "trx;LogFileName=core-target-r3.trx",
+        "--results-directory",
+        "/workspace/KuaiYi/artifacts/2026-10-22-browser-raster",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false",
+        "-p:EnableWindowsTargeting=true"
+      ],
+      "exit": 0,
+      "counters": {
+        "total": "141",
+        "executed": "141",
+        "passed": "141",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trxSha256": "335c4a853052e05aecd8d4f8757d61d642171ab337ad32f2a8631e94c590728b"
+    },
+    "codec-full-r2": {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Codec.Tests/KuaiYi.Codec.Tests.csproj",
+        "--logger",
+        "trx;LogFileName=codec-full-r2.trx",
+        "--results-directory",
+        "/workspace/KuaiYi/artifacts/2026-10-22-browser-raster",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false",
+        "-p:EnableWindowsTargeting=true"
+      ],
+      "exit": 0,
+      "counters": {
+        "total": "488",
+        "executed": "488",
+        "passed": "488",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trxSha256": "0bfbb792f040c585dbc42456968300c9e8a60028bf6e520adf18d9aa4d086cfb"
+    },
+    "provider-target-r3": {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "test",
+        "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+        "--filter",
+        "FullyQualifiedName~BrowserImagePreparationTests|FullyQualifiedName~FileImagePreparationTests",
+        "--logger",
+        "trx;LogFileName=provider-target-r3.trx",
+        "--results-directory",
+        "/workspace/KuaiYi/artifacts/2026-10-22-browser-raster",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false",
+        "-p:EnableWindowsTargeting=true"
+      ],
+      "exit": 0,
+      "counters": {
+        "total": "10",
+        "executed": "10",
+        "passed": "10",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "trxSha256": "9ca789657436d93d22fa89d8cee89a4fa23d016a5f4b3f319ef51f78487618a4"
+    },
+    "app-build-r1": {
+      "command": [
+        "python3",
+        "-B",
+        "scripts/session-sdk.py",
+        "build",
+        "src/KuaiYi.App/KuaiYi.App.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false",
+        "-p:EnableWindowsTargeting=true"
+      ],
+      "exit": 0
+    },
+    "node-full-r1": {
+      "command": [
+        "node",
+        "--test",
+        "tests/browser/acquisition.test.mjs",
+        "tests/browser/confirmation.test.mjs",
+        "tests/browser/protocol.test.mjs",
+        "tests/browser/source-window.test.mjs"
+      ],
+      "exit": 0
+    }
+  },
+  "NodePassed": 104,
+  "CoreScope": "BrowserHostTests|DesktopReceiverTests|BrowserImageReceptionTests",
+  "ProviderScope": "BrowserImagePreparationTests (10 actual matches; nonexistent FileImagePreparationTests filter matches none)",
+  "InputManifestSha256": "f70ced2608b9673c47c95294c8145c1eed27a16eee7740569452609b06c1d03e",
+  "ProductManifestSha256": "87dc24631243a457371af8005f4da6576217a38579942a40dee3b1a767f8edb3",
+  "InputDrift": [],
+  "ProtectedInputs": 169,
+  "FailureFiles": [
+    "green-core-target.trx",
+    "red-codec.trx"
+  ],
+  "WindowsRunnerInventory": "Denied: HTTP403 Resource not accessible by integration; no retry; does not prove absence of other registered runners",
+  "WindowsRealAcceptance": "NotRun/Blocked; no new CI scheduled",
+  "Review": {
+    "Reviewer": "/root/gif_review",
+    "Status": "Limited ACK; no certain new P1/P2",
+    "FinalMessage": "最后五枚举 guard 闭合且与统一 MIME 策略接受集一致，Provider csproj 已恢复，无新增确定 P1/P2。独立核得最终 Core 定向141P、Provider 仅 BrowserImagePreparationTests 10P、完整 Codec 488P、Node104P，App 0W/0E；642项 final-inputs 当前全部匹配。Provider 两次编译失败原件保留，不累计测试数字。此结论不代表完整 Core/Provider 或真实 Windows 浏览器链通过；未运行测试、构建或 CI。"
+  },
+  "NoNewDependenciesPermissionsFeesCredentials": true,
+  "Archive": {
+    "Path": "/workspace/KuaiYi/artifacts/2026-10-22-browser-raster/KuaiYi-browser-original-formats-originals.zip",
+    "Bytes": 659927,
+    "Sha256": "f5059bb5edf8d750273a608878f501486bf0f8b8252e09d2f27873db3ac9766d",
+    "Members": 80
+  },
+  "Library": {
+    "status": "succeeded",
+    "library_file_id": "libfile_97ee89aab4408191884d88d6156b2996",
+    "file_id": "file_00000000971881f686c29b98d7d8fac4",
+    "current_version_number": 0,
+    "file_name": "KuaiYi-browser-original-formats-originals.zip",
+    "path": "/KuaiYi-browser-original-formats-originals.zip",
+    "file_size_bytes": 659927,
+    "local_path": "/workspace/KuaiYi/artifacts/2026-10-22-browser-raster/KuaiYi-browser-original-formats-originals.zip"
+  },
+  "ExactInputCount": 642,
+  "FinalSourceDrift": []
+}

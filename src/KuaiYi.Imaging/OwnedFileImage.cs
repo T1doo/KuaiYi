@@ -19,7 +19,7 @@ public sealed class OwnedFileImage:ImageSourceOwner
         try
         {
             var t=metadata.Transform;
-            if(sourceKind is not(ImageSourceKind.LocalFile or ImageSourceKind.Browser)||sourceKind==ImageSourceKind.Browser&&metadata.Format!=EncodedRasterFormat.Png)throw new InvalidDataException("Invalid encoded source kind.");
+            if(sourceKind is not(ImageSourceKind.LocalFile or ImageSourceKind.Browser)||sourceKind==ImageSourceKind.Browser&&metadata.Format is not(EncodedRasterFormat.Png or EncodedRasterFormat.Jpeg or EncodedRasterFormat.Bmp or EncodedRasterFormat.Webp or EncodedRasterFormat.Gif))throw new InvalidDataException("Invalid encoded source kind.");
             kind=sourceKind;
             if(!Enum.IsDefined(metadata.Format)||metadata.SourceByteLength is <=0 or >ImagePolicy.ByteLimit||metadata.SourceSha256 is not{Length:64}||metadata.SourceSha256.Any(c=>!char.IsAsciiDigit(c)&&c is not(>='a' and <='f'))||t.HasDesktopAnchor||t!=ImageTransform.PlanEncoded(t.OriginalSize,t.Orientation,metadata.MaximumLongEdge)||ownedPixels.Length!=checked((int)(t.NormalizedSize.Width*t.NormalizedSize.Height)*4)||ImagePolicy.InspectPng(ownedPng.Bytes.Span)!=t.NormalizedSize||ownedPng.Bytes.Length>4*1024*1024)throw new InvalidDataException("File image ownership mismatch.");
             if(metadata.Format==EncodedRasterFormat.Gif)

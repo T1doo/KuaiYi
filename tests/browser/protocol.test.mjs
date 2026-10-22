@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { spawn } from "node:child_process";
 import { once } from "node:events";
-import { checkedFrame, pngSize, base64, nativeConnection, sendImage, LIMIT, CHUNK, IMAGE } from "../../extensions/chromium/protocol.js";
+import { checkedFrame, pngSize, encodedMime, base64, nativeConnection, sendImage, LIMIT, CHUNK, IMAGE } from "../../extensions/chromium/protocol.js";
 import { imageContext, original, acquireImage, cropPixels, visibleCrop } from "../../extensions/chromium/acquire.js";
 import { ownershipCases, installDom } from "./ownership-fixtures.mjs";
 const png = new Uint8Array(await readFile(new URL("../fixtures/images/kuaiyi-test.png", import.meta.url)));
@@ -122,7 +122,7 @@ test("desktop Off prevents image acquisition", async () => {
   const pending = run(); port.receive({ type: "Error", code: "ActivationRequired" }); await assert.rejects(pending, /ActivationRequired/); assert.equal(acquisitions, 0); conn.close();
 });
 // Test Chrome Port adapter over actual binary stdio. Real shared production host loop in a separately labelled test authority executable.
-test("actual extension sender to independent host loop commits ordered maximum chunks", { timeout: 10000 }, async () => {
+for (const [file, mime] of [[null, "image/png"], ["browser-raster.jpg", "image/jpeg"], ["browser-raster-exif6.jpg", "image/jpeg"], ["browser-raster.bmp", "image/bmp"], ["browser-raster.webp", "image/webp"], ["gif-codewidth.gif", "image/gif"]]) test(`actual extension sender to independent host loop commits ${mime} ${file ?? "ordered maximum chunks"}`, { timeout: 10000 }, async () => {
   const fixture = new URL("../../tools/KuaiYi.BrowserHostFixture/bin/Release/net10.0/KuaiYi.BrowserHostFixture.dll", import.meta.url);
   const process = spawn(processDotnet(), [fixture.pathname, "on"], { stdio: ["pipe", "pipe", "pipe"] });
   const exited = once(process, "close"); let stderr = "", buffered = Buffer.alloc(0);
@@ -141,7 +141,8 @@ test("actual extension sender to independent host loop commits ordered maximum c
   const abort = new AbortController(), conn = nativeConnection(port, operationId, abort.signal, Date.now() + 8000);
   try {
     await conn.exchange({ type: "OfferImage", operationId }, "Ready");
-    const bytes = new Uint8Array(CHUNK * 2 + 29); bytes.set(png); bytes.fill(255, png.length);
+    const bytes = file ? new Uint8Array(await readFile(new URL(`../fixtures/images/${file}`, import.meta.url))) : new Uint8Array(CHUNK * 2 + 29); if (!file) { bytes.set(png); bytes.fill(255, png.length); }
+    assert.equal(encodedMime(bytes), mime);
     await sendImage(conn.exchange, operationId, bytes, abort.signal); conn.close();
     const [code] = await exited; assert.equal(code, 0); assert.equal(buffered.length, 0);
     const counters = JSON.parse(stderr); assert.equal(counters.fixture, true); assert.equal(counters.realLocalPipe, true); assert.equal(counters.Submitted, 1); assert.equal(counters.Bytes, bytes.length); assert.equal(counters.Digest.toLowerCase(), Buffer.from(await crypto.subtle.digest("SHA-256", bytes)).toString("hex")); assert.equal(counters.Disposed, true);

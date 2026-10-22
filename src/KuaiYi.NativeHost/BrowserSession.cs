@@ -125,8 +125,8 @@ public sealed class BrowserSession(IDesktopImageChannel desktop, TimeSpan? budge
                 {
                     BrowserEnvelope.Fields(root,"type","transferId","totalLength","mime","sha256");
                     Guid id=BrowserEnvelope.Id(root,"transferId");if(grant==null||grant.OperationId!=id||begun)throw new InvalidDataException("Offer required.");
-                    if(!root.GetProperty("totalLength").TryGetInt32(out int length)||root.GetProperty("mime").GetString()!="image/png"||root.GetProperty("sha256").GetString() is not {} hash)throw new InvalidDataException("Invalid declaration.");
-                    assembler.Begin(id,length,"image/png",hash);begun=true;
+                    if(!root.GetProperty("totalLength").TryGetInt32(out int length)||root.GetProperty("mime").GetString() is not {} mime||root.GetProperty("sha256").GetString() is not {} hash)throw new InvalidDataException("Invalid declaration.");
+                    assembler.Begin(id,length,mime,hash);begun=true;
                     await NativeMessagingCodec.WriteAsync(output,new{type="Begun",operationId=id},linked.Token);
                 }
                 else if(type=="Chunk")
@@ -140,7 +140,7 @@ public sealed class BrowserSession(IDesktopImageChannel desktop, TimeSpan? budge
                     BrowserEnvelope.Fields(root,"type","transferId");Guid id=BrowserEnvelope.Id(root,"transferId");
                     if(!begun||grant==null||grant.OperationId!=id)throw new InvalidDataException("Begin required.");
                     using var image=assembler.Commit(id);ImageSize size;
-                    try{size=ImagePolicy.InspectPng(image.Bytes.Span);}catch(ImageJobException){throw new BrowserException(BrowserFailure.InvalidImage);}
+                    try{size=BrowserEncodedImagePolicy.Inspect(image.Bytes.Span,image.Mime,linked.Token);}catch(ImageJobException){throw new BrowserException(BrowserFailure.InvalidImage);}
                     await desktop.SubmitAsync(grant,image,size,linked.Token).ConfigureAwait(false);committed=true;
                     await NativeMessagingCodec.WriteAsync(output,new{type="Committed",operationId=id},linked.Token);return 0;
                 }

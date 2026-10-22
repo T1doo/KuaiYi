@@ -95,10 +95,10 @@ public sealed class DesktopReceiverTests
             Decision.Answer.SetResult(true);var ready=await Read();Assert.Equal("Ready",ready.GetProperty("phase").GetString());
             return new(ready.GetProperty("operationId").GetGuid(),ready.GetProperty("identity").Deserialize<RequestIdentity>(),ready.GetProperty("nonce").GetGuid());
         }
-        public async Task Begin(BrowserGrant grant,byte[] image,int? length=null,string? hash=null,uint? width=null)
+        public async Task Begin(BrowserGrant grant,byte[] image,int? length=null,string? hash=null,uint? width=null,string? mime=null)
         {
-            var size=ImagePolicy.InspectPng(image);
-            await Send(new{phase="BeginImage",grant,totalLength=length??image.Length,mime="image/png",width=width??size.Width,height=size.Height,sha256=hash??Convert.ToHexString(SHA256.HashData(image))});
+            var source=ImageDecodePolicy.Inspect(image);var size=source.Size;
+            await Send(new{phase="BeginImage",grant,totalLength=length??image.Length,mime=mime??BrowserEncodedImagePolicy.Mime(source.Format),width=width??size.Width,height=size.Height,sha256=hash??Convert.ToHexString(SHA256.HashData(image))});
         }
         public async Task Chunk(byte[] image,int index=0,int? count=null)
         {
@@ -125,6 +125,24 @@ public sealed class DesktopReceiverTests
         Assert.False(f.Gate.CanSend(grant.Identity,endpoint));int sends=0;Assert.False(f.Gate.TryBeginSend(grant.Identity,endpoint,()=>{sends++;return Task.FromResult(1);},out _));Assert.Equal(0,sends);
         Assert.False(f.Gate.TryBeginPassiveCapture(TriggerMode.Selection,out _));
         var retained=f.Inbox.Current.Bytes;f.Gate.Disable();f.Inbox.Clear();Assert.Null(f.Inbox.Current);Assert.All(retained.ToArray(),b=>Assert.Equal(0,b));
+    }
+    private static byte[] Raster(string file)
+    {for(var p=new DirectoryInfo(AppContext.BaseDirectory);p!=null;p=p.Parent)if(File.Exists(Path.Combine(p.FullName,"SPEC.md")))return File.ReadAllBytes(Path.Combine(p.FullName,"tests/fixtures/images",file));throw new IOException("No fixture.");}
+    [Theory][InlineData("browser-raster.jpg",3u,2u)][InlineData("browser-raster-exif6.jpg",3u,2u)][InlineData("browser-raster.bmp",3u,2u)][InlineData("browser-raster.webp",3u,2u)][InlineData("gif-codewidth.gif",256u,128u)]
+    public async Task ActualReceivingSessionCommitsRawCanvasUnderTransferOnlyAuthority(string file,uint width,uint height)
+    {
+        await using var f=new Fixture();await f.Connect();var grant=await f.Authorize();byte[] bytes=Raster(file);await f.Begin(grant,bytes);await f.Read();await f.Chunk(bytes);await f.Send(new{phase="CommitImage",grant});await f.Read();Assert.True(await f.Finish());
+        Assert.Equal(new ImageSize(width,height),f.Inbox.Current!.Size);Assert.Equal(bytes,f.Inbox.Current.Bytes.ToArray());Assert.Equal(Activation.On,f.Gate.Snapshot.Activation);Assert.False(f.Gate.TryBeginPassiveCapture(TriggerMode.Selection,out _));Assert.False(f.Gate.CanSend(grant.Identity,new EndpointOrigin(new Uri("https://synthetic.invalid"))));var retained=f.Inbox.Current.Bytes;f.Inbox.Clear();Assert.True(retained.Span.IndexOfAnyExcept((byte)0)<0);
+    }
+    [Theory][InlineData("mime")][InlineData("width")]
+    public async Task ActualReceivingCommitCannotTrustRelabelledMimeOrCanvas(string fault)
+    {
+        await using var f=new Fixture();await f.Connect();var grant=await f.Authorize();byte[] bytes=Raster("browser-raster-exif6.jpg");await f.Begin(grant,bytes,width:fault=="width"?2u:null,mime:fault=="mime"?"image/png":null);await f.Read();await f.Chunk(bytes);await f.Send(new{phase="CommitImage",grant});Assert.False(await f.Finish());Assert.Null(f.Inbox.Current);
+    }
+    [Fact]public async Task DesktopIndependentlyRefusesOriginalWebpOddPayload()
+    {
+        byte[] even=Raster("browser-raster.webp"),odd=[..even,0,0];BinaryPrimitives.WriteUInt32LittleEndian(odd.AsSpan(4),(uint)odd.Length-8);BinaryPrimitives.WriteUInt32LittleEndian(odd.AsSpan(16),(uint)even.Length-20+1);
+        await using var f=new Fixture();await f.Connect();var grant=await f.Authorize();await f.Send(new{phase="BeginImage",grant,totalLength=odd.Length,mime="image/webp",width=3,height=2,sha256=Convert.ToHexString(SHA256.HashData(odd))});await f.Read();await f.Chunk(odd);await f.Send(new{phase="CommitImage",grant});Assert.False(await f.Finish());Assert.Null(f.Inbox.Current);
     }
     [Theory][InlineData("reject")][InlineData("off")][InlineData("locked")][InlineData("replaced")][InlineData("suspended")][InlineData("timeout")][InlineData("clock-only")][InlineData("disconnect")][InlineData("early-input")]
     public async Task PendingDesktopDecisionCannotOutliveRejectionOrChangedState(string action)

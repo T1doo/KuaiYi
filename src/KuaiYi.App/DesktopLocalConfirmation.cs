@@ -22,7 +22,7 @@ internal sealed class DesktopLocalConfirmation(Window owner,Func<bool> available
             var panel=new StackPanel{Margin=new Thickness(16)};
             panel.Children.Add(new TextBlock
             {
-                Text=$"一个已核验的本地快译宿主（进程 {request.ClientProcessId}）请求接收一张图片。\n扩展声明：{request.DeclaredOrigin}\n此声明不能证明浏览器来源。仅在您刚刚主动操作时允许。\n允许后只接收本次 PNG 到内存（最多 20 MiB），随后只在本机准备预览，不自动识别文字或发送模型。关闭、超时或停用会取消。",
+                Text=$"一个已核验的本地快译宿主（进程 {request.ClientProcessId}）请求接收一张图片。\n扩展声明：{request.DeclaredOrigin}\n此声明不能证明浏览器来源。仅在您刚刚主动操作时允许。\n允许后只接收本次受支持图片到内存（最多 20 MiB），随后只在本机准备预览，不自动识别文字或发送模型。关闭、超时或停用会取消。",
                 TextWrapping=TextWrapping.Wrap
             });
             var allow=new Button{Content="仅允许本次本地接收",Margin=new Thickness(0,16,0,6),IsDefault=false};

@@ -60,6 +60,26 @@ public sealed class BrowserHostTests
         using var committed=await child.Exchange(new{type="CommitImage",transferId=id},"Committed");Assert.Equal(id,committed.RootElement.GetProperty("operationId").GetGuid());
         using var counts=await child.Finish(0);Assert.Equal(1,counts.RootElement.GetProperty("Submitted").GetInt32());Assert.Equal(bytes.Length,counts.RootElement.GetProperty("Bytes").GetInt32());Assert.Equal(Convert.ToHexString(SHA256.HashData(bytes)),counts.RootElement.GetProperty("Digest").GetString());Assert.True(counts.RootElement.GetProperty("Disposed").GetBoolean());
     }
+    private static byte[] Raster(string file)
+    {for(var p=new DirectoryInfo(AppContext.BaseDirectory);p!=null;p=p.Parent)if(File.Exists(Path.Combine(p.FullName,"SPEC.md")))return File.ReadAllBytes(Path.Combine(p.FullName,"tests/fixtures/images",file));throw new IOException("No fixture.");}
+    [Theory][InlineData("browser-raster.jpg","image/jpeg")][InlineData("browser-raster-exif6.jpg","image/jpeg")][InlineData("browser-raster.bmp","image/bmp")][InlineData("browser-raster.webp","image/webp")][InlineData("gif-codewidth.gif","image/gif")]
+    public async Task ActualStdioAndLocalPipePreserveSupportedOriginalBytes(string file,string mime)
+    {
+        await using var child=new Child("on");Guid id=Guid.NewGuid();byte[] bytes=Raster(file);await Offer(child,id);using(await child.Exchange(Begin(id,bytes,mime:mime),"Begun")){}await Chunk(child,id,bytes);
+        using(await child.Exchange(new{type="CommitImage",transferId=id},"Committed")){}
+        using var counts=await child.Finish(0);Assert.Equal(1,counts.RootElement.GetProperty("Submitted").GetInt32());Assert.Equal(bytes.Length,counts.RootElement.GetProperty("Bytes").GetInt32());Assert.Equal(Convert.ToHexString(SHA256.HashData(bytes)),counts.RootElement.GetProperty("Digest").GetString());Assert.True(counts.RootElement.GetProperty("Disposed").GetBoolean());
+    }
+    [Theory][InlineData("image/jpeg")][InlineData("image/bmp")][InlineData("image/webp")][InlineData("image/gif")]
+    public async Task DeclaredSupportedMimeCannotRelabelPngAtCommit(string mime)
+    {
+        await using var child=new Child("on");Guid id=Guid.NewGuid();byte[] bytes=Png();await Offer(child,id);using(await child.Exchange(Begin(id,bytes,mime:mime),"Begun")){}await Chunk(child,id,bytes);
+        using var error=await child.Exchange(new{type="CommitImage",transferId=id},"Error");Assert.Equal("InvalidImage",error.RootElement.GetProperty("code").GetString());using var counts=await child.Finish(3);Assert.Equal(0,counts.RootElement.GetProperty("Submitted").GetInt32());Assert.Equal(1,counts.RootElement.GetProperty("Cancelled").GetInt32());
+    }
+    [Fact]public async Task OriginalWebpOddPayloadRemainsRefusedAtNativeCommit()
+    {
+        byte[] even=Raster("browser-raster.webp"),odd=[..even,0,0];System.Buffers.Binary.BinaryPrimitives.WriteUInt32LittleEndian(odd.AsSpan(4),(uint)odd.Length-8);System.Buffers.Binary.BinaryPrimitives.WriteUInt32LittleEndian(odd.AsSpan(16),(uint)even.Length-20+1);
+        await using var child=new Child("on");Guid id=Guid.NewGuid();await Offer(child,id);using(await child.Exchange(Begin(id,odd,mime:"image/webp"),"Begun")){}await Chunk(child,id,odd);using var error=await child.Exchange(new{type="CommitImage",transferId=id},"Error");Assert.Equal("InvalidImage",error.RootElement.GetProperty("code").GetString());using var counts=await child.Finish(3);Assert.Equal(0,counts.RootElement.GetProperty("Submitted").GetInt32());
+    }
     [Theory][InlineData("off","ActivationRequired")][InlineData("wrong-grant","DesktopUntrusted")]
     public async Task DesktopAuthorityMustGrantBeforeBegin(string mode,string code)
     {
@@ -114,7 +134,7 @@ public sealed class BrowserHostTests
         if(fault=="duplicate-offer")frame=new{type="OfferImage",operationId=id};
         else if(fault=="activation-claim")frame=new{type="BeginImage",transferId=id,totalLength=bytes.Length,mime="image/png",sha256=Convert.ToHexString(SHA256.HashData(bytes)),activation="On"};
         else if(fault=="url")frame=new{type="TranslateUrl",url="https://public-fixture.invalid"};
-        else{if(fault=="duplicate-begin")using(await child.Exchange(Begin(id,bytes),"Begun")){}frame=Begin(id,bytes,length:fault=="length"?ImageTransferAssembler.ImageLimit+1:null,mime:fault=="mime"?"image/jpeg":"image/png");}
+        else{if(fault=="duplicate-begin")using(await child.Exchange(Begin(id,bytes),"Begun")){}frame=Begin(id,bytes,length:fault=="length"?ImageTransferAssembler.ImageLimit+1:null,mime:fault=="mime"?"image/svg+xml":"image/png");}
         using var error=await child.Exchange(frame,"Error");Assert.Equal("InvalidMessage",error.RootElement.GetProperty("code").GetString());using var counts=await child.Finish(3);Assert.Equal(0,counts.RootElement.GetProperty("Submitted").GetInt32());
     }
     [Theory][InlineData(0u)][InlineData(uint.MaxValue)][InlineData(262145u)]

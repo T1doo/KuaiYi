@@ -99,8 +99,8 @@ internal sealed class DesktopReceiverSession(RuntimeGate gate,ILocalImageConfirm
                         BrowserEnvelope.Fields(root,"phase","grant","totalLength","mime","width","height","sha256");CheckGrant(root);
                         if(begun)throw new InvalidDataException("Repeated Begin.");
                         size=new(root.GetProperty("width").GetUInt32(),root.GetProperty("height").GetUInt32());ImagePolicy.ValidateDimensions(size.Width,size.Height);
-                        if(root.GetProperty("mime").GetString()!="image/png")throw new InvalidDataException("PNG required.");
-                        assembler.Begin(grant!.OperationId,root.GetProperty("totalLength").GetInt32(),"image/png",root.GetProperty("sha256").GetString()??"");begun=true;
+                        var mime=root.GetProperty("mime").GetString()??throw new InvalidDataException("MIME required.");
+                        assembler.Begin(grant!.OperationId,root.GetProperty("totalLength").GetInt32(),mime,root.GetProperty("sha256").GetString()??"");begun=true;
                         await Reply(new{phase="Begun",operationId=grant.OperationId});
                     }
                     else if(phase=="CommitImage")
@@ -109,7 +109,7 @@ internal sealed class DesktopReceiverSession(RuntimeGate gate,ILocalImageConfirm
                         BrowserEnvelope.Fields(root,"phase","grant");CheckGrant(root);
                         if(!begun)throw new InvalidDataException("Begin required.");
                         using var image=assembler.Commit(grant!.OperationId);
-                        if(ImagePolicy.InspectPng(image.Bytes.Span)!=size)throw new InvalidDataException("Dimensions changed.");
+                        if(BrowserEncodedImagePolicy.Inspect(image.Bytes.Span,image.Mime,token)!=size)throw new InvalidDataException("Dimensions changed.");
                         // Monitor EOF while a destination-thread application is queued.
                         pending=IpcFrameCodec.ReadAsync(pipe,requestLink!.Token).AsTask();
                         var publish=inbox.PublishAsync(grant.Identity,image,size,requestLink.Token,

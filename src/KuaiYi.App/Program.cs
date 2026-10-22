@@ -226,7 +226,7 @@ internal sealed partial class ImageProbeWindow : Window
                 browserInbox.TryUseCurrent(identity,image=>
                 {
                     shownBrowserImage=image.Identity;enabled.IsChecked=true;
-                    status.Text=$"已接收本次本地 PNG · {image.Size.Width}×{image.Size.Height} · {image.Bytes.Length} 字节；未发送模型。";
+                    status.Text=$"已接收本次本地图片 · {image.Size.Width}×{image.Size.Height} · {image.Bytes.Length} 字节；未发送模型。";
                     result.Clear();
                 });
         };

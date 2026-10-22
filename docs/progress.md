@@ -1481,3 +1481,10 @@ P7-01/已有实例认证转交/真实Windows菜单-WPF/OLE/OCR/身份/画质/250
 独审指出并修复exact launch绑定、普通连接错误污染会话、WPF重入与旧位图擦除失败owner丢失。b03原33P8F逐字保留，b05同范围42P0F含原位图断言；b08 Core相关53P0F，b09 Provider相关142P0F；不同轮次不能累计。最终兼容修复：精确QUIESCE无授权消费并禁止迟到AttachWarm，idle actor仅合法handoff封闭，避免对关闭通道补写；b11原137P1F为新夹具在Dispose后查询已释放Process，改原Settle退出实录/Healthy屏障后做最小定向验证。b12精确两条兼容回归2P0F，完整最小B树独立源码限定ACK，无剩余确定P1/P2。随后在clean固定实现92e3548845bd07ee7717b53df9588c412d128f9d各执行一次完整Core2164P0F0skip、Provider2463P0F0skip、Codec481P0F0skip，最终App交叉构建0W/E。四轮836输入=current=git92e、前后HEAD同/dirty0；旧Core2140+24、Provider2449+14、Codec481全部保留。各330 DLL摘要正常变化45/10/8/13，不累计或泛称全执行；当轮目标AssemblyInfo核92e，额外generated可含未构建旧产物。原件与源码独立只读限定ACK，不借记旧通过。[完整原件索引](test-evidence/2026-10-21-warm-image-b.json)，Library已确认libfile_11ab83f8701c8191bca25470a98977e9（7577354字节/version0）。
 
 默认Off/PackageHold/生产复用Off、WebP odd拒绝保持；无新依赖许可、SDK协议、权限凭据费用、真实模型、用户电脑、CI/main/强推/部署。真实Windows peer/ACL/菜单到同WPF/Worker、来源身份/OLE/COM/OCR/画质/250600/600MiB/完整P6P7未验。端点初始化/bind故障仍保守保留原fence，不冒充已实现可选降级恢复。
+
+
+## 2026-10-22：P7 浏览器原图五格式接入（独立产品缺口）
+
+从b82c377fba33f72b307cb4cc18598425cf85bc89继续，单writer/开发分支不动main。普通权限测试路径调查未建立可用入口：已知Windows托管runner为High，runner清单只读403，不重试/改权限；继续原SPEC实际未实现项。浏览器由PNG扩展至既有受界JPEG/BMP/静态WebP/GIF，双端Commit MIME↔sniff/rawcanvas，原Worker/Browser owner/EXIF/首帧notice与取消清理门；不增加权限/依赖/模型调用。独审设计及源码限定ACK，详见[实现、真实验证和边界](validation/browser-original-formats.md)。
+
+本片最终Node104P、Core接收定向141P、完整Codec488P、Provider浏览器准备定向10P，各0F/0skip；正常App Release0W0E，轮次不相加。中间4F反例、Core新测试误判5F与两次Provider编译缺链接原件保留。未借记完整Core/Provider、真实浏览器或WPF验收。WebP奇数仍拒、PackageHold/生产复用Off；Windows medium/warm/Explorer、来源/完整性/250600ms及画质仍未验，P7整体InProgress。原件与最终摘要见[证据索引](test-evidence/2026-10-22-browser-original-formats.json)。

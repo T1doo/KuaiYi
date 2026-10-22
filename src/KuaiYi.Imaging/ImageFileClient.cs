@@ -6,10 +6,7 @@ public sealed partial class ImageWorkerClient
     public Task<OwnedFileImage> PrepareFileAsync(ReadOnlyMemory<byte> encoded,ImageDecodeJob job,CancellationToken cancellation=default)
         =>PrepareEncodedAsync(encoded,job,ImageSourceKind.LocalFile,cancellation);
     public Task<OwnedFileImage> PrepareBrowserAsync(ReadOnlyMemory<byte> encoded,ImageDecodeJob job,CancellationToken cancellation=default)
-    {
-        _=ImagePolicy.InspectPng(encoded.Span);
-        return PrepareEncodedAsync(encoded,job,ImageSourceKind.Browser,cancellation);
-    }
+        =>PrepareEncodedAsync(encoded,job,ImageSourceKind.Browser,cancellation);
     private Task<OwnedFileImage> PrepareEncodedAsync(ReadOnlyMemory<byte> encoded,ImageDecodeJob job,ImageSourceKind kind,CancellationToken cancellation)
     {
         if(job.PrepareLongEdge!=null)throw new InvalidDataException("File preparation requires a raw source job.");

@@ -1,4 +1,4 @@
-import { IMAGE, pngSize } from "./protocol.js";
+import { IMAGE, RASTER_MIMES, encodedMime } from "./protocol.js";
 export function imageContext(info, tab) {
   if (info.menuItemId !== "kuaiyi-image" || info.mediaType !== "image" || !Number.isInteger(tab?.id) || tab.id < 0 || !Number.isInteger(tab.windowId) || tab.windowId < 0 || !tab.active || (info.frameId ?? 0) !== 0) throw new Error("当前 frame 无法安全定位图片，请使用快译区域截图");
   const page = new URL(tab.url), clicked = new URL(info.pageUrl), image = new URL(info.srcUrl);
@@ -20,7 +20,8 @@ export async function original(context, signal) {
   signal.addEventListener("abort", onAbort, { once: true });
   try {
     check();
-    if (!response.ok || response.headers.get("content-type")?.split(";")[0].trim() !== "image/png") throw new Error("原图不可取得或不是 PNG");
+    const mime = response.headers.get("content-type")?.split(";")[0].trim().toLowerCase();
+    if (!response.ok || !RASTER_MIMES.includes(mime)) throw new Error("原图不可取得或不是受支持图片");
     const declared = response.headers.get("content-length");
     if (declared && (!/^\d+$/.test(declared) || Number(declared) > IMAGE)) throw new Error("原图过大");
     while (true) {
@@ -33,7 +34,7 @@ export async function original(context, signal) {
     }
     const bytes = result = new Uint8Array(count); let offset = 0;
     for (const part of parts) { bytes.set(part, offset); offset += part.length; part.fill(0); }
-    pngSize(bytes);
+    if (encodedMime(bytes) !== mime) throw new Error("图片声明类型与原始字节不符");
   } catch (error) { errors.push(error); }
   finally {
     parts.forEach(part => part.fill(0));

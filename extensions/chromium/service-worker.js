@@ -39,7 +39,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     await sendImage(connection.exchange, operationId, bytes, abort.signal);
     if (current === op) await status("图片已交付本机；翻译受桌面开关和端点授权控制");
   } catch (error) {
-    abort.abort(); if (current === op) await status(`${error.message}。请使用您明确选框的截图；本构建的区域截图链路尚未接通`, true);
+    abort.abort(); if (current === op) await status(`${error.message}。请使用桌面快译的区域截图快捷键，由您明确选框`, true);
   } finally {
     clearTimeout(timer); clearBytes(); abort.signal.removeEventListener("abort", clearBytes); connection?.close(); if (current === op) current = null;
   }

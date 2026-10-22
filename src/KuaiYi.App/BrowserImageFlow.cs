@@ -20,7 +20,7 @@ internal sealed partial class ShellWindow
     private void AddBrowserImageStatus(System.Windows.Controls.ContextMenu menu)
     {
         var status=new System.Windows.Controls.MenuItem{IsEnabled=false};menu.Items.Add(status);
-        menu.Opened+=(_,_)=>status.Header=browserReception?.Busy==true?"浏览器图片：正在接收本次PNG":productionBrowserReceiver!=null&&!browserReceiveTask.IsCompleted?"浏览器图片：已运行，接收前逐次确认":"浏览器图片：本地接收不可用 · "+(browserReceiveFailure??"尚未就绪");
+        menu.Opened+=(_,_)=>status.Header=browserReception?.Busy==true?"浏览器图片：正在接收本次图片":productionBrowserReceiver!=null&&!browserReceiveTask.IsCompleted?"浏览器图片：已运行，接收前逐次确认":"浏览器图片：本地接收不可用 · "+(browserReceiveFailure??"尚未就绪");
     }
     private BrowserImageSourceState BrowserSourceState()
     {

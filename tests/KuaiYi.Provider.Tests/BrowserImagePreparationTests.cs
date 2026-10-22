@@ -28,10 +28,10 @@ public sealed class BrowserImagePreparationTests
         {Calls++;Token=cancellation;Borrowed=bytes;Entered.TrySetResult();return await Reply.Task;}
         public ValueTask<bool> TryFinalizeAsync()=>ValueTask.FromResult(Finalized);
     }
-    private static OwnedFileImage Owner()
+    private static OwnedFileImage Owner(bool firstFrame=false)
     {
         byte[] raw=Enumerable.Repeat((byte)255,256).ToArray();using var pixels=new ScreenshotPixels(new(0,0,8,8),raw.ToArray());
-        return new(new(EncodedRasterFormat.Png,1,new string('a',64),ImageTransform.PlanEncoded(new(8,8),ImageOrientation.ExifTopLeft),2560),raw,ScreenshotPngEncoder.Encode(pixels),ImageSourceKind.Browser);
+        return new(new(firstFrame?EncodedRasterFormat.Gif:EncodedRasterFormat.Png,1,new string('a',64),ImageTransform.PlanEncoded(new(8,8),ImageOrientation.ExifTopLeft),2560,firstFrame?new GifFirstFrameInfo(2,1,1,2,1):null),raw,ScreenshotPngEncoder.Encode(pixels),ImageSourceKind.Browser);
     }
     private static ShellWindow Window(){var w=new ShellWindow();w.InitializeResultFlow();w.WithGeometry();return w;}
     private static byte[] Input(){using var owner=Owner();using var png=owner.PrepareRequest(4194304);return png.Bytes.ToArray();}
@@ -39,6 +39,11 @@ public sealed class BrowserImagePreparationTests
     {
         var w=Window();var op=new Operation();byte[] input=Input();var task=w.BrowserForTest(input,op);await op.Entered.Task.WaitAsync(TimeSpan.FromSeconds(5));var owner=Owner();op.Reply.SetResult(owner);await task;
         Assert.Same(owner,w.SelectedImageForTest);Assert.Equal(ImageSourceKind.Browser,owner.Kind);Assert.Equal(Activation.Off,w.MarkdownGate.Snapshot.Activation);Assert.False(w.MarkdownGate.HasRunningGeneration);Assert.Contains("浏览器图片",w.ResultLabel);Assert.Contains("本地接收",w.ResultLabel);Assert.DoesNotContain("文件图片",w.ResultLabel);Assert.False(w.ScreenshotSendEnabledForTest);Assert.True(await w.ClearContentForTest());Assert.True(owner.IsDisposed);
+    }
+    [Fact]public async Task BrowserGifPreviewVisiblyStatesFirstFrameAndRemainsOff()
+    {
+        var w=Window();var op=new Operation();var task=w.BrowserForTest(Input(),op);await op.Entered.Task;var owner=Owner(true);op.Reply.SetResult(owner);await task;
+        Assert.Same(owner,w.SelectedImageForTest);Assert.Contains("浏览器图片",w.ResultLabel);Assert.Contains("使用首帧",w.ResultLabel);Assert.Contains("未翻译",w.ResultLabel);Assert.Equal(Activation.Off,w.MarkdownGate.Snapshot.Activation);Assert.False(w.MarkdownGate.HasRunningGeneration);Assert.False(w.ScreenshotSendEnabledForTest);Assert.True(await w.ClearContentForTest());Assert.True(owner.IsDisposed);
     }
     [Fact]public async Task RevokedExternalTokenCannotBeMissedWhileTheOriginalTaskInstallsItsOwnCancellationSource()
     {

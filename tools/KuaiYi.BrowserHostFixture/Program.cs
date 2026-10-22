@@ -25,7 +25,7 @@ sealed class PublicFixtureDesktop(string mode)
     public int Offers,Submitted,Bytes,Cancelled;public bool Disposed;public string? Digest;
     public async Task Serve(NamedPipeServerStream pipe)
     {
-        byte[]? bytes=null;int offset=0,index=0;Guid connection=Guid.Empty;string? expectedHash=null;uint width=0,height=0;
+        byte[]? bytes=null;int offset=0,index=0;Guid connection=Guid.Empty;string? expectedHash=null,mime=null;uint width=0,height=0;
         try
         {
             await pipe.WaitForConnectionAsync();
@@ -58,14 +58,14 @@ sealed class PublicFixtureDesktop(string mode)
                         if(mode=="ipc-disconnect"){pipe.Dispose();break;}
                         var grant=root.GetProperty("grant").Deserialize<BrowserGrant>();
                         if(grant!=current||!gate.CanApply(grant!.Identity)){await Reply(new{phase="Stale",operationId=current!.OperationId});continue;}
-                        int length=root.GetProperty("totalLength").GetInt32();if(bytes!=null||length is <=0 or >ImageTransferAssembler.ImageLimit||root.GetProperty("mime").GetString()!="image/png")throw new InvalidDataException("Test begin invalid.");bytes=new byte[length];expectedHash=root.GetProperty("sha256").GetString();width=root.GetProperty("width").GetUInt32();height=root.GetProperty("height").GetUInt32();
+                        int length=root.GetProperty("totalLength").GetInt32();if(bytes!=null||length is <=0 or >ImageTransferAssembler.ImageLimit||(mime=root.GetProperty("mime").GetString()) is not("image/png" or "image/jpeg" or "image/bmp" or "image/webp" or "image/gif"))throw new InvalidDataException("Test begin invalid.");bytes=new byte[length];expectedHash=root.GetProperty("sha256").GetString();width=root.GetProperty("width").GetUInt32();height=root.GetProperty("height").GetUInt32();
                         await Reply(new{phase="Begun",operationId=mode=="ipc-wrong-begun-id"?Guid.NewGuid():current!.OperationId});
                     }
                     else if(phase=="CommitImage")
                     {
                         BrowserEnvelope.Fields(root,"phase","grant");var grant=root.GetProperty("grant").Deserialize<BrowserGrant>();
                         if(mode=="stale-off")gate.Disable();if(mode=="stale-b")gate.TryStartRequest(Guid.NewGuid(),Guid.NewGuid(),null,out _,out _);if(mode=="locked")gate.SetSessionLocked(true);
-                        if(bytes==null||offset!=bytes.Length||grant!=current||Convert.ToHexString(SHA256.HashData(bytes))!=expectedHash||ImagePolicy.InspectPng(bytes)!=new ImageSize(width,height)||!gate.TryApply(grant!.Identity,()=>{Submitted++;Bytes=bytes.Length;Digest=Convert.ToHexString(SHA256.HashData(bytes));})){await Reply(new{phase="Stale",operationId=current!.OperationId});continue;}
+                        if(bytes==null||offset!=bytes.Length||grant!=current||Convert.ToHexString(SHA256.HashData(bytes))!=expectedHash||BrowserEncodedImagePolicy.Inspect(bytes,mime!)!=new ImageSize(width,height)||!gate.TryApply(grant!.Identity,()=>{Submitted++;Bytes=bytes.Length;Digest=Convert.ToHexString(SHA256.HashData(bytes));})){await Reply(new{phase="Stale",operationId=current!.OperationId});continue;}
                         await Reply(new{phase="Committed",operationId=mode=="ipc-wrong-commit-id"?Guid.NewGuid():current!.OperationId});CryptographicOperations.ZeroMemory(bytes);bytes=null;
                     }
                     else if(phase=="CancelImage"){BrowserEnvelope.Fields(root,"phase","grant");Cancelled++;gate.StopGeneration();current=null;if(bytes!=null){CryptographicOperations.ZeroMemory(bytes);bytes=null;}}

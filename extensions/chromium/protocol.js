@@ -1,5 +1,6 @@
 export const LIMIT = 256 * 1024, CHUNK = 190 * 1024, IMAGE = 20 * 1024 * 1024;
 export const TIMING = Object.freeze({ handshake: 5000, confirmation: 30000, transfer: 30000, total: 65000 });
+export const RASTER_MIMES = Object.freeze(["image/png", "image/jpeg", "image/bmp", "image/webp", "image/gif"]);
 export function checkedFrame(message) {
   if (new TextEncoder().encode(JSON.stringify(message)).length > LIMIT) throw new Error("消息超过字节限制");
   return message;
@@ -13,18 +14,31 @@ export function pngSize(bytes) {
   if (!width || !height || width > 16384 || height > 16384 || width * height > 24000000) throw new Error("图片尺寸超限");
   return { width, height };
 }
+// Only identify the bounded original container here. No browser decode, canvas,
+// DOM dimensions or metadata rewriting. The host checks MIME/canvas and the
+// isolated Worker enforces the existing format subsets before making a preview.
+export function encodedMime(bytes) {
+  if (!(bytes instanceof Uint8Array) || !bytes.length || bytes.length > IMAGE) throw new Error("图片字节超限或无效");
+  const text = (at, count) => String.fromCharCode(...bytes.subarray(at, at + count));
+  if (bytes[0] === 137) { pngSize(bytes); return "image/png"; }
+  if (bytes.length >= 4 && bytes[0] === 255 && bytes[1] === 216 && bytes.at(-2) === 255 && bytes.at(-1) === 217) return "image/jpeg";
+  if (bytes.length >= 54 && text(0, 2) === "BM") return "image/bmp";
+  if (bytes.length >= 13 && ["GIF87a", "GIF89a"].includes(text(0, 6))) return "image/gif";
+  if (bytes.length >= 20 && text(0, 4) === "RIFF" && text(8, 4) === "WEBP") return "image/webp";
+  throw new Error("不支持的图片字节，请使用区域截图");
+}
 export function base64(bytes) {
   let text = "";
   for (let i = 0; i < bytes.length; i += 8192) text += String.fromCharCode(...bytes.subarray(i, i + 8192));
   return btoa(text);
 }
 export async function sendImage(exchange, operationId, bytes, signal) {
-  pngSize(bytes);
+  const mime = encodedMime(bytes);
   const check = () => { if (signal.aborted) throw new Error("已取消"); };
   check();
   const hash = [...new Uint8Array(await crypto.subtle.digest("SHA-256", bytes))].map(n => n.toString(16).padStart(2, "0")).join("");
   check();
-  await exchange(checkedFrame({ type: "BeginImage", transferId: operationId, totalLength: bytes.length, mime: "image/png", sha256: hash }), "Begun");
+  await exchange(checkedFrame({ type: "BeginImage", transferId: operationId, totalLength: bytes.length, mime, sha256: hash }), "Begun");
   let index = 0;
   for (let offset = 0; offset < bytes.length; offset += CHUNK) {
     check();

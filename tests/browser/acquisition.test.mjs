@@ -82,7 +82,7 @@ test("original retains header refusal and cancel failure together", async () => 
   const cleanup = new Error("synthetic cancellation failure");
   const body = new ReadableStream({ cancel() { throw cleanup; } });
   await withFetch(async () => new Response(body, { headers: { "content-type": "text/plain" } }), async () => {
-    await assert.rejects(original(context, new AbortController().signal), error => error instanceof AggregateError && error.errors.some(e => /不是 PNG/.test(e.message)) && error.errors.includes(cleanup));
+    await assert.rejects(original(context, new AbortController().signal), error => error instanceof AggregateError && error.errors.some(e => /不是受支持图片/.test(e.message)) && error.errors.includes(cleanup));
     assert.equal(body.locked, false);
   });
 });
@@ -141,4 +141,21 @@ test("actual service worker navigation cancels the image stream before any trans
       assert.deepEqual(sent.map(message => message.type), ["OfferImage", "CancelImage"]);
     });
   } finally { if (oldChrome) Object.defineProperty(globalThis, "chrome", oldChrome); else delete globalThis.chrome; }
+});
+
+for (const [name, mime] of [["browser-raster.jpg", "image/jpeg"], ["browser-raster.bmp", "image/bmp"], ["browser-raster.webp", "image/webp"], ["gif-codewidth.gif", "image/gif"]]) test(`same-origin original accepts actual ${mime} bytes without browser decode`, async () => {
+  const input = new Uint8Array(await readFile(new URL(`../fixtures/images/${name}`, import.meta.url)));
+  await withFetch(async (url, options) => {
+    assert.equal(url, context.imageUrl); assert.equal(options.credentials, "omit"); assert.equal(options.redirect, "error");
+    return new Response(input.slice(), { headers: { "content-type": mime } });
+  }, async () => { const bytes = await original(context, new AbortController().signal); assert.deepEqual(bytes, input); bytes.fill(0); });
+});
+
+for (const mime of ["image/jpeg", "image/bmp", "image/webp", "image/gif"]) test(`header ${mime} cannot relabel PNG and exact source chunk clears`, async () => {
+  const bytes = png.slice();
+  const body = new ReadableStream({ start(c) { c.enqueue(bytes); c.close(); } });
+  await withFetch(async () => new Response(body, { headers: { "content-type": mime } }), async () => {
+    await assert.rejects(original(context, new AbortController().signal), /类型与原始字节不符/);
+    assert(bytes.every(n => n === 0)); assert.equal(body.locked, false);
+  });
 });
