@@ -217,10 +217,22 @@ public sealed class SelectionBrokerProcessTests(ITestOutputHelper output)
     [Theory][InlineData("normal",SelectionCaptureStatus.Success)][InlineData("identity",SelectionCaptureStatus.ProtocolFailure)][InlineData("role",SelectionCaptureStatus.ProtocolFailure)][InlineData("source",SelectionCaptureStatus.ProtocolFailure)][InlineData("runtime",SelectionCaptureStatus.ProtocolFailure)][InlineData("bounds",SelectionCaptureStatus.ProtocolFailure)][InlineData("oversize",SelectionCaptureStatus.ProtocolFailure)][InlineData("extra",SelectionCaptureStatus.ProtocolFailure)][InlineData("soft",SelectionCaptureStatus.SoftTimeout)][InlineData("error-text",SelectionCaptureStatus.EmptyOrUnsupported)][InlineData("crash",SelectionCaptureStatus.Crash)]
     public async Task ActualOwnedFixtureEnforcesSelectionWireAndIdentity(string fault,SelectionCaptureStatus expected)
     {
-        var starter=new FixtureStarter(fault);await using var client=new SelectionBrokerClient("public-fixture",starter);var result=await client.CaptureAsync(Gesture(),default);Assert.Equal(expected,result.Status);Assert.Equal(1,starter.Starts);
-        Assert.Equal(expected==SelectionCaptureStatus.Crash?23:(int?)null,client.LastProcessExitCode);
-        if(expected==SelectionCaptureStatus.Crash)Assert.Null(client.LastObservation);
-        if(expected==SelectionCaptureStatus.Success){Assert.Equal("public selected\n  code",result.Text);Assert.Equal(new[]{12,4},result.RuntimeId);Assert.Equal(new PixelRect(0,0,100,20),Assert.Single(result.Ranges));}else Assert.Equal("",result.Text);
+        // Protocol semantics use the existing controlled clock/deadline; default real watchdog tests remain separate.
+        using var timer=new ControlledDeadline();using var guard=new CancellationTokenSource(TimeSpan.FromSeconds(5));var clock=new MonotonicClock();
+        var starter=new FixtureStarter(fault);var client=new SelectionBrokerClient("public-fixture",starter,clock){ArmDeadlineForTest=timer.Arm};var original=client.CaptureAsync(Gesture(),guard.Token);Exception? bodyFailure=null,cleanupFailure=null;
+        try
+        {
+            var result=await original;guard.Token.ThrowIfCancellationRequested();Assert.Equal(expected,result.Status);Assert.Equal(1,starter.Starts);
+            Assert.Equal(1,timer.Arms);Assert.Equal(TimeSpan.FromMilliseconds(600),timer.Due);Assert.Equal(0,timer.Fires);
+            Assert.Equal(expected==SelectionCaptureStatus.Crash?23:(int?)null,client.LastProcessExitCode);
+            if(expected==SelectionCaptureStatus.Crash)Assert.Null(client.LastObservation);
+            if(expected==SelectionCaptureStatus.Success){Assert.Equal("public selected\n  code",result.Text);Assert.Equal(new[]{12,4},result.RuntimeId);Assert.Equal(new PixelRect(0,0,100,20),Assert.Single(result.Ranges));}else Assert.Equal("",result.Text);
+        }
+        catch(Exception error){bodyFailure=error;}
+        finally{timer.Dispose();try{await SettleOriginalCapture(client,guard,original,null,bodyFailure);}catch(Exception error){cleanupFailure=error;}}
+        if(bodyFailure!=null&&cleanupFailure!=null)throw new AggregateException("Protocol body and original cleanup failed.",bodyFailure,cleanupFailure);
+        if(bodyFailure!=null)ExceptionDispatchInfo.Capture(bodyFailure).Throw();if(cleanupFailure!=null)ExceptionDispatchInfo.Capture(cleanupFailure).Throw();
+        Assert.Null(client.ExitState);
     }
     [Theory][InlineData("hang")][InlineData("late")]
     public async Task HardDeadlineReturnsBeforeCleanupAndHeldChildActuallyExits(string fault)

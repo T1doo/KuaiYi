@@ -16,8 +16,42 @@
     "inputs": 851,
     "input_drift": 0
   },
-  "full_signoff": "NotRun in product commit",
+  "full_signoff": "Stopped after r03 failure; next fixed tree pending",
   "Windows_native_ocr": "NotRun",
   "model_calls": "None",
-  "independent_review": "Limited ACK: design, source and targeted originals"
+  "independent_review": "Limited ACK: design, source and targeted originals",
+  "product": "02fa638874ca88afa1c5b7146237cc810d2c257c",
+  "r03_core": {
+    "passed": 2223,
+    "failed": 1,
+    "skipped": 0,
+    "exit": 1,
+    "inputs": 851,
+    "git_mismatches": 0
+  },
+  "r04_related_core": {
+    "passed": 61,
+    "failed": 2,
+    "skipped": 0,
+    "exit": 1
+  },
+  "r05_related_core": {
+    "passed": 63,
+    "failed": 0,
+    "skipped": 0,
+    "exit": 0
+  },
+  "historical_unique_cause": "Unknown; controlled barrier proves mechanism, not historical exact phase",
+  "r06_related_core": {
+    "passed": 63,
+    "failed": 0,
+    "skipped": 0,
+    "exit": 0
+  },
+  "r07_startup_owner": {
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "exit": 0
+  }
 }

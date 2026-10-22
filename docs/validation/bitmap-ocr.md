@@ -18,7 +18,11 @@ Approve前原preview引用、source/version/settings、On及原Worker结算门�
 - r01 Codec实际4P/0F/0skip：PNG/EXIF6/GIF旧例保留，新增Bitmap由真实Linux私有Worker解码后进入真实OCR协调器，OCR端口是明确合成实现，不能称真实OCR识别。
 - r02 Provider OCR相关196P/0F/0skip、exit0，851输入前后同字节。包括Bitmap所选语言、精确预览确认与来源枚举、无桌面锚点/原图映射、双协议真实loopback text-only且0自动发送、图片释放后独立文字确认、清除/Off/设置/换源/迟到/取消/held cleanup、未取消的排队旧回调、Browser控制及未知枚举拒绝。实际Linux ImageWorker发现/识别均明确UnsupportedPlatform，未假成功。
 
-随后固定产品树执行一次完整Core/Provider/Codec及App交叉构建；本提交不预借尚未执行验证。r02后README说明会改变，运行前后851无漂移不等于851全等后续固定提交；最终完整轮将自行核Git输入。
+产品固定 `02fa638874ca88afa1c5b7146237cc810d2c257c` 后r03一次完整Core为2223P/1F/0skip；单例soft metadata249.999预期Success却返回HardTimeout，原堆栈、TRX和851输入=current=Git保留，后续签收立即停止。夹具只给wire metadata填时间，却同时使用真实600ms进程启动/传输截止；不能从685ms总耗时确定历史超时阶段或唯一根因。
+
+仅测试修正：soft六边界用同一受控时基负责absolute checks及原deadline CTS；新屏障在原Startup未交付时推进到恰600，明确metadata尚未读取，验证HardTimeout、原owner保留和最终实际结算。原250ms/文字/copy/退出断言不放宽；默认真实600ms watchdog/迟到/取消测试不改。r04相关61P/2F，两例既有protocol语义extra/soft又被真实计时器变为HardTimeout（628.1842/601.1822ms，具体阶段未知），没有全套重刷。仅该11-case语义表复用已有受控clock/deadline，arm1/due600/fire0，保留expected/内容/identity断言和默认真实计时测试；r05相关63P/0F/0skip。随后补正文与原任务清理双错保全，取消精确coordinator/原CTS、join同original，单错EDI/多错Aggregate；r06该清理调整相关63P/0F/0skip。独审另发现新startup夹具在Process.Start后原release.Wait(5s)抛错可使child尚未交给owner，改为仅等同release，外guard仍5s失败、finally先release再join原Start；r07该真实子进程屏障1P/0F/0skip。修正后冻结新树完整轮另记，轮次不相加。
+
+产品src不因上述夹具修正而变更；没有扩大600ms预算、加sleep、接受双结果或忽略失败。r02后README说明会改变，运行前后851无漂移不等于851全等后续固定提交；最终完整轮将自行核Git输入。
 
 ## 未验边界
 
