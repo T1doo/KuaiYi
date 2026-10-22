@@ -202,8 +202,10 @@ internal sealed class ProductionScreenshotCoordinator:IAsyncDisposable
                 {await Fail(job,failure??(!complete?"CLASSIFICATION_INCOMPLETE":"CLASSIFICATION_INVALID"),lifetime.Token,budget).ConfigureAwait(false);return;}
                 // Commit cache only on the canonical destination after full protocol completion and JSON validation.
                 if(!await Receive(job,new(job.Identity,new(ModelEventKind.Started)),_=>
-                {job.Snapshot=job.Snapshot with{Classification=classification};snapshots[job.Identity.VersionId]=new(job.Snapshot,job.Preset);},lifetime.Token,classificationBudget).ConfigureAwait(false))return;
-                classificationTimeout.Check();
+                {classificationTimeout.Check();job.Snapshot=job.Snapshot with{Classification=classification};snapshots[job.Identity.VersionId]=new(job.Snapshot,job.Preset);},lifetime.Token,classificationBudget).ConfigureAwait(false))return;
+                // Canonical commit ends this phase. A delayed continuation cannot undo a timely commit;
+                // source/lifetime identity and the original whole-request budget still govern generation.
+                timeout.Check();
             }
             if(job.Snapshot.Classification!.Readability==ImageReadability.Unreadable)
             {await Fail(job,"CLEARER_IMAGE_REQUIRED",lifetime.Token,budget).ConfigureAwait(false);return;}

@@ -1578,3 +1578,7 @@ ZIP CRC/全部176项manifest及三报告独审最终限定ACK，未发现事实�
 固定原件独审限定ACK，501+16+148拆分及输入/产物一致；无新增确定问题，未扩大为完整套件或Windows验收。
 
 原件/三报告及ZIP独审最终限定ACK；Library确认 `libfile_1973521c2fa48191ba6a6bc661a159ca/v0`，117成员/1,291,053B，SHA256 f786fdf2ec541974b5d298c6edb461640f02e1fbfead7db84437b4fdba625108。保存后本地元数据/摘要复核成功；随后仅这3报告提交，产品/测试仍07dcfe0不变。
+
+## 2026-10-22 分类按时提交的截止边界修复
+
+父级独审发现确定P2：canonical29.999秒已提交分类，caller30.001秒才恢复，phase.Check误将其改为超时。暂停并暂存UI改动，最小修复只把phase最终检查放到canonical commit内；提交后保留原总预算，仍拒绝迟到提交和来源失效。r02同测试源码四例0P4F→r03相关24P，r04成功commit后Off/总预算到期4P；r01漏using编译失败零用例保留，不累计。设计/差异只读限定ACK，冻结后做必要相关签收，见[完整边界与原件](validation/classification-commit-boundary.md)。没有放宽时间或发送门，Windows未验保持。
