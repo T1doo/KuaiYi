@@ -76,7 +76,7 @@ public sealed partial class InstallationSessionTests(ITestOutputHelper output)
     {
         private readonly InstallationApplicationClient client=new();
         internal InstallationControlledLaunch? Proof;
-        internal readonly TaskCompletionSource ImageQueued=Signal();
+        internal readonly TaskCompletionSource ImageQueued=Signal(),BrowserPublished=Signal();
         public async Task QueueImageAsync(Process p,string path,CancellationToken ct){await client.QueueImageAsync(p,path,ct);ImageQueued.TrySetResult();}
         internal InstallationWarmImageClient Warm(TimeProvider? clock=null)=>client.AttachWarm(Children.Single(),clock??TimeProvider.System);
         internal void HoldWarmWrites(Func<Stream,Stream> wrap)=>client.WriteStreamForTest=wrap;
@@ -87,7 +87,8 @@ public sealed partial class InstallationSessionTests(ITestOutputHelper output)
         private void ObserveWarmExit(Process p){Assert.True(p.HasExited);Volatile.Write(ref warmExitCode,p.ExitCode);Volatile.Write(ref warmExitObserved,1);}
         internal readonly TaskCompletionSource ExitRequested=Signal();
         internal readonly TaskCompletionSource Healthy=Signal(),StartHeld=Signal(),StartRelease=Signal(),IoEntered=Signal(),IoRelease=Signal(),HealthRelease=Signal();
-        internal bool HoldStart,HoldIo,FailIo,HoldHealth;
+        internal bool HoldStart,HoldIo,FailIo,HoldHealth,HoldCleanupIo;
+        internal readonly TaskCompletionSource CleanupIoEntered=Signal(),CleanupIoRelease=Signal();
         internal int SessionIoCalls;
         internal readonly List<int> CleanupExits=[];
         private string startupPhase="NotStarted";
@@ -142,14 +143,20 @@ public sealed partial class InstallationSessionTests(ITestOutputHelper output)
         }
         public Task RequestExitAsync(Process p,CancellationToken ct){ExitRequested.TrySetResult();return client.RequestExitAsync(p,ct);}
         public async Task SettleAsync(Process p,CancellationToken ct)
-        {ObserveWarmExit(p);await client.SettleAsync(p,ct);Assert.True(p.HasExited);Volatile.Write(ref diagnosticExit,p.ExitCode);Volatile.Write(ref diagnosticExitKnown,1);CleanupExits.Add(p.ExitCode);output.WriteLine($"PUBLIC_SESSION_FAILURE_CLEANUP actualExit={p.ExitCode} originalIO=Settled driverSha256={Hash(Driver)} coreSha256={Hash(Path.Combine(Path.GetDirectoryName(Driver)!,"KuaiYi.Core.dll"))}");}
+        {ObserveWarmExit(p);await client.SettleAsync(p,ct);CleanupIoEntered.TrySetResult();if(HoldCleanupIo)await CleanupIoRelease.Task;Assert.True(p.HasExited);Volatile.Write(ref diagnosticExit,p.ExitCode);Volatile.Write(ref diagnosticExitKnown,1);CleanupExits.Add(p.ExitCode);output.WriteLine($"PUBLIC_SESSION_FAILURE_CLEANUP actualExit={p.ExitCode} originalIO=Settled driverSha256={Hash(Driver)} coreSha256={Hash(Path.Combine(Path.GetDirectoryName(Driver)!,"KuaiYi.Core.dll"))}");}
         public async Task SettleSessionAsync(Process p,CancellationToken ct)
         {
             ObserveWarmExit(p);Interlocked.Increment(ref SessionIoCalls);await client.SettleSessionAsync(p,ct);IoEntered.TrySetResult();if(HoldIo)await IoRelease.Task;
             if(FailIo)throw new IOException("PUBLIC_IO_CLEANUP_FAILED");
             output.WriteLine($"PUBLIC_DIRECT_SESSION actualExit={p.ExitCode} originalIO=Settled driverSha256={Hash(Driver)} coreSha256={Hash(Path.Combine(Path.GetDirectoryName(Driver)!,"KuaiYi.Core.dll"))}");
         }
-        internal InstallationUpgradeCoordinator Coordinator(Rig r)=>new(r.App,r.Data,this,TimeSpan.FromSeconds(1),this);
+        internal async Task WaitForBrowserPublishedAsync(Task originalRun)
+        {
+            await Task.WhenAny(BrowserPublished.Task,originalRun).WaitAsync(Limit);
+            if(originalRun.IsCompleted)await originalRun;
+            await BrowserPublished.Task.WaitAsync(Limit);
+        }
+        internal InstallationUpgradeCoordinator Coordinator(Rig r)=>new(r.App,r.Data,this,TimeSpan.FromSeconds(1),this){BrowserHostPublishedForTest=()=>BrowserPublished.TrySetResult()};
     }
     [Fact]public async Task SameProductionAppEntryOwnsTwoActualNormalSessionsAndRejectsDuplicateLaunches()
     {
@@ -276,7 +283,7 @@ public sealed partial class InstallationSessionTests(ITestOutputHelper output)
     public async Task ChangedExactRecordsAreRetainedEvenAfterCleanActualExit(string record)
     {
         using var r=new Rig();var selected=await r.Prepare();await using var peer=new Peer(r.Pipe);var port=new Port(output);var coordinator=port.Coordinator(r);
-        Task<int> run=coordinator.RunActiveSessionAsync(selected.DirectoryPath);await port.WaitForHealthyAsync(run);string path=Path.Combine(r.App,record);File.WriteAllText(path,"PUBLIC_UNKNOWN_CHANGED");
+        Task<int> run=coordinator.RunActiveSessionAsync(selected.DirectoryPath);await port.WaitForHealthyAsync(run);await port.WaitForBrowserPublishedAsync(run);string path=Path.Combine(r.App,record);File.WriteAllText(path,"PUBLIC_UNKNOWN_CHANGED");
         await peer.Close();await Assert.ThrowsAsync<InstallationUpgradeUnconfirmedException>(()=>run.WaitAsync(Limit));await coordinator.DisposeAsync();
         Assert.Equal("PUBLIC_UNKNOWN_CHANGED",File.ReadAllText(path));Assert.True(File.Exists(r.Owner));r.Fence();Assert.Empty(Directory.GetFiles(r.App,"execution-finished-*.json"));
     }

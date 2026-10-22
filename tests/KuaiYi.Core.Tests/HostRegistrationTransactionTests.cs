@@ -46,6 +46,7 @@ public sealed class HostRegistrationTransactionTests
             var files=Directory.GetFiles(Generation).Order(StringComparer.Ordinal).Select(path=>new{path=Path.GetFileName(path),bytes=new FileInfo(path).Length,sha256=Hash(File.ReadAllBytes(path))}).ToArray();
             byte[] catalog=JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=1,product="KuaiYi",version="1.0",files});File.WriteAllBytes(Path.Combine(Generation,"package.json"),catalog);
             File.WriteAllText(Path.Combine(App,"owner.txt"),"KuaiYi installation file store v1\n");
+            File.WriteAllBytes(InstallationHostActivity.PathFor(App),[]); // This fixture constructs a fresh participating store, not legacy migration.
             File.WriteAllText(Path.Combine(App,"current.json"),JsonSerializer.Serialize(new{schemaVersion=1,active=new{id=new string('a',32),catalogSha256=Hash(catalog)},previous=(object?)null}));
             Assert.Equal(Generation,Store().ReadActive()!.DirectoryPath);
         }

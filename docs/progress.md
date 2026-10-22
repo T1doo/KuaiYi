@@ -1604,3 +1604,5 @@ UI源码b03541c468180e84de33731dafba7b7fd78c50e4已核872测试输入逐Git一�
 ## 2026-10-22 浏览器直启NativeHost入场与静止门
 
 接续SPEC13.4/P7-04/05：正常受控App READY后发布exact同代session；浏览器Host在原信任校验后、BrowserSession前加入共享活动门，并保留至自身OS实际退出。真实变更持有独占门，role-only不能冒用；不收养/杀未知Host。取消/退役/旧session sticky失效、原App IO与退出结算、未知记录保留；旧owned目录缺门拒绝自动迁移，原Off/源/发送门和250/600不变。独审Submit等待后仍传图P2已用r05两屏障确定红后修持续guard；r07/r08新17P，编译与fixture误期望/已Dispose查询失败原件均保留且不累计。见[实际接线与边界](validation/browser-host-lifecycle.md)。未接真实注册/安装入口，Windows/浏览器桌面与全P7未代签；下一步固定树必要相关回归及独审。
+
+第一次固定55959b3相关545例为514P31F，未签收；逐原件定位27新store手造夹具缺门、3旧注入早于新publication及1退役setup争用。r10确定红：setup与原cleanup IO屏障下取消后新Host仍ENTERED。修复为原launch closing先撤销、原role lease下完整prepared刷盘关闭后不覆盖Move发布/精确退役，写/关闭多错保留，首次已有closing不领养；通用owner/变更门不放宽，foreign owner及失败持久fence保留。r11定向62P，3旧注入仅改同步时点、原断言保持；原件与设计限定独审后再冻结必要签收，不循环刷绿。

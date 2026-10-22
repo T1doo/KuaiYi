@@ -44,7 +44,7 @@ public sealed partial class InstallationSessionTests
     public async Task InvalidBoundImageNeverQueuesAndRetainsTheOriginalFailureFence(string fault)
     {
         using var r=new Rig();var selected=await r.Prepare();await using var peer=new Peer(r.Pipe);var port=new Port(output);var coordinator=port.Coordinator(r);
-        Task<int> run=coordinator.RunActiveSessionAsync(selected.DirectoryPath);await port.WaitForHealthyAsync(run);var proof=port.Proof!;
+        Task<int> run=coordinator.RunActiveSessionAsync(selected.DirectoryPath);await port.WaitForHealthyAsync(run);await port.WaitForBrowserPublishedAsync(run);var proof=port.Proof!;
         var offer=new InstallationImageOffer(fault=="launch"?Guid.NewGuid():proof.Launch,fault=="proof"?new string('A',64):proof.Fingerprint,Guid.NewGuid(),ImagePath);
         string encoded=offer.Encode();if(fault=="record")File.WriteAllText(r.Owner,"PUBLIC_CHANGED_RETAIN");
         if(fault=="unknown"){string json=Encoding.UTF8.GetString(Convert.FromBase64String(encoded));encoded=Convert.ToBase64String(Encoding.UTF8.GetBytes(json[..^1]+",\"unknown\":1}"));}

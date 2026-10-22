@@ -8,7 +8,7 @@
 
 角色admission继续持有原upgrade.lock；真实变更额外持有Host独占活动门。Apply、Recover、Upgrade/rollback/retry（包括原handoff重试）、Restore、FinishUpgrade及内部注册事务接入；传入role-only admission不能替代变更门。原setup installation.lock只在有界取得门与记录复核期间持有，不等待协议、子进程或Task。
 
-正常控制器在原Start返回的App完成受控准入及READY后，以CreateNew发布固定browser-host-session.json，记录原canonical launch proof，含exact generation/current/owner与原launch。发布不是发送授权；仅原controller可精确退役自己的记录。正常原App实际退出后、原launch/owner完成前退役；取消/故障同样先退役，后结算原持有子进程。记录被替换则保留未知记录、原admission/owner和静态持有的controller，合并原错与退役错；显式Dispose只能重试精确原记录，不能擦foreign记录。未确认原App IO/退出时不完成owner。
+正常控制器在原Start返回的App完成受控准入及READY后，在原完整admission/execution/proof仍有效时，CreateNew同目录prepared记录并完整写入、flush、关闭，再复核归属并以不覆盖目标的Move发布browser-host-session.json，含原canonical launch proof及exact generation/current/owner/launch。发布不是发送授权；仅原controller可精确退役自己的记录。正常原App实际退出后、原launch/owner完成前退役；取消/故障同样先退役，后结算原持有子进程。退役首先CreateNew原launch的closing记录，Host看到该文件或目录立即永久拒绝；随后只移动自己的精确session。原对象只有成功写/关闭closing后才记住归属，首次遇到已有closing即使bytes相同也不领养，显式重试只核原对象自己的exact记录。closing历史不清除，不影响不同launch的新正常会话。记录被替换则保留未知记录、原admission/owner和静态持有的controller，合并原错与退役错；显式Dispose只能重试精确原记录，不能擦foreign记录。未确认原App IO/退出时不完成owner。Publish/Retire已有原role upgrade lease排除全部合作式writer，不再争短setup锁；Move只发布已完整关闭的记录，Host入场前后与持续检查closing/session变化。退役专用RequireCleanupLease只证明原admission句柄仍持有，允许清理自己的exact session，不把foreign execution-owner记录当新权限；通用Require/RequireMutation/Publish均仍核完整owner。foreign owner及失败会话的持久fence保留。写/flush和关闭错误分别单错EDI、多错Aggregate，partial文件及不确认关闭的原stream保留，不假称已撤销或清理成功。
 
 Host只打开既有setup和空活动门，在短setup段内取得共享门并绑定原session/generation/accepted proof和原admission/execution held lease；全包验证移出setup段，共享门继续阻止变更。成功entry静态保留到自身OS进程实际退出，**不在BrowserSession返回、断线、取消或托管Dispose时释放**。控制器不收养/终止浏览器创建的Host；有活共享门直接拒绝变更，让原生命周期自然退出。未参与门的旧目录/未知owner保留拒绝。
 
@@ -24,9 +24,13 @@ Host只打开既有setup和空活动门，在短setup段内取得共享门并绑
 - r03初版新例8P2F，测试awaitusing Dispose的Busy遮住正文。r04增加正文/清理双轨保全后，原两例0P2F精确显示EOF返回3而非测试误期望0。保留产品原Disconnected语义，仅修测试期望。
 - r05独审确定P2反例0P2F：只在Submit入口复核时，Begun等待或首块原write屏障后退役仍能完成Commit（原Submit无异常）。修复持续guard，不放宽协议/时间/断言。
 - r06 15P1F，新增测试查询已正确finalize/Dispose的Process.HasExited，导致No process associated；改读原protocol在处置前记录的实际退出及IO结算证据。原清理安全门不改。
-- r07/r08各17P0F0skip：覆盖原Host session返回但进程仍活、正常/非零实际退出、独占/共享顺序、READY前拒绝、缺/未知metadata、旧session永久失效及零Offer/Submit、取消保留owner、记录替换双错/精确重试、App原IO屏障、旧目录禁止自动迁移、Begun/首块屏障下零后续片/Commit及退役仍能Cancel。r08仅补新增fixture在失败路径释放原屏障、分别join原Submit/serve/原App run并保全多错。不是Windows或完整Core验收。
+- r07/r08各17P0F0skip（中间候选）：覆盖原Host session返回但进程仍活、正常/非零实际退出、独占/共享顺序、READY前拒绝、缺/未知metadata、旧session永久失效及零Offer/Submit、取消保留owner、记录替换双错/精确重试、App原IO屏障、旧目录禁止自动迁移、Begun/首块屏障下零后续片/Commit及退役仍能Cancel。r08仅补新增fixture在失败路径释放原屏障、分别join原Submit/serve/原App run并保全多错。不是Windows或完整Core验收。
 
-定向生产/fixture差异与r08原件获独立只读限定ACK。r08后仅Program保留原Policy拒绝顺序和测试writer-held精确Busy断言有差异，须由最终固定轮覆盖；固定树后只做安装/浏览器IPC相关必要回归与App交叉构建。
+- r09冻结55959b3c01e7cee454f364d7cebf2cc771177201的相关回归514P31F/0skip，完整原件保留，不回填绿。27个注册夹具手造新store缺新活动门；2个ChangedExactRecords和1个InvalidBoundImage在健康receipt已到但session尚未发布时注入故障；1个正常capability例的rig.Fence与退役争setup。未盲重跑。
+- r10独立确定P2反例0P1F：持setup并hold原App cleanup IO取消，会话退役Busy后新Host实际ENTERED，期望REFUSED。用closing先撤销、原role lease下原子发布/精确归档解决；不扩大时间预算。
+- r11修复针对62P0F0skip（原31失败、相关新例及原回归的定向集合），880输入无漂移。注册夹具只显式构造新空活动门，不给旧目录自动迁移；3个原故障注入改等准确publication信号，全部正文断言保留。另补未知closing文件/目录及首次相同bytes也不得领养的检查，纳入最终固定轮。
+
+定向生产/fixture差异与r08原件获独立只读限定ACK；r09失败后上述收敛设计也获限定ACK。仅固定修复树后的一次必要相关回归与App交叉构建可以作为最终签收，早轮不累计。
 
 ## 未验与未接入口
 
