@@ -1,11 +1,82 @@
 {
   "base": "5c2218ee0c0ddcd0aafea6e15b384b36ed6c4d6f",
-  "status": "CandidateLimited",
+  "status": "FixedPassLimited",
   "artifactRoot": "artifacts/2026-10-22-deployment-session",
   "scope": "Original committed scope bound once to original controlled session; health/retired failure authority, no postcommit three-participant rollback",
-  "runs": {"r03": "compile failed zero tests", "r05": "2F with earlier fixture cleanup fault retained", "r06": "final corrected complete testfile 2F", "r08": "same complete testfile 2P", "r09": "21P new candidate collection", "r11": "3P final exit boundary and the two former red cases"},
+  "runs": {
+    "r03": "compile failed zero tests",
+    "r05": "2F with earlier fixture cleanup fault retained",
+    "r06": "final corrected complete testfile 2F",
+    "r08": "same complete testfile 2P",
+    "r09": "21P new candidate collection",
+    "r11": "3P final exit boundary and the two former red cases"
+  },
   "rounds_added": false,
   "new_final_cases": 22,
-  "remaining": ["New authorized postcommit compensation ticket, registry reentry, exact execution retirement not implemented", "Unconfirmed keeps original objects/fences; no same-owner recovery promotion API", "No real Windows installer/controller/native registry/medium/desktop/quality/250600 acceptance", "Missing native/full self-contained runtime bytes; structural payload fixture is not runnable Windows package"],
-  "no_new_permissions_credentials_licenses_fees_or_model_calls": true
+  "remaining": [
+    "New authorized postcommit compensation ticket, registry reentry, exact execution retirement not implemented",
+    "Unconfirmed keeps original objects/fences; no same-owner recovery promotion API",
+    "No real Windows installer/controller/native registry/medium/desktop/quality/250600 acceptance",
+    "Missing native/full self-contained runtime bytes; structural payload fixture is not runnable Windows package"
+  ],
+  "no_new_permissions_credentials_licenses_fees_or_model_calls": true,
+  "product_sha": "b036357d998289f9e6192aeb23e0b484c170035f",
+  "review": "Limited design/product/fixture/fixed/ZIP ACK. Reviewer read CRC/all226 manifest/9 Git source/raw191/old169 union/redgreen918inputs/17versions14build-test DLL digests4Core. No reviewer product rerun; no DLL bodies in ZIP.",
+  "fixed": {
+    "r12": {
+      "normal_builds": 7,
+      "warnings": 0,
+      "errors": 0,
+      "tests": 0
+    },
+    "r13": {
+      "passed": 191,
+      "failed": 0,
+      "skipped": 0,
+      "new": 22,
+      "existing": 169,
+      "classes": {
+        "KuaiYi.Core.Tests.InstallationSessionTests": 82,
+        "KuaiYi.Core.Tests.InstallationDeploymentSessionTests": 22,
+        "KuaiYi.Core.Tests.InstallationPublicationTests": 54,
+        "KuaiYi.Core.Tests.InstallationExitSettlementTests": 6,
+        "KuaiYi.Core.Tests.InstallationStableLauncherTests": 19,
+        "KuaiYi.Core.Tests.InstallationLauncherSettlementTests": 4,
+        "KuaiYi.Core.Tests.InstallationRegistryConflictTests": 4
+      },
+      "unique_names": 191,
+      "prior_selected_169_multiset_preserved": true,
+      "full_Core": false
+    },
+    "stable_product_Git_inputs": 918,
+    "full_SHA_targets": 17,
+    "product_DLL_build_test_matches": 14,
+    "actual_Core_copies_equal": 4,
+    "old_test_files_byte_unchanged": 339,
+    "old_src_files": 369,
+    "modified_old_src": 2,
+    "new_src": 1,
+    "all_tools_dependency_locks_workflows_packaging_extensions_projects_scripts_unchanged": true,
+    "new_cases_with_actual_synthetic_exit_IO_evidence": 11,
+    "binary_bodies_in_archive": false
+  },
+  "red_green": {
+    "red": "r06-final-review-red",
+    "green": "r08-review-green",
+    "same_complete_test_source_sha256": "fc1356198c0cde5a85625dc4fce9054bcd87609214400c51c0b6e2376722a124",
+    "red_failed": 2,
+    "green_passed": 2,
+    "final_test_source_identical_to_redgreen": false,
+    "later_changes": "fixture original-IO settlement, two extra boundary cases and SessionWorkSettled API rename; original two cases rerun in r11 and fixed r13"
+  },
+  "library": {
+    "id": "libfile_9df832f4936481919ad31636349a170a",
+    "version": 0,
+    "file": "deployment-session-health-originals.zip",
+    "bytes": 2155069,
+    "sha256": "8a999dba70b089616c9776e8e146cb6a44d3bccd4d34e4965df65cf04b54b8e4",
+    "members": 227,
+    "manifest_entries": 226,
+    "local_identity_verified": true
+  }
 }

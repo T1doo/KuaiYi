@@ -1697,3 +1697,8 @@ Write compare conflict固定修复cd2bab6c726f75f9a095b62879c647492cc3d50f：七
 Write compare修复固定树和ZIP独审限定ACK。Library libfile_7c3e6187e2688191835094263b92b889 v0，1,515,469B/162成员/161manifest，SHA256e5ccaafc927aceb3a046d51b91620a61e39a181948c0766c8a0ac525ff5926bf；CRC/9项Git原件/raw262/旧258集合/两普通IO/七child/同file红绿/916inputs/17版本均核，r02/r05旧失败保留，无DLL本体。证据仅三报告，产品cd2bab6c726f75f9a095b62879c647492cc3d50f不变；不将部署Committed当READY健康，不签真实Windows或完整P7。
 
 已提交部署→原受控session健康候选：确定Committed原Scope一次绑定operation/Prepared/G/B/H及原controller/session，正常admission不绕pending；原StartAndCheck＋Host.Publish＋原READY callback后才仲裁READY，取消先赢/实际已退出拒迟到READY。部署Move后无追加部署步骤。失败原execution/角色/任务保留，Dispose不得丢租约，RollbackRequired明确未执行三方补偿；Unconfirmed保阻断无自动恢复。独审两P2由同完整file r06 2F→r08 2P闭合，r09 21P与r11 3P仅分列，不借记为固定全量；新22待签收。详见[合同与原件](validation/deployment-session-health.md)。真实Windows/native/runtime/完整P7继续未签。
+
+
+已提交部署→会话固定产品b036357d998289f9e6192aeb23e0b484c170035f：七普通managed0W/E，一次相关191P/0F/0skip＝新22＋旧169（七类，非完整Core）；918Git输入/17完整版本/14产品DLL建测摘要/4Core副本一致，339旧测试文件字节保留。原两P2同file2F→2P，最终退出/held原Settle/取消/正常会话与稳定Launcher均覆盖；不同轮数不相加。仅2旧src＋1new，tools/依赖权限不动。RollbackRequired仍持原recovery租约且未完成三方回滚，SessionWorkSettled不称全资源释放，Unconfirmed无自动提升恢复。
+
+固定树与ZIP原件独审限定ACK。Library libfile_9df832f4936481919ad31636349a170a v0，2,155,069B/227成员/226manifest，SHA2568a999dba70b089616c9776e8e146cb6a44d3bccd4d34e4965df65cf04b54b8e4；CRC/9项Git源码/raw191/旧169union/红绿/918inputs/17版本库存均核，无DLL本体；本地Library身份已核。证据仅三报告，产品b036357不变；三方postcommit新Ticket补偿、真实Windows正常入口/注册安装/native完整runtime/P7继续未交付，不将Committed=健康或保留原owner=回滚成功。
