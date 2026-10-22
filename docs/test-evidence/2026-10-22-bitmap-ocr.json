@@ -16,7 +16,7 @@
     "inputs": 851,
     "input_drift": 0
   },
-  "full_signoff": "Stopped after r03 failure; next fixed tree pending",
+  "full_signoff": "Core complete on7260; new Provider-only fixture tree pending remaining suites; no unchanged Core rerun",
   "Windows_native_ocr": "NotRun",
   "model_calls": "None",
   "independent_review": "Limited ACK: design, source and targeted originals",
@@ -50,6 +50,45 @@
   },
   "r07_startup_owner": {
     "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "exit": 0
+  },
+  "r08_fixed_tree": "7260f663e0269d4e5900872797b6874f7401e0a0",
+  "r08_core": {
+    "passed": 2225,
+    "failed": 0,
+    "skipped": 0,
+    "exit": 0,
+    "unit_results": 2225
+  },
+  "r08_provider": {
+    "passed": 2492,
+    "failed": 1,
+    "skipped": 0,
+    "exit": 1,
+    "unit_results": 2493
+  },
+  "r08_inputs": {
+    "count": 851,
+    "drift": 0,
+    "git_mismatches": 0
+  },
+  "r09_peer_observation_counterexample": {
+    "passed": 0,
+    "failed": 1,
+    "skipped": 0,
+    "exit": 1,
+    "historical_unique_cause": "Unknown"
+  },
+  "r10_related_provider": {
+    "passed": 63,
+    "failed": 0,
+    "skipped": 0,
+    "exit": 0
+  },
+  "r11_bitmap_original_clear": {
+    "passed": 4,
     "failed": 0,
     "skipped": 0,
     "exit": 0

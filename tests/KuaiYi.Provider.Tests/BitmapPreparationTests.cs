@@ -1,3 +1,4 @@
+using System.Runtime.ExceptionServices;
 using KuaiYi.App;
 using KuaiYi.Core;
 using KuaiYi.Imaging;
@@ -16,9 +17,9 @@ public sealed class BitmapPreparationTests
 {
     private sealed class Operation:IBitmapImageOperation
     {
-        internal readonly TaskCompletionSource Entered=new(TaskCreationOptions.RunContinuationsAsynchronously),Peer=new(TaskCreationOptions.RunContinuationsAsynchronously);
+        internal readonly TaskCompletionSource Entered=new(TaskCreationOptions.RunContinuationsAsynchronously),Peer=new(TaskCreationOptions.RunContinuationsAsynchronously),DecodedEntered=new(TaskCreationOptions.RunContinuationsAsynchronously);
         internal readonly TaskCompletionSource<OwnedFileImage> Reply=new(TaskCreationOptions.RunContinuationsAsynchronously);internal CancellationToken Token;internal int Finalized;
-        public async Task<OwnedFileImage> LoadAsync(Guid session,long version,long epoch,CancellationToken token){Token=token;Entered.SetResult();await Peer.Task.WaitAsync(token);return await Reply.Task;}
+        public async Task<OwnedFileImage> LoadAsync(Guid session,long version,long epoch,CancellationToken token){Token=token;Entered.SetResult();await Peer.Task.WaitAsync(token);DecodedEntered.TrySetResult();return await Reply.Task;}
         public Task ObservePeerCleanupAsync()=>Peer.Task;
         public ValueTask<bool> TryFinalizeAsync(){if(!Peer.Task.IsCompleted)return ValueTask.FromResult(false);Finalized++;return ValueTask.FromResult(true);}
     }
@@ -36,7 +37,25 @@ public sealed class BitmapPreparationTests
     }
     [Fact]public async Task LateDecodedImageAfterClearIsDisposedAndCannotReplaceTheOldSource()
     {
-        var w=Window();var op=new Operation();Assert.True(w.BitmapForTest(op));await op.Entered.Task;op.Peer.SetResult();var clear=w.ClearContentForTest();Assert.True(op.Token.IsCancellationRequested);var late=Owner();op.Reply.SetResult(late);await w.BitmapTaskForTest;await clear;Assert.True(late.IsDisposed);Assert.Null(w.SelectedImageForTest);Assert.False(w.FileBusyForTest);
+        var w=Window();var op=new Operation();Assert.True(w.BitmapForTest(op));var original=w.BitmapTaskForTest;OwnedFileImage? late=null;Task<bool>? clear=null;List<Exception> errors=[];
+        using var guard=new CancellationTokenSource(TimeSpan.FromSeconds(5));
+        try
+        {
+            await op.Entered.Task.WaitAsync(guard.Token);op.Peer.SetResult();
+            // Signal completion alone does not prove that the cancellable peer wait returned successfully.
+            await op.DecodedEntered.Task.WaitAsync(guard.Token);clear=w.ClearContentForTest();Assert.True(op.Token.IsCancellationRequested);
+            late=Owner();op.Reply.SetResult(late);await original.WaitAsync(guard.Token);Assert.True(await clear.WaitAsync(guard.Token));
+            Assert.True(late.IsDisposed);Assert.Null(w.SelectedImageForTest);Assert.False(w.FileBusyForTest);
+        }
+        catch(Exception error){errors.Add(error);}
+        finally
+        {
+            op.Peer.TrySetResult();op.Reply.TrySetCanceled();
+            try{await original;}catch(Exception error){if(!errors.Any(old=>ReferenceEquals(old,error)))errors.Add(error);}
+            try{if(!await (clear??w.ClearContentForTest()))throw new InvalidOperationException("Original bitmap test cleanup unconfirmed.");}catch(Exception error){errors.Add(error);}
+            late?.Dispose(); // A fixture-created image that was never returned remains the fixture's responsibility.
+        }
+        if(errors.Count==1)ExceptionDispatchInfo.Capture(errors[0]).Throw();if(errors.Count>1)throw new AggregateException("Bitmap late-image body and original cleanup failed.",errors);
     }
     [Fact]public async Task WrongReturnedSourceKindIsDisposedAndCannotMasqueradeAsBitmap()
     {

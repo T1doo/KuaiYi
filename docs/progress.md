@@ -1522,3 +1522,9 @@ Bitmap OCR产品02fa638固定r03完整Core2223P1F，保全原249.999→HardTimeo
 
 
 r06最终正文/原任务清理保全相关63P0F；独审发现新Startup回调超时可能使child未返回owner，仅取消该回调内部超时，保留外5秒guard/finally release与原任务join；r07单屏障1P0F。生产源仍02fa638不变，旧失败不改绿，冻结测试树后一次完整签收。
+
+
+r08冻结7260f66完整Core2225P0F、Provider2492P1F，851输入Git一致；失败后停余项。r09受控peer观察hold复现旧late释放断言0P1F，准确显示Reply未交给生产，原r08具体断言/唯一路径未知。仅Provider夹具加DecodedEntered屏障再Clear，保留原断言并保全正文/cleanup双错；r10相关63P0F，生产及Core测试不变。下一轮仅完整Provider和首次Codec/三构建，按套固定SHA分别记录，不重复已绿Core。
+
+
+独审补夹具原Clear清理P2：保存同Task<bool>并在finally join，已有Clear不再用新调用替代；r11 Bitmap准备4P0F，保留r10及旧红原件。最终测试仅该Provider文件变化，Core及生产src不变，分别按固定HEAD签收。

@@ -24,6 +24,14 @@ Approve前原preview引用、source/version/settings、On及原Worker结算门�
 
 产品src不因上述夹具修正而变更；没有扩大600ms预算、加sleep、接受双结果或忽略失败。r02后README说明会改变，运行前后851无漂移不等于851全等后续固定提交；最终完整轮将自行核Git输入。
 
+## 完整签收与第二个夹具屏障
+
+r08固定测试树 `7260f663e0269d4e5900872797b6874f7401e0a0`：完整Core2225P/0F/0skip，旧2224案例均保留，仅增恰600Startup屏障；完整Provider2492P/1F/0skip。当轮851输入前后=固定Git、HEAD固定/dirty0；Provider失败后立即停止Codec/三构建。失败为既有 `BitmapPreparationTests.LateDecodedImageAfterClearIsDisposedAndCannotReplaceTheOldSource` 行39的Assert.True，该行有多个True检查且无阶段快照，不能凭原TRX确定具体检查或唯一路径。
+
+r09只作受控夹具反例：原peer信号完成而观察被hold，取消原WaitAsync后不会消费Reply；旧body的late.IsDisposed在唯一断言行45准确失败，0P/1F/exit1。TRX记录peer signal=True、observation held=True、decoded entered=False、late disposed=False、slotbusy=False/selected=False，未借出的图片仍归夹具，finally自行释放gate/图片并join原file任务，未单独缓存/join诊断ObservePeer wrapper，不把该wrapper结算计作证明。不能把它称生产图片泄漏或回填r08唯一根因。
+
+最小修正仅Provider夹具：DecodedEntered屏障紧接Peer.WaitAsync成功之后、Reply之前；Clear前等待此屏障以锁定“晚解码返回”路径，保留原取消/释放/零发布/slot断言和cancel-before-peer原例。外5秒guard不增加产品预算；正文、原任务和Clear清理错误EDI/Aggregate保全，自建图片finally释放。r10相关63P/0F/0skip（四个既有图片准备测试类），未增加案例数。独审补原Clear任务保全：提到外层保存，finally join同original file task后await同clear，不能另起Clear代替；r11该最小修正Bitmap准备4P/0F/0skip。生产src及Core测试相对r08不变；新树只补一次完整Provider和首次完整Codec/三构建，不无变化重复Core。各套件固定HEAD分别记录，不声称同一个HEAD跑过全部完整套件。
+
 ## 未验边界
 
 合成ILocalOcrCapabilitiesWorker正例不是Windows.Media.Ocr，也不是真实WPF交互。真实Windows/OLE/HGLOBAL/来源身份/medium、OCR效果、WPF语言选择和确认、画质及250/600ms/600MiB仍未验；P6/P7整体保持InProgress。保留旧失败原件与未知历史唯一根因，不回填。
