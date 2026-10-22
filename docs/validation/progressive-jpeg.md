@@ -27,7 +27,11 @@
 
 四JPEG由已有ImageMagick7.1.1-43对明确合成PGM/PPM生成（gray/444/奇数420/420+restart），命令、源码字节公式、尺寸、hash保全。四真fixture的同Skia对照只证明完整输出一致；独立DCT是小型系数数值验证，都不等于照片画质评审。
 
-随后冻结树仅运行Codec相关四类及正常App/Worker交叉构建，不重复完整Core/Provider/Codec，不借记旧全套，也不累计不同轮次数。冻结轮执行后另记准确结果、命令、输入和产物摘要。
+r08私有执行器对Git带引号的中文路径处理错误，SDK执行前FileNotFound；无测试/构建执行，无TRX。改用`git ls-files -z`读取原路径，原失败保全。
+
+r09固定产品/测试树 `30b010f181a22b64b5e3288963c1953dff1f0268`，仅四类Codec（RasterDecodeTests、RasterPreparationTests、FileImageOwnerTests、DecodedFileOcrTests）175P/0F/0skip/exit0；App与Worker正常Release交叉构建各exit0/0W/0E。124个原选择用例中仅原伪渐进测试改准确名称及InvalidImage期望，其余保留，新增51例。各轮不相加，不重复完整Core/Provider/Codec，不借记旧全套。
+
+完整命令、TRX及零失败XML、日志、858输入前/各阶段后/最终摘要一致且与固定Git匹配，4个目标AssemblyInformationalVersion均含完整固定SHA；339 DLL摘要为产物库存而非执行数，当前字节复核一致。`BaselineJpegScan`与ccc5d9c字节相同。原始TRX/命令、全部858输入、339 DLL与4份AssemblyInfo及三报告已获独立限定ACK，无确定新P1/P2；ZIP独立CRC/逐成员摘要核验通过，Library确认 `libfile_643983e0b1f4819199b88f4dd44b9cdb/v0`，590,992B/99成员，SHA256 `c6eeef6ab674dd30137fdf7a008381e3d2d9a06ff8d959e86aa95db378984a1e`；上传后本地xattr与ZIP不变复核通过。包内报告为封包前快照；旧Worker本体仍本地保全，包内仅其摘要/来源，不含468MiB旧binary。
 
 ## 未验与保留边界
 

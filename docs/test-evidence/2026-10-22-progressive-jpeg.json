@@ -34,12 +34,46 @@
     "skipped": 0,
     "exit": 0
   },
-  "independent_review": "Limited design/source/targeted originals ACK; fixed tree followup pending",
+  "independent_review": "Limited design/source/fixed-tree TRX/input/DLL/report originals and ZIP member verification ACK; no new P1/P2",
   "full_Core_Provider_Codec": "NotRun; no unchanged full reruns or borrowed prior counts",
   "Windows_and_quality": "NotRun",
   "model_calls": "None",
   "dependencies_permissions": "Unchanged",
   "baseline_entropy_file_diff": "None; >1024 prefix acceptance retained",
   "webp_odd_gate": "Unchanged",
-  "production_reuse": "Off"
+  "production_reuse": "Off",
+  "product_and_test_sha": "30b010f181a22b64b5e3288963c1953dff1f0268",
+  "r08": "Private manifest executor failed before SDK: quoted Chinese git path;0 tests/builds;noTRX; corrected to git ls-files -z",
+  "r09": {
+    "scope": "Four Codec classes only; not full suite",
+    "passed": 175,
+    "failed": 0,
+    "skipped": 0,
+    "exit": 0,
+    "app_build": "exit0/0W/0E",
+    "worker_build": "exit0/0W/0E",
+    "inputs": 858,
+    "input_drift": false,
+    "git_input_mismatches": 0,
+    "matching_target_assembly_versions": 4,
+    "dll_inventory_not_execution_count": 339,
+    "old_selected": 124,
+    "renamed_malformed_marker_test": 1,
+    "new_cases": 51
+  },
+  "library": {
+    "library_file_id": "libfile_643983e0b1f4819199b88f4dd44b9cdb",
+    "status": "succeeded",
+    "versions": [
+      {
+        "current_version_number": 0
+      }
+    ],
+    "zip_sha256": "c6eeef6ab674dd30137fdf7a008381e3d2d9a06ff8d959e86aa95db378984a1e",
+    "bytes": 590992,
+    "members": 99,
+    "version": 0,
+    "local_xattr_verified": true,
+    "zip_unchanged_after_upload": true
+  }
 }

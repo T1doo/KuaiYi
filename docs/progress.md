@@ -1539,3 +1539,9 @@ r08冻结7260f66完整Core2225P0F、Provider2492P1F，851输入Git一致；失�
 ## 2026-10-22：受界 SOF2 渐进 JPEG 实质兼容切片
 
 从ccc5d9c原环境单writer继续SPEC7.1：新独立progressive validator/完整refinement与熵终止，复用原Worker/EXIF/来源/发送门，旧baseline字节及长前缀接受合同保留，不碰WebPodd或生产复用Off。独立设计/源码限定ACK。r02链接编译错无用例，r03旧Worker真非零4F，r04新5P，r05相关37P，r06相关50P，r07长前缀兼容3P，各轮不相加；定向冻结签收随后单记，不重跑完整Core/Provider/Codec。详见[产品子集、实际证据与未验边界](validation/progressive-jpeg.md)。真实Windows/medium/WPF/OCR效果/画质250600仍未验，不称P6/P7完成。
+
+
+冻结产品/测试30b010f181a22b64b5e3288963c1953dff1f0268的r09四类Codec175P0F0skip/exit0，App/Worker各0W/E；858输入前后=Git、4目标版本同SHA，339DLL为库存非用例数。原选择124例（原伪渐进仅准确改名/期望）+新增51例；未重跑完整Core/Provider/Codec，轮次不累计。r08仅私有manifest执行器中文路径预SDK错误，0执行，原件保留。最后独审/证据归档与正常分支推送接续，未验边界保持。
+
+
+原件/三报告与99成员ZIP逐项独立限定ACK；Library确认libfile_643983e0b1f4819199b88f4dd44b9cdb/v0，590992B，SHA256 c6eeef6ab674dd30137fdf7a008381e3d2d9a06ff8d959e86aa95db378984a1e，上传后xattr/hash不变。旧binary本体仅本地保全、摘要入包；后续仅这3份报告提交，不改固定产品/测试，不借记Windows或照片画质通过。
