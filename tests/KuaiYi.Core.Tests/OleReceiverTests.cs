@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
 using KuaiYi.Core;
 using KuaiYi.OleTransfer;
@@ -70,6 +71,7 @@ public sealed class OleReceiverTests
         try{await run.WaitAsync(TimeSpan.FromSeconds(6));}catch(Exception error){Assert.True(error is OperationCanceledException or OleReceiverException or IOException or InvalidDataException or System.Text.DecoderFallbackException,error.GetType().Name);}
         await client.DeliverySettlementForTest.WaitAsync(TimeSpan.FromSeconds(4));
         await client.RevocationSettlementForTest.WaitAsync(TimeSpan.FromSeconds(4));
+        if(client.LateReadObserverForTest is {} originalRead)await originalRead.WaitAsync(TimeSpan.FromSeconds(4));
         Assert.True(await client.TryFinalizeAsync(true));await client.DisposeAsync();
     }
     [Fact]public async Task RealChildProductionServerDeliversOnlyAfterCleanupAndClearsActualArray()
@@ -199,6 +201,40 @@ public sealed class OleReceiverTests
         Guid id=Guid.NewGuid();using var starter=new Starter("drop-stall");var registrar=new Registrar();var activation=new Activation(id);var client=Client(starter,registrar,activation);var ready=new TaskCompletionSource();var run=Run(client,id,ready);
         try{await ready.Task.WaitAsync(TimeSpan.FromSeconds(4));await Task.WhenAll(Task.Run(async()=>{for(int i=0;i<200;i++)await client.SetEnabledAsync(i+1,true);}),Task.Run(client.Cancel));Assert.False(activation.Enabled);Assert.False(await client.SetEnabledAsync(long.MaxValue,true));await Record.ExceptionAsync(()=>run.WaitAsync(TimeSpan.FromSeconds(4)));Assert.False(activation.Enabled);}
         finally{await Cleanup(client,starter,registrar,run);}
+    }
+    private sealed class HeldRead:Stream
+    {
+        internal readonly TaskCompletionSource Entered=new(TaskCreationOptions.RunContinuationsAsynchronously),Release=new(TaskCreationOptions.RunContinuationsAsynchronously);
+        public override async ValueTask<int> ReadAsync(Memory<byte> bytes,CancellationToken cancellation=default)
+        {Entered.TrySetResult();await Release.Task;return 0;} // The original I/O deliberately ignores waiter cancellation.
+        public override bool CanRead=>true;public override bool CanSeek=>false;public override bool CanWrite=>false;
+        public override long Length=>throw new NotSupportedException();public override long Position{get=>throw new NotSupportedException();set=>throw new NotSupportedException();}
+        public override void Flush()=>throw new NotSupportedException();public override int Read(byte[] b,int o,int n)=>throw new NotSupportedException();public override void Write(byte[] b,int o,int n)=>throw new NotSupportedException();public override long Seek(long n,SeekOrigin o)=>throw new NotSupportedException();public override void SetLength(long n)=>throw new NotSupportedException();
+    }
+    [Fact]public async Task SharedCleanupMustJoinOriginalLateReadAfterCancelledRunWaiter()
+    {
+        // Fresh client: child/startup/registrar/diagnostic/revoke are already settled (no child is started).
+        // Only this injected original read remains pending. This proves the boundary, not r08's unique historical cause.
+        Guid id=Guid.NewGuid();using var starter=new Starter();var registrar=new Registrar();var activation=new Activation(id);var client=Client(starter,registrar,activation);using var stream=new HeldRead();using var cancellation=new CancellationTokenSource();Task? cleanup=null,originalRead=null,originalObserver=null;List<Exception> failures=[];
+        try
+        {
+            var read=client.ReadOwnedAsync(stream,cancellation.Token);originalRead=read;await stream.Entered.Task;cancellation.Cancel();await Assert.ThrowsAnyAsync<OperationCanceledException>(()=>read);
+            Assert.NotNull(client.LateReadObserverForTest);originalObserver=client.LateReadObserverForTest;Assert.False(originalObserver.IsCompleted);Assert.True(client.ObserveExit());Assert.True(client.DiagnosticReadSettled);Assert.False(await client.TryFinalizeAsync(true));Assert.False(activation.Disposed);
+            cleanup=Cleanup(client,starter,registrar,Task.FromCanceled(cancellation.Token));
+            Assert.False(cleanup.IsCompleted);Assert.False(activation.Disposed);
+            stream.Release.SetResult();await cleanup;Assert.True(activation.Disposed);Assert.True(client.LateReadObserverForTest.IsCompleted);
+        }
+        catch(Exception error){failures.Add(error);}
+        finally
+        {
+            stream.Release.TrySetResult();
+            if(originalRead!=null){var error=await Record.ExceptionAsync(()=>originalRead);if(error is not (null or OperationCanceledException))failures.Add(error);}
+            if(originalObserver!=null){var error=await Record.ExceptionAsync(()=>originalObserver);if(error!=null)failures.Add(error);}
+            if(cleanup!=null){var error=await Record.ExceptionAsync(()=>cleanup);if(error!=null&&!failures.Any(old=>ReferenceEquals(old,error)))failures.Add(error);}
+            try{Assert.True(await client.TryFinalizeAsync(true));await client.DisposeAsync();}catch(Exception error){failures.Add(error);}
+        }
+        if(failures.Count==1)ExceptionDispatchInfo.Capture(failures[0]).Throw();
+        if(failures.Count>1)throw new AggregateException("Original body and cleanup failures.",failures);
     }
     private sealed class SilentClock:TimeProvider
     {

@@ -22,7 +22,33 @@
   "input_drift": 0,
   "red": "r06-settlement-red:0P/1F",
   "not_a_red_test": "r05 CS0649 no TRX",
-  "full_signoff": "NotRun in product commit",
+  "full_signoff": "Pending after reviewed test-only cleanup join",
   "Windows": "NotRun",
-  "model_calls": "None"
+  "model_calls": "None",
+  "product_sha": "a4305e8700d7679410bd68cb2c0de5dd6201c0fd",
+  "r07_vs_product": {
+    "identical": 849,
+    "changed": [
+      "README.md"
+    ]
+  },
+  "r08": {
+    "head": "a4305e8700d7679410bd68cb2c0de5dd6201c0fd",
+    "core": {
+      "passed": 2222,
+      "failed": 1,
+      "skipped": 0
+    },
+    "input_count": 850,
+    "input_drift": 0,
+    "git_input_mismatches": 0,
+    "stopped_after_failure": true
+  },
+  "cleanup_regression": {
+    "r09": "0P/1F",
+    "r10": "0P/1F dual original errors",
+    "r11": "75P/0F/0skip",
+    "production_src_changed": false,
+    "historical_unique_cause": "Unknown"
+  }
 }

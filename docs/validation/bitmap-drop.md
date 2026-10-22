@@ -23,7 +23,13 @@ ImageSourceKind.Bitmap 只接受 BMP，没有文件路径、Browser、截图桌�
 - r05旧helper反例因夹具新字段未初始化触发CS0649，未执行用例，不计红。仅夹具显式null后，r06同一旧helper反例0P/1F：最终异常集合只有 original cleanup，缺失 original transport，完整TRX原文保留。
 - r07最终定向：Core41P、Provider8P、Codec5P，各0F/0skip/exit0，850输入前后相同。包括1499/1500严格边界、Off拒文字/文件、实际私有stdio子进程与取消交付保留、真实Linux Worker正负高度BMP、等待peer/Worker实际退出、取消/迟到图片清理及主Off未发送。
 
-完整 Core/Provider/Codec 固定树签收及最终 App/OleReceiver/Worker 交叉构建随后单独归档；本提交不借记尚未执行的验证。
+r07的850输入运行前后相同；与后续固定产品提交 a4305e8700d7679410bd68cb2c0de5dd6201c0fd 比较，849同字节，唯一差异为随后README说明，不把r07称作850项全等该提交。
+
+固定a4305e的r08完整Core实际2222P/1F/0skip/exit1，850输入前后及Git原字节一致；原失败方法 `OleReceiverTests.CancelSerializesAgainstEnablePublicationAndPreventsLaterReenable`，157.3571ms，TRX只显示Cleanup:73的TryFinalize(true)断言false。脚本立即停止后续全套；没有重跑凑绿，也不能断言该方法正文全部通过。
+
+源码发现共享测试Cleanup未join原LateReadObserver，而生产finalize明确要求原readSettlements全完成。r09受控不可取消Read通过同Cleanup产生0P1F；r10改善反例保全body与cleanup双异常，仍0P1F，完整双栈均在TRX。反例使用fresh client、其余未启动/已结算门，唯一hold原I/O；不是actual child或r08唯一历史原因的证明。
+
+修复仅测试Cleanup在原finalize断言前补等同一个原LateReadObserver，仍用既有4秒边界，不改生产文件、取消/实际退出门或断言。r11原失败方法+新屏障+OleRead/Bitmap相关75P/0F/0skip；新测试finally精确release/join原Read/observer/Cleanup，单错EDI、多错Aggregate保全。产品源码仍与a4305e完全一致。修复后一次完整Core及尚未执行的Provider/Codec/最终交叉构建随后固定新测试树归档，不预借验证。
 
 ## 未验边界
 

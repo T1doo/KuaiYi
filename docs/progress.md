@@ -1505,3 +1505,6 @@ P7-01/已有实例认证转交/真实Windows菜单-WPF/OLE/OCR/身份/画质/250
 ## 2026-10-22：单张 CF_DIB 位图投放最小切片
 
 补 SPEC6.1 的真实位图缺口，独立默认关闭选项；仅40字节头/24bit BI_RGB/HGLOBAL及转换BMP各≤1MiB。隔离STA有界复制/行padding清零、typed IPC、同peer实际退出后Worker、共享图片槽和明确Bitmap预览来源，Off不自动OCR/启用/发送。独立设计及源码限定ACK。错误保全P2以r06旧helper0P1F准确复现，修复同时保留transport/cleanup原对象；r05编译失败不计红。r07 Core41P/Provider8P/Codec5P，850输入无漂移，轮次不累计。固定树完整签收随后归档，不预借旧通过。详见[位图切片实现与边界](validation/bitmap-drop.md)。真实Windows/OLE/WPF/来源/medium/250600/画质仍未验，P6/P7不标完整通过；安全与费用边界保持。
+
+
+位图固定产品a4305e完整Core r08保全2222P1F（Cleanup:73），停止全套。确定性同Cleanup held-read反例r09/r10各0P1F，后者body/cleanup双栈保全；仅测试helper补原LateReadObserver的既有4秒join，生产src不改。r11相关75P0F0skip，独审后固定新测试树一次完整签收；不追认历史唯一根因。r07与a4305e为849输入同、README后续说明单差，前后850无漂移仍成立。
