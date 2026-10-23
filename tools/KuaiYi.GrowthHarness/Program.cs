@@ -19,6 +19,7 @@ internal static class Program
     public static int Main(string[] args)
     {
         if(args.Length==2&&args[0]=="--ci-settings-layout")return SettingsLayoutProbe.Run(args[1]);
+        if(args.Length==2&&args[0]=="--ci-overlay-stages")return OverlayStageProbe.Run(args[1]);
         if(args.Length==2&&args[0]=="--ci-server-instance-parent")return ServerInstanceProbe.Run(args[1]);
         if(args.Length==4&&args[0]=="--ci-server-instance-child")return ServerInstanceProbe.Child(args[1],args[2],args[3]);
         if(args.Length==2&&args[0]=="--ci-pipe-access")return WarmWindowsPipeAccessProbe.Run(args[1]);

@@ -43,6 +43,8 @@ internal sealed partial class ShellWindow
         get{if(!button.IsVisible||button.ActualWidth<=0)return null;Point first=button.PointToScreen(new Point(0,0)),last=button.PointToScreen(new Point(button.ActualWidth,button.ActualHeight));return new((int)Math.Round(first.X),(int)Math.Round(first.Y),(int)Math.Round(last.X),(int)Math.Round(last.Y));}
     }
     internal Task PresentationStartup=>startup;
+    internal Task? PresentationCloseOperation=>closeRequests?.Current;
+    internal bool PresentationFrameApplying=>applyingOverlayFrame;
     private void SetupPresentation()
     {
         DesktopTheme.Install(this,()=>lifecycle.Settings?.Data.Overlay.Theme??ThemePreference.FollowSystem,forms:false,changedAppearance:RefreshPresentationTheme);
