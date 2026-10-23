@@ -33,3 +33,7 @@ Commands, full logs/TRX, red and green source snapshots and test/production DLL 
 ## Remaining boundary
 
 No new Windows sampling, PNG, animation movie, DWM/FPS or physical-input evidence exists for this fix. Mixed system DPI, corners, 50 cycles and complete installation remain unaccepted. Source/password/integrity/cancellation/cleanup/isolation, 250/600 ms, default Off and sending gates are untouched; Installer pins stay Unavailable. The existing workflow and source gate remain frozen at the previous delivery, intentionally not dispatched or relaxed. A later authorized single retry needs a separately reviewed exact source-binding update before it can sample this fix.
+
+## Frozen source and original evidence handoff
+
+Correction source: `3a47f9b1a5048231c1e602bb55c4090e477b810f`. Library `libfile_b20c34e09174819185ea4737367a3795` v0, `kuaiyi-overlay-seed-clock-3a47f9b.zip`, 4482187 bytes, SHA256 `ae65fc64f09ba95ce6888cf187d445eff468c5aea5fcf08ffac7c1730f338d67`. The 48-member ZIP has 47 verified manifest entries: original failed Windows ZIP, commands/logs/TRX, red scaffold, 12 changed-file snapshots bound to Git, 755 tracked input hashes, and seven retained red/green DLL bodies with their hashes. Library creation and local identity persistence succeeded. This subsequent evidence note changes no tested product source.
