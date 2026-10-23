@@ -1775,3 +1775,5 @@ Settings栅格唯一CI实际投递并普通页面确认运行中：源00a0e2a327
 Settings唯一Windows运行父级已核成功：run39945729009/job120387796111/source00a0e2a，Pass_LimitedRaster、TimedOut=false、CleanupConfirmed=true、OriginalHarnessExited、Errors=[]；17命令全exit0不当17测试。父级已回收四PNG30/30块并核raw/gzip摘要；非图附件未全取，不能签全包。消费者Library标识尚待，不假设父/tmp共享；像素审查进行中，不改产品/重投CI、不称DWM或真实DPI验收，pins不变。
 
 Settings四张实际PNG已消费者Library本地材料化、读取/哈希并view确认：窄窗当前导航项右裁，Font26导航约150px及图文错位。生产修复保原事件/Mask/事务：当前项在load/selection/size/font/generator后合并post-layout自动露出，epoch拒卸载迟到；不抢焦点/追逐手动滚动。单行图标文字居中、rail按有限实际测量高度给正文让位。定向9P旧7保留，源码独审限定ACK；Windows修后像素尚未执行。本轮不改workflow、不追加CI，等待差异独审再定一次复核。
+
+Settings导航修复产品76956cc5eabf24f6e765d8f22c2e60dc49fba227已正常push；原件Library libfile_740e74e3630881919188d59b3e32fed4 v0，1518621B，SHA256 6f001c0fd13400bbae23f6ca2f3f40188730d4a8b6d0289201664b5bb900237e，28成员/27摘要/9Git源码，含实际9P TRX/最终0W0E3.62秒交叉构建/四张修前PNG。源码独审ACK，修后原生selected-auto-reveal/像素仍NotRun，无新CI，不借记旧10P或DWM/DPI/生长流畅度。
