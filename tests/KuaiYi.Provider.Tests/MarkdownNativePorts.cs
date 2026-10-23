@@ -140,7 +140,12 @@ namespace System.Windows.Controls
         public ScrollBarVisibility VerticalScrollBarVisibility {get;set;}
         public Size LastMeasure {get;private set;}
         public Size DesiredSize {get;set;}
-        public void Measure(Size size)=>LastMeasure=size;
+        private bool measureValid,arrangeValid;
+        public int ValidityReads {get;private set;}
+        public bool IsMeasureValid{get{ValidityReads++;return measureValid;}set=>measureValid=value;}
+        public bool IsArrangeValid{get{ValidityReads++;return arrangeValid;}set=>arrangeValid=value;}
+        public Action? MeasureForTest{get;set;}
+        public void Measure(Size size){LastMeasure=size;MeasureForTest?.Invoke();}
         public IDisposable DeclareChangeBlock()=>new ChangeBlock();
         private sealed class ChangeBlock:IDisposable {public void Dispose(){}}
     }

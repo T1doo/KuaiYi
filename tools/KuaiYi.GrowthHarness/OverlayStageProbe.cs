@@ -66,7 +66,7 @@ internal static class OverlayStageProbe
         private RichTextBox? body;
         private OverlayProbePhase? phase;
         private Task? originalClose;
-        private bool constructionUnknown,draftRetirementStarted,closeRequested,timedOut,observing,capturing;
+        private bool constructionUnknown,draftRetirementStarted,closeRequested,timedOut,observing,capturing,measurementOverflowReported;
         private int depth;
         private nint initialForeground;
         private string mode="Setup";
@@ -113,6 +113,7 @@ internal static class OverlayStageProbe
             constructionUnknown=true;
             window=new ShellWindow("KuaiYi.OverlayStageProbe."+Guid.NewGuid().ToString("N"),coordinator,enableSelectionPlatform:false);
             constructionUnknown=false;
+            window.PresentationMeasureObservedForTest=ObserveMeasurement;
             window.Closed+=(_,_)=>closed.TrySetResult();
             initialForeground=NativeDesktop.GetForegroundWindow();
             window.Show();await window.PresentationStartup;Check();
@@ -182,6 +183,16 @@ internal static class OverlayStageProbe
         private bool DocumentContains(string marker)=>new TextRange(body!.Document.ContentStart,body.Document.ContentEnd).Text.Contains(marker,StringComparison.Ordinal);
         private async Task Next(){Check();await nextFrame.Task.WaitAsync(cancellation.Token);Check();}
 
+        private void ObserveMeasurement(OverlayMeasureObservation value)
+        {
+            if(journal.AddMeasurement(phase?.Id??0,mode,value)||measurementOverflowReported)return;
+            measurementOverflowReported=true;
+            Lifetime.Record("MeasurementBound",new InvalidOperationException("Original 512 measurement bound exceeded; diagnosis incomplete."));
+            // Called on the production timer stack: fail the original driver through its token,
+            // retaining the dispatcher and original close task rather than throwing out of this callback.
+            try{cancellation.Cancel();}catch(Exception error){Lifetime.Record("MeasurementCancel",error);}
+        }
+
         private OverlayProbeFrame Frame(long renderTicks)
         {
             var g=window!.PresentationGeometry??throw new InvalidOperationException("Production geometry disappeared.");
@@ -243,6 +254,7 @@ internal static class OverlayStageProbe
             if(constructionUnknown)return false;
             if(window!=null)
             {
+                window.PresentationMeasureObservedForTest=null;
                 bool requestOk=true;
                 if(closeRequested)throw new InvalidOperationException("A second close request is forbidden.");
                 closeRequested=true;
@@ -275,6 +287,7 @@ internal static class OverlayStageProbe
             QpcFrequency=Stopwatch.Frequency,OriginalDriverCompleted=Lifetime.Original.IsCompleted,OriginalCloseTaskCompleted=originalClose?.IsCompleted,
             ClosedObserved=closed.Task.IsCompletedSuccessfully,Lifetime.CloseConfirmed,Lifetime.CleanupConfirmed,Errors=Lifetime.Failures,
             Environment=environment,Phases=phases,RawCallbacks=journal.Samples.Count,DuplicateCallbacks=journal.Samples.Count(s=>s.DuplicateRenderingTime),
+            Measurements=journal.Measurements,journal.MeasurementOverflow,
             ApplyingCallbacks=journal.Samples.Count(s=>s.Frame.Applying),RasterReservedBytes=rasterBudget.Bytes,EvidenceFiles=files,
             Fixture="Synthetic neutral text; original programmatic Button.Click, not physical input",ModelCalls=0,ProductionPins="Unavailable",
             PerformanceAcceptance="NotEvaluated_RefreshUnknown_SeparateRasterPass",NotEvaluated=new[]{"B07 fifty cycles","DWM presentation","Physical keyboard/input latency","Mixed system DPI","All corners/monitor changes","Full product/installation"}};

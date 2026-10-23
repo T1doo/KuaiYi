@@ -30,6 +30,45 @@ namespace KuaiYi.Provider.Tests
 {
     public sealed class MarkdownProductionBridgeTests
     {
+        [Fact]public void MeasureProbeReportsInjectedBeforeAfterValuesAndBodyReturnWithoutChangingThem()
+        {
+            // Actual App methods with explicit data ports, NOT a WPF cache reproduction.
+            var w=Window();w.WithGeometry();var id=Begin(w,Guid.NewGuid(),"short neutral text");
+            var host=w.MarkdownMeasurement;host.IsMeasureValid=true;host.IsArrangeValid=false;
+            host.DesiredSize=new(388,296);host.ExtentHeight=629;host.ViewportHeight=296;
+            host.Document.SymbolLength=23;
+            host.MeasureForTest=()=>{host.DesiredSize=new(388,33);host.ExtentHeight=33;host.ViewportHeight=33;host.IsArrangeValid=true;};
+            var seen=new List<OverlayMeasureObservation>();w.PresentationMeasureObservedForTest=seen.Add;
+            w.OpenForTest();var value=Assert.Single(seen);
+            Assert.Equal(id.VersionId,value.Markdown.VersionBefore);Assert.Equal(id.VersionId,value.Markdown.VersionAfter);
+            Assert.Equal(18,value.Markdown.TextLengthBefore);Assert.Equal(18,value.Markdown.TextLengthAfter);
+            Assert.Equal(296,value.Markdown.Before.DesiredHeight);Assert.Equal(629,value.Markdown.Before.ExtentHeight);
+            Assert.Equal(33,value.Markdown.After.DesiredHeight);Assert.Equal(33,value.Markdown.After.ExtentHeight);
+            Assert.False(value.Markdown.Before.IsArrangeValid);Assert.True(value.Markdown.After.IsArrangeValid);
+            Assert.Equal(1,value.Markdown.After.DocumentBlocks);Assert.Equal(23,value.Markdown.After.DocumentSymbols);
+            Assert.Equal(80,value.ChromeHeightDip);Assert.Equal(113,value.ReturnedBodyPixels);Assert.Equal(113,value.CalculatedClampedHeightPixels);
+            Assert.Equal(host.LastMeasure.Width,value.Markdown.Constraint.WidthDip);Assert.Equal(host.LastMeasure.Height,value.Markdown.Constraint.MaximumHeightDip);
+            w.Frames!.Tick(TimeSpan.FromMilliseconds(220));Assert.Equal(113,w.Frames.Current.Height);
+            var next=Begin(w,Guid.NewGuid(),"next");host.MeasureForTest=null;host.DesiredSize=new(388,296);
+            w.OpenForTest();Assert.Equal(2,seen.Count);Assert.Equal(next.VersionId,seen[1].Markdown.VersionBefore);
+            Assert.Equal(4,seen[1].Markdown.TextLengthBefore);Assert.Equal(376,seen[1].ReturnedBodyPixels);
+            Assert.Equal(296,host.DesiredSize.Height);Assert.Equal(113,value.ReturnedBodyPixels);
+        }
+        [Fact]public void DisabledMeasureProbeDoesNotReadDiagnosticLayoutState()
+        {
+            var w=Window();w.WithGeometry();Begin(w,Guid.NewGuid(),"neutral");
+            w.MarkdownMeasurement.DesiredSize=new(388,33);w.OpenForTest();
+            Assert.Equal(0,w.MarkdownMeasurement.ValidityReads);Assert.Null(w.PresentationMeasureObservedForTest);
+            w.Frames!.Tick(TimeSpan.FromMilliseconds(220));Assert.Equal(113,w.Frames.Current.Height);
+        }
+        [Fact]public void MeasureProbeDoesNotTurnRevokedMeasurementIntoAnOpen()
+        {
+            var w=Window();w.WithGeometry();Begin(w,Guid.NewGuid(),"neutral");bool current=true;
+            var seen=new List<OverlayMeasureObservation>();w.PresentationMeasureObservedForTest=seen.Add;
+            w.MarkdownMeasurement.MeasureForTest=()=>current=false;w.OpenForTest(()=>current);
+            Assert.False(Assert.Single(seen).Markdown.CurrentAccepted);
+            Assert.Equal(OverlayTransition.Compact,w.Frames!.Transition);Assert.Equal(w.Frames.Anchor,w.Frames.Current);
+        }
         private static ShellWindow Window()
         {
             var window=new ShellWindow();window.InitializeMarkdown();var origin=new EndpointOrigin(new Uri("https://public.invalid"));

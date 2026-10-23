@@ -1815,3 +1815,5 @@ Settings导航修复产品76956cc5eabf24f6e765d8f22c2e60dc49fba227已正常push�
 父级已独审clock修复并授权一次既有Windows采样。新交付来源门仅绑定PARENT=FIXED=2ce69f410a6a6ca926eef5ca9a73d9271f15c069及原5文件范围；产品仍3a47f9b。只跑原来源方法正例/10拒绝子例并核真实clean Git门，独审后单次正常push；未重刷原18/4/17或构建。原进程/双EOF/目录观测和完整证据预算门保留，实际run/Tick/PNG/退出待回收，不自动重跑，不借记Windows或DWM通过。
 
 交付a8c84ae1aa34cefc0d539a3874e6c81a31dc105b已独审并通过真实clean来源门后唯一push；run39964336709/job120450151713创建13:48:58UTC，13:50:19普通页仍InProgress。本消费者正文需登录、原生文件0，交父级既有正常登录页回收，无新登录/被拒API/raw/download重试。准备原件Library libfile_7f89efbdb9ec81918b72ec321b176be6 v0，301702B/17成员16manifest，SHA25654eee03fc549d8d0893efbadf7b49cbc7bd52e0eaa18b4a860cdf200954ec086；仅1方法及投递证据，不能签原生效果或退出清理。
+
+最新39964336709原件已在本消费者环境Library物化、独核29文件49块及431源输入。Timing9阶段与RasterSeed完成，但第二轮同短文错误占420×376（第一轮420×113）；phase11长文确已更新，却被正确安全底边716限制而无可增长空间，45.237秒失败保留。原exit3/双EOF/目录Absent已核，inner cleanup true与outer false分列，不回填旧未知。尚无DesiredSize/extent记录，不能凭推测修WPF缓存。本片只补原生产测量的可空内部观测，工具512条上限取消原driver并保原close；不刷新布局/放宽中间态/改workflow或新CI。实际22P=新4+旧18端口/证据方法，交叉App+工具0W0E14.51秒；855输入一致，源码独审限定ACK。不是原生红绿或动画修复验收。见[新故障定位及最小剩余条件](validation/overlay-seed-clock.md#recovered-clock-fix-run-new-short-text-measurement-failure)。

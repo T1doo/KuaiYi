@@ -15,6 +15,7 @@ internal sealed record OverlayProbeSample(int Sequence,OverlayProbeFrame Frame,b
     public bool Eligible=>!DuplicateStableRenderingTime&&!QpcReversed&&!RenderingTimeReversed&&
         !Frame.Applying&&Frame.ObserverDepth==1&&StableGeometryValid;
 }
+internal sealed record OverlayProbeMeasurement(int Sequence,int Phase,string Mode,OverlayMeasureObservation Measurement);
 internal sealed class OverlayProbeJournal(int maximum=10000)
 {
     private readonly HashSet<long> renderingTimes=[];
@@ -22,6 +23,13 @@ internal sealed class OverlayProbeJournal(int maximum=10000)
     private long lastQpc=long.MinValue,lastRender=long.MinValue;
     private long? hwnd;private PixelRect? anchor;
     internal List<OverlayProbeSample> Samples{get;}=[];
+    internal List<OverlayProbeMeasurement> Measurements{get;}=[];
+    internal bool MeasurementOverflow{get;private set;}
+    internal bool AddMeasurement(int phase,string mode,OverlayMeasureObservation value)
+    {
+        if(Measurements.Count>=512){MeasurementOverflow=true;return false;}
+        Measurements.Add(new(Measurements.Count+1,phase,mode,value));return true;
+    }
     internal OverlayProbeSample Add(OverlayProbeFrame frame)
     {
         if(Samples.Count>=maximum)throw new InvalidOperationException("Raw callback bound exceeded; no samples discarded.");

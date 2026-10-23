@@ -66,7 +66,7 @@ namespace KuaiYi.App
         internal OverlayFrames? Frames=>overlayFrames;
         internal void WithGeometry()
         {overlayFrames=new(new(100,100,148,148),new("synthetic",new(0,0,1920,1040),new(1)));MarkdownMeasurement.DesiredSize=new(388,320);}
-        internal void OpenForTest()=>OpenBody();
+        internal void OpenForTest(Func<bool>? current=null)=>OpenBody(current);
         private bool IsVisible=true;
         private void ShowOverlay(){if(CanReadOriginalSource()&&!IsVisible){lifecycle.Gate.Disable();IsVisible=true;}}
         internal void ShowSourceForTest()=>ShowSelectionSource();

@@ -29,7 +29,12 @@ internal sealed partial class ShellWindow
     {
         if(overlayFrames==null)return 48;
         bool hasLabel=resultLabel.Text.Length>0;
-        return plan.Dpi.CeilingPixels(48+32+(hasLabel?20:0)+FailureNoticeHeight+MeasureMarkdown(plan,hasLabel,current));
+        double chrome=48+32+(hasLabel?20:0)+FailureNoticeHeight;
+        var observer=PresentationMeasureObservedForTest;MarkdownMeasureObservation? observation=null;
+        int pixels=plan.Dpi.CeilingPixels(chrome+MeasureMarkdown(plan,hasLabel,current,observer==null?null:value=>observation=value));
+        if(observer!=null&&observation!=null)observer(new(System.Diagnostics.Stopwatch.GetTimestamp(),observation,chrome,pixels,
+            plan.MaximumHeightPixels,Math.Clamp(pixels,plan.Anchor.Height,plan.MaximumHeightPixels),plan.Dpi.Factor));
+        return pixels;
     }
     private void OpenBody(Func<bool>? current=null){if(overlayFrames==null||current?.Invoke()==false)return;overlayFrames.OpenMeasured(Preferences(),plan=>MeasureBody(plan,current),current);if(current?.Invoke()==false)return;dirty=true;if(!flush.IsEnabled)flush.Start();StartFrames();}
     private void FlushResult()

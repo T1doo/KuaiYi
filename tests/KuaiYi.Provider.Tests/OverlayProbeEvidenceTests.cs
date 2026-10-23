@@ -1,4 +1,5 @@
 using KuaiYi.Core;
+using KuaiYi.App;
 using KuaiYi.GrowthHarness;
 using Xunit;
 
@@ -6,6 +7,18 @@ namespace KuaiYi.Provider.Tests;
 
 public sealed class OverlayProbeEvidenceTests
 {
+    [Fact]
+    public void MeasurementBoundIsExplicitAndCannotChangeFrameOrStageEvidence()
+    {
+        var journal=new OverlayProbeJournal();var state=new MarkdownMeasureState(true,false,388,296,629,296,1,25);
+        var observation=new OverlayMeasureObservation(19,new(Guid.NewGuid(),null,21,21,new(388,296),state,state,true),80,376,376,376,1);
+        for(int i=0;i<512;i++)Assert.True(journal.AddMeasurement(10,"Raster",observation));
+        Assert.False(journal.MeasurementOverflow);Assert.Empty(journal.Samples);
+        Assert.False(journal.AddMeasurement(11,"Raster",observation));Assert.True(journal.MeasurementOverflow);
+        Assert.False(journal.AddMeasurement(11,"Raster",observation));Assert.Equal(512,journal.Measurements.Count);
+        Assert.Equal(512,journal.Measurements[^1].Sequence);Assert.Equal(10,journal.Measurements[^1].Phase);
+        Assert.Same(observation,journal.Measurements[0].Measurement);Assert.Equal("Raster",journal.Measurements[0].Mode);
+    }
     private static readonly PixelRect Anchor=new(20,20,68,68),Work=new(0,0,1000,800),Half=new(20,20,180,160),Full=new(20,20,420,300);
     private static OverlayProbeFrame Frame(long qpc,long render,PixelRect card,OverlayTransition transition=OverlayTransition.Opening,bool needs=true,int phase=1)
         =>new(qpc,render,phase,"Timing",transition,needs,false,1,17,card,Anchor,Work,card,Anchor,GrowthDirection.RightDown,1,300,0,true);
