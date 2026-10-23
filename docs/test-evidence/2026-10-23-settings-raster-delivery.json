@@ -24,5 +24,42 @@
     "Sha256": "42b44fb34ccb99b228514b0421887c0ddf027d7ea98a0ede442374a8718b7250",
     "Members": 23,
     "SourceInputs": 398
+  },
+  "ParentReportedWindowsResult": {
+    "Provenance": "Trusted parent delegation; not independently materialized in this consumer workspace",
+    "ReportingThread": "01a16877-b4a3-76a1-9604-50db8d1fe025",
+    "SourceHead": "00a0e2a327fc35ef91738999d0400ca9a460a459",
+    "RunId": 39945729009,
+    "JobId": 120387796111,
+    "Retrieval": "Existing logged-in ordinary visible job log; no raw/download/API route",
+    "RunSucceeded": true,
+    "Status": "Pass_LimitedRaster",
+    "TimedOut": false,
+    "CleanupConfirmed": true,
+    "Cleanup": "OriginalHarnessExited",
+    "Errors": [],
+    "Commands": {
+      "Count": 17,
+      "AllExitZero": true,
+      "Meaning": "Command outcomes, not 17 test cases"
+    },
+    "Images": {
+      "Count": 4,
+      "ChunksRecovered": 30,
+      "ChunksExpected": 30,
+      "RawAndGzipDigestsVerifiedByParent": true,
+      "IndividualDigests": "Awaiting original evidence, not supplied in message"
+    },
+    "NonImageAttachments": "NotAllRecovered",
+    "WholeEvidencePackageRecovered": false,
+    "LibraryFileId": null,
+    "ConsumerMaterialization": "PendingFileIdentifier",
+    "ConsumerDigestVerification": "NotRun",
+    "PixelReview": "InProgressAtParent",
+    "DwmAnimationAcceptance": "NotRun",
+    "SystemDpiAcceptance": "NotRun",
+    "ProductChanges": false,
+    "NewDispatches": 0,
+    "CleanupBoundary": "Reported original harness exit and its owned settings state; not full product, installation, worker or OS-wide cleanup acceptance"
   }
 }

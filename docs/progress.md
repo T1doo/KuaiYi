@@ -1771,3 +1771,5 @@ SC B实际194文件+新catalog→原Read在旧合同真实拒绝，独审设计�
 Settings栅格准备定向签收：最终离线10P（不相加），工具最终交叉build0W/E3.56秒。三处夹具/owner审查问题已在投递前闭合，原失败日志保留；只读独审限定允许一次标准Windows CI。实际WPF运行和正文原件待回收，未提前签PNG通过。
 
 Settings栅格唯一CI实际投递并普通页面确认运行中：源00a0e2a327fc35ef91738999d0400ca9a460a459，run39945729009/job120387796111（2026-10-23 11:23:28 UTC启动）。本环境日志正文要求登录，未登录/绕路/API；父级既有正常登录页面回收待续。准备原件Library libfile_970349fcb3a48191b1538ebd2e1a1fdd v0，279822B/23成员，SHA25642b44fb34ccb99b228514b0421887c0ddf027d7ea98a0ede442374a8718b7250；8个Git源、398输入、原失败日志及最终10P/0W0E证据。没有PNG或Windows通过声明，不再次投递。
+
+Settings唯一Windows运行父级已核成功：run39945729009/job120387796111/source00a0e2a，Pass_LimitedRaster、TimedOut=false、CleanupConfirmed=true、OriginalHarnessExited、Errors=[]；17命令全exit0不当17测试。父级已回收四PNG30/30块并核raw/gzip摘要；非图附件未全取，不能签全包。消费者Library标识尚待，不假设父/tmp共享；像素审查进行中，不改产品/重投CI、不称DWM或真实DPI验收，pins不变。
