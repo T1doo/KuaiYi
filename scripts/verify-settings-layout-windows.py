@@ -14,12 +14,12 @@ import urllib.error
 import urllib.request
 import zipfile
 
-PARENT = "3d775f8140ea711558fdee4fe2192dcb28818d22"
+PARENT = "9d917d8d6072e0a642b74db62a2af86e4a87678e"
+# Reviewed navigation product76956cc is unchanged in this evidence-only parent.
+# Keeping FIXED at the direct parent preserves the original depth-two checkout.
 FIXED = PARENT
 BRANCH = "refs/heads/dev/p7-fixed-signoff"
 FILES = frozenset((".github/workflows/windows-warm-components.yml", "scripts/verify-settings-layout-windows.py",
-                  "scripts/probe-settings-desktop.ps1", "scripts/test_settings_layout_windows.py",
-                  "tools/KuaiYi.GrowthHarness/Program.cs", "tools/KuaiYi.GrowthHarness/SettingsLayoutProbe.cs",
                   "docs/progress.md", "docs/validation/settings-raster-windows.md"))
 PROJECTS = {"KuaiYi.App", "KuaiYi.Contracts", "KuaiYi.Core", "KuaiYi.Imaging", "KuaiYi.NativeHost",
             "KuaiYi.OleTransfer", "KuaiYi.Providers", "KuaiYi.Windows"}

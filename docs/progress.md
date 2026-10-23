@@ -1777,3 +1777,5 @@ Settings唯一Windows运行父级已核成功：run39945729009/job120387796111/s
 Settings四张实际PNG已消费者Library本地材料化、读取/哈希并view确认：窄窗当前导航项右裁，Font26导航约150px及图文错位。生产修复保原事件/Mask/事务：当前项在load/selection/size/font/generator后合并post-layout自动露出，epoch拒卸载迟到；不抢焦点/追逐手动滚动。单行图标文字居中、rail按有限实际测量高度给正文让位。定向9P旧7保留，源码独审限定ACK；Windows修后像素尚未执行。本轮不改workflow、不追加CI，等待差异独审再定一次复核。
 
 Settings导航修复产品76956cc5eabf24f6e765d8f22c2e60dc49fba227已正常push；原件Library libfile_740e74e3630881919188d59b3e32fed4 v0，1518621B，SHA256 6f001c0fd13400bbae23f6ca2f3f40188730d4a8b6d0289201664b5bb900237e，28成员/27摘要/9Git源码，含实际9P TRX/最终0W0E3.62秒交叉构建/四张修前PNG。源码独审ACK，修后原生selected-auto-reveal/像素仍NotRun，无新CI，不借记旧10P或DWM/DPI/生长流畅度。
+
+父级原件和源码限定ACK后授权一次必要导航Windows复核：固定直接父9d917d8d6072e0a642b74db62a2af86e4a87678e（产品/工具等同76956cc），原workflow仅显示名变化、脚本仅父/scope固定、两文档记范围；保原depth2、15min/45s/60s、签名审计及退出清理门。先观察生产auto-reveal后才fixture滚动；四图及原退出摘要沿普通日志正文回收，未回收不签视觉通过，失败不自动重投。本条仅准备，真实run另报。
