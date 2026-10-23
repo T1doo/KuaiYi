@@ -15,9 +15,9 @@ import urllib.error
 import urllib.request
 import zipfile
 
-PARENT = "294ce3f7911b24772bdbafe7ed6dbcac23864e3a"
-# Reviewed production stage tool and original-process wrapper are unchanged.
-# Keeping FIXED at the direct parent preserves the original depth-two checkout.
+PARENT = "d52199a7c3cce69a8c550166f2c40cc170e5382d"
+# Reviewed DesktopOnly correction; product/tool/wrapper bytes still match 294ce3f.
+# The exact parent identity and unchanged-input diff preserve depth-two checkout.
 FIXED = PARENT
 BRANCH = "refs/heads/dev/p7-fixed-signoff"
 FILES = frozenset((".github/workflows/windows-warm-components.yml", "scripts/verify-settings-layout-windows.py",

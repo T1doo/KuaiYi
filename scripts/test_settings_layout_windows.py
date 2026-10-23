@@ -84,13 +84,30 @@ class SettingsCiContracts(unittest.TestCase):
     def test_exact_source_scope_and_clean_tree(self):
         values = {"source-head": "a" * 40, "source-parent": "a" * 40 + " " + M.PARENT,
                   "source-scope": "\n".join(M.FILES), "source-clean": "", "fixed-product-source": ""}
-        run = lambda argv, name, timeout: values[name]
+        commands = []
+        def run(argv, name, timeout):
+            commands.append((argv, name, timeout))
+            return values[name]
         self.assertEqual("a" * 40, M.source_gate(run, "a" * 40))
-        for name, replacement in [("source-parent", "a" * 40 + " " + "b" * 40), ("source-scope", "wrong"),
-                                  ("source-clean", " M unexpected"), ("fixed-product-source", "src/changed.cs")]:
-            old = values[name]; values[name] = replacement
-            with self.assertRaises(RuntimeError): M.source_gate(run, "a" * 40)
-            values[name] = old
+        self.assertEqual(5, len(commands))
+        self.assertEqual(["git", "diff", "--name-only", M.PARENT, "HEAD"], commands[2][0])
+        self.assertEqual(["git", "diff", "--name-only", M.FIXED, "HEAD", "--", "src", "tests", "packaging",
+                          "tools/KuaiYi.GrowthHarness", "scripts/overlay_stage_runner.py", "global.json",
+                          "Directory.Build.props", "Directory.Packages.props", "NuGet.Config"], commands[4][0])
+        self.assertTrue(all(timeout == 15 for _, _, timeout in commands))
+        files = sorted(M.FILES)
+        failures = [("source-head", "b" * 40), ("source-parent", "a" * 40 + " " + "b" * 40),
+                    ("source-parent", "a" * 40 + " " + M.PARENT + " " + "b" * 40),
+                    ("source-scope", "\n".join(files[:-1])), ("source-scope", "\n".join(files + ["foreign.txt"])),
+                    ("source-scope", "\n".join(files[:-1] + [files[0]])), ("source-clean", " M unexpected")]
+        failures += [("fixed-product-source", path) for path in
+                     ("src/changed.cs", "tools/KuaiYi.GrowthHarness/Program.cs", "scripts/overlay_stage_runner.py")]
+        for name, replacement in failures:
+            with self.subTest(field=name, value=replacement):
+                old = values[name]; values[name] = replacement
+                try:
+                    with self.assertRaises(RuntimeError): M.source_gate(run, "a" * 40)
+                finally: values[name] = old
 
 
 class OverlayEvidenceIntegrationTests(unittest.TestCase):
