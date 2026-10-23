@@ -1,4 +1,4 @@
-name: One fixed native payload Windows build
+name: One fixed production settings WPF raster
 on:
   push:
     branches: [dev/p7-fixed-signoff]
@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
 jobs:
-  native-payload-build:
+  settings-raster:
     if: ${{ github.repository == 'T1doo/KuaiYi' && github.event_name == 'push' && github.ref == 'refs/heads/dev/p7-fixed-signoff' && github.event.repository.private == false && github.run_attempt == '1' }}
     runs-on: windows-2022
     timeout-minutes: 15
@@ -23,11 +23,11 @@ jobs:
           fetch-depth: 2
           persist-credentials: false
           set-safe-directory: false
-      - name: Build four native payload DLLs with preinstalled tools only
+      - name: Render four production settings views with approved job-local SDK
         timeout-minutes: 14
         shell: pwsh
         run: |
           $ErrorActionPreference='Stop'
           $python=(Get-Command python -CommandType Application -ErrorAction Stop | Select-Object -First 1).Source
-          & $python -I -B ./scripts/build-payload-native-windows.py
+          & $python -I -B ./scripts/verify-settings-layout-windows.py
           exit $LASTEXITCODE
