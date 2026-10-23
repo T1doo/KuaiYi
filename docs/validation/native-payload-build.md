@@ -11,3 +11,15 @@
 七角色App/NativeHost/CaptureBroker/ClipboardHost/CaptureHost/OleReceiver/ImageWorker及Launcher自包含发布可在既有云端SDK402和严格验签runtime13条件下独立推进，不需用户SDK；真实G/B封存仍要求源闭包和实际资格门。四native构建/托管publish都不能自动生成合法扩展origin或审定pins，Installer保持Unavailable，完整安装、READY/恢复、真实Windows用户交互、250/600ms尚未由此验证。
 
 官方依据：[镜像工具清单](https://github.com/actions/runner-images/blob/main/images/windows/Windows2022-Readme.md)、[public标准runner免费范围](https://docs.github.com/en/billing/concepts/product-billing/github-actions)。公开仓库metadata本次实际read成功（visibility public，非archived）；不将仓库admin metadata解释成未测的Actions endpoint权限。
+
+## 2026-10-23 正常日志正文回收及消费者独立核验
+
+此前“原件未回收”为历史状态；这一具体阻塞现已关闭。父级使用已有登录的普通job页面正文取得原FILE/CHUNK，不使用被拒download/raw/API路径。本消费者环境独立通过Library材料化，未假设父级临时目录共享。
+
+Library `libfile_832f9b13205c81919c08be209f93db84` v0，`kuaiyi-ci-39909049792-evidence.zip`，345446字节、3JSON；ZIP SHA256 `6587b905d2ca37f13bc92ae306d03fdb495dd7b73046507ec6f5ee5143c5cc62`。CRC、唯一成员及原正文SHA256 `69723d2eac65dbdd088b666c9a1a665738ffa5b75b4f81b9a0b59d4019c4ee85` 均核。原job为120267538766/run39909049792，source `147ab977b3725b15d35e55b0efb01110edb9d297`。
+
+消费者自行重组20 FILE/71 CHUNK：原顺序/连续序号/总数、严格base64、gzip长度和SHA、单gzip完整结束、raw长度和SHA、summary完整清单和合计全部通过；raw710057字节、gzip335693字节。四DLL与native-products长度/hash/source/toolset/SDK逐项一致，PE头只读核AMD64/PE32+/DLL标志。原两个CTest XML各1通过仅为历史执行记录，本轮未重跑。原运行facts实际为Server2022/high IL/session2/WinSta0/Default/单屏96DPI、DesktopBlockers空；Sdk字段null，不能声称预装SDK402可用。
+
+四个native源码目录从147ab到消费者HEAD `bf479ec6d2bb3c488e9fdf5bb1037caeb6df246b` 无diff。独立消费收据见[JSON](../test-evidence/2026-10-23-native-ci-consumer.json)，解码原件保存在当前workspace `artifacts/2026-10-23-native-ci-recovery/decoded/`，没有加载、执行或安装DLL。
+
+本结果只解除原件缺失与回收通路未证明两项阻塞，不代表完整payload资格、origin/G/B pins、签名、真实安装、READY或WPF UI通过；ProductionPins仍Unavailable、WindowsAppAcceptance仍NotRun。没有新CI运行。后续生产UI证据可沿相同普通日志正文通道回收，须绑定新job/source、保持原有界分片/摘要门及独立消费者核验；当前已有workflow仍仅原生构建，不能直接当作UI入口重跑。

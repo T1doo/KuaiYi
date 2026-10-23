@@ -1,0 +1,264 @@
+{
+  "status": "Verified_AllFilesAndNativeProductBinding",
+  "libraryId": "libfile_832f9b13205c81919c08be209f93db84",
+  "libraryVersion": 0,
+  "archiveSha256": "6587b905d2ca37f13bc92ae306d03fdb495dd7b73046507ec6f5ee5143c5cc62",
+  "visibleBodySha256": "69723d2eac65dbdd088b666c9a1a665738ffa5b75b4f81b9a0b59d4019c4ee85",
+  "source": "https://github.com/T1doo/KuaiYi/actions/runs/39909049792/job/120267538766",
+  "sourceHead": "147ab977b3725b15d35e55b0efb01110edb9d297",
+  "consumerHead": "bf479ec6d2bb3c488e9fdf5bb1037caeb6df246b",
+  "files": [
+    {
+      "name": "native-build",
+      "bytes": 555,
+      "sha256": "9a2a032bf8389911555888dab03fe0fec56d6077278b95e9aedfa14240096356",
+      "chunks": 1,
+      "checks": "sequence/base64/gzip-size/gzip-hash/single-gzip-eof/raw-size/raw-hash:Pass"
+    },
+    {
+      "name": "CaptureNative-build.log",
+      "bytes": 1187,
+      "sha256": "f635829736a09e1d27bc97175c13ee780939b54e1c62e7e7f785cbb0b065c20c",
+      "chunks": 1,
+      "checks": "sequence/base64/gzip-size/gzip-hash/single-gzip-eof/raw-size/raw-hash:Pass"
+    },
+    {
+      "name": "CaptureNative-configure.log",
+      "bytes": 565,
+      "sha256": "fb09479da604680a713b54ab0778891eddd1352904ed1b02bd1e56717dc992f5",
+      "chunks": 1,
+      "checks": "sequence/base64/gzip-size/gzip-hash/single-gzip-eof/raw-size/raw-hash:Pass"
+    },
+    {
+      "name": "CaptureNative-ctest.log",
+      "bytes": 458,
+      "sha256": "495d7ed5f75926aef0022ef299c178a01f40a8d7ee49594547c2bd3bf87d5f9d",
+      "chunks": 1,
+      "checks": "sequence/base64/gzip-size/gzip-hash/single-gzip-eof/raw-size/raw-hash:Pass"
+    },
+    {
+      "name": "CaptureNative-ctest.xml",
+      "bytes": 475,
+      "sha256": "8f2e69170d0668d0b590901e10405b6541611f9231fa6b188e9ba745ba58b421",
+      "chunks": 1,
+      "checks": "sequence/base64/gzip-size/gzip-hash/single-gzip-eof/raw-size/raw-hash:Pass"
+    },
+    {
+      "name": "KuaiYi.CaptureNative.dll",
+      "bytes": 156672,
+      "sha256": "f7b6322a9c04b56d049a24481612740bbd32707bae19fc4d3f851db3cd57cba9",
+      "chunks": 12,
+      "checks": "sequence/base64/gzip-size/gzip-hash/single-gzip-eof/raw-size/raw-hash:Pass"
+    },
+    {
+      "name": "KuaiYi.OcrNative.dll",
+      "bytes": 279040,
+      "sha256": "7abd78c577036158532c2b30c76591cc92822797e162f083f32c066cbaf5ff24",
+      "chunks": 22,
+      "checks": "sequence/base64/gzip-size/gzip-hash/single-gzip-eof/raw-size/raw-hash:Pass"
+    },
+    {
+      "name": "KuaiYi.OleNativeBridge.dll",
+      "bytes": 116224,
+      "sha256": "7529f8153c447fa83b063fdcf7cf9bee965629689878103db0de3e12d237d56b",
+      "chunks": 10,
+      "checks": "sequence/base64/gzip-size/gzip-hash/single-gzip-eof/raw-size/raw-hash:Pass"
+    },
+    {
+      "name": "KuaiYi.ShellExtension.dll",
+      "bytes": 141824,
+      "sha256": "1c08ef7e72fea5dcce7c92e695bbd775dd9ba7f85e3e4bba131e0ba0b37424b0",
+      "chunks": 11,
+      "checks": "sequence/base64/gzip-size/gzip-hash/single-gzip-eof/raw-size/raw-hash:Pass"
+    },
+    {
+      "name": "native-commands.json",
+      "bytes": 5276,
+      "sha256": "30c24ee92c20d088f3f02f6e50570963eb0fd8588d74ad34c85b617405e2a25c",
+      "chunks": 1,
+      "checks": "sequence/base64/gzip-size/gzip-hash/single-gzip-eof/raw-size/raw-hash:Pass"
+    },
+    {
+      "name": "native-facts.json",
+      "bytes": 1445,
+      "sha256": "e468d6726dc56d3e0ec10403b6869568058c3b6fe5d7cdd109b15f2b7682782f",
+      "chunks": 1,
+      "checks": "sequence/base64/gzip-size/gzip-hash/single-gzip-eof/raw-size/raw-hash:Pass"
+    },
+    {
+      "name": "native-products.json",
+      "bytes": 1144,
+      "sha256": "5dfafc9e4dc35b50f97c925744d3619b90f32e2cb388bc41847c253d3c54fd13",
+      "chunks": 1,
+      "checks": "sequence/base64/gzip-size/gzip-hash/single-gzip-eof/raw-size/raw-hash:Pass"
+    },
+    {
+      "name": "OcrNative-build.log",
+      "bytes": 715,
+      "sha256": "95bafdba5fc4933bbe2bf1c0e2ed5e395369f0b4732b786b02ed118dcf97f764",
+      "chunks": 1,
+      "checks": "sequence/base64/gzip-size/gzip-hash/single-gzip-eof/raw-size/raw-hash:Pass"
+    },
+    {
+      "name": "OcrNative-configure.log",
+      "bytes": 560,
+      "sha256": "3414c174d3b37d6c5434921866e816672b640a8c1ba4808e39dfae4f0dbe0f34",
+      "chunks": 1,
+      "checks": "sequence/base64/gzip-size/gzip-hash/single-gzip-eof/raw-size/raw-hash:Pass"
+    },
+    {
+      "name": "OleNativeBridge-build.log",
+      "bytes": 777,
+      "sha256": "ba3fc233b4ccac947c1439d0780001c261fb42976530d6883957e08d213f39b1",
+      "chunks": 1,
+      "checks": "sequence/base64/gzip-size/gzip-hash/single-gzip-eof/raw-size/raw-hash:Pass"
+    },
+    {
+      "name": "OleNativeBridge-configure.log",
+      "bytes": 566,
+      "sha256": "42bbde87506c199a9c85da1d65806f1afd4c1551accd953f72650e0a72df9cda",
+      "chunks": 1,
+      "checks": "sequence/base64/gzip-size/gzip-hash/single-gzip-eof/raw-size/raw-hash:Pass"
+    },
+    {
+      "name": "ShellExtension-build.log",
+      "bytes": 1209,
+      "sha256": "55dac8c40762bf7dc6df3c3f843b153399c98d1602f343ab28b29d70fa8a4b8e",
+      "chunks": 1,
+      "checks": "sequence/base64/gzip-size/gzip-hash/single-gzip-eof/raw-size/raw-hash:Pass"
+    },
+    {
+      "name": "ShellExtension-configure.log",
+      "bytes": 565,
+      "sha256": "157230cfd4ba8576d986d37248ec1d254b46762f6f2c1b4c57a0483660cec01b",
+      "chunks": 1,
+      "checks": "sequence/base64/gzip-size/gzip-hash/single-gzip-eof/raw-size/raw-hash:Pass"
+    },
+    {
+      "name": "ShellExtension-ctest.log",
+      "bytes": 450,
+      "sha256": "1cfc442548d2e2339c74eac66e79d4aafc5da2d4882279efd309d46e2107f4df",
+      "chunks": 1,
+      "checks": "sequence/base64/gzip-size/gzip-hash/single-gzip-eof/raw-size/raw-hash:Pass"
+    },
+    {
+      "name": "ShellExtension-ctest.xml",
+      "bytes": 350,
+      "sha256": "03f24fc5492fbbe6efbdd623347b2a65271a184c290b4ce188efa96b2aa8fad3",
+      "chunks": 1,
+      "checks": "sequence/base64/gzip-size/gzip-hash/single-gzip-eof/raw-size/raw-hash:Pass"
+    }
+  ],
+  "fileCount": 20,
+  "chunkCount": 71,
+  "rawBytes": 710057,
+  "gzipBytes": 335693,
+  "peHeaders": [
+    {
+      "name": "KuaiYi.CaptureNative.dll",
+      "machine": "AMD64",
+      "optionalHeader": "PE32+",
+      "dllFlag": true,
+      "bytes": 156672,
+      "sha256": "f7b6322a9c04b56d049a24481612740bbd32707bae19fc4d3f851db3cd57cba9",
+      "executed": false
+    },
+    {
+      "name": "KuaiYi.OcrNative.dll",
+      "machine": "AMD64",
+      "optionalHeader": "PE32+",
+      "dllFlag": true,
+      "bytes": 279040,
+      "sha256": "7abd78c577036158532c2b30c76591cc92822797e162f083f32c066cbaf5ff24",
+      "executed": false
+    },
+    {
+      "name": "KuaiYi.OleNativeBridge.dll",
+      "machine": "AMD64",
+      "optionalHeader": "PE32+",
+      "dllFlag": true,
+      "bytes": 116224,
+      "sha256": "7529f8153c447fa83b063fdcf7cf9bee965629689878103db0de3e12d237d56b",
+      "executed": false
+    },
+    {
+      "name": "KuaiYi.ShellExtension.dll",
+      "machine": "AMD64",
+      "optionalHeader": "PE32+",
+      "dllFlag": true,
+      "bytes": 141824,
+      "sha256": "1c08ef7e72fea5dcce7c92e695bbd775dd9ba7f85e3e4bba131e0ba0b37424b0",
+      "executed": false
+    }
+  ],
+  "nativeProducts": [
+    {
+      "Path": "KuaiYi.CaptureNative.dll",
+      "Bytes": 156672,
+      "Sha256": "f7b6322a9c04b56d049a24481612740bbd32707bae19fc4d3f851db3cd57cba9",
+      "SourceHead": "147ab977b3725b15d35e55b0efb01110edb9d297",
+      "Toolset": "14.44.35207",
+      "WindowsSdk": "10.0.26100.0"
+    },
+    {
+      "Path": "KuaiYi.OcrNative.dll",
+      "Bytes": 279040,
+      "Sha256": "7abd78c577036158532c2b30c76591cc92822797e162f083f32c066cbaf5ff24",
+      "SourceHead": "147ab977b3725b15d35e55b0efb01110edb9d297",
+      "Toolset": "14.44.35207",
+      "WindowsSdk": "10.0.26100.0"
+    },
+    {
+      "Path": "KuaiYi.OleNativeBridge.dll",
+      "Bytes": 116224,
+      "Sha256": "7529f8153c447fa83b063fdcf7cf9bee965629689878103db0de3e12d237d56b",
+      "SourceHead": "147ab977b3725b15d35e55b0efb01110edb9d297",
+      "Toolset": "14.44.35207",
+      "WindowsSdk": "10.0.26100.0"
+    },
+    {
+      "Path": "KuaiYi.ShellExtension.dll",
+      "Bytes": 141824,
+      "Sha256": "1c08ef7e72fea5dcce7c92e695bbd775dd9ba7f85e3e4bba131e0ba0b37424b0",
+      "SourceHead": "147ab977b3725b15d35e55b0efb01110edb9d297",
+      "Toolset": "14.44.35207",
+      "WindowsSdk": "10.0.26100.0"
+    }
+  ],
+  "windowsAppAcceptance": "NotRun",
+  "executedDlls": false,
+  "newCiRuns": 0,
+  "productPins": "Unavailable",
+  "nativeProductsMatchBytesAndSource": true,
+  "nativeSourceTreesUnchangedToConsumerHead": true,
+  "nativeSourcePaths": [
+    "src/KuaiYi.CaptureNative",
+    "src/KuaiYi.OcrNative",
+    "src/KuaiYi.OleNativeBridge",
+    "src/KuaiYi.ShellExtension"
+  ],
+  "historicalCTestXml": [
+    {
+      "file": "CaptureNative-ctest.xml",
+      "tests": 1,
+      "names": [
+        "GdiReadOrderingContract"
+      ],
+      "historicalExecutionOnly": true
+    },
+    {
+      "file": "ShellExtension-ctest.xml",
+      "tests": 1,
+      "names": [
+        "CommandPolicy"
+      ],
+      "historicalExecutionOnly": true
+    }
+  ],
+  "remaining": [
+    "No DLL execution or dynamic loading in consumer",
+    "Not a complete or signed Windows product payload",
+    "Production origin/G/B pins qualification unchanged",
+    "No native WPF UI execution or new CI in this step"
+  ]
+}

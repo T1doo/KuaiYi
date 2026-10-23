@@ -1763,3 +1763,5 @@ SC B实际194文件+新catalog→原Read在旧合同真实拒绝，独审设计�
 固定产品b2ac823ed7b1b45aee2e6dda7001080a1ddf91e9最终App交叉构建0W/E、25.27s，487个测试后输入与固定源码逐项一致；7P为同字节候选测试，没有重复。原6P1F日志/完整TRX与初始测试文件保留。实际WPF像素/键盘/200%和旧平台门仍NotRun。
 
 固定树与原件独审限定ACK：26唯一ZIP成员/25manifest/11源码、487捕获输入与Git、两个DLL本体及原6P1F/最终7P完整TRX均核；App0W/E25.27秒。Library libfile_a3d05462cb7c81919c6f37fba2d86cda v0，1,107,931B，SHA2569829e1f99424c8feeeea6260ca01b9ad9294cb79c6b10c860358ebd5b2e406dd。证据不称同文件产品红绿、WPF原生渲染或可运行成品。
+
+2026-10-23四DLL原件阻塞实际关闭：父级正常登录job正文回收后，原环境Library材料化libfile_832f9b13205c81919c08be209f93db84 v0，345446B/3JSON，ZIP SHA2566587b905d2ca37f13bc92ae306d03fdb495dd7b73046507ec6f5ee5143c5cc62。消费者独立核20FILE/71CHUNK全部序号、base64/gzip/raw长度与摘要、summary合计及native-products四DLL源147ab；仅PE头只读，不执行DLL。四native源码到bf479无diff；原2CTest为历史记录不重跑。正常正文回收通路已证明，不再泛称证据不可取回；旧被拒API不重试。未启新CI，完整origin/G/B/签名/安装/READY/WPF UI与250600未验，pins不变。见[native回收收据](validation/native-payload-build.md)。
