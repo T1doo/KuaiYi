@@ -82,7 +82,7 @@ class SettingsCiContracts(unittest.TestCase):
             with self.assertRaises(RuntimeError): M.hosted_context(changed, platform, event)
 
     def test_exact_source_scope_and_clean_tree(self):
-        self.assertEqual("2ce69f410a6a6ca926eef5ca9a73d9271f15c069", M.PARENT)
+        self.assertEqual("320615c59c72a119a0975d9f82c5e38d748678a0", M.PARENT)
         self.assertEqual(M.PARENT, M.FIXED)
         values = {"source-head": "a" * 40, "source-parent": "a" * 40 + " " + M.PARENT,
                   "source-scope": "\n".join(M.FILES), "source-clean": "", "fixed-product-source": ""}

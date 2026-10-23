@@ -1,5 +1,5 @@
-name: One fixed production overlay sample after Begin clock correction
-run-name: Overlay stages Begin clock 3a47f9b / ${{ github.sha }}
+name: One fixed production overlay measurement diagnosis
+run-name: Overlay original measurement 2a04c83 / ${{ github.sha }}
 on:
   push:
     branches: [dev/p7-fixed-signoff]

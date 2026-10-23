@@ -15,8 +15,8 @@ import urllib.error
 import urllib.request
 import zipfile
 
-PARENT = "2ce69f410a6a6ca926eef5ca9a73d9271f15c069"
-# Reviewed Begin clock and independent state observation; inputs match 3a47f9b.
+PARENT = "320615c59c72a119a0975d9f82c5e38d748678a0"
+# Reviewed optional original measurement observation; inputs match 2a04c83.
 # The exact parent identity and unchanged-input diff preserve depth-two checkout.
 FIXED = PARENT
 BRANCH = "refs/heads/dev/p7-fixed-signoff"
