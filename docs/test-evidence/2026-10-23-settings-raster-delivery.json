@@ -149,5 +149,56 @@
       "ManifestEntries": 27,
       "SourceBindings": 9
     }
+  },
+  "NavigationRecheckAttempt1": {
+    "SourceHead": "b4e642230b1fda315e34404eeb0fa134e14a5b05",
+    "ProductSource": "76956cc5eabf24f6e765d8f22c2e60dc49fba227",
+    "FixedBaseline": "9d917d8d6072e0a642b74db62a2af86e4a87678e",
+    "RunId": 39948580823,
+    "JobId": 120397194532,
+    "JobPage": "https://github.com/T1doo/KuaiYi/actions/runs/39948580823/job/120397194532",
+    "ObservedState": {
+      "status": "WORKFLOW_RUN_STATUS_IN_PROGRESS"
+    },
+    "CreatedAt": "2026-10-23T11:47:36Z",
+    "DeliveryCount": 1,
+    "RepeatedDispatches": 0,
+    "Observation": "Ordinary public HTML page; current executor not logged in",
+    "Logs": "Sign in to view logs; no login/raw/download/API attempt",
+    "Result": "PendingParentOrdinaryLogRecovery",
+    "Pngs": "NotRetrieved",
+    "NativeAcceptance": "NotClaimed",
+    "LocalCheck": "Exact source-scope test1P plus actual frozen Git source_gate; no product tests rerun",
+    "Limits": {
+      "JobMinutes": 15,
+      "StepMinutes": 14,
+      "WorkMinutes": 12,
+      "DriverSeconds": 45,
+      "OriginalProcessSeconds": 60
+    },
+    "PageEvidence": [
+      {
+        "File": "workflow-page.html",
+        "Bytes": 262832,
+        "Sha256": "a3c08605c88d7536c9de5731d2ae8ccc75eac1bc620670012461b9533240ed42"
+      },
+      {
+        "File": "run-page.html",
+        "Bytes": 195074,
+        "Sha256": "20b3ae360a69e6502ae9fe4b0a502cfa2f76afdb1291fdf3b1b6bddddabe537b"
+      }
+    ],
+    "LocalEvidence": [
+      {
+        "File": "r01-scope-test.log",
+        "Bytes": 233,
+        "Sha256": "382b2834d2d596f3f14cec7470ced1db32d8527e1a43cf92417f4e7b90e0f203"
+      },
+      {
+        "File": "fixed-source-gate.json",
+        "Bytes": 1761,
+        "Sha256": "908c8bdc4fc4aa80eba676440383f5aa7d8a1bfce512cd345a5e4df35a35a8bd"
+      }
+    ]
   }
 }

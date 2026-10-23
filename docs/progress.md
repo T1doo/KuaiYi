@@ -1779,3 +1779,5 @@ Settings四张实际PNG已消费者Library本地材料化、读取/哈希并view
 Settings导航修复产品76956cc5eabf24f6e765d8f22c2e60dc49fba227已正常push；原件Library libfile_740e74e3630881919188d59b3e32fed4 v0，1518621B，SHA256 6f001c0fd13400bbae23f6ca2f3f40188730d4a8b6d0289201664b5bb900237e，28成员/27摘要/9Git源码，含实际9P TRX/最终0W0E3.62秒交叉构建/四张修前PNG。源码独审ACK，修后原生selected-auto-reveal/像素仍NotRun，无新CI，不借记旧10P或DWM/DPI/生长流畅度。
 
 父级原件和源码限定ACK后授权一次必要导航Windows复核：固定直接父9d917d8d6072e0a642b74db62a2af86e4a87678e（产品/工具等同76956cc），原workflow仅显示名变化、脚本仅父/scope固定、两文档记范围；保原depth2、15min/45s/60s、签名审计及退出清理门。先观察生产auto-reveal后才fixture滚动；四图及原退出摘要沿普通日志正文回收，未回收不签视觉通过，失败不自动重投。本条仅准备，真实run另报。
+
+导航修复唯一原生复核已正常投递源b4e642230b1fda315e34404eeb0fa134e14a5b05：run39948580823/job120397194532，普通页面确认2026-10-23T11:47:36Z启动，初始InProgress。投递前真实Git来源门通过及相关scope1P，不重复旧套件。本环境普通job正文需登录，未登录/绕raw下载API/重投；父级现有登录页面需回收四PNG与原状态/退出摘要。实际结果和修后像素尚待，不签DWM或真实DPI。
