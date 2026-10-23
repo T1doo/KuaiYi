@@ -28,3 +28,9 @@ Initial wrong SDK401 selection and wrong CLI home failed before compilation; ori
 - `r06-offline.log`: 1419 bytes, SHA256 `df263c30ceabdb121c762a1856939d8331ac72e7d1a204dbc10b770fa568a83d`.
 - `r07-crossbuild.log`: 1020 bytes, SHA256 `7519fc0e9b0307d662a24f0f9f956ab2101bc9a40a063e3e5cb2a654a8e0fe56`.
 - `r08-offline.log`: 1419 bytes, SHA256 `77f757d7056b2ddfb88464acf4befb838d953b53236f110665f89e1f37de76ca`.
+
+## One actual dispatch, original result pending
+
+Source `00a0e2a327fc35ef91738999d0400ca9a460a459` was normally pushed once. The ordinary public page confirmed [run39945729009/job120387796111](https://github.com/T1doo/KuaiYi/actions/runs/39945729009/job/120387796111) in progress, started2026-10-23 11:23:28 UTC. This environment sees Sign in to view logs; no login, API, raw or download attempt follows. The parent’s already proven logged-in ordinary page is the pending original evidence route. No replay/rerun is requested.
+
+Preparation originals: Library `libfile_970349fcb3a48191b1538ebd2e1a1fdd` v0, `kuaiyi-settings-raster-preparation-00a0e2a.zip`,279822B,23members,SHA256 `42b44fb34ccb99b228514b0421887c0ddf027d7ea98a0ede442374a8718b7250`. Includes8Git-source blobs,398input hashes, original failed logs, final10offline tests and crossbuild DLL/log. It contains no Windows PNGs and is not Windows acceptance.
