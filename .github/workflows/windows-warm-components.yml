@@ -1,5 +1,5 @@
-name: One fixed production settings WPF raster
-run-name: Settings navigation 76956cc review / ${{ github.sha }}
+name: One fixed production overlay stage sample
+run-name: Overlay stages b334c84 with owned runner 41be15b / ${{ github.sha }}
 on:
   push:
     branches: [dev/p7-fixed-signoff]
@@ -7,7 +7,7 @@ on:
 permissions:
   contents: read
 jobs:
-  settings-raster:
+  overlay-stages:
     if: ${{ github.repository == 'T1doo/KuaiYi' && github.event_name == 'push' && github.ref == 'refs/heads/dev/p7-fixed-signoff' && github.event.repository.private == false && github.run_attempt == '1' }}
     runs-on: windows-2022
     timeout-minutes: 15
@@ -24,7 +24,7 @@ jobs:
           fetch-depth: 2
           persist-credentials: false
           set-safe-directory: false
-      - name: Render four production settings views with approved job-local SDK
+      - name: Sample production overlay stages with retained process ownership
         timeout-minutes: 14
         shell: pwsh
         run: |
