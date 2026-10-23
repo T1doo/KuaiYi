@@ -9,3 +9,11 @@
 新两正例将实际原配置放入source并重算catalog pin，走真实Store.Apply/ReadActive/安装后原字节比较；native/runtime其余输入仍为明确结构夹具，不能签可运行成品。新8负例改为missing/duplicate/extra/version后也重算源pin，要求Apply拒绝且current不存在。同完整testfile在原生产门2F，均精确Runtime framework contract mismatch；修后整类46P（新10+原36），不重刷旧153、不混不同轮次。原件/输入摘要保留；冻结后真实构建/回归和publish结果另列，不用候选测试签冻结树。
 
 WPF零包角色package-list原CLI错误未绕作通过，本次artifact准备使用实际零包assets替代证明，生产准备gate不变。完整G/B资格、实际扩展origin、审定pins、真实native/runtime执行/安装/READY和250/600ms仍未签，Installer保持Unavailable。
+
+固定产品`a32854dde197f38fbef1e4672c171bc726633819`最终签收：原三类一次102P/0F/0skip（Payload46+BPreparation30+SC26），没有累计不同轮。先明确正常locked restore/build FD Launcher，再执行B族；原58P19F和后续31P分开保留。940项源码输入before/after/Git一致，八真实self-contained restore/publish全0，八份Core及测试Core字节一致。ImageWorker固定实际3包inventory/official audit通过，包原档/strict verify收据另存。
+
+SC deps的后续最小修复见[精确生产者合同](../design/selfcontained-bootstrap-contract.md)。最终实际B194文件+catalog经原Read接受，source SHA`30894F310FE35A518B24B3369F2AF84AAA93807038478C0A72AFF99BC591C729`；Generation仅未封存Core字节绑定，不是G安装。实际改hostfxr和改graph的两负源各重新计算完整catalog/source pin，分别被固定runtime字节门和ExactJson拒绝。旧E4BE…源只是此前红绿原件，不混为最终source pin。
+
+实际未封存输入已保存Library `libfile_ba7a2fa674648191bbb09eebf6a6d0f5` v0（101487665B、SHA256`0487e8be321cafdcd9d61af2815451f8a329db3763214cc0e3c75b6afdfe257a`）。其中G473文件没有catalog/源pin、缺四native及真实origin；B194+catalog、409runtime全绑定。明确DoNotRun/NotInstallable，不是今日端用户成品或发布。原件Library `libfile_f56348701a6c81919a89c366718c8d3f` v0（951665B、SHA256`523b19c6eb6f5197d02dd5e8d9b9ab1f83fb240b1bbeb32d7f6843f43dde4550`），217成员、216manifest、16Git源；不含DLL本体，实际二进制在前一Library。
+
+四native已用源`147ab977b3725b15d35e55b0efb01110edb9d297`普通push投递唯一既有免费Windows CI，四原生源到最终产品无diff。没有读取被拒Actions/runner API，也没有新工具安装/权限/凭据/费用；run/job实际结果及4DLL原件尚未回收，不能称构建通过。父级须沿既有正常页面取得原KUAIYI_NATIVE_PAYLOAD和完整FILE/CHUNK再核hash，不能猜job链接或盲重跑。完整G资格、真实origin/审定G/B pins、身份/可信签名和实际安装/READY/退出、250/600ms仍分别未验，生产Installer pins保持Unavailable。Growth工具因OS派生缓存外写无法满足纯Etemp合同不在用户电脑启动。

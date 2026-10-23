@@ -1,0 +1,124 @@
+{
+  "ProductSource": "a32854dde197f38fbef1e4672c171bc726633819",
+  "NativeCiSource": "147ab977b3725b15d35e55b0efb01110edb9d297",
+  "NativeCiRequest": "NormalPushSucceeded_ActualRunOutcomeAndRetrievalUnknown",
+  "NativeSourceDiffFromCiToProduct": false,
+  "FinalTests": {
+    "Passed": 102,
+    "Failed": 0,
+    "Skipped": 0,
+    "Classes": {
+      "InstallationPayloadTests": 46,
+      "InstallationBootstrapPreparationTests": 30,
+      "InstallationSelfContainedBootstrapTests": 26
+    }
+  },
+  "OriginalFixedRunPreserved": {
+    "Passed": 58,
+    "Failed": 19,
+    "BInputMode": "SC_publish_replaced_normal_bin; original FD source gate rejected; no fault barrier success claimed"
+  },
+  "DevelopmentBInputRebuilt": {
+    "Passed": 31,
+    "Failed": 0,
+    "Skipped": 0,
+    "SameHead": "dc544cd94b04fd61aa184193fa6791f4393fbe4f"
+  },
+  "PublishRoles": 8,
+  "FrozenInputs": 940,
+  "InputsBeforeAfterAndGitMatch": true,
+  "CorePublishCopiesMatch": 8,
+  "RuntimeByteBinding": 409,
+  "StageCounts": {
+    "Generation": 473,
+    "Bootstrap": 194
+  },
+  "ActualBRead": [
+    {
+      "Name": "verification-b-source",
+      "Exit": 0,
+      "Expected": 0,
+      "Read": {
+        "Status": "Pass",
+        "Mode": "SelfContainedWindowsX64_10_0_13",
+        "Revision": "a32854dde197f38fbef1e4672c171bc726633819",
+        "Files": 194,
+        "SourceCatalogSha256": "30894F310FE35A518B24B3369F2AF84AAA93807038478C0A72AFF99BC591C729",
+        "GenerationBinding": "UnsealedCoreBytesOnly_NotInstalledGeneration",
+        "WindowsExecution": "NotRun",
+        "ModelCalls": 0
+      }
+    },
+    {
+      "Name": "negative-b-runtime",
+      "Exit": 3,
+      "Expected": 3,
+      "Read": {
+        "Status": "Fail",
+        "Type": "System.IO.InvalidDataException",
+        "Message": "Bootstrap runtime bytes differ from fixed approved input.",
+        "Stack": "   at KuaiYi.Core.Installation.InstallationBootstrapPackage.RequireRuntimeEntries(InstallationPackage package) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationBootstrapPackage.cs:line 37\n   at KuaiYi.Core.Installation.InstallationBootstrapPackage.Read(String directory, String digest, InstalledVersion generation, CancellationToken cancellation, InstallationPreparationIO io) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationBootstrapPackage.cs:line 44\n   at Program.<Main>$(String[] args) in /workspace/KuaiYi/artifacts/2026-10-23-product-payload/b-read-probe/Program.cs:line 8",
+        "SourceCatalogSha256": "ED399AD3897A9241C29A524E6DCDEE50B3C930EAAAA34C40D9E5C469E40D5DB7",
+        "GenerationBinding": "UnsealedCoreBytesOnly_NotInstalledGeneration",
+        "WindowsExecution": "NotRun"
+      }
+    },
+    {
+      "Name": "negative-b-graph",
+      "Exit": 3,
+      "Expected": 3,
+      "Read": {
+        "Status": "Fail",
+        "Type": "System.IO.InvalidDataException",
+        "Message": "Bootstrap runtime/dependency contract differs.",
+        "Stack": "   at KuaiYi.Core.Installation.InstallationBootstrapPackage.ExactJson(String directory, String name, String expected, InstallationPreparationIO io) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationBootstrapPackage.cs:line 85\n   at KuaiYi.Core.Installation.InstallationBootstrapPackage.RequireConfiguration(String directory, String mode, InstallationPreparationIO io) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationBootstrapPackage.cs:line 80\n   at KuaiYi.Core.Installation.InstallationBootstrapPackage.Read(String directory, String digest, InstalledVersion generation, CancellationToken cancellation, InstallationPreparationIO io) in /workspace/KuaiYi/src/KuaiYi.Core/Installation/InstallationBootstrapPackage.cs:line 50\n   at Program.<Main>$(String[] args) in /workspace/KuaiYi/artifacts/2026-10-23-product-payload/b-read-probe/Program.cs:line 8",
+        "SourceCatalogSha256": "34CA5FEAAEF7A6B8D9A4ABC25C441D7C820DD7758824C82857403678CAF8D303",
+        "GenerationBinding": "UnsealedCoreBytesOnly_NotInstalledGeneration",
+        "WindowsExecution": "NotRun"
+      }
+    }
+  ],
+  "PayloadBundle": {
+    "Name": "KuaiYi-unsealed-inputs-a32854d.zip",
+    "Bytes": 101487665,
+    "Sha256": "0487e8be321cafdcd9d61af2815451f8a329db3763214cc0e3c75b6afdfe257a",
+    "Members": 672,
+    "SourceHead": "a32854dde197f38fbef1e4672c171bc726633819",
+    "Status": "Blocked_NotInstallable_DoNotRun",
+    "GenerationFiles": 473,
+    "BootstrapFiles": 194,
+    "BootstrapCatalogIncluded": true,
+    "NativeCiOutcome": "Unknown_NotReadViaDeniedAPI",
+    "InstallerPins": "Unavailable",
+    "WindowsExecution": "NotRun"
+  },
+  "PayloadLibrary": {
+    "libraryFileId": "libfile_ba7a2fa674648191bbb09eebf6a6d0f5",
+    "version": 0,
+    "metadataApplied": true
+  },
+  "ProductionPins": "Unavailable",
+  "WholeGSourceSha256": null,
+  "WindowsExecution": "NotRun",
+  "ModelCalls": 0,
+  "GrowthHarnessPc": "Blocked_StrictEtempContract_OSDerivedWritesNotBounded",
+  "NewPermissionsCredentialsLicensesFees": false,
+  "EvidenceBundle": {
+    "Name": "KuaiYi-product-payload-a32854d-evidence.zip",
+    "Bytes": 951665,
+    "Sha256": "523b19c6eb6f5197d02dd5e8d9b9ab1f83fb240b1bbeb32d7f6843f43dde4550",
+    "Members": 217,
+    "SourceFiles": 16,
+    "ContainsProductBinaries": false,
+    "ActualBinariesInSeparateLibrary": {
+      "libraryFileId": "libfile_ba7a2fa674648191bbb09eebf6a6d0f5",
+      "version": 0,
+      "metadataApplied": true
+    }
+  },
+  "EvidenceLibrary": {
+    "libraryFileId": "libfile_f56348701a6c81919a89c366718c8d3f",
+    "version": 0,
+    "metadataApplied": true
+  }
+}
