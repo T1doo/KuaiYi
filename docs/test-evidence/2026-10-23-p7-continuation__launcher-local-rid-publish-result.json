@@ -1,0 +1,96 @@
+{
+  "commands": [
+    {
+      "command": [
+        "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+        "restore",
+        "src/KuaiYi.Launcher/KuaiYi.Launcher.csproj",
+        "--locked-mode",
+        "--configfile",
+        "NuGet.Config",
+        "-p:SelfContained=true",
+        "-p:RuntimeFrameworkVersion=10.0.13",
+        "-p:PublishSingleFile=false",
+        "-p:PublishTrimmed=false",
+        "-p:PublishReadyToRun=false",
+        "-p:EnableWindowsTargeting=true",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true"
+      ],
+      "exit": 0,
+      "elapsedSeconds": 1.367
+    },
+    {
+      "command": [
+        "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+        "list",
+        "src/KuaiYi.Launcher/KuaiYi.Launcher.csproj",
+        "package",
+        "--include-transitive",
+        "--format",
+        "json",
+        "--no-restore"
+      ],
+      "exit": 0,
+      "elapsedSeconds": 0.768
+    },
+    {
+      "command": [
+        "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+        "list",
+        "src/KuaiYi.Launcher/KuaiYi.Launcher.csproj",
+        "package",
+        "--vulnerable",
+        "--include-transitive",
+        "--format",
+        "json",
+        "--no-restore",
+        "--source",
+        "https://api.nuget.org/v3/index.json"
+      ],
+      "exit": 0,
+      "elapsedSeconds": 0.769
+    },
+    {
+      "command": [
+        "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+        "publish",
+        "src/KuaiYi.Launcher/KuaiYi.Launcher.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "--self-contained",
+        "true",
+        "-o",
+        "/workspace/KuaiYi/artifacts/2026-10-23-p7-continuation/publish/Launcher",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false",
+        "-p:SelfContained=true",
+        "-p:RuntimeFrameworkVersion=10.0.13",
+        "-p:PublishSingleFile=false",
+        "-p:PublishTrimmed=false",
+        "-p:PublishReadyToRun=false",
+        "-p:EnableWindowsTargeting=true",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true"
+      ],
+      "exit": 0,
+      "elapsedSeconds": 8.011
+    }
+  ],
+  "coverage": {
+    "Project": "/workspace/KuaiYi/src/KuaiYi.Launcher/KuaiYi.Launcher.csproj",
+    "PackageCount": 0,
+    "Frameworks": [
+      "net10.0"
+    ]
+  },
+  "lockDrift": false,
+  "sourceHead": "5afaa0c84091186da5f0e968a24936be6d733241",
+  "windowsExecution": "NotRun"
+}

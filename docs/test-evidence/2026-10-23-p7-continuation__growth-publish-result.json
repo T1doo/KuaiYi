@@ -1,0 +1,56 @@
+{
+  "commands": [
+    {
+      "command": [
+        "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+        "publish",
+        "tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj",
+        "--no-restore",
+        "-c",
+        "Release",
+        "--self-contained",
+        "true",
+        "-o",
+        "/workspace/KuaiYi/artifacts/2026-10-23-p7-continuation/publish/GrowthHarness",
+        "-m:1",
+        "-nr:false",
+        "-p:UseSharedCompilation=false",
+        "-p:SelfContained=true",
+        "-p:RuntimeFrameworkVersion=10.0.13",
+        "-p:PublishSingleFile=false",
+        "-p:PublishTrimmed=false",
+        "-p:PublishReadyToRun=false",
+        "-p:EnableWindowsTargeting=true",
+        "-p:NuGetAudit=true",
+        "-p:NuGetAuditMode=all",
+        "-p:NuGetAuditLevel=low",
+        "-p:TreatWarningsAsErrors=true"
+      ],
+      "exit": 0,
+      "elapsedSeconds": 21.903
+    }
+  ],
+  "coverage": {
+    "kind": "ArtifactOnlyZeroPackageProof",
+    "libraries": 8,
+    "rootProjects": 1,
+    "targets": [
+      "net10.0-windows",
+      "net10.0-windows/win-x64"
+    ],
+    "allLibraryTypes": "project",
+    "assetsSha256": "9b216955717fe371977dee5517b147de5e3783a524e1aae67a3700ea561fb531",
+    "packageList": "Failed_SequenceContainsNoMatchingElement",
+    "productionGateChanged": false,
+    "runtimeCoverage": {
+      "Project": "/workspace/KuaiYi/packaging/session-runtime-audit/session-runtime-audit.csproj",
+      "PackageCount": 2,
+      "Frameworks": [
+        "net10.0"
+      ]
+    }
+  },
+  "lockDrift": false,
+  "sourceHead": "5afaa0c84091186da5f0e968a24936be6d733241",
+  "windowsExecution": "NotRun"
+}

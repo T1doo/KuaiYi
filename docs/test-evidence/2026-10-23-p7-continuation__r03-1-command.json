@@ -1,0 +1,20 @@
+[
+  "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+  "restore",
+  "src/KuaiYi.Launcher/KuaiYi.Launcher.csproj",
+  "--locked-mode",
+  "-r",
+  "win-x64",
+  "--configfile",
+  "NuGet.Config",
+  "-p:SelfContained=true",
+  "-p:RuntimeFrameworkVersion=10.0.13",
+  "-p:PublishSingleFile=false",
+  "-p:PublishTrimmed=false",
+  "-p:PublishReadyToRun=false",
+  "-p:EnableWindowsTargeting=true",
+  "-p:NuGetAudit=true",
+  "-p:NuGetAuditMode=all",
+  "-p:NuGetAuditLevel=low",
+  "-p:TreatWarningsAsErrors=true"
+]

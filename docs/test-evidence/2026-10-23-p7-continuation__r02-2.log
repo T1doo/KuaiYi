@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "parameters": "--include-transitive",
+  "projects": [
+    {
+      "path": "/workspace/KuaiYi/packaging/session-runtime-audit/session-runtime-audit.csproj",
+      "frameworks": [
+        {
+          "framework": "net10.0",
+          "topLevelPackages": [
+            {
+              "id": "Microsoft.NETCore.App.Runtime.win-x64",
+              "requestedVersion": "[10.0.13]",
+              "resolvedVersion": "10.0.13"
+            },
+            {
+              "id": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+              "requestedVersion": "[10.0.13]",
+              "resolvedVersion": "10.0.13"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
