@@ -15,8 +15,8 @@ import urllib.error
 import urllib.request
 import zipfile
 
-PARENT = "d52199a7c3cce69a8c550166f2c40cc170e5382d"
-# Reviewed DesktopOnly correction; product/tool/wrapper bytes still match 294ce3f.
+PARENT = "2ce69f410a6a6ca926eef5ca9a73d9271f15c069"
+# Reviewed Begin clock and independent state observation; inputs match 3a47f9b.
 # The exact parent identity and unchanged-input diff preserve depth-two checkout.
 FIXED = PARENT
 BRANCH = "refs/heads/dev/p7-fixed-signoff"
