@@ -56,7 +56,8 @@ internal static class OverlayStageProbe
         private readonly List<OverlayProbePhase> phases=[];
         private readonly List<RasterFrame> rasters=[];
         private readonly List<object> files=[];
-        private readonly HashSet<(int Phase,string Kind)> captured=[];
+        private readonly List<object> rejectedRasterFiles=[];
+        private readonly HashSet<(int Phase,long Epoch,string Kind)> captured=[];
         private readonly TaskCompletionSource closed=new(TaskCreationOptions.RunContinuationsAsynchronously);
         private TaskCompletionSource nextFrame=new(TaskCreationOptions.RunContinuationsAsynchronously);
         private TaskCompletionSource? phaseDone;
@@ -247,9 +248,9 @@ internal static class OverlayStageProbe
                 if(failed)Lifetime.Record("Stage:"+mode+":"+phase!.Name,new InvalidOperationException(phase.FailureReason));
                 if(mode=="Raster"&&sample.Eligible&&!capturing&&phase is {} current)
                 {
-                    if(current.SawIntermediate&&captured.Add((current.Id,"intermediate")))Capture(sample,"intermediate");
-                    if(completed&&current.Goal==OverlayProbeGoal.Settled&&captured.Add((current.Id,"terminal")))Capture(sample,"terminal");
-                    if(failed&&captured.Add((current.Id,"failed-terminal")))Capture(sample,"failed-terminal");
+                    if(rasterBudget.ClaimIntermediate(current,sample))Capture(sample,"intermediate");
+                    if(completed&&current.Goal==OverlayProbeGoal.Settled&&captured.Add((current.Id,sample.Frame.AnimationEpoch,"terminal")))Capture(sample,"terminal");
+                    if(failed&&captured.Add((current.Id,sample.Frame.AnimationEpoch,"failed-terminal")))Capture(sample,"failed-terminal");
                 }
                 if(completed||failed)phaseDone?.TrySetResult();
                 if(sample.Eligible){var previous=nextFrame;nextFrame=new(TaskCreationOptions.RunContinuationsAsynchronously);previous.TrySetResult();}
@@ -271,9 +272,10 @@ internal static class OverlayStageProbe
                 rasterBudget.Reserve(width,height);
                 var bitmap=new RenderTargetBitmap(width,height,96*dpi.DpiScaleX,96*dpi.DpiScaleY,PixelFormats.Pbgra32);
                 bitmap.Render(content);bitmap.Freeze();var after=Frame(sample.Frame.RenderingTicks);
-                bool stable=after.Card==sample.Frame.Card&&after.Native==sample.Frame.Native&&after.Anchor==sample.Frame.Anchor&&after.Hwnd==sample.Frame.Hwnd;
+                bool stable=after.Card==sample.Frame.Card&&after.Native==sample.Frame.Native&&after.Anchor==sample.Frame.Anchor&&after.Hwnd==sample.Frame.Hwnd&&
+                    after.AnimationEpoch==sample.Frame.AnimationEpoch&&after.Phase==sample.Frame.Phase&&after.Mode==sample.Frame.Mode&&after.RequestCurrent&&after.MeasurementCurrent;
                 rasters.Add(new(bitmap,sample,after,kind,stable));
-                if(!stable)throw new InvalidOperationException("Geometry changed during actual raster capture; frame retained as invalid.");
+                if(!stable)throw new InvalidOperationException("Geometry, epoch or current request changed during actual raster capture; frame retained as invalid.");
             }
             finally{capturing=false;}
         }
@@ -307,7 +309,7 @@ internal static class OverlayStageProbe
         {
             await Lifetime.Original;deadline?.Stop();
             try{WriteEvidence();}catch(Exception error){Lifetime.Record("Evidence",error);}
-            Succeeded=Lifetime.CleanupConfirmed&&!timedOut&&Lifetime.Failures.Count==0&&phases.Count==18&&phases.All(p=>p.CompletedQpc.HasValue)&&rasters.Count>0;
+            Succeeded=Lifetime.CleanupConfirmed&&!timedOut&&Lifetime.Failures.Count==0&&phases.Count==18&&phases.All(p=>p.CompletedQpc.HasValue)&&CompleteRasterCollection();
             try{WriteJson("overlay-stages-result.json",Result());}catch(Exception error){Succeeded=false;Lifetime.Record("ResultWrite",error);Console.Error.WriteLine(error);}
             if(!Lifetime.CleanupConfirmed)await new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously).Task;
             cancellation.Dispose();Shutdown=app.Dispatcher.BeginInvoke(()=>app.Shutdown(Succeeded?0:3));
@@ -318,7 +320,7 @@ internal static class OverlayStageProbe
             ClosedObserved=closed.Task.IsCompletedSuccessfully,Lifetime.CloseConfirmed,Lifetime.CleanupConfirmed,Errors=Lifetime.Failures,
             Environment=environment,Phases=phases,RawCallbacks=journal.Samples.Count,DuplicateCallbacks=journal.Samples.Count(s=>s.DuplicateRenderingTime),
             Measurements=journal.Measurements,journal.MeasurementOverflow,
-            ApplyingCallbacks=journal.Samples.Count(s=>s.Frame.Applying),RasterReservedBytes=rasterBudget.Bytes,EvidenceFiles=files,
+            ApplyingCallbacks=journal.Samples.Count(s=>s.Frame.Applying),RasterReservedBytes=rasterBudget.Bytes,EvidenceFiles=files,RejectedRasterFiles=rejectedRasterFiles,
             Fixture="Synthetic neutral text; original programmatic Button.Click, not physical input",ModelCalls=0,ProductionPins="Unavailable",
             PerformanceAcceptance="NotEvaluated_RefreshUnknown_SeparateRasterPass",NotEvaluated=new[]{"B07 fifty cycles","DWM presentation","Physical keyboard/input latency","Mixed system DPI","All corners/monitor changes","Full product/installation"}};
         private void WriteEvidence()
@@ -331,9 +333,21 @@ internal static class OverlayStageProbe
                 using var memory=new MemoryStream();encoder.Save(memory);
                 if(memory.Length>768*1024||memory.Length>8*1024*1024-total)throw new IOException("Encoded raster bound exceeded.");
                 byte[] bytes=memory.ToArray();string name=$"overlay-{i+1:00}-phase{r.Before.Frame.Phase}-{r.Kind}.png";WriteBytes(name,bytes);total+=bytes.Length;
-                files.Add(new{File=name,Bytes=bytes.Length,Sha256=Convert.ToHexString(SHA256.HashData(bytes)).ToLowerInvariant(),
-                    r.Bitmap.PixelWidth,r.Bitmap.PixelHeight,Before=r.Before,After=r.After,r.Kind,r.Stable,Scope="Actual WPF content raster; not DWM presented frame"});
+                var owner=phases.Single(p=>p.Id==r.Before.Frame.Phase);
+                bool qualified=r.Stable&&OverlayRasterBudget.MatchesIssuedEpoch(owner,r.Before,r.After);
+                var entry=new{File=name,Bytes=bytes.Length,Sha256=Convert.ToHexString(SHA256.HashData(bytes)).ToLowerInvariant(),
+                    r.Bitmap.PixelWidth,r.Bitmap.PixelHeight,Before=r.Before,After=r.After,r.Kind,r.Stable,
+                    RejectionReason=qualified?null:"CaptureChangedOrIssuedEpochMismatch",Scope="Actual WPF content raster; not DWM presented frame"};
+                (qualified?files:rejectedRasterFiles).Add(entry);
             }
+        }
+        private bool CompleteRasterCollection()
+        {
+            var expected=phases.Where(p=>p.Mode=="Raster").SelectMany(p=>p.Goal==OverlayProbeGoal.Settled?
+                new[]{(p.Id,"intermediate"),(p.Id,"terminal")}:new[]{(p.Id,"intermediate")}).ToHashSet();
+            var actual=rasters.Where(r=>r.Stable&&OverlayRasterBudget.MatchesIssuedEpoch(phases.Single(p=>p.Id==r.Before.Frame.Phase),r.Before,r.After))
+                .Select(r=>(r.Before.Frame.Phase,r.Kind)).ToList();
+            return actual.Count==expected.Count&&expected.SetEquals(actual);
         }
         private void WriteJson(string name,object value)
         {byte[] bytes=JsonSerializer.SerializeToUtf8Bytes(value,new JsonSerializerOptions{WriteIndented=true});if(bytes.Length>16*1024*1024)throw new IOException("Evidence JSON bound exceeded.");WriteBytes(name,bytes);}

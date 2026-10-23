@@ -174,17 +174,29 @@ def verify_overlay_result(receipt, directory, source, file_hash, is_linked):
     raw = json.loads(raw_bytes)
     if not 0 < len(raw) == actual["RawCallbacks"] <= 10000 or [r["Sequence"] for r in raw] != list(range(1, len(raw)+1)):
         raise RuntimeError("Original callback sequence incomplete")
-    images, seen, names, total = actual["EvidenceFiles"], set(), set(), 0
+    images, rejected = actual["EvidenceFiles"], actual.get("RejectedRasterFiles", [])
+    seen, names, total = set(), set(), 0
     expected = {(phase, kind) for phase in range(10, 19) for kind in ("intermediate", "terminal") if kind != "terminal" or phase not in (14, 17)}
-    if len(images) != len(expected):
+    if not isinstance(images, list) or not isinstance(rejected, list) or len(images) != len(expected) or len(images)+len(rejected) > 24:
         raise RuntimeError("Complete actual intermediate/terminal raster collection required")
-    for image in images:
+    for qualified, image in [(True, i) for i in images]+[(False, i) for i in rejected]:
         name = image["File"]; pair = image["Before"]["Frame"]["Phase"], image["Kind"]
-        match = re.fullmatch(r"overlay-[0-9]{2}-phase([0-9]{1,2})-(intermediate|terminal)\.png", name)
-        if (not match or (int(match[1]), match[2]) != pair or name in names or pair not in expected or pair in seen or image["Stable"] is not True or
+        match = re.fullmatch(r"overlay-[0-9]{2}-phase([0-9]{1,2})-(intermediate|terminal|failed-terminal)\.png", name)
+        if (not match or (int(match[1]), match[2]) != pair or name in names or not 10 <= pair[0] <= 18 or image["Stable"] is not True or
                 image["Before"]["Frame"]["Mode"] != "Raster" or image["After"]["Phase"] != pair[0] or image["After"]["Mode"] != "Raster"):
             raise RuntimeError("Actual raster phase binding refused")
-        seen.add(pair); names.add(name); path = directory / name
+        issued = phases[pair[0]-1].get("IssuedAnimationEpoch")
+        before, after = image["Before"]["Frame"].get("AnimationEpoch"), image["After"].get("AnimationEpoch")
+        if type(issued) is not int or issued < 0 or type(before) is not int or before < 0 or type(after) is not int or after != before:
+            raise RuntimeError("Missing or unstable actual raster epoch")
+        bound = before == issued
+        if qualified:
+            if not bound: raise RuntimeError("Actual raster epoch differs from issued phase")
+            if pair not in expected or pair in seen: raise RuntimeError("Qualified raster collection differs")
+            seen.add(pair)
+        elif bound or not isinstance(image.get("RejectionReason"), str) or not image["RejectionReason"]:
+            raise RuntimeError("Rejected raster cannot replace or hide qualified evidence")
+        names.add(name); path = directory / name
         if any(is_linked(p) for p in (path, *path.parents)) or path.stat().st_size > 768*1024:
             raise RuntimeError("Linked or oversized actual raster")
         with path.open("rb") as stream:
@@ -194,9 +206,10 @@ def verify_overlay_result(receipt, directory, source, file_hash, is_linked):
                 int.from_bytes(data[16:20], "big") != image["PixelWidth"] or int.from_bytes(data[20:24], "big") != image["PixelHeight"]):
             raise RuntimeError("Actual raster bytes/hash/dimensions differ")
         total += len(data)
-    if total > 8*1024*1024 or {p.name for p in directory.glob("*.png")} != {i["File"] for i in images}:
+    if seen != expected or total > 8*1024*1024 or {p.name for p in directory.glob("*.png")} != names:
         raise RuntimeError("Raster aggregate or complete collection differs")
     return {"ObservedPhases": len(phases), "RawCallbacks": len(raw), "Rasters": len(images), "RasterBytes": total,
+            "RejectedRasters": len(rejected),
             "OriginalResultBytes": original["Bytes"], "OriginalResultSha256": original["Sha256"],
             "RawFrameBytes": len(raw_bytes), "RawFrameSha256": hashlib.sha256(raw_bytes).hexdigest(),
             "Scope": "ActualWpfContentAndGeometry_NotDwmFpsOrFullB07"}

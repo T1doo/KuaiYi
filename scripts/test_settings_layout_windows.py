@@ -180,7 +180,7 @@ class OverlayEvidenceIntegrationTests(unittest.TestCase):
     def fixture(self, root):
         sha = "a"*40
         names = ["SeedOpen", "LongStreamGrow", "Close", "Reopen", "CloseUntilReverse", "ReverseToOpen", "CloseToCompact", "OpenUntilReverse", "ReverseToClose"]
-        actual = {"Phases": [{"Id": i+1, "Mode": "Timing" if i < 9 else "Raster", "Name": names[i%9], "CompletedQpc": i+100, "SawIntermediate": True} for i in range(18)], "RawCallbacks": 18, "EvidenceFiles": []}
+        actual = {"Phases": [{"Id": i+1, "Mode": "Timing" if i < 9 else "Raster", "Name": names[i%9], "CompletedQpc": i+100, "SawIntermediate": True, "IssuedAnimationEpoch": 4} for i in range(18)], "RawCallbacks": 18, "EvidenceFiles": [], "RejectedRasterFiles": []}
         raw = json.dumps([{"Sequence": i+1} for i in range(18)]).encode()
         (root / "overlay-raw-frames.json").write_bytes(raw)
         # Valid tiny synthetic PNG for protocol checks only, never a native UI sample.
@@ -188,7 +188,7 @@ class OverlayEvidenceIntegrationTests(unittest.TestCase):
         pairs = [(phase, kind) for phase in range(10, 19) for kind in ("intermediate", "terminal") if kind != "terminal" or phase not in (14, 17)]
         for ordinal, (phase, kind) in enumerate(pairs, 1):
             name = f"overlay-{ordinal:02}-phase{phase}-{kind}.png"; (root / name).write_bytes(png)
-            actual["EvidenceFiles"].append({"File": name, "Before": {"Frame": {"Phase": phase, "Mode": "Raster"}}, "After": {"Phase": phase, "Mode": "Raster"}, "Kind": kind,
+            actual["EvidenceFiles"].append({"File": name, "Before": {"Frame": {"Phase": phase, "Mode": "Raster", "AnimationEpoch": 4}}, "After": {"Phase": phase, "Mode": "Raster", "AnimationEpoch": 4}, "Kind": kind,
                                              "Stable": True, "Bytes": len(png), "Sha256": hashlib.sha256(png).hexdigest(), "PixelWidth": 1, "PixelHeight": 1})
         receipt = {"Status": "Pass_LimitedProcess", "SourceHead": sha, "CleanupConfirmed": True, "OriginalExitConfirmed": True, "ExitCode": 0, "OriginalResult": {"Actual": actual}}
         self.write_result(root, receipt)
@@ -227,6 +227,60 @@ class OverlayEvidenceIntegrationTests(unittest.TestCase):
                 self.write_result(root, receipt)
                 if fault == "result": (root / "overlay-stages-result.json").write_bytes(b"{}");
                 with self.assertRaises((RuntimeError, OSError)): self.verify(root, receipt, sha)
+
+    def test_qualified_png_requires_both_epochs_and_the_issued_epoch(self):
+        for fault in ("before", "after", "missing-before", "missing-after", "missing-issued", "issued"):
+            with self.subTest(fault=fault), tempfile.TemporaryDirectory() as temp:
+                root = Path(temp); receipt, sha = self.fixture(root); actual = receipt["OriginalResult"]["Actual"]
+                image = actual["EvidenceFiles"][0]
+                if fault == "before": image["Before"]["Frame"]["AnimationEpoch"] = 3
+                elif fault == "after": image["After"]["AnimationEpoch"] = 3
+                elif fault == "missing-before": del image["Before"]["Frame"]["AnimationEpoch"]
+                elif fault == "missing-after": del image["After"]["AnimationEpoch"]
+                elif fault == "missing-issued": del actual["Phases"][9]["IssuedAnimationEpoch"]
+                else: actual["Phases"][9]["IssuedAnimationEpoch"] = 3
+                self.write_result(root, receipt)
+                with self.assertRaisesRegex(RuntimeError, "epoch"): self.verify(root, receipt, sha)
+
+    def retain_old_epoch(self, root, actual):
+        original = actual["EvidenceFiles"][0]
+        rejected = copy.deepcopy(original)
+        rejected.update(File="overlay-17-phase10-intermediate.png", RejectionReason="CaptureChangedOrIssuedEpochMismatch")
+        rejected["Before"]["Frame"]["AnimationEpoch"] = rejected["After"]["AnimationEpoch"] = 3
+        (root / rejected["File"]).write_bytes((root / original["File"]).read_bytes())
+        actual["RejectedRasterFiles"].append(rejected)
+        return rejected
+
+    def test_old_epoch_png_is_retained_beside_the_complete_qualified_collection(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp); receipt, sha = self.fixture(root); actual = receipt["OriginalResult"]["Actual"]
+            rejected = self.retain_old_epoch(root, actual); self.write_result(root, receipt)
+            observed = self.verify(root, receipt, sha)
+            self.assertEqual((16, 1), (observed["Rasters"], observed["RejectedRasters"]))
+            self.assertEqual(17, len(list(root.glob("*.png"))))
+            self.assertEqual(3, rejected["Before"]["Frame"]["AnimationEpoch"])
+            self.assertEqual(4, actual["EvidenceFiles"][0]["Before"]["Frame"]["AnimationEpoch"])
+
+    def test_rejected_png_cannot_hide_missing_or_corrupt_qualified_evidence(self):
+        faults = ("cross-list-duplicate", "replace-qualified", "hash", "missing", "unlisted", "unstable",
+                  "changed-epoch", "same-issued-epoch", "no-reason", "frame-bound")
+        for fault in faults:
+            with self.subTest(fault=fault), tempfile.TemporaryDirectory() as temp:
+                root = Path(temp); receipt, sha = self.fixture(root); actual = receipt["OriginalResult"]["Actual"]
+                rejected = self.retain_old_epoch(root, actual)
+                if fault == "cross-list-duplicate": rejected["File"] = actual["EvidenceFiles"][0]["File"]
+                elif fault == "replace-qualified": actual["EvidenceFiles"].pop(0)
+                elif fault == "hash": (root / rejected["File"]).write_bytes(b"neutral-corruption")
+                elif fault == "missing": (root / rejected["File"]).unlink()
+                elif fault == "unlisted": (root / "unlisted.png").write_bytes(b"neutral")
+                elif fault == "unstable": rejected["Stable"] = False
+                elif fault == "changed-epoch": rejected["After"]["AnimationEpoch"] = 5
+                elif fault == "same-issued-epoch": rejected["Before"]["Frame"]["AnimationEpoch"] = rejected["After"]["AnimationEpoch"] = 4
+                elif fault == "no-reason": del rejected["RejectionReason"]
+                else: actual["RejectedRasterFiles"].extend(copy.deepcopy(rejected) for _ in range(8))
+                self.write_result(root, receipt)
+                error = self.assertRaisesRegex(RuntimeError, "Complete actual") if fault == "frame-bound" else self.assertRaises((RuntimeError, OSError))
+                with error: self.verify(root, receipt, sha)
 
 
 if __name__ == "__main__": unittest.main()

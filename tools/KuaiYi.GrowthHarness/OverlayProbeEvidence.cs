@@ -103,6 +103,19 @@ internal sealed class OverlayProbePhase(int id,string mode,string name,long star
 }
 internal sealed class OverlayRasterBudget(int maximumFrames=24,long maximumBytes=64*1024*1024)
 {
+    private readonly HashSet<(int Phase,long Epoch,string Kind)> intermediateClaims=[];
+    internal bool ClaimIntermediate(OverlayProbePhase phase,OverlayProbeSample sample)
+    {
+        var f=sample.Frame;
+        return sample.Eligible&&f.RequestCurrent&&f.MeasurementCurrent&&f.Phase==phase.Id&&f.Mode=="Raster"&&phase.Mode=="Raster"&&
+            f.Qpc>=phase.StartedQpc&&f.Transition==phase.Intermediate&&f.NeedsFrame&&f.Card!=phase.Baseline&&
+            (!phase.IssuedAnimationEpoch.HasValue||phase.IssuedAnimationEpoch==f.AnimationEpoch)&&
+            intermediateClaims.Add((phase.Id,f.AnimationEpoch,"intermediate"));
+    }
+    internal static bool MatchesIssuedEpoch(OverlayProbePhase phase,OverlayProbeSample before,OverlayProbeFrame after)
+        =>phase.IssuedAnimationEpoch is {} epoch&&before.Eligible&&before.Frame.RequestCurrent&&before.Frame.MeasurementCurrent&&
+          after.RequestCurrent&&after.MeasurementCurrent&&before.Frame.Phase==phase.Id&&after.Phase==phase.Id&&
+          before.Frame.Mode==phase.Mode&&after.Mode==phase.Mode&&before.Frame.AnimationEpoch==epoch&&after.AnimationEpoch==epoch;
     internal int Frames{get;private set;}internal long Bytes{get;private set;}
     internal void Reserve(int width,int height)
     {
