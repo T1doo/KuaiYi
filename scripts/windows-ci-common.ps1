@@ -15,6 +15,7 @@ function Get-CiDesktopBlockers {
 }
 
 function Get-CiEnvironment {
+    param([switch]$DesktopOnly, [Action[string]]$OnDesktopStage)
     $facts = [ordered]@{
         IsWindows = $IsWindows; Architecture = [Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString()
         UserInteractive = [Environment]::UserInteractive; SessionId = [Diagnostics.Process]::GetCurrentProcess().SessionId
@@ -25,22 +26,45 @@ function Get-CiEnvironment {
         NativeBlockers = @(); DesktopBlockers = @(); Scope = 'HostedWindowsContractsOnly'; Windows11Acceptance = 'NotRun'
     }
     if (-not $IsWindows) { $facts.NativeBlockers = @('WindowsRequired'); $facts.DesktopBlockers = @('WindowsRequired'); return [pscustomobject]$facts }
+    if ($OnDesktopStage) { $OnDesktopStage.Invoke('BeforeAddType') }
     if (-not ('KuaiYiCiWindowsFacts' -as [type])) { Add-Type -Path (Join-Path $script:RepositoryRoot 'tools/ci/WindowsFacts.cs') }
+    if ($OnDesktopStage) { $OnDesktopStage.Invoke('BeforeOs') }
     $facts.Os = [KuaiYiCiWindowsFacts]::ReadOs()
+    if ($OnDesktopStage) { $OnDesktopStage.Invoke('BeforeToken') }
     $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
     try {
         $principal = [Security.Principal.WindowsPrincipal]::new($identity)
         $facts.Administrator = $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
         $facts.IntegrityLevel = [KuaiYiCiWindowsFacts]::IntegrityLevel($identity.Token)
     } finally { $identity.Dispose() }
+    if ($OnDesktopStage) { $OnDesktopStage.Invoke('BeforeRegistry') }
     $facts.EnableLua = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System' -Name EnableLUA).EnableLUA
     try {
-        $facts.WindowStation = [KuaiYiCiWindowsFacts]::WindowStation(); $facts.InputDesktop = [KuaiYiCiWindowsFacts]::InputDesktop()
-        $facts.Monitors = @([KuaiYiCiWindowsFacts]::Monitors()); $facts.ProbeDpiAwareness = [KuaiYiCiWindowsFacts]::DpiAwareness()
-        $facts.HasShell = [KuaiYiCiWindowsFacts]::HasShell(); $facts.DwmEnabled = [KuaiYiCiWindowsFacts]::DwmEnabled()
+        if ($OnDesktopStage) { $OnDesktopStage.Invoke('BeforeWindowStation') }
+        $facts.WindowStation = [KuaiYiCiWindowsFacts]::WindowStation()
+        if ($OnDesktopStage) { $OnDesktopStage.Invoke('BeforeInputDesktop') }
+        $facts.InputDesktop = [KuaiYiCiWindowsFacts]::InputDesktop()
+        if ($OnDesktopStage) { $OnDesktopStage.Invoke('BeforeMonitors') }
+        $facts.Monitors = @([KuaiYiCiWindowsFacts]::Monitors())
+        if ($OnDesktopStage) { $OnDesktopStage.Invoke('BeforeDpi') }
+        $facts.ProbeDpiAwareness = [KuaiYiCiWindowsFacts]::DpiAwareness()
+        if ($OnDesktopStage) { $OnDesktopStage.Invoke('BeforeShell') }
+        $facts.HasShell = [KuaiYiCiWindowsFacts]::HasShell()
+        if ($OnDesktopStage) { $OnDesktopStage.Invoke('BeforeDwm') }
+        $facts.DwmEnabled = [KuaiYiCiWindowsFacts]::DwmEnabled()
     } catch { $facts.DesktopProbeError = $_.Exception.GetType().Name }
+    if ($OnDesktopStage) { $OnDesktopStage.Invoke('BeforeDesktopBlockers') }
     $facts.DesktopBlockers = @(Get-CiDesktopBlockers ([pscustomobject]$facts))
     if ($facts.DesktopProbeError) { $facts.DesktopBlockers += 'DesktopInventoryFailed' }
+    if ($DesktopOnly) {
+        # The later approved SDK/runtime signature/audit gates remain separate.
+        # Never let a desktop-only receipt qualify as a native build inventory.
+        $facts.NativeBlockers = @('NativeInventoryNotRun_DesktopOnly')
+        $facts['NativeInventory'] = 'NotRun'; $facts['SdkInventory'] = 'NotRun'
+        $facts.Scope = 'HostedDesktopPrerequisitesOnly'
+        if ($OnDesktopStage) { $OnDesktopStage.Invoke('DesktopInventoryComplete') }
+        return [pscustomobject]$facts
+    }
     $missing = [Collections.Generic.List[string]]::new()
     if ($facts.Architecture -cne 'X64') { $missing.Add('X64Required') }
     if (Get-Command dotnet -ErrorAction SilentlyContinue) {

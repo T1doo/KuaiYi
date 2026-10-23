@@ -258,6 +258,9 @@ def execute(repo, env):
 
     try:
         report["DeliverySource"] = source_gate(run, env["GITHUB_SHA"])
+        report["Stage"] = "DesktopPreflight"
+        # This remains subprocess.run's original direct child and inherited log.
+        # Timeout does not establish descendant cleanup, or interrupt Popen creation.
         run(["pwsh", "-NoProfile", "-NonInteractive", "-File", str(repo / "scripts/probe-settings-desktop.ps1"), "-Output", str(work / "desktop-facts.json")], "desktop-preflight", 45)
         facts = work / "desktop-facts.json"
         authored[facts.name] = {"LogBytes": facts.stat().st_size, "LogSha256": helper.file_hash(facts)}
