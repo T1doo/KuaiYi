@@ -57,11 +57,13 @@ internal static class DesktopTheme
         {
             window.FontFamily=new FontFamily("Segoe UI");window.FontSize=Math.Max(13,SystemFonts.MessageFontSize);
             Bind(window,Control.BackgroundProperty,Canvas);Bind(window,Control.ForegroundProperty,Text);
-            window.Resources[typeof(Button)]=ButtonStyle(8,36);
-            var primary=ButtonStyle(8,36);primary.Setters.Add(Value(Control.BackgroundProperty,Accent));primary.Setters.Add(Value(Control.ForegroundProperty,AccentText));primary.Setters.Add(Value(Control.BorderBrushProperty,Accent));primary.Setters.Add(new Setter(Control.FontWeightProperty,FontWeights.SemiBold));window.Resources[PrimaryButton]=primary;
+            var wrappingText=new Style(typeof(AccessText));wrappingText.Setters.Add(new Setter(AccessText.TextWrappingProperty,TextWrapping.Wrap));window.Resources[typeof(AccessText)]=wrappingText;
+            window.Resources[typeof(Button)]=ButtonStyle(SettingsUiMetrics.ControlRadius,SettingsUiMetrics.ControlHeight);
+            var primary=ButtonStyle(SettingsUiMetrics.ControlRadius,SettingsUiMetrics.ControlHeight);primary.Setters.Add(Value(Control.BackgroundProperty,Accent));primary.Setters.Add(Value(Control.ForegroundProperty,AccentText));primary.Setters.Add(Value(Control.BorderBrushProperty,Accent));primary.Setters.Add(new Setter(Control.FontWeightProperty,FontWeights.SemiBold));window.Resources[PrimaryButton]=primary;
             foreach(var type in new[]{typeof(TextBox),typeof(PasswordBox),typeof(ComboBox)})
             {
                 var field=new Style(type);field.Setters.Add(Value(Control.BackgroundProperty,Input));field.Setters.Add(Value(Control.ForegroundProperty,Text));field.Setters.Add(Value(Control.BorderBrushProperty,InputBorder));field.Setters.Add(new Setter(Control.BorderThicknessProperty,new Thickness(1)));field.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(10,7,10,7)));field.Setters.Add(new Setter(FrameworkElement.MinHeightProperty,SettingsUiMetrics.ControlHeight));
+                var focus=new Trigger{Property=UIElement.IsKeyboardFocusWithinProperty,Value=true};focus.Setters.Add(Value(Control.BorderBrushProperty,Accent));field.Triggers.Add(focus);
                 var disabled=new Trigger{Property=UIElement.IsEnabledProperty,Value=false};disabled.Setters.Add(Value(Control.ForegroundProperty,Muted));disabled.Setters.Add(Value(Control.BackgroundProperty,Canvas));field.Triggers.Add(disabled);window.Resources[type]=field;
             }
             var check=new Style(typeof(CheckBox));check.Setters.Add(Value(Control.ForegroundProperty,Text));check.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(6,3,0,3)));check.Setters.Add(new Setter(FrameworkElement.MarginProperty,new Thickness(0,5,0,5)));check.Setters.Add(new Setter(FrameworkElement.MinHeightProperty,28d));window.Resources[typeof(CheckBox)]=check;
@@ -69,9 +71,10 @@ internal static class DesktopTheme
             window.Resources[NavigationItem]=NavigationStyle();
         }
         var tool=ButtonStyle(7,28);tool.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(3)));tool.Setters.Add(new Setter(Control.BorderThicknessProperty,new Thickness(0)));
+        var toolHover=new MultiTrigger();toolHover.Conditions.Add(new Condition(UIElement.IsMouseOverProperty,true));toolHover.Conditions.Add(new Condition(UIElement.IsEnabledProperty,true));toolHover.Setters.Add(Value(Control.BackgroundProperty,AccentSoft));toolHover.Setters.Add(Value(Control.ForegroundProperty,SelectionText));tool.Triggers.Add(toolHover);
         foreach(var icon in Icons)
         {var trigger=new Trigger{Property=FrameworkElement.TagProperty,Value=icon.Key};trigger.Setters.Add(new Setter(Control.TemplateProperty,ButtonTemplate(7,icon.Value)));tool.Triggers.Add(trigger);}
-        window.Resources[ToolButton]=tool;window.Resources[AnchorButton]=ButtonStyle(24,48);
+        window.Resources[ToolButton]=tool;var anchor=ButtonStyle(24,48);anchor.Setters.Add(Value(Control.ForegroundProperty,AccentText));window.Resources[AnchorButton]=anchor;
         bool closed=false;
         PropertyChangedEventHandler changed=(_,_)=>
         {
@@ -86,25 +89,47 @@ internal static class DesktopTheme
     private static Style ButtonStyle(double radius,double height)
     {
         var style=new Style(typeof(Button));style.Setters.Add(Value(Control.BackgroundProperty,Surface));style.Setters.Add(Value(Control.ForegroundProperty,Text));style.Setters.Add(Value(Control.BorderBrushProperty,Stroke));style.Setters.Add(new Setter(Control.BorderThicknessProperty,new Thickness(1)));style.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(14,7,14,7)));style.Setters.Add(new Setter(FrameworkElement.MinHeightProperty,height));style.Setters.Add(new Setter(Control.TemplateProperty,ButtonTemplate(radius)));
+        style.Setters.Add(new Setter(Control.HorizontalContentAlignmentProperty,HorizontalAlignment.Center));
         var disabled=new Trigger{Property=UIElement.IsEnabledProperty,Value=false};disabled.Setters.Add(Value(Control.ForegroundProperty,Muted));disabled.Setters.Add(Value(Control.BackgroundProperty,Canvas));style.Triggers.Add(disabled);return style;
     }
     private static ControlTemplate ButtonTemplate(double radius,string? icon=null)
     {
-        var template=new ControlTemplate(typeof(Button));var border=new FrameworkElementFactory(typeof(Border),"surface");border.SetValue(Border.CornerRadiusProperty,new CornerRadius(radius));border.SetValue(Border.BackgroundProperty,new TemplateBindingExtension(Control.BackgroundProperty));border.SetValue(Border.BorderBrushProperty,new TemplateBindingExtension(Control.BorderBrushProperty));border.SetValue(Border.BorderThicknessProperty,new TemplateBindingExtension(Control.BorderThicknessProperty));border.SetValue(Border.PaddingProperty,new TemplateBindingExtension(Control.PaddingProperty));
+        var template=new ControlTemplate(typeof(Button));var root=new FrameworkElementFactory(typeof(Grid));var border=new FrameworkElementFactory(typeof(Border),"surface");border.SetValue(Border.CornerRadiusProperty,new CornerRadius(radius));border.SetValue(Border.BackgroundProperty,new TemplateBindingExtension(Control.BackgroundProperty));border.SetValue(Border.BorderBrushProperty,new TemplateBindingExtension(Control.BorderBrushProperty));border.SetValue(Border.BorderThicknessProperty,new TemplateBindingExtension(Control.BorderThicknessProperty));border.SetValue(Border.PaddingProperty,new TemplateBindingExtension(Control.PaddingProperty));
         FrameworkElementFactory content;
         if(icon==null){content=new(typeof(ContentPresenter));content.SetValue(ContentPresenter.ContentSourceProperty,"Content");content.SetValue(ContentPresenter.RecognizesAccessKeyProperty,true);}
         else{content=new(typeof(Path));content.SetValue(Path.DataProperty,Geometry.Parse(icon));content.SetValue(Path.StrokeProperty,new TemplateBindingExtension(Control.ForegroundProperty));content.SetValue(Path.StrokeThicknessProperty,1.6);content.SetValue(Path.StrokeStartLineCapProperty,PenLineCap.Round);content.SetValue(Path.StrokeEndLineCapProperty,PenLineCap.Round);content.SetValue(Path.StrokeLineJoinProperty,PenLineJoin.Round);content.SetValue(Path.StretchProperty,Stretch.Uniform);content.SetValue(FrameworkElement.WidthProperty,18d);content.SetValue(FrameworkElement.HeightProperty,18d);content.SetValue(UIElement.IsHitTestVisibleProperty,false);}
-        content.SetValue(FrameworkElement.HorizontalAlignmentProperty,HorizontalAlignment.Center);content.SetValue(FrameworkElement.VerticalAlignmentProperty,VerticalAlignment.Center);border.AppendChild(content);template.VisualTree=border;
+        content.SetValue(FrameworkElement.HorizontalAlignmentProperty,new TemplateBindingExtension(Control.HorizontalContentAlignmentProperty));content.SetValue(FrameworkElement.VerticalAlignmentProperty,VerticalAlignment.Center);border.AppendChild(content);root.AppendChild(border);
+        var focusRing=new FrameworkElementFactory(typeof(Border),"focusRing");focusRing.SetValue(Border.CornerRadiusProperty,new CornerRadius(radius));focusRing.SetValue(Border.BorderThicknessProperty,new Thickness(2));focusRing.SetValue(Border.BorderBrushProperty,new TemplateBindingExtension(Control.ForegroundProperty));focusRing.SetValue(UIElement.IsHitTestVisibleProperty,false);focusRing.SetValue(UIElement.OpacityProperty,0d);root.AppendChild(focusRing);template.VisualTree=root;
         var hover=new Trigger{Property=UIElement.IsMouseOverProperty,Value=true};hover.Setters.Add(new Setter(Border.BorderBrushProperty,new DynamicResourceExtension(InputBorder),"surface"));template.Triggers.Add(hover);
-        var focus=new Trigger{Property=UIElement.IsKeyboardFocusedProperty,Value=true};focus.Setters.Add(new Setter(Border.BorderBrushProperty,new DynamicResourceExtension(Text),"surface"));focus.Setters.Add(new Setter(Border.BorderThicknessProperty,new Thickness(2),"surface"));template.Triggers.Add(focus);
+        var focus=new Trigger{Property=UIElement.IsKeyboardFocusedProperty,Value=true};focus.Setters.Add(new Setter(UIElement.OpacityProperty,1d,"focusRing"));template.Triggers.Add(focus);
         var pressed=new Trigger{Property=System.Windows.Controls.Primitives.ButtonBase.IsPressedProperty,Value=true};pressed.Setters.Add(new Setter(Border.BorderBrushProperty,new DynamicResourceExtension(Accent),"surface"));template.Triggers.Add(pressed);return template;
     }
     private static Style NavigationStyle()
     {
-        var style=new Style(typeof(ListBoxItem));style.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(12,10,12,10)));style.Setters.Add(new Setter(FrameworkElement.MarginProperty,new Thickness(0,3,0,3)));style.Setters.Add(Value(Control.ForegroundProperty,Muted));style.Setters.Add(new Setter(Control.BackgroundProperty,Brushes.Transparent));style.Setters.Add(new Setter(Control.HorizontalContentAlignmentProperty,HorizontalAlignment.Stretch));
-        var template=new ControlTemplate(typeof(ListBoxItem));var border=new FrameworkElementFactory(typeof(Border),"selection");border.SetValue(Border.CornerRadiusProperty,new CornerRadius(8));border.SetValue(Border.BackgroundProperty,new TemplateBindingExtension(Control.BackgroundProperty));border.SetValue(Border.BorderThicknessProperty,new Thickness(0));border.SetValue(Border.PaddingProperty,new TemplateBindingExtension(Control.PaddingProperty));var content=new FrameworkElementFactory(typeof(ContentPresenter));content.SetValue(ContentPresenter.ContentSourceProperty,"Content");border.AppendChild(content);template.VisualTree=border;
-        var focus=new Trigger{Property=UIElement.IsKeyboardFocusWithinProperty,Value=true};focus.Setters.Add(new Setter(Border.BorderBrushProperty,new DynamicResourceExtension(Text),"selection"));focus.Setters.Add(new Setter(Border.BorderThicknessProperty,new Thickness(2),"selection"));template.Triggers.Add(focus);style.Setters.Add(new Setter(Control.TemplateProperty,template));
+        var style=new Style(typeof(ListBoxItem));style.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(10,9,10,9)));style.Setters.Add(new Setter(FrameworkElement.MarginProperty,new Thickness(0,3,0,3)));style.Setters.Add(Value(Control.ForegroundProperty,Muted));style.Setters.Add(new Setter(Control.BackgroundProperty,Brushes.Transparent));style.Setters.Add(new Setter(Control.HorizontalContentAlignmentProperty,HorizontalAlignment.Stretch));
+        var template=new ControlTemplate(typeof(ListBoxItem));var border=new FrameworkElementFactory(typeof(Border),"selection");border.SetValue(Border.CornerRadiusProperty,new CornerRadius(10));border.SetValue(Border.BackgroundProperty,new TemplateBindingExtension(Control.BackgroundProperty));border.SetValue(Border.BorderBrushProperty,Brushes.Transparent);border.SetValue(Border.BorderThicknessProperty,new Thickness(2));border.SetValue(Border.PaddingProperty,new TemplateBindingExtension(Control.PaddingProperty));var content=new FrameworkElementFactory(typeof(ContentPresenter));content.SetValue(ContentPresenter.ContentSourceProperty,"Content");border.AppendChild(content);template.VisualTree=border;
+        var focus=new Trigger{Property=UIElement.IsKeyboardFocusWithinProperty,Value=true};focus.Setters.Add(new Setter(Border.BorderBrushProperty,new Binding("Foreground"){RelativeSource=RelativeSource.TemplatedParent},"selection"));focus.Setters.Add(new Setter(Border.BorderThicknessProperty,new Thickness(2),"selection"));template.Triggers.Add(focus);style.Setters.Add(new Setter(Control.TemplateProperty,template));
+        var hover=new Trigger{Property=UIElement.IsMouseOverProperty,Value=true};hover.Setters.Add(Value(Control.BackgroundProperty,Surface));style.Triggers.Add(hover);
         var selected=new Trigger{Property=ListBoxItem.IsSelectedProperty,Value=true};selected.Setters.Add(Value(Control.BackgroundProperty,AccentSoft));selected.Setters.Add(Value(Control.ForegroundProperty,SelectionText));selected.Setters.Add(new Setter(Control.FontWeightProperty,FontWeights.SemiBold));style.Triggers.Add(selected);return style;
+    }
+    internal static DataTemplate NavigationTemplate()
+    {
+        var row=new FrameworkElementFactory(typeof(DockPanel));var icon=new FrameworkElementFactory(typeof(Path));icon.SetBinding(Path.DataProperty,new Binding{Converter=new NavigationIcon()});icon.SetBinding(Path.StrokeProperty,new Binding("Foreground"){RelativeSource=new RelativeSource(RelativeSourceMode.FindAncestor,typeof(ListBoxItem),1)});icon.SetValue(Path.StrokeThicknessProperty,1.6);icon.SetValue(Path.StrokeLineJoinProperty,PenLineJoin.Round);icon.SetValue(Path.StrokeStartLineCapProperty,PenLineCap.Round);icon.SetValue(Path.StrokeEndLineCapProperty,PenLineCap.Round);icon.SetValue(Path.StretchProperty,Stretch.Uniform);icon.SetValue(FrameworkElement.WidthProperty,16d);icon.SetValue(FrameworkElement.HeightProperty,16d);icon.SetValue(FrameworkElement.MarginProperty,new Thickness(0,0,10,0));icon.SetValue(UIElement.IsHitTestVisibleProperty,false);icon.SetValue(DockPanel.DockProperty,Dock.Left);row.AppendChild(icon);
+        var text=new FrameworkElementFactory(typeof(TextBlock));text.SetBinding(TextBlock.TextProperty,new Binding());text.SetValue(TextBlock.TextWrappingProperty,TextWrapping.Wrap);row.AppendChild(text);return new DataTemplate{VisualTree=row};
+    }
+    private sealed class NavigationIcon:IValueConverter
+    {
+        public object Convert(object value,Type targetType,object parameter,CultureInfo culture)=>Geometry.Parse(value?.ToString() switch
+        {
+            "常规"=>"M3 10 L11 3 L19 10 M5 9 L5 19 L9 19 L9 13 L13 13 L13 19 L17 19 L17 9",
+            "API 与模型"=>"M8 5 L3 11 L8 17 M14 5 L19 11 L14 17 M12 3 L10 19",
+            "翻译风格"=>Icons["风格"],
+            "交互与浮窗"=>"M3 4 L19 4 L19 16 L3 16 Z M8 20 L14 20 M11 16 L11 20",
+            "快捷键"=>"M2 5 L20 5 L20 17 L2 17 Z M6 9 L7 9 M11 9 L12 9 M16 9 L17 9 M6 13 L16 13",
+            "图片与集成"=>"M3 3 L19 3 L19 19 L3 19 Z M4 16 L9 11 L13 15 L16 12 L19 15 M7 7 L8 7",
+            _=>"M11 2 L19 5 L18 13 Q16 18 11 21 Q6 18 4 13 L3 5 Z M8 11 L10 13 L15 8"
+        });
+        public object ConvertBack(object value,Type targetType,object parameter,CultureInfo culture)=>Binding.DoNothing;
     }
     private static readonly IReadOnlyDictionary<string,string> Icons=new Dictionary<string,string>
     {

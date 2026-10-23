@@ -19,12 +19,12 @@ internal sealed partial class SettingsWindow
     {var label=new FrameworkElementFactory(typeof(TextBlock));label.SetBinding(TextBlock.TextProperty,new Binding{Converter=new ModeConverter(),Mode=BindingMode.OneWay});return new(){VisualTree=label};}
     private StackPanel Translation()
     {
-        var page=Page();promptEditor=new(()=>draft,ApiFormEdited);preset.ItemTemplate=templateMode.ItemTemplate=ModeDisplayTemplate();Field(page,"默认翻译风格",preset);Field(page,"专业领域",domain);Field(page,"读者背景",background);domain.MaxLength=512;background.MaxLength=2048;Field(page,"查看 / 编辑的模板模式（不改变默认风格）",templateMode);
-        var actions=new StackPanel{Orientation=Orientation.Horizontal};Button view=new Button{Content="查看内置预设",Margin=new Thickness(4)},copy=new Button{Content="复制为自定义",Margin=new Thickness(4)},restore=new Button{Content="恢复该模式默认",Margin=new Thickness(4)},compose=new Button{Content="预览完整组合",Margin=new Thickness(4)};
+        var page=Page();promptEditor=new(()=>draft,ApiFormEdited);preset.ItemTemplate=templateMode.ItemTemplate=ModeDisplayTemplate();Section(page,"表达偏好");Field(page,"默认翻译风格",preset);Field(page,"专业领域",domain);Field(page,"读者背景",background);domain.MaxLength=512;background.MaxLength=2048;Section(page,"风格模板","编辑只影响草稿，不触发翻译。");Field(page,"查看 / 编辑的模板模式（不改变默认风格）",templateMode);
+        var actions=new WrapPanel();Button view=new Button{Content="查看内置预设",Margin=new Thickness(4)},copy=new Button{Content="复制为自定义",Margin=new Thickness(4)},restore=new Button{Content="恢复该模式默认",Margin=new Thickness(4)},compose=new Button{Content="预览完整组合",Margin=new Thickness(4)};
         foreach(var item in new[]{view,copy,restore,compose})actions.Children.Add(item);page.Children.Add(actions);page.Children.Add(templateStatus);
         Field(page,"内置预设（只读）",builtInTemplate);Field(page,"本模式模板（先复制为自定义再编辑，最多 8192 字符）",templateEditor);templateEditor.MaxLength=PromptTemplatePolicy.MaximumTemplateCharacters;
         Note(page,"变量仅支持 {{target_language}}、{{domain}}、{{reader_background}}、{{source_text}}、{{image_mode}}。单次数据替换，不读取环境或运行代码；source_text 表示独立用户消息中的原文，不把原文嵌入 system。模板不授予采集、上传或外部工具权限。");
-        page.Children.Add(previewRegeneration);Field(page,"固定内置安全约束（不可编辑，始终在组合最前）",fixedConstraints);Field(page,"当前预览模式的 system 完整组合（设置默认风格另见顶部）",composedSystem);Field(page,"实际 user 内容：仅公开预览样例，不读取当前选区 / 剪贴板",composedUser);
+        Section(page,"组合预览","固定公开样例 · 不读取当前内容 · 不发送请求");page.Children.Add(previewRegeneration);Field(page,"固定内置安全约束（不可编辑，始终在组合最前）",fixedConstraints);Field(page,"当前预览模式的 system 完整组合（设置默认风格另见顶部）",composedSystem);Field(page,"实际 user 内容：仅公开预览样例，不读取当前选区 / 剪贴板",composedUser);
         view.Click+=(_,_)=>{builtInTemplate.Text=promptEditor!.BuiltIn;templateStatus.Text="当前内置预设仅供查看；自定义编辑未改变。";};
         copy.Click+=(_,_)=>TemplateCommand(()=>promptEditor!.CopyBuiltIn());restore.Click+=(_,_)=>TemplateCommand(()=>promptEditor!.RestoreDefault());compose.Click+=(_,_)=>PreviewTranslationTemplate();
         templateMode.SelectionChanged+=(_,_)=>

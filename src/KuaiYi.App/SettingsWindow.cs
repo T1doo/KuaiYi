@@ -33,7 +33,7 @@ internal sealed partial class SettingsWindow:Window
     public SettingsWindow(SettingsCoordinator coordinator,SettingsDraft initialDraft,string? clipboardApplication=null,ISettingsHotkeyParticipant? hotkeys=null,Func<IReadOnlyList<HotkeyStatus>>? hotkeyStatus=null,KuaiYi.Providers.ApiConnectionTestWorkflow? apiTests=null,Func<Task<bool>>? clearCurrentContent=null,KuaiYi.Core.Diagnostics.DiagnosticLog? diagnostics=null,Func<KuaiYi.Core.Diagnostics.DiagnosticEnvironment>? diagnosticEnvironment=null)
     {
         this.coordinator=coordinator;this.apiTests=apiTests;this.clipboardApplication=clipboardApplication;this.clearCurrentContent=clearCurrentContent;this.diagnostics=diagnostics;this.diagnosticEnvironment=diagnosticEnvironment;hotkeyParticipant=hotkeys;this.hotkeyStatus=hotkeyStatus;recoveryDraft=new(initialDraft);SetupPlacement();Title="快译设置";ShowInTaskbar=false;WindowStartupLocation=WindowStartupLocation.CenterOwner;
-        var work=SystemParameters.WorkArea;Width=Math.Min(860,work.Width);Height=Math.Min(660,work.Height);MinWidth=Math.Min(700,work.Width);MinHeight=Math.Min(520,work.Height);MaxWidth=work.Width;MaxHeight=work.Height;
+        var work=SystemParameters.WorkArea;Width=Math.Min(940,work.Width);Height=Math.Min(740,work.Height);MinWidth=Math.Min(700,work.Width);MinHeight=Math.Min(520,work.Height);MaxWidth=work.Width;MaxHeight=work.Height;
         var pages=new[]{General(),Api(),Translation(),Overlay(),Hotkeys(),Images(),Privacy()};BuildSettingsChrome(pages,out var nav);
         nav.SelectionChanged+=(_,_)=>{foreach(var p in pages)p.Visibility=Visibility.Collapsed;if(nav.SelectedIndex>=0)pages[nav.SelectedIndex].Visibility=Visibility.Visible;ShowSettingsPage(nav.SelectedIndex);Mask();};nav.SelectedIndex=0;
         LoadGeneral();RefreshProfiles();
@@ -49,26 +49,36 @@ internal sealed partial class SettingsWindow:Window
         Closed+=(_,_)=>{revealTimer.Stop();password.Clear();reveal.Clear();recoveryDraft.Dispose();};
     }
     private static ComboBox Choice<T>()where T:struct,Enum=>new(){ItemsSource=Enum.GetValues<T>(),MinWidth=160,ItemTemplate=DesktopTheme.ChoiceTemplate()};
-    private static StackPanel Page()=>new(){Margin=new Thickness(22)};
-    private static void Field(Panel panel,string label,UIElement input){panel.Children.Add(new TextBlock{Text=label,FontSize=12,FontWeight=FontWeights.SemiBold,Margin=new Thickness(0,14,0,6)});panel.Children.Add(input);}
+    private static StackPanel Page()=>new();
+    private static void Field(Panel panel,string label,UIElement input)
+    {
+        var caption=new TextBlock{Text=label,FontSize=12,FontWeight=FontWeights.SemiBold,TextWrapping=TextWrapping.Wrap,Margin=new Thickness(0,16,0,7)};panel.Children.Add(caption);
+        if(input is FrameworkElement element)System.Windows.Automation.AutomationProperties.SetLabeledBy(element,caption);panel.Children.Add(input);
+    }
     private static void Note(Panel panel,string text){var note=new TextBlock{Text=text,FontSize=12,LineHeight=20,TextWrapping=TextWrapping.Wrap,Margin=new Thickness(0,10,0,10)};DesktopTheme.Bind(note,TextBlock.ForegroundProperty,DesktopTheme.Muted);panel.Children.Add(note);}
-    private StackPanel General(){var p=Page();SetupBackupEntry(p);SetupImportEntry(p);Note(p,"启动始终未启用翻译。保存设置不恢复 On。主浮钮和托盘使用同一启停状态；隐藏会停用。开机启动注册尚待安装集成验证，本页不进行系统注册。");return p;}
+    private StackPanel General(){var p=Page();Section(p,"配置备份","保存普通偏好，凭据和授权留在本机。");SetupBackupEntry(p);Section(p,"导入配置");SetupImportEntry(p);Section(p,"启动与状态");Note(p,"启动始终未启用翻译。保存设置不恢复 On。主浮钮和托盘使用同一启停状态；隐藏会停用。开机启动注册尚待安装集成验证，本页不进行系统注册。");return p;}
     private StackPanel Api()
     {
-        var p=Page();Field(p,"配置",profiles);var row=new StackPanel{Orientation=Orientation.Horizontal};var add=new Button{Content="新增配置",Margin=new Thickness(4)};var remove=new Button{Content="删除此配置（保存后生效）",Margin=new Thickness(4)};row.Children.Add(add);row.Children.Add(remove);p.Children.Add(row);
+        var p=Page();Section(p,"服务配置","使用你选择的服务地址与模型。");AddProfileEmptyState(p);Field(p,"配置",profiles);var row=new WrapPanel();var add=new Button{Content="新增配置",Margin=new Thickness(4)};var remove=new Button{Content="删除此配置（保存后生效）",Margin=new Thickness(4)};row.Children.Add(add);row.Children.Add(remove);p.Children.Add(row);
         add.Click+=(_,_)=>{if(!TryCaptureProfile())return;var profile=new ApiProfile{Id=Guid.NewGuid().ToString("N")};draft.Update(s=>s with{Profiles=s.Profiles.Add(profile)});selectedId=profile.Id;RefreshProfiles();};
         remove.Click+=(_,_)=>{if(selectedId==null)return;string id=selectedId;draft.Update(s=>s with{Profiles=s.Profiles.Where(p=>p.Id!=id).ToImmutableArray(),ActiveProfileId=s.ActiveProfileId==id?null:s.ActiveProfileId,VisionProfileId=s.VisionProfileId==id?null:s.VisionProfileId});selectedId=null;RefreshProfiles();};
-        Field(p,"名称",profileName);Field(p,"协议",protocol);Field(p,"地址模式",addressMode);Field(p,"Base URL / 完整端点",url);Field(p,"最终端点预览",endpointPreview);Field(p,"模型 ID（可手动填写）",model);Field(p,"认证方式",authentication);Field(p,"API Key（留空保留现有引用）",password);p.Children.Add(reveal);p.Children.Add(keyStatus);
-        var keyButtons=new StackPanel{Orientation=Orientation.Horizontal};var show=new Button{Content="短时显示新输入",Margin=new Thickness(4)};var clear=new Button{Content="清除密钥（保存后生效）",Margin=new Thickness(4)};keyButtons.Children.Add(show);keyButtons.Children.Add(clear);p.Children.Add(keyButtons);
+        Section(p,"连接信息");Field(p,"名称",profileName);Field(p,"协议",protocol);Field(p,"地址模式",addressMode);Field(p,"Base URL / 完整端点",url);Field(p,"最终端点预览",endpointPreview);Field(p,"模型 ID（可手动填写）",model);Section(p,"认证与密钥","现有密钥不会读取到表单。");Field(p,"认证方式",authentication);Field(p,"API Key（留空保留现有引用）",password);p.Children.Add(reveal);p.Children.Add(keyStatus);
+        var keyButtons=new WrapPanel();var show=new Button{Content="短时显示新输入",Margin=new Thickness(4)};var clear=new Button{Content="清除密钥（保存后生效）",Margin=new Thickness(4)};keyButtons.Children.Add(show);keyButtons.Children.Add(clear);p.Children.Add(keyButtons);
         show.Click+=(_,_)=>{reveal.Text=password.Password;password.Visibility=Visibility.Collapsed;reveal.Visibility=Visibility.Visible;reveal.Focus();revealTimer.Start();};
         clear.Click+=(_,_)=>ClearApiKey();
-        Field(p,"最大输出 token",tokens);Field(p,"请求超时（秒）",timeout);p.Children.Add(stream);Field(p,"默认文字配置（空为未配置）",textProfile);Field(p,"默认视觉配置（能力默认为未知）",visionProfile);
+        Section(p,"请求与默认模型");Field(p,"最大输出 token",tokens);Field(p,"请求超时（秒）",timeout);p.Children.Add(stream);Field(p,"默认文字配置（空为未配置）",textProfile);Field(p,"默认视觉配置（能力默认为未知）",visionProfile);
         SetupApiAdvanced(p);Note(p,"保存不会发送请求。连接测试仅在明确确认后发送固定公开样本；请先保存配置和密钥。视觉测试本批仅限明确授权的本机 fixture，不调用真实模型；普通图像能力门不变。能力默认未知，可手动修正；不自动遍历模型测试。密钥不读取到表单。");url.TextChanged+=(_,_)=>ApiIdentityEdited();model.TextChanged+=(_,_)=>ApiIdentityEdited();protocol.SelectionChanged+=(_,_)=>ApiIdentityEdited();addressMode.SelectionChanged+=(_,_)=>ApiIdentityEdited();return p;
     }
 
-    private StackPanel Overlay(){var p=Page();Field(p,"触发模式",mode);Field(p,"选区稳定等待（80—800 ms）",delay);Field(p,"自动发送软上限（1000—50000 字符）",softLimit);Field(p,"字号（12—22 DIP）",font);Field(p,"首选宽度（240—960 DIP）",width);Field(p,"主题",theme);Field(p,"减少动画",motion);SetupDisplayPreferences(p);p.Children.Add(remember);var reset=new Button{Content="重置已保存浮窗位置（保存后生效）"};reset.Click+=(_,_)=>draft.Update(s=>s with{Overlay=s.Overlay with{LastPosition=null}});p.Children.Add(reset);Note(p,"控制浮窗的阅读与触发偏好。保存不启用翻译，也不授予采集或上传权限。");return p;}
-    private StackPanel Images(){var p=Page();p.Children.Add(smart);p.Children.Add(preview);Note(p,"智能模式先尝试本地 OCR，并在可用时预览文字；使用视觉继续仍需明确批准。保存偏好不授予采集、启动或发送权限。");SetupIntegration(p);return p;}
-    private StackPanel Privacy(){var p=Page();Field(p,"排除应用（每行一个应用标识）",blocked);blocked.AcceptsReturn=true;blocked.MinHeight=100;Note(p,"磁盘历史、遥测和默认复制兼容固定关闭。应用授权与端点发送同意不会通过保存草稿自动授予。密钥删除在保存提交后生效。");var permission=new Button{Content="复制兼容：逐应用授权 / 撤销（即时生效）",Margin=new Thickness(0,8,0,8)};permission.Click+=(_,_)=>{var window=new ClipboardPermissionsWindow(coordinator,clipboardApplication){Owner=this};window.ShowDialog();status.Text="应用授权单独即时生效。若有修改，请关闭并重新打开设置后保存其他草稿，避免覆盖新配置。";};p.Children.Add(permission);var clear=new Button{Content="清除当前内容（立即生效）",IsEnabled=clearCurrentContent!=null,Margin=new Thickness(0,8,0,8)};clear.Click+=async(_,_)=>{clear.IsEnabled=false;try{status.Text=await clearCurrentContent!()?"当前内容已清除；设置与密钥保留。":"内容清理尚未全部确认，请查看浮窗状态。";}finally{clear.IsEnabled=true;}};p.Children.Add(clear);return p;}
+    private StackPanel Overlay()
+    {
+        var p=Page();Section(p,"阅读外观");
+        PreferenceRow(p,"字号","浮窗正文，12—22 DIP",font);PreferenceRow(p,"首选宽度","浮窗展开宽度，240—960 DIP",width);PreferenceRow(p,"主题","浅色、深色或跟随系统",theme);PreferenceRow(p,"动画","可跟随系统或减少动画",motion);
+        Section(p,"触发与发送");PreferenceRow(p,"触发模式","选择自动划词或拖放输入",mode);PreferenceRow(p,"选区稳定等待","80—800 ms",delay);PreferenceRow(p,"自动发送软上限","1000—50000 字符",softLimit);
+        Section(p,"显示偏好文件");SetupDisplayPreferences(p);Section(p,"浮窗位置");p.Children.Add(remember);var reset=new Button{Content="重置已保存浮窗位置（保存后生效）"};reset.Click+=(_,_)=>draft.Update(s=>s with{Overlay=s.Overlay with{LastPosition=null}});p.Children.Add(reset);Note(p,"控制浮窗的阅读与触发偏好。保存不启用翻译，也不授予采集或上传权限。");return p;
+    }
+    private StackPanel Images(){var p=Page();Section(p,"图片处理");p.Children.Add(smart);p.Children.Add(preview);Note(p,"智能模式先尝试本地 OCR，并在可用时预览文字；使用视觉继续仍需明确批准。保存偏好不授予采集、启动或发送权限。");Section(p,"桌面与浏览器集成");SetupIntegration(p);return p;}
+    private StackPanel Privacy(){var p=Page();Section(p,"应用与隐私");Field(p,"排除应用（每行一个应用标识）",blocked);blocked.AcceptsReturn=true;blocked.MinHeight=100;Note(p,"磁盘历史、遥测和默认复制兼容固定关闭。应用授权与端点发送同意不会通过保存草稿自动授予。密钥删除在保存提交后生效。");Section(p,"单独管理授权与内容");var permission=new Button{Content="复制兼容：逐应用授权 / 撤销（即时生效）",Margin=new Thickness(0,8,0,8)};permission.Click+=(_,_)=>{var window=new ClipboardPermissionsWindow(coordinator,clipboardApplication){Owner=this};window.ShowDialog();status.Text="应用授权单独即时生效。若有修改，请关闭并重新打开设置后保存其他草稿，避免覆盖新配置。";};p.Children.Add(permission);var clear=new Button{Content="清除当前内容（立即生效）",IsEnabled=clearCurrentContent!=null,Margin=new Thickness(0,8,0,8)};clear.Click+=async(_,_)=>{clear.IsEnabled=false;try{status.Text=await clearCurrentContent!()?"当前内容已清除；设置与密钥保留。":"内容清理尚未全部确认，请查看浮窗状态。";}finally{clear.IsEnabled=true;}};p.Children.Add(clear);return p;}
     private void LoadGeneral()
     {
         var s=draft.Data;mode.SelectedItem=s.TriggerMode;preset.SelectedItem=s.Translation.Preset;domain.Text=s.Translation.Domain;background.Text=s.Translation.ReaderBackground;delay.Text=s.Translation.SelectionDebounceMs.ToString(CultureInfo.InvariantCulture);softLimit.Text=s.Translation.AutoSoftLimitScalars.ToString(CultureInfo.InvariantCulture);font.Text=s.Overlay.FontSizeDip.ToString(CultureInfo.InvariantCulture);width.Text=s.Overlay.PreferredWidthDip.ToString(CultureInfo.InvariantCulture);motion.SelectedItem=s.Overlay.ReduceMotion;theme.SelectedItem=s.Overlay.Theme;remember.IsChecked=s.Overlay.RememberPosition;smart.IsChecked=s.Images.SmartRouting;preview.IsChecked=s.Images.PreviewScreenshotBeforeSend;blocked.Text=string.Join(Environment.NewLine,s.Privacy.BlockedApplications);LoadTranslationTemplates();
@@ -124,11 +134,11 @@ internal sealed partial class SettingsWindow:Window
         try
         {
             CaptureProfile();CapturePreferences();
-            saving=true;save.IsEnabled=cancel.IsEnabled=body.IsEnabled=recovery.IsEnabled=false;status.Text="正在保存草稿…";
+            saving=true;save.Content="正在保存…";save.IsEnabled=cancel.IsEnabled=body.IsEnabled=recovery.IsEnabled=false;status.Text="正在保存草稿…";
             await recoveryDraft.SaveAsync(coordinator,hotkeys:hotkeyParticipant);committed=true;
         }
         catch(Exception error){status.Text=error is HotkeyValidationException hv?"快捷键不可配置 · "+hv.Action+" · "+hv.Problem:error is HotkeyRegistrationException hr?"快捷键注册失败 · Win32 "+hr.Error+(hr.RollbackUnconfirmed?"；回滚未确认，快捷键动作暂停。":"；原组合保留，无法判断占用程序。"):error is HotkeyRegistryStateException hs?"快捷键事务暂不可用 · "+hs.Problem+"；不推断系统占用，请核实原保存或重启恢复。":error is SettingsValidationException v?"请检查设置项："+v.Field:error is SettingsConflictException?"配置已被另一份草稿修改。请取消后重新打开，避免覆盖。":draft.IsClosed?"配置已提交，通知或密钥清理尚需恢复。关闭后重新打开设置进行核对。":"保存未确认 · "+error.GetType().Name+"；原配置或事务保留。";}
-        finally{saving=false;RefreshHotkeyStatuses();if(!draft.IsClosed)save.IsEnabled=cancel.IsEnabled=body.IsEnabled=recovery.IsEnabled=!draft.Basis.ReadOnly;else cancel.IsEnabled=true;}
+        finally{saving=false;save.Content="保存更改";RefreshHotkeyStatuses();if(!draft.IsClosed)save.IsEnabled=cancel.IsEnabled=body.IsEnabled=recovery.IsEnabled=!draft.Basis.ReadOnly;else cancel.IsEnabled=true;}
         if(committed||closeWhenSettled)Close();
     }
 }

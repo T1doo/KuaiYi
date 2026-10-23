@@ -21,15 +21,15 @@ internal sealed partial class SettingsWindow
     private Task apiTestTask=Task.CompletedTask;private readonly StringBuilder testText=new();private bool testClosePending;
     private void SetupApiAdvanced(Panel page)
     {
-        var presets=new StackPanel{Orientation=Orientation.Horizontal};page.Children.Add(presets);
+        Section(page,"高级请求选项");var presets=new WrapPanel();page.Children.Add(presets);
         foreach(var pair in new[]{("OpenAI 官方预设",Protocol.OpenAIChat),("Anthropic 官方预设",Protocol.AnthropicMessages)})
         {var button=new Button{Content=pair.Item1,Margin=new Thickness(4)};presets.Children.Add(button);button.Click+=(_,_)=>ApplyApiPreset(pair.Item2);}
         Field(page,"端点路径（空为协议默认；完整端点模式不追加）",endpointPath);Field(page,"输出 token 参数方式",outputParameter);Field(page,"温度（空为省略）",temperature);Field(page,"上下文 token 上限（可空，非精确计数）",contextTokens);Field(page,"图像字节上限（65536—4194304）",imageBytes);
-        Field(page,"连接截止（1—60秒，默认10）",connectTimeout);Field(page,"响应头截止（1—180秒，默认30）",headersTimeout);Field(page,"首有效协议响应（1—300秒，默认30）",firstTimeout);Field(page,"无有效活动截止（1—180秒，默认20）",idleTimeout);Note(page,"阶段截止不延长总预算。ping、未知事件、JSON空白等不重置有效内容计时；更大阶段值仍受上方总时限约束。");
-        Field(page,"流式能力",streamCapability);Field(page,"图像能力",visionCapability);Field(page,"温度能力",temperatureCapability);Field(page,"结构化 JSON 能力",jsonCapability);Field(page,"流式用量能力",usageCapability);
+        Section(page,"阶段截止");Field(page,"连接截止（1—60秒，默认10）",connectTimeout);Field(page,"响应头截止（1—180秒，默认30）",headersTimeout);Field(page,"首有效协议响应（1—300秒，默认30）",firstTimeout);Field(page,"无有效活动截止（1—180秒，默认20）",idleTimeout);Note(page,"阶段截止不延长总预算。ping、未知事件、JSON空白等不重置有效内容计时；更大阶段值仍受上方总时限约束。");
+        Section(page,"服务能力","未知能力不会视为已支持。");Field(page,"流式能力",streamCapability);Field(page,"图像能力",visionCapability);Field(page,"温度能力",temperatureCapability);Field(page,"结构化 JSON 能力",jsonCapability);Field(page,"流式用量能力",usageCapability);
         Note(page,"Unknown=未知，Supported=已确认支持，Unsupported=不支持。更改协议、模型或地址会重置能力。温度仅在明确支持时发送；图像能力未知不会作为已支持。");
-        Field(page,"自定义认证头名（仅 CustomHeader；值使用上面的加密 API Key）",authHeader);Field(page,"非敏感自定义头（每行 Name: value；凭据只能用加密认证字段）",headers);
-        page.Children.Add(localHttp);page.Children.Add(insecureHttp);page.Children.Add(storeFalse);page.Children.Add(testConnection);page.Children.Add(testVision);page.Children.Add(stopTest);page.Children.Add(testResult);
+        Section(page,"请求头与传输选项");Field(page,"自定义认证头名（仅 CustomHeader；值使用上面的加密 API Key）",authHeader);Field(page,"非敏感自定义头（每行 Name: value；凭据只能用加密认证字段）",headers);
+        page.Children.Add(localHttp);page.Children.Add(insecureHttp);page.Children.Add(storeFalse);Section(page,"连接测试","只有明确确认后，才发送固定公开样本。");page.Children.Add(testConnection);page.Children.Add(testVision);page.Children.Add(stopTest);page.Children.Add(testResult);
         foreach(var checkbox in new[]{localHttp,insecureHttp,storeFalse})checkbox.Click+=(_,_)=>{apiTests?.Cancel();PreviewEndpoint();};
         endpointPath.TextChanged+=(_,_)=>ApiIdentityEdited();headers.TextChanged+=(_,_)=>{if(!loading)apiTests?.Cancel();};authentication.SelectionChanged+=(_,_)=>{if(!loading)apiTests?.Cancel();};
         // Every request-affecting edit revokes the test, including keyboard toggles and masked credential edits.
