@@ -71,6 +71,9 @@ internal static class OverlayStageProbe
         private nint initialForeground;
         private string mode="Setup";
         private string expectedMarker="";
+        private RequestIdentity? sequenceIdentity;
+        private long sequenceEpoch;
+        private int expectedTextLength;
         private object? environment;
         internal OverlayProbeLifetime Lifetime{get;set;}=null!;
         internal DispatcherOperation? Shutdown{get;private set;}
@@ -97,6 +100,15 @@ internal static class OverlayStageProbe
             cancellation.Token.ThrowIfCancellationRequested();
             if(elapsed.Elapsed>=TimeSpan.FromSeconds(45))
             {timedOut=true;throw new TimeoutException("Original 45-second driver budget exceeded.");}
+            if(sequenceIdentity.HasValue&&(!window!.IsVisible||!RequestCurrent()))
+                throw new InvalidOperationException("Original request/epoch or visible window changed; diagnostic continuation refused.");
+        }
+        private bool RequestCurrent()
+        {
+            if(window==null||sequenceIdentity is not {} identity)return false;
+            var snapshot=window.PresentationGate.Snapshot;
+            return window.PresentationGate.CanApply(identity)&&snapshot.Epoch==sequenceEpoch&&snapshot.Activation==Activation.On&&
+                snapshot.Suspension==Suspension.None&&snapshot.Presentation!=Presentation.Hidden;
         }
         private async Task Open()
         {
@@ -129,10 +141,11 @@ internal static class OverlayStageProbe
         }
         private async Task Sequence(string collection)
         {
-            phase=null;phaseDone=null;mode=collection;expectedMarker="首段结束。";
+            phase=null;phaseDone=null;mode=collection;expectedMarker="首段结束。";sequenceIdentity=null;expectedTextLength=0;
             var gate=window!.PresentationGate;
             if(!gate.TryGetProfileBinding("public",out var binding)||!gate.TryStartProfileRequest(binding,Guid.NewGuid(),Guid.NewGuid(),null,out var id,out _))
                 throw new InvalidOperationException("Bound synthetic request refused.");
+            sequenceIdentity=id;sequenceEpoch=gate.Snapshot.Epoch;
             await Send(id,new(OverlayResultEventKind.Begin));
             await Stage("SeedOpen",OverlayTransition.Opening,OverlayTransition.Expanded,OverlayProbeGoal.Settled,async()=>
             {await Send(id,new(OverlayResultEventKind.Delta,ShortText));await TextVisible("首段结束。");});
@@ -147,39 +160,50 @@ internal static class OverlayStageProbe
                 await Send(id,new(OverlayResultEventKind.Delta,"\n\n流式末尾标记。"));
                 await Send(id,new(OverlayResultEventKind.Complete));await TextVisible("流式末尾标记。");
             });
-            await CommandStage("Close", "收起",OverlayTransition.Closing,OverlayTransition.Compact);
-            await CommandStage("Reopen", "回看",OverlayTransition.Opening,OverlayTransition.Expanded);
-            await CommandStage("CloseUntilReverse", "收起",OverlayTransition.Closing,OverlayTransition.Compact,OverlayProbeGoal.Intermediate);
-            await CommandStage("ReverseToOpen", "回看",OverlayTransition.Opening,OverlayTransition.Expanded);
-            await CommandStage("CloseToCompact", "收起",OverlayTransition.Closing,OverlayTransition.Compact);
-            await CommandStage("OpenUntilReverse", "回看",OverlayTransition.Opening,OverlayTransition.Expanded,OverlayProbeGoal.Intermediate);
-            await CommandStage("ReverseToClose", "收起",OverlayTransition.Closing,OverlayTransition.Compact);
+            var close=await CommandStage("Close", "收起",OverlayTransition.Closing,OverlayTransition.Compact,OverlayTransition.Expanded);
+            var reopen=await CommandStage("Reopen", "回看",OverlayTransition.Opening,OverlayTransition.Expanded,OverlayTransition.Compact,prerequisite:close);
+            var closing=await CommandStage("CloseUntilReverse", "收起",OverlayTransition.Closing,OverlayTransition.Compact,OverlayTransition.Expanded,OverlayProbeGoal.Intermediate,reopen);
+            var reversed=await CommandStage("ReverseToOpen", "回看",OverlayTransition.Opening,OverlayTransition.Expanded,OverlayTransition.Closing,prerequisite:closing);
+            var compact=await CommandStage("CloseToCompact", "收起",OverlayTransition.Closing,OverlayTransition.Compact,OverlayTransition.Expanded,prerequisite:reversed);
+            var opening=await CommandStage("OpenUntilReverse", "回看",OverlayTransition.Opening,OverlayTransition.Expanded,OverlayTransition.Compact,OverlayProbeGoal.Intermediate,compact);
+            await CommandStage("ReverseToClose", "收起",OverlayTransition.Closing,OverlayTransition.Compact,OverlayTransition.Opening,prerequisite:opening);
         }
-        private Task CommandStage(string name,string tag,OverlayTransition moving,OverlayTransition terminal,OverlayProbeGoal goal=OverlayProbeGoal.Settled)
+        private Task<OverlayProbePhase> CommandStage(string name,string tag,OverlayTransition moving,OverlayTransition terminal,OverlayTransition required,
+            OverlayProbeGoal goal=OverlayProbeGoal.Settled,OverlayProbePhase? prerequisite=null)
             =>Stage(name,moving,terminal,goal,()=>
             {
+                Check();
                 var control=Descendants<Button>((DependencyObject)window!.Content).Single(b=>Equals(b.Tag,tag));
                 if(!control.IsEnabled)throw new InvalidOperationException("Original production command disabled: "+tag);
                 control.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));return Task.CompletedTask;
-            });
-        private async Task Stage(string name,OverlayTransition moving,OverlayTransition terminal,OverlayProbeGoal goal,Func<Task> issue)
+            },required,prerequisite);
+        private async Task<OverlayProbePhase> Stage(string name,OverlayTransition moving,OverlayTransition terminal,OverlayProbeGoal goal,Func<Task> issue,
+            OverlayTransition? required=null,OverlayProbePhase? prerequisite=null)
         {
             Check();var geometry=window!.PresentationGeometry??throw new InvalidOperationException("Production geometry missing.");
-            var current=new OverlayProbePhase(phases.Count+1,mode,name,Stopwatch.GetTimestamp(),geometry.Current,moving,terminal,goal,expectedMarker);
+            var current=new OverlayProbePhase(phases.Count+1,mode,name,Stopwatch.GetTimestamp(),geometry.Current,moving,terminal,goal,expectedMarker,prerequisite?.Id);
             var done=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
             phase=current;phases.Add(current);phaseDone=done;
             // Publish the phase/waiter before Receive or Click can synchronously render.
             try
             {
+                if(required.HasValue&&!OverlayProbePhase.CanIssueCommand(required.Value,geometry.Transition,geometry.NeedsFrame,geometry.Current,geometry.Anchor,prerequisite,window.PresentationAnimationEpoch))
+                {current.Skip(Stopwatch.GetTimestamp());Lifetime.Record("Stage:"+mode+":"+name,new InvalidOperationException("PrerequisiteInvalid; original command not issued."));return current;}
                 using var registration=cancellation.Token.Register(()=>done.TrySetCanceled(cancellation.Token));
-                await issue();Check();current.Issued();await done.Task;Check();
+                await issue();Check();current.Issued(Stopwatch.GetTimestamp(),window.PresentationAnimationEpoch);await done.Task;Check();return current;
             }
             finally{if(ReferenceEquals(phase,current)){phase=null;phaseDone=null;}}
         }
         private async Task Send(RequestIdentity id,OverlayResultEvent update)
-        {if(!await window!.ReceivePresentationAsync(id,update,cancellation.Token))throw new InvalidOperationException("Original receiver rejected "+update.Kind);Check();}
+        {
+            Check();
+            if(!await window!.ReceivePresentationAsync(id,update,cancellation.Token))throw new InvalidOperationException("Original receiver rejected "+update.Kind);
+            if(update.Kind==OverlayResultEventKind.Delta)expectedTextLength=checked(expectedTextLength+update.Text.Length);
+            Check();
+        }
         private async Task TextVisible(string marker)
-        {while(!body!.IsVisible||body.ActualWidth<=0||body.ActualHeight<=0||body.Opacity<=0||!DocumentContains(marker))await Next();}
+        {while(!body!.IsVisible||body.ActualWidth<=0||body.ActualHeight<=0||body.Opacity<=0||!DocumentContains(marker)||!MeasurementCurrent())await Next();}
+        private bool MeasurementCurrent()=>sequenceIdentity is {} identity&&journal.HasCurrentMeasurement(identity.VersionId,expectedTextLength);
         private bool DocumentContains(string marker)=>new TextRange(body!.Document.ContentStart,body.Document.ContentEnd).Text.Contains(marker,StringComparison.Ordinal);
         private async Task Next(){Check();await nextFrame.Task.WaitAsync(cancellation.Token);Check();}
 
@@ -203,25 +227,31 @@ internal static class OverlayStageProbe
                 window.PresentationButtonScreenBounds,g.ContentDirection,g.Monitor.Dpi.Factor,body!.ActualWidth,body.VerticalOffset,
                 NativeDesktop.GetForegroundWindow()==initialForeground,body.IsVisible,body.ActualHeight,body.Opacity,
                 phase?.DocumentMarker is not {} marker||DocumentContains(marker),
-                window.PresentationAnimationEpoch,window.PresentationAnimationStartedAt,window.PresentationLastTick);
+                window.PresentationAnimationEpoch,window.PresentationAnimationStartedAt,window.PresentationLastTick,RequestCurrent(),
+                MeasurementCurrent());
         }
         private void Observe(object? sender,EventArgs args)
         {
             depth++;
             try
             {
-                if(!window!.IsVisible)return;
+                if(!window!.IsVisible)throw new InvalidOperationException("Original window hidden; continuation refused.");
+                if(sequenceIdentity.HasValue&&!RequestCurrent())throw new InvalidOperationException("Original request/epoch changed; continuation refused.");
                 long renderingTicks=((RenderingEventArgs)args).RenderingTime.Ticks;
                 var sample=journal.Add(Frame(renderingTicks));
                 if(sample.QpcReversed||sample.RenderingTimeReversed||!sample.Frame.Applying&&depth==1&&!sample.StableGeometryValid)
                     throw new InvalidOperationException("Stable geometry or monotonic frame evidence failed at "+sample.Sequence);
+                bool finished=phase?.Finished==true;
                 bool completed=phase?.Observe(sample)==true;
+                bool failed=!finished&&phase?.FailedQpc!=null;
+                if(failed)Lifetime.Record("Stage:"+mode+":"+phase!.Name,new InvalidOperationException(phase.FailureReason));
                 if(mode=="Raster"&&sample.Eligible&&!capturing&&phase is {} current)
                 {
                     if(current.SawIntermediate&&captured.Add((current.Id,"intermediate")))Capture(sample,"intermediate");
                     if(completed&&current.Goal==OverlayProbeGoal.Settled&&captured.Add((current.Id,"terminal")))Capture(sample,"terminal");
+                    if(failed&&captured.Add((current.Id,"failed-terminal")))Capture(sample,"failed-terminal");
                 }
-                if(completed)phaseDone?.TrySetResult();
+                if(completed||failed)phaseDone?.TrySetResult();
                 if(sample.Eligible){var previous=nextFrame;nextFrame=new(TaskCreationOptions.RunContinuationsAsynchronously);previous.TrySetResult();}
             }
             catch(Exception error)

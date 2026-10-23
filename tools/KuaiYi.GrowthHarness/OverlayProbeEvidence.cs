@@ -8,7 +8,8 @@ internal sealed record OverlayProbeFrame(long Qpc,long RenderingTicks,int Phase,
     PixelRect Card,PixelRect Anchor,PixelRect Work,PixelRect? Native,PixelRect? Button,
     GrowthDirection? Direction,double Dpi,double BodyWidth,double ScrollOffset,bool ForegroundUnchanged,
     bool BodyVisible=true,double BodyHeight=100,double BodyOpacity=1,bool DocumentCurrent=true,
-    long AnimationEpoch=0,TimeSpan AnimationStartedAt=default,OverlayFrameTick? AppliedTick=null);
+    long AnimationEpoch=0,TimeSpan AnimationStartedAt=default,OverlayFrameTick? AppliedTick=null,
+    bool RequestCurrent=true,bool MeasurementCurrent=true);
 internal sealed record OverlayProbeSample(int Sequence,OverlayProbeFrame Frame,bool DuplicateRenderingTime,
     bool QpcReversed,bool RenderingTimeReversed,bool StableGeometryValid,bool DuplicateStableRenderingTime)
 {
@@ -30,6 +31,9 @@ internal sealed class OverlayProbeJournal(int maximum=10000)
         if(Measurements.Count>=512){MeasurementOverflow=true;return false;}
         Measurements.Add(new(Measurements.Count+1,phase,mode,value));return true;
     }
+    internal bool HasCurrentMeasurement(Guid version,int length)
+        =>Measurements.LastOrDefault()?.Measurement.Markdown is {} value&&value.CurrentAccepted&&
+          value.VersionBefore==version&&value.VersionAfter==version&&value.TextLengthBefore==length&&value.TextLengthAfter==length;
     internal OverlayProbeSample Add(OverlayProbeFrame frame)
     {
         if(Samples.Count>=maximum)throw new InvalidOperationException("Raw callback bound exceeded; no samples discarded.");
@@ -47,31 +51,53 @@ internal sealed class OverlayProbeJournal(int maximum=10000)
 }
 internal enum OverlayProbeGoal{Intermediate,Settled}
 internal sealed class OverlayProbePhase(int id,string mode,string name,long started,PixelRect baseline,
-    OverlayTransition intermediate,OverlayTransition terminal,OverlayProbeGoal goal,string? documentMarker=null)
+    OverlayTransition intermediate,OverlayTransition terminal,OverlayProbeGoal goal,string? documentMarker=null,int? prerequisitePhaseId=null)
 {
     public int Id{get;}=id;public string Mode{get;}=mode;public string Name{get;}=name;
     public long StartedQpc{get;}=started;public PixelRect Baseline{get;}=baseline;
     public OverlayTransition Intermediate{get;}=intermediate;public OverlayTransition Terminal{get;}=terminal;
     public OverlayProbeGoal Goal{get;}=goal;
     public string? DocumentMarker{get;}=documentMarker;
-    public bool IssuanceComplete{get;private set;}public bool SawIntermediate{get;private set;}
+    public int? PrerequisitePhaseId{get;}=prerequisitePhaseId;
+    private readonly HashSet<long> intermediateEpochs=[];
+    public bool IssuanceComplete{get;private set;}
+    public bool SawIntermediate=>IssuedAnimationEpoch is {} epoch?intermediateEpochs.Contains(epoch):intermediateEpochs.Count>0;
     public long? FirstGeometryChangeQpc{get;private set;}public long? CompletedQpc{get;private set;}
+    public long? IssuedQpc{get;private set;}public long? IssuedAnimationEpoch{get;private set;}
+    public long? FailedQpc{get;private set;}public long? SkippedQpc{get;private set;}
+    public string? FailureReason{get;private set;}
+    public bool Finished=>CompletedQpc.HasValue||FailedQpc.HasValue||SkippedQpc.HasValue;
+    public string Outcome=>CompletedQpc.HasValue?"Passed":FailedQpc.HasValue?"Failed":SkippedQpc.HasValue?"NotRun":"Pending";
     public int EligibleSamples{get;private set;}public long? LastEligibleQpc{get;private set;}
     public List<long> GapsQpc{get;}=[];
-    internal void Issued()=>IssuanceComplete=true;
+    internal void Issued(long? qpc=null,long animationEpoch=0)
+    {IssuanceComplete=true;IssuedQpc=qpc??StartedQpc;IssuedAnimationEpoch=animationEpoch;}
+    internal void Skip(long qpc)
+    {if(Finished||IssuanceComplete)throw new InvalidOperationException("Issued or finished phase cannot be skipped.");SkippedQpc=qpc;FailureReason="PrerequisiteInvalid";}
+    internal static bool CanIssueCommand(OverlayTransition required,OverlayTransition actual,bool needs,PixelRect current,PixelRect anchor,OverlayProbePhase? prerequisite,long animationEpoch)
+    {
+        if(actual!=required)return false;
+        if(required is OverlayTransition.Opening or OverlayTransition.Closing)
+            return needs&&prerequisite is {Goal:OverlayProbeGoal.Intermediate,CompletedQpc:not null}&&
+                prerequisite.Intermediate==required&&prerequisite.IssuedAnimationEpoch==animationEpoch&&current!=prerequisite.Baseline&&current!=anchor;
+        return !needs&&(required!=OverlayTransition.Compact||current==anchor);
+    }
     internal bool Observe(OverlayProbeSample sample)
     {
         var f=sample.Frame;
-        if(!sample.Eligible||f.Phase!=Id||f.Mode!=Mode||f.Qpc<StartedQpc||CompletedQpc.HasValue)return false;
+        if(!sample.Eligible||!f.RequestCurrent||!f.MeasurementCurrent||f.Phase!=Id||f.Mode!=Mode||f.Qpc<StartedQpc||Finished)return false;
         if(LastEligibleQpc is {} previous)GapsQpc.Add(f.Qpc-previous);
         LastEligibleQpc=f.Qpc;EligibleSamples++;
         if(f.Card!=Baseline)FirstGeometryChangeQpc??=f.Qpc;
         bool moving=f.Transition==Intermediate&&f.NeedsFrame&&f.Card!=Baseline;
-        SawIntermediate|=moving;
+        if(moving)intermediateEpochs.Add(f.AnimationEpoch);
         bool textVisible=Terminal!=OverlayTransition.Expanded||f.BodyVisible&&f.BodyWidth>0&&f.BodyHeight>0&&f.BodyOpacity>=.99&&f.DocumentCurrent;
-        bool done=IssuanceComplete&&SawIntermediate&&(Goal==OverlayProbeGoal.Intermediate?moving:
-            f.Transition==Terminal&&!f.NeedsFrame&&textVisible&&(Terminal!=OverlayTransition.Compact||f.Card==f.Anchor));
+        bool issued=IssuanceComplete&&IssuedQpc is {} issuedAt&&IssuedAnimationEpoch is {} issuedEpoch&&f.Qpc>=issuedAt&&f.AnimationEpoch==issuedEpoch;
+        bool terminal=f.Transition==Terminal&&!f.NeedsFrame&&textVisible&&(Terminal!=OverlayTransition.Compact||f.Card==f.Anchor);
+        bool done=issued&&SawIntermediate&&(Goal==OverlayProbeGoal.Intermediate?moving:terminal);
         if(done)CompletedQpc=f.Qpc;
+        else if(issued&&terminal)
+        {FailedQpc=f.Qpc;FailureReason=Goal==OverlayProbeGoal.Intermediate?"IntermediateCommandWindowMissed":"ChangedIntermediateNotObserved";}
         return done;
     }
 }
