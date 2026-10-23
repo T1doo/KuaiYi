@@ -16,10 +16,11 @@ internal sealed partial class SettingsWindow
     }
     private static void PreferenceRow(Panel panel,string title,string description,FrameworkElement input)
     {
-        var row=new Grid{Margin=new Thickness(0,15,0,0)};row.ColumnDefinitions.Add(new(){Width=new GridLength(1,GridUnitType.Star)});row.ColumnDefinitions.Add(new(){Width=GridLength.Auto});
-        var labels=new StackPanel{Margin=new Thickness(0,0,20,0),VerticalAlignment=VerticalAlignment.Center};var label=new TextBlock{Text=title,FontSize=13,FontWeight=FontWeights.Medium,TextWrapping=TextWrapping.Wrap};labels.Children.Add(label);
-        var detail=new TextBlock{Text=description,FontSize=11,TextWrapping=TextWrapping.Wrap,Margin=new Thickness(0,4,0,0)};DesktopTheme.Bind(detail,TextBlock.ForegroundProperty,DesktopTheme.Muted);labels.Children.Add(detail);row.Children.Add(labels);
-        input.Width=180;input.VerticalAlignment=VerticalAlignment.Center;Grid.SetColumn(input,1);AutomationProperties.SetLabeledBy(input,label);AutomationProperties.SetHelpText(input,description);row.Children.Add(input);panel.Children.Add(row);
+        var labels=new StackPanel();var label=new TextBlock{Text=title,FontWeight=FontWeights.Medium,TextWrapping=TextWrapping.Wrap};labels.Children.Add(label);
+        var detail=new TextBlock{Text=description,TextWrapping=TextWrapping.Wrap,Margin=new Thickness(0,4,0,0)};DesktopTheme.Bind(detail,TextBlock.ForegroundProperty,DesktopTheme.Muted);labels.Children.Add(detail);
+        // The panel supplies a preferred width; a hard MinWidth would defeat stacking.
+        input.MinWidth=0;input.VerticalAlignment=VerticalAlignment.Center;AutomationProperties.SetLabeledBy(input,label);AutomationProperties.SetHelpText(input,description);
+        panel.Children.Add(new PreferencePanel(labels,input){Margin=new Thickness(0,15,0,0)});
     }
     private static Border Information(string title,string description)
     {

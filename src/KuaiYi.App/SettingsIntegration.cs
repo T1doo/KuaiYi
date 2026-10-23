@@ -15,7 +15,7 @@ internal sealed partial class SettingsWindow
     private void SetupIntegration(Panel page)
     {
         Note(page,"集成状态 · 手动只读检测，不更改注册、策略或权限，不启动浏览器、宿主或模型。扩展与桌面应用独立安装。不会读取浏览器个人资料。浏览器有效策略和图像翻译仍需真实 Windows 验证。");
-        var actions=new StackPanel{Orientation=Orientation.Horizontal};actions.Children.Add(integrationRefresh);actions.Children.Add(integrationCancel);page.Children.Add(actions);page.Children.Add(integrationNote);page.Children.Add(integrationRows);
+        var actions=new WrapPanel();actions.Children.Add(integrationRefresh);actions.Children.Add(integrationCancel);page.Children.Add(actions);page.Children.Add(integrationNote);page.Children.Add(integrationRows);
         ShowIntegration(IntegrationSnapshot.Initial);
         integrationRefresh.Click+=async(_,_)=>
         {
