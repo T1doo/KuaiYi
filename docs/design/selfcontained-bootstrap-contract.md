@@ -25,3 +25,7 @@ ModeOf只从精确已验证文件集合推导，错误集合不降级。B候选�
 四native当前全缺真实输出。Capture需要MSVC x64/C++20、Windows SDK C++/WinRT及windowsapp/ole32/d3d11/dxgi/user32/gdi32；OCR需要同C++/WinRT及windowsapp/ole32；OleBridge需要MSVC/SDK ole32/uuid；ShellExtension另需RC、ole32/shell32/shlwapi。四项目均要求CMake>=3.28、/W4 /WX /EHsc、Release静态CRT。既有编译基线为VS2022/v14314.44及原生SDK10.0.26100.0；当前Linux无cl/CMake/RC/该SDK，不是缺.NET SDK，也不是要用户电脑。未安装新工具、接受协议、改系统或访问已拒runner接口。
 
 真实扩展origin、完整G/native包、实际B publish、当前包验签以及冻结G/B审定仍必须齐备，之后才构建绑定pins的独立Installer；生产Unavailable不变。真实隔离Windows首次安装、升级失败恢复、新旧READY/退出、身份及250/600ms仍另验。
+
+2026-10-23真实publish校正：依赖JSON现只固定已实际执行的Linux SDK10.0.402跨平台发布形状，不接受另一未审生产者形状。对比先前RuntimeList推导JSON仅16处：SDK输出固定runtimes={win-x64:[win,any,base]}；15 native fileVersion是0.0.0.0。它们是SDK生成的描述元数据，真实189个runtime/notices文件的size/SHA/版本/来源表完全不改；不能以deps的0版本替代字节资格。ExactJson仍逐值核全部字段并拒重复/未知资产/graph/版本。未增加模式或回填source pins。
+
+同一份真实194文件B源经独立新catalog/digest走原InstallationBootstrapPackage.Read（195个实际文件含catalog）；旧资源精确拒，修复资源后接受，26组件正负例保留严格graph/native-version反例。用于Core绑定的Generation目录仅为未封存实际Core字节，不假称完整G已物化/安装；该Read成功也不是Windows EXE执行或READY。修改嵌入资源会改变新Core和新B source digest，后续必须同修订重新发布/绑定，不复用旧digest。历史候选2F/1F与FD夹具输入污染19F分开保留，不混为产品红绿。

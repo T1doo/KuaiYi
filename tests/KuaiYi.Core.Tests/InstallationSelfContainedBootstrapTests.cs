@@ -36,7 +36,7 @@ public sealed class InstallationSelfContainedBootstrapTests
         Assert.Throws<InvalidDataException>(()=>InstallationBootstrapPackage.FilesForMode("PUBLIC_UNKNOWN_MODE"));
     }
     [Theory][InlineData("valid")][InlineData("framework")][InlineData("version")][InlineData("probe")][InlineData("config")][InlineData("runtime-duplicate")]
-    [InlineData("missing-asset")][InlineData("extra-asset")][InlineData("asset-alias")][InlineData("asset-path")][InlineData("rid")][InlineData("asset-type")][InlineData("library")][InlineData("deps-duplicate")]
+    [InlineData("missing-asset")][InlineData("extra-asset")][InlineData("asset-alias")][InlineData("asset-path")][InlineData("rid")][InlineData("asset-type")][InlineData("library")][InlineData("deps-duplicate")][InlineData("graph-missing")][InlineData("graph-extra")][InlineData("graph-order")][InlineData("native-version")]
     public void ExactConfigurationRefusesExternalProbingUnknownFieldsOrChangedAssets(string fault)
     {
         string root=Path.Combine(Path.GetTempPath(),"kuaiyi-bootstrap-config-"+Guid.NewGuid().ToString("N"));Directory.CreateDirectory(root);
@@ -57,6 +57,10 @@ public sealed class InstallationSelfContainedBootstrapTests
             if(fault=="rid")deps["runtimeTarget"]!["name"]=".NETCoreApp,Version=v10.0/win-arm64";
             if(fault=="asset-type"){pack["runtimeTargets"]=new JsonObject{["hostfxr.dll"]=new JsonObject{["rid"]="win-x64",["assetType"]="runtime"}};}
             if(fault=="library")deps["libraries"]!["PUBLIC_EXTRA/1.0.0"]=new JsonObject();
+            if(fault=="graph-missing")deps.AsObject().Remove("runtimes");
+            if(fault=="graph-extra")deps["runtimes"]!["PUBLIC_EXTRA"]=new JsonArray("win");
+            if(fault=="graph-order")deps["runtimes"]!["win-x64"]=new JsonArray("any","win","base");
+            if(fault=="native-version")pack["native"]!["hostfxr.dll"]!["fileVersion"]="PUBLIC_UNKNOWN_VERSION";
             string runtimeText=runtime.ToJsonString(),depsText=deps.ToJsonString();
             if(fault=="runtime-duplicate")runtimeText=runtimeText.Insert(1,"\"runtimeOptions\":{},");
             if(fault=="deps-duplicate")depsText=depsText.Insert(1,"\"compilationOptions\":{},");
@@ -64,6 +68,17 @@ public sealed class InstallationSelfContainedBootstrapTests
             if(fault=="valid")InstallationBootstrapPackage.RequireConfiguration(root,InstallationBootstrapPackage.SelfContainedMode);
             else Assert.Throws<InvalidDataException>(()=>InstallationBootstrapPackage.RequireConfiguration(root,InstallationBootstrapPackage.SelfContainedMode));
             Assert.Throws<InvalidDataException>(()=>InstallationBootstrapPackage.RequireConfiguration(root,"PUBLIC_UNKNOWN_MODE"));
+        }
+        finally{Directory.Delete(root,true);}
+    }
+    [Fact]public void ActualLinuxSdk402PublishedDependenciesMatchTheOnlyAcceptedSelfContainedShape()
+    {
+        string root=Path.Combine(Path.GetTempPath(),"kuaiyi-actual-bootstrap-config-"+Guid.NewGuid().ToString("N"));Directory.CreateDirectory(root);
+        try
+        {
+            File.WriteAllText(Path.Combine(root,"KuaiYi.Launcher.runtimeconfig.json"),InstallationBootstrapPackage.SelfContainedRuntime);
+            File.Copy(Path.Combine(MaterializedPayloadSource.Repo,"tests/fixtures/payload-runtime/KuaiYi.Launcher.deps.json"),Path.Combine(root,"KuaiYi.Launcher.deps.json"));
+            InstallationBootstrapPackage.RequireConfiguration(root,InstallationBootstrapPackage.SelfContainedMode);
         }
         finally{Directory.Delete(root,true);}
     }

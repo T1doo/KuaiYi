@@ -1751,3 +1751,5 @@ Windows payload固定产品2182f8df5ba5d6e5a0e36f137e6b082101c6f7a8：八普通m
 2026-10-23成品优先接续：复用既有public windows-2022/contentsread/attempt1/15分钟入口准备四native真实Release构建及两原CTest，预装14.44/SDK26100/CMake实际门，缺件不安装/不换工具；原bounded日志分片回收真实DLL，不用用户电脑或artifact/cache收费存储。只读repo metadata成功，未查询已拒Actions/runner API；实际投递/运行结果另记，不将准备当通过。七角色自包含云端发布可独立继续；原pins/完整成品/Windows未验边界不抬。GrowthHarness不是主要交付，其目录外OS缓存风险需专项只读审清，未核不让用户电脑启动。
 
 真实147ab七角色+Launcher自包含发布均exit0，ImageWorker3包实际清单/官方漏洞查询及Skia三包严格在线verify通过，原锁不变；并非已封成品。实际ClipboardHost/CaptureHost均Core+Desktop，原payload精确合同误只允许Core。两实际配置原字节封存，经新testfile+原生产门真实2F，最小补两个明确role及夹具后整类46P=新10+旧36；其他role/版本/重复额外框架门未放宽。候选源码独审/冻结回归另记。GrowthHarness专项只读确认不能保证OS字体缓存/驱动/条件WER/启动日志绝无Etemp外写，当前严格临时目录合同不放行用户电脑启动，交接顶部已明确。
+
+SC B实际194文件+新catalog→原Read在旧合同真实拒绝，独审设计后仅固定实际Linux SDK402生成的精确deps形状（16元数据差异），189runtime/notices长度/hash一项不改；graph/额外native版本四反例及实际deps正例加入，候选26组件通过。额外Read原例由拒转接受；Generation仅实际Core字节绑定，未签G安装/Windows。候选首次25P1F因嵌入资源改变Core而FD bin仍旧Core，正常重建FD Launcher后26P，原件保留；固定新SHA再重发八产物及必要签收，不复用旧Core/source digest。
