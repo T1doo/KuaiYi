@@ -165,7 +165,7 @@
     "RepeatedDispatches": 0,
     "Observation": "Ordinary public HTML page; current executor not logged in",
     "Logs": "Sign in to view logs; no login/raw/download/API attempt",
-    "Result": "PendingParentOrdinaryLogRecovery",
+    "Result": "PublicRunSuccess_OriginalBodyAndPixelsPending",
     "Pngs": "NotRetrieved",
     "NativeAcceptance": "NotClaimed",
     "LocalCheck": "Exact source-scope test1P plus actual frozen Git source_gate; no product tests rerun",
@@ -199,6 +199,24 @@
         "Bytes": 1761,
         "Sha256": "908c8bdc4fc4aa80eba676440383f5aa7d8a1bfce512cd345a5e4df35a35a8bd"
       }
-    ]
+    ],
+    "CompletedPublicPageObservation": {
+      "ObservedUtc": "2026-10-23T11:49:29.278824+00:00",
+      "RunId": "39948580823",
+      "State": {
+        "status": "WORKFLOW_RUN_STATUS_COMPLETED",
+        "conclusion": "WORKFLOW_RUN_CONCLUSION_SUCCESS"
+      },
+      "Timing": {
+        "kind": "WORKFLOW_RUN_TIMING_KIND_DURATION",
+        "text": "1m 41s"
+      },
+      "RunUrl": "https://github.com/T1doo/KuaiYi/actions/runs/39948580823"
+    },
+    "CompletedPublicPageEvidence": {
+      "File": "workflow-page-handoff.html",
+      "Bytes": 262884,
+      "Sha256": "ad82919371dc6ca3bb0fc8514d89cc236182c9311c5db3f03ab8a56e49fb050d"
+    }
   }
 }
