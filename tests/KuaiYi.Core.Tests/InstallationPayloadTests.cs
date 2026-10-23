@@ -48,6 +48,36 @@ public sealed class InstallationPayloadTests(ITestOutputHelper output)
         output.WriteLine($"PUBLIC_MATERIALIZED sourceSha={source.Digest} installedSha={installed.CatalogSha256} sourceFiles={sourceFileCount()} trustFiles={host.Files.Count} nativeRuntime=StructuralFixtureOnly realApply=true osIdentity=NotRun");
         int sourceFileCount()=>Directory.GetFiles(source.Root,"*",SearchOption.AllDirectories).Length;
     }
+    [Theory][InlineData("ClipboardHost")][InlineData("CaptureHost")]
+    public async Task ActualSelfContainedDesktopHostRuntimeConfigurationPassesMaterialization(string role)
+    {
+        using var r=new Rig();var source=r.Source();
+        source.Put("KuaiYi."+role+".runtimeconfig.json",File.ReadAllBytes(Path.Combine(MaterializedPayloadSource.Repo,"tests/fixtures/payload-runtime","KuaiYi."+role+".runtimeconfig.json")));
+        source.Catalog();var installed=await r.Store().ApplyAsync(source.Root,source.Digest);
+        Assert.Equal(installed,r.Store().ReadActive());
+        Assert.Equal(File.ReadAllBytes(Path.Combine(source.Root,"KuaiYi."+role+".runtimeconfig.json")),File.ReadAllBytes(Path.Combine(installed.DirectoryPath,"KuaiYi."+role+".runtimeconfig.json")));
+    }
+    [Theory]
+    [InlineData("ClipboardHost","missing")][InlineData("CaptureHost","missing")]
+    [InlineData("ClipboardHost","duplicate")][InlineData("CaptureHost","duplicate")]
+    [InlineData("ClipboardHost","extra")][InlineData("CaptureHost","extra")]
+    [InlineData("ClipboardHost","version")][InlineData("CaptureHost","version")]
+    public async Task RehashedDesktopHostRuntimeConfigurationStillRequiresExactFrameworkClosure(string role,string fault)
+    {
+        using var r=new Rig();var source=r.Source();
+        var actual=JsonNode.Parse(File.ReadAllBytes(Path.Combine(MaterializedPayloadSource.Repo,"tests/fixtures/payload-runtime","KuaiYi."+role+".runtimeconfig.json")))!;
+        var frameworks=actual["runtimeOptions"]!["includedFrameworks"]!.AsArray();
+        switch(fault)
+        {
+            case "missing":frameworks.RemoveAt(1);break;
+            case "duplicate":frameworks.Add(frameworks[1]!.DeepClone());break;
+            case "extra":frameworks.Add(new JsonObject{["name"]="PUBLIC_UNAUTHORIZED_FRAMEWORK",["version"]="10.0.13"});break;
+            case "version":frameworks[1]!["version"]="10.0.12";break;
+        }
+        source.Put("KuaiYi."+role+".runtimeconfig.json",JsonSerializer.SerializeToUtf8Bytes(actual));source.Catalog();
+        await Assert.ThrowsAsync<InvalidDataException>(()=>r.Store().ApplyAsync(source.Root,source.Digest));
+        Assert.Null(r.Store().ReadActive());Assert.False(File.Exists(Path.Combine(r.App,"current.json")));
+    }
     [Theory][InlineData("role")][InlineData("dependency")][InlineData("framework-dependent")][InlineData("revision")][InlineData("origin")][InlineData("duplicate-origin")][InlineData("reserved-case")][InlineData("native-machine")][InlineData("identity")][InlineData("extension-permission")][InlineData("native-truncated")][InlineData("deps-shape")][InlineData("identity-dtd")]
     public async Task InvalidSourceClosureCannotCreateOrChangeAnInstalledGeneration(string fault)
     {

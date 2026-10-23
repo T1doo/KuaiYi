@@ -24,7 +24,7 @@ internal sealed class MaterializedPayloadSource
         foreach(string role in InstallationPayload.Roles)
         {
             File.Copy(Product(role+".exe"),Path.Combine(root,role+".exe"));File.Copy(Product(role+".deps.json"),Path.Combine(root,role+".deps.json"));
-            var frameworks=new List<object>{new{name="Microsoft.NETCore.App",version="10.0.13"}};if(role is "KuaiYi.App" or "KuaiYi.CaptureBroker" or "KuaiYi.OleReceiver")frameworks.Add(new{name="Microsoft.WindowsDesktop.App",version="10.0.13"});
+            var frameworks=new List<object>{new{name="Microsoft.NETCore.App",version="10.0.13"}};if(role is "KuaiYi.App" or "KuaiYi.CaptureBroker" or "KuaiYi.OleReceiver" or "KuaiYi.ClipboardHost" or "KuaiYi.CaptureHost")frameworks.Add(new{name="Microsoft.WindowsDesktop.App",version="10.0.13"});
             Put(role+".runtimeconfig.json",JsonSerializer.SerializeToUtf8Bytes(new{runtimeOptions=new{tfm="net10.0",includedFrameworks=frameworks}}));
         }
         foreach(string name in InstallationPayload.TrustedFiles)if(!File.Exists(Path.Combine(root,name)))Put(name,NativeFixture());

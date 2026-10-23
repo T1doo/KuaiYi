@@ -134,7 +134,7 @@ internal static class InstallationPayload
     {
         using var doc=JsonDocument.Parse(InstallationPackage.ReadDocument(Path.Combine(directory,role+".runtimeconfig.json"),65536,io),new(){MaxDepth=16});var options=doc.RootElement.GetProperty("runtimeOptions");
         if(options.TryGetProperty("framework",out _)||options.TryGetProperty("frameworks",out _)||!options.TryGetProperty("includedFrameworks",out var frameworks)||frameworks.ValueKind!=JsonValueKind.Array)throw new InvalidDataException("Self-contained runtime configuration required.");
-        var required=new HashSet<string>(StringComparer.Ordinal){"Microsoft.NETCore.App"};if(role is "KuaiYi.App" or "KuaiYi.CaptureBroker" or "KuaiYi.OleReceiver")required.Add("Microsoft.WindowsDesktop.App");
+        var required=new HashSet<string>(StringComparer.Ordinal){"Microsoft.NETCore.App"};if(role is "KuaiYi.App" or "KuaiYi.CaptureBroker" or "KuaiYi.OleReceiver" or "KuaiYi.ClipboardHost" or "KuaiYi.CaptureHost")required.Add("Microsoft.WindowsDesktop.App");
         foreach(var f in frameworks.EnumerateArray())if(f.GetProperty("version").GetString()!=version||!required.Remove(f.GetProperty("name").GetString()??""))throw new InvalidDataException("Runtime framework contract mismatch.");
         if(required.Count!=0)throw new InvalidDataException("Runtime frameworks incomplete.");
     }

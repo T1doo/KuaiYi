@@ -1749,3 +1749,5 @@ Windows payload固定产品2182f8df5ba5d6e5a0e36f137e6b082101c6f7a8：八普通m
 为今天有限窗口，固定5af另发布真实ShellWindow公开内容自包含WPF工具（非成品）。GrowthHarness原locked restore通过，但package-list CLI实际Sequence错误保留Fail；独审限定ACK后仅本artifact用实际assets两target/8project libraries+根项目/0package及原锁证明，不改生产gate。Core/Desktop两包独立验签审计和409 runtime逐字节绑定、14 SDK未复制的WindowsFormsIntegration原档条目补齐、实际全文件manifest；真实Windows尚未运行。旧153没有重跑。见[交付边界](validation/windows-afternoon-native-plan.md)和[工具受限交接](validation/windows-public-overlay-handoff.md)。
 
 2026-10-23成品优先接续：复用既有public windows-2022/contentsread/attempt1/15分钟入口准备四native真实Release构建及两原CTest，预装14.44/SDK26100/CMake实际门，缺件不安装/不换工具；原bounded日志分片回收真实DLL，不用用户电脑或artifact/cache收费存储。只读repo metadata成功，未查询已拒Actions/runner API；实际投递/运行结果另记，不将准备当通过。七角色自包含云端发布可独立继续；原pins/完整成品/Windows未验边界不抬。GrowthHarness不是主要交付，其目录外OS缓存风险需专项只读审清，未核不让用户电脑启动。
+
+真实147ab七角色+Launcher自包含发布均exit0，ImageWorker3包实际清单/官方漏洞查询及Skia三包严格在线verify通过，原锁不变；并非已封成品。实际ClipboardHost/CaptureHost均Core+Desktop，原payload精确合同误只允许Core。两实际配置原字节封存，经新testfile+原生产门真实2F，最小补两个明确role及夹具后整类46P=新10+旧36；其他role/版本/重复额外框架门未放宽。候选源码独审/冻结回归另记。GrowthHarness专项只读确认不能保证OS字体缓存/驱动/条件WER/启动日志绝无Etemp外写，当前严格临时目录合同不放行用户电脑启动，交接顶部已明确。

@@ -1,0 +1,11 @@
+# 真实自包含发布暴露的双 Host 运行时合同修复
+
+固定147ab977b3725b15d35e55b0efb01110edb9d297在原云端SDK402下，七角色加Launcher各一次locked restore与self-contained win-x64/10.0.13 publish真实exit0，全部原锁不变。各角色有独立发布目录和逐文件摘要，没有盲合并。ImageWorker实际3包inventory及官方vulnerability query通过；Skia三原档严格正常在线verify及实际contentHash均通过。无真实Windows执行，四native另由同147ab既有免费Windows CI请求构建，投递成功不等于结果。
+
+真实ClipboardHost和CaptureHost配置均includedFrameworks Core10.0.13+Desktop10.0.13；源项目引用UseWPF的Windows库，SDK传递框架需求正确。InstallationPayload.RequireRuntime却只给App/CaptureBroker/OleReceiver加Desktop，精确集合因此拒两真实Host。旧MaterializedPayloadSource夹具手造仅Core，同样遗漏，掩盖了该阻断。
+
+最小修复仅给这两个明确角色增加Desktop required，夹具同步。NativeHost/ImageWorker仍只允许Core；版本、重复/额外framework、framework(s)拒绝均保持，未新增依赖或扩大权限。tests/fixtures/payload-runtime封存两实际publish配置原字节与147ab来源/长度/SHA256。
+
+新两正例将实际原配置放入source并重算catalog pin，走真实Store.Apply/ReadActive/安装后原字节比较；native/runtime其余输入仍为明确结构夹具，不能签可运行成品。新8负例改为missing/duplicate/extra/version后也重算源pin，要求Apply拒绝且current不存在。同完整testfile在原生产门2F，均精确Runtime framework contract mismatch；修后整类46P（新10+原36），不重刷旧153、不混不同轮次。原件/输入摘要保留；冻结后真实构建/回归和publish结果另列，不用候选测试签冻结树。
+
+WPF零包角色package-list原CLI错误未绕作通过，本次artifact准备使用实际零包assets替代证明，生产准备gate不变。完整G/B资格、实际扩展origin、审定pins、真实native/runtime执行/安装/READY和250/600ms仍未签，Installer保持Unavailable。

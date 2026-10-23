@@ -1,5 +1,11 @@
 # 今日公开 WPF 界面工具交接（不是端用户成品）
 
+**最新审查结论：当前严格“所有数据/缓存均在E:\temp”授权下，不在用户电脑启动本工具。** 下文运行步骤仅保留技术交接，不是放行。项目直接写入可在父级核过非链接专属目录及准确output后约束；Windows/WPF字体服务、驱动缓存、条件WER、启动/安全日志等OS派生写入不能由TEMP/TMP约束，也未在本机观测。不会通过修改缓存/安全配置解决此限制。
+
+ActualOverlayProbe的output没有内置containment或CreateNew门，临时目录没有完整父链防链接/排他创建门；自动公开路径没有执行真实LocalAppData/KuaiYi默认配置，但enableSelectionPlatform=false不是权限沙箱，真实菜单仍有其他入口。WPF真实字体布局及托盘仍发生，own-HWND仍有OLE生命周期处理。未见项目显式磁盘shader cache写入，不据此保证驱动零写；WER默认关闭，预配置LocalDumps且崩溃时可写LocalAppData，不能断言本次必写。
+
+官方依据：[GetTempPath2不校验权限且保留符号链接](https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-gettemppath2w)、[DirectWrite Shared包含跨进程字体缓存](https://learn.microsoft.com/en-us/windows/win32/api/dwrite/ne-dwrite-dwrite_factory_type)、[WER LocalDumps条件及默认路径](https://learn.microsoft.com/en-us/windows/win32/wer/collecting-user-mode-dumps)。这些是风险边界依据，不冒称已逐字核本artifact的WPF二进制或用户电脑实际OS写入。
+
 只交父级唯一Windows执行任务01a1673b-54ea-75a3-b515-03d6282e4028；云端未运行Windows。用户要求下载即可使用，本工具自包含，不安装SDK/运行时/编译器/Python。完整应用包仍缺四native/七角色实际闭包/真实扩展origin/审定pins，不可用该工具代签完整产品。
 
 固定已审源：`5afaa0c84091186da5f0e968a24936be6d733241`。工具正常默认构建，没有CI环境伪装、isolated或WindowsCiProbe编译开关。使用真实ShellWindow，明确提供临时SettingsCoordinator，选择平台关闭，只喂固定公开合成文字，ModelCalls=0。界面测试仍需要真实Windows桌面。
