@@ -165,7 +165,7 @@
     "RepeatedDispatches": 0,
     "Observation": "Ordinary public HTML page; current executor not logged in",
     "Logs": "Sign in to view logs; no login/raw/download/API attempt",
-    "Result": "PublicRunSuccess_OriginalBodyAndPixelsPending",
+    "Result": "Closed_LimitedSettingsNavigationAcceptance",
     "Pngs": "NotRetrieved",
     "NativeAcceptance": "NotClaimed",
     "LocalCheck": "Exact source-scope test1P plus actual frozen Git source_gate; no product tests rerun",
@@ -217,6 +217,77 @@
       "File": "workflow-page-handoff.html",
       "Bytes": 262884,
       "Sha256": "ad82919371dc6ca3bb0fc8514d89cc236182c9311c5db3f03ab8a56e49fb050d"
-    }
+    },
+    "ParentFinalAcceptance": {
+      "ReportingThread": "01a16877-b4a3-76a1-9604-50db8d1fe025",
+      "Provenance": "Trusted parent delegation: independently decoded originals and inspected all four actual PNGs. This consumer independently inspected only the two new Library files below.",
+      "SourceHead": "b4e642230b1fda315e34404eeb0fa134e14a5b05",
+      "FixedProductSource": "9d917d8d6072e0a642b74db62a2af86e4a87678e",
+      "ReviewedProductChange": "76956cc5eabf24f6e765d8f22c2e60dc49fba227",
+      "LimitedAck": true,
+      "OriginalChecks": [
+        "Each of four PNG lengths and SHA256",
+        "settings-result hash",
+        "summary.Actual equality"
+      ],
+      "SelectedNavigationMethod": "ObservedProductionAutoReveal_NoFixtureScroll",
+      "SelectedLabelsFullyVisible": [
+        "narrow",
+        "Font26"
+      ],
+      "ReportedAlignmentErrorPixels": 0.5,
+      "ReportedNavigationHeightPixels": {
+        "narrow": 72,
+        "Font26": 90
+      },
+      "Wide": "Reported identical to prior wide PNG",
+      "ShortRecovery": "Recovery and save/cancel fully visible",
+      "Commands": {
+        "Count": 17,
+        "AllExitZero": true,
+        "Meaning": "Command exits, not 17 tests"
+      },
+      "CleanupConfirmed": true,
+      "TimedOut": false,
+      "Errors": []
+    },
+    "ConsumerFinalInspection": {
+      "Flow": "Supported explicit consumer-local materialization, first attempt succeeded for both files",
+      "Files": [
+        {
+          "File": "KuaiYi-settings-fixed-b4e6422-run39948580823-font26.png",
+          "Readable": true,
+          "Bytes": 51140,
+          "Sha256": "e64673f712b12f11871eec2fbb48d776e261b1568011f7923901c90a273e33ab",
+          "Width": 604,
+          "Height": 641,
+          "LibraryId": "libfile_e988791a20648191ab5644755aa55988",
+          "Version": "0"
+        },
+        {
+          "File": "KuaiYi-settings-fixed-b4e6422-run39948580823-narrow.png",
+          "Readable": true,
+          "Bytes": 36050,
+          "Sha256": "900b272d1a8f8bd56a47994073af29c72decc3807362b014953797db7b8da2d1",
+          "Width": 404,
+          "Height": 641,
+          "LibraryId": "libfile_bdeaf5233fec819197e55e28aa477bb6",
+          "Version": "0"
+        }
+      ],
+      "BothLocallyReadable": true,
+      "ActualPixelsViewed": true,
+      "Finding": "Selected interaction/overlay label fully visible in both new PNGs; icon/text alignment and compact content space visibly improved.",
+      "OriginalSummaryAndChunkRecordsMaterialized": false,
+      "NewWideAndShortPngsMaterialized": false
+    },
+    "RemainingAcceptance": [
+      "DWM presentation and perceived fluidity",
+      "Actual system DPI/text-scale changes",
+      "Physical keyboard interaction",
+      "Production overlay growth/close/stream/reverse animation",
+      "Full installation/end-user package"
+    ],
+    "FurtherCiDispatches": 0
   }
 }
