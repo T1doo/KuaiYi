@@ -1,6 +1,6 @@
 # 开发进度
 
-2026-10-23 晚间桌面精修候选：白浅蓝原生设置工作台/分组偏好行/焦点与状态反馈，原浮窗同HWND生长链保持；底板圆角与同帧原生裁切半径统一。快译无任何吉祥物。Core相关109P、Provider配色2P，非全套/非Windows。当前file://预览被Chromium组织策略阻断，不能签视觉或动态验收；固定树构建和证据随后补齐。见[范围、动效实现和明确未验](validation/desktop-refinement-2026-10-23.md)。
+2026-10-23 晚间桌面精修候选：白浅蓝原生设置工作台/分组偏好行/焦点与状态反馈，原浮窗同HWND生长链保持；底板圆角与同帧原生裁切半径统一。快译无任何吉祥物。Core相关109P、Provider配色2P，非全套/非Windows。产品b89a925固定App交叉0W/E，原件Library libfile_ec54e1fd2a74819192bd5d1918ec5f52/v0。当前file://预览被Chromium组织策略阻断，不能签视觉或动态验收；未改原动效220/180/70ms和250/600ms门。见[范围、动效实现和明确未验](validation/desktop-refinement-2026-10-23.md)。
 
 2026-10-21 额外server操作性实测独审限定ACK：源ef51719单次Windows run39572086629 success，两个普通继承token的独立child在无client／调用者自己持bit4请求client时，第二CreateNamedPipe去FIRST且max2均返回invalid/Win32 5；首server原handle全程持有，owner/user/logon/session只读核对及全部原IO/child/handle结算成功。仅Pass_LimitedTwoDeniedAttempts，不回填旧客户端bit4实授红、不宣告无风险/跨身份安全。无客户端测量/图片链/UI/Worker重复，产品/锁/系统权限不改。原件Library `libfile_6b161863e82481919114e39599f68fd9`，medium warm仍Blocked。见 [操作性原件与边界](validation/server-instance-windows.md)。
 

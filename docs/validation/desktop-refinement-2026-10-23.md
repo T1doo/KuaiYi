@@ -32,3 +32,13 @@ GrowthHarness 默认 ProbeWindow 是独立原型；`--actual-overlay` / `--ci-ac
 ## 只读学习
 
 设计原则来自 [Anthropic frontend-design](https://raw.githubusercontent.com/anthropics/skills/main/skills/frontend-design/SKILL.md)、[Impeccable craft-floor](https://raw.githubusercontent.com/pbakaus/impeccable/main/.agent/skills/impeccable/reference/craft-floor.md)、[Web Interface Guidelines](https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md)、[design-motion-principles](https://raw.githubusercontent.com/kylezantos/design-motion-principles/main/skills/design-motion-principles/SKILL.md)。只迁移适合 WPF 的真实任务结构、明确层级、克制装饰、即时高频反馈、焦点和减少动画原则；未安装/执行其脚本、launcher、hooks、npx 或二进制，也未把网页参考当 WPF 实机证据。
+
+## 固定产品收口
+
+产品完整 SHA `b89a9253706fb48a0218277ddd133dad256bc3ba`。该提交 App Windows 目标 Release 构建 exit0、0 Warning、0 Error；不是 Windows 执行。App DLL 583680B，SHA256 `f27effb37ec98e8b6bc2e3e4307b52601ae1949af2f2e890c2ad1b2408d8f72a`；源码和新 DLL 均无废弃插画字节/资源名。版本声明包含完整产品 SHA，实际 DLL 本体在 review-only-not-runnable 中供独审字节核验，不是完整可运行包。
+
+9 个产品源码经只读独审限定 ACK；固定构建没有再扩大测试或重复整套。两份定向 TRX 是前述候选树实际执行，不改写为固定提交运行；相关 Core/链接源和 Provider 配色源与最终树一致，最终圆角仅属 App WPF 绘制，验证为交叉编译与源码审查。
+
+完整原件 Library **libfile_ec54e1fd2a74819192bd5d1918ec5f52 / v0**：523442B、46 成员，ZIP SHA256 `4ef1bd1ed7c5fd5a533348fd8a4884446f52c715b3d1842b9423a9915b245aa0`。含9源Git blob、源码/输入及产物摘要、原TRX/日志/命令、明确归为阻断证据的浏览器图片、最终独立HTML和只读DLL。CRC和成员摘要在本环境校验；上传返回成功，全部返回xattr已应用并复核摘要。无私有下载URL。
+
+本轮可以交付源码候选和可打开的设计文件，**不能交付已验收的精美像素或流畅录屏**。最小缺口是已有权限范围内可实际渲染当前WPF的Windows会话及原始帧/视频回收；本Linux环境的浏览器file://又被组织策略明确阻断，未尝试其他URL绕路。没有重新投递旧CI、访问已拒Actions API或使用用户电脑。
