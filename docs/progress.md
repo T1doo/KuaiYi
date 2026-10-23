@@ -1759,3 +1759,7 @@ SC B实际194文件+新catalog→原Read在旧合同真实拒绝，独审设计�
 固定产品a32854dde197f38fbef1e4672c171bc726633819：两实产物缺口独审闭合；940输入/Git一致，八SC发布全0、8Core+testCore字节同；一次必要三类102P=Payload46+BPrep30+SC26。真实B194+catalog原Read Pass，新sourceSHA30894F310FE35A518B24B3369F2AF84AAA93807038478C0A72AFF99BC591C729，两个实改且重算pin负源分别被runtime/graph门拒。原19F/31P/候选26分列不相加。G473/B194实际输入Library libfile_ba7a2fa674648191bbb09eebf6a6d0f5 v0，不可安装/DoNotRun；原件libfile_f56348701a6c81919a89c366718c8d3f v0，217成员/216manifest/16Git源码，无DLL本体。四native源147ab的既有免费CI请求已投递，实际结果/二进制回收Unknown，不读被拒API；四C++源到a328无diff。完整G/origin/审定pins/身份可信签名/Windows安装READY及250600仍未验，生产Unavailable。Growth不能保证OS缓存全Etemp，不在用户电脑启动。见[实际源与原件边界](validation/payload-desktop-host-runtime.md)。
 
 2026-10-23 WPF窄窗布局：原PreferenceRow固定180改实际字体/template测量与单列；原ListBox窄窗顶部滚动，正文/底部各有界滚动，实际滚条动态资源参与极窄横向extent。两个原按钮行Wrap，原事件/Mask/保存事务与全部安全门不变。新纯布局7P；首轮6P1F是238与237.99999999999997精确浮点夹具差异，原件保留，不称产品红绿。初始候选App0W/E，冻结后的最终构建待单列。只读源码限定ACK；未重试拒绝的浏览器，不借HTML代签WPF，真实窄窗/200%字体/DPI/焦点/滚动/像素仍NotRun。见[准确范围](validation/settings-adaptive-layout-2026-10-23.md)。
+
+固定产品b2ac823ed7b1b45aee2e6dda7001080a1ddf91e9最终App交叉构建0W/E、25.27s，487个测试后输入与固定源码逐项一致；7P为同字节候选测试，没有重复。原6P1F日志/完整TRX与初始测试文件保留。实际WPF像素/键盘/200%和旧平台门仍NotRun。
+
+固定树与原件独审限定ACK：26唯一ZIP成员/25manifest/11源码、487捕获输入与Git、两个DLL本体及原6P1F/最终7P完整TRX均核；App0W/E25.27秒。Library libfile_a3d05462cb7c81919c6f37fba2d86cda v0，1,107,931B，SHA2569829e1f99424c8feeeea6260ca01b9ad9294cb79c6b10c860358ebd5b2e406dd。证据不称同文件产品红绿、WPF原生渲染或可运行成品。

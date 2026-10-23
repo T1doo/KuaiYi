@@ -1,0 +1,57 @@
+{
+  "productSha": "b2ac823ed7b1b45aee2e6dda7001080a1ddf91e9",
+  "archive": {
+    "path": "artifacts/2026-10-23-settings-layout/KuaiYi-settings-layout-evidence.zip",
+    "bytes": 1107931,
+    "sha256": "9829e1f99424c8feeeea6260ca01b9ad9294cb79c6b10c860358ebd5b2e406dd",
+    "members": 26,
+    "manifestMembers": 25,
+    "sourceFiles": 11
+  },
+  "validation": {
+    "productSha": "b2ac823ed7b1b45aee2e6dda7001080a1ddf91e9",
+    "inputsUnchangedFromTargetedTest": 487,
+    "allInputsMatchGit": true,
+    "app": {
+      "path": "src/KuaiYi.App/bin/Release/net10.0-windows/win-x64/KuaiYi.App.dll",
+      "bytes": 594432,
+      "sha256": "e324fc79b43140127f6442423ab750fc5d83ff5c8fb653bc9bbf3de553743fce"
+    },
+    "build": {
+      "warnings": 0,
+      "errors": 0,
+      "elapsedSeconds": 25.27
+    },
+    "targetedTests": {
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0,
+      "kind": "platform-independent production geometry; executed before commit, matching source bytes"
+    },
+    "nativeWpf": "NotRun"
+  },
+  "library": {
+    "library_file_id": "libfile_a3d05462cb7c81919c6f37fba2d86cda",
+    "file_id": "file_00000000bc9c81fdadbd1167f8d51a18",
+    "current_version_number": 0,
+    "path": "/KuaiYi-settings-layout-evidence.zip",
+    "file_size_bytes": 1107931
+  },
+  "initialRun": {
+    "passed": 6,
+    "failed": 1,
+    "skipped": 0,
+    "cause": "fixture compared binary floating result 237.99999999999997 to exact 238; original log, TRX and test source preserved",
+    "notProductionRedGreen": true
+  },
+  "notRun": [
+    "native WPF rendering",
+    "Windows text scale 200%",
+    "keyboard Tab/BringIntoView and popup/focus",
+    "multimonitor DPI/high contrast pixels",
+    "full Core/Codec/installation suites",
+    "native/runtime/full P7",
+    "real 250/600ms acceptance"
+  ],
+  "sourceReview": "Limited ACK by existing read-only gif_review; no new definite P1/P2."
+}

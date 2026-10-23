@@ -13,7 +13,7 @@
 
 - 新 `SettingsLayoutTests` 仅 7 方法，直接链接生产布局计划：窄列/200% 字体参数、实际模板宽、精确断点、返回宽窗、Collapsed、长反馈/短高度、实际滚条最小宽以及零/无限约束。最终 **7P / 0F / 0skip**，29 ms；属于平台独立算法测试，不是 WPF 实机测试。
 - 首轮 **6P / 1F** 原件保留：`LongFeedbackCannotConsumeThePageOrNavigationViewport` 期望238、实际237.99999999999997，堆栈原行57。只是测试精确浮点比较错误，改为6位小数精度，不称产品红绿。未删除测试或改变生产预算。
-- 初始候选 App 交叉 build **0W / 0E**，23.23 s；在实际滚条增量之前。冻结产品后最终 App 构建结果另补，不能借记该候选。
+- 初始候选 App 交叉 build **0W / 0E**，23.23 s；在实际滚条增量之前。冻结产品 `b2ac823ed7b1b45aee2e6dda7001080a1ddf91e9` 后最终 App 构建 **0W / 0E**，25.27 s。测试时的 487 个输入摘要与固定 Git 源逐项一致；这是候选测试源码绑定，不声称测试在提交后重跑。
 - 两次只读源码审查限定 ACK；未发现确定新增 P1/P2。第二次核实际滚条动态资源与单向 MultiBinding。
 - 没有重跑旧109/2、安装/完整Core/Codec。不同轮数不相加。
 
@@ -24,3 +24,7 @@
 当前 Linux 无可运行 WPF；本轮没有原生截图/录屏、200% Windows 文字、键盘 Tab/BringIntoView、ComboBox popup、焦点、真实多屏/DPI或高对比像素验收。200% 字体参数测试不等同系统200%文字或200%DPI。没有重试被拒的 Chromium 路径，没有使用 HTML 响应式代签 WPF，没有使用用户电脑或新 CI。旧 native/runtime/完整安装/P7与真实250/600ms门仍未签。
 
 布局实现依据 WPF 的 [MeasureOverride](https://learn.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.measureoverride?view=windowsdesktop-10.0)、[ArrangeOverride](https://learn.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.arrangeoverride?view=windowsdesktop-10.0) 与 [MinWidth 优先级](https://learn.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.minwidth?view=windowsdesktop-10.0)。源码/数学测试不能替代原生布局验收。
+
+原始证据已保存 Library `libfile_a3d05462cb7c81919c6f37fba2d86cda` v0：1,107,931 B，26成员/25manifest/11源码，SHA256 `9829e1f99424c8feeeea6260ca01b9ad9294cb79c6b10c860358ebd5b2e406dd`。包含最终 App DLL 与测试 DLL 本体用于摘要复核，**不是可运行成品**。原Library身份与版本已写入本地文件元数据。
+
+最终独立只读复核：ZIP CRC/25摘要、11份Git源码、487捕获输入、两DLL本体及两轮原始TRX/固定构建日志一致；未重跑产品。
