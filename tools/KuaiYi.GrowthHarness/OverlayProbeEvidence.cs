@@ -1,4 +1,5 @@
 using KuaiYi.Core;
+using KuaiYi.App;
 
 namespace KuaiYi.GrowthHarness;
 
@@ -6,7 +7,8 @@ internal sealed record OverlayProbeFrame(long Qpc,long RenderingTicks,int Phase,
     OverlayTransition Transition,bool NeedsFrame,bool Applying,int ObserverDepth,long Hwnd,
     PixelRect Card,PixelRect Anchor,PixelRect Work,PixelRect? Native,PixelRect? Button,
     GrowthDirection? Direction,double Dpi,double BodyWidth,double ScrollOffset,bool ForegroundUnchanged,
-    bool BodyVisible=true,double BodyHeight=100,double BodyOpacity=1,bool DocumentCurrent=true);
+    bool BodyVisible=true,double BodyHeight=100,double BodyOpacity=1,bool DocumentCurrent=true,
+    long AnimationEpoch=0,TimeSpan AnimationStartedAt=default,OverlayFrameTick? AppliedTick=null);
 internal sealed record OverlayProbeSample(int Sequence,OverlayProbeFrame Frame,bool DuplicateRenderingTime,
     bool QpcReversed,bool RenderingTimeReversed,bool StableGeometryValid,bool DuplicateStableRenderingTime)
 {

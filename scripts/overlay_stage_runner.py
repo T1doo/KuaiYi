@@ -64,6 +64,7 @@ class OverlayProcessOwner:
         self.errors = []
         self.streams = {}
         self.state_absent = False
+        self.state_observation = "NotObserved"
         self.done = threading.Event()
         self.original = threading.Thread(target=self._run, name="overlay-original-owner", daemon=False)
         # Publish original ownership before the only launch can begin.
@@ -201,6 +202,9 @@ class OverlayProcessOwner:
                 self._request_rescue()  # A late launch still belongs to this owner.
             for operation in (self.original_wait, self.original_stdout, self.original_stderr):
                 operation.join()
+            if (self.exit_code is not None and len(self.streams) == 2 and
+                    all(s["Eof"] and s["Closed"] and s["LogClosed"] for s in self.streams.values())):
+                self._observe_state()
             if self.exit_code != 0:
                 raise RuntimeError("Original process did not exit successfully")
             self._verify_result()
@@ -219,13 +223,31 @@ class OverlayProcessOwner:
                     self.deadline_expired = True
                 self.done.set()
 
+    def _observe_state(self):
+        # Independent, read-only observation after the exact child and both logs settle.
+        # A failed child may have cleaned its own state; that never makes the run pass.
+        try:
+            if plain_directory(self.directory) != self.identity:
+                raise RuntimeError("Owned output directory was replaced")
+            present = False
+            for count, path in enumerate(self.directory.iterdir(), 1):
+                if count > 64:
+                    raise RuntimeError("Owned directory observation exceeds bound")
+                present |= path.name.startswith("overlay-state-")
+            if plain_directory(self.directory) != self.identity:
+                raise RuntimeError("Owned output directory changed during observation")
+            self.state_observation = "Present" if present else "Absent"
+            self.state_absent = not present
+            if present:
+                raise RuntimeError("Original harness state cleanup unconfirmed")
+        except Exception as error:
+            if self.state_observation != "Present":
+                self.state_observation = "Error"
+            self._error("StateObservation", error)
+
     def _verify_result(self):
-        if plain_directory(self.directory) != self.identity:
-            raise RuntimeError("Owned output directory was replaced")
-        # Strict absence of every state-prefix entry, including unexpected files/links.
-        entries = list(self.directory.iterdir())
-        if len(entries) > 64 or any(p.name.startswith("overlay-state-") for p in entries):
-            raise RuntimeError("Original harness state cleanup unconfirmed")
+        if not self.state_absent or plain_directory(self.directory) != self.identity:
+            raise RuntimeError("Owned output directory/state absence unconfirmed")
         path = self.directory / "overlay-stages-result.json"
         if linked(path) or not path.is_file():
             raise RuntimeError("Plain original result required")
@@ -240,7 +262,6 @@ class OverlayProcessOwner:
                 actual.get("Errors") != [] or any(actual.get(k) is not True for k in required)):
             raise RuntimeError("Original source/exit/cleanup result refused")
         self.result = {"Bytes": len(raw), "Sha256": hashlib.sha256(raw).hexdigest(), "Actual": actual}
-        self.state_absent = True
 
     def observe(self):
         self.done.wait(max(0, self.deadline - self.clock()))
@@ -268,6 +289,7 @@ class OverlayProcessOwner:
                     "OriginalExitConfirmed": self.exit_code is not None,
                     "ExitCode": self.exit_code, "Operations": operations, "Streams": dict(self.streams),
                     "RescueRequested": self.rescue_requested, "RescueSettled": rescue_settled,
+                    "StateDirectoryObservation": self.state_observation,
                     "StateDirectoryAbsenceConfirmed": self.state_absent, "CleanupConfirmed": passed,
                     "OriginalResult": self.result, "Errors": list(self.errors),
                     "Owner": "OriginalReferenceRetained_NoPidAdoption_NoDirectoryDeletion"}

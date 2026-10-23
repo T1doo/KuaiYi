@@ -191,7 +191,8 @@ internal static class OverlayStageProbe
                 window.PresentationFrameApplying,depth,(long)hwnd,g.Current,g.Anchor,g.Monitor.WorkArea.Inset(g.Monitor.Dpi.CeilingPixels(12)),native,
                 window.PresentationButtonScreenBounds,g.ContentDirection,g.Monitor.Dpi.Factor,body!.ActualWidth,body.VerticalOffset,
                 NativeDesktop.GetForegroundWindow()==initialForeground,body.IsVisible,body.ActualHeight,body.Opacity,
-                phase?.DocumentMarker is not {} marker||DocumentContains(marker));
+                phase?.DocumentMarker is not {} marker||DocumentContains(marker),
+                window.PresentationAnimationEpoch,window.PresentationAnimationStartedAt,window.PresentationLastTick);
         }
         private void Observe(object? sender,EventArgs args)
         {

@@ -23,6 +23,7 @@ public static class OverlayDragGeometry
 /// <summary>Actual production animation geometry; the WPF adapter supplies measured text height and frame time.</summary>
 public sealed class OverlayFrames
 {
+    internal Action? AnimationStarted{get;init;}
     public PixelRect Anchor{get;private set;}public PixelRect Current{get;private set;}public MonitorGeometry Monitor{get;private set;}
     public LayoutPlan? Plan{get;private set;}public OverlayTransition Transition{get;private set;}
     private PixelRect from,target;private double elapsed,height,movingOpacity,movingTextWidth,fromOpacity;private int measured;private bool wantsExpanded,toolbarPlan;private GrowthDirection? movingDirection;private LayoutPlan? lastPlan;
@@ -91,7 +92,7 @@ public sealed class OverlayFrames
         }
         Validate();return Current;
     }
-    private void Begin(OverlayTransition next,double? opacity=null){fromOpacity=opacity??ContentOpacity;from=Current;elapsed=0;Transition=next;Validate();}
+    private void Begin(OverlayTransition next,double? opacity=null){fromOpacity=opacity??ContentOpacity;from=Current;elapsed=0;Transition=next;Validate();AnimationStarted?.Invoke();}
     private PixelRect HeightRect(int h)
     {
         var plan=Plan??throw new InvalidOperationException("Missing plan.");bool down=plan.Direction is GrowthDirection.RightDown or GrowthDirection.LeftDown or GrowthDirection.BalancedDown;

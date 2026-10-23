@@ -110,6 +110,34 @@ pathlib.Path('overlay-stages-result.json').write_text(json.dumps(d))
             self.assertEqual(hashlib.sha256(byte*262144).hexdigest(), r["ReadSha256"])
             self.assertEqual(r["ReadSha256"], r["LogFileSha256"])
 
+    def test_nonzero_original_exit_still_observes_absent_state_without_promoting_failure(self):
+        script = "import sys; sys.exit(3)"
+        owner = M.OverlayProcessOwner([sys.executable, "-c", script], self.root, SHA, dict(os.environ, GITHUB_SHA=SHA))
+        self.owners.append(owner)
+        receipt = owner.join_originals()
+        self.assertEqual(3, receipt["ExitCode"])
+        self.assertTrue(receipt["OriginalExitConfirmed"])
+        self.assertTrue(all(receipt["Operations"].values()))
+        self.assertTrue(receipt["StateDirectoryAbsenceConfirmed"])
+        self.assertEqual("Absent", receipt["StateDirectoryObservation"])
+        self.assertEqual("Failed", receipt["Status"])
+        self.assertFalse(receipt["CleanupConfirmed"])
+        self.assertFalse(receipt["RescueRequested"])
+        self.assertTrue(any("did not exit successfully" in e["Error"] for e in receipt["Errors"]))
+
+    def test_nonzero_exit_and_residue_report_both_without_deleting_state(self):
+        script = "import pathlib,sys; pathlib.Path('overlay-state-original').mkdir(); sys.exit(3)"
+        owner = M.OverlayProcessOwner([sys.executable, "-c", script], self.root, SHA, dict(os.environ, GITHUB_SHA=SHA))
+        self.owners.append(owner)
+        receipt = owner.join_originals()
+        self.assertEqual(3, receipt["ExitCode"])
+        self.assertEqual("Present", receipt["StateDirectoryObservation"])
+        self.assertFalse(receipt["StateDirectoryAbsenceConfirmed"])
+        self.assertTrue((self.root / "overlay-state-original").is_dir())
+        self.assertEqual("Failed", receipt["Status"])
+        self.assertFalse(receipt["CleanupConfirmed"])
+        self.assertEqual({"OriginalOperation", "StateObservation"}, {e["Stage"] for e in receipt["Errors"]})
+
     def test_original_exit_does_not_substitute_for_held_stdout_and_stderr(self):
         clock, process = Clock(), Process(exited=True, held=True)
         owner = self.owner(process=process, clock=clock)

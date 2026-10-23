@@ -166,7 +166,7 @@ internal sealed partial class ShellWindow:OleDropWindow
         catch(Exception error){geometryReady=false;lifecycle.Hide();Dispatcher.BeginInvoke(()=>{Hide();Refresh();Report("当前屏幕无法容纳浮钮，请调整显示设置后从托盘恢复",error);});}
     }
     private void ApplyAnchor()
-    {if(anchorMonitor==null)return;if(overlayFrames==null)overlayFrames=new(anchor,anchorMonitor);else{overlayFrames.Reanchor(anchor,anchorMonitor,Preferences());if(overlayFrames.IsExpanded&&!peek)OpenBody();}ApplyOverlayFrame(forceNative:true);StartFrames();}
+    {if(anchorMonitor==null)return;if(overlayFrames==null)overlayFrames=new(anchor,anchorMonitor){AnimationStarted=frameClock.Begin};else{overlayFrames.Reanchor(anchor,anchorMonitor,Preferences());if(overlayFrames.IsExpanded&&!peek)OpenBody();}ApplyOverlayFrame(forceNative:true);StartFrames();}
     private void Pointer(Action action)
     {try{action();}catch(Exception error){CancelPointer();lifecycle.Gate.Disable();Refresh();Report("浮钮操作失败",error);}}
     private void CancelPointer(){bool moving=gesture.Active,changed=gesture.HasMoved;gesture.Cancel();pointerFinished=true;button.ReleaseMouseCapture();lifecycle.Gate.SetSuspension(Suspension.Moving,false);RefreshSelection();if(moving)EndOverlayMove();if(changed){pendingPosition=CurrentPosition();QueuePositionSave();}}

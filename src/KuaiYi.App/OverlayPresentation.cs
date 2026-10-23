@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -33,8 +32,8 @@ internal sealed partial class ShellWindow
     private readonly TextBlock connectionStatus=new(){Text="正在连接…",VerticalAlignment=VerticalAlignment.Center,Visibility=Visibility.Collapsed,IsHitTestVisible=false};
     private readonly DispatcherTimer flush=new(){Interval=TimeSpan.FromMilliseconds(50)},peekIn=new(){Interval=TimeSpan.FromMilliseconds(350)},peekOut=new(){Interval=TimeSpan.FromMilliseconds(250)},waiting=new(){Interval=TimeSpan.FromMilliseconds(400)};
     private OverlayResults overlayResults=null!;private IdentityEventReceiver<OverlayResultEvent> presentationReceiver=null!;
-    private OverlayFrames? overlayFrames;private bool rendering,peek,dirty,follow=true,awaitingText,pendingReveal;private TimeSpan lastRender;private long resultRevision;
-    private readonly Stopwatch frameClock=Stopwatch.StartNew();
+    private OverlayFrames? overlayFrames;private bool rendering,peek,dirty,follow=true,awaitingText,pendingReveal;private long resultRevision;
+    private readonly OverlayFrameClock frameClock=new();
     private PixelRect? appliedRect;private int appliedRadius;private bool appliedVisible,applyingOverlayFrame;
     internal RuntimeGate PresentationGate=>lifecycle.Gate;
     internal OverlayFrames? PresentationGeometry=>overlayFrames;
@@ -45,6 +44,9 @@ internal sealed partial class ShellWindow
     internal Task PresentationStartup=>startup;
     internal Task? PresentationCloseOperation=>closeRequests?.Current;
     internal bool PresentationFrameApplying=>applyingOverlayFrame;
+    internal OverlayFrameTick? PresentationLastTick=>frameClock.LastTick;
+    internal long PresentationAnimationEpoch=>frameClock.AnimationEpoch;
+    internal TimeSpan PresentationAnimationStartedAt=>frameClock.AnimationStartedAt;
     private void SetupPresentation()
     {
         DesktopTheme.Install(this,()=>lifecycle.Settings?.Data.Overlay.Theme??ThemePreference.FollowSystem,forms:false,changedAppearance:RefreshPresentationTheme);
@@ -147,14 +149,14 @@ internal sealed partial class ShellWindow
     private void ReapplyAfterDpi()=>Dispatcher.BeginInvoke(DispatcherPriority.Loaded,()=>{if(!exiting&&geometryReady)ApplyOverlayFrame(forceNative:true);});
     protected override void OnDpiChanged(System.Windows.DpiScale oldDpi,System.Windows.DpiScale newDpi)
     {base.OnDpiChanged(oldDpi,newDpi);if(hwnd!=0)Pointer(DpiPlacement);}
-    private void StartFrames(){if(rendering||!awaitingText&&overlayFrames?.NeedsFrame!=true||!IsVisible||exiting)return;lastRender=frameClock.Elapsed;rendering=true;CompositionTarget.Rendering+=RenderOverlay;}
+    private void StartFrames(){if(rendering||!awaitingText&&overlayFrames?.NeedsFrame!=true||!IsVisible||exiting)return;frameClock.Resume();rendering=true;CompositionTarget.Rendering+=RenderOverlay;}
     private void StopFrames(){if(!rendering)return;CompositionTarget.Rendering-=RenderOverlay;rendering=false;}
     private void RenderOverlay(object? sender,EventArgs e)
     {
         // HwndTarget can synchronously raise Rendering inside SetWindowPos. Keep the prepared frame frozen.
         if(applyingOverlayFrame)return;
         try
-        {if(exiting||!IsVisible||overlayFrames==null){StopFrames();return;}if(awaitingText&&overlayResults.Identity is {} id&&!lifecycle.Gate.CanApply(id)){awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();overlayResults.MarkStopped();}var now=frameClock.Elapsed;overlayFrames.Tick(now-lastRender,ReduceMotion);lastRender=now;progressRing.RenderTransform=ReduceMotion?Transform.Identity:new RotateTransform(now.TotalMilliseconds*.24);ApplyOverlayFrame();if(!awaitingText&&!overlayFrames.NeedsFrame)StopFrames();}
+        {if(exiting||!IsVisible||overlayFrames==null){StopFrames();return;}if(awaitingText&&overlayResults.Identity is {} id&&!lifecycle.Gate.CanApply(id)){awaitingText=false;progressRing.Visibility=Visibility.Collapsed;waiting.Stop();overlayResults.MarkStopped();}var tick=frameClock.Tick(overlayFrames,ReduceMotion);progressRing.RenderTransform=ReduceMotion?Transform.Identity:new RotateTransform(tick.Now.TotalMilliseconds*.24);ApplyOverlayFrame();if(!awaitingText&&!overlayFrames.NeedsFrame)StopFrames();}
         catch(Exception error){StopFrames();lifecycle.Gate.Disable();Report("浮窗几何更新失败",error);}
     }
     private void ApplyOverlayFrame(bool forceNative=false)
