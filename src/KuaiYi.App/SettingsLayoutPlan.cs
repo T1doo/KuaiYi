@@ -28,12 +28,13 @@ internal static class SettingsLayoutPlan
         return new(width,labels?(stacked||!input?width:Math.Max(0,width-inputWidth-gap)):0,
             input?(stacked||!labels?width:inputWidth):0,gap,stacked,labels,input);
     }
-    internal static SettingsChromeLayout Chrome(double availableWidth,double availableHeight,double fontSize,double footerDesiredHeight)
+    internal static SettingsChromeLayout Chrome(double availableWidth,double availableHeight,double fontSize,double footerDesiredHeight,double navigationDesiredHeight=double.NaN)
     {
         double scale=Scale(fontSize),width=Finite(availableWidth,940),height=Finite(availableHeight,740);
         bool compact=width<616*scale;
         double footer=Math.Min(Finite(footerDesiredHeight,0),height*.35);
-        double navigation=compact?Math.Min(76*scale,height*.24):0;
+        // Compact navigation takes its measured content height, not a font-scaled blank rail.
+        double navigation=compact?Math.Min(Finite(navigationDesiredHeight,76*scale),height*.24):0;
         return new(compact,width,height,192*scale,navigation,footer);
     }
 }

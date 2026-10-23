@@ -61,5 +61,82 @@
     "ProductChanges": false,
     "NewDispatches": 0,
     "CleanupBoundary": "Reported original harness exit and its owned settings state; not full product, installation, worker or OS-wide cleanup acceptance"
+  },
+  "ConsumerPngMaterialization": {
+    "LibraryFlow": "Explicit consumer-local destination via supported materialization; no shared parent path",
+    "Files": [
+      {
+        "File": "kuai-01-wide.png",
+        "Readable": true,
+        "Bytes": 66523,
+        "Sha256": "fd5d5d13184c1634dd9afc202b738e00e54106ac3993593cdf6290b42eecb212",
+        "Width": 924,
+        "Height": 661,
+        "LibraryId": "libfile_bbc250152a2881919f0235dd1c15e292",
+        "Version": "0"
+      },
+      {
+        "File": "kuai-02-narrow.png",
+        "Readable": true,
+        "Bytes": 35941,
+        "Sha256": "33a8f74a17c596317fd9cea598eb627a627d1f4d5fba8d5cc3832727d4cc2c45",
+        "Width": 404,
+        "Height": 641,
+        "LibraryId": "libfile_4cde88f2b4148191a457db598f92ff09",
+        "Version": "0"
+      },
+      {
+        "File": "kuai-03-large-font.png",
+        "Readable": true,
+        "Bytes": 47387,
+        "Sha256": "c44e4582a439716905a213c570bd0013a99755238ecf7dde8745151b089f66ab",
+        "Width": 604,
+        "Height": 641,
+        "LibraryId": "libfile_cd5acbdfbf4c81918134a59ebe9c6f86",
+        "Version": "0"
+      },
+      {
+        "File": "kuai-04-short-recovery.png",
+        "Readable": true,
+        "Bytes": 28435,
+        "Sha256": "90fa71692af890bb67b256f9d8ee3deace0c5da852b0a2ad1d1fa7e4097ceac2",
+        "Width": 604,
+        "Height": 321,
+        "LibraryId": "libfile_6ddb5ab69a5481918fa326876eb7eefd",
+        "Version": "0"
+      }
+    ],
+    "AllFilesLocallyReadable": true,
+    "ActualPixelsViewed": true,
+    "OriginalSourceBinding": "Parent supplied Library IDs for run39945729009/source00a0e2a327fc35ef91738999d0400ca9a460a459",
+    "OriginalChunkGzipRecheckInConsumer": "NotRun_NoOriginalChunkRecordsProvided",
+    "WholeEvidencePackageRecovered": false,
+    "Findings": [
+      "Selected compact navigation item clipped on right",
+      "Font26 navigation takes about150px and icon/text vertical centers differ"
+    ],
+    "FixedPixels": "NotRun_NoSecondCiAuthorized"
+  },
+  "RecordLayout": "Top-level run fields and ParentReportedWindowsResult preserve the initial observations; ConsumerPngMaterialization and NavigationCorrection are later updates.",
+  "NavigationCorrection": {
+    "BaseHead": "1e4276f4327c2d92639d0879295b923c888483aa",
+    "SourceInputs": 737,
+    "Tests": {
+      "Cases": 9,
+      "Passed": 9,
+      "Failed": 0,
+      "Skipped": 0,
+      "PriorCasesRetained": 7,
+      "NewCases": 2,
+      "Scope": "SettingsLayoutTests only; algorithms, not WPF execution"
+    },
+    "FinalBuild": {
+      "Warnings": 0,
+      "Errors": 0,
+      "Seconds": 3.62
+    },
+    "NoNewCi": true,
+    "PostFixWindowsPixels": "NotRun",
+    "Review": "Read-only gif_review ACK on production change and final oracle; no independent execution claimed"
   }
 }

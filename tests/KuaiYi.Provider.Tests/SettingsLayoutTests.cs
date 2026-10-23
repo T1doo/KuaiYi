@@ -85,4 +85,27 @@ public sealed class SettingsLayoutTests
             Assert.Equal(chrome.Height,chrome.MainHeight+chrome.NavigationHeight+chrome.FooterHeight,6);
         }
     }
+    [Fact]
+    public void CompactNavigationUsesMeasuredRowInsteadOfFontScaledEmptyRail()
+    {
+        // Observed Font26 fixture had a 152-DIP rail. A measured one-line row
+        // must give that unused space back to the original page, with no footer change.
+        var before=SettingsLayoutPlan.Chrome(604,641,26,132);
+        var measured=SettingsLayoutPlan.Chrome(604,641,26,132,84);
+        Assert.Equal(152,before.NavigationHeight);
+        Assert.Equal(84,measured.NavigationHeight);
+        Assert.Equal(before.MainHeight+68,measured.MainHeight);
+        Assert.Equal(before.FooterHeight,measured.FooterHeight);
+        Assert.Equal(60,SettingsLayoutPlan.Chrome(404,641,13,132,60).NavigationHeight);
+    }
+    [Fact]
+    public void MeasuredNavigationStillReservesBodyAndDoesNotAffectWideRail()
+    {
+        var shortWindow=SettingsLayoutPlan.Chrome(604,321,26,1000,200);
+        Assert.Equal(321*.24,shortWindow.NavigationHeight,6);
+        Assert.True(shortWindow.MainHeight>=321*.4);
+        var wide=SettingsLayoutPlan.Chrome(924,661,13,132,200);
+        Assert.Equal(0,wide.NavigationHeight);
+        Assert.Equal(529,wide.MainHeight);
+    }
 }

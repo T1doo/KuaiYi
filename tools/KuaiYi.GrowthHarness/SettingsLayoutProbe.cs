@@ -168,6 +168,20 @@ internal static class SettingsLayoutProbe
             await Settle();
             var chrome=Descendants<SettingsChromePanel>(window).Single();
             Require(chrome.IsCompact==compact,"Unexpected production compact mode");
+            var navigation=Descendants<ListBox>(window).Single(p=>AutomationProperties.GetName(p)=="设置分类");
+            Require(navigation.ItemContainerGenerator.ContainerFromItem(navigation.SelectedItem) is ListBoxItem,"Selected navigation container missing");
+            var selected=(ListBoxItem)navigation.ItemContainerGenerator.ContainerFromItem(navigation.SelectedItem);
+            // Observe the production auto-reveal before any fixture BringIntoView call.
+            var selectedVisibility=await Reach(selected,"SelectedNavigation",bring:false);
+            var icon=Descendants<System.Windows.Shapes.Path>(selected).Single();
+            var label=Descendants<TextBlock>(selected).Single();
+            Rect iconBounds=icon.TransformToAncestor(selected).TransformBounds(new Rect(icon.RenderSize));
+            Rect labelBounds=label.TransformToAncestor(selected).TransformBounds(new Rect(label.RenderSize));
+            double alignmentError=Math.Abs(iconBounds.Top+iconBounds.Height/2-labelBounds.Top-labelBounds.Height/2);
+            Require(alignmentError<=1,"Navigation icon and label centers differ");
+            double navigationHeight=chrome.Children[0].RenderSize.Height;
+            double navigationDesiredHeight=chrome.Children[0].DesiredSize.Height;
+            if(compact)Require(Math.Abs(navigationHeight-Math.Min(navigationDesiredHeight,chrome.ActualHeight*.24))<=1,"Compact navigation differs from measured content/cap");
             var footer=(ScrollViewer)chrome.Children[2];
             if(recovery){footer.ScrollToEnd();await Settle();}
             var source=(FrameworkElement)window.Content;
@@ -193,11 +207,12 @@ internal static class SettingsLayoutProbe
             scenes.Add(new{Name=name,File=file,Bytes=bytes.Length,Sha256=Convert.ToHexString(SHA256.HashData(bytes)).ToLowerInvariant(),PixelsX=pixelsX,PixelsY=pixelsY,
                 DpiX=96*dpi.DpiScaleX,DpiY=96*dpi.DpiScaleY,RequestedWidth=width,RequestedHeight=height,WindowWidth=window.ActualWidth,WindowHeight=window.ActualHeight,
                 ClientWidth=source.ActualWidth,ClientHeight=source.ActualHeight,FontSize=window.FontSize,Compact=chrome.IsCompact,SyntheticForcedViewport=true,Recovery=recovery,
-                FooterViewport=footer.ViewportHeight,FooterExtent=footer.ExtentHeight,Rows=rows,Reachability=reachable,ElapsedMilliseconds=elapsed.Elapsed.TotalMilliseconds});
+                FooterViewport=footer.ViewportHeight,FooterExtent=footer.ExtentHeight,Rows=rows,Reachability=reachable,
+                Navigation=new{SelectedVisibility=selectedVisibility,Height=navigationHeight,DesiredHeight=navigationDesiredHeight,AlignmentError=alignmentError},ElapsedMilliseconds=elapsed.Elapsed.TotalMilliseconds});
         }
-        private async Task<object> Reach(FrameworkElement target,string name)
+        private async Task<object> Reach(FrameworkElement target,string name,bool bring=true)
         {
-            target.BringIntoView();await Settle();
+            if(bring)target.BringIntoView();await Settle();
             var root=(FrameworkElement)window!.Content;
             Rect bounds=target.TransformToAncestor(root).TransformBounds(new Rect(target.RenderSize));
             Rect visible=bounds;visible.Intersect(new Rect(root.RenderSize));
@@ -205,7 +220,8 @@ internal static class SettingsLayoutProbe
                 if(parent is ScrollContentPresenter viewport)
                     visible.Intersect(viewport.TransformToAncestor(root).TransformBounds(new Rect(viewport.RenderSize)));
             Require(target.IsVisible&&!visible.IsEmpty&&visible.Width>=bounds.Width-.5&&visible.Height>=bounds.Height-.5,"Control is clipped after BringIntoView: "+name);
-            return new{Name=name,X=bounds.X,Y=bounds.Y,Width=bounds.Width,Height=bounds.Height,VisibleWidth=visible.Width,VisibleHeight=visible.Height,Method="ProgrammaticBringIntoView_NotPhysicalKeyboard"};
+            return new{Name=name,X=bounds.X,Y=bounds.Y,Width=bounds.Width,Height=bounds.Height,VisibleWidth=visible.Width,VisibleHeight=visible.Height,
+                Method=bring?"ProgrammaticBringIntoView_NotPhysicalKeyboard":"ObservedProductionAutoReveal_NoFixtureScroll"};
         }
         private void WriteJson(string file,object value)
         {

@@ -2,6 +2,8 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Controls.Primitives;
+using System.Windows.Threading;
 
 namespace KuaiYi.App;
 
@@ -54,7 +56,9 @@ internal sealed class SettingsChromePanel:Panel
         var bounds=SettingsLayoutPlan.Chrome(availableSize.Width,availableSize.Height,UiFontSize,0);
         if(IsCompact!=bounds.Compact)SetValue(CompactKey,bounds.Compact);
         footer.Measure(new Size(bounds.Width,bounds.Height*.35));
-        plan=SettingsLayoutPlan.Chrome(bounds.Width,bounds.Height,UiFontSize,footer.DesiredSize.Height);
+        if(bounds.Compact)rail.Measure(new Size(bounds.Width,bounds.Height*.24));
+        plan=SettingsLayoutPlan.Chrome(bounds.Width,bounds.Height,UiFontSize,footer.DesiredSize.Height,
+            bounds.Compact?rail.DesiredSize.Height:0);
         rail.Measure(new Size(plan.Compact?plan.Width:plan.RailWidth,plan.Compact?plan.NavigationHeight:plan.MainHeight));
         main.Measure(new Size(plan.MainWidth,plan.MainHeight));
         return new Size(plan.Width,plan.Height);
@@ -65,6 +69,44 @@ internal sealed class SettingsChromePanel:Panel
         main.Arrange(new Rect(plan.Compact?0:plan.RailWidth,plan.Compact?plan.NavigationHeight:0,plan.MainWidth,plan.MainHeight));
         footer.Arrange(new Rect(0,plan.Height-plan.FooterHeight,plan.Width,plan.FooterHeight));
         return finalSize;
+    }
+}
+
+// Keep the selected category visible after a reflow without changing focus, selection or drafts.
+// Ordinary user scrolling does not requeue this operation and is never snapped back.
+internal sealed class SettingsNavigationListBox:ListBox
+{
+    private DispatcherOperation? reveal;
+    private int visualEpoch;
+    internal SettingsNavigationListBox()
+    {
+        Loaded+=(_,_)=>{visualEpoch++;QueueSelectedVisibility();};
+        Unloaded+=(_,_)=>{visualEpoch++;reveal?.Abort();reveal=null;};
+        ItemContainerGenerator.StatusChanged+=(_,_)=>
+        {if(ItemContainerGenerator.Status==GeneratorStatus.ContainersGenerated)QueueSelectedVisibility();};
+    }
+    protected override void OnSelectionChanged(SelectionChangedEventArgs e)
+    {base.OnSelectionChanged(e);QueueSelectedVisibility();}
+    protected override void OnRenderSizeChanged(SizeChangedInfo info)
+    {base.OnRenderSizeChanged(info);QueueSelectedVisibility();}
+    protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+    {
+        base.OnPropertyChanged(e);
+        if(e.Property==FontSizeProperty||e.Property==FontFamilyProperty||e.Property==FontWeightProperty||e.Property==FontStyleProperty||e.Property==FlowDirectionProperty)
+            QueueSelectedVisibility();
+    }
+    private void QueueSelectedVisibility()
+    {
+        if(!IsLoaded||Dispatcher.HasShutdownStarted||reveal?.Status==DispatcherOperationStatus.Pending)return;
+        int epoch=visualEpoch;
+        reveal=Dispatcher.BeginInvoke(DispatcherPriority.Loaded,()=>
+        {
+            if(epoch!=visualEpoch)return;
+            reveal=null;
+            // Read the current item at delivery; a queued old selection cannot move the new page.
+            if(IsLoaded&&IsVisible&&SelectedItem is {} selected&&ItemContainerGenerator.ContainerFromItem(selected) is ListBoxItem item&&ReferenceEquals(ItemContainerGenerator.ItemFromContainer(item),selected))
+                item.BringIntoView();
+        });
     }
 }
 

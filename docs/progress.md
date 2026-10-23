@@ -1773,3 +1773,5 @@ Settings栅格准备定向签收：最终离线10P（不相加），工具最终
 Settings栅格唯一CI实际投递并普通页面确认运行中：源00a0e2a327fc35ef91738999d0400ca9a460a459，run39945729009/job120387796111（2026-10-23 11:23:28 UTC启动）。本环境日志正文要求登录，未登录/绕路/API；父级既有正常登录页面回收待续。准备原件Library libfile_970349fcb3a48191b1538ebd2e1a1fdd v0，279822B/23成员，SHA25642b44fb34ccb99b228514b0421887c0ddf027d7ea98a0ede442374a8718b7250；8个Git源、398输入、原失败日志及最终10P/0W0E证据。没有PNG或Windows通过声明，不再次投递。
 
 Settings唯一Windows运行父级已核成功：run39945729009/job120387796111/source00a0e2a，Pass_LimitedRaster、TimedOut=false、CleanupConfirmed=true、OriginalHarnessExited、Errors=[]；17命令全exit0不当17测试。父级已回收四PNG30/30块并核raw/gzip摘要；非图附件未全取，不能签全包。消费者Library标识尚待，不假设父/tmp共享；像素审查进行中，不改产品/重投CI、不称DWM或真实DPI验收，pins不变。
+
+Settings四张实际PNG已消费者Library本地材料化、读取/哈希并view确认：窄窗当前导航项右裁，Font26导航约150px及图文错位。生产修复保原事件/Mask/事务：当前项在load/selection/size/font/generator后合并post-layout自动露出，epoch拒卸载迟到；不抢焦点/追逐手动滚动。单行图标文字居中、rail按有限实际测量高度给正文让位。定向9P旧7保留，源码独审限定ACK；Windows修后像素尚未执行。本轮不改workflow、不追加CI，等待差异独审再定一次复核。
