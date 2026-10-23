@@ -1,4 +1,4 @@
-name: One operational extra server instance Windows attempt
+name: One fixed native payload Windows build
 on:
   push:
     branches: [dev/p7-fixed-signoff]
@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
 jobs:
-  server-instance-review:
+  native-payload-build:
     if: ${{ github.repository == 'T1doo/KuaiYi' && github.event_name == 'push' && github.ref == 'refs/heads/dev/p7-fixed-signoff' && github.event.repository.private == false && github.run_attempt == '1' }}
     runs-on: windows-2022
     timeout-minutes: 15
@@ -20,14 +20,14 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
           ref: ${{ github.sha }}
-          fetch-depth: 10
+          fetch-depth: 2
           persist-credentials: false
           set-safe-directory: false
-      - name: Original approved SDK gates and bounded ordinary-child server attempts
+      - name: Build four native payload DLLs with preinstalled tools only
         timeout-minutes: 14
         shell: pwsh
         run: |
           $ErrorActionPreference='Stop'
           $python=(Get-Command python -CommandType Application -ErrorAction Stop | Select-Object -First 1).Source
-          & $python -I -B ./scripts/verify-warm-components-windows.py
+          & $python -I -B ./scripts/build-payload-native-windows.py
           exit $LASTEXITCODE
