@@ -116,8 +116,8 @@ public sealed partial class InstallationSessionTests
                 string path=fault switch{"owner"=>r.Owner,"session"=>InstallationBrowserHostSession.PathFor(r.App),"generation"=>Path.Combine(r.App,"current.json"),"pending"=>Path.Combine(r.App,"host-registration-pending.json"),"closing" or "closing-directory"=>InstallationBrowserHostSession.ClosingPath(port.Proof!),_=>InstallationHostActivity.PathFor(r.App)};
                 byte[]? prior=File.Exists(path)?File.ReadAllBytes(path):null;
                 if(fault=="closing-directory")Directory.CreateDirectory(path);else File.WriteAllText(path,"PUBLIC_UNKNOWN");
-                try{await RefuseHost(selected);if(fault=="closing-directory")Assert.True(Directory.Exists(path));else Assert.Equal("PUBLIC_UNKNOWN",File.ReadAllText(path));}
-                finally{if(fault=="closing-directory")Directory.Delete(path);else if(prior==null)File.Delete(path);else File.WriteAllBytes(path,prior);}
+                await FixtureBodyAndCleanup(async()=>{await RefuseHost(selected);if(fault=="closing-directory")Assert.True(Directory.Exists(path));else Assert.Equal("PUBLIC_UNKNOWN",File.ReadAllText(path));},
+                    ()=>{if(fault=="closing-directory")Directory.Delete(path);else if(prior==null)File.Delete(path);else File.WriteAllBytes(path,prior);return Task.CompletedTask;});
                 await peer.Close();Assert.Equal(0,await run.WaitAsync(Limit));using var mutation=r.Store.EnterAdmission(mutation:true);
             });}
             catch{r.Keep=true;throw;}

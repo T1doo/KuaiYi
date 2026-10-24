@@ -13,15 +13,11 @@ public sealed partial class InstallationSessionTests
         {
             var port=peer.Own(new Port(output));var coordinator=peer.Own(port.Coordinator(r),true);
             Task<int> run=peer.Observe(()=>coordinator.RunActiveSessionAsync(selected.DirectoryPath,imagePath:ImagePath));
-            try
-            {
-                await port.ImageQueued.Task.WaitAsync(Limit);await peer.Send("WAIT_IMAGE");string row=(await peer.Row())!;
-                Assert.StartsWith("PUBLIC_IMAGE|",row);Assert.EndsWith("|"+ImagePath,row);r.Fence();Assert.False(run.IsCompleted);
-                foreach(string p in Directory.GetFiles(r.App,"*.json"))Assert.DoesNotContain(ImagePath,File.ReadAllText(p));
-                await peer.Close();Assert.Equal(0,await run.WaitAsync(Limit));Assert.Equal(1,port.SessionIoCalls);Assert.False(File.Exists(r.Owner));
-                Assert.Single(File.ReadAllLines(Path.Combine(r.Root,"PUBLIC_IMAGE_QUEUED")));Assert.Single(Directory.GetFiles(r.App,"launch-*-finished.json"));Assert.Equal("PUBLIC_OFF",File.ReadAllText(Path.Combine(r.Data,"PUBLIC_SENTINEL")));
-            }
-            finally{if(!run.IsCompleted){await peer.Send("CLOSE");try{await run.WaitAsync(Limit);}catch(Exception){/* Exact run remains held by coordinator disposal. */}}}
+            await port.ImageQueued.Task.WaitAsync(Limit);await peer.Send("WAIT_IMAGE");string row=(await peer.Row())!;
+            Assert.StartsWith("PUBLIC_IMAGE|",row);Assert.EndsWith("|"+ImagePath,row);r.Fence();Assert.False(run.IsCompleted);
+            foreach(string p in Directory.GetFiles(r.App,"*.json"))Assert.DoesNotContain(ImagePath,File.ReadAllText(p));
+            await peer.Close();Assert.Equal(0,await run.WaitAsync(Limit));Assert.Equal(1,port.SessionIoCalls);Assert.False(File.Exists(r.Owner));
+            Assert.Single(File.ReadAllLines(Path.Combine(r.Root,"PUBLIC_IMAGE_QUEUED")));Assert.Single(Directory.GetFiles(r.App,"launch-*-finished.json"));Assert.Equal("PUBLIC_OFF",File.ReadAllText(Path.Combine(r.Data,"PUBLIC_SENTINEL")));
         });
     }
     [Theory][InlineData("duplicate")][InlineData("new-request")][InlineData("handoff")]
@@ -79,14 +75,13 @@ public sealed partial class InstallationSessionTests
         {
             var port=peer.Own(new Port(output));var coordinator=peer.Own(port.Coordinator(r),true);
             Task<int> run=peer.Observe(()=>coordinator.RunActiveSessionAsync(selected.DirectoryPath,imagePath:ImagePath));
-            try
+            await FixtureBodyAndCleanup(async()=>
             {
-                await port.ImageQueued.Task.WaitAsync(Limit);await SendControl(port,"STOP");
+                await port.ImageQueued.Task.WaitAsync(Limit);await peer.RequestOriginalStopAsync(port);
                 await peer.Send("WAIT_IMAGE_REVOKED");Assert.Equal("PUBLIC_IMAGE_REVOKED",await peer.Row());
                 await peer.Send("WAIT_CLEANUP");Assert.Equal("PUBLIC_CLEANUP_ENTERED",await peer.Row());
                 Assert.False(run.IsCompleted);Assert.False(port.Children.Single().HasExited);r.Fence();
-            }
-            finally{await peer.Send("RELEASE_CANCEL");}
+            },()=>peer.Send("RELEASE_CANCEL"));
             Assert.Equal("PUBLIC_SHELL_CLOSED",await peer.Row());Assert.Equal(0,await run.WaitAsync(Limit));Assert.False(File.Exists(r.Owner));Assert.Equal(1,port.SessionIoCalls);
         });
     }

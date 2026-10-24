@@ -41,18 +41,30 @@ public sealed partial class InstallationSessionTests(ITestOutputHelper output)
     {
         private readonly Process process;private readonly Task<string> error;private readonly List<Task<string?>> reads=[];
         private Task? disposal;private Task<string>? remainder;private int started,retired;
+        internal readonly List<string> RetirementEvidenceRows=[];
         internal readonly Task OriginalExit;
         internal Parent(Process original,Task<string> originalError){process=original;error=originalError;OriginalExit=process.WaitForExitAsync();}
         internal Process Process=>process;
         private void Observe(string? row)
         {
             if(row=="PUBLIC_SESSION_CHILD_STARTED")started++;
-            if(row?.StartsWith("PUBLIC_SESSION_CHILD_EXIT|",StringComparison.Ordinal)==true&&row.Contains("|originalIO=Settled|",StringComparison.Ordinal))retired++;
+            if((row?.StartsWith("PUBLIC_SESSION_CHILD_EXIT|",StringComparison.Ordinal)==true||row?.StartsWith("PUBLIC_SESSION_CHILD_CLEANUP_EXIT|",StringComparison.Ordinal)==true)
+                &&(row.Contains("|originalIO=Settled|",StringComparison.Ordinal)||row.Contains("|originalIO=FaultObserved|",StringComparison.Ordinal)))
+            {retired++;RetirementEvidenceRows.Add(row);}
         }
         internal bool ChildRetirementObserved=>OriginalExit.IsCompletedSuccessfully&&started==retired;
         internal bool ChildWasObserved=>started!=0;
         internal async Task<string?> Row()
-        {var original=process.StandardOutput.ReadLineAsync();reads.Add(original);string? row=await original.WaitAsync(Limit);Observe(row);return row;}
+        {
+            long began=Stopwatch.GetTimestamp();
+            while(true)
+            {
+                TimeSpan remaining=Limit-Stopwatch.GetElapsedTime(began);if(remaining<=TimeSpan.Zero)throw new TimeoutException("Original parent row deadline expired.");
+                var original=process.StandardOutput.ReadLineAsync();reads.Add(original);string? row=await original.WaitAsync(remaining);Observe(row);
+                if(row?.StartsWith("PUBLIC_SESSION_CHILD_CLEANUP_EXIT|",StringComparison.Ordinal)==true)continue;
+                return row;
+            }
+        }
         internal async Task JoinOriginalAsync()
         {
             await OriginalExit.WaitAsync(Limit);
@@ -301,14 +313,13 @@ public sealed partial class InstallationSessionTests(ITestOutputHelper output)
         {
             var port=peer.Own(new Port(output));var coordinator=peer.Own(port.Coordinator(r));
             Task<int> run=peer.Observe(()=>coordinator.RunActiveSessionAsync(selected.DirectoryPath));
-            try
+            await FixtureBodyAndCleanup(async()=>
             {
                 var observed=await Record.ExceptionAsync(()=>port.WaitForHealthyAsync(run));
                 var original=await Record.ExceptionAsync(()=>run.WaitAsync(Limit));
                 var failure=Assert.IsType<InstallationUpgradeUnconfirmedException>(observed);Assert.Same(original,failure);
                 Assert.IsType<TimeoutException>(failure.InnerException);Assert.False(port.Healthy.Task.IsCompleted);Assert.Single(port.CleanupExits);
-            }
-            finally{await Record.ExceptionAsync(()=>run.WaitAsync(Limit));await coordinator.DisposeAsync();}
+            },async()=>{await Record.ExceptionAsync(()=>run.WaitAsync(Limit));},()=>coordinator.DisposeAsync().AsTask());
         });
     }
     [Fact]
@@ -318,15 +329,14 @@ public sealed partial class InstallationSessionTests(ITestOutputHelper output)
         {
             var port=peer.Own(new Port(new FailingStartupOutput(output)));var coordinator=peer.Own(port.Coordinator(r));
             Task<int> run=peer.Observe(()=>coordinator.RunActiveSessionAsync(selected.DirectoryPath));
-            try
+            await FixtureBodyAndCleanup(async()=>
             {
                 var observed=await Record.ExceptionAsync(()=>port.WaitForHealthyAsync(run));
                 var original=await Record.ExceptionAsync(()=>run.WaitAsync(Limit));
                 Assert.Same(original,observed);Assert.IsType<TimeoutException>(Assert.IsType<InstallationUpgradeUnconfirmedException>(observed).InnerException);
                 Assert.Equal("PUBLIC_DIAGNOSTIC_OUTPUT_FAILED",Assert.IsType<InvalidOperationException>(port.DiagnosticFailure).Message);
                 Assert.False(port.Healthy.Task.IsCompleted);Assert.Single(port.CleanupExits);
-            }
-            finally{await Record.ExceptionAsync(()=>run.WaitAsync(Limit));await coordinator.DisposeAsync();}
+            },async()=>{await Record.ExceptionAsync(()=>run.WaitAsync(Limit));},()=>coordinator.DisposeAsync().AsTask());
         });
     }
     [Theory][InlineData("execution-owner.json")][InlineData("current.json")][InlineData("upgrade-pending.json")]
@@ -377,8 +387,8 @@ public sealed partial class InstallationSessionTests(ITestOutputHelper output)
             var port=peer.Own(new Port(output));var coordinator=peer.Own(port.Coordinator(r));
             await peer.Observe(()=>coordinator.StartActiveRoleAsync());byte[] owner=File.ReadAllBytes(r.Owner);
             Exception? failure=await Record.ExceptionAsync(()=>peer.Observe(()=>coordinator.RunActiveSessionAsync(selected.DirectoryPath)));
-            try{Assert.False(port.Children.Single().HasExited);Assert.Equal(owner,File.ReadAllBytes(r.Owner));r.Fence();Assert.Empty(port.CleanupExits);}
-            finally{await peer.Close();await port.Children.Single().WaitForExitAsync().WaitAsync(Limit);await coordinator.DisposeAsync();}
+            await FixtureBodyAndCleanup(()=>{Assert.False(port.Children.Single().HasExited);Assert.Equal(owner,File.ReadAllBytes(r.Owner));r.Fence();Assert.Empty(port.CleanupExits);return Task.CompletedTask;},
+                ()=>peer.Close(),()=>port.OriginalExits.Single().Exit.WaitAsync(Limit),()=>coordinator.DisposeAsync().AsTask());
             Assert.IsType<InvalidOperationException>(failure);Assert.Single(port.CleanupExits);Assert.False(File.Exists(r.Owner));using var admission=r.Store.EnterRoleAdmission();
         });
     }
@@ -387,9 +397,9 @@ public sealed partial class InstallationSessionTests(ITestOutputHelper output)
         string authority="PUBLIC_SESSION_SCOPE_"+Guid.NewGuid().ToString("N");string scope=SessionSingleInstance.ScopeFor(authority,17);
         var info=new ProcessStartInfo(Host){UseShellExecute=false,RedirectStandardInput=true,RedirectStandardOutput=true,RedirectStandardError=true};
         foreach(string arg in new[]{Driver,"--instance",authority,"17"})info.ArgumentList.Add(arg);
-        using Process p=Process.Start(info)!;Task<string> error=p.StandardError.ReadToEndAsync();
-        try{Assert.Equal("OWNER",await p.StandardOutput.ReadLineAsync().WaitAsync(Limit));p.StandardInput.Close();await p.WaitForExitAsync().WaitAsync(Limit);Assert.Equal(0,p.ExitCode);Assert.Equal("",await error);}
-        finally{if(!p.HasExited){p.Kill();await p.WaitForExitAsync().WaitAsync(Limit);}await error;}
+        Process p=Process.Start(info)!;Task<string> error=p.StandardError.ReadToEndAsync();Task originalExit=p.WaitForExitAsync();
+        await FixtureBodyAndCleanup(async()=>{Assert.Equal("OWNER",await p.StandardOutput.ReadLineAsync().WaitAsync(Limit));p.StandardInput.Close();await originalExit.WaitAsync(Limit);Assert.Equal(0,p.ExitCode);Assert.Equal("",await error);},
+            ()=>{if(!originalExit.IsCompleted)p.Kill();return Task.CompletedTask;},()=>originalExit.WaitAsync(Limit),async()=>{await error;},()=>{p.Dispose();return Task.CompletedTask;});
         Assert.Equal(scope,SessionSingleInstance.ScopeFor(authority,17));
     }
     [Theory][InlineData("EXTRA_OUTPUT")][InlineData("WRONG_CLOSING")][InlineData("DUPLICATE_CLOSING")]

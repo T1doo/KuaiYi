@@ -11,6 +11,13 @@ public sealed partial class InstallationSessionTests
     {if(!errors.Any(original=>ReferenceEquals(original,error)))errors.Add(error);}
     private static async Task<List<Exception>> CaptureFixtureBody(Func<Task> body)
     {List<Exception> errors=[];try{await body();}catch(Exception error){errors.Add(error);}return errors;}
+    private static async Task FixtureBodyAndCleanup(Func<Task> body,params Func<Task>[] cleanup)
+    {
+        var errors=await CaptureFixtureBody(body);
+        foreach(var action in cleanup)
+            try{await action();}catch(Exception error){AddOriginal(errors,error);}
+        ThrowBrowserErrors(errors);
+    }
     private static async Task WithParentBody(Parent parent,Func<Parent,Task> body)
     {
         var errors=await CaptureFixtureBody(()=>body(parent));
@@ -37,6 +44,7 @@ public sealed partial class InstallationSessionTests
         private readonly List<Task> originalIo=[];
         private readonly HashSet<string> cleanupRequests=[];
         private readonly List<Port> ports=[];
+        private readonly List<(Port Starter,Process Child,Task Join)> originalClientJoins=[];
         private readonly List<(InstallationUpgradeCoordinator Coordinator,bool DisposeOnSuccess)> coordinators=[];
         private readonly List<Parent> parents=[];
         private readonly List<Parent> browsers=[];
@@ -57,6 +65,14 @@ public sealed partial class InstallationSessionTests
             reader=new(pipe,leaveOpen:true);Connected=pipe.WaitForConnectionAsync(connectingStop.Token);
         }
         internal Port Own(Port port){ports.Add(port);return port;}
+        internal Task ObserveOriginalClientJoin(Port starter,InstallationApplicationClient original,Process child)
+        {
+            if(!ports.Contains(starter)||!starter.OriginalExits.Any(exit=>ReferenceEquals(exit.Process,child)&&exit.Exit.IsCompletedSuccessfully)||!child.HasExited)
+                throw new FixtureRetirementUnconfirmedException("Original starter/child exit is not bound to this protocol observation.");
+            // The same concrete client passed to the coordinator joins its cached original channel readers.
+            // This additional observer never substitutes for joining the original coordinator run below.
+            Task join=original.SettleSessionAsync(child,CancellationToken.None);originalClientJoins.Add((starter,child,join));return join;
+        }
         internal Parent OwnParent(Parent parent){parents.Add(parent);return parent;}
         internal Parent OwnBrowser(Parent parent){browsers.Add(parent);return parent;}
         internal InstallationUpgradeCoordinator Own(InstallationUpgradeCoordinator coordinator,bool disposeOnSuccess=false)
@@ -71,6 +87,7 @@ public sealed partial class InstallationSessionTests
         internal Task Send(string row)
         {
             if(row=="CLOSE")CloseRequested=true;
+            if(row.StartsWith("RELEASE_",StringComparison.Ordinal))cleanupRequests.Add(row);
             SentCommands.Add(row);
             var original=SendCore(row);originalIo.Add(original);return original;
         }
@@ -82,6 +99,8 @@ public sealed partial class InstallationSessionTests
             string? row=await original.WaitAsync(Limit);if(row=="PUBLIC_SHELL_CLOSED")ClosedReceiptSeen=true;return row;
         }
         internal async Task Close(){await Send("CLOSE");Assert.Equal("PUBLIC_SHELL_CLOSED",await Row());}
+        internal Task RequestOriginalStopAsync(Port port)
+        {CloseRequested=true;var original=SendControl(port,"STOP");originalIo.Add(original);return original;}
         private async Task RequestOnce(string command)
         {if(cleanupRequests.Add(command))await Send(command);}
         internal async Task RequestFixtureExitAsync(string mode)
@@ -103,7 +122,15 @@ public sealed partial class InstallationSessionTests
         internal async Task SettleFixtureAsync(string mode,bool bodyFailed)
         {
             List<Exception> errors=[];
-            bool live=ports.SelectMany(port=>port.OriginalExits).Any(exit=>!exit.Exit.IsCompleted)
+            bool ExitWasObserved(Port port,Process child)=>
+                (port.WarmActualExitObserved&&port.Children.Count==1&&ReferenceEquals(port.Children[0],child))
+                ||originalClientJoins.Any(join=>ReferenceEquals(join.Starter,port)&&ReferenceEquals(join.Child,child));
+            // An original OS-wait continuation may still be pending after actual exit/IO were observed.
+            // Join that original wait before deciding whether any unblock request is needed.
+            foreach(var port in ports)
+                foreach(var exit in port.OriginalExits.Where(exit=>ExitWasObserved(port,exit.Process)))
+                    try{await exit.Exit.WaitAsync(Limit);}catch(Exception error){AddOriginal(errors,error);}
+            bool live=ports.Any(port=>port.OriginalExits.Any(exit=>!ExitWasObserved(port,exit.Process)&&!exit.Exit.IsCompleted))
                 ||parents.Any(parent=>!parent.OriginalExit.IsCompleted);
             if(live&&Connected.IsCompletedSuccessfully)
                 try{await RequestFixtureExitAsync(mode);}catch(Exception error){ExitRequestFailures.Add(error);AddOriginal(errors,error);}
@@ -126,9 +153,13 @@ public sealed partial class InstallationSessionTests
             {
                 foreach(var exit in port.OriginalExits)
                     try{await exit.Exit.WaitAsync(Limit);}catch(Exception error){settled=false;AddOriginal(errors,error);}
-                foreach(var io in port.OriginalIo)
+                foreach(var io in port.OriginalIo.Concat(originalClientJoins.Where(join=>ReferenceEquals(join.Starter,port)).Select(join=>join.Join)))
                     try{await io.WaitAsync(Limit);}catch(Exception error){ObservedRunFailures.Add(error);if(bodyFailed||!io.IsCompleted)AddOriginal(errors,error);if(!io.IsCompleted)settled=false;}
-                if(port.OriginalExits.Count!=0&&(runs.Count==0||port.OriginalIo.Count==0))settled=false;
+                // The concrete-client observer is sufficient only together with a successful original run,
+                // which necessarily joined the coordinator's first protocol settlement. A timed-out/faulted
+                // run cannot turn a fresh observer into proof that its original continuation finished.
+                if(port.OriginalExits.Count!=0&&(runs.Count==0||(port.OriginalIo.Count==0&&
+                    (runs.Any(run=>run.Task?.IsCompletedSuccessfully!=true)||port.OriginalExits.Any(exit=>!originalClientJoins.Any(join=>ReferenceEquals(join.Starter,port)&&ReferenceEquals(join.Child,exit.Process)))))))settled=false;
             }
             foreach(var parent in parents)
             {

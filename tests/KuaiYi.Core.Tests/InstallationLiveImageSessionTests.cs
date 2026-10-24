@@ -33,7 +33,8 @@ public sealed partial class InstallationSessionTests
         {
             var starter=peer.Own(new Port(output));
             var captured=new TaskCompletionSource<InstallationUpgradeCoordinator.LiveImageSession>(TaskCreationOptions.RunContinuationsAsynchronously);var sealedEndpoint=Signal();var release=Signal();
-            var coordinator=peer.Own(new InstallationUpgradeCoordinator(rig.App,rig.Data,new InstallationApplicationClient(),TimeSpan.FromSeconds(10),starter)
+            var originalProtocol=new InstallationApplicationClient();
+            var coordinator=peer.Own(new InstallationUpgradeCoordinator(rig.App,rig.Data,originalProtocol,TimeSpan.FromSeconds(10),starter)
             {
                 WarmImageEndpoint=async(cap,token)=>{using var registration=token.Register(()=>sealedEndpoint.TrySetResult());captured.SetResult(cap);await release.Task;token.ThrowIfCancellationRequested();}
             });
@@ -43,8 +44,10 @@ public sealed partial class InstallationSessionTests
                 var cap=await captured.Task.WaitAsync(Limit);Assert.Same(starter.Children.Single(),cap.OriginalChild);Assert.True(cap.MemoryCurrent);await cap.VerifyAsync(default);rig.Fence();
                 string pending=Path.Combine(rig.App,"upgrade-pending.json");File.WriteAllText(pending,"PUBLIC_PENDING");Assert.Throws<InstallationRecoveryException>(cap.RequireRecords);File.Delete(pending);cap.RequireRecords();
                 string executable=Path.Combine(selected.DirectoryPath,"KuaiYi.App.exe");byte[] original=File.ReadAllBytes(executable);
-                try{File.AppendAllText(executable,"PUBLIC_CHANGED");await Assert.ThrowsAsync<InvalidDataException>(()=>cap.VerifyAsync(default));}finally{File.WriteAllBytes(executable,original);}
-                await cap.VerifyAsync(default);await peer.Close();close=true;await sealedEndpoint.Task.WaitAsync(Limit);await cap.OriginalChild.WaitForExitAsync().WaitAsync(Limit);
+                await FixtureBodyAndCleanup(async()=>{File.AppendAllText(executable,"PUBLIC_CHANGED");await Assert.ThrowsAsync<InvalidDataException>(()=>cap.VerifyAsync(default));},()=>{File.WriteAllBytes(executable,original);return Task.CompletedTask;});
+                await cap.VerifyAsync(default);await peer.Close();close=true;await sealedEndpoint.Task.WaitAsync(Limit);
+                await starter.OriginalExits.Single(exit=>ReferenceEquals(exit.Process,cap.OriginalChild)).Exit.WaitAsync(Limit);
+                await peer.ObserveOriginalClientJoin(starter,originalProtocol,cap.OriginalChild).WaitAsync(Limit);
                 Assert.False(cap.MemoryCurrent);Assert.True(cap.Token.IsCancellationRequested);Assert.False(run.IsCompleted);rig.Fence();release.SetResult();Assert.Equal(0,await run.WaitAsync(Limit));Assert.False(File.Exists(rig.Owner));
             }
             catch(Exception error){body=error;}
