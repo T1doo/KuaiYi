@@ -17,7 +17,7 @@ public sealed partial class InstallationSessionTests
     private static async Task RefuseHost(InstalledVersion selected,string? expected=null)
     {await using var child=Browser(selected);Assert.Equal("STARTED",await child.Row());await Command(child,"ENTER");string? row=await child.Row();Assert.StartsWith("REFUSED|",row);if(expected!=null)Assert.Equal("REFUSED|"+expected,row);await child.Finish(3);}
     private static InstallationUpgradeCoordinator BrowserCoordinator(Rig r,Port port,TaskCompletionSource published)
-        =>new(r.App,r.Data,port,TimeSpan.FromSeconds(1),port){BrowserHostPublishedForTest=()=>published.TrySetResult()};
+        =>new(r.App,r.Data,port,TimeSpan.FromSeconds(1),port){BrowserHostPublishedForTest=()=>{port.BrowserPublished.TrySetResult();published.TrySetResult();}};
     private static async Task BrowserBody(InstallationUpgradeCoordinator coordinator,Task<int> run,Peer peer,Func<Task> body,Action? release=null,Func<Task>? close=null)
     {
         List<Exception> errors=[];try{await body();}catch(Exception error){errors.Add(error);}
@@ -25,12 +25,27 @@ public sealed partial class InstallationSessionTests
         if(!run.IsCompleted)try{await (close?.Invoke()??peer.Close());}catch(Exception error){errors.Add(error);}
         try{await run.WaitAsync(Limit);}catch(Exception error){if(!errors.Contains(error))errors.Add(error);}
         try{await coordinator.DisposeAsync();}catch(Exception error){errors.Add(error);}
+        try{await peer.DisposeAsync();}catch(Exception error){errors.Add(error);}
         ThrowBrowserErrors(errors);
     }
     private static void ThrowBrowserErrors(List<Exception> errors)
     {
         if(errors.Count==1)System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(errors[0]).Throw();
         if(errors.Count>1)throw new AggregateException(errors);
+    }
+    [Fact]public async Task BrowserPublicationFailureRemainsOriginalWhenDiagnosticOutputAlsoFails()
+    {
+        var expected=new IOException("PUBLIC_BROWSER_ORIGINAL_STARTUP");var port=new Port(new FailingStartupOutput(output));
+        var original=Task.FromException<int>(expected);Exception? observed=await Record.ExceptionAsync(()=>port.WaitForBrowserPublishedAsync(original));
+        Assert.Same(expected,observed);Assert.IsType<InvalidOperationException>(port.DiagnosticFailure);Assert.False(port.BrowserPublished.Task.IsCompleted);
+    }
+    [Fact]public async Task UnconnectedBrowserPeerCleanupPreservesOriginalBodyAndJoinsOriginalConnection()
+    {
+        var body=new InvalidOperationException("PUBLIC_ORIGINAL_BROWSER_BODY");Peer? peer=null;
+        Exception? observed=await Record.ExceptionAsync(async()=>{await using var original=peer=new Peer("ky-browser-cleanup-"+Guid.NewGuid().ToString("N"));throw body;});
+        Assert.NotNull(peer);Exception? connection=await Record.ExceptionAsync(()=>peer.Connected.WaitAsync(Limit));
+        output.WriteLine($"PUBLIC_UNCONNECTED_BROWSER body={observed?.Message} connection={connection?.GetType().Name} originalConnectSettled={peer.Connected.IsCompleted}");
+        Assert.Same(body,observed);Assert.True(peer.Connected.IsCompleted);Assert.IsAssignableFrom<OperationCanceledException>(connection);
     }
     [Theory][InlineData(false)][InlineData(true)]
     public async Task BrowserHostOriginalProcessExitAloneReleasesMutationAfterSessionReturn(bool crash)
@@ -74,13 +89,17 @@ public sealed partial class InstallationSessionTests
     public async Task BrowserHostUnknownMetadataIsNotAdopted(string fault)
     {
         using var r=new Rig();var selected=await r.Prepare();await using var peer=new Peer(r.Pipe);var port=new Port(output);var published=Signal();
-        await using var coordinator=BrowserCoordinator(r,port,published);var run=coordinator.RunActiveSessionAsync(selected.DirectoryPath);await published.Task.WaitAsync(Limit);
-        string path=fault switch{"owner"=>r.Owner,"session"=>InstallationBrowserHostSession.PathFor(r.App),"generation"=>Path.Combine(r.App,"current.json"),"pending"=>Path.Combine(r.App,"host-registration-pending.json"),"closing" or "closing-directory"=>InstallationBrowserHostSession.ClosingPath(port.Proof!),_=>InstallationHostActivity.PathFor(r.App)};
-        byte[]? prior=File.Exists(path)?File.ReadAllBytes(path):null;
-        if(fault=="closing-directory")Directory.CreateDirectory(path);else File.WriteAllText(path,"PUBLIC_UNKNOWN");
-        try{await RefuseHost(selected);if(fault=="closing-directory")Assert.True(Directory.Exists(path));else Assert.Equal("PUBLIC_UNKNOWN",File.ReadAllText(path));}
-        finally{if(fault=="closing-directory")Directory.Delete(path);else if(prior==null)File.Delete(path);else File.WriteAllBytes(path,prior);}
-        await peer.Close();Assert.Equal(0,await run.WaitAsync(Limit));using var mutation=r.Store.EnterAdmission(mutation:true);
+        var coordinator=BrowserCoordinator(r,port,published);var run=coordinator.RunActiveSessionAsync(selected.DirectoryPath);
+        try{await BrowserBody(coordinator,run,peer,async()=>{
+            await port.WaitForBrowserPublishedAsync(run);
+            string path=fault switch{"owner"=>r.Owner,"session"=>InstallationBrowserHostSession.PathFor(r.App),"generation"=>Path.Combine(r.App,"current.json"),"pending"=>Path.Combine(r.App,"host-registration-pending.json"),"closing" or "closing-directory"=>InstallationBrowserHostSession.ClosingPath(port.Proof!),_=>InstallationHostActivity.PathFor(r.App)};
+            byte[]? prior=File.Exists(path)?File.ReadAllBytes(path):null;
+            if(fault=="closing-directory")Directory.CreateDirectory(path);else File.WriteAllText(path,"PUBLIC_UNKNOWN");
+            try{await RefuseHost(selected);if(fault=="closing-directory")Assert.True(Directory.Exists(path));else Assert.Equal("PUBLIC_UNKNOWN",File.ReadAllText(path));}
+            finally{if(fault=="closing-directory")Directory.Delete(path);else if(prior==null)File.Delete(path);else File.WriteAllBytes(path,prior);}
+            await peer.Close();Assert.Equal(0,await run.WaitAsync(Limit));using var mutation=r.Store.EnterAdmission(mutation:true);
+        });}
+        catch{r.Keep=true;throw;}
     }
     [Fact]public async Task BrowserHostDoesNotEnterBeforeReadyOrDuringMutationAndRoleLeaseCannotMutate()
     {
@@ -192,13 +211,14 @@ public sealed partial class InstallationSessionTests
     }
     [Fact]public async Task BrowserHostUnknownEvenIdenticalClosingReceiptCannotBeAdoptedByRetirement()
     {
-        using var r=new Rig();var selected=await r.Prepare();await using var peer=new Peer(r.Pipe);var port=new Port(output);var published=Signal();
-        var coordinator=BrowserCoordinator(r,port,published);var run=coordinator.RunActiveSessionAsync(selected.DirectoryPath);await published.Task.WaitAsync(Limit);
-        string path=InstallationBrowserHostSession.ClosingPath(port.Proof!);
-        byte[] foreign=System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=1,product="KuaiYi",launch=port.Proof!.Launch.ToString("N"),phase="Closing"});
-        File.WriteAllBytes(path,foreign);List<Exception> errors=[];
+        using var r=new Rig();var selected=await r.Prepare();var peer=new Peer(r.Pipe);var port=new Port(output);var published=Signal();
+        var coordinator=BrowserCoordinator(r,port,published);var run=coordinator.RunActiveSessionAsync(selected.DirectoryPath);
+        string? path=null;byte[]? foreign=null;List<Exception> errors=[];
         try
         {
+            await port.WaitForBrowserPublishedAsync(run);path=InstallationBrowserHostSession.ClosingPath(port.Proof!);
+            foreign=System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=1,product="KuaiYi",launch=port.Proof!.Launch.ToString("N"),phase="Closing"});
+            File.WriteAllBytes(path,foreign);
             await RefuseHost(selected);await peer.Close();await Assert.ThrowsAsync<InstallationUpgradeUnconfirmedException>(()=>run.WaitAsync(Limit));
             Assert.Equal(foreign,File.ReadAllBytes(path));Assert.True(File.Exists(InstallationBrowserHostSession.PathFor(r.App)));
             await Assert.ThrowsAnyAsync<IOException>(async()=>await coordinator.DisposeAsync());Assert.Equal(foreign,File.ReadAllBytes(path));r.Fence();
@@ -207,9 +227,11 @@ public sealed partial class InstallationSessionTests
         finally
         {
             // Only this test-created synthetic marker; production never deletes or adopts an unknown closing receipt.
-            try{Assert.Equal(foreign,File.ReadAllBytes(path));File.Delete(path);}catch(Exception error){errors.Add(error);}
+            if(foreign!=null)try{Assert.Equal(foreign,File.ReadAllBytes(path!));File.Delete(path!);}catch(Exception error){errors.Add(error);}
             try{await coordinator.DisposeAsync();}catch(Exception error){errors.Add(error);}
+            try{await peer.DisposeAsync();}catch(Exception error){errors.Add(error);}
         }
-        ThrowBrowserErrors(errors);Assert.True(File.Exists(path));Assert.False(File.Exists(InstallationBrowserHostSession.PathFor(r.App)));Assert.True(File.Exists(r.Owner));
+        if(errors.Count!=0)r.Keep=true;ThrowBrowserErrors(errors);Assert.NotNull(path);
+        Assert.True(File.Exists(path));Assert.False(File.Exists(InstallationBrowserHostSession.PathFor(r.App)));Assert.True(File.Exists(r.Owner));
     }
 }

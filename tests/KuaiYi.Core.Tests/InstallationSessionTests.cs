@@ -39,16 +39,30 @@ public sealed partial class InstallationSessionTests(ITestOutputHelper output)
     private sealed class Peer:IAsyncDisposable
     {
         private readonly NamedPipeServerStream pipe;
-        private readonly StreamReader reader;private readonly StreamWriter writer;
+        private readonly StreamReader reader;private StreamWriter? writer;
+        private readonly CancellationTokenSource connectingStop=new();
+        private static readonly List<Peer> Retained=[];
+        private bool disposalAttempted;
         internal readonly Task Connected;
-        internal Peer(string name){pipe=new(name,PipeDirection.InOut,1,PipeTransmissionMode.Byte,PipeOptions.Asynchronous|PipeOptions.CurrentUserOnly);reader=new(pipe);writer=new(pipe);Connected=pipe.WaitForConnectionAsync();}
-        internal async Task Send(string row){await Connected.WaitAsync(Limit);await writer.WriteLineAsync(row);await writer.FlushAsync();}
+        internal Peer(string name){pipe=new(name,PipeDirection.InOut,1,PipeTransmissionMode.Byte,PipeOptions.Asynchronous|PipeOptions.CurrentUserOnly);reader=new(pipe);Connected=pipe.WaitForConnectionAsync(connectingStop.Token);}
+        internal async Task Send(string row){await Connected.WaitAsync(Limit);writer??=new(pipe);await writer.WriteLineAsync(row);await writer.FlushAsync();}
         internal async Task<string?> Row()=>await reader.ReadLineAsync().WaitAsync(Limit);
         internal async Task Close(){await Send("CLOSE");Assert.Equal("PUBLIC_SHELL_CLOSED",await Row());}
         public async ValueTask DisposeAsync()
         {
-            try{if(Connected.IsCompletedSuccessfully&&pipe.IsConnected){await Send("RELEASE_CLOSE");await Send("RELEASE_CANCEL");await Send("RELEASE_FAILED_CLOSE");await Send("RELEASE_EXIT");await Send("CLOSE");}}catch(IOException){}
-            try{writer.Dispose();}catch(IOException){}finally{reader.Dispose();pipe.Dispose();}
+            if(disposalAttempted)return;disposalAttempted=true;
+            if(!Connected.IsCompletedSuccessfully)
+            {
+                var errors=new List<Exception>();
+                try{connectingStop.Cancel();}catch(Exception error){errors.Add(error);}
+                try{await Connected.WaitAsync(Limit);}catch(OperationCanceledException)when(connectingStop.IsCancellationRequested){}catch(Exception error){errors.Add(error);}
+                if(!Connected.IsCompleted){lock(Retained)Retained.Add(this);ThrowBrowserErrors(errors);throw new IOException("Original fixture connection remains pending.");}
+                foreach(IDisposable item in new IDisposable[]{reader,pipe,connectingStop})try{item.Dispose();}catch(Exception error){errors.Add(error);}
+                ThrowBrowserErrors(errors);return;
+            }
+            // Preserve the existing connected-peer release protocol; never construct/flush a writer before connection.
+            try{if(pipe.IsConnected){await Send("RELEASE_CLOSE");await Send("RELEASE_CANCEL");await Send("RELEASE_FAILED_CLOSE");await Send("RELEASE_EXIT");await Send("CLOSE");}}catch(IOException){}
+            try{writer?.Dispose();}catch(IOException){}finally{reader.Dispose();pipe.Dispose();connectingStop.Dispose();}
         }
     }
     private sealed class Parent(Process process,Task<string> error):IAsyncDisposable
@@ -95,6 +109,21 @@ public sealed partial class InstallationSessionTests(ITestOutputHelper output)
         private Task? clientAdmission,clientHealthReceipt;
         private int diagnosticPid,diagnosticExit,diagnosticExitKnown;
         internal Exception? DiagnosticFailure{get;private set;}
+        private void ReportStartupFailure(Task originalRun)
+        {
+            try
+            {
+                output.WriteLine("PUBLIC_SESSION_STARTUP "+JsonSerializer.Serialize(new{
+                Run=originalRun.Status.ToString(),Healthy=Healthy.Task.Status.ToString(),Phase=Volatile.Read(ref startupPhase),
+                ClientAdmission=Volatile.Read(ref clientAdmission)?.Status.ToString(),ClientHealthReceipt=Volatile.Read(ref clientHealthReceipt)?.Status.ToString(),
+                ActualPid=Volatile.Read(ref diagnosticPid),ActualExit=Volatile.Read(ref diagnosticExitKnown)==0?(int?)null:Volatile.Read(ref diagnosticExit),
+                OriginalIoSettled=Volatile.Read(ref diagnosticExitKnown)!=0,
+                RunFailure=originalRun.Exception?.GetBaseException().GetType().Name,RunHResult=originalRun.Exception?.GetBaseException().HResult,
+                RunInnerFailure=originalRun.Exception?.InnerException?.InnerException?.GetType().Name,RunInnerHResult=originalRun.Exception?.InnerException?.InnerException?.HResult,
+                Host,driverSha256=Hash(Driver),coreSha256=Hash(Path.Combine(Path.GetDirectoryName(Driver)!,"KuaiYi.Core.dll"))}));
+            }
+            catch(Exception diagnosticFailure){DiagnosticFailure=diagnosticFailure;}
+        }
         internal async Task WaitForHealthyAsync(Task originalRun)
         {
             try
@@ -107,22 +136,7 @@ public sealed partial class InstallationSessionTests(ITestOutputHelper output)
                 }
                 await Healthy.Task;
             }
-            catch
-            {
-                try
-                {
-                    output.WriteLine("PUBLIC_SESSION_STARTUP "+JsonSerializer.Serialize(new{
-                    Run=originalRun.Status.ToString(),Healthy=Healthy.Task.Status.ToString(),Phase=Volatile.Read(ref startupPhase),
-                    ClientAdmission=Volatile.Read(ref clientAdmission)?.Status.ToString(),ClientHealthReceipt=Volatile.Read(ref clientHealthReceipt)?.Status.ToString(),
-                    ActualPid=Volatile.Read(ref diagnosticPid),ActualExit=Volatile.Read(ref diagnosticExitKnown)==0?(int?)null:Volatile.Read(ref diagnosticExit),
-                    OriginalIoSettled=Volatile.Read(ref diagnosticExitKnown)!=0,
-                    RunFailure=originalRun.Exception?.GetBaseException().GetType().Name,RunHResult=originalRun.Exception?.GetBaseException().HResult,
-                    RunInnerFailure=originalRun.Exception?.InnerException?.InnerException?.GetType().Name,RunInnerHResult=originalRun.Exception?.InnerException?.InnerException?.HResult,
-                    Host,driverSha256=Hash(Driver),coreSha256=Hash(Path.Combine(Path.GetDirectoryName(Driver)!,"KuaiYi.Core.dll"))}));
-                }
-                catch(Exception diagnosticFailure){DiagnosticFailure=diagnosticFailure;}
-                throw;
-            }
+            catch{ReportStartupFailure(originalRun);throw;}
         }
         public Process Start(ProcessStartInfo info)
         {
@@ -152,9 +166,13 @@ public sealed partial class InstallationSessionTests(ITestOutputHelper output)
         }
         internal async Task WaitForBrowserPublishedAsync(Task originalRun)
         {
-            await Task.WhenAny(BrowserPublished.Task,originalRun).WaitAsync(Limit);
-            if(originalRun.IsCompleted)await originalRun;
-            await BrowserPublished.Task.WaitAsync(Limit);
+            try
+            {
+                await Task.WhenAny(BrowserPublished.Task,originalRun).WaitAsync(Limit);
+                if(originalRun.IsCompleted)await originalRun;
+                await BrowserPublished.Task.WaitAsync(Limit);
+            }
+            catch{ReportStartupFailure(originalRun);throw;}
         }
         internal InstallationUpgradeCoordinator Coordinator(Rig r)=>new(r.App,r.Data,this,TimeSpan.FromSeconds(1),this){BrowserHostPublishedForTest=()=>BrowserPublished.TrySetResult()};
     }
