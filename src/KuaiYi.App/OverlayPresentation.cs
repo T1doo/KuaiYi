@@ -22,8 +22,10 @@ internal sealed partial class ShellWindow
     private readonly Border cardBackground=new(){Background=Brushes.White,IsHitTestVisible=false};
     private readonly RichTextBox body=new(){IsReadOnly=true,IsUndoEnabled=false,IsDocumentEnabled=true,BorderThickness=new Thickness(0),Padding=new Thickness(0),VerticalScrollBarVisibility=ScrollBarVisibility.Visible,HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled,FontFamily=new("Segoe UI"),Background=Brushes.Transparent};
     private readonly RichTextBox measurement=new(){IsReadOnly=true,IsUndoEnabled=false,IsDocumentEnabled=true,BorderThickness=new Thickness(0),Padding=new Thickness(0),VerticalScrollBarVisibility=ScrollBarVisibility.Visible,HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled};
-    private readonly TextBlock resultLabel=new(){FontSize=11,TextTrimming=TextTrimming.CharacterEllipsis,IsHitTestVisible=false,Visibility=Visibility.Collapsed};
+    private readonly TextBlock resultLabel=new(){FontSize=11,FontWeight=FontWeights.Medium,TextTrimming=TextTrimming.CharacterEllipsis,IsHitTestVisible=false,Visibility=Visibility.Collapsed};
     private readonly Canvas controls=new(){Height=48};private readonly List<Button> tools=[];private readonly List<Action> toolActions=[];
+    private readonly Border toolbarSurface=new(){Height=48,IsHitTestVisible=false};
+    private readonly Border toolbarDivider=new(){Height=1,IsHitTestVisible=false,Visibility=Visibility.Collapsed};
     private readonly Button moreTools=new(){Content="…",Width=28,Height=28,ToolTip="更多操作及版本"};
     private readonly ContextMenu overflowMenu=new();private Button? styleTool;
     private readonly Button failureNotice=new(){Height=28,FontSize=12,Focusable=true,Visibility=Visibility.Collapsed,Padding=new Thickness(2)};
@@ -54,6 +56,7 @@ internal sealed partial class ShellWindow
         bodyMarkdown=new(body,ObserveCodeReaderIntent,CaptureBodyReaderGuard,()=>follow,OriginalSourceChanged,CanReadOriginalSourceVersion,ImageSourcePreviewFailed,OpenMarkdownLink);measurementMarkdown=new(measurement,canReadSource:CanReadOriginalSourceVersion,sourceFailed:ImageSourcePreviewFailed);
         Content=overlayCanvas;overlayCanvas.Children.Add(cardBackground);overlayCanvas.Children.Add(body);overlayCanvas.Children.Add(resultLabel);overlayCanvas.Children.Add(failureNotice);overlayCanvas.Children.Add(controls);overlayCanvas.Children.Add(button);overlayCanvas.Children.Add(progressRing);overlayCanvas.Children.Add(connectionStatus);overlayCanvas.Children.Add(newContent);
         body.Visibility=controls.Visibility=Visibility.Collapsed;button.Width=button.Height=48;button.Padding=new Thickness(0);button.Style=(Style)Resources[DesktopTheme.AnchorButton];cardBackground.CornerRadius=new CornerRadius(16);cardBackground.BorderThickness=new Thickness(1);RefreshPresentationTheme();
+        DesktopTheme.Bind(toolbarSurface,Border.BackgroundProperty,DesktopTheme.Rail);DesktopTheme.Bind(toolbarDivider,Border.BackgroundProperty,DesktopTheme.Stroke);controls.Children.Add(toolbarSurface);controls.Children.Add(toolbarDivider);
         styleTool=Tool("风格",()=>OpenOverflowMenu(styleTool!));Tool("翻译截图",()=>TranslateScreenshot());Tool("回看",ReopenResult);Tool("收起",CollapseResult);Tool("停止",StopResult);Tool("重新生成",()=>RegenerateResult());Tool("复制",CopyResult);Tool("查看原文",ShowSelectionSource);Tool("清除当前内容",()=>_=ClearCurrentContent());Tool("设置",()=>_=OpenSettings());
         Button Tool(string label,Action action){var b=new Button{Content=label,Tag=label,MinWidth=28,Height=28,FontSize=12,Padding=new Thickness(2)};System.Windows.Automation.AutomationProperties.SetName(b,label);b.ToolTip=label;b.Style=(Style)Resources[DesktopTheme.ToolButton];b.Click+=(_,_)=>action();tools.Add(b);toolActions.Add(action);controls.Children.Add(b);return b;}
         moreTools.Style=(Style)Resources[DesktopTheme.ToolButton];failureNotice.Style=(Style)Resources[DesktopTheme.ToolButton];failureNotice.HorizontalContentAlignment=HorizontalAlignment.Left;DesktopTheme.Bind(failureNotice,Control.BackgroundProperty,DesktopTheme.AccentSoft);DesktopTheme.Bind(failureNotice,Control.ForegroundProperty,DesktopTheme.SelectionText);newContent.Style=(Style)Resources[DesktopTheme.ToolButton];controls.Children.Add(moreTools);moreTools.Click+=(_,_)=>OpenOverflowMenu(moreTools);
@@ -188,7 +191,7 @@ internal sealed partial class ShellWindow
         double width=dpi.Dips(rect.Width),height=dpi.Dips(rect.Height);overlayCanvas.Width=width;overlayCanvas.Height=height;cardBackground.Width=width;cardBackground.Height=height;
         double bx=dpi.Dips(anchor.Left-rect.Left),by=dpi.Dips(anchor.Top-rect.Top);Canvas.SetLeft(button,bx);Canvas.SetTop(button,by);
         Canvas.SetLeft(progressRing,bx+3);Canvas.SetTop(progressRing,by+3);
-        controls.Visibility=expanded&&!externalDropHover?Visibility.Visible:Visibility.Collapsed;controls.Width=width;Canvas.SetTop(controls,by);
+        controls.Visibility=expanded&&!externalDropHover?Visibility.Visible:Visibility.Collapsed;controls.Width=toolbarSurface.Width=width;Canvas.SetTop(controls,by);
         double before=bx,after=width-bx-48;bool left=before>after;double available=Math.Max(before,after),start=left?0:bx+48;
         var toolbar=OverlayToolbarLayout.Plan(Math.Max(0,available),tools.Count,tools.Count-1);
         foreach(var tool in tools)tool.Visibility=Visibility.Collapsed;
@@ -198,8 +201,9 @@ internal sealed partial class ShellWindow
         double used=toolbar.OverflowOffsetDip is {} last?last+28:toolbar.Slots.Select(s=>s.OffsetDip+s.WidthDip).DefaultIfEmpty(0).Max();
         connectionStatus.Visibility=!externalDropHover&&awaitingText&&peek&&expanded&&available-used>=104?Visibility.Visible:Visibility.Collapsed;Canvas.SetLeft(connectionStatus,start+used+8);Canvas.SetTop(connectionStatus,by+14);
         PublishDropBounds();
-        var plan=overlayFrames.Plan;var direction=overlayFrames.ContentDirection;if(direction==null||peek||!expanded){body.Visibility=resultLabel.Visibility=failureNotice.Visibility=Visibility.Collapsed;newContent.Visibility=Visibility.Collapsed;return;}
+        var plan=overlayFrames.Plan;var direction=overlayFrames.ContentDirection;toolbarDivider.Visibility=Visibility.Collapsed;if(direction==null||peek||!expanded){body.Visibility=resultLabel.Visibility=failureNotice.Visibility=Visibility.Collapsed;newContent.Visibility=Visibility.Collapsed;return;}
         bool down=direction is GrowthDirection.RightDown or GrowthDirection.LeftDown or GrowthDirection.BalancedDown;
+        toolbarDivider.Width=width;Canvas.SetTop(toolbarDivider,down?47:0);toolbarDivider.Visibility=Visibility.Visible;
         int pad=dpi.CeilingPixels(16),top=down?anchor.Bottom+pad:rect.Top+pad,bottom=down?rect.Bottom-pad:anchor.Top-pad;
         double targetWidth=overlayFrames.TextWidthDip;
         if(overlayFrames.Transition==OverlayTransition.Moving)targetWidth=Math.Min(targetWidth,width);

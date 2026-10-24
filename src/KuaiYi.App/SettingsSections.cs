@@ -8,11 +8,11 @@ internal sealed partial class SettingsWindow
 {
     private static void Section(Panel panel,string title,string? description=null)
     {
-        var section=new StackPanel{Margin=new Thickness(0,panel.Children.Count==0?0:24,0,2)};
-        if(panel.Children.Count>0){var rule=new Border{Height=1,Margin=new Thickness(0,0,0,20)};DesktopTheme.Bind(rule,Border.BackgroundProperty,DesktopTheme.Stroke);section.Children.Add(rule);}
-        section.Children.Add(new TextBlock{Text=title,FontSize=16,FontWeight=FontWeights.SemiBold,TextWrapping=TextWrapping.Wrap});
+        var section=new StackPanel();
+        section.Children.Add(new TextBlock{Text=title,FontSize=15,FontWeight=FontWeights.SemiBold,TextWrapping=TextWrapping.Wrap});
         if(description!=null){var caption=new TextBlock{Text=description,FontSize=12,TextWrapping=TextWrapping.Wrap,LineHeight=20,Margin=new Thickness(0,6,0,0)};DesktopTheme.Bind(caption,TextBlock.ForegroundProperty,DesktopTheme.Muted);section.Children.Add(caption);}
-        panel.Children.Add(section);
+        var band=new Border{Child=section,Padding=new Thickness(12,10,12,10),BorderThickness=new Thickness(3,0,0,0),CornerRadius=new CornerRadius(0,8,8,0),Margin=new Thickness(0,panel.Children.Count==0?0:28,0,4)};
+        DesktopTheme.Bind(band,Border.BackgroundProperty,DesktopTheme.Canvas);DesktopTheme.Bind(band,Border.BorderBrushProperty,DesktopTheme.Accent);panel.Children.Add(band);
     }
     private static void PreferenceRow(Panel panel,string title,string description,FrameworkElement input)
     {

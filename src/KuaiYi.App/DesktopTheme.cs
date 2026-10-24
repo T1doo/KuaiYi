@@ -70,7 +70,7 @@ internal static class DesktopTheme
             var comboItem=new Style(typeof(ComboBoxItem));comboItem.Setters.Add(Value(Control.BackgroundProperty,Input));comboItem.Setters.Add(Value(Control.ForegroundProperty,Text));comboItem.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(10,7,10,7)));var highlight=new Trigger{Property=ComboBoxItem.IsHighlightedProperty,Value=true};highlight.Setters.Add(Value(Control.BackgroundProperty,AccentSoft));highlight.Setters.Add(Value(Control.ForegroundProperty,SelectionText));comboItem.Triggers.Add(highlight);window.Resources[typeof(ComboBoxItem)]=comboItem;
             window.Resources[NavigationItem]=NavigationStyle();
         }
-        var tool=ButtonStyle(7,28);tool.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(3)));tool.Setters.Add(new Setter(Control.BorderThicknessProperty,new Thickness(0)));
+        var tool=ButtonStyle(7,28);tool.Setters.Add(new Setter(Control.PaddingProperty,new Thickness(3)));tool.Setters.Add(new Setter(Control.BorderThicknessProperty,new Thickness(0)));tool.Setters.Add(new Setter(Control.BackgroundProperty,Brushes.Transparent));
         var toolHover=new MultiTrigger();toolHover.Conditions.Add(new Condition(UIElement.IsMouseOverProperty,true));toolHover.Conditions.Add(new Condition(UIElement.IsEnabledProperty,true));toolHover.Setters.Add(Value(Control.BackgroundProperty,AccentSoft));toolHover.Setters.Add(Value(Control.ForegroundProperty,SelectionText));tool.Triggers.Add(toolHover);
         foreach(var icon in Icons)
         {var trigger=new Trigger{Property=FrameworkElement.TagProperty,Value=icon.Key};trigger.Setters.Add(new Setter(Control.TemplateProperty,ButtonTemplate(7,icon.Value)));tool.Triggers.Add(trigger);}

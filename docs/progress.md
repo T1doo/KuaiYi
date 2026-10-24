@@ -1831,3 +1831,5 @@ Settings导航修复产品76956cc5eabf24f6e765d8f22c2e60dc49fba227已正常push�
 PNG同epoch独审P2已修候选：按当前moving样本与phase/epoch取图，最终IssuedAnimationEpoch区分合格/保留无效原图；真正issuance期间同epoch中间态保留。双端验证before/after epoch，完整16格合格集及两列表共用原预算，不以无效图补位。仅源码反例，未声称历史原生发生。旧逻辑提取同6例2P4F→修复后相关27P（新6+保留21）；Python同方法6失败子例→最终9方法通过；859输入无漂移，App/工具交叉build0W0E16.58秒。生产动画/时钟/主题/workflow/pins均不动，无新CI/来源重绑。原生效果和旧长文问题未验，暖橙UI另片。完整原件与范围见validation/overlay-stages-preparation.md末节。
 
 修复冻结99f8e8f30e5020a352ccb9df7fc41323195d0e77已独审正常push；原件Library libfile_e1b82d814e908191956931933bbaa881 v0，2210862B/SHA2567547dfe08f6424bb677aab8f4765ac7a34a6f90bee74bb2ff4b27a74cc96b258。42成员41manifest/7Git文件/859输入/红绿原件均机械独核，含测试与工具DLL，App仅摘要已明示，DoNotRun/precommit BuildParent保留。创建与本地身份保存成功，本收据仅两文档，无追加测试/CI/来源重绑。
+
+2026-10-24独立暖橙UI候选：基于040553d，仅5生产UI文件＋原2报告，七设置页共用导航/功能分区/反馈/主保存层级，浮窗正文与辅助工具区分；背景和方向分隔均非hit-test，不改正文测量/几何/动画/事件/红绿和高对比。既有离线11P＝配色2＋布局9，最终App/工具交叉build0W0E8.42秒；测试时857输入及原Canvas版build分列保留，最终背景层修正只影响未被该定向测试编入的OverlayPresentation，未借记原构建。独审限定ACK。无push/网络投递/CI/原生/模型/安装；像素/窄大字/设备和动效性能未验，旧图不代签。见validation/desktop-refinement-2026-10-23.md末节。

@@ -42,3 +42,11 @@ GrowthHarness 默认 ProbeWindow 是独立原型；`--actual-overlay` / `--ci-ac
 完整原件 Library **libfile_ec54e1fd2a74819192bd5d1918ec5f52 / v0**：523442B、46 成员，ZIP SHA256 `4ef1bd1ed7c5fd5a533348fd8a4884446f52c715b3d1842b9423a9915b245aa0`。含9源Git blob、源码/输入及产物摘要、原TRX/日志/命令、明确归为阻断证据的浏览器图片、最终独立HTML和只读DLL。CRC和成员摘要在本环境校验；上传返回成功，全部返回xattr已应用并复核摘要。无私有下载URL。
 
 本轮可以交付源码候选和可打开的设计文件，**不能交付已验收的精美像素或流畅录屏**。最小缺口是已有权限范围内可实际渲染当前WPF的Windows会话及原始帧/视频回收；本Linux环境的浏览器file://又被组织策略明确阻断，未尝试其他URL绕路。没有重新投递旧CI、访问已拒Actions API或使用用户电脑。
+
+## 2026-10-24 独立暖橙生产主题候选
+
+基于040553d7ce89f1042d46464533139642fcb29ecc，仅本地修改五份生产UI源：DesktopPalette浅深暖橙资源、DesktopTheme辅助工具透明底、SettingsChrome七页共用页头/独立反馈区、SettingsSections功能分区标题、OverlayPresentation工具区背景/朝向分隔线及来源标签字重。七类设置共用导航、页头、分区、反馈、保存主操作；浮窗保留正文为主，辅助操作区有轻背景与分隔。工具区背景与分隔线均非hit-test，保留Canvas原空白命中；不增加正文占位或修改测量、锚点、动画、命令事件、开关红绿及高对比分支。无宠物。附属独立对话框不纳入本片七页覆盖声明。
+
+原有离线Provider定向11P/0F/0skip＝DesktopPaletteTests浅深对比度2例＋SettingsLayoutTests原布局规划9例，未新增测试或重跑全套。测试时857输入原件保留，随后仅OverlayPresentation从Canvas背景修成非hit-test背景层；四个相关测试/链接源字节不变，不把11P当WPF绘制测试。最终App＋GrowthHarness交叉构建exit0、0W0E、8.42秒；前一Canvas版15.60秒构建单独保留在superseded，不借记最终源码。测试快照source、最终快照final-source/最终build-inputs、命令/TRX/完整日志位于artifacts/2026-10-24-warm-ui。独立源码审查限定ACK，无剩余确定P1/P2。
+
+此片未网络push、投递CI、原生执行、安装或调用模型。颜色对比度与离线编译不等于像素验收：暖橙后的真实WPF截图、窄窗/大字实际排版、高对比/键盘焦点、DWM/FPS、生长动画和250/600ms仍未验，旧版截图不能代签本候选。此前被拒的Windows诊断保持拒绝，未改workflow或来源绑定；原pins与全部安全门保持。
