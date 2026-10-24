@@ -70,7 +70,11 @@ public sealed partial class SettingsCoordinator(SettingsStore store,SecretFileSt
             try
             {
                 if(startup==null){SettingsStore.WriteFlushed(journal,metadata);journalWritten=true;}
-                else{startupJournal=new(store.DirectoryPath,journal,metadata,StartupJournalFaultsForTest);journalWritten=true;startupJournal.Write();}
+                else
+                {
+                    startup.BindIntent(store.DirectoryPath,new(startup.Request,id,draft.Basis.Version,Convert.ToHexString(SHA256.HashData(metadata))));
+                    startupJournal=new(store.DirectoryPath,journal,metadata,StartupJournalFaultsForTest);journalWritten=true;startupJournal.Write();
+                }
             }
             finally{CryptographicOperations.ZeroMemory(metadata);}
             if(startup!=null)await startup.ApplyAsync(cancellation).ConfigureAwait(false);
@@ -94,11 +98,19 @@ public sealed partial class SettingsCoordinator(SettingsStore store,SecretFileSt
             try{PublishCommitted(saved,change);}catch(Exception error){publicationErrors.Add(error);}
             if(originalHotkeyCommit!=null)try{await originalHotkeyCommit;}catch(Exception error){publicationErrors.Add(error);}
             if(originalStartupCommit!=null)try{await originalStartupCommit;}catch(Exception error){publicationErrors.Add(error);}
+            if(startup!=null)
+            {
+                // Local revocation must not be skipped because a remote receipt/transport is uncertain.
+                foreach(var reference in retired)try{await secrets.RevokeAsync(reference);}catch(Exception error){publicationErrors.Add(error);}
+                try{startupJournal!.RequireSettledIntent();}catch(Exception error){publicationErrors.Add(error);}
+                try{await startup.LocalSettledAsync("COMMITTED",saved.Version,publicationErrors.Count==0).ConfigureAwait(false);}catch(Exception error){publicationErrors.Add(error);}
+            }
             if(publicationErrors.Count==1)ExceptionDispatchInfo.Capture(publicationErrors[0]).Throw();
             if(publicationErrors.Count>1)throw new AggregateException("Configuration committed; hotkey settlement or safety notification failed. Recovery journal retained.",publicationErrors);
             // No cancellation after commit: finish durable deletion, or retain journal for recovery.
-            foreach(var reference in retired)await secrets.RevokeAsync(reference);
-            if(startupJournal!=null)startupJournal.RemoveAfterOriginalSettlement();else File.Delete(journal);journalWritten=false;return saved;
+            if(startup==null){foreach(var reference in retired)await secrets.RevokeAsync(reference);File.Delete(journal);journalWritten=false;}
+            // A receipt is not the remote send Task's settlement. Only the original controller may retire v3 after exit/IO.
+            return saved;
         }
         catch(Exception error)
         {
@@ -109,17 +121,18 @@ public sealed partial class SettingsCoordinator(SettingsStore store,SecretFileSt
             {
                 if(hotkeyTransaction!=null)try{await hotkeyTransaction.RollbackAsync();}catch(Exception rollback){failures.Add(rollback);}
                 if(startup!=null)try{await startup.AbortAsync().ConfigureAwait(false);}catch(Exception rollback){failures.Add(rollback);}
-                // v3 is never removed until the original remote restoration and its response write are confirmed.
+                // Even a visible ABORT_OK leaves v3 pending until the original controller's post-exit settlement.
                 if(startup!=null&&journalWritten&&failures.Count==1)
                 {
                     try
                     {
                         startupJournal!.RequireSettledIntent();
                         foreach(var reference in staged)try{await secrets.DeleteUnpublishedAsync(reference);}catch(Exception cleanup){failures.Add(cleanup);}
-                        if(failures.Count==1){startupJournal.RemoveAfterOriginalSettlement();journalWritten=false;}
                     }
                     catch(Exception cleanup){failures.Add(cleanup);}
                 }
+                if(startup!=null&&journalWritten)
+                    try{await startup.LocalSettledAsync("ABORTED",draft.Basis.Version,failures.Count==1).ConfigureAwait(false);}catch(Exception notice){failures.Add(notice);}
             }
             if(failures.Count>1)throw new AggregateException("Settings save or original participant settlement failed; recovery intent retained.",failures);
             throw;

@@ -63,6 +63,7 @@ public sealed partial class InstallationDeploymentSessionTests(ITestOutputHelper
     private sealed class Port(ITestOutputHelper output):IInstallationSessionProtocol,IOwnedProcessStarter,IInstallationStartupRemovalProtocol
     {
         private readonly InstallationApplicationClient client=new();
+        internal Func<Stream,Stream>? StartupWriteForTest{set=>client.WriteStreamForTest=value;}
         internal InstallationStartupRemovalServer? StartupServer;
         void IInstallationStartupRemovalProtocol.AttachStartupRemoval(Process child,InstallationStartupRemovalServer server)
         {StartupServer=server;((IInstallationStartupRemovalProtocol)client).AttachStartupRemoval(child,server);}

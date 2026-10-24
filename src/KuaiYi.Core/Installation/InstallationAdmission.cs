@@ -73,6 +73,8 @@ internal sealed class InstallationAdmission:IDisposable
     internal void RequireCleanupLease(string expected)
     {if(!acquired||lease==null||directory!=expected)throw new InstallationRecoveryException("Upgrade admission is no longer held.");InstallationPaths.Check(directory);}
     internal void Require(string expected){RequireCleanupLease(expected);if(executionIO!=null)execution?.RequireCompensation(directory,executionIO);else execution?.Require(directory);}
+    internal void RequireObservedExecution(string expected,InstallationPreparationIO originalIo)
+    {RequireCleanupLease(expected);(execution??throw new InstallationRecoveryException("Original execution is missing.")).RequireCompensation(directory,originalIo);}
     internal void RequireMutation(string expected){Require(expected);(mutation??throw new InstallationRecoveryException("Mutation requires the exclusive host fence.")).Require(expected);}
     internal void RequireRetirementCleanup(string expected){RequireCleanupLease(expected);(mutation??throw new InstallationRecoveryException("Retirement requires the original exclusive host fence.")).Require(expected);}
     internal void Attach(InstallationExecutionOwnership owner,InstallationPreparationIO? reader=null){if(reader==null)owner.Require(directory);else owner.RequireCompensation(directory,reader);execution=owner;executionIO=reader;}

@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Text.Json;
 using KuaiYi.Core.Settings;
 namespace KuaiYi.Core.Installation;
 
@@ -16,13 +17,31 @@ internal static class InstallationStartupRemovalWire
     internal static (Guid Request,string Verb,string? Basis) Decode(string line,InstallationControlledLaunch proof)
     {
         var fields=line.Split('|');
-        if(line.Length>512||fields.Length is not(5 or 6)||fields[0]!="STARTUP_REMOVE"||fields[1]!=proof.Launch.ToString("N")||fields[2]!=proof.Fingerprint||
+        if(line.Length>4096||fields.Length is not(5 or 6)||fields[0]!="STARTUP_REMOVE"||fields[1]!=proof.Launch.ToString("N")||fields[2]!=proof.Fingerprint||
             !Guid.TryParseExact(fields[3],"N",out var request)||request==Guid.Empty||fields[4].Length is <1 or >16)
             throw new InvalidDataException("Startup control differs from the original launch.");
         string? basis=fields.Length==6?fields[5]:null;
-        if(basis!=null&&(basis.Length is <1 or >160||basis.Any(c=>!char.IsAsciiHexDigit(c)&&c!=':'&&c is not('a' or 'b' or 's' or 'e' or 'n' or 't'))))
+        if(basis!=null&&(basis.Length is <1 or >3072||fields[4]=="RESERVE"&&!ValidVersion(basis)))
             throw new InvalidDataException("Startup settings version is invalid.");
         return(request,fields[4],basis);
+    }
+    internal static bool ValidVersion(string value)=>value.Length is >0 and <=160&&!value.Any(c=>!char.IsAsciiHexDigit(c)&&c!=':'&&c is not('a' or 'b' or 's' or 'e' or 'n' or 't'));
+    internal static string Payload<T>(T value)=>Convert.ToBase64String(JsonSerializer.SerializeToUtf8Bytes(value,SettingsJson.Options));
+    private static T Payload<T>(string value,string[] fields)
+    {
+        if(value.Length>3072)throw new InvalidDataException("Startup payload exceeds bound.");var bytes=Convert.FromBase64String(value);
+        using var doc=JsonDocument.Parse(bytes,new(){MaxDepth=4});SettingsJson.RejectDuplicates(doc.RootElement);InstallationPackage.Fields(doc.RootElement,fields);
+        return JsonSerializer.Deserialize<T>(bytes,SettingsJson.Options)??throw new InvalidDataException("Startup payload missing.");
+    }
+    internal static SettingsStartupIntent Intent(string value,Guid request)
+    {
+        var result=Payload<SettingsStartupIntent>(value,["request","writeId","basisVersion","sha256"]);
+        if(result.Request!=request||result.WriteId==Guid.Empty||!InstallationPackage.HashValid(result.Sha256)||!ValidVersion(result.BasisVersion))throw new InvalidDataException("Startup intent binding invalid.");return result;
+    }
+    internal static SettingsStartupLocalSettlement Notice(string value,Guid request)
+    {
+        var result=Payload<SettingsStartupLocalSettlement>(value,["request","writeId","sha256","outcome","configVersion","cleanupConfirmed"]);
+        if(result.Request!=request||result.WriteId==Guid.Empty||!InstallationPackage.HashValid(result.Sha256)||result.Outcome is not("COMMITTED" or "ABORTED")||!ValidVersion(result.ConfigVersion))throw new InvalidDataException("Startup local settlement invalid.");return result;
     }
 }
 
@@ -39,21 +58,30 @@ internal sealed class InstallationStartupRemovalServer
     private string next="RESERVE";
     private bool sealedProducer,unknown,queued;
     private Task tail=Task.CompletedTask;
-    private Task? settlement;
+    private readonly TaskCompletionSource retire=new(TaskCreationOptions.RunContinuationsAsynchronously);
+    private readonly TimeSpan budget;
+    private (Process Child,Task Exit,Task Io)? originalExit;
+    internal Task RetirementWork{get;}
+    private readonly TaskCompletionSource localObserved=new(TaskCreationOptions.RunContinuationsAsynchronously);
+    internal Task LocalNoticeObserved=>localObserved.Task;
     internal readonly List<Exception> Errors=[];
     internal InstallationStartupRemovalServer(InstallationStartupRemovalOwner owner,InstallationControlledLaunch proof,
-        Func<string,CancellationToken,Task> send,Action<Task> track)
-    {this.owner=owner;this.proof=proof;this.send=send;this.track=track;}
-    internal bool CleanupConfirmed {get{lock(sync)return tail.IsCompleted&&!unknown&&owner.CleanupConfirmed&&next is "RESERVE" or "DONE";}}
+        Func<string,CancellationToken,Task> send,Action<Task> track,TimeSpan? budget=null)
+    {
+        this.owner=owner;this.proof=proof;this.send=send;this.track=track;this.budget=budget??TimeSpan.FromSeconds(2);
+        RetirementWork=Task.Run(RetireCoreAsync);track(RetirementWork); // Registered before exit, IO or retirement can begin.
+    }
+    internal bool CleanupConfirmed {get{lock(sync)return RetirementWork.IsCompletedSuccessfully&&!unknown&&owner.CleanupConfirmed&&next is "RESERVE" or "DONE";}}
     internal bool Handle(string line)
     {
         var row=InstallationStartupRemovalWire.Decode(line,proof);
         lock(sync)
         {
             if(sealedProducer||unknown||queued||next=="DONE"||row.Verb!=next&&!(row.Verb=="ABORT"&&next is "APPLY" or "COMMIT")||
-                request!=Guid.Empty&&request!=row.Request||row.Verb=="RESERVE"&&(row.Basis==null||request!=Guid.Empty)||row.Verb!="RESERVE"&&row.Basis!=null)
+                request!=Guid.Empty&&request!=row.Request||row.Verb=="RESERVE"&&(row.Basis==null||request!=Guid.Empty)||
+                row.Verb is "APPLY" or "LOCAL_SETTLED"&&row.Basis==null||row.Verb=="COMMIT"&&row.Basis!=null)
                 throw new InvalidDataException("Startup request is duplicate, unordered or no longer current.");
-            request=row.Request;next=row.Verb switch{"RESERVE"=>"APPLY","APPLY"=>"COMMIT",_=>"DONE"};queued=true;
+            request=row.Request;next=row.Verb switch{"RESERVE"=>"APPLY","APPLY"=>"COMMIT","LOCAL_SETTLED"=>"DONE",_=>"LOCAL_SETTLED"};queued=true;
             var previous=tail;var begin=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
             var original=Task.Run(async()=>
             {
@@ -65,18 +93,19 @@ internal sealed class InstallationStartupRemovalServer
                     switch(row.Verb)
                     {
                         case "RESERVE":await owner.ReserveAsync(row.Request,row.Basis!).ConfigureAwait(false);break;
-                        case "APPLY":await owner.ApplyAsync().ConfigureAwait(false);break;
+                        case "APPLY":await owner.BindSettingsAsync(InstallationStartupRemovalWire.Intent(row.Basis!,row.Request)).ConfigureAwait(false);await owner.ApplyAsync().ConfigureAwait(false);break;
                         case "COMMIT":await owner.CommitAsync().ConfigureAwait(false);break;
-                        case "ABORT":await owner.AbortAsync().ConfigureAwait(false);break;
+                        case "ABORT":if(row.Basis!=null)await owner.BindSettingsAsync(InstallationStartupRemovalWire.Intent(row.Basis,row.Request)).ConfigureAwait(false);await owner.AbortAsync().ConfigureAwait(false);break;
+                        case "LOCAL_SETTLED":owner.ObserveLocalSettlement(InstallationStartupRemovalWire.Notice(row.Basis!,row.Request));localObserved.TrySetResult();return; // Deliberately no reply.
                     }
                     replyStarted=true;await send(InstallationStartupRemovalWire.Encode(proof,request,row.Verb+"_OK"),CancellationToken.None).ConfigureAwait(false);
                 }
                 catch(Exception error)
                 {
-                    bool compensable=!replyStarted&&row.Verb=="APPLY"&&owner.CleanupConfirmed;
+                    bool compensable=!replyStarted&&row.Verb=="APPLY"&&owner.OriginalResourcesConfirmed;
                     lock(sync){Errors.Add(error);if(compensable)next="ABORT";else unknown=true;}
                     if(!compensable)owner.Disconnected();
-                    if(replyStarted)throw; // A failed/lost response is never resent or treated as an apply refusal.
+                    if(replyStarted||row.Verb=="LOCAL_SETTLED")throw; // No response replay and no acknowledgement loop.
                     try{await send(InstallationStartupRemovalWire.Encode(proof,request,compensable?"REFUSED":"FAILED"),CancellationToken.None).ConfigureAwait(false);}
                     catch(Exception output){throw new AggregateException("Original startup work and response failed.",error,output);}
                     if(!compensable)throw;
@@ -86,18 +115,48 @@ internal sealed class InstallationStartupRemovalServer
         }
     }
     internal void Disconnect(){lock(sync)sealedProducer=true;}
-    internal Task SettleAsync(){lock(sync)return settlement??=SettleCoreAsync();}
-    private async Task SettleCoreAsync()
+    internal Task SettleAsync()
     {
-        Task original;lock(sync){sealedProducer=true;original=tail;}
-        try{await original.ConfigureAwait(false);}finally{owner.Disconnected();}
-        if(!CleanupConfirmed)throw new InstallationRecoveryException("Original startup slot or response settlement is unconfirmed.");
+        lock(sync)
+        {
+            sealedProducer=true;
+            if(retire.Task.IsCompleted&&!RetirementWork.IsCompleted){unknown=true;owner.Disconnected();}
+            retire.TrySetResult();return RetirementWork;
+        }
+    }
+    internal Task RetireAfterOriginalExitAsync(Process child,Task exit,Task io)
+    {
+        lock(sync)
+        {
+            if(retire.Task.IsCompleted)throw new InstallationRecoveryException("Original retirement cannot be replayed.");
+            sealedProducer=true;originalExit=(child,exit,io);retire.SetResult();return RetirementWork;
+        }
+    }
+    private async Task RetireCoreAsync()
+    {
+        await retire.Task.ConfigureAwait(false);Task original;string phase;Guid id;(Process Child,Task Exit,Task Io)? evidence;
+        lock(sync){original=tail;phase=next;id=request;evidence=originalExit;}
+        try
+        {
+            await original.WaitAsync(budget).ConfigureAwait(false); // Timeout retains the original task through Role/this owner.
+            if(id==Guid.Empty)return;
+            if(unknown||phase!="DONE"||evidence==null)throw new InstallationRecoveryException("Original exit/IO or one-way local settlement is missing.");
+            await owner.RetireSettingsAsync(evidence.Value.Child,evidence.Value.Exit,evidence.Value.Io).ConfigureAwait(false);
+        }
+        catch(Exception error)
+        {
+            lock(sync){unknown=true;Errors.Add(error);}owner.Disconnected();
+            if(original.Exception is {} all)InstallationErrors.Throw(all.InnerExceptions);throw;
+        }
     }
 }
 
 // App side. This participant is internal and never grants registration or changes the false-only settings policy.
-internal sealed class InstallationStartupRemovalClient(InstallationControlledLaunch proof,Func<string,CancellationToken,Task> send):ISettingsStartupRemovalParticipant
+internal sealed class InstallationStartupRemovalClient:ISettingsStartupRemovalParticipant
 {
+    private readonly InstallationControlledLaunch proof;
+    private readonly Func<string,CancellationToken,Task> send;
+    internal InstallationStartupRemovalClient(InstallationControlledLaunch proof,Func<string,CancellationToken,Task> send){this.proof=proof;this.send=send;}
     private readonly object sync=new();
     private readonly List<Task> originals=[];
     private TaskCompletionSource? response;
@@ -106,6 +165,10 @@ internal sealed class InstallationStartupRemovalClient(InstallationControlledLau
     private bool disconnected,used;
     private Task? final;
     private bool aborted;
+    private string? basisVersion,durable;
+    private SettingsStartupIntent? intent;
+    private bool notified;
+    internal bool OriginalsSettled{get{lock(sync)return originals.All(t=>t.IsCompleted);}}
     private Task Command(string verb,string? basis=null,CancellationToken cancellation=default)
     {
         lock(sync)
@@ -114,7 +177,9 @@ internal sealed class InstallationStartupRemovalClient(InstallationControlledLau
             var receipt=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);response=receipt;expected=verb+"_OK";
             var begin=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
             var original=Task.Run(async()=>{await begin.Task.ConfigureAwait(false);await send(InstallationStartupRemovalWire.Encode(proof,request,verb,basis),cancellation).ConfigureAwait(false);await receipt.Task.ConfigureAwait(false);});
-            originals.Add(original);begin.SetResult();return original;
+            originals.Add(original);begin.SetResult();
+            // Bound only observation. The exact write/receipt task stays owned and is joined on the original lifecycle.
+            return original.WaitAsync(TimeSpan.FromSeconds(2));
         }
     }
     internal void Receive(string line)
@@ -132,13 +197,20 @@ internal sealed class InstallationStartupRemovalClient(InstallationControlledLau
     {lock(sync){disconnected=true;response?.TrySetException(error);if(response!=null)_=response.Task.Exception;}}
     internal async Task JoinAsync()
     {
-        Task[] tasks;lock(sync)tasks=originals.ToArray();var errors=new List<Exception>();
-        foreach(var task in tasks)try{await task.ConfigureAwait(false);}catch(StartupRemovalRefusedException)when(aborted&&final is{IsCompletedSuccessfully:true}){}catch(Exception error){errors.Add(error);}
+        Task[] tasks;lock(sync)tasks=originals.ToArray();var errors=new List<Exception>();var all=Task.WhenAll(tasks);
+        try{await all.WaitAsync(TimeSpan.FromSeconds(2)).ConfigureAwait(false);}
+        catch(Exception observed)
+        {
+            foreach(var task in tasks.Where(t=>t.IsFaulted))foreach(var error in task.Exception!.InnerExceptions)
+                if(error is not StartupRemovalRefusedException||!aborted||final is not{IsCompletedSuccessfully:true})errors.Add(error);
+            foreach(var task in tasks.Where(t=>t.IsCanceled))errors.Add(new TaskCanceledException(task));
+            if(!all.IsCompleted)errors.Add(observed); // Still pending: no cancellation/disposal or fake original completion.
+        }
         InstallationErrors.Throw(errors);
     }
     public async Task<ISettingsStartupRemoval> ReserveAsync(string basisVersion,CancellationToken cancellation)
     {
-        cancellation.ThrowIfCancellationRequested();lock(sync){if(used||disconnected)throw new InstallationRecoveryException("Startup slot is one-shot.");used=true;request=Guid.NewGuid();}
+        cancellation.ThrowIfCancellationRequested();lock(sync){if(used||disconnected)throw new InstallationRecoveryException("Startup slot is one-shot.");used=true;request=Guid.NewGuid();this.basisVersion=basisVersion;}
         // No cancellation waiter drops this original write/receipt. After GRANTED, cancellation rolls back on the same owner.
         await Command("RESERVE",basisVersion).ConfigureAwait(false);return new Reservation(this,request);
     }
@@ -147,16 +219,41 @@ internal sealed class InstallationStartupRemovalClient(InstallationControlledLau
         public Guid Request=>request;
         public bool SaveStarted{get;private set;}
         public void SettingsSaveStarted()=>SaveStarted=true;
-        public Task ApplyAsync(CancellationToken cancellation){cancellation.ThrowIfCancellationRequested();return client.Command("APPLY");}
+        public void BindIntent(string directory,SettingsStartupIntent value)
+        {
+            lock(client.sync)
+            {
+                if(client.intent!=null||value.Request!=request||value.WriteId==Guid.Empty||value.BasisVersion!=client.basisVersion||
+                    !InstallationPackage.HashValid(value.Sha256)||Path.GetFullPath(directory)!=Path.Combine(client.proof.UserData,"config"))throw new InstallationRecoveryException("Startup settings must use the original fixed data/config path.");
+                client.intent=value;
+            }
+        }
+        public Task ApplyAsync(CancellationToken cancellation){cancellation.ThrowIfCancellationRequested();return client.Command("APPLY",InstallationStartupRemovalWire.Payload(client.intent??throw new InstallationRecoveryException("No original settings intent.")));}
         public Task CommitAsync(SettingsSnapshot saved)
         {
             lock(client.sync)
             {
                 if(saved.Data.LaunchAtSignIn)throw new InstallationRecoveryException("This participant only removes startup.");
-                return client.final??=client.Command("COMMIT");
+                return client.final??=Finish("COMMIT","COMMITTED");
             }
         }
-        public Task AbortAsync(){lock(client.sync){if(client.final!=null)return client.final;client.aborted=true;return client.final=client.Command("ABORT");}}
+        private async Task Finish(string verb,string result)
+        {await client.Command(verb,verb=="ABORT"&&client.intent!=null?InstallationStartupRemovalWire.Payload(client.intent):null).ConfigureAwait(false);lock(client.sync)client.durable=result;}
+        public Task AbortAsync(){lock(client.sync){if(client.final!=null)return client.final;client.aborted=true;return client.final=Finish("ABORT","ABORTED");}}
+        public async Task LocalSettledAsync(string outcome,string configVersion,bool cleanupConfirmed)
+        {
+            Task original;
+            lock(client.sync)
+            {
+                var binding=client.intent??throw new InstallationRecoveryException("No original local intent.");
+                if(client.notified||client.disconnected||client.durable!=outcome)throw new InstallationRecoveryException("Local settlement is one-shot and requires the original durable result receipt.");client.notified=true;
+                var notice=new SettingsStartupLocalSettlement(request,binding.WriteId,binding.Sha256,outcome,configVersion,cleanupConfirmed);
+                var begin=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+                original=Task.Run(async()=>{await begin.Task.ConfigureAwait(false);await client.send(InstallationStartupRemovalWire.Encode(client.proof,request,"LOCAL_SETTLED",InstallationStartupRemovalWire.Payload(notice)),CancellationToken.None).ConfigureAwait(false);});
+                client.originals.Add(original);begin.SetResult();
+            }
+            await original.WaitAsync(TimeSpan.FromSeconds(2)).ConfigureAwait(false); // No reply; the original write remains tracked if observation expires.
+        }
     }
 }
 

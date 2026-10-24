@@ -27,6 +27,7 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
         private readonly object tasksSync=new();
         private readonly List<Task> protocolTasks=[];
         internal Task? OriginalIoJoin,OriginalExitRequest,OriginalControlClose,OriginalNaturalExit;
+        internal Task? StartupRetirement;
         internal readonly Guid Launch=Guid.NewGuid();
         internal Task<Process>? Startup;
         internal Process? Process;
@@ -37,6 +38,7 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
         internal InstallationPreparationIO? ReadIO;
         internal byte[]? CurrentRecord;
         internal bool LaunchFinished;
+        internal bool CleanObservedExit;
         internal bool RetainTasks;
         internal Task[] Tasks{get{lock(tasksSync)return protocolTasks.ToArray();}}
         internal bool TasksCompleted{get{lock(tasksSync)return protocolTasks.All(t=>t.IsCompleted);}}
@@ -126,7 +128,8 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
                 if(protocol is IInstallationStartupRemovalProtocol startupProtocol&&deployment.StartupQualified)
                 {
                     var actual=role;startupRemoval=new(deployment.CreateStartupRemovalOwner(this,admission,actual.LaunchProof!,actual.Process!),actual.LaunchProof!,
-                        (line,token)=>startupProtocol.SendStartupRemovalAsync(actual.Process!,line,token),actual.Track);
+                        (line,token)=>startupProtocol.SendStartupRemovalAsync(actual.Process!,line,token),actual.Track,budget);
+                    actual.StartupRetirement=startupRemoval.RetirementWork;
                     startupProtocol.AttachStartupRemoval(actual.Process!,startupRemoval);
                 }
             }).ConfigureAwait(false);
@@ -140,16 +143,23 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
             role.OriginalNaturalExit=role.Process!.WaitForExitAsync(CancellationToken.None);role.Track(role.OriginalNaturalExit);
             await role.OriginalNaturalExit.WaitAsync(cancellation).ConfigureAwait(false);
             liveImage?.Quiesce();browserHosts?.Retire();
-            if(startupRemoval!=null){var settled=startupRemoval.SettleAsync();role.Track(settled);await settled.WaitAsync(budget,cancellation).ConfigureAwait(false);}
             if(!role.Process.HasExited||role.Process.ExitCode!=0)throw new IOException("Application session did not exit cleanly.");
+            role.CleanObservedExit=true;
             await Call(role,t=>sessionProtocol.SettleSessionAsync(role.Process,t),cancellation,ProtocolOperation.Io).ConfigureAwait(false);role.IoSettled=true;
-            await Task.WhenAll(role.Tasks).WaitAsync(budget,cancellation).ConfigureAwait(false);
+            await Task.WhenAll(role.Tasks.Where(t=>t!=role.StartupRetirement)).WaitAsync(budget,cancellation).ConfigureAwait(false);
             await role.Lifetime.StartupObservation.WaitAsync(budget,cancellation).ConfigureAwait(false);
             cancellation.ThrowIfCancellationRequested();
-            if(!role.Exited)throw new IOException("Application original work is unsettled.");
+            if(role.Tasks.Where(t=>t!=role.StartupRetirement).Any(t=>!t.IsCompletedSuccessfully))throw new IOException("Application original work is unsettled.");
             admission.Require(execution.DirectoryPath);role.LaunchProof!.RequireRecords(io:role.ReadIO);FinishLaunch(role);
             if(!await role.Lifetime.TryFinalizeAsync().ConfigureAwait(false))throw new IOException("Application handle cleanup is unconfirmed.");
-            role.Finalized=true;execution.Finish();execution.Dispose();execution=null;disposed=true;return 0;
+            role.Finalized=true;
+            if(startupRemoval!=null)
+            {
+                await startupRemoval.RetireAfterOriginalExitAsync(role.Process,role.OriginalNaturalExit,role.OriginalIoJoin!).WaitAsync(budget,cancellation).ConfigureAwait(false);
+                if(!startupRemoval.CleanupConfirmed)throw new InstallationRecoveryException("Original startup retirement is unconfirmed.");
+            }
+            if(!role.Exited)throw new IOException("Original application retirement remains unsettled.");
+            execution.Finish();execution.Dispose();execution=null;disposed=true;return 0;
         }
         catch(Exception failure)when(sessionAttempted)
         {
@@ -163,7 +173,9 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
                 if(role!=null)CollectOriginalFailures(role,errors);
                 if(restored!=null&&execution is{Acquired:false})try{execution.Dispose();}catch(Exception close){errors.Add(close);}
                 // This branch keeps the original execution object; a restored failure grants no recursive compensation.
-                try{admission?.Dispose();}catch(Exception close){errors.Add(close);}
+                // A bounded retirement observation is not permission to close the borrowed lease under its original producer.
+                if(role?.TasksCompleted!=false)try{admission?.Dispose();}catch(Exception close){errors.Add(close);}
+                else errors.Add(new IOException("Original application/retirement work is still held; admission retained."));
                 if(admission?.CleanupConfirmed==true)admission=null;
                 retainAdmission=true;InstallationErrors.Throw(errors);throw;
             }
@@ -180,6 +192,17 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
             throw new InstallationUpgradeUnconfirmedException(failure);
         }
         finally{if(!retainAdmission){admission?.Dispose();admission=null;}serial.Release();}
+    }
+    internal void RequireOriginalStartupRetirement(InstallationDeploymentSession session,InstallationAdmission borrowed,InstallationControlledLaunch proof,Process child,Task exit,Task io,InstallationPreparationIO originalReads)
+    {
+        if(!ReferenceEquals(deploymentSession,session)||!ReferenceEquals(admission,borrowed)||execution==null||disposed||roles.Count!=1)
+            throw new InstallationRecoveryException("Startup retirement is not on the original active controller.");
+        var role=roles[0];
+        if(!ReferenceEquals(role.Process,child)||!ReferenceEquals(role.LaunchProof,proof)||!ReferenceEquals(role.OriginalNaturalExit,exit)||!ReferenceEquals(role.OriginalIoJoin,io)||
+            !exit.IsCompletedSuccessfully||!io.IsCompletedSuccessfully||!role.IoSettled||!role.Finalized||!role.CleanObservedExit||
+            role.Tasks.Where(t=>t!=role.StartupRetirement).Any(t=>!t.IsCompletedSuccessfully))
+            throw new InstallationRecoveryException("Exact original App exit, stdio and response tasks must settle before startup retirement.");
+        borrowed.RequireObservedExecution(installationRoot,originalReads);
     }
     public async Task<InstalledVersion> StartActiveRoleAsync(string roleName="KuaiYi.App.exe",CancellationToken cancellation=default)
     {

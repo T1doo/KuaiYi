@@ -26,6 +26,8 @@ public sealed class SettingsStartupRemovalTests
         internal Func<Task>? Reserve,Apply,Commit,Abort;
         internal int Applies,Commits,Aborts;
         public void SettingsSaveStarted()=>SaveStarted=true;
+        public void BindIntent(string directory,SettingsStartupIntent intent){Assert.Equal(Request,intent.Request);}
+        public Task LocalSettledAsync(string outcome,string configVersion,bool cleanupConfirmed)=>Task.CompletedTask;
         public async Task<ISettingsStartupRemoval> ReserveAsync(string basis,CancellationToken cancellation){cancellation.ThrowIfCancellationRequested();if(Reserve!=null)await Reserve();return this;}
         public async Task ApplyAsync(CancellationToken cancellation){Applies++;cancellation.ThrowIfCancellationRequested();if(Apply!=null)await Apply();}
         public async Task CommitAsync(SettingsSnapshot saved){Commits++;if(Commit!=null)await Commit();}
@@ -81,7 +83,7 @@ public sealed class SettingsStartupRemovalTests
         var write=new IOException("PUBLIC_STARTUP_JOURNAL_PARTIAL");var close=new IOException("PUBLIC_STARTUP_JOURNAL_CLOSE");
         var journal=new SettingsStartupJournal(root,path,"{}"u8.ToArray(),new(){WriteMetadata=(_,file,bytes)=>{file.Write(bytes.Span[..1]);file.Flush(true);throw write;},BeforeClose=(_,_)=>throw close});
         var error=Assert.Throws<AggregateException>(journal.Write);Assert.Contains(write,error.InnerExceptions);Assert.Contains(close,error.InnerExceptions);
-        Assert.Equal(1,new FileInfo(path).Length);Assert.Throws<SettingsTransactionUnconfirmedException>(journal.RemoveAfterOriginalSettlement);Assert.True(File.Exists(path));
+        Assert.Equal(1,new FileInfo(path).Length);Assert.Throws<SettingsTransactionUnconfirmedException>(journal.RequireSettledIntent);Assert.True(File.Exists(path));
         // Original handle/partial intent deliberately retained, not deleted or declared closed by a test cleanup.
     }
     [Fact]public async Task StartupSavePreservesOriginalDiskFailureWhenUnpublishedSecretCleanupAlsoFails()
@@ -101,4 +103,27 @@ public sealed class SettingsStartupRemovalTests
     }
     private sealed class HashOnlyProtector:ISecretProtector
     {public byte[] Protect(ReadOnlySpan<byte> data)=>System.Security.Cryptography.SHA256.HashData(data);public byte[] Unprotect(ReadOnlySpan<byte> data)=>throw new InvalidOperationException("This synthetic cleanup test never opens a key.");}
+
+    [Theory][InlineData("COMMIT")][InlineData("ABORT")]
+    public async Task MissingFinalReceiptReturnsUnconfirmedWithoutAbandoningOriginalLocalIo(string missing)
+    {
+        using var f=new Fixture();var primary=new IOException("PUBLIC_BEFORE_PUBLISH");
+        var store=new SettingsStore(f.Store.DirectoryPath){WriteStageForTest=stage=>{if(missing=="ABORT"&&stage==SettingsWriteStage.BeforePublish)throw primary;}};
+        var coordinator=new SettingsCoordinator(store,f.Secrets);
+        // Synthetic peer only: no package qualification is claimed. Real original-process paths are tested separately.
+        var proof=new InstallationControlledLaunch(Guid.NewGuid(),"KuaiYi.App.exe",Path.Combine(f.Root,"application"),f.Root,
+            new("public",Path.Combine(f.Root,"application","versions",Guid.NewGuid().ToString("N")),new string('0',64)),Convert.ToBase64String("PUBLIC"u8),Convert.ToBase64String("PUBLIC"u8),null);
+        InstallationStartupRemovalClient? client=null;
+        client=new(proof,(line,_)=>
+        {
+            var row=InstallationStartupRemovalWire.Decode(line,proof);
+            if(row.Verb!=missing)client!.Receive(InstallationStartupRemovalWire.Encode(proof,row.Request,row.Verb+"_OK"));
+            return Task.CompletedTask; // Final response is lost; original receipt task remains pending after observation expires.
+        });
+        using var draft=await coordinator.OpenDraftAsync();draft.Update(s=>s with{Overlay=s.Overlay with{FontSizeDip=19}});
+        var error=await Assert.ThrowsAsync<AggregateException>(()=>coordinator.SaveWithStartupRemovalAsync(draft,client));
+        Assert.Contains(error.Flatten().InnerExceptions,e=>e is TimeoutException);if(missing=="ABORT")Assert.Contains(primary,error.Flatten().InnerExceptions);
+        Assert.Equal(missing=="COMMIT"?19:15,(await store.LoadAsync()).Data.Overlay.FontSizeDip);Assert.Single(Directory.GetFiles(store.DirectoryPath,"secret-txn-*.json"));Assert.False(client.OriginalsSettled);
+        var eof=new IOException("PUBLIC_ORIGINAL_CHANNEL_ENDED");client.Disconnect(eof);Assert.Same(eof,await Assert.ThrowsAsync<IOException>(()=>client.JoinAsync()));Assert.True(client.OriginalsSettled);
+    }
 }

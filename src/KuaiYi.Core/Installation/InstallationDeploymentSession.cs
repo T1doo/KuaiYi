@@ -85,7 +85,9 @@ internal sealed partial class InstallationDeploymentSession
         catch(Exception error){errors.Add(error);}
         // This original task owns every later read and close, independently of the completed deployment finalizer.
         try{io.CloseOriginals();}catch(Exception error){qualificationUnknown=true;errors.Add(error);}
-        try{await registry.CloseOriginalsAsync().ConfigureAwait(false);}catch(Exception error){qualificationUnknown=true;errors.Add(error);}
+        if(controller.DeploymentOriginalWorkPending(this))
+        {qualificationUnknown=true;errors.Add(new IOException("Original controller producer is still held; its registry resources are not closed underneath it."));}
+        else try{await registry.CloseOriginalsAsync().ConfigureAwait(false);}catch(Exception error){qualificationUnknown=true;errors.Add(error);}
         if(!io.CleanupConfirmed||!registry.CleanupConfirmed)qualificationUnknown=true;
         bool own=controller.DeploymentOwnsExecution(this),everOwned=controller.DeploymentClaimedExecution(this),settled=controller.DeploymentCleanupConfirmed(this);
         InstallationDeploymentReady? observed;lock(sync){revoked=true;observed=accepted;}
@@ -118,28 +120,28 @@ internal sealed partial class InstallationDeploymentSession
     }
     internal void RequireController(InstallationUpgradeCoordinator actual)
     {scope.RequireOriginalSession(this);if(!ReferenceEquals(actual,controller))throw new InstallationRecoveryException("Different deployment controller.");}
-    private async Task VerifyCommittedAsync(InstallationStartupPlan? startupOverride=null)
+    private async Task VerifyCommittedAsync(InstallationStartupPlan? startupOverride=null,InstallationPreparationIO? originalReads=null)
     {
-        var errors=new List<Exception>();
+        var reader=originalReads??io;var errors=new List<Exception>();
         try
         {
             scope.RequireOriginalSession(this);if(registry.ConflictObserved)throw new InstallationRecoveryException("Original registry authority is foreign.");
-            foreach(var pair in records)io.RequireExactMetadata(pair.Key,pair.Value,131072);
+            foreach(var pair in records)reader.RequireExactMetadata(pair.Key,pair.Value,131072);
             var p=prepared.Plan;
-            io.RequireAbsent(Path.Combine(Root,"upgrade-pending.json"));io.RequireAbsent(InstallationBootstrapDeployment.PendingPath(Root));io.RequireAbsent(Path.Combine(Root,"host-registration-pending.json"));
-            io.RequireExactMetadata(Path.Combine(Root,"current.json"),Convert.FromBase64String(p.TargetCurrent),4096);
-            io.RequireExactMetadata(InstallationBootstrapDeployment.OwnerPath(Root),Convert.FromBase64String(p.Bootstrap.Owner),4096);
-            io.RequireExactMetadata(InstallationBootstrapDeployment.ActivePath(Root),Convert.FromBase64String(p.Bootstrap.Receipt),8192);
-            io.RequireExactMetadata(Path.Combine(Root,"host-registration.json"),Convert.FromBase64String(p.Host.Receipt),8192);
+            reader.RequireAbsent(Path.Combine(Root,"upgrade-pending.json"));reader.RequireAbsent(InstallationBootstrapDeployment.PendingPath(Root));reader.RequireAbsent(Path.Combine(Root,"host-registration-pending.json"));
+            reader.RequireExactMetadata(Path.Combine(Root,"current.json"),Convert.FromBase64String(p.TargetCurrent),4096);
+            reader.RequireExactMetadata(InstallationBootstrapDeployment.OwnerPath(Root),Convert.FromBase64String(p.Bootstrap.Owner),4096);
+            reader.RequireExactMetadata(InstallationBootstrapDeployment.ActivePath(Root),Convert.FromBase64String(p.Bootstrap.Receipt),8192);
+            reader.RequireExactMetadata(Path.Combine(Root,"host-registration.json"),Convert.FromBase64String(p.Host.Receipt),8192);
             if((startupOverride??p.Startup) is {} startup)
-            {if(startup.TargetOwner==null)io.RequireAbsent(InstallationStartupRegistration.OwnerPath(Root));else io.RequireExactMetadata(InstallationStartupRegistration.OwnerPath(Root),Convert.FromBase64String(startup.TargetOwner),InstallationStartupRegistration.OwnerLimit);}
-            var g=InstallationPackage.ReadInstalled(p.Generation.DirectoryPath,CancellationToken.None,expectedDigest:p.Generation.CatalogSha256,io:io);
-            if(g.Schema!=3||g.SourceCatalogSha256!=p.GenerationSourceSha256||InstallationBootstrapPackage.Read(p.Bootstrap.CanonicalDirectory,p.BootstrapSourceSha256,p.Generation,CancellationToken.None,io).Revision!=p.BootstrapRevision)throw new InstallationRecoveryException("Committed payload or bootstrap differs.");
+            {if(startup.TargetOwner==null)reader.RequireAbsent(InstallationStartupRegistration.OwnerPath(Root));else reader.RequireExactMetadata(InstallationStartupRegistration.OwnerPath(Root),Convert.FromBase64String(startup.TargetOwner),InstallationStartupRegistration.OwnerLimit);}
+            var g=InstallationPackage.ReadInstalled(p.Generation.DirectoryPath,CancellationToken.None,expectedDigest:p.Generation.CatalogSha256,io:reader);
+            if(g.Schema!=3||g.SourceCatalogSha256!=p.GenerationSourceSha256||InstallationBootstrapPackage.Read(p.Bootstrap.CanonicalDirectory,p.BootstrapSourceSha256,p.Generation,CancellationToken.None,reader).Revision!=p.BootstrapRevision)throw new InstallationRecoveryException("Committed payload or bootstrap differs.");
             var actual=await registry.ReadPublishedAsync().ConfigureAwait(false);actual=await InstallationStartupRegistration.CombineReadAsync(registry,actual,p.Startup!=null).ConfigureAwait(false);
             if(actual!=p.Host.Targets with{Startup=(startupOverride??p.Startup)?.Target})throw new InstallationRecoveryException("Committed Host or startup registration differs.");
         }
         catch(Exception error){qualificationUnknown=true;errors.Add(error);}
-        try{io.CloseOriginals();}catch(Exception error){qualificationUnknown=true;errors.Add(error);}
+        try{reader.CloseOriginals();}catch(Exception error){qualificationUnknown=true;errors.Add(error);}
         try{await registry.CloseOriginalsAsync().ConfigureAwait(false);}catch(Exception error){qualificationUnknown=true;errors.Add(error);}
         InstallationErrors.Throw(errors);
     }

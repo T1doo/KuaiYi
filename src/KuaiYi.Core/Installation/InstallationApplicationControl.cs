@@ -324,7 +324,15 @@ public sealed partial class InstallationApplicationControl
             await Observe(cancellation,failures).ConfigureAwait(false);
             await Observe(imageRevocation,failures).ConfigureAwait(false);
             if(loop!=null)await Observe(loop,protocolFailures).ConfigureAwait(false);
-            if(startupRemoval!=null)await Observe(startupRemoval.JoinAsync(),failures).ConfigureAwait(false);
+            if(startupRemoval!=null)
+            {
+                try{await startupRemoval.JoinAsync().ConfigureAwait(false);}
+                catch(Exception error)
+                {
+                    FailureCode??=error.GetType().Name;
+                    Add(startupRemoval.OriginalsSettled?protocolFailures:failures,error); // Settled protocol failure may close UI, but never emits EXIT_READY.
+                }
+            }
             GC.KeepAlive(runtime);
             // Preserve the established loop/write-only close policy: FailureCode blocks success, while Shell may close.
             // If independent cleanup failed, its original error and all concurrent protocol errors must survive together.

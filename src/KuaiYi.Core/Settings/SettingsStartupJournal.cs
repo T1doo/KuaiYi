@@ -8,7 +8,7 @@ internal sealed class SettingsStartupJournal
     private readonly InstallationPreparationIO io;
     private readonly string path;
     private readonly byte[] bytes;
-    private bool unknown,deleted;
+    private bool unknown;
     internal SettingsStartupJournal(string directory,string path,byte[] bytes,InstallationPreparationFaults? faults)
     {this.path=path;this.bytes=bytes.ToArray();io=InstallationPreparationIO.ReadOnly(directory,faults).CreateSessionChannel(directory,[path]);lock(Retained)Retained.Add(this);}
     internal void Write()
@@ -16,18 +16,9 @@ internal sealed class SettingsStartupJournal
         try{io.RequireAbsent(path);io.WritePublicationMetadata(path,bytes,16384);io.RequireExactMetadata(path,bytes,16384);}
         catch{unknown=true;throw;}
     }
-    internal void RemoveAfterOriginalSettlement()
-    {
-        RequireSettledIntent();
-        try
-        {
-            File.Delete(path);deleted=true;lock(Retained)Retained.Remove(this);
-        }
-        catch{unknown=true;throw;}
-    }
     internal void RequireSettledIntent()
     {
-        if(unknown||deleted||io.StorageUnconfirmed)throw new SettingsTransactionUnconfirmedException();
+        if(unknown||io.StorageUnconfirmed)throw new SettingsTransactionUnconfirmedException();
         try{io.RequireExactMetadata(path,bytes,16384);io.CloseOriginals();if(!io.CleanupConfirmed)throw new SettingsTransactionUnconfirmedException();}
         catch{unknown=true;throw;}
     }
