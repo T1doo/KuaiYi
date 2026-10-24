@@ -7,7 +7,7 @@ internal interface IInstallationDeploymentPublicationRegistry:IInstallationDeplo
     Task<InstallationDeploymentRegistrationSnapshot> ReadPublishedAsync();
     Task WriteDefaultAsync(bool chrome,InstallationDeploymentRegistrationSlot expected,string? value);
 }
-internal enum DeploymentPublicationStage { ContainerCreated,OwnerWritten,BundleMoved,Current,Active,Chrome,Edge,HostReceipt,Verified,BeforeReverse,AfterReverse }
+internal enum DeploymentPublicationStage { ContainerCreated,OwnerWritten,BundleMoved,Current,Active,Chrome,Edge,HostReceipt,Verified,BeforeReverse,AfterReverse,StartupValue,StartupOwner }
 internal sealed class InstallationPublicationFaults
 {
     internal Action<DeploymentPublicationStage>? Stage {get;init;}
@@ -15,7 +15,7 @@ internal sealed class InstallationPublicationFaults
     internal Action<string,string>? MoveBundle {get;init;}
     internal Action<int,bool>? BeforeMutation {get;init;}
 }
-internal sealed record InstallationPublicationRetention(string? Owner,string CanonicalBundle,bool CanonicalReady,InstallationDeploymentRegistrationSnapshot Registry);
+internal sealed record InstallationPublicationRetention(string? Owner,string CanonicalBundle,bool CanonicalReady,InstallationDeploymentRegistrationSnapshot Registry,string? StartupOwner=null,int Prefix=0,int Attempt=0);
 
 // Same-scope provisional publication. No independent admission, installer entry or process launch.
 internal sealed class InstallationDeploymentPublication
@@ -32,29 +32,34 @@ internal sealed class InstallationDeploymentPublication
     private int prefix,attempt;
     private bool canonicalReady,canonicalAttempt,ownerWritten,unknown;
     private InstallationDeploymentRegistrationSnapshot slots;
-    internal InstallationPublicationRetention Retention=>new(ownerWritten?prepared.Plan.Bootstrap.Owner:context.Before.BootstrapOwner,prepared.Plan.Bootstrap.CanonicalDirectory,canonicalReady,slots);
+    private int Steps=>prepared.Plan.Startup==null?5:7;
+    private IEnumerable<int> FileSteps=>Enumerable.Range(1,Steps).Where(n=>n is 1 or 2 or 5 or 7);
+    internal InstallationPublicationRetention Retention=>new(ownerWritten?prepared.Plan.Bootstrap.Owner:context.Before.BootstrapOwner,prepared.Plan.Bootstrap.CanonicalDirectory,canonicalReady,slots,prefix>=7?prepared.Plan.Startup?.TargetOwner:context.Before.StartupOwner,prefix,attempt);
     internal IEnumerable<InstallationPublicationRetention> TerminalRetentions()
     {
         var old=context.Before.Registry;var target=prepared.Plan.Host.Targets;
         InstallationDeploymentRegistrationSlot Empty(InstallationDeploymentRegistrationSlot value)=>value.KeyExists?value:new(true,null);
         foreach(var chrome in new[]{old.Chrome,Empty(old.Chrome),target.Chrome})foreach(var edge in new[]{old.Edge,Empty(old.Edge),target.Edge})
         foreach(var owner in new[]{context.Before.BootstrapOwner,prepared.Plan.Bootstrap.Owner})foreach(bool ready in new[]{false,true})
-            yield return new(owner,prepared.Plan.Bootstrap.CanonicalDirectory,ready,new(chrome,edge));
+        foreach(var startup in prepared.Plan.Startup is {} s?new[]{s.Before,s.Target}:new InstallationStartupValue?[]{null})
+        foreach(var startupOwner in prepared.Plan.Startup is {} p?new[]{p.BeforeOwner,p.TargetOwner}:new string?[]{null})
+            yield return new(owner,prepared.Plan.Bootstrap.CanonicalDirectory,ready,new(chrome,edge,startup),startupOwner,Steps,Steps);
     }
     internal bool CanFinalize=>!unknown&&!registry.ConflictObserved&&io.CleanupConfirmed&&!io.StorageUnconfirmed&&registry.CleanupConfirmed;
-    internal bool TargetComplete=>prefix==5&&attempt==0;
+    internal bool TargetComplete=>prefix==Steps&&attempt==0;
     internal InstallationDeploymentPublication(InstallationDeploymentScope scope,PreparedPreparationContext context,InstallationDeploymentPrepared prepared,IInstallationDeploymentPublicationRegistry registry,InstallationPublicationFaults? faults)
     {
         this.scope=scope;this.context=context;this.prepared=prepared;this.registry=registry;this.faults=faults;slots=context.Before.Registry;
         paths=[Path.Combine(context.Root,"current.json"),InstallationBootstrapDeployment.ActivePath(context.Root),Path.Combine(context.Root,"host-registration.json")];
         before=[Decode(context.Before.Current),Decode(context.Before.BootstrapActive),Decode(context.Before.HostReceipt)];after=[Decode(prepared.Plan.TargetCurrent),Decode(prepared.Plan.Bootstrap.Receipt),Decode(prepared.Plan.Host.Receipt)];
+        if(prepared.Plan.Startup is {} startup){paths=paths.Append(InstallationStartupRegistration.OwnerPath(context.Root)).ToArray();before=before.Append(Decode(startup.BeforeOwner)).ToArray();after=after.Append(Decode(startup.TargetOwner)).ToArray();}
     }
-    internal IEnumerable<string> WritePaths()=>paths.Concat([InstallationBootstrapDeployment.OwnerPath(context.Root)]).Concat(Enumerable.Range(1,5).Where(n=>n is 1 or 2 or 5).SelectMany(n=>new[]{Temp(n,false),Temp(n,true),Removed(n)}));
+    internal IEnumerable<string> WritePaths()=>paths.Concat([InstallationBootstrapDeployment.OwnerPath(context.Root)]).Concat(FileSteps.SelectMany(n=>new[]{Temp(n,false),Temp(n,true),Removed(n)}));
     internal void Attach(InstallationPreparationIO original){if(io!=null)throw new InvalidOperationException();io=original;}
     private string Temp(int step,bool reverse)=>Path.Combine(context.Root,$"deployment-publish-{context.Operation}-{step}-{(reverse?"reverse":"forward")}.tmp");
     private string Removed(int step)=>Path.Combine(context.Root,$"deployment-publish-{context.Operation}-{step}-removed.json");
     private static byte[]? Decode(string? value)=>value==null?null:Convert.FromBase64String(value);
-    private int Index(int step)=>step switch{1=>0,2=>1,5=>2,_=>throw new InvalidOperationException()};
+    private int Index(int step)=>step switch{1=>0,2=>1,5=>2,7 when Steps==7=>3,_=>throw new InvalidOperationException()};
     private void Journal(bool mutation)
     {
         if(registry.ConflictObserved)unknown=true;
@@ -82,22 +87,22 @@ internal sealed class InstallationDeploymentPublication
     private async Task<InstallationDeploymentRegistrationSnapshot> ReadSlots()
     {
         var errors=new List<Exception>();InstallationDeploymentRegistrationSnapshot? value=null;
-        try{value=await registry.ReadPublishedAsync().ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
+        try{value=await registry.ReadPublishedAsync().ConfigureAwait(false);value=await InstallationStartupRegistration.CombineReadAsync(registry,value,Steps==7).ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
         try{await registry.CloseOriginalsAsync().ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
         if(!registry.CleanupConfirmed)errors.Add(new IOException("Original publication registry resources are unsettled."));InstallationErrors.Throw(errors);return value!;
     }
     private static bool MatchesSlot(InstallationDeploymentRegistrationSlot actual,InstallationDeploymentRegistrationSlot expected,bool allowEmpty)
         =>actual==expected||allowEmpty&&!expected.KeyExists&&actual==new InstallationDeploymentRegistrationSlot(true,null);
-    private InstallationDeploymentRegistrationSnapshot ExpectedSlots(int count)=>new(count>=3?prepared.Plan.Host.Targets.Chrome:context.Before.Registry.Chrome,count>=4?prepared.Plan.Host.Targets.Edge:context.Before.Registry.Edge);
+    private InstallationDeploymentRegistrationSnapshot ExpectedSlots(int count)=>new(count>=3?prepared.Plan.Host.Targets.Chrome:context.Before.Registry.Chrome,count>=4?prepared.Plan.Host.Targets.Edge:context.Before.Registry.Edge,prepared.Plan.Startup is {} s?(count>=6?s.Target:s.Before):null);
     private async Task CheckPrefix(bool mutation)
     {
         try
         {
         Journal(mutation);Candidates();
         Optional(InstallationBootstrapDeployment.OwnerPath(context.Root),ownerWritten?Decode(prepared.Plan.Bootstrap.Owner):Decode(context.Before.BootstrapOwner),4096);
-        foreach(int step in new[]{1,2,5})Optional(paths[Index(step)],prefix>=step?after[Index(step)]:before[Index(step)],step==1?4096:8192);
+        foreach(int step in FileSteps)Optional(paths[Index(step)],prefix>=step?after[Index(step)]:before[Index(step)],step==1?4096:8192);
         var actual=await ReadSlots().ConfigureAwait(false);var expected=ExpectedSlots(prefix);
-        if(!MatchesSlot(actual.Chrome,expected.Chrome,prefix<3&&chromeAttempted)||!MatchesSlot(actual.Edge,expected.Edge,prefix<4&&edgeAttempted))throw new InstallationRecoveryException("Registry publication prefix changed or is foreign.");slots=actual;
+        if(!MatchesSlot(actual.Chrome,expected.Chrome,prefix<3&&chromeAttempted)||!MatchesSlot(actual.Edge,expected.Edge,prefix<4&&edgeAttempted)||actual.Startup!=expected.Startup)throw new InstallationRecoveryException("Registry publication prefix changed or is foreign.");slots=actual;
         foreach(var row in remnants)io.RequireExactMetadata(row.Key,row.Value,8192);
         if(canonicalReady){io.RequireDirectory(InstallationBootstrapDeployment.BundlesPath(context.Root));io.RequireDirectory(prepared.Plan.Bootstrap.CanonicalDirectory);io.RequireAbsent(prepared.Plan.Bootstrap.InactiveDirectory);}
         Journal(mutation);
@@ -126,7 +131,7 @@ internal sealed class InstallationDeploymentPublication
     internal async Task ForwardAsync()
     {
         await CheckPrefix(true).ConfigureAwait(false);Canonical();await CheckPrefix(true).ConfigureAwait(false);
-        for(int step=1;step<=5;step++)
+        for(int step=1;step<=Steps;step++)
         {
             scope.CheckPublicationCancellation();await CheckPrefix(true).ConfigureAwait(false);attempt=step;faults?.BeforeMutation?.Invoke(step,false); // Intent precedes any actual mutation.
             if(step is 3 or 4)
@@ -134,9 +139,10 @@ internal sealed class InstallationDeploymentPublication
                 bool chrome=step==3;if(chrome)chromeAttempted=true;else edgeAttempted=true;
                 var expected=chrome?slots.Chrome:slots.Edge;await registry.WriteDefaultAsync(chrome,expected,(chrome?prepared.Plan.Host.Targets.Chrome:prepared.Plan.Host.Targets.Edge).Value).ConfigureAwait(false);
             }
+            else if(step==6){if(prepared.Plan.Startup!.Before!=prepared.Plan.Startup.Target)await ((IInstallationStartupRegistry)registry).WriteStartupAsync(prepared.Plan.Startup.Before,prepared.Plan.Startup.Target).ConfigureAwait(false);}
             else WriteRecord(step,false);
             await ResolveAttempt(false).ConfigureAwait(false);if(prefix!=step)throw new IOException("Publication did not reach its exact target.");
-            faults?.Stage?.Invoke((DeploymentPublicationStage)((int)DeploymentPublicationStage.Current+step-1));
+            faults?.Stage?.Invoke(step switch{1=>DeploymentPublicationStage.Current,2=>DeploymentPublicationStage.Active,3=>DeploymentPublicationStage.Chrome,4=>DeploymentPublicationStage.Edge,5=>DeploymentPublicationStage.HostReceipt,6=>DeploymentPublicationStage.StartupValue,7=>DeploymentPublicationStage.StartupOwner,_=>throw new InvalidOperationException()});
         }
         await CheckPrefix(true).ConfigureAwait(false);scope.CheckPublicationCancellation();faults?.Stage?.Invoke(DeploymentPublicationStage.Verified);
     }
@@ -144,18 +150,24 @@ internal sealed class InstallationDeploymentPublication
     {
         int index=Index(step);byte[]? next=reverse?before[index]:after[index],expected=reverse?after[index]:before[index];string path=paths[index];
         Optional(path,expected,step==1?4096:8192);
+        if(next==null&&expected==null)return;
         string temporary=next==null?Removed(step):Temp(step,reverse);io.RequireAbsent(temporary);
         if(next!=null){io.WritePublicationMetadata(temporary,next,step==1?4096:8192);io.RequireExactMetadata(temporary,next,step==1?4096:8192);remnants.Add(temporary,next);}
         Journal(true);Optional(path,expected,step==1?4096:8192);
         if(faults?.Publish!=null)faults.Publish(temporary,path,next!=null&&expected!=null);
-        else if(next==null)File.Move(path,temporary);else if(expected==null)File.Move(temporary,path);else File.Replace(temporary,path,null,false);
-        if(next==null)remnants.Add(temporary,expected!);else remnants.Remove(temporary);
+        else if(next==null){if(expected!=null)File.Move(path,temporary);}else if(expected==null)File.Move(temporary,path);else File.Replace(temporary,path,null,false);
+        if(next==null&&expected!=null)remnants.Add(temporary,expected);else remnants.Remove(temporary);
     }
     private InstallationRecoveryException Conflict(string message){unknown=true;return new(message);}
     private async Task ResolveAttempt(bool reverse)
     {
         if(attempt==0)return;Journal(true);int step=attempt;bool isAfter;
-        if(step is 3 or 4)
+        if(step==6)
+        {
+            var actual=await ReadSlots().ConfigureAwait(false);var s=prepared.Plan.Startup!;
+            if(s.Target==s.Before&&actual.Startup==s.Target)isAfter=!reverse;else if(actual.Startup==s.Target)isAfter=true;else if(actual.Startup==s.Before)isAfter=false;else throw Conflict("Attempted startup value is foreign.");slots=actual;
+        }
+        else if(step is 3 or 4)
         {
             var actual=await ReadSlots().ConfigureAwait(false);var slot=step==3?actual.Chrome:actual.Edge;var old=step==3?context.Before.Registry.Chrome:context.Before.Registry.Edge;var target=step==3?prepared.Plan.Host.Targets.Chrome:prepared.Plan.Host.Targets.Edge;
             if(slot==target)isAfter=true;else if(MatchesSlot(slot,old,true))isAfter=false;else throw Conflict("Attempted registry write is foreign.");slots=actual;
@@ -164,10 +176,11 @@ internal sealed class InstallationDeploymentPublication
         {
             int index=Index(step);byte[]? actual=null;try{actual=io.ReadDocument(paths[index],step==1?4096:8192);}catch(FileNotFoundException){io.RequireAbsent(paths[index]);}
             bool Equal(byte[]? value)=>actual==null?value==null:value!=null&&actual.AsSpan().SequenceEqual(value);
-            if(Equal(after[index]))isAfter=true;else if(Equal(before[index]))isAfter=false;else throw Conflict("Attempted record write is foreign or partial.");
+            bool same=after[index]==null?before[index]==null:before[index]!=null&&after[index]!.AsSpan().SequenceEqual(before[index]);
+            if(same&&Equal(after[index]))isAfter=!reverse;else if(Equal(after[index]))isAfter=true;else if(Equal(before[index]))isAfter=false;else throw Conflict("Attempted record write is foreign or partial.");
             // A move/replace may have performed its side effect before reporting an error.
             string temp=Temp(step,reverse);if(isAfter!=reverse)remnants.Remove(temp);
-            if(reverse&&before[index]==null&&!isAfter)remnants[Removed(step)]=after[index]!;
+            if(reverse&&before[index]==null&&after[index]!=null&&!isAfter)remnants[Removed(step)]=after[index]!;
         }
         prefix=isAfter?step:step-1;attempt=0;await CheckPrefix(true).ConfigureAwait(false);
     }
@@ -181,6 +194,7 @@ internal sealed class InstallationDeploymentPublication
             {
                 int step=prefix;Journal(true);faults?.Stage?.Invoke(DeploymentPublicationStage.BeforeReverse);await CheckPrefix(true).ConfigureAwait(false);attempt=step;faults?.BeforeMutation?.Invoke(step,true);
                 if(step is 3 or 4){bool chrome=step==3;await registry.WriteDefaultAsync(chrome,chrome?slots.Chrome:slots.Edge,(chrome?context.Before.Registry.Chrome:context.Before.Registry.Edge).Value).ConfigureAwait(false);}
+                else if(step==6){if(prepared.Plan.Startup!.Before!=prepared.Plan.Startup.Target)await ((IInstallationStartupRegistry)registry).WriteStartupAsync(prepared.Plan.Startup.Target,prepared.Plan.Startup.Before).ConfigureAwait(false);}
                 else WriteRecord(step,true);
                 await ResolveAttempt(true).ConfigureAwait(false);if(prefix!=step-1)throw new IOException("Reverse publication did not reach its exact before state.");faults?.Stage?.Invoke(DeploymentPublicationStage.AfterReverse);
             }
@@ -190,7 +204,7 @@ internal sealed class InstallationDeploymentPublication
     }
     internal async Task VerifyFinalAsync(bool commit)
     {
-        if(!CanFinalize||attempt!=0||prefix!=(commit?5:0))throw new InstallationRecoveryException("Publication has no known complete terminal state.");
+        if(!CanFinalize||attempt!=0||prefix!=(commit?Steps:0))throw new InstallationRecoveryException("Publication has no known complete terminal state.");
         await CheckPrefix(false).ConfigureAwait(false);
     }
 }

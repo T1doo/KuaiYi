@@ -8,7 +8,7 @@ internal interface IInstallationDeploymentPreparedRead:IInstallationDeploymentSn
 internal sealed record InstallationHostOwnership(int SchemaVersion,string Product,Guid Owner,InstalledVersion Version,string Manifest);
 internal sealed record PreparedBootstrapPlan(string InactiveDirectory,string CanonicalDirectory,string Owner,string Receipt);
 internal sealed record PreparedHostPlan(InstallationHostOwnership? Before,string Receipt,InstallationDeploymentRegistrationSnapshot Targets);
-internal sealed record InstallationDeploymentPlan(int SchemaVersion,string Kind,string Operation,string TicketSha256,string BeforeSha256,string GenerationSourceSha256,InstalledVersion Generation,string BootstrapSourceSha256,string BootstrapRevision,string TargetCurrent,PreparedBootstrapPlan Bootstrap,PreparedHostPlan Host);
+internal sealed record InstallationDeploymentPlan(int SchemaVersion,string Kind,string Operation,string TicketSha256,string BeforeSha256,string GenerationSourceSha256,InstalledVersion Generation,string BootstrapSourceSha256,string BootstrapRevision,string TargetCurrent,PreparedBootstrapPlan Bootstrap,PreparedHostPlan Host,InstallationStartupPlan? Startup=null);
 internal sealed record PreparedPreparationContext(string Root,string Data,string Operation,string Bundle,string Path,string TicketSha256,string BeforeSha256,InstallationDeploymentBefore Before,InstallationBootstrapCandidate Bootstrap,CancellationToken Cancellation);
 
 // Qualified plan only. No method publishes files, moves a bundle, starts a role or writes registry.
@@ -37,7 +37,7 @@ internal sealed class InstallationDeploymentPrepared
             CheckCandidates();
             var(current,old)=InstallationStore.PlanCurrent(c.Root,Decode(c.Before.Current),g.Version,stop,io);
             var errors=new List<Exception>();InstallationDeploymentRegistrationSnapshot? slots=null;
-            try{slots=await registry.ReadForPreparationAsync().ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
+            try{slots=await registry.ReadForPreparationAsync().ConfigureAwait(false);slots=await InstallationStartupRegistration.CombineReadAsync(registry,slots,scope.StartupQualifiedScope).ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
             try{await registry.CloseOriginalsAsync().ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
             if(!registry.CleanupConfirmed)errors.Add(new IOException("Original Prepared registry resources are unsettled."));
             InstallationErrors.Throw(errors);stop.ThrowIfCancellationRequested();
@@ -59,7 +59,8 @@ internal sealed class InstallationDeploymentPrepared
             byte[] ownerBytes=InstallationBootstrapDeployment.EncodeOwner(owner),receipt=InstallationBootstrapDeployment.EncodeReceipt(new(1,"KuaiYi",b.Mode,owner.Owner,Guid.ParseExact(c.Bundle,"N"),b.CatalogSha256,b.Revision,g.Version));
             InstallationBootstrapDeployment.RequireTransport(c.Root,c.Data,g.Version,current,ownerBytes,receipt);
             var bootstrap=new PreparedBootstrapPlan(b.DirectoryPath,InstallationBootstrapDeployment.BundlePath(c.Root,Guid.ParseExact(c.Bundle,"N")),Convert.ToBase64String(ownerBytes),Convert.ToBase64String(receipt));
-            var plan=new InstallationDeploymentPlan(2,"KuaiYiUnifiedDeploymentPrepared",c.Operation,c.TicketSha256,c.BeforeSha256,g.SourceCatalogSha256,g.Version,b.CatalogSha256,b.Revision,Convert.ToBase64String(current),bootstrap,host);
+            var startup=scope.StartupQualifiedScope?InstallationStartupRegistration.Prepare(scope,c,io,g,b,bootstrap):null;
+            var plan=new InstallationDeploymentPlan(startup==null?2:3,"KuaiYiUnifiedDeploymentPrepared",c.Operation,c.TicketSha256,c.BeforeSha256,g.SourceCatalogSha256,g.Version,b.CatalogSha256,b.Revision,Convert.ToBase64String(current),bootstrap,host,startup);
             byte[] bytes=JsonSerializer.SerializeToUtf8Bytes(plan);if(bytes.Length>131072)throw new InvalidDataException("Prepared exceeds its actual encoded bound.");scope.RequirePreparedTerminalCapacity(Convert.ToHexString(SHA256.HashData(bytes)));
             CheckCandidates();io.Stage(GenerationPreparationStage.SourceVerified);scope.RequirePreparedPreparation(io);
             if(!io.CleanupConfirmed||io.StorageUnconfirmed||!registry.CleanupConfirmed)throw new InstallationRecoveryException("Original preparation reads have not settled.");

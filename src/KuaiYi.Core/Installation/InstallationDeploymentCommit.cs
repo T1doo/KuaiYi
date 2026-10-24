@@ -27,6 +27,7 @@ internal sealed partial class InstallationDeploymentScope
     {lock(sync){if(publicationAbort||cancellation.IsCancellationRequested)throw new OperationCanceledException("Original publication was canceled before Closing.",cancellation);}}
     internal void RequirePublication(InstallationDeploymentPublication original,bool mutation)
     {
+        startupSources?.Require(this);
         lock(sync)if(!ReferenceEquals(original,publication)||qualifiedPrepared==null||preparedContext==null||mutation&&closing||files.Count!=0)throw new InstallationRecoveryException("Wrong or closed original publication owner.");
         if(mutation)admission.RequireMutation(root);
         RequireExact(pending,ticket);RequireExact(beforePath,before!,131072);RequireExact(preparedContext.Path,System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(qualifiedPrepared.Plan),131072);

@@ -16,6 +16,7 @@ internal sealed partial class InstallationDeploymentCompensation
         ArgumentNullException.ThrowIfNull(next);ArgumentNullException.ThrowIfNull(publishReady);
         lock(settlementSync)
         {
+            session.RequireOriginalCompensation(this);
             if(restorationAttempted||Completion is not{IsCompletedSuccessfully:true}||Completion.Result.Status!=InstallationCompensationStatus.Compensated||!CleanupConfirmed||terminalBytes==null)
                 throw new InstallationRecoveryException("One original, fully settled compensation is required for a new restored session.");
             next.RequireFreshRestoredController(root,data);
@@ -31,6 +32,7 @@ internal sealed partial class InstallationDeploymentCompensation
     }
     internal void RequireRestoredSession(InstallationRestoredSession original)
     {
+        session.RequireOriginalCompensation(this);
         lock(settlementSync)
             if(!ReferenceEquals(restoredSession,original)||Completion is not{IsCompletedSuccessfully:true}||Completion.Result.Status!=InstallationCompensationStatus.Compensated||
                 !closing||unknown||gateHeld||!io.CleanupConfirmed||!admission.CleanupConfirmed||retirement is not{CleanupConfirmed:true})
@@ -137,6 +139,7 @@ internal sealed class InstallationRestoredSession
         io.RequireExactMetadata(Path.Combine(Root,"current.json"),Convert.FromBase64String(before.Current!),4096);
         io.RequireExactMetadata(InstallationBootstrapDeployment.OwnerPath(Root),Convert.FromBase64String(target.Bootstrap.Owner),4096);io.RequireDirectory(target.Bootstrap.CanonicalDirectory);
         Optional(InstallationBootstrapDeployment.ActivePath(Root),before.BootstrapActive,8192);Optional(Path.Combine(Root,"host-registration.json"),before.HostReceipt,8192);
+        if(target.Startup!=null)Optional(InstallationStartupRegistration.OwnerPath(Root),before.StartupOwner,InstallationStartupRegistration.OwnerLimit);
         var(next,previous)=InstallationStore.PlanCurrent(Root,Convert.FromBase64String(before.Current!),target.Generation,CancellationToken.None,io);old=previous??throw new InstallationRecoveryException("No previous generation.");
         if(Convert.ToBase64String(next)!=target.TargetCurrent||selection!=null&&selection.Version!=old)throw new InstallationRecoveryException("Restored current lineage changed.");
         if(before.BootstrapActive!=null)
@@ -154,8 +157,9 @@ internal sealed class InstallationRestoredSession
         {
             old=VerifyFiles();
             InstallationDeploymentRegistrationSlot Restored(InstallationDeploymentRegistrationSlot slot)=>slot.KeyExists?slot:new(true,null);
-            var expected=new InstallationDeploymentRegistrationSnapshot(Restored(before.Registry.Chrome),Restored(before.Registry.Edge));
-            if(await registry.ReadPublishedAsync().ConfigureAwait(false)!=expected)throw new InstallationRecoveryException("Restored Host defaults changed.");
+            var expected=new InstallationDeploymentRegistrationSnapshot(Restored(before.Registry.Chrome),Restored(before.Registry.Edge),target.Startup?.Before);
+            var actual=await registry.ReadPublishedAsync().ConfigureAwait(false);actual=await InstallationStartupRegistration.CombineReadAsync(registry,actual,target.Startup!=null).ConfigureAwait(false);
+            if(actual!=expected)throw new InstallationRecoveryException("Restored Host or startup defaults changed.");
         }
         catch(Exception error){qualificationUnknown=true;errors.Add(error);}
         try{await registry.CloseOriginalsAsync().ConfigureAwait(false);}catch(Exception error){qualificationUnknown=true;errors.Add(error);}

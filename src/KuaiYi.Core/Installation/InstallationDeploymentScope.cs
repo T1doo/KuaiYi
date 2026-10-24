@@ -13,13 +13,13 @@ internal interface IInstallationDeploymentFinalRead
     bool CleanupConfirmed {get;}
 }
 internal sealed record InstallationDeploymentRegistrationSlot(bool KeyExists,string? Value,bool ForeignContent=false);
-internal sealed record InstallationDeploymentRegistrationSnapshot(InstallationDeploymentRegistrationSlot Chrome,InstallationDeploymentRegistrationSlot Edge);
+internal sealed record InstallationDeploymentRegistrationSnapshot(InstallationDeploymentRegistrationSlot Chrome,InstallationDeploymentRegistrationSlot Edge,InstallationStartupValue? Startup=null);
 internal interface IInstallationDeploymentSnapshotRead:IInstallationDeploymentFinalRead
 {
     Task<InstallationDeploymentRegistrationSnapshot> CaptureAsync();
 }
 internal sealed record InstallationDeploymentBefore(int SchemaVersion,string Kind,string Operation,string TicketSha256,
-    string? Current,string? BootstrapOwner,string? BootstrapActive,string? HostReceipt,InstallationDeploymentRegistrationSnapshot Registry);
+    string? Current,string? BootstrapOwner,string? BootstrapActive,string? HostReceipt,InstallationDeploymentRegistrationSnapshot Registry,string? StartupOwner=null);
 internal sealed class InstallationDeploymentFaults
 {
     internal Action<FileStream,byte[]>? WriteTicket {get;init;}
@@ -39,6 +39,11 @@ internal sealed partial class InstallationDeploymentScope
     private readonly InstallationAdmission admission;
     private readonly InstallationRootInitialization? initialization;
     private readonly InstallationDeploymentFaults? faults;
+    private readonly InstallationInstallerEntry.StartupSources? startupSources;
+    internal bool StartupQualifiedScope=>startupSources!=null;
+    internal void BindInstallerStartupScope()=>startupSources?.BindScope(this,generationSourceSha,bootstrapSourceSha);
+    internal void RequireStartupPreparation(PreparedPreparationContext context,InstallationPreparationIO original)
+    {if(startupSources==null||!ReferenceEquals(RequirePreparedPreparation(original),context))throw new InstallationRecoveryException("No live original installer startup preparation.");startupSources.Require(this);}
     private readonly List<IInstallationDeploymentFinalRead> reads=[];
     private readonly List<(string Path,FileStream Original)> files=[];
     private readonly TaskCompletionSource start=new(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -73,16 +78,17 @@ internal sealed partial class InstallationDeploymentScope
     internal bool BeforeUnconfirmed=>beforeAttempted&&!beforeComplete;
     internal bool CleanupConfirmed {get{lock(sync)return finalization.IsCompleted&&(settlement==null||settlement.IsCompleted)&&admission.CleanupConfirmed&&(initialization==null||initialization.CleanupConfirmed)&&files.Count==0&&reads.All(x=>x.CleanupConfirmed)&&(snapshot==null||snapshot.IsCompleted)&&(snapshotOwner==null||snapshotOwner.CleanupConfirmed)&&(generationPreparation==null||generationPreparation.IsCompleted)&&(bootstrapPreparation==null||bootstrapPreparation.IsCompleted)&&(prepared==null||prepared.IsCompleted)&&(publicationTask==null||publicationTask.IsCompleted)&&(generationIO==null||generationIO.CleanupConfirmed);}}
     internal InstallationDeploymentScope(string root,string data,string generationSourceSha,string bootstrapSourceSha,
-        CancellationToken cancellation=default,InstallationAdmissionFaults? admissionFaults=null,InstallationDeploymentFaults? faults=null,bool initializeMissingRoot=false,InstallationPreparationFaults? initializationFaults=null)
+        CancellationToken cancellation=default,InstallationAdmissionFaults? admissionFaults=null,InstallationDeploymentFaults? faults=null,bool initializeMissingRoot=false,InstallationPreparationFaults? initializationFaults=null,InstallationInstallerEntry.StartupSources? startupSources=null)
     {
         if(!InstallationPackage.HashValid(generationSourceSha)||!InstallationPackage.HashValid(bootstrapSourceSha))throw new InvalidDataException("Both source pins are required.");
         root=InstallationPaths.Root(root);data=InstallationPaths.Root(data);this.root=root;userData=data;this.generationSourceSha=generationSourceSha;this.bootstrapSourceSha=bootstrapSourceSha;store=new(root,data,()=>true);
-        admission=InstallationAdmission.CreateOwner(root,admissionFaults);this.faults=faults;this.cancellation=cancellation;
+        admission=InstallationAdmission.CreateOwner(root,admissionFaults);this.faults=faults;this.cancellation=cancellation;this.startupSources=startupSources;
         Operation=Guid.NewGuid().ToString("N");pending=store.PendingPath;
         if(initializeMissingRoot)initialization=new(root,Operation,cancellation,initializationFaults);
         temporary=Path.Combine(root,"deployment-terminal-"+Operation+".tmp");backup=Path.Combine(root,"deployment-ticket-"+Operation+".json");
         archive=Path.Combine(root,"deployment-failed-"+Operation+".json");beforePath=Path.Combine(root,"deployment-before-"+Operation+".json");
         ticket=JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=2,kind="KuaiYiUnifiedDeploymentTicket",operation=Operation,root,data,generationSourceSha,bootstrapSourceSha,generation=Generation,bundle=Bundle});
+        if(startupSources!=null)ticket=JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=3,kind="KuaiYiUnifiedDeploymentTicket",operation=Operation,root,data,generationSourceSha,bootstrapSourceSha,generation=Generation,bundle=Bundle,startupNamedValue="KuaiYi"});
         if(ticket.Length>16384)throw new InvalidDataException("Deployment ticket exceeds its bound.");
         // Neither worker can acquire a resource until both original tasks are visible to this owner.
         acquisition=Task.Run(async()=>{await start.Task.ConfigureAwait(false);Acquire();});
@@ -242,13 +248,15 @@ internal sealed partial class InstallationDeploymentScope
         string? owner=Encode(ReadOptional(InstallationBootstrapDeployment.OwnerPath(root),4096));
         string? active=Encode(ReadOptional(InstallationBootstrapDeployment.ActivePath(root),8192));
         string? receipt=Encode(ReadOptional(Path.Combine(root,"host-registration.json"),8192));
+        string? startupOwner=Encode(ReadOptional(InstallationStartupRegistration.OwnerPath(root),InstallationStartupRegistration.OwnerLimit));
         var errors=new List<Exception>();InstallationDeploymentRegistrationSnapshot? registry=null;
-        try{registry=await snapshotOwner!.CaptureAsync().ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
+        try{registry=await snapshotOwner!.CaptureAsync().ConfigureAwait(false);registry=await InstallationStartupRegistration.CombineReadAsync(snapshotOwner,registry,StartupQualifiedScope).ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
         try{await snapshotOwner!.CloseOriginalsAsync().ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
         if(!snapshotOwner!.CleanupConfirmed)errors.Add(new IOException("Original snapshot registry resources are unsettled."));
         InstallationErrors.Throw(errors);cancellation.ThrowIfCancellationRequested();
         RequireSlot(registry!.Chrome);RequireSlot(registry.Edge);
-        var value=new InstallationDeploymentBefore(2,"KuaiYiUnifiedDeploymentBefore",Operation,Convert.ToHexString(SHA256.HashData(ticket)),current,owner,active,receipt,registry);
+        if(!StartupQualifiedScope&&(startupOwner!=null||registry.Startup!=null))throw new InstallationRecoveryException("Legacy deployment cannot replace a startup-owned installation.");
+        var value=new InstallationDeploymentBefore(StartupQualifiedScope?3:2,"KuaiYiUnifiedDeploymentBefore",Operation,Convert.ToHexString(SHA256.HashData(ticket)),current,owner,active,receipt,registry,startupOwner);
         byte[] bytes=JsonSerializer.SerializeToUtf8Bytes(value);if(bytes.Length>131072)throw new InvalidDataException("Before snapshot exceeds its actual encoded bound.");
         admission.RequireMutation(root);RequireExact(pending,ticket);cancellation.ThrowIfCancellationRequested();
         Write(beforePath,bytes,false,true);before=bytes;beforeComplete=true;return value;
@@ -289,6 +297,7 @@ internal sealed partial class InstallationDeploymentScope
     {
         Check(Path.Combine(root,"current.json"),value.Current,4096);Check(InstallationBootstrapDeployment.OwnerPath(root),value.BootstrapOwner,4096);
         Check(InstallationBootstrapDeployment.ActivePath(root),value.BootstrapActive,8192);Check(Path.Combine(root,"host-registration.json"),value.HostReceipt,8192);
+        Check(InstallationStartupRegistration.OwnerPath(root),value.StartupOwner,InstallationStartupRegistration.OwnerLimit);
         void Check(string path,string? expected,int limit)
         {
             if(expected==null){if(SnapshotFilePresent(path))throw new InstallationRecoveryException("Snapshot absence changed; retained.");}
@@ -364,7 +373,17 @@ internal sealed partial class InstallationDeploymentScope
         if(snapshotOwner!=null)
         {
             if(canArchive&&beforeComplete)
-                try{await snapshotOwner.VerifyAsync().ConfigureAwait(false);}catch(Exception error){errors.Add(error);canArchive=false;}
+                try
+                {
+                    await snapshotOwner.VerifyAsync().ConfigureAwait(false);
+                    if(StartupQualifiedScope)
+                    {
+                        var actual=await ((IInstallationStartupRegistry)snapshotOwner).ReadStartupAsync().ConfigureAwait(false);
+                        if(actual!=JsonSerializer.Deserialize<InstallationDeploymentBefore>(before!)!.Registry.Startup)
+                            throw new InstallationRecoveryException("Original named startup snapshot changed before abort.");
+                    }
+                }
+                catch(Exception error){errors.Add(error);canArchive=false;}
             try{await snapshotOwner.CloseOriginalsAsync().ConfigureAwait(false);}catch(Exception error){errors.Add(error);canArchive=false;}
             if(!snapshotOwner.CleanupConfirmed)canArchive=false;
         }

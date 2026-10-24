@@ -29,6 +29,7 @@ internal sealed partial class InstallationOperation
     private readonly CancellationToken cancellation;
     private readonly bool initializeMissingRoot;
     private readonly InstallationOperationFaults? faults;
+    private InstallationInstallerEntry.StartupSources? startupSources;
     private readonly TaskCompletionSource begin=new(TaskCreationOptions.RunContinuationsAsynchronously);
     private readonly TaskCompletionSource<InstallationOperationOutcome> result=new(TaskCreationOptions.RunContinuationsAsynchronously);
     private readonly List<Task> controllerTasks=[];
@@ -71,6 +72,8 @@ internal sealed partial class InstallationOperation
     {
         lock(sync){if(started)throw new InvalidOperationException("One start per original installation operation.");started=true;lock(Retained)Retained.Add(this);begin.SetResult();return Completion;}
     }
+    internal void BindInstallerStartup(InstallationInstallerEntry.StartupSources sources)
+    {lock(sync){if(started||startupSources!=null)throw new InstallationRecoveryException("Startup binding is one-shot before Start.");sources.Bind(this);startupSources=sources;}}
     private void SetPhase(InstallationOperationPhase value)
     {lock(sync)phase=value;faults?.Phase?.Invoke(value);}
     private void Remember(Exception error)
@@ -104,7 +107,8 @@ internal sealed partial class InstallationOperation
     {
         try
         {
-            SetPhase(InstallationOperationPhase.Preparing);Scope=new(root,data,generationSha,bootstrapSha,cancellation,faults:faults?.Deployment,initializeMissingRoot:initializeMissingRoot,initializationFaults:faults?.Initialization);
+            SetPhase(InstallationOperationPhase.Preparing);Scope=new(root,data,generationSha,bootstrapSha,cancellation,faults:faults?.Deployment,initializeMissingRoot:initializeMissingRoot,initializationFaults:faults?.Initialization,startupSources:startupSources);
+            Scope.BindInstallerStartupScope();
             await Scope.AcquireAsync().ConfigureAwait(false);
             var capture=Scope.CaptureBeforeAsync(registry);captureStarted=true;before=await capture.ConfigureAwait(false);
             var generation=await Scope.PrepareGenerationAsync(generationSource,faults?.Generation).ConfigureAwait(false);

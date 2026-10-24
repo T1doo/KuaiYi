@@ -3,7 +3,7 @@ using System.Text.Json;
 namespace KuaiYi.Core.Installation;
 
 internal enum InstallationCompensationStatus { Compensated,Unconfirmed }
-internal enum InstallationCompensationStage { Ticket,Plan,Verified,HostReceipt,Edge,Chrome,Active,Current,Closing,Retired,Closed,BeforeArchive }
+internal enum InstallationCompensationStage { Ticket,Plan,Verified,HostReceipt,Edge,Chrome,Active,Current,Closing,Retired,Closed,BeforeArchive,StartupOwner,StartupValue }
 internal sealed record InstallationCompensationOutcome(InstallationCompensationStatus Status,IReadOnlyList<Exception> Errors,IReadOnlyList<Exception> OriginalSessionErrors);
 internal sealed class InstallationCompensationFaults
 {
@@ -85,7 +85,7 @@ internal sealed partial class InstallationDeploymentCompensation
         planBytes=JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=3,kind="KuaiYiCompensationRestorePlan",operation=Operation,originalOperation=target.Operation,preparedSha256=preparedSha,failedLaunch=launch,target,before,originalRecords=this.history.ToDictionary(x=>x.Key,x=>Hash(x.Value))});
         if(planBytes.Length>131072)throw new InvalidDataException("Compensation plan exceeds its actual encoded bound.");
         admission=InstallationAdmission.CreateOwner(root,admissionFaults);
-        io=InstallationPreparationIO.ReadOnly(root).CreatePublicationChannel(root,new[]{pending,planPath,terminalPath,ticketBackup}.Concat(new[]{1,4,5}.SelectMany(n=>new[]{Temporary(n),Removed(n)})),ioFaults);
+        io=InstallationPreparationIO.ReadOnly(root).CreatePublicationChannel(root,new[]{pending,planPath,terminalPath,ticketBackup}.Concat(FileRestoreSteps.SelectMany(n=>new[]{Temporary(n),Removed(n)})),ioFaults);
         Completion=Task.Run(RunAsync);
     }
     internal void Start(){lock(Retained)Retained.Add(this);start.SetResult();}
@@ -99,9 +99,13 @@ internal sealed partial class InstallationDeploymentCompensation
     {session.RequireOriginalCompensation(this);controller.RequireCompensationBinding(this);if(!closing||!ReferenceEquals(original,execution)||!ReferenceEquals(value,retirement))throw new InstallationRecoveryException("Wrong original Closing retirement owner.");}
     private string Temporary(int step)=>Path.Combine(root,$"compensation-{Operation}-{step}.tmp");
     private string Removed(int step)=>Path.Combine(root,$"compensation-{Operation}-{step}-removed.json");
-    private string Record(int step)=>step switch{1=>Path.Combine(root,"host-registration.json"),4=>InstallationBootstrapDeployment.ActivePath(root),5=>Path.Combine(root,"current.json"),_=>throw new InvalidOperationException()};
-    private byte[] After(int step)=>Convert.FromBase64String(step switch{1=>target.Host.Receipt,4=>target.Bootstrap.Receipt,5=>target.TargetCurrent,_=>throw new InvalidOperationException()});
-    private byte[]? Before(int step)=>Decode(step switch{1=>before.HostReceipt,4=>before.BootstrapActive,5=>before.Current,_=>throw new InvalidOperationException()});
+    private int Steps=>target.Startup==null?5:7;
+    private int LegacyStep(int step)=>step-(Steps-5);
+    private IEnumerable<int> FileRestoreSteps=>Enumerable.Range(1,Steps).Where(n=>Steps==7&&n==1||LegacyStep(n) is 1 or 4 or 5);
+    private string Record(int step)=>Steps==7&&step==1?InstallationStartupRegistration.OwnerPath(root):LegacyStep(step) switch{1=>Path.Combine(root,"host-registration.json"),4=>InstallationBootstrapDeployment.ActivePath(root),5=>Path.Combine(root,"current.json"),_=>throw new InvalidOperationException()};
+    private byte[]? After(int step)=>Steps==7&&step==1?Decode(target.Startup!.TargetOwner):Decode(LegacyStep(step) switch{1=>target.Host.Receipt,4=>target.Bootstrap.Receipt,5=>target.TargetCurrent,_=>throw new InvalidOperationException()});
+    private byte[]? Before(int step)=>Steps==7&&step==1?Decode(target.Startup!.BeforeOwner):Decode(LegacyStep(step) switch{1=>before.HostReceipt,4=>before.BootstrapActive,5=>before.Current,_=>throw new InvalidOperationException()});
+    private int RecordLimit(int step)=>LegacyStep(step)==5?4096:8192;
     private static byte[]? Decode(string? value)=>value==null?null:Convert.FromBase64String(value);
     private static string Hash(byte[] value)=>Convert.ToHexString(SHA256.HashData(value));
     private void Optional(string path,byte[]? expected,int maximum)
@@ -140,9 +144,9 @@ internal sealed partial class InstallationDeploymentCompensation
         {
             RequireJournal(mutation);VerifyPayloads();
             io.RequireExactMetadata(InstallationBootstrapDeployment.OwnerPath(root),Convert.FromBase64String(target.Bootstrap.Owner),4096);
-            foreach(int step in new[]{1,4,5})Optional(Record(step),prefix>=step?Before(step):After(step),step==5?4096:8192);
+            foreach(int step in FileRestoreSteps)Optional(Record(step),prefix>=step?Before(step):After(step),RecordLimit(step));
             var slots=await ReadSlots().ConfigureAwait(false);
-            if(slots.Edge!=(prefix>=2?Restored(before.Registry.Edge):target.Host.Targets.Edge)||slots.Chrome!=(prefix>=3?Restored(before.Registry.Chrome):target.Host.Targets.Chrome))throw new InstallationRecoveryException("Compensation prefix is foreign or partial.");
+            if(slots.Edge!=(prefix>=Steps-3?Restored(before.Registry.Edge):target.Host.Targets.Edge)||slots.Chrome!=(prefix>=Steps-2?Restored(before.Registry.Chrome):target.Host.Targets.Chrome)||slots.Startup!=(target.Startup is {} startup?(prefix>=2?startup.Before:startup.Target):null))throw new InstallationRecoveryException("Compensation prefix is foreign or partial.");
             foreach(var row in remnants)io.RequireExactMetadata(row.Key,row.Value,8192);
             RequireJournal(mutation);
         }
@@ -151,7 +155,7 @@ internal sealed partial class InstallationDeploymentCompensation
     private async Task<InstallationDeploymentRegistrationSnapshot> ReadSlots()
     {
         var errors=new List<Exception>();InstallationDeploymentRegistrationSnapshot? result=null;
-        try{result=await registry.ReadPublishedAsync().ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
+        try{result=await registry.ReadPublishedAsync().ConfigureAwait(false);result=await InstallationStartupRegistration.CombineReadAsync(registry,result,Steps==7).ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
         try{await registry.CloseOriginalsAsync().ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
         if(!registry.CleanupConfirmed){unknown=true;errors.Add(new IOException("Original compensation registry close is unconfirmed."));}
         InstallationErrors.Throw(errors);return result!;
@@ -159,23 +163,25 @@ internal sealed partial class InstallationDeploymentCompensation
     private void RestoreRecord(int step)
     {
         var expected=After(step);var restored=Before(step);string path=Record(step),temporary=restored==null?Removed(step):Temporary(step);
-        io.RequireExactMetadata(path,expected,step==5?4096:8192);io.RequireAbsent(temporary);
-        if(restored!=null){io.WritePublicationMetadata(temporary,restored,step==5?4096:8192);io.RequireExactMetadata(temporary,restored,8192);remnants.Add(temporary,restored);}
-        RequireJournal(true);io.RequireExactMetadata(path,expected,8192);cancellation.ThrowIfCancellationRequested();
+        Optional(path,expected,RecordLimit(step));if(expected==null&&restored==null)return;io.RequireAbsent(temporary);
+        if(restored!=null){io.WritePublicationMetadata(temporary,restored,RecordLimit(step));io.RequireExactMetadata(temporary,restored,8192);remnants.Add(temporary,restored);}
+        RequireJournal(true);Optional(path,expected,RecordLimit(step));cancellation.ThrowIfCancellationRequested();
         if(faults?.Publish!=null)faults.Publish(restored==null?path:temporary,restored==null?temporary:path,restored!=null);
-        else if(restored==null)File.Move(path,temporary);else File.Replace(temporary,path,null,false);
-        if(restored==null)remnants.Add(temporary,expected);else remnants.Remove(temporary);
+        else if(restored==null)File.Move(path,temporary);else if(expected==null)File.Move(temporary,path);else File.Replace(temporary,path,null,false);
+        if(restored==null&&expected!=null)remnants.Add(temporary,expected);else remnants.Remove(temporary);
     }
     private async Task Restore()
     {
         await VerifyPrefix(true).ConfigureAwait(false);faults?.Stage?.Invoke(InstallationCompensationStage.Verified);
-        for(int step=1;step<=5;step++)
+        for(int step=1;step<=Steps;step++)
         {
             cancellation.ThrowIfCancellationRequested();await VerifyPrefix(true).ConfigureAwait(false);cancellation.ThrowIfCancellationRequested();attempt=step;faults?.BeforeMutation?.Invoke(step);cancellation.ThrowIfCancellationRequested();
-            if(step is 2 or 3)
-            {bool chrome=step==3;await registry.WriteDefaultAsync(chrome,chrome?target.Host.Targets.Chrome:target.Host.Targets.Edge,(chrome?before.Registry.Chrome:before.Registry.Edge).Value).ConfigureAwait(false);await registry.CloseOriginalsAsync().ConfigureAwait(false);}
+            if(Steps==7&&step==2)
+            {if(target.Startup!.Target!=target.Startup.Before)await ((IInstallationStartupRegistry)registry).WriteStartupAsync(target.Startup.Target,target.Startup.Before).ConfigureAwait(false);}
+            else if(LegacyStep(step) is 2 or 3)
+            {bool chrome=LegacyStep(step)==3;await registry.WriteDefaultAsync(chrome,chrome?target.Host.Targets.Chrome:target.Host.Targets.Edge,(chrome?before.Registry.Chrome:before.Registry.Edge).Value).ConfigureAwait(false);await registry.CloseOriginalsAsync().ConfigureAwait(false);}
             else RestoreRecord(step);
-            prefix=step;attempt=0;await VerifyPrefix(true).ConfigureAwait(false);faults?.Stage?.Invoke((InstallationCompensationStage)((int)InstallationCompensationStage.HostReceipt+step-1));
+            prefix=step;attempt=0;await VerifyPrefix(true).ConfigureAwait(false);faults?.Stage?.Invoke(Steps==7&&step==1?InstallationCompensationStage.StartupOwner:Steps==7&&step==2?InstallationCompensationStage.StartupValue:LegacyStep(step) switch{1=>InstallationCompensationStage.HostReceipt,2=>InstallationCompensationStage.Edge,3=>InstallationCompensationStage.Chrome,4=>InstallationCompensationStage.Active,5=>InstallationCompensationStage.Current,_=>throw new InvalidOperationException()});
         }
     }
     private async Task<InstallationCompensationOutcome> RunAsync()
@@ -198,7 +204,7 @@ internal sealed partial class InstallationDeploymentCompensation
         try{io.CloseOriginals();}catch(Exception error){errors.Add(error);}
         try{await registry.CloseOriginalsAsync().ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
         try{admission.Dispose();}catch(Exception error){errors.Add(error);}
-        if(errors.Count==0&&closing&&prefix==5&&attempt==0&&io.CleanupConfirmed&&registry.CleanupConfirmed&&admission.CleanupConfirmed)
+        if(errors.Count==0&&closing&&prefix==Steps&&attempt==0&&io.CleanupConfirmed&&registry.CleanupConfirmed&&admission.CleanupConfirmed)
         {
             try{retirement!.CloseLease(faults?.BeforeExecutionClose);}
             catch(Exception error){errors.Add(error);}
@@ -215,11 +221,11 @@ internal sealed partial class InstallationDeploymentCompensation
         try{io.CloseOriginals();}catch(Exception error){errors.Add(error);}
         try{await registry.CloseOriginalsAsync().ConfigureAwait(false);}catch(Exception error){errors.Add(error);}
         if(gateHeld)try{controller.ReleaseCompensationGate(this);gateHeld=false;}catch(Exception error){errors.Add(error);}
-        if(errors.Count==0&&!unknown&&closing&&prefix==5&&attempt==0&&retirement is{CleanupConfirmed:true}&&io.CleanupConfirmed&&registry.CleanupConfirmed&&admission.CleanupConfirmed&&!gateHeld)
+        if(errors.Count==0&&!unknown&&closing&&prefix==Steps&&attempt==0&&retirement is{CleanupConfirmed:true}&&io.CleanupConfirmed&&registry.CleanupConfirmed&&admission.CleanupConfirmed&&!gateHeld)
         {
             try
             {
-                byte[] terminal=JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=3,kind="KuaiYiPostCommitCompensationTerminal",operation=Operation,originalOperation=target.Operation,preparedSha256=preparedSha,planSha256=Hash(planBytes),ticketSha256=Hash(ticket!),failedLaunch=launch,retiredExecution=RetiredPath,executionSha256=Hash(execution!.RecordBytes),retainedBootstrapOwner=target.Bootstrap.Owner,retainedBundle=target.Bootstrap.CanonicalDirectory,registry=new{Chrome=Restored(before.Registry.Chrome),Edge=Restored(before.Registry.Edge)}});
+                byte[] terminal=JsonSerializer.SerializeToUtf8Bytes(new{schemaVersion=3,kind="KuaiYiPostCommitCompensationTerminal",operation=Operation,originalOperation=target.Operation,preparedSha256=preparedSha,planSha256=Hash(planBytes),ticketSha256=Hash(ticket!),failedLaunch=launch,retiredExecution=RetiredPath,executionSha256=Hash(execution!.RecordBytes),retainedBootstrapOwner=target.Bootstrap.Owner,retainedBundle=target.Bootstrap.CanonicalDirectory,registry=new{Chrome=Restored(before.Registry.Chrome),Edge=Restored(before.Registry.Edge),Startup=target.Startup?.Before},startupOwner=target.Startup?.BeforeOwner,prefix,attempt});
                 if(terminal.Length>16384)throw new InvalidDataException("Compensation terminal exceeds bound.");terminalBytes=terminal.ToArray();
                 io.RequireAbsent(terminalPath);io.RequireAbsent(ticketBackup);io.RequireAbsent(archive);io.RequireExactMetadata(pending,ticket!,16384);
                 io.WritePublicationMetadata(terminalPath,terminal,16384);io.RequireExactMetadata(terminalPath,terminal,16384);File.Replace(terminalPath,pending,ticketBackup,false);

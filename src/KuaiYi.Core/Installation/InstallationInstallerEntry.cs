@@ -19,7 +19,7 @@ internal sealed record InstallationInstallerPins(string Generation,string Bootst
 internal sealed record InstallationInstallerSettlement(int ExitCode,InstallationOperationOutcome? Stage,bool CleanupConfirmed,IReadOnlyList<Exception> Errors);
 
 // Bounded command adapter. Completion is a stage result; the caller must keep OriginalWork alive through actual exit.
-internal sealed class InstallationInstallerEntry
+internal sealed partial class InstallationInstallerEntry
 {
     private static readonly HashSet<InstallationInstallerEntry> Retained=[];
     private readonly TaskCompletionSource begin=new(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -32,6 +32,7 @@ internal sealed class InstallationInstallerEntry
     private readonly CancellationToken cancellation;
     private readonly InstallationOperationFaults? faults;
     private bool started;
+    private InstallationInstallerPins? verifiedSources;
     internal InstallationOperation? Operation {get;private set;}
     internal Task<InstallationOperationOutcome> Completion=>stage.Task;
     internal Task<InstallationInstallerSettlement> OriginalWork {get;}
@@ -52,8 +53,9 @@ internal sealed class InstallationInstallerEntry
         await begin.Task.ConfigureAwait(false);var errors=new List<Exception>();InstallationOperationOutcome? value=null;bool clean=true;
         try
         {
-            var pins=InstallationInstallerPins.Read(embedded);cancellation.ThrowIfCancellationRequested();
+            var pins=InstallationInstallerPins.Read(embedded);verifiedSources=pins;cancellation.ThrowIfCancellationRequested();
             Operation=new(root,data,generation,pins.Generation,bootstrap,pins.Bootstrap,registry,factory,(_,_)=>Task.CompletedTask,cancellation,faults,initializeMissingRoot:true);
+            if(registry is IInstallationStartupRegistry)Operation.BindInstallerStartup(StartupSources.FromOriginal(this));
             value=await Operation.Start().ConfigureAwait(false);stage.TrySetResult(value);
             // A broken status sink must never abandon the original session, roll back a successful READY, or grant replay.
             try{await report(value).ConfigureAwait(false);}catch(Exception error){errors.Add(error);}

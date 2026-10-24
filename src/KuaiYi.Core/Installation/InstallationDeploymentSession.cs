@@ -29,7 +29,7 @@ internal sealed partial class InstallationDeploymentScope
         }
     }
     internal void RequireOriginalSession(InstallationDeploymentSession value)
-    {lock(sync)if(!ReferenceEquals(healthSession,value)||finalization is not{IsCompletedSuccessfully:true}||finalization.Result.Status!=InstallationDeploymentStatus.Committed)throw new InstallationRecoveryException("Not the original committed session authority.");}
+    {lock(sync){startupSources?.Require(this);if(!ReferenceEquals(healthSession,value)||finalization is not{IsCompletedSuccessfully:true}||finalization.Result.Status!=InstallationDeploymentStatus.Committed)throw new InstallationRecoveryException("Not the original committed session authority.");}}
 }
 
 // Non-serializable, one-shot authority rooted in the original successful scope and exact coordinator.
@@ -130,9 +130,12 @@ internal sealed partial class InstallationDeploymentSession
             io.RequireExactMetadata(InstallationBootstrapDeployment.OwnerPath(Root),Convert.FromBase64String(p.Bootstrap.Owner),4096);
             io.RequireExactMetadata(InstallationBootstrapDeployment.ActivePath(Root),Convert.FromBase64String(p.Bootstrap.Receipt),8192);
             io.RequireExactMetadata(Path.Combine(Root,"host-registration.json"),Convert.FromBase64String(p.Host.Receipt),8192);
+            if(p.Startup is {} startup)
+            {if(startup.TargetOwner==null)io.RequireAbsent(InstallationStartupRegistration.OwnerPath(Root));else io.RequireExactMetadata(InstallationStartupRegistration.OwnerPath(Root),Convert.FromBase64String(startup.TargetOwner),InstallationStartupRegistration.OwnerLimit);}
             var g=InstallationPackage.ReadInstalled(p.Generation.DirectoryPath,CancellationToken.None,expectedDigest:p.Generation.CatalogSha256,io:io);
             if(g.Schema!=3||g.SourceCatalogSha256!=p.GenerationSourceSha256||InstallationBootstrapPackage.Read(p.Bootstrap.CanonicalDirectory,p.BootstrapSourceSha256,p.Generation,CancellationToken.None,io).Revision!=p.BootstrapRevision)throw new InstallationRecoveryException("Committed payload or bootstrap differs.");
-            if(await registry.ReadPublishedAsync().ConfigureAwait(false)!=p.Host.Targets)throw new InstallationRecoveryException("Committed Host registration differs.");
+            var actual=await registry.ReadPublishedAsync().ConfigureAwait(false);actual=await InstallationStartupRegistration.CombineReadAsync(registry,actual,p.Startup!=null).ConfigureAwait(false);
+            if(actual!=p.Host.Targets with{Startup=p.Startup?.Target})throw new InstallationRecoveryException("Committed Host or startup registration differs.");
         }
         catch(Exception error){qualificationUnknown=true;errors.Add(error);}
         try{io.CloseOriginals();}catch(Exception error){qualificationUnknown=true;errors.Add(error);}

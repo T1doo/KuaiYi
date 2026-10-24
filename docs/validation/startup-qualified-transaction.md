@@ -1,0 +1,13 @@
+# Qualified startup upgrade transaction — local slice A
+
+This is an internal, bounded upgrade path, not completed sign-in startup. No real registry adapter or settings/stdin participant is enabled. The production embedded pins remain Unavailable/null and SettingsJson still refuses LaunchAtSignIn=true.
+
+The original Installer pins are bound once to its original Operation and Scope. Preparing startup additionally requires the original live G/B candidates, exact source pins, a self-contained B closure, original registry/file Before and a matching existing owner receipt. An absent named value/owner stays absent. Disk receipts alone, ordinary Launcher selections and a closed Prepared cannot construct this capability.
+
+Publication has seven separate provisional effects: G current, B active, Chrome, Edge, H receipt, the single named startup value and startup-owner.json. Each has an attempt/prefix boundary; reverse order is exact. Named-value presence/type/value are separate from browser-key defaults. Neighbouring Run values are outside this contract. Foreign comparisons are sticky through later successful close; write-after-effect only resolves against exact before/after with confirmed original resources. Uncertain compensation retains pending state and the failed execution owner.
+
+Committed and restored READY recheck both startup effects. Failed READY uses the original session to obtain a new compensation ticket/IO/admission, restoring startup owner, startup value, H, Edge, Chrome, B, then G. The restored session also rechecks the original live Installer chain; Entry retirement revokes it. The live Prepared may produce a read-only future uninstall plan for exactly the qualified named value/owner, not mutation permission.
+
+Local evidence is under artifacts/2026-10-24-startup-transaction. The runtime fixture requires the existing verified 189-file B runtime cache and checks every fixed size/hash before copying into a test-owned root. Managed Windows roles are cross-built only; neutral G runtime/native fixtures are never executed. The synthetic app lifecycle uses the existing Linux SettingsStoreFixture process, its original task/exit and cleanup paths. None of these results signs Windows Run registration, sign-in, installation, actual UI/DPI/input or 250/600 ms device acceptance.
+
+Settings participant and the original stdio single-reader route are deliberately outside A. Slice B must remain inside the original controller owner/serial, preserve original response-write settlement before releasing a slot, and isolate a new settings journal kind from the old v1/v2 secret recovery deletion path. No trusted context is minted for an ordinary Launcher restart or by merely supplying package pins.
