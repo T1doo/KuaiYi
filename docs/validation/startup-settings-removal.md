@@ -22,7 +22,7 @@ r14/r15 Core syntax builds and r16 test-project build passed at 0 warnings/error
 
 r18 adds two bounded-observation cases: a missing COMMIT or ABORT receipt returns unconfirmed while the original local receipt task is still held; explicit original-channel EOF then joins it. Both passed. These are synthetic-peer tests, not package/session qualification.
 
-The final frozen-tree related run is pending: exactly the prior 237 identities plus ten new cases (247 expected), once, with no historical passing-count aggregation. Full tracked-input and binary boundaries, exact commands, original TRX and all failures will be preserved. This is not full Core/Provider/Codec or platform acceptance.
+The final frozen product 2b9fd009197794953ea72d9f4e62b0a478f96f75 passed r19 once: 247P/0F/0skip, all prior 237 test IDs and names preserved plus ten new cases. The test command exited 0 in 405.313 seconds (2026-10-24 09:24:16.194346 to 09:31:01.506728 UTC), with no observation-budget expiry. All eight role builds and the test-project build exited 0 at 0 warnings/errors. All 12,290 tracked inputs and 22 produced DLL inventory entries are byte-for-byte identical before and after the test; HEAD stayed fixed and the worktree stayed clean. The original TRX is 419,433 bytes, SHA256 1d016b47177ecb04b243a12520d3924194b1ea4e9492b823b3411c88258d68dd. Raw commands, actual times/exits, build logs, original TRX and both input/binary inventories are retained. This is exactly this related set, not full Core/Provider/Codec or platform acceptance; preliminary counts are not added and historical failures remain unchanged. Subsequent reporting edits are a separate docs-only evidence commit.
 
 ## Historical evidence for superseded 3f0b0fa candidate
 
