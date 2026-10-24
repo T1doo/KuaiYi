@@ -1848,3 +1848,6 @@ A片源码冻结7a59ad9a66aedfe5ab539422c01849a82de6aceb，仅本地1提交，�
 
 
 2026-10-24：B1原会话结算修复冻结2b9fd009197794953ea72d9f4e62b0a478f96f75，r19固定树相关集合仅一次247P/0F/0skip（旧237测试ID及名称完整保留＋新增10），原test命令exit0、405.313秒，所有观察预算未过期；八角色和test项目九构建均0W0E/exit0。12,290个tracked输入及22个产物DLL清单测试前后完全一致，HEAD固定、工作树clean；原TRX419433B/SHA256 1d016b47177ecb04b243a12520d3924194b1ea4e9492b823b3411c88258d68dd。COMMIT原反例已在本轮通过；ABORT是修复后受控回归，不伪称旧树ABORT红件。应答可见只确认持久决定，本地v3等待同次原App真实退出和原IO/应答结算后自动退休；失败与缺通知保持未知。r13红件和旧r11/r12分列保留，不相加。当前只更新两报告并保全候选供父独审，不push/新CI/真实注册；本轮不签全Core/Provider/Codec、Windows、250/600ms、自启动启用或普通Launcher资格，pinsUnavailable/false门保持。
+
+
+2026-10-24：父级发现Reserve后尚未Bind/Apply即取消或陈旧草稿失败的空reservation不能退休。r20原生产源码真实stdio两例0P2F（App exit0/originalIO已结算、pending仍在），原件保留。受限补丁831dc588仅两生产＋两测试/夹具文件：仅原owner证明从未尝试Bind/Apply、ABORTED/null-settings、零prefix/attempt且原进程/原IO/响应/句柄全结算，核安装及原pending/decision/缺binding后单次归档根reservation；不造v3/notice、不删本地恢复，不放松已绑定或未知门。r21实际19P2F/21：原15及新正常收敛/背压4例全P，两个新增拒绝测试错期望单异常，实际保全双错；只修断言为精确双原错，生产零变化，冻结201628a60706fa28e9bb335d5554a0e0cf4a2280。r22仅原2失败＋2正常对照4P0F/44.355秒，九构建0W0E，全tracked输入及22DLL前后不变；不拼成21P、不借旧2b9的247P。不push/CI/真实注册，完整差异/三原TRX供父独审。未知根未删，原Unavailable/false及普通Launcher门保持。详见validation/startup-settings-removal.md新节。
