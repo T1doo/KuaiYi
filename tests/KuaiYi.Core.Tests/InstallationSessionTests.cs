@@ -51,18 +51,30 @@ public sealed partial class InstallationSessionTests(ITestOutputHelper output)
         public async ValueTask DisposeAsync()
         {
             if(disposalAttempted)return;disposalAttempted=true;
+            var errors=new List<Exception>();
             if(!Connected.IsCompletedSuccessfully)
             {
-                var errors=new List<Exception>();
                 try{connectingStop.Cancel();}catch(Exception error){errors.Add(error);}
-                try{await Connected.WaitAsync(Limit);}catch(OperationCanceledException)when(connectingStop.IsCancellationRequested){}catch(Exception error){errors.Add(error);}
-                if(!Connected.IsCompleted){lock(Retained)Retained.Add(this);ThrowBrowserErrors(errors);throw new IOException("Original fixture connection remains pending.");}
-                foreach(IDisposable item in new IDisposable[]{reader,pipe,connectingStop})try{item.Dispose();}catch(Exception error){errors.Add(error);}
+            }
+            // Observe the exact original connection task, including cancellation/connection races.
+            try{await Connected.WaitAsync(Limit);}catch(OperationCanceledException)when(Connected.IsCanceled&&connectingStop.IsCancellationRequested){}catch(Exception error){errors.Add(error);}
+            if(!Connected.IsCompleted)
+            {
+                lock(Retained)Retained.Add(this);
+                errors.Add(new IOException("Original fixture connection remains pending."));
                 ThrowBrowserErrors(errors);return;
             }
-            // Preserve the existing connected-peer release protocol; never construct/flush a writer before connection.
-            try{if(pipe.IsConnected){await Send("RELEASE_CLOSE");await Send("RELEASE_CANCEL");await Send("RELEASE_FAILED_CLOSE");await Send("RELEASE_EXIT");await Send("CLOSE");}}catch(IOException){}
-            try{writer?.Dispose();}catch(IOException){}finally{reader.Dispose();pipe.Dispose();connectingStop.Dispose();}
+            if(Connected.IsCompletedSuccessfully)
+            {
+                // A real connection must expose all cleanup write failures, even if it has since disconnected.
+                foreach(string command in new[]{"RELEASE_CLOSE","RELEASE_CANCEL","RELEASE_FAILED_CLOSE","RELEASE_EXIT","CLOSE"})
+                    try{await Send(command);}catch(Exception error){errors.Add(error);}
+            }
+            // Each owned resource gets its own close attempt. A previous failure cannot skip the pipe close.
+            if(writer!=null)try{writer.Dispose();}catch(Exception error){errors.Add(error);}
+            foreach(IDisposable item in new IDisposable[]{reader,pipe,connectingStop})
+                try{item.Dispose();}catch(Exception error){errors.Add(error);}
+            ThrowBrowserErrors(errors);
         }
     }
     private sealed class Parent(Process process,Task<string> error):IAsyncDisposable

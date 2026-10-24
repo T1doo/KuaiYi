@@ -33,6 +33,21 @@ public sealed partial class InstallationSessionTests
         if(errors.Count==1)System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(errors[0]).Throw();
         if(errors.Count>1)throw new AggregateException(errors);
     }
+    [Theory][InlineData(false)][InlineData(true)]
+    public async Task ConnectedBrowserPeerCleanupDoesNotSwallowActualWriteFailureOrReplaceBody(bool withBody)
+    {
+        string name="ky-connected-cleanup-"+Guid.NewGuid().ToString("N");var peer=new Peer(name);
+        using var connect=new CancellationTokenSource(Limit);
+        using var client=new System.IO.Pipes.NamedPipeClientStream(".",name,System.IO.Pipes.PipeDirection.InOut,System.IO.Pipes.PipeOptions.Asynchronous|System.IO.Pipes.PipeOptions.CurrentUserOnly);
+        await client.ConnectAsync(connect.Token);await peer.Connected.WaitAsync(Limit);client.Dispose(); // Actual connected endpoint closes before the cleanup write.
+        var body=new InvalidOperationException("PUBLIC_CONNECTED_BROWSER_BODY");List<Exception> errors=[];
+        try{if(withBody)throw body;}catch(Exception error){errors.Add(error);}
+        Exception? cleanup=await Record.ExceptionAsync(()=>peer.DisposeAsync().AsTask());if(cleanup!=null)errors.Add(cleanup);
+        Exception? observed=Record.Exception(()=>ThrowBrowserErrors(errors));
+        output.WriteLine($"PUBLIC_CONNECTED_BROWSER cleanup={cleanup?.GetType().Name??"None"} combined={observed?.GetType().Name??"None"} withBody={withBody}");
+        if(withBody){var combined=Assert.IsType<AggregateException>(observed);Assert.Same(body,combined.InnerExceptions[0]);}
+        Assert.NotNull(cleanup);var originals=cleanup is AggregateException many?many.Flatten().InnerExceptions.ToArray():new[]{cleanup};Assert.Contains(originals,error=>error is IOException);
+    }
     [Fact]public async Task BrowserPublicationFailureRemainsOriginalWhenDiagnosticOutputAlsoFails()
     {
         var expected=new IOException("PUBLIC_BROWSER_ORIGINAL_STARTUP");var port=new Port(new FailingStartupOutput(output));
