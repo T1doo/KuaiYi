@@ -4,6 +4,8 @@ namespace KuaiYi.NativeHost;
 // Observation only. These slots do not establish ownership or authorize a registration write.
 internal sealed class InstallationDeploymentRegistrySnapshot(IHostRegistrationStore registry):IInstallationDeploymentPublicationRegistry
 {
+    internal static IInstallationStartupRegistry CreateWindows()=>new InstallationStartupRegistrySnapshot(
+        new InstallationDeploymentRegistrySnapshot(new WindowsHostRegistrationStore()),new WindowsStartupRegistrationStore());
     private readonly object sync=new();
     private Task<InstallationDeploymentRegistrationSnapshot>? capture;
     private Task? verification;

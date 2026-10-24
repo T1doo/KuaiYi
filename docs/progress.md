@@ -1869,3 +1869,6 @@ A片源码冻结7a59ad9a66aedfe5ab539422c01849a82de6aceb，仅本地1提交，�
 
 
 2026-10-24 发布屏障修复收口：父级对3cc878932f70472c2ee1a092d01b7052dba7a0d2给限定源码/原件ACK后，仅一次r21完整InstallationSessionTests类实际93P/0F/0skip、exit0/36.552秒，原180秒预算未过期；旧r15的92身份完整保留＋本片反例1。固定源码3cc、--no-build复用与该源码Git blob严格绑定的r19原DLL，实际嵌入修订不伪称3cc；12,294 tracked输入/22DLL/347运行文件前后同，22实际预采样本体及完整TRX保留。TRX167737B/SHA256 f690ac013b359d4c0b4cba9cbd461462bce992f337894429c9d19f133bab91bb。此为完整相关类，不是完整Core；旧r18 2828P1F、r01 2813P6F均原样保留，不跑第三遍全Core、不拼绿。空间备份blob未被独审核全、/proc受限不完整限制保留，本轮无额外清理。只追加两报告，经实时祖先/原11工作流自身路径条件核查后按授权正常dev推送；不main/force/workflow/原生诊断CI，生产及全部未验门保持。
+
+
+2026-10-24 原SPEC13.4/P7-04当前用户Run适配源码候选：核实Installer原工厂只有Chrome/Edge能力，新增固定HKCU Run/KuaiYi命名值raw owner及组合原任务owner，原Program改取被动CreateWindows工厂。仅query/set、固定64位view、无枚举/删键/ACL操作；原句柄获取前owner、部分获取/写后报错/原close精确结算，foreign含Aggregate锁存，主错关闭错保全，单pending零队列、Host/Run共门。260字符写前上限/严格受界REG_SZ、不扩变量；旧Core七prefix/资格/owner/撤销合同不改，Unavailable/null与false门/普通Launcher缺可信资格保持。r01生产Installer构建0W0E/exit0；测试编译17错误（新增测试Task重载/unused字段），无测试运行，原日志保留，仅修测试后r02构建0W0E，合成适配器23P0F0skip、exit0/4.137秒；7源4实际DLL前后同，原TRX34190B SHA256 611b47cf5dd8ab6550f6923deb061a5f67b957fe5ee7320afc664b12b7b39b3f。只证明源码和注入合成API，无真实Windows注册表读写/启用/本机运行/CI/模型或新依赖权限；不借旧93及完整Core绿数。固定本地候选交独审后才可推，详见validation/startup-native-value-adapter.md。

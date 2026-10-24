@@ -21,7 +21,7 @@ internal static class Program
             _=InstallationInstallerPins.Read(bytes); // Fail closed before resolving destinations or constructing platform owners.
             string local=Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             string root=Path.Combine(local,"KuaiYi.Application"),data=Path.Combine(local,"KuaiYi"),source=Path.Combine(AppContext.BaseDirectory,"installer-payload");
-            runtime=new(bytes,root,data,Path.Combine(source,"generation"),Path.Combine(source,"bootstrap"),new InstallationDeploymentRegistrySnapshot(new WindowsHostRegistrationStore()),
+            runtime=new(bytes,root,data,Path.Combine(source,"generation"),Path.Combine(source,"bootstrap"),InstallationDeploymentRegistrySnapshot.CreateWindows(),
                 _=>Task.FromResult(new InstallationUpgradeCoordinator(root,data,new InstallationApplicationClient(),TimeSpan.FromSeconds(10))),
                 result=>{Console.WriteLine("INSTALL_STAGE|"+result.Status);return Task.CompletedTask;},Stop.Token);
             ConsoleCancelEventHandler cancel=(_,args)=>{args.Cancel=true;_=Stop.Request();};
