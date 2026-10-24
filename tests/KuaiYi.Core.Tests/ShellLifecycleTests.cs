@@ -1,10 +1,12 @@
 using System.Collections.Immutable;
 using System.Diagnostics;
+using System.Text.Json;
 using KuaiYi.Core;
 using KuaiYi.Core.Settings;
 using Xunit;
+using Xunit.Abstractions;
 namespace KuaiYi.Core.Tests;
-public sealed class ShellLifecycleTests
+public sealed class ShellLifecycleTests(ITestOutputHelper output)
 {
     private sealed class DirectoryPolicy:ISecretDirectoryPolicy{public void EnsurePrivate(string path)=>Directory.CreateDirectory(path);}
     private sealed class NoSecretReads:ISecretProtector
@@ -125,27 +127,106 @@ public sealed class ShellLifecycleTests
         gesture.Down(new(100,100),new(90,90,160,160),true);Assert.Equal(OverlayPointerAction.Moved,gesture.Move(new(100+threshold,100),out _,4,4,new(scale)));Assert.Equal(OverlayPointerAction.Released,gesture.Up());
         gesture.Down(new(100,100),new(90,90,160,160),true);Assert.Equal(OverlayPointerAction.Ignored,gesture.Move(new(109,100),out _,10,10,new(1)));Assert.Equal(OverlayPointerAction.Clicked,gesture.Up());
     }
-    private static Process Child(string user,int session)
+    private sealed class InstanceChild(string role,ProcessStartInfo info)
+    {
+        private static readonly TimeSpan ExitLimit=TimeSpan.FromSeconds(4);
+        private static readonly List<InstanceChild> Retained=[];
+        private Process? process;private Task? exit,stdout;
+        private Task<string>? stderr;private readonly List<Task> writes=[];
+        private readonly TaskCompletionSource<string?> first=new(TaskCreationOptions.RunContinuationsAsynchronously);
+        private string? firstLine,remainingOutput,diagnostics;private int? exitCode;
+        private bool actualExit,ioSettled,resourcesDisposed,killed;
+        internal void Start()
+        {
+            process=Process.Start(info)??throw new IOException("Original instance fixture Start returned no process.");
+            List<Exception> errors=[];
+            try{exit=process.WaitForExitAsync();}catch(Exception error){errors.Add(error);}
+            try{stderr=process.StandardError.ReadToEndAsync();}catch(Exception error){errors.Add(error);}
+            try{stdout=ReadOutput();}catch(Exception error){first.TrySetException(error);errors.Add(error);}
+            ThrowInstanceErrors(errors);
+        }
+        private async Task ReadOutput()
+        {
+            try
+            {
+                firstLine=await process!.StandardOutput.ReadLineAsync();first.TrySetResult(firstLine);
+                remainingOutput=await process.StandardOutput.ReadToEndAsync();
+            }
+            catch(Exception error){first.TrySetException(error);throw;}
+        }
+        internal Task<string?> Row()=>first.Task.WaitAsync(TimeSpan.FromSeconds(5));
+        internal Task Release()
+        {var original=process!.StandardInput.WriteLineAsync();writes.Add(original);return original;}
+        internal void Kill(){process!.Kill();killed=true;}
+        internal async Task Finish(int? expected=null)
+        {
+            if(exit==null)throw new IOException("Original instance exit task is unavailable.");
+            await exit.WaitAsync(ExitLimit);actualExit=process!.HasExited;
+            if(!actualExit)throw new IOException("Original instance process has not exited.");
+            exitCode=process.ExitCode;if(expected.HasValue)Assert.Equal(expected.Value,exitCode.Value);
+        }
+        internal async Task Cleanup(List<Exception> errors)
+        {
+            if(process==null)return; // Start threw before returning an owned Process; never adopt a PID.
+            try{if(!process.HasExited)Kill();}catch(Exception error){AddInstanceError(errors,error);}
+            try{await Finish();}catch(Exception error){AddInstanceError(errors,error);}
+            foreach(var original in writes.Concat(new Task?[]{first.Task,stdout,stderr}.OfType<Task>()))
+                try{await original.WaitAsync(ExitLimit);}catch(Exception error){AddInstanceError(errors,error);}
+            if(stderr?.IsCompletedSuccessfully==true)diagnostics=stderr.Result;
+            ioSettled=first.Task.IsCompleted&&stdout?.IsCompleted==true&&stderr?.IsCompleted==true&&writes.All(task=>task.IsCompleted);
+            if(!actualExit||exit?.IsCompletedSuccessfully!=true||!ioSettled)
+            {lock(Retained)Retained.Add(this);errors.Add(new IOException("Original instance process/IO remains unconfirmed; original owner retained."));return;}
+            resourcesDisposed=true;
+            foreach(Func<IDisposable> resource in new Func<IDisposable>[]{()=>process.StandardInput,()=>process.StandardOutput,()=>process.StandardError,()=>process})
+                try{resource().Dispose();}catch(Exception error){resourcesDisposed=false;AddInstanceError(errors,error);}
+        }
+        internal string Evidence=>JsonSerializer.Serialize(new
+        {
+            Role=role,Arguments=info.ArgumentList.ToArray(),FirstLine=firstLine,RemainingStdout=remainingOutput,Stderr=diagnostics,
+            ExitCode=exitCode,ActualExitConfirmed=actualExit,OriginalExit=exit?.Status.ToString(),OriginalFirstLine=first.Task.Status.ToString(),OriginalStdout=stdout?.Status.ToString(),OriginalStderr=stderr?.Status.ToString(),
+            OriginalWrites=writes.Select(task=>task.Status.ToString()).ToArray(),OriginalIoSettled=ioSettled,ResourcesDisposed=resourcesDisposed,ExplicitOwnedKill=killed
+        });
+    }
+    private static void AddInstanceError(List<Exception> errors,Exception error)
+    {if(!errors.Any(original=>ReferenceEquals(original,error)))errors.Add(error);}
+    private static void ThrowInstanceErrors(List<Exception> errors)
+    {
+        if(errors.Count==1)System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(errors[0]).Throw();
+        if(errors.Count>1)throw new AggregateException(errors);
+    }
+    private async Task WithInstanceChildren(Func<Func<string,int,string,InstanceChild>,Task> body)
+    {
+        List<InstanceChild> children=[];List<Exception> errors=[];
+        InstanceChild Start(string user,int session,string role)=>Child(user,session,role,children);
+        try{await body(Start);}catch(Exception error){errors.Add(error);}
+        foreach(var child in children)try{await child.Cleanup(errors);}catch(Exception error){AddInstanceError(errors,error);}
+        foreach(var child in children)try{output.WriteLine("PUBLIC_INSTANCE_OBSERVATION "+child.Evidence);}catch(Exception error){AddInstanceError(errors,error);}
+        ThrowInstanceErrors(errors);
+    }
+    private static InstanceChild Child(string user,int session,string role,List<InstanceChild> children)
     {
         string dll=Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"../../../../../tools/KuaiYi.SettingsStoreFixture/bin",new DirectoryInfo(AppContext.BaseDirectory).Parent!.Name,"net10.0/KuaiYi.SettingsStoreFixture.dll"));
-        var info=new ProcessStartInfo(Environment.GetEnvironmentVariable("DOTNET_HOST_PATH")??"dotnet"){UseShellExecute=false,RedirectStandardInput=true,RedirectStandardOutput=true,RedirectStandardError=true};foreach(var arg in new[]{dll,"--instance",user,session.ToString(System.Globalization.CultureInfo.InvariantCulture)})info.ArgumentList.Add(arg);return Process.Start(info)!;
+        var info=new ProcessStartInfo(Environment.GetEnvironmentVariable("DOTNET_HOST_PATH")??"dotnet"){UseShellExecute=false,RedirectStandardInput=true,RedirectStandardOutput=true,RedirectStandardError=true};foreach(var arg in new[]{dll,"--instance",user,session.ToString(System.Globalization.CultureInfo.InvariantCulture)})info.ArgumentList.Add(arg);
+        var child=new InstanceChild(role,info);children.Add(child);child.Start();return child;
     }
     [Theory][InlineData(false)][InlineData(true)]
     public async Task ActualChildInstanceExcludesDuplicateAndReleasesAfterExitOrCrash(bool kill)
     {
-        string user="public-synthetic-"+Guid.NewGuid().ToString("N");using var owner=Child(user,7);
-        try
+        string user="public-synthetic-"+Guid.NewGuid().ToString("N");await WithInstanceChildren(async start=>
         {
-            Assert.Equal("OWNER",await owner.StandardOutput.ReadLineAsync().WaitAsync(TimeSpan.FromSeconds(5)));using var secondary=Child(user,7);Assert.Equal("SECONDARY",await secondary.StandardOutput.ReadLineAsync().WaitAsync(TimeSpan.FromSeconds(5)));await secondary.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(4));Assert.Equal(4,secondary.ExitCode);
-            if(kill)owner.Kill();else await owner.StandardInput.WriteLineAsync();await owner.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(4));
-            using var next=Child(user,7);try{Assert.Equal("OWNER",await next.StandardOutput.ReadLineAsync().WaitAsync(TimeSpan.FromSeconds(5)));await next.StandardInput.WriteLineAsync();await next.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(4));Assert.Equal(0,next.ExitCode);}finally{if(!next.HasExited){next.Kill();await next.WaitForExitAsync();}}
-        }
-        finally{if(!owner.HasExited){owner.Kill();await owner.WaitForExitAsync();}}
+            var owner=start(user,7,"owner");Assert.Equal("OWNER",await owner.Row());
+            var secondary=start(user,7,"secondary");Assert.Equal("SECONDARY",await secondary.Row());await secondary.Finish(4);
+            if(kill)owner.Kill();else await owner.Release();await owner.Finish();
+            var next=start(user,7,"replacement");Assert.Equal("OWNER",await next.Row());await next.Release();await next.Finish(0);
+        });
     }
     [Fact]public async Task ActualDifferentUserAndDifferentSessionChildInstancesCanOwnIndependentScopes()
     {
-        string user="public-synthetic-"+Guid.NewGuid().ToString("N");var children=new[]{Child(user,7),Child(user,8),Child(user+"other",7)};
-        try{foreach(var child in children)Assert.Equal("OWNER",await child.StandardOutput.ReadLineAsync().WaitAsync(TimeSpan.FromSeconds(5)));foreach(var child in children){await child.StandardInput.WriteLineAsync();await child.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(4));Assert.Equal(0,child.ExitCode);}}
-        finally{foreach(var child in children){if(!child.HasExited){child.Kill();await child.WaitForExitAsync();}child.Dispose();}}
+        string user="public-synthetic-"+Guid.NewGuid().ToString("N");await WithInstanceChildren(async start=>
+        {
+            var children=new[]{start(user,7,"scope-a"),start(user,8,"scope-b"),start(user+"other",7,"scope-c")};
+            foreach(var child in children)Assert.Equal("OWNER",await child.Row());
+            foreach(var child in children){await child.Release();await child.Finish(0);}
+        });
     }
 }

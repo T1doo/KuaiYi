@@ -392,14 +392,26 @@ public sealed partial class InstallationSessionTests(ITestOutputHelper output)
             Assert.IsType<InvalidOperationException>(failure);Assert.Single(port.CleanupExits);Assert.False(File.Exists(r.Owner));using var admission=r.Store.EnterRoleAdmission();
         });
     }
+    private static readonly List<Process> RetainedInstanceControls=[];
     [Fact]public async Task ComputingTheExistingShowScopeCannotAcquireTheUiMutexAheadOfTheActualChild()
     {
         string authority="PUBLIC_SESSION_SCOPE_"+Guid.NewGuid().ToString("N");string scope=SessionSingleInstance.ScopeFor(authority,17);
         var info=new ProcessStartInfo(Host){UseShellExecute=false,RedirectStandardInput=true,RedirectStandardOutput=true,RedirectStandardError=true};
         foreach(string arg in new[]{Driver,"--instance",authority,"17"})info.ArgumentList.Add(arg);
-        Process p=Process.Start(info)!;Task<string> error=p.StandardError.ReadToEndAsync();Task originalExit=p.WaitForExitAsync();
-        await FixtureBodyAndCleanup(async()=>{Assert.Equal("OWNER",await p.StandardOutput.ReadLineAsync().WaitAsync(Limit));p.StandardInput.Close();await originalExit.WaitAsync(Limit);Assert.Equal(0,p.ExitCode);Assert.Equal("",await error);},
-            ()=>{if(!originalExit.IsCompleted)p.Kill();return Task.CompletedTask;},()=>originalExit.WaitAsync(Limit),async()=>{await error;},()=>{p.Dispose();return Task.CompletedTask;});
+        Process p=Process.Start(info)!;Task<string> error=p.StandardError.ReadToEndAsync();Task originalExit=p.WaitForExitAsync();Task<string?> first=p.StandardOutput.ReadLineAsync();
+        string? diagnostics=null;int? actualExit=null;bool ioSettled=false,disposed=false;
+        await FixtureBodyAndCleanup(async()=>{Assert.Equal("OWNER",await first.WaitAsync(Limit));p.StandardInput.Close();await originalExit.WaitAsync(Limit);Assert.Equal(0,p.ExitCode);Assert.Equal("",await error);},
+            ()=>{if(!p.HasExited)p.Kill();return Task.CompletedTask;},
+            async()=>{await originalExit.WaitAsync(Limit);actualExit=p.ExitCode;},
+            async()=>{await first.WaitAsync(Limit);},async()=>{diagnostics=await error.WaitAsync(Limit);},
+            ()=>
+            {
+                ioSettled=first.IsCompleted&&error.IsCompleted;
+                if(!originalExit.IsCompletedSuccessfully||!ioSettled)
+                {lock(RetainedInstanceControls)RetainedInstanceControls.Add(p);throw new IOException("Original scope control process/IO is unconfirmed; retained.");}
+                p.Dispose();disposed=true;return Task.CompletedTask;
+            },
+            ()=>{output.WriteLine("PUBLIC_INSTANCE_SCOPE_CONTROL "+JsonSerializer.Serialize(new{FirstLine=first.IsCompletedSuccessfully?first.Result:null,Stderr=diagnostics,ExitCode=actualExit,OriginalExit=originalExit.Status.ToString(),OriginalFirstLine=first.Status.ToString(),OriginalStderr=error.Status.ToString(),OriginalIoTasksSettled=ioSettled,ResourcesDisposed=disposed}));return Task.CompletedTask;});
         Assert.Equal(scope,SessionSingleInstance.ScopeFor(authority,17));
     }
     [Theory][InlineData("EXTRA_OUTPUT")][InlineData("WRONG_CLOSING")][InlineData("DUPLICATE_CLOSING")]
