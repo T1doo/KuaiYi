@@ -470,7 +470,10 @@ public sealed partial class InstallationSessionTests(ITestOutputHelper output)
         using var r=new Rig();var selected=await r.Prepare("held-close");await WithPeer(r,async peer=>
         {
             var port=peer.Own(new Port(output));var coordinator=peer.Own(port.Coordinator(r));
-            Task<int> run=peer.Observe(()=>coordinator.RunActiveSessionAsync(selected.DirectoryPath));await port.Healthy.Task.WaitAsync(Limit);byte[] owner=File.ReadAllBytes(r.Owner);await peer.Send(command);
+            Task<int> run=peer.Observe(()=>coordinator.RunActiveSessionAsync(selected.DirectoryPath));await port.WaitForHealthyAsync(run);
+            // READY precedes the original browser-host publication. Only issue this closing-protocol
+            // fault after that publication has finished, so an exited child cannot preempt the IO assertion.
+            await port.WaitForBrowserPublishedAsync(run);byte[] owner=File.ReadAllBytes(r.Owner);await peer.Send(command);
             Exception? failure=await Record.ExceptionAsync(()=>run.WaitAsync(Limit));Assert.IsType<InstallationUpgradeUnconfirmedException>(failure);
             if(command is "TERMINAL_EARLY" or "TERMINAL_DUPLICATE")
             {
@@ -481,6 +484,31 @@ public sealed partial class InstallationSessionTests(ITestOutputHelper output)
             }
             else{await coordinator.DisposeAsync();Assert.Equal(new[]{0},port.CleanupExits);}
             Assert.Equal(owner,File.ReadAllBytes(r.Owner));r.Fence();
+        });
+    }
+    [Fact]public async Task TerminalDuplicateBeforeOriginalBrowserPublicationPreservesBothExitAndReaderFaults()
+    {
+        using var r=new Rig();var selected=await r.Prepare("held-close");await WithPeer(r,async peer=>
+        {
+            var port=peer.Own(new Port(output){HoldHealth=true});var coordinator=peer.Own(port.Coordinator(r));
+            Task<int> run=peer.Observe(()=>coordinator.RunActiveSessionAsync(selected.DirectoryPath));
+            await FixtureBodyAndCleanup(async()=>
+            {
+                await port.WaitForHealthyAsync(run);Assert.False(port.BrowserPublished.Task.IsCompleted);
+                await peer.Send("TERMINAL_DUPLICATE");await port.OriginalExits.Single().Exit.WaitAsync(Limit);
+                Assert.True(port.Children.Single().HasExited);Assert.Equal(0,port.Children.Single().ExitCode);
+            },()=>{port.HealthRelease.TrySetResult();return Task.CompletedTask;});
+            Exception? failure=await Record.ExceptionAsync(()=>run.WaitAsync(Limit));
+            Assert.IsType<InstallationUpgradeUnconfirmedException>(failure);
+            Assert.IsType<IOException>(failure!.GetBaseException());
+            Assert.Equal("Selected application exited before health confirmation.",failure.GetBaseException().Message);
+            Assert.False(port.BrowserPublished.Task.IsCompleted);
+            Exception? reader=await Record.ExceptionAsync(()=>port.SettleAsync(port.Children.Single(),CancellationToken.None));
+            Assert.IsType<InvalidDataException>(reader);
+            Assert.Contains("duplicate application settlement",reader!.Message);
+            await Assert.ThrowsAsync<InstallationUpgradeUnconfirmedException>(async()=>await coordinator.DisposeAsync());
+            Assert.True(File.Exists(r.Owner));r.Fence();Assert.Empty(Directory.GetFiles(r.App,"execution-finished-*.json"));r.Keep=true;
+            output.WriteLine("PUBLIC_PREPUBLICATION_TERMINAL actualExit=0 browserPublished=False primary=IOException originalReader=InvalidDataException ownerRetained=True");
         });
     }
     [Fact]public async Task AFinalOwnerArchiveCollisionRetainsExactOwnerAndFilesAfterActualExitAndIoSettlement()
