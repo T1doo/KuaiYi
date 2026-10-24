@@ -65,6 +65,8 @@ internal static partial class InstallationAppControlFixture
             if(command=="CANCEL_STARTUP_SAVE"){startupCancel.Cancel();await writer.WriteLineAsync("PUBLIC_STARTUP_CANCELLED");continue;}
             if(command=="WAIT_STARTUP_SAVE"){await writer.WriteLineAsync(await (startupSave??throw new InvalidDataException("No original startup save.")));continue;}
             if(command=="PING")await writer.WriteLineAsync("PUBLIC_SHELL|"+state+(control.FailureCode==null?"":"|ControlFault="+control.FailureCode));
+            else if(command=="DISCONNECT_PEER")
+            {await writer.WriteLineAsync("PUBLIC_PIPE_DISCONNECTING");await writer.FlushAsync();pipe.Dispose();await Task.Delay(Timeout.InfiniteTimeSpan);}
             else if(command=="WAIT_IMAGE"){await imageReceived.Task;await writer.WriteLineAsync($"PUBLIC_IMAGE|{image!.Request:N}|{image.Path}");}
             else if(command=="WAIT_IMAGE_REVOKED"){await imageRevoked.Task;await writer.WriteLineAsync("PUBLIC_IMAGE_REVOKED");}
             else if(command=="EXIT0")Environment.Exit(0);

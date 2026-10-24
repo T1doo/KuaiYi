@@ -43,10 +43,15 @@ internal static class InstallationSessionLaunchFixture
         public async Task ConfirmHealthyAsync(Process p,InstalledVersion v,Guid launch,CancellationToken ct)
         {await client.ConfirmHealthyAsync(p,v,launch,ct);if(!quiet)Console.WriteLine("PUBLIC_SESSION_HEALTHY");}
         public Task RequestExitAsync(Process p,CancellationToken ct)=>client.RequestExitAsync(p,ct);
-        public Task SettleAsync(Process p,CancellationToken ct)=>client.SettleAsync(p,ct);
+        public async Task SettleAsync(Process p,CancellationToken ct)
+        {await client.SettleAsync(p,ct);if(!p.HasExited)throw new IOException("Original child exit is not observed.");Retired(p);}
         public async Task SettleSessionAsync(Process p,CancellationToken ct)
         {
             await client.SettleSessionAsync(p,ct);
+            Retired(p);
+        }
+        private void Retired(Process p)
+        {
             string directory=Path.GetDirectoryName(typeof(InstallationSessionLaunchFixture).Assembly.Location)!;
             if(!quiet)Console.WriteLine($"PUBLIC_SESSION_CHILD_EXIT|{p.ExitCode}|originalIO=Settled|driverSha256={Hash(Path.Combine(directory,"KuaiYi.SettingsStoreFixture.dll"))}|coreSha256={Hash(Path.Combine(directory,"KuaiYi.Core.dll"))}");
         }

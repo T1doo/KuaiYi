@@ -12,37 +12,40 @@ public sealed partial class InstallationSessionTests
     }
     private async Task WarmScenario(string mode,bool failure,Func<WarmCase,Task> body)
     {
-        using var rig=new Rig();var selected=await rig.Prepare(mode);var peer=new Peer(rig.Pipe);var port=new Port(output);
-        var coordinator=new InstallationUpgradeCoordinator(rig.App,rig.Data,port,TimeSpan.FromSeconds(10),port);using var lifetime=new CancellationTokenSource();
-        Task<int> run=coordinator.RunActiveSessionAsync(selected.DirectoryPath,lifetime.Token);Exception? primary=null;List<Exception> cleanup=[];WarmCase? test=null;
-        try{await port.WaitForHealthyAsync(run);test=new(rig,peer,port,port.Warm(),run,lifetime);await body(test);}
-        catch(Exception error){primary=error;}
-        finally
+        using var rig=new Rig();var selected=await rig.Prepare(mode);await WithPeer(rig,async peer=>
         {
-            foreach(string release in new[]{"RELEASE_WARM_WORK","RELEASE_WARM_CALLBACK","RELEASE_WARM_WRITE","RELEASE_WARM_FINALIZE"})
-                try{if(test?.CloseSent!=true&&test?.ClosedSeen!=true&&!port.WarmActualExitObserved&&!run.IsCompleted)await peer.Send(release);}catch(IOException)when(port.WarmActualExitObserved){}catch(Exception error){cleanup.Add(error);}
-            try
+            var port=peer.Own(new Port(output));
+            var coordinator=peer.Own(new InstallationUpgradeCoordinator(rig.App,rig.Data,port,TimeSpan.FromSeconds(10),port));using var lifetime=new CancellationTokenSource();
+            Task<int> run=peer.Observe(()=>coordinator.RunActiveSessionAsync(selected.DirectoryPath,lifetime.Token));Exception? primary=null;List<Exception> cleanup=[];WarmCase? test=null;
+            try{await port.WaitForHealthyAsync(run);test=new(rig,peer,port,port.Warm(),run,lifetime);await body(test);}
+            catch(Exception error){primary=error;}
+            finally
             {
-                if(mode=="warm-false-finalize"&&test?.CloseSent!=true&&!port.WarmActualExitObserved)
-                {await peer.Send("RETRY_WARM_CLEANUP");Assert.StartsWith("PUBLIC_WARM_RETRY|",await peer.Row());}
-                if(test?.CloseSent!=true&&test?.ClosedSeen!=true&&!port.WarmActualExitObserved){await peer.Send("CLOSE");if(test!=null)test.CloseSent=true;}
-                if(test?.ClosedSeen!=true){Assert.Equal("PUBLIC_SHELL_CLOSED",await peer.Row());if(test!=null)test.ClosedSeen=true;}
-                if(failure)await Assert.ThrowsAsync<InstallationUpgradeUnconfirmedException>(()=>run.WaitAsync(Limit));else Assert.Equal(0,await run.WaitAsync(Limit));
-                Assert.True(port.WarmActualExitObserved);Assert.Equal(0,port.WarmActualExitCode);
-                if(failure){Assert.True(File.Exists(rig.Owner));rig.Fence();}else{Assert.False(File.Exists(rig.Owner));Assert.Equal(1,port.SessionIoCalls);}
+                foreach(string release in new[]{"RELEASE_WARM_WORK","RELEASE_WARM_CALLBACK","RELEASE_WARM_WRITE","RELEASE_WARM_FINALIZE"})
+                    try{if(test?.CloseSent!=true&&test?.ClosedSeen!=true&&!port.WarmActualExitObserved&&!run.IsCompleted)await peer.Send(release);}catch(IOException)when(port.WarmActualExitObserved){}catch(Exception error){cleanup.Add(error);}
+                try
+                {
+                    if(mode=="warm-false-finalize"&&test?.CloseSent!=true&&!port.WarmActualExitObserved)
+                    {await peer.Send("RETRY_WARM_CLEANUP");Assert.StartsWith("PUBLIC_WARM_RETRY|",await peer.Row());}
+                    if(test?.CloseSent!=true&&test?.ClosedSeen!=true&&!port.WarmActualExitObserved){await peer.Send("CLOSE");if(test!=null)test.CloseSent=true;}
+                    if(test?.ClosedSeen!=true){Assert.Equal("PUBLIC_SHELL_CLOSED",await peer.Row());if(test!=null)test.ClosedSeen=true;}
+                    if(failure)await Assert.ThrowsAsync<InstallationUpgradeUnconfirmedException>(()=>run.WaitAsync(Limit));else Assert.Equal(0,await run.WaitAsync(Limit));
+                    Assert.True(port.WarmActualExitObserved);Assert.Equal(0,port.WarmActualExitCode);
+                    if(failure){Assert.True(File.Exists(rig.Owner));rig.Fence();}else{Assert.False(File.Exists(rig.Owner));Assert.Equal(1,port.SessionIoCalls);}
+                }
+                catch(Exception error){cleanup.Add(error);}
+                try{await coordinator.DisposeAsync();}catch(InstallationBusyException)when(failure&&port.WarmActualExitObserved){rig.Fence();}
+                catch(InstallationUpgradeUnconfirmedException error)when(failure&&port.WarmActualExitObserved&&error.InnerException is InstallationBusyException)
+                {
+                    rig.Fence();if(test?.Warm.Active is {} held){Assert.True(held.Lease.Originals.All(t=>t.IsCompleted));Assert.True(held.Finish?.IsFaulted==true);}
+                    output.WriteLine("PUBLIC_EXPECTED_PROTOCOL_UNCONFIRMED originalWarmTasksCompleted=true ownerFenceRetained=true");
+                }catch(Exception error){cleanup.Add(error);}
+
+                output.WriteLine($"PUBLIC_WARM_SESSION syntheticPreparation=true actualChildExit={(port.WarmActualExitObserved?port.WarmActualExitCode:-1)} expectedProtocolFailure={failure} driverSha256={Hash(Driver)} coreSha256={Hash(Path.Combine(Path.GetDirectoryName(Driver)!,"KuaiYi.Core.dll"))}");
             }
-            catch(Exception error){cleanup.Add(error);}
-            try{await coordinator.DisposeAsync();}catch(InstallationBusyException)when(failure&&port.WarmActualExitObserved){rig.Fence();}
-            catch(InstallationUpgradeUnconfirmedException error)when(failure&&port.WarmActualExitObserved&&error.InnerException is InstallationBusyException)
-            {
-                rig.Fence();if(test?.Warm.Active is {} held){Assert.True(held.Lease.Originals.All(t=>t.IsCompleted));Assert.True(held.Finish?.IsFaulted==true);}
-                output.WriteLine("PUBLIC_EXPECTED_PROTOCOL_UNCONFIRMED originalWarmTasksCompleted=true ownerFenceRetained=true");
-            }catch(Exception error){cleanup.Add(error);}
-            try{await peer.DisposeAsync();}catch(Exception error){cleanup.Add(error);}
-            output.WriteLine($"PUBLIC_WARM_SESSION syntheticPreparation=true actualChildExit={(port.WarmActualExitObserved?port.WarmActualExitCode:-1)} expectedProtocolFailure={failure} driverSha256={Hash(Driver)} coreSha256={Hash(Path.Combine(Path.GetDirectoryName(Driver)!,"KuaiYi.Core.dll"))}");
-        }
-        if(primary!=null&&cleanup.Count!=0)throw new AggregateException(new[]{primary}.Concat(cleanup));
-        if(primary!=null)System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(primary).Throw();if(cleanup.Count!=0)throw new AggregateException(cleanup);
+            if(primary!=null&&cleanup.Count!=0)throw new AggregateException(new[]{primary}.Concat(cleanup));
+            if(primary!=null)System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(primary).Throw();if(cleanup.Count!=0)throw new AggregateException(cleanup);
+        });
     }
     [Fact]public Task WarmSyntheticPreparationUsesTheSameOriginalChildTwiceWithSeparateOneShotConnections()=>WarmScenario("warm-healthy",false,async test=>
     {
