@@ -6,6 +6,7 @@ internal sealed partial class ShellWindow
     private bool CanReadOriginalSourceVersion(Guid version)=>CanReadOriginalSource()&&SelectedSource.VersionId==version&&SelectedSource.HasSource&&lifecycle.Gate.Snapshot.Presentation!=Presentation.Hidden&&!lifecycle.Gate.Snapshot.Suspension.HasFlag(Suspension.Capture);
     private void ValidateOriginalSourceBinding()
     {
+        bodyMarkdown.RetainTextSourceChoices(overlayResults.RetainedVersionIds,SelectedSource.VersionId);
         if(!CanReadOriginalSource()||!SelectedSource.HasSource){ClearOriginalSource();return;}
         bodyMarkdown.RetainSourceVersion(SelectedSource.VersionId);measurementMarkdown.RetainSourceVersion(SelectedSource.VersionId);
     }

@@ -1833,3 +1833,5 @@ PNG同epoch独审P2已修候选：按当前moving样本与phase/epoch取图，�
 修复冻结99f8e8f30e5020a352ccb9df7fc41323195d0e77已独审正常push；原件Library libfile_e1b82d814e908191956931933bbaa881 v0，2210862B/SHA2567547dfe08f6424bb677aab8f4765ac7a34a6f90bee74bb2ff4b27a74cc96b258。42成员41manifest/7Git文件/859输入/红绿原件均机械独核，含测试与工具DLL，App仅摘要已明示，DoNotRun/precommit BuildParent保留。创建与本地身份保存成功，本收据仅两文档，无追加测试/CI/来源重绑。
 
 2026-10-24独立暖橙UI候选：基于040553d，仅5生产UI文件＋原2报告，七设置页共用导航/功能分区/反馈/主保存层级，浮窗正文与辅助工具区分；背景和方向分隔均非hit-test，不改正文测量/几何/动画/事件/红绿和高对比。既有离线11P＝配色2＋布局9，最终App/工具交叉build0W0E8.42秒；测试时857输入及原Canvas版build分列保留，最终背景层修正只影响未被该定向测试编入的OverlayPresentation，未借记原构建。独审限定ACK。无push/网络投递/CI/原生/模型/安装；像素/窄大字/设备和动效性能未验，旧图不代签。见validation/desktop-refinement-2026-10-23.md末节。
+
+父级独审暖橙7d519cf后单独授权Git发布：实际远端040553d、exact7文件/.github0确认后普通push一次，读回7d519cf1cd2e0c697ee29d9bdc0d09ff5ca3b0e9；无workflow匹配改动，不投递被拒Windows诊断。随后ShowSource仅本地候选：默认false草稿保存/取消、精确所选文字版本immutable偏好、人工折叠优先、源切换不携人工展开、可读拒绝/重入installed身份退役；图片/OCR不自动展开，不唤醒/采集/发送。r02两P2同方法2F→最终2P；r03旧回滚断言1F保留未改，r04同89集合89P＝新14＋旧75；最终交叉0W0E16.72秒、859输入一致。不叠暖橙11P，不push下一片/CI/原生或模型，实际像素及250/600ms仍未验。原件/范围见validation/desktop-refinement-2026-10-23.md末节。

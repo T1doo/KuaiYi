@@ -31,6 +31,7 @@ internal sealed partial class ShellWindow
     private void RefreshMarkdown(bool renderBody,Func<bool>? current=null)
     {
         if(current?.Invoke()==false)return;var selection=SelectedSource;
+        bodyMarkdown.RetainTextSourceChoices(overlayResults.RetainedVersionIds,selection.VersionId);
         if(current!=null&&selection.Image is {} local&&selection.VersionId is {} version&&LocalImagePreview)
         {
             double localSize=lifecycle.Settings?.Data.Overlay.FontSizeDip??15;
@@ -46,7 +47,9 @@ internal sealed partial class ShellWindow
         else
         {
             var source=CanReadOriginalSource()?selection.Text?.Source.RawText:null;
-            bodyMarkdown.SetSource(selection.VersionId,source);
+            var bound=selection.VersionId is {} textVersion?translation?.SnapshotForVersion(textVersion):null;
+            bool show=bound!=null&&ReferenceEquals(bound,selection.Text)&&bound.Source.SourceKind!=SelectionSourceKind.OcrOnly&&bound.Settings.Data.Overlay.ShowSource;
+            bodyMarkdown.SetSource(selection.VersionId,source,initialExpanded:show);
             measurementMarkdown.SetSource(selection.VersionId,source,bodyMarkdown.SourceExpanded);
         }
         if(current?.Invoke()==false)return;markdown.Update(selection.VersionId,LocalImagePreview?"":overlayResults.Text,LocalImagePreview||selected?.Complete==true||selected?.Stopped==true);

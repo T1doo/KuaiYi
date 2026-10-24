@@ -112,9 +112,9 @@ public sealed class OverlayStopFlowTests
         public ConcurrentQueue<TextTranslationUpdate> Updates {get;}=new();
         public int ConnectionAttempts;
         private TaskCompletionSource connected=new(TaskCreationOptions.RunContinuationsAsynchronously);
-        public RealCoordinatorRig()
+        public RealCoordinatorRig(bool showSource=false)
         {
-            Window.InitializeResultFlow();Settings=new(new(){ActiveProfileId="synthetic",Profiles=[new(){Id="synthetic",BaseUrl="https://public.invalid/v1/",Model="TEST_ONLY_STOP_MODEL",Authentication=ApiAuthentication.None}]},"synthetic",SettingsLoadState.Current);
+            Window.InitializeResultFlow();Settings=new(new(){Overlay=new(){ShowSource=showSource},ActiveProfileId="synthetic",Profiles=[new(){Id="synthetic",BaseUrl="https://public.invalid/v1/",Model="TEST_ONLY_STOP_MODEL",Authentication=ApiAuthentication.None}]},"synthetic",SettingsLoadState.Current);
             Window.MarkdownGate.ObserveSettingsMetadata(Settings);var origin=new EndpointOrigin(new Uri(Settings.Data.Profiles[0].BaseUrl));Window.MarkdownGate.ConsentTo(origin);Assert.True(Window.MarkdownGate.TryEnable(origin,true));
             Provider=new(null,null,null,async(_,ct)=>
             {

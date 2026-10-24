@@ -50,3 +50,13 @@ GrowthHarness 默认 ProbeWindow 是独立原型；`--actual-overlay` / `--ci-ac
 原有离线Provider定向11P/0F/0skip＝DesktopPaletteTests浅深对比度2例＋SettingsLayoutTests原布局规划9例，未新增测试或重跑全套。测试时857输入原件保留，随后仅OverlayPresentation从Canvas背景修成非hit-test背景层；四个相关测试/链接源字节不变，不把11P当WPF绘制测试。最终App＋GrowthHarness交叉构建exit0、0W0E、8.42秒；前一Canvas版15.60秒构建单独保留在superseded，不借记最终源码。测试快照source、最终快照final-source/最终build-inputs、命令/TRX/完整日志位于artifacts/2026-10-24-warm-ui。独立源码审查限定ACK，无剩余确定P1/P2。
 
 此片未网络push、投递CI、原生执行、安装或调用模型。颜色对比度与离线编译不等于像素验收：暖橙后的真实WPF截图、窄窗/大字实际排版、高对比/键盘焦点、DWM/FPS、生长动画和250/600ms仍未验，旧版截图不能代签本候选。此前被拒的Windows诊断保持拒绝，未改workflow或来源绑定；原pins与全部安全门保持。
+
+父级随后独审7d519cf1cd2e0c697ee29d9bdc0d09ff5ca3b0e9并单独授权正常Git推送。实际只读远端确认仍为040553d7ce89f1042d46464533139642fcb29ecc、待推仅原7文件且.github零差异后，普通push一次并读回远端7d519cf。现11项workflow均限定分支及自身yml路径，本次不匹配；未修改触发器或投递Windows诊断。此发布事实不回填暖橙原生像素验收。
+
+## SPEC8.2 显示原文偏好，本地候选
+
+既有Overlay.ShowSource从未被生产读取，本片在交互设置增加默认关闭的草稿复选框，经原LoadGeneral/CapturePreferences和原子保存/取消链生效。生产读取精确SelectedVersion对应TextTranslationSnapshot的不可变设置，引用不符或OCR/图片不自动展开；不读取当前live设置替代旧版本偏好，不调用主动ShowOverlay/Expand/BringIntoView，不取新源或发送。
+
+正文仅保存retained版本的人工bool选择，不持有额外原文/图像owner；测量视图只同步正文实际状态。初始化不冒充人工输入；人工折叠优先，流式刷新和同版本视图退役不覆盖它。显式人工展开只留在当前所选版本，源切换立即剪枝，保持原失败回滚默认折叠合同。Clear全文清状态，ClearSource只退役视图。初始化按人工覆盖优先的实际初始值检查可读门，属性重入后复查；被拒则仅退役原installed引用与版本匹配的区域，不清掉重入的新区域。
+
+实际本地证据分列：r01新11P；独审两初始化P2反例r02同方法0P2F，修后两方法字节不变；r03相关集合88P1F，暴露原默认false的失败回滚被人工展开污染，原断言未改；修正后r04同89集合全部通过＝新14＋原MarkdownSource38/ProductionBridge9/OverlayStopFlow28。不同轮次不相加。r05最终App＋工具交叉build0W0E16.72秒，859源输入与r04一致且无漂移。命令/完整TRX/日志/源码/DLL保留于artifacts/2026-10-24-source-display，均在提交前构建，不伪称含之后的Git版本。独立源码审查限定ACK；本片不push、不CI、不原生执行、不运行真实模型，WPF像素/原生焦点及安全性能门未验。

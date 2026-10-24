@@ -39,7 +39,14 @@ internal sealed class MarkdownSourceRegion:IDisposable
     public void SetExpanded(bool expanded)
     {
         if(disposed)return;
-        updating=true;try{View.IsExpanded=expanded&&canRead?.Invoke()!=false;Text.Text=View.IsExpanded?source??"":"";}finally{updating=false;}
+        bool Current()=>!disposed&&canRead?.Invoke()!=false;
+        updating=true;try
+        {
+            View.IsExpanded=expanded&&Current();
+            Text.Text=Current()&&View.IsExpanded?source??"":"";
+            if(!Current()){View.IsExpanded=false;Text.Clear();}
+        }
+        finally{updating=false;}
     }
     public void Expand()
     {

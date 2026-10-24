@@ -27,6 +27,9 @@ internal sealed partial class MarkdownFlowView
     private MarkdownImageSourceRegion? imageSourceRegion;
     private BlockUIContainer? sourceBlock;
     private Guid? sourceVersion;
+    // Body-only manual choices; no content, settings or image ownership. Pruned to retained result versions.
+    private readonly Dictionary<Guid,bool> textSourceChoices=[];
+    private HashSet<Guid> retainedTextSourceVersions=[];
     private Guid? appliedVersion;
     private MarkdownViewport viewport=new(388,560);
     private double appliedFontSize=double.NaN;
@@ -37,7 +40,7 @@ internal sealed partial class MarkdownFlowView
         host.IsReadOnly=true;host.IsUndoEnabled=false;host.IsDocumentEnabled=true;host.HorizontalScrollBarVisibility=ScrollBarVisibility.Disabled;host.VerticalScrollBarVisibility=ScrollBarVisibility.Visible;host.ClipToBounds=true;
         SetViewport(viewport);
     }
-    public void Clear(){RetireActive(full:true);ClearStagedImage();}
+    public void Clear(){RetireActive(full:true);ClearStagedImage();textSourceChoices.Clear();retainedTextSourceVersions.Clear();}
     public bool SourceExpanded=>sourceRegion?.View.IsExpanded==true||imageSourceRegion?.View.IsExpanded==true;
     internal void ExpandImageSource(Guid version,ImageSourceOwner source)
     {var held=sourceVersion==version&&imageSourceRegion?.Matches(source)==true?imageSourceRegion:null;held?.Expand();}
@@ -55,13 +58,33 @@ internal sealed partial class MarkdownFlowView
         };
     }
     public void RetainSourceVersion(Guid? version){if(sourceVersion!=version)ClearSource();}
-    public void SetSource(Guid? version,string? source,bool? expanded=null)
+    internal void RetainTextSourceChoices(IReadOnlySet<Guid> retained,Guid? selectedVersion=null)
+    {
+        retainedTextSourceVersions=new(retained);
+        // Manual folding wins on a retained version. Explicit expansion does not travel across source switches.
+        foreach(var id in textSourceChoices.Keys.Where(id=>!retained.Contains(id)||textSourceChoices[id]&&id!=selectedVersion).ToArray())textSourceChoices.Remove(id);
+    }
+    public void SetSource(Guid? version,string? source,bool? expanded=null,bool initialExpanded=false)
     {
         if(version==null||source==null){ClearSource();return;}
+        if(sourceRegion!=null&&sourceVersion==version&&!sourceRegion.Matches(source)){textSourceChoices.Remove(version.Value);initialExpanded=false;}
+        bool initial=expanded??(textSourceChoices.TryGetValue(version.Value,out bool choice)?choice:initialExpanded&&retainedTextSourceVersions.Contains(version.Value));
+        if(initial&&canReadSource?.Invoke(version.Value)==false){ClearSource();return;}
         if(sourceRegion==null||sourceVersion!=version||!sourceRegion.Matches(source))
         {
-            long before=viewInstallation;ClearSource();if(before!=viewInstallation)return;viewInstallation++;sourceVersion=version;sourceRegion=new(source,observeReader,sourceChanged,()=>canReadSource?.Invoke(version.Value)!=false,captureReaderGuard);
+            long before=viewInstallation;ClearSource();if(before!=viewInstallation)return;viewInstallation++;sourceVersion=version;
+            MarkdownSourceRegion? installed=null;
+            installed=new(source,observeReader,()=>
+            {
+                if(!ReferenceEquals(sourceRegion,installed)||sourceVersion!=version)return;
+                if(retainedTextSourceVersions.Contains(version.Value))textSourceChoices[version.Value]=installed!.View.IsExpanded;
+                sourceChanged?.Invoke();
+            },()=>ReferenceEquals(sourceRegion,installed)&&sourceVersion==version&&canReadSource?.Invoke(version.Value)!=false,captureReaderGuard);sourceRegion=installed;
             sourceBlock=new(sourceRegion.View){Margin=new Thickness(0,8,0,0)};host.Document.Blocks.Add(sourceBlock);
+            if(!ReferenceEquals(sourceRegion,installed)||sourceVersion!=version)return;
+            if(!expanded.HasValue)installed.SetExpanded(initial);
+            if(!ReferenceEquals(sourceRegion,installed)||sourceVersion!=version)return;
+            if(canReadSource?.Invoke(version.Value)==false){ClearSource();return;}
         }
         if(expanded.HasValue)sourceRegion.SetExpanded(expanded.Value);
         ConstrainSource();
