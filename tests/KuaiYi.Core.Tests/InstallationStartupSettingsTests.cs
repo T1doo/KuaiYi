@@ -258,7 +258,10 @@ public sealed partial class InstallationDeploymentSessionTests
         else
         {await Assert.ThrowsAsync<InstallationRecoveryException>(()=>owner.ApplyAsync());await owner.AbortAsync();}
         Assert.False(owner.CanRetireEmptyReservation);
-        await Assert.ThrowsAsync<InstallationRecoveryException>(()=>owner.RetireEmptyReservationAsync(r.Port.Child!,Task.CompletedTask,Task.CompletedTask));
+        var refused=await Assert.ThrowsAsync<AggregateException>(()=>owner.RetireEmptyReservationAsync(r.Port.Child!,Task.CompletedTask,Task.CompletedTask));
+        Assert.Collection(refused.InnerExceptions,
+            error=>Assert.Equal("Only an original never-bound, never-applied aborted reservation can retire without local intent.",Assert.IsType<InstallationRecoveryException>(error).Message),
+            error=>Assert.Equal("Original startup cleanup is unconfirmed.",Assert.IsType<InstallationRecoveryException>(error).Message));
         Assert.False(owner.CleanupConfirmed);Assert.True(File.Exists(InstallationStartupRemovalOwner.PendingPath(r.App)));Assert.Empty(Directory.GetFiles(r.App,"startup-settings-finished-*.json"));
         await r.Peer!.Close();Assert.False((await entry.OriginalWork.WaitAsync(Limit)).CleanupConfirmed);
     });
