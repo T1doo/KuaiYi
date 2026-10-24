@@ -1851,3 +1851,6 @@ A片源码冻结7a59ad9a66aedfe5ab539422c01849a82de6aceb，仅本地1提交，�
 
 
 2026-10-24：父级发现Reserve后尚未Bind/Apply即取消或陈旧草稿失败的空reservation不能退休。r20原生产源码真实stdio两例0P2F（App exit0/originalIO已结算、pending仍在），原件保留。受限补丁831dc588仅两生产＋两测试/夹具文件：仅原owner证明从未尝试Bind/Apply、ABORTED/null-settings、零prefix/attempt且原进程/原IO/响应/句柄全结算，核安装及原pending/decision/缺binding后单次归档根reservation；不造v3/notice、不删本地恢复，不放松已绑定或未知门。r21实际19P2F/21：原15及新正常收敛/背压4例全P，两个新增拒绝测试错期望单异常，实际保全双错；只修断言为精确双原错，生产零变化，冻结201628a60706fa28e9bb335d5554a0e0cf4a2280。r22仅原2失败＋2正常对照4P0F/44.355秒，九构建0W0E，全tracked输入及22DLL前后不变；不拼成21P、不借旧2b9的247P。不push/CI/真实注册，完整差异/三原TRX供父独审。未知根未删，原Unavailable/false及普通Launcher门保持。详见validation/startup-settings-removal.md新节。
+
+
+2026-10-24：空reservation源码修复独审限定ACK后，无产品/测试新改动，固定完整签收树5e1f89e0f624117f4b6ddd6d1f3fd72a8d3419f0（代码201628a6＋此前两报告）仅一次r23：253P/0F/0skip＝原247身份精确保留＋本片6，test exit0/405.108秒、九构建0W0E、无观察超时；12,290 tracked输入构建前/测试前后相同，22DLL测试前后相同，HEAD固定clean。原TRX429799B/SHA256 86b817a3a60539355420f042f95b2103ce1e4fbf34fd79e60a728b64c87bbbab；旧0P2F/19P2F/定向4P独立保留不拼接。为避免磁盘ENOSPC，先对34个有原TRX和退出/IO证明的已结束合成目录完整逐文件归档并保存Library libfile_6870a32d1b1881919e394678c95b89c7 v0；仅移除已归档重复DLL/EXE/PDB，所有目录/JSON/owner/journal/lock及其他原件保留，未知结论不变、无/tmp未知清理或资格cache变更。现只提交两报告，按父明确授权在实时祖先/11工作流自有yml路径门复核后一次正常dev推送；源与原生/注册/普通Launcher/pins/完整成品/250600未验边界不变，详见validation/startup-settings-removal.md末节。
