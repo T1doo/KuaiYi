@@ -59,11 +59,15 @@ internal sealed class InstallationStartupRemovalOwner
     private Guid request;
     private string? basis,durable;
     private int prefix,attempt;
-    private bool unknown,archived,retirementAttempted;
+    private bool unknown,archived,retirementAttempted,bindingAttempted,applyAttempted;
     private readonly object retirementSync=new();
     private bool closing;
     internal bool OriginalResourcesConfirmed=>!unknown&&!registry.ConflictObserved&&io.CleanupConfirmed&&local.CleanupConfirmed&&registry.CleanupConfirmed;
     internal bool CleanupConfirmed=>OriginalResourcesConfirmed&&(pending==null||archived);
+    internal bool CanRetireEmptyReservation=>OriginalResourcesConfirmed&&intent!=null&&request!=Guid.Empty&&durable=="ABORTED"&&
+        !bindingAttempted&&!applyAttempted&&attempt==0&&prefix==0&&settings==null&&references==null&&notice==null&&
+        bindingBytes==null&&localBytes==null&&localPath==null&&localArchive==null;
+
     internal InstallationStartupRemovalOwner(InstallationDeploymentSession session,InstallationUpgradeCoordinator controller,InstallationAdmission admission,
         InstallationControlledLaunch proof,Process child,IInstallationStartupRegistry registry,InstallationStartupPlan before)
     {this.session=session;this.controller=controller;this.admission=admission;this.proof=proof;this.child=child;this.registry=registry;this.before=before;io=InstallationPreparationIO.ReadOnly(session.Root);local=InstallationPreparationIO.ReadOnly(session.UserData);}
@@ -98,6 +102,7 @@ internal sealed class InstallationStartupRemovalOwner
     }
     internal Task BindSettingsAsync(SettingsStartupIntent value)
     {
+        bindingAttempted=true; // A failed/partial bind cannot later be treated as an empty reservation.
         try
         {
             if(!OriginalResourcesConfirmed||durable!=null||value.Request!=request||value.BasisVersion!=basis||settings!=null&&settings!=value)
@@ -152,6 +157,7 @@ internal sealed class InstallationStartupRemovalOwner
     }
     internal async Task ApplyAsync()
     {
+        applyAttempted=true;
         if(intent==null||settings==null||archived||prefix!=0)throw new InstallationRecoveryException("Startup reservation and settings binding are not prepared.");
         await Verify(0).ConfigureAwait(false);attempt=1;
         await SetValue(before.Target,new(false)).ConfigureAwait(false);prefix=1;
@@ -210,6 +216,29 @@ internal sealed class InstallationStartupRemovalOwner
     }
     private byte[]? OptionalLocal(string path,int maximum)
     {if(File.Exists(path))return local.ReadDocument(path,maximum);local.RequireAbsent(path);return null;}
+    internal async Task RetireEmptyReservationAsync(Process original,Task exit,Task originalIo)
+    {
+        if(retirementAttempted)throw new InstallationRecoveryException("Original empty reservation retirement cannot be replayed.");retirementAttempted=true;
+        var errors=new List<Exception>();
+        try
+        {
+            if(!ReferenceEquals(original,child)||!CanRetireEmptyReservation)
+                throw new InstallationRecoveryException("Only an original never-bound, never-applied aborted reservation can retire without local intent.");
+            await session.VerifyStartupRetirementAsync(controller,admission,proof,child,exit,originalIo,Expected(0),io).ConfigureAwait(false);
+            io.RequireExactMetadata(pending!,intent!,16384);io.RequireExactMetadata(decisionPath!,decisionBytes!,4096);
+            io.RequireAbsent(bindingPath!);io.RequireAbsent(backup!);io.RequireAbsent(terminal!);
+        }
+        catch(Exception error){unknown=true;errors.Add(error);}
+        try{await CloseAll().ConfigureAwait(false);}catch(Exception error){unknown=true;errors.Add(error);}
+        InstallationErrors.Throw(errors);
+        try
+        {
+            // No local v3 was bound and no startup effect was attempted. Do not invent a notice, binding or local file ownership.
+            lock(retirementSync){if(!CanRetireEmptyReservation)throw new InstallationRecoveryException("Original empty reservation was revoked before Closing.");closing=true;}
+            writes!.MovePublicationRecord(pending!,terminal!);archived=true; // All original reads, closes, process and responses settled first.
+        }
+        catch{unknown=true;throw;}
+    }
     internal async Task RetireSettingsAsync(Process original,Task exit,Task originalIo)
     {
         if(retirementAttempted)throw new InstallationRecoveryException("Original settings retirement cannot be replayed.");retirementAttempted=true;

@@ -14,12 +14,20 @@ internal static partial class InstallationAppControlFixture
         int notices=0;if(behavior=="observer-fail")coordinator.Committed+=(_,_)=>throw new IOException("PUBLIC_STARTUP_OBSERVER_FAILURE");
         coordinator.Committed+=(_,_)=>notices++;
         using var draft=await coordinator.OpenDraftAsync();draft.Update(s=>s with{Overlay=s.Overlay with{FontSizeDip=19}});
+        if(behavior=="stale-draft")await store.SaveAsync(draft.Basis,draft.Basis.Data with{Overlay=draft.Basis.Data.Overlay with{FontSizeDip=16}});
+        using var localCancellation=CancellationTokenSource.CreateLinkedTokenSource(cancellation);
         Exception? failure=null;string status="NotCompleted";
-        var participant=behavior is "missing-notice" or "wrong-notice"?new ModifiedStartupNotice(startup,behavior):startup;
-        try{status=(await coordinator.SaveWithStartupRemovalAsync(draft,participant,cancellation:cancellation)).State;}
+        var participant=behavior is "missing-notice" or "wrong-notice"?new ModifiedStartupNotice(startup,behavior):
+            behavior=="cancel-before-bind"?new CancelAfterOriginalReserve(startup,localCancellation):startup;
+        try{status=(await coordinator.SaveWithStartupRemovalAsync(draft,participant,cancellation:localCancellation.Token)).State;}
         catch(Exception error){failure=error;}
         var saved=await store.LoadAsync();
         return $"PUBLIC_STARTUP_SAVE|{(failure==null?status:failure.GetType().Name)}|{saved.Data.Overlay.FontSizeDip}|{draft.IsClosed}|{notices}|{Directory.GetFiles(directory,"secret-txn-*.json").Length}";
+    }
+    private sealed class CancelAfterOriginalReserve(ISettingsStartupRemovalParticipant inner,CancellationTokenSource cancellation):ISettingsStartupRemovalParticipant
+    {
+        public async Task<ISettingsStartupRemoval> ReserveAsync(string basis,CancellationToken token)
+        {var original=await inner.ReserveAsync(basis,token);cancellation.Cancel();return original;}
     }
     private sealed class ModifiedStartupNotice(ISettingsStartupRemovalParticipant inner,string mode):ISettingsStartupRemovalParticipant
     {

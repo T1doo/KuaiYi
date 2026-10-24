@@ -211,6 +211,58 @@ public sealed partial class InstallationDeploymentSessionTests
         Assert.Single(Directory.GetFiles(Path.Combine(r.Data,"config"),"secret-txn-*.json"));Assert.Empty(Directory.GetFiles(Path.Combine(r.Data,"config"),"startup-settled-*.json"));Assert.True(File.Exists(InstallationStartupRemovalOwner.PendingPath(r.App)));
     });
 
+    [Theory][InlineData("cancel-before-bind","TaskCanceledException",15)][InlineData("stale-draft","SettingsConflictException",16)]
+    public Task StartupSettingsEmptyReservationAbortConvergesOnlyAfterOriginalStdioExit(string mode,string error,int font)=>ExecuteInstaller(async r=>
+    {
+        var entry=await r.PrepareStartup();await entry.Start().WaitAsync(Limit);var before=r.Startup.Value;byte[] owner=File.ReadAllBytes(InstallationStartupRegistration.OwnerPath(r.App));
+        await BeginStartupSettings(r,mode);Assert.Equal($"PUBLIC_STARTUP_SAVE|{error}|{font}|False|0|0",await StartupSettingsResult(r));
+        Assert.Equal(before,r.Startup.Value);Assert.Equal(owner,File.ReadAllBytes(InstallationStartupRegistration.OwnerPath(r.App)));
+        Assert.True(File.Exists(InstallationStartupRemovalOwner.PendingPath(r.App)));Assert.Empty(Directory.GetFiles(r.App,"startup-settings-binding-*.json"));Assert.Empty(Directory.GetFiles(r.App,"startup-settings-before-*.json"));
+        using(var decision=System.Text.Json.JsonDocument.Parse(File.ReadAllBytes(Assert.Single(Directory.GetFiles(r.App,"startup-settings-decision-*.json")))))
+        {Assert.Equal("ABORTED",decision.RootElement.GetProperty("outcome").GetString());Assert.Equal(System.Text.Json.JsonValueKind.Null,decision.RootElement.GetProperty("settings").ValueKind);}
+        Assert.False(r.Port.StartupServer!.CleanupConfirmed);Assert.False(entry.OriginalWork.IsCompleted);Assert.Empty(Directory.GetFiles(Path.Combine(r.Data,"config"),"secret-txn-*.json"));
+        await r.Peer!.Close();var result=await entry.OriginalWork.WaitAsync(Limit);
+        output.WriteLine($"PUBLIC_EMPTY_RESERVATION mode={mode} cleanup={result.CleanupConfirmed} server={r.Port.StartupServer.CleanupConfirmed} pending={File.Exists(InstallationStartupRemovalOwner.PendingPath(r.App))}");
+        Assert.True(result.CleanupConfirmed);Assert.True(r.Port.StartupServer.CleanupConfirmed);Assert.False(File.Exists(InstallationStartupRemovalOwner.PendingPath(r.App)));Assert.Single(Directory.GetFiles(r.App,"startup-settings-finished-*.json"));
+        Assert.Empty(Directory.GetFiles(Path.Combine(r.Data,"config"),"secret-txn-*.json"));Assert.Empty(Directory.GetFiles(Path.Combine(r.Data,"config"),"startup-settled-*.json"));
+        Assert.Equal(before,r.Startup.Value);Assert.Equal(owner,File.ReadAllBytes(InstallationStartupRegistration.OwnerPath(r.App)));
+    });
+
+    [Theory][InlineData(false)][InlineData(true)]
+    public Task StartupSettingsEmptyAbortVisibleResponseStillRequiresOriginalSendSettlement(bool fail)=>ExecuteInstaller(async r=>
+    {
+        var entry=await r.PrepareStartup();await entry.Start().WaitAsync(Limit);var before=r.Startup.Value;byte[] owner=File.ReadAllBytes(InstallationStartupRegistration.OwnerPath(r.App));
+        var entered=Signal();var release=Signal();var error=new IOException("PUBLIC_EMPTY_ABORT_RESPONSE_FAILURE");
+        FinalStartupResponseStream? wrapped=null;r.Port.StartupWriteForTest=stream=>wrapped??=new(stream,"ABORT",entered,release,fail?error:null);
+        await BeginStartupSettings(r,"cancel-before-bind");
+        await BodyAndCleanup(async()=>
+        {
+            await entered.Task.WaitAsync(Limit);Assert.Equal("PUBLIC_STARTUP_SAVE|TaskCanceledException|15|False|0|0",await StartupSettingsResult(r));
+            Assert.False(wrapped!.OriginalWriteReturned);Assert.False(r.Port.StartupServer!.CleanupConfirmed);Assert.False(entry.OriginalWork.IsCompleted);
+            Assert.True(File.Exists(InstallationStartupRemovalOwner.PendingPath(r.App)));Assert.Empty(Directory.GetFiles(r.App,"startup-settings-finished-*.json"));Assert.Empty(Directory.GetFiles(r.App,"startup-settings-binding-*.json"));
+        },()=>{release.TrySetResult();return Task.CompletedTask;});
+        await r.Peer!.Close();var result=await entry.OriginalWork.WaitAsync(Limit);
+        if(fail)
+        {Assert.False(result.CleanupConfirmed);Assert.Contains(error,Flatten(result.Errors));Assert.True(File.Exists(InstallationStartupRemovalOwner.PendingPath(r.App)));Assert.Empty(Directory.GetFiles(r.App,"startup-settings-finished-*.json"));}
+        else
+        {Assert.True(wrapped!.OriginalWriteReturned);Assert.True(result.CleanupConfirmed);Assert.True(r.Port.StartupServer!.CleanupConfirmed);Assert.False(File.Exists(InstallationStartupRemovalOwner.PendingPath(r.App)));Assert.Single(Directory.GetFiles(r.App,"startup-settings-finished-*.json"));}
+        Assert.Equal(before,r.Startup.Value);Assert.Equal(owner,File.ReadAllBytes(InstallationStartupRegistration.OwnerPath(r.App)));Assert.Empty(Directory.GetFiles(Path.Combine(r.Data,"config"),"secret-txn-*.json"));Assert.Empty(Directory.GetFiles(Path.Combine(r.Data,"config"),"startup-settled-*.json"));
+    });
+
+    [Theory][InlineData("bind")][InlineData("apply")]
+    public Task StartupSettingsFailedBindOrApplyAttemptCannotUseEmptyReservationRetirement(string attempt)=>ExecuteInstaller(async r=>
+    {
+        var entry=await r.PrepareStartup();await entry.Start().WaitAsync(Limit);var owner=r.Port.StartupServer!.OriginalOwner;Guid request=Guid.NewGuid();await owner.ReserveAsync(request,"absent:absent");
+        if(attempt=="bind")
+        {await Assert.ThrowsAnyAsync<IOException>(()=>owner.BindSettingsAsync(new(request,Guid.NewGuid(),"absent:absent",new string('0',64))));await Assert.ThrowsAsync<InstallationRecoveryException>(()=>owner.AbortAsync());}
+        else
+        {await Assert.ThrowsAsync<InstallationRecoveryException>(()=>owner.ApplyAsync());await owner.AbortAsync();}
+        Assert.False(owner.CanRetireEmptyReservation);
+        await Assert.ThrowsAsync<InstallationRecoveryException>(()=>owner.RetireEmptyReservationAsync(r.Port.Child!,Task.CompletedTask,Task.CompletedTask));
+        Assert.False(owner.CleanupConfirmed);Assert.True(File.Exists(InstallationStartupRemovalOwner.PendingPath(r.App)));Assert.Empty(Directory.GetFiles(r.App,"startup-settings-finished-*.json"));
+        await r.Peer!.Close();Assert.False((await entry.OriginalWork.WaitAsync(Limit)).CleanupConfirmed);
+    });
+
     private sealed class FinalStartupResponseStream(Stream inner,string verb,TaskCompletionSource entered,TaskCompletionSource release,Exception? failure):Stream
     {
         internal bool OriginalWriteReturned;

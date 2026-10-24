@@ -140,8 +140,14 @@ internal sealed class InstallationStartupRemovalServer
         {
             await original.WaitAsync(budget).ConfigureAwait(false); // Timeout retains the original task through Role/this owner.
             if(id==Guid.Empty)return;
-            if(unknown||phase!="DONE"||evidence==null)throw new InstallationRecoveryException("Original exit/IO or one-way local settlement is missing.");
-            await owner.RetireSettingsAsync(evidence.Value.Child,evidence.Value.Exit,evidence.Value.Io).ConfigureAwait(false);
+            bool empty=phase=="LOCAL_SETTLED"&&owner.CanRetireEmptyReservation;
+            if(unknown||!empty&&phase!="DONE"||evidence==null)throw new InstallationRecoveryException("Original exit/IO or one-way local settlement is missing.");
+            if(empty)
+            {
+                await owner.RetireEmptyReservationAsync(evidence.Value.Child,evidence.Value.Exit,evidence.Value.Io).ConfigureAwait(false);
+                lock(sync)next="DONE"; // No local notification is fabricated for a never-bound reservation.
+            }
+            else await owner.RetireSettingsAsync(evidence.Value.Child,evidence.Value.Exit,evidence.Value.Io).ConfigureAwait(false);
         }
         catch(Exception error)
         {
