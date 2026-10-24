@@ -55,6 +55,7 @@ internal sealed partial class InstallationDeploymentSession
     internal string UserData{get;}
     internal InstallationAdmissionFaults? AdmissionFaults{get;}
     internal InstallationStableSelection Selection{get;}
+    internal bool StartupQualified=>prepared.Plan.Startup!=null;
     internal Task<InstallationDeploymentReady> Ready=>ready.Task;
     internal Task<InstallationDeploymentSessionOutcome> Completion{get;}
     // Settled work excludes the deliberately live recovery execution lease.
@@ -103,7 +104,7 @@ internal sealed partial class InstallationDeploymentSession
         lock(sync){if(launch!=Guid.Empty||revoked)throw new OperationCanceledException("Committed session was revoked.",stop);launch=originalLaunch;}
         stop.ThrowIfCancellationRequested();await VerifyCommittedAsync().ConfigureAwait(false);stop.ThrowIfCancellationRequested();
     }
-    internal async Task AcceptReadyAsync(InstallationUpgradeCoordinator actual,InstallationControlledLaunch proof,Process original,CancellationToken stop)
+    internal async Task AcceptReadyAsync(InstallationUpgradeCoordinator actual,InstallationControlledLaunch proof,Process original,CancellationToken stop,Action? beforePublish=null)
     {
         RequireController(actual);
         if(proof.Launch!=launch||proof.Version!=Selection.Version||proof.Root!=Root||proof.UserData!=UserData||proof.UpgradeRecord!=null)throw new InstallationRecoveryException("READY is not from the original deployment session.");
@@ -112,12 +113,12 @@ internal sealed partial class InstallationDeploymentSession
         {
             stop.ThrowIfCancellationRequested();cancellation.ThrowIfCancellationRequested();
             if(revoked||accepted!=null||original.HasExited)throw new InstallationRecoveryException("Late, duplicate or exited session READY was refused.");
-            accepted=new(scope.Operation,prepared.Sha256,proof.Version,proof.Launch,proof.Fingerprint);ready.SetResult(accepted);
+            accepted=new(scope.Operation,prepared.Sha256,proof.Version,proof.Launch,proof.Fingerprint);beforePublish?.Invoke();ready.SetResult(accepted);
         }
     }
     internal void RequireController(InstallationUpgradeCoordinator actual)
     {scope.RequireOriginalSession(this);if(!ReferenceEquals(actual,controller))throw new InstallationRecoveryException("Different deployment controller.");}
-    private async Task VerifyCommittedAsync()
+    private async Task VerifyCommittedAsync(InstallationStartupPlan? startupOverride=null)
     {
         var errors=new List<Exception>();
         try
@@ -130,12 +131,12 @@ internal sealed partial class InstallationDeploymentSession
             io.RequireExactMetadata(InstallationBootstrapDeployment.OwnerPath(Root),Convert.FromBase64String(p.Bootstrap.Owner),4096);
             io.RequireExactMetadata(InstallationBootstrapDeployment.ActivePath(Root),Convert.FromBase64String(p.Bootstrap.Receipt),8192);
             io.RequireExactMetadata(Path.Combine(Root,"host-registration.json"),Convert.FromBase64String(p.Host.Receipt),8192);
-            if(p.Startup is {} startup)
+            if((startupOverride??p.Startup) is {} startup)
             {if(startup.TargetOwner==null)io.RequireAbsent(InstallationStartupRegistration.OwnerPath(Root));else io.RequireExactMetadata(InstallationStartupRegistration.OwnerPath(Root),Convert.FromBase64String(startup.TargetOwner),InstallationStartupRegistration.OwnerLimit);}
             var g=InstallationPackage.ReadInstalled(p.Generation.DirectoryPath,CancellationToken.None,expectedDigest:p.Generation.CatalogSha256,io:io);
             if(g.Schema!=3||g.SourceCatalogSha256!=p.GenerationSourceSha256||InstallationBootstrapPackage.Read(p.Bootstrap.CanonicalDirectory,p.BootstrapSourceSha256,p.Generation,CancellationToken.None,io).Revision!=p.BootstrapRevision)throw new InstallationRecoveryException("Committed payload or bootstrap differs.");
             var actual=await registry.ReadPublishedAsync().ConfigureAwait(false);actual=await InstallationStartupRegistration.CombineReadAsync(registry,actual,p.Startup!=null).ConfigureAwait(false);
-            if(actual!=p.Host.Targets with{Startup=p.Startup?.Target})throw new InstallationRecoveryException("Committed Host or startup registration differs.");
+            if(actual!=p.Host.Targets with{Startup=(startupOverride??p.Startup)?.Target})throw new InstallationRecoveryException("Committed Host or startup registration differs.");
         }
         catch(Exception error){qualificationUnknown=true;errors.Add(error);}
         try{io.CloseOriginals();}catch(Exception error){qualificationUnknown=true;errors.Add(error);}

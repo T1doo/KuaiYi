@@ -11,7 +11,7 @@ internal static partial class InstallationAppControlFixture
         var warmFixture=mode.StartsWith("warm-",StringComparison.Ordinal)?new WarmFixture(root,mode):null;
         string state="NotAdmitted";var cancelRelease=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         var closingWritten=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);Task? originalLoop=null;
-        Task? originalSettlement=null;var cancellationTrace=new CancellationTrace();CancellationTokenRegistration lateCancellation=default;
+        Task? originalSettlement=null;Task<string>? startupSave=null;var cancellationTrace=new CancellationTrace();CancellationTokenRegistration lateCancellation=default;
         // No UI/cleanup channel creation before the same production proof validation succeeds.
         try
         {
@@ -48,6 +48,7 @@ internal static partial class InstallationAppControlFixture
         async Task RequestClose(CancellationToken _){if(state is "CleanupUnconfirmed" or "Closing")retryWhilePending.TrySetResult();shell.Close();if(mode is "fault-close-pending" or "eof-close-pending"&&control!.FailureCode!=null)await closingWritten.Task;}
         InstallationImageOffer? image=null;var imageReceived=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);var imageRevoked=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         warmFixture?.Attach(control!);
+        var startupSettings=control!.Proof.UpgradeRecord==null?control.AttachStartupRemovalSettings():null;using var startupCancel=new CancellationTokenSource();
         Task loop=originalLoop=control.RunAsync(ready.Task,RequestClose,(offer,token)=>
         {
             image=offer;token.Register(()=>{imageRevoked.TrySetResult();if(mode=="held-image-cancel")cancelRelease.Task.GetAwaiter().GetResult();});File.AppendAllText(Path.Combine(root,"PUBLIC_IMAGE_QUEUED"),"1\n");imageReceived.TrySetResult();
@@ -56,6 +57,13 @@ internal static partial class InstallationAppControlFixture
         while(await reader.ReadLineAsync() is {} command)
         {
             if(warmFixture!=null&&await warmFixture.Command(command,writer))continue;
+            if(command.StartsWith("STARTUP_SAVE|",StringComparison.Ordinal))
+            {
+                if(startupSave!=null)throw new InvalidDataException("One startup fixture save only.");
+                string behavior=command[13..];startupSave=RunStartupSave(root,startupSettings??throw new InvalidDataException("Upgrade/handoff has no startup settings participant."),behavior,startupCancel.Token);await writer.WriteLineAsync("PUBLIC_STARTUP_STARTED");continue;
+            }
+            if(command=="CANCEL_STARTUP_SAVE"){startupCancel.Cancel();await writer.WriteLineAsync("PUBLIC_STARTUP_CANCELLED");continue;}
+            if(command=="WAIT_STARTUP_SAVE"){await writer.WriteLineAsync(await (startupSave??throw new InvalidDataException("No original startup save.")));continue;}
             if(command=="PING")await writer.WriteLineAsync("PUBLIC_SHELL|"+state+(control.FailureCode==null?"":"|ControlFault="+control.FailureCode));
             else if(command=="WAIT_IMAGE"){await imageReceived.Task;await writer.WriteLineAsync($"PUBLIC_IMAGE|{image!.Request:N}|{image.Path}");}
             else if(command=="WAIT_IMAGE_REVOKED"){await imageRevoked.Task;await writer.WriteLineAsync("PUBLIC_IMAGE_REVOKED");}
@@ -100,6 +108,7 @@ internal static partial class InstallationAppControlFixture
             await cleanup.Task;if(mode=="ended-loop-first")await originalLoop!;
             if(mode=="cancel-loop-first")await Task.WhenAll(Enumerable.Range(0,8).Select(_=>control!.SettleForExitAsync()));
             originalSettlement=control!.SettleForExitAsync();await originalSettlement;
+            if(startupSave!=null)await startupSave;
         }
     }
     private sealed class CancellationTrace

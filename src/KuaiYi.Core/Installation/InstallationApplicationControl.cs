@@ -25,7 +25,7 @@ public interface IInstallationSessionProtocol:IInstallationControlledStartProtoc
 {
     Task SettleSessionAsync(Process owned,CancellationToken cancellation);
 }
-public sealed class InstallationApplicationClient:IInstallationHandoffProtocol,IInstallationImageSessionProtocol
+public sealed partial class InstallationApplicationClient:IInstallationHandoffProtocol,IInstallationImageSessionProtocol,IInstallationStartupRemovalProtocol
 {
     private sealed class ChannelState
     {
@@ -40,6 +40,7 @@ public sealed class InstallationApplicationClient:IInstallationHandoffProtocol,I
         internal volatile bool WarmQuiescedReceived;
         internal readonly SemaphoreSlim WriteSerial=new(1,1);
         internal volatile InstallationWarmImageClient? Warm;
+        internal volatile InstallationStartupRemovalServer? StartupRemoval;
         private Task? sessionJoin;
         private readonly object joinSync=new();private Task? join;
         internal ChannelState(Process child){Output=Task.Run(()=>Read(child));Error=Task.Run(()=>Drain(child));}
@@ -59,12 +60,14 @@ public sealed class InstallationApplicationClient:IInstallationHandoffProtocol,I
                     }
                     if(line.StartsWith("WARM_",StringComparison.Ordinal))
                     {if(Warm==null)throw new InvalidDataException("Warm control is not attached.");Warm.Receive(line);continue;}
+                    if(line.StartsWith(InstallationStartupRemovalWire.Prefix,StringComparison.Ordinal))
+                    {if(StartupRemoval==null)throw new InvalidDataException("Startup removal is not qualified.");StartupRemoval.Handle(line);continue;}
                     await Lines.Writer.WriteAsync(line,Readers.Token).ConfigureAwait(false);
                 }
             }
             catch(OperationCanceledException)when(Readers.IsCancellationRequested){}
             catch(Exception error){Lines.Writer.TryComplete(error);throw;}
-            finally{Warm?.Disconnected(new EndOfStreamException("Original controlled output ended."));Lines.Writer.TryComplete();}
+            finally{StartupRemoval?.Disconnect();Warm?.Disconnected(new EndOfStreamException("Original controlled output ended."));Lines.Writer.TryComplete();}
         }
         private async Task Drain(Process child)
         {
@@ -166,7 +169,7 @@ public sealed class InstallationApplicationClient:IInstallationHandoffProtocol,I
 
 /// <summary>Application side. UI readiness and close dispatch are supplied by the existing application lifecycle.
 /// No success is inferred from a close request, EOF or a cancellation waiter. Keep this object rooted until process exit.</summary>
-public sealed class InstallationApplicationControl
+public sealed partial class InstallationApplicationControl
 {
     private readonly Stream input,output;
     private readonly CancellationTokenSource stop=new();
@@ -225,6 +228,8 @@ public sealed class InstallationApplicationControl
                 await Send($"READY|{Proof.Launch:N}|{Proof.Fingerprint}",stop.Token).ConfigureAwait(false);
                 while(await InstallationControlWire.Read(input,stop.Token).ConfigureAwait(false) is {} command)
                 {
+                    if(command.StartsWith(InstallationStartupRemovalWire.Prefix,StringComparison.Ordinal))
+                    {startupRemoval?.Receive(command);if(startupRemoval==null)throw new InvalidDataException("Startup participant is not attached.");continue;}
                     if(command=="STOP"){warm?.Quiesce();_ =RevokeImage();await requestClose(stop.Token).ConfigureAwait(false);continue;}
                     if(command.StartsWith("WARM_",StringComparison.Ordinal))
                     {
@@ -269,6 +274,7 @@ public sealed class InstallationApplicationControl
                     catch(Exception closeFailure){throw new AggregateException(error,closeFailure);}
                 throw;
             }
+            finally{startupRemoval?.Disconnect(new EndOfStreamException("Original application control loop ended."));}
         });
         begin.TrySetResult();return loop;
         }
@@ -318,6 +324,7 @@ public sealed class InstallationApplicationControl
             await Observe(cancellation,failures).ConfigureAwait(false);
             await Observe(imageRevocation,failures).ConfigureAwait(false);
             if(loop!=null)await Observe(loop,protocolFailures).ConfigureAwait(false);
+            if(startupRemoval!=null)await Observe(startupRemoval.JoinAsync(),failures).ConfigureAwait(false);
             GC.KeepAlive(runtime);
             // Preserve the established loop/write-only close policy: FailureCode blocks success, while Shell may close.
             // If independent cleanup failed, its original error and all concurrent protocol errors must survive together.

@@ -101,7 +101,7 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
         if(imagePath!=null){OleImageFileDrop.ValidatePath(imagePath);if(protocol is not IInstallationImageSessionProtocol)throw new InvalidOperationException("Controlled image session protocol required.");}
         string expected=InstallationPaths.Root(executableDirectory);
         await Enter(cancellation).ConfigureAwait(false);Role? role=null;
-        LiveImageSession? liveImage=null;
+        LiveImageSession? liveImage=null;InstallationStartupRemovalServer? startupRemoval=null;
         InstallationBrowserHostSession? browserHosts=null;bool retainAdmission=false;
         try
         {
@@ -121,7 +121,15 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
             await StartAndCheck(role,cancellation).ConfigureAwait(false);
             browserHosts=InstallationBrowserHostSession.Publish(role.LaunchProof!,admission,role.Process!,role.ReadIO);BrowserHostPublishedForTest?.Invoke();
             if(published!=null)await Call(role,t=>published(role.LaunchProof!,t),cancellation,observeOriginal:task=>Volatile.Write(ref stablePublicationOriginal,task)).ConfigureAwait(false);
-            if(deployment!=null)await deployment.AcceptReadyAsync(this,role.LaunchProof!,role.Process!,cancellation).ConfigureAwait(false);
+            if(deployment!=null)await deployment.AcceptReadyAsync(this,role.LaunchProof!,role.Process!,cancellation,()=>
+            {
+                if(protocol is IInstallationStartupRemovalProtocol startupProtocol&&deployment.StartupQualified)
+                {
+                    var actual=role;startupRemoval=new(deployment.CreateStartupRemovalOwner(this,admission,actual.LaunchProof!,actual.Process!),actual.LaunchProof!,
+                        (line,token)=>startupProtocol.SendStartupRemovalAsync(actual.Process!,line,token),actual.Track);
+                    startupProtocol.AttachStartupRemoval(actual.Process!,startupRemoval);
+                }
+            }).ConfigureAwait(false);
             if(restored!=null)await restored.AcceptReadyAsync(this,role.LaunchProof!,role.Process!,cancellation).ConfigureAwait(false);
             if(imagePath!=null)await Call(role,t=>((IInstallationImageSessionProtocol)protocol).QueueImageAsync(role.Process!,imagePath,t),cancellation).ConfigureAwait(false);
             if(WarmImageEndpoint is {} endpoint)
@@ -132,6 +140,7 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
             role.OriginalNaturalExit=role.Process!.WaitForExitAsync(CancellationToken.None);role.Track(role.OriginalNaturalExit);
             await role.OriginalNaturalExit.WaitAsync(cancellation).ConfigureAwait(false);
             liveImage?.Quiesce();browserHosts?.Retire();
+            if(startupRemoval!=null){var settled=startupRemoval.SettleAsync();role.Track(settled);await settled.WaitAsync(budget,cancellation).ConfigureAwait(false);}
             if(!role.Process.HasExited||role.Process.ExitCode!=0)throw new IOException("Application session did not exit cleanly.");
             await Call(role,t=>sessionProtocol.SettleSessionAsync(role.Process,t),cancellation,ProtocolOperation.Io).ConfigureAwait(false);role.IoSettled=true;
             await Task.WhenAll(role.Tasks).WaitAsync(budget,cancellation).ConfigureAwait(false);
@@ -145,6 +154,7 @@ public sealed partial class InstallationUpgradeCoordinator:IAsyncDisposable
         catch(Exception failure)when(sessionAttempted)
         {
             liveImage?.Quiesce();
+            if(startupRemoval!=null&&role!=null)role.Track(startupRemoval.SettleAsync());
             if(deployment!=null||restored!=null)
             {
                 var errors=new List<Exception>{failure};

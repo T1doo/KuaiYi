@@ -47,6 +47,7 @@ public sealed partial class InstallationDeploymentSessionTests(ITestOutputHelper
             }
         }
         internal Task Send(string value)=>Own(async()=>{await connected;writer??=new(pipe);await writer.WriteLineAsync(value.AsMemory(),stop.Token);await writer.FlushAsync(stop.Token);return true;}).WaitAsync(Limit);
+        internal Task<string?> ReadPublic()=>Own(()=>reader.ReadLineAsync(stop.Token).AsTask()).WaitAsync(Limit);
         internal async Task Close(){await Send("CLOSE");var original=Own(()=>reader.ReadLineAsync(stop.Token).AsTask());Assert.Equal("PUBLIC_SHELL_CLOSED",await original.WaitAsync(Limit));}
         public async ValueTask DisposeAsync()
         {
@@ -59,9 +60,14 @@ public sealed partial class InstallationDeploymentSessionTests(ITestOutputHelper
             InstallationErrors.Throw(errors);
         }
     }
-    private sealed class Port(ITestOutputHelper output):IInstallationSessionProtocol,IOwnedProcessStarter
+    private sealed class Port(ITestOutputHelper output):IInstallationSessionProtocol,IOwnedProcessStarter,IInstallationStartupRemovalProtocol
     {
         private readonly InstallationApplicationClient client=new();
+        internal InstallationStartupRemovalServer? StartupServer;
+        void IInstallationStartupRemovalProtocol.AttachStartupRemoval(Process child,InstallationStartupRemovalServer server)
+        {StartupServer=server;((IInstallationStartupRemovalProtocol)client).AttachStartupRemoval(child,server);}
+        Task IInstallationStartupRemovalProtocol.SendStartupRemovalAsync(Process child,string line,CancellationToken cancellation)
+            =>((IInstallationStartupRemovalProtocol)client).SendStartupRemovalAsync(child,line,cancellation);
         internal readonly TaskCompletionSource Healthy=Signal(),HealthRelease=Signal(),IoEntered=Signal(),IoRelease=Signal();
         internal bool HoldHealth,HoldIo=false;
         internal Exception? HealthError,IoError;

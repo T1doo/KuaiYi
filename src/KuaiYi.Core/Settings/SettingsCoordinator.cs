@@ -8,7 +8,7 @@ public sealed class SettingsTransactionUnconfirmedException():Exception("Setting
 public sealed record RevokedProfileBinding(string ProfileId,string? PreviousSecretReference);
 public sealed record SettingsChange(ImmutableArray<string> DeletedProfiles,ImmutableArray<string> DeletedSecrets)
 {public ImmutableArray<RevokedProfileBinding> RevokedProfileBindings{get;init;}=[];public bool ClipboardPermissionsChanged{get;init;}public bool HasBindingRevocation=>RevokedProfileBindings.Length>0;public bool HasDeletion=>DeletedProfiles.Length>0||DeletedSecrets.Length>0||HasBindingRevocation;}
-public sealed class SettingsCoordinator(SettingsStore store,SecretFileStore secrets)
+public sealed partial class SettingsCoordinator(SettingsStore store,SecretFileStore secrets)
 {
     /// <summary>Only an admitted request can open its exact encrypted binding. Never used on startup or Off.</summary>
     public async Task<SecretLease> OpenRequestSecretAsync(RuntimeGate gate,RequestIdentity identity,RequestProfileBinding binding,EndpointOrigin origin,CancellationToken cancellation=default)
@@ -22,6 +22,7 @@ public sealed class SettingsCoordinator(SettingsStore store,SecretFileStore secr
     private readonly SemaphoreSlim serial=new(1);private SettingsSnapshot? effective;
     public event Action<SettingsSnapshot,SettingsChange>? Committed;
     public SettingsSnapshot? Effective=>Volatile.Read(ref effective);
+    internal KuaiYi.Core.Installation.InstallationPreparationFaults? StartupJournalFaultsForTest{get;init;}
     /// <summary>Only the separate explicit application confirmation UI calls this immediate transaction; ordinary drafts cannot grant permission.</summary>
     public Task<SettingsSnapshot> SetClipboardPermissionAsync(string executable,bool enabled,CancellationToken cancellation=default)=>Serialized(async()=>
     {
@@ -46,9 +47,9 @@ public sealed class SettingsCoordinator(SettingsStore store,SecretFileStore secr
     },cancellation);
     public Task<SettingsSnapshot> SaveAsync(SettingsDraft draft,SettingsRecovery recovery=SettingsRecovery.None,CancellationToken cancellation=default)=>SaveCore(draft,recovery,cancellation,null);
     public Task<SettingsSnapshot> SaveWithHotkeysAsync(SettingsDraft draft,ISettingsHotkeyParticipant hotkeys,SettingsRecovery recovery=SettingsRecovery.None,CancellationToken cancellation=default)=>SaveCore(draft,recovery,cancellation,hotkeys??throw new ArgumentNullException(nameof(hotkeys)));
-    private Task<SettingsSnapshot> SaveCore(SettingsDraft draft,SettingsRecovery recovery,CancellationToken cancellation,ISettingsHotkeyParticipant? hotkeys)=>Serialized(async()=>
+    private Task<SettingsSnapshot> SaveCore(SettingsDraft draft,SettingsRecovery recovery,CancellationToken cancellation,ISettingsHotkeyParticipant? hotkeys,ISettingsStartupRemoval? startup=null)=>Serialized(async()=>
     {
-        var captured=draft.BeginSave();ISettingsHotkeyTransaction? hotkeyTransaction=null;bool committed=false,publicationUnconfirmed=false;var staged=new List<string>();Guid id=Guid.NewGuid();string journal=JournalPath(id);bool journalWritten=false;
+        var captured=draft.BeginSave();startup?.SettingsSaveStarted();ISettingsHotkeyTransaction? hotkeyTransaction=null;bool committed=false,publicationUnconfirmed=false;var staged=new List<string>();Guid id=Guid.NewGuid();string journal=JournalPath(id);bool journalWritten=false;SettingsStartupJournal? startupJournal=null;
         try
         {
             using var lease=await TransactionLease(cancellation);var current=await store.LoadAsync(cancellation);await Recover(current,cancellation);
@@ -64,36 +65,63 @@ public sealed class SettingsCoordinator(SettingsStore store,SecretFileStore secr
             var remainingReferences=data.Profiles.Where(p=>p.SecretRef!=null).Select(p=>p.SecretRef!).ToHashSet(StringComparer.Ordinal);
             var retired=draft.Basis.Data.Profiles.Where(p=>p.SecretRef!=null&&!remainingReferences.Contains(p.SecretRef)&&(captured.Cleared.Contains(p.Id)||!data.Profiles.Any(n=>n.Id==p.Id))).Select(p=>p.SecretRef!).Distinct().ToImmutableArray();
             var change=ChangeFrom(draft.Basis.Data,data,retired);
-            var transaction=new SecretTransaction{Id=id,BasisVersion=draft.Basis.Version,NewReferences=staged.ToImmutableArray(),RetiredReferences=retired,DeletedProfiles=change.DeletedProfiles,RevokedBindings=change.RevokedProfileBindings};
-            byte[] metadata=JsonSerializer.SerializeToUtf8Bytes(transaction,SettingsJson.Options);try{SettingsStore.WriteFlushed(journal,metadata);journalWritten=true;}finally{CryptographicOperations.ZeroMemory(metadata);}
+            var transaction=new SecretTransaction{SchemaVersion=startup==null?2:3,StartupRequest=startup?.Request,Id=id,BasisVersion=draft.Basis.Version,NewReferences=staged.ToImmutableArray(),RetiredReferences=retired,DeletedProfiles=change.DeletedProfiles,RevokedBindings=change.RevokedProfileBindings};
+            byte[] metadata=JsonSerializer.SerializeToUtf8Bytes(transaction,SettingsJson.Options);
+            try
+            {
+                if(startup==null){SettingsStore.WriteFlushed(journal,metadata);journalWritten=true;}
+                else{startupJournal=new(store.DirectoryPath,journal,metadata,StartupJournalFaultsForTest);journalWritten=true;startupJournal.Write();}
+            }
+            finally{CryptographicOperations.ZeroMemory(metadata);}
+            if(startup!=null)await startup.ApplyAsync(cancellation).ConfigureAwait(false);
             SettingsSnapshot saved;
             try{saved=await store.SaveAsync(draft.Basis,data,recovery,cancellation);}
             catch(Exception error)
             {
-                if(error is SettingsConflictException or UnknownSettingsSchemaException or SettingsRecoveryRequiredException){foreach(var reference in staged)await secrets.DeleteUnpublishedAsync(reference);File.Delete(journal);journalWritten=false;throw;}
+                if(error is SettingsConflictException or UnknownSettingsSchemaException or SettingsRecoveryRequiredException){if(startup==null){foreach(var reference in staged)await secrets.DeleteUnpublishedAsync(reference);File.Delete(journal);journalWritten=false;}throw;}
                 // An error after atomic publication must not be represented as a rollback.
                 SettingsSnapshot observed;try{observed=await store.LoadAsync();}catch(Exception probe){publicationUnconfirmed=true;throw new AggregateException("Settings publication unconfirmed; hotkey transaction retained.",error,probe);}
                 if(!observed.ReadOnly&&!observed.RequiresRecovery&&observed.Data.WriteId==id)saved=observed;
-                else if(observed.Version==draft.Basis.Version){foreach(var reference in staged)await secrets.DeleteUnpublishedAsync(reference);File.Delete(journal);journalWritten=false;throw;}
+                else if(observed.Version==draft.Basis.Version){if(startup==null){foreach(var reference in staged)await secrets.DeleteUnpublishedAsync(reference);File.Delete(journal);journalWritten=false;}throw;}
                 else{publicationUnconfirmed=true;throw new SettingsTransactionUnconfirmedException();}
             }
             committed=true;Volatile.Write(ref effective,saved); // Whole immutable configuration changes only after disk publication.
             List<Exception> publicationErrors=[];
-            Task? originalHotkeyCommit=null;
+            Task? originalHotkeyCommit=null,originalStartupCommit=null;
+            if(startup!=null)try{originalStartupCommit=startup.CommitAsync(saved);}catch(Exception error){publicationErrors.Add(error);}
             if(hotkeyTransaction!=null)try{originalHotkeyCommit=hotkeyTransaction.CommitAsync(saved);}catch(Exception error){publicationErrors.Add(error);}
             // Disk/effective already changed. Every safety subscriber must receive revocation even when native commit/fence failed.
             try{PublishCommitted(saved,change);}catch(Exception error){publicationErrors.Add(error);}
             if(originalHotkeyCommit!=null)try{await originalHotkeyCommit;}catch(Exception error){publicationErrors.Add(error);}
+            if(originalStartupCommit!=null)try{await originalStartupCommit;}catch(Exception error){publicationErrors.Add(error);}
             if(publicationErrors.Count==1)ExceptionDispatchInfo.Capture(publicationErrors[0]).Throw();
             if(publicationErrors.Count>1)throw new AggregateException("Configuration committed; hotkey settlement or safety notification failed. Recovery journal retained.",publicationErrors);
             // No cancellation after commit: finish durable deletion, or retain journal for recovery.
             foreach(var reference in retired)await secrets.RevokeAsync(reference);
-            File.Delete(journal);journalWritten=false;return saved;
+            if(startupJournal!=null)startupJournal.RemoveAfterOriginalSettlement();else File.Delete(journal);journalWritten=false;return saved;
         }
         catch(Exception error)
         {
-            if(!journalWritten&&!committed)foreach(var reference in staged)await secrets.DeleteUnpublishedAsync(reference);
-            if(!committed&&!publicationUnconfirmed&&hotkeyTransaction!=null)try{await hotkeyTransaction.RollbackAsync();}catch(Exception rollback){throw new AggregateException("Settings unchanged but hotkey rollback unconfirmed; own registrations retained.",error,rollback);}
+            var failures=new List<Exception>{error};
+            if(!journalWritten&&!committed)foreach(var reference in staged)
+                try{await secrets.DeleteUnpublishedAsync(reference);}catch(Exception cleanup){failures.Add(cleanup);}
+            if(!committed&&!publicationUnconfirmed)
+            {
+                if(hotkeyTransaction!=null)try{await hotkeyTransaction.RollbackAsync();}catch(Exception rollback){failures.Add(rollback);}
+                if(startup!=null)try{await startup.AbortAsync().ConfigureAwait(false);}catch(Exception rollback){failures.Add(rollback);}
+                // v3 is never removed until the original remote restoration and its response write are confirmed.
+                if(startup!=null&&journalWritten&&failures.Count==1)
+                {
+                    try
+                    {
+                        startupJournal!.RequireSettledIntent();
+                        foreach(var reference in staged)try{await secrets.DeleteUnpublishedAsync(reference);}catch(Exception cleanup){failures.Add(cleanup);}
+                        if(failures.Count==1){startupJournal.RemoveAfterOriginalSettlement();journalWritten=false;}
+                    }
+                    catch(Exception cleanup){failures.Add(cleanup);}
+                }
+            }
+            if(failures.Count>1)throw new AggregateException("Settings save or original participant settlement failed; recovery intent retained.",failures);
             throw;
         }
         finally{foreach(var value in captured.Keys.Values)CryptographicOperations.ZeroMemory(value);draft.EndSave(committed);}
@@ -107,7 +135,7 @@ public sealed class SettingsCoordinator(SettingsStore store,SecretFileStore secr
             byte[] bytes;using(var file=new FileStream(path,FileMode.Open,FileAccess.Read,FileShare.Read)){if(file.Length is <2 or >16384)throw new SettingsTransactionUnconfirmedException();bytes=new byte[(int)file.Length];file.ReadExactly(bytes);}
             using(var document=JsonDocument.Parse(bytes,new(){MaxDepth=16}))SettingsJson.RejectDuplicates(document.RootElement);
             var transaction=JsonSerializer.Deserialize<SecretTransaction>(bytes,SettingsJson.Options)??throw new SettingsTransactionUnconfirmedException();
-            if(transaction.SchemaVersion is not (1 or 2)||transaction.Id==Guid.Empty||Path.GetFileName(path)!=Path.GetFileName(JournalPath(transaction.Id))||transaction.NewReferences.IsDefault||transaction.RetiredReferences.IsDefault||transaction.NewReferences.Length>16||transaction.RetiredReferences.Length>16||transaction.NewReferences.Concat(transaction.RetiredReferences).Any(r=>!SecretFileStore.ValidReference(r))||transaction.DeletedProfiles.IsDefault||transaction.RevokedBindings.IsDefault||transaction.DeletedProfiles.Length>16||transaction.RevokedBindings.Length>16||transaction.DeletedProfiles.Any(p=>!ValidProfileId(p))||transaction.RevokedBindings.Any(b=>b==null||!ValidProfileId(b.ProfileId)||b.PreviousSecretReference!=null&&!SecretFileStore.ValidReference(b.PreviousSecretReference)))throw new SettingsTransactionUnconfirmedException();
+            if(transaction.SchemaVersion is not (1 or 2)||transaction.StartupRequest!=null||transaction.Id==Guid.Empty||Path.GetFileName(path)!=Path.GetFileName(JournalPath(transaction.Id))||transaction.NewReferences.IsDefault||transaction.RetiredReferences.IsDefault||transaction.NewReferences.Length>16||transaction.RetiredReferences.Length>16||transaction.NewReferences.Concat(transaction.RetiredReferences).Any(r=>!SecretFileStore.ValidReference(r))||transaction.DeletedProfiles.IsDefault||transaction.RevokedBindings.IsDefault||transaction.DeletedProfiles.Length>16||transaction.RevokedBindings.Length>16||transaction.DeletedProfiles.Any(p=>!ValidProfileId(p))||transaction.RevokedBindings.Any(b=>b==null||!ValidProfileId(b.ProfileId)||b.PreviousSecretReference!=null&&!SecretFileStore.ValidReference(b.PreviousSecretReference)))throw new SettingsTransactionUnconfirmedException();
             if(snapshot.ReadOnly||snapshot.RequiresRecovery)throw new SettingsTransactionUnconfirmedException();
             if(snapshot.Data.WriteId==transaction.Id)
             {
@@ -146,7 +174,7 @@ public sealed class SettingsCoordinator(SettingsStore store,SecretFileStore secr
     },cancellation);
     private sealed record SecretTransaction
     {
-        public int SchemaVersion{get;init;}=2;public Guid Id{get;init;}public string BasisVersion{get;init;}="";
+        public int SchemaVersion{get;init;}=2;[System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]public Guid? StartupRequest{get;init;}public Guid Id{get;init;}public string BasisVersion{get;init;}="";
         public ImmutableArray<string> NewReferences{get;init;}=[];public ImmutableArray<string> RetiredReferences{get;init;}=[];
         public ImmutableArray<string> DeletedProfiles{get;init;}=[];public ImmutableArray<RevokedProfileBinding> RevokedBindings{get;init;}=[];
         public bool ClipboardPermissionsChanged{get;init;}
