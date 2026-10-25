@@ -1894,3 +1894,5 @@ A片源码冻结7a59ad9a66aedfe5ab539422c01849a82de6aceb，仅本地1提交，�
 - 2026-10-25 用户明确批准一次云端Windows视觉窗口。准备独立 dev/ui-polish-visual 工作流：15min job/6min visual，仅4原WPF进程，前后精确Git源码绑定，官方锁定SDK/runtime签名audit保持；托盘真实删除只读观测，失败与UNKNOWN保全、不自动重跑。执行前仍NotRun，需完成本次包装独审。见 validation/ui-polish-windows-attempt.md。
 
 - 2026-10-25 唯一Windows视觉attempt1实际失败：run40177638553/e40e1f7，准备源码归档逐blob比较报Git blob differs，视觉步骤skipped、0个WPF窗口/0张PNG。官方SDK版本、runtime签名/locked restore/audit及原desktop预检先通过；不等同前端或清理验收通过。18失败原件ZIP235280B已取回逐hash核符并独审；archive换行转换与中文路径解析缺口需本地源码修复后再审，本次许可已消费、未重跑。见validation/ui-polish-windows-attempt.md及test-evidence/2026-10-25-ui-polish-windows-attempt1.json。
+
+- 2026-10-25 Windows失败后的独立工程修复：NUL固定树路径+原Git blob二进制batch读取，保留完整source/hash/size门，不用archive及全局换行配置；旧算法实际2F反例，最终本地24P（原13+新11），中间23P与DOS名独审修正保留。固定两树仅只读metadata通过，不冒称实际导出或Windows/WPF通过。workflow/产品/模型不改，不开新作业、不重跑；见test-evidence/2026-10-25-raw-git-source-fix.json。

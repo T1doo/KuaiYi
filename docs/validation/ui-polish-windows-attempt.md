@@ -21,3 +21,13 @@ Artifact12593187305为235280B，ZIP SHA256 `3e98ea49bfc8a9af17e52100728c902225e5
 本地只读反例说明archive不能作为原blob字节搬运：固定before的.gitattributes原blob1164333B，命令内core.autocrlf=true时archive成员1173593B，多9260个CRLF而hash不符；false/input则匹配。原云端archive和core.autocrlf/core.eol实测未上传，因此不声称具体首个文件或唯一原因。另有已独审的中文路径quote解析缺口，它不能冒充此次实际首因。
 
 后续最小修复为NUL路径解析及直接读取Git对象原字节，保留原hash要求，不改全局Git设置；应先本地修复回归再独审。此次一次Windows许可已消费，后续窗口必须另获明确批准，不自动重跑。详细收据见../test-evidence/2026-10-25-ui-polish-windows-attempt1.json。
+
+## 后续独立本地源码修复（未开启新窗口）
+
+移除源码搬运中的archive：固定SHA的`git ls-tree -rz`以NUL分帧、仅首TAB区分meta/path，严格UTF-8；普通blob允许集合来自该固定树。随后仅把验证过的对象ID送入`cat-file --batch-check/--batch`，按原始大小读取二进制正文、核对象/type/size及完整Git blob SHA1，再记录SHA256。正文NUL、CRLF与任意binary保持原字节；不改任何全局Git配置，不放宽Git blob differs。
+
+每树≤20,000文件、单blob≤64MiB、总量≤1GiB，先核尺寸再读取。Windows目标拒控制字符（含换行/TAB/DEL）、穿越/drive/UNC/反斜杠/ADS、非法字符/尾点空格、DOS名（含上标COM¹/²/³、LPT¹/²/³）、大小写或file/dir前缀冲突、symlink/submodule。root及祖先不得链接，独占root/逐文件xb；异常保留partial，不删除或覆盖。大块源数据以`.bin`工作数据保存，既有artifact白名单不上传它；stderr仍单独保全。
+
+实际本地证据：旧算法2红例均FAIL（LF→CRLF与Unicode C引号路径）；修复首轮23P；独审补六个DOS保留名并增加非零git命令的明确mock后最终24P=原13+新增11，不累加两轮。覆盖空格/Unicode、正文NUL/CRLF/0xff、Windows不支持路径的NUL完整解析后拒绝、错源/类型/数量/大小、截断/多余/损坏、已有root/symlink和原命令exit7立即停止。红例没有单独记录进程退出码，以实际2个失败断言和原日志为准。原件在artifacts/2026-10-25-raw-git-fix/，只提交文本收据。
+
+固定before/after仅做只读tree+batch-check元数据核：12,315/12,317文件，总548,845,391/548,871,698B，最大blob16,700,907B，均满足路径/限额。**这不是完整实际导出或Windows构建验证**。本次工作流及窗口许可门未改；不会触发新视觉CI。已消费的attempt1和失败原件保留，WPF像素及清理仍NotRun。

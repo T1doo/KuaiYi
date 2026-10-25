@@ -8,7 +8,8 @@ import re
 import shutil
 import subprocess
 import sys
-import tarfile
+import contextlib
+import unicodedata
 import time
 import urllib.request
 
@@ -27,6 +28,60 @@ def digest(path):
  with path.open('rb') as f:
   for b in iter(lambda:f.read(1024*1024),b''):h.update(b)
  return h.hexdigest()
+
+MAX_FILES=20000
+MAX_BLOB=64*1024*1024
+MAX_TOTAL=1024*1024*1024
+
+def tree_entries(raw):
+ if not raw or not raw.endswith(b'\0'):raise RuntimeError('Incomplete NUL tree')
+ entries=[];seen=set()
+ for row in raw[:-1].split(b'\0'):
+  meta,name=row.split(b'\t',1);mode,kind,oid=meta.split(b' ')
+  if mode not in (b'100644',b'100755') or kind!=b'blob' or not re.fullmatch(b'[0-9a-f]{40}',oid):raise RuntimeError('Only original regular blob source')
+  path=name.decode('utf-8',errors='strict');parts=path.split('/')
+  # Windows destination policy; paths are decoded only after NUL framing.
+  if any(not x or x in ('.','..') or x[-1] in ' .' or any(ord(c)<32 or ord(c)==127 or c in '<>:"\\|?*' for c in x) or x.split('.')[0].upper() in {'CON','PRN','AUX','NUL',*[f'COM{i}' for i in (*range(1,10),'¹','²','³')],*[f'LPT{i}' for i in (*range(1,10),'¹','²','³')]} for x in parts):raise RuntimeError('Windows source path refused')
+  if unicodedata.normalize('NFC',path)!=path:raise RuntimeError('Noncanonical source path refused')
+  key=path.casefold()
+  if key in seen:raise RuntimeError('Duplicate Windows source path')
+  seen.add(key);entries.append((path,oid.decode()))
+  if len(entries)>MAX_FILES:raise RuntimeError('Source file count bound')
+ keys=set(seen)
+ if any('/'.join(p.split('/')[:i]).casefold() in keys for p,_ in entries for i in range(1,len(p.split('/')))):raise RuntimeError('Source file/directory collision')
+ return entries
+
+def blob_sizes(raw,entries):
+ rows=raw.splitlines()
+ if len(rows)!=len(entries):raise RuntimeError('Blob inventory count differs')
+ sizes=[];total=0
+ for row,(_,oid) in zip(rows,entries):
+  fields=row.split(b' ')
+  if len(fields)!=3 or fields[:2]!=[oid.encode(),b'blob'] or not fields[2].isdigit():raise RuntimeError('Blob inventory source/type differs')
+  size=int(fields[2]);sizes.append(size);total+=size
+  if size>MAX_BLOB or total>MAX_TOTAL:raise RuntimeError('Source size bound')
+ return sizes
+
+def write_blobs(pack,root,entries,sizes):
+ if len(entries)!=len(sizes):raise RuntimeError('Source inventory differs')
+ for ancestor in (root,*root.parents):
+  if ancestor.is_symlink() or (ancestor.exists() and getattr(ancestor.stat(),'st_file_attributes',0)&0x400):raise RuntimeError('Linked source destination')
+ root.mkdir(exist_ok=False)
+ manifest={}
+ with pack.open('rb') as stream:
+  for (name,oid),size in zip(entries,sizes):
+   if stream.readline(128)!=f'{oid} blob {size}\n'.encode():raise RuntimeError('Original blob header differs')
+   path=root/name;path.parent.mkdir(parents=True,exist_ok=True)
+   sha1=hashlib.sha1(f'blob {size}\0'.encode());sha256=hashlib.sha256();remaining=size
+   with path.open('xb') as out:
+    while remaining:
+     block=stream.read(min(remaining,1024*1024))
+     if not block:raise RuntimeError('Original blob truncated')
+     out.write(block);sha1.update(block);sha256.update(block);remaining-=len(block)
+   if stream.read(1)!=b'\n' or sha1.hexdigest()!=oid:raise RuntimeError('Git blob differs')
+   manifest[name]=sha256.hexdigest()
+  if stream.read(1):raise RuntimeError('Unexpected trailing blob data')
+ return manifest
 
 def context(env,platform,event):
  required={'GITHUB_ACTIONS':'true','GITHUB_REPOSITORY':'T1doo/KuaiYi','GITHUB_REF':BRANCH,'GITHUB_EVENT_NAME':'push','GITHUB_RUN_ATTEMPT':'1','RUNNER_OS':'Windows'}
@@ -65,20 +120,24 @@ def main(phase):
  deadline=time.monotonic()+(8*60 if phase=='prepare' else 6*60)
  def save(name,value):
   (WORK/name).write_text(json.dumps(value,indent=2)+'\n',encoding='utf-8')
- def run(argv,name,timeout=120):
+ def run(argv,name,timeout=120,*,binary=False,input_path=None,limit=4*1024*1024):
   remaining=deadline-time.monotonic()
   if remaining<=0:raise RuntimeError('Shared phase budget exhausted')
-  log=WORK/(phase+'-'+name+'.log');row={'Name':name,'Argv':argv,'StartUnix':time.time(),'Exit':None};report['Commands'].append(row)
+  log=WORK/(phase+'-'+name+('.bin' if binary else '.log'));row={'Name':name,'Argv':argv,'StartUnix':time.time(),'Exit':None};report['Commands'].append(row)
   try:
-   with log.open('xb') as out:p=subprocess.run(argv,cwd=REPO,env=env,stdout=out,stderr=subprocess.STDOUT,timeout=min(timeout,remaining))
+   with contextlib.ExitStack() as stack:
+    out=stack.enter_context(log.open('xb'))
+    source=stack.enter_context(input_path.open('rb')) if input_path is not None else subprocess.DEVNULL
+    error=stack.enter_context(log.with_suffix('.stderr.log').open('xb')) if binary else subprocess.STDOUT
+    p=subprocess.run(argv,cwd=REPO,env=env,stdin=source,stdout=out,stderr=error,timeout=min(timeout,remaining))
    row['Exit']=p.returncode
   except subprocess.TimeoutExpired:
    row['Cleanup']='UNKNOWN_OriginalCommandTreeNotConfirmed';raise
   finally:
    row['EndUnix']=time.time()
    if log.exists():row.update(Bytes=log.stat().st_size,Sha256=digest(log))
-  if log.stat().st_size>4*1024*1024 or p.returncode:raise RuntimeError('Command failed/bound: '+name)
-  return log.read_text(encoding='utf-8-sig')
+  if log.stat().st_size>limit or p.returncode:raise RuntimeError('Command failed/bound: '+name)
+  return log if binary else log.read_text(encoding='utf-8-sig')
  env=dict(os.environ)
  if phase=='prepare':WORK.mkdir(parents=True,exist_ok=False)
  elif phase!='run' or not WORK.is_dir():raise RuntimeError('Original prepared directory required')
@@ -121,25 +180,14 @@ def main(phase):
    prepared={'DeliverySha':env['GITHUB_SHA'],'Sdk':str(sdk),'Bundles':{},'Inputs':{}}
    for side,sha in SIDES.items():
     run(['git','fetch','--no-tags','--depth=1','origin',sha],'fetch-'+side,45)
-    archive=WORK/(side+'.tar');run(['git','archive','--format=tar','-o',str(archive),sha],'archive-'+side,30)
-    root=WORK/('source-'+side);root.mkdir();blobs={}
-    for row in run(['git','ls-tree','-r',sha],'tree-'+side,30).splitlines():
-     meta,name=row.split('\t');mode,kind,obj=meta.split()
-     if kind!='blob' or mode not in ('100644','100755'):raise RuntimeError('Only original regular source files')
-     blobs[name]=obj
-    manifest={}
-    with tarfile.open(archive) as t:
-     for member in t:
-      path=Path(member.name)
-      if path.is_absolute() or '..' in path.parts:raise RuntimeError('Archive path refused')
-      if member.isdir():continue
-      if not member.isfile() or member.name not in blobs:raise RuntimeError('Archive member refused')
-      b=t.extractfile(member).read()
-      if hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()!=blobs[member.name]:raise RuntimeError('Git blob differs')
-      dest=root/path;dest.parent.mkdir(parents=True,exist_ok=True)
-      with dest.open('xb') as f:f.write(b)
-      manifest[member.name]=hashlib.sha256(b).hexdigest()
-    if set(manifest)!=set(blobs):raise RuntimeError('Original source path set differs')
+    tree=run(['git','ls-tree','-rz',sha],'tree-'+side,30,binary=True)
+    entries=tree_entries(tree.read_bytes())
+    ids=WORK/(side+'-object-ids.txt')
+    with ids.open('xb') as f:f.write(b''.join(oid.encode()+b'\n' for _,oid in entries))
+    checked=run(['git','cat-file','--batch-check'],'sizes-'+side,30,binary=True,input_path=ids)
+    sizes=blob_sizes(checked.read_bytes(),entries)
+    packed=run(['git','cat-file','--batch'],'blobs-'+side,60,binary=True,input_path=ids,limit=MAX_TOTAL+len(entries)*128)
+    root=WORK/('source-'+side);manifest=write_blobs(packed,root,entries,sizes)
     save(side+'-source-manifest.json',manifest)
     build=WORK/('build-'+side);project='tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj'
     extra=['--artifacts-path',str(build),'-p:KuaiYiVisualProductRoot='+str(root),'-p:SourceRevisionId='+sha]

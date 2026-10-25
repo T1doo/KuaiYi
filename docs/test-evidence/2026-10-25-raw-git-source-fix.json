@@ -1,0 +1,105 @@
+{
+  "kind": "CanonicalGitBlobSourceFix",
+  "status": "Pass_LocalSyntheticOnly",
+  "baseHead": "7789698f676bca8e2d00671c9023c0c99f1faf74",
+  "recordedUtc": "2026-10-25T08:55:02.260009+00:00",
+  "code": [
+    {
+      "path": "scripts/verify-ui-polish-windows.py",
+      "bytes": 21181,
+      "sha256": "a3ceb8a9f21e0512a232d092298608f56cc11b59d1dde121ec8bb40d569b60c9"
+    },
+    {
+      "path": "scripts/test_ui_polish_windows.py",
+      "bytes": 9765,
+      "sha256": "36c644d0299ed366be2a9f49e7b64f95409b67439985af27d95cecb99edba3f1"
+    }
+  ],
+  "red": {
+    "tests": 2,
+    "failures": 2,
+    "meaning": "Old archive CRLF conversion and C-quoted Unicode path contradict exact source expectations",
+    "separateExitNotRecorded": true
+  },
+  "greenR01": {
+    "tests": 23,
+    "passed": 23,
+    "failures": 0
+  },
+  "greenR02": {
+    "tests": 24,
+    "passed": 24,
+    "failures": 0,
+    "newVsOriginalContractTests": 11,
+    "originalContractTests": 13,
+    "nonzeroCommandCase": "Mocked git exit7 stops before export/platform operation; expected Blocked report is local synthetic data"
+  },
+  "policy": {
+    "maxFilesPerTree": 20000,
+    "maxBlobBytes": 67108864,
+    "maxBytesPerTree": 1073741824,
+    "source": "Exact pinned commit NUL ls-tree; only validated object IDs to batch-check/batch",
+    "byteVerification": "Full Git blob SHA1 plus retained SHA256; no text/newline/attribute conversion",
+    "failure": "Reject invalid Windows paths, alias/prefix targets, unsupported modes, bad source/type/length/hash, truncation, trailing bytes, nonzero child exit; preserve partial output, no overwrite/delete",
+    "windowsControlPaths": "Control/newline/TAB/DEL refused after NUL framing, not split into new records"
+  },
+  "fixedTreeMetadata": [
+    {
+      "side": "before",
+      "head": "e4d57e77426ab235c7219b375debd76bc072e00b",
+      "files": 12315,
+      "totalBlobBytes": 548845391,
+      "maxBlobBytes": 16700907,
+      "nulTreeSha256": "83c1b9fc119c6b326fe50ae93bba30ab9ce9bba0af3f80660eff98ee214760d1",
+      "batchCheckSha256": "e51a05ba4594685a13859e84b5fefd59c35c100fd66ba23113c14b50ef59b484",
+      "pathAndSizePolicy": "Pass_ReadOnlyMetadata_NoExportOrWindows"
+    },
+    {
+      "side": "after",
+      "head": "419082f9863abf109a3d9ee7274dde59697bb85a",
+      "files": 12317,
+      "totalBlobBytes": 548871698,
+      "maxBlobBytes": 16700907,
+      "nulTreeSha256": "f49c35b8b9d883d74f0cbd7d1f32751f9b17799dd74c0cea3a0e42f4c0c32036",
+      "batchCheckSha256": "433d8abfd8b20a5ae61cca7cc91a2aa5d67eaf569cbcf0ff97b25027e864cf8f",
+      "pathAndSizePolicy": "Pass_ReadOnlyMetadata_NoExportOrWindows"
+    }
+  ],
+  "originals": [
+    {
+      "path": "artifacts/2026-10-25-raw-git-fix/before-wrapper.py",
+      "bytes": 18304,
+      "sha256": "384b777e6db8c9318907d1fb264efc30505c702338f9036dbfbcb84ca565587a"
+    },
+    {
+      "path": "artifacts/2026-10-25-raw-git-fix/red.log",
+      "bytes": 1564,
+      "sha256": "61ee9bdb04133a28875e9fb886797f3d198489943c4ec84ed050832052158161"
+    },
+    {
+      "path": "artifacts/2026-10-25-raw-git-fix/green-r01.log",
+      "bytes": 122,
+      "sha256": "c0d1dabab08c40b28e59f0fef0aacdd7dc3495e55f56d0ce1714e789fdadf3f6"
+    },
+    {
+      "path": "artifacts/2026-10-25-raw-git-fix/green-r02.log",
+      "bytes": 235,
+      "sha256": "768e2b42c1a08393980a3352b649fb31733333292f4594b4883bde96e49cb8f8"
+    },
+    {
+      "path": "artifacts/2026-10-25-raw-git-fix/fixed-tree-policy.json",
+      "bytes": 838,
+      "sha256": "a749484e788449dc7554f9fa18babd77869c45887a3c43b303b9af61e9db209c"
+    }
+  ],
+  "windowsExecution": "NotRun_NoNewJob",
+  "fullFixedTreeExportAndBuild": "NotRun_MetadataOnly",
+  "wpfPixelsAndCleanup": "NotRun",
+  "consumedAttempt": {
+    "runId": 40177638553,
+    "attempt": 1,
+    "status": "failure_Preserved_Unchanged"
+  },
+  "workflowAndWindowGates": "Unchanged_NewWindowRequiresExplicitApproval",
+  "modelsAndStrength": "Unchanged"
+}
