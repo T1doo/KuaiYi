@@ -59,6 +59,8 @@ internal static class UiPolishProbe
         private readonly CancellationTokenSource cancellation=new();
         private readonly List<object> scenes=[];
         private readonly List<object> retirements=[];
+        private readonly List<object> openingFrames=[];
+        private readonly List<object> fadeFrames=[];
         private Window? window;
         private SettingsDraft? draft;
         private TaskCompletionSource? closed;
@@ -141,7 +143,9 @@ internal static class UiPolishProbe
             var id=await fixture.Start(cancellation.Token);
             string name=theme+"-"+motion;
             // Begin and source snapshot are created only by the original coordinator.
-            await Send(shell,id,new(OverlayResultEventKind.Delta,UiPolishTextFixture.ResultText));
+            if(!stopped&&motion==MotionPreference.Full)
+                await Intermediate(shell,id,theme+"-"+motion+"-growth",theme,motion,()=>Send(shell,id,new(OverlayResultEventKind.Delta,UiPolishTextFixture.ResultText)));
+            else await Send(shell,id,new(OverlayResultEventKind.Delta,UiPolishTextFixture.ResultText));
             var stop=Descendants<Button>(shell).Single(p=>Equals(p.Tag,"停止"));
             if(stopped)
             {
@@ -151,7 +155,6 @@ internal static class UiPolishProbe
             }
             else
             {
-                if(motion==MotionPreference.Full)await Intermediate(shell,name+"-growth",theme,motion);
                 await Settled(shell);RequireLabel(shell,"生成中");Capture(name+"-generating",theme,motion,"Generating",480,null);
                 Require(results.ObserveUsage(id,24,18),"Original usage admission refused.");await Send(shell,id,new(OverlayResultEventKind.Usage));
                 await Send(shell,id,new(OverlayResultEventKind.Complete));await Send(shell,id,new(OverlayResultEventKind.Usage));
@@ -176,15 +179,49 @@ internal static class UiPolishProbe
             Require(label.Text.Contains(expected,StringComparison.Ordinal)&&label.Text.Contains("选区",StringComparison.Ordinal)&&label.Text.Contains(UiPolishTextFixture.Model,StringComparison.Ordinal),"Original snapshot-derived label differs.");
             Require(label.IsVisible&&label.Opacity>0,"Original source label not visible.");
         }
-        private async Task Intermediate(ShellWindow shell,string name,ThemePreference theme,MotionPreference motion)
+        private async Task Intermediate(ShellWindow shell,RequestIdentity id,string name,ThemePreference theme,MotionPreference motion,Func<Task> issue)
         {
-            while(true)
+            long baseline=shell.PresentationAnimationEpoch;bool capturing=false,deltaAccepted=false,geometrySaved=false,fadeSaved=false;
+            var evidence=new UiPolishOpeningEvidence(baseline);
+            var completed=new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+            var targetField=typeof(OverlayFrames).GetField("target",BindingFlags.Instance|BindingFlags.NonPublic|BindingFlags.DeclaredOnly);
+            Require(targetField?.FieldType==typeof(PixelRect),"Exact original frame target observation unavailable.");
+            EventHandler observe=(_,_)=>
             {
-                await Next();var g=shell.PresentationGeometry??throw new InvalidOperationException("Original geometry missing.");
-                if(g.Transition==OverlayTransition.Opening&&g.NeedsFrame&&g.ContentOpacity>0&&g.ContentOpacity<1)
-                {Capture(name,theme,motion,"FirstObservedIntermediate_NotSameElapsedFrame",480,null);return;}
-                if(g.Transition==OverlayTransition.Expanded&&!g.NeedsFrame)throw new InvalidOperationException("Intermediate frame not observed; no fabricated growth raster.");
-            }
+                if(capturing||completed.Task.IsCompleted)return;
+                try
+                {
+                    Check();Require(shell.PresentationGate.CanApply(id)&&Field<OverlayResults>(shell,"overlayResults").Identity==id,"Original opening request changed.");
+                    var g=shell.PresentationGeometry??throw new InvalidOperationException("Original geometry missing.");
+                    long current=shell.PresentationAnimationEpoch;
+                    if(!deltaAccepted)return;
+                    var results=Field<OverlayResults>(shell,"overlayResults");var body=Descendants<RichTextBox>(shell).Single();
+                    bool bodyReady=results.Text==UiPolishTextFixture.ResultText&&results.SelectedVersionId==id.VersionId&&
+                        new TextRange(body.Document.ContentStart,body.Document.ContentEnd).Text.Contains(UiPolishTextFixture.ResultText,StringComparison.Ordinal);
+                    evidence.Observe(g,(PixelRect)targetField!.GetValue(g)!,current,bodyReady);
+                    if(evidence.Fade!=null&&!fadeSaved){fadeFrames.Add(new{Request=id,Frame=evidence.Fade});fadeSaved=true;}
+                    if(evidence.Geometry is {} frame&&!geometrySaved)
+                    {
+                        capturing=true;
+                        try
+                        {
+                            Capture(name,theme,motion,"ActualGeometryIntermediate_FadeSeparatelyRequired",480,null);
+                            Require(shell.PresentationAnimationEpoch==frame.Epoch&&g.Current==frame.Card&&((PixelRect)targetField.GetValue(g)!)==frame.Target&&shell.PresentationGate.CanApply(id),"Original geometry changed during capture.");
+                            openingFrames.Add(new{Request=id,Frame=frame});geometrySaved=true;
+                        }
+                        finally{capturing=false;}
+                    }
+                    if(evidence.Complete&&geometrySaved)completed.TrySetResult();
+                    else if(current>baseline&&g.Transition==OverlayTransition.Expanded&&!g.NeedsFrame)
+                    {evidence.RequireComplete();throw new InvalidOperationException("Actual geometry raster missing; no fabricated frame.");}
+                }
+                catch(Exception error){completed.TrySetException(error);}
+            };
+            // Own the original observer before the delta can cause an opening/render callback.
+            CompositionTarget.Rendering+=observe;
+            using var cancelled=cancellation.Token.Register(()=>completed.TrySetCanceled(cancellation.Token));
+            try{await issue();deltaAccepted=true;await completed.Task;Check();}
+            finally{CompositionTarget.Rendering-=observe;}
         }
         private async Task Settled(ShellWindow shell)
         {
@@ -293,7 +330,7 @@ internal static class UiPolishProbe
             await Lifetime.Original;deadline?.Stop();
             Succeeded=Lifetime.Failures.Count==0&&!timedOut&&Lifetime.CloseConfirmed&&Lifetime.CleanupConfirmed&&scenes.Count==(request.View=="settings"?8:18);
             try{Write("ui-polish-result.json",new{Status=Succeeded?"Pass_LimitedWpfRaster":"Fail",request.Side,request.View,request.ProductHead,AppDllSha256=productHash,
-                TimedOut=timedOut,Lifetime.CloseConfirmed,ResourcesSettled=Lifetime.CleanupConfirmed,StateRetained=true,Scenes=scenes,Retirements=retirements,Lifetime.Failures,
+                TimedOut=timedOut,Lifetime.CloseConfirmed,ResourcesSettled=Lifetime.CleanupConfirmed,StateRetained=true,Scenes=scenes,OpeningFrames=openingFrames,FadeFrames=fadeFrames,Retirements=retirements,Lifetime.Failures,
                 Environment=new{System.Environment.OSVersion.VersionString,System.Environment.UserInteractive,SessionId=Process.GetCurrentProcess().SessionId,RenderTier=RenderCapability.Tier>>16,
                     SystemParameters.HighContrast,SystemParameters.ClientAreaAnimation},
                 Scope="Actual production WPF content raster; programmatic controls and public synthetic coordinator snapshots; no model response",

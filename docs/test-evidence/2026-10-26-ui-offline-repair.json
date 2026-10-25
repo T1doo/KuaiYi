@@ -1,0 +1,525 @@
+{
+  "kind": "OfflineUiAndObservationRepair",
+  "status": "Pass_LimitedOffline_NotNativeAcceptance",
+  "baseHead": "2d28e96622145131355f2a80b4a7eaa29dc00450",
+  "currentDefectCheck": {
+    "startingDesktopThemeEquals419082": true,
+    "sha256": "e9a1b709acfb186df53e2e096da22fde14cd6816327db2329016623cf655d2d3",
+    "nativeReadOnlyComboTemplateWasNotReplaced": true,
+    "pixelDefectObservedOnlyInBefore": "Dark-wide.png baseline e4d57; current source shares uncorrected mechanism; after pixel was not observed"
+  },
+  "fixes": {
+    "production": "Readonly ComboBox template binds original Background/Foreground, SelectionBoxItem/Template/Selector/StringFormat and PART_Popup; original ComboBox behavior/instances remain, IsEditable true stays on native template",
+    "probe": "Observer armed before accepted Delta; require original current version/body document; same request and opening epoch must observe both real non-anchor/non-target geometry and independent actual fade opacity; neither missing may pass; callback capture reentrancy/exception/final unsubscribe ownership retained",
+    "noClockOrProductAnimationChanges": true
+  },
+  "code": [
+    {
+      "path": "src/KuaiYi.App/DesktopTheme.cs",
+      "bytes": 25666,
+      "sha256": "9120332bfff522ed5b27a92c0f5cca244720e9c000e942dce1f86998672f9d2e"
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/UiPolishProbe.cs",
+      "bytes": 31515,
+      "sha256": "e183d72a95c2393a9eeaa7c5809d127f5805539a3e36106592649a66ecc7e644"
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/UiPolishOpeningFrame.cs",
+      "bytes": 1799,
+      "sha256": "0e74aaad0cc76e3d4659205a98e09b6c12b4dd9b4c2d295c399792b38b732635"
+    },
+    {
+      "path": "tests/KuaiYi.Provider.Tests/UiPolishOpeningFrameTests.cs",
+      "bytes": 4018,
+      "sha256": "59e8252fd4e15327ade5279f8e171d33738f72b44a97d4a0cc3e55505baf446c"
+    },
+    {
+      "path": "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+      "bytes": 8771,
+      "sha256": "0bb021f46ff38187671188888b050ffaa462108f6356cc739890d0e824df5af5"
+    }
+  ],
+  "checks": {
+    "sdk": "10.0.402",
+    "runtime": "10.0.13",
+    "builds": "HarnessAndProvider_0W0E",
+    "commands": [
+      {
+        "argv": [
+          "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+          "restore",
+          "tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj",
+          "--locked-mode",
+          "--configfile",
+          "/workspace/KuaiYi/NuGet.Config",
+          "--artifacts-path",
+          "/workspace/KuaiYi/artifacts/2026-10-26-ui-repair/checks-r03/build",
+          "--disable-build-servers",
+          "-p:EnableWindowsTargeting=true",
+          "-p:RuntimeFrameworkVersion=10.0.13",
+          "-maxcpucount:1",
+          "-nodeReuse:false",
+          "-p:UseSharedCompilation=false",
+          "-p:NuGetAudit=true",
+          "-p:NuGetAuditMode=all",
+          "-p:NuGetAuditLevel=low",
+          "-p:TreatWarningsAsErrors=true"
+        ],
+        "startUnix": 1792951208.4549367,
+        "log": "Harness-restore.log",
+        "exit": 0,
+        "settlement": "LeaderJoined_GroupEmpty",
+        "pid": 31830,
+        "group": 31830,
+        "endUnix": 1792951209.8586946,
+        "groupMembersAfter": []
+      },
+      {
+        "argv": [
+          "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+          "build",
+          "tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj",
+          "--no-restore",
+          "-c",
+          "Release",
+          "--artifacts-path",
+          "/workspace/KuaiYi/artifacts/2026-10-26-ui-repair/checks-r03/build",
+          "--disable-build-servers",
+          "-p:EnableWindowsTargeting=true",
+          "-p:RuntimeFrameworkVersion=10.0.13",
+          "-maxcpucount:1",
+          "-nodeReuse:false",
+          "-p:UseSharedCompilation=false",
+          "-p:NuGetAudit=true",
+          "-p:NuGetAuditMode=all",
+          "-p:NuGetAuditLevel=low",
+          "-p:TreatWarningsAsErrors=true"
+        ],
+        "startUnix": 1792951209.8589325,
+        "log": "Harness-build.log",
+        "exit": 0,
+        "settlement": "LeaderJoined_GroupEmpty",
+        "pid": 31850,
+        "group": 31850,
+        "endUnix": 1792951232.540958,
+        "groupMembersAfter": []
+      },
+      {
+        "argv": [
+          "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+          "restore",
+          "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+          "--locked-mode",
+          "--configfile",
+          "/workspace/KuaiYi/NuGet.Config",
+          "--artifacts-path",
+          "/workspace/KuaiYi/artifacts/2026-10-26-ui-repair/checks-r03/build",
+          "--disable-build-servers",
+          "-p:EnableWindowsTargeting=true",
+          "-p:RuntimeFrameworkVersion=10.0.13",
+          "-maxcpucount:1",
+          "-nodeReuse:false",
+          "-p:UseSharedCompilation=false",
+          "-p:NuGetAudit=true",
+          "-p:NuGetAuditMode=all",
+          "-p:NuGetAuditLevel=low",
+          "-p:TreatWarningsAsErrors=true"
+        ],
+        "startUnix": 1792951232.541438,
+        "log": "Provider-restore.log",
+        "exit": 0,
+        "settlement": "LeaderJoined_GroupEmpty",
+        "pid": 32109,
+        "group": 32109,
+        "endUnix": 1792951233.769062,
+        "groupMembersAfter": []
+      },
+      {
+        "argv": [
+          "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+          "build",
+          "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+          "--no-restore",
+          "-c",
+          "Release",
+          "--artifacts-path",
+          "/workspace/KuaiYi/artifacts/2026-10-26-ui-repair/checks-r03/build",
+          "--disable-build-servers",
+          "-p:EnableWindowsTargeting=true",
+          "-p:RuntimeFrameworkVersion=10.0.13",
+          "-maxcpucount:1",
+          "-nodeReuse:false",
+          "-p:UseSharedCompilation=false",
+          "-p:NuGetAudit=true",
+          "-p:NuGetAuditMode=all",
+          "-p:NuGetAuditLevel=low",
+          "-p:TreatWarningsAsErrors=true"
+        ],
+        "startUnix": 1792951233.7693825,
+        "log": "Provider-build.log",
+        "exit": 0,
+        "settlement": "LeaderJoined_GroupEmpty",
+        "pid": 32128,
+        "group": 32128,
+        "endUnix": 1792951250.9805279,
+        "groupMembersAfter": []
+      },
+      {
+        "argv": [
+          "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+          "test",
+          "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+          "--no-build",
+          "--no-restore",
+          "-c",
+          "Release",
+          "--filter",
+          "FullyQualifiedName~UiPolishOpeningFrameTests|FullyQualifiedName~DesktopPaletteTests",
+          "--logger",
+          "trx;LogFileName=Provider.trx",
+          "--results-directory",
+          "/workspace/KuaiYi/artifacts/2026-10-26-ui-repair/checks-r03/results",
+          "--artifacts-path",
+          "/workspace/KuaiYi/artifacts/2026-10-26-ui-repair/checks-r03/build",
+          "--disable-build-servers",
+          "-p:EnableWindowsTargeting=true",
+          "-p:RuntimeFrameworkVersion=10.0.13",
+          "-maxcpucount:1",
+          "-nodeReuse:false",
+          "-p:UseSharedCompilation=false",
+          "-p:NuGetAudit=true",
+          "-p:NuGetAuditMode=all",
+          "-p:NuGetAuditLevel=low",
+          "-p:TreatWarningsAsErrors=true"
+        ],
+        "startUnix": 1792951251.0382366,
+        "log": "Provider-test.log",
+        "exit": 0,
+        "settlement": "LeaderJoined_GroupEmpty",
+        "pid": 32224,
+        "group": 32224,
+        "endUnix": 1792951253.1160862,
+        "groupMembersAfter": []
+      }
+    ],
+    "testCases": [
+      {
+        "name": "KuaiYi.Provider.Tests.DesktopPaletteTests.PresentationPaletteKeepsReadableTextSelectionActionsAndInputEdges(dark: True)",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.DesktopPaletteTests.InteractiveTintKeepsPrimarySecondaryAndToolbarTextReadable(dark: False)",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishOpeningFrameTests.FullRequiresActualFadeAndGeometryInSameEpoch",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishOpeningFrameTests.OldOrUnchangedEpochCannotBeReplayedAsNewOpening",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishOpeningFrameTests.NoFrameAndReducedMotionTerminalDoNotPass",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishOpeningFrameTests.ActualGeometryIntermediateRemainsRequiredWhenOpacityAlreadySettled(milliseconds: 120)",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishOpeningFrameTests.ReopeningFromOpaqueToolbarStillRequiresActualIntermediateGeometry",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishOpeningFrameTests.UnacceptedBodyAndNoFramesCannotFillEvidenceOrPass",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishOpeningFrameTests.AnotherOpeningCannotCompletePriorEvidence",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.DesktopPaletteTests.InteractiveTintKeepsPrimarySecondaryAndToolbarTextReadable(dark: True)",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishOpeningFrameTests.ActualGeometryIntermediateRemainsRequiredWhenOpacityAlreadySettled(milliseconds: 180)",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishOpeningFrameTests.LegalOpaqueGeometryAloneStillFailsFullEvidence",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.DesktopPaletteTests.PresentationPaletteKeepsReadableTextSelectionActionsAndInputEdges(dark: False)",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishOpeningFrameTests.AnchorAndQuantizedTargetCannotBecomeIntermediateEvidence",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishOpeningFrameTests.ActualGeometryIntermediateRemainsRequiredWhenOpacityAlreadySettled(milliseconds: 40)",
+        "outcome": "Passed"
+      }
+    ],
+    "passed": 15,
+    "failed": 0,
+    "skipped": 0,
+    "classes": {
+      "UiPolishOpeningFrameTests": 11,
+      "DesktopPaletteTests": 4
+    },
+    "inputCount": 887,
+    "dllCount": 130,
+    "inputHashesUnchanged": true,
+    "dllHashesUnchanged": true,
+    "notNativeOrHumanFadeEvidence": true
+  },
+  "earlierAttemptsRetained": [
+    {
+      "run": "checks-r01",
+      "passed": 11,
+      "scope": "Initial geometry classifier+palette; independent review required fade/body gate afterward"
+    },
+    {
+      "run": "checks-r02",
+      "stage": "Harness-build",
+      "error": "CS1525 null-forgiving next to equality; no tests ran",
+      "diagnosticCount": 1
+    }
+  ],
+  "originals": [
+    {
+      "path": "artifacts/2026-10-26-ui-repair/checks-r03/report.json",
+      "bytes": 5573,
+      "sha256": "9579c501a6bb9b06f9bbb7603270a4945b63c5512cef7975719b94a4a5ad5074"
+    },
+    {
+      "path": "artifacts/2026-10-26-ui-repair/checks-r03/results/Provider.trx",
+      "bytes": 23395,
+      "sha256": "591e6131442127a0c5aa2095218c084414ef61a6bf79c4cf4b8fc884a85634b0"
+    },
+    {
+      "path": "artifacts/2026-10-26-ui-repair/checks-r03/sources-before.json",
+      "bytes": 135420,
+      "sha256": "4b0bb18da098270a7cb01310c6c7ac87fa1e93e24af0da042123725dc71ad892"
+    },
+    {
+      "path": "artifacts/2026-10-26-ui-repair/checks-r03/sources-after.json",
+      "bytes": 135420,
+      "sha256": "4b0bb18da098270a7cb01310c6c7ac87fa1e93e24af0da042123725dc71ad892"
+    },
+    {
+      "path": "artifacts/2026-10-26-ui-repair/checks-r03/dlls-before-test.json",
+      "bytes": 24286,
+      "sha256": "25dcfaf20ad98e3a19db750c59d9b855b8306222238b6cde8bcf364eb5025536"
+    },
+    {
+      "path": "artifacts/2026-10-26-ui-repair/checks-r03/dlls-after-test.json",
+      "bytes": 24286,
+      "sha256": "25dcfaf20ad98e3a19db750c59d9b855b8306222238b6cde8bcf364eb5025536"
+    }
+  ],
+  "secondWindowLinks": {
+    "run": "https://github.com/T1doo/KuaiYi/actions/runs/40217224688",
+    "artifact": "https://github.com/T1doo/KuaiYi/actions/runs/40217224688/artifacts/12608252366",
+    "artifactExpiresUtc": "2026-10-26T17:38:29Z",
+    "deliverySha": "3164cf35476463d3a85361bdfb3b909b1ada26f2",
+    "productBefore": "e4d57e77426ab235c7219b375debd76bc072e00b",
+    "beforeAppHashReported": "dd401809f6ee20744da130c10f662b93091555dfa1358b28e23e6c11e9d0b1d4",
+    "imageDirectoryInsideZip": "before-settings/raster/",
+    "eightImages": [
+      {
+        "name": "Light-wide",
+        "file": "Light-wide.png",
+        "sha256": "3bb7e0caa4e2a9ed0007c8a89335ce6b48fe8a9bb158bee0112bc8ac32f056de",
+        "bytes": 69335,
+        "dpi": [
+          96,
+          96
+        ],
+        "pixelSize": [
+          924,
+          661
+        ],
+        "target": null,
+        "stateCoherent": true
+      },
+      {
+        "name": "Light-narrow-input-focus",
+        "file": "Light-narrow-input-focus.png",
+        "sha256": "73aec501b7c200b03d99cf1db1d48f95f18d4c9d858752806990e1be8370841b",
+        "bytes": 35836,
+        "dpi": [
+          96,
+          96
+        ],
+        "pixelSize": [
+          404,
+          641
+        ],
+        "target": {
+          "Type": "TextBox",
+          "Name": "",
+          "IsEnabled": true,
+          "IsKeyboardFocused": true,
+          "IsKeyboardFocusWithin": true,
+          "IsMouseOver": false
+        },
+        "stateCoherent": true
+      },
+      {
+        "name": "Light-narrow-button-focus",
+        "file": "Light-narrow-button-focus.png",
+        "sha256": "e4b71f6d76d37527e75a9bb36962d45a95acd722ee62d070cba050f0a7a3de79",
+        "bytes": 36167,
+        "dpi": [
+          96,
+          96
+        ],
+        "pixelSize": [
+          404,
+          641
+        ],
+        "target": {
+          "Type": "Button",
+          "Name": "取消设置更改",
+          "IsEnabled": true,
+          "IsKeyboardFocused": true,
+          "IsKeyboardFocusWithin": true,
+          "IsMouseOver": false
+        },
+        "stateCoherent": true
+      },
+      {
+        "name": "Light-narrow-input-disabled",
+        "file": "Light-narrow-input-disabled.png",
+        "sha256": "82e7eb7eff8b52d5d3c77673b5c1a70eafdd7ff29c699247acbdce0f1e22d7f7",
+        "bytes": 36165,
+        "dpi": [
+          96,
+          96
+        ],
+        "pixelSize": [
+          404,
+          641
+        ],
+        "target": {
+          "Type": "TextBox",
+          "Name": "",
+          "IsEnabled": false,
+          "IsKeyboardFocused": false,
+          "IsKeyboardFocusWithin": false,
+          "IsMouseOver": false
+        },
+        "stateCoherent": true
+      },
+      {
+        "name": "Dark-wide",
+        "file": "Dark-wide.png",
+        "sha256": "2570614a24d63f2ffabe4a6b5ec80bd98638fde91afc8c4f52bc309a04752529",
+        "bytes": 69158,
+        "dpi": [
+          96,
+          96
+        ],
+        "pixelSize": [
+          924,
+          661
+        ],
+        "target": null,
+        "stateCoherent": true
+      },
+      {
+        "name": "Dark-narrow-input-focus",
+        "file": "Dark-narrow-input-focus.png",
+        "sha256": "bc7e9cd5cdbd9991c439bd74516052e037d26459c4d854606637f850a006590f",
+        "bytes": 36526,
+        "dpi": [
+          96,
+          96
+        ],
+        "pixelSize": [
+          404,
+          641
+        ],
+        "target": {
+          "Type": "TextBox",
+          "Name": "",
+          "IsEnabled": true,
+          "IsKeyboardFocused": true,
+          "IsKeyboardFocusWithin": true,
+          "IsMouseOver": false
+        },
+        "stateCoherent": true
+      },
+      {
+        "name": "Dark-narrow-button-focus",
+        "file": "Dark-narrow-button-focus.png",
+        "sha256": "515dc23082391cdf17dd748440476d05b0fafa0df61ea7420c49673f65930f5c",
+        "bytes": 36923,
+        "dpi": [
+          96,
+          96
+        ],
+        "pixelSize": [
+          404,
+          641
+        ],
+        "target": {
+          "Type": "Button",
+          "Name": "取消设置更改",
+          "IsEnabled": true,
+          "IsKeyboardFocused": true,
+          "IsKeyboardFocusWithin": true,
+          "IsMouseOver": false
+        },
+        "stateCoherent": true
+      },
+      {
+        "name": "Dark-narrow-input-disabled",
+        "file": "Dark-narrow-input-disabled.png",
+        "sha256": "d644024f43eca6ea58dc657646b6b752ec5ab7fb31f31c42536f17c8d6012bc4",
+        "bytes": 36923,
+        "dpi": [
+          96,
+          96
+        ],
+        "pixelSize": [
+          404,
+          641
+        ],
+        "target": {
+          "Type": "TextBox",
+          "Name": "",
+          "IsEnabled": false,
+          "IsKeyboardFocused": false,
+          "IsKeyboardFocusWithin": false,
+          "IsMouseOver": false
+        },
+        "stateCoherent": true
+      }
+    ],
+    "noAfterImages": true
+  },
+  "cleanupEvidence": {
+    "trackedWpfProcesses": "Both exact original exits and I/O joins confirmed",
+    "trackedOverlayWindowTrayAndFlow": "Closed, tray disposed&&!added, one original Flow+connector settled per actual child report",
+    "wholeJobProcessTree": "NotEstablished_RunnerTerminatedOrphans",
+    "runnerOrphansObserved": {
+      "dotnet": 3,
+      "conhost": 1
+    },
+    "orphanOwnership": "CommandLinesAndParentMapAbsent_NoBuildserverOrWpfAttributionClaim"
+  },
+  "limitations": [
+    "New template pixels, popup, keyboard, accessibility, high contrast and actual new WPF observer not run",
+    "Internal Rendering opacity sample is not human fade-quality or DWM proof",
+    "No new Windows job or auto-rerun; original two failed runs preserved",
+    "Next native window must pin after to this repair commit, not 419082; separate explicit approval and candidate binding required"
+  ],
+  "review": "IndependentReadOnly_LimitedSourceAndActualR03EvidenceACK"
+}

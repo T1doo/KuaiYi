@@ -1900,3 +1900,5 @@ A片源码冻结7a59ad9a66aedfe5ab539422c01849a82de6aceb，仅本地1提交，�
 - 2026-10-25 第二窗口仅准备：以11f13f5原blob修复为基线，5文件直接子候选绑定独立dev/ui-polish-visual-r02入口，15min job/6min visual及原合成/清理门保持。只做定向静态检查和独立审查，本地准备分支不push，不开启窗口、不重复24测试。第一次失败/原件及NotRun边界保留；见validation/ui-polish-windows-r02-preparation.md。
 
 - 2026-10-26 已明确批准的第二云端Windows窗口实际执行一次：3164/run40217224688 attempt1。原blob来源与两侧Windows build0W0E通过；before设置8张真实PNG并核原exit0/IO，随后before浮窗未观察中间帧exit3，after停止未启。有限原窗口/tray/Flow结算有据，Runner另清3dotnet+1conhost orphan，不能称完整树自主清理。探针opacity80ms/几何220ms条件过窄与before深色ComboBox可读性问题均记录；不冒称after像素通过、不自动重跑。66文件ZIP1619996B已取回逐hash并独审，见test-evidence/2026-10-26-ui-polish-r02.json及validation/ui-polish-windows-r02-preparation.md。
+
+- 2026-10-26 原第二窗口后离线工程修复：当前仍有原生ComboBox浅底浅字机制，给非editable Combo显式palette模板并保留原选择/Popup链。探针提前Rendering、核原正文与版本，同epoch严格必需真实几何+fade，缺任一仍Fail，时钟不变。r03实际15P（观察11+palette4）/0F、交叉构建0W0E，887输入/130DLL前后同；r02编译错保留，无第三Windows/CI。原8基线图、可打开GitHub运行/artifact和分层清理结论见validation/ui-polish-offline-repair-2026-10-26.md与test-evidence/2026-10-26-ui-offline-repair.json；after及新模板像素仍未验。
