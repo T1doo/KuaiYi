@@ -22,7 +22,7 @@ namespace KuaiYi.GrowthHarness;
 
 // Actual production windows, synthetic content. This is NOT an offscreen/side-effect-free runner.
 // No workflow invokes this entry. Its separately approved Windows window remains required.
-internal static class UiPolishProbe
+internal static partial class UiPolishProbe
 {
     internal static int Run(UiPolishRequest request)
     {
@@ -53,7 +53,7 @@ internal static class UiPolishProbe
         }
         finally{SynchronizationContext.SetSynchronizationContext(previous);}
     }
-    private sealed class Owner(Application app,UiPolishRequest request,string output,string state,string productHash)
+    private sealed partial class Owner(Application app,UiPolishRequest request,string output,string state,string productHash)
     {
         private readonly Stopwatch clock=Stopwatch.StartNew();
         private readonly CancellationTokenSource cancellation=new();
@@ -61,6 +61,7 @@ internal static class UiPolishProbe
         private readonly List<object> retirements=[];
         private readonly List<object> openingFrames=[];
         private readonly List<object> fadeFrames=[];
+        private readonly List<object> choiceChecks=[];
         private Window? window;
         private SettingsDraft? draft;
         private TaskCompletionSource? closed;
@@ -122,6 +123,7 @@ internal static class UiPolishProbe
             object local=input.ReadLocalValue(UIElement.IsEnabledProperty);
             try{input.IsEnabled=false;input.BringIntoView();await Next();Require(!input.IsEnabled,"Original input not disabled.");Capture(theme+"-narrow-input-disabled",theme,null,"OriginalInputDisabled",420,680,input);}
             finally{if(local==DependencyProperty.UnsetValue)input.ClearValue(UIElement.IsEnabledProperty);else input.SetValue(UIElement.IsEnabledProperty,local);}
+            window.Width=940;window.Height=700;await Next();await ChoiceScenes(theme);
             Require(await CloseOriginal(),"Settings original close unconfirmed.");
         }
         private async Task Overlay(ThemePreference theme,MotionPreference motion,bool stopped)
@@ -328,9 +330,9 @@ internal static class UiPolishProbe
         internal async Task FinalizeOriginal()
         {
             await Lifetime.Original;deadline?.Stop();
-            Succeeded=Lifetime.Failures.Count==0&&!timedOut&&Lifetime.CloseConfirmed&&Lifetime.CleanupConfirmed&&scenes.Count==(request.View=="settings"?8:18);
+            Succeeded=Lifetime.Failures.Count==0&&!timedOut&&Lifetime.CloseConfirmed&&Lifetime.CleanupConfirmed&&scenes.Count==(request.View=="settings"?16:18);
             try{Write("ui-polish-result.json",new{Status=Succeeded?"Pass_LimitedWpfRaster":"Fail",request.Side,request.View,request.ProductHead,AppDllSha256=productHash,
-                TimedOut=timedOut,Lifetime.CloseConfirmed,ResourcesSettled=Lifetime.CleanupConfirmed,StateRetained=true,Scenes=scenes,OpeningFrames=openingFrames,FadeFrames=fadeFrames,Retirements=retirements,Lifetime.Failures,
+                TimedOut=timedOut,Lifetime.CloseConfirmed,ResourcesSettled=Lifetime.CleanupConfirmed,StateRetained=true,Scenes=scenes,ChoiceChecks=choiceChecks,OpeningFrames=openingFrames,FadeFrames=fadeFrames,Retirements=retirements,Lifetime.Failures,
                 Environment=new{System.Environment.OSVersion.VersionString,System.Environment.UserInteractive,SessionId=Process.GetCurrentProcess().SessionId,RenderTier=RenderCapability.Tier>>16,
                     SystemParameters.HighContrast,SystemParameters.ClientAreaAnimation},
                 Scope="Actual production WPF content raster; programmatic controls and public synthetic coordinator snapshots; no model response",

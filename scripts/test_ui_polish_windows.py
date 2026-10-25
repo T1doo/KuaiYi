@@ -22,11 +22,15 @@ class ResultContract(unittest.TestCase):
  def sample(self,root,view='settings'):
   raw=base64.b64decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a1Z0AAAAASUVORK5CYII=')
   scenes=[]
-  for i in range(8 if view=='settings' else 18):
-   name='scene-'+str(i)+'.png';(root/name).write_bytes(raw)
+  for name in sorted(v.expected_scene_names(view)):
+   (root/name).write_bytes(raw)
    scenes.append({'File':name,'StateCoherent':True,'Side':'before','ProductHead':v.SIDES['before'],'AppDllSha256':'a'*64,'Bytes':len(raw),'Sha256':hashlib.sha256(raw).hexdigest(),'PixelsX':1,'PixelsY':1})
   r={'Status':'Pass_LimitedWpfRaster','Side':'before','View':view,'ProductHead':v.SIDES['before'],'AppDllSha256':'a'*64,'TimedOut':False,'CloseConfirmed':True,'ResourcesSettled':True,'StateRetained':True,'Failures':[],'Scenes':scenes,'Retirements':[]}
   if view=='overlay':r['Retirements']=[{'OwnWindowClosed':True,'TrayDisposed':True,'TrayRemoved':True}]*8+[{'AllOriginalTasksCompleted':True,'Runs':1,'Connectors':1,'Attempts':1}]*8
+  if view=='settings':
+   r['ChoiceChecks']=[{'Theme':t,'OriginalRestored':True,'EscapeClosed':True,'SelectionChangedCount':2,'OriginalSelectedIndex':0,'AfterKeySelectedIndex':1,'InputScope':'ProgrammaticRoutedKey_OriginalComboOnly'} for t in ('Light','Dark')]
+   for s in scenes:
+    if s['File'].endswith('-choice-popup.png'):s.update(RasterKind='ActualOriginalPopupChild_NotSettingsContent',BeforePopup={'Open':True,'Hwnd':20},AfterPopup={'Open':True,'Hwnd':20},OwnerHwnd=10)
   return r
  def check(self,change,view='settings',reject=True):
   with tempfile.TemporaryDirectory() as d:
@@ -35,6 +39,12 @@ class ResultContract(unittest.TestCase):
     with self.assertRaises(RuntimeError):v.verify_result(root,'before',view,'a'*64)
    else:v.verify_result(root,'before',view,'a'*64)
  def test_complete_collection(self):self.check(lambda r:None,reject=False)
+ def test_missing_choice_evidence_refused(self):self.check(lambda r:r.pop('ChoiceChecks'))
+ def test_popup_owner_hwnd_cannot_substitute(self):
+  self.check(lambda r:next(s for s in r['Scenes'] if s['File'].endswith('-choice-popup.png')).update(OwnerHwnd=20))
+ def test_popup_changed_during_raster_refused(self):
+  self.check(lambda r:next(s for s in r['Scenes'] if s['File'].endswith('-choice-popup.png'))['AfterPopup'].update(Hwnd=21))
+ def test_key_without_selection_change_refused(self):self.check(lambda r:r['ChoiceChecks'][0].update(SelectionChangedCount=0))
  def test_wrong_side(self):self.check(lambda r:r.update(Side='after'))
  def test_wrong_dll(self):self.check(lambda r:r.update(AppDllSha256='b'*64))
  def test_missing_scene(self):self.check(lambda r:r['Scenes'].pop())
@@ -115,7 +125,7 @@ class RawSource(unittest.TestCase):
 class CommandFailure(unittest.TestCase):
  def test_nonzero_git_stops_before_export_or_platform_operations(self):
   with tempfile.TemporaryDirectory() as d:
-   root=Path(d);event=root/'event.json';event.write_text('{}');work=root/'work'
+   root=Path(d);event=root/'event.json';event.write_text('{}');work=root/'work';work.mkdir();(work/'validation-tree.json').write_text(json.dumps({'SourceHead':'a'*40}))
    helper=Mock();helper.linked.return_value=False
    def child(argv,**kwargs):
     kwargs['stdout'].write(b'synthetic git failure\n');return subprocess.CompletedProcess(argv,7)

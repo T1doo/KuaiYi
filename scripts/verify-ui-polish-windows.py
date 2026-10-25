@@ -13,10 +13,10 @@ import unicodedata
 import time
 import urllib.request
 
-PARENT='11f13f5ebc4fcb812d98586c5f594ca3a2633990'
-SIDES={'before':'e4d57e77426ab235c7219b375debd76bc072e00b','after':'419082f9863abf109a3d9ee7274dde59697bb85a'}
-BRANCH='refs/heads/dev/ui-polish-visual-r02'
-FILES={'.github/workflows/windows-ui-polish.yml','scripts/verify-ui-polish-windows.py','tools/KuaiYi.GrowthHarness/UiPolishContract.cs','docs/progress.md','docs/validation/ui-polish-windows-r02-preparation.md'}
+PARENT='e12c1ed8ff351f8300dbdaca18585d7994493317'
+SIDES={'before':'e4d57e77426ab235c7219b375debd76bc072e00b','after':'e12c1ed8ff351f8300dbdaca18585d7994493317'}
+BRANCH='refs/heads/dev/ui-polish-visual-r03'
+FILES={'docs/validation/ui-polish-r03-candidate.md', 'tools/KuaiYi.GrowthHarness/UiPolishPopupProbe.cs', '.github/workflows/windows-ui-polish-r03.yml', 'docs/test-evidence/2026-10-26-ui-r03-candidate.json', 'tools/KuaiYi.GrowthHarness/UiPolishProbe.cs', 'scripts/test_windows_visual_job.py', 'docs/progress.md', 'tools/KuaiYi.GrowthHarness/UiPolishContract.cs', 'scripts/test_ui_polish_windows.py', 'scripts/verify-ui-polish-windows.py', 'scripts/windows_visual_job.py'}
 REPO=Path(__file__).resolve().parent.parent
 WORK=REPO/'artifacts/ui-polish-windows'
 
@@ -88,13 +88,17 @@ def context(env,platform,event):
  if platform!='win32' or any(env.get(k)!=v for k,v in required.items()) or event.get('repository',{}).get('private') is not False:raise RuntimeError('Exact public first-attempt Windows context required')
  if not re.fullmatch('[0-9a-f]{40}',env.get('GITHUB_SHA','')):raise RuntimeError('Full delivery SHA required')
 
+def expected_scene_names(view):
+ if view=='settings':return {theme+'-'+state+'.png' for theme in ('Light','Dark') for state in ('wide','narrow-input-focus','narrow-button-focus','narrow-input-disabled','choice-popup','choice-escape','choice-keyboard','choice-disabled')}
+ return {theme+'-'+motion+'-'+state+'.png' for theme in ('Light','Dark') for motion in ('Full','Reduce') for state in (('growth','generating','complete','stop-disabled','stopped') if motion=='Full' else ('generating','complete','stop-disabled','stopped'))}
+
 def verify_result(directory,side,view,app_hash):
  path=directory/'ui-polish-result.json'
  if path.stat().st_size>512*1024:raise RuntimeError('Result bound')
  result=json.loads(path.read_text(encoding='utf-8'))
  if any(result.get(k)!=v for k,v in {'Status':'Pass_LimitedWpfRaster','Side':side,'View':view,'ProductHead':SIDES[side],'AppDllSha256':app_hash,'TimedOut':False,'CloseConfirmed':True,'ResourcesSettled':True,'StateRetained':True,'Failures':[]}.items()):raise RuntimeError('Actual source/resource result refused')
- scenes=result['Scenes'];expected=8 if view=='settings' else 18
- if len(scenes)!=expected or len({s['File'] for s in scenes})!=expected:raise RuntimeError('Complete unique scene collection required')
+ scenes=result['Scenes'];expected=16 if view=='settings' else 18
+ if len(scenes)!=expected or {s['File'] for s in scenes}!=expected_scene_names(view):raise RuntimeError('Complete unique scene collection required')
  total=0
  for s in scenes:
   name=s['File']
@@ -104,6 +108,13 @@ def verify_result(directory,side,view,app_hash):
   b=p.read_bytes();total+=len(b)
   if len(b)!=s['Bytes'] or hashlib.sha256(b).hexdigest()!=s['Sha256'] or b[:8]!=b'\x89PNG\r\n\x1a\n' or int.from_bytes(b[16:20],'big')!=s['PixelsX'] or int.from_bytes(b[20:24],'big')!=s['PixelsY']:raise RuntimeError('Actual PNG mismatch')
  if total>16*1024*1024 or {p.name for p in directory.glob('*.png')}!={s['File'] for s in scenes}:raise RuntimeError('PNG collection/aggregate differs')
+ if view=='settings':
+  checks=result.get('ChoiceChecks',[])
+  if len(checks)!=2 or {x['Theme'] for x in checks}!={'Light','Dark'} or any(x.get('OriginalRestored') is not True or x.get('EscapeClosed') is not True or x.get('SelectionChangedCount',0)<1 or x.get('AfterKeySelectedIndex')==x.get('OriginalSelectedIndex') or x.get('InputScope')!='ProgrammaticRoutedKey_OriginalComboOnly' for x in checks):raise RuntimeError('Actual original choice key/restore evidence missing')
+  for s in scenes:
+   if s['File'].endswith('-choice-popup.png'):
+    before=s.get('BeforePopup');after=s.get('AfterPopup')
+    if s.get('RasterKind')!='ActualOriginalPopupChild_NotSettingsContent' or before!=after or not before or before.get('Open') is not True or before.get('Hwnd',0)==0 or before['Hwnd']==s.get('OwnerHwnd'):raise RuntimeError('Actual independent popup HWND evidence missing')
  if view=='overlay':
   trays=[x for x in result['Retirements'] if 'TrayRemoved' in x]
   tasks=[x for x in result['Retirements'] if 'AllOriginalTasksCompleted' in x]
@@ -138,8 +149,11 @@ def main(phase):
    if log.exists():row.update(Bytes=log.stat().st_size,Sha256=digest(log))
   if log.stat().st_size>limit or p.returncode:raise RuntimeError('Command failed/bound: '+name)
   return log if binary else log.read_text(encoding='utf-8-sig')
- env=dict(os.environ)
- if phase=='prepare':WORK.mkdir(parents=True,exist_ok=False)
+ env=dict(os.environ,DOTNET_CLI_USE_MSBUILD_SERVER='0',MSBUILDDISABLENODEREUSE='1')
+ if phase=='prepare':
+  host=json.loads((WORK/'validation-tree.json').read_text())
+  if host.get('SourceHead')!=env['GITHUB_SHA'] or {p.name for p in WORK.iterdir()}!={'validation-tree.json'}:raise RuntimeError('Original supervisor directory claim required')
+  with (WORK/'.prepare-claim').open('xb') as claim:claim.write(env['GITHUB_SHA'].encode())
  elif phase!='run' or not WORK.is_dir():raise RuntimeError('Original prepared directory required')
  if any(helper.linked(p) for p in (WORK,*WORK.parents)):raise RuntimeError('Linked evidence root')
  try:
@@ -170,10 +184,10 @@ def main(phase):
     helper.signature_gate(policy,text,identity,contract['runtime'],pin['NuGetContentHash'])
    sdk=helper.install_sdk(REPO,contract,WORK,deadline,report);policy.require_safe_sdk(contract,sdk/'dotnet.exe')
    env.update(DOTNET_ROOT=str(sdk),DOTNET_ROOT_X64=str(sdk),DOTNET_HOST_PATH=str(sdk/'dotnet.exe'),PATH=str(sdk)+os.pathsep+env.get('PATH',''),DOTNET_CLI_HOME=str(WORK/'cli'),NUGET_PACKAGES=str(WORK/'packages'),NUGET_HTTP_CACHE_PATH=str(WORK/'http'))
-   dotnet=str(sdk/'dotnet.exe');props=['-p:EnableWindowsTargeting=true','-p:RuntimeFrameworkVersion='+contract['runtime']];config=['--configfile',str(REPO/'NuGet.Config'),*helper.AUDIT]
+   dotnet=str(sdk/'dotnet.exe');props=['-p:EnableWindowsTargeting=true','-p:RuntimeFrameworkVersion='+contract['runtime'],'-p:UseSharedCompilation=false'];config=['--configfile',str(REPO/'NuGet.Config'),*helper.AUDIT]
    if run([dotnet,'--version'],'sdk-version',30).strip()!=contract['sdk']:raise RuntimeError('SDK differs')
    auditproject='packaging/session-runtime-audit/session-runtime-audit.csproj'
-   run([dotnet,'restore',auditproject,'--locked-mode',*config,*props],'runtime-restore')
+   run([dotnet,'restore','--disable-build-servers',auditproject,'--locked-mode',*config,*props],'runtime-restore')
    inventory=json.loads(run([dotnet,'list',auditproject,'package','--include-transitive','--format','json','--no-restore'],'inventory'))
    audit=json.loads(run([dotnet,'list',auditproject,'package','--vulnerable','--include-transitive','--format','json','--no-restore','--source',policy.NUGET_SOURCE],'audit'))
    policy.require_no_advisories(audit,REPO/auditproject,inventory,contract['runtime'])
@@ -191,8 +205,8 @@ def main(phase):
     save(side+'-source-manifest.json',manifest)
     build=WORK/('build-'+side);project='tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj'
     extra=['--artifacts-path',str(build),'-p:KuaiYiVisualProductRoot='+str(root),'-p:SourceRevisionId='+sha]
-    run([dotnet,'restore',project,'--locked-mode',*config,*props,*extra],side+'-restore',120)
-    run([dotnet,'build',project,'--no-restore','-c','Release','-m:1','-nr:false','-p:UseSharedCompilation=false',*helper.AUDIT,*props,*extra],side+'-build',180)
+    run([dotnet,'restore','--disable-build-servers',project,'--locked-mode',*config,*props,*extra],side+'-restore',120)
+    run([dotnet,'build','--disable-build-servers',project,'--no-restore','-c','Release','-m:1','-nr:false','-p:UseSharedCompilation=false',*helper.AUDIT,*props,*extra],side+'-build',180)
     # The restored closure contains only the original eight project references.
     assets=json.loads(next((build/'obj/KuaiYi.GrowthHarness').rglob('project.assets.json')).read_text(encoding='utf-8-sig'))
     if set(assets['libraries'])!={x+'/1.0.0' for x in old.PROJECTS} or any(x['type']!='project' for x in assets['libraries'].values()):raise RuntimeError('Project-only closure differs')
@@ -226,10 +240,10 @@ def main(phase):
      r.update(Status='Pass_LimitedProcess' if passed else 'Failed' if settled else 'Unconfirmed',ResourcesSettled=passed,StateRetained=True)
      return r
    report['Processes']=[];owners=[];paired={}
-   for side in SIDES:
-    bundle=prepared['Bundles'][side];target=Path(bundle['Target']);root=Path(bundle['Root']);manifest=json.loads((WORK/(side+'-source-manifest.json')).read_text())
-    if any(digest(root/n)!=h for n,h in manifest.items()) or any(digest(REPO/p)!=h for p,h in prepared['Inputs'].items()) or {str(p.relative_to(target)):digest(p) for p in target.rglob('*') if p.is_file()}!=bundle['Files']:raise RuntimeError('Source/bundle bytes changed before visual run')
-    for view in ('settings','overlay'):
+   for view in ('settings','overlay'):
+    for side in SIDES:
+     bundle=prepared['Bundles'][side];target=Path(bundle['Target']);root=Path(bundle['Root']);manifest=json.loads((WORK/(side+'-source-manifest.json')).read_text())
+     if any(digest(root/n)!=h for n,h in manifest.items()) or any(digest(REPO/p)!=h for p,h in prepared['Inputs'].items()) or {str(p.relative_to(target)):digest(p) for p in target.rglob('*') if p.is_file()}!=bundle['Files']:raise RuntimeError('Source/bundle bytes changed before visual run')
      if deadline-time.monotonic()<65:raise RuntimeError('Insufficient shared visual budget; no launch')
      logs=WORK/(side+'-'+view);logs.mkdir();raster=logs/'raster';raster.mkdir()
      # Base owner requires an empty log directory; prepare child raster only inside its launch callback.
@@ -244,7 +258,7 @@ def main(phase):
      owner.join_originals();receipt=owner.snapshot();save(side+'-'+view+'-settled.json',receipt);report['Processes'].append(receipt)
      if receipt['Status']!='Pass_LimitedProcess':raise RuntimeError('Original visual process failed; no next launch')
      paired[(side,view)]=receipt['OriginalResult']['Actual']['Scenes']
-    if {str(p.relative_to(target)):digest(p) for p in target.rglob('*') if p.is_file()}!=bundle['Files'] or any(digest(root/n)!=h for n,h in manifest.items()):raise RuntimeError('Source/bundle bytes changed after visual run')
+     if {str(p.relative_to(target)):digest(p) for p in target.rglob('*') if p.is_file()}!=bundle['Files'] or any(digest(root/n)!=h for n,h in manifest.items()):raise RuntimeError('Source/bundle bytes changed after visual run')
    for view in ('settings','overlay'):
     a={s['Name']:s for s in paired[('before',view)]};b={s['Name']:s for s in paired[('after',view)]}
     if set(a)!=set(b):raise RuntimeError('Comparison scene identities differ')

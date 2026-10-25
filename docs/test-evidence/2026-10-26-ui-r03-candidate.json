@@ -1,0 +1,41 @@
+{
+  "status": "Pass_OfflinePreparation_ActualWindowsNotRun",
+  "base": "e12c1ed8ff351f8300dbdaca18585d7994493317",
+  "before": "e4d57e77426ab235c7219b375debd76bc072e00b",
+  "after": "e12c1ed8ff351f8300dbdaca18585d7994493317",
+  "preparationBranch": "dev/ui-polish-visual-r03-preparation",
+  "executionBranch": "dev/ui-polish-visual-r03",
+  "windowsExecution": "NotRun_ThirdWindowRequiresExplicitApproval",
+  "tests": {
+    "pythonJobFake": 15,
+    "pythonContractSynthetic": 28,
+    "csharpOpeningAndPalette": 15,
+    "crossBuild": "Harness and Provider 0 warnings 0 errors",
+    "nativePopupKeyboardAndJobABI": "NotRun"
+  },
+  "originals": [
+    {
+      "relativeLocalPath": "job-tests-r04.log",
+      "bytes": 6001,
+      "sha256": "55a529cffa873bc8e11ad5a81112bdce0848885689d5d9bd609056269ef6447a"
+    },
+    {
+      "relativeLocalPath": "contract-tests-r02.log",
+      "bytes": 239,
+      "sha256": "83b30c3e6451aa50c2576e8c72ab695f93b1f01295135ab33712203a82be1b17"
+    },
+    {
+      "relativeLocalPath": "checks-r01/report.json",
+      "bytes": 5598,
+      "sha256": "7f0054ff8bec72d37cc2e63d7caa72b5336a5434fc9dcc53ce34793dda03ed14"
+    }
+  ],
+  "budget": {
+    "jobMinutes": 15,
+    "supervisorMinutes": 14,
+    "prepareMinutes": 8,
+    "visualMinutes": 6
+  },
+  "cleanupScope": "Original supervisor plus inherited validation descendants; not checkout/upload/pwsh/runner",
+  "previousWindowsResult": "Run40217224688 failed; not retried; 8 before-settings rasters only"
+}
