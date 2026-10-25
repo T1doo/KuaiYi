@@ -1883,3 +1883,10 @@ A片源码冻结7a59ad9a66aedfe5ab539422c01849a82de6aceb，仅本地1提交，�
 - 2026-10-25 P7 实际托管发布/打包：新增八角色命令，原locked graph不改；16实际restore/publish全exit0，许可包装修复后复用原输出在新目录集成核验，11局部测试通过。三轮失败原件/419等角色目录保留，449产品源与原publish前后hash一致，8 Core相同。仅未封存输入，pinsUnavailable/正向issuer与真实Windows仍未通过；见 docs/validation/managed-publish.md 与 docs/test-evidence/2026-10-25-managed-publish.json。
 
 - 2026-10-25 UI 精修：设置分区/留白/标题与暖橙主题、按钮输入状态、浮窗来源/状态顺序及原帧驱动淡色扩散；模型强度、原控件实例、250/600ms与密码/取消/清理门不改。App及相关项目交叉构建0W0E，限定Provider368P与Core浮窗14P；首轮340P6F保留，766编译输入前后同。Chromium沙箱配置使首次预览启动SIGABRT，未重试/关沙箱/改权限；没有前后截图，HTML仅未渲染映射草稿，Windows像素/焦点/DPI/动效未验。原件只在本环境保全，独审后正常dev提交；详见[实现与限定验证](validation/ui-polish-2026-10-25.md)和[机器收据](test-evidence/2026-10-25-ui-polish.json)。
+
+
+## 2026-10-25 WPF 视觉探针准备（真实窗口 NotRun）
+
+- 独立默认关闭的 `--ci-ui-polish` 入口；固定 before e4d57 / after 419082，原 Settings/Shell 控件和原翻译 snapshot 路径。浅/深、真实程序 focus/disabled、Full/Reduce 采集合同，保持原生产门。没有新增 workflow/依赖或运行 Windows。
+- 新探针 16 + 原证据生命周期 20 = 36 pass / 0 fail；输入885、DLL130前后相同。最终 after 与精确 before 各自交叉编译 0W0E；before 原12,315文件构建后逐hash不变。r01/r02/r03编译失败原件全部保留；两位独立只读审查者限定ACK，不等同像素验收。
+- 真实 WPF raster/窗口焦点/动效仍 NotRun。新15分钟Windows窗口及6分钟视觉阶段待确认，未建新workflow、不触发CI。详见 [探针合同与限制](validation/ui-polish-visual-probe-2026-10-25.md) 和 [机器证据](test-evidence/2026-10-25-ui-visual-probe.json)；原TRX/DLL/基线副本仅本云环境保全。

@@ -18,6 +18,14 @@ internal static class Program
     [STAThread]
     public static int Main(string[] args)
     {
+        if(UiPolishContract.IsCommand(args))
+        {
+            UiPolishRequest request;
+            try{request=UiPolishContract.Authorize(args,OperatingSystem.IsWindows(),Environment.GetEnvironmentVariable);}
+            catch(Exception error){Console.Error.WriteLine("UI polish GateRejected: "+error.Message);return 2;}
+            try{return UiPolishProbe.Run(request);}
+            catch(Exception error){Console.Error.WriteLine("UI polish ExecutionFailedOrUnknown; original output retained: "+request.Output+"\n"+error);return 3;}
+        }
         if(args.Length==2&&args[0]=="--ci-settings-layout")return SettingsLayoutProbe.Run(args[1]);
         if(args.Length==2&&args[0]=="--ci-overlay-stages")return OverlayStageProbe.Run(args[1]);
         if(args.Length==2&&args[0]=="--ci-server-instance-parent")return ServerInstanceProbe.Run(args[1]);

@@ -4,5 +4,6 @@
     <ApplicationManifest>../../src/KuaiYi.Windows/app.manifest</ApplicationManifest>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier><SelfContained>false</SelfContained>
   </PropertyGroup>
-  <ItemGroup><ProjectReference Include="../../src/KuaiYi.Windows/KuaiYi.Windows.csproj" /><ProjectReference Include="../../src/KuaiYi.App/KuaiYi.App.csproj" /></ItemGroup>
+  <PropertyGroup><KuaiYiVisualProductRoot Condition="'$(KuaiYiVisualProductRoot)' == ''">$(MSBuildThisFileDirectory)../..</KuaiYiVisualProductRoot></PropertyGroup>
+  <ItemGroup><ProjectReference Include="$(KuaiYiVisualProductRoot)/src/KuaiYi.Windows/KuaiYi.Windows.csproj" /><ProjectReference Include="$(KuaiYiVisualProductRoot)/src/KuaiYi.App/KuaiYi.App.csproj" /></ItemGroup>
 </Project>

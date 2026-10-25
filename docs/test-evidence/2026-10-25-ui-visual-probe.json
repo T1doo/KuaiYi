@@ -1,0 +1,523 @@
+{
+  "kind": "UiPolishWpfProbePreparation",
+  "status": "Pass_LimitedPreparation",
+  "baseHead": "419082f9863abf109a3d9ee7274dde59697bb85a",
+  "productBefore": "e4d57e77426ab235c7219b375debd76bc072e00b",
+  "productAfter": "419082f9863abf109a3d9ee7274dde59697bb85a",
+  "sdk": "10.0.402",
+  "runtime": "10.0.13",
+  "newDependencies": false,
+  "windowsExecution": "NotRun",
+  "pngProduced": 0,
+  "pixelAcceptance": "NotRun",
+  "ciTriggered": false,
+  "nextWindow": "PendingApproval_New15MinJob_6MinVisualStage_NotCreated",
+  "productionSourceAndPins": "Unchanged_UnavailableGatesPreserved",
+  "finalCode": [
+    {
+      "path": "tools/KuaiYi.GrowthHarness/UiPolishContract.cs",
+      "bytes": 1695,
+      "sha256": "b6831b8e2a0fdfcc1820c480456dac7a193839d97ef60c08fe3c38000b74e67d",
+      "location": "CommittedText",
+      "sameAsActualR04TestInput": true
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/UiPolishTextFixture.cs",
+      "bytes": 8976,
+      "sha256": "3b4d3a96966ed07b875bb145e1513b65bce30d847f0128ddc72f51935833df6e",
+      "location": "CommittedText",
+      "sameAsActualR04TestInput": true
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/UiPolishProbe.cs",
+      "bytes": 27683,
+      "sha256": "1f135f839f7ab3f8da160e5061b250a0734c183c152403d6e89dcdcef9619617",
+      "location": "CommittedText",
+      "sameAsActualR04TestInput": false
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/Program.cs",
+      "bytes": 14304,
+      "sha256": "801fa0d7a8a30c2b6537ce4c4d2a64ca1542763426064efa8179e593bfd76873",
+      "location": "CommittedText",
+      "sameAsActualR04TestInput": true
+    },
+    {
+      "path": "tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj",
+      "bytes": 739,
+      "sha256": "b0eeb014a48bc840e87e27ab2a53186a2f26cede181e6e0f75ce84f8e2e33334",
+      "location": "CommittedText",
+      "sameAsActualR04TestInput": true
+    },
+    {
+      "path": "tests/KuaiYi.Provider.Tests/UiPolishProbeTests.cs",
+      "bytes": 7631,
+      "sha256": "3fa09c09fb64014a9d2bda4034b00beadf3395b115540e2b76ddbd4fdfc336b8",
+      "location": "CommittedText",
+      "sameAsActualR04TestInput": true
+    },
+    {
+      "path": "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+      "bytes": 8650,
+      "sha256": "3094bb7f194661261b4058cba956a9a45c14c6274982113d4a6669d42ca8c15a",
+      "location": "CommittedText",
+      "sameAsActualR04TestInput": true
+    }
+  ],
+  "tests": {
+    "passed": 36,
+    "failed": 0,
+    "skipped": 0,
+    "classes": {
+      "UiPolishProbeTests": 16,
+      "OverlayProbeEvidenceTests": 20
+    },
+    "actualCommand": [
+      "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+      "test",
+      "tests/KuaiYi.Provider.Tests/KuaiYi.Provider.Tests.csproj",
+      "--no-build",
+      "--no-restore",
+      "-c",
+      "Release",
+      "--filter",
+      "FullyQualifiedName~UiPolishProbeTests|FullyQualifiedName~OverlayProbeEvidenceTests",
+      "--logger",
+      "trx;LogFileName=Provider.trx",
+      "--results-directory",
+      "/workspace/KuaiYi/artifacts/2026-10-25-ui-visual-probe/checks-r04/results",
+      "--artifacts-path",
+      "/workspace/KuaiYi/artifacts/2026-10-25-ui-visual-probe/checks-r04/build",
+      "--disable-build-servers",
+      "-p:EnableWindowsTargeting=true",
+      "-p:RuntimeFrameworkVersion=10.0.13",
+      "-maxcpucount:1",
+      "-nodeReuse:false",
+      "-p:UseSharedCompilation=false",
+      "-p:NuGetAudit=true",
+      "-p:NuGetAuditMode=all",
+      "-p:NuGetAuditLevel=low",
+      "-p:TreatWarningsAsErrors=true"
+    ],
+    "startUtc": "2026-10-25T06:01:44.787106+00:00",
+    "endUtc": "2026-10-25T06:01:46.870974+00:00",
+    "exit": 0,
+    "settlement": "LeaderJoined_GroupEmpty",
+    "inputCount": 885,
+    "dllCount": 130,
+    "inputHashesUnchanged": true,
+    "dllHashesUnchanged": true,
+    "cases": [
+      {
+        "name": "KuaiYi.Provider.Tests.OverlayProbeEvidenceTests.SuccessfulIntermediateStillRequiresALiveWindowBeforeReverseClick",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishProbeTests.ComparisonSidesPinActualProductRevision(side: \"after\", expected: \"419082f9863abf109a3d9ee7274dde59697bb85a\", other: \"e4d57e77426ab235c7219b375debd76bc072e00b\")",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.OverlayProbeEvidenceTests.MeasurementBoundIsExplicitAndCannotChangeFrameOrStageEvidence",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishProbeTests.RealCoordinatorCreatesSnapshotAndCompletionSurvivesOriginalConnectorCancellation",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.OverlayProbeEvidenceTests.HiddenOrUnflushedTextCannotTurnSettledGeometryIntoAnExpandedPass",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.OverlayProbeEvidenceTests.ProductionFramesMustSettleAfterIssuanceAndRealIntermediateGeometry",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.OverlayProbeEvidenceTests.ManyTerminalCallbacksCannotReplaceAnObservedIntermediateAnimation",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.OverlayProbeEvidenceTests.OwnerPublishesBeforeStartAndCannotCleanUpBeforeBothOriginalCloseObservations",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.OverlayProbeEvidenceTests.LatestMeasurementMustBindBothVersionsAndCompleteReceivedLength",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishProbeTests.LinuxAndDefaultEnvironmentRefuseBeforeAnyApplicationExists",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.OverlayProbeEvidenceTests.FailedTerminalIsStickyAndOnlyCurrentIssuedEpochCanEndWaiting",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishProbeTests.ComparisonSidesPinActualProductRevision(side: \"before\", expected: \"e4d57e77426ab235c7219b375debd76bc072e00b\", other: \"419082f9863abf109a3d9ee7274dde59697bb85a\")",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.OverlayProbeEvidenceTests.FailedPhaseCanContinueDiagnosisAndStillWaitForOriginalCloseWithFailurePreserved",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishProbeTests.FixtureRejectsProfilesOutsideTheFixedPublicNoCredentialContract(change: \"endpoint\")",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishProbeTests.EachIndependentOptInRequirementIsNecessary(key: \"GITHUB_REPOSITORY\")",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.OverlayProbeEvidenceTests.ReversalTriggerRequiresAnActualChangedClosingFrame",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.OverlayProbeEvidenceTests.IntermediateFromAnotherAnimationCannotAuthorizeTheCurrentTerminal(duringIssue: True)",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishProbeTests.FixtureRejectsProfilesOutsideTheFixedPublicNoCredentialContract(change: \"protocol\")",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.OverlayProbeEvidenceTests.BodyAndBothCloseFailuresRemainDistinctAndPreventStateDeletion",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.OverlayProbeEvidenceTests.RasterMemoryAndPixelLimitsFailBeforeReservingAnExtraFrame",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishProbeTests.FixtureRejectsProfilesOutsideTheFixedPublicNoCredentialContract(change: \"headers\")",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.OverlayProbeEvidenceTests.MissedReverseWindowSkipsDependentCommandsButAllowsIndependentCompactStart",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.OverlayProbeEvidenceTests.CancellationStillJoinsOriginalCloseAndCleanupFailureCannotBecomeSuccess",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishProbeTests.EachIndependentOptInRequirementIsNecessary(key: \"GITHUB_REF\")",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.OverlayProbeEvidenceTests.GrowthNeedsFrameAndStalePhaseCannotSatisfyAReverseTerminal",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.OverlayProbeEvidenceTests.ApplyingCallbackCannotConsumeTheOneStableObservationForItsTargetTime",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishProbeTests.EachIndependentOptInRequirementIsNecessary(key: \"KUAIYI_UI_POLISH_ALLOW_WINDOWS\")",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishProbeTests.SingleIdentityProviderRefusesSecondStartEvenAfterFirstSettlement",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishProbeTests.MalformedNewCommandCannotFallThroughToOldWindowProbe",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishProbeTests.EachIndependentOptInRequirementIsNecessary(key: \"GITHUB_RUN_ATTEMPT\")",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishProbeTests.EachIndependentOptInRequirementIsNecessary(key: \"GITHUB_ACTIONS\")",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.OverlayProbeEvidenceTests.IntermediateFromAnotherAnimationCannotAuthorizeTheCurrentTerminal(duringIssue: False)",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishProbeTests.FixtureRejectsProfilesOutsideTheFixedPublicNoCredentialContract(change: \"credentials\")",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.OverlayProbeEvidenceTests.ReversedClocksAndOverflowNeverSilentlyDropOrAcceptEvidence",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.OverlayProbeEvidenceTests.DuplicateAndReentrantCallbacksAreRetainedButCannotInflateCoverage",
+        "outcome": "Passed"
+      },
+      {
+        "name": "KuaiYi.Provider.Tests.UiPolishProbeTests.UnattachedFixtureStillOwnsAndSettlesOriginalRequestBeforeProviderDisposal",
+        "outcome": "Passed"
+      }
+    ],
+    "receiptMetadataNote": "Original report.filterClasses omits OverlayProbeEvidenceTests; actual argv and TRX include both. Original not rewritten."
+  },
+  "builds": [
+    {
+      "side": "after",
+      "run": "after-build-r05",
+      "status": "Pass_CrossCompileOnly",
+      "warnings": 0,
+      "errors": 0,
+      "commands": [
+        {
+          "argv": [
+            "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+            "restore",
+            "tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj",
+            "--locked-mode",
+            "--configfile",
+            "/workspace/KuaiYi/NuGet.Config",
+            "--artifacts-path",
+            "/workspace/KuaiYi/artifacts/2026-10-25-ui-visual-probe/after-build-r05/build",
+            "--disable-build-servers",
+            "-p:EnableWindowsTargeting=true",
+            "-p:RuntimeFrameworkVersion=10.0.13",
+            "-maxcpucount:1",
+            "-nodeReuse:false",
+            "-p:UseSharedCompilation=false",
+            "-p:NuGetAudit=true",
+            "-p:NuGetAuditMode=all",
+            "-p:NuGetAuditLevel=low",
+            "-p:TreatWarningsAsErrors=true"
+          ],
+          "startUnix": 1792908147.2360249,
+          "log": "Harness-restore.log",
+          "exit": 0,
+          "settlement": "LeaderJoined_GroupEmpty",
+          "pid": 25066,
+          "group": 25066,
+          "endUnix": 1792908148.6426091,
+          "groupMembersAfter": []
+        },
+        {
+          "argv": [
+            "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+            "build",
+            "tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj",
+            "--no-restore",
+            "-c",
+            "Release",
+            "--artifacts-path",
+            "/workspace/KuaiYi/artifacts/2026-10-25-ui-visual-probe/after-build-r05/build",
+            "--disable-build-servers",
+            "-p:EnableWindowsTargeting=true",
+            "-p:RuntimeFrameworkVersion=10.0.13",
+            "-maxcpucount:1",
+            "-nodeReuse:false",
+            "-p:UseSharedCompilation=false",
+            "-p:NuGetAudit=true",
+            "-p:NuGetAuditMode=all",
+            "-p:NuGetAuditLevel=low",
+            "-p:TreatWarningsAsErrors=true"
+          ],
+          "startUnix": 1792908148.642867,
+          "log": "Harness-build.log",
+          "exit": 0,
+          "settlement": "LeaderJoined_GroupEmpty",
+          "pid": 25086,
+          "group": 25086,
+          "endUnix": 1792908173.3473716,
+          "groupMembersAfter": []
+        }
+      ],
+      "currentHarnessInputsUnchanged": true,
+      "appDll": {
+        "path": "artifacts/2026-10-25-ui-visual-probe/after-build-r05/build/bin/KuaiYi.App/release_win-x64/KuaiYi.App.dll",
+        "bytes": 616960,
+        "sha256": "099c723fea073a9f885119a5b6897115c2e6d7b232d216fe3cc4c6d8575bbf54",
+        "location": "OriginalCloudWorkspaceOnly_NotCommittedOrTransferred"
+      },
+      "harnessDll": {
+        "path": "artifacts/2026-10-25-ui-visual-probe/after-build-r05/build/bin/KuaiYi.GrowthHarness/release_win-x64/KuaiYi.GrowthHarness.dll",
+        "bytes": 338432,
+        "sha256": "a3a4a18136d49094e64d9fb594cd5658af65ccaf72e6798393acd35a01ac6ea5",
+        "location": "OriginalCloudWorkspaceOnly_NotCommittedOrTransferred"
+      }
+    },
+    {
+      "side": "before",
+      "run": "before-build-r01",
+      "status": "Pass_CrossCompileOnly",
+      "warnings": 0,
+      "errors": 0,
+      "commands": [
+        {
+          "argv": [
+            "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+            "restore",
+            "tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj",
+            "--locked-mode",
+            "--configfile",
+            "/workspace/KuaiYi/NuGet.Config",
+            "--artifacts-path",
+            "/workspace/KuaiYi/artifacts/2026-10-25-ui-visual-probe/before-build-r01/build",
+            "--disable-build-servers",
+            "-p:EnableWindowsTargeting=true",
+            "-p:RuntimeFrameworkVersion=10.0.13",
+            "-maxcpucount:1",
+            "-nodeReuse:false",
+            "-p:UseSharedCompilation=false",
+            "-p:NuGetAudit=true",
+            "-p:NuGetAuditMode=all",
+            "-p:NuGetAuditLevel=low",
+            "-p:TreatWarningsAsErrors=true",
+            "-p:KuaiYiVisualProductRoot=/workspace/KuaiYi/artifacts/2026-10-25-ui-visual-probe/before-source",
+            "-p:SourceRevisionId=e4d57e77426ab235c7219b375debd76bc072e00b"
+          ],
+          "startUnix": 1792908187.1789417,
+          "log": "Harness-restore.log",
+          "exit": 0,
+          "settlement": "LeaderJoined_GroupEmpty",
+          "pid": 25417,
+          "group": 25417,
+          "endUnix": 1792908188.5824392,
+          "groupMembersAfter": []
+        },
+        {
+          "argv": [
+            "/workspace/KuaiYi/artifacts/session-runtime-security/sdk/sdk-10.0.402/dotnet",
+            "build",
+            "tools/KuaiYi.GrowthHarness/KuaiYi.GrowthHarness.csproj",
+            "--no-restore",
+            "-c",
+            "Release",
+            "--artifacts-path",
+            "/workspace/KuaiYi/artifacts/2026-10-25-ui-visual-probe/before-build-r01/build",
+            "--disable-build-servers",
+            "-p:EnableWindowsTargeting=true",
+            "-p:RuntimeFrameworkVersion=10.0.13",
+            "-maxcpucount:1",
+            "-nodeReuse:false",
+            "-p:UseSharedCompilation=false",
+            "-p:NuGetAudit=true",
+            "-p:NuGetAuditMode=all",
+            "-p:NuGetAuditLevel=low",
+            "-p:TreatWarningsAsErrors=true",
+            "-p:KuaiYiVisualProductRoot=/workspace/KuaiYi/artifacts/2026-10-25-ui-visual-probe/before-source",
+            "-p:SourceRevisionId=e4d57e77426ab235c7219b375debd76bc072e00b"
+          ],
+          "startUnix": 1792908188.5826573,
+          "log": "Harness-build.log",
+          "exit": 0,
+          "settlement": "LeaderJoined_GroupEmpty",
+          "pid": 25451,
+          "group": 25451,
+          "endUnix": 1792908214.5107858,
+          "groupMembersAfter": []
+        }
+      ],
+      "currentHarnessInputsUnchanged": true,
+      "appDll": {
+        "path": "artifacts/2026-10-25-ui-visual-probe/before-build-r01/build/bin/KuaiYi.App/release_win-x64/KuaiYi.App.dll",
+        "bytes": 615936,
+        "sha256": "1f62e91adfb7663dec3d4d4a14bd34406ea44bbe202d695d62c43c7e533e2166",
+        "location": "OriginalCloudWorkspaceOnly_NotCommittedOrTransferred"
+      },
+      "harnessDll": {
+        "path": "artifacts/2026-10-25-ui-visual-probe/before-build-r01/build/bin/KuaiYi.GrowthHarness/release_win-x64/KuaiYi.GrowthHarness.dll",
+        "bytes": 338432,
+        "sha256": "1cce92cc520769a007bf5a03415c0e77d2f0feb6a71201acf7ded0a0222186f5",
+        "location": "OriginalCloudWorkspaceOnly_NotCommittedOrTransferred"
+      }
+    }
+  ],
+  "originals": [
+    {
+      "path": "artifacts/2026-10-25-ui-visual-probe/checks-r04/report.json",
+      "bytes": 5575,
+      "sha256": "8ec5f7614446e5cc8d18b019230485236edb8ba38971c3ac5282d5c4f1ad74e7",
+      "location": "OriginalCloudWorkspaceOnly_NotCommittedOrTransferred"
+    },
+    {
+      "path": "artifacts/2026-10-25-ui-visual-probe/checks-r04/results/Provider.trx",
+      "bytes": 55513,
+      "sha256": "dbbff49f36eb6642e041544f37f9c2da513b62ae7c428c9de231cf8c8c4615f8",
+      "location": "OriginalCloudWorkspaceOnly_NotCommittedOrTransferred"
+    },
+    {
+      "path": "artifacts/2026-10-25-ui-visual-probe/checks-r04/sources-before.json",
+      "bytes": 135102,
+      "sha256": "373ef7dee258f770d38f3df79878bfd884123d6cd9e64be4b02daf819a8e32ce",
+      "location": "OriginalCloudWorkspaceOnly_NotCommittedOrTransferred"
+    },
+    {
+      "path": "artifacts/2026-10-25-ui-visual-probe/checks-r04/sources-after.json",
+      "bytes": 135102,
+      "sha256": "373ef7dee258f770d38f3df79878bfd884123d6cd9e64be4b02daf819a8e32ce",
+      "location": "OriginalCloudWorkspaceOnly_NotCommittedOrTransferred"
+    },
+    {
+      "path": "artifacts/2026-10-25-ui-visual-probe/checks-r04/dlls-before-test.json",
+      "bytes": 24286,
+      "sha256": "63382fe1a42892f8d3dbff1f29185601bcc06e1372359859fc85580720b373a8",
+      "location": "OriginalCloudWorkspaceOnly_NotCommittedOrTransferred"
+    },
+    {
+      "path": "artifacts/2026-10-25-ui-visual-probe/checks-r04/dlls-after-test.json",
+      "bytes": 24286,
+      "sha256": "63382fe1a42892f8d3dbff1f29185601bcc06e1372359859fc85580720b373a8",
+      "location": "OriginalCloudWorkspaceOnly_NotCommittedOrTransferred"
+    },
+    {
+      "path": "artifacts/2026-10-25-ui-visual-probe/after-build-r05/report.json",
+      "bytes": 2270,
+      "sha256": "577e39dffcd928707445116944cbfecbd467f17f78821e0e5771d93f7b82e333",
+      "location": "OriginalCloudWorkspaceOnly_NotCommittedOrTransferred"
+    },
+    {
+      "path": "artifacts/2026-10-25-ui-visual-probe/before-build-r01/report.json",
+      "bytes": 2631,
+      "sha256": "9ec2b07313e976de98aeaa4884d6d7a52156a23ea93f828c69e066ab61590082",
+      "location": "OriginalCloudWorkspaceOnly_NotCommittedOrTransferred"
+    },
+    {
+      "path": "artifacts/2026-10-25-ui-visual-probe/before-source-attestation.json",
+      "bytes": 3458780,
+      "sha256": "6d69e65a1745f87c2f44b8943dac78d2eaf8c7e6d7f0c5a86f38bd83dca869e7",
+      "location": "OriginalCloudWorkspaceOnly_NotCommittedOrTransferred"
+    },
+    {
+      "path": "artifacts/2026-10-25-ui-visual-probe/before-source-postbuild.json",
+      "bytes": 246,
+      "sha256": "615311752a454998835974e41a2acda38b029e794c8b0066424c2d3df4dca513",
+      "location": "OriginalCloudWorkspaceOnly_NotCommittedOrTransferred"
+    }
+  ],
+  "review": {
+    "ui_readonly_review": "LimitedACK_NoRemainingP1P2_SourceAndActualR04R05Evidence",
+    "managed_publish_review": "LimitedACK_ProxyAndSourceByteIsolation_ActualR04R05Evidence",
+    "windowsScope": "Neither ACK authorizes native window; no pixel claim"
+  },
+  "failuresRetained": [
+    {
+      "run": "checks-r01",
+      "stage": "Harness-build",
+      "diagnostics": 3,
+      "reason": "Enum ambiguity / DpiScale equality / nullable"
+    },
+    {
+      "run": "checks-r02",
+      "stage": "Provider-build",
+      "diagnostics": 38,
+      "reason": "Missing Xunit import; no tests ran"
+    },
+    {
+      "run": "checks-r03",
+      "stage": "Provider-build",
+      "diagnostics": 1,
+      "reason": "CS4014 discarded Task-valued assertion; no tests ran"
+    }
+  ],
+  "beforeProductInputs": {
+    "gitHead": "e4d57e77426ab235c7219b375debd76bc072e00b",
+    "filesChecked": 12315,
+    "unchanged": true,
+    "checkedUtc": "2026-10-25T06:04:15.903721+00:00",
+    "manifestSha256": "6d69e65a1745f87c2f44b8943dac78d2eaf8c7e6d7f0c5a86f38bd83dca869e7",
+    "note": "12315 immutable original files checked independently after build; original 885-item build list covers main workspace/harness, not these files."
+  }
+}
