@@ -6,7 +6,7 @@ internal static class UiPolishContract
 {
     internal const string Before="e4d57e77426ab235c7219b375debd76bc072e00b";
     internal const string After="419082f9863abf109a3d9ee7274dde59697bb85a";
-    internal const string Branch="refs/heads/dev/ui-polish-visual";
+    internal const string Branch="refs/heads/dev/ui-polish-visual-r02";
     internal static bool IsCommand(string[] args)=>args.Length>0&&args[0].StartsWith("--ci-ui-polish",StringComparison.Ordinal);
     internal static UiPolishRequest Authorize(string[] args,bool windows,Func<string,string?> env)
     {

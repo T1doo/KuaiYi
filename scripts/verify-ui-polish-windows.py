@@ -13,10 +13,10 @@ import unicodedata
 import time
 import urllib.request
 
-PARENT='b787149d5c50c3a6a9f940d0cd361db409c2090d'
+PARENT='11f13f5ebc4fcb812d98586c5f594ca3a2633990'
 SIDES={'before':'e4d57e77426ab235c7219b375debd76bc072e00b','after':'419082f9863abf109a3d9ee7274dde59697bb85a'}
-BRANCH='refs/heads/dev/ui-polish-visual'
-FILES={'.github/workflows/windows-ui-polish.yml','scripts/verify-ui-polish-windows.py','scripts/test_ui_polish_windows.py','tools/KuaiYi.GrowthHarness/UiPolishProbe.cs','docs/progress.md','docs/validation/ui-polish-windows-attempt.md'}
+BRANCH='refs/heads/dev/ui-polish-visual-r02'
+FILES={'.github/workflows/windows-ui-polish.yml','scripts/verify-ui-polish-windows.py','tools/KuaiYi.GrowthHarness/UiPolishContract.cs','docs/progress.md','docs/validation/ui-polish-windows-r02-preparation.md'}
 REPO=Path(__file__).resolve().parent.parent
 WORK=REPO/'artifacts/ui-polish-windows'
 

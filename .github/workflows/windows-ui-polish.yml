@@ -1,14 +1,14 @@
-name: One approved fixed WPF UI comparison
-run-name: UI polish before-after / ${{ github.sha }}
+name: Prepared second fixed WPF UI comparison
+run-name: UI polish r02 before-after / ${{ github.sha }}
 on:
   push:
-    branches: [dev/ui-polish-visual]
+    branches: [dev/ui-polish-visual-r02]
     paths: [.github/workflows/windows-ui-polish.yml]
 permissions:
   contents: read
 jobs:
   visual:
-    if: ${{ github.repository == 'T1doo/KuaiYi' && github.event_name == 'push' && github.ref == 'refs/heads/dev/ui-polish-visual' && github.event.repository.private == false && github.run_attempt == '1' }}
+    if: ${{ github.repository == 'T1doo/KuaiYi' && github.event_name == 'push' && github.ref == 'refs/heads/dev/ui-polish-visual-r02' && github.event.repository.private == false && github.run_attempt == '1' }}
     runs-on: windows-2022
     timeout-minutes: 15
     env:
