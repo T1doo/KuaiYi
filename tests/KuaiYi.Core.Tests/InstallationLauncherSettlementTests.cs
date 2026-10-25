@@ -4,7 +4,7 @@ using Xunit;
 namespace KuaiYi.Core.Tests;
 
 // Component counterexamples only: held original stream tasks, not a real UI/Windows acceptance.
-public sealed class InstallationLauncherSettlementTests
+public sealed partial class InstallationLauncherSettlementTests
 {
     private static TaskCompletionSource Signal()=>new(TaskCreationOptions.RunContinuationsAsynchronously);
     private sealed class Output:Stream
@@ -22,8 +22,19 @@ public sealed class InstallationLauncherSettlementTests
     private sealed class Input(byte[] bytes):MemoryStream(bytes)
     {
         internal readonly TaskCompletionSource End=Signal();
+        internal readonly TaskCompletionSource<byte[]> Tail=new(TaskCreationOptions.RunContinuationsAsynchronously);
+        internal bool DeferredTail;
+        private int tailPosition;
         public override async ValueTask<int> ReadAsync(Memory<byte> target,CancellationToken cancellation=default)
-        {if(Position<Length)return await base.ReadAsync(target,cancellation);await End.Task.WaitAsync(cancellation);return 0;}
+        {
+            if(Position<Length)return await base.ReadAsync(target,cancellation);
+            if(DeferredTail)
+            {
+                byte[] tail=await Tail.Task.WaitAsync(cancellation);int count=Math.Min(target.Length,tail.Length-tailPosition);
+                if(count>0){tail.AsMemory(tailPosition,count).CopyTo(target);tailPosition+=count;return count;}
+            }
+            await End.Task.WaitAsync(cancellation);return 0;
+        }
     }
     private static (InstallationStableSelection Selection,Input Input) Entry()
     {

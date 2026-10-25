@@ -1,0 +1,260 @@
+{
+  "schemaVersion": 1,
+  "kind": "KuaiYiOrdinaryLaunchStartupSourceBoundary",
+  "component_status": "Pass",
+  "p7_04": "InProgress; positive cross-restart issuer remains absent",
+  "production_implementation_changed": false,
+  "scope": "Source-flow design and regression component tests for the existing rejection boundary; no positive capability created",
+  "design_review": {
+    "reviewer": "p705_readonly_review",
+    "reviewed_adr_bytes": 5231,
+    "reviewed_adr_sha256": "693a547b78ba4d98870c5e0b32bc17d91cd163a0226a6a1649ff9d3cdff42aa7",
+    "scope": "Pure component negative tests plus clean EOF/Bootstrap/STOP and late-tail controls; positive cross-restart issuer not supplied"
+  },
+  "actual_build_and_test_revision": "e29f5d94bdec23522f875d19f6fbc8ed0caf30b9",
+  "candidate_source_relation": "Final two test blobs equal r02 pretest copies. Actual compilation was unpublished e29 r01 candidate plus four finally direct-await fixes; final commit SHA was not built.",
+  "test_sources": [
+    {
+      "path": "tests/KuaiYi.Core.Tests/InstallationLauncherSettlementTests.cs",
+      "bytes": 7259,
+      "sha256": "255d5f7d34da6d1ca19b14e22dee124165824cb9079b2b9cce0daa5f4780cbaf"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/InstallationLauncherStartupSourceTests.cs",
+      "bytes": 10770,
+      "sha256": "235a60d2c9f601b7b832b662663a5726fcda52a956c8f836527529f6aa53e60b"
+    }
+  ],
+  "build": {
+    "attempts": 2,
+    "each_exit": 0,
+    "each_warnings": 0,
+    "each_errors": 0,
+    "latest_original_log": "artifacts/2026-10-25-withdrawal-recovery/p704-source-test-build-02.log"
+  },
+  "test": {
+    "filter": "FullyQualifiedName~KuaiYi.Core.Tests.InstallationLauncherSettlementTests",
+    "argv_from_repo_root": [
+      "dotnet",
+      "test",
+      "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+      "--no-build",
+      "--no-restore",
+      "-c",
+      "Release",
+      "--filter",
+      "FullyQualifiedName~KuaiYi.Core.Tests.InstallationLauncherSettlementTests",
+      "--logger",
+      "trx;LogFileName=r02.trx",
+      "--results-directory",
+      "artifacts/2026-10-25-launcher-startup-boundary/r02-results",
+      "--logger",
+      "console;verbosity=normal",
+      "--",
+      "RunConfiguration.MaxCpuCount=1"
+    ],
+    "start_utc": "2026-10-25T04:28:04.623399+00:00",
+    "end_utc": "2026-10-25T04:28:06.549222+00:00",
+    "exit": 0,
+    "passed": 23,
+    "failed": 0,
+    "skipped": 0,
+    "elapsed_seconds": 1.923,
+    "budget_seconds": 120,
+    "budget_expired": false,
+    "original_process_joined": true,
+    "original_log_closed": true,
+    "original_four_case_names": [
+      "BridgeCannotOverlapClosingWithTheOriginalReadyWriteOrReturnBeforeItSettles",
+      "BridgeObservationTimeoutCannotDisposeTheOwnerOfAnUnfinishedClosingWrite",
+      "OriginalSessionAndOriginalCancellationCallbackFailuresAreBothPreserved",
+      "DisposedStableOwnerCannotLaterStartAQueuedRun"
+    ],
+    "new_cases": 19,
+    "cases": [
+      {
+        "name": "KuaiYi.Core.Tests.InstallationLauncherSettlementTests.BridgeCannotOverlapClosingWithTheOriginalReadyWriteOrReturnBeforeItSettles",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationLauncherSettlementTests.OrdinaryEntryCannotChangeItsSourceByInventingANewInitialVerb(verb: \"LAUNCH_CURRENT_TRUSTED\")",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationLauncherSettlementTests.OrdinaryEntryCannotChangeItsSourceByInventingANewInitialVerb(verb: \"LAUNCH_STARTUP\")",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationLauncherSettlementTests.OriginalSessionAndOriginalCancellationCallbackFailuresAreBothPreserved",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationLauncherSettlementTests.InFlightOrdinarySessionRejectsALateStartupGrantAndJoinsItsOriginalWork(verb: \"STARTUP_READY\")",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationLauncherSettlementTests.CanonicalOrdinaryEnvelopeStillPublishesReadyAndExitsAfterClosingEOF(bootstrap: False)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationLauncherSettlementTests.DisposedStableOwnerCannotLaterStartAQueuedRun",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationLauncherSettlementTests.OrdinaryBootstrapReceiptEnvelopeCannotHideAnAdditionalStartupAuthority(field: \"StartupQualified\")",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationLauncherSettlementTests.OrdinarySourceDataStillRequiresTheOriginalParentChildBinding(mismatch: \"nonce\")",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationLauncherSettlementTests.InFlightOrdinarySessionRejectsALateStartupGrantAndJoinsItsOriginalWork(verb: \"STARTUP_BEGIN\")",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationLauncherSettlementTests.OrdinarySelectionCannotAcquireStartupSourceFromExtraSerializedClaims(field: \"BootstrapSha256\")",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationLauncherSettlementTests.ExactOrdinaryStopRevokesTheOriginalSessionWithoutBecomingASourceProtocolError",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationLauncherSettlementTests.OrdinarySourceDataStillRequiresTheOriginalParentChildBinding(mismatch: \"data\")",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationLauncherSettlementTests.OrdinaryEntryCannotChangeItsSourceByInventingANewInitialVerb(verb: \"STARTUP_SOURCES\")",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationLauncherSettlementTests.BridgeObservationTimeoutCannotDisposeTheOwnerOfAnUnfinishedClosingWrite",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationLauncherSettlementTests.OrdinarySelectionCannotAcquireStartupSourceFromExtraSerializedClaims(field: \"StartupQualified\")",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationLauncherSettlementTests.OrdinarySelectionCannotAcquireStartupSourceFromExtraSerializedClaims(field: \"StartupSources\")",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationLauncherSettlementTests.InFlightOrdinarySessionRejectsALateStartupGrantAndJoinsItsOriginalWork(verb: \"STARTUP_SOURCES\")",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationLauncherSettlementTests.OrdinarySelectionCannotAcquireStartupSourceFromExtraSerializedClaims(field: \"RetiredInstaller\")",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationLauncherSettlementTests.OrdinarySelectionCannotAcquireStartupSourceFromExtraSerializedClaims(field: \"GenerationSourceSha256\")",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationLauncherSettlementTests.OrdinaryBootstrapReceiptEnvelopeCannotHideAnAdditionalStartupAuthority(field: \"StartupSources\")",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationLauncherSettlementTests.CanonicalOrdinaryEnvelopeStillPublishesReadyAndExitsAfterClosingEOF(bootstrap: True)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationLauncherSettlementTests.OrdinarySourceDataStillRequiresTheOriginalParentChildBinding(mismatch: \"directory\")",
+        "result": "Passed"
+      }
+    ],
+    "trx": {
+      "path": "artifacts/2026-10-25-launcher-startup-boundary/r02-results/r02.trx",
+      "bytes": 35230,
+      "sha256": "975c46cf0cb87d0da637cc5e04e2016f35db572dcd06ad50c37653e6dec843e2"
+    },
+    "log": {
+      "path": "artifacts/2026-10-25-withdrawal-recovery/p704-source-r02-component.log",
+      "bytes": 4282,
+      "sha256": "04ee0d75fa93c85c971b716bff2d7b79cf8735ef7112c7f77ecd7c0b22e0fb90"
+    },
+    "same_23_names_parameters_and_test_ids_as_r01": true
+  },
+  "before_after": {
+    "input_count": 12311,
+    "input_projection_sha256": "80c434c6f08724296f62fbefde02b321732d43b66ed7a451ca5af0448daf297b",
+    "all_inputs_unchanged": true,
+    "primary_DLLs": [
+      {
+        "path": "src/KuaiYi.Core/bin/Release/net10.0/KuaiYi.Core.dll",
+        "bytes": 1292800,
+        "sha256": "cf5eafbd1b5faf3db253edaa54e9a83ddb9548f31225ca8e4d00c4a54c42a322"
+      },
+      {
+        "path": "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.dll",
+        "bytes": 1292800,
+        "sha256": "cf5eafbd1b5faf3db253edaa54e9a83ddb9548f31225ca8e4d00c4a54c42a322"
+      },
+      {
+        "path": "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Core.Tests.dll",
+        "bytes": 3370496,
+        "sha256": "3eb61cb173dfb99a50bcf298c072a3b74caf4bada2e199138699c5a94560ca0a"
+      },
+      {
+        "path": "tests/KuaiYi.Core.Tests/bin/Release/net10.0/KuaiYi.Contracts.dll",
+        "bytes": 64512,
+        "sha256": "5d2cc8501dd3d92cc5cbd74ed3e80e7cffdef175f1d53224e98bae2abeb9dec6"
+      }
+    ],
+    "primary_DLLs_unchanged": true,
+    "test_runtime_file_count": 127,
+    "runtime_files_unchanged": true,
+    "test_Core_equals_fresh_Core": true,
+    "posttest_input_manifest": {
+      "path": "artifacts/2026-10-25-launcher-startup-boundary/r02-posttest-inputs.json",
+      "bytes": 2548289,
+      "sha256": "80c434c6f08724296f62fbefde02b321732d43b66ed7a451ca5af0448daf297b"
+    }
+  },
+  "coverage_limits": [
+    "Only real ControllerBridge component entry and synthetic in-memory streams/callbacks",
+    "Canonical Bootstrap control is an envelope control, not materialized G/B qualification",
+    "Retired Installer input is only a forged serialized claim, not an actual retired Entry reference",
+    "No positive startup source, original issuer, new owner/token/credential or wire verb created",
+    "No production source, pins, Launcher, Installer, Settings or workflow change",
+    "No product child process, real Windows, registry, deletion, Shell, identity, settings-key mutation or sign-in",
+    "No whole Core or unrelated fixture/runtime retest",
+    "No models, CI, deployment or binary upload"
+  ],
+  "preservation": {
+    "originals_only_in_execution_environment": true,
+    "directory": "artifacts/2026-10-25-launcher-startup-boundary",
+    "bytes_at_verification": 19931080,
+    "declared_bound_bytes": 67108864,
+    "free_bytes_before": 24498921472,
+    "free_bytes_after": 24490237952,
+    "binary_archive_or_upload": false
+  },
+  "implementation_independent_review": "Pending; normal dev push only after limited ACK",
+  "prior_attempt": {
+    "name": "r01",
+    "candidate": "e29f5d94bdec23522f875d19f6fbc8ed0caf30b9",
+    "actual_passed": 23,
+    "actual_failed": 0,
+    "actual_skipped": 0,
+    "exit": 0,
+    "elapsed_seconds": 3.968,
+    "independent_review": "Not ACK: P2 in four finally blocks; observation timeout did not guarantee original task settlement before stream/registration disposal",
+    "fix": "Release already owned signals then directly await the original task in all four finally blocks; bounded main assertions and outer runner remain",
+    "trx": {
+      "path": "artifacts/2026-10-25-launcher-startup-boundary/r01-results/r01.trx",
+      "bytes": 35230,
+      "sha256": "4a2d7b2ac11fed522f253931bab47f4a503ab758a80b96e166693fd59a8cb822"
+    },
+    "log": {
+      "path": "artifacts/2026-10-25-withdrawal-recovery/p704-source-r01-component.log",
+      "bytes": 4285,
+      "sha256": "c9785d298dcd4d2a52fe2634d3f921b2e17b38869041db9436459c1435371d59"
+    },
+    "local_preservation_ref": "refs/preservation/kuaiyi-startup-boundary-r01",
+    "not_pushed": true,
+    "results_not_summed": true
+  }
+}
