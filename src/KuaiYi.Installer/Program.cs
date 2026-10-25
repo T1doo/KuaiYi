@@ -9,6 +9,16 @@ internal static class Program
     private static InstallationInstallerEntry? runtime;
     private static readonly InstallationInstallerCancellation Stop=new();
     internal static bool IsCommand(string[] args)=>args.SequenceEqual(new[]{"--install"});
+    // Internal source-only branch; no public uninstall command. Default pins still refuse before platform ownership.
+    internal static InstallationRegistrationWithdrawal PrepareRegistrationWithdrawal()
+    {
+        if(!OperatingSystem.IsWindows())throw new PlatformNotSupportedException();
+        using var resource=typeof(Program).Assembly.GetManifestResourceStream("KuaiYi.InstallerSourcePins")??throw new InvalidDataException("Embedded installer trust is absent.");
+        if(resource.Length is <1 or >4096)throw new InvalidDataException("Embedded installer trust exceeds bound.");
+        byte[] bytes=new byte[(int)resource.Length];resource.ReadExactly(bytes);_=InstallationInstallerPins.Read(bytes);
+        string local=Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        return new(bytes,Path.Combine(local,"KuaiYi.Application"),Path.Combine(local,"KuaiYi"),InstallationDeploymentRegistrySnapshot.CreateWindows());
+    }
     public static int Main(string[] args)
     {
         if(!IsCommand(args)||!OperatingSystem.IsWindows())return 2;

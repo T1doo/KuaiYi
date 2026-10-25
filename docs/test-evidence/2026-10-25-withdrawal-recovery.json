@@ -1,0 +1,264 @@
+{
+  "kind": "KuaiYiRegistrationWithdrawalRecoveryValidation",
+  "status": "Pass_SyntheticWithdrawalClassOnly",
+  "base_and_actual_build_revision": "2b357c9e1191f21a7fdc8bea499b142d59b12ed3",
+  "tested_branch": "dev/p7-withdrawal-recovery-20261024",
+  "tested_source_state": "six uncommitted source files; content bound by complete prebuild inputs and per-file SHA256, not a claim of building a later commit",
+  "candidate_source_files": [
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationRegistrationWithdrawal.Publication.cs",
+      "bytes": 7149,
+      "sha256": "0ac5bb3765ebd333785ae0fc038e95152f05bccdf0fcc065f2e50d6eeffa35a9"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationRegistrationWithdrawal.cs",
+      "bytes": 22808,
+      "sha256": "057e741d662f3c5c8e9045c48b533149f62c150a924debff70c09e2707690bad"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationStartupRegistration.cs",
+      "bytes": 9143,
+      "sha256": "45fe4ce6049a49c4ae37b659dd994c0030fe62c55c051c590af8ad9cd512a35f"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationStore.ObservedCurrent.cs",
+      "bytes": 904,
+      "sha256": "33e1e103324da7acbb53f2ce9026d522b26e1a74a8ede38f27921fde079efbe1"
+    },
+    {
+      "path": "src/KuaiYi.Installer/Program.cs",
+      "bytes": 3982,
+      "sha256": "d99f46dfa4d8b84cbb19270b5ae2d2e30bb202a194fe21bc18c82a6ff0772a1e"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/InstallationRegistrationWithdrawalTests.cs",
+      "bytes": 28934,
+      "sha256": "0cab0082d7dc3d132b305e140dfec9be8862351f8b0cb66c5684a19b812f6b29"
+    }
+  ],
+  "sdk": {
+    "status": "OfficialArchiveVerifiedAndExtracted",
+    "sdk": "10.0.402",
+    "url": "https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.402/dotnet-sdk-10.0.402-linux-x64.tar.gz",
+    "archive_bytes": 240279509,
+    "archive_sha512": "1904a98dda2db34ba78ba3c4fb1b224455329af91c341d83547843c1839e112b04ae699ee92fa2449a8f62249196a938723078c0c60b9f65c88539d5687729c2",
+    "metadata_url": "https://builds.dotnet.microsoft.com/dotnet/release-metadata/10.0/releases.json",
+    "metadata_sha256": "8ba714cf0020d35ff4a3cb163376df2f4ccaf8e6e1d7021fcb1bd7dd628299d2",
+    "destination": "artifacts/session-runtime-security/sdk/sdk-10.0.402",
+    "finished_utc": "2026-10-25T03:03:31.869346+00:00",
+    "no_system_installation": true
+  },
+  "runtime_input_preparation": {
+    "kind": "NewOfficialPinnedRuntimeInputPreparation_NotHistoricalArtifactRestore",
+    "utc": "2026-10-25T03:06:52.374182+00:00",
+    "sdk": "10.0.402",
+    "runtime": "10.0.13",
+    "inventory_and_vulnerability_coverage": {
+      "Project": "packaging/session-runtime-audit/session-runtime-audit.csproj",
+      "PackageCount": 2,
+      "Frameworks": [
+        "net10.0"
+      ]
+    },
+    "strict_signature_verification": "Both original official packages passed existing gate without warning bypass",
+    "licenses": [
+      {
+        "id": "Microsoft.NETCore.App.Runtime.win-x64",
+        "source": "https://api.nuget.org/v3-flatcontainer/microsoft.netcore.app.runtime.win-x64/10.0.13/microsoft.netcore.app.runtime.win-x64.nuspec",
+        "license": "MIT",
+        "explicit_acceptance": false,
+        "sha256": "6e9ce44d56da78d44acac89c1ac7e3dc142e3ad85bb5a8686dff6de4e61281f4"
+      },
+      {
+        "id": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+        "source": "https://api.nuget.org/v3-flatcontainer/microsoft.windowsdesktop.app.runtime.win-x64/10.0.13/microsoft.windowsdesktop.app.runtime.win-x64.nuspec",
+        "license": "MIT",
+        "explicit_acceptance": false,
+        "sha256": "8ba129a1fb7e98729d1a845cb4bab1740fd7d670c5b935cd3ca23244412bce9b"
+      }
+    ],
+    "contract_sha256": "d845ed530a7d4b7065228157a46e9197706875d1e6384661ea4de00c638cb0b1",
+    "compatibility_input_directory": "artifacts/2026-10-23-product-payload/final/verification-b-source",
+    "file_count": 189,
+    "total_bytes": 80453412,
+    "old_product_files_or_catalog_restored": false,
+    "windows_execution": "NotRun"
+  },
+  "runtime_archive_verification": [
+    {
+      "id": "Microsoft.NETCore.App.Runtime.win-x64",
+      "version": "10.0.13",
+      "path": "artifacts/2026-10-25-withdrawal-recovery/nuget-packages/microsoft.netcore.app.runtime.win-x64/10.0.13/microsoft.netcore.app.runtime.win-x64.10.0.13.nupkg",
+      "bytes": 39979592,
+      "archive_sha512": "55suoRAIf6dVjOdPhHxIElDa2GBoqVZI70bG4zq+f2pHQbGV6yDvztsXdit4pxc3Ea79X0Kfo78Kncjt9NauIQ==",
+      "content_hash": "AtNgFBRln5IDZonHHqMN5M/AigeXGWWOf3TB2nDE415hqiYiTPNyaFObfZBC6jXx8JlGZCIpQ6CEM0G+zf6NHQ==",
+      "archive_and_content_lock_match": true
+    },
+    {
+      "id": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+      "version": "10.0.13",
+      "path": "artifacts/2026-10-25-withdrawal-recovery/nuget-packages/microsoft.windowsdesktop.app.runtime.win-x64/10.0.13/microsoft.windowsdesktop.app.runtime.win-x64.10.0.13.nupkg",
+      "bytes": 39195063,
+      "archive_sha512": "g8vz2rWeSNYimFNYUqXUy7yVkKJOQycy9ksNt59122iv+y7Y5KrR/PwoSCQgXO3KBJbf4uEdK0LuCr8OaVwQcw==",
+      "content_hash": "xouaR618eD6SeEht2zW16YFBGtRGF6+qTs8nNSLqmBzrBl5di/tf9A1WwDYjGxqQln27Gds0I+WZ8DR2IUePCg==",
+      "archive_and_content_lock_match": true
+    }
+  ],
+  "builds": [
+    {
+      "step": "app-build",
+      "exit": 0,
+      "warnings": 0,
+      "errors": 0,
+      "elapsed_seconds": 22.722,
+      "log_sha256": "a9761c39182f7470d470727f0c7930c70dec1a93e0b6b8cd133a090b5977a3f9"
+    },
+    {
+      "step": "capturebroker-build",
+      "exit": 0,
+      "warnings": 0,
+      "errors": 0,
+      "elapsed_seconds": 2.727,
+      "log_sha256": "3fdb8970bd2ac380fb74d7d6d9904c91a27b3944340465169d7929f3f0414d53"
+    },
+    {
+      "step": "capturehost-build",
+      "exit": 0,
+      "warnings": 0,
+      "errors": 0,
+      "elapsed_seconds": 2.632,
+      "log_sha256": "bdf1573e5937ef1591fbe0ba5fec1f20605463a98fd54d9894ebb1e308967d8d"
+    },
+    {
+      "step": "clipboardhost-build",
+      "exit": 0,
+      "warnings": 0,
+      "errors": 0,
+      "elapsed_seconds": 2.574,
+      "log_sha256": "c8f8d10e4d130da0376a0757c16169fb7a04416e0afdbcbe5ff941d8ae161b1a"
+    },
+    {
+      "step": "core-tests-build",
+      "exit": 0,
+      "warnings": 0,
+      "errors": 0,
+      "elapsed_seconds": 21.3,
+      "log_sha256": "e4b28dcce0e45f2c17ddb6cd77bbef308b9ca4d9b26670c58a337dcf1952fe71"
+    },
+    {
+      "step": "imageworker-build",
+      "exit": 0,
+      "warnings": 0,
+      "errors": 0,
+      "elapsed_seconds": 2.727,
+      "log_sha256": "87343a66a70fd1c1171ba5c2246e45b3c3a4de33d6af86ddfa83ed6c76bcb88c"
+    },
+    {
+      "step": "installer-build",
+      "exit": 0,
+      "warnings": 0,
+      "errors": 0,
+      "elapsed_seconds": 2.422,
+      "log_sha256": "db853dd808dfecefa2cde7a502cac058ef113911cf6beea8d6b6bdec3bc97cf5"
+    },
+    {
+      "step": "launcher-build",
+      "exit": 0,
+      "warnings": 0,
+      "errors": 0,
+      "elapsed_seconds": 2.278,
+      "log_sha256": "c102152b578cce067ae6315c981abb191a8b355db43f08edd2cabcb1baf7e07f"
+    },
+    {
+      "step": "nativehost-build",
+      "exit": 0,
+      "warnings": 0,
+      "errors": 0,
+      "elapsed_seconds": 0.919,
+      "log_sha256": "4cb04cfd7f164bd5b6e0d5a30ca2ae75b85d9088906cf377f9aa503094148a38"
+    },
+    {
+      "step": "olereceiver-build",
+      "exit": 0,
+      "warnings": 0,
+      "errors": 0,
+      "elapsed_seconds": 2.677,
+      "log_sha256": "cf509ef492bfad53528fd49738ebf45523aa62e66638fee216e085259f655958"
+    }
+  ],
+  "test": {
+    "passed": 41,
+    "failed": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "elapsed_seconds": 98.002,
+    "budget_seconds": 600,
+    "budget_expired": false,
+    "original_process_joined": true,
+    "original_log_closed": true,
+    "trx": {
+      "path": "artifacts/2026-10-25-withdrawal-recovery/r01-results/r01.trx",
+      "bytes": 61624,
+      "sha256": "b9d077900c1a4eca05523867def0faf6c2318ab740f3c099644710fd661350f1"
+    },
+    "trx_counters": {
+      "total": "41",
+      "executed": "41",
+      "passed": "41",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "source_input_count": 12302,
+    "source_projection_sha256": "663ac2d5108a34fefed6a448f4b8a7a880ebae04dacb9ae0b8989e379525616e",
+    "source_inputs_unchanged": true,
+    "primary_binaries_count": 23,
+    "primary_binaries_unchanged": true,
+    "run_files_count": 127,
+    "run_files_unchanged": true,
+    "original_case_count": 26,
+    "old_TRX_comparison": "NotAvailableInThisEnvironment; no old result or root cause rewritten",
+    "audit_record_count": 38,
+    "retained_payload_files_rehashed": 4575
+  },
+  "retained_audit_roots": 15,
+  "intentional_audit_failure_roots": 2,
+  "original_evidence_archive": {
+    "bytes": 1085026,
+    "sha256": "e28d7c1c2e07b5a711c783ea44f3ab1158102526aa47c8d61345b3347b83aece",
+    "regular_member_count": 101,
+    "contains_original_TRX_logs_commands_source_input_hashes_and_audits": true,
+    "contains_sdk_package_archives_or_product_binaries": false,
+    "local_workspace_relative_path": "docs/test-evidence/2026-10-25-withdrawal-recovery-originals.tar.gz",
+    "storage_scope": "OriginalExecutionEnvironmentOnly",
+    "transfer_status": "NotPubliclyTransferred_NotUploaded",
+    "included_in_candidate_commit_or_push_history": false
+  },
+  "unknown_or_failed_synthetic_roots": "Retained in the approved new workspace; no cleanup of old or unknown roots",
+  "historical_withdrawal_result": "Parent-transferred 1P/25F retained as history; original failed TRX absent here and not reconstructed or rewritten",
+  "whole_Core_suite": "NotRun; prior history unchanged",
+  "real_Windows_registry_desktop_native_or_installation": "NotRun",
+  "real_model_calls": 0,
+  "production_installer_pins": "Unavailable unchanged",
+  "normal_launcher_qualification": "Unchanged",
+  "uninstall_public_cli": "NotAdded",
+  "independent_increment_review": "LimitedACK_SixSourceHashesAnd41NamesParameters; replacement text-only scope review pending; parent did not independently read original TRX",
+  "push": "NotPerformedBeforeScopeReview; only the replacement development branch is eligible; preservation ref and local originals are excluded",
+  "actual_pretest_primary_binaries_local_workspace_relative_path": "artifacts/2026-10-25-withdrawal-recovery/r01-binaries",
+  "local_artifact_paths": "All workspace-relative retention paths describe only the original execution environment; no shared path, public delivery or transfer is asserted",
+  "previous_binary_candidate_preservation": {
+    "commit": "16bf914d1e10f6c13bb96972d6cc3b44713d527d",
+    "local_ref": "refs/preservation/kuaiyi-withdrawal-16bf914",
+    "status": "PreservedLocally_NotPushed_NotAncestorOfReplacementCandidate"
+  }
+}

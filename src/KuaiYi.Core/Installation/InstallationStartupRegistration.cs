@@ -66,7 +66,7 @@ internal static class InstallationStartupRegistration
 {
     internal const int OwnerLimit=8192;
     internal static string OwnerPath(string root)=>Path.Combine(root,"startup-owner.json");
-    private static string Command(string directory)
+    internal static string Command(string directory)
     {
         string path=Path.Combine(directory,"KuaiYi.Launcher.exe");InstallationPaths.Check(path);
         if(path.IndexOfAny(['"','\r','\n','\0'])>=0)throw new InstallationRecoveryException("Startup executable cannot be encoded exactly.");return "\""+path+"\"";
