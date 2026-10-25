@@ -1,0 +1,83 @@
+{
+  "status": "Blocked_PreparationFailed",
+  "runId": 40177638553,
+  "jobId": 121121683762,
+  "attempt": 1,
+  "deliverySha": "e40e1f7a8810ae6abe5adc987b043dd38f9d1821",
+  "jobConclusion": "failure",
+  "startedUtc": "2026-10-25T08:41:49Z",
+  "finishedUtc": "2026-10-25T08:43:00Z",
+  "preparationError": "RuntimeError: Git blob differs",
+  "visualStep": "Skipped",
+  "wpfProcessesStarted": 0,
+  "pngCount": 0,
+  "pixelAcceptance": "NotRun",
+  "windowTrayCleanupAcceptance": "NotRun_NoWpfWindowCreated",
+  "sdkVersionCommand": "10.0.402_exit0",
+  "runtimeArchiveSignatures": "TwoOriginalRuntimePackages_Verified",
+  "runtimeLockedRestoreAudit": "exit0",
+  "beforeAfterProductBuild": "NotRun",
+  "desktopFacts": {
+    "userInteractive": true,
+    "session": 2,
+    "windowStation": "WinSta0",
+    "inputDesktop": "Default",
+    "dpi": [
+      96,
+      96
+    ],
+    "workArea": [
+      0,
+      0,
+      1024,
+      728
+    ],
+    "EnableLua": 1,
+    "registryRead": "HKLM EnableLUA_OriginalDesktopOnlyPreflight",
+    "registryWrites": 0
+  },
+  "artifact": {
+    "id": 12593187305,
+    "bytes": 235280,
+    "sha256": "3e98ea49bfc8a9af17e52100728c902225e58bc9292958a966532e90374f02f4",
+    "downloadedAndHashVerified": true,
+    "actualFiles": 18,
+    "manifestEntries": 17,
+    "allManifestHashesVerified": true
+  },
+  "originals": [
+    {
+      "path": "artifacts/2026-10-25-ui-polish-ci/attempt1.zip",
+      "bytes": 235280,
+      "sha256": "3e98ea49bfc8a9af17e52100728c902225e58bc9292958a966532e90374f02f4",
+      "location": "OriginalWorkspaceOnly_NotCommitted"
+    },
+    {
+      "path": "artifacts/2026-10-25-ui-polish-ci/job-121121683762.log",
+      "bytes": 27554,
+      "sha256": "a7e53350fe13fd6f08790cf00f3dc5388a1ab7fca2546a80b26fd4934128a644",
+      "location": "OriginalWorkspaceOnly_NotCommitted"
+    },
+    {
+      "path": "artifacts/2026-10-25-ui-polish-ci/attempt1/prepare-result.json",
+      "bytes": 9877,
+      "sha256": "f7f79b2265918d4f7d4e657151004fb59959f7db58750abd4f3e50bbc4d6620d",
+      "location": "OriginalWorkspaceOnly_NotCommitted"
+    },
+    {
+      "path": "artifacts/2026-10-25-ui-polish-ci/attempt1/evidence/prepare-manifest.json",
+      "bytes": 2630,
+      "sha256": "a6df1ed67fe3f200d33631e8dc814a2c1358519ddaaa00391e905a18af6a56a7",
+      "location": "OriginalWorkspaceOnly_NotCommitted"
+    }
+  ],
+  "mechanismEvidence": {
+    "independentReview": "ReadOnly_ACK_18OriginalFilesAndHashChecks",
+    "localReadOnlyCounterexample": "Fixed before .gitattributes original blob 1164333B; git -c core.autocrlf=true archive gives1173593B (+9260 CRLF), hash differs; false/input match",
+    "unicodeRisk": "Text ls-tree quotes original Chinese filename, archive uses real Unicode; independent later-path issue",
+    "limits": "Cloud artifact does not include before.tar or measured core.autocrlf/core.eol, so exact first file/sole cause unproved"
+  },
+  "nextMinimumWork": "Read original Git blobs with NUL paths; local regression and independent review. Any subsequent Windows run needs separate explicit approval.",
+  "rerun": "NotRequested_NotStarted",
+  "modelAndStrength": "Unchanged"
+}
