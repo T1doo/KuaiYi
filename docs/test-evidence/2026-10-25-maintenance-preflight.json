@@ -1,0 +1,399 @@
+{
+  "schemaVersion": 1,
+  "kind": "KuaiYiMaintenancePreflightLimitedValidation",
+  "status": "Pass",
+  "p7_05_status": "InProgress",
+  "base_revision_actually_built_and_tested": "a67e39cc7f5afab7b80b9d5be76c4ccb3878ddc6",
+  "compiled_informational_revision": "1.0.0+a67e39cc7f5afab7b80b9d5be76c4ccb3878ddc6",
+  "source_relation": "The four candidate source blobs equal the pretest copies. No later candidate commit was built.",
+  "source_files": [
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationRegistrationWithdrawal.cs",
+      "bytes": 23584,
+      "sha256": "9c175af5e179d5ef59a72b14699945cb7cab176278b827db36c85f6d5822a7ce"
+    },
+    {
+      "path": "src/KuaiYi.Core/Installation/InstallationRegistrationWithdrawal.Preflight.cs",
+      "bytes": 6572,
+      "sha256": "5645db352ed7a31a5587e7afbaacf73a6e89a23f082197e3a8e0d4566b82342d"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/InstallationRegistrationWithdrawalTests.cs",
+      "bytes": 30221,
+      "sha256": "6c9662a82861be18ee0471e0a4c4ddacaceae699388b58fb9a699f194d559273"
+    },
+    {
+      "path": "tests/KuaiYi.Core.Tests/InstallationMaintenancePreflightTests.cs",
+      "bytes": 15751,
+      "sha256": "e4ec863ebbdeda7685cfb2c2cdc02ad3080cdd94bb61b3ca4fd3f5f1f03d8203"
+    }
+  ],
+  "scope": {
+    "kind": "Internal non-destructive uninstall/repair preflight on the original withdrawal owner and IO ledger",
+    "shared_checks": [
+      "Embedded fixed source pins",
+      "Existing-only original admission and host fence",
+      "Original Qualify pinned generation and self-contained bootstrap",
+      "Seven reference observations and unchanged second observation",
+      "Original IO/registry/admission independent settlement"
+    ],
+    "result_statuses": [
+      "ObservedReadOnly",
+      "Refused",
+      "Cancelled",
+      "Unconfirmed"
+    ],
+    "remaining_actions_authorization": "NotAuthorized in every result; no executable capability or replay grant",
+    "real_actions": "No deletion, process stop, Shell/identity/settings/key operation, actual registry or Windows execution",
+    "production_entry": "No new public command. Installer IsCommand stays --install only; source pins Unavailable/null; ordinary Launcher unchanged."
+  },
+  "sdk": "10.0.402",
+  "runtime": "10.0.13",
+  "new_dependencies_or_downloads": false,
+  "builds": {
+    "successful_related_builds": 10,
+    "warnings": 0,
+    "errors": 0,
+    "failed_first_test_build": {
+      "exit": 1,
+      "warnings": 0,
+      "errors": 8,
+      "cause": "Four synchronous Start/StartPreflight refusal assertions selected the xUnit async overload (CS0619 + xUnit2014 each). Fixed only the assertion lambdas; no test ran for this failed build.",
+      "original_log": {
+        "path": "artifacts/2026-10-25-withdrawal-recovery/p705-test-build-01.log",
+        "bytes": 6765,
+        "sha256": "fee3fdc2130917d42f1e625693455c58becedf5bfcfa568244d392c4585df481"
+      }
+    },
+    "successful_test_build": {
+      "path": "artifacts/2026-10-25-withdrawal-recovery/p705-test-build-02.log",
+      "bytes": 1758,
+      "sha256": "db92af1f1a7fccc63d56e1f2fd3f9a02cc5a19c2db211cb32b8715a51aab583f"
+    }
+  },
+  "test": {
+    "filter": "FullyQualifiedName~KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests",
+    "argv_from_worktree_root": [
+      "dotnet",
+      "test",
+      "tests/KuaiYi.Core.Tests/KuaiYi.Core.Tests.csproj",
+      "--no-build",
+      "--no-restore",
+      "-c",
+      "Release",
+      "--filter",
+      "FullyQualifiedName~KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests",
+      "--logger",
+      "trx;LogFileName=r01.trx",
+      "--results-directory",
+      "artifacts/2026-10-25-maintenance-preflight/r01-results",
+      "--logger",
+      "console;verbosity=normal",
+      "--",
+      "RunConfiguration.MaxCpuCount=1"
+    ],
+    "start_utc": "2026-10-25T03:56:35.382642+00:00",
+    "end_utc": "2026-10-25T03:58:41.347483+00:00",
+    "exit": 0,
+    "elapsed_seconds": 125.962,
+    "budget_seconds": 600,
+    "budget_expired": false,
+    "original_process_joined": true,
+    "original_log_closed": true,
+    "passed": 60,
+    "failed": 0,
+    "skipped": 0,
+    "original_41_names_and_parameters_retained": true,
+    "new_cases": 19,
+    "cases": [
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.EveryKnownWriteAfterEffectFailureOrCancellationRestoresOnlyInReverse(stage: 7, cancel: False)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PublicationMoveFailureKeepsUnknownPendingAndNeverCompensatesOrReplays(stage: 3, moved: True)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PreflightAdmissionCloseUnknownClosesIndependentResourcesAndPreservesTheOwner",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.EveryKnownWriteAfterEffectFailureOrCancellationRestoresOnlyInReverse(stage: 7, cancel: True)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PreflightUnknownPendingIsPreservedWithoutAdoptingTheOtherOwnerOrReadingRegistry",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PublicationMoveFailureKeepsUnknownPendingAndNeverCompensatesOrReplays(stage: 7, moved: True)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PreflightClosedSourcesReturnOnlyTheHistoricalObservationAndAFreshOwnerMustRequalify",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.EveryKnownWriteAfterEffectFailureOrCancellationRestoresOnlyInReverse(stage: 2, cancel: False)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PreflightDuplicateRequestsShareTheOriginalTaskAndCannotBecomeWithdrawal",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.FrameworkDependentBootstrapDoesNotQualifyForWithdrawalAuthority",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.EveryKnownWriteAfterEffectFailureOrCancellationRestoresOnlyInReverse(stage: 5, cancel: True)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.UnavailableEmbeddedPinsRefuseBeforeCreatingRootOrCallingRegistry",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PublicationMoveFailureKeepsUnknownPendingAndNeverCompensatesOrReplays(stage: 6, moved: False)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PublicationMoveFailureKeepsUnknownPendingAndNeverCompensatesOrReplays(stage: 6, moved: True)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.EveryKnownWriteAfterEffectFailureOrCancellationRestoresOnlyInReverse(stage: 2, cancel: True)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PreflightClosingErrorsRemainDistinctFromCancellationAndNeverReturnAnObservation(afterClosing: True)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.ReceiptsAndMatchingPathsCannotMintSourceOrOwnership(kind: \"owner-root\")",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.ReversePublicationMoveFailureKeepsUnknownAndStopsEarlierCompensation(moved: True)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PublicationMoveFailureKeepsUnknownPendingAndNeverCompensatesOrReplays(stage: 7, moved: False)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PreflightAuditFailurePreservesItsOriginalResultAndRoot",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.ReversePublicationMoveFailureKeepsUnknownAndStopsEarlierCompensation(moved: False)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PreflightUnavailableSourcesNeverTouchEvenANoncleanUnstartedRegistry(nonclean: False)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PreflightCancellationBeforeAcquisitionOrAfterQualificationNeverCreatesAnIntent(afterQualification: False)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PreflightObservesTheExistingPinnedClosureWithoutAuthorizingAnyRemainingAction(intentValue: 1)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.EveryKnownWriteAfterEffectFailureOrCancellationRestoresOnlyInReverse(stage: 4, cancel: False)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.ForeignCompareCannotWashOutOrCompensateEarlierDependenciesAfterExternalRestore",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.EarlyFileQualificationRefusalReleasesAdmissionWithoutAdoptingUnstartedRegistry(initiallyUnsettled: False)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PreflightUnavailableSourcesNeverTouchEvenANoncleanUnstartedRegistry(nonclean: True)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.InitialProbeCloseFailureRetainsOriginalAdmissionBeforeAnyPendingTicket",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.CancellationCannotReleaseOriginalLeaseOrCloseAnUnsettledWrite",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.CancellationAfterClosingDoesNotRestoreBindingsOrConvertToABorted",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.EveryKnownWriteAfterEffectFailureOrCancellationRestoresOnlyInReverse(stage: 3, cancel: False)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PublicationMoveFailureKeepsUnknownPendingAndNeverCompensatesOrReplays(stage: 1, moved: True)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PreflightChangedSecondObservationRefusesWithoutWritingEitherRegistryValue",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.OriginalCloseFailureKeepsPendingAndSettlementNeverReplaysPublication",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PublicationMoveFailureKeepsUnknownPendingAndNeverCompensatesOrReplays(stage: 1, moved: False)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.FinalArchiveMoveErrorNeverReplaysAndSeparatesBeforeFromAfterEffect(moved: True)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PreflightIOCloseUnknownRetainsTheExactOriginalStreamAndAdmission",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.SevenReferencesWithdrawWithOriginalOwnerAndRepeatIsIndependentlyReadOnly",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PreflightMatchingReceiptsAndPathsCannotReplaceThisInvocationsEmbeddedPins",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.EveryKnownWriteAfterEffectFailureOrCancellationRestoresOnlyInReverse(stage: 4, cancel: True)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.EveryKnownWriteAfterEffectFailureOrCancellationRestoresOnlyInReverse(stage: 6, cancel: True)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PublicationMoveFailureKeepsUnknownPendingAndNeverCompensatesOrReplays(stage: 3, moved: False)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.EveryKnownWriteAfterEffectFailureOrCancellationRestoresOnlyInReverse(stage: 3, cancel: True)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.EveryKnownWriteAfterEffectFailureOrCancellationRestoresOnlyInReverse(stage: 5, cancel: False)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PreflightCancellationBeforeAcquisitionOrAfterQualificationNeverCreatesAnIntent(afterQualification: True)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PreflightObservesTheExistingPinnedClosureWithoutAuthorizingAnyRemainingAction(intentValue: 0)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PreflightClosingErrorsRemainDistinctFromCancellationAndNeverReturnAnObservation(afterClosing: False)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.ReceiptsAndMatchingPathsCannotMintSourceOrOwnership(kind: \"pins\")",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.FinalArchiveMoveErrorNeverReplaysAndSeparatesBeforeFromAfterEffect(moved: False)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PreflightRegistryCloseUnknownRetainsTheOriginalAdmissionAndSettlesWithoutReplay",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.EarlyFileQualificationRefusalReleasesAdmissionWithoutAdoptingUnstartedRegistry(initiallyUnsettled: True)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.EveryKnownWriteAfterEffectFailureOrCancellationRestoresOnlyInReverse(stage: 1, cancel: False)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.PreflightDamagedPayloadIsReportedAndRetainedWithoutRepairingItFromAReceipt",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.AuditFailureKeepsOriginalRootAndPreservesBodyErrorBeforeAuditError(bodyFails: True)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.AuditFailureKeepsOriginalRootAndPreservesBodyErrorBeforeAuditError(bodyFails: False)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.WithdrawalOwnerCannotBeReinterpretedAsAPreflightEvenBeforeItStarts",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.EveryKnownWriteAfterEffectFailureOrCancellationRestoresOnlyInReverse(stage: 1, cancel: True)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.EveryKnownWriteAfterEffectFailureOrCancellationRestoresOnlyInReverse(stage: 6, cancel: False)",
+        "result": "Passed"
+      },
+      {
+        "name": "KuaiYi.Core.Tests.InstallationRegistrationWithdrawalTests.ReceiptsAndMatchingPathsCannotMintSourceOrOwnership(kind: \"same-path-no-owner\")",
+        "result": "Passed"
+      }
+    ],
+    "trx": {
+      "path": "artifacts/2026-10-25-maintenance-preflight/r01-results/r01.trx",
+      "bytes": 89437,
+      "sha256": "b241901875f8d251ac38cc9d01d136a9e3645ee6a909c33f49472ee99662293a"
+    },
+    "log": {
+      "path": "artifacts/2026-10-25-withdrawal-recovery/p705-r01-related-class.log",
+      "bytes": 10165,
+      "sha256": "1f6fbc2a4688b53086f383e43fec114759c11523e0d8ec6c5414c6e776d1910e"
+    }
+  },
+  "before_after": {
+    "input_count": 12306,
+    "input_projection_sha256": "848536b9413aa14072ff162ef8e4e821e77331b3756c0cae3835ec8e92462ecb",
+    "inputs_unchanged": true,
+    "primary_binaries": 23,
+    "primary_binaries_unchanged": true,
+    "test_runtime_files": 127,
+    "test_runtime_files_unchanged": true,
+    "role_and_installer_Core_copies": 9,
+    "Core_copies_equal_test_Core": true,
+    "actual_Core_sha256": "cbc5bb2012395dcfd89a57258b7f72f99a28efad10f4ea4c152865390e928916",
+    "locked_runtime_inputs": 189,
+    "runtime_input_bytes": 80453412,
+    "runtime_inputs_unchanged": true
+  },
+  "preservation": {
+    "local_originals_only": true,
+    "originals_directory": "artifacts/2026-10-25-maintenance-preflight",
+    "audit_records": 56,
+    "retained_audited_roots": 30,
+    "intentional_audit_failure_roots": 3,
+    "retained_payload_files_rehashed": 9150,
+    "run_retained_bytes": 2934098828,
+    "predeclared_run_bound_bytes": 8589934592,
+    "free_bytes_before": 27478458368,
+    "free_bytes_after": 24511631360,
+    "TRX_Dll_source_audits_retained": true,
+    "binary_archive_created_or_published": false,
+    "old_instance_and_unknown_data": "Untouched"
+  },
+  "limits": [
+    "Not whole Core",
+    "Not actual Windows/registry/installation/uninstallation/repair",
+    "No Shell/identity package or encrypted settings/key lifecycle",
+    "No production source qualification or ordinary Launcher authority",
+    "Old 1P25F and historical full Core results are not replaced",
+    "Independent source and scope review pending; not pushed"
+  ]
+}

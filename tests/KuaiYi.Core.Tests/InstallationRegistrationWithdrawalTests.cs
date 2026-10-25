@@ -6,7 +6,7 @@ using Xunit;
 namespace KuaiYi.Core.Tests;
 
 // Actual Core/adapter operations over generated isolated stores and synthetic registry. No Windows APIs or runnable payload claim.
-public sealed class InstallationRegistrationWithdrawalTests(InstallationRegistrationWithdrawalTests.Sources sources):IClassFixture<InstallationRegistrationWithdrawalTests.Sources>
+public sealed partial class InstallationRegistrationWithdrawalTests(InstallationRegistrationWithdrawalTests.Sources sources):IClassFixture<InstallationRegistrationWithdrawalTests.Sources>
 {
     public sealed class Sources:IDisposable
     {
@@ -44,11 +44,12 @@ public sealed class InstallationRegistrationWithdrawalTests(InstallationRegistra
     {
         internal InstallationStartupValue Value=new(false);
         internal Action? AfterWrite;
+        internal Action? BeforeRead;
         internal Exception? CloseError;
         internal int Reads,Writes,Closes;
         private bool unsettled=initiallyUnsettled;
         public bool CleanupConfirmed=>!unsettled;
-        public InstallationStartupValue Read(){Reads++;return Value;}
+        public InstallationStartupValue Read(){Reads++;BeforeRead?.Invoke();return Value;}
         public void Write(InstallationStartupValue expected,InstallationStartupValue next)
         {if(Value!=expected)throw new HostRegistrationConflictException();Value=next;Writes++;AfterWrite?.Invoke();if(CloseError is{} error){unsettled=true;throw error;}}
         public void FinalizeCleanup(){Closes++;if(CloseError is{} error){unsettled=true;throw error;}unsettled=false;}
@@ -61,6 +62,7 @@ public sealed class InstallationRegistrationWithdrawalTests(InstallationRegistra
         internal readonly Host Host=new();internal readonly Startup Startup=new();
         internal readonly List<InstallationRegistrationWithdrawal> Operations=[];
         internal readonly List<InstallationWithdrawalOutcome> Outcomes=[];
+        internal readonly List<InstallationMaintenanceOutcome> PreflightOutcomes=[];
         internal readonly Dictionary<string,string> Payload=[];
         internal Dictionary<string,string?> Before=[];
         internal byte[] Pins=[];
@@ -95,6 +97,12 @@ public sealed class InstallationRegistrationWithdrawalTests(InstallationRegistra
         }
         internal async Task<InstallationWithdrawalOutcome> Run(InstallationRegistrationWithdrawal operation)
         {var result=await operation.Start().WaitAsync(TimeSpan.FromSeconds(90));Outcomes.Add(result);if(result.Status is InstallationWithdrawalStatus.Unconfirmed or InstallationWithdrawalStatus.ReferencesWithdrawnReceiptUncertain)Keep=true;return result;}
+        internal InstallationRegistrationWithdrawal Preflight(InstallationMaintenanceIntent intent=InstallationMaintenanceIntent.Uninstall,CancellationToken cancellation=default,InstallationWithdrawalFaults? faults=null,byte[]? pins=null,IInstallationStartupRegistry? registry=null)
+        {
+            var value=InstallationRegistrationWithdrawal.ForMaintenancePreflight(pins??Pins,App,Data,registry??new InstallationStartupRegistrySnapshot(new InstallationDeploymentRegistrySnapshot(Host),Startup),intent,cancellation,faults);Operations.Add(value);return value;
+        }
+        internal async Task<InstallationMaintenanceOutcome> Inspect(InstallationRegistrationWithdrawal operation)
+        {var value=await operation.StartPreflight().WaitAsync(TimeSpan.FromSeconds(90));PreflightOutcomes.Add(value);if(value.Status!=InstallationMaintenanceStatus.ObservedReadOnly)Keep=true;return value;}
         internal void PayloadUnchanged(){foreach(var p in Payload)Assert.Equal(p.Value,MaterializedPayloadSource.Hash(p.Key));Assert.Equal("PUBLIC_PRESERVED",File.ReadAllText(Path.Combine(Data,"PUBLIC_OFF")));}
         internal void Empty(){Assert.All(Snapshot(),p=>Assert.Null(p.Value));Assert.Null(Host.Chrome.Value);Assert.Null(Host.Edge.Value);Assert.Equal(new(false),Startup.Value);}
         internal void Restored(){Assert.Equal(Before.OrderBy(p=>p.Key),Snapshot().OrderBy(p=>p.Key));Assert.Equal(Before[Path.Combine(App,"host-registration.json")]==null?null:Path.Combine(Selected.DirectoryPath,InstallationPayload.HostManifestName),Host.Chrome.Value);Assert.Equal(Host.Chrome.Value,Host.Edge.Value);}
@@ -110,7 +118,8 @@ public sealed class InstallationRegistrationWithdrawalTests(InstallationRegistra
                 {
                     Directory.CreateDirectory(output);var metadata=Directory.GetFiles(App,"*",SearchOption.TopDirectoryOnly).Where(p=>p.EndsWith(".json",StringComparison.Ordinal)).ToDictionary(p=>Path.GetFileName(p)!,p=>Convert.ToBase64String(File.ReadAllBytes(p)));
                     var outcomes=Outcomes.Select(o=>new{o.Status,o.CleanupConfirmed,Errors=o.Errors.Select(error=>error.ToString()).ToArray()}).ToArray();
-                    File.WriteAllBytes(Path.Combine(output,Path.GetFileName(Root)+".json"),JsonSerializer.SerializeToUtf8Bytes(new{Root,Outcomes=outcomes,metadata,Payload,Host.Chrome,Host.Edge,Startup.Value,HostWrites=Host.Writes,StartupWrites=Startup.Writes,Keep}));
+                    var preflights=PreflightOutcomes.Select(o=>new{o.Operation,o.Intent,o.Status,o.CleanupConfirmed,o.Observation,o.RemainingSteps,Errors=o.Errors.Select(error=>error.ToString()).ToArray()}).ToArray();
+                    File.WriteAllBytes(Path.Combine(output,Path.GetFileName(Root)+".json"),JsonSerializer.SerializeToUtf8Bytes(new{Root,Outcomes=outcomes,Preflights=preflights,metadata,Payload,Host.Chrome,Host.Edge,Startup.Value,HostWrites=Host.Writes,StartupWrites=Startup.Writes,Keep}));
                 }
             }
             catch(Exception error){Keep=true;errors.Add(error);}

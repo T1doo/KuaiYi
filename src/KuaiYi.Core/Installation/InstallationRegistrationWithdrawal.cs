@@ -3,7 +3,7 @@ using System.Text;
 using System.Text.Json;
 namespace KuaiYi.Core.Installation;
 
-internal enum InstallationWithdrawalStatus { Refused,AbortedRestored,ReferencesWithdrawn,ReferencesWithdrawnReceiptUncertain,AlreadyWithdrawnReadOnly,Unconfirmed }
+internal enum InstallationWithdrawalStatus { Refused,AbortedRestored,ReferencesWithdrawn,ReferencesWithdrawnReceiptUncertain,AlreadyWithdrawnReadOnly,Unconfirmed,PreflightObservedReadOnly,PreflightCancelled }
 internal sealed record InstallationWithdrawalOutcome(InstallationWithdrawalStatus Status,bool CleanupConfirmed,IReadOnlyList<Exception> Errors);
 internal sealed class InstallationWithdrawalFaults
 {
@@ -50,16 +50,26 @@ internal sealed partial class InstallationRegistrationWithdrawal
     private bool ResourcesConfirmed=>admission.CleanupConfirmed&&io.CleanupConfirmed&&RegistryCleanupConfirmed&&actions.All(x=>x.IsCompleted);
     internal bool CleanupConfirmed=>OriginalWork.IsCompleted&&ResourcesConfirmed&&(settlement==null||settlement.IsCompleted);
     internal InstallationRegistrationWithdrawal(ReadOnlyMemory<byte> originalEmbeddedPins,string root,string data,IInstallationStartupRegistry registry,CancellationToken cancellation=default,InstallationWithdrawalFaults? faults=null)
+        :this(originalEmbeddedPins,root,data,registry,cancellation,faults,null){}
+    private InstallationRegistrationWithdrawal(ReadOnlyMemory<byte> originalEmbeddedPins,string root,string data,IInstallationStartupRegistry registry,CancellationToken cancellation,InstallationWithdrawalFaults? faults,InstallationMaintenanceIntent? inspection)
     {
-        this.embedded=originalEmbeddedPins.ToArray();this.root=InstallationPaths.Root(root);this.data=InstallationPaths.Root(data);this.registry=registry;this.cancellation=cancellation;this.faults=faults;
+        this.embedded=originalEmbeddedPins.ToArray();this.root=InstallationPaths.Root(root);this.data=InstallationPaths.Root(data);this.registry=registry;this.cancellation=cancellation;this.faults=faults;this.inspection=inspection;
         store=new(this.root,this.data,()=>true);admission=InstallationAdmission.CreateOwner(this.root,faults?.Admission);io=InstallationPreparationIO.ReadOnly(this.root,faults?.IO);
         pending=store.PendingPath;beforePath=Path.Combine(this.root,"withdrawal-before-"+Operation+".json");planPath=Path.Combine(this.root,"withdrawal-plan-"+Operation+".json");
         terminalPath=Path.Combine(this.root,"withdrawal-terminal-"+Operation+".tmp");backup=Path.Combine(this.root,"withdrawal-ticket-"+Operation+".json");finished=Path.Combine(this.root,"withdrawal-finished-"+Operation+".json");aborted=Path.Combine(this.root,"withdrawal-aborted-"+Operation+".json");
         // The exact owner and task exist before any source read, handle acquisition or platform operation.
-        OriginalWork=Task.Run(async()=>{await begin.Task.ConfigureAwait(false);return await RunAsync().ConfigureAwait(false);});
+        OriginalWork=Task.Run(async()=>{await begin.Task.ConfigureAwait(false);return inspection==null?await RunAsync().ConfigureAwait(false):await RunPreflightAsync().ConfigureAwait(false);});
+        if(inspection!=null)preflightWork=ReportPreflightAsync();
     }
     internal Task<InstallationWithdrawalOutcome> Start()
-    {lock(sync){if(!started){started=true;lock(Retained)Retained.Add(this);begin.SetResult();}return OriginalWork;}}
+    {
+        lock(sync)
+        {
+            if(inspection!=null)throw new InvalidOperationException("A read-only maintenance observation cannot start withdrawal.");
+            StartOriginal();return OriginalWork;
+        }
+    }
+    private void StartOriginal(){if(!started){started=true;lock(Retained)Retained.Add(this);begin.SetResult();}}
     internal void Abort(){lock(sync)if(!closing)abort=true;}
     private void CheckCancellation(){lock(sync)if(abort||cancellation.IsCancellationRequested)throw new OperationCanceledException("Withdrawal canceled before Closing.",cancellation);}
     private static byte[] Encode<T>(T value)=>JsonSerializer.SerializeToUtf8Bytes(value);
